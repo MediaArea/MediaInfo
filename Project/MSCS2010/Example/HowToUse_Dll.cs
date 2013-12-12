@@ -195,12 +195,10 @@ namespace MediaInfoLib_MSCS
                 //Sending the buffer to MediaInfo
                 System.Runtime.InteropServices.GCHandle GC = System.Runtime.InteropServices.GCHandle.Alloc(From_Buffer, System.Runtime.InteropServices.GCHandleType.Pinned);
                 IntPtr From_Buffer_IntPtr = GC.AddrOfPinnedObject();
-                if (MI.Open_Buffer_Continue(From_Buffer_IntPtr, (IntPtr)From_Buffer_Size) == 0) //Note: How to provide a buffer[]?
-                {
-                    GC.Free();
-                    break;
-                }
+                Status Result = (Status)MI.Open_Buffer_Continue(From_Buffer_IntPtr, (IntPtr)From_Buffer_Size);
                 GC.Free();
+                if ((Result & Status.Finalized) == Status.Finalized)
+                    break;
 
                 //Testing if MediaInfo request to go elsewhere
                 if (MI.Open_Buffer_Continue_GoTo_Get()!=-1)
