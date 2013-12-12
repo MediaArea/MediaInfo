@@ -190,32 +190,30 @@ namespace MediaInfoLib_MSCS
             do
             {
                 //Reading data somewhere, do what you want for this.
-                From_Buffer_Size=From.Read(From_Buffer, 0, 64*1024);
+                From_Buffer_Size = From.Read(From_Buffer, 0, 64 * 1024);
 
                 //Sending the buffer to MediaInfo
                 System.Runtime.InteropServices.GCHandle GC = System.Runtime.InteropServices.GCHandle.Alloc(From_Buffer, System.Runtime.InteropServices.GCHandleType.Pinned);
                 IntPtr From_Buffer_IntPtr = GC.AddrOfPinnedObject();
-                if (MI.Open_Buffer_Continue(From_Buffer_IntPtr, (IntPtr)From_Buffer_Size) == 0) //Note: How to provide a buffer[]?
-                {
-                    GC.Free();
-                    break;
-                }
+                Status Result = (Status)MI.Open_Buffer_Continue(From_Buffer_IntPtr, (IntPtr)From_Buffer_Size);
                 GC.Free();
+                if ((Result & Status.Finalized) == Status.Finalized)
+                    break;
 
                 //Testing if MediaInfo request to go elsewhere
-                if (MI.Open_Buffer_Continue_GoTo_Get()!=-1)
+                if (MI.Open_Buffer_Continue_GoTo_Get() != -1)
                 {
-                    Int64 Position=From.Seek(MI.Open_Buffer_Continue_GoTo_Get(), SeekOrigin.Begin); //Position the file
+                    Int64 Position = From.Seek(MI.Open_Buffer_Continue_GoTo_Get(), SeekOrigin.Begin); //Position the file
                     MI.Open_Buffer_Init(From.Length, Position); //Informing MediaInfo we have seek
                 }
             }
-            while (From_Buffer_Size>0);
+            while (From_Buffer_Size > 0);
 
             //Finalizing
             MI.Open_Buffer_Finalize(); //This is the end of the stream, MediaInfo must finnish some work
 
             //Get() example
-            return MI.Get(StreamKind.General, 0, "Format");
+            return "Container format is " + MI.Get(StreamKind.General, 0, "Format");
         }
     }
 }

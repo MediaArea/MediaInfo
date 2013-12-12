@@ -17,6 +17,8 @@
 using System;
 using System.Runtime.InteropServices;
 
+#pragma warning disable 1591 // Disable XML documentation warnings
+
 namespace MediaInfoLib
 {
     public enum StreamKind
@@ -25,8 +27,9 @@ namespace MediaInfoLib
         Video,
         Audio,
         Text,
-        Chapters,
-        Image
+        Other,
+        Image,
+        Menu,
     }
 
     public enum InfoKind

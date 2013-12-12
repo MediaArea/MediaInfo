@@ -60,6 +60,14 @@ namespace MediaInfoLib
         FileOption_Max          = 0x04
     };
 
+    public enum Status
+    {
+        None        =       0x00,
+        Accepted    =       0x01,
+        Filled      =       0x02,
+        Updated     =       0x04,
+        Finalized   =       0x08,
+    }
 
     public class MediaInfo
     {
@@ -114,15 +122,24 @@ namespace MediaInfoLib
         //MediaInfo class
         public MediaInfo()
         {
-            Handle = MediaInfo_New();
-            if (Environment.OSVersion.ToString().IndexOf("Windows")==-1)
+            try
+            {
+                Handle = MediaInfo_New();
+            }
+            catch
+            {
+                Handle = (IntPtr)0;
+            }
+            if (Environment.OSVersion.ToString().IndexOf("Windows") == -1)
                 MustUseAnsi=true;
             else
                 MustUseAnsi=false;
         }
-        ~MediaInfo() { MediaInfo_Delete(Handle); }
+        ~MediaInfo() { if (Handle == (IntPtr)0) return; MediaInfo_Delete(Handle); }
         public int Open(String FileName)
         {
+            if (Handle == (IntPtr)0)
+                return 0;
             if (MustUseAnsi)
             {
                 IntPtr FileName_Ptr = Marshal.StringToHGlobalAnsi(FileName);
@@ -135,23 +152,25 @@ namespace MediaInfoLib
         }
         public int Open_Buffer_Init(Int64 File_Size, Int64 File_Offset)
         {
-            return (int)MediaInfo_Open_Buffer_Init(Handle, File_Size, File_Offset);
+            if (Handle == (IntPtr)0) return 0; return (int)MediaInfo_Open_Buffer_Init(Handle, File_Size, File_Offset);
         }
         public int Open_Buffer_Continue(IntPtr Buffer, IntPtr Buffer_Size)
         {
-            return (int)MediaInfo_Open_Buffer_Continue(Handle, Buffer, Buffer_Size);
+            if (Handle == (IntPtr)0) return 0; return (int)MediaInfo_Open_Buffer_Continue(Handle, Buffer, Buffer_Size);
         }
         public Int64 Open_Buffer_Continue_GoTo_Get()
         {
-            return MediaInfo_Open_Buffer_Continue_GoTo_Get(Handle);
+            if (Handle == (IntPtr)0) return 0; return (Int64)MediaInfo_Open_Buffer_Continue_GoTo_Get(Handle);
         }
         public int Open_Buffer_Finalize()
         {
-            return (int)MediaInfo_Open_Buffer_Finalize(Handle);
+            if (Handle == (IntPtr)0) return 0; return (int)MediaInfo_Open_Buffer_Finalize(Handle);
         }
-        public void Close() { MediaInfo_Close(Handle); }
+        public void Close() { if (Handle == (IntPtr)0) return; MediaInfo_Close(Handle); }
         public String Inform()
         {
+            if (Handle == (IntPtr)0)
+                return "Unable to load MediaInfo library";
             if (MustUseAnsi)
                 return Marshal.PtrToStringAnsi(MediaInfoA_Inform(Handle, (IntPtr)0));
             else
@@ -159,6 +178,8 @@ namespace MediaInfoLib
         }
         public String Get(StreamKind StreamKind, int StreamNumber, String Parameter, InfoKind KindOfInfo, InfoKind KindOfSearch)
         {
+            if (Handle == (IntPtr)0)
+                return "Unable to load MediaInfo library";
             if (MustUseAnsi)
             {
                 IntPtr Parameter_Ptr=Marshal.StringToHGlobalAnsi(Parameter);
@@ -171,6 +192,8 @@ namespace MediaInfoLib
         }
         public String Get(StreamKind StreamKind, int StreamNumber, int Parameter, InfoKind KindOfInfo)
         {
+            if (Handle == (IntPtr)0)
+                return "Unable to load MediaInfo library";
             if (MustUseAnsi)
                 return Marshal.PtrToStringAnsi(MediaInfoA_GetI(Handle, (IntPtr)StreamKind, (IntPtr)StreamNumber, (IntPtr)Parameter, (IntPtr)KindOfInfo));
             else
@@ -178,6 +201,8 @@ namespace MediaInfoLib
         }
         public String Option(String Option, String Value)
         {
+            if (Handle == (IntPtr)0)
+                return "Unable to load MediaInfo library";
             if (MustUseAnsi)
             {
                 IntPtr Option_Ptr=Marshal.StringToHGlobalAnsi(Option);
@@ -190,8 +215,8 @@ namespace MediaInfoLib
             else
                 return Marshal.PtrToStringUni(MediaInfo_Option(Handle, Option, Value));
         }
-        public int State_Get() { return (int)MediaInfo_State_Get(Handle); }
-        public int Count_Get(StreamKind StreamKind, int StreamNumber) { return (int)MediaInfo_Count_Get(Handle, (IntPtr)StreamKind, (IntPtr)StreamNumber); }
+        public int State_Get() { if (Handle == (IntPtr)0) return 0; return (int)MediaInfo_State_Get(Handle); }
+        public int Count_Get(StreamKind StreamKind, int StreamNumber) { if (Handle == (IntPtr)0) return 0; return (int)MediaInfo_Count_Get(Handle, (IntPtr)StreamKind, (IntPtr)StreamNumber); }
         private IntPtr Handle;
         private bool MustUseAnsi;
 
@@ -202,6 +227,22 @@ namespace MediaInfoLib
         public String Option(String Option_) { return Option(Option_, ""); }
         public int Count_Get(StreamKind StreamKind) { return Count_Get(StreamKind, -1); }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public class MediaInfoList
     {
