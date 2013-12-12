@@ -1724,7 +1724,9 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
             Fill(StreamKind_Last, StreamPos_Last, "BitDepth", 8);
         else if (Compression==0x44495633) //DIV3
             Fill(StreamKind_Last, StreamPos_Last, "BitDepth", 8);
-        else if (Compression==0x44585342) //DXSB
+        else if (MediaInfoLib::Config.CodecID_Get(StreamKind_Last, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression)).find(__T("Canopus"))!=std::string::npos) //Canopus codecs
+            Fill(StreamKind_Last, StreamPos_Last, "BitDepth", Resolution/3);
+         else if (Compression==0x44585342) //DXSB
             Fill(StreamKind_Last, StreamPos_Last, "BitDepth", Resolution);
         else if (MediaInfoLib::Config.CodecID_Get(StreamKind_Last, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression), InfoCodecID_ColorSpace).find(__T("RGBA"))!=std::string::npos) //RGB codecs
             Fill(StreamKind_Last, StreamPos_Last, "BitDepth", Resolution/4);
