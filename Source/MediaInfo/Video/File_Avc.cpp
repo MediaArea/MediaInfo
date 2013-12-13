@@ -874,7 +874,11 @@ bool File_Avc::Demux_UnpacketizeContainer_Test()
                 }
 
                 if (Demux_Offset+6>Buffer_Size)
+                {
+                    if (File_Offset+Buffer_Size==File_Size)
+                        Demux_Offset=Buffer_Size;
                     break;
+                }
 
                 zero_byte=Buffer[Demux_Offset+2]==0x00;
                 if (Demux_IntermediateItemFound)

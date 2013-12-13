@@ -1833,7 +1833,11 @@ bool File_Mpegv::Demux_UnpacketizeContainer_Test()
                     Demux_Offset--;
             }
             if (Demux_Offset+4>Buffer_Size)
+            {
+                if (File_Offset+Buffer_Size==File_Size)
+                    Demux_Offset=Buffer_Size;
                 break;
+            }
 
             if (Demux_IntermediateItemFound)
             {
@@ -1843,7 +1847,9 @@ bool File_Mpegv::Demux_UnpacketizeContainer_Test()
                     case 0x00 :
                     case 0xB3 :
                                 MustBreak=true; break;
-                    default   : MustBreak=false;
+                    default   :
+                                Demux_Offset+=3;
+                                MustBreak=false;
                 }
                 if (MustBreak)
                     break; //while() loop
