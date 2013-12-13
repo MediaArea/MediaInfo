@@ -12,6 +12,7 @@ Version 0.7.66,
 --------------
 + EBUCore 1.4 output support
 + IMF AssetMap (AM), PackageList (PKL) and CompositionPlaylist (CPL): improved support
++ Channel layout information for AAC, AC-3, E-AC-3, DTS, Dolby E
 x #P78, HEVC: general_level_idc shall be set equal to a value of 30 times the level number, not 10 times, thanks to Kurtnoise
 x C# binding example: was not working with 2GB+ files, was parsing sometimes the whole file
 

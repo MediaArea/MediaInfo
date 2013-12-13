@@ -218,6 +218,19 @@ const char* Aac_ChannelConfiguration2[]=
     "",
 };
 
+//---------------------------------------------------------------------------
+const char* Aac_ChannelLayout[]=
+{
+    "",
+    "C",
+    "L R",
+    "C L R",
+    "C L R Cs",
+    "C L R Ls Rs",
+    "C L R Ls Rs LFE",
+    "C L R Ls Rs Lrs Rrs LFE",
+};
+
 int8u Aac_AudioSpecificConfig_sampling_frequency_index(const int32u sampling_frequency)
 {
     if (sampling_frequency>=92017) return 0;
@@ -509,6 +522,7 @@ void File_Aac::AudioSpecificConfig_OutOfBand (int32u sampling_frequency_, int8u 
         Infos["Channel(s)"].From_Number(Aac_Channels[channelConfiguration]);
         Infos["ChannelPositions"].From_Local(Aac_ChannelConfiguration[channelConfiguration]);
         Infos["ChannelPositions/String2"].From_Local(Aac_ChannelConfiguration2[channelConfiguration]);
+        Infos["ChannelLayout"].From_Local(Aac_ChannelLayout[channelConfiguration]);
     }
 
     if (sbrPresentFlag || !Infos["Format_Settings_SBR"].empty())
@@ -1083,6 +1097,7 @@ void File_Aac::adts_fixed_header()
             Infos["Channel(s)"].From_Number(channelConfiguration);
             Infos["ChannelPositions"].From_Local(Aac_ChannelConfiguration[channelConfiguration]);
             Infos["ChannelPositions/String2"].From_Local(Aac_ChannelConfiguration2[channelConfiguration]);
+            Infos["ChannelLayout"].From_Local(Aac_ChannelLayout[channelConfiguration]);
             if (IsSub)
                 Infos["MuxingMode"].From_Local("ADTS");
         }
