@@ -95,6 +95,9 @@
 #if defined(MEDIAINFO_PMP_YES)
     #include "MediaInfo/Multiple/File_Pmp.h"
 #endif
+#if defined(MEDIAINFO_PTX_YES)
+    #include "MediaInfo/Multiple/File_Ptx.h"
+#endif
 #if defined(MEDIAINFO_RIFF_YES)
     #include "MediaInfo/Multiple/File_Riff.h"
 #endif

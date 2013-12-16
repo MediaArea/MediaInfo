@@ -14,6 +14,7 @@ Version 0.7.66,
 + IMF AssetMap (AM), PackageList (PKL) and CompositionPlaylist (CPL): improved support
 + Channel layout information for AAC, AC-3, E-AC-3, DTS, Dolby E
 + MXF: CodecID field (EssenceContainer-EssenceCompression)
++ Pro Tools 10+ Session file (.ptx) support, by reverse engineering (=it may not work)
 + QuickTime: new field ScanOrder_StoredDisplayedInverted, set to "Yes" when display and Stored orders are inverted
 x QuickTime: false-positive detection of incoherency between container and raw stream scan order due to inverted display and tored orders
 x MXF: Dolby E stream not detected in some cases

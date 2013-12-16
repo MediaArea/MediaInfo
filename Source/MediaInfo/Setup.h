@@ -368,6 +368,9 @@
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_PMP_NO) && !defined(MEDIAINFO_PMP_YES)
     #define MEDIAINFO_PMP_YES
 #endif
+#if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_PTX_NO) && !defined(MEDIAINFO_PTX_YES)
+    #define MEDIAINFO_PTX_YES
+#endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_RIFF_NO) && !defined(MEDIAINFO_RIFF_YES)
     #define MEDIAINFO_RIFF_YES
 #endif

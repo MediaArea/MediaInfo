@@ -110,6 +110,9 @@
 #if defined(MEDIAINFO_PMP_YES)
     #include "MediaInfo/Multiple/File_Pmp.h"
 #endif
+#if defined(MEDIAINFO_PTX_YES)
+    #include "MediaInfo/Multiple/File_Ptx.h"
+#endif
 #if defined(MEDIAINFO_RIFF_YES)
     #include "MediaInfo/Multiple/File_Riff.h"
 #endif
@@ -452,6 +455,9 @@ bool MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #if defined(MEDIAINFO_PMP_YES)
         else if (Parser==__T("Pmp"))         Info=new File_Pmp();
     #endif
+    #if defined(MEDIAINFO_PTX_YES)
+        else if (Parser==__T("Ptx"))         Info=new File_Ptx();
+    #endif
     #if defined(MEDIAINFO_RIFF_YES)
         else if (Parser==__T("Riff"))        Info=new File_Riff();
     #endif
@@ -780,6 +786,9 @@ int MediaInfo_Internal::ListFormats(const String &File_Name)
     #endif
     #if defined(MEDIAINFO_PMP_YES)
         delete Info; Info=new File_Pmp();                if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
+    #endif
+    #if defined(MEDIAINFO_PTX_YES)
+        delete Info; Info=new File_Ptx();                if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;
     #endif
     #if defined(MEDIAINFO_RIFF_YES)
         delete Info; Info=new File_Riff();               if (((Reader_File*)Reader)->Format_Test_PerParser(this, File_Name)>0) return 1;

@@ -133,6 +133,7 @@ lib@MediaInfoLib_LibName@_la_SOURCES = \
                        ../../../Source/MediaInfo/Multiple/File_Ogg_SubElement.cpp \
                        ../../../Source/MediaInfo/Multiple/File_P2_Clip.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Pmp.cpp \
+                       ../../../Source/MediaInfo/Multiple/File_Ptx.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Riff.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Riff_Elements.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Rm.cpp \
