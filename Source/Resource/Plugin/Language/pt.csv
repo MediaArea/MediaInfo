@@ -2,15 +2,15 @@
   Author_Email;francisco.dex.mail@gmail.com
   Author_Name;Francisco DEX
   Author_OldNames;Samuel Dias
-  Language_Name;Português (Portugal)
+  Language_Name;PortuguÃªs (Portugal)
   Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
   Config_Text_ThousandsSeparator; 
- audio stream1; faixa de áudio
- audio stream2; faixas de áudio
- audio stream3; faixas de áudio
+ audio stream1; faixa de Ã¡udio
+ audio stream2; faixas de Ã¡udio
+ audio stream3; faixas de Ã¡udio
  bit1; bit
  bit2; bits
  bit3; bits
@@ -22,12 +22,12 @@
  channel1; canal
  channel2; canais
  channel3; canais
- chapter1; capítulo
- chapter2; capítulos
- chapter3; capítulos
- chapters stream1; faixa de capítulos
- chapters stream2; faixas de capítulos
- chapters stream3; faixas de capítulos
+ chapter1; capÃ­tulo
+ chapter2; capÃ­tulos
+ chapter3; capÃ­tulos
+ chapters stream1; faixa de capÃ­tulos
+ chapters stream2; faixas de capÃ­tulos
+ chapters stream3; faixas de capÃ­tulos
  day1; dia
  day2; dias
  day3; dias
@@ -111,7 +111,7 @@
  minute1; minuto
  minute2; minutos
  minute3; minutos
- month1; mês
+ month1; mÃªs
  month2; meses
  month3; meses
  pixel1; pixel
@@ -123,12 +123,12 @@
  text stream1; faixa de texto
  text stream2; faixas de texto
  text stream3; faixas de texto
- video frames1; frame de vídeo
- video frames2; frames de vídeo
- video frames3; frames de vídeo
- video stream1; faixa de vídeo
- video stream2; faixas de vídeo
- video stream3; faixas de vídeo
+ video frames1; frame de vÃ­deo
+ video frames2; frames de vÃ­deo
+ video frames3; frames de vÃ­deo
+ video stream1; faixa de vÃ­deo
+ video stream2; faixas de vÃ­deo
+ video stream3; faixas de vÃ­deo
  warppoint0;Sem warppoints
  warppoint1; warppoint
  warppoint2; warppoints
@@ -142,76 +142,76 @@
 , ;, 
 : ;: 
 About;Acerca
-About_Hint;Como contatar-me e encontrar a última versão
+About_Hint;Como contatar-me e encontrar a Ãºltima versÃ£o
 Accompaniment;Acompanhamento
 ActiveFormatDescription;Active Format Description
 ActiveFormatDescription_MuxingMode;Active Format Description, modo Muxing
 Actor;Actor
 Actor_Character;Personagem interpretado
-Added_Date;Data de adição
-Address;Endereço
-Advanced;Avançado
-Advanced mode;Modo avançado
-Album;Álbum
-Album_ReplayGain_Gain;Replay gain do álbum
-Album_ReplayGain_Peak;Pico do replay gain do álbum
+Added_Date;Data de adiÃ§Ã£o
+Address;EndereÃ§o
+Advanced;AvanÃ§ado
+Advanced mode;Modo avanÃ§ado
+Album;Ãlbum
+Album_ReplayGain_Gain;Replay gain do Ã¡lbum
+Album_ReplayGain_Peak;Pico do replay gain do Ã¡lbum
 Alignment;Alinhamento
 Alignment_Aligned;Alinhado intercalado
-Alignment_Split;Dividir entre as intercalações
+Alignment_Split;Dividir entre as intercalaÃ§Ãµes
 All;Todos
 Archival_Location;Local de arquivamento
 Arranger;Arranjador
 ArtDirector;Diretor de Arte
-AspectRatio;Proporção de imagem
+AspectRatio;ProporÃ§Ã£o de imagem
 AssistantDirector;Diretor Assistente
 at;a
 At least one file;(Deve abrir pelo menos um ficheiro)
-Audio;Áudio
-Audio stream(s);Faixa(s) de áudio
-Audio_Codec_List;Codecs de áudio
-Audio_No;Sem áudio
-Audio1;Primeira faixa de áudio
-Audio2;Segunda faixa de áudio
-AudioCount;Número de faixas de áudio
+Audio;Ãudio
+Audio stream(s);Faixa(s) de Ã¡udio
+Audio_Codec_List;Codecs de Ã¡udio
+Audio_No;Sem Ã¡udio
+Audio1;Primeira faixa de Ã¡udio
+Audio2;Segunda faixa de Ã¡udio
+AudioCount;NÃºmero de faixas de Ã¡udio
 Author;Autor
-BarCode;Código de Barras
-Basic;Básico
-Basic_Note;Nota : para mais informações acerca do ficheiro, seleccione um modo de visualização diferente (Formulário, Árvore...)
+BarCode;CÃ³digo de Barras
+Basic;BÃ¡sico
+Basic_Note;Nota : para mais informaÃ§Ãµes acerca do ficheiro, seleccione um modo de visualizaÃ§Ã£o diferente (FormulÃ¡rio, Ãrvore...)
 BitDepth;Profundidade de bits
 BitRate;Taxa de bits
-BitRate_Maximum;Taxa máxima de bits
-BitRate_Minimum;Taxa mínima de bits
+BitRate_Maximum;Taxa mÃ¡xima de bits
+BitRate_Minimum;Taxa mÃ­nima de bits
 BitRate_Mode;Modo da taxa de bits
 BitRate_Mode_CBR;Constante
-BitRate_Mode_VBR;Variável
+BitRate_Mode_VBR;VariÃ¡vel
 BitRate_Nominal;Taxa de bits nominal
 BitRate_Encoded;Taxa de bits codificado
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;Tamanho do buffer
 Cancel;Cancelar
 Channel(s);Canal(s)
-ChannelPositions;Posições de canal
-Chapter(s);Capítulo(s)
-Chapters;Capítulos
-Chapters stream(s);Faixa(s) de Capítulos
-Chapters_Codec_List;Codecs de Capítulos
-Chapters_No;Sem capítulos
-ChaptersCount;Número de faixas de capítulo
-CheckNewVersion;Procurar nova versão
+ChannelPositions;PosiÃ§Ãµes de canal
+Chapter(s);CapÃ­tulo(s)
+Chapters;CapÃ­tulos
+Chapters stream(s);Faixa(s) de CapÃ­tulos
+Chapters_Codec_List;Codecs de CapÃ­tulos
+Chapters_No;Sem capÃ­tulos
+ChaptersCount;NÃºmero de faixas de capÃ­tulo
+CheckNewVersion;Procurar nova versÃ£o
 Choose custom;Escolha personalizada
-Choose custom sheet;Personalize o modo formulário
+Choose custom sheet;Personalize o modo formulÃ¡rio
 Choose custom text;Personalize o modo texto
-Choose export format;Escolha o formato de exportação
+Choose export format;Escolha o formato de exportaÃ§Ã£o
 Choose file(s);Escolha os ficheiros a abrir
 Choose filename;Escolha o nome do ficheiro
 Choose language;Escolha o idioma
-Choregrapher;Coreógrafo
-Chroma;Saturação
-ChromaSubsampling;Subamostragem de saturação
+Choregrapher;CoreÃ³grafo
+Chroma;SaturaÃ§Ã£o
+ChromaSubsampling;Subamostragem de saturaÃ§Ã£o
 Close;Fechar
 Close all before open;Fechar tudo antes de abrir
 Codec;Codec
-Codec_Description;Descrição do codec
+Codec_Description;DescriÃ§Ã£o do codec
 Codec_Info;Detalhes do codec
 Codec_Settings;Config. do Codec
 Codec_Settings_PacketBitStream;Conf. codec, Pacote da Faixa de Bits
@@ -229,34 +229,34 @@ Codec_Settings_ITU;Conf. do codec, ITU
 Codec_Profile;Perfil do Codec
 Codec_Url;Link para o codec
 CodecID;ID do Codec
-CodecID_Description;Descrição do codec
-Collection;Colecção
+CodecID_Description;DescriÃ§Ã£o do codec
+Collection;ColecÃ§Ã£o
 Colorimetry;Colorimetria
-ColorSpace;Espaço de cor
-colour_primaries;Cores primárias
-Comment;Comentário
+ColorSpace;EspaÃ§o de cor
+colour_primaries;Cores primÃ¡rias
+Comment;ComentÃ¡rio
 CommissionedBy;Representado por
-Compilation;Complilação
+Compilation;ComplilaÃ§Ã£o
 CompleteName;Nome completo
 Composer;Compositor
-Compression_Mode;Modo de compressão
+Compression_Mode;Modo de compressÃ£o
 Compression_Mode_Lossless;Sem perdas
 Compression_Mode_Lossy;Com perdas
-Compression_Ratio;Taxa de Compressão
+Compression_Ratio;Taxa de CompressÃ£o
 Conductor;Maestro
-Container and general information;Arquivo recipiente e informação geral
-ContentType;Conteúdo
+Container and general information;Arquivo recipiente e informaÃ§Ã£o geral
+ContentType;ConteÃºdo
 CoProducer;Co-Produtor
 Copyright;Direitos de autor
 CostumeDesigner;Estilista
-Count;Número
-Country;País
+Count;NÃºmero
+Country;PaÃ­s
 Cover;Capa
 Cover_Datas;Dados da capa
-Cover_Description;Descrição da capa
+Cover_Description;DescriÃ§Ã£o da capa
 Cover_Mime;MIME da Capa
 Cover_Type;Tipo de Capa
-Cropped;Dimensões de corte
+Cropped;DimensÃµes de corte
 Custom;Personalizado
 Customize;Personalizar
 Date;Data
@@ -267,59 +267,59 @@ Delay_Source;Atraso, origem
 Delay_Source_Container;Arquivo recipiente
 Delay_Source_Stream;Fluxo original
 Delete;Eliminar
-Description;Descrição
-Digitized_Date;Data de digitalização
-Dimensions;Dimensões
+Description;DescriÃ§Ã£o
+Digitized_Date;Data de digitalizaÃ§Ã£o
+Dimensions;DimensÃµes
 Director;Realizador
 DirectorOfPhotography;Director de fotografia
-DisplayAspectRatio;Proporção da imagem
-DisplayAspectRatio_Original;Proporção original da imagem
-DistributedBy;Distribuído por
+DisplayAspectRatio;ProporÃ§Ã£o da imagem
+DisplayAspectRatio_Original;ProporÃ§Ã£o original da imagem
+DistributedBy;DistribuÃ­do por
 Donate;Doar
 DotsPerInch;Pontos por polegada
-Duration;Duração
+Duration;DuraÃ§Ã£o
 Duration_End;Tempo de fim
-Duration_Start;Tempo de ínicio
+Duration_Start;Tempo de Ã­nicio
 Edit;Editar
 EditedBy;Editado por
 EMail;E-Mail
-Encoded_Application;Criação de software
-Encoded_Date;Data da codificação
-Encoded_Library;Biblioteca de codificação
-Encoded_Library_Settings;Config. da codificação
+Encoded_Application;CriaÃ§Ã£o de software
+Encoded_Date;Data da codificaÃ§Ã£o
+Encoded_Library;Biblioteca de codificaÃ§Ã£o
+Encoded_Library_Settings;Config. da codificaÃ§Ã£o
 Encoded_Original;Original
 EncodedBy;Codificado por
-EPG_Positions;Posições EPG (interno)
+EPG_Positions;PosiÃ§Ãµes EPG (interno)
 Error_File;Erro na leitura do ficheiro
 ExecutiveProducer;Produtor executivo
 Exit;Sair
 Exit_Hint;Fechar o programa
 Export;Exportar
 Export_Hint;Exportar num formato personalizado
-Extensions;Extensões populares
-Family;Família
+Extensions;ExtensÃµes populares
+Family;FamÃ­lia
 Fax;Fax
 File;Ficheiro
 File size;Tamanho do ficheiro
-File_Append;Anexar ao ficheiro existente (Aviso : assegure-se que os parâmetros sejam iguais)
-File_Created_Date;Data de criação
-File_Created_Date_Local;Data de criação (local)
-File_Hint;Seleccione um ficheiro multimédia para examinar
-File_Modified_Date;Data de modificação
-File_Modified_Date_Local;Data de modificação (local)
-FileExtension;Extensão do ficheiro
+File_Append;Anexar ao ficheiro existente (Aviso : assegure-se que os parÃ¢metros sejam iguais)
+File_Created_Date;Data de criaÃ§Ã£o
+File_Created_Date_Local;Data de criaÃ§Ã£o (local)
+File_Hint;Seleccione um ficheiro multimÃ©dia para examinar
+File_Modified_Date;Data de modificaÃ§Ã£o
+File_Modified_Date_Local;Data de modificaÃ§Ã£o (local)
+FileExtension;ExtensÃ£o do ficheiro
 FileName;Nome do ficheiro
 FileSize;Tamanho do ficheiro
 Folder;Pasta
 Folder (R);Sub-pasta
-Folder (R)_Hint;Seleccione uma pasta para examinar (incluíndo sub-pastas)
+Folder (R)_Hint;Seleccione uma pasta para examinar (incluÃ­ndo sub-pastas)
 Folder (Recursively);Sub-pasta
 Folder_Hint;Seleccione uma pasta para examinar
 FolderName;Nome da pasta
 Format;Formato
 Format_Commercial;Nome comercial
 Format_Commercial_IfAny;Nome comercial
-Format_Description;Descrição do formato
+Format_Description;DescriÃ§Ã£o do formato
 Format_Info;Detalhes do formato
 Format_Profile;Perfil do formato
 Format_Settings;Conf. do formato
@@ -329,7 +329,7 @@ Format_Settings_QPel;Conf. do formato, QPel
 Format_Settings_GMC;Conf. do formato, GMC
 Format_Settings_Matrix;Conf. do formato, Matriz
 Format_Settings_Matrix_Custom;Personalizado
-Format_Settings_Matrix_Default;Padrão
+Format_Settings_Matrix_Default;PadrÃ£o
 Format_Settings_Floor;Conf. do formato, Floor
 Format_Settings_CABAC;Conf. do formato, CABAC
 Format_Settings_Firm;Conf. do formato, Firm
@@ -343,26 +343,26 @@ Format_Settings_PS;Conf. do formato, PS
 Format_Settings_Pulldown;Conf. do formato, Pulldown
 Format_Settings_Mode;Modo
 Format_Settings_FrameMode;Modo de frame
-Format_Settings_Emphasis;Ênfase
-Format_Settings_ModeExtension;Modo de extensão
+Format_Settings_Emphasis;ÃŠnfase
+Format_Settings_ModeExtension;Modo de extensÃ£o
 Format_Settings_GOP;Conf. do formato, GOP
-Format_Version;Versão do formato
+Format_Version;VersÃ£o do formato
 Format_Url;URL parar o formato
-FrameCount;Número de frames
+FrameCount;NÃºmero de frames
 FrameRate;Taxa de frames
 FrameRate_Mode;Modo de taxa de frames
 FrameRate_Mode_CFR;Constante
-FrameRate_Mode_VFR;Variável
-FrameRate_Minimum;Taxa de frames mínima
+FrameRate_Mode_VFR;VariÃ¡vel
+FrameRate_Minimum;Taxa de frames mÃ­nima
 FrameRate_Nominal;Taxa de frames nominal
-FrameRate_Maximum;Taxa de frames máxima
+FrameRate_Maximum;Taxa de frames mÃ¡xima
 FrameRate_Original;Taxa de frames original
 General;Geral
-Genre;Género
+Genre;GÃ©nero
 Genre_000;Blues
-Genre_001;Rock Clássico
+Genre_001;Rock ClÃ¡ssico
 Genre_002;Country
-Genre_003;Dança
+Genre_003;DanÃ§a
 Genre_004;Disco
 Genre_005;Funk
 Genre_006;Grunge
@@ -370,7 +370,7 @@ Genre_007;Hip-Hop
 Genre_008;Jazz
 Genre_009;Metal
 Genre_010;New Age
-Genre_011;Clássicos
+Genre_011;ClÃ¡ssicos
 Genre_012;Outro
 Genre_013;Pop
 Genre_014;R&B
@@ -382,51 +382,51 @@ Genre_019;Industrial
 Genre_020;Alternativa
 Genre_021;Ska
 Genre_022;Death Metal
-Genre_023;Partidas humorísticas
+Genre_023;Partidas humorÃ­sticas
 Genre_024;Banda sonora
 Genre_025;Euro-Techno
 Genre_026;Ambiente
 Genre_027;Trip-Hop
 Genre_028;Vocal
 Genre_029;Jazz+Funk
-Genre_030;Fusão
+Genre_030;FusÃ£o
 Genre_031;Trance
-Genre_032;Clássica
+Genre_032;ClÃ¡ssica
 Genre_033;Instrumental
 Genre_034;Acid
 Genre_035;House
 Genre_036;Jogo
 Genre_037;Clip de som
 Genre_038;Gospel
-Genre_039;Ruído
+Genre_039;RuÃ­do
 Genre_040;Rock Alternativo
 Genre_041;Bass
 Genre_042;Soul
 Genre_043;Punk
 Genre_044;Espacial
-Genre_045;Meditação
+Genre_045;MeditaÃ§Ã£o
 Genre_046;Pop Instrumental
 Genre_047;Rock Instrumental
-Genre_048;Étnica
-Genre_049;Gótica
+Genre_048;Ã‰tnica
+Genre_049;GÃ³tica
 Genre_050;Darkwave
 Genre_051;Techno-Industrial
-Genre_052;Electrónica
+Genre_052;ElectrÃ³nica
 Genre_053;Pop-Folk
 Genre_054;Eurodance
 Genre_055;Dream
 Genre_056;Southern Rock
-Genre_057;Comédia
+Genre_057;ComÃ©dia
 Genre_058;Cult
 Genre_059;Gangsta
 Genre_060;Top 40
-Genre_061;Rap Cristão
+Genre_061;Rap CristÃ£o
 Genre_062;Pop/Funk
 Genre_063;Jungle
 Genre_064;Americana Nativa
 Genre_065;Cabaret
 Genre_066;New Wave
-Genre_067;Psicadélico
+Genre_067;PsicadÃ©lico
 Genre_068;Rave
 Genre_069;Showtunes
 Genre_070;Trailer
@@ -443,33 +443,33 @@ Genre_080;Folk
 Genre_081;Folk-Rock
 Genre_082;Folk Nacional
 Genre_083;Swing
-Genre_084;Fusão Rápida
+Genre_084;FusÃ£o RÃ¡pida
 Genre_085;Bebob
 Genre_086;Latina
 Genre_087;Revivalista
-Genre_088;Céltica
+Genre_088;CÃ©ltica
 Genre_089;Bluegrass
 Genre_090;Vanguarda
-Genre_091;Rock Gótico
+Genre_091;Rock GÃ³tico
 Genre_092;Rock Progressivo
-Genre_093;Rock Psicadélico
-Genre_094;Rock Sinfónico
+Genre_093;Rock PsicadÃ©lico
+Genre_094;Rock SinfÃ³nico
 Genre_095;Slow Rock
 Genre_096;Big Band
 Genre_097;Coro
 Genre_098;Easy Listening
-Genre_099;Acústica
-Genre_100;Humorístico
+Genre_099;AcÃºstica
+Genre_100;HumorÃ­stico
 Genre_101;Discurso
-Genre_102;Canção
-Genre_103;Ópera
-Genre_104;Música de Câmara
+Genre_102;CanÃ§Ã£o
+Genre_103;Ã“pera
+Genre_104;MÃºsica de CÃ¢mara
 Genre_105;Sonata
 Genre_106;Sinfonia
 Genre_107;Booty Bass
 Genre_108;Primus
 Genre_109;Porn Groove
-Genre_110;Sátira
+Genre_110;SÃ¡tira
 Genre_111;Slow Jam
 Genre_112;Club
 Genre_113;Tango
@@ -477,14 +477,14 @@ Genre_114;Samba
 Genre_115;Folclore
 Genre_116;Balada
 Genre_117;Balada de Rock
-Genre_118;Soul Rítmico
+Genre_118;Soul RÃ­tmico
 Genre_119;Estilo livre
 Genre_120;Dueto
 Genre_121;Punk Rock
 Genre_122;Solo de Bateria
 Genre_123;A Capella
 Genre_124;House Europeu
-Genre_125;Dança de Salão
+Genre_125;DanÃ§a de SalÃ£o
 Genre_126;Goa
 Genre_127;Drum & Bass
 Genre_128;Club-House
@@ -495,17 +495,17 @@ Genre_132;BritPop
 Genre_133;Afro-Punk
 Genre_134;Polsk Punk
 Genre_135;Beat
-Genre_136;Gangsta Rap Cristão
+Genre_136;Gangsta Rap CristÃ£o
 Genre_137;Heavy Metal
 Genre_138;Black Metal
 Genre_139;Crossover
-Genre_140;Cristão Contemporâneo
-Genre_141;Rock Cristão
+Genre_140;CristÃ£o ContemporÃ¢neo
+Genre_141;Rock CristÃ£o
 Genre_142;Merengue
 Genre_143;Salsa
 Genre_144;Thrash Metal
 Genre_145;Anime
-Genre_146;Pop Japonês
+Genre_146;Pop JaponÃªs
 Genre_147;Synthpop
 Genre_148;Abstracto
 Genre_149;Art Rock
@@ -517,7 +517,7 @@ Genre_154;Chillout
 Genre_155;Downtempo
 Genre_156;Dub
 Genre_157;EBM
-Genre_158;Eclético
+Genre_158;EclÃ©tico
 Genre_159;Electro
 Genre_160;Electroclash
 Genre_161;Emo
@@ -554,67 +554,67 @@ Genre_191;Psybient
 Go to WebSite;Ir para o site
 Grouping;Agrupamento
 h;h
-Header file;Criar um ficheiro de cabeçalho
+Header file;Criar um ficheiro de cabeÃ§alho
 Height;Altura
 Height_Original;Altura original
 Help;Ajuda
 Hint;Dica
-How many audio streams?;Quantas faixas de áudio?
-How many chapters streams?;Quantas faixas de capítulos?
+How many audio streams?;Quantas faixas de Ã¡udio?
+How many chapters streams?;Quantas faixas de capÃ­tulos?
 How many text streams?;Quantas faixas de texto?
-How many video streams?;Quantas faixas de vídeo?
+How many video streams?;Quantas faixas de vÃ­deo?
 HTML;HTML
 ID;ID
 Image;Imagem
 Image stream(s);Faixas de imagem
 Image_Codec_List;Codecs de Imagem
-ImageCount;Número de faixas de imagem
+ImageCount;NÃºmero de faixas de imagem
 Info;Info
 Instruments;Instrumentos
-Interlacement;Entrelaçamento
-Interlaced_Interlaced;Entrelaçado
-Interlaced_TFF;Primeiro a Área Superior
-Interlaced_BFF;Primeiro a Área Inferior
+Interlacement;EntrelaÃ§amento
+Interlaced_Interlaced;EntrelaÃ§ado
+Interlaced_TFF;Primeiro a Ãrea Superior
+Interlaced_BFF;Primeiro a Ãrea Inferior
 Interlaced_PPF;Progressivo
 Interlaced_Progressive;Progressivo
 Interleaved;Intervalado
-Interleave_Duration;Intervalo, duração
-Interleave_Preload;Intervalo, duração do pré-carregamento
-Interleave_VideoFrames;Intervalo, duração
-InternetMediaType;Tipo de Internet multimédia
+Interleave_Duration;Intervalo, duraÃ§Ã£o
+Interleave_Preload;Intervalo, duraÃ§Ã£o do prÃ©-carregamento
+Interleave_VideoFrames;Intervalo, duraÃ§Ã£o
+InternetMediaType;Tipo de Internet multimÃ©dia
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
 Keywords;Palavras chave
 Known codecs;Codecs conhecidos
 Known formats;Formatos conhecidos
-Known parameters;Parâmetros conhecidos
+Known parameters;ParÃ¢metros conhecidos
 Label;Etiqueta
 Language;Idioma
-Language_More;Idioma, mais informações
+Language_More;Idioma, mais informaÃ§Ãµes
 Language_aa;Afar
 Language_ab;Abcasiano
 Language_ae;Avestan
-Language_af;Africanês
+Language_af;AfricanÃªs
 Language_ak;Akan
-Language_am;Amárico
-Language_an;Aragonês
-Language_ar;Árabe
-Language_as;Assamês
+Language_am;AmÃ¡rico
+Language_an;AragonÃªs
+Language_ar;Ãrabe
+Language_as;AssamÃªs
 Language_av;Avar
 Language_ay;Aymara
 Language_az;Azeri
 Language_ba;Bashkir
 Language_be;Bielorusso
-Language_bg;Búlgaro
+Language_bg;BÃºlgaro
 Language_bh;Bihari
 Language_bi;Bislama
 Language_bm;Bambara
 Language_bn;Bengali
 Language_bo;Tibetano
 Language_br;Breton
-Language_bs;Bósnio
-Language_ca;Catalão
+Language_bs;BÃ³snio
+Language_ca;CatalÃ£o
 Language_ce;Chechen
 Language_ch;Chamorro
 Language_co;Corso
@@ -622,29 +622,29 @@ Language_cr;Cree
 Language_cs;Checo
 Language_cu;Slave
 Language_cv;Tchuvache
-Language_cy;Galês
-Language_da;Dinamarquês
-Language_de;Alemão
+Language_cy;GalÃªs
+Language_da;DinamarquÃªs
+Language_de;AlemÃ£o
 Language_dv;Divehi
 Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;Grego
-Language_en;Inglês
-Language_en-gb;Inglês (Reino Unido)
-Language_en-us;Inglês (Estados Unidos)
+Language_en;InglÃªs
+Language_en-gb;InglÃªs (Reino Unido)
+Language_en-us;InglÃªs (Estados Unidos)
 Language_eo;Esperanto
 Language_es;Espanhol
-Language_et;Estónio
+Language_et;EstÃ³nio
 Language_eu;Basco
 Language_fa;Persa
 Language_ff;Fulah
-Language_fi;Finlandês
+Language_fi;FinlandÃªs
 Language_fj;Fijian
-Language_fo;Faroês
-Language_fr;Francês
-Language_fy;Frísia
-Language_ga;Iirlandês
-Language_gd;Gaélico
+Language_fo;FaroÃªs
+Language_fr;FrancÃªs
+Language_fy;FrÃ­sia
+Language_ga;IirlandÃªs
+Language_gd;GaÃ©lico
 Language_gl;Galego
 Language_gn;Guarani
 Language_gu;Gujarati
@@ -655,22 +655,22 @@ Language_hi;Hindi
 Language_ho;Hiri Motu
 Language_hr;Croata
 Language_ht;Haitiano
-Language_hu;Húngaro
-Language_hy;Arménio
+Language_hu;HÃºngaro
+Language_hy;ArmÃ©nio
 Language_hz;Herero
-Language_ia;Associação Auxiliar de Idioma
-Language_id;Indonésio
+Language_ia;AssociaÃ§Ã£o Auxiliar de Idioma
+Language_id;IndonÃ©sio
 Language_ie;Interlingue
 Language_ig;Ibo
 Language_ii;Sichuan Yi
 Language_ik;Inupiaq
 Language_Info;Info do idioma
 Language_io;Ido
-Language_is;Islandês
+Language_is;IslandÃªs
 Language_it;Italiano
 Language_iu;Inuktitut
-Language_ja;Japonês
-Language_jv;Javanês
+Language_ja;JaponÃªs
+Language_jv;JavanÃªs
 Language_ka;Georgiano
 Language_kg;Kongo
 Language_ki;Kikuyu
@@ -685,78 +685,78 @@ Language_ks;Kashmiri
 Language_ku;Curdo
 Language_kv;Komi
 Language_kw;Cornish
-Language_ky;Quirguistanês
+Language_ky;QuirguistanÃªs
 Language_la;Latim
-Language_lb;Lluxemburguês
+Language_lb;LluxemburguÃªs
 Language_lg;Ganda
-Language_li;Limburguês
+Language_li;LimburguÃªs
 Language_ln;Lingala
 Language_lo;Lao
 Language_lt;Lituano
 Language_lu;Luba-Katanga
-Language_lv;Letão
+Language_lv;LetÃ£o
 Language_mg;Malagasy
 Language_mh;Marshallese
 Language_mi;Maori
-Language_mk;Macedónico
+Language_mk;MacedÃ³nico
 Language_ml;Malaio
 Language_mn;Mongol
-Language_mo;Moldávio
+Language_mo;MoldÃ¡vio
 Language_mr;Maratha
-Language_ms;Malaio (Malásia)
-Language_mt;Maltês
-Language_mul;Múltiplos Idiomas
-Language_my;Birmanês
+Language_ms;Malaio (MalÃ¡sia)
+Language_mt;MaltÃªs
+Language_mul;MÃºltiplos Idiomas
+Language_my;BirmanÃªs
 Language_na;Nauru
-Language_nb;Norueguês (Bokmal)
+Language_nb;NorueguÃªs (Bokmal)
 Language_nd;Ndebele
-Language_ne;Nepalês
+Language_ne;NepalÃªs
 Language_ng;Ndonga
-Language_nl;Holandês
-Language_nn;Norueguês (Nynorsk)
-Language_no;Norueguês
+Language_nl;HolandÃªs
+Language_nn;NorueguÃªs (Nynorsk)
+Language_no;NorueguÃªs
 Language_nr;Ndebele
 Language_nv;Navaho
 Language_ny;Nyanja
 Language_oc;Occitano
 Language_oj;Ojibwa
 Language_om;Oromo
-Language_or;Oriá
+Language_or;OriÃ¡
 Language_os;Osseto
 Language_pa;Punjabi
 Language_pi;Pali
 Language_pl;Polaco
 Language_ps;Pachto
-Language_pt;Português (Portugal)
-Language_pt-br;Português (Brasil)
+Language_pt;PortuguÃªs (Portugal)
+Language_pt-br;PortuguÃªs (Brasil)
 Language_qu;Quechua
 Language_rm;Reto-romano
 Language_rn;Rundi
 Language_ro;Romeno
 Language_ru;Russo
 Language_rw;Kinyarwanda
-Language_sa;Sânscrito
+Language_sa;SÃ¢nscrito
 Language_sc;Sardinian
 Language_sd;Sindhi
 Language_se;Sami do Norte
 Language_sg;Sango
-Language_si;Cingalês
+Language_si;CingalÃªs
 Language_sk;Eslovaco
 Language_sl;Esloveno
 Language_sm;Samoano
 Language_sn;Shona
 Language_so;Somali
-Language_sq;Albanês
-Language_sr;Sérvio
+Language_sq;AlbanÃªs
+Language_sr;SÃ©rvio
 Language_ss;Swati
 Language_st;Sotho
-Language_su;Sundanês
+Language_su;SundanÃªs
 Language_sv;Sueco
-Language_sw;Suaíli
-Language_ta;Tâmil
-Language_te;Télugo
+Language_sw;SuaÃ­li
+Language_ta;TÃ¢mil
+Language_te;TÃ©lugo
 Language_tg;Tadjique
-Language_th;Tailandês
+Language_th;TailandÃªs
 Language_ti;Tigrinya
 Language_tk;Turkmen
 Language_tl;Tagalog
@@ -778,192 +778,193 @@ Language_wa;Walloon
 Language_wo;Wolof
 Language_xh;Xosa
 Language_yi;Yiddish
-Language_yo;Iorubá
+Language_yo;IorubÃ¡
 Language_za;Zhuang
-Language_zh;Chinês
-Language_zh-cn;Chinês (China)
-Language_zh-tw;Chinês (Taiwan)
+Language_zh;ChinÃªs
+Language_zh-cn;ChinÃªs (China)
+Language_zh-tw;ChinÃªs (Taiwan)
 Language_zu;Zulu
-LawRating;Classificação
+LawRating;ClassificaÃ§Ã£o
 LCCN;LCCN
 Library;Biblioteca multiplex
-Lightness;Iluminação
+Lightness;IluminaÃ§Ã£o
 List;Lista
 Lyrics;Letra
 Lyricist;Compositor
-Mastered_Date;Data de criação
+Mastered_Date;Data de criaÃ§Ã£o
 MasteredBy;Criado por
 matrix_coefficients;Coeficientes matriz
-MediaInfo_About;MediaInfo proporciona um fácil acesso a informações simples e técnicas acerca de ficheiros de vídeo e áudio.\r\nExceptuando a interface gráfica do utilizador da Mac App Store, é um software de código aberto, o que significa que é gratuito para o utilizador final e os programadores têm liberdade de estudar, de melhorar e de redistribuir o programa (licença BSD).\r\n\r\nExemplos de ficheiros multimédia:\r\nMatroska, OGG (incluíndo OGM)\r\nMPEG1 (incluíndo VCD)\r\nMPEG2 (incluíndo DVD e SVCD)\r\nMPEG4 (incluíndo Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindows Media (incluíndo WMV, WMA)\r\nMicrosoft RIFF (incluíndo AVI, WAV)\r\nSom nos formatos (AC3, DTS, AAC, AU, AIFF, MP3)
+MediaInfo_About;MediaInfo proporciona um fÃ¡cil acesso a informaÃ§Ãµes simples e tÃ©cnicas acerca de ficheiros de vÃ­deo e Ã¡udio.\r\nExceptuando a interface grÃ¡fica do utilizador da Mac App Store, Ã© um software de cÃ³digo aberto, o que significa que Ã© gratuito para o utilizador final e os programadores tÃªm liberdade de estudar, de melhorar e de redistribuir o programa (licenÃ§a BSD).\r\n\r\nExemplos de ficheiros multimÃ©dia:\r\nMatroska, OGG (incluÃ­ndo OGM)\r\nMPEG1 (incluÃ­ndo VCD)\r\nMPEG2 (incluÃ­ndo DVD e SVCD)\r\nMPEG4 (incluÃ­ndo Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindows Media (incluÃ­ndo WMV, WMA)\r\nMicrosoft RIFF (incluÃ­ndo AVI, WAV)\r\nSom nos formatos (AC3, DTS, AAC, AU, AIFF, MP3)
 Menu;Menu
 Menu stream(s);Faixa(s) de menu
 Menu_Codec_List;Codecs de menu
 Menu_No;Sem menu
-MenuCount;Número de faixas de menu
+MenuCount;NÃºmero de faixas de menu
 Menu_Hint;Mais possibilidades
 MenuID;ID do Menu
 mn;mn
-Mood;Descrição
+Mood;DescriÃ§Ã£o
 More;Mais
 Movie;Nome do Filme
 ms;ms
 MSDI;MSDI
-MusicBy;Música de
+MusicBy;MÃºsica de
 MuxingMode;Modo multiplex
-MuxingMode_MoreInfo;Modo multiplex, mais informações
+MuxingMode_MoreInfo;Modo multiplex, mais informaÃ§Ãµes
 MuxingMode_PackedBitstream;Packed bitstream
 Name;Nome
 Nationality;Nacionalidade
 NetworkName;Nome da rede
 New;Novo
-Newest version;Procurar novas versões (requer ligação à Internet)
-NewVersion_Menu;Uma nova versão está disponível
-NewVersion_Question_Title;Uma nova versão foi lançada!
-NewVersion_Question_Content;Uma nova verão (v%Version%) está disponível, quer transferi-la?
-No;Não
-Not yet;Ainda não
-NumColors;Número de cores
+Newest version;Procurar novas versÃµes (requer ligaÃ§Ã£o Ã  Internet)
+NewVersion_Menu;Uma nova versÃ£o estÃ¡ disponÃ­vel
+NewVersion_Question_Title;Uma nova versÃ£o foi lanÃ§ada!
+NewVersion_Question_Content;Uma nova verÃ£o (v%Version%) estÃ¡ disponÃ­vel, quer transferi-la?
+No;NÃ£o
+Not yet;Ainda nÃ£o
+NumColors;NÃºmero de cores
 OK;OK
-One output file per input file;Um ficheiro de saída por um de entrada
+One output file per input file;Um ficheiro de saÃ­da por um de entrada
 Open;Abrir
 OpenCandy_01;A fazer o download ________
 OpenCandy_02;__% Completo
-OpenCandy_03;Ligação à internet interrompida
+OpenCandy_03;LigaÃ§Ã£o Ã  internet interrompida
 OpenCandy_04;________ download terminado
 OpenCandy_05;Clique para instalar ________
-OpenCandy_06;Tem certeza que quer cancelar a instalação?\r\nSe deseja adiar a instalação, seleccione 'Não'.\r\nNota: Pode seleccionar Sair nos menus para parar a instalação até à próxima vez que reiniciar.
-OpenCandy_07;O download de ________ foi pausado.\r\nClique no ícone na área de notificação para continuar o download.
-OpenCandy_08;Houve um erro crítico. A instalação de _________ foi abortada.
+OpenCandy_06;Tem certeza que quer cancelar a instalaÃ§Ã£o?\r\nSe deseja adiar a instalaÃ§Ã£o, seleccione 'NÃ£o'.\r\nNota: Pode seleccionar Sair nos menus para parar a instalaÃ§Ã£o atÃ© Ã  prÃ³xima vez que reiniciar.
+OpenCandy_07;O download de ________ foi pausado.\r\nClique no Ã­cone na Ã¡rea de notificaÃ§Ã£o para continuar o download.
+OpenCandy_08;Houve um erro crÃ­tico. A instalaÃ§Ã£o de _________ foi abortada.
 OpenCandy_09;Pausar download
-OpenCandy_10;Cancelar instalação
+OpenCandy_10;Cancelar instalaÃ§Ã£o
 OpenCandy_11;Continuar download
 OpenCandy_12;Sair do Instalador
 OpenCandy_13;___________ - Recomendado por ____________
 OpenCandy_14;A fazer o download _________
-OpenCandy_15;___________, o software recomendado para si por ___________, está a ser transferido por sua solicitação. Vamos informá-lo quando estiver pronto a ser instalado.
-OpenCandy_16;___________ está pronto para ser instalado
+OpenCandy_15;___________, o software recomendado para si por ___________, estÃ¡ a ser transferido por sua solicitaÃ§Ã£o. Vamos informÃ¡-lo quando estiver pronto a ser instalado.
+OpenCandy_16;___________ estÃ¡ pronto para ser instalado
 OpenCandy_17;___________ foi completamente tranferido. Por favor clique em 'Instalar' para continuar.
 OpenCandy_18;___________ de ___________ tranferido
 OpenCandy_19;Oferecido por OpenCandy
 OpenCandy_20;Descubra mais em OpenCandy.com
 OpenCandy_21;Instalar
-OpenCandy_22;Instalação de ___________
-OpenCandy_23;Isto vai cancelar a instalação de ___________\r\nTem certeza que quer sair?
+OpenCandy_22;InstalaÃ§Ã£o de ___________
+OpenCandy_23;Isto vai cancelar a instalaÃ§Ã£o de ___________\r\nTem certeza que quer sair?
 OpenCandy_24;Pausar
 OpenCandy_25;O seu download foi pausado. Clique em 'Continuar' quando estiver pronto para continuar.
 OpenCandy_26;Continuar
 OpenCandy_27;Instalar Agora
 OpenCandy_28;Pausar Download
 OpenCandy_29;Continuar Download
-OpenCandy_30;Cancelar Instalação
-OpenCandy_31;Por favor, escolha uma opção de instalação
+OpenCandy_30;Cancelar InstalaÃ§Ã£o
+OpenCandy_31;Por favor, escolha uma opÃ§Ã£o de instalaÃ§Ã£o
 OpenCandy_32;Instalar ___________
-OpenCandy_33;Não instalar
-OpenCandy_34;Por favor, seleccione uma opção de instalação
+OpenCandy_33;NÃ£o instalar
+OpenCandy_34;Por favor, seleccione uma opÃ§Ã£o de instalaÃ§Ã£o
 OpenCandy_35;______ recomenda este software
-OpenCandy_36;Sua instalação actual não será interrompida
-Options;Opções
-Options_Hint;Preferências
+OpenCandy_36;Sua instalaÃ§Ã£o actual nÃ£o serÃ¡ interrompida
+Options;OpÃ§Ãµes
+Options_Hint;PreferÃªncias
 Original;Original
 OriginalNetworkName;Nome original da rede
 OriginalSourceForm;Formato original
 OriginalSourceMedium;Meio original
 Other;Outro
-Output;Saída
-Output format;Formato de saída
+Output;SaÃ­da
+Output format;Formato de saÃ­da
 OverallBitRate;Taxa de Bits Total
-OverallBitRate_Maximum;Taxa de Bits Total, Máxima
-OverallBitRate_Minimum;Taxa de Bits Total, Mínima
+OverallBitRate_Maximum;Taxa de Bits Total, MÃ¡xima
+OverallBitRate_Minimum;Taxa de Bits Total, MÃ­nima
 OverallBitRate_Mode;Taxa de Bits Total, Modo
 OverallBitRate_Nominal;Taxa de Bits Total, Nominal
 Part;Parte
-Part_Count;Número total
-Performer;Intérprete
-Period;Período
+Part_Count;NÃºmero total
+Performer;IntÃ©rprete
+Period;PerÃ­odo
 Phone;Telefone
-PixelAspectRatio;Proporção de pixels
-PixelAspectRatio_Original;Proporção original de pixels
+PixelAspectRatio;ProporÃ§Ã£o de pixels
+PixelAspectRatio_Original;ProporÃ§Ã£o original de pixels
 PlayCounter;Reproduzido
 Played_Count;Vezes reproduzido
 Played_First_Date;Reproduzido pela primeira vez
-Played_Last_Date;Reproduzido pela última vez
-PlayTime;Duração
-Position;Posição
+Played_Last_Date;Reproduzido pela Ãºltima vez
+PlayTime;DuraÃ§Ã£o
+Position;PosiÃ§Ã£o
 Position_Total;Total
-Preferences;Preferências
+Preferences;PreferÃªncias
 Producer;Produtor
-ProductionDesigner;Designer de produção
-ProductionStudio;Estúdio de produção
+ProductionDesigner;Designer de produÃ§Ã£o
+ProductionStudio;EstÃºdio de produÃ§Ã£o
 Publisher;Publicador
-Purchased_Date;Data de aquisição
-Quote character;Citação personagem
-RadioStation;Estação de rádio
-Rating;Classificação
-Recorded_Date;Data de gravação
-Recorded_Location;Local de gravação
-Released_Date;Data de lançamento
+Purchased_Date;Data de aquisiÃ§Ã£o
+Quote character;CitaÃ§Ã£o personagem
+RadioStation;EstaÃ§Ã£o de rÃ¡dio
+Rating;ClassificaÃ§Ã£o
+Recorded_Date;Data de gravaÃ§Ã£o
+Recorded_Location;Local de gravaÃ§Ã£o
+Released_Date;Data de lanÃ§amento
 RemixedBy;Remisturado por
 ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Pico do replay gain
-Resolution;Resolução
+Resolution;ResoluÃ§Ã£o
 s;s
 SamplingRate;Taxa de amostragem
 Save;Guardar
 ScanType;Tipo de scan
 ScanType_Original;Tipo original de scan
 ScanOrder;Ordem do scan
+ScanOrder_StoredDisplayedInverted;
 ScanOrder_Original;Ordem original de scan
 ScreenplayBy;Roteirista
 Season;Temporada
 see below;ver abaixo
-Send HeaderFile;Por favor envie-me o cabeçalho do ficheiro para : http://sourceforge.net/projects/mediainfo/ (secção de Bug)
+Send HeaderFile;Por favor envie-me o cabeÃ§alho do ficheiro para : http://sourceforge.net/projects/mediainfo/ (secÃ§Ã£o de Bug)
 Separator_Columns;Separador de colunas
 Separator_Lines;Separador de linhas
-ServiceChannel;Número do canal do serviço
-ServiceName;Nome do serviço
-ServiceProvider;Provedor do serviço
-ServiceType;Tipo de serviço
+ServiceChannel;NÃºmero do canal do serviÃ§o
+ServiceName;Nome do serviÃ§o
+ServiceProvider;Provedor do serviÃ§o
+ServiceType;Tipo de serviÃ§o
 Set;Ajustar
 Set_Count;Ajustar contador
-Setup;Configuração
+Setup;ConfiguraÃ§Ã£o
 Sharpness;Nitidez
-Sheet;Formulário
-Sheet (Complete);Formulário (Completo)
-Shell extension;Extensão Shell (no Explorador do Windows, botão direito, haverá uma opção MediaInfo)
-Shell extension, folder;Também para pastas
-Shell InfoTip;Info. Shell (no Explorador do Windows, mova o rato sobre o ficheiro, a info. será exibida)
+Sheet;FormulÃ¡rio
+Sheet (Complete);FormulÃ¡rio (Completo)
+Shell extension;ExtensÃ£o Shell (no Explorador do Windows, botÃ£o direito, haverÃ¡ uma opÃ§Ã£o MediaInfo)
+Shell extension, folder;TambÃ©m para pastas
+Shell InfoTip;Info. Shell (no Explorador do Windows, mova o rato sobre o ficheiro, a info. serÃ¡ exibida)
 Show menu;Mostrar menu
 Show toolbar;Mostrar barra de ferramentas
 Sort;Ordenado por
-SamplingCount;Número de amostras
+SamplingCount;NÃºmero de amostras
 SoundEngineer;Engenheiro de som
 Source;Fonte
-Source_Duration;Duração fonte
-Source_FrameCount;Número fonte de frame
-Source_SamplingCount;Número fonte de amostra
+Source_Duration;DuraÃ§Ã£o fonte
+Source_FrameCount;NÃºmero fonte de frame
+Source_SamplingCount;NÃºmero fonte de amostra
 Source_StreamSize;Tamanho fonte de faixa
 Source_StreamSize_Encoded;Tamanho fonte de faixa codificada
-Standard;Padrão
+Standard;PadrÃ£o
 Stream;Faixa
-Stream_MoreInfo;Mais informação sobre a faixa
-StreamCount;Número de faixas do deste tipo
+Stream_MoreInfo;Mais informaÃ§Ã£o sobre a faixa
+StreamCount;NÃºmero de faixas do deste tipo
 StreamID;ID da Faixa
 StreamKind;Tipo de faixa
 StreamKindID;Identificador de faixa
 StreamKindPos;Identificador de faixa
 StreamSize;Tamanho da faixa
 StreamSize_Encoded;Tamanho codificado da faixa
-StreamSize_Proportion;Proporção desta faixa
+StreamSize_Proportion;ProporÃ§Ã£o desta faixa
 Subject;Assunto
 SubTrack;Sub-Faixa
-Summary;Sumário
+Summary;SumÃ¡rio
 Supported formats;Formatos suportados
 Supported?;Suportado?
 Synopsis;Sinopse
 SystemId;Id
 Tagged_Application;Programa etiquetador
 Tagged_Date;Etiquetado dia
-Technician;Técnico
+Technician;TÃ©cnico
 TermsOfUse;Termos de uso
 Text;Texto
 Text - Custom;Texto - Personalizado
@@ -975,49 +976,49 @@ Text_No;Sem texto
 Text1;Primeira faixa de texto
 Text2;Segunda faixa de texto
 Text3;Teceira faixa de texto
-TextCount;Número de faixas de texto
+TextCount;NÃºmero de faixas de texto
 ThanksTo;Abrigado a
 Thousands separator;Separador de milhar
-Title;Título
-Title_More;Título, mais info.
-TimeCode;Código de tempo
-TimeCode_FirstFrame;Código de tempo do primeiro frame
-TimeCode_Settings;Configuração do código de tempo
-TimeCode_Source;Fonte do código de tempo
+Title;TÃ­tulo
+Title_More;TÃ­tulo, mais info.
+TimeCode;CÃ³digo de tempo
+TimeCode_FirstFrame;CÃ³digo de tempo do primeiro frame
+TimeCode_Settings;ConfiguraÃ§Ã£o do cÃ³digo de tempo
+TimeCode_Source;Fonte do cÃ³digo de tempo
 TimeStamp;Marca temporal
-TimeZone;Fuso horário
+TimeZone;Fuso horÃ¡rio
 Total;Total
 Track;Nome da faixa
-Track_Count;Número da faixa
-transfer_characteristics;Características de transferência
+Track_Count;NÃºmero da faixa
+transfer_characteristics;CaracterÃ­sticas de transferÃªncia
 Translator;Tradutor
-Tree;Árvore
-Tree & Text;Árvore & Texto
+Tree;Ãrvore
+Tree & Text;Ãrvore & Texto
 Type;Tipo
-UniqueID;ID Único
+UniqueID;ID Ãšnico
 Unknown;Desconhecido
 Url;Url
-Video;Vídeo
-Video stream(s);Faixa(s) de Vídeo
-Video_Codec_List;Codecs de Vídeo
-Video_Delay;Atraso do Vídeo
-Video_No;Sem Vídeo
-Video0_Delay;Atraso do Vídeo0
-Video1;Primeira faixa de vídeo
-VideoCount;Número de faixas de vídeo
+Video;VÃ­deo
+Video stream(s);Faixa(s) de VÃ­deo
+Video_Codec_List;Codecs de VÃ­deo
+Video_Delay;Atraso do VÃ­deo
+Video_No;Sem VÃ­deo
+Video0_Delay;Atraso do VÃ­deo0
+Video1;Primeira faixa de vÃ­deo
+VideoCount;NÃºmero de faixas de vÃ­deo
 View;Vista
-View_Hint;Alterar a forma de visualização da informação
+View_Hint;Alterar a forma de visualizaÃ§Ã£o da informaÃ§Ã£o
 Warning : more streams in the files;Aviso : existem mais faixas nos ficheiros
 Web;Web
-WebSite_Audio;Ir para o site deste codec de áudio
-WebSite_Audio_More;Ir para o site (%Url%) para encontrar este codec de áudio
+WebSite_Audio;Ir para o site deste codec de Ã¡udio
+WebSite_Audio_More;Ir para o site (%Url%) para encontrar este codec de Ã¡udio
 WebSite_General;Ir para o site de um leitor para este ficheiro
 WebSite_General_More;Ir para o site de um leitor para este ficheiro
 WebSite_Text;Ir para o site deste codec de texto
 WebSite_Text_More;Ir para o site (%Url%) para encontrar este codec de texto
 WebSite_Url;http://MediaArea.net/MediaInfo
-WebSite_Video;Ir para o site deste codec de vídeo
-WebSite_Video_More;Ir para o site (%Url%) para encontrar este codec de vídeo
+WebSite_Video;Ir para o site deste codec de vÃ­deo
+WebSite_Video_More;Ir para o site (%Url%) para encontrar este codec de vÃ­deo
 Width;Largura
 Width_Original;Largura original
 WriteMe;Escreva-me
@@ -1027,5 +1028,5 @@ Written_Location;Local da escrita
 WrittenBy;Escrito por
 Yes;Sim
 Your system;O seu sistema
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

@@ -1,512 +1,512 @@
   Language_ISO639;bg
   Author_Email;ownfilmcollection@gmail.com
   Author_Name;ERa
-  Author_OldNames;превод на Български
-  Language_Name;Български
+  Author_OldNames;Ð¿Ñ€ÐµÐ²Ð¾Ð´ Ð½Ð° Ð‘ÑŠÐ»Ð³Ð°Ñ€ÑÐºÐ¸
+  Language_Name;Ð‘ÑŠÐ»Ð³Ð°Ñ€ÑÐºÐ¸
   Config_Text_ColumnSize;40
   Config_Text_Separator;:
   Config_Text_NumberTag;#
   Config_Text_FloatSeparator;.
   Config_Text_ThousandsSeparator;
- audio stream1;аудио поток
- audio stream2;аудио поток
- audio stream3;аудио поток
- bit1;бит1
- bit2;бит2
- bit3;бит3
- bps;бпс
- Bps;Бпс
- Byte1;Байт1
- Byte2;Байт2
- Byte3;Байт3
- channel1;канал1
- channel2;канал2
- channel3;канал3
- chapter1;дял1
- chapter2;дял2
- chapter3;дял3
- chapters stream1;дял поток1
- chapters stream2;дял поток2
- chapters stream3;дял поток3
- day1;ден1
- day2;ден2
- day3;ден3
- dB1;дБ1
- dB2;дБ2
- dB3;дБ3
- file1;файл1
- file2;файл2
- file3;файл3
- frame1;кадър1
- frame2;кадър2
- frame3;кадър3
- fps1;Кадър/Секунда1
- fps2;Кадър/Секунда2
- fps3;Кадър/Секунда3
- GB;ГБ
- Gb;Гб
- Gbps;Гб/сек
- GBps;ГБ/сек
- GHz;ГХц
- GiB;ГиБ
- GibiByte1;ГибиБайт1
- GibiByte2;ГибиБайт2
- GibiByte3;ГибиБайт3
- GiBps;ГиБайт/сек
- GigaBit1;ГигаБит1
- GigaBit2;ГигаБит2
- GigaBit3;ГигаБит3
- GigaByte1;ГигаБайт1
- GigaByte2;ГигаБайт2
- GigaByte3;ГигаБайт3
- hour1;час1
- hour2;час2
- hour3;час3
- Hz;Херц
- image stream1;картинен поток1
- image stream2;картинен поток2
- image stream3;картинен поток3
- KB;КБ
- Kb;Кб
- KBps;КБ/сек
- Kbps;Кб/сек
- KHz;КХц
- KiB;КиБ
- KibiBit1;КибиБит1
- KibiBit2;КибиБит2
- KibiBit3;КибиБит3
- KibiByte1;КибиБайт1
- KibiByte2;КибиБайт2
- KibiByte3;КибиБайт3
- KiBps;КиБайтСек
- KiloBit1;КилоБит1
- KiloBit2;КилоБит2
- KiloBit3;КилоБит3
- KiloByte1;КилоБайт1
- KiloByte2;КилоБайт1
- KiloByte3;КилоБайт1
- MB;МБ
- Mb;Мб
- Mbps;Мб/сек
- MBps;МБ/сек
- MebiBit1;МебиБит1
- MebiBit2;МебиБит2
- MebiBit3;МебиБит3
- MebiByte1;МебиБайт1
- MebiByte2;МебиБайт2
- MebiByte3;МебиБайт3
- MegaBit1;МегаБит1
- MegaBit2;МегаБит2
- MegaBit3;МегаБит3
- MegaByte1;МегаБайт1
- MegaByte2;МегаБайт2
- MegaByte3;МегаБайт3
- MHz;МХц
- MiB;МиБ
- Mib;Миб
- MiBps;МиБ/сек
- millisecond1;милисекунда1
- millisecond2;милисекунда2
- millisecond3;милисекунда3
- minute1;минута1
- minute2;минута2
- minute3;минута3
- month1;месец1
- month2;месец2
- month3;месец3
- pixel1;пиксел1
- pixel2;пиксел2
- pixel3;пиксел3
- second1;секунда1
- second2;секунда2
- second3;секунда3
- text stream1;текстови поток1
- text stream2;текстови поток2
- text stream3;текстови поток3
- video frames1;видео кадър1
- video frames2;видео кадър2
- video frames3;видео кадър3
- video stream1;видео поток1
- video stream2;видео поток2
- video stream3;видео поток3
- warppoint0;точка на изхвърляне0
- warppoint1;точка на изхвърляне1
- warppoint2;точка на изхвърляне2
- warppoint3;точка на изхвърляне3
- week1;седмица1
- week2;седмица2
- week3;седмица3
- year1;година1
- year2;година2
- year3;година3
+ audio stream1;Ð°ÑƒÐ´Ð¸Ð¾ Ð¿Ð¾Ñ‚Ð¾Ðº
+ audio stream2;Ð°ÑƒÐ´Ð¸Ð¾ Ð¿Ð¾Ñ‚Ð¾Ðº
+ audio stream3;Ð°ÑƒÐ´Ð¸Ð¾ Ð¿Ð¾Ñ‚Ð¾Ðº
+ bit1;Ð±Ð¸Ñ‚1
+ bit2;Ð±Ð¸Ñ‚2
+ bit3;Ð±Ð¸Ñ‚3
+ bps;Ð±Ð¿Ñ
+ Bps;Ð‘Ð¿Ñ
+ Byte1;Ð‘Ð°Ð¹Ñ‚1
+ Byte2;Ð‘Ð°Ð¹Ñ‚2
+ Byte3;Ð‘Ð°Ð¹Ñ‚3
+ channel1;ÐºÐ°Ð½Ð°Ð»1
+ channel2;ÐºÐ°Ð½Ð°Ð»2
+ channel3;ÐºÐ°Ð½Ð°Ð»3
+ chapter1;Ð´ÑÐ»1
+ chapter2;Ð´ÑÐ»2
+ chapter3;Ð´ÑÐ»3
+ chapters stream1;Ð´ÑÐ» Ð¿Ð¾Ñ‚Ð¾Ðº1
+ chapters stream2;Ð´ÑÐ» Ð¿Ð¾Ñ‚Ð¾Ðº2
+ chapters stream3;Ð´ÑÐ» Ð¿Ð¾Ñ‚Ð¾Ðº3
+ day1;Ð´ÐµÐ½1
+ day2;Ð´ÐµÐ½2
+ day3;Ð´ÐµÐ½3
+ dB1;Ð´Ð‘1
+ dB2;Ð´Ð‘2
+ dB3;Ð´Ð‘3
+ file1;Ñ„Ð°Ð¹Ð»1
+ file2;Ñ„Ð°Ð¹Ð»2
+ file3;Ñ„Ð°Ð¹Ð»3
+ frame1;ÐºÐ°Ð´ÑŠÑ€1
+ frame2;ÐºÐ°Ð´ÑŠÑ€2
+ frame3;ÐºÐ°Ð´ÑŠÑ€3
+ fps1;ÐšÐ°Ð´ÑŠÑ€/Ð¡ÐµÐºÑƒÐ½Ð´Ð°1
+ fps2;ÐšÐ°Ð´ÑŠÑ€/Ð¡ÐµÐºÑƒÐ½Ð´Ð°2
+ fps3;ÐšÐ°Ð´ÑŠÑ€/Ð¡ÐµÐºÑƒÐ½Ð´Ð°3
+ GB;Ð“Ð‘
+ Gb;Ð“Ð±
+ Gbps;Ð“Ð±/ÑÐµÐº
+ GBps;Ð“Ð‘/ÑÐµÐº
+ GHz;Ð“Ð¥Ñ†
+ GiB;Ð“Ð¸Ð‘
+ GibiByte1;Ð“Ð¸Ð±Ð¸Ð‘Ð°Ð¹Ñ‚1
+ GibiByte2;Ð“Ð¸Ð±Ð¸Ð‘Ð°Ð¹Ñ‚2
+ GibiByte3;Ð“Ð¸Ð±Ð¸Ð‘Ð°Ð¹Ñ‚3
+ GiBps;Ð“Ð¸Ð‘Ð°Ð¹Ñ‚/ÑÐµÐº
+ GigaBit1;Ð“Ð¸Ð³Ð°Ð‘Ð¸Ñ‚1
+ GigaBit2;Ð“Ð¸Ð³Ð°Ð‘Ð¸Ñ‚2
+ GigaBit3;Ð“Ð¸Ð³Ð°Ð‘Ð¸Ñ‚3
+ GigaByte1;Ð“Ð¸Ð³Ð°Ð‘Ð°Ð¹Ñ‚1
+ GigaByte2;Ð“Ð¸Ð³Ð°Ð‘Ð°Ð¹Ñ‚2
+ GigaByte3;Ð“Ð¸Ð³Ð°Ð‘Ð°Ð¹Ñ‚3
+ hour1;Ñ‡Ð°Ñ1
+ hour2;Ñ‡Ð°Ñ2
+ hour3;Ñ‡Ð°Ñ3
+ Hz;Ð¥ÐµÑ€Ñ†
+ image stream1;ÐºÐ°Ñ€Ñ‚Ð¸Ð½ÐµÐ½ Ð¿Ð¾Ñ‚Ð¾Ðº1
+ image stream2;ÐºÐ°Ñ€Ñ‚Ð¸Ð½ÐµÐ½ Ð¿Ð¾Ñ‚Ð¾Ðº2
+ image stream3;ÐºÐ°Ñ€Ñ‚Ð¸Ð½ÐµÐ½ Ð¿Ð¾Ñ‚Ð¾Ðº3
+ KB;ÐšÐ‘
+ Kb;ÐšÐ±
+ KBps;ÐšÐ‘/ÑÐµÐº
+ Kbps;ÐšÐ±/ÑÐµÐº
+ KHz;ÐšÐ¥Ñ†
+ KiB;ÐšÐ¸Ð‘
+ KibiBit1;ÐšÐ¸Ð±Ð¸Ð‘Ð¸Ñ‚1
+ KibiBit2;ÐšÐ¸Ð±Ð¸Ð‘Ð¸Ñ‚2
+ KibiBit3;ÐšÐ¸Ð±Ð¸Ð‘Ð¸Ñ‚3
+ KibiByte1;ÐšÐ¸Ð±Ð¸Ð‘Ð°Ð¹Ñ‚1
+ KibiByte2;ÐšÐ¸Ð±Ð¸Ð‘Ð°Ð¹Ñ‚2
+ KibiByte3;ÐšÐ¸Ð±Ð¸Ð‘Ð°Ð¹Ñ‚3
+ KiBps;ÐšÐ¸Ð‘Ð°Ð¹Ñ‚Ð¡ÐµÐº
+ KiloBit1;ÐšÐ¸Ð»Ð¾Ð‘Ð¸Ñ‚1
+ KiloBit2;ÐšÐ¸Ð»Ð¾Ð‘Ð¸Ñ‚2
+ KiloBit3;ÐšÐ¸Ð»Ð¾Ð‘Ð¸Ñ‚3
+ KiloByte1;ÐšÐ¸Ð»Ð¾Ð‘Ð°Ð¹Ñ‚1
+ KiloByte2;ÐšÐ¸Ð»Ð¾Ð‘Ð°Ð¹Ñ‚1
+ KiloByte3;ÐšÐ¸Ð»Ð¾Ð‘Ð°Ð¹Ñ‚1
+ MB;ÐœÐ‘
+ Mb;ÐœÐ±
+ Mbps;ÐœÐ±/ÑÐµÐº
+ MBps;ÐœÐ‘/ÑÐµÐº
+ MebiBit1;ÐœÐµÐ±Ð¸Ð‘Ð¸Ñ‚1
+ MebiBit2;ÐœÐµÐ±Ð¸Ð‘Ð¸Ñ‚2
+ MebiBit3;ÐœÐµÐ±Ð¸Ð‘Ð¸Ñ‚3
+ MebiByte1;ÐœÐµÐ±Ð¸Ð‘Ð°Ð¹Ñ‚1
+ MebiByte2;ÐœÐµÐ±Ð¸Ð‘Ð°Ð¹Ñ‚2
+ MebiByte3;ÐœÐµÐ±Ð¸Ð‘Ð°Ð¹Ñ‚3
+ MegaBit1;ÐœÐµÐ³Ð°Ð‘Ð¸Ñ‚1
+ MegaBit2;ÐœÐµÐ³Ð°Ð‘Ð¸Ñ‚2
+ MegaBit3;ÐœÐµÐ³Ð°Ð‘Ð¸Ñ‚3
+ MegaByte1;ÐœÐµÐ³Ð°Ð‘Ð°Ð¹Ñ‚1
+ MegaByte2;ÐœÐµÐ³Ð°Ð‘Ð°Ð¹Ñ‚2
+ MegaByte3;ÐœÐµÐ³Ð°Ð‘Ð°Ð¹Ñ‚3
+ MHz;ÐœÐ¥Ñ†
+ MiB;ÐœÐ¸Ð‘
+ Mib;ÐœÐ¸Ð±
+ MiBps;ÐœÐ¸Ð‘/ÑÐµÐº
+ millisecond1;Ð¼Ð¸Ð»Ð¸ÑÐµÐºÑƒÐ½Ð´Ð°1
+ millisecond2;Ð¼Ð¸Ð»Ð¸ÑÐµÐºÑƒÐ½Ð´Ð°2
+ millisecond3;Ð¼Ð¸Ð»Ð¸ÑÐµÐºÑƒÐ½Ð´Ð°3
+ minute1;Ð¼Ð¸Ð½ÑƒÑ‚Ð°1
+ minute2;Ð¼Ð¸Ð½ÑƒÑ‚Ð°2
+ minute3;Ð¼Ð¸Ð½ÑƒÑ‚Ð°3
+ month1;Ð¼ÐµÑÐµÑ†1
+ month2;Ð¼ÐµÑÐµÑ†2
+ month3;Ð¼ÐµÑÐµÑ†3
+ pixel1;Ð¿Ð¸ÐºÑÐµÐ»1
+ pixel2;Ð¿Ð¸ÐºÑÐµÐ»2
+ pixel3;Ð¿Ð¸ÐºÑÐµÐ»3
+ second1;ÑÐµÐºÑƒÐ½Ð´Ð°1
+ second2;ÑÐµÐºÑƒÐ½Ð´Ð°2
+ second3;ÑÐµÐºÑƒÐ½Ð´Ð°3
+ text stream1;Ñ‚ÐµÐºÑÑ‚Ð¾Ð²Ð¸ Ð¿Ð¾Ñ‚Ð¾Ðº1
+ text stream2;Ñ‚ÐµÐºÑÑ‚Ð¾Ð²Ð¸ Ð¿Ð¾Ñ‚Ð¾Ðº2
+ text stream3;Ñ‚ÐµÐºÑÑ‚Ð¾Ð²Ð¸ Ð¿Ð¾Ñ‚Ð¾Ðº3
+ video frames1;Ð²Ð¸Ð´ÐµÐ¾ ÐºÐ°Ð´ÑŠÑ€1
+ video frames2;Ð²Ð¸Ð´ÐµÐ¾ ÐºÐ°Ð´ÑŠÑ€2
+ video frames3;Ð²Ð¸Ð´ÐµÐ¾ ÐºÐ°Ð´ÑŠÑ€3
+ video stream1;Ð²Ð¸Ð´ÐµÐ¾ Ð¿Ð¾Ñ‚Ð¾Ðº1
+ video stream2;Ð²Ð¸Ð´ÐµÐ¾ Ð¿Ð¾Ñ‚Ð¾Ðº2
+ video stream3;Ð²Ð¸Ð´ÐµÐ¾ Ð¿Ð¾Ñ‚Ð¾Ðº3
+ warppoint0;Ñ‚Ð¾Ñ‡ÐºÐ° Ð½Ð° Ð¸Ð·Ñ…Ð²ÑŠÑ€Ð»ÑÐ½Ðµ0
+ warppoint1;Ñ‚Ð¾Ñ‡ÐºÐ° Ð½Ð° Ð¸Ð·Ñ…Ð²ÑŠÑ€Ð»ÑÐ½Ðµ1
+ warppoint2;Ñ‚Ð¾Ñ‡ÐºÐ° Ð½Ð° Ð¸Ð·Ñ…Ð²ÑŠÑ€Ð»ÑÐ½Ðµ2
+ warppoint3;Ñ‚Ð¾Ñ‡ÐºÐ° Ð½Ð° Ð¸Ð·Ñ…Ð²ÑŠÑ€Ð»ÑÐ½Ðµ3
+ week1;ÑÐµÐ´Ð¼Ð¸Ñ†Ð°1
+ week2;ÑÐµÐ´Ð¼Ð¸Ñ†Ð°2
+ week3;ÑÐµÐ´Ð¼Ð¸Ñ†Ð°3
+ year1;Ð³Ð¾Ð´Ð¸Ð½Ð°1
+ year2;Ð³Ð¾Ð´Ð¸Ð½Ð°2
+ year3;Ð³Ð¾Ð´Ð¸Ð½Ð°3
 , ;,
 : ;:
-About;За
-About_Hint;За_Подсказване
-Accompaniment;Съпровод
+About;Ð—Ð°
+About_Hint;Ð—Ð°_ÐŸÐ¾Ð´ÑÐºÐ°Ð·Ð²Ð°Ð½Ðµ
+Accompaniment;Ð¡ÑŠÐ¿Ñ€Ð¾Ð²Ð¾Ð´
 ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
-Actor;Актьор
-Actor_Character;Актьор_Характер
-Added_Date;Дата_Прибавен
-Address;Адрес
-Advanced;Разширен
-Advanced mode;Разширен режим
-Album;Албум
-Album_ReplayGain_Gain;Албум_УсилващоПовторение_Усилване
-Album_ReplayGain_Peak;Албум_УсилващоПовторение_Връх
-Alignment;Подравняване
-Alignment_Aligned;Подравняване_Подравнен
-Alignment_Split;Подравняване_Разделен
-All;Всичко
-Archival_Location;Архивна_Локация
-Arranger;Подреждане
-ArtDirector;ХудожественДиректор
-AspectRatio;Съотношение
-AssistantDirector;АсистентДиректор
-at;от
-At least one file;Най-малко един файл
-Audio;Аудио
-Audio stream(s);Аудио поток(ци)
-Audio_Codec_List;Аудио_Кодек_Списък
-Audio_No;Аудио_№
-Audio1;Аудио1
-Audio2;Аудио2
-AudioCount;АудиоБрой
-Author;Автор
-BarCode;Баркод
-Basic;Основен
-Basic_Note;Основен_Забележка
-BitDepth;БитДълбочина
-BitRate;БитРейт
-BitRate_Maximum;Максимален_БитРейт
-BitRate_Minimum;Минимален_БитРейт
-BitRate_Mode;Режим_БитРейт
-BitRate_Mode_CBR;Режим_БитРейт_СБР
-BitRate_Mode_VBR;Режим_БитРейт_ВБР
-BitRate_Nominal;Нормален_БитРейт
+Actor;ÐÐºÑ‚ÑŒÐ¾Ñ€
+Actor_Character;ÐÐºÑ‚ÑŒÐ¾Ñ€_Ð¥Ð°Ñ€Ð°ÐºÑ‚ÐµÑ€
+Added_Date;Ð”Ð°Ñ‚Ð°_ÐŸÑ€Ð¸Ð±Ð°Ð²ÐµÐ½
+Address;ÐÐ´Ñ€ÐµÑ
+Advanced;Ð Ð°Ð·ÑˆÐ¸Ñ€ÐµÐ½
+Advanced mode;Ð Ð°Ð·ÑˆÐ¸Ñ€ÐµÐ½ Ñ€ÐµÐ¶Ð¸Ð¼
+Album;ÐÐ»Ð±ÑƒÐ¼
+Album_ReplayGain_Gain;ÐÐ»Ð±ÑƒÐ¼_Ð£ÑÐ¸Ð»Ð²Ð°Ñ‰Ð¾ÐŸÐ¾Ð²Ñ‚Ð¾Ñ€ÐµÐ½Ð¸Ðµ_Ð£ÑÐ¸Ð»Ð²Ð°Ð½Ðµ
+Album_ReplayGain_Peak;ÐÐ»Ð±ÑƒÐ¼_Ð£ÑÐ¸Ð»Ð²Ð°Ñ‰Ð¾ÐŸÐ¾Ð²Ñ‚Ð¾Ñ€ÐµÐ½Ð¸Ðµ_Ð’Ñ€ÑŠÑ…
+Alignment;ÐŸÐ¾Ð´Ñ€Ð°Ð²Ð½ÑÐ²Ð°Ð½Ðµ
+Alignment_Aligned;ÐŸÐ¾Ð´Ñ€Ð°Ð²Ð½ÑÐ²Ð°Ð½Ðµ_ÐŸÐ¾Ð´Ñ€Ð°Ð²Ð½ÐµÐ½
+Alignment_Split;ÐŸÐ¾Ð´Ñ€Ð°Ð²Ð½ÑÐ²Ð°Ð½Ðµ_Ð Ð°Ð·Ð´ÐµÐ»ÐµÐ½
+All;Ð’ÑÐ¸Ñ‡ÐºÐ¾
+Archival_Location;ÐÑ€Ñ…Ð¸Ð²Ð½Ð°_Ð›Ð¾ÐºÐ°Ñ†Ð¸Ñ
+Arranger;ÐŸÐ¾Ð´Ñ€ÐµÐ¶Ð´Ð°Ð½Ðµ
+ArtDirector;Ð¥ÑƒÐ´Ð¾Ð¶ÐµÑÑ‚Ð²ÐµÐ½Ð”Ð¸Ñ€ÐµÐºÑ‚Ð¾Ñ€
+AspectRatio;Ð¡ÑŠÐ¾Ñ‚Ð½Ð¾ÑˆÐµÐ½Ð¸Ðµ
+AssistantDirector;ÐÑÐ¸ÑÑ‚ÐµÐ½Ñ‚Ð”Ð¸Ñ€ÐµÐºÑ‚Ð¾Ñ€
+at;Ð¾Ñ‚
+At least one file;ÐÐ°Ð¹-Ð¼Ð°Ð»ÐºÐ¾ ÐµÐ´Ð¸Ð½ Ñ„Ð°Ð¹Ð»
+Audio;ÐÑƒÐ´Ð¸Ð¾
+Audio stream(s);ÐÑƒÐ´Ð¸Ð¾ Ð¿Ð¾Ñ‚Ð¾Ðº(Ñ†Ð¸)
+Audio_Codec_List;ÐÑƒÐ´Ð¸Ð¾_ÐšÐ¾Ð´ÐµÐº_Ð¡Ð¿Ð¸ÑÑŠÐº
+Audio_No;ÐÑƒÐ´Ð¸Ð¾_â„–
+Audio1;ÐÑƒÐ´Ð¸Ð¾1
+Audio2;ÐÑƒÐ´Ð¸Ð¾2
+AudioCount;ÐÑƒÐ´Ð¸Ð¾Ð‘Ñ€Ð¾Ð¹
+Author;ÐÐ²Ñ‚Ð¾Ñ€
+BarCode;Ð‘Ð°Ñ€ÐºÐ¾Ð´
+Basic;ÐžÑÐ½Ð¾Ð²ÐµÐ½
+Basic_Note;ÐžÑÐ½Ð¾Ð²ÐµÐ½_Ð—Ð°Ð±ÐµÐ»ÐµÐ¶ÐºÐ°
+BitDepth;Ð‘Ð¸Ñ‚Ð”ÑŠÐ»Ð±Ð¾Ñ‡Ð¸Ð½Ð°
+BitRate;Ð‘Ð¸Ñ‚Ð ÐµÐ¹Ñ‚
+BitRate_Maximum;ÐœÐ°ÐºÑÐ¸Ð¼Ð°Ð»ÐµÐ½_Ð‘Ð¸Ñ‚Ð ÐµÐ¹Ñ‚
+BitRate_Minimum;ÐœÐ¸Ð½Ð¸Ð¼Ð°Ð»ÐµÐ½_Ð‘Ð¸Ñ‚Ð ÐµÐ¹Ñ‚
+BitRate_Mode;Ð ÐµÐ¶Ð¸Ð¼_Ð‘Ð¸Ñ‚Ð ÐµÐ¹Ñ‚
+BitRate_Mode_CBR;Ð ÐµÐ¶Ð¸Ð¼_Ð‘Ð¸Ñ‚Ð ÐµÐ¹Ñ‚_Ð¡Ð‘Ð 
+BitRate_Mode_VBR;Ð ÐµÐ¶Ð¸Ð¼_Ð‘Ð¸Ñ‚Ð ÐµÐ¹Ñ‚_Ð’Ð‘Ð 
+BitRate_Nominal;ÐÐ¾Ñ€Ð¼Ð°Ð»ÐµÐ½_Ð‘Ð¸Ñ‚Ð ÐµÐ¹Ñ‚
 BitRate_Encoded;
-Bits-(Pixel*Frame);Битове-(Пиксел*Кадър)
+Bits-(Pixel*Frame);Ð‘Ð¸Ñ‚Ð¾Ð²Ðµ-(ÐŸÐ¸ÐºÑÐµÐ»*ÐšÐ°Ð´ÑŠÑ€)
 BufferSize;
-Cancel;Откажи
-Channel(s);Канал(и)
-ChannelPositions;КаналПозиции
-Chapter(s);Дял(ове)
-Chapters;Дялове
-Chapters stream(s);Дялове поток(ци)
-Chapters_Codec_List;Дялове_Кодек_Списък
-Chapters_No;Дялове_Но
-ChaptersCount;ДяловеБрой
-CheckNewVersion;ПровериНоваВерсия
-Choose custom;Избери потребителски
-Choose custom sheet;Избери потребителски формуляр
-Choose custom text;Избери потребителски текст
-Choose export format;Избери формат за експортиране
-Choose file(s);Избери файл(ове)
-Choose filename;Избери име на файл
-Choose language;Избери език
-Choregrapher;Хореограф
-Chroma;Хрома
-ChromaSubsampling;ХромаПодСамплинг
-Close;Затвори
-Close all before open;Затвори всичко преди да отвориш
-Codec;Кодек
-Codec_Description;Кодек_Описание
-Codec_Info;Кодек_Инфо
-Codec_Settings;Кодек_Настройки
-Codec_Settings_PacketBitStream;Кодек_Настройки_ПакетБитПоток
-Codec_Settings_BVOP;Кодек_Настройки_БВОП
-Codec_Settings_QPel;Кодек_Настройки_КюПел
-Codec_Settings_GMC;Кодек_Настройки_ГМС
-Codec_Settings_Matrix;Кодек_Настройки_Матрица
-Codec_Settings_Floor;Кодек_Настройки_Под
-Codec_Settings_CABAC;Кодек_Настройки_КАБАК
-Codec_Settings_Firm;Кодек_Настройки_Фирм
-Codec_Settings_Endianness;Кодек_Настройки_Безкрайност
-Codec_Settings_Sign;Кодек_Настройки_Подпис
-Codec_Settings_Law;Кодек_Настройки_Закон
-Codec_Settings_ITU;Кодек_Настройки_ИТУ
-Codec_Profile;Кодек_Профил
-Codec_Url;Кодек_ЮРЛ
-CodecID;КодекИД
-CodecID_Description;КодекИД_Описание
-Collection;Колекция
-Colorimetry;ЦветоваГама
-ColorSpace;ЦветовоПронстранство
-colour_primaries;цветови_основи
-Comment;Коментар
-CommissionedBy;ПоръчанОт
+Cancel;ÐžÑ‚ÐºÐ°Ð¶Ð¸
+Channel(s);ÐšÐ°Ð½Ð°Ð»(Ð¸)
+ChannelPositions;ÐšÐ°Ð½Ð°Ð»ÐŸÐ¾Ð·Ð¸Ñ†Ð¸Ð¸
+Chapter(s);Ð”ÑÐ»(Ð¾Ð²Ðµ)
+Chapters;Ð”ÑÐ»Ð¾Ð²Ðµ
+Chapters stream(s);Ð”ÑÐ»Ð¾Ð²Ðµ Ð¿Ð¾Ñ‚Ð¾Ðº(Ñ†Ð¸)
+Chapters_Codec_List;Ð”ÑÐ»Ð¾Ð²Ðµ_ÐšÐ¾Ð´ÐµÐº_Ð¡Ð¿Ð¸ÑÑŠÐº
+Chapters_No;Ð”ÑÐ»Ð¾Ð²Ðµ_ÐÐ¾
+ChaptersCount;Ð”ÑÐ»Ð¾Ð²ÐµÐ‘Ñ€Ð¾Ð¹
+CheckNewVersion;ÐŸÑ€Ð¾Ð²ÐµÑ€Ð¸ÐÐ¾Ð²Ð°Ð’ÐµÑ€ÑÐ¸Ñ
+Choose custom;Ð˜Ð·Ð±ÐµÑ€Ð¸ Ð¿Ð¾Ñ‚Ñ€ÐµÐ±Ð¸Ñ‚ÐµÐ»ÑÐºÐ¸
+Choose custom sheet;Ð˜Ð·Ð±ÐµÑ€Ð¸ Ð¿Ð¾Ñ‚Ñ€ÐµÐ±Ð¸Ñ‚ÐµÐ»ÑÐºÐ¸ Ñ„Ð¾Ñ€Ð¼ÑƒÐ»ÑÑ€
+Choose custom text;Ð˜Ð·Ð±ÐµÑ€Ð¸ Ð¿Ð¾Ñ‚Ñ€ÐµÐ±Ð¸Ñ‚ÐµÐ»ÑÐºÐ¸ Ñ‚ÐµÐºÑÑ‚
+Choose export format;Ð˜Ð·Ð±ÐµÑ€Ð¸ Ñ„Ð¾Ñ€Ð¼Ð°Ñ‚ Ð·Ð° ÐµÐºÑÐ¿Ð¾Ñ€Ñ‚Ð¸Ñ€Ð°Ð½Ðµ
+Choose file(s);Ð˜Ð·Ð±ÐµÑ€Ð¸ Ñ„Ð°Ð¹Ð»(Ð¾Ð²Ðµ)
+Choose filename;Ð˜Ð·Ð±ÐµÑ€Ð¸ Ð¸Ð¼Ðµ Ð½Ð° Ñ„Ð°Ð¹Ð»
+Choose language;Ð˜Ð·Ð±ÐµÑ€Ð¸ ÐµÐ·Ð¸Ðº
+Choregrapher;Ð¥Ð¾Ñ€ÐµÐ¾Ð³Ñ€Ð°Ñ„
+Chroma;Ð¥Ñ€Ð¾Ð¼Ð°
+ChromaSubsampling;Ð¥Ñ€Ð¾Ð¼Ð°ÐŸÐ¾Ð´Ð¡Ð°Ð¼Ð¿Ð»Ð¸Ð½Ð³
+Close;Ð—Ð°Ñ‚Ð²Ð¾Ñ€Ð¸
+Close all before open;Ð—Ð°Ñ‚Ð²Ð¾Ñ€Ð¸ Ð²ÑÐ¸Ñ‡ÐºÐ¾ Ð¿Ñ€ÐµÐ´Ð¸ Ð´Ð° Ð¾Ñ‚Ð²Ð¾Ñ€Ð¸Ñˆ
+Codec;ÐšÐ¾Ð´ÐµÐº
+Codec_Description;ÐšÐ¾Ð´ÐµÐº_ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ
+Codec_Info;ÐšÐ¾Ð´ÐµÐº_Ð˜Ð½Ñ„Ð¾
+Codec_Settings;ÐšÐ¾Ð´ÐµÐº_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸
+Codec_Settings_PacketBitStream;ÐšÐ¾Ð´ÐµÐº_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_ÐŸÐ°ÐºÐµÑ‚Ð‘Ð¸Ñ‚ÐŸÐ¾Ñ‚Ð¾Ðº
+Codec_Settings_BVOP;ÐšÐ¾Ð´ÐµÐº_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_Ð‘Ð’ÐžÐŸ
+Codec_Settings_QPel;ÐšÐ¾Ð´ÐµÐº_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_ÐšÑŽÐŸÐµÐ»
+Codec_Settings_GMC;ÐšÐ¾Ð´ÐµÐº_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_Ð“ÐœÐ¡
+Codec_Settings_Matrix;ÐšÐ¾Ð´ÐµÐº_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_ÐœÐ°Ñ‚Ñ€Ð¸Ñ†Ð°
+Codec_Settings_Floor;ÐšÐ¾Ð´ÐµÐº_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_ÐŸÐ¾Ð´
+Codec_Settings_CABAC;ÐšÐ¾Ð´ÐµÐº_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_ÐšÐÐ‘ÐÐš
+Codec_Settings_Firm;ÐšÐ¾Ð´ÐµÐº_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_Ð¤Ð¸Ñ€Ð¼
+Codec_Settings_Endianness;ÐšÐ¾Ð´ÐµÐº_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_Ð‘ÐµÐ·ÐºÑ€Ð°Ð¹Ð½Ð¾ÑÑ‚
+Codec_Settings_Sign;ÐšÐ¾Ð´ÐµÐº_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_ÐŸÐ¾Ð´Ð¿Ð¸Ñ
+Codec_Settings_Law;ÐšÐ¾Ð´ÐµÐº_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_Ð—Ð°ÐºÐ¾Ð½
+Codec_Settings_ITU;ÐšÐ¾Ð´ÐµÐº_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_Ð˜Ð¢Ð£
+Codec_Profile;ÐšÐ¾Ð´ÐµÐº_ÐŸÑ€Ð¾Ñ„Ð¸Ð»
+Codec_Url;ÐšÐ¾Ð´ÐµÐº_Ð®Ð Ð›
+CodecID;ÐšÐ¾Ð´ÐµÐºÐ˜Ð”
+CodecID_Description;ÐšÐ¾Ð´ÐµÐºÐ˜Ð”_ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ
+Collection;ÐšÐ¾Ð»ÐµÐºÑ†Ð¸Ñ
+Colorimetry;Ð¦Ð²ÐµÑ‚Ð¾Ð²Ð°Ð“Ð°Ð¼Ð°
+ColorSpace;Ð¦Ð²ÐµÑ‚Ð¾Ð²Ð¾ÐŸÑ€Ð¾Ð½ÑÑ‚Ñ€Ð°Ð½ÑÑ‚Ð²Ð¾
+colour_primaries;Ñ†Ð²ÐµÑ‚Ð¾Ð²Ð¸_Ð¾ÑÐ½Ð¾Ð²Ð¸
+Comment;ÐšÐ¾Ð¼ÐµÐ½Ñ‚Ð°Ñ€
+CommissionedBy;ÐŸÐ¾Ñ€ÑŠÑ‡Ð°Ð½ÐžÑ‚
 Compilation;
-CompleteName;ЦялосноИме
-Composer;Композитор
+CompleteName;Ð¦ÑÐ»Ð¾ÑÐ½Ð¾Ð˜Ð¼Ðµ
+Composer;ÐšÐ¾Ð¼Ð¿Ð¾Ð·Ð¸Ñ‚Ð¾Ñ€
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
-Compression_Ratio;КомпресияСъотношение
-Conductor;Диригент
-Container and general information;Контейнер и главна информация
-ContentType;КонтейнерТип
-CoProducer;Ко-Продуцент
-Copyright;ЗапазенаМарка
-CostumeDesigner;Дизайнер
-Count;Брой
-Country;Държава
-Cover;Калъфка
-Cover_Datas;Калъфка_Дати
-Cover_Description;Калъфка_Описание
-Cover_Mime;Калъфка_Майм
-Cover_Type;Калъфка_Тип
-Cropped;Умалена
-Custom;Потребителски
-Customize;Нагласи
-Date;Дата
-Debug;Дебъг
-Decimal point;Децимална точка
-Delay;Забавяне
+Compression_Ratio;ÐšÐ¾Ð¼Ð¿Ñ€ÐµÑÐ¸ÑÐ¡ÑŠÐ¾Ñ‚Ð½Ð¾ÑˆÐµÐ½Ð¸Ðµ
+Conductor;Ð”Ð¸Ñ€Ð¸Ð³ÐµÐ½Ñ‚
+Container and general information;ÐšÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€ Ð¸ Ð³Ð»Ð°Ð²Ð½Ð° Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ñ
+ContentType;ÐšÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€Ð¢Ð¸Ð¿
+CoProducer;ÐšÐ¾-ÐŸÑ€Ð¾Ð´ÑƒÑ†ÐµÐ½Ñ‚
+Copyright;Ð—Ð°Ð¿Ð°Ð·ÐµÐ½Ð°ÐœÐ°Ñ€ÐºÐ°
+CostumeDesigner;Ð”Ð¸Ð·Ð°Ð¹Ð½ÐµÑ€
+Count;Ð‘Ñ€Ð¾Ð¹
+Country;Ð”ÑŠÑ€Ð¶Ð°Ð²Ð°
+Cover;ÐšÐ°Ð»ÑŠÑ„ÐºÐ°
+Cover_Datas;ÐšÐ°Ð»ÑŠÑ„ÐºÐ°_Ð”Ð°Ñ‚Ð¸
+Cover_Description;ÐšÐ°Ð»ÑŠÑ„ÐºÐ°_ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ
+Cover_Mime;ÐšÐ°Ð»ÑŠÑ„ÐºÐ°_ÐœÐ°Ð¹Ð¼
+Cover_Type;ÐšÐ°Ð»ÑŠÑ„ÐºÐ°_Ð¢Ð¸Ð¿
+Cropped;Ð£Ð¼Ð°Ð»ÐµÐ½Ð°
+Custom;ÐŸÐ¾Ñ‚Ñ€ÐµÐ±Ð¸Ñ‚ÐµÐ»ÑÐºÐ¸
+Customize;ÐÐ°Ð³Ð»Ð°ÑÐ¸
+Date;Ð”Ð°Ñ‚Ð°
+Debug;Ð”ÐµÐ±ÑŠÐ³
+Decimal point;Ð”ÐµÑ†Ð¸Ð¼Ð°Ð»Ð½Ð° Ñ‚Ð¾Ñ‡ÐºÐ°
+Delay;Ð—Ð°Ð±Ð°Ð²ÑÐ½Ðµ
 Delay_Source;
 Delay_Source_Container;
 Delay_Source_Stream;
-Delete;Премахни
-Description;Описание
-Digitized_Date;Дата_Дигитализиране
-Dimensions;Размери
-Director;Режисьор
-DirectorOfPhotography;Фотограф
-DisplayAspectRatio;СъотношениеОбраз
-DisplayAspectRatio_Original;Оригинално_СъотношениеОбраз
-DistributedBy;РазпространенОт
-Donate;Дари
-DotsPerInch;ДотНаИнч
-Duration;Продължителност
-Duration_End;Продължителност_Край
-Duration_Start;Продължителност_Начало
-Edit;Преработи
-EditedBy;ПреработенОт
-EMail;Имейл
-Encoded_Application;Енкодирана_Апликация
-Encoded_Date;Дата_Енкодиране
-Encoded_Library;Библиотека_Енкодиране
-Encoded_Library_Settings;Библиотека_Енкодиране_Настройки
-Encoded_Original;Оригинално_Енкодиране
-EncodedBy;ЕнкодиранОт
-EPG_Positions;ЕПГ_Позиции
-Error_File;ФайлЗа_Грешки
-ExecutiveProducer;ГлавенПродуцент
-Exit;Излез
-Exit_Hint;Излизане_Подсказване
-Export;Експортиране
-Export_Hint;Експортиране_Подсказване
-Extensions;Екстенции
-Family;Семеен
-Fax;Факс
-File;Файл
-File size;Големина файл
-File_Append;ФайлДобавка
-File_Created_Date;ФайлДатаСъздаване
-File_Created_Date_Local;ФайлДатаСъздаванеЛокално
-File_Hint;Файл_Подсказване
-File_Modified_Date;ФайлДатаПромяна
-File_Modified_Date_Local;ФайлДатаПромянаЛокално
-FileExtension;ФайлЕкстенция
-FileName;ИмеФайл
-FileSize;Големинафайл
-Folder;Папка
-Folder (R);Папка (Ч)
-Folder (R)_Hint;Папка (Ч)_Подсказване
-Folder (Recursively);Папка (Рекурсивна)
-Folder_Hint;Папка_Подсказване
-FolderName;ПапкаИме
-Format;Формат
+Delete;ÐŸÑ€ÐµÐ¼Ð°Ñ…Ð½Ð¸
+Description;ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ
+Digitized_Date;Ð”Ð°Ñ‚Ð°_Ð”Ð¸Ð³Ð¸Ñ‚Ð°Ð»Ð¸Ð·Ð¸Ñ€Ð°Ð½Ðµ
+Dimensions;Ð Ð°Ð·Ð¼ÐµÑ€Ð¸
+Director;Ð ÐµÐ¶Ð¸ÑÑŒÐ¾Ñ€
+DirectorOfPhotography;Ð¤Ð¾Ñ‚Ð¾Ð³Ñ€Ð°Ñ„
+DisplayAspectRatio;Ð¡ÑŠÐ¾Ñ‚Ð½Ð¾ÑˆÐµÐ½Ð¸ÐµÐžÐ±Ñ€Ð°Ð·
+DisplayAspectRatio_Original;ÐžÑ€Ð¸Ð³Ð¸Ð½Ð°Ð»Ð½Ð¾_Ð¡ÑŠÐ¾Ñ‚Ð½Ð¾ÑˆÐµÐ½Ð¸ÐµÐžÐ±Ñ€Ð°Ð·
+DistributedBy;Ð Ð°Ð·Ð¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÐµÐ½ÐžÑ‚
+Donate;Ð”Ð°Ñ€Ð¸
+DotsPerInch;Ð”Ð¾Ñ‚ÐÐ°Ð˜Ð½Ñ‡
+Duration;ÐŸÑ€Ð¾Ð´ÑŠÐ»Ð¶Ð¸Ñ‚ÐµÐ»Ð½Ð¾ÑÑ‚
+Duration_End;ÐŸÑ€Ð¾Ð´ÑŠÐ»Ð¶Ð¸Ñ‚ÐµÐ»Ð½Ð¾ÑÑ‚_ÐšÑ€Ð°Ð¹
+Duration_Start;ÐŸÑ€Ð¾Ð´ÑŠÐ»Ð¶Ð¸Ñ‚ÐµÐ»Ð½Ð¾ÑÑ‚_ÐÐ°Ñ‡Ð°Ð»Ð¾
+Edit;ÐŸÑ€ÐµÑ€Ð°Ð±Ð¾Ñ‚Ð¸
+EditedBy;ÐŸÑ€ÐµÑ€Ð°Ð±Ð¾Ñ‚ÐµÐ½ÐžÑ‚
+EMail;Ð˜Ð¼ÐµÐ¹Ð»
+Encoded_Application;Ð•Ð½ÐºÐ¾Ð´Ð¸Ñ€Ð°Ð½Ð°_ÐÐ¿Ð»Ð¸ÐºÐ°Ñ†Ð¸Ñ
+Encoded_Date;Ð”Ð°Ñ‚Ð°_Ð•Ð½ÐºÐ¾Ð´Ð¸Ñ€Ð°Ð½Ðµ
+Encoded_Library;Ð‘Ð¸Ð±Ð»Ð¸Ð¾Ñ‚ÐµÐºÐ°_Ð•Ð½ÐºÐ¾Ð´Ð¸Ñ€Ð°Ð½Ðµ
+Encoded_Library_Settings;Ð‘Ð¸Ð±Ð»Ð¸Ð¾Ñ‚ÐµÐºÐ°_Ð•Ð½ÐºÐ¾Ð´Ð¸Ñ€Ð°Ð½Ðµ_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸
+Encoded_Original;ÐžÑ€Ð¸Ð³Ð¸Ð½Ð°Ð»Ð½Ð¾_Ð•Ð½ÐºÐ¾Ð´Ð¸Ñ€Ð°Ð½Ðµ
+EncodedBy;Ð•Ð½ÐºÐ¾Ð´Ð¸Ñ€Ð°Ð½ÐžÑ‚
+EPG_Positions;Ð•ÐŸÐ“_ÐŸÐ¾Ð·Ð¸Ñ†Ð¸Ð¸
+Error_File;Ð¤Ð°Ð¹Ð»Ð—Ð°_Ð“Ñ€ÐµÑˆÐºÐ¸
+ExecutiveProducer;Ð“Ð»Ð°Ð²ÐµÐ½ÐŸÑ€Ð¾Ð´ÑƒÑ†ÐµÐ½Ñ‚
+Exit;Ð˜Ð·Ð»ÐµÐ·
+Exit_Hint;Ð˜Ð·Ð»Ð¸Ð·Ð°Ð½Ðµ_ÐŸÐ¾Ð´ÑÐºÐ°Ð·Ð²Ð°Ð½Ðµ
+Export;Ð•ÐºÑÐ¿Ð¾Ñ€Ñ‚Ð¸Ñ€Ð°Ð½Ðµ
+Export_Hint;Ð•ÐºÑÐ¿Ð¾Ñ€Ñ‚Ð¸Ñ€Ð°Ð½Ðµ_ÐŸÐ¾Ð´ÑÐºÐ°Ð·Ð²Ð°Ð½Ðµ
+Extensions;Ð•ÐºÑÑ‚ÐµÐ½Ñ†Ð¸Ð¸
+Family;Ð¡ÐµÐ¼ÐµÐµÐ½
+Fax;Ð¤Ð°ÐºÑ
+File;Ð¤Ð°Ð¹Ð»
+File size;Ð“Ð¾Ð»ÐµÐ¼Ð¸Ð½Ð° Ñ„Ð°Ð¹Ð»
+File_Append;Ð¤Ð°Ð¹Ð»Ð”Ð¾Ð±Ð°Ð²ÐºÐ°
+File_Created_Date;Ð¤Ð°Ð¹Ð»Ð”Ð°Ñ‚Ð°Ð¡ÑŠÐ·Ð´Ð°Ð²Ð°Ð½Ðµ
+File_Created_Date_Local;Ð¤Ð°Ð¹Ð»Ð”Ð°Ñ‚Ð°Ð¡ÑŠÐ·Ð´Ð°Ð²Ð°Ð½ÐµÐ›Ð¾ÐºÐ°Ð»Ð½Ð¾
+File_Hint;Ð¤Ð°Ð¹Ð»_ÐŸÐ¾Ð´ÑÐºÐ°Ð·Ð²Ð°Ð½Ðµ
+File_Modified_Date;Ð¤Ð°Ð¹Ð»Ð”Ð°Ñ‚Ð°ÐŸÑ€Ð¾Ð¼ÑÐ½Ð°
+File_Modified_Date_Local;Ð¤Ð°Ð¹Ð»Ð”Ð°Ñ‚Ð°ÐŸÑ€Ð¾Ð¼ÑÐ½Ð°Ð›Ð¾ÐºÐ°Ð»Ð½Ð¾
+FileExtension;Ð¤Ð°Ð¹Ð»Ð•ÐºÑÑ‚ÐµÐ½Ñ†Ð¸Ñ
+FileName;Ð˜Ð¼ÐµÐ¤Ð°Ð¹Ð»
+FileSize;Ð“Ð¾Ð»ÐµÐ¼Ð¸Ð½Ð°Ñ„Ð°Ð¹Ð»
+Folder;ÐŸÐ°Ð¿ÐºÐ°
+Folder (R);ÐŸÐ°Ð¿ÐºÐ° (Ð§)
+Folder (R)_Hint;ÐŸÐ°Ð¿ÐºÐ° (Ð§)_ÐŸÐ¾Ð´ÑÐºÐ°Ð·Ð²Ð°Ð½Ðµ
+Folder (Recursively);ÐŸÐ°Ð¿ÐºÐ° (Ð ÐµÐºÑƒÑ€ÑÐ¸Ð²Ð½Ð°)
+Folder_Hint;ÐŸÐ°Ð¿ÐºÐ°_ÐŸÐ¾Ð´ÑÐºÐ°Ð·Ð²Ð°Ð½Ðµ
+FolderName;ÐŸÐ°Ð¿ÐºÐ°Ð˜Ð¼Ðµ
+Format;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚
 Format_Commercial;
 Format_Commercial_IfAny;
-Format_Description;Формат_Описание
-Format_Info;Формат_Инфо
-Format_Profile;Формат_Профил
-Format_Settings;Формат_Настройки
-Format_Settings_PacketBitStream;Формат_Настройки_ПакетБитПоток
-Format_Settings_BVOP;Формат_Настройки_БВОП
-Format_Settings_QPel;Формат_Настройки_КюПел
-Format_Settings_GMC;Формат_Настройки_ГМС
-Format_Settings_Matrix;Формат_Настройки_Матрица
-Format_Settings_Matrix_Custom;Формат_Настройки_Матрица_Потребител
-Format_Settings_Matrix_Default;Формат_Настройки_Матрица_Стандарт
-Format_Settings_Floor;Формат_Настройки_Под
-Format_Settings_CABAC;Формат_Настройки_Кабак
-Format_Settings_Firm;Формат_Настройки_Фирм
-Format_Settings_Endianness;Формат_Настройки_Безкрайност
-Format_Settings_RefFrames;Формат_Настройки_РефКадри
-Format_Settings_Sign;Формат_Настройки_Подпис
-Format_Settings_Law;Формат_Настройки_Закон
-Format_Settings_ITU;Формат_Настройки_ИТУ
-Format_Settings_SBR;Формат_Настройки_СБР
-Format_Settings_PS;Формат_Настройки_ПС
-Format_Settings_Pulldown;Формат_Настройки_СвалящоМеню
-Format_Settings_Mode;Формат_Настройки_Метод
-Format_Settings_FrameMode;Формат_Настройки_КадриМетод
-Format_Settings_Emphasis;Формат_Настройки_Подчертаност
-Format_Settings_ModeExtension;Формат_Настройки_МетодЕкстенция
-Format_Settings_GOP;Формат_Настройки_ГОП
-Format_Version;Формат_Версия
-Format_Url;Формат_ЮРЛ
-FrameCount;БройКадри
-FrameRate;СкоростКадри
-FrameRate_Mode;СкоростКадри_Метод
-FrameRate_Mode_CFR;СкоростКадри_СФР
-FrameRate_Mode_VFR;СкоростКадри_ВФР
-FrameRate_Minimum;СкоростКадри_Минимум
-FrameRate_Nominal;СкоростКадри_Нормално
-FrameRate_Maximum;СкоростКадри_Максимум
-FrameRate_Original;СкоростКадри_Оригинално
-General;Генерално
-Genre;Жанр
+Format_Description;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ
+Format_Info;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_Ð˜Ð½Ñ„Ð¾
+Format_Profile;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐŸÑ€Ð¾Ñ„Ð¸Ð»
+Format_Settings;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸
+Format_Settings_PacketBitStream;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_ÐŸÐ°ÐºÐµÑ‚Ð‘Ð¸Ñ‚ÐŸÐ¾Ñ‚Ð¾Ðº
+Format_Settings_BVOP;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_Ð‘Ð’ÐžÐŸ
+Format_Settings_QPel;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_ÐšÑŽÐŸÐµÐ»
+Format_Settings_GMC;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_Ð“ÐœÐ¡
+Format_Settings_Matrix;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_ÐœÐ°Ñ‚Ñ€Ð¸Ñ†Ð°
+Format_Settings_Matrix_Custom;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_ÐœÐ°Ñ‚Ñ€Ð¸Ñ†Ð°_ÐŸÐ¾Ñ‚Ñ€ÐµÐ±Ð¸Ñ‚ÐµÐ»
+Format_Settings_Matrix_Default;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_ÐœÐ°Ñ‚Ñ€Ð¸Ñ†Ð°_Ð¡Ñ‚Ð°Ð½Ð´Ð°Ñ€Ñ‚
+Format_Settings_Floor;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_ÐŸÐ¾Ð´
+Format_Settings_CABAC;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_ÐšÐ°Ð±Ð°Ðº
+Format_Settings_Firm;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_Ð¤Ð¸Ñ€Ð¼
+Format_Settings_Endianness;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_Ð‘ÐµÐ·ÐºÑ€Ð°Ð¹Ð½Ð¾ÑÑ‚
+Format_Settings_RefFrames;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_Ð ÐµÑ„ÐšÐ°Ð´Ñ€Ð¸
+Format_Settings_Sign;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_ÐŸÐ¾Ð´Ð¿Ð¸Ñ
+Format_Settings_Law;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_Ð—Ð°ÐºÐ¾Ð½
+Format_Settings_ITU;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_Ð˜Ð¢Ð£
+Format_Settings_SBR;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_Ð¡Ð‘Ð 
+Format_Settings_PS;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_ÐŸÐ¡
+Format_Settings_Pulldown;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_Ð¡Ð²Ð°Ð»ÑÑ‰Ð¾ÐœÐµÐ½ÑŽ
+Format_Settings_Mode;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_ÐœÐµÑ‚Ð¾Ð´
+Format_Settings_FrameMode;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_ÐšÐ°Ð´Ñ€Ð¸ÐœÐµÑ‚Ð¾Ð´
+Format_Settings_Emphasis;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_ÐŸÐ¾Ð´Ñ‡ÐµÑ€Ñ‚Ð°Ð½Ð¾ÑÑ‚
+Format_Settings_ModeExtension;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_ÐœÐµÑ‚Ð¾Ð´Ð•ÐºÑÑ‚ÐµÐ½Ñ†Ð¸Ñ
+Format_Settings_GOP;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸_Ð“ÐžÐŸ
+Format_Version;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_Ð’ÐµÑ€ÑÐ¸Ñ
+Format_Url;Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚_Ð®Ð Ð›
+FrameCount;Ð‘Ñ€Ð¾Ð¹ÐšÐ°Ð´Ñ€Ð¸
+FrameRate;Ð¡ÐºÐ¾Ñ€Ð¾ÑÑ‚ÐšÐ°Ð´Ñ€Ð¸
+FrameRate_Mode;Ð¡ÐºÐ¾Ñ€Ð¾ÑÑ‚ÐšÐ°Ð´Ñ€Ð¸_ÐœÐµÑ‚Ð¾Ð´
+FrameRate_Mode_CFR;Ð¡ÐºÐ¾Ñ€Ð¾ÑÑ‚ÐšÐ°Ð´Ñ€Ð¸_Ð¡Ð¤Ð 
+FrameRate_Mode_VFR;Ð¡ÐºÐ¾Ñ€Ð¾ÑÑ‚ÐšÐ°Ð´Ñ€Ð¸_Ð’Ð¤Ð 
+FrameRate_Minimum;Ð¡ÐºÐ¾Ñ€Ð¾ÑÑ‚ÐšÐ°Ð´Ñ€Ð¸_ÐœÐ¸Ð½Ð¸Ð¼ÑƒÐ¼
+FrameRate_Nominal;Ð¡ÐºÐ¾Ñ€Ð¾ÑÑ‚ÐšÐ°Ð´Ñ€Ð¸_ÐÐ¾Ñ€Ð¼Ð°Ð»Ð½Ð¾
+FrameRate_Maximum;Ð¡ÐºÐ¾Ñ€Ð¾ÑÑ‚ÐšÐ°Ð´Ñ€Ð¸_ÐœÐ°ÐºÑÐ¸Ð¼ÑƒÐ¼
+FrameRate_Original;Ð¡ÐºÐ¾Ñ€Ð¾ÑÑ‚ÐšÐ°Ð´Ñ€Ð¸_ÐžÑ€Ð¸Ð³Ð¸Ð½Ð°Ð»Ð½Ð¾
+General;Ð“ÐµÐ½ÐµÑ€Ð°Ð»Ð½Ð¾
+Genre;Ð–Ð°Ð½Ñ€
 Genre_000;
-Genre_001; Жанр_001
-Genre_002; Жанр_002
-Genre_003; Жанр_003
-Genre_004; Жанр_004
-Genre_005; Жанр_005
-Genre_006; Жанр_006
-Genre_007; Жанр_007
-Genre_008; Жанр_008
-Genre_009; Жанр_009
-Genre_010; Жанр_010
-Genre_011; Жанр_011
-Genre_012; Жанр_012
-Genre_013; Жанр_013
-Genre_014; Жанр_014
-Genre_015; Жанр_015
-Genre_016; Жанр_016
-Genre_017; Жанр_017
-Genre_018; Жанр_018
-Genre_019; Жанр_019
-Genre_020; Жанр_020
-Genre_021; Жанр_021
-Genre_022; Жанр_022
-Genre_023; Жанр_023
-Genre_024; Жанр_024
-Genre_025; Жанр_025
-Genre_026; Жанр_026
-Genre_027; Жанр_027
-Genre_028; Жанр_028
-Genre_029; Жанр_029
-Genre_030; Жанр_030
-Genre_031; Жанр_031
-Genre_032; Жанр_032
-Genre_033; Жанр_033
-Genre_034; Жанр_034
-Genre_035; Жанр_035
-Genre_036; Жанр_036
-Genre_037; Жанр_037
-Genre_038; Жанр_038
-Genre_039; Жанр_039
-Genre_040; Жанр_040
-Genre_041; Жанр_041
-Genre_042; Жанр_042
-Genre_043; Жанр_043
-Genre_044; Жанр_044
-Genre_045; Жанр_045
-Genre_046; Жанр_046
-Genre_047; Жанр_047
-Genre_048; Жанр_048
-Genre_049; Жанр_049
-Genre_050; Жанр_050
-Genre_051; Жанр_051
-Genre_052; Жанр_052
-Genre_053; Жанр_053
-Genre_054; Жанр_054
-Genre_055; Жанр_055
-Genre_056; Жанр_056
-Genre_057; Жанр_057
-Genre_058; Жанр_058
-Genre_059; Жанр_059
-Genre_060; Жанр_060
-Genre_061; Жанр_061
-Genre_062; Жанр_062
-Genre_063; Жанр_063
-Genre_064; Жанр_064
-Genre_065; Жанр_065
-Genre_066; Жанр_066
-Genre_067; Жанр_067
-Genre_068; Жанр_068
-Genre_069; Жанр_069
-Genre_070; Жанр_070
-Genre_071; Жанр_071
-Genre_072; Жанр_072
-Genre_073; Жанр_073
-Genre_074; Жанр_074
-Genre_075; Жанр_075
-Genre_076; Жанр_076
-Genre_077; Жанр_077
-Genre_078; Жанр_078
-Genre_079; Жанр_079
-Genre_080; Жанр_080
-Genre_081; Жанр_081
-Genre_082; Жанр_082
-Genre_083; Жанр_083
-Genre_084; Жанр_084
-Genre_085; Жанр_085
-Genre_086; Жанр_086
-Genre_087; Жанр_087
-Genre_088; Жанр_088
-Genre_089; Жанр_089
-Genre_090; Жанр_090
-Genre_091; Жанр_091
-Genre_092; Жанр_092
-Genre_093; Жанр_093
-Genre_094; Жанр_094
-Genre_095; Жанр_095
-Genre_096; Жанр_096
-Genre_097; Жанр_097
-Genre_098; Жанр_098
-Genre_099; Жанр_099
-Genre_100; Жанр_100
-Genre_101; Жанр_101
-Genre_102; Жанр_102
-Genre_103; Жанр_103
-Genre_104; Жанр_104
-Genre_105; Жанр_105
-Genre_106; Жанр_106
-Genre_107; Жанр_107
-Genre_108; Жанр_108
-Genre_109; Жанр_109
-Genre_110; Жанр_110
-Genre_111; Жанр_111
-Genre_112; Жанр_112
-Genre_113; Жанр_113
-Genre_114; Жанр_114
-Genre_115; Жанр_115
-Genre_116; Жанр_116
-Genre_117; Жанр_117
-Genre_118; Жанр_118
-Genre_119; Жанр_119
-Genre_120; Жанр_120
-Genre_121; Жанр_121
-Genre_122; Жанр_122
-Genre_123; Жанр_123
-Genre_124; Жанр_124
-Genre_125; Жанр_125
-Genre_126; Жанр_126
-Genre_127; Жанр_127
-Genre_128; Жанр_128
-Genre_129; Жанр_129
-Genre_130; Жанр_130
-Genre_131; Жанр_131
-Genre_132; Жанр_132
-Genre_133; Жанр_133
-Genre_134; Жанр_134
-Genre_135; Жанр_135
-Genre_136; Жанр_136
-Genre_137; Жанр_137
-Genre_138; Жанр_138
-Genre_139; Жанр_139
-Genre_140; Жанр_140
-Genre_141; Жанр_141
-Genre_142; Жанр_142
-Genre_143; Жанр_143
-Genre_144; Жанр_144
-Genre_145; Жанр_145
-Genre_146; Жанр_146
-Genre_147; Жанр_147
+Genre_001; Ð–Ð°Ð½Ñ€_001
+Genre_002; Ð–Ð°Ð½Ñ€_002
+Genre_003; Ð–Ð°Ð½Ñ€_003
+Genre_004; Ð–Ð°Ð½Ñ€_004
+Genre_005; Ð–Ð°Ð½Ñ€_005
+Genre_006; Ð–Ð°Ð½Ñ€_006
+Genre_007; Ð–Ð°Ð½Ñ€_007
+Genre_008; Ð–Ð°Ð½Ñ€_008
+Genre_009; Ð–Ð°Ð½Ñ€_009
+Genre_010; Ð–Ð°Ð½Ñ€_010
+Genre_011; Ð–Ð°Ð½Ñ€_011
+Genre_012; Ð–Ð°Ð½Ñ€_012
+Genre_013; Ð–Ð°Ð½Ñ€_013
+Genre_014; Ð–Ð°Ð½Ñ€_014
+Genre_015; Ð–Ð°Ð½Ñ€_015
+Genre_016; Ð–Ð°Ð½Ñ€_016
+Genre_017; Ð–Ð°Ð½Ñ€_017
+Genre_018; Ð–Ð°Ð½Ñ€_018
+Genre_019; Ð–Ð°Ð½Ñ€_019
+Genre_020; Ð–Ð°Ð½Ñ€_020
+Genre_021; Ð–Ð°Ð½Ñ€_021
+Genre_022; Ð–Ð°Ð½Ñ€_022
+Genre_023; Ð–Ð°Ð½Ñ€_023
+Genre_024; Ð–Ð°Ð½Ñ€_024
+Genre_025; Ð–Ð°Ð½Ñ€_025
+Genre_026; Ð–Ð°Ð½Ñ€_026
+Genre_027; Ð–Ð°Ð½Ñ€_027
+Genre_028; Ð–Ð°Ð½Ñ€_028
+Genre_029; Ð–Ð°Ð½Ñ€_029
+Genre_030; Ð–Ð°Ð½Ñ€_030
+Genre_031; Ð–Ð°Ð½Ñ€_031
+Genre_032; Ð–Ð°Ð½Ñ€_032
+Genre_033; Ð–Ð°Ð½Ñ€_033
+Genre_034; Ð–Ð°Ð½Ñ€_034
+Genre_035; Ð–Ð°Ð½Ñ€_035
+Genre_036; Ð–Ð°Ð½Ñ€_036
+Genre_037; Ð–Ð°Ð½Ñ€_037
+Genre_038; Ð–Ð°Ð½Ñ€_038
+Genre_039; Ð–Ð°Ð½Ñ€_039
+Genre_040; Ð–Ð°Ð½Ñ€_040
+Genre_041; Ð–Ð°Ð½Ñ€_041
+Genre_042; Ð–Ð°Ð½Ñ€_042
+Genre_043; Ð–Ð°Ð½Ñ€_043
+Genre_044; Ð–Ð°Ð½Ñ€_044
+Genre_045; Ð–Ð°Ð½Ñ€_045
+Genre_046; Ð–Ð°Ð½Ñ€_046
+Genre_047; Ð–Ð°Ð½Ñ€_047
+Genre_048; Ð–Ð°Ð½Ñ€_048
+Genre_049; Ð–Ð°Ð½Ñ€_049
+Genre_050; Ð–Ð°Ð½Ñ€_050
+Genre_051; Ð–Ð°Ð½Ñ€_051
+Genre_052; Ð–Ð°Ð½Ñ€_052
+Genre_053; Ð–Ð°Ð½Ñ€_053
+Genre_054; Ð–Ð°Ð½Ñ€_054
+Genre_055; Ð–Ð°Ð½Ñ€_055
+Genre_056; Ð–Ð°Ð½Ñ€_056
+Genre_057; Ð–Ð°Ð½Ñ€_057
+Genre_058; Ð–Ð°Ð½Ñ€_058
+Genre_059; Ð–Ð°Ð½Ñ€_059
+Genre_060; Ð–Ð°Ð½Ñ€_060
+Genre_061; Ð–Ð°Ð½Ñ€_061
+Genre_062; Ð–Ð°Ð½Ñ€_062
+Genre_063; Ð–Ð°Ð½Ñ€_063
+Genre_064; Ð–Ð°Ð½Ñ€_064
+Genre_065; Ð–Ð°Ð½Ñ€_065
+Genre_066; Ð–Ð°Ð½Ñ€_066
+Genre_067; Ð–Ð°Ð½Ñ€_067
+Genre_068; Ð–Ð°Ð½Ñ€_068
+Genre_069; Ð–Ð°Ð½Ñ€_069
+Genre_070; Ð–Ð°Ð½Ñ€_070
+Genre_071; Ð–Ð°Ð½Ñ€_071
+Genre_072; Ð–Ð°Ð½Ñ€_072
+Genre_073; Ð–Ð°Ð½Ñ€_073
+Genre_074; Ð–Ð°Ð½Ñ€_074
+Genre_075; Ð–Ð°Ð½Ñ€_075
+Genre_076; Ð–Ð°Ð½Ñ€_076
+Genre_077; Ð–Ð°Ð½Ñ€_077
+Genre_078; Ð–Ð°Ð½Ñ€_078
+Genre_079; Ð–Ð°Ð½Ñ€_079
+Genre_080; Ð–Ð°Ð½Ñ€_080
+Genre_081; Ð–Ð°Ð½Ñ€_081
+Genre_082; Ð–Ð°Ð½Ñ€_082
+Genre_083; Ð–Ð°Ð½Ñ€_083
+Genre_084; Ð–Ð°Ð½Ñ€_084
+Genre_085; Ð–Ð°Ð½Ñ€_085
+Genre_086; Ð–Ð°Ð½Ñ€_086
+Genre_087; Ð–Ð°Ð½Ñ€_087
+Genre_088; Ð–Ð°Ð½Ñ€_088
+Genre_089; Ð–Ð°Ð½Ñ€_089
+Genre_090; Ð–Ð°Ð½Ñ€_090
+Genre_091; Ð–Ð°Ð½Ñ€_091
+Genre_092; Ð–Ð°Ð½Ñ€_092
+Genre_093; Ð–Ð°Ð½Ñ€_093
+Genre_094; Ð–Ð°Ð½Ñ€_094
+Genre_095; Ð–Ð°Ð½Ñ€_095
+Genre_096; Ð–Ð°Ð½Ñ€_096
+Genre_097; Ð–Ð°Ð½Ñ€_097
+Genre_098; Ð–Ð°Ð½Ñ€_098
+Genre_099; Ð–Ð°Ð½Ñ€_099
+Genre_100; Ð–Ð°Ð½Ñ€_100
+Genre_101; Ð–Ð°Ð½Ñ€_101
+Genre_102; Ð–Ð°Ð½Ñ€_102
+Genre_103; Ð–Ð°Ð½Ñ€_103
+Genre_104; Ð–Ð°Ð½Ñ€_104
+Genre_105; Ð–Ð°Ð½Ñ€_105
+Genre_106; Ð–Ð°Ð½Ñ€_106
+Genre_107; Ð–Ð°Ð½Ñ€_107
+Genre_108; Ð–Ð°Ð½Ñ€_108
+Genre_109; Ð–Ð°Ð½Ñ€_109
+Genre_110; Ð–Ð°Ð½Ñ€_110
+Genre_111; Ð–Ð°Ð½Ñ€_111
+Genre_112; Ð–Ð°Ð½Ñ€_112
+Genre_113; Ð–Ð°Ð½Ñ€_113
+Genre_114; Ð–Ð°Ð½Ñ€_114
+Genre_115; Ð–Ð°Ð½Ñ€_115
+Genre_116; Ð–Ð°Ð½Ñ€_116
+Genre_117; Ð–Ð°Ð½Ñ€_117
+Genre_118; Ð–Ð°Ð½Ñ€_118
+Genre_119; Ð–Ð°Ð½Ñ€_119
+Genre_120; Ð–Ð°Ð½Ñ€_120
+Genre_121; Ð–Ð°Ð½Ñ€_121
+Genre_122; Ð–Ð°Ð½Ñ€_122
+Genre_123; Ð–Ð°Ð½Ñ€_123
+Genre_124; Ð–Ð°Ð½Ñ€_124
+Genre_125; Ð–Ð°Ð½Ñ€_125
+Genre_126; Ð–Ð°Ð½Ñ€_126
+Genre_127; Ð–Ð°Ð½Ñ€_127
+Genre_128; Ð–Ð°Ð½Ñ€_128
+Genre_129; Ð–Ð°Ð½Ñ€_129
+Genre_130; Ð–Ð°Ð½Ñ€_130
+Genre_131; Ð–Ð°Ð½Ñ€_131
+Genre_132; Ð–Ð°Ð½Ñ€_132
+Genre_133; Ð–Ð°Ð½Ñ€_133
+Genre_134; Ð–Ð°Ð½Ñ€_134
+Genre_135; Ð–Ð°Ð½Ñ€_135
+Genre_136; Ð–Ð°Ð½Ñ€_136
+Genre_137; Ð–Ð°Ð½Ñ€_137
+Genre_138; Ð–Ð°Ð½Ñ€_138
+Genre_139; Ð–Ð°Ð½Ñ€_139
+Genre_140; Ð–Ð°Ð½Ñ€_140
+Genre_141; Ð–Ð°Ð½Ñ€_141
+Genre_142; Ð–Ð°Ð½Ñ€_142
+Genre_143; Ð–Ð°Ð½Ñ€_143
+Genre_144; Ð–Ð°Ð½Ñ€_144
+Genre_145; Ð–Ð°Ð½Ñ€_145
+Genre_146; Ð–Ð°Ð½Ñ€_146
+Genre_147; Ð–Ð°Ð½Ñ€_147
 Genre_148;
 Genre_149;
 Genre_150;
@@ -551,206 +551,206 @@ Genre_188;
 Genre_189;
 Genre_190;
 Genre_191;
-Go to WebSite;Към Уебсайта
+Go to WebSite;ÐšÑŠÐ¼ Ð£ÐµÐ±ÑÐ°Ð¹Ñ‚Ð°
 Grouping;
-h;х
-Header file;Хедър файл
-Height;Височина
-Height_Original;Оригинална_Височина
-Help;Помощ
-Hint;Подсказване
-How many audio streams?;Колко аудио потоци?
-How many chapters streams?;Колко глави потоци?
-How many text streams?;Колко текстови потоци?
-How many video streams?;Колко видео потоци?
+h;Ñ…
+Header file;Ð¥ÐµÐ´ÑŠÑ€ Ñ„Ð°Ð¹Ð»
+Height;Ð’Ð¸ÑÐ¾Ñ‡Ð¸Ð½Ð°
+Height_Original;ÐžÑ€Ð¸Ð³Ð¸Ð½Ð°Ð»Ð½Ð°_Ð’Ð¸ÑÐ¾Ñ‡Ð¸Ð½Ð°
+Help;ÐŸÐ¾Ð¼Ð¾Ñ‰
+Hint;ÐŸÐ¾Ð´ÑÐºÐ°Ð·Ð²Ð°Ð½Ðµ
+How many audio streams?;ÐšÐ¾Ð»ÐºÐ¾ Ð°ÑƒÐ´Ð¸Ð¾ Ð¿Ð¾Ñ‚Ð¾Ñ†Ð¸?
+How many chapters streams?;ÐšÐ¾Ð»ÐºÐ¾ Ð³Ð»Ð°Ð²Ð¸ Ð¿Ð¾Ñ‚Ð¾Ñ†Ð¸?
+How many text streams?;ÐšÐ¾Ð»ÐºÐ¾ Ñ‚ÐµÐºÑÑ‚Ð¾Ð²Ð¸ Ð¿Ð¾Ñ‚Ð¾Ñ†Ð¸?
+How many video streams?;ÐšÐ¾Ð»ÐºÐ¾ Ð²Ð¸Ð´ÐµÐ¾ Ð¿Ð¾Ñ‚Ð¾Ñ†Ð¸?
 HTML;HTML
-ID;ИД
-Image;Изображение
-Image stream(s);Изображение Поток(ци)
-Image_Codec_List;Изображение_Кодек_Списък
-ImageCount;ИзображениеБрой
-Info;Инфо
-Instruments;Инструменти
-Interlacement;Сплитане
-Interlaced_Interlaced;Сплетен_Сплетен
-Interlaced_TFF;Сплетен_ТФФ
-Interlaced_BFF;Сплетен_ВФФ
-Interlaced_PPF;Сплетен_ППФ
-Interlaced_Progressive;Сплетен_Прогресивен
+ID;Ð˜Ð”
+Image;Ð˜Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ðµ
+Image stream(s);Ð˜Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ðµ ÐŸÐ¾Ñ‚Ð¾Ðº(Ñ†Ð¸)
+Image_Codec_List;Ð˜Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ðµ_ÐšÐ¾Ð´ÐµÐº_Ð¡Ð¿Ð¸ÑÑŠÐº
+ImageCount;Ð˜Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸ÐµÐ‘Ñ€Ð¾Ð¹
+Info;Ð˜Ð½Ñ„Ð¾
+Instruments;Ð˜Ð½ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ‚Ð¸
+Interlacement;Ð¡Ð¿Ð»Ð¸Ñ‚Ð°Ð½Ðµ
+Interlaced_Interlaced;Ð¡Ð¿Ð»ÐµÑ‚ÐµÐ½_Ð¡Ð¿Ð»ÐµÑ‚ÐµÐ½
+Interlaced_TFF;Ð¡Ð¿Ð»ÐµÑ‚ÐµÐ½_Ð¢Ð¤Ð¤
+Interlaced_BFF;Ð¡Ð¿Ð»ÐµÑ‚ÐµÐ½_Ð’Ð¤Ð¤
+Interlaced_PPF;Ð¡Ð¿Ð»ÐµÑ‚ÐµÐ½_ÐŸÐŸÐ¤
+Interlaced_Progressive;Ð¡Ð¿Ð»ÐµÑ‚ÐµÐ½_ÐŸÑ€Ð¾Ð³Ñ€ÐµÑÐ¸Ð²ÐµÐ½
 Interleaved;
-Interleave_Duration;Разнообразен_Продължителност
-Interleave_Preload;Разнообразен_Презареден
-Interleave_VideoFrames;Разнообразен_ВидеоКадри
+Interleave_Duration;Ð Ð°Ð·Ð½Ð¾Ð¾Ð±Ñ€Ð°Ð·ÐµÐ½_ÐŸÑ€Ð¾Ð´ÑŠÐ»Ð¶Ð¸Ñ‚ÐµÐ»Ð½Ð¾ÑÑ‚
+Interleave_Preload;Ð Ð°Ð·Ð½Ð¾Ð¾Ð±Ñ€Ð°Ð·ÐµÐ½_ÐŸÑ€ÐµÐ·Ð°Ñ€ÐµÐ´ÐµÐ½
+Interleave_VideoFrames;Ð Ð°Ð·Ð½Ð¾Ð¾Ð±Ñ€Ð°Ð·ÐµÐ½_Ð’Ð¸Ð´ÐµÐ¾ÐšÐ°Ð´Ñ€Ð¸
 InternetMediaType;
-IRCA;ИРСА
-ISBN;ИСБН
-ISRC;ИСРК
-Keywords;Тагове
-Known codecs;Познати кодеци
-Known formats;Познати Формати
-Known parameters;Познати Параметри
-Label;Етикет
-Language;Език
-Language_More;Език_Повече
-Language_aa;Език_аа
-Language_ab;Език_аб
-Language_ae;Език_ае
-Language_af;Език_аф
-Language_ak;Език_ак
-Language_am;Език_ам
-Language_an;Език_ан
-Language_ar;Език_ан
-Language_as;Език_ас
-Language_av;Език_ав
-Language_ay;Език_ай
-Language_az;Език_аз
-Language_ba;Език_ба
-Language_be;Език_бе
-Language_bg;Език_бг
-Language_bh;Език_бх
-Language_bi;Език_би
-Language_bm;Език_бм
-Language_bn;Език_бн
-Language_bo;Език_бо
-Language_br;Език_бр
-Language_bs;Език_бс
-Language_ca;Език_ка
-Language_ce;Език_ке
-Language_ch;Език_чи
-Language_co;Език_ко
-Language_cr;Език_кр
-Language_cs;Език_че
-Language_cu;Език_ку
-Language_cv;Език_кв
-Language_cy;Език_ки
-Language_da;Език_да
-Language_de;Език_де
-Language_dv;Език_дв
-Language_dz;Език_дз
-Language_ee;Език_ее
-Language_el;Език_ел
-Language_en;Език_ен
-Language_en-gb;Език_ен–гб
-Language_en-us;Език_ен-юс
-Language_eo;Език_ео
-Language_es;Език_ес
-Language_et;Език_ет
-Language_eu;Език_еу
-Language_fa;Език_фа
-Language_ff;Език_фф
-Language_fi;Език_фи
-Language_fj;Език_фй
-Language_fo;Език_фо
-Language_fr;Език_фр
-Language_fy;Език_фе
-Language_ga;Език_га
-Language_gd;Език_гд
-Language_gl;Език_гл
-Language_gn;Език_гн
-Language_gu;Език_гу
-Language_gv;Език_гв
-Language_ha;Език_ха
-Language_he;Език_хе
-Language_hi;Език_хи
-Language_ho;Език_хо
-Language_hr;Език_хр
-Language_ht;Език_хт
-Language_hu;Език_ху
-Language_hy;Език_хй
-Language_hz;Език_хз
-Language_ia;Език_иа
-Language_id;Език_ид
-Language_ie;Език_ие
-Language_ig;Език_иг
-Language_ii;Език_ии
-Language_ik;Език_ик
-Language_Info;Език_Инфо
-Language_io;Език_ио
-Language_is;Език_ис
-Language_it;Език_ит
-Language_iu;Език_иу
-Language_ja;Език_яа
-Language_jv;Език_яв
-Language_ka;Език_ка
-Language_kg;Език_кг
-Language_ki;Език_ки
-Language_kj;Език_кя
-Language_kk;Език_кк
-Language_kl;Език_кл
-Language_km;Език_км
-Language_kn;Език_кн
-Language_ko;Език_ко
-Language_kr;Език_кр
-Language_ks;Език_кс
-Language_ku;Език_ку
-Language_kv;Език_кв
-Language_kw;Език_кю
-Language_ky;Език_кя
-Language_la;Език_ла
-Language_lb;Език_лб
-Language_lg;Език_лг
-Language_li;Език_ли
-Language_ln;Език_лн
-Language_lo;Език_ло
-Language_lt;Език_лт
-Language_lu;Език_лу
-Language_lv;Език_лв
-Language_mg;Език_мг
-Language_mh;Език_мх
-Language_mi;Език_ми
-Language_mk;Език_мк
-Language_ml;Език_мл
-Language_mn;Език_мн
-Language_mo;Език_мо
-Language_mr;Език_мр
-Language_ms;Език_мс
-Language_mt;Език_мт
-Language_mul;Език_мул
-Language_my;Език_мя
-Language_na;Език_на
-Language_nb;Език_нб
-Language_nd;Език_нд
-Language_ne;Език_не
-Language_ng;Език_нг
-Language_nl;Език_нл
-Language_nn;Език_нн
-Language_no;Език_но
-Language_nr;Език_нр
-Language_nv;Език_нв
-Language_ny;Език_ня
-Language_oc;Език_ос
-Language_oj;Език_ой
-Language_om;Език_ом
-Language_or;Език_ор
-Language_os;Език_ос
-Language_pa;Език_па
-Language_pi;Език_пи
-Language_pl;Език_пл
-Language_ps;Език_пс
-Language_pt;Език_пт
-Language_pt-br;Език_пт-бр
-Language_qu;Език_ку
-Language_rm;Език_рм
-Language_rn;Език_рн
-Language_ro;Език_ро
-Language_ru;Език_ру
-Language_rw;Език_рв
-Language_sa;Език_са
-Language_sc;Език_сц
-Language_sd;Език_сд
-Language_se;Език_се
-Language_sg;Език_сг
-Language_si;Език_си
-Language_sk;Език_ск
-Language_sl;Език_сл
-Language_sm;Език_см
-Language_sn;Език_сн
-Language_so;Език_со
-Language_sq;Език_ся
-Language_sr;Език_ср
-Language_ss;Език_сс
-Language_st;Език_ст
-Language_su;Език_су
+IRCA;Ð˜Ð Ð¡Ð
+ISBN;Ð˜Ð¡Ð‘Ð
+ISRC;Ð˜Ð¡Ð Ðš
+Keywords;Ð¢Ð°Ð³Ð¾Ð²Ðµ
+Known codecs;ÐŸÐ¾Ð·Ð½Ð°Ñ‚Ð¸ ÐºÐ¾Ð´ÐµÑ†Ð¸
+Known formats;ÐŸÐ¾Ð·Ð½Ð°Ñ‚Ð¸ Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚Ð¸
+Known parameters;ÐŸÐ¾Ð·Ð½Ð°Ñ‚Ð¸ ÐŸÐ°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¸
+Label;Ð•Ñ‚Ð¸ÐºÐµÑ‚
+Language;Ð•Ð·Ð¸Ðº
+Language_More;Ð•Ð·Ð¸Ðº_ÐŸÐ¾Ð²ÐµÑ‡Ðµ
+Language_aa;Ð•Ð·Ð¸Ðº_Ð°Ð°
+Language_ab;Ð•Ð·Ð¸Ðº_Ð°Ð±
+Language_ae;Ð•Ð·Ð¸Ðº_Ð°Ðµ
+Language_af;Ð•Ð·Ð¸Ðº_Ð°Ñ„
+Language_ak;Ð•Ð·Ð¸Ðº_Ð°Ðº
+Language_am;Ð•Ð·Ð¸Ðº_Ð°Ð¼
+Language_an;Ð•Ð·Ð¸Ðº_Ð°Ð½
+Language_ar;Ð•Ð·Ð¸Ðº_Ð°Ð½
+Language_as;Ð•Ð·Ð¸Ðº_Ð°Ñ
+Language_av;Ð•Ð·Ð¸Ðº_Ð°Ð²
+Language_ay;Ð•Ð·Ð¸Ðº_Ð°Ð¹
+Language_az;Ð•Ð·Ð¸Ðº_Ð°Ð·
+Language_ba;Ð•Ð·Ð¸Ðº_Ð±Ð°
+Language_be;Ð•Ð·Ð¸Ðº_Ð±Ðµ
+Language_bg;Ð•Ð·Ð¸Ðº_Ð±Ð³
+Language_bh;Ð•Ð·Ð¸Ðº_Ð±Ñ…
+Language_bi;Ð•Ð·Ð¸Ðº_Ð±Ð¸
+Language_bm;Ð•Ð·Ð¸Ðº_Ð±Ð¼
+Language_bn;Ð•Ð·Ð¸Ðº_Ð±Ð½
+Language_bo;Ð•Ð·Ð¸Ðº_Ð±Ð¾
+Language_br;Ð•Ð·Ð¸Ðº_Ð±Ñ€
+Language_bs;Ð•Ð·Ð¸Ðº_Ð±Ñ
+Language_ca;Ð•Ð·Ð¸Ðº_ÐºÐ°
+Language_ce;Ð•Ð·Ð¸Ðº_ÐºÐµ
+Language_ch;Ð•Ð·Ð¸Ðº_Ñ‡Ð¸
+Language_co;Ð•Ð·Ð¸Ðº_ÐºÐ¾
+Language_cr;Ð•Ð·Ð¸Ðº_ÐºÑ€
+Language_cs;Ð•Ð·Ð¸Ðº_Ñ‡Ðµ
+Language_cu;Ð•Ð·Ð¸Ðº_ÐºÑƒ
+Language_cv;Ð•Ð·Ð¸Ðº_ÐºÐ²
+Language_cy;Ð•Ð·Ð¸Ðº_ÐºÐ¸
+Language_da;Ð•Ð·Ð¸Ðº_Ð´Ð°
+Language_de;Ð•Ð·Ð¸Ðº_Ð´Ðµ
+Language_dv;Ð•Ð·Ð¸Ðº_Ð´Ð²
+Language_dz;Ð•Ð·Ð¸Ðº_Ð´Ð·
+Language_ee;Ð•Ð·Ð¸Ðº_ÐµÐµ
+Language_el;Ð•Ð·Ð¸Ðº_ÐµÐ»
+Language_en;Ð•Ð·Ð¸Ðº_ÐµÐ½
+Language_en-gb;Ð•Ð·Ð¸Ðº_ÐµÐ½â€“Ð³Ð±
+Language_en-us;Ð•Ð·Ð¸Ðº_ÐµÐ½-ÑŽÑ
+Language_eo;Ð•Ð·Ð¸Ðº_ÐµÐ¾
+Language_es;Ð•Ð·Ð¸Ðº_ÐµÑ
+Language_et;Ð•Ð·Ð¸Ðº_ÐµÑ‚
+Language_eu;Ð•Ð·Ð¸Ðº_ÐµÑƒ
+Language_fa;Ð•Ð·Ð¸Ðº_Ñ„Ð°
+Language_ff;Ð•Ð·Ð¸Ðº_Ñ„Ñ„
+Language_fi;Ð•Ð·Ð¸Ðº_Ñ„Ð¸
+Language_fj;Ð•Ð·Ð¸Ðº_Ñ„Ð¹
+Language_fo;Ð•Ð·Ð¸Ðº_Ñ„Ð¾
+Language_fr;Ð•Ð·Ð¸Ðº_Ñ„Ñ€
+Language_fy;Ð•Ð·Ð¸Ðº_Ñ„Ðµ
+Language_ga;Ð•Ð·Ð¸Ðº_Ð³Ð°
+Language_gd;Ð•Ð·Ð¸Ðº_Ð³Ð´
+Language_gl;Ð•Ð·Ð¸Ðº_Ð³Ð»
+Language_gn;Ð•Ð·Ð¸Ðº_Ð³Ð½
+Language_gu;Ð•Ð·Ð¸Ðº_Ð³Ñƒ
+Language_gv;Ð•Ð·Ð¸Ðº_Ð³Ð²
+Language_ha;Ð•Ð·Ð¸Ðº_Ñ…Ð°
+Language_he;Ð•Ð·Ð¸Ðº_Ñ…Ðµ
+Language_hi;Ð•Ð·Ð¸Ðº_Ñ…Ð¸
+Language_ho;Ð•Ð·Ð¸Ðº_Ñ…Ð¾
+Language_hr;Ð•Ð·Ð¸Ðº_Ñ…Ñ€
+Language_ht;Ð•Ð·Ð¸Ðº_Ñ…Ñ‚
+Language_hu;Ð•Ð·Ð¸Ðº_Ñ…Ñƒ
+Language_hy;Ð•Ð·Ð¸Ðº_Ñ…Ð¹
+Language_hz;Ð•Ð·Ð¸Ðº_Ñ…Ð·
+Language_ia;Ð•Ð·Ð¸Ðº_Ð¸Ð°
+Language_id;Ð•Ð·Ð¸Ðº_Ð¸Ð´
+Language_ie;Ð•Ð·Ð¸Ðº_Ð¸Ðµ
+Language_ig;Ð•Ð·Ð¸Ðº_Ð¸Ð³
+Language_ii;Ð•Ð·Ð¸Ðº_Ð¸Ð¸
+Language_ik;Ð•Ð·Ð¸Ðº_Ð¸Ðº
+Language_Info;Ð•Ð·Ð¸Ðº_Ð˜Ð½Ñ„Ð¾
+Language_io;Ð•Ð·Ð¸Ðº_Ð¸Ð¾
+Language_is;Ð•Ð·Ð¸Ðº_Ð¸Ñ
+Language_it;Ð•Ð·Ð¸Ðº_Ð¸Ñ‚
+Language_iu;Ð•Ð·Ð¸Ðº_Ð¸Ñƒ
+Language_ja;Ð•Ð·Ð¸Ðº_ÑÐ°
+Language_jv;Ð•Ð·Ð¸Ðº_ÑÐ²
+Language_ka;Ð•Ð·Ð¸Ðº_ÐºÐ°
+Language_kg;Ð•Ð·Ð¸Ðº_ÐºÐ³
+Language_ki;Ð•Ð·Ð¸Ðº_ÐºÐ¸
+Language_kj;Ð•Ð·Ð¸Ðº_ÐºÑ
+Language_kk;Ð•Ð·Ð¸Ðº_ÐºÐº
+Language_kl;Ð•Ð·Ð¸Ðº_ÐºÐ»
+Language_km;Ð•Ð·Ð¸Ðº_ÐºÐ¼
+Language_kn;Ð•Ð·Ð¸Ðº_ÐºÐ½
+Language_ko;Ð•Ð·Ð¸Ðº_ÐºÐ¾
+Language_kr;Ð•Ð·Ð¸Ðº_ÐºÑ€
+Language_ks;Ð•Ð·Ð¸Ðº_ÐºÑ
+Language_ku;Ð•Ð·Ð¸Ðº_ÐºÑƒ
+Language_kv;Ð•Ð·Ð¸Ðº_ÐºÐ²
+Language_kw;Ð•Ð·Ð¸Ðº_ÐºÑŽ
+Language_ky;Ð•Ð·Ð¸Ðº_ÐºÑ
+Language_la;Ð•Ð·Ð¸Ðº_Ð»Ð°
+Language_lb;Ð•Ð·Ð¸Ðº_Ð»Ð±
+Language_lg;Ð•Ð·Ð¸Ðº_Ð»Ð³
+Language_li;Ð•Ð·Ð¸Ðº_Ð»Ð¸
+Language_ln;Ð•Ð·Ð¸Ðº_Ð»Ð½
+Language_lo;Ð•Ð·Ð¸Ðº_Ð»Ð¾
+Language_lt;Ð•Ð·Ð¸Ðº_Ð»Ñ‚
+Language_lu;Ð•Ð·Ð¸Ðº_Ð»Ñƒ
+Language_lv;Ð•Ð·Ð¸Ðº_Ð»Ð²
+Language_mg;Ð•Ð·Ð¸Ðº_Ð¼Ð³
+Language_mh;Ð•Ð·Ð¸Ðº_Ð¼Ñ…
+Language_mi;Ð•Ð·Ð¸Ðº_Ð¼Ð¸
+Language_mk;Ð•Ð·Ð¸Ðº_Ð¼Ðº
+Language_ml;Ð•Ð·Ð¸Ðº_Ð¼Ð»
+Language_mn;Ð•Ð·Ð¸Ðº_Ð¼Ð½
+Language_mo;Ð•Ð·Ð¸Ðº_Ð¼Ð¾
+Language_mr;Ð•Ð·Ð¸Ðº_Ð¼Ñ€
+Language_ms;Ð•Ð·Ð¸Ðº_Ð¼Ñ
+Language_mt;Ð•Ð·Ð¸Ðº_Ð¼Ñ‚
+Language_mul;Ð•Ð·Ð¸Ðº_Ð¼ÑƒÐ»
+Language_my;Ð•Ð·Ð¸Ðº_Ð¼Ñ
+Language_na;Ð•Ð·Ð¸Ðº_Ð½Ð°
+Language_nb;Ð•Ð·Ð¸Ðº_Ð½Ð±
+Language_nd;Ð•Ð·Ð¸Ðº_Ð½Ð´
+Language_ne;Ð•Ð·Ð¸Ðº_Ð½Ðµ
+Language_ng;Ð•Ð·Ð¸Ðº_Ð½Ð³
+Language_nl;Ð•Ð·Ð¸Ðº_Ð½Ð»
+Language_nn;Ð•Ð·Ð¸Ðº_Ð½Ð½
+Language_no;Ð•Ð·Ð¸Ðº_Ð½Ð¾
+Language_nr;Ð•Ð·Ð¸Ðº_Ð½Ñ€
+Language_nv;Ð•Ð·Ð¸Ðº_Ð½Ð²
+Language_ny;Ð•Ð·Ð¸Ðº_Ð½Ñ
+Language_oc;Ð•Ð·Ð¸Ðº_Ð¾Ñ
+Language_oj;Ð•Ð·Ð¸Ðº_Ð¾Ð¹
+Language_om;Ð•Ð·Ð¸Ðº_Ð¾Ð¼
+Language_or;Ð•Ð·Ð¸Ðº_Ð¾Ñ€
+Language_os;Ð•Ð·Ð¸Ðº_Ð¾Ñ
+Language_pa;Ð•Ð·Ð¸Ðº_Ð¿Ð°
+Language_pi;Ð•Ð·Ð¸Ðº_Ð¿Ð¸
+Language_pl;Ð•Ð·Ð¸Ðº_Ð¿Ð»
+Language_ps;Ð•Ð·Ð¸Ðº_Ð¿Ñ
+Language_pt;Ð•Ð·Ð¸Ðº_Ð¿Ñ‚
+Language_pt-br;Ð•Ð·Ð¸Ðº_Ð¿Ñ‚-Ð±Ñ€
+Language_qu;Ð•Ð·Ð¸Ðº_ÐºÑƒ
+Language_rm;Ð•Ð·Ð¸Ðº_Ñ€Ð¼
+Language_rn;Ð•Ð·Ð¸Ðº_Ñ€Ð½
+Language_ro;Ð•Ð·Ð¸Ðº_Ñ€Ð¾
+Language_ru;Ð•Ð·Ð¸Ðº_Ñ€Ñƒ
+Language_rw;Ð•Ð·Ð¸Ðº_Ñ€Ð²
+Language_sa;Ð•Ð·Ð¸Ðº_ÑÐ°
+Language_sc;Ð•Ð·Ð¸Ðº_ÑÑ†
+Language_sd;Ð•Ð·Ð¸Ðº_ÑÐ´
+Language_se;Ð•Ð·Ð¸Ðº_ÑÐµ
+Language_sg;Ð•Ð·Ð¸Ðº_ÑÐ³
+Language_si;Ð•Ð·Ð¸Ðº_ÑÐ¸
+Language_sk;Ð•Ð·Ð¸Ðº_ÑÐº
+Language_sl;Ð•Ð·Ð¸Ðº_ÑÐ»
+Language_sm;Ð•Ð·Ð¸Ðº_ÑÐ¼
+Language_sn;Ð•Ð·Ð¸Ðº_ÑÐ½
+Language_so;Ð•Ð·Ð¸Ðº_ÑÐ¾
+Language_sq;Ð•Ð·Ð¸Ðº_ÑÑ
+Language_sr;Ð•Ð·Ð¸Ðº_ÑÑ€
+Language_ss;Ð•Ð·Ð¸Ðº_ÑÑ
+Language_st;Ð•Ð·Ð¸Ðº_ÑÑ‚
+Language_su;Ð•Ð·Ð¸Ðº_ÑÑƒ
 Language_sv;
 Language_sw;
 Language_ta;
@@ -784,248 +784,249 @@ Language_zh;
 Language_zh-cn;
 Language_zh-tw;
 Language_zu;
-LawRating;НисъкРейтинг
-LCCN;ЛССН
-Library;Библиотека
-Lightness;Осветеност
-List;Списък
-Lyrics;Текстове
-Lyricist;Поет
-Mastered_Date;Дата изработка
-MasteredBy;ИзработкаОт
-matrix_coefficients;мартица_коефициент
-MediaInfo_About;Медиа Инфо_За
-Menu;Меню
-Menu stream(s);Меню поток(ци)
-Menu_Codec_List;Меню_Кодек_Списък
-Menu_No;Меню_Но
-MenuCount;МенюБрой
-Menu_Hint;Меню_Подсказване
-MenuID;МенюИД
-mn;мн
-Mood;Настроение
-More;Повече
-Movie;Филм
-ms;мс
-MSDI;МСДИ
-MusicBy;МузикаОт
-MuxingMode;МюксингРежим
-MuxingMode_MoreInfo;МюксингРежим_ПовечеИнфо
-MuxingMode_PackedBitstream;МюксингРежим_ПакетБитПоток
-Name;Име
-Nationality;Националност
-NetworkName;МрежаИме
-New;Нов
-Newest version;Най-новата версия
-NewVersion_Menu;НоваВерсия_Меню
-NewVersion_Question_Title;НоваВерсия_Въпрос_Име
-NewVersion_Question_Content;НоваВерсия_Въпрос_Съдържание
-No;Не
-Not yet;Още не
-NumColors;НомерЦветове
-OK;Да
-One output file per input file;Един изходящ при един входящ файл
-Open;Отвори
-OpenCandy_01;ОпенКанди_01
-OpenCandy_02;ОпенКанди_02
-OpenCandy_03;ОпенКанди_03
-OpenCandy_04;ОпенКанди_04
-OpenCandy_05;ОпенКанди_05
-OpenCandy_06;ОпенКанди_06
-OpenCandy_07;ОпенКанди_07
-OpenCandy_08;ОпенКанди_08
-OpenCandy_09;ОпенКанди_09
-OpenCandy_10;ОпенКанди_10
-OpenCandy_11;ОпенКанди_11
-OpenCandy_12;ОпенКанди_12
-OpenCandy_13;ОпенКанди_13
-OpenCandy_14;ОпенКанди_14
-OpenCandy_15;ОпенКанди_15
-OpenCandy_16;ОпенКанди_16
-OpenCandy_17;ОпенКанди_17
-OpenCandy_18;ОпенКанди_18
-OpenCandy_19;ОпенКанди_19
-OpenCandy_20;ОпенКанди_20
-OpenCandy_21;ОпенКанди_21
-OpenCandy_22;ОпенКанди_22
-OpenCandy_23;ОпенКанди_23
-OpenCandy_24;ОпенКанди_24
-OpenCandy_25;ОпенКанди_25
-OpenCandy_26;ОпенКанди_26
-OpenCandy_27;ОпенКанди_27
-OpenCandy_28;ОпенКанди_28
-OpenCandy_29;ОпенКанди_29
-OpenCandy_30;ОпенКанди_30
-OpenCandy_31;ОпенКанди_31
-OpenCandy_32;ОпенКанди_32
-OpenCandy_33;ОпенКанди_33
-OpenCandy_34;ОпенКанди_34
-OpenCandy_35;ОпенКанди_35
-OpenCandy_36;ОпенКанди_36
-Options;Опций
-Options_Hint;Опций_Подсказване
-Original;Оригинал
-OriginalNetworkName;ОригиналноМрежаИме
-OriginalSourceForm;ОригиналенИзточникФормуляр
-OriginalSourceMedium;ОригиналенИзточникНосител
-Other;Други
-Output;Изходящ
-Output format;Изходящ Формат
-OverallBitRate;ОбщаБитСкорост
-OverallBitRate_Maximum;ОбщаБитСкорост_Максимум
-OverallBitRate_Minimum;ОбщаБитСкорост_Минимум
-OverallBitRate_Mode;ОбщаБитСкорост_Режим
-OverallBitRate_Nominal;ОбщаБитСкорост_Номинал
-Part;Част
-Part_Count;Част_Брой
-Performer;Изпълнител
-Period;Период
-Phone;Телефон
-PixelAspectRatio;ПикселСъотношение
-PixelAspectRatio_Original;ПикселСъотношение_Оргинал
-PlayCounter;ИзпълнителенБрояч
-Played_Count;Изпълнени_Брой
-Played_First_Date;Изпълнени_Първа_Дата
-Played_Last_Date;Изпълнени_Последна_Дата
-PlayTime;ВремеИзпълнение
-Position;Позиция
-Position_Total;Позиция_Обща
-Preferences;Настройки
-Producer;Продуцент
-ProductionDesigner;ДизайнерПродукция
-ProductionStudio;ПродукционноСтудио
-Publisher;Издател
-Purchased_Date;ДатаПоръчан
-Quote character;Цитат характер
-RadioStation;РадиоСтанция
-Rating;Рейтинг
-Recorded_Date;Запис_Дата
-Recorded_Location;Запис_Локация
-Released_Date;Издаден_Дата
-RemixedBy;РемиксОт
-ReplayGain_Gain;УсилващоПовторение_Усилване
-ReplayGain_Peak;УсилващоПовторение_Усилване_Връх
-Resolution;Резолюция
-s;с
-SamplingRate;ВъзпроизвежданеСкорост
-Save;Запази
-ScanType;СканиранеТип
+LawRating;ÐÐ¸ÑÑŠÐºÐ ÐµÐ¹Ñ‚Ð¸Ð½Ð³
+LCCN;Ð›Ð¡Ð¡Ð
+Library;Ð‘Ð¸Ð±Ð»Ð¸Ð¾Ñ‚ÐµÐºÐ°
+Lightness;ÐžÑÐ²ÐµÑ‚ÐµÐ½Ð¾ÑÑ‚
+List;Ð¡Ð¿Ð¸ÑÑŠÐº
+Lyrics;Ð¢ÐµÐºÑÑ‚Ð¾Ð²Ðµ
+Lyricist;ÐŸÐ¾ÐµÑ‚
+Mastered_Date;Ð”Ð°Ñ‚Ð° Ð¸Ð·Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ°
+MasteredBy;Ð˜Ð·Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ°ÐžÑ‚
+matrix_coefficients;Ð¼Ð°Ñ€Ñ‚Ð¸Ñ†Ð°_ÐºÐ¾ÐµÑ„Ð¸Ñ†Ð¸ÐµÐ½Ñ‚
+MediaInfo_About;ÐœÐµÐ´Ð¸Ð° Ð˜Ð½Ñ„Ð¾_Ð—Ð°
+Menu;ÐœÐµÐ½ÑŽ
+Menu stream(s);ÐœÐµÐ½ÑŽ Ð¿Ð¾Ñ‚Ð¾Ðº(Ñ†Ð¸)
+Menu_Codec_List;ÐœÐµÐ½ÑŽ_ÐšÐ¾Ð´ÐµÐº_Ð¡Ð¿Ð¸ÑÑŠÐº
+Menu_No;ÐœÐµÐ½ÑŽ_ÐÐ¾
+MenuCount;ÐœÐµÐ½ÑŽÐ‘Ñ€Ð¾Ð¹
+Menu_Hint;ÐœÐµÐ½ÑŽ_ÐŸÐ¾Ð´ÑÐºÐ°Ð·Ð²Ð°Ð½Ðµ
+MenuID;ÐœÐµÐ½ÑŽÐ˜Ð”
+mn;Ð¼Ð½
+Mood;ÐÐ°ÑÑ‚Ñ€Ð¾ÐµÐ½Ð¸Ðµ
+More;ÐŸÐ¾Ð²ÐµÑ‡Ðµ
+Movie;Ð¤Ð¸Ð»Ð¼
+ms;Ð¼Ñ
+MSDI;ÐœÐ¡Ð”Ð˜
+MusicBy;ÐœÑƒÐ·Ð¸ÐºÐ°ÐžÑ‚
+MuxingMode;ÐœÑŽÐºÑÐ¸Ð½Ð³Ð ÐµÐ¶Ð¸Ð¼
+MuxingMode_MoreInfo;ÐœÑŽÐºÑÐ¸Ð½Ð³Ð ÐµÐ¶Ð¸Ð¼_ÐŸÐ¾Ð²ÐµÑ‡ÐµÐ˜Ð½Ñ„Ð¾
+MuxingMode_PackedBitstream;ÐœÑŽÐºÑÐ¸Ð½Ð³Ð ÐµÐ¶Ð¸Ð¼_ÐŸÐ°ÐºÐµÑ‚Ð‘Ð¸Ñ‚ÐŸÐ¾Ñ‚Ð¾Ðº
+Name;Ð˜Ð¼Ðµ
+Nationality;ÐÐ°Ñ†Ð¸Ð¾Ð½Ð°Ð»Ð½Ð¾ÑÑ‚
+NetworkName;ÐœÑ€ÐµÐ¶Ð°Ð˜Ð¼Ðµ
+New;ÐÐ¾Ð²
+Newest version;ÐÐ°Ð¹-Ð½Ð¾Ð²Ð°Ñ‚Ð° Ð²ÐµÑ€ÑÐ¸Ñ
+NewVersion_Menu;ÐÐ¾Ð²Ð°Ð’ÐµÑ€ÑÐ¸Ñ_ÐœÐµÐ½ÑŽ
+NewVersion_Question_Title;ÐÐ¾Ð²Ð°Ð’ÐµÑ€ÑÐ¸Ñ_Ð’ÑŠÐ¿Ñ€Ð¾Ñ_Ð˜Ð¼Ðµ
+NewVersion_Question_Content;ÐÐ¾Ð²Ð°Ð’ÐµÑ€ÑÐ¸Ñ_Ð’ÑŠÐ¿Ñ€Ð¾Ñ_Ð¡ÑŠÐ´ÑŠÑ€Ð¶Ð°Ð½Ð¸Ðµ
+No;ÐÐµ
+Not yet;ÐžÑ‰Ðµ Ð½Ðµ
+NumColors;ÐÐ¾Ð¼ÐµÑ€Ð¦Ð²ÐµÑ‚Ð¾Ð²Ðµ
+OK;Ð”Ð°
+One output file per input file;Ð•Ð´Ð¸Ð½ Ð¸Ð·Ñ…Ð¾Ð´ÑÑ‰ Ð¿Ñ€Ð¸ ÐµÐ´Ð¸Ð½ Ð²Ñ…Ð¾Ð´ÑÑ‰ Ñ„Ð°Ð¹Ð»
+Open;ÐžÑ‚Ð²Ð¾Ñ€Ð¸
+OpenCandy_01;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_01
+OpenCandy_02;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_02
+OpenCandy_03;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_03
+OpenCandy_04;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_04
+OpenCandy_05;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_05
+OpenCandy_06;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_06
+OpenCandy_07;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_07
+OpenCandy_08;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_08
+OpenCandy_09;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_09
+OpenCandy_10;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_10
+OpenCandy_11;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_11
+OpenCandy_12;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_12
+OpenCandy_13;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_13
+OpenCandy_14;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_14
+OpenCandy_15;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_15
+OpenCandy_16;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_16
+OpenCandy_17;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_17
+OpenCandy_18;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_18
+OpenCandy_19;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_19
+OpenCandy_20;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_20
+OpenCandy_21;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_21
+OpenCandy_22;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_22
+OpenCandy_23;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_23
+OpenCandy_24;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_24
+OpenCandy_25;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_25
+OpenCandy_26;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_26
+OpenCandy_27;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_27
+OpenCandy_28;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_28
+OpenCandy_29;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_29
+OpenCandy_30;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_30
+OpenCandy_31;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_31
+OpenCandy_32;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_32
+OpenCandy_33;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_33
+OpenCandy_34;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_34
+OpenCandy_35;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_35
+OpenCandy_36;ÐžÐ¿ÐµÐ½ÐšÐ°Ð½Ð´Ð¸_36
+Options;ÐžÐ¿Ñ†Ð¸Ð¹
+Options_Hint;ÐžÐ¿Ñ†Ð¸Ð¹_ÐŸÐ¾Ð´ÑÐºÐ°Ð·Ð²Ð°Ð½Ðµ
+Original;ÐžÑ€Ð¸Ð³Ð¸Ð½Ð°Ð»
+OriginalNetworkName;ÐžÑ€Ð¸Ð³Ð¸Ð½Ð°Ð»Ð½Ð¾ÐœÑ€ÐµÐ¶Ð°Ð˜Ð¼Ðµ
+OriginalSourceForm;ÐžÑ€Ð¸Ð³Ð¸Ð½Ð°Ð»ÐµÐ½Ð˜Ð·Ñ‚Ð¾Ñ‡Ð½Ð¸ÐºÐ¤Ð¾Ñ€Ð¼ÑƒÐ»ÑÑ€
+OriginalSourceMedium;ÐžÑ€Ð¸Ð³Ð¸Ð½Ð°Ð»ÐµÐ½Ð˜Ð·Ñ‚Ð¾Ñ‡Ð½Ð¸ÐºÐÐ¾ÑÐ¸Ñ‚ÐµÐ»
+Other;Ð”Ñ€ÑƒÐ³Ð¸
+Output;Ð˜Ð·Ñ…Ð¾Ð´ÑÑ‰
+Output format;Ð˜Ð·Ñ…Ð¾Ð´ÑÑ‰ Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚
+OverallBitRate;ÐžÐ±Ñ‰Ð°Ð‘Ð¸Ñ‚Ð¡ÐºÐ¾Ñ€Ð¾ÑÑ‚
+OverallBitRate_Maximum;ÐžÐ±Ñ‰Ð°Ð‘Ð¸Ñ‚Ð¡ÐºÐ¾Ñ€Ð¾ÑÑ‚_ÐœÐ°ÐºÑÐ¸Ð¼ÑƒÐ¼
+OverallBitRate_Minimum;ÐžÐ±Ñ‰Ð°Ð‘Ð¸Ñ‚Ð¡ÐºÐ¾Ñ€Ð¾ÑÑ‚_ÐœÐ¸Ð½Ð¸Ð¼ÑƒÐ¼
+OverallBitRate_Mode;ÐžÐ±Ñ‰Ð°Ð‘Ð¸Ñ‚Ð¡ÐºÐ¾Ñ€Ð¾ÑÑ‚_Ð ÐµÐ¶Ð¸Ð¼
+OverallBitRate_Nominal;ÐžÐ±Ñ‰Ð°Ð‘Ð¸Ñ‚Ð¡ÐºÐ¾Ñ€Ð¾ÑÑ‚_ÐÐ¾Ð¼Ð¸Ð½Ð°Ð»
+Part;Ð§Ð°ÑÑ‚
+Part_Count;Ð§Ð°ÑÑ‚_Ð‘Ñ€Ð¾Ð¹
+Performer;Ð˜Ð·Ð¿ÑŠÐ»Ð½Ð¸Ñ‚ÐµÐ»
+Period;ÐŸÐµÑ€Ð¸Ð¾Ð´
+Phone;Ð¢ÐµÐ»ÐµÑ„Ð¾Ð½
+PixelAspectRatio;ÐŸÐ¸ÐºÑÐµÐ»Ð¡ÑŠÐ¾Ñ‚Ð½Ð¾ÑˆÐµÐ½Ð¸Ðµ
+PixelAspectRatio_Original;ÐŸÐ¸ÐºÑÐµÐ»Ð¡ÑŠÐ¾Ñ‚Ð½Ð¾ÑˆÐµÐ½Ð¸Ðµ_ÐžÑ€Ð³Ð¸Ð½Ð°Ð»
+PlayCounter;Ð˜Ð·Ð¿ÑŠÐ»Ð½Ð¸Ñ‚ÐµÐ»ÐµÐ½Ð‘Ñ€Ð¾ÑÑ‡
+Played_Count;Ð˜Ð·Ð¿ÑŠÐ»Ð½ÐµÐ½Ð¸_Ð‘Ñ€Ð¾Ð¹
+Played_First_Date;Ð˜Ð·Ð¿ÑŠÐ»Ð½ÐµÐ½Ð¸_ÐŸÑŠÑ€Ð²Ð°_Ð”Ð°Ñ‚Ð°
+Played_Last_Date;Ð˜Ð·Ð¿ÑŠÐ»Ð½ÐµÐ½Ð¸_ÐŸÐ¾ÑÐ»ÐµÐ´Ð½Ð°_Ð”Ð°Ñ‚Ð°
+PlayTime;Ð’Ñ€ÐµÐ¼ÐµÐ˜Ð·Ð¿ÑŠÐ»Ð½ÐµÐ½Ð¸Ðµ
+Position;ÐŸÐ¾Ð·Ð¸Ñ†Ð¸Ñ
+Position_Total;ÐŸÐ¾Ð·Ð¸Ñ†Ð¸Ñ_ÐžÐ±Ñ‰Ð°
+Preferences;ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸
+Producer;ÐŸÑ€Ð¾Ð´ÑƒÑ†ÐµÐ½Ñ‚
+ProductionDesigner;Ð”Ð¸Ð·Ð°Ð¹Ð½ÐµÑ€ÐŸÑ€Ð¾Ð´ÑƒÐºÑ†Ð¸Ñ
+ProductionStudio;ÐŸÑ€Ð¾Ð´ÑƒÐºÑ†Ð¸Ð¾Ð½Ð½Ð¾Ð¡Ñ‚ÑƒÐ´Ð¸Ð¾
+Publisher;Ð˜Ð·Ð´Ð°Ñ‚ÐµÐ»
+Purchased_Date;Ð”Ð°Ñ‚Ð°ÐŸÐ¾Ñ€ÑŠÑ‡Ð°Ð½
+Quote character;Ð¦Ð¸Ñ‚Ð°Ñ‚ Ñ…Ð°Ñ€Ð°ÐºÑ‚ÐµÑ€
+RadioStation;Ð Ð°Ð´Ð¸Ð¾Ð¡Ñ‚Ð°Ð½Ñ†Ð¸Ñ
+Rating;Ð ÐµÐ¹Ñ‚Ð¸Ð½Ð³
+Recorded_Date;Ð—Ð°Ð¿Ð¸Ñ_Ð”Ð°Ñ‚Ð°
+Recorded_Location;Ð—Ð°Ð¿Ð¸Ñ_Ð›Ð¾ÐºÐ°Ñ†Ð¸Ñ
+Released_Date;Ð˜Ð·Ð´Ð°Ð´ÐµÐ½_Ð”Ð°Ñ‚Ð°
+RemixedBy;Ð ÐµÐ¼Ð¸ÐºÑÐžÑ‚
+ReplayGain_Gain;Ð£ÑÐ¸Ð»Ð²Ð°Ñ‰Ð¾ÐŸÐ¾Ð²Ñ‚Ð¾Ñ€ÐµÐ½Ð¸Ðµ_Ð£ÑÐ¸Ð»Ð²Ð°Ð½Ðµ
+ReplayGain_Peak;Ð£ÑÐ¸Ð»Ð²Ð°Ñ‰Ð¾ÐŸÐ¾Ð²Ñ‚Ð¾Ñ€ÐµÐ½Ð¸Ðµ_Ð£ÑÐ¸Ð»Ð²Ð°Ð½Ðµ_Ð’Ñ€ÑŠÑ…
+Resolution;Ð ÐµÐ·Ð¾Ð»ÑŽÑ†Ð¸Ñ
+s;Ñ
+SamplingRate;Ð’ÑŠÐ·Ð¿Ñ€Ð¾Ð¸Ð·Ð²ÐµÐ¶Ð´Ð°Ð½ÐµÐ¡ÐºÐ¾Ñ€Ð¾ÑÑ‚
+Save;Ð—Ð°Ð¿Ð°Ð·Ð¸
+ScanType;Ð¡ÐºÐ°Ð½Ð¸Ñ€Ð°Ð½ÐµÐ¢Ð¸Ð¿
 ScanType_Original;
-ScanOrder;СканиранеРед
+ScanOrder;Ð¡ÐºÐ°Ð½Ð¸Ñ€Ð°Ð½ÐµÐ ÐµÐ´
+ScanOrder_StoredDisplayedInverted;
 ScanOrder_Original;
-ScreenplayBy;СценарийОт
-Season;Сезон
-see below;виж долу
-Send HeaderFile;Изпрати Хедер Файл
-Separator_Columns;Разделител_Колони
-Separator_Lines;Разделител_Линий
-ServiceChannel;СървисКанал
-ServiceName;СървисИме
-ServiceProvider;СървисДоставчик
-ServiceType;СървисТип
-Set;Нагласи
-Set_Count;Нагласа_Брой
-Setup;Настрой
-Sharpness;Яснота
-Sheet;Формуляр
-Sheet (Complete);Формуляр (Цялостен)
-Shell extension;Шел екстенция
-Shell extension, folder;Шел екстенция, папка
-Shell InfoTip;Шел ИнфоИнфо
-Show menu;Показ меню
-Show toolbar;Показ инструментибар
-Sort;Сортиране
+ScreenplayBy;Ð¡Ñ†ÐµÐ½Ð°Ñ€Ð¸Ð¹ÐžÑ‚
+Season;Ð¡ÐµÐ·Ð¾Ð½
+see below;Ð²Ð¸Ð¶ Ð´Ð¾Ð»Ñƒ
+Send HeaderFile;Ð˜Ð·Ð¿Ñ€Ð°Ñ‚Ð¸ Ð¥ÐµÐ´ÐµÑ€ Ð¤Ð°Ð¹Ð»
+Separator_Columns;Ð Ð°Ð·Ð´ÐµÐ»Ð¸Ñ‚ÐµÐ»_ÐšÐ¾Ð»Ð¾Ð½Ð¸
+Separator_Lines;Ð Ð°Ð·Ð´ÐµÐ»Ð¸Ñ‚ÐµÐ»_Ð›Ð¸Ð½Ð¸Ð¹
+ServiceChannel;Ð¡ÑŠÑ€Ð²Ð¸ÑÐšÐ°Ð½Ð°Ð»
+ServiceName;Ð¡ÑŠÑ€Ð²Ð¸ÑÐ˜Ð¼Ðµ
+ServiceProvider;Ð¡ÑŠÑ€Ð²Ð¸ÑÐ”Ð¾ÑÑ‚Ð°Ð²Ñ‡Ð¸Ðº
+ServiceType;Ð¡ÑŠÑ€Ð²Ð¸ÑÐ¢Ð¸Ð¿
+Set;ÐÐ°Ð³Ð»Ð°ÑÐ¸
+Set_Count;ÐÐ°Ð³Ð»Ð°ÑÐ°_Ð‘Ñ€Ð¾Ð¹
+Setup;ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹
+Sharpness;Ð¯ÑÐ½Ð¾Ñ‚Ð°
+Sheet;Ð¤Ð¾Ñ€Ð¼ÑƒÐ»ÑÑ€
+Sheet (Complete);Ð¤Ð¾Ñ€Ð¼ÑƒÐ»ÑÑ€ (Ð¦ÑÐ»Ð¾ÑÑ‚ÐµÐ½)
+Shell extension;Ð¨ÐµÐ» ÐµÐºÑÑ‚ÐµÐ½Ñ†Ð¸Ñ
+Shell extension, folder;Ð¨ÐµÐ» ÐµÐºÑÑ‚ÐµÐ½Ñ†Ð¸Ñ, Ð¿Ð°Ð¿ÐºÐ°
+Shell InfoTip;Ð¨ÐµÐ» Ð˜Ð½Ñ„Ð¾Ð˜Ð½Ñ„Ð¾
+Show menu;ÐŸÐ¾ÐºÐ°Ð· Ð¼ÐµÐ½ÑŽ
+Show toolbar;ÐŸÐ¾ÐºÐ°Ð· Ð¸Ð½ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ‚Ð¸Ð±Ð°Ñ€
+Sort;Ð¡Ð¾Ñ€Ñ‚Ð¸Ñ€Ð°Ð½Ðµ
 SamplingCount;
-SoundEngineer;ЗвукоИнжинер
+SoundEngineer;Ð—Ð²ÑƒÐºÐ¾Ð˜Ð½Ð¶Ð¸Ð½ÐµÑ€
 Source;
 Source_Duration;
 Source_FrameCount;
 Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
-Standard;Стандарт
-Stream;Поток
-Stream_MoreInfo;Поток_ПовечеИнфо
-StreamCount;Поток_Брой
-StreamID;ПотокИД
-StreamKind;ПотокВид
-StreamKindID;ПотокВидИД
-StreamKindPos;ПотокВидПоз
-StreamSize;ПотокРазмер
+Standard;Ð¡Ñ‚Ð°Ð½Ð´Ð°Ñ€Ñ‚
+Stream;ÐŸÐ¾Ñ‚Ð¾Ðº
+Stream_MoreInfo;ÐŸÐ¾Ñ‚Ð¾Ðº_ÐŸÐ¾Ð²ÐµÑ‡ÐµÐ˜Ð½Ñ„Ð¾
+StreamCount;ÐŸÐ¾Ñ‚Ð¾Ðº_Ð‘Ñ€Ð¾Ð¹
+StreamID;ÐŸÐ¾Ñ‚Ð¾ÐºÐ˜Ð”
+StreamKind;ÐŸÐ¾Ñ‚Ð¾ÐºÐ’Ð¸Ð´
+StreamKindID;ÐŸÐ¾Ñ‚Ð¾ÐºÐ’Ð¸Ð´Ð˜Ð”
+StreamKindPos;ÐŸÐ¾Ñ‚Ð¾ÐºÐ’Ð¸Ð´ÐŸÐ¾Ð·
+StreamSize;ÐŸÐ¾Ñ‚Ð¾ÐºÐ Ð°Ð·Ð¼ÐµÑ€
 StreamSize_Encoded;
-StreamSize_Proportion;ПотокРазмер_Пропорций
-Subject;Относно
-SubTrack;СубТрак
-Summary;Обобщение
-Supported formats;Поддържани формати
-Supported?;Поддържан?
-Synopsis;Резюме
-SystemId;СистемИД
-Tagged_Application;Етикет_Апликация
-Tagged_Date;Етикет_Дата
-Technician;Техник
-TermsOfUse;УсловияНаПолзване
-Text;Текст
-Text - Custom;Текст - Потребителски
-Text (HTML);Текст (HTML)
-Text stream(s);Текст поток(ци)
-Text streams;Текст потоци
-Text_Codec_List;Текст_Кодек_Списък
-Text_No;Текст_Но
-Text1;Текст1
-Text2;Текст2
-Text3;Текст3
-TextCount;ТекстБрой
-ThanksTo;БлагодарениеНа
-Thousands separator;Хиляден разделител
-Title;Име
-Title_More;Име_Повече
+StreamSize_Proportion;ÐŸÐ¾Ñ‚Ð¾ÐºÐ Ð°Ð·Ð¼ÐµÑ€_ÐŸÑ€Ð¾Ð¿Ð¾Ñ€Ñ†Ð¸Ð¹
+Subject;ÐžÑ‚Ð½Ð¾ÑÐ½Ð¾
+SubTrack;Ð¡ÑƒÐ±Ð¢Ñ€Ð°Ðº
+Summary;ÐžÐ±Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ðµ
+Supported formats;ÐŸÐ¾Ð´Ð´ÑŠÑ€Ð¶Ð°Ð½Ð¸ Ñ„Ð¾Ñ€Ð¼Ð°Ñ‚Ð¸
+Supported?;ÐŸÐ¾Ð´Ð´ÑŠÑ€Ð¶Ð°Ð½?
+Synopsis;Ð ÐµÐ·ÑŽÐ¼Ðµ
+SystemId;Ð¡Ð¸ÑÑ‚ÐµÐ¼Ð˜Ð”
+Tagged_Application;Ð•Ñ‚Ð¸ÐºÐµÑ‚_ÐÐ¿Ð»Ð¸ÐºÐ°Ñ†Ð¸Ñ
+Tagged_Date;Ð•Ñ‚Ð¸ÐºÐµÑ‚_Ð”Ð°Ñ‚Ð°
+Technician;Ð¢ÐµÑ…Ð½Ð¸Ðº
+TermsOfUse;Ð£ÑÐ»Ð¾Ð²Ð¸ÑÐÐ°ÐŸÐ¾Ð»Ð·Ð²Ð°Ð½Ðµ
+Text;Ð¢ÐµÐºÑÑ‚
+Text - Custom;Ð¢ÐµÐºÑÑ‚ - ÐŸÐ¾Ñ‚Ñ€ÐµÐ±Ð¸Ñ‚ÐµÐ»ÑÐºÐ¸
+Text (HTML);Ð¢ÐµÐºÑÑ‚ (HTML)
+Text stream(s);Ð¢ÐµÐºÑÑ‚ Ð¿Ð¾Ñ‚Ð¾Ðº(Ñ†Ð¸)
+Text streams;Ð¢ÐµÐºÑÑ‚ Ð¿Ð¾Ñ‚Ð¾Ñ†Ð¸
+Text_Codec_List;Ð¢ÐµÐºÑÑ‚_ÐšÐ¾Ð´ÐµÐº_Ð¡Ð¿Ð¸ÑÑŠÐº
+Text_No;Ð¢ÐµÐºÑÑ‚_ÐÐ¾
+Text1;Ð¢ÐµÐºÑÑ‚1
+Text2;Ð¢ÐµÐºÑÑ‚2
+Text3;Ð¢ÐµÐºÑÑ‚3
+TextCount;Ð¢ÐµÐºÑÑ‚Ð‘Ñ€Ð¾Ð¹
+ThanksTo;Ð‘Ð»Ð°Ð³Ð¾Ð´Ð°Ñ€ÐµÐ½Ð¸ÐµÐÐ°
+Thousands separator;Ð¥Ð¸Ð»ÑÐ´ÐµÐ½ Ñ€Ð°Ð·Ð´ÐµÐ»Ð¸Ñ‚ÐµÐ»
+Title;Ð˜Ð¼Ðµ
+Title_More;Ð˜Ð¼Ðµ_ÐŸÐ¾Ð²ÐµÑ‡Ðµ
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
-TimeZone;ВремеваЗона
-Total;Общо
-Track;Номер
-Track_Count;Номер_Брой
-transfer_characteristics;трансфер_характеристики
-Translator;Преводач
-Tree;Дърво
-Tree & Text;Дърво и Текст
+TimeZone;Ð’Ñ€ÐµÐ¼ÐµÐ²Ð°Ð—Ð¾Ð½Ð°
+Total;ÐžÐ±Ñ‰Ð¾
+Track;ÐÐ¾Ð¼ÐµÑ€
+Track_Count;ÐÐ¾Ð¼ÐµÑ€_Ð‘Ñ€Ð¾Ð¹
+transfer_characteristics;Ñ‚Ñ€Ð°Ð½ÑÑ„ÐµÑ€_Ñ…Ð°Ñ€Ð°ÐºÑ‚ÐµÑ€Ð¸ÑÑ‚Ð¸ÐºÐ¸
+Translator;ÐŸÑ€ÐµÐ²Ð¾Ð´Ð°Ñ‡
+Tree;Ð”ÑŠÑ€Ð²Ð¾
+Tree & Text;Ð”ÑŠÑ€Ð²Ð¾ Ð¸ Ð¢ÐµÐºÑÑ‚
 Type;
 UniqueID;
-Unknown;Незнаен
-Url;ЮРЛ
-Video;Видео
-Video stream(s);Видео поток(ци)
-Video_Codec_List;Видео_Кодек_Списък
-Video_Delay;Видео_Забавяне
-Video_No;Видео_Но
-Video0_Delay;Видео0_Забавяне
-Video1;Видео1
-VideoCount;ВидеоБрой
-View;Преглед
-View_Hint;Преглед_Подсказване
-Warning : more streams in the files;Предупреждение : повече потоци във файловете
-Web;Уеб
-WebSite_Audio;Уебсайт_Аудио
-WebSite_Audio_More;Уебсайт_Аудио_Повече
-WebSite_General;Уебсайт_Генерално
-WebSite_General_More;Уебсайт_Генерално_Повече
-WebSite_Text;Уебсайт_Текст
-WebSite_Text_More;Уебсайт_Текст_Повече
-WebSite_Url;Уебсайт_ЮРЛ
-WebSite_Video;Уебсайт_Видео
-WebSite_Video_More;Уебсайт_Видео_Повече
-Width;Ширина
-Width_Original;Ширина_Оригинал
-WriteMe;ПишетеМи
-WriteToTranslator;ПишетеНаПреводача
-Written_Date;Написано_Дата
-Written_Location;Написано_Локация
-WrittenBy;НаписаноОт
-Yes;Да
-Your system;Вашата система
+Unknown;ÐÐµÐ·Ð½Ð°ÐµÐ½
+Url;Ð®Ð Ð›
+Video;Ð’Ð¸Ð´ÐµÐ¾
+Video stream(s);Ð’Ð¸Ð´ÐµÐ¾ Ð¿Ð¾Ñ‚Ð¾Ðº(Ñ†Ð¸)
+Video_Codec_List;Ð’Ð¸Ð´ÐµÐ¾_ÐšÐ¾Ð´ÐµÐº_Ð¡Ð¿Ð¸ÑÑŠÐº
+Video_Delay;Ð’Ð¸Ð´ÐµÐ¾_Ð—Ð°Ð±Ð°Ð²ÑÐ½Ðµ
+Video_No;Ð’Ð¸Ð´ÐµÐ¾_ÐÐ¾
+Video0_Delay;Ð’Ð¸Ð´ÐµÐ¾0_Ð—Ð°Ð±Ð°Ð²ÑÐ½Ðµ
+Video1;Ð’Ð¸Ð´ÐµÐ¾1
+VideoCount;Ð’Ð¸Ð´ÐµÐ¾Ð‘Ñ€Ð¾Ð¹
+View;ÐŸÑ€ÐµÐ³Ð»ÐµÐ´
+View_Hint;ÐŸÑ€ÐµÐ³Ð»ÐµÐ´_ÐŸÐ¾Ð´ÑÐºÐ°Ð·Ð²Ð°Ð½Ðµ
+Warning : more streams in the files;ÐŸÑ€ÐµÐ´ÑƒÐ¿Ñ€ÐµÐ¶Ð´ÐµÐ½Ð¸Ðµ : Ð¿Ð¾Ð²ÐµÑ‡Ðµ Ð¿Ð¾Ñ‚Ð¾Ñ†Ð¸ Ð²ÑŠÐ² Ñ„Ð°Ð¹Ð»Ð¾Ð²ÐµÑ‚Ðµ
+Web;Ð£ÐµÐ±
+WebSite_Audio;Ð£ÐµÐ±ÑÐ°Ð¹Ñ‚_ÐÑƒÐ´Ð¸Ð¾
+WebSite_Audio_More;Ð£ÐµÐ±ÑÐ°Ð¹Ñ‚_ÐÑƒÐ´Ð¸Ð¾_ÐŸÐ¾Ð²ÐµÑ‡Ðµ
+WebSite_General;Ð£ÐµÐ±ÑÐ°Ð¹Ñ‚_Ð“ÐµÐ½ÐµÑ€Ð°Ð»Ð½Ð¾
+WebSite_General_More;Ð£ÐµÐ±ÑÐ°Ð¹Ñ‚_Ð“ÐµÐ½ÐµÑ€Ð°Ð»Ð½Ð¾_ÐŸÐ¾Ð²ÐµÑ‡Ðµ
+WebSite_Text;Ð£ÐµÐ±ÑÐ°Ð¹Ñ‚_Ð¢ÐµÐºÑÑ‚
+WebSite_Text_More;Ð£ÐµÐ±ÑÐ°Ð¹Ñ‚_Ð¢ÐµÐºÑÑ‚_ÐŸÐ¾Ð²ÐµÑ‡Ðµ
+WebSite_Url;Ð£ÐµÐ±ÑÐ°Ð¹Ñ‚_Ð®Ð Ð›
+WebSite_Video;Ð£ÐµÐ±ÑÐ°Ð¹Ñ‚_Ð’Ð¸Ð´ÐµÐ¾
+WebSite_Video_More;Ð£ÐµÐ±ÑÐ°Ð¹Ñ‚_Ð’Ð¸Ð´ÐµÐ¾_ÐŸÐ¾Ð²ÐµÑ‡Ðµ
+Width;Ð¨Ð¸Ñ€Ð¸Ð½Ð°
+Width_Original;Ð¨Ð¸Ñ€Ð¸Ð½Ð°_ÐžÑ€Ð¸Ð³Ð¸Ð½Ð°Ð»
+WriteMe;ÐŸÐ¸ÑˆÐµÑ‚ÐµÐœÐ¸
+WriteToTranslator;ÐŸÐ¸ÑˆÐµÑ‚ÐµÐÐ°ÐŸÑ€ÐµÐ²Ð¾Ð´Ð°Ñ‡Ð°
+Written_Date;ÐÐ°Ð¿Ð¸ÑÐ°Ð½Ð¾_Ð”Ð°Ñ‚Ð°
+Written_Location;ÐÐ°Ð¿Ð¸ÑÐ°Ð½Ð¾_Ð›Ð¾ÐºÐ°Ñ†Ð¸Ñ
+WrittenBy;ÐÐ°Ð¿Ð¸ÑÐ°Ð½Ð¾ÐžÑ‚
+Yes;Ð”Ð°
+Your system;Ð’Ð°ÑˆÐ°Ñ‚Ð° ÑÐ¸ÑÑ‚ÐµÐ¼Ð°
 ZZ_Automatic_Percent;89
 ZZ_AutomaticLanguage_Percent;96

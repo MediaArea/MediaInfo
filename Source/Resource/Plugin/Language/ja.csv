@@ -1,45 +1,45 @@
   Language_ISO639;ja
   Author_Email;nihongoka@gmail.com
-  Author_Name;だい( http://barca.daa.jp )
+  Author_Name;ã ã„( http://barca.daa.jp )
   Author_OldNames;barlog
-  Language_Name;日本語
+  Language_Name;æ—¥æœ¬èªž
   Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
   Config_Text_ThousandsSeparator; 
- audio stream1; オーディオストリーム
- audio stream2; オーディオストリーム
- audio stream3; オーディオストリーム
- bit1; ビット
- bit2; ビット
- bit3; ビット
+ audio stream1; ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªã‚¹ãƒˆãƒªãƒ¼ãƒ 
+ audio stream2; ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªã‚¹ãƒˆãƒªãƒ¼ãƒ 
+ audio stream3; ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªã‚¹ãƒˆãƒªãƒ¼ãƒ 
+ bit1; ãƒ“ãƒƒãƒˆ
+ bit2; ãƒ“ãƒƒãƒˆ
+ bit3; ãƒ“ãƒƒãƒˆ
  bps; bps
  Bps; Bps
- Byte1; バイト
- Byte2; バイト
- Byte3; バイト
- channel1; チャンネル
- channel2; チャンネル
- channel3; チャンネル
- chapter1; チャプター
- chapter2; チャプター
- chapter3; チャプター
- chapters stream1; チャプターストリーム
- chapters stream2; チャプターストリーム
- chapters stream3; チャプターストリーム
- day1; 日
- day2; 日
- day3; 日
+ Byte1; ãƒã‚¤ãƒˆ
+ Byte2; ãƒã‚¤ãƒˆ
+ Byte3; ãƒã‚¤ãƒˆ
+ channel1; ãƒãƒ£ãƒ³ãƒãƒ«
+ channel2; ãƒãƒ£ãƒ³ãƒãƒ«
+ channel3; ãƒãƒ£ãƒ³ãƒãƒ«
+ chapter1; ãƒãƒ£ãƒ—ã‚¿ãƒ¼
+ chapter2; ãƒãƒ£ãƒ—ã‚¿ãƒ¼
+ chapter3; ãƒãƒ£ãƒ—ã‚¿ãƒ¼
+ chapters stream1; ãƒãƒ£ãƒ—ã‚¿ãƒ¼ã‚¹ãƒˆãƒªãƒ¼ãƒ 
+ chapters stream2; ãƒãƒ£ãƒ—ã‚¿ãƒ¼ã‚¹ãƒˆãƒªãƒ¼ãƒ 
+ chapters stream3; ãƒãƒ£ãƒ—ã‚¿ãƒ¼ã‚¹ãƒˆãƒªãƒ¼ãƒ 
+ day1; æ—¥
+ day2; æ—¥
+ day3; æ—¥
  dB1; dB1
  dB2; dB2
  dB3; dB3
- file1; ファイル
- file2; ファイル
- file3; ファイル
- frame1; フレーム
- frame2; フレーム
- frame3; フレーム
+ file1; ãƒ•ã‚¡ã‚¤ãƒ«
+ file2; ãƒ•ã‚¡ã‚¤ãƒ«
+ file3; ãƒ•ã‚¡ã‚¤ãƒ«
+ frame1; ãƒ•ãƒ¬ãƒ¼ãƒ 
+ frame2; ãƒ•ãƒ¬ãƒ¼ãƒ 
+ frame3; ãƒ•ãƒ¬ãƒ¼ãƒ 
  fps1; fps
  fps2; fps
  fps3; fps
@@ -59,13 +59,13 @@
  GigaByte1; GigaByte
  GigaByte2; GigaBytes
  GigaByte3; GigaBytes
- hour1; 時間
- hour2; 時間
- hour3; 時間
+ hour1; æ™‚é–“
+ hour2; æ™‚é–“
+ hour3; æ™‚é–“
  Hz; Hz
- image stream1; イメージストリーム
- image stream2; イメージストリーム
- image stream3; イメージストリーム
+ image stream1; ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚¹ãƒˆãƒªãƒ¼ãƒ 
+ image stream2; ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚¹ãƒˆãƒªãƒ¼ãƒ 
+ image stream3; ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚¹ãƒˆãƒªãƒ¼ãƒ 
  KB; KB
  Kb; Kb
  KBps; KBps
@@ -105,116 +105,116 @@
  MiB; MiB
  Mib; Mib
  MiBps; MiBps
- millisecond1; ミリ秒
- millisecond2; ミリ秒
- millisecond3; ミリ秒
- minute1; 分
- minute2; 分
- minute3; 分
- month1; 月
- month2; 月
- month3; 月
- pixel1; ピクセル
- pixel2; ピクセル
- pixel3; ピクセル
- second1; 秒
- second2; 秒
- second3; 秒
- text stream1; テキストストリーム
- text stream2; テキストストリーム
- text stream3; テキストストリーム
- video frames1; ビデオフレーム
- video frames2; ビデオフレーム
- video frames3; ビデオフレーム
- video stream1; ビデオストリーム
- video stream2; ビデオストリーム
- video stream3; ビデオストリーム
- warppoint0; ワープポイント
- warppoint1; ワープポイント
- warppoint2; ワープポイント
- warppoint3; ワープポイント
- week1; 週
- week2; 週
- week3; 週
- year1; 年
- year2; 年
- year3; 年
+ millisecond1; ãƒŸãƒªç§’
+ millisecond2; ãƒŸãƒªç§’
+ millisecond3; ãƒŸãƒªç§’
+ minute1; åˆ†
+ minute2; åˆ†
+ minute3; åˆ†
+ month1; æœˆ
+ month2; æœˆ
+ month3; æœˆ
+ pixel1; ãƒ”ã‚¯ã‚»ãƒ«
+ pixel2; ãƒ”ã‚¯ã‚»ãƒ«
+ pixel3; ãƒ”ã‚¯ã‚»ãƒ«
+ second1; ç§’
+ second2; ç§’
+ second3; ç§’
+ text stream1; ãƒ†ã‚­ã‚¹ãƒˆã‚¹ãƒˆãƒªãƒ¼ãƒ 
+ text stream2; ãƒ†ã‚­ã‚¹ãƒˆã‚¹ãƒˆãƒªãƒ¼ãƒ 
+ text stream3; ãƒ†ã‚­ã‚¹ãƒˆã‚¹ãƒˆãƒªãƒ¼ãƒ 
+ video frames1; ãƒ“ãƒ‡ã‚ªãƒ•ãƒ¬ãƒ¼ãƒ 
+ video frames2; ãƒ“ãƒ‡ã‚ªãƒ•ãƒ¬ãƒ¼ãƒ 
+ video frames3; ãƒ“ãƒ‡ã‚ªãƒ•ãƒ¬ãƒ¼ãƒ 
+ video stream1; ãƒ“ãƒ‡ã‚ªã‚¹ãƒˆãƒªãƒ¼ãƒ 
+ video stream2; ãƒ“ãƒ‡ã‚ªã‚¹ãƒˆãƒªãƒ¼ãƒ 
+ video stream3; ãƒ“ãƒ‡ã‚ªã‚¹ãƒˆãƒªãƒ¼ãƒ 
+ warppoint0; ãƒ¯ãƒ¼ãƒ—ãƒã‚¤ãƒ³ãƒˆ
+ warppoint1; ãƒ¯ãƒ¼ãƒ—ãƒã‚¤ãƒ³ãƒˆ
+ warppoint2; ãƒ¯ãƒ¼ãƒ—ãƒã‚¤ãƒ³ãƒˆ
+ warppoint3; ãƒ¯ãƒ¼ãƒ—ãƒã‚¤ãƒ³ãƒˆ
+ week1; é€±
+ week2; é€±
+ week3; é€±
+ year1; å¹´
+ year2; å¹´
+ year3; å¹´
 , ;, 
 : ;: 
-About;バージョン情報
-About_Hint;連絡方法と最新版チェック
-Accompaniment;演奏者
+About;ãƒãƒ¼ã‚¸ãƒ§ãƒ³æƒ…å ±
+About_Hint;é€£çµ¡æ–¹æ³•ã¨æœ€æ–°ç‰ˆãƒã‚§ãƒƒã‚¯
+Accompaniment;æ¼”å¥è€…
 ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
-Actor;主演
-Actor_Character;出演名
-Added_Date;追加日
-Address;アドレス
-Advanced;詳細
-Advanced mode;詳細モード
-Album;アルバム
-Album_ReplayGain_Gain;リプレイゲイン ゲイン
-Album_ReplayGain_Peak;リプレイゲイン ピーク
-Alignment;アラインメント
-Alignment_Aligned;アライン
-Alignment_Split;分割
-All;すべて
-Archival_Location;作成された場所
-Arranger;アレンジ者
-ArtDirector;アートディレクター
-AspectRatio;解像度
+Actor;ä¸»æ¼”
+Actor_Character;å‡ºæ¼”å
+Added_Date;è¿½åŠ æ—¥
+Address;ã‚¢ãƒ‰ãƒ¬ã‚¹
+Advanced;è©³ç´°
+Advanced mode;è©³ç´°ãƒ¢ãƒ¼ãƒ‰
+Album;ã‚¢ãƒ«ãƒãƒ 
+Album_ReplayGain_Gain;ãƒªãƒ—ãƒ¬ã‚¤ã‚²ã‚¤ãƒ³ ã‚²ã‚¤ãƒ³
+Album_ReplayGain_Peak;ãƒªãƒ—ãƒ¬ã‚¤ã‚²ã‚¤ãƒ³ ãƒ”ãƒ¼ã‚¯
+Alignment;ã‚¢ãƒ©ã‚¤ãƒ³ãƒ¡ãƒ³ãƒˆ
+Alignment_Aligned;ã‚¢ãƒ©ã‚¤ãƒ³
+Alignment_Split;åˆ†å‰²
+All;ã™ã¹ã¦
+Archival_Location;ä½œæˆã•ã‚ŒãŸå ´æ‰€
+Arranger;ã‚¢ãƒ¬ãƒ³ã‚¸è€…
+ArtDirector;ã‚¢ãƒ¼ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ã‚¿ãƒ¼
+AspectRatio;è§£åƒåº¦
 AssistantDirector;AD
 at;at
-At least one file;（少なくとも一つ以上のファイルを開いてください）
-Audio;オーディオ
-Audio stream(s);音声ストリーム
-Audio_Codec_List;音声コーデックリスト
-Audio_No;音声なし
-Audio1;プライマリ音声
-Audio2;セカンダリ音声
-AudioCount;音声数
-Author;製作者
-BarCode;バーコード
-Basic;基本
-Basic_Note;メモ : ファイルについてのさらなる情報は別のビューで開かねばなりません(シート、ツリー...)
+At least one file;ï¼ˆå°‘ãªãã¨ã‚‚ä¸€ã¤ä»¥ä¸Šã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã„ã¦ãã ã•ã„ï¼‰
+Audio;ã‚ªãƒ¼ãƒ‡ã‚£ã‚ª
+Audio stream(s);éŸ³å£°ã‚¹ãƒˆãƒªãƒ¼ãƒ 
+Audio_Codec_List;éŸ³å£°ã‚³ãƒ¼ãƒ‡ãƒƒã‚¯ãƒªã‚¹ãƒˆ
+Audio_No;éŸ³å£°ãªã—
+Audio1;ãƒ—ãƒ©ã‚¤ãƒžãƒªéŸ³å£°
+Audio2;ã‚»ã‚«ãƒ³ãƒ€ãƒªéŸ³å£°
+AudioCount;éŸ³å£°æ•°
+Author;è£½ä½œè€…
+BarCode;ãƒãƒ¼ã‚³ãƒ¼ãƒ‰
+Basic;åŸºæœ¬
+Basic_Note;ãƒ¡ãƒ¢ : ãƒ•ã‚¡ã‚¤ãƒ«ã«ã¤ã„ã¦ã®ã•ã‚‰ãªã‚‹æƒ…å ±ã¯åˆ¥ã®ãƒ“ãƒ¥ãƒ¼ã§é–‹ã‹ã­ã°ãªã‚Šã¾ã›ã‚“(ã‚·ãƒ¼ãƒˆã€ãƒ„ãƒªãƒ¼...)
 BitDepth;
-BitRate;ビットレート
-BitRate_Maximum;最大
-BitRate_Minimum;最小
-BitRate_Mode;ビットレートモード
-BitRate_Mode_CBR;CBR モード
-BitRate_Mode_VBR;VBR モード
-BitRate_Nominal;ノミナル
+BitRate;ãƒ“ãƒƒãƒˆãƒ¬ãƒ¼ãƒˆ
+BitRate_Maximum;æœ€å¤§
+BitRate_Minimum;æœ€å°
+BitRate_Mode;ãƒ“ãƒƒãƒˆãƒ¬ãƒ¼ãƒˆãƒ¢ãƒ¼ãƒ‰
+BitRate_Mode_CBR;CBR ãƒ¢ãƒ¼ãƒ‰
+BitRate_Mode_VBR;VBR ãƒ¢ãƒ¼ãƒ‰
+BitRate_Nominal;ãƒŽãƒŸãƒŠãƒ«
 BitRate_Encoded;
-Bits-(Pixel*Frame);ビット/(ピクセル*フレーム)
+Bits-(Pixel*Frame);ãƒ“ãƒƒãƒˆ/(ãƒ”ã‚¯ã‚»ãƒ«*ãƒ•ãƒ¬ãƒ¼ãƒ )
 BufferSize;
-Cancel;キャンセル
-Channel(s);チャンネル
-ChannelPositions;チャンネルの位置
-Chapter(s);チャプター
-Chapters;チャプター
-Chapters stream(s);チャプターストリーム
-Chapters_Codec_List;チャプターコーデック
-Chapters_No;チャプター番号
-ChaptersCount;チャプター数
-CheckNewVersion;バージョンチェック
-Choose custom;カスタム選択
-Choose custom sheet;編集するシートを選択してください
-Choose custom text;編集するテキストを選択してください
-Choose export format;出力形式を選択してください
-Choose file(s);開くファイルを選択してください
-Choose filename;ファイル名を選択してください
-Choose language;言語を選択してください
-Choregrapher;コアグラファー
-Chroma;クローマ
+Cancel;ã‚­ãƒ£ãƒ³ã‚»ãƒ«
+Channel(s);ãƒãƒ£ãƒ³ãƒãƒ«
+ChannelPositions;ãƒãƒ£ãƒ³ãƒãƒ«ã®ä½ç½®
+Chapter(s);ãƒãƒ£ãƒ—ã‚¿ãƒ¼
+Chapters;ãƒãƒ£ãƒ—ã‚¿ãƒ¼
+Chapters stream(s);ãƒãƒ£ãƒ—ã‚¿ãƒ¼ã‚¹ãƒˆãƒªãƒ¼ãƒ 
+Chapters_Codec_List;ãƒãƒ£ãƒ—ã‚¿ãƒ¼ã‚³ãƒ¼ãƒ‡ãƒƒã‚¯
+Chapters_No;ãƒãƒ£ãƒ—ã‚¿ãƒ¼ç•ªå·
+ChaptersCount;ãƒãƒ£ãƒ—ã‚¿ãƒ¼æ•°
+CheckNewVersion;ãƒãƒ¼ã‚¸ãƒ§ãƒ³ãƒã‚§ãƒƒã‚¯
+Choose custom;ã‚«ã‚¹ã‚¿ãƒ é¸æŠž
+Choose custom sheet;ç·¨é›†ã™ã‚‹ã‚·ãƒ¼ãƒˆã‚’é¸æŠžã—ã¦ãã ã•ã„
+Choose custom text;ç·¨é›†ã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆã‚’é¸æŠžã—ã¦ãã ã•ã„
+Choose export format;å‡ºåŠ›å½¢å¼ã‚’é¸æŠžã—ã¦ãã ã•ã„
+Choose file(s);é–‹ããƒ•ã‚¡ã‚¤ãƒ«ã‚’é¸æŠžã—ã¦ãã ã•ã„
+Choose filename;ãƒ•ã‚¡ã‚¤ãƒ«åã‚’é¸æŠžã—ã¦ãã ã•ã„
+Choose language;è¨€èªžã‚’é¸æŠžã—ã¦ãã ã•ã„
+Choregrapher;ã‚³ã‚¢ã‚°ãƒ©ãƒ•ã‚¡ãƒ¼
+Chroma;ã‚¯ãƒ­ãƒ¼ãƒž
 ChromaSubsampling;
-Close;閉じる
-Close all before open;すべて閉じて開く
-Codec;コーデック
-Codec_Description;コーデックの説明
-Codec_Info;コーデックの詳細
-Codec_Settings;コーデックの設定
-Codec_Settings_PacketBitStream;パケットビットストリーム
+Close;é–‰ã˜ã‚‹
+Close all before open;ã™ã¹ã¦é–‰ã˜ã¦é–‹ã
+Codec;ã‚³ãƒ¼ãƒ‡ãƒƒã‚¯
+Codec_Description;ã‚³ãƒ¼ãƒ‡ãƒƒã‚¯ã®èª¬æ˜Ž
+Codec_Info;ã‚³ãƒ¼ãƒ‡ãƒƒã‚¯ã®è©³ç´°
+Codec_Settings;ã‚³ãƒ¼ãƒ‡ãƒƒã‚¯ã®è¨­å®š
+Codec_Settings_PacketBitStream;ãƒ‘ã‚±ãƒƒãƒˆãƒ“ãƒƒãƒˆã‚¹ãƒˆãƒªãƒ¼ãƒ 
 Codec_Settings_BVOP;BVOP
 Codec_Settings_QPel;QPel
 Codec_Settings_GMC;GMC
@@ -226,110 +226,110 @@ Codec_Settings_Endianness;Endianness
 Codec_Settings_Sign;Sign
 Codec_Settings_Law;Law
 Codec_Settings_ITU;ITU
-Codec_Profile;コーデックのプロファイル
-Codec_Url;コーデックの URL
-CodecID;コーデック ID
-CodecID_Description;コーデック ID の説明
-Collection;コレクション
-Colorimetry;カラーリメトリ
+Codec_Profile;ã‚³ãƒ¼ãƒ‡ãƒƒã‚¯ã®ãƒ—ãƒ­ãƒ•ã‚¡ã‚¤ãƒ«
+Codec_Url;ã‚³ãƒ¼ãƒ‡ãƒƒã‚¯ã® URL
+CodecID;ã‚³ãƒ¼ãƒ‡ãƒƒã‚¯ ID
+CodecID_Description;ã‚³ãƒ¼ãƒ‡ãƒƒã‚¯ ID ã®èª¬æ˜Ž
+Collection;ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³
+Colorimetry;ã‚«ãƒ©ãƒ¼ãƒªãƒ¡ãƒˆãƒª
 ColorSpace;
 colour_primaries;
-Comment;コメント
-CommissionedBy;コミッショナー
+Comment;ã‚³ãƒ¡ãƒ³ãƒˆ
+CommissionedBy;ã‚³ãƒŸãƒƒã‚·ãƒ§ãƒŠãƒ¼
 Compilation;
-CompleteName;完全名称
-Composer;コンポーザ
+CompleteName;å®Œå…¨åç§°
+Composer;ã‚³ãƒ³ãƒãƒ¼ã‚¶
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
-Compression_Ratio;圧縮解像度
-Conductor;コンダクター
-Container and general information;コンテナと全般情報
-ContentType;コンテンツタイプ
-CoProducer;Co プロデューサ
-Copyright;著作
-CostumeDesigner;衣装デザイナー
-Count;数
-Country;国
-Cover;カバー
-Cover_Datas;カバーデータ
-Cover_Description;カバー詳細
-Cover_Mime;カバーの Mime
-Cover_Type;カバーの種類
-Cropped;クロップ
-Custom;カスタム
-Customize;カスタマイズ
-Date;日付
-Debug;デバッグ
-Decimal point;箇条
-Delay;遅延
+Compression_Ratio;åœ§ç¸®è§£åƒåº¦
+Conductor;ã‚³ãƒ³ãƒ€ã‚¯ã‚¿ãƒ¼
+Container and general information;ã‚³ãƒ³ãƒ†ãƒŠã¨å…¨èˆ¬æƒ…å ±
+ContentType;ã‚³ãƒ³ãƒ†ãƒ³ãƒ„ã‚¿ã‚¤ãƒ—
+CoProducer;Co ãƒ—ãƒ­ãƒ‡ãƒ¥ãƒ¼ã‚µ
+Copyright;è‘—ä½œ
+CostumeDesigner;è¡£è£…ãƒ‡ã‚¶ã‚¤ãƒŠãƒ¼
+Count;æ•°
+Country;å›½
+Cover;ã‚«ãƒãƒ¼
+Cover_Datas;ã‚«ãƒãƒ¼ãƒ‡ãƒ¼ã‚¿
+Cover_Description;ã‚«ãƒãƒ¼è©³ç´°
+Cover_Mime;ã‚«ãƒãƒ¼ã® Mime
+Cover_Type;ã‚«ãƒãƒ¼ã®ç¨®é¡ž
+Cropped;ã‚¯ãƒ­ãƒƒãƒ—
+Custom;ã‚«ã‚¹ã‚¿ãƒ 
+Customize;ã‚«ã‚¹ã‚¿ãƒžã‚¤ã‚º
+Date;æ—¥ä»˜
+Debug;ãƒ‡ãƒãƒƒã‚°
+Decimal point;ç®‡æ¡
+Delay;é…å»¶
 Delay_Source;
 Delay_Source_Container;
 Delay_Source_Stream;
-Delete;削除
-Description;詳細説明
-Digitized_Date;デジタル日付
-Dimensions;ディメンション
-Director;ディレクター
-DirectorOfPhotography;フォトディレクター
-DisplayAspectRatio;解像度
-DisplayAspectRatio_Original;元解像度
-DistributedBy;ディストリビュート by
-Donate;寄付
-DotsPerInch;ドット/インチ
-Duration;ながさ
-Duration_End;終了時間
-Duration_Start;開始時間
-Edit;編集
-EditedBy;編集者
+Delete;å‰Šé™¤
+Description;è©³ç´°èª¬æ˜Ž
+Digitized_Date;ãƒ‡ã‚¸ã‚¿ãƒ«æ—¥ä»˜
+Dimensions;ãƒ‡ã‚£ãƒ¡ãƒ³ã‚·ãƒ§ãƒ³
+Director;ãƒ‡ã‚£ãƒ¬ã‚¯ã‚¿ãƒ¼
+DirectorOfPhotography;ãƒ•ã‚©ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ã‚¿ãƒ¼
+DisplayAspectRatio;è§£åƒåº¦
+DisplayAspectRatio_Original;å…ƒè§£åƒåº¦
+DistributedBy;ãƒ‡ã‚£ã‚¹ãƒˆãƒªãƒ“ãƒ¥ãƒ¼ãƒˆ by
+Donate;å¯„ä»˜
+DotsPerInch;ãƒ‰ãƒƒãƒˆ/ã‚¤ãƒ³ãƒ
+Duration;ãªãŒã•
+Duration_End;çµ‚äº†æ™‚é–“
+Duration_Start;é–‹å§‹æ™‚é–“
+Edit;ç·¨é›†
+EditedBy;ç·¨é›†è€…
 EMail;E-Mail
-Encoded_Application;使用したエンコーダ
-Encoded_Date;エンコード日
-Encoded_Library;使用したライブラリ
-Encoded_Library_Settings;エンコードライブラリの設定
-Encoded_Original;オリジナル
-EncodedBy;エンコード者
-EPG_Positions;EPG 位置
-Error_File;ファイル読み込みエラー
-ExecutiveProducer;製作総指揮
-Exit;終了
-Exit_Hint;プログラムの終了
-Export;エクスポート
-Export_Hint;カスタム形式でエクスポート
-Extensions;使用する拡張子
-Family;ファミリ
+Encoded_Application;ä½¿ç”¨ã—ãŸã‚¨ãƒ³ã‚³ãƒ¼ãƒ€
+Encoded_Date;ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰æ—¥
+Encoded_Library;ä½¿ç”¨ã—ãŸãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+Encoded_Library_Settings;ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®è¨­å®š
+Encoded_Original;ã‚ªãƒªã‚¸ãƒŠãƒ«
+EncodedBy;ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰è€…
+EPG_Positions;EPG ä½ç½®
+Error_File;ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿ã‚¨ãƒ©ãƒ¼
+ExecutiveProducer;è£½ä½œç·æŒ‡æ®
+Exit;çµ‚äº†
+Exit_Hint;ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®çµ‚äº†
+Export;ã‚¨ã‚¯ã‚¹ãƒãƒ¼ãƒˆ
+Export_Hint;ã‚«ã‚¹ã‚¿ãƒ å½¢å¼ã§ã‚¨ã‚¯ã‚¹ãƒãƒ¼ãƒˆ
+Extensions;ä½¿ç”¨ã™ã‚‹æ‹¡å¼µå­
+Family;ãƒ•ã‚¡ãƒŸãƒª
 Fax;Fax
-File;ファイル
-File size;ファイルサイズ
-File_Append;既存ファイルに上書き (注意 : 同じパラメータは慎重に！)
-File_Created_Date;ファイル作成日
+File;ãƒ•ã‚¡ã‚¤ãƒ«
+File size;ãƒ•ã‚¡ã‚¤ãƒ«ã‚µã‚¤ã‚º
+File_Append;æ—¢å­˜ãƒ•ã‚¡ã‚¤ãƒ«ã«ä¸Šæ›¸ã (æ³¨æ„ : åŒã˜ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã¯æ…Žé‡ã«ï¼)
+File_Created_Date;ãƒ•ã‚¡ã‚¤ãƒ«ä½œæˆæ—¥
 File_Created_Date_Local;
-File_Hint;このファイルの詳細
-File_Modified_Date;ファイル変更日
-File_Modified_Date_Local;ファイル変更日（ローカル）
-FileExtension;拡張子
-FileName;ファイル名
-FileSize;サイズ
-Folder;フォルダー
-Folder (R);フォルダー(R)
-Folder (R)_Hint;このフォルダーの詳細(R)
-Folder (Recursively);フォルダー（サブフォルダー含む）
-Folder_Hint;このフォルダーの詳細
-FolderName;フォルダー名
-Format;フォーマット
+File_Hint;ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã®è©³ç´°
+File_Modified_Date;ãƒ•ã‚¡ã‚¤ãƒ«å¤‰æ›´æ—¥
+File_Modified_Date_Local;ãƒ•ã‚¡ã‚¤ãƒ«å¤‰æ›´æ—¥ï¼ˆãƒ­ãƒ¼ã‚«ãƒ«ï¼‰
+FileExtension;æ‹¡å¼µå­
+FileName;ãƒ•ã‚¡ã‚¤ãƒ«å
+FileSize;ã‚µã‚¤ã‚º
+Folder;ãƒ•ã‚©ãƒ«ãƒ€ãƒ¼
+Folder (R);ãƒ•ã‚©ãƒ«ãƒ€ãƒ¼(R)
+Folder (R)_Hint;ã“ã®ãƒ•ã‚©ãƒ«ãƒ€ãƒ¼ã®è©³ç´°(R)
+Folder (Recursively);ãƒ•ã‚©ãƒ«ãƒ€ãƒ¼ï¼ˆã‚µãƒ–ãƒ•ã‚©ãƒ«ãƒ€ãƒ¼å«ã‚€ï¼‰
+Folder_Hint;ã“ã®ãƒ•ã‚©ãƒ«ãƒ€ãƒ¼ã®è©³ç´°
+FolderName;ãƒ•ã‚©ãƒ«ãƒ€ãƒ¼å
+Format;ãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆ
 Format_Commercial;
 Format_Commercial_IfAny;
-Format_Description;詳細
-Format_Info;情報
-Format_Profile;プロファイル
-Format_Settings;設定
-Format_Settings_PacketBitStream;パケットビットストリーム
+Format_Description;è©³ç´°
+Format_Info;æƒ…å ±
+Format_Profile;ãƒ—ãƒ­ãƒ•ã‚¡ã‚¤ãƒ«
+Format_Settings;è¨­å®š
+Format_Settings_PacketBitStream;ãƒ‘ã‚±ãƒƒãƒˆãƒ“ãƒƒãƒˆã‚¹ãƒˆãƒªãƒ¼ãƒ 
 Format_Settings_BVOP;BVOP
 Format_Settings_QPel;QPel
 Format_Settings_GMC;GMC
-Format_Settings_Matrix;Matrix 形式の設定
-Format_Settings_Matrix_Custom;カスタム Matrix 形式の設定
-Format_Settings_Matrix_Default;既定の Matrix 形式設定
+Format_Settings_Matrix;Matrix å½¢å¼ã®è¨­å®š
+Format_Settings_Matrix_Custom;ã‚«ã‚¹ã‚¿ãƒ  Matrix å½¢å¼ã®è¨­å®š
+Format_Settings_Matrix_Default;æ—¢å®šã® Matrix å½¢å¼è¨­å®š
 Format_Settings_Floor;Floor
 Format_Settings_CABAC;CABAC
 Format_Settings_Firm;Firm
@@ -340,35 +340,35 @@ Format_Settings_Law;Law
 Format_Settings_ITU;ITU
 Format_Settings_SBR;SBR
 Format_Settings_PS;PS
-Format_Settings_Pulldown;プルダウン
+Format_Settings_Pulldown;ãƒ—ãƒ«ãƒ€ã‚¦ãƒ³
 Format_Settings_Mode;
 Format_Settings_FrameMode;
 Format_Settings_Emphasis;
 Format_Settings_ModeExtension;
 Format_Settings_GOP;
-Format_Version;バージョン
-Format_Url;Url フォーマット
-FrameCount;フレーム数
-FrameRate;フレームレート
-FrameRate_Mode;モード
-FrameRate_Mode_CFR;CFR モード
-FrameRate_Mode_VFR;VFR モード
-FrameRate_Minimum;最小
-FrameRate_Nominal;通常
-FrameRate_Maximum;最大
-FrameRate_Original;オリジナル
-General;全般
-Genre;ジャンル
-Genre_000;ブルース
-Genre_001;ロック
-Genre_002;カントリー
-Genre_003;ダンス
-Genre_004;ディスコ
-Genre_005;ファンク
-Genre_006;グランジ
-Genre_007;ヒップホップ
-Genre_008;ジャズ
-Genre_009;メタル
+Format_Version;ãƒãƒ¼ã‚¸ãƒ§ãƒ³
+Format_Url;Url ãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆ
+FrameCount;ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
+FrameRate;ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆ
+FrameRate_Mode;ãƒ¢ãƒ¼ãƒ‰
+FrameRate_Mode_CFR;CFR ãƒ¢ãƒ¼ãƒ‰
+FrameRate_Mode_VFR;VFR ãƒ¢ãƒ¼ãƒ‰
+FrameRate_Minimum;æœ€å°
+FrameRate_Nominal;é€šå¸¸
+FrameRate_Maximum;æœ€å¤§
+FrameRate_Original;ã‚ªãƒªã‚¸ãƒŠãƒ«
+General;å…¨èˆ¬
+Genre;ã‚¸ãƒ£ãƒ³ãƒ«
+Genre_000;ãƒ–ãƒ«ãƒ¼ã‚¹
+Genre_001;ãƒ­ãƒƒã‚¯
+Genre_002;ã‚«ãƒ³ãƒˆãƒªãƒ¼
+Genre_003;ãƒ€ãƒ³ã‚¹
+Genre_004;ãƒ‡ã‚£ã‚¹ã‚³
+Genre_005;ãƒ•ã‚¡ãƒ³ã‚¯
+Genre_006;ã‚°ãƒ©ãƒ³ã‚¸
+Genre_007;ãƒ’ãƒƒãƒ—ãƒ›ãƒƒãƒ—
+Genre_008;ã‚¸ãƒ£ã‚º
+Genre_009;ãƒ¡ã‚¿ãƒ«
 Genre_010;NewAge
 Genre_011;Oldies
 Genre_012;Other
@@ -551,47 +551,47 @@ Genre_188;
 Genre_189;
 Genre_190;
 Genre_191;
-Go to WebSite;Web サイトへ移動
+Go to WebSite;Web ã‚µã‚¤ãƒˆã¸ç§»å‹•
 Grouping;
-h;時
-Header file;ヘッダーファイルを作成
-Height;高さ
+h;æ™‚
+Header file;ãƒ˜ãƒƒãƒ€ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½œæˆ
+Height;é«˜ã•
 Height_Original;
-Help;ヘルプ
-Hint;ヒント
-How many audio streams?;音声ストリームの数？
-How many chapters streams?;チャプターストリームの数？
-How many text streams?;テキストストリームの数？
-How many video streams?;ビデオストリームの数？
+Help;ãƒ˜ãƒ«ãƒ—
+Hint;ãƒ’ãƒ³ãƒˆ
+How many audio streams?;éŸ³å£°ã‚¹ãƒˆãƒªãƒ¼ãƒ ã®æ•°ï¼Ÿ
+How many chapters streams?;ãƒãƒ£ãƒ—ã‚¿ãƒ¼ã‚¹ãƒˆãƒªãƒ¼ãƒ ã®æ•°ï¼Ÿ
+How many text streams?;ãƒ†ã‚­ã‚¹ãƒˆã‚¹ãƒˆãƒªãƒ¼ãƒ ã®æ•°ï¼Ÿ
+How many video streams?;ãƒ“ãƒ‡ã‚ªã‚¹ãƒˆãƒªãƒ¼ãƒ ã®æ•°ï¼Ÿ
 HTML;HTML
 ID;ID
-Image;イメージ
-Image stream(s);イメージストリーム
-Image_Codec_List;コーデックのイメージ
-ImageCount;イメージストリームの数
-Info;情報
-Instruments;インストゥルメンツ
-Interlacement;インターレスメンツ
-Interlaced_Interlaced;インターレース
-Interlaced_TFF;トップファースト(TFF)
-Interlaced_BFF;ボトムファースト(BFF)
-Interlaced_PPF;プログレシッブ(PPF)
-Interlaced_Progressive;プログレシッブ(PPF)
+Image;ã‚¤ãƒ¡ãƒ¼ã‚¸
+Image stream(s);ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚¹ãƒˆãƒªãƒ¼ãƒ 
+Image_Codec_List;ã‚³ãƒ¼ãƒ‡ãƒƒã‚¯ã®ã‚¤ãƒ¡ãƒ¼ã‚¸
+ImageCount;ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚¹ãƒˆãƒªãƒ¼ãƒ ã®æ•°
+Info;æƒ…å ±
+Instruments;ã‚¤ãƒ³ã‚¹ãƒˆã‚¥ãƒ«ãƒ¡ãƒ³ãƒ„
+Interlacement;ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ¬ã‚¹ãƒ¡ãƒ³ãƒ„
+Interlaced_Interlaced;ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ¬ãƒ¼ã‚¹
+Interlaced_TFF;ãƒˆãƒƒãƒ—ãƒ•ã‚¡ãƒ¼ã‚¹ãƒˆ(TFF)
+Interlaced_BFF;ãƒœãƒˆãƒ ãƒ•ã‚¡ãƒ¼ã‚¹ãƒˆ(BFF)
+Interlaced_PPF;ãƒ—ãƒ­ã‚°ãƒ¬ã‚·ãƒƒãƒ–(PPF)
+Interlaced_Progressive;ãƒ—ãƒ­ã‚°ãƒ¬ã‚·ãƒƒãƒ–(PPF)
 Interleaved;
-Interleave_Duration;ドゥレイション
-Interleave_Preload;プリロード
-Interleave_VideoFrames;ビデオフレーム
+Interleave_Duration;ãƒ‰ã‚¥ãƒ¬ã‚¤ã‚·ãƒ§ãƒ³
+Interleave_Preload;ãƒ—ãƒªãƒ­ãƒ¼ãƒ‰
+Interleave_VideoFrames;ãƒ“ãƒ‡ã‚ªãƒ•ãƒ¬ãƒ¼ãƒ 
 InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-Keywords;キーワード
-Known codecs;インストール済みコーデック
-Known formats;使用可能なフォーマット
-Known parameters;使用可能なパラメータ
-Label;ラベル
-Language;言語
-Language_More;さらに
+Keywords;ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰
+Known codecs;ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ¸ˆã¿ã‚³ãƒ¼ãƒ‡ãƒƒã‚¯
+Known formats;ä½¿ç”¨å¯èƒ½ãªãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆ
+Known parameters;ä½¿ç”¨å¯èƒ½ãªãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
+Label;ãƒ©ãƒ™ãƒ«
+Language;è¨€èªž
+Language_More;ã•ã‚‰ã«
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -599,7 +599,7 @@ Language_af;Afrikaans
 Language_ak;Akan
 Language_am;Amharic
 Language_an;Aragonese
-Language_ar;アラビア語
+Language_ar;ã‚¢ãƒ©ãƒ“ã‚¢èªž
 Language_as;Assamese
 Language_av;Avaric
 Language_ay;Aymara
@@ -614,7 +614,7 @@ Language_bn;Bengali
 Language_bo;Tibetan
 Language_br;Breton
 Language_bs;Bosnian
-Language_ca;カタルーニャ語
+Language_ca;ã‚«ã‚¿ãƒ«ãƒ¼ãƒ‹ãƒ£èªž
 Language_ce;Chechen
 Language_ch;Chamorro
 Language_co;Corsican
@@ -624,34 +624,34 @@ Language_cu;Slave
 Language_cv;Chuvash
 Language_cy;Welsh
 Language_da;Danish
-Language_de;ドイツ語
+Language_de;ãƒ‰ã‚¤ãƒ„èªž
 Language_dv;Divehi
 Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;Greek
-Language_en;英語
-Language_en-gb;英語(英国)
-Language_en-us;英語(米国)
+Language_en;è‹±èªž
+Language_en-gb;è‹±èªž(è‹±å›½)
+Language_en-us;è‹±èªž(ç±³å›½)
 Language_eo;Esperanto
-Language_es;エスパーニャ
+Language_es;ã‚¨ã‚¹ãƒ‘ãƒ¼ãƒ‹ãƒ£
 Language_et;Estonian
-Language_eu;バスク語
+Language_eu;ãƒã‚¹ã‚¯èªž
 Language_fa;Persian
 Language_ff;Fulah
 Language_fi;Finnish
 Language_fj;Fijian
 Language_fo;Faroese
-Language_fr;フランス語
+Language_fr;ãƒ•ãƒ©ãƒ³ã‚¹èªž
 Language_fy;Frisian
 Language_ga;Irish
 Language_gd;Gaelic
-Language_gl;ガリシア語
+Language_gl;ã‚¬ãƒªã‚·ã‚¢èªž
 Language_gn;Guarani
 Language_gu;Gujarati
 Language_gv;Manx
 Language_ha;Hausa
-Language_he;ヘブライ語
-Language_hi;ヒンディ語
+Language_he;ãƒ˜ãƒ–ãƒ©ã‚¤èªž
+Language_hi;ãƒ’ãƒ³ãƒ‡ã‚£èªž
 Language_ho;Hiri Motu
 Language_hr;Croatian
 Language_ht;Haitian
@@ -664,12 +664,12 @@ Language_ie;Interlingue
 Language_ig;Igbo
 Language_ii;Sichuan Yi
 Language_ik;Inupiaq
-Language_Info;言語情報
+Language_Info;è¨€èªžæƒ…å ±
 Language_io;Ido
 Language_is;Icelandic
-Language_it;イタリア語
+Language_it;ã‚¤ã‚¿ãƒªã‚¢èªž
 Language_iu;Inuktitut
-Language_ja;日本語
+Language_ja;æ—¥æœ¬èªž
 Language_jv;Javanese
 Language_ka;Georgian
 Language_kg;Kongo
@@ -679,7 +679,7 @@ Language_kk;Kazakh
 Language_kl;Kalaallisut
 Language_km;Khmer
 Language_kn;Kannada
-Language_ko;韓国語
+Language_ko;éŸ“å›½èªž
 Language_kr;Kanuri
 Language_ks;Kashmiri
 Language_ku;Kurdish
@@ -705,14 +705,14 @@ Language_mo;Moldavian
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
-Language_mul;複数言語
+Language_mul;è¤‡æ•°è¨€èªž
 Language_my;Burmese
 Language_na;Nauru
 Language_nb;Norwegian Bokmal
 Language_nd;Ndebele
 Language_ne;Nepali
 Language_ng;Ndonga
-Language_nl;オランダ語
+Language_nl;ã‚ªãƒ©ãƒ³ãƒ€èªž
 Language_nn;Norwegian Nynorsk
 Language_no;Norwegian
 Language_nr;Ndebele
@@ -727,13 +727,13 @@ Language_pa;Panjabi
 Language_pi;Pali
 Language_pl;Polish
 Language_ps;Pushto
-Language_pt;ポルトガル語(ポルトガル)
-Language_pt-br;BR ポルトガル語(ブラジル)
+Language_pt;ãƒãƒ«ãƒˆã‚¬ãƒ«èªž(ãƒãƒ«ãƒˆã‚¬ãƒ«)
+Language_pt-br;BR ãƒãƒ«ãƒˆã‚¬ãƒ«èªž(ãƒ–ãƒ©ã‚¸ãƒ«)
 Language_qu;Quechua
 Language_rm;Raeto-Romance
 Language_rn;Rundi
-Language_ro;ルーマニア語
-Language_ru;ロシア語
+Language_ro;ãƒ«ãƒ¼ãƒžãƒ‹ã‚¢èªž
+Language_ru;ãƒ­ã‚·ã‚¢èªž
 Language_rw;Kinyarwanda
 Language_sa;Sanskrit
 Language_sc;Sardinian
@@ -780,252 +780,253 @@ Language_xh;Xhosa
 Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
-Language_zh;中国語
-Language_zh-cn;中国語(簡体)
-Language_zh-tw;中国語(繁体)
-Language_zu;ズールー語
-LawRating;レイティング
+Language_zh;ä¸­å›½èªž
+Language_zh-cn;ä¸­å›½èªž(ç°¡ä½“)
+Language_zh-tw;ä¸­å›½èªž(ç¹ä½“)
+Language_zu;ã‚ºãƒ¼ãƒ«ãƒ¼èªž
+LawRating;ãƒ¬ã‚¤ãƒ†ã‚£ãƒ³ã‚°
 LCCN;LCCN
-Library;ライブラリ
-Lightness;明るさ
-List;リスト
-Lyrics;歌詞
-Lyricist;作詞
-Mastered_Date;マスタリング日
-MasteredBy;マスタリング by
+Library;ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+Lightness;æ˜Žã‚‹ã•
+List;ãƒªã‚¹ãƒˆ
+Lyrics;æ­Œè©ž
+Lyricist;ä½œè©ž
+Mastered_Date;ãƒžã‚¹ã‚¿ãƒªãƒ³ã‚°æ—¥
+MasteredBy;ãƒžã‚¹ã‚¿ãƒªãƒ³ã‚° by
 matrix_coefficients;
-MediaInfo_About; 詳細情報提供者 \r\n マルチメディア ファイル:\r\n Matroska, OGG ( OGM を含む)\r\n MPEG1 ( VCD を含む)\r\n MPEG2 ( DVD , SVCD を含む)\r\n MPEG4 (iTunes の M4A を含む)\r\n Quicktime\r\n RealMedia\r\n WindowsMedia ( WMV , WMA を含む)\r\n Microsoft RIFF ( AVI , WAV を含む)\r\n 音声のみ (AC3 , DTS , AAC , AU , AIFF ...)
-Menu;メニュー
-Menu stream(s);メニューストリーム
-Menu_Codec_List;メニューコーデック
-Menu_No;メニュー番号
-MenuCount;メニューストリーム数
-Menu_Hint;ヒント
+MediaInfo_About; è©³ç´°æƒ…å ±æä¾›è€… \r\n ãƒžãƒ«ãƒãƒ¡ãƒ‡ã‚£ã‚¢ ãƒ•ã‚¡ã‚¤ãƒ«:\r\n Matroska, OGG ( OGM ã‚’å«ã‚€)\r\n MPEG1 ( VCD ã‚’å«ã‚€)\r\n MPEG2 ( DVD , SVCD ã‚’å«ã‚€)\r\n MPEG4 (iTunes ã® M4A ã‚’å«ã‚€)\r\n Quicktime\r\n RealMedia\r\n WindowsMedia ( WMV , WMA ã‚’å«ã‚€)\r\n Microsoft RIFF ( AVI , WAV ã‚’å«ã‚€)\r\n éŸ³å£°ã®ã¿ (AC3 , DTS , AAC , AU , AIFF ...)
+Menu;ãƒ¡ãƒ‹ãƒ¥ãƒ¼
+Menu stream(s);ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚¹ãƒˆãƒªãƒ¼ãƒ 
+Menu_Codec_List;ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚³ãƒ¼ãƒ‡ãƒƒã‚¯
+Menu_No;ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç•ªå·
+MenuCount;ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚¹ãƒˆãƒªãƒ¼ãƒ æ•°
+Menu_Hint;ãƒ’ãƒ³ãƒˆ
 MenuID;ID
-mn;分
-Mood;ムード
-More;さらに
-Movie;映画名
-ms;秒
+mn;åˆ†
+Mood;ãƒ ãƒ¼ãƒ‰
+More;ã•ã‚‰ã«
+Movie;æ˜ ç”»å
+ms;ç§’
 MSDI;MSDI
-MusicBy;演奏者
-MuxingMode;Muxing モード
-MuxingMode_MoreInfo;Muxing モード 詳細情報
-MuxingMode_PackedBitstream;ビット ストリーム パック
-Name;名前
-Nationality;製作国
-NetworkName;ネットワーク名
-New;新規
-Newest version;新バージョンチェック（要インターネット接続）
-NewVersion_Menu;新バージョンメニュー
-NewVersion_Question_Title;新バージョン確認 タイトル
-NewVersion_Question_Content;新バージョン確認 コンテンツ
-No;いいえ
-Not yet;準備中です
-NumColors;色
+MusicBy;æ¼”å¥è€…
+MuxingMode;Muxing ãƒ¢ãƒ¼ãƒ‰
+MuxingMode_MoreInfo;Muxing ãƒ¢ãƒ¼ãƒ‰ è©³ç´°æƒ…å ±
+MuxingMode_PackedBitstream;ãƒ“ãƒƒãƒˆ ã‚¹ãƒˆãƒªãƒ¼ãƒ  ãƒ‘ãƒƒã‚¯
+Name;åå‰
+Nationality;è£½ä½œå›½
+NetworkName;ãƒãƒƒãƒˆãƒ¯ãƒ¼ã‚¯å
+New;æ–°è¦
+Newest version;æ–°ãƒãƒ¼ã‚¸ãƒ§ãƒ³ãƒã‚§ãƒƒã‚¯ï¼ˆè¦ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒƒãƒˆæŽ¥ç¶šï¼‰
+NewVersion_Menu;æ–°ãƒãƒ¼ã‚¸ãƒ§ãƒ³ãƒ¡ãƒ‹ãƒ¥ãƒ¼
+NewVersion_Question_Title;æ–°ãƒãƒ¼ã‚¸ãƒ§ãƒ³ç¢ºèª ã‚¿ã‚¤ãƒˆãƒ«
+NewVersion_Question_Content;æ–°ãƒãƒ¼ã‚¸ãƒ§ãƒ³ç¢ºèª ã‚³ãƒ³ãƒ†ãƒ³ãƒ„
+No;ã„ã„ãˆ
+Not yet;æº–å‚™ä¸­ã§ã™
+NumColors;è‰²
 OK;OK
-One output file per input file;入力ファイルを単一ファイルで出力
-Open;開く
-OpenCandy_01;オープンキャンディ
-OpenCandy_02;オープンキャンディ
-OpenCandy_03;オープンキャンディ
-OpenCandy_04;オープンキャンディ
-OpenCandy_05;オープンキャンディ
-OpenCandy_06;オープンキャンディ
-OpenCandy_07;オープンキャンディ
-OpenCandy_08;オープンキャンディ
-OpenCandy_09;オープンキャンディ
-OpenCandy_10;オープンキャンディ
-OpenCandy_11;オープンキャンディ
-OpenCandy_12;オープンキャンディ
-OpenCandy_13;オープンキャンディ
-OpenCandy_14;オープンキャンディ
-OpenCandy_15;オープンキャンディ
-OpenCandy_16;オープンキャンディ
-OpenCandy_17;オープンキャンディ
-OpenCandy_18;オープンキャンディ
-OpenCandy_19;オープンキャンディ
-OpenCandy_20;オープンキャンディ
-OpenCandy_21;オープンキャンディ
-OpenCandy_22;オープンキャンディ
-OpenCandy_23;オープンキャンディ
-OpenCandy_24;オープンキャンディ
-OpenCandy_25;オープンキャンディ
-OpenCandy_26;オープンキャンディ
-OpenCandy_27;オープンキャンディ
-OpenCandy_28;オープンキャンディ
-OpenCandy_29;オープンキャンディ
-OpenCandy_30;オープンキャンディ
-OpenCandy_31;オープンキャンディ
-OpenCandy_32;オープンキャンディ
-OpenCandy_33;オープンキャンディ
-OpenCandy_34;オープンキャンディ
-OpenCandy_35;オープンキャンディ
-OpenCandy_36;オープンキャンディ
-Options;オプション
-Options_Hint;詳細設定
-Original;オリジナル
-OriginalNetworkName;オリジナル ネットワーク名
-OriginalSourceForm;オリジナル ソース フォーム
-OriginalSourceMedium;中間ソース フォーム
-Other;その他
-Output;出力
-Output format;出力フォーマット
-OverallBitRate;オーバルビットレート
-OverallBitRate_Maximum;最大
-OverallBitRate_Minimum;最小
-OverallBitRate_Mode;OBR モード
-OverallBitRate_Nominal;OBR ノミナル
-Part;パート
-Part_Count;合計
-Performer;パフォーマー
-Period;ピリオド
-Phone;電話
-PixelAspectRatio;ピクセル比
-PixelAspectRatio_Original;ピクセル比
-PlayCounter;再生数カウンター
-Played_Count;再生数
-Played_First_Date;初再生日
-Played_Last_Date;最終再生日
-PlayTime;再生時間
-Position;ポジション
-Position_Total;合計
-Preferences;設定
-Producer;プロデューサー
-ProductionDesigner;プロダクション
-ProductionStudio;スタジオ
-Publisher;発行者
-Purchased_Date;購入日
-Quote character;クオート
-RadioStation;ラジオ局
-Rating;レイティング
-Recorded_Date;録音日
-Recorded_Location;録音した場所
-Released_Date;リリース日
-RemixedBy;リミックス by
-ReplayGain_Gain;リプレイゲイン ゲイン
-ReplayGain_Peak;リプレイ ゲイン ピーク
-Resolution;解像度
-s;秒
-SamplingRate;サンプルレート
-Save;保存
-ScanType;スキャンの種類
+One output file per input file;å…¥åŠ›ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å˜ä¸€ãƒ•ã‚¡ã‚¤ãƒ«ã§å‡ºåŠ›
+Open;é–‹ã
+OpenCandy_01;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_02;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_03;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_04;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_05;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_06;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_07;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_08;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_09;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_10;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_11;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_12;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_13;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_14;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_15;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_16;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_17;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_18;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_19;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_20;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_21;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_22;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_23;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_24;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_25;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_26;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_27;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_28;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_29;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_30;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_31;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_32;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_33;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_34;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_35;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+OpenCandy_36;ã‚ªãƒ¼ãƒ—ãƒ³ã‚­ãƒ£ãƒ³ãƒ‡ã‚£
+Options;ã‚ªãƒ—ã‚·ãƒ§ãƒ³
+Options_Hint;è©³ç´°è¨­å®š
+Original;ã‚ªãƒªã‚¸ãƒŠãƒ«
+OriginalNetworkName;ã‚ªãƒªã‚¸ãƒŠãƒ« ãƒãƒƒãƒˆãƒ¯ãƒ¼ã‚¯å
+OriginalSourceForm;ã‚ªãƒªã‚¸ãƒŠãƒ« ã‚½ãƒ¼ã‚¹ ãƒ•ã‚©ãƒ¼ãƒ 
+OriginalSourceMedium;ä¸­é–“ã‚½ãƒ¼ã‚¹ ãƒ•ã‚©ãƒ¼ãƒ 
+Other;ãã®ä»–
+Output;å‡ºåŠ›
+Output format;å‡ºåŠ›ãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆ
+OverallBitRate;ã‚ªãƒ¼ãƒãƒ«ãƒ“ãƒƒãƒˆãƒ¬ãƒ¼ãƒˆ
+OverallBitRate_Maximum;æœ€å¤§
+OverallBitRate_Minimum;æœ€å°
+OverallBitRate_Mode;OBR ãƒ¢ãƒ¼ãƒ‰
+OverallBitRate_Nominal;OBR ãƒŽãƒŸãƒŠãƒ«
+Part;ãƒ‘ãƒ¼ãƒˆ
+Part_Count;åˆè¨ˆ
+Performer;ãƒ‘ãƒ•ã‚©ãƒ¼ãƒžãƒ¼
+Period;ãƒ”ãƒªã‚ªãƒ‰
+Phone;é›»è©±
+PixelAspectRatio;ãƒ”ã‚¯ã‚»ãƒ«æ¯”
+PixelAspectRatio_Original;ãƒ”ã‚¯ã‚»ãƒ«æ¯”
+PlayCounter;å†ç”Ÿæ•°ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼
+Played_Count;å†ç”Ÿæ•°
+Played_First_Date;åˆå†ç”Ÿæ—¥
+Played_Last_Date;æœ€çµ‚å†ç”Ÿæ—¥
+PlayTime;å†ç”Ÿæ™‚é–“
+Position;ãƒã‚¸ã‚·ãƒ§ãƒ³
+Position_Total;åˆè¨ˆ
+Preferences;è¨­å®š
+Producer;ãƒ—ãƒ­ãƒ‡ãƒ¥ãƒ¼ã‚µãƒ¼
+ProductionDesigner;ãƒ—ãƒ­ãƒ€ã‚¯ã‚·ãƒ§ãƒ³
+ProductionStudio;ã‚¹ã‚¿ã‚¸ã‚ª
+Publisher;ç™ºè¡Œè€…
+Purchased_Date;è³¼å…¥æ—¥
+Quote character;ã‚¯ã‚ªãƒ¼ãƒˆ
+RadioStation;ãƒ©ã‚¸ã‚ªå±€
+Rating;ãƒ¬ã‚¤ãƒ†ã‚£ãƒ³ã‚°
+Recorded_Date;éŒ²éŸ³æ—¥
+Recorded_Location;éŒ²éŸ³ã—ãŸå ´æ‰€
+Released_Date;ãƒªãƒªãƒ¼ã‚¹æ—¥
+RemixedBy;ãƒªãƒŸãƒƒã‚¯ã‚¹ by
+ReplayGain_Gain;ãƒªãƒ—ãƒ¬ã‚¤ã‚²ã‚¤ãƒ³ ã‚²ã‚¤ãƒ³
+ReplayGain_Peak;ãƒªãƒ—ãƒ¬ã‚¤ ã‚²ã‚¤ãƒ³ ãƒ”ãƒ¼ã‚¯
+Resolution;è§£åƒåº¦
+s;ç§’
+SamplingRate;ã‚µãƒ³ãƒ—ãƒ«ãƒ¬ãƒ¼ãƒˆ
+Save;ä¿å­˜
+ScanType;ã‚¹ã‚­ãƒ£ãƒ³ã®ç¨®é¡ž
 ScanType_Original;
-ScanOrder;スキャンの並び
+ScanOrder;ã‚¹ã‚­ãƒ£ãƒ³ã®ä¸¦ã³
+ScanOrder_StoredDisplayedInverted;
 ScanOrder_Original;
-ScreenplayBy;監督
-Season;シーズン
-see below;以下詳細
-Send HeaderFile;可能ならヘッダファイルを送信してください: http://sourceforge.net/projects/mediainfo/ (バグセクション)
-Separator_Columns;列の区切り
-Separator_Lines;区切り線
-ServiceChannel;チャンネル
-ServiceName;名前
-ServiceProvider;プロバイダ
-ServiceType;種類
-Set;セット
-Set_Count;セット回数
-Setup;セットアップ
-Sharpness;シャープネス
-Sheet;シート
-Sheet (Complete);シート (完成)
-Shell extension;シェルに統合 （右クリックメニューに登録)
-Shell extension, folder;シェルに統合 （フォルダー）
-Shell InfoTip;シェルでインフォチップ （対応ファイル上でツールチップを表示）
-Show menu;メニューを表示する
-Show toolbar;ツール バーを表示する
-Sort;並び替え
+ScreenplayBy;ç›£ç£
+Season;ã‚·ãƒ¼ã‚ºãƒ³
+see below;ä»¥ä¸‹è©³ç´°
+Send HeaderFile;å¯èƒ½ãªã‚‰ãƒ˜ãƒƒãƒ€ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é€ä¿¡ã—ã¦ãã ã•ã„: http://sourceforge.net/projects/mediainfo/ (ãƒã‚°ã‚»ã‚¯ã‚·ãƒ§ãƒ³)
+Separator_Columns;åˆ—ã®åŒºåˆ‡ã‚Š
+Separator_Lines;åŒºåˆ‡ã‚Šç·š
+ServiceChannel;ãƒãƒ£ãƒ³ãƒãƒ«
+ServiceName;åå‰
+ServiceProvider;ãƒ—ãƒ­ãƒã‚¤ãƒ€
+ServiceType;ç¨®é¡ž
+Set;ã‚»ãƒƒãƒˆ
+Set_Count;ã‚»ãƒƒãƒˆå›žæ•°
+Setup;ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—
+Sharpness;ã‚·ãƒ£ãƒ¼ãƒ—ãƒã‚¹
+Sheet;ã‚·ãƒ¼ãƒˆ
+Sheet (Complete);ã‚·ãƒ¼ãƒˆ (å®Œæˆ)
+Shell extension;ã‚·ã‚§ãƒ«ã«çµ±åˆ ï¼ˆå³ã‚¯ãƒªãƒƒã‚¯ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«ç™»éŒ²)
+Shell extension, folder;ã‚·ã‚§ãƒ«ã«çµ±åˆ ï¼ˆãƒ•ã‚©ãƒ«ãƒ€ãƒ¼ï¼‰
+Shell InfoTip;ã‚·ã‚§ãƒ«ã§ã‚¤ãƒ³ãƒ•ã‚©ãƒãƒƒãƒ— ï¼ˆå¯¾å¿œãƒ•ã‚¡ã‚¤ãƒ«ä¸Šã§ãƒ„ãƒ¼ãƒ«ãƒãƒƒãƒ—ã‚’è¡¨ç¤ºï¼‰
+Show menu;ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’è¡¨ç¤ºã™ã‚‹
+Show toolbar;ãƒ„ãƒ¼ãƒ« ãƒãƒ¼ã‚’è¡¨ç¤ºã™ã‚‹
+Sort;ä¸¦ã³æ›¿ãˆ
 SamplingCount;
-SoundEngineer;サウンドエンジニア
+SoundEngineer;ã‚µã‚¦ãƒ³ãƒ‰ã‚¨ãƒ³ã‚¸ãƒ‹ã‚¢
 Source;
 Source_Duration;
 Source_FrameCount;
 Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
-Standard;標準
-Stream;ストリーム
-Stream_MoreInfo;このストリームの詳細情報
-StreamCount;この種類のストリーム数
-StreamID;ストリーム ID
-StreamKind;ストリーム種
+Standard;æ¨™æº–
+Stream;ã‚¹ãƒˆãƒªãƒ¼ãƒ 
+Stream_MoreInfo;ã“ã®ã‚¹ãƒˆãƒªãƒ¼ãƒ ã®è©³ç´°æƒ…å ±
+StreamCount;ã“ã®ç¨®é¡žã®ã‚¹ãƒˆãƒªãƒ¼ãƒ æ•°
+StreamID;ã‚¹ãƒˆãƒªãƒ¼ãƒ  ID
+StreamKind;ã‚¹ãƒˆãƒªãƒ¼ãƒ ç¨®
 StreamKindID;ID
-StreamKindPos;ポジション
-StreamSize;ストリームサイズ
+StreamKindPos;ãƒã‚¸ã‚·ãƒ§ãƒ³
+StreamSize;ã‚¹ãƒˆãƒªãƒ¼ãƒ ã‚µã‚¤ã‚º
 StreamSize_Encoded;
-StreamSize_Proportion;サイズ整形
-Subject;件名
-SubTrack;サブトラック
-Summary;サマリー
-Supported formats;対応フォーマット
-Supported?;サポート？
+StreamSize_Proportion;ã‚µã‚¤ã‚ºæ•´å½¢
+Subject;ä»¶å
+SubTrack;ã‚µãƒ–ãƒˆãƒ©ãƒƒã‚¯
+Summary;ã‚µãƒžãƒªãƒ¼
+Supported formats;å¯¾å¿œãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆ
+Supported?;ã‚µãƒãƒ¼ãƒˆï¼Ÿ
 Synopsis;Synopsis
-SystemId;システム Id
-Tagged_Application;タギングツール
-Tagged_Date;タグ付け日
-Technician;テクニシャン
-TermsOfUse;使用許諾
-Text;テキスト
-Text - Custom;テキスト - カスタム
-Text (HTML);テキスト (HTML)
-Text stream(s);テキストストリーム
-Text streams;テキストストリーム
-Text_Codec_List;テキストコーデック
-Text_No;テキストなし
-Text1;プライマリテキストストリーム
-Text2;セカンダリテキストストリーム
-Text3;サードテキストストリーム
-TextCount;テキストストリーム数
-ThanksTo;謝辞
-Thousands separator;区切り
-Title;タイトル
-Title_More;タイトルと詳細情報
+SystemId;ã‚·ã‚¹ãƒ†ãƒ  Id
+Tagged_Application;ã‚¿ã‚®ãƒ³ã‚°ãƒ„ãƒ¼ãƒ«
+Tagged_Date;ã‚¿ã‚°ä»˜ã‘æ—¥
+Technician;ãƒ†ã‚¯ãƒ‹ã‚·ãƒ£ãƒ³
+TermsOfUse;ä½¿ç”¨è¨±è«¾
+Text;ãƒ†ã‚­ã‚¹ãƒˆ
+Text - Custom;ãƒ†ã‚­ã‚¹ãƒˆ - ã‚«ã‚¹ã‚¿ãƒ 
+Text (HTML);ãƒ†ã‚­ã‚¹ãƒˆ (HTML)
+Text stream(s);ãƒ†ã‚­ã‚¹ãƒˆã‚¹ãƒˆãƒªãƒ¼ãƒ 
+Text streams;ãƒ†ã‚­ã‚¹ãƒˆã‚¹ãƒˆãƒªãƒ¼ãƒ 
+Text_Codec_List;ãƒ†ã‚­ã‚¹ãƒˆã‚³ãƒ¼ãƒ‡ãƒƒã‚¯
+Text_No;ãƒ†ã‚­ã‚¹ãƒˆãªã—
+Text1;ãƒ—ãƒ©ã‚¤ãƒžãƒªãƒ†ã‚­ã‚¹ãƒˆã‚¹ãƒˆãƒªãƒ¼ãƒ 
+Text2;ã‚»ã‚«ãƒ³ãƒ€ãƒªãƒ†ã‚­ã‚¹ãƒˆã‚¹ãƒˆãƒªãƒ¼ãƒ 
+Text3;ã‚µãƒ¼ãƒ‰ãƒ†ã‚­ã‚¹ãƒˆã‚¹ãƒˆãƒªãƒ¼ãƒ 
+TextCount;ãƒ†ã‚­ã‚¹ãƒˆã‚¹ãƒˆãƒªãƒ¼ãƒ æ•°
+ThanksTo;è¬è¾ž
+Thousands separator;åŒºåˆ‡ã‚Š
+Title;ã‚¿ã‚¤ãƒˆãƒ«
+Title_More;ã‚¿ã‚¤ãƒˆãƒ«ã¨è©³ç´°æƒ…å ±
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
-TimeZone;タイムゾーン
-Total;計
-Track;トラック名
-Track_Count;トラック数
+TimeZone;ã‚¿ã‚¤ãƒ ã‚¾ãƒ¼ãƒ³
+Total;è¨ˆ
+Track;ãƒˆãƒ©ãƒƒã‚¯å
+Track_Count;ãƒˆãƒ©ãƒƒã‚¯æ•°
 transfer_characteristics;
-Translator;翻訳者
-Tree;ツリー
-Tree & Text;ツリーとテキスト
+Translator;ç¿»è¨³è€…
+Tree;ãƒ„ãƒªãƒ¼
+Tree & Text;ãƒ„ãƒªãƒ¼ã¨ãƒ†ã‚­ã‚¹ãƒˆ
 Type;
 UniqueID;
-Unknown;不明
+Unknown;ä¸æ˜Ž
 Url;Url
-Video;ビデオ
-Video stream(s);ビデオストリーム
-Video_Codec_List;ビデオコーデック
-Video_Delay;ビデオ ディレイ
-Video_No;ビデオ番号
-Video0_Delay;ビデオ 0 ディレイ
-Video1;ビデオ 1
-VideoCount;ビデオストリーム数
-View;表示
-View_Hint;ヒントを表示する
-Warning : more streams in the files;警告 : このファイルにはさらなるストリームが含まれています
+Video;ãƒ“ãƒ‡ã‚ª
+Video stream(s);ãƒ“ãƒ‡ã‚ªã‚¹ãƒˆãƒªãƒ¼ãƒ 
+Video_Codec_List;ãƒ“ãƒ‡ã‚ªã‚³ãƒ¼ãƒ‡ãƒƒã‚¯
+Video_Delay;ãƒ“ãƒ‡ã‚ª ãƒ‡ã‚£ãƒ¬ã‚¤
+Video_No;ãƒ“ãƒ‡ã‚ªç•ªå·
+Video0_Delay;ãƒ“ãƒ‡ã‚ª 0 ãƒ‡ã‚£ãƒ¬ã‚¤
+Video1;ãƒ“ãƒ‡ã‚ª 1
+VideoCount;ãƒ“ãƒ‡ã‚ªã‚¹ãƒˆãƒªãƒ¼ãƒ æ•°
+View;è¡¨ç¤º
+View_Hint;ãƒ’ãƒ³ãƒˆã‚’è¡¨ç¤ºã™ã‚‹
+Warning : more streams in the files;è­¦å‘Š : ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã«ã¯ã•ã‚‰ãªã‚‹ã‚¹ãƒˆãƒªãƒ¼ãƒ ãŒå«ã¾ã‚Œã¦ã„ã¾ã™
 Web;Web
-WebSite_Audio;このオーディオコーデックについて
-WebSite_Audio_More; (%Url%) へ移動してこのオーディオコーデックを探す
-WebSite_General;このファイルを再生可能なプレイヤー
-WebSite_General_More;このファイルを再生可能なプレイヤー
-WebSite_Text;このテキストコーデックについて
-WebSite_Text_More; (%Url%) へ移動してこのテキストコーデックを探す
+WebSite_Audio;ã“ã®ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªã‚³ãƒ¼ãƒ‡ãƒƒã‚¯ã«ã¤ã„ã¦
+WebSite_Audio_More; (%Url%) ã¸ç§»å‹•ã—ã¦ã“ã®ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªã‚³ãƒ¼ãƒ‡ãƒƒã‚¯ã‚’æŽ¢ã™
+WebSite_General;ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å†ç”Ÿå¯èƒ½ãªãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
+WebSite_General_More;ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å†ç”Ÿå¯èƒ½ãªãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
+WebSite_Text;ã“ã®ãƒ†ã‚­ã‚¹ãƒˆã‚³ãƒ¼ãƒ‡ãƒƒã‚¯ã«ã¤ã„ã¦
+WebSite_Text_More; (%Url%) ã¸ç§»å‹•ã—ã¦ã“ã®ãƒ†ã‚­ã‚¹ãƒˆã‚³ãƒ¼ãƒ‡ãƒƒã‚¯ã‚’æŽ¢ã™
 WebSite_Url;http://MediaArea.net/MediaInfo
-WebSite_Video;このビデオコーデックについて
-WebSite_Video_More; (%Url%) へ移動してこのビデオコーデックを探す
-Width;幅
+WebSite_Video;ã“ã®ãƒ“ãƒ‡ã‚ªã‚³ãƒ¼ãƒ‡ãƒƒã‚¯ã«ã¤ã„ã¦
+WebSite_Video_More; (%Url%) ã¸ç§»å‹•ã—ã¦ã“ã®ãƒ“ãƒ‡ã‚ªã‚³ãƒ¼ãƒ‡ãƒƒã‚¯ã‚’æŽ¢ã™
+Width;å¹…
 Width_Original;
-WriteMe;メール送信
-WriteToTranslator;翻訳者
-Written_Date;作成日
-Written_Location;作成場所
-WrittenBy;著者
-Yes;はい
-Your system;システム情報
+WriteMe;ãƒ¡ãƒ¼ãƒ«é€ä¿¡
+WriteToTranslator;ç¿»è¨³è€…
+Written_Date;ä½œæˆæ—¥
+Written_Location;ä½œæˆå ´æ‰€
+WrittenBy;è‘—è€…
+Yes;ã¯ã„
+Your system;ã‚·ã‚¹ãƒ†ãƒ æƒ…å ±
 ZZ_Automatic_Percent;91
 ZZ_AutomaticLanguage_Percent;95

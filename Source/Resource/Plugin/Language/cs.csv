@@ -19,9 +19,9 @@
  Byte1; Byte
  Byte2; Bytes
  Byte3; Bytes
- channel1; kanál
- channel2; kanály
- channel3; kanály
+ channel1; kanÃ¡l
+ channel2; kanÃ¡ly
+ channel3; kanÃ¡ly
  chapter1; kapitola
  chapter2; kapitoly
  chapter3; kapitoly
@@ -111,9 +111,9 @@
  minute1;minuta
  minute2;minuty
  minute3;minuty
- month1; měsíc
- month2;měsíce
- month3; měsíce
+ month1; mÄ›sÃ­c
+ month2;mÄ›sÃ­ce
+ month3; mÄ›sÃ­ce
  pixel1; pixel
  pixel2;pixely
  pixel3;pixely
@@ -133,9 +133,9 @@
  warppoint1;
  warppoint2;
  warppoint3;
- week1;týden
- week2;týdny
- week3;týdny
+ week1;tÃ½den
+ week2;tÃ½dny
+ week3;tÃ½dny
  year1;rok
  year2;roky
  year3;roky
@@ -150,19 +150,19 @@ Actor;Herec
 Actor_Character;Character played
 Added_Date;
 Address;Address
-Advanced;Pokročilé
-Advanced mode;Více detailů
+Advanced;PokroÄilÃ©
+Advanced mode;VÃ­ce detailÅ¯
 Album;Album
 Album_ReplayGain_Gain;
 Album_ReplayGain_Peak;
 Alignment;
 Alignment_Aligned;
 Alignment_Split;
-All;Vše
+All;VÅ¡e
 Archival_Location;Archival location
 Arranger;Arranger
 ArtDirector;ArtDirector
-AspectRatio;Poměr stran
+AspectRatio;PomÄ›r stran
 AssistantDirector;AssistantDirector
 at;at
 At least one file;(You must at least open one file)
@@ -170,13 +170,13 @@ Audio;Audio
 Audio stream(s);Audio streamy
 Audio_Codec_List;Audio kodeky
 Audio_No;Bez audia
-Audio1;První audio stream
-Audio2;Druhý audio stream
+Audio1;PrvnÃ­ audio stream
+Audio2;DruhÃ½ audio stream
 AudioCount;Count of audio streams
 Author;Autor
 BarCode;BarCode
-Basic;Základní
-Basic_Note;Info : Pro více detailů vyberte jiný mód zobrazení(List, Strom...)
+Basic;ZÃ¡kladnÃ­
+Basic_Note;Info : Pro vÃ­ce detailÅ¯ vyberte jinÃ½ mÃ³d zobrazenÃ­(List, Strom...)
 BitDepth;
 BitRate;Bit rate
 BitRate_Maximum;
@@ -188,8 +188,8 @@ BitRate_Nominal;
 BitRate_Encoded;
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;
-Cancel;Zrušit
-Channel(s);Kanál(y)
+Cancel;ZruÅ¡it
+Channel(s);KanÃ¡l(y)
 ChannelPositions;Channel positions
 Chapter(s);Kapitola(y)
 Chapters;Kapitoly
@@ -199,21 +199,21 @@ Chapters_No;No chapters
 ChaptersCount;Count of chapter streams
 CheckNewVersion;Zkontrolovat novou verzi
 Choose custom;Choose custom
-Choose custom sheet;Vyberte požadovaný formát zobrazení
-Choose custom text;Vyberte vlastní nastavení textu
-Choose export format;Vyberte požadovaný exportní formát
-Choose file(s);Vyberte soubor k otevření
+Choose custom sheet;Vyberte poÅ¾adovanÃ½ formÃ¡t zobrazenÃ­
+Choose custom text;Vyberte vlastnÃ­ nastavenÃ­ textu
+Choose export format;Vyberte poÅ¾adovanÃ½ exportnÃ­ formÃ¡t
+Choose file(s);Vyberte soubor k otevÅ™enÃ­
 Choose filename;Choose your desired filename
 Choose language;Vybrat jazyk
 Choregrapher;Choregrapher
 Chroma;Chroma
 ChromaSubsampling;
-Close;Zavřít
-Close all before open;Zavřít vše před otevřením nového
+Close;ZavÅ™Ã­t
+Close all before open;ZavÅ™Ã­t vÅ¡e pÅ™ed otevÅ™enÃ­m novÃ©ho
 Codec;
 Codec_Description;
 Codec_Info;Details for codec
-Codec_Settings;Nastavení kodeku
+Codec_Settings;NastavenÃ­ kodeku
 Codec_Settings_PacketBitStream;
 Codec_Settings_BVOP;
 Codec_Settings_QPel;
@@ -227,24 +227,24 @@ Codec_Settings_Sign;
 Codec_Settings_Law;
 Codec_Settings_ITU;
 Codec_Profile;Profil kodeku
-Codec_Url;Adresa pro stažení kodeku
+Codec_Url;Adresa pro staÅ¾enÃ­ kodeku
 CodecID;
 CodecID_Description;
 Collection;Collection
 Colorimetry;
 ColorSpace;
 colour_primaries;
-Comment;Komentář
+Comment;KomentÃ¡Å™
 CommissionedBy;Commissioned by
 Compilation;
-CompleteName;Celý název a cesta
+CompleteName;CelÃ½ nÃ¡zev a cesta
 Composer;Composer
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;
 Conductor;Conductor
-Container and general information;Hlavní informace
+Container and general information;HlavnÃ­ informace
 ContentType;ContentType
 CoProducer;Coproducer
 Copyright;Copyright
@@ -257,10 +257,10 @@ Cover_Description;
 Cover_Mime;
 Cover_Type;
 Cropped;
-Custom;Vlastní
-Customize;Přizpůsobit
+Custom;VlastnÃ­
+Customize;PÅ™izpÅ¯sobit
 Date;Datum
-Debug;Pokročilé
+Debug;PokroÄilÃ©
 Decimal point;Decimal point
 Delay;Delay
 Delay_Source;
@@ -272,10 +272,10 @@ Digitized_Date;Digitized date
 Dimensions;
 Director;Director
 DirectorOfPhotography;Director of photography
-DisplayAspectRatio;Poměr stran
+DisplayAspectRatio;PomÄ›r stran
 DisplayAspectRatio_Original;
 DistributedBy;Distributed by
-Donate;Zaslat finanční dar
+Donate;Zaslat finanÄnÃ­ dar
 DotsPerInch;
 Duration;
 Duration_End;
@@ -283,19 +283,19 @@ Duration_Start;
 Edit;Upravit
 EditedBy;Upravil
 EMail;E-Mail
-Encoded_Application;Použitý software
+Encoded_Application;PouÅ¾itÃ½ software
 Encoded_Date;Encoded date
-Encoded_Library;Enkódoval
-Encoded_Library_Settings;Nastavení enkoderu
-Encoded_Original;Originál
-EncodedBy;Enkódoval
+Encoded_Library;EnkÃ³doval
+Encoded_Library_Settings;NastavenÃ­ enkoderu
+Encoded_Original;OriginÃ¡l
+EncodedBy;EnkÃ³doval
 EPG_Positions;
 Error_File;Error while reading file
 ExecutiveProducer;Executive producer
 Exit;Konec
-Exit_Hint;Ukončit program
+Exit_Hint;UkonÄit program
 Export;Exportovat
-Export_Hint;Exportovat do vybraného formátu
+Export_Hint;Exportovat do vybranÃ©ho formÃ¡tu
 Extensions;Extensions usually used
 Family;
 Fax;Fax
@@ -304,19 +304,19 @@ File size;Velikost souboru
 File_Append;Append to the existing file (Warning : be careful to have the same parameters)
 File_Created_Date;
 File_Created_Date_Local;
-File_Hint;Otevřít soubor
+File_Hint;OtevÅ™Ã­t soubor
 File_Modified_Date;
 File_Modified_Date_Local;
-FileExtension;Přípona souboru
-FileName;Název souboru
+FileExtension;PÅ™Ã­pona souboru
+FileName;NÃ¡zev souboru
 FileSize;Velikost souboru
-Folder;Složka
-Folder (R);Složka (R)
+Folder;SloÅ¾ka
+Folder (R);SloÅ¾ka (R)
 Folder (R)_Hint;Select a folder to study (with all folders recursively)
 Folder (Recursively);Folder (Recursively)
-Folder_Hint;Otevřít vše ve složce
-FolderName;Název složky
-Format;Formát
+Folder_Hint;OtevÅ™Ã­t vÅ¡e ve sloÅ¾ce
+FolderName;NÃ¡zev sloÅ¾ky
+Format;FormÃ¡t
 Format_Commercial;
 Format_Commercial_IfAny;
 Format_Description;
@@ -357,8 +357,8 @@ FrameRate_Minimum;Minimum frame rate
 FrameRate_Nominal;
 FrameRate_Maximum;Maximum frame rate
 FrameRate_Original;
-General;Hlavní
-Genre;žánr
+General;HlavnÃ­
+Genre;Å¾Ã¡nr
 Genre_000;Blues
 Genre_001;Classic Rock
 Genre_002;Country
@@ -555,9 +555,9 @@ Go to WebSite;Web programu
 Grouping;
 h;h
 Header file;Create a header file
-Height;Výška
+Height;VÃ½Å¡ka
 Height_Original;
-Help;Nápověda
+Help;NÃ¡povÄ›da
 Hint;
 How many audio streams?;How many audio streams?
 How many chapters streams?;How many chapters streams?
@@ -565,7 +565,7 @@ How many text streams?;How many text streams?
 How many video streams?;How many video streams?
 HTML;HTML
 ID;ID
-Image;Obrázek
+Image;ObrÃ¡zek
 Image stream(s);Image streams
 Image_Codec_List;Codecs Image
 ImageCount;Count of image streams
@@ -586,9 +586,9 @@ IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
 Keywords;Keywords
-Known codecs;Známé kodeky
-Known formats;Známé formáty
-Known parameters;Známé parametry
+Known codecs;ZnÃ¡mÃ© kodeky
+Known formats;ZnÃ¡mÃ© formÃ¡ty
+Known parameters;ZnÃ¡mÃ© parametry
 Label;Label
 Language;Jazyk
 Language_More;
@@ -804,19 +804,19 @@ Menu_Hint;More possibilities
 MenuID;
 mn;mn
 Mood;Mood
-More;Více
-Movie;Název filmu
+More;VÃ­ce
+Movie;NÃ¡zev filmu
 ms;ms
 MSDI;MSDI
 MusicBy;
 MuxingMode;
 MuxingMode_MoreInfo;
 MuxingMode_PackedBitstream;
-Name;Název
+Name;NÃ¡zev
 Nationality;Nationality
 NetworkName;
-New;Nový
-Newest version;Při spuštění kontrolovat nové verze
+New;NovÃ½
+Newest version;PÅ™i spuÅ¡tÄ›nÃ­ kontrolovat novÃ© verze
 NewVersion_Menu;
 NewVersion_Question_Title;
 NewVersion_Question_Content;
@@ -825,7 +825,7 @@ Not yet;
 NumColors;
 OK;OK
 One output file per input file;One output file per input file
-Open;Otevřít
+Open;OtevÅ™Ã­t
 OpenCandy_01;
 OpenCandy_02;
 OpenCandy_03;
@@ -862,35 +862,35 @@ OpenCandy_33;
 OpenCandy_34;
 OpenCandy_35;
 OpenCandy_36;
-Options;Nastavení
-Options_Hint;Předvolby
-Original;Originál
+Options;NastavenÃ­
+Options_Hint;PÅ™edvolby
+Original;OriginÃ¡l
 OriginalNetworkName;
 OriginalSourceForm;
 OriginalSourceMedium;
-Other;Různé
-Output;Výstup
+Other;RÅ¯znÃ©
+Output;VÃ½stup
 Output format;Zobrazit jako
-OverallBitRate;Celkový BitRate
+OverallBitRate;CelkovÃ½ BitRate
 OverallBitRate_Maximum;
 OverallBitRate_Minimum;
 OverallBitRate_Mode;
 OverallBitRate_Nominal;
-Part;Část
+Part;ÄŒÃ¡st
 Part_Count;Total count
 Performer;Performer
 Period;Period
 Phone;Phone
-PixelAspectRatio;Poměr pixelů
-PixelAspectRatio_Original;Poměr pixelů
+PixelAspectRatio;PomÄ›r pixelÅ¯
+PixelAspectRatio_Original;PomÄ›r pixelÅ¯
 PlayCounter;PlayCounter
 Played_Count;
 Played_First_Date;
 Played_Last_Date;
-PlayTime;Hrací čas
+PlayTime;HracÃ­ Äas
 Position;Pozice
 Position_Total;
-Preferences;Předvolby
+Preferences;PÅ™edvolby
 Producer;Producer
 ProductionDesigner;ProductionDesigner
 ProductionStudio;ProductionStudio
@@ -898,20 +898,21 @@ Publisher;Publisher
 Purchased_Date;purchased date
 Quote character;Quote character
 RadioStation;Radio station
-Rating;Hodnocení
+Rating;HodnocenÃ­
 Recorded_Date;Recorded date
 Recorded_Location;Recorded location
 Released_Date;Released date
 RemixedBy;Remixed by
 ReplayGain_Gain;
 ReplayGain_Peak;
-Resolution;Rozlišení
+Resolution;RozliÅ¡enÃ­
 s;s
 SamplingRate;Sampling rate
-Save;Uložit
+Save;UloÅ¾it
 ScanType;
 ScanType_Original;
 ScanOrder;
+ScanOrder_StoredDisplayedInverted;
 ScanOrder_Original;
 ScreenplayBy;Screenplay by
 Season;Season
@@ -925,15 +926,15 @@ ServiceProvider;
 ServiceType;
 Set;Nastavit
 Set_Count;Set count
-Setup;Hlavní
+Setup;HlavnÃ­
 Sharpness;
 Sheet;List
 Sheet (Complete);List (Complete)
-Shell extension;Integrovat do kontextového menu Průzkumníka (pravé tlačítko myši)
+Shell extension;Integrovat do kontextovÃ©ho menu PrÅ¯zkumnÃ­ka (pravÃ© tlaÄÃ­tko myÅ¡i)
 Shell extension, folder;
-Shell InfoTip;Integrovat do kontextového menu (při najetí myši na soubor)
+Shell InfoTip;Integrovat do kontextovÃ©ho menu (pÅ™i najetÃ­ myÅ¡i na soubor)
 Show menu;Zobrazit menu
-Show toolbar;Zobrazit nástrojovou lištu
+Show toolbar;Zobrazit nÃ¡strojovou liÅ¡tu
 Sort;Sorted by
 SamplingCount;
 SoundEngineer;Sound engineer
@@ -944,7 +945,7 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;Standard
-Stream;Datový stream
+Stream;DatovÃ½ stream
 Stream_MoreInfo;More information about the stream
 StreamCount;Count of stream of this kind
 StreamID;Stream ID
@@ -966,17 +967,17 @@ Tagged_Date;Tagged date
 Technician;Technician
 TermsOfUse;Terms of use
 Text;Text
-Text - Custom;Text - Vlastní
+Text - Custom;Text - VlastnÃ­
 Text (HTML);Text (HTML)
 Text stream(s);Text streams
 Text streams;Text streams
 Text_Codec_List;Text codecs
 Text_No;No text
-Text1;První text stream
-Text2;Druhý text stream
-Text3;Třetí text stream
+Text1;PrvnÃ­ text stream
+Text2;DruhÃ½ text stream
+Text3;TÅ™etÃ­ text stream
 TextCount;Count of text streams
-ThanksTo;Poděkování
+ThanksTo;PodÄ›kovÃ¡nÃ­
 Thousands separator;Thousands separator
 Title;Titul
 Title_More;Title, more info
@@ -987,15 +988,15 @@ TimeCode_Source;
 TimeStamp;
 TimeZone;
 Total;Celkem
-Track;Název stopy
+Track;NÃ¡zev stopy
 Track_Count;Track count
 transfer_characteristics;
-Translator;Přeložil
+Translator;PÅ™eloÅ¾il
 Tree;Strom
 Tree & Text;Tree & Text
 Type;
 UniqueID;
-Unknown;Neznámý
+Unknown;NeznÃ¡mÃ½
 Url;Url
 Video;Video
 Video stream(s);Video stream(s)
@@ -1003,8 +1004,8 @@ Video_Codec_List;Video kodeky
 Video_Delay;Video delay
 Video_No;No video
 Video0_Delay;Video0 delay
-Video1;První video stream
-VideoCount;Počet video streamů
+Video1;PrvnÃ­ video stream
+VideoCount;PoÄet video streamÅ¯
 View;Zobrazit
 View_Hint;Zobrazit
 Warning : more streams in the files;Warning : there are more streams in the files
@@ -1016,16 +1017,16 @@ WebSite_General_More;Go to the web site of a player for this file
 WebSite_Text;Go to the web site of this text codec
 WebSite_Text_More;Go to the web site (%Url%) to find this text codec
 WebSite_Url;http://MediaArea.net/MediaInfo
-WebSite_Video;Jdi na stránky s tímto kodekem
+WebSite_Video;Jdi na strÃ¡nky s tÃ­mto kodekem
 WebSite_Video_More;Go to the web site (%Url%) to find this video codec
-Width;Šířka
+Width;Å Ã­Å™ka
 Width_Original;
-WriteMe;Napiš autorovi
-WriteToTranslator;Napiš překladateli
+WriteMe;NapiÅ¡ autorovi
+WriteToTranslator;NapiÅ¡ pÅ™ekladateli
 Written_Date;Written date
 Written_Location;Written location
 WrittenBy;Napsal
 Yes;Ano
-Your system;Instalované kodeky
+Your system;InstalovanÃ© kodeky
 ZZ_Automatic_Percent;73
 ZZ_AutomaticLanguage_Percent;82
