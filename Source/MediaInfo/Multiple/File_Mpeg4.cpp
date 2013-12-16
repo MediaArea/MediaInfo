@@ -709,6 +709,16 @@ void File_Mpeg4::Streams_Finish()
             }
         }
 
+        //ScanOrder_StoredDisplayedInverted
+        if (Temp->second.ScanOrder_StoredDisplayedInverted)
+        {
+            if (Retrieve(Stream_Video, 0, Video_ScanOrder)==__T("BFF"))
+                Fill(Stream_Video, 0, Video_ScanOrder, "TFF", Unlimited, true, true);
+            else if (Retrieve(Stream_Video, 0, Video_ScanOrder)==__T("TFF"))
+                Fill(Stream_Video, 0, Video_ScanOrder, "BFF", Unlimited, true, true);
+            Fill(Stream_Video, 0, Video_ScanOrder_StoredDisplayedInverted, "Yes");
+        }
+
         //External file name specific
         if (Temp->second.MI && Temp->second.MI->Info)
         {

@@ -1,6 +1,6 @@
   Language_ISO639;en
   Author_Email;Info@MediaArea.net
-  Author_Name;Jerome Martinez
+  Author_Name;Zen
   Author_OldNames;Initial translator
   Language_Name;English
   Config_Text_ColumnSize;40
@@ -189,8 +189,7 @@ BitRate_Encoded;Encoded bit rate
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;Buffer size
 Cancel;Cancel
-Channel(s);Channel count
-Channel(s)_Original;Original Channel count
+Channel(s);Channel(s)
 ChannelPositions;Channel positions
 Chapter(s);Chapter(s)
 Chapters;Chapters
@@ -795,7 +794,7 @@ Lyricist;Lyricist
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
 matrix_coefficients;Matrix coefficients
-MediaInfo_About;MediaInfo provides easy access to technical and tag information about video and audio files.\r\nExcept the Mac App Store graphical user interface, it is open-source software, which means that it is free of charge to the end user and developers have freedom to study, to improve and to redistribute the program (LGPL license)
+MediaInfo_About;MediaInfo provides easy access to technical and tag information about video and audio files.\r\nExcept the Mac App Store graphical user interface, it is open-source software, which means that it is free of charge to the end user and developers have freedom to study, to improve and to redistribute the program (BSD license)
 Menu;Menu
 Menu stream(s);Menu streams
 Menu_Codec_List;Menu codecs
@@ -913,11 +912,12 @@ Save;Save
 ScanType;Scan type
 ScanType_Original;Original scan type
 ScanOrder;Scan order
+ScanOrder_StoredDisplayedInverted;Scan order, stored/displayed order inverted
 ScanOrder_Original;Original scan order
 ScreenplayBy;Screenplay by
 Season;Season
 see below;see below
-Send HeaderFile;Please send me the Header file here : https://sourceforge.net/p/mediainfo/bugs/
+Send HeaderFile;Please send me the Header file here : http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;columns separator
 Separator_Lines;lines separator
 ServiceChannel;Service channel number

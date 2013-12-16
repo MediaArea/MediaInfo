@@ -168,6 +168,7 @@ ScanType_Original;;;N YT;;;
 ScanType_Original/String;;;Y NT;;;
 ScanOrder;;;N YT;;;;
 ScanOrder/String;;;Y NT;;;;
+ScanOrder_StoredDisplayedInverted;;;Y YT;;;;
 ScanOrder_Original;;;N YT;;;;
 ScanOrder_Original/String;;;Y NT;;;;
 Interlacement;;;N NT;;;Deprecated, do not use in new projects;
