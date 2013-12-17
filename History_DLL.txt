@@ -24,6 +24,7 @@ x #P78, HEVC: general_level_idc shall be set equal to a value of 30 times the le
 x C# binding example: was not working with 2GB+ files, was parsing sometimes the whole file
 x #B805, AC-3: Segfault on files falsely recognized as AC3 files, thanks to Gildas Desnos
 x #B808, PCM: Infinite loop, thanks to Gildas Desnos
+x #B809, APE tags: Infinite loop, thanks to Gildas Desnos
 x #B810, AVC: Infinite loop, thanks to Gildas Desnos
 
 Version 0.7.65, 2013-11-20
