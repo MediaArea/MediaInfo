@@ -1278,9 +1278,12 @@ void File_Aac::ELDSpecificConfig ()
     }
 
     int8u eldExtType;
-    Get_S1(4,eldExtType,"eldExtType");
-    while (eldExtType != 0/*ELDEXT_TERM*/)
+    for (;;)
     {
+        Get_S1(4,eldExtType,"eldExtType");
+        if (eldExtType == 0/*ELDEXT_TERM*/)
+            break;
+
         int8u eldExtLen,eldExtLenAdd=0;
         int16u eldExtLenAddAdd;
         Get_S1(4,eldExtLen,"eldExtLen");
