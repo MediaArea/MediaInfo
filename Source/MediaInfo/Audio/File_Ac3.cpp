@@ -1642,6 +1642,9 @@ void File_Ac3::Core()
             Element_End0();
     }
 
+    if (acmod_Max[0][0]==(int8u)-1)
+        return; //Waiting for the first sync frame
+
     FILLING_BEGIN();
         //Counting
         if (Frame_Count==0)

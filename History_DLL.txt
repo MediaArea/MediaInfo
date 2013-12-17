@@ -21,6 +21,7 @@ x QuickTime: false-positive detection of incoherency between container and raw s
 x MXF: Dolby E stream not detected in some cases
 x #P78, HEVC: general_level_idc shall be set equal to a value of 30 times the level number, not 10 times, thanks to Kurtnoise
 x C# binding example: was not working with 2GB+ files, was parsing sometimes the whole file
+x #B805, AC-3: Segfault on files falsely recognized as AC3 files, thanks to Gildas Desnos
 
 Version 0.7.65, 2013-11-20
 --------------
