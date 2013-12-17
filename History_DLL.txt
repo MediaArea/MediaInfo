@@ -17,6 +17,7 @@ Version 0.7.66,
 + Pro Tools 10+ Session file (.ptx) support, by reverse engineering (=it may not work)
 + Playlist files: trying to detect language and channel layout from file names
 + QuickTime: new field ScanOrder_StoredDisplayedInverted, set to "Yes" when display and Stored orders are inverted
++ Wave: Detection of wrong byte rate in header in order to provide right duration of some PCM streams
 x QuickTime: false-positive detection of incoherency between container and raw stream scan order due to inverted display and tored orders
 x MXF: Dolby E stream not detected in some cases
 x #P78, HEVC: general_level_idc shall be set equal to a value of 30 times the level number, not 10 times, thanks to Kurtnoise
