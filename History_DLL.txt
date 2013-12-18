@@ -28,6 +28,7 @@ x #B808, PCM: Infinite loop, thanks to Gildas Desnos
 x #B809, APE tags: Infinite loop, thanks to Gildas Desnos
 x #B810, AVC: Infinite loop, thanks to Gildas Desnos
 x LATM: false-positive detection of some files
+x MXF: Crash with some files
 
 Version 0.7.65, 2013-11-20
 --------------

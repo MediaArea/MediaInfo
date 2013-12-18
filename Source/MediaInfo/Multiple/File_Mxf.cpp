@@ -2361,7 +2361,7 @@ void File_Mxf::Read_Buffer_Unsynched()
             for (size_t Pos=0; Pos<IndexTables.size(); Pos++)
             {
                 //Searching the right index
-                if (!IndexTables[Pos].Entries.empty() && StreamOffset>=IndexTables[Pos].Entries[0].StreamOffset+(IndexTables[Pos].IndexStartPosition)*SDTI_SizePerFrame && (Pos+1>=IndexTables.size() || StreamOffset<IndexTables[Pos+1].Entries[0].StreamOffset+(IndexTables[Pos+1].IndexStartPosition)*SDTI_SizePerFrame))
+                if (!IndexTables[Pos].Entries.empty() && StreamOffset>=IndexTables[Pos].Entries[0].StreamOffset+(IndexTables[Pos].IndexStartPosition)*SDTI_SizePerFrame && (Pos+1>=IndexTables.size() || IndexTables[Pos+1].Entries.empty() || StreamOffset<IndexTables[Pos+1].Entries[0].StreamOffset+(IndexTables[Pos+1].IndexStartPosition)*SDTI_SizePerFrame))
                 {
                     //Searching the frame pos
                     for (size_t EntryPos=0; EntryPos<IndexTables[Pos].Entries.size(); EntryPos++)
@@ -6180,14 +6180,9 @@ void File_Mxf::IndexTableSegment_IndexEntryArray()
             #endif //MEDIAINFO_SEEK
         #if MEDIAINFO_SEEK
             Get_B8 (Stream_Offset,                              "Stream Offset");
-            if (IndexTables[IndexTables.size()-1].IndexDuration==0 //Filling in all cases if IndexDuration is not yet filled
-             || NIE==IndexTables[IndexTables.size()-1].IndexDuration
-             || (NIE/2==IndexTables[IndexTables.size()-1].IndexDuration && (Pos%2)==0)) //Detecting corrupted index having index position twice per frame
-            {
-                Entry.StreamOffset=Stream_Offset;
-                Entry.Type=(forward_rediction_flag?1:0)*2+(backward_prediction_flag?1:0);
-                IndexTables[IndexTables.size()-1].Entries.push_back(Entry);
-            }
+            Entry.StreamOffset=Stream_Offset;
+            Entry.Type=(forward_rediction_flag?1:0)*2+(backward_prediction_flag?1:0);
+            IndexTables[IndexTables.size()-1].Entries.push_back(Entry);
         #else //MEDIAINFO_SEEK
             Skip_B8(                                            "Stream Offset");
         #endif //MEDIAINFO_SEEK
