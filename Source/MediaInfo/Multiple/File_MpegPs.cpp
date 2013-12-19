@@ -2039,7 +2039,7 @@ void File_MpegPs::Header_Parse_PES_packet_MPEG2(int8u stream_id)
                 {
                     File_AribStdB24B37* Parser=(File_AribStdB24B37*)Streams_Private1[private_stream_1_ID].Parsers[0];
                     Parser->ParseCcis=true;
-                    Parser->Open_Buffer_Continue(Buffer+Buffer_Offset+(size_t)Element_Offset, 16);
+                    Open_Buffer_Continue(Parser, Buffer+Buffer_Offset+(size_t)Element_Offset, 16);
                 }
                 else
                     Skip_B16(                                   "PES_private_data");
