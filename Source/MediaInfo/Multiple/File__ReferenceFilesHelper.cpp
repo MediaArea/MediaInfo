@@ -97,6 +97,7 @@ void File__ReferenceFilesHelper_InfoFromFileName (File__ReferenceFilesHelper::re
             Ztring Name=(*Reference).FileNames[0];
             while (Name.FindAndReplace(__T("51 "), Ztring()));
             while (Name.FindAndReplace(__T("_"), __T(" ")));
+            while (Name.FindAndReplace(__T("."), __T(" ")));
             while (Name.FindAndReplace(__T("  "), __T(" ")));
             size_t PathSeparator_Pos=Name.rfind(PathSeparator);
             if (PathSeparator_Pos!=(size_t)-1)

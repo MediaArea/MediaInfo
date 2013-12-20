@@ -143,12 +143,12 @@ void File_Ptx::Read_Buffer_Continue()
         Skip_B1(                                                "Magic");
         Skip_Local(16,                                          "Magic");
         Skip_L2(                                                "0x0500");
-        Skip_L2(                                                "0x5Axx");
+        Skip_L1(                                                "Unknown");
+        Skip_L1(                                                "0x5A");
         Skip_L2(                                                "0x0001");
         Skip_L2(                                                "0x0004");
         Skip_L2(                                                "0x0000");
-        Skip_L2(                                                "Unknown");
-        Skip_L2(                                                "Unknown");
+        Skip_L4(                                                "Unknown");
         Skip_L2(                                                "0x035A");
         Skip_L2(                                                "0x6400");
         Skip_L2(                                                "0x0000");
@@ -177,11 +177,11 @@ void File_Ptx::Read_Buffer_Continue()
         Skip_L2(                                                "0x0006");
         Get_L4 (Platform_Length,                                "Platform length");
         Skip_UTF8(Platform_Length,                              "Platform");
+        Skip_L4(                                                "0x00000000");
         Skip_L4(                                                "0x00085A05");
         Skip_L4(                                                "Unknown");
         Skip_L4(                                                "0x00002067");
         Skip_L4(                                                "0x002A0000");
-        Skip_L4(                                                "Unknown");
         Skip_L4(                                                "Unknown");
         Skip_L4(                                                "Unknown");
         Skip_L4(                                                "Unknown");
@@ -297,7 +297,7 @@ void File_Ptx::Read_Buffer_Continue()
         int32u Size;
         Skip_L3(                                                "0x00025A");
         Get_L4 (Size,                                           "Size");
-        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "0x0000251A");
         Get_L4 (Unknown_Length,                                 "Name length");
         Info_UTF8(Unknown_Length, Name,                         "Name");
         Skip_L2(                                                "0x0000");
@@ -330,7 +330,7 @@ void File_Ptx::Read_Buffer_Continue()
         int32u Size;
         Skip_L3(                                                "0x00025A");
         Get_L4 (Size,                                           "Size");
-        Skip_L4(                                                "Unknown");
+        Skip_L4(                                                "0x0000251A");
         Get_L4 (Unknown_Length,                                 "Name length");
         Info_UTF8(Unknown_Length, Name,                         "Name");
         Skip_L2(                                                "0x0000");
@@ -388,15 +388,16 @@ void File_Ptx::Read_Buffer_Continue()
     }
     Get_L4 (Directory_Length,                                   "Directory length");
     Get_UTF8(Directory_Length, Directory,                       "Directory");
-    Skip_L4(                                                    "Unknown");
+    Skip_L4(                                                    "0x00000000");
     Element_Begin1("File names");
+    size_t Pos_Offset=0;
     for (int32u Pos=0; Pos<FileName_Count; Pos++)
     {
         Ztring Name;
         int32u Name_Length, Purpose;
         Element_Begin1("File names");
         Skip_L1(                                                "0x0002");
-        Skip_L4(                                                "0x00000000");
+        Skip_L4(                                                "Ordered number except WAV files and -1");
         Get_L4 (Name_Length,                                    "Name length");
         Get_UTF8(Name_Length, Name,                             "Name"); Element_Name(Name);
         Get_C4 (Purpose,                                        "Purpose (e.g. EVAW for .wav files)");
@@ -405,13 +406,17 @@ void File_Ptx::Read_Buffer_Continue()
         switch (Purpose)
         {
             case 0x45564157:
-                            if (Pos<Names.size() && Name.find(Names[Pos])==0)
+                            if (Pos-Pos_Offset<Names.size()
+                             && (Name.find(Names[Pos-Pos_Offset])==0
+                              || Name.find(Names[Pos-Pos_Offset]+__T(".wav"))+5==Name.size()))
                             {
                                 File__ReferenceFilesHelper::reference ReferenceFile;
                                 ReferenceFile.StreamKind=Stream_Audio;
                                 ReferenceFile.FileNames.push_back(Directory+PathSeparator+Name);
                                 ReferenceFiles->References.push_back(ReferenceFile);
                             }
+                            else if (ReferenceFiles->References.empty())
+                                Pos_Offset++;
             default:        ;
         }
 
