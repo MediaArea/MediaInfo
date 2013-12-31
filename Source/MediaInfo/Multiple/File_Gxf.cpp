@@ -438,7 +438,7 @@ void File_Gxf::Streams_Finish_PerStream(size_t StreamID, stream &Temp)
                 Ztring LawRating=Temp.Parsers[0]->Retrieve(Stream_General, 0, General_LawRating);
                 if (!LawRating.empty())
                     Fill(Stream_General, 0, General_LawRating, LawRating, true);
-                
+
                 Fill(Stream_Video, StreamPos_Last, Video_ID, StreamID, 10, true);
                 Fill(Stream_Video, StreamPos_Last, "Title", Temp.MediaName);
 

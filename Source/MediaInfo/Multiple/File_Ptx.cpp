@@ -132,7 +132,7 @@ void File_Ptx::Read_Buffer_Continue()
             Reject(); //Problem
         return;
     }
-        
+
     //Parsing
     ZtringList Names;
     Ztring LibraryName, LibraryVersion, Format, Directory;

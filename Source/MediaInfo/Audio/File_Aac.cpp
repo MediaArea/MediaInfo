@@ -117,7 +117,7 @@ void File_Aac::Streams_Fill()
 void File_Aac::Streams_Update()
 {
     bool ComputeBitRate=false;
-    
+
     switch(Mode)
     {
         #if MEDIAINFO_ADVANCED

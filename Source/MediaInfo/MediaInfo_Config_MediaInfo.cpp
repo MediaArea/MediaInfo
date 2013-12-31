@@ -1756,7 +1756,7 @@ void MediaInfo_Config_MediaInfo::Event_Send (File__Analyze* Source, const int8u*
             }
         }
     }
-    
+
     if (Source)
     {
         event_delayed* Event=new event_delayed(Data_Content, Data_Size, File_Name);

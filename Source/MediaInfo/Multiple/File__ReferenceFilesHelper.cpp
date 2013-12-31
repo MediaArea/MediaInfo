@@ -87,7 +87,7 @@ void File__ReferenceFilesHelper_InfoFromFileName (File__ReferenceFilesHelper::re
 {
     ZtringListList List;
     vector<File__ReferenceFilesHelper::references::iterator> Iterators;
-    
+
     for (File__ReferenceFilesHelper::references::iterator Reference=References.begin(); Reference<References.end(); ++Reference)
     {
         ZtringList List2;
@@ -106,7 +106,7 @@ void File__ReferenceFilesHelper_InfoFromFileName (File__ReferenceFilesHelper::re
             //Removing extension
             if (Name.size()>4 && Name.rfind(__T('.'))==Name.size())
                 Name.resize(Name.size()-4);
-            
+
             List2.Write(Name);
             for (size_t Pos=0; Pos<List2.size(); Pos++)
                 List2[Pos].MakeLowerCase();
@@ -117,7 +117,7 @@ void File__ReferenceFilesHelper_InfoFromFileName (File__ReferenceFilesHelper::re
 
     if (List.size()<2)
         return;
-        
+
     size_t ChannelLayout_Pos=(size_t)-1;
     size_t Language_Pos=(size_t)-1;
     for (size_t Pos2=0; Pos2<List[0].size(); Pos2++)

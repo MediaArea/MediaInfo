@@ -342,7 +342,7 @@ void File_Eia608::XDS_Current_ContentAdvisory()
     }
 
     Clear(Stream_General, 0, General_LawRating);
-    
+
     int8u a1a0=(XDS_Data[XDS_Level][2]>>3)&0x3;
     const char* ContentAdvisory=NULL;
     string ContentDescriptors;
@@ -384,7 +384,7 @@ void File_Eia608::XDS_Current_ContentAdvisory()
                 {
                     if ((XDS_Data[XDS_Level][3]&0x7)==2) //"TV-Y7" --> Fantasy Violence
                         ContentDescriptors+="FV";
-                    else                        
+                    else
                         ContentDescriptors+='V';
                 }
                 break;

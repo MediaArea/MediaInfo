@@ -1031,11 +1031,11 @@ Ztring Export_EbuCore::Transform(MediaInfo_Internal &MI)
     if (!MI.Get(Stream_General, 0, General_CompleteName).empty())
     {
         Ztring Name=MI.Get(Stream_General, 0, General_CompleteName);
-        Name.FindAndReplace(__T("&"), __T("&amp;"), 0, Ztring_Recursive); 
-        Name.FindAndReplace(__T("<"), __T("&lt;"), 0, Ztring_Recursive); 
-        Name.FindAndReplace(__T(">"), __T("&gt;"), 0, Ztring_Recursive); 
-        Name.FindAndReplace(__T("\""), __T("&quot;"), 0, Ztring_Recursive); 
-        Name.FindAndReplace(__T("'"), __T("&apos;"), 0, Ztring_Recursive); 
+        Name.FindAndReplace(__T("&"), __T("&amp;"), 0, Ztring_Recursive);
+        Name.FindAndReplace(__T("<"), __T("&lt;"), 0, Ztring_Recursive);
+        Name.FindAndReplace(__T(">"), __T("&gt;"), 0, Ztring_Recursive);
+        Name.FindAndReplace(__T("\""), __T("&quot;"), 0, Ztring_Recursive);
+        Name.FindAndReplace(__T("'"), __T("&apos;"), 0, Ztring_Recursive);
         ToReturn+=__T("\t\t\t<ebucore:fileName>")+Name+__T("</ebucore:fileName>\n");
     }
 

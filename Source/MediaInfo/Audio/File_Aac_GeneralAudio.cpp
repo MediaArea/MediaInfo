@@ -134,7 +134,7 @@ void File_Aac::program_config_element()
         Skip_SB(                                                "pseudo_surround_enable");
     TEST_SB_END();
     bool front1_element_is_cpe=false;
-    if (!num_side_channel_elements && num_back_channel_elements && num_back_channel_elements<3) // Hack: e.g. in case of 5.1, 
+    if (!num_side_channel_elements && num_back_channel_elements && num_back_channel_elements<3) // Hack: e.g. in case of 5.1,
     {
         num_side_channel_elements=num_back_channel_elements;
         num_back_channel_elements=0;

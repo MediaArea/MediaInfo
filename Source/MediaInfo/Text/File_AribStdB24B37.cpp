@@ -401,7 +401,7 @@ void File_AribStdB24B37::Read_Buffer_Continue()
     if (IsAncillaryData)
     {
         if (!Status[IsAccepted])
-            Accept();    
+            Accept();
         int8u DataIdentifier;
         BS_Begin();
         Skip_SB(                                                "Error correction");
@@ -419,7 +419,7 @@ void File_AribStdB24B37::Read_Buffer_Continue()
         Get_S1 (3, DataIdentifier,                              "Closed caption data identifier"); Param_Info1(AribStdB24B37_Caption_DataIdentifier(DataIdentifier));
         Info_S1(3, data_group_id,                               "Language identifier"); if (DataIdentifier) {Param_Info1(AribStdB24B37_data_group_id(data_group_id));}
         BS_End();
-        
+
         if (DataIdentifier>6)
         {
             Skip_XX(245,                                        "Dummy");
@@ -436,11 +436,11 @@ void File_AribStdB24B37::Read_Buffer_Continue()
             Element_Begin1("display timing");
                 Get_B1(Label_01,                                "Label (01)");
                 BS_Begin();
-                Skip_S1(6,                                      "Undefined"); 
+                Skip_S1(6,                                      "Undefined");
                 Skip_S1(2,                                      "Data-type identifier");
-                Skip_S1(6,                                      "Undefined"); 
+                Skip_S1(6,                                      "Undefined");
                 Skip_S1(2,                                      "Timing-type identifier");
-                Skip_S1(6,                                      "Undefined"); 
+                Skip_S1(6,                                      "Undefined");
                 Skip_S1(2,                                      "Timing-direction identifier");
                 Skip_B5(                                        "Display timing value");
                 BS_End();
@@ -478,7 +478,7 @@ void File_AribStdB24B37::Read_Buffer_Continue()
             Skip_XX(Element_Size-Element_Offset-6,              "Format data");
             Element_End0();
         }
-        
+
         Skip_B6(                                                "ECC");
         return;
     }

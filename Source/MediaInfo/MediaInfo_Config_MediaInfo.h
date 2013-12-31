@@ -49,7 +49,7 @@ public :
     //Constructor/Destructor
     MediaInfo_Config_MediaInfo();
     ~MediaInfo_Config_MediaInfo();
-    
+
     //General
     Ztring Option (const String &Option, const String &Value=Ztring());
 

@@ -3793,7 +3793,7 @@ else if (Code_Compare1==Elements::_ELEMENT##1 \
 void File_Mxf::AES3PCMDescriptor()
 {
     Descriptors[InstanceUID].IsAes3Descriptor=true;
-    
+
     switch(Code2)
     {
         ELEMENT(3D08, AES3PCMDescriptor_AuxBitsMode,            "Use of Auxiliary Bits")
@@ -4590,14 +4590,14 @@ void File_Mxf::TextLocator()
 void File_Mxf::StereoscopicPictureSubDescriptor()
 {
     StereoscopicPictureSubDescriptor_IsPresent=true;
-    
+
     //switch(Code2)
     //{
     //    default:
                     GenerationInterchangeObject();
     //}
 }
-    
+
 //---------------------------------------------------------------------------
 void File_Mxf::TimecodeComponent()
 {
@@ -4888,7 +4888,7 @@ void File_Mxf::SDTI_PackageMetadataSet()
                         {
                             Skip_UMID(                          );
                             if (Element_Offset<End)
-								Skip_UL  (                      "Zeroes");
+                                Skip_UL  (                      "Zeroes");
                         }
                         break;
             case 0x88 : //KLV Metadata
@@ -8978,13 +8978,13 @@ void File_Mxf::ChooseParser(const essences::iterator &Essence, const descriptors
                                                                                     switch (Code7)
                                                                                     {
                                                                                         case 0x01 : if (Descriptor->second.IsAes3Descriptor)
-                                                                                                        return ChooseParser_SmpteSt0337(Essence, Descriptor); 
+                                                                                                        return ChooseParser_SmpteSt0337(Essence, Descriptor);
                                                                                                     else
                                                                                                         return ChooseParser_Ac3(Essence, Descriptor);
                                                                                         case 0x04 :
                                                                                         case 0x05 :
                                                                                         case 0x06 : if (Descriptor->second.IsAes3Descriptor)
-                                                                                                        return ChooseParser_SmpteSt0337(Essence, Descriptor); 
+                                                                                                        return ChooseParser_SmpteSt0337(Essence, Descriptor);
                                                                                                     else
                                                                                                         return ChooseParser_Mpega(Essence, Descriptor);
                                                                                         case 0x1C : if (Descriptor->second.ChannelCount==1)

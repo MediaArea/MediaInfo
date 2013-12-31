@@ -441,7 +441,7 @@ void File_Ancillary::Data_Parse()
                         }
                         break;
             case 0x5F : // (from ARIB STD-B37)
-                        if ((SecondaryDataID&0xF0)==0xD0) //Digital Closed Caption 
+                        if ((SecondaryDataID&0xF0)==0xD0) //Digital Closed Caption
                         {
                             #if defined(MEDIAINFO_ARIBSTDB24B37_YES)
                             if (AribStdB34B37_Parser==NULL)

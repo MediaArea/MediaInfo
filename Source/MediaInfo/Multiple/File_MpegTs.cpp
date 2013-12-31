@@ -2766,7 +2766,7 @@ void File_MpegTs::PES()
             #endif //MEDIAINFO_DEMUX
             #if defined(MEDIAINFO_ARIBSTDB24B37_YES)
                 if (FromAribStdB24B37)
-                    ((File_MpegPs*)Complete_Stream->Streams[pid]->Parser)->FromAribStdB24B37=true;   
+                    ((File_MpegPs*)Complete_Stream->Streams[pid]->Parser)->FromAribStdB24B37=true;
             #endif //defined(MEDIAINFO_ARIBSTDB24B37_YES)
             #ifdef MEDIAINFO_MPEGTS_PESTIMESTAMP_YES
                 if (Searching_TimeStamp_Start)
@@ -2830,7 +2830,7 @@ void File_MpegTs::PES()
 
     #if defined(MEDIAINFO_ARIBSTDB24B37_YES)
         if (FromAribStdB24B37)
-            Complete_Stream->Streams[pid]->Parser->FrameInfo=FrameInfo;   
+            Complete_Stream->Streams[pid]->Parser->FrameInfo=FrameInfo;
     #endif //defined(MEDIAINFO_ARIBSTDB24B37_YES)
     Open_Buffer_Continue(Complete_Stream->Streams[pid]->Parser);
     PES_Parse_Finish();
