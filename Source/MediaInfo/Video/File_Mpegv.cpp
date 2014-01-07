@@ -3561,7 +3561,7 @@ void File_Mpegv::sequence_header()
     }
 
     FILLING_BEGIN_PRECISE();
-        temporal_reference_Adapt();
+        temporal_reference_Adapt(); //TODO: this line should not exist but some streams do not have group_start and/or do not start from temporal_reference 0, fast and dirty patch
 
         //Bit_rate
         if (bit_rate_value_IsValid && bit_rate_value_temp!=bit_rate_value)
