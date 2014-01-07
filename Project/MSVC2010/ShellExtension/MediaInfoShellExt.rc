@@ -1,8 +1,8 @@
 #include <winresrc.h>
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,7,65,0
- PRODUCTVERSION 0,7,65,0
+ FILEVERSION 0,7,66,0
+ PRODUCTVERSION 0,7,66,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -19,12 +19,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "http://MediaArea.net/MediaInfo"
             VALUE "FileDescription", "MediaInfo Shell ToolTip"
-            VALUE "FileVersion", "0,7,65,0"
+            VALUE "FileVersion", "0,7,66,0"
             VALUE "InternalName", "MediaInfo_ToolTip.dll"
             VALUE "LegalCopyright", "BSD-2-Clause"
             VALUE "OriginalFilename", "MediaInfo_ToolTip.dll"
             VALUE "ProductName", "MediaInfo"
-            VALUE "ProductVersion", "0,7,65,0"
+            VALUE "ProductVersion", "0,7,66,0"
         END
     END
     BLOCK "VarFileInfo"
