@@ -20,6 +20,9 @@
 #include "MediaInfo/File__MultipleParsing.h"
 //---------------------------------------------------------------------------
 // Multiple
+#if defined(MEDIAINFO_AAF_YES)
+    #include "MediaInfo/Multiple/File_Aaf.h"
+#endif
 #if defined(MEDIAINFO_CDXA_YES)
     #include "MediaInfo/Multiple/File_Cdxa.h"
 #endif
@@ -353,6 +356,9 @@ File__MultipleParsing::File__MultipleParsing()
     #endif //MEDIAINFO_TRACE
 
     // Multiple
+    #if defined(MEDIAINFO_AAF_YES)
+        Parser.push_back(new File_Aaf());
+    #endif
     #if defined(MEDIAINFO_BDAV_YES)
         {File_MpegTs* Temp=new File_MpegTs(); Temp->BDAV_Size=4; Parser.push_back(Temp);}
     #endif

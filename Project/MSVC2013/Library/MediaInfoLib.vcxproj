@@ -489,6 +489,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_TwinVQ.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Vorbis.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Wvpk.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Aaf.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Ancillary.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_DashMpd.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_DcpAm.cpp" />
@@ -676,6 +677,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Internal_Const.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfoList.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfoList_Internal.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Aaf.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Ancillary.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_DashMpd.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_DcpAm.h" />

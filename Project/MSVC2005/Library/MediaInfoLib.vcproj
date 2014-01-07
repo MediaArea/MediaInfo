@@ -544,6 +544,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Aaf.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Ancillary.cpp"
 					>
 				</File>
@@ -1251,6 +1255,10 @@
 				>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Multiple\File__ReferenceFilesHelper.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Multiple\File_Aaf.h"
 					>
 				</File>
 				<File

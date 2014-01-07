@@ -1068,6 +1068,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
 {
     Info.Separator_Set(0, __T("\n"));
     Info.Write(Ztring().From_UTF8(
+    "AAF;;;M;Aaf;;aaf;;\n"
     "AIFF;;;M;Riff;Apple/SGI;aiff aifc aif;audio/x-aiff;\n"
     "AMV;;;M;Riff;Chinese hack of AVI;amv;;http://en.wikipedia.org/wiki/AMV_video_format\n"
     "AVI;;;M;Riff;Audio Video Interleave;avi;video/vnd.avi;\n"

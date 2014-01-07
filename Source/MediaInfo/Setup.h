@@ -278,6 +278,9 @@
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_REFERENCES_NO) && !defined(MEDIAINFO_REFERENCES_YES)
     #define MEDIAINFO_REFERENCES_YES
 #endif
+#if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_AAF_NO) && !defined(MEDIAINFO_AAF_YES)
+    #define MEDIAINFO_AAF_YES
+#endif
 #if !defined(MEDIAINFO_MULTI_NO) && !defined(MEDIAINFO_ANCILLARY_NO) && !defined(MEDIAINFO_ANCILLARY_YES)
     #define MEDIAINFO_ANCILLARY_YES
 #endif

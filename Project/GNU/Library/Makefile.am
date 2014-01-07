@@ -95,6 +95,7 @@ lib@MediaInfoLib_LibName@_la_SOURCES = \
                        ../../../Source/MediaInfo/Image/File_Tiff.cpp \
                        ../../../Source/MediaInfo/Image/File_Tga.cpp \
                        ../../../Source/MediaInfo/Multiple/File__ReferenceFilesHelper.cpp \
+                       ../../../Source/MediaInfo/Multiple/File_Aaf.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Ancillary.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Bdmv.cpp \
                        ../../../Source/MediaInfo/Multiple/File_Cdxa.cpp \

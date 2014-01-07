@@ -103,6 +103,7 @@ set(mediainfo_SRCS
 	MediaInfo/Image/File_Tiff.cpp
 	MediaInfo/Image/File_Tga.cpp
 	MediaInfo/Multiple/File__ReferenceFilesHelper.cpp
+	MediaInfo/Multiple/File_Aaf.cpp
 	MediaInfo/Multiple/File_Ancillary.cpp
 	MediaInfo/Multiple/File_Bdav.cpp
 	MediaInfo/Multiple/File_Cdxa.cpp

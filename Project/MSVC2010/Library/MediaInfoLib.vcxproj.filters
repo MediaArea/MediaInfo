@@ -662,6 +662,9 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Ptx.cpp">
       <Filter>Source Files\Multiple</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Multiple\File_Aaf.cpp">
+      <Filter>Source Files\Multiple</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -1226,6 +1229,9 @@
       <Filter>Header Files\Export</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Ptx.h">
+      <Filter>Header Files\Multiple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Aaf.h">
       <Filter>Header Files\Multiple</Filter>
     </ClInclude>
   </ItemGroup>

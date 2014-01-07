@@ -2800,6 +2800,36 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 //---------------------------------------------------------------------------
 bool File_Mxf::FileHeader_Begin()
 {
+    //AAF has some MXF start codes
+    if (Buffer[ 0x0]==0xD0
+     && Buffer[ 0x1]==0xCF
+     && Buffer[ 0x2]==0x11
+     && Buffer[ 0x3]==0xE0
+     && Buffer[ 0x4]==0xA1
+     && Buffer[ 0x5]==0xB1
+     && Buffer[ 0x6]==0x1A
+     && Buffer[ 0x7]==0xE1
+     && Buffer[ 0x8]==0x41
+     && Buffer[ 0x9]==0x41
+     && Buffer[ 0xA]==0x46
+     && Buffer[ 0xB]==0x42
+     && Buffer[ 0xC]==0x0D
+     && Buffer[ 0xD]==0x00
+     && Buffer[ 0xE]==0x4F
+     && Buffer[ 0xF]==0x4D
+     && Buffer[0x10]==0x06
+     && Buffer[0x11]==0x0E
+     && Buffer[0x12]==0x2B
+     && Buffer[0x13]==0x34
+     && Buffer[0x14]==0x01
+     && Buffer[0x15]==0x01
+     && Buffer[0x16]==0x01
+     && Buffer[0x17]==0xFF)
+    {
+        Reject("Mxf");
+        return false;
+    } 
+    
     //DCA uses buffer interface without filename
     if (File_Name.empty())
         File_Name=Config->File_FileName_Get();
