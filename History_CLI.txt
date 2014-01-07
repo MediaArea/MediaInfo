@@ -8,6 +8,30 @@ bug reports and feature request are here :
 https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.66, 2013-01-08
+--------------
++ EBUCore 1.4 output support
++ IMF AssetMap (AM), PackageList (PKL) and CompositionPlaylist (CPL): improved support
++ Channel layout information for AAC, AC-3, E-AC-3, DTS, Dolby E
++ MXF: CodecID field (EssenceContainer-EssenceCompression)
++ Pro Tools 10+ Session file (.ptx) support, by reverse engineering (=it may not work)
++ Playlist files: trying to detect language and channel layout from file names
++ QuickTime: new field ScanOrder_StoredDisplayedInverted, set to "Yes" when display and Stored orders are inverted
++ Wave: Detection of wrong byte rate in header in order to provide right duration of some PCM streams
++ ARIB captions: detection of captions in ancillary data (tested with MXF)
++ AAF: basic support of playlist files
+x QuickTime: false-positive detection of incoherency between container and raw stream scan order due to inverted display and tored orders
+x MXF: Dolby E stream not detected in some cases
+x #P78, HEVC: general_level_idc shall be set equal to a value of 30 times the level number, not 10 times, thanks to Kurtnoise
+x C# binding example: was not working with 2GB+ files, was parsing sometimes the whole file
+x #B802, AAC: Infinite loop, thanks to Sébastien Michel
+x #B805, AC-3: Segfault on files falsely recognized as AC3 files, thanks to Gildas Desnos
+x #B808, PCM: Infinite loop, thanks to Gildas Desnos
+x #B809, APE tags: Infinite loop, thanks to Gildas Desnos
+x #B810, AVC: Infinite loop, thanks to Gildas Desnos
+x LATM: false-positive detection of some files
+x MXF: Crash with some files
+
 Version 0.7.65, 2013-11-20
 --------------
 + MXF: forcing detection of MPEG Video in case EssenceCompression is not present but MPEG2VideoDescriptor is present
