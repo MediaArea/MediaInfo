@@ -1629,13 +1629,13 @@ void __fastcall TMainF::Donate_zh_TWClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate___Click(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, (Ztring(__T("http://mediaarea.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("MediaInfo//Donate")).c_str(), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, (Ztring(__T("http://mediaarea.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("MediaInfo/Donate")).c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_NewVersionClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, (Ztring(__T("http://mediaarea.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("MediaInfo/?NewVersionRequested=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, (Ztring(__T("http://mediaarea.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("/MediaInfo/?NewVersionRequested=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
 
 void __fastcall TMainF::M_DigimetricsClick(TObject *Sender)
