@@ -29,7 +29,7 @@ x #B805, AC-3: Segfault on files falsely recognized as AC3 files, thanks to Gild
 x #B808, PCM: Infinite loop, thanks to Gildas Desnos
 x #B809, APE tags: Infinite loop, thanks to Gildas Desnos
 x #B810, AVC: Infinite loop, thanks to Gildas Desnos
-x #B813, CLI_Compile.sh bug ("eats all ressources" while compiling) 
+x #B813, CLI_Compile.sh bug ("eats all resources" while compiling) 
 x LATM: false-positive detection of some files
 x MXF: Crash with some files
 
