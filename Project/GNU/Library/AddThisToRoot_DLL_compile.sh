@@ -9,15 +9,20 @@ ZenLib_Options=""
 # Setup for parallel builds
 Zen_Make()
 {
+ numprocs=1
  if test -e /proc/stat; then
   numprocs=`egrep -c ^cpu[0-9]+ /proc/stat || :`
-  if [ "$numprocs" = "0" ]; then
+  if [ "$numprocs" = "" ] || [ "$numprocs" = "0" ]; then
    numprocs=1
   fi
-  make -s -j$numprocs
- else
-  make
  fi
+ if type sysctl &> /dev/null; then
+  numprocs=`sysctl -n hw.ncpu`
+  if [ "$numprocs" = "" ] || [ "$numprocs" = "0" ]; then
+   numprocs=1
+  fi
+ fi
+ make -s -j$numprocs
 }
 
 #############################################################################
