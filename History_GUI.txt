@@ -13,7 +13,7 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
-Version 0.7.66, 2013-01-08
+Version 0.7.66, 2013-01-09
 --------------
 + EBUCore 1.4 output support
 + IMF AssetMap (AM), PackageList (PKL) and CompositionPlaylist (CPL): improved support
