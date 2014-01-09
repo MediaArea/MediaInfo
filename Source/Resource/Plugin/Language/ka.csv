@@ -2,363 +2,363 @@
   Author_Email;
   Author_Name;G Release
   Author_OldNames;
-  Language_Name;áƒ¥áƒáƒ áƒ—áƒ£áƒšáƒ˜
+  Language_Name;ქართული
   Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
   Config_Text_ThousandsSeparator; 
- audio stream1; áƒáƒ£áƒ“áƒ˜áƒ áƒœáƒáƒ™áƒáƒ“áƒ˜1
- audio stream2; áƒáƒ£áƒ“áƒ˜áƒ áƒœáƒáƒ™áƒáƒ“áƒ˜2
- audio stream3; áƒáƒ£áƒ“áƒ˜áƒ áƒœáƒáƒ™áƒáƒ“áƒ˜3
- bit1; áƒ‘áƒ˜áƒ¢áƒ˜
- bit2; áƒ‘áƒ˜áƒ¢áƒ˜
- bit3; áƒ‘áƒ˜áƒ¢áƒ˜
+ audio stream1; აუდიო ნაკადი1
+ audio stream2; აუდიო ნაკადი2
+ audio stream3; აუდიო ნაკადი3
+ bit1; ბიტი
+ bit2; ბიტი
+ bit3; ბიტი
  bps; bps
  Bps; Bps
- Byte1; áƒ‘áƒáƒ˜áƒ¢áƒ˜
- Byte2; áƒ‘áƒáƒ˜áƒ¢áƒ˜
- Byte3; áƒ‘áƒáƒ˜áƒ¢áƒ˜
- channel1; áƒáƒ áƒ®áƒ˜
- channel2; áƒáƒ áƒ®áƒ”áƒ‘áƒ˜
- channel3; áƒáƒ áƒ®áƒ”áƒ‘áƒ˜
- chapter1; áƒ¡áƒ”áƒ¥áƒªáƒ˜áƒ
- chapter2; áƒ¡áƒ”áƒ¥áƒªáƒ˜áƒ
- chapter3; áƒ¡áƒ”áƒ¥áƒªáƒ˜áƒ”áƒ‘áƒ˜
- chapters stream1; áƒ¡áƒ”áƒ¥áƒªáƒ˜áƒ”áƒ‘áƒ˜áƒ¡ áƒœáƒáƒ™áƒáƒ“áƒ˜
- chapters stream2; áƒ¡áƒ”áƒ¥áƒªáƒ˜áƒ”áƒ‘áƒ˜áƒ¡ áƒœáƒáƒ™áƒáƒ“áƒ”áƒ‘áƒ˜
- chapters stream3; áƒ¡áƒ”áƒ¥áƒªáƒ˜áƒ”áƒ‘áƒ˜áƒ¡ áƒœáƒáƒ™áƒáƒ“áƒ”áƒ‘áƒ˜
- day1; áƒ“áƒ¦áƒ”
- day2; áƒ“áƒ¦áƒ”áƒ”áƒ‘áƒ˜
- day3; áƒ“áƒ¦áƒ”áƒ”áƒ‘áƒ˜
- dB1; áƒ“áƒ‘
- dB2; áƒ“áƒ‘
- dB3; áƒ“áƒ‘
- file1; áƒ¤áƒáƒ˜áƒšáƒ˜
- file2; áƒ¤áƒáƒ˜áƒšáƒ”áƒ‘áƒ˜
- file3; áƒ¤áƒáƒ˜áƒšáƒ”áƒ‘áƒ˜
- frame1; áƒ™áƒáƒ“áƒ áƒ˜
- frame2; áƒ™áƒáƒ“áƒ áƒ˜
- frame3; áƒ™áƒáƒ“áƒ áƒ”áƒ‘áƒ˜
- fps1; áƒ™áƒáƒ“áƒ /áƒ¬áƒ›
- fps2; áƒ™áƒáƒ“áƒ /áƒ¬áƒ›
- fps3; áƒ™áƒáƒ“áƒ /áƒ¬áƒ›
- GB; áƒ’áƒ‘
- Gb; áƒ’áƒ‘
- Gbps; áƒ’áƒ˜áƒ’áƒáƒ‘áƒ˜áƒ¢/áƒ¬áƒ›
- GBps; áƒ’áƒ˜áƒ’áƒáƒ‘áƒáƒ˜áƒ¢/áƒ¬áƒ›
- GHz; áƒ’áƒ°áƒª
- GiB; áƒ’áƒ‘áƒáƒ˜áƒ¢áƒ˜
- GibiByte1; áƒ’áƒ˜áƒ’áƒáƒ‘áƒáƒ˜áƒ¢áƒ˜
- GibiByte2; áƒ’áƒ˜áƒ’áƒáƒ‘áƒáƒ˜áƒ¢áƒ˜
- GibiByte3; áƒ’áƒ˜áƒ’áƒáƒ‘áƒáƒ˜áƒ¢áƒ˜
- GiBps; áƒ’áƒ‘áƒáƒ˜áƒ¢/áƒ¬áƒ›
- GigaBit1; áƒ’áƒ˜áƒ’áƒáƒ‘áƒ˜áƒ¢áƒ˜
- GigaBit2; áƒ’áƒ˜áƒ’áƒáƒ‘áƒ˜áƒ¢áƒ˜
- GigaBit3; áƒ’áƒ˜áƒ’áƒáƒ‘áƒ˜áƒ¢áƒ˜
- GigaByte1; áƒ’áƒ˜áƒ’áƒáƒ‘áƒáƒ˜áƒ¢áƒ˜
- GigaByte2; áƒ’áƒ˜áƒ’áƒáƒ‘áƒáƒ˜áƒ¢áƒ˜
- GigaByte3; áƒ’áƒ˜áƒ’áƒáƒ‘áƒáƒ˜áƒ¢áƒ˜
- hour1; áƒ¡áƒáƒáƒ—áƒ˜
- hour2; áƒ¡áƒáƒáƒ—áƒ”áƒ‘áƒ˜
- hour3; áƒ¡áƒáƒáƒ—áƒ”áƒ‘áƒ˜
- Hz; áƒ°áƒª
- image stream1; áƒ¡áƒ£áƒ áƒáƒ—áƒ˜áƒ¡ áƒœáƒáƒ™áƒáƒ“áƒ˜
- image stream2; áƒ¡áƒ£áƒ áƒáƒ—áƒ”áƒ‘áƒ˜áƒ¡ áƒœáƒáƒ™áƒáƒ“áƒ˜
- image stream3; áƒ¡áƒ£áƒ áƒáƒ—áƒ”áƒ‘áƒ˜áƒ¡ áƒœáƒáƒ™áƒáƒ“áƒ˜
- KB; áƒ™áƒ‘
- Kb; áƒ™áƒ‘
- KBps; áƒ™áƒ‘áƒáƒ˜áƒ¢/áƒ¬áƒ›
- Kbps; áƒ™áƒ‘áƒ˜áƒ¢/áƒ¬áƒ›
- KHz; áƒ™áƒ°áƒª
- KiB; áƒ™áƒ‘áƒáƒ˜áƒ¢áƒ˜
- KibiBit1; áƒ™áƒ˜áƒ‘áƒ˜áƒ‘áƒ˜áƒ¢áƒ˜
- KibiBit2; áƒ™áƒ˜áƒ‘áƒ˜áƒ‘áƒ˜áƒ¢áƒ˜
- KibiBit3; áƒ™áƒ˜áƒ‘áƒ˜áƒ‘áƒ˜áƒ¢áƒ˜
- KibiByte1; áƒ™áƒ˜áƒ‘áƒ˜áƒ‘áƒáƒ˜áƒ¢áƒ˜
- KibiByte2; áƒ™áƒ˜áƒ‘áƒ˜áƒ‘áƒáƒ˜áƒ¢áƒ˜
- KibiByte3; áƒ™áƒ˜áƒ‘áƒ˜áƒ‘áƒáƒ˜áƒ¢áƒ˜
- KiBps; áƒ™áƒ‘áƒáƒ˜áƒ¢/áƒ¬áƒ›
- KiloBit1; áƒ™áƒ˜áƒšáƒáƒ‘áƒ˜áƒ¢áƒ˜
- KiloBit2; áƒ™áƒ˜áƒšáƒáƒ‘áƒ˜áƒ¢áƒ˜
- KiloBit3; áƒ™áƒ˜áƒšáƒáƒ‘áƒ˜áƒ¢áƒ˜
- KiloByte1; áƒ™áƒ˜áƒšáƒáƒ‘áƒáƒ˜áƒ¢áƒ˜
- KiloByte2; áƒ™áƒ˜áƒšáƒáƒ‘áƒáƒ˜áƒ¢áƒ˜
- KiloByte3; áƒ™áƒ˜áƒšáƒáƒ‘áƒáƒ˜áƒ¢áƒ˜
- MB; áƒ›áƒ‘
- Mb; áƒ›áƒ‘
- Mbps; áƒ›áƒ‘áƒ˜áƒ¢/áƒ¬áƒ›
- MBps; áƒ›áƒ‘áƒáƒ˜áƒ¢/áƒ¬áƒ›
- MebiBit1; áƒ›áƒ”áƒ‘áƒ˜áƒ‘áƒ˜áƒ¢áƒ˜
- MebiBit2; áƒ›áƒ”áƒ‘áƒ˜áƒ‘áƒ˜áƒ¢áƒ˜
- MebiBit3; áƒ›áƒ”áƒ‘áƒ˜áƒ‘áƒ˜áƒ¢áƒ˜
- MebiByte1; áƒ›áƒ”áƒ‘áƒ˜áƒ‘áƒáƒ˜áƒ¢áƒ˜
- MebiByte2; áƒ›áƒ”áƒ‘áƒ˜áƒ‘áƒáƒ˜áƒ¢áƒ˜
- MebiByte3; áƒ›áƒ”áƒ‘áƒ˜áƒ‘áƒáƒ˜áƒ¢áƒ˜
- MegaBit1; áƒ›áƒ”áƒ’áƒáƒ‘áƒ˜áƒ¢áƒ˜
- MegaBit2; áƒ›áƒ”áƒ’áƒáƒ‘áƒ˜áƒ¢áƒ˜
- MegaBit3; áƒ›áƒ”áƒ’áƒáƒ‘áƒ˜áƒ¢áƒ˜
- MegaByte1; áƒ›áƒ”áƒ’áƒáƒ‘áƒáƒ˜áƒ¢áƒ˜
- MegaByte2; áƒ›áƒ”áƒ’áƒáƒ‘áƒáƒ˜áƒ¢áƒ˜
- MegaByte3; áƒ›áƒ”áƒ’áƒáƒ‘áƒáƒ˜áƒ¢áƒ˜
- MHz; áƒ›áƒ°áƒª
- MiB; áƒ›áƒ‘áƒáƒ˜áƒ¢áƒ˜
- Mib; áƒ›áƒ˜áƒ‘
- MiBps; áƒ›áƒ‘áƒáƒ˜áƒ¢/áƒ¬áƒ›
+ Byte1; ბაიტი
+ Byte2; ბაიტი
+ Byte3; ბაიტი
+ channel1; არხი
+ channel2; არხები
+ channel3; არხები
+ chapter1; სექცია
+ chapter2; სექცია
+ chapter3; სექციები
+ chapters stream1; სექციების ნაკადი
+ chapters stream2; სექციების ნაკადები
+ chapters stream3; სექციების ნაკადები
+ day1; დღე
+ day2; დღეები
+ day3; დღეები
+ dB1; დბ
+ dB2; დბ
+ dB3; დბ
+ file1; ფაილი
+ file2; ფაილები
+ file3; ფაილები
+ frame1; კადრი
+ frame2; კადრი
+ frame3; კადრები
+ fps1; კადრ/წმ
+ fps2; კადრ/წმ
+ fps3; კადრ/წმ
+ GB; გბ
+ Gb; გბ
+ Gbps; გიგაბიტ/წმ
+ GBps; გიგაბაიტ/წმ
+ GHz; გჰც
+ GiB; გბაიტი
+ GibiByte1; გიგაბაიტი
+ GibiByte2; გიგაბაიტი
+ GibiByte3; გიგაბაიტი
+ GiBps; გბაიტ/წმ
+ GigaBit1; გიგაბიტი
+ GigaBit2; გიგაბიტი
+ GigaBit3; გიგაბიტი
+ GigaByte1; გიგაბაიტი
+ GigaByte2; გიგაბაიტი
+ GigaByte3; გიგაბაიტი
+ hour1; საათი
+ hour2; საათები
+ hour3; საათები
+ Hz; ჰც
+ image stream1; სურათის ნაკადი
+ image stream2; სურათების ნაკადი
+ image stream3; სურათების ნაკადი
+ KB; კბ
+ Kb; კბ
+ KBps; კბაიტ/წმ
+ Kbps; კბიტ/წმ
+ KHz; კჰც
+ KiB; კბაიტი
+ KibiBit1; კიბიბიტი
+ KibiBit2; კიბიბიტი
+ KibiBit3; კიბიბიტი
+ KibiByte1; კიბიბაიტი
+ KibiByte2; კიბიბაიტი
+ KibiByte3; კიბიბაიტი
+ KiBps; კბაიტ/წმ
+ KiloBit1; კილობიტი
+ KiloBit2; კილობიტი
+ KiloBit3; კილობიტი
+ KiloByte1; კილობაიტი
+ KiloByte2; კილობაიტი
+ KiloByte3; კილობაიტი
+ MB; მბ
+ Mb; მბ
+ Mbps; მბიტ/წმ
+ MBps; მბაიტ/წმ
+ MebiBit1; მებიბიტი
+ MebiBit2; მებიბიტი
+ MebiBit3; მებიბიტი
+ MebiByte1; მებიბაიტი
+ MebiByte2; მებიბაიტი
+ MebiByte3; მებიბაიტი
+ MegaBit1; მეგაბიტი
+ MegaBit2; მეგაბიტი
+ MegaBit3; მეგაბიტი
+ MegaByte1; მეგაბაიტი
+ MegaByte2; მეგაბაიტი
+ MegaByte3; მეგაბაიტი
+ MHz; მჰც
+ MiB; მბაიტი
+ Mib; მიბ
+ MiBps; მბაიტ/წმ
  millisecond1; millisecond
  millisecond2; milliseconds
  millisecond3; milliseconds
- minute1; áƒ¬áƒ£áƒ—áƒ˜
- minute2; áƒ¬áƒ£áƒ—áƒ˜
- minute3; áƒ¬áƒ£áƒ—áƒ˜
- month1; áƒ—áƒ•áƒ”
- month2; áƒ—áƒ•áƒ”áƒ”áƒ‘áƒ˜
- month3; áƒ—áƒ•áƒ”áƒ”áƒ‘áƒ˜
- pixel1; áƒžáƒ˜áƒ¥áƒ¡áƒ”áƒšáƒ˜
- pixel2; áƒžáƒ˜áƒ¥áƒ¡áƒ”áƒšáƒ”áƒ‘áƒ˜
- pixel3;áƒžáƒ˜áƒ¥áƒ¡áƒ”áƒšáƒ”áƒ‘áƒ˜
- second1; áƒ¬áƒáƒ›áƒ˜
- second2; áƒ¬áƒáƒ›áƒ˜
- second3; áƒ¬áƒáƒ›áƒ˜
- text stream1; áƒ¢áƒ”áƒ¥áƒ¡áƒ¢ áƒœáƒáƒ™áƒáƒ“áƒ˜
- text stream2; áƒ¢áƒ”áƒ¥áƒ¡áƒ¢ áƒœáƒáƒ™áƒáƒ“áƒ˜
- text stream3; áƒ¢áƒ”áƒ¥áƒ¡áƒ¢ áƒœáƒáƒ™áƒáƒ“áƒ˜
- video frames1; áƒ•áƒ˜áƒ“áƒ”áƒ áƒ™áƒáƒ“áƒ áƒ˜
- video frames2; áƒ•áƒ˜áƒ“áƒ”áƒ áƒ™áƒáƒ“áƒ áƒ˜
- video frames3; áƒ•áƒ˜áƒ“áƒ”áƒ áƒ™áƒáƒ“áƒ áƒ˜
- video stream1; áƒ•áƒ˜áƒ“áƒ”áƒ áƒœáƒáƒ™áƒáƒ“áƒ˜
- video stream2; áƒ•áƒ˜áƒ“áƒ”áƒ áƒœáƒáƒ™áƒáƒ“áƒ˜
- video stream3; áƒ•áƒ˜áƒ“áƒ”áƒ áƒœáƒáƒ™áƒáƒ“áƒ˜
- warppoint0;áƒ’áƒáƒ áƒ“áƒáƒ›áƒáƒ•áƒáƒšáƒ˜ áƒžáƒ£áƒœáƒ¥áƒ¢áƒ˜áƒ¡ áƒ’áƒáƒ áƒ”áƒ¨áƒ”
- warppoint1; áƒ’áƒáƒ áƒ“áƒáƒ›áƒáƒ•áƒáƒšáƒ˜ áƒžáƒ£áƒœáƒ¥áƒ¢áƒ˜
- warppoint2; áƒ’áƒáƒ áƒ“áƒáƒ›áƒáƒ•áƒáƒšáƒ˜ áƒžáƒ£áƒœáƒ¥áƒ¢áƒ˜
- warppoint3; áƒ’áƒáƒ áƒ“áƒáƒ›áƒáƒ•áƒáƒšáƒ˜ áƒžáƒ£áƒœáƒ¥áƒ¢áƒ˜
- week1; áƒ™áƒ•áƒ˜áƒ áƒ
- week2; áƒ™áƒ•áƒ˜áƒ áƒ
- week3; áƒ™áƒ•áƒ˜áƒ áƒ
- year1; áƒ¬áƒ”áƒšáƒ˜
- year2; áƒ¬áƒ”áƒšáƒ˜
- year3; áƒ¬áƒ”áƒšáƒ˜
+ minute1; წუთი
+ minute2; წუთი
+ minute3; წუთი
+ month1; თვე
+ month2; თვეები
+ month3; თვეები
+ pixel1; პიქსელი
+ pixel2; პიქსელები
+ pixel3;პიქსელები
+ second1; წამი
+ second2; წამი
+ second3; წამი
+ text stream1; ტექსტ ნაკადი
+ text stream2; ტექსტ ნაკადი
+ text stream3; ტექსტ ნაკადი
+ video frames1; ვიდეო კადრი
+ video frames2; ვიდეო კადრი
+ video frames3; ვიდეო კადრი
+ video stream1; ვიდეო ნაკადი
+ video stream2; ვიდეო ნაკადი
+ video stream3; ვიდეო ნაკადი
+ warppoint0;გარდამავალი პუნქტის გარეშე
+ warppoint1; გარდამავალი პუნქტი
+ warppoint2; გარდამავალი პუნქტი
+ warppoint3; გარდამავალი პუნქტი
+ week1; კვირა
+ week2; კვირა
+ week3; კვირა
+ year1; წელი
+ year2; წელი
+ year3; წელი
 , ;, 
 : ;: 
-About; áƒáƒ›áƒ˜áƒ¡ áƒ¨áƒ”áƒ¡áƒáƒ®áƒ”áƒ‘
-About_Hint;áƒ áƒáƒ’áƒáƒ  áƒ“áƒáƒ›áƒ˜áƒ™áƒáƒ•áƒ¨áƒ˜áƒ áƒ“áƒ”áƒ— áƒ›áƒ” áƒ“áƒ áƒ•áƒ˜áƒžáƒáƒ•áƒáƒ— áƒ£áƒáƒ®áƒšáƒ”áƒ¡áƒ˜ áƒ•áƒ”áƒ áƒ¡áƒ˜áƒ
-Accompaniment;áƒ£áƒ–áƒ áƒ£áƒœáƒ•áƒ”áƒšáƒ§áƒáƒ¤áƒ
+About; ამის შესახებ
+About_Hint;როგორ დამიკავშირდეთ მე და ვიპოვოთ უახლესი ვერსია
+Accompaniment;უზრუნველყოფა
 ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
-Actor;áƒ¨áƒ”áƒ›áƒ¡áƒ áƒ£áƒšáƒ”áƒ‘áƒ”áƒšáƒ˜
-Actor_Character;áƒ áƒáƒšáƒ˜
-Added_Date;áƒ“áƒáƒ›áƒáƒ¢áƒ”áƒ‘áƒ˜áƒ¡ áƒ—áƒáƒ áƒ˜áƒ¦áƒ˜
-Address;áƒ›áƒ˜áƒ¡áƒáƒ›áƒáƒ áƒ—áƒ˜
-Advanced;áƒ“áƒáƒ›áƒáƒ¢áƒ”áƒ‘áƒ˜áƒ—
-Advanced mode;áƒ“áƒáƒ›áƒáƒ¢áƒ”áƒ‘áƒ˜áƒ—áƒ˜ áƒ áƒ”áƒŸáƒ˜áƒ›áƒ˜
-Album;áƒáƒšáƒ‘áƒáƒ›áƒ˜
-Album_ReplayGain_Gain;áƒáƒšáƒ‘áƒáƒ›áƒ¨áƒ˜ áƒ®áƒ›áƒ˜áƒ¡ áƒ“áƒáƒ›áƒáƒ áƒ”áƒ’áƒ£áƒšáƒ˜áƒ áƒ”áƒ‘áƒ”áƒšáƒ˜
+Actor;შემსრულებელი
+Actor_Character;როლი
+Added_Date;დამატების თარიღი
+Address;მისამართი
+Advanced;დამატებით
+Advanced mode;დამატებითი რეჟიმი
+Album;ალბომი
+Album_ReplayGain_Gain;ალბომში ხმის დამარეგულირებელი
 Album_ReplayGain_Peak;Album replay gain peak
 Alignment;Alignment
 Alignment_Aligned;Aligned on interleaves
 Alignment_Split;Split accross interleaves
-All;áƒ§áƒ•áƒ”áƒšáƒ
+All;ყველა
 Archival_Location;Archival location
 Arranger;Arranger
 ArtDirector;ArtDirector
-AspectRatio;áƒáƒ¡áƒžáƒ”áƒ¥áƒ¢áƒ˜áƒ¡ áƒ áƒáƒ¢áƒ˜áƒ
+AspectRatio;ასპექტის რატიო
 AssistantDirector;AssistantDirector
 at;at
-At least one file;(áƒ¨áƒ”áƒœ áƒ£áƒœáƒ“áƒ áƒ’áƒáƒ®áƒ¡áƒœáƒ áƒ¡áƒ£áƒš áƒªáƒáƒ¢áƒ áƒ”áƒ áƒ—áƒ˜ áƒ¤áƒáƒ˜áƒšáƒ˜)
-Audio;áƒáƒ£áƒ“áƒ˜áƒ
-Audio stream(s);áƒáƒ£áƒ“áƒ˜áƒ áƒœáƒáƒ™áƒáƒ“áƒ”áƒ‘áƒ˜
-Audio_Codec_List;áƒáƒ£áƒ“áƒ˜áƒ áƒ™áƒáƒ“áƒ”áƒ™áƒ”áƒ‘áƒ˜
-Audio_No;áƒáƒ  áƒáƒ áƒ˜áƒ¡ áƒáƒ£áƒ“áƒ˜áƒ
-Audio1;áƒžáƒ˜áƒ áƒ•áƒ”áƒšáƒ˜ áƒáƒ£áƒ“áƒ˜áƒ áƒœáƒáƒ™áƒáƒ“áƒ˜
-Audio2;áƒ›áƒ”áƒáƒ áƒ” áƒáƒ£áƒ“áƒ˜áƒ˜áƒ áƒœáƒáƒ™áƒáƒ“áƒ˜
-AudioCount;áƒáƒ£áƒ“áƒ˜áƒ áƒœáƒáƒ™áƒáƒ“áƒ”áƒ‘áƒ˜áƒ¡ áƒ áƒáƒáƒ“áƒ”áƒœáƒáƒ‘áƒ
-Author;áƒáƒ•áƒ¢áƒáƒ áƒ˜
+At least one file;(შენ უნდა გახსნა სულ ცოტა ერთი ფაილი)
+Audio;აუდიო
+Audio stream(s);აუდიო ნაკადები
+Audio_Codec_List;აუდიო კოდეკები
+Audio_No;არ არის აუდიო
+Audio1;პირველი აუდიო ნაკადი
+Audio2;მეორე აუდიიო ნაკადი
+AudioCount;აუდიო ნაკადების რაოდენობა
+Author;ავტორი
 BarCode;BarCode
-Basic;áƒ«áƒ˜áƒ áƒ˜áƒ—áƒáƒ“áƒ˜
-Basic_Note;áƒ¨áƒ”áƒœáƒ˜áƒ¨áƒ•áƒœáƒ : áƒáƒ› áƒ¤áƒáƒ˜áƒšáƒ˜áƒ¡ áƒ›áƒ”áƒ¢áƒ˜ áƒ˜áƒœáƒ¤áƒáƒ áƒ›áƒáƒªáƒ˜áƒ˜áƒ¡ áƒ’áƒáƒ¡áƒáƒ’áƒ”áƒ‘áƒáƒ“ áƒ—áƒ¥áƒ•áƒ”áƒœ áƒ£áƒœáƒ“áƒ áƒáƒ˜áƒ áƒ©áƒ˜áƒáƒ— áƒ’áƒáƒœáƒ¡áƒ®áƒ•áƒáƒ•áƒ”áƒ‘áƒ£áƒšáƒ˜ áƒ®áƒ”áƒ“áƒ•áƒ˜áƒ¡ áƒ¢áƒ˜áƒžáƒ˜ (Sheet, Tree...)
+Basic;ძირითადი
+Basic_Note;შენიშვნა : ამ ფაილის მეტი ინფორმაციის გასაგებად თქვენ უნდა აირჩიოთ განსხვავებული ხედვის ტიპი (Sheet, Tree...)
 BitDepth;Bit depth
-BitRate;áƒ‘áƒ˜áƒ¢ áƒ áƒ”áƒ˜áƒ¢áƒ˜
-BitRate_Maximum;áƒ›áƒáƒ¥áƒ¡áƒ˜áƒ›áƒáƒšáƒ£áƒ áƒ˜ áƒ‘áƒ˜áƒ¢ áƒ áƒ”áƒ˜áƒ¢áƒ˜
-BitRate_Minimum;áƒ›áƒ˜áƒœáƒ˜áƒ›áƒáƒšáƒ£áƒ áƒ˜ áƒ‘áƒ˜áƒ¢  áƒ áƒ”áƒ˜áƒ¢áƒ˜
-BitRate_Mode;áƒ‘áƒ˜áƒ¢ áƒ áƒ”áƒ˜áƒ¢áƒ˜áƒ¡ áƒ áƒ”áƒŸáƒ˜áƒ›áƒ˜
+BitRate;ბიტ რეიტი
+BitRate_Maximum;მაქსიმალური ბიტ რეიტი
+BitRate_Minimum;მინიმალური ბიტ  რეიტი
+BitRate_Mode;ბიტ რეიტის რეჟიმი
 BitRate_Mode_CBR;Constant
 BitRate_Mode_VBR;Variable
 BitRate_Nominal;Nominal bit rate
 BitRate_Encoded;
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
-BufferSize;áƒ‘áƒ£áƒ¤áƒ”áƒ áƒ˜áƒ¡ áƒ–áƒáƒ›áƒ
-Cancel;áƒ’áƒáƒ©áƒ”áƒ áƒ”áƒ‘áƒ
-Channel(s);áƒáƒ áƒ®áƒ˜(áƒ”áƒ‘áƒ˜)
+BufferSize;ბუფერის ზომა
+Cancel;გაჩერება
+Channel(s);არხი(ები)
 ChannelPositions;Channel positions
-Chapter(s);áƒ¡áƒ”áƒ¥áƒªáƒ˜áƒ(áƒ”áƒ‘áƒ˜)
-Chapters;áƒ¡áƒ”áƒ¥áƒªáƒ˜áƒ”áƒ‘áƒ˜
-Chapters stream(s);áƒ¡áƒ”áƒ¥áƒªáƒ˜áƒ”áƒ‘áƒ˜áƒ¡ áƒœáƒáƒ™áƒáƒ“áƒ˜(áƒ”áƒ‘áƒ˜)
-Chapters_Codec_List;áƒ¡áƒ”áƒ¥áƒªáƒ˜áƒ”áƒ‘áƒ˜áƒ¡ áƒ™áƒáƒ“áƒ”áƒ™áƒ”áƒ‘áƒ˜
-Chapters_No;áƒ¡áƒ”áƒ¥áƒªáƒ˜áƒ áƒáƒ  áƒáƒ áƒ£áƒ¡
-ChaptersCount;áƒœáƒáƒ™áƒáƒ“áƒ”áƒ‘áƒ˜áƒ¡ áƒ¡áƒ”áƒ¥áƒªáƒ˜áƒ”áƒ‘áƒ˜áƒ¡ áƒ áƒáƒáƒ“áƒ”áƒœáƒáƒ‘áƒ
-CheckNewVersion;áƒáƒ®áƒáƒšáƒ˜ áƒ•áƒ”áƒ áƒ¡áƒ˜áƒ˜áƒ¡ áƒ¨áƒ”áƒ›áƒáƒ¬áƒ›áƒ”áƒ‘áƒ
-Choose custom;áƒáƒ áƒ©áƒ”áƒ•áƒ
+Chapter(s);სექცია(ები)
+Chapters;სექციები
+Chapters stream(s);სექციების ნაკადი(ები)
+Chapters_Codec_List;სექციების კოდეკები
+Chapters_No;სექცია არ არუს
+ChaptersCount;ნაკადების სექციების რაოდენობა
+CheckNewVersion;ახალი ვერსიის შემოწმება
+Choose custom;არჩევა
 Choose custom sheet;Choose your desired custom sheet
 Choose custom text;Choose your desired custom text
 Choose export format;Choose your desired export format
-Choose file(s);áƒ’áƒáƒ®áƒ¡áƒœáƒ˜áƒ—áƒ•áƒ˜áƒ¡ áƒáƒ˜áƒ áƒ©áƒ˜áƒ”áƒ— áƒ¤áƒáƒ˜áƒšáƒ”áƒ‘áƒ˜
+Choose file(s);გახსნითვის აირჩიეთ ფაილები
 Choose filename;Choose your desired filename
-Choose language;áƒáƒ˜áƒ áƒ©áƒ˜áƒ”áƒ— áƒ—áƒ¥áƒ•áƒ”áƒœáƒ˜ áƒ¡áƒáƒ¡áƒ£áƒ áƒ•áƒ”áƒšáƒ˜ áƒ”áƒœáƒ
+Choose language;აირჩიეთ თქვენი სასურველი ენა
 Choregrapher;Choregrapher
 Chroma;Chroma
 ChromaSubsampling;Chroma subsampling
-Close;áƒ“áƒáƒ®áƒ£áƒ áƒ•áƒ
-Close all before open;áƒ“áƒáƒ®áƒ£áƒ áƒ” áƒ§áƒ•áƒ”áƒšáƒ áƒ’áƒáƒ®áƒ¡áƒœáƒáƒ›áƒ“áƒ”
-Codec;áƒ™áƒáƒ“áƒ”áƒ™áƒ˜
-Codec_Description;áƒ™áƒáƒ“áƒ”áƒ™áƒ˜áƒ¡ áƒáƒ¦áƒ¬áƒ”áƒ áƒ
-Codec_Info;áƒ™áƒáƒ“áƒ”áƒ™áƒ”áƒ‘áƒ˜áƒ¡ áƒ“áƒ”áƒ¢áƒáƒšáƒ”áƒ‘áƒ˜
-Codec_Settings;áƒ™áƒáƒ“áƒ”áƒ™áƒ”áƒ‘áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜
-Codec_Settings_PacketBitStream;áƒ™áƒáƒ“áƒ”áƒ™áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, Packet bitstream
-Codec_Settings_BVOP;áƒ™áƒáƒ“áƒ”áƒ™áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, BVOP
-Codec_Settings_QPel;áƒ™áƒáƒ“áƒ”áƒ™áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, QPel
-Codec_Settings_GMC;áƒ™áƒáƒ“áƒ”áƒ™áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, GMC
-Codec_Settings_Matrix;áƒ™áƒáƒ“áƒ”áƒ™áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, Matrix
-Codec_Settings_Floor;áƒ™áƒáƒ“áƒ”áƒ™áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, Floor
-Codec_Settings_CABAC;áƒ™áƒáƒ“áƒ”áƒ™áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, CABAC
-Codec_Settings_Firm;áƒ™áƒáƒ“áƒ”áƒ™áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, Firm
-Codec_Settings_Endianness;áƒ™áƒáƒ“áƒ”áƒ™áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, Endianness
-Codec_Settings_Sign;áƒ™áƒáƒ“áƒ”áƒ™áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, Sign
-Codec_Settings_Law;áƒ™áƒáƒ“áƒ”áƒ™áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, Law
-Codec_Settings_ITU;áƒ™áƒáƒ“áƒ”áƒ™áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, ITU
-Codec_Profile;áƒ™áƒáƒ“áƒ”áƒ™áƒ˜áƒ¡ áƒžáƒ áƒáƒ¤áƒ˜áƒšáƒ˜
-Codec_Url;áƒ™áƒáƒ“áƒ”áƒ™áƒ”áƒ‘áƒ˜áƒ¡ áƒ•áƒ”áƒ‘áƒ›áƒ˜áƒ¡áƒáƒ›áƒáƒ áƒ—áƒ˜
-CodecID;áƒ™áƒáƒ“áƒ”áƒ™áƒ˜áƒ¡ ID
-CodecID_Description;áƒ™áƒáƒ“áƒ”áƒ™áƒ˜áƒ¡ áƒáƒ¦áƒ¬áƒ”áƒ áƒ
-Collection;áƒ™áƒáƒšáƒ”áƒ¥áƒªáƒ˜áƒ
+Close;დახურვა
+Close all before open;დახურე ყველა გახსნამდე
+Codec;კოდეკი
+Codec_Description;კოდეკის აღწერა
+Codec_Info;კოდეკების დეტალები
+Codec_Settings;კოდეკების პარამეტრები
+Codec_Settings_PacketBitStream;კოდეკის პარამეტრები, Packet bitstream
+Codec_Settings_BVOP;კოდეკის პარამეტრები, BVOP
+Codec_Settings_QPel;კოდეკის პარამეტრები, QPel
+Codec_Settings_GMC;კოდეკის პარამეტრები, GMC
+Codec_Settings_Matrix;კოდეკის პარამეტრები, Matrix
+Codec_Settings_Floor;კოდეკის პარამეტრები, Floor
+Codec_Settings_CABAC;კოდეკის პარამეტრები, CABAC
+Codec_Settings_Firm;კოდეკის პარამეტრები, Firm
+Codec_Settings_Endianness;კოდეკის პარამეტრები, Endianness
+Codec_Settings_Sign;კოდეკის პარამეტრები, Sign
+Codec_Settings_Law;კოდეკის პარამეტრები, Law
+Codec_Settings_ITU;კოდეკის პარამეტრები, ITU
+Codec_Profile;კოდეკის პროფილი
+Codec_Url;კოდეკების ვებმისამართი
+CodecID;კოდეკის ID
+CodecID_Description;კოდეკის აღწერა
+Collection;კოლექცია
 Colorimetry;Colorimetry
 ColorSpace;Color space
 colour_primaries;Color primaries
-Comment;áƒ™áƒáƒ›áƒ”áƒœáƒ¢áƒáƒ áƒ˜
+Comment;კომენტარი
 CommissionedBy;Commissioned by
 Compilation;Compilation
-CompleteName;áƒ¡áƒ áƒ£áƒšáƒ˜ áƒ¡áƒáƒ®áƒ”áƒšáƒ˜
+CompleteName;სრული სახელი
 Composer;Composer
-Compression_Mode;áƒ¨áƒ”áƒ™áƒ£áƒ›áƒ¨áƒ•áƒ˜áƒ¡ áƒ áƒ”áƒŸáƒ˜áƒ›áƒ˜
+Compression_Mode;შეკუმშვის რეჟიმი
 Compression_Mode_Lossless;Lossless
 Compression_Mode_Lossy;Lossy
-Compression_Ratio;áƒ¨áƒ”áƒ™áƒ£áƒ›áƒ¨áƒ•áƒ˜áƒ¡ áƒ áƒáƒ¢áƒ˜áƒ
+Compression_Ratio;შეკუმშვის რატიო
 Conductor;Conductor
-Container and general information;áƒ™áƒáƒœáƒ¢áƒ”áƒ˜áƒœáƒ”áƒ áƒ˜ áƒ“áƒ áƒ›áƒ—áƒáƒ•áƒáƒ áƒ˜ áƒ˜áƒœáƒ¤áƒáƒ áƒ›áƒáƒªáƒ˜áƒ
-ContentType;áƒ™áƒáƒœáƒ¢áƒ”áƒœáƒ¢áƒ˜áƒ¡ áƒ¢áƒ˜áƒžáƒ˜
+Container and general information;კონტეინერი და მთავარი ინფორმაცია
+ContentType;კონტენტის ტიპი
 CoProducer;Coproducer
-Copyright;áƒ§áƒ•áƒ”áƒšáƒ áƒ£áƒ¤áƒšáƒ”áƒ‘áƒ áƒ“áƒáƒªáƒ£áƒšáƒ˜áƒ
+Copyright;ყველა უფლება დაცულია
 CostumeDesigner;Costume designer
-Count;áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ˜
-Country;áƒ¥áƒ•áƒ”áƒ§áƒáƒœáƒ
+Count;ანგარიში
+Country;ქვეყანა
 Cover;Cover
 Cover_Datas;Cover datas
 Cover_Description;Cover description
 Cover_Mime;Cover MIME
 Cover_Type;Cover type
 Cropped;Crop dimensions
-Custom;áƒ¡áƒ¢áƒáƒœáƒ“áƒáƒ áƒ¢áƒ£áƒšáƒ˜
-Customize;áƒ›áƒáƒ áƒ’áƒ”áƒ‘áƒ
-Date;áƒ—áƒáƒ áƒ˜áƒ’áƒ˜
-Debug;áƒ’áƒáƒ›áƒáƒ áƒ—áƒ•áƒ
+Custom;სტანდარტული
+Customize;მორგება
+Date;თარიგი
+Debug;გამართვა
 Decimal point;Decimal point
 Delay;Delay
 Delay_Source;Delay, origin
 Delay_Source_Container;Container
 Delay_Source_Stream;Raw stream
-Delete;áƒ¬áƒáƒ¨áƒšáƒ
-Description;áƒáƒ¦áƒ¬áƒ”áƒ áƒ
+Delete;წაშლა
+Description;აღწერა
 Digitized_Date;Digitized date
 Dimensions;Dimensions
-Director;áƒ“áƒ˜áƒ áƒ”áƒ¥áƒ¢áƒáƒ áƒ˜
+Director;დირექტორი
 DirectorOfPhotography;Director of photography
-DisplayAspectRatio;áƒ’áƒáƒ›áƒáƒ¡áƒáƒ®áƒ£áƒšáƒ”áƒ‘áƒ˜áƒ¡ áƒáƒ¡áƒžáƒ”áƒ¥áƒ¢ áƒ áƒáƒ¢áƒ˜áƒ
+DisplayAspectRatio;გამოსახულების ასპექტ რატიო
 DisplayAspectRatio_Original;Original display aspect ratio
-DistributedBy;áƒ’áƒáƒ•áƒ áƒªáƒ”áƒšáƒ”áƒ‘áƒ˜áƒ¡ áƒáƒ•áƒ¢áƒáƒ áƒ˜
-Donate;áƒ¨áƒ”áƒ›áƒáƒ¬áƒ˜áƒ áƒ£áƒšáƒáƒ‘áƒ
+DistributedBy;გავრცელების ავტორი
+Donate;შემოწირულობა
 DotsPerInch;Dots per inch
-Duration;áƒ®áƒáƒœáƒ’áƒ áƒ«áƒšáƒ˜áƒ•áƒáƒ‘áƒ
-Duration_End;áƒ“áƒáƒ¡áƒáƒ¡áƒ¬áƒ áƒ£áƒšáƒ˜áƒ¡ áƒ“áƒ áƒ
-Duration_Start;áƒ“áƒáƒ¬áƒ§áƒ”áƒ‘áƒ˜áƒ¡ áƒ“áƒ áƒ
-Edit;áƒ áƒ”áƒ“áƒáƒ¥áƒ¢áƒ˜áƒ áƒ”áƒ‘áƒ
-EditedBy;áƒ áƒ”áƒ“áƒáƒ¥áƒ¢áƒ˜áƒ áƒ”áƒ‘áƒ˜áƒ¡ áƒáƒ•áƒ¢áƒáƒ áƒ˜
-EMail;áƒ”áƒš-áƒ¤áƒáƒ¡áƒ¢áƒ
-Encoded_Application;áƒ“áƒáƒ›áƒ¬áƒ”áƒ áƒ˜ áƒáƒžáƒšáƒ˜áƒ™áƒáƒªáƒ˜áƒ
-Encoded_Date;áƒ”áƒœáƒ™áƒáƒ“áƒ˜áƒ áƒ”áƒ‘áƒ˜áƒ¡ áƒ—áƒáƒ áƒ˜áƒ¦áƒ˜
-Encoded_Library;áƒ“áƒáƒ¬áƒ”áƒ áƒ˜áƒšáƒ˜áƒ
-Encoded_Library_Settings;áƒ”áƒœáƒ™áƒáƒ“áƒ˜áƒ áƒ”áƒ‘áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜
+Duration;ხანგრძლივობა
+Duration_End;დასასწრულის დრო
+Duration_Start;დაწყების დრო
+Edit;რედაქტირება
+EditedBy;რედაქტირების ავტორი
+EMail;ელ-ფოსტა
+Encoded_Application;დამწერი აპლიკაცია
+Encoded_Date;ენკოდირების თარიღი
+Encoded_Library;დაწერილია
+Encoded_Library_Settings;ენკოდირების პარამეტრები
 Encoded_Original;Original support
-EncodedBy;áƒ”áƒœáƒ™áƒáƒ“áƒ˜áƒ áƒ”áƒ‘áƒ˜áƒ¡ áƒáƒ•áƒ¢áƒáƒ áƒ˜
+EncodedBy;ენკოდირების ავტორი
 EPG_Positions;EPG positions (internal)
-Error_File;áƒ¤áƒáƒ˜áƒšáƒ˜áƒ¡ áƒ¬áƒáƒ™áƒ˜áƒ—áƒ•áƒ˜áƒ¡ áƒ“áƒ áƒáƒ¡ áƒáƒ¦áƒ›áƒáƒ©áƒ”áƒœáƒ˜áƒšáƒ˜áƒ áƒ¨áƒ”áƒªáƒ“áƒáƒ›áƒ
+Error_File;ფაილის წაკითვის დროს აღმოჩენილია შეცდომა
 ExecutiveProducer;Executive producer
-Exit;áƒ’áƒáƒ¡áƒ•áƒšáƒ
-Exit_Hint;áƒžáƒ áƒáƒ’áƒ áƒáƒ›áƒ˜áƒ¡ áƒ“áƒáƒ¢áƒáƒ•áƒ”áƒ‘áƒ
-Export;áƒ’áƒáƒ¢áƒáƒœáƒ
+Exit;გასვლა
+Exit_Hint;პროგრამის დატოვება
+Export;გატანა
 Export_Hint;Export in a customized format
 Extensions;Extensions usually used
-Family;áƒ’áƒ•áƒáƒ áƒ˜
-Fax;áƒ¤áƒáƒ¥áƒ¡áƒ˜
-File;áƒ¤áƒáƒ˜áƒšáƒ˜
-File size;áƒ¤áƒáƒ˜áƒšáƒ˜áƒ¡ áƒ–áƒáƒ›áƒ
+Family;გვარი
+Fax;ფაქსი
+File;ფაილი
+File size;ფაილის ზომა
 File_Append;Append to the existing file (Warning : be careful to have the same parameters)
-File_Created_Date;áƒ¤áƒáƒ˜áƒšáƒ˜áƒ¡ áƒ¨áƒ”áƒ¥áƒ›áƒœáƒ˜áƒ¡ áƒ—áƒáƒ áƒ˜áƒ¦áƒ˜
-File_Created_Date_Local;áƒ¤áƒáƒ˜áƒšáƒ˜áƒ¡ áƒ¨áƒ”áƒ¥áƒ›áƒœáƒ˜áƒ¡ áƒ—áƒáƒ áƒ˜áƒ¦áƒ˜ (áƒšáƒáƒ™áƒáƒšáƒ£áƒ áƒ˜)
+File_Created_Date;ფაილის შექმნის თარიღი
+File_Created_Date_Local;ფაილის შექმნის თარიღი (ლოკალური)
 File_Hint;Select a multimedia file to examine
-File_Modified_Date;áƒ¤áƒáƒ˜áƒšáƒ˜áƒ¡ áƒ‘áƒáƒšáƒ áƒ›áƒáƒ“áƒ˜áƒ¤áƒ˜áƒ™áƒáƒªáƒ˜áƒ˜áƒ¡ áƒ—áƒáƒ áƒ˜áƒ¦áƒ˜
+File_Modified_Date;ფაილის ბოლო მოდიფიკაციის თარიღი
 File_Modified_Date_Local;File last modification date (local)
 FileExtension;File extension
-FileName;áƒ¤áƒáƒ˜áƒšáƒ˜áƒ¡ áƒ¡áƒáƒ®áƒ”áƒšáƒ˜
-FileSize;áƒ¤áƒáƒ˜áƒšáƒ˜áƒ¡ áƒ–áƒáƒ›áƒ
-Folder;áƒ¤áƒáƒšáƒ“áƒ”áƒ áƒ˜
-Folder (R);áƒ¤áƒáƒšáƒ“áƒ”áƒ  (R)
+FileName;ფაილის სახელი
+FileSize;ფაილის ზომა
+Folder;ფოლდერი
+Folder (R);ფოლდერ (R)
 Folder (R)_Hint;Select a folder to examine (with all folders recursively)
 Folder (Recursively);Folder (Recursively)
-Folder_Hint;áƒ’áƒáƒœáƒ®áƒ˜áƒšáƒ•áƒ˜áƒ¡áƒ—áƒ•áƒ˜áƒ¡ áƒáƒ˜áƒ áƒ©áƒ˜áƒ”áƒ— áƒ¤áƒáƒšáƒ“áƒ”áƒ áƒ˜
-FolderName;áƒ¤áƒáƒšáƒ“áƒ”áƒ áƒ˜áƒ¡ áƒ¡áƒáƒ®áƒ”áƒšáƒ˜
-Format;áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜
+Folder_Hint;განხილვისთვის აირჩიეთ ფოლდერი
+FolderName;ფოლდერის სახელი
+Format;ფორმატი
 Format_Commercial;Commercial name
 Format_Commercial_IfAny;
-Format_Description;áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜áƒ¡ áƒáƒ¦áƒ¬áƒ”áƒ áƒ
-Format_Info;áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜áƒ¡ áƒ“áƒ”áƒ¢áƒáƒšáƒ”áƒ‘áƒ˜
-Format_Profile;áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜áƒ¡ áƒžáƒ áƒáƒ¤áƒ˜áƒšáƒ˜
-Format_Settings;áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜
-Format_Settings_PacketBitStream;áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, Packet bitstream
-Format_Settings_BVOP;áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, BVOP
-Format_Settings_QPel;áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, QPel
-Format_Settings_GMC;áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, GMC
-Format_Settings_Matrix;áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, Matrix
+Format_Description;ფორმატის აღწერა
+Format_Info;ფორმატის დეტალები
+Format_Profile;ფორმატის პროფილი
+Format_Settings;ფორმატის პარამეტრები
+Format_Settings_PacketBitStream;ფორმატის პარამეტრები, Packet bitstream
+Format_Settings_BVOP;ფორმატის პარამეტრები, BVOP
+Format_Settings_QPel;ფორმატის პარამეტრები, QPel
+Format_Settings_GMC;ფორმატის პარამეტრები, GMC
+Format_Settings_Matrix;ფორმატის პარამეტრები, Matrix
 Format_Settings_Matrix_Custom;Custom
 Format_Settings_Matrix_Default;Default
-Format_Settings_Floor;áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, Floor
-Format_Settings_CABAC;áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, CABAC
-Format_Settings_Firm;áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, Firm
-Format_Settings_Endianness;áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, Endianness
-Format_Settings_RefFrames;áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, ReFrames
-Format_Settings_Sign;áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, Sign
-Format_Settings_Law;áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, Law
-Format_Settings_ITU;áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, ITU
-Format_Settings_SBR;áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, SBR
-Format_Settings_PS;áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, PS
-Format_Settings_Pulldown;áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, Pulldown
-Format_Settings_Mode;áƒ áƒ”áƒŸáƒ˜áƒ›áƒ˜
-Format_Settings_FrameMode;áƒ™áƒáƒ“áƒ áƒ”áƒ‘áƒ˜áƒ¡ áƒ áƒ”áƒŸáƒ˜áƒ›áƒ˜
+Format_Settings_Floor;ფორმატის პარამეტრები, Floor
+Format_Settings_CABAC;ფორმატის პარამეტრები, CABAC
+Format_Settings_Firm;ფორმატის პარამეტრები, Firm
+Format_Settings_Endianness;ფორმატის პარამეტრები, Endianness
+Format_Settings_RefFrames;ფორმატის პარამეტრები, ReFrames
+Format_Settings_Sign;ფორმატის პარამეტრები, Sign
+Format_Settings_Law;ფორმატის პარამეტრები, Law
+Format_Settings_ITU;ფორმატის პარამეტრები, ITU
+Format_Settings_SBR;ფორმატის პარამეტრები, SBR
+Format_Settings_PS;ფორმატის პარამეტრები, PS
+Format_Settings_Pulldown;ფორმატის პარამეტრები, Pulldown
+Format_Settings_Mode;რეჟიმი
+Format_Settings_FrameMode;კადრების რეჟიმი
 Format_Settings_Emphasis;Emphasis
 Format_Settings_ModeExtension;Mode extension
-Format_Settings_GOP;áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜, GOP
-Format_Version;áƒ¤áƒáƒ áƒœáƒáƒ¢áƒ˜áƒ¡ áƒ•áƒ”áƒ áƒ¡áƒ˜áƒ
-Format_Url;áƒ•áƒ”áƒ‘-áƒ’áƒ•áƒ”áƒ áƒ“áƒ˜áƒ¡ áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜
+Format_Settings_GOP;ფორმატის პარამეტრები, GOP
+Format_Version;ფორნატის ვერსია
+Format_Url;ვებ-გვერდის ფორმატი
 FrameCount;Frame count
-FrameRate;áƒ™áƒáƒ“áƒ áƒ”áƒ‘áƒ˜áƒ¡ áƒ¡áƒ˜áƒ®áƒ¨áƒ˜áƒ áƒ”
-FrameRate_Mode;áƒ™áƒáƒ“áƒ áƒ”áƒ‘áƒ˜áƒ¡ áƒ¡áƒ˜áƒ®áƒ¨áƒ˜áƒ áƒ˜áƒ¡ áƒ áƒ”áƒŸáƒ˜áƒ›áƒ˜
-FrameRate_Mode_CFR;áƒ›áƒ£áƒ“áƒ›áƒ˜áƒ•áƒ˜
+FrameRate;კადრების სიხშირე
+FrameRate_Mode;კადრების სიხშირის რეჟიმი
+FrameRate_Mode_CFR;მუდმივი
 FrameRate_Mode_VFR;Variable
-FrameRate_Minimum;áƒ™áƒáƒ“áƒ áƒ”áƒ‘áƒ˜áƒ¡ áƒ¡áƒ˜áƒ®áƒ¨áƒ˜áƒ áƒ˜áƒ¡ áƒ›áƒ˜áƒœáƒ˜áƒ›áƒ£áƒ›áƒ˜
-FrameRate_Nominal;áƒ™áƒáƒ“áƒ áƒ”áƒ‘áƒ˜áƒ¡ áƒ¡áƒ˜áƒ®áƒ¨áƒ˜áƒ áƒ˜áƒ¡ áƒœáƒáƒ›áƒ˜áƒœáƒáƒšáƒ£áƒ áƒ˜
-FrameRate_Maximum;áƒ™áƒáƒ“áƒ áƒ”áƒ‘áƒ˜áƒ¡ áƒ¡áƒ˜áƒ®áƒ¨áƒ˜áƒ áƒ˜áƒ¡ áƒ›áƒáƒ¥áƒ¡áƒ˜áƒ›áƒ£áƒ›áƒ˜
-FrameRate_Original;áƒ™áƒáƒ“áƒ áƒ”áƒ‘áƒ˜áƒ¡ áƒáƒ áƒ˜áƒ’áƒ˜áƒœáƒáƒšáƒ˜ áƒ¡áƒ˜áƒ®áƒ¨áƒ˜áƒ áƒ”
-General;áƒ›áƒ—áƒáƒ•áƒáƒ áƒ˜
-Genre;áƒŸáƒáƒœáƒ áƒ˜
+FrameRate_Minimum;კადრების სიხშირის მინიმუმი
+FrameRate_Nominal;კადრების სიხშირის ნომინალური
+FrameRate_Maximum;კადრების სიხშირის მაქსიმუმი
+FrameRate_Original;კადრების ორიგინალი სიხშირე
+General;მთავარი
+Genre;ჟანრი
 Genre_000;Blues
 Genre_001;Classic Rock
 Genre_002;Country
@@ -551,26 +551,26 @@ Genre_188;
 Genre_189;
 Genre_190;
 Genre_191;
-Go to WebSite;áƒ’áƒáƒ“áƒáƒ“áƒ˜áƒ— áƒ•áƒ”áƒ‘-áƒ’áƒ•áƒ”áƒ áƒ“áƒ«áƒ”
-Grouping;áƒ“áƒáƒ¯áƒ’áƒ£áƒ¤áƒ”áƒ‘áƒ
+Go to WebSite;გადადით ვებ-გვერდძე
+Grouping;დაჯგუფება
 h;h
-Header file;áƒ°áƒ”áƒ“áƒ”áƒ áƒ˜áƒ¡ áƒ¤áƒáƒ˜áƒšáƒ˜áƒ¡ áƒ¨áƒ”áƒ¥áƒ›áƒœáƒ
-Height;áƒ¡áƒ˜áƒ›áƒáƒ¦áƒšáƒ”
-Height_Original;áƒáƒ áƒ˜áƒ’áƒ˜áƒœáƒáƒšáƒ˜ áƒ¡áƒ˜áƒ›áƒáƒ¦áƒšáƒ”
-Help;áƒ“áƒáƒ®áƒ›áƒáƒ áƒ”áƒ‘áƒ
+Header file;ჰედერის ფაილის შექმნა
+Height;სიმაღლე
+Height_Original;ორიგინალი სიმაღლე
+Help;დახმარება
 Hint;Hint
-How many audio streams?;áƒ áƒáƒ›áƒ“áƒ”áƒœáƒ˜ áƒáƒ£áƒ“áƒ˜áƒ áƒœáƒáƒ™áƒáƒ“áƒ˜áƒ?
-How many chapters streams?;áƒ áƒáƒ›áƒ“áƒ”áƒœáƒ˜ áƒžáƒ£áƒœáƒ¥áƒ¢áƒ˜áƒ?
-How many text streams?;áƒ áƒáƒ›áƒ“áƒ”áƒœáƒ˜ áƒ¢áƒ”áƒ¡áƒ¢áƒ˜áƒ¡ áƒœáƒáƒ™áƒáƒ“áƒ˜áƒ?
-How many video streams?;áƒ áƒáƒ›áƒ“áƒ”áƒœáƒ˜ áƒ•áƒ˜áƒ“áƒ”áƒáƒ¡ áƒœáƒáƒ™áƒáƒ“áƒ˜áƒ?
+How many audio streams?;რამდენი აუდიო ნაკადია?
+How many chapters streams?;რამდენი პუნქტია?
+How many text streams?;რამდენი ტესტის ნაკადია?
+How many video streams?;რამდენი ვიდეოს ნაკადია?
 HTML;HTML
 ID;ID
-Image;áƒ¡áƒ£áƒ áƒáƒ—áƒ˜
-Image stream(s);áƒ¡áƒ£áƒ áƒáƒ—áƒ˜áƒ¡ áƒœáƒáƒ™áƒáƒ“áƒ˜
-Image_Codec_List;áƒ¡áƒ£áƒ áƒáƒ—áƒ˜áƒ¡ áƒ™áƒáƒ“áƒ”áƒ™áƒ”áƒ‘áƒ˜
+Image;სურათი
+Image stream(s);სურათის ნაკადი
+Image_Codec_List;სურათის კოდეკები
 ImageCount;Count of image streams
-Info;áƒ˜áƒœáƒ¤áƒáƒ áƒ›áƒáƒªáƒ˜áƒ
-Instruments;áƒ˜áƒœáƒ¡áƒ¢áƒ áƒ£áƒ›áƒ”áƒœáƒ¢áƒ”áƒ‘áƒ˜
+Info;ინფორმაცია
+Instruments;ინსტრუმენტები
 Interlacement;Interlacement
 Interlaced_Interlaced;Interlaced
 Interlaced_TFF;Top Field First
@@ -585,13 +585,13 @@ InternetMediaType;Internet media type
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-Keywords;áƒ¡áƒáƒ™áƒ•áƒáƒœáƒ«áƒ áƒ¡áƒ˜áƒ¢áƒ§áƒ•áƒ”áƒ‘áƒ˜
-Known codecs;áƒªáƒœáƒáƒ‘áƒ˜áƒšáƒ˜ áƒ™áƒáƒ“áƒ”áƒ™áƒ”áƒ‘áƒ˜
-Known formats;áƒªáƒœáƒáƒ‘áƒ˜áƒšáƒ˜ áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ”áƒ‘áƒ˜
-Known parameters;áƒªáƒœáƒáƒ‘áƒ˜áƒšáƒ˜ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜
+Keywords;საკვანძო სიტყვები
+Known codecs;ცნობილი კოდეკები
+Known formats;ცნობილი ფორმატები
+Known parameters;ცნობილი პარამეტრები
 Label;Label
-Language;áƒ˜áƒœáƒ¢áƒ”áƒ áƒ¤áƒ”áƒ˜áƒ¡áƒ˜áƒ¡ áƒ”áƒœáƒ
-Language_More;áƒ›áƒ”áƒ¢áƒ˜ áƒ˜áƒœáƒ¤áƒáƒ áƒ›áƒáƒªáƒ˜áƒ áƒ”áƒœáƒ”áƒ‘áƒ–áƒ”
+Language;ინტერფეისის ენა
+Language_More;მეტი ინფორმაცია ენებზე
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -664,7 +664,7 @@ Language_ie;Interlingue
 Language_ig;Igbo
 Language_ii;Sichuan Yi
 Language_ik;Inupiaq
-Language_Info;áƒ˜áƒœáƒ¤áƒáƒ áƒ›áƒáƒªáƒ˜áƒ áƒ”áƒœáƒáƒ–áƒ”
+Language_Info;ინფორმაცია ენაზე
 Language_io;Ido
 Language_is;Icelandic
 Language_it;Italian
@@ -788,245 +788,244 @@ LawRating;Law rating
 LCCN;LCCN
 Library;Muxing library
 Lightness;Lightness
-List;áƒ¡áƒ˜áƒ
+List;სია
 Lyrics;Lyrics
 Lyricist;Lyricist
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
 matrix_coefficients;Matrix coefficients
 MediaInfo_About;Supply very detailled information\r\nabout a multimedia file:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
-Menu;áƒ›áƒ”áƒœáƒ˜áƒ£
-Menu stream(s);áƒœáƒáƒ™áƒáƒ“áƒ”áƒ‘áƒ˜áƒ¡ áƒ›áƒ”áƒœáƒ˜áƒ£
-Menu_Codec_List;áƒ™áƒáƒ“áƒ”áƒ™áƒ”áƒ‘áƒ˜áƒ¡ áƒ›áƒ”áƒœáƒ˜áƒ£
-Menu_No;áƒáƒ  áƒáƒ áƒ˜áƒ¡ áƒ›áƒ”áƒœáƒ˜áƒ£
-MenuCount;áƒœáƒáƒ™áƒáƒ“áƒ”áƒ‘áƒ˜áƒ¡ áƒ›áƒ”áƒœáƒ˜áƒ£áƒ¡ áƒ áƒáƒáƒ“áƒ”áƒœáƒáƒ‘áƒ
-Menu_Hint;áƒ£áƒ¤áƒ áƒ áƒ›áƒ”áƒ¢áƒ˜ áƒ¨áƒ”áƒ¡áƒáƒ«áƒšáƒ”áƒ‘áƒšáƒáƒ‘áƒ”áƒ‘áƒ˜
-MenuID;áƒ›áƒ”áƒœáƒ˜áƒ£áƒ¡ ID
-mn;áƒ›áƒœ
-Mood;áƒ®áƒáƒ¡áƒ˜áƒáƒ—áƒ˜
-More;áƒ›áƒ”áƒ¢áƒ˜
-Movie;áƒ¤áƒ˜áƒšáƒ›áƒ˜áƒ¡ áƒ¡áƒáƒ®áƒ”áƒšáƒ˜
+Menu;მენიუ
+Menu stream(s);ნაკადების მენიუ
+Menu_Codec_List;კოდეკების მენიუ
+Menu_No;არ არის მენიუ
+MenuCount;ნაკადების მენიუს რაოდენობა
+Menu_Hint;უფრო მეტი შესაძლებლობები
+MenuID;მენიუს ID
+mn;მნ
+Mood;ხასიათი
+More;მეტი
+Movie;ფილმის სახელი
 ms;ms
 MSDI;MSDI
-MusicBy;áƒ™áƒáƒ›áƒžáƒáƒ–áƒ˜áƒ¢áƒáƒ áƒ˜
+MusicBy;კომპოზიტორი
 MuxingMode;Muxing mode
 MuxingMode_MoreInfo;Muxing mode, more info
 MuxingMode_PackedBitstream;Packed bitstream
-Name;áƒ¡áƒáƒ®áƒ”áƒšáƒ˜
+Name;სახელი
 Nationality;Nationality
 NetworkName;Network name
-New;áƒáƒ®áƒáƒšáƒ˜áƒ›áƒáƒ˜áƒ—áƒ®áƒáƒ•áƒ¡áƒ˜áƒœáƒ¢áƒ”áƒ áƒœáƒ”áƒ¢áƒ¡
-Newest version;áƒ©áƒ”áƒáƒ›áƒáƒ¬áƒ›áƒ” áƒ’áƒáƒœáƒáƒ®áƒšáƒ”áƒ‘áƒ ( )
-NewVersion_Menu;áƒžáƒ áƒáƒ’áƒ áƒáƒ›áƒ˜áƒ¡ áƒáƒ®áƒáƒšáƒ˜ áƒ•áƒ”áƒ áƒ¡áƒ˜áƒ áƒ®áƒ”áƒšáƒ›áƒ˜áƒ¡áƒáƒ¬áƒ•áƒ“áƒáƒ›áƒ˜áƒ
-NewVersion_Question_Title;áƒžáƒ áƒáƒ’áƒ áƒáƒ›áƒ˜áƒ¡ áƒáƒ®áƒáƒšáƒ˜ áƒ•áƒ”áƒ áƒ¡áƒ˜áƒ áƒ’áƒáƒ›áƒáƒ•áƒ˜áƒ“áƒ!
-NewVersion_Question_Content;áƒáƒ®áƒáƒšáƒ˜ áƒ•áƒ”áƒ áƒ¡áƒ˜áƒ(v%Version%) áƒ£áƒ™áƒ•áƒ” áƒ®áƒ”áƒšáƒ›áƒ˜áƒ¡áƒáƒ¬áƒ•áƒ“áƒáƒ›áƒ˜áƒ, áƒ’áƒáƒ“áƒ›áƒáƒ¬áƒ”áƒ áƒ áƒ’áƒ¡áƒ£áƒ áƒ¡?
-No;áƒáƒ áƒ
-Not yet;áƒ¯áƒ”áƒ  áƒáƒ áƒ
-NumColors;áƒ¤áƒ”áƒ áƒ”áƒ‘áƒ˜áƒ¡ áƒ áƒ˜áƒªáƒ®áƒ•áƒ˜
-OK;áƒ™áƒáƒ áƒ’áƒ˜
+New;ახალიმოითხოვსინტერნეტს
+Newest version;ჩეამოწმე განახლება ( )
+NewVersion_Menu;პროგრამის ახალი ვერსია ხელმისაწვდომია
+NewVersion_Question_Title;პროგრამის ახალი ვერსია გამოვიდა!
+NewVersion_Question_Content;ახალი ვერსია(v%Version%) უკვე ხელმისაწვდომია, გადმოწერა გსურს?
+No;არა
+Not yet;ჯერ არა
+NumColors;ფერების რიცხვი
+OK;კარგი
 One output file per input file;One output file per input file
-Open;áƒ’áƒáƒ®áƒ¡áƒœáƒ
-OpenCandy_01;áƒ’áƒáƒ“áƒ›áƒáƒ¬áƒ”áƒ áƒ˜áƒšáƒ˜áƒ ________
-OpenCandy_02;__% áƒ›áƒ–áƒáƒ“áƒáƒ
+Open;გახსნა
+OpenCandy_01;გადმოწერილია ________
+OpenCandy_02;__% მზადაა
 OpenCandy_03;Internet connection interrupted
-OpenCandy_04;________ áƒ’áƒáƒ“áƒ›áƒáƒ¬áƒ”áƒ áƒ áƒ¨áƒ”áƒ¡áƒ áƒ£áƒšáƒ”áƒ‘áƒ˜áƒ
-OpenCandy_05;áƒ¡áƒ¬áƒ áƒáƒ¤áƒ˜ áƒ˜áƒœáƒ¡áƒ¢áƒáƒšáƒáƒªáƒ˜áƒ ________
+OpenCandy_04;________ გადმოწერა შესრულებია
+OpenCandy_05;სწრაფი ინსტალაცია ________
 OpenCandy_06;Are you sure you wish to cancel the install?\r\nIf you wish to postpone the install until later, select 'No'.\r\nNote: You may select Exit from the menu to defer installation until after the next time you reboot.
-OpenCandy_07;áƒ’áƒáƒ“áƒ›áƒáƒ¬áƒ”áƒ áƒ˜áƒšáƒ˜ ________ áƒ“áƒáƒžáƒáƒ£áƒ–áƒ”áƒ‘áƒ£áƒšáƒ˜ áƒ˜áƒ¥áƒœáƒ.\r\náƒ“áƒáƒáƒ­áƒ˜áƒ áƒ” áƒ®áƒ”áƒšáƒáƒ®áƒšáƒ áƒ›áƒªáƒ“áƒ”áƒšáƒáƒ‘áƒ˜áƒ¡ áƒ˜áƒ™áƒáƒœáƒ¡,áƒ áƒáƒ› áƒ’áƒáƒáƒ’áƒ áƒ«áƒ”áƒšáƒ áƒ’áƒáƒ“áƒ›áƒáƒ¬áƒ”áƒ áƒ.
+OpenCandy_07;გადმოწერილი ________ დაპაუზებული იქნა.\r\nდააჭირე ხელახლა მცდელობის იკონს,რომ გააგრძელო გადმოწერა.
 OpenCandy_08;A critical error has occurred. Installation of _________ will be aborted.
-OpenCandy_09;áƒ’áƒáƒ“áƒ›áƒáƒ¬áƒ”áƒ áƒ˜áƒ¡ áƒ“áƒáƒžáƒáƒ£áƒ–áƒ”áƒ‘áƒ
-OpenCandy_10;áƒ˜áƒœáƒ¡áƒ¢áƒáƒšáƒáƒªáƒ˜áƒ˜áƒ¡ áƒ¨áƒ”áƒ©áƒ”áƒ áƒ”áƒ‘áƒ
-OpenCandy_11;áƒ’áƒáƒ“áƒ›áƒáƒ¬áƒ”áƒ áƒ˜áƒ¡ áƒ’áƒáƒ’áƒ áƒ«áƒ”áƒšáƒ”áƒ‘áƒ
-OpenCandy_12;áƒ¡áƒáƒ˜áƒœáƒ¡áƒ¢áƒáƒšáƒáƒªáƒ˜áƒáƒ“áƒáƒœ áƒ’áƒáƒ¡áƒ•áƒšáƒ
-OpenCandy_13;___________ - áƒ áƒáƒ™áƒáƒ›áƒ”áƒœáƒ“áƒ˜áƒ áƒ”áƒ‘áƒ£áƒšáƒ˜áƒ ____________ -áƒ¡áƒ’áƒáƒœ
-OpenCandy_14;áƒ’áƒáƒ“áƒ›áƒáƒ¬áƒ”áƒ áƒ˜áƒšáƒ˜áƒ _________
-OpenCandy_15;___________, áƒ”áƒ¡ áƒžáƒ áƒáƒ’áƒ áƒáƒ›áƒ áƒ áƒ”áƒ™áƒáƒ›áƒ”áƒœáƒ“áƒ˜áƒ áƒ‘áƒ”áƒ£áƒšáƒ˜áƒ ___________-áƒ¡áƒ’áƒáƒœ, is now downloading at your requestWe will let you know when it is ready to be installed.
-OpenCandy_16;___________ áƒ›áƒ–áƒáƒ“áƒáƒ áƒ˜áƒœáƒ¡áƒ¢áƒáƒšáƒáƒªáƒ˜áƒ˜áƒ¡áƒ—áƒ•áƒ˜áƒ¡
-OpenCandy_17;___________ áƒ£áƒ™áƒ•áƒ” áƒ¡áƒ áƒ£áƒšáƒáƒ“ áƒ’áƒáƒ“áƒ›áƒáƒ¬áƒ”áƒ áƒ˜áƒšáƒ˜áƒ. áƒ“áƒáƒáƒ™áƒšáƒ˜áƒ™áƒ”áƒ— 'áƒ˜áƒœáƒ¡áƒ¢áƒáƒšáƒáƒªáƒ˜áƒáƒ¡' ,áƒ áƒáƒ› áƒ“áƒáƒáƒ§áƒ”áƒœáƒáƒ— áƒžáƒ áƒáƒ’áƒ áƒáƒ›áƒ.
-OpenCandy_18;___________ áƒ’áƒáƒœ ___________ áƒ’áƒáƒ“áƒ›áƒáƒ¬áƒ”áƒ áƒ˜áƒšáƒ˜áƒ
-OpenCandy_19;áƒžáƒ áƒáƒ’áƒ áƒáƒ›áƒ˜áƒ áƒ”áƒ‘áƒ OpenCandy
-OpenCandy_20;áƒ’áƒáƒ˜áƒ’áƒ” áƒ›áƒ”áƒ¢áƒ˜ OpenCandy.com-áƒ–áƒ”
-OpenCandy_21;áƒ˜áƒœáƒ¡áƒ¢áƒáƒšáƒáƒªáƒ˜áƒ
-OpenCandy_22;áƒ“áƒáƒ˜áƒœáƒ¡áƒ¢áƒáƒšáƒ˜áƒ áƒ”áƒ‘áƒ£áƒšáƒ˜áƒ ___________
+OpenCandy_09;გადმოწერის დაპაუზება
+OpenCandy_10;ინსტალაციის შეჩერება
+OpenCandy_11;გადმოწერის გაგრძელება
+OpenCandy_12;საინსტალაციოდან გასვლა
+OpenCandy_13;___________ - როკომენდირებულია ____________ -სგან
+OpenCandy_14;გადმოწერილია _________
+OpenCandy_15;___________, ეს პროგრამა რეკომენდირბეულია ___________-სგან, is now downloading at your requestWe will let you know when it is ready to be installed.
+OpenCandy_16;___________ მზადაა ინსტალაციისთვის
+OpenCandy_17;___________ უკვე სრულად გადმოწერილია. დააკლიკეთ 'ინსტალაციას' ,რომ დააყენოთ პროგრამა.
+OpenCandy_18;___________ გან ___________ გადმოწერილია
+OpenCandy_19;პროგრამირება OpenCandy
+OpenCandy_20;გაიგე მეტი OpenCandy.com-ზე
+OpenCandy_21;ინსტალაცია
+OpenCandy_22;დაინსტალირებულია ___________
 OpenCandy_23;This will cancel the installation of ___________\r\nAre you sure you wish to exit?
-OpenCandy_24;áƒžáƒáƒ£áƒ–áƒ
-OpenCandy_25;áƒ’áƒáƒ“áƒ›áƒáƒ¬áƒ”áƒ áƒ˜áƒšáƒ˜ áƒ“áƒáƒžáƒáƒ£áƒ–áƒ“áƒ. áƒ“áƒáƒáƒ­áƒ˜áƒ áƒ”áƒ— 'áƒ’áƒáƒ’áƒ áƒ«áƒ”áƒšáƒ”áƒ‘áƒ' áƒ áƒáƒªáƒ áƒ¨áƒ”áƒœ áƒ˜áƒ¥áƒœáƒ”áƒ‘áƒ˜ áƒ›áƒ–áƒáƒ“ áƒ’áƒáƒ“áƒ›áƒáƒ¬áƒ”áƒ áƒ˜áƒ¡áƒ—áƒ•áƒ˜áƒ¡.
-OpenCandy_26;áƒ’áƒáƒ’áƒ áƒ«áƒ”áƒšáƒ”áƒ‘áƒ
-OpenCandy_27;áƒ“áƒáƒ˜áƒœáƒ¡áƒ¢áƒáƒšáƒ˜áƒ áƒ” áƒáƒ®áƒšáƒáƒ•áƒ”
-OpenCandy_28;áƒ“áƒáƒžáƒáƒ£áƒ–áƒ”áƒ‘áƒ
-OpenCandy_29;áƒ’áƒáƒ’áƒ áƒ«áƒ”áƒšáƒ”áƒ‘áƒ
-OpenCandy_30;áƒ˜áƒœáƒ¡áƒ¢áƒáƒšáƒáƒªáƒ˜áƒ˜áƒ¡ áƒ¨áƒ”áƒ©áƒ”áƒ áƒ”áƒ‘áƒ
-OpenCandy_31;áƒáƒ˜áƒ áƒ©áƒ˜áƒ”áƒ— áƒ˜áƒœáƒ¡áƒ¢áƒáƒšáƒ¢áƒáƒ áƒ˜áƒ¡ áƒáƒžáƒªáƒ˜áƒ”áƒ‘áƒ˜
-OpenCandy_32;áƒ“áƒáƒ˜áƒœáƒ¡áƒ¢áƒáƒšáƒ˜áƒ áƒ“áƒ ___________
-OpenCandy_33;áƒáƒ  áƒ“áƒáƒáƒ˜áƒœáƒ¡áƒ¢áƒáƒšáƒ˜áƒ áƒ
-OpenCandy_34;áƒáƒ˜áƒ áƒ©áƒ˜áƒ”áƒ— áƒ˜áƒœáƒ¡áƒ¢áƒáƒšáƒáƒªáƒ˜áƒ˜áƒ¡ áƒáƒžáƒªáƒ˜áƒ”áƒ‘áƒ˜
-OpenCandy_35;______ áƒ’áƒ˜áƒ áƒ©áƒ”áƒ•áƒ— áƒáƒ› áƒžáƒ áƒáƒ’áƒ áƒáƒ›áƒáƒ¡
-OpenCandy_36;áƒ›áƒ˜áƒ›áƒ“áƒ˜áƒœáƒáƒ áƒ” áƒ˜áƒœáƒ¡áƒ¢áƒáƒšáƒáƒªáƒ˜áƒ áƒáƒ  áƒ˜áƒ¥áƒœáƒ”áƒ‘áƒ áƒ¨áƒ”áƒ©áƒ”áƒ áƒ”áƒ‘áƒ£áƒšáƒ˜
-Options;áƒáƒžáƒªáƒ˜áƒ”áƒ‘áƒ˜
-Options_Hint;áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜
-Original;áƒáƒ áƒ˜áƒ’áƒ˜áƒœáƒáƒšáƒ˜
+OpenCandy_24;პაუზა
+OpenCandy_25;გადმოწერილი დაპაუზდა. დააჭირეთ 'გაგრძელება' როცა შენ იქნები მზად გადმოწერისთვის.
+OpenCandy_26;გაგრძელება
+OpenCandy_27;დაინსტალირე ახლავე
+OpenCandy_28;დაპაუზება
+OpenCandy_29;გაგრძელება
+OpenCandy_30;ინსტალაციის შეჩერება
+OpenCandy_31;აირჩიეთ ინსტალტორის ოპციები
+OpenCandy_32;დაინსტალირდა ___________
+OpenCandy_33;არ დააინსტალირო
+OpenCandy_34;აირჩიეთ ინსტალაციის ოპციები
+OpenCandy_35;______ გირჩევთ ამ პროგრამას
+OpenCandy_36;მიმდინარე ინსტალაცია არ იქნება შეჩერებული
+Options;ოპციები
+Options_Hint;პარამეტრები
+Original;ორიგინალი
 OriginalNetworkName;Original network name
 OriginalSourceForm;Original source form
 OriginalSourceMedium;Original source medium
-Other;áƒ¡áƒ®áƒ•áƒ
-Output;áƒ’áƒáƒ›áƒáƒ•áƒáƒšáƒ˜
-Output format;áƒ’áƒáƒ›áƒáƒ•áƒáƒšáƒ˜áƒ¡ áƒ¤áƒáƒ áƒ›áƒáƒ¢áƒ˜
-OverallBitRate;áƒ¡áƒáƒ”áƒ áƒ—áƒ áƒ‘áƒ˜áƒ¢ áƒ áƒ”áƒ˜áƒ¢áƒ˜
-OverallBitRate_Maximum;áƒ›áƒáƒ¥áƒ¡áƒ˜áƒ›áƒáƒšáƒ£áƒ áƒ˜ áƒ‘áƒ˜áƒ¢ áƒ áƒ”áƒ˜áƒ¢áƒ˜áƒ¡ áƒ›áƒ—áƒšáƒ˜áƒáƒœáƒáƒ‘áƒ 
-OverallBitRate_Minimum;áƒ›áƒ˜áƒœáƒ˜áƒ›áƒáƒšáƒ£áƒ áƒ˜ áƒ‘áƒ˜áƒ¢ áƒ áƒ”áƒ˜áƒ¢áƒ˜áƒ¡ áƒ›áƒ—áƒšáƒ˜áƒáƒœáƒáƒ‘áƒ
-OverallBitRate_Mode;áƒ‘áƒ˜áƒ¢ áƒ áƒ”áƒ˜áƒ¢áƒ˜áƒ¡ áƒ áƒ”áƒŸáƒ˜áƒ›áƒ˜ áƒ›áƒ—áƒšáƒ˜áƒáƒœáƒáƒ‘áƒáƒ¨áƒ˜
+Other;სხვა
+Output;გამავალი
+Output format;გამავალის ფორმატი
+OverallBitRate;საერთო ბიტ რეიტი
+OverallBitRate_Maximum;მაქსიმალური ბიტ რეიტის მთლიანობა 
+OverallBitRate_Minimum;მინიმალური ბიტ რეიტის მთლიანობა
+OverallBitRate_Mode;ბიტ რეიტის რეჟიმი მთლიანობაში
 OverallBitRate_Nominal;Nominal Overall bit rate
-Part;áƒœáƒáƒ¬áƒ˜áƒšáƒ˜
-Part_Count;áƒ¡áƒ£áƒš áƒ¯áƒáƒ›áƒ¨áƒ˜
+Part;ნაწილი
+Part_Count;სულ ჯამში
 Performer;Performer
-Period;áƒžáƒ”áƒ áƒ˜áƒáƒ“áƒ˜
-Phone;áƒ¢áƒ”áƒšáƒ”áƒ¤áƒáƒœáƒ˜
-PixelAspectRatio;áƒžáƒ˜áƒ¥áƒ¡áƒ”áƒšáƒ˜áƒ¡ áƒáƒ¡áƒžáƒ”áƒ¥áƒ¢ áƒ áƒáƒ¢áƒ˜áƒ
-PixelAspectRatio_Original;áƒžáƒ˜áƒ¥áƒ¡áƒ”áƒšáƒ˜áƒ¡ áƒáƒ áƒ˜áƒ’áƒ˜áƒœáƒáƒšáƒ˜ áƒáƒ¡áƒžáƒ”áƒ¥áƒ¢ áƒ áƒáƒ¢áƒ˜áƒ
+Period;პერიოდი
+Phone;ტელეფონი
+PixelAspectRatio;პიქსელის ასპექტ რატიო
+PixelAspectRatio_Original;პიქსელის ორიგინალი ასპექტ რატიო
 PlayCounter;PlayCounter
 Played_Count;Times played
-Played_First_Date;áƒžáƒ˜áƒ áƒ•áƒ”áƒšáƒáƒ“ áƒ©áƒáƒ áƒ—áƒ£áƒšáƒ˜
-Played_Last_Date;áƒ‘áƒáƒšáƒáƒ¡ áƒ©áƒáƒ áƒ—áƒ£áƒšáƒ˜
-PlayTime;áƒ®áƒáƒœáƒ’áƒ áƒ«áƒšáƒ˜áƒ•áƒáƒ‘áƒ
+Played_First_Date;პირველად ჩართული
+Played_Last_Date;ბოლოს ჩართული
+PlayTime;ხანგრძლივობა
 Position;Position
-Position_Total;áƒ¯áƒáƒ›áƒ¨áƒ˜
-Preferences;áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜
-Producer;áƒžáƒ áƒáƒ“áƒ£áƒ¡áƒ”áƒ áƒ˜
-ProductionDesigner;áƒžáƒ áƒáƒ“áƒ£áƒ¥áƒªáƒ˜áƒ¡ áƒ“áƒ˜áƒ–áƒáƒ˜áƒœáƒ”áƒ áƒ˜
-ProductionStudio;áƒžáƒ áƒáƒ“áƒ£áƒ¥áƒªáƒ˜áƒ˜áƒ¡ áƒ¡áƒ¢áƒ£áƒ“áƒ˜áƒ
-Publisher;áƒ’áƒáƒ›áƒáƒ›áƒªáƒ”áƒ›áƒ”áƒšáƒ˜
+Position_Total;ჯამში
+Preferences;პარამეტრები
+Producer;პროდუსერი
+ProductionDesigner;პროდუქცის დიზაინერი
+ProductionStudio;პროდუქციის სტუდიო
+Publisher;გამომცემელი
 Purchased_Date;
 Quote character;Quote character
-RadioStation;áƒ áƒáƒ“áƒ˜áƒ áƒ¡áƒáƒ“áƒ’áƒ£áƒ áƒ˜
-Rating;áƒ áƒ”áƒ˜áƒ¢áƒ˜áƒœáƒ’áƒ˜
-Recorded_Date;áƒ©áƒáƒ¬áƒ”áƒ áƒ˜áƒ¡ áƒ—áƒáƒ áƒ˜áƒ¦áƒ˜
-Recorded_Location;áƒ©áƒáƒ¬áƒ”áƒ áƒ˜áƒ¡ áƒáƒ“áƒ’áƒ˜áƒšáƒ˜
-Released_Date;áƒ’áƒáƒ›áƒáƒ¨áƒ•áƒ”áƒ‘áƒ˜áƒ¡ áƒ—áƒáƒ áƒ˜áƒ¦áƒ˜
-RemixedBy;áƒ áƒ”áƒ›áƒ˜áƒ¥áƒ¡áƒ˜áƒ¡ áƒáƒ•áƒ¢áƒáƒ áƒ˜
+RadioStation;რადიო სადგური
+Rating;რეიტინგი
+Recorded_Date;ჩაწერის თარიღი
+Recorded_Location;ჩაწერის ადგილი
+Released_Date;გამოშვების თარიღი
+RemixedBy;რემიქსის ავტორი
 ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replay gain peak
-Resolution;áƒ’áƒáƒ¤áƒáƒ áƒ—áƒáƒ”áƒ‘áƒ
+Resolution;გაფართოება
 s;s
 SamplingRate;Sampling rate
-Save;áƒ“áƒáƒ›áƒáƒ®áƒ¡áƒáƒ•áƒ áƒ”áƒ‘áƒ
-ScanType;áƒ¡áƒ™áƒáƒœáƒ˜áƒ áƒ”áƒ‘áƒ˜áƒ¡ áƒ¢áƒ˜áƒžáƒ˜
+Save;დამახსოვრება
+ScanType;სკანირების ტიპი
 ScanType_Original;
 ScanOrder;Scan order
-ScanOrder_StoredDisplayedInverted;
 ScanOrder_Original;
 ScreenplayBy;Screenplay by
-Season;áƒ¡áƒ”áƒ–áƒáƒœáƒ˜
+Season;სეზონი
 see below;see below
 Send HeaderFile;Please send me the Header file here : http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;columns separator
 Separator_Lines;lines separator
-ServiceChannel;áƒ¡áƒ”áƒ áƒ•áƒ˜áƒ¡áƒ˜áƒ¡ áƒáƒ áƒ®áƒ”áƒ‘áƒ˜áƒ¡ áƒ áƒáƒáƒ“áƒ”áƒœáƒáƒ‘áƒ
-ServiceName;áƒ¡áƒ”áƒ áƒ•áƒ˜áƒ¡áƒ˜áƒ¡ áƒ¡áƒáƒ®áƒ”áƒšáƒ˜
-ServiceProvider;áƒ¡áƒ”áƒ áƒ•áƒ˜áƒ¡ áƒžáƒ áƒáƒ•áƒáƒ˜áƒ“áƒ”áƒ áƒ˜
+ServiceChannel;სერვისის არხების რაოდენობა
+ServiceName;სერვისის სახელი
+ServiceProvider;სერვის პროვაიდერი
 ServiceType;Service type
 Set;Set
 Set_Count;Set count
-Setup;áƒ˜áƒœáƒ¡áƒ¢áƒšáƒáƒªáƒ˜áƒ
+Setup;ინსტლაცია
 Sharpness;Sharpness
-Sheet;áƒªáƒ®áƒ áƒ˜áƒšáƒ˜
-Sheet (Complete);áƒªáƒ®áƒ˜áƒ áƒ˜áƒšáƒ˜ (áƒ¡áƒ áƒ£áƒšáƒ˜)
+Sheet;ცხრილი
+Sheet (Complete);ცხირილი (სრული)
 Shell extension;Explorer extension (in Windows Explorer, right click on a file, there will be a MediaInfo option)
 Shell extension, folder;For folders too
 Shell InfoTip;Explorer Tooltip (in Windows Explorer, move the mouse over the file, info will be displayed)
-Show menu;áƒ›áƒáƒ©áƒ•áƒ”áƒœáƒ” áƒ›áƒ”áƒœáƒ˜áƒ£
-Show toolbar;áƒ›áƒáƒ©áƒ•áƒ”áƒœáƒ” áƒžáƒáƒœáƒ”áƒšáƒ˜
-Sort;áƒ“áƒáƒšáƒáƒ’áƒ”áƒ‘áƒ˜áƒ¡ áƒ¨áƒ”áƒ¡áƒáƒ‘áƒáƒ›áƒ˜áƒ¡áƒáƒ‘áƒ
-SamplingCount;áƒœáƒ˜áƒ›áƒ£áƒ¨áƒ”áƒ‘áƒ˜áƒ¡ áƒ áƒáƒáƒ“áƒ”áƒœáƒáƒ‘áƒ
-SoundEngineer;áƒ®áƒœáƒ˜áƒ¡ áƒ˜áƒœáƒŸáƒ˜áƒœáƒ”áƒ áƒ˜
+Show menu;მაჩვენე მენიუ
+Show toolbar;მაჩვენე პანელი
+Sort;დალაგების შესაბამისობა
+SamplingCount;ნიმუშების რაოდენობა
+SoundEngineer;ხნის ინჟინერი
 Source;
 Source_Duration;
 Source_FrameCount;
 Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
-Standard;áƒ¡áƒ¢áƒáƒœáƒ“áƒáƒ áƒ¢áƒ˜
-Stream;áƒœáƒáƒ™áƒáƒ“áƒ˜
-Stream_MoreInfo;áƒ£áƒ¤áƒ áƒ áƒ›áƒ”áƒ¢áƒ˜ áƒ˜áƒœáƒ¤áƒáƒ áƒ›áƒáƒªáƒ˜áƒ áƒœáƒáƒ™áƒáƒ“áƒ–áƒ”
-StreamCount;áƒáƒ› áƒœáƒáƒ™áƒáƒ“áƒ˜áƒ¡ áƒ¡áƒáƒ®áƒ”áƒáƒ‘áƒ˜áƒ¡ áƒ áƒáƒáƒ“áƒ”áƒœáƒáƒ‘áƒ
-StreamID;áƒœáƒáƒ™áƒáƒ“áƒ˜áƒ¡ ID
-StreamKind;áƒœáƒáƒ™áƒáƒ“áƒ”áƒ‘áƒ˜áƒ¡ áƒ¡áƒáƒ®áƒ”áƒáƒ‘áƒ”áƒ‘áƒ˜
+Standard;სტანდარტი
+Stream;ნაკადი
+Stream_MoreInfo;უფრო მეტი ინფორმაცია ნაკადზე
+StreamCount;ამ ნაკადის სახეობის რაოდენობა
+StreamID;ნაკადის ID
+StreamKind;ნაკადების სახეობები
 StreamKindID;Stream identifier
 StreamKindPos;Stream identifier
-StreamSize;áƒœáƒáƒ™áƒáƒ“áƒ˜ áƒ–áƒáƒ›áƒ
+StreamSize;ნაკადი ზომა
 StreamSize_Encoded;
 StreamSize_Proportion;Proportion of this stream
 Subject;Subject
 SubTrack;SubTrack
 Summary;Summary
 Supported formats;Supported formats
-Supported?;áƒ›áƒ®áƒáƒ áƒ“áƒáƒ­áƒ”áƒ áƒ?
+Supported?;მხარდაჭერა?
 Synopsis;Synopsis
 SystemId;Id
 Tagged_Application;Tagging application
 Tagged_Date;Tagged date
-Technician;áƒ¢áƒ”áƒ¥áƒœáƒ˜áƒ™áƒ£áƒ áƒ˜
+Technician;ტექნიკური
 TermsOfUse;Terms of use
-Text;áƒ¢áƒ”áƒ¥áƒ¡áƒ¢áƒ˜
-Text - Custom;áƒ¢áƒ”áƒ¥áƒ¡áƒ¢áƒ˜ - áƒ¡áƒ¢áƒáƒœáƒ“áƒáƒ áƒ¢áƒ£áƒšáƒ˜
-Text (HTML);áƒ¢áƒ”áƒ¥áƒ¡áƒ¢áƒ˜ (HTML)
-Text stream(s);áƒ¢áƒ”áƒ¥áƒ¡áƒ¢áƒ˜áƒ¡ áƒœáƒáƒ™áƒáƒ“áƒ”áƒ‘áƒ˜
-Text streams;áƒ¢áƒ”áƒ¥áƒ¡áƒ¢áƒ˜áƒ¡ áƒœáƒáƒ™áƒáƒ“áƒ”áƒ‘áƒ˜
-Text_Codec_List;áƒ¢áƒ”áƒ¥áƒ¡áƒ¢áƒ˜áƒ¡ áƒ™áƒáƒ“áƒ”áƒ™áƒ”áƒ‘áƒ˜
-Text_No;áƒ¢áƒ”áƒ¥áƒ¡áƒ¢áƒ˜ áƒáƒ áƒáƒ
-Text1;1-áƒšáƒ˜ áƒ¢áƒ”áƒ¥áƒ¡áƒ¢áƒ˜áƒ¡ áƒœáƒáƒ™áƒáƒ“áƒ˜
-Text2;2-áƒšáƒ˜ áƒ¢áƒ”áƒ¥áƒ¡áƒ¢áƒ˜áƒ¡ áƒœáƒáƒ™áƒáƒ“áƒ˜
-Text3;áƒ›áƒ”-3 áƒ¢áƒ”áƒ¥áƒ¡áƒ¢áƒ˜áƒ¡ áƒœáƒáƒ™áƒáƒ“áƒ˜
-TextCount;áƒ¢áƒ”áƒ¥áƒ¡áƒ¢áƒ˜áƒ¡ áƒœáƒáƒ™áƒáƒ“áƒ”áƒ‘áƒ˜áƒ¡ áƒ áƒáƒáƒ“áƒ”áƒœáƒáƒ‘áƒ
-ThanksTo;áƒ›áƒáƒ“áƒšáƒáƒ‘áƒáƒ¡ áƒ•áƒ£áƒ®áƒ“áƒ˜áƒ—
+Text;ტექსტი
+Text - Custom;ტექსტი - სტანდარტული
+Text (HTML);ტექსტი (HTML)
+Text stream(s);ტექსტის ნაკადები
+Text streams;ტექსტის ნაკადები
+Text_Codec_List;ტექსტის კოდეკები
+Text_No;ტექსტი არაა
+Text1;1-ლი ტექსტის ნაკადი
+Text2;2-ლი ტექსტის ნაკადი
+Text3;მე-3 ტექსტის ნაკადი
+TextCount;ტექსტის ნაკადების რაოდენობა
+ThanksTo;მადლობას ვუხდით
 Thousands separator;Thousands separator
-Title;áƒ¡áƒáƒ—áƒáƒ£áƒ áƒ˜
-Title_More;áƒ¡áƒáƒ—áƒáƒ£áƒ áƒ–áƒ” áƒ›áƒ”áƒ¢áƒ˜ áƒ˜áƒœáƒ¤áƒáƒ áƒ›áƒáƒªáƒ˜áƒ
+Title;სათაური
+Title_More;სათაურზე მეტი ინფორმაცია
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
 TimeZone;Timezone
-Total;áƒ¯áƒáƒ›áƒ¨áƒ˜
-Track;áƒ¢áƒ áƒ”áƒ™áƒ˜áƒ¡ áƒ¡áƒáƒ®áƒ”áƒšáƒ˜
+Total;ჯამში
+Track;ტრეკის სახელი
 Track_Count;Track count
 transfer_characteristics;Transfer characteristics
-Translator;áƒ›áƒ—áƒáƒ áƒ’áƒ›áƒœáƒ”áƒšáƒ˜
-Tree;áƒ¡áƒ•áƒ”áƒ¢áƒ˜
-Tree & Text;áƒ¡áƒ•áƒ”áƒ¢áƒ˜ & áƒ¢áƒ”áƒ¥áƒ¡áƒ¢áƒ˜
+Translator;მთარგმნელი
+Tree;სვეტი
+Tree & Text;სვეტი & ტექსტი
 Type;
-UniqueID;áƒ£áƒœáƒ˜áƒ™áƒáƒšáƒ£áƒ áƒ˜ ID
-Unknown;áƒ£áƒªáƒœáƒáƒ‘áƒ˜áƒ
+UniqueID;უნიკალური ID
+Unknown;უცნობია
 Url;Url
-Video;áƒ•áƒ˜áƒ“áƒ”áƒ
-Video stream(s);áƒ•áƒ˜áƒ“áƒ”áƒ áƒœáƒáƒ™áƒáƒ“áƒ˜(áƒ”áƒ‘áƒ˜)
-Video_Codec_List;áƒ•áƒ˜áƒ“áƒ”áƒáƒ¡ áƒ™áƒáƒ“áƒ”áƒ™áƒ”áƒ‘áƒ˜
+Video;ვიდეო
+Video stream(s);ვიდეო ნაკადი(ები)
+Video_Codec_List;ვიდეოს კოდეკები
 Video_Delay;Delay relative to video
-Video_No;áƒáƒ  áƒáƒ áƒ˜áƒ¡ áƒ•áƒ˜áƒ“áƒ”áƒ
+Video_No;არ არის ვიდეო
 Video0_Delay;Video0 delay
-Video1;1-áƒšáƒ˜ áƒ•áƒ˜áƒ“áƒ”áƒ áƒœáƒáƒ™áƒáƒ“áƒ˜
-VideoCount;áƒ•áƒ˜áƒ“áƒ”áƒ áƒœáƒáƒ™áƒáƒ“áƒ”áƒ‘áƒ˜áƒ¡ áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ˜
-View;áƒ©áƒ•áƒ”áƒœáƒ”áƒ‘áƒ
-View_Hint;áƒ®áƒ”áƒ“áƒ•áƒ˜áƒ¡ áƒ¢áƒ˜áƒžáƒ˜áƒ¡ áƒ¨áƒ”áƒªáƒšáƒ
-Warning : more streams in the files;áƒ’áƒáƒ¤áƒ áƒ—áƒ®áƒ˜áƒšáƒ”áƒ‘áƒ : áƒ¤áƒáƒ˜áƒšáƒ¨áƒ˜ áƒ‘áƒ”áƒ•áƒ áƒ˜ áƒœáƒáƒ™áƒáƒ“áƒ”áƒ‘áƒ˜áƒ
-Web;áƒ•áƒ”áƒ‘-áƒ’áƒ•áƒ”áƒ áƒ“áƒ˜
-WebSite_Audio;áƒ¨áƒ”áƒ“áƒ˜ áƒáƒ› áƒáƒ£áƒ“áƒ˜áƒáƒ¡ áƒ™áƒáƒ“áƒ”áƒ™áƒ˜áƒ¡ áƒ•áƒ”áƒ‘-áƒ’áƒ•áƒ”áƒ áƒ“áƒ–áƒ”
-WebSite_Audio_More;áƒ¨áƒ”áƒ“áƒ˜ áƒáƒ› áƒ•áƒ”áƒ‘-áƒ’áƒ•áƒ”áƒ áƒ“áƒ–áƒ” (%Url%) ,áƒ áƒáƒ› áƒ˜áƒžáƒáƒ•áƒ áƒáƒ› áƒáƒ£áƒ“áƒ˜áƒáƒ¡ áƒ™áƒáƒ“áƒ”áƒ™áƒ˜
-WebSite_General;áƒáƒ› áƒ¤áƒáƒ˜áƒšáƒ˜áƒ¡ áƒ¤áƒšáƒ”áƒ˜áƒ”áƒ áƒ˜áƒ¡ áƒ•áƒ”áƒ‘-áƒ’áƒ•áƒ”áƒ áƒ“áƒ–áƒ” áƒ’áƒáƒ“áƒáƒ¡áƒ•áƒšáƒ
-WebSite_General_More;áƒáƒ› áƒ¤áƒáƒ˜áƒšáƒ˜áƒ¡ áƒ¤áƒšáƒ”áƒ˜áƒ”áƒ áƒ˜áƒ¡ áƒ•áƒ”áƒ‘-áƒ’áƒ•áƒ”áƒ áƒ“áƒ–áƒ” áƒ’áƒáƒ“áƒáƒ¡áƒ•áƒšáƒ
-WebSite_Text;áƒ¨áƒ”áƒ“áƒ˜ áƒáƒ› áƒ¢áƒ”áƒ¥áƒ¡áƒ¢áƒ˜áƒ¡ áƒ™áƒáƒ“áƒ”áƒ™áƒ˜áƒ¡ áƒ•áƒ”áƒ‘-áƒ’áƒ•áƒ”áƒ áƒ“áƒ–áƒ”
-WebSite_Text_More;áƒ¨áƒ”áƒ“áƒ˜ áƒáƒ› áƒ•áƒ”áƒ‘-áƒ’áƒ•áƒ”áƒ áƒ“áƒ–áƒ” (%Url%) ,áƒ áƒáƒ› áƒ˜áƒžáƒáƒ•áƒ áƒáƒ› áƒ¢áƒ”áƒ¥áƒ¡áƒ¢áƒ˜áƒ¡ áƒ™áƒáƒ“áƒ”áƒ™áƒ˜
+Video1;1-ლი ვიდეო ნაკადი
+VideoCount;ვიდეო ნაკადების ანგარიში
+View;ჩვენება
+View_Hint;ხედვის ტიპის შეცლა
+Warning : more streams in the files;გაფრთხილება : ფაილში ბევრი ნაკადებია
+Web;ვებ-გვერდი
+WebSite_Audio;შედი ამ აუდიოს კოდეკის ვებ-გვერდზე
+WebSite_Audio_More;შედი ამ ვებ-გვერდზე (%Url%) ,რომ იპოვო ამ აუდიოს კოდეკი
+WebSite_General;ამ ფაილის ფლეიერის ვებ-გვერდზე გადასვლა
+WebSite_General_More;ამ ფაილის ფლეიერის ვებ-გვერდზე გადასვლა
+WebSite_Text;შედი ამ ტექსტის კოდეკის ვებ-გვერდზე
+WebSite_Text_More;შედი ამ ვებ-გვერდზე (%Url%) ,რომ იპოვო ამ ტექსტის კოდეკი
 WebSite_Url;http://MediaArea.net/MediaInfo
-WebSite_Video;áƒ¨áƒ”áƒ“áƒ˜ áƒáƒ› áƒ•áƒ˜áƒ“áƒ”áƒ áƒ™áƒáƒ“áƒ”áƒ™áƒ˜áƒ¡ áƒ•áƒ”áƒ‘-áƒ’áƒ•áƒ”áƒ áƒ“áƒ–áƒ”
-WebSite_Video_More;áƒ¨áƒ”áƒ“áƒ˜ áƒáƒ› áƒ•áƒ”áƒ‘-áƒ’áƒ•áƒ”áƒ áƒ“áƒ–áƒ” (%Url%) ,áƒ áƒáƒ› áƒ˜áƒžáƒáƒ•áƒ áƒáƒ› áƒ•áƒ˜áƒ“áƒ”áƒáƒ¡ áƒ™áƒáƒ“áƒ”áƒ™áƒ˜
-Width;áƒ¡áƒ˜áƒ’áƒáƒœáƒ”
-Width_Original;áƒáƒ áƒ˜áƒ’áƒ˜áƒœáƒáƒšáƒ˜ áƒ¡áƒ˜áƒ’áƒáƒœáƒ”
-WriteMe;áƒ›áƒ˜áƒ¬áƒ”áƒ áƒ”áƒ— áƒáƒ•áƒ¢áƒáƒ áƒ¡
-WriteToTranslator;áƒ›áƒ˜áƒ¬áƒ”áƒ áƒ”áƒ— áƒ›áƒ—áƒáƒ áƒ’áƒ›áƒœáƒ”áƒšáƒ¡
-Written_Date;áƒ“áƒáƒ¬áƒ”áƒ áƒ˜áƒ¡ áƒ—áƒáƒ áƒ˜áƒ¦áƒ˜
-Written_Location;áƒ“áƒáƒ¬áƒ”áƒ áƒ˜áƒ¡ áƒáƒ“áƒ’áƒ˜áƒšáƒ˜
-WrittenBy;áƒ“áƒáƒ¬áƒ”áƒ áƒ˜áƒšáƒ˜áƒ
-Yes;áƒ“áƒ˜áƒáƒ®
-Your system;áƒ—áƒ¥áƒ•áƒ”áƒœáƒ˜ áƒ¡áƒ˜áƒ¡áƒ¢áƒ”áƒ›áƒ
+WebSite_Video;შედი ამ ვიდეო კოდეკის ვებ-გვერდზე
+WebSite_Video_More;შედი ამ ვებ-გვერდზე (%Url%) ,რომ იპოვო ამ ვიდეოს კოდეკი
+Width;სიგანე
+Width_Original;ორიგინალი სიგანე
+WriteMe;მიწერეთ ავტორს
+WriteToTranslator;მიწერეთ მთარგმნელს
+Written_Date;დაწერის თარიღი
+Written_Location;დაწერის ადგილი
+WrittenBy;დაწერილია
+Yes;დიახ
+Your system;თქვენი სისტემა
 ZZ_Automatic_Percent;93
 ZZ_AutomaticLanguage_Percent;97

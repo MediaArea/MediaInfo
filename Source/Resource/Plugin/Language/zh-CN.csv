@@ -2,41 +2,41 @@
   Author_Email;ChrisStudio@Live.Com
   Author_Name;chriszxl, erabbit
   Author_OldNames;Initial translator
-  Language_Name;ç®€ä½“ä¸­æ–‡
+  Language_Name;简体中文
   Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
   Config_Text_ThousandsSeparator; 
- audio stream1;éŸ³é¢‘
- audio stream2;ä¸ªéŸ³é¢‘
- audio stream3;ä¸ªéŸ³é¢‘
- bit1;ä½
- bit2;ä½
- bit3;ä½
+ audio stream1;音频
+ audio stream2;个音频
+ audio stream3;个音频
+ bit1;位
+ bit2;位
+ bit3;位
  bps; bps
  Bps; Bps
- Byte1;å­—èŠ‚
- Byte2;å­—èŠ‚
- Byte3;å­—èŠ‚
- channel1;å£°é“
- channel2;å£°é“
- channel3;å£°é“
- chapter1;æ®µè½
- chapter2;ä¸ªæ®µè½
- chapter3;ä¸ªæ®µè½
- chapters stream1;æ®µè½æµ
- chapters stream2;ä¸ªæ®µè½æµ
- chapters stream3;ä¸ªæ®µè½æµ
- day1;å¤©
- day2;å¤©
- day3;å¤©
+ Byte1;字节
+ Byte2;字节
+ Byte3;字节
+ channel1;声道
+ channel2;声道
+ channel3;声道
+ chapter1;段落
+ chapter2;个段落
+ chapter3;个段落
+ chapters stream1;段落流
+ chapters stream2;个段落流
+ chapters stream3;个段落流
+ day1;天
+ day2;天
+ day3;天
  dB1; dB
  dB2; dB
  dB3; dB
- file1;æ–‡ä»¶
- file2;ä¸ªæ–‡ä»¶
- file3;ä¸ªæ–‡ä»¶
+ file1;文件
+ file2;个文件
+ file3;个文件
  frame1; frame
  frame2; frames
  frame3; frames
@@ -59,13 +59,13 @@
  GigaByte1; GigaByte
  GigaByte2; GigaBytes
  GigaByte3; GigaBytes
- hour1;å°æ—¶
- hour2;å°æ—¶
- hour3;å°æ—¶
+ hour1;小时
+ hour2;小时
+ hour3;小时
  Hz; Hz
- image stream1;å›¾åƒæµ
- image stream2;ä¸ªå›¾åƒæµ
- image stream3;ä¸ªå›¾åƒæµ
+ image stream1;图像流
+ image stream2;个图像流
+ image stream3;个图像流
  KB; KB
  Kb; Kb
  KBps; KBps
@@ -105,260 +105,260 @@
  MiB; MiB
  Mib; Mib
  MiBps; MiBps
- millisecond1;æ¯«ç§’
- millisecond2;æ¯«ç§’
- millisecond3;æ¯«ç§’
- minute1;åˆ†
- minute2;åˆ†
- minute3;åˆ†
- month1;æœˆ
- month2;æœˆ
- month3;æœˆ
- pixel1;åƒç´ 
- pixel2;åƒç´ 
- pixel3;åƒç´ 
- second1;ç§’
- second2;ç§’
- second3;ç§’
- text stream1;å­—å¹•
- text stream2;ä¸ªå­—å¹•
- text stream3;ä¸ªå­—å¹•
- video frames1; å¸§
- video frames2; å¸§
- video frames3; å¸§
- video stream1;è§†é¢‘
- video stream2;ä¸ªè§†é¢‘
- video stream3;ä¸ªè§†é¢‘
+ millisecond1;毫秒
+ millisecond2;毫秒
+ millisecond3;毫秒
+ minute1;分
+ minute2;分
+ minute3;分
+ month1;月
+ month2;月
+ month3;月
+ pixel1;像素
+ pixel2;像素
+ pixel3;像素
+ second1;秒
+ second2;秒
+ second3;秒
+ text stream1;字幕
+ text stream2;个字幕
+ text stream3;个字幕
+ video frames1; 帧
+ video frames2; 帧
+ video frames3; 帧
+ video stream1;视频
+ video stream2;个视频
+ video stream3;个视频
  warppoint0;No warppoints
  warppoint1; warppoint
  warppoint2; warppoints
  warppoint3; warppoints
- week1;å‘¨
- week2;å‘¨
- week3;å‘¨
- year1;å¹´
- year2;å¹´
- year3;å¹´
+ week1;周
+ week2;周
+ week3;周
+ year1;年
+ year2;年
+ year3;年
 , ;, 
 : ;: 
-About;å…³äºŽ
-About_Hint;è”ç³»ä½œè€…ä»¥åŠèŽ·å¾—æœ€æ–°ç‰ˆ
-Accompaniment;ä¼´å¥
+About;关于
+About_Hint;联系作者以及获得最新版
+Accompaniment;伴奏
 ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
-Actor;æ¼”å‘˜
-Actor_Character;è§’è‰²
-Added_Date;é™„åŠ æ•°æ®
-Address;åœ°å€
-Advanced;é«˜çº§
-Advanced mode;é«˜çº§æ¨¡å¼
-Album;ä¸“è¾‘
-Album_ReplayGain_Gain;ä¸“è¾‘å›žæ”¾å¢žç›Š
-Album_ReplayGain_Peak;ä¸“è¾‘å›žæ”¾å¢žç›Šå³°å€¼
-Alignment;å¯¹é½æ–¹å¼
-Alignment_Aligned;å¯¹é½æ ‡æ³¨
-Alignment_Split;åˆ†ç¦»æ ‡æ³¨
-All;å…¨éƒ¨
-Archival_Location;å½’æ¡£åœ°å€
-Arranger;æ”¹ç¼–è€…
-ArtDirector;è‰ºæœ¯æŒ‡å¯¼
-AspectRatio;ç”»é¢æ¯”ä¾‹
-AssistantDirector;å‰¯å¯¼æ¼”
-at;äºŽ
-At least one file;è‡³å°‘è¦æœ‰ä¸€ä¸ªæ–‡ä»¶
-Audio;éŸ³é¢‘
-Audio stream(s);éŸ³é¢‘æµ
-Audio_Codec_List;éŸ³é¢‘ç¼–è§£ç å™¨
-Audio_No;æ²¡æœ‰éŸ³é¢‘
-Audio1;éŸ³é¢‘1
-Audio2;éŸ³é¢‘2
-AudioCount;éŸ³é¢‘æ€»æ•°
-Author;ä½œè€…
-BarCode;æ¡å½¢ç 
-Basic;åŸºæœ¬
-Basic_Note;æ³¨æ„: è¦äº†è§£æ›´å¤šå…³äºŽæ­¤æ–‡ä»¶çš„ä¿¡æ¯, è¯·é€‰æ‹©ä¸åŒçš„è§†å›¾ (è¡¨æ ¼, æ ‘çŠ¶å›¾ ...)
-BitDepth;ä½æ·±åº¦
-BitRate;ç çŽ‡
-BitRate_Maximum;æœ€å¤§ç çŽ‡
-BitRate_Minimum;æœ€å°ç çŽ‡
-BitRate_Mode;ç çŽ‡æ¨¡å¼
+Actor;演员
+Actor_Character;角色
+Added_Date;附加数据
+Address;地址
+Advanced;高级
+Advanced mode;高级模式
+Album;专辑
+Album_ReplayGain_Gain;专辑回放增益
+Album_ReplayGain_Peak;专辑回放增益峰值
+Alignment;对齐方式
+Alignment_Aligned;对齐标注
+Alignment_Split;分离标注
+All;全部
+Archival_Location;归档地址
+Arranger;改编者
+ArtDirector;艺术指导
+AspectRatio;画面比例
+AssistantDirector;副导演
+at;于
+At least one file;至少要有一个文件
+Audio;音频
+Audio stream(s);音频流
+Audio_Codec_List;音频编解码器
+Audio_No;没有音频
+Audio1;音频1
+Audio2;音频2
+AudioCount;音频总数
+Author;作者
+BarCode;条形码
+Basic;基本
+Basic_Note;注意: 要了解更多关于此文件的信息, 请选择不同的视图 (表格, 树状图 ...)
+BitDepth;位深度
+BitRate;码率
+BitRate_Maximum;最大码率
+BitRate_Minimum;最小码率
+BitRate_Mode;码率模式
 BitRate_Mode_CBR;CBR
 BitRate_Mode_VBR;VBR
-BitRate_Nominal;é¢å®šç çŽ‡
+BitRate_Nominal;额定码率
 BitRate_Encoded;
-Bits-(Pixel*Frame);bits/(pixel*frame)(æ•°æ®å¯†åº¦)
-BufferSize;ç¼“å†²å¤§å°
-Cancel;å–æ¶ˆ
-Channel(s);å£°é“
-ChannelPositions;å£°é“ä½ç½®
-Chapter(s);æ®µè½
-Chapters;æ®µè½
-Chapters stream(s);æ®µè½æµ
-Chapters_Codec_List;æ®µè½ç¼–è§£ç å™¨åˆ—è¡¨
-Chapters_No;æ²¡æœ‰æ®µè½
-ChaptersCount;æ®µè½æ•°
-CheckNewVersion;æ£€æŸ¥æ–°ç‰ˆæœ¬
-Choose custom;è‡ªå®šä¹‰
-Choose custom sheet;é€‰æ‹©è‡ªå®šä¹‰è¡¨æ ¼
-Choose custom text;é€‰æ‹©è‡ªå®šä¹‰æ–‡å­—
-Choose export format;é€‰æ‹©è¾“å‡ºæ ¼å¼
-Choose file(s);é€‰æ‹©æ–‡ä»¶
-Choose filename;é€‰æ‹©æ–‡ä»¶å
-Choose language;é€‰æ‹©è¯­è¨€
-Choregrapher;ç¼–èˆž
-Chroma;è‰²åº¦
-ChromaSubsampling;è‰²åº¦æŠ½æ ·
-Close;å…³é—­
-Close all before open;æ‰“å¼€æ–°æ–‡ä»¶å‰å…³é—­å…¶ä»–æ–‡ä»¶
-Codec;ç¼–è§£ç å™¨
-Codec_Description;ç¼–è§£ç å™¨æè¿°
-Codec_Info;ç¼–è§£ç å™¨ä¿¡æ¯
-Codec_Settings;ç¼–è§£ç å™¨è®¾ç½®
-Codec_Settings_PacketBitStream;ç¼–ç è®¾ç½®, Packet bitstream
-Codec_Settings_BVOP;ç¼–ç è®¾ç½®, BVOP
-Codec_Settings_QPel;ç¼–ç è®¾ç½®, QPel
-Codec_Settings_GMC;ç¼–ç è®¾ç½®, GMC
-Codec_Settings_Matrix;ç¼–ç è®¾ç½®, Matrix
-Codec_Settings_Floor;ç¼–ç è®¾ç½®, Floor
-Codec_Settings_CABAC;ç¼–ç è®¾ç½®, CABAC
-Codec_Settings_Firm;ç¼–ç è®¾ç½®, Firm
-Codec_Settings_Endianness;ç¼–ç è®¾ç½®, Endianness
-Codec_Settings_Sign;ç¼–ç è®¾ç½®, Sign
-Codec_Settings_Law;ç¼–ç è®¾ç½®, Law
-Codec_Settings_ITU;ç¼–ç è®¾ç½®, ITU
-Codec_Profile;ç¼–ç è®¾ç½®ç®€ä»‹
-Codec_Url;ç¼–ç è®¾ç½®ç½‘å€
-CodecID;ç¼–ç è®¾ç½®ID
-CodecID_Description;ç¼–ç æè¿°
-Collection;æ”¶é›†
-Colorimetry;æ¯”è‰²æ³•
-ColorSpace;è‰²å½©ç©ºé—´
-colour_primaries;é¢œè‰²åˆé€‰
-Comment;è¯„è®º
-CommissionedBy;è¯„è®ºäºº
+Bits-(Pixel*Frame);bits/(pixel*frame)(数据密度)
+BufferSize;缓冲大小
+Cancel;取消
+Channel(s);声道
+ChannelPositions;声道位置
+Chapter(s);段落
+Chapters;段落
+Chapters stream(s);段落流
+Chapters_Codec_List;段落编解码器列表
+Chapters_No;没有段落
+ChaptersCount;段落数
+CheckNewVersion;检查新版本
+Choose custom;自定义
+Choose custom sheet;选择自定义表格
+Choose custom text;选择自定义文字
+Choose export format;选择输出格式
+Choose file(s);选择文件
+Choose filename;选择文件名
+Choose language;选择语言
+Choregrapher;编舞
+Chroma;色度
+ChromaSubsampling;色度抽样
+Close;关闭
+Close all before open;打开新文件前关闭其他文件
+Codec;编解码器
+Codec_Description;编解码器描述
+Codec_Info;编解码器信息
+Codec_Settings;编解码器设置
+Codec_Settings_PacketBitStream;编码设置, Packet bitstream
+Codec_Settings_BVOP;编码设置, BVOP
+Codec_Settings_QPel;编码设置, QPel
+Codec_Settings_GMC;编码设置, GMC
+Codec_Settings_Matrix;编码设置, Matrix
+Codec_Settings_Floor;编码设置, Floor
+Codec_Settings_CABAC;编码设置, CABAC
+Codec_Settings_Firm;编码设置, Firm
+Codec_Settings_Endianness;编码设置, Endianness
+Codec_Settings_Sign;编码设置, Sign
+Codec_Settings_Law;编码设置, Law
+Codec_Settings_ITU;编码设置, ITU
+Codec_Profile;编码设置简介
+Codec_Url;编码设置网址
+CodecID;编码设置ID
+CodecID_Description;编码描述
+Collection;收集
+Colorimetry;比色法
+ColorSpace;色彩空间
+colour_primaries;颜色初选
+Comment;评论
+CommissionedBy;评论人
 Compilation;
-CompleteName;å®Œæ•´åç§°
-Composer;ä½œæ›²
-Compression_Mode;åŽ‹ç¼©æ¨¡å¼
-Compression_Mode_Lossless;æ— æŸ
-Compression_Mode_Lossy;æœ‰æŸåŽ‹ç¼©
-Compression_Ratio;åŽ‹ç¼©æ¯”
-Conductor;æŒ‡æŒ¥
-Container and general information;æ–‡ä»¶æ ¼å¼å’Œä¸€èˆ¬ä¿¡æ¯
-ContentType;å†…å®¹ç±»åž‹
-CoProducer;è”åˆåˆ¶ç‰‡äºº
-Copyright;ç‰ˆæƒ
-CostumeDesigner;æœè£…è®¾è®¡
-Count;æ•°é‡
-Country;å›½å®¶(åœ°åŒº)
-Cover;å°é¢
-Cover_Datas;å°é¢æ•°æ®
-Cover_Description;å°é¢æè¿°
-Cover_Mime;å°é¢MIME
-Cover_Type;å°é¢ç±»åž‹
-Cropped;å…¬å¸è§„æ¨¡
-Custom;è‡ªå®šä¹‰
-Customize;è‡ªå®šä¹‰
-Date;æ—¥æœŸ
-Debug;è°ƒè¯•
-Decimal point;å°æ•°ç‚¹
-Delay;å»¶è¿Ÿ
-Delay_Source;å»¶è¿Ÿ, åˆå§‹å€¼
-Delay_Source_Container;å®¹å™¨
+CompleteName;完整名称
+Composer;作曲
+Compression_Mode;压缩模式
+Compression_Mode_Lossless;无损
+Compression_Mode_Lossy;有损压缩
+Compression_Ratio;压缩比
+Conductor;指挥
+Container and general information;文件格式和一般信息
+ContentType;内容类型
+CoProducer;联合制片人
+Copyright;版权
+CostumeDesigner;服装设计
+Count;数量
+Country;国家(地区)
+Cover;封面
+Cover_Datas;封面数据
+Cover_Description;封面描述
+Cover_Mime;封面MIME
+Cover_Type;封面类型
+Cropped;公司规模
+Custom;自定义
+Customize;自定义
+Date;日期
+Debug;调试
+Decimal point;小数点
+Delay;延迟
+Delay_Source;延迟, 初始值
+Delay_Source_Container;容器
 Delay_Source_Stream;Raw stream
-Delete;åˆ é™¤
-Description;è¯´æ˜Ž
-Digitized_Date;æ•°å­—åŒ–æ—¥æœŸ
-Dimensions;è§„æ¨¡
-Director;å¯¼æ¼”
-DirectorOfPhotography;æ‘„å½±å¯¼æ¼”
-DisplayAspectRatio;ç”»é¢æ¯”ä¾‹
-DisplayAspectRatio_Original;åŽŸå§‹é«˜å®½æ¯”
-DistributedBy;å‘è¡Œ
-Donate;èµžåŠ©
-DotsPerInch;ç‚¹/è‹±å¯¸(DPI)
-Duration;é•¿åº¦
-Duration_End;ç»“æŸæ—¶é—´
-Duration_Start;å¼€å§‹æ—¶é—´
-Edit;ç¼–è¾‘
-EditedBy;ç¼–è¾‘
-EMail;ç”µå­é‚®ä»¶
-Encoded_Application;ç¼–ç ç¨‹åº
-Encoded_Date;ç¼–ç æ—¥æœŸ
-Encoded_Library;ç¼–ç å‡½æ•°åº“
-Encoded_Library_Settings;ç¼–ç è®¾ç½®
-Encoded_Original;ç¼–ç æº
-EncodedBy;ç¼–ç 
-EPG_Positions;EPGä½ç½®(å†…éƒ¨)
-Error_File;è¯»æ–‡ä»¶æ—¶å‡ºé”™
-ExecutiveProducer;ç›‘åˆ¶
-Exit;é€€å‡º
-Exit_Hint;é€€å‡ºç¨‹åº
-Export;å¯¼å‡º
-Export_Hint;ä»¥è‡ªå®šä¹‰æ ¼å¼å¯¼å‡º
-Extensions;æ‰©å±•å
-Family;ç³»åˆ—
-Fax;ä¼ çœŸ
-File;æ–‡ä»¶
-File size;æ–‡ä»¶å¤§å°
-File_Append;æŽ¥åœ¨çŽ°æœ‰çš„æ–‡ä»¶åŽé¢ (è­¦å‘Š: åŒå‚æ•°æ—¶è¦å°å¿ƒ)
-File_Created_Date;æ–‡ä»¶åˆ›å»ºæ—¥æœŸ
-File_Created_Date_Local;æ–‡ä»¶åˆ›å»ºæ—¥æœŸ(æœ¬åœ°)
-File_Hint;é€‰æ‹©å¤šåª’ä½“æ–‡ä»¶
-File_Modified_Date;æœ€åŽä¿®æ”¹æ—¥æœŸ
-File_Modified_Date_Local;æœ€åŽä¿®æ”¹æ—¥æœŸ(æœ¬åœ°)
-FileExtension;æ‰©å±•å
-FileName;æ–‡ä»¶å
-FileSize;æ–‡ä»¶å¤§å°
-Folder;æ–‡ä»¶å¤¹
-Folder (R);æ–‡ä»¶å¤¹ (R)
-Folder (R)_Hint;é€‰æ‹©ä¸€ä¸ªæ–‡ä»¶å¤¹(åŒ…å«æ‰€æœ‰å­æ–‡ä»¶å¤¹)
-Folder (Recursively);æ–‡ä»¶å¤¹ (åŒ…å«å­æ–‡ä»¶å¤¹)
-Folder_Hint;é€‰æ‹©æ–‡ä»¶å¤¹
-FolderName;æ–‡ä»¶å¤¹åã€€
-Format;æ–‡ä»¶æ ¼å¼
-Format_Commercial;æ ¼å¼åç§°
+Delete;删除
+Description;说明
+Digitized_Date;数字化日期
+Dimensions;规模
+Director;导演
+DirectorOfPhotography;摄影导演
+DisplayAspectRatio;画面比例
+DisplayAspectRatio_Original;原始高宽比
+DistributedBy;发行
+Donate;赞助
+DotsPerInch;点/英寸(DPI)
+Duration;长度
+Duration_End;结束时间
+Duration_Start;开始时间
+Edit;编辑
+EditedBy;编辑
+EMail;电子邮件
+Encoded_Application;编码程序
+Encoded_Date;编码日期
+Encoded_Library;编码函数库
+Encoded_Library_Settings;编码设置
+Encoded_Original;编码源
+EncodedBy;编码
+EPG_Positions;EPG位置(内部)
+Error_File;读文件时出错
+ExecutiveProducer;监制
+Exit;退出
+Exit_Hint;退出程序
+Export;导出
+Export_Hint;以自定义格式导出
+Extensions;扩展名
+Family;系列
+Fax;传真
+File;文件
+File size;文件大小
+File_Append;接在现有的文件后面 (警告: 同参数时要小心)
+File_Created_Date;文件创建日期
+File_Created_Date_Local;文件创建日期(本地)
+File_Hint;选择多媒体文件
+File_Modified_Date;最后修改日期
+File_Modified_Date_Local;最后修改日期(本地)
+FileExtension;扩展名
+FileName;文件名
+FileSize;文件大小
+Folder;文件夹
+Folder (R);文件夹 (R)
+Folder (R)_Hint;选择一个文件夹(包含所有子文件夹)
+Folder (Recursively);文件夹 (包含子文件夹)
+Folder_Hint;选择文件夹
+FolderName;文件夹名　
+Format;文件格式
+Format_Commercial;格式名称
 Format_Commercial_IfAny;
-Format_Description;æ ¼å¼æè¿°
-Format_Info;æ ¼å¼è¯¦æƒ…
-Format_Profile;æ ¼å¼ç®€ä»‹
-Format_Settings;æ ¼å¼è®¾ç½®
-Format_Settings_PacketBitStream;æ ¼å¼è®¾ç½®, Packet bitstream
-Format_Settings_BVOP;æ ¼å¼è®¾ç½®, BVOP
-Format_Settings_QPel;æ ¼å¼è®¾ç½®, QPel
-Format_Settings_GMC;æ ¼å¼è®¾ç½®, GMC
-Format_Settings_Matrix;æ ¼å¼è®¾ç½®, Matrix
-Format_Settings_Matrix_Custom;è‡ªå®šä¹‰
-Format_Settings_Matrix_Default;é»˜è®¤
-Format_Settings_Floor;æ ¼å¼è®¾ç½®, Floor
-Format_Settings_CABAC;æ ¼å¼è®¾ç½®, CABAC
-Format_Settings_Firm;æ ¼å¼è®¾ç½®, Firm
-Format_Settings_Endianness;æ ¼å¼è®¾ç½®, Endianness
-Format_Settings_RefFrames;æ ¼å¼è®¾ç½®, ReFrames
-Format_Settings_Sign;æ ¼å¼è®¾ç½®, Sign
-Format_Settings_Law;æ ¼å¼è®¾ç½®, Law
-Format_Settings_ITU;æ ¼å¼è®¾ç½®, ITU
-Format_Settings_SBR;æ ¼å¼è®¾ç½®, SBR
-Format_Settings_PS;æ ¼å¼è®¾ç½®, PS
-Format_Settings_Pulldown;æ ¼å¼è®¾ç½®, Pulldown
-Format_Settings_Mode;æ¨¡å¼
-Format_Settings_FrameMode;å¸§æ¨¡å¼
-Format_Settings_Emphasis;åŠ å¼º
-Format_Settings_ModeExtension;æ‰©å±•æ¨¡å¼
-Format_Settings_GOP;æ ¼å¼è®¾ç½®, GOP
-Format_Version;æ ¼å¼ç‰ˆæœ¬
-Format_Url;ç¼–è§£ç å™¨ç½‘å€
-FrameCount;æ€»å¸§æ•°
-FrameRate;å¸§çŽ‡
-FrameRate_Mode;å¸§çŽ‡æ¨¡å¼
-FrameRate_Mode_CFR;æ’å®š
-FrameRate_Mode_VFR;å¯å˜
-FrameRate_Minimum;æœ€å°å¸§çŽ‡
-FrameRate_Nominal;é¢å®šå¸§çŽ‡
-FrameRate_Maximum;æœ€å¤§å¸§çŽ‡
-FrameRate_Original;åŽŸå§‹å¸§çŽ‡
-General;æ¦‚è¦
-Genre;é£Žæ ¼
+Format_Description;格式描述
+Format_Info;格式详情
+Format_Profile;格式简介
+Format_Settings;格式设置
+Format_Settings_PacketBitStream;格式设置, Packet bitstream
+Format_Settings_BVOP;格式设置, BVOP
+Format_Settings_QPel;格式设置, QPel
+Format_Settings_GMC;格式设置, GMC
+Format_Settings_Matrix;格式设置, Matrix
+Format_Settings_Matrix_Custom;自定义
+Format_Settings_Matrix_Default;默认
+Format_Settings_Floor;格式设置, Floor
+Format_Settings_CABAC;格式设置, CABAC
+Format_Settings_Firm;格式设置, Firm
+Format_Settings_Endianness;格式设置, Endianness
+Format_Settings_RefFrames;格式设置, ReFrames
+Format_Settings_Sign;格式设置, Sign
+Format_Settings_Law;格式设置, Law
+Format_Settings_ITU;格式设置, ITU
+Format_Settings_SBR;格式设置, SBR
+Format_Settings_PS;格式设置, PS
+Format_Settings_Pulldown;格式设置, Pulldown
+Format_Settings_Mode;模式
+Format_Settings_FrameMode;帧模式
+Format_Settings_Emphasis;加强
+Format_Settings_ModeExtension;扩展模式
+Format_Settings_GOP;格式设置, GOP
+Format_Version;格式版本
+Format_Url;编解码器网址
+FrameCount;总帧数
+FrameRate;帧率
+FrameRate_Mode;帧率模式
+FrameRate_Mode_CFR;恒定
+FrameRate_Mode_VFR;可变
+FrameRate_Minimum;最小帧率
+FrameRate_Nominal;额定帧率
+FrameRate_Maximum;最大帧率
+FrameRate_Original;原始帧率
+General;概要
+Genre;风格
 Genre_000;Blues
 Genre_001;Classic Rock
 Genre_002;Country
@@ -551,47 +551,47 @@ Genre_188;
 Genre_189;
 Genre_190;
 Genre_191;
-Go to WebSite;è®¿é—®ç½‘ç«™
+Go to WebSite;访问网站
 Grouping;
-h;å°æ—¶
-Header file;åˆ›å»ºå¤´æ–‡ä»¶
-Height;ç”»é¢é«˜åº¦
-Height_Original;åŽŸå§‹é«˜åº¦
-Help;å¸®åŠ©
-Hint;æç¤ºä¿¡æ¯
-How many audio streams?;æœ‰å¤šå°‘ä¸ªéŸ³è½¨?
-How many chapters streams?;æœ‰å¤šå°‘ä¸ªæ®µè½?
-How many text streams?;æœ‰å¤šå°‘ä¸ªå­—å¹•?
-How many video streams?;æœ‰å¤šå°‘è§†é¢‘?
-HTML;ç½‘é¡µ
+h;小时
+Header file;创建头文件
+Height;画面高度
+Height_Original;原始高度
+Help;帮助
+Hint;提示信息
+How many audio streams?;有多少个音轨?
+How many chapters streams?;有多少个段落?
+How many text streams?;有多少个字幕?
+How many video streams?;有多少视频?
+HTML;网页
 ID;ID
-Image;å›¾åƒ
-Image stream(s);å›¾åƒæµ
-Image_Codec_List;å›¾åƒç¼–è§£ç å™¨åˆ—è¡¨
-ImageCount;å›¾åƒæ•°
-Info;ä¿¡æ¯
-Instruments;ä¹å™¨
-Interlacement;éš”è¡Œæ‰«ææ¨¡å¼
-Interlaced_Interlaced;éš”è¡Œæ‰«æ
-Interlaced_TFF;å¥‡æ•°åœº(å‰åœºTFF)ä¼˜å…ˆ
-Interlaced_BFF;å¶æ•°åœº(åŽåœºBFF)ä¼˜å…ˆ
-Interlaced_PPF;é€è¡Œæ‰«æ
-Interlaced_Progressive;é€è¡Œæ‰«æ
-Interleaved;äº¤é”™
-Interleave_Duration;äº¤é”™é—´éš”æ—¶é—´
-Interleave_Preload;éŸ³é¢‘é¢„è¯»æ—¶é—´
-Interleave_VideoFrames;äº¤é”™å¸§é—´éš”
-InternetMediaType;å› ç‰¹ç½‘åª’ä½“ç±»åž‹
+Image;图像
+Image stream(s);图像流
+Image_Codec_List;图像编解码器列表
+ImageCount;图像数
+Info;信息
+Instruments;乐器
+Interlacement;隔行扫描模式
+Interlaced_Interlaced;隔行扫描
+Interlaced_TFF;奇数场(前场TFF)优先
+Interlaced_BFF;偶数场(后场BFF)优先
+Interlaced_PPF;逐行扫描
+Interlaced_Progressive;逐行扫描
+Interleaved;交错
+Interleave_Duration;交错间隔时间
+Interleave_Preload;音频预读时间
+Interleave_VideoFrames;交错帧间隔
+InternetMediaType;因特网媒体类型
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-Keywords;å…³é”®å­—
-Known codecs;å·²çŸ¥ç¼–è§£ç å™¨
-Known formats;å·²çŸ¥æ ¼å¼
-Known parameters;å·²çŸ¥å‚æ•°
-Label;æ ‡ç­¾
-Language;è¯­è¨€
-Language_More;è¯­è¨€, è¯¦æƒ…
+Keywords;关键字
+Known codecs;已知编解码器
+Known formats;已知格式
+Known parameters;已知参数
+Label;标签
+Language;语言
+Language_More;语言, 详情
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -664,7 +664,7 @@ Language_ie;Interlingue
 Language_ig;Igbo
 Language_ii;Sichuan Yi
 Language_ik;Inupiaq
-Language_Info;è¯­è¨€ä¿¡æ¯
+Language_Info;语言信息
 Language_io;Ido
 Language_is;Icelandic
 Language_it;Italian
@@ -705,7 +705,7 @@ Language_mo;Moldavian
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
-Language_mul;å¤šå›½è¯­è¨€
+Language_mul;多国语言
 Language_my;Burmese
 Language_na;Nauru
 Language_nb;Norwegian Bokmal
@@ -780,253 +780,252 @@ Language_xh;Xhosa
 Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
-Language_zh;ä¸­æ–‡
-Language_zh-cn;ç®€ä½“ä¸­æ–‡
-Language_zh-tw;ç¹ä½“ä¸­æ–‡
+Language_zh;中文
+Language_zh-cn;简体中文
+Language_zh-tw;繁体中文
 Language_zu;Zulu
-LawRating;åˆ†çº§
+LawRating;分级
 LCCN;LCCN
-Library;åˆæˆå‡½æ•°åº“
-Lightness;é«˜äº®
-List;åˆ—è¡¨
-Lyrics;æ­Œè¯
-Lyricist;ä½œè¯
-Mastered_Date;æ¯å¸¦å®Œæˆæ—¥æœŸ
-MasteredBy;æ¯å¸¦åˆ¶åš
-matrix_coefficients;çŸ©é˜µç³»æ•°
-MediaInfo_About;æ”¯æŒå¤šç§æ ¼å¼çš„å¤šåª’ä½“æ–‡ä»¶:\r\nMatroska, OGG (åŒ…æ‹¬ OGM)\r\nMPEG-1 (åŒ…æ‹¬ VCD)\r\nMPEG-2 (åŒ…æ‹¬ DVD, SVCD)\r\nMPEG-4 (åŒ…æ‹¬ iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (åŒ…æ‹¬ WMV, WMA)\r\nMicrosoft RIFF (åŒ…æ‹¬ AVI, WAV)\r\nçº¯å£°éŸ³æ ¼å¼ (AC3, DTS, AAC, AU, AIFF...)
-Menu;èœå•
-Menu stream(s);èœå•
-Menu_Codec_List;èœå•ç¼–è§£ç å™¨
-Menu_No;æ²¡æœ‰èœå•
-MenuCount;èœå•æ•°
-Menu_Hint;æ›´å¤šé€‰æ‹©
-MenuID;èœå•ID
-mn;åˆ†
-Mood;æƒ…ç»ª
-More;æ›´å¤š
-Movie;ç”µå½±
+Library;合成函数库
+Lightness;高亮
+List;列表
+Lyrics;歌词
+Lyricist;作词
+Mastered_Date;母带完成日期
+MasteredBy;母带制做
+matrix_coefficients;矩阵系数
+MediaInfo_About;支持多种格式的多媒体文件:\r\nMatroska, OGG (包括 OGM)\r\nMPEG-1 (包括 VCD)\r\nMPEG-2 (包括 DVD, SVCD)\r\nMPEG-4 (包括 iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (包括 WMV, WMA)\r\nMicrosoft RIFF (包括 AVI, WAV)\r\n纯声音格式 (AC3, DTS, AAC, AU, AIFF...)
+Menu;菜单
+Menu stream(s);菜单
+Menu_Codec_List;菜单编解码器
+Menu_No;没有菜单
+MenuCount;菜单数
+Menu_Hint;更多选择
+MenuID;菜单ID
+mn;分
+Mood;情绪
+More;更多
+Movie;电影
 ms;ms
 MSDI;MSDI
-MusicBy;éŸ³ä¹åˆ¶ä½œ
-MuxingMode;æ··åˆæ¨¡å¼
-MuxingMode_MoreInfo;è¯¦ç»†ä¿¡æ¯
-MuxingMode_PackedBitstream;æ‰“åŒ…çš„æ¯”ç‰¹æµ
-Name;åç§°
-Nationality;å›½è—‰
-NetworkName;ç½‘ç»œåç§°
-New;æ–°å»º
-Newest version;æŸ¥æ‰¾æ›´æ–°(éœ€è¦ç½‘ç»œè¿žæŽ¥)
-NewVersion_Menu;æœ‰æ–°ç‰ˆæœ¬å¯ç”¨
-NewVersion_Question_Title;æ–°ç‰ˆæœ¬å·²å‘å¸ƒ!
-NewVersion_Question_Content;æ–°ç‰ˆæœ¬ (v%Version%) å¯ç”¨, æ˜¯å¦ä¸‹è½½ï¼Ÿ
-No;å¦
-Not yet;å°šæ— 
-NumColors;è‰²æ·±
-OK;ç¡®å®š
-One output file per input file;ä¸€ä¸ªè¾“å…¥æ–‡ä»¶å¯¹åº”ä¸€ä¸ªè¾“å‡ºæ–‡ä»¶
-Open;æ‰“å¼€
-OpenCandy_01;æ­£åœ¨ä¸‹è½½ ________
-OpenCandy_02;__% å·²å®Œæˆ
-OpenCandy_03;ç½‘ç»œè¿žæŽ¥ä¸­æ–­
-OpenCandy_04;________ å®Œæˆä¸‹è½½
-OpenCandy_05;ç‚¹å‡»å¼€å§‹å®‰è£… ________
-OpenCandy_06;ç¡®å®šè¦å–æ¶ˆå®‰è£…å—ï¼Ÿ\r\nå¦‚æžœè¦ç»§ç»­å®‰è£…ï¼Œè¯·ç‚¹å‡»'å¦'ã€‚\r\næç¤ºï¼šä½ å¯ä»¥ç‚¹å‡»èœå•ä¸­çš„â€˜é€€å‡ºâ€™ï¼Œå½“ä¸‹æ¬¡å¯åŠ¨ç”µè„‘çš„æ—¶å€™å†å®‰è£…ã€‚
-OpenCandy_07;________ çš„ä¸‹è½½è¢«æš‚åœã€‚\r\nè¯·ç‚¹å‡»ä»»åŠ¡æ å³ä¾§æ‰˜ç›˜ä¸­çš„å›¾æ ‡ç»§ç»­ä¸‹è½½ã€‚
-OpenCandy_08;å‘ç”Ÿäº†ä¸€ä¸ªä¸¥é‡çš„é”™è¯¯ã€‚_________ çš„å®‰è£…è¢«ä¸­æ­¢ã€‚
-OpenCandy_09;æš‚åœä¸‹è½½
-OpenCandy_10;å–æ¶ˆå®‰è£…
-OpenCandy_11;ç»§ç»­ä¸‹è½½
-OpenCandy_12;é€€å‡ºå®‰è£…ç¨‹åº
-OpenCandy_13;___________ - ç”± ____________ æŽ¨è
-OpenCandy_14;æ­£åœ¨ä¸‹è½½ _________
-OpenCandy_15;æ­£åœ¨ä¸‹è½½___________ï¼ˆç”± ___________ æŽ¨èï¼‰ã€‚å½“ä¸‹è½½å®ŒæˆåŽæˆ‘ä»¬ä¼šé€šçŸ¥ä½ ã€‚
-OpenCandy_16;___________ å¯ä»¥å¼€å§‹å®‰è£…äº†ã€‚
-OpenCandy_17;___________ å·²ä¸‹è½½å®Œæˆï¼Œè¯·ç‚¹å‡»'å®‰è£…'ç»§ç»­ã€‚
-OpenCandy_18;___________ä¸ªï¼ˆå…±___________ä¸ªï¼‰å·²ä¸‹è½½ã€‚
-OpenCandy_19;ä½¿ç”¨OpenCandyå®žçŽ°
-OpenCandy_20;è®¿é—®OpenCandy.comäº†è§£æ›´å¤šä¿¡æ¯ã€‚
-OpenCandy_21;å®‰è£…
-OpenCandy_22;å®‰è£… ___________
-OpenCandy_23;å°†å–æ¶ˆå®‰è£… ___________\r\nç¡®å®šè¦é€€å‡ºå—ï¼Ÿ
-OpenCandy_24;æš‚åœ
-OpenCandy_25;ä¸‹è½½å·²ç»è¢«æš‚åœã€‚ç‚¹å‡»'ç»§ç»­'å¯ä»¥ç»§ç»­ä¸‹è½½ã€‚
-OpenCandy_26;ç»§ç»­
-OpenCandy_27;ç«‹å³å®‰è£…
-OpenCandy_28;æš‚åœä¸‹è½½
-OpenCandy_29;ç»§ç»­ä¸‹è½½
-OpenCandy_30;å–æ¶ˆä¸‹è½½
-OpenCandy_31;è¯·é€‰æ‹©ä¸€ä¸ªå®‰è£…é€‰é¡¹
-OpenCandy_32;å®‰è£… ___________
-OpenCandy_33;ä¸å®‰è£…
-OpenCandy_34;è¯·é€‰æ‹©ä¸€ä¸ªå®‰è£…é€‰é¡¹
-OpenCandy_35;______ æŽ¨èä½¿ç”¨è½¯ä»¶
-OpenCandy_36;æ‚¨å½“å‰çš„é…ç½®å°†ä¸ä¼šè¢«é˜»æ­¢
-Options;é€‰é¡¹
-Options_Hint;å‚æ•°è®¾å®š
-Original;æº
-OriginalNetworkName;æºç½‘ç»œåç§°
-OriginalSourceForm;èµ„æºæ¥æº
-OriginalSourceMedium;èµ„æºåª’ä»‹
-Other;å…¶å®ƒ
-Output;è¾“å‡º
-Output format;è¾“å‡ºæ ¼å¼
-OverallBitRate;å¹³å‡æ··åˆç çŽ‡
-OverallBitRate_Maximum;æœ€å¤§æ··åˆç çŽ‡
-OverallBitRate_Minimum;æœ€å°æ··åˆç çŽ‡
-OverallBitRate_Mode;æ··åˆç çŽ‡æ¨¡å¼
-OverallBitRate_Nominal;é¢å®šæ··åˆç çŽ‡
-Part;éƒ¨åˆ†
-Part_Count;æ€»è®¡
-Performer;è‰ºæœ¯å®¶
-Period;æ—¶ä»£
-Phone;ç”µè¯
-PixelAspectRatio;ç”»é¢æ¯”ä¾‹(åƒç´ )
-PixelAspectRatio_Original;ç”»é¢æ¯”ä¾‹(åƒç´ )
-PlayCounter;æ’­æ”¾è®¡æ•°å™¨
-Played_Count;å·²æ’­æ”¾æ—¶é—´
-Played_First_Date;é¦–æ¬¡æ’­æ”¾çš„
-Played_Last_Date;æœ€åŽæ’­æ”¾çš„
-PlayTime;æ’­æ”¾æ—¶é—´
-Position;ä½ç½®
-Position_Total;æ€»è®¡
-Preferences;å‚æ•°è®¾ç½®
-Producer;åˆ¶ç‰‡äºº
-ProductionDesigner;åˆ¶åšè®¾è®¡å¸ˆ
-ProductionStudio;åˆ¶åšæœºæž„
-Publisher;å‘è¡Œ
-Purchased_Date;è´­ä¹°æ—¥æœŸ
-Quote character;å¼•ç”¨ç¬¦å·
-RadioStation;ç”µå°
-Rating;åˆ†çº§
-Recorded_Date;å½•åˆ¶æ—¥æœŸ
-Recorded_Location;å½•åˆ¶åœ°ç‚¹
-Released_Date;å‘å¸ƒæ—¥æœŸ
-RemixedBy;é‡æ–°æ··åˆ
-ReplayGain_Gain;å›žæ”¾å¢žç›Š
-ReplayGain_Peak;å›žæ”¾å¢žç›Šå³°å€¼
-Resolution;åˆ†è¾¨çŽ‡
-s;ç§’
-SamplingRate;é‡‡æ ·çŽ‡
-Save;ä¿å­˜
-ScanType;æ‰«ææ–¹å¼
+MusicBy;音乐制作
+MuxingMode;混合模式
+MuxingMode_MoreInfo;详细信息
+MuxingMode_PackedBitstream;打包的比特流
+Name;名称
+Nationality;国藉
+NetworkName;网络名称
+New;新建
+Newest version;查找更新(需要网络连接)
+NewVersion_Menu;有新版本可用
+NewVersion_Question_Title;新版本已发布!
+NewVersion_Question_Content;新版本 (v%Version%) 可用, 是否下载？
+No;否
+Not yet;尚无
+NumColors;色深
+OK;确定
+One output file per input file;一个输入文件对应一个输出文件
+Open;打开
+OpenCandy_01;正在下载 ________
+OpenCandy_02;__% 已完成
+OpenCandy_03;网络连接中断
+OpenCandy_04;________ 完成下载
+OpenCandy_05;点击开始安装 ________
+OpenCandy_06;确定要取消安装吗？\r\n如果要继续安装，请点击'否'。\r\n提示：你可以点击菜单中的‘退出’，当下次启动电脑的时候再安装。
+OpenCandy_07;________ 的下载被暂停。\r\n请点击任务栏右侧托盘中的图标继续下载。
+OpenCandy_08;发生了一个严重的错误。_________ 的安装被中止。
+OpenCandy_09;暂停下载
+OpenCandy_10;取消安装
+OpenCandy_11;继续下载
+OpenCandy_12;退出安装程序
+OpenCandy_13;___________ - 由 ____________ 推荐
+OpenCandy_14;正在下载 _________
+OpenCandy_15;正在下载___________（由 ___________ 推荐）。当下载完成后我们会通知你。
+OpenCandy_16;___________ 可以开始安装了。
+OpenCandy_17;___________ 已下载完成，请点击'安装'继续。
+OpenCandy_18;___________个（共___________个）已下载。
+OpenCandy_19;使用OpenCandy实现
+OpenCandy_20;访问OpenCandy.com了解更多信息。
+OpenCandy_21;安装
+OpenCandy_22;安装 ___________
+OpenCandy_23;将取消安装 ___________\r\n确定要退出吗？
+OpenCandy_24;暂停
+OpenCandy_25;下载已经被暂停。点击'继续'可以继续下载。
+OpenCandy_26;继续
+OpenCandy_27;立即安装
+OpenCandy_28;暂停下载
+OpenCandy_29;继续下载
+OpenCandy_30;取消下载
+OpenCandy_31;请选择一个安装选项
+OpenCandy_32;安装 ___________
+OpenCandy_33;不安装
+OpenCandy_34;请选择一个安装选项
+OpenCandy_35;______ 推荐使用软件
+OpenCandy_36;您当前的配置将不会被阻止
+Options;选项
+Options_Hint;参数设定
+Original;源
+OriginalNetworkName;源网络名称
+OriginalSourceForm;资源来源
+OriginalSourceMedium;资源媒介
+Other;其它
+Output;输出
+Output format;输出格式
+OverallBitRate;平均混合码率
+OverallBitRate_Maximum;最大混合码率
+OverallBitRate_Minimum;最小混合码率
+OverallBitRate_Mode;混合码率模式
+OverallBitRate_Nominal;额定混合码率
+Part;部分
+Part_Count;总计
+Performer;艺术家
+Period;时代
+Phone;电话
+PixelAspectRatio;画面比例(像素)
+PixelAspectRatio_Original;画面比例(像素)
+PlayCounter;播放计数器
+Played_Count;已播放时间
+Played_First_Date;首次播放的
+Played_Last_Date;最后播放的
+PlayTime;播放时间
+Position;位置
+Position_Total;总计
+Preferences;参数设置
+Producer;制片人
+ProductionDesigner;制做设计师
+ProductionStudio;制做机构
+Publisher;发行
+Purchased_Date;购买日期
+Quote character;引用符号
+RadioStation;电台
+Rating;分级
+Recorded_Date;录制日期
+Recorded_Location;录制地点
+Released_Date;发布日期
+RemixedBy;重新混合
+ReplayGain_Gain;回放增益
+ReplayGain_Peak;回放增益峰值
+Resolution;分辨率
+s;秒
+SamplingRate;采样率
+Save;保存
+ScanType;扫描方式
 ScanType_Original;
-ScanOrder;æ‰«æé¡ºåº
-ScanOrder_StoredDisplayedInverted;
+ScanOrder;扫描顺序
 ScanOrder_Original;
-ScreenplayBy;ç¼–å‰§
-Season;å­£
-see below;è¯·çœ‹ä¸‹é¢åˆ—å‡ºçš„å†…å®¹
-Send HeaderFile;å‘é€å¤´æ–‡ä»¶: http://sourceforge.net/projects/mediainfo/
-Separator_Columns;åˆ—åˆ†éš”ç¬¦
-Separator_Lines;æ¢è¡Œç¬¦
-ServiceChannel;æœåŠ¡é¢‘é“å·ç 
-ServiceName;æœåŠ¡å
-ServiceProvider;æœåŠ¡æä¾›
-ServiceType;æœåŠ¡ç±»åž‹
-Set;è®¾ç½®
-Set_Count;è®¾ç½®é¡¹ç›®
-Setup;è®¾ç½®
-Sharpness;é”åˆ©
-Sheet;è¡¨æ ¼
-Sheet (Complete);è¡¨æ ¼(å®Œæ•´)
-Shell extension;[èµ„æºç®¡ç†å™¨]å³é”®èœå• (ä¸ºå¤šåª’ä½“æ–‡ä»¶çš„å³é”®èœå•æ·»åŠ  MediaInfo é€‰é¡¹)
-Shell extension, folder;åŒ…å«æ–‡ä»¶å¤¹å³é”®
-Shell InfoTip;[èµ„æºç®¡ç†å™¨]æ°”æ³¡æç¤º (å°†é¼ æ ‡ç§»åˆ°æ–‡ä»¶å›¾æ ‡ä¸Šä¼šæ˜¾ç¤ºç›¸å…³ä¿¡æ¯)
-Show menu;æ˜¾ç¤ºèœå•
-Show toolbar;æ˜¾ç¤ºå·¥å…·æ 
-Sort;æŽ’åº
-SamplingCount;æ ·æœ¬è®¡æ•°
-SoundEngineer;å½•éŸ³å¸ˆ
+ScreenplayBy;编剧
+Season;季
+see below;请看下面列出的内容
+Send HeaderFile;发送头文件: http://sourceforge.net/projects/mediainfo/
+Separator_Columns;列分隔符
+Separator_Lines;换行符
+ServiceChannel;服务频道号码
+ServiceName;服务名
+ServiceProvider;服务提供
+ServiceType;服务类型
+Set;设置
+Set_Count;设置项目
+Setup;设置
+Sharpness;锐利
+Sheet;表格
+Sheet (Complete);表格(完整)
+Shell extension;[资源管理器]右键菜单 (为多媒体文件的右键菜单添加 MediaInfo 选项)
+Shell extension, folder;包含文件夹右键
+Shell InfoTip;[资源管理器]气泡提示 (将鼠标移到文件图标上会显示相关信息)
+Show menu;显示菜单
+Show toolbar;显示工具栏
+Sort;排序
+SamplingCount;样本计数
+SoundEngineer;录音师
 Source;
 Source_Duration;
 Source_FrameCount;
 Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
-Standard;æ ‡å‡†
-Stream;æµ
-Stream_MoreInfo;æ›´å¤šä¿¡æ¯
-StreamCount;æ­¤ç±»åž‹æµçš„æ•°é‡
-StreamID;æµID
-StreamKind;æµç±»åž‹
-StreamKindID;æµID
-StreamKindPos;æµID
-StreamSize;å¤§å°
+Standard;标准
+Stream;流
+Stream_MoreInfo;更多信息
+StreamCount;此类型流的数量
+StreamID;流ID
+StreamKind;流类型
+StreamKindID;流ID
+StreamKindPos;流ID
+StreamSize;大小
 StreamSize_Encoded;
-StreamSize_Proportion;æµå±žæ€§
-Subject;ä¸»é¢˜
-SubTrack;å­è½¨é“
-Summary;æ‘˜è¦
-Supported formats;æ”¯æŒçš„æ ¼å¼
-Supported?;æ”¯æŒ?
-Synopsis;ç³»ç»Ÿæ‘˜è¦
-SystemId;ç³»ç»ŸID
-Tagged_Application;æ ‡è®°è½¯ä»¶
-Tagged_Date;æ ‡è®°æ—¥æœŸ
-Technician;æŠ€æœ¯å‘˜
-TermsOfUse;ä½¿ç”¨æ–¹æ³•
-Text;æ–‡æœ¬
-Text - Custom;æ–‡æœ¬-è‡ªå®šä¹‰
-Text (HTML);æ–‡æœ¬(HTML)
-Text stream(s);æ–‡å­—æµ
-Text streams;æ–‡å­—æµ
-Text_Codec_List;å­—å¹•ç¼–è§£ç å™¨
-Text_No;æ²¡æœ‰å­—å¹•
-Text1;å­—å¹•1
-Text2;å­—å¹•2
-Text3;å­—å¹•3
-TextCount;å­—å¹•æ€»æ•°
-ThanksTo;æ„Ÿè°¢
-Thousands separator;æ•°å­—åˆ†éš”ç¬¦
-Title;æ ‡é¢˜
-Title_More;æ›´å¤šæ ‡é¢˜
+StreamSize_Proportion;流属性
+Subject;主题
+SubTrack;子轨道
+Summary;摘要
+Supported formats;支持的格式
+Supported?;支持?
+Synopsis;系统摘要
+SystemId;系统ID
+Tagged_Application;标记软件
+Tagged_Date;标记日期
+Technician;技术员
+TermsOfUse;使用方法
+Text;文本
+Text - Custom;文本-自定义
+Text (HTML);文本(HTML)
+Text stream(s);文字流
+Text streams;文字流
+Text_Codec_List;字幕编解码器
+Text_No;没有字幕
+Text1;字幕1
+Text2;字幕2
+Text3;字幕3
+TextCount;字幕总数
+ThanksTo;感谢
+Thousands separator;数字分隔符
+Title;标题
+Title_More;更多标题
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
-TimeZone;æ—¶åŒº
-Total;æ€»è®¡
-Track;éŸ³è½¨
-Track_Count;éŸ³è½¨æ•°
-transfer_characteristics;ä¼ è¾“ç‰¹è´¨
-Translator;ç¿»è¯‘
-Tree;æ ‘çŠ¶å›¾
-Tree & Text;æ ‘çŠ¶å›¾å’Œæ–‡æœ¬
+TimeZone;时区
+Total;总计
+Track;音轨
+Track_Count;音轨数
+transfer_characteristics;传输特质
+Translator;翻译
+Tree;树状图
+Tree & Text;树状图和文本
 Type;
-UniqueID;å”¯ä¸€ID
-Unknown;ä¸è¯¦
-Url;ç›¸å…³ç½‘å€
-Video;è§†é¢‘
-Video stream(s);è§†é¢‘æµ/å¤šæ¡
-Video_Codec_List;è§†é¢‘ç¼–è§£ç å™¨
-Video_Delay;è§†é¢‘å»¶è¿Ÿ
-Video_No;æ²¡æœ‰è§†é¢‘
-Video0_Delay;è§†é¢‘å»¶è¿Ÿ
-Video1;è§†é¢‘1
-VideoCount;è§†é¢‘æ€»æ•°
-View;æŸ¥çœ‹
-View_Hint;æ”¹å˜æŸ¥çœ‹æ–¹ç¤º
-Warning : more streams in the files;æ³¨æ„ï¼šè¿™ä¸ªæ–‡ä»¶ä¸­è¿˜æœ‰æ›´å¤šçš„æµ
-Web;ç½‘é¡µ
-WebSite_Audio;è®¿é—®æ­¤éŸ³é¢‘ç¼–è§£ç å™¨çš„ç½‘é¡µ
-WebSite_Audio_More;æ›´å¤šéŸ³é¢‘ç¼–è§£ç å™¨çš„ç½‘é¡µ
-WebSite_General;è®¿é—®æ­¤æ’­æ”¾ç¨‹åºçš„ç½‘é¡µ
-WebSite_General_More;æ›´å¤šæ’­æ”¾ç¨‹åºçš„ç½‘é¡µ
-WebSite_Text;è®¿é—®æ­¤æ–‡å­—ç¼–è§£ç å™¨çš„ç½‘é¡µ
-WebSite_Text_More;æ›´å¤šæ–‡å­—ç¼–è§£ç å™¨çš„ç½‘é¡µ
-WebSite_Url;ç½‘å€http://MediaArea.net/MediaInfo
-WebSite_Video;è®¿é—®æ­¤è§†é¢‘ç¼–è§£ç å™¨çš„ç½‘é¡µ
-WebSite_Video_More;æ›´å¤šè§†é¢‘ç¼–è§£ç å™¨çš„ç½‘é¡µ(%Url%)
-Width;ç”»é¢å®½åº¦
-Width_Original;åŽŸå§‹å®½åº¦
-WriteMe;ç»™ä½œè€…å†™ä¿¡
-WriteToTranslator;ç»™è¯‘è€…å†™ä¿¡
-Written_Date;å†™å…¥æ—¥æœŸ
-Written_Location;å†™å…¥åœ°ç‚¹
-WrittenBy;ä½œè€…
-Yes;æ˜¯
-Your system;æ‚¨çš„ç³»ç»Ÿ
+UniqueID;唯一ID
+Unknown;不详
+Url;相关网址
+Video;视频
+Video stream(s);视频流/多条
+Video_Codec_List;视频编解码器
+Video_Delay;视频延迟
+Video_No;没有视频
+Video0_Delay;视频延迟
+Video1;视频1
+VideoCount;视频总数
+View;查看
+View_Hint;改变查看方示
+Warning : more streams in the files;注意：这个文件中还有更多的流
+Web;网页
+WebSite_Audio;访问此音频编解码器的网页
+WebSite_Audio_More;更多音频编解码器的网页
+WebSite_General;访问此播放程序的网页
+WebSite_General_More;更多播放程序的网页
+WebSite_Text;访问此文字编解码器的网页
+WebSite_Text_More;更多文字编解码器的网页
+WebSite_Url;网址http://MediaArea.net/MediaInfo
+WebSite_Video;访问此视频编解码器的网页
+WebSite_Video_More;更多视频编解码器的网页(%Url%)
+Width;画面宽度
+Width_Original;原始宽度
+WriteMe;给作者写信
+WriteToTranslator;给译者写信
+Written_Date;写入日期
+Written_Location;写入地点
+WrittenBy;作者
+Yes;是
+Your system;您的系统
 ZZ_Automatic_Percent;93
 ZZ_AutomaticLanguage_Percent;97

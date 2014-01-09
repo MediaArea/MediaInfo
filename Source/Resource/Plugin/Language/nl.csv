@@ -165,7 +165,7 @@ ArtDirector;Artdirector
 AspectRatio;Beeldverhouding
 AssistantDirector;Assistant-regisseur
 at;met
-At least one file;(U moet tenminste Ã©Ã©n bestand openen)
+At least one file;(U moet tenminste één bestand openen)
 Audio;Audio
 Audio stream(s);Audiostromen
 Audio_Codec_List;Audiocodecs
@@ -293,7 +293,7 @@ EPG_Positions;
 Error_File;Fout tijdens lezen bestand
 ExecutiveProducer;Uitvoerend producent
 Exit;Afsluiten
-Exit_Hint;BeÃ«indig het programma
+Exit_Hint;Beëindig het programma
 Export;Exporteren
 Export_Hint;Exporteren in aangepast formaat
 Extensions;Gebruikelijke extensies
@@ -437,7 +437,7 @@ Genre_074;Acid Jazz
 Genre_075;Polka
 Genre_076;Retro
 Genre_077;Musical
-Genre_078;Rock-â€™n-roll
+Genre_078;Rock-’n-roll
 Genre_079;Hardrock
 Genre_080;Folk
 Genre_081;Folkrock
@@ -486,7 +486,7 @@ Genre_123;A capella
 Genre_124;Euro-House
 Genre_125;Dancehall
 Genre_126;Goa
-Genre_127;Drum-â€™n-bass
+Genre_127;Drum-’n-bass
 Genre_128;Clubhouse
 Genre_129;Hardcore
 Genre_130;Terror
@@ -630,7 +630,7 @@ Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;Grieks
 Language_en;Engels
-Language_en-gb;Engels (Groot-BrittanniÃ«)
+Language_en-gb;Engels (Groot-Brittannië)
 Language_en-us;Engels (Verenigde Staten)
 Language_eo;Esperanto
 Language_es;Spaans
@@ -640,7 +640,7 @@ Language_fa;Perzisch
 Language_ff;Fulah
 Language_fi;Fins
 Language_fj;Fijisch
-Language_fo;FaeroÃ«rs
+Language_fo;Faeroërs
 Language_fr;Frans
 Language_fy;Fries
 Language_ga;Iers
@@ -654,7 +654,7 @@ Language_he;Hebreeuws
 Language_hi;Hindi
 Language_ho;Hiri Motu
 Language_hr;Kroatisch
-Language_ht;HaÃ¯tiaans
+Language_ht;Haïtiaans
 Language_hu;Hongaars
 Language_hy;Armeens
 Language_hz;Herero
@@ -728,7 +728,7 @@ Language_pi;Pali
 Language_pl;Pools
 Language_ps;Pasjtoe
 Language_pt;Portugees
-Language_pt-br;Portugees (BraziliÃ«)
+Language_pt-br;Portugees (Brazilië)
 Language_qu;Quechua
 Language_rm;Reto-Romaans
 Language_rn;Kirundi
@@ -768,7 +768,7 @@ Language_tt;Tataars
 Language_tw;Twi
 Language_ty;Tahitiaans
 Language_ug;Oejgoers
-Language_uk;OekraÃ¯ens
+Language_uk;Oekraïens
 Language_ur;Urdu
 Language_uz;Oezbeeks
 Language_ve;Venda
@@ -824,7 +824,7 @@ No;Nee
 Not yet;Nog niet
 NumColors;Aantal kleuren
 OK;OK
-One output file per input file;EÃ©n exportbestand per invoerbestand
+One output file per input file;Eén exportbestand per invoerbestand
 Open;Open
 OpenCandy_01;Downloaden ________
 OpenCandy_02;__% Voltooid
@@ -840,7 +840,7 @@ OpenCandy_11;Downloaden hervatten
 OpenCandy_12;Installer afsluiten
 OpenCandy_13;___________ - Aanbevolen door ____________
 OpenCandy_14;Downloaden _________
-OpenCandy_15;___________, de software die wordt aanbevolen door ___________, downloadt nu op uw verzoek. We zullen u laten weten wanneer het gereed is om te worden geÃ¯nstalleerd.
+OpenCandy_15;___________, de software die wordt aanbevolen door ___________, downloadt nu op uw verzoek. We zullen u laten weten wanneer het gereed is om te worden geïnstalleerd.
 OpenCandy_16;___________ is gereed voor installatie
 OpenCandy_17;___________ is nu volledig gedownload. Klik op 'Installeren' om door te gaan.
 OpenCandy_18;___________ van ___________ gedownload
@@ -912,7 +912,6 @@ Save;Opslaan
 ScanType;Scansoort
 ScanType_Original;
 ScanOrder;Scanvolgorde
-ScanOrder_StoredDisplayedInverted;
 ScanOrder_Original;
 ScreenplayBy;Draaiboek door
 Season;Seizoen
@@ -1028,5 +1027,5 @@ Written_Location;Locatie van schrijven
 WrittenBy;Geschreven door
 Yes;Ja
 Your system;Uw systeem
-ZZ_Automatic_Percent;89
+ZZ_Automatic_Percent;90
 ZZ_AutomaticLanguage_Percent;94

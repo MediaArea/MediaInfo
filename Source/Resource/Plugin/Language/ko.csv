@@ -2,44 +2,44 @@
   Author_Email;starcodec@gmail.com
   Author_Name;starcodec(http://www.starcodec.com)
   Author_OldNames;Initial translator
-  Language_Name;í•œêµ­ì–´
+  Language_Name;한국어
   Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
   Config_Text_ThousandsSeparator; 
- audio stream1; ì˜¤ë””ì˜¤ ìŠ¤íŠ¸ë¦¼
- audio stream2; ì˜¤ë””ì˜¤ ìŠ¤íŠ¸ë¦¼
- audio stream3; ì˜¤ë””ì˜¤ ìŠ¤íŠ¸ë¦¼
- bit1; ë¹„íŠ¸
- bit2; ë¹„íŠ¸
- bit3; ë¹„íŠ¸
+ audio stream1; 오디오 스트림
+ audio stream2; 오디오 스트림
+ audio stream3; 오디오 스트림
+ bit1; 비트
+ bit2; 비트
+ bit3; 비트
  bps; bps
  Bps; Bps
- Byte1; ë°”ì´íŠ¸
- Byte2; ë°”ì´íŠ¸
- Byte3; ë°”ì´íŠ¸
- channel1; ì±„ë„
- channel2; ì±„ë„
- channel3; ì±„ë„
- chapter1; ì±•í„°
- chapter2; ì±•í„°
- chapter3; ì±•í„°
- chapters stream1; ì±•í„° ìŠ¤íŠ¸ë¦¼
- chapters stream2; ì±•í„° ìŠ¤íŠ¸ë¦¼
- chapters stream3; ì±•í„° ìŠ¤íŠ¸ë¦¼
- day1; ì¼
- day2; ì¼
- day3; ì¼
+ Byte1; 바이트
+ Byte2; 바이트
+ Byte3; 바이트
+ channel1; 채널
+ channel2; 채널
+ channel3; 채널
+ chapter1; 챕터
+ chapter2; 챕터
+ chapter3; 챕터
+ chapters stream1; 챕터 스트림
+ chapters stream2; 챕터 스트림
+ chapters stream3; 챕터 스트림
+ day1; 일
+ day2; 일
+ day3; 일
  dB1; dB
  dB2; dB
  dB3; dB
- file1; íŒŒì¼
- file2; íŒŒì¼
- file3; íŒŒì¼
- frame1; í”„ë ˆìž„
- frame2; í”„ë ˆìž„
- frame3; í”„ë ˆìž„
+ file1; 파일
+ file2; 파일
+ file3; 파일
+ frame1; 프레임
+ frame2; 프레임
+ frame3; 프레임
  fps1; fps
  fps2; fps
  fps3; fps
@@ -59,13 +59,13 @@
  GigaByte1; GigaByte
  GigaByte2; GigaBytes
  GigaByte3; GigaBytes
- hour1; ì‹œê°„
- hour2; ì‹œê°„
- hour3; ì‹œê°„
+ hour1; 시간
+ hour2; 시간
+ hour3; 시간
  Hz; Hz
- image stream1; ì´ë¯¸ì§€ ìŠ¤íŠ¸ë¦¼
- image stream2; ì´ë¯¸ì§€ ìŠ¤íŠ¸ë¦¼
- image stream3; ì´ë¯¸ì§€ ìŠ¤íŠ¸ë¦¼
+ image stream1; 이미지 스트림
+ image stream2; 이미지 스트림
+ image stream3; 이미지 스트림
  KB; KB
  Kb; Kb
  KBps; KBps
@@ -105,260 +105,260 @@
  MiB; MiB
  Mib; Mib
  MiBps; MiBps
- millisecond1; ë¯¸ë¦¬ì´ˆ
- millisecond2; ë¯¸ë¦¬ì´ˆ
- millisecond3; ë¯¸ë¦¬ì´ˆ
- minute1; ë¶„
- minute2; ë¶„
- minute3; ë¶„
- month1; ì›”
- month2; ì›”
- month3; ì›”
- pixel1; í”½ì…€
- pixel2; í”½ì…€
- pixel3; í”½ì…€
- second1; ì´ˆ
- second2; ì´ˆ
- second3; ì´ˆ
- text stream1; í…ìŠ¤íŠ¸ ìŠ¤íŠ¸ë¦¼
- text stream2; í…ìŠ¤íŠ¸ ìŠ¤íŠ¸ë¦¼
- text stream3; í…ìŠ¤íŠ¸ ìŠ¤íŠ¸ë¦¼
- video frames1; ë¹„ë””ì˜¤ í”„ë ˆìž„
- video frames2; ë¹„ë””ì˜¤ í”„ë ˆìž„
- video frames3; ë¹„ë””ì˜¤ í”„ë ˆìž„
- video stream1; ë¹„ë””ì˜¤ ìŠ¤íŠ¸ë¦¼
- video stream2; ë¹„ë””ì˜¤ ìŠ¤íŠ¸ë¦¼
- video stream3; ë¹„ë””ì˜¤ ìŠ¤íŠ¸ë¦¼
- warppoint0; ì›Œí”„í¬ì¸íŠ¸ ì—†ìŒ
- warppoint1; ì›Œí”„í¬ì¸íŠ¸
- warppoint2; ì›Œí”„í¬ì¸íŠ¸
- warppoint3; ì›Œí”„í¬ì¸íŠ¸
- week1; ì£¼
- week2; ì£¼
- week3; ì£¼
- year1; ë…„
- year2; ë…„
- year3; ë…„
+ millisecond1; 미리초
+ millisecond2; 미리초
+ millisecond3; 미리초
+ minute1; 분
+ minute2; 분
+ minute3; 분
+ month1; 월
+ month2; 월
+ month3; 월
+ pixel1; 픽셀
+ pixel2; 픽셀
+ pixel3; 픽셀
+ second1; 초
+ second2; 초
+ second3; 초
+ text stream1; 텍스트 스트림
+ text stream2; 텍스트 스트림
+ text stream3; 텍스트 스트림
+ video frames1; 비디오 프레임
+ video frames2; 비디오 프레임
+ video frames3; 비디오 프레임
+ video stream1; 비디오 스트림
+ video stream2; 비디오 스트림
+ video stream3; 비디오 스트림
+ warppoint0; 워프포인트 없음
+ warppoint1; 워프포인트
+ warppoint2; 워프포인트
+ warppoint3; 워프포인트
+ week1; 주
+ week2; 주
+ week3; 주
+ year1; 년
+ year2; 년
+ year3; 년
 , ;, 
 : ;: 
-About;ì •ë³´
-About_Hint;ì—°ë½ì²˜ì™€ ìµœì‹  ë²„ì „ í™•ì¸
-Accompaniment;ë°˜ì£¼
+About;정보
+About_Hint;연락처와 최신 버전 확인
+Accompaniment;반주
 ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
-Actor;ë°°ìš°
-Actor_Character;ë°°ì—­
-Added_Date;ì¶”ê°€ëœ ë‚ ì§œ
-Address;ì£¼ì†Œ
-Advanced;ê³ ê¸‰
-Advanced mode;ê³ ê¸‰ ëª¨ë“œ
-Album;ì•¨ë²”
-Album_ReplayGain_Gain;ì•¨ë²” ìž¬ìƒ ê²Œì¸
-Album_ReplayGain_Peak;ì•¨ë²” ìž¬ìƒ ê²Œì¸ í”¼í¬
-Alignment;ì •ë ¬
-Alignment_Aligned;ì¸í„°ë¦¬ë¸Œì— ì •ë ¬
-Alignment_Split;ì¸í„°ë¦¬ë¸Œë¡œ ë¶„í• 
-All;ì „ì²´
-Archival_Location;ê¸°ë¡ ìž¥ì†Œ
-Arranger;íŽ¸ê³¡ìž
-ArtDirector;ë¯¸ìˆ  ê°ë…
-AspectRatio;ì¢…íš¡ë¹„
-AssistantDirector;ì¡°ê°ë…
+Actor;배우
+Actor_Character;배역
+Added_Date;추가된 날짜
+Address;주소
+Advanced;고급
+Advanced mode;고급 모드
+Album;앨범
+Album_ReplayGain_Gain;앨범 재생 게인
+Album_ReplayGain_Peak;앨범 재생 게인 피크
+Alignment;정렬
+Alignment_Aligned;인터리브에 정렬
+Alignment_Split;인터리브로 분할
+All;전체
+Archival_Location;기록 장소
+Arranger;편곡자
+ArtDirector;미술 감독
+AspectRatio;종횡비
+AssistantDirector;조감독
 at;at
-At least one file;(ìµœì†Œí•œ í•˜ë‚˜ì˜ íŒŒì¼ì„ ì—´ì–´ì•¼ í•©ë‹ˆë‹¤)
-Audio;ì˜¤ë””ì˜¤
-Audio stream(s);ì˜¤ë””ì˜¤ ìŠ¤íŠ¸ë¦¼
-Audio_Codec_List;ì˜¤ë””ì˜¤ ì½”ë±
-Audio_No;ì˜¤ë””ì˜¤ ì—†ìŒ
-Audio1;ì²«ë²ˆì§¸ ì˜¤ë””ì˜¤ ìŠ¤íŠ¸ë¦¼
-Audio2;ë‘ë²ˆì§¸ ì˜¤ë””ì˜¤ ìŠ¤íŠ¸ë¦¼
-AudioCount;ì˜¤ë””ì˜¤ ìŠ¤íŠ¸ë¦¼ ê°œìˆ˜
-Author;ìž‘ê°€
-BarCode;ë°”ì½”ë“œ
-Basic;ê¸°ë³¸
-Basic_Note;ë…¸íŠ¸ : ì´ íŒŒì¼ì— ê´€í•œ ë” ìžì„¸í•œ ì •ë³´ë¥¼ ì›í•˜ì‹œë©´ ë‹¤ë¥¸ ë³´ê¸°ë¥¼ ì„ íƒí•˜ì„¸ìš”(ì‹œíŠ¸, íŠ¸ë¦¬...)
+At least one file;(최소한 하나의 파일을 열어야 합니다)
+Audio;오디오
+Audio stream(s);오디오 스트림
+Audio_Codec_List;오디오 코덱
+Audio_No;오디오 없음
+Audio1;첫번째 오디오 스트림
+Audio2;두번째 오디오 스트림
+AudioCount;오디오 스트림 개수
+Author;작가
+BarCode;바코드
+Basic;기본
+Basic_Note;노트 : 이 파일에 관한 더 자세한 정보를 원하시면 다른 보기를 선택하세요(시트, 트리...)
 BitDepth;
-BitRate;ë¹„íŠ¸ë ˆì´íŠ¸
-BitRate_Maximum;ìµœê³  ë¹„íŠ¸ë ˆì´íŠ¸
-BitRate_Minimum;ìµœì†Œ ë¹„íŠ¸ë ˆì´íŠ¸
-BitRate_Mode;ë¹„íŠ¸ë ˆì´íŠ¸ ëª¨ë“œ
-BitRate_Mode_CBR;ê³ ì •
-BitRate_Mode_VBR;ë³€ë™
-BitRate_Nominal;ëª…ëª©ìƒì˜ ë¹„íŠ¸ë ˆì´íŠ¸
+BitRate;비트레이트
+BitRate_Maximum;최고 비트레이트
+BitRate_Minimum;최소 비트레이트
+BitRate_Mode;비트레이트 모드
+BitRate_Mode_CBR;고정
+BitRate_Mode_VBR;변동
+BitRate_Nominal;명목상의 비트레이트
 BitRate_Encoded;
-Bits-(Pixel*Frame);ë¹„íŠ¸/(í”½ì…€*í”„ë ˆìž„)
+Bits-(Pixel*Frame);비트/(픽셀*프레임)
 BufferSize;
-Cancel;ì·¨ì†Œ
-Channel(s);ì±„ë„
-ChannelPositions;ì±„ë„ ìœ„ì¹˜
-Chapter(s);ì±•í„°
-Chapters;ì±•í„°
-Chapters stream(s);ì±•í„° ìŠ¤íŠ¸ë¦¼
-Chapters_Codec_List;ì±•í„° ì½”ë±
-Chapters_No;ì±•í„° ì—†ìŒ
-ChaptersCount;ì±•í„° ìŠ¤íŠ¸ë¦¼ ê°œìˆ˜
-CheckNewVersion;ìµœì‹  ë²„ì „ í™•ì¸
-Choose custom;ì»¤ìŠ¤í…€ ì„ íƒ
-Choose custom sheet;ì›í•˜ëŠ” ì»¤ìŠ¤í…€ ì‹œíŠ¸ë¥¼ ì„ íƒí•˜ì„¸ìš”
-Choose custom text;ì›í•˜ëŠ” ì»¤ìŠ¤í…€ í…ìŠ¤íŠ¸ë¥¼ ì„ íƒí•˜ì„¸ìš”
-Choose export format;ì›í•˜ëŠ” ë‚´ë³´ë‚´ê¸° í˜•ì‹ì„ ì„ íƒí•˜ì„¸ìš”
-Choose file(s);ì—´ê¸° ì›í•˜ëŠ” íŒŒì¼ì„ ì„ íƒí•˜ì„¸ìš”
-Choose filename;ì›í•˜ëŠ” íŒŒì¼ëª…ì„ ì„ íƒí•˜ì„¸ìš”
-Choose language;ì›í•˜ëŠ” ì–¸ì–´ë¥¼ ì„ íƒí•˜ì„¸ìš”
-Choregrapher;ì•ˆë¬´ê°€
-Chroma;ìƒ‰ì°¨
+Cancel;취소
+Channel(s);채널
+ChannelPositions;채널 위치
+Chapter(s);챕터
+Chapters;챕터
+Chapters stream(s);챕터 스트림
+Chapters_Codec_List;챕터 코덱
+Chapters_No;챕터 없음
+ChaptersCount;챕터 스트림 개수
+CheckNewVersion;최신 버전 확인
+Choose custom;커스텀 선택
+Choose custom sheet;원하는 커스텀 시트를 선택하세요
+Choose custom text;원하는 커스텀 텍스트를 선택하세요
+Choose export format;원하는 내보내기 형식을 선택하세요
+Choose file(s);열기 원하는 파일을 선택하세요
+Choose filename;원하는 파일명을 선택하세요
+Choose language;원하는 언어를 선택하세요
+Choregrapher;안무가
+Chroma;색차
 ChromaSubsampling;
-Close;ë‹«ê¸°
-Close all before open;ì—´ê¸° ì „ì— ëª¨ë‘ ë‹«ê¸°
-Codec;ì½”ë±
-Codec_Description;ì½”ë± ì„¤ëª…
-Codec_Info;ì½”ë±ì— ëŒ€í•œ ìƒì„¸ ì •ë³´
-Codec_Settings;ì½”ë± ì„¤ì •
-Codec_Settings_PacketBitStream;ì½”ë± ì„¤ì •, íŒ¨í‚· ë¹„íŠ¸ìŠ¤íŠ¸ë¦¼
-Codec_Settings_BVOP;ì½”ë± ì„¤ì •, BVOP
-Codec_Settings_QPel;ì½”ë± ì„¤ì •, QPel
-Codec_Settings_GMC;ì½”ë± ì„¤ì •, GMC
-Codec_Settings_Matrix;ì½”ë± ì„¤ì •, ë§¤íŠ¸ë¦­ìŠ¤
-Codec_Settings_Floor;ì½”ë± ì„¤ì •, Floor
-Codec_Settings_CABAC;ì½”ë± ì„¤ì •, CABAC
-Codec_Settings_Firm;ì½”ë± ì„¤ì •, Firm
-Codec_Settings_Endianness;ì½”ë± ì„¤ì •, Endianness
-Codec_Settings_Sign;ì½”ë± ì„¤ì •, Sign
-Codec_Settings_Law;ì½”ë± ì„¤ì •, Law
-Codec_Settings_ITU;ì½”ë± ì„¤ì •, ITU
-Codec_Profile;ì½”ë± í”„ë¡œíŒŒì¼
-Codec_Url;ì½”ë± ì›¹ë§í¬
-CodecID;ì½”ë± ID
-CodecID_Description;ì½”ë± ì„¤ëª…
-Collection;ì½œë ‰ì…˜
-Colorimetry;ìƒ‰ì²´ê³„
+Close;닫기
+Close all before open;열기 전에 모두 닫기
+Codec;코덱
+Codec_Description;코덱 설명
+Codec_Info;코덱에 대한 상세 정보
+Codec_Settings;코덱 설정
+Codec_Settings_PacketBitStream;코덱 설정, 패킷 비트스트림
+Codec_Settings_BVOP;코덱 설정, BVOP
+Codec_Settings_QPel;코덱 설정, QPel
+Codec_Settings_GMC;코덱 설정, GMC
+Codec_Settings_Matrix;코덱 설정, 매트릭스
+Codec_Settings_Floor;코덱 설정, Floor
+Codec_Settings_CABAC;코덱 설정, CABAC
+Codec_Settings_Firm;코덱 설정, Firm
+Codec_Settings_Endianness;코덱 설정, Endianness
+Codec_Settings_Sign;코덱 설정, Sign
+Codec_Settings_Law;코덱 설정, Law
+Codec_Settings_ITU;코덱 설정, ITU
+Codec_Profile;코덱 프로파일
+Codec_Url;코덱 웹링크
+CodecID;코덱 ID
+CodecID_Description;코덱 설명
+Collection;콜렉션
+Colorimetry;색체계
 ColorSpace;
 colour_primaries;
-Comment;ì£¼ì„
-CommissionedBy;ì˜ë¢°
+Comment;주석
+CommissionedBy;의뢰
 Compilation;
-CompleteName;ì „ì²´ ì´ë¦„
-Composer;ìž‘ê³¡ê°€
+CompleteName;전체 이름
+Composer;작곡가
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
-Compression_Ratio;ì••ì¶•ë¥ 
-Conductor;ì§€íœ˜ìž
-Container and general information;ì»¨í…Œì´ë„ˆì™€ ì¼ë°˜ ì •ë³´
-ContentType;ë‚´ìš© ì¢…ë¥˜
-CoProducer;ê³µë™ ì œìž‘ìž
-Copyright;ì €ìž‘ê¶Œ
-CostumeDesigner;ì˜ìƒ ë””ìžì´ë„ˆ
-Count;ê°œìˆ˜
-Country;êµ­ê°€
-Cover;í‘œì§€
-Cover_Datas;í‘œì§€ ì •ë³´
-Cover_Description;í‘œì§€ ì„¤ëª…
-Cover_Mime;í‘œì§€ MIME
-Cover_Type;í‘œì§€ íƒ€ìž…
-Cropped;ìžë¥¸ ì˜ì—­
-Custom;ì»¤ìŠ¤í…€
-Customize;ì»¤ìŠ¤í„°ë§ˆì´ì¦ˆ
-Date;ë‚ ì§œ
-Debug;ë””ë²„ê·¸
-Decimal point;ì†Œìˆ˜ì 
-Delay;ë”œë ˆì´
+Compression_Ratio;압축률
+Conductor;지휘자
+Container and general information;컨테이너와 일반 정보
+ContentType;내용 종류
+CoProducer;공동 제작자
+Copyright;저작권
+CostumeDesigner;의상 디자이너
+Count;개수
+Country;국가
+Cover;표지
+Cover_Datas;표지 정보
+Cover_Description;표지 설명
+Cover_Mime;표지 MIME
+Cover_Type;표지 타입
+Cropped;자른 영역
+Custom;커스텀
+Customize;커스터마이즈
+Date;날짜
+Debug;디버그
+Decimal point;소수점
+Delay;딜레이
 Delay_Source;
 Delay_Source_Container;
 Delay_Source_Stream;
-Delete;ì‚­ì œ
-Description;ì„¤ëª…
-Digitized_Date;ë””ì§€í„¸í™” ë‚ ì§œ
-Dimensions;ì˜ì—­
-Director;ê°ë…
-DirectorOfPhotography;ì´¬ì˜ ê°ë…
-DisplayAspectRatio;í™”ë©´ ì¢…íš¡ë¹„
-DisplayAspectRatio_Original;ì›ë³¸ í™”ë©´ ì¢…íš¡ë¹„
-DistributedBy;ë°°í¬
-Donate;ê¸°ë¶€í•˜ê¸°
-DotsPerInch;ì¸ì¹˜ë‹¹ ë„íŠ¸
-Duration;ê¸¸ì´
-Duration_End;ì¢…ë£Œ ì‹œê°„
-Duration_Start;ì‹œìž‘ ì‹œê°„
-Edit;íŽ¸ì§‘
-EditedBy;íŽ¸ì§‘
-EMail;ì´ë©”ì¼
-Encoded_Application;ì¸ì½”ë”© í”„ë¡œê·¸ëž¨
-Encoded_Date;ì¸ì½”ë”© ë‚ ì§œ
-Encoded_Library;ì¸ì½”ë”© ë¼ì´ë¸ŒëŸ¬ë¦¬
-Encoded_Library_Settings;ì¸ì½”ë”© ì„¤ì •
-Encoded_Original;ì›ë³¸
-EncodedBy;ì¸ì½”ë”©
-EPG_Positions;EPG í¬ì§€ì…˜ (ë‚´ë¶€)
-Error_File;íŒŒì¼ì„ ì½ëŠ” ì¤‘ ì—ëŸ¬
-ExecutiveProducer;ì œìž‘ ê°ë…
-Exit;ì¢…ë£Œ
-Exit_Hint;í”„ë¡œê·¸ëž¨ì„ ì¢…ë£Œí•©ë‹ˆë‹¤
-Export;ë‚´ë³´ë‚´ê¸°
-Export_Hint;ì›í•˜ëŠ” í˜•ì‹ìœ¼ë¡œ ë‚´ë³´ëƒ…ë‹ˆë‹¤
-Extensions;ì¼ë°˜ì ì¸ í™•ìž¥ìž
-Family;ê°€ì¡±
-Fax;íŒ©ìŠ¤
-File;íŒŒì¼
-File size;íŒŒì¼ í¬ê¸°
-File_Append;ì¡´ìž¬í•˜ëŠ” íŒŒì¼ì— ì´ì–´ì“°ê¸° (ê²½ê³  : ê°™ì€ íŒŒë¼ë¯¸í„°ì¸ì§€ ì£¼ì˜í•˜ì„¸ìš”)
-File_Created_Date;íŒŒì¼ ë§Œë“  ë‚ ì§œ
-File_Created_Date_Local;íŒŒì¼ ë§Œë“  ë‚ ì§œ (ë¡œì»¬)
-File_Hint;ì¡°ì‚¬í•  ë¯¸ë””ì–´ íŒŒì¼ì„ ì„ íƒ
-File_Modified_Date;íŒŒì¼ ìˆ˜ì •í•œ ë‚ ì§œ
-File_Modified_Date_Local;íŒŒì¼ ìˆ˜ì •í•œ ë‚ ì§œ (ë¡œì»¬)
-FileExtension;íŒŒì¼ í™•ìž¥ìž
-FileName;íŒŒì¼ëª…
-FileSize;íŒŒì¼ í¬ê¸°
-Folder;í´ë”
-Folder (R);í´ë” (R)
-Folder (R)_Hint;ì¡°ì‚¬í•  í´ë”ë¥¼ ì„ íƒ (ëª¨ë“  í•˜ìœ„ í´ë”ë¥¼ í¬í•¨)
-Folder (Recursively);í´ë” (í•˜ìœ„ í¬í•¨)
-Folder_Hint;ì¡°ì‚¬í•  í´ë”ë¥¼ ì„ íƒ
-FolderName;í´ë”ëª…
-Format;í¬ë§·
+Delete;삭제
+Description;설명
+Digitized_Date;디지털화 날짜
+Dimensions;영역
+Director;감독
+DirectorOfPhotography;촬영 감독
+DisplayAspectRatio;화면 종횡비
+DisplayAspectRatio_Original;원본 화면 종횡비
+DistributedBy;배포
+Donate;기부하기
+DotsPerInch;인치당 도트
+Duration;길이
+Duration_End;종료 시간
+Duration_Start;시작 시간
+Edit;편집
+EditedBy;편집
+EMail;이메일
+Encoded_Application;인코딩 프로그램
+Encoded_Date;인코딩 날짜
+Encoded_Library;인코딩 라이브러리
+Encoded_Library_Settings;인코딩 설정
+Encoded_Original;원본
+EncodedBy;인코딩
+EPG_Positions;EPG 포지션 (내부)
+Error_File;파일을 읽는 중 에러
+ExecutiveProducer;제작 감독
+Exit;종료
+Exit_Hint;프로그램을 종료합니다
+Export;내보내기
+Export_Hint;원하는 형식으로 내보냅니다
+Extensions;일반적인 확장자
+Family;가족
+Fax;팩스
+File;파일
+File size;파일 크기
+File_Append;존재하는 파일에 이어쓰기 (경고 : 같은 파라미터인지 주의하세요)
+File_Created_Date;파일 만든 날짜
+File_Created_Date_Local;파일 만든 날짜 (로컬)
+File_Hint;조사할 미디어 파일을 선택
+File_Modified_Date;파일 수정한 날짜
+File_Modified_Date_Local;파일 수정한 날짜 (로컬)
+FileExtension;파일 확장자
+FileName;파일명
+FileSize;파일 크기
+Folder;폴더
+Folder (R);폴더 (R)
+Folder (R)_Hint;조사할 폴더를 선택 (모든 하위 폴더를 포함)
+Folder (Recursively);폴더 (하위 포함)
+Folder_Hint;조사할 폴더를 선택
+FolderName;폴더명
+Format;포맷
 Format_Commercial;
 Format_Commercial_IfAny;
-Format_Description;í¬ë§· ì„¤ëª…
-Format_Info;í¬ë§· ì •ë³´
-Format_Profile;í¬ë§· í”„ë¡œíŒŒì¼
-Format_Settings;í¬ë§· ì„¤ì •
-Format_Settings_PacketBitStream;í¬ë§· ì„¤ì •, íŒ¨í‚· ìŠ¤íŠ¸ë¦¼
-Format_Settings_BVOP;í¬ë§· ì„¤ì •, BVOP
-Format_Settings_QPel;í¬ë§· ì„¤ì •, QPel
-Format_Settings_GMC;í¬ë§· ì„¤ì •, GMC
-Format_Settings_Matrix;í¬ë§· ì„¤ì •, ë§¤íŠ¸ë¦­ìŠ¤
-Format_Settings_Matrix_Custom;ì»¤ìŠ¤í…€
-Format_Settings_Matrix_Default;ê¸°ë³¸
-Format_Settings_Floor;í¬ë§· ì„¤ì •, Floor
-Format_Settings_CABAC;í¬ë§· ì„¤ì •, CABAC
-Format_Settings_Firm;í¬ë§· ì„¤ì •, Firm
-Format_Settings_Endianness;í¬ë§· ì„¤ì •, Endianness
-Format_Settings_RefFrames;í¬ë§· ì„¤ì •, RefFrames
-Format_Settings_Sign;í¬ë§· ì„¤ì •, Sign
-Format_Settings_Law;í¬ë§· ì„¤ì •, Law
-Format_Settings_ITU;í¬ë§· ì„¤ì •, ITU
-Format_Settings_SBR;í¬ë§· ì„¤ì •, SBR
-Format_Settings_PS;í¬ë§· ì„¤ì •, PS
-Format_Settings_Pulldown;í¬ë§· ì„¤ì •, Pulldown
+Format_Description;포맷 설명
+Format_Info;포맷 정보
+Format_Profile;포맷 프로파일
+Format_Settings;포맷 설정
+Format_Settings_PacketBitStream;포맷 설정, 패킷 스트림
+Format_Settings_BVOP;포맷 설정, BVOP
+Format_Settings_QPel;포맷 설정, QPel
+Format_Settings_GMC;포맷 설정, GMC
+Format_Settings_Matrix;포맷 설정, 매트릭스
+Format_Settings_Matrix_Custom;커스텀
+Format_Settings_Matrix_Default;기본
+Format_Settings_Floor;포맷 설정, Floor
+Format_Settings_CABAC;포맷 설정, CABAC
+Format_Settings_Firm;포맷 설정, Firm
+Format_Settings_Endianness;포맷 설정, Endianness
+Format_Settings_RefFrames;포맷 설정, RefFrames
+Format_Settings_Sign;포맷 설정, Sign
+Format_Settings_Law;포맷 설정, Law
+Format_Settings_ITU;포맷 설정, ITU
+Format_Settings_SBR;포맷 설정, SBR
+Format_Settings_PS;포맷 설정, PS
+Format_Settings_Pulldown;포맷 설정, Pulldown
 Format_Settings_Mode;
 Format_Settings_FrameMode;
 Format_Settings_Emphasis;
 Format_Settings_ModeExtension;
 Format_Settings_GOP;
-Format_Version;í¬ë§· ë²„ì „
-Format_Url;í¬ë§· ì›¹ë§í¬
-FrameCount;í¬ë§· ê°œìˆ˜
-FrameRate;í”„ë ˆìž„ë ˆì´íŠ¸
-FrameRate_Mode;í”„ë ˆìž„ë ˆì´íŠ¸ ëª¨ë“œ
-FrameRate_Mode_CFR;ê³ ì •
-FrameRate_Mode_VFR;ë³€ë™
-FrameRate_Minimum;ìµœì†Œ í”„ë ˆìž„ë ˆì´íŠ¸
-FrameRate_Nominal;ëª…ëª©ìƒì˜ í”„ë ˆìž„ë ˆì´íŠ¸
-FrameRate_Maximum;ìµœëŒ€ í”„ë ˆìž„ë ˆì´íŠ¸
-FrameRate_Original;ì›ë³¸ í”„ë ˆìž„ë ˆì´íŠ¸
-General;ì¼ë°˜
-Genre;ìž¥ë¥´
+Format_Version;포맷 버전
+Format_Url;포맷 웹링크
+FrameCount;포맷 개수
+FrameRate;프레임레이트
+FrameRate_Mode;프레임레이트 모드
+FrameRate_Mode_CFR;고정
+FrameRate_Mode_VFR;변동
+FrameRate_Minimum;최소 프레임레이트
+FrameRate_Nominal;명목상의 프레임레이트
+FrameRate_Maximum;최대 프레임레이트
+FrameRate_Original;원본 프레임레이트
+General;일반
+Genre;장르
 Genre_000;Blues
 Genre_001;Classic Rock
 Genre_002;Country
@@ -551,47 +551,47 @@ Genre_188;
 Genre_189;
 Genre_190;
 Genre_191;
-Go to WebSite;ì›¹ì‚¬ì´íŠ¸ë¡œ ê°€ê¸°
+Go to WebSite;웹사이트로 가기
 Grouping;
-h;ì‹œ
-Header file;í—¤ë” íŒŒì¼ ë§Œë“¤ê¸°
-Height;ë†’ì´
+h;시
+Header file;헤더 파일 만들기
+Height;높이
 Height_Original;
-Help;ë„ì›€ë§
-Hint;ížŒíŠ¸
-How many audio streams?;ëª‡ ê°œì˜ ì˜¤ë””ì˜¤ ìŠ¤íŠ¸ë¦¼?
-How many chapters streams?;ëª‡ ê°œì˜ ì±•í„° ìŠ¤íŠ¸ë¦¼?
-How many text streams?;ëª‡ ê°œì˜ í…ìŠ¤íŠ¸ ìŠ¤íŠ¸ë¦¼?
-How many video streams?;ëª‡ ê°œì˜ ë¹„ë””ì˜¤ ìŠ¤íŠ¸ë¦¼?
+Help;도움말
+Hint;힌트
+How many audio streams?;몇 개의 오디오 스트림?
+How many chapters streams?;몇 개의 챕터 스트림?
+How many text streams?;몇 개의 텍스트 스트림?
+How many video streams?;몇 개의 비디오 스트림?
 HTML;HTML
 ID;ID
-Image;ì´ë¯¸ì§€
-Image stream(s);ì´ë¯¸ì§€ ìŠ¤íŠ¸ë¦¼
-Image_Codec_List;ì´ë¯¸ì§€ ì½”ë±
-ImageCount;ì´ë¯¸ì§€ ìŠ¤íŠ¸ë¦¼ ê°œìˆ˜
-Info;ì •ë³´
-Instruments;ì•…ê¸°
-Interlacement;ì¸í„°ë ˆì´ìŠ¤ë°©ì‹
-Interlaced_Interlaced;ì¸í„°ë ˆì´ìŠ¤
+Image;이미지
+Image stream(s);이미지 스트림
+Image_Codec_List;이미지 코덱
+ImageCount;이미지 스트림 개수
+Info;정보
+Instruments;악기
+Interlacement;인터레이스방식
+Interlaced_Interlaced;인터레이스
 Interlaced_TFF;Top Field First
 Interlaced_BFF;Bottom Field First
-Interlaced_PPF;í”„ë¡œê·¸ë ˆì‹œë¸Œ
-Interlaced_Progressive;í”„ë¡œê·¸ë ˆì‹œë¸Œ
+Interlaced_PPF;프로그레시브
+Interlaced_Progressive;프로그레시브
 Interleaved;
-Interleave_Duration;ì¸í„°ë¦¬ë¸Œ,ê¸¸ì´
-Interleave_Preload;ì¸í„°ë¦¬ë¸Œ,í”„ë¦¬ë¡œë“œ ê¸¸ì´
-Interleave_VideoFrames;ì¸í„°ë¦¬ë¸Œ,ê¸¸ì´
+Interleave_Duration;인터리브,길이
+Interleave_Preload;인터리브,프리로드 길이
+Interleave_VideoFrames;인터리브,길이
 InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-Keywords;í‚¤ì›Œë“œ
-Known codecs;ì•Œê³  ìžˆëŠ” ì½”ë±
-Known formats;ì•Œê³  ìžˆëŠ” í¬ë§·
-Known parameters;ì•Œê³  ìžˆëŠ” íŒŒë¼ë¯¸í„°
-Label;ë¼ë²¨
-Language;ì–¸ì–´
-Language_More;ì–¸ì–´, ì¶”ê°€ ì •ë³´
+Keywords;키워드
+Known codecs;알고 있는 코덱
+Known formats;알고 있는 포맷
+Known parameters;알고 있는 파라미터
+Label;라벨
+Language;언어
+Language_More;언어, 추가 정보
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -784,249 +784,248 @@ Language_zh;Chinese
 Language_zh-cn;Chinese (China)
 Language_zh-tw;Chinese (Taiwan)
 Language_zu;Zulu
-LawRating;ë²•ë¥  ë“±ê¸‰
+LawRating;법률 등급
 LCCN;LCCN
-Library;Muxing ë¼ì´ë¸ŒëŸ¬ë¦¬
-Lightness;ë°ê¸°
-List;ëª©ë¡
-Lyrics;ê°€ì‚¬
-Lyricist;ìž‘ì‚¬ê°€
-Mastered_Date;ë§ˆìŠ¤í„° ë‚ ì§œ
-MasteredBy;ë§ˆìŠ¤í„°
+Library;Muxing 라이브러리
+Lightness;밝기
+List;목록
+Lyrics;가사
+Lyricist;작사가
+Mastered_Date;마스터 날짜
+MasteredBy;마스터
 matrix_coefficients;
-MediaInfo_About;ë¯¸ë””ì–´ íŒŒì¼ì— ëŒ€í•œ\r\nìƒì„¸í•œ ì •ë³´ë¥¼ ì œê³µ:\r\nMatroska, OGG (OGM í¬í•¨)\r\nMPEG1 (VCD í¬í•¨)\r\nMPEG2 (DVDì™€ SVCD í¬í•¨)\r\nMPEG4 (Itunes M4A í¬í•¨)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (WMV, WMA í¬í•¨)\r\nMicrosoft RIFF (AVI, WAV í¬í•¨)\r\nìŒì•… í¬ë§· (AC3, DTS, AAC, AU, AIFF...)
-Menu;ë©”ë‰´
-Menu stream(s);ë©”ë‰´ ìŠ¤íŠ¸ë¦¼
-Menu_Codec_List;ë©”ë‰´ ì½”ë±
-Menu_No;ë©”ë‰´ ì—†ìŒ
-MenuCount;ë©”ë‰´ ìŠ¤íŠ¸ë¦¼ ê°œìˆ˜
-Menu_Hint;ë” ìžì„¸ížˆ
-MenuID;ë©”ë‰´ ID
-mn;ë¶„
-Mood;ë¬´ë“œ
-More;ìƒì„¸
-Movie;ì˜í™” ì´ë¦„
-ms;ë¯¸ë¦¬ì´ˆ
+MediaInfo_About;미디어 파일에 대한\r\n상세한 정보를 제공:\r\nMatroska, OGG (OGM 포함)\r\nMPEG1 (VCD 포함)\r\nMPEG2 (DVD와 SVCD 포함)\r\nMPEG4 (Itunes M4A 포함)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (WMV, WMA 포함)\r\nMicrosoft RIFF (AVI, WAV 포함)\r\n음악 포맷 (AC3, DTS, AAC, AU, AIFF...)
+Menu;메뉴
+Menu stream(s);메뉴 스트림
+Menu_Codec_List;메뉴 코덱
+Menu_No;메뉴 없음
+MenuCount;메뉴 스트림 개수
+Menu_Hint;더 자세히
+MenuID;메뉴 ID
+mn;분
+Mood;무드
+More;상세
+Movie;영화 이름
+ms;미리초
 MSDI;MSDI
-MusicBy;ìŒì•…
-MuxingMode;ë¨¹ì‹± ëª¨ë“œ
-MuxingMode_MoreInfo;ë¨¹ì‹± ëª¨ë“œ, ì¶”ê°€ ì •ë³´
-MuxingMode_PackedBitstream;íŒ©ë“œ ë¹„íŠ¸ìŠ¤íŠ¸ë¦¼
-Name;ì´ë¦„
-Nationality;êµ­ì 
-NetworkName;ë„¤íŠ¸ì›Œí¬ ì´ë¦„
-New;ìƒˆë¡œ ë§Œë“¤ê¸°
-Newest version;ìµœì‹  ë²„ì „ í™•ì¸ (ì¸í„°ë„· ì—°ê²°ì´ í•„ìš”í•¨)
-NewVersion_Menu;ìƒˆ ë²„ì „ì´ ìžˆìŠµë‹ˆë‹¤
-NewVersion_Question_Title;ìƒˆ ë²„ì „ì´ ë¦´ë¦¬ì¦ˆë˜ì—ˆìŠµë‹ˆë‹¤!
-NewVersion_Question_Content;ìƒˆ ë²„ì „(v%Version%)ì´ ì‚¬ìš© ê°€ëŠ¥í•©ë‹ˆë‹¤, ë‹¤ìš´ë¡œë“œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?
-No;ì•„ë‹ˆì˜¤
-Not yet;ë¯¸ì •
-NumColors;ìƒ‰ìƒìˆ˜
-OK;í™•ì¸
-One output file per input file;ìž…ë ¥ íŒŒì¼ ë§ˆë‹¤ í•˜ë‚˜ì˜ ì¶œë ¥ íŒŒì¼
-Open;ì—´ê¸°
-OpenCandy_01;________ ë‹¤ìš´ë¡œë“œ ì¤‘
-OpenCandy_02;__% ì™„ë£Œ
-OpenCandy_03;ì¸í„°ë„· ì—°ê²° ì¤‘ë‹¨
-OpenCandy_04;________ ë‹¤ìš´ë¡œë“œ ì™„ë£Œ
-OpenCandy_05;í´ë¦­í•˜ë©´ ________ ì„¤ì¹˜ë¥¼ ì‹œìž‘í•©ë‹ˆë‹¤
-OpenCandy_06;ì„¤ì¹˜ë¥¼ ì¤‘ë‹¨í•˜ì‹œê² ìŠµë‹ˆê¹Œ?\r\nì„¤ì¹˜ë¥¼ ë‹¤ìŒì— í•˜ì‹œë ¤ë©´ 'ì•„ë‹ˆì˜¤'ë¥¼ ì„ íƒí•´ì£¼ì‹­ì‹œì˜¤.\r\nì£¼: ì‹œìŠ¤í…œ ìž¬ì‹œìž‘ ì‹œì— ë‹¤ì‹œ ì„¤ì¹˜í•˜ë ¤ë©´ ë©”ë‰´ì—ì„œ ì¢…ë£Œë¥¼ ì„ íƒí•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
-OpenCandy_07;________ ë‹¤ìš´ë¡œë“œë¥¼ ì¼ì‹œì •ì§€í–ˆìŠµë‹ˆë‹¤.\r\në‹¤ìš´ë¡œë“œë¥¼ ë‹¤ì‹œ ì‹œìž‘í•˜ë ¤ë©´ íŠ¸ë ˆì´ ì•„ì´ì½˜ì„ í´ë¦­í•´ì£¼ì‹­ì‹œì˜¤.
-OpenCandy_08;ì‹¬ê°í•œ ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤. _________ ì„¤ì¹˜ê°€ ì¤‘ë‹¨ë©ë‹ˆë‹¤.
-OpenCandy_09;ë‹¤ìš´ë¡œë“œ ì¼ì‹œì •ì§€
-OpenCandy_10;ì„¤ì¹˜ ì¤‘ë‹¨
-OpenCandy_11;ë‹¤ìš´ë¡œë“œ ìž¬ì‹œìž‘
-OpenCandy_12;ì„¤ì¹˜ ì¢…ë£Œ
-OpenCandy_13;___________ - ____________ ì¶”ì²œ
-OpenCandy_14;_________ ë‹¤ìš´ë¡œë“œ ì¤‘
-OpenCandy_15;ìš”ì²­í•˜ì‹  ___________, ___________ê°€ ì¶”ì²œí•œ ì†Œí”„íŠ¸ì›¨ì–´,ê°€ ë‹¤ìš´ë¡œë“œ ì¤‘ìž…ë‹ˆë‹¤. ì„¤ì¹˜ ì¤€ë¹„ê°€ ì™„ë£Œë˜ë©´ ì•Œë ¤ë“œë¦¬ê² ìŠµë‹ˆë‹¤.
-OpenCandy_16;___________ ì„¤ì¹˜ê°€ ì¤€ë¹„ë˜ì—ˆìŠµë‹ˆë‹¤.
-OpenCandy_17;___________ê°€ ë‹¤ìš´ë¡œë“œë˜ì—ˆìŠµë‹ˆë‹¤. ì„¤ì¹˜ë¥¼ ì§„í–‰í•˜ì‹œë ¤ë©´ 'ì„¤ì¹˜'ë¥¼ ëˆŒëŸ¬ì£¼ì‹­ì‹œì˜¤.
-OpenCandy_18;___________ / ___________ ë‹¤ìš´ë¡œë“œ
+MusicBy;음악
+MuxingMode;먹싱 모드
+MuxingMode_MoreInfo;먹싱 모드, 추가 정보
+MuxingMode_PackedBitstream;팩드 비트스트림
+Name;이름
+Nationality;국적
+NetworkName;네트워크 이름
+New;새로 만들기
+Newest version;최신 버전 확인 (인터넷 연결이 필요함)
+NewVersion_Menu;새 버전이 있습니다
+NewVersion_Question_Title;새 버전이 릴리즈되었습니다!
+NewVersion_Question_Content;새 버전(v%Version%)이 사용 가능합니다, 다운로드하시겠습니까?
+No;아니오
+Not yet;미정
+NumColors;색상수
+OK;확인
+One output file per input file;입력 파일 마다 하나의 출력 파일
+Open;열기
+OpenCandy_01;________ 다운로드 중
+OpenCandy_02;__% 완료
+OpenCandy_03;인터넷 연결 중단
+OpenCandy_04;________ 다운로드 완료
+OpenCandy_05;클릭하면 ________ 설치를 시작합니다
+OpenCandy_06;설치를 중단하시겠습니까?\r\n설치를 다음에 하시려면 '아니오'를 선택해주십시오.\r\n주: 시스템 재시작 시에 다시 설치하려면 메뉴에서 종료를 선택할 수 있습니다.
+OpenCandy_07;________ 다운로드를 일시정지했습니다.\r\n다운로드를 다시 시작하려면 트레이 아이콘을 클릭해주십시오.
+OpenCandy_08;심각한 오류가 발생했습니다. _________ 설치가 중단됩니다.
+OpenCandy_09;다운로드 일시정지
+OpenCandy_10;설치 중단
+OpenCandy_11;다운로드 재시작
+OpenCandy_12;설치 종료
+OpenCandy_13;___________ - ____________ 추천
+OpenCandy_14;_________ 다운로드 중
+OpenCandy_15;요청하신 ___________, ___________가 추천한 소프트웨어,가 다운로드 중입니다. 설치 준비가 완료되면 알려드리겠습니다.
+OpenCandy_16;___________ 설치가 준비되었습니다.
+OpenCandy_17;___________가 다운로드되었습니다. 설치를 진행하시려면 '설치'를 눌러주십시오.
+OpenCandy_18;___________ / ___________ 다운로드
 OpenCandy_19;Powered by OpenCandy
 OpenCandy_20;Learn more at OpenCandy.com
-OpenCandy_21;ì„¤ì¹˜
-OpenCandy_22;___________ ì„¤ì¹˜
-OpenCandy_23;___________ ì„¤ì¹˜ë¥¼ ì¤‘ë‹¨í•©ë‹ˆë‹¤.\r\nì¢…ë£Œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?
-OpenCandy_24;ì¼ì‹œì •ì§€
-OpenCandy_25;ë‹¤ìš´ë¡œë“œë¥¼ ì¼ì‹œì •ì§€í–ˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì‹œìž‘í•˜ë ¤ë©´ 'ìž¬ì‹œìž‘'ë¥¼ ëˆŒëŸ¬ì£¼ì‹­ì‹œì˜¤.
-OpenCandy_26;ìž¬ì‹œìž‘
-OpenCandy_27;ì§€ê¸ˆ ì„¤ì¹˜
-OpenCandy_28;ë‹¤ìš´ë¡œë“œ ì¼ì‹œì •ì§€
-OpenCandy_29;ë‹¤ìš´ë¡œë“œ ìž¬ì‹œìž‘
-OpenCandy_30;ì„¤ì¹˜ ì¤‘ë‹¨
-OpenCandy_31;ì„¤ì¹˜ ì˜µì…˜ì„ ì„ íƒí•´ì£¼ì‹­ì‹œì˜¤.
-OpenCandy_32;___________ ì„¤ì¹˜
-OpenCandy_33;ì„¤ì¹˜í•˜ì§€ ì•ŠìŒ
-OpenCandy_34;ì„¤ì¹˜ ì˜µì…˜ì„ ì„ íƒí•´ì£¼ì‹­ì‹œì˜¤.
-OpenCandy_35;______ì—ì„œ ì´ ì†Œí”„íŠ¸ì›¨ì–´ë¥¼ ì¶”ì²œí•©ë‹ˆë‹¤.
-OpenCandy_36;í˜„ìž¬ ì„¤ì¹˜ ê³¼ì •ì€ ì¤‘ë‹¨ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
-Options;ì˜µì…˜
-Options_Hint;í™˜ê²½ ì„¤ì •
-Original;ì›ë³¸
-OriginalNetworkName;ì›ë³¸ ë„¤íŠ¸ì›Œí¬ ì´ë¦„
-OriginalSourceForm;ì›ë³¸ ì†ŒìŠ¤ í¼
-OriginalSourceMedium;ì›ë³¸ ì†ŒìŠ¤ ë¯¸ë””ì–´
-Other;ê¸°íƒ€
-Output;ì¶œë ¥
-Output format;ì¶œë ¥ í˜•ì‹
-OverallBitRate;ì´ ë¹„íŠ¸ë ˆì´íŠ¸
-OverallBitRate_Maximum;ìµœëŒ€ ì´ ë¹„íŠ¸ë ˆì´íŠ¸
-OverallBitRate_Minimum;ìµœì†Œ ì´ ë¹„íŠ¸ë ˆì´íŠ¸
-OverallBitRate_Mode;ì´ ë¹„íŠ¸ë ˆì´íŠ¸ ëª¨ë“œ
-OverallBitRate_Nominal;ëª…ëª©ìƒì˜ ì´ ë¹„íŠ¸ë ˆì´íŠ¸
-Part;íŒŒíŠ¸
-Part_Count;ì´ê³„
-Performer;ì—°ê¸°ìž
-Period;ì‹œëŒ€
-Phone;ì „í™”
-PixelAspectRatio;í”½ì…€ ì¢…íš¡ë¹„
-PixelAspectRatio_Original;ì›ë³¸ í”½ì…€ ì¢…íš¡ë¹„
-PlayCounter;ìž¬ìƒ íšŸìˆ˜
-Played_Count;ìž¬ìƒ íšŸìˆ˜
-Played_First_Date;ìµœì´ˆ ìž¬ìƒ
-Played_Last_Date;ë§ˆì§€ë§‰ ìž¬ìƒ
-PlayTime;ìž¬ìƒì‹œê°„
-Position;ìœ„ì¹˜
-Position_Total;ì „ì²´
-Preferences;í™˜ê²½ ì„¤ì •
-Producer;ì œìž‘ìž
-ProductionDesigner;í”„ë¡œë•ì…˜
-ProductionStudio;ìŠ¤íŠœë””ì˜¤
-Publisher;ë°œí–‰ìž
-Purchased_Date;êµ¬ë§¤ì¼
-Quote character;ì¸ìš© ë¬¸ìž
-RadioStation;ë¼ë””ì˜¤ ìŠ¤í…Œì´ì…˜
-Rating;ë“±ê¸‰
-Recorded_Date;ê¸°ë¡ì¼
-Recorded_Location;ê¸°ë¡ ìž¥ì†Œ
-Released_Date;ê°œë´‰ì¼
-RemixedBy;ë¦¬ë¯¹ìŠ¤
-ReplayGain_Gain;ìž¬ìƒ ê²Œì¸
-ReplayGain_Peak;ìž¬ìƒ ê²Œì¸ í”¼í¬
-Resolution;í•´ìƒë„
-s;ì´ˆ
-SamplingRate;ìƒ˜í”Œë§ë ˆì´íŠ¸
-Save;ì €ìž¥
-ScanType;ìŠ¤ìº” ë°©ì‹
+OpenCandy_21;설치
+OpenCandy_22;___________ 설치
+OpenCandy_23;___________ 설치를 중단합니다.\r\n종료하시겠습니까?
+OpenCandy_24;일시정지
+OpenCandy_25;다운로드를 일시정지했습니다. 다시 시작하려면 '재시작'를 눌러주십시오.
+OpenCandy_26;재시작
+OpenCandy_27;지금 설치
+OpenCandy_28;다운로드 일시정지
+OpenCandy_29;다운로드 재시작
+OpenCandy_30;설치 중단
+OpenCandy_31;설치 옵션을 선택해주십시오.
+OpenCandy_32;___________ 설치
+OpenCandy_33;설치하지 않음
+OpenCandy_34;설치 옵션을 선택해주십시오.
+OpenCandy_35;______에서 이 소프트웨어를 추천합니다.
+OpenCandy_36;현재 설치 과정은 중단되지 않습니다.
+Options;옵션
+Options_Hint;환경 설정
+Original;원본
+OriginalNetworkName;원본 네트워크 이름
+OriginalSourceForm;원본 소스 폼
+OriginalSourceMedium;원본 소스 미디어
+Other;기타
+Output;출력
+Output format;출력 형식
+OverallBitRate;총 비트레이트
+OverallBitRate_Maximum;최대 총 비트레이트
+OverallBitRate_Minimum;최소 총 비트레이트
+OverallBitRate_Mode;총 비트레이트 모드
+OverallBitRate_Nominal;명목상의 총 비트레이트
+Part;파트
+Part_Count;총계
+Performer;연기자
+Period;시대
+Phone;전화
+PixelAspectRatio;픽셀 종횡비
+PixelAspectRatio_Original;원본 픽셀 종횡비
+PlayCounter;재생 횟수
+Played_Count;재생 횟수
+Played_First_Date;최초 재생
+Played_Last_Date;마지막 재생
+PlayTime;재생시간
+Position;위치
+Position_Total;전체
+Preferences;환경 설정
+Producer;제작자
+ProductionDesigner;프로덕션
+ProductionStudio;스튜디오
+Publisher;발행자
+Purchased_Date;구매일
+Quote character;인용 문자
+RadioStation;라디오 스테이션
+Rating;등급
+Recorded_Date;기록일
+Recorded_Location;기록 장소
+Released_Date;개봉일
+RemixedBy;리믹스
+ReplayGain_Gain;재생 게인
+ReplayGain_Peak;재생 게인 피크
+Resolution;해상도
+s;초
+SamplingRate;샘플링레이트
+Save;저장
+ScanType;스캔 방식
 ScanType_Original;
-ScanOrder;ìŠ¤ìº” ìˆœì„œ
-ScanOrder_StoredDisplayedInverted;
+ScanOrder;스캔 순서
 ScanOrder_Original;
-ScreenplayBy;ê°ë³¸
-Season;ì‹œì¦Œ
-see below;ì•„ëž˜ ì°¸ê³ 
-Send HeaderFile;ì—¬ê¸°ë¡œ í—¤ë” íŒŒì¼ì„ ë³´ë‚´ì£¼ì„¸ìš” : http://sourceforge.net/projects/mediainfo/ (Bug section)
-Separator_Columns;ì»¬ëŸ¼ êµ¬ë¶„ìž
-Separator_Lines;ë¼ì¸ êµ¬ë¶„ìž
-ServiceChannel;ì„œë¹„ìŠ¤ ì±„ë„ ë²ˆí˜¸
-ServiceName;ì„œë¹„ìŠ¤ ì´ë¦„
-ServiceProvider;ì„œë¹„ìŠ¤ ì œê³µìž
-ServiceType;ì„œë¹„ìŠ¤ ì¢…ë¥˜
-Set;ì„¸íŠ¸
-Set_Count;ì„¸íŠ¸ ê°œìˆ˜
-Setup;ì„¤ì •
-Sharpness;ìƒ¤í”„ë‹ˆìŠ¤
-Sheet;ì‹œíŠ¸
-Sheet (Complete);ì‹œíŠ¸ (ì „ì²´)
-Shell extension;ì‰˜ ìµìŠ¤í…ì…˜ (íƒìƒ‰ê¸° ë§ˆìš°ìŠ¤ ì˜¤ë¥¸ìª½ ë²„íŠ¼ ë©”ë‰´ì— Media Infoë¥¼ ì¶”ê°€í•©ë‹ˆë‹¤)
-Shell extension, folder;í´ë”ì—ë„ ì¶”ê°€
-Shell InfoTip;ì‰˜ ì¸í¬íŒ (íƒìƒ‰ê¸°ì—ì„œ íŒŒì¼ì— ë§ˆìš°ìŠ¤ë¥¼ ì˜¬ë ¤ ë†“ìœ¼ë©´ ì •ë³´ë¥¼ ë³´ì—¬ì¤ë‹ˆë‹¤)
-Show menu;ë©”ë‰´ ë³´ê¸°
-Show toolbar;ë„êµ¬ ëª¨ìŒ ë³´ê¸°
-Sort;ì†ŒíŒ…
+ScreenplayBy;각본
+Season;시즌
+see below;아래 참고
+Send HeaderFile;여기로 헤더 파일을 보내주세요 : http://sourceforge.net/projects/mediainfo/ (Bug section)
+Separator_Columns;컬럼 구분자
+Separator_Lines;라인 구분자
+ServiceChannel;서비스 채널 번호
+ServiceName;서비스 이름
+ServiceProvider;서비스 제공자
+ServiceType;서비스 종류
+Set;세트
+Set_Count;세트 개수
+Setup;설정
+Sharpness;샤프니스
+Sheet;시트
+Sheet (Complete);시트 (전체)
+Shell extension;쉘 익스텐션 (탐색기 마우스 오른쪽 버튼 메뉴에 Media Info를 추가합니다)
+Shell extension, folder;폴더에도 추가
+Shell InfoTip;쉘 인포팁 (탐색기에서 파일에 마우스를 올려 놓으면 정보를 보여줍니다)
+Show menu;메뉴 보기
+Show toolbar;도구 모음 보기
+Sort;소팅
 SamplingCount;
-SoundEngineer;ì‚¬ìš´ë“œ ì—”ì§€ë‹ˆì–´
+SoundEngineer;사운드 엔지니어
 Source;
 Source_Duration;
 Source_FrameCount;
 Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
-Standard;í‘œì¤€
-Stream;ìŠ¤íŠ¸ë¦¼
-Stream_MoreInfo;ì´ ìŠ¤íŠ¸ë¦¼ì— ëŒ€í•œ ìžì„¸í•œ ì •ë³´
-StreamCount;ì´ ì¢…ë¥˜ì˜ ìŠ¤íŠ¸ë¦¼ ê°œìˆ˜
-StreamID;ìŠ¤íŠ¸ë¦¼ ID
-StreamKind;ìŠ¤íŠ¸ë¦¼ ì¢…ë¥˜
-StreamKindID;ìŠ¤íŠ¸ë¦¼ ID
-StreamKindPos;ìŠ¤íŠ¸ë¦¼ ID
-StreamSize;ìŠ¤íŠ¸ë¦¼ í¬ê¸°
+Standard;표준
+Stream;스트림
+Stream_MoreInfo;이 스트림에 대한 자세한 정보
+StreamCount;이 종류의 스트림 개수
+StreamID;스트림 ID
+StreamKind;스트림 종류
+StreamKindID;스트림 ID
+StreamKindPos;스트림 ID
+StreamSize;스트림 크기
 StreamSize_Encoded;
-StreamSize_Proportion;ì´ ìŠ¤íŠ¸ë¦¼ì˜ ë¹„ìœ¨
-Subject;ì œëª©
-SubTrack;ì„œë¸ŒíŠ¸ëž™
-Summary;ìš”ì•½
-Supported formats;ì§€ì›í•˜ëŠ” í¬ë§·
-Supported?;ì§€ì›?
-Synopsis;ì‹œë†‰ì‹œìŠ¤
+StreamSize_Proportion;이 스트림의 비율
+Subject;제목
+SubTrack;서브트랙
+Summary;요약
+Supported formats;지원하는 포맷
+Supported?;지원?
+Synopsis;시놉시스
 SystemId;Id
-Tagged_Application;íƒœê¹… ì–´í”Œë¦¬ì¼€ì´ì…˜
-Tagged_Date;íƒœê¹…í•œ ë‚ ì§œ
-Technician;ê¸°ìˆ ìž
-TermsOfUse;ì‚¬ìš©ê¶Œí•œ
-Text;í…ìŠ¤íŠ¸
-Text - Custom;í…ìŠ¤íŠ¸ - ì»¤ìŠ¤í…€
-Text (HTML);í…ìŠ¤íŠ¸ (HTML)
-Text stream(s);í…ìŠ¤íŠ¸ ìŠ¤íŠ¸ë¦¼
-Text streams;í…ìŠ¤íŠ¸ ìŠ¤íŠ¸íŒ€
-Text_Codec_List;í…ìŠ¤íŠ¸ ì½”ë±
-Text_No;í…ìŠ¤íŠ¸ ì—†ìŒ
-Text1;ì²«ë²ˆì§¸ í…ìŠ¤íŠ¸ ìŠ¤íŠ¸ë¦¼
-Text2;ë‘ë²ˆì§¸ í…ìŠ¤íŠ¸ ìŠ¤íŠ¸ë¦¼
-Text3;ì„¸ë²ˆì§¸ í…ìŠ¤íŠ¸ ìŠ¤íŠ¸ë¦¼
-TextCount;í…ìŠ¤íŠ¸ ìŠ¤íŠ¸ë¦¼ ê°œìˆ˜
-ThanksTo;ê°ì‚¬
-Thousands separator;ì²œë‹¨ìœ„ êµ¬ë¶„ìž
-Title;ì œëª©
-Title_More;ì œëª©, ìžì„¸ížˆ
+Tagged_Application;태깅 어플리케이션
+Tagged_Date;태깅한 날짜
+Technician;기술자
+TermsOfUse;사용권한
+Text;텍스트
+Text - Custom;텍스트 - 커스텀
+Text (HTML);텍스트 (HTML)
+Text stream(s);텍스트 스트림
+Text streams;텍스트 스트팀
+Text_Codec_List;텍스트 코덱
+Text_No;텍스트 없음
+Text1;첫번째 텍스트 스트림
+Text2;두번째 텍스트 스트림
+Text3;세번째 텍스트 스트림
+TextCount;텍스트 스트림 개수
+ThanksTo;감사
+Thousands separator;천단위 구분자
+Title;제목
+Title_More;제목, 자세히
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
-TimeZone;ì‹œê°„ëŒ€
-Total;ì´
-Track;íŠ¸ëž™ ì´ë¦„
-Track_Count;íŠ¸ëž™ ê°œìˆ˜
+TimeZone;시간대
+Total;총
+Track;트랙 이름
+Track_Count;트랙 개수
 transfer_characteristics;
-Translator;ë²ˆì—­
-Tree;íŠ¸ë¦¬
-Tree & Text;íŠ¸ë¦¬ & í…ìŠ¤íŠ¸
+Translator;번역
+Tree;트리
+Tree & Text;트리 & 텍스트
 Type;
 UniqueID;
-Unknown;ì•Œ ìˆ˜ ì—†ìŒ
+Unknown;알 수 없음
 Url;Url
-Video;ë¹„ë””ì˜¤
-Video stream(s);ë¹„ë””ì˜¤ ìŠ¤íŠ¸ë¦¼
-Video_Codec_List;ë¹„ë””ì˜¤ ì½”ë±
-Video_Delay;ë¹„ë””ì˜¤ ë”œë ˆì´
-Video_No;ë¹„ë””ì˜¤ ì—†ìŒ
-Video0_Delay;ë¹„ë””ì˜¤0 ë”œë ˆì´
-Video1;ì²«ë²ˆì§¸ ë¹„ë””ì˜¤ ìŠ¤íŠ¸ë¦¼
-VideoCount;ë¹„ë””ì˜¤ ìŠ¤íŠ¸ë¦¼ ê°œìˆ˜
-View;ë³´ê¸°
-View_Hint;ì •ë³´ë¥¼ ë³´ëŠ” ë°©ì‹ì„ ë³€ê²½í•©ë‹ˆë‹¤.
-Warning : more streams in the files;ê²½ê³  : íŒŒì¼ì— ë” ë§Žì€ ìŠ¤íŠ¸ë¦¼ì´ ìžˆìŠµë‹ˆë‹¤
-Web;ì›¹
-WebSite_Audio;ì´ ì˜¤ë””ì˜¤ ì½”ë±ì˜ ì›¹ì‚¬ì´íŠ¸ë¡œ ê°€ê¸°
-WebSite_Audio_More;ì´ ì˜¤ë””ì˜¤ ì½”ë±ì„ ì°¾ê¸° ìœ„í•œ ì›¹ì‚¬ì´íŠ¸(%Url%)ë¡œ ê°€ê¸°
-WebSite_General;ì´ íŒŒì¼ì„ ìž¬ìƒí•˜ê¸° ìœ„í•œ í”Œë ˆì´ì–´ì˜ ì›¹ì‚¬ì´íŠ¸ë¡œ ê°€ê¸°
-WebSite_General_More;ì´ íŒŒì¼ì„ ìž¬ìƒí•˜ê¸° ìœ„í•œ í”Œë ˆì´ì–´ì˜ ì›¹ì‚¬ì´íŠ¸ë¡œ ê°€ê¸°
-WebSite_Text;ì´ í…ìŠ¤íŠ¸ ì½”ë±ì˜ ì›¹ì‚¬ì´íŠ¸ë¡œ ê°€ê¸°
-WebSite_Text_More;ì´ í…ìŠ¤íŠ¸ ì½”ë±ì„ ì°¾ê¸° ìœ„í•œ ì›¹ì‚¬ì´íŠ¸(%Url%)ë¡œ ê°€ê¸°
+Video;비디오
+Video stream(s);비디오 스트림
+Video_Codec_List;비디오 코덱
+Video_Delay;비디오 딜레이
+Video_No;비디오 없음
+Video0_Delay;비디오0 딜레이
+Video1;첫번째 비디오 스트림
+VideoCount;비디오 스트림 개수
+View;보기
+View_Hint;정보를 보는 방식을 변경합니다.
+Warning : more streams in the files;경고 : 파일에 더 많은 스트림이 있습니다
+Web;웹
+WebSite_Audio;이 오디오 코덱의 웹사이트로 가기
+WebSite_Audio_More;이 오디오 코덱을 찾기 위한 웹사이트(%Url%)로 가기
+WebSite_General;이 파일을 재생하기 위한 플레이어의 웹사이트로 가기
+WebSite_General_More;이 파일을 재생하기 위한 플레이어의 웹사이트로 가기
+WebSite_Text;이 텍스트 코덱의 웹사이트로 가기
+WebSite_Text_More;이 텍스트 코덱을 찾기 위한 웹사이트(%Url%)로 가기
 WebSite_Url;http://MediaArea.net/MediaInfo
-WebSite_Video;ì´ ë¹„ë””ì˜¤ ì½”ë±ì˜ ì›¹ì‚¬ì´íŠ¸ë¡œ ê°€ê¸°
-WebSite_Video_More;ì´ ë¹„ë””ì˜¤ ì½”ë±ì„ ì°¾ê¸° ìœ„í•œ ì›¹ì‚¬ì´íŠ¸(%Url%)ë¡œ ê°€ê¸°
-Width;í­
+WebSite_Video;이 비디오 코덱의 웹사이트로 가기
+WebSite_Video_More;이 비디오 코덱을 찾기 위한 웹사이트(%Url%)로 가기
+Width;폭
 Width_Original;
-WriteMe;ì œìž‘ìžì—ê²Œ ë©”ì¼ì“°ê¸°
-WriteToTranslator;ë²ˆì—­ìžì—ê²Œ ë©”ì¼ì“°ê¸°
-Written_Date;ì œìž‘ì¼
-Written_Location;ì œìž‘ ìž¥ì†Œ
-WrittenBy;ì œìž‘ìž
-Yes;ì˜ˆ
-Your system;ì´ ì‹œìŠ¤í…œ
+WriteMe;제작자에게 메일쓰기
+WriteToTranslator;번역자에게 메일쓰기
+Written_Date;제작일
+Written_Location;제작 장소
+WrittenBy;제작자
+Yes;예
+Your system;이 시스템
 ZZ_Automatic_Percent;91
 ZZ_AutomaticLanguage_Percent;95

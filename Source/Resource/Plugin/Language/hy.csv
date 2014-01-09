@@ -2,363 +2,363 @@
   Author_Email;hrantohanyan@mail.am
   Author_Name;http://haysoft.org
   Author_OldNames;NO
-  Language_Name;Õ€Õ¡ÕµÕ¥Ö€Õ¥Õ¶
+  Language_Name;Հայերեն
   Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
   Config_Text_ThousandsSeparator;
- audio stream1; Õ±Õ¡ÕµÕ¶Õ« Õ°Õ¸Õ½Ö„Õ¨
- audio stream2; Õ±Õ¡ÕµÕ¶Õ« Õ°Õ¸Õ½Ö„Õ¥Ö€Õ¨
- audio stream3; Õ±Õ¡ÕµÕ¶Õ« Õ°Õ¸Õ½Ö„Õ¥Ö€Õ¨
- bit1; Õ¢Õ«Õ©
- bit2; Õ¢Õ«Õ©
- bit3; Õ¢Õ«Õ©
- bps; Õ¢Õ«Õ©/Õ¾Õ¡ÕµÖ€.
- Bps; Õ¢Õ¡ÕµÕ©/Õ¾Õ¡ÕµÖ€.
- Byte1; Õ¢Õ¡ÕµÕ©
- Byte2; Õ¢Õ¡ÕµÕ©
- Byte3; Õ¢Õ¡ÕµÕ©
- channel1; Õ¡Õ¬Õ«Ö„
- channel2; Õ¡Õ¬Õ«Ö„Õ¶Õ¥Ö€
- channel3; Õ¡Õ¬Õ«Ö„Õ¶Õ¥Ö€
- chapter1; Õ¢Õ¡ÕªÕ«Õ¶Õ¨
- chapter2; Õ¢Õ¡ÕªÕ«Õ¶Õ¶Õ¥Ö€Õ¨
- chapter3; Õ¢Õ¡ÕªÕ«Õ¶Õ¶Õ¥Ö€Õ¨
- chapters stream1; Õ¢Õ¡ÕªÕ«Õ¶Õ¶Õ¥Ö€Õ« Õ°Õ¸Õ½Ö„Õ¨
- chapters stream2; Õ¢Õ¡ÕªÕ«Õ¶Õ¶Õ¥Ö€Õ« Õ°Õ¸Õ½Ö„Õ¨
- chapters stream3; Õ¢Õ¡ÕªÕ«Õ¶Õ¶Õ¥Ö€Õ« Õ°Õ¸Õ½Ö„Õ¨
- day1; Ö…Ö€.
- day2; Ö…Ö€.
- day3; Ö…Ö€.
- dB1; Õ¤Ô²
- dB2; Õ¤Ô²
- dB3; Õ¤Ô²
- file1; Ö†Õ¡ÕµÕ¬
- file2; Ö†Õ¡ÕµÕ¬Õ¥Ö€
- file3; Ö†Õ¡ÕµÕ¬Õ¥Ö€
- frame1; Õ¯Õ¡Õ¤Ö€
- frame2; Õ¯Õ¡Õ¤Ö€Õ¥Ö€
- frame3; Õ¯Õ¡Õ¤Ö€Õ¥Ö€
- fps1; Õ¯Õ¡Õ¤Ö€/Õ¾Õ¡ÕµÖ€.
- fps2; Õ¯Õ¡Õ¤Ö€/Õ¾Õ¡ÕµÖ€.
- fps3; Õ¯Õ¡Õ¤Ö€/Õ¾Õ¡ÕµÖ€.
- GB; Ô³Ô²
- Gb; Ô³Õ¢Õ«Õ©
- Gbps; Ô³Õ¢Õ«Õ©/Õ¾Õ¡ÕµÖ€.
- GBps; Ô³Õ¢Õ¡ÕµÕ©/Õ¾Õ¡ÕµÖ€.
- GHz; Ô³Õ€Ö
- GiB; Ô³Õ¢Õ¡ÕµÕ©
- GibiByte1;Ô³Õ«Õ¢Õ«Õ¢Õ¡ÕµÕ©
- GibiByte2;Ô³Õ«Õ¢Õ«Õ¢Õ¡ÕµÕ©
- GibiByte3;Ô³Õ«Õ¢Õ«Õ¢Õ¡ÕµÕ©
- GiBps; Ô³Õ¢Õ¡ÕµÕ©/Õ¾Õ¡ÕµÖ€.
- GigaBit1; Ô³Õ«Õ£Õ¡Õ¢Õ«Õ©
- GigaBit2; Ô³Õ«Õ£Õ¡Õ¢Õ«Õ©
- GigaBit3; Ô³Õ«Õ£Õ¡Õ¢Õ«Õ©
- GigaByte1; Ô³Õ«Õ£Õ¡Õ¢Õ¡ÕµÕ©
- GigaByte2; Ô³Õ«Õ£Õ¡Õ¢Õ¡ÕµÕ©
- GigaByte3; Ô³Õ«Õ£Õ¡Õ¢Õ¡ÕµÕ©
- hour1; ÕªÕ¡Õ´
- hour2; ÕªÕ¡Õ´.
- hour3; ÕªÕ¡Õ´.
- Hz; Ô³Õ°
- image stream1; ÕºÕ¡Õ¿Õ¯Õ¥Ö€Õ« Õ°Õ¸Õ½Ö„Õ¨
- image stream2; ÕºÕ¡Õ¿Õ¯Õ¥Ö€Õ« Õ°Õ¸Õ½Ö„Õ¥Ö€Õ¨
- image stream3; ÕºÕ¡Õ¿Õ¯Õ¥Ö€Õ« Õ°Õ¸Õ½Ö„Õ¥Ö€Õ¨
- KB; Ô¿Ô²
- Kb; Ô¿Õ¢
- KBps; Ô¿Õ¢Õ¡ÕµÕ©/Õ¾Õ¡ÕµÖ€.
- Kbps; Ô¿Õ¢Õ«Õ©/Õ¾Õ¡ÕµÖ€.
- KHz; Ô¿Ô³Õ°
- KiB; Ô¿Õ¢Õ¡ÕµÕ©
- KibiBit1; Ô¿Õ«Õ¢Õ«Õ¢Õ«Õ©
- KibiBit2; Ô¿Õ«Õ¢Õ«Õ¢Õ«Õ©
- KibiBit3; Ô¿Õ«Õ¢Õ«Õ¢Õ«Õ©
- KibiByte1; Ô¿Õ«Õ¢Õ«Õ¢Õ¡ÕµÕ©
- KibiByte2; Ô¿Õ«Õ¢Õ«Õ¢Õ¡ÕµÕ©
- KibiByte3; Ô¿Õ«Õ¢Õ«Õ¢Õ¡ÕµÕ©
- KiBps; Ô¿Õ¢Õ¡ÕµÕ©/Õ¾Õ¡ÕµÖ€.
- KiloBit1; Ô¿Õ«Õ¬Õ¸Õ¢Õ«Õ©
- KiloBit2; Ô¿Õ«Õ¬Õ¸Õ¢Õ«Õ©
- KiloBit3; Ô¿Õ«Õ¬Õ¸Õ¢Õ«Õ©
- KiloByte1; Ô¿Õ«Õ¬Õ¸Õ¢Õ¡ÕµÕ©
- KiloByte2; Ô¿Õ«Õ¬Õ¸Õ¢Õ¡ÕµÕ©
- KiloByte3; Ô¿Õ«Õ¬Õ¸Õ¢Õ¡ÕµÕ©
- MB; Õ„Ô²
- Mb; Õ„Õ¢
- Mbps; Õ„Õ¢Õ«Õ©/Õ¾Õ¡ÕµÖ€.
- MBps; Õ„Õ¢Õ¡ÕµÕ©/Õ¾Õ¡ÕµÖ€.
- MebiBit1; Õ„Õ¥Õ¢Õ«Õ¢Õ«Õ©
- MebiBit2; Õ„Õ¥Õ¢Õ«Õ¢Õ«Õ©
- MebiBit3; Õ„Õ¥Õ¢Õ«Õ¢Õ«Õ©
- MebiByte1; Õ„Õ¥Õ¢Õ«Õ¢Õ¡ÕµÕ©
- MebiByte2; Õ„Õ¥Õ¢Õ«Õ¢Õ¡ÕµÕ©
- MebiByte3; Õ„Õ¥Õ¢Õ«Õ¢Õ¡ÕµÕ©
- MegaBit1; Õ„Õ¥Õ£Õ¡Õ¢Õ«Õ©
- MegaBit2; Õ„Õ¥Õ£Õ¡Õ¢Õ«Õ©
- MegaBit3; Õ„Õ¥Õ£Õ¡Õ¢Õ«Õ©
- MegaByte1; Õ„Õ¥Õ£Õ¡Õ¢Õ¡ÕµÕ©
- MegaByte2; Õ„Õ¥Õ£Õ¡Õ¢Õ¡ÕµÕ©
- MegaByte3; Õ„Õ¥Õ£Õ¡Õ¢Õ¡ÕµÕ©
- MHz; Õ„Ô³Õ°
- MiB; Õ„Õ¢Õ¡ÕµÕ©
- Mib; Õ„Õ«Õ¢
- MiBps; Õ„Õ¢Õ¡ÕµÕ©/Õ¾Õ¡ÕµÖ€.
- millisecond1; Õ´Õ«Õ¬Õ«Õ¾Õ¡ÕµÖ€.
- millisecond2; Õ´Õ«Õ¬Õ«Õ¾Õ¡ÕµÖ€.
- millisecond3; Õ´Õ«Õ¬Õ«Õ¾Õ¡ÕµÖ€.
- minute1; Ö€Õ¸ÕºÕ¥.
- minute2; Ö€Õ¸ÕºÕ¥.
- minute3; Ö€Õ¸ÕºÕ¥.
- month1; Õ¡Õ´Õ«Õ½.
- month2; Õ¡Õ´Õ«Õ½.
- month3; Õ¡Õ´Õ«Õ½.
- pixel1; ÖƒÕ«Ö„Õ½.
- pixel2; ÖƒÕ«Ö„Õ½.
- pixel3; ÖƒÕ«Ö„Õ½.
- second1; Õ¾Õ¡ÕµÖ€.
- second2; Õ¾Õ¡ÕµÖ€.
- second3; Õ¾Õ¡ÕµÖ€.
- text stream1; Õ¿Õ¥Ö„Õ½Õ¿Õ¡ÕµÕ«Õ¶ Õ°Õ¸Õ½Ö„
- text stream2; Õ¿Õ¥Ö„Õ½Õ¿Õ¡ÕµÕ«Õ¶ Õ°Õ¸Õ½Ö„Õ¥Ö€
- text stream3; Õ¿Õ¥Ö„Õ½Õ¿Õ¡ÕµÕ«Õ¶ Õ°Õ¸Õ½Ö„Õ¥Ö€
- video frames1; Õ¯Õ¡Õ¤Ö€
- video frames2; Õ¯Õ¡Õ¤Ö€Õ¥Ö€
- video frames3; Õ¯Õ¡Õ¤Ö€Õ¥Ö€
- video stream1; Õ¿Õ¥Õ½Õ¡Õ°Õ¸Õ½Ö„Õ¨
- video stream2; Õ¿Õ¥Õ½Õ¡Õ°Õ¸Õ½Ö„Õ¥Ö€Õ¨
- video stream3; Õ¿Õ¥Õ½Õ¡Õ°Õ¸Õ½Ö„Õ¥Ö€Õ¨
- warppoint0;Ô±Õ¼Õ¡Õ¶Ö Õ¡Õ¶ÖÕ´Õ¡Õ¶ Õ°Õ¥Õ¶Ö„Õ¥Ö€Õ«
- warppoint1; Ô±Õ¶ÖÕ´Õ¡Õ¶ Õ°Õ¥Õ¶Ö„Õ¨
- warppoint2; Ô±Õ¶ÖÕ´Õ¡Õ¶ Õ°Õ¥Õ¶Ö„Õ¥Ö€Õ¨
- warppoint3; Ô±Õ¶ÖÕ´Õ¡Õ¶ Õ°Õ¥Õ¶Ö„Õ¥Ö€Õ¨
- week1; Õ·Õ¡Õ¢.
- week2; Õ·Õ¡Õ¢.
- week3; Õ·Õ¡Õ¢.
- year1; Õ¿Õ¡Ö€Õ«
- year2; Õ¿Õ¡Ö€Õ«
- year3; Õ¿Õ¡Ö€Õ«
+ audio stream1; ձայնի հոսքը
+ audio stream2; ձայնի հոսքերը
+ audio stream3; ձայնի հոսքերը
+ bit1; բիթ
+ bit2; բիթ
+ bit3; բիթ
+ bps; բիթ/վայր.
+ Bps; բայթ/վայր.
+ Byte1; բայթ
+ Byte2; բայթ
+ Byte3; բայթ
+ channel1; ալիք
+ channel2; ալիքներ
+ channel3; ալիքներ
+ chapter1; բաժինը
+ chapter2; բաժինները
+ chapter3; բաժինները
+ chapters stream1; բաժինների հոսքը
+ chapters stream2; բաժինների հոսքը
+ chapters stream3; բաժինների հոսքը
+ day1; օր.
+ day2; օր.
+ day3; օր.
+ dB1; դԲ
+ dB2; դԲ
+ dB3; դԲ
+ file1; ֆայլ
+ file2; ֆայլեր
+ file3; ֆայլեր
+ frame1; կադր
+ frame2; կադրեր
+ frame3; կադրեր
+ fps1; կադր/վայր.
+ fps2; կադր/վայր.
+ fps3; կադր/վայր.
+ GB; ԳԲ
+ Gb; Գբիթ
+ Gbps; Գբիթ/վայր.
+ GBps; Գբայթ/վայր.
+ GHz; ԳՀց
+ GiB; Գբայթ
+ GibiByte1;Գիբիբայթ
+ GibiByte2;Գիբիբայթ
+ GibiByte3;Գիբիբայթ
+ GiBps; Գբայթ/վայր.
+ GigaBit1; Գիգաբիթ
+ GigaBit2; Գիգաբիթ
+ GigaBit3; Գիգաբիթ
+ GigaByte1; Գիգաբայթ
+ GigaByte2; Գիգաբայթ
+ GigaByte3; Գիգաբայթ
+ hour1; ժամ
+ hour2; ժամ.
+ hour3; ժամ.
+ Hz; Գհ
+ image stream1; պատկերի հոսքը
+ image stream2; պատկերի հոսքերը
+ image stream3; պատկերի հոսքերը
+ KB; ԿԲ
+ Kb; Կբ
+ KBps; Կբայթ/վայր.
+ Kbps; Կբիթ/վայր.
+ KHz; ԿԳհ
+ KiB; Կբայթ
+ KibiBit1; Կիբիբիթ
+ KibiBit2; Կիբիբիթ
+ KibiBit3; Կիբիբիթ
+ KibiByte1; Կիբիբայթ
+ KibiByte2; Կիբիբայթ
+ KibiByte3; Կիբիբայթ
+ KiBps; Կբայթ/վայր.
+ KiloBit1; Կիլոբիթ
+ KiloBit2; Կիլոբիթ
+ KiloBit3; Կիլոբիթ
+ KiloByte1; Կիլոբայթ
+ KiloByte2; Կիլոբայթ
+ KiloByte3; Կիլոբայթ
+ MB; ՄԲ
+ Mb; Մբ
+ Mbps; Մբիթ/վայր.
+ MBps; Մբայթ/վայր.
+ MebiBit1; Մեբիբիթ
+ MebiBit2; Մեբիբիթ
+ MebiBit3; Մեբիբիթ
+ MebiByte1; Մեբիբայթ
+ MebiByte2; Մեբիբայթ
+ MebiByte3; Մեբիբայթ
+ MegaBit1; Մեգաբիթ
+ MegaBit2; Մեգաբիթ
+ MegaBit3; Մեգաբիթ
+ MegaByte1; Մեգաբայթ
+ MegaByte2; Մեգաբայթ
+ MegaByte3; Մեգաբայթ
+ MHz; ՄԳհ
+ MiB; Մբայթ
+ Mib; Միբ
+ MiBps; Մբայթ/վայր.
+ millisecond1; միլիվայր.
+ millisecond2; միլիվայր.
+ millisecond3; միլիվայր.
+ minute1; րոպե.
+ minute2; րոպե.
+ minute3; րոպե.
+ month1; ամիս.
+ month2; ամիս.
+ month3; ամիս.
+ pixel1; փիքս.
+ pixel2; փիքս.
+ pixel3; փիքս.
+ second1; վայր.
+ second2; վայր.
+ second3; վայր.
+ text stream1; տեքստային հոսք
+ text stream2; տեքստային հոսքեր
+ text stream3; տեքստային հոսքեր
+ video frames1; կադր
+ video frames2; կադրեր
+ video frames3; կադրեր
+ video stream1; տեսահոսքը
+ video stream2; տեսահոսքերը
+ video stream3; տեսահոսքերը
+ warppoint0;Առանց անցման հենքերի
+ warppoint1; Անցման հենքը
+ warppoint2; Անցման հենքերը
+ warppoint3; Անցման հենքերը
+ week1; շաբ.
+ week2; շաբ.
+ week3; շաբ.
+ year1; տարի
+ year2; տարի
+ year3; տարի
 , ;, 
 : ;: 
-About;Ô¾Ö€Õ¡Õ£Ö€Õ« Õ´Õ¡Õ½Õ«Õ¶
-About_Hint;Ô¿Õ¡ÕºÕ¶Õ¾Õ¥Õ¬ Õ®Ö€Õ¡Õ£Ö€Õ« Õ°Õ¥Õ²Õ«Õ¶Õ¡Õ¯Õ« Õ°Õ¥Õ¿ Õ¯Õ¡Õ´ Õ¢Õ¡ÖÕ¥Õ¬ Õ®Ö€Õ¡Õ£Ö€Õ« Õ¯Õ¡ÕµÖ„Õ¨
-Accompaniment;ÕˆÖ‚Õ²Õ¥Õ¯ÖÕ¸Ö‚Õ´Õ¨
+About;Ծրագրի մասին
+About_Hint;Կապնվել ծրագրի հեղինակի հետ կամ բացել ծրագրի կայքը
+Accompaniment;Ուղեկցումը
 ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
-Actor;Ô¿Õ¡Õ¿Õ¡Ö€Õ¸Õ²Õ¨
-Actor_Character;Ô´Õ¥Ö€Õ¨
-Added_Date;Ô±Õ¾Õ¥Õ¬Õ¡ÖÕ´Õ¡Õ¶ Õ¡Õ´Õ½Õ¡Õ©Õ«Õ¾Õ¨
-Address;Õ€Õ¡Õ½ÖÕ¥Õ¶
-Advanced;Ô¼Ö€Õ¡ÖÕ¸Ö‚ÖÕ«Õ¹
-Advanced mode;Ô¸Õ¶Õ¤Õ¬Õ¡ÕµÕ¶Õ¾Õ¡Õ® Õ¥Õ²Õ¡Õ¶Õ¡Õ¯
-Album;Ô±Õ¬Õ¢Õ¸Õ´Õ¨
-Album_ReplayGain_Gain;Ô±Õ¬Õ¢Õ¸Õ´Õ« Õ±Õ¡ÕµÕ¶Õ« Õ¯Õ¡Ö€Õ£Õ¡Õ¾Õ¸Ö€Õ«Õ¹
-Album_ReplayGain_Peak;Ô±Õ¬Õ¢Õ¸Õ´Õ« Õ±Õ¡ÕµÕ¶Õ« Õ¯Õ¡Ö€Õ£Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« Õ£Õ¡Õ£Õ¡Õ©Õ¨
-Alignment;Õ€Õ¡Õ¾Õ¡Õ½Õ¡Ö€Õ¥ÖÕ¸Ö‚Õ´Õ¨
-Alignment_Aligned;Õ„Õ«Õ¡ÖÕ¸Ö‚Õ´ Õ¤Õ¡Õ¤Õ¡Ö€Õ¶Õ¥Ö€Õ¸Õ¾
-Alignment_Split;Ô²Õ¡ÕªÕ¡Õ¶Õ¸Ö‚Õ´ Õ¤Õ¡Õ¤Õ¡Ö€Õ¶Õ¥Ö€Õ¸Õ¾
-All;Ô²Õ¸Õ¬Õ¸Ö€Õ¨
-Archival_Location;ÕÕ¥Õ²Õ¡Õ¤Ö€Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨
-Arranger;Ô¿Õ¡Õ¦Õ´Õ¡Õ¯Õ¥Ö€ÕºÕ«Õ¹Õ¨
+Actor;Կատարողը
+Actor_Character;Դերը
+Added_Date;Ավելացման ամսաթիվը
+Address;Հասցեն
+Advanced;Լրացուցիչ
+Advanced mode;Ընդլայնված եղանակ
+Album;Ալբոմը
+Album_ReplayGain_Gain;Ալբոմի ձայնի կարգավորիչ
+Album_ReplayGain_Peak;Ալբոմի ձայնի կարգավորիչի գագաթը
+Alignment;Հավասարեցումը
+Alignment_Aligned;Միացում դադարներով
+Alignment_Split;Բաժանում դադարներով
+All;Բոլորը
+Archival_Location;Տեղադրությունը
+Arranger;Կազմակերպիչը
 ArtDirector;ArtDirector
-AspectRatio;Õ€Õ¡Ö€Õ¡Õ¢Õ¥Ö€Õ¡Õ¯ÖÕ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨
-AssistantDirector;ÕŒÕ¥ÕªÕ«Õ½Õ¸Ö€Õ« Ö…Õ£Õ¶Õ¡Õ¯Õ¡Õ¶Õ¨
-at;Õ¨Õ¶Õ¤.
-At least one file;Ô¸Õ¶Õ¿Ö€Õ¥Ö„ Õ¸Ö€Ö‡Õ§ Ö†Õ¡ÕµÕ¬
-Audio;ÕÕ¡ÕµÕ¶Õ¨
-Audio stream(s);ÕÕ¡ÕµÕ¶Õ« Õ°Õ¸Õ½Ö„Õ¨
-Audio_Codec_List;ÕÕ¡ÕµÕ¶Õ« Õ¯Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ¶Õ¥Ö€Õ¨
-Audio_No;Õ‰Õ¯Õ¡ Õ±Õ¡ÕµÕ¶
-Audio1;Ô±Õ¼Õ¡Õ»Õ«Õ¶ Õ±Õ¡ÕµÕ¶Õ¨
-Audio2;ÔµÖ€Õ¯Ö€Õ¸Ö€Õ¤ Õ±Õ¡ÕµÕ¶Õ¨
-AudioCount;ÕÕ¡ÕµÕ¶Õ¥Ö€Õ« Ö„Õ¡Õ¶Õ¡Õ¯Õ¨
-Author;Õ€Õ¥Õ²Õ«Õ¶Õ¡Õ¯Õ¨
-BarCode;Ô¿Õ¸Õ¤Õ¨
-Basic;Ô¿Õ¡Ö€Õ³
-Basic_Note;ÕˆÖ‚Õ·Õ¡Õ¤Ö€. Õ¬Ö€Õ¡ÖÕ¸Ö‚ÖÕ«Õ¹ Õ¿Õ¥Õ²Õ¥Õ¯Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¶Õ¥Ö€Õ« Õ°Õ¡Õ´Õ¡Ö€ Õ¨Õ¶Õ¿Ö€Õ¥Ö„ Õ¡ÕµÕ¬ Õ¿Õ¡Ö€Õ¢Õ¥Ö€Õ¡Õ¯ (Õ¡Õ²ÕµÕ¸Ö‚Õ½Õ¡Õ¯, Õ®Õ¡Õ¼Õ« Õ¿Õ¥Õ½Ö„Õ¸Õ¾,...)
-BitDepth;Ô²Õ«Õ©Õ¡ÕµÕ¶Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨
-BitRate;Ô²Õ«Õ©Ö€Õ¥ÕµÕ©Õ¨
-BitRate_Maximum;Ô±Õ¼Õ¡Õ¾Õ¥Õ¬Õ¡Õ£Õ¸Ö‚ÕµÕ¶ Õ¢Õ«Õ©Ö€Õ¥ÕµÕ©Õ¨
-BitRate_Minimum;Õ†Õ¾Õ¡Õ¦Õ¡Õ£Õ¸Ö‚ÕµÕ¶ Õ¢Õ«Õ©Ö€Õ¥ÕµÕ©Õ¨
-BitRate_Mode;Ô²Õ«Õ©Ö€Õ¥ÕµÕ©Õ« Õ¿Õ¥Õ½Õ¡Õ¯Õ¨
-BitRate_Mode_CBR;Õ„Õ·Õ¿Õ¡Õ¯Õ¡Õ¶
-BitRate_Mode_VBR;Õ“Õ¸ÖƒÕ¸Õ­Õ¡Õ¯Õ¡Õ¶
-BitRate_Nominal;Õ†Õ¸Õ´Õ«Õ¶Õ¡Õ¬ Õ¢Õ«Õ©Ö€Õ¥ÕµÕ©Õ¨
+AspectRatio;Հարաբերակցությունը
+AssistantDirector;Ռեժիսորի օգնականը
+at;ընդ.
+At least one file;Ընտրեք որևէ ֆայլ
+Audio;Ձայնը
+Audio stream(s);Ձայնի հոսքը
+Audio_Codec_List;Ձայնի կոդավորիչները
+Audio_No;Չկա ձայն
+Audio1;Առաջին ձայնը
+Audio2;Երկրորդ ձայնը
+AudioCount;Ձայների քանակը
+Author;Հեղինակը
+BarCode;Կոդը
+Basic;Կարճ
+Basic_Note;Ուշադր. լրացուցիչ տեղեկությունների համար ընտրեք այլ տարբերակ (աղյուսակ, ծառի տեսքով,...)
+BitDepth;Բիթայնությունը
+BitRate;Բիթրեյթը
+BitRate_Maximum;Առավելագույն բիթրեյթը
+BitRate_Minimum;Նվազագույն բիթրեյթը
+BitRate_Mode;Բիթրեյթի տեսակը
+BitRate_Mode_CBR;Մշտական
+BitRate_Mode_VBR;Փոփոխական
+BitRate_Nominal;Նոմինալ բիթրեյթը
 BitRate_Encoded;
-Bits-(Pixel*Frame);Ô²Õ«Õ©/(Õ“Õ«Ö„Õ½Õ¥Õ¬*Ô¿Õ¡Õ¤Ö€)
-BufferSize;ÕŠÕ¡Õ°Õ¸ÖÕ« Õ¹Õ¡ÖƒÕ¨
-Cancel;Õ„Õ¥Ö€ÕªÕ¥Õ¬
-Channel(s);Ô±Õ¬Õ«Ö„(Õ¶Õ¥Ö€)
-ChannelPositions;Ô´Õ«Ö€Ö„Õ¨
-Chapter(s);Õ€Õ¸Õ½Ö„Õ¥Ö€Õ¨
-Chapters;Õ€Õ¸Õ½Ö„Õ¥Ö€Õ¨
-Chapters stream(s);Ô²Õ¡ÕªÕ«Õ¶Õ¶Õ¥Ö€Õ« Õ°Õ¸Õ½Ö„Õ¥Ö€Õ¨
-Chapters_Codec_List;Ô²Õ¡ÕªÕ«Õ¶Õ¶Õ¥Ö€Õ« Õ¯Õ¸Õ¤-Õ¶Õ¥Ö€Õ¨
-Chapters_No;Õ‰Õ¯Õ¡Õ¶ Õ¢Õ¡ÕªÕ«Õ¶Õ¶Õ¥Ö€
-ChaptersCount;Ô²Õ¡ÕªÕ«Õ¶Õ¶Õ¥Ö€Õ« Ö„-Õ¨
-CheckNewVersion;ÕÕ¿Õ¸Ö‚Õ£Õ¥Õ¬ Õ¶Õ¸Ö€ Õ¿Õ¡Ö€Õ¢Õ¥Ö€Õ¡Õ¯Õ¨
-Choose custom;Ô¸Õ¶Õ¿Ö€Õ¥Õ¬
-Choose custom sheet;Ô¸Õ¶Õ¿Ö€Õ¥Õ¬ Õ¡Õ²ÕµÕ¸Ö‚Õ½Õ¡Õ¯Õ¨
-Choose custom text;Ô¸Õ¶Õ¿Ö€Õ¥Õ¬ Õ¿Õ¥Ö„Õ½Õ¿Õ¨
-Choose export format;Ô¸Õ¶Õ¿Ö€Õ¥Ö„ Õ¡Ö€Õ¿Õ¡Õ®Õ´Õ¡Õ¶ Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨
-Choose file(s);Ô¸Õ¶Õ¿Ö€Õ¥Ö„ Ö†Õ¡ÕµÕ¬Õ¨
-Choose filename;Ô¸Õ¶Õ¿Ö€Õ¥Ö„ Ö†Õ¡ÕµÕ¬Õ« Õ¡Õ¶Õ¸Ö‚Õ¶Õ¨
-Choose language;Ô¸Õ¶Õ¿Ö€Õ¥Ö„ Õ¬Õ¥Õ¦Õ¸Ö‚Õ¶
-Choregrapher;ÕŠÕ¡Ö€Õ¡Ö€Õ¾Õ¥Õ½Õ¿Õ¨
-Chroma;Ô³Õ¸Ö‚ÕµÕ¶Õ¡ÕµÕ¶Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨
-ChromaSubsampling;Ô³Õ¸Ö‚ÕµÕ¶Õ¥Ö€Õ« Õ¨Õ¶Õ¿Ö€Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶
-Close;Õ“Õ¡Õ¯Õ¥Õ¬
-Close all before open;Ô²Õ¡ÖÕ¥Õ¬Õ¸Ö‚Ö Õ¡Õ¼Õ¡Õ» ÖƒÕ¡Õ¯Õ¥Õ¬ Õ¢Õ¸Õ¬Õ¸Ö€Õ¨
-Codec;Ô¿Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ¨
-Codec_Description;Ô¿Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« Õ¶Õ¯Õ¡Ö€Õ¡Õ£Ö€-Õ¨
-Codec_Info;Õ„Õ¡Õ¶Ö€Õ¡Õ´Õ¡Õ½Õ¶Õ¥Ö€ Õ¯Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« Õ´Õ¡Õ½Õ«Õ¶
-Codec_Settings;Ô¿Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« Õ¯Õ¡Ö€Õ£Õ¡Õ¾Õ¸Ö€Õ¸Ö‚Õ´Õ¶Õ¥Ö€Õ¨
-Codec_Settings_PacketBitStream;Ô¿Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« Õ¿Õ¾ÕµÕ¡Õ¬Õ¶Õ¥Ö€Õ« ÖƒÕ¡Õ©Õ¥Õ©Õ¡ÕµÕ«Õ¶ Õ°Õ¸Õ½Ö„Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¶Õ¥Ö€
-Codec_Settings_BVOP;BVOP Õ¯Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¨
-Codec_Settings_QPel;QPel Õ¯Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¨
-Codec_Settings_GMC;GMC Õ¯Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¨
-Codec_Settings_Matrix;Ô¿Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« Õ¯Õ¥Õ¿Õ¡ÖÕ¡Õ¶ÖÕ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¨
-Codec_Settings_Floor;Floor Õ¯Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¨
-Codec_Settings_CABAC;CABAC Õ¯Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¨
-Codec_Settings_Firm;Firm Õ¯Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¨
-Codec_Settings_Endianness;Endianness Õ¯Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¨
-Codec_Settings_Sign;Sign Õ¯Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¨
-Codec_Settings_Law;Law Õ¯Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¨
-Codec_Settings_ITU;ITU Õ¯Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¨
-Codec_Profile;Ô¿Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« ÕºÖ€Õ¸Ö†Õ«Õ¬Õ¨
-Codec_Url;Ô¿Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« Õ°Õ²Õ¸Ö‚Õ´Õ¨
-CodecID;Ô¿Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« ID-Õ«Õ¶
-CodecID_Description;Ô¿Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« Õ¶Õ¯Õ¡Ö€Õ¡Õ£Ö€Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨
-Collection;Õ€Õ¡Õ¾Õ¡Ö„Õ¡Õ®Õ¸Ö‚Õ¶
-Colorimetry;Ô³Õ¸Ö‚ÕµÕ¶Õ¡ÕµÕ¶Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨
-ColorSpace;Ô³Õ¸Ö‚ÕµÕ¶Õ¡ÕµÕ«Õ¶ Õ¿Õ¡Ö€Õ¡Õ®Ö„Õ¨
-colour_primaries;Õ€Õ«Õ´Õ¶Õ¡Õ¯Õ¡Õ¶ Õ£Õ¸Ö‚ÕµÕ¶Õ¥Ö€Õ¨
-Comment;Õ„Õ¥Õ¯Õ¶Õ¡Õ¢Õ¡Õ¶Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶
-CommissionedBy;ÔµÖ€Õ¡Õ·Õ­Õ¡Õ¾Õ¸Ö€Õ¸Õ²
+Bits-(Pixel*Frame);Բիթ/(Փիքսել*Կադր)
+BufferSize;Պահոցի չափը
+Cancel;Մերժել
+Channel(s);Ալիք(ներ)
+ChannelPositions;Դիրքը
+Chapter(s);Հոսքերը
+Chapters;Հոսքերը
+Chapters stream(s);Բաժինների հոսքերը
+Chapters_Codec_List;Բաժինների կոդ-ները
+Chapters_No;Չկան բաժիններ
+ChaptersCount;Բաժինների ք-ը
+CheckNewVersion;Ստուգել նոր տարբերակը
+Choose custom;Ընտրել
+Choose custom sheet;Ընտրել աղյուսակը
+Choose custom text;Ընտրել տեքստը
+Choose export format;Ընտրեք արտածման եղանակը
+Choose file(s);Ընտրեք ֆայլը
+Choose filename;Ընտրեք ֆայլի անունը
+Choose language;Ընտրեք լեզուն
+Choregrapher;Պարարվեստը
+Chroma;Գույնայնությունը
+ChromaSubsampling;Գույների ընտրություն
+Close;Փակել
+Close all before open;Բացելուց առաջ փակել բոլորը
+Codec;Կոդավորիչը
+Codec_Description;Կոդավորիչի նկարագր-ը
+Codec_Info;Մանրամասներ կոդավորիչի մասին
+Codec_Settings;Կոդավորիչի կարգավորումները
+Codec_Settings_PacketBitStream;Կոդավորիչի տվյալների փաթեթային հոսքի ցուցիչներ
+Codec_Settings_BVOP;BVOP կոդավորիչի ցուցիչը
+Codec_Settings_QPel;QPel կոդավորիչի ցուցիչը
+Codec_Settings_GMC;GMC կոդավորիչի ցուցիչը
+Codec_Settings_Matrix;Կոդավորիչի կետացանցի ցուցիչը
+Codec_Settings_Floor;Floor կոդավորիչի ցուցիչը
+Codec_Settings_CABAC;CABAC կոդավորիչի ցուցիչը
+Codec_Settings_Firm;Firm կոդավորիչի ցուցիչը
+Codec_Settings_Endianness;Endianness կոդավորիչի ցուցիչը
+Codec_Settings_Sign;Sign կոդավորիչի ցուցիչը
+Codec_Settings_Law;Law կոդավորիչի ցուցիչը
+Codec_Settings_ITU;ITU կոդավորիչի ցուցիչը
+Codec_Profile;Կոդավորիչի պրոֆիլը
+Codec_Url;Կոդավորիչի հղումը
+CodecID;Կոդավորիչի ID-ին
+CodecID_Description;Կոդավորիչի նկարագրությունը
+Collection;Հավաքածուն
+Colorimetry;Գույնայնությունը
+ColorSpace;Գույնային տարածքը
+colour_primaries;Հիմնական գույները
+Comment;Մեկնաբանություն
+CommissionedBy;Երաշխավորող
 Compilation;
-CompleteName;Ô±Õ´Õ¢Õ¸Õ²Õ»Õ¡Õ¯Õ¡Õ¶ Õ¡Õ¶Õ¸Ö‚Õ¶Õ¨
-Composer;Ô¿Õ¸Õ´ÕºÕ¸Õ¦Õ«Õ¿Õ¸Ö€Õ¨
-Compression_Mode;ÕÕ¥Õ²Õ´Õ¡Õ¶ Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨
-Compression_Mode_Lossless;Ô±Õ¼Õ¡Õ¶Ö Õ¯Õ¸Ö€Õ½Õ¿Õ«
-Compression_Mode_Lossy;Ô¿Õ¸Ö€Õ½Õ¿Õ¸Õ¾
-Compression_Ratio;ÕÕ¥Õ²Õ´Õ¡Õ¶ Õ¡Õ½Õ¿Õ«Õ³Õ¡Õ¶Õ¨
-Conductor;Ô´Õ«Ö€Õ«ÕªÕ¸Ö€Õ¨
-Container and general information;Ô¸Õ¶Õ¤Õ°Õ¡Õ¶Õ¸Ö‚Ö€ Õ¿Õ¥Õ²Õ¥Õ¯Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨
-ContentType;ÕŠÕ¡Ö€Õ¸Ö‚Õ¶Õ¡Õ¯Õ¸Ö‚Õ©ÕµÕ¡Õ¶ Õ¿Õ¥Õ½Õ¡Õ¯Õ¨
-CoProducer;Õ€Õ¡Õ´Õ¡Õ¼Õ¥ÕªÕ«Õ½Õ¸Ö€
-Copyright;Õ€Õ¥Õ². Õ«Ö€Õ¡Õ¾Õ¸Ö‚Õ¶Ö„Õ¨
-CostumeDesigner;Õ€Õ¡Õ£Õ¸Ö‚Õ½Õ¿Õ« Õ¤Õ«Õ¦Õ¡ÕµÕ¶Õ¨
-Count;Õ”Õ¡Õ¶Õ¡Õ¯Õ¨
-Country;ÔµÖ€Õ¯Õ«Ö€Õ¨
-Cover;Ô¿Õ¡Õ¦Õ´Õ¨
-Cover_Datas;Ô¿Õ¡Õ¦Õ´Õ« Õ¿Õ¾ÕµÕ¡Õ¬Õ¶Õ¥Ö€Õ¨
-Cover_Description;Ô¿Õ¡Õ¦Õ´Õ« Õ¶Õ¯Õ¡Ö€Õ¡Õ£Ö€Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨
-Cover_Mime;Ô¿Õ¡Õ¦Õ´Õ« MIME Õ¿Õ¥Õ½Õ¡Õ¯
-Cover_Type;Ô¿Õ¡Õ¦Õ´Õ« Õ¿Õ¥Õ½Õ¡Õ¯Õ¨
-Cropped;Ô¿Õ¿Ö€Õ´Õ¡Õ¶ Õ¹Õ¡ÖƒÕ¥Ö€Õ¨
-Custom;Ô¸Õ¶Õ¿Ö€Õ¾Õ¡Õ®
-Customize;Ô¿Õ¡Ö€Õ£Õ¡Õ¾Õ¸Ö€Õ¸Ö‚Õ´
-Date;Ô±Õ´Õ½Õ¡Õ©Õ«Õ¾Õ¨
-Debug;Õ“Õ¸Õ­Õ¡Õ¤Ö€Õ«Õ¹
-Decimal point;ÕÕ¡Õ½Õ¶Õ¸Ö€Õ¤Õ¡Õ¯Õ¡Õ¶ Õ¯Õ¥Õ¿
-Delay;Õ€Õ¡ÕºÕ¡Õ²Õ¸Ö‚Õ´
-Delay_Source;Õ€Õ¡ÕºÕ¡Õ²Õ¸Ö‚Õ´ Ö…Ö€Õ«Õ£Õ«Õ¶Õ¡Õ¬Õ¸Ö‚Õ´
-Delay_Source_Container;Õ“Õ¡Õ©Õ¥Õ©Õ¨
-Delay_Source_Stream;'Ô±Õ²Õ¢ÕµÕ¸Ö‚Ö€' Õ°Õ¸Õ½Ö„Õ¨
-Delete;Õ‹Õ¶Õ»Õ¥Õ¬
-Description;Õ†Õ¯Õ¡Ö€Õ¡Õ£Ö€Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨
-Digitized_Date;Ô¹Õ¾Õ¡ÕµÕ¶Õ¡ÖÕ´Õ¡Õ¶ Õ¡Õ´Õ½Õ¡Õ©Õ«Õ¾Õ¨
-Dimensions;Õ‰Õ¡ÖƒÕ¥Ö€Õ¨
-Director;ÕŒÕ¥ÕªÕ«Õ½Õ¸Ö€Õ¨
-DirectorOfPhotography;Õ•ÕºÕ¥Ö€Õ¡Õ¿Õ¸Ö€Õ¨
-DisplayAspectRatio;Ô¿Õ¸Õ²Õ´Õ¥Ö€Õ« Õ°Õ¡Ö€Õ¡Õ¢Õ¥Ö€Õ¡Õ¯Õ¡Õ¶Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨
-DisplayAspectRatio_Original;Ô¿Õ¸Õ²Õ´Õ¥Ö€Õ« Õ°Õ¡Ö€Õ¡Õ¢Õ¥Ö€-Õ¨ Ö…Ö€Õ«Õ£Õ«Õ¶Õ¡Õ¬Õ¸Ö‚Õ´
-DistributedBy;ÕÕ¡Ö€Õ¡Õ®Õ¸Õ²Õ¨
-Donate;Õ•ÕªÕ¡Õ¶Õ¤Õ¡Õ¯Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶
-DotsPerInch;Ô¿Õ¥Õ¿Õ¥Ö€ Õ¤ÕµÕ¸Ö‚ÕµÕ´Õ« Õ¾Ö€Õ¡
-Duration;ÕÖ‡Õ¸Õ²Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨
-Duration_End;Ô±Õ¾Õ¡Ö€Õ¿Õ¾Õ¥Õ¬Õ¸Ö‚ Õª-Õ¨
-Duration_Start;ÕÕ¯Õ½Õ¾Õ¥Õ¬Õ¸Ö‚ Õª-Õ¨
-Edit;Õ“Õ¸ÖƒÕ¸Õ­Õ¥Õ¬
-EditedBy;Õ“Õ¸ÖƒÕ¸Õ­Õ¾Õ¥Õ¬ Õ§
-EMail;Õ“Õ¸Õ½Õ¿Õ¨
-Encoded_Application;Ô¿Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ¸Õ² Õ®Ö€Õ¡Õ£Õ«Ö€Õ¨
-Encoded_Date;Ô¿Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ´Õ¡Õ¶ Õ¡Õ´Õ½Õ¡Õ©Õ«Õ¾Õ¨
-Encoded_Library;Ô¿Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ´Õ¡Õ¶ Õ·Õ¿Õ¥Õ´Õ¡Ö€Õ¡Õ¶Õ¨
-Encoded_Library_Settings;Ô¾Ö€Õ¡Õ£Ö€Õ« Õ¯Õ¡Ö€Õ£Õ¡Õ¾Õ¸Ö€Õ¸Ö‚Õ´Õ¶Õ¥Ö€Õ¨
-Encoded_Original;Õ•Ö€Õ«Õ£Õ«Õ¶Õ¡Õ¬Õ« Õ¡Õ²Õ¢ÕµÕ¸Ö‚Ö€Õ¨
-EncodedBy;Ô¿Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ¨
-EPG_Positions;EPG-Õ« Õ¤Õ«Ö€Ö„Õ¨ (Õ¶Õ¥Ö€Ö„Õ«Õ¶)
-Error_File;ÕÕ­Õ¡Õ¬ Ö†Õ¡ÕµÕ¬Õ¸Ö‚Õ´
-ExecutiveProducer;ÕŒÕ¥ÕªÕ«Õ½Õ¸Ö€Õ« Ö…Õ£Õ¶Õ¡Õ¯Õ¡Õ¶Õ¨
-Exit;ÔµÕ¬Ö„
-Exit_Hint;ÔµÕ¬Ö„ Õ®Ö€Õ¡Õ£Ö€Õ«Ö
-Export;Ô±Ö€Õ¿Õ¡Õ®Õ¥Õ¬
-Export_Hint;Ô±Ö€Õ¿Õ¡Õ®Õ¥Õ¬ Õ¿Õ¾ÕµÕ¡Õ¬Õ¶Õ¥Ö€Õ¨
-Extensions;Õ•Õ£Õ¿Õ¡Õ£Õ¸Ö€Õ®Õ¾Õ¸Ö‚Õ´ Õ§Õ
-Family;Ô½Õ¸Ö‚Õ´Õ¢Õ¨
-Fax;Õ–Õ¡Ö„Õ½
-File;Õ–Õ¡ÕµÕ¬
-File size;Õ–Õ¡ÕµÕ¬Õ« Õ¹Õ¡ÖƒÕ¨
-File_Append;Ô±Õ¾Õ¥Õ¬Õ¡ÖÕ¶Õ¥Õ¬ Ö†Õ¡ÕµÕ¬Õ«Õ¶
-File_Created_Date;Õ–Õ¡ÕµÕ¬Õ« Õ¡Õ´Õ½Õ¡Õ©Õ«Õ¾Õ¨
-File_Created_Date_Local;Õ–Õ¡ÕµÕ¬Õ« Õ¡Õ´Õ½Õ¡Õ©Õ«Õ¾Õ¨ (Õ¿Õ¥Õ²Õ¡ÕµÕ«Õ¶)
-File_Hint;Ô³Õ¸Ö€Õ®Õ¸Õ²Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¶Õ¥Ö€ Ö†Õ¡ÕµÕ¬Õ« Õ°Õ¥Õ¿
-File_Modified_Date;Õ–Õ¡ÕµÕ¬Õ« ÖƒÕ¸ÖƒÕ¸Õ­Õ´Õ¡Õ¶ Õ¡Õ´Õ½Õ¡Õ©Õ«Õ¾Õ¨
-File_Modified_Date_Local;Õ–Õ¡ÕµÕ¬Õ« ÖƒÕ¸ÖƒÕ¸Õ­Õ´Õ¡Õ¶ Õ¡Õ´Õ½Õ¡Õ©Õ«Õ¾Õ¨ (Õ¿Õ¥Õ²Õ¡ÕµÕ«Õ¶)
-FileExtension;ÕÕ¥Õ½Õ¡Õ¯Õ¨
-FileName;Õ–Õ¡ÕµÕ¬Õ« Õ¡Õ¶Õ¸Ö‚Õ¶Õ¨
-FileSize;Õ–Õ¡ÕµÕ¬Õ« Õ¹Õ¡ÖƒÕ¨
-Folder;Ô¹Õ²Õ©Õ¡ÕºÕ¡Õ¶Õ¡Õ¯Õ¨
-Folder (R);Ô¹Õ²Õ©Õ¡ÕºÕ¡Õ¶Õ¡Õ¯Õ¨ (R)
-Folder (R)_Hint;Ô¸Õ¶Õ¿Ö€Õ¥Ö„ Õ©Õ²Õ©Õ¡ÕºÕ¡Õ¶Õ¡Õ¯Õ¨ (Õ¢Õ¸Õ¬Õ¸Ö€ Õ¥Õ¶Õ©Õ¡Õ©Õ²Õ©Õ¡ÕºÕ¡Õ¶Õ¡Õ¯Õ¶Õ¥Ö€Õ¸Õ¾)
-Folder (Recursively);Ô¹Õ²Õ©Õ¡ÕºÕ¡Õ¶Õ¡Õ¯Õ¨ (Õ¶Õ¾Õ¡Õ¦Õ´Õ¡Õ´Õ¢)...
-Folder_Hint;Ô³Õ¸Ö€Õ®Õ¸Õ²Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Õ©Õ²Õ©-Õ¥Ö€Õ« Õ°Õ¥Õ¿
-FolderName;Ô¹Õ²Õ©Õ¡ÕºÕ¡Õ¶Õ¡Õ¯Õ« Õ¡Õ¶Õ¸Ö‚Õ¶Õ¨
-Format;ÕÕ¥Õ½Õ¡Õ¯Õ¨
-Format_Commercial;Ô¿Õ¸Õ´Õ¥Ö€ÖÕ«Õ¸Õ¶ Õ¡Õ¶Õ¾Õ¡Õ¶Õ¸Ö‚Õ´Õ¨
+CompleteName;Ամբողջական անունը
+Composer;Կոմպոզիտորը
+Compression_Mode;Սեղման եղանակը
+Compression_Mode_Lossless;Առանց կորստի
+Compression_Mode_Lossy;Կորստով
+Compression_Ratio;Սեղման աստիճանը
+Conductor;Դիրիժորը
+Container and general information;Ընդհանուր տեղեկությունը
+ContentType;Պարունակության տեսակը
+CoProducer;Համառեժիսոր
+Copyright;Հեղ. իրավունքը
+CostumeDesigner;Հագուստի դիզայնը
+Count;Քանակը
+Country;Երկիրը
+Cover;Կազմը
+Cover_Datas;Կազմի տվյալները
+Cover_Description;Կազմի նկարագրությունը
+Cover_Mime;Կազմի MIME տեսակ
+Cover_Type;Կազմի տեսակը
+Cropped;Կտրման չափերը
+Custom;Ընտրված
+Customize;Կարգավորում
+Date;Ամսաթիվը
+Debug;Փոխադրիչ
+Decimal point;Տասնորդական կետ
+Delay;Հապաղում
+Delay_Source;Հապաղում օրիգինալում
+Delay_Source_Container;Փաթեթը
+Delay_Source_Stream;'Աղբյուր' հոսքը
+Delete;Ջնջել
+Description;Նկարագրությունը
+Digitized_Date;Թվայնացման ամսաթիվը
+Dimensions;Չափերը
+Director;Ռեժիսորը
+DirectorOfPhotography;Օպերատորը
+DisplayAspectRatio;Կողմերի հարաբերականությունը
+DisplayAspectRatio_Original;Կողմերի հարաբեր-ը օրիգինալում
+DistributedBy;Տարածողը
+Donate;Օժանդակություն
+DotsPerInch;Կետեր դյույմի վրա
+Duration;Տևողությունը
+Duration_End;Ավարտվելու ժ-ը
+Duration_Start;Սկսվելու ժ-ը
+Edit;Փոփոխել
+EditedBy;Փոփոխվել է
+EMail;Փոստը
+Encoded_Application;Կոդավորող ծրագիրը
+Encoded_Date;Կոդավորման ամսաթիվը
+Encoded_Library;Կոդավորման շտեմարանը
+Encoded_Library_Settings;Ծրագրի կարգավորումները
+Encoded_Original;Օրիգինալի աղբյուրը
+EncodedBy;Կոդավորիչը
+EPG_Positions;EPG-ի դիրքը (ներքին)
+Error_File;Սխալ ֆայլում
+ExecutiveProducer;Ռեժիսորի օգնականը
+Exit;Ելք
+Exit_Hint;Ելք ծրագրից
+Export;Արտածել
+Export_Hint;Արտածել տվյալները
+Extensions;Օգտագործվում է՝
+Family;Խումբը
+Fax;Ֆաքս
+File;Ֆայլ
+File size;Ֆայլի չափը
+File_Append;Ավելացնել ֆայլին
+File_Created_Date;Ֆայլի ամսաթիվը
+File_Created_Date_Local;Ֆայլի ամսաթիվը (տեղային)
+File_Hint;Գործողություններ ֆայլի հետ
+File_Modified_Date;Ֆայլի փոփոխման ամսաթիվը
+File_Modified_Date_Local;Ֆայլի փոփոխման ամսաթիվը (տեղային)
+FileExtension;Տեսակը
+FileName;Ֆայլի անունը
+FileSize;Ֆայլի չափը
+Folder;Թղթապանակը
+Folder (R);Թղթապանակը (R)
+Folder (R)_Hint;Ընտրեք թղթապանակը (բոլոր ենթաթղթապանակներով)
+Folder (Recursively);Թղթապանակը (նվազմամբ)...
+Folder_Hint;Գործողություն թղթ-երի հետ
+FolderName;Թղթապանակի անունը
+Format;Տեսակը
+Format_Commercial;Կոմերցիոն անվանումը
 Format_Commercial_IfAny;
-Format_Description;ÕÕ¥Õ½Õ¡Õ¯Õ« Õ¶Õ¯Õ¡Ö€Õ¡Õ£Ö€Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨
-Format_Info;Õ„Õ¡Õ¶Ö€Õ¡Õ´Õ¡Õ½Õ¶ Õ¿Õ¥Õ½Õ¡Õ¯Õ« Õ´Õ¡Õ½Õ«Õ¶
-Format_Profile;ÕÕ¥Õ½Õ¡Õ¯Õ« ÕºÖ€Õ¸Ö†Õ«Õ¬Õ¨
-Format_Settings;ÕÕ¥Õ½Õ¡Õ¯Õ« Õ¯Õ¡Ö€Õ£Õ¡Õ¾Õ¸Ö€Õ¸Ö‚Õ´Õ¶Õ¥Ö€Õ¨
-Format_Settings_PacketBitStream;ÕÕ¥Õ½Õ¡Õ¯Õ« Õ¿Õ¾ÕµÕ¡Õ¬Õ¶Õ¥Ö€Õ« ÖƒÕ¡Õ©Õ¥Õ©Õ¡ÕµÕ«Õ¶ Õ°Õ¸Õ½Ö„Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¶Õ¥Ö€
-Format_Settings_BVOP;BVOP Õ¿Õ¥Õ½Õ¡Õ¯Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¶Õ¥Ö€Õ¨
-Format_Settings_QPel;QPel Õ¿Õ¥Õ½Õ¡Õ¯Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¶Õ¥Ö€Õ¨
-Format_Settings_GMC;GMC Õ¿Õ¥Õ½Õ¡Õ¯Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¶Õ¥Ö€Õ¨
-Format_Settings_Matrix;ÕÕ¥Õ½Õ¡Õ¯Õ« Õ¯Õ¥Õ¿Õ¡ÖÕ¡Õ¶ÖÕ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¶Õ¥Ö€Õ¨
-Format_Settings_Matrix_Custom;Ô¸Õ¶Õ¿Ö€Õ¸Õ¾Õ«
-Format_Settings_Matrix_Default;Ô¾Ö€Õ¡Õ£Ö€Õ¡ÕµÕ«Õ¶
-Format_Settings_Floor;Floor Õ¿Õ¥Õ½Õ¡Õ¯Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¶Õ¥Ö€Õ¨
-Format_Settings_CABAC;CABAC Õ¿Õ¥Õ½Õ¡Õ¯Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¶Õ¥Ö€Õ¨
-Format_Settings_Firm;irm Õ¿Õ¥Õ½Õ¡Õ¯Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¶Õ¥Ö€Õ¨
-Format_Settings_Endianness;Endianness Õ¿Õ¥Õ½Õ¡Õ¯Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¶Õ¥Ö€Õ¨
-Format_Settings_RefFrames;ReFrames Õ¿Õ¥Õ½Õ¡Õ¯Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¶Õ¥Ö€Õ¨
-Format_Settings_Sign;Sign Õ¿Õ¥Õ½Õ¡Õ¯Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¶Õ¥Ö€Õ¨
-Format_Settings_Law;Law Õ¿Õ¥Õ½Õ¡Õ¯Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¶Õ¥Ö€Õ¨
-Format_Settings_ITU;ITU Õ¿Õ¥Õ½Õ¡Õ¯Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¶Õ¥Ö€Õ¨
-Format_Settings_SBR;SBR Õ¿Õ¥Õ½Õ¡Õ¯Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¶Õ¥Ö€Õ¨
-Format_Settings_PS;PS Õ¿Õ¥Õ½Õ¡Õ¯Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¶Õ¥Ö€Õ¨
-Format_Settings_Pulldown;Ô¸Õ¶Õ¿Ö€Õ¥Õ¬ Õ¿Õ¥Õ½Õ¡Õ¯Õ« Õ¯Õ¡Ö€Õ£Õ¡Õ¾Õ¸Ö€Õ¸Ö‚Õ´Õ¨
-Format_Settings_Mode;ÔµÕ²Õ¡Õ¶Õ¡Õ¯Õ¨
-Format_Settings_FrameMode;Ô¿Õ¡Õ¤Ö€Õ« Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨
-Format_Settings_Emphasis;Ô±Õ¯ÖÕ¥Õ¶Õ¿Õ¨
-Format_Settings_ModeExtension;Ô¸Õ¶Õ¤Õ¬Õ¡ÕµÕ¶Õ¾Õ¡Õ® Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨
-Format_Settings_GOP;GOP Õ¿Õ¥Õ½Õ¡Õ¯Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¶Õ¥Ö€
-Format_Version;ÕÕ¥Õ½Õ¡Õ¯Õ« Õ¿Õ¡Ö€Õ¢Õ¥Ö€Õ¡Õ¯Õ¨
-Format_Url;ÕÕ¥Õ½Õ¡Õ¯Õ« Õ°Õ²Õ¸Ö‚Õ´Õ¨
-FrameCount;Ô¿Õ¡Õ¤Ö€Õ¥Ö€Õ« Õ°Õ¡Õ·Õ¾Õ«Õ¹
-FrameRate;Ô¿Õ¡Õ¤Ö€Õ¥Ö€Õ« Õ°Õ¡Õ³Õ¡Õ­Õ¡Õ¯Õ¡Õ¶Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨
-FrameRate_Mode;Ô¿Õ¡Õ¤Ö€Õ¥Ö€Õ« Õ°Õ¡Õ³Õ¡Õ­Õ¡Õ¯Õ¡Õ¶Õ¸Ö‚Õ©ÕµÕ¡Õ¶ Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨
-FrameRate_Mode_CFR;Õ„Õ·Õ¿Õ¡Õ¯Õ¡Õ¶
-FrameRate_Mode_VFR;Õ“Õ¸ÖƒÕ¸Õ­Õ¡Õ¯Õ¡Õ¶
-FrameRate_Minimum;Ô¿Õ¡Õ¤Ö€Õ¥Ö€Õ« Õ¶Õ¾Õ¡Õ¦Õ¡Õ£Õ¸Ö‚ÕµÕ¶ Õ°Õ¡Õ³Õ¡Õ­-Õ¨
-FrameRate_Nominal;Ô¿Õ¡Õ¤Ö€Õ¥Ö€Õ« ÕºÕ¡ÕµÕ´Õ¡Õ¶Õ¡Õ¯Õ¡Õ¶ Õ°Õ¡Õ³Õ¡Õ­-Õ¨
-FrameRate_Maximum;Ô¿Õ¡Õ¤Ö€Õ¥Ö€Õ« Õ¡Õ¼Õ¡Õ¾Õ¥Õ¬Õ¡Õ£Õ¸Ö‚ÕµÕ¶ Õ°Õ¡Õ³Õ¡Õ­-Õ¨
-FrameRate_Original;Ô¿Õ¡Õ¤Ö€Õ¥Ö€Õ« Õ°Õ¡Õ³Õ¡Õ­-Õ¨ Ö…Ö€Õ«Õ£Õ«Õ¶Õ¡Õ¬Õ¸Ö‚Õ´
-General;Ô¸Õ¶Õ¤Õ°Õ¡Õ¶Õ¸Ö‚Ö€
-Genre;ÔºÕ¡Õ¶Ö€Õ¨
+Format_Description;Տեսակի նկարագրությունը
+Format_Info;Մանրամասն տեսակի մասին
+Format_Profile;Տեսակի պրոֆիլը
+Format_Settings;Տեսակի կարգավորումները
+Format_Settings_PacketBitStream;Տեսակի տվյալների փաթեթային հոսքի ցուցիչներ
+Format_Settings_BVOP;BVOP տեսակի ցուցիչները
+Format_Settings_QPel;QPel տեսակի ցուցիչները
+Format_Settings_GMC;GMC տեսակի ցուցիչները
+Format_Settings_Matrix;Տեսակի կետացանցի ցուցիչները
+Format_Settings_Matrix_Custom;Ընտրովի
+Format_Settings_Matrix_Default;Ծրագրային
+Format_Settings_Floor;Floor տեսակի ցուցիչները
+Format_Settings_CABAC;CABAC տեսակի ցուցիչները
+Format_Settings_Firm;irm տեսակի ցուցիչները
+Format_Settings_Endianness;Endianness տեսակի ցուցիչները
+Format_Settings_RefFrames;ReFrames տեսակի ցուցիչները
+Format_Settings_Sign;Sign տեսակի ցուցիչները
+Format_Settings_Law;Law տեսակի ցուցիչները
+Format_Settings_ITU;ITU տեսակի ցուցիչները
+Format_Settings_SBR;SBR տեսակի ցուցիչները
+Format_Settings_PS;PS տեսակի ցուցիչները
+Format_Settings_Pulldown;Ընտրել տեսակի կարգավորումը
+Format_Settings_Mode;Եղանակը
+Format_Settings_FrameMode;Կադրի եղանակը
+Format_Settings_Emphasis;Ակցենտը
+Format_Settings_ModeExtension;Ընդլայնված եղանակը
+Format_Settings_GOP;GOP տեսակի ցուցիչներ
+Format_Version;Տեսակի տարբերակը
+Format_Url;Տեսակի հղումը
+FrameCount;Կադրերի հաշվիչ
+FrameRate;Կադրերի հաճախականությունը
+FrameRate_Mode;Կադրերի հաճախականության եղանակը
+FrameRate_Mode_CFR;Մշտական
+FrameRate_Mode_VFR;Փոփոխական
+FrameRate_Minimum;Կադրերի նվազագույն հաճախ-ը
+FrameRate_Nominal;Կադրերի պայմանական հաճախ-ը
+FrameRate_Maximum;Կադրերի առավելագույն հաճախ-ը
+FrameRate_Original;Կադրերի հաճախ-ը օրիգինալում
+General;Ընդհանուր
+Genre;Ժանրը
 Genre_000;Blues
 Genre_001;Classic Rock
 Genre_002;Country
@@ -551,47 +551,47 @@ Genre_188;
 Genre_189;
 Genre_190;
 Genre_191;
-Go to WebSite;Ô²Õ¡ÖÕ¥Õ¬ Õ¯Õ¡ÕµÖ„Õ¨
+Go to WebSite;Բացել կայքը
 Grouping;
-h; Õª.
-Header file;ÕÕ¿Õ¥Õ²Õ®Õ¥Õ¬ Õ£Õ¬Õ­Õ¡Õ£Õ«Ö€Õ¨
-Height;Ô²Õ¡Ö€Õ±Ö€-Õ¨
-Height_Original;Õ•Ö€Õ«Õ£Õ«Õ¶Õ¡Õ¬Õ« Õ¢Õ¡Ö€Õ±Ö€-Õ¨
-Help;Õ•Õ£Õ¶Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶
-Hint;Õ€Õ¸Ö‚Õ·Õ¸Ö‚Õ´
-How many audio streams?;ÕÕ¡ÕµÕ¶Õ« Õ°Õ¸Õ½Ö„Õ¥Ö€Õ¨.
-How many chapters streams?;Õ„Õ¡Õ½Õ¥Ö€Õ« Õ°Õ¸Õ½Ö„Õ¥Ö€Õ« Ö„Õ¡Õ¶Õ¡Õ¯Õ¨.
-How many text streams?;ÕÕ¥Ö„Õ½Õ¿Õ¡ÕµÕ«Õ¶ Õ°Õ¸Õ½Ö„Õ¥Ö€Õ« Ö„Õ¡Õ¶Õ¡Õ¯Õ¨.
-How many video streams?;ÕÕ¥Õ½Õ¡Õ¶ÕµÕ¸Ö‚Õ©Õ¥Ö€Õ« Õ°Õ¸Õ½Ö„Õ¥Ö€Õ« Ö„Õ¡Õ¶Õ¡Õ¯Õ¨.
+h; ժ.
+Header file;Ստեղծել գլխագիրը
+Height;Բարձր-ը
+Height_Original;Օրիգինալի բարձր-ը
+Help;Օգնություն
+Hint;Հուշում
+How many audio streams?;Ձայնի հոսքերը.
+How many chapters streams?;Մասերի հոսքերի քանակը.
+How many text streams?;Տեքստային հոսքերի քանակը.
+How many video streams?;Տեսանյութերի հոսքերի քանակը.
 HTML;HTML
-ID;ID-Õ«Õ¶
-Image;ÕŠÕ¡Õ¿Õ¯Õ¥Ö€Õ¨
-Image stream(s);ÕŠÕ¡Õ¿Õ¯Õ¥Ö€Õ¶Õ¥Ö€Õ« Õ°Õ¸Õ½Ö„Õ¥Ö€Õ¨
-Image_Codec_List;ÕŠÕ¡Õ¿Õ¯Õ¥Ö€Õ¶Õ¥Ö€Õ« Õ¯Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ¶Õ¥Ö€Õ¨
-ImageCount;ÕŠÕ¡Õ¿Õ¯Õ¥Ö€Õ¶Õ¥Ö€Õ« Õ°Õ¸Õ½Ö„Õ¥Ö€Õ« Ö„Õ¡Õ¶Õ¡Õ¯Õ¨
-Info;ÕÕ¥Õ²Õ¥Õ¯Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶
-Instruments;Ô³Õ¸Ö€Õ®Õ«Ö„Õ¶Õ¥Ö€
-Interlacement;Õ„Õ«Õ¡Õ°ÕµÕ¸Ö‚Õ½Õ¸Ö‚Õ´
-Interlaced_Interlaced;Õ„Õ«Õ¡Õ°ÕµÕ¸Ö‚Õ½Õ¾Õ¡Õ®
-Interlaced_TFF;Ô±Õ¼Õ¡Õ»Õ«Õ¶Õ¨ Õ¾Õ¥Ö€Õ«Õ¶ Õ¤Õ¡Õ·Õ¿Õ¨
-Interlaced_BFF;Ô±Õ¼Õ¡Õ»Õ«Õ¶Õ¨ Õ¶Õ¥Ö€Ö„Õ«Õ¶ Õ¤Õ¡Õ·Õ¿Õ¨
-Interlaced_PPF;Ô±Õ¼Õ¡Õ»Õ¡Õ¤Õ¥Õ´
-Interlaced_Progressive;Ô±Õ¼Õ¡Õ»Õ¡Õ¤Õ¥Õ´
-Interleaved;Õ„Õ«Õ¡Õ°ÕµÕ¸Ö‚Õ½Õ¾Õ¸Õ²
-Interleave_Duration;Õ„Õ«Õ¡Õ°ÕµÕ¸Ö‚Õ½Õ´Õ¡Õ¶ Õ¿Ö‡Õ¸Õ²Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨
-Interleave_Preload;Õ„Õ«Õ¡Õ°ÕµÕ¸Ö‚Õ½Õ´Õ¡Õ¶ ÕªÕ¡Õ´Õ¡Õ¶Õ¡Õ¯Õ¨
-Interleave_VideoFrames;Õ„Õ«Õ¡Õ°ÕµÕ¸Ö‚Õ½Õ´Õ¡Õ¶ Õ·Õ¡Ö€Õ¸Ö‚Õ¶Õ¡Õ¯Õ¡Õ¯Õ¡Õ¶Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨
-InternetMediaType;Ô¿Ö€Õ«Õ¹Õ« Õ«Õ¶Õ¿Õ¥Ö€Õ¶Õ¥Õ¿Õ¡ÕµÕ«Õ¶ Õ¿Õ¥Õ½Õ¡Õ¯
+ID;ID-ին
+Image;Պատկերը
+Image stream(s);Պատկերների հոսքերը
+Image_Codec_List;Պատկերների կոդավորիչները
+ImageCount;Պատկերների հոսքերի քանակը
+Info;Տեղեկություն
+Instruments;Գործիքներ
+Interlacement;Միահյուսում
+Interlaced_Interlaced;Միահյուսված
+Interlaced_TFF;Առաջինը վերին դաշտը
+Interlaced_BFF;Առաջինը ներքին դաշտը
+Interlaced_PPF;Առաջադեմ
+Interlaced_Progressive;Առաջադեմ
+Interleaved;Միահյուսվող
+Interleave_Duration;Միահյուսման տևողությունը
+Interleave_Preload;Միահյուսման ժամանակը
+Interleave_VideoFrames;Միահյուսման շարունակականությունը
+InternetMediaType;Կրիչի ինտերնետային տեսակ
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-Keywords;Õ€Õ«Õ´Õ¶Õ¡Õ¢Õ¡Õ¼Õ¥Ö€Õ¨
-Known codecs;Õ€Õ¡ÕµÕ¿Õ¶Õ« Õ¯Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ¶Õ¥Ö€Õ¨
-Known formats;Õ€Õ¡ÕµÕ¿Õ¶Õ« Õ¿Õ¥Õ½Õ¡Õ¯Õ¶Õ¥Ö€Õ¨
-Known parameters;Õ€Õ¡ÕµÕ¿Õ¶Õ« ÖÕ¸Ö‚ÖÕ«Õ¹Õ¶Õ¥Ö€Õ¨
-Label;Õ†Õ«Õ·Õ¨
-Language;Ô¼Õ¥Õ¦Õ¸Ö‚Õ¶
-Language_More;Ô¼Õ¥Õ¦Õ¸Ö‚Õ¶, Õ¬Ö€Õ¡ÖÕ¸Ö‚ÖÕ«Õ¹
+Keywords;Հիմնաբառերը
+Known codecs;Հայտնի կոդավորիչները
+Known formats;Հայտնի տեսակները
+Known parameters;Հայտնի ցուցիչները
+Label;Նիշը
+Language;Լեզուն
+Language_More;Լեզուն, լրացուցիչ
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -664,7 +664,7 @@ Language_ie;Interlingue
 Language_ig;Igbo
 Language_ii;Sichuan Yi
 Language_ik;Inupiaq
-Language_Info;Ô¼Õ¥Õ¦Õ¾Õ« Õ´Õ¡Õ½Õ«Õ¶
+Language_Info;Լեզվի մասին
 Language_io;Ido
 Language_is;Icelandic
 Language_it;Italian
@@ -705,7 +705,7 @@ Language_mo;Moldavian
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
-Language_mul;Õ„Õ« Ö„Õ¡Õ¶Õ« Õ¬Õ¥Õ¦Õ¸Ö‚
+Language_mul;Մի քանի լեզու
 Language_my;Burmese
 Language_na;Nauru
 Language_nb;Norwegian Bokmal
@@ -784,249 +784,248 @@ Language_zh;Chinese
 Language_zh-cn;Chinese (China)
 Language_zh-tw;Chinese (Taiwan)
 Language_zu;Zulu
-LawRating;Ô»Ö€Õ¡Õ¾Õ¸Ö‚Õ¶Ö„Õ¶Õ¥Ö€Õ« Õ½Õ¡Õ°-Õ¸Ö‚Õ´
+LawRating;Իրավունքների սահ-ում
 LCCN;LCCN
-Library;Õ‡Õ¿Õ¥Õ´Õ¡Ö€Õ¡Õ¶Õ¨
-Lightness;ÕŠÕ¡ÕµÕ®Õ¡Õ¼Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨
-List;Õ‘Õ¡Õ¶Õ¯Õ¨
-Lyrics;ÔµÖ€Õ£Õ¥Ö€Õ« Õ¿Õ¥Ö„Õ½Õ¿Õ¨
-Lyricist;ÔµÖ€Õ£Õ« Õ¿Õ¥Ö„Õ½Õ¿Õ¨
-Mastered_Date;Õ•Ö€Õ«Õ£Õ«Õ¶Õ¡Õ¬Õ« Õ¡Õ´Õ½Õ¡Õ©Õ«Õ¾Õ¨
-MasteredBy;Õ•Ö€Õ«Õ£Õ«Õ¶Õ¡Õ¬Õ¨Õ
-matrix_coefficients;Ô¿Õ¥Õ¿Õ¡ÖÕ¡Õ¶ÖÕ« Õ£Õ¸Ö€Õ®Õ¡Õ¯Õ«ÖÕ¨
-MediaInfo_About;Õ‘Õ¸Ö‚ÖÕ¡Õ¤Ö€Õ¸Ö‚Õ´ Õ§ Õ´Õ¡Õ¶Ö€Õ¡Õ´Õ¡Õ½Õ¶ Õ¿Õ¥Õ²Õ¥Õ¯Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¶Õ¥Ö€\r\nÕ´Õ¸Ö‚Õ¬Õ¿Õ«Õ´Õ¥Õ¤Õ«Õ¡ÕµÕ«Õ¶ Ö†Õ¡ÕµÕ¬Õ¥Ö€ Matroska-Õ«, OGG-Õ« (Õ¶Õ¥Ö€Õ¡Õ¼ÕµÕ¡Õ¬ OGM)\r\nMPEG1-Õ« (Õ¶Õ¥Ö€Õ¡Õ¼ÕµÕ¡Õ¬ VCD), MPEG2-Õ« (Õ¶Õ¥Ö€Õ¡Õ¼ÕµÕ¡Õ¬ DVD Ö‡ SVCD), MPEG4-Õ« (Õ¶Õ¥Ö€Õ¡Õ¼ÕµÕ¡Õ¬ iTunes M4A)\r\nQuicktime-Õ«\r\nRealMedia-Õ«\r\nWindowsMedia-Õ« (Õ¶Õ¥Ö€Õ¡Õ¼ÕµÕ¡Õ¬ WMV, WMA)\r\nMicrosoft RIFF-Õ« (Õ¶Õ¥Ö€Õ¡Õ¼ÕµÕ¡Õ¬ AVI, WAV, DivX)\r\nÕ±Õ¡ÕµÕ¶Õ¡ÕµÕ«Õ¶ Ö†Õ¡ÕµÕ¬Õ¥Ö€Õ« (AC3, DTS, SSC, AU, AIFF) Õ¾Õ¥Ö€Õ¡Õ¢Õ¥Ö€ÕµÕ¡Õ¬
-Menu;Ô¸Õ¶Õ¿Ö€Õ¡ÖÕ¡Õ¶Õ¯Õ¨
-Menu stream(s);Õ€Õ¸Õ½Ö„Õ¥Ö€Õ« Õ¨Õ¶Õ¿Ö€Õ¡ÖÕ¡Õ¶Õ¯Õ¨
-Menu_Codec_List;Ô¿Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ¶Õ¥Ö€Õ« Õ¨Õ¶Õ¿Ö€Õ¡ÖÕ¡Õ¶Õ¯Õ¨
-Menu_No;Õ‰Õ¯Õ¡ Ô¸Õ¶Õ¿Ö€Õ¡ÖÕ¡Õ¶Õ¯
-MenuCount;Ô¸Õ¶Õ¿Ö€Õ¡ÖÕ¡Õ¶Õ¯Õ« Õ°Õ¸Õ½Ö„Õ¥Ö€Õ« Ö„-Õ¨
-Menu_Hint;Ô¼Ö€Õ¡ÖÕ¸Ö‚ÖÕ«Õ¹ Õ°Õ¶Õ¡Ö€Õ¡Õ¾Õ¸Ö€Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¶Õ¥Ö€
-MenuID;Ô¸Õ¶Õ¿Ö€Õ¡ÖÕ¡Õ¶Õ¯Õ« ID-Õ«Õ¶
-mn; Ö€.
-Mood;Ô¿Õ¡Ö€Õ£Õ¡Õ¾Õ¸Ö€Õ¾Õ¡Õ®
-More;Ô±Õ¾Õ¥Õ¬Õ«Õ¶
-Movie;Õ–Õ«Õ¬Õ´Õ« Õ¡Õ¶Õ¸Ö‚Õ¶Õ¨
-ms; Õ´Õ¾.
+Library;Շտեմարանը
+Lightness;Պայծառությունը
+List;Ցանկը
+Lyrics;Երգերի տեքստը
+Lyricist;Երգի տեքստը
+Mastered_Date;Օրիգինալի ամսաթիվը
+MasteredBy;Օրիգինալը՝
+matrix_coefficients;Կետացանցի գործակիցը
+MediaInfo_About;Ցուցադրում է մանրամասն տեղեկություններ\r\nմուլտիմեդիային ֆայլեր Matroska-ի, OGG-ի (ներառյալ OGM)\r\nMPEG1-ի (ներառյալ VCD), MPEG2-ի (ներառյալ DVD և SVCD), MPEG4-ի (ներառյալ iTunes M4A)\r\nQuicktime-ի\r\nRealMedia-ի\r\nWindowsMedia-ի (ներառյալ WMV, WMA)\r\nMicrosoft RIFF-ի (ներառյալ AVI, WAV, DivX)\r\nձայնային ֆայլերի (AC3, DTS, SSC, AU, AIFF) վերաբերյալ
+Menu;Ընտրացանկը
+Menu stream(s);Հոսքերի ընտրացանկը
+Menu_Codec_List;Կոդավորիչների ընտրացանկը
+Menu_No;Չկա Ընտրացանկ
+MenuCount;Ընտրացանկի հոսքերի ք-ը
+Menu_Hint;Լրացուցիչ հնարավորություններ
+MenuID;Ընտրացանկի ID-ին
+mn; ր.
+Mood;Կարգավորված
+More;Ավելին
+Movie;Ֆիլմի անունը
+ms; մվ.
 MSDI;MSDI
-MusicBy;ÔµÖ€Õ£Õ¡Õ°Õ¡Õ¶Õ¨
-MuxingMode;Ô½Õ¡Õ¼Õ´Õ¡Õ¶ Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨
-MuxingMode_MoreInfo;Ô½Õ¡Õ¼Õ´Õ¡Õ¶ Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨, Õ¬Ö€. Õ¿Õ¥Õ²Õ¥Õ¯Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶
-MuxingMode_PackedBitstream;ÕÕ¥Õ²Õ´Õ¾Õ¡Õ® Õ¢Õ«Õ©Õ¡ÕµÕ«Õ¶ Õ°Õ¸Õ½Ö„
-Name;Ô±Õ¶Õ¸Ö‚Õ¶Õ¨
-Nationality;Ô±Õ¦Õ£Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨
-NetworkName;Õ‘Õ¡Õ¶ÖÕ« Õ¡Õ¶Õ¸Ö‚Õ¶Õ¨
-New;Õ†Õ¸Ö€
-Newest version;ÕÕ¿Õ¸Ö‚Õ£Õ¥Õ¬ Õ¶Õ¸Ö€ Õ¿Õ¡Ö€Õ¢Õ¥Ö€Õ¡Õ¯Õ¨
-NewVersion_Menu;Õ€Õ¡Õ½Õ¡Õ¶Õ¥Õ¬Õ« Õ§ Õ¶Õ¸Ö€ Õ¿Õ¡Ö€Õ¢Õ¥Ö€Õ¡Õ¯Õ¨
-NewVersion_Question_Title;Õ€Õ¡Õ½Õ¡Õ¶Õ¥Õ¬Õ« Õ§ Õ¶Õ¸Ö€ Õ¿Õ¡Ö€Õ¢Õ¥Ö€Õ¡Õ¯!
-NewVersion_Question_Content;Õ€Õ¡Õ½Õ¡Õ¶Õ¥Õ¬Õ« Õ§ Õ¶Õ¸Ö€ %Version% Õ¿Õ¡Ö€Õ¢Õ¥Ö€Õ¡Õ¯Õ¨, Õ¢Õ¥Õ¼Õ¶Õ¥ÕžÕ¬ Õ¡ÕµÕ¶Ö‰
-No;ÕˆÕ¹
-Not yet;Ô´Õ¥Õ¼ Õ¹Õ¯Õ¡
-NumColors;Ô³Õ¸Ö‚ÕµÕ¶Õ¥Ö€Õ« Ö„Õ¡Õ¶Õ¡Õ¯Õ¨
-OK;Ô¼Ô±ÕŽ
-One output file per input file;Õ†Õ¸Ö€ Ö†Õ¡ÕµÕ¬ ÕµÕ¸Ö‚Ö€Õ¡Ö„Õ¡Õ¶Õ¹ÕµÕ¸Ö‚Ö€Õ« Õ°Õ¡Õ´Õ¡Ö€
-Open;Ô²Õ¡ÖÕ¥Õ¬
-OpenCandy_01;Ô²Õ¡ÖÕ¾Õ¸Ö‚Õ´ Õ§ ________
-OpenCandy_02;__% Õ¯Õ¡Õ¿Õ¡Ö€Õ¾Õ¥Õ¬ Õ§
-OpenCandy_03;Õ„Õ¸Ö‚Õ¿Ö„Õ¨ Õ«Õ¶Õ¿Õ¥Ö€Õ¶Õ¥Õ¿ Õ°Õ¶Õ¡Ö€Õ¡Õ¾Õ¸Ö€ Õ¹Õ§
-OpenCandy_04;________ Õ¢Õ¥Õ¼Õ¶Õ¾Õ¥Õ¬ Õ§
-OpenCandy_05;ÕÕ¥Õ²Õ´Õ¥Ö„ Õ¿Õ¥Õ²Õ¡Õ¤Ö€Õ´Õ¡Õ¶ Õ°Õ¡Õ´Õ¡Ö€ ________
-OpenCandy_06;Ô¿Õ¡Õ¶Õ£Õ¶Õ¥ÖÕ¶Õ¥ÕžÕ¬ Õ¿Õ¥Õ²Õ¡Õ¯Õ¡ÕµÕ¸Ö‚Õ´Õ¨Ö‰\r\nÔµÕ©Õ¥ ÖÕ¡Õ¶Õ¯Õ¡Õ¶Õ¸Ö‚Õ´ Õ¥Ö„ Õ°Õ¥Õ¿Õ¡Õ±Õ£Õ¥Õ¬ Õ¿Õ¥Õ²Õ¡Õ¯Õ¡ÕµÕ¸Ö‚Õ´Õ¨ Õ½Õ¥Õ²Õ´Õ¥Ö„, 'ÕˆÕ¹'Ö‰\r\nÕˆÖ‚Õ·Õ¡Õ¤Ö€. Ô¿Õ¡Ö€Õ¸Õ² Õ¥Ö„ Õ¤Õ¸Ö‚Ö€Õ½ Õ£Õ¡Õ¬ Õ¨Õ¶Õ¿Ö€Õ¡ÖÕ¡Õ¶Õ¯Õ«ÖÕ Õ¿Õ¥Õ²Õ¡Õ¯Õ¡ÕµÕ¸Ö‚Õ´Õ¨ Õ°Õ¥Õ¿Õ¡Õ±Õ£Õ¥Õ¬Õ¸Ö‚ Õ°Õ¡Õ´Õ¡Ö€Ö‰
-OpenCandy_07;________-Õ« Õ¢Õ¥Õ¼Õ¶Õ¸Ö‚Õ´Õ¨ Õ¯Õ¡Õ¶Õ£Õ¶Õ¥ÖÕ¾Õ¡Õ® Õ§Ö‰\r\nÕÕ¥Õ²Õ´Õ¥Ö„ Õ§Õ¯Ö€Õ¡Õ¶Õ« Õ¶Õ¥Ö€Ö„Ö‡Õ« Õ´Õ¡Õ½Õ¸Ö‚Õ´ Õ£Õ¿Õ¶Õ¾Õ¸Õ² ÕºÕ¡Õ¿Õ¯Õ¥Ö€Õ« Õ¾Ö€Õ¡Õ Õ¢Õ¥Õ¼Õ¶Õ¸Ö‚Õ´Õ¨ Õ¾Õ¥Ö€Õ½Õ¯Õ½Õ¥Õ¬Õ¸Ö‚ Õ°Õ¡Õ´Õ¡Ö€Ö‰
-OpenCandy_08;Ô¿Ö€Õ«Õ¿Õ«Õ¯Õ¡Õ¯Õ¡Õ¶ Õ½Õ­Õ¡Õ¬Ö‰ _________-Õ« Õ¿Õ¥Õ²Õ¡Õ¯Õ¡ÕµÕ¸Ö‚Õ´Õ¨ Õ¨Õ¶Õ¤Õ°Õ¡Õ¿Õ¾Õ¡Õ® Õ§Ö‰
-OpenCandy_09;Ô¿Õ¡Õ¶Õ£Õ¶Õ¥ÖÕ¶Õ¥Õ¬ Õ¢Õ¥Õ¼Õ¶Õ¸Ö‚Õ´Õ¨
-OpenCandy_10;ÔµÕ¿Õ¡Ö€Õ¯Õ¥Õ¬ Õ¿Õ¥Õ²Õ¡Õ¯Õ¡ÕµÕ¸Ö‚Õ´Õ¨
-OpenCandy_11;Õ‡Õ¡Ö€Õ¸Ö‚Õ¶Õ¡Õ¯Õ¥Õ¬ Õ¢Õ¥Õ¼Õ¶Õ¸Ö‚Õ´Õ¨
-OpenCandy_12;ÔµÕ¬Ö„ Õ¿Õ¥Õ²Õ¡Õ¯Õ¡ÕµÕ¸Ö‚Õ´Õ«Ö
-OpenCandy_13;___________ - Õ­Õ¸Ö€Õ°Õ¸Ö‚Ö€Õ¤ Õ§ Õ¿Ö€Õ¾Õ¸Ö‚Õ´ ____________
-OpenCandy_14;_________-Õ¨ Õ¢Õ¥Õ¼Õ¶Õ¾Õ¸Ö‚Õ´ Õ§
-OpenCandy_15;___________, Õ®Ö€Õ¡Õ£Õ«Ö€Õ¨, Õ¥Ö€Õ¡Õ·Õ­Õ¡Õ¾Õ¸Ö€Õ¾Õ¡Õ® ___________-Õ« Õ¯Õ¸Õ²Õ´Õ«Ö, Õ¡ÕµÕªÕ´ Õ¢Õ¥Õ¼Õ¶Õ¾Õ¸Ö‚Õ´ Õ§Ö‰
-OpenCandy_16;___________-Õ¨ ÕºÕ¡Õ¿Ö€Õ¡Õ½Õ¿ Õ§ Õ¿Õ¥Õ²Õ¡Õ¯Õ¡ÕµÕ´Õ¡Õ¶
-OpenCandy_17;___________-Õ¨ Õ¢Õ¥Õ¼Õ¶Õ¾Õ¥Õ¬ Õ§Ö‰ ÕÕ¥Õ²Õ´Õ¥Ö„ 'ÕÕ¥Õ²Õ¡Õ¯Õ¡ÕµÕ¥Õ¬'Õ Õ½Õ¯Õ½Õ¥Õ¬Õ¸Ö‚ Õ°Õ¡Õ´Õ¡Ö€Ö‰
-OpenCandy_18;___________-Õ¨ ___________-Õ«Ö Õ¢Õ¥Õ¼Õ¶Õ¾Õ¥Õ¬ Õ§
-OpenCandy_19;ÕÕ¿Õ¥Õ²Õ®Õ¾Õ¡Õ® Õ§ OpenCandy-Õ« Õ¯Õ¸Õ²Õ´Õ«Ö
-OpenCandy_20;Ô¼Ö€Õ¡ÖÕ¸Ö‚ÖÕ«Õ¹ Õ¿Õ¥Õ²Õ¥Õ¯Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¶Õ¥Ö€Õ¨ OpenCandy.com-Õ¸Ö‚Õ´
-OpenCandy_21;ÕÕ¥Õ²Õ¡Õ¯Õ¡ÕµÕ¸Ö‚Õ´
-OpenCandy_22;___________-Õ« Õ¿Õ¥Õ²Õ¡Õ¯Õ¡ÕµÕ¸Ö‚Õ´
-OpenCandy_23;ÕÕ¡ Õ¯Õ¨Õ¶Õ¤Õ°Õ¡Õ¿Õ« ___________-Õ« Õ¿Õ¥Õ²Õ¡Õ¯Õ¡ÕµÕ¸Ö‚Õ´Õ¨\r\nÔ´Õ¸Ö‚Ö€Õ½ Õ£Õ¡ÕžÕ¬Ö‰
-OpenCandy_24;Ô´Õ¡Õ¤Õ¡Ö€
-OpenCandy_25;Ô²Õ¥Õ¼Õ¶Õ¸Ö‚Õ´Õ¨ Õ¨Õ¶Õ¤Õ°Õ¡Õ¿Õ¾Õ¥Õ¬ Õ§Ö‰ ÕÕ¥Õ²Õ´Õ¥Ö„ 'Õ‡Õ¡Ö€Õ¸Ö‚Õ¶Õ¡Õ¯Õ¥Õ¬'Õ Õ¾Õ¥Ö€Õ½Õ¯Õ½Õ¥Õ¬Õ¸Ö‚ Õ°Õ¡Õ´Õ¡Ö€Ö‰
-OpenCandy_26;Õ‡Õ¡Ö€Õ¸Ö‚Õ¶Õ¡Õ¯Õ¥Õ¬
-OpenCandy_27;ÕÕ¥Õ²Õ¡Õ¯Õ¡ÕµÕ¸Ö‚Õ´
-OpenCandy_28;Ô¿Õ¡Õ¶Õ£Õ¶Õ¥ÖÕ¶Õ¥Õ¬ Õ¢Õ¥Õ¼Õ¶Õ¸Ö‚Õ´Õ¨
-OpenCandy_29;Õ‡Õ¡Ö€Õ¸Ö‚Õ¶Õ¡Õ¯Õ¥Õ¬ Õ¢Õ¥Õ¼Õ¶Õ¸Ö‚Õ´Õ¨
-OpenCandy_30;Ô¿Õ¡Õ¶Õ£Õ¶Õ¥ÖÕ¶Õ¥Õ¬ Õ¢Õ¥Õ¼Õ¶Õ¸Ö‚Õ´Õ¨
-OpenCandy_31;Ô¸Õ¶Õ¿Ö€Õ¥Ö„ Õ¿Õ¥Õ²Õ¡Õ¯Õ¡ÕµÕ´Õ¡Õ¶ ÖÕ¸Ö‚ÖÕ«Õ¹Õ¶Õ¥Ö€Õ¨
-OpenCandy_32;___________-Õ« Õ¿Õ¥Õ²Õ¡Õ¯Õ¡ÕµÕ¸Ö‚Õ´
-OpenCandy_33;Õ‰Õ¿Õ¥Õ²Õ¡Õ¯Õ¡ÕµÕ¥Õ¬
-OpenCandy_34;Ô¸Õ¶Õ¿Ö€Õ¥Ö„ Õ¿Õ¥Õ²Õ¡Õ¯Õ¡ÕµÕ´Õ¡Õ¶ ÖÕ¸Ö‚ÖÕ«Õ¹Õ¶Õ¥Ö€Õ¨
-OpenCandy_35;______-Õ« Õ¥Ö€Õ¡Õ·Õ­Õ¡Õ¾Õ¸Ö€Õ¡Õ® Õ®Ö€Õ¡Õ£Õ«Ö€Õ¨
-OpenCandy_36;Ô¸Õ¶Õ©Õ¡ÖÕ«Õ¯ Õ¿Õ¥Õ²Õ¡Õ¯Õ¡ÕµÕ¸Ö‚Õ´Õ¨ Õ¹Õ« Õ¨Õ¶Õ¤Õ°Õ¡Õ¿Õ¾Õ«
-Options;Ô¸Õ¶Õ¿Ö€Õ¡Õ¶Ö„Õ¶Õ¥Ö€
-Options_Hint;Ô¾Ö€Õ¡Õ£Ö€Õ« Õ¯Õ¡Ö€Õ£Õ¡Õ¾Õ¸Ö€Õ¸Ö‚Õ´Õ¶Õ¥Ö€Õ¨
-Original;Ô²Õ¶Ö…Ö€Õ«Õ¶Õ¡Õ¯Õ¨
-OriginalNetworkName;Õ‘Õ¡Õ¶ÖÕ« Õ°Õ«Õ´Õ¶Õ¡Õ¯Õ¡Õ¶ Õ¡Õ¶Õ¸Ö‚Õ¶Õ¨
-OriginalSourceForm;Õ•Ö€Õ«Õ£Õ«Õ¶Õ¡Õ¬Õ« Ö†Õ¡ÕµÕ¬Õ¨
-OriginalSourceMedium;Õ•Ö€Õ«Õ£Õ«Õ¶Õ¡Õ¬Õ« Õ¯Ö€Õ«Õ¹Õ¨
-Other;Ô±ÕµÕ¬
-Output;Ô±Ö€Õ¿Õ¡Õ®Õ¸Ö‚Õ´
-Output format;Ô±Ö€Õ¿Õ¡Õ®Õ´Õ¡Õ¶ Õ¿Õ¥Õ½Õ¡Õ¯Õ¨
-OverallBitRate;Ô¸Õ¶Õ¤Õ°Õ¡Õ¶Õ¸Ö‚Ö€ Õ°Õ¸Õ½Ö„Õ¨
-OverallBitRate_Maximum;Ô±Õ¼Õ¡Õ¾Õ¥Õ¬Õ¡Õ£Õ¸Ö‚ÕµÕ¶ Õ¨Õ¶Õ¤. Õ¢Õ«Õ©Ö€Õ¥ÕµÕ©Õ¨
-OverallBitRate_Minimum;Õ†Õ¾Õ¡Õ¦Õ¡Õ£Õ¸Ö‚ÕµÕ¶ Õ¨Õ¶Õ¤. Õ¢Õ«Õ©Ö€Õ¥ÕµÕ©Õ¨
-OverallBitRate_Mode;Ô²Õ«Õ©Ö€Õ¥ÕµÕ©Õ« Õ¨Õ¶Õ¤. Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨
-OverallBitRate_Nominal;Ô²Õ«Õ©Ö€Õ¥ÕµÕ©Õ« ÕºÕ¡ÕµÕ´. Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨
-Part;Õ„Õ¡Õ½
-Part_Count;ÔºÕ¡Õ´Õ¥Ö€Õ« Ö„-Õ¨.
-Performer;Ô¿Õ¡Õ¿Õ¡Ö€Õ¸Õ²Õ¨
-Period;Õ‡Ö€Õ»Õ¡Õ¶Õ¨
-Phone;Õ€Õ¥Õ¼Õ¡Õ­Õ¸Õ½
-PixelAspectRatio;Õ“Õ«Ö„Õ½Õ¥Õ¬Õ¶Õ¥Ö€Õ« Õ°Õ¡Õ´Õ¡Õ´Õ¡Õ½Õ¶Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨
-PixelAspectRatio_Original;Õ“Õ«Ö„Õ½Õ¥Õ¬Õ¶Õ¥Ö€Õ« Õ°Õ¡Ö€Õ¡Õ¢Õ¥Ö€-Õ¨ Ö…Ö€Õ«Õ£Õ«Õ¶Õ¡Õ¬Õ¸Ö‚Õ´
-PlayCounter;ÕŽÕ¥Ö€Õ¡Ö€Õ¿Õ¡Õ¤Ö€Õ´Õ¡Õ¶ Õ°Õ¡Õ·Õ¾Õ«Õ¹
-Played_Count;ÕŽÕ¥Ö€Õ¡Ö€Õ¿Õ¡Õ¤Ö€Õ¾Õ¥Õ¬ Õ§ Õ´Õ¥Õ¯ Õ¡Õ¶Õ£Õ¡Õ´
-Played_First_Date;Ô±Õ¼Õ¡Õ»Õ«Õ¶ Õ¾Õ¥Ö€Õ¡Ö€Õ¿Õ¡Õ¤Ö€Õ¸Ö‚Õ´Õ¨
-Played_Last_Date;ÕŽÕ¥Ö€Õ»Õ«Õ¶ Õ¾Õ¥Ö€Õ¡Ö€Õ¿Õ¡Õ¤Ö€Õ¸Ö‚Õ´Õ¨
-PlayTime;ÕÖ‡Õ¸Õ²Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨
-Position;Ô´Õ«Ö€Ö„Õ¨
-Position_Total;Ô¸Õ¶Õ¤Õ¡Õ´Õ¥Õ¶Õ¨
-Preferences;Ô¿Õ¡Ö€Õ£Õ¡Õ¾Õ¸Ö€Õ¸Ö‚Õ´Õ¶Õ¥Ö€
-Producer;ÕŠÖ€Õ¸Õ¤ÕµÕ¸Ö‚Õ½Õ¥Ö€Õ¨
-ProductionDesigner;Ô´Õ«Õ¦Õ¡ÕµÕ¶Õ« Õ´Õ·Õ¡Õ¯Õ¸Õ²Õ¨
-ProductionStudio;Ô´Õ«Õ¦Õ¡ÕµÕ¶Õ« Õ½Õ¿Õ¸Ö‚Õ¤Õ«Õ¡Õ¶
-Publisher;Ô¹Õ¸Õ²Õ¡Ö€Õ¯Õ¸Õ²Õ¨
-Purchased_Date;Ô³Õ¶Õ´Õ¡Õ¶ Õ¡Õ´Õ½Õ¡Õ©Õ«Õ¾Õ¨
-Quote character;Õ‰Õ¡Õ¯Õ¥Ö€Õ¿Õ¶Õ¥Ö€Õ« Õ¶Õ·Õ¡Õ¶Õ¨
-RadioStation;ÕŒÕ¡Õ¤Õ«Õ¸Õ¯Õ¡ÕµÕ¡Õ¶Õ¨
-Rating;ÕŽÕ¡Ö€Õ¯Õ¡Õ¶Õ«Õ·Õ¨
-Recorded_Date;Ô³Ö€Õ¥Õ¬Õ¸Ö‚ Õ¡Õ´Õ½Õ¡Õ©Õ«Õ¾Õ¨
-Recorded_Location;Ô³Ö€Õ¥Õ¬Õ¸Ö‚ Õ¿Õ¥Õ²Õ¨
-Released_Date;Ô¹Õ¸Õ²Õ¡Ö€Õ¯Õ´Õ¡Õ¶ Õ¡Õ´Õ½Õ¡Õ©Õ«Õ¾Õ¨
-RemixedBy;ÕŒÕ¥Õ´Õ«Ö„Õ½Õ¨Õ
-ReplayGain_Gain;ÕÕ¡ÕµÕ¶Õ« Õ¯Õ¡Ö€Õ£Õ¡Õ¾Õ¸Ö€Õ«Õ¹
-ReplayGain_Peak;ÕÕ¡ÕµÕ¶Õ« Õ¯Õ¡Ö€Õ£Õ¡Õ¾Õ¸Ö€Õ´Õ¡Õ¶ Õ£Õ¡Õ£Õ¡Õ©Õ¨
-Resolution;Ô¼Õ¸Ö‚Õ®Õ¡Õ¹Õ¡ÖƒÕ¨
-s; Õ¾Õ¡ÕµÖ€.
-SamplingRate;Õ€Õ¡Õ³Õ¡Õ­Õ¡Õ¯Õ¡Õ¶Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨
-Save;ÕŠÕ¡Õ°ÕºÕ¡Õ¶Õ¥Õ¬
-ScanType;ÕÕ¿Õ¸Ö‚Õ£Õ´Õ¡Õ¶ Õ¿Õ¥Õ½Õ¡Õ¯Õ¨
+MusicBy;Երգահանը
+MuxingMode;Խառման եղանակը
+MuxingMode_MoreInfo;Խառման եղանակը, լր. տեղեկություն
+MuxingMode_PackedBitstream;Սեղմված բիթային հոսք
+Name;Անունը
+Nationality;Ազգությունը
+NetworkName;Ցանցի անունը
+New;Նոր
+Newest version;Ստուգել նոր տարբերակը
+NewVersion_Menu;Հասանելի է նոր տարբերակը
+NewVersion_Question_Title;Հասանելի է նոր տարբերակ!
+NewVersion_Question_Content;Հասանելի է նոր %Version% տարբերակը, բեռնե՞լ այն։
+No;Ոչ
+Not yet;Դեռ չկա
+NumColors;Գույների քանակը
+OK;ԼԱՎ
+One output file per input file;Նոր ֆայլ յուրաքանչյուրի համար
+Open;Բացել
+OpenCandy_01;Բացվում է ________
+OpenCandy_02;__% կատարվել է
+OpenCandy_03;Մուտքը ինտերնետ հնարավոր չէ
+OpenCandy_04;________ բեռնվել է
+OpenCandy_05;Սեղմեք տեղադրման համար ________
+OpenCandy_06;Կանգնեցնե՞լ տեղակայումը։\r\nԵթե ցանկանում եք հետաձգել տեղակայումը սեղմեք, 'Ոչ'։\r\nՈւշադր. Կարող եք դուրս գալ ընտրացանկից՝ տեղակայումը հետաձգելու համար։
+OpenCandy_07;________-ի բեռնումը կանգնեցված է։\r\nՍեղմեք էկրանի ներքևի մասում գտնվող պատկերի վրա՝ բեռնումը վերսկսելու համար։
+OpenCandy_08;Կրիտիկական սխալ։ _________-ի տեղակայումը ընդհատված է։
+OpenCandy_09;Կանգնեցնել բեռնումը
+OpenCandy_10;Ետարկել տեղակայումը
+OpenCandy_11;Շարունակել բեռնումը
+OpenCandy_12;Ելք տեղակայումից
+OpenCandy_13;___________ - խորհուրդ է տրվում ____________
+OpenCandy_14;_________-ը բեռնվում է
+OpenCandy_15;___________, ծրագիրը, երաշխավորված ___________-ի կողմից, այժմ բեռնվում է։
+OpenCandy_16;___________-ը պատրաստ է տեղակայման
+OpenCandy_17;___________-ը բեռնվել է։ Սեղմեք 'Տեղակայել'՝ սկսելու համար։
+OpenCandy_18;___________-ը ___________-ից բեռնվել է
+OpenCandy_19;Ստեղծված է OpenCandy-ի կողմից
+OpenCandy_20;Լրացուցիչ տեղեկությունները OpenCandy.com-ում
+OpenCandy_21;Տեղակայում
+OpenCandy_22;___________-ի տեղակայում
+OpenCandy_23;Սա կընդհատի ___________-ի տեղակայումը\r\nԴուրս գա՞լ։
+OpenCandy_24;Դադար
+OpenCandy_25;Բեռնումը ընդհատվել է։ Սեղմեք 'Շարունակել'՝ վերսկսելու համար։
+OpenCandy_26;Շարունակել
+OpenCandy_27;Տեղակայում
+OpenCandy_28;Կանգնեցնել բեռնումը
+OpenCandy_29;Շարունակել բեռնումը
+OpenCandy_30;Կանգնեցնել բեռնումը
+OpenCandy_31;Ընտրեք տեղակայման ցուցիչները
+OpenCandy_32;___________-ի տեղակայում
+OpenCandy_33;Չտեղակայել
+OpenCandy_34;Ընտրեք տեղակայման ցուցիչները
+OpenCandy_35;______-ի երաշխավորած ծրագիրը
+OpenCandy_36;Ընթացիկ տեղակայումը չի ընդհատվի
+Options;Ընտրանքներ
+Options_Hint;Ծրագրի կարգավորումները
+Original;Բնօրինակը
+OriginalNetworkName;Ցանցի հիմնական անունը
+OriginalSourceForm;Օրիգինալի ֆայլը
+OriginalSourceMedium;Օրիգինալի կրիչը
+Other;Այլ
+Output;Արտածում
+Output format;Արտածման տեսակը
+OverallBitRate;Ընդհանուր հոսքը
+OverallBitRate_Maximum;Առավելագույն ընդ. բիթրեյթը
+OverallBitRate_Minimum;Նվազագույն ընդ. բիթրեյթը
+OverallBitRate_Mode;Բիթրեյթի ընդ. եղանակը
+OverallBitRate_Nominal;Բիթրեյթի պայմ. եղանակը
+Part;Մաս
+Part_Count;Ժամերի ք-ը.
+Performer;Կատարողը
+Period;Շրջանը
+Phone;Հեռախոս
+PixelAspectRatio;Փիքսելների համամասնությունը
+PixelAspectRatio_Original;Փիքսելների հարաբեր-ը օրիգինալում
+PlayCounter;Վերարտադրման հաշվիչ
+Played_Count;Վերարտադրվել է մեկ անգամ
+Played_First_Date;Առաջին վերարտադրումը
+Played_Last_Date;Վերջին վերարտադրումը
+PlayTime;Տևողությունը
+Position;Դիրքը
+Position_Total;Ընդամենը
+Preferences;Կարգավորումներ
+Producer;Պրոդյուսերը
+ProductionDesigner;Դիզայնի մշակողը
+ProductionStudio;Դիզայնի ստուդիան
+Publisher;Թողարկողը
+Purchased_Date;Գնման ամսաթիվը
+Quote character;Չակերտների նշանը
+RadioStation;Ռադիոկայանը
+Rating;Վարկանիշը
+Recorded_Date;Գրելու ամսաթիվը
+Recorded_Location;Գրելու տեղը
+Released_Date;Թողարկման ամսաթիվը
+RemixedBy;Ռեմիքսը՝
+ReplayGain_Gain;Ձայնի կարգավորիչ
+ReplayGain_Peak;Ձայնի կարգավորման գագաթը
+Resolution;Լուծաչափը
+s; վայր.
+SamplingRate;Հաճախականությունը
+Save;Պահպանել
+ScanType;Ստուգման տեսակը
 ScanType_Original;
-ScanOrder;ÕÕ¿Õ¸Ö‚Õ£Õ´Õ¡Õ¶ Õ°Õ¥Ö€Õ©Õ¨
-ScanOrder_StoredDisplayedInverted;
+ScanOrder;Ստուգման հերթը
 ScanOrder_Original;
-ScreenplayBy;ÕÖÕ¥Õ¶Õ¡Ö€Õ¨Õ
-Season;Ô½Õ¡Õ²Õ¡Õ·Ö€Õ»Õ¡Õ¶Õ¨
-see below;Õ¶Õ¡ÕµÕ¥Ö„ Õ¶Õ¥Ö€Ö„Ö‡
-Send HeaderFile;ÕˆÖ‚Õ²Õ¡Ö€Õ¯Õ¥Ö„ Õ¡ÕµÕ½ Ö†Õ¡ÕµÕ¬Õ« Õ£Õ¬Õ­Õ¡Õ£Õ«Ö€Õ¨ http://sourceforge.net/projects/mediainfo/ (ÕÕ­Õ¡Õ¬Õ¶Õ¥Ö€Õ« Õ¢Õ¡ÕªÕ«Õ¶)
-Separator_Columns;ÕÕµÕ¸Ö‚Õ¶Õ¥Ö€Õ« Õ¢Õ¡ÕªÕ¡Õ¶Õ«Õ¹
-Separator_Lines;ÕÕ¸Õ²Õ¥Ö€Õ« Õ¢Õ¡ÕªÕ¡Õ¶Õ«Õ¹
-ServiceChannel;Ô¾Õ¡Õ¼Õ¡ÕµÕ¸Ö‚Õ©ÕµÕ¡Õ¶ Õ¡Õ¬Õ«Ö„Õ« Õ°Õ¡Õ´Õ¡Ö€Õ¨
-ServiceName;Ô¾Õ¡Õ¼Õ¡ÕµÕ¸Ö‚Õ©ÕµÕ¡Õ¶ Õ¡Õ¶Õ¸Ö‚Õ¶Õ¨
-ServiceProvider;Ô¾Õ¡Õ¼Õ¡ÕµÕ¸Ö‚Õ©ÕµÕ¡Õ¶ Õ´Õ¡Õ¿Õ¡Õ¯Õ¡Ö€Õ¡Ö€Õ¨
-ServiceType;Ô¾Õ¡Õ¼Õ¡ÕµÕ¸Ö‚Õ©ÕµÕ¡Õ¶ Õ¿Õ¥Õ½Õ¡Õ¯Õ¨
-Set;ÕÕ¥Õ²Õ¡Õ¯Õ¡ÕµÕ¸Ö‚Õ´
-Set_Count;ÕÕ¥Õ²Õ¡Õ¯Õ¡ÕµÕ¸Ö‚Õ´Õ¶Õ¥Ö€Õ« Ö„-Õ¨
-Setup;Ô¿Õ¡Ö€Õ£Õ¡Õ¾Õ¸Ö€Õ¸Ö‚Õ´
-Sharpness;ÕÖ€Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨
-Sheet;Ô±Õ²ÕµÕ¸Ö‚Õ½Õ¡Õ¯
-Sheet (Complete);Ô±Õ²ÕµÕ¸Ö‚Õ½Õ¡Õ¯Õ¨ (Õ¡Õ´Õ¢Õ¸Õ²Õ»Õ¡Õ¯Õ¡Õ¶)
-Shell extension;Ô»Õ¶Õ¿Õ¥Õ£Ö€Õ¥Õ¬ Explorer-Õ¸Ö‚Õ´
-Shell extension, folder;Ô»Õ¶Õ¿Õ¥Õ£Ö€Õ¥Õ¬ Õ©Õ²Õ©Õ¡ÕºÕ¡Õ¶Õ¡Õ¯Õ¶Õ¥Ö€Õ« Explorer-Õ¸Ö‚Õ´
-Shell InfoTip;Õ‘Õ¸Ö‚ÖÕ¡Õ¤Ö€Õ¥Õ¬ Õ°Õ¸Ö‚Õ·Õ¸Ö‚Õ´ Explorer-Õ¸Ö‚Õ´
-Show menu;Õ‘Õ¸Ö‚ÖÕ¡Õ¤Ö€Õ¥Õ¬ Õ¨Õ¶Õ¿Ö€Õ¡ÖÕ¡Õ¶Õ¯Õ¨
-Show toolbar;Õ‘Õ¸Ö‚ÖÕ¡Õ¤Ö€Õ¥Õ¬ Õ¾Õ¡Õ°Õ¡Õ¶Õ¡Õ¯Õ¨
-Sort;Ô´Õ¡Õ½Õ¡Õ¾Õ¸Ö€Õ¥Õ¬ Õ¨Õ½Õ¿
-SamplingCount;Õ†Õ´Õ¸Ö‚Õ·Õ¶Õ¥Ö€Õ« Ö„Õ¡Õ¶Õ¡Õ¯Õ¨
-SoundEngineer;ÕÕ¡ÕµÕ¶. Õ¼Õ¥ÕªÕ«Õ½Õ¸Ö€Õ¨
+ScreenplayBy;Սցենարը՝
+Season;Խաղաշրջանը
+see below;նայեք ներքև
+Send HeaderFile;Ուղարկեք այս ֆայլի գլխագիրը http://sourceforge.net/projects/mediainfo/ (Սխալների բաժին)
+Separator_Columns;Սյուների բաժանիչ
+Separator_Lines;Տողերի բաժանիչ
+ServiceChannel;Ծառայության ալիքի համարը
+ServiceName;Ծառայության անունը
+ServiceProvider;Ծառայության մատակարարը
+ServiceType;Ծառայության տեսակը
+Set;Տեղակայում
+Set_Count;Տեղակայումների ք-ը
+Setup;Կարգավորում
+Sharpness;Սրությունը
+Sheet;Աղյուսակ
+Sheet (Complete);Աղյուսակը (ամբողջական)
+Shell extension;Ինտեգրել Explorer-ում
+Shell extension, folder;Ինտեգրել թղթապանակների Explorer-ում
+Shell InfoTip;Ցուցադրել հուշում Explorer-ում
+Show menu;Ցուցադրել ընտրացանկը
+Show toolbar;Ցուցադրել վահանակը
+Sort;Դասավորել ըստ
+SamplingCount;Նմուշների քանակը
+SoundEngineer;Ձայն. ռեժիսորը
 Source;
 Source_Duration;
 Source_FrameCount;
 Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
-Standard;ÕÕ¿Õ¡Õ¶Õ¤Õ¡Ö€Õ¿
-Stream;Õ€Õ¸Õ½Ö„Õ¨
-Stream_MoreInfo;Ô¼Ö€. Õ¿Õ¥Õ²Õ¥Õ¯Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¶Õ¥Ö€ Õ°Õ¸Õ½Ö„Õ« Õ´Õ¡Õ½Õ«Õ¶
-StreamCount;Ô±ÕµÕ½ Õ¿Õ¥Õ½Õ¡Õ¯Õ« Õ°Õ¸Õ½Ö„Õ¥Ö€Õ« Ö„-Õ¨
-StreamID;Õ€Õ¸Õ½Ö„Õ« ID-Õ«Õ¶
-StreamKind;Õ€Õ¸Õ½Ö„Õ« Õ¿Õ¥Õ½Õ¡Õ¯Õ¨
-StreamKindID;Õ€Õ¸Õ½Ö„Õ« Õ¿Õ¥Õ½Õ¡Õ¯ ID-Õ«Õ¶
-StreamKindPos;Õ€Õ¸Õ½Ö„Õ« Õ¿Õ¥Õ½Õ¡Õ¯ ID-Õ« Õ¤Õ«Ö€Ö„Õ¨
-StreamSize;Õ€Õ¸Õ½Ö„Õ« Õ¹Õ¡ÖƒÕ¨
+Standard;Ստանդարտ
+Stream;Հոսքը
+Stream_MoreInfo;Լր. տեղեկություններ հոսքի մասին
+StreamCount;Այս տեսակի հոսքերի ք-ը
+StreamID;Հոսքի ID-ին
+StreamKind;Հոսքի տեսակը
+StreamKindID;Հոսքի տեսակ ID-ին
+StreamKindPos;Հոսքի տեսակ ID-ի դիրքը
+StreamSize;Հոսքի չափը
 StreamSize_Encoded;
-StreamSize_Proportion;Õ€Õ¸Õ½Ö„Õ« Õ°Õ¡Õ´Õ¡Õ´Õ¡Õ½Õ¶Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨
-Subject;Ô¹Õ¥Õ´Õ¡Õ¶
-SubTrack;ÔµÕ¶Õ©Õ¡Õ°Õ¸Õ½Ö„Õ¨
-Summary;Õ€Õ¡Õ´Õ¡Õ¼Õ¸Õ¿
-Supported formats;Ô±Õ»Õ¡Õ¯ÖÕ¾Õ¸Õ² Õ¿Õ¥Õ½Õ¡Õ¯Õ¶Õ¥Ö€Õ¨
-Supported?;Ô±Õ»Õ¡Õ¯ÖÕ¾Õ¸Ö‚ÕžÕ´ Õ§
-Synopsis;Õ€Õ¡Õ´Õ¡Õ¼Õ¸Õ¿
-SystemId;ID-Õ«Õ¶
-Tagged_Application;Õ†Õ·Õ¾Õ¡Õ® Õ®Ö€Õ¡Õ£Õ«Ö€Õ¨
-Tagged_Date;Õ†Õ·Õ´Õ¡Õ¶ Õ¡Õ´Õ½Õ¡Õ©Õ«Õ¾Õ¨
-Technician;ÕÕ¥Õ­Õ¶Õ«Õ¯Õ¨
-TermsOfUse;Õ•Õ£Õ¿Õ¡Õ£. Õ¯Õ¡Õ¶Õ¸Õ¶Õ¶Õ¥Ö€Õ¨
-Text;ÕÕ¥Ö„Õ½Õ¿
-Text - Custom;ÕÕ¥Ö„Õ½Õ¿ - Ô¸Õ¶Õ¿Ö€Õ¸Õ¾Õ«
-Text (HTML);ÕÕ¥Ö„Õ½Õ¿ (HTML)
-Text stream(s);ÕÕ¥Ö„Õ½Õ¿Õ¡ÕµÕ«Õ¶ Õ°Õ¸Õ½Ö„Õ¥Ö€
-Text streams;ÕÕ¥Ö„Õ½Õ¿Õ¡ÕµÕ«Õ¶ Õ°Õ¸Õ½Ö„Õ¥Ö€
-Text_Codec_List;ÕÕ¥Ö„Õ½Õ¿Õ¡ÕµÕ«Õ¶ Õ¯Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ¶Õ¥Ö€Õ¨
-Text_No;Õ‰Õ¯Õ¡ Õ¿Õ¥Ö„Õ½Õ¿
-Text1;Ô±Õ¼Õ¡Õ»Õ«Õ¶ Õ¿Õ¥Ö„Õ½Õ¿Õ¡ÕµÕ«Õ¶ Õ°Õ¸Õ½Ö„Õ¨
-Text2;ÔµÖ€Õ¯Ö€Õ¸Ö€Õ¤ Õ¿Õ¥Ö„Õ½Õ¿Õ¡ÕµÕ«Õ¶ Õ°Õ¸Õ½Ö„Õ¨
-Text3;ÔµÖ€Ö€Õ¸Ö€Õ¤ Õ¿Õ¥Ö„Õ½Õ¿Õ¡ÕµÕ«Õ¶ Õ°Õ¸Õ½Ö„Õ¨
-TextCount;ÕÕ¥Ö„Õ½Õ¿Õ¡ÕµÕ«Õ¶ Õ°Õ¸Õ½Ö„Õ¨ Ö„-Õ¨
-ThanksTo;Õ‡Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬ Õ¥Õ¶Ö„
-Thousands separator;Õ€Õ¡Õ¦Õ¡Ö€ÕµÕ¡Õ¯Õ« Õ¢Õ¡ÕªÕ¡Õ¶Õ«Õ¹Õ¨
-Title;Ô±Õ¶Õ¸Ö‚Õ¶Õ¨
-Title_More;Ô±Õ¶Õ¸Ö‚Õ¶Õ¨, Õ¬Ö€Õ¡ÖÕ¸Ö‚ÖÕ«Õ¹
+StreamSize_Proportion;Հոսքի համամասնությունը
+Subject;Թեման
+SubTrack;Ենթահոսքը
+Summary;Համառոտ
+Supported formats;Աջակցվող տեսակները
+Supported?;Աջակցվու՞մ է
+Synopsis;Համառոտ
+SystemId;ID-ին
+Tagged_Application;Նշված ծրագիրը
+Tagged_Date;Նշման ամսաթիվը
+Technician;Տեխնիկը
+TermsOfUse;Օգտագ. կանոնները
+Text;Տեքստ
+Text - Custom;Տեքստ - Ընտրովի
+Text (HTML);Տեքստ (HTML)
+Text stream(s);Տեքստային հոսքեր
+Text streams;Տեքստային հոսքեր
+Text_Codec_List;Տեքստային կոդավորիչները
+Text_No;Չկա տեքստ
+Text1;Առաջին տեքստային հոսքը
+Text2;Երկրորդ տեքստային հոսքը
+Text3;Երրորդ տեքստային հոսքը
+TextCount;Տեքստային հոսքը ք-ը
+ThanksTo;Շնորհակալ ենք
+Thousands separator;Հազարյակի բաժանիչը
+Title;Անունը
+Title_More;Անունը, լրացուցիչ
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
-TimeZone;ÔºÕ¡Õ´Õ¡ÕµÕ«Õ¶ Õ£Õ¸Õ¿Õ«Õ¶
-Total;Ô¸Õ¶Õ¤Õ¡Õ´Õ¥Õ¶Õ¨
-Track;Õ‡Õ¡Õ¾Õ«Õ²Õ¨
-Track_Count;Õ‡Õ¡Õ¾Õ«Õ²Õ¶Õ¥Ö€Õ« Ö„-Õ¨
-transfer_characteristics;Õ“Õ¸Õ­Õ¡Õ¶ÖÕ´Õ¡Õ¶ Õ¢Õ¶Õ¸Ö‚Õ©Õ¡Õ£Ö€Õ¸Ö‚Õ´Õ¨
+TimeZone;Ժամային գոտին
+Total;Ընդամենը
+Track;Շավիղը
+Track_Count;Շավիղների ք-ը
+transfer_characteristics;Փոխանցման բնութագրումը
 Translator;Hrant Ohanyan
-Tree;Ô¾Õ¡Õ¼Õ« Õ¿Õ¥Õ½Ö„Õ¸Õ¾
-Tree & Text;Ô¾Õ¡Õ¼Õ« Õ¿Õ¥Õ½Ö„Õ¸Õ¾ Ö‡ Õ¿Õ¥Ö„Õ½Õ¿
+Tree;Ծառի տեսքով
+Tree & Text;Ծառի տեսքով և տեքստ
 Type;
-UniqueID;Ô²Õ¡ÖÕ¡Õ¼Õ«Õ¯ ID-Õ«Õ¶
-Unknown;Ô±Õ¶Õ°Õ¡ÕµÕ¿ Õ§
-Url;Õ€Õ²Õ¸Ö‚Õ´Õ¨
-Video;ÕÕ¥Õ½Õ¡Õ¶ÕµÕ¸Ö‚Õ©Õ¨
-Video stream(s);ÕÕ¥Õ½Õ¡Õ°Õ¸Õ½Ö„Õ¨
-Video_Codec_List;ÕÕ¥Õ½Õ¡Õ¯Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ¶Õ¥Ö€Õ¨
-Video_Delay;ÕÕ¥Õ½Õ¡Õ¶ÕµÕ¸Ö‚Õ©Õ« Õ¤Õ¡Õ¤Õ¡Ö€Õ¨
-Video_No;Õ‰Õ¯Õ¡ Õ¿Õ¥Õ½Õ¡Õ¶ÕµÕ¸Ö‚Õ©
-Video0_Delay;ÕÕ¥Õ½Õ¡Õ¶ÕµÕ¸Ö‚Õ©Õ« Õ¤Õ¡Õ¤Õ¡Ö€Õ¨
-Video1;Ô±Õ¼Õ¡Õ»Õ«Õ¶ Õ¿Õ¥Õ½Õ¡Õ°Õ¸Õ½Ö„Õ¨
-VideoCount;ÕÕ¥Õ½Õ¡Õ°Õ¸Õ½Ö„Õ¥Ö€Õ« Ö„-Õ¨
-View;ÕÕ¥Õ½Ö„Õ¨
-View_Hint;ÕŠÕ¡Õ¿Õ¯Õ¥Ö€Õ´Õ¡Õ¶ Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨
-Warning : more streams in the files;ÕˆÖ‚Õ·Õ¡Õ¤Ö€Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶. Ö†Õ¡ÕµÕ¬Õ¸Ö‚Õ´ Õ¤Õ¥Õ¼ Õ¯Õ¡Õ¶ Õ°Õ¸Õ½Ö„Õ¥Ö€
-Web;Ô¿Õ¡ÕµÖ„Õ¨
-WebSite_Audio;Ô¿Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« Õ¯Õ¡ÕµÖ„Õ¨
-WebSite_Audio_More;Ô²Õ¡ÖÕ¥Õ¬ (%Url%) Õ¯Õ¡ÕµÖ„Õ¨Õ Õ¯Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ¨ ÖƒÕ¶Õ¿Ö€Õ¥Õ¬Õ¸Ö‚ Õ°Õ¡Õ´Õ¡Ö€
-WebSite_General;Ô²Õ¡ÖÕ¥Õ¬ Õ¡ÕµÕ½ Ö†Õ¡ÕµÕ¬Õ« Õ¾Õ¥Ö€Õ¡Ö€Õ¿Õ¡Õ¤Ö€Õ´Õ¡Õ¶ Õ°Õ¡Õ´Õ¡Ö€ Õ®Ö€Õ¡Õ£Ö€Õ« Õ¯Õ¡ÕµÖ„Õ¨
-WebSite_General_More;Ô²Õ¡ÖÕ¥Õ¬ Õ¡ÕµÕ½ Ö†Õ¡ÕµÕ¬Õ« Õ¾Õ¥Ö€Õ¡Ö€Õ¿Õ¡Õ¤Ö€Õ´Õ¡Õ¶ Õ°Õ¡Õ´Õ¡Ö€ Õ®Ö€Õ¡Õ£Ö€Õ« Õ¯Õ¡ÕµÖ„Õ¨
-WebSite_Text;ÕÕ¥Ö„Õ½Õ¿Õ¡ÕµÕ«Õ¶ Õ¯Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« Õ¯Õ¡ÕµÖ„Õ¨
-WebSite_Text_More;Ô²Õ¡ÖÕ¥Õ¬ (%Url%) Õ¯Õ¡ÕµÖ„Õ¨Õ Õ¿Õ¥Ö„Õ½Õ¿Õ¡ÕµÕ«Õ¶ Õ¯Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« Õ°Õ¡Õ´Õ¡Ö€
+UniqueID;Բացառիկ ID-ին
+Unknown;Անհայտ է
+Url;Հղումը
+Video;Տեսանյութը
+Video stream(s);Տեսահոսքը
+Video_Codec_List;Տեսակոդավորիչները
+Video_Delay;Տեսանյութի դադարը
+Video_No;Չկա տեսանյութ
+Video0_Delay;Տեսանյութի դադարը
+Video1;Առաջին տեսահոսքը
+VideoCount;Տեսահոսքերի ք-ը
+View;Տեսքը
+View_Hint;Պատկերման եղանակը
+Warning : more streams in the files;Ուշադրություն. ֆայլում դեռ կան հոսքեր
+Web;Կայքը
+WebSite_Audio;Կոդավորիչի կայքը
+WebSite_Audio_More;Բացել (%Url%) կայքը՝ կոդավորիչը փնտրելու համար
+WebSite_General;Բացել այս ֆայլի վերարտադրման համար ծրագրի կայքը
+WebSite_General_More;Բացել այս ֆայլի վերարտադրման համար ծրագրի կայքը
+WebSite_Text;Տեքստային կոդավորիչի կայքը
+WebSite_Text_More;Բացել (%Url%) կայքը՝ տեքստային կոդավորիչի համար
 WebSite_Url;http://MediaArea.net/MediaInfo
-WebSite_Video;ÕÕ¥Õ½Õ¡Õ¯Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« Õ¯Õ¡ÕµÖ„Õ¨
-WebSite_Video_More;Ô²Õ¡ÖÕ¥Õ¬ (%Url%) Õ¯Õ¡ÕµÖ„Õ¨Õ Õ¡ÕµÕ½ Õ¿Õ¥Õ½Õ¡Õ¯Õ¸Õ¤Õ¡Õ¾Õ¸Ö€Õ«Õ¹Õ« Õ´Õ¡Õ¶Ö€Õ¡Õ´Õ¡Õ½Õ¶Õ¥Ö€Õ« Õ°Õ¡Õ´Õ¡Ö€
-Width;Ô¼Õ¡ÕµÕ¶-Õ¨
-Width_Original;Õ•Ö€Õ«Õ£Õ«Õ¶Õ¡Õ¬Õ« Õ¬Õ¡ÕµÕ¶-Õ¨
-WriteMe;Õ†Õ¡Õ´Õ¡Õ¯ Õ°Õ¥Õ²Õ«Õ¶Õ¡Õ¯Õ«Õ¶
-WriteToTranslator;Õ†Õ¡Õ´Õ¡Õ¯ Õ©Õ¡Ö€Õ£Õ´Õ¡Õ¶Õ¹Õ«Õ¶
-Written_Date;Ô³Ö€Õ¥Õ¬Õ¸Ö‚ Õ¡Õ´Õ½Õ¡Õ©Õ«Õ¾Õ¨
-Written_Location;Ô³Ö€Õ¥Õ¬Õ¸Ö‚ Õ¿Õ¥Õ²Õ¨
-WrittenBy;Ô³Ö€Õ¾Õ¥Õ¬ Õ§Õ
-Yes;Ô±ÕµÕ¸
-Your system;ÕÕ¥Ö€ Õ°Õ¡Õ´Õ¡Õ¯Õ¡Ö€Õ£Õ¨
+WebSite_Video;Տեսակոդավորիչի կայքը
+WebSite_Video_More;Բացել (%Url%) կայքը՝ այս տեսակոդավորիչի մանրամասների համար
+Width;Լայն-ը
+Width_Original;Օրիգինալի լայն-ը
+WriteMe;Նամակ հեղինակին
+WriteToTranslator;Նամակ թարգմանչին
+Written_Date;Գրելու ամսաթիվը
+Written_Location;Գրելու տեղը
+WrittenBy;Գրվել է՝
+Yes;Այո
+Your system;Ձեր համակարգը
 ZZ_Automatic_Percent;93
 ZZ_AutomaticLanguage_Percent;97

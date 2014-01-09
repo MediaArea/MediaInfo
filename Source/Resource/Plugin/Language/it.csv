@@ -150,8 +150,8 @@ Actor;Attore
 Actor_Character;Personaggio
 Added_Date;Data
 Address;Indirizzo
-Advanced;ModalitÃ Â avanzata
-Advanced mode;ModalitÃ Â avanzata
+Advanced;Modalità avanzata
+Advanced mode;Modalità avanzata
 Album;Album
 Album_ReplayGain_Gain;Album replay gain
 Album_ReplayGain_Peak;Album replay gain peak
@@ -177,11 +177,11 @@ Author;Autore
 BarCode;Codice a barre
 Basic;Semplice
 Basic_Note;Nota: per maggiori informazioni seleziona Scheda, Albero....
-BitDepth;ProfonditÃ  bit
+BitDepth;Profondità bit
 BitRate;Bitrate
 BitRate_Maximum;Bitrate massimo
 BitRate_Minimum;Bitrate minimo
-BitRate_Mode;ModalitÃ  bitrate
+BitRate_Mode;Modalità bitrate
 BitRate_Mode_CBR;Costante
 BitRate_Mode_VBR;Variabile
 BitRate_Nominal;Bitrate nominale
@@ -199,8 +199,8 @@ Chapters_No;Nessun capitolo
 ChaptersCount;Numero dei capitoli
 CheckNewVersion;verifica nuova versione
 Choose custom;Vista personalizzata
-Choose custom sheet;Personalizza modalitÃ  scheda
-Choose custom text;Personalizza modalitÃ  testo
+Choose custom sheet;Personalizza modalità scheda
+Choose custom text;Personalizza modalità testo
 Choose export format;Scegli il formato in cui esportare
 Choose file(s);Seleziona i file da aprire
 Choose filename;Inserire il nome del file
@@ -304,7 +304,7 @@ File size;Dimensione file
 File_Append;Aggiungi a un file esistente (attenzione: assicurarsi che abbiano caratteristiche uguali)
 File_Created_Date;Data creazione
 File_Created_Date_Local;Data creazione (locale)
-File_Hint;Seleziona piÃ¹ file da aprire
+File_Hint;Seleziona più file da aprire
 File_Modified_Date;Data ultima modifica
 File_Modified_Date_Local;Data ultima modifica (locale)
 FileExtension;Estensione file
@@ -350,7 +350,7 @@ Format_Version;Versione formato
 Format_Url;Sito web formato
 FrameCount;Numero fotogrammi
 FrameRate;Frame rate
-FrameRate_Mode;ModalitÃ  frame rate
+FrameRate_Mode;Modalità frame rate
 FrameRate_Mode_CFR;Costante
 FrameRate_Mode_VFR;Variabile
 FrameRate_Minimum;Frame rate minimo
@@ -708,7 +708,7 @@ Language_mt;Maltese
 Language_mul;Multilingua
 Language_my;Burmese
 Language_na;Nauru
-Language_nb;Norvegese BokmÃ¥l
+Language_nb;Norvegese Bokmål
 Language_nd;Ndebele, North
 Language_ne;Nepalese
 Language_ng;Ndonga
@@ -773,7 +773,7 @@ Language_ur;Urdu
 Language_uz;Usbeco
 Language_ve;Venda
 Language_vi;Vietnamita
-Language_vo;VolapÃ¼k
+Language_vo;Volapük
 Language_wa;Vallone
 Language_wo;Wolof
 Language_xh;Xhosa
@@ -787,7 +787,7 @@ Language_zu;Zulu
 LawRating;Classificazione legale
 LCCN;LCCN
 Library;Libreria
-Lightness;LuminositÃ 
+Lightness;Luminosità
 List;Elenco
 Lyrics;Testo
 Lyricist;Autore del testo
@@ -800,7 +800,7 @@ Menu stream(s);Flussi del menu
 Menu_Codec_List;Codec dei menu
 Menu_No;Nessun menu
 MenuCount;Numero canali
-Menu_Hint;Altre possibilitÃ 
+Menu_Hint;Altre possibilità
 MenuID;ID menu
 mn;min
 Mood;Disposizione
@@ -813,7 +813,7 @@ MuxingMode;Modo muxing
 MuxingMode_MoreInfo;Informazioni aggiuntive modo muxing
 MuxingMode_PackedBitstream;Packet Bitstream
 Name;Nome
-Nationality;NazionalitÃ 
+Nationality;Nazionalità
 NetworkName;Nome in rete
 New;Nuovo
 Newest version;Controlla aggiornamenti (richiede una connessione a internet)
@@ -832,25 +832,25 @@ OpenCandy_03;Connessione internet interrotta
 OpenCandy_04;________ download completato
 OpenCandy_05;Fai clic per installare ________
 OpenCandy_06;Annullare l'installazione?\r\nSe vuoi postporre l'installazione, seleziona <No>.\r\nNota: puoi selezionare <Esci> dal menu per annullare l'installazione sino al nuovo riavvio.
-OpenCandy_07;Il download di ________ Ã¨ stato messo in pausa.\r\nFai clic sull'icona nella barra di sistema per riprendere.
-OpenCandy_08;ERRORE CRITICO. L'installazione di _________ Ã¨ stata annullata.
+OpenCandy_07;Il download di ________ è stato messo in pausa.\r\nFai clic sull'icona nella barra di sistema per riprendere.
+OpenCandy_08;ERRORE CRITICO. L'installazione di _________ è stata annullata.
 OpenCandy_09;Pausa
 OpenCandy_10;Annulla installazione
 OpenCandy_11;Riprendi download
 OpenCandy_12;Esci dall'installazione
 OpenCandy_13;___________ - Raccomandato da ____________
 OpenCandy_14;Download di _________
-OpenCandy_15;___________, programma raccomandato da ___________, Ã¨ in download Verrai avvisato quando sarÃ  pronto per l'installazione.
-OpenCandy_16;___________ Ã¨ pronto per l'installazione
-OpenCandy_17;___________ Ã¨ stato scaricato. Fai clic su <Installa> per procedere.
+OpenCandy_15;___________, programma raccomandato da ___________, è in download Verrai avvisato quando sarà pronto per l'installazione.
+OpenCandy_16;___________ è pronto per l'installazione
+OpenCandy_17;___________ è stato scaricato. Fai clic su <Installa> per procedere.
 OpenCandy_18;___________ di ___________ scaricati
 OpenCandy_19;Realizzato da OpenCandy
 OpenCandy_20;Maggiori informazioni su OpenCandy.com
 OpenCandy_21;Installa
 OpenCandy_22;Installazione di ___________
-OpenCandy_23;Questo annullerÃ  l'installazione di ___________\r\nAnnullare l'installazione?
+OpenCandy_23;Questo annullerà l'installazione di ___________\r\nAnnullare l'installazione?
 OpenCandy_24;Pausa
-OpenCandy_25;Il download Ã¨ stato messo in pausa. Fai clic su <Riprendi> per continuare.
+OpenCandy_25;Il download è stato messo in pausa. Fai clic su <Riprendi> per continuare.
 OpenCandy_26;Riprendi
 OpenCandy_27;Installa ora
 OpenCandy_28;Pausa
@@ -861,7 +861,7 @@ OpenCandy_32;Installa
 OpenCandy_33;Non installare
 OpenCandy_34;Seleziona opzioni installazione
 OpenCandy_35;______ consiglia questo programma
-OpenCandy_36;L'attuale installazione non verrÃ  interrotta
+OpenCandy_36;L'attuale installazione non verrà interrotta
 Options;Opzioni
 Options_Hint;Preferenze
 Original;Originale
@@ -912,7 +912,6 @@ Save;Salva
 ScanType;Tipo scansione
 ScanType_Original;
 ScanOrder;Ordine scansione
-ScanOrder_StoredDisplayedInverted;
 ScanOrder_Original;
 ScreenplayBy;Sceneggiatura
 Season;Stagione n.
@@ -932,7 +931,7 @@ Sheet;Scheda
 Sheet (Complete);Scheda (completa)
 Shell extension;Aggiungi 'Apri con MediaInfo' al menu contestuale
 Shell extension, folder;Anche per le cartelle
-Shell InfoTip;Informazioni in Explorer (in Explorer, spostarsi sul file e verrÃ  visualizzate le informazioni)
+Shell InfoTip;Informazioni in Explorer (in Explorer, spostarsi sul file e verrà visualizzate le informazioni)
 Show menu;Mostra menu
 Show toolbar;Mostra barra strumenti
 Sort;Ordinato per
