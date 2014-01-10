@@ -641,6 +641,11 @@ const wchar_t*     __stdcall MediaInfo_Option (void* Handle, const wchar_t* Opti
         MI_Handle[NULL]->Unicode=L"OK";
         return MI_Handle[NULL]->Unicode.c_str();
     }
+    if (ZenLib::Ztring(Option).Compare(L"setlocale_LC_CTYPE", L"=="))
+    {
+        setlocale(LC_CTYPE, utf8?ZenLib::Ztring(Value).To_UTF8().c_str():ZenLib::Ztring(Value).To_Local().c_str());
+        return MI_Handle[NULL]->Unicode.c_str();
+    }
 
     if (Handle)
     {
@@ -831,6 +836,11 @@ const wchar_t*     __stdcall MediaInfoList_Option (void* Handle, const wchar_t* 
         else
             utf8=false;
         MI_Handle[NULL]->Unicode=L"OK";
+        return MI_Handle[NULL]->Unicode.c_str();
+    }
+    if (ZenLib::Ztring(Option).Compare(L"setlocale_LC_CTYPE", L"=="))
+    {
+        setlocale(LC_CTYPE, utf8?ZenLib::Ztring(Value).To_UTF8().c_str():ZenLib::Ztring(Value).To_Local().c_str());
         return MI_Handle[NULL]->Unicode.c_str();
     }
 
