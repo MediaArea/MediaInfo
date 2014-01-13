@@ -13,7 +13,7 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
-Version 0.7.67, 2013-01-10
+Version 0.7.67, 2014-01-10
 --------------
 x Windows version: translation files were corrupted
 x Mac App Store version: "Can not open file(s)" message when trying to open files having diacritics in file name.
