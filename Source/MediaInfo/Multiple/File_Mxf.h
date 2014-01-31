@@ -460,6 +460,7 @@ protected :
         int32u TrackID;
         Ztring TrackName;
         int32u TrackNumber;
+        float64 EditRate_Real; //Before demux adaptation
         float64 EditRate;
         int64u  Origin;
         bool   Stream_Finish_Done;
@@ -469,6 +470,7 @@ protected :
             Sequence=0;
             TrackID=(int32u)-1;
             TrackNumber=(int32u)-1;
+            EditRate_Real=(float64)0;
             EditRate=(float64)0;
             Origin=0;
             Stream_Finish_Done=false;
@@ -771,6 +773,7 @@ protected :
     int64u SystemScheme1_FrameRateFromDescriptor;
     bool   Essences_FirstEssence_Parsed;
     bool   StereoscopicPictureSubDescriptor_IsPresent;
+    int32u Essences_UsedForFrameCount;
     int32u IndexTable_NSL;
     int32u IndexTable_NPE;
     #if MEDIAINFO_ADVANCED
@@ -816,8 +819,12 @@ protected :
     bool                            Partitions_IsCalculatingSdtiByteCount;
     bool                            Partitions_IsFooter;
 
-    #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
+    //Demux
+    #if MEDIAINFO_DEMUX
         bool Demux_HeaderParsed;
+    #endif //MEDIAINFO_DEMUX
+
+    #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
         size_t CountOfLocatorsToParse;
         float64 Demux_Rate;
 

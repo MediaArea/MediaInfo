@@ -77,6 +77,7 @@ File__Analyze::File__Analyze ()
         Demux_IntermediateItemFound=true;
         Demux_Offset=0;
         Demux_TotalBytes=0;
+        Demux_CurrentParser=NULL;
         Demux_EventWasSent_Accept_Specific=false;
     #endif //MEDIAINFO_DEMUX
     PTS_DTS_Needed=false;

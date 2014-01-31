@@ -243,6 +243,51 @@ void File__ReferenceFilesHelper::ParseReferences()
                     }
         #endif //MEDIAINFO_FILTER
 
+        //Filling Filenames from the more complete version and Edit rates
+        float64 EditRate=DBL_MAX;
+        size_t  EditRate_Count=0;
+        for (Reference=References.begin(); Reference!=References.end(); Reference++)
+            if (Reference->FileNames.empty())
+                for (size_t Pos=0; Pos<Reference->CompleteDuration.size(); Pos++)
+                {
+                    Reference->FileNames.push_back(Reference->CompleteDuration[Pos].FileName);
+                    if (Reference->CompleteDuration[Pos].IgnoreFramesRate && EditRate!=Reference->CompleteDuration[Pos].IgnoreFramesRate)
+                    {
+                        if (EditRate>Reference->CompleteDuration[Pos].IgnoreFramesRate)
+                            EditRate=Reference->CompleteDuration[Pos].IgnoreFramesRate;
+                        EditRate_Count++;
+                    }
+                }
+        if (EditRate_Count>1)
+            //Multiple rates, using only one rate
+            for (Reference=References.begin(); Reference!=References.end(); Reference++)
+                for (size_t Pos=0; Pos<Reference->CompleteDuration.size(); Pos++)
+                    if (Reference->CompleteDuration[Pos].IgnoreFramesRate && EditRate!=Reference->CompleteDuration[Pos].IgnoreFramesRate)
+                    {
+                        if (Reference->CompleteDuration[Pos].IgnoreFramesBefore)
+                        {
+                            float64 Temp=(float64)Reference->CompleteDuration[Pos].IgnoreFramesBefore;
+                            Temp/=Reference->CompleteDuration[Pos].IgnoreFramesRate;
+                            Temp*=EditRate;
+                            Reference->CompleteDuration[Pos].IgnoreFramesBefore=float64_int64s(Temp);
+                        }
+                        if (Reference->CompleteDuration[Pos].IgnoreFramesAfter!=(int64u)-1)
+                        {
+                            float64 Temp=(float64)Reference->CompleteDuration[Pos].IgnoreFramesAfter;
+                            Temp/=Reference->CompleteDuration[Pos].IgnoreFramesRate;
+                            Temp*=EditRate;
+                            Reference->CompleteDuration[Pos].IgnoreFramesAfter=float64_int64s(Temp);
+                        }
+                        if (Reference->CompleteDuration[Pos].IgnoreFramesAfterDuration!=(int64u)-1)
+                        {
+                            float64 Temp=(float64)Reference->CompleteDuration[Pos].IgnoreFramesAfterDuration;
+                            Temp/=Reference->CompleteDuration[Pos].IgnoreFramesRate;
+                            Temp*=EditRate;
+                            Reference->CompleteDuration[Pos].IgnoreFramesAfterDuration=float64_int64s(Temp);
+                        }
+                        Reference->CompleteDuration[Pos].IgnoreFramesRate=EditRate;
+                    }
+
         //Testing IDs
         std::set<int64u> StreamList;
         bool StreamList_DuplicatedIds=false;
@@ -470,13 +515,13 @@ void File__ReferenceFilesHelper::ParseReferences()
                 }
             }
 
-            if (FilesForStorage && Reference->FileNames.size()>1)
+            if (FilesForStorage)
             {
                 for (size_t Pos=0; Pos<Reference->FileNames.size(); Pos++)
                 {
-                    reference::completeduration* Temp=new reference::completeduration;
-                    Temp->FileName=Reference->FileNames[Pos];
-                    Reference->CompleteDuration.push_back(Temp);
+                    if (Pos>=Reference->CompleteDuration.size())
+                        Reference->CompleteDuration.resize(Pos+1);
+                    Reference->CompleteDuration[Pos].FileName=Reference->FileNames[Pos];
                 }
                 Reference->FileNames.resize(1);
             }
@@ -583,7 +628,7 @@ void File__ReferenceFilesHelper::ParseReferences()
                     {
                         int64u DTS_Temp;
                         if (ReferenceTemp->CompleteDuration_Pos)
-                            DTS_Temp=ReferenceTemp->CompleteDuration[ReferenceTemp->CompleteDuration_Pos]->MI->Info->FrameInfo.DTS;
+                            DTS_Temp=ReferenceTemp->CompleteDuration[ReferenceTemp->CompleteDuration_Pos].MI->Info->FrameInfo.DTS;
                         else
                             DTS_Temp=ReferenceTemp->MI->Info->FrameInfo.DTS;
                         if (DTS_Minimal>DTS_Temp)
@@ -606,7 +651,7 @@ void File__ReferenceFilesHelper::ParseReferences()
         #endif //MEDIAINFO_EVENTS
 
         #if MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
-            if (Demux_Interleave)
+            if (Demux_Interleave && (Reference->MI==NULL || Reference->MI->Info==NULL || Reference->MI->Info->Demux_CurrentParser==NULL || Reference->MI->Info->Demux_CurrentParser->Demux_TotalBytes>=Reference->MI->Info->Demux_CurrentParser->Buffer_TotalBytes+Reference->MI->Info->Demux_CurrentParser->Buffer_Size))
             {
                 references::iterator Reference_Next=Reference; ++Reference_Next;
 
@@ -658,7 +703,7 @@ bool File__ReferenceFilesHelper::ParseReference_Init()
             Ztring Demux_Save=MI2.Option(__T("Demux_Get"), __T(""));
             MI2.Option(__T("ParseSpeed"), __T("0"));
             MI2.Option(__T("Demux"), Ztring());
-            size_t MiOpenResult=MI2.Open(Reference->CompleteDuration[Pos]->FileName);
+            size_t MiOpenResult=MI2.Open(Reference->CompleteDuration[Pos].FileName);
             MI2.Option(__T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
             MI2.Option(__T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
             if (MiOpenResult)
@@ -671,35 +716,47 @@ bool File__ReferenceFilesHelper::ParseReference_Init()
                         int64u Delay=MI2.Get(Stream_Video, 0, Video_Delay).To_int64u()*1000000;
                         if (Reference->StreamKind==Stream_Video && Offset_Video_DTS==0)
                             Offset_Video_DTS=Delay;
-                        Reference->CompleteDuration[0]->Demux_Offset_DTS=Offset_Video_DTS;
-                        Reference->CompleteDuration[0]->Demux_Offset_Frame=0;
+                        Reference->CompleteDuration[0].Demux_Offset_DTS=Offset_Video_DTS;
+                        Reference->CompleteDuration[0].Demux_Offset_Frame=0;
                     }
                     if (Pos+1<Reference->CompleteDuration.size())
                     {
-                        Reference->CompleteDuration[Pos+1]->Demux_Offset_DTS=Reference->CompleteDuration[Pos]->Demux_Offset_DTS+Duration;
-                        Reference->CompleteDuration[Pos+1]->Demux_Offset_Frame=Reference->CompleteDuration[Pos]->Demux_Offset_Frame+FrameCount;
+                        Reference->CompleteDuration[Pos+1].Demux_Offset_DTS=Reference->CompleteDuration[Pos].Demux_Offset_DTS+Duration;
+                        Reference->CompleteDuration[Pos+1].Demux_Offset_Frame=Reference->CompleteDuration[Pos].Demux_Offset_Frame+FrameCount;
                     }
                     else
-                        Duration=Reference->CompleteDuration[Pos]->Demux_Offset_DTS+Duration-Reference->CompleteDuration[0]->Demux_Offset_DTS;
+                        Duration=Reference->CompleteDuration[Pos].Demux_Offset_DTS+Duration-Reference->CompleteDuration[0].Demux_Offset_DTS;
                 #endif //MEDIAINFO_DEMUX
             }
 
             if (Pos)
             {
-                Reference->CompleteDuration[Pos]->MI=MI_Create();
+                Reference->CompleteDuration[Pos].MI=MI_Create();
+                Reference->CompleteDuration[Pos].MI->Config.File_IgnoreFramesBefore=Reference->CompleteDuration[Pos].IgnoreFramesBefore;
+                if (Reference->CompleteDuration[Pos].IgnoreFramesAfter==(int64u)-1 && Reference->CompleteDuration[Pos].IgnoreFramesAfterDuration!=(int64u)-1)
+                    Reference->CompleteDuration[Pos].MI->Config.File_IgnoreFramesAfter=Reference->CompleteDuration[Pos].IgnoreFramesBefore+Reference->CompleteDuration[Pos].IgnoreFramesAfterDuration;
+                else
+                    Reference->CompleteDuration[Pos].MI->Config.File_IgnoreFramesAfter=Reference->CompleteDuration[Pos].IgnoreFramesAfter;
+                Reference->CompleteDuration[Pos].MI->Config.File_IgnoreFramesRate=Reference->CompleteDuration[Pos].IgnoreFramesRate;
                 #if MEDIAINFO_DEMUX
-                    Reference->CompleteDuration[Pos]->MI->Config.Demux_Offset_Frame=Reference->CompleteDuration[Pos]->Demux_Offset_Frame;
-                    Reference->CompleteDuration[Pos]->MI->Config.Demux_Offset_DTS=Reference->CompleteDuration[Pos]->Demux_Offset_DTS;
+                    Reference->CompleteDuration[Pos].MI->Config.Demux_Offset_Frame=Reference->CompleteDuration[Pos].Demux_Offset_Frame;
+                    Reference->CompleteDuration[Pos].MI->Config.Demux_Offset_DTS=Reference->CompleteDuration[Pos].Demux_Offset_DTS;
                 #endif //MEDIAINFO_DEMUX
             }
         }
-        #if MEDIAINFO_DEMUX
-            if (!Reference->CompleteDuration.empty())
-            {
-                Reference->MI->Config.Demux_Offset_Frame=Reference->CompleteDuration[0]->Demux_Offset_Frame;
-                Reference->MI->Config.Demux_Offset_DTS=Reference->CompleteDuration[0]->Demux_Offset_DTS;
-            }
-        #endif //MEDIAINFO_DEMUX
+        if (!Reference->CompleteDuration.empty())
+        {
+            Reference->MI->Config.File_IgnoreFramesBefore=Reference->CompleteDuration[0].IgnoreFramesBefore;
+            if (Reference->CompleteDuration[0].IgnoreFramesAfter==(int64u)-1 && Reference->CompleteDuration[0].IgnoreFramesAfterDuration!=(int64u)-1)
+                Reference->MI->Config.File_IgnoreFramesAfter=Reference->CompleteDuration[0].IgnoreFramesBefore+Reference->CompleteDuration[0].IgnoreFramesAfterDuration;
+            else
+                Reference->MI->Config.File_IgnoreFramesAfter=Reference->CompleteDuration[0].IgnoreFramesAfter;
+            Reference->MI->Config.File_IgnoreFramesRate=Reference->CompleteDuration[0].IgnoreFramesRate;
+            #if MEDIAINFO_DEMUX
+                Reference->MI->Config.Demux_Offset_Frame=Reference->CompleteDuration[0].Demux_Offset_Frame;
+                Reference->MI->Config.Demux_Offset_DTS=Reference->CompleteDuration[0].Demux_Offset_DTS;
+            #endif //MEDIAINFO_DEMUX
+        }
     }
 
     if (Reference->IsCircular)
@@ -745,7 +802,7 @@ bool File__ReferenceFilesHelper::ParseReference_Init()
 
         if (Config->ParseSpeed>=1)
             for (size_t Pos=1; Pos<Reference->CompleteDuration.size(); Pos++)
-                Reference->CompleteDuration[Pos]->MI->Open(Reference->CompleteDuration[Pos]->FileName);
+                Reference->CompleteDuration[Pos].MI->Open(Reference->CompleteDuration[Pos].FileName);
 
         #if MEDIAINFO_NEXTPACKET && MEDIAINFO_DEMUX
             if (Config->NextPacket_Get())
@@ -772,9 +829,17 @@ void File__ReferenceFilesHelper::ParseReference()
             {
                 int64u DTS_Temp;
                 if (Reference->CompleteDuration_Pos)
-                    DTS_Temp=Reference->CompleteDuration[Reference->CompleteDuration_Pos]->MI->Info->FrameInfo.DTS;
+                    DTS_Temp=Reference->CompleteDuration[Reference->CompleteDuration_Pos].MI->Info->FrameInfo.DTS;
                 else
                     DTS_Temp=Reference->MI->Info->FrameInfo.DTS;
+                if (Reference->CompleteDuration_Pos<Reference->CompleteDuration.size() && Reference->CompleteDuration[Reference->CompleteDuration_Pos].IgnoreFramesRate && Reference->CompleteDuration[Reference->CompleteDuration_Pos].IgnoreFramesBefore)
+                {
+                    int64u TimeOffset=float64_int64s(((float64)Reference->CompleteDuration[Reference->CompleteDuration_Pos].IgnoreFramesBefore)/Reference->CompleteDuration[Reference->CompleteDuration_Pos].IgnoreFramesRate*1000000000);
+                    if (DTS_Temp>TimeOffset)
+                        DTS_Temp-=TimeOffset;
+                    else
+                        DTS_Temp=0;
+                }
                 if (DTS_Temp>DTS_Minimal+DTS_Interval)
                     return;
             }
@@ -802,7 +867,7 @@ void File__ReferenceFilesHelper::ParseReference()
 
                     while (Reference->CompleteDuration_Pos<Reference->CompleteDuration.size())
                     {
-                        while ((Reference->Status=Reference->CompleteDuration[Reference->CompleteDuration_Pos]->MI->Open_NextPacket())[8])
+                        while ((Reference->Status=Reference->CompleteDuration[Reference->CompleteDuration_Pos].MI->Open_NextPacket())[8])
                         {
                                 if (Config->Event_CallBackFunction_IsSet())
                                 {
@@ -825,11 +890,11 @@ void File__ReferenceFilesHelper::ParseReference()
             Reference->State=10000;
             if (Reference->CompleteDuration.empty())
                 Reference->FileSize=Reference->MI->Config.File_Size;
-            else
+            else if (Reference->FileSize==(int64u)-1)
             {
                 Reference->FileSize=0;
                 for (size_t Pos=0; Pos<Reference->CompleteDuration.size(); Pos++)
-                    Reference->FileSize+=File::Size_Get(Reference->CompleteDuration[Pos]->FileName);
+                    Reference->FileSize+=File::Size_Get(Reference->CompleteDuration[Pos].FileName);
             }
             delete Reference->MI; Reference->MI=NULL;
         }
@@ -931,9 +996,11 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
         MI->Clear(StreamKind_Last, StreamPos_To, MI->Fill_Parameter(StreamKind_Last, Generic_FrameCount));
         MI->Clear(StreamKind_Last, StreamPos_To, MI->Fill_Parameter(StreamKind_Last, Generic_StreamSize));
 
+        float64 BitRate_Before=0;
         int64u Duration_Temp=0;
         int64u FrameCount_Temp=0;
         int64u StreamSize_Temp=0;
+        int64u FileSize_Temp=0;
         for (size_t Pos=0; Pos<Reference->CompleteDuration.size(); Pos++)
         {
             MediaInfo_Internal MI2;
@@ -942,26 +1009,46 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
             Ztring Demux_Save=MI2.Option(__T("Demux_Get"), __T(""));
             MI2.Option(__T("ParseSpeed"), __T("0"));
             MI2.Option(__T("Demux"), Ztring());
-            size_t MiOpenResult=MI2.Open(Reference->CompleteDuration[Pos]->FileName);
+            MI2.Config.File_IgnoreFramesBefore=Reference->CompleteDuration[Pos].IgnoreFramesBefore;
+            if (Reference->CompleteDuration[Pos].IgnoreFramesAfter==(int64u)-1 && Reference->CompleteDuration[Pos].IgnoreFramesAfterDuration!=(int64u)-1)
+                MI2.Config.File_IgnoreFramesAfter=Reference->CompleteDuration[Pos].IgnoreFramesBefore+Reference->CompleteDuration[Pos].IgnoreFramesAfterDuration;
+            else
+                MI2.Config.File_IgnoreFramesAfter=Reference->CompleteDuration[Pos].IgnoreFramesAfter;
+            MI2.Config.File_IgnoreFramesRate=Reference->CompleteDuration[Pos].IgnoreFramesRate;
+            size_t MiOpenResult=MI2.Open(Reference->CompleteDuration[Pos].FileName);
             MI2.Option(__T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
             MI2.Option(__T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
             if (MiOpenResult)
             {
+                BitRate_Before=MI2.Get(StreamKind_Last, StreamPos_From, MI->Fill_Parameter(StreamKind_Last, Generic_BitRate)).To_float64();
                 Ztring Duration_Temp2=MI2.Get(StreamKind_Last, StreamPos_From, MI->Fill_Parameter(StreamKind_Last, Generic_Duration));
-                if (!Duration_Temp2.empty())
+                if (!Duration_Temp2.empty() && Duration_Temp!=(int64u)-1)
                     Duration_Temp+=Duration_Temp2.To_int64u();
                 else
                     Duration_Temp=(int64u)-1;
                 Ztring FrameCount_Temp2=MI2.Get(StreamKind_Last, StreamPos_From, MI->Fill_Parameter(StreamKind_Last, Generic_FrameCount));
-                if (!FrameCount_Temp2.empty())
+                if (!FrameCount_Temp2.empty() && FrameCount_Temp!=(int64u)-1)
                     FrameCount_Temp+=FrameCount_Temp2.To_int64u();
                 else
                     FrameCount_Temp=(int64u)-1;
                 Ztring StreamSize_Temp2=MI2.Get(StreamKind_Last, StreamPos_From, MI->Fill_Parameter(StreamKind_Last, Generic_StreamSize));
-                if (!StreamSize_Temp2.empty())
+                if (!StreamSize_Temp2.empty() && StreamSize_Temp!=(int64u)-1)
                     StreamSize_Temp+=StreamSize_Temp2.To_int64u();
                 else
                     StreamSize_Temp=(int64u)-1;
+                Ztring FileSize_Temp2=MI2.Get(Stream_General, 0, General_FileSize);
+                if (!FileSize_Temp2.empty() && FileSize_Temp!=(int64u)-1)
+                    FileSize_Temp+=FileSize_Temp2.To_int64u();
+                else
+                    FileSize_Temp=(int64u)-1;
+            }
+            else
+            {
+                Duration_Temp=(int64u)-1;
+                FrameCount_Temp=(int64u)-1;
+                StreamSize_Temp=(int64u)-1;
+                FileSize_Temp=(int64u)-1;
+                break;
             }
         }
 
@@ -971,6 +1058,14 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
             MI->Fill(StreamKind_Last, StreamPos_To, MI->Fill_Parameter(StreamKind_Last, Generic_FrameCount), FrameCount_Temp, 10, true);
         if (StreamSize_Temp!=(int64u)-1)
             MI->Fill(StreamKind_Last, StreamPos_To, MI->Fill_Parameter(StreamKind_Last, Generic_StreamSize), StreamSize_Temp, 10, true);
+        if (FileSize_Temp!=(int64u)-1)
+            Reference->FileSize=FileSize_Temp;
+        if (BitRate_Before)
+        {
+            float64 BitRate_After=((float64)StreamSize_Temp)*8000/Duration_Temp;
+            if (BitRate_Before>BitRate_After*0.999 && BitRate_Before<BitRate_After*1.001)
+                MI->Fill(StreamKind_Last, StreamPos_To, MI->Fill_Parameter(StreamKind_Last, Generic_BitRate), BitRate_Before, 0, true); //In case of similar bitrate, there is great chance hte compute bit rate is different due to aproximation errors only, using the previous one. TODO: find a better way to detect it
+        }
     }
 
     //Frame rate if available from container
@@ -1338,7 +1433,7 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                                 if (Reference->MI)
                                 {
                                     Ztring Result;
-                                    if (Reference->CompleteDuration.empty() || DurationM<Reference->CompleteDuration[1]->Demux_Offset_DTS)
+                                    if (Reference->CompleteDuration.empty() || DurationM<Reference->CompleteDuration[1].Demux_Offset_DTS)
                                     {
                                         Reference->CompleteDuration_Pos=0;
                                         Result=Reference->MI->Option(__T("File_Seek"), DurationS);
@@ -1346,10 +1441,10 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                                     else
                                     {
                                         size_t CompleteDuration_Pos_Temp=1;
-                                        while (CompleteDuration_Pos_Temp<Reference->CompleteDuration.size() && DurationM>=Reference->CompleteDuration[CompleteDuration_Pos_Temp]->Demux_Offset_DTS)
+                                        while (CompleteDuration_Pos_Temp<Reference->CompleteDuration.size() && DurationM>=Reference->CompleteDuration[CompleteDuration_Pos_Temp].Demux_Offset_DTS)
                                             CompleteDuration_Pos_Temp++;
                                         CompleteDuration_Pos_Temp--;
-                                        Result=Reference->CompleteDuration[CompleteDuration_Pos_Temp]->MI->Option(__T("File_Seek"), DurationS);
+                                        Result=Reference->CompleteDuration[CompleteDuration_Pos_Temp].MI->Option(__T("File_Seek"), DurationS);
                                         if (Result.empty())
                                             Reference->CompleteDuration_Pos=CompleteDuration_Pos_Temp;
                                     }
@@ -1416,7 +1511,7 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                             if (Reference->MI)
                             {
                                 Ztring Result;
-                                if (Reference->CompleteDuration.empty() || Duration<Reference->CompleteDuration[1]->Demux_Offset_DTS)
+                                if (Reference->CompleteDuration.empty() || Duration<Reference->CompleteDuration[1].Demux_Offset_DTS)
                                 {
                                     Reference->CompleteDuration_Pos=0;
                                     Result=Reference->MI->Option(__T("File_Seek"), DurationS);
@@ -1424,10 +1519,10 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                                 else
                                 {
                                     size_t CompleteDuration_Pos_Temp=1;
-                                    while (CompleteDuration_Pos_Temp<Reference->CompleteDuration.size() && Duration>=Reference->CompleteDuration[CompleteDuration_Pos_Temp]->Demux_Offset_DTS)
+                                    while (CompleteDuration_Pos_Temp<Reference->CompleteDuration.size() && Duration>=Reference->CompleteDuration[CompleteDuration_Pos_Temp].Demux_Offset_DTS)
                                         CompleteDuration_Pos_Temp++;
                                     CompleteDuration_Pos_Temp--;
-                                    Result=Reference->CompleteDuration[CompleteDuration_Pos_Temp]->MI->Option(__T("File_Seek"), DurationS);
+                                    Result=Reference->CompleteDuration[CompleteDuration_Pos_Temp].MI->Option(__T("File_Seek"), DurationS);
                                     if (Result.empty())
                                         Reference->CompleteDuration_Pos=CompleteDuration_Pos_Temp;
                                 }
@@ -1453,7 +1548,7 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                             if (Reference->MI)
                             {
                                 Ztring Result;
-                                if (Reference->CompleteDuration.empty() || Value<Reference->CompleteDuration[1]->Demux_Offset_DTS)
+                                if (Reference->CompleteDuration.size()<2 || Value<Reference->CompleteDuration[1].Demux_Offset_DTS)
                                 {
                                     Reference->CompleteDuration_Pos=0;
                                     Result=Reference->MI->Option(__T("File_Seek"), Time);
@@ -1461,10 +1556,10 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                                 else
                                 {
                                     size_t CompleteDuration_Pos_Temp=1;
-                                    while (CompleteDuration_Pos_Temp<Reference->CompleteDuration.size() && Value>=Reference->CompleteDuration[CompleteDuration_Pos_Temp]->Demux_Offset_DTS)
+                                    while (CompleteDuration_Pos_Temp<Reference->CompleteDuration.size() && Value>=Reference->CompleteDuration[CompleteDuration_Pos_Temp].Demux_Offset_DTS)
                                         CompleteDuration_Pos_Temp++;
                                     CompleteDuration_Pos_Temp--;
-                                    Result=Reference->CompleteDuration[CompleteDuration_Pos_Temp]->MI->Option(__T("File_Seek"), Time);
+                                    Result=Reference->CompleteDuration[CompleteDuration_Pos_Temp].MI->Option(__T("File_Seek"), Time);
                                     if (Result.empty())
                                         Reference->CompleteDuration_Pos=CompleteDuration_Pos_Temp;
                                 }
@@ -1494,7 +1589,7 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                             if (Reference->MI)
                             {
                                     Ztring Result;
-                                    if (Reference->CompleteDuration.empty() || Value<Reference->CompleteDuration[1]->Demux_Offset_Frame)
+                                    if (Reference->CompleteDuration.size()<2 || Value<Reference->CompleteDuration[1].Demux_Offset_Frame)
                                     {
                                         Reference->CompleteDuration_Pos=0;
                                         Result=Reference->MI->Option(__T("File_Seek"), __T("Frame=")+Ztring::ToZtring(Value));
@@ -1502,10 +1597,10 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                                     else
                                     {
                                         size_t CompleteDuration_Pos_Temp=1;
-                                        while (CompleteDuration_Pos_Temp<Reference->CompleteDuration.size() && Value>=Reference->CompleteDuration[CompleteDuration_Pos_Temp]->Demux_Offset_Frame)
+                                        while (CompleteDuration_Pos_Temp<Reference->CompleteDuration.size() && Value>=Reference->CompleteDuration[CompleteDuration_Pos_Temp].Demux_Offset_Frame)
                                             CompleteDuration_Pos_Temp++;
                                         CompleteDuration_Pos_Temp--;
-                                        Result=Reference->CompleteDuration[CompleteDuration_Pos_Temp]->MI->Option(__T("File_Seek"), __T("Frame=")+Ztring::ToZtring(Value-Reference->CompleteDuration[CompleteDuration_Pos_Temp]->Demux_Offset_Frame));
+                                        Result=Reference->CompleteDuration[CompleteDuration_Pos_Temp].MI->Option(__T("File_Seek"), __T("Frame=")+Ztring::ToZtring(Value-Reference->CompleteDuration[CompleteDuration_Pos_Temp].Demux_Offset_Frame));
                                         if (Result.empty())
                                             Reference->CompleteDuration_Pos=CompleteDuration_Pos_Temp;
                                     }
@@ -1563,7 +1658,7 @@ void File__ReferenceFilesHelper::FileSize_Compute ()
                 {
                     if (!Reference->CompleteDuration.empty())
                         for (size_t Pos=1; Pos<Reference->CompleteDuration.size(); Pos++)
-                            MI->Config->File_Size+=File::Size_Get(Reference->CompleteDuration[Pos]->FileName);
+                            MI->Config->File_Size+=File::Size_Get(Reference->CompleteDuration[Pos].FileName);
                 }
         }
         else
@@ -1577,7 +1672,7 @@ void File__ReferenceFilesHelper::FileSize_Compute ()
                             MI->Config->File_Size+=File::Size_Get(Reference->FileNames[Pos]);
                     else
                         for (size_t Pos=0; Pos<Reference->CompleteDuration.size(); Pos++)
-                            MI->Config->File_Size+=File::Size_Get(Reference->CompleteDuration[Pos]->FileName);
+                            MI->Config->File_Size+=File::Size_Get(Reference->CompleteDuration[Pos].FileName);
                 }
         }
     }

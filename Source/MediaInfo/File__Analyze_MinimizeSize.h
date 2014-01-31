@@ -64,6 +64,7 @@ public :
         bool    Demux_IntermediateItemFound;
         size_t  Demux_Offset;
         int64u  Demux_TotalBytes;
+        File__Analyze* Demux_CurrentParser;
     #endif //MEDIAINFO_DEMUX
     Ztring  File_Name_WithoutDemux;
     bool   PTS_DTS_Needed;
