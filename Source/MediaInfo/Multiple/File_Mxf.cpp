@@ -1118,7 +1118,7 @@ void File_Mxf::Streams_Finish()
                 float64 BitRate_Encoded=Retrieve((stream_t)StreamKind, StreamPos, Fill_Parameter((stream_t)StreamKind, Generic_BitRate_Encoded)).To_float64();
                 float64 Duration=Retrieve((stream_t)StreamKind, StreamPos, Fill_Parameter((stream_t)StreamKind, Generic_Duration)).To_float64();
                 if (Duration)
-                    Fill((stream_t)StreamKind, StreamPos, Fill_Parameter((stream_t)StreamKind, Generic_StreamSize_Encoded), BitRate_Encoded/8*(Duration/1000), 3);
+                    Fill((stream_t)StreamKind, StreamPos, Fill_Parameter((stream_t)StreamKind, Generic_StreamSize_Encoded), BitRate_Encoded/8*(Duration/1000), 0);
             }
 
 }
@@ -3228,7 +3228,6 @@ void File_Mxf::Header_Parse()
 
     if (Buffer_Offset+Element_Offset+Length>(size_t)-1 || Buffer_Offset+(size_t)(Element_Offset+Length)>Buffer_Size) //Not complete
     {
-        #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
         if (Length>File_Size/2) //Divided by 2 for testing if this is a big chunk = Clip based and not frames.
         {
             //Calculating the byte count not included in seek information (partition, index...)
@@ -3253,17 +3252,21 @@ void File_Mxf::Header_Parse()
                && Code_Compare2==Elements::IndexTableSegment2
                && Code_Compare3==Elements::IndexTableSegment3))
             {
-                Clip_Begin=Buffer_Begin=File_Offset+Buffer_Offset+Element_Offset;
-                Clip_End=Buffer_End=Buffer_Begin+Length;
-                Clip_Header_Size=Buffer_Header_Size=Element_Offset;
-                Clip_Code=Code;
+                Buffer_Begin=File_Offset+Buffer_Offset+Element_Offset;
+                Buffer_End=Buffer_Begin+Length;
+                Buffer_Header_Size=Element_Offset;
                 MustSynchronize=false;
                 Length=0;
+                #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
+                Clip_Begin=Buffer_Begin;
+                Clip_End=Buffer_End;
+                Clip_Header_Size=Buffer_Header_Size;
+                Clip_Code=Code;
+                #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
             }
         }
 
-        if (Clip_Begin==(int64u)-1)
-        #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
+        if (Buffer_Begin==(int64u)-1)
         {
             if (Length<=File_Size/2) //Divided by 2 for testing if this is a big chunk = Clip based and not frames.))
             {
