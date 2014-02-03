@@ -784,7 +784,6 @@ bool File__ReferenceFilesHelper::ParseReference_Init()
         #endif //MEDIAINFO_EVENTS
         if (!Reference->MI->Open(Reference->FileNames.Read()))
         {
-            MI->Fill(Reference->StreamKind, Reference->StreamPos, "Source_Info", "Missing");
             if (!Config->File_KeepInfo_Get())
             {
                 #if MEDIAINFO_DEMUX
