@@ -1,0 +1,35 @@
+{
+  "name": "mediainfo",
+  "description": "Wrapper around the `mediainfo' program for obtaining information about media files",
+  "version": "0.0.2",
+  "author": {
+    "name": "Conrad Pankoff",
+    "email": "deoxxa@fknsrs.biz",
+    "url": "http://www.fknsrs.biz/"
+  },
+  "url": "http://github.com/deoxxa/node-mediainfo",
+  "license": "BSD",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/deoxxa/node-mediainfo.git"
+  },
+  "keywords": [
+    "mediainfo",
+    "media",
+    "audio",
+    "video",
+    "mp3",
+    "flac",
+    "ogg",
+    "mkv",
+    "avi"
+  ],
+  "main": "./lib/mediainfo",
+  "engines": {
+    "node": ">=0.6.11"
+  },
+  "dependencies": {
+    "node-expat": "2.0.x",
+    "filesize-parser": "~0.0.2"
+  }
+}

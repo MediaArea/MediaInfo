@@ -1,0 +1,39 @@
+{
+  "name": "mimovie",
+  "description": "Wrapper around the `mediainfo' for obtaining information about movie and video files",
+  "version": "0.1.3",
+  "author": {
+    "name": "Rodrigo Polo",
+    "url": "http://rodrigopolo.com/"
+  },
+  "url": "http://github.com/rodrigopolo/mimovie",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rodrigopolo/mimovie.git"
+  },
+  "keywords": [
+    "mediainfo",
+    "media",
+    "audio",
+    "video",
+    "movie",
+    "mkv",
+    "m4v",
+    "mp4",
+    "mov",
+    "avi"
+  ],
+  "main": "./lib/mimovie",
+  "engines": {
+    "node": ">=0.6.11"
+  },
+  "dependencies": {
+    "xml2js": "~0.4.1"
+  },
+  "readme": "mimovie\n=======\n\nWrapper around the `mediainfo' for obtaining information about movie and video files\n\nOverview\n--------\n\nInspired by [node-mediainfo](https://github.com/deoxxa/node-mediainfo) this module provides an interface to the `mediainfo` command, it returns the common properties of a video or movie file in a JSON object.\n\nInstall\n--------\n\n```\nnpm install mimovie\n```\n\nUsage\n-----\n\nThe module exposes just one function, which has a signature of:\n\n`mimovie(\"/path/to/video_file\", callback)`\n\nThe callback function is called, in familiar node fashion, with two arguments.\nThe first is an Error object on error, or null on success. The second argument is an object with all the video/movie information as a JSON object.\n\nIt's really easier to just see the output, so here:\n\n```\n{\n\tvideo_tracks: [{\n\t\twidth: 1280,\n\t\theight: 720,\n\t\tcodec: 'AVC',\n\t\tprofile: 'High@L4.0',\n\t\tvideo_bitrate: 912222,\n\t\tfps: 23.976\n\t}],\n\taudio_tracks: [{\n\t\tbitrate: 163836,\n\t\tbitrate_mode: 'VBR',\n\t\tchannels: 2,\n\t\tsammple_rate: 48000,\n\t\tcodec: 'AAC',\n\t\tlang: 'en'\n\t}, {\n\t\tbitrate: 448000,\n\t\tbitrate_mode: 'CBR',\n\t\tchannels: 6,\n\t\tsammple_rate: 48000,\n\t\tcodec: 'AC-3',\n\t\tlang: 'en',\n\t\tchannels_pos: 'Front: L C R, Side: L R, LFE'\n\t}],\n\tsubtitles: ['es'],\n\tbitrate: 1533377,\n\tpath: './test/movie.m4v',\n\tsize: 878363651,\n\tduration: 4582635\n}\n```\n\nExample\n-------\n\n```javascript\nvar mimovie = require(\"mimovie\");\n\nmimovie(\"/path/to/movie.m4v\", function(err, res) {\n  if (err) {\n    return console.log(err);\n  }\n\n  console.log(res);\n});\n```\n\nRequirements\n------------\n\nThe `mediainfo` command has to be available somewhere in the PATH of the user node is running as.\n\nLicense\n-------\n\n(The MIT License)\n\nCopyright (c) by Rodrigo Polo <rodrigo.polo@gmail.com>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.\n\nContact\n-------\n\n* GitHub ([rodrigopolo](http://github.com/rodrigopolo/))\n* Twitter ([@rodrigopolo](http://twitter.com/rodrigopolo))\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/rodrigopolo/mimovie/issues"
+  }
+}
