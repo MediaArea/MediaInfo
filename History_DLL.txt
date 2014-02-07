@@ -15,6 +15,7 @@ Version 0.7.67, 2014-01-10
 + MPEG-TS: EBP detection
 + Excel VBA example (32 and 64 bit), in contrib directory
 + Node.js examples added, in contrib directory
++ GXF: support of DVCPRO HD
 x MXF: duplicate display of some time code streams in ancillary data
 x B814, AAC: Wrong detection of audioObjectType==29
 x MXF: some properties were not displayed with OP-Atom files
