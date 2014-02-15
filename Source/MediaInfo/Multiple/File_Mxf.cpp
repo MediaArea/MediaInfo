@@ -1126,11 +1126,11 @@ void File_Mxf::Streams_Finish()
     if (Config->File_IgnoreFramesBefore || Config->File_IgnoreFramesAfter!=(int64u)-1)
     {
         int64u FrameCount_FromComponent=(int64u)-1;
-        for (components::iterator Component=Components.begin(); Component!=Components.end(); Component++)
+        for (components::iterator Component=Components.begin(); Component!=Components.end(); ++Component)
             if (FrameCount_FromComponent>Component->second.Duration)
                 FrameCount_FromComponent=Component->second.Duration;
         float64 EditRate_FromTrack=DBL_MAX;
-        for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); Track++)
+        for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); ++Track)
             if (EditRate_FromTrack>Track->second.EditRate)
                 EditRate_FromTrack=Track->second.EditRate;
         if (FrameCount_FromComponent!=(int64u)-1 && FrameCount_FromComponent && EditRate_FromTrack!=DBL_MAX && EditRate_FromTrack)
@@ -1591,11 +1591,11 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
         if (Config->File_IgnoreFramesBefore || Config->File_IgnoreFramesAfter!=(int64u)-1)
         {
             int64u FrameCount_FromComponent=(int64u)-1;
-            for (components::iterator Component=Components.begin(); Component!=Components.end(); Component++)
+            for (components::iterator Component=Components.begin(); Component!=Components.end(); ++Component)
                 if (FrameCount_FromComponent>Component->second.Duration)
                     FrameCount_FromComponent=Component->second.Duration;
             float64 EditRate_FromTrack=DBL_MAX;
-            for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); Track++)
+            for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); ++Track)
                 if (EditRate_FromTrack>Track->second.EditRate)
                     EditRate_FromTrack=Track->second.EditRate;
             if (FrameCount_FromComponent!=(int64u)-1 && FrameCount_FromComponent && EditRate_FromTrack!=DBL_MAX && EditRate_FromTrack)
@@ -2666,14 +2666,14 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
             else if (Descriptors.begin()->second.SampleRate>1000)
             {
                 float64 EditRate_FromTrack=DBL_MAX;
-                for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); Track++)
+                for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); ++Track)
                     if (EditRate_FromTrack>Track->second.EditRate)
                         EditRate_FromTrack=Track->second.EditRate;
                 if (EditRate_FromTrack>1000)
                     Descriptors.begin()->second.SampleRate=24; //Default value
                 else
                     Descriptors.begin()->second.SampleRate=EditRate_FromTrack;
-                for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); Track++)
+                for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); ++Track)
                     if (Track->second.EditRate>EditRate_FromTrack)
                     {
                         Track->second.EditRate_Real=Track->second.EditRate;
@@ -3616,14 +3616,14 @@ void File_Mxf::Data_Parse()
                 else if (Descriptors.begin()->second.SampleRate>1000)
                 {
                     float64 EditRate_FromTrack=DBL_MAX;
-                    for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); Track++)
+                    for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); ++Track)
                         if (EditRate_FromTrack>Track->second.EditRate)
                             EditRate_FromTrack=Track->second.EditRate;
                     if (EditRate_FromTrack>1000)
                         Descriptors.begin()->second.SampleRate=24; //Default value
                     else
                         Descriptors.begin()->second.SampleRate=EditRate_FromTrack;
-                    for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); Track++)
+                    for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); ++Track)
                         if (Track->second.EditRate>EditRate_FromTrack)
                         {
                             Track->second.EditRate_Real=Track->second.EditRate;
