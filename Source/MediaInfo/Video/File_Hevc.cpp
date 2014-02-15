@@ -823,8 +823,6 @@ void File_Hevc::seq_parameter_set()
 {
     Element_Name("seq_parameter_set");
 
-    //Warning: based on a draft of the specification, it is maybe not compliant to the final specification
-
     //Parsing
     void*   vui_parameters_Item=NULL;
     int32u  sps_seq_parameter_set_id, chroma_format_idc, pic_width_in_luma_samples, pic_height_in_luma_samples, bit_depth_luma_minus8, bit_depth_chroma_minus8, log2_max_pic_order_cnt_lsb_minus4, num_short_term_ref_pic_sets;
@@ -896,8 +894,7 @@ void File_Hevc::seq_parameter_set()
     Skip_UE(                                                    "max_transform_hierarchy_depth_intra");
     TEST_SB_SKIP(                                               "scaling_list_enabled_flag");
         TEST_SB_SKIP(                                           "sps_scaling_list_data_present_flag");
-            Trusted_IsNot("scaling_list_data not supported");
-            //scaling_list_data();
+            scaling_list_data();
         TEST_SB_END();
     TEST_SB_END();
     Skip_SB(                                                    "amp_enabled_flag");
@@ -1063,8 +1060,7 @@ void File_Hevc::pic_parameter_set()
         }
     TEST_SB_END();
     TEST_SB_SKIP(                                               "pps_scaling_list_data_present_flag ");
-        Trusted_IsNot("scaling_list_data not supported");
-        //scaling_list_data();
+        scaling_list_data();
     TEST_SB_END();
     Skip_SB(                                                    "lists_modification_present_flag");
     Skip_UE(                                                    "log2_parallel_merge_level_minus2");
@@ -1502,7 +1498,7 @@ void File_Hevc::vui_parameters(void* &vui_parameters_Item_)
         Skip_UE(                                                "log2_max_mv_length_vertical");
     TEST_SB_END();
 
-    FILLING_BEGIN();
+    FILLING_BEGIN_PRECISE();
         seq_parameter_set_struct::vui_parameters_struct* vui_parameters_Item=new seq_parameter_set_struct::vui_parameters_struct();
         vui_parameters_Item_=vui_parameters_Item;
         vui_parameters_Item->aspect_ratio_info_present_flag=aspect_ratio_info_present_flag;
@@ -1588,6 +1584,35 @@ void File_Hevc::hrd_parameters(void* &hrd_parameters_Item_)
     ToTest->cpb_removal_delay_length_minus1                                         =cpb_removal_delay_length_minus1;
     ToTest->dpb_output_delay_length_minus1                                          =dpb_output_delay_length_minus1;
     ToTest->time_offset_length                                                      =time_offset_length;
+}
+
+//---------------------------------------------------------------------------
+void File_Hevc::scaling_list_data()
+{
+    for(size_t sizeId=0; sizeId<4; sizeId++)
+        for(size_t matrixId=0; matrixId<((sizeId==3)?2:6); matrixId++)
+        {
+            bool scaling_list_pred_mode_flag;
+            Get_SB (scaling_list_pred_mode_flag,                "scaling_list_pred_mode_flag");
+            if(!scaling_list_pred_mode_flag)
+                Skip_UE(                                        "scaling_list_pred_matrix_id_delta");
+            else
+            {
+                //nextCoef = 8
+                size_t coefNum=min(64, (1<<(4+(sizeId<<1))));
+                if( sizeId > 1 )
+                {
+                    Skip_SE(                                    "scaling_list_dc_coef_minus8"); //[ sizeId ? 2 ][ matrixId ] se(v)
+                    //nextCoef = scaling_list_dc_coef_minus8[ sizeId ? 2 ][ matrixId ] + 8
+                }
+                for(size_t i=0; i<coefNum; i++)
+                {
+                    Skip_SE(                                    "scaling_list_delta_coef"); 
+                    //nextCoef = ( nextCoef + scaling_list_delta_coef + 256 ) % 256
+                    //ScalingList[ sizeId ][ matrixId ][ i ] = nextCoef
+                }
+            }
+        }
 }
 
 //***************************************************************************
