@@ -23,6 +23,7 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/Video/File_Hevc.h"
 #include <cmath>
+#include <algorithm>
 #if MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Config_MediaInfo.h"
     #include "MediaInfo/MediaInfo_Events.h"
@@ -1599,7 +1600,7 @@ void File_Hevc::scaling_list_data()
             else
             {
                 //nextCoef = 8
-                size_t coefNum=min(64, (1<<(4+(sizeId<<1))));
+                size_t coefNum=std::min(64, (1<<(4+(sizeId<<1))));
                 if( sizeId > 1 )
                 {
                     Skip_SE(                                    "scaling_list_dc_coef_minus8"); //[ sizeId ? 2 ][ matrixId ] se(v)
