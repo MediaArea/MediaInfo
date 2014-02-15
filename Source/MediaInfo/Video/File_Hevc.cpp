@@ -1314,8 +1314,8 @@ void File_Hevc::profile_tier_level(int8u maxNumSubLayersMinus1)
             {
                 bool general_profile_compatibility_flag;
                 Get_SB (    general_profile_compatibility_flag, "general_profile_compatibility_flag");
-                if (!general_profile_compatibility_flag)
-                    Trusted_IsNot("general_profile_compatibility_flag not valid");
+                //if (!general_profile_compatibility_flag && !profile_space)  //found some files without this flag, ignoring the test for the moment (not really important)
+                //    Trusted_IsNot("general_profile_compatibility_flag not valid");
             }
             else
                 Skip_SB(                                        "general_profile_compatibility_flag");

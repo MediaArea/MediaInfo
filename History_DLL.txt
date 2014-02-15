@@ -18,6 +18,7 @@ Version 0.7.67, 2014-01-10
 + GXF: support of DVCPRO HD
 + GXF: Media Type is reported
 + HEVC: added support of scaling_list_data 
++ HEVC: deactivated general_profile_compatibility_flag validity test because some encoders do not implement it correctly
 x MXF: duplicate display of some time code streams in ancillary data
 x B814, AAC: Wrong detection of audioObjectType==29
 x MXF: some properties were not displayed with OP-Atom files
