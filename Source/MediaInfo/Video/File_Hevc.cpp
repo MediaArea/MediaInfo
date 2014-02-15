@@ -1498,7 +1498,7 @@ void File_Hevc::vui_parameters(void* &vui_parameters_Item_)
         Skip_UE(                                                "log2_max_mv_length_vertical");
     TEST_SB_END();
 
-    FILLING_BEGIN_PRECISE();
+    FILLING_BEGIN();
         seq_parameter_set_struct::vui_parameters_struct* vui_parameters_Item=new seq_parameter_set_struct::vui_parameters_struct();
         vui_parameters_Item_=vui_parameters_Item;
         vui_parameters_Item->aspect_ratio_info_present_flag=aspect_ratio_info_present_flag;
