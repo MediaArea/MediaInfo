@@ -27,37 +27,40 @@ The first is an Error object on error, or null on success. The second argument i
 
 It's really easier to just see the output, so here:
 
-```
+```javascript
 {
-	video_tracks: [{
-		width: 1280,
-		height: 720,
-		codec: 'AVC',
-		profile: 'High@L4.0',
-		video_bitrate: 912222,
-		fps: 23.976
-	}],
-	audio_tracks: [{
-		bitrate: 163836,
-		bitrate_mode: 'VBR',
-		channels: 2,
-		sammple_rate: 48000,
-		codec: 'AAC',
-		lang: 'en'
-	}, {
-		bitrate: 448000,
-		bitrate_mode: 'CBR',
-		channels: 6,
-		sammple_rate: 48000,
-		codec: 'AC-3',
-		lang: 'en',
-		channels_pos: 'Front: L C R, Side: L R, LFE'
-	}],
-	subtitles: ['es'],
-	bitrate: 1533377,
-	path: './test/movie.m4v',
-	size: 878363651,
-	duration: 4582635
+    video_tracks: [{
+        width: 1280,
+        height: 720,
+        codec: 'AVC',
+        fps: 23.976,
+        bitrate: 912222,
+        profile: 'High@L4.0',
+        aspect: '16:9'
+    }],
+    audio_tracks: [{
+        ch: 2,
+        ch_pos: 'Front: L R',
+        sammple_rate: 48000,
+        codec: 'AAC LC',
+        bitrate: 163836,
+        bitrate_mode: 'VBR',
+        lang: 'en'
+    }, {
+        ch: 6,
+        ch_pos: 'Front: L C R, Side: L R, LFE',
+        sammple_rate: 48000,
+        codec: 'AC3',
+        bitrate: 448000,
+        bitrate_mode: 'CBR',
+        lang: 'en'
+    }],
+    subtitles: ['es'],
+    bitrate: 1533377,
+    path: './test/movie.m4v',
+    size: 878363651,
+    duration: 4582635,
+    menu: false
 }
 ```
 
@@ -86,7 +89,7 @@ License
 
 (The MIT License)
 
-Copyright (c) by Rodrigo Polo <rodrigo.polo@gmail.com>
+Copyright (c) by Rodrigo Polo http://rodrigopolo.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

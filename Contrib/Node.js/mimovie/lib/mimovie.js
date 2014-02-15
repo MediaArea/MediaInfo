@@ -1,7 +1,6 @@
-var	child_process = require("child_process"),
-	parseString = require('xml2js').parseString;
+var	child_process = require("child_process");
 
-module.exports = function(file, done){
+ module.exports = function(file, done){
 
 	var MiB = 1048576;
 	var video = {};
@@ -12,86 +11,52 @@ module.exports = function(file, done){
 	var vvt;
 	var vat;
 
+	// prevent errors using windows paths
+	file = file.replace(/\\/g, '/');
+
 	child_process.execFile("mediainfo", [
-		'-f',
-		'--Language=raw',
-		'--Output=XML',
-		'--ReadByHuman',
+		'--Inform=file://'+__dirname+'/media_json.txt'.replace(/\\/g, '/'),
 		file
 	],{ 
 	  encoding: 'utf8',
-	  maxBuffer: 10*MiB
+	  maxBuffer: 1*MiB
 	}, function(err, stdout, stderr) {
+
+
 
 		if (err) {
 			return done(err,null);
 		}else{
-			parseString(stdout, function (err, result) {
-				// console.log(JSON.stringify(result));
-				var tracks = result.Mediainfo.File[0].track;
+			
+			var mediainfo;
+			var error = false;
 
-				for(var i=0;i<tracks.length;i++){
-					if(tracks[i].StreamKind=='General'){
-						video.bitrate = 		parseInt(tracks[i].OverallBitRate);
-						video.path = 			tracks[i].CompleteName.toString();
-						video.size = 			parseInt(tracks[i].FileSize);
-						video.duration = 		parseInt(tracks[i].Duration);
-					}else if(tracks[i].StreamKind=='Video'){
-						vvt = {
-							width: 			parseInt(tracks[i].Width),
-							height:			parseInt(tracks[i].Height),
-							codec: 			tracks[i].Format.toString(),
-							fps:			false,
-							video_bitrate:	false,
-							profile:		false,
-							aspect:			false
-						}
-						if(tracks[i].FrameRate){
-							vvt.fps = parseFloat(tracks[i].FrameRate);
-						}
-						if(tracks[i].BitRate){
-							vvt.video_bitrate = parseInt(tracks[i].BitRate);
-						}
-						if(tracks[i].Format_Profile){
-							vvt.profile = tracks[i].Format_Profile.toString();
-						}
-						if(tracks[i].DisplayAspectRatio_String){
-							vvt.aspect = tracks[i].DisplayAspectRatio_String.toString();
-						}
-						video.video_tracks.push(vvt);
-					}else if(tracks[i].StreamKind=='Audio'){
-						vat = {
-							channels: 		parseInt(tracks[i].Channel_s_),
-							sammple_rate: 	parseInt(tracks[i].SamplingRate),
-							codec:			tracks[i].Format.toString(),
-							bitrate:		false,
-							bitrate_mode:	false,
-							lang:			false
-						}
+			try {
+				mediainfo = JSON.parse(stdout);
+			}
+			catch (e) {
+				// console.log('FILE: '+file);
+				// console.log(stdout);
+				// console.log(e);
+				// process.exit(1);
+				error = true;
+				done(e,null);
+			}
+			if(!error){
+				
+				// var util = require("util");
+				// console.log(util.inspect(mediainfo, null, null, true));
 
-						if(tracks[i].BitRate){
-							vat.bitrate=parseInt(tracks[i].BitRate);
-						}
-						if(tracks[i].BitRate_Mode){
-							vat.bitrate_mode=tracks[i].BitRate_Mode.toString();
-						}
-						if(tracks[i].Language){
-							vat.lang=tracks[i].Language.toString();
-						}
-						if(vat.channels>2){
-							vat.channels_pos=tracks[i].ChannelPositions.toString();
-						}
-						video.audio_tracks.push(vat);
-					}else if(tracks[i].StreamKind=='Text'){
-						if(tracks[i].Language){
-							video.subtitles.push(tracks[i].Language.toString());
-						}
-					}else if(tracks[i].StreamKind=='Menu'){
-						video.has_chapters = true;
-					}
-				}
+				video.bitrate = 		mediainfo.General.bitrate;
+				video.path = 			mediainfo.General.path;
+				video.size = 			mediainfo.General.size;
+				video.duration = 		mediainfo.General.duration;
+				video.video_tracks = 	mediainfo.Video;
+				video.audio_tracks = 	mediainfo.Audio;
+				video.subtitles = 		mediainfo.Subs;
+				video.menu =		 	mediainfo.General.menu
 				done(null,video);
-			});
+			}
 		}
 	});
 };
