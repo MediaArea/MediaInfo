@@ -1218,7 +1218,7 @@ void File__Analyze::Get_ISO_8859_2(int64u Bytes, Ztring &Info)
 {
     INTEGRITY_SIZE_ATLEAST_STRING(Bytes);
     Info.clear();
-    size_t End=Buffer_Offset+(size_t)Element_Offset+Bytes;
+    size_t End=Buffer_Offset+(size_t)(Element_Offset+Bytes);
     for (size_t Pos=Buffer_Offset+(size_t)Element_Offset; Pos<End; ++Pos)
     {
         switch (Buffer[Pos])
