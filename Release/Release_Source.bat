@@ -75,8 +75,11 @@ xcopy ..\Project\*.def MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\*.idl MediaInfo_Lib_Source\Project\ /S
 xcopy ..\Project\BCB\*.h MediaInfo_Lib_Source\Project\BCB\ /S
 xcopy ..\Project\CMake\*.txt MediaInfo_Lib_Source\Project\CMake\ /S
+xcopy ..\Project\MSVC2013\*.h MediaInfo_Lib_Source\Project\MSVC2013\ /S
+xcopy ..\Project\MSVC2012\*.h MediaInfo_Lib_Source\Project\MSVC2012\ /S
 xcopy ..\Project\MSVC2010\*.h MediaInfo_Lib_Source\Project\MSVC2010\ /S
 xcopy ..\Project\MSVC2008\*.h MediaInfo_Lib_Source\Project\MSVC2008\ /S
+xcopy ..\Project\MSVC2005\*.h MediaInfo_Lib_Source\Project\MSVC2005\ /S
 xcopy ..\Project\MSCS\*.aspx MediaInfo_Lib_Source\Project\MSCS2010\ /S
 xcopy ..\Project\MSCS\*.config MediaInfo_Lib_Source\Project\MSCS2010\ /S
 xcopy ..\Project\BCB\*.res MediaInfo_Lib_Source\Project\BCB /S
