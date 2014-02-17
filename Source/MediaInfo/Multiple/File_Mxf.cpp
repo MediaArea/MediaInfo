@@ -3204,6 +3204,7 @@ bool File_Mxf::Header_Begin()
                                         if (Buffer_Size_Target<128*1024)
                                             Buffer_Size_Target=128*1024;
                                         //if ((*File_Buffer_Size_Hint_Pointer)<Buffer_Size_Target)
+                                            (*File_Buffer_Size_Hint_Pointer)=Buffer_Size_Target;
                                     }
 
                                     return false;
