@@ -72,9 +72,11 @@
 #include "MediaInfo/MediaInfo_Internal.h"
 #include "MediaInfo/Multiple/File__ReferenceFilesHelper.h"
 #include "ZenLib/Format/Http/Http_Utils.h"
+#include <cfloat>
 #if MEDIAINFO_SEEK
     #include <algorithm>
 #endif //MEDIAINFO_SEEK
+using namespace std;
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
