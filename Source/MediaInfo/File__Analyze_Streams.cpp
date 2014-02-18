@@ -556,6 +556,11 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                 Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(__T("Interlaced_"))+Value);
                 Fill(Stream_Video, StreamPos, Video_ScanOrder_String, Translated.find(__T("Interlaced_"))?Translated:Value, Replace);
             }
+            if (StreamKind==Stream_Video && Parameter==Video_ScanOrder_Stored)
+            {
+                Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(__T("Interlaced_"))+Value);
+                Fill(Stream_Video, StreamPos, Video_ScanOrder_Stored_String, Translated.find(__T("Interlaced_"))?Translated:Value, Replace);
+            }
             if (StreamKind==Stream_Video && Parameter==Video_ScanOrder_Original)
             {
                 Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(__T("Interlaced_"))+Value);

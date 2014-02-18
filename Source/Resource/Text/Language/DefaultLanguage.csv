@@ -912,6 +912,7 @@ Save;Save
 ScanType;Scan type
 ScanType_Original;Original scan type
 ScanOrder;Scan order
+ScanOrder_Stored;Stored scan order
 ScanOrder_StoredDisplayedInverted;Scan order, stored/displayed order inverted
 ScanOrder_Original;Original scan order
 ScreenplayBy;Screenplay by

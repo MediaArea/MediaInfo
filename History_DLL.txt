@@ -8,8 +8,9 @@ bug reports and feature request are here:
 https://sourceforge.net/p/mediainfo/_list/tickets
 
 
-Version 0.7.67, 2014-01-10
+Version 0.7.68, 2014-
 --------------
++ QuickTime: new field ScanOrder_Stored, displayed when display and Stored orders are not same (replacing ScanOrder_StoredDisplayedInverted field)
 + IMF: better support of IMF files having more than 1 ressource per track
 + IMF: better support of IMF files EntryPoint and SourceDuration fields
 + MPEG-TS: EBP detection
@@ -19,9 +20,13 @@ Version 0.7.67, 2014-01-10
 + GXF: Media Type is reported
 + HEVC: added support of scaling_list_data 
 + HEVC: deactivated general_profile_compatibility_flag validity test because some encoders do not implement it correctly
+x STL: better support of non-English characters during decode
+x MXF: some properties were not displayed with OP-Atom files
+
+Version 0.7.67, 2014-01-10
+--------------
 x MXF: duplicate display of some time code streams in ancillary data
 x B814, AAC: Wrong detection of audioObjectType==29
-x MXF: some properties were not displayed with OP-Atom files
 
 Version 0.7.66, 2014-01-09
 --------------
