@@ -23,6 +23,9 @@ Version 0.7.68, 2014-
 x STL: better support of non-English characters during decode
 x MXF: some properties were not displayed with OP-Atom files
 x JPEG-2000: wrong implmentation of COD parsing, with undefined behavior for some files
+x MXF: potential crash with small files
+x AAF: potential crash with small files
+x HLS: potential crash with small files
 
 Version 0.7.67, 2014-01-10
 --------------

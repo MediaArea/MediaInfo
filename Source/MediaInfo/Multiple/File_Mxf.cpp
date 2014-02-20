@@ -2951,6 +2951,10 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 //---------------------------------------------------------------------------
 bool File_Mxf::FileHeader_Begin()
 {
+    //Element_Size
+    if (Buffer_Size<0x18)
+        return false; //Must wait for more data
+
     //AAF has some MXF start codes
     if (Buffer[ 0x0]==0xD0
      && Buffer[ 0x1]==0xCF
