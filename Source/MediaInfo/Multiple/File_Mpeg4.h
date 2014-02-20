@@ -482,15 +482,23 @@ private :
         bool                    ReferenceFiles_IsParsing;
     #endif //MEDIAINFO_NEXTPACKET
 
+    //Hints
+    size_t* File_Buffer_Size_Hint_Pointer;
+
     //Positions
     struct mdat_Pos_Type
     {
-        int32u StreamID;
+        int64u Offset;
         int64u Size;
+        int32u StreamID;
+        int32u Reserved1;
+        int64u Reserved2;
     };
-    typedef std::map<int64u, mdat_Pos_Type> mdat_pos;
+    typedef std::vector<mdat_Pos_Type> mdat_pos;
+    static bool mdat_pos_sort (const File_Mpeg4::mdat_Pos_Type &i,const File_Mpeg4::mdat_Pos_Type &j) { return (i.Offset<j.Offset); }
     mdat_pos mdat_Pos;
-    mdat_pos::iterator mdat_Pos_Temp;
+    mdat_Pos_Type* mdat_Pos_Temp;
+    mdat_Pos_Type* mdat_Pos_Max;
     std::vector<int32u> mdat_Pos_ToParseInPriority_StreamIDs;
     bool                mdat_Pos_NormalParsing;
 

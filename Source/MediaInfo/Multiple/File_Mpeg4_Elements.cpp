@@ -1524,10 +1524,10 @@ void File_Mpeg4::mdat()
         Trace_Layers_Update(0); //Container1
     #endif //MEDIAINFO_TRACE
 
-    if (IsSecondPass && !mdat_Pos.empty() && mdat_Pos.begin()->first<File_Offset+Buffer_Offset+Element_TotalSize_Get())
+    if (IsSecondPass && !mdat_Pos.empty() && mdat_Pos.begin()->Offset<File_Offset+Buffer_Offset+Element_TotalSize_Get())
     {
         //Next piece of data
-        mdat_Pos_Temp=mdat_Pos.begin();
+        mdat_Pos_Temp=mdat_Pos.data();
         IsParsing_mdat=true;
         mdat_StreamJump();
 
@@ -1582,32 +1582,32 @@ void File_Mpeg4::mdat_xxxx()
             Config->State_Set(((float)Buffer_TotalBytes)/File_Size);
     }
 
-    std::map<int32u, stream>::iterator Stream=Streams.find((int32u)Element_Code);
-    if (Stream==Streams.end())
+    stream &Stream_Temp=Streams[(int32u)Element_Code];
+    if (Stream_Temp.Parsers.empty())
     {
         Skip_XX(Element_Size,                                   "Unknown");
         mdat_StreamJump();
         return;
     }
     #if MEDIAINFO_DEMUX
-        if (Streams[(int32u)Element_Code].StreamKind!=Stream_Other && Streams[(int32u)Element_Code].StreamKind!=Stream_Max)
+        if (Stream_Temp.StreamKind!=Stream_Other && Stream_Temp.StreamKind!=Stream_Max)
         {
             //DTS
-            Frame_Count_NotParsedIncluded=Stream->second.stts_FramePos;
-            if (Stream->second.stts_Durations_Pos<Stream->second.stts_Durations.size())
+            Frame_Count_NotParsedIncluded=Stream_Temp.stts_FramePos;
+            if (Stream_Temp.stts_Durations_Pos<Stream_Temp.stts_Durations.size())
             {
-                stream::stts_durations::iterator stts_Duration=Stream->second.stts_Durations.begin()+Stream->second.stts_Durations_Pos;
-                FrameInfo.DTS=TimeCode_DtsOffset+(stts_Duration->DTS_Begin+(((int64u)stts_Duration->SampleDuration)*(Frame_Count_NotParsedIncluded-stts_Duration->Pos_Begin)))*1000000000/Stream->second.mdhd_TimeScale;
-                FrameInfo.PTS=Streams[(int32u)Element_Code].PtsDtsAreSame?FrameInfo.DTS:(int64u)-1;
-                FrameInfo.DUR=((int64u)stts_Duration->SampleDuration)*1000000000/Stream->second.mdhd_TimeScale;
-                Streams[(int32u)Element_Code].stts_FramePos++;
-                if (Stream->second.stts_FramePos>=stts_Duration->Pos_End)
-                    Stream->second.stts_Durations_Pos++;
-                if (!Stream->second.stss.empty())
+                stream::stts_durations::iterator stts_Duration=Stream_Temp.stts_Durations.begin()+Stream_Temp.stts_Durations_Pos;
+                FrameInfo.DTS=TimeCode_DtsOffset+(stts_Duration->DTS_Begin+(((int64u)stts_Duration->SampleDuration)*(Frame_Count_NotParsedIncluded-stts_Duration->Pos_Begin)))*1000000000/Stream_Temp.mdhd_TimeScale;
+                FrameInfo.PTS=Stream_Temp.PtsDtsAreSame?FrameInfo.DTS:(int64u)-1;
+                FrameInfo.DUR=((int64u)stts_Duration->SampleDuration)*1000000000/Stream_Temp.mdhd_TimeScale;
+                Stream_Temp.stts_FramePos++;
+                if (Stream_Temp.stts_FramePos>=stts_Duration->Pos_End)
+                    Stream_Temp.stts_Durations_Pos++;
+                if (!Stream_Temp.stss.empty())
                 {
                     Demux_random_access=false;
-                    for (size_t Pos=0; Pos<Stream->second.stss.size(); Pos++)
-                        if (Stream->second.stss[Pos]==Frame_Count_NotParsedIncluded)
+                    for (size_t Pos=0; Pos<Stream_Temp.stss.size(); Pos++)
+                        if (Stream_Temp.stss[Pos]==Frame_Count_NotParsedIncluded)
                         {
                             Demux_random_access=true;
                             break;
@@ -1620,52 +1620,52 @@ void File_Mpeg4::mdat_xxxx()
             {
                 FrameInfo.DTS=(int64u)-1;
                 FrameInfo.DUR=(int64u)-1;
-                Streams[(int32u)Element_Code].stts_FramePos++;
+                Stream_Temp.stts_FramePos++;
             }
 
-            Demux_Level=Streams[(int32u)Element_Code].Demux_Level;
-            Demux(Buffer+Buffer_Offset+Streams[(int32u)Element_Code].Demux_Offset, (size_t)(Element_Size-Streams[(int32u)Element_Code].Demux_Offset), ContentType_MainStream);
+            Demux_Level=Stream_Temp.Demux_Level;
+            Demux(Buffer+Buffer_Offset+Stream_Temp.Demux_Offset, (size_t)(Element_Size-Stream_Temp.Demux_Offset), ContentType_MainStream);
         }
     #endif //MEDIAINFO_DEMUX
 
-    for (size_t Pos=0; Pos<Stream->second.Parsers.size(); Pos++)
+    for (size_t Pos=0; Pos<Stream_Temp.Parsers.size(); Pos++)
     {
         #if MEDIAINFO_DEMUX
-        Stream->second.Parsers[Pos]->FrameInfo=FrameInfo;
+        Stream_Temp.Parsers[Pos]->FrameInfo=FrameInfo;
         #endif //MEDIAINFO_DEMUX
 
-        Open_Buffer_Continue(Stream->second.Parsers[Pos], Buffer+Buffer_Offset, (size_t)Element_Size);
+        Open_Buffer_Continue(Stream_Temp.Parsers[Pos], Buffer+Buffer_Offset, (size_t)Element_Size);
         #if MEDIAINFO_DEMUX
             if (Config->Demux_EventWasSent && Config->Demux_Unpacketize_Get())
-                Stream->second.Demux_EventWasSent=true;
+                Stream_Temp.Demux_EventWasSent=true;
         #endif //MEDIAINFO_DEMUX
         Element_Show();
 
         #if MEDIAINFO_DEMUX
-            if (!Stream->second.IsFilled && Stream->second.Parsers[Pos]->Status[IsFilled])
+            if (!Stream_Temp.IsFilled && Stream_Temp.Parsers[Pos]->Status[IsFilled])
             {
-                if (Stream->second.StreamKind==Stream_Other) //If this is a TimeCode track
+                if (Stream_Temp.StreamKind==Stream_Other) //If this is a TimeCode track
                 {
-                    if (((File_Mpeg4_TimeCode*)Stream->second.Parsers[Pos])->Pos!=(int32u)-1)
+                    if (((File_Mpeg4_TimeCode*)Stream_Temp.Parsers[Pos])->Pos!=(int32u)-1)
                     {
                         for (std::map<int32u, stream>::iterator StreamTemp=Streams.begin(); StreamTemp!=Streams.end(); ++StreamTemp)
-                            if (StreamTemp->second.TimeCode_TrackID==Stream->first)
+                            if (StreamTemp->second.TimeCode_TrackID==(int32u)Element_Code)
                             {
-                                TimeCode_FrameOffset=((File_Mpeg4_TimeCode*)Stream->second.Parsers[Pos])->Pos;
-                                TimeCode_DtsOffset=float64_int64s(((float64)TimeCode_FrameOffset)*1000000000*Stream->second.TimeCode->FrameDuration/Stream->second.TimeCode->TimeScale);
+                                TimeCode_FrameOffset=((File_Mpeg4_TimeCode*)Stream_Temp.Parsers[Pos])->Pos;
+                                TimeCode_DtsOffset=float64_int64s(((float64)TimeCode_FrameOffset)*1000000000*Stream_Temp.TimeCode->FrameDuration/Stream_Temp.TimeCode->TimeScale);
                             }
                     }
                 }
 
-                Stream->second.IsFilled=true;
+                Stream_Temp.IsFilled=true;
 
                 if (Config->ParseSpeed<1)
                 {
                     bool File_Offset_Next_IsValid;
                     int64u File_Offset_Next;
-                    if (mdat_Pos_Temp!=mdat_Pos.end())
+                    if (mdat_Pos_Temp!=mdat_Pos_Max)
                     {
-                        File_Offset_Next=mdat_Pos_Temp->first;
+                        File_Offset_Next=mdat_Pos_Temp->Offset;
                         File_Offset_Next_IsValid=true;
                     }
                     else
@@ -1674,37 +1674,41 @@ void File_Mpeg4::mdat_xxxx()
                         File_Offset_Next_IsValid=false;
                     }
                     mdat_pos mdat_Pos_New;
-                    for (mdat_pos::iterator mdat_Pos_Item=mdat_Pos.begin(); mdat_Pos_Item!=mdat_Pos.end(); ++mdat_Pos_Item)
-                        if (mdat_Pos_Item->second.StreamID!=Stream->first)
-                            mdat_Pos_New[mdat_Pos_Item->first]=mdat_Pos_Item->second;
+                    mdat_Pos_Max=mdat_Pos.data()+mdat_Pos.size();
+                    for (mdat_Pos_Type* mdat_Pos_Item=mdat_Pos.data(); mdat_Pos_Item<mdat_Pos_Max; ++mdat_Pos_Item)
+                        if (mdat_Pos_Item->StreamID!=(int32u)Element_Code)
+                            mdat_Pos_New.push_back(*mdat_Pos_Item);
                     mdat_Pos=mdat_Pos_New;
+                    std::sort(mdat_Pos.begin(), mdat_Pos.end(), &mdat_pos_sort);
+                    mdat_Pos_Temp=mdat_Pos.data();
+                    mdat_Pos_Max=mdat_Pos_Temp+mdat_Pos.size();
                     if (File_Offset_Next_IsValid)
-                        for (mdat_Pos_Temp=mdat_Pos.begin(); mdat_Pos_Temp!=mdat_Pos.end(); ++mdat_Pos_Temp)
-                            if (mdat_Pos_Temp->first>=File_Offset_Next)
+                        for (; mdat_Pos_Temp<mdat_Pos_Max; ++mdat_Pos_Temp)
+                            if (mdat_Pos_Temp->Offset>=File_Offset_Next)
                                 break;
                 }
             }
         #endif //MEDIAINFO_DEMUX
 
         //Multiple parsers
-        if (Stream->second.Parsers.size()>1)
+        if (Stream_Temp.Parsers.size()>1)
         {
-            if (!Stream->second.Parsers[Pos]->Status[IsAccepted] && Stream->second.Parsers[Pos]->Status[IsFinished])
+            if (!Stream_Temp.Parsers[Pos]->Status[IsAccepted] && Stream_Temp.Parsers[Pos]->Status[IsFinished])
             {
-                delete *(Stream->second.Parsers.begin()+Pos);
-                Stream->second.Parsers.erase(Stream->second.Parsers.begin()+Pos);
+                delete *(Stream_Temp.Parsers.begin()+Pos);
+                Stream_Temp.Parsers.erase(Stream_Temp.Parsers.begin()+Pos);
                 Pos--;
             }
-            else if (Stream->second.Parsers.size()>1 && Stream->second.Parsers[Pos]->Status[IsAccepted])
+            else if (Stream_Temp.Parsers.size()>1 && Stream_Temp.Parsers[Pos]->Status[IsAccepted])
             {
-                File__Analyze* Parser=Stream->second.Parsers[Pos];
-                for (size_t Pos2=0; Pos2<Stream->second.Parsers.size(); Pos2++)
+                File__Analyze* Parser=Stream_Temp.Parsers[Pos];
+                for (size_t Pos2=0; Pos2<Stream_Temp.Parsers.size(); Pos2++)
                 {
                     if (Pos2!=Pos)
-                        delete *(Stream->second.Parsers.begin()+Pos2);
+                        delete *(Stream_Temp.Parsers.begin()+Pos2);
                 }
-                Stream->second.Parsers.clear();
-                Stream->second.Parsers.push_back(Parser);
+                Stream_Temp.Parsers.clear();
+                Stream_Temp.Parsers.push_back(Parser);
             }
         }
     }
@@ -1720,9 +1724,9 @@ void File_Mpeg4::mdat_StreamJump()
 {
     //Finding right file offset
     int64u ToJump=File_Size;
-    if (mdat_Pos_Temp!=mdat_Pos.end())
+    if (mdat_Pos_Temp!=mdat_Pos_Max)
     {
-        ToJump=mdat_Pos_Temp->first;
+        ToJump=mdat_Pos_Temp->Offset;
         #if MEDIAINFO_DEMUX
             if (Config->ParseSpeed==1)
             {
@@ -1730,7 +1734,9 @@ void File_Mpeg4::mdat_StreamJump()
                 if (StreamOffset_Jump_Temp!=StreamOffset_Jump.end())
                 {
                     ToJump=StreamOffset_Jump_Temp->second;
-                    mdat_Pos_Temp=mdat_Pos.find(ToJump);
+                    mdat_Pos_Temp=mdat_Pos.data();
+                    while (mdat_Pos_Temp<mdat_Pos_Max && mdat_Pos_Temp->Offset!=ToJump)
+                        mdat_Pos_Temp++;
                 }
             }
         #endif // MEDIAINFO_DEMUX
@@ -3367,6 +3373,11 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_co64()
     int64u Offset;
     int32u Count;
     Get_B4 (Count,                                              "Number of entries");
+
+    std::vector<int64u> &stco=Streams[moov_trak_tkhd_TrackID].stco;
+    stco.resize(Count<FrameCount_MaxPerStream?Count:FrameCount_MaxPerStream);
+    int64u* stco_Data=stco.data();
+
     for (int32u Pos=0; Pos<Count; Pos++)
     {
         //Too much slow
@@ -3381,7 +3392,10 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_co64()
         Element_Offset+=8;
 
         if (Pos<FrameCount_MaxPerStream)
-            Streams[moov_trak_tkhd_TrackID].stco.push_back(Offset);
+        {
+            (*stco_Data)=Offset;
+            stco_Data++;
+        }
     }
 }
 

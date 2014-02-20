@@ -187,6 +187,7 @@ protected :
     //Header - Info
     void Header_Fill_Code (int64u Code);
     inline void Header_Fill_Code (int64u Code, const Ztring &) {Header_Fill_Code(Code);};
+    #define Header_Fill_Code2(A,B) Header_Fill_Code(A)
     void Header_Fill_Size (int64u Size);
 
     //***************************************************************************
