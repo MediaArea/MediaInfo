@@ -867,7 +867,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
                             Language_Translated=Languages[Pos][0]; //No translation found
                         if (Languages[Pos].size()>=2)
                         {
-                            if (Languages[Pos].size()==2 && Languages[Pos][0].size()>=2 && Languages[Pos][0].size()<=3 && (Languages[Pos][1][0]&0xDF)>=__T('A') && (Languages[Pos][1][0]&0xDF)<=__T('Z') && (Languages[Pos][1][1]&0xDF)>=__T('A') && (Languages[Pos][1][1]&0xDF)<=__T('Z'))
+                            if (Languages[Pos].size()==2 && Languages[Pos][1].size()>=2 && Languages[Pos][1].size()<=3 && (Languages[Pos][1][0]&0xDF)>=__T('A') && (Languages[Pos][1][0]&0xDF)<=__T('Z') && (Languages[Pos][1][1]&0xDF)>=__T('A') && (Languages[Pos][1][1]&0xDF)<=__T('Z'))
                             {
                                 Language_Translated+=__T(" (");
                                 Language_Translated+=Ztring(Languages[Pos][1]).MakeUpperCase();
