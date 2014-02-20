@@ -21,6 +21,7 @@ Version 0.7.68, 2014-
 + HEVC: added support of scaling_list_data 
 + HEVC: deactivated general_profile_compatibility_flag validity test because some encoders do not implement it correctly
 + MPEG-4/MOV: Speed improvement, especially for full parsing of 100+ GB files.
++ File reading: Speed improvement of big files, especially for full parsing, with the help of a dedicated reading thread
 x STL: better support of non-English characters during decode
 x MXF: some properties were not displayed with OP-Atom files
 x JPEG-2000: wrong implmentation of COD parsing, with undefined behavior for some files
