@@ -22,6 +22,7 @@ Version 0.7.68, 2014-
 + HEVC: deactivated general_profile_compatibility_flag validity test because some encoders do not implement it correctly
 x STL: better support of non-English characters during decode
 x MXF: some properties were not displayed with OP-Atom files
+x JPEG-2000: wrong implmentation of COD parsing, with undefined behavior for some files
 
 Version 0.7.67, 2014-01-10
 --------------
