@@ -66,8 +66,8 @@ namespace MediaInfoLib_MSCS
 
         #region Windows Form Designer generated code
         /// <summary>
-        /// Méthode requise pour la prise en charge du concepteur - ne modifiez pas
-        /// le contenu de cette méthode avec l'éditeur de code.
+        /// Methode requise pour la prise en charge du concepteur - ne modifiez pas
+        /// le contenu de cette mÃ©thode avec l'Ã©diteur de code.
         /// </summary>
         private void InitializeComponent()
         {
