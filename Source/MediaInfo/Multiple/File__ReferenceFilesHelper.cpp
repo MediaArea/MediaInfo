@@ -149,6 +149,7 @@ void File__ReferenceFilesHelper_InfoFromFileName (File__ReferenceFilesHelper::re
              && Test!=__T("fra")
              && Test!=__T("fre")
              && Test!=__T("ita")
+             && Test!=__T("jpn")
              && Test!=__T("spa"))
                 IsLanguage=false;
         }
@@ -225,10 +226,13 @@ void File__ReferenceFilesHelper_InfoFromFileName (File__ReferenceFilesHelper::re
                 Language=__T("fr");
             if (List[Pos][List[Pos].size()-1-Language_Pos]==__T("ita"))
                 Language=__T("it");
+            if (List[Pos][List[Pos].size()-1-Language_Pos]==__T("jpn"))
+                Language=__T("ja");
             if (List[Pos][List[Pos].size()-1-Language_Pos]==__T("spa"))
                 Language=__T("es");
 
-            (*Iterators[Pos]).Infos["Language"]=Language;
+            if (!Language.empty())
+                (*Iterators[Pos]).Infos["Language"]=Language;
         }
 }
 void File__ReferenceFilesHelper::ParseReferences()
@@ -312,6 +316,14 @@ void File__ReferenceFilesHelper::ParseReferences()
 
         //InfoFromFileName
         File__ReferenceFilesHelper_InfoFromFileName(References);
+
+        #if MEDIAINFO_EVENTS
+            if (MI->Config->Config_PerPackage==NULL)
+            {
+                MI->Config->Config_PerPackage=new MediaInfo_Config_PerPackage;
+                MI->Config->Config_PerPackage->CountOfPackages=References.size();
+            }
+        #endif //MEDIAINFO_EVENTS
 
         //Configuring file names
         Reference=References.begin();

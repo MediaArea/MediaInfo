@@ -390,47 +390,85 @@ void File_Ptx::Read_Buffer_Continue()
     Get_UTF8(Directory_Length, Directory,                       "Directory");
     Skip_L4(                                                    "0x00000000");
     Element_Begin1("File names");
-    size_t Pos_Offset=0;
+    vector<int8u> Roles;
+    vector<Ztring> FileNames;
+    vector<int32u> Purposes;
     for (int32u Pos=0; Pos<FileName_Count; Pos++)
     {
-        Ztring Name;
-        int32u Name_Length, Purpose;
+        Ztring FileName;
+        int32u FileName_Length, Purpose;
+        int8u  Role; //
         Element_Begin1("File names");
-        Skip_L1(                                                "0x0002");
+        Get_L1 (Role,                                           "role? (0x02 for WAV files)");
         Skip_L4(                                                "Ordered number except WAV files and -1");
-        Get_L4 (Name_Length,                                    "Name length");
-        Get_UTF8(Name_Length, Name,                             "Name"); Element_Name(Name);
-        Get_C4 (Purpose,                                        "Purpose (e.g. EVAW for .wav files)");
+        Get_L4 (FileName_Length,                                "File Name length");
+        Get_UTF8(FileName_Length, FileName,                     "File Name"); Element_Name(FileName);
+        Get_C4 (Purpose,                                        "Purpose (e.g. EVAW for .wav files)"); //Found 1 .wav file without "EWAV".
         Element_End();
 
-        switch (Purpose)
-        {
-            case 0x45564157:
-                            if (Pos-Pos_Offset<Names.size()
-                             && (Name.find(Names[Pos-Pos_Offset])==0
-                              || Name.find(Names[Pos-Pos_Offset]+__T(".wav"))+5==Name.size()))
-                            {
-                                File__ReferenceFilesHelper::reference ReferenceFile;
-                                ReferenceFile.StreamKind=Stream_Audio;
-                                ReferenceFile.FileNames.push_back(Directory+PathSeparator+Name);
-                                ReferenceFiles->References.push_back(ReferenceFile);
-                            }
-                            else if (ReferenceFiles->References.empty())
-                                Pos_Offset++;
-            default:        ;
-        }
-
+        Roles.push_back(Role);
+        FileNames.push_back(FileName);
+        Purposes.push_back(Purpose);
     }
     Element_End();
     Skip_XX(Element_Size-Element_Offset,                        "Unknown");
 
     FILLING_BEGIN();
-        Accept("Ptx"); //Could be Ptf (former formatn but not supported, so we don't care currently
+        Accept("Ptx"); //Could be Ptf (former format but not supported, so we don't care currently)
         Fill("Ptx");
         Fill(Stream_General, 0, General_Format, "Pro Tools Session");
         Fill(Stream_General, 0, General_Format_Version, "Version 10");
         Fill(Stream_General, 0, General_Encoded_Library_Name, LibraryName);
         Fill(Stream_General, 0, General_Encoded_Library_Version, LibraryVersion);
+
+        //First algo
+        size_t Pos_Offset=0;
+        for (int32u Pos=0; Pos<FileName_Count; Pos++)
+        {
+            if (Purposes[Pos]==0x45564157 //"EWAV"
+                && Pos-Pos_Offset<Names.size()
+                && (FileNames[Pos].find(Names[Pos-Pos_Offset])==0
+                || FileNames[Pos].find(Names[Pos-Pos_Offset]+__T(".wav"))+5==FileNames[Pos].size()))
+            {
+                File__ReferenceFilesHelper::reference ReferenceFile;
+                ReferenceFile.StreamKind=Stream_Audio;
+                ReferenceFile.FileNames.push_back(Directory+PathSeparator+FileNames[Pos]);
+                ReferenceFiles->References.push_back(ReferenceFile);
+            }
+            else if (ReferenceFiles->References.empty())
+                Pos_Offset++;
+        }
+
+        //Second algo
+        if (ReferenceFiles->References.empty())
+        {
+            for (int32u Pos=0; Pos<FileName_Count; Pos++)
+            {
+                if (Purposes[Pos]==0x45564157 //"EWAV"
+                 && Roles[Pos]==0x02)
+                {
+                    File__ReferenceFilesHelper::reference ReferenceFile;
+                    ReferenceFile.StreamKind=Stream_Audio;
+                    ReferenceFile.FileNames.push_back(Directory+PathSeparator+FileNames[Pos]);
+                    ReferenceFiles->References.push_back(ReferenceFile);
+                }
+            }
+        }
+
+        //Third algo
+        if (ReferenceFiles->References.empty())
+        {
+            for (int32u Pos=0; Pos<FileName_Count; Pos++)
+            {
+                if (Roles[Pos]==0x02)
+                {
+                    File__ReferenceFilesHelper::reference ReferenceFile;
+                    ReferenceFile.StreamKind=Stream_Audio;
+                    ReferenceFile.FileNames.push_back(Directory+PathSeparator+FileNames[Pos]);
+                    ReferenceFiles->References.push_back(ReferenceFile);
+                }
+            }
+        }
     FILLING_END();
 }
 
