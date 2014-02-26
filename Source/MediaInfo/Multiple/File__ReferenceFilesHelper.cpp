@@ -317,14 +317,6 @@ void File__ReferenceFilesHelper::ParseReferences()
         //InfoFromFileName
         File__ReferenceFilesHelper_InfoFromFileName(References);
 
-        #if MEDIAINFO_EVENTS
-            if (MI->Config->Config_PerPackage==NULL)
-            {
-                MI->Config->Config_PerPackage=new MediaInfo_Config_PerPackage;
-                MI->Config->Config_PerPackage->CountOfPackages=References.size();
-            }
-        #endif //MEDIAINFO_EVENTS
-
         //Configuring file names
         Reference=References.begin();
         while (Reference!=References.end())
