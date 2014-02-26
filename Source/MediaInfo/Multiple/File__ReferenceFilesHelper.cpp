@@ -509,7 +509,7 @@ void File__ReferenceFilesHelper::ParseReferences()
                 if (Reference->StreamKind!=Stream_Max)
                 {
                     MI->Fill(Reference->StreamKind, Reference->StreamPos, "Source_Info", "Missing");
-                    if (MI->Retrieve(Reference->StreamKind, Reference->StreamPos, General_ID).empty())
+                    if (MI->Retrieve(Reference->StreamKind, Reference->StreamPos, General_ID).empty() && Reference->StreamID!=(int64u)-1)
                         MI->Fill(Reference->StreamKind, Reference->StreamPos, General_ID, Reference->StreamID);
                     for (std::map<string, Ztring>::iterator Info=Reference->Infos.begin(); Info!=Reference->Infos.end(); ++Info)
                     {
