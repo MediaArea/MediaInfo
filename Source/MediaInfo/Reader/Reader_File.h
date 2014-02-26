@@ -72,6 +72,7 @@ public :
         HANDLE Condition_WaitingForMoreData;
     #endif //WINDOWS
     CriticalSection CS;
+    MediaInfo_Internal* MI_Internal;
 };
 
 } //NameSpace

@@ -871,13 +871,6 @@ bool File__Analyze::Open_Buffer_Continue_Loop ()
         if (!Buffer_Parse())
             break;
     Buffer_TotalBytes+=Buffer_Offset;
-    #if MEDIAINFO_DEMUX
-        if (Config->Demux_EventWasSent)
-            return false;
-    #endif //MEDIAINFO_DEMUX
-
-    //Parsing specific
-    Read_Buffer_AfterParsing();
 
     //Handling of File_GoTo with already buffered data
     #if MEDIAINFO_MD5
@@ -915,8 +908,22 @@ bool File__Analyze::Open_Buffer_Continue_Loop ()
         Buffer_Offset=0;
         Buffer_Size=Buffer_Temp_Size;
         File_GoTo=(int64u)-1;
+
+        #if MEDIAINFO_DEMUX
+            if (Config->Demux_EventWasSent)
+                return false;
+        #endif //MEDIAINFO_DEMUX
+
         return true;
     }
+
+    #if MEDIAINFO_DEMUX
+        if (Config->Demux_EventWasSent)
+            return false;
+    #endif //MEDIAINFO_DEMUX
+
+    //Parsing specific
+    Read_Buffer_AfterParsing();
 
     //Jumping to the end of the file if needed
     if (!IsSub && !EOF_AlreadyDetected && Config->ParseSpeed<1 && Count_Get(Stream_General))
@@ -3320,7 +3327,7 @@ void File__Analyze::Demux_UnpacketizeContainer_Demux (bool random_access)
 
 bool File__Analyze::Demux_UnpacketizeContainer_Test_OneFramePerFile ()
 {
-    if (Buffer_Size<Config->File_Sizes[Config->File_Names_Pos-1])
+    if (!IsSub && Buffer_Size<Config->File_Sizes[Config->File_Names_Pos-1])
     {
         size_t* File_Buffer_Size_Hint_Pointer=Config->File_Buffer_Size_Hint_Pointer_Get();
         if (File_Buffer_Size_Hint_Pointer)

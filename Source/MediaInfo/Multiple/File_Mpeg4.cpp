@@ -1531,7 +1531,7 @@ void File_Mpeg4::Header_Parse()
     Header_Fill_Code(Name, Ztring().From_CC4(Name));
     Header_Fill_Size(Size);
 
-    if (Name==0x6D6F6F76) //moov
+    if (Name==0x6D6F6F76 && Buffer_Offset+Size>Buffer_Size-Buffer_Offset) //moov
     {
  		File_Buffer_Size_Hint_Pointer=Config->File_Buffer_Size_Hint_Pointer_Get();
         
