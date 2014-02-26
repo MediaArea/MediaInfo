@@ -84,11 +84,6 @@ class MediaInfo
                 @Override
                 public String getFunctionName(NativeLibrary lib, Method method)
                 {
-                    /*  Copyright (c) MediaArea.net SARL. All Rights Reserved.
- *
- *  Use of this source code is governed by a BSD-style license that can
- *  be found in the License.html file in the root of the source tree.
- */
                     return "MediaInfo_" + method.getName();
                 }
             }
@@ -101,6 +96,10 @@ class MediaInfo
 
         //File
         int Open(Pointer Handle, WString file);
+        int Open_Buffer_Init(Pointer handle, long length, long offset);
+        int Open_Buffer_Continue(Pointer handle, byte[] buffer, int size);
+        long Open_Buffer_Continue_GoTo_Get(Pointer handle);
+        int Open_Buffer_Finalize(Pointer handle);
         void Close(Pointer Handle);
 
         //Infos
@@ -170,6 +169,18 @@ class MediaInfo
         Domain;
     }
 
+    public enum Status {
+        None        (0x00),
+        Accepted    (0x01),
+        Filled      (0x02),
+        Updated     (0x04),
+        Finalized   (0x08);
+        
+        private int value;
+        private Status(int value) {this.value = value;}
+        public  int getValue(int value) {return value;}
+    }
+
     //Constructor/Destructor
     public MediaInfo()
     {
@@ -202,6 +213,39 @@ class MediaInfo
     public int Open(String File_Name)
     {
         return MediaInfoDLL_Internal.INSTANCE.Open(Handle, new WString(File_Name));
+    }
+
+	public int Open_Buffer_Init(long length, long offset)
+    {
+        return MediaInfoDLL_Internal.INSTANCE.Open_Buffer_Init(Handle, length, offset);
+    }
+
+	/**
+	 *  Open a stream and collect information about it (technical information and tags) (By buffer, Continue)
+
+	 * @param buffer pointer to the stream
+	 * @param size Count of bytes to read
+	 * @return a bitfield 
+				bit 0: Is Accepted (format is known) 
+				bit 1: Is Filled (main data is collected) 
+				bit 2: Is Updated (some data have beed updated, example: duration for a real time MPEG-TS stream) 
+				bit 3: Is Finalized (No more data is needed, will not use further data) 
+				bit 4-15: Reserved 
+				bit 16-31: User defined
+	 */
+	public int Open_Buffer_Continue(byte[] buffer, int size)
+    {
+        return MediaInfoDLL_Internal.INSTANCE.Open_Buffer_Continue(Handle, buffer, size);
+    }
+
+	public long Open_Buffer_Continue_GoTo_Get()
+    {
+        return MediaInfoDLL_Internal.INSTANCE.Open_Buffer_Continue_GoTo_Get(Handle);
+    }
+
+	public int Open_Buffer_Finalize()
+    {
+        return MediaInfoDLL_Internal.INSTANCE.Open_Buffer_Finalize(Handle);
     }
 
     /**
@@ -321,7 +365,10 @@ class MediaInfo
         //int Count_Get(Pointer Handle, int StreamKind, NativeLong StreamNumber);
         //return MediaInfoDLL_Internal.INSTANCE.Count_Get(Handle, StreamKind.ordinal(), -1);
         //so we use slower Get() with a character string
-        return Integer.parseInt(Get(StreamKind, 0, "StreamCount").toString());
+        String StreamCount = Get(StreamKind, 0, "StreamCount");
+        if (StreamCount == null || StreamCount.length() == 0)
+            return 0;
+        return Integer.parseInt(StreamCount);
     }
 
 
