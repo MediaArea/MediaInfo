@@ -29,6 +29,7 @@ x JPEG-2000: wrong implmentation of COD parsing, with undefined behavior for som
 x MXF: potential crash with small files
 x AAF: potential crash with small files
 x HLS: potential crash with small files
+x MXF: some video streams were wrongly detected as MPEG-2 video
 
 Version 0.7.67, 2014-01-10
 --------------

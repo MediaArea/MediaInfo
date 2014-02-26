@@ -604,7 +604,22 @@ const char* Mxf_EssenceCompression(const int128u EssenceCompression)
                                                                                         case 0x04 : return "MPEG Video"; //Version 2
                                                                                         case 0x11 : return "MPEG Video"; //Version 1
                                                                                         case 0x20 : return "MPEG-4 Visual";
-                                                                                        case 0x32 : return "AVC";
+                                                                                        case 0x30 :
+                                                                                        case 0x31 :
+                                                                                        case 0x32 :
+                                                                                        case 0x33 :
+                                                                                        case 0x34 :
+                                                                                        case 0x35 :
+                                                                                        case 0x36 :
+                                                                                        case 0x37 :
+                                                                                        case 0x38 :
+                                                                                        case 0x39 :
+                                                                                        case 0x3A :
+                                                                                        case 0x3B :
+                                                                                        case 0x3C :
+                                                                                        case 0x3D :
+                                                                                        case 0x3E :
+                                                                                        case 0x3F : return "AVC";
                                                                                         default   : return "";
                                                                                     }
                                                                         case 0x02 : return "DV";
@@ -1862,8 +1877,6 @@ void File_Mxf::Streams_Finish_Descriptor(const int128u DescriptorUID, const int1
         if (!CodecID.empty())
             for (size_t Pos=0; Pos<StreamWithSameID; Pos++)
                 Fill(StreamKind_Last, StreamPos_Last+Pos, Fill_Parameter(StreamKind_Last, Generic_CodecID), CodecID, true);
-        if (StreamKind_Last==Stream_Video && Retrieve(Stream_Video, StreamPos_Last, Video_Format).empty() && Descriptor->second.HasMPEG2VideoDescriptor)
-            Fill(Stream_Video, StreamPos_Last, Video_Format, "MPEG Video");
 
         //Bitrate (PCM)
         if (StreamKind_Last==Stream_Audio && Retrieve(Stream_Audio, StreamPos_Last, Audio_BitRate).empty() && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==__T("PCM") && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format_Settings_Wrapping).find(__T("D-10"))!=string::npos)
@@ -9195,7 +9208,22 @@ void File_Mxf::ChooseParser(const essences::iterator &Essence, const descriptors
                                                                         case 0x04 :
                                                                         case 0x11 : return ChooseParser_Mpegv(Essence, Descriptor);
                                                                         case 0x20 : return ChooseParser_Mpeg4v(Essence, Descriptor);
-                                                                        case 0x32 : return ChooseParser_Avc(Essence, Descriptor);
+                                                                        case 0x30 :
+                                                                        case 0x31 :
+                                                                        case 0x32 :
+                                                                        case 0x33 :
+                                                                        case 0x34 :
+                                                                        case 0x35 :
+                                                                        case 0x36 :
+                                                                        case 0x37 :
+                                                                        case 0x38 :
+                                                                        case 0x39 :
+                                                                        case 0x3A :
+                                                                        case 0x3B :
+                                                                        case 0x3C :
+                                                                        case 0x3D :
+                                                                        case 0x3E :
+                                                                        case 0x3F : return ChooseParser_Avc(Essence, Descriptor);
                                                                         default   : return;
                                                                     }
                                                         case 0x02 : return ChooseParser_DV(Essence, Descriptor);
