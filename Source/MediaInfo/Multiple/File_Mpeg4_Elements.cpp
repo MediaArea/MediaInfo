@@ -1684,8 +1684,12 @@ void File_Mpeg4::mdat_xxxx()
                     mdat_Pos_Max=mdat_Pos_Temp+mdat_Pos.size();
                     if (File_Offset_Next_IsValid)
                         for (; mdat_Pos_Temp<mdat_Pos_Max; ++mdat_Pos_Temp)
+                        {
                             if (mdat_Pos_Temp->Offset>=File_Offset_Next)
                                 break;
+                        }
+                    else
+                        mdat_Pos_Temp=mdat_Pos_Max;
                 }
             }
         #endif //MEDIAINFO_DEMUX
