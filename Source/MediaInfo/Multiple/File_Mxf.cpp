@@ -1817,14 +1817,6 @@ void File_Mxf::Streams_Finish_Descriptor(const int128u DescriptorUID, const int1
                 Fill(Stream_Video, StreamPos_Last, Video_Height_Offset, Descriptor->second.Height_Display_Offset, 10, true);
         }
 
-        //Special case
-        if (StreamKind_Last==Stream_Audio)
-        {
-            std::map<std::string, Ztring>::iterator Info=Descriptor->second.Infos.find("FrameRate");
-            if (Info!=Descriptor->second.Infos.end())
-                Descriptor->second.Infos.erase(Info);
-        }
-
         //Info
         const Ztring &ID=Retrieve(StreamKind_Last, StreamPos_Last, General_ID);
         size_t ID_Dash_Pos=ID.find(__T('-'));
@@ -1835,15 +1827,31 @@ void File_Mxf::Streams_Finish_Descriptor(const int128u DescriptorUID, const int1
             while (StreamPos_Last+StreamWithSameID<Count_Get(StreamKind_Last) && Retrieve(StreamKind_Last, StreamPos_Last+StreamWithSameID, General_ID).find(RealID)==0)
                 StreamWithSameID++;
         }
+        if (Descriptor->second.SampleRate && StreamKind_Last==Stream_Video)
+        {
+            float64 SampleRate=Descriptor->second.SampleRate;
+            if (StereoscopicPictureSubDescriptor_IsPresent)
+            {
+                SampleRate/=2;
+                Fill(Stream_Video, StreamPos_Last, Video_MultiView_Count, 2, 10, true);
+            }
+            for (essences::iterator Essence=Essences.begin(); Essence!=Essences.end(); ++Essence)
+                if (Essence->second.StreamKind==Stream_Video && Essence->second.StreamPos-(StreamPos_StartAtOne?1:0)==StreamPos_Last)
+                {
+                    if (Essence->second.Field_Count_InThisBlock_1 && !Essence->second.Field_Count_InThisBlock_2)
+                        SampleRate/=2;
+                    break;
+                }
+            Ztring SampleRate_Container; SampleRate_Container.From_Number(SampleRate); //TODO: fill frame rate before the merge with raw stream information
+            const Ztring &SampleRate_RawStream=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate);
+            if (!SampleRate_RawStream.empty() && SampleRate_Container!=SampleRate_RawStream)
+                Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Original, SampleRate_RawStream);
+            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, SampleRate, 3, true);
+        }
         for (std::map<std::string, Ztring>::iterator Info=Descriptor->second.Infos.begin(); Info!=Descriptor->second.Infos.end(); ++Info)
             if (Retrieve(StreamKind_Last, StreamPos_Last, Info->first.c_str()).empty())
             {
                 //Special case
-                if (StereoscopicPictureSubDescriptor_IsPresent && StreamKind_Last==Stream_Video && Info->first=="FrameRate")
-                {
-                    Info->second.From_Number(Descriptor->second.SampleRate/2, 3);
-                    Fill(Stream_Video, StreamPos_Last, Video_MultiView_Count, 2, 10, true);
-                }
                 if (Info->first=="BitRate" && Retrieve(StreamKind_Last, StreamPos_Last, General_ID).find(__T(" / "))!=string::npos)
                 {
                     if (Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_BitRate)).empty() || Retrieve(StreamKind_Last, StreamPos_Last, General_ID).find(__T("-"))!=string::npos)
@@ -1899,14 +1907,6 @@ void File_Mxf::Streams_Finish_Descriptor(const int128u DescriptorUID, const int1
         {
             //Until now, I only found CBR files
             Fill(Stream_Video, StreamPos_Last, Video_BitRate, Retrieve(Stream_Video, StreamPos_Last, Video_BitRate_Nominal));
-        }
-
-        //Frame rate
-        if (StreamKind_Last==Stream_Video && Descriptor->second.Infos.find("FrameRate")!=Descriptor->second.Infos.end() && Descriptor->second.Infos["FrameRate"]!=Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate))
-        {
-            //Until now, I only found CBR files
-            Fill(Stream_Video, StreamPos_Last, Video_FrameRate_Original, Retrieve(Stream_Video, StreamPos_Last, Video_FrameRate));
-            Fill(Stream_Video, StreamPos_Last, Video_FrameRate, Descriptor->second.Infos["FrameRate"], true);
         }
 
         //Display Aspect Ratio
@@ -2136,6 +2136,16 @@ void File_Mxf::Streams_Finish_Component(const int128u ComponentUID, float64 Edit
                 Fill(StreamKind_Last, StreamPos_Last_Temp, Fill_Parameter(StreamKind_Last, Generic_Duration), FrameCount*1000/EditRate, 0, true);
             }
         }
+
+        // Hack, TODO: find a correct method for detecting fiel/frame differene
+        if (StreamKind_Last==Stream_Video)
+            for (essences::iterator Essence=Essences.begin(); Essence!=Essences.end(); ++Essence)
+                if (Essence->second.StreamKind==Stream_Video && Essence->second.StreamPos-(StreamPos_StartAtOne?1:0)==StreamPos_Last)
+                {
+                    if (Essence->second.Field_Count_InThisBlock_1 && !Essence->second.Field_Count_InThisBlock_2)
+                        FrameCount/=2;
+                    break;
+                }
 
         if (Retrieve(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_FrameCount)).empty())
             Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_FrameCount), FrameCount);
@@ -3737,7 +3747,7 @@ void File_Mxf::Data_Parse()
 
                     #ifdef MEDIAINFO_VC3_YES
                         if (Ztring().From_Local(Mxf_EssenceContainer(Descriptor->second.EssenceContainer))==__T("VC-3"))
-                            ((File_Vc3*)(*(Essence->second.Parsers.begin())))->FrameRate=Descriptor->second.Infos["FrameRate"].To_float32();
+                            ((File_Vc3*)(*(Essence->second.Parsers.begin())))->FrameRate=Descriptor->second.SampleRate;
                     #endif //MEDIAINFO_VC3_YES
                     break;
                 }
@@ -3926,6 +3936,12 @@ void File_Mxf::Data_Parse()
                         if (Demux_Level==4 && Config->Demux_EventWasSent && Essence->second.StreamKind==Stream_Video && Essence->second.Parsers[Pos]->Demux_TotalBytes<Essence->second.Parsers[Pos]->Buffer_TotalBytes+Essence->second.Parsers[Pos]->Buffer_Size) // Only File_Jpeg. TODO: limit to File_Jpeg instead of video streams
                             Demux_CurrentParser=Essence->second.Parsers[Pos];
                     #endif //MEDIAINFO_DEMUX
+                    switch (Essence->second.Parsers[Pos]->Field_Count_InThisBlock)
+                    {
+                        case 1 : Essence->second.Field_Count_InThisBlock_1++; break;
+                        case 2 : Essence->second.Field_Count_InThisBlock_2++; break;
+                        default: ;
+                    }
 
                     //Multiple parsers
                     if (Essence->second.Parsers.size()>1)
@@ -5367,8 +5383,11 @@ void File_Mxf::CDCIEssenceDescriptor_ComponentDepth()
     Get_B4 (Data,                                                "Data"); Element_Info1(Data);
 
     FILLING_BEGIN();
-        if (Data)
-            Descriptors[InstanceUID].Infos["BitDepth"].From_Number(Data);
+        if (!Partitions_IsFooter || Descriptors[InstanceUID].Infos["BitDepth"].empty())
+        {
+            if (Data)
+                Descriptors[InstanceUID].Infos["BitDepth"].From_Number(Data);
+        }
     FILLING_END();
 }
 
@@ -5573,7 +5592,6 @@ void File_Mxf::FileDescriptor_SampleRate()
     Get_Rational(Descriptors[InstanceUID].SampleRate); Element_Info1(Descriptors[InstanceUID].SampleRate);
 
     FILLING_BEGIN();
-        Descriptors[InstanceUID].Infos["FrameRate"]=Ztring().From_Number(Descriptors[InstanceUID].SampleRate, 3);
         if (Descriptors[InstanceUID].SampleRate && Descriptors[InstanceUID].Duration!=(int64u)-1)
             Descriptors[InstanceUID].Infos["Duration"].From_Number(Descriptors[InstanceUID].Duration/Descriptors[InstanceUID].SampleRate*1000, 0);
     FILLING_END();
@@ -5821,10 +5839,13 @@ void File_Mxf::GenericPictureEssenceDescriptor_StoredHeight()
     Get_B4 (Data,                                                "Data"); Element_Info1(Data);
 
     FILLING_BEGIN();
-        if (Descriptors[InstanceUID].ScanType==__T("Interlaced"))
-            Data*=2; //This is per field
-        if (Descriptors[InstanceUID].Height==(int32u)-1)
-            Descriptors[InstanceUID].Height=Data;
+        if (!Partitions_IsFooter || Descriptors[InstanceUID].Height==(int32u)-1)
+        {
+            if (Descriptors[InstanceUID].ScanType==__T("Interlaced"))
+                Data*=2; //This is per field
+            if (Descriptors[InstanceUID].Height==(int32u)-1)
+                Descriptors[InstanceUID].Height=Data;
+        }
     FILLING_END();
 }
 
@@ -5837,8 +5858,11 @@ void File_Mxf::GenericPictureEssenceDescriptor_StoredWidth()
     Get_B4 (Data,                                                "Data"); Element_Info1(Data);
 
     FILLING_BEGIN();
-        if (Descriptors[InstanceUID].Width==(int32u)-1)
-            Descriptors[InstanceUID].Width=Data;
+        if (!Partitions_IsFooter || Descriptors[InstanceUID].Width==(int32u)-1)
+        {
+            if (Descriptors[InstanceUID].Width==(int32u)-1)
+                Descriptors[InstanceUID].Width=Data;
+        }
     FILLING_END();
 }
 
@@ -5851,9 +5875,12 @@ void File_Mxf::GenericPictureEssenceDescriptor_SampledHeight()
     Get_B4 (Data,                                                "Data"); Element_Info1(Data);
 
     FILLING_BEGIN();
-        if (Descriptors[InstanceUID].ScanType==__T("Interlaced"))
-            Data*=2; //This is per field
-        Descriptors[InstanceUID].Height=Data;
+        if (!Partitions_IsFooter || Descriptors[InstanceUID].Height==(int32u)-1)
+        {
+            if (Descriptors[InstanceUID].ScanType==__T("Interlaced"))
+                Data*=2; //This is per field
+            Descriptors[InstanceUID].Height=Data;
+        }
     FILLING_END();
 }
 
@@ -5895,9 +5922,12 @@ void File_Mxf::GenericPictureEssenceDescriptor_DisplayHeight()
     Get_B4 (Data,                                                "Data"); Element_Info1(Data);
 
     FILLING_BEGIN();
-        if (Descriptors[InstanceUID].ScanType==__T("Interlaced"))
-            Data*=2; //This is per field
-        Descriptors[InstanceUID].Height_Display=Data;
+        if (!Partitions_IsFooter || Descriptors[InstanceUID].Height_Display!=(int32u)-1)
+        {
+            if (Descriptors[InstanceUID].ScanType==__T("Interlaced"))
+                Data*=2; //This is per field
+            Descriptors[InstanceUID].Height_Display=Data;
+        }
     FILLING_END();
 }
 
@@ -5936,9 +5966,12 @@ void File_Mxf::GenericPictureEssenceDescriptor_DisplayYOffset()
     Get_B4 (Data,                                               "Data"); Element_Info1(Data);
 
     FILLING_BEGIN();
-        if (Descriptors[InstanceUID].ScanType==__T("Interlaced"))
-            Data*=2; //This is per field
-        Descriptors[InstanceUID].Height_Display_Offset=Data;
+        if (!Partitions_IsFooter || Descriptors[InstanceUID].Height_Display_Offset==(int32u)-1)
+        {
+            if (Descriptors[InstanceUID].ScanType==__T("Interlaced"))
+                Data*=2; //This is per field
+            Descriptors[InstanceUID].Height_Display_Offset=Data;
+        }
     FILLING_END();
 }
 
@@ -5951,13 +5984,16 @@ void File_Mxf::GenericPictureEssenceDescriptor_FrameLayout()
     Get_B1 (Data,                                               "Data"); Element_Info1(Data); Param_Info1(Mxf_FrameLayout(Data)); Element_Info1(Mxf_FrameLayout(Data));
 
     FILLING_BEGIN();
-        if (Descriptors[InstanceUID].ScanType.empty())
+        if (!Partitions_IsFooter || Descriptors[InstanceUID].ScanType.empty())
         {
-            if (Descriptors[InstanceUID].Height!=(int32u)-1) Descriptors[InstanceUID].Height*=Mxf_FrameLayout_Multiplier(Data);
-            if (Descriptors[InstanceUID].Height_Display!=(int32u)-1) Descriptors[InstanceUID].Height_Display*=Mxf_FrameLayout_Multiplier(Data);
-            if (Descriptors[InstanceUID].Height_Display_Offset!=(int32u)-1) Descriptors[InstanceUID].Height_Display_Offset*=Mxf_FrameLayout_Multiplier(Data);
+            if (Descriptors[InstanceUID].ScanType.empty())
+            {
+                if (Descriptors[InstanceUID].Height!=(int32u)-1) Descriptors[InstanceUID].Height*=Mxf_FrameLayout_Multiplier(Data);
+                if (Descriptors[InstanceUID].Height_Display!=(int32u)-1) Descriptors[InstanceUID].Height_Display*=Mxf_FrameLayout_Multiplier(Data);
+                if (Descriptors[InstanceUID].Height_Display_Offset!=(int32u)-1) Descriptors[InstanceUID].Height_Display_Offset*=Mxf_FrameLayout_Multiplier(Data);
+            }
+            Descriptors[InstanceUID].ScanType.From_UTF8(Mxf_FrameLayout_ScanType(Data));
         }
-        Descriptors[InstanceUID].ScanType.From_UTF8(Mxf_FrameLayout_ScanType(Data));
     FILLING_END();
 }
 
@@ -6724,13 +6760,16 @@ void File_Mxf::MPEG2VideoDescriptor_CodedContentType()
     Get_B1 (Data,                                               "Data"); Element_Info1(Mxf_MPEG2_CodedContentType(Data));
 
     FILLING_BEGIN();
-        if (Data==2 && Descriptors[InstanceUID].ScanType.empty())
+        if (!Partitions_IsFooter || Descriptors[InstanceUID].ScanType.empty())
         {
-            if (Descriptors[InstanceUID].Height!=(int32u)-1) Descriptors[InstanceUID].Height*=2;
-            if (Descriptors[InstanceUID].Height_Display!=(int32u)-1) Descriptors[InstanceUID].Height_Display*=2;
-            if (Descriptors[InstanceUID].Height_Display_Offset!=(int32u)-1) Descriptors[InstanceUID].Height_Display_Offset*=2;
+            if (Data==2 && Descriptors[InstanceUID].ScanType.empty())
+            {
+                if (Descriptors[InstanceUID].Height!=(int32u)-1) Descriptors[InstanceUID].Height*=2;
+                if (Descriptors[InstanceUID].Height_Display!=(int32u)-1) Descriptors[InstanceUID].Height_Display*=2;
+                if (Descriptors[InstanceUID].Height_Display_Offset!=(int32u)-1) Descriptors[InstanceUID].Height_Display_Offset*=2;
+            }
+            Descriptors[InstanceUID].ScanType.From_UTF8(Mxf_MPEG2_CodedContentType(Data));
         }
-        Descriptors[InstanceUID].ScanType.From_UTF8(Mxf_MPEG2_CodedContentType(Data));
     FILLING_END();
 }
 
@@ -9806,7 +9845,7 @@ void File_Mxf::ChooseParser_Vc3(const essences::iterator &Essence, const descrip
     #if defined(MEDIAINFO_VC3_YES)
         File_Vc3* Parser=new File_Vc3;
         if (Descriptor!=Descriptors.end())
-            Parser->FrameRate=Descriptor->second.Infos["FrameRate"].To_float32();
+            Parser->FrameRate=Descriptor->second.SampleRate;
     #else
         //Filling
         File__Analyze* Parser=new File_Unknown();

@@ -340,6 +340,7 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
     #endif //MEDIAINFO_DEMUX
 
     Frame_Count_InThisBlock=0;
+    Field_Count_InThisBlock=0;
 
     //MD5
     #if MEDIAINFO_MD5

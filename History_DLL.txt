@@ -31,6 +31,7 @@ x MXF: potential crash with small files
 x AAF: potential crash with small files
 x HLS: potential crash with small files
 x MXF: some video streams were wrongly detected as MPEG-2 video
+x MXF: better detection of some weird cases with interlace JPEG-2000 content
 
 Version 0.7.67, 2014-01-10
 --------------

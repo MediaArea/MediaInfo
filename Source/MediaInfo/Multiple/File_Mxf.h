@@ -495,6 +495,8 @@ protected :
         bool   Track_Number_IsMappedToTrack; //if !Track_Number_IsAvailable, is true when it was euristicly mapped
         bool   IsFilled;
         bool   IsChannelGrouping;
+        int64u      Field_Count_InThisBlock_1;
+        int64u      Field_Count_InThisBlock_2;
         int64u      Frame_Count_NotParsedIncluded;
         frame_info  FrameInfo;
 
@@ -510,6 +512,8 @@ protected :
             Track_Number_IsMappedToTrack=false;
             IsFilled=false;
             IsChannelGrouping=false;
+            Field_Count_InThisBlock_1=0;
+            Field_Count_InThisBlock_2=0;
             Frame_Count_NotParsedIncluded=(int64u)-1;
             FrameInfo.DTS=(int64u)-1;
         }

@@ -597,17 +597,21 @@ void File_Jpeg::SOD()
 {
     SOS_SOD_Parsed=true;
     if (Interlaced)
+    {
         Field_Count++;
+        Field_Count_InThisBlock++;
+    }
     if (!Interlaced || Field_Count%2==0)
     {
         Frame_Count++;
+        Frame_Count_InThisBlock++;
         if (Frame_Count_NotParsedIncluded!=(int64u)-1)
             Frame_Count_NotParsedIncluded++;
+        if (Status[IsFilled])
+            Fill();
+        if (Config->ParseSpeed<1.0)
+            Finish("JPEG 2000"); //No need of more
     }
-    if (Status[IsFilled])
-        Fill();
-    if (Config->ParseSpeed<1.0)
-        Finish("JPEG 2000"); //No need of more
 }
 
 //---------------------------------------------------------------------------
@@ -768,10 +772,14 @@ void File_Jpeg::SOS()
     FILLING_BEGIN_PRECISE();
     SOS_SOD_Parsed=true;
     if (Interlaced)
+    {
         Field_Count++;
+        Field_Count_InThisBlock++;
+    }
     if (!Interlaced || Field_Count%2==0)
     {
         Frame_Count++;
+        Frame_Count_InThisBlock++;
         if (Frame_Count_NotParsedIncluded!=(int64u)-1)
             Frame_Count_NotParsedIncluded++;
     }
