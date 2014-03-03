@@ -2243,6 +2243,12 @@ void File_Mxf::Read_Buffer_Continue()
                 Frame_Count_NotParsedIncluded++;
             if (Config->Demux_EventWasSent)
                 return;
+            switch (Demux_CurrentParser->Field_Count_InThisBlock)
+            {
+                case 1 : Demux_CurrentEssence->second.Field_Count_InThisBlock_1++; break;
+                case 2 : Demux_CurrentEssence->second.Field_Count_InThisBlock_2++; break;
+                default: ;
+            }
             if (Demux_CurrentParser->Buffer_Size)
                 Demux_CurrentParser=NULL; //No more need of it
         }
@@ -3933,8 +3939,11 @@ void File_Mxf::Data_Parse()
                         Essence->second.Parsers[Pos]->FrameInfo.DUR=Essence->second.FrameInfo.DUR;
                     Open_Buffer_Continue(Essence->second.Parsers[Pos], Buffer+Buffer_Offset, (size_t)Element_Size);
                     #if MEDIAINFO_DEMUX
-                        if (Demux_Level==4 && Config->Demux_EventWasSent && Essence->second.StreamKind==Stream_Video && Essence->second.Parsers[Pos]->Demux_TotalBytes<Essence->second.Parsers[Pos]->Buffer_TotalBytes+Essence->second.Parsers[Pos]->Buffer_Size) // Only File_Jpeg. TODO: limit to File_Jpeg instead of video streams
+                        if (Demux_Level==4 && Config->Demux_EventWasSent && Essence->second.StreamKind==Stream_Video && Essence->second.Parsers[Pos]->ParserIDs[StreamIDs_Size]==MediaInfo_Parser_Jpeg) // Only File_Jpeg. TODO: limit to File_Jpeg instead of video streams
+                        {
                             Demux_CurrentParser=Essence->second.Parsers[Pos];
+                            Demux_CurrentEssence=Essence;
+                        }
                     #endif //MEDIAINFO_DEMUX
                     switch (Essence->second.Parsers[Pos]->Field_Count_InThisBlock)
                     {

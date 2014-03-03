@@ -826,6 +826,7 @@ protected :
     //Demux
     #if MEDIAINFO_DEMUX
         bool Demux_HeaderParsed;
+        essences::iterator Demux_CurrentEssence;
     #endif //MEDIAINFO_DEMUX
 
     #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
