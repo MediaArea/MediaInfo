@@ -70,6 +70,14 @@ xcopy ..\Project\MSVC2010\*.cpp MediaInfo_Source\Project\MSVC2010\ /S
 xcopy ..\Project\MSVC2010\*.c MediaInfo_Source\Project\MSVC2010\ /S
 xcopy ..\Project\MSVC2010\*.h MediaInfo_Source\Project\MSVC2010\ /S
 xcopy ..\Project\MSVC2010\*.rc MediaInfo_Source\Project\MSVC2010\ /S
+xcopy ..\Project\MSVC2012\*.cpp MediaInfo_Source\Project\MSVC2012\ /S
+xcopy ..\Project\MSVC2012\*.c MediaInfo_Source\Project\MSVC2012\ /S
+xcopy ..\Project\MSVC2012\*.h MediaInfo_Source\Project\MSVC2012\ /S
+xcopy ..\Project\MSVC2012\*.rc MediaInfo_Source\Project\MSVC2012\ /S
+xcopy ..\Project\MSVC2013\*.cpp MediaInfo_Source\Project\MSVC2013\ /S
+xcopy ..\Project\MSVC2013\*.c MediaInfo_Source\Project\MSVC2013\ /S
+xcopy ..\Project\MSVC2013\*.h MediaInfo_Source\Project\MSVC2013\ /S
+xcopy ..\Project\MSVC2013\*.rc MediaInfo_Source\Project\MSVC2013\ /S
 xcopy ..\Project\GNU\* MediaInfo_Source\Project\GNU\ /S
 xcopy ..\Project\Solaris\* MediaInfo_Source\Project\Solaris\ /S
 
