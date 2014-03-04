@@ -150,6 +150,10 @@ struct Jpeg_samplingfactor
 File_Jpeg::File_Jpeg()
 {
     //Config
+    #if MEDIAINFO_EVENTS
+        ParserIDs[0]=MediaInfo_Parser_Jpeg;
+        StreamIDs_Width[0]=0;
+    #endif //MEDIAINFO_EVENTS
     #if MEDIAINFO_TRACE
         Trace_Layers_Update(8); //Stream
     #endif //MEDIAINFO_TRACE
