@@ -145,6 +145,9 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     File_IgnoreFramesRate=0;
     File_Size=(int64u)-1;
     ParseSpeed=MediaInfoLib::Config.ParseSpeed_Get();
+    #if MEDIAINFO_EVENTS
+        Config_PerPackage=NULL;
+    #endif //MEDIAINFO_EVENTS
     #if MEDIAINFO_DEMUX
         Demux_EventWasSent=false;
         Demux_Offset_Frame=(int64u)-1;

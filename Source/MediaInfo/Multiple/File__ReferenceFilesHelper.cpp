@@ -32,6 +32,7 @@
 #include <cfloat>
 #if MEDIAINFO_EVENTS
     #include "MediaInfo/MediaInfo_Events_Internal.h"
+    #include "MediaInfo/MediaInfo_Config_PerPackage.h"
 #endif //MEDIAINFO_EVENTS
 using namespace std;
 //---------------------------------------------------------------------------
@@ -343,6 +344,14 @@ void File__ReferenceFilesHelper::ParseReferences()
 
         //InfoFromFileName
         File__ReferenceFilesHelper_InfoFromFileName(References);
+
+        #if MEDIAINFO_EVENTS
+            if (MI->Config->Config_PerPackage==NULL)
+            {
+                MI->Config->Config_PerPackage=new MediaInfo_Config_PerPackage;
+                MI->Config->Config_PerPackage->CountOfPackages=References.size();
+            }
+        #endif //MEDIAINFO_EVENTS
 
         //Configuring file names
         Reference=References.begin();
@@ -1323,8 +1332,12 @@ MediaInfo_Internal* File__ReferenceFilesHelper::MI_Create()
             MI_Temp->Option(__T("File_MD5"), __T("1"));
     #endif //MEDIAINFO_MD5
     #if MEDIAINFO_EVENTS
+        MI_Temp->Config.Config_PerPackage=Config->Config_PerPackage;
         if (Config->Event_CallBackFunction_IsSet())
+        {
             MI_Temp->Option(__T("File_Event_CallBackFunction"), Config->Event_CallBackFunction_Get());
+            MI_Temp->Config.Config_PerPackage->Event_CallBackFunction_Set(Config->Event_CallBackFunction_Get());
+        }
         MI_Temp->Config.File_Names_RootDirectory=FileName(MI->File_Name).Path_Get();
         if (Reference->FileNames.size()>1)
             MI_Temp->Option(__T("File_TestContinuousFileNames"), __T("0"));

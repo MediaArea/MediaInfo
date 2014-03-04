@@ -617,6 +617,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\MediaInfo\MediaInfo_Config_PerPackage.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\MediaInfo\MediaInfo_File.cpp"
 				>
 			</File>
@@ -1526,6 +1530,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\MediaInfo\MediaInfo_Config_MediaInfo.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\MediaInfo\MediaInfo_Config_PerPackage.h"
 				>
 			</File>
 			<File

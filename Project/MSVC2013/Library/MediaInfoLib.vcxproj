@@ -448,6 +448,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\MediaInfo_Config.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\MediaInfo_Config_Automatic.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\MediaInfo_Config_MediaInfo.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\MediaInfo_Config_PerPackage.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\MediaInfo_File.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\MediaInfo_Inform.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\MediaInfo_Internal.cpp" />
@@ -670,6 +671,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Config.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Config_MediaInfo.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Config_PerPackage.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Const.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Events.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\MediaInfo_Events_Internal.h" />
