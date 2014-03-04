@@ -912,6 +912,8 @@ Save;Sauvegarder
 ScanType;Type de balayage
 ScanType_Original;Type de balayage original
 ScanOrder;Ordre de balayage
+ScanOrder_Stored;Ordre stocké de balayage
+ScanOrder_StoredDisplayedInverted;Ordre de balayage invversé entre affiché/stocké
 ScanOrder_Original;Ordre original de balayage
 ScreenplayBy;Joué par
 Season;Saison
