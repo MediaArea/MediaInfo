@@ -1383,6 +1383,7 @@ void File_Mpeg_Descriptors::Data_Parse()
             ELEMENT_CASE(AA, "ATSC - Redistribution Control");
             ELEMENT_CASE(AB, "ATSC - DCC Location Code");
             ELEMENT_CASE(C1, "ARIB - Digital Copy Control");
+            ELEMENT_CASE(C4, "SMPTE - ANC"); //SMPTE ST 2038
             ELEMENT_CASE(C8, "ARIB - Video Decode Control");
             ELEMENT_CASE(DE, "ARIB - Content Availability");
             ELEMENT_CASE(E9, "CableLabs - Encoder Boundary Point");
