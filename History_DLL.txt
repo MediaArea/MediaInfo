@@ -25,6 +25,7 @@ Version 0.7.68, 2014-
 + Java binding: adding support of memory buffer as input, example with InputStream class (from RandomAccessFile or from FileUrl, including Amazon S3 authorization)
 + PTX: more files are supported
 + Ancillary data: more fomats are detected (OP-47 WST, OP-47 Multipacket, WSS, CEA-608, MPEG-2 Recoding Information...)
++ EBUCore output: update, with EBUCore 1.5 support
 x STL: better support of non-English characters during decode
 x MXF: some properties were not displayed with OP-Atom files
 x JPEG-2000: wrong implmentation of COD parsing, with undefined behavior for some files
