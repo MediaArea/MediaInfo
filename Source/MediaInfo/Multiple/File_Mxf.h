@@ -61,6 +61,7 @@ public :
 
 protected :
     //Streams management
+    void Streams_Accept();
     void Streams_Fill ();
     void Streams_Finish ();
     void Streams_Finish_Preface (const int128u PrefaceUID);

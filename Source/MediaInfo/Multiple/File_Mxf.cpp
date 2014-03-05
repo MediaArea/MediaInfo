@@ -978,6 +978,13 @@ File_Mxf::~File_Mxf()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+void File_Mxf::Streams_Accept()
+{
+    //Configuration
+    Buffer_MaximumSize=64*1024*1024; //Some big frames are possible (e.g YUV 4:2:2 10 bits 1080p, 4K)
+}
+
+//---------------------------------------------------------------------------
 void File_Mxf::Streams_Fill()
 {
     for (essences::iterator Essence=Essences.begin(); Essence!=Essences.end(); ++Essence)
