@@ -2202,9 +2202,9 @@ object MainF: TMainF
         RadioItem = True
         OnClick = M_View_PBCoreClick
       end
-      object M_View_EBUCore_1_4: TMenuItem
-        Caption = 'EBUCore 1.4'
-        OnClick = M_View_EBUCore_1_4Click
+      object M_View_EBUCore_1_5: TMenuItem
+        Caption = 'EBUCore 1.5'
+        OnClick = M_View_EBUCore_1_5Click
       end
       object M_View_reVTMD: TMenuItem
         AutoCheck = True
@@ -3890,8 +3890,8 @@ object MainF: TMainF
       Caption = 'PBCore 1.2'
       RadioItem = True
     end
-    object ToolBar_View_EBUCore_1_4: TMenuItem
-      Caption = 'EBUCore 1.4'
+    object ToolBar_View_EBUCore_1_5: TMenuItem
+      Caption = 'EBUCore 1.5'
     end
     object ToolBar_View_reVTMD: TMenuItem
       Caption = 'reVTMD'

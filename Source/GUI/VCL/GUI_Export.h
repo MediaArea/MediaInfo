@@ -42,7 +42,7 @@ __published:    // IDE-managed Components
     TTabSheet *Export_XML;
     TTabSheet *Export_MPEG7;
     TTabSheet *Export_PBCore;
-    TTabSheet *Export_EBUCore_1_4;
+    TTabSheet *Export_EBUCore_1_5;
     TTabSheet *Export_reVTMD;
     TTabSheet *Export_Custom;
     TGroupBox *Name_Choose;
@@ -84,7 +84,7 @@ __published:    // IDE-managed Components
     TCheckBox *Export_XML_SideCar;
     TCheckBox *Export_MPEG7_SideCar;
     TCheckBox *Export_PBCore_SideCar;
-    TCheckBox *Export_EBUCore_1_4_SideCar;
+    TCheckBox *Export_EBUCore_1_5_SideCar;
     TCheckBox *Export_reVTMD_SideCar;
     void __fastcall Name_FileSelectClick(TObject *Sender);
     void __fastcall ExportChange(TObject *Sender);
@@ -97,7 +97,7 @@ __published:    // IDE-managed Components
     void __fastcall Export_XML_SideCarClick(TObject *Sender);
     void __fastcall Export_MPEG7_SideCarClick(TObject *Sender);
     void __fastcall Export_PBCore_SideCarClick(TObject *Sender);
-    void __fastcall Export_EBUCore_1_4_SideCarClick(TObject *Sender);
+    void __fastcall Export_EBUCore_1_5_SideCarClick(TObject *Sender);
 
 private:    // User declarations
     void Name_Adapt();

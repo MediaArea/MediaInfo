@@ -214,7 +214,7 @@ void __fastcall TMainF::GUI_Configure()
     else if (Prefs->Config(__T("Output"))==__T("XML")) {M_View_XMLClick(NULL); M_View_XML->Checked=true;}
     else if (Prefs->Config(__T("Output"))==__T("MPEG-7")) {M_View_MPEG7Click(NULL); M_View_MPEG7->Checked=true;}
     else if (Prefs->Config(__T("Output"))==__T("PBCore_1.2")) {M_View_PBCoreClick(NULL); M_View_PBCore->Checked=true;}
-    else if (Prefs->Config(__T("Output"))==__T("EBUCore_1.4")) {M_View_PBCoreClick(NULL); M_View_EBUCore_1_4->Checked=true;}
+    else if (Prefs->Config(__T("Output"))==__T("EBUCore_1.5")) {M_View_PBCoreClick(NULL); M_View_EBUCore_1_5->Checked=true;}
     else if (Prefs->Config(__T("Output"))==__T("reVTMD")) {M_View_reVTMDClick(NULL); M_View_reVTMD->Checked=true;}
     else if (Prefs->Config(__T("Output"))==__T("Custom")) {M_View_CustomClick(NULL); M_View_Custom->Checked=true;}
 
@@ -790,8 +790,8 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             I->Option_Static(__T("Inform"), __T("MPEG-7"));
         else if (M_View_PBCore->Checked)
             I->Option_Static(__T("Inform"), __T("PBCore_1.2"));
-        else if (M_View_EBUCore_1_4->Checked)
-            I->Option_Static(__T("Inform"), __T("EBUCore_1.4"));
+        else if (M_View_EBUCore_1_5->Checked)
+            I->Option_Static(__T("Inform"), __T("EBUCore_1.5"));
         else if (M_View_reVTMD->Checked)
             I->Option_Static(__T("Inform"), __T("reVTMD"));
         else
@@ -1101,10 +1101,10 @@ void __fastcall TMainF::M_View_PBCoreClick(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
-void __fastcall TMainF::M_View_EBUCore_1_4Click(TObject *Sender)
+void __fastcall TMainF::M_View_EBUCore_1_5Click(TObject *Sender)
 {
-    Prefs->Details[Prefs_Custom].Write(__T("EBUCore_1.4"));
-    ToolBar_View_EBUCore_1_4->Checked=true;
+    Prefs->Details[Prefs_Custom].Write(__T("EBUCore_1.5"));
+    ToolBar_View_EBUCore_1_5->Checked=true;
     ChangePage(Page_Custom);
 }
 
