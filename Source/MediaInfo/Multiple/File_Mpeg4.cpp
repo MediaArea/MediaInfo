@@ -1034,7 +1034,7 @@ void File_Mpeg4::Read_Buffer_Unsynched()
         IsParsing_mdat=false;
         return;
     }
-    mdat_Pos_Temp=mdat_Pos.data();
+    mdat_Pos_Temp=&mdat_Pos[0];
     while (mdat_Pos_Temp!=mdat_Pos_Max && mdat_Pos_Temp->Offset<File_GoTo)
         mdat_Pos_Temp++;
     if (mdat_Pos_Temp!=mdat_Pos_Max && mdat_Pos_Temp->Offset>File_GoTo)
@@ -1076,7 +1076,7 @@ void File_Mpeg4::Read_Buffer_Unsynched()
         #if MEDIAINFO_SEEK && MEDIAINFO_DEMUX
             //Searching the next position for this stream
             int64u StreamOffset=(int64u)-1;
-            if (StreamOffset_Jump.empty() || File_GoTo==mdat_Pos.data()->Offset)
+            if (StreamOffset_Jump.empty() || File_GoTo==mdat_Pos[0].Offset)
                 StreamOffset=mdat_Pos_Temp->Offset;
             else if (Next_Stream_Stco!=(size_t)-1)
             {
@@ -1352,7 +1352,7 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                     if (stco_Pos==0) //The first Stco is considered as the last byte of previous stram
                                     {
                                         if (!mdat_Pos.empty())
-                                            Offset=mdat_Pos.data()->Offset;
+                                            Offset=mdat_Pos[0].Offset;
                                     }
                                     else
                                     {
@@ -1655,11 +1655,11 @@ bool File_Mpeg4::BookMark_Needed()
                 #if MEDIAINFO_DEMUX
                     stream::stts_durations Temp_stts_Durations;
                 #endif //MEDIAINFO_DEMUX
-                int64u* stco_Current=Temp->second.stco.data();
+				int64u* stco_Current=Temp->second.stco.empty()?NULL:&Temp->second.stco[0];
                 int64u* stco_Max=stco_Current+Temp->second.stco.size();
-                stream::stsc_struct* stsc_Current=Temp->second.stsc.data();
+				stream::stsc_struct* stsc_Current=Temp->second.stco.empty()?NULL:&Temp->second.stsc[0];
                 stream::stsc_struct* stsc_Max=stsc_Current+Temp->second.stsc.size();
-                int64u* stsz_Current=Temp->second.stsz.data();
+				int64u* stsz_Current=Temp->second.stsz.empty()?NULL:&Temp->second.stsz[0];
                 int64u* stsz_Max=stsz_Current+Temp->second.stsz.size();
                 int64u MinimalOffset=(int64u)-1;
                 int64u MaximalOffset=0;
@@ -1673,7 +1673,7 @@ bool File_Mpeg4::BookMark_Needed()
                     while (stsc_Current+1<stsc_Max && Chunk_Number>=(stsc_Current+1)->FirstChunk)
                         stsc_Current++;
 
-                    if (Temp->second.stsz_Sample_Size==0)
+                    if (Temp->second.stsz_Sample_Size==0 && stsc_Current && stsz_Current)
                     {
                         //Each sample has its own size
                         int64u Chunk_Offset=0;
@@ -1693,7 +1693,7 @@ bool File_Mpeg4::BookMark_Needed()
                         if (stsz_Current>=stsz_Max)
                             break;
                     }
-                    else if (Temp->second.IsPcm && (!Sample_ByteSize || Temp->second.stsz_Sample_Size<=Sample_ByteSize) && stsc_Current->SamplesPerChunk*Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier<0x1000000)
+                    else if (Temp->second.IsPcm && (!Sample_ByteSize || Temp->second.stsz_Sample_Size<=Sample_ByteSize) && stsc_Current && stsc_Current->SamplesPerChunk*Temp->second.stsz_Sample_Size*Temp->second.stsz_Sample_Multiplier<0x1000000)
                     {
                         //Same size per sample, but granularity is too small
                         mdat_Pos_Type mdat_Pos_Temp2;
@@ -1751,7 +1751,7 @@ bool File_Mpeg4::BookMark_Needed()
                     if (FrameCount_MaxPerStream==(int64u)-1 && !Temp_stts_Durations.empty())
                     {
                         Temp->second.stts_Durations=Temp_stts_Durations;
-                        for (stsc_Current=Temp->second.stsc.data(); stsc_Current<stsc_Max; ++stsc_Current)
+                        for (stsc_Current=&Temp->second.stsc[0]; stsc_Current<stsc_Max; ++stsc_Current)
                             stsc_Current->SamplesPerChunk=1;
                         Temp->second.stts_FrameCount=Temp_stts_Durations[Temp_stts_Durations.size()-1].Pos_End;
                     }
@@ -1771,7 +1771,7 @@ bool File_Mpeg4::BookMark_Needed()
             #endif //MEDIAINFO_DEMUX
         }
         std::sort(mdat_Pos.begin(), mdat_Pos.end(), &mdat_pos_sort);
-        mdat_Pos_Temp=mdat_Pos.data();
+		mdat_Pos_Temp=mdat_Pos.empty()?NULL:&mdat_Pos[0];
         mdat_Pos_Max=mdat_Pos_Temp+mdat_Pos.size();
 
         #if MEDIAINFO_DEMUX
@@ -1802,7 +1802,7 @@ bool File_Mpeg4::BookMark_Needed()
         //Hanlding StreamIDs to parse in priority (currently, only the first block of each stream is parsed in priority)
         if (!Streams[mdat_Pos_ToParseInPriority_StreamIDs[0]].stco.empty())
         {
-            mdat_Pos_Type* Temp=mdat_Pos.data();
+            mdat_Pos_Type* Temp=&mdat_Pos[0];
             int64u stco_ToFind=Streams[mdat_Pos_ToParseInPriority_StreamIDs[0]].stco[0];
             while (Temp<mdat_Pos_Max && Temp->Offset!=stco_ToFind)
                 Temp++;
@@ -1828,7 +1828,7 @@ bool File_Mpeg4::BookMark_Needed()
             Element_End0();
         Element_Begin1("Second pass");
 
-        mdat_Pos_Temp=mdat_Pos.data();
+        mdat_Pos_Temp=&mdat_Pos[0];
         #if MEDIAINFO_MD5
             if (Config->File_Md5_Get())
             {
