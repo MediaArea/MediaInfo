@@ -181,7 +181,7 @@ private static void ByBuffer_URL(String FileName) throws Exception
         FileName = FileName.replace(FileName.substring(FileName_Amazon_S3_Begin, FileName_Amazon_S3_End + 1), new String());
         Amazon_S3_Date = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.US).format(new Date());
         String Amazon_S3_ToSign = "GET\n\n\n"+Amazon_S3_Date+"\n"+new URL(FileName).getPath();
-        Amazon_S3_Authorization = "AWS "+Amazon_S3_AWSAccessKeyId+":"+calculateHmacSHA1(Amazon_S3_ToSign, Amazon_S3_AWSSecretAccessKey);=
+        Amazon_S3_Authorization = "AWS "+Amazon_S3_AWSAccessKeyId+":"+calculateHmacSHA1(Amazon_S3_ToSign, Amazon_S3_AWSSecretAccessKey);
     }
     URL FileUrl = new URL(FileName);
     
