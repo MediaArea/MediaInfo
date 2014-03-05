@@ -39,8 +39,8 @@ public static void main(String... args) throws Exception
         FileName = args[0];
         
     //Comment this line and uncomment the next one if you would like to test the "by buffer" interface
-    //if (false)
-    if (true)
+    if (false)
+    //if (true)
     {
         if (FileName.startsWith("http://") || FileName.startsWith("https://"))
             ByBuffer_URL (FileName);
