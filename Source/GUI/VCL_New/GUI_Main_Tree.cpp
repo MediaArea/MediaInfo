@@ -16,8 +16,8 @@
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-GUI_Main_Tree::GUI_Main_Tree(Core* _C, TWinControl* Owner)
-    : GUI_Main_Common_Core(_C)
+GUI_Main_Tree::GUI_Main_Tree(Core* Core_, TWinControl* Owner)
+    : GUI_Main_Common_Core(Core_)
 {
     //VCL specific
     VCL=new TTreeView(Owner);

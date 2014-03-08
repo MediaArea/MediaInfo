@@ -21,7 +21,7 @@ class GUI_Main_Easy_Core : public GUI_Main_Common_Core
 {
 public:
     //Constructor/Destructor
-    GUI_Main_Easy_Core(Core* _C);
+    GUI_Main_Easy_Core(Core* Core_);
     virtual ~GUI_Main_Easy_Core() {};
 
     //Actions

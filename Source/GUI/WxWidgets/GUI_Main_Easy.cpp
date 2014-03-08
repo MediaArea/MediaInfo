@@ -33,9 +33,9 @@ END_EVENT_TABLE()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-GUI_Main_Easy::GUI_Main_Easy(Core* _C, wxWindow* parent)
+GUI_Main_Easy::GUI_Main_Easy(Core* Core_, wxWindow* parent)
     : wxPanel(parent, 26981, wxPoint(0, 0), wxSize(parent->GetClientSize().GetWidth()-0, parent->GetClientSize().GetHeight()-0)),
-    GUI_Main_Easy_Core(_C)
+    GUI_Main_Easy_Core(Core_)
 {
     //Creation - Select
     Select=new wxChoice(this, 26981);

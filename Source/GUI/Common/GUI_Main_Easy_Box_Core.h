@@ -31,7 +31,7 @@ class GUI_Main_Easy_Box_Core
 {
 public:
     //Constructor/Destructor
-    GUI_Main_Easy_Box_Core(Core* _C, GUI_Main_Easy_Core* Parent_Core, stream_t StreamKind, size_t StreamPos);
+    GUI_Main_Easy_Box_Core(Core* Core_, GUI_Main_Easy_Core* Parent_Core, stream_t StreamKind, size_t StreamPos);
     virtual ~GUI_Main_Easy_Box_Core() {};
 
     //Actions - Per StreamKind

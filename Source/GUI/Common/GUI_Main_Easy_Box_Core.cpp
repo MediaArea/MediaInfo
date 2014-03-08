@@ -20,10 +20,10 @@ const size_t Title_Pos=94; //TODO: Position of Title in General.csv, should shan
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-GUI_Main_Easy_Box_Core::GUI_Main_Easy_Box_Core(Core* _C, GUI_Main_Easy_Core* Parent_Core_, stream_t StreamKind, size_t StreamPos)
+GUI_Main_Easy_Box_Core::GUI_Main_Easy_Box_Core(Core* Core_, GUI_Main_Easy_Core* Parent_Core_, stream_t StreamKind, size_t StreamPos)
 {
     //Internal
-    C=_C;
+    C=Core_;
     Parent_Core=Parent_Core_;
 
     //Configuration

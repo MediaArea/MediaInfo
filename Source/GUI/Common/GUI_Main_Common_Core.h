@@ -41,7 +41,7 @@ class GUI_Main_Common_Core
 {
 public:
     //Constructor/Destructor
-    GUI_Main_Common_Core(Core* _C);
+    GUI_Main_Common_Core(Core* Core_);
     virtual ~GUI_Main_Common_Core() {};
 
     //Actions to be overloded

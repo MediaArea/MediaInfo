@@ -16,8 +16,8 @@
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-GUI_Main_Easy::GUI_Main_Easy(Core* _C, TWinControl* Owner)
-    : GUI_Main_Common_Core(_C)
+GUI_Main_Easy::GUI_Main_Easy(Core* Core_, TWinControl* Owner)
+    : GUI_Main_Common_Core(Core_)
 {
     //VCL
     VCL=new TPanel(Owner);

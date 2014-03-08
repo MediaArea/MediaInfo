@@ -33,9 +33,9 @@ END_EVENT_TABLE()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-GUI_Main_Easy_Box::GUI_Main_Easy_Box(Core* _C, GUI_Main_Easy* Parent, wxWindow* Left, wxWindow* Top, stream_t StreamKind, size_t StreamPos)
+GUI_Main_Easy_Box::GUI_Main_Easy_Box(Core* Core_, GUI_Main_Easy* Parent, wxWindow* Left, wxWindow* Top, stream_t StreamKind, size_t StreamPos)
     : wxPanel(Parent, 26991, wxPoint(0, 0), wxSize(Parent->GetClientSize().GetWidth()-0, Parent->GetClientSize().GetHeight()-0)),
-    GUI_Main_Easy_Box_Core(_C, Parent, StreamKind, StreamPos)
+    GUI_Main_Easy_Box_Core(Core_, Parent, StreamKind, StreamPos)
 {
     //Internal
     GUI_Main_Easy_Box::Parent=Parent;
@@ -50,11 +50,11 @@ GUI_Main_Easy_Box::GUI_Main_Easy_Box(Core* _C, GUI_Main_Easy* Parent, wxWindow* 
 
     //Drag and Drop
     #if wxUSE_DRAG_AND_DROP && defined(__WXMAC__)
-        SetDropTarget(new FileDrop(_C));
-        Box->SetDropTarget(new FileDrop(_C));
-        Text->SetDropTarget(new FileDrop(_C));
-        Tags->SetDropTarget(new FileDrop(_C));
-        Button->SetDropTarget(new FileDrop(_C));
+        SetDropTarget(new FileDrop(Core_));
+        Box->SetDropTarget(new FileDrop(Core_));
+        Text->SetDropTarget(new FileDrop(Core_));
+        Tags->SetDropTarget(new FileDrop(Core_));
+        Button->SetDropTarget(new FileDrop(Core_));
     #endif //wxUSE_DRAG_AND_DROP
 
     //Update

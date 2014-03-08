@@ -14,10 +14,10 @@
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-GUI_Main_Common_Core::GUI_Main_Common_Core(Core* _C)
+GUI_Main_Common_Core::GUI_Main_Common_Core(Core* Core_)
 {
     //Internal
-    C=_C;
+    C=Core_;
     File_Pos=(size_t)-1;
 }
 

@@ -28,9 +28,9 @@ END_EVENT_TABLE()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-GUI_Main_Tree::GUI_Main_Tree(Core* _C, wxWindow* parent)
+GUI_Main_Tree::GUI_Main_Tree(Core* Core_, wxWindow* parent)
         : wxTreeCtrl(parent, 26983, wxPoint(0, 0), wxSize(parent->GetClientSize().GetWidth()-0, parent->GetClientSize().GetHeight()-0)),
-        GUI_Main_Common_Core(_C)
+        GUI_Main_Common_Core(Core_)
 {
     //Update
     GUI_Refresh();

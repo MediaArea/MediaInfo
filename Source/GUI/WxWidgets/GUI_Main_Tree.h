@@ -29,7 +29,7 @@ class GUI_Main_Tree : public wxTreeCtrl, public GUI_Main_Common_Core
 {
 public:
     //Constructor/Destructor
-    GUI_Main_Tree(Core* _C, wxWindow *parent);
+    GUI_Main_Tree(Core* Core_, wxWindow *parent);
     ~GUI_Main_Tree();
 
     //Actions

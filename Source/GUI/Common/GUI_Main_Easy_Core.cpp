@@ -14,8 +14,8 @@
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-GUI_Main_Easy_Core::GUI_Main_Easy_Core(Core* _C)
-    : GUI_Main_Common_Core(_C)
+GUI_Main_Easy_Core::GUI_Main_Easy_Core(Core* Core_)
+    : GUI_Main_Common_Core(Core_)
 {
 }
 

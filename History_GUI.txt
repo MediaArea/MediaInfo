@@ -16,6 +16,7 @@ Known bugs
 Version 0.7.68
 --------------
 x configure.ac: removal of problematical typos, thanks to Dmitrij D. Czarkoff
+x #B834, OpenBSD port: correction of compilation failure, thanks to Dmitrij D. Czarkoff
 
 Version 0.7.67, 2014-01-10
 --------------

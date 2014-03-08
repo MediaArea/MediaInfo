@@ -16,8 +16,8 @@
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-GUI_Main_HTML::GUI_Main_HTML(Core* _C, TWinControl* Owner)
-    : GUI_Main_Common_Core(_C)
+GUI_Main_HTML::GUI_Main_HTML(Core* Core_, TWinControl* Owner)
+    : GUI_Main_Common_Core(Core_)
 {
     //VCL specific
     VCL=new TCppWebBrowser(Owner);

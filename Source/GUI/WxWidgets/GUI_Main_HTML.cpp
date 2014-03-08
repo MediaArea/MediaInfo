@@ -23,9 +23,9 @@
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-GUI_Main_HTML::GUI_Main_HTML(Core* _C, wxWindow* parent)
+GUI_Main_HTML::GUI_Main_HTML(Core* Core_, wxWindow* parent)
     : wxHtmlWindow(parent, -1, wxPoint(1, 1), wxSize(parent->GetClientSize().GetWidth()-1, parent->GetClientSize().GetHeight()-1)),
-    GUI_Main_Common_Core(_C)
+    GUI_Main_Common_Core(Core_)
 {
     int Size[7]={ 7, 8, 10, 12, 16, 22, 30};
     SetFonts(wxEmptyString, wxEmptyString, Size);
