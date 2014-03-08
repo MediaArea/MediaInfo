@@ -119,7 +119,7 @@ AC_ARG_ENABLE(aaf,     AC_HELP_STRING([--disable-aaf],     [Disable Multiple - A
 AC_ARG_ENABLE(bdav,    AC_HELP_STRING([--disable-bdav],    [Disable Multiple - Blu-ray audio-video (BDAV)]),              MediaInfoBdav=$enableval,    MediaInfoBdav=depend)
 AC_ARG_ENABLE(bdmv,    AC_HELP_STRING([--disable-bdmv],    [Disable Multiple - Blu-ray Movie]),                           MediaInfoBdmv=$enableval,    MediaInfoBdmv=depend)
 AC_ARG_ENABLE(cdxa,    AC_HELP_STRING([--disable-cdxa],    [Disable Multiple - CDXA (CD mode 2)]),                        MediaInfoCdxa=$enableval,    MediaInfoCdxa=depend)
-AC_ARG_ENABLE(dashmpd  AC_HELP_STRING([--disable-dashmpd], [Disable Multiple - DASH MPD]),                                MediaInfoDashMpd=$enableval, MediaInfoDashMpd=depend)
+AC_ARG_ENABLE(dashmpd, AC_HELP_STRING([--disable-dashmpd], [Disable Multiple - DASH MPD]),                                MediaInfoDashMpd=$enableval, MediaInfoDashMpd=depend)
 AC_ARG_ENABLE(dcp,     AC_HELP_STRING([--disable-dcp],     [Disable Multiple - DCP]),                                     MediaInfoDcp=$enableval,     MediaInfoDcp=depend)
 AC_ARG_ENABLE(dpg,     AC_HELP_STRING([--disable-dpg],     [Disable Multiple - DPG (Nintendo DS)]),                       MediaInfoDpg=$enableval,     MediaInfoDpg=depend)
 AC_ARG_ENABLE(references, AC_HELP_STRING([--disable-references], [Disable Multiple - Reference files support]),           MediaInfoReferences=$enableval, MediaInfoReferences=depend)
