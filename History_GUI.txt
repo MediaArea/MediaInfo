@@ -1,4 +1,4 @@
-Notes :
+﻿Notes :
 -------
 + Added
 - Deleted
@@ -12,6 +12,10 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+
+Version 0.7.68
+--------------
+x configure.ac: removal of problematical typos, thanks to Dmitrij D. Czarkoff
 
 Version 0.7.67, 2014-01-10
 --------------
