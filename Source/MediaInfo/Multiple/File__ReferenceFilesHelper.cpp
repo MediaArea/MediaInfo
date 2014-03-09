@@ -339,7 +339,9 @@ void File__ReferenceFilesHelper::ParseReferences()
         if (References.size()==1 && References.begin()->StreamID==(int64u)-1)
         {
             ContainerHasNoId=true;
-            MI->StreamIDs_Width[MI->StreamIDs_Size-1]=0;
+            #if MEDIAINFO_EVENTS
+                MI->StreamIDs_Width[MI->StreamIDs_Size-1]=0;
+            #endif //MEDIAINFO_EVENTS
         }
         std::sort(References.begin(), References.end(), File__ReferenceFilesHelper_Algo1);
         std::sort(References.begin(), References.end(), File__ReferenceFilesHelper_Algo2);
