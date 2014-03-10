@@ -134,6 +134,9 @@ namespace Elements
     //Item - Elements - User organization registred for private use - Avid - Generic Container - Version 1
     UUID(GenericContainer_Avid,                                 060E2B34, 01020101, 0E040301, 00000000)
 
+    //Item - Elements - User organization registred for private use - Sony - Generic Container - Version 6
+    UUID(GenericContainer_Sony,                                 060E2B34, 01020101, 0E067F03, 00000000)
+
     //Item - Elements - Interpretive -
     UUID(DMScheme1_PrimaryExtendedSpokenLanguage,               060E2B34, 01010107, 03010102, 03110000)
     UUID(DMScheme1_SecondaryExtendedSpokenLanguage,             060E2B34, 01010107, 03010102, 03110000)
@@ -157,6 +160,7 @@ namespace Elements
     UUID(TimecodeComponent,                                     060E2B34, 02530101, 0D010101, 01011400)
     UUID(ContentStorage,                                        060E2B34, 02530101, 0D010101, 01011800)
     UUID(EssenceContainerData,                                  060E2B34, 02530101, 0D010101, 01012300)
+    UUID(GenericPictureEssenceDescriptor,                       060E2B34, 02530101, 0D010101, 01012700)
     UUID(CDCIEssenceDescriptor,                                 060E2B34, 02530101, 0D010101, 01012800)
     UUID(RGBAEssenceDescriptor,                                 060E2B34, 02530101, 0D010101, 01012900)
     UUID(Preface,                                               060E2B34, 02530101, 0D010101, 01012F00)
@@ -337,8 +341,27 @@ const char* Mxf_EssenceElement(const int128u EssenceElement)
     if ((EssenceElement.hi&0xFFFFFFFFFFFFFF00LL)!=0x060E2B3401020100LL)
         return "";
 
+    int8u Code1=(int8u)((EssenceElement.lo&0xFF00000000000000LL)>>56);
+    int8u Code2=(int8u)((EssenceElement.lo&0x00FF000000000000LL)>>48);
     int8u Code5=(int8u)((EssenceElement.lo&0x00000000FF000000LL)>>24);
     int8u Code7=(int8u)((EssenceElement.lo&0x000000000000FF00LL)>> 8);
+    
+    switch (Code1)
+    {
+        case 0x0E : //Private
+                    switch (Code2)
+                    {
+                        case 0x06 : //Sony
+                                    case 0x15 : //GC Picture
+                                                switch (Code5)
+                                                {
+                                                    case 0x15 : return "Sony private picture stream";
+                                                    default   : return "Sony private stream";
+                                                }
+                        default   : return "Unknown private stream";
+                    }
+        default   : ;
+    }
 
     switch (Code5)
     {
@@ -413,7 +436,7 @@ const char* Mxf_EssenceContainer(const int128u EssenceContainer)
     int8u Code4=(int8u)((EssenceContainer.lo&0x000000FF00000000LL)>>32);
     int8u Code5=(int8u)((EssenceContainer.lo&0x00000000FF000000LL)>>24);
     int8u Code6=(int8u)((EssenceContainer.lo&0x0000000000FF0000LL)>>16);
-    //int8u Code7=(int8u)((EssenceContainer.lo&0x000000000000FF00LL)>> 8);
+    int8u Code7=(int8u)((EssenceContainer.lo&0x000000000000FF00LL)>> 8);
 
     switch (Code1)
     {
@@ -467,6 +490,32 @@ const char* Mxf_EssenceContainer(const int128u EssenceContainer)
                                                                                     switch (Code6)
                                                                                     {
                                                                                         case 0x06 : return "VC-3";
+                                                                                        default   : return "";
+                                                                                    }
+                                                                        default   : return "";
+                                                                    }
+                                                         default   : return "";
+                                                    }
+                                         default   : return "";
+                                    }
+                        case 0x06 : //Sony
+                                    switch (Code3)
+                                    {
+                                        case 0x0D :
+                                                    switch (Code4)
+                                                    {
+                                                        case 0x03 :
+                                                                    switch (Code5)
+                                                                    {
+                                                                        case 0x02 :
+                                                                                    switch (Code6)
+                                                                                    {
+                                                                                        case 0x01 :
+                                                                                                    switch (Code7)
+                                                                                                    {
+                                                                                                        case 0x01 : return "Sony RAW?";
+                                                                                                        default   : return "";
+                                                                                                    }
                                                                                         default   : return "";
                                                                                     }
                                                                         default   : return "";
@@ -598,6 +647,7 @@ const char* Mxf_EssenceCompression(const int128u EssenceCompression)
                                                                         case 0x01 : //MPEG Compression
                                                                                     switch (Code6)
                                                                                     {
+                                                                                        case 0x00 : return "MPEG Video";
                                                                                         case 0x01 : return "MPEG Video"; //Version 2
                                                                                         case 0x02 : return "MPEG Video"; //Version 2
                                                                                         case 0x03 : return "MPEG Video"; //Version 2
@@ -719,6 +769,32 @@ const char* Mxf_EssenceCompression(const int128u EssenceCompression)
                                                                                     switch (Code6)
                                                                                     {
                                                                                         case 0x04 : return "VC-3";
+                                                                                        default   : return "";
+                                                                                    }
+                                                                        default   : return "";
+                                                                    }
+                                                         default   : return "";
+                                                    }
+                                         default   : return "";
+                                    }
+                        case 0x06 : //Sony
+                                    switch (Code3)
+                                    {
+                                        case 0x04 :
+                                                    switch (Code4)
+                                                    {
+                                                        case 0x01 :
+                                                                    switch (Code5)
+                                                                    {
+                                                                        case 0x02 :
+                                                                                    switch (Code6)
+                                                                                    {
+                                                                                        case 0x04 :
+                                                                                                    switch (Code7)
+                                                                                                    {
+                                                                                                        case 0x02 : return "Sony RAW SQ";
+                                                                                                        default   : return "";
+                                                                                                    }
                                                                                         default   : return "";
                                                                                     }
                                                                         default   : return "";
@@ -1872,12 +1948,13 @@ void File_Mxf::Streams_Finish_Descriptor(const int128u DescriptorUID, const int1
                         Fill(StreamKind_Last, StreamPos_Last+Pos, Info->first.c_str(), Info->second, true);
                 }
             }
-        Ztring CodecID;
+        Ztring Format, CodecID;
         if (Descriptor->second.EssenceContainer.hi!=(int64u)-1)
         {
             CodecID.From_Number(Descriptor->second.EssenceContainer.lo, 16);
             if (CodecID.size()<16)
                 CodecID.insert(0, 16-CodecID.size(), __T('0'));
+            Format.From_Local(Mxf_EssenceContainer(Descriptor->second.EssenceContainer));
         }
         if (Descriptor->second.EssenceCompression.hi!=(int64u)-1)
         {
@@ -1888,10 +1965,17 @@ void File_Mxf::Streams_Finish_Descriptor(const int128u DescriptorUID, const int1
             if (EssenceCompression.size()<16)
                 EssenceCompression.insert(0, 16-EssenceCompression.size(), __T('0'));
             CodecID+=EssenceCompression;
+            Ztring Format_FromCompression; Format_FromCompression.From_Local(Mxf_EssenceCompression(Descriptor->second.EssenceCompression));
+            if (!Format_FromCompression.empty())
+                Format=Format_FromCompression; //EssenceCompression has priority
         }
         if (!CodecID.empty())
             for (size_t Pos=0; Pos<StreamWithSameID; Pos++)
                 Fill(StreamKind_Last, StreamPos_Last+Pos, Fill_Parameter(StreamKind_Last, Generic_CodecID), CodecID, true);
+        if (!Format.empty())
+            for (size_t Pos=0; Pos<StreamWithSameID; Pos++)
+                if (Retrieve(StreamKind_Last, StreamPos_Last+Pos, Fill_Parameter(StreamKind_Last, Generic_Format)).empty())
+                    Fill(StreamKind_Last, StreamPos_Last+Pos, Fill_Parameter(StreamKind_Last, Generic_Format), Format);
 
         //Bitrate (PCM)
         if (StreamKind_Last==Stream_Audio && Retrieve(Stream_Audio, StreamPos_Last, Audio_BitRate).empty() && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format)==__T("PCM") && Retrieve(Stream_Audio, StreamPos_Last, Audio_Format_Settings_Wrapping).find(__T("D-10"))!=string::npos)
@@ -3572,6 +3656,7 @@ void File_Mxf::Data_Parse()
     ELEMENT(TimecodeComponent,                                  "Timecode Component")
     ELEMENT(ContentStorage,                                     "Content Storage")
     ELEMENT(EssenceContainerData,                               "Essence Container Data")
+    ELEMENT(GenericPictureEssenceDescriptor,                    "Generic Picture Essence Descriptor")
     ELEMENT(CDCIEssenceDescriptor,                              "CDCI Essence Descriptor")
     ELEMENT(RGBAEssenceDescriptor,                              "RGBA Essence Descriptor")
     ELEMENT(Preface,                                            "Preface")
@@ -3628,9 +3713,10 @@ void File_Mxf::Data_Parse()
     ELEMENT(Omneon_010201010100,                                "Omneon (010201010100)")
     ELEMENT(Omneon_010201020100,                                "Omneon (010201020100)")
     else if (Code_Compare1==Elements::GenericContainer_Aaf1
-          && Code_Compare2==Elements::GenericContainer_Aaf2
+          && ((Code_Compare2)&0xFFFFFF00)==(Elements::GenericContainer_Aaf2&0xFFFFFF00)
           && (Code_Compare3==Elements::GenericContainer_Aaf3
-           || Code_Compare3==Elements::GenericContainer_Avid3))
+           || Code_Compare3==Elements::GenericContainer_Avid3
+           || Code_Compare3==Elements::GenericContainer_Sony3))
     {
         Element_Name(Mxf_EssenceElement(Code));
 
@@ -3806,13 +3892,21 @@ void File_Mxf::Data_Parse()
                     Element_Code=Code.lo;
             #endif //MEDIAINFO_DEMUX
 
-            Element_Code=Essence->second.TrackID;
-            for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); ++Parser)
+            if (Essence->second.Parsers.empty())
             {
-                Open_Buffer_Init(*Parser);
-                if ((*Parser)->Status[IsFinished])
-                    if (Streams_Count>0)
-                        Streams_Count--;
+                if (Streams_Count>0)
+                    Streams_Count--;
+            }
+            else
+            {
+                Element_Code=Essence->second.TrackID;
+                for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); ++Parser)
+                {
+                    Open_Buffer_Init(*Parser);
+                    if ((*Parser)->Status[IsFinished])
+                        if (Streams_Count>0)
+                            Streams_Count--;
+                }
             }
 
             //Stream size is sometime easy to find
@@ -8040,6 +8134,42 @@ void File_Mxf::Info_UL_01xx01_Items()
                     }
                     }
                     break;
+                case 0x06 :
+                    {
+                    Param_Info1("Sony");
+                    Info_B1(Code3,                              "Application");
+                    switch (Code3)
+                    {
+                        case 0x7F :
+                            {
+                            Param_Info1("?");
+                            Info_B1(Code4,                      "?");
+                            switch (Code4)
+                            {
+                                case 0x03 :
+                                    {
+                                    Param_Info1("?");
+                                    Info_B1(Code5,              "?");
+                                    switch (Code5)
+                                    {
+                                        case 0x15 : Param_Info1("Picture"); break;
+                                        default   : ;
+                                    }
+                                    Info_B1(Code6,              "Essence Element Count");
+                                    Info_B1(Code7,              "Essence Element Type");
+                                    Info_B1(Code8,              "Essence Element Number");
+                                    }
+                                    break;
+                                default   :
+                                    Skip_B4(                    "Unknown");
+                            }
+                            }
+                            break;
+                        default   :
+                            Skip_B5(                            "Unknown");
+                    }
+                    }
+                    break;
                 default   :
                     Skip_B6(                                    "Unknown");
             }
@@ -9025,6 +9155,122 @@ void File_Mxf::Info_UL_040101_Values()
                     }
                     }
                     break;
+                case 0x06 :
+                    {
+                    Param_Info1("Sony");
+                    Info_B1(Code3,                              "Code (3)");
+                    switch (Code3)
+                    {
+                        case 0x04 :
+                            {
+                            Param_Info1("Essence Compression?");
+                            Info_B1(Code4,                      "?");
+                            switch (Code4)
+                            {
+                                case 0x01 :
+                                    {
+                                    Param_Info1("?");
+                                    Info_B1(Code5,              "?");
+                                    switch (Code5)
+                                    {
+                                        case 0x02 :
+                                            {
+                                            Param_Info1("?");
+                                            Info_B1(Code6,      "Code (6)");
+                                            switch (Code6)
+                                            {
+                                                case 0x04 :
+                                                    {
+                                                    Param_Info1("?");
+                                                    Info_B1(Code7,      "Code (7)");
+                                                    switch (Code7)
+                                                    {
+                                                        case 0x02 :
+                                                            Param_Info1("?");
+                                                            Info_B1(Code8,      "Code (8)");
+                                                            switch (Code8)
+                                                            {
+                                                                case 0x01 :
+                                                                    Param_Info1("RAW SQ");
+                                                                    break;
+                                                                default   :
+                                                                    ;
+                                                            }
+                                                            break;
+                                                        default   :
+                                                            Skip_B1(    "Unknown");
+                                                    }
+                                                    }
+                                                    break;
+                                                default   :
+                                                    Skip_B2(    "Unknown");
+                                            }
+                                            }
+                                            break;
+                                        default   :
+                                            Skip_B3(            "Unknown");
+                                    }
+                                    }
+                                    break;
+                                default   :
+                                    Skip_B4(                    "Unknown");
+                            }
+                            }
+                            break;
+                        case 0x0D :
+                            {
+                            Param_Info1("Essence Container?");
+                            Info_B1(Code4,                      "?");
+                            switch (Code4)
+                            {
+                                case 0x03 :
+                                    {
+                                    Param_Info1("?");
+                                    Info_B1(Code5,              "?");
+                                    switch (Code5)
+                                    {
+                                        case 0x02 :
+                                            {
+                                            Param_Info1("?");
+                                            Info_B1(Code6,      "Code (6)");
+                                            switch (Code6)
+                                            {
+                                                case 0x01 :
+                                                    {
+                                                    Param_Info1("?");
+                                                    Info_B1(Code7,      "Code (7)");
+                                                    switch (Code7)
+                                                    {
+                                                        case 0x01 :
+                                                            Param_Info1("RAW?");
+                                                            Skip_B1(    "Unknown");
+                                                            break;
+                                                        default   :
+                                                            Skip_B1(    "Unknown");
+                                                    }
+                                                    }
+                                                    break;
+                                                    break;
+                                                default   :
+                                                    Skip_B2(    "Unknown");
+                                            }
+                                            }
+                                            break;
+                                        default   :
+                                            Skip_B3(            "Unknown");
+                                    }
+                                    }
+                                    break;
+                                default   :
+                                    Skip_B4(                    "Unknown");
+                            }
+                            }
+                            break;
+                            default   :
+                                Skip_B5(                        "Private");
+                        }
+                        }
+                        break;
                 default   :
                     Skip_B6(                                    "Private");
             }
@@ -9472,6 +9718,7 @@ void File_Mxf::ChooseParser__FromEssence(const essences::iterator &Essence, cons
     {
         case Elements::GenericContainer_Aaf3        : return ChooseParser__Aaf(Essence, Descriptor);
         case Elements::GenericContainer_Avid3       : return ChooseParser__Avid(Essence, Descriptor);
+        case Elements::GenericContainer_Sony3       : return ChooseParser__Sony(Essence, Descriptor);
         default                                     : return;
     }
 }
@@ -9543,6 +9790,22 @@ void File_Mxf::ChooseParser__Aaf_CP_Picture(const essences::iterator &Essence, c
     {
         case 0x01 : //D-10 Video, SMPTE 386M
                     ChooseParser_Mpegv(Essence, Descriptor);
+                    break;
+        default   : //Unknown
+                    ;
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::ChooseParser__Sony(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
+{
+    int32u Code_Compare4=(int32u)Code.lo;
+    int8u  Code_Compare4_1=Code_Compare4>>24;
+
+    switch (Code_Compare4_1)
+    {
+        case 0x15 : //CP Picture
+                    ChooseParser__Sony_Picture(Essence, Descriptor);
                     break;
         default   : //Unknown
                     ;
@@ -9748,6 +10011,16 @@ void File_Mxf::ChooseParser__Avid_Picture(const essences::iterator &Essence, con
         default   : //Unknown
                     ;
     }
+}
+
+//---------------------------------------------------------------------------
+// 0x15
+void File_Mxf::ChooseParser__Sony_Picture(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
+{
+    int32u Code_Compare4=(int32u)Code.lo;
+
+    Essences[Code_Compare4].StreamKind=Stream_Video;
+    Essences[Code_Compare4].StreamPos=Code_Compare4&0x000000FF;
 }
 
 //---------------------------------------------------------------------------
