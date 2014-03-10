@@ -88,7 +88,7 @@ bool File_Ptx::FileHeader_Begin()
     }
 
     //Element_Size
-    if (Buffer_Size<File_Size)
+    if (11>Buffer_Size)
         return false; //Must wait for more data
 
     if (Buffer[ 0x0]!=0x03
@@ -112,6 +112,10 @@ bool File_Ptx::FileHeader_Begin()
         Reject("Ptx");
         return false;
     }
+
+    //Element_Size
+    if (Buffer_Size<File_Size)
+        return false; //Must wait for more data
 
     ReferenceFiles=new File__ReferenceFilesHelper(this, Config);
 
