@@ -105,6 +105,7 @@ private :
     bool Searching_Duration;
     bool MetaData_NotTrustable;
     int32u PreviousTagSize;
+    int32u PreviousTagSize_Add11;
     int64u meta_filesize;
     float64 meta_duration;
 };

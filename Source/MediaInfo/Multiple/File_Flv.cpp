@@ -687,8 +687,12 @@ bool File_Flv::Synchronize()
               || Buffer[Buffer_Offset+1]
               || Buffer[Buffer_Offset+2]
               || Buffer[Buffer_Offset+3]>=11)
-             && BigEndian2int32u(Buffer+Buffer_Offset+15+BodyLength)==11+BodyLength) // PreviousTagSize
-                break;
+             && (BigEndian2int32u(Buffer+Buffer_Offset+15+BodyLength)==11+BodyLength // PreviousTagSize
+              || BigEndian2int32u(Buffer+Buffer_Offset+15+BodyLength)==BodyLength)) // PreviousTagSize without 11, found in some buggy files
+            {
+                 PreviousTagSize_Add11=(BigEndian2int32u(Buffer+Buffer_Offset+15+BodyLength)==BodyLength)?0:11;
+                 break;
+            }
         }
 
         Buffer_Offset++;
@@ -716,7 +720,7 @@ bool File_Flv::Synched_Test()
     if (Buffer[Buffer_Offset  ]==0
      && Buffer[Buffer_Offset+1]==0
      && Buffer[Buffer_Offset+2]==0
-     && Buffer[Buffer_Offset+3]<11
+     && Buffer[Buffer_Offset+3]<PreviousTagSize_Add11
      && File_Offset+Buffer_Offset>9)
     {
         Synched=false;
