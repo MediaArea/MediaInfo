@@ -244,6 +244,31 @@ void File_Riff::Streams_Finish ()
                     Fill(StreamKind_Last, StreamPos_Last, General_ID, Temp_ID, true);
                     Fill(StreamKind_Last, StreamPos_Last, General_StreamOrder, Temp_ID_String, true);
 
+
+                    //Special case - MPEG Video + Captions
+                    if (StreamKind_Last==Stream_Video && Temp->second.Parsers[0]->Count_Get(Stream_Text))
+                    {
+                        //Video and Text are together
+                        size_t Parser_Text_Count=Temp->second.Parsers[0]->Count_Get(Stream_Text);
+                        for (size_t Parser_Text_Pos=0; Parser_Text_Pos<Parser_Text_Count; Parser_Text_Pos++)
+                        {
+                            size_t StreamPos_Video=StreamPos_Last;
+                            Fill_Flush();
+                            Stream_Prepare(Stream_Text);
+                            Temp->second.Parsers[0]->Finish();
+                            Merge(*Temp->second.Parsers[0], Stream_Text, Parser_Text_Pos, StreamPos_Last);
+                            Fill(Stream_Text, StreamPos_Last, Text_Duration, Retrieve(Stream_Video, StreamPos_Video, Video_Duration));
+                            Ztring ID=Retrieve(Stream_Text, StreamPos_Last, Text_ID);
+                            Fill(Stream_Text, StreamPos_Last, Text_ID, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID)+__T("-")+ID, true);
+                            Fill(Stream_Text, StreamPos_Last, Text_ID_String, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_ID_String)+__T("-")+ID, true);
+                            Fill(Stream_Text, StreamPos_Last, Text_Title, Retrieve(Stream_Video, Count_Get(Stream_Video)-1, Video_Title), true);
+                            Fill(Stream_Text, StreamPos_Last, "MuxingMode_MoreInfo", __T("Muxed in Video #")+Ztring().From_Number(Count_Get(Stream_Video)), true);
+                        }
+
+                        StreamKind_Last=Stream_Video;
+                        StreamPos_Last=Count_Get(Stream_Video)-1;
+                    }
+
                     //Special case: Compressed audio hidden in PCM
                     if (StreamKind_Last==Stream_Audio
                      && Temp->second.Compression==1

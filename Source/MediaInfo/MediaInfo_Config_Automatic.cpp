@@ -1514,9 +1514,10 @@ void MediaInfo_Config_CodecID_Video_Riff (InfoMap &Info)
     Info.Separator_Set(0, __T("\n"));
     Info.Write(Ztring().From_UTF8(
     "0x00000000;RGB;;Basic Windows bitmap format. 1, 4 and 8 bpp versions are palettised. 16, 24 and 32bpp contain raw RGB samples;http://www.fourcc.org/indexrgb.htm;;;;\n"
-    "0x00000001;RLE;;Run length encoded 8bpp RGB image;http://www.fourcc.org/indexrgb.htm;;;;\n"
-    "0x00000002;RLE;;Run length encoded 4bpp RGB image;http://www.fourcc.org/indexrgb.htm;;;;\n"
-    "0x00000003;RGB;;Raw RGB with arbitrary sample packing within a pixel. Packing and precision of R, G and B components is determined by bit masks for each;http://www.fourcc.org/indexrgb.htm;;;;\n"
+    "0x01000000;RLE;;Run length encoded 8bpp RGB image;http://www.fourcc.org/indexrgb.htm;;;;\n"
+    "0x02000010;MPEG Video;;;;;;YUV;4:2:0\n"
+    "0x02000000;RLE;;Run length encoded 4bpp RGB image;http://www.fourcc.org/indexrgb.htm;;;;\n"
+    "0x03000000;RGB;;Raw RGB with arbitrary sample packing within a pixel. Packing and precision of R, G and B components is determined by bit masks for each;http://www.fourcc.org/indexrgb.htm;;;;\n"
     "1978;RGB;A.M.Paredes predictor;;http://www.pegasusimaging.com/cgi-bin/download2.cgi?LVIDB;;;RGB;\n"
     " BIT;RGB;;;;;;RGB;\n"
     " JPG;JPEG;;;;;;YUV\n"
