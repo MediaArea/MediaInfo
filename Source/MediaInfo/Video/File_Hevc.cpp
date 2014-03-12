@@ -1044,7 +1044,7 @@ void File_Hevc::pic_parameter_set()
         {
             for (int32u tile_pos=0; tile_pos<num_tile_columns_minus1; tile_pos++)
                Skip_UE(                                         "column_width_minus1");
-            for (int32u tile_pos=0; tile_pos<num_tile_columns_minus1; tile_pos++)
+            for (int32u tile_pos=0; tile_pos<num_tile_rows_minus1; tile_pos++)
                Skip_UE(                                         "row_height_minus1");
         }
         Skip_SB(                                                "loop_filter_across_tiles_enabled_flag");
@@ -1569,16 +1569,16 @@ void File_Hevc::hrd_parameters(bool commonInfPresentFlag, int8u maxNumSubLayersM
     {
         int32u cpb_cnt_minus1=0;
         bool fixed_pic_rate_general_flag, fixed_pic_rate_within_cvs_flag=false, low_delay_hrd_flag=false;
-        TEST_SB_GET (fixed_pic_rate_general_flag,               "fixed_pic_rate_general_flag");
-            Get_SB (fixed_pic_rate_within_cvs_flag,             "fixed_pic_rate_within_cvs_flag");
-        TEST_SB_END();
+        Get_SB (fixed_pic_rate_general_flag,                   "fixed_pic_rate_general_flag");
+        if (!fixed_pic_rate_general_flag)
+            Get_SB (fixed_pic_rate_within_cvs_flag,            "fixed_pic_rate_within_cvs_flag");
         if (fixed_pic_rate_within_cvs_flag)
-            Skip_UE (                                           "elemental_duration_in_tc_minus1");
+            Skip_UE(                                           "elemental_duration_in_tc_minus1");
         else
-            Get_SB (low_delay_hrd_flag,                         "low_delay_hrd_flag");
-        if (low_delay_hrd_flag)
+            Get_SB (low_delay_hrd_flag,                        "low_delay_hrd_flag");
+        if (!low_delay_hrd_flag)
         {
-            Skip_UE (                                           "cpb_cnt_minus1");
+            Get_UE (cpb_cnt_minus1,                            "cpb_cnt_minus1");
             if (cpb_cnt_minus1>31)
             {
                 Trusted_IsNot("cpb_cnt_minus1 too high");
