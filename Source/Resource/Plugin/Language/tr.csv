@@ -144,8 +144,8 @@
 About;Hakkında
 About_Hint;Son sürümü bulmak ve benle nasıl bağlantı kurmanız için
 Accompaniment;Refakat
-ActiveFormatDescription;
-ActiveFormatDescription_MuxingMode;
+ActiveFormatDescription;Aktif Biçim Açıklaması
+ActiveFormatDescription_MuxingMode;Aktif Biçim Açıklaması, Çoklama kipi
 Actor;Oyuncu
 Actor_Character;Oynayan karakter
 Added_Date;Eklenme tarihi
@@ -185,7 +185,7 @@ BitRate_Mode;Bit oranı modu
 BitRate_Mode_CBR;Sabit
 BitRate_Mode_VBR;Değişken
 BitRate_Nominal;Düşük bit oranı
-BitRate_Encoded;
+BitRate_Encoded;Kodlanmış bit oranı
 Bits-(Pixel*Frame);Bit/(Piksel*Kare)
 BufferSize;Arabellek boyutu
 Cancel;İptal
@@ -236,12 +236,12 @@ ColorSpace;Renk alanı
 colour_primaries;Renk öncelikleri
 Comment;Yorum
 CommissionedBy;Görevlendiren
-Compilation;
+Compilation;Derleme
 CompleteName;Tam isim
 Composer;Besteci
 Compression_Mode;Sıkıştırma kipi
 Compression_Mode_Lossless;Kayıpsız
-Compression_Mode_Lossy;Lossy
+Compression_Mode_Lossy;Kayıplı
 Compression_Ratio;Sıkıştırma oranı
 Conductor;Orkestra şefi
 Container and general information;Kalıp ve genel bilgi
@@ -318,7 +318,7 @@ Folder_Hint;Çalışmak için klasör seç
 FolderName;Klasör adı
 Format;Biçim
 Format_Commercial;Ticari adı
-Format_Commercial_IfAny;
+Format_Commercial_IfAny;Ticari adı
 Format_Description;Biçim açıklaması
 Format_Info;Biçim için ayrıntılar
 Format_Profile;Biçim profili
@@ -507,52 +507,52 @@ Genre_144;Trash Metal
 Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
-Genre_148;
-Genre_149;
-Genre_150;
-Genre_151;
-Genre_152;
-Genre_153;
-Genre_154;
-Genre_155;
-Genre_156;
-Genre_157;
-Genre_158;
-Genre_159;
-Genre_160;
-Genre_161;
-Genre_162;
-Genre_163;
-Genre_164;
-Genre_165;
-Genre_166;
-Genre_167;
-Genre_168;
-Genre_169;
-Genre_170;
-Genre_171;
-Genre_172;
-Genre_173;
-Genre_174;
-Genre_175;
-Genre_176;
-Genre_177;
-Genre_178;
-Genre_179;
-Genre_180;
-Genre_181;
-Genre_182;
-Genre_183;
-Genre_184;
-Genre_185;
-Genre_186;
-Genre_187;
-Genre_188;
-Genre_189;
-Genre_190;
-Genre_191;
+Genre_148;Abstract
+Genre_149;Art Rock
+Genre_150;Baroque
+Genre_151;Bhangra
+Genre_152;Big Beat
+Genre_153;Breakbeat
+Genre_154;Chillout
+Genre_155;Downtempo
+Genre_156;Dub
+Genre_157;EBM
+Genre_158;Eclectic
+Genre_159;Electro
+Genre_160;Electroclash
+Genre_161;Emo
+Genre_162;Experimental
+Genre_163;Garage
+Genre_164;Genel
+Genre_165;IDM
+Genre_166;Illbient
+Genre_167;Industro-Goth
+Genre_168;Jam Band
+Genre_169;Krautrock
+Genre_170;Leftfield
+Genre_171;Lounge
+Genre_172;Math Rock
+Genre_173;New Romantic
+Genre_174;Nu-Breakz
+Genre_175;Post-Punk
+Genre_176;Post-Rock
+Genre_177;Psytrance
+Genre_178;Shoegaze
+Genre_179;Space Rock
+Genre_180;Trop Rock
+Genre_181;World Music
+Genre_182;Neoclassical
+Genre_183;Audiobook
+Genre_184;Audio Theatre
+Genre_185;Neue Deutsche Welle
+Genre_186;Podcast
+Genre_187;Indie Rock
+Genre_188;G-Funk
+Genre_189;Dubstep
+Genre_190;Garage Rock
+Genre_191;Psybient
 Go to WebSite;Web sitesine git
-Grouping;
+Grouping;Gruplama
 h;s
 Header file;Üst bilgi dosyası oluştur
 Height;Yükseklik
@@ -595,7 +595,7 @@ Language_More;Dil, daha fazla bilgi
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
-Language_af;Afrikaans
+Language_af;Afrikaanca
 Language_ak;Akan
 Language_am;Amharic
 Language_an;Aragonese
@@ -605,7 +605,7 @@ Language_av;Avaric
 Language_ay;Aymara
 Language_az;Azeri
 Language_ba;Bashkir
-Language_be;Belarusian
+Language_be;Beyaz rusça
 Language_bg;Bulgarca
 Language_bh;Bihari
 Language_bi;Bislama
@@ -623,7 +623,7 @@ Language_cs;Çekçe
 Language_cu;Slave
 Language_cv;Chuvash
 Language_cy;Welsh
-Language_da;Danca
+Language_da;Flemenkçe
 Language_de;Almanca
 Language_dv;Divehi
 Language_dz;Dzongkha
@@ -634,7 +634,7 @@ Language_en-gb;İngilizce (UK)
 Language_en-us;İngilizce (ABD)
 Language_eo;Esperanto
 Language_es;İspanyolca
-Language_et;Estonian
+Language_et;Estonca
 Language_eu;Basque
 Language_fa;Farsça
 Language_ff;Fulah
@@ -653,13 +653,13 @@ Language_ha;Hausa
 Language_he;İbranice
 Language_hi;Hintçe
 Language_ho;Hiri Motu
-Language_hr;Croatian
-Language_ht;Haitian
+Language_hr;Hırvatça
+Language_ht;Haitice
 Language_hu;Macarca
 Language_hy;Ermenice
 Language_hz;Herero
 Language_ia;Yardımcı  Dil Derneği
-Language_id;Indonesian
+Language_id;Endonezca
 Language_ie;Interlingue
 Language_ig;Igbo
 Language_ii;Sichuan Yi
@@ -671,7 +671,7 @@ Language_it;İtalyanca
 Language_iu;Inuktitut
 Language_ja;Japonca
 Language_jv;Javanese
-Language_ka;Georgian
+Language_ka;Gürcüce
 Language_kg;Kongo
 Language_ki;Kikuyu
 Language_kj;Kuanyama
@@ -708,13 +708,13 @@ Language_mt;Maltese
 Language_mul;Çoklu diller
 Language_my;Burmese
 Language_na;Nauru
-Language_nb;Norwegian Bokmal
+Language_nb;Norveççe Bokmal
 Language_nd;Ndebele
 Language_ne;Nepali
 Language_ng;Ndonga
 Language_nl;Flemenkçe
-Language_nn;Norwegian Bokmal
-Language_no;Norwegian
+Language_nn;Norveççe Bokmal
+Language_no;Norveççe
 Language_nr;Ndebele
 Language_nv;Navaho
 Language_ny;Nyanja
@@ -740,14 +740,14 @@ Language_sc;Sardinian
 Language_sd;Sindhi
 Language_se;Northern Sami
 Language_sg;Sango
-Language_si;Sinhala
+Language_si;Sinhalaca
 Language_sk;Slovakça
 Language_sl;Slovenian
 Language_sm;Samoan
 Language_sn;Shona
-Language_so;Somali
+Language_so;Somalica
 Language_sq;Albanian
-Language_sr;Serbian
+Language_sr;Sırpça
 Language_ss;Swati
 Language_st;Sotho
 Language_su;Sundanese
@@ -756,7 +756,7 @@ Language_sw;Swahili
 Language_ta;Tamil
 Language_te;Telugu
 Language_tg;Tajik
-Language_th;Thai
+Language_th;Tayca
 Language_ti;Tigrinya
 Language_tk;Türkmence
 Language_tl;Tagalog
@@ -772,7 +772,7 @@ Language_uk;Ukrainian
 Language_ur;Urdu
 Language_uz;Özbekçe
 Language_ve;Venda
-Language_vi;Vietnamese
+Language_vi;Vietnamca
 Language_vo;Volapuk
 Language_wa;Walloon
 Language_wo;Wolof
@@ -786,7 +786,7 @@ Language_zh-tw;Çince (Tayvan)
 Language_zu;Zulu
 LawRating;Kanun oranı
 LCCN;LCCN
-Library;Muxing kütüphanesi
+Library;Çoklama kütüphanesi
 Lightness;Canlılık
 List;Liste
 Lyrics;Şarkı Sözleri
@@ -809,16 +809,16 @@ Movie;Film adı
 ms;ms
 MSDI;MSDI
 MusicBy;Müziği yapan
-MuxingMode;Çoklamalı mod
-MuxingMode_MoreInfo;Çoklamalı mod, daha fazla bilgi
+MuxingMode;Çoklama kipi
+MuxingMode_MoreInfo;Çoklama kipi, daha fazla bilgi
 MuxingMode_PackedBitstream;Paketlenmiş bit akışı
-Name;İsim
+Name;Adı
 Nationality;Uyruk
 NetworkName;Ağ adı
 New;Yeni
 Newest version;Yeni sürümleri kontrol et (Internet bağlantısı gerekir)
-NewVersion_Menu;Yeni sürüm mevcut
-NewVersion_Question_Title;Yeni sürüm yayımlandı!
+NewVersion_Menu;Yeni bir sürüm mevcut
+NewVersion_Question_Title;Yeni bir sürüm yayımlandı!
 NewVersion_Question_Content;Yeni sürüm (s%Version%) mevcut, indirmek istiyor musunuz?
 No;Hayır
 Not yet;Henüz değil
@@ -866,7 +866,7 @@ Options;Seçenekler
 Options_Hint;Tercihler
 Original;Orijinal
 OriginalNetworkName;Orijinal ağ adı
-OriginalSourceForm;Orijinal kaynak formu
+OriginalSourceForm;Orijinal kaynak biçimi
 OriginalSourceMedium;Orijinal kaynak ortamı
 Other;Diğer
 Output;Çıktı
@@ -877,7 +877,7 @@ OverallBitRate_Minimum;En düşük kapsamlı bit oranı
 OverallBitRate_Mode;Kapsamlı bit oranı modu
 OverallBitRate_Nominal;Düşük kapsamlı bit oranı
 Part;Parça
-Part_Count;Toplam sayım
+Part_Count;Toplam sayı
 Performer;Sanatçı
 Period;Dönem
 Phone;Telefon
@@ -892,8 +892,8 @@ Position;Konum
 Position_Total;Toplam
 Preferences;Tercihler
 Producer;Yapımcı
-ProductionDesigner;Üretim Tasarımcısı
-ProductionStudio;Üretim Sütüdyosu
+ProductionDesigner;Üretim tasarımcısı
+ProductionStudio;Üretim sütüdyosu
 Publisher;Yayıncı
 Purchased_Date;Satın alma tarihi
 Quote character;Alıntı bölümü
@@ -910,9 +910,9 @@ s;s
 SamplingRate;Örnekleme oranı
 Save;Kaydet
 ScanType;Tarama türü
-ScanType_Original;
+ScanType_Original;Orijinal tarama türü
 ScanOrder;Tarama sırası
-ScanOrder_Original;
+ScanOrder_Original;Orijinal tarama sırası
 ScreenplayBy;Senaryo
 Season;Sezon
 see below;aşağı bakın
@@ -937,12 +937,12 @@ Show toolbar;Araç çubuğu göster
 Sort;Sıralayan
 SamplingCount;Örnek sayısı
 SoundEngineer;Ses teknisyeni
-Source;
-Source_Duration;
-Source_FrameCount;
-Source_SamplingCount;
-Source_StreamSize;
-Source_StreamSize_Encoded;
+Source;Kaynak
+Source_Duration;Kaynak süresi
+Source_FrameCount;Kaynak kare sayısı
+Source_SamplingCount;Kaynak örnek sayısı
+Source_StreamSize;Kaynak akış boyutu
+Source_StreamSize_Encoded;Kaynak kodlanmış akış boyutu
 Standard;Standart
 Stream;Akış
 Stream_MoreInfo;Akış hakkında daha fazla bilgi
@@ -952,8 +952,8 @@ StreamKind;Akış çeşidi
 StreamKindID;Akış tanımlayıcısı
 StreamKindPos;Akış tanımlayıcısı
 StreamSize;Akış boyutu
-StreamSize_Encoded;
-StreamSize_Proportion;Bu akış oranı
+StreamSize_Encoded;Kodlanmış akış boyutu
+StreamSize_Proportion;Bu akışın oranı
 Subject;Konu
 SubTrack;Altİz
 Summary;Özet
@@ -980,11 +980,11 @@ ThanksTo;Teşekkürler
 Thousands separator;Binlik basamak ayırıcı
 Title;Başlık
 Title_More;Başlık, daha fazla bilgi
-TimeCode;
-TimeCode_FirstFrame;
-TimeCode_Settings;
-TimeCode_Source;
-TimeStamp;
+TimeCode;Zaman kodu
+TimeCode_FirstFrame;İlk karenin zaman kodu
+TimeCode_Settings;Zaman kodu ayarları
+TimeCode_Source;Zaman kodu kaynağı
+TimeStamp;Zaman damgası
 TimeZone;Saat dilimi
 Total;Toplam
 Track;Parça adı
@@ -993,7 +993,7 @@ transfer_characteristics;Aktarım nitelikleri
 Translator;Çevirmen
 Tree;Ağaç
 Tree & Text;Ağaç ve Metin
-Type;
+Type;Tür
 UniqueID;Eşsiz ID
 Unknown;Bilinmiyor
 Url;Url
@@ -1027,5 +1027,5 @@ Written_Location;Yazıldığı yer
 WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
-ZZ_Automatic_Percent;93
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100

@@ -15,6 +15,7 @@ Known bugs
 
 Version 0.7.68
 --------------
++ Turkish translations updated thanks to Burak
 x configure.ac: removal of problematical typos, thanks to Dmitrij D. Czarkoff
 x #B834, OpenBSD port: correction of compilation failure, thanks to Dmitrij D. Czarkoff
 
