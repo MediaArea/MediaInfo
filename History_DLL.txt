@@ -41,6 +41,7 @@ x MXF: better detection of some weird cases with interlace JPEG-2000 content
 x MXF: better support of files with more than 16 MB per frame (2.5 Gbps bit rate)
 x configure.ac: removal of problematical typos, thanks to Dmitrij D. Czarkoff
 x Files with the wrong extension: the file was sometimes fully read (very slow!)
+x AVI: Huge files (2GB+, with OpenDML) were sometimes parsed slowly
 
 Version 0.7.67, 2014-01-10
 --------------
