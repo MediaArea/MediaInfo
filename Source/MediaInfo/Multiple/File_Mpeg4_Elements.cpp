@@ -2591,7 +2591,8 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                     if (!Parameter.empty())
                     {
                         Element_Info1(Parameter.c_str());
-                        Fill(Stream_General, 0, Parameter.c_str(), Value);
+                        if (Value!=Retrieve(Stream_General, 0, Parameter.c_str()))
+                            Fill(Stream_General, 0, Parameter.c_str(), Value);
                     }
                 FILLING_END();
             }

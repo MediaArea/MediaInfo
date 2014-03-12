@@ -1985,7 +1985,7 @@ File_Mpeg4::method File_Mpeg4::Metadata_Get(std::string &Parameter, int64u Meta)
         case Elements::moov_meta__tven : Parameter="Part_ID"; Method=Method_Binary; break; //TVEpisodeID
         case Elements::moov_meta__tves : Parameter="Part"; Method=Method_String; break; //TVEpisode
         case Elements::moov_meta__tvnn : Parameter="TVNetworkName"; Method=Method_String; break;
-        case Elements::moov_meta__tvsh : Parameter="Title"; Method=Method_String; break; //TVShow
+        case Elements::moov_meta__tvsh : Parameter="Collection"; Method=Method_String; break; //TVShow
         case Elements::moov_meta__tvsn : Parameter="Season"; Method=Method_String; break; //TVSeason
         case Elements::moov_meta__xid_ : Parameter="Vendor"; Method=Method_String; break;
         case Elements::moov_meta__year : Parameter="Recorded_Date"; Method=Method_String2; break;

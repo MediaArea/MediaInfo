@@ -1838,21 +1838,21 @@ void File__Analyze::Tags()
     //-Movie/Album
     if (!Retrieve(Stream_General, 0, General_Title).empty() && Retrieve(Stream_General, 0, General_Movie).empty() && Retrieve(Stream_General, 0, General_Track).empty())
     {
-        if (Count_Get(Stream_Video))
+        if (Count_Get(Stream_Video) && Retrieve(Stream_General, 0, General_Collection).empty())
             Fill(Stream_General, 0, "Movie", Retrieve(Stream_General, 0, General_Title));
         else
             Fill(Stream_General, 0, "Track", Retrieve(Stream_General, 0, General_Title));
     }
     if (!Retrieve(Stream_General, 0, General_Title_More).empty() && Retrieve(Stream_General, 0, General_Movie_More).empty() && Retrieve(Stream_General, 0, General_Track_More).empty())
     {
-        if (Count_Get(Stream_Video))
+        if (Count_Get(Stream_Video) && Retrieve(Stream_General, 0, General_Collection).empty())
             Fill(Stream_General, 0, "Movie/More", Retrieve(Stream_General, 0, General_Title_More));
         else
             Fill(Stream_General, 0, "Track/More", Retrieve(Stream_General, 0, General_Title_More));
     }
     if (!Retrieve(Stream_General, 0, General_Title_Url).empty() && Retrieve(Stream_General, 0, General_Movie_Url).empty() && Retrieve(Stream_General, 0, General_Track_Url).empty())
     {
-        if (Count_Get(Stream_Video))
+        if (Count_Get(Stream_Video) && Retrieve(Stream_General, 0, General_Collection).empty())
             Fill(Stream_General, 0, "Movie/Url", Retrieve(Stream_General, 0, General_Title_Url));
         else
             Fill(Stream_General, 0, "Track/Url", Retrieve(Stream_General, 0, General_Title_Url));

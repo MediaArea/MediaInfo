@@ -44,6 +44,7 @@ x MXF: better support of files with more than 16 MB per frame (2.5 Gbps bit rate
 x configure.ac: removal of problematical typos, thanks to Dmitrij D. Czarkoff
 x Files with the wrong extension: the file was sometimes fully read (very slow!)
 x AVI: Huge files (2GB+, with OpenDML) were sometimes parsed slowly
+x MOV: better display of metadata when tvsh atom is present
 
 Version 0.7.67, 2014-01-10
 --------------
