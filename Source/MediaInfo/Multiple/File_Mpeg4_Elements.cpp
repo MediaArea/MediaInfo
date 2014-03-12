@@ -2866,7 +2866,7 @@ void File_Mpeg4::moov_trak_mdia_hdlr()
             if (Title.empty())
                 Title.From_Local(TitleS.c_str()); //Trying Local...
         }
-        if (Title.find(__T("Handler"))!=std::string::npos || Title.find(__T("vide"))!=std::string::npos || Title.find(__T("soun"))!=std::string::npos || Title==Ztring().From_CC4(SubType))
+        if (Title.find(__T("Handler"))!=std::string::npos || Title.find(__T("handler"))!=std::string::npos || Title.find(__T("vide"))!=std::string::npos || Title.find(__T("soun"))!=std::string::npos || Title==Ztring().From_CC4(SubType))
             Title.clear(); //This is not a Title
     }
 
