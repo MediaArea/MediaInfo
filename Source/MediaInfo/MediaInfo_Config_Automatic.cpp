@@ -2641,6 +2641,16 @@ void MediaInfo_Config_CodecID_Text_Riff (InfoMap &Info)
 }
 
 //---------------------------------------------------------------------------
+void MediaInfo_Config_CodecID_Other_Mpeg4 (InfoMap &Info)
+{
+    Info.Separator_Set(0, __T("\n"));
+    Info.Write(Ztring().From_UTF8(
+    "rtp ;RTP\n"
+    ));
+    Info.Separator_Set(0, ZenLib::EOL);
+}
+
+//---------------------------------------------------------------------------
 void MediaInfo_Config_Codec (InfoMap &Info)
 {
     Info.Separator_Set(0, __T("\n"));

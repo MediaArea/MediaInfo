@@ -179,6 +179,11 @@ ZenLib::Ztring Resources_Create()
         return Result;
     Out+=Contents;
 
+    Result=Resources_Create_Item(L"DataBase", L"CodecID_Other_Mpeg4", L"InfoMap", Contents);
+    if (!Result.empty())
+        return Result;
+    Out+=Contents;
+
     Result=Resources_Create_Item(L"DataBase", L"Codec", L"InfoMap", Contents);
     if (!Result.empty())
         return Result;

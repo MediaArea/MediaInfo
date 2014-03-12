@@ -150,6 +150,8 @@ namespace Elements
     const int64u moov_meta__xid_=0x78696420;
     const int64u moov_meta__year=0x79656172;
     const int64u moov_meta__yyrc=0x79797263;
+    const int64u moov_trak_mdia_hdlr_alis=0x616C6973;
+    const int64u moov_trak_mdia_hdlr_hint=0x68696E74;
     const int64u skip=0x736B6970;
     const int64u wide=0x77696465;
 }
@@ -323,6 +325,12 @@ void File_Mpeg4::Streams_Finish()
         //Preparing
         StreamKind_Last=Temp->second.StreamKind;
         StreamPos_Last=Temp->second.StreamPos;
+
+        if (StreamKind_Last==Stream_Max && Temp->second.hdlr_SubType)
+        {
+            Stream_Prepare(Stream_Other);
+            Fill(Stream_Other, StreamPos_Last, Other_Type, Ztring().From_CC4(Streams[moov_trak_tkhd_TrackID].hdlr_SubType));
+        }
 
         //if (Temp->second.stsz_StreamSize)
         //    Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_StreamSize), Temp->second.stsz_StreamSize);
@@ -557,8 +565,13 @@ void File_Mpeg4::Streams_Finish()
                     {
                         Clear(Stream_Audio, StreamPos_Last, Audio_Format_Settings_Sign);
                     }
-                    ZtringList StreamSave; StreamSave.Write((*File__Analyze::Stream)[StreamKind_Last][StreamPos_Last].Read());
-                    ZtringListList StreamMoreSave; StreamMoreSave.Write((*Stream_More)[StreamKind_Last][StreamPos_Last].Read());
+                    ZtringList StreamSave;
+                    ZtringListList StreamMoreSave; 
+                    if (StreamKind_Last!=Stream_Max)
+                    {
+                        StreamSave.Write((*File__Analyze::Stream)[StreamKind_Last][StreamPos_Last].Read());
+                        StreamMoreSave.Write((*Stream_More)[StreamKind_Last][StreamPos_Last].Read());
+                    }
 
                     //Erasing former streams data
                     stream_t NewKind=StreamKind_Last;
@@ -1477,6 +1490,20 @@ void File_Mpeg4::Header_Parse()
     //Parsing
     int64u Size;
     int32u Size_32, Name;
+    if (Element_Size==2)
+    {
+        int16u Size_16;
+        Peek_B2(Size_16);
+        if (!Size_16)
+        {
+            Skip_B2(                                            "Size");
+
+            //Filling
+            Header_Fill_Code(0, "Junk");
+            Header_Fill_Size(2);
+            return;
+        }
+    }
     Get_B4 (Size_32,                                            "Size");
     if (Size_32==0 && (Element_Size==4 || Element_Size==8))
     {
