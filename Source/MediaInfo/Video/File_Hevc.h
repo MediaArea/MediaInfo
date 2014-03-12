@@ -43,6 +43,7 @@ private :
     //Structures - video_parameter_set
     struct video_parameter_set_struct
     {
+        int8u   vps_max_sub_layers_minus1;
         bool    IsSynched; //Computed value
     };
     typedef vector<video_parameter_set_struct*> video_parameter_set_structs;
@@ -78,10 +79,6 @@ private :
                     }
                 };
                 vector<xxl_data> SchedSel;
-                int8u   initial_cpb_removal_delay_length_minus1;
-                int8u   cpb_removal_delay_length_minus1;
-                int8u   dpb_output_delay_length_minus1;
-                int8u   time_offset_length;
             };
             xxl*    NAL;
             xxl*    VCL;
@@ -94,11 +91,13 @@ private :
             int8u   colour_primaries;
             int8u   transfer_characteristics;
             int8u   matrix_coefficients;
+            int8u   initial_cpb_removal_delay_length_minus1;
+            int8u   cpb_removal_delay_length_minus1;
+            int8u   dpb_output_delay_length_minus1;
             bool    aspect_ratio_info_present_flag;
             bool    video_signal_type_present_flag;
             bool    colour_description_present_flag;
             bool    timing_info_present_flag;
-            bool    fixed_frame_rate_flag;
             bool    pic_struct_present_flag;
 
             vui_parameters_struct()
@@ -109,7 +108,6 @@ private :
                 video_signal_type_present_flag=false;
                 colour_description_present_flag=false;
                 timing_info_present_flag=false;
-                fixed_frame_rate_flag=false;
                 pic_struct_present_flag=false;
             }
 
@@ -194,8 +192,9 @@ private :
     void slice_segment_header();
     void profile_tier_level(int8u maxNumSubLayersMinus1);
     void short_term_ref_pic_sets(int8u num_short_term_ref_pic_sets);
-    void vui_parameters(void* &vui_parameters_Item);
-    void hrd_parameters(void* &hrd_parameters_Item);
+    void vui_parameters(std::vector<video_parameter_set_struct*>::iterator video_parameter_set_Item, seq_parameter_set_struct::vui_parameters_struct* &vui_parameters_Item);
+    void hrd_parameters(bool commonInfPresentFlag, int8u maxNumSubLayersMinus1, seq_parameter_set_struct::vui_parameters_struct* &vui_parameters_Item);
+    void sub_layer_hrd_parameters(bool sub_pic_hrd_params_present_flag, int8u bit_rate_scale, int8u cpb_size_scale, int32u cpb_cnt_minus1, seq_parameter_set_struct::vui_parameters_struct::xxl* &hrd_parameters_Item);
     void scaling_list_data();
 
     //Packets - Specific
