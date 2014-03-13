@@ -40,6 +40,24 @@ namespace MediaInfoLib
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+const int8u Hevc_SubWidthC[]=
+{
+    1,
+    2,
+    2,
+    1,
+};
+
+//---------------------------------------------------------------------------
+const int8u Hevc_SubHeightC[]=
+{
+    1,
+    2,
+    1,
+    1,
+};
+
+//---------------------------------------------------------------------------
 const char* Hevc_profile_idc(int32u profile_idc)
 {
     switch (profile_idc)
@@ -159,6 +177,13 @@ void File_Hevc::Streams_Fill()
 //---------------------------------------------------------------------------
 void File_Hevc::Streams_Fill(std::vector<seq_parameter_set_struct*>::iterator seq_parameter_set_Item)
 {
+    int32u Width = (*seq_parameter_set_Item)->pic_width_in_luma_samples;
+    int32u Height= (*seq_parameter_set_Item)->pic_height_in_luma_samples;
+    int32u CropUnitX=Hevc_SubWidthC [(*seq_parameter_set_Item)->ChromaArrayType()];
+    int32u CropUnitY=Hevc_SubHeightC[(*seq_parameter_set_Item)->ChromaArrayType()];
+    Width -=((*seq_parameter_set_Item)->conf_win_left_offset+(*seq_parameter_set_Item)->conf_win_right_offset)*CropUnitX;
+    Height-=((*seq_parameter_set_Item)->conf_win_top_offset +(*seq_parameter_set_Item)->conf_win_bottom_offset)*CropUnitY;
+
     Ztring Profile;
     if ((*seq_parameter_set_Item)->profile_space==0)
     {
@@ -173,8 +198,8 @@ void File_Hevc::Streams_Fill(std::vector<seq_parameter_set_struct*>::iterator se
     }
     Fill(Stream_Video, 0, Video_Format_Profile, Profile);
     Fill(Stream_Video, 0, Video_Codec_Profile, Profile);
-    Fill(Stream_Video, StreamPos_Last, Video_Width, (*seq_parameter_set_Item)->pic_width_in_luma_samples);
-    Fill(Stream_Video, StreamPos_Last, Video_Height, (*seq_parameter_set_Item)->pic_height_in_luma_samples);
+    Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
+    Fill(Stream_Video, StreamPos_Last, Video_Height, Height);
     //Fill(Stream_Video, 0, Video_PixelAspectRatio, PixelAspectRatio, 3, true);
     //Fill(Stream_Video, 0, Video_DisplayAspectRatio, Width*PixelAspectRatio/Height, 3, true); //More precise
 
@@ -828,8 +853,9 @@ void File_Hevc::seq_parameter_set()
     //Parsing
     seq_parameter_set_struct::vui_parameters_struct* vui_parameters_Item=NULL;
     int32u  sps_seq_parameter_set_id, chroma_format_idc, pic_width_in_luma_samples, pic_height_in_luma_samples, bit_depth_luma_minus8, bit_depth_chroma_minus8, log2_max_pic_order_cnt_lsb_minus4, num_short_term_ref_pic_sets;
+    int32u  conf_win_left_offset=0, conf_win_right_offset=0, conf_win_top_offset=0, conf_win_bottom_offset=0;
     int8u   sps_video_parameter_set_id, sps_max_sub_layers_minus1;
-    bool    sps_sub_layer_ordering_info_present_flag;
+    bool    separate_colour_plane_flag=false, sps_sub_layer_ordering_info_present_flag;
     BS_Begin();
     Get_S1 (4, sps_video_parameter_set_id,                      "sps_video_parameter_set_id");
     std::vector<video_parameter_set_struct*>::iterator video_parameter_set_Item;
@@ -852,14 +878,14 @@ void File_Hevc::seq_parameter_set()
         return; //Problem, not valid
     }
     if (chroma_format_idc==3)
-        Skip_SB(                                                "separate_colour_plane_flag");
+        Get_SB (separate_colour_plane_flag,                     "separate_colour_plane_flag");
     Get_UE (    pic_width_in_luma_samples,                      "pic_width_in_luma_samples");
     Get_UE (    pic_height_in_luma_samples,                     "pic_height_in_luma_samples");
-    TEST_SB_SKIP(                                               "conformance_window_flag ");
-        Skip_UE(                                                "conf_win_left_offset");
-        Skip_UE(                                                "conf_win_right_offset");
-        Skip_UE(                                                "conf_win_top_offset");
-        Skip_UE(                                                "conf_win_bottom_offset");
+    TEST_SB_SKIP(                                               "conformance_window_flag");
+        Get_UE (conf_win_left_offset,                           "conf_win_left_offset");
+        Get_UE (conf_win_right_offset,                          "conf_win_right_offset");
+        Get_UE (conf_win_top_offset,                            "conf_win_top_offset");
+        Get_UE (conf_win_bottom_offset,                         "conf_win_bottom_offset");
     TEST_SB_END();
     Get_UE (   bit_depth_luma_minus8,                           "bit_depth_luma_minus8");
     if (bit_depth_luma_minus8>6)
@@ -962,7 +988,12 @@ void File_Hevc::seq_parameter_set()
         (*Data_Item)->general_frame_only_constraint_flag            =general_frame_only_constraint_flag;
         (*Data_Item)->pic_width_in_luma_samples                     =pic_width_in_luma_samples;
         (*Data_Item)->pic_height_in_luma_samples                    =pic_height_in_luma_samples;
+        (*Data_Item)->conf_win_left_offset                          =conf_win_left_offset;
+        (*Data_Item)->conf_win_right_offset                         =conf_win_right_offset;
+        (*Data_Item)->conf_win_top_offset                           =conf_win_top_offset;
+        (*Data_Item)->conf_win_bottom_offset                        =conf_win_bottom_offset;
         (*Data_Item)->chroma_format_idc                             =(int8u)chroma_format_idc;
+        (*Data_Item)->separate_colour_plane_flag                    =separate_colour_plane_flag;
         (*Data_Item)->log2_max_pic_order_cnt_lsb_minus4             =(int8u)log2_max_pic_order_cnt_lsb_minus4;
         (*Data_Item)->bit_depth_luma_minus8                         =(int8u)bit_depth_luma_minus8;
         (*Data_Item)->bit_depth_chroma_minus8                       =(int8u)bit_depth_chroma_minus8;

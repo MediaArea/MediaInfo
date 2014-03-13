@@ -123,15 +123,23 @@ private :
         int32u  level_idc;
         int32u  pic_width_in_luma_samples;
         int32u  pic_height_in_luma_samples;
+        int32u  conf_win_left_offset;
+        int32u  conf_win_right_offset;
+        int32u  conf_win_top_offset;
+        int32u  conf_win_bottom_offset;
         int8u   video_parameter_set_id;
         int8u   chroma_format_idc;
+        bool    separate_colour_plane_flag;
         int8u   log2_max_pic_order_cnt_lsb_minus4;
         int8u   bit_depth_luma_minus8;
         int8u   bit_depth_chroma_minus8;
         bool    general_progressive_source_flag;
         bool    general_interlaced_source_flag;
         bool    general_frame_only_constraint_flag;
-        bool    IsSynched; //Computed value
+        bool    IsSynched;
+        
+        //Computed value
+        int8u   ChromaArrayType() {return separate_colour_plane_flag?0:chroma_format_idc;}
     };
     typedef vector<seq_parameter_set_struct*> seq_parameter_set_structs;
 
