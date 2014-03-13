@@ -35,7 +35,7 @@ x #B828, HEVC/H265: parsing of final specification (vui_parameters() specs were 
 x #B835, HEVC/H265: bug fixes, thanks to KP Lau
 x #B838, AVC/H264: bug fixes, thanks to KP Lau
 x #B831, MPEG Audio: files with MusiFile header/trailer are correctly detected (but header/trailer are currently discarded)
-x #B836, XCode 5.1 compilation issue fixed, thnaks to masterkain
+x #B836, XCode 5.1 compilation issue fixed, thanks to masterkain
 x STL: better support of non-English characters during decode
 x MXF: some properties were not displayed with OP-Atom files
 x JPEG-2000: wrong implmentation of COD parsing, with undefined behavior for some files
