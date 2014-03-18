@@ -10090,6 +10090,13 @@ void File_Mxf::ChooseParser_Mpegv(const essences::iterator &Essence, const descr
         #if MEDIAINFO_ADVANCED
             Parser->InitDataNotRepeated_Optional=true;
         #endif // MEDIAINFO_ADVANCED
+        #if MEDIAINFO_DEMUX
+            if (Demux_UnpacketizeContainer)
+            {
+                Parser->Demux_Level=2; //Container
+                Parser->Demux_UnpacketizeContainer=true;
+            }
+        #endif //MEDIAINFO_DEMUX
     #else
         File__Analyze* Parser=new File_Unknown();
         Open_Buffer_Init(Parser);
