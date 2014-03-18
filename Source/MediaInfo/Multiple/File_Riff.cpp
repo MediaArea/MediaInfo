@@ -225,12 +225,22 @@ void File_Riff::Streams_Finish ()
                 Temp->second.Parsers[0]->Open_Buffer_Unsynch();
             }
             Finish(Temp->second.Parsers[0]);
+
             if (!Temp->second.Parsers.empty() && Temp->second.Parsers[0]->Count_Get(StreamKind_Last))
+            {
+                //Special case: Compressed audio hidden in PCM
+                if (StreamKind_Last==Stream_Audio
+                    && Temp->second.Compression==1
+                    && Retrieve(Stream_General, 0, General_Format)==__T("Wave")
+                    && Temp->second.Parsers[0]->Get(Stream_Audio, 0, Audio_Format)!=__T("PCM")) //Some DTS or SMPTE ST 337 streams are coded "1"
+                    Clear(Stream_Audio, 0, Audio_Channel_s_);
+
+                size_t StreamPos_Base=StreamPos_Last;
                 for (size_t Pos=0; Pos<Temp->second.Parsers[0]->Count_Get(StreamKind_Last); Pos++)
                 {
                     Ztring Temp_ID=ID;
                     Ztring Temp_ID_String=ID;
-                    Merge(*Temp->second.Parsers[0], StreamKind_Last, Pos, StreamPos_Last+Pos);
+                    Merge(*Temp->second.Parsers[0], StreamKind_Last, Pos, StreamPos_Base+Pos);
                     if (!Retrieve(StreamKind_Last, StreamPos_Last, General_ID).empty())
                     {
                         if (!Temp_ID.empty())
@@ -268,17 +278,8 @@ void File_Riff::Streams_Finish ()
                         StreamKind_Last=Stream_Video;
                         StreamPos_Last=Count_Get(Stream_Video)-1;
                     }
-
-                    //Special case: Compressed audio hidden in PCM
-                    if (StreamKind_Last==Stream_Audio
-                     && Temp->second.Compression==1
-                     && Retrieve(Stream_General, 0, General_Format)==__T("Wave") //Some DTS or SMPTE ST 337 streams are coded "1"
-                     && !Retrieve(Stream_Audio, StreamPos_Last, Audio_Channel_s__Original).empty())
-                    {
-                        Clear(Stream_Audio, StreamPos_Last, Audio_Channel_s__Original);
-                        Fill(Stream_Audio, StreamPos_Last, Audio_Channel_s_, 6, 10, true); //The PCM channel count is fake
-                    }
                 }
+            }
             else
             {
                 Fill(StreamKind_Last, StreamPos_Last, General_ID, ID, true);
