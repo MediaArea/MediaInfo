@@ -30,6 +30,7 @@ Version 0.7.68, 2014-
 + F432, AVI: detection of MPEG Video with Codec Id 0x02000010
 + AVI: detection of captions inside MPEG Video
 + MPEG-4/MOV: showing non-media streams (e.g. hint/rtp tracks)
++ #P81, HEVC: raw stream frame rate info, thanks to Kurtnoise
 x #B833, FLV: some (out of specs) files were no more fully detected
 x #B828, HEVC/H265: parsing of final specification (vui_parameters() specs were modified)
 x #B835, HEVC/H265: bug fixes, thanks to KP Lau
