@@ -50,6 +50,7 @@ x configure.ac: removal of problematical typos, thanks to Dmitrij D. Czarkoff
 x Files with the wrong extension: the file was sometimes fully read (very slow!)
 x AVI: Huge files (2GB+, with OpenDML) were sometimes parsed slowly
 x MOV: better display of metadata when tvsh atom is present
+x AC-3: some dependent streams ere not correctly detected
 
 Version 0.7.67, 2014-01-10
 --------------
