@@ -13,9 +13,51 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
-Version 0.7.68
+Version 0.7.68, 2014-04-02
 --------------
 + Turkish translations updated thanks to Burak
++ QuickTime: new field ScanOrder_Stored, displayed when display and Stored orders are not same (replacing ScanOrder_StoredDisplayedInverted field)
++ IMF: better support of IMF files having more than 1 ressource per track
++ IMF: better support of IMF files EntryPoint and SourceDuration fields
++ MPEG-TS: EBP detection
++ Excel VBA example (32 and 64 bit), in contrib directory
++ Node.js examples added, in contrib directory
++ GXF: support of DVCPRO HD
++ GXF: Media Type is reported
++ HEVC: added support of scaling_list_data 
++ HEVC: deactivated general_profile_compatibility_flag validity test because some encoders do not implement it correctly
++ MPEG-4/MOV: Speed improvement, especially for full parsing of 100+ GB files.
++ File reading: Speed improvement of big files, especially for full parsing, with the help of a dedicated reading thread
++ Java binding: adding support of memory buffer as input, example with InputStream class (from RandomAccessFile or from FileUrl, including Amazon S3 authorization)
++ PTX: more files are supported
++ Ancillary data: more fomats are detected (OP-47 WST, OP-47 Multipacket, WSS, CEA-608, MPEG-2 Recoding Information...)
++ EBUCore output: update, with EBUCore 1.5 support
++ MXF: detection of Sony RAW SQ (by reverse engineering, not sure)
++ F432, AVI: detection of MPEG Video with Codec Id 0x02000010
++ AVI: detection of captions inside MPEG Video
++ MPEG-4/MOV: showing non-media streams (e.g. hint/rtp tracks)
++ #P81, HEVC: raw stream frame rate info, thanks to Kurtnoise
++ AIFF/Dolby E: detection duration of hidden Dolby E increased from 0.1 second to 1 second
+x #B833, FLV: some (out of specs) files were no more fully detected
+x #B828, HEVC/H265: parsing of final specification (vui_parameters() specs were modified)
+x #B835, HEVC/H265: bug fixes, thanks to KP Lau
+x #B838, AVC/H264: bug fixes, thanks to KP Lau
+x #B831, MPEG Audio: files with MusiFile header/trailer are correctly detected (but header/trailer are currently discarded)
+x #B836, XCode 5.1 compilation issue fixed, thanks to masterkain
+x STL: better support of non-English characters during decode
+x MXF: some properties were not displayed with OP-Atom files
+x JPEG-2000: wrong implmentation of COD parsing, with undefined behavior for some files
+x MXF: potential crash with small files
+x AAF: potential crash with small files
+x HLS: potential crash with small files
+x MXF: some video streams were wrongly detected as MPEG-2 video
+x MXF: better detection of some weird cases with interlace JPEG-2000 content
+x MXF: better support of files with more than 16 MB per frame (2.5 Gbps bit rate)
+x configure.ac: removal of problematical typos, thanks to Dmitrij D. Czarkoff
+x Files with the wrong extension: the file was sometimes fully read (very slow!)
+x AVI: Huge files (2GB+, with OpenDML) were sometimes parsed slowly
+x MOV: better display of metadata when tvsh atom is present
+x AC-3: some dependent streams ere not correctly detected
 x configure.ac: removal of problematical typos, thanks to Dmitrij D. Czarkoff
 x #B834, OpenBSD port: correction of compilation failure, thanks to Dmitrij D. Czarkoff
 

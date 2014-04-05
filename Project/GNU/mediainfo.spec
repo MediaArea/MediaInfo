@@ -1,5 +1,5 @@
-%define mediainfo_version           0.7.67
-%define libmediainfo_version        0.7.67
+%define mediainfo_version           0.7.68
+%define libmediainfo_version        0.7.68
 %define libzen_version              0.4.29
 
 Name:           mediainfo
@@ -75,8 +75,8 @@ This package includes the command line interface.
 %package gui
 Summary:    Supplies technical and tag information about a video or audio file (GUI)
 Group:      Applications/Multimedia
-Requires:   libzen >= %{libzen_version}
-Requires:   libmediainfo >= %{libmediainfo_version}
+Requires:   libzen0 >= %{libzen_version}
+Requires:   libmediainfo0 >= %{libmediainfo_version}
 %if %{undefined rhel_version} || 0%{?rhel_version} < 600
 %if 0%{?mandriva_version}
 %ifarch x86_64
@@ -213,7 +213,7 @@ install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop \
 
 
 %changelog
-* Tue Jan 01 2009 MediaArea.net SARL <info@mediaarea.net> - 0.7.67
+* Tue Jan 01 2009 MediaArea.net SARL <info@mediaarea.net> - 0.7.68
 - See History.txt for more info and real dates
 - Previous packages made by Toni Graffy <toni@links2linux.de>
 - Fedora style made by Vasiliy N. Glazov <vascom2@gmail.com>
