@@ -152,11 +152,11 @@ popd
 
 %install
 pushd Project/GNU/CLI
-    make install DESTDIR=%{buildroot}
+    make install-strip DESTDIR=%{buildroot}
 popd
 
 pushd Project/GNU/GUI
-    make install DESTDIR=%{buildroot}
+    make install-strip DESTDIR=%{buildroot}
 popd
 
 # icon
