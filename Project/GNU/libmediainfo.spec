@@ -167,7 +167,7 @@ popd
 
 %install
 pushd Project/GNU/Library/
-    make install DESTDIR=%{buildroot}
+    make install-strip DESTDIR=%{buildroot}
 popd
 
 # MediaInfoDLL headers and MediaInfo-config
