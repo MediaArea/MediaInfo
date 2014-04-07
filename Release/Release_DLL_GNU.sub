@@ -24,7 +24,7 @@ cp -R ../Project/GNU/Library/.libs/libmediainfo.$3 MediaInfo_DLL_$1_$2/
 cp -R ../Project/GNU/Library/.libs/libmediainfo.$4 MediaInfo_DLL_$1_$2/
 cp ../Project/GNU/Library/.libs/libmediainfo.$5 MediaInfo_DLL_$1_$2/
 cd MediaInfo_DLL_$1_$2
-strip libmediainfo.$5
+strip libmediainfo.$3
 cd ..
 
 #-----------------------------------------------------------------------
@@ -65,6 +65,10 @@ cp ../Source/MediaInfoDLL/MediaInfoDLL3.py MediaInfo_DLL_$1_$2/Developpers/Inclu
 #-----------------------------------------------------------------------
 # Compressing Archive
 mv MediaInfo_DLL_$1_$2 MediaInfoLib
+if test "$3" = "dylib"; then
+    #special case, should be put elsewhere
+    codesign -f -s "Developer ID Application: MediaArea.net" --verbose MediaInfoLib/libmediainfo.dylib
+fi
 tar jcf MediaInfo_DLL_$1_$2.tar.bz2 MediaInfoLib
 mv MediaInfoLib MediaInfo_DLL_$1_$2
 

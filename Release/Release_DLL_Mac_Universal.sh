@@ -12,4 +12,4 @@
 
 #-----------------------------------------------------------------------
 # Launch
-Release_DLL Mac Universal dylib 0.dylib 0.0.0.dylib
+Release_DLL Mac i386+x86_64 dylib 0.dylib 0.0.0.dylib
