@@ -17,6 +17,7 @@ lib@MediaInfoLib_LibName@_la_SOURCES = \
                        ../../../Source/MediaInfo/MediaInfo_Config.cpp \
                        ../../../Source/MediaInfo/MediaInfo_Config_Automatic.cpp \
                        ../../../Source/MediaInfo/MediaInfo_Config_MediaInfo.cpp \
+                       ../../../Source/MediaInfo/MediaInfo_Config_PerPackage.cpp \
                        ../../../Source/MediaInfo/MediaInfo_File.cpp \
                        ../../../Source/MediaInfo/MediaInfo_Inform.cpp \
                        ../../../Source/MediaInfo/MediaInfo_Internal.cpp \
