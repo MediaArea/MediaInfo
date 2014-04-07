@@ -1,0 +1,60 @@
+Quick and dirty notes
+
+Signing certificates (for standalone distribution)
+--------------------------------------------------
+In Xcode, Preferences, Account, Sign in, View details.
+Add Developer ID Distribution ("Developer ID Application" certificate), Developer ID Installer Distribution ("Developer ID Installer" certificate)
+Refresh
+
+
+Signing certificates (for Mac App Store)
+----------------------------------------
+In Xcode, Preferences, Account, Sign in, View details.
+Add Mac Development ("Mac Developer" certificate), Mac App Distribution ("3rd party Mac Developer Application" certificate), Mac Installer Distribution ("3rd party Mac Developer Installer" certificate)
+Refresh
+
+
+Init (for Mac App Store)
+------------------------
+Signature of libs: Xcode projet, Target, MediaInfo, Build phases, Run Script
+/bin/sh
+if [ "$CODE_SIGNING_ALLOWED" = "YES" -a "$CODE_SIGN_IDENTITY" != "Don't Code Sign" ]; then
+    cd "$CODESIGNING_FOLDER_PATH"
+    /usr/bin/codesign -f -s "3rd Party Mac Developer Application: MediaArea.net" --verbose Contents/Resources/libmediainfo.dylib
+fi
+SandBoxing: Target, MediaInfo, Capabilities, Enable App Sandboxing
+
+
+When language files change (for Mac App Store)
+----------------------------------------------
+"./update_xibs.sh all."
+Locale issues:
+- Greek language locale on mac is called 'el'
+- Chinese are zh-Hans and zh-Hant
+- mac has pt and pt-PT locales by default
+
+
+Per version (for standalone distribution)
+----------------------------------------
+Tested on Mac OS X 10.9
+WxWidgets 2.9.5: ./configure --with-osx_cocoa --without-libtiff --disable-mediactrl --disable-sound --enable-unicode --disable-shared -disable-precomp-headers --enable-static --enable-stl --with-macosx-version-min=10.5 CFLAGS=' -arch i386 -arch x86_64' CXXFLAGS=' -arch i386 -arch x86_64' LDFLAGS=' -arch i386 -arch x86_64' OBJCFLAGS=' -arch i386 -arch x86_64' OBJCXXFLAGS=' -arch i386 -arch x86_64'
+GUI Wx:
+./GUI_Compile.sh --with-wx-static --enable-arch-i386 --enable-arch-x86_64 --with-macosx-version-min=10.5
+Copy MediaInfo/Project/Mac and launch ./mkdmg_GUI
+CLI:
+./CLI_Compile.sh --enable-arch-i386 --enable-arch-x86_64 --with-macosx-version-min=10.5
+Copy MediaInfo/Project/Mac and launch ./mkdmg_GUI
+DLL:
+./SO_Compile.sh --enable-arch-i386 --enable-arch-x86_64 --with-macosx-version-min=10.5
+codesign -f -s "Developer ID Application: ${SIGNATURE}" --verbose MediaInfoLib/Project/GNU/Library/.libs/libmediainfo.dylib
+Verify that code signing is OK:
+spctl --assess -v MediaInfoLib/Project/GNU/Library/.libs/libmediainfo.dylib
+
+Per version (for Mac App Store)
+----------------------------------------
+copy libmediainfo.dylib in the project root dir
+install_name_tool -id @executable_path/../Resources/libmediainfo.dylib libmediainfo.dylib
+Xcode "Build Settings", change APP_VERSION
+Xcode menu, Product, Build for Archiving
+Xcode menu, Product, Archive
+Organizer will be opened. Click Validate. After validation, click Submit.

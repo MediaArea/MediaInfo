@@ -23,6 +23,7 @@ xcopy ..\Source\GUI\WxWidgets\*.cpp MediaInfo_GUI_GNU_Prepare\Source\GUI\WxWidge
 xcopy ..\Source\GUI\WxWidgets\*.h MediaInfo_GUI_GNU_Prepare\Source\GUI\WxWidgets\ /S
 xcopy ..\Source\*.png MediaInfo_GUI_GNU_Prepare\Source\ /S
 xcopy ..\Source\*.xpm MediaInfo_GUI_GNU_Prepare\Source\ /S
+xcopy ..\Source\*.icns MediaInfo_GUI_GNU_Prepare\Source\ /S
 
 rem --- Copying : Projects ---
 xcopy ..\debian\* MediaInfo_GUI_GNU_Prepare\debian\

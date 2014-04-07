@@ -59,6 +59,7 @@ cp -r ../Source/GUI/WxWidgets/*.cpp MediaInfo_GUI_GNU_FromSource/Source/GUI/WxWi
 mkdir -p MediaInfo_GUI_GNU_FromSource/Source/Resource/Image/Menu/K20
 cp -r ../Source/Resource/Image/*.png MediaInfo_GUI_GNU_FromSource/Source/Resource/Image/
 cp -r ../Source/Resource/Image/*.xpm MediaInfo_GUI_GNU_FromSource/Source/Resource/Image/
+cp -r ../Source/Resource/Image/*.icns MediaInfo_GUI_GNU_FromSource/Source/Resource/Image/
 cp -r ../Source/Resource/Image/Menu/K20/*.xpm MediaInfo_GUI_GNU_FromSource/Source/Resource/Image/Menu/K20/
 
 #-----------------------------------------------------------------------

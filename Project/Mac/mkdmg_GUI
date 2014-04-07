@@ -1,0 +1,76 @@
+#!/bin/sh
+
+#if [ $# != 3 ]; then
+# echo "usage: mkdmg appname version"
+# exit 0
+#fi
+
+APPNAME="$1"
+VERSION="$2"
+FILES="$3"
+
+APPNAME="MediaInfo"
+KIND="GUI"
+VERSION="0.7.68"
+SIGNATURE="MediaArea.net"
+
+DMG="tmp-${APPNAME}_${KIND}.dmg"
+FILES="tmp-${APPNAME}_${KIND}"
+
+# Create the package
+rm -f "{FILES}"
+mkdir "${FILES}"
+mkdir "${FILES}/${APPNAME}.app"
+mkdir "${FILES}/${APPNAME}.app/Contents"
+mkdir "${FILES}/${APPNAME}.app/Contents/MacOS"
+mkdir "${FILES}/${APPNAME}.app/Contents/Resources"
+cp Info.plist "${FILES}/${APPNAME}.app/Contents/"
+sed -i '' -e "s/VERSION/${VERSION}/g" "${FILES}/${APPNAME}.app/Contents/Info.plist"
+echo -n 'APPL????' > "${FILES}/${APPNAME}.app/Contents/PkgInfo"
+cp ../GNU/GUI/mediainfo-gui "${FILES}/${APPNAME}.app/Contents/MacOS/MediaInfo"
+cp ../../Source/Resource/Image/MediaInfo.icns "${FILES}/${APPNAME}.app/Contents/Resources/${APPNAME}.icns"
+codesign -f -s "Developer ID Application: ${SIGNATURE}" --verbose "${FILES}/${APPNAME}.app/Contents/MacOS/MediaInfo"
+codesign -f -s "Developer ID Application: ${SIGNATURE}" --verbose "${FILES}/MediaInfo.app"
+cp ../../License.html "${FILES}/License.html"
+cp ../../History_GUI.txt "${FILES}/History.txt"
+mkdir "${FILES}/.background"
+cp Logo_White.icns "${FILES}/.background/Logo_White.icns"
+
+
+# Create the disk image
+hdiutil create "$DMG" -ov -format UDRW -volname "${APPNAME}" -srcfolder "${FILES}"
+DEVICE=$(hdiutil attach -readwrite -noverify "${DMG}" | egrep '^/dev/' | sed 1q | awk '{print $1}')
+echo $DEVICE
+sleep 2
+pushd /Volumes/"${APPNAME}"
+ln -s /Applications
+rm .DS_Store
+popd
+echo '
+   tell application "Finder"
+     tell disk "'${APPNAME}'"
+           open
+           set current view of container window to icon view
+           set toolbar visible of container window to false
+           set the bounds of container window to {400, 100, 950, 600}
+           set viewOptions to the icon view options of container window
+           set arrangement of viewOptions to not arranged
+           set icon size of viewOptions to 72
+           set background picture of viewOptions to file ".background:Logo_White.icns"
+           set position of item "MediaInfo.app" of container window to {125, 175}
+           set position of item "Applications" of container window to {275, 200}
+           set position of item "License.html" of container window to {450, 175}
+           set position of item "History.txt" of container window to {450, 275}
+           close
+     end tell
+   end tell
+' | osascript
+hdiutil detach "${DEVICE}"
+sleep 2
+
+# convert to compressed image, delete temp image
+rm -f "${APPNAME}_${KIND}.dmg"
+hdiutil convert "$DMG" -format UDBZ -o "${APPNAME}.dmg"
+codesign -f -s "Developer ID Application: ${SIGNATURE}" --verbose "${APPNAME}.dmg"
+rm -f "{FILES}"
+rm -f "$DMG"
