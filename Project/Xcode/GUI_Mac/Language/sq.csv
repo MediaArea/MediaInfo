@@ -1,0 +1,979 @@
+  Language_ISO639;sq
+  Author_Email;bgodole@gmail.com
+  Author_Name;Besmir Godole
+  Author_OldNames;Përkthyesi i parë
+  Language_Name;Shqip
+  Config_Text_ColumnSize;40
+  Config_Text_Separator; :
+  Config_Text_NumberTag; #
+  Config_Text_FloatSeparator;.
+  Config_Text_ThousandsSeparator; 
+ audio stream1; rrymë audio
+ audio stream2; rrymë audio
+ audio stream3; rrymë audio
+ bit1; bit
+ bit2; bit
+ bit3; bit
+ bps; bps
+ Bps; Bps
+ Byte1; Bajt
+ Byte2; Bajt
+ Byte3; Bajt
+ channel1; kanal
+ channel2; kanale
+ channel3; kanale
+ chapter1; kapitull
+ chapter2; kapituj
+ chapter3; kapituj
+ chapters stream1; rrymë kapitulli
+ chapters stream2; rrymë kapitulli
+ chapters stream3; rrymë kapitulli
+ day1; ditë
+ day2; ditë
+ day3; ditë
+ dB1;dB
+ dB2;dB
+ dB3;dB
+ file1; skedë
+ file2; skeda
+ file3; skeda
+ frame1; kuadër
+ frame2; kuadro
+ frame3; kuadro
+ fps1; fps
+ fps2; fps
+ fps3; fps
+ GB; GB
+ Gb; Gb
+ Gbps; Gbps
+ GBps; GBps
+ GHz; GHz
+ GiB; GiB
+ GibiByte1; GibiBajt
+ GibiByte2; Gibibajt
+ GibiByte3; Gibibajt
+ GiBps; GiBps
+ GigaBit1; GigaBit
+ GigaBit2; GigaBit
+ GigaBit3; GigaBit
+ GigaByte1; GigaBajt
+ GigaByte2; GigaBajt
+ GigaByte3; GigaBajt
+ hour1; orë
+ hour2; orë
+ hour3; orë
+ Hz; Hz
+ image stream1; rrymë figure
+ image stream2; rrymë figure
+ image stream3; rrymë figure
+ KB; KB
+ Kb; Kb
+ KBps; KBps
+ Kbps; Kbps
+ KHz; KHz
+ KiB; KiB
+ KibiBit1; KibiBit
+ KibiBit2; KibiBit
+ KibiBit3; KibiBit
+ KibiByte1; KibiBajt
+ KibiByte2; KibiBajt
+ KibiByte3; KibiBajt
+ KiBps; KiBps
+ KiloBit1; KiloBit
+ KiloBit2; KiloBit
+ KiloBit3; KiloBit
+ KiloByte1; KiloBajt
+ KiloByte2; KiloBajt
+ KiloByte3; KiloBajt
+ MB; MB
+ Mb; Mb
+ Mbps; Mbps
+ MBps; MebiBajt
+ MebiBit1; MebiBit
+ MebiBit2; MebiBit
+ MebiBit3; MebiBit
+ MebiByte1; MebiBajt
+ MebiByte2; MebiBajt
+ MebiByte3; MebiBajt
+ MegaBit1; MegaBit
+ MegaBit2; MegaBit
+ MegaBit3; MegaBit
+ MegaByte1; MegaBajt
+ MegaByte2; MegaBajt
+ MegaByte3; MegaBajt
+ MHz; MHz
+ MiB; MiB
+ Mib; Mib
+ MiBps; MiBps
+ millisecond1; milisekondë
+ millisecond2; milisekonda
+ millisecond3; milisekonda
+ minute1; minutë
+ minute2; minuta
+ minute3; minuta
+ month1; muaj
+ month2; muaj
+ month3; muaj
+ pixel1; piksel
+ pixel2; piksela
+ pixel3; piksela
+ second1; sekondë
+ second2; sekonda
+ second3; sekonda
+ text stream1; rrymë teksti
+ text stream2; rrymë teksti
+ text stream3; rrymë teksti
+ video frames1; kuadër video
+ video frames2; kuadro video
+ video frames3; kuadro video
+ video stream1; rrymë video
+ video stream2; rrymë video
+ video stream3; rrymë video
+ warppoint0;Pa pikëdeformime
+ warppoint1; pikëdoformim
+ warppoint2; pikëdeformime
+ warppoint3; pikëdeformime
+ week1; javë
+ week2; javë
+ week3; javë
+ year1; vit
+ year2; vite
+ year3; vite
+, ;, 
+: ;: 
+About;Për
+About_Hint;Si të kontaktohem dhe të gjendet versioni i fundit
+Accompaniment;Shoqëruesi
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
+Actor;Aktori
+Actor_Character;Personazhi i luajtur
+Added_Date;Data e shtimit
+Address;Adresa
+Advanced;Avancuar
+Advanced mode;Mënyrë e avancuar
+Album;Albumi
+Album_ReplayGain_Gain;Replay gain i albumit
+Album_ReplayGain_Peak;Piku i replay gain i albumit
+Alignment;Radhitja
+Alignment_Aligned;Radhitur te gërshetimet
+Alignment_Split;Ndarë te gërshetimet
+All;Gjithçka
+Archival_Location;Vendi i arkivimit
+Arranger;Radhitësi
+ArtDirector;RegjisorArtistik
+AspectRatio;Raporti i aspektit
+AssistantDirector;RegjisorAsistent
+at;në
+At least one file;(Duhet hapur të paktën një skedë)
+Audio;Audio
+Audio stream(s);Rrymat e audios
+Audio_Codec_List;Kodekët e audios
+Audio_No;Pa audio
+Audio1;Rryma e parë audio
+Audio2;Rryma e dytë audio
+AudioCount;Numri i rrymave të audios
+Author;Autori
+BarCode;BarCode
+Basic;Kryesor
+Basic_Note;Shënim : për më shumë info rreth skedës, mund të zgjidhet një pamje tjetër (Fletë, Pemë...) 
+BitDepth;
+BitRate;Raporti i bitit
+BitRate_Maximum;Raporti maksimal i bitit
+BitRate_Minimum;Raporti minimal i bitit
+BitRate_Mode;Mënyra e raportit të bitit
+BitRate_Mode_CBR;Konstant
+BitRate_Mode_VBR;Variabël
+BitRate_Nominal;Raporti nominal i bitit
+BitRate_Encoded;
+Bits-(Pixel*Frame);Bit/(Piksel*Kuadër)
+BufferSize;
+Cancel;Anulo
+Channel(s);Kanale
+ChannelPositions;Pozicionet e kanalit
+Chapter(s);Kapitull
+Chapters;Kapituj
+Chapters stream(s);Rryma(t) e kapitujve
+Chapters_Codec_List;Kodekët e Kapitujve
+Chapters_No;Pa kapituj
+ChaptersCount;Numri i rrymave të kapitujve
+CheckNewVersion;Verifiko versionin e ri
+Choose custom;Zgjedh me porosi
+Choose custom sheet;Zgjedh me porosi fletën e dëshiruar
+Choose custom text;Zgjedh me porosi tekstin e dëshiruar
+Choose export format;Zgjedh formatin e eksportimit të dëshiruar
+Choose file(s);Zgjedh skedat që të hapen
+Choose filename;Zgjedh emrin e skedës së dëshiruar
+Choose language;Zgjedh gjuhën e dëshiruar
+Choregrapher;Koreografi
+Chroma;Kroma
+ChromaSubsampling;
+Close;Mbyll
+Close all before open;Mbyll infot para hapjes
+Codec;Kodeku
+Codec_Description;Përshkrimi i kodekut
+Codec_Info;Detajet e kodekut
+Codec_Settings;Vendosjet e kodekut
+Codec_Settings_PacketBitStream;Vendosjet e kodekut, Packet bitstream
+Codec_Settings_BVOP;Vendosjet e kodekut, BVOP
+Codec_Settings_QPel;Vendosjet e kodekut, QPel
+Codec_Settings_GMC;Vendosjet e kodekut, GMC
+Codec_Settings_Matrix;Vendosjet e kodekut, Matrix
+Codec_Settings_Floor;Vendosjet e kodekut, Floor
+Codec_Settings_CABAC;Vendosjet e kodekut, CABAC
+Codec_Settings_Firm;Vendosjet e kodekut, Firm
+Codec_Settings_Endianness;Vendosjet e kodekut, Endianness
+Codec_Settings_Sign;Vendosjet e kodekut, Sign
+Codec_Settings_Law;Vendosjet e kodekut, Law
+Codec_Settings_ITU;Vendosjet e kodekut, ITU
+Codec_Profile;Profili i kodekut
+Codec_Url;Lidhësi në rrjetë i kodekut
+CodecID;ID i kodekut
+CodecID_Description;Përshkrimi i kodekut
+Collection;Koleksioni
+Colorimetry;Kolorimetria
+ColorSpace;
+colour_primaries;Primarët e ngjyrës
+Comment;Komenti
+CommissionedBy;Autorizuar nga
+Compilation;
+CompleteName;Emri i plotë
+Composer;Kompozitori
+Compression_Mode;
+Compression_Mode_Lossless;
+Compression_Mode_Lossy;
+Compression_Ratio;Raporti i kompresimit
+Conductor;Dirigjenti
+Container and general information;Mbajtësi dhe info në përgjithësi
+ContentType;Lloji i përmbajtjes
+CoProducer;Koproducent
+Copyright;Të drejtat e autorit
+CostumeDesigner;Modeluesi i kostumit
+Count;Numërimi
+Country;Vendi
+Cover;Cover-i
+Cover_Datas;Të dhënat e cover-it
+Cover_Description;Përshkrimi i cover-it
+Cover_Mime;MIME i cover-it
+Cover_Type;Lloji i cover-it
+Cropped;Dimensionet e prerjes
+Custom;Me porosi
+Customize;Porosit
+Date;Data
+Debug;Debug
+Decimal point;Pika dhjetore
+Delay;Vonesa
+Delay_Source;
+Delay_Source_Container;
+Delay_Source_Stream;
+Delete;Fshij
+Description;Përshkrimi
+Digitized_Date;Data e shifruar
+Dimensions;Dimensione
+Director;Regjisori
+DirectorOfPhotography;Regjisori i fotografisë
+DisplayAspectRatio;Raporti i aspektit në ekran
+DisplayAspectRatio_Original;Raporti origjinal i aspektit në ekran
+DistributedBy;Shpërndarë nga
+Donate;Jep kontribut
+DotsPerInch;Pika për inç
+Duration;Kohëzgjatja
+Duration_End;Koha e përfundimit
+Duration_Start;Koha e nisjes
+Edit;Edito
+EditedBy;Edituar nga
+EMail;Posta-e
+Encoded_Application;Aplikimi i shkrimit
+Encoded_Date;Data e kodimit
+Encoded_Library;Libraria e shkrimit
+Encoded_Library_Settings;Vendosjet e kodimit
+Encoded_Original;Origjinal
+EncodedBy;Koduar nga
+EPG_Positions;Pozicionet EPG (të brendshme)
+Error_File;Gabim gjatë leximit të skedës
+ExecutiveProducer;Producenti ekzekutiv
+Exit;Dalje
+Exit_Hint;Mbyll Programin
+Export;Eksporto
+Export_Hint;Eksporto në format të porositur
+Extensions;Siglat e zakonshme
+Family;Familja
+Fax;Faks
+File;Skedë
+File size;Masa e skedës
+File_Append;Bashkangjit te skeda ekzistuese (Kujdes : duhen pasur të njëjtët parametra)
+File_Created_Date;Data e krijimit të skedës
+File_Created_Date_Local;Data e krijimit të skedës (lokale)
+File_Hint;Studio një skedë multimediatike
+File_Modified_Date;Modifikimi i fundit i skedës
+File_Modified_Date_Local;Modifikimi i fundit i skedës
+FileExtension;Sigla e skedës
+FileName;Emri i skedës
+FileSize;Masa e skedës
+Folder;Dosje
+Folder (R);Dosje (R)
+Folder (R)_Hint;Studio një dosje (me gjithë dosjet si rekursive)
+Folder (Recursively);Dosje (Rekursive)
+Folder_Hint;Studio një dosje
+FolderName;Emri i dosjes
+Format;Formati
+Format_Commercial;
+Format_Commercial_IfAny;
+Format_Description;Përshkrimi i formatit
+Format_Info;Detajet e formatit
+Format_Profile;Profili i formatit
+Format_Settings;Vendosjet e formatit
+Format_Settings_PacketBitStream;Vendosjet e formatit, Packet bitstream
+Format_Settings_BVOP;Vendosjet e formatit, BVOP
+Format_Settings_QPel;Vendosjet e formatit, QPel
+Format_Settings_GMC;Vendosjet e formatit, GMC
+Format_Settings_Matrix;Vendosjet e formatit, Matrix
+Format_Settings_Matrix_Custom;Me porosi
+Format_Settings_Matrix_Default;Tipike
+Format_Settings_Floor;Vendosjet e formatit, Floor
+Format_Settings_CABAC;Vendosjet e formatit, CABAC
+Format_Settings_Firm;Vendosjet e formatit, Firm
+Format_Settings_Endianness;Vendosjet e formatit, Endianness
+Format_Settings_RefFrames;Vendosjet e formatit, ReFrames
+Format_Settings_Sign;Vendosjet e formatit, Sign
+Format_Settings_Law;Vendosjet e formatit, Law
+Format_Settings_ITU;Vendosjet e formatit, ITU
+Format_Settings_SBR;Vendosjet e formatit, SBR
+Format_Settings_PS;Vendosjet e formatit, PS
+Format_Settings_Pulldown;Vendosjet e formatit, Pulldown
+Format_Settings_Mode;Mënyra
+Format_Settings_FrameMode;Mënyra e Kuadrit
+Format_Settings_Emphasis;Emfaza
+Format_Settings_ModeExtension;
+Format_Settings_GOP;
+Format_Version;Versioni i formatit
+Format_Url;Lidhësi në rrjetë i formatit
+FrameCount;Numri i kuadrove
+FrameRate;Raporti i kuadrit
+FrameRate_Mode;Mënyra e raportit të kuadrit
+FrameRate_Mode_CFR;Konstant
+FrameRate_Mode_VFR;Variabël
+FrameRate_Minimum;Raporti minimal i kuadrit
+FrameRate_Nominal;Raporti nominal i kuadrit
+FrameRate_Maximum;Raporti maksimal i kuadrit
+FrameRate_Original;Raporti origjinal i kuadrit
+General;Përgjithësi
+Genre;Zhanri
+Genre_000;Blues
+Genre_001;Classic Rock
+Genre_002;Country
+Genre_003;Dance
+Genre_004;Disco
+Genre_005;Funk
+Genre_006;Grunge
+Genre_007;Hip-Hop
+Genre_008;Jazz
+Genre_009;Metal
+Genre_010;New Age
+Genre_011;Oldies
+Genre_012;Other
+Genre_013;Pop
+Genre_014;R&B
+Genre_015;Rap
+Genre_016;Reggae
+Genre_017;Rock
+Genre_018;Techno
+Genre_019;Industrial
+Genre_020;Alternative
+Genre_021;Ska
+Genre_022;Death Metal
+Genre_023;Pranks
+Genre_024;Soundtrack
+Genre_025;Euro-Techno
+Genre_026;Ambient
+Genre_027;Trip-Hop
+Genre_028;Vocal
+Genre_029;Jazz+Funk
+Genre_030;Fusion
+Genre_031;Trance
+Genre_032;Classical
+Genre_033;Instrumental
+Genre_034;Acid
+Genre_035;House
+Genre_036;Game
+Genre_037;Sound Clip
+Genre_038;Gospel
+Genre_039;Noise
+Genre_040;AlternRock
+Genre_041;Bass
+Genre_042;Soul
+Genre_043;Punk
+Genre_044;Space
+Genre_045;Meditative
+Genre_046;Instrumental Pop
+Genre_047;Instrumental Rock
+Genre_048;Ethnic
+Genre_049;Gothic
+Genre_050;Darkwave
+Genre_051;Techno-Industrial
+Genre_052;Electronic
+Genre_053;Pop-Folk
+Genre_054;Eurodance
+Genre_055;Dream
+Genre_056;Southern Rock
+Genre_057;Comedy
+Genre_058;Cult
+Genre_059;Gangsta
+Genre_060;Top 40
+Genre_061;Christian Rap
+Genre_062;Pop/Funk
+Genre_063;Jungle
+Genre_064;Native American
+Genre_065;Cabaret
+Genre_066;New Wave
+Genre_067;Psychadelic
+Genre_068;Rave
+Genre_069;Showtunes
+Genre_070;Trailer
+Genre_071;Lo-Fi
+Genre_072;Tribal
+Genre_073;Acid Punk
+Genre_074;Acid Jazz
+Genre_075;Polka
+Genre_076;Retro
+Genre_077;Musical
+Genre_078;Rock & Roll
+Genre_079;Hard Rock
+Genre_080;Folk
+Genre_081;Folk-Rock
+Genre_082;National Folk
+Genre_083;Swing
+Genre_084;Fast Fusion
+Genre_085;Bebob
+Genre_086;Latin
+Genre_087;Revival
+Genre_088;Celtic
+Genre_089;Bluegrass
+Genre_090;Avantgarde
+Genre_091;Gothic Rock
+Genre_092;Progressive Rock
+Genre_093;Psychedelic Rock
+Genre_094;Symphonic Rock
+Genre_095;Slow Rock
+Genre_096;Big Band
+Genre_097;Chorus
+Genre_098;Easy Listening
+Genre_099;Acoustic
+Genre_100;Humour
+Genre_101;Speech
+Genre_102;Chanson
+Genre_103;Opera
+Genre_104;Chamber Music
+Genre_105;Sonata
+Genre_106;Symphony
+Genre_107;Booty Bass
+Genre_108;Primus
+Genre_109;Porn Groove
+Genre_110;Satire
+Genre_111;Slow Jam
+Genre_112;Club
+Genre_113;Tango
+Genre_114;Samba
+Genre_115;Folklore
+Genre_116;Ballad
+Genre_117;Power Ballad
+Genre_118;Rhythmic Soul
+Genre_119;Freestyle
+Genre_120;Duet
+Genre_121;Punk Rock
+Genre_122;Drum Solo
+Genre_123;A capella
+Genre_124;Euro-House
+Genre_125;Dance Hall
+Genre_126;Goa
+Genre_127;Drum & Bass
+Genre_128;Club-House
+Genre_129;Hardcore
+Genre_130;Terror
+Genre_131;Indie
+Genre_132;Britpop
+Genre_133;Negerpunk
+Genre_134;Polsk Punk
+Genre_135;Beat
+Genre_136;Christian Gangsta Rap
+Genre_137;Heavy Metal
+Genre_138;Black Metal
+Genre_139;Crossover
+Genre_140;Contemporary Christian
+Genre_141;Christian Rock 
+Genre_142;Merengue
+Genre_143;Salsa
+Genre_144;Trash Metal
+Genre_145;Anime
+Genre_146;JPop
+Genre_147;Synthpop
+Go to WebSite;Shko te trualli në rrjetë
+Grouping;
+h;h
+Header file;Krijo një kokë skede
+Height;Lartësia
+Height_Original;
+Help;Ndihmë
+Hint;Këshillë
+How many audio streams?;Sa rryma të audios?
+How many chapters streams?;Sa rryma të kapitujve?
+How many text streams?;Sa rryma të tekstit?
+How many video streams?;Sa rryma të videos?
+HTML;HTML
+ID;ID
+Image;Imazh
+Image stream(s);Rrymat e imazhit
+Image_Codec_List;Kodekët e imazhit
+ImageCount;Numri i rrymave të imazhit
+Info;Info
+Instruments;Instrumenti
+Interlacement;Gërshetimi
+Interlaced_Interlaced;Gërshetohet
+Interlaced_TFF;Më Parë Fusha Sipër
+Interlaced_BFF;Më Parë Fusha Poshtë
+Interlaced_PPF;Progresiv
+Interlaced_Progressive;Progresiv
+Interleaved;
+Interleave_Duration;Gërshetimi, kohëzgjatja
+Interleave_Preload;Gërshetimi, kohëzgjatja para hapjes
+Interleave_VideoFrames;Gërshetimi, kohëzgjatja
+InternetMediaType;
+IRCA;IRCA
+ISBN;ISBN
+ISRC;ISRC
+Keywords;Fjalët kyçe
+Known codecs;Kodekët e njohur
+Known formats;Formatet e njohura
+Known parameters;Parametrat e njohur
+Label;Etiketa
+Language;Gjuha
+Language_More;Gjuha, më tepër info
+Language_aa;Afar
+Language_ab;Abkhazian
+Language_ae;Avestan
+Language_af;Afrikaans
+Language_ak;Akan
+Language_am;Amharic
+Language_an;Aragonese
+Language_ar;Arabisht
+Language_as;Assamese
+Language_av;Avaric
+Language_ay;Aymara
+Language_az;Azerbaijani
+Language_ba;Bashkir
+Language_be;Belarusian
+Language_bg;Bullgarisht
+Language_bh;Bihari
+Language_bi;Bislama
+Language_bm;Bambara
+Language_bn;Bengali
+Language_bo;Tibetan
+Language_br;Breton
+Language_bs;Bosnian
+Language_ca;Katalanisht
+Language_ce;Chechen
+Language_ch;Chamorro
+Language_co;Corsican
+Language_cr;Cree
+Language_cs;Çekisht
+Language_cu;Sllavisht
+Language_cv;Chuvash
+Language_cy;Welsh
+Language_da;Danisht
+Language_de;Gjermanisht
+Language_dv;Divehi
+Language_dz;Dzongkha
+Language_ee;Ewe
+Language_el;Greqisht
+Language_en;Anglisht
+Language_en-gb;Anglisht (Britani e Madhe)
+Language_en-us;Anglisht (Shtetet e Bashkuara)
+Language_eo;Esperanto
+Language_es;Spanjisht
+Language_et;Estonian
+Language_eu;Basque
+Language_fa;Persisht
+Language_ff;Fulah
+Language_fi;Finlandisht
+Language_fj;Fijian
+Language_fo;Faroese
+Language_fr;Frëngjisht
+Language_fy;Frisian
+Language_ga;Irlandisht
+Language_gd;Gaelic
+Language_gl;Galician
+Language_gn;Guarani
+Language_gu;Gujarati
+Language_gv;Manx
+Language_ha;Hausa
+Language_he;Hebraisht
+Language_hi;Hindi
+Language_ho;Hiri Motu
+Language_hr;Croatian
+Language_ht;Haitian
+Language_hu;Hungarisht
+Language_hy;Armenisht
+Language_hz;Herero
+Language_ia;Auxiliary Language Association
+Language_id;Indonesian
+Language_ie;Interlingue
+Language_ig;Igbo
+Language_ii;Sichuan Yi
+Language_ik;Inupiaq
+Language_Info;Infot e gjuhës
+Language_io;Ido
+Language_is;Islandisht
+Language_it;Italisht
+Language_iu;Inuktitut
+Language_ja;Japonisht
+Language_jv;Javanese
+Language_ka;Georgian
+Language_kg;Kongo
+Language_ki;Kikuyu
+Language_kj;Kuanyama
+Language_kk;Kazakh
+Language_kl;Kalaallisut
+Language_km;Khmer
+Language_kn;Kannada
+Language_ko;Korean
+Language_kr;Kanuri
+Language_ks;Kashmiri
+Language_ku;Kurdish
+Language_kv;Komi
+Language_kw;Cornish
+Language_ky;Kirghiz
+Language_la;Latinisht
+Language_lb;Luxembourgish
+Language_lg;Ganda
+Language_li;Limburgish
+Language_ln;Lingala
+Language_lo;Lao
+Language_lt;Lituanisht
+Language_lu;Luba-Katanga
+Language_lv;Letonisht
+Language_mg;Malagasy
+Language_mh;Marshallese
+Language_mi;Maori
+Language_mk;Maqedonisht
+Language_ml;Malayalam
+Language_mn;Mongolian
+Language_mo;Moldavisht
+Language_mr;Marathi
+Language_ms;Malay
+Language_mt;Maltese
+Language_mul;Shumë gjuhë
+Language_my;Burmese
+Language_na;Nauru
+Language_nb;Norwegian Bokmal
+Language_nd;Ndebele
+Language_ne;Nepali
+Language_ng;Ndonga
+Language_nl;Holandisht
+Language_nn;Norwegian Nynorsk
+Language_no;Norvegjisht
+Language_nr;Ndebele
+Language_nv;Navaho
+Language_ny;Nyanja
+Language_oc;Occitan
+Language_oj;Ojibwa
+Language_om;Oromo
+Language_or;Oriya
+Language_os;Ossetic
+Language_pa;Panjabi
+Language_pi;Pali
+Language_pl;Polonisht
+Language_ps;Pushto
+Language_pt;Portugalisht
+Language_pt-br;Portugalisht (Brazil)
+Language_qu;Quechua
+Language_rm;Raeto-Romance
+Language_rn;Rundi
+Language_ro;Rumanisht
+Language_ru;Rusisht
+Language_rw;Kinyarwanda
+Language_sa;Sanskritisht
+Language_sc;Sardinian
+Language_sd;Sindhi
+Language_se;Northern Sami
+Language_sg;Sango
+Language_si;Sinhala
+Language_sk;Sllovakisht
+Language_sl;Sllovenisht
+Language_sm;Samoan
+Language_sn;Shona
+Language_so;Somalisht
+Language_sq;Shqip
+Language_sr;Serbisht
+Language_ss;Swati
+Language_st;Sotho
+Language_su;Sundanisht
+Language_sv;Suedisht
+Language_sw;Swahili
+Language_ta;Tamil
+Language_te;Telugu
+Language_tg;Tajik
+Language_th;Thai
+Language_ti;Tigrinya
+Language_tk;Turkmen
+Language_tl;Tagalog
+Language_tn;Tswana
+Language_to;Tonga
+Language_tr;Turqisht
+Language_ts;Tsonga
+Language_tt;Tatar
+Language_tw;Twi
+Language_ty;Tahitian
+Language_ug;Uighur
+Language_uk;Ukrainian
+Language_ur;Urdu
+Language_uz;Uzbek
+Language_ve;Venda
+Language_vi;Vietnamisht
+Language_vo;Volapuk
+Language_wa;Walloon
+Language_wo;Wolof
+Language_xh;Xhosa
+Language_yi;Yiddish
+Language_yo;Yoruba
+Language_za;Zhuang
+Language_zh;Kinezisht
+Language_zh-cn;Kinezisht (Kinë)
+Language_zh-tw;Kinezisht (Tajvan)
+Language_zu;Zulu
+LawRating;Vlerësimi ligjor
+LCCN;LCCN
+Library;Libraria e muksimit
+Lightness;Dritësia
+List;Lista
+Lyrics;Fjalët
+Lyricist;Shkrimtari
+Mastered_Date;Data e masterizimit
+MasteredBy;Masterizuar nga
+matrix_coefficients;Koeficientët e matricës
+MediaInfo_About;Jep informacione shumë të detajuara për\r\nskedat multimediatike:\r\nMatroska, OGG (përfshirë OGM)\r\nMPEG1 (përfshirë VCD)\r\nMPEG2 (përfshirë DVD dhe SVCD)\r\nMPEG4 (përfshirë Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (përfshirë WMV, WMA)\r\nMicrosoft RIFF (përfshirë AVI, WAV)\r\nFormate zanore (AC3, DTS, AAC, AU, AIFF...)
+Menu;Meny
+Menu stream(s);Rrymat e menysë
+Menu_Codec_List;Kodekët e menysë
+Menu_No;Pa meny
+MenuCount;Numri i rrymave të menysë
+Menu_Hint;Mundësi të tjera
+MenuID;ID i menysë
+mn;mn
+Mood;Gjendja shpirtërore
+More;Akoma
+Movie;Emri i filmit
+ms;ms
+MSDI;MSDI
+MusicBy;Muzikë nga
+MuxingMode;Mënyra e muksimit
+MuxingMode_MoreInfo;Mënyra e muksimit, më shumë info
+MuxingMode_PackedBitstream;Rryma e bitit e paketuar
+Name;Emri
+Nationality;Kombësia
+NetworkName;Emri i rrjetit
+New;E re
+Newest version;Verifiko versionin më të ri (nevojitet lidhje me internet)
+NewVersion_Menu;Ka dalë një version i ri
+NewVersion_Question_Title;Është lëshuar një version i ri!
+NewVersion_Question_Content;Ka dalë një version i ri (v%Version%), do e shkarkoni?
+No;Jo
+Not yet;Ende jo
+NumColors;Numri i ngjyrave
+OK;OK
+One output file per input file;Një skedë output për skedë input
+Open;Hap
+OpenCandy_01;Shkarkimi i ________
+OpenCandy_02;__ % Përfunduar
+OpenCandy_03;Ndërpret lidhjen me internetin
+OpenCandy_04;Përfundon shkarkimi i ________
+OpenCandy_05;Klikoni për të instaluar ________
+OpenCandy_06;Jeni i sigurt se doni të anuloni instalimin?\r\nNëse do e shtyni instalimin për më vonë, zgjidheni 'Jo'.\r\nShënim: Mund të zgjidhni Dalje nga menyja për të ndryshuar instalimin herën tjetër që kompjuteri do të rinisë.
+OpenCandy_07;Pushon shkarkimi i ________.\r\nKlikoni mbi ikonën në brez për të rimarrë shkarkimin.
+OpenCandy_08;Ka ndodhur një gabim kritik. Do ndërpritet instalimi i _________.
+OpenCandy_09;Pusho shkarkimin
+OpenCandy_10;Anulo shkarkimin
+OpenCandy_11;Rimerr shkarkimin
+OpenCandy_12;Dalje nga Instaluesi
+OpenCandy_13;___________ - Rekomanduar nga ____________
+OpenCandy_14;Shkarkimi i _________
+OpenCandy_15;___________, softueri që është rekomanduar nga ___________, po shkarkohet me kërkesën tuaj.\r\nNe do ju tregojmë kur të jetë gati të instalohet.
+OpenCandy_16;___________ është gati të instalohet
+OpenCandy_17;___________ është shkarkuar plotësisht. Ju lutem klikoni 'Instalo' për të vijuar.
+OpenCandy_18;___________ nga ___________ e shkarkuar
+OpenCandy_19;Sponsorizuar nga OpenCandy
+OpenCandy_20;Mëso më shumë në OpenCandy.com
+OpenCandy_21;Instalo
+OpenCandy_22;Instalimi i ___________
+OpenCandy_23;Kjo do anulojë instalimin e ___________\r\nJeni i sigurt se doni të dilni?
+OpenCandy_24;Pusho
+OpenCandy_25;Shkarkimi juaj pushon. Klikoni 'Rimerr' kur të jeni gati për të vijuar.
+OpenCandy_26;Rimerr
+OpenCandy_27;Instalo Tani
+OpenCandy_28;Pusho Shkarkimin
+OpenCandy_29;Rimerr Shkarkimin
+OpenCandy_30;Anulo Instalimin
+OpenCandy_31;Ju lutem zgjidhni mundësinë e instalimit
+OpenCandy_32;Instalo ___________
+OpenCandy_33;Mos Instalo
+OpenCandy_34;Ju lutem zgjidhni një mundësi instalimi
+OpenCandy_35;______ rekomandon këtë softuer
+OpenCandy_36;Instalimi juaj aktual nuk do ndërpritet
+Options;Mundësi
+Options_Hint;Pëlqime
+Original;Origjinal
+OriginalNetworkName;Emri origjinal i rrjetit
+OriginalSourceForm;Forma origjinale e burimit
+OriginalSourceMedium;Mediumi origjinal i burimit
+Other;Tjetër
+Output;Outputi
+Output format;Formati i outputit
+OverallBitRate;Raporti i plotë i bitit
+OverallBitRate_Maximum;Raporti maksimal i plotë i bitit
+OverallBitRate_Minimum;Raporti minimal i plotë i bitit
+OverallBitRate_Mode;Mënyra e raportit të plotë të bitit
+OverallBitRate_Nominal;Raporti nominal i plotë i bitit
+Part;Pjesa
+Part_Count;Numri total
+Performer;Interpretuesi
+Period;Periudha
+Phone;Telefoni
+PixelAspectRatio;Raporti i aspektit të pikselit
+PixelAspectRatio_Original;Raporti origjinal i aspektit të pikselit
+PlayCounter;Njehsori i lojës
+Played_Count;Herët e Luajtura
+Played_First_Date;Luajtur në Fillim
+Played_Last_Date;Luajtur së Fundmi
+PlayTime;Koha e lojës
+Position;Pozicioni
+Position_Total;Totali
+Preferences;Pëlqime
+Producer;Producenti
+ProductionDesigner;Modeluesi i produksionit
+ProductionStudio;Studio e produksionit
+Publisher;Publikuesi
+Purchased_Date;Data e blerjes
+Quote character;Citimi i personazhit
+RadioStation;Stacioni i radios
+Rating;Vlerësimi
+Recorded_Date;Data e regjistrimit
+Recorded_Location;Vendndodhja e regjistrimit
+Released_Date;Data e lëshimit
+RemixedBy;Miksuar nga
+ReplayGain_Gain;Replay gain
+ReplayGain_Peak;Piku i replay gain
+Resolution;Rezolucioni
+s;s
+SamplingRate;Raporti i shëmbëllimit
+Save;Ruaj
+ScanType;Lloji i skanimit
+ScanOrder;Rendi i skanimit
+ScreenplayBy;Vënë në ekran nga
+Season;Sezoni
+see below;shih poshtë
+Send HeaderFile;Ju lutem dërgojeni këtu Kokën e skedës : http://sourceforge.net/projects/mediainfo/ (Seksioni i problemeve)
+Separator_Columns;ndarësi i kolonave
+Separator_Lines;ndarësi i rreshtave
+ServiceChannel;Numri i kanalit të shërbimit
+ServiceName;Emri i shërbimit
+ServiceProvider;Siguruesi i shërbimit
+ServiceType;Lloji i shërbimit
+Set;Vendos
+Set_Count;Vendos numërimin
+Setup;Sistemimi
+Sharpness;Mprehtësia
+Sheet;Fletë
+Sheet (Complete);Fletë (Plot)
+Shell extension;Shto në bazë (kur klikon në Explorer me të djathtën do jepet mundësia Media Info)
+Shell extension, folder;Edhe për dosjet
+Shell InfoTip;Këshilla Informuese në bazë (në Explorer, kur çon mausin mbi skedë do shfaqen info)
+Show menu;Trego menynë
+Show toolbar;Trego brezin e mjeteve
+Sort;Radhitur nga
+SamplingCount;
+SoundEngineer;Inxhinieri i zërit
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_SamplingCount;
+Source_StreamSize;
+Source_StreamSize_Encoded;
+Standard;Standardi
+Stream;Rryma
+Stream_MoreInfo;Më shumë info rreth rrymës
+StreamCount;Numri i rrymave si ky lloj
+StreamID;ID i rrymës
+StreamKind;Lloji i rrymës
+StreamKindID;Identifikuesi i rrymës
+StreamKindPos;Identifikuesi i rrymës
+StreamSize;Masa e rrymës
+StreamSize_Encoded;
+StreamSize_Proportion;Proporcioni i rrymës
+Subject;Subjekti
+SubTrack;NënKolona
+Summary;Përmbledhja
+Supported formats;Format e përkrahura
+Supported?;Përkrahet?
+Synopsis;Konspekti
+SystemId;Id
+Tagged_Application;Aplikimi i etiketimit
+Tagged_Date;Data e etiketimit
+Technician;Tekniku
+TermsOfUse;Detyrimet e përdorimit
+Text;Tekst
+Text - Custom;Tekst - Me porosi
+Text (HTML);Tekst (HTML)
+Text stream(s);Rrymat e tekstit
+Text streams;Rrymat e tekstit
+Text_Codec_List;Kodekët e tekstit
+Text_No;Pa tekst
+Text1;Rryma e parë tekst
+Text2;Rryma e dytë tekst
+Text3;Rryma e tretë tekst
+TextCount;Numri i rrymave të tekstit
+ThanksTo;Falënderime për
+Thousands separator;Ndarësi i mijësheve
+Title;Titulli
+Title_More;Titulli, më tepër info
+TimeZone;Ora lokale
+Total;Totali
+Track;Emri i kolonës
+Track_Count;Numri i kolonës
+transfer_characteristics;Karakteristikat e transferimit
+Translator;Përktheu
+Tree;Pemë
+Tree & Text;Pemë & Tekst
+UniqueID;
+Unknown;Nuk e di
+Url;URL
+Video;Video
+Video stream(s);Rryma(t) e videos
+Video_Codec_List;Kodekët e videos
+Video_Delay;Vonesa e videos
+Video_No;Pa video
+Video0_Delay;Vonesa e videos0
+Video1;Rryma e parë video
+VideoCount;Numri i rrymave të videos
+View;Pamje
+View_Hint;Ndrysho mënyrën si paraqitet informacioni
+Warning : more streams in the files;Kujdes : në skeda ka më shumë rryma
+Web;Rrjeta
+WebSite_Audio;Shko te trualli në rrjetë i kodekut për audio
+WebSite_Audio_More;Shko te trualli në rrjetë (%Url%) për të gjetur kodekun për audio
+WebSite_General;Shko te trualli në rrjetë i luajtësit për këtë skedë
+WebSite_General_More;Shko te trualli në rrjetë i luajtësit për këtë skedë
+WebSite_Text;Shko te trualli në rrjetë i kodekut për tekst
+WebSite_Text_More;Shko te trualli në rrjetë (%Url%) për të gjetur kodekun për tekst
+WebSite_Url;http://mediainfo.sourceforge.net
+WebSite_Video;Shko te trualli në rrjetë i kodekut për video
+WebSite_Video_More;Shko te trualli në rrjetë (%Url%) për të gjetur kodekun për video
+Width;Gjerësia
+Width_Original;
+WriteMe;Shkruaji autorit
+WriteToTranslator;Shkruaji përkthyesit
+Written_Date;Data e shkrimit
+Written_Location;Vendi i shkrimit
+WrittenBy;Shkruar nga
+Yes;Po
+Your system;Sistemi yt
+ZZ_Automatic_Percent;96
+ZZ_AutomaticLanguage_Percent;96
