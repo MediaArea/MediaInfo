@@ -31,6 +31,18 @@ mv libmediainfo-$devext$dash$libmediainfov-$2$6$9.$type \
 wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libmediainfo-doc$dash$libmediainfov-$2$6$9.$type"
 mv libmediainfo-doc$dash$libmediainfov-$2$6$9.$type \
  download/binary/libmediainfo0/$libmediainfov/libmediainfo-doc$dash$libmediainfov-$destversion$9.$7.$type
+
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libzen0$dash$libzenv-$3$6$9.$type"
+mv libzen0$dash$libzenv-$3$6$9.$type \
+ download/binary/libzen0/$libzenv/libzen0$dash$libzenv-$destversion$9.$7.$type
+
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libzen-$devext$dash$libzenv-$3$6$9.$type"
+mv libzen-$devext$dash$libzenv-$3$6$9.$type \
+ download/binary/libzen0/$libzenv/libzen-$devext$dash$libzenv-$destversion$9.$7.$type
+
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libzen-doc$dash$libzenv-$3$6$9.$type"
+mv libzen-doc$dash$libzenv-$3$6$9.$type \
+ download/binary/libzen0/$libzenv/libzen-doc$dash$libzenv-$destversion$9.$7.$type
 }
 
 #-----------------------------------------------------------------------
@@ -143,7 +155,7 @@ Download_Packages $1 $2 $3  x x ""           openSUSE_Tumbleweed x86_64 .x86_64
 
 mediainfov="0.7.68"
 libmediainfov="0.7.68"
-libzenv="0.4.29x"
+libzenv="0.4.29"
 destversion="1"
 
 Download_Global 308.1 313.1 246.1
