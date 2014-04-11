@@ -5401,24 +5401,22 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_glbl()
     if (Retrieve(Stream_Video, StreamPos_Last, Video_MuxingMode)==__T("MXF"))
     {
         Clear(Stream_Video, StreamPos_Last, Video_MuxingMode);
-        for (size_t Pos=0; Pos<Streams[moov_trak_tkhd_TrackID].Parsers.size(); Pos++)
-            delete Streams[moov_trak_tkhd_TrackID].Parsers[Pos];
-        Streams[moov_trak_tkhd_TrackID].Parsers.clear();
         #if defined(MEDIAINFO_MPEGV_YES)
             File_Mpegv* Parser=new File_Mpegv;
             Streams[moov_trak_tkhd_TrackID].Parsers.push_back(Parser);
-        #endif //defined(MEDIAINFO_MPEGV_YES)
 
-        //Re-init
-        if (!Streams[moov_trak_tkhd_TrackID].Parsers.empty())
-        {
+            //Re-init
             int64u Elemen_Code_Save=Element_Code;
             Element_Code=moov_trak_tkhd_TrackID; //Element_Code is use for stream identifier
-            for (size_t Pos=0; Pos<Streams[moov_trak_tkhd_TrackID].Parsers.size(); Pos++)
-                Open_Buffer_Init(Streams[moov_trak_tkhd_TrackID].Parsers[Pos]);
+            Open_Buffer_Init(Parser);
             Element_Code=Elemen_Code_Save;
             mdat_MustParse=true; //Data is in MDAT
-        }
+
+            Open_Buffer_Continue(Parser);
+        #endif //defined(MEDIAINFO_MPEGV_YES)
+
+        //TODO: demux is not done in this case (2 possibilities: MXF wrapped and it is useless, not MXF wrapped and we may need it but up to now we saw only data in this atom redundant with the raw stream data)
+        return;
     }
 
     //Demux
