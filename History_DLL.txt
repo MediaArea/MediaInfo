@@ -8,6 +8,10 @@ bug reports and feature request are here:
 https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.69, 2014-04-
+--------------
++ MPEG-TS: support of HEVC streams with stream_type of 36
+
 Version 0.7.68, 2014-04-02
 --------------
 + QuickTime: new field ScanOrder_Stored, displayed when display and Stored orders are not same (replacing ScanOrder_StoredDisplayedInverted field)
