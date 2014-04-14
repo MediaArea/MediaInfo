@@ -11,6 +11,7 @@ https://sourceforge.net/p/mediainfo/_list/tickets
 Version 0.7.69, 2014-04-
 --------------
 + MPEG-TS: support of HEVC streams with stream_type of 36
++ EBUCore 1.5: update with support of more fields and valid against final XSD
 x MOV/IMX: IMX was not detected when glbl atom is present
 
 Version 0.7.68, 2014-04-02
