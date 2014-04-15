@@ -1,6 +1,6 @@
   Language_ISO639;it
   Author_Email;dr4k0@altervista.org  - bovirus@live.it
-  Author_Name;Dr4k0 & Bovirus (v. 13.03.2012))
+  Author_Name;Dr4k0 & Bovirus (v. 0.7.68 - 04.04.2014)
   Author_OldNames;Dr4k0 & Bovirus
   Language_Name;Italiano
   Config_Text_ColumnSize;40
@@ -418,7 +418,7 @@ Genre_055;Dream
 Genre_056;Rock del Sud
 Genre_057;Commedia
 Genre_058;Cult
-Genre_059;Gangsta
+Genre_059;Rap Gangsta
 Genre_060;Top 40
 Genre_061;Rap Cristiano
 Genre_062;Pop/Funk
@@ -426,7 +426,7 @@ Genre_063;Jungle
 Genre_064;Dei Nativi Americani
 Genre_065;Cabaret
 Genre_066;New Wave
-Genre_067;Psychedelic
+Genre_067;Psichedelica
 Genre_068;Rave
 Genre_069;Showtunes
 Genre_070;Trailer
@@ -443,8 +443,8 @@ Genre_080;Folk
 Genre_081;Folk-Rock
 Genre_082;Natinal Folk
 Genre_083;Swing
-Genre_084;Fast Fusion
-Genre_085;Bebob
+Genre_084;Fast-Fusion
+Genre_085;Bebop
 Genre_086;Latin
 Genre_087;Revival
 Genre_088;Celtic
@@ -482,7 +482,7 @@ Genre_119;Freestyle
 Genre_120;Duet
 Genre_121;Punk Rock
 Genre_122;Drum Solo
-Genre_123;A capella
+Genre_123;A cappella
 Genre_124;Euro-House
 Genre_125;Dance Hall
 Genre_126;Goa
@@ -492,7 +492,7 @@ Genre_129;Hardcore
 Genre_130;Terror
 Genre_131;Indie
 Genre_132;Britpop
-Genre_133;Negerpunk
+Genre_133;Afro-punk
 Genre_134;Polsk Punk
 Genre_135;Beat
 Genre_136;Christian Gangsta Rap
@@ -503,54 +503,54 @@ Genre_140;Contemporary Christian
 Genre_141;Christian Rock 
 Genre_142;Merengue
 Genre_143;Salsa
-Genre_144;Trash Metal
+Genre_144;Thrash Metal
 Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
-Genre_148;
-Genre_149;
-Genre_150;
-Genre_151;
-Genre_152;
-Genre_153;
-Genre_154;
-Genre_155;
-Genre_156;
-Genre_157;
-Genre_158;
-Genre_159;
-Genre_160;
-Genre_161;
-Genre_162;
-Genre_163;
-Genre_164;
-Genre_165;
-Genre_166;
-Genre_167;
-Genre_168;
-Genre_169;
-Genre_170;
-Genre_171;
-Genre_172;
-Genre_173;
-Genre_174;
-Genre_175;
-Genre_176;
-Genre_177;
-Genre_178;
-Genre_179;
-Genre_180;
-Genre_181;
-Genre_182;
-Genre_183;
-Genre_184;
-Genre_185;
-Genre_186;
-Genre_187;
-Genre_188;
-Genre_189;
-Genre_190;
-Genre_191;
+Genre_148;Astratto
+Genre_149;Art Rock
+Genre_150;Baroque
+Genre_151;Bhangra
+Genre_152;Big Beat
+Genre_153;Breakbeat
+Genre_154;Chillout
+Genre_155;Downtempo
+Genre_156;Dub
+Genre_157;EBM
+Genre_158;Eclectic
+Genre_159;Electro
+Genre_160;Electroclash
+Genre_161;Emo
+Genre_162;Sperimentale
+Genre_163;Garage
+Genre_164;Globale
+Genre_165;IDM
+Genre_166;Illbient
+Genre_167;Industro-Goth
+Genre_168;Jam Band
+Genre_169;Krautrock
+Genre_170;Leftfield
+Genre_171;Lounge
+Genre_172;Math Rock
+Genre_173;New Romantic
+Genre_174;Nu-Breakz
+Genre_175;Post-Punk
+Genre_176;Post-Rock
+Genre_177;Psytrance
+Genre_178;Shoegaze
+Genre_179;Space Rock
+Genre_180;Trop Rock
+Genre_181;World Music
+Genre_182;Neo classico
+Genre_183;Audiobook
+Genre_184;Audio Theatre
+Genre_185;Neue Deutsche Welle
+Genre_186;Podcast
+Genre_187;Indie Rock
+Genre_188;G-Funk
+Genre_189;Dubstep
+Genre_190;Garage Rock
+Genre_191;Psybient
 Go to WebSite;Vai al sito internet
 Grouping;Raggruppamento
 h;o
@@ -794,7 +794,7 @@ Lyricist;Autore del testo
 Mastered_Date;Data di incisione 
 MasteredBy;Inciso da
 matrix_coefficients;Coefficienti matrici
-MediaInfo_About;Ottieni informazioni dettagliate\r\nsu file multimediali:\r\nMatroska, OGG e OGM\r\nMPEG1 (VCD)\r\nMPEG2 (DVD e SVCD)\r\nMPEG4 e Itunes M4A\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (WMV e WMA)\r\nMicrosoft RIFF (AVI e WAV)\r\nFile audio (AC3,DTS,AAC,AU,AIFF...)
+MediaInfo_About;MediaInfo fornisce un acecsso velcoe alle informazioni tecniche ed ai tag dei file audio e video.\r\nAd eccezione dell'interfaccia grafica Mac APp Store, è un sofwtare open-source, che significa che è gratuito per l'utente finale e lo sviluppatore è libero di studiare, e ,migliorare e ridistribuire il programm (licenza LGPL)
 Menu;Menu
 Menu stream(s);Flussi del menu
 Menu_Codec_List;Codec dei menu
@@ -907,14 +907,14 @@ ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replau gain peak
 Resolution;Risoluzione
 s;s
-SamplingRate;Sampling rate
+SamplingRate;Frequenza campionamento
 Save;Salva
 ScanType;Tipo scansione
-ScanType_Original;
+ScanType_Original;Tipo scansione originale
 ScanOrder;Ordine scansione
-ScanOrder_Original;
-ScanOrder_Stored;
-ScanOrder_StoredDisplayedInverted;
+ScanOrder_Original;Ordine scansione
+ScanOrder_Stored;Memorizza ordine scansione
+ScanOrder_StoredDisplayedInverted;Ordine scansione, memorizza/visualizza ordine invertito
 ScanOrder_StoreMethod;
 ScreenplayBy;Sceneggiatura
 Season;Stagione n.
@@ -983,11 +983,11 @@ ThanksTo;Ringraziamenti
 Thousands separator;Separatore delle centinaia
 Title;Titolo
 Title_More;Altre info titolo
-TimeCode;
-TimeCode_FirstFrame;
-TimeCode_Settings;
-TimeCode_Source;
-TimeStamp;
+TimeCode;Timecode
+TimeCode_FirstFrame;Timecode del primo frame
+TimeCode_Settings;Impostazioni timecode
+TimeCode_Source;Timecode sorgente
+TimeStamp;Data/ora
 TimeZone;Fuso orario
 Total;Totale
 Track;Traccia
@@ -1030,5 +1030,5 @@ Written_Location;Realizzato in
 WrittenBy;Realizzato da
 Yes;Si
 Your system;Info sul sistema
-ZZ_Automatic_Percent;94
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

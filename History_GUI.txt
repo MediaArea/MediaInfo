@@ -13,6 +13,10 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.69, 2014-04-
+--------------
++ Italian translation updated, thanks to Roberto
+
 Version 0.7.68, 2014-04-02
 --------------
 + Turkish translations updated thanks to Burak
