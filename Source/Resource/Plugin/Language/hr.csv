@@ -913,6 +913,9 @@ ScanType;Vrsta pregledavanja
 ScanType_Original;
 ScanOrder;Redoslijed pregledavanja
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;Scenarij
 Season;Razdoblje
 see below;pogledati dolje
@@ -1027,5 +1030,5 @@ Written_Location;Mjesto početka pisanja
 WrittenBy;Napisao
 Yes;Da
 Your system;Informacije o Vašem sustavu
-ZZ_Automatic_Percent;91
+ZZ_Automatic_Percent;90
 ZZ_AutomaticLanguage_Percent;95

@@ -913,6 +913,9 @@ ScanType;სკანირების ტიპი
 ScanType_Original;
 ScanOrder;Scan order
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;Screenplay by
 Season;სეზონი
 see below;see below

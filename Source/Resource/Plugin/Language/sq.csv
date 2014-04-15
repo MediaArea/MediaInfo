@@ -913,6 +913,9 @@ ScanType;Lloji i skanimit
 ScanType_Original;
 ScanOrder;Rendi i skanimit
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;Vënë në ekran nga
 Season;Sezoni
 see below;shih poshtë
@@ -1028,4 +1031,4 @@ WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
 ZZ_Automatic_Percent;91
-ZZ_AutomaticLanguage_Percent;96
+ZZ_AutomaticLanguage_Percent;95

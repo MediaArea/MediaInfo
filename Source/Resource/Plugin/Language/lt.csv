@@ -913,6 +913,9 @@ ScanType;Skenavimo tipas
 ScanType_Original;
 ScanOrder;Skenavimo tvarka
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;Ekrano rodymas
 Season;Sezonas
 see below;žiūrėti žemiau
@@ -1027,5 +1030,5 @@ Written_Location;Rašymo vieta
 WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
-ZZ_Automatic_Percent;80
+ZZ_Automatic_Percent;79
 ZZ_AutomaticLanguage_Percent;88

@@ -913,6 +913,9 @@ ScanType;Тип развёртки
 ScanType_Original;Тип развёртки в оригинале
 ScanOrder;Порядок развёртки
 ScanOrder_Original;Порядок развёртки в оригинале
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;Сценарист
 Season;Сезон
 see below;см. ниже

@@ -913,6 +913,9 @@ ScanType;掃描型態
 ScanType_Original;
 ScanOrder;掃描順序
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;編劇
 Season;季期
 see below;詳見下述

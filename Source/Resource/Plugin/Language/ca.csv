@@ -913,6 +913,9 @@ ScanType;
 ScanType_Original;
 ScanOrder;
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;posat en escena per
 Season;Estació
 see below;Mireu mes avall
@@ -1028,4 +1031,4 @@ WrittenBy;Escrit per
 Yes;Sí
 Your system;El vostre sistema
 ZZ_Automatic_Percent;78
-ZZ_AutomaticLanguage_Percent;87
+ZZ_AutomaticLanguage_Percent;86

@@ -913,6 +913,9 @@ ScanType;
 ScanType_Original;
 ScanOrder;
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;Screenplay by
 Season;Season
 see below;δείτε παρακάτω
@@ -1027,5 +1030,5 @@ Written_Location;Τοποθεσία καταγραφής
 WrittenBy;Γραμμένο από
 Yes;Ναι
 Your system;Το σύστημά σας
-ZZ_Automatic_Percent;74
+ZZ_Automatic_Percent;73
 ZZ_AutomaticLanguage_Percent;82

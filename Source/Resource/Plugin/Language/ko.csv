@@ -913,6 +913,9 @@ ScanType;스캔 방식
 ScanType_Original;
 ScanOrder;스캔 순서
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;각본
 Season;시즌
 see below;아래 참고

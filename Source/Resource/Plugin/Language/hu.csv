@@ -913,6 +913,9 @@ ScanType;Sorváltás típusa
 ScanType_Original;
 ScanOrder;Sorváltási sorrend
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;Forgatókönyvíró
 Season;Évad
 see below;lásd alant

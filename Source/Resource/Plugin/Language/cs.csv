@@ -913,6 +913,9 @@ ScanType;
 ScanType_Original;
 ScanOrder;
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;Screenplay by
 Season;Season
 see below;see below

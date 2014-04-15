@@ -913,6 +913,9 @@ ScanType;Mihaketa mota
 ScanType_Original;
 ScanOrder;Mihaketa hurrenkera
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;Gidoilaria
 Season;Denboraldia
 see below;ikusi behean

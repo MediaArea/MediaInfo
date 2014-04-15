@@ -913,6 +913,9 @@ ScanType;スキャンの種類
 ScanType_Original;
 ScanOrder;スキャンの並び
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;監督
 Season;シーズン
 see below;以下詳細
@@ -1027,5 +1030,5 @@ Written_Location;作成場所
 WrittenBy;著者
 Yes;はい
 Your system;システム情報
-ZZ_Automatic_Percent;91
+ZZ_Automatic_Percent;90
 ZZ_AutomaticLanguage_Percent;95

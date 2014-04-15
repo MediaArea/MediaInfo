@@ -913,6 +913,9 @@ ScanType;Tipo de Scan
 ScanType_Original;
 ScanOrder;Ordem do Scan
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;Roteirista
 Season;Temporada
 see below;veja abaixo

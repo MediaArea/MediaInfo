@@ -913,6 +913,9 @@ ScanType;СканиранеТип
 ScanType_Original;
 ScanOrder;СканиранеРед
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;СценарийОт
 Season;Сезон
 see below;виж долу
@@ -1027,5 +1030,5 @@ Written_Location;Написано_Локация
 WrittenBy;НаписаноОт
 Yes;Да
 Your system;Вашата система
-ZZ_Automatic_Percent;89
+ZZ_Automatic_Percent;88
 ZZ_AutomaticLanguage_Percent;96

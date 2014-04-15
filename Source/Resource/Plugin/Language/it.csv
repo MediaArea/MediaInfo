@@ -913,6 +913,9 @@ ScanType;Tipo scansione
 ScanType_Original;
 ScanOrder;Ordine scansione
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;Sceneggiatura
 Season;Stagione n.
 see below;continua...
@@ -1028,4 +1031,4 @@ WrittenBy;Realizzato da
 Yes;Si
 Your system;Info sul sistema
 ZZ_Automatic_Percent;94
-ZZ_AutomaticLanguage_Percent;99
+ZZ_AutomaticLanguage_Percent;98

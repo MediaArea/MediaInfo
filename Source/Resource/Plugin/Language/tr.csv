@@ -913,6 +913,9 @@ ScanType;Tarama türü
 ScanType_Original;Orijinal tarama türü
 ScanOrder;Tarama sırası
 ScanOrder_Original;Orijinal tarama sırası
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;Senaryo
 Season;Sezon
 see below;aşağı bakın
@@ -1027,5 +1030,5 @@ Written_Location;Yazıldığı yer
 WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

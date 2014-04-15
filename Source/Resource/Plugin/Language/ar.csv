@@ -913,6 +913,9 @@ ScanType;تفحص نوع
 ScanType_Original;
 ScanOrder;ترتيب التفحص
 ScanOrder_Original;
+ScanOrder_Stored;Ordre stocké de balayage
+ScanOrder_StoredDisplayedInverted;Ordre de balayage invversé entre affiché/stocké
+ScanOrder_StoreMethod;
 ScreenplayBy;سيناري
 Season;الموسم
 see below;انظر أدناه

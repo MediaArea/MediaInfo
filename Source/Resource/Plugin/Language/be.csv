@@ -913,6 +913,9 @@ ScanType;Тып разгорткі
 ScanType_Original;
 ScanOrder;Парадак разгорткі
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;Сцэнарыст
 Season;Сезон
 see below;гл. ніжэй
@@ -1027,5 +1030,5 @@ Written_Location;Месца напісання
 WrittenBy;Напісаў
 Yes;Так
 Your system;Ваша сістэма
-ZZ_Automatic_Percent;93
+ZZ_Automatic_Percent;92
 ZZ_AutomaticLanguage_Percent;97

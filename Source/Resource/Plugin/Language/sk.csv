@@ -913,6 +913,9 @@ ScanType;
 ScanType_Original;
 ScanOrder;
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;Screenplay by
 Season;Season
 see below;pozri nižšie
@@ -1028,4 +1031,4 @@ WrittenBy;Napísal
 Yes;Áno
 Your system;Váš systém
 ZZ_Automatic_Percent;80
-ZZ_AutomaticLanguage_Percent;87
+ZZ_AutomaticLanguage_Percent;86

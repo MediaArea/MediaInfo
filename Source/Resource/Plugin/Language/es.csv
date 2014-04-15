@@ -913,6 +913,9 @@ ScanType;Tipo de exploración
 ScanType_Original;
 ScanOrder;Orden de la exploración
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;Guión por
 Season;Sesión
 see below;Ver más abajo
@@ -1028,4 +1031,4 @@ WrittenBy;Escrito por
 Yes;Si
 Your system;Tu sistema
 ZZ_Automatic_Percent;75
-ZZ_AutomaticLanguage_Percent;94
+ZZ_AutomaticLanguage_Percent;93

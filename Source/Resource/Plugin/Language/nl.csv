@@ -913,6 +913,9 @@ ScanType;Scansoort
 ScanType_Original;
 ScanOrder;Scanvolgorde
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;Draaiboek door
 Season;Seizoen
 see below;zie onder
@@ -1027,5 +1030,5 @@ Written_Location;Locatie van schrijven
 WrittenBy;Geschreven door
 Yes;Ja
 Your system;Uw systeem
-ZZ_Automatic_Percent;90
+ZZ_Automatic_Percent;89
 ZZ_AutomaticLanguage_Percent;94

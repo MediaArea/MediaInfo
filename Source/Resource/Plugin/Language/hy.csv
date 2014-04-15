@@ -913,6 +913,9 @@ ScanType;Ստուգման տեսակը
 ScanType_Original;
 ScanOrder;Ստուգման հերթը
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;Սցենարը՝
 Season;Խաղաշրջանը
 see below;նայեք ներքև

@@ -913,6 +913,9 @@ ScanType;نوع اسکن
 ScanType_Original;
 ScanOrder;دستور اسکن
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;نمايشنامه توسط
 Season;فصل
 see below;پایین را ببینید

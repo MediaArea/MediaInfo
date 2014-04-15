@@ -913,6 +913,9 @@ ScanType;Tipo de scan
 ScanType_Original;Tipo original de scan
 ScanOrder;Ordem do scan
 ScanOrder_Original;Ordem original de scan
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;Roteirista
 Season;Temporada
 see below;ver abaixo
@@ -1027,5 +1030,5 @@ Written_Location;Local da escrita
 WrittenBy;Escrito por
 Yes;Sim
 Your system;O seu sistema
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

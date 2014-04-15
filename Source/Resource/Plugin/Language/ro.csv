@@ -913,6 +913,9 @@ ScanType;
 ScanType_Original;
 ScanOrder;
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;Scenariu de
 Season;Sezon
 see below;vezi mai jos

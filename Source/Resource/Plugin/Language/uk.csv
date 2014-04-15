@@ -913,6 +913,9 @@ ScanType;Тип сканування
 ScanType_Original;
 ScanOrder;Послідовність сканування
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;Сценарій
 Season;Сезон
 see below;див. нижче
@@ -1027,5 +1030,5 @@ Written_Location;Місце запису
 WrittenBy;Записано
 Yes;Так
 Your system;Ваша система
-ZZ_Automatic_Percent;92
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;91
+ZZ_AutomaticLanguage_Percent;98

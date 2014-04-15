@@ -913,6 +913,9 @@ ScanType;扫描方式
 ScanType_Original;
 ScanOrder;扫描顺序
 ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
 ScreenplayBy;编剧
 Season;季
 see below;请看下面列出的内容
