@@ -911,10 +911,12 @@ SamplingRate;Sampling rate
 Save;Save
 ScanType;Scan type
 ScanType_Original;Original scan type
+ScanType_StoreMethod;Scan type, store method
 ScanOrder;Scan order
+ScanOrder_Original;Original scan order
 ScanOrder_Stored;Stored scan order
 ScanOrder_StoredDisplayedInverted;Scan order, stored/displayed order inverted
-ScanOrder_Original;Original scan order
+ScanOrder_StoreMethod;Scan order, store method
 ScreenplayBy;Screenplay by
 Season;Season
 see below;see below
@@ -946,6 +948,10 @@ Source_SamplingCount;Source sample count
 Source_StreamSize;Source stream size
 Source_StreamSize_Encoded;Source encoded stream size
 Standard;Standard
+StoreMethod_InterleavedFields;Interleaved fields
+StoreMethod_SeparatedFields;Separated fields
+StoreMethod_SeparatedFields_1;Separated fields (1 fields per block)
+StoreMethod_SeparatedFields_2;Separated fields (2 fields per block)
 Stream;Stream
 Stream_MoreInfo;More information about the stream
 StreamCount;Count of stream of this kind

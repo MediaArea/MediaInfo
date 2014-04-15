@@ -5375,6 +5375,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_fiel()
                                         break;
                             default  :  ;
                         }
+                        // Priorizing https://developer.apple.com/library/mac/technotes/tn2162/_index.html#//apple_ref/doc/uid/DTS40013070-CH1-TNTAG10-THE__FIEL__IMAGEDESCRIPTION_EXTENSION__FIELD_FRAME_INFORMATION
+                        /*
                         switch(detail)
                         {
                             case  9 :   // B is displayed earliest, T is stored first in the file.
@@ -5383,6 +5385,21 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_fiel()
                                         break;
                             default  :  ;
                         }
+                        */
+                        switch (detail)
+                        {
+                            case  1  :  // Separated fields, TFF
+                            case  6 :   // Separated fields, BFF
+                                        Fill(Stream_Video, StreamPos_Last, Video_ScanType_StoreMethod_FieldsPerBlock, 2, 10, true);
+                                        Fill(Stream_Video, StreamPos_Last, Video_ScanType_StoreMethod, "SeparatedFields", Unlimited, true, true);
+                                        break;
+                            case  9  :  // Interleaved fields, TFF
+                            case 14 :   // Interleaved fields, BFF
+                                        Fill(Stream_Video, StreamPos_Last, Video_ScanType_StoreMethod, "InterleavedFields", Unlimited, true, true);
+                                        break;
+                            default  :  ;
+                        }
+
                         #ifdef MEDIAINFO_JPEG_YES
                             if (Retrieve(Stream_Video, StreamPos_Last, Video_Format)==__T("JPEG") && Streams[moov_trak_tkhd_TrackID].Parsers.size()==1)
                                 ((File_Jpeg*)Streams[moov_trak_tkhd_TrackID].Parsers[0])->Interlaced=true;

@@ -166,6 +166,9 @@ ScanType;;;N YT;;;
 ScanType/String;;;Y NT;;;
 ScanType_Original;;;N YT;;;
 ScanType_Original/String;;;Y NT;;;
+ScanType_StoreMethod;;;N YT;;;;Separated fields or Interleaved fields
+ScanType_StoreMethod_FieldsPerBlock;;;N YT;;;;Count of fields per container block
+ScanType_StoreMethod/String;;;Y NT;;;;Separated fields or Interleaved fields
 ScanOrder;;;N YT;;;;
 ScanOrder/String;;;Y NT;;;;
 ScanOrder_Stored;;;N YT;;;;In case the stored order is not same as the display order
