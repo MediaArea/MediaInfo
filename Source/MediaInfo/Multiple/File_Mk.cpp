@@ -81,6 +81,9 @@
 #endif //MEDIAINFO_EVENTS
 #include <cstring>
 #include <algorithm>
+#if MEDIAINFO_DEMUX
+    #include "base64.h"
+#endif //MEDIAINFO_DEMUX
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -1600,7 +1603,13 @@ void File_Mk::Segment_Cluster_BlockGroup_Block()
                         }
 
                         //Parsing
-                        Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
+                        #if MEDIAINFO_DEMUX
+                            int8u Demux_Level_old=Demux_Level;
+                            if (Stream[TrackNumber].Parser && Stream[TrackNumber].Parser->Demux_Level==2)
+                                Demux_Level=4;
+                            Demux(Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset), ContentType_MainStream);
+                            Demux_Level=Demux_Level_old;
+                        #endif //MEDIAINFO_DEMUX
                         Open_Buffer_Continue(Stream[TrackNumber].Parser, (size_t)Laces[Pos]);
                         if (Stream[TrackNumber].Parser->Status[IsFilled]
                          || Stream[TrackNumber].Parser->Status[IsFinished]
@@ -2422,6 +2431,30 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate()
             Skip_XX(Element_Size,                 "Unknown");
         return;
     }
+
+    #if MEDIAINFO_DEMUX
+        switch (Config->Demux_InitData_Get())
+        {
+            case 0 :    //In demux event
+                        {
+                        Demux_Level=2; //Container
+                        int64u Element_Code_Old=Element_Code;
+                        Element_Code=TrackNumber;
+                        Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_Header);
+                        Element_Code=Element_Code_Old;
+                        }
+                        break;
+            case 1 :    //In field
+                        {
+                        std::string Data_Raw((const char*)(Buffer+Buffer_Offset), (size_t)Element_Size);
+                        std::string Data_Base64(Base64::encode(Data_Raw));
+                        Fill(StreamKind_Last, StreamPos_Last, "Demux_InitBytes", Data_Base64);
+                        (*Stream_More)[StreamKind_Last][StreamPos_Last](Ztring().From_Local("Demux_InitBytes"), Info_Options)=__T("N NT");
+                        }
+                        break;
+            default :   ;
+        }
+    #endif // MEDIAINFO_DEMUX
 
     //Parsing
     Open_Buffer_Continue(Stream[TrackNumber].Parser);
@@ -3330,6 +3363,13 @@ void File_Mk::CodecID_Manage()
             ((File_Hevc*)Stream[TrackNumber].Parser)->MustParse_VPS_SPS_PPS=true;
             ((File_Hevc*)Stream[TrackNumber].Parser)->MustParse_VPS_SPS_PPS_FromMatroska=true;
             ((File_Hevc*)Stream[TrackNumber].Parser)->SizedBlocks=true;
+            #if MEDIAINFO_DEMUX
+                if (Config->Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10_Get())
+                {
+                    Stream[TrackNumber].Parser->Demux_Level=2; //Container
+                    Stream[TrackNumber].Parser->Demux_UnpacketizeContainer=true;
+                }
+            #endif //MEDIAINFO_DEMUX
         }
     }
     #endif
@@ -3482,6 +3522,7 @@ void File_Mk::CodecID_Manage()
         ((File_Rm*)Stream[TrackNumber].Parser)->FromMKV_StreamType=Stream_Audio;
     }
     #endif
+    Element_Code=TrackNumber;
     Open_Buffer_Init(Stream[TrackNumber].Parser);
 
     CodecID.clear();
