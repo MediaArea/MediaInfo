@@ -401,9 +401,9 @@ void File_Mk::Streams_Finish()
     for (size_t Pos=0; Pos<AttachedFiles.size(); Pos++)
     {
         if (Ztring(AttachedFiles[Pos]).MakeLowerCase().find(__T("cover"))==string::npos)
-            Fill(Stream_General, 0, "Attachment", AttachedFiles[Pos]);
+            Fill(Stream_General, 0, "Attachment", __T("Yes"));
         else
-            Fill(Stream_General, 0, "Cover", AttachedFiles[Pos]);
+            Fill(Stream_General, 0, "Cover", __T("Yes"));
     }
 
     //Purge what is not needed anymore
@@ -1117,12 +1117,7 @@ void File_Mk::Segment_Attachements_AttachedFile_FileDescription()
     Element_Name("FileDescription");
 
     //Parsing
-    Ztring Data=Local_Get();
-
-    FILLING_BEGIN();
-        if (!Data.empty())
-            AttachedFiles[AttachedFiles.size()-1]=Data;
-    FILLING_END();
+    Local_Info();
 }
 
 //---------------------------------------------------------------------------
@@ -1131,7 +1126,12 @@ void File_Mk::Segment_Attachements_AttachedFile_FileName()
     Element_Name("FileName");
 
     //Parsing
-    UTF8_Info();
+    Ztring Data=UTF8_Get();
+    
+    FILLING_BEGIN();
+        if (!Data.empty())
+            AttachedFiles[AttachedFiles.size()-1]=Data;
+    FILLING_END();
 }
 
 //---------------------------------------------------------------------------
