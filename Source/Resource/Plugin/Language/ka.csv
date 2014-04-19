@@ -911,6 +911,7 @@ SamplingRate;Sampling rate
 Save;დამახსოვრება
 ScanType;სკანირების ტიპი
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;Scan order
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;სტანდარტი
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;ნაკადი
 Stream_MoreInfo;უფრო მეტი ინფორმაცია ნაკადზე
 StreamCount;ამ ნაკადის სახეობის რაოდენობა
@@ -1030,5 +1035,5 @@ Written_Location;დაწერის ადგილი
 WrittenBy;დაწერილია
 Yes;დიახ
 Your system;თქვენი სისტემა
-ZZ_Automatic_Percent;93
+ZZ_Automatic_Percent;92
 ZZ_AutomaticLanguage_Percent;97

@@ -911,6 +911,7 @@ SamplingRate;نرخ نمونه
 Save;ذخیره
 ScanType;نوع اسکن
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;دستور اسکن
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;استاندارد
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;استریم
 Stream_MoreInfo;اطلاعات بیشتر درمورد استریم
 StreamCount;تعداد این نوع استریم
@@ -1030,5 +1035,5 @@ Written_Location;مکان نوشته
 WrittenBy;نوشته شده توسط
 Yes;بلی
 Your system;سیستم شما
-ZZ_Automatic_Percent;91
-ZZ_AutomaticLanguage_Percent;95
+ZZ_Automatic_Percent;90
+ZZ_AutomaticLanguage_Percent;94

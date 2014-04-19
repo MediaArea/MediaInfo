@@ -911,6 +911,7 @@ SamplingRate;Частота дискретизації
 Save;Зберегти
 ScanType;Тип сканування
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;Послідовність сканування
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;Кількість семплів вихідного мат
 Source_StreamSize;Розмір потоку вихідного матеріалу
 Source_StreamSize_Encoded;Розмір кодованого потоку вихідного матеріалу
 Standard;Стандарт
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;Потік
 Stream_MoreInfo;Більше інформації про потік
 StreamCount;Кількість потоків

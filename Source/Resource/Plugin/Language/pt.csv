@@ -911,6 +911,7 @@ SamplingRate;Taxa de amostragem
 Save;Guardar
 ScanType;Tipo de scan
 ScanType_Original;Tipo original de scan
+ScanType_StoreMethod;
 ScanOrder;Ordem do scan
 ScanOrder_Original;Ordem original de scan
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;Número fonte de amostra
 Source_StreamSize;Tamanho fonte de faixa
 Source_StreamSize_Encoded;Tamanho fonte de faixa codificada
 Standard;Padrão
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;Faixa
 Stream_MoreInfo;Mais informação sobre a faixa
 StreamCount;Número de faixas do deste tipo

@@ -911,6 +911,7 @@ SamplingRate;Laginketa neurria
 Save;Gorde
 ScanType;Mihaketa mota
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;Mihaketa hurrenkera
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;Iturburu lagin zenbatekoa
 Source_StreamSize;Iturburu jario neurria
 Source_StreamSize_Encoded;Iturburu kodeaketa jario neurria
 Standard;Estandarra
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;Jarioa
 Stream_MoreInfo;Jarioari buruzko argibide gehiago
 StreamCount;Mota honetako jario zenbatekoa
@@ -1030,5 +1035,5 @@ Written_Location;Idazte helbidea
 WrittenBy;Idazlea
 Yes;Bai
 Your system;Zure sistema
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

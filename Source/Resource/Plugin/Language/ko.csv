@@ -911,6 +911,7 @@ SamplingRate;샘플링레이트
 Save;저장
 ScanType;스캔 방식
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;스캔 순서
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;표준
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;스트림
 Stream_MoreInfo;이 스트림에 대한 자세한 정보
 StreamCount;이 종류의 스트림 개수
@@ -1030,5 +1035,5 @@ Written_Location;제작 장소
 WrittenBy;제작자
 Yes;예
 Your system;이 시스템
-ZZ_Automatic_Percent;91
-ZZ_AutomaticLanguage_Percent;95
+ZZ_Automatic_Percent;90
+ZZ_AutomaticLanguage_Percent;94

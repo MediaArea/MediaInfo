@@ -911,6 +911,7 @@ SamplingRate;Samplerate
 Save;Opslaan
 ScanType;Scansoort
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;Scanvolgorde
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;Standaard
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;Stroom
 Stream_MoreInfo;Meer informatie over de stroom
 StreamCount;Telling van dit soort stromen
@@ -1031,4 +1036,4 @@ WrittenBy;Geschreven door
 Yes;Ja
 Your system;Uw systeem
 ZZ_Automatic_Percent;89
-ZZ_AutomaticLanguage_Percent;94
+ZZ_AutomaticLanguage_Percent;93

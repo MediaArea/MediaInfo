@@ -911,6 +911,7 @@ SamplingRate;Velocidad de muestreo
 Save;Guardar
 ScanType;Tipo de exploración
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;Orden de la exploración
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;Estándar
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;Pista
 Stream_MoreInfo;Más información acerca de la pista
 StreamCount;Cantidad de pistas de éste tipo
@@ -1030,5 +1035,5 @@ Written_Location;Escrito en
 WrittenBy;Escrito por
 Yes;Si
 Your system;Tu sistema
-ZZ_Automatic_Percent;75
+ZZ_Automatic_Percent;74
 ZZ_AutomaticLanguage_Percent;93

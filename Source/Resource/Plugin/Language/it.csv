@@ -911,6 +911,7 @@ SamplingRate;Frequenza campionamento
 Save;Salva
 ScanType;Tipo scansione
 ScanType_Original;Tipo scansione originale
+ScanType_StoreMethod;
 ScanOrder;Ordine scansione
 ScanOrder_Original;Ordine scansione
 ScanOrder_Stored;Memorizza ordine scansione
@@ -947,6 +948,10 @@ Source_SamplingCount;Contatore campioni sorgente
 Source_StreamSize;Dim. flusso sorgente
 Source_StreamSize_Encoded;Dim. traccia codificata sorgente
 Standard;Standard
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;Traccia
 Stream_MoreInfo;Altre informazioni sulla traccia
 StreamCount;Numero di tracce

@@ -911,6 +911,7 @@ SamplingRate;Samplingrate
 Save;Speichern
 ScanType;Scantyp
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;Scanreihenfolge
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;Standard
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;Stream
 Stream_MoreInfo;Mehr Informationen über den Stream
 StreamCount;Anzahl der Streams dieser Art
@@ -1030,5 +1035,5 @@ Written_Location;Ort des Schreibbeginns
 WrittenBy;Geschrieben von
 Yes;Ja
 Your system;Deine Systeminformationen
-ZZ_Automatic_Percent;91
-ZZ_AutomaticLanguage_Percent;95
+ZZ_Automatic_Percent;90
+ZZ_AutomaticLanguage_Percent;94

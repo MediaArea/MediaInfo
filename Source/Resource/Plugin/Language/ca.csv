@@ -911,6 +911,7 @@ SamplingRate;Freqüència de mostratge
 Save;Desa
 ScanType;
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;Estàndard
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;Pista
 Stream_MoreInfo;Més informació pel que fa a aquesta pista
 StreamCount;Comptador d'aquest tipus de pistes

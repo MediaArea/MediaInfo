@@ -911,6 +911,7 @@ SamplingRate;Raporti i shëmbëllimit
 Save;Ruaj
 ScanType;Lloji i skanimit
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;Rendi i skanimit
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;Standardi
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;Rryma
 Stream_MoreInfo;Më shumë info rreth rrymës
 StreamCount;Numri i rrymave si ky lloj

@@ -911,6 +911,7 @@ SamplingRate;Частата
 Save;Захаваць
 ScanType;Тып разгорткі
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;Парадак разгорткі
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;Стандарт вяшчання
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;Струмень
 Stream_MoreInfo;Дадатковая інфармацыя аб струмені
 StreamCount;Коль-ць струменяў
@@ -1031,4 +1036,4 @@ WrittenBy;Напісаў
 Yes;Так
 Your system;Ваша сістэма
 ZZ_Automatic_Percent;92
-ZZ_AutomaticLanguage_Percent;97
+ZZ_AutomaticLanguage_Percent;96

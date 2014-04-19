@@ -911,6 +911,7 @@ SamplingRate;Sampling rate
 Save;Uložit
 ScanType;
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;Standard
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;Datový stream
 Stream_MoreInfo;More information about the stream
 StreamCount;Count of stream of this kind
@@ -1031,4 +1036,4 @@ WrittenBy;Napsal
 Yes;Ano
 Your system;Instalované kodeky
 ZZ_Automatic_Percent;73
-ZZ_AutomaticLanguage_Percent;82
+ZZ_AutomaticLanguage_Percent;81

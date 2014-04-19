@@ -911,6 +911,7 @@ SamplingRate;Sampling rate
 Save;Uložiť
 ScanType;
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;Štandard
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;Dátový stream
 Stream_MoreInfo;More information about the stream
 StreamCount;Count of stream of this kind

@@ -911,6 +911,7 @@ SamplingRate;サンプルレート
 Save;保存
 ScanType;スキャンの種類
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;スキャンの並び
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;標準
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;ストリーム
 Stream_MoreInfo;このストリームの詳細情報
 StreamCount;この種類のストリーム数
@@ -1031,4 +1036,4 @@ WrittenBy;著者
 Yes;はい
 Your system;システム情報
 ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;95
+ZZ_AutomaticLanguage_Percent;94

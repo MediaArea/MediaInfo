@@ -911,6 +911,7 @@ SamplingRate;取樣率
 Save;儲存
 ScanType;掃描型態
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;掃描順序
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;標準
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;串流
 Stream_MoreInfo;更多有關此串流的資訊
 StreamCount;此串流數量
@@ -1030,5 +1035,5 @@ Written_Location;撰寫地點
 WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
-ZZ_Automatic_Percent;91
+ZZ_Automatic_Percent;90
 ZZ_AutomaticLanguage_Percent;95

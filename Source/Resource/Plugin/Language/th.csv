@@ -911,6 +911,7 @@ SamplingRate;
 Save;บันทึก
 ScanType;
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;มาตรฐาน
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;สตรีม
 Stream_MoreInfo;ข้อมูลเพิ่มเติมเกี่ยวกับสตรีม
 StreamCount;จำนวนสตรีมของชนิดนี้

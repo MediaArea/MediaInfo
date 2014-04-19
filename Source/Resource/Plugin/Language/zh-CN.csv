@@ -911,6 +911,7 @@ SamplingRate;采样率
 Save;保存
 ScanType;扫描方式
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;扫描顺序
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;标准
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;流
 Stream_MoreInfo;更多信息
 StreamCount;此类型流的数量
@@ -1030,5 +1035,5 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;93
+ZZ_Automatic_Percent;92
 ZZ_AutomaticLanguage_Percent;97

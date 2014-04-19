@@ -911,6 +911,7 @@ SamplingRate;
 Save;Salveaza
 ScanType;
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;Flux
 Stream_MoreInfo;Mai multe informatii despre flux
 StreamCount;Numara fluxurile de acest tip

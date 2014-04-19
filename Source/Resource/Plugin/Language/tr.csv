@@ -911,6 +911,7 @@ SamplingRate;Örnekleme oranı
 Save;Kaydet
 ScanType;Tarama türü
 ScanType_Original;Orijinal tarama türü
+ScanType_StoreMethod;
 ScanOrder;Tarama sırası
 ScanOrder_Original;Orijinal tarama sırası
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;Kaynak örnek sayısı
 Source_StreamSize;Kaynak akış boyutu
 Source_StreamSize_Encoded;Kaynak kodlanmış akış boyutu
 Standard;Standart
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;Akış
 Stream_MoreInfo;Akış hakkında daha fazla bilgi
 StreamCount;Bu çeşidin akış sayısı

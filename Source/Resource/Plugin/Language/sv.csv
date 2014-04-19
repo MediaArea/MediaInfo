@@ -911,6 +911,7 @@ SamplingRate; Samplingstakt
 Save; Spara
 ScanType;
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream; Ström
 Stream_MoreInfo; Mer information om strömmen
 StreamCount; Antal strömmar av den här typen
@@ -1030,5 +1035,5 @@ Written_Location; Ort
 WrittenBy; Skrivet av
 Yes; Ja
 Your system; Ditt system
-ZZ_Automatic_Percent;72
+ZZ_Automatic_Percent;71
 ZZ_AutomaticLanguage_Percent;80

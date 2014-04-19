@@ -911,6 +911,7 @@ SamplingRate;Samplingsrate
 Save;Gem
 ScanType;Skantype
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;Skanorden
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;Standard
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;Strøm
 Stream_MoreInfo;Mere information om strømmen
 StreamCount;Antal sådanne strømme
@@ -1031,4 +1036,4 @@ WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
 ZZ_Automatic_Percent;85
-ZZ_AutomaticLanguage_Percent;97
+ZZ_AutomaticLanguage_Percent;96

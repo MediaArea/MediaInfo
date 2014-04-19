@@ -911,6 +911,7 @@ SamplingRate;ВъзпроизвежданеСкорост
 Save;Запази
 ScanType;СканиранеТип
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;СканиранеРед
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;Стандарт
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;Поток
 Stream_MoreInfo;Поток_ПовечеИнфо
 StreamCount;Поток_Брой
@@ -1031,4 +1036,4 @@ WrittenBy;НаписаноОт
 Yes;Да
 Your system;Вашата система
 ZZ_Automatic_Percent;88
-ZZ_AutomaticLanguage_Percent;96
+ZZ_AutomaticLanguage_Percent;95

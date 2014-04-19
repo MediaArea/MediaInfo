@@ -911,6 +911,7 @@ SamplingRate;Echantillonnage
 Save;Sauvegarder
 ScanType;Type de balayage
 ScanType_Original;Type de balayage original
+ScanType_StoreMethod;Ordre de balayage, mode d'enregistrement
 ScanOrder;Ordre de balayage
 ScanOrder_Original;Ordre original de balayage
 ScanOrder_Stored;Ordre stocké de balayage
@@ -947,6 +948,10 @@ Source_SamplingCount;Nombre d'échantillons de la source
 Source_StreamSize;Taille du flux source
 Source_StreamSize_Encoded;Taille du flux encodé source
 Standard;Norme
+StoreMethod_InterleavedFields;Trames entrelacées
+StoreMethod_SeparatedFields;Trames séparées
+StoreMethod_SeparatedFields_1;Trames séparées (1 trame par bloc)
+StoreMethod_SeparatedFields_2;Trames séparées (2 trames par bloc)
 Stream;Type de flux
 Stream_MoreInfo;Plus d'information au sujet de ce flux
 StreamCount;Nombre de pistes de ce type

@@ -911,6 +911,7 @@ SamplingRate;Ratio de mostraxe
 Save;Gardar
 ScanType;
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;Estándar
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;Pista
 Stream_MoreInfo;Máis información sobre esta pista
 StreamCount;Pistas desta clase
@@ -1030,5 +1035,5 @@ Written_Location;Escrito en:
 WrittenBy;Escrito por
 Yes;Si
 Your system;O teu sistema
-ZZ_Automatic_Percent;76
-ZZ_AutomaticLanguage_Percent;84
+ZZ_Automatic_Percent;75
+ZZ_AutomaticLanguage_Percent;83

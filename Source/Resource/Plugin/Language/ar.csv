@@ -911,6 +911,7 @@ SamplingRate;أخذ العينات
 Save;حفظ
 ScanType;تفحص نوع
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;ترتيب التفحص
 ScanOrder_Original;
 ScanOrder_Stored;Ordre stocké de balayage
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;قاعدي
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;دفق
 Stream_MoreInfo;مزيد من المعلومات حول الدفق
 StreamCount;عدد الدفق من هذا النوع

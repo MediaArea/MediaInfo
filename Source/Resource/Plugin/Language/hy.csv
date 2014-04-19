@@ -911,6 +911,7 @@ SamplingRate;Հաճախականությունը
 Save;Պահպանել
 ScanType;Ստուգման տեսակը
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;Ստուգման հերթը
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;Ստանդարտ
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;Հոսքը
 Stream_MoreInfo;Լր. տեղեկություններ հոսքի մասին
 StreamCount;Այս տեսակի հոսքերի ք-ը
@@ -1030,5 +1035,5 @@ Written_Location;Գրելու տեղը
 WrittenBy;Գրվել է՝
 Yes;Այո
 Your system;Ձեր համակարգը
-ZZ_Automatic_Percent;93
+ZZ_Automatic_Percent;92
 ZZ_AutomaticLanguage_Percent;97

@@ -911,6 +911,7 @@ SamplingRate;Atrankos tempas
 Save;Išsaugoti
 ScanType;Skenavimo tipas
 ScanType_Original;
+ScanType_StoreMethod;
 ScanOrder;Skenavimo tvarka
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -947,6 +948,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;Standartas
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;Srautas
 Stream_MoreInfo;Daugiau informacijos apie srautą
 StreamCount;Šios rūšies srautų kiekis
@@ -1031,4 +1036,4 @@ WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
 ZZ_Automatic_Percent;79
-ZZ_AutomaticLanguage_Percent;88
+ZZ_AutomaticLanguage_Percent;87
