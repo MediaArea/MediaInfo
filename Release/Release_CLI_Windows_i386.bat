@@ -13,7 +13,7 @@ mkdir MediaInfo_CLI_Windows_i386
 
 rem --- Copying : Exe ---
 xcopy ..\Project\MSVC2010\CLI\Win32\Release\MediaInfo.exe MediaInfo_CLI_Windows_i386\ /S
-xcopy ..\..\MediaInfoLib\Project\MSVC2005\DLL\Win32\Release\MediaInfo.dll MediaInfo_CLI_Windows_i386\ /S
+xcopy ..\..\MediaInfoLib\Project\MSVC2010\DLL\Win32\Release\MediaInfo.dll MediaInfo_CLI_Windows_i386\ /S
 
 rem --- Copying : Plugins ---
 xcopy ..\Source\Resource\Plugin\Custom\* MediaInfo_CLI_Windows_i386\Plugin\Custom\ /S

@@ -119,11 +119,11 @@ Section "SectionPrincipale" SEC01
     File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Release_Build\MediaInfo_GUI_x64.exe"
     File "..\..\..\MediaInfoLib\Project\MSVC2010\ShellExtension\x64\Release\MediaInfo_InfoTip.dll"
     File "..\..\..\MediaInfoLib\Project\MSVC2010\DLL\x64\Release\MediaInfo.dll"
-    File "/oname=MediaInfo_i386.dll" "..\..\..\MediaInfoLib\Project\MSVC2005\DLL\Win32\Release\MediaInfo.dll"
+    File "/oname=MediaInfo_i386.dll" "..\..\..\MediaInfoLib\Project\MSVC2010\DLL\Win32\Release\MediaInfo.dll"
   ${Else}
     File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Release_Build\MediaInfo_GUI.exe"
     File "..\..\..\MediaInfoLib\Project\MSVC2010\ShellExtension\Win32\Release\MediaInfo_InfoTip.dll"
-    File "..\..\..\MediaInfoLib\Project\MSVC2005\DLL\Win32\Release\MediaInfo.dll"
+    File "..\..\..\MediaInfoLib\Project\MSVC2010\DLL\Win32\Release\MediaInfo.dll"
   ${EndIf}
   File "/oname=History.txt" "..\..\History_GUI.txt"
   File "..\..\License.html"
