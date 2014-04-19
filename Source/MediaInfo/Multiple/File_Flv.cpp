@@ -647,8 +647,10 @@ void File_Flv::FileHeader_Parse()
         if (video_stream_Count)
         {
             Stream_Prepare(Stream_Video);
-            if (Config->Demux_ForceIds_Get())
-                Fill(Stream_Video, 0, Video_ID, 9);
+            #if MEDIAINFO_DEMUX
+                if (Config->Demux_ForceIds_Get())
+                    Fill(Stream_Video, 0, Video_ID, 9);
+            #endif //MEDIAINFO_DEMUX
             video_stream_FrameRate_Detected=false;
         }
         else
@@ -656,8 +658,10 @@ void File_Flv::FileHeader_Parse()
         if (audio_stream_Count)
         {
             Stream_Prepare(Stream_Audio);
-            if (Config->Demux_ForceIds_Get())
-                Fill(Stream_Audio, 0, Audio_ID, 8);
+            #if MEDIAINFO_DEMUX
+                if (Config->Demux_ForceIds_Get())
+                    Fill(Stream_Audio, 0, Audio_ID, 8);
+            #endif //MEDIAINFO_DEMUX
         }
 
         if (Version>1)
@@ -1256,7 +1260,9 @@ void File_Flv::audio()
     }
 
     if (codec!=10) // AAC has an header
+    {
         Demux(Buffer+Buffer_Offset+(size_t)(Element_Offset+1), (size_t)(Element_Size-Element_Offset-1), ContentType_MainStream);
+    }
 
     FILLING_BEGIN();
         if (Retrieve(Stream_Audio, 0, Audio_Format).empty())
