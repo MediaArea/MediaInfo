@@ -18,6 +18,7 @@ Version 0.7.69, 2014-04-
 + Sequences of files: optimization of the detection of sequences with 200k+ files
 + Sequences of files: File_IgnoreSequenceFilesCount option for speeding up the detection of sequences (con: no detection of the latest file in the sequence)
 + Sequences of files: File_IgnoreSequenceFileSize option for speeding up the detection of sequences (con: no detection of total size of the sequence)
++ Sequences of files: detection when there is additional characters after the numbers (e.g. "filename[000001].png")
 + MPEG-TS: detecting sequences of files
 + ADTS: detecting sequences of files
 + MediaInfoList: removing files detected as part of a sequence

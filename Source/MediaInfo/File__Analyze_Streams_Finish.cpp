@@ -110,14 +110,19 @@ void File__Analyze::TestContinuousFileNames(size_t CountOfFiles, Ztring FileExte
     bool AlreadyPresent=Config->File_Names.size()==1?true:false;
     FileName FileToTest(Config->File_Names.Read(Config->File_Names.size()-1));
     Ztring FileToTest_Name=FileToTest.Name_Get();
-    size_t FileNameToTest_Pos=FileToTest_Name.size();
+    Ztring FileToTest_Name_After=FileToTest_Name;
+    size_t FileNameToTest_End=FileToTest_Name.size();
+    while (FileNameToTest_End && !(FileToTest_Name[FileNameToTest_End-1]>=__T('0') && FileToTest_Name[FileNameToTest_End-1]<=__T('9')))
+        FileNameToTest_End--;
+    size_t FileNameToTest_Pos=FileNameToTest_End;
     while (FileNameToTest_Pos && FileToTest_Name[FileNameToTest_Pos-1]>=__T('0') && FileToTest_Name[FileNameToTest_Pos-1]<=__T('9'))
         FileNameToTest_Pos--;
-    if (FileNameToTest_Pos!=FileToTest_Name.size())
+    if (FileNameToTest_Pos!=FileToTest_Name.size() && FileNameToTest_Pos!=FileNameToTest_End)
     {
-        size_t Numbers_Size=FileToTest_Name.size()-FileNameToTest_Pos;
+        size_t Numbers_Size=FileNameToTest_End-FileNameToTest_Pos;
         int64u Pos=Ztring(FileToTest_Name.substr(FileNameToTest_Pos)).To_int64u();
         FileToTest_Name.resize(FileNameToTest_Pos);
+        FileToTest_Name_After.erase(0, FileToTest_Name.size()+Numbers_Size);
 
         /*
         for (;;)
@@ -135,7 +140,7 @@ void File__Analyze::TestContinuousFileNames(size_t CountOfFiles, Ztring FileExte
 
         //Detecting with a smarter algo (but missing frames are not detected)
         Ztring FileToTest_Name_Begin=FileToTest.Path_Get()+PathSeparator+FileToTest_Name;
-        Ztring FileToTest_Name_End=__T('.')+(FileExtension.empty()?FileToTest.Extension_Get():FileExtension);
+        Ztring FileToTest_Name_End=FileToTest_Name_After+__T('.')+(FileExtension.empty()?FileToTest.Extension_Get():FileExtension);
         int64u Pos_Base=Pos;
         int64u Pos_Add_Max=1;
         #if MEDIAINFO_ADVANCED
