@@ -16,6 +16,7 @@ Version 0.7.69, 2014-04-
 + HEVC: Better support of the different containers (including MP4/MKV/FLV)
 + #B844, Matroska: detection of covers, thanks to Max Pozdeev
 + MPEG-TS: detecting sequences of files
++ ADTS: detecting sequences of files
 x #B841, QuickTime TFF/BFF: using now Technical Note TN2162 as the reference documentation for 'fiel' atom
 x MOV/IMX: IMX was not detected when glbl atom is present
 
