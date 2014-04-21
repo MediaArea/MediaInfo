@@ -1450,7 +1450,7 @@ void File_Mpeg4::jp2c()
             Merge(MI, MI.StreamKind, 0, 0);
 
             Fill("MPEG-4");
-            if (Config->File_Names.size()>1)
+            if (Config->File_Names.size()>1 && File_Size!=(int64u)-1)
             {
                 int64u OverHead=Config->File_Sizes[0]-Element_Size;
                 Fill(Stream_Video, 0, Video_StreamSize, File_Size-Config->File_Names.size()*OverHead, 10, true);

@@ -434,7 +434,12 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
 
     //Parsing
     if (!IsSub)
-        Config->State_Set(Config->File_Size?(((float)Buffer_TotalBytes)/Config->File_Size):1);
+    {
+        if (Config->File_Size && Config->File_Size!=(int64u)-1)
+            Config->State_Set(((float)Buffer_TotalBytes)/Config->File_Size);
+        else if (Config->File_Names.size()>1)
+            Config->State_Set(((float)Config->File_Names_Pos)/Config->File_Names.size());
+    }
     if (Buffer_Size>=Buffer_MinimumSize || File_Offset+Buffer_Size==File_Size) //Parsing only if we have enough buffer
         while (Open_Buffer_Continue_Loop());
 
@@ -2776,6 +2781,14 @@ void File__Analyze::ForceFinish ()
 
     if (Status[IsAccepted])
     {
+        //Total file size
+        #if MEDIAINFO_ADVANCED
+            if (!IsSub && Config->File_IgnoreSequenceFileSize_Get() && Config->ParseSpeed>=1.0 && Config->File_Names.size()>1 && Config->File_Names_Pos+1>=Config->File_Names.size())
+            {
+                Fill (Stream_General, 0, General_FileSize, Config->File_Current_Size, 10, true);
+            }
+        #endif //MEDIAINFO_ADVANCED
+
         Fill();
         #if MEDIAINFO_DEMUX
             if (Config->Demux_EventWasSent)
@@ -3331,11 +3344,11 @@ void File__Analyze::Demux_UnpacketizeContainer_Demux (bool random_access)
 
 bool File__Analyze::Demux_UnpacketizeContainer_Test_OneFramePerFile ()
 {
-    if (!IsSub && Buffer_Size<Config->File_Sizes[Config->File_Names_Pos-1])
+    if (!IsSub && Buffer_Size<Config->File_Current_Size-Config->File_Current_Offset)
     {
         size_t* File_Buffer_Size_Hint_Pointer=Config->File_Buffer_Size_Hint_Pointer_Get();
         if (File_Buffer_Size_Hint_Pointer)
-            (*File_Buffer_Size_Hint_Pointer)=(size_t)Config->File_Sizes[Config->File_Names_Pos-1];
+            (*File_Buffer_Size_Hint_Pointer)=Config->File_Current_Size-Config->File_Current_Offset-Buffer_Size;
         return false;
     }
 
