@@ -1439,27 +1439,22 @@ void File_Mk::Segment_Cluster()
             ++Temp;
         }
 
-        //Configuring
-        std::sort(Segment_Seeks.begin(), Segment_Seeks.end());
-        Segment_Seeks_Pos=0;
+        //We must parse moov?
+        if (Stream_Count==0)
+        {
+            //Jumping
+            std::sort(Segment_Seeks.begin(), Segment_Seeks.end());
+            for (size_t Pos=0; Pos<Segment_Seeks.size(); Pos++)
+                if (Segment_Seeks[Pos]>File_Offset+Buffer_Offset+Element_Size)
+                {
+                    GoTo(Segment_Seeks[Pos]);
+                    break;
+                }
+            if (File_GoTo==(int64u)-1)
+                GoTo(Segment_Offset_End);
+            return;
+        }
     }
-
-    //We must parse cluster?
-    if (Stream_Count==0)
-    {
-        //Jumping
-        for (size_t Pos=Segment_Seeks_Pos; Pos<Segment_Seeks.size(); Pos++)
-            if (Segment_Seeks[Pos]>File_Offset+Buffer_Offset+Element_Size)
-            {
-                Segment_Seeks_Pos=Pos;
-                GoTo(Segment_Seeks[Pos]);
-                break;
-            }
-        if (File_GoTo==(int64u)-1)
-            GoTo(Segment_Offset_End);
-        return;
-    }
-
     Cluster_AlreadyParsed=true;
     Segment_Cluster_TimeCode_Value=0; //Default
 }
