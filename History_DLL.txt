@@ -22,6 +22,7 @@ Version 0.7.69, 2014-04-
 + MPEG-TS: detecting sequences of files
 + ADTS: detecting sequences of files
 + MediaInfoList: removing files detected as part of a sequence
++ Arri Raw: basic detection
 x #B841, QuickTime TFF/BFF: using now Technical Note TN2162 as the reference documentation for 'fiel' atom
 x MOV/IMX: IMX was not detected when glbl atom is present
 

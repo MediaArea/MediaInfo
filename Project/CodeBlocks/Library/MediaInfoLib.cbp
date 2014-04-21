@@ -96,6 +96,8 @@
 		<Unit filename="..\..\..\Source\MediaInfo\File__Duplicate.h" />
 		<Unit filename="..\..\..\Source\MediaInfo\File__MultipleParsing.cpp" />
 		<Unit filename="..\..\..\Source\MediaInfo\File__MultipleParsing.h" />
+		<Unit filename="..\..\..\Source\MediaInfo\Image\File_ArriRaw.cpp" />
+		<Unit filename="..\..\..\Source\MediaInfo\Image\File_ArriRaw.h" />
 		<Unit filename="..\..\..\Source\MediaInfo\Image\File_Bmp.cpp" />
 		<Unit filename="..\..\..\Source\MediaInfo\Image\File_Bmp.h" />
 		<Unit filename="..\..\..\Source\MediaInfo\Image\File_Gif.cpp" />

@@ -254,6 +254,9 @@
 
 //---------------------------------------------------------------------------
 // Image
+#if defined(MEDIAINFO_ARRIRAW_YES)
+    #include "MediaInfo/Image/File_ArriRaw.h"
+#endif
 #if defined(MEDIAINFO_BMP_YES)
     #include "MediaInfo/Image/File_Bmp.h"
 #endif
@@ -586,6 +589,9 @@ File__MultipleParsing::File__MultipleParsing()
     #endif
 
     // Image
+    #if defined(MEDIAINFO_ARRIRAW_YES)
+        Parser.push_back(new File_ArriRaw());
+    #endif
     #if defined(MEDIAINFO_BMP_YES)
         Parser.push_back(new File_Bmp());
     #endif

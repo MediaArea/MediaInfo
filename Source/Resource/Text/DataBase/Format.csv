@@ -101,6 +101,7 @@ Vorbis;;;A;;;;audio/vorbis;http://www.vorbis.com/;Lossy
 Wave;;;A;Riff;;wav;audio/vnd.wave;;
 Wave64;;;A;Riff;;w64;;;
 WavPack;;;A;Wvpk;;wv wvc;;http://www.wavpack.com;
+Arri Raw;;;I;ArriRaw;;ari;;;
 Bitmap;;;I;Bmp;;bmp;image/bmp;;Lossless
 DPX;;;I;Dpx;;dpx cin;;;Lossless
 EXR;;;I;Exr;;exr;;;Lossless

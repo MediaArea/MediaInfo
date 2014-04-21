@@ -90,6 +90,7 @@ set(mediainfo_SRCS
 	MediaInfo/Export/Export_Mpeg7.cpp
 	MediaInfo/Export/Export_PBCore.cpp
 	MediaInfo/Export/Export_reVTMD.cpp
+	MediaInfo/Image/File_ArriRaw.cpp
 	MediaInfo/Image/File_Bmp.cpp
 	MediaInfo/Image/File_Dpx.cpp
 	MediaInfo/Image/File_Exr.cpp

@@ -1012,6 +1012,10 @@
 				Name="Image"
 				>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Image\File_ArriRaw.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Image\File_Bmp.cpp"
 					>
 				</File>
@@ -1783,6 +1787,10 @@
 			<Filter
 				Name="Image"
 				>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Image\File_ArriRaw.h"
+					>
+				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Image\File_Bmp.h"
 					>

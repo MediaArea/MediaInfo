@@ -104,6 +104,7 @@ AC_ARG_ENABLE(tta,     AC_HELP_STRING([--disable-tta],     [Disable Audio - True
 AC_ARG_ENABLE(twinvq,  AC_HELP_STRING([--disable-twinvq],  [Disable Audio - TwinVQ]),                                     MediaInfoTwinVQ=$enableval,  MediaInfoTwinVQ=depend)
 AC_ARG_ENABLE(vorbis,  AC_HELP_STRING([--disable-vorbis],  [Disable Audio - Vorbis]),                                     MediaInfovorbis=$enableval,  MediaInfovorbis=depend)
 AC_ARG_ENABLE(wvpk,    AC_HELP_STRING([--disable-wvpk],    [Disable Audio - Wavepack]),                                   MediaInfoWvpk=$enableval,    MediaInfoWvpk=depend)
+AC_ARG_ENABLE(arriraw, AC_HELP_STRING([--disable-arriraw], [Disable Image - Arri Raw]),                                   MediaInfoArriRaw=$enableval, MediaInfoArriRaw=depend)
 AC_ARG_ENABLE(bmp,     AC_HELP_STRING([--disable-bmp],     [Disable Image - Bitmap]),                                     MediaInfoBmp=$enableval,     MediaInfoBmp=depend)
 AC_ARG_ENABLE(dpx,     AC_HELP_STRING([--disable-dpx],     [Disable Image - DPX]),                                        MediaInfoDpx=$enableval,     MediaInfoDpx=depend)
 AC_ARG_ENABLE(exr,     AC_HELP_STRING([--disable-exr],     [Disable Image - EXR]),                                        MediaInfoExr=$enableval,     MediaInfoExr=depend)
@@ -249,6 +250,7 @@ if test "$MediaInfoTta"     = "no";  then AC_DEFINE(MEDIAINFO_TTA_NO)     fi; if
 if test "$MediaInfoTwinVQ"  = "no";  then AC_DEFINE(MEDIAINFO_TWINVQ_NO)  fi; if test "$MediaInfoTwinVQ"  = "yes"; then AC_DEFINE(MEDIAINFO_TWINVQ_YES)  fi
 if test "$MediaInfoVorbis"  = "no";  then AC_DEFINE(MEDIAINFO_VORBIS_NO)  fi; if test "$MediaInfoVorbis"  = "yes"; then AC_DEFINE(MEDIAINFO_VORBIS_YES)  fi
 if test "$MediaInfoWvpk"    = "no";  then AC_DEFINE(MEDIAINFO_WVPK_NO)    fi; if test "$MediaInfoWvpk"    = "yes"; then AC_DEFINE(MEDIAINFO_WVPK_YES)    fi
+if test "$MediaInfoArriRaw" = "no";  then AC_DEFINE(MEDIAINFO_ARRIRAW_NO) fi; if test "$MediaInfoArriRaw" = "yes"; then AC_DEFINE(MEDIAINFO_ARRIRAW_YES) fi
 if test "$MediaInfoBmp"     = "no";  then AC_DEFINE(MEDIAINFO_BMP_NO)     fi; if test "$MediaInfoBmp"     = "yes"; then AC_DEFINE(MEDIAINFO_BMP_YES)     fi
 if test "$MediaInfoDpx"     = "no";  then AC_DEFINE(MEDIAINFO_DPX_NO)     fi; if test "$MediaInfoDpx"     = "yes"; then AC_DEFINE(MEDIAINFO_DPX_YES)     fi
 if test "$MediaInfoExr"     = "no";  then AC_DEFINE(MEDIAINFO_EXR_NO)     fi; if test "$MediaInfoExr"     = "yes"; then AC_DEFINE(MEDIAINFO_EXR_YES)     fi
@@ -817,6 +819,7 @@ Mcho "Tta    " "$MediaInfoTta"
 Mcho "TwinVQ " "$MediaInfoTwinVQ"
 Mcho "Vorbis " "$MediaInfoVorbis"
 Mcho "Wvpk   " "$MediaInfoWvpk"
+Mcho "ArriRaw" "$MediaInfoArriRaw"
 Mcho "Bmp    " "$MediaInfoBmp"
 Mcho "Dpx    " "$MediaInfoDpx"
 Mcho "Exr    " "$MediaInfoDpx"
