@@ -24,6 +24,7 @@ Version 0.7.69, 2014-04-
 + MediaInfoList: removing files detected as part of a sequence
 + Arri Raw: basic detection
 x #B841, QuickTime TFF/BFF: using now Technical Note TN2162 as the reference documentation for 'fiel' atom
+x #B811: Matroska: slow parsing of some files
 x MOV/IMX: IMX was not detected when glbl atom is present
 
 Version 0.7.68, 2014-04-02
