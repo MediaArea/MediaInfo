@@ -671,6 +671,9 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_ArriRaw.cpp">
       <Filter>Source Files\Image</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Image\File_Dds.cpp">
+      <Filter>Source Files\Image</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -1244,6 +1247,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_ArriRaw.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Dds.h">
       <Filter>Header Files\Image</Filter>
     </ClInclude>
   </ItemGroup>

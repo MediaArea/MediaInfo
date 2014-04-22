@@ -92,6 +92,7 @@ set(mediainfo_SRCS
 	MediaInfo/Export/Export_reVTMD.cpp
 	MediaInfo/Image/File_ArriRaw.cpp
 	MediaInfo/Image/File_Bmp.cpp
+	MediaInfo/Image/File_Dds.cpp
 	MediaInfo/Image/File_Dpx.cpp
 	MediaInfo/Image/File_Exr.cpp
 	MediaInfo/Image/File_Gif.cpp

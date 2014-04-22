@@ -85,6 +85,7 @@ lib@MediaInfoLib_LibName@_la_SOURCES = \
                        ../../../Source/MediaInfo/Export/Export_reVTMD.cpp \
                        ../../../Source/MediaInfo/Image/File_ArriRaw.cpp \
                        ../../../Source/MediaInfo/Image/File_Bmp.cpp \
+                       ../../../Source/MediaInfo/Image/File_Dds.cpp \
                        ../../../Source/MediaInfo/Image/File_Dpx.cpp \
                        ../../../Source/MediaInfo/Image/File_Exr.cpp \
                        ../../../Source/MediaInfo/Image/File_Gif.cpp \

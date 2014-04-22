@@ -260,6 +260,9 @@
 #if defined(MEDIAINFO_BMP_YES)
     #include "MediaInfo/Image/File_Bmp.h"
 #endif
+#if defined(MEDIAINFO_DDS_YES)
+    #include "MediaInfo/Image/File_Dds.h"
+#endif
 #if defined(MEDIAINFO_GIF_YES)
     #include "MediaInfo/Image/File_Gif.h"
 #endif
@@ -594,6 +597,9 @@ File__MultipleParsing::File__MultipleParsing()
     #endif
     #if defined(MEDIAINFO_BMP_YES)
         Parser.push_back(new File_Bmp());
+    #endif
+    #if defined(MEDIAINFO_DDS_YES)
+        Parser.push_back(new File_Dds());
     #endif
     #if defined(MEDIAINFO_GIF_YES)
         Parser.push_back(new File_Gif());

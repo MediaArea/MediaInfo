@@ -1180,6 +1180,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "WavPack;;;A;Wvpk;;wv wvc;;http://www.wavpack.com\n"
     "Arri Raw;;;I;ArriRaw;;ari;;\n"
     "Bitmap;;;I;Bmp;;bmp;image/bmp;;Lossless\n"
+    "DDS;;;I;Dds;DirectDraw Surface;dds;;\n"
     "DPX;;;I;Dpx;;dpx cin;;;Lossless\n"
     "EXR;;;I;Exr;;exr;;;Lossless\n"
     "DIB;;;I;Riff;RIFF Device Independent Bitmap;;;;Lossless\n"
