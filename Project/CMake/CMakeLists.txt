@@ -72,6 +72,7 @@ set(mediainfo_SRCS
 	MediaInfo/Audio/File_Mpc.cpp
 	MediaInfo/Audio/File_MpcSv8.cpp
 	MediaInfo/Audio/File_Mpega.cpp
+	MediaInfo/Audio/File_OpenMG.cpp
 	MediaInfo/Audio/File_Opus.cpp
 	MediaInfo/Audio/File_Pcm.cpp
 	MediaInfo/Audio/File_Ps2Audio.cpp

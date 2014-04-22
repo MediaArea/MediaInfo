@@ -95,6 +95,7 @@ AC_ARG_ENABLE(midi,    AC_HELP_STRING([--disable-midi],    [Disable Audio - MIDI
 AC_ARG_ENABLE(mpc,     AC_HELP_STRING([--disable-mpc],     [Disable Audio - Musepack format (.mpc)]),                     MediaInfoMpc=$enableval,     MediaInfoMpc=depend)
 AC_ARG_ENABLE(mpcsv8,  AC_HELP_STRING([--disable-mpc],     [Disable Audio - Musepack format SV8 (.mpc)]),                 MediaInfoMpcSv8=$enableval,  MediaInfoMpcSv8=depend)
 AC_ARG_ENABLE(mpega,   AC_HELP_STRING([--disable-mpega],   [Disable Audio - MPEG-Audio]),                                 MediaInfoMpega=$enableval,   MediaInfoMpega=depend)
+AC_ARG_ENABLE(openmf,  AC_HELP_STRING([--disable-openmg],  [Disable Audio - OpenMG (.oma)]),                              MediaInfoOpenMG=$enableval,  MediaInfoOpenMG=depend)
 AC_ARG_ENABLE(pcm,     AC_HELP_STRING([--disable-pcm],     [Disable Audio - PCM]),                                        MediaInfoPcm=$enableval,     MediaInfoPcm=depend)
 AC_ARG_ENABLE(ps2a,    AC_HELP_STRING([--disable-ps2a],    [Disable Audio - PS2 Audio]),                                  MediaInfoPs2a=$enableval,    MediaInfoPs2a=depend)
 AC_ARG_ENABLE(rkau,    AC_HELP_STRING([--disable-rkau],    [Disable Audio - RK Audio]),                                   MediaInfoRkau=$enableval,    MediaInfoRkau=depend)
@@ -242,6 +243,7 @@ if test "$MediaInfoMidi"    = "no";  then AC_DEFINE(MEDIAINFO_MIDO_NO)    fi; if
 if test "$MediaInfoMpc"     = "no";  then AC_DEFINE(MEDIAINFO_MPC_NO)     fi; if test "$MediaInfoMpc"     = "yes"; then AC_DEFINE(MEDIAINFO_MPC_YES)     fi
 if test "$MediaInfoMpcSv8"  = "no";  then AC_DEFINE(MEDIAINFO_MPCSV8_NO)  fi; if test "$MediaInfoMpcSv8"  = "yes"; then AC_DEFINE(MEDIAINFO_MPCSV8_YES)  fi
 if test "$MediaInfoMpega"   = "no";  then AC_DEFINE(MEDIAINFO_MPEGA_NO)   fi; if test "$MediaInfoMpega"   = "yes"; then AC_DEFINE(MEDIAINFO_MPEGA_YES)   fi
+if test "$MediaInfoOpenMG"  = "no";  then AC_DEFINE(MEDIAINFO_OPENMG_NO)  fi; if test "$MediaInfoOpenMG"  = "yes"; then AC_DEFINE(MEDIAINFO_OPENMG_YES)  fi
 if test "$MediaInfoPcm"     = "no";  then AC_DEFINE(MEDIAINFO_PCM_NO)     fi; if test "$MediaInfoPcm"     = "yes"; then AC_DEFINE(MEDIAINFO_PCM_YES)     fi
 if test "$MediaInfoPs2a"    = "no";  then AC_DEFINE(MEDIAINFO_PS2A_NO)    fi; if test "$MediaInfoPs2a"    = "yes"; then AC_DEFINE(MEDIAINFO_PS2A_YES)    fi
 if test "$MediaInfoRkau"    = "no";  then AC_DEFINE(MEDIAINFO_RKAU_NO)    fi; if test "$MediaInfoRkau"    = "yes"; then AC_DEFINE(MEDIAINFO_RKAU_YES)    fi
@@ -817,6 +819,7 @@ Mcho "Midi   " "$MediaInfoMidi"
 Mcho "Mpc    " "$MediaInfoMpc"
 Mcho "MpcSv8 " "$MediaInfoMpcSv8"
 Mcho "Mpega  " "$MediaInfoMpega"
+Mcho "OpenMG " "$MediaInfoOpenMG"
 Mcho "Pcm    " "$MediaInfoPcm"
 Mcho "Ps2a   " "$MediaInfoPs2a"
 Mcho "Rkau   " "$MediaInfoRkau"

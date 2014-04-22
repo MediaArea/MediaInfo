@@ -419,6 +419,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Celt.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_ChannelGrouping.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_DolbyE.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_OpenMG.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Opus.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Pcm_M2ts.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_Pcm_Vob.cpp" />
@@ -647,6 +648,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Celt.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_ChannelGrouping.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_DolbyE.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_OpenMG.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Opus.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Pcm_M2ts.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_Pcm_Vob.h" />
