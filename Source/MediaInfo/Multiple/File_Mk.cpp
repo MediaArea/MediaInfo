@@ -1439,27 +1439,22 @@ void File_Mk::Segment_Cluster()
             ++Temp;
         }
 
-        //Configuring
-        std::sort(Segment_Seeks.begin(), Segment_Seeks.end());
-        Segment_Seeks_Pos=0;
+        //We must parse moov?
+        if (Stream_Count==0)
+        {
+            //Jumping
+            std::sort(Segment_Seeks.begin(), Segment_Seeks.end());
+            for (size_t Pos=0; Pos<Segment_Seeks.size(); Pos++)
+                if (Segment_Seeks[Pos]>File_Offset+Buffer_Offset+Element_Size)
+                {
+                    GoTo(Segment_Seeks[Pos]);
+                    break;
+                }
+            if (File_GoTo==(int64u)-1)
+                GoTo(Segment_Offset_End);
+            return;
+        }
     }
-
-    //We must parse cluster?
-    if (Stream_Count==0)
-    {
-        //Jumping
-        for (size_t Pos=Segment_Seeks_Pos; Pos<Segment_Seeks.size(); Pos++)
-            if (Segment_Seeks[Pos]>File_Offset+Buffer_Offset+Element_Size)
-            {
-                Segment_Seeks_Pos=Pos;
-                GoTo(Segment_Seeks[Pos]);
-                break;
-            }
-        if (File_GoTo==(int64u)-1)
-            GoTo(Segment_Offset_End);
-        return;
-    }
-
     Cluster_AlreadyParsed=true;
     Segment_Cluster_TimeCode_Value=0; //Default
 }
@@ -2152,24 +2147,17 @@ void File_Mk::Segment_Tags_Tag_SimpleTag_TagString()
     if (Segment_Tag_SimpleTag_TagNames[0]==__T("BITSPS")) return; //Useless
     if (Segment_Tag_SimpleTag_TagNames[0]==__T("BPS")) return; //Useless
     if (Segment_Tag_SimpleTag_TagNames[0]==__T("COMPATIBLE_BRANDS")) return; //QuickTime techinical info, useless
-    if (Segment_Tag_SimpleTag_TagNames[0]==__T("COPYRIGHT")) Segment_Tag_SimpleTag_TagNames[0]=__T("Copyright");
-    if (Segment_Tag_SimpleTag_TagNames[0]==__T("CREATION_TIME")) {Segment_Tag_SimpleTag_TagNames[0]=__T("Encoded_Date"); if (TagString.size()>=12) TagString.insert(0, __T("UTC "));}
-    if (Segment_Tag_SimpleTag_TagNames[0]==__T("DATE_DIGITIZED")) {Segment_Tag_SimpleTag_TagNames[0]=__T("Mastered_Date"); if (TagString.size()>=12) TagString.insert(0, __T("UTC "));}
-    if (Segment_Tag_SimpleTag_TagNames[0]==__T("DATE_RELEASE")) {Segment_Tag_SimpleTag_TagNames[0]=__T("Released_Date"); if (TagString.size()>=12) TagString.insert(0, __T("UTC "));}
+    if (Segment_Tag_SimpleTag_TagNames[0]==__T("CREATION_TIME")) {Segment_Tag_SimpleTag_TagNames[0]=__T("Encoded_Date"); TagString.insert(0, __T("UTC "));}
+    if (Segment_Tag_SimpleTag_TagNames[0]==__T("DATE_DIGITIZED")) {Segment_Tag_SimpleTag_TagNames[0]=__T("Mastered_Date"); TagString.insert(0, __T("UTC "));}
     if (Segment_Tag_SimpleTag_TagNames[0]==__T("ENCODED_BY")) Segment_Tag_SimpleTag_TagNames[0]=__T("EncodedBy");
     if (Segment_Tag_SimpleTag_TagNames[0]==__T("ENCODER")) Segment_Tag_SimpleTag_TagNames[0]=__T("Encoded_Library");
     if (Segment_Tag_SimpleTag_TagNames[0]==__T("FPS")) return; //Useless
     if (Segment_Tag_SimpleTag_TagNames[0]==__T("LANGUAGE")) Segment_Tag_SimpleTag_TagNames[0]=__T("Language");
     if (Segment_Tag_SimpleTag_TagNames[0]==__T("MAJOR_BRAND")) return; //QuickTime techinical info, useless
     if (Segment_Tag_SimpleTag_TagNames[0]==__T("MINOR_VERSION")) return; //QuickTime techinical info, useless
-    if (Segment_Tag_SimpleTag_TagNames[0]==__T("PART_NUMBER")) Segment_Tag_SimpleTag_TagNames[0]=__T("Part/Position");
     if (Segment_Tag_SimpleTag_TagNames[0]==__T("ORIGINAL_MEDIA_TYPE")) Segment_Tag_SimpleTag_TagNames[0]=__T("OriginalSourceForm");
-    if (Segment_Tag_SimpleTag_TagNames[0]==__T("ORIGINAL") && Segment_Tag_SimpleTag_TagNames.size()==2 && Segment_Tag_SimpleTag_TagNames[1]==__T("URL")) Segment_Tag_SimpleTag_TagNames[0]=__T("Title");
     if (Segment_Tag_SimpleTag_TagNames[0]==__T("STEREO_MODE")) return; //Useless
-    if (Segment_Tag_SimpleTag_TagNames[0]==__T("SAMPLE") && Segment_Tag_SimpleTag_TagNames.size()==2 && Segment_Tag_SimpleTag_TagNames[1]==__T("TITLE")) {Segment_Tag_SimpleTag_TagNames[0]=__T("Title"); Segment_Tag_SimpleTag_TagNames[1]=__T("More");}
-    if (Segment_Tag_SimpleTag_TagNames[0]==__T("SAMPLE") && Segment_Tag_SimpleTag_TagNames.size()==2 && Segment_Tag_SimpleTag_TagNames[1]==__T("PART_NUMBER")) return; //Useless
     if (Segment_Tag_SimpleTag_TagNames[0]==__T("TERMS_OF_USE")) Segment_Tag_SimpleTag_TagNames[0]=__T("TermsOfUse");
-    if (Segment_Tag_SimpleTag_TagNames[0]==__T("TITLE")) Segment_Tag_SimpleTag_TagNames[0]=__T("Title");
     for (size_t Pos=1; Pos<Segment_Tag_SimpleTag_TagNames.size(); Pos++)
     {
         if (Segment_Tag_SimpleTag_TagNames[Pos]==__T("BARCODE")) Segment_Tag_SimpleTag_TagNames[Pos]=__T("BarCode");
