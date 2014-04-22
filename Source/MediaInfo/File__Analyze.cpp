@@ -1173,8 +1173,11 @@ size_t File__Analyze::Read_Buffer_Seek_OneFramePerFile (size_t Method, int64u Va
                     if (Value>=Config->File_Names.size())
                         return 2; //Invalid value
                     int64u Offset=0;
-                    for (size_t Pos=0; Pos<Value; Pos++)
-                        Offset+=Config->File_Sizes[Pos];
+                    if (Config->File_Sizes.size()!=Config->File_Names.size())
+                        Offset=Value; //Offset is used as a file offset
+                    else
+                        for (size_t Pos=0; Pos<Value; Pos++)
+                            Offset+=Config->File_Sizes[Pos];
                     GoTo(Offset);
                     Open_Buffer_Unsynch();
                     return 1;
@@ -1187,13 +1190,22 @@ size_t File__Analyze::Read_Buffer_Seek_OneFramePerFile (size_t Method, int64u Va
 //---------------------------------------------------------------------------
 void File__Analyze::Read_Buffer_Unsynched_OneFramePerFile()
 {
-    int64u GoTo=File_GoTo;
-    for (Frame_Count_NotParsedIncluded=0; Frame_Count_NotParsedIncluded<Config->File_Sizes.size(); Frame_Count_NotParsedIncluded++)
+    #if MEDIAINFO_ADVANCED
+        if (Config->File_Sizes.size()!=Config->File_Names.size())
+        {
+            Frame_Count_NotParsedIncluded=File_GoTo;
+        }
+    #endif //MEDIAINFO_ADVANCED
+    else
     {
-        if (GoTo>=Config->File_Sizes[(size_t)Frame_Count_NotParsedIncluded])
-            GoTo-=Config->File_Sizes[(size_t)Frame_Count_NotParsedIncluded];
-        else
-            break;
+        int64u GoTo=File_GoTo;
+        for (Frame_Count_NotParsedIncluded=0; Frame_Count_NotParsedIncluded<Config->File_Sizes.size(); Frame_Count_NotParsedIncluded++)
+        {
+            if (GoTo>=Config->File_Sizes[(size_t)Frame_Count_NotParsedIncluded])
+                GoTo-=Config->File_Sizes[(size_t)Frame_Count_NotParsedIncluded];
+            else
+                break;
+        }
     }
 
     #if MEDIAINFO_DEMUX

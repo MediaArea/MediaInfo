@@ -398,18 +398,28 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                 if (MI->Config.File_Names.size()>1)
                 {
                     size_t Pos;
-                    for (Pos=0; Pos<MI->Config.File_Sizes.size(); Pos++)
-                    {
-                        if (GoTo>=MI->Config.File_Sizes[Pos])
+                    #if MEDIAINFO_ADVANCED
+                        if (MI->Config.File_Sizes.size()!=MI->Config.File_Names.size())
                         {
-                            GoTo-=MI->Config.File_Sizes[Pos];
-                            MI->Config.File_Current_Offset+=MI->Config.File_Sizes[Pos];
+                            Pos=(size_t)MI->Open_Buffer_Continue_GoTo_Get(); //File_GoTo is the frame offset in that case
+                            GoTo=0;
                         }
                         else
+                    #endif //MEDIAINFO_ADVANCED
+                    {
+                        for (Pos=0; Pos<MI->Config.File_Sizes.size(); Pos++)
+                        {
+                            if (GoTo>=MI->Config.File_Sizes[Pos])
+                            {
+                                GoTo-=MI->Config.File_Sizes[Pos];
+                                MI->Config.File_Current_Offset+=MI->Config.File_Sizes[Pos];
+                            }
+                            else
+                                break;
+                        }
+                        if (Pos>=MI->Config.File_Sizes.size())
                             break;
                     }
-                    if (Pos>=MI->Config.File_Sizes.size())
-                        break;
                     if (Pos!=MI->Config.File_Names_Pos-1)
                     {
                         F.Close();
