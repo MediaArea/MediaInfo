@@ -1252,11 +1252,11 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_ArriRaw.h">
       <Filter>Header Files\Image</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Dds.h">
-      <Filter>Header Files\Multiple</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_OpenMG.h">
       <Filter>Header Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Image\File_Dds.h">
+      <Filter>Header Files\Image</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
