@@ -192,7 +192,7 @@ void File__Analyze::TestContinuousFileNames(size_t CountOfFiles, Ztring FileExte
         return;
 
     #if MEDIAINFO_ADVANCED
-        if (!Config->File_IgnoreSequenceFileSize_Get())
+        if (!Config->File_IgnoreSequenceFileSize_Get() || Config->File_Names.size()<=1)
     #endif //MEDIAINFO_ADVANCED
     {
         for (; Pos<Config->File_Names.size(); Pos++)
@@ -213,7 +213,7 @@ void File__Analyze::TestContinuousFileNames(size_t CountOfFiles, Ztring FileExte
     File_Size=Config->File_Size;
     Element[0].Next=File_Size;
     #if MEDIAINFO_ADVANCED
-        if (!Config->File_IgnoreSequenceFileSize_Get())
+        if (!Config->File_IgnoreSequenceFileSize_Get() || Config->File_Names.size()<=1)
     #endif //MEDIAINFO_ADVANCED
         Fill (Stream_General, 0, General_FileSize, File_Size, 10, true);
     #if MEDIAINFO_ADVANCED

@@ -2795,7 +2795,7 @@ void File__Analyze::ForceFinish ()
     {
         //Total file size
         #if MEDIAINFO_ADVANCED
-            if (!IsSub && Config->File_IgnoreSequenceFileSize_Get() && Config->ParseSpeed>=1.0 && Config->File_Names.size()>1 && Config->File_Names_Pos+1>=Config->File_Names.size())
+            if (!IsSub && !(!Config->File_IgnoreSequenceFileSize_Get() || Config->File_Names.size()<=1) && Config->ParseSpeed>=1.0 && Config->File_Names.size()>1 && Config->File_Names_Pos+1>=Config->File_Names.size())
             {
                 Fill (Stream_General, 0, General_FileSize, Config->File_Current_Size, 10, true);
             }
