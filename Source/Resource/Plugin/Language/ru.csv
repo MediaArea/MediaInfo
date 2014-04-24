@@ -914,8 +914,8 @@ ScanType_Original;Тип развёртки в оригинале
 ScanType_StoreMethod;
 ScanOrder;Порядок развёртки
 ScanOrder_Original;Порядок развёртки в оригинале
-ScanOrder_Stored;
-ScanOrder_StoredDisplayedInverted;
+ScanOrder_Stored;Сохранённый порядок развёртки
+ScanOrder_StoredDisplayedInverted;Порядок развёртки, сохранённый в обратном порядке
 ScanOrder_StoreMethod;
 ScreenplayBy;Сценарист
 Season;Сезон
