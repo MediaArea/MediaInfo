@@ -950,7 +950,7 @@ Source_StreamSize_Encoded;Source encoded stream size
 Standard;Standard
 StoreMethod_InterleavedFields;Interleaved fields
 StoreMethod_SeparatedFields;Separated fields
-StoreMethod_SeparatedFields_1;Separated fields (1 fields per block)
+StoreMethod_SeparatedFields_1;Separated fields (1 field per block)
 StoreMethod_SeparatedFields_2;Separated fields (2 fields per block)
 Stream;Stream
 Stream_MoreInfo;More information about the stream
