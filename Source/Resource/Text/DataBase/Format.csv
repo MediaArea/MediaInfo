@@ -142,6 +142,7 @@ SCC;;;T;SCC;;scc sc2;;;Lossless
 SubRip;;;T;SubRip;;srt;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow;Lossless
 TTML;;;T;TTML;;dfxp;;;Lossless
 SSA;;;T;Other;;ssa;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow;Lossless
+WebVTT;;;T;WebVTT;;vtt;;;Lossless
 Blender;;;O;Other;;blenders;;http://www.blender3d.com;
 AutoCAD;;;O;Other;;;;http://www.autodesk.com;
 PlayLater Video;;;V;Other;;;;http://www.playon.tv/playlater;

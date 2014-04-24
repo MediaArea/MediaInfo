@@ -25,6 +25,7 @@ Version 0.7.69, 2014-04-
 + Arri Raw: basic detection
 + DDS (DirectDraw Surface) support
 + OpenMG (.oma) partial (Atrac3 only) support
++ WebVTT detection
 x #B841, QuickTime TFF/BFF: using now Technical Note TN2162 as the reference documentation for 'fiel' atom
 x Matroska: slow parsing of some files
 x MOV/IMX: IMX was not detected when glbl atom is present

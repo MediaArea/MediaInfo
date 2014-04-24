@@ -629,6 +629,7 @@ bool MediaInfo_Internal::SelectFromExtension (const String &Parser)
     #endif
     #if defined(MEDIAINFO_SUBRIP_YES)
         else if (Parser==__T("SubRip"))      Info=new File_SubRip();
+        else if (Parser==__T("WebVTT"))      Info=new File_SubRip();
     #endif
     #if defined(MEDIAINFO_TTML_YES)
         else if (Parser==__T("TTML"))        Info=new File_Ttml();

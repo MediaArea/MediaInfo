@@ -1219,6 +1219,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "SubRip;;;T;SubRip;;srt;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow;Lossless\n"
     "TTML;;;T;TTML;;dfxp;;;Lossless\n"
     "SSA;;;T;Other;;ssa;;http://ffdshow.sourceforge.net/tikiwiki/tiki-index.php?page=Getting+ffdshow;Lossless\n"
+    "WebVTT;;;T;WebVTT;;vtt;;;Lossless\n"
     "Blender;;;O;Other;;blenders;;http://www.blender3d.com\n"
     "AutoCAD;;;O;Other;;;;http://www.autodesk.com\n"
     "PlayLater Video;;;V;Other;;;;http://www.playon.tv/playlater\n"

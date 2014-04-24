@@ -43,6 +43,8 @@ private :
     void Read_Buffer_Continue();
 
     //Temp
+    bool IsVTT;
+    bool HasBOM;
     #if MEDIAINFO_DEMUX
     struct item
     {
