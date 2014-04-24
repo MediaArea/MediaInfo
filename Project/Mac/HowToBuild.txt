@@ -43,18 +43,18 @@ GUI Wx:
 Copy MediaInfo/Project/Mac and launch ./mkdmg_GUI
 CLI:
 ./CLI_Compile.sh --enable-arch-i386 --enable-arch-x86_64 --with-macosx-version-min=10.5
-Copy MediaInfo/Project/Mac and launch ./mkdmg_GUI
+Copy MediaInfo/Project/Mac and launch ./mkdmg_CLI
 DLL:
 ./SO_Compile.sh --enable-arch-i386 --enable-arch-x86_64 --with-macosx-version-min=10.5
 codesign -f -s "Developer ID Application: ${SIGNATURE}" --verbose MediaInfoLib/Project/GNU/Library/.libs/libmediainfo.dylib
 Verify that code signing is OK:
 spctl --assess -v MediaInfoLib/Project/GNU/Library/.libs/libmediainfo.dylib
+MediaInfoLib/Release/Release_DLL_Mac_Universal.sh
 
 Per version (for Mac App Store)
 ----------------------------------------
 copy libmediainfo.dylib in the project root dir
 install_name_tool -id @executable_path/../Resources/libmediainfo.dylib libmediainfo.dylib
 Xcode "Build Settings", change APP_VERSION
-Xcode menu, Product, Build for Archiving
 Xcode menu, Product, Archive
 Organizer will be opened. Click Validate. After validation, click Submit.
