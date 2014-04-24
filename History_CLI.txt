@@ -8,6 +8,28 @@ bug reports and feature request are here :
 https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.69, 2014-04-24
+--------------
++ MPEG-TS: support of HEVC streams with stream_type of 36
++ EBUCore 1.5: update with support of more fields and valid against final XSD
++ Added interlaced content store method (Separated fields or interleaved fields)
++ HEVC: Better support of the different containers (including MP4/MKV/FLV)
++ #B844, Matroska: detection of covers, thanks to Max Pozdeev
++ Sequences of files: optimization of the detection of sequences with 200k+ files
++ Sequences of files: File_IgnoreSequenceFilesCount option for speeding up the detection of sequences (con: no detection of the latest file in the sequence)
++ Sequences of files: File_IgnoreSequenceFileSize option for speeding up the detection of sequences (con: no detection of total size of the sequence)
++ Sequences of files: detection when there is additional characters after the numbers (e.g. "filename[000001].png")
++ MPEG-TS: detecting sequences of files
++ ADTS: detecting sequences of files
++ MediaInfoList: removing files detected as part of a sequence
++ Arri Raw: basic detection
++ DDS (DirectDraw Surface) support
++ OpenMG (.oma) partial (Atrac3 only) support
++ WebVTT detection
+x #B841, QuickTime TFF/BFF: using now Technical Note TN2162 as the reference documentation for 'fiel' atom
+x Matroska: slow parsing of some files
+x MOV/IMX: IMX was not detected when glbl atom is present
+
 Version 0.7.68, 2014-04-02
 --------------
 + QuickTime: new field ScanOrder_Stored, displayed when display and Stored orders are not same (replacing ScanOrder_StoredDisplayedInverted field)

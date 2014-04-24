@@ -74,17 +74,54 @@
 			<ILINK_LibraryPath>$(BDS)\lib\release;$(ILINK_LibraryPath);$(ILINK_LibraryPath)</ILINK_LibraryPath>
 		</PropertyGroup>
 		<ItemGroup>
-			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Sheet.cpp">
-				<BuildOrder>11</BuildOrder>
-				<Form>Preferences_SheetF</Form>
-				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Preferences_Sheet.h</DependentOn>
+			<CppCompile Include="MediaInfo_GUI_x64.cpp">
+				<BuildOrder>-1</BuildOrder>
 				<BuildOrder>0</BuildOrder>
 			</CppCompile>
-			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Web.cpp">
-				<BuildOrder>12</BuildOrder>
-				<Form>WebF</Form>
-				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Web.h</DependentOn>
+			<ResFiles Include="MediaInfo_GUI_x64.res">
+				<BuildOrder>-1</BuildOrder>
 				<BuildOrder>1</BuildOrder>
+			</ResFiles>
+			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Main.cpp">
+				<BuildOrder>9</BuildOrder>
+				<Form>MainF</Form>
+				<DesignClass>TTntForm</DesignClass>
+				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Main.h</DependentOn>
+				<BuildOrder>2</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\Common\Preferences.cpp">
+				<BuildOrder>3</BuildOrder>
+				<DependentOn>..\..\..\Source\Common\Preferences.h</DependentOn>
+				<BuildOrder>10</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\Common\Utilsx.cpp">
+				<BuildOrder>4</BuildOrder>
+				<BuildOrder>15</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_About.cpp">
+				<BuildOrder>5</BuildOrder>
+				<Form>AboutF</Form>
+				<DesignClass>TTntForm</DesignClass>
+				<DependentOn>..\..\..\Source\GUI\VCL\GUI_About.h</DependentOn>
+				<BuildOrder>16</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Export.cpp">
+				<BuildOrder>6</BuildOrder>
+				<Form>ExportF</Form>
+				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Export.h</DependentOn>
+				<BuildOrder>13</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Preferences.cpp">
+				<BuildOrder>7</BuildOrder>
+				<Form>PreferencesF</Form>
+				<DesignClass>TTntForm</DesignClass>
+				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Preferences.h</DependentOn>
+				<BuildOrder>14</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Custom.cpp">
+				<Form>Preferences_CustomF</Form>
+				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Preferences_Custom.h</DependentOn>
+				<BuildOrder>8</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Language.cpp">
 				<BuildOrder>9</BuildOrder>
@@ -99,14 +136,18 @@
 				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Preferences_Output.h</DependentOn>
 				<BuildOrder>10</BuildOrder>
 			</CppCompile>
-			<LibFiles Include="..\..\..\..\MediaInfoLib\Project\BCB\Dll\Release_Build\MediaInfo_i386.lib">
-				<BuildOrder>5</BuildOrder>
-				<BuildOrder>16</BuildOrder>
-			</LibFiles>
-			<LibFiles Include="C:\Program Files\CodeGear\RAD Studio\6.0\lib\wininet.lib">
-				<IgnorePath>true</IgnorePath>
-				<BuildOrder>16</BuildOrder>
-			</LibFiles>
+			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Sheet.cpp">
+				<BuildOrder>11</BuildOrder>
+				<Form>Preferences_SheetF</Form>
+				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Preferences_Sheet.h</DependentOn>
+				<BuildOrder>0</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Web.cpp">
+				<BuildOrder>12</BuildOrder>
+				<Form>WebF</Form>
+				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Web.h</DependentOn>
+				<BuildOrder>1</BuildOrder>
+			</CppCompile>
 			<ResourceCompile Include="..\..\..\Source\GUI\VCL\Manifest.rc">
 				<BuildOrder>6</BuildOrder>
 				<Form>Manifest.res</Form>
@@ -116,64 +157,23 @@
 				<BuildOrder>4</BuildOrder>
 				<BuildOrder>15</BuildOrder>
 			</LibFiles>
-			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Custom.cpp">
-				<Form>Preferences_CustomF</Form>
-				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Preferences_Custom.h</DependentOn>
-				<BuildOrder>8</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Main.cpp">
-				<BuildOrder>9</BuildOrder>
-				<Form>MainF</Form>
-				<DesignClass>TTntForm</DesignClass>
-				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Main.h</DependentOn>
-				<BuildOrder>2</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\Source\Common\Preferences.cpp">
-				<BuildOrder>3</BuildOrder>
-				<DependentOn>..\..\..\Source\Common\Preferences.h</DependentOn>
-				<BuildOrder>10</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="MediaInfo_GUI_x64.cpp">
-				<BuildOrder>-1</BuildOrder>
-				<BuildOrder>0</BuildOrder>
-			</CppCompile>
-			<ResFiles Include="MediaInfo_GUI_x64.res">
-				<BuildOrder>-1</BuildOrder>
-				<BuildOrder>1</BuildOrder>
-			</ResFiles>
-			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Export.cpp">
-				<BuildOrder>6</BuildOrder>
-				<Form>ExportF</Form>
-				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Export.h</DependentOn>
-				<BuildOrder>13</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Preferences.cpp">
-				<BuildOrder>7</BuildOrder>
-				<Form>PreferencesF</Form>
-				<DesignClass>TTntForm</DesignClass>
-				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Preferences.h</DependentOn>
-				<BuildOrder>14</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\Source\Common\Utilsx.cpp">
-				<BuildOrder>4</BuildOrder>
-				<BuildOrder>15</BuildOrder>
-			</CppCompile>
-			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_About.cpp">
+			<LibFiles Include="..\..\..\..\MediaInfoLib\Project\BCB\Dll\Release_Build\MediaInfo_i386.lib">
 				<BuildOrder>5</BuildOrder>
-				<Form>AboutF</Form>
-				<DesignClass>TTntForm</DesignClass>
-				<DependentOn>..\..\..\Source\GUI\VCL\GUI_About.h</DependentOn>
 				<BuildOrder>16</BuildOrder>
-			</CppCompile>
-			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Sheet.dfm"/>
-			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Web.dfm"/>
-			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Language.dfm"/>
-			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Output.dfm"/>
-			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Custom.dfm"/>
+			</LibFiles>
+			<LibFiles Include="C:\Program Files\CodeGear\RAD Studio\6.0\lib\wininet.lib">
+				<IgnorePath>true</IgnorePath>
+				<BuildOrder>16</BuildOrder>
+			</LibFiles>
 			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Main.dfm"/>
+			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_About.dfm"/>
 			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Export.dfm"/>
 			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences.dfm"/>
-			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_About.dfm"/>
+			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Custom.dfm"/>
+			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Language.dfm"/>
+			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Output.dfm"/>
+			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Sheet.dfm"/>
+			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Web.dfm"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
@@ -197,7 +197,7 @@
 						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
 						<VersionInfo Name="MajorVer">0</VersionInfo>
 						<VersionInfo Name="MinorVer">7</VersionInfo>
-						<VersionInfo Name="Release">68</VersionInfo>
+						<VersionInfo Name="Release">69</VersionInfo>
 						<VersionInfo Name="Build">0</VersionInfo>
 						<VersionInfo Name="Debug">False</VersionInfo>
 						<VersionInfo Name="PreRelease">False</VersionInfo>
@@ -210,13 +210,13 @@
 					<VersionInfoKeys>
 						<VersionInfoKeys Name="CompanyName">MediaArea.net</VersionInfoKeys>
 						<VersionInfoKeys Name="FileDescription">All about your audio and video files</VersionInfoKeys>
-						<VersionInfoKeys Name="FileVersion">0.7.68.0</VersionInfoKeys>
+						<VersionInfoKeys Name="FileVersion">0.7.69.0</VersionInfoKeys>
 						<VersionInfoKeys Name="InternalName">MediaInfo - GUI - BCB with DLL x64</VersionInfoKeys>
 						<VersionInfoKeys Name="LegalCopyright">MediaArea.net</VersionInfoKeys>
 						<VersionInfoKeys Name="LegalTrademarks"/>
 						<VersionInfoKeys Name="OriginalFilename"/>
 						<VersionInfoKeys Name="ProductName">MediaInfo</VersionInfoKeys>
-						<VersionInfoKeys Name="ProductVersion">0.7.68.0</VersionInfoKeys>
+						<VersionInfoKeys Name="ProductVersion">0.7.69.0</VersionInfoKeys>
 					</VersionInfoKeys>
 					<Debugging>
 						<Debugging Name="DebugSourceDirs"/>
