@@ -20,7 +20,7 @@ FILES="tmp-${APPNAME}_${KIND}"
 # Create the package
 rm -f "{FILES}"
 mkdir "${FILES}"
-mkdir "${FILES}/${APPNAME}.app"
+cp "{APPNAME}.app" "${FILES}/${APPNAME}.app"
 mkdir "${FILES}/${APPNAME}.app/Contents"
 mkdir "${FILES}/${APPNAME}.app/Contents/MacOS"
 mkdir "${FILES}/${APPNAME}.app/Contents/Resources"
