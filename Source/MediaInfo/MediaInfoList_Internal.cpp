@@ -16,11 +16,12 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#include "MediaInfoList_Internal.h"
+#include "MediaInfo/MediaInfoList_Internal.h"
 #include "MediaInfo/MediaInfo_Config.h"
 #include "ZenLib/File.h"
 #include "ZenLib/Dir.h"
 #include "MediaInfo/Reader/Reader_Directory.h"
+#include "MediaInfo/File__Analyse_Automatic.h"
 using namespace ZenLib;
 using namespace std;
 //---------------------------------------------------------------------------
