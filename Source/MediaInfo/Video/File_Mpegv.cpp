@@ -1511,14 +1511,14 @@ void File_Mpegv::Streams_Finish()
     {
         TimeCode Time_Begin_TC;
         Time_Begin_TC.FramesPerSecond=(int8u)ceil(FrameRate);
-        Time_Begin_TC.DropFrame=(FrameRate-ceil(FrameRate))?true:false;
+        Time_Begin_TC.DropFrame=group_start_IsParsed?group_start_drop_frame_flag:((FrameRate-ceil(FrameRate))?true:false);
         Time_Begin_TC.Hours=(int8u)(Time_Begin_Seconds/3600);
         Time_Begin_TC.Minutes=(int8u)((Time_Begin_Seconds%3600)/60);
         Time_Begin_TC.Seconds=(int8u)(Time_Begin_Seconds%60);
         Time_Begin_TC.Frames=(int8u)Time_Begin_Frames;
         TimeCode Time_End_TC;
         Time_End_TC.FramesPerSecond=(int8u)ceil(FrameRate);
-        Time_End_TC.DropFrame=(FrameRate-ceil(FrameRate))?true:false;
+        Time_End_TC.DropFrame=Time_Begin_TC.DropFrame;
         Time_End_TC.Hours=(int8u)(Time_End_Seconds/3600);
         Time_End_TC.Minutes=(int8u)((Time_End_Seconds%3600)/60);
         Time_End_TC.Seconds=(int8u)(Time_End_Seconds%60);
