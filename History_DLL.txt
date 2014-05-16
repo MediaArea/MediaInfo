@@ -11,7 +11,10 @@ https://sourceforge.net/p/mediainfo/_list/tickets
 Version 0.7.69, 2014-04-24
 --------------
 + CDP: using CDP service descriptor for the list of 708 services + language information
++ MXF: Audio "frame rate" (how PCM content is split in packets) information
++ MXF: Audio block alignment byte size (hidden by default)
 x MPEG Video: was not correctly handling 1000:1001 frame rates and NDF time codes combination during frame count computing
+x XDCAM: information about the MXF header presence was not provided if MOV header has a glbl atom
 
 Version 0.7.69, 2014-04-24
 --------------
