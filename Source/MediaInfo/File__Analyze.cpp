@@ -1195,8 +1195,8 @@ void File__Analyze::Read_Buffer_Unsynched_OneFramePerFile()
         {
             Frame_Count_NotParsedIncluded=File_GoTo;
         }
+        else
     #endif //MEDIAINFO_ADVANCED
-    else
     {
         int64u GoTo=File_GoTo;
         for (Frame_Count_NotParsedIncluded=0; Frame_Count_NotParsedIncluded<Config->File_Sizes.size(); Frame_Count_NotParsedIncluded++)
