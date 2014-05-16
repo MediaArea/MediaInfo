@@ -22,9 +22,6 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/Text/File_Cdp.h"
-#if defined(MEDIAINFO_EIA708_YES)
-    #include "MediaInfo/Text/File_Eia708.h"
-#endif
 #if defined(MEDIAINFO_EIA608_YES)
     #include "MediaInfo/Text/File_Eia608.h"
 #endif
@@ -99,6 +96,15 @@ File_Cdp::File_Cdp()
     //In
     WithAppleHeader=false;
     AspectRatio=0;
+
+    //EIA-708 descriptors
+    #if defined(MEDIAINFO_EIA708_YES)
+        ccsvcinfo_section_IsPresent=false;
+    #endif
+
+    //cdp_length
+    cdp_length_Min=(int8u)-1;
+    cdp_length_Max=0;
 }
 
 //---------------------------------------------------------------------------
@@ -150,6 +156,14 @@ void File_Cdp::Streams_Update_PerStream(size_t Pos)
             Ztring LawRating=Streams[Pos]->Parser->Retrieve(Stream_General, 0, General_LawRating);
             if (!LawRating.empty())
                 Fill(Stream_General, 0, General_LawRating, LawRating, true);
+
+            if (cdp_length_Min<=cdp_length_Max)
+            {
+                Fill(Stream_Text, StreamPos_Last, "cdp_length_Min", cdp_length_Min, 10, true);
+                Fill(Stream_Text, StreamPos_Last, "cdp_length_Max", cdp_length_Max, 10, true);
+                (*Stream_More)[Stream_Text][StreamPos_Last](Ztring().From_Local("cdp_length_Min"), Info_Options)=__T("N NT");
+                (*Stream_More)[Stream_Text][StreamPos_Last](Ztring().From_Local("cdp_length_Max"), Info_Options)=__T("N NT");
+            }
         }
 
         Ztring LawRating=Streams[Pos]->Parser->Retrieve(Stream_General, 0, General_LawRating);
@@ -249,9 +263,9 @@ void File_Cdp::cdp_header()
 {
     Element_Begin1("cdp_header");
     int16u cdp_identifier;
-    int8u cdp_frame_rate;
+    int8u cdp_length, cdp_frame_rate;
     Get_B2 (   cdp_identifier,                                  "cdp_identifier");
-    Skip_B1(                                                    "cdp_length");
+    Get_B1 (   cdp_length,                                      "cdp_length");
     BS_Begin();
     Get_S1 (4, cdp_frame_rate,                                  "cdp_frame_rate"); Param_Info1(Ztring::ToZtring(Cdp_cdp_frame_rate(cdp_frame_rate))+__T(" fps"));
     Skip_S1(4,                                                  "Reserved");
@@ -278,6 +292,12 @@ void File_Cdp::cdp_header()
 
             Accept("CDP");
         }
+
+        //cdp_length
+        if (cdp_length>cdp_length_Max)
+            cdp_length_Max=cdp_length;
+        if (cdp_length<cdp_length_Min)
+            cdp_length_Min=cdp_length;
     FILLING_END();
 }
 
@@ -360,6 +380,8 @@ void File_Cdp::ccdata_section()
                         {
                             #if defined(MEDIAINFO_EIA708_YES)
                                 Streams[Parser_Pos]->Parser=new File_Eia708();
+                                ((File_Eia708*)Streams[Parser_Pos]->Parser)->ServiceDescriptors=&ServiceDescriptors;
+                                ((File_Eia708*)Streams[Parser_Pos]->Parser)->ServiceDescriptors_IsPresent=&ccsvcinfo_section_IsPresent;
                             #else //defined(MEDIAINFO_EIA708_YES)
                                 Streams[Parser_Pos]->Parser=new File__Analyze();
                             #endif //defined(MEDIAINFO_EIA708_YES)
@@ -449,26 +471,38 @@ void File_Cdp::ccsvcinfo_section()
         //svc_data_byte - caption_service_descriptor
         Element_Begin1("service");
         Ztring language;
+        int8u caption_service_number=0;
         bool digital_cc;
         Get_Local(3, language,                                  "language");
         BS_Begin();
         Get_SB (digital_cc,                                     "digital_cc");
         Skip_SB(                                                "reserved");
         if (digital_cc) //line21
+            Get_S1 (6, caption_service_number,                  "caption_service_number");
+        else
         {
             Skip_S1(5,                                          "reserved");
             Skip_SB(                                            "line21_field");
         }
-        else
-            Skip_S1(6,                                          "caption_service_number");
         Skip_SB(                                                "easy_reader");
         Skip_SB(                                                "wide_aspect_ratio");
         Skip_S2(14,                                             "reserved");
         BS_End();
         Element_End0();
         Element_End0();
+
+        FILLING_BEGIN();
+            #if defined(MEDIAINFO_EIA708_YES)
+                if (digital_cc)
+                    ServiceDescriptors[caption_service_number].language=language;
+            #endif
+        FILLING_END();
     }
     Element_End0();
+
+    #if defined(MEDIAINFO_EIA708_YES)
+        ccsvcinfo_section_IsPresent=true;
+    #endif
 }
 
 //---------------------------------------------------------------------------

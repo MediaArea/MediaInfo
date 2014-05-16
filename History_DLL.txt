@@ -10,6 +10,7 @@ https://sourceforge.net/p/mediainfo/_list/tickets
 
 Version 0.7.69, 2014-04-24
 --------------
++ cDP: using CDP service descriptor for the list of 708 services + language information
 x MPEG Video: was not correctly handling 1000:1001 frame rates and NDF time codes combination during frame count computing
 
 Version 0.7.69, 2014-04-24

@@ -17,6 +17,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
+#if defined(MEDIAINFO_EIA708_YES)
+    #include "MediaInfo/Text/File_Eia708.h"
+#endif
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -79,6 +82,16 @@ private :
     };
     std::vector<stream*> Streams;
     size_t               Streams_Count;
+
+    //EIA-708 descriptors
+    #if defined(MEDIAINFO_EIA708_YES)
+        File_Eia708::servicedescriptors ServiceDescriptors;
+        bool ccsvcinfo_section_IsPresent;
+    #endif
+
+    //Tests
+    int8u cdp_length_Min;
+    int8u cdp_length_Max;
 };
 
 } //NameSpace

@@ -34,6 +34,13 @@ public :
     //In
     int8u cc_type;
     float64 AspectRatio;
+    struct servicedescriptor
+    {
+        Ztring language;
+    };
+    typedef std::map<int8u, servicedescriptor> servicedescriptors;
+    servicedescriptors* ServiceDescriptors;
+    bool*               ServiceDescriptors_IsPresent;
 
     //Constructor/Destructor
     File_Eia708();
@@ -140,6 +147,7 @@ private :
     int8u service_number;
     int8u block_size;
     bool   HasContent;
+    int64u DataDetected; //1 service per bit
 
     //Elements
     void NUL();                 //NUL
@@ -172,6 +180,8 @@ private :
     void HasChanged();
     void Window_HasChanged();
     void Illegal(int8u Size, int8u cc_data_1, int8u cc_data_2=(int8u)-1, int8u cc_data_3=(int8u)-1, int8u cc_data_4=(int8u)-1, int8u cc_data_5=(int8u)-1, int8u cc_data_6=(int8u)-1);
+
+    int8u DFx_WindowID_Last;
 };
 
 } //NameSpace
