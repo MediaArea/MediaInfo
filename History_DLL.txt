@@ -15,6 +15,7 @@ Version 0.7.69, 2014-04-24
 + MXF: Audio block alignment byte size (hidden by default)
 x MPEG Video: was not correctly handling 1000:1001 frame rates and NDF time codes combination during frame count computing
 x XDCAM: information about the MXF header presence was not provided if MOV header has a glbl atom
+x Some specific C++11 code is removed for full compatibility with older C++
 
 Version 0.7.69, 2014-04-24
 --------------
