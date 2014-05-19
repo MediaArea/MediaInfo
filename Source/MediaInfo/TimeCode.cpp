@@ -38,6 +38,7 @@ TimeCode::TimeCode ()
     DropFrame=false;
     MustUseSecondField=false;
     IsSecondField=false;
+    IsNegative=false;
 }
 
 //---------------------------------------------------------------------------
@@ -51,11 +52,20 @@ TimeCode::TimeCode (int8u Hours_, int8u Minutes_, int8u Seconds_, int8u Frames_,
     DropFrame=DropFrame_;
     MustUseSecondField=MustUseSecondField_;
     IsSecondField=IsSecondField_;
+    IsNegative=false;
 }
 
 //---------------------------------------------------------------------------
-TimeCode::TimeCode (int64u Frames_, int8u FramesPerSecond_, bool DropFrame_, bool MustUseSecondField_, bool IsSecondField_)
+TimeCode::TimeCode (int64s Frames_, int8u FramesPerSecond_, bool DropFrame_, bool MustUseSecondField_, bool IsSecondField_)
 {
+    if (Frames_<0)
+    {
+        IsNegative=true;
+        Frames_=-Frames_;
+    }
+    else
+        IsNegative=false;
+    
     int8u Dropped=0;
     if (DropFrame_)
     {
@@ -94,6 +104,8 @@ TimeCode::TimeCode (int64u Frames_, int8u FramesPerSecond_, bool DropFrame_, boo
 //---------------------------------------------------------------------------
 void TimeCode::PlusOne()
 {
+    //TODO: negative values
+
     if (FramesPerSecond==0)
         return;
     if (MustUseSecondField)
@@ -136,6 +148,8 @@ void TimeCode::PlusOne()
 //---------------------------------------------------------------------------
 void TimeCode::MinusOne()
 {
+    //TODO: negative values
+
     if (FramesPerSecond==0)
         return;
     if (MustUseSecondField && IsSecondField)
@@ -170,6 +184,8 @@ void TimeCode::MinusOne()
 string TimeCode::ToString()
 {
     string TC;
+    if (IsNegative)
+        TC+='-';
     TC+=('0'+Hours/10);
     TC+=('0'+Hours%10);
     TC+=':';
@@ -186,12 +202,12 @@ string TimeCode::ToString()
 }
 
 //---------------------------------------------------------------------------
-int32u TimeCode::ToFrames()
+int64s TimeCode::ToFrames()
 {
     if (!FramesPerSecond)
         return (int32u)-1;
 
-    int32u TC=(Hours     *3600
+    int64s TC=(Hours     *3600
              + Minutes   *  60
              + Seconds        )*FramesPerSecond
             + Frames;
@@ -203,7 +219,7 @@ int32u TimeCode::ToFrames()
           + (Minutes%10)*2;
     }
 
-    return TC;
+    return IsNegative?-TC:TC;
 }
 
 //***************************************************************************
