@@ -1479,5 +1479,5 @@ void File_AribStdB24B37::TIME()
 
 } //NameSpace
 
-#endif //MEDIAINFO_DVBSUBTITLE_YES
+#endif //MEDIAINFO_ARIBSTDB24B37_YES
 
