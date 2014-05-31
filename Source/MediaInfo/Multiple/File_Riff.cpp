@@ -831,6 +831,17 @@ void File_Riff::Header_Parse()
             Skip_XX(12,                                         "Real Name (GUID)");
         }
 
+        //Special case: we don't need the full data
+        if (Name==Elements::WAVE_data)
+        {
+            Buffer_DataToParse_Begin=File_Offset+Buffer_Offset;
+            if (Size_Complete)
+                Buffer_DataToParse_End=File_Offset+Buffer_Offset+Size_Complete;
+            else
+                Buffer_DataToParse_End=File_Size; //Found one file with 0 as size of data part
+            Size_Complete=Element_Offset;
+        }
+
         //Filling
         Header_Fill_Code(Name, Ztring().From_CC4(Name));
         Header_Fill_Size(Size_Complete);
