@@ -111,6 +111,7 @@ Channel(s)_Original/String;;;Y NT;;;Number of channels (with measurement);;
 ChannelPositions;;;Y YT;;;Position of channels;;
 ChannelPositions/String2;;;N NT;;;Position of channels (x/y.z format);;
 ChannelLayout;;;N YT;;;Layout of channels (in the stream);;
+ChannelLayoutID;;;N YT;;;ID of layout of channels (e.g. MXF descriptor channel assignment). Warning, sometimes this is not enough for uniquely identifying a layout (e.g. MXF descriptor channel assignment is SMPTE 377-4). For AC-3, the form is x,y with x=acmod and y=lfeon.;;
 SamplingRate;; Hz;N YF;;;Sampling rate;;
 SamplingRate/String;;;Y NT;;;in KHz;;
 SamplingCount;;;N NI;;;Sample count (based on sampling rate);;

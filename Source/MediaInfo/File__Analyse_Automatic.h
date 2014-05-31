@@ -824,6 +824,7 @@ enum audio
     Audio_ChannelPositions,
     Audio_ChannelPositions_String2,
     Audio_ChannelLayout,
+    Audio_ChannelLayoutID,
     Audio_SamplingRate,
     Audio_SamplingRate_String,
     Audio_SamplingCount,

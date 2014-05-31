@@ -4569,6 +4569,7 @@ void MediaInfo_Config_Audio (ZtringListList &Info)
     "ChannelPositions;;;Y YT;;;Position of channels;\n"
     "ChannelPositions/String2;;;N NT;;;Position of channels (x/y.z format);\n"
     "ChannelLayout;;;N YT;;;Layout of channels (in the stream);\n"
+    "ChannelLayoutID;;;N YT;;;ID of layout of channels (e.g. MXF descriptor channel assignment). Warning, sometimes this is not enough for uniquely identifying a layout (e.g. MXF descriptor channel assignment is SMPTE 377-4). For AC-3, the form is x,y with x=acmod and y=lfeon.;\n"
     "SamplingRate;; Hz;N YF;;;Sampling rate;\n"
     "SamplingRate/String;;;Y NT;;;in KHz;\n"
     "SamplingCount;;;N NI;;;Sample count (based on sampling rate);\n"
