@@ -246,8 +246,8 @@ bool File_DcpAm::FileHeader_Begin()
         MI.Option(__T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
         MI.Option(__T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
         if (MiOpenResult
-            && ((IsDcp && MI.Get(Stream_General, 0, General_Format)==__T("DCP CPL"))
-            || (IsImf && MI.Get(Stream_General, 0, General_Format)==__T("IMF CPL"))))
+            && (MI.Get(Stream_General, 0, General_Format)==__T("DCP CPL")
+            ||  MI.Get(Stream_General, 0, General_Format)==__T("IMF CPL")))
         {
             DcpCpl_MergeFromPkl(((File_DcpCpl*)MI.Info)->ReferenceFiles, ReferenceFiles);
             ReferenceFiles->References=((File_DcpCpl*)MI.Info)->ReferenceFiles->References;
