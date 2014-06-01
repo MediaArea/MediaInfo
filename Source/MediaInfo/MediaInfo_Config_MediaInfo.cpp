@@ -73,6 +73,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     #endif //defined(MEDIAINFO_REFERENCES_YES)
     File_TimeToLive=0;
     File_Buffer_Size_Hint_Pointer=NULL;
+    File_Buffer_Read_Size=64*1024*1024;
     #if MEDIAINFO_NEXTPACKET
         NextPacket=false;
     #endif //MEDIAINFO_NEXTPACKET
@@ -416,6 +417,15 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==__T("file_buffer_size_hint_pointer_get"))
     {
         return Ztring::ToZtring((size_t)File_Buffer_Size_Hint_Pointer_Get());
+    }
+    else if (Option_Lower==__T("file_buffer_read_size"))
+    {
+        File_Buffer_Read_Size_Set((size_t)Ztring(Value).To_int64u());
+        return __T("");
+    }
+    else if (Option_Lower==__T("file_buffer_read_size_get"))
+    {
+        return Ztring::ToZtring((size_t)File_Buffer_Read_Size_Get());
     }
     else if (Option_Lower==__T("file_filter"))
     {
@@ -1259,14 +1269,6 @@ Ztring MediaInfo_Config_MediaInfo::File_ForceParser_Get ()
     return File_ForceParser;
 }
 
-//***************************************************************************
-/*  Copyright (c) MediaArea.net SARL. All Rights Reserved.
- *
- *  Use of this source code is governed by a BSD-style license that can
- *  be found in the License.html file in the root of the source tree.
- */
-//***************************************************************************
-
 //---------------------------------------------------------------------------
 void MediaInfo_Config_MediaInfo::File_Buffer_Size_Hint_Pointer_Set (size_t* NewValue)
 {
@@ -1278,6 +1280,19 @@ size_t*  MediaInfo_Config_MediaInfo::File_Buffer_Size_Hint_Pointer_Get ()
 {
     CriticalSectionLocker CSL(CS);
     return File_Buffer_Size_Hint_Pointer;
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::File_Buffer_Read_Size_Set (size_t NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    File_Buffer_Read_Size=NewValue;
+}
+
+size_t  MediaInfo_Config_MediaInfo::File_Buffer_Read_Size_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return File_Buffer_Read_Size;
 }
 
 //***************************************************************************

@@ -38,8 +38,8 @@ using namespace std;
     int64u Reader_File_BytesRead_Total=0;
     int64u Reader_File_BytesRead=0;
     int64u Reader_File_Count=1;
-    #include <iostream>
 #endif // MEDIAINFO_DEBUG
+    #include <iostream>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -48,6 +48,8 @@ namespace MediaInfoLib
 #if MEDIAINFO_READTHREAD
 void Reader_File_Thread::Entry()
 {
+    ReadSize_Max=Base->Buffer_Max>>3;
+    
     for (;;)
     {
         Base->CS.Enter();
@@ -75,8 +77,8 @@ void Reader_File_Thread::Entry()
 
         if (ToRead)
         {
-            if (ToRead>4*1024*1024)
-                ToRead=4*1024*1024;
+            if (ToRead>ReadSize_Max)
+                ToRead=ReadSize_Max;
             size_t BytesRead=Base->F.Read(Base->Buffer+Buffer_ToReadOffset, ToRead);
             if (!BytesRead)
                 break;
@@ -141,7 +143,7 @@ Reader_File::~Reader_File()
 //---------------------------------------------------------------------------
 size_t Reader_File::Format_Test(MediaInfo_Internal* MI, String File_Name)
 {
-    //std::cout<<Ztring(File_Name).To_Local().c_str()<<std::endl;
+    std::cout<<Ztring(File_Name).To_Local().c_str()<<std::endl;
     #if MEDIAINFO_EVENTS
         {
             string File_Name_Local=Ztring(File_Name).To_Local();
@@ -292,6 +294,8 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
 {
     bool StopAfterFilled=MI->Config.File_StopAfterFilled_Get();
     bool ShouldContinue=true;
+    if (MI->Info)
+        Status=MI->Info->Status;
 
     //Previous data
     if (MI->Config.File_Buffer_Repeat)
@@ -453,7 +457,7 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                     {
                         delete[] MI->Config.File_Buffer; MI->Config.File_Buffer=NULL;
                         MI->Config.File_Buffer_Size_Max=0;
-                        Buffer_Max=64*1024*1024;
+                        Buffer_Max=MI->Config.File_Buffer_Read_Size_Get();
                         Buffer=new int8u[Buffer_Max];
                         Buffer_Begin=0;
                         Buffer_End=0;

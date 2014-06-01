@@ -632,6 +632,7 @@ void File__ReferenceFilesHelper::ParseReferences()
 
         FileSize_Compute();
         Reference=References.begin();
+        CountOfReferences_ForReadSize=References.size();
         Init_Done=true;
 
         #if MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
@@ -897,6 +898,17 @@ void File__ReferenceFilesHelper::ParseReference()
                     {
                         while ((Reference->Status=Reference->MI->Open_NextPacket())[8])
                         {
+                                if (!Reference->FileSize_IsPresent && Reference->MI->Config.File_Size!=(int64u)-1)
+                                {
+                                    Reference->FileSize_IsPresent=true;
+                                    if (CountOfReferences_ForReadSize)
+                                    {
+                                        CountOfReferences_ForReadSize--;
+                                        if (!CountOfReferences_ForReadSize)
+                                            CountOfReferences_ForReadSize_Run();
+                                    }
+                                }
+
                                 if (Config->Event_CallBackFunction_IsSet())
                                 {
                                     Config->Demux_EventWasSent=true;
@@ -904,6 +916,8 @@ void File__ReferenceFilesHelper::ParseReference()
                                 }
                         }
                         Reference->CompleteDuration_Pos++;
+                        if (Reference->CompleteDuration_Pos<Reference->CompleteDuration.size() && Reference->CompleteDuration[Reference->CompleteDuration_Pos].MI)
+                            Reference->CompleteDuration[Reference->CompleteDuration_Pos].MI->Open_Buffer_Seek(0, 0, (int64u)-1);
                     }
 
                     #if MEDIAINFO_NEXTPACKET && MEDIAINFO_DEMUX
@@ -915,6 +929,17 @@ void File__ReferenceFilesHelper::ParseReference()
                     {
                         while ((Reference->Status=Reference->CompleteDuration[Reference->CompleteDuration_Pos].MI->Open_NextPacket())[8])
                         {
+                                if (!Reference->FileSize_IsPresent && Reference->MI->Config.File_Size!=(int64u)-1)
+                                {
+                                    Reference->FileSize_IsPresent=true;
+                                    if (CountOfReferences_ForReadSize)
+                                    {
+                                        CountOfReferences_ForReadSize--;
+                                        if (!CountOfReferences_ForReadSize)
+                                            CountOfReferences_ForReadSize_Run();
+                                    }
+                                }
+
                                 if (Config->Event_CallBackFunction_IsSet())
                                 {
                                     Config->Demux_EventWasSent=true;
@@ -922,6 +947,8 @@ void File__ReferenceFilesHelper::ParseReference()
                                 }
                         }
                         Reference->CompleteDuration_Pos++;
+                        if (Reference->CompleteDuration_Pos<Reference->CompleteDuration.size() && Reference->CompleteDuration[Reference->CompleteDuration_Pos].MI)
+                            Reference->CompleteDuration[Reference->CompleteDuration_Pos].MI->Open_Buffer_Seek(0, 0, (int64u)-1);
                     }
                 if (CountOfReferencesToParse)
                     CountOfReferencesToParse--;
@@ -1485,7 +1512,7 @@ size_t File__ReferenceFilesHelper::Read_Buffer_Seek (size_t Method, int64u Value
                                 if (Reference->MI)
                                 {
                                     Ztring Result;
-                                    if (Reference->CompleteDuration.empty() || DurationM<Reference->CompleteDuration[1].Demux_Offset_DTS)
+                                    if (Reference->CompleteDuration.size()<=1 || DurationM<Reference->CompleteDuration[1].Demux_Offset_DTS)
                                     {
                                         Reference->CompleteDuration_Pos=0;
                                         Result=Reference->MI->Option(__T("File_Seek"), DurationS);
@@ -1728,6 +1755,26 @@ void File__ReferenceFilesHelper::FileSize_Compute ()
                 }
         }
     }
+}
+
+//---------------------------------------------------------------------------
+void File__ReferenceFilesHelper::CountOfReferences_ForReadSize_Run ()
+{
+    //Computing read buffer size
+    int64u  File_Size_Total=0;
+    int64u  Buffer_Read_Size_Total=MI->Config->File_Buffer_Read_Size_Get();
+    for (references::iterator Reference_Temp=References.begin(); Reference_Temp!=References.end(); Reference_Temp++)
+        if (Reference_Temp->MI && Reference_Temp->MI->Config.File_Size!=(int64u)-1)
+            File_Size_Total+=Reference_Temp->MI->Config.File_Size;
+    for (references::iterator Reference_Temp=References.begin(); Reference_Temp!=References.end(); Reference_Temp++)
+        if (Reference_Temp->MI)
+        {
+            int64u  Buffer_Read_Size_Temp=float64_int64s(((float64)Reference_Temp->MI->Config.File_Size)/File_Size_Total*Buffer_Read_Size_Total);
+            int64u  Buffer_Read_Size=1;
+            while (Buffer_Read_Size<Buffer_Read_Size_Temp)
+                Buffer_Read_Size<<=1;
+            Reference_Temp->MI->Config.File_Buffer_Read_Size_Set((size_t)Buffer_Read_Size);
+        }
 }
 
 //---------------------------------------------------------------------------
