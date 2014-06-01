@@ -292,6 +292,16 @@ struct MediaInfo_Event_Global_Demux_4
 };
 
 /*-------------------------------------------------------------------------*/
+/* BytesRead                                                               */
+#define MediaInfo_Event_Global_BytesRead 0xAF02
+struct MediaInfo_Event_Global_BytesRead_0
+{
+    MEDIAINFO_EVENT_GENERIC
+    size_t                  Content_Size;
+    const MediaInfo_int8u*  Content;
+};
+
+/*-------------------------------------------------------------------------*/
 /* MediaInfo_Event_Video_SliceInfo_0                                       */
 #define MediaInfo_Event_Video_SliceInfo 0x7801
 struct MediaInfo_Event_Video_SliceInfo_0
