@@ -526,7 +526,7 @@ void File__ReferenceFilesHelper::ParseReferences()
                 }
             }
             Reference->Source=Reference->FileNames.Read(0);
-            if (Reference->StreamKind!=Stream_Max)
+            if (Reference->StreamKind!=Stream_Max && !Reference->Source.empty())
             {
                 if (Reference->StreamPos==(size_t)-1)
                     Reference->StreamPos=Stream_Prepare(Reference->StreamKind);
@@ -547,7 +547,7 @@ void File__ReferenceFilesHelper::ParseReferences()
             {
                 Reference->FileNames.clear();
                 Reference->Status.set(File__Analyze::IsFinished);
-                if (Reference->StreamKind!=Stream_Max)
+                if (Reference->StreamKind!=Stream_Max && !Reference->Source.empty())
                 {
                     MI->Fill(Reference->StreamKind, Reference->StreamPos, "Source_Info", "Missing");
                     if (MI->Retrieve(Reference->StreamKind, Reference->StreamPos, General_ID).empty() && Reference->StreamID!=(int64u)-1)
