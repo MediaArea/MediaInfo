@@ -315,11 +315,11 @@ bool File_Id3v2::Static_Synchronize_Tags(const int8u* Buffer, size_t Buffer_Offs
         return false;
 
     //ID
-    if ((Buffer[Buffer_Offset  ]==0x45 // "ID3"
-      && Buffer[Buffer_Offset+1]==0x41
+    if ((Buffer[Buffer_Offset  ]==0x49 // "ID3"
+      && Buffer[Buffer_Offset+1]==0x44
       && Buffer[Buffer_Offset+2]==0x33)
-     || (Buffer[Buffer_Offset  ]==0x45 // "ea3", found in OpenMG
-      && Buffer[Buffer_Offset+1]==0x41
+     || (Buffer[Buffer_Offset  ]==0x65 // "ea3", found in OpenMG
+      && Buffer[Buffer_Offset+1]==0x61
       && Buffer[Buffer_Offset+2]==0x33))
         Tag_Found=true;
     else
