@@ -3233,7 +3233,7 @@ void File__Analyze::Event_Prepare(struct MediaInfo_Event_Generic* Event)
 {
     memset(Event, 0xFF, sizeof(struct MediaInfo_Event_Generic));
     Event->StreamIDs_Size=StreamIDs_Size;
-    memcpy_Unaligned_Unaligned_Once1024(Event->StreamIDs, StreamIDs, 1024);
+    memcpy_Unaligned_Unaligned_Once1024(Event->StreamIDs, StreamIDs, 128);
     memcpy(Event->StreamIDs_Width, StreamIDs_Width, sizeof(StreamIDs_Width));
     memcpy(Event->ParserIDs, ParserIDs, sizeof(ParserIDs));
     Event->StreamOffset=File_Offset+Buffer_Offset+Element_Offset;
