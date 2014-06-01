@@ -3471,7 +3471,14 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                         if (Descriptor==Descriptors.end())
                             return (size_t)-1; //Not supported
 
-                        if (TimeCode_StartTimecode!=(int64u)-1)
+                        if (Config->Demux_Offset_DTS!=(int64u)-1)
+                        {
+                            int64u Delay=float64_int64s(Config->Demux_Offset_DTS);
+                            if (Value<Delay)
+                                return 2; //Invalid value
+                            Value-=Delay;
+                        }
+                        else if (TimeCode_StartTimecode!=(int64u)-1)
                         {
                             int64u Delay=float64_int64s(DTS_Delay*1000000000);
                             if (Value<Delay)
