@@ -121,10 +121,9 @@ File_Ttml::~File_Ttml()
 #if MEDIAINFO_SEEK
 size_t File_Ttml::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 {
-    if (!div)
-        return (size_t)-1;
-
-    p=div->FirstChildElement();
+    GoTo(0);
+    if (div)
+        p=div->FirstChildElement();
     Open_Buffer_Unsynch();
     return 1;
 }
