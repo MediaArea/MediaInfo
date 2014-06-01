@@ -295,7 +295,7 @@ bool File_Hevc::Synchronize()
         Reject();
         return false;
     }
-    
+
     //Synched is OK
     Synched=true;
     return true;
