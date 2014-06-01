@@ -16,7 +16,7 @@ mkdir MediaInfo_GUI_Windows_x64
 @rem --- Copying : Exe ---
 copy  ..\Project\BCB\GUI\Release_Build\MediaInfo_GUI_x64.exe MediaInfo_GUI_Windows_x64\MediaInfo.exe
 xcopy ..\..\MediaInfoLib\Project\MSVC2010\DLL\x64\Release\MediaInfo.dll MediaInfo_GUI_Windows_x64\ /S
-copy  ..\..\MediaInfoLib\Project\MSVC2005\DLL\Win32\Release\MediaInfo.dll MediaInfo_GUI_Windows_x64\MediaInfo_i386.dll
+copy  ..\..\MediaInfoLib\Project\MSVC2010\DLL\Win32\Release\MediaInfo.dll MediaInfo_GUI_Windows_x64\MediaInfo_i386.dll
 xcopy ..\..\MediaInfoLib\Project\MSVC2010\ShellExtension\x64\Release\MediaInfo_InfoTip.dll MediaInfo_GUI_Windows_x64\ /S
 
 @rem --- Copying : Plugins ---
