@@ -109,8 +109,8 @@ void File_Eia608::Streams_Fill()
                 string ID=StreamPos<2?"CC":"T";
                 ID+='1'+(cc_type*2)+(StreamPos%2);
                 Fill(Stream_Text, StreamPos_Last, Text_ID, ID);
-                Fill(Stream_Text, StreamPos_Last, "ServiceName", ID);
-                (*Stream_More)[StreamKind_Last][StreamPos_Last](Ztring().From_Local("ServiceName"), Info_Options)=__T("N NT");
+                Fill(Stream_Text, StreamPos_Last, "CaptionServiceName", ID);
+                (*Stream_More)[StreamKind_Last][StreamPos_Last](Ztring().From_Local("CaptionServiceName"), Info_Options)=__T("N NT");
             }
         }
 }
@@ -373,6 +373,7 @@ void File_Eia608::XDS_Current_ContentAdvisory()
                     case 5 : ContentAdvisory="TV-14"; break;
                     case 6 : ContentAdvisory="TV-MA"; break;
                     case 7 : ContentAdvisory="None"; break;
+                    default: ;
                 }
                 if (XDS_Data[XDS_Level][2]&0x20) //Suggestive dialogue
                     ContentDescriptors+='D';
@@ -420,6 +421,7 @@ void File_Eia608::XDS_Current_ContentAdvisory()
                         }
                 }
                 break;
+        default: ;
     }
 
     if (ContentAdvisory)
