@@ -1722,7 +1722,7 @@ void File_Mxf::Streams_Finish()
     }
 
     //System scheme 1
-    for (systemschemes::iterator SystemScheme=SystemSchemes.begin(); SystemScheme!=SystemSchemes.end(); SystemScheme++)
+    for (systemschemes::iterator SystemScheme=SystemSchemes.begin(); SystemScheme!=SystemSchemes.end(); ++SystemScheme)
     {
         if (!SystemScheme->second.IsTimeCode) //Already done somewhere else
         {
@@ -1735,9 +1735,9 @@ void File_Mxf::Streams_Finish()
     //Primary package info
     bool PrimaryPackageIsSourcePackage=false;
     bool PrimaryPackageIsMaterialPackage=false;
-    for (prefaces::iterator Preface=Prefaces.begin(); Preface!=Prefaces.end(); Preface++)
+    for (prefaces::iterator Preface=Prefaces.begin(); Preface!=Prefaces.end(); ++Preface)
     {
-        for (packages::iterator Package=Packages.begin(); Package!=Packages.end(); Package++)
+        for (packages::iterator Package=Packages.begin(); Package!=Packages.end(); ++Package)
             if (Package->first==Preface->second.PrimaryPackage)
             {
                 if (Package->second.IsSourcePackage)
