@@ -83,7 +83,7 @@ int Test_Date(wxString FileName)
         return -1;
     }
     wxTimeSpan TS=wxDateTime::Now()-Access;
-    if (TS.GetWeeks()>0 || TS.GetDays()>0 || TS.GetHours()>0 || TS.GetMinutes()>0 || TS.GetMinutes()>10)
+    if (TS.GetWeeks()>0 || TS.GetDays()>0 || TS.GetHours()>0 || TS.GetMinutes()>0)
     {
         ToShow+=FileName;
         ToShow+=__T(" is old : was compiled");
