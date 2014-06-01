@@ -1014,6 +1014,13 @@ void File__Analyze::Open_Buffer_Unsynch ()
         Ibi_Read_Buffer_Unsynched();
     }
     Buffer_Clear();
+
+    //Some default values
+    if (IsRawStream && File_GoTo==0)
+    {
+        FrameInfo.DTS=0;
+        Frame_Count_NotParsedIncluded=0;
+    }
 }
 
 //---------------------------------------------------------------------------
