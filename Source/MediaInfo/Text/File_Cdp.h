@@ -83,6 +83,9 @@ private :
     std::vector<stream*> Streams;
     size_t               Streams_Count;
 
+    //Temp
+    int8u cdp_frame_rate;
+
     //EIA-708 descriptors
     #if defined(MEDIAINFO_EIA708_YES)
         File_Eia708::servicedescriptors ServiceDescriptors;
