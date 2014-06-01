@@ -300,16 +300,12 @@ void File_Pcm::Data_Parse()
 {
     #if MEDIAINFO_DEMUX
         FrameInfo.PTS=FrameInfo.DTS;
-        int64u Frame_Count_NotParsedIncluded_ToAdd=0;
         if (Frame_Count_Valid_Demux)
         {
             if (FrameInfo.DUR!=(int64u)-1)
                 FrameInfo.DUR*=Frame_Count_Valid_Demux;
-            if (Frame_Count_NotParsedIncluded!=(int64u)-1 && Frame_Count_Valid_Demux-1<=Frame_Count_NotParsedIncluded)
-            {
-                Frame_Count_NotParsedIncluded_ToAdd=Frame_Count_Valid_Demux-1;
-                Frame_Count_NotParsedIncluded-=Frame_Count_NotParsedIncluded_ToAdd;
-            }
+            if (Frame_Count_NotParsedIncluded!=(int64u)-1 && Frame_Count_NotParsedIncluded>=Frame_Count_Valid_Demux)
+                Frame_Count_NotParsedIncluded-=Frame_Count_Valid_Demux-1;
         }
         Demux_random_access=true;
         Element_Code=(int64u)-1;
@@ -383,9 +379,11 @@ void File_Pcm::Data_Parse()
     if (Frame_Count_Valid_Demux)
     {
         Frame_Count+=Frame_Count_Valid_Demux-1;
-        if (Frame_Count_NotParsedIncluded!=(int64u)-1 && Frame_Count_NotParsedIncluded_ToAdd)
-            Frame_Count_NotParsedIncluded+=Frame_Count_NotParsedIncluded_ToAdd;
+        if (Frame_Count_NotParsedIncluded!=(int64u)-1)
+            Frame_Count_NotParsedIncluded+=Frame_Count_Valid_Demux-1;
         FrameInfo.DUR/=Frame_Count_Valid_Demux;
+        if (FrameInfo.DTS!=(int64u)-1)
+            FrameInfo.DTS+=FrameInfo.DUR*Frame_Count;
         Frame_Count_Valid_Demux=0;
     }
     #endif //MEDIAINFO_DEMUX

@@ -840,7 +840,7 @@ bool File_Mpega::Demux_UnpacketizeContainer_Test()
         if (Frame_Count && File_Demux_Unpacketize_StreamLayoutChange_Skip)
         {
             int8u mode0              =CC1(Buffer+Buffer_Offset+3)>>6;
-            if (sampling_frequency0!=sampling_frequency_Frame0 || mode0!=mode_Frame0)
+            if (sampling_frequency0!=sampling_frequency_Frame0 || Mpega_Channels[mode0]!=Mpega_Channels[mode_Frame0])
             {
                 return true;
             }
