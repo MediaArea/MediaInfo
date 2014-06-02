@@ -10,7 +10,10 @@ apcs;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;LT;;YUV;4:
 apco;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;Proxy;;YUV;4:2:2
 ap4c;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;;;;4:4:4
 ap4h;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;;;;4:4:4
+ai11;AVC;;Advanced Video Coding;http://ffdshow-tryout.sourceforge.net;;;
 ai12;AVC;;Advanced Video Coding;http://ffdshow-tryout.sourceforge.net;;;
+ai13;AVC;;Advanced Video Coding;http://ffdshow-tryout.sourceforge.net;;;
+ai14;AVC;;Advanced Video Coding;http://ffdshow-tryout.sourceforge.net;;;
 ai15;AVC;;Advanced Video Coding;http://ffdshow-tryout.sourceforge.net;;;
 ai1q;AVC;;Advanced Video Coding;http://ffdshow-tryout.sourceforge.net;;;
 ai5q;AVC;;Advanced Video Coding;http://ffdshow-tryout.sourceforge.net;;;
