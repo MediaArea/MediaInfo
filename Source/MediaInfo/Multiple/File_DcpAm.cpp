@@ -206,7 +206,7 @@ bool File_DcpAm::FileHeader_Begin()
 
                     if (IsCPL)
                     {
-                        if (CPL_FileName.empty() && ReferenceFile.FileNames.empty())
+                        if (CPL_FileName.empty() && !ReferenceFile.FileNames.empty())
                             CPL_FileName=ReferenceFile.FileNames[0]; //Using only the first CPL file meet
                     }
                     else if (!IsPKL)
