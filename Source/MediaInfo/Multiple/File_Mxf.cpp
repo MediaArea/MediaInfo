@@ -2617,7 +2617,7 @@ void File_Mxf::Streams_Finish_Descriptor(const int128u DescriptorUID, const int1
         if (!Descriptor->second.SubDescriptors.empty())
         {
             std::vector<int128u> AudioChannelLabels_MCALabelDictionaryID;
-                
+
             for (size_t Pos=0; Pos<Descriptor->second.SubDescriptors.size(); Pos++)
             {
                 descriptors::iterator SubDescriptor=Descriptors.find(Descriptor->second.SubDescriptors[Pos]);
