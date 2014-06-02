@@ -11604,7 +11604,6 @@ void File_Mxf::Info_UL_040101_Values()
                                                     }
                                                     }
                                                     break;
-                                                    break;
                                                 default   :
                                                     Skip_B2(    "Unknown");
                                             }
