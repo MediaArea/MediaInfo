@@ -2240,7 +2240,7 @@ void File__Analyze::CodecID_Fill(const Ztring &Value, stream_t StreamKind, size_
 {
     if (StreamKind_CodecID==Stream_Max)
         StreamKind_CodecID=StreamKind;
-        
+
     Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_CodecID), Value);
     const Ztring &C1=MediaInfoLib::Config.CodecID_Get(StreamKind_CodecID, Format, Value, InfoCodecID_Format);
     Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Format), C1.empty()?Value:C1, true);

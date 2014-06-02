@@ -155,7 +155,7 @@ private :
         bool    general_interlaced_source_flag;
         bool    general_frame_only_constraint_flag;
         bool    IsSynched;
-        
+
         //Computed value
         int8u   ChromaArrayType() {return separate_colour_plane_flag?0:chroma_format_idc;}
 

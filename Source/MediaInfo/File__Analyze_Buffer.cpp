@@ -1766,7 +1766,7 @@ void File__Analyze::Get_ISO_6937_2(int64u Bytes, Ztring &Info, const char* Name)
                                                  break;
             default  : NewChar=(wchar_t)(Buffer[Pos]);
         }
-        
+
         if (EscapeChar)
         {
             if (Pos+1<End)

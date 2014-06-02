@@ -99,7 +99,7 @@ File_Cdp::File_Cdp()
 
     //Temp
     cdp_frame_rate=(int8u)-1;
-    
+
     //EIA-708 descriptors
     #if defined(MEDIAINFO_EIA708_YES)
         ccsvcinfo_section_IsPresent=false;

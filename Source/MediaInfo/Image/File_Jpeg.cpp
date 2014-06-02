@@ -464,7 +464,7 @@ bool File_Jpeg::Header_Parser_Fill_Size()
     //Look for next Sync word
     if (Buffer_Offset_Temp==0) //Buffer_Offset_Temp is not 0 if Header_Parse_Fill_Size() has already parsed first frames
         Buffer_Offset_Temp=Buffer_Offset;
-    
+
     #if MEDIAINFO_DEMUX
         if (Buffer_TotalBytes+2<Demux_TotalBytes)
             Buffer_Offset_Temp=(size_t)(Demux_TotalBytes-(Buffer_TotalBytes+2));

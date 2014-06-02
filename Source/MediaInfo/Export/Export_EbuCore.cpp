@@ -1087,7 +1087,7 @@ Ztring Export_EbuCore::Transform(MediaInfo_Internal &MI)
             startCount++;
         }
     }
-    
+
     //format - duration
     if (!MI.Get(Stream_General, 0, General_Duration).empty())
     {

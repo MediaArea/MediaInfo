@@ -566,7 +566,7 @@ void File_Mpeg4::Streams_Finish()
                         Clear(Stream_Audio, StreamPos_Last, Audio_Format_Settings_Sign);
                     }
                     ZtringList StreamSave;
-                    ZtringListList StreamMoreSave; 
+                    ZtringListList StreamMoreSave;
                     if (StreamKind_Last!=Stream_Max)
                     {
                         StreamSave.Write((*File__Analyze::Stream)[StreamKind_Last][StreamPos_Last].Read());
@@ -1561,8 +1561,8 @@ void File_Mpeg4::Header_Parse()
 
     if (Name==0x6D6F6F76 && Buffer_Offset+Size>Buffer_Size-Buffer_Offset) //moov
     {
- 		File_Buffer_Size_Hint_Pointer=Config->File_Buffer_Size_Hint_Pointer_Get();
-        
+        File_Buffer_Size_Hint_Pointer=Config->File_Buffer_Size_Hint_Pointer_Get();
+
         //Hints
         if (File_Buffer_Size_Hint_Pointer && Size>128*1024)
         {
@@ -1683,11 +1683,11 @@ bool File_Mpeg4::BookMark_Needed()
                 #if MEDIAINFO_DEMUX
                     stream::stts_durations Temp_stts_Durations;
                 #endif //MEDIAINFO_DEMUX
-				int64u* stco_Current=Temp->second.stco.empty()?NULL:&Temp->second.stco[0];
+                int64u* stco_Current=Temp->second.stco.empty()?NULL:&Temp->second.stco[0];
                 int64u* stco_Max=stco_Current+Temp->second.stco.size();
-				stream::stsc_struct* stsc_Current=Temp->second.stco.empty()?NULL:&Temp->second.stsc[0];
+                stream::stsc_struct* stsc_Current=Temp->second.stco.empty()?NULL:&Temp->second.stsc[0];
                 stream::stsc_struct* stsc_Max=stsc_Current+Temp->second.stsc.size();
-				int64u* stsz_Current=Temp->second.stsz.empty()?NULL:&Temp->second.stsz[0];
+                int64u* stsz_Current=Temp->second.stsz.empty()?NULL:&Temp->second.stsz[0];
                 int64u* stsz_Max=stsz_Current+Temp->second.stsz.size();
                 int64u MinimalOffset=(int64u)-1;
                 int64u MaximalOffset=0;
@@ -1799,7 +1799,7 @@ bool File_Mpeg4::BookMark_Needed()
             #endif //MEDIAINFO_DEMUX
         }
         std::sort(mdat_Pos.begin(), mdat_Pos.end(), &mdat_pos_sort);
-		mdat_Pos_Temp=mdat_Pos.empty()?NULL:&mdat_Pos[0];
+        mdat_Pos_Temp=mdat_Pos.empty()?NULL:&mdat_Pos[0];
         mdat_Pos_Max=mdat_Pos_Temp+mdat_Pos.size();
 
         #if MEDIAINFO_DEMUX

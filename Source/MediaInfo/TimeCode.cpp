@@ -65,7 +65,7 @@ TimeCode::TimeCode (int64s Frames_, int8u FramesPerSecond_, bool DropFrame_, boo
     }
     else
         IsNegative=false;
-    
+
     int8u Dropped=0;
     if (DropFrame_)
     {

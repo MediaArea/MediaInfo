@@ -3936,7 +3936,7 @@ void File_Mpegv::group_start()
 
     FILLING_BEGIN();
         temporal_reference_Adapt();
-        
+
         //NextCode
         if (!Status[IsAccepted])
         {

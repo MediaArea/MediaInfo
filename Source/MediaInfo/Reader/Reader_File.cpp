@@ -49,7 +49,7 @@ namespace MediaInfoLib
 void Reader_File_Thread::Entry()
 {
     ReadSize_Max=Base->Buffer_Max>>3;
-    
+
     for (;;)
     {
         Base->CS.Enter();
@@ -481,7 +481,7 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                 break; //Problem while config
             if (
                 #if MEDIAINFO_READTHREAD
-                    ThreadInstance==NULL && 
+                    ThreadInstance==NULL &&
                 #endif //MEDIAINFO_READTHREAD
                 MI->Config.File_Buffer_Size_ToRead>MI->Config.File_Buffer_Size_Max)
             {
@@ -496,7 +496,7 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
             //Testing multiple file per stream
             if (
                 #if MEDIAINFO_READTHREAD
-                    ThreadInstance==NULL && 
+                    ThreadInstance==NULL &&
                 #endif //MEDIAINFO_READTHREAD
                 F.Position_Get()>=F.Size_Get())
             {
@@ -540,7 +540,7 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                             Sleep(0);
                         #endif //WINDOWS
                         CS.Enter();
-                
+
                         if (ThreadInstance->IsExited())
                         {
                             if (IsLooping)
@@ -649,7 +649,7 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
 
             //Parser
             Status=MI->Open_Buffer_Continue(MI->Config.File_Buffer, MI->Config.File_Buffer_Size);
-            
+
             #if MEDIAINFO_READTHREAD
                 if (ThreadInstance && !MI->Config.File_Buffer_Repeat)
                 {

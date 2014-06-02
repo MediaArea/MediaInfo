@@ -2971,7 +2971,7 @@ void File_Mpeg4::moov_trak_mdia_hdlr()
                     Stream_Prepare(Stream_Other);
                 Fill(Stream_Other, StreamPos_Last, Other_Type, "Scene description");
                 break;
-            default: 
+            default:
                 if (!Streams[moov_trak_tkhd_TrackID].hdlr_SubType) //TODO: check what is the best method to detect SubType (moov_trak_mdia_hdlr vs moov_trak_mdia_minf_hdlr)
                 {
                     Streams[moov_trak_tkhd_TrackID].hdlr_Type=Type;
@@ -3480,8 +3480,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_co64()
     int32u Count;
     Get_B4 (Count,                                              "Number of entries");
 
-	if (Count==0)
-		return;
+    if (Count==0)
+        return;
 
     std::vector<int64u> &stco=Streams[moov_trak_tkhd_TrackID].stco;
     stco.resize(Count<FrameCount_MaxPerStream?Count:FrameCount_MaxPerStream);

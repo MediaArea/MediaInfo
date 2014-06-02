@@ -615,7 +615,7 @@ void File_Ancillary::Data_Parse()
                                                 case 0x20:
                                                 case 0x40: Fill(Stream_Other, StreamPos_Last, Other_Format, "UMID"); break;
                                             }
-                                            
+
                                             Fill(Stream_Other, StreamPos_Last, Other_MuxingMode, "Ancillary data / SMPTE RP 223");
                                         }
                                         break;

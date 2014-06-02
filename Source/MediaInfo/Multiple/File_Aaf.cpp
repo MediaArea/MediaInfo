@@ -84,7 +84,7 @@ File_Aaf::~File_Aaf()
 {
     for (size_t Pos=0; Pos<Streams.size(); Pos++)
         delete Streams[Pos];
-    
+
     delete ReferenceFiles; //ReferenceFiles=NULL;
 }
 
@@ -182,7 +182,7 @@ void File_Aaf::Read_Buffer_Continue()
 {
     if (File_Offset || Buffer_Offset)
         return;
-        
+
     //Parsing
     Element_Begin1("Header");
         int32u csectFat;
@@ -441,7 +441,7 @@ void File_Aaf::StreamElement()
             Streams[Streams_Pos]->Buffer=new int8u[(size_t)((1+(Streams[Streams_Pos]->Size>>Shift))<<Shift)];
         memcpy(Streams[Streams_Pos]->Buffer+Streams_Pos2*(((int64u)1)<<Shift), Buffer+Buffer_Offset, (size_t)Element_Size);
     }
-    
+
     //Next Element
     Streams_Pos2++;
     if (Streams_Pos2>=Streams[Streams_Pos]->StreamOffsets.size())
@@ -492,7 +492,7 @@ void File_Aaf::StreamElement_Parse()
         Sizes.push_back(Size);
         Keys.push_back(Key);
     }
-    
+
     #define ELEMENT(_ELEMENT, _NAME) \
 
     for (int16u Pos=0; Pos<Count; Pos++)

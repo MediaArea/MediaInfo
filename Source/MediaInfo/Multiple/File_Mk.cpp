@@ -1127,7 +1127,7 @@ void File_Mk::Segment_Attachements_AttachedFile_FileName()
 
     //Parsing
     Ztring Data=UTF8_Get();
-    
+
     FILLING_BEGIN();
         if (!Data.empty())
             AttachedFiles[AttachedFiles.size()-1]=Data;

@@ -1061,7 +1061,7 @@ void File_Gxf::map()
                         case 13 :
                         case 14 :
                         case 15 :
-                        case 16 :   
+                        case 16 :
                         case 25 :   // was found for DVCPro HD in some files (not in SMPTE ST 360-2009, maybe it is present in a later version)
                                     //DV
                                     {

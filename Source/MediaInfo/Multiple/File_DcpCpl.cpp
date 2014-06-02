@@ -252,7 +252,7 @@ bool File_DcpCpl::FileHeader_Begin()
                 if (Info!=ReferenceFile.Infos.end() && Info->second.size()>=11 && Info->second[8]!=__T(';'))
                     Info->second[8]=__T(';');
             }
-            
+
             ReferenceFile.StreamID=ReferenceFiles->References.size()+1;
             ReferenceFiles->References.push_back(ReferenceFile);
 

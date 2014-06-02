@@ -56,7 +56,7 @@ Version 0.7.68, 2014-04-02
 + Node.js examples added, in contrib directory
 + GXF: support of DVCPRO HD
 + GXF: Media Type is reported
-+ HEVC: added support of scaling_list_data 
++ HEVC: added support of scaling_list_data
 + HEVC: deactivated general_profile_compatibility_flag validity test because some encoders do not implement it correctly
 + MPEG-4/MOV: Speed improvement, especially for full parsing of 100+ GB files.
 + File reading: Speed improvement of big files, especially for full parsing, with the help of a dedicated reading thread
@@ -117,7 +117,7 @@ x #B805, AC-3: Segfault on files falsely recognized as AC3 files, thanks to Gild
 x #B808, PCM: Infinite loop, thanks to Gildas Desnos
 x #B809, APE tags: Infinite loop, thanks to Gildas Desnos
 x #B810, AVC: Infinite loop, thanks to Gildas Desnos
-x #B813, CLI_Compile.sh bug ("eats all resources" while compiling) 
+x #B813, CLI_Compile.sh bug ("eats all resources" while compiling)
 x LATM: false-positive detection of some files
 x MXF: Crash with some files
 

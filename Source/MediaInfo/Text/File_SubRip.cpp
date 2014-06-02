@@ -97,7 +97,7 @@ File_SubRip::File_SubRip()
 
     //Init
     Frame_Count=0;
-    
+
     //Temp
     IsVTT=false;
     HasBOM=false;
@@ -138,7 +138,7 @@ bool File_SubRip::FileHeader_Begin()
 
     if (List(0, 0)==__T("WEBVTT FILE") || List(0, 0)==__T("WEBVTT"))
         IsVTT=true;
-        
+
     if (!IsVTT)
     {
         size_t IsOk=0;
