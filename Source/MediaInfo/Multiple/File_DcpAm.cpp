@@ -165,6 +165,7 @@ bool File_DcpAm::FileHeader_Begin()
                 if (!strcmp(AssetList_Item->Value(), (NameSpace+"Asset").c_str()))
                 {
                     File__ReferenceFilesHelper::reference ReferenceFile;
+                    bool IsPKL=false;
                     bool IsCPL=false;
 
                     for (XMLElement* Asset_Item=AssetList_Item->FirstChildElement(); Asset_Item; Asset_Item=Asset_Item->NextSiblingElement())
@@ -189,6 +190,10 @@ bool File_DcpAm::FileHeader_Begin()
                                             ReferenceFile.FileNames.push_back(Ztring().From_UTF8(Chunk_Item->GetText()));
                                             string Text=Chunk_Item->GetText();
                                             if (Text.size()>=8
+                                             && (Text.find("_pkl.xml")==Text.size()-8)
+                                              || (Text.find("PKL_")==0 && Text.find(".xml")==Text.size()-4))
+                                                IsPKL=true;
+                                            if (Text.size()>=8
                                              && (Text.find("_cpl.xml")==Text.size()-8)
                                               || (Text.find("CPL_")==0 && Text.find(".xml")==Text.size()-4))
                                                 IsCPL=true;
@@ -201,15 +206,14 @@ bool File_DcpAm::FileHeader_Begin()
 
                     if (IsCPL)
                     {
-                        for (size_t Pos=0; Pos<ReferenceFile.FileNames.size(); Pos++)
-                        {
-                            if (CPL_FileName.empty())
-                                CPL_FileName=ReferenceFile.FileNames[Pos]; //Using only the first CPL file meet
-                        }
+                        if (CPL_FileName.empty() && ReferenceFile.FileNames.empty())
+                            CPL_FileName=ReferenceFile.FileNames[0]; //Using only the first CPL file meet
                     }
-
-                    ReferenceFile.StreamID=ReferenceFiles->References.size()+1;
-                    ReferenceFiles->References.push_back(ReferenceFile);
+                    else if (!IsPKL)
+                    {
+                        ReferenceFile.StreamID=ReferenceFiles->References.size()+1;
+                        ReferenceFiles->References.push_back(ReferenceFile);
+                    }
                 }
             }
         }

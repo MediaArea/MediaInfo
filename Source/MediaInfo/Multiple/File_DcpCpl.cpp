@@ -195,7 +195,8 @@ bool File_DcpCpl::FileHeader_Begin()
         return false;
     }
 
-    if (!strcmp(Attribute, "http://www.digicine.com/PROTO-ASDCP-CPL-20040511#"))
+    if (!strcmp(Attribute, "http://www.digicine.com/PROTO-ASDCP-CPL-20040511#")
+     ||!strcmp(Attribute, "http://www.smpte-ra.org/schemas/429-7/2006/CPL"))
         IsDcp=true;
     if (!strcmp(Attribute, "http://www.smpte-ra.org/schemas/2067-3/XXXX") //Some muxers use XXXX instead of year
      || !strcmp(Attribute, "http://www.smpte-ra.org/schemas/2067-3/2013"))
