@@ -934,7 +934,7 @@ void File_Mpeg4v::video_object_layer_start()
             if (sprite_enable!=2) //No GMC
                 Skip_SB(                                        "low_latency_sprite_enable");
         }
-        if (video_object_layer_verid==1 && shape!=0) //Shape!=Rectangular
+        if (video_object_layer_verid!=1 && shape!=0) //Shape!=Rectangular
             Skip_SB(                                            "sadct_disable");
         TEST_SB_SKIP(                                           "bits_per_pixel_not_8_bit");
             Skip_S1(4,                                          "quant_precision");
