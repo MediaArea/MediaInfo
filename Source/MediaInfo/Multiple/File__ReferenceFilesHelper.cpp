@@ -1763,10 +1763,10 @@ void File__ReferenceFilesHelper::CountOfReferences_ForReadSize_Run ()
     //Computing read buffer size
     int64u  File_Size_Total=0;
     int64u  Buffer_Read_Size_Total=MI->Config->File_Buffer_Read_Size_Get();
-    for (references::iterator Reference_Temp=References.begin(); Reference_Temp!=References.end(); Reference_Temp++)
+    for (references::iterator Reference_Temp=References.begin(); Reference_Temp!=References.end(); ++Reference_Temp)
         if (Reference_Temp->MI && Reference_Temp->MI->Config.File_Size!=(int64u)-1)
             File_Size_Total+=Reference_Temp->MI->Config.File_Size;
-    for (references::iterator Reference_Temp=References.begin(); Reference_Temp!=References.end(); Reference_Temp++)
+    for (references::iterator Reference_Temp=References.begin(); Reference_Temp!=References.end(); ++Reference_Temp)
         if (Reference_Temp->MI)
         {
             int64u  Buffer_Read_Size_Temp=float64_int64s(((float64)Reference_Temp->MI->Config.File_Size)/File_Size_Total*Buffer_Read_Size_Total);
