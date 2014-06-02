@@ -3398,8 +3398,7 @@ void File_MpegPs::video_stream()
             #endif //MEDIAINFO_SEEK
         }
         #if MEDIAINFO_SEEK
-            if (Unsynch_Frame_Counts.find(stream_id)!=Unsynch_Frame_Counts.end())
-                Unsynch_Frame_Counts.erase(stream_id);
+            Unsynch_Frame_Counts.erase(stream_id);
         #endif //MEDIAINFO_SEEK
     }
 

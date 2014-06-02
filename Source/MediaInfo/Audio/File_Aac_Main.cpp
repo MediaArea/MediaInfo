@@ -393,7 +393,7 @@ void File_Aac::AudioSpecificConfig (size_t End)
                 if ( ! directMapping )
                 {
                     Element_Begin1("not implemented part");
-                    Skip_BS(Data_BS_Remain()-(End==(size_t)-1)?0:End, "(Not implemented)");
+                    Skip_BS(Data_BS_Remain()-((End==(size_t)-1)?0:End), "(Not implemented)");
                     Element_End0();
                     if (Mode==File_Aac::Mode_ADIF || Mode==File_Aac::Mode_ADTS)
                         File__Tags_Helper::Finish();
