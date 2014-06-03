@@ -3647,7 +3647,8 @@ void File_Mpegv::extension_start()
 
     switch (extension_start_code_identifier)
     {
-        case  1 :{ //Sequence
+        case  1 : //Sequence
+                {
                     //Parsing
                     Peek_SB(profile_and_level_indication_escape);
                     if (profile_and_level_indication_escape)
@@ -3687,7 +3688,8 @@ void File_Mpegv::extension_start()
                     FILLING_END();
                 }
                 break;
-        case  2 :{ //Sequence Display
+        case  2 : //Sequence Display
+                {
                     //Parsing
                     Get_S1 ( 3, video_format,                   "video_format"); Param_Info1(Mpegv_video_format[video_format]);
                     TEST_SB_GET (  colour_description,          "colour_description");
@@ -3701,7 +3703,8 @@ void File_Mpegv::extension_start()
                     BS_End();
                 }
                 break;
-        case  5 :{ //Sequence Scalable Extension
+        case  5 : //Sequence Scalable Extension
+                {
                     //Parsing
                     Skip_S2(10,                                 "lower_layer_temporal_reference");
                     Mark_1();
@@ -3722,7 +3725,8 @@ void File_Mpegv::extension_start()
                     BS_End();
                 }
                 break;
-        case  8 :{ //Picture Coding
+        case  8 : //Picture Coding
+                {
                     //Parsing
                     #if MEDIAINFO_MACROBLOCKS
                     if (Macroblocks_Parse)
@@ -3836,21 +3840,24 @@ void File_Mpegv::extension_start()
                     }
                 FILLING_END();
                 break;
-        case  9 :{ //Picture Spatial Scalable Extension
+        case  9 : //Picture Spatial Scalable Extension
+                {
                     //Parsing
                     Skip_S1(4,                                  "data");
                     BS_End();
                     Skip_XX(Element_Size-Element_Offset,        "data");
                 }
                 break;
-        case 10 :{ //Picture Temporal Scalable Extension
+        case 10 : //Picture Temporal Scalable Extension
+                {
                     //Parsing
                     Skip_S1(4,                                  "data");
                     BS_End();
                     Skip_XX(Element_Size-Element_Offset,        "data");
                 }
                 break;
-        default:{
+        default :
+                {
                     //Parsing
                     Skip_S1(4,                                  "data");
                     BS_End();
