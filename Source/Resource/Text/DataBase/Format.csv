@@ -40,7 +40,7 @@ SKM;;;M;Skm;Sky Korean Mobilephone;skm;;http://www.isky.co.kr/html/cs/download.j
 Windows Media;;;M;Wm;;asf wmv wma;video/x-ms-wmv;;
 WebM;;;M;Mkv;;webm;video/webm;http://www.webmproject.org/;
 AVC;;;V;Avc;Advanced Video Codec;avc h264;video/H264;http://developers.videolan.org/x264.html
-AVS Video;;;V;AvsV;Audio Video Standart, Video part;;;http://www.avs.org.cn/;Lossy
+AVS Video;;;V;AvsV;Audio Video Standard, Video part;;;http://www.avs.org.cn/;Lossy
 Dirac;;;V;Dirac;;drc;;http://diracvideo.org/;Lossy
 FFV1;;;V;;;;;;Lossless
 FFV2;;;V;;;;;;Lossless

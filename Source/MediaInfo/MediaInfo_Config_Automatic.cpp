@@ -1117,7 +1117,7 @@ void MediaInfo_Config_Format (InfoMap &Info)
     "Windows Media;;;M;Wm;;asf wmv wma;video/x-ms-wmv;\n"
     "WebM;;;M;Mkv;;webm;video/webm;http://www.webmproject.org/\n"
     "AVC;;;V;Avc;Advanced Video Codec;avc h264;video/H264;http://developers.videolan.org/x264.html\n"
-    "AVS Video;;;V;AvsV;Audio Video Standart, Video part;;;http://www.avs.org.cn/;Lossy\n"
+    "AVS Video;;;V;AvsV;Audio Video Standard, Video part;;;http://www.avs.org.cn/;Lossy\n"
     "Dirac;;;V;Dirac;;drc;;http://diracvideo.org/;Lossy\n"
     "FFV1;;;V;;;;;;Lossless\n"
     "FFV2;;;V;;;;;;Lossless\n"
