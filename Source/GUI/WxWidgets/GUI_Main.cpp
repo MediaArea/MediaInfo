@@ -111,9 +111,8 @@ GUI_Main::GUI_Main(int argc, MediaInfoNameSpace::Char** argv_ansi, const wxPoint
 
     //Parse files
     C->Menu_File_Open_Files_Begin();
-    size_t Files_Count=0;
     for (size_t Pos=0; Pos<List.size(); Pos++)
-        Files_Count+=C->Menu_File_Open_Files_Continue(List[Pos]);
+        C->Menu_File_Open_Files_Continue(List[Pos]);
     View_Refresh();
 }
 
