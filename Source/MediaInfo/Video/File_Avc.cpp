@@ -3290,6 +3290,7 @@ bool File_Avc::seq_parameter_set_data(std::vector<seq_parameter_set_struct*> &Da
             TemporalReferences_Reserved=MaxNumber;
         }
     FILLING_ELSE();
+        delete vui_parameters_Item; //vui_parameters_Item=NULL;
         return false;
     FILLING_END();
     return true;

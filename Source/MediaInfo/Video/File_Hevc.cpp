@@ -1378,6 +1378,8 @@ void File_Hevc::seq_parameter_set()
 
         //Autorisation of other streams
         Streams[34].Searching_Payload=true; //pic_parameter_set
+    FILLING_ELSE();
+        delete vui_parameters_Item; //vui_parameters_Item=NULL;
     FILLING_END();
 }
 

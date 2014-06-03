@@ -29,34 +29,38 @@ namespace MediaInfoLib
 
 //---------------------------------------------------------------------------
 TimeCode::TimeCode ()
+:   Hours((int8u)-1),
+    Minutes((int8u)-1),
+    Seconds((int8u)-1),
+    Frames((int8u)-1),
+    FramesPerSecond(0),
+    DropFrame(false),
+    MustUseSecondField(false),
+    IsSecondField(false),
+    IsNegative(false)
 {
-    Hours=(int8u)-1;
-    Minutes=(int8u)-1;
-    Seconds=(int8u)-1;
-    Frames=(int8u)-1;
-    FramesPerSecond=0;
-    DropFrame=false;
-    MustUseSecondField=false;
-    IsSecondField=false;
-    IsNegative=false;
 }
 
 //---------------------------------------------------------------------------
 TimeCode::TimeCode (int8u Hours_, int8u Minutes_, int8u Seconds_, int8u Frames_, int8u FramesPerSecond_, bool DropFrame_, bool MustUseSecondField_, bool IsSecondField_)
+:   Hours(Hours_),
+    Minutes(Minutes_),
+    Seconds(Seconds_),
+    Frames(Frames_),
+    FramesPerSecond(FramesPerSecond_),
+    DropFrame(DropFrame_),
+    MustUseSecondField(MustUseSecondField_),
+    IsSecondField(IsSecondField_),
+    IsNegative(false)
 {
-    Hours=Hours_;
-    Minutes=Minutes_;
-    Seconds=Seconds_;
-    Frames=Frames_;
-    FramesPerSecond=FramesPerSecond_;
-    DropFrame=DropFrame_;
-    MustUseSecondField=MustUseSecondField_;
-    IsSecondField=IsSecondField_;
-    IsNegative=false;
 }
 
 //---------------------------------------------------------------------------
 TimeCode::TimeCode (int64s Frames_, int8u FramesPerSecond_, bool DropFrame_, bool MustUseSecondField_, bool IsSecondField_)
+:   FramesPerSecond(FramesPerSecond_),
+    DropFrame(DropFrame_),
+    MustUseSecondField(MustUseSecondField_),
+    IsSecondField(IsSecondField_)
 {
     if (Frames_<0)
     {
@@ -91,10 +95,6 @@ TimeCode::TimeCode (int64s Frames_, int8u FramesPerSecond_, bool DropFrame_, boo
     Seconds =   (Frames_ / FramesPerSecond_) % 60;
     Minutes =  ((Frames_ / FramesPerSecond_) / 60) % 60;
     Hours   = (((Frames_ / FramesPerSecond_) / 60) / 60) % 24;
-
-    DropFrame=DropFrame_;
-    MustUseSecondField=MustUseSecondField_;
-    IsSecondField=IsSecondField_;
 }
 
 //***************************************************************************
@@ -205,18 +205,18 @@ string TimeCode::ToString()
 int64s TimeCode::ToFrames()
 {
     if (!FramesPerSecond)
-        return (int32u)-1;
+        return 0;
 
-    int64s TC=(Hours     *3600
-             + Minutes   *  60
-             + Seconds        )*FramesPerSecond
-            + Frames;
+    int64s TC=(int64s(Hours)     *3600
+             + int64s(Minutes)   *  60
+             + int64s(Seconds)        )*int64s(FramesPerSecond)
+             + int64s(Frames);
 
     if (DropFrame)
     {
-        TC-= Hours      *108
-          + (Minutes/10)*18
-          + (Minutes%10)*2;
+        TC-= int64s(Hours)      *108
+          + (int64s(Minutes)/10)*18
+          + (int64s(Minutes)%10)*2;
     }
 
     return IsNegative?-TC:TC;

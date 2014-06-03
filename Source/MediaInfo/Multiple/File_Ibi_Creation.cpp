@@ -353,6 +353,8 @@ void File_Ibi_Creation::Set(const ibi &Ibi)
                     FileSize=0x100000000ULL*High+Low;
                     FileSize_IsValid=true;
                 }
+
+                CloseHandle(File_Handle);
             }
         #endif //WINDOWS
 
@@ -474,6 +476,11 @@ void File_Ibi_Creation::Add(int64u ID, const ibi::stream &Stream)
     Buffer->Size+=EbmlBlock(Buffer->Content+Buffer->Size, IbiDts_EbmlSize, 0x04, IbiDts, IbiDts_Offset); //Dts
 
     Buffers.push_back(Buffer);
+
+    //Finish
+    delete[] IbiByteOffset; //IbiByteOffset=NULL;
+    delete[] IbiFrameNumber; //IbiFrameNumber=NULL;
+    delete[] IbiDts; //IbiDts=NULL;
 }
 
 Ztring File_Ibi_Creation::Finish()

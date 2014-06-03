@@ -1761,9 +1761,14 @@ void File_Mpeg4::mdat_StreamJump()
                 if (StreamOffset_Jump_Temp!=StreamOffset_Jump.end())
                 {
                     ToJump=StreamOffset_Jump_Temp->second;
-                    mdat_Pos_Temp=mdat_Pos.empty()?NULL:&mdat_Pos[0];
-                    while (mdat_Pos_Temp<mdat_Pos_Max && mdat_Pos_Temp->Offset!=ToJump)
-                        mdat_Pos_Temp++;
+                    if (!mdat_Pos.empty())
+                    {
+                        mdat_Pos_Temp=&mdat_Pos[0];
+                        while (mdat_Pos_Temp<mdat_Pos_Max && mdat_Pos_Temp->Offset!=ToJump)
+                            mdat_Pos_Temp++;
+                    }
+                    else
+                        mdat_Pos_Temp=NULL;
                 }
             }
         #endif // MEDIAINFO_DEMUX
@@ -3866,6 +3871,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_tmcd()
         ((File_Mpeg4_TimeCode*)Parser)->NegativeTimes=tc->NegativeTimes;
         Streams[moov_trak_tkhd_TrackID].Parsers.push_back(Parser);
         mdat_MustParse=true; //Data is in MDAT
+    FILLING_ELSE();
+        delete tc; //tc=NULL;
     FILLING_END();
 }
 
