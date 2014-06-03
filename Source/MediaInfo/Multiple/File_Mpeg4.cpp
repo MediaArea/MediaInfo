@@ -211,7 +211,7 @@ File_Mpeg4::File_Mpeg4()
 
     //Temp
     mdat_MustParse=false;
-    TimeScale=1;
+    moov_mvhd_TimeScale=1;
     Vendor=0x00000000;
     FirstMdatPos=(int64u)-1;
     LastMdatPos=0;
@@ -354,7 +354,7 @@ void File_Mpeg4::Streams_Finish()
         }
 
         //Duration/StreamSize
-        if (TimeScale && Temp->second.TimeCode==NULL && Temp->second.mdhd_TimeScale)
+        if (moov_mvhd_TimeScale && Temp->second.TimeCode==NULL && Temp->second.mdhd_TimeScale)
         {
             Ztring Duration_stts_FirstFrame, Duration_stts_LastFrame;
             if (Temp->second.stts_Duration_FirstFrame)
@@ -362,8 +362,8 @@ void File_Mpeg4::Streams_Finish()
             if (Temp->second.stts_Duration_LastFrame)
                 Duration_stts_LastFrame.From_Number(((float32)(((int32s)Temp->second.stts_Duration_LastFrame)-((int32s)Temp->second.stts[Temp->second.stts_Duration_FirstFrame?1:0].SampleDuration)))*1000/Temp->second.mdhd_TimeScale, 0); //The duration of the frame minus 1 normal frame duration
 
-            float32 Duration_tkhd_H=((float32)(Temp->second.tkhd_Duration+1))/TimeScale;
-            float32 Duration_tkhd_L=((float32)(Temp->second.tkhd_Duration-1))/TimeScale;
+            float32 Duration_tkhd_H=((float32)(Temp->second.tkhd_Duration+1))/moov_mvhd_TimeScale;
+            float32 Duration_tkhd_L=((float32)(Temp->second.tkhd_Duration-1))/moov_mvhd_TimeScale;
             float32 Duration_stts=((float32)Temp->second.stts_Duration)/Temp->second.mdhd_TimeScale;
             if (!IsFragmented && Duration_stts && !(Duration_stts>=Duration_tkhd_L && Duration_stts<=Duration_tkhd_H))
             {
@@ -378,17 +378,17 @@ void File_Mpeg4::Streams_Finish()
                     Fill(StreamKind_Last, StreamPos_Last, "Source_StreamSize", Temp->second.stsz_StreamSize);
 
                 //Calculating new properties based on track duration
-                Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Duration), ((float32)Temp->second.tkhd_Duration)/TimeScale*1000, 0, true);
+                Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Duration), ((float32)Temp->second.tkhd_Duration)/moov_mvhd_TimeScale*1000, 0, true);
                 //Fill(StreamKind_Last, StreamPos_Last, "Duration_FirstFrame", Duration_stts_FirstFrame);
                 Clear(StreamKind_Last, StreamPos_Last, "Duration_LastFrame"); //TODO
 
                 int64u FrameCount;
                 if (Temp->second.stts_Min && Temp->second.stts_Min==Temp->second.stts_Max)
-                    FrameCount=float64_int64s(((float64)Temp->second.tkhd_Duration)/TimeScale*Temp->second.mdhd_TimeScale/Temp->second.stts_Min);
+                    FrameCount=float64_int64s(((float64)Temp->second.tkhd_Duration)/moov_mvhd_TimeScale*Temp->second.mdhd_TimeScale/Temp->second.stts_Min);
                 else
                 {
                     FrameCount=0;
-                    int64u Ticks_Max=float64_int64s(((float64)Temp->second.tkhd_Duration)/TimeScale*Temp->second.mdhd_TimeScale);
+                    int64u Ticks_Max=float64_int64s(((float64)Temp->second.tkhd_Duration)/moov_mvhd_TimeScale*Temp->second.mdhd_TimeScale);
                     int64u Ticks=0;
                     for (size_t stts_Pos=0; stts_Pos<Temp->second.stts.size(); stts_Pos++)
                     {
@@ -440,7 +440,7 @@ void File_Mpeg4::Streams_Finish()
             case 0 :
                     break;
             case 1 :
-                    if (Temp->second.edts[0].Duration==Temp->second.tkhd_Duration && Temp->second.edts[0].Rate==0x00010000)
+                    if (Temp->second.edts[0].Duration==Temp->second.tkhd_Duration && Temp->second.edts[0].Rate==0x00010000 && moov_mvhd_TimeScale)
                     {
                         Delay=Temp->second.edts[0].Delay;
                         Delay=-Delay;
@@ -449,11 +449,11 @@ void File_Mpeg4::Streams_Finish()
                     }
                     break;
             case 2 :
-                    if (Temp->second.edts[0].Delay==(int32u)-1 && Temp->second.edts[0].Duration+Temp->second.edts[1].Duration==Temp->second.tkhd_Duration && Temp->second.edts[0].Rate==0x00010000 && Temp->second.edts[1].Rate==0x00010000)
+                    if (Temp->second.edts[0].Delay==(int32u)-1 && Temp->second.edts[0].Duration+Temp->second.edts[1].Duration==Temp->second.tkhd_Duration && Temp->second.edts[0].Rate==0x00010000 && Temp->second.edts[1].Rate==0x00010000 && moov_mvhd_TimeScale)
                     {
                         Delay=Temp->second.edts[0].Duration;
                         Temp->second.tkhd_Duration-=float64_int64s(Delay);
-                        Delay/=TimeScale; //In seconds
+                        Delay/=moov_mvhd_TimeScale; //In seconds
                     }
                     break;
             default:
@@ -1641,7 +1641,9 @@ bool File_Mpeg4::BookMark_Needed()
     //In case of second pass
     if (mdat_Pos.empty())
     {
-        std::map<int32u, struct Mpeg4_muxing> Muxing; //key is StreamID
+        #if MEDIAINFO_DEMUX
+            std::map<int32u, struct Mpeg4_muxing> Muxing; //key is StreamID
+        #endif //MEDIAINFO_DEMUX
         size_t  stco_Count=(size_t)-1;
         bool    stco_IsDifferent=false;
 
@@ -1771,8 +1773,10 @@ bool File_Mpeg4::BookMark_Needed()
 
                     Chunk_Number++;
                 }
-                Muxing[Temp->first].MinimalOffset=MinimalOffset;
-                Muxing[Temp->first].MaximalOffset=MaximalOffset;
+                #if MEDIAINFO_DEMUX
+                    Muxing[Temp->first].MinimalOffset=MinimalOffset;
+                    Muxing[Temp->first].MaximalOffset=MaximalOffset;
+                #endif //MEDIAINFO_DEMUX
                 for (size_t Pos=0; Pos<Temp->second.Parsers.size(); Pos++)
                     Temp->second.Parsers[Pos]->Stream_BitRateFromContainer=Temp->second.stsz_StreamSize*8/(((float64)Temp->second.stts_Duration)/Temp->second.mdhd_TimeScale);
                 #if MEDIAINFO_DEMUX

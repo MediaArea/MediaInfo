@@ -2733,7 +2733,7 @@ void File_Mpeg4::moov_mvhd()
     int16u Volume;
     Get_DATE1904_DEPENDOFVERSION(Date_Created,                  "Creation time");
     Get_DATE1904_DEPENDOFVERSION(Date_Modified,                 "Modification time");
-    Get_B4(TimeScale,                                           "Time scale"); Param_Info1(Ztring::ToZtring(TimeScale)+__T(" Hz"));
+    Get_B4(moov_mvhd_TimeScale,                                 "Time scale"); Param_Info1(Ztring::ToZtring(moov_mvhd_TimeScale)+__T(" Hz"));
     Get_B_DEPENDOFVERSION(Duration,                             "Duration"); Param_Info1C(TimeScale, Ztring::ToZtring((int64u)Duration*1000/TimeScale)+__T(" ms"));
     Get_B4 (Rate,                                               "Preferred rate"); Param_Info1(Ztring::ToZtring(((float32)Rate)/0x10000));
     Get_B2 (Volume,                                             "Preferred volume"); Param_Info1(Ztring::ToZtring(((float32)Volume)/0x100));
@@ -2758,11 +2758,11 @@ void File_Mpeg4::moov_mvhd()
     Skip_B4(                                                    "Next track ID");
 
     FILLING_BEGIN();
-        if (TimeScale)
-        {
+        //if (moov_mvhd_TimeScale)
+        //{
             //int32u Duration=(int32u)(((float)Duration)/TimeScale*1000);
             //Fill("Duration", Duration);
-        }
+        //}
         if (Date_Created.find(__T('\r'))!=std::string::npos)
             Date_Created.resize(Date_Created.find(__T('\r')));
         if (Date_Created.find(__T('\n'))!=std::string::npos)
@@ -3084,12 +3084,12 @@ void File_Mpeg4::moov_trak_mdia_mdhd()
         Streams[moov_trak_tkhd_TrackID].mdhd_TimeScale=TimeScale;
 
         //Coherency tests
-        if (Streams[moov_trak_tkhd_TrackID].tkhd_Duration*1.01>=Duration*0.99 && Streams[moov_trak_tkhd_TrackID].tkhd_Duration*0.99<=Duration*1.01 && TimeScale && File_Mpeg4::TimeScale!=TimeScale)
+        if (Streams[moov_trak_tkhd_TrackID].tkhd_Duration*1.01>=Duration*0.99 && Streams[moov_trak_tkhd_TrackID].tkhd_Duration*0.99<=Duration*1.01 && TimeScale && moov_mvhd_TimeScale!=TimeScale && moov_mvhd_TimeScale)
         {
-            float64 Ratio=((float64)TimeScale)/((float64)File_Mpeg4::TimeScale);
+            float64 Ratio=((float64)TimeScale)/((float64)moov_mvhd_TimeScale);
             Streams[moov_trak_tkhd_TrackID].tkhd_Duration=float64_int64s(Streams[moov_trak_tkhd_TrackID].tkhd_Duration/Ratio);
             Clear(StreamKind_Last, StreamPos_Last, "Duration_Source");
-            Fill(StreamKind_Last, StreamPos_Last, "Duration", float64_int64s(((float64)Streams[moov_trak_tkhd_TrackID].tkhd_Duration)*1000/((float64)File_Mpeg4::TimeScale)), 10, true);
+            Fill(StreamKind_Last, StreamPos_Last, "Duration", float64_int64s(((float64)Streams[moov_trak_tkhd_TrackID].tkhd_Duration)*1000/((float64)moov_mvhd_TimeScale)), 10, true);
         }
     FILLING_END();
 }
@@ -6123,7 +6123,7 @@ void File_Mpeg4::moov_trak_tkhd()
     Get_DATE1904_DEPENDOFVERSION(Date_Modified,                 "Modification time");
     Get_B4 (moov_trak_tkhd_TrackID,                             "Track ID"); Element_Info1(moov_trak_tkhd_TrackID);
     Skip_B4(                                                    "Reserved");
-    Get_B_DEPENDOFVERSION(Duration,                             "Duration"); if (TimeScale) {Param_Info2(Duration*1000/TimeScale, " ms"); Element_Info2(Duration*1000/TimeScale, " ms");}
+    Get_B_DEPENDOFVERSION(Duration,                             "Duration"); if (moov_mvhd_TimeScale) {Param_Info2(Duration*1000/TimeScale, " ms"); Element_Info2(Duration*1000/TimeScale, " ms");}
     Skip_B4(                                                    "Reserved");
     Skip_B4(                                                    "Reserved");
     Skip_B2(                                                    "Layer");
@@ -6154,7 +6154,8 @@ void File_Mpeg4::moov_trak_tkhd()
             Streams.erase(Temp);
         }
 
-        Fill(StreamKind_Last, StreamPos_Last, "Duration", float64_int64s(((float64)Duration)*1000/TimeScale));
+        if (moov_mvhd_TimeScale)
+            Fill(StreamKind_Last, StreamPos_Last, "Duration", float64_int64s(((float64)Duration)*1000/moov_mvhd_TimeScale));
         Fill(StreamKind_Last, StreamPos_Last, "Encoded_Date", Date_Created);
         Fill(StreamKind_Last, StreamPos_Last, "Tagged_Date", Date_Modified);
         Fill(StreamKind_Last, StreamPos_Last, General_ID, moov_trak_tkhd_TrackID, 10, true);

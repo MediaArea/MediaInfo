@@ -317,7 +317,7 @@ private :
     float32                                 moov_trak_tkhd_Rotation;
     std::vector<std::string>                moov_udta_meta_keys_List;
     size_t                                  moov_udta_meta_keys_ilst_Pos;
-    int32u                                  TimeScale;
+    int32u                                  moov_mvhd_TimeScale;
     int32u                                  Vendor;
     Ztring                                  Vendor_Version;
     int64u                                  FirstMdatPos;

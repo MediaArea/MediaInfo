@@ -656,15 +656,15 @@ const wchar_t*     __stdcall MediaInfo_Option (void* Handle, const wchar_t* Opti
                 MediaInfo_Info_Unicode=L"Your software uses an outdated interface, You must use MediaInfoList.DLL 0.6 instead";
                 return MediaInfo_Info_Unicode.c_str();
             }
-              MI_Handle[NULL]->Unicode==L"Note to developer : you must create an object before";
+            MI_Handle[NULL]->Unicode==L"Note to developer : you must create an object before";
             return MI_Handle[NULL]->Unicode.c_str();
         }
         EXECUTE_STRING(MediaInfo, Option(Option, Value), Debug+="Option, will return ";Debug+=ToReturn.To_Local().c_str();Debug+="\r\n";)
     }
     else
     {
-        MI_Handle[Handle]->Unicode=MediaInfo::Option_Static(Option, Value);
-        return MI_Handle[Handle]->Unicode.c_str();
+        MI_Handle[NULL]->Unicode=MediaInfo::Option_Static(Option, Value);
+        return MI_Handle[NULL]->Unicode.c_str();
     }
 }
 
@@ -860,8 +860,8 @@ const wchar_t*     __stdcall MediaInfoList_Option (void* Handle, const wchar_t* 
     }
     else
     {
-        MI_Handle[Handle]->Unicode=MediaInfoList::Option_Static(Option, Value);
-        return MI_Handle[Handle]->Unicode.c_str();
+        MI_Handle[NULL]->Unicode=MediaInfoList::Option_Static(Option, Value);
+        return MI_Handle[NULL]->Unicode.c_str();
     }
 }
 
