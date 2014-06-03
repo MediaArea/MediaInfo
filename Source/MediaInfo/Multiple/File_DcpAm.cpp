@@ -107,8 +107,6 @@ bool File_DcpAm::FileHeader_Begin()
     if (!FileHeader_Begin_XML(document))
        return false;
 
-    bool IsDcp=false, IsImf=false;
-
     std::string NameSpace;
     XMLElement* AssetMap=document.FirstChildElement("AssetMap");
     if (AssetMap==NULL)
@@ -129,26 +127,16 @@ bool File_DcpAm::FileHeader_Begin()
         return false;
     }
 
-    if (!strcmp(Attribute, "http://www.digicine.com/PROTO-ASDCP-AM-20040311#"))
-        IsDcp=true;
-    if (!strcmp(Attribute, "http://www.smpte-ra.org/schemas/429-9/2007/AM"))
-    {
-        if (NameSpace.empty())
-            IsImf=true;
-        else
-            IsDcp=true;
-    }
-
-    if (!IsDcp && !IsImf)
+    if (strcmp(Attribute, "http://www.digicine.com/PROTO-ASDCP-AM-20040311#")
+     && strcmp(Attribute, "http://www.smpte-ra.org/schemas/429-9/2007/AM"))
     {
         Reject("DcpAm");
         return false;
     }
 
     Accept("DcpAm");
-    Fill(Stream_General, 0, General_Format, IsDcp?"DCP AM":"IMF AM");
-    if (IsDcp)
-        Fill(Stream_General, 0, General_Format_Version, NameSpace=="am:"?"SMPTE":"Interop");
+    Fill(Stream_General, 0, General_Format, "DCP AM");
+    Fill(Stream_General, 0, General_Format_Version, NameSpace=="am:"?"SMPTE":"Interop");
     Config->File_ID_OnlyRoot_Set(false);
 
     ReferenceFiles=new File__ReferenceFilesHelper(this, Config);
@@ -255,6 +243,17 @@ bool File_DcpAm::FileHeader_Begin()
         {
             DcpCpl_MergeFromPkl(((File_DcpCpl*)MI.Info)->ReferenceFiles, ReferenceFiles);
             ReferenceFiles->References=((File_DcpCpl*)MI.Info)->ReferenceFiles->References;
+            if (MI.Get(Stream_General, 0, General_Format)==__T("IMF CPL"))
+            {
+                Fill(Stream_General, 0, General_Format, "IMF AM", Unlimited, true, true);
+                Clear(Stream_General, 0, General_Format_Version);
+            }
+
+            for (size_t Pos=0; Pos<MI.Count_Get(Stream_Other); ++Pos)
+            {
+                Stream_Prepare(Stream_Other);
+                Merge(*MI.Info, Stream_Other, Pos, StreamPos_Last);
+            }
         }
     }
 

@@ -74,6 +74,7 @@ extern void DcpCpl_MergeFromPkl(File__ReferenceFilesHelper* FromCpl, File__Refer
             if (Map_Item!=Map.end())
             {
                 FromCpl->References[References_Pos].FileNames[Pos]=Map_Item->second.FileName;
+                FromCpl->References[References_Pos].Infos=Map_Item->second.Reference->Infos;
                 for (list<File__ReferenceFilesHelper::references::iterator>::iterator Reference2=List.begin(); Reference2!=List.end(); ++Reference2)
                     if (*Reference2==Map_Item->second.Reference)
                     {
@@ -93,6 +94,7 @@ extern void DcpCpl_MergeFromPkl(File__ReferenceFilesHelper* FromCpl, File__Refer
             if (Map_Item!=Map.end())
             {
                 FromCpl->References[References_Pos].CompleteDuration[Pos].FileName=Map_Item->second.FileName;
+                FromCpl->References[References_Pos].Infos=Map_Item->second.Reference->Infos;
                 for (list<File__ReferenceFilesHelper::references::iterator>::iterator Reference2=List.begin(); Reference2!=List.end(); ++Reference2)
                     if (*Reference2==Map_Item->second.Reference)
                     {
