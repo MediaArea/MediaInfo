@@ -89,6 +89,9 @@ private :
     //Temp
     int8u cdp_frame_rate;
 
+    //Helpers
+    void  CreateStream(int8u Parser_Pos);
+
     //EIA-708 descriptors
     #if defined(MEDIAINFO_EIA708_YES)
         File_Eia608::servicedescriptors ServiceDescriptors608;

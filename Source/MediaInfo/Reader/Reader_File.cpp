@@ -38,8 +38,8 @@ using namespace std;
     int64u Reader_File_BytesRead_Total=0;
     int64u Reader_File_BytesRead=0;
     int64u Reader_File_Count=1;
-    #include <iostream>
 #endif // MEDIAINFO_DEBUG
+    #include <iostream>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -143,7 +143,7 @@ Reader_File::~Reader_File()
 //---------------------------------------------------------------------------
 size_t Reader_File::Format_Test(MediaInfo_Internal* MI, String File_Name)
 {
-    //std::cout<<Ztring(File_Name).To_Local().c_str()<<std::endl;
+    std::cout<<Ztring(File_Name).To_Local().c_str()<<std::endl;
     #if MEDIAINFO_EVENTS
         {
             string File_Name_Local=Ztring(File_Name).To_Local();
