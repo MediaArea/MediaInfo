@@ -99,6 +99,13 @@ void File_Eia608::Streams_Fill()
     if (Config->File_Eia608_DisplayEmptyStream_Get() && Streams.size()<2)
         Streams.resize(2);
 
+    if (!HasContent && ServiceDescriptors && ServiceDescriptors->find(cc_type)!=ServiceDescriptors->end())
+    {
+        TextMode=0;
+        DataChannelMode=0;
+        Special_14(0x20); //CC1/CC3 fake RCL - Resume Caption Loading
+    }
+
     for (size_t Pos=0; Pos<Streams.size(); Pos++)
         if (Streams[Pos] || (Pos<2 && Config->File_Eia608_DisplayEmptyStream_Get()))
         {
