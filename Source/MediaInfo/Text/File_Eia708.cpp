@@ -96,25 +96,24 @@ void File_Eia708::Streams_Fill()
             Fill(Stream_Text, StreamPos_Last, Text_Format, "EIA-708");
             Fill(Stream_Text, StreamPos_Last, Text_StreamSize, 0);
             Fill(Stream_Text, StreamPos_Last, Text_BitRate_Mode, "CBR");
-            if (Config->ParseSpeed>=1.0 && !(DataDetected&(((int64u)1)<<Pos))) //1 bit per service
+            if (Config->ParseSpeed>=1.0)
             {
-                Fill(Stream_Text, StreamPos_Last, "ContentDetected", "No", Unlimited, true, true);
-                (*Stream_More)[Stream_Text][StreamPos_Last](Ztring().From_Local("ContentDetected"), Info_Options)=__T("N NT");
+                Fill(Stream_Text, StreamPos_Last, "CaptionServiceContent_IsPresent", Streams[Pos]?"Yes":"No", Unlimited, true, true); //1 bit per service
+                (*Stream_More)[Stream_Text][StreamPos_Last](Ztring().From_Local("CaptionServiceContent_IsPresent"), Info_Options)=__T("N NT");
             }
-
             if (ServiceDescriptors)
             {
                 servicedescriptors::iterator ServiceDescriptor=ServiceDescriptors->find((int8u)Pos);
                 if (ServiceDescriptor!=ServiceDescriptors->end())
                 {
                     Fill(Stream_Text, StreamPos_Last, Text_Language, ServiceDescriptor->second.language, true);
-                    Fill(Stream_Text, StreamPos_Last, "ServiceDescriptor_Present", "Yes", Unlimited, true, true);
-                    (*Stream_More)[Stream_Text][StreamPos_Last](Ztring().From_Local("ServiceDescriptor_Present"), Info_Options)=__T("N NT");
+                    Fill(Stream_Text, StreamPos_Last, "CaptionServiceDescriptor_IsPresent", "Yes", Unlimited, true, true);
+                    (*Stream_More)[Stream_Text][StreamPos_Last](Ztring().From_Local("CaptionServiceDescriptor_IsPresent"), Info_Options)=__T("N NT");
                 }
-                else if (ServiceDescriptors_IsPresent && *ServiceDescriptors_IsPresent)
+                else if (ServiceDescriptors_IsPresent) // && *ServiceDescriptors_IsPresent) //ServiceDescriptors_IsPresent pointer is for the support by the transport layer of the info, *ServiceDescriptors_IsPresent is for the presence test
                 {
-                    Fill(Stream_Text, StreamPos_Last, "ServiceDescriptor_Present", "No", Unlimited, true, true);
-                    (*Stream_More)[Stream_Text][StreamPos_Last](Ztring().From_Local("ServiceDescriptor_Present"), Info_Options)=__T("N NT");
+                    Fill(Stream_Text, StreamPos_Last, "CaptionServiceDescriptor_IsPresent", "No", Unlimited, true, true);
+                    (*Stream_More)[Stream_Text][StreamPos_Last](Ztring().From_Local("CaptionServiceDescriptor_IsPresent"), Info_Options)=__T("N NT");
                 }
             }
         }

@@ -17,6 +17,9 @@
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
+#if defined(MEDIAINFO_EIA608_YES)
+    #include "MediaInfo/Text/File_Eia608.h"
+#endif
 #if defined(MEDIAINFO_EIA708_YES)
     #include "MediaInfo/Text/File_Eia708.h"
 #endif
@@ -88,7 +91,8 @@ private :
 
     //EIA-708 descriptors
     #if defined(MEDIAINFO_EIA708_YES)
-        File_Eia708::servicedescriptors ServiceDescriptors;
+        File_Eia608::servicedescriptors ServiceDescriptors608;
+        File_Eia708::servicedescriptors ServiceDescriptors708;
         bool ccsvcinfo_section_IsPresent;
     #endif
 

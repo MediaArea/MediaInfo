@@ -378,6 +378,8 @@ void File_Cdp::ccdata_section()
                             #if defined(MEDIAINFO_EIA608_YES)
                                 Streams[Parser_Pos]->Parser=new File_Eia608();
                                 ((File_Eia608*)Streams[Parser_Pos]->Parser)->cc_type=cc_type;
+                                ((File_Eia608*)Streams[Parser_Pos]->Parser)->ServiceDescriptors=&ServiceDescriptors608;
+                                ((File_Eia608*)Streams[Parser_Pos]->Parser)->ServiceDescriptors_IsPresent=&ccsvcinfo_section_IsPresent;
                             #else //defined(MEDIAINFO_EIA608_YES)
                                 Streams[Parser_Pos]->Parser=new File__Analyze();
                             #endif //defined(MEDIAINFO_EIA608_YES)
@@ -386,7 +388,7 @@ void File_Cdp::ccdata_section()
                         {
                             #if defined(MEDIAINFO_EIA708_YES)
                                 Streams[Parser_Pos]->Parser=new File_Eia708();
-                                ((File_Eia708*)Streams[Parser_Pos]->Parser)->ServiceDescriptors=&ServiceDescriptors;
+                                ((File_Eia708*)Streams[Parser_Pos]->Parser)->ServiceDescriptors=&ServiceDescriptors708;
                                 ((File_Eia708*)Streams[Parser_Pos]->Parser)->ServiceDescriptors_IsPresent=&ccsvcinfo_section_IsPresent;
                             #else //defined(MEDIAINFO_EIA708_YES)
                                 Streams[Parser_Pos]->Parser=new File__Analyze();
@@ -478,7 +480,7 @@ void File_Cdp::ccsvcinfo_section()
         Element_Begin1("service");
         Ztring language;
         int8u caption_service_number=0;
-        bool digital_cc;
+        bool digital_cc, line21_field;
         Get_Local(3, language,                                  "language");
         BS_Begin();
         Get_SB (digital_cc,                                     "digital_cc");
@@ -488,7 +490,7 @@ void File_Cdp::ccsvcinfo_section()
         else
         {
             Skip_S1(5,                                          "reserved");
-            Skip_SB(                                            "line21_field");
+            Get_SB (   line21_field,                            "line21_field");
         }
         Skip_SB(                                                "easy_reader");
         Skip_SB(                                                "wide_aspect_ratio");
@@ -500,7 +502,9 @@ void File_Cdp::ccsvcinfo_section()
         FILLING_BEGIN();
             #if defined(MEDIAINFO_EIA708_YES)
                 if (digital_cc)
-                    ServiceDescriptors[caption_service_number].language=language;
+                    ServiceDescriptors708[caption_service_number].language=language;
+                else
+                    ServiceDescriptors608[line21_field?1:0].language=language;
             #endif
         FILLING_END();
     }
