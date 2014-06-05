@@ -269,12 +269,15 @@ void File__ReferenceFilesHelper::ParseReferences()
     {
         #if MEDIAINFO_FILTER
             if (MI->Config->File_Filter_Audio_Get())
+            {
                 for (size_t Pos=0; Pos<References.size(); Pos++)
                     if (References[Pos].StreamKind!=Stream_Audio)
                     {
                         References.erase(References.begin()+Pos);
                         Pos--;
                     }
+                CountOfReferencesToParse=References.size();
+            }
         #endif //MEDIAINFO_FILTER
 
         //Filling Filenames from the more complete version and Edit rates
@@ -617,6 +620,7 @@ void File__ReferenceFilesHelper::ParseReferences()
                         References.erase(References.begin()+Pos);
                         Pos--;
                     }
+                CountOfReferencesToParse=References.size();
                 if (References.empty())
                     return;
 
