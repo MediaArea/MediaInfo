@@ -123,7 +123,7 @@ void File_Eia608::Streams_Fill()
             }
             if (Config->ParseSpeed>=1.0)
             {
-                Fill(Stream_Text, StreamPos_Last, "CaptionServiceContent_IsPresent", Streams[Pos]?"Yes":"No", Unlimited, true, true); //1 bit per service
+                Fill(Stream_Text, StreamPos_Last, "CaptionServiceContent_IsPresent", DataDetected[Pos+1]?"Yes":"No", Unlimited, true, true); //1 bit per service, starting at 1
                 (*Stream_More)[Stream_Text][StreamPos_Last](Ztring().From_Local("CaptionServiceContent_IsPresent"), Info_Options)=__T("N NT");
             }
             if (ServiceDescriptors)
@@ -131,7 +131,8 @@ void File_Eia608::Streams_Fill()
                 servicedescriptors::iterator ServiceDescriptor=ServiceDescriptors->find(cc_type);
                 if (ServiceDescriptor!=ServiceDescriptors->end())
                 {
-                    Fill(Stream_Text, StreamPos_Last, Text_Language, ServiceDescriptor->second.language, true);
+                    if (Pos==0 && Retrieve(Stream_Text, StreamPos_Last, Text_Language).empty()) //Only CC1/CC3
+                        Fill(Stream_Text, StreamPos_Last, Text_Language, ServiceDescriptor->second.language, true);
                     Fill(Stream_Text, StreamPos_Last, "CaptionServiceDescriptor_IsPresent", "Yes", Unlimited, true, true);
                     (*Stream_More)[Stream_Text][StreamPos_Last](Ztring().From_Local("CaptionServiceDescriptor_IsPresent"), Info_Options)=__T("N NT");
                 }
@@ -348,6 +349,8 @@ void File_Eia608::XDS()
 
     XDS_Data.erase(XDS_Data.begin()+XDS_Level);
     XDS_Level=(size_t)-1;
+
+    DataDetected[5]=true; //bit 5=XDS
 }
 
 //---------------------------------------------------------------------------
@@ -1078,6 +1081,7 @@ void File_Eia608::Character_Fill(wchar_t Character)
 
     if (!HasContent)
         HasContent=true;
+    DataDetected[1+StreamPos]=true;
 }
 
 //---------------------------------------------------------------------------

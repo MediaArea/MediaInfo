@@ -98,7 +98,7 @@ void File_Eia708::Streams_Fill()
             Fill(Stream_Text, StreamPos_Last, Text_BitRate_Mode, "CBR");
             if (Config->ParseSpeed>=1.0)
             {
-                Fill(Stream_Text, StreamPos_Last, "CaptionServiceContent_IsPresent", Streams[Pos]?"Yes":"No", Unlimited, true, true); //1 bit per service
+                Fill(Stream_Text, StreamPos_Last, "CaptionServiceContent_IsPresent", (DataDetected&((int64u)1)<<Pos)?"Yes":"No", Unlimited, true, true); //1 bit per service
                 (*Stream_More)[Stream_Text][StreamPos_Last](Ztring().From_Local("CaptionServiceContent_IsPresent"), Info_Options)=__T("N NT");
             }
             if (ServiceDescriptors)

@@ -140,6 +140,7 @@ private :
     int8u cc_data_1_Old;
     int8u cc_data_2_Old;
     bool   HasContent;
+    std::bitset<8> DataDetected; //1=CC1, 2=CC2, 3=T1, 4=T2, 5=XDS
 };
 
 } //NameSpace
