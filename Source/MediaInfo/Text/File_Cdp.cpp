@@ -158,9 +158,6 @@ void File_Cdp::Streams_Update_PerStream(size_t Pos)
             if (cdp_frame_rate!=(int8u)-1)
                 Fill(Stream_Text, StreamPos_Last, Text_FrameRate, Cdp_cdp_frame_rate(cdp_frame_rate));
             Fill(Stream_Text, StreamPos_Last, Text_ID, Streams[Pos]->Parser->Retrieve(Stream_Text, Pos2, Text_ID), true);
-            Ztring LawRating=Streams[Pos]->Parser->Retrieve(Stream_General, 0, General_LawRating);
-            if (!LawRating.empty())
-                Fill(Stream_General, 0, General_LawRating, LawRating, true);
 
             //cdp_length
             if (cdp_length_Min<=cdp_length_Max)
@@ -175,6 +172,9 @@ void File_Cdp::Streams_Update_PerStream(size_t Pos)
         Ztring LawRating=Streams[Pos]->Parser->Retrieve(Stream_General, 0, General_LawRating);
         if (!LawRating.empty())
             Fill(Stream_General, 0, General_LawRating, LawRating, true);
+        Ztring Title=Streams[Pos]->Parser->Retrieve(Stream_General, 0, General_Title);
+        if (!Title.empty() && Retrieve(Stream_General, 0, General_Title).empty())
+            Fill(Stream_General, 0, General_Title, Title);
     }
 }
 

@@ -1587,6 +1587,13 @@ void File_Mxf::Streams_Finish()
                 {
                     Merge(*(*Parser));
 
+                    Ztring LawRating=(*Parser)->Retrieve(Stream_General, 0, General_LawRating);
+                    if (!LawRating.empty())
+                        Fill(Stream_General, 0, General_LawRating, LawRating, true);
+                    Ztring Title=(*Parser)->Retrieve(Stream_General, 0, General_Title);
+                    if (!Title.empty() && Retrieve(Stream_General, 0, General_Title).empty())
+                        Fill(Stream_General, 0, General_Title, Title);
+
                     if (IsSub && StreamKind_Last!=Stream_Max && Retrieve(StreamKind_Last, StreamPos_Last, "MuxingMode").empty())
                         Fill(StreamKind_Last, StreamPos_Last, "MuxingMode", "MXF");
                 }
@@ -2020,6 +2027,13 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
 
         Merge(*(*Parser), StreamKind_Last, 0, StreamPos_Last);
 
+        Ztring LawRating=(*Parser)->Retrieve(Stream_General, 0, General_LawRating);
+        if (!LawRating.empty())
+            Fill(Stream_General, 0, General_LawRating, LawRating, true);
+        Ztring Title=(*Parser)->Retrieve(Stream_General, 0, General_Title);
+        if (!Title.empty() && Retrieve(Stream_General, 0, General_Title).empty())
+            Fill(Stream_General, 0, General_Title, Title);
+
         for (size_t Pos=0; Pos<DMScheme1s_List.size(); Pos++)
         {
             dmscheme1s::iterator DMScheme1=DMScheme1s.find(DMScheme1s_List[Pos]);
@@ -2182,6 +2196,13 @@ void File_Mxf::Streams_Finish_Essence(int32u EssenceUID, int128u TrackUID)
                 }
             }
         }
+
+        Ztring LawRating=(*Parser)->Retrieve(Stream_General, 0, General_LawRating);
+        if (!LawRating.empty())
+            Fill(Stream_General, 0, General_LawRating, LawRating, true);
+        Ztring Title=(*Parser)->Retrieve(Stream_General, 0, General_Title);
+        if (!Title.empty() && Retrieve(Stream_General, 0, General_Title).empty())
+            Fill(Stream_General, 0, General_Title, Title);
 
         StreamKind_Last=Stream_Video;
         StreamPos_Last=Essence->second.StreamPos-(StreamPos_StartAtOne?1:0);

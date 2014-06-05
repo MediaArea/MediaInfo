@@ -305,6 +305,9 @@ void File_Mpeg4::Streams_Finish()
             Ztring LawRating=Stream->second.Parsers[0]->Retrieve(Stream_General, 0, General_LawRating);
             if (!LawRating.empty())
                 Fill(Stream_General, 0, General_LawRating, LawRating, true);
+            Ztring Title=Stream->second.Parsers[0]->Retrieve(Stream_General, 0, General_Title);
+            if (!Title.empty() && Retrieve(Stream_General, 0, General_Title).empty())
+                Fill(Stream_General, 0, General_Title, Title);
         }
 
         return;
@@ -625,6 +628,9 @@ void File_Mpeg4::Streams_Finish()
                     Ztring LawRating=Temp->second.Parsers[0]->Retrieve(Stream_General, 0, General_LawRating);
                     if (!LawRating.empty())
                         Fill(Stream_General, 0, General_LawRating, LawRating, true);
+                    Ztring Title=Temp->second.Parsers[0]->Retrieve(Stream_General, 0, General_Title);
+                    if (!Title.empty() && Retrieve(Stream_General, 0, General_Title).empty())
+                        Fill(Stream_General, 0, General_Title, Title);
                 }
                 else
                 {
@@ -635,6 +641,9 @@ void File_Mpeg4::Streams_Finish()
                     Ztring LawRating=Temp->second.Parsers[0]->Retrieve(Stream_General, 0, General_LawRating);
                     if (!LawRating.empty())
                         Fill(Stream_General, 0, General_LawRating, LawRating, true);
+                    Ztring Title=Temp->second.Parsers[0]->Retrieve(Stream_General, 0, General_Title);
+                    if (!Title.empty() && Retrieve(Stream_General, 0, General_Title).empty())
+                        Fill(Stream_General, 0, General_Title, Title);
                 }
 
                 //Hacks - After

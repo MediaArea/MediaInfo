@@ -164,6 +164,9 @@ void File_Riff::Streams_Finish ()
             Ztring LawRating=(*Ancillary)->Retrieve(Stream_General, 0, General_LawRating);
             if (!LawRating.empty())
                 Fill(Stream_General, 0, General_LawRating, LawRating, true);
+            Ztring Title=(*Ancillary)->Retrieve(Stream_General, 0, General_Title);
+            if (!Title.empty() && Retrieve(Stream_General, 0, General_Title).empty())
+                Fill(Stream_General, 0, General_Title, Title);
             return;
         }
     #endif //defined(MEDIAINFO_ANCILLARY_YES)

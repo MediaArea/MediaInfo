@@ -586,6 +586,9 @@ void File_Avc::Streams_Finish()
             Ztring LawRating=GA94_03_Parser->Retrieve(Stream_General, 0, General_LawRating);
             if (!LawRating.empty())
                 Fill(Stream_General, 0, General_LawRating, LawRating, true);
+            Ztring Title=GA94_03_Parser->Retrieve(Stream_General, 0, General_Title);
+            if (!Title.empty() && Retrieve(Stream_General, 0, General_Title).empty())
+                Fill(Stream_General, 0, General_Title, Title);
 
             for (size_t Pos=0; Pos<Count_Get(Stream_Text); Pos++)
             {

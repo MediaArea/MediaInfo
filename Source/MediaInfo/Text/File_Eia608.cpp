@@ -471,6 +471,8 @@ void File_Eia608::XDS_Current_ProgramName()
     Ztring Value;
     Value.From_UTF8(ValueS.c_str());
     Element_Info1(__T("Program Name=")+Value);
+    if (Retrieve(Stream_General, 0, General_Title).empty())
+        Fill(Stream_General, 0, General_Title, Value);
 }
 
 //---------------------------------------------------------------------------

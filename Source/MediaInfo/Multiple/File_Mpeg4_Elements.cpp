@@ -2879,7 +2879,7 @@ void File_Mpeg4::moov_trak_mdia_hdlr()
     }
 
     FILLING_BEGIN();
-        if (!Title.empty()) Fill(StreamKind_Last, StreamPos_Last, "Title",    Title);
+        if (!Title.empty() && Retrieve(Stream_General, 0, General_Title).empty()) Fill(StreamKind_Last, StreamPos_Last, "Title",    Title);
 
         switch (SubType)
         {

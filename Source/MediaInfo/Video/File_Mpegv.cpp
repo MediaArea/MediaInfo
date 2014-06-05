@@ -1179,6 +1179,9 @@ void File_Mpegv::Streams_Update()
                 Ztring LawRating=(*Text_Positions[Text_Positions_Pos].Parser)->Retrieve(Stream_General, 0, General_LawRating);
                 if (!LawRating.empty())
                     Fill(Stream_General, 0, General_LawRating, LawRating, true);
+                Ztring Title=(*Text_Positions[Text_Positions_Pos].Parser)->Retrieve(Stream_General, 0, General_Title);
+                if (!Title.empty() && Retrieve(Stream_General, 0, General_Title).empty())
+                    Fill(Stream_General, 0, General_Title, Title);
 
                 if (IsNewStream)
                 {
@@ -1440,6 +1443,9 @@ void File_Mpegv::Streams_Fill()
             Ztring LawRating=GA94_06_Parser->Retrieve(Stream_General, 0, General_LawRating);
             if (!LawRating.empty())
                 Fill(Stream_General, 0, General_LawRating, LawRating, true);
+            Ztring Title=GA94_06_Parser->Retrieve(Stream_General, 0, General_Title);
+            if (!Title.empty() && Retrieve(Stream_General, 0, General_Title).empty())
+                Fill(Stream_General, 0, General_Title, Title);
         }
     #endif //defined(MEDIAINFO_AFDBARDATA_YES)
     #if defined(MEDIAINFO_AFDBARDATA_YES)
