@@ -4753,7 +4753,7 @@ void File_Mxf::Data_Parse()
         //Ignore tail
         if (Config->ParseSpeed>=1.0 && Frame_Count_NotParsedIncluded!=(int64u)-1 && Config->File_IgnoreFramesAfter!=(int64u)-1 && Frame_Count_NotParsedIncluded>=Config->File_IgnoreFramesAfter)
         {
-            if (PartitionMetadata_FooterPartition!=(int64u)-1)
+            if (PartitionMetadata_FooterPartition!=(int64u)-1 && PartitionMetadata_FooterPartition>=File_Offset+Buffer_Offset+Element_Size)
                 GoTo(PartitionMetadata_FooterPartition);
             else
                 GoToFromEnd(0);
