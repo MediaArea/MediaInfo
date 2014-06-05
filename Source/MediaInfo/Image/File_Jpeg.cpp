@@ -285,8 +285,8 @@ bool File_Jpeg::Demux_UnpacketizeContainer_Test()
 {
     if (!IsSub)
     {
-        if (!Frame_Count)
-            TestContinuousFileNames();
+        if (!Status[IsAccepted])
+            Accept();
         if (Config->File_Names.size()>1)
             return Demux_UnpacketizeContainer_Test_OneFramePerFile();
     }
