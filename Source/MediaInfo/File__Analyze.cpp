@@ -95,6 +95,9 @@ File__Analyze::File__Analyze ()
     OriginalBuffer=NULL;
     OriginalBuffer_Size=0;
     OriginalBuffer_Capacity=0;
+    #if defined(MEDIAINFO_EIA608_YES) || defined(MEDIAINFO_EIA708_YES)
+        ServiceDescriptors=NULL;
+    #endif
 
     //Out
     Frame_Count=0;

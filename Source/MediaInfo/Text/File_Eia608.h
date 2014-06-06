@@ -35,13 +35,6 @@ class File_Eia608 : public File__Analyze
 public :
     //In
     int8u   cc_type;
-    struct servicedescriptor
-    {
-        Ztring language;
-    };
-    typedef std::map<int8u, servicedescriptor> servicedescriptors;
-    servicedescriptors* ServiceDescriptors;
-    bool*               ServiceDescriptors_IsPresent;
 
     //Constructor/Destructor
     File_Eia608();

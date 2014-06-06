@@ -274,6 +274,7 @@ private :
     void sei_message_user_data_registered_itu_t_t35_GA94_06();
     void sei_message_user_data_unregistered(int32u payloadSize);
     void sei_message_user_data_unregistered_x264(int32u payloadSize);
+    void sei_message_user_data_unregistered_bluray(int32u payloadSize);
     void sei_message_recovery_point();
     void sei_message_mainconcept(int32u payloadSize);
     void access_unit_delimiter();

@@ -94,6 +94,24 @@ public :
     int8u*              OriginalBuffer;
     size_t              OriginalBuffer_Size;
     size_t              OriginalBuffer_Capacity;
+    #if defined(MEDIAINFO_EIA608_YES) || defined(MEDIAINFO_EIA708_YES)
+        struct servicedescriptor
+        {
+            string language;
+        };
+        typedef std::map<int8u, servicedescriptor> servicedescriptors608;
+        typedef std::map<int8u, servicedescriptor> servicedescriptors708;
+        struct servicedescriptors
+        {
+            #if defined(MEDIAINFO_EIA608_YES)
+                std::map<int8u, servicedescriptor> ServiceDescriptors608;
+            #endif
+            #if defined(MEDIAINFO_EIA708_YES)
+                std::map<int8u, servicedescriptor> ServiceDescriptors708;
+            #endif
+        };
+        servicedescriptors* ServiceDescriptors;
+    #endif
 
     //Out
     int64u PTS_Begin;                  //In nanoseconds

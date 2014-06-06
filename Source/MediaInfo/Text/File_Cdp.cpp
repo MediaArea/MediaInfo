@@ -100,9 +100,9 @@ File_Cdp::File_Cdp()
     //Temp
     cdp_frame_rate=(int8u)-1;
 
-    //EIA-708 descriptors
-    #if defined(MEDIAINFO_EIA708_YES)
-        ccsvcinfo_section_IsPresent=false;
+    //Descriptors
+    #if defined(MEDIAINFO_EIA608_YES) || defined(MEDIAINFO_EIA708_YES)
+        ServiceDescriptors=new File__Analyze::servicedescriptors;
     #endif
 
     //cdp_length
@@ -115,6 +115,11 @@ File_Cdp::~File_Cdp()
 {
     for (size_t Pos=0; Pos<Streams.size(); Pos++)
         delete Streams[Pos]; //Streams[Pos]=NULL
+
+    //EIA-708 descriptors
+    #if defined(MEDIAINFO_EIA608_YES) || defined(MEDIAINFO_EIA708_YES)
+        delete ServiceDescriptors;
+    #endif
 }
 
 //***************************************************************************
@@ -389,6 +394,9 @@ void File_Cdp::ccdata_section()
                                 ((File_Eia708*)Streams[2]->Parser)->AspectRatio=AspectRatio;
                         #endif //defined(MEDIAINFO_EIA708_YES)
                     }
+                    #if defined(MEDIAINFO_EIA608_YES) || defined(MEDIAINFO_EIA708_YES)
+                        Streams[Parser_Pos]->Parser->ServiceDescriptors=ServiceDescriptors;
+                    #endif
                     Open_Buffer_Continue(Streams[Parser_Pos]->Parser, Buffer+(size_t)(Buffer_Offset+Element_Offset), 2);
                     Element_Offset+=2;
 
@@ -451,10 +459,10 @@ void File_Cdp::ccsvcinfo_section()
 
         //svc_data_byte - caption_service_descriptor
         Element_Begin1("service");
-        Ztring language;
+        string language;
         int8u caption_service_number=0;
         bool digital_cc, line21_field;
-        Get_Local(3, language,                                  "language");
+        Get_String(3, language,                                 "language");
         BS_Begin();
         Get_SB (digital_cc,                                     "digital_cc");
         Skip_SB(                                                "reserved");
@@ -473,11 +481,19 @@ void File_Cdp::ccsvcinfo_section()
         Element_End0();
 
         FILLING_BEGIN();
-            #if defined(MEDIAINFO_EIA708_YES)
+            #if defined(MEDIAINFO_EIA608_YES) || defined(MEDIAINFO_EIA708_YES)
                 if (digital_cc)
-                    ServiceDescriptors708[caption_service_number].language=language;
+                {
+                    #if defined(MEDIAINFO_EIA708_YES)
+                        ServiceDescriptors->ServiceDescriptors708[caption_service_number].language=language;
+                    #endif
+                }
                 else
-                    ServiceDescriptors608[line21_field?1:0].language=language;
+                {
+                    #if defined(MEDIAINFO_EIA708_YES)
+                        ServiceDescriptors->ServiceDescriptors608[line21_field?1:0].language=language;
+                    #endif
+                }
             #endif
 
             //Stream creation
@@ -487,10 +503,6 @@ void File_Cdp::ccsvcinfo_section()
         FILLING_END();
     }
     Element_End0();
-
-    #if defined(MEDIAINFO_EIA708_YES)
-        ccsvcinfo_section_IsPresent=true;
-    #endif
 }
 
 //---------------------------------------------------------------------------
@@ -538,8 +550,6 @@ void File_Cdp::CreateStream(int8u Parser_Pos)
             #if defined(MEDIAINFO_EIA608_YES)
                 Streams[Parser_Pos]->Parser=new File_Eia608();
                 ((File_Eia608*)Streams[Parser_Pos]->Parser)->cc_type=Parser_Pos;
-                ((File_Eia608*)Streams[Parser_Pos]->Parser)->ServiceDescriptors=&ServiceDescriptors608;
-                ((File_Eia608*)Streams[Parser_Pos]->Parser)->ServiceDescriptors_IsPresent=&ccsvcinfo_section_IsPresent;
             #else //defined(MEDIAINFO_EIA608_YES)
                 Streams[Parser_Pos]->Parser=new File__Analyze();
             #endif //defined(MEDIAINFO_EIA608_YES)
@@ -548,8 +558,6 @@ void File_Cdp::CreateStream(int8u Parser_Pos)
         {
             #if defined(MEDIAINFO_EIA708_YES)
                 Streams[Parser_Pos]->Parser=new File_Eia708();
-                ((File_Eia708*)Streams[Parser_Pos]->Parser)->ServiceDescriptors=&ServiceDescriptors708;
-                ((File_Eia708*)Streams[Parser_Pos]->Parser)->ServiceDescriptors_IsPresent=&ccsvcinfo_section_IsPresent;
             #else //defined(MEDIAINFO_EIA708_YES)
                 Streams[Parser_Pos]->Parser=new File__Analyze();
             #endif //defined(MEDIAINFO_EIA708_YES)
@@ -559,6 +567,7 @@ void File_Cdp::CreateStream(int8u Parser_Pos)
     #endif //defined(MEDIAINFO_EIA608_YES) || defined(MEDIAINFO_EIA708_YES)
     
     //Init
+    Streams[Parser_Pos]->Parser->ServiceDescriptors=ServiceDescriptors;
     Open_Buffer_Init(Streams[Parser_Pos]->Parser);
     Streams[Parser_Pos]->Parser->Accept();
 }

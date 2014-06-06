@@ -3952,6 +3952,9 @@ void File_MpegPs::xxx_stream_Parse(ps_stream &Temp, int8u &stream_Count)
             #if MEDIAINFO_IBI
                 Temp.Parsers[Pos]->Ibi_SynchronizationOffset_Current=Ibi_SynchronizationOffset_Current;
             #endif //MEDIAINFO_IBI
+            #if defined(MEDIAINFO_EIA608_YES) || defined(MEDIAINFO_EIA708_YES)
+                Temp.Parsers[Pos]->ServiceDescriptors=ServiceDescriptors;
+            #endif
             Open_Buffer_Continue(Temp.Parsers[Pos], Buffer+Buffer_Offset+(size_t)Element_Offset, (size_t)(Element_Size-Element_Offset));
             if (IsSub && Temp.Parsers[Pos]->Frame_Count_NotParsedIncluded!=(int64u)-1)
                 Frame_Count_NotParsedIncluded=Temp.Parsers[Pos]->Frame_Count_NotParsedIncluded;

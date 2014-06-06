@@ -3470,6 +3470,9 @@ void File_Mpegv::user_data_start_GA94_03()
                     Demux(TemporalReference[GA94_03_Pos]->GA94_03->Data, TemporalReference[GA94_03_Pos]->GA94_03->Size, ContentType_MainStream);
                     Demux_Level=Demux_Level_Save;
                 #endif // MEDIAINFO_DEMUX
+                #if defined(MEDIAINFO_EIA608_YES) || defined(MEDIAINFO_EIA708_YES)
+                    GA94_03_Parser->ServiceDescriptors=ServiceDescriptors;
+                #endif
                 ((File_DtvccTransport*)GA94_03_Parser)->AspectRatio=MPEG_Version==1?Mpegv_aspect_ratio1[aspect_ratio_information]:Mpegv_aspect_ratio2[aspect_ratio_information];
                 Open_Buffer_Continue(GA94_03_Parser, TemporalReference[GA94_03_Pos]->GA94_03->Data, TemporalReference[GA94_03_Pos]->GA94_03->Size);
 

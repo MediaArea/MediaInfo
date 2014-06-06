@@ -2526,7 +2526,12 @@ void File_Avc::sei_message_user_data_registered_itu_t_t35_GA94_03_Delayed(int32u
                 Element_Code=Element_Code_Old;
             #endif //MEDIAINFO_DEMUX
             if (TemporalReferences[TemporalReferences_Min]->GA94_03)
+            {
+                #if defined(MEDIAINFO_EIA608_YES) || defined(MEDIAINFO_EIA708_YES)
+                    GA94_03_Parser->ServiceDescriptors=ServiceDescriptors;
+                #endif
                 Open_Buffer_Continue(GA94_03_Parser, TemporalReferences[TemporalReferences_Min]->GA94_03->Data, TemporalReferences[TemporalReferences_Min]->GA94_03->Size);
+            }
 
             Element_End0();
         #endif //defined(MEDIAINFO_DTVCCTRANSPORT_YES)
@@ -2603,10 +2608,12 @@ void File_Avc::sei_message_user_data_unregistered(int32u payloadSize)
 
     switch (uuid_iso_iec_11578.hi)
     {
-        case  0xB748D9E6BDE945DCLL : Element_Info1("x264");
+        case 0xB748D9E6BDE945DCLL : Element_Info1("x264");
                                      sei_message_user_data_unregistered_x264(payloadSize-16); break;
-        case  0x684E92AC604A57FBLL : Element_Info1("eavc");
+        case 0x684E92AC604A57FBLL : Element_Info1("eavc");
                                      sei_message_user_data_unregistered_x264(payloadSize-16); break;
+        case 0xD9114Df8608CEE17LL : Element_Info1("Blu-ray");
+                                    sei_message_user_data_unregistered_bluray(payloadSize-16); break;
         default :
                     Element_Info1("unknown");
                     Skip_XX(payloadSize-16,                     "data");
@@ -2722,6 +2729,24 @@ void File_Avc::sei_message_user_data_unregistered_x264(int32u payloadSize)
     }
     else
         Encoded_Library_Name=Encoded_Library;
+}
+
+//---------------------------------------------------------------------------
+// SEI - 5 - x264
+void File_Avc::sei_message_user_data_unregistered_bluray(int32u payloadSize)
+{
+    if (payloadSize<4)
+    {
+        Skip_XX(payloadSize,                                    "Unknown");
+        return;
+    }
+    int32u Identifier;
+    Get_B4 (Identifier,                                         "Identifier");
+    switch (Identifier)
+    {
+        case 0x47413934 :   sei_message_user_data_registered_itu_t_t35_GA94_03(); return;
+        default         :   Skip_XX(Element_Size-Element_Offset, "Unknown");
+    }
 }
 
 //---------------------------------------------------------------------------

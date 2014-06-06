@@ -92,13 +92,6 @@ private :
     //Helpers
     void  CreateStream(int8u Parser_Pos);
 
-    //EIA-708 descriptors
-    #if defined(MEDIAINFO_EIA708_YES)
-        File_Eia608::servicedescriptors ServiceDescriptors608;
-        File_Eia708::servicedescriptors ServiceDescriptors708;
-        bool ccsvcinfo_section_IsPresent;
-    #endif
-
     //Tests
     int8u cdp_length_Min;
     int8u cdp_length_Max;

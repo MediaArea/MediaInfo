@@ -34,13 +34,6 @@ public :
     //In
     int8u cc_type;
     float64 AspectRatio;
-    struct servicedescriptor
-    {
-        Ztring language;
-    };
-    typedef std::map<int8u, servicedescriptor> servicedescriptors;
-    servicedescriptors* ServiceDescriptors;
-    bool*               ServiceDescriptors_IsPresent;
 
     //Constructor/Destructor
     File_Eia708();
