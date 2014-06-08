@@ -64,8 +64,10 @@ private :
         int8u   Attribute;
 
         character()
+            :
+            Value(L' '),
+            Attribute(0x00)
         {
-            Value=L' ';
         }
     };
     struct window

@@ -262,7 +262,8 @@ void File_Mk::Streams_Finish()
                 std::sort(FrameRate_Between.begin(), FrameRate_Between.end());
                 if (!FrameRate_Between.empty()
                  && FrameRate_Between[0]*0.9<FrameRate_Between[FrameRate_Between.size()-1]
-                 && FrameRate_Between[0]*1.1>FrameRate_Between[FrameRate_Between.size()-1])
+                 && FrameRate_Between[0]*1.1>FrameRate_Between[FrameRate_Between.size()-1]
+                 && TimecodeScale)
                 {
                     float Time=0;
                     if (Temp->second.TimeCodes.size()>30+FramesToAdd)
@@ -312,10 +313,14 @@ void File_Mk::Streams_Finish()
                         ;
                     else if (Temp->second.AvgBytesPerSec!=0)
                         Delay+=((float64)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.AvgBytesPerSec;
-                    else if (Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u()!=0)
-                        Delay+=((float64)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u();
-                    else if (Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u()!=0)
-                        Delay+=((float64)Temp->second.Parser->Buffer_TotalBytes_FirstSynched)*1000/Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u();
+                    else
+                    {
+                        int64u BitRate = Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u();
+                        if (BitRate == 0)
+                            BitRate = Temp->second.Parser->Retrieve(Stream_Audio, 0, Audio_BitRate_Nominal).To_int64u();
+                        if (BitRate)
+                            Delay += ((float64)Temp->second.Parser->Buffer_TotalBytes_FirstSynched) * 1000 / BitRate;
+                    }
                 }
 
                 //Filling

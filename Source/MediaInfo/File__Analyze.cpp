@@ -3376,7 +3376,7 @@ bool File__Analyze::Demux_UnpacketizeContainer_Test_OneFramePerFile ()
     {
         size_t* File_Buffer_Size_Hint_Pointer=Config->File_Buffer_Size_Hint_Pointer_Get();
         if (File_Buffer_Size_Hint_Pointer)
-            (*File_Buffer_Size_Hint_Pointer)=Config->File_Current_Size-Config->File_Current_Offset-Buffer_Size;
+            (*File_Buffer_Size_Hint_Pointer) = (size_t)(Config->File_Current_Size - Config->File_Current_Offset - Buffer_Size);
         return false;
     }
 

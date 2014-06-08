@@ -424,7 +424,7 @@ private :
     bool                    File_DvDif_DisableAudioIfIsInContainer;
     bool                    File_DvDif_IgnoreTransmittingFlags;
     #endif //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
-    #if defined(MEDIAINFO_DVDIF_YES)
+    #if defined(MEDIAINFO_DVDIF_ANALYZE_YES)
     bool                    File_DvDif_Analysis;
     #endif //defined(MEDIAINFO_DVDIF_ANALYZE_YES)
     #if MEDIAINFO_MACROBLOCKS

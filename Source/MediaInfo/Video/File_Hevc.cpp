@@ -390,7 +390,7 @@ bool File_Hevc::Demux_UnpacketizeContainer_Test()
                     std::vector<pic_parameter_set_struct*>::iterator pic_parameter_set_Item;
                     if (MustParse_VPS_SPS_PPS_FromFlv)
                         num_extra_slice_header_bits=0; // We bet it is old, so without num_extra_slice_header_bits
-                    else if (!(slice_pic_parameter_set_id>=pic_parameter_sets.size() || (*(pic_parameter_set_Item=pic_parameter_sets.begin()+slice_pic_parameter_set_id))==NULL || !(*pic_parameter_set_Item)->IsSynched))
+                    else if (!(slice_pic_parameter_set_id>=pic_parameter_sets.size() || (*(pic_parameter_set_Item=pic_parameter_sets.begin()+slice_pic_parameter_set_id))==NULL))
                     {
                         num_extra_slice_header_bits=(*pic_parameter_set_Item)->num_extra_slice_header_bits;
                     }
@@ -1080,7 +1080,9 @@ void File_Hevc::video_parameter_set()
         if (vps_video_parameter_set_id>=video_parameter_sets.size())
             video_parameter_sets.resize(vps_video_parameter_set_id+1);
         std::vector<video_parameter_set_struct*>::iterator Data_Item=video_parameter_sets.begin()+vps_video_parameter_set_id;
-        delete *Data_Item; *Data_Item=new video_parameter_set_struct();
+        delete *Data_Item; *Data_Item=new video_parameter_set_struct(
+                                                                        0 //TODO: check which code is intended here
+                                                                    );
 
         //NextCode
         NextCode_Clear();
@@ -1179,11 +1181,9 @@ void File_Hevc::video_parameter_set()
         if (vps_video_parameter_set_id>=video_parameter_sets.size())
             video_parameter_sets.resize(vps_video_parameter_set_id+1);
         std::vector<video_parameter_set_struct*>::iterator Data_Item=video_parameter_sets.begin()+vps_video_parameter_set_id;
-        delete *Data_Item; *Data_Item=new video_parameter_set_struct();
-
-        //Filling from stream
-        (*Data_Item)->vps_max_sub_layers_minus1                     =vps_max_sub_layers_minus1;
-        (*Data_Item)->IsSynched                                     =true;
+        delete *Data_Item; *Data_Item=new video_parameter_set_struct(
+                                                                        vps_max_sub_layers_minus1
+                                                                    );
 
         //NextCode
         NextCode_Clear();
@@ -1207,21 +1207,21 @@ void File_Hevc::seq_parameter_set()
     seq_parameter_set_struct::vui_parameters_struct* vui_parameters_Item=NULL;
     int32u  sps_seq_parameter_set_id, chroma_format_idc, pic_width_in_luma_samples, pic_height_in_luma_samples, bit_depth_luma_minus8, bit_depth_chroma_minus8, log2_max_pic_order_cnt_lsb_minus4, num_short_term_ref_pic_sets;
     int32u  conf_win_left_offset=0, conf_win_right_offset=0, conf_win_top_offset=0, conf_win_bottom_offset=0;
-    int8u   sps_video_parameter_set_id, sps_max_sub_layers_minus1;
+    int8u   video_parameter_set_id, max_sub_layers_minus1;
     bool    separate_colour_plane_flag=false, sps_sub_layer_ordering_info_present_flag;
     BS_Begin();
-    Get_S1 (4, sps_video_parameter_set_id,                      "sps_video_parameter_set_id");
+    Get_S1 (4, video_parameter_set_id,                          "sps_video_parameter_set_id");
     std::vector<video_parameter_set_struct*>::iterator video_parameter_set_Item;
-    if (sps_video_parameter_set_id>=video_parameter_sets.size() || (*(video_parameter_set_Item=video_parameter_sets.begin()+sps_video_parameter_set_id))==NULL || !(*video_parameter_set_Item)->IsSynched)
+    if (video_parameter_set_id >= video_parameter_sets.size() || (*(video_parameter_set_Item = video_parameter_sets.begin() + video_parameter_set_id)) == NULL)
     {
         //Not yet present
         Skip_BS(Data_BS_Remain(),                               "Data (video_parameter_set is missing)");
         BS_End();
         return;
     }
-    Get_S1 (3, sps_max_sub_layers_minus1,                       "sps_max_sub_layers_minus1");
+    Get_S1 (3, max_sub_layers_minus1,                           "sps_max_sub_layers_minus1");
     Skip_SB(                                                    "sps_temporal_id_nesting_flag");
-    profile_tier_level(sps_max_sub_layers_minus1);
+    profile_tier_level(max_sub_layers_minus1);
     Get_UE (   sps_seq_parameter_set_id,                        "sps_seq_parameter_set_id");
     if (MustParse_VPS_SPS_PPS_FromFlv)
     {
@@ -1232,7 +1232,27 @@ void File_Hevc::seq_parameter_set()
         if (sps_seq_parameter_set_id>=seq_parameter_sets.size())
             seq_parameter_sets.resize(sps_seq_parameter_set_id+1);
         std::vector<seq_parameter_set_struct*>::iterator Data_Item=seq_parameter_sets.begin()+sps_seq_parameter_set_id;
-        delete *Data_Item; *Data_Item=new seq_parameter_set_struct();
+        delete *Data_Item; *Data_Item=new seq_parameter_set_struct(
+                                                                    NULL, //TODO: check which code is intended here
+                                                                    0,
+                                                                    0,
+                                                                    0,
+                                                                    0,
+                                                                    0,
+                                                                    0,
+                                                                    0,
+                                                                    0,
+                                                                    0,
+                                                                    0,
+                                                                    0,
+                                                                    0,
+                                                                    0,
+                                                                    0,
+                                                                    0,
+                                                                    false,
+                                                                    false,
+                                                                    false
+                                                                    );
 
         //NextCode
         NextCode_Clear();
@@ -1279,7 +1299,7 @@ void File_Hevc::seq_parameter_set()
         return; //Problem, not valid
     }
     Get_SB (   sps_sub_layer_ordering_info_present_flag,        "sps_sub_layer_ordering_info_present_flag");
-    for (int32u SubLayerPos=(sps_sub_layer_ordering_info_present_flag?0:sps_max_sub_layers_minus1); SubLayerPos<=sps_max_sub_layers_minus1; SubLayerPos++)
+    for (int32u SubLayerPos = (sps_sub_layer_ordering_info_present_flag ? 0 : max_sub_layers_minus1); SubLayerPos <= max_sub_layers_minus1; SubLayerPos++)
     {
         Element_Begin1("SubLayer");
         Skip_UE(                                                "sps_max_dec_pic_buffering_minus1");
@@ -1348,29 +1368,27 @@ void File_Hevc::seq_parameter_set()
         if (sps_seq_parameter_set_id>=seq_parameter_sets.size())
             seq_parameter_sets.resize(sps_seq_parameter_set_id+1);
         std::vector<seq_parameter_set_struct*>::iterator Data_Item=seq_parameter_sets.begin()+sps_seq_parameter_set_id;
-        delete *Data_Item; *Data_Item=new seq_parameter_set_struct();
-
-        //Filling from stream
-        (*Data_Item)->IsSynched                                     =true;
-        (*Data_Item)->video_parameter_set_id                        =(int8u)sps_video_parameter_set_id;
-        (*Data_Item)->profile_space                                 =profile_space;
-        (*Data_Item)->profile_idc                                   =profile_idc;
-        (*Data_Item)->level_idc                                     =level_idc;
-        (*Data_Item)->general_progressive_source_flag               =general_progressive_source_flag;
-        (*Data_Item)->general_interlaced_source_flag                =general_interlaced_source_flag;
-        (*Data_Item)->general_frame_only_constraint_flag            =general_frame_only_constraint_flag;
-        (*Data_Item)->pic_width_in_luma_samples                     =pic_width_in_luma_samples;
-        (*Data_Item)->pic_height_in_luma_samples                    =pic_height_in_luma_samples;
-        (*Data_Item)->conf_win_left_offset                          =conf_win_left_offset;
-        (*Data_Item)->conf_win_right_offset                         =conf_win_right_offset;
-        (*Data_Item)->conf_win_top_offset                           =conf_win_top_offset;
-        (*Data_Item)->conf_win_bottom_offset                        =conf_win_bottom_offset;
-        (*Data_Item)->chroma_format_idc                             =(int8u)chroma_format_idc;
-        (*Data_Item)->separate_colour_plane_flag                    =separate_colour_plane_flag;
-        (*Data_Item)->log2_max_pic_order_cnt_lsb_minus4             =(int8u)log2_max_pic_order_cnt_lsb_minus4;
-        (*Data_Item)->bit_depth_luma_minus8                         =(int8u)bit_depth_luma_minus8;
-        (*Data_Item)->bit_depth_chroma_minus8                       =(int8u)bit_depth_chroma_minus8;
-        (*Data_Item)->vui_parameters                                =(seq_parameter_set_struct::vui_parameters_struct*)vui_parameters_Item;
+        delete *Data_Item; *Data_Item=new seq_parameter_set_struct(
+                                                                    vui_parameters_Item,
+                                                                    profile_space,
+                                                                    profile_idc,
+                                                                    level_idc,
+                                                                    pic_width_in_luma_samples,
+                                                                    pic_height_in_luma_samples,
+                                                                    conf_win_left_offset,
+                                                                    conf_win_right_offset,
+                                                                    conf_win_top_offset,
+                                                                    conf_win_bottom_offset,
+                                                                    (int8u)video_parameter_set_id,
+                                                                    (int8u)chroma_format_idc,
+                                                                    separate_colour_plane_flag,
+                                                                    (int8u)log2_max_pic_order_cnt_lsb_minus4,
+                                                                    (int8u)bit_depth_luma_minus8,
+                                                                    (int8u)bit_depth_chroma_minus8,
+                                                                    general_progressive_source_flag,
+                                                                    general_interlaced_source_flag,
+                                                                    general_frame_only_constraint_flag
+                                                                  );
 
         //NextCode
         NextCode_Clear();
@@ -1408,7 +1426,7 @@ void File_Hevc::pic_parameter_set()
         return; //Problem, not valid
     }
     std::vector<seq_parameter_set_struct*>::iterator seq_parameter_set_Item;
-    if (pps_seq_parameter_set_id>=seq_parameter_sets.size() || (*(seq_parameter_set_Item=seq_parameter_sets.begin()+pps_seq_parameter_set_id))==NULL || !(*seq_parameter_set_Item)->IsSynched)
+    if (pps_seq_parameter_set_id>=seq_parameter_sets.size() || (*(seq_parameter_set_Item=seq_parameter_sets.begin()+pps_seq_parameter_set_id))==NULL)
     {
         //Not yet present
         Skip_BS(Data_BS_Remain(),                               "Data (seq_parameter_set is missing)");
@@ -1424,7 +1442,13 @@ void File_Hevc::pic_parameter_set()
         if (pps_pic_parameter_set_id>=pic_parameter_sets.size())
             pic_parameter_sets.resize(pps_pic_parameter_set_id+1);
         std::vector<pic_parameter_set_struct*>::iterator pic_parameter_sets_Item=pic_parameter_sets.begin()+pps_pic_parameter_set_id;
-        delete *pic_parameter_sets_Item; *pic_parameter_sets_Item=new pic_parameter_set_struct();
+        delete *pic_parameter_sets_Item; *pic_parameter_sets_Item=new pic_parameter_set_struct(
+                                                                                                    0,
+                                                                                                    0,
+                                                                                                    0,
+                                                                                                    0,
+                                                                                                    false
+                                                                                              );
 
         //NextCode
         NextCode_Clear();
@@ -1525,14 +1549,13 @@ void File_Hevc::pic_parameter_set()
         if (pps_pic_parameter_set_id>=pic_parameter_sets.size())
             pic_parameter_sets.resize(pps_pic_parameter_set_id+1);
         std::vector<pic_parameter_set_struct*>::iterator pic_parameter_sets_Item=pic_parameter_sets.begin()+pps_pic_parameter_set_id;
-        delete *pic_parameter_sets_Item; *pic_parameter_sets_Item=new pic_parameter_set_struct();
-        (*pic_parameter_sets_Item)->IsSynched                                       =true;
-        (*pic_parameter_sets_Item)->seq_parameter_set_id                            =(int8u)pps_seq_parameter_set_id;
-        (*pic_parameter_sets_Item)->num_ref_idx_l0_default_active_minus1            =(int8u)num_ref_idx_l0_default_active_minus1;
-        (*pic_parameter_sets_Item)->num_ref_idx_l1_default_active_minus1            =(int8u)num_ref_idx_l1_default_active_minus1;
-        (*pic_parameter_sets_Item)->dependent_slice_segments_enabled_flag           =dependent_slice_segments_enabled_flag;
-        (*pic_parameter_sets_Item)->num_extra_slice_header_bits                     =num_extra_slice_header_bits;
-
+        delete *pic_parameter_sets_Item; *pic_parameter_sets_Item = new pic_parameter_set_struct(
+                                                                                                    (int8u)pps_seq_parameter_set_id,
+                                                                                                    (int8u)num_ref_idx_l0_default_active_minus1,
+                                                                                                    (int8u)num_ref_idx_l1_default_active_minus1,
+                                                                                                    num_extra_slice_header_bits,
+                                                                                                    dependent_slice_segments_enabled_flag
+                                                                                                );
         //Autorisation of other streams
         //if (!seq_parameter_sets.empty())
         //{
@@ -1708,7 +1731,7 @@ void File_Hevc::slice_segment_header()
         Skip_SB(                                                "no_output_of_prior_pics_flag");
     Get_UE (   slice_pic_parameter_set_id,                      "slice_pic_parameter_set_id");
     std::vector<pic_parameter_set_struct*>::iterator pic_parameter_set_Item;
-    if (slice_pic_parameter_set_id>=pic_parameter_sets.size() || (*(pic_parameter_set_Item=pic_parameter_sets.begin()+slice_pic_parameter_set_id))==NULL || !(*pic_parameter_set_Item)->IsSynched)
+    if (slice_pic_parameter_set_id>=pic_parameter_sets.size() || (*(pic_parameter_set_Item=pic_parameter_sets.begin()+slice_pic_parameter_set_id))==NULL)
     {
         //Not yet present
         Skip_BS(Data_BS_Remain(),                               "Data (pic_parameter_set is missing)");
@@ -1963,7 +1986,7 @@ void File_Hevc::vui_parameters(std::vector<video_parameter_set_struct*>::iterato
             vui_parameters_Item->time_scale=time_scale;
         }
     FILLING_ELSE();
-        delete (seq_parameter_set_struct::vui_parameters_struct*)vui_parameters_Item;
+        delete vui_parameters_Item; //vui_parameters_Item=NULL;
     FILLING_END();
 }
 
@@ -2036,38 +2059,52 @@ void File_Hevc::hrd_parameters(bool commonInfPresentFlag, int8u maxNumSubLayersM
 void File_Hevc::sub_layer_hrd_parameters(bool sub_pic_hrd_params_present_flag, int8u bit_rate_scale, int8u cpb_size_scale, int32u cpb_cnt_minus1, seq_parameter_set_struct::vui_parameters_struct::xxl* &hrd_parameters_Item_)
 {
     //Parsing
-    seq_parameter_set_struct::vui_parameters_struct::xxl* ToTest=new seq_parameter_set_struct::vui_parameters_struct::xxl();
-    ToTest->SchedSel.resize(cpb_cnt_minus1+1);
-    for (int8u SchedSelIdx=0; SchedSelIdx<=cpb_cnt_minus1; SchedSelIdx++)
+    vector<seq_parameter_set_struct::vui_parameters_struct::xxl::xxl_data>  SchedSel;
+    SchedSel.reserve(cpb_cnt_minus1 + 1);
+    for (int8u SchedSelIdx = 0; SchedSelIdx <= cpb_cnt_minus1; ++SchedSelIdx)
     {
         Element_Begin1("ShedSel");
+        int64u bit_rate_value, cpb_size_value;
         int32u bit_rate_value_minus1, cpb_size_value_minus1;
+        bool cbr_flag;
         Get_UE (bit_rate_value_minus1,                          "bit_rate_value_minus1");
-        ToTest->SchedSel[SchedSelIdx].bit_rate_value=(int32u)((bit_rate_value_minus1+1)*pow(2.0, 6+bit_rate_scale)); Param_Info2(ToTest->SchedSel[SchedSelIdx].bit_rate_value, " bps");
+        bit_rate_value = (int64u)((bit_rate_value_minus1 + 1)*pow(2.0, 6 + bit_rate_scale)); Param_Info2(bit_rate_value, " bps");
         Get_UE (cpb_size_value_minus1,                          "cpb_size_value_minus1");
-        ToTest->SchedSel[SchedSelIdx].cpb_size_value=(int32u)((cpb_size_value_minus1+1)*pow(2.0, 4+cpb_size_scale)); Param_Info2(ToTest->SchedSel[SchedSelIdx].cpb_size_value, " bits");
+        cpb_size_value = (int64u)((cpb_size_value_minus1 + 1)*pow(2.0, 4 + cpb_size_scale)); Param_Info2(cpb_size_value, " bits");
         if (sub_pic_hrd_params_present_flag)
         {
             Skip_UE(                                            "cpb_size_du_value_minus1");
             Skip_UE(                                            "bit_rate_du_value_minus1");
         }
-        Get_SB (ToTest->SchedSel[SchedSelIdx].cbr_flag,         "cbr_flag");
+        Get_SB (cbr_flag,                                       "cbr_flag");
         Element_End0();
+
+        FILLING_BEGIN();
+        SchedSel.push_back(seq_parameter_set_struct::vui_parameters_struct::xxl::xxl_data(
+                                                                                            bit_rate_value,
+                                                                                            cpb_size_value,
+                                                                                            cbr_flag
+                                                                                         ));
+        FILLING_END();
     }
 
     //Validity test
-    FILLING_BEGIN();
-        hrd_parameters_Item_=ToTest;
-    FILLING_ELSE();
-        delete (seq_parameter_set_struct::vui_parameters_struct::xxl*)ToTest; //We do not trust this kind of data
-    FILLING_END();
+    if (!Element_IsOK() || (SchedSel.size() == 1 && SchedSel[0].bit_rate_value == 64))
+    {
+        return; //We do not trust this kind of data
+    }
+
+    //Filling
+    hrd_parameters_Item_=new seq_parameter_set_struct::vui_parameters_struct::xxl(
+                                                                                    SchedSel
+                                                                                 );
 }
 
 //---------------------------------------------------------------------------
 void File_Hevc::scaling_list_data()
 {
-    for(size_t sizeId=0; sizeId<4; sizeId++)
-        for(size_t matrixId=0; matrixId<((sizeId==3)?2:6); matrixId++)
+    for(int8u sizeId=0; sizeId<4; sizeId++)
+        for (int8u matrixId = 0; matrixId<((sizeId == 3) ? 2 : 6); matrixId++)
         {
             bool scaling_list_pred_mode_flag;
             Get_SB (scaling_list_pred_mode_flag,                "scaling_list_pred_mode_flag");

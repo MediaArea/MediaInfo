@@ -461,7 +461,7 @@ void File_Cdp::ccsvcinfo_section()
         Element_Begin1("service");
         string language;
         int8u caption_service_number=0;
-        bool digital_cc, line21_field;
+        bool digital_cc, line21_field=false;
         Get_String(3, language,                                 "language");
         BS_Begin();
         Get_SB (digital_cc,                                     "digital_cc");
@@ -472,6 +472,10 @@ void File_Cdp::ccsvcinfo_section()
         {
             Skip_S1(5,                                          "reserved");
             Get_SB (   line21_field,                            "line21_field");
+
+            //Coherency test
+            if (line21_field && svc_count==1)
+                line21_field=false; // Wrong info in the descriptor?
         }
         Skip_SB(                                                "easy_reader");
         Skip_SB(                                                "wide_aspect_ratio");
@@ -497,7 +501,11 @@ void File_Cdp::ccsvcinfo_section()
             #endif
 
             //Stream creation
-            int8u Parser_Pos=digital_cc?2:(line21_field?1:0); //cc_type 2 and 3 are for the same text
+            int8u Parser_Pos;
+            if (digital_cc) //line21
+                Parser_Pos = 2;
+            else
+                Parser_Pos= (line21_field ? 1 : 0); //cc_type 2 and 3 are for the same text
             if (Streams[Parser_Pos]==NULL)
                 CreateStream(Parser_Pos);
         FILLING_END();

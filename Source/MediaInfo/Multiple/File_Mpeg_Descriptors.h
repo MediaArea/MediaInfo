@@ -628,6 +628,8 @@ struct complete_stream
         Programs_IsUpdated=false;
         NoPatPmt=false;
         StreamPos_ToRemove.resize(Stream_Max);
+        File__Duplicate_HasChanged_ = false;
+        Config_File_Duplicate_Get_AlwaysNeeded_Count = 0;
     }
 
     ~complete_stream()

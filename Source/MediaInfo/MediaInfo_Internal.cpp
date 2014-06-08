@@ -659,10 +659,11 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, const String &Fi
 
     if (Info==NULL)
     {
-        if (!Config.File_ForceParser_Get().empty())
+        Ztring ForceParser = Config.File_ForceParser_Get();
+        if (!ForceParser.empty())
         {
             CS.Leave();
-            SelectFromExtension(Config.File_ForceParser_Get());
+            SelectFromExtension(ForceParser);
             CS.Enter();
         }
         if (Info==NULL)

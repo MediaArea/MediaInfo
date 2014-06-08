@@ -2630,7 +2630,7 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
             }
             else
                 Param2("Keys atom is missing!", 0);
-
+            break;
         case Elements::moov_udta_meta :
             {
                 FILLING_BEGIN();
@@ -5292,8 +5292,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dvc1()
 
     FILLING_BEGIN();
         #if defined(MEDIAINFO_VC1_YES)
-        if ((profile) && (level))
-        {
             Ztring Profile, Level;
 
             switch (profile)
@@ -5339,7 +5337,6 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_dvc1()
             Profile+=Level;
             Fill(Stream_Video, StreamPos_Last, Video_Format_Profile, Profile);
             Fill(Stream_Video, StreamPos_Last, Video_Codec_Profile, Profile);
-        }
         #endif //defined(MEDIAINFO_VC1_YES)
         if (framerate && framerate!=(int32u)-1)
             Fill(StreamKind_Last, StreamPos_Last, Video_FrameRate, framerate, 3);

@@ -393,10 +393,11 @@ void File_Aaf::Directory_Entry()
     else if (mse==2 && Size) //If stream
     {
         Param_Info1("StreamOffset");
-        stream* Stream=new stream;
-        Stream->Directory_Pos=Directory_Pos;
-        Stream->Size=Size;
-        Stream->Name=ab;
+        stream* Stream = new stream(
+                                    ab,
+                                    Directory_Pos,
+                                    Size
+                                   );
         if (Size<MiniSectorCutoff) //MiniFAT
         {
             int32u Pointers_Pos=SectStart;

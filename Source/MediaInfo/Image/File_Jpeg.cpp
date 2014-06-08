@@ -350,7 +350,7 @@ bool File_Jpeg::Demux_UnpacketizeContainer_Test()
         if (Field_Count==0 && FrameRate && Demux_Offset!=Buffer_Size)
             FrameRate*=2; //Now field rate
         if (FrameRate)
-            FrameInfo.DUR=1000000000/FrameRate; //Actually, field or frame rate
+            FrameInfo.DUR=float64_int64s(1000000000/FrameRate); //Actually, field or frame rate
         if (FrameInfo.DTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
             FrameInfo.DTS+=FrameInfo.DUR;
     }
@@ -683,7 +683,7 @@ void File_Jpeg::SIZ()
                 {
                     if (ChromaSubsampling==__T("4:2:0") || ChromaSubsampling==__T("4:2:2"))
                         Fill(StreamKind_Last, 0, "ColorSpace", "YUV");
-                    if (ChromaSubsampling==__T("4:4:4"))
+                    else if (ChromaSubsampling==__T("4:4:4"))
                         Fill(StreamKind_Last, 0, "ColorSpace", "RGB");
                 }
             }
@@ -826,6 +826,7 @@ void File_Jpeg::SOF_()
                 case 0x01 :
                             if (Count==3)
                                 Fill(StreamKind_Last, 0, "ColorSpace", "YUV");
+                            break;
                 case 0x02 :
                             if (Count==4)
                                 Fill(StreamKind_Last, 0, "ColorSpace", "YCCB");

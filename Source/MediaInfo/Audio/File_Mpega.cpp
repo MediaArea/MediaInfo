@@ -893,7 +893,7 @@ void File_Mpega::Header_Parse()
     }
 
     //Filling
-    int64u Size=(Mpega_Coefficient[ID][layer]*Mpega_BitRate[ID][layer][bitrate_index]*1000/Mpega_SamplingRate[ID][sampling_frequency]+(padding_bit?1:0))*Mpega_SlotSize[layer];
+    int64u Size = ((int64u)Mpega_Coefficient[ID][layer] * (int64u)Mpega_BitRate[ID][layer][bitrate_index] * 1000 / (int64u)Mpega_SamplingRate[ID][sampling_frequency] + (padding_bit ? 1 : 0)) * (int64u)Mpega_SlotSize[layer];
 
     //Special case: tags is inside the last frame
     if (File_Offset+Buffer_Offset+Size>=File_Size-File_EndTagSize)
@@ -938,7 +938,7 @@ void File_Mpega::Data_Parse()
     }
 
     //Partial frame
-    if (Header_Size+Element_Size<(int64u)((Mpega_Coefficient[ID][layer]*Mpega_BitRate[ID][layer][bitrate_index]*1000/Mpega_SamplingRate[ID][sampling_frequency]+(padding_bit?1:0))*Mpega_SlotSize[layer]))
+    if (Header_Size + Element_Size<((int64u)Mpega_Coefficient[ID][layer] * (int64u)Mpega_BitRate[ID][layer][bitrate_index] * 1000 / (int64u)Mpega_SamplingRate[ID][sampling_frequency] + (padding_bit ? 1 : 0)) * (int64u)Mpega_SlotSize[layer])
     {
         Element_Name("Partial frame");
         Skip_XX(Element_Size,                                   "Data");

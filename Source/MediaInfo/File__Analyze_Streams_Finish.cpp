@@ -141,8 +141,8 @@ void File__Analyze::TestContinuousFileNames(size_t CountOfFiles, Ztring FileExte
         //Detecting with a smarter algo (but missing frames are not detected)
         Ztring FileToTest_Name_Begin=FileToTest.Path_Get()+PathSeparator+FileToTest_Name;
         Ztring FileToTest_Name_End=FileToTest_Name_After+__T('.')+(FileExtension.empty()?FileToTest.Extension_Get():FileExtension);
-        int64u Pos_Base=Pos;
-        int64u Pos_Add_Max=1;
+        size_t Pos_Base = (size_t)Pos;
+        size_t Pos_Add_Max = 1;
         #if MEDIAINFO_ADVANCED
             bool File_IgnoreSequenceFileSize=Config->File_IgnoreSequenceFilesCount_Get();
         #endif //MEDIAINFO_ADVANCED
@@ -160,10 +160,10 @@ void File__Analyze::TestContinuousFileNames(size_t CountOfFiles, Ztring FileExte
                     break;
             #endif //MEDIAINFO_ADVANCED
         }
-        int64u Pos_Add_Min=Pos_Add_Max>>1;
+        size_t Pos_Add_Min = Pos_Add_Max >> 1;
         while (Pos_Add_Min+1<Pos_Add_Max)
         {
-            int64u Pos_Add_Middle=Pos_Add_Min+((Pos_Add_Max-Pos_Add_Min)>>1);
+            size_t Pos_Add_Middle = Pos_Add_Min + ((Pos_Add_Max - Pos_Add_Min) >> 1);
             Ztring Pos_Ztring; Pos_Ztring.From_Number(Pos_Base+Pos_Add_Middle);
             if (Numbers_Size>Pos_Ztring.size())
                 Pos_Ztring.insert(0, Numbers_Size-Pos_Ztring.size(), __T('0'));
@@ -174,7 +174,7 @@ void File__Analyze::TestContinuousFileNames(size_t CountOfFiles, Ztring FileExte
                 Pos_Add_Max=Pos_Add_Middle;
         }
 
-        int64u Pos_Max=Pos_Base+Pos_Add_Max;
+        size_t Pos_Max = Pos_Base + Pos_Add_Max;
         Config->File_Names.reserve(Pos_Add_Max);
         for (Pos=Pos_Base+1; Pos<Pos_Max; ++Pos)
         {

@@ -517,37 +517,42 @@ Ztring File_Ibi_Creation::Finish()
     }
 
     //Compressed
-    buffer Buffer;
-    size_t UncompressedSize=Main_Offset-Header_Offset;
-    int8u* Compressed=new int8u[UncompressedSize];
-    unsigned long CompressedSize=(unsigned long)Main_Offset;
-    if (compress2(Compressed, &CompressedSize, Main+Header_Offset, (unsigned long)UncompressedSize, Z_BEST_COMPRESSION)==Z_OK && CompressedSize<UncompressedSize)
+    if (Main_Offset - Header_Offset < (size_t)-1)
     {
-        Main_Offset=Header_Offset; //Removing uncompressed content
-        Main_Offset+=int64u2Ebml(Main+Main_Offset, 0x02);                                                               //Compressed index
-        Main_Offset+=int64u2Ebml(Main+Main_Offset, int64u2Ebml(NULL, UncompressedSize)+CompressedSize);                 //Size
-        Main_Offset+=int64u2Ebml(Main+Main_Offset, UncompressedSize);                                                   //Uncompressed size
+        buffer Buffer;
+        size_t UncompressedSize = (size_t)(Main_Offset - Header_Offset);
+        int8u* Compressed = new int8u[UncompressedSize];
+        unsigned long CompressedSize = (unsigned long)Main_Offset;
+        if (compress2(Compressed, &CompressedSize, Main + Header_Offset, (unsigned long)UncompressedSize, Z_BEST_COMPRESSION) == Z_OK && CompressedSize < UncompressedSize)
+        {
+            Main_Offset = Header_Offset; //Removing uncompressed content
+            Main_Offset += int64u2Ebml(Main + Main_Offset, 0x02);                                                                   //Compressed index
+            Main_Offset += int64u2Ebml(Main + Main_Offset, int64u2Ebml(NULL, UncompressedSize) + CompressedSize);                   //Size
+            Main_Offset += int64u2Ebml(Main + Main_Offset, UncompressedSize);                                                       //Uncompressed size
 
-        //Filling
-        Buffer.Size=Main_Offset+CompressedSize;
-        Buffer.Content=new int8u[Buffer.Size];
-        std::memcpy(Buffer.Content, Main, Main_Offset);                                                                 //File header + compressed data header
-        std::memcpy(Buffer.Content+Main_Offset, Compressed, CompressedSize);                                            //Compressed data
+            //Filling
+            Buffer.Size = Main_Offset + CompressedSize;
+            Buffer.Content = new int8u[Buffer.Size];
+            std::memcpy(Buffer.Content, Main, Main_Offset);                                                                         //File header + compressed data header
+            std::memcpy(Buffer.Content + Main_Offset, Compressed, CompressedSize);                                                  //Compressed data
+        }
+        else
+        {
+            //Filling
+            Buffer.Size = Main_Offset;
+            Buffer.Content = new int8u[Buffer.Size];
+            std::memcpy(Buffer.Content, Main, Main_Offset);
+        }
+
+        std::string Data_Raw((const char*)Buffer.Content, Buffer.Size);
+        std::string Data_Base64(Base64::encode(Data_Raw));
+
+        delete[] Main; //Main=NULL;
+
+        return Ztring().From_UTF8(Data_Base64);
     }
     else
-    {
-        //Filling
-        Buffer.Size=Main_Offset;
-        Buffer.Content=new int8u[Buffer.Size];
-        std::memcpy(Buffer.Content, Main, Main_Offset);
-    }
-
-    std::string Data_Raw((const char*)Buffer.Content, Buffer.Size);
-    std::string Data_Base64(Base64::encode(Data_Raw));
-
-    delete[] Main; //Main=NULL;
-
-    return Ztring().From_UTF8(Data_Base64);
+        return Ztring();
 }
 
 } //NameSpace

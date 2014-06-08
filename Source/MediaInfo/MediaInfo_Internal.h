@@ -117,7 +117,7 @@ private :
 
     //Parsing handles
     File__Analyze*  Info;
-    Internet__Base* Internet;
+    //Internet__Base* Internet;
     #if !defined(MEDIAINFO_READER_NO)
         Reader__Base*   Reader;
     #endif //defined(MEDIAINFO_READER_NO)

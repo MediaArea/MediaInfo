@@ -3494,7 +3494,7 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 
                         if (Config->Demux_Offset_DTS!=(int64u)-1)
                         {
-                            int64u Delay=float64_int64s(Config->Demux_Offset_DTS);
+                            int64u Delay=Config->Demux_Offset_DTS;
                             if (Value<Delay)
                                 return 2; //Invalid value
                             Value-=Delay;
@@ -7999,7 +7999,7 @@ void File_Mxf::RFC5646AudioLanguageCode()
     {
         int32u Size;
         Peek_B4(Size);
-        if (Size==Length2-4)
+        if (Size==((int32u)Length2)-4)
         {
             SizeIsPresent=true;
             Skip_B4(                                            "Value size");
@@ -12797,7 +12797,7 @@ void File_Mxf::ChooseParser_Jpeg2000(const essences::iterator &Essence, const de
 //---------------------------------------------------------------------------
 void File_Mxf::Subsampling_Compute(descriptors::iterator Descriptor)
 {
-    if (Descriptor!=Descriptors.end() && (Descriptor->second.SubSampling_Horizontal==(int32u)-1 || Descriptor->second.SubSampling_Vertical==(int32u)-1))
+    if (Descriptor==Descriptors.end() || (Descriptor->second.SubSampling_Horizontal==(int32u)-1 || Descriptor->second.SubSampling_Vertical==(int32u)-1))
         return;
 
     switch (Descriptor->second.SubSampling_Horizontal)

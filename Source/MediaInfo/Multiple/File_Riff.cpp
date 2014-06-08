@@ -422,9 +422,9 @@ void File_Riff::Streams_Finish ()
                         else if ((Version==__T("Version 2") || Version==__T("Version 2.5")) && Layer==__T("Layer 1"))
                             SamplingCount=Temp->second.PacketCount*192;  //MPEG-2 or 2.5 Layer 1
                         else if ((Version==__T("Version 2") || Version==__T("Version 2.5")) && Layer==__T("Layer 3"))
-                            SamplingCount=Temp->second.PacketCount*576;  //MPEG-2 or 2.5 Layer 3
+                            SamplingCount = (int64u)Temp->second.PacketCount * 576;  //MPEG-2 or 2.5 Layer 3
                         else
-                            SamplingCount=Temp->second.PacketCount*1152;
+                            SamplingCount = (int64u)Temp->second.PacketCount * 1152;
                     }
                 }
                 #endif

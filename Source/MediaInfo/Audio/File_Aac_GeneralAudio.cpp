@@ -1083,6 +1083,7 @@ void File_Aac::extension_payload(size_t End, int8u id_aac)
                                     break;
                         default:    ;
                     }
+                    break;
         case 0 : //EXT_FILL
         default:
             Skip_BS(Data_BS_Remain()-End,                       "other_bits");

@@ -2365,13 +2365,13 @@ void File_MpegPs::pack_start()
         {
         #endif //MEDIAINFO_TRACE
             //Parsing
-            Streams[0xBA].TimeStamp_End.PTS.TimeStamp=((Buffer[Buffer_Pos  ]&0x38)<<30)
-                                                    | ((Buffer[Buffer_Pos  ]&0x03)<<28)
-                                                    | ((Buffer[Buffer_Pos+1]     )<<20)
-                                                    | ((Buffer[Buffer_Pos+2]&0xF8)<<15)
-                                                    | ((Buffer[Buffer_Pos+2]&0x03)<<13)
-                                                    | ((Buffer[Buffer_Pos+3]     )<< 5)
-                                                    | ((Buffer[Buffer_Pos+4]&0xF8)>> 3);
+            Streams[0xBA].TimeStamp_End.PTS.TimeStamp=(((int64u)(Buffer[Buffer_Pos    ] & 0x38)) << 30)
+                                                    | (((int64u)(Buffer[Buffer_Pos    ] & 0x03)) << 28)
+                                                    | (((int64u)(Buffer[Buffer_Pos + 1]       )) << 20)
+                                                    | (((int64u)(Buffer[Buffer_Pos + 2] & 0xF8)) << 15)
+                                                    | (((int64u)(Buffer[Buffer_Pos + 2] & 0x03)) << 13)
+                                                    | (((int64u)(Buffer[Buffer_Pos + 3]       )) <<  5)
+                                                    | (((int64u)(Buffer[Buffer_Pos + 4] & 0xF8)) >>  3);
             if (!Status[IsAccepted])
             {
                 program_mux_rate                     =((Buffer[Buffer_Pos+6]     )<<14)
@@ -3128,6 +3128,7 @@ void File_MpegPs::private_stream_2()
                                     case 0xA1 : private_stream_2_TSHV_A1(); break;
                                     default   : Skip_XX(Element_Size, "Unknown");
                                 }
+                                break;
             default         : Skip_XX(Element_Size,             "Unknown");
         }
 

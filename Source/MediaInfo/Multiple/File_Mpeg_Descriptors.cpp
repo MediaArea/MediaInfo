@@ -1183,10 +1183,12 @@ File_Mpeg_Descriptors::File_Mpeg_Descriptors()
     table_id_extension=0x0000;
     elementary_PID=0x0000;
     program_number=0x0000;
+    registration_format_identifier = 0x00000000;
     stream_type=0x00;
     event_id=0x0000;
     elementary_PID_IsValid=false;
     program_number_IsValid=false;
+    registration_format_identifier_IsValid = false;
     stream_type_IsValid=false;
     event_id_IsValid=false;
 
@@ -2800,13 +2802,13 @@ void File_Mpeg_Descriptors::Descriptor_86()
         Element_Begin1("service");
         string language;
         int8u caption_service_number;
-        bool digital_cc, line21_field;
+        bool digital_cc, line21_field=false;
         Get_String(3, language,                                 "language");
         BS_Begin();
         Get_SB (digital_cc,                                     "digital_cc");
         Skip_SB(                                                "reserved");
         if (digital_cc) //line21
-            Get_S1 (6, caption_service_number,                  "caption_service_number");
+            Get_S1(6, caption_service_number,                   "caption_service_number");
         else
         {
             Skip_S1(5,                                          "reserved");
@@ -2836,7 +2838,7 @@ void File_Mpeg_Descriptors::Descriptor_86()
                 }
                 else
                 {
-                    #if defined(MEDIAINFO_EIA708_YES)
+                    #if defined(MEDIAINFO_EIA608_YES)
                         string &Value=Complete_Stream->Sources[table_id_extension].ATSC_EPG_Blocks[Complete_Stream->Streams[pid]->table_type].Events[event_id].ServiceDescriptors->ServiceDescriptors608[line21_field?1:0].language;
                         if (!Value.empty())
                             Value+=", ";
@@ -2857,7 +2859,7 @@ void File_Mpeg_Descriptors::Descriptor_86()
                 }
                 else
                 {
-                    #if defined(MEDIAINFO_EIA708_YES)
+                    #if defined(MEDIAINFO_EIA608_YES)
                         string &Value=Complete_Stream->Streams[elementary_PID]->ServiceDescriptors.ServiceDescriptors608[line21_field?1:0].language;
                         if (!Value.empty())
                             Value+=", ";
@@ -2878,7 +2880,7 @@ void File_Mpeg_Descriptors::Descriptor_86()
                 }
                 else
                 {
-                    #if defined(MEDIAINFO_EIA708_YES)
+                    #if defined(MEDIAINFO_EIA608_YES)
                         string &Value=Complete_Stream->Transport_Streams[transport_stream_id].Programs[program_number].ServiceDescriptors->ServiceDescriptors608[line21_field?1:0].language;
                         if (!Value.empty())
                             Value+=", ";

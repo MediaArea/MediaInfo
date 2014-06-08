@@ -703,7 +703,7 @@ void File_Riff::AIFF_COMM()
         Parser->BitDepth=(int8u)sampleSize;
         #if MEDIAINFO_DEMUX
             if (Demux_Rate)
-                Parser->Frame_Count_Valid=Demux_Rate;
+                Parser->Frame_Count_Valid = float64_int64s(Demux_Rate);
             if (Config->Demux_Unpacketize_Get())
             {
                 Parser->Demux_Level=2; //Container
@@ -1320,7 +1320,7 @@ void File_Riff::AVI__hdlr_strl_strf_auds()
         Parser->BitDepth=(int8u)BitsPerSample;
         #if MEDIAINFO_DEMUX
             if (Demux_Rate)
-                Parser->Frame_Count_Valid=Demux_Rate;
+                Parser->Frame_Count_Valid = float64_int64s(Demux_Rate);
             if (Config->Demux_Unpacketize_Get() && Retrieve(Stream_General, 0, General_Format)==__T("Wave"))
             {
                 Parser->Demux_Level=2; //Container
@@ -1719,7 +1719,7 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
     Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec), Ztring().From_CC4(Compression).To_Local().c_str()); //FormatTag, may be replaced by codec parser
     Fill(StreamKind_Last, StreamPos_Last, Fill_Parameter(StreamKind_Last, Generic_Codec_CC), Ztring().From_CC4(Compression).To_Local().c_str()); //FormatTag
     Fill(StreamKind_Last, StreamPos_Last, "Width", Width, 10, true);
-    Fill(StreamKind_Last, StreamPos_Last, "Height", Height>=0x80000000?(-Height):Height, 10, true); // AVI can use negative height for raw to signal that it's coded top-down, not bottom-up
+    Fill(StreamKind_Last, StreamPos_Last, "Height", Height>=0x80000000?(-((int32s)Height)):Height, 10, true); // AVI can use negative height for raw to signal that it's coded top-down, not bottom-up
     if (Resolution==32 && Compression==0x74736363) //tscc
         Fill(StreamKind_Last, StreamPos_Last, "BitDepth", 8);
     else if (Compression==0x44495633) //DIV3
@@ -2614,7 +2614,10 @@ void File_Riff::AVI__movi_StreamJump()
             while (Temp!=Stream.end())
             {
                 for (size_t Pos=0; Pos<Temp->second.Parsers.size(); ++Pos)
+                {
+                    Temp->second.Parsers[Pos]->Fill();
                     Temp->second.Parsers[Pos]->Open_Buffer_Unsynch();
+                }
                 ++Temp;
             }
             Finish("AVI"); //The rest is already parsed
@@ -3589,9 +3592,12 @@ void File_Riff::WAVE_fact()
             if (File_Size!=(int64u)-1)
             {
                 int64u BitRate=Retrieve(Stream_Audio, 0, Audio_BitRate).To_int64u();
-                int64u Duration_FromBitRate=File_Size*8*1000/BitRate;
-                if (Duration_FromBitRate>Duration*1.10 || Duration_FromBitRate<Duration*0.9)
-                    IsOK=false;
+                if (BitRate)
+                {
+                    int64u Duration_FromBitRate = File_Size * 8 * 1000 / BitRate;
+                    if (Duration_FromBitRate > Duration*1.10 || Duration_FromBitRate < Duration*0.9)
+                        IsOK = false;
+                }
             }
 
             //Filling

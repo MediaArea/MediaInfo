@@ -2697,7 +2697,7 @@ const Aac_swb_offset Aac_swb_short_window_8[] =
     }
 };
 
-const  Aac_swb_offset* Aac_swb_offset_short_window[] =
+const  Aac_swb_offset* Aac_swb_offset_short_window[13] =
 {
     Aac_swb_short_window_96,       //96000
     Aac_swb_short_window_96,       //88200
@@ -2710,7 +2710,8 @@ const  Aac_swb_offset* Aac_swb_offset_short_window[] =
     Aac_swb_short_window_16,       //16000
     Aac_swb_short_window_16,       //12000
     Aac_swb_short_window_16,       //11025
-    Aac_swb_short_window_8         //8000
+    Aac_swb_short_window_8,        //8000
+    Aac_swb_short_window_8         //7350
 };
 
 //---------------------------------------------------------------------------

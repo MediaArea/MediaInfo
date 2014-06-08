@@ -1137,7 +1137,7 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
             MI->Fill(StreamKind_Last, StreamPos_To, MI->Fill_Parameter(StreamKind_Last, Generic_StreamSize), StreamSize_Temp, 10, true);
         if (FileSize_Temp!=(int64u)-1)
             Reference->FileSize=FileSize_Temp;
-        if (BitRate_Before)
+        if (BitRate_Before && Duration_Temp)
         {
             float64 BitRate_After=((float64)StreamSize_Temp)*8000/Duration_Temp;
             if (BitRate_Before>BitRate_After*0.999 && BitRate_Before<BitRate_After*1.001)

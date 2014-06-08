@@ -1529,8 +1529,8 @@ void File_Mpegv::Streams_Finish()
         Time_End_TC.Minutes=(int8u)((Time_End_Seconds%3600)/60);
         Time_End_TC.Seconds=(int8u)(Time_End_Seconds%60);
         Time_End_TC.Frames=(int8u)Time_End_Frames;
-        int32u Time_Begin_FrameCount=Time_Begin_TC.ToFrames();
-        int32u Time_End_FrameCount=Time_End_TC.ToFrames();
+        int64u Time_Begin_FrameCount=Time_Begin_TC.ToFrames();
+        int64u Time_End_FrameCount = Time_End_TC.ToFrames();
         Fill(Stream_Video, 0, Video_FrameCount, Time_End_FrameCount-Time_Begin_FrameCount, 0);
         Fill(Stream_Video, 0, Video_Duration, (Time_End_FrameCount-Time_Begin_FrameCount)/FrameRate*1000, 0);
     }
@@ -2862,6 +2862,7 @@ void File_Mpegv::slice_start_macroblock_motion_vectors(bool s)
                                 motion_vector_count=1;
                                 break;
                     }
+                    break;
         default :   Trusted_IsNot("frame_motion_type problem");
                     Element_Trace_End0();
                     return;

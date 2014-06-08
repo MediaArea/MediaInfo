@@ -409,7 +409,7 @@ void File_AvsV::Data_Parse()
         case 0xB4:
         case 0xB8: reserved(); break;
         default:
-            if (Element_Code>=0x00 && Element_Code<=0xAF)
+            if (Element_Code<=0xAF)
                 slice();
             else
             {

@@ -38,8 +38,8 @@ using namespace std;
     int64u Reader_File_BytesRead_Total=0;
     int64u Reader_File_BytesRead=0;
     int64u Reader_File_Count=1;
-#endif // MEDIAINFO_DEBUG
     #include <iostream>
+#endif // MEDIAINFO_DEBUG
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -143,7 +143,7 @@ Reader_File::~Reader_File()
 //---------------------------------------------------------------------------
 size_t Reader_File::Format_Test(MediaInfo_Internal* MI, String File_Name)
 {
-    std::cout<<Ztring(File_Name).To_Local().c_str()<<std::endl;
+    //std::cout<<Ztring(File_Name).To_Local().c_str()<<std::endl;
     #if MEDIAINFO_EVENTS
         {
             string File_Name_Local=Ztring(File_Name).To_Local();
@@ -292,6 +292,9 @@ size_t Reader_File::Format_Test_PerParser(MediaInfo_Internal* MI, const String &
 //---------------------------------------------------------------------------
 size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
 {
+    if (MI == NULL)
+        return 0;
+    
     bool StopAfterFilled=MI->Config.File_StopAfterFilled_Get();
     bool ShouldContinue=true;
     if (MI->Info)
@@ -722,7 +725,7 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
         std::cout<<"Total: "<<std::dec<<Reader_File_BytesRead_Total<<" bytes in "<<Reader_File_Count<<" blocks"<<std::endl;
     #endif //MEDIAINFO_DEBUG
 
-    if (MI==NULL || !MI->Config.File_KeepInfo_Get())
+    if (!MI->Config.File_KeepInfo_Get())
     {
         //File
         F.Close();

@@ -41,28 +41,33 @@ private :
     //Structures - video_parameter_set
     struct video_parameter_set_struct
     {
-        int8u   vps_max_sub_layers_minus1;
-        bool    IsSynched; //Computed value
-
         #if MEDIAINFO_DEMUX
         int8u*  Iso14496_10_Buffer;
         size_t  Iso14496_10_Buffer_Size;
         #endif //MEDIAINFO_DEMUX
+        int8u   vps_max_sub_layers_minus1;
 
         //Constructor/Destructor
-        #if MEDIAINFO_DEMUX
-        video_parameter_set_struct()
+        video_parameter_set_struct(int8u vps_max_sub_layers_minus1_)
+        :
+            #if MEDIAINFO_DEMUX
+            Iso14496_10_Buffer(NULL),
+            Iso14496_10_Buffer_Size(0),
+            #endif //MEDIAINFO_DEMUX
+            vps_max_sub_layers_minus1(vps_max_sub_layers_minus1_)
         {
-            Iso14496_10_Buffer=NULL;
-            Iso14496_10_Buffer_Size=0;
         }
-        #endif //MEDIAINFO_DEMUX
-        #if MEDIAINFO_DEMUX
+
         ~video_parameter_set_struct()
         {
-            delete[] Iso14496_10_Buffer;
+            #if MEDIAINFO_DEMUX
+                delete[] Iso14496_10_Buffer;
+            #endif //MEDIAINFO_DEMUX
         }
-        #endif //MEDIAINFO_DEMUX
+
+    private:
+        video_parameter_set_struct &operator=(const video_parameter_set_struct &v);
+        video_parameter_set_struct();
     };
     typedef vector<video_parameter_set_struct*> video_parameter_set_structs;
 
@@ -76,27 +81,51 @@ private :
                 struct xxl_data
                 {
                     //HRD configuration
-                    int32u bit_rate_value;
-                    int32u cpb_size_value;
+                    int64u bit_rate_value;
+                    int64u cpb_size_value;
                     bool   cbr_flag;
 
                     //sei_message_buffering_period
-                    int32u initial_cpb_removal_delay;
-                    int32u initial_cpb_removal_delay_offset;
+                    //int32u initial_cpb_removal_delay;
+                    //int32u initial_cpb_removal_delay_offset;
 
-                    xxl_data()
+                    xxl_data(int64u bit_rate_value_, int64u cpb_size_value_, bool cbr_flag_) //int32u initial_cpb_removal_delay_, int32u initial_cpb_removal_delay_offset_)
+                        :
+                        bit_rate_value(bit_rate_value_),
+                        cpb_size_value(cpb_size_value_),
+                        cbr_flag(cbr_flag_)
+                        //initial_cpb_removal_delay(initial_cpb_removal_delay_),
+                        //initial_cpb_removal_delay_offset(initial_cpb_removal_delay_offset_)
                     {
-                        //HRD configuration
-                        bit_rate_value=(int32u)-1;
-                        cpb_size_value=(int32u)-1;
-                        cbr_flag=true;
-
-                        //sei_message_buffering_period
-                        initial_cpb_removal_delay=(int32u)-1;
-                        initial_cpb_removal_delay_offset=(int32u)-1;
                     }
+
+                    xxl_data &operator=(const xxl_data &x)
+                    {
+                        bit_rate_value = x.bit_rate_value;
+                        cpb_size_value = x.cpb_size_value;
+                        cbr_flag = x.cbr_flag;
+                        //initial_cpb_removal_delay=x.initial_cpb_removal_delay;
+                        //initial_cpb_removal_delay_offset=x.initial_cpb_removal_delay_offset;
+                    }
+
+                private:
+                    xxl_data();
                 };
                 vector<xxl_data> SchedSel;
+
+                xxl(const vector<xxl_data> &SchedSel_)
+                    :
+                    SchedSel(SchedSel_)
+                {
+                }
+
+                xxl &operator=(const xxl &x)
+                {
+                    SchedSel = x.SchedSel;
+                }
+
+            private:
+                xxl();
             };
             xxl*    NAL;
             xxl*    VCL;
@@ -135,6 +164,10 @@ private :
                 delete VCL; //VCL=NULL;
             }
         };
+        #if MEDIAINFO_DEMUX
+        int8u*  Iso14496_10_Buffer;
+        size_t  Iso14496_10_Buffer_Size;
+        #endif //MEDIAINFO_DEMUX
         vui_parameters_struct* vui_parameters;
         int32u  profile_space;
         int32u  profile_idc;
@@ -154,62 +187,91 @@ private :
         bool    general_progressive_source_flag;
         bool    general_interlaced_source_flag;
         bool    general_frame_only_constraint_flag;
-        bool    IsSynched;
 
         //Computed value
         int8u   ChromaArrayType() {return separate_colour_plane_flag?0:chroma_format_idc;}
 
-        #if MEDIAINFO_DEMUX
-        int8u*  Iso14496_10_Buffer;
-        size_t  Iso14496_10_Buffer_Size;
-        #endif //MEDIAINFO_DEMUX
-
         //Constructor/Destructor
-        #if MEDIAINFO_DEMUX
-        seq_parameter_set_struct()
+        seq_parameter_set_struct(vui_parameters_struct* vui_parameters_, int32u profile_space_, int32u profile_idc_, int32u level_idc_, int32u pic_width_in_luma_samples_, int32u pic_height_in_luma_samples_, int32u conf_win_left_offset_, int32u conf_win_right_offset_, int32u conf_win_top_offset_, int32u conf_win_bottom_offset_, int8u video_parameter_set_id_, int8u chroma_format_idc_, bool separate_colour_plane_flag_, int8u log2_max_pic_order_cnt_lsb_minus4_, int8u bit_depth_luma_minus8_, int8u bit_depth_chroma_minus8_, bool general_progressive_source_flag_, bool general_interlaced_source_flag_, bool general_frame_only_constraint_flag_)
+            :
+            #if MEDIAINFO_DEMUX
+            Iso14496_10_Buffer(NULL),
+            Iso14496_10_Buffer_Size(0),
+            #endif //MEDIAINFO_DEMUX
+            vui_parameters(vui_parameters_),
+            profile_space(profile_space_),
+            profile_idc(profile_idc_),
+            level_idc(level_idc_),
+            pic_width_in_luma_samples(pic_width_in_luma_samples_),
+            pic_height_in_luma_samples(pic_height_in_luma_samples_),
+            conf_win_left_offset(conf_win_left_offset_),
+            conf_win_right_offset(conf_win_right_offset_),
+            conf_win_top_offset(conf_win_top_offset_),
+            conf_win_bottom_offset(conf_win_bottom_offset_),
+            video_parameter_set_id(video_parameter_set_id_),
+            chroma_format_idc(chroma_format_idc_),
+            separate_colour_plane_flag(separate_colour_plane_flag_),
+            log2_max_pic_order_cnt_lsb_minus4(log2_max_pic_order_cnt_lsb_minus4_),
+            bit_depth_luma_minus8(bit_depth_luma_minus8_),
+            bit_depth_chroma_minus8(bit_depth_chroma_minus8_),
+            general_progressive_source_flag(general_progressive_source_flag_),
+            general_interlaced_source_flag(general_interlaced_source_flag_),
+            general_frame_only_constraint_flag(general_frame_only_constraint_flag_)
         {
-            Iso14496_10_Buffer=NULL;
-            Iso14496_10_Buffer_Size=0;
         }
-        #endif //MEDIAINFO_DEMUX
-        #if MEDIAINFO_DEMUX
+
         ~seq_parameter_set_struct()
         {
+            delete vui_parameters; //vui_parameters=NULL;
+            #if MEDIAINFO_DEMUX
             delete[] Iso14496_10_Buffer;
+            #endif //MEDIAINFO_DEMUX
         }
-        #endif //MEDIAINFO_DEMUX
+
+    private:
+        seq_parameter_set_struct &operator=(const seq_parameter_set_struct &v);
+        seq_parameter_set_struct();
     };
     typedef vector<seq_parameter_set_struct*> seq_parameter_set_structs;
 
     //Structures - pic_parameter_set
     struct pic_parameter_set_struct
     {
+        #if MEDIAINFO_DEMUX
+        int8u*  Iso14496_10_Buffer;
+        size_t  Iso14496_10_Buffer_Size;
+        #endif //MEDIAINFO_DEMUX
         int8u   seq_parameter_set_id;
         int8u   num_ref_idx_l0_default_active_minus1;
         int8u   num_ref_idx_l1_default_active_minus1;
         int8u   num_extra_slice_header_bits;
         bool    dependent_slice_segments_enabled_flag;
-        bool    IsSynched; //Computed value
-
-        #if MEDIAINFO_DEMUX
-        int8u*  Iso14496_10_Buffer;
-        size_t  Iso14496_10_Buffer_Size;
-        #endif //MEDIAINFO_DEMUX
 
         //Constructor/Destructor
-        #if MEDIAINFO_DEMUX
-        pic_parameter_set_struct()
+        pic_parameter_set_struct(int8u seq_parameter_set_id_, int8u num_ref_idx_l0_default_active_minus1_, int8u num_ref_idx_l1_default_active_minus1_, int8u num_extra_slice_header_bits_, bool dependent_slice_segments_enabled_flag_)
+            :
+            #if MEDIAINFO_DEMUX
+            Iso14496_10_Buffer(NULL),
+            Iso14496_10_Buffer_Size(0),
+            #endif //MEDIAINFO_DEMUX
+            seq_parameter_set_id(seq_parameter_set_id_),
+            num_ref_idx_l0_default_active_minus1(num_ref_idx_l0_default_active_minus1_),
+            num_ref_idx_l1_default_active_minus1(num_ref_idx_l1_default_active_minus1_),
+            num_extra_slice_header_bits(num_extra_slice_header_bits_),
+            dependent_slice_segments_enabled_flag(dependent_slice_segments_enabled_flag_)
         {
-            Iso14496_10_Buffer=NULL;
-            Iso14496_10_Buffer_Size=0;
         }
-        #endif //MEDIAINFO_DEMUX
-        #if MEDIAINFO_DEMUX
+
         ~pic_parameter_set_struct()
         {
-            delete[] Iso14496_10_Buffer;
+            #if MEDIAINFO_DEMUX
+                delete[] Iso14496_10_Buffer;
+            #endif //MEDIAINFO_DEMUX
         }
-        #endif //MEDIAINFO_DEMUX
+
+    private:
+        pic_parameter_set_struct &operator=(const pic_parameter_set_struct &v);
+        pic_parameter_set_struct();
     };
     typedef vector<pic_parameter_set_struct*> pic_parameter_set_structs;
 
@@ -274,8 +336,9 @@ private :
         bool   Searching_Payload;
 
         stream()
+            :
+            Searching_Payload(false)
         {
-            Searching_Payload=false;
         }
     };
     vector<stream> Streams;

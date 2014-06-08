@@ -377,7 +377,7 @@ size_t Reader_libcurl::Format_Test_PerParser(MediaInfo_Internal* MI, const Strin
         else
         {
             if (File::Exists(__T("id_rsa")))
-                Curl_Data->Ssh_PublicKeyFileName="id_rsa";
+                Curl_Data->Ssh_PrivateKeyFileName = "id_rsa";
         }
     }
     Curl_Data->Ssh_KnownHostsFileName=Reader_libcurl_ExpandFileName(MediaInfoLib::Config.Ssh_KnownHostsFileName_Get()).To_Local();
