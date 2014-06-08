@@ -1425,8 +1425,8 @@ void File_Hevc::pic_parameter_set()
         Trusted_IsNot("seq_parameter_set_id not valid");
         return; //Problem, not valid
     }
-    std::vector<seq_parameter_set_struct*>::iterator seq_parameter_set_Item;
-    if (pps_seq_parameter_set_id>=seq_parameter_sets.size() || (*(seq_parameter_set_Item=seq_parameter_sets.begin()+pps_seq_parameter_set_id))==NULL)
+    //std::vector<seq_parameter_set_struct*>::iterator seq_parameter_set_Item;
+    if (pps_seq_parameter_set_id>=seq_parameter_sets.size() || (*(seq_parameter_sets.begin()+pps_seq_parameter_set_id))==NULL) //(seq_parameter_set_Item=seq_parameter_sets.begin()+pps_seq_parameter_set_id) not usd for the moment
     {
         //Not yet present
         Skip_BS(Data_BS_Remain(),                               "Data (seq_parameter_set is missing)");

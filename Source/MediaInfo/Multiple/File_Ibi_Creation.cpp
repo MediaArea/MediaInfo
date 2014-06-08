@@ -552,7 +552,11 @@ Ztring File_Ibi_Creation::Finish()
         return Ztring().From_UTF8(Data_Base64);
     }
     else
+    {
+        delete[] Main; //Main=NULL;
+
         return Ztring();
+    }
 }
 
 } //NameSpace
