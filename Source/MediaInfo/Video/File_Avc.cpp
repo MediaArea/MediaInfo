@@ -2227,11 +2227,10 @@ void File_Avc::sei_message_buffering_period(int32u &seq_parameter_set_id)
     BS_End();
 }
 
-void File_Avc::sei_message_buffering_period_xxl(void* xxl_)
+void File_Avc::sei_message_buffering_period_xxl(seq_parameter_set_struct::vui_parameters_struct::xxl* xxl)
 {
-    if (xxl_==NULL)
+    if (xxl==NULL)
         return;
-    seq_parameter_set_struct::vui_parameters_struct::xxl* xxl=(seq_parameter_set_struct::vui_parameters_struct::xxl*)xxl_;
     for (int32u SchedSelIdx=0; SchedSelIdx<xxl->SchedSel.size(); SchedSelIdx++)
     {
         //Get_S4 (xxl->initial_cpb_removal_delay_length_minus1+1, xxl->SchedSel[SchedSelIdx].initial_cpb_removal_delay, "initial_cpb_removal_delay"); Param_Info2(xxl->SchedSel[SchedSelIdx].initial_cpb_removal_delay/90, " ms");

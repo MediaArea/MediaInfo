@@ -380,7 +380,7 @@ private :
     void sei();
     void sei_message(int32u &seq_parameter_set_id);
     void sei_message_buffering_period(int32u &seq_parameter_set_id);
-    void sei_message_buffering_period_xxl(void* xxl);
+    void sei_message_buffering_period_xxl(seq_parameter_set_struct::vui_parameters_struct::xxl* xxl);
     void sei_message_pic_timing(int32u payloadSize, int32u seq_parameter_set_id);
     void sei_message_user_data_registered_itu_t_t35();
     void sei_message_user_data_registered_itu_t_t35_DTG1();
