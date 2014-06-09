@@ -210,7 +210,8 @@ bool Aac_f_master_Compute(int8u &num_env_bands_Master, int8u* f_Master, sbr_hand
         qsort(vDk1, numBands1+1, sizeof(int8u), int8u_cmp);
         int8u change=vDk0[numBands0-1]-vDk1[0];
         vDk1[0]=vDk0[numBands0-1];
-        vDk1[numBands1-1]=vDk1[numBands1-1]-change;
+        if (numBands1)
+            vDk1[numBands1 - 1] = vDk1[numBands1 - 1] - change;
     }
 
     qsort(vDk1, numBands1, sizeof(int8u), int8u_cmp);
