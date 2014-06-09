@@ -531,31 +531,31 @@ int Preferences::ExplorerShell()
         if (Result==0)
         {
             RegCloseKey(Key);
-            Result=RegDeleteKey(HKEY_CURRENT_USER, __T("Software\\Classes\\*\\Shell\\Media Info\\Command"));
+            RegDeleteKey(HKEY_CURRENT_USER, __T("Software\\Classes\\*\\Shell\\Media Info\\Command"));
         }
         Result=RegOpenKeyEx(HKEY_CURRENT_USER, __T("Software\\Classes\\*\\Shell\\Media Info"), 0, KEY_READ, &Key);
         if (Result==0)
         {
             RegCloseKey(Key);
-            Result=RegDeleteKey(HKEY_CURRENT_USER, __T("Software\\Classes\\*\\Shell\\Media Info"));
+            RegDeleteKey(HKEY_CURRENT_USER, __T("Software\\Classes\\*\\Shell\\Media Info"));
         }
         Result=RegOpenKeyEx(HKEY_CLASSES_ROOT, __T("*\\Shell\\MediaInfo\\Command"), 0, KEY_READ, &Key);
         if (Result==0)
         {
             RegCloseKey(Key);
-            Result=RegDeleteKey(HKEY_CLASSES_ROOT, __T("*\\Shell\\MediaInfo\\Command"));
+            RegDeleteKey(HKEY_CLASSES_ROOT, __T("*\\Shell\\MediaInfo\\Command"));
         }
         Result=RegOpenKeyEx(HKEY_CLASSES_ROOT, __T("*\\Shell\\MediaInfo"), 0, KEY_READ, &Key);
         if (Result==0)
         {
             RegCloseKey(Key);
-            Result=RegDeleteKey(HKEY_CLASSES_ROOT, __T("*\\Shell\\MediaInfo"));
+            RegDeleteKey(HKEY_CLASSES_ROOT, __T("*\\Shell\\MediaInfo"));
         }
         Result=RegOpenKeyEx(HKEY_CURRENT_USER, __T("Software\\MediaInfo"), 0, KEY_READ, &Key);
         if (Result==0)
         {
             RegCloseKey(Key);
-            Result=RegDeleteKey(HKEY_CURRENT_USER, __T("Software\\MediaInfo"));
+            RegDeleteKey(HKEY_CURRENT_USER, __T("Software\\MediaInfo"));
         }
     }
 
@@ -1107,11 +1107,11 @@ int Preferences::ShellToolTip()
 
     ::HKEY Key;
     LONG WINAPI Result;
-    Result=RegOpenKeyEx(HKEY_CURRENT_USER, Ztring().From_Local("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\InprocServer32").c_str(), 0, KEY_READ|KEY_WOW64_64KEY, &Key);
+    RegOpenKeyEx(HKEY_CURRENT_USER, Ztring().From_Local("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\InprocServer32").c_str(), 0, KEY_READ|KEY_WOW64_64KEY, &Key);
     if (Result!=ERROR_SUCCESS && Result!=2) //2=not found
         return 0;
 
-    if (Result==ERROR_SUCCESS)
+    if (Result=ERROR_SUCCESS)
     {
         //MediaInfo shell extension is known
         if (ShellInfoTip)
@@ -1123,7 +1123,7 @@ int Preferences::ShellToolTip()
             Ztring ShellInfoTipToWrite=__T("\"") + DLL_Name + __T("\"");
             DWORD ShellInfoTip_Size=65536;
             ZenLib::Char ShellInfoTip_Chars[65536];
-            Result=RegQueryValueEx(Key, NULL, 0, NULL, (LPBYTE)&ShellInfoTip_Chars, &ShellInfoTip_Size);
+            RegQueryValueEx(Key, NULL, 0, NULL, (LPBYTE)&ShellInfoTip_Chars, &ShellInfoTip_Size);
             if (Result!=ERROR_SUCCESS)
             {
                 RegCloseKey(Key);
@@ -1198,8 +1198,8 @@ int Preferences::ShellToolTip()
                     //Remove
                     if (!List(I1, 0).empty())
                     {
-                        Result=RegDeleteKey(HKEY_CURRENT_USER, (__T("Software\\Classes\\")+List(I1, 0)+__T("\\shellex\\{00021500-0000-0000-C000-000000000046}")).c_str());
-                        //Result=RegDeleteKey(HKEY_CURRENT_USER, (__T("Software\\Classes\\")+List(I1, 0)+__T("\\shellex")).c_str());
+                        RegDeleteKey(HKEY_CURRENT_USER, (__T("Software\\Classes\\")+List(I1, 0)+__T("\\shellex\\{00021500-0000-0000-C000-000000000046}")).c_str());
+                        //RegDeleteKey(HKEY_CURRENT_USER, (__T("Software\\Classes\\")+List(I1, 0)+__T("\\shellex")).c_str());
                     }
                 }
             }
