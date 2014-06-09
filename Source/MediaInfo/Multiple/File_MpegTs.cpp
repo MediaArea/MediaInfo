@@ -506,7 +506,7 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
 
     //Merging from a previous merge
     size_t Count;
-    if (Temp->StreamKind!=Stream_Max && Temp->StreamPos!=(size_t)-1)
+    if (Temp->StreamKind != Stream_Max && Temp->StreamPos != (size_t)-1 && Temp->Parser)
     {
         Count=1; //TODO: more than 1
         Merge(*Temp->Parser, Temp->StreamKind, 0, Temp->StreamPos);

@@ -138,24 +138,29 @@ private :
             int8u   colour_primaries;
             int8u   transfer_characteristics;
             int8u   matrix_coefficients;
-            int8u   initial_cpb_removal_delay_length_minus1;
-            int8u   cpb_removal_delay_length_minus1;
-            int8u   dpb_output_delay_length_minus1;
             bool    aspect_ratio_info_present_flag;
             bool    video_signal_type_present_flag;
             bool    colour_description_present_flag;
             bool    timing_info_present_flag;
-            bool    pic_struct_present_flag;
 
-            vui_parameters_struct()
+            vui_parameters_struct(xxl* NAL_, xxl* VCL_, int32u num_units_in_tick_, int32u time_scale_, int16u sar_width_, int16u sar_height_, int8u aspect_ratio_idc_, int8u video_format_, int8u colour_primaries_, int8u transfer_characteristics_, int8u matrix_coefficients_, bool aspect_ratio_info_present_flag_, bool video_signal_type_present_flag_, bool colour_description_present_flag_, bool timing_info_present_flag_)
+                :
+                NAL(NAL_),
+                VCL(NAL_),
+                num_units_in_tick(num_units_in_tick_),
+                time_scale(time_scale_),
+                sar_width(sar_width_),
+                sar_height(sar_height_),
+                aspect_ratio_idc(aspect_ratio_idc_),
+                video_format(video_format_),
+                colour_primaries(colour_primaries_),
+                transfer_characteristics(transfer_characteristics_),
+                matrix_coefficients(matrix_coefficients_),
+                aspect_ratio_info_present_flag(aspect_ratio_info_present_flag_),
+                video_signal_type_present_flag(video_signal_type_present_flag_),
+                colour_description_present_flag(colour_description_present_flag_),
+                timing_info_present_flag(timing_info_present_flag_)
             {
-                NAL=NULL;
-                VCL=NULL;
-                aspect_ratio_info_present_flag=false;
-                video_signal_type_present_flag=false;
-                colour_description_present_flag=false;
-                timing_info_present_flag=false;
-                pic_struct_present_flag=false;
             }
 
             ~vui_parameters_struct()
@@ -163,6 +168,10 @@ private :
                 delete NAL; //NAL=NULL;
                 delete VCL; //VCL=NULL;
             }
+
+        private:
+            vui_parameters_struct &operator=(const vui_parameters_struct &v);
+            vui_parameters_struct();
         };
         #if MEDIAINFO_DEMUX
         int8u*  Iso14496_10_Buffer;
@@ -322,7 +331,7 @@ private :
     void profile_tier_level(int8u maxNumSubLayersMinus1);
     void short_term_ref_pic_sets(int8u num_short_term_ref_pic_sets);
     void vui_parameters(std::vector<video_parameter_set_struct*>::iterator video_parameter_set_Item, seq_parameter_set_struct::vui_parameters_struct* &vui_parameters_Item);
-    void hrd_parameters(bool commonInfPresentFlag, int8u maxNumSubLayersMinus1, seq_parameter_set_struct::vui_parameters_struct* &vui_parameters_Item);
+    void hrd_parameters(bool commonInfPresentFlag, int8u maxNumSubLayersMinus1, seq_parameter_set_struct::vui_parameters_struct::xxl* &NAL, seq_parameter_set_struct::vui_parameters_struct::xxl* &VCL);
     void sub_layer_hrd_parameters(bool sub_pic_hrd_params_present_flag, int8u bit_rate_scale, int8u cpb_size_scale, int32u cpb_cnt_minus1, seq_parameter_set_struct::vui_parameters_struct::xxl* &hrd_parameters_Item);
     void scaling_list_data();
 

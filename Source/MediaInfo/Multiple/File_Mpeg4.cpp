@@ -1294,7 +1294,7 @@ size_t File_Mpeg4::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                                                                 for (; Stsc!=Stream->second.stsc.end(); ++Stsc)
                                                                 {
                                                                     std::vector<stream::stsc_struct>::iterator Stsc_Next=Stsc; ++Stsc_Next;
-                                                                    int64u CountOfSamples=((Stsc_Next==Stream->second.stsc.end()?Stream->second.stco.size():Stsc_Next->FirstChunk)-Stsc->FirstChunk)*Stsc->SamplesPerChunk;
+                                                                    int64u CountOfSamples = ((Stsc_Next == Stream->second.stsc.end() ? (int64u)Stream->second.stco.size() : (int64u)Stsc_Next->FirstChunk) - (int64u)Stsc->FirstChunk) * (int64u)Stsc->SamplesPerChunk;
                                                                     if (Stsc_Next!=Stream->second.stsc.end() && FrameNumber>=SamplePos+CountOfSamples)
                                                                         SamplePos+=CountOfSamples;
                                                                     else
@@ -1694,30 +1694,34 @@ bool File_Mpeg4::BookMark_Needed()
                 #if MEDIAINFO_DEMUX
                     stream::stts_durations Temp_stts_Durations;
                 #endif //MEDIAINFO_DEMUX
-                if (!Temp->second.stco.empty())
+                    if (!Temp->second.stco.empty() && !Temp->second.stsc.empty())
                 {
                     int64u* stco_Current = &Temp->second.stco[0];
                     int64u* stco_Max = stco_Current + Temp->second.stco.size();
-                    stream::stsc_struct* stsc_Current = Temp->second.stsc.empty() ? NULL : &Temp->second.stsc[0];
+                    stream::stsc_struct* stsc_Current = &Temp->second.stsc[0];
                     stream::stsc_struct* stsc_Max = stsc_Current + Temp->second.stsc.size();
-                    int64u* stsz_Current = Temp->second.stsz.empty() ? NULL : &Temp->second.stsz[0];
-                    int64u* stsz_Max = stsz_Current + Temp->second.stsz.size();
-                    int64u MinimalOffset = (int64u)-1;
-                    int64u MaximalOffset = 0;
+                    #if MEDIAINFO_DEMUX
+                        int64u MinimalOffset = (int64u)-1;
+                        int64u MaximalOffset = 0;
+                    #endif //MEDIAINFO_DEMUX
                     for (; stco_Current<stco_Max; ++stco_Current)
                     {
-                        if (MinimalOffset>*stco_Current)
-                            MinimalOffset = *stco_Current;
-                        if (MaximalOffset < *stco_Current)
-                            MaximalOffset = *stco_Current;
+                        #if MEDIAINFO_DEMUX
+                            if (MinimalOffset>*stco_Current)
+                                MinimalOffset = *stco_Current;
+                            if (MaximalOffset < *stco_Current)
+                                MaximalOffset = *stco_Current;
+                        #endif //MEDIAINFO_DEMUX
 
                         while (stsc_Current + 1 < stsc_Max && Chunk_Number >= (stsc_Current + 1)->FirstChunk)
                             stsc_Current++;
 
-                        if (Temp->second.stsz_Sample_Size == 0 && stsc_Current && stsz_Current)
+                        if (Temp->second.stsz_Sample_Size == 0 && stsc_Current && !Temp->second.stsz.empty())
                         {
                             //Each sample has its own size
                             int64u Chunk_Offset = 0;
+                            int64u* stsz_Current = &Temp->second.stsz[0];
+                            int64u* stsz_Max = stsz_Current + Temp->second.stsz.size();
                             for (size_t Pos = 0; Pos < stsc_Current->SamplesPerChunk; Pos++)
                                 if (*stsz_Current)
                                 {

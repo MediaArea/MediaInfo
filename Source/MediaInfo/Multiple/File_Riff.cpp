@@ -418,9 +418,9 @@ void File_Riff::Streams_Finish ()
                         Ztring Version=Retrieve(Stream_Audio, StreamPos_Last, Audio_Format_Version);
                         Ztring Layer=Retrieve(Stream_Audio, StreamPos_Last, Audio_Format_Profile);
                         if (Version==__T("Version 1") && Layer==__T("Layer 1"))
-                            SamplingCount=Temp->second.PacketCount*384;  //MPEG-1 Layer 1
+                            SamplingCount = (int64u)Temp->second.PacketCount * 384;  //MPEG-1 Layer 1
                         else if ((Version==__T("Version 2") || Version==__T("Version 2.5")) && Layer==__T("Layer 1"))
-                            SamplingCount=Temp->second.PacketCount*192;  //MPEG-2 or 2.5 Layer 1
+                            SamplingCount = (int64u)Temp->second.PacketCount * 192;  //MPEG-2 or 2.5 Layer 1
                         else if ((Version==__T("Version 2") || Version==__T("Version 2.5")) && Layer==__T("Layer 3"))
                             SamplingCount = (int64u)Temp->second.PacketCount * 576;  //MPEG-2 or 2.5 Layer 3
                         else

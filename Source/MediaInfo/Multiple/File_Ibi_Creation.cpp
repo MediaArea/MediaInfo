@@ -446,7 +446,7 @@ void File_Ibi_Creation::Add(int64u ID, const ibi::stream &Stream)
     size_t IbiFrameNumber_Offset=0;
 
     //Init - DTS
-    int8u* IbiDts=new int8u[8*Stream.Infos.size()];
+    int8u* IbiDts=new int8u[16+8*Stream.Infos.size()];
     size_t IbiDts_Offset=0;
     IbiDts_Offset+=int64u2Ebml(IbiDts+IbiDts_Offset, Stream.DtsFrequencyNumerator);
     IbiDts_Offset+=int64u2Ebml(IbiDts+IbiDts_Offset, Stream.DtsFrequencyDenominator);
@@ -517,10 +517,10 @@ Ztring File_Ibi_Creation::Finish()
     }
 
     //Compressed
-    if (Main_Offset - Header_Offset < (size_t)-1)
+    if (Header_Offset < Main_Offset)
     {
         buffer Buffer;
-        size_t UncompressedSize = (size_t)(Main_Offset - Header_Offset);
+        size_t UncompressedSize = Main_Offset - Header_Offset;
         int8u* Compressed = new int8u[UncompressedSize];
         unsigned long CompressedSize = (unsigned long)Main_Offset;
         if (compress2(Compressed, &CompressedSize, Main + Header_Offset, (unsigned long)UncompressedSize, Z_BEST_COMPRESSION) == Z_OK && CompressedSize < UncompressedSize)

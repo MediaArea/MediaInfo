@@ -1896,8 +1896,8 @@ void File_Hevc::short_term_ref_pic_sets(int8u num_short_term_ref_pic_sets)
 void File_Hevc::vui_parameters(std::vector<video_parameter_set_struct*>::iterator video_parameter_set_Item, seq_parameter_set_struct::vui_parameters_struct* &vui_parameters_Item_)
 {
     //Parsing
-    seq_parameter_set_struct::vui_parameters_struct* vui_parameters_Item=new seq_parameter_set_struct::vui_parameters_struct();
-    int32u  num_units_in_tick=(int32u)-1, time_scale=(int32u)-1;
+    seq_parameter_set_struct::vui_parameters_struct::xxl *NAL = NULL, *VCL = NULL;
+    int32u  num_units_in_tick = (int32u)-1, time_scale = (int32u)-1;
     int16u  sar_width=(int16u)-1, sar_height=(int16u)-1;
     int8u   aspect_ratio_idc=0, video_format=5, colour_primaries=2, transfer_characteristics=2, matrix_coefficients=2;
     bool    aspect_ratio_info_present_flag, video_signal_type_present_flag, colour_description_present_flag=false, timing_info_present_flag;
@@ -1941,7 +1941,7 @@ void File_Hevc::vui_parameters(std::vector<video_parameter_set_struct*>::iterato
             Skip_UE(                                            "vui_num_ticks_poc_diff_one_minus1");
         TEST_SB_END();
         TEST_SB_SKIP(                                           "hrd_parameters_present_flag");
-            hrd_parameters(true, (*video_parameter_set_Item)->vps_max_sub_layers_minus1, vui_parameters_Item);
+            hrd_parameters(true, (*video_parameter_set_Item)->vps_max_sub_layers_minus1, NAL, VCL);
         TEST_SB_END();
     TEST_SB_END();
     TEST_SB_SKIP(                                               "bitstream_restriction_flag");
@@ -1956,42 +1956,28 @@ void File_Hevc::vui_parameters(std::vector<video_parameter_set_struct*>::iterato
     TEST_SB_END();
 
     FILLING_BEGIN();
-        vui_parameters_Item_=vui_parameters_Item;
-        vui_parameters_Item->aspect_ratio_info_present_flag=aspect_ratio_info_present_flag;
-        if (aspect_ratio_info_present_flag)
-        {
-            vui_parameters_Item->aspect_ratio_idc=aspect_ratio_idc;
-            if (aspect_ratio_idc==0xFF)
-            {
-                vui_parameters_Item->sar_width=sar_width;
-                vui_parameters_Item->sar_height=sar_height;
-            }
-        }
-        vui_parameters_Item->video_signal_type_present_flag=video_signal_type_present_flag;
-        if (video_signal_type_present_flag)
-        {
-            vui_parameters_Item->video_format=video_format;
-            vui_parameters_Item->colour_description_present_flag=colour_description_present_flag;
-            if (colour_description_present_flag)
-            {
-                vui_parameters_Item->colour_primaries=colour_primaries;
-                vui_parameters_Item->transfer_characteristics=transfer_characteristics;
-                vui_parameters_Item->matrix_coefficients=matrix_coefficients;
-            }
-        }
-        vui_parameters_Item->timing_info_present_flag=timing_info_present_flag;
-        if (timing_info_present_flag)
-        {
-            vui_parameters_Item->num_units_in_tick=num_units_in_tick;
-            vui_parameters_Item->time_scale=time_scale;
-        }
-    FILLING_ELSE();
-        delete vui_parameters_Item; //vui_parameters_Item=NULL;
+        vui_parameters_Item_ = new seq_parameter_set_struct::vui_parameters_struct(
+                                                                                    NAL,
+                                                                                    VCL,
+                                                                                    num_units_in_tick,
+                                                                                    time_scale,
+                                                                                    sar_width,
+                                                                                    sar_height,
+                                                                                    aspect_ratio_idc,
+                                                                                    video_format,
+                                                                                    colour_primaries,
+                                                                                    transfer_characteristics,
+                                                                                    matrix_coefficients,
+                                                                                    aspect_ratio_info_present_flag,
+                                                                                    video_signal_type_present_flag,
+                                                                                    colour_description_present_flag,
+                                                                                    timing_info_present_flag
+                                                                                  );
     FILLING_END();
 }
 
 //---------------------------------------------------------------------------
-void File_Hevc::hrd_parameters(bool commonInfPresentFlag, int8u maxNumSubLayersMinus1, seq_parameter_set_struct::vui_parameters_struct* &vui_parameters_Item)
+void File_Hevc::hrd_parameters(bool commonInfPresentFlag, int8u maxNumSubLayersMinus1, seq_parameter_set_struct::vui_parameters_struct::xxl* &NAL, seq_parameter_set_struct::vui_parameters_struct::xxl* &VCL)
 {
     //Parsing
     int8u bit_rate_scale=0, cpb_size_scale=0;
@@ -2002,7 +1988,6 @@ void File_Hevc::hrd_parameters(bool commonInfPresentFlag, int8u maxNumSubLayersM
         Get_SB (vcl_hrd_parameters_present_flag,                "vcl_hrd_parameters_present_flag");
         if (nal_hrd_parameters_present_flag || vcl_hrd_parameters_present_flag)
         {
-            int8u  initial_cpb_removal_delay_length_minus1, cpb_removal_delay_length_minus1, dpb_output_delay_length_minus1;
             TEST_SB_GET (sub_pic_hrd_params_present_flag,       "sub_pic_hrd_params_present_flag");
                 Skip_S1(8,                                      "tick_divisor_minus2");
                 Skip_S1(5,                                      "du_cpb_removal_delay_increment_length_minus1");
@@ -2013,17 +1998,9 @@ void File_Hevc::hrd_parameters(bool commonInfPresentFlag, int8u maxNumSubLayersM
             Get_S1 (4, cpb_size_scale,                          "cpb_size_scale");
             if (sub_pic_hrd_params_present_flag)
                 Skip_S1(4,                                      "cpb_size_du_scale");
-            Get_S1 (5, initial_cpb_removal_delay_length_minus1, "initial_cpb_removal_delay_length_minus1");
-            Get_S1 (5, cpb_removal_delay_length_minus1,         "cpb_removal_delay_length_minus1");
-            Get_S1 (5, dpb_output_delay_length_minus1,          "dpb_output_delay_length_minus1");
-
-            FILLING_BEGIN();
-                vui_parameters_Item->initial_cpb_removal_delay_length_minus1                    =initial_cpb_removal_delay_length_minus1;
-                vui_parameters_Item->cpb_removal_delay_length_minus1                            =cpb_removal_delay_length_minus1;
-                vui_parameters_Item->dpb_output_delay_length_minus1                             =dpb_output_delay_length_minus1;
-            FILLING_ELSE();
-                return;
-            FILLING_END();
+            Skip_S1(5,                                          "initial_cpb_removal_delay_length_minus1");
+            Skip_S1(5,                                          "cpb_removal_delay_length_minus1");
+            Skip_S1(5,                                          "dpb_output_delay_length_minus1");
         }
     }
 
@@ -2049,9 +2026,9 @@ void File_Hevc::hrd_parameters(bool commonInfPresentFlag, int8u maxNumSubLayersM
             }
         }
         if (nal_hrd_parameters_present_flag)
-            sub_layer_hrd_parameters(sub_pic_hrd_params_present_flag, bit_rate_scale, cpb_size_scale, cpb_cnt_minus1, vui_parameters_Item->NAL); //TODO: save HRD per NumSubLayer
+            sub_layer_hrd_parameters(sub_pic_hrd_params_present_flag, bit_rate_scale, cpb_size_scale, cpb_cnt_minus1, NAL); //TODO: save HRD per NumSubLayer
         if (vcl_hrd_parameters_present_flag)
-            sub_layer_hrd_parameters(sub_pic_hrd_params_present_flag, bit_rate_scale, cpb_size_scale, cpb_cnt_minus1, vui_parameters_Item->VCL); //TODO: save HRD per NumSubLayer
+            sub_layer_hrd_parameters(sub_pic_hrd_params_present_flag, bit_rate_scale, cpb_size_scale, cpb_cnt_minus1, VCL); //TODO: save HRD per NumSubLayer
     }
 }
 
