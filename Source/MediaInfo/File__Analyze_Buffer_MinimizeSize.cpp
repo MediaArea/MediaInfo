@@ -1068,8 +1068,8 @@ void File__Analyze::Get_VL_Prepare(vlc_fast &Vlc)
         if (Vlc.Vlc[Pos].bit_increment==255)
             break;
         Increment+=Vlc.Vlc[Pos].bit_increment;
-        size_t Value=Vlc.Vlc[Pos].value<<(Vlc.Size-Increment);
-        size_t ToFill_Size=1<<(Vlc.Size-Increment);
+        size_t Value = ((size_t)Vlc.Vlc[Pos].value) << (Vlc.Size - Increment);
+        size_t ToFill_Size=((size_t)1)<<(Vlc.Size-Increment);
         for (size_t ToFill_Pos=0; ToFill_Pos<ToFill_Size; ToFill_Pos++)
         {
             Vlc.Array[Value+ToFill_Pos]=Pos;

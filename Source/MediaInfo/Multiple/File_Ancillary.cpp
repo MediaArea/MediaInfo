@@ -121,16 +121,16 @@ const char* Ancillary_DataID(int8u DataID, int8u SecondaryDataID)
                     }
                     break;
         case 0x50 :
-                    switch (SecondaryDataID&0xF0)
+                    switch (SecondaryDataID)
                     {
-                        case 0x44 : return "WSS";                               //RDD 8
+                        case 0x01 : return "WSS";                               //RDD 8
                         default   : return "(Reserved)";
                     }
                     break;
         case 0x5F :
                     switch (SecondaryDataID&0xF0)
                     {
-                        case 0x44 : return "ARIB STD B37";                      //ARIB STD B37
+                        case 0xD0 : return "ARIB STD B37";                      //ARIB STD B37
                         default   : return "(Reserved)";
                     }
                     break;

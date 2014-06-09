@@ -112,6 +112,8 @@ bool Aac_f_master_Compute_0(int8u &num_env_bands_Master, int8u* f_Master, sbr_ha
 
         while (k2Diff)
         {
+            if (k >= 64)
+                break;
             vDk[k]-=incr;
             k+=incr;
             k2Diff+=incr;
@@ -152,7 +154,7 @@ bool Aac_f_master_Compute(int8u &num_env_bands_Master, int8u* f_Master, sbr_hand
     }
 
     int8u numBands0=2*Aac_bands_Compute(false, bands, k0, k1);
-    if (numBands0>=64)
+    if (numBands0 == 0 || numBands0 > 64)
         return false;
 
     int8u vDk0[64];

@@ -1698,6 +1698,8 @@ bool File_Mpeg4::BookMark_Needed()
                 {
                     int64u* stco_Current = &Temp->second.stco[0];
                     int64u* stco_Max = stco_Current + Temp->second.stco.size();
+                    int64u* stsz_Current = &Temp->second.stsz[0];
+                    int64u* stsz_Max = stsz_Current + Temp->second.stsz.size();
                     stream::stsc_struct* stsc_Current = &Temp->second.stsc[0];
                     stream::stsc_struct* stsc_Max = stsc_Current + Temp->second.stsc.size();
                     #if MEDIAINFO_DEMUX
@@ -1720,8 +1722,6 @@ bool File_Mpeg4::BookMark_Needed()
                         {
                             //Each sample has its own size
                             int64u Chunk_Offset = 0;
-                            int64u* stsz_Current = &Temp->second.stsz[0];
-                            int64u* stsz_Max = stsz_Current + Temp->second.stsz.size();
                             for (size_t Pos = 0; Pos < stsc_Current->SamplesPerChunk; Pos++)
                                 if (*stsz_Current)
                                 {

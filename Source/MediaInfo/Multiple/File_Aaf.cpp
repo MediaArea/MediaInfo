@@ -240,16 +240,16 @@ void File_Aaf::Header_Parse()
     switch (Step)
     {
         case Step_Fat           : Header_Fill_Code(0, "FAT");
-                                  Header_Fill_Size(1<<SectorShift);
+                                  Header_Fill_Size(((int64u)1) << SectorShift);
                                   break;
         case Step_MiniFat       : Header_Fill_Code(0, "MiniFAT");
-                                  Header_Fill_Size(1<<SectorShift);
+                                  Header_Fill_Size(((int64u)1) << SectorShift);
                                   break;
         case Step_Directory     : Header_Fill_Code(0, "Directory");
-                                  Header_Fill_Size(1<<SectorShift);
+                                  Header_Fill_Size(((int64u)1) << SectorShift);
                                   break;
         case Step_Stream        : Header_Fill_Code(0, "Stream");
-                                  Header_Fill_Size(1<<(Streams[0]->Size<MiniSectorCutoff?MiniSectorShift:SectorShift));
+                                  Header_Fill_Size(((int64u)1) << (Streams[0]->Size<MiniSectorCutoff ? MiniSectorShift : SectorShift));
                                   break;
         default                 : ;
     }

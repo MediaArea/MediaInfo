@@ -580,7 +580,7 @@ void File_Eia608::PreambleAddressCode(int8u cc_data_1, int8u cc_data_2)
     //Horizontal position
     if (!TextMode)
     {
-        Streams[StreamPos]->y=Eia608_PAC_Row[cc_data_1&0x0F]+((cc_data_2&0x20)?1:0);
+        Streams[StreamPos]->y=Eia608_PAC_Row[cc_data_1&0x07]+((cc_data_2&0x20)?1:0);
         if (Streams[StreamPos]->y>=Eia608_Rows)
         {
             Streams[StreamPos]->y=Eia608_Rows-1;
@@ -590,7 +590,7 @@ void File_Eia608::PreambleAddressCode(int8u cc_data_1, int8u cc_data_2)
     //Attributes (except Underline)
     if (cc_data_2&0x10) //0x5x and 0x7x
     {
-        Streams[StreamPos]->x=(cc_data_2&0x0E)<<1;
+        Streams[StreamPos]->x=(((size_t)cc_data_2)&0x0E)<<1;
         Streams[StreamPos]->Attribute_Current=Attribute_Color_White;
     }
     else if ((cc_data_2&0x0E)==0x0E) //0x4E, 0x4F, 0x6E, 0x6F
