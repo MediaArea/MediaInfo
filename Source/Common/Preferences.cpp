@@ -1107,11 +1107,11 @@ int Preferences::ShellToolTip()
 
     ::HKEY Key;
     LONG WINAPI Result;
-    RegOpenKeyEx(HKEY_CURRENT_USER, Ztring().From_Local("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\InprocServer32").c_str(), 0, KEY_READ|KEY_WOW64_64KEY, &Key);
+    Result=RegOpenKeyEx(HKEY_CURRENT_USER, Ztring().From_Local("Software\\Classes\\CLSID\\{869C14C8-1830-491F-B575-5F9AB40D2B42}\\InprocServer32").c_str(), 0, KEY_READ|KEY_WOW64_64KEY, &Key);
     if (Result!=ERROR_SUCCESS && Result!=2) //2=not found
         return 0;
 
-    if (Result=ERROR_SUCCESS)
+    if (Result==ERROR_SUCCESS)
     {
         //MediaInfo shell extension is known
         if (ShellInfoTip)
