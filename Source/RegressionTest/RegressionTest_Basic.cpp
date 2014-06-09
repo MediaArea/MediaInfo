@@ -201,7 +201,6 @@ void RegressionTest_Basic(Ztring Files, Ztring DataBaseDirectory, int32u Scenari
             if (New[StreamKind](New_Pos, 0)!=Ref[StreamKind](Ref_Pos, 0))
             {
                 size_t Ref_PosNext=Ref_Pos;
-                size_t New_PosNext=New_Pos;
                 while (Ref_PosNext<Ref[StreamKind].size() && New[StreamKind](New_Pos, 0)!=Ref[StreamKind](Ref_PosNext, 0))
                     Ref_PosNext++;
                 if (Ref_PosNext==Ref[StreamKind].size()) //Ref file not found
@@ -325,7 +324,6 @@ void RegressionTest_Basic(Ztring Files, Ztring DataBaseDirectory, int32u Scenari
             if (New(New_Pos, 0)!=Ref(Ref_Pos, 0))
             {
                 size_t Ref_PosNext=Ref_Pos;
-                size_t New_PosNext=New_Pos;
                 while (Ref_PosNext<Ref.size() && New(New_Pos, 0)!=Ref(Ref_PosNext, 0))
                     Ref_PosNext++;
                 if (Ref_PosNext==Ref.size()) //Ref file not found
