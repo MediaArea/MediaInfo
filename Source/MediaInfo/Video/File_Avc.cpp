@@ -79,7 +79,6 @@ const char* Avc_profile_idc(int8u profile_idc)
     #include "MediaInfo/MediaInfo_Events_Internal.h"
 #endif //MEDIAINFO_EVENTS
 #include <cstring>
-#include <cmath>
 #include <algorithm>
 using namespace std;
 using namespace ZenLib;

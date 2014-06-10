@@ -12,6 +12,7 @@
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
 #include "MediaInfo/File__Duplicate.h"
+#include <cmath>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
@@ -251,13 +252,13 @@ private :
             switch (pic_order_cnt_type)
             {
                 case 0 : 
-                            MaxPicOrderCntLsb = (int32u)pow(2.0, (int)(log2_max_pic_order_cnt_lsb_minus4 + 4));
+                            MaxPicOrderCntLsb = (int32u)std::pow(2.0, (int)(log2_max_pic_order_cnt_lsb_minus4 + 4));
                             MaxFrameNum = (int32u)-1; //Unused
                             break;
                 case 1 :
                 case 2 :
                             MaxPicOrderCntLsb = (int32u)-1; //Unused
-                            MaxFrameNum = (int32u)pow(2.0, (int)(log2_max_frame_num_minus4 + 4));
+                            MaxFrameNum = (int32u)std::pow(2.0, (int)(log2_max_frame_num_minus4 + 4));
                             break;
                 default:
                             MaxFrameNum = (int32u)-1; //Unused
