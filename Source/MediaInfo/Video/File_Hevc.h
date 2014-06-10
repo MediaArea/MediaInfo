@@ -146,7 +146,7 @@ private :
             vui_parameters_struct(xxl* NAL_, xxl* VCL_, int32u num_units_in_tick_, int32u time_scale_, int16u sar_width_, int16u sar_height_, int8u aspect_ratio_idc_, int8u video_format_, int8u colour_primaries_, int8u transfer_characteristics_, int8u matrix_coefficients_, bool aspect_ratio_info_present_flag_, bool video_signal_type_present_flag_, bool colour_description_present_flag_, bool timing_info_present_flag_)
                 :
                 NAL(NAL_),
-                VCL(NAL_),
+                VCL(VCL_),
                 num_units_in_tick(num_units_in_tick_),
                 time_scale(time_scale_),
                 sar_width(sar_width_),
