@@ -202,9 +202,10 @@ void File_Exr::Header_Parse()
 //---------------------------------------------------------------------------
 void File_Exr::Data_Parse()
 {
-
     if (CC4(Buffer+Buffer_Offset)==0x762F3101) //"v/1"+1 //Header
         Header();
+    else if (name_End==0)
+        ImageData();
     else if (name=="comments" && type=="string")
         comments();
     else if (name=="compression" && type=="compression" && Element_Size==1)
@@ -240,7 +241,7 @@ void File_Exr::Header()
     Frame_Count++;
     if (Frame_Count_NotParsedIncluded!=(int64u)-1)
         Frame_Count_NotParsedIncluded++;
-    ImageData_End=File_Offset+Buffer_Offset+Config->File_Sizes[Config->File_Names_Pos-1];
+    ImageData_End=Config->File_Current_Size;
 }
 
 //---------------------------------------------------------------------------
