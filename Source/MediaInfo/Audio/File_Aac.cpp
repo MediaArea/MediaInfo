@@ -364,6 +364,8 @@ bool File_Aac::Synchronize_ADTS()
                 while (Buffer_Offset+aac_frame_length+2<=Buffer_Size && Buffer[Buffer_Offset+aac_frame_length]==0x00)
                     aac_frame_length++;
 
+                if (IsSub && Buffer_Offset+aac_frame_length==Buffer_Size)
+                    break; //while()
                 if (Buffer_Offset+aac_frame_length+2>Buffer_Size)
                     return false; //Need more data
 
@@ -373,6 +375,8 @@ bool File_Aac::Synchronize_ADTS()
                 else
                 {
                     //Testing next start, to be sure
+                    if (Buffer_Offset+aac_frame_length+3+3>Buffer_Size)
+                        return false; //Need more data
                     int16u aac_frame_length2=(CC3(Buffer+Buffer_Offset+aac_frame_length+3)>>5)&0x1FFF;
                     if (File_Offset+Buffer_Offset+aac_frame_length+aac_frame_length2!=File_Size-File_EndTagSize)
                     {
@@ -380,6 +384,8 @@ bool File_Aac::Synchronize_ADTS()
                         while (Buffer_Offset+aac_frame_length+aac_frame_length2+2<=Buffer_Size && Buffer[Buffer_Offset+aac_frame_length+aac_frame_length2]==0x00)
                             aac_frame_length2++;
 
+                        if (IsSub && Buffer_Offset+aac_frame_length+aac_frame_length2==Buffer_Size)
+                            break; //while()
                         if (Buffer_Offset+aac_frame_length+aac_frame_length2+2>Buffer_Size)
                             return false; //Need more data
 
@@ -389,6 +395,8 @@ bool File_Aac::Synchronize_ADTS()
                         else
                         {
                             //Testing next start, to be sure
+                            if (Buffer_Offset+aac_frame_length+aac_frame_length2+3+3>Buffer_Size)
+                                return false; //Need more data
                             int16u aac_frame_length3=(CC3(Buffer+Buffer_Offset+aac_frame_length+aac_frame_length2+3)>>5)&0x1FFF;
                             if (File_Offset+Buffer_Offset+aac_frame_length+aac_frame_length2+aac_frame_length3!=File_Size-File_EndTagSize)
                             {
@@ -396,6 +404,8 @@ bool File_Aac::Synchronize_ADTS()
                                 while (Buffer_Offset+aac_frame_length+aac_frame_length2+aac_frame_length3+2<=Buffer_Size && Buffer[Buffer_Offset+aac_frame_length+aac_frame_length2+aac_frame_length3]==0x00)
                                     aac_frame_length3++;
 
+                                if (IsSub && Buffer_Offset+aac_frame_length+aac_frame_length2+aac_frame_length3==Buffer_Size)
+                                    break; //while()
                                 if (Buffer_Offset+aac_frame_length+aac_frame_length2+aac_frame_length3+2>Buffer_Size)
                                     return false; //Need more data
 

@@ -200,6 +200,9 @@ void File_DtvccTransport::Read_Buffer_Continue()
     {
         for (int8u Pos=0; Pos<cc_count; Pos++)
         {
+            if (Element_Offset+3<Element_Size)
+                break; //Found one stream with bad cc_count, we discard cc_count without flagging the stream as untrusted for the moment
+            
             Element_Begin1("cc");
             int8u cc_type;
             bool  cc_valid;
