@@ -1351,9 +1351,7 @@ public :
         {
 
     #define FILLING_BEGIN_PRECISE() \
-        if (Element_Offset!=Element_Size) \
-            Trusted_IsNot("Size error"); \
-        else if (Element_IsOK()) \
+        if (Element_IsOK() && Element_Offset==Element_Size) \
         {
 
     //Else

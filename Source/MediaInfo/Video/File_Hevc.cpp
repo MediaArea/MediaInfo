@@ -1973,6 +1973,9 @@ void File_Hevc::vui_parameters(std::vector<video_parameter_set_struct*>::iterato
                                                                                     colour_description_present_flag,
                                                                                     timing_info_present_flag
                                                                                   );
+    FILLING_ELSE();
+    delete NAL;
+    delete VCL;
     FILLING_END();
 }
 

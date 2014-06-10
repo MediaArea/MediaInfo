@@ -220,11 +220,11 @@ private :
         //Constructor/Destructor
         seq_parameter_set_struct(vui_parameters_struct* vui_parameters_, int32u pic_width_in_mbs_minus1_, int32u pic_height_in_map_units_minus1_, int32u frame_crop_left_offset_, int32u frame_crop_right_offset_, int32u frame_crop_top_offset_, int32u frame_crop_bottom_offset_, int8u chroma_format_idc_, int8u profile_idc_, int8u level_idc_, int8u bit_depth_luma_minus8_, int8u bit_depth_chroma_minus8_, int8u log2_max_frame_num_minus4_, int8u pic_order_cnt_type_, int8u log2_max_pic_order_cnt_lsb_minus4_, int8u max_num_ref_frames_, bool constraint_set3_flag_, bool separate_colour_plane_flag_, bool delta_pic_order_always_zero_flag_, bool frame_mbs_only_flag_, bool mb_adaptive_frame_field_flag_)
             :
+            vui_parameters(vui_parameters_),
             #if MEDIAINFO_DEMUX
             Iso14496_10_Buffer(NULL),
             Iso14496_10_Buffer_Size(0),
             #endif //MEDIAINFO_DEMUX
-            vui_parameters(vui_parameters_),
             pic_width_in_mbs_minus1(pic_width_in_mbs_minus1_),
             pic_height_in_map_units_minus1(pic_height_in_map_units_minus1_),
             frame_crop_left_offset(frame_crop_left_offset_),

@@ -173,11 +173,11 @@ private :
             vui_parameters_struct &operator=(const vui_parameters_struct &v);
             vui_parameters_struct();
         };
+        vui_parameters_struct* vui_parameters;
         #if MEDIAINFO_DEMUX
         int8u*  Iso14496_10_Buffer;
         size_t  Iso14496_10_Buffer_Size;
         #endif //MEDIAINFO_DEMUX
-        vui_parameters_struct* vui_parameters;
         int32u  profile_space;
         int32u  profile_idc;
         int32u  level_idc;
@@ -203,11 +203,11 @@ private :
         //Constructor/Destructor
         seq_parameter_set_struct(vui_parameters_struct* vui_parameters_, int32u profile_space_, int32u profile_idc_, int32u level_idc_, int32u pic_width_in_luma_samples_, int32u pic_height_in_luma_samples_, int32u conf_win_left_offset_, int32u conf_win_right_offset_, int32u conf_win_top_offset_, int32u conf_win_bottom_offset_, int8u video_parameter_set_id_, int8u chroma_format_idc_, bool separate_colour_plane_flag_, int8u log2_max_pic_order_cnt_lsb_minus4_, int8u bit_depth_luma_minus8_, int8u bit_depth_chroma_minus8_, bool general_progressive_source_flag_, bool general_interlaced_source_flag_, bool general_frame_only_constraint_flag_)
             :
+            vui_parameters(vui_parameters_),
             #if MEDIAINFO_DEMUX
             Iso14496_10_Buffer(NULL),
             Iso14496_10_Buffer_Size(0),
             #endif //MEDIAINFO_DEMUX
-            vui_parameters(vui_parameters_),
             profile_space(profile_space_),
             profile_idc(profile_idc_),
             level_idc(level_idc_),
