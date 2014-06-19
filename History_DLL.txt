@@ -29,6 +29,7 @@ x XDCAM: information about the MXF header presence was not provided if MOV heade
 x Some specific C++11 code is removed for full compatibility with older C++
 x MXF: Time codes values were buggy in case of MXF with pre-charge ("Origin" not 0)
 x MPEG-4 Visual: wrong analysis in case on video_object_layer_shape not set to regular
+x MPEG-4/MOV: trying to display the summary differently when there is a difference between container and raw stream channels count information (long term method to be discussed)
 
 Version 0.7.69, 2014-04-24
 --------------
