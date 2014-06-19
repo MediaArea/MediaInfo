@@ -585,7 +585,7 @@ void File_Id3v2::Data_Parse()
 
     #define CASE_INFO(_NAME, _DETAIL) \
         case Elements::_NAME : Element_Info1(_DETAIL); _NAME(); break;
-
+    
     //Parsing
     Element_Value.clear();
     Element_Values.clear();
@@ -1040,10 +1040,37 @@ void File_Id3v2::RGAD()
 void File_Id3v2::PRIV()
 {
     //Parsing
-    Ztring Owner;
-    Get_ISO_8859_1(Element_Size, Owner,                         "Owner identifier");
-    Element_Offset=Owner.size()+1;
-    Skip_XX(Element_Size-Element_Offset,                        "Data");
+    //Ztring Owner;
+    //Get_ISO_8859_1(Element_Size, Owner,                         "Owner identifier");
+    string Owner;
+    size_t Owner_Size=0;
+    while (Element_Offset+Owner_Size<Element_Size && Buffer[Buffer_Offset+(size_t)Element_Offset+Owner_Size]!='\0')
+        Owner_Size++;
+    if (Owner_Size==0 || Element_Offset+Owner_Size>=Element_Size)
+    {
+        Skip_XX(Element_Size-Element_Offset,                    "Unknown");
+        return;
+    }
+    Get_String(Owner_Size, Owner,                               "Owner identifier");
+    Skip_B1(                                                    "Null");
+    if (Owner=="com.apple.streaming.transportStreamTimestamp")
+    {
+        //http://tools.ietf.org/html/draft-pantos-http-live-streaming-13
+        int64u DTS;
+        Get_B8 (DTS,                                            "DTS");
+
+        FILLING_BEGIN();
+            if (DTS>=0x200000000) //33 bits
+            {
+                Fill(Stream_Audio, 0, Audio_Delay, DTS/90);
+                FrameInfo.DTS=DTS*1000000/90;
+            }
+        FILLING_END();
+    }
+    else
+    {
+        Skip_XX(Element_Size-Element_Offset,                    "Data");
+    }
 }
 
 //---------------------------------------------------------------------------
