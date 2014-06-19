@@ -1698,7 +1698,7 @@ bool File_Mpeg4::BookMark_Needed()
                 {
                     int64u* stco_Current = &Temp->second.stco[0];
                     int64u* stco_Max = stco_Current + Temp->second.stco.size();
-                    int64u* stsz_Current = &Temp->second.stsz[0];
+                    int64u* stsz_Current = Temp->second.stsz.empty()?NULL:&Temp->second.stsz[0];
                     int64u* stsz_Max = stsz_Current + Temp->second.stsz.size();
                     stream::stsc_struct* stsc_Current = &Temp->second.stsc[0];
                     stream::stsc_struct* stsc_Max = stsc_Current + Temp->second.stsc.size();
@@ -1725,15 +1725,15 @@ bool File_Mpeg4::BookMark_Needed()
                             for (size_t Pos = 0; Pos < stsc_Current->SamplesPerChunk; Pos++)
                                 if (*stsz_Current)
                                 {
-                                mdat_Pos_Type mdat_Pos_Temp2;
-                                mdat_Pos_Temp2.Offset = *stco_Current + Chunk_Offset;
-                                mdat_Pos_Temp2.StreamID = Temp->first;
-                                mdat_Pos_Temp2.Size = *stsz_Current;
-                                mdat_Pos.push_back(mdat_Pos_Temp2);
-                                Chunk_Offset += *stsz_Current;
-                                stsz_Current++;
-                                if (stsz_Current >= stsz_Max)
-                                    break;
+                                    mdat_Pos_Type mdat_Pos_Temp2;
+                                    mdat_Pos_Temp2.Offset = *stco_Current + Chunk_Offset;
+                                    mdat_Pos_Temp2.StreamID = Temp->first;
+                                    mdat_Pos_Temp2.Size = *stsz_Current;
+                                    mdat_Pos.push_back(mdat_Pos_Temp2);
+                                    Chunk_Offset += *stsz_Current;
+                                    stsz_Current++;
+                                    if (stsz_Current >= stsz_Max)
+                                        break;
                                 }
                             if (stsz_Current >= stsz_Max)
                                 break;
