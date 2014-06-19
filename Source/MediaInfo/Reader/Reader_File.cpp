@@ -542,16 +542,6 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
 
                         if (ThreadInstance->IsExited())
                         {
-                            CS.Leave();
-                            #ifdef WINDOWS
-                                WaitForSingleObject(Condition_WaitingForMoreData, INFINITE);
-                            #else //WINDOWS
-                                Sleep(0);
-                            #endif //WINDOWS
-                            CS.Enter();
-                        }
-                        else
-                        {
                             if (IsLooping)
                             {
                                 IsLooping=false;
@@ -563,6 +553,14 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                             MI->Config.File_Buffer_Size=Buffer_End-Buffer_Begin;
                             break;
                         }
+
+                        CS.Leave();
+                        #ifdef WINDOWS
+                            WaitForSingleObject(Condition_WaitingForMoreData, INFINITE);
+                        #else //WINDOWS
+                            Sleep(0);
+                        #endif //WINDOWS
+                        CS.Enter();
                     }
                     MI->Config.File_Buffer=Buffer+Buffer_Begin;
                     CS.Leave();
