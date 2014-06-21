@@ -1355,7 +1355,7 @@ void File_Eia708::DFx(int8u WindowID)
 //---------------------------------------------------------------------------
 void File_Eia708::Character_Fill(wchar_t Character)
 {
-    Param_Info1(Ztring(1, Character));
+    Param_Info1(Ztring().From_Unicode(Character));
 
     int8u WindowID=Streams[service_number]->WindowID;
     if (WindowID==(int8u)-1)

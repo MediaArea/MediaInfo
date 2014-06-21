@@ -787,8 +787,8 @@ void File_AribStdB24B37::JIS (int8u Row, int8u Column)
         if (CharSize>0)
         {
             Temp[CharSize]=__T('\0');
-            Param_Info1(Temp);
-            Add (Temp[0]);
+            Param_Info1(Ztring().From_Unicode(Temp));
+            Add (Ztring().From_Unicode(Temp));
         }
     #else // __WINDOWS__
         //TODO

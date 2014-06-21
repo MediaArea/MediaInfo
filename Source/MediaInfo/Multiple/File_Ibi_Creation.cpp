@@ -335,7 +335,7 @@ void File_Ibi_Creation::Set(const ibi &Ibi)
             #ifdef UNICODE
                 File_Handle=CreateFileW(Ibi.FileName.c_str(), 0, FILE_SHARE_READ|FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
             #else
-                File_Handle=CreateFile(File_Name.c_str(), 0, FILE_SHARE_READ|FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
+                File_Handle=CreateFile(Ibi.FileName.To_Local().c_str(), 0, FILE_SHARE_READ|FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
             #endif //UNICODE
             if (File_Handle!=INVALID_HANDLE_VALUE)
             {
