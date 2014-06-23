@@ -100,17 +100,19 @@ File_Ttml::File_Ttml()
 
     //Init
     Frame_Count=0;
-
-    //Temp
-    document=NULL;
-    div=NULL;
-    p=NULL;
 }
 
+//***************************************************************************
+// Streams management
+//***************************************************************************
+
 //---------------------------------------------------------------------------
-File_Ttml::~File_Ttml()
+void File_Ttml::Streams_Accept()
 {
-    delete document;
+    Fill(Stream_General, 0, General_Format, "TTML");
+
+    Stream_Prepare(Stream_Text);
+    Fill(Stream_Text, 0, "Format", "TTML");
 }
 
 //***************************************************************************
@@ -122,8 +124,6 @@ File_Ttml::~File_Ttml()
 size_t File_Ttml::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 {
     GoTo(0);
-    if (div)
-        p=div->FirstChildElement();
     Open_Buffer_Unsynch();
     return 1;
 }
@@ -136,23 +136,38 @@ size_t File_Ttml::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
 //---------------------------------------------------------------------------
 bool File_Ttml::FileHeader_Begin()
 {
-    document=new tinyxml2::XMLDocument;
+    //All should be OK...
+    return true;
+}
 
-    if (!FileHeader_Begin_XML(*document))
-       return false;
+//---------------------------------------------------------------------------
+void File_Ttml::Read_Buffer_Continue()
+{
+    tinyxml2::XMLDocument document;
 
-    XMLElement* Root=document->FirstChildElement("tt");
+    if (!FileHeader_Begin_XML(document))
+        return;
+
+    XMLElement* Root=document.FirstChildElement("tt");
     if (!Root)
     {
         Reject();
-        return false;
+        return;
     }
 
-    Accept();
-    Fill(Stream_General, 0, General_Format, "TTML");
-    Stream_Prepare(Stream_Text);
-    Fill(Stream_Text, 0, "Format", "TTML");
+    if (!Status[IsAccepted])
+    {
+        Accept();
 
+        #if MEDIAINFO_EVENTS
+            MuxingMode=(int8u)-1;
+            if (StreamIDs_Size>=2 && ParserIDs[StreamIDs_Size-2]==MediaInfo_Parser_Mpeg4)
+                MuxingMode=11; //MPEG-4
+        #endif MEDIAINFO_EVENTS
+    }
+
+    tinyxml2::XMLElement*       div=NULL;
+    tinyxml2::XMLElement*       p=NULL;
     for (XMLElement* tt_element=Root->FirstChildElement(); tt_element; tt_element=tt_element->NextSiblingElement())
     {
         //body
@@ -184,13 +199,6 @@ bool File_Ttml::FileHeader_Begin()
         }
     }
 
-    //All should be OK...
-    return true;
-}
-
-//---------------------------------------------------------------------------
-void File_Ttml::Read_Buffer_Continue()
-{
     #if MEDIAINFO_DEMUX
         Demux(Buffer, Buffer_Size, ContentType_MainStream);
     #endif //MEDIAINFO_DEMUX

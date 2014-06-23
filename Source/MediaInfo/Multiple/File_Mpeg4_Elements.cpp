@@ -88,6 +88,9 @@
 #if defined(MEDIAINFO_TIMEDTEXT_YES)
     #include "MediaInfo/Text/File_TimedText.h"
 #endif
+#if defined(MEDIAINFO_TTML_YES)
+    #include "MediaInfo/Text/File_Ttml.h"
+#endif
 #if defined(MEDIAINFO_JPEG_YES)
     #include "MediaInfo/Image/File_Jpeg.h"
 #endif
@@ -4401,6 +4404,14 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxText()
             File_Cdp* Parser=new File_Cdp;
             Parser->WithAppleHeader=true;
             Parser->AspectRatio=((float)16)/9; //TODO: this is hardcoded, must adapt it to the real video aspect ratio
+            Streams[moov_trak_tkhd_TrackID].Parsers.push_back(Parser);
+        }
+        #endif
+        #if defined(MEDIAINFO_TTML_YES)
+        if (MediaInfoLib::Config.CodecID_Get(Stream_Text, InfoCodecID_Format_Mpeg4, CodecID, InfoCodecID_Format)==__T("TTML"))
+        {
+            //Creating the parser
+            File_Ttml* Parser=new File_Ttml;
             Streams[moov_trak_tkhd_TrackID].Parsers.push_back(Parser);
         }
         #endif

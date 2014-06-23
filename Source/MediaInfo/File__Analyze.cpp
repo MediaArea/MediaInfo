@@ -1442,8 +1442,11 @@ bool File__Analyze::FileHeader_Begin_XML(XMLDocument &Document)
     }
 
     //Element_Size
-    if (Buffer_Size<File_Size)
+    if (!IsSub && Buffer_Size<File_Size)
+    {
+        Element_WaitForMoreData();
         return false; //Must wait for more data
+    }
 
     //XML header
     Ztring Data;
