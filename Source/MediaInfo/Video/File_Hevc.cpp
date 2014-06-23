@@ -1633,10 +1633,11 @@ void File_Hevc::sei()
     Element_Name("sei");
 
     //Parsing
+    int32u seq_parameter_set_id=(int32u)-1;
     while(Element_Offset+1<Element_Size)
     {
         Element_Begin1("sei message");
-            sei_message();
+            sei_message(seq_parameter_set_id);
         Element_End0();
     }
     BS_Begin();
@@ -1645,7 +1646,7 @@ void File_Hevc::sei()
 }
 
 //---------------------------------------------------------------------------
-void File_Hevc::sei_message()
+void File_Hevc::sei_message(int32u &seq_parameter_set_id)
 {
     //Parsing
     int32u  payloadType=0, payloadSize=0;
@@ -1676,12 +1677,13 @@ void File_Hevc::sei_message()
     Element_Size=Element_Offset_Save;
     switch (payloadType)
     {
-        //case   0 :   sei_message_buffering_period(seq_parameter_set_id); break;
-        //case   1 :   sei_message_pic_timing(payloadSize, seq_parameter_set_id); break;
+        case   0 :   sei_message_buffering_period(seq_parameter_set_id, payloadSize); break;
+        case   1 :   sei_message_pic_timing(seq_parameter_set_id, payloadSize); break;
         //case   4 :   sei_message_user_data_registered_itu_t_t35(); break;
         //case   5 :   sei_message_user_data_unregistered(payloadSize); break;
         //case   6 :   sei_message_recovery_point(); break;
         //case  32 :   sei_message_mainconcept(payloadSize); break;
+        case 129 :   sei_message_active_parameter_sets(); break;
         case 132 :   sei_message_decoded_picture_hash(payloadSize); break;
         default :
                     Element_Info1("unknown");
@@ -1689,6 +1691,125 @@ void File_Hevc::sei_message()
     }
     Element_Offset=Element_Offset_Save; //Positionning in the right place.
     Element_Size=Element_Size_Save; //Positionning in the right place.
+}
+
+//---------------------------------------------------------------------------
+// SEI - 0
+void File_Hevc::sei_message_buffering_period(int32u &seq_parameter_set_id, int32u payloadSize)
+{
+    Element_Info1("buffering_period");
+
+    //Parsing
+    if (Element_Offset==Element_Size)
+        return; //Nothing to do
+    BS_Begin();
+    Get_UE (seq_parameter_set_id,                               "seq_parameter_set_id");
+    std::vector<seq_parameter_set_struct*>::iterator seq_parameter_set_Item;
+    if (seq_parameter_set_id>=seq_parameter_sets.size() || (*(seq_parameter_set_Item=seq_parameter_sets.begin()+seq_parameter_set_id))==NULL)
+    {
+        //Not yet present
+        Skip_BS(Data_BS_Remain(),                               "Data (seq_parameter_set is missing)");
+        BS_End();
+        return;
+    }
+    bool sub_pic_hrd_params_present_flag=false; //Default
+    bool irap_cpb_params_present_flag=((*seq_parameter_set_Item)->vui_parameters && (*seq_parameter_set_Item)->vui_parameters->xxL_Common)?(*seq_parameter_set_Item)->vui_parameters->xxL_Common->sub_pic_hrd_params_present_flag:false;
+    if (!sub_pic_hrd_params_present_flag)
+        Get_SB (irap_cpb_params_present_flag,                   "irap_cpb_params_present_flag");
+    int8u au_cpb_removal_delay_length_minus1=((*seq_parameter_set_Item)->vui_parameters && (*seq_parameter_set_Item)->vui_parameters->xxL_Common)?(*seq_parameter_set_Item)->vui_parameters->xxL_Common->au_cpb_removal_delay_length_minus1:23;
+    int8u dpb_output_delay_length_minus1=((*seq_parameter_set_Item)->vui_parameters && (*seq_parameter_set_Item)->vui_parameters->xxL_Common)?(*seq_parameter_set_Item)->vui_parameters->xxL_Common->dpb_output_delay_length_minus1:23;
+    if (irap_cpb_params_present_flag)
+    {
+         Skip_S4(au_cpb_removal_delay_length_minus1+1,          "cpb_delay_offset");
+         Skip_S4(dpb_output_delay_length_minus1+1,              "dpb_delay_offset");
+    }
+    Skip_SB(                                                    "concatenation_flag");
+    Skip_S4(au_cpb_removal_delay_length_minus1+1,               "au_cpb_removal_delay_delta_minus1");
+    if ((*seq_parameter_set_Item)->NalHrdBpPresentFlag())
+        sei_message_buffering_period_xxl((*seq_parameter_set_Item)->vui_parameters?(*seq_parameter_set_Item)->vui_parameters->xxL_Common:NULL, irap_cpb_params_present_flag, (*seq_parameter_set_Item)->vui_parameters->NAL);
+    if ((*seq_parameter_set_Item)->VclHrdBpPresentFlag())
+        sei_message_buffering_period_xxl((*seq_parameter_set_Item)->vui_parameters?(*seq_parameter_set_Item)->vui_parameters->xxL_Common:NULL, irap_cpb_params_present_flag, (*seq_parameter_set_Item)->vui_parameters->VCL);
+    BS_End();
+}
+
+void File_Hevc::sei_message_buffering_period_xxl(seq_parameter_set_struct::vui_parameters_struct::xxl_common* xxL_Common, bool irap_cpb_params_present_flag, seq_parameter_set_struct::vui_parameters_struct::xxl* xxl)
+{
+    if (xxL_Common==NULL || xxl==NULL)
+    {
+        //Problem?
+        Skip_BS(Data_BS_Remain(),                               "Problem?");
+        return;
+    }
+    for (int32u SchedSelIdx=0; SchedSelIdx<xxl->SchedSel.size(); SchedSelIdx++)
+    {
+        //Get_S4 (xxl->SchedSel[SchedSelIdx].initial_cpb_removal_delay_length_minus1+1, xxl->SchedSel[SchedSelIdx].initial_cpb_removal_delay, "initial_cpb_removal_delay"); Param_Info2(xxl->SchedSel[SchedSelIdx].initial_cpb_removal_delay/90, " ms");
+        //Get_S4 (xxl->SchedSel[SchedSelIdx].initial_cpb_removal_delay_length_minus1+1, xxl->SchedSel[SchedSelIdx].initial_cpb_removal_delay_offset, "initial_cpb_removal_delay_offset"); Param_Info2(xxl->SchedSel[SchedSelIdx].initial_cpb_removal_delay_offset/90, " ms");
+        Info_S4 (xxL_Common->initial_cpb_removal_delay_length_minus1+1, initial_cpb_removal_delay, "initial_cpb_removal_delay"); Param_Info2(initial_cpb_removal_delay/90, " ms");
+        Info_S4 (xxL_Common->initial_cpb_removal_delay_length_minus1+1, initial_cpb_removal_delay_offset, "initial_cpb_removal_delay_offset"); Param_Info2(initial_cpb_removal_delay_offset/90, " ms");
+        if (xxL_Common->sub_pic_hrd_params_present_flag || irap_cpb_params_present_flag)
+        {
+            Info_S4 (xxL_Common->initial_cpb_removal_delay_length_minus1+1, initial_alt_cpb_removal_delay, "initial_alt_cpb_removal_delay"); Param_Info2(initial_alt_cpb_removal_delay/90, " ms");
+            Info_S4 (xxL_Common->initial_cpb_removal_delay_length_minus1+1, initial_alt_cpb_removal_delay_offset, "initial_alt_cpb_removal_delay_offset"); Param_Info2(initial_alt_cpb_removal_delay_offset/90, " ms");
+        }
+    }
+}
+
+//---------------------------------------------------------------------------
+// SEI - 1
+void File_Hevc::sei_message_pic_timing(int32u &seq_parameter_set_id, int32u payloadSize)
+{
+    Element_Info1("pic_timing");
+
+    //Testing if we can parsing it now. TODO: handle case seq_parameter_set_id is unknown (buffering of message, decoding in slice parsing)
+    if (seq_parameter_set_id==(int32u)-1 && seq_parameter_sets.size()==1)
+        seq_parameter_set_id=0;
+    std::vector<seq_parameter_set_struct*>::iterator seq_parameter_set_Item;
+    if (seq_parameter_set_id>=seq_parameter_sets.size() || (*(seq_parameter_set_Item=seq_parameter_sets.begin()+seq_parameter_set_id))==NULL)
+    {
+        //Not yet present
+        Skip_BS(Data_BS_Remain(),                               "Data (seq_parameter_set is missing)");
+        return;
+    }
+
+    //Parsing
+    BS_Begin();
+    if ((*seq_parameter_set_Item)->vui_parameters?(*seq_parameter_set_Item)->vui_parameters->frame_field_info_present_flag:((*seq_parameter_set_Item)->general_progressive_source_flag && (*seq_parameter_set_Item)->general_interlaced_source_flag))
+    {
+        Skip_S1(4,                                              "pic_struct");
+        Skip_S1(2,                                              "source_scan_type");
+        Skip_SB(                                                "duplicate_flag");
+    }
+    if ((*seq_parameter_set_Item)->CpbDpbDelaysPresentFlag())
+    {
+        int8u au_cpb_removal_delay_length_minus1=(*seq_parameter_set_Item)->vui_parameters->xxL_Common->au_cpb_removal_delay_length_minus1;
+        int8u dpb_output_delay_length_minus1=(*seq_parameter_set_Item)->vui_parameters->xxL_Common->dpb_output_delay_length_minus1;
+        bool  sub_pic_hrd_params_present_flag=(*seq_parameter_set_Item)->vui_parameters->xxL_Common->sub_pic_hrd_params_present_flag;
+        Skip_S4(au_cpb_removal_delay_length_minus1+1,           "au_cpb_removal_delay_minus1");
+        Skip_S4(dpb_output_delay_length_minus1+1,               "pic_dpb_output_delay");
+        if (sub_pic_hrd_params_present_flag)
+        {
+            int8u dpb_output_delay_du_length_minus1=(*seq_parameter_set_Item)->vui_parameters->xxL_Common->dpb_output_delay_du_length_minus1;
+            Skip_S4(dpb_output_delay_du_length_minus1+1,        "pic_dpb_output_du_delay");
+        }
+    }
+    BS_End();
+}
+
+//---------------------------------------------------------------------------
+void File_Hevc::sei_message_active_parameter_sets()
+{
+    //Parsing
+    int32u num_sps_ids_minus1;
+    BS_Begin();
+    Skip_S1(4,                                                  "active_video_parameter_set_id");
+    Skip_SB(                                                    "self_contained_cvs_flag");
+    Skip_SB(                                                    "no_parameter_set_update_flag");
+    Get_UE (   num_sps_ids_minus1,                              "num_sps_ids_minus1");
+    for (int32u i=0; i<=num_sps_ids_minus1; ++i)
+    {
+        Skip_UE(                                                "active_seq_parameter_set_id");
+    }
+    BS_End();
 }
 
 //---------------------------------------------------------------------------
@@ -1896,11 +2017,12 @@ void File_Hevc::short_term_ref_pic_sets(int8u num_short_term_ref_pic_sets)
 void File_Hevc::vui_parameters(std::vector<video_parameter_set_struct*>::iterator video_parameter_set_Item, seq_parameter_set_struct::vui_parameters_struct* &vui_parameters_Item_)
 {
     //Parsing
+    seq_parameter_set_struct::vui_parameters_struct::xxl_common *xxL_Common=NULL;
     seq_parameter_set_struct::vui_parameters_struct::xxl *NAL = NULL, *VCL = NULL;
     int32u  num_units_in_tick = (int32u)-1, time_scale = (int32u)-1;
     int16u  sar_width=(int16u)-1, sar_height=(int16u)-1;
     int8u   aspect_ratio_idc=0, video_format=5, colour_primaries=2, transfer_characteristics=2, matrix_coefficients=2;
-    bool    aspect_ratio_info_present_flag, video_signal_type_present_flag, colour_description_present_flag=false, timing_info_present_flag;
+    bool    aspect_ratio_info_present_flag, video_signal_type_present_flag, frame_field_info_present_flag, colour_description_present_flag=false, timing_info_present_flag;
     TEST_SB_GET (aspect_ratio_info_present_flag,                "aspect_ratio_info_present_flag");
         Get_S1 (8, aspect_ratio_idc,                            "aspect_ratio_idc"); Param_Info1C((aspect_ratio_idc<Avc_PixelAspectRatio_Size), Avc_PixelAspectRatio[aspect_ratio_idc]);
         if (aspect_ratio_idc==0xFF)
@@ -1927,7 +2049,7 @@ void File_Hevc::vui_parameters(std::vector<video_parameter_set_struct*>::iterato
     TEST_SB_END();
     Skip_SB(                                                    "neutral_chroma_indication_flag");
     Skip_SB(                                                    "field_seq_flag");
-    Skip_SB(                                                    "frame_field_info_present_flag");
+    Get_SB (   frame_field_info_present_flag,                   "frame_field_info_present_flag");
     TEST_SB_SKIP(                                               "default_display_window_flag ");
         Skip_UE(                                                "def_disp_win_left_offset");
         Skip_UE(                                                "def_disp_win_right_offset");
@@ -1941,7 +2063,7 @@ void File_Hevc::vui_parameters(std::vector<video_parameter_set_struct*>::iterato
             Skip_UE(                                            "vui_num_ticks_poc_diff_one_minus1");
         TEST_SB_END();
         TEST_SB_SKIP(                                           "hrd_parameters_present_flag");
-            hrd_parameters(true, (*video_parameter_set_Item)->vps_max_sub_layers_minus1, NAL, VCL);
+            hrd_parameters(true, (*video_parameter_set_Item)->vps_max_sub_layers_minus1, xxL_Common, NAL, VCL);
         TEST_SB_END();
     TEST_SB_END();
     TEST_SB_SKIP(                                               "bitstream_restriction_flag");
@@ -1959,6 +2081,7 @@ void File_Hevc::vui_parameters(std::vector<video_parameter_set_struct*>::iterato
         vui_parameters_Item_ = new seq_parameter_set_struct::vui_parameters_struct(
                                                                                     NAL,
                                                                                     VCL,
+                                                                                    xxL_Common,
                                                                                     num_units_in_tick,
                                                                                     time_scale,
                                                                                     sar_width,
@@ -1970,20 +2093,22 @@ void File_Hevc::vui_parameters(std::vector<video_parameter_set_struct*>::iterato
                                                                                     matrix_coefficients,
                                                                                     aspect_ratio_info_present_flag,
                                                                                     video_signal_type_present_flag,
+                                                                                    frame_field_info_present_flag,
                                                                                     colour_description_present_flag,
                                                                                     timing_info_present_flag
                                                                                   );
     FILLING_ELSE();
+    delete xxL_Common;
     delete NAL;
     delete VCL;
     FILLING_END();
 }
 
 //---------------------------------------------------------------------------
-void File_Hevc::hrd_parameters(bool commonInfPresentFlag, int8u maxNumSubLayersMinus1, seq_parameter_set_struct::vui_parameters_struct::xxl* &NAL, seq_parameter_set_struct::vui_parameters_struct::xxl* &VCL)
+void File_Hevc::hrd_parameters(bool commonInfPresentFlag, int8u maxNumSubLayersMinus1, seq_parameter_set_struct::vui_parameters_struct::xxl_common* &xxL_Common, seq_parameter_set_struct::vui_parameters_struct::xxl* &NAL, seq_parameter_set_struct::vui_parameters_struct::xxl* &VCL)
 {
     //Parsing
-    int8u bit_rate_scale=0, cpb_size_scale=0;
+    int8u bit_rate_scale=0, cpb_size_scale=0, du_cpb_removal_delay_increment_length_minus1=0, dpb_output_delay_du_length_minus1=0, initial_cpb_removal_delay_length_minus1=0, au_cpb_removal_delay_length_minus1=0, dpb_output_delay_length_minus1=0;
     bool nal_hrd_parameters_present_flag=false, vcl_hrd_parameters_present_flag=false, sub_pic_hrd_params_present_flag=false;
     if (commonInfPresentFlag)
     {
@@ -1993,17 +2118,17 @@ void File_Hevc::hrd_parameters(bool commonInfPresentFlag, int8u maxNumSubLayersM
         {
             TEST_SB_GET (sub_pic_hrd_params_present_flag,       "sub_pic_hrd_params_present_flag");
                 Skip_S1(8,                                      "tick_divisor_minus2");
-                Skip_S1(5,                                      "du_cpb_removal_delay_increment_length_minus1");
+                Get_S1 (5, du_cpb_removal_delay_increment_length_minus1,  "du_cpb_removal_delay_increment_length_minus1");
                 Skip_SB(                                        "sub_pic_cpb_params_in_pic_timing_sei_flag");
-                Skip_S1(5,                                      "dpb_output_delay_du_length_minus1");
+                Get_S1 (5, dpb_output_delay_du_length_minus1,   "dpb_output_delay_du_length_minus1");
             TEST_SB_END();
             Get_S1 (4, bit_rate_scale,                          "bit_rate_scale");
             Get_S1 (4, cpb_size_scale,                          "cpb_size_scale");
             if (sub_pic_hrd_params_present_flag)
                 Skip_S1(4,                                      "cpb_size_du_scale");
-            Skip_S1(5,                                          "initial_cpb_removal_delay_length_minus1");
-            Skip_S1(5,                                          "cpb_removal_delay_length_minus1");
-            Skip_S1(5,                                          "dpb_output_delay_length_minus1");
+            Get_S1 (5, initial_cpb_removal_delay_length_minus1, "initial_cpb_removal_delay_length_minus1");
+            Get_S1 (5, au_cpb_removal_delay_length_minus1,      "au_cpb_removal_delay_length_minus1");
+            Get_S1 (5, dpb_output_delay_length_minus1,          "dpb_output_delay_length_minus1");
         }
     }
 
@@ -2028,15 +2153,24 @@ void File_Hevc::hrd_parameters(bool commonInfPresentFlag, int8u maxNumSubLayersM
                 return;
             }
         }
+        if (nal_hrd_parameters_present_flag || vcl_hrd_parameters_present_flag)
+            xxL_Common=new seq_parameter_set_struct::vui_parameters_struct::xxl_common(
+                                                                                        sub_pic_hrd_params_present_flag,
+                                                                                        du_cpb_removal_delay_increment_length_minus1,
+                                                                                        dpb_output_delay_du_length_minus1,
+                                                                                        initial_cpb_removal_delay_length_minus1,
+                                                                                        au_cpb_removal_delay_length_minus1,
+                                                                                        dpb_output_delay_length_minus1
+                                                                                      );
         if (nal_hrd_parameters_present_flag)
-            sub_layer_hrd_parameters(sub_pic_hrd_params_present_flag, bit_rate_scale, cpb_size_scale, cpb_cnt_minus1, NAL); //TODO: save HRD per NumSubLayer
+            sub_layer_hrd_parameters(xxL_Common, bit_rate_scale, cpb_size_scale, cpb_cnt_minus1, NAL); //TODO: save HRD per NumSubLayer
         if (vcl_hrd_parameters_present_flag)
-            sub_layer_hrd_parameters(sub_pic_hrd_params_present_flag, bit_rate_scale, cpb_size_scale, cpb_cnt_minus1, VCL); //TODO: save HRD per NumSubLayer
+            sub_layer_hrd_parameters(xxL_Common, bit_rate_scale, cpb_size_scale, cpb_cnt_minus1, VCL); //TODO: save HRD per NumSubLayer
     }
 }
 
 //---------------------------------------------------------------------------
-void File_Hevc::sub_layer_hrd_parameters(bool sub_pic_hrd_params_present_flag, int8u bit_rate_scale, int8u cpb_size_scale, int32u cpb_cnt_minus1, seq_parameter_set_struct::vui_parameters_struct::xxl* &hrd_parameters_Item_)
+void File_Hevc::sub_layer_hrd_parameters(seq_parameter_set_struct::vui_parameters_struct::xxl_common* xxL_Common, int8u bit_rate_scale, int8u cpb_size_scale, int32u cpb_cnt_minus1, seq_parameter_set_struct::vui_parameters_struct::xxl* &hrd_parameters_Item_)
 {
     //Parsing
     vector<seq_parameter_set_struct::vui_parameters_struct::xxl::xxl_data>  SchedSel;
@@ -2051,7 +2185,7 @@ void File_Hevc::sub_layer_hrd_parameters(bool sub_pic_hrd_params_present_flag, i
         bit_rate_value = (int64u)((bit_rate_value_minus1 + 1)*pow(2.0, 6 + bit_rate_scale)); Param_Info2(bit_rate_value, " bps");
         Get_UE (cpb_size_value_minus1,                          "cpb_size_value_minus1");
         cpb_size_value = (int64u)((cpb_size_value_minus1 + 1)*pow(2.0, 4 + cpb_size_scale)); Param_Info2(cpb_size_value, " bits");
-        if (sub_pic_hrd_params_present_flag)
+        if (xxL_Common->sub_pic_hrd_params_present_flag)
         {
             Skip_UE(                                            "cpb_size_du_value_minus1");
             Skip_UE(                                            "bit_rate_du_value_minus1");

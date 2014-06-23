@@ -127,8 +127,43 @@ private :
             private:
                 xxl();
             };
+            struct xxl_common
+            {
+                //Common to all xxl
+                bool    sub_pic_hrd_params_present_flag;
+                int8u   du_cpb_removal_delay_increment_length_minus1;
+                int8u   dpb_output_delay_du_length_minus1;
+                int8u   initial_cpb_removal_delay_length_minus1;
+                int8u   au_cpb_removal_delay_length_minus1;
+                int8u   dpb_output_delay_length_minus1;
+
+                xxl_common(bool sub_pic_hrd_params_present_flag_, int8u du_cpb_removal_delay_increment_length_minus1_, int8u dpb_output_delay_du_length_minus1_, int8u initial_cpb_removal_delay_length_minus1_, int8u au_cpb_removal_delay_length_minus1_, int8u dpb_output_delay_length_minus1_)
+                    :
+                    sub_pic_hrd_params_present_flag(sub_pic_hrd_params_present_flag_),
+                    du_cpb_removal_delay_increment_length_minus1(du_cpb_removal_delay_increment_length_minus1_),
+                    dpb_output_delay_du_length_minus1(dpb_output_delay_du_length_minus1_),
+                    initial_cpb_removal_delay_length_minus1(initial_cpb_removal_delay_length_minus1_),
+                    au_cpb_removal_delay_length_minus1(au_cpb_removal_delay_length_minus1_),
+                    dpb_output_delay_length_minus1(dpb_output_delay_length_minus1_)
+                {
+                }
+
+                xxl_common &operator=(const xxl_common &x)
+                {
+                    sub_pic_hrd_params_present_flag = x.sub_pic_hrd_params_present_flag;
+                    du_cpb_removal_delay_increment_length_minus1 = x.du_cpb_removal_delay_increment_length_minus1;
+                    dpb_output_delay_du_length_minus1 = x.dpb_output_delay_du_length_minus1;
+                    initial_cpb_removal_delay_length_minus1 = x.initial_cpb_removal_delay_length_minus1;
+                    au_cpb_removal_delay_length_minus1 = x.au_cpb_removal_delay_length_minus1;
+                    dpb_output_delay_length_minus1 = x.dpb_output_delay_length_minus1;
+                }
+
+            private:
+                xxl_common();
+            };
             xxl*    NAL;
             xxl*    VCL;
+            xxl_common* xxL_Common;
             int32u  num_units_in_tick;
             int32u  time_scale;
             int16u  sar_width;
@@ -140,13 +175,15 @@ private :
             int8u   matrix_coefficients;
             bool    aspect_ratio_info_present_flag;
             bool    video_signal_type_present_flag;
+            bool    frame_field_info_present_flag;
             bool    colour_description_present_flag;
             bool    timing_info_present_flag;
 
-            vui_parameters_struct(xxl* NAL_, xxl* VCL_, int32u num_units_in_tick_, int32u time_scale_, int16u sar_width_, int16u sar_height_, int8u aspect_ratio_idc_, int8u video_format_, int8u colour_primaries_, int8u transfer_characteristics_, int8u matrix_coefficients_, bool aspect_ratio_info_present_flag_, bool video_signal_type_present_flag_, bool colour_description_present_flag_, bool timing_info_present_flag_)
+            vui_parameters_struct(xxl* NAL_, xxl* VCL_, xxl_common* xxL_Common_, int32u num_units_in_tick_, int32u time_scale_, int16u sar_width_, int16u sar_height_, int8u aspect_ratio_idc_, int8u video_format_, int8u colour_primaries_, int8u transfer_characteristics_, int8u matrix_coefficients_, bool aspect_ratio_info_present_flag_, bool video_signal_type_present_flag_, bool frame_field_info_present_flag_, bool colour_description_present_flag_, bool timing_info_present_flag_)
                 :
                 NAL(NAL_),
                 VCL(VCL_),
+                xxL_Common(xxL_Common_),
                 num_units_in_tick(num_units_in_tick_),
                 time_scale(time_scale_),
                 sar_width(sar_width_),
@@ -158,6 +195,7 @@ private :
                 matrix_coefficients(matrix_coefficients_),
                 aspect_ratio_info_present_flag(aspect_ratio_info_present_flag_),
                 video_signal_type_present_flag(video_signal_type_present_flag_),
+                frame_field_info_present_flag(frame_field_info_present_flag_),
                 colour_description_present_flag(colour_description_present_flag_),
                 timing_info_present_flag(timing_info_present_flag_)
             {
@@ -167,6 +205,7 @@ private :
             {
                 delete NAL; //NAL=NULL;
                 delete VCL; //VCL=NULL;
+                delete xxL_Common; //xxL_Common=NULL
             }
 
         private:
@@ -198,6 +237,9 @@ private :
         bool    general_frame_only_constraint_flag;
 
         //Computed value
+        bool    NalHrdBpPresentFlag() {return vui_parameters && vui_parameters->NAL;}
+        bool    VclHrdBpPresentFlag() {return vui_parameters && vui_parameters->VCL;}
+        bool    CpbDpbDelaysPresentFlag() {return vui_parameters && vui_parameters->xxL_Common;} //xxL_Common is present if NAL or VCL
         int8u   ChromaArrayType() {return separate_colour_plane_flag?0:chroma_format_idc;}
 
         //Constructor/Destructor
@@ -323,7 +365,11 @@ private :
     void end_of_bitstream();
     void filler_data();
     void sei();
-    void sei_message();
+    void sei_message(int32u &seq_parameter_set_id);
+    void sei_message_buffering_period(int32u &seq_parameter_set_id, int32u payloadSize);
+    void sei_message_buffering_period_xxl(seq_parameter_set_struct::vui_parameters_struct::xxl_common* xxL_Common, bool irap_cpb_params_present_flag, seq_parameter_set_struct::vui_parameters_struct::xxl* xxl);
+    void sei_message_pic_timing(int32u &seq_parameter_set_id, int32u payloadSize);
+    void sei_message_active_parameter_sets();
     void sei_message_decoded_picture_hash(int32u payloadSize);
 
     //Packets - SubElements
@@ -331,8 +377,8 @@ private :
     void profile_tier_level(int8u maxNumSubLayersMinus1);
     void short_term_ref_pic_sets(int8u num_short_term_ref_pic_sets);
     void vui_parameters(std::vector<video_parameter_set_struct*>::iterator video_parameter_set_Item, seq_parameter_set_struct::vui_parameters_struct* &vui_parameters_Item);
-    void hrd_parameters(bool commonInfPresentFlag, int8u maxNumSubLayersMinus1, seq_parameter_set_struct::vui_parameters_struct::xxl* &NAL, seq_parameter_set_struct::vui_parameters_struct::xxl* &VCL);
-    void sub_layer_hrd_parameters(bool sub_pic_hrd_params_present_flag, int8u bit_rate_scale, int8u cpb_size_scale, int32u cpb_cnt_minus1, seq_parameter_set_struct::vui_parameters_struct::xxl* &hrd_parameters_Item);
+    void hrd_parameters(bool commonInfPresentFlag, int8u maxNumSubLayersMinus1, seq_parameter_set_struct::vui_parameters_struct::xxl_common* &xxL_Common, seq_parameter_set_struct::vui_parameters_struct::xxl* &NAL, seq_parameter_set_struct::vui_parameters_struct::xxl* &VCL);
+    void sub_layer_hrd_parameters(seq_parameter_set_struct::vui_parameters_struct::xxl_common* xxL_Common, int8u bit_rate_scale, int8u cpb_size_scale, int32u cpb_cnt_minus1, seq_parameter_set_struct::vui_parameters_struct::xxl* &hrd_parameters_Item);
     void scaling_list_data();
 
     //Packets - Specific
