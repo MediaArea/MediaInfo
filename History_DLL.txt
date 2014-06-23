@@ -26,6 +26,7 @@ Version 0.7.70, 2014-
 + BMP: support of OS/2 headers
 + HLS: com.apple.streaming.transportStreamTimestamp support
 + ISM: ISMT / text (TTML) streams support
+x HEVC: some streams with VUI were not parsed
 x MPEG Video: was not correctly handling 1000:1001 frame rates and NDF time codes combination during frame count computing
 x XDCAM: information about the MXF header presence was not provided if MOV header has a glbl atom
 x Some specific C++11 code is removed for full compatibility with older C++

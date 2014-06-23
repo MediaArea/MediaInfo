@@ -2135,7 +2135,7 @@ void File_Hevc::hrd_parameters(bool commonInfPresentFlag, int8u maxNumSubLayersM
     for (int8u NumSubLayer=0; NumSubLayer<=maxNumSubLayersMinus1; NumSubLayer++)
     {
         int32u cpb_cnt_minus1=0;
-        bool fixed_pic_rate_general_flag, fixed_pic_rate_within_cvs_flag=false, low_delay_hrd_flag=false;
+        bool fixed_pic_rate_general_flag, fixed_pic_rate_within_cvs_flag=true, low_delay_hrd_flag=false;
         Get_SB (fixed_pic_rate_general_flag,                   "fixed_pic_rate_general_flag");
         if (!fixed_pic_rate_general_flag)
             Get_SB (fixed_pic_rate_within_cvs_flag,            "fixed_pic_rate_within_cvs_flag");
