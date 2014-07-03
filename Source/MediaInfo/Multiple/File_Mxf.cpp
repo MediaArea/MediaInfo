@@ -12659,6 +12659,20 @@ void File_Mxf::ChooseParser_Pcm(const essences::iterator &Essence, const descrip
 {
     Essence->second.StreamKind=Stream_Audio;
 
+    int8u Channels=0;
+    if (Descriptor!=Descriptors.end())
+    {
+        if (Descriptor->second.Infos.find("Channel(s)")!=Descriptor->second.Infos.end())
+            Channels=Descriptor->second.Infos["Channel(s)"].To_int8u();
+
+        //Handling some buggy cases
+        if (Channels>1 && Descriptor->second.BlockAlign!=(int16u)-1 && Descriptor->second.QuantizationBits!=(int32u)-1)
+        {
+            if (((int32u)Descriptor->second.BlockAlign)*8==Descriptor->second.QuantizationBits)
+                Descriptor->second.BlockAlign*=Channels; //BlockAlign is by channel, it should be by block.
+        }
+    }
+
     //Creating the parser
     #if defined(MEDIAINFO_PCM_YES)
         File_Pcm* Parser=new File_Pcm;
