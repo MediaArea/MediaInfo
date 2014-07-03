@@ -62,6 +62,9 @@ public :
     size_t Open (const ZenLib::int8u* Begin, size_t Begin_Size, const ZenLib::int8u* End=NULL, size_t End_Size=0, ZenLib::int64u File_Size=0);
     size_t Open_Buffer_Init (ZenLib::int64u File_Size=(ZenLib::int64u)-1, const String &File_Name=String());
     size_t Open_Buffer_Init (ZenLib::int64u File_Size, ZenLib::int64u File_Offset);
+    #if MEDIAINFO_ADVANCED2
+    size_t Open_Buffer_SegmentChange ();
+    #endif //MEDIAINFO_ADVANCED2
     std::bitset<32> Open_Buffer_Continue (const ZenLib::int8u* Buffer, size_t Buffer_Size);
     ZenLib::int64u Open_Buffer_Continue_GoTo_Get ();
     bool   Open_Buffer_Position_Set(int64u File_Offset);

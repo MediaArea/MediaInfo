@@ -1040,6 +1040,13 @@ void File_Avc::Synched_Init()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+#if MEDIAINFO_ADVANCED2
+void File_Avc::Read_Buffer_SegmentChange()
+{
+}
+#endif //MEDIAINFO_ADVANCED2
+
+//---------------------------------------------------------------------------
 void File_Avc::Read_Buffer_Unsynched()
 {
     //Temporal references
@@ -1889,6 +1896,12 @@ void File_Avc::slice_header()
                     FrameInfo.PTS=FrameInfo.DTS+tc*(TemporalReferences_Offset_pic_order_cnt_lsb_Diff?2:1)*((!(*seq_parameter_set_Item)->frame_mbs_only_flag && field_pic_flag)?2:1); //No PTS in container
                 PTS_Begin=FrameInfo.PTS;
             }
+            #if MEDIAINFO_ADVANCED2
+                if (PTS_Begin_Segment==(int64u)-1 && File_Offset>=Config->File_Current_Offset)
+                {
+                    PTS_Begin_Segment=FrameInfo.PTS;
+                }
+            #endif //MEDIAINFO_ADVANCED2
             if (slice_type==2 || slice_type==7) //IFrame
                 FirstPFrameInGop_IsParsed=false;
         }

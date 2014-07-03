@@ -354,6 +354,9 @@ private :
     #endif //MEDIAINFO_DEMUX
 
     //Buffer - Global
+    #if MEDIAINFO_ADVANCED2
+    void Read_Buffer_SegmentChange();
+    #endif //MEDIAINFO_ADVANCED2
     void Read_Buffer_Unsynched();
 
     //Buffer - Per element

@@ -2536,6 +2536,19 @@ void File_MpegTs::Header_Parse_Events_Duration(int64u program_clock_reference)
 #endif //MEDIAINFO_EVENTS
 
 //---------------------------------------------------------------------------
+#if MEDIAINFO_ADVANCED2
+void File_MpegTs::Read_Buffer_SegmentChange()
+{
+    if (Complete_Stream==NULL || Complete_Stream->Streams.empty())
+        return;
+
+    for (size_t StreamID=0; StreamID<0x2000; StreamID++)//std::map<int64u, stream>::iterator Stream=Streams.begin(); Stream!=Streams.end(); Stream++)
+        if (Complete_Stream->Streams[StreamID]->Parser)
+            Complete_Stream->Streams[StreamID]->Parser->Open_Buffer_SegmentChange();
+}
+#endif //MEDIAINFO_ADVANCED2
+
+//---------------------------------------------------------------------------
 void File_MpegTs::Data_Parse()
 {
     //Counting

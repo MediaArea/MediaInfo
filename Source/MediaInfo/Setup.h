@@ -194,6 +194,16 @@
         #define MEDIAINFO_ADVANCED 1
     #endif
 #endif
+#if !defined(MEDIAINFO_ADVANCED2) //ADVANCED2 is for optional build during defualt build
+    #if defined(MEDIAINFO_ADVANCED2_NO) && defined(MEDIAINFO_ADVANCED2_YES)
+        #undef MEDIAINFO_ADVANCED2_NO //MEDIAINFO_ADVANCED2_YES has priority
+    #endif
+    #if defined(MEDIAINFO_ADVANCED2_YES)
+        #define MEDIAINFO_ADVANCED2 1
+    #else
+        #define MEDIAINFO_ADVANCED2 0
+    #endif
+#endif
 #if !defined(MEDIAINFO_MD5)
     #if defined(MEDIAINFO_MD5_NO) && defined(MEDIAINFO_MD5_YES)
         #undef MEDIAINFO_MD5_NO //MEDIAINFO_MD5_YES has priority

@@ -323,6 +323,18 @@ struct MediaInfo_Event_Video_SliceInfo_0
 #define MediaInfo_Parser_Video          0x01
 
 /*-------------------------------------------------------------------------*/
+/* SubFile_Missing                                                         */
+#define MediaInfo_Event_General_SubFile_Missing 0x1F01
+struct MediaInfo_Event_General_SubFile_Missing_0
+{
+    MEDIAINFO_EVENT_GENERIC
+    const char*             FileName_Relative;
+    const wchar_t*          FileName_Relative_Unicode;
+    const char*             FileName_Absolute;
+    const wchar_t*          FileName_Absolute_Unicode;
+};
+
+/*-------------------------------------------------------------------------*/
 /* Start                                                                   */
 #define MediaInfo_Event_General_Start 0x7001
 struct MediaInfo_Event_General_Start_0

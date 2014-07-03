@@ -910,6 +910,26 @@ void File_MpegPs::Read_Buffer_Init()
 }
 
 //---------------------------------------------------------------------------
+#if MEDIAINFO_ADVANCED2
+void File_MpegPs::Read_Buffer_SegmentChange()
+{
+    if (!Streams.empty())
+        for (size_t StreamID=0; StreamID<0x100; StreamID++)
+        {
+            for (size_t Pos=0; Pos<Streams[StreamID].Parsers.size(); Pos++)
+                if (Streams[StreamID].Parsers[Pos])
+                    Streams[StreamID].Parsers[Pos]->Open_Buffer_SegmentChange();
+            for (size_t Pos=0; Pos<Streams_Private1[StreamID].Parsers.size(); Pos++)
+                if (Streams_Private1[StreamID].Parsers[Pos])
+                    Streams_Private1[StreamID].Parsers[Pos]->Open_Buffer_SegmentChange();
+            for (size_t Pos=0; Pos<Streams_Extension[StreamID].Parsers.size(); Pos++)
+                if (Streams_Extension[StreamID].Parsers[Pos])
+                    Streams_Extension[StreamID].Parsers[Pos]->Open_Buffer_SegmentChange();
+        }
+}
+#endif //MEDIAINFO_ADVANCED2
+
+//---------------------------------------------------------------------------
 void File_MpegPs::Read_Buffer_Unsynched()
 {
     Searching_TimeStamp_Start=false;

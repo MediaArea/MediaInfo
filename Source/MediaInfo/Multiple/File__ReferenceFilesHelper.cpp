@@ -548,7 +548,6 @@ void File__ReferenceFilesHelper::ParseReferences()
                 Reference->FileNames=AbsoluteNames;
             else
             {
-                Reference->FileNames.clear();
                 Reference->Status.set(File__Analyze::IsFinished);
                 if (Reference->StreamKind!=Stream_Max && !Reference->Source.empty())
                 {
@@ -836,6 +835,8 @@ bool File__ReferenceFilesHelper::ParseReference_Init()
         #endif //MEDIAINFO_EVENTS
         if (!Reference->MI->Open(Reference->FileNames.Read()))
         {
+            if (Reference->StreamKind!=Stream_Max)
+                MI->Fill(Reference->StreamKind, Reference->StreamPos, "Source_Info", "Missing");
             if (!Config->File_KeepInfo_Get())
             {
                 #if MEDIAINFO_DEMUX
@@ -847,7 +848,6 @@ bool File__ReferenceFilesHelper::ParseReference_Init()
                 Reference->FileSize=Reference->MI->Config.File_Size;
                 delete Reference->MI; Reference->MI=NULL;
             }
-            Reference->FileNames.clear();
             Reference->Status.set(File__Analyze::IsFinished);
         }
 

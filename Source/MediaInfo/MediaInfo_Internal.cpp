@@ -759,6 +759,18 @@ size_t MediaInfo_Internal::Open_Buffer_Init (int64u File_Size_, int64u File_Offs
 }
 
 //---------------------------------------------------------------------------
+#if MEDIAINFO_ADVANCED2
+size_t MediaInfo_Internal::Open_Buffer_SegmentChange ()
+{
+    MEDIAINFO_DEBUG_CONFIG_TEXT(Debug+=__T("Open_Buffer_SegmentChange"))
+
+    Info->Open_Buffer_SegmentChange();
+
+    return 1;
+}
+#endif //MEDIAINFO_ADVANCED2
+
+//---------------------------------------------------------------------------
 void MediaInfo_Internal::Open_Buffer_Unsynch ()
 {
     MEDIAINFO_DEBUG_CONFIG_TEXT(Debug+=__T("Open_Buffer_Unsynch");)

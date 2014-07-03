@@ -38,6 +38,9 @@ public :
     #if MEDIAINFO_SEEK
     size_t  Open_Buffer_Seek        (size_t Method, int64u Value, int64u ID);
     #endif //MEDIAINFO_SEEK
+    #if MEDIAINFO_ADVANCED2
+    void    Open_Buffer_SegmentChange();
+    #endif //MEDIAINFO_ADVANCED2
     void    Open_Buffer_Unsynch     ();
     void    Open_Buffer_Update      ();
     void    Open_Buffer_Update      (File__Analyze* Sub);
@@ -115,6 +118,9 @@ public :
 
     //Out
     int64u PTS_Begin;                  //In nanoseconds
+    #if MEDIAINFO_ADVANCED2
+    int64u PTS_Begin_Segment;          //In nanoseconds
+    #endif //MEDIAINFO_ADVANCED2
     int64u PTS_End;                    //In nanoseconds
     int64u DTS_Begin;                  //In nanoseconds
     int64u DTS_End;                    //In nanoseconds
@@ -162,6 +168,9 @@ protected :
     virtual size_t Read_Buffer_Seek (size_t, int64u, int64u); //Temp, should be in File__Base caller
     size_t Read_Buffer_Seek_OneFramePerFile (size_t, int64u, int64u);
     #endif //MEDIAINFO_SEEK
+    #if MEDIAINFO_ADVANCED2
+    virtual void Read_Buffer_SegmentChange () {}; //Temp, should be in File__Base caller
+    #endif //MEDIAINFO_ADVANCED2
     virtual void Read_Buffer_Unsynched ()     {}; //Temp, should be in File__Base caller
     void Read_Buffer_Unsynched_OneFramePerFile ();
     virtual void Read_Buffer_Finalize ()      {}; //Temp, should be in File__Base caller

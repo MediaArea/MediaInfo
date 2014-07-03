@@ -88,6 +88,9 @@ File__Analyze::File__Analyze ()
     #endif //MEDIAINFO_DEMUX
     PTS_DTS_Needed=false;
     PTS_Begin=(int64u)-1;
+    #if MEDIAINFO_ADVANCED2
+        PTS_Begin_Segment=(int64u)-1;
+    #endif //MEDIAINFO_ADVANCED2
     PTS_End=0;
     DTS_Begin=(int64u)-1;
     DTS_End=0;
@@ -984,6 +987,14 @@ void File__Analyze::Open_Buffer_Position_Set (int64u File_Offset_)
     File_Offset=File_Offset_-Buffer_Temp_Size;
     File_GoTo=(int64u)-1;
 }
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_ADVANCED2
+void File__Analyze::Open_Buffer_SegmentChange ()
+{
+    Read_Buffer_SegmentChange();
+}
+#endif //MEDIAINFO_ADVANCED2
 
 //---------------------------------------------------------------------------
 void File__Analyze::Open_Buffer_Unsynch ()

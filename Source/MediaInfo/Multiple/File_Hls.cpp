@@ -147,22 +147,24 @@ bool File_Hls::FileHeader_Begin()
     {
         if (!Lines[Line].empty())
         {
-            if (Lines[Line].find(__T("#EXT-X-STREAM-INF"))==0)
+            if (Lines[Line].find(__T("#EXT-X-STREAM-INF:"))==0)
+            {
                 IsGroup=true;
+            }
             else if (Lines[Line][0]==__T('#'))
                 ;
             else
             {
                 if (IsGroup)
                 {
-                    File__ReferenceFilesHelper::reference ReferenceStream;
-                    ReferenceStream.FileNames.push_back(Lines[Line]);
-                    ReferenceStream.StreamID=ReferenceFiles->References.size()+1;
-                    ReferenceFiles->References.push_back(ReferenceStream);
+                    ReferenceFile.FileNames.push_back(Lines[Line]);
+                    ReferenceFile.StreamID=ReferenceFiles->References.size()+1;
+                    ReferenceFiles->References.push_back(ReferenceFile);
                     IsGroup=false;
+                    ReferenceFile=File__ReferenceFilesHelper::reference();
                     #if MEDIAINFO_EVENTS
                         ParserIDs[0]=MediaInfo_Parser_HlsIndex;
-                        StreamIDs_Width[0]=sizeof(size_t)*2;
+                        StreamIDs_Width[0]=sizeof(size_t);
                     #endif //MEDIAINFO_EVENTS
                 }
                 else
@@ -171,10 +173,14 @@ bool File_Hls::FileHeader_Begin()
         }
     }
 
-    if (ReferenceFiles->References.empty())
+    if (!ReferenceFile.FileNames.empty())
     {
         ReferenceFiles->References.push_back(ReferenceFile);
-        ReferenceFiles->TestContinuousFileNames=true;
+        Fill(Stream_General, 0, General_Format_Profile, "Media");
+    }
+    else
+    {
+        Fill(Stream_General, 0, General_Format_Profile, "Master");
     }
 
     Element_Offset=File_Size;
