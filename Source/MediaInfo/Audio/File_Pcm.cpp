@@ -78,6 +78,7 @@ File_Pcm::File_Pcm()
     //In
     Frame_Count_Valid=4;
     BitDepth=0;
+    BitDepth_Significant=0;
     Channels=0;
     SamplingRate=0;
     Endianness='\0';
@@ -212,7 +213,12 @@ void File_Pcm::Streams_Fill()
     Fill(Stream_Audio, 0, Audio_Codec_Settings_ITU, ITU);
 
     //BitDepth
-    if (BitDepth)
+    if (BitDepth_Significant)
+    {
+        Fill(Stream_Audio, 0, Audio_BitDepth, BitDepth_Significant);
+        Fill(Stream_Audio, 0, Audio_BitDepth_Stored, BitDepth);
+    }
+    else if (BitDepth)
         Fill(Stream_Audio, 0, Audio_BitDepth, BitDepth);
 
     //Channels

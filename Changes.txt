@@ -2,6 +2,10 @@ I changed some elements in the interface.
 No break in binary compatibily (no crash), but some details.
 
 
+0.7.69 --> 0.7.70
+-----------------
+- BitDepth: for very rare MXF containing PCM having quantization bits not same as stored bit depth, Stored bit depth has moved from "BitDepth" to "BitDepth_Stored". "BitDepth is the quantization bits value.
+
 0.7.64 --> 0.7.65
 -----------------
 - DCP AssetMap: format name changed fro "DCP" to "DCP AM", in order to differentiate AM from PKL and CPL

@@ -837,6 +837,8 @@ enum audio
     Audio_Resolution_String,
     Audio_BitDepth,
     Audio_BitDepth_String,
+    Audio_BitDepth_Stored,
+    Audio_BitDepth_Stored_String,
     Audio_Compression_Mode,
     Audio_Compression_Mode_String,
     Audio_Compression_Ratio,

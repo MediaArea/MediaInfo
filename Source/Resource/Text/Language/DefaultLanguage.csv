@@ -178,6 +178,7 @@ BarCode;BarCode
 Basic;Basic
 Basic_Note;Note : for more information about this file, you must select a different view (Sheet, Tree...)
 BitDepth;Bit depth
+BitDepth_Stored;Stored bit depth
 BitRate;Bit rate
 BitRate_Maximum;Maximum bit rate
 BitRate_Minimum;Minimum bit rate
@@ -950,7 +951,7 @@ Source_StreamSize_Encoded;Source encoded stream size
 Standard;Standard
 StoreMethod_InterleavedFields;Interleaved fields
 StoreMethod_SeparatedFields;Separated fields
-StoreMethod_SeparatedFields_1;Separated fields (1 fields per block)
+StoreMethod_SeparatedFields_1;Separated fields (1 field per block)
 StoreMethod_SeparatedFields_2;Separated fields (2 fields per block)
 Stream;Stream
 Stream_MoreInfo;More information about the stream
