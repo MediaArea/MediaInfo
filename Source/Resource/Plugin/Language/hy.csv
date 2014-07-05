@@ -178,6 +178,7 @@ BarCode;Կոդը
 Basic;Կարճ
 Basic_Note;Ուշադր. լրացուցիչ տեղեկությունների համար ընտրեք այլ տարբերակ (աղյուսակ, ծառի տեսքով,...)
 BitDepth;Բիթայնությունը
+BitDepth_Stored;
 BitRate;Բիթրեյթը
 BitRate_Maximum;Առավելագույն բիթրեյթը
 BitRate_Minimum;Նվազագույն բիթրեյթը

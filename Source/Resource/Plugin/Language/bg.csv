@@ -178,6 +178,7 @@ BarCode;Баркод
 Basic;Основен
 Basic_Note;Основен_Забележка
 BitDepth;БитДълбочина
+BitDepth_Stored;
 BitRate;БитРейт
 BitRate_Maximum;Максимален_БитРейт
 BitRate_Minimum;Минимален_БитРейт

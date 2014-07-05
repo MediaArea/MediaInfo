@@ -178,6 +178,7 @@ BarCode; Streckkod
 Basic; Enkel
 Basic_Note; OBS: För mer information om den här filen, måste du välja en annan vy (Tabell, Träd...)
 BitDepth;
+BitDepth_Stored;
 BitRate; Bitrate
 BitRate_Maximum;
 BitRate_Minimum;

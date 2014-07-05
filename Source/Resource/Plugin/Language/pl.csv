@@ -178,6 +178,7 @@ BarCode;Kod kreskowy
 Basic;Podstawowy
 Basic_Note;Uwaga: Aby uzyskać więcej informacji musisz wybrać inny widok (Karta, Drzewo...)
 BitDepth;
+BitDepth_Stored;
 BitRate;Przepływność bitów
 BitRate_Maximum;Przwpływność maksymalna
 BitRate_Minimum;Przepływność minimalna

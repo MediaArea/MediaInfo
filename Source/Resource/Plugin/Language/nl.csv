@@ -178,6 +178,7 @@ BarCode;Streepjescode
 Basic;Elementair
 Basic_Note;Let op : voor meer informatie over dit bestand, moet u een ander beeld kiezen (Blad, Boomstructuur,...)
 BitDepth;
+BitDepth_Stored;
 BitRate;Bitrate
 BitRate_Maximum;Maximale bitrate
 BitRate_Minimum;Minimale bitrate

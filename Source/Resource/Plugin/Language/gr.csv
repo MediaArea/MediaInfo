@@ -178,6 +178,7 @@ BarCode;BarCode
 Basic;Βασική
 Basic_Note;Σημείωση : για περισσότερες πληροφορίες σχετικά με το αρχείο, επιλέξτε διαφορετική προβολή (Φύλλο, Δένδρο...)
 BitDepth;
+BitDepth_Stored;
 BitRate;Ρυθμός μετάδοσης δεδομένων
 BitRate_Maximum;
 BitRate_Minimum;

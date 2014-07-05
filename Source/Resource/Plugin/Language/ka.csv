@@ -178,6 +178,7 @@ BarCode;BarCode
 Basic;ძირითადი
 Basic_Note;შენიშვნა : ამ ფაილის მეტი ინფორმაციის გასაგებად თქვენ უნდა აირჩიოთ განსხვავებული ხედვის ტიპი (Sheet, Tree...)
 BitDepth;Bit depth
+BitDepth_Stored;
 BitRate;ბიტ რეიტი
 BitRate_Maximum;მაქსიმალური ბიტ რეიტი
 BitRate_Minimum;მინიმალური ბიტ  რეიტი

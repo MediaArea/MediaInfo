@@ -178,6 +178,7 @@ BarCode;BarCode
 Basic;Základné
 Basic_Note;Info : Pre viac detailov vyberte iný režim zobrazenia (List, Strom...)
 BitDepth;
+BitDepth_Stored;
 BitRate;Dátový tok
 BitRate_Maximum;Maximálny dátový tok
 BitRate_Minimum;Minimálny dátový tok

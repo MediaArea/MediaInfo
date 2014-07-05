@@ -178,6 +178,7 @@ BarCode;Stregkode
 Basic;Grundlæggende
 Basic_Note;Bemærk : for mere information om denne fil, skal du vælge en anden visning (Ark, Træstruktur..)
 BitDepth;Bitdybde
+BitDepth_Stored;
 BitRate;Bitrate
 BitRate_Maximum;Maksimum bitrate
 BitRate_Minimum;Minimum bitrate

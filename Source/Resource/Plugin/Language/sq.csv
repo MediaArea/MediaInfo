@@ -178,6 +178,7 @@ BarCode;BarCode
 Basic;Kryesor
 Basic_Note;Shënim : për më shumë info rreth skedës, mund të zgjidhet një pamje tjetër (Fletë, Pemë...)
 BitDepth;
+BitDepth_Stored;
 BitRate;Raporti i bitit
 BitRate_Maximum;Raporti maksimal i bitit
 BitRate_Minimum;Raporti minimal i bitit

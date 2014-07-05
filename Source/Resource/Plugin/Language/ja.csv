@@ -178,6 +178,7 @@ BarCode;バーコード
 Basic;基本
 Basic_Note;メモ : ファイルについてのさらなる情報は別のビューで開かねばなりません(シート、ツリー...)
 BitDepth;
+BitDepth_Stored;
 BitRate;ビットレート
 BitRate_Maximum;最大
 BitRate_Minimum;最小

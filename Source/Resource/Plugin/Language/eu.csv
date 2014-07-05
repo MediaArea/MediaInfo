@@ -178,6 +178,7 @@ BarCode;BarraKodea
 Basic;Ohinarrizkoa
 Basic_Note;Oharra: Agiri honi buruzko argibide gehiagorako, ikuspegi ezberdin bat hautatu behar duzu (Orria, Zuhaitza...)
 BitDepth;Bit sakonera
+BitDepth_Stored;
 BitRate;Bit neurria
 BitRate_Maximum;Gehinezko bit neurria
 BitRate_Minimum;Gutxienezko bit neurria

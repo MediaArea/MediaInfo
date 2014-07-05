@@ -178,6 +178,7 @@ BarCode;Codice a barre
 Basic;Semplice
 Basic_Note;Nota: per maggiori informazioni seleziona Scheda, Albero....
 BitDepth;Profondità bit
+BitDepth_Stored;
 BitRate;Bitrate
 BitRate_Maximum;Bitrate massimo
 BitRate_Minimum;Bitrate minimo

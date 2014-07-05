@@ -178,6 +178,7 @@ BarCode;Brūkšninis kodas
 Basic;Įprastas
 Basic_Note;Pastaba : jei norite daugiau informacijos apie failą, turite pasirinkti kitą rodymą, (Lapas, Medis...)
 BitDepth;
+BitDepth_Stored;
 BitRate;Bitų tempas
 BitRate_Maximum;Maksimalus bitų tempas
 BitRate_Minimum;Minimalus bitų tempas

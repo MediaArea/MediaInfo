@@ -178,6 +178,7 @@ BarCode;Штрихкод
 Basic;Стисло
 Basic_Note;Примітка: Для додаткової інформації оберіть інший вигляд (Таблиця, Дерево,...)
 BitDepth;Бітова глибина
+BitDepth_Stored;
 BitRate;Бітрейт
 BitRate_Maximum;Максимальний бітрейт
 BitRate_Minimum;Мінімальний бітрейт

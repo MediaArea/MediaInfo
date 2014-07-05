@@ -178,6 +178,7 @@ BarCode;條碼
 Basic;基本
 Basic_Note;注意: 想知道更多關於此檔案的資訊, 您得選擇不同的視點 (表格, 樹狀圖 ...)
 BitDepth;
+BitDepth_Stored;
 BitRate;流量
 BitRate_Maximum;最大流量
 BitRate_Minimum;最小流量

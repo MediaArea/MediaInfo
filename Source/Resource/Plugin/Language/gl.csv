@@ -178,6 +178,7 @@ BarCode;Código de Barras
 Basic;Básico
 Basic_Note;Nota : para máis información sobre este arquivo selecciona outra vista (Folla, Árbore...)
 BitDepth;
+BitDepth_Stored;
 BitRate;Bit rate
 BitRate_Maximum;BitRate máximo
 BitRate_Minimum;BitRate mínimo

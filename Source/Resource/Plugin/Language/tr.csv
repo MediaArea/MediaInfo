@@ -178,6 +178,7 @@ BarCode;BarKod
 Basic;Temel
 Basic_Note;Not : Bu dosya hakkında daha fazla bilgi için farklı görünüm seçmelisiniz (Sayfa, Ağaç...)
 BitDepth;Bit yoğunluğu
+BitDepth_Stored;
 BitRate;Bit oranı
 BitRate_Maximum;En fazla bit oranı
 BitRate_Minimum;En az bit oranı

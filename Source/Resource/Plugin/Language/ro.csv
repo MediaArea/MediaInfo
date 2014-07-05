@@ -178,6 +178,7 @@ BarCode;Cod de bare
 Basic;Principal
 Basic_Note;Nota: pentru mai multe informatii despre acest fisier, tebuie sa selectati modul avansat
 BitDepth;
+BitDepth_Stored;
 BitRate;
 BitRate_Maximum;
 BitRate_Minimum;
@@ -1036,4 +1037,4 @@ WrittenBy;Scris de
 Yes;Da
 Your system;Sistemul dvs
 ZZ_Automatic_Percent;32
-ZZ_AutomaticLanguage_Percent;73
+ZZ_AutomaticLanguage_Percent;72

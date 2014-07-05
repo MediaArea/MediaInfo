@@ -178,6 +178,7 @@ BarCode;条形码
 Basic;基本
 Basic_Note;注意: 要了解更多关于此文件的信息, 请选择不同的视图 (表格, 树状图 ...)
 BitDepth;位深度
+BitDepth_Stored;
 BitRate;码率
 BitRate_Maximum;最大码率
 BitRate_Minimum;最小码率

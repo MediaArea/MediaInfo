@@ -178,6 +178,7 @@ BarCode;Code-barre
 Basic;Basique
 Basic_Note;Note : pour plus d'informations sur ce fichier, vous devez utiliser une vue différente (Tableau, Arbre...)
 BitDepth;Profondeur des couleurs
+BitDepth_Stored;Profondeur stockée des couleurs
 BitRate;Débit
 BitRate_Maximum;Débit maximum
 BitRate_Minimum;Débit minimum

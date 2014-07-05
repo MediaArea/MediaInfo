@@ -178,6 +178,7 @@ BarCode;บาร์โค้ด
 Basic;พื้นฐาน
 Basic_Note;หมายเหตุ : สำหรับข้อมูลเพิ่มเติมเกี่ยวกับไฟล์นี้, คุณต้องเลือกการแสดงแบบอื่นๆ (ชีต, Tree...)
 BitDepth;
+BitDepth_Stored;
 BitRate;บิตเรต
 BitRate_Maximum;บิตเรตสูงสุด
 BitRate_Minimum;บิตเรตต่ำสุด
@@ -1035,5 +1036,5 @@ Written_Location;สถานที่เขียน
 WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
-ZZ_Automatic_Percent;79
+ZZ_Automatic_Percent;78
 ZZ_AutomaticLanguage_Percent;87

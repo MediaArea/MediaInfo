@@ -178,6 +178,7 @@ BarCode;바코드
 Basic;기본
 Basic_Note;노트 : 이 파일에 관한 더 자세한 정보를 원하시면 다른 보기를 선택하세요(시트, 트리...)
 BitDepth;
+BitDepth_Stored;
 BitRate;비트레이트
 BitRate_Maximum;최고 비트레이트
 BitRate_Minimum;최소 비트레이트

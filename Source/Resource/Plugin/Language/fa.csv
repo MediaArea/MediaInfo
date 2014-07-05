@@ -178,6 +178,7 @@ BarCode;بارکد
 Basic;اولیه
 Basic_Note;برای اطلاعات بیشتر اینجا را کلیک کنید
 BitDepth;
+BitDepth_Stored;
 BitRate;نرخ بيت
 BitRate_Maximum;بیشترین نرخ بيت
 BitRate_Minimum;کمترین نرخ بيت

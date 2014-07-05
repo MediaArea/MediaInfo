@@ -178,6 +178,7 @@ BarCode;Crtičasti kôd
 Basic;Osnovno
 Basic_Note;Napomena: za više informacija o ovoj datoteci morate odabrati različite prikaze (tabela, stablo...)
 BitDepth;
+BitDepth_Stored;
 BitRate;Stopa protoka podataka
 BitRate_Maximum;Maksimum protoka podataka
 BitRate_Minimum;Minimum protoka podataka

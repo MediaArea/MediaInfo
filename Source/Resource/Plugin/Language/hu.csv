@@ -178,6 +178,7 @@ BarCode;Vonalkód
 Basic;Egyszerű
 Basic_Note;Megjegyzés: a többi nézet (Táblázat, Fa ...) bővebb adatokat mutat a fájlról
 BitDepth;
+BitDepth_Stored;
 BitRate;Adatsebesség
 BitRate_Maximum;Legnagyobb adatsebesség
 BitRate_Minimum;Legkisebb adatsebesség
@@ -1035,5 +1036,5 @@ Written_Location;Írás helye
 WrittenBy;Írta
 Yes;igen
 Your system;Rendszer
-ZZ_Automatic_Percent;83
+ZZ_Automatic_Percent;82
 ZZ_AutomaticLanguage_Percent;93

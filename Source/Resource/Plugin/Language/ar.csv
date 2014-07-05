@@ -178,6 +178,7 @@ BarCode;باركود
 Basic;أساسي
 Basic_Note;ملاحظة : لمزيد من المعلومات حول هذا الملف ، يجب استخدام وجهة نظر مختلفة (جدول ، شجرة...)
 BitDepth;عمق الألوان
+BitDepth_Stored;
 BitRate;صبيب
 BitRate_Maximum;أقصى صبيب
 BitRate_Minimum;أدنى صبيب
@@ -1035,5 +1036,5 @@ Written_Location;مكان الكتابة
 WrittenBy;كتبها
 Yes;نعم
 Your system;نظامك
-ZZ_Automatic_Percent;92
+ZZ_Automatic_Percent;91
 ZZ_AutomaticLanguage_Percent;96

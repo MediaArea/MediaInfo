@@ -178,6 +178,7 @@ BarCode;Штрыхкод
 Basic;Каротка
 Basic_Note;Падказка: для дадатковай інфармацыі абярыце іншую закладку (Табліца, Дрэва,...)
 BitDepth;
+BitDepth_Stored;
 BitRate;Бітрэйт
 BitRate_Maximum;Максімальны бітрэйт
 BitRate_Minimum;Мінімальны бітрэйт
