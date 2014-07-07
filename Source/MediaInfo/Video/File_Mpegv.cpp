@@ -1366,9 +1366,9 @@ void File_Mpegv::Streams_Fill()
         Fill(Stream_Video, 0, Video_Encoded_Library, Library);
         Fill(Stream_Video, 0, Video_Encoded_Library_Name, Library_Name);
         Fill(Stream_Video, 0, Video_Encoded_Library_Version, Library_Version);
-        Fill(Stream_Video, 0, General_Encoded_Library, Library);
-        Fill(Stream_Video, 0, General_Encoded_Library_Name, Library_Name);
-        Fill(Stream_Video, 0, General_Encoded_Library_Version, Library_Version);
+        Fill(Stream_General, 0, General_Encoded_Library, Library);
+        Fill(Stream_General, 0, General_Encoded_Library_Name, Library_Name);
+        Fill(Stream_General, 0, General_Encoded_Library_Version, Library_Version);
     }
 
     //Delay
