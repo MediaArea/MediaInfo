@@ -2486,7 +2486,8 @@ void File_Mpegv::slice_start()
         if (PTS_LastIFrame!=(int64u)-1)
         {
             FrameInfo.PTS=PTS_LastIFrame+(temporal_reference-temporal_reference_LastIFrame)*tc;
-            if (PTS_Begin==(int64u)-1 && picture_coding_type==1) //IFrame
+            if ((PTS_Begin==(int64u)-1 && picture_coding_type==1) //IFrame
+             || (IFrame_Count<2 && group_start_IsParsed && group_start_closed_gop && FrameInfo.PTS<PTS_Begin))
                 PTS_Begin=FrameInfo.PTS;
         }
 
