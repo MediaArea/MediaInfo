@@ -381,7 +381,7 @@ struct complete_stream
         #endif //MEDIAINFO_IBI
         #if defined(MEDIAINFO_EIA608_YES) || defined(MEDIAINFO_EIA708_YES)
             File__Analyze::servicedescriptors ServiceDescriptors;
-            bool                              ServiceDescriptors_IsPresent;  
+            bool                              ServiceDescriptors_IsPresent;
         #endif
 
         //Constructor/Destructor
@@ -448,7 +448,7 @@ struct complete_stream
                 Ibi_SynchronizationOffset_BeginOfFrame=(int64u)-1;
             #endif //MEDIAINFO_IBI
             #if defined(MEDIAINFO_EIA608_YES) || defined(MEDIAINFO_EIA708_YES)
-                ServiceDescriptors_IsPresent=false;  
+                ServiceDescriptors_IsPresent=false;
             #endif
         }
 

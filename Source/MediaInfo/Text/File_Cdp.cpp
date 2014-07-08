@@ -573,7 +573,7 @@ void File_Cdp::CreateStream(int8u Parser_Pos)
     #else //defined(MEDIAINFO_EIA608_YES) || defined(MEDIAINFO_EIA708_YES)
         Streams[Parser_Pos]->Parser=new File__Analyze();
     #endif //defined(MEDIAINFO_EIA608_YES) || defined(MEDIAINFO_EIA708_YES)
-    
+
     //Init
     Streams[Parser_Pos]->Parser->ServiceDescriptors=ServiceDescriptors;
     Open_Buffer_Init(Streams[Parser_Pos]->Parser);

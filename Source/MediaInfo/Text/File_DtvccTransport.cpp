@@ -202,7 +202,7 @@ void File_DtvccTransport::Read_Buffer_Continue()
         {
             if (Element_Offset+3>Element_Size)
                 break; //Found one stream with bad cc_count, we discard cc_count without flagging the stream as untrusted for the moment
-            
+
             Element_Begin1("cc");
             int8u cc_type;
             bool  cc_valid;
@@ -358,7 +358,7 @@ void File_DtvccTransport::CreateStream(int8u Parser_Pos)
     #else //defined(MEDIAINFO_EIA608_YES) || defined(MEDIAINFO_EIA708_YES)
         Streams[Parser_Pos]->Parser=new File__Analyze();
     #endif //defined(MEDIAINFO_EIA608_YES) || defined(MEDIAINFO_EIA708_YES)
-    
+
     //Init
     Streams[Parser_Pos]->Parser->ServiceDescriptors=ServiceDescriptors;
     Open_Buffer_Init(Streams[Parser_Pos]->Parser);

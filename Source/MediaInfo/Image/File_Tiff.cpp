@@ -351,7 +351,7 @@ void File_Tiff::Data_Parse_Fill()
             if (IsOk)
                 Info->second.resize(1); //They are all same, we display 1 piece of information
         }
-            
+
         Fill(Stream_Image, StreamPos_Last, Image_BitDepth, Info->second.Read());
     }
 

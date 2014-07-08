@@ -585,7 +585,7 @@ void File_Id3v2::Data_Parse()
 
     #define CASE_INFO(_NAME, _DETAIL) \
         case Elements::_NAME : Element_Info1(_DETAIL); _NAME(); break;
-    
+
     //Parsing
     Element_Value.clear();
     Element_Values.clear();

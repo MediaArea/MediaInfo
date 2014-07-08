@@ -298,7 +298,7 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
 {
     if (MI == NULL)
         return 0;
-    
+
     bool StopAfterFilled=MI->Config.File_StopAfterFilled_Get();
     bool ShouldContinue=true;
     if (MI->Info)

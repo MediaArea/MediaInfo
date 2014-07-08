@@ -2813,7 +2813,7 @@ void File_Mpeg_Descriptors::Descriptor_86()
         {
             Skip_S1(5,                                          "reserved");
             Get_SB (   line21_field,                            "line21_field");
-            
+
             //Coherency test
             if (line21_field && number_of_services==1)
                 line21_field=false; // Wrong info in the descriptor?

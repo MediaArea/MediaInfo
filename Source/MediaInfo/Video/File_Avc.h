@@ -70,7 +70,7 @@ private :
                         //initial_cpb_removal_delay_offset(initial_cpb_removal_delay_offset_)
                     {
                     }
-                    
+
                     xxl_data &operator=(const xxl_data &x)
                     {
                         bit_rate_value=x.bit_rate_value;
@@ -251,7 +251,7 @@ private :
         {
             switch (pic_order_cnt_type)
             {
-                case 0 : 
+                case 0 :
                             MaxPicOrderCntLsb = (int32u)std::pow(2.0, (int)(log2_max_pic_order_cnt_lsb_minus4 + 4));
                             MaxFrameNum = (int32u)-1; //Unused
                             break;

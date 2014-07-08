@@ -112,7 +112,7 @@ protected :
             TimeStamp_Begin=TimeStamp_Begin_;
             TimeStamp_End=TimeStamp_End_;
             Duration=Duration_;
-            Duration_First = (int64u)-1; 
+            Duration_First = (int64u)-1;
             PictureType = PictureType_;
         }
     };
