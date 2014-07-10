@@ -2407,7 +2407,6 @@ void File_Riff::AVI__movi_xxxx()
             Element_Code=((Element_Code_Old>>24)&0xF)*10+((Element_Code_Old>>16)&0xF);
             Frame_Count_NotParsedIncluded=Stream[Stream_ID].PacketPos;
             FrameInfo.DTS=Frame_Count_NotParsedIncluded*1000000000*Stream[Stream_ID].Scale/Stream[Stream_ID].Rate;
-            Element_Code=Stream_ID;
             Demux(Buffer+Buffer_Offset, (size_t)Element_Size, ContentType_MainStream);
             Element_Code=Element_Code_Old;
             Frame_Count_NotParsedIncluded=(int64u)-1;
