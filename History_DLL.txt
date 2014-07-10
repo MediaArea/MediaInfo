@@ -28,6 +28,7 @@ Version 0.7.70, 2014-
 + HLS: com.apple.streaming.transportStreamTimestamp support
 + ISM: ISMT / text (TTML) streams support
 + MXF: detection of buggy BlockAlign from some muxers, so PCM bit depth is corectly detected despite the buggy metadata
++ HEVC: library name of some encoding libraries
 x HEVC: some streams with VUI were not parsed
 x MPEG Video: was not correctly handling 1000:1001 frame rates and NDF time codes combination during frame count computing
 x MPEG Video: was not correctly detecting the time stamp of the first frame in case of closed GOP with first frame not the I-frame
