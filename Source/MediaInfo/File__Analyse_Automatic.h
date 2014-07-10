@@ -473,7 +473,7 @@ enum video
     Video_Format_Settings_Pulldown,
     Video_Format_Settings_FrameMode,
     Video_Format_Settings_GOP,
-    Video_Format_Settings_FrameStructures,
+    Video_Format_Settings_PictureStructure,
     Video_Format_Settings_Wrapping,
     Video_InternetMediaType,
     Video_MuxingMode,

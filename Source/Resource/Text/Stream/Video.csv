@@ -42,7 +42,7 @@ Format_Settings_RefFrames/String;;;Y NT;;;Settings needed for decoder used, deta
 Format_Settings_Pulldown;;;Y YT;;;Settings needed for decoder used, detailled
 Format_Settings_FrameMode;;;Y YT;;;Settings needed for decoder used, detailled
 Format_Settings_GOP;;;Y YT;;;Settings needed for decoder used, detailled (M=x N=y)
-Format_Settings_FrameStructures;;;Y YT;;;Settings needed for decoder used, detailled (Type of frame, and field/frame info)
+Format_Settings_PictureStructure;;;Y YT;;;Settings needed for decoder used, detailled (Type of frame, and field/frame info)
 Format_Settings_Wrapping;;;Y YT;;;Wrapping mode (Frame wrapped or Clip wrapped)
 InternetMediaType;;;N YT;;;Internet Media Type (aka MIME Type, Content-Type)
 MuxingMode;;;Y YT;;;How this file is muxed in the container
