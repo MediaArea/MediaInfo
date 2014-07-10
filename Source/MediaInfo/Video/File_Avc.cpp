@@ -520,6 +520,10 @@ void File_Avc::Streams_Fill(std::vector<seq_parameter_set_struct*>::iterator seq
     }
     Fill(Stream_Video, 0, Video_Format_Settings_GOP, GOP_Detect(PictureTypes));
 
+    Fill(Stream_General, 0, General_Encoded_Library, Encoded_Library);
+    Fill(Stream_General, 0, General_Encoded_Library_Name, Encoded_Library_Name);
+    Fill(Stream_General, 0, General_Encoded_Library_Version, Encoded_Library_Version);
+    Fill(Stream_General, 0, General_Encoded_Library_Settings, Encoded_Library_Settings);
     Fill(Stream_Video, 0, Video_Encoded_Library, Encoded_Library);
     Fill(Stream_Video, 0, Video_Encoded_Library_Name, Encoded_Library_Name);
     Fill(Stream_Video, 0, Video_Encoded_Library_Version, Encoded_Library_Version);

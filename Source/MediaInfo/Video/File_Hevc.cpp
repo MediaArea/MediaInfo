@@ -176,6 +176,16 @@ void File_Hevc::Streams_Fill()
     for (std::vector<seq_parameter_set_struct*>::iterator seq_parameter_set_Item=seq_parameter_sets.begin(); seq_parameter_set_Item!=seq_parameter_sets.end(); ++seq_parameter_set_Item)
         if ((*seq_parameter_set_Item))
             Streams_Fill(seq_parameter_set_Item);
+
+    //Library name
+    Fill(Stream_General, 0, General_Encoded_Library, Encoded_Library);
+    Fill(Stream_General, 0, General_Encoded_Library_Name, Encoded_Library_Name);
+    Fill(Stream_General, 0, General_Encoded_Library_Version, Encoded_Library_Version);
+    Fill(Stream_General, 0, General_Encoded_Library_Settings, Encoded_Library_Settings);
+    Fill(Stream_Video, 0, Video_Encoded_Library, Encoded_Library);
+    Fill(Stream_Video, 0, Video_Encoded_Library_Name, Encoded_Library_Name);
+    Fill(Stream_Video, 0, Video_Encoded_Library_Version, Encoded_Library_Version);
+    Fill(Stream_Video, 0, Video_Encoded_Library_Settings, Encoded_Library_Settings);
 }
 
 //---------------------------------------------------------------------------
@@ -1680,7 +1690,7 @@ void File_Hevc::sei_message(int32u &seq_parameter_set_id)
         case   0 :   sei_message_buffering_period(seq_parameter_set_id, payloadSize); break;
         case   1 :   sei_message_pic_timing(seq_parameter_set_id, payloadSize); break;
         //case   4 :   sei_message_user_data_registered_itu_t_t35(); break;
-        //case   5 :   sei_message_user_data_unregistered(payloadSize); break;
+        case   5 :   sei_message_user_data_unregistered(payloadSize); break;
         //case   6 :   sei_message_recovery_point(); break;
         //case  32 :   sei_message_mainconcept(payloadSize); break;
         case 129 :   sei_message_active_parameter_sets(); break;
@@ -1796,8 +1806,49 @@ void File_Hevc::sei_message_pic_timing(int32u &seq_parameter_set_id, int32u payl
 }
 
 //---------------------------------------------------------------------------
+// SEI - 5
+void File_Hevc::sei_message_user_data_unregistered(int32u payloadSize)
+{
+    Element_Info1("user_data_unregistered");
+
+    //Parsing
+    int128u uuid_iso_iec_11578;
+    Get_GUID(uuid_iso_iec_11578,                                "uuid_iso_iec_11578");
+
+    switch (uuid_iso_iec_11578.hi)
+    {
+        case 0x214892b89bCC7f42LL : Element_Info1("Ateme");
+                                     sei_message_user_data_unregistered_Ateme(payloadSize-16); break;
+        default :
+                    Element_Info1("unknown");
+                    Skip_XX(payloadSize-16,                     "data");
+    }
+}
+
+//---------------------------------------------------------------------------
+// SEI - 5 - Ateme
+void File_Hevc::sei_message_user_data_unregistered_Ateme(int32u payloadSize)
+{
+    //Parsing
+    Get_Local(payloadSize, Encoded_Library,                     "Library name");
+
+    //Encoded_Library
+    if (Encoded_Library.find(__T("ATEME "))==0)
+    {
+        size_t Pos=Encoded_Library.find_first_of(__T("0123456789"));
+        if (Pos && Encoded_Library[Pos-1]==__T(' '))
+        {
+            Encoded_Library_Name=Encoded_Library.substr(0, Pos-1);
+            Encoded_Library_Version=Encoded_Library.substr(Pos);
+        }
+    }
+}
+
+//---------------------------------------------------------------------------
 void File_Hevc::sei_message_active_parameter_sets()
 {
+    Element_Info1("active_parameter_sets");
+
     //Parsing
     int32u num_sps_ids_minus1;
     BS_Begin();
@@ -1815,6 +1866,8 @@ void File_Hevc::sei_message_active_parameter_sets()
 //---------------------------------------------------------------------------
 void File_Hevc::sei_message_decoded_picture_hash(int32u payloadSize)
 {
+    Element_Info1("decoded_picture_hash");
+
     //Parsing
     int8u hash_type;
     Get_B1 (hash_type,                                          "hash_type");

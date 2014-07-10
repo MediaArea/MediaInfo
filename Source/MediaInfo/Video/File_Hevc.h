@@ -369,6 +369,8 @@ private :
     void sei_message_buffering_period(int32u &seq_parameter_set_id, int32u payloadSize);
     void sei_message_buffering_period_xxl(seq_parameter_set_struct::vui_parameters_struct::xxl_common* xxL_Common, bool irap_cpb_params_present_flag, seq_parameter_set_struct::vui_parameters_struct::xxl* xxl);
     void sei_message_pic_timing(int32u &seq_parameter_set_id, int32u payloadSize);
+    void sei_message_user_data_unregistered(int32u payloadSize);
+    void sei_message_user_data_unregistered_Ateme(int32u payloadSize);
     void sei_message_active_parameter_sets();
     void sei_message_decoded_picture_hash(int32u payloadSize);
 
@@ -414,6 +416,11 @@ private :
     size_t                              IFrame_Count;
 
     //Temp
+    Ztring                              Encoded_Library;
+    Ztring                              Encoded_Library_Name;
+    Ztring                              Encoded_Library_Version;
+    Ztring                              Encoded_Library_Date;
+    Ztring                              Encoded_Library_Settings;
     int32u  chroma_format_idc;
     int32u  slice_pic_parameter_set_id;
     int32u  slice_type;
