@@ -1923,7 +1923,7 @@ void File_Hevc::sei_message_user_data_unregistered_x265(int32u payloadSize)
             }
             if (Loop==1 && Encoded_Library.find(__T("x265"))==0)
             {
-                size_t Value_Pos=Value.find_first_not_of(__T("0123456789."));
+                size_t Value_Pos=Value.find(__T(" 8bpp"));
                 if (Value_Pos!=string::npos)
                     Value.resize(Value_Pos);
 
