@@ -1819,6 +1819,8 @@ void File_Hevc::sei_message_user_data_unregistered(int32u payloadSize)
     {
         case 0x214892b89bCC7f42LL : Element_Info1("Ateme");
                                      sei_message_user_data_unregistered_Ateme(payloadSize-16); break;
+        case 0xDB4717b509DEA22CLL : Element_Info1("x265");
+                                     sei_message_user_data_unregistered_x265(payloadSize-16); break;
         default :
                     Element_Info1("unknown");
                     Skip_XX(payloadSize-16,                     "data");
@@ -1842,6 +1844,105 @@ void File_Hevc::sei_message_user_data_unregistered_Ateme(int32u payloadSize)
             Encoded_Library_Version=Encoded_Library.substr(Pos);
         }
     }
+}
+
+//---------------------------------------------------------------------------
+// SEI - 5 - x265
+void File_Hevc::sei_message_user_data_unregistered_x265(int32u payloadSize)
+{
+    //Parsing
+    Ztring Data;
+    Peek_Local(payloadSize, Data);
+    if (Data.size()!=payloadSize && Data.size()+1!=payloadSize)
+    {
+        Skip_XX(payloadSize,                                    "Unknown");
+        return; //This is not a text string
+    }
+    size_t Data_Pos_Before=0;
+    size_t Loop=0;
+    do
+    {
+        size_t Data_Pos=Data.find(__T(" - "), Data_Pos_Before);
+        if (Data_Pos==std::string::npos)
+            Data_Pos=Data.size();
+        if (Data.find(__T("options: "), Data_Pos_Before)==Data_Pos_Before)
+        {
+            Element_Begin1("options");
+            size_t Options_Pos_Before=Data_Pos_Before;
+            Encoded_Library_Settings.clear();
+            do
+            {
+                size_t Options_Pos=Data.find(__T(" "), Options_Pos_Before);
+                if (Options_Pos==std::string::npos)
+                    Options_Pos=Data.size();
+                Ztring option;
+                Get_Local (Options_Pos-Options_Pos_Before, option, "option");
+                Options_Pos_Before=Options_Pos;
+                do
+                {
+                    Ztring Separator;
+                    Peek_Local(1, Separator);
+                    if (Separator==__T(" "))
+                    {
+                        Skip_Local(1,                               "separator");
+                        Options_Pos_Before+=1;
+                    }
+                    else
+                        break;
+                }
+                while (Options_Pos_Before!=Data.size());
+
+                //Filling
+                if (option!=__T("options:") && !(!option.empty() && option[0]>=__T('0') && option[0]<=__T('9')) && option.find(__T("fps="))!=0 && option.find(__T("bitdepth="))!=0) //Ignoring redundant information e.g. width, height, frame rate, bit depth
+                {
+                    if (!Encoded_Library_Settings.empty())
+                        Encoded_Library_Settings+=__T(" / ");
+                    Encoded_Library_Settings+=option;
+                }
+            }
+            while (Options_Pos_Before!=Data.size());
+            Element_End0();
+        }
+        else
+        {
+            Ztring Value;
+            Get_Local(Data_Pos-Data_Pos_Before, Value,          "data");
+
+            //Saving
+            if (Loop==0)
+            {
+                //Cleaning a little the value
+                while (!Value.empty() && Value[0]<0x30)
+                    Value.erase(Value.begin());
+                while (!Value.empty() && Value[Value.size()-1]<0x30)
+                    Value.erase(Value.end()-1);
+                Encoded_Library=Value;
+            }
+            if (Loop==1 && Encoded_Library.find(__T("x264"))==0)
+            {
+                Encoded_Library+=__T(" - ");
+                Encoded_Library+=Value;
+            }
+        }
+        Data_Pos_Before=Data_Pos;
+        if (Data_Pos_Before+3<=Data.size())
+        {
+            Skip_Local(3,                                       "separator");
+            Data_Pos_Before+=3;
+        }
+
+        Loop++;
+    }
+    while (Data_Pos_Before!=Data.size());
+
+    //Encoded_Library
+    if (Encoded_Library.find(__T("x265 ("))==0)
+    {
+        Encoded_Library_Name=__T("x265");
+        Encoded_Library_Version=Encoded_Library.SubString(__T("x265 ("), __T(")"));
+    }
+    else
+        Encoded_Library_Name=Encoded_Library;
 }
 
 //---------------------------------------------------------------------------

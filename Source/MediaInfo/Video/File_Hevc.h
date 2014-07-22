@@ -371,6 +371,7 @@ private :
     void sei_message_pic_timing(int32u &seq_parameter_set_id, int32u payloadSize);
     void sei_message_user_data_unregistered(int32u payloadSize);
     void sei_message_user_data_unregistered_Ateme(int32u payloadSize);
+    void sei_message_user_data_unregistered_x265(int32u payloadSize);
     void sei_message_active_parameter_sets();
     void sei_message_decoded_picture_hash(int32u payloadSize);
 
