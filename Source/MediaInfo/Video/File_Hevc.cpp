@@ -1916,10 +1916,17 @@ void File_Hevc::sei_message_user_data_unregistered_x265(int32u payloadSize)
                     Value.erase(Value.begin());
                 while (!Value.empty() && Value[Value.size()-1]<0x30)
                     Value.erase(Value.end()-1);
+                size_t Value_Pos=Value.find(__T(" "));
+                if (Value_Pos!=string::npos)
+                    Value.resize(Value_Pos);
                 Encoded_Library=Value;
             }
-            if (Loop==1 && Encoded_Library.find(__T("x264"))==0)
+            if (Loop==1 && Encoded_Library.find(__T("x265"))==0)
             {
+                size_t Value_Pos=Value.find_first_not_of(__T("0123456789."));
+                if (Value_Pos!=string::npos)
+                    Value.resize(Value_Pos);
+
                 Encoded_Library+=__T(" - ");
                 Encoded_Library+=Value;
             }
@@ -1936,10 +1943,10 @@ void File_Hevc::sei_message_user_data_unregistered_x265(int32u payloadSize)
     while (Data_Pos_Before!=Data.size());
 
     //Encoded_Library
-    if (Encoded_Library.find(__T("x265 ("))==0)
+    if (Encoded_Library.find(__T("x265 - "))==0)
     {
         Encoded_Library_Name=__T("x265");
-        Encoded_Library_Version=Encoded_Library.SubString(__T("x265 ("), __T(")"));
+        Encoded_Library_Version=Encoded_Library.SubString(__T("x265 - "), Ztring());
     }
     else
         Encoded_Library_Name=Encoded_Library;
