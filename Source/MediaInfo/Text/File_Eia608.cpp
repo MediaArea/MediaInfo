@@ -801,7 +801,8 @@ void File_Eia608::Special_14(int8u cc_data_2)
         case 0x29 : //RDC - Resume Direct Captioning
         case 0x2A : //TR  - Text Restart
         case 0x2B : //RTD - Resume Text Display
-                    TextMode=cc_data_2>=0x2A;
+        case 0x2C : //EDM - Erase Displayed Memory
+                    TextMode=(cc_data_2&0xFE)==0x2A;
                     XDS_Level=(size_t)-1; // No more XDS
                     StreamPos=TextMode*2+DataChannelMode;
 
