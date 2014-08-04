@@ -46,6 +46,9 @@
 #if defined(MEDIAINFO_MPEGV_YES)
     #include "MediaInfo/Video/File_Mpegv.h"
 #endif
+#if defined(MEDIAINFO_PRORES_YES)
+    #include "MediaInfo/Video/File_ProRes.h"
+#endif
 #if defined(MEDIAINFO_VP8_YES)
     #include "MediaInfo/Video/File_Vp8.h"
 #endif
@@ -3399,6 +3402,12 @@ void File_Mk::CodecID_Manage()
         Stream[TrackNumber].Parser=new File_Mpegv;
         ((File_Mpegv*)Stream[TrackNumber].Parser)->FrameIsAlwaysComplete=true;
         ((File_Mpegv*)Stream[TrackNumber].Parser)->Frame_Count_Valid=1;
+    }
+    #endif
+    #if defined(MEDIAINFO_PRORES_YES)
+    else if (Format==__T("ProRes"))
+    {
+        Stream[TrackNumber].Parser=new File_ProRes;
     }
     #endif
     #if defined(MEDIAINFO_VP8_YES)

@@ -33,6 +33,7 @@ Version 0.7.70, 2014-
 + MPEG-2 Video: picture structure for interlaced content (interlaced content can have a frame structure)
 + HLS: support of some encrypted files (AES-128 with default IV and per segment), key is provided by the command line --File_Encryption_Key=(Base64 data)
 + HEVC: adding support of x265 library name and x265 encoding settings
++ ProRes: more details about ProRes in AVI or Matroska
 x HEVC: some streams with VUI were not parsed
 x MPEG Video: was not correctly handling 1000:1001 frame rates and NDF time codes combination during frame count computing
 x MPEG Video: was not correctly detecting the time stamp of the first frame in case of closed GOP with first frame not the I-frame

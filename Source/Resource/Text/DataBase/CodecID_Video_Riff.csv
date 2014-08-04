@@ -40,6 +40,12 @@ AMV3;AMV3;AMV3 Video Codec Version 3;;http://amamaman.hp.infoseek.co.jp/english/
 ANIM;RDX;Intel;;;;;;
 AP41;MPEG-4 Visual;AngelPotion;Hack of MS MPEG-4 v3;http://www.divxity.com/download/ap4v1-702.exe;;;YUV;4:2:0
 AP42;MPEG-4 Visual;AngelPotion;Hack of MS MPEG-4 v3;http://www.divxity.com/download/ap4v1-702.exe;;;YUV;4:2:0
+apch;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;High;;YUV;4:2:2
+apcn;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;;;YUV;4:2:2
+apcs;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;LT;;YUV;4:2:2
+apco;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;Proxy;;YUV;4:2:2
+ap4c;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;;;;4:4:4
+ap4h;ProRes;;;http://www.apple.com/quicktime/download/standalone.html;;;;4:4:4
 ASLC;AlparySoft Lossless;;;http://www.free-codecs.com/download/Alparysoft_Lossless_Video_Codec.htm;;;;
 ASV1;Asus 1;;;ftp://ftp.asuscom.de/pub/asuscom/treiber/vga/ASUS_VGA_TOOLS/asv2dec.zip;;;;
 ASV2;Asus 2;;;ftp://ftp.asuscom.de/pub/asuscom/treiber/vga/ASUS_VGA_TOOLS/asv2dec.zip;;;;

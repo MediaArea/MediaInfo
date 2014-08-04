@@ -43,6 +43,9 @@
 #if defined(MEDIAINFO_MPEGV_YES)
     #include "MediaInfo/Video/File_Mpegv.h"
 #endif
+#if defined(MEDIAINFO_PRORES_YES)
+    #include "MediaInfo/Video/File_ProRes.h"
+#endif
 #if defined(MEDIAINFO_AVC_YES)
     #include "MediaInfo/Video/File_Avc.h"
 #endif
@@ -1766,6 +1769,13 @@ void File_Riff::AVI__hdlr_strl_strf_vids()
         Parser->FrameIsAlwaysComplete=true;
         if (MediaInfoLib::Config.ParseSpeed_Get()>=0.5)
             Parser->ShouldContinueParsing=true;
+        Stream[Stream_ID].Parsers.push_back(Parser);
+    }
+    #endif
+    #if defined(MEDIAINFO_PRORES_YES)
+    else if (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Riff, Ztring().From_CC4(Compression), InfoCodecID_Format)==__T("ProRes"))
+    {
+        File_ProRes* Parser=new File_ProRes;
         Stream[Stream_ID].Parsers.push_back(Parser);
     }
     #endif
