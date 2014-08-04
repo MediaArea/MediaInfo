@@ -677,6 +677,12 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_OpenMG.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Pdf.cpp">
+      <Filter>Source Files\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File_Xmp.cpp">
+      <Filter>Source Files\Tag</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -1257,6 +1263,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_OpenMG.h">
       <Filter>Header Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Tag\File_Xmp.h">
+      <Filter>Header Files\Tag</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Pdf.h">
+      <Filter>Header Files\Text</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1324,6 +1324,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_Pdf.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_Pgs.cpp"
 					>
 				</File>
@@ -1435,6 +1439,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Tag\File_VorbisCom.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Tag\File_Xmp.cpp"
 					>
 				</File>
 			</Filter>
@@ -2168,6 +2176,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_Pdf.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_Pgs.h"
 					>
 				</File>
@@ -2217,6 +2229,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Tag\File_VorbisCom.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Tag\File_Xmp.h"
 					>
 				</File>
 			</Filter>

@@ -168,6 +168,7 @@ set(mediainfo_SRCS
 	MediaInfo/Tag/File_Lyrics3.cpp
 	MediaInfo/Tag/File_Lyrics3v2.cpp
 	MediaInfo/Tag/File_VorbisCom.cpp
+	MediaInfo/Tag/File_Xmp.cpp
 	MediaInfo/Text/File_Cdp.cpp
 	MediaInfo/Text/File_Cmml.cpp
 	MediaInfo/Text/File_DvbSubtitle.cpp
@@ -177,6 +178,7 @@ set(mediainfo_SRCS
 	MediaInfo/Text/File_Kate.cpp
 	MediaInfo/Text/File_N19.cpp
 	MediaInfo/Text/File_OtherText.cpp
+	MediaInfo/Text/File_Pdf.cpp
 	MediaInfo/Text/File_Pgs.cpp
 	MediaInfo/Text/File_Scc.cpp
 	MediaInfo/Text/File_Scte20.cpp

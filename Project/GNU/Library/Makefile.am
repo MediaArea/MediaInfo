@@ -160,6 +160,7 @@ lib@MediaInfoLib_LibName@_la_SOURCES = \
                        ../../../Source/MediaInfo/Tag/File_Lyrics3.cpp \
                        ../../../Source/MediaInfo/Tag/File_Lyrics3v2.cpp \
                        ../../../Source/MediaInfo/Tag/File_VorbisCom.cpp \
+                       ../../../Source/MediaInfo/Tag/File_Xmp.cpp \
                        ../../../Source/MediaInfo/Text/File_Cdp.cpp \
                        ../../../Source/MediaInfo/Text/File_Cmml.cpp \
                        ../../../Source/MediaInfo/Text/File_DvbSubtitle.cpp \
@@ -170,6 +171,7 @@ lib@MediaInfoLib_LibName@_la_SOURCES = \
                        ../../../Source/MediaInfo/Text/File_Eia708.cpp \
                        ../../../Source/MediaInfo/Text/File_N19.cpp \
                        ../../../Source/MediaInfo/Text/File_OtherText.cpp \
+                       ../../../Source/MediaInfo/Text/File_Pdf.cpp \
                        ../../../Source/MediaInfo/Text/File_Pgs.cpp \
                        ../../../Source/MediaInfo/Text/File_Scc.cpp \
                        ../../../Source/MediaInfo/Text/File_Scte20.cpp \

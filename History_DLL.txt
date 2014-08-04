@@ -10,6 +10,7 @@ https://sourceforge.net/p/mediainfo/_list/tickets
 
 Version 0.7.70, 2014-
 --------------
++ PDF: basic detection (goal is to detect PDF/A profile)
 + CDP: using CDP service descriptor for the list of 708 services + language information
 + MXF: showing the real bit depth ("Quantization bits"); the count of bits stored in the file is in a new field "Stored bit depth" if it differs
 + MXF: Audio "frame rate" (how PCM content is split in packets) information
