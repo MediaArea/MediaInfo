@@ -192,6 +192,7 @@ lib@MediaInfoLib_LibName@_la_SOURCES = \
                        ../../../Source/MediaInfo/Video/File_Lagarith.cpp \
                        ../../../Source/MediaInfo/Video/File_H263.cpp \
                        ../../../Source/MediaInfo/Video/File_Hevc.cpp \
+                       ../../../Source/MediaInfo/Video/File_HuffYuv.cpp \
                        ../../../Source/MediaInfo/Video/File_Mpeg4v.cpp \
                        ../../../Source/MediaInfo/Video/File_Mpegv.cpp \
                        ../../../Source/MediaInfo/Video/File_ProRes.cpp \

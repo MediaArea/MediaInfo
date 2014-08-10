@@ -686,6 +686,9 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Ffv1.cpp">
       <Filter>Source Files\Video</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_HuffYuv.cpp">
+      <Filter>Source Files\Video</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -1274,6 +1277,9 @@
       <Filter>Header Files\Text</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Ffv1.h">
+      <Filter>Header Files\Video</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_HuffYuv.h">
       <Filter>Header Files\Video</Filter>
     </ClInclude>
   </ItemGroup>

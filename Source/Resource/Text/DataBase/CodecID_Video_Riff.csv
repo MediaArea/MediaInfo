@@ -206,7 +206,7 @@ ETVC;eTreppid C;;eTreppid Video C
 FFDS;FFDS;;;http://ffdshow-tryout.sourceforge.net/;;;;
 FFV1;FFV1;;;http://ffdshow-tryout.sourceforge.net/;;;;
 FFV2;FFV2;;;http://ffdshow-tryout.sourceforge.net/;;;;
-FFVH;FFVH;;;http://ffdshow-tryout.sourceforge.net/;;;;
+FFVH;HuffYUV;;;http://ffdshow-tryout.sourceforge.net/;;;;
 FLIC;FLI/FLC;Autodesk;;;;;;
 FLJP;DField JPEG;;D-Vision Field Encoded JPEG with LSI (or Targa emulation);;;;;
 FLV1;Sorenson Spark;;;http://ffdshow-tryout.sourceforge.net/;;;;
@@ -249,7 +249,7 @@ H268;H.268;;;;;;;
 H269;H.263;;;;;;;
 HD10;RGB;BlueFish;BlueFish444 (lossless RGBA, YUV 10-bit);;;;RGB;
 HDX4;Jomigo HDX4;;;;;;;
-HFYU;Huffman;;;;;;;
+HFYU;HuffYUV;;;;;;;
 HMCR;Rendition;;Rendition Motion Compensation Format;;;;;
 HMRR;Rendition;;Rendition Motion Compensation Format;;;;;
 i263;H.263;;;;;;;

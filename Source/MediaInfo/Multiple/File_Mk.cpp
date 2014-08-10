@@ -40,6 +40,9 @@
 #if defined(MEDIAINFO_FFV1_YES)
     #include "MediaInfo/Video/File_Ffv1.h"
 #endif
+#if defined(MEDIAINFO_HUFFYUV_YES)
+    #include "MediaInfo/Video/File_HuffYuv.h"
+#endif
 #if defined(MEDIAINFO_VC1_YES)
     #include "MediaInfo/Video/File_Vc1.h"
 #endif
@@ -2660,6 +2663,10 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_vids()
                 if (Compression==0x46465631) //FFV1
                     ((File_Ffv1*)Stream[TrackNumber].Parser)->IsOutOfBandData=true; //TODO: implement ISOutOfBandData in a generic maner
             #endif
+            #if defined(MEDIAINFO_FFV1_YES)
+                if (Compression==0x46465648) //FFVH
+                    ((File_HuffYuv*)Stream[TrackNumber].Parser)->IsOutOfBandData=true; //TODO: implement ISOutOfBandData in a generic maner
+            #endif
             Open_Buffer_Continue(Stream[TrackNumber].Parser);
         }
         else
@@ -3390,10 +3397,16 @@ void File_Mk::CodecID_Manage()
         }
     }
     #endif
-    #if defined(MEDIAINFO_AVC_YES)
+    #if defined(MEDIAINFO_FFV1_YES)
     else if (Format==__T("FFV1"))
     {
         Stream[TrackNumber].Parser=new File_Ffv1;
+    }
+    #endif
+    #if defined(MEDIAINFO_HUFFYUV_YES)
+    else if (Format==__T("HuffYUV"))
+    {
+        Stream[TrackNumber].Parser=new File_HuffYuv;
     }
     #endif
     #if defined(MEDIAINFO_VC1_YES)
