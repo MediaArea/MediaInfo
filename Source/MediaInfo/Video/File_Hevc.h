@@ -106,6 +106,7 @@ private :
                         cbr_flag = x.cbr_flag;
                         //initial_cpb_removal_delay=x.initial_cpb_removal_delay;
                         //initial_cpb_removal_delay_offset=x.initial_cpb_removal_delay_offset;
+                        return *this;
                     }
 
                 private:
