@@ -895,6 +895,7 @@ void File_Jpeg::SOF_()
                             switch (SamplingFactors[0].Vi)
                             {
                                 case 1 : ChromaSubsampling="4:1:1"; break;
+                                case 2 : ChromaSubsampling="4:1:0"; break;
                                 default: ;
                             }
                             break;
