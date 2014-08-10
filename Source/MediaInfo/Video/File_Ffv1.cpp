@@ -447,7 +447,7 @@ void File_Ffv1::FrameHeader()
         Fill(Stream_Video, 0, Video_BitDepth, bits_per_raw_sample);
         Fill(Stream_Video, 0, "coder_type", Ffv1_coder_type(coder_type));
         Fill(Stream_Video, 0, Video_ColorSpace, Ffv1_colorspace_type(colorspace_type, chroma_planes, alpha_plane));
-        if (chroma_planes)
+        if (colorspace_type==0 && chroma_planes)
         {
             string ChromaSubsampling;
             switch (chroma_h_shift)
