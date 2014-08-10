@@ -305,7 +305,7 @@ void File_Pdf::trailer()
                     Objects[ObjectNumber].Type=Type_Root;
                     Objects[ObjectNumber].TopObject=(int32u)-1;
                     Objects[(int32u)-1].Bottoms.push_back(ObjectNumber);
-                    Param_Info(__T("Document Catalog is at offset 0x"+Ztring().From_Number(Objects[ObjectNumber].Offset, 16)));
+                    Param_Info1(__T("Document Catalog is at offset 0x"+Ztring().From_Number(Objects[ObjectNumber].Offset, 16)));
                 }
                 else if (Key=="Info")
                 {
@@ -313,12 +313,12 @@ void File_Pdf::trailer()
                     Objects[ObjectNumber].Type=Type_Info;
                     Objects[ObjectNumber].TopObject=(int32u)-1;
                     Objects[(int32u)-1].Bottoms.push_back(ObjectNumber);
-                    Param_Info(__T("Info is at offset 0x"+Ztring().From_Number(Objects[ObjectNumber].Offset, 16)));
+                    Param_Info1(__T("Info is at offset 0x"+Ztring().From_Number(Objects[ObjectNumber].Offset, 16)));
                 }
                 else if (Key=="Prev")
                 {
                     Prev=Value.To_int32u();
-                    Param_Info(__T("Previous Cross-Reference Table is at offset 0x"+Ztring().From_Number(Prev, 16)));
+                    Param_Info1(__T("Previous Cross-Reference Table is at offset 0x"+Ztring().From_Number(Prev, 16)));
                 }
             }
 
@@ -417,7 +417,7 @@ void File_Pdf::eof()
 //---------------------------------------------------------------------------
 void File_Pdf::Object_Root()
 {
-    Element_Info("Document Catalog");
+    Element_Info1("Document Catalog");
 
     //Parsing
     string Key;
@@ -437,7 +437,7 @@ void File_Pdf::Object_Root()
                     Objects[ObjectNumber].Type=Type_Metadata;
                     Objects[ObjectNumber].TopObject=Objects_Current->first;
                     Objects[Objects_Current->first].Bottoms.push_back(ObjectNumber);
-                    Param_Info(__T("Metadata is at offset 0x"+Ztring().From_Number(Objects[ObjectNumber].Offset)));
+                    Param_Info1(__T("Metadata is at offset 0x"+Ztring().From_Number(Objects[ObjectNumber].Offset)));
                 }
             }
 
@@ -452,7 +452,7 @@ void File_Pdf::Object_Root()
 //---------------------------------------------------------------------------
 void File_Pdf::Object_Info()
 {
-    Element_Info("Info");
+    Element_Info1("Info");
 
     //Parsing
     string Key;
@@ -479,7 +479,7 @@ void File_Pdf::Object_Info()
 //---------------------------------------------------------------------------
 void File_Pdf::Object_Metadata()
 {
-    Element_Info("Metadata");
+    Element_Info1("Metadata");
 
     //Parsing
     string Key;
