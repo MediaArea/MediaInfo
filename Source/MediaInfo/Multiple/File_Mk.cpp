@@ -37,6 +37,9 @@
 #if defined(MEDIAINFO_HEVC_YES)
     #include "MediaInfo/Video/File_Hevc.h"
 #endif
+#if defined(MEDIAINFO_FFV1_YES)
+    #include "MediaInfo/Video/File_Ffv1.h"
+#endif
 #if defined(MEDIAINFO_VC1_YES)
     #include "MediaInfo/Video/File_Vc1.h"
 #endif
@@ -2652,7 +2655,13 @@ void File_Mk::Segment_Tracks_TrackEntry_CodecPrivate_vids()
     {
         Element_Begin1("Private data");
         if (Stream[TrackNumber].Parser)
+        {
+            #if defined(MEDIAINFO_FFV1_YES)
+                if (Compression==0x46465631) //FFV1
+                    ((File_Ffv1*)Stream[TrackNumber].Parser)->IsOutOfBandData=true; //TODO: implement ISOutOfBandData in a generic maner
+            #endif
             Open_Buffer_Continue(Stream[TrackNumber].Parser);
+        }
         else
             Skip_XX(Data_Remain(),                                  "Unknown");
         Element_End0();
@@ -3379,6 +3388,12 @@ void File_Mk::CodecID_Manage()
                 }
             #endif //MEDIAINFO_DEMUX
         }
+    }
+    #endif
+    #if defined(MEDIAINFO_AVC_YES)
+    else if (Format==__T("FFV1"))
+    {
+        Stream[TrackNumber].Parser=new File_Ffv1;
     }
     #endif
     #if defined(MEDIAINFO_VC1_YES)

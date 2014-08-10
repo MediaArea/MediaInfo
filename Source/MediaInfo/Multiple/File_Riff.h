@@ -224,6 +224,7 @@ private :
     void AVI__hdlr_strl_strf_txts ();
     void AVI__hdlr_strl_strf_vids ();
     void AVI__hdlr_strl_strf_vids_Avc ();
+    void AVI__hdlr_strl_strf_vids_Ffv1();
     void AVI__hdlr_strl_strh ();
     void AVI__hdlr_strl_strn ();
     void AVI__hdlr_strl_vprp ();

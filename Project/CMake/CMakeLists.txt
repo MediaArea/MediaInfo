@@ -193,6 +193,7 @@ set(mediainfo_SRCS
 	MediaInfo/Video/File_AvsV.cpp
 	MediaInfo/Video/File_Canopus.cpp
 	MediaInfo/Video/File_Dirac.cpp
+	MediaInfo/Video/File_Ffv1.cpp
 	MediaInfo/Video/File_Flic.cpp
 	MediaInfo/Video/File_Fraps.cpp
 	MediaInfo/Video/File_H263.cpp

@@ -396,6 +396,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_AfdBarData.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Canopus.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Dirac.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Ffv1.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Flic.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_Fraps.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_H263.cpp" />
@@ -642,6 +643,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_AfdBarData.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Canopus.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Dirac.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Ffv1.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Flic.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Fraps.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_H263.h" />
