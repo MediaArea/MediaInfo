@@ -1900,8 +1900,14 @@ bool File_Mpegv::Demux_UnpacketizeContainer_Test()
         bool RandomAccess=Buffer[Buffer_Offset+3]==0xB3;
         if (!Status[IsAccepted])
         {
-            Accept("AVC");
             if (Config->Demux_EventWasSent)
+                return false;
+            File_Mpegv* MI=new File_Mpegv;
+            Open_Buffer_Init(MI);
+            Open_Buffer_Continue(MI, Buffer, Buffer_Size);
+            bool IsOk=MI->Status[IsAccepted];
+            delete MI;
+            if (!IsOk)
                 return false;
         }
         if (IFrame_IsParsed || RandomAccess)

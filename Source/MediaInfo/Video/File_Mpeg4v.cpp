@@ -647,8 +647,14 @@ bool File_Mpeg4v::Demux_UnpacketizeContainer_Test()
 
         if (!Status[IsAccepted])
         {
-            Accept("MPEG-4 Visual");
             if (Config->Demux_EventWasSent)
+                return false;
+            File_Mpeg4v* MI=new File_Mpeg4v;
+            Open_Buffer_Init(MI);
+            Open_Buffer_Continue(MI, Buffer, Buffer_Size);
+            bool IsOk=MI->Status[IsAccepted];
+            delete MI;
+            if (!IsOk)
                 return false;
         }
 

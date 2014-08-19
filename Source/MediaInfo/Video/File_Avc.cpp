@@ -928,8 +928,14 @@ bool File_Avc::Demux_UnpacketizeContainer_Test()
 
     if (!Status[IsAccepted])
     {
-        Accept("AVC");
         if (Config->Demux_EventWasSent)
+            return false;
+        File_Avc* MI=new File_Avc;
+        Open_Buffer_Init(MI);
+        Open_Buffer_Continue(MI, Buffer, Buffer_Size);
+        bool IsOk=MI->Status[IsAccepted];
+        delete MI;
+        if (!IsOk)
             return false;
     }
 
