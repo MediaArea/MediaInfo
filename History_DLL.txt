@@ -45,6 +45,7 @@ x MXF: Time codes values were buggy in case of MXF with pre-charge ("Origin" not
 x MPEG-4 Visual: wrong analysis in case on video_object_layer_shape not set to regular
 x MPEG-4/MOV: trying to display the summary differently when there is a difference between container and raw stream channels count information (long term method to be discussed)
 x Non-Unicode version was not building anymore
+x DyLib: trying to have a better support of pure C compilers
 
 Version 0.7.69, 2014-04-24
 --------------
