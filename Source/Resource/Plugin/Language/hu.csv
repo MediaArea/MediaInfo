@@ -347,6 +347,8 @@ Format_Settings_FrameMode;
 Format_Settings_Emphasis;
 Format_Settings_ModeExtension;
 Format_Settings_GOP;
+Format_Settings_PictureStructure;
+Format_Settings_Wrapping;
 Format_Version;Formátum változat
 Format_Url;Formátum weblapja
 FrameCount;Képkockaszám
@@ -1037,4 +1039,4 @@ WrittenBy;Írta
 Yes;igen
 Your system;Rendszer
 ZZ_Automatic_Percent;82
-ZZ_AutomaticLanguage_Percent;93
+ZZ_AutomaticLanguage_Percent;92

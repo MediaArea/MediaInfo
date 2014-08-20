@@ -347,6 +347,8 @@ Format_Settings_FrameMode;Modo frame
 Format_Settings_Emphasis;Enfasi
 Format_Settings_ModeExtension;Estensione modo
 Format_Settings_GOP;Impostazioni formato, GOP
+Format_Settings_PictureStructure;
+Format_Settings_Wrapping;
 Format_Version;Versione formato
 Format_Url;Sito web formato
 FrameCount;Numero fotogrammi

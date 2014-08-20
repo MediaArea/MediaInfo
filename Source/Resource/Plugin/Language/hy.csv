@@ -347,6 +347,8 @@ Format_Settings_FrameMode;Կադրի եղանակը
 Format_Settings_Emphasis;Ակցենտը
 Format_Settings_ModeExtension;Ընդլայնված եղանակը
 Format_Settings_GOP;GOP տեսակի ցուցիչներ
+Format_Settings_PictureStructure;
+Format_Settings_Wrapping;
 Format_Version;Տեսակի տարբերակը
 Format_Url;Տեսակի հղումը
 FrameCount;Կադրերի հաշվիչ
@@ -1037,4 +1039,4 @@ WrittenBy;Գրվել է՝
 Yes;Այո
 Your system;Ձեր համակարգը
 ZZ_Automatic_Percent;92
-ZZ_AutomaticLanguage_Percent;97
+ZZ_AutomaticLanguage_Percent;96

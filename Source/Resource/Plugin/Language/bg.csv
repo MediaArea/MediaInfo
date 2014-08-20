@@ -347,6 +347,8 @@ Format_Settings_FrameMode;Формат_Настройки_КадриМетод
 Format_Settings_Emphasis;Формат_Настройки_Подчертаност
 Format_Settings_ModeExtension;Формат_Настройки_МетодЕкстенция
 Format_Settings_GOP;Формат_Настройки_ГОП
+Format_Settings_PictureStructure;
+Format_Settings_Wrapping;
 Format_Version;Формат_Версия
 Format_Url;Формат_ЮРЛ
 FrameCount;БройКадри

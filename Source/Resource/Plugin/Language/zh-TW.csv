@@ -347,6 +347,8 @@ Format_Settings_FrameMode;
 Format_Settings_Emphasis;
 Format_Settings_ModeExtension;
 Format_Settings_GOP;
+Format_Settings_PictureStructure;
+Format_Settings_Wrapping;
 Format_Version;格式版本
 Format_Url;該格式的網址
 FrameCount;影格數
@@ -1037,4 +1039,4 @@ WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
 ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;95
+ZZ_AutomaticLanguage_Percent;94

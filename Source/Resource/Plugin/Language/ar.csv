@@ -347,6 +347,8 @@ Format_Settings_FrameMode;إعدادات الشكل، Frame mode
 Format_Settings_Emphasis;إعدادات الشكل، Emphasis
 Format_Settings_ModeExtension;إعدادات الشكل، Mode extension
 Format_Settings_GOP;إعدادات الشكل، Format settings, GOP
+Format_Settings_PictureStructure;
+Format_Settings_Wrapping;
 Format_Version;نسخة الشكل
 Format_Url;وصلة على شكل
 FrameCount;عدد الصور
@@ -1037,4 +1039,4 @@ WrittenBy;كتبها
 Yes;نعم
 Your system;نظامك
 ZZ_Automatic_Percent;91
-ZZ_AutomaticLanguage_Percent;96
+ZZ_AutomaticLanguage_Percent;95
