@@ -219,6 +219,8 @@ struct complete_stream
                 Update_Needed_Info=p.Update_Needed_Info;
                 DVB_EPG_Blocks_IsUpdated=p.DVB_EPG_Blocks_IsUpdated;
                 Scte35=p.Scte35;
+
+                return *this;
             }
 
             ~program()
@@ -567,6 +569,8 @@ struct complete_stream
                             ServiceDescriptors=NULL;
                     #endif
                     start_time=e.start_time;
+
+                    return *this;
                 }
 
                 ~event()

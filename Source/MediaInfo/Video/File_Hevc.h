@@ -123,6 +123,8 @@ private :
                 xxl &operator=(const xxl &x)
                 {
                     SchedSel = x.SchedSel;
+
+                    return *this;
                 }
 
             private:
@@ -157,6 +159,8 @@ private :
                     initial_cpb_removal_delay_length_minus1 = x.initial_cpb_removal_delay_length_minus1;
                     au_cpb_removal_delay_length_minus1 = x.au_cpb_removal_delay_length_minus1;
                     dpb_output_delay_length_minus1 = x.dpb_output_delay_length_minus1;
+
+                    return *this;
                 }
 
             private:

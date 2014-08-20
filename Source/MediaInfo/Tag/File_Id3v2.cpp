@@ -1060,7 +1060,7 @@ void File_Id3v2::PRIV()
         Get_B8 (DTS,                                            "DTS");
 
         FILLING_BEGIN();
-            if (DTS>=0x200000000) //33 bits
+            if (DTS>=0x200000000LL) //33 bits
             {
                 Fill(Stream_Audio, 0, Audio_Delay, DTS/90);
                 FrameInfo.DTS=DTS*1000000/90;
