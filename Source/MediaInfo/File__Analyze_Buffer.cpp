@@ -1772,13 +1772,13 @@ void File__Analyze::Get_ISO_6937_2(int64u Bytes, Ztring &Info, const char* Name)
             if (Pos+1<End)
             {
                 Info+=(Char)(Buffer[Pos+1]);
-                Info+=Ztring().From_Unicode(EscapeChar);
+                Info+=Ztring().From_Unicode(&EscapeChar, 1); //(EscapeChar) after new ZenLib release
                 EscapeChar=L'\x0000';
                 Pos++;
             }
         }
         else if (NewChar)
-            Info+=Ztring().From_Unicode(NewChar);
+            Info+=Ztring().From_Unicode(&NewChar, 1); //(NewChar) after new ZenLib release
     }
     if (Trace_Activated && Bytes) Param(Name, Info);
     Element_Offset+=Bytes;
@@ -1812,10 +1812,14 @@ void File__Analyze::Get_ISO_8859_5(int64u Bytes, Ztring &Info, const char* Name)
     {
         switch (Buffer[Pos])
         {
-            case 0xAD : Info+='\xAD'; break;
-            case 0xF0 : Info+=Ztring().From_Unicode(L'\x2116'); break;
-            case 0xFD : Info+='\xA7'; break;
-            default   : Info+=Ztring().From_Unicode((Buffer[Pos]<=0xA0?0x0000:0x0360)+Buffer[Pos]);
+            case 0xAD : Info+=Ztring().From_Unicode(L"\xAD"); break; //L'\xAD' after new ZenLib release
+            case 0xF0 : Info+=Ztring().From_Unicode(L"\x2116"); break; //L'\x2116' after new ZenLib release
+            case 0xFD : Info+=Ztring().From_Unicode(L"\xA7"); break; //L'\xA7' after new ZenLib release
+            default   : 
+                        {
+                        wchar_t NewChar=(Buffer[Pos]<=0xA0?0x0000:0x0360)+Buffer[Pos];
+                        Info+=Ztring().From_Unicode(&NewChar, 1); //(NewChar) after new ZenLib release
+                        }
         }
     }
     if (Trace_Activated && Bytes) Param(Name, Info);

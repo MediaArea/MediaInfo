@@ -110,6 +110,12 @@
     #if !defined (MEDIAINFO_READTHREAD_NO) && !defined (MEDIAINFO_READTHREAD_YES)
         #define MEDIAINFO_READTHREAD_NO
     #endif
+    #if !defined (MEDIAINFO_MD5_NO) && !defined (MEDIAINFO_MD5_YES)
+        #define MEDIAINFO_MD5_NO
+    #endif
+    #if !defined (MEDIAINFO_AES_NO) && !defined (MEDIAINFO_AES_YES)
+        #define MEDIAINFO_AES_NO
+    #endif
 #endif
 
 //---------------------------------------------------------------------------
@@ -152,6 +158,16 @@
         #define MEDIAINFO_MACROBLOCKS 0
     #else
         #define MEDIAINFO_MACROBLOCKS 1
+    #endif
+#endif
+#if !defined(MEDIAINFO_AES)
+    #if defined(MEDIAINFO_AES_NO) && defined(MEDIAINFO_AES_YES)
+        #undef MEDIAINFO_AES_NO //MEDIAINFO_AES_YES has priority
+    #endif
+    #if defined(MEDIAINFO_AES_NO)
+        #define MEDIAINFO_AES 0
+    #else
+        #define MEDIAINFO_AES 1
     #endif
 #endif
 #if !defined(MEDIAINFO_NEXTPACKET)

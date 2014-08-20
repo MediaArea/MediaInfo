@@ -81,6 +81,9 @@
     <Filter Include="ThirdParty\md5">
       <UniqueIdentifier>{5b14e18b-04eb-4989-8bf1-122caf5fae73}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ThirdParty\aes">
+      <UniqueIdentifier>{3947c21e-0f73-4f9d-be60-684141593027}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Source\MediaInfo\File__Analyze.cpp">
@@ -689,6 +692,21 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Video\File_HuffYuv.cpp">
       <Filter>Source Files\Video</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\ThirdParty\aes-gladman\aes_modes.c">
+      <Filter>ThirdParty\aes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\ThirdParty\aes-gladman\aes_ni.c">
+      <Filter>ThirdParty\aes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\ThirdParty\aes-gladman\aescrypt.c">
+      <Filter>ThirdParty\aes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\ThirdParty\aes-gladman\aeskey.c">
+      <Filter>ThirdParty\aes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\ThirdParty\aes-gladman\aestab.c">
+      <Filter>ThirdParty\aes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -1281,6 +1299,30 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_HuffYuv.h">
       <Filter>Header Files\Video</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\ThirdParty\aes-gladman\aes.h">
+      <Filter>ThirdParty\aes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\ThirdParty\aes-gladman\aes_ni.h">
+      <Filter>ThirdParty\aes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\ThirdParty\aes-gladman\aes_via_ace.h">
+      <Filter>ThirdParty\aes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\ThirdParty\aes-gladman\aescpp.h">
+      <Filter>ThirdParty\aes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\ThirdParty\aes-gladman\aesopt.h">
+      <Filter>ThirdParty\aes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\ThirdParty\aes-gladman\aestab.h">
+      <Filter>ThirdParty\aes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\ThirdParty\aes-gladman\brg_endian.h">
+      <Filter>ThirdParty\aes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\ThirdParty\aes-gladman\brg_types.h">
+      <Filter>ThirdParty\aes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

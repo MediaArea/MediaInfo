@@ -440,6 +440,11 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                     {
                         F.Close();
                         F.Open(MI->Config.File_Names[Pos]);
+                        if (Pos>=MI->Config.File_Sizes.size())
+                        {
+                            MI->Config.File_Sizes.resize(Pos, (int64u)-1);
+                            MI->Config.File_Sizes.push_back(F.Size_Get());
+                        }
                         MI->Config.File_Names_Pos=Pos+1;
                         MI->Config.File_Current_Size=MI->Config.File_Current_Offset+F.Size_Get();
                         Buffer_NoJump_Temp=0;
@@ -512,12 +517,17 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                 #endif //MEDIAINFO_ADVANCED2
                 if (MI->Config.File_Names_Pos<MI->Config.File_Names.size())
                 {
-                    MI->Config.File_Current_Offset+=F.Size_Get();
+                    MI->Config.File_Current_Offset+=MI->Config.File_Names_Pos<=MI->Config.File_Sizes.size()?MI->Config.File_Sizes[MI->Config.File_Names_Pos-1]:F.Size_Get();
                     F.Close();
                     #if MEDIAINFO_EVENTS
                         MI->Config.Event_SubFile_Start(MI->Config.File_Names[MI->Config.File_Names_Pos]);
                     #endif //MEDIAINFO_EVENTS
                     F.Open(MI->Config.File_Names[MI->Config.File_Names_Pos]);
+                    if (MI->Config.File_Names_Pos>=MI->Config.File_Sizes.size())
+                    {
+                        MI->Config.File_Sizes.resize(MI->Config.File_Names_Pos, (int64u)-1);
+                        MI->Config.File_Sizes.push_back(F.Size_Get());
+                    }
                     MI->Config.File_Names_Pos++;
                     MI->Config.File_Current_Size+=F.Size_Get();
                 }

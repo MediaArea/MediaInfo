@@ -1296,6 +1296,14 @@ public :
 
     int64u  Unsynch_Frame_Count;
 
+    //AES
+    #if MEDIAINFO_AES
+        AESdecrypt* AES;
+        int8u*      AES_IV;
+        int8u*      AES_Decrypted;
+        size_t      AES_Decrypted_Size;
+    #endif //MEDIAINFO_AES
+
     //MD5
     #if MEDIAINFO_MD5
         struct MD5Context*  MD5;

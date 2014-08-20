@@ -203,6 +203,14 @@ lib@MediaInfoLib_LibName@_la_SOURCES = \
                        ../../../Source/MediaInfo/Video/File_Y4m.cpp \
                        ../../../Source/MediaInfoDLL/MediaInfoDLL.cpp
 
+if COMPILE_AES
+lib@MediaInfoLib_LibName@_la_SOURCES += \
+                       ../../../Source/ThirdParty/aes-gladman/aes_modes.c \
+                       ../../../Source/ThirdParty/aes-gladman/aescrypt.c \
+                       ../../../Source/ThirdParty/aes-gladman/aeskey.c \
+                       ../../../Source/ThirdParty/aes-gladman/aestab.c
+endif
+
 if COMPILE_MD5
 lib@MediaInfoLib_LibName@_la_SOURCES += \
                        ../../../Source/ThirdParty/md5/md5.c
@@ -215,4 +223,4 @@ endif
 
 lib@MediaInfoLib_LibName@_la_LDFLAGS     = -no-undefined -version-info 0:0:0
 
-INCLUDES = -I../../../Source -I../../../../ZenLib/Source
+AM_CPPFLAGS = -I../../../Source -I../../../../ZenLib/Source

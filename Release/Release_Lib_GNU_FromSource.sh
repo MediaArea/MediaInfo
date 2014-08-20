@@ -42,6 +42,10 @@ cp ../Project/GNU/Library/libmediainfo-config.in MediaInfo_Lib_GNU_FromSource/Pr
 
 #-----------------------------------------------------------------------
 # Copying : Source
+mkdir -p MediaInfo_Lib_GNU_FromSource/Source/ThirdParty/aes-gladman
+cp -r ../Source/ThirdParty/aes-gladman/*.asm MediaInfo_Lib_GNU_FromSource/Source/ThirdParty/aes-gladman/
+cp -r ../Source/ThirdParty/aes-gladman/*.h MediaInfo_Lib_GNU_FromSource/Source/ThirdParty/aes-gladman/
+cp -r ../Source/ThirdParty/aes-gladman/*.c MediaInfo_Lib_GNU_FromSource/Source/ThirdParty/aes-gladman/
 mkdir -p MediaInfo_Lib_GNU_FromSource/Source/ThirdParty/base64
 cp -r ../Source/ThirdParty/base64/*.h MediaInfo_Lib_GNU_FromSource/Source/ThirdParty/base64/
 mkdir -p MediaInfo_Lib_GNU_FromSource/Source/ThirdParty/md5

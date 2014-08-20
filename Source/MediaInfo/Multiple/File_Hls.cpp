@@ -25,6 +25,7 @@
 #include "MediaInfo/MediaInfo.h"
 #include "MediaInfo/MediaInfo_Internal.h"
 #include "MediaInfo/Multiple/File__ReferenceFilesHelper.h"
+#include "ZenLib/File.h"
 #include "ZenLib/Dir.h"
 #include "ZenLib/FileName.h"
 #include "ZenLib/ZtringList.h"
@@ -147,7 +148,47 @@ bool File_Hls::FileHeader_Begin()
     {
         if (!Lines[Line].empty())
         {
-            if (Lines[Line].find(__T("#EXT-X-STREAM-INF:"))==0)
+            if (Lines[Line].find(__T("#EXT-X-KEY:"))==0)
+            {
+                ZtringListList List;
+                List.Separator_Set(0, __T(","));
+                List.Separator_Set(1, __T("="));
+                List.Write(Lines[Line].substr(11, string::npos));
+                for (size_t Pos=0; Pos<List.size(); ++Pos)
+                {
+                    if (List[Pos](0)==__T("METHOD"))
+                    {
+                        if (List[Pos](1).find(__T("AES-128"))==0)
+                        {
+                            Fill(Stream_General, 0, General_Encryption_Format, "AES");
+                            Fill(Stream_General, 0, General_Encryption_Length, "128");
+                            Fill(Stream_General, 0, General_Encryption_Method, "Segment");
+                            Fill(Stream_General, 0, General_Encryption_Mode, "CBC");
+                            Fill(Stream_General, 0, General_Encryption_Padding, "PKCS7");
+                            Fill(Stream_General, 0, General_Encryption_InitializationVector, "Sequence number");
+
+                            //Trying to get the key from FileName.FileExt.key
+                            if (Config->Encryption_Key_Get().empty())
+                            {
+                                File KeyFile;
+                                if (KeyFile.Open(File_Name+__T(".key")))
+                                {
+                                    if (KeyFile.Size_Get()==16)
+                                    {
+                                        int8u Key[16];
+                                        if (KeyFile.Read(Key, 16)==16)
+                                            Config->Encryption_Key_Set(Key, 16);
+                                    }
+                                    else
+                                        Fill(Stream_General, 0, "Encryption_Key_Problem", KeyFile.Size_Get());
+                                }
+                            }
+                        }
+                        Fill(Stream_General, 0, General_Encryption, List[Pos](1));
+                    }
+                }
+            }
+            else if (Lines[Line].find(__T("#EXT-X-STREAM-INF:"))==0)
             {
                 IsGroup=true;
             }

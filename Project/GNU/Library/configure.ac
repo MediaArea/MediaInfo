@@ -3,19 +3,20 @@ dnl ### Init
 dnl #########################################################################
 
 dnl -------------------------------------------------------------------------
+dnl Name and version
+dnl
+AC_INIT([libmediainfo], [0.7.70])
+
+dnl -------------------------------------------------------------------------
 dnl Test if we are at the good place
 dnl
-AC_INIT(../../../Source/MediaInfo/MediaInfo.cpp)
+AC_CONFIG_SRCDIR([../../../Source/MediaInfo/MediaInfo.cpp])
 
 dnl -------------------------------------------------------------------------
 dnl sets build, host, target variables and the same with _alias
 dnl
 AC_CANONICAL_BUILD
-
-dnl -------------------------------------------------------------------------
-dnl Name and version
-dnl
-AM_INIT_AUTOMAKE(libmediainfo,0)
+AM_INIT_AUTOMAKE([foreign -Wall])
 
 dnl -------------------------------------------------------------------------
 dnl Autotools init
@@ -195,6 +196,7 @@ AC_ARG_WITH(macosx-version-min, AC_HELP_STRING([--with-macosx-version-min], [For
 AC_ARG_WITH(libz_static,        AC_HELP_STRING([--with-libz-static],        [Use static version of Zlib]),                , with_libz_static=no)
 AC_ARG_WITH(libcurl,            AC_HELP_STRING([--with-libcurl],            [Use libcurl (specific directory)]),          , with_libcurl=no)
 AC_ARG_WITH(libmms,             AC_HELP_STRING([--with-libmms],             [Use libmms (specific directory)]),           , with_libmms=no)
+AC_ARG_WITH(libaes,             AC_HELP_STRING([--with-libaes],             [Use libaes (system)]),                       , with_libaes=depend)
 AC_ARG_WITH(libmd5,             AC_HELP_STRING([--with-libmd5],             [Use libmd5 (system)]),                       , with_libmd5=depend)
 AC_ARG_WITH(libtinyxml2,        AC_HELP_STRING([--with-libtinyxml2],        [Use libtinyxml2 (system)]),                  , with_libtinyxml2=depend)
 AC_ARG_WITH(libmediainfo-name,  AC_HELP_STRING([--with-libmediainfo-name],  [Force libmediainfo filename]),               , with_libmediainfo_name=mediainfo)
@@ -576,6 +578,25 @@ else
 fi
 
 dnl -------------------------------------------------------------------------
+dnl libaes
+dnl
+if test "$with_libaes" = "yes"; then
+	PKG_CHECK_MODULES([AES_GLADMAN], [aes_gladman])
+	CXXFLAGS="$CXXFLAGS $AES_CXXFLAGS"
+	CFLAGS="$CFLAGS $AES_CFLAGS"
+	MediaInfoLib_CFLAGS="$MediaInfoLib_CFLAGS $AES_CFLAGS"
+	LIBS="$LIBS $AES_LIBS"
+	MediaInfoLib_LIBS="$MediaInfoLib_LIBS $AES_LIBS"
+	AM_CONDITIONAL(COMPILE_AES, false)
+	using_libaes="system"
+else
+	CXXFLAGS="$CXXFLAGS -I../../../Source/ThirdParty/aes-gladman"
+	CFLAGS="$CFLAGS -I../../../Source/ThirdParty/aes-gladman"
+	using_libaes="internal"
+	AM_CONDITIONAL(COMPILE_AES, true)
+fi
+
+dnl -------------------------------------------------------------------------
 dnl libmd5
 dnl
 if test "$with_libmd5" = "yes"; then
@@ -779,6 +800,7 @@ echo "  Using ZenLib?                                           $with_zenlib"
 echo "  Using libcurl?                                          $using_libcurl"
 echo "  Using libmms?                                           $using_libmms"
 echo "  Using zlib?                                             $with_zlib"
+echo "  Using aes?                                              $using_libaes"
 echo "  Using md5?                                              $using_libmd5"
 echo "  Using tinyxml2?                                         $using_libtinyxml2"
 echo ""

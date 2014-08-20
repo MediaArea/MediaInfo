@@ -13,6 +13,7 @@ Version 0.7.70, 2014-
 + FFV1: version, bit depth, color space, chroma subsampling, versions 0 to 3, sponsored by NOA Audio Solutions
 + HuffYUV: version, bit depth, color space, chroma subsampling, versions 1 to 3, sponsored by NOA Audio Solutions
 + PDF: basic detection (goal is to detect PDF/A profile)
++ HLS: support of encrypted streams (key must be in FileName.FileExt.key or provided via the library API)
 + CDP: using CDP service descriptor for the list of 708 services + language information
 + MXF: showing the real bit depth ("Quantization bits"); the count of bits stored in the file is in a new field "Stored bit depth" if it differs
 + MXF: Audio "frame rate" (how PCM content is split in packets) information

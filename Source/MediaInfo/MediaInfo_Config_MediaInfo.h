@@ -40,6 +40,29 @@ namespace MediaInfoLib
     class MediaInfo_Config_PerPackage;
 #endif //MEDIAINFO_EVENTS
 
+#if MEDIAINFO_AES
+enum encryption_format
+{
+    Encryption_Format_None,
+    Encryption_Format_Aes,
+};
+enum encryption_method
+{
+     Encryption_Method_None,
+     Encryption_Method_Segment,
+};
+enum encryption_mode
+{
+     Encryption_Mode_None,
+     Encryption_Mode_Cbc,
+};
+enum encryption_padding
+{
+     Encryption_Padding_None,
+     Encryption_Padding_Pkcs7,
+};
+#endif //MEDIAINFO_AES
+
 //***************************************************************************
 // Class MediaInfo_Config_MediaInfo
 //***************************************************************************
@@ -151,6 +174,30 @@ public :
 
     void          File_Buffer_Read_Size_Set (size_t NewValue);
     size_t        File_Buffer_Read_Size_Get ();
+
+    #if MEDIAINFO_AES
+    void          Encryption_Format_Set (const Ztring &Value);
+    void          Encryption_Format_Set (encryption_format Value);
+    string        Encryption_Format_GetS ();
+    encryption_format Encryption_Format_Get ();
+    void          Encryption_Key_Set (const Ztring &Value);
+    void          Encryption_Key_Set (const int8u* Value, size_t Value_Size);
+    string        Encryption_Key_Get ();
+    void          Encryption_Method_Set (const Ztring &Value);
+    void          Encryption_Method_Set (encryption_method Value);
+    string        Encryption_Method_GetS ();
+    encryption_method Encryption_Method_Get ();
+    void          Encryption_Mode_Set (const Ztring &Value);
+    void          Encryption_Mode_Set (encryption_mode Value);
+    string        Encryption_Mode_GetS ();
+    encryption_mode Encryption_Mode_Get ();
+    void          Encryption_Padding_Set (const Ztring &Value);
+    void          Encryption_Padding_Set (encryption_padding Value);
+    string        Encryption_Padding_GetS ();
+    encryption_padding  Encryption_Padding_Get ();
+    void          Encryption_InitializationVector_Set (const Ztring &Value);
+    string        Encryption_InitializationVector_Get ();
+    #endif //MEDIAINFO_AES
 
     #if MEDIAINFO_NEXTPACKET
     void          NextPacket_Set (bool NewValue);
@@ -350,6 +397,15 @@ private :
     size_t                  File_Buffer_Read_Size;
 
     //Extra
+    #if MEDIAINFO_AES
+    encryption_format       Encryption_Format;
+    string                  Encryption_Key;
+    encryption_method       Encryption_Method;
+    encryption_mode         Encryption_Mode;
+    encryption_padding      Encryption_Padding;
+    string                  Encryption_InitializationVector;
+    #endif //MEDIAINFO_AES
+
     #if MEDIAINFO_NEXTPACKET
     bool                    NextPacket;
     #endif //MEDIAINFO_NEXTPACKET

@@ -22,9 +22,9 @@
 #if MEDIAINFO_EVENTS
     #include "ZenLib/FileName.h"
 #endif //MEDIAINFO_EVENTS
-#if MEDIAINFO_IBI
+#if MEDIAINFO_IBI || MEDIAINFO_AES
     #include "base64.h"
-#endif //MEDIAINFO_IBI
+#endif //MEDIAINFO_IBI || MEDIAINFO_AES
 #include <algorithm>
 #if MEDIAINFO_DEMUX
     #include <cmath>
@@ -74,6 +74,12 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
     File_TimeToLive=0;
     File_Buffer_Size_Hint_Pointer=NULL;
     File_Buffer_Read_Size=64*1024*1024;
+    #if MEDIAINFO_AES
+        Encryption_Format=Encryption_Format_None;
+        Encryption_Method=Encryption_Method_None;
+        Encryption_Mode=Encryption_Mode_None;
+        Encryption_Padding=Encryption_Padding_None;
+    #endif //MEDIAINFO_AES
     #if MEDIAINFO_NEXTPACKET
         NextPacket=false;
     #endif //MEDIAINFO_NEXTPACKET
@@ -623,6 +629,60 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
         #else //MEDIAINFO_IBI
             return __T("IBI support is disabled due to compilation options");
         #endif //MEDIAINFO_IBI
+    }
+    else if (Option_Lower==__T("file_encryption_format"))
+    {
+        #if MEDIAINFO_AES
+            Encryption_Format_Set(Value);
+            return Ztring();
+        #else //MEDIAINFO_AES
+            return __T("Encryption manager is disabled due to compilation options");
+        #endif //MEDIAINFO_AES
+    }
+    else if (Option_Lower==__T("file_encryption_key"))
+    {
+        #if MEDIAINFO_AES
+            Encryption_Key_Set(Value);
+            return Ztring();
+        #else //MEDIAINFO_AES
+            return __T("Encryption manager is disabled due to compilation options");
+        #endif //MEDIAINFO_AES
+    }
+    else if (Option_Lower==__T("file_encryption_method"))
+    {
+        #if MEDIAINFO_AES
+            Encryption_Method_Set(Value);
+            return Ztring();
+        #else //MEDIAINFO_AES
+            return __T("Encryption manager is disabled due to compilation options");
+        #endif //MEDIAINFO_AES
+    }
+    else if (Option_Lower==__T("file_encryption_mode") || Option_Lower==__T("file_encryption_modeofoperation"))
+    {
+        #if MEDIAINFO_AES
+            Encryption_Mode_Set(Value);
+            return Ztring();
+        #else //MEDIAINFO_AES
+            return __T("Encryption manager is disabled due to compilation options");
+        #endif //MEDIAINFO_AES
+    }
+    else if (Option_Lower==__T("file_encryption_padding"))
+    {
+        #if MEDIAINFO_AES
+            Encryption_Padding_Set(Value);
+            return Ztring();
+        #else //MEDIAINFO_AES
+            return __T("Encryption manager is disabled due to compilation options");
+        #endif //MEDIAINFO_AES
+    }
+    else if (Option_Lower==__T("file_encryption_initializationvector"))
+    {
+        #if MEDIAINFO_AES
+            Encryption_InitializationVector_Set(Value);
+            return Ztring();
+        #else //MEDIAINFO_AES
+            return __T("Encryption manager is disabled due to compilation options");
+        #endif //MEDIAINFO_AES
     }
     else if (Option_Lower==__T("file_nextpacket"))
     {
@@ -1618,6 +1678,203 @@ bool MediaInfo_Config_MediaInfo::Ibi_UseIbiInfoIfAvailable_Get ()
     return Ibi_UseIbiInfoIfAvailable;
 }
 #endif //MEDIAINFO_IBI
+
+//***************************************************************************
+// Encryption
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_AES
+void MediaInfo_Config_MediaInfo::Encryption_Format_Set (const Ztring &Value)
+{
+    string Data=Value.To_UTF8();
+    encryption_format Encryption_Format_Temp=Encryption_Format_None;
+    if (Data=="AES")
+        Encryption_Format_Temp=Encryption_Format_Aes;
+
+    CriticalSectionLocker CSL(CS);
+    Encryption_Format=Encryption_Format_Temp;
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::Encryption_Format_Set (encryption_format Value)
+{
+    CriticalSectionLocker CSL(CS);
+    Encryption_Format=Value;
+}
+
+string MediaInfo_Config_MediaInfo::Encryption_Format_GetS ()
+{
+    CriticalSectionLocker CSL(CS);
+    switch (Encryption_Format)
+    {
+        case Encryption_Format_Aes: return "AES";
+        default: return string();
+    }
+}
+
+encryption_format MediaInfo_Config_MediaInfo::Encryption_Format_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Encryption_Format;
+}
+#endif //MEDIAINFO_AES
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_AES
+void MediaInfo_Config_MediaInfo::Encryption_Key_Set (const Ztring &Value)
+{
+    string Data_Base64=Value.To_UTF8();
+
+    CriticalSectionLocker CSL(CS);
+    Encryption_Key=Base64::decode(Data_Base64);
+}
+
+void MediaInfo_Config_MediaInfo::Encryption_Key_Set (const int8u* Value, size_t Value_Size)
+{
+    CriticalSectionLocker CSL(CS);
+    Encryption_Key=string((const char*)Value, Value_Size);
+}
+
+string MediaInfo_Config_MediaInfo::Encryption_Key_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Encryption_Key;
+}
+#endif //MEDIAINFO_AES
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_AES
+void MediaInfo_Config_MediaInfo::Encryption_Method_Set (const Ztring &Value)
+{
+    string Data=Value.To_UTF8();
+    encryption_method Encryption_Method_Temp=Encryption_Method_None;
+    if (Data=="Segment")
+        Encryption_Method_Temp=Encryption_Method_Segment;
+
+    CriticalSectionLocker CSL(CS);
+    Encryption_Method=Encryption_Method_Temp;
+}
+
+void MediaInfo_Config_MediaInfo::Encryption_Method_Set (encryption_method Value)
+{
+    CriticalSectionLocker CSL(CS);
+    Encryption_Method=Value;
+}
+
+string MediaInfo_Config_MediaInfo::Encryption_Method_GetS ()
+{
+    CriticalSectionLocker CSL(CS);
+    switch (Encryption_Method)
+    {
+        case Encryption_Method_Segment: return "Segment";
+        default: return string();
+    }
+}
+
+encryption_method MediaInfo_Config_MediaInfo::Encryption_Method_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Encryption_Method;
+}
+#endif //MEDIAINFO_AES
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_AES
+void MediaInfo_Config_MediaInfo::Encryption_Mode_Set (const Ztring &Value)
+{
+    string Data=Value.To_UTF8();
+    encryption_mode Encryption_Mode_Temp=Encryption_Mode_None;
+    if (Data=="CBC")
+        Encryption_Mode_Temp=Encryption_Mode_Cbc;
+
+    CriticalSectionLocker CSL(CS);
+    Encryption_Mode=Encryption_Mode_Temp;
+}
+
+void MediaInfo_Config_MediaInfo::Encryption_Mode_Set (encryption_mode Value)
+{
+    CriticalSectionLocker CSL(CS);
+    Encryption_Mode=Value;
+}
+
+string MediaInfo_Config_MediaInfo::Encryption_Mode_GetS ()
+{
+    CriticalSectionLocker CSL(CS);
+    switch (Encryption_Mode)
+    {
+        case Encryption_Mode_Cbc: return "CBC";
+        default: return string();
+    }
+}
+
+encryption_mode MediaInfo_Config_MediaInfo::Encryption_Mode_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Encryption_Mode;
+}
+#endif //MEDIAINFO_AES
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_AES
+void MediaInfo_Config_MediaInfo::Encryption_Padding_Set (const Ztring &Value)
+{
+    string Data=Value.To_UTF8();
+    encryption_padding Encryption_Padding_Temp=Encryption_Padding_None;
+    if (Data=="PKCS7")
+        Encryption_Padding_Temp=Encryption_Padding_Pkcs7;
+
+    CriticalSectionLocker CSL(CS);
+    Encryption_Padding=Encryption_Padding_Temp;
+}
+
+void MediaInfo_Config_MediaInfo::Encryption_Padding_Set (encryption_padding Value)
+{
+    CriticalSectionLocker CSL(CS);
+    Encryption_Padding=Value;
+}
+
+string MediaInfo_Config_MediaInfo::Encryption_Padding_GetS ()
+{
+    CriticalSectionLocker CSL(CS);
+    switch (Encryption_Padding)
+    {
+        case Encryption_Padding_Pkcs7: return "PKCS7";
+        default: return string();
+    }
+}
+
+encryption_padding MediaInfo_Config_MediaInfo::Encryption_Padding_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Encryption_Padding;
+}
+#endif //MEDIAINFO_AES
+
+//---------------------------------------------------------------------------
+#if MEDIAINFO_AES
+void MediaInfo_Config_MediaInfo::Encryption_InitializationVector_Set (const Ztring &Value)
+{
+    if (Value==__T("Sequence number"))
+    {
+        CriticalSectionLocker CSL(CS);
+        Encryption_InitializationVector="Sequence number";
+    }
+    else
+    {
+        string Data_Base64=Value.To_UTF8();
+
+        CriticalSectionLocker CSL(CS);
+        Encryption_InitializationVector=Base64::decode(Data_Base64);
+    }
+}
+
+string MediaInfo_Config_MediaInfo::Encryption_InitializationVector_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Encryption_InitializationVector;
+}
+#endif //MEDIAINFO_AES
 
 //***************************************************************************
 // NextPacket

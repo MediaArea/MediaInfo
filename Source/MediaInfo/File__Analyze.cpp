@@ -198,6 +198,14 @@ File__Analyze::File__Analyze ()
     //Events data
     PES_FirstByte_IsAvailable=false;
 
+    //AES
+    #if MEDIAINFO_AES
+        AES=NULL;
+        AES_IV=NULL;
+        AES_Decrypted=NULL;
+        AES_Decrypted_Size=0;
+    #endif //MEDIAINFO_AES
+
     //MD5
     #if MEDIAINFO_MD5
         MD5=NULL;
@@ -223,6 +231,18 @@ File__Analyze::~File__Analyze ()
     //BitStream
     delete BS; //BS=NULL;
     delete BT; //BS=NULL;
+
+    //AES
+    #if MEDIAINFO_AES
+        delete AES; //AES=NULL;
+        delete AES_IV; //AES_IV=NULL;
+        delete AES_Decrypted; //AES_Decrypted=NULL;
+    #endif //MEDIAINFO_AES
+
+    //MD5
+    #if MEDIAINFO_MD5
+        delete MD5; //MD5=NULL;
+    #endif //MEDIAINFO_MD5
 
     #if MEDIAINFO_IBI
         if (!IsSub)
@@ -370,6 +390,44 @@ void File__Analyze::Open_Buffer_Continue (const int8u* ToAdd, size_t ToAdd_Size)
                 MD5Update(MD5, ToAdd, (unsigned int)ToAdd_Size);
         }
     #endif //MEDIAINFO_MD5
+
+    //AES
+    #if MEDIAINFO_AES
+        if (ToAdd_Size)
+        {
+            if (!IsSub && !Buffer_Temp_Size && File_Offset==Config->File_Current_Offset
+             && Config->Encryption_Format_Get()==Encryption_Format_Aes
+             && Config->Encryption_Key_Get().size()==16
+             && Config->Encryption_Method_Get()==Encryption_Method_Segment
+             && Config->Encryption_Mode_Get()==Encryption_Mode_Cbc
+             && Config->Encryption_Padding_Get()==Encryption_Padding_Pkcs7
+             && Config->Encryption_InitializationVector_Get()=="Sequence number")
+            {
+                delete AES; AES=new AESdecrypt;
+                AES->key128((const unsigned char*)Config->Encryption_Key_Get().c_str());
+                AES_IV=new int8u[16];
+                int128u2BigEndian(AES_IV, int128u((int64u)Config->File_Names_Pos-1));
+            }
+            if (AES)
+            {
+                if (AES_Decrypted_Size<ToAdd_Size)
+                {
+                    delete AES_Decrypted; AES_Decrypted=new int8u[ToAdd_Size*2];
+                    AES_Decrypted_Size=ToAdd_Size*2;
+                }
+                AES->cbc_decrypt(ToAdd, AES_Decrypted, ToAdd_Size, AES_IV);
+                if (File_Offset+Buffer_Size+ToAdd_Size>=Config->File_Current_Size && ToAdd_Size)
+                {
+                    int8u LastByte=AES_Decrypted[ToAdd_Size-1];
+                    ToAdd_Size-=LastByte;
+                    if (Config->File_Names_Pos && Config->File_Names_Pos-1<Config->File_Sizes.size())
+                        Config->File_Sizes[Config->File_Names_Pos-1]-=LastByte;
+                    Config->File_Current_Size-=LastByte;
+                }
+                ToAdd=AES_Decrypted;
+            }
+        }
+    #endif //MEDIAINFO_AES
 
     //Integrity
     if (Status[IsFinished])

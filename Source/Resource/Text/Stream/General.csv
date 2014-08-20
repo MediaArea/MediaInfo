@@ -123,6 +123,12 @@ Album_ReplayGain_Gain;; dB;N YT;;;The gain to apply to reach 89dB SPL on playbac
 Album_ReplayGain_Gain/String;;;Y YT;;;
 Album_ReplayGain_Peak;;;Y YT;;;The maximum absolute peak value of the item;;
 Encryption;;;Y YT;;;;;
+Encryption_Format;;;N YT;;;;;
+Encryption_Length;;;N YT;;;;;
+Encryption_Method;;;N YT;;;;;
+Encryption_Mode;;;N YT;;;;;
+Encryption_Padding;;;N YT;;;;;
+Encryption_InitializationVector;;;N YT;;;;;
 Title;;;N NT;;;(Generic)Title of file;;Title
 Title/More;;;N NT;;;(Generic)More info about the title of file;;Title
 Title/Url;;;N NT;;;(Generic)Url;;Title

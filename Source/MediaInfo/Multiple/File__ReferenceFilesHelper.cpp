@@ -34,6 +34,9 @@
     #include "MediaInfo/MediaInfo_Events_Internal.h"
     #include "MediaInfo/MediaInfo_Config_PerPackage.h"
 #endif //MEDIAINFO_EVENTS
+#if MEDIAINFO_AES
+    #include "base64.h"
+#endif //MEDIAINFO_AES
 using namespace std;
 //---------------------------------------------------------------------------
 
@@ -1353,6 +1356,14 @@ MediaInfo_Internal* File__ReferenceFilesHelper::MI_Create()
     MI_Temp->Option(__T("File_DvDif_DisableAudioIfIsInContainer"), Config->File_DvDif_DisableAudioIfIsInContainer_Get()?__T("1"):__T("0"));
     if ((References.size()>1 || Config->File_MpegTs_ForceMenu_Get()) && !Reference->IsMain && !HasMainFile)
         MI_Temp->Option(__T("File_MpegTs_ForceMenu"), __T("1"));
+    #if MEDIAINFO_AES
+        MI_Temp->Option(__T("File_Encryption_Format"), MI->Retrieve(Stream_General, 0, "Encryption_Format"));
+        MI_Temp->Option(__T("File_Encryption_Key"), Ztring().From_UTF8(Base64::encode(MI->Config->Encryption_Key_Get())));
+        MI_Temp->Option(__T("File_Encryption_Method"), MI->Retrieve(Stream_General, 0, "Encryption_Method"));
+        MI_Temp->Option(__T("File_Encryption_Mode"), MI->Retrieve(Stream_General, 0, "Encryption_Mode"));
+        MI_Temp->Option(__T("File_Encryption_Padding"), MI->Retrieve(Stream_General, 0, "Encryption_Padding"));
+        MI_Temp->Option(__T("File_Encryption_InitializationVector"), MI->Retrieve(Stream_General, 0, "Encryption_InitializationVector"));
+    #endif //AES
     #if MEDIAINFO_NEXTPACKET
         if (Config->NextPacket_Get())
             MI_Temp->Option(__T("File_NextPacket"), __T("1"));

@@ -1,4 +1,4 @@
-%define libmediainfo_version      0.7.69
+%define libmediainfo_version      0.7.70
 %define libzen_version            0.4.29
 
 Name:           libmediainfo
