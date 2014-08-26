@@ -175,7 +175,7 @@ const char* Ffv1_coder_type(int8u coder_type)
         case 1 :
         case 2 :
                 return "Range Coder";
-        default: 
+        default:
                 return "";
     }
 }
@@ -417,17 +417,17 @@ void File_Ffv1::FrameHeader()
             Info_RS(States, StateTransition,                    "state_transition_delta"); Param_Info1(StateTransition+RC->one_state[i]);
         }
     }
-	Get_RU (States, colorspace_type,                            "colorspace_type");
-	if (version)
+    Get_RU (States, colorspace_type,                            "colorspace_type");
+    if (version)
     {
         Get_RU (States, bits_per_raw_sample,                    "bits_per_raw_sample");
         if (bits_per_raw_sample==0)
             bits_per_raw_sample=8; //I don't know the reason, 8-bit is coded 0 and 10-bit coded 10 (not 2?).
     }
-	Get_RC (States, chroma_planes,                              "chroma_planes");
-	Get_RU (States, chroma_h_shift,                             "log2(h_chroma_subsample)");
-	Get_RU (States, chroma_v_shift,                             "log2(v_chroma_subsample)");
-	Get_RC (States, alpha_plane,                                "alpha_plane");
+    Get_RC (States, chroma_planes,                              "chroma_planes");
+    Get_RU (States, chroma_h_shift,                             "log2(h_chroma_subsample)");
+    Get_RU (States, chroma_v_shift,                             "log2(v_chroma_subsample)");
+    Get_RC (States, alpha_plane,                                "alpha_plane");
     if (version>1)
     {
         Get_RU (States, num_h_slices_minus1,                    "num_h_slices_minus1");

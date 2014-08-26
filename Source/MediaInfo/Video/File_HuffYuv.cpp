@@ -87,7 +87,7 @@ const char* HuffYUV_method (int16u BitCount, int8u method)
 {
     switch (BitCount&0x0007)
     {
-        case 0 : 
+        case 0 :
                     switch (method)
                     {
                         case 0xFE : return "old";
@@ -184,7 +184,7 @@ void File_HuffYuv::FrameHeader()
     }
     else
         Version=3;
-    
+
     //Parsing
     int8u   bpp_override=0, chroma_v_shift=0, chroma_h_shift=0, interlace;
     bool    alpha=false, chroma=false, rgb=false;
@@ -241,7 +241,7 @@ void File_HuffYuv::FrameHeader()
         }
 
         Fill(Stream_Video, 0, Video_Format_Version, __T("Version ")+Ztring::ToZtring(Version));
-        
+
         if (Version==2)
         {
             Fill(Stream_Video, 0, Video_ColorSpace, HuffYUV_ColorSpace(BitCount));

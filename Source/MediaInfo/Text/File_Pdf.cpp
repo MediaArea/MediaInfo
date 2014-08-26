@@ -331,7 +331,7 @@ void File_Pdf::trailer()
 
     Element_End0();
 
-    //Previous Cross-Reference Table 
+    //Previous Cross-Reference Table
     if (Prev!=(int32u)-1)
     {
         GoTo(Prev);
@@ -398,7 +398,7 @@ void File_Pdf::eof()
         Element_WaitForMoreData();
         return;
     }
-    
+
     //We need to find the exact begin
     Buffer_Offset=Buffer_Size-1;
     while (Buffer_Offset && (Buffer[Buffer_Offset]=='\r' || Buffer[Buffer_Offset]=='\n'))
@@ -512,7 +512,7 @@ void File_Pdf::Object_Metadata()
                 Element_Offset++;
             if (Element_Offset<Element_Size && Buffer[Buffer_Offset+(size_t)Element_Offset]=='\n')
                 Element_Offset++;
-            
+
             File_Xmp MI;
             Open_Buffer_Init(&MI, Length);
             Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+(size_t)Element_Offset, Length);
@@ -544,7 +544,7 @@ bool File_Pdf::Get_Next(string &Key, Ztring &Value)
 {
     Key.clear();
     Value.clear();
-    
+
     string Line;
 
     //Removig end of lines
@@ -554,7 +554,7 @@ bool File_Pdf::Get_Next(string &Key, Ztring &Value)
     //End
     if (Element_Offset>=Element_Size)
         return true;
-    
+
     //Testing Catalog
     for (;;)
     {
@@ -607,11 +607,11 @@ bool File_Pdf::Get_Next(string &Key, Ztring &Value)
 
     //Base
     int64u Line_Base=Element_Offset;
-    
+
     //Testing next key
     size_t Line_End=0;
     size_t Line_Begin=Line_End;
-        
+
     // Key-Value
     if (Line_Begin<Line.size() && Line[Line_Begin]=='/')
     {
