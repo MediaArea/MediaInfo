@@ -52,9 +52,6 @@ File_Eia708::File_Eia708()
     StandAloneCommand=false;
     HasContent=false;
     DataDetected=0x0000000000000000LL;
-
-    //Tests
-    DFx_WindowID_Last=0xFF;
 }
 
 //---------------------------------------------------------------------------
