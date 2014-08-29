@@ -67,6 +67,10 @@ File_Aac::File_Aac()
     aacScalefactorDataResilienceFlag=false;
     FrameSize_Min=(int64u)-1;
     FrameSize_Max=0;
+    adts_buffer_fullness_Is7FF=false;
+    #if MEDIAINFO_ADVANCED
+        aac_frame_length_Total=0;
+    #endif //MEDIAINFO_ADVANCED
 
     //Temp - Main
     muxConfigPresent=true;
@@ -128,29 +132,27 @@ void File_Aac::Streams_Fill()
 //---------------------------------------------------------------------------
 void File_Aac::Streams_Update()
 {
-    bool ComputeBitRate=false;
-
-    switch(Mode)
+    if (Frame_Count)
     {
+        if (Mode==Mode_ADTS)
+            Infos["BitRate_Mode"].From_Local(adts_buffer_fullness_Is7FF?"VBR":"CBR");
+
         #if MEDIAINFO_ADVANCED
-        case Mode_LATM    : if (Config->File_RiskyBitRateEstimation_Get())
-                                ComputeBitRate=true;
-                            break;
+            switch(Mode)
+            {
+                case Mode_ADTS    :
+                case Mode_LATM    : if (Config->File_RiskyBitRateEstimation_Get() && !adts_buffer_fullness_Is7FF)
+                                    {
+                                        int64u BitRate=(sampling_frequency/1024);
+                                        BitRate*=aac_frame_length_Total*8;
+                                        BitRate/=Frame_Count;
+
+                                        Fill(Stream_Audio, 0, Audio_BitRate, BitRate, 10, true);
+                                    }
+                                    break;
+                default           : ;
+            }
         #endif //MEDIAINFO_ADVANCED
-        default           : ;
-    }
-
-    if (ComputeBitRate)
-    {
-        int64u aac_frame_length_Total=0;
-        for (size_t Pos=0; Pos<aac_frame_lengths.size(); Pos++)
-            aac_frame_length_Total+=aac_frame_lengths[Pos];
-
-        int64u BitRate=(sampling_frequency/1024);
-        BitRate*=aac_frame_length_Total*8;
-        BitRate/=aac_frame_lengths.size();
-
-        Fill(Stream_Audio, 0, Audio_BitRate, BitRate, 10, true);
     }
 }
 
@@ -677,13 +679,6 @@ void File_Aac::Data_Parse()
         FrameSize_Min=Header_Size+Element_Size;
     if (FrameSize_Max<Header_Size+Element_Size)
         FrameSize_Max=Header_Size+Element_Size;
-    switch(Mode)
-    {
-        case Mode_LATM    :
-                            if (aac_frame_lengths.size()<1000) //TODO: find a way to detect properly when the container has finished to analyze
-                                aac_frame_lengths.push_back((int16u)Element_Size); break;
-        default           : ;
-    }
 
     if (Frame_Count>Frame_Count_Valid)
     {
@@ -710,6 +705,14 @@ void File_Aac::Data_Parse()
             if (Frame_Count_NotParsedIncluded!=(int64u)-1)
                 Frame_Count_NotParsedIncluded++;
             Element_Info1(Ztring::ToZtring(Frame_Count));
+        }
+
+        switch(Mode)
+        {
+            case Mode_LATM    :
+                                aac_frame_length_Total+=Element_Size;
+                                break;
+            default           : ;
         }
 
         if (!Status[IsAccepted])

@@ -1125,27 +1125,11 @@ void File_Aac::adts_variable_header()
     Element_End0();
 
     FILLING_BEGIN();
-        aac_frame_lengths.push_back(aac_frame_length);
-
-        Infos["BitRate_Mode"].From_Local(adts_buffer_fullness==0x7FF?"VBR":"CBR");
-        if (adts_buffer_fullness!=0x7FF
+        if (adts_buffer_fullness==0x7FF)
+            adts_buffer_fullness=true;
         #if MEDIAINFO_ADVANCED
-         || Config->File_RiskyBitRateEstimation_Get()
+            aac_frame_length_Total+=aac_frame_length;
         #endif //MEDIAINFO_ADVANCED
-        )
-        {
-            //Calculating
-            int64u aac_frame_length_Total=0;
-            for (size_t Pos=0; Pos<aac_frame_lengths.size(); Pos++)
-                aac_frame_length_Total+=aac_frame_lengths[Pos];
-
-            int64u BitRate=(Aac_sampling_frequency[sampling_frequency_index]/1024);
-            BitRate*=aac_frame_length_Total*8;
-            BitRate/=aac_frame_lengths.size();
-
-            //Filling
-            Infos["BitRate"].From_Number(BitRate);
-        }
     FILLING_END();
 }
 

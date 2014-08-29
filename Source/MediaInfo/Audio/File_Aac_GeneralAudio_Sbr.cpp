@@ -374,10 +374,8 @@ void File_Aac::sbr_extension_data(size_t End, int8u id_aac, bool crc_flag)
             if (MediaInfoLib::Config.ParseSpeed_Get()<0.3)
             {
                 Frame_Count_Valid=Frame_Count+1;
-                #if MEDIAINFO_ADVANCED
-                    if (aac_frame_lengths.size()<8)
-                        Frame_Count_Valid+=8-aac_frame_lengths.size();
-                #endif //MEDIAINFO_ADVANCED
+                if (Frame_Count<8)
+                    Frame_Count_Valid+=8-Frame_Count;
             }
         FILLING_END();
     }
