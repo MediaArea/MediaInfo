@@ -4317,7 +4317,8 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
 
             //Demux
             #if MEDIAINFO_DEMUX
-                if (!Config->Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10_Get())
+                if (!((MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring().From_CC4((int32u)Element_Code), InfoCodecID_Format)==__T("AVC") & Config->Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10_Get())
+                   || (MediaInfoLib::Config.CodecID_Get(Stream_Video, InfoCodecID_Format_Mpeg4, Ztring().From_CC4((int32u)Element_Code), InfoCodecID_Format)==__T("HEVC") & Config->Demux_Hevc_Transcode_Iso14496_15_to_AnnexB_Get())))
                     switch (Config->Demux_InitData_Get())
                     {
                         case 0 :    //In demux event
@@ -4560,7 +4561,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxVideo()
                     File_Hevc* Parser=new File_Hevc;
                     Parser->FrameIsAlwaysComplete=true;
                     #if MEDIAINFO_DEMUX
-                        if (Config->Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10_Get())
+                        if (Config->Demux_Hevc_Transcode_Iso14496_15_to_AnnexB_Get())
                         {
                             Streams[moov_trak_tkhd_TrackID].Demux_Level=4; //Intermediate
                             Parser->Demux_Level=2; //Container
@@ -5496,7 +5497,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_hvcC()
         Parser->FrameIsAlwaysComplete=true;
         #if MEDIAINFO_DEMUX
             Element_Code=moov_trak_tkhd_TrackID;
-            if (Config->Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10_Get())
+            if (Config->Demux_Hevc_Transcode_Iso14496_15_to_AnnexB_Get())
             {
                 Streams[moov_trak_tkhd_TrackID].Demux_Level=4; //Intermediate
                 Parser->Demux_Level=2; //Container
@@ -5511,7 +5512,7 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxx_hvcC()
 
         //Demux
         #if MEDIAINFO_DEMUX
-            if (!Config->Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10_Get())
+            if (!Config->Demux_Hevc_Transcode_Iso14496_15_to_AnnexB_Get())
                 switch (Config->Demux_InitData_Get())
                 {
                     case 0 :    //In demux event

@@ -3388,7 +3388,7 @@ void File_Mk::CodecID_Manage()
             ((File_Hevc*)Stream[TrackNumber].Parser)->MustParse_VPS_SPS_PPS_FromMatroska=true;
             ((File_Hevc*)Stream[TrackNumber].Parser)->SizedBlocks=true;
             #if MEDIAINFO_DEMUX
-                if (Config->Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10_Get())
+                if (Config->Demux_Hevc_Transcode_Iso14496_15_to_AnnexB_Get())
                 {
                     Stream[TrackNumber].Parser->Demux_Level=2; //Container
                     Stream[TrackNumber].Parser->Demux_UnpacketizeContainer=true;

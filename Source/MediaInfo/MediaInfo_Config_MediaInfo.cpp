@@ -98,6 +98,7 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
         Demux_PCM_20bitTo16bit=false;
         Demux_PCM_20bitTo24bit=false;
         Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10=false;
+        Demux_Hevc_Transcode_Iso14496_15_to_AnnexB=false;
         Demux_Unpacketize=false;
         Demux_Rate=0;
         Demux_FirstDts=(int64u)-1;
@@ -516,6 +517,18 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
                 Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10_Set(false);
             else
                 Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10_Set(true);
+            return Ztring();
+        #else //MEDIAINFO_DEMUX
+            return __T("Demux manager is disabled due to compilation options");
+        #endif //MEDIAINFO_DEMUX
+    }
+    else if (Option_Lower==__T("file_demux_hevc_transcode_iso14496_15_to_annexb"))
+    {
+        #if MEDIAINFO_DEMUX
+            if (Value.empty())
+                Demux_Hevc_Transcode_Iso14496_15_to_AnnexB_Set(false);
+            else
+                Demux_Hevc_Transcode_Iso14496_15_to_AnnexB_Set(true);
             return Ztring();
         #else //MEDIAINFO_DEMUX
             return __T("Demux manager is disabled due to compilation options");
@@ -1556,6 +1569,19 @@ bool MediaInfo_Config_MediaInfo::Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10_
 {
     CriticalSectionLocker CSL(CS);
     return Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10;
+}
+
+//---------------------------------------------------------------------------
+void MediaInfo_Config_MediaInfo::Demux_Hevc_Transcode_Iso14496_15_to_AnnexB_Set (bool NewValue)
+{
+    CriticalSectionLocker CSL(CS);
+    Demux_Hevc_Transcode_Iso14496_15_to_AnnexB=NewValue;
+}
+
+bool MediaInfo_Config_MediaInfo::Demux_Hevc_Transcode_Iso14496_15_to_AnnexB_Get ()
+{
+    CriticalSectionLocker CSL(CS);
+    return Demux_Hevc_Transcode_Iso14496_15_to_AnnexB;
 }
 
 //---------------------------------------------------------------------------

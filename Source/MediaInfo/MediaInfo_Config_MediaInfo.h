@@ -255,6 +255,8 @@ public :
     bool          Demux_PCM_20bitTo24bit_Get ();
     void          Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10_Set (bool NewValue);
     bool          Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10_Get ();
+    void          Demux_Hevc_Transcode_Iso14496_15_to_AnnexB_Set (bool NewValue);
+    bool          Demux_Hevc_Transcode_Iso14496_15_to_AnnexB_Get ();
     void          Demux_Unpacketize_Set (bool NewValue);
     bool          Demux_Unpacketize_Get ();
     void          Demux_Rate_Set (float64 NewValue);
@@ -457,6 +459,7 @@ private :
     bool                    Demux_PCM_20bitTo16bit;
     bool                    Demux_PCM_20bitTo24bit;
     bool                    Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10;
+    bool                    Demux_Hevc_Transcode_Iso14496_15_to_AnnexB;
     bool                    Demux_Unpacketize;
     float64                 Demux_Rate;
     int64u                  Demux_FirstDts;

@@ -347,7 +347,7 @@ bool File_Hevc::Demux_UnpacketizeContainer_Test()
     size_t          Buffer_Temp_Size=0;
     bool            RandomAccess=true; //Default, in case of problem
 
-    if ((MustParse_VPS_SPS_PPS || SizedBlocks) && Demux_Transcode_Iso14496_15_to_Iso14496_10)
+    if ((MustParse_VPS_SPS_PPS || SizedBlocks) && Demux_Transcode_Iso14496_15_to_AnnexB)
     {
         if (MustParse_VPS_SPS_PPS)
             return true; //Wait for SPS and PPS
@@ -430,11 +430,11 @@ bool File_Hevc::Demux_UnpacketizeContainer_Test()
         if (RandomAccess)
         {
             for (video_parameter_set_structs::iterator Data_Item=video_parameter_sets.begin(); Data_Item!=video_parameter_sets.end(); ++Data_Item)
-                TranscodedBuffer_Size+=(*Data_Item)->Iso14496_10_Buffer_Size;
+                TranscodedBuffer_Size+=(*Data_Item)->AnnexB_Buffer_Size;
             for (seq_parameter_set_structs::iterator Data_Item=seq_parameter_sets.begin(); Data_Item!=seq_parameter_sets.end(); ++Data_Item)
-                TranscodedBuffer_Size+=(*Data_Item)->Iso14496_10_Buffer_Size;
+                TranscodedBuffer_Size+=(*Data_Item)->AnnexB_Buffer_Size;
             for (pic_parameter_set_structs::iterator Data_Item=pic_parameter_sets.begin(); Data_Item!=pic_parameter_sets.end(); ++Data_Item)
-                TranscodedBuffer_Size+=(*Data_Item)->Iso14496_10_Buffer_Size;
+                TranscodedBuffer_Size+=(*Data_Item)->AnnexB_Buffer_Size;
         }
 
         //Copying
@@ -444,18 +444,18 @@ bool File_Hevc::Demux_UnpacketizeContainer_Test()
         {
             for (video_parameter_set_structs::iterator Data_Item=video_parameter_sets.begin(); Data_Item!=video_parameter_sets.end(); ++Data_Item)
             {
-                std::memcpy(TranscodedBuffer+TranscodedBuffer_Pos, (*Data_Item)->Iso14496_10_Buffer, (*Data_Item)->Iso14496_10_Buffer_Size);
-                TranscodedBuffer_Pos+=(*Data_Item)->Iso14496_10_Buffer_Size;
+                std::memcpy(TranscodedBuffer+TranscodedBuffer_Pos, (*Data_Item)->AnnexB_Buffer, (*Data_Item)->AnnexB_Buffer_Size);
+                TranscodedBuffer_Pos+=(*Data_Item)->AnnexB_Buffer_Size;
             }
             for (seq_parameter_set_structs::iterator Data_Item=seq_parameter_sets.begin(); Data_Item!=seq_parameter_sets.end(); ++Data_Item)
             {
-                std::memcpy(TranscodedBuffer+TranscodedBuffer_Pos, (*Data_Item)->Iso14496_10_Buffer, (*Data_Item)->Iso14496_10_Buffer_Size);
-                TranscodedBuffer_Pos+=(*Data_Item)->Iso14496_10_Buffer_Size;
+                std::memcpy(TranscodedBuffer+TranscodedBuffer_Pos, (*Data_Item)->AnnexB_Buffer, (*Data_Item)->AnnexB_Buffer_Size);
+                TranscodedBuffer_Pos+=(*Data_Item)->AnnexB_Buffer_Size;
             }
             for (pic_parameter_set_structs::iterator Data_Item=pic_parameter_sets.begin(); Data_Item!=pic_parameter_sets.end(); ++Data_Item)
             {
-                std::memcpy(TranscodedBuffer+TranscodedBuffer_Pos, (*Data_Item)->Iso14496_10_Buffer, (*Data_Item)->Iso14496_10_Buffer_Size);
-                TranscodedBuffer_Pos+=(*Data_Item)->Iso14496_10_Buffer_Size;
+                std::memcpy(TranscodedBuffer+TranscodedBuffer_Pos, (*Data_Item)->AnnexB_Buffer, (*Data_Item)->AnnexB_Buffer_Size);
+                TranscodedBuffer_Pos+=(*Data_Item)->AnnexB_Buffer_Size;
             }
         }
         while (Buffer_Offset<Buffer_Size)
@@ -638,7 +638,7 @@ void File_Hevc::Synched_Init()
         Streams[Pos].Searching_Payload=true; //unspecified
 
     #if MEDIAINFO_DEMUX
-        Demux_Transcode_Iso14496_15_to_Iso14496_10=Config->Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10_Get();
+        Demux_Transcode_Iso14496_15_to_AnnexB=Config->Demux_Hevc_Transcode_Iso14496_15_to_AnnexB_Get();
     #endif //MEDIAINFO_DEMUX
 }
 
@@ -929,22 +929,22 @@ void File_Hevc::Data_Parse()
     }
 
     #if MEDIAINFO_DEMUX
-        if (Demux_Transcode_Iso14496_15_to_Iso14496_10)
+        if (Demux_Transcode_Iso14496_15_to_AnnexB)
         {
             if (Element_Code==32)
             {
                 std::vector<video_parameter_set_struct*>::iterator Data_Item=video_parameter_sets.begin();
                 if (Data_Item!=video_parameter_sets.end() && (*Data_Item))
                 {
-                    delete[] (*Data_Item)->Iso14496_10_Buffer;
-                    (*Data_Item)->Iso14496_10_Buffer_Size=(size_t)(Element_Size+5);
-                    (*Data_Item)->Iso14496_10_Buffer=new int8u[(*Data_Item)->Iso14496_10_Buffer_Size];
-                    (*Data_Item)->Iso14496_10_Buffer[0]=0x00;
-                    (*Data_Item)->Iso14496_10_Buffer[1]=0x00;
-                    (*Data_Item)->Iso14496_10_Buffer[2]=0x01;
-                    (*Data_Item)->Iso14496_10_Buffer[3]=Buffer[Buffer_Offset-2];
-                    (*Data_Item)->Iso14496_10_Buffer[4]=Buffer[Buffer_Offset-1];
-                    std::memcpy((*Data_Item)->Iso14496_10_Buffer+5, Buffer+Buffer_Offset, (size_t)Element_Size);
+                    delete[] (*Data_Item)->AnnexB_Buffer;
+                    (*Data_Item)->AnnexB_Buffer_Size=(size_t)(Element_Size+5);
+                    (*Data_Item)->AnnexB_Buffer=new int8u[(*Data_Item)->AnnexB_Buffer_Size];
+                    (*Data_Item)->AnnexB_Buffer[0]=0x00;
+                    (*Data_Item)->AnnexB_Buffer[1]=0x00;
+                    (*Data_Item)->AnnexB_Buffer[2]=0x01;
+                    (*Data_Item)->AnnexB_Buffer[3]=Buffer[Buffer_Offset-2];
+                    (*Data_Item)->AnnexB_Buffer[4]=Buffer[Buffer_Offset-1];
+                    std::memcpy((*Data_Item)->AnnexB_Buffer+5, Buffer+Buffer_Offset, (size_t)Element_Size);
                 }
             }
             if (Element_Code==33)
@@ -952,15 +952,15 @@ void File_Hevc::Data_Parse()
                 std::vector<seq_parameter_set_struct*>::iterator Data_Item=seq_parameter_sets.begin();
                 if (Data_Item!=seq_parameter_sets.end() && (*Data_Item))
                 {
-                    delete[] (*Data_Item)->Iso14496_10_Buffer;
-                    (*Data_Item)->Iso14496_10_Buffer_Size=(size_t)(Element_Size+5);
-                    (*Data_Item)->Iso14496_10_Buffer=new int8u[(*Data_Item)->Iso14496_10_Buffer_Size];
-                    (*Data_Item)->Iso14496_10_Buffer[0]=0x00;
-                    (*Data_Item)->Iso14496_10_Buffer[1]=0x00;
-                    (*Data_Item)->Iso14496_10_Buffer[2]=0x01;
-                    (*Data_Item)->Iso14496_10_Buffer[3]=Buffer[Buffer_Offset-2];
-                    (*Data_Item)->Iso14496_10_Buffer[4]=Buffer[Buffer_Offset-1];
-                    std::memcpy((*Data_Item)->Iso14496_10_Buffer+5, Buffer+Buffer_Offset, (size_t)Element_Size);
+                    delete[] (*Data_Item)->AnnexB_Buffer;
+                    (*Data_Item)->AnnexB_Buffer_Size=(size_t)(Element_Size+5);
+                    (*Data_Item)->AnnexB_Buffer=new int8u[(*Data_Item)->AnnexB_Buffer_Size];
+                    (*Data_Item)->AnnexB_Buffer[0]=0x00;
+                    (*Data_Item)->AnnexB_Buffer[1]=0x00;
+                    (*Data_Item)->AnnexB_Buffer[2]=0x01;
+                    (*Data_Item)->AnnexB_Buffer[3]=Buffer[Buffer_Offset-2];
+                    (*Data_Item)->AnnexB_Buffer[4]=Buffer[Buffer_Offset-1];
+                    std::memcpy((*Data_Item)->AnnexB_Buffer+5, Buffer+Buffer_Offset, (size_t)Element_Size);
                 }
             }
             if (Element_Code==34)
@@ -968,15 +968,15 @@ void File_Hevc::Data_Parse()
                 std::vector<pic_parameter_set_struct*>::iterator Data_Item=pic_parameter_sets.begin();
                 if (Data_Item!=pic_parameter_sets.end() && (*Data_Item))
                 {
-                    delete[] (*Data_Item)->Iso14496_10_Buffer;
-                    (*Data_Item)->Iso14496_10_Buffer_Size=(size_t)(Element_Size+5);
-                    (*Data_Item)->Iso14496_10_Buffer=new int8u[(*Data_Item)->Iso14496_10_Buffer_Size];
-                    (*Data_Item)->Iso14496_10_Buffer[0]=0x00;
-                    (*Data_Item)->Iso14496_10_Buffer[1]=0x00;
-                    (*Data_Item)->Iso14496_10_Buffer[2]=0x01;
-                    (*Data_Item)->Iso14496_10_Buffer[3]=Buffer[Buffer_Offset-2];
-                    (*Data_Item)->Iso14496_10_Buffer[4]=Buffer[Buffer_Offset-1];
-                    std::memcpy((*Data_Item)->Iso14496_10_Buffer+5, Buffer+Buffer_Offset, (size_t)Element_Size);
+                    delete[] (*Data_Item)->AnnexB_Buffer;
+                    (*Data_Item)->AnnexB_Buffer_Size=(size_t)(Element_Size+5);
+                    (*Data_Item)->AnnexB_Buffer=new int8u[(*Data_Item)->AnnexB_Buffer_Size];
+                    (*Data_Item)->AnnexB_Buffer[0]=0x00;
+                    (*Data_Item)->AnnexB_Buffer[1]=0x00;
+                    (*Data_Item)->AnnexB_Buffer[2]=0x01;
+                    (*Data_Item)->AnnexB_Buffer[3]=Buffer[Buffer_Offset-2];
+                    (*Data_Item)->AnnexB_Buffer[4]=Buffer[Buffer_Offset-1];
+                    std::memcpy((*Data_Item)->AnnexB_Buffer+5, Buffer+Buffer_Offset, (size_t)Element_Size);
                 }
             }
         }

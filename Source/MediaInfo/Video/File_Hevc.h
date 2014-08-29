@@ -42,8 +42,8 @@ private :
     struct video_parameter_set_struct
     {
         #if MEDIAINFO_DEMUX
-        int8u*  Iso14496_10_Buffer;
-        size_t  Iso14496_10_Buffer_Size;
+        int8u*  AnnexB_Buffer;
+        size_t  AnnexB_Buffer_Size;
         #endif //MEDIAINFO_DEMUX
         int8u   vps_max_sub_layers_minus1;
 
@@ -51,8 +51,8 @@ private :
         video_parameter_set_struct(int8u vps_max_sub_layers_minus1_)
         :
             #if MEDIAINFO_DEMUX
-            Iso14496_10_Buffer(NULL),
-            Iso14496_10_Buffer_Size(0),
+            AnnexB_Buffer(NULL),
+            AnnexB_Buffer_Size(0),
             #endif //MEDIAINFO_DEMUX
             vps_max_sub_layers_minus1(vps_max_sub_layers_minus1_)
         {
@@ -61,7 +61,7 @@ private :
         ~video_parameter_set_struct()
         {
             #if MEDIAINFO_DEMUX
-                delete[] Iso14496_10_Buffer;
+                delete[] AnnexB_Buffer;
             #endif //MEDIAINFO_DEMUX
         }
 
@@ -219,8 +219,8 @@ private :
         };
         vui_parameters_struct* vui_parameters;
         #if MEDIAINFO_DEMUX
-        int8u*  Iso14496_10_Buffer;
-        size_t  Iso14496_10_Buffer_Size;
+        int8u*  AnnexB_Buffer;
+        size_t  AnnexB_Buffer_Size;
         #endif //MEDIAINFO_DEMUX
         int32u  profile_space;
         int32u  profile_idc;
@@ -252,8 +252,8 @@ private :
             :
             vui_parameters(vui_parameters_),
             #if MEDIAINFO_DEMUX
-            Iso14496_10_Buffer(NULL),
-            Iso14496_10_Buffer_Size(0),
+            AnnexB_Buffer(NULL),
+            AnnexB_Buffer_Size(0),
             #endif //MEDIAINFO_DEMUX
             profile_space(profile_space_),
             profile_idc(profile_idc_),
@@ -280,7 +280,7 @@ private :
         {
             delete vui_parameters; //vui_parameters=NULL;
             #if MEDIAINFO_DEMUX
-            delete[] Iso14496_10_Buffer;
+            delete[] AnnexB_Buffer;
             #endif //MEDIAINFO_DEMUX
         }
 
@@ -294,8 +294,8 @@ private :
     struct pic_parameter_set_struct
     {
         #if MEDIAINFO_DEMUX
-        int8u*  Iso14496_10_Buffer;
-        size_t  Iso14496_10_Buffer_Size;
+        int8u*  AnnexB_Buffer;
+        size_t  AnnexB_Buffer_Size;
         #endif //MEDIAINFO_DEMUX
         int8u   seq_parameter_set_id;
         int8u   num_ref_idx_l0_default_active_minus1;
@@ -307,8 +307,8 @@ private :
         pic_parameter_set_struct(int8u seq_parameter_set_id_, int8u num_ref_idx_l0_default_active_minus1_, int8u num_ref_idx_l1_default_active_minus1_, int8u num_extra_slice_header_bits_, bool dependent_slice_segments_enabled_flag_)
             :
             #if MEDIAINFO_DEMUX
-            Iso14496_10_Buffer(NULL),
-            Iso14496_10_Buffer_Size(0),
+            AnnexB_Buffer(NULL),
+            AnnexB_Buffer_Size(0),
             #endif //MEDIAINFO_DEMUX
             seq_parameter_set_id(seq_parameter_set_id_),
             num_ref_idx_l0_default_active_minus1(num_ref_idx_l0_default_active_minus1_),
@@ -321,7 +321,7 @@ private :
         ~pic_parameter_set_struct()
         {
             #if MEDIAINFO_DEMUX
-                delete[] Iso14496_10_Buffer;
+                delete[] AnnexB_Buffer;
             #endif //MEDIAINFO_DEMUX
         }
 
@@ -347,7 +347,7 @@ private :
     //Buffer - Demux
     #if MEDIAINFO_DEMUX
     bool Demux_UnpacketizeContainer_Test();
-    bool Demux_Transcode_Iso14496_15_to_Iso14496_10;
+    bool Demux_Transcode_Iso14496_15_to_AnnexB;
     #endif //MEDIAINFO_DEMUX
 
     //Buffer - Global
