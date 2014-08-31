@@ -1334,7 +1334,7 @@ void File_Flv::audio_AAC()
     switch (AACPacketType)
     {
         case 0 :
-                #if defined(MEDIAINFO_MPEG4_YES)
+                #if defined(MEDIAINFO_AAC_YES)
                     if (Stream[Stream_Audio].Parser==NULL)
                     {
                         Stream[Stream_Audio].Parser=new File_Aac;
