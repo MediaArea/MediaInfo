@@ -740,6 +740,10 @@ void File__ReferenceFilesHelper::ParseReferences()
         MI->Fill(Stream_General, 0, General_FileSize, MI->Config->File_Size, 10, true);
         MI->Fill(Stream_General, 0, General_StreamSize, MI->File_Size, 10, true);
     }
+    #if MEDIAINFO_ADVANCED
+        if (Config->File_IgnoreSequenceFileSize_Get())
+            MI->Clear(Stream_General, 0, General_FileSize);
+    #endif //MEDIAINFO_ADVANCED
 }
 
 //---------------------------------------------------------------------------

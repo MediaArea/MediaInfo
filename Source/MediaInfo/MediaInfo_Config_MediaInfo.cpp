@@ -167,6 +167,9 @@ MediaInfo_Config_MediaInfo::MediaInfo_Config_MediaInfo()
            Demux_IsSeeking=false;
         #endif //MEDIAINFO_SEEK
     #endif //MEDIAINFO_DEMUX
+    #if MEDIAINFO_SEEK
+        File_GoTo_IsFrameOffset=false;
+    #endif //MEDIAINFO_SEEK
 }
 
 MediaInfo_Config_MediaInfo::~MediaInfo_Config_MediaInfo()

@@ -33,6 +33,9 @@ using namespace tinyxml2;
     #include "MediaInfo/MediaInfo_Events_Internal.h"
 #endif //MEDIAINFO_EVENTS
 #ifdef MEDIAINFO_SSE2_YES
+    #ifndef ZENLIB_MEMUTILS_SSE2
+        #define ZENLIB_MEMUTILS_SSE2
+    #endif //ZENLIB_MEMUTILS_SSE2
     #include "ZenLib/MemoryUtils.h"
 #else //MEDIAINFO_SSE2_YES
     #define memcpy_Unaligned_Unaligned std::memcpy
@@ -1259,7 +1262,10 @@ size_t File__Analyze::Read_Buffer_Seek_OneFramePerFile (size_t Method, int64u Va
                         return 2; //Invalid value
                     int64u Offset=0;
                     if (Config->File_Sizes.size()!=Config->File_Names.size())
-                        Offset=Value; //Offset is used as a file offset
+                    {
+                        Offset=Value; //File_GoTo is the frame offset in that case
+                        Config->File_GoTo_IsFrameOffset=true;
+                    }
                     else
                         for (size_t Pos=0; Pos<Value; Pos++)
                             Offset+=Config->File_Sizes[Pos];
@@ -3103,6 +3109,22 @@ void File__Analyze::GoToFromEnd (int64u GoToFromEnd, const char* ParserName)
         return;
     }
 
+    #if MEDIAINFO_ADVANCED
+        if (File_Size==(int64u)-1)
+        {
+            if (Config->File_IgnoreSequenceFileSize_Get() && GoToFromEnd)
+            {
+                File_GoTo=Config->File_Names.size()-1;
+                File_Offset=(int64u)-1;
+                Config->File_Current_Offset=(int64u)-1;
+                Config->File_GoTo_IsFrameOffset=true;
+            }
+            else
+                ForceFinish(); //We can not jump
+            return;
+        }
+    #endif //MEDIAINFO_ADVANCED
+        
     GoTo(File_Size-GoToFromEnd, ParserName);
 }
 #else //MEDIAINFO_TRACE
@@ -3111,6 +3133,22 @@ void File__Analyze::GoToFromEnd (int64u GoToFromEnd)
     if (GoToFromEnd>File_Size)
         return;
 
+    #if MEDIAINFO_ADVANCED
+        if (File_Size==(int64u)-1)
+        {
+            if (Config->File_IgnoreSequenceFileSize_Get() && GoToFromEnd)
+            {
+                File_GoTo=Config->File_Names.size()-1;
+                File_Offset=(int64u)-1;
+                Config->File_Current_Offset=(int64u)-1;
+                Config->File_GoTo_IsFrameOffset=true;
+            }
+            else
+                ForceFinish(); //We can not jump
+            return;
+        }
+    #endif //MEDIAINFO_ADVANCED
+        
     GoTo(File_Size-GoToFromEnd);
 }
 #endif //MEDIAINFO_TRACE

@@ -207,6 +207,7 @@ void File__Analyze::TestContinuousFileNames(size_t CountOfFiles, Ztring FileExte
         {
             Config->File_Size=(int64u)-1;
             File_Size=(int64u)-1;
+            Clear(Stream_General, 0, General_FileSize);
         }
     #endif //MEDIAINFO_ADVANCED
 

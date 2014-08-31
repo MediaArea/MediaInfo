@@ -415,9 +415,11 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                 {
                     size_t Pos;
                     #if MEDIAINFO_ADVANCED
-                        if (MI->Config.File_Sizes.size()!=MI->Config.File_Names.size())
+                        if (MI->Config.File_GoTo_IsFrameOffset)
                         {
                             Pos=(size_t)MI->Open_Buffer_Continue_GoTo_Get(); //File_GoTo is the frame offset in that case
+                            MI->Info->File_GoTo=(int64u)-1;
+                            MI->Config.File_GoTo_IsFrameOffset=false;
                             GoTo=0;
                         }
                         else
@@ -553,7 +555,17 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                         if (MI->Config.File_Buffer_Size)
                             break;
 
-                        if (ThreadInstance->IsExited())
+                        if (!ThreadInstance->IsExited())
+                        {
+                            CS.Leave();
+                            #ifdef WINDOWS
+                                WaitForSingleObject(Condition_WaitingForMoreData, INFINITE);
+                            #else //WINDOWS
+                                Sleep(0);
+                            #endif //WINDOWS
+                            CS.Enter();
+                        }
+                        else
                         {
                             if (IsLooping)
                             {
@@ -566,14 +578,6 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                             MI->Config.File_Buffer_Size=Buffer_End-Buffer_Begin;
                             break;
                         }
-
-                        CS.Leave();
-                        #ifdef WINDOWS
-                            WaitForSingleObject(Condition_WaitingForMoreData, INFINITE);
-                        #else //WINDOWS
-                            Sleep(0);
-                        #endif //WINDOWS
-                        CS.Enter();
                     }
                     MI->Config.File_Buffer=Buffer+Buffer_Begin;
                     CS.Leave();

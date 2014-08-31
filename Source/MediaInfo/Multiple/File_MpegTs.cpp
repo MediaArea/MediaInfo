@@ -1762,7 +1762,11 @@ void File_MpegTs::Read_Buffer_AfterParsing()
             Status[User_19]=true;
 
             //Jumping
-            if (Config->ParseSpeed<1.0 && Config->File_IsSeekable_Get() && File_Offset+Buffer_Size<File_Size-MpegTs_JumpTo_End && MpegTs_JumpTo_End)
+            if (Config->ParseSpeed<1.0 && Config->File_IsSeekable_Get()
+            #if MEDIAINFO_ADVANCED
+             && (!Config->File_IgnoreSequenceFileSize_Get() || Config->File_Names_Pos!=Config->File_Names.size())
+            #endif //MEDIAINFO_ADVANCED
+             && File_Offset+Buffer_Size<File_Size-MpegTs_JumpTo_End && MpegTs_JumpTo_End)
             {
                 #if !defined(MEDIAINFO_MPEGTS_PCR_YES) && !defined(MEDIAINFO_MPEGTS_PESTIMESTAMP_YES)
                     GoToFromEnd(47); //TODO: Should be changed later (when Finalize stuff will be split)

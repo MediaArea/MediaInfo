@@ -360,6 +360,9 @@ public :
         bool      Demux_IsSeeking;
         #endif //MEDIAINFO_SEEK
     #endif //MEDIAINFO_DEMUX
+    #if MEDIAINFO_SEEK
+    bool      File_GoTo_IsFrameOffset;
+    #endif //MEDIAINFO_SEEK
 
 private :
     bool                    FileIsSeekable;
