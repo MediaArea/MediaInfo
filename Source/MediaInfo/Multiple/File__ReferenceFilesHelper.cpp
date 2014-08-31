@@ -1425,6 +1425,10 @@ MediaInfo_Internal* File__ReferenceFilesHelper::MI_Create()
     #if MEDIAINFO_DEMUX
         if (Config->Demux_Unpacketize_Get())
             MI_Temp->Option(__T("File_Demux_Unpacketize"), __T("1"));
+        if (Config->Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10_Get())
+            MI_Temp->Option(__T("File_Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10"), __T("1"));
+        if (Config->Demux_Hevc_Transcode_Iso14496_15_to_AnnexB_Get())
+            MI_Temp->Option(__T("File_Demux_Hevc_Transcode_Iso14496_15_to_AnnexB"), __T("1"));
         if (FrameRate)
             MI_Temp->Option(__T("File_Demux_Rate"), Ztring::ToZtring(FrameRate, 25));
         switch (Config->Demux_InitData_Get())
