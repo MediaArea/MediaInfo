@@ -1024,7 +1024,7 @@ void File_Hevc::slice_segment_layer()
             return;
 
         //Count of I-Frames
-        if (first_slice_segment_in_pic_flag && Element_Code==19)
+        if (first_slice_segment_in_pic_flag && (Element_Code==19 || Element_Code==20))
             IFrame_Count++;
 
         if (first_slice_segment_in_pic_flag)
