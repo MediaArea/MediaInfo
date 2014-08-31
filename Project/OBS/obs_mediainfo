@@ -99,6 +99,8 @@ Download_Packages 1  1  1   x x ""           xUbuntu_13.04  i386   _i386
 Download_Packages 1  1  1   x x ""           xUbuntu_13.04  amd64  _amd64
 Download_Packages 1  1  1   x x ""           xUbuntu_13.10  i386   _i386
 Download_Packages 1  1  1   x x ""           xUbuntu_13.10  amd64  _amd64
+Download_Packages 1  1  1   x x ""           xUbuntu_14.04  i386   _i386
+Download_Packages 1  1  1   x x ""           xUbuntu_14.04  amd64  _amd64
 
 type="rpm"
 devext="devel"
@@ -158,7 +160,7 @@ libmediainfov="0.7.69"
 libzenv="0.4.29"
 destversion="1"
 
-Download_Global 308.1 313.1 246.1
+Download_Global 315.3 321.3 x.1
 
 #mkdir download/binary/wxGTK/2.8.12/
 #Download_Wx 6.1 x x  x x ""           CentOS_5        i386   .i386

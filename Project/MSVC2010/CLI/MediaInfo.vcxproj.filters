@@ -27,9 +27,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Source\CLI\CLI_Main.cpp">
-      <Filter>Source Files\CLI</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Source\CLI\CommandLine_Parser.cpp">
       <Filter>Source Files\CLI</Filter>
     </ClCompile>
@@ -38,6 +35,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Common\Core.cpp">
       <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\CLI\CLI_Main.cpp">
+      <Filter>Source Files\CLI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
