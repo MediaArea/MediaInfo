@@ -477,7 +477,7 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==__T("file_demux_forceids"))
     {
         #if MEDIAINFO_DEMUX
-            if (Value.empty())
+            if (Ztring(Value).To_int64u()==0)
                 Demux_ForceIds_Set(false);
             else
                 Demux_ForceIds_Set(true);
@@ -489,7 +489,7 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==__T("file_demux_pcm_20bitto16bit"))
     {
         #if MEDIAINFO_DEMUX
-            if (Value.empty())
+            if (Ztring(Value).To_int64u()==0)
                 Demux_PCM_20bitTo16bit_Set(false);
             else
                 Demux_PCM_20bitTo16bit_Set(true);
@@ -501,7 +501,7 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==__T("file_demux_pcm_20bitto24bit"))
     {
         #if MEDIAINFO_DEMUX
-            if (Value.empty())
+            if (Ztring(Value).To_int64u()==0)
                 Demux_PCM_20bitTo24bit_Set(false);
             else
                 Demux_PCM_20bitTo24bit_Set(true);
@@ -513,7 +513,7 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==__T("file_demux_avc_transcode_iso14496_15_to_iso14496_10"))
     {
         #if MEDIAINFO_DEMUX
-            if (Value.empty())
+            if (Ztring(Value).To_int64u()==0)
                 Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10_Set(false);
             else
                 Demux_Avc_Transcode_Iso14496_15_to_Iso14496_10_Set(true);
@@ -525,7 +525,7 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==__T("file_demux_hevc_transcode_iso14496_15_to_annexb"))
     {
         #if MEDIAINFO_DEMUX
-            if (Value.empty())
+            if (Ztring(Value).To_int64u()==0)
                 Demux_Hevc_Transcode_Iso14496_15_to_AnnexB_Set(false);
             else
                 Demux_Hevc_Transcode_Iso14496_15_to_AnnexB_Set(true);
@@ -537,7 +537,7 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==__T("file_demux_unpacketize"))
     {
         #if MEDIAINFO_DEMUX
-            if (Value.empty())
+            if (Ztring(Value).To_int64u()==0)
                 Demux_Unpacketize_Set(false);
             else
                 Demux_Unpacketize_Set(true);
@@ -622,7 +622,7 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==__T("file_ibi_create"))
     {
         #if MEDIAINFO_IBI
-            if (Value.empty())
+            if (Ztring(Value).To_int64u()==0)
                 Ibi_Create_Set(false);
             else
                 Ibi_Create_Set(true);
@@ -634,7 +634,7 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==__T("file_ibi_useibiinfoifavailable"))
     {
         #if MEDIAINFO_IBI
-            if (Value.empty())
+            if (Ztring(Value).To_int64u()==0)
                 Ibi_UseIbiInfoIfAvailable_Set(false);
             else
                 Ibi_UseIbiInfoIfAvailable_Set(true);
@@ -700,7 +700,7 @@ Ztring MediaInfo_Config_MediaInfo::Option (const String &Option, const String &V
     else if (Option_Lower==__T("file_nextpacket"))
     {
         #if MEDIAINFO_NEXTPACKET
-            if (Value.empty())
+            if (Ztring(Value).To_int64u()==0)
                 NextPacket_Set(false);
             else
                 NextPacket_Set(true);
