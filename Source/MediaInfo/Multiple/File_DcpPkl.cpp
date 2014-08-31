@@ -225,7 +225,6 @@ bool File_DcpPkl::FileHeader_Begin()
         size_t MiOpenResult=MI.Open(Directory.Path_Get()+PathSeparator+CPL_FileName);
         MI.Option(__T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
         MI.Option(__T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
-        Ztring A=MI.Get(Stream_General, 0, General_Format);
         if (MiOpenResult
             && (MI.Get(Stream_General, 0, General_Format)==__T("DCP CPL")
             ||  MI.Get(Stream_General, 0, General_Format)==__T("IMF CPL")))
