@@ -31,7 +31,7 @@ Version 0.7.70, 2014-
 + BMP: support of OS/2 headers
 + HLS: com.apple.streaming.transportStreamTimestamp support
 + ISM: ISMT / text (TTML) streams support
-+ MXF: detection of buggy BlockAlign from some muxers, so PCM bit depth is corectly detected despite the buggy metadata
++ MXF: detection of buggy BlockAlign from some muxers, so PCM bit depth is correctly detected despite the buggy metadata
 + HEVC: library name of some encoding libraries
 + MPEG-2 Video: picture structure for interlaced content (interlaced content can have a frame structure)
 + HLS: support of some encrypted files (AES-128 with default IV and per segment), key is provided by the command line --File_Encryption_Key=(Base64 data)
