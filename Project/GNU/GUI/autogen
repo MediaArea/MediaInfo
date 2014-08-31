@@ -26,4 +26,4 @@ else
   automake -a
 fi
 
-autoconf
+autoreconf -fi

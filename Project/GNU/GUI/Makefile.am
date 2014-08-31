@@ -20,6 +20,6 @@ mediainfo_gui_SOURCES = \
     ../../../Source/CLI/Help.cpp \
     ../../../Source/Common/Core.cpp
 
-#mediainfo-gui_LDFLAGS     = -no-undefined -version-info 0:0:0
+#mediainfo_gui_LDFLAGS     = -no-undefined -version-info 0:0:0
 
-INCLUDES = -I../../../Source -I../../../../MediaInfoLib/Source -I../../../../ZenLib/Source
+AM_CPPFLAGS = -I../../../Source -I../../../../MediaInfoLib/Source -I../../../../ZenLib/Source

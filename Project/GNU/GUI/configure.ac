@@ -3,19 +3,20 @@ dnl ### Init
 dnl #########################################################################
 
 dnl -------------------------------------------------------------------------
+dnl Name and version
+dnl
+AC_INIT([mediainfo-gui], [0.7.70])
+
+dnl -------------------------------------------------------------------------
 dnl Test if we are at the good place
 dnl
-AC_INIT(../../../Source/GUI/WxWidgets/GUI_Main.cpp)
+AC_CONFIG_SRCDIR([../../../Source/GUI/WxWidgets/GUI_Main.cpp])
 
 dnl -------------------------------------------------------------------------
 dnl sets build, host, target variables and the same with _alias
 dnl
 AC_CANONICAL_BUILD
-
-dnl -------------------------------------------------------------------------
-dnl Name and version
-dnl
-AM_INIT_AUTOMAKE(mediainfo-gui,0)
+AM_INIT_AUTOMAKE([foreign -Wall])
 
 dnl -------------------------------------------------------------------------
 dnl Autotools init
