@@ -707,13 +707,15 @@ void File_Aac::Data_Parse()
             Element_Info1(Ztring::ToZtring(Frame_Count));
         }
 
-        switch(Mode)
-        {
-            case Mode_LATM    :
-                                aac_frame_length_Total+=Element_Size;
-                                break;
-            default           : ;
-        }
+        #if MEDIAINFO_ADVANCED
+            switch(Mode)
+            {
+                case Mode_LATM    :
+                                    aac_frame_length_Total+=Element_Size;
+                                    break;
+                default           : ;
+            }
+        #endif //MEDIAINFO_ADVANCED
 
         if (!Status[IsAccepted])
             File__Analyze::Accept();
