@@ -543,13 +543,13 @@ namespace MediaInfoDLL
 
     const String Unable_Load_DLL = __T("Unable to load ")MEDIAINFODLL_NAME;
 #define MEDIAINFO_TEST_VOID \
-    if (!IsReady()) return
+    if (!MediaInfo_Module) {MediaInfoDLL_Load(); if (!MediaInfo_Module) return;}
 #define MEDIAINFO_TEST_INT \
-    if (!IsReady()) return 0
+    if (!MediaInfo_Module) {MediaInfoDLL_Load(); if (!MediaInfo_Module) return 0;}
 #define MEDIAINFO_TEST_STRING \
-    if (!IsReady()) return Unable_Load_DLL
+    if (!MediaInfo_Module) {MediaInfoDLL_Load(); if (!MediaInfo_Module) return Unable_Load_DLL;}
 #define MEDIAINFO_TEST_STRING_STATIC \
-    if (!MediaInfo_Module) return Unable_Load_DLL
+    if (!MediaInfo_Module) {MediaInfoDLL_Load(); if (!MediaInfo_Module) return Unable_Load_DLL;}
 
     //---------------------------------------------------------------------------
     class MediaInfo
@@ -581,8 +581,6 @@ namespace MediaInfoDLL
         size_t        State_Get() {MEDIAINFO_TEST_INT; return MediaInfo_State_Get(Handle);};
         size_t        Count_Get(stream_t StreamKind, size_t StreamNumber = (size_t) - 1)  {MEDIAINFO_TEST_INT; return MediaInfo_Count_Get(Handle, (MediaInfo_stream_C)StreamKind, StreamNumber);};
 
-        bool IsReady() {return (Handle && MediaInfo_Module) ? true : false;}
-
     private :
         void* Handle;
     };
@@ -609,8 +607,6 @@ namespace MediaInfoDLL
         size_t        State_Get()  {MEDIAINFO_TEST_INT; return MediaInfoList_State_Get(Handle);};
         size_t        Count_Get(size_t FilePos, stream_t StreamKind, size_t StreamNumber = (size_t) - 1)  {MEDIAINFO_TEST_INT; return MediaInfoList_Count_Get(Handle, FilePos, (MediaInfo_stream_C)StreamKind, StreamNumber);};
         size_t        Count_Get()  {MEDIAINFO_TEST_INT; return MediaInfoList_Count_Get_Files(Handle);};
-
-        bool IsReady() {return (Handle && MediaInfo_Module) ? true : false;}
 
     private :
         void* Handle;
