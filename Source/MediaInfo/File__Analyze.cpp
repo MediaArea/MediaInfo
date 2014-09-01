@@ -3109,9 +3109,9 @@ void File__Analyze::GoToFromEnd (int64u GoToFromEnd, const char* ParserName)
         return;
     }
 
-    #if MEDIAINFO_ADVANCED
-        if (File_Size==(int64u)-1)
-        {
+    if (File_Size==(int64u)-1)
+    {
+        #if MEDIAINFO_SEEK
             if (Config->File_IgnoreSequenceFileSize_Get() && GoToFromEnd)
             {
                 File_GoTo=Config->File_Names.size()-1;
@@ -3120,10 +3120,10 @@ void File__Analyze::GoToFromEnd (int64u GoToFromEnd, const char* ParserName)
                 Config->File_GoTo_IsFrameOffset=true;
             }
             else
+        #endif //MEDIAINFO_SEEK
                 ForceFinish(); //We can not jump
-            return;
-        }
-    #endif //MEDIAINFO_ADVANCED
+        return;
+    }
         
     GoTo(File_Size-GoToFromEnd, ParserName);
 }
@@ -3133,9 +3133,9 @@ void File__Analyze::GoToFromEnd (int64u GoToFromEnd)
     if (GoToFromEnd>File_Size)
         return;
 
-    #if MEDIAINFO_ADVANCED
-        if (File_Size==(int64u)-1)
-        {
+    if (File_Size==(int64u)-1)
+    {
+        #if MEDIAINFO_SEEK
             if (Config->File_IgnoreSequenceFileSize_Get() && GoToFromEnd)
             {
                 File_GoTo=Config->File_Names.size()-1;
@@ -3144,11 +3144,11 @@ void File__Analyze::GoToFromEnd (int64u GoToFromEnd)
                 Config->File_GoTo_IsFrameOffset=true;
             }
             else
+        #endif //MEDIAINFO_SEEK
                 ForceFinish(); //We can not jump
-            return;
-        }
-    #endif //MEDIAINFO_ADVANCED
-        
+        return;
+    }
+
     GoTo(File_Size-GoToFromEnd);
 }
 #endif //MEDIAINFO_TRACE

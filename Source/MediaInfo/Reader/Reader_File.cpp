@@ -414,7 +414,7 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                 if (MI->Config.File_Names.size()>1)
                 {
                     size_t Pos;
-                    #if MEDIAINFO_ADVANCED
+                    #if MEDIAINFO_SEEK
                         if (MI->Config.File_GoTo_IsFrameOffset)
                         {
                             Pos=(size_t)MI->Open_Buffer_Continue_GoTo_Get(); //File_GoTo is the frame offset in that case
@@ -423,7 +423,7 @@ size_t Reader_File::Format_Test_PerParser_Continue (MediaInfo_Internal* MI)
                             GoTo=0;
                         }
                         else
-                    #endif //MEDIAINFO_ADVANCED
+                    #endif //MEDIAINFO_SEEK
                     {
                         for (Pos=0; Pos<MI->Config.File_Sizes.size(); Pos++)
                         {
