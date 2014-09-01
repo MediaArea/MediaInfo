@@ -108,6 +108,131 @@ extern stream_t    Mpeg_Descriptors_stream_Kind(int8u descriptor_tag, int32u for
 extern const char* Mpeg_Descriptors_CA_system_ID(int16u CA_system_ID);
 
 //---------------------------------------------------------------------------
+//DTS Neural (ETSI EN 300 468 v1.14+)
+const size_t MpegTs_DtsNeural_2_Count=9;
+const size_t MpegTs_DtsNeural_6_Count=4;
+
+const int8u MpegTs_DtsNeural_Channels_2[MpegTs_DtsNeural_2_Count]=
+{
+    0,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    6,
+    7,
+};
+
+const int8u MpegTs_DtsNeural_Channels_6[MpegTs_DtsNeural_6_Count]=
+{
+    0,
+    6,
+    7,
+    8,
+};
+
+const int8u MpegTs_DtsNeural_Channels(int8u Channels, int8u config_id)
+{
+    if (config_id==0)
+        return 0;
+
+    switch (Channels)
+    {
+        case 2 :
+                if (config_id>=MpegTs_DtsNeural_2_Count)
+                    return 0;
+                return MpegTs_DtsNeural_Channels_2[config_id];
+        case 6 :
+                if (config_id>=MpegTs_DtsNeural_6_Count)
+                    return 0;
+                return MpegTs_DtsNeural_Channels_6[config_id];
+        default: return 0;
+    }
+}
+
+const char* MpegTs_DtsNeural_ChannelPositions_2[MpegTs_DtsNeural_2_Count]=
+{
+    "",
+    "Front: L R, LFE",
+    "Front: L C R, LFE",
+    "Front: L R, Side: L R, LFE",
+    "Front: L C R, Side: L R, LFE",
+    "Front: L C R, Side: L R, Back: C, LFE",
+    "Front: L C R, Side: L R, Back: L R, LFE",
+    "Front: L R, Side: L R, Back: C, LFE",
+    "Front: L R, Side: L R, Back: L R, LFE",
+};
+
+const char* MpegTs_DtsNeural_ChannelPositions_6[MpegTs_DtsNeural_6_Count]=
+{
+    "",
+    "Front: L C R, Side: L R",
+    "Front: L C R, Side: L R, Back: C",
+    "Front: L C R, Side: L R, Back: L R",
+};
+
+const char* MpegTs_DtsNeural_ChannelPositions(int8u Channels, int8u config_id)
+{
+    if (config_id==0)
+        return "";
+
+    switch (Channels)
+    {
+        case 2 :
+                if (config_id>=MpegTs_DtsNeural_2_Count)
+                    return "";
+                return MpegTs_DtsNeural_ChannelPositions_2[config_id];
+        case 6 :
+                if (config_id>=MpegTs_DtsNeural_6_Count)
+                    return "";
+                return MpegTs_DtsNeural_ChannelPositions_6[config_id];
+        default: return "";
+    }
+}
+
+const char* MpegTs_DtsNeural_ChannelPositions2_2[MpegTs_DtsNeural_2_Count]=
+{
+    "",
+    "2/0/0.1",
+    "3/0/0.1",
+    "2/2/0.1",
+    "3/2/0.1",
+    "3/2/1.1",
+    "3/2/2.1",
+    "2/2/1.1",
+    "2/2/2.1",
+};
+
+const char* MpegTs_DtsNeural_ChannelPositions2_6[MpegTs_DtsNeural_6_Count]=
+{
+    "",
+    "3/2/0.1",
+    "3/2/1.1",
+    "3/2/2.1",
+};
+
+const char* MpegTs_DtsNeural_ChannelPositions2(int8u Channels, int8u config_id)
+{
+    if (config_id==0)
+        return "";
+
+    switch (Channels)
+    {
+        case 2 :
+                if (config_id>=MpegTs_DtsNeural_2_Count)
+                    return "";
+                return MpegTs_DtsNeural_ChannelPositions2_2[config_id];
+        case 6 :
+                if (config_id>=MpegTs_DtsNeural_6_Count)
+                    return "";
+                return MpegTs_DtsNeural_ChannelPositions2_6[config_id];
+        default: return "";
+    }
+}
+
+//---------------------------------------------------------------------------
 Ztring Decimal_Hexa(int64u Number)
 {
     Ztring Temp;
@@ -622,7 +747,27 @@ void File_MpegTs::Streams_Update_Programs_PerStream(size_t StreamID)
             for (std::map<std::string, ZenLib::Ztring>::iterator Info=Temp->Infos.begin(); Info!=Temp->Infos.end(); ++Info)
             {
                 if (Retrieve(StreamKind_Last, StreamPos, Info->first.c_str()).empty())
-                    Fill(StreamKind_Last, StreamPos, Info->first.c_str(), Info->second, true);
+                {
+                    //Special case : DTS Neural
+                    if (StreamKind_Last==Stream_Audio && Info->first=="Matrix_ChannelPositions" && Info->second.find(__T("DTS Neural Audio "))==0)
+                    {
+                        int8u Channels=Retrieve(Stream_Audio, StreamPos, Audio_Channel_s_).To_int8u();
+                        if (Channels)
+                        {
+                            int8u config_id=Ztring(Info->second.substr(17, string::npos)).To_int8u();
+                            int8u Matrix_Channels=MpegTs_DtsNeural_Channels(Channels, config_id);
+                            if (Matrix_Channels)
+                            {
+                                Fill(Stream_Audio, StreamPos, Audio_Matrix_Channel_s_, Matrix_Channels);
+                                Fill(Stream_Audio, StreamPos, Audio_Matrix_ChannelPositions, MpegTs_DtsNeural_ChannelPositions(Channels, config_id));
+                                Fill(Stream_Audio, StreamPos, Audio_ChannelPositions_String2, MpegTs_DtsNeural_ChannelPositions2(Channels, config_id));
+                            }
+                        }
+
+                    }
+                    else
+                        Fill(StreamKind_Last, StreamPos, Info->first.c_str(), Info->second, true);
+                }
             }
             Temp->Infos.clear();
             for (std::map<std::string, ZenLib::Ztring>::iterator Info=Temp->Infos_Option.begin(); Info!=Temp->Infos_Option.end(); ++Info)

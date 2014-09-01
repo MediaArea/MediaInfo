@@ -356,6 +356,7 @@ struct complete_stream
         int16u                                      table_type; //ATSC
         int8u                                       stream_type;
         int8u                                       descriptor_tag;
+        int8u                                       DtsNeural_config_id;
         bool                                        FMC_ES_ID_IsValid;
         bool                                        Searching;
         bool                                        Searching_Payload_Start;
@@ -424,6 +425,7 @@ struct complete_stream
             table_type=0x0000;
             stream_type=(int8u)-1;
             descriptor_tag=(int8u)-1;
+            DtsNeural_config_id=(int8u)-1;
             FMC_ES_ID_IsValid=false;
             Searching=false;
             Searching_Payload_Start=false;
@@ -813,7 +815,8 @@ private :
     void Descriptor_7C();
     void Descriptor_7D() {Skip_XX(Element_Size, "Data");};
     void Descriptor_7E() {Skip_XX(Element_Size, "Data");};
-    void Descriptor_7F() {Skip_XX(Element_Size, "Data");};
+    void Descriptor_7F();
+    void Descriptor_7F_0F();
     void Descriptor_80() {Skip_XX(Element_Size, "Data");};
     void Descriptor_81();
     void Descriptor_86();

@@ -2679,6 +2679,42 @@ void File_Mpeg_Descriptors::Descriptor_7C()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg_Descriptors::Descriptor_7F()
+{
+    //Parsing
+    int8u descriptor_tag_extension;
+    Get_B1(descriptor_tag_extension,                            "descriptor_tag_extension");
+    switch (descriptor_tag_extension)
+    {
+        case 0x0F : Descriptor_7F_0F(); break;
+        default   : Skip_XX(Element_Size-Element_Offset,        "Unknown");
+                    if (elementary_PID_IsValid)
+                    {
+                        Ztring &Temp=Complete_Stream->Streams[elementary_PID]->Infos["descriptor_tag_extension"];
+                        if (!Temp.empty())
+                            Temp+=__T(" / ");
+                        Temp+=Ztring::ToZtring(descriptor_tag_extension);
+                    }
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg_Descriptors::Descriptor_7F_0F()
+{
+    //Parsing
+    int8u config_id;
+    Get_B1(config_id,                                           "config_id");
+    
+    FILLING_BEGIN();
+        if (elementary_PID_IsValid)
+        {
+            Complete_Stream->Streams[elementary_PID]->Infos["Matrix_Format"]=__T("DTS Neural Audio");
+            Complete_Stream->Streams[elementary_PID]->Infos["Matrix_ChannelPositions"]=__T("DTS Neural Audio ")+Ztring::ToZtring(config_id);
+        }
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg_Descriptors::Descriptor_81()
 {
     //Parsing
