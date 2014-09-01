@@ -167,6 +167,7 @@ bool File_Hls::FileHeader_Begin()
                             Fill(Stream_General, 0, General_Encryption_Padding, "PKCS7");
                             Fill(Stream_General, 0, General_Encryption_InitializationVector, "Sequence number");
 
+                            #if MEDIAINFO_AES
                             //Trying to get the key from FileName.FileExt.key
                             if (Config->Encryption_Key_Get().empty())
                             {
@@ -183,6 +184,7 @@ bool File_Hls::FileHeader_Begin()
                                         Fill(Stream_General, 0, "Encryption_Key_Problem", KeyFile.Size_Get());
                                 }
                             }
+                            #endif
                         }
                         Fill(Stream_General, 0, General_Encryption, List[Pos](1));
                     }
