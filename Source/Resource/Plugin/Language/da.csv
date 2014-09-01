@@ -797,6 +797,9 @@ Lyricist;Tekstforfatter
 Mastered_Date;Masteret den
 MasteredBy;Masteret af
 matrix_coefficients;Matrix-coefficienter
+Matrix_Format;
+Matrix_Channel(s);
+Matrix_ChannelPositions;
 MediaInfo_About;Leverer meget detaljeret information\r\nom en multimediefil:\r\nMatroska, Ogg (inklusive OGM)\r\nMPEG1 (inklusive VCD)\r\nMPEG2 (inklusive DVD og SVCD)\r\nMPEG4 (inklusive Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (inklusive WMV, WMA)\r\Microsoft RIFF (inklusive AVI, WAV)\r\nRene lydformater (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menu
 Menu stream(s);Menustrømme

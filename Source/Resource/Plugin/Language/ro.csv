@@ -797,6 +797,9 @@ Lyricist;Textier
 Mastered_Date;Data realizarii
 MasteredBy;Realizat de
 matrix_coefficients;
+Matrix_Format;
+Matrix_Channel(s);
+Matrix_ChannelPositions;
 MediaInfo_About;Furnizeaza informatii foarte detaliate\r\n despre un fisier multimedia
 Menu;Meniu
 Menu stream(s);

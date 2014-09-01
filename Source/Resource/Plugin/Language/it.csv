@@ -797,6 +797,9 @@ Lyricist;Autore del testo
 Mastered_Date;Data di incisione 
 MasteredBy;Inciso da
 matrix_coefficients;Coefficienti matrici
+Matrix_Format;
+Matrix_Channel(s);
+Matrix_ChannelPositions;
 MediaInfo_About;MediaInfo fornisce un acecsso velcoe alle informazioni tecniche ed ai tag dei file audio e video.\r\nAd eccezione dell'interfaccia grafica Mac APp Store, è un sofwtare open-source, che significa che è gratuito per l'utente finale e lo sviluppatore è libero di studiare, e ,migliorare e ridistribuire il programm (licenza LGPL)
 Menu;Menu
 Menu stream(s);Flussi del menu
@@ -1038,5 +1041,5 @@ Written_Location;Realizzato in
 WrittenBy;Realizzato da
 Yes;Si
 Your system;Info sul sistema
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

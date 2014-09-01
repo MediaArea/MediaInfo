@@ -797,6 +797,9 @@ Lyricist; Texter från
 Mastered_Date; Masterdatum
 MasteredBy; Mastrad av
 matrix_coefficients;
+Matrix_Format;
+Matrix_Channel(s);
+Matrix_ChannelPositions;
 MediaInfo_About;Ger mycket detaljerad information\r\nom en multimediafil:\r\nMatroska, OGG (inklusive OGM)\r\nMPEG1 (inklusive VCD)\r\nMPEG2 (inklusive DVD and SVCD)\r\nMPEG4 (inklusive Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (inklusive WMV, WMA)\r\nMicrosoft RIFF (inklusive AVI, WAV)\r\nLjud-endast format (AC3, DTS, AAC, AU, AIFF...)
 Menu; Meny
 Menu stream(s);

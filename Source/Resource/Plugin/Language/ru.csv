@@ -797,6 +797,9 @@ Lyricist;Поэт-песенник
 Mastered_Date;Дата мастеринга
 MasteredBy;Мастеринг произвёл
 matrix_coefficients;Коэффициенты матрицы
+Matrix_Format;
+Matrix_Channel(s);
+Matrix_ChannelPositions;
 MediaInfo_About;Отображает детальную информацию\r\nо мультимедиа-файлах Matroska, OGG (включая OGM)\r\nMPEG1 (включая VCD), MPEG2 (включая DVD и SVCD), MPEG4 (включая iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (включая WMV, WMA)\r\nMicrosoft RIFF (включая AVI, WAV, DivX)\r\nзвуковых форматах (AC3, DTS, SSC, AU, AIFF)
 Menu;Меню
 Menu stream(s);Меню потоков
@@ -1038,5 +1041,5 @@ Written_Location;Место записи
 WrittenBy;Запись произвёл
 Yes;Да
 Your system;Ваша система
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

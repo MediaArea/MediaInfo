@@ -797,6 +797,9 @@ Lyricist;transcriptor del text
 Mastered_Date;Data de masterització
 MasteredBy;Masteritzat per
 matrix_coefficients;
+Matrix_Format;
+Matrix_Channel(s);
+Matrix_ChannelPositions;
 MediaInfo_About;Proporciona informació detallada\r\nquant a un arxiu multimèdia:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (fins i tot VCD)\r\nMPEG2 (fins i tot DVD i SVCD)\r\nMPEG4 (també l'Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (també WMV, WMA)\r\nMicrosoft RIFF (inclouent AVI, WAV)\r\nArxius només sonors (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menú
 Menu stream(s);Menú de pistes
@@ -1038,5 +1041,5 @@ Written_Location;Inseriu el lloc de gravació
 WrittenBy;Escrit per
 Yes;Sí
 Your system;El vostre sistema
-ZZ_Automatic_Percent;78
+ZZ_Automatic_Percent;77
 ZZ_AutomaticLanguage_Percent;86

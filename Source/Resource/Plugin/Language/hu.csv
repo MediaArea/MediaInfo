@@ -797,6 +797,9 @@ Lyricist;Szövegíró
 Mastered_Date;Mesterpéldány kelte
 MasteredBy;Mesterpéldány
 matrix_coefficients;
+Matrix_Format;
+Matrix_Channel(s);
+Matrix_ChannelPositions;
 MediaInfo_About;Igen részletes adatok az alábbi\r\nmultimédia fájlokról:\r\nMatroska, OGG (OGM is)\r\nMPEG1 (VCD is)\r\nMPEG2 (DVD és SVCD is)\r\nMPEG4 (Itunes M4A is)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (WMV, WMA is)\r\nMicrosoft RIFF (AVI, WAV is)\r\nCsak hangot tartalmazó fájlok (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menü
 Menu stream(s);Menüsáv

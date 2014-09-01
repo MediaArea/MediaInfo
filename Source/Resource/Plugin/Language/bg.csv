@@ -797,6 +797,9 @@ Lyricist;Поет
 Mastered_Date;Дата изработка
 MasteredBy;ИзработкаОт
 matrix_coefficients;мартица_коефициент
+Matrix_Format;
+Matrix_Channel(s);
+Matrix_ChannelPositions;
 MediaInfo_About;Медиа Инфо_За
 Menu;Меню
 Menu stream(s);Меню поток(ци)
@@ -1038,5 +1041,5 @@ Written_Location;Написано_Локация
 WrittenBy;НаписаноОт
 Yes;Да
 Your system;Вашата система
-ZZ_Automatic_Percent;88
+ZZ_Automatic_Percent;87
 ZZ_AutomaticLanguage_Percent;95

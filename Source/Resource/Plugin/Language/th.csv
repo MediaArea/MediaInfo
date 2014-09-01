@@ -797,6 +797,9 @@ Lyricist;Lyricist
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
 matrix_coefficients;
+Matrix_Format;
+Matrix_Channel(s);
+Matrix_ChannelPositions;
 MediaInfo_About;แสดงข้อมูลอย่างละเอียด\r\nของไฟล์มัลติมีเดีย:\r\nMatroska, OGG (รวมทั้ง OGM)\r\nMPEG1 (รวมทั้ง VCD)\r\nMPEG2 (รวมทั้ง DVD และ SVCD)\r\nMPEG4 (รวมทั้ง Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (รวมทั้ง WMV, WMA)\r\nMicrosoft RIFF (รวมทั้ง AVI, WAV)\r\nรูปแบบเสียงอย่างเดียว (AC3, DTS, AAC, AU, AIFF...)
 Menu;เมนู
 Menu stream(s);สตรีมเมนู
@@ -1039,4 +1042,4 @@ WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
 ZZ_Automatic_Percent;78
-ZZ_AutomaticLanguage_Percent;87
+ZZ_AutomaticLanguage_Percent;86

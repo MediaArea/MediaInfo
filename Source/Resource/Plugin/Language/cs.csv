@@ -797,6 +797,9 @@ Lyricist;Lyricist
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
 matrix_coefficients;
+Matrix_Format;
+Matrix_Channel(s);
+Matrix_ChannelPositions;
 MediaInfo_About;Supply very detailled information\r\nabout a multimedia file:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menu
 Menu stream(s);Menu streams
@@ -1038,5 +1041,5 @@ Written_Location;Written location
 WrittenBy;Napsal
 Yes;Ano
 Your system;Instalované kodeky
-ZZ_Automatic_Percent;73
+ZZ_Automatic_Percent;72
 ZZ_AutomaticLanguage_Percent;81

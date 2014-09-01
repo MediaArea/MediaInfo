@@ -797,6 +797,9 @@ Lyricist;Parolier
 Mastered_Date;Date de création
 MasteredBy;Créé par
 matrix_coefficients;Coefficients de la matrice
+Matrix_Format;Encodage matriciel, format
+Matrix_Channel(s);Encodage matriciel, canaux
+Matrix_ChannelPositions;Encodage matriciel, position des cannaux
 MediaInfo_About;MediaInfo fournit des informations techniques et les tags à propos de vos fichiers video et audio.\r\nExcepté l'interface graphique du Mac App Store, c'est un logiciel libre, ce qui signifie qu'il est gratuit pour l'utilisateur final et que les développeurs on la liberté de l'étudier, l'améliorer et le redistribuer (licence BSD)
 Menu;Menu
 Menu stream(s);Piste(s) menu

@@ -797,6 +797,9 @@ Lyricist;Lyricist
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
 matrix_coefficients;Matrix coefficients
+Matrix_Format;Matrix encoding, format
+Matrix_Channel(s);Matrix encoding, Channel(s)
+Matrix_ChannelPositions;Matrix encoding, channel positions
 MediaInfo_About;MediaInfo provides easy access to technical and tag information about video and audio files.\r\nExcept the Mac App Store graphical user interface, it is open-source software, which means that it is free of charge to the end user and developers have freedom to study, to improve and to redistribute the program (BSD license)
 Menu;Menu
 Menu stream(s);Menu streams

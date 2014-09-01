@@ -797,6 +797,9 @@ Lyricist;Lyrikas
 Mastered_Date;Sukūrimo data
 MasteredBy;Sukūrė
 matrix_coefficients;
+Matrix_Format;
+Matrix_Channel(s);
+Matrix_ChannelPositions;
 MediaInfo_About;Teikiama detali informacija\r\napie daugialypes bylas:\r\nMatroska, OGG (įskaitant OGM)\r\nMPEG1 (įskaitant VCD)\r\nMPEG2 (įskaitant DVD ir SVCD)\r\nMPEG4 (įskaitant Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (įskaitant WMV, WMA)\r\nMicrosoft RIFF (įskaitant AVI, WAV)\r\nTik-Garso formatai (AC3, DTS, AAC, AU, AIFF...)
 Menu;Meniu
 Menu stream(s);Meniu srautai

@@ -797,6 +797,9 @@ Lyricist;لایرسکسیست
 Mastered_Date;تاریخ مستر
 MasteredBy;مستر شده توسط
 matrix_coefficients;
+Matrix_Format;
+Matrix_Channel(s);
+Matrix_ChannelPositions;
 MediaInfo_About;اطلاعات جزیی\r\nدرباره فایل مولتی مدیا:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
 Menu;منو
 Menu stream(s);استریم منو

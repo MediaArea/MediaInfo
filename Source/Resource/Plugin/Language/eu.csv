@@ -797,6 +797,9 @@ Lyricist;Abestidazlea
 Mastered_Date;Masterizatze eguna
 MasteredBy;Masterizatzailea
 matrix_coefficients;Matrize ezaugarriak
+Matrix_Format;
+Matrix_Channel(s);
+Matrix_ChannelPositions;
 MediaInfo_About;MediaInfo-k sarbide erraza eskaintzen du bideo eta audio agirien argibide teknikoetara eta etiketara.\r\nSoftware askea da, honek esanahi du dohainekoa dela erabiltzaileentzat eta garatzaileek askatasuna dutela ikertzeko, hobetzeko eta programa birbanatzeko (BSD baimena)
 Menu;Menua
 Menu stream(s);Menu jarioak

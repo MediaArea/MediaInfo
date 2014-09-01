@@ -797,6 +797,9 @@ Lyricist;Shkrimtari
 Mastered_Date;Data e masterizimit
 MasteredBy;Masterizuar nga
 matrix_coefficients;Koeficientët e matricës
+Matrix_Format;
+Matrix_Channel(s);
+Matrix_ChannelPositions;
 MediaInfo_About;Jep informacione shumë të detajuara për\r\nskedat multimediatike:\r\nMatroska, OGG (përfshirë OGM)\r\nMPEG1 (përfshirë VCD)\r\nMPEG2 (përfshirë DVD dhe SVCD)\r\nMPEG4 (përfshirë Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (përfshirë WMV, WMA)\r\nMicrosoft RIFF (përfshirë AVI, WAV)\r\nFormate zanore (AC3, DTS, AAC, AU, AIFF...)
 Menu;Meny
 Menu stream(s);Rrymat e menysë
@@ -1039,4 +1042,4 @@ WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
 ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;95
+ZZ_AutomaticLanguage_Percent;94
