@@ -91,7 +91,7 @@ distribution.
 #endif
 
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1400 )
+#if defined(_MSC_VER) && (_MSC_VER >= 1400 ) && (!defined WINCE)
 // Microsoft visual studio, version 2005 and higher.
 /*int _snprintf_s(
    char *buffer,
@@ -109,6 +109,9 @@ inline int TIXML_SNPRINTF( char* buffer, size_t size, const char* format, ... )
     return result;
 }
 #define TIXML_SSCANF   sscanf_s
+#elif defined WINCE
+#define TIXML_SNPRINTF _snprintf
+#define TIXML_SSCANF   sscanf
 #else
 // GCC version 3 and higher
 //#warning( "Using sn* functions." )
@@ -367,7 +370,7 @@ public:
             return;
         }
         --_currentAllocs;
-        Chunk* chunk = (Chunk*)mem;
+        Chunk* chunk = static_cast<Chunk*>( mem );
 #ifdef DEBUG
         memset( chunk, 0xfe, sizeof(Chunk) );
 #endif
@@ -1816,19 +1819,19 @@ public:
     }
     /// Safe cast to XMLElement. This can return null.
     XMLElement* ToElement() 					{
-        return ( ( _node && _node->ToElement() ) ? _node->ToElement() : 0 );
+        return ( ( _node == 0 ) ? 0 : _node->ToElement() );
     }
     /// Safe cast to XMLText. This can return null.
     XMLText* ToText() 							{
-        return ( ( _node && _node->ToText() ) ? _node->ToText() : 0 );
+        return ( ( _node == 0 ) ? 0 : _node->ToText() );
     }
     /// Safe cast to XMLUnknown. This can return null.
     XMLUnknown* ToUnknown() 					{
-        return ( ( _node && _node->ToUnknown() ) ? _node->ToUnknown() : 0 );
+        return ( ( _node == 0 ) ? 0 : _node->ToUnknown() );
     }
     /// Safe cast to XMLDeclaration. This can return null.
     XMLDeclaration* ToDeclaration() 			{
-        return ( ( _node && _node->ToDeclaration() ) ? _node->ToDeclaration() : 0 );
+        return ( ( _node == 0 ) ? 0 : _node->ToDeclaration() );
     }
 
 private:
@@ -1888,16 +1891,16 @@ public:
         return _node;
     }
     const XMLElement* ToElement() const			{
-        return ( ( _node && _node->ToElement() ) ? _node->ToElement() : 0 );
+        return ( ( _node == 0 ) ? 0 : _node->ToElement() );
     }
     const XMLText* ToText() const				{
-        return ( ( _node && _node->ToText() ) ? _node->ToText() : 0 );
+        return ( ( _node == 0 ) ? 0 : _node->ToText() );
     }
     const XMLUnknown* ToUnknown() const			{
-        return ( ( _node && _node->ToUnknown() ) ? _node->ToUnknown() : 0 );
+        return ( ( _node == 0 ) ? 0 : _node->ToUnknown() );
     }
     const XMLDeclaration* ToDeclaration() const	{
-        return ( ( _node && _node->ToDeclaration() ) ? _node->ToDeclaration() : 0 );
+        return ( ( _node == 0 ) ? 0 : _node->ToDeclaration() );
     }
 
 private:
@@ -2061,9 +2064,6 @@ private:
     bool _restrictedEntityFlag[ENTITY_RANGE];
 
     DynArray< char, 20 > _buffer;
-#ifdef _MSC_VER
-    DynArray< char, 20 > _accumulator;
-#endif
 };
 
 
