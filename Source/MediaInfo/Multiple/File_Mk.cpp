@@ -414,10 +414,7 @@ void File_Mk::Streams_Finish()
     //Attachments
     for (size_t Pos=0; Pos<AttachedFiles.size(); Pos++)
     {
-        if (Ztring(AttachedFiles[Pos]).MakeLowerCase().find(__T("cover"))==string::npos)
-            Fill(Stream_General, 0, "Attachment", __T("Yes"));
-        else
-            Fill(Stream_General, 0, "Cover", __T("Yes"));
+        Segment_Attachements_AttachedFile_FileName();
     }
 
     //Purge what is not needed anymore
@@ -1141,11 +1138,8 @@ void File_Mk::Segment_Attachements_AttachedFile_FileName()
 
     //Parsing
     Ztring Data=UTF8_Get();
-
-    FILLING_BEGIN();
-        if (!Data.empty())
-            AttachedFiles[AttachedFiles.size()-1]=Data;
-    FILLING_END();
+    
+    Fill(Stream_General, 0, "Attachements", Data);
 }
 
 //---------------------------------------------------------------------------
