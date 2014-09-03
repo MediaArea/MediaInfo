@@ -581,6 +581,8 @@ namespace MediaInfoDLL
         size_t        State_Get() {MEDIAINFO_TEST_INT; return MediaInfo_State_Get(Handle);};
         size_t        Count_Get(stream_t StreamKind, size_t StreamNumber = (size_t) - 1)  {MEDIAINFO_TEST_INT; return MediaInfo_Count_Get(Handle, (MediaInfo_stream_C)StreamKind, StreamNumber);};
 
+        bool IsReady() {return (Handle && MediaInfo_Module) ? true : false;}
+
     private :
         void* Handle;
     };
@@ -607,6 +609,8 @@ namespace MediaInfoDLL
         size_t        State_Get()  {MEDIAINFO_TEST_INT; return MediaInfoList_State_Get(Handle);};
         size_t        Count_Get(size_t FilePos, stream_t StreamKind, size_t StreamNumber = (size_t) - 1)  {MEDIAINFO_TEST_INT; return MediaInfoList_Count_Get(Handle, FilePos, (MediaInfo_stream_C)StreamKind, StreamNumber);};
         size_t        Count_Get()  {MEDIAINFO_TEST_INT; return MediaInfoList_Count_Get_Files(Handle);};
+
+        bool IsReady() {return (Handle && MediaInfo_Module) ? true : false;}
 
     private :
         void* Handle;
