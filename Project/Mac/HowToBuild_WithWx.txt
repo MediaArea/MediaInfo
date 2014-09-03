@@ -1,0 +1,7 @@
+I copy WxWidgets in Shared/Source/WxWidgets
+then:
+./configure --disable-shared --disable-dependency-tracking --with-macosx-version-min=10.5 CFLAGS="-arch i386 -arch x86_64" CXXFLAGS="-arch i386 -arch x86_64" LDDFLAGS="-arch i386 -arch x86_64"
+make
+
+I use:
+./GUI_Compile.sh --disable-dependency-tracking --with-macosx-version-min=10.5 --enable-arch-i386 --enable-arch-x86_64
