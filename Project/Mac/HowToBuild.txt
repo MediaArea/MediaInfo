@@ -37,7 +37,7 @@ Locale issues:
 Per version (for standalone distribution)
 ----------------------------------------
 Tested on Mac OS X 10.9
-WxWidgets 2.9.5: ./configure --with-osx_cocoa --without-libtiff --disable-mediactrl --disable-sound --enable-unicode --disable-shared -disable-precomp-headers --enable-static --enable-stl --with-macosx-version-min=10.5 CFLAGS=' -arch i386 -arch x86_64' CXXFLAGS=' -arch i386 -arch x86_64' LDFLAGS=' -arch i386 -arch x86_64' OBJCFLAGS=' -arch i386 -arch x86_64' OBJCXXFLAGS=' -arch i386 -arch x86_64'
+WxWidgets 2.9.5: ./configure --with-osx_cocoa --without-libtiff --disable-mediactrl --disable-sound --enable-unicode --disable-shared --disable-precomp-headers --enable-static --enable-stl --with-macosx-version-min=10.5 CFLAGS=' -arch i386 -arch x86_64' CXXFLAGS=' -arch i386 -arch x86_64' LDFLAGS=' -arch i386 -arch x86_64' OBJCFLAGS=' -arch i386 -arch x86_64' OBJCXXFLAGS=' -arch i386 -arch x86_64'
 GUI Wx:
 ./GUI_Compile.sh --with-wx-static --enable-arch-i386 --enable-arch-x86_64 --with-macosx-version-min=10.5
 Copy MediaInfo/Project/Mac and launch ./mkdmg_GUI
