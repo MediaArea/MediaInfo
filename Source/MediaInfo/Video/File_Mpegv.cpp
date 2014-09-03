@@ -3625,8 +3625,8 @@ void File_Mpegv::sequence_header()
         if (Frame_Count<Frame_Count_Valid)
         {
             FrameRate=Mpegv_frame_rate[frame_rate_code];
-            SizeToAnalyse_Begin=bit_rate_value*50*2; //standard delay between TimeStamps is 0.7s, we try 2s to be sure to have at least 2 timestamps (for integrity checking)
-            SizeToAnalyse_End=bit_rate_value*50*2; //standard delay between TimeStamps is 0.7s, we try 2s to be sure
+            SizeToAnalyse_Begin=((int64u)bit_rate_value)*50*2; //standard delay between TimeStamps is 0.7s, we try 2s to be sure to have at least 2 timestamps (for integrity checking)
+            SizeToAnalyse_End=((int64u)bit_rate_value)*50*2; //standard delay between TimeStamps is 0.7s, we try 2s to be sure
         }
 
         #if MEDIAINFO_MACROBLOCKS

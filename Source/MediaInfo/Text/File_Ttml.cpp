@@ -167,7 +167,9 @@ void File_Ttml::Read_Buffer_Continue()
     }
 
     tinyxml2::XMLElement*       div=NULL;
+    #if MEDIAINFO_EVENTS
     tinyxml2::XMLElement*       p=NULL;
+    #endif //MEDIAINFO_EVENTS
     for (XMLElement* tt_element=Root->FirstChildElement(); tt_element; tt_element=tt_element->NextSiblingElement())
     {
         //body
@@ -184,7 +186,9 @@ void File_Ttml::Read_Buffer_Continue()
                         if (!strcmp(div_element->Value(), "p"))
                         {
                             div=body_element;
-                            p=div_element;
+                            #if MEDIAINFO_EVENTS
+                                p=div_element;
+                            #endif //MEDIAINFO_EVENTS
                             break;
                         }
                     }

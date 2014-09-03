@@ -556,23 +556,18 @@ bool File_Pdf::Get_Next(string &Key, Ztring &Value)
         return true;
 
     //Testing Catalog
-    for (;;)
+    Peek_String (2, Line);
+    if (Line=="<<")
     {
-        Peek_String (2, Line);
-        if (Line=="<<")
-        {
-            Element_Offset+=2;
-            Catalog_Level++;
-            return true;
-        }
-        else if (Line==">>")
-        {
-            Element_Offset+=2;
-            Catalog_Level--;
-            return true;
-        }
-        else
-            break;
+        Element_Offset+=2;
+        Catalog_Level++;
+        return true;
+    }
+    else if (Line==">>")
+    {
+        Element_Offset+=2;
+        Catalog_Level--;
+        return true;
     }
 
     //Getting a complete line

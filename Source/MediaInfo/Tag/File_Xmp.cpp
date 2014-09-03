@@ -81,7 +81,9 @@ bool File_Xmp::FileHeader_Begin()
             {
                 string Profile;
 
-                if (Attribute, "http://www.aiim.org/pdfa/ns/id/")
+                if (strcmp(Attribute, "http://www.aiim.org/pdfa/ns/id/"))
+                    Profile=Attribute;
+                else
                 {
                     Profile+="A";
 
@@ -101,8 +103,6 @@ bool File_Xmp::FileHeader_Begin()
                         }
                     }
                 }
-                else
-                    Profile=Attribute;
 
                 Fill(Stream_General, 0, General_Format_Profile, Profile);
             }

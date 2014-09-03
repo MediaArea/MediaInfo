@@ -81,7 +81,7 @@ private :
         Type_Root,
         Type_Info,
         Type_Metadata,
-        Type_Other
+        Type_Other,
     };
     struct object
     {
@@ -94,7 +94,11 @@ private :
         object()
         :
             Offset((int32u)-1),
+            #ifdef __BORLANDC__
+            Type(type::Type_Other),
+            #else
             Type(Type_Other),
+            #endif
             TopObject((int32u)-1),
             BottomPos((size_t)-1)
         {

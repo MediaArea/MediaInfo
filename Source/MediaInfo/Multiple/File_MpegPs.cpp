@@ -2463,7 +2463,7 @@ void File_MpegPs::pack_start()
 
             MPEG_Version=Version==1?2:1;
 
-            SizeToAnalyze=program_mux_rate*50*4*(MustExtendParsingDuration?4:1); //standard delay between TimeStamps is 0.7s, we try 4s to be sure
+            SizeToAnalyze=((int64u)program_mux_rate)*50*4*(MustExtendParsingDuration?4:1); //standard delay between TimeStamps is 0.7s, we try 4s to be sure
             if (SizeToAnalyze>16*1024*1024)
                 SizeToAnalyze=16*1024*1024; //Not too much
             if (SizeToAnalyze<2*1024*1024)

@@ -1734,7 +1734,7 @@ void File_Mxf::Streams_Finish()
         if (!SystemScheme->second.IsTimeCode) //Already done somewhere else
         {
             Stream_Prepare(Stream_Other);
-            Fill(Stream_Other, StreamPos_Last, "ID", __T("System scheme 1-")+Ztring().From_Number(SystemScheme->first>8)+__T('-')+Ztring().From_Number(SystemScheme->first&0xFF));
+            Fill(Stream_Other, StreamPos_Last, "ID", __T("System scheme 1-")+Ztring().From_Number((int8u)(SystemScheme->first>8))+__T('-')+Ztring().From_Number((int8u)(SystemScheme->first&0xFF)));
             Fill(Stream_Other, StreamPos_Last, "MuxingMode", "System scheme 1");
         }
     }

@@ -64,8 +64,9 @@ RangeCoder::RangeCoder (const int8u* Buffer, size_t Buffer_Size, const state_tra
 
     //Assign StateTransitions
     std::memcpy (one_state, default_state_transition, state_transitions_size);
-    for (size_t i = 0; i < state_transitions_size; i++)
-        zero_state[i] = -one_state[state_transitions_size-i];
+    zero_state[0]=0;
+    for (size_t i=1; i<state_transitions_size; i++)
+        zero_state[i]=-one_state[state_transitions_size-i];
 }
 
 //---------------------------------------------------------------------------
