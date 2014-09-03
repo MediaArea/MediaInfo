@@ -41,7 +41,7 @@ Description: MediaInfo is a convenient unified display of the most relevant tech
 Package: libmediainfo-dev
 Section: libdevel
 Architecture: any
-Depends: libmediainfo0 (>= 0.7.69), libzen-dev (>= 0.4.29)
+Depends: libmediainfo0 (>= 0.7.70), libzen-dev (>= 0.4.29)
 Replaces: libmediainfo0-dev
 Description: MediaInfo is a convenient unified display of the most relevant technical
  and tag data for video and audio files.

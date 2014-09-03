@@ -8,7 +8,7 @@ bug reports and feature request are here:
 https://sourceforge.net/p/mediainfo/_list/tickets
 
 
-Version 0.7.70, 2014-
+Version 0.7.70, 2014-09-03
 --------------
 + DTS Neural Audio: display of DTS Neural Audio descriptor information (matrix encoded channels count and position), sponsored by Numericable
 + FFV1: version, bit depth, color space, chroma subsampling, versions 0 to 3, sponsored by NOA Audio Solutions
