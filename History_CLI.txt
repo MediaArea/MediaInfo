@@ -8,6 +8,50 @@ bug reports and feature request are here :
 https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.70, 2014-09-03
+--------------
++ DTS Neural Audio: display of DTS Neural Audio descriptor information (matrix encoded channels count and position), sponsored by Numericable
++ FFV1: version, bit depth, color space, chroma subsampling, versions 0 to 3, sponsored by NOA Audio Solutions
++ HuffYUV: version, bit depth, color space, chroma subsampling, versions 1 to 3, sponsored by NOA Audio Solutions
++ PDF: basic detection (goal is to detect PDF/A profile)
++ HLS: support of encrypted streams (key must be in FileName.FileExt.key or provided via the library API)
++ CDP: using CDP service descriptor for the list of 708 services + language information
++ MXF: showing the real bit depth ("Quantization bits"); the count of bits stored in the file is in a new field "Stored bit depth" if it differs
++ MXF: Audio "frame rate" (how PCM content is split in packets) information
++ MXF: Audio block alignment byte size (hidden by default)
++ VC-3: adding the commercial name "DNxHD" + bitrate class
++ MXF: SMPTE ST 377-4 (MXF Multichannel Audio Labeling Framework)
++ MXF: "ChannelLayoutID" new field (hidden by default) containing the MXF Channel Assignment Label
++ Wave64: Duration
++ CDP: frame rate
++ IMF: improvements (still work in progress)
++ QuickTime: ia13 CodecID
++ CDP: using ccsvcinfo_section() for service presence and language information
++ MXF/CDP: law rating (from CEA-608 XDS) information added (other containers were already supported)
++ CEA-608: Program name information
++ BMP: support of OS/2 headers
++ HLS: com.apple.streaming.transportStreamTimestamp support
++ ISM: ISMT / text (TTML) streams support
++ MXF: detection of buggy BlockAlign from some muxers, so PCM bit depth is correctly detected despite the buggy metadata
++ HEVC: library name of some encoding libraries
++ MPEG-2 Video: picture structure for interlaced content (interlaced content can have a frame structure)
++ HLS: support of some encrypted files (AES-128 with default IV and per segment), key is provided by the command line --File_Encryption_Key=(Base64 data)
++ HEVC: adding support of x265 library name and x265 encoding settings
++ ProRes: more details about ProRes in AVI or Matroska
++ DV: support of AVd1 CodecID
++ CMake: scripts improvements, thanks to Ivan Romanov
++ Matroska: file name of attachments, thanks to Marshall
+x HEVC: some streams with VUI were not parsed
+x MPEG Video: was not correctly handling 1000:1001 frame rates and NDF time codes combination during frame count computing
+x MPEG Video: was not correctly detecting the time stamp of the first frame in case of closed GOP with first frame not the I-frame
+x XDCAM: information about the MXF header presence was not provided if MOV header has a glbl atom
+x Some specific C++11 code is removed for full compatibility with older C++
+x MXF: Time codes values were buggy in case of MXF with pre-charge ("Origin" not 0)
+x MPEG-4 Visual: wrong analysis in case on video_object_layer_shape not set to regular
+x MPEG-4/MOV: trying to display the summary differently when there is a difference between container and raw stream channels count information (long term method to be discussed)
+x Non-Unicode version was not building anymore
+x DyLib: trying to have a better support of pure C compilers
+
 Version 0.7.69, 2014-04-24
 --------------
 + MPEG-TS: support of HEVC streams with stream_type of 36
