@@ -65,13 +65,18 @@ protected :
     void Streams_Fill ();
     void Streams_Finish ();
     void Streams_Finish_Preface (const int128u PrefaceUID);
+    void Streams_Finish_Preface_ForTimeCode (const int128u PrefaceUID);
     void Streams_Finish_ContentStorage (const int128u ContentStorageUID);
+    void Streams_Finish_ContentStorage_ForTimeCode (const int128u ContentStorageUID);
     void Streams_Finish_Package (const int128u PackageUID);
+    void Streams_Finish_Package_ForTimeCode (const int128u PackageUID);
     void Streams_Finish_Track (const int128u TrackUID);
+    void Streams_Finish_Track_ForTimeCode (const int128u TrackUID);
     void Streams_Finish_Essence (int32u EssenceUID, int128u TrackUID);
     void Streams_Finish_Descriptor (const int128u DescriptorUID, const int128u PackageUID);
     void Streams_Finish_Locator (const int128u DescriptorUID, const int128u LocatorUID);
     void Streams_Finish_Component (const int128u ComponentUID, float64 EditRate, int32u TrackID, int64u Origin);
+    void Streams_Finish_Component_ForTimeCode (const int128u ComponentUID, float64 EditRate, int32u TrackID, int64u Origin);
     void Streams_Finish_Identification (const int128u IdentificationUID);
     void Streams_Finish_CommercialNames ();
 
@@ -910,6 +915,9 @@ protected :
     bool                            Partitions_IsCalculatingHeaderByteCount;
     bool                            Partitions_IsCalculatingSdtiByteCount;
     bool                            Partitions_IsFooter;
+
+    //Config
+    bool                            TimeCodeFromMaterialPackage;
 
     //Demux
     #if MEDIAINFO_DEMUX

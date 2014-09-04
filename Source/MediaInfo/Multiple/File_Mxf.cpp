@@ -1781,6 +1781,17 @@ void File_Mxf::Streams_Finish_Preface (const int128u PrefaceUID)
 }
 
 //---------------------------------------------------------------------------
+void File_Mxf::Streams_Finish_Preface_ForTimeCode (const int128u PrefaceUID)
+{
+    prefaces::iterator Preface=Prefaces.find(PrefaceUID);
+    if (Preface==Prefaces.end())
+        return;
+
+    //ContentStorage
+    Streams_Finish_ContentStorage_ForTimeCode(Preface->second.ContentStorage);
+}
+
+//---------------------------------------------------------------------------
 void File_Mxf::Streams_Finish_ContentStorage (const int128u ContentStorageUID)
 {
     contentstorages::iterator ContentStorage=ContentStorages.find(ContentStorageUID);
@@ -1789,6 +1800,18 @@ void File_Mxf::Streams_Finish_ContentStorage (const int128u ContentStorageUID)
 
     for (size_t Pos=0; Pos<ContentStorage->second.Packages.size(); Pos++)
         Streams_Finish_Package(ContentStorage->second.Packages[Pos]);
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::Streams_Finish_ContentStorage_ForTimeCode (const int128u ContentStorageUID)
+{
+    contentstorages::iterator ContentStorage=ContentStorages.find(ContentStorageUID);
+    if (ContentStorage==ContentStorages.end())
+        return;
+
+    //Searching the right Time code track first TODO: this is an hack in order to get material or source time code, we need to have something more conform in the future
+    for (size_t Pos=0; Pos<ContentStorage->second.Packages.size(); Pos++)
+        Streams_Finish_Package_ForTimeCode(ContentStorage->second.Packages[Pos]);
 }
 
 //---------------------------------------------------------------------------
@@ -1802,6 +1825,17 @@ void File_Mxf::Streams_Finish_Package (const int128u PackageUID)
         Streams_Finish_Track(Package->second.Tracks[Pos]);
 
     Streams_Finish_Descriptor(Package->second.Descriptor, PackageUID);
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::Streams_Finish_Package_ForTimeCode (const int128u PackageUID)
+{
+    packages::iterator Package=Packages.find(PackageUID);
+    if (Package==Packages.end() || ((TimeCodeFromMaterialPackage && Package->second.IsSourcePackage || (!TimeCodeFromMaterialPackage && !Package->second.IsSourcePackage))))
+        return;
+
+    for (size_t Pos=0; Pos<Package->second.Tracks.size(); Pos++)
+        Streams_Finish_Track_ForTimeCode(Package->second.Tracks[Pos]);
 }
 
 //---------------------------------------------------------------------------
@@ -1821,6 +1855,20 @@ void File_Mxf::Streams_Finish_Track(const int128u TrackUID)
 
     //Done
     Track->second.Stream_Finish_Done=true;
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::Streams_Finish_Track_ForTimeCode(const int128u TrackUID)
+{
+    tracks::iterator Track=Tracks.find(TrackUID);
+    if (Track==Tracks.end() || Track->second.Stream_Finish_Done)
+        return;
+
+    StreamKind_Last=Stream_Max;
+    StreamPos_Last=(size_t)-1;
+
+    //Sequence
+    Streams_Finish_Component_ForTimeCode(Track->second.Sequence, Track->second.EditRate_Real?Track->second.EditRate_Real:Track->second.EditRate, Track->second.TrackID, Track->second.Origin);
 }
 
 //---------------------------------------------------------------------------
@@ -2836,6 +2884,14 @@ void File_Mxf::Streams_Finish_Component(const int128u ComponentUID, float64 Edit
         if (Retrieve(StreamKind_Last, StreamPos_Last, "FrameRate").empty())
             Fill(StreamKind_Last, StreamPos_Last, "FrameRate", EditRate);
     }
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::Streams_Finish_Component_ForTimeCode(const int128u ComponentUID, float64 EditRate, int32u TrackID, int64u Origin)
+{
+    components::iterator Component=Components.find(ComponentUID);
+    if (Component==Components.end())
+        return;
 
     //For the sequence, searching Structural componenents
     for (size_t Pos=0; Pos<Component->second.StructuralComponents.size(); Pos++)
@@ -2855,9 +2911,25 @@ void File_Mxf::Streams_Finish_Component(const int128u ComponentUID, float64 Edit
                 Fill(Stream_Other, StreamPos_Last, Other_ID, TrackID);
                 Fill(Stream_Other, StreamPos_Last, Other_Type, "Time code");
                 Fill(Stream_Other, StreamPos_Last, Other_Format, "MXF TC");
-                //Fill(Stream_Other, StreamPos_Last, Other_MuxingMode, "Time code track");
                 Fill(Stream_Other, StreamPos_Last, Other_TimeCode_FirstFrame, TC.ToString().c_str());
                 Fill(Stream_Other, StreamPos_Last, Other_TimeCode_Settings, "Striped");
+            }
+
+            TimeCode_RoundedTimecodeBase=Component2->second.TimeCode_RoundedTimecodeBase;
+            TimeCode_StartTimecode=Component2->second.TimeCode_StartTimecode;
+            TimeCode_DropFrame=Component2->second.TimeCode_DropFrame;
+            if (Frame_Count_NotParsedIncluded==0)
+            {
+                DTS_Delay=((float64)TimeCode_StartTimecode)/TimeCode_RoundedTimecodeBase;
+                if (TimeCode_DropFrame)
+                {
+                    DTS_Delay*=1001;
+                    DTS_Delay/=1000;
+                }
+                FrameInfo.DTS=float64_int64s(DTS_Delay*1000000000);
+                #if MEDIAINFO_DEMUX
+                    Config->Demux_Offset_DTS_FromStream=FrameInfo.DTS;
+                #endif //MEDIAINFO_DEMUX
             }
         }
     }
@@ -2915,6 +2987,9 @@ void File_Mxf::Read_Buffer_Init()
          Demux_UnpacketizeContainer=Config->Demux_Unpacketize_Get();
          Demux_Rate=Config->Demux_Rate_Get();
     #endif //MEDIAINFO_DEMUX
+
+    //Config
+    TimeCodeFromMaterialPackage=Config->File_Mxf_TimeCodeFromMaterialPackage_Get();
 }
 
 //---------------------------------------------------------------------------
@@ -4344,6 +4419,8 @@ void File_Mxf::Data_Parse()
         #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
         if (!Essences_FirstEssence_Parsed)
         {
+            Streams_Finish_Preface_ForTimeCode(Preface_Current); //Configuring DTS_Delay
+
             if (Descriptors.size()==1 && Descriptors.begin()->second.StreamKind==Stream_Audio)
             {
                 //Configuring bitrate is not available in descriptor

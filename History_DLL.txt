@@ -8,6 +8,10 @@ bug reports and feature request are here:
 https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.71, 2014-
+--------------
++ MXF: option --File_Mxf_TimeCodeFromMaterialPackage for using the time code track from Material package instead of Source package (CLI/DLL only)
+
 Version 0.7.70, 2014-09-03
 --------------
 + DTS Neural Audio: display of DTS Neural Audio descriptor information (matrix encoded channels count and position), sponsored by Numericable
