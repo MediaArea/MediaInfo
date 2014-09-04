@@ -38,7 +38,7 @@ Codec/String;;;N NT;;;Deprecated
 Codec/Info;;;N NT;;;Deprecated
 Codec/Url;;;N NT;;;Deprecated
 Codec/CC;;;N NT;;;Deprecated;
-Duration;; ms;N YI;;;Play time of the stream;
+Duration;; ms;N YI;;;Play time of the stream, in ms;
 Duration/String;;;Y NT;;;Play time (formated);
 Duration/String1;;;N NT;;;Play time in format : HHh MMmn SSs MMMms, XX omited if zero;
 Duration/String2;;;N NT;;;Play time in format : XXx YYy only, YYy omited if zero;
@@ -54,7 +54,7 @@ Duration_LastFrame/String;;;Y NT;;;Duration of the last frame if it is longer th
 Duration_LastFrame/String1;;;N NT;;;Duration of the last frame if it is longer than others, in format : HHh MMmn SSs MMMms, XX omited if zero;
 Duration_LastFrame/String2;;;N NT;;;Duration of the last frame if it is longer than others, in format : XXx YYy only, YYy omited if zero;
 Duration_LastFrame/String3;;;N NT;;;Duration of the last frame if it is longer than others, in format : HH:MM:SS.MMM;
-Source_Duration;; ms;N YI;;;Source Play time of the stream;;
+Source_Duration;; ms;N YI;;;Source Play time of the stream, in ms;;
 Source_Duration/String;;;Y NT;;;Source Play time in format : XXx YYy only, YYy omited if zero;;
 Source_Duration/String1;;;N NT;;;Source Play time in format : HHh MMmn SSs MMMms, XX omited if zero;;
 Source_Duration/String2;;;N NT;;;Source Play time in format : XXx YYy only, YYy omited if zero;;
