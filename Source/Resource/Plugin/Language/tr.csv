@@ -37,12 +37,12 @@
  file1; dosya
  file2; dosya
  file3; dosya
- frame1; kare
- frame2; kare
- frame3; kare
  fps1; kare/s
  fps2; kare/s
  fps3; kare/s
+ frame1; kare
+ frame2; kare
+ frame3; kare
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -180,13 +180,13 @@ Basic_Note;Not : Bu dosya hakkında daha fazla bilgi için farklı görünüm se
 BitDepth;Bit yoğunluğu
 BitDepth_Stored;
 BitRate;Bit oranı
+BitRate_Encoded;Kodlanmış bit oranı
 BitRate_Maximum;En fazla bit oranı
 BitRate_Minimum;En az bit oranı
 BitRate_Mode;Bit oranı modu
 BitRate_Mode_CBR;Sabit
 BitRate_Mode_VBR;Değişken
 BitRate_Nominal;Düşük bit oranı
-BitRate_Encoded;Kodlanmış bit oranı
 Bits-(Pixel*Frame);Bit/(Piksel*Kare)
 BufferSize;Arabellek boyutu
 Cancel;İptal
@@ -214,20 +214,20 @@ Close all before open;Açmadan önce tümünü kapat
 Codec;Kodek
 Codec_Description;Kodek açıklaması
 Codec_Info;Kodek için ayrıntılar
-Codec_Settings;Kodek ayarları
-Codec_Settings_PacketBitStream;Kodek ayarları, Paket bit akışı
-Codec_Settings_BVOP;Kodek ayarları, BVOP
-Codec_Settings_QPel;Kodek ayarları, QPel
-Codec_Settings_GMC;Kodek ayarları, GMC
-Codec_Settings_Matrix;Kodek ayarları, Matrix
-Codec_Settings_Floor;Kodek ayarları, Floor
-Codec_Settings_CABAC;Kodek ayarları, CABAC
-Codec_Settings_Firm;Kodek ayarları, Firm
-Codec_Settings_Endianness;Kodek ayarları, Endianness
-Codec_Settings_Sign;Kodek ayarları, Sign
-Codec_Settings_Law;Kodek ayarları, Law
-Codec_Settings_ITU;Kodek ayarları, ITU
 Codec_Profile;Kodek profili
+Codec_Settings;Kodek ayarları
+Codec_Settings_BVOP;Kodek ayarları, BVOP
+Codec_Settings_CABAC;Kodek ayarları, CABAC
+Codec_Settings_Endianness;Kodek ayarları, Endianness
+Codec_Settings_Firm;Kodek ayarları, Firm
+Codec_Settings_Floor;Kodek ayarları, Floor
+Codec_Settings_GMC;Kodek ayarları, GMC
+Codec_Settings_ITU;Kodek ayarları, ITU
+Codec_Settings_Law;Kodek ayarları, Law
+Codec_Settings_Matrix;Kodek ayarları, Matrix
+Codec_Settings_PacketBitStream;Kodek ayarları, Paket bit akışı
+Codec_Settings_QPel;Kodek ayarları, QPel
+Codec_Settings_Sign;Kodek ayarları, Sign
 Codec_Url;Kodek için web bağlantısı
 CodecID;Kodek ID
 CodecID_Description;Kodek açıklaması
@@ -324,41 +324,41 @@ Format_Description;Biçim açıklaması
 Format_Info;Biçim için ayrıntılar
 Format_Profile;Biçim profili
 Format_Settings;Biçim ayarları
-Format_Settings_PacketBitStream;Biçim ayarları, Paket bit akışı
 Format_Settings_BVOP;Biçim ayarları, BVOP
-Format_Settings_QPel;Biçim ayarları, QPel
+Format_Settings_CABAC;Biçim ayarları, CABAC
+Format_Settings_Emphasis;Vurgu
+Format_Settings_Endianness;Biçim ayarları, Endianess
+Format_Settings_Firm;Biçim ayarları, Firm
+Format_Settings_Floor;Biçim ayarları, Floor
+Format_Settings_FrameMode;Kare kipi
 Format_Settings_GMC;Biçim ayarları, GMC
+Format_Settings_GOP;Biçim ayarları, GOP
+Format_Settings_ITU;Biçim ayarları, ITU
+Format_Settings_Law;Biçim ayarları, Law
 Format_Settings_Matrix;Biçim ayarları, Matrix
 Format_Settings_Matrix_Custom;Özel
 Format_Settings_Matrix_Default;Varsayılan
-Format_Settings_Floor;Biçim ayarları, Floor
-Format_Settings_CABAC;Biçim ayarları, CABAC
-Format_Settings_Firm;Biçim ayarları, Firm
-Format_Settings_Endianness;Biçim ayarları, Endianess
-Format_Settings_RefFrames;Biçim ayarları, ReFrames
-Format_Settings_Sign;Biçim ayarları, Sign
-Format_Settings_Law;Biçim ayarları, Law
-Format_Settings_ITU;Biçim ayarları, ITU
-Format_Settings_SBR;Biçim ayarları, SBR
+Format_Settings_Mode;Kip
+Format_Settings_ModeExtension;Kip uzantısı
+Format_Settings_PacketBitStream;Biçim ayarları, Paket bit akışı
+Format_Settings_PictureStructure;
 Format_Settings_PS;Biçim ayarları, PS
 Format_Settings_Pulldown;Biçim ayarları, Pulldown
-Format_Settings_Mode;Kip
-Format_Settings_FrameMode;Kare kipi
-Format_Settings_Emphasis;Vurgu
-Format_Settings_ModeExtension;Kip uzantısı
-Format_Settings_GOP;Biçim ayarları, GOP
-Format_Settings_PictureStructure;
+Format_Settings_QPel;Biçim ayarları, QPel
+Format_Settings_RefFrames;Biçim ayarları, ReFrames
+Format_Settings_SBR;Biçim ayarları, SBR
+Format_Settings_Sign;Biçim ayarları, Sign
 Format_Settings_Wrapping;
-Format_Version;Biçim sürümü
 Format_Url;Biçim için web bağlantısı
+Format_Version;Biçim sürümü
 FrameCount;Kare sayısı
 FrameRate;Kare hızı
+FrameRate_Maximum;En fazla kare hızı
+FrameRate_Minimum;En az kare hızı
 FrameRate_Mode;Kare hız modu
 FrameRate_Mode_CFR;Sabit
 FrameRate_Mode_VFR;Değişken
-FrameRate_Minimum;En az kare hızı
 FrameRate_Nominal;Düşük kare hızı
-FrameRate_Maximum;En fazla kare hızı
 FrameRate_Original;Orijinal kare hızı
 General;Genel
 Genre;Tarz
@@ -574,16 +574,16 @@ Image_Codec_List;Kodek İmajı
 ImageCount;İmaj akışı sayısı
 Info;Bilgi
 Instruments;Enstrüman
-Interlacement;Karıştırma
-Interlaced_Interlaced;Karışık
-Interlaced_TFF;En Üst Alanın İlki
 Interlaced_BFF;En Alt Alanın İlki
+Interlaced_Interlaced;Karışık
 Interlaced_PPF;Aşamalı
 Interlaced_Progressive;Aşamalı
-Interleaved;Boşluklu
+Interlaced_TFF;En Üst Alanın İlki
+Interlacement;Karıştırma
 Interleave_Duration;Boşluk, süre
 Interleave_Preload;Boşluk, önyükleme süresi
 Interleave_VideoFrames;Boşluk, süre
+Interleaved;Boşluklu
 InternetMediaType;Internet medya türü
 IRCA;IRCA
 ISBN;ISBN
@@ -594,7 +594,6 @@ Known formats;Bilinen biçimler
 Known parameters;Bilinen parametreler
 Label;Etiket
 Language;Dil
-Language_More;Dil, daha fazla bilgi
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -705,6 +704,7 @@ Language_mk;Macedonian
 Language_ml;Malayalam
 Language_mn;Mongolian
 Language_mo;Moldavian
+Language_More;Dil, daha fazla bilgi
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
@@ -792,21 +792,21 @@ LCCN;LCCN
 Library;Çoklama kütüphanesi
 Lightness;Canlılık
 List;Liste
-Lyrics;Şarkı Sözleri
 Lyricist;Söz yazarı
+Lyrics;Şarkı Sözleri
 Mastered_Date;Sahip olma tarihi
 MasteredBy;Sahibi
-matrix_coefficients;Matriks katsayısı
-Matrix_Format;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
+matrix_coefficients;Matriks katsayısı
+Matrix_Format;
 MediaInfo_About;Çok ayrıntılı bilgi sağlanan çokluortam\r\ndosyaları:\r\nMatroska, OGG (OGM dahil)\r\nMPEG1 (VCD dahil)\r\nMPEG2 (DVD ve SVCD dahil)\r\nMPEG4 (Itunes M4A dahil)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (WMV, WMA dahil)\r\nMicrosoft RIFF (AVI, WAV dahil)\r\nSadece-ses biçimleri (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menü
 Menu stream(s);Menü akışları
 Menu_Codec_List;Menü kodekleri
+Menu_Hint;Daha fazla olasılık
 Menu_No;Menü yok
 MenuCount;Meni sayısı
-Menu_Hint;Daha fazla olasılık
 MenuID;Menü ID
 mn;dk
 Mood;Mizaç
@@ -824,8 +824,8 @@ NetworkName;Ağ adı
 New;Yeni
 Newest version;Yeni sürümleri kontrol et (Internet bağlantısı gerekir)
 NewVersion_Menu;Yeni bir sürüm mevcut
-NewVersion_Question_Title;Yeni bir sürüm yayımlandı!
 NewVersion_Question_Content;Yeni sürüm (s%Version%) mevcut, indirmek istiyor musunuz?
+NewVersion_Question_Title;Yeni bir sürüm yayımlandı!
 No;Hayır
 Not yet;Henüz değil
 NumColors;Renk sayısı
@@ -913,16 +913,17 @@ ReplayGain_Gain;Tekrar oynatma kazancı
 ReplayGain_Peak;Tekrar oynatma kazancı ucu
 Resolution;Çözünürlük
 s;s
+SamplingCount;Örnek sayısı
 SamplingRate;Örnekleme oranı
 Save;Kaydet
-ScanType;Tarama türü
-ScanType_Original;Orijinal tarama türü
-ScanType_StoreMethod;
 ScanOrder;Tarama sırası
 ScanOrder_Original;Orijinal tarama sırası
 ScanOrder_Stored;
 ScanOrder_StoredDisplayedInverted;
 ScanOrder_StoreMethod;
+ScanType;Tarama türü
+ScanType_Original;Orijinal tarama türü
+ScanType_StoreMethod;
 ScreenplayBy;Senaryo
 Season;Sezon
 see below;aşağı bakın
@@ -945,7 +946,6 @@ Shell InfoTip;Sistem Bilgisi İpucu (gezginde, fareyi dosya üzerine taşıyın,
 Show menu;Menü göster
 Show toolbar;Araç çubuğu göster
 Sort;Sıralayan
-SamplingCount;Örnek sayısı
 SoundEngineer;Ses teknisyeni
 Source;Kaynak
 Source_Duration;Kaynak süresi
@@ -992,14 +992,14 @@ Text3;Üçüncü altyazı
 TextCount;Altyazı sayısı
 ThanksTo;Teşekkürler
 Thousands separator;Binlik basamak ayırıcı
-Title;Başlık
-Title_More;Başlık, daha fazla bilgi
 TimeCode;Zaman kodu
 TimeCode_FirstFrame;İlk karenin zaman kodu
 TimeCode_Settings;Zaman kodu ayarları
 TimeCode_Source;Zaman kodu kaynağı
 TimeStamp;Zaman damgası
 TimeZone;Saat dilimi
+Title;Başlık
+Title_More;Başlık, daha fazla bilgi
 Total;Toplam
 Track;Parça adı
 Track_Count;Parça sayısı

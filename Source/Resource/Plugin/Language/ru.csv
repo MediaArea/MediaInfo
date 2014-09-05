@@ -37,12 +37,12 @@
  file1; файл
  file2; файла
  file3; файлов
- frame1; кадр
- frame2; кадра
- frame3; кадров
  fps1; кадр/сек
  fps2; кадра/сек
  fps3; кадров/сек
+ frame1; кадр
+ frame2; кадра
+ frame3; кадров
  GB; ГБ
  Gb; Гб
  Gbps; Гбит/сек
@@ -180,13 +180,13 @@ Basic_Note;Примечание: для дополнительной инфор�
 BitDepth;Битовая глубина
 BitDepth_Stored;
 BitRate;Битрейт
+BitRate_Encoded;Закодированный битрейт
 BitRate_Maximum;Максимальный битрейт
 BitRate_Minimum;Минимальный битрейт
 BitRate_Mode;Вид битрейта
 BitRate_Mode_CBR;Постоянный
 BitRate_Mode_VBR;Переменный
 BitRate_Nominal;Номинальный битрейт
-BitRate_Encoded;Закодированный битрейт
 Bits-(Pixel*Frame);Бит/(Пиксели*Кадры)
 BufferSize;Размер буфера
 Cancel;Отмена
@@ -214,20 +214,20 @@ Close all before open;Закрывать всё перед открытием н
 Codec;Кодек
 Codec_Description;Описание кодека
 Codec_Info;Подробно о кодеке
-Codec_Settings;Настройки кодека
-Codec_Settings_PacketBitStream;Параметр пакетного потока данных кодека
-Codec_Settings_BVOP;Параметр BVOP кодека
-Codec_Settings_QPel;Параметр QPel кодека
-Codec_Settings_GMC;Параметр GMC кодека
-Codec_Settings_Matrix;Параметр матрицы кодека
-Codec_Settings_Floor;Параметр Floor кодека
-Codec_Settings_CABAC;Параметр CABAC кодека
-Codec_Settings_Firm;Параметр Firm кодека
-Codec_Settings_Endianness;Параметр Endianness кодека
-Codec_Settings_Sign;Параметр Sign кодека
-Codec_Settings_Law;Параметр Law кодека
-Codec_Settings_ITU;Параметр ITU кодека
 Codec_Profile;Профиль кодека
+Codec_Settings;Настройки кодека
+Codec_Settings_BVOP;Параметр BVOP кодека
+Codec_Settings_CABAC;Параметр CABAC кодека
+Codec_Settings_Endianness;Параметр Endianness кодека
+Codec_Settings_Firm;Параметр Firm кодека
+Codec_Settings_Floor;Параметр Floor кодека
+Codec_Settings_GMC;Параметр GMC кодека
+Codec_Settings_ITU;Параметр ITU кодека
+Codec_Settings_Law;Параметр Law кодека
+Codec_Settings_Matrix;Параметр матрицы кодека
+Codec_Settings_PacketBitStream;Параметр пакетного потока данных кодека
+Codec_Settings_QPel;Параметр QPel кодека
+Codec_Settings_Sign;Параметр Sign кодека
 Codec_Url;Ссылка на кодек
 CodecID;Идентификатор кодека
 CodecID_Description;Описание кодека
@@ -324,41 +324,41 @@ Format_Description;Описание формата
 Format_Info;Подробно о формате
 Format_Profile;Профиль формата
 Format_Settings;Настройки формата
-Format_Settings_PacketBitStream;Параметр пакетного потока данных формата
 Format_Settings_BVOP;Параметр BVOP формата
-Format_Settings_QPel;Параметр QPel формата
+Format_Settings_CABAC;Параметр CABAC формата
+Format_Settings_Emphasis;Акцент
+Format_Settings_Endianness;Параметр Endianness формата
+Format_Settings_Firm;Параметр Firm формата
+Format_Settings_Floor;Параметр Floor формата
+Format_Settings_FrameMode;Режим кадров
 Format_Settings_GMC;Параметр GMC формата
+Format_Settings_GOP;Параметр GOP формата
+Format_Settings_ITU;Параметр ITU формата
+Format_Settings_Law;Параметр Law формата
 Format_Settings_Matrix;Параметр матрицы формата
 Format_Settings_Matrix_Custom;Выборочная
 Format_Settings_Matrix_Default;По умолчанию
-Format_Settings_Floor;Параметр Floor формата
-Format_Settings_CABAC;Параметр CABAC формата
-Format_Settings_Firm;Параметр Firm формата
-Format_Settings_Endianness;Параметр Endianness формата
-Format_Settings_RefFrames;Параметр ReFrames формата
-Format_Settings_Sign;Параметр Sign формата
-Format_Settings_Law;Параметр Law формата
-Format_Settings_ITU;Параметр ITU формата
-Format_Settings_SBR;Параметр SBR формата
+Format_Settings_Mode;Режим
+Format_Settings_ModeExtension;Расширение режима
+Format_Settings_PacketBitStream;Параметр пакетного потока данных формата
+Format_Settings_PictureStructure;
 Format_Settings_PS;Параметр PS формата
 Format_Settings_Pulldown;Параметр Pulldownd формата
-Format_Settings_Mode;Режим
-Format_Settings_FrameMode;Режим кадров
-Format_Settings_Emphasis;Акцент
-Format_Settings_ModeExtension;Расширение режима
-Format_Settings_GOP;Параметр GOP формата
-Format_Settings_PictureStructure;
+Format_Settings_QPel;Параметр QPel формата
+Format_Settings_RefFrames;Параметр ReFrames формата
+Format_Settings_SBR;Параметр SBR формата
+Format_Settings_Sign;Параметр Sign формата
 Format_Settings_Wrapping;
-Format_Version;Версия формата
 Format_Url;Ссылка на формат
+Format_Version;Версия формата
 FrameCount;Счётчик кадров
 FrameRate;Частота кадров
+FrameRate_Maximum;Максимальная частота кадров
+FrameRate_Minimum;Минимальная частота кадров
 FrameRate_Mode;Режим частоты кадров
 FrameRate_Mode_CFR;Постоянный
 FrameRate_Mode_VFR;Переменный
-FrameRate_Minimum;Минимальная частота кадров
 FrameRate_Nominal;Номинальная частота кадров
-FrameRate_Maximum;Максимальная частота кадров
 FrameRate_Original;Частота кадров в оригинале
 General;Общее
 Genre;Жанр
@@ -574,16 +574,16 @@ Image_Codec_List;Кодеки изображений
 ImageCount;Кол-во потоков изображений
 Info;Информация
 Instruments;Инструменты
-Interlacement;Переплетение
-Interlaced_Interlaced;Чересстрочная
-Interlaced_TFF;Верхнее поле первое
 Interlaced_BFF;Нижнее поле первое
+Interlaced_Interlaced;Чересстрочная
 Interlaced_PPF;Прогрессивная
 Interlaced_Progressive;Прогрессивная
-Interleaved;Чередующаяся
+Interlaced_TFF;Верхнее поле первое
+Interlacement;Переплетение
 Interleave_Duration;Продолжительность промежутка
 Interleave_Preload;Время предзагрузки промежутка
 Interleave_VideoFrames;Продолжительность промежутка
+Interleaved;Чередующаяся
 InternetMediaType;Интернет-тип носителя
 IRCA;IRCA
 ISBN;ISBN
@@ -594,7 +594,6 @@ Known formats;Известные форматы
 Known parameters;Известные параметры
 Label;Метка
 Language;Язык
-Language_More;Язык, дополнительно
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -705,6 +704,7 @@ Language_mk;Macedonian
 Language_ml;Malayalam
 Language_mn;Mongolian
 Language_mo;Moldavian
+Language_More;Язык, дополнительно
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
@@ -792,21 +792,21 @@ LCCN;LCCN
 Library;Библиотека смешивания
 Lightness;Якрость
 List;Список
-Lyrics;Текст песен
 Lyricist;Поэт-песенник
+Lyrics;Текст песен
 Mastered_Date;Дата мастеринга
 MasteredBy;Мастеринг произвёл
-matrix_coefficients;Коэффициенты матрицы
-Matrix_Format;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
+matrix_coefficients;Коэффициенты матрицы
+Matrix_Format;
 MediaInfo_About;Отображает детальную информацию\r\nо мультимедиа-файлах Matroska, OGG (включая OGM)\r\nMPEG1 (включая VCD), MPEG2 (включая DVD и SVCD), MPEG4 (включая iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (включая WMV, WMA)\r\nMicrosoft RIFF (включая AVI, WAV, DivX)\r\nзвуковых форматах (AC3, DTS, SSC, AU, AIFF)
 Menu;Меню
 Menu stream(s);Меню потоков
 Menu_Codec_List;Меню кодеков
+Menu_Hint;Дополнительные возможности
 Menu_No;Нет меню
 MenuCount;Кол-во потоков меню
-Menu_Hint;Дополнительные возможности
 MenuID;Идентификатор меню
 mn; м.
 Mood;Настроение
@@ -824,8 +824,8 @@ NetworkName;Название сети
 New;Новый
 Newest version;Проверять на обновление (требуется подключение к интернету)
 NewVersion_Menu;Доступна новая версия
-NewVersion_Question_Title;Выпущена новая версия!
 NewVersion_Question_Content;Доступна новая версия %Version%, хотите скачать её?
+NewVersion_Question_Title;Выпущена новая версия!
 No;Нет
 Not yet;Ещё нет
 NumColors;Количество цветов
@@ -913,16 +913,17 @@ ReplayGain_Gain;Нормализатор звука
 ReplayGain_Peak;Пик нормализатор звука
 Resolution;Разрешение
 s; с.
+SamplingCount;Количество образцов
 SamplingRate;Частота
 Save;Сохранить
-ScanType;Тип развёртки
-ScanType_Original;Тип развёртки в оригинале
-ScanType_StoreMethod;
 ScanOrder;Порядок развёртки
 ScanOrder_Original;Порядок развёртки в оригинале
 ScanOrder_Stored;Сохранённый порядок развёртки
 ScanOrder_StoredDisplayedInverted;Порядок развёртки, сохранённый в обратном порядке
 ScanOrder_StoreMethod;
+ScanType;Тип развёртки
+ScanType_Original;Тип развёртки в оригинале
+ScanType_StoreMethod;
 ScreenplayBy;Сценарист
 Season;Сезон
 see below;см. ниже
@@ -945,7 +946,6 @@ Shell InfoTip;Всплывающая подсказка в Проводнике
 Show menu;Показывать меню
 Show toolbar;Показывать панель
 Sort;Сортировать по
-SamplingCount;Количество образцов
 SoundEngineer;Звукорежиссёр
 Source;Оригинал
 Source_Duration;Продолжительность оригинала
@@ -992,14 +992,14 @@ Text3;Третий текстовый поток
 TextCount;Кол-во текстовых потоков
 ThanksTo;Благодарности
 Thousands separator;Разделитель тысяч
-Title;Заголовок
-Title_More;Заголовок, дополнительно
 TimeCode;Временной код
 TimeCode_FirstFrame;Временной код первого кадра
 TimeCode_Settings;Параметры временного кода
 TimeCode_Source;Оригинал временного кода
 TimeStamp;Временная метка
 TimeZone;Часовой пояс
+Title;Заголовок
+Title_More;Заголовок, дополнительно
 Total;Всего
 Track;Трек
 Track_Count;Кол-во треков

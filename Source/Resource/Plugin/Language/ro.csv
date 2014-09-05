@@ -37,12 +37,12 @@
  file1;fisier
  file2;fisiere
  file3;fisiere
- frame1;
- frame2;
- frame3;
  fps1;pfs
  fps2;pfs
  fps3;pfs
+ frame1;
+ frame2;
+ frame3;
  GB;GB
  Gb;Gb
  Gbps;
@@ -180,13 +180,13 @@ Basic_Note;Nota: pentru mai multe informatii despre acest fisier, tebuie sa sele
 BitDepth;
 BitDepth_Stored;
 BitRate;
+BitRate_Encoded;
 BitRate_Maximum;
 BitRate_Minimum;
 BitRate_Mode;
 BitRate_Mode_CBR;
 BitRate_Mode_VBR;
 BitRate_Nominal;
-BitRate_Encoded;
 Bits-(Pixel*Frame);
 BufferSize;
 Cancel;Anulare
@@ -214,20 +214,20 @@ Close all before open;Inchideti tot inainte de a deschide
 Codec;Codec
 Codec_Description;
 Codec_Info;Detalii despre codec
-Codec_Settings;Setari codec
-Codec_Settings_PacketBitStream;
-Codec_Settings_BVOP;
-Codec_Settings_QPel;
-Codec_Settings_GMC;
-Codec_Settings_Matrix;
-Codec_Settings_Floor;
-Codec_Settings_CABAC;
-Codec_Settings_Firm;
-Codec_Settings_Endianness;
-Codec_Settings_Sign;
-Codec_Settings_Law;
-Codec_Settings_ITU;
 Codec_Profile;Profil codec
+Codec_Settings;Setari codec
+Codec_Settings_BVOP;
+Codec_Settings_CABAC;
+Codec_Settings_Endianness;
+Codec_Settings_Firm;
+Codec_Settings_Floor;
+Codec_Settings_GMC;
+Codec_Settings_ITU;
+Codec_Settings_Law;
+Codec_Settings_Matrix;
+Codec_Settings_PacketBitStream;
+Codec_Settings_QPel;
+Codec_Settings_Sign;
 Codec_Url;Legatira web pentru codec
 CodecID;
 CodecID_Description;
@@ -324,41 +324,41 @@ Format_Description;
 Format_Info;
 Format_Profile;
 Format_Settings;
-Format_Settings_PacketBitStream;
 Format_Settings_BVOP;
-Format_Settings_QPel;
+Format_Settings_CABAC;
+Format_Settings_Emphasis;
+Format_Settings_Endianness;
+Format_Settings_Firm;
+Format_Settings_Floor;
+Format_Settings_FrameMode;
 Format_Settings_GMC;
+Format_Settings_GOP;
+Format_Settings_ITU;
+Format_Settings_Law;
 Format_Settings_Matrix;
 Format_Settings_Matrix_Custom;
 Format_Settings_Matrix_Default;
-Format_Settings_Floor;
-Format_Settings_CABAC;
-Format_Settings_Firm;
-Format_Settings_Endianness;
-Format_Settings_RefFrames;
-Format_Settings_Sign;
-Format_Settings_Law;
-Format_Settings_ITU;
-Format_Settings_SBR;
+Format_Settings_Mode;
+Format_Settings_ModeExtension;
+Format_Settings_PacketBitStream;
+Format_Settings_PictureStructure;
 Format_Settings_PS;
 Format_Settings_Pulldown;
-Format_Settings_Mode;
-Format_Settings_FrameMode;
-Format_Settings_Emphasis;
-Format_Settings_ModeExtension;
-Format_Settings_GOP;
-Format_Settings_PictureStructure;
+Format_Settings_QPel;
+Format_Settings_RefFrames;
+Format_Settings_SBR;
+Format_Settings_Sign;
 Format_Settings_Wrapping;
-Format_Version;
 Format_Url;
+Format_Version;
 FrameCount;
 FrameRate;Frecventa cadre
+FrameRate_Maximum;
+FrameRate_Minimum;
 FrameRate_Mode;
 FrameRate_Mode_CFR;
 FrameRate_Mode_VFR;
-FrameRate_Minimum;
 FrameRate_Nominal;
-FrameRate_Maximum;
 FrameRate_Original;
 General;Generale
 Genre;Gen
@@ -574,16 +574,16 @@ Image_Codec_List;Codecuri imagine
 ImageCount;Numarul de fluxuri imagine
 Info;
 Instruments;Instrumente
-Interlacement;
-Interlaced_Interlaced;
-Interlaced_TFF;
 Interlaced_BFF;
+Interlaced_Interlaced;
 Interlaced_PPF;
 Interlaced_Progressive;
-Interleaved;
+Interlaced_TFF;
+Interlacement;
 Interleave_Duration;
 Interleave_Preload;
 Interleave_VideoFrames;
+Interleaved;
 InternetMediaType;
 IRCA;
 ISBN;
@@ -594,7 +594,6 @@ Known formats;Formate cunoscute
 Known parameters;Parametrii cunoscuti
 Label;Eticheta
 Language;Traducere
-Language_More;
 Language_aa;
 Language_ab;
 Language_ae;
@@ -705,6 +704,7 @@ Language_mk;
 Language_ml;
 Language_mn;
 Language_mo;
+Language_More;
 Language_mr;
 Language_ms;
 Language_mt;
@@ -792,21 +792,21 @@ LCCN;
 Library;Biblioteca muxing
 Lightness;
 List;
-Lyrics;
 Lyricist;Textier
+Lyrics;
 Mastered_Date;Data realizarii
 MasteredBy;Realizat de
-matrix_coefficients;
-Matrix_Format;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
+matrix_coefficients;
+Matrix_Format;
 MediaInfo_About;Furnizeaza informatii foarte detaliate\r\n despre un fisier multimedia
 Menu;Meniu
 Menu stream(s);
 Menu_Codec_List;
+Menu_Hint;Mai multe posibilitati
 Menu_No;
 MenuCount;
-Menu_Hint;Mai multe posibilitati
 MenuID;
 mn;mn
 Mood;Mod
@@ -824,8 +824,8 @@ NetworkName;
 New;Nou
 Newest version;Verificati existenta unei versiuni noi (necesita conexiune Internet)
 NewVersion_Menu;
-NewVersion_Question_Title;
 NewVersion_Question_Content;
+NewVersion_Question_Title;
 No;Nu
 Not yet;
 NumColors;
@@ -913,16 +913,17 @@ ReplayGain_Gain;
 ReplayGain_Peak;
 Resolution;Rezolutie
 s;s
+SamplingCount;
 SamplingRate;
 Save;Salveaza
-ScanType;
-ScanType_Original;
-ScanType_StoreMethod;
 ScanOrder;
 ScanOrder_Original;
 ScanOrder_Stored;
 ScanOrder_StoredDisplayedInverted;
 ScanOrder_StoreMethod;
+ScanType;
+ScanType_Original;
+ScanType_StoreMethod;
 ScreenplayBy;Scenariu de
 Season;Sezon
 see below;vezi mai jos
@@ -945,7 +946,6 @@ Shell InfoTip;
 Show menu;Afisare meniu
 Show toolbar;Afisare toolbar
 Sort;Sortat de
-SamplingCount;
 SoundEngineer;Inginer de sunet
 Source;
 Source_Duration;
@@ -992,14 +992,14 @@ Text3;Al treilea flux text
 TextCount;Numar fluxuri text
 ThanksTo;Multumita
 Thousands separator;Separator mii
-Title;Titlu
-Title_More;Titlu, mai multe informatii
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
 TimeZone;
+Title;Titlu
+Title_More;Titlu, mai multe informatii
 Total;Total
 Track;Nume pista
 Track_Count;Numar piste

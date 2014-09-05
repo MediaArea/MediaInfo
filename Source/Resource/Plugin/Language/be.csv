@@ -37,12 +37,12 @@
  file1; файл
  file2; файлы
  file3; файлы
- frame1; кадр
- frame2; кадры
- frame3; кадраў
  fps1; кадр/сек
  fps2; кадр/сек
  fps3; кадр/сек
+ frame1; кадр
+ frame2; кадры
+ frame3; кадраў
  GB; Гбайт
  Gb; Гбіт
  Gbps; Гбіт/сек
@@ -180,13 +180,13 @@ Basic_Note;Падказка: для дадатковай інфармацыі а
 BitDepth;
 BitDepth_Stored;
 BitRate;Бітрэйт
+BitRate_Encoded;
 BitRate_Maximum;Максімальны бітрэйт
 BitRate_Minimum;Мінімальны бітрэйт
 BitRate_Mode;Рэжым разліку бітрэйту
 BitRate_Mode_CBR;Сталы
 BitRate_Mode_VBR;Пераменны
 BitRate_Nominal;Намінальны бітрэйт
-BitRate_Encoded;
 Bits-(Pixel*Frame);Біт/(Пікселі*Кадры)
 BufferSize;Памер буфера
 Cancel;Адмена
@@ -214,20 +214,20 @@ Close all before open;Закрыць усё перад адкрыццём
 Codec;Кодэк
 Codec_Description;Апісанне кодэка
 Codec_Info;Падрабязна аб кодэку
-Codec_Settings;Налады кодэка
-Codec_Settings_PacketBitStream;Налада пакетнага струменя дадзеных кодэка
-Codec_Settings_BVOP;Налада BVOP кодэка
-Codec_Settings_QPel;Налада QPel кодэка
-Codec_Settings_GMC;Налада GMC кодэка
-Codec_Settings_Matrix;Налада матрыцы кодэка
-Codec_Settings_Floor;Налада Floor кодэка
-Codec_Settings_CABAC;Налада CABAC кодэка
-Codec_Settings_Firm;Налада Firm кодэка
-Codec_Settings_Endianness;Налада Endianness кодэка
-Codec_Settings_Sign;Налада Sign кодэка
-Codec_Settings_Law;Налада Law кодэка
-Codec_Settings_ITU;Налада ITU кодэка
 Codec_Profile;Прафайл кодэка
+Codec_Settings;Налады кодэка
+Codec_Settings_BVOP;Налада BVOP кодэка
+Codec_Settings_CABAC;Налада CABAC кодэка
+Codec_Settings_Endianness;Налада Endianness кодэка
+Codec_Settings_Firm;Налада Firm кодэка
+Codec_Settings_Floor;Налада Floor кодэка
+Codec_Settings_GMC;Налада GMC кодэка
+Codec_Settings_ITU;Налада ITU кодэка
+Codec_Settings_Law;Налада Law кодэка
+Codec_Settings_Matrix;Налада матрыцы кодэка
+Codec_Settings_PacketBitStream;Налада пакетнага струменя дадзеных кодэка
+Codec_Settings_QPel;Налада QPel кодэка
+Codec_Settings_Sign;Налада Sign кодэка
 Codec_Url;Спасылка на кодэк
 CodecID;Ідэнтыфікатар кодэка
 CodecID_Description;Апісанне кодэка
@@ -324,41 +324,41 @@ Format_Description;Апісанне фармату
 Format_Info;Падрабязна аб фармаце
 Format_Profile;Прафайл фармату
 Format_Settings;Налады фармату
-Format_Settings_PacketBitStream;Налада пакетнага струменя дадзеных фармату
 Format_Settings_BVOP;Налада BVOP фармату
-Format_Settings_QPel;Налада QPel фармату
+Format_Settings_CABAC;Налада CABAC фармату
+Format_Settings_Emphasis;Выразнасць
+Format_Settings_Endianness;Налада Endianness фармату
+Format_Settings_Firm;Налада Firm фармату
+Format_Settings_Floor;Налада Floor фармату
+Format_Settings_FrameMode;Рэжым кадраў
 Format_Settings_GMC;Налада GMC фармату
+Format_Settings_GOP;
+Format_Settings_ITU;Налада ITU фармату
+Format_Settings_Law;Налада Law фармату
 Format_Settings_Matrix;Налада матрыцы фармату
 Format_Settings_Matrix_Custom;Выбарковая
 Format_Settings_Matrix_Default;Стандартная
-Format_Settings_Floor;Налада Floor фармату
-Format_Settings_CABAC;Налада CABAC фармату
-Format_Settings_Firm;Налада Firm фармату
-Format_Settings_Endianness;Налада Endianness фармату
-Format_Settings_RefFrames;Налада ReFrames фармату
-Format_Settings_Sign;Налада Sign фармату
-Format_Settings_Law;Налада Law фармату
-Format_Settings_ITU;Налада ITU фармату
-Format_Settings_SBR;Налада SBR фармату
+Format_Settings_Mode;Рэжым
+Format_Settings_ModeExtension;
+Format_Settings_PacketBitStream;Налада пакетнага струменя дадзеных фармату
+Format_Settings_PictureStructure;
 Format_Settings_PS;Налада PS фармату
 Format_Settings_Pulldown;Абраць налады фармату
-Format_Settings_Mode;Рэжым
-Format_Settings_FrameMode;Рэжым кадраў
-Format_Settings_Emphasis;Выразнасць
-Format_Settings_ModeExtension;
-Format_Settings_GOP;
-Format_Settings_PictureStructure;
+Format_Settings_QPel;Налада QPel фармату
+Format_Settings_RefFrames;Налада ReFrames фармату
+Format_Settings_SBR;Налада SBR фармату
+Format_Settings_Sign;Налада Sign фармату
 Format_Settings_Wrapping;
-Format_Version;Версія фармату
 Format_Url;Спасылка на фармат
+Format_Version;Версія фармату
 FrameCount;Лічыльнік кадраў
 FrameRate;Частата кадраў
+FrameRate_Maximum;Максімальная частата кадраў
+FrameRate_Minimum;Мінімальная частата кадраў
 FrameRate_Mode;Рэжым частаты кадраў
 FrameRate_Mode_CFR;Сталы
 FrameRate_Mode_VFR;Пераменны
-FrameRate_Minimum;Мінімальная частата кадраў
 FrameRate_Nominal;Намінальная частата кадраў
-FrameRate_Maximum;Максімальная частата кадраў
 FrameRate_Original;Першасная частата кадраў
 General;Агульнае
 Genre;Жанр
@@ -574,16 +574,16 @@ Image_Codec_List;Кодэкі малюнкаў
 ImageCount;Коль-ць струменяў малюнкаў
 Info;Інфармацыя
 Instruments;Прылады
-Interlacement;Перапляценне
-Interlaced_Interlaced;Празрадковая
-Interlaced_TFF;Верхняе поле першае
 Interlaced_BFF;Ніжняе поле першае
+Interlaced_Interlaced;Празрадковая
 Interlaced_PPF;Прагрэсіўная
 Interlaced_Progressive;Прагрэсіўная
-Interleaved;Якая чаргуецца
+Interlaced_TFF;Верхняе поле першае
+Interlacement;Перапляценне
 Interleave_Duration;Працягласць прамежку
 Interleave_Preload;Час перадзагрузкі прамежку
 Interleave_VideoFrames;Працягласць прамежку
+Interleaved;Якая чаргуецца
 InternetMediaType;Інтэрнэт-тып носьбіта
 IRCA;IRCA
 ISBN;ISBN
@@ -594,7 +594,6 @@ Known formats;Вядомыя фарматы
 Known parameters;Вядомыя параметры
 Label;Пазнака
 Language;Мова
-Language_More;Яшчэ мовы
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -705,6 +704,7 @@ Language_mk;Macedonian
 Language_ml;Malayalam
 Language_mn;Mongolian
 Language_mo;Moldavian
+Language_More;Яшчэ мовы
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
@@ -792,21 +792,21 @@ LCCN;LCCN
 Library;Бібліятэка
 Lightness;Яркасць
 List;Спіс
-Lyrics;Тэкст песен
 Lyricist;Паэт-песеннік
+Lyrics;Тэкст песен
 Mastered_Date;Дата майстарынгу
 MasteredBy;Майстарынг
-matrix_coefficients;Каэфіцыенты матрыцы
-Matrix_Format;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
+matrix_coefficients;Каэфіцыенты матрыцы
+Matrix_Format;
 MediaInfo_About;Адлюстроўвае дэталёвую інфармацыю\r\nпра мультымедыя-файлы Matroska, OGG (уключаючы OGM)\r\nMPEG1 (уключаючы VCD), MPEG2 (уключаючы DVD і SVCD), MPEG4 (уключаючы iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (уключаючы WMV, WMA)\r\nMicrosoft RIFF (уключаючы AVI, WAV, DivX)\r\nгукавыя фарматы (AC3, DTS, SSC, AU, AIFF)
 Menu;Меню
 Menu stream(s);Меню струменяў
 Menu_Codec_List;Меню кодэкаў
+Menu_Hint;Дадатковыя магчымасці
 Menu_No;Няма меню
 MenuCount;Коль-ць струменяў меню
-Menu_Hint;Дадатковыя магчымасці
 MenuID;Ідэнтыфікатар меню
 mn;хв.
 Mood;Настрой
@@ -824,8 +824,8 @@ NetworkName;Сеткавае імя
 New;Новы
 Newest version;Праверыць на абнаўленне (патрабуецца падлучэнне да інтэрнэту)
 NewVersion_Menu;Даступная новая версія
-NewVersion_Question_Title;Новая версія выпушчана!
 NewVersion_Question_Content;Даступная новая версія (v%Version%, жадаеце запампаваць?
+NewVersion_Question_Title;Новая версія выпушчана!
 No;Не
 Not yet;Яшчэ няма
 NumColors;Колькасць колераў
@@ -913,16 +913,17 @@ ReplayGain_Gain;Нармалізатар гука
 ReplayGain_Peak;Пік нармалізатара гука
 Resolution;Вырашальнасць (Resolution)
 s;с
+SamplingCount;Колькасць узораў
 SamplingRate;Частата
 Save;Захаваць
-ScanType;Тып разгорткі
-ScanType_Original;
-ScanType_StoreMethod;
 ScanOrder;Парадак разгорткі
 ScanOrder_Original;
 ScanOrder_Stored;
 ScanOrder_StoredDisplayedInverted;
 ScanOrder_StoreMethod;
+ScanType;Тып разгорткі
+ScanType_Original;
+ScanType_StoreMethod;
 ScreenplayBy;Сцэнарыст
 Season;Сезон
 see below;гл. ніжэй
@@ -945,7 +946,6 @@ Shell InfoTip;Паказваць меню
 Show menu;Паказваць меню
 Show toolbar;Паказваць панэль
 Sort;Сартаваць па
-SamplingCount;Колькасць узораў
 SoundEngineer;Гукарэжысёр
 Source;
 Source_Duration;
@@ -992,14 +992,14 @@ Text3;Трэці тэкставы струмень
 TextCount;Коль-ць тэкставых струменяў
 ThanksTo;Падзякі
 Thousands separator;Падзельнік тысяч
-Title;Загаловак
-Title_More;Загаловак
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
 TimeZone;Гадзінная зона
+Title;Загаловак
+Title_More;Загаловак
 Total;Усяго
 Track;Сцежка
 Track_Count;Коль-ць дарожак

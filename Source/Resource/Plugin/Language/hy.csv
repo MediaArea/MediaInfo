@@ -37,12 +37,12 @@
  file1; ֆայլ
  file2; ֆայլեր
  file3; ֆայլեր
- frame1; կադր
- frame2; կադրեր
- frame3; կադրեր
  fps1; կադր/վայր.
  fps2; կադր/վայր.
  fps3; կադր/վայր.
+ frame1; կադր
+ frame2; կադրեր
+ frame3; կադրեր
  GB; ԳԲ
  Gb; Գբիթ
  Gbps; Գբիթ/վայր.
@@ -180,13 +180,13 @@ Basic_Note;Ուշադր. լրացուցիչ տեղեկությունների հ�
 BitDepth;Բիթայնությունը
 BitDepth_Stored;
 BitRate;Բիթրեյթը
+BitRate_Encoded;
 BitRate_Maximum;Առավելագույն բիթրեյթը
 BitRate_Minimum;Նվազագույն բիթրեյթը
 BitRate_Mode;Բիթրեյթի տեսակը
 BitRate_Mode_CBR;Մշտական
 BitRate_Mode_VBR;Փոփոխական
 BitRate_Nominal;Նոմինալ բիթրեյթը
-BitRate_Encoded;
 Bits-(Pixel*Frame);Բիթ/(Փիքսել*Կադր)
 BufferSize;Պահոցի չափը
 Cancel;Մերժել
@@ -214,20 +214,20 @@ Close all before open;Բացելուց առաջ փակել բոլորը
 Codec;Կոդավորիչը
 Codec_Description;Կոդավորիչի նկարագր-ը
 Codec_Info;Մանրամասներ կոդավորիչի մասին
-Codec_Settings;Կոդավորիչի կարգավորումները
-Codec_Settings_PacketBitStream;Կոդավորիչի տվյալների փաթեթային հոսքի ցուցիչներ
-Codec_Settings_BVOP;BVOP կոդավորիչի ցուցիչը
-Codec_Settings_QPel;QPel կոդավորիչի ցուցիչը
-Codec_Settings_GMC;GMC կոդավորիչի ցուցիչը
-Codec_Settings_Matrix;Կոդավորիչի կետացանցի ցուցիչը
-Codec_Settings_Floor;Floor կոդավորիչի ցուցիչը
-Codec_Settings_CABAC;CABAC կոդավորիչի ցուցիչը
-Codec_Settings_Firm;Firm կոդավորիչի ցուցիչը
-Codec_Settings_Endianness;Endianness կոդավորիչի ցուցիչը
-Codec_Settings_Sign;Sign կոդավորիչի ցուցիչը
-Codec_Settings_Law;Law կոդավորիչի ցուցիչը
-Codec_Settings_ITU;ITU կոդավորիչի ցուցիչը
 Codec_Profile;Կոդավորիչի պրոֆիլը
+Codec_Settings;Կոդավորիչի կարգավորումները
+Codec_Settings_BVOP;BVOP կոդավորիչի ցուցիչը
+Codec_Settings_CABAC;CABAC կոդավորիչի ցուցիչը
+Codec_Settings_Endianness;Endianness կոդավորիչի ցուցիչը
+Codec_Settings_Firm;Firm կոդավորիչի ցուցիչը
+Codec_Settings_Floor;Floor կոդավորիչի ցուցիչը
+Codec_Settings_GMC;GMC կոդավորիչի ցուցիչը
+Codec_Settings_ITU;ITU կոդավորիչի ցուցիչը
+Codec_Settings_Law;Law կոդավորիչի ցուցիչը
+Codec_Settings_Matrix;Կոդավորիչի կետացանցի ցուցիչը
+Codec_Settings_PacketBitStream;Կոդավորիչի տվյալների փաթեթային հոսքի ցուցիչներ
+Codec_Settings_QPel;QPel կոդավորիչի ցուցիչը
+Codec_Settings_Sign;Sign կոդավորիչի ցուցիչը
 Codec_Url;Կոդավորիչի հղումը
 CodecID;Կոդավորիչի ID-ին
 CodecID_Description;Կոդավորիչի նկարագրությունը
@@ -324,41 +324,41 @@ Format_Description;Տեսակի նկարագրությունը
 Format_Info;Մանրամասն տեսակի մասին
 Format_Profile;Տեսակի պրոֆիլը
 Format_Settings;Տեսակի կարգավորումները
-Format_Settings_PacketBitStream;Տեսակի տվյալների փաթեթային հոսքի ցուցիչներ
 Format_Settings_BVOP;BVOP տեսակի ցուցիչները
-Format_Settings_QPel;QPel տեսակի ցուցիչները
+Format_Settings_CABAC;CABAC տեսակի ցուցիչները
+Format_Settings_Emphasis;Ակցենտը
+Format_Settings_Endianness;Endianness տեսակի ցուցիչները
+Format_Settings_Firm;irm տեսակի ցուցիչները
+Format_Settings_Floor;Floor տեսակի ցուցիչները
+Format_Settings_FrameMode;Կադրի եղանակը
 Format_Settings_GMC;GMC տեսակի ցուցիչները
+Format_Settings_GOP;GOP տեսակի ցուցիչներ
+Format_Settings_ITU;ITU տեսակի ցուցիչները
+Format_Settings_Law;Law տեսակի ցուցիչները
 Format_Settings_Matrix;Տեսակի կետացանցի ցուցիչները
 Format_Settings_Matrix_Custom;Ընտրովի
 Format_Settings_Matrix_Default;Ծրագրային
-Format_Settings_Floor;Floor տեսակի ցուցիչները
-Format_Settings_CABAC;CABAC տեսակի ցուցիչները
-Format_Settings_Firm;irm տեսակի ցուցիչները
-Format_Settings_Endianness;Endianness տեսակի ցուցիչները
-Format_Settings_RefFrames;ReFrames տեսակի ցուցիչները
-Format_Settings_Sign;Sign տեսակի ցուցիչները
-Format_Settings_Law;Law տեսակի ցուցիչները
-Format_Settings_ITU;ITU տեսակի ցուցիչները
-Format_Settings_SBR;SBR տեսակի ցուցիչները
+Format_Settings_Mode;Եղանակը
+Format_Settings_ModeExtension;Ընդլայնված եղանակը
+Format_Settings_PacketBitStream;Տեսակի տվյալների փաթեթային հոսքի ցուցիչներ
+Format_Settings_PictureStructure;
 Format_Settings_PS;PS տեսակի ցուցիչները
 Format_Settings_Pulldown;Ընտրել տեսակի կարգավորումը
-Format_Settings_Mode;Եղանակը
-Format_Settings_FrameMode;Կադրի եղանակը
-Format_Settings_Emphasis;Ակցենտը
-Format_Settings_ModeExtension;Ընդլայնված եղանակը
-Format_Settings_GOP;GOP տեսակի ցուցիչներ
-Format_Settings_PictureStructure;
+Format_Settings_QPel;QPel տեսակի ցուցիչները
+Format_Settings_RefFrames;ReFrames տեսակի ցուցիչները
+Format_Settings_SBR;SBR տեսակի ցուցիչները
+Format_Settings_Sign;Sign տեսակի ցուցիչները
 Format_Settings_Wrapping;
-Format_Version;Տեսակի տարբերակը
 Format_Url;Տեսակի հղումը
+Format_Version;Տեսակի տարբերակը
 FrameCount;Կադրերի հաշվիչ
 FrameRate;Կադրերի հաճախականությունը
+FrameRate_Maximum;Կադրերի առավելագույն հաճախ-ը
+FrameRate_Minimum;Կադրերի նվազագույն հաճախ-ը
 FrameRate_Mode;Կադրերի հաճախականության եղանակը
 FrameRate_Mode_CFR;Մշտական
 FrameRate_Mode_VFR;Փոփոխական
-FrameRate_Minimum;Կադրերի նվազագույն հաճախ-ը
 FrameRate_Nominal;Կադրերի պայմանական հաճախ-ը
-FrameRate_Maximum;Կադրերի առավելագույն հաճախ-ը
 FrameRate_Original;Կադրերի հաճախ-ը օրիգինալում
 General;Ընդհանուր
 Genre;Ժանրը
@@ -574,16 +574,16 @@ Image_Codec_List;Պատկերների կոդավորիչները
 ImageCount;Պատկերների հոսքերի քանակը
 Info;Տեղեկություն
 Instruments;Գործիքներ
-Interlacement;Միահյուսում
-Interlaced_Interlaced;Միահյուսված
-Interlaced_TFF;Առաջինը վերին դաշտը
 Interlaced_BFF;Առաջինը ներքին դաշտը
+Interlaced_Interlaced;Միահյուսված
 Interlaced_PPF;Առաջադեմ
 Interlaced_Progressive;Առաջադեմ
-Interleaved;Միահյուսվող
+Interlaced_TFF;Առաջինը վերին դաշտը
+Interlacement;Միահյուսում
 Interleave_Duration;Միահյուսման տևողությունը
 Interleave_Preload;Միահյուսման ժամանակը
 Interleave_VideoFrames;Միահյուսման շարունակականությունը
+Interleaved;Միահյուսվող
 InternetMediaType;Կրիչի ինտերնետային տեսակ
 IRCA;IRCA
 ISBN;ISBN
@@ -594,7 +594,6 @@ Known formats;Հայտնի տեսակները
 Known parameters;Հայտնի ցուցիչները
 Label;Նիշը
 Language;Լեզուն
-Language_More;Լեզուն, լրացուցիչ
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -705,6 +704,7 @@ Language_mk;Macedonian
 Language_ml;Malayalam
 Language_mn;Mongolian
 Language_mo;Moldavian
+Language_More;Լեզուն, լրացուցիչ
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
@@ -792,21 +792,21 @@ LCCN;LCCN
 Library;Շտեմարանը
 Lightness;Պայծառությունը
 List;Ցանկը
-Lyrics;Երգերի տեքստը
 Lyricist;Երգի տեքստը
+Lyrics;Երգերի տեքստը
 Mastered_Date;Օրիգինալի ամսաթիվը
 MasteredBy;Օրիգինալը՝
-matrix_coefficients;Կետացանցի գործակիցը
-Matrix_Format;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
+matrix_coefficients;Կետացանցի գործակիցը
+Matrix_Format;
 MediaInfo_About;Ցուցադրում է մանրամասն տեղեկություններ\r\nմուլտիմեդիային ֆայլեր Matroska-ի, OGG-ի (ներառյալ OGM)\r\nMPEG1-ի (ներառյալ VCD), MPEG2-ի (ներառյալ DVD և SVCD), MPEG4-ի (ներառյալ iTunes M4A)\r\nQuicktime-ի\r\nRealMedia-ի\r\nWindowsMedia-ի (ներառյալ WMV, WMA)\r\nMicrosoft RIFF-ի (ներառյալ AVI, WAV, DivX)\r\nձայնային ֆայլերի (AC3, DTS, SSC, AU, AIFF) վերաբերյալ
 Menu;Ընտրացանկը
 Menu stream(s);Հոսքերի ընտրացանկը
 Menu_Codec_List;Կոդավորիչների ընտրացանկը
+Menu_Hint;Լրացուցիչ հնարավորություններ
 Menu_No;Չկա Ընտրացանկ
 MenuCount;Ընտրացանկի հոսքերի ք-ը
-Menu_Hint;Լրացուցիչ հնարավորություններ
 MenuID;Ընտրացանկի ID-ին
 mn; ր.
 Mood;Կարգավորված
@@ -824,8 +824,8 @@ NetworkName;Ցանցի անունը
 New;Նոր
 Newest version;Ստուգել նոր տարբերակը
 NewVersion_Menu;Հասանելի է նոր տարբերակը
-NewVersion_Question_Title;Հասանելի է նոր տարբերակ!
 NewVersion_Question_Content;Հասանելի է նոր %Version% տարբերակը, բեռնե՞լ այն։
+NewVersion_Question_Title;Հասանելի է նոր տարբերակ!
 No;Ոչ
 Not yet;Դեռ չկա
 NumColors;Գույների քանակը
@@ -913,16 +913,17 @@ ReplayGain_Gain;Ձայնի կարգավորիչ
 ReplayGain_Peak;Ձայնի կարգավորման գագաթը
 Resolution;Լուծաչափը
 s; վայր.
+SamplingCount;Նմուշների քանակը
 SamplingRate;Հաճախականությունը
 Save;Պահպանել
-ScanType;Ստուգման տեսակը
-ScanType_Original;
-ScanType_StoreMethod;
 ScanOrder;Ստուգման հերթը
 ScanOrder_Original;
 ScanOrder_Stored;
 ScanOrder_StoredDisplayedInverted;
 ScanOrder_StoreMethod;
+ScanType;Ստուգման տեսակը
+ScanType_Original;
+ScanType_StoreMethod;
 ScreenplayBy;Սցենարը՝
 Season;Խաղաշրջանը
 see below;նայեք ներքև
@@ -945,7 +946,6 @@ Shell InfoTip;Ցուցադրել հուշում Explorer-ում
 Show menu;Ցուցադրել ընտրացանկը
 Show toolbar;Ցուցադրել վահանակը
 Sort;Դասավորել ըստ
-SamplingCount;Նմուշների քանակը
 SoundEngineer;Ձայն. ռեժիսորը
 Source;
 Source_Duration;
@@ -992,14 +992,14 @@ Text3;Երրորդ տեքստային հոսքը
 TextCount;Տեքստային հոսքը ք-ը
 ThanksTo;Շնորհակալ ենք
 Thousands separator;Հազարյակի բաժանիչը
-Title;Անունը
-Title_More;Անունը, լրացուցիչ
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
 TimeZone;Ժամային գոտին
+Title;Անունը
+Title_More;Անունը, լրացուցիչ
 Total;Ընդամենը
 Track;Շավիղը
 Track_Count;Շավիղների ք-ը

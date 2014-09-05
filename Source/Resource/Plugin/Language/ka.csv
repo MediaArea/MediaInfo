@@ -37,12 +37,12 @@
  file1; ფაილი
  file2; ფაილები
  file3; ფაილები
- frame1; კადრი
- frame2; კადრი
- frame3; კადრები
  fps1; კადრ/წმ
  fps2; კადრ/წმ
  fps3; კადრ/წმ
+ frame1; კადრი
+ frame2; კადრი
+ frame3; კადრები
  GB; გბ
  Gb; გბ
  Gbps; გიგაბიტ/წმ
@@ -180,13 +180,13 @@ Basic_Note;შენიშვნა : ამ ფაილის მეტი ი
 BitDepth;Bit depth
 BitDepth_Stored;
 BitRate;ბიტ რეიტი
+BitRate_Encoded;
 BitRate_Maximum;მაქსიმალური ბიტ რეიტი
 BitRate_Minimum;მინიმალური ბიტ  რეიტი
 BitRate_Mode;ბიტ რეიტის რეჟიმი
 BitRate_Mode_CBR;Constant
 BitRate_Mode_VBR;Variable
 BitRate_Nominal;Nominal bit rate
-BitRate_Encoded;
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;ბუფერის ზომა
 Cancel;გაჩერება
@@ -214,20 +214,20 @@ Close all before open;დახურე ყველა გახსნამ�
 Codec;კოდეკი
 Codec_Description;კოდეკის აღწერა
 Codec_Info;კოდეკების დეტალები
-Codec_Settings;კოდეკების პარამეტრები
-Codec_Settings_PacketBitStream;კოდეკის პარამეტრები, Packet bitstream
-Codec_Settings_BVOP;კოდეკის პარამეტრები, BVOP
-Codec_Settings_QPel;კოდეკის პარამეტრები, QPel
-Codec_Settings_GMC;კოდეკის პარამეტრები, GMC
-Codec_Settings_Matrix;კოდეკის პარამეტრები, Matrix
-Codec_Settings_Floor;კოდეკის პარამეტრები, Floor
-Codec_Settings_CABAC;კოდეკის პარამეტრები, CABAC
-Codec_Settings_Firm;კოდეკის პარამეტრები, Firm
-Codec_Settings_Endianness;კოდეკის პარამეტრები, Endianness
-Codec_Settings_Sign;კოდეკის პარამეტრები, Sign
-Codec_Settings_Law;კოდეკის პარამეტრები, Law
-Codec_Settings_ITU;კოდეკის პარამეტრები, ITU
 Codec_Profile;კოდეკის პროფილი
+Codec_Settings;კოდეკების პარამეტრები
+Codec_Settings_BVOP;კოდეკის პარამეტრები, BVOP
+Codec_Settings_CABAC;კოდეკის პარამეტრები, CABAC
+Codec_Settings_Endianness;კოდეკის პარამეტრები, Endianness
+Codec_Settings_Firm;კოდეკის პარამეტრები, Firm
+Codec_Settings_Floor;კოდეკის პარამეტრები, Floor
+Codec_Settings_GMC;კოდეკის პარამეტრები, GMC
+Codec_Settings_ITU;კოდეკის პარამეტრები, ITU
+Codec_Settings_Law;კოდეკის პარამეტრები, Law
+Codec_Settings_Matrix;კოდეკის პარამეტრები, Matrix
+Codec_Settings_PacketBitStream;კოდეკის პარამეტრები, Packet bitstream
+Codec_Settings_QPel;კოდეკის პარამეტრები, QPel
+Codec_Settings_Sign;კოდეკის პარამეტრები, Sign
 Codec_Url;კოდეკების ვებმისამართი
 CodecID;კოდეკის ID
 CodecID_Description;კოდეკის აღწერა
@@ -324,41 +324,41 @@ Format_Description;ფორმატის აღწერა
 Format_Info;ფორმატის დეტალები
 Format_Profile;ფორმატის პროფილი
 Format_Settings;ფორმატის პარამეტრები
-Format_Settings_PacketBitStream;ფორმატის პარამეტრები, Packet bitstream
 Format_Settings_BVOP;ფორმატის პარამეტრები, BVOP
-Format_Settings_QPel;ფორმატის პარამეტრები, QPel
+Format_Settings_CABAC;ფორმატის პარამეტრები, CABAC
+Format_Settings_Emphasis;Emphasis
+Format_Settings_Endianness;ფორმატის პარამეტრები, Endianness
+Format_Settings_Firm;ფორმატის პარამეტრები, Firm
+Format_Settings_Floor;ფორმატის პარამეტრები, Floor
+Format_Settings_FrameMode;კადრების რეჟიმი
 Format_Settings_GMC;ფორმატის პარამეტრები, GMC
+Format_Settings_GOP;ფორმატის პარამეტრები, GOP
+Format_Settings_ITU;ფორმატის პარამეტრები, ITU
+Format_Settings_Law;ფორმატის პარამეტრები, Law
 Format_Settings_Matrix;ფორმატის პარამეტრები, Matrix
 Format_Settings_Matrix_Custom;Custom
 Format_Settings_Matrix_Default;Default
-Format_Settings_Floor;ფორმატის პარამეტრები, Floor
-Format_Settings_CABAC;ფორმატის პარამეტრები, CABAC
-Format_Settings_Firm;ფორმატის პარამეტრები, Firm
-Format_Settings_Endianness;ფორმატის პარამეტრები, Endianness
-Format_Settings_RefFrames;ფორმატის პარამეტრები, ReFrames
-Format_Settings_Sign;ფორმატის პარამეტრები, Sign
-Format_Settings_Law;ფორმატის პარამეტრები, Law
-Format_Settings_ITU;ფორმატის პარამეტრები, ITU
-Format_Settings_SBR;ფორმატის პარამეტრები, SBR
+Format_Settings_Mode;რეჟიმი
+Format_Settings_ModeExtension;Mode extension
+Format_Settings_PacketBitStream;ფორმატის პარამეტრები, Packet bitstream
+Format_Settings_PictureStructure;
 Format_Settings_PS;ფორმატის პარამეტრები, PS
 Format_Settings_Pulldown;ფორმატის პარამეტრები, Pulldown
-Format_Settings_Mode;რეჟიმი
-Format_Settings_FrameMode;კადრების რეჟიმი
-Format_Settings_Emphasis;Emphasis
-Format_Settings_ModeExtension;Mode extension
-Format_Settings_GOP;ფორმატის პარამეტრები, GOP
-Format_Settings_PictureStructure;
+Format_Settings_QPel;ფორმატის პარამეტრები, QPel
+Format_Settings_RefFrames;ფორმატის პარამეტრები, ReFrames
+Format_Settings_SBR;ფორმატის პარამეტრები, SBR
+Format_Settings_Sign;ფორმატის პარამეტრები, Sign
 Format_Settings_Wrapping;
-Format_Version;ფორნატის ვერსია
 Format_Url;ვებ-გვერდის ფორმატი
+Format_Version;ფორნატის ვერსია
 FrameCount;Frame count
 FrameRate;კადრების სიხშირე
+FrameRate_Maximum;კადრების სიხშირის მაქსიმუმი
+FrameRate_Minimum;კადრების სიხშირის მინიმუმი
 FrameRate_Mode;კადრების სიხშირის რეჟიმი
 FrameRate_Mode_CFR;მუდმივი
 FrameRate_Mode_VFR;Variable
-FrameRate_Minimum;კადრების სიხშირის მინიმუმი
 FrameRate_Nominal;კადრების სიხშირის ნომინალური
-FrameRate_Maximum;კადრების სიხშირის მაქსიმუმი
 FrameRate_Original;კადრების ორიგინალი სიხშირე
 General;მთავარი
 Genre;ჟანრი
@@ -574,16 +574,16 @@ Image_Codec_List;სურათის კოდეკები
 ImageCount;Count of image streams
 Info;ინფორმაცია
 Instruments;ინსტრუმენტები
-Interlacement;Interlacement
-Interlaced_Interlaced;Interlaced
-Interlaced_TFF;Top Field First
 Interlaced_BFF;Bottom Field First
+Interlaced_Interlaced;Interlaced
 Interlaced_PPF;Progressive
 Interlaced_Progressive;Progressive
-Interleaved;Interleaved
+Interlaced_TFF;Top Field First
+Interlacement;Interlacement
 Interleave_Duration;Interleave, duration
 Interleave_Preload;Interleave, preload duration
 Interleave_VideoFrames;Interleave, duration
+Interleaved;Interleaved
 InternetMediaType;Internet media type
 IRCA;IRCA
 ISBN;ISBN
@@ -594,7 +594,6 @@ Known formats;ცნობილი ფორმატები
 Known parameters;ცნობილი პარამეტრები
 Label;Label
 Language;ინტერფეისის ენა
-Language_More;მეტი ინფორმაცია ენებზე
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -705,6 +704,7 @@ Language_mk;Macedonian
 Language_ml;Malayalam
 Language_mn;Mongolian
 Language_mo;Moldavian
+Language_More;მეტი ინფორმაცია ენებზე
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
@@ -792,21 +792,21 @@ LCCN;LCCN
 Library;Muxing library
 Lightness;Lightness
 List;სია
-Lyrics;Lyrics
 Lyricist;Lyricist
+Lyrics;Lyrics
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
-matrix_coefficients;Matrix coefficients
-Matrix_Format;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
+matrix_coefficients;Matrix coefficients
+Matrix_Format;
 MediaInfo_About;Supply very detailled information\r\nabout a multimedia file:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
 Menu;მენიუ
 Menu stream(s);ნაკადების მენიუ
 Menu_Codec_List;კოდეკების მენიუ
+Menu_Hint;უფრო მეტი შესაძლებლობები
 Menu_No;არ არის მენიუ
 MenuCount;ნაკადების მენიუს რაოდენობა
-Menu_Hint;უფრო მეტი შესაძლებლობები
 MenuID;მენიუს ID
 mn;მნ
 Mood;ხასიათი
@@ -824,8 +824,8 @@ NetworkName;Network name
 New;ახალიმოითხოვსინტერნეტს
 Newest version;ჩეამოწმე განახლება ( )
 NewVersion_Menu;პროგრამის ახალი ვერსია ხელმისაწვდომია
-NewVersion_Question_Title;პროგრამის ახალი ვერსია გამოვიდა!
 NewVersion_Question_Content;ახალი ვერსია(v%Version%) უკვე ხელმისაწვდომია, გადმოწერა გსურს?
+NewVersion_Question_Title;პროგრამის ახალი ვერსია გამოვიდა!
 No;არა
 Not yet;ჯერ არა
 NumColors;ფერების რიცხვი
@@ -913,16 +913,17 @@ ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replay gain peak
 Resolution;გაფართოება
 s;s
+SamplingCount;ნიმუშების რაოდენობა
 SamplingRate;Sampling rate
 Save;დამახსოვრება
-ScanType;სკანირების ტიპი
-ScanType_Original;
-ScanType_StoreMethod;
 ScanOrder;Scan order
 ScanOrder_Original;
 ScanOrder_Stored;
 ScanOrder_StoredDisplayedInverted;
 ScanOrder_StoreMethod;
+ScanType;სკანირების ტიპი
+ScanType_Original;
+ScanType_StoreMethod;
 ScreenplayBy;Screenplay by
 Season;სეზონი
 see below;see below
@@ -945,7 +946,6 @@ Shell InfoTip;Explorer Tooltip (in Windows Explorer, move the mouse over the fil
 Show menu;მაჩვენე მენიუ
 Show toolbar;მაჩვენე პანელი
 Sort;დალაგების შესაბამისობა
-SamplingCount;ნიმუშების რაოდენობა
 SoundEngineer;ხნის ინჟინერი
 Source;
 Source_Duration;
@@ -992,14 +992,14 @@ Text3;მე-3 ტექსტის ნაკადი
 TextCount;ტექსტის ნაკადების რაოდენობა
 ThanksTo;მადლობას ვუხდით
 Thousands separator;Thousands separator
-Title;სათაური
-Title_More;სათაურზე მეტი ინფორმაცია
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
 TimeZone;Timezone
+Title;სათაური
+Title_More;სათაურზე მეტი ინფორმაცია
 Total;ჯამში
 Track;ტრეკის სახელი
 Track_Count;Track count

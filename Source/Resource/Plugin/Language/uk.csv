@@ -37,12 +37,12 @@
  file1; файл
  file2; файла
  file3; файли
- frame1; кадр
- frame2; кадр(-и,-ів)
- frame3; кадр(-и,-ів)
  fps1; кадр/сек
  fps2; кадр/сек
  fps3; кадр/сек
+ frame1; кадр
+ frame2; кадр(-и,-ів)
+ frame3; кадр(-и,-ів)
  GB; ГБ
  Gb; Гбіт
  Gbps; Гбіт/сек
@@ -180,13 +180,13 @@ Basic_Note;Примітка: Для додаткової інформації о
 BitDepth;Бітова глибина
 BitDepth_Stored;
 BitRate;Бітрейт
+BitRate_Encoded;Бітрейт кодування
 BitRate_Maximum;Максимальний бітрейт
 BitRate_Minimum;Мінімальний бітрейт
 BitRate_Mode;Режим розрахунку бітрейта
 BitRate_Mode_CBR;Постійний (CBR)
 BitRate_Mode_VBR;Змінний (VBR)
 BitRate_Nominal;Номінальний бітрейт
-BitRate_Encoded;Бітрейт кодування
 Bits-(Pixel*Frame);Біт/(Пікселі*Кадри)
 BufferSize;Розмір буфера
 Cancel;Відміна
@@ -214,20 +214,20 @@ Close all before open;Закривати все перед відкриттям
 Codec;Кодек
 Codec_Description;Опис кодеку
 Codec_Info;Докладно про кодек
-Codec_Settings;Налаштування кодеку
-Codec_Settings_PacketBitStream;Налаштування кодеку, Packet bitstream
-Codec_Settings_BVOP;Налаштування кодеку, BVOP
-Codec_Settings_QPel;Налаштування кодеку, QPel
-Codec_Settings_GMC;Налаштування кодеку, GMC
-Codec_Settings_Matrix;Налаштування кодеку, Matrix
-Codec_Settings_Floor;Налаштування кодеку, Floor
-Codec_Settings_CABAC;Налаштування кодеку, CABAC
-Codec_Settings_Firm;Налаштування кодеку, Firm
-Codec_Settings_Endianness;Налаштування кодеку, Endianness
-Codec_Settings_Sign;Налаштування кодеку, Sign
-Codec_Settings_Law;Налаштування кодеку, Law
-Codec_Settings_ITU;Налаштування кодеку, ITU
 Codec_Profile;Профіль кодеку
+Codec_Settings;Налаштування кодеку
+Codec_Settings_BVOP;Налаштування кодеку, BVOP
+Codec_Settings_CABAC;Налаштування кодеку, CABAC
+Codec_Settings_Endianness;Налаштування кодеку, Endianness
+Codec_Settings_Firm;Налаштування кодеку, Firm
+Codec_Settings_Floor;Налаштування кодеку, Floor
+Codec_Settings_GMC;Налаштування кодеку, GMC
+Codec_Settings_ITU;Налаштування кодеку, ITU
+Codec_Settings_Law;Налаштування кодеку, Law
+Codec_Settings_Matrix;Налаштування кодеку, Matrix
+Codec_Settings_PacketBitStream;Налаштування кодеку, Packet bitstream
+Codec_Settings_QPel;Налаштування кодеку, QPel
+Codec_Settings_Sign;Налаштування кодеку, Sign
 Codec_Url;Інтернет-адреса кодеку
 CodecID;Ідентифікатор кодеку
 CodecID_Description;Опис кодеку
@@ -324,41 +324,41 @@ Format_Description;Опис формату
 Format_Info;Деталі формату
 Format_Profile;Профіль формату
 Format_Settings;Налаштування формату
-Format_Settings_PacketBitStream;Налаштування формату, Packet bitstream
 Format_Settings_BVOP;Налаштування формату, BVOP
-Format_Settings_QPel;Налаштування формату, QPel
+Format_Settings_CABAC;Налаштування формату, CABAC
+Format_Settings_Emphasis;Емфаза
+Format_Settings_Endianness;Налаштування формату, Endianness
+Format_Settings_Firm;Налаштування формату, Firm
+Format_Settings_Floor;Налаштування формату, Floor
+Format_Settings_FrameMode;Режим для кадрів
 Format_Settings_GMC;Налаштування формату, GMC
+Format_Settings_GOP;Налаштування формату, GOP
+Format_Settings_ITU;Налаштування формату, ITU
+Format_Settings_Law;Налаштування формату, Law
 Format_Settings_Matrix;Налаштування формату, Matrix
 Format_Settings_Matrix_Custom;За замовчуванням
 Format_Settings_Matrix_Default;За замовчуванням
-Format_Settings_Floor;Налаштування формату, Floor
-Format_Settings_CABAC;Налаштування формату, CABAC
-Format_Settings_Firm;Налаштування формату, Firm
-Format_Settings_Endianness;Налаштування формату, Endianness
-Format_Settings_RefFrames;Налаштування формату, ReFrames
-Format_Settings_Sign;Налаштування формату, Sign
-Format_Settings_Law;Налаштування формату, Law
-Format_Settings_ITU;Налаштування формату, ITU
-Format_Settings_SBR;Налаштування формату, SBR
+Format_Settings_Mode;Режим
+Format_Settings_ModeExtension;Профіль
+Format_Settings_PacketBitStream;Налаштування формату, Packet bitstream
+Format_Settings_PictureStructure;
 Format_Settings_PS;Налаштування формату, PS
 Format_Settings_Pulldown;Налаштування формату, Pulldown
-Format_Settings_Mode;Режим
-Format_Settings_FrameMode;Режим для кадрів
-Format_Settings_Emphasis;Емфаза
-Format_Settings_ModeExtension;Профіль
-Format_Settings_GOP;Налаштування формату, GOP
-Format_Settings_PictureStructure;
+Format_Settings_QPel;Налаштування формату, QPel
+Format_Settings_RefFrames;Налаштування формату, ReFrames
+Format_Settings_SBR;Налаштування формату, SBR
+Format_Settings_Sign;Налаштування формату, Sign
 Format_Settings_Wrapping;
-Format_Version;Версія формату
 Format_Url;Інтернет-адреса формату
+Format_Version;Версія формату
 FrameCount;Кількість кадрів
 FrameRate;Частота кадрів
+FrameRate_Maximum;Максимальна частота кадрів
+FrameRate_Minimum;Мінімальна частота кадрів
 FrameRate_Mode;Режим частоти кадрів
 FrameRate_Mode_CFR;Постійний
 FrameRate_Mode_VFR;Змінний
-FrameRate_Minimum;Мінімальна частота кадрів
 FrameRate_Nominal;Номінальна частота кадрів
-FrameRate_Maximum;Максимальна частота кадрів
 FrameRate_Original;Оригінальна частота кадрів
 General;Загальна інформація
 Genre;Жанр
@@ -574,16 +574,16 @@ Image_Codec_List;Кодеки зображень
 ImageCount;Кількість зображень
 Info;Відомості
 Instruments;Інструменти
-Interlacement;Черезрядковість
-Interlaced_Interlaced;Черезрядковий
-Interlaced_TFF;Непарні - перші
 Interlaced_BFF;Парні - перші
+Interlaced_Interlaced;Черезрядковий
 Interlaced_PPF;Прогресивний
 Interlaced_Progressive;Прогресивний
-Interleaved;З чергуванням
+Interlaced_TFF;Непарні - перші
+Interlacement;Черезрядковість
 Interleave_Duration;Чергування, тривалість проміжку
 Interleave_Preload;Чергування, підрахов. тривал.
 Interleave_VideoFrames;Чергування, тривалість
+Interleaved;З чергуванням
 InternetMediaType;MIME-тип
 IRCA;IRCA
 ISBN;ISBN
@@ -594,7 +594,6 @@ Known formats;Відомі формати
 Known parameters;Відомі параметри
 Label;Позначка
 Language;Мова
-Language_More;Більше інформації про мову
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -705,6 +704,7 @@ Language_mk;Macedonian
 Language_ml;Malayalam
 Language_mn;Mongolian
 Language_mo;Moldavian
+Language_More;Більше інформації про мову
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
@@ -792,21 +792,21 @@ LCCN;LCCN
 Library;Бібліотека мультиплексування
 Lightness;Яскравість
 List;Список
-Lyrics;Текст
 Lyricist;Автор тексту
+Lyrics;Текст
 Mastered_Date;Дата мастерингу
 MasteredBy;Мастеринг
-matrix_coefficients;Матричні коефіцієнти
-Matrix_Format;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
+matrix_coefficients;Матричні коефіцієнти
+Matrix_Format;
 MediaInfo_About;Відображає докладну інформацію \r\nпро медіафайли:\r\nMatroska, OGG (включаючи OGM)\r\nMPEG1 (включаючи VCD)\r\nMPEG2 (включаючи DVD and SVCD)\r\nMPEG4 (включаючи Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (включаючи WMV, WMA)\r\nMicrosoft RIFF (включаючи AVI, WAV)\r\nАудіоформати (AC3, DTS, AAC, AU, AIFF...)
 Menu;Меню
 Menu stream(s);Меню потоків
 Menu_Codec_List;Меню кодеків
+Menu_Hint;Більше можливостей
 Menu_No;Меню відсутнє
 MenuCount;Підрахунок меню потоків
-Menu_Hint;Більше можливостей
 MenuID;Ідентифікатор меню
 mn; хв.
 Mood;Тональність
@@ -824,8 +824,8 @@ NetworkName;Мережеве ім'я
 New;Створити
 Newest version;Перевіряти наявність нової версії (необхідне підключення до Інтернету)
 NewVersion_Menu;Наявна нова версія програми
-NewVersion_Question_Title;Випущено нову версію програми!
 NewVersion_Question_Content;Наявна нова версія (v%Version%) програми, ви хочете її завантажити?
+NewVersion_Question_Title;Випущено нову версію програми!
 No;Ні
 Not yet;Поки що ні
 NumColors;Число кольорів
@@ -913,16 +913,17 @@ ReplayGain_Gain;Вирівнювання гучності
 ReplayGain_Peak;Пік вирівнювання гучності
 Resolution;Роздільна здатність
 s; сек.
+SamplingCount;Кількість семплів
 SamplingRate;Частота дискретизації
 Save;Зберегти
-ScanType;Тип сканування
-ScanType_Original;
-ScanType_StoreMethod;
 ScanOrder;Послідовність сканування
 ScanOrder_Original;
 ScanOrder_Stored;
 ScanOrder_StoredDisplayedInverted;
 ScanOrder_StoreMethod;
+ScanType;Тип сканування
+ScanType_Original;
+ScanType_StoreMethod;
 ScreenplayBy;Сценарій
 Season;Сезон
 see below;див. нижче
@@ -945,7 +946,6 @@ Shell InfoTip;Підказка провідника (при наведенні �
 Show menu;Відображати меню
 Show toolbar;Відображати панель
 Sort;Сортування
-SamplingCount;Кількість семплів
 SoundEngineer;Звукорежисер
 Source;Вихідний матеріал
 Source_Duration;Тривалість вихідного матеріалу
@@ -992,14 +992,14 @@ Text3;Третій текстовий потік
 TextCount;Кількість текстових потоків
 ThanksTo;Подяка
 Thousands separator;Роздільник розрядів
-Title;Заголовок
-Title_More;Більше інформації про заголовок
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
 TimeZone;Часовий пояс
+Title;Заголовок
+Title_More;Більше інформації про заголовок
 Total;Сумарно
 Track;Назва доріжки
 Track_Count;Кількість доріжок

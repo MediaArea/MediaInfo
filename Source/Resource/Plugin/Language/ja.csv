@@ -37,12 +37,12 @@
  file1; ファイル
  file2; ファイル
  file3; ファイル
- frame1; フレーム
- frame2; フレーム
- frame3; フレーム
  fps1; fps
  fps2; fps
  fps3; fps
+ frame1; フレーム
+ frame2; フレーム
+ frame3; フレーム
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -180,13 +180,13 @@ Basic_Note;メモ : ファイルについてのさらなる情報は別のビュ
 BitDepth;
 BitDepth_Stored;
 BitRate;ビットレート
+BitRate_Encoded;
 BitRate_Maximum;最大
 BitRate_Minimum;最小
 BitRate_Mode;ビットレートモード
 BitRate_Mode_CBR;CBR モード
 BitRate_Mode_VBR;VBR モード
 BitRate_Nominal;ノミナル
-BitRate_Encoded;
 Bits-(Pixel*Frame);ビット/(ピクセル*フレーム)
 BufferSize;
 Cancel;キャンセル
@@ -214,20 +214,20 @@ Close all before open;すべて閉じて開く
 Codec;コーデック
 Codec_Description;コーデックの説明
 Codec_Info;コーデックの詳細
-Codec_Settings;コーデックの設定
-Codec_Settings_PacketBitStream;パケットビットストリーム
-Codec_Settings_BVOP;BVOP
-Codec_Settings_QPel;QPel
-Codec_Settings_GMC;GMC
-Codec_Settings_Matrix;Matrix
-Codec_Settings_Floor;Floor
-Codec_Settings_CABAC;CABAC
-Codec_Settings_Firm;Firm
-Codec_Settings_Endianness;Endianness
-Codec_Settings_Sign;Sign
-Codec_Settings_Law;Law
-Codec_Settings_ITU;ITU
 Codec_Profile;コーデックのプロファイル
+Codec_Settings;コーデックの設定
+Codec_Settings_BVOP;BVOP
+Codec_Settings_CABAC;CABAC
+Codec_Settings_Endianness;Endianness
+Codec_Settings_Firm;Firm
+Codec_Settings_Floor;Floor
+Codec_Settings_GMC;GMC
+Codec_Settings_ITU;ITU
+Codec_Settings_Law;Law
+Codec_Settings_Matrix;Matrix
+Codec_Settings_PacketBitStream;パケットビットストリーム
+Codec_Settings_QPel;QPel
+Codec_Settings_Sign;Sign
 Codec_Url;コーデックの URL
 CodecID;コーデック ID
 CodecID_Description;コーデック ID の説明
@@ -324,41 +324,41 @@ Format_Description;詳細
 Format_Info;情報
 Format_Profile;プロファイル
 Format_Settings;設定
-Format_Settings_PacketBitStream;パケットビットストリーム
 Format_Settings_BVOP;BVOP
-Format_Settings_QPel;QPel
+Format_Settings_CABAC;CABAC
+Format_Settings_Emphasis;
+Format_Settings_Endianness;Endianness
+Format_Settings_Firm;Firm
+Format_Settings_Floor;Floor
+Format_Settings_FrameMode;
 Format_Settings_GMC;GMC
+Format_Settings_GOP;
+Format_Settings_ITU;ITU
+Format_Settings_Law;Law
 Format_Settings_Matrix;Matrix 形式の設定
 Format_Settings_Matrix_Custom;カスタム Matrix 形式の設定
 Format_Settings_Matrix_Default;既定の Matrix 形式設定
-Format_Settings_Floor;Floor
-Format_Settings_CABAC;CABAC
-Format_Settings_Firm;Firm
-Format_Settings_Endianness;Endianness
-Format_Settings_RefFrames;RefFrames
-Format_Settings_Sign;Sign
-Format_Settings_Law;Law
-Format_Settings_ITU;ITU
-Format_Settings_SBR;SBR
+Format_Settings_Mode;
+Format_Settings_ModeExtension;
+Format_Settings_PacketBitStream;パケットビットストリーム
+Format_Settings_PictureStructure;
 Format_Settings_PS;PS
 Format_Settings_Pulldown;プルダウン
-Format_Settings_Mode;
-Format_Settings_FrameMode;
-Format_Settings_Emphasis;
-Format_Settings_ModeExtension;
-Format_Settings_GOP;
-Format_Settings_PictureStructure;
+Format_Settings_QPel;QPel
+Format_Settings_RefFrames;RefFrames
+Format_Settings_SBR;SBR
+Format_Settings_Sign;Sign
 Format_Settings_Wrapping;
-Format_Version;バージョン
 Format_Url;Url フォーマット
+Format_Version;バージョン
 FrameCount;フレーム数
 FrameRate;フレームレート
+FrameRate_Maximum;最大
+FrameRate_Minimum;最小
 FrameRate_Mode;モード
 FrameRate_Mode_CFR;CFR モード
 FrameRate_Mode_VFR;VFR モード
-FrameRate_Minimum;最小
 FrameRate_Nominal;通常
-FrameRate_Maximum;最大
 FrameRate_Original;オリジナル
 General;全般
 Genre;ジャンル
@@ -574,16 +574,16 @@ Image_Codec_List;コーデックのイメージ
 ImageCount;イメージストリームの数
 Info;情報
 Instruments;インストゥルメンツ
-Interlacement;インターレスメンツ
-Interlaced_Interlaced;インターレース
-Interlaced_TFF;トップファースト(TFF)
 Interlaced_BFF;ボトムファースト(BFF)
+Interlaced_Interlaced;インターレース
 Interlaced_PPF;プログレシッブ(PPF)
 Interlaced_Progressive;プログレシッブ(PPF)
-Interleaved;
+Interlaced_TFF;トップファースト(TFF)
+Interlacement;インターレスメンツ
 Interleave_Duration;ドゥレイション
 Interleave_Preload;プリロード
 Interleave_VideoFrames;ビデオフレーム
+Interleaved;
 InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
@@ -594,7 +594,6 @@ Known formats;使用可能なフォーマット
 Known parameters;使用可能なパラメータ
 Label;ラベル
 Language;言語
-Language_More;さらに
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -705,6 +704,7 @@ Language_mk;Macedonian
 Language_ml;Malayalam
 Language_mn;Mongolian
 Language_mo;Moldavian
+Language_More;さらに
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
@@ -792,21 +792,21 @@ LCCN;LCCN
 Library;ライブラリ
 Lightness;明るさ
 List;リスト
-Lyrics;歌詞
 Lyricist;作詞
+Lyrics;歌詞
 Mastered_Date;マスタリング日
 MasteredBy;マスタリング by
-matrix_coefficients;
-Matrix_Format;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
+matrix_coefficients;
+Matrix_Format;
 MediaInfo_About; 詳細情報提供者 \r\n マルチメディア ファイル:\r\n Matroska, OGG ( OGM を含む)\r\n MPEG1 ( VCD を含む)\r\n MPEG2 ( DVD , SVCD を含む)\r\n MPEG4 (iTunes の M4A を含む)\r\n Quicktime\r\n RealMedia\r\n WindowsMedia ( WMV , WMA を含む)\r\n Microsoft RIFF ( AVI , WAV を含む)\r\n 音声のみ (AC3 , DTS , AAC , AU , AIFF ...)
 Menu;メニュー
 Menu stream(s);メニューストリーム
 Menu_Codec_List;メニューコーデック
+Menu_Hint;ヒント
 Menu_No;メニュー番号
 MenuCount;メニューストリーム数
-Menu_Hint;ヒント
 MenuID;ID
 mn;分
 Mood;ムード
@@ -824,8 +824,8 @@ NetworkName;ネットワーク名
 New;新規
 Newest version;新バージョンチェック（要インターネット接続）
 NewVersion_Menu;新バージョンメニュー
-NewVersion_Question_Title;新バージョン確認 タイトル
 NewVersion_Question_Content;新バージョン確認 コンテンツ
+NewVersion_Question_Title;新バージョン確認 タイトル
 No;いいえ
 Not yet;準備中です
 NumColors;色
@@ -913,16 +913,17 @@ ReplayGain_Gain;リプレイゲイン ゲイン
 ReplayGain_Peak;リプレイ ゲイン ピーク
 Resolution;解像度
 s;秒
+SamplingCount;
 SamplingRate;サンプルレート
 Save;保存
-ScanType;スキャンの種類
-ScanType_Original;
-ScanType_StoreMethod;
 ScanOrder;スキャンの並び
 ScanOrder_Original;
 ScanOrder_Stored;
 ScanOrder_StoredDisplayedInverted;
 ScanOrder_StoreMethod;
+ScanType;スキャンの種類
+ScanType_Original;
+ScanType_StoreMethod;
 ScreenplayBy;監督
 Season;シーズン
 see below;以下詳細
@@ -945,7 +946,6 @@ Shell InfoTip;シェルでインフォチップ （対応ファイル上でツ�
 Show menu;メニューを表示する
 Show toolbar;ツール バーを表示する
 Sort;並び替え
-SamplingCount;
 SoundEngineer;サウンドエンジニア
 Source;
 Source_Duration;
@@ -992,14 +992,14 @@ Text3;サードテキストストリーム
 TextCount;テキストストリーム数
 ThanksTo;謝辞
 Thousands separator;区切り
-Title;タイトル
-Title_More;タイトルと詳細情報
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
 TimeZone;タイムゾーン
+Title;タイトル
+Title_More;タイトルと詳細情報
 Total;計
 Track;トラック名
 Track_Count;トラック数

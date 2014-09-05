@@ -37,12 +37,12 @@
  file1; skedë
  file2; skeda
  file3; skeda
- frame1; kuadër
- frame2; kuadro
- frame3; kuadro
  fps1; fps
  fps2; fps
  fps3; fps
+ frame1; kuadër
+ frame2; kuadro
+ frame3; kuadro
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -180,13 +180,13 @@ Basic_Note;Shënim : për më shumë info rreth skedës, mund të zgjidhet një 
 BitDepth;
 BitDepth_Stored;
 BitRate;Raporti i bitit
+BitRate_Encoded;
 BitRate_Maximum;Raporti maksimal i bitit
 BitRate_Minimum;Raporti minimal i bitit
 BitRate_Mode;Mënyra e raportit të bitit
 BitRate_Mode_CBR;Konstant
 BitRate_Mode_VBR;Variabël
 BitRate_Nominal;Raporti nominal i bitit
-BitRate_Encoded;
 Bits-(Pixel*Frame);Bit/(Piksel*Kuadër)
 BufferSize;
 Cancel;Anulo
@@ -214,20 +214,20 @@ Close all before open;Mbyll infot para hapjes
 Codec;Kodeku
 Codec_Description;Përshkrimi i kodekut
 Codec_Info;Detajet e kodekut
-Codec_Settings;Vendosjet e kodekut
-Codec_Settings_PacketBitStream;Vendosjet e kodekut, Packet bitstream
-Codec_Settings_BVOP;Vendosjet e kodekut, BVOP
-Codec_Settings_QPel;Vendosjet e kodekut, QPel
-Codec_Settings_GMC;Vendosjet e kodekut, GMC
-Codec_Settings_Matrix;Vendosjet e kodekut, Matrix
-Codec_Settings_Floor;Vendosjet e kodekut, Floor
-Codec_Settings_CABAC;Vendosjet e kodekut, CABAC
-Codec_Settings_Firm;Vendosjet e kodekut, Firm
-Codec_Settings_Endianness;Vendosjet e kodekut, Endianness
-Codec_Settings_Sign;Vendosjet e kodekut, Sign
-Codec_Settings_Law;Vendosjet e kodekut, Law
-Codec_Settings_ITU;Vendosjet e kodekut, ITU
 Codec_Profile;Profili i kodekut
+Codec_Settings;Vendosjet e kodekut
+Codec_Settings_BVOP;Vendosjet e kodekut, BVOP
+Codec_Settings_CABAC;Vendosjet e kodekut, CABAC
+Codec_Settings_Endianness;Vendosjet e kodekut, Endianness
+Codec_Settings_Firm;Vendosjet e kodekut, Firm
+Codec_Settings_Floor;Vendosjet e kodekut, Floor
+Codec_Settings_GMC;Vendosjet e kodekut, GMC
+Codec_Settings_ITU;Vendosjet e kodekut, ITU
+Codec_Settings_Law;Vendosjet e kodekut, Law
+Codec_Settings_Matrix;Vendosjet e kodekut, Matrix
+Codec_Settings_PacketBitStream;Vendosjet e kodekut, Packet bitstream
+Codec_Settings_QPel;Vendosjet e kodekut, QPel
+Codec_Settings_Sign;Vendosjet e kodekut, Sign
 Codec_Url;Lidhësi në rrjetë i kodekut
 CodecID;ID i kodekut
 CodecID_Description;Përshkrimi i kodekut
@@ -324,41 +324,41 @@ Format_Description;Përshkrimi i formatit
 Format_Info;Detajet e formatit
 Format_Profile;Profili i formatit
 Format_Settings;Vendosjet e formatit
-Format_Settings_PacketBitStream;Vendosjet e formatit, Packet bitstream
 Format_Settings_BVOP;Vendosjet e formatit, BVOP
-Format_Settings_QPel;Vendosjet e formatit, QPel
+Format_Settings_CABAC;Vendosjet e formatit, CABAC
+Format_Settings_Emphasis;Emfaza
+Format_Settings_Endianness;Vendosjet e formatit, Endianness
+Format_Settings_Firm;Vendosjet e formatit, Firm
+Format_Settings_Floor;Vendosjet e formatit, Floor
+Format_Settings_FrameMode;Mënyra e Kuadrit
 Format_Settings_GMC;Vendosjet e formatit, GMC
+Format_Settings_GOP;
+Format_Settings_ITU;Vendosjet e formatit, ITU
+Format_Settings_Law;Vendosjet e formatit, Law
 Format_Settings_Matrix;Vendosjet e formatit, Matrix
 Format_Settings_Matrix_Custom;Me porosi
 Format_Settings_Matrix_Default;Tipike
-Format_Settings_Floor;Vendosjet e formatit, Floor
-Format_Settings_CABAC;Vendosjet e formatit, CABAC
-Format_Settings_Firm;Vendosjet e formatit, Firm
-Format_Settings_Endianness;Vendosjet e formatit, Endianness
-Format_Settings_RefFrames;Vendosjet e formatit, ReFrames
-Format_Settings_Sign;Vendosjet e formatit, Sign
-Format_Settings_Law;Vendosjet e formatit, Law
-Format_Settings_ITU;Vendosjet e formatit, ITU
-Format_Settings_SBR;Vendosjet e formatit, SBR
+Format_Settings_Mode;Mënyra
+Format_Settings_ModeExtension;
+Format_Settings_PacketBitStream;Vendosjet e formatit, Packet bitstream
+Format_Settings_PictureStructure;
 Format_Settings_PS;Vendosjet e formatit, PS
 Format_Settings_Pulldown;Vendosjet e formatit, Pulldown
-Format_Settings_Mode;Mënyra
-Format_Settings_FrameMode;Mënyra e Kuadrit
-Format_Settings_Emphasis;Emfaza
-Format_Settings_ModeExtension;
-Format_Settings_GOP;
-Format_Settings_PictureStructure;
+Format_Settings_QPel;Vendosjet e formatit, QPel
+Format_Settings_RefFrames;Vendosjet e formatit, ReFrames
+Format_Settings_SBR;Vendosjet e formatit, SBR
+Format_Settings_Sign;Vendosjet e formatit, Sign
 Format_Settings_Wrapping;
-Format_Version;Versioni i formatit
 Format_Url;Lidhësi në rrjetë i formatit
+Format_Version;Versioni i formatit
 FrameCount;Numri i kuadrove
 FrameRate;Raporti i kuadrit
+FrameRate_Maximum;Raporti maksimal i kuadrit
+FrameRate_Minimum;Raporti minimal i kuadrit
 FrameRate_Mode;Mënyra e raportit të kuadrit
 FrameRate_Mode_CFR;Konstant
 FrameRate_Mode_VFR;Variabël
-FrameRate_Minimum;Raporti minimal i kuadrit
 FrameRate_Nominal;Raporti nominal i kuadrit
-FrameRate_Maximum;Raporti maksimal i kuadrit
 FrameRate_Original;Raporti origjinal i kuadrit
 General;Përgjithësi
 Genre;Zhanri
@@ -574,16 +574,16 @@ Image_Codec_List;Kodekët e imazhit
 ImageCount;Numri i rrymave të imazhit
 Info;Info
 Instruments;Instrumenti
-Interlacement;Gërshetimi
-Interlaced_Interlaced;Gërshetohet
-Interlaced_TFF;Më Parë Fusha Sipër
 Interlaced_BFF;Më Parë Fusha Poshtë
+Interlaced_Interlaced;Gërshetohet
 Interlaced_PPF;Progresiv
 Interlaced_Progressive;Progresiv
-Interleaved;
+Interlaced_TFF;Më Parë Fusha Sipër
+Interlacement;Gërshetimi
 Interleave_Duration;Gërshetimi, kohëzgjatja
 Interleave_Preload;Gërshetimi, kohëzgjatja para hapjes
 Interleave_VideoFrames;Gërshetimi, kohëzgjatja
+Interleaved;
 InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
@@ -594,7 +594,6 @@ Known formats;Formatet e njohura
 Known parameters;Parametrat e njohur
 Label;Etiketa
 Language;Gjuha
-Language_More;Gjuha, më tepër info
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -705,6 +704,7 @@ Language_mk;Maqedonisht
 Language_ml;Malayalam
 Language_mn;Mongolian
 Language_mo;Moldavisht
+Language_More;Gjuha, më tepër info
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
@@ -792,21 +792,21 @@ LCCN;LCCN
 Library;Libraria e muksimit
 Lightness;Dritësia
 List;Lista
-Lyrics;Fjalët
 Lyricist;Shkrimtari
+Lyrics;Fjalët
 Mastered_Date;Data e masterizimit
 MasteredBy;Masterizuar nga
-matrix_coefficients;Koeficientët e matricës
-Matrix_Format;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
+matrix_coefficients;Koeficientët e matricës
+Matrix_Format;
 MediaInfo_About;Jep informacione shumë të detajuara për\r\nskedat multimediatike:\r\nMatroska, OGG (përfshirë OGM)\r\nMPEG1 (përfshirë VCD)\r\nMPEG2 (përfshirë DVD dhe SVCD)\r\nMPEG4 (përfshirë Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (përfshirë WMV, WMA)\r\nMicrosoft RIFF (përfshirë AVI, WAV)\r\nFormate zanore (AC3, DTS, AAC, AU, AIFF...)
 Menu;Meny
 Menu stream(s);Rrymat e menysë
 Menu_Codec_List;Kodekët e menysë
+Menu_Hint;Mundësi të tjera
 Menu_No;Pa meny
 MenuCount;Numri i rrymave të menysë
-Menu_Hint;Mundësi të tjera
 MenuID;ID i menysë
 mn;mn
 Mood;Gjendja shpirtërore
@@ -824,8 +824,8 @@ NetworkName;Emri i rrjetit
 New;E re
 Newest version;Verifiko versionin më të ri (nevojitet lidhje me internet)
 NewVersion_Menu;Ka dalë një version i ri
-NewVersion_Question_Title;Është lëshuar një version i ri!
 NewVersion_Question_Content;Ka dalë një version i ri (v%Version%), do e shkarkoni?
+NewVersion_Question_Title;Është lëshuar një version i ri!
 No;Jo
 Not yet;Ende jo
 NumColors;Numri i ngjyrave
@@ -913,16 +913,17 @@ ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Piku i replay gain
 Resolution;Rezolucioni
 s;s
+SamplingCount;
 SamplingRate;Raporti i shëmbëllimit
 Save;Ruaj
-ScanType;Lloji i skanimit
-ScanType_Original;
-ScanType_StoreMethod;
 ScanOrder;Rendi i skanimit
 ScanOrder_Original;
 ScanOrder_Stored;
 ScanOrder_StoredDisplayedInverted;
 ScanOrder_StoreMethod;
+ScanType;Lloji i skanimit
+ScanType_Original;
+ScanType_StoreMethod;
 ScreenplayBy;Vënë në ekran nga
 Season;Sezoni
 see below;shih poshtë
@@ -945,7 +946,6 @@ Shell InfoTip;Këshilla Informuese në bazë (në Explorer, kur çon mausin mbi 
 Show menu;Trego menynë
 Show toolbar;Trego brezin e mjeteve
 Sort;Radhitur nga
-SamplingCount;
 SoundEngineer;Inxhinieri i zërit
 Source;
 Source_Duration;
@@ -992,14 +992,14 @@ Text3;Rryma e tretë tekst
 TextCount;Numri i rrymave të tekstit
 ThanksTo;Falënderime për
 Thousands separator;Ndarësi i mijësheve
-Title;Titulli
-Title_More;Titulli, më tepër info
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
 TimeZone;Ora lokale
+Title;Titulli
+Title_More;Titulli, më tepër info
 Total;Totali
 Track;Emri i kolonës
 Track_Count;Numri i kolonës

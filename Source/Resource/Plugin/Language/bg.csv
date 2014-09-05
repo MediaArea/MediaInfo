@@ -37,12 +37,12 @@
  file1;файл1
  file2;файл2
  file3;файл3
- frame1;кадър1
- frame2;кадър2
- frame3;кадър3
  fps1;Кадър/Секунда1
  fps2;Кадър/Секунда2
  fps3;Кадър/Секунда3
+ frame1;кадър1
+ frame2;кадър2
+ frame3;кадър3
  GB;ГБ
  Gb;Гб
  Gbps;Гб/сек
@@ -180,13 +180,13 @@ Basic_Note;Основен_Забележка
 BitDepth;БитДълбочина
 BitDepth_Stored;
 BitRate;БитРейт
+BitRate_Encoded;
 BitRate_Maximum;Максимален_БитРейт
 BitRate_Minimum;Минимален_БитРейт
 BitRate_Mode;Режим_БитРейт
 BitRate_Mode_CBR;Режим_БитРейт_СБР
 BitRate_Mode_VBR;Режим_БитРейт_ВБР
 BitRate_Nominal;Нормален_БитРейт
-BitRate_Encoded;
 Bits-(Pixel*Frame);Битове-(Пиксел*Кадър)
 BufferSize;
 Cancel;Откажи
@@ -214,20 +214,20 @@ Close all before open;Затвори всичко преди да отвориш
 Codec;Кодек
 Codec_Description;Кодек_Описание
 Codec_Info;Кодек_Инфо
-Codec_Settings;Кодек_Настройки
-Codec_Settings_PacketBitStream;Кодек_Настройки_ПакетБитПоток
-Codec_Settings_BVOP;Кодек_Настройки_БВОП
-Codec_Settings_QPel;Кодек_Настройки_КюПел
-Codec_Settings_GMC;Кодек_Настройки_ГМС
-Codec_Settings_Matrix;Кодек_Настройки_Матрица
-Codec_Settings_Floor;Кодек_Настройки_Под
-Codec_Settings_CABAC;Кодек_Настройки_КАБАК
-Codec_Settings_Firm;Кодек_Настройки_Фирм
-Codec_Settings_Endianness;Кодек_Настройки_Безкрайност
-Codec_Settings_Sign;Кодек_Настройки_Подпис
-Codec_Settings_Law;Кодек_Настройки_Закон
-Codec_Settings_ITU;Кодек_Настройки_ИТУ
 Codec_Profile;Кодек_Профил
+Codec_Settings;Кодек_Настройки
+Codec_Settings_BVOP;Кодек_Настройки_БВОП
+Codec_Settings_CABAC;Кодек_Настройки_КАБАК
+Codec_Settings_Endianness;Кодек_Настройки_Безкрайност
+Codec_Settings_Firm;Кодек_Настройки_Фирм
+Codec_Settings_Floor;Кодек_Настройки_Под
+Codec_Settings_GMC;Кодек_Настройки_ГМС
+Codec_Settings_ITU;Кодек_Настройки_ИТУ
+Codec_Settings_Law;Кодек_Настройки_Закон
+Codec_Settings_Matrix;Кодек_Настройки_Матрица
+Codec_Settings_PacketBitStream;Кодек_Настройки_ПакетБитПоток
+Codec_Settings_QPel;Кодек_Настройки_КюПел
+Codec_Settings_Sign;Кодек_Настройки_Подпис
 Codec_Url;Кодек_ЮРЛ
 CodecID;КодекИД
 CodecID_Description;КодекИД_Описание
@@ -324,41 +324,41 @@ Format_Description;Формат_Описание
 Format_Info;Формат_Инфо
 Format_Profile;Формат_Профил
 Format_Settings;Формат_Настройки
-Format_Settings_PacketBitStream;Формат_Настройки_ПакетБитПоток
 Format_Settings_BVOP;Формат_Настройки_БВОП
-Format_Settings_QPel;Формат_Настройки_КюПел
+Format_Settings_CABAC;Формат_Настройки_Кабак
+Format_Settings_Emphasis;Формат_Настройки_Подчертаност
+Format_Settings_Endianness;Формат_Настройки_Безкрайност
+Format_Settings_Firm;Формат_Настройки_Фирм
+Format_Settings_Floor;Формат_Настройки_Под
+Format_Settings_FrameMode;Формат_Настройки_КадриМетод
 Format_Settings_GMC;Формат_Настройки_ГМС
+Format_Settings_GOP;Формат_Настройки_ГОП
+Format_Settings_ITU;Формат_Настройки_ИТУ
+Format_Settings_Law;Формат_Настройки_Закон
 Format_Settings_Matrix;Формат_Настройки_Матрица
 Format_Settings_Matrix_Custom;Формат_Настройки_Матрица_Потребител
 Format_Settings_Matrix_Default;Формат_Настройки_Матрица_Стандарт
-Format_Settings_Floor;Формат_Настройки_Под
-Format_Settings_CABAC;Формат_Настройки_Кабак
-Format_Settings_Firm;Формат_Настройки_Фирм
-Format_Settings_Endianness;Формат_Настройки_Безкрайност
-Format_Settings_RefFrames;Формат_Настройки_РефКадри
-Format_Settings_Sign;Формат_Настройки_Подпис
-Format_Settings_Law;Формат_Настройки_Закон
-Format_Settings_ITU;Формат_Настройки_ИТУ
-Format_Settings_SBR;Формат_Настройки_СБР
+Format_Settings_Mode;Формат_Настройки_Метод
+Format_Settings_ModeExtension;Формат_Настройки_МетодЕкстенция
+Format_Settings_PacketBitStream;Формат_Настройки_ПакетБитПоток
+Format_Settings_PictureStructure;
 Format_Settings_PS;Формат_Настройки_ПС
 Format_Settings_Pulldown;Формат_Настройки_СвалящоМеню
-Format_Settings_Mode;Формат_Настройки_Метод
-Format_Settings_FrameMode;Формат_Настройки_КадриМетод
-Format_Settings_Emphasis;Формат_Настройки_Подчертаност
-Format_Settings_ModeExtension;Формат_Настройки_МетодЕкстенция
-Format_Settings_GOP;Формат_Настройки_ГОП
-Format_Settings_PictureStructure;
+Format_Settings_QPel;Формат_Настройки_КюПел
+Format_Settings_RefFrames;Формат_Настройки_РефКадри
+Format_Settings_SBR;Формат_Настройки_СБР
+Format_Settings_Sign;Формат_Настройки_Подпис
 Format_Settings_Wrapping;
-Format_Version;Формат_Версия
 Format_Url;Формат_ЮРЛ
+Format_Version;Формат_Версия
 FrameCount;БройКадри
 FrameRate;СкоростКадри
+FrameRate_Maximum;СкоростКадри_Максимум
+FrameRate_Minimum;СкоростКадри_Минимум
 FrameRate_Mode;СкоростКадри_Метод
 FrameRate_Mode_CFR;СкоростКадри_СФР
 FrameRate_Mode_VFR;СкоростКадри_ВФР
-FrameRate_Minimum;СкоростКадри_Минимум
 FrameRate_Nominal;СкоростКадри_Нормално
-FrameRate_Maximum;СкоростКадри_Максимум
 FrameRate_Original;СкоростКадри_Оригинално
 General;Генерално
 Genre;Жанр
@@ -574,16 +574,16 @@ Image_Codec_List;Изображение_Кодек_Списък
 ImageCount;ИзображениеБрой
 Info;Инфо
 Instruments;Инструменти
-Interlacement;Сплитане
-Interlaced_Interlaced;Сплетен_Сплетен
-Interlaced_TFF;Сплетен_ТФФ
 Interlaced_BFF;Сплетен_ВФФ
+Interlaced_Interlaced;Сплетен_Сплетен
 Interlaced_PPF;Сплетен_ППФ
 Interlaced_Progressive;Сплетен_Прогресивен
-Interleaved;
+Interlaced_TFF;Сплетен_ТФФ
+Interlacement;Сплитане
 Interleave_Duration;Разнообразен_Продължителност
 Interleave_Preload;Разнообразен_Презареден
 Interleave_VideoFrames;Разнообразен_ВидеоКадри
+Interleaved;
 InternetMediaType;
 IRCA;ИРСА
 ISBN;ИСБН
@@ -594,7 +594,6 @@ Known formats;Познати Формати
 Known parameters;Познати Параметри
 Label;Етикет
 Language;Език
-Language_More;Език_Повече
 Language_aa;Език_аа
 Language_ab;Език_аб
 Language_ae;Език_ае
@@ -705,6 +704,7 @@ Language_mk;Език_мк
 Language_ml;Език_мл
 Language_mn;Език_мн
 Language_mo;Език_мо
+Language_More;Език_Повече
 Language_mr;Език_мр
 Language_ms;Език_мс
 Language_mt;Език_мт
@@ -792,21 +792,21 @@ LCCN;ЛССН
 Library;Библиотека
 Lightness;Осветеност
 List;Списък
-Lyrics;Текстове
 Lyricist;Поет
+Lyrics;Текстове
 Mastered_Date;Дата изработка
 MasteredBy;ИзработкаОт
-matrix_coefficients;мартица_коефициент
-Matrix_Format;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
+matrix_coefficients;мартица_коефициент
+Matrix_Format;
 MediaInfo_About;Медиа Инфо_За
 Menu;Меню
 Menu stream(s);Меню поток(ци)
 Menu_Codec_List;Меню_Кодек_Списък
+Menu_Hint;Меню_Подсказване
 Menu_No;Меню_Но
 MenuCount;МенюБрой
-Menu_Hint;Меню_Подсказване
 MenuID;МенюИД
 mn;мн
 Mood;Настроение
@@ -824,8 +824,8 @@ NetworkName;МрежаИме
 New;Нов
 Newest version;Най-новата версия
 NewVersion_Menu;НоваВерсия_Меню
-NewVersion_Question_Title;НоваВерсия_Въпрос_Име
 NewVersion_Question_Content;НоваВерсия_Въпрос_Съдържание
+NewVersion_Question_Title;НоваВерсия_Въпрос_Име
 No;Не
 Not yet;Още не
 NumColors;НомерЦветове
@@ -913,16 +913,17 @@ ReplayGain_Gain;УсилващоПовторение_Усилване
 ReplayGain_Peak;УсилващоПовторение_Усилване_Връх
 Resolution;Резолюция
 s;с
+SamplingCount;
 SamplingRate;ВъзпроизвежданеСкорост
 Save;Запази
-ScanType;СканиранеТип
-ScanType_Original;
-ScanType_StoreMethod;
 ScanOrder;СканиранеРед
 ScanOrder_Original;
 ScanOrder_Stored;
 ScanOrder_StoredDisplayedInverted;
 ScanOrder_StoreMethod;
+ScanType;СканиранеТип
+ScanType_Original;
+ScanType_StoreMethod;
 ScreenplayBy;СценарийОт
 Season;Сезон
 see below;виж долу
@@ -945,7 +946,6 @@ Shell InfoTip;Шел ИнфоИнфо
 Show menu;Показ меню
 Show toolbar;Показ инструментибар
 Sort;Сортиране
-SamplingCount;
 SoundEngineer;ЗвукоИнжинер
 Source;
 Source_Duration;
@@ -992,14 +992,14 @@ Text3;Текст3
 TextCount;ТекстБрой
 ThanksTo;БлагодарениеНа
 Thousands separator;Хиляден разделител
-Title;Име
-Title_More;Име_Повече
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
 TimeZone;ВремеваЗона
+Title;Име
+Title_More;Име_Повече
 Total;Общо
 Track;Номер
 Track_Count;Номер_Брой

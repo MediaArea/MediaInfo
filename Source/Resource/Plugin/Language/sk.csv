@@ -37,12 +37,12 @@
  file1; súbor
  file2; súbory
  file3; súborov
- frame1;snímka
- frame2;snímky
- frame3;snímok
  fps1; snímok/sek.
  fps2; snímok/sek.
  fps3; snímok/sek.
+ frame1;snímka
+ frame2;snímky
+ frame3;snímok
  GB; GB
  Gb; Gb
  Gbps; Gb/s
@@ -180,13 +180,13 @@ Basic_Note;Info : Pre viac detailov vyberte iný režim zobrazenia (List, Strom.
 BitDepth;
 BitDepth_Stored;
 BitRate;Dátový tok
+BitRate_Encoded;
 BitRate_Maximum;Maximálny dátový tok
 BitRate_Minimum;Minimálny dátový tok
 BitRate_Mode;Režim dátového toku
 BitRate_Mode_CBR;Konštantný dátový tok
 BitRate_Mode_VBR;Variabilný dátový tok
 BitRate_Nominal;
-BitRate_Encoded;
 Bits-(Pixel*Frame);Bitov/(Bod*Snímka)
 BufferSize;
 Cancel;Zrušiť
@@ -214,20 +214,20 @@ Close all before open;Zatvoriť všetko pred otvorením nového
 Codec;Kodek
 Codec_Description;Popis kodeku
 Codec_Info;Detaily kodeku
-Codec_Settings;Nastavenia kodeku
-Codec_Settings_PacketBitStream;
-Codec_Settings_BVOP;
-Codec_Settings_QPel;
-Codec_Settings_GMC;
-Codec_Settings_Matrix;
-Codec_Settings_Floor;
-Codec_Settings_CABAC;
-Codec_Settings_Firm;
-Codec_Settings_Endianness;
-Codec_Settings_Sign;
-Codec_Settings_Law;
-Codec_Settings_ITU;
 Codec_Profile;Profil kodeku
+Codec_Settings;Nastavenia kodeku
+Codec_Settings_BVOP;
+Codec_Settings_CABAC;
+Codec_Settings_Endianness;
+Codec_Settings_Firm;
+Codec_Settings_Floor;
+Codec_Settings_GMC;
+Codec_Settings_ITU;
+Codec_Settings_Law;
+Codec_Settings_Matrix;
+Codec_Settings_PacketBitStream;
+Codec_Settings_QPel;
+Codec_Settings_Sign;
 Codec_Url;Adresa pre stiahnutie kodeku
 CodecID;Označenie kodeku
 CodecID_Description;Popis kodeku
@@ -324,41 +324,41 @@ Format_Description;Popis formátu
 Format_Info;Informácie o formáte
 Format_Profile;Profil formátu
 Format_Settings;Nastavenia formátu
-Format_Settings_PacketBitStream;
 Format_Settings_BVOP;
-Format_Settings_QPel;
+Format_Settings_CABAC;
+Format_Settings_Emphasis;
+Format_Settings_Endianness;
+Format_Settings_Firm;
+Format_Settings_Floor;
+Format_Settings_FrameMode;
 Format_Settings_GMC;
+Format_Settings_GOP;
+Format_Settings_ITU;
+Format_Settings_Law;
 Format_Settings_Matrix;
 Format_Settings_Matrix_Custom;Vlastné
 Format_Settings_Matrix_Default;Pôvodné
-Format_Settings_Floor;
-Format_Settings_CABAC;
-Format_Settings_Firm;
-Format_Settings_Endianness;
-Format_Settings_RefFrames;
-Format_Settings_Sign;
-Format_Settings_Law;
-Format_Settings_ITU;
-Format_Settings_SBR;
+Format_Settings_Mode;Režim
+Format_Settings_ModeExtension;
+Format_Settings_PacketBitStream;
+Format_Settings_PictureStructure;
 Format_Settings_PS;
 Format_Settings_Pulldown;
-Format_Settings_Mode;Režim
-Format_Settings_FrameMode;
-Format_Settings_Emphasis;
-Format_Settings_ModeExtension;
-Format_Settings_GOP;
-Format_Settings_PictureStructure;
+Format_Settings_QPel;
+Format_Settings_RefFrames;
+Format_Settings_SBR;
+Format_Settings_Sign;
 Format_Settings_Wrapping;
-Format_Version;
 Format_Url;
+Format_Version;
 FrameCount;
 FrameRate;Frekvencia snímok
+FrameRate_Maximum;Maximálna frekvencia snímok
+FrameRate_Minimum;Minimálna frekvencia snímok
 FrameRate_Mode;Režim frekvencie snímok
 FrameRate_Mode_CFR;Konštantný
 FrameRate_Mode_VFR;Variabilný
-FrameRate_Minimum;Minimálna frekvencia snímok
 FrameRate_Nominal;Nominálna frekvencia snímok
-FrameRate_Maximum;Maximálna frekvencia snímok
 FrameRate_Original;Pôvodná frekvencia snímok
 General;Hlavné parametre
 Genre;žáner
@@ -574,16 +574,16 @@ Image_Codec_List;Codecs Image
 ImageCount;Count of image streams
 Info;Info
 Instruments;Instruments
-Interlacement;Prekladanie riadkov obrazu
-Interlaced_Interlaced;Prekladané
-Interlaced_TFF;Horný riadok ako prvý
 Interlaced_BFF;Dolný riadok ako prvý
+Interlaced_Interlaced;Prekladané
 Interlaced_PPF;Progresívne
 Interlaced_Progressive;Progresívne
-Interleaved;
+Interlaced_TFF;Horný riadok ako prvý
+Interlacement;Prekladanie riadkov obrazu
 Interleave_Duration;
 Interleave_Preload;
 Interleave_VideoFrames;
+Interleaved;
 InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
@@ -594,7 +594,6 @@ Known formats;Známe formáty
 Known parameters;Známe parametre
 Label;Label
 Language;Jazyk
-Language_More;
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -705,6 +704,7 @@ Language_mk;Macedónsky
 Language_ml;Malayalam
 Language_mn;Mongolsky
 Language_mo;Moldavsky
+Language_More;
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
@@ -792,21 +792,21 @@ LCCN;LCCN
 Library;Muxing library
 Lightness;
 List;Zoznam
-Lyrics;Text
 Lyricist;Textár
+Lyrics;Text
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
-matrix_coefficients;
-Matrix_Format;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
+matrix_coefficients;
+Matrix_Format;
 MediaInfo_About;Supply very detailled information\r\nabout a multimedia file:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menu
 Menu stream(s);Menu streams
 Menu_Codec_List;
+Menu_Hint;More possibilities
 Menu_No;Žiadne menu
 MenuCount;Count of menu streams
-Menu_Hint;More possibilities
 MenuID;Označenie menu
 mn; min
 Mood;Mood
@@ -824,8 +824,8 @@ NetworkName;
 New;Nový
 Newest version;Pri spustení kontrolovať nové verzie
 NewVersion_Menu;Nová verzia je k dispozícii
-NewVersion_Question_Title;Bola vydaná nová verzia!
 NewVersion_Question_Content;K dispozícii je nová verzia (v%Version%), chcete si ju stiahnuť ?
+NewVersion_Question_Title;Bola vydaná nová verzia!
 No;Nie
 Not yet;Ešte nie
 NumColors;
@@ -913,16 +913,17 @@ ReplayGain_Gain;
 ReplayGain_Peak;
 Resolution;Rozlíšenie
 s; sek.
+SamplingCount;
 SamplingRate;Sampling rate
 Save;Uložiť
-ScanType;
-ScanType_Original;
-ScanType_StoreMethod;
 ScanOrder;
 ScanOrder_Original;
 ScanOrder_Stored;
 ScanOrder_StoredDisplayedInverted;
 ScanOrder_StoreMethod;
+ScanType;
+ScanType_Original;
+ScanType_StoreMethod;
 ScreenplayBy;Screenplay by
 Season;Season
 see below;pozri nižšie
@@ -945,7 +946,6 @@ Shell InfoTip;Integrovať do kontextového menu (pri nadídení myši na súbor)
 Show menu;Zobraziť menu
 Show toolbar;Zobraziť nástrojovú lištu
 Sort;Zoradiť podľa
-SamplingCount;
 SoundEngineer;Sound engineer
 Source;
 Source_Duration;
@@ -992,14 +992,14 @@ Text3;Tretí text stream
 TextCount;Count of text streams
 ThanksTo;Poďakovanie
 Thousands separator;Oddeľovač tisícok
-Title;Titul
-Title_More;Titul, ďalšie informácie
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
 TimeZone;Časová zóna
+Title;Titul
+Title_More;Titul, ďalšie informácie
 Total;Celkom
 Track;Názov stopy
 Track_Count;Počet stôp

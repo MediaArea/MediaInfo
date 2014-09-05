@@ -37,12 +37,12 @@
  file1; file
  file2; file
  file3; file
- frame1; frame
- frame2; frame
- frame3; frame
  fps1; fps
  fps2; fps
  fps3; fps
+ frame1; frame
+ frame2; frame
+ frame3; frame
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -180,13 +180,13 @@ Basic_Note;Nota: per maggiori informazioni seleziona Scheda, Albero....
 BitDepth;Profondità bit
 BitDepth_Stored;
 BitRate;Bitrate
+BitRate_Encoded;Bitrate codifica
 BitRate_Maximum;Bitrate massimo
 BitRate_Minimum;Bitrate minimo
 BitRate_Mode;Modalità bitrate
 BitRate_Mode_CBR;Costante
 BitRate_Mode_VBR;Variabile
 BitRate_Nominal;Bitrate nominale
-BitRate_Encoded;Bitrate codifica
 Bits-(Pixel*Frame);Bit/(pixel*frame)
 BufferSize; Dim. buffer
 Cancel;Annulla
@@ -214,20 +214,20 @@ Close all before open;Chiudi tutto prima di aprire
 Codec;Codec
 Codec_Description;Descrizione del codec
 Codec_Info;Dettagli sul codec
-Codec_Settings;Impostazioni del codec
-Codec_Settings_PacketBitStream;Impostazioni del codec, Packet bitstream
-Codec_Settings_BVOP;Impostazioni del codec, BVOP
-Codec_Settings_QPel;Impostazioni del codec, QPel
-Codec_Settings_GMC;Impostazioni del codec, GMC
-Codec_Settings_Matrix;Impostazioni del codec, Matrix
-Codec_Settings_Floor;Impostazioni del codec, Piano
-Codec_Settings_CABAC;Impostazioni del codec, CABAC
-Codec_Settings_Firm;Impostazioni del codec, Firm
-Codec_Settings_Endianness;Impostazioni del codec, Endianess
-Codec_Settings_Sign;Impostazioni del codec, Sign
-Codec_Settings_Law;Impostazioni del codec, Law
-Codec_Settings_ITU;Impostazioni del codec, ITU
 Codec_Profile;Profilo codec
+Codec_Settings;Impostazioni del codec
+Codec_Settings_BVOP;Impostazioni del codec, BVOP
+Codec_Settings_CABAC;Impostazioni del codec, CABAC
+Codec_Settings_Endianness;Impostazioni del codec, Endianess
+Codec_Settings_Firm;Impostazioni del codec, Firm
+Codec_Settings_Floor;Impostazioni del codec, Piano
+Codec_Settings_GMC;Impostazioni del codec, GMC
+Codec_Settings_ITU;Impostazioni del codec, ITU
+Codec_Settings_Law;Impostazioni del codec, Law
+Codec_Settings_Matrix;Impostazioni del codec, Matrix
+Codec_Settings_PacketBitStream;Impostazioni del codec, Packet bitstream
+Codec_Settings_QPel;Impostazioni del codec, QPel
+Codec_Settings_Sign;Impostazioni del codec, Sign
 Codec_Url;Sito dove scaricare il codec richiesto
 CodecID;ID codec
 CodecID_Description;Descrizione del codec
@@ -324,41 +324,41 @@ Format_Description;Descrizione formato
 Format_Info;Dettagli sui formati
 Format_Profile;Profilo formato
 Format_Settings;Impostazioni formato
-Format_Settings_PacketBitStream;Impostazioni formato, Packet bitstream
 Format_Settings_BVOP;Impostazioni formato, BVOP
-Format_Settings_QPel;Impostazioni formato, QPel
+Format_Settings_CABAC;Impostazioni formato, CABAC
+Format_Settings_Emphasis;Enfasi
+Format_Settings_Endianness;Impostazioni formato, Endianness
+Format_Settings_Firm;Impostazioni formato, Firm
+Format_Settings_Floor;Impostazioni formato, Floor
+Format_Settings_FrameMode;Modo frame
 Format_Settings_GMC;Impostazioni formato, GMC
+Format_Settings_GOP;Impostazioni formato, GOP
+Format_Settings_ITU;Impostazioni formato, ITU
+Format_Settings_Law;Impostazioni formato, Law
 Format_Settings_Matrix;Impostazioni formato, Matrix
 Format_Settings_Matrix_Custom;Personalizzato
 Format_Settings_Matrix_Default;Predefinito
-Format_Settings_Floor;Impostazioni formato, Floor
-Format_Settings_CABAC;Impostazioni formato, CABAC
-Format_Settings_Firm;Impostazioni formato, Firm
-Format_Settings_Endianness;Impostazioni formato, Endianness
-Format_Settings_RefFrames;Impostazioni formato, ReFrames
-Format_Settings_Sign;Impostazioni formato, Sign
-Format_Settings_Law;Impostazioni formato, Law
-Format_Settings_ITU;Impostazioni formato, ITU
-Format_Settings_SBR;Impostazioni formato, SBR
+Format_Settings_Mode;Modo
+Format_Settings_ModeExtension;Estensione modo
+Format_Settings_PacketBitStream;Impostazioni formato, Packet bitstream
+Format_Settings_PictureStructure;
 Format_Settings_PS;Impostazioni formato, PS
 Format_Settings_Pulldown;Impostazioni formato, Pulldown
-Format_Settings_Mode;Modo
-Format_Settings_FrameMode;Modo frame
-Format_Settings_Emphasis;Enfasi
-Format_Settings_ModeExtension;Estensione modo
-Format_Settings_GOP;Impostazioni formato, GOP
-Format_Settings_PictureStructure;
+Format_Settings_QPel;Impostazioni formato, QPel
+Format_Settings_RefFrames;Impostazioni formato, ReFrames
+Format_Settings_SBR;Impostazioni formato, SBR
+Format_Settings_Sign;Impostazioni formato, Sign
 Format_Settings_Wrapping;
-Format_Version;Versione formato
 Format_Url;Sito web formato
+Format_Version;Versione formato
 FrameCount;Numero fotogrammi
 FrameRate;Frame rate
+FrameRate_Maximum;Frame rate massimo
+FrameRate_Minimum;Frame rate minimo
 FrameRate_Mode;Modalità frame rate
 FrameRate_Mode_CFR;Costante
 FrameRate_Mode_VFR;Variabile
-FrameRate_Minimum;Frame rate minimo
 FrameRate_Nominal;Frame rate nominale
-FrameRate_Maximum;Frame rate massimo
 FrameRate_Original;Frame rate originale
 General;Generale
 Genre;Genere
@@ -574,16 +574,16 @@ Image_Codec_List;Codec immagini
 ImageCount;Numero frame
 Info;Informazioni
 Instruments;Strumenti
-Interlacement;Interlacciamento
-Interlaced_Interlaced;Interlacciato
-Interlaced_TFF;Top field first
 Interlaced_BFF;Bottom field first
+Interlaced_Interlaced;Interlacciato
 Interlaced_PPF;Progressivo
 Interlaced_Progressive;Progressivo
-Interleaved;Intervallato
+Interlaced_TFF;Top field first
+Interlacement;Interlacciamento
 Interleave_Duration;Durata intervallo
 Interleave_Preload; Intervallo pre caricamento
 Interleave_VideoFrames;Intervallo frame video
+Interleaved;Intervallato
 InternetMediaType;Tipo supporto internet
 IRCA;IRCA
 ISBN;ISBN
@@ -594,7 +594,6 @@ Known formats;Formati conosciuti
 Known parameters;Parametri conosciuti
 Label;Etichetta
 Language;Lingua
-Language_More;Informazioni aggiuntive lingua
 Language_aa;Afar
 Language_ab;Abkhaziano
 Language_ae;Avestano
@@ -705,6 +704,7 @@ Language_mk;Macedone
 Language_ml;Malayalam
 Language_mn;Mongolo
 Language_mo;Moldavo
+Language_More;Informazioni aggiuntive lingua
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
@@ -792,21 +792,21 @@ LCCN;LCCN
 Library;Libreria
 Lightness;Luminosità
 List;Elenco
-Lyrics;Testo
 Lyricist;Autore del testo
+Lyrics;Testo
 Mastered_Date;Data di incisione 
 MasteredBy;Inciso da
-matrix_coefficients;Coefficienti matrici
-Matrix_Format;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
+matrix_coefficients;Coefficienti matrici
+Matrix_Format;
 MediaInfo_About;MediaInfo fornisce un acecsso velcoe alle informazioni tecniche ed ai tag dei file audio e video.\r\nAd eccezione dell'interfaccia grafica Mac APp Store, è un sofwtare open-source, che significa che è gratuito per l'utente finale e lo sviluppatore è libero di studiare, e ,migliorare e ridistribuire il programm (licenza LGPL)
 Menu;Menu
 Menu stream(s);Flussi del menu
 Menu_Codec_List;Codec dei menu
+Menu_Hint;Altre possibilità
 Menu_No;Nessun menu
 MenuCount;Numero canali
-Menu_Hint;Altre possibilità
 MenuID;ID menu
 mn;min
 Mood;Disposizione
@@ -824,8 +824,8 @@ NetworkName;Nome in rete
 New;Nuovo
 Newest version;Controlla aggiornamenti (richiede una connessione a internet)
 NewVersion_Menu;E' disponibile una nuova versione
-NewVersion_Question_Title;E' stata rilasciata una nuova versione!
 NewVersion_Question_Content;E' disponibile una nuova versione (v%Version%). Scaricarla ora?
+NewVersion_Question_Title;E' stata rilasciata una nuova versione!
 No;No
 Not yet;Non ancora
 NumColors;Numero colori
@@ -913,16 +913,17 @@ ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replau gain peak
 Resolution;Risoluzione
 s;s
+SamplingCount;Contatore frequenza
 SamplingRate;Frequenza campionamento
 Save;Salva
-ScanType;Tipo scansione
-ScanType_Original;Tipo scansione originale
-ScanType_StoreMethod;
 ScanOrder;Ordine scansione
 ScanOrder_Original;Ordine scansione
 ScanOrder_Stored;Memorizza ordine scansione
 ScanOrder_StoredDisplayedInverted;Ordine scansione, memorizza/visualizza ordine invertito
 ScanOrder_StoreMethod;
+ScanType;Tipo scansione
+ScanType_Original;Tipo scansione originale
+ScanType_StoreMethod;
 ScreenplayBy;Sceneggiatura
 Season;Stagione n.
 see below;continua...
@@ -945,7 +946,6 @@ Shell InfoTip;Informazioni in Explorer (in Explorer, spostarsi sul file e verrà
 Show menu;Mostra menu
 Show toolbar;Mostra barra strumenti
 Sort;Ordinato per
-SamplingCount;Contatore frequenza
 SoundEngineer;Tecnico del suono
 Source; Sorgente
 Source_Duration;Durata sorgente
@@ -992,14 +992,14 @@ Text3;Sottotitolo 3
 TextCount;Numero sottotitoli
 ThanksTo;Ringraziamenti
 Thousands separator;Separatore delle centinaia
-Title;Titolo
-Title_More;Altre info titolo
 TimeCode;Timecode
 TimeCode_FirstFrame;Timecode del primo frame
 TimeCode_Settings;Impostazioni timecode
 TimeCode_Source;Timecode sorgente
 TimeStamp;Data/ora
 TimeZone;Fuso orario
+Title;Titolo
+Title_More;Altre info titolo
 Total;Totale
 Track;Traccia
 Track_Count;Numero tracce

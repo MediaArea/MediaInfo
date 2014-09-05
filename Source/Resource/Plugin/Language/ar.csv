@@ -37,12 +37,12 @@
  file1;ملف
  file2;ملفات
  file3;ملفات
- frame1;لقطة
- frame2;لقطة
- frame3;لقطة
  fps1;لقطة في الثاني
  fps2;لقطة في الثاني
  fps3;لقطة في الثاني
+ frame1;لقطة
+ frame2;لقطة
+ frame3;لقطة
  GB;غيغابايت
  Gb;غيغابت
  Gbps;جيغا بت في الثانية
@@ -180,13 +180,13 @@ Basic_Note;ملاحظة : لمزيد من المعلومات حول هذا ال�
 BitDepth;عمق الألوان
 BitDepth_Stored;
 BitRate;صبيب
+BitRate_Encoded;
 BitRate_Maximum;أقصى صبيب
 BitRate_Minimum;أدنى صبيب
 BitRate_Mode;نوع  الصبيب
 BitRate_Mode_CBR;ثابت
 BitRate_Mode_VBR;متغير
 BitRate_Nominal;المعدل الاسمي للصبيب
-BitRate_Encoded;
 Bits-(Pixel*Frame);بت /(صورة*بكسل)
 BufferSize;
 Cancel;إلغاء
@@ -214,20 +214,20 @@ Close all before open;إغلاق كافة قبل الفتح
 Codec;الترميز (ِِCodec)
 Codec_Description;وصف الترميز
 Codec_Info;تفاصيل عن الترميز
-Codec_Settings;إعدادات الترميز
-Codec_Settings_PacketBitStream;إعدادات الترميز، Packet bitstream
-Codec_Settings_BVOP;إعدادات الترميز، BVOP
-Codec_Settings_QPel;إعدادات الترميز، QPel
-Codec_Settings_GMC;إعدادات الترميز، GMC
-Codec_Settings_Matrix;إعدادات الترميز، Matrix
-Codec_Settings_Floor;إعدادات الترميز، Floor
-Codec_Settings_CABAC;إعدادات الترميز، CABAC
-Codec_Settings_Firm;إعدادات الترميز، Firm
-Codec_Settings_Endianness;إعدادات الترميز، Endianness
-Codec_Settings_Sign;إعدادات الترميز، Sign
-Codec_Settings_Law;إعدادات الترميز، Law
-Codec_Settings_ITU;إعدادات الترميز، ITU
 Codec_Profile;بروفايل الترميز
+Codec_Settings;إعدادات الترميز
+Codec_Settings_BVOP;إعدادات الترميز، BVOP
+Codec_Settings_CABAC;إعدادات الترميز، CABAC
+Codec_Settings_Endianness;إعدادات الترميز، Endianness
+Codec_Settings_Firm;إعدادات الترميز، Firm
+Codec_Settings_Floor;إعدادات الترميز، Floor
+Codec_Settings_GMC;إعدادات الترميز، GMC
+Codec_Settings_ITU;إعدادات الترميز، ITU
+Codec_Settings_Law;إعدادات الترميز، Law
+Codec_Settings_Matrix;إعدادات الترميز، Matrix
+Codec_Settings_PacketBitStream;إعدادات الترميز، Packet bitstream
+Codec_Settings_QPel;إعدادات الترميز، QPel
+Codec_Settings_Sign;إعدادات الترميز، Sign
 Codec_Url;وصلة الترميز
 CodecID;تعريف الترميز
 CodecID_Description;وصف الترميز
@@ -324,41 +324,41 @@ Format_Description;وصف الشكل
 Format_Info;تفاصيل عن شكل
 Format_Profile;لبروفايل الشكل
 Format_Settings;إعدادات الشكل
-Format_Settings_PacketBitStream;إعدادات الشكل، Packet bitstream
 Format_Settings_BVOP;إعدادات الشكل، BVOP
-Format_Settings_QPel;إعدادات الشكل، QPel
+Format_Settings_CABAC;إعدادات الشكل، CABAC
+Format_Settings_Emphasis;إعدادات الشكل، Emphasis
+Format_Settings_Endianness;إعدادات الشكل، Endianness
+Format_Settings_Firm;إعدادات الشكل، Firm
+Format_Settings_Floor;إعدادات الشكل، Floor
+Format_Settings_FrameMode;إعدادات الشكل، Frame mode
 Format_Settings_GMC;إعدادات الشكل، GMC
+Format_Settings_GOP;إعدادات الشكل، Format settings, GOP
+Format_Settings_ITU;إعدادات الشكل، ITU
+Format_Settings_Law;إعدادات الشكل، Law
 Format_Settings_Matrix;إعدادات الشكل، Matrix
 Format_Settings_Matrix_Custom;معدل
 Format_Settings_Matrix_Default;افتراضي
-Format_Settings_Floor;إعدادات الشكل، Floor
-Format_Settings_CABAC;إعدادات الشكل، CABAC
-Format_Settings_Firm;إعدادات الشكل، Firm
-Format_Settings_Endianness;إعدادات الشكل، Endianness
-Format_Settings_RefFrames;إعدادات الشكل، ReFrames
-Format_Settings_Sign;إعدادات الشكل، Sign
-Format_Settings_Law;إعدادات الشكل، Law
-Format_Settings_ITU;إعدادات الشكل، ITU
-Format_Settings_SBR;إعدادات الشكل، SBR
+Format_Settings_Mode;نمط
+Format_Settings_ModeExtension;إعدادات الشكل، Mode extension
+Format_Settings_PacketBitStream;إعدادات الشكل، Packet bitstream
+Format_Settings_PictureStructure;
 Format_Settings_PS;إعدادات الشكل، PS
 Format_Settings_Pulldown;إعدادات الشكل، Pulldown
-Format_Settings_Mode;نمط
-Format_Settings_FrameMode;إعدادات الشكل، Frame mode
-Format_Settings_Emphasis;إعدادات الشكل، Emphasis
-Format_Settings_ModeExtension;إعدادات الشكل، Mode extension
-Format_Settings_GOP;إعدادات الشكل، Format settings, GOP
-Format_Settings_PictureStructure;
+Format_Settings_QPel;إعدادات الشكل، QPel
+Format_Settings_RefFrames;إعدادات الشكل، ReFrames
+Format_Settings_SBR;إعدادات الشكل، SBR
+Format_Settings_Sign;إعدادات الشكل، Sign
 Format_Settings_Wrapping;
-Format_Version;نسخة الشكل
 Format_Url;وصلة على شكل
+Format_Version;نسخة الشكل
 FrameCount;عدد الصور
 FrameRate;عدد الصور في الثانية
+FrameRate_Maximum;أقصى معدل الصور/ثانية
+FrameRate_Minimum;أدنى معدل الصور/ثانية
 FrameRate_Mode;نمط الصور/ثانية
 FrameRate_Mode_CFR;ثابت
 FrameRate_Mode_VFR;متغير
-FrameRate_Minimum;أدنى معدل الصور/ثانية
 FrameRate_Nominal;معدل الاسمي لصور/ثانية
-FrameRate_Maximum;أقصى معدل الصور/ثانية
 FrameRate_Original;معدل الصور/ثانية الأصلي
 General;عام
 Genre;النوع
@@ -574,16 +574,16 @@ Image_Codec_List;ترميز الصورة
 ImageCount;عدد من المسارات الصور
 Info;معلومات
 Instruments;الالة الموسيقية
-Interlacement;التشابك
-Interlaced_Interlaced;متشابك
-Interlaced_TFF;البداية من السطر الأول
 Interlaced_BFF;البداية من السطر الأخير
+Interlaced_Interlaced;متشابك
 Interlaced_PPF;تصاعدي
 Interlaced_Progressive;تصاعدي
-Interleaved;
+Interlaced_TFF;البداية من السطر الأول
+Interlacement;التشابك
 Interleave_Duration;تداخل ، المدة
 Interleave_Preload;تداخل ، مدة التحميل المسبق
 Interleave_VideoFrames;تداخل ، المدة
+Interleaved;
 InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
@@ -594,7 +594,6 @@ Known formats;الامتدلدات المعروفة
 Known parameters;الاعدادات المعروفة
 Label;صنف
 Language;لغة
-Language_More;اللغة ، مزيد من المعلومات
 Language_aa;Afar
 Language_ab;Аҧсны / Apsny
 Language_ae;Avestan
@@ -705,6 +704,7 @@ Language_mk;Македонски јазик
 Language_ml;Malayalam
 Language_mn;Монгол
 Language_mo;Moldavian
+Language_More;اللغة ، مزيد من المعلومات
 Language_mr;मराठी
 Language_ms;بهاس ملايو
 Language_mt;Malti
@@ -792,21 +792,21 @@ LCCN;LCCN
 Library;المكتبة المستخامة
 Lightness;إضاءة
 List;قائمة
-Lyrics;كلمات
 Lyricist;الشاعر
+Lyrics;كلمات
 Mastered_Date;تاريخ الإنشاء
 MasteredBy;تم إنشاؤها من طرف
-matrix_coefficients;معاملات الـMatrix
-Matrix_Format;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
+matrix_coefficients;معاملات الـMatrix
+Matrix_Format;
 MediaInfo_About;تقديم معلومات مفصلة\r\nحول ملف الوسائط المتعددة :\r\nMatroska، OGG (including OGM)\r\nMPEG1 (بما في ذلك VCD)\r\nMPEG2 (بما في ذلك DVD و SVCD)\r\nMPEG4 (بما في ذلك Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia ((بما في ذلك WMV، WMA)\r\nMicrosoft RIFF ((بما في ذلك AVI, WAV)\r\nامتدادات الصوت فقط (AC3، DTS، AAC، AU، AIFF...)
 Menu;القائمة
 Menu stream(s);قائمة الدفق
 Menu_Codec_List;قائمة الترميز
+Menu_Hint;مزيد من الإمكانيات
 Menu_No;لا توجد أي قائمة
 MenuCount;عدد قوائم الدفق
-Menu_Hint;مزيد من الإمكانيات
 MenuID;معرف القائمة
 mn;mn
 Mood;مزاج
@@ -824,8 +824,8 @@ NetworkName;اسم الشبكة
 New;جديد
 Newest version;تحقق من الإصدارات الجديدة (يتطلب اتصال إنترنت)
 NewVersion_Menu;نسخة جديدة متاحة
-NewVersion_Question_Title;تم إصدار نسخة جديدة!
 NewVersion_Question_Content;نسخة جديدة (v%Version%) متاحة،هل ترغب في تحميلها؟
+NewVersion_Question_Title;تم إصدار نسخة جديدة!
 No;لا
 Not yet;ليس بعد
 NumColors;عدد الألوان
@@ -913,16 +913,17 @@ ReplayGain_Gain;كسب في القراءة
 ReplayGain_Peak;ذروة الكسب في القراءة
 Resolution;دقة الصورة
 s;s
+SamplingCount;
 SamplingRate;أخذ العينات
 Save;حفظ
-ScanType;تفحص نوع
-ScanType_Original;
-ScanType_StoreMethod;
 ScanOrder;ترتيب التفحص
 ScanOrder_Original;
 ScanOrder_Stored;Ordre stocké de balayage
 ScanOrder_StoredDisplayedInverted;Ordre de balayage invversé entre affiché/stocké
 ScanOrder_StoreMethod;
+ScanType;تفحص نوع
+ScanType_Original;
+ScanType_StoreMethod;
 ScreenplayBy;سيناري
 Season;الموسم
 see below;انظر أدناه
@@ -945,7 +946,6 @@ Shell InfoTip;ماحق InfoTip ( عرض مزيد من التفاصيل عند  �
 Show menu;اظهار القائمة
 Show toolbar;عرض شريط الأدوات
 Sort;مصنفة حسب
-SamplingCount;
 SoundEngineer;مهندس الصوت
 Source;
 Source_Duration;
@@ -992,14 +992,14 @@ Text3;ثالت دفق نص
 TextCount;عدد دفق النص
 ThanksTo;شكرا لـ
 Thousands separator;فاصل الآلاف
-Title;عنوان
-Title_More;عنوان ,مزيد من المعلومات
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
 TimeZone;خط الزمن
+Title;عنوان
+Title_More;عنوان ,مزيد من المعلومات
 Total;مجموع
 Track;اسم المسار
 Track_Count;عدد المسارات

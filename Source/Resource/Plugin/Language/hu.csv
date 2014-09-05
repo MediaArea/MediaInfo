@@ -37,12 +37,12 @@
  file1; fájl
  file2; fájl
  file3; fájl
- frame1; képkocka
- frame2; képkocka
- frame3; képkocka
  fps1; fps
  fps2; fps
  fps3; fps
+ frame1; képkocka
+ frame2; képkocka
+ frame3; képkocka
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -180,13 +180,13 @@ Basic_Note;Megjegyzés: a többi nézet (Táblázat, Fa ...) bővebb adatokat mu
 BitDepth;
 BitDepth_Stored;
 BitRate;Adatsebesség
+BitRate_Encoded;
 BitRate_Maximum;Legnagyobb adatsebesség
 BitRate_Minimum;Legkisebb adatsebesség
 BitRate_Mode;Adatsebesség mód
 BitRate_Mode_CBR;állandó
 BitRate_Mode_VBR;változó
 BitRate_Nominal;Névleges adatsebesség
-BitRate_Encoded;
 Bits-(Pixel*Frame);Bit/(képpont*képkocka)
 BufferSize;
 Cancel;Mégsem
@@ -214,20 +214,20 @@ Close all before open;Mindent bezár megnyitás előtt
 Codec;kódek
 Codec_Description;Kódek leírás
 Codec_Info;A kódek részletei
-Codec_Settings;Kódek beállításai
-Codec_Settings_PacketBitStream;Codec settings, Packet bitstream
-Codec_Settings_BVOP;Kódek beállításai, BVOP
-Codec_Settings_QPel;Kódek beállításai, QPel
-Codec_Settings_GMC;Kódek beállításai, GMC
-Codec_Settings_Matrix;Kódek beállításai, Matrix
-Codec_Settings_Floor;Kódek beállításai, Floor
-Codec_Settings_CABAC;Kódek beállításai, CABAC
-Codec_Settings_Firm;Kódek beállításai, Firm
-Codec_Settings_Endianness;Kódek beállításai, Endianness
-Codec_Settings_Sign;Kódek beállításai, Sign
-Codec_Settings_Law;Kódek beállításai, Law
-Codec_Settings_ITU;Kódek beállításai, ITU
 Codec_Profile;Kódek profil
+Codec_Settings;Kódek beállításai
+Codec_Settings_BVOP;Kódek beállításai, BVOP
+Codec_Settings_CABAC;Kódek beállításai, CABAC
+Codec_Settings_Endianness;Kódek beállításai, Endianness
+Codec_Settings_Firm;Kódek beállításai, Firm
+Codec_Settings_Floor;Kódek beállításai, Floor
+Codec_Settings_GMC;Kódek beállításai, GMC
+Codec_Settings_ITU;Kódek beállításai, ITU
+Codec_Settings_Law;Kódek beállításai, Law
+Codec_Settings_Matrix;Kódek beállításai, Matrix
+Codec_Settings_PacketBitStream;Codec settings, Packet bitstream
+Codec_Settings_QPel;Kódek beállításai, QPel
+Codec_Settings_Sign;Kódek beállításai, Sign
 Codec_Url;Kódek weblapja
 CodecID;Kódek azonosító
 CodecID_Description;Kódek leírás
@@ -324,41 +324,41 @@ Format_Description;Formátum leírás
 Format_Info;A kódek részletei
 Format_Profile;Formátum profil
 Format_Settings;Formátum beállítások
-Format_Settings_PacketBitStream;Formátum beállítások, Packet bitstream
 Format_Settings_BVOP;Formátum beállítások, BVOP
-Format_Settings_QPel;Formátum beállítások, QPel
+Format_Settings_CABAC;Formátum beállítások, CABAC
+Format_Settings_Emphasis;
+Format_Settings_Endianness;Formátum beállítások, Endianness
+Format_Settings_Firm;Formátum beállítások, Firm
+Format_Settings_Floor;Formátum beállítások, Floor
+Format_Settings_FrameMode;
 Format_Settings_GMC;Formátum beállítások, GMC
+Format_Settings_GOP;
+Format_Settings_ITU;Formátum beállítások, ITU
+Format_Settings_Law;Formátum beállítások, Law
 Format_Settings_Matrix;Formátum beállítások, mátrix
 Format_Settings_Matrix_Custom;egyedi
 Format_Settings_Matrix_Default;alapérték
-Format_Settings_Floor;Formátum beállítások, Floor
-Format_Settings_CABAC;Formátum beállítások, CABAC
-Format_Settings_Firm;Formátum beállítások, Firm
-Format_Settings_Endianness;Formátum beállítások, Endianness
-Format_Settings_RefFrames;Formátum beállítások, ReFrames
-Format_Settings_Sign;Formátum beállítások, Sign
-Format_Settings_Law;Formátum beállítások, Law
-Format_Settings_ITU;Formátum beállítások, ITU
-Format_Settings_SBR;Formátum beállítások, SBR
+Format_Settings_Mode;
+Format_Settings_ModeExtension;
+Format_Settings_PacketBitStream;Formátum beállítások, Packet bitstream
+Format_Settings_PictureStructure;
 Format_Settings_PS;Formátum beállítások, PS
 Format_Settings_Pulldown;Formátum beállítások, Pulldown
-Format_Settings_Mode;
-Format_Settings_FrameMode;
-Format_Settings_Emphasis;
-Format_Settings_ModeExtension;
-Format_Settings_GOP;
-Format_Settings_PictureStructure;
+Format_Settings_QPel;Formátum beállítások, QPel
+Format_Settings_RefFrames;Formátum beállítások, ReFrames
+Format_Settings_SBR;Formátum beállítások, SBR
+Format_Settings_Sign;Formátum beállítások, Sign
 Format_Settings_Wrapping;
-Format_Version;Formátum változat
 Format_Url;Formátum weblapja
+Format_Version;Formátum változat
 FrameCount;Képkockaszám
 FrameRate;Képkockasebesség
+FrameRate_Maximum;Legnagyobb képkockasebesség
+FrameRate_Minimum;Legkisebb képkockasebesség
 FrameRate_Mode;Képkockasebességi mód
 FrameRate_Mode_CFR;állandó
 FrameRate_Mode_VFR;változó
-FrameRate_Minimum;Legkisebb képkockasebesség
 FrameRate_Nominal;Névleges képkockasebesség
-FrameRate_Maximum;Legnagyobb képkockasebesség
 FrameRate_Original;Eredeti képkockasebesség
 General;Általános
 Genre;Műfaj
@@ -574,16 +574,16 @@ Image_Codec_List;Állóképkódekek
 ImageCount;Állóképsávok száma
 Info;adatok
 Instruments;Hangszerek
-Interlacement;Sorváltás
-Interlaced_Interlaced;váltottsoros
-Interlaced_TFF;felső mezővel kezdődő
 Interlaced_BFF;alsó mezővel kezdődő
+Interlaced_Interlaced;váltottsoros
 Interlaced_PPF;folytonos
 Interlaced_Progressive;folytonos
-Interleaved;
+Interlaced_TFF;felső mezővel kezdődő
+Interlacement;Sorváltás
 Interleave_Duration;Átfedés hossza
 Interleave_Preload;Átfedés előolvasási hossz
 Interleave_VideoFrames;Átfedés képkockák
+Interleaved;
 InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
@@ -594,7 +594,6 @@ Known formats;Ismert formátumok
 Known parameters;Ismert paraméterek
 Label;Címke
 Language;Nyelv
-Language_More;Nyelv, további adatok
 Language_aa;afar
 Language_ab;abház
 Language_ae;
@@ -705,6 +704,7 @@ Language_mk;macedón
 Language_ml;malajziai
 Language_mn;mongol
 Language_mo;moldáv
+Language_More;Nyelv, további adatok
 Language_mr;marathi
 Language_ms;maláj
 Language_mt;máltai
@@ -792,21 +792,21 @@ LCCN;LCCN
 Library;Keverőkönyvtár
 Lightness;Fényesség
 List;Lista
-Lyrics;Dalszöveg
 Lyricist;Szövegíró
+Lyrics;Dalszöveg
 Mastered_Date;Mesterpéldány kelte
 MasteredBy;Mesterpéldány
-matrix_coefficients;
-Matrix_Format;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
+matrix_coefficients;
+Matrix_Format;
 MediaInfo_About;Igen részletes adatok az alábbi\r\nmultimédia fájlokról:\r\nMatroska, OGG (OGM is)\r\nMPEG1 (VCD is)\r\nMPEG2 (DVD és SVCD is)\r\nMPEG4 (Itunes M4A is)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (WMV, WMA is)\r\nMicrosoft RIFF (AVI, WAV is)\r\nCsak hangot tartalmazó fájlok (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menü
 Menu stream(s);Menüsáv
 Menu_Codec_List;Menükódek lista
+Menu_Hint;További lehetőségek
 Menu_No;Menüszám
 MenuCount;Menüsávok száma
-Menu_Hint;További lehetőségek
 MenuID;Menü azonosító
 mn; perc
 Mood;Hangnem
@@ -824,8 +824,8 @@ NetworkName;
 New;Új
 Newest version;Frissítés keresése (internet kapcsolat szükséges)
 NewVersion_Menu;Elérhető egy újabb változat.
-NewVersion_Question_Title;Új változat jelent meg!
 NewVersion_Question_Content;Elérhető egy újabb (v%Version%) változat. Kívánja letölteni?
+NewVersion_Question_Title;Új változat jelent meg!
 No;nem
 Not yet;Még nincs
 NumColors;Színek száma
@@ -913,16 +913,17 @@ ReplayGain_Gain;Visszajátszás erősítése
 ReplayGain_Peak;Visszajátszás csúcserősítése
 Resolution;Felbontás
 s; mp
+SamplingCount;
 SamplingRate;Mintavételezési gyakoriság
 Save;Mentés
-ScanType;Sorváltás típusa
-ScanType_Original;
-ScanType_StoreMethod;
 ScanOrder;Sorváltási sorrend
 ScanOrder_Original;
 ScanOrder_Stored;
 ScanOrder_StoredDisplayedInverted;
 ScanOrder_StoreMethod;
+ScanType;Sorváltás típusa
+ScanType_Original;
+ScanType_StoreMethod;
 ScreenplayBy;Forgatókönyvíró
 Season;Évad
 see below;lásd alant
@@ -945,7 +946,6 @@ Shell InfoTip;Rendszerhéj tipp (ha az egérmutató az Intézőben a fájl föl�
 Show menu;Menü mutatása
 Show toolbar;Eszköztár mutatása
 Sort;Sorba rendezte
-SamplingCount;
 SoundEngineer;Hangmérnök
 Source;
 Source_Duration;
@@ -992,14 +992,14 @@ Text3;Harmadik szövegsáv
 TextCount;Szövegsávok száma
 ThanksTo;Köszönetnyilvánítás
 Thousands separator;Ezres elválasztó jel
-Title;Cím
-Title_More;Cím, több adat
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
 TimeZone;
+Title;Cím
+Title_More;Cím, több adat
 Total;Összesen
 Track;Sáv
 Track_Count;Sávok száma

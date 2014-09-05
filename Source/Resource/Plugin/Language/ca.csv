@@ -37,12 +37,12 @@
  file1; arxiu
  file2; arxius
  file3; arxius
- frame1; fotograma1
- frame2; fotograma2
- frame3; fotograma1
  fps1; fps
  fps2; fps
  fps3; fps
+ frame1; fotograma1
+ frame2; fotograma2
+ frame3; fotograma1
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -180,13 +180,13 @@ Basic_Note;Nota : per a més informació quant aquest arxiu, heu de triar una vi
 BitDepth;
 BitDepth_Stored;
 BitRate;Bit ràtio
+BitRate_Encoded;
 BitRate_Maximum;
 BitRate_Minimum;
 BitRate_Mode;Mode de Bit ràtio
 BitRate_Mode_CBR;
 BitRate_Mode_VBR;
 BitRate_Nominal;Ràtio nominal
-BitRate_Encoded;
 Bits-(Pixel*Frame);Bits/(Píxel*imatge)
 BufferSize;
 Cancel;Cancel·la
@@ -214,20 +214,20 @@ Close all before open;Tanca tot abans d'obrir
 Codec;Còdec
 Codec_Description; Descripció del Còdec
 Codec_Info;Detalls del còdec
-Codec_Settings;Configuració del còdec
-Codec_Settings_PacketBitStream;
-Codec_Settings_BVOP;
-Codec_Settings_QPel;
-Codec_Settings_GMC;
-Codec_Settings_Matrix;
-Codec_Settings_Floor;
-Codec_Settings_CABAC;
-Codec_Settings_Firm;
-Codec_Settings_Endianness;
-Codec_Settings_Sign;
-Codec_Settings_Law;
-Codec_Settings_ITU;
 Codec_Profile;Perfil del codec
+Codec_Settings;Configuració del còdec
+Codec_Settings_BVOP;
+Codec_Settings_CABAC;
+Codec_Settings_Endianness;
+Codec_Settings_Firm;
+Codec_Settings_Floor;
+Codec_Settings_GMC;
+Codec_Settings_ITU;
+Codec_Settings_Law;
+Codec_Settings_Matrix;
+Codec_Settings_PacketBitStream;
+Codec_Settings_QPel;
+Codec_Settings_Sign;
 Codec_Url;Enllaç del codec
 CodecID;
 CodecID_Description;
@@ -324,41 +324,41 @@ Format_Description; Descripció
 Format_Info; Info
 Format_Profile; Perfil
 Format_Settings; Configuració
-Format_Settings_PacketBitStream; Bitstream
 Format_Settings_BVOP; BVOP
-Format_Settings_QPel;
+Format_Settings_CABAC;
+Format_Settings_Emphasis;
+Format_Settings_Endianness;
+Format_Settings_Firm;
+Format_Settings_Floor;
+Format_Settings_FrameMode;
 Format_Settings_GMC;
+Format_Settings_GOP;
+Format_Settings_ITU;
+Format_Settings_Law;
 Format_Settings_Matrix;
 Format_Settings_Matrix_Custom;
 Format_Settings_Matrix_Default;
-Format_Settings_Floor;
-Format_Settings_CABAC;
-Format_Settings_Firm;
-Format_Settings_Endianness;
-Format_Settings_RefFrames;
-Format_Settings_Sign;
-Format_Settings_Law;
-Format_Settings_ITU;
-Format_Settings_SBR;
+Format_Settings_Mode;
+Format_Settings_ModeExtension;
+Format_Settings_PacketBitStream; Bitstream
+Format_Settings_PictureStructure;
 Format_Settings_PS;
 Format_Settings_Pulldown;
-Format_Settings_Mode;
-Format_Settings_FrameMode;
-Format_Settings_Emphasis;
-Format_Settings_ModeExtension;
-Format_Settings_GOP;
-Format_Settings_PictureStructure;
+Format_Settings_QPel;
+Format_Settings_RefFrames;
+Format_Settings_SBR;
+Format_Settings_Sign;
 Format_Settings_Wrapping;
-Format_Version; Versió
 Format_Url; Enllaç
+Format_Version; Versió
 FrameCount; Comptador
 FrameRate;Imatges per segon
+FrameRate_Maximum;Imatges per segon màximes
+FrameRate_Minimum;Imatges per segon mínimes
 FrameRate_Mode;
 FrameRate_Mode_CFR;
 FrameRate_Mode_VFR;
-FrameRate_Minimum;Imatges per segon mínimes
 FrameRate_Nominal;
-FrameRate_Maximum;Imatges per segon màximes
 FrameRate_Original;
 General;General
 Genre;Gènere
@@ -574,16 +574,16 @@ Image_Codec_List;Llista de codecs
 ImageCount;Comptador de pistes d'imatge
 Info;Info
 Instruments;Instruments
-Interlacement;Interliniat
-Interlaced_Interlaced;Interliniat
-Interlaced_TFF;Camp superior primer
 Interlaced_BFF;Camp inferior primer
+Interlaced_Interlaced;Interliniat
 Interlaced_PPF;Progressiu
 Interlaced_Progressive;Progressiu
-Interleaved;
+Interlaced_TFF;Camp superior primer
+Interlacement;Interliniat
 Interleave_Duration;
 Interleave_Preload;
 Interleave_VideoFrames;
+Interleaved;
 InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
@@ -594,7 +594,6 @@ Known formats;Formats coneguts
 Known parameters;Paràmetres coneguts
 Label;Etiqueta
 Language;Idioma
-Language_More;
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -705,6 +704,7 @@ Language_mk;Macedonian
 Language_ml;Malayalam
 Language_mn;Mongolian
 Language_mo;Moldavian
+Language_More;
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
@@ -792,21 +792,21 @@ LCCN;LCCN
 Library;Llibreria
 Lightness; Iluminació
 List; Llista
-Lyrics; Lletres
 Lyricist;transcriptor del text
+Lyrics; Lletres
 Mastered_Date;Data de masterització
 MasteredBy;Masteritzat per
-matrix_coefficients;
-Matrix_Format;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
+matrix_coefficients;
+Matrix_Format;
 MediaInfo_About;Proporciona informació detallada\r\nquant a un arxiu multimèdia:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (fins i tot VCD)\r\nMPEG2 (fins i tot DVD i SVCD)\r\nMPEG4 (també l'Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (també WMV, WMA)\r\nMicrosoft RIFF (inclouent AVI, WAV)\r\nArxius només sonors (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menú
 Menu stream(s);Menú de pistes
 Menu_Codec_List;Menú de codecs
+Menu_Hint;Més possibilitats
 Menu_No;Sense menú
 MenuCount;Nombre de pistes al menú
-Menu_Hint;Més possibilitats
 MenuID; MenuID
 mn;mn
 Mood;humor
@@ -824,8 +824,8 @@ NetworkName;
 New;Nou
 Newest version;Cerca actualitzacions (requereix connexió a Internet)
 NewVersion_Menu;
-NewVersion_Question_Title;
 NewVersion_Question_Content;
+NewVersion_Question_Title;
 No;Cancel·la
 Not yet;
 NumColors;
@@ -913,16 +913,17 @@ ReplayGain_Gain; Ganància
 ReplayGain_Peak; Límit
 Resolution;Resolució
 s;seg
+SamplingCount;
 SamplingRate;Freqüència de mostratge
 Save;Desa
-ScanType;
-ScanType_Original;
-ScanType_StoreMethod;
 ScanOrder;
 ScanOrder_Original;
 ScanOrder_Stored;
 ScanOrder_StoredDisplayedInverted;
 ScanOrder_StoreMethod;
+ScanType;
+ScanType_Original;
+ScanType_StoreMethod;
 ScreenplayBy;posat en escena per
 Season;Estació
 see below;Mireu mes avall
@@ -945,7 +946,6 @@ Shell InfoTip;Amplia la informació en passar amb el ratolí per sobre d'un arxi
 Show menu;Mostra el menú
 Show toolbar;Mostra la barra d'eines
 Sort;Endreça per
-SamplingCount;
 SoundEngineer;Enginyer de só
 Source;
 Source_Duration;
@@ -992,14 +992,14 @@ Text3;Tercera pista de text
 TextCount;Total de pistes de text
 ThanksTo;Gràcies a
 Thousands separator;Separador de milers
-Title;Títol
-Title_More;Títol, més informació
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
 TimeZone;
+Title;Títol
+Title_More;Títol, més informació
 Total;Total
 Track;Nom de la pista
 Track_Count;Total de pistes

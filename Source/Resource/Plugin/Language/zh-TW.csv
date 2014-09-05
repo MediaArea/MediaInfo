@@ -37,12 +37,12 @@
  file1; 檔案
  file2; 檔案
  file3; 檔案
- frame1; 影格
- frame2; 影格
- frame3; 影格
  fps1; fps
  fps2; fps
  fps3; fps
+ frame1; 影格
+ frame2; 影格
+ frame3; 影格
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -180,13 +180,13 @@ Basic_Note;注意: 想知道更多關於此檔案的資訊, 您得選擇不同�
 BitDepth;
 BitDepth_Stored;
 BitRate;流量
+BitRate_Encoded;
 BitRate_Maximum;最大流量
 BitRate_Minimum;最小流量
 BitRate_Mode;流量模式
 BitRate_Mode_CBR;常數式
 BitRate_Mode_VBR;可變式
 BitRate_Nominal;正常流量
-BitRate_Encoded;
 Bits-(Pixel*Frame);位元/(像素*影格)
 BufferSize;
 Cancel;取消
@@ -214,20 +214,20 @@ Close all before open;開啟前關閉其它檔案
 Codec;編解碼器
 Codec_Description;編解碼器描述
 Codec_Info;編解碼器詳細資訊
-Codec_Settings;編解碼器設定
-Codec_Settings_PacketBitStream;編解碼器設定, Packet bitstream
-Codec_Settings_BVOP;編解碼器設定, BVOP
-Codec_Settings_QPel;編解碼器設定, QPel
-Codec_Settings_GMC;編解碼器設定, GMC
-Codec_Settings_Matrix;編解碼器設定, Matrix
-Codec_Settings_Floor;編解碼器設定, Floor
-Codec_Settings_CABAC;編解碼器設定, CABAC
-Codec_Settings_Firm;編解碼器設定, Firm
-Codec_Settings_Endianness;編解碼器設定, Endianness
-Codec_Settings_Sign;編解碼器設定, Sign
-Codec_Settings_Law;編解碼器設定, Law
-Codec_Settings_ITU;編解碼器設定, ITU
 Codec_Profile;編解碼器設定
+Codec_Settings;編解碼器設定
+Codec_Settings_BVOP;編解碼器設定, BVOP
+Codec_Settings_CABAC;編解碼器設定, CABAC
+Codec_Settings_Endianness;編解碼器設定, Endianness
+Codec_Settings_Firm;編解碼器設定, Firm
+Codec_Settings_Floor;編解碼器設定, Floor
+Codec_Settings_GMC;編解碼器設定, GMC
+Codec_Settings_ITU;編解碼器設定, ITU
+Codec_Settings_Law;編解碼器設定, Law
+Codec_Settings_Matrix;編解碼器設定, Matrix
+Codec_Settings_PacketBitStream;編解碼器設定, Packet bitstream
+Codec_Settings_QPel;編解碼器設定, QPel
+Codec_Settings_Sign;編解碼器設定, Sign
 Codec_Url;編解碼器的網址
 CodecID;編解碼器識別字
 CodecID_Description;編解碼器描述
@@ -324,41 +324,41 @@ Format_Description;格式敘述
 Format_Info;格式詳細資訊
 Format_Profile;格式類型
 Format_Settings;格式設定
-Format_Settings_PacketBitStream;格式設定, Packet Bitstream
 Format_Settings_BVOP;格式設定, BVOP
-Format_Settings_QPel;格式設定, QPel
+Format_Settings_CABAC;格式設定, CABAC
+Format_Settings_Emphasis;
+Format_Settings_Endianness;格式設定, Endianness
+Format_Settings_Firm;格式設定, Firm
+Format_Settings_Floor;格式設定, Floor
+Format_Settings_FrameMode;
 Format_Settings_GMC;格式設定, GMC
+Format_Settings_GOP;
+Format_Settings_ITU;格式設定, ITU
+Format_Settings_Law;格式設定, Law
 Format_Settings_Matrix;格式設定, Matrix
 Format_Settings_Matrix_Custom;自訂
 Format_Settings_Matrix_Default;預設
-Format_Settings_Floor;格式設定, Floor
-Format_Settings_CABAC;格式設定, CABAC
-Format_Settings_Firm;格式設定, Firm
-Format_Settings_Endianness;格式設定, Endianness
-Format_Settings_RefFrames;格式設定, RefFrames
-Format_Settings_Sign;格式設定, Sign
-Format_Settings_Law;格式設定, Law
-Format_Settings_ITU;格式設定, ITU
-Format_Settings_SBR;格式設定, SBR
+Format_Settings_Mode;
+Format_Settings_ModeExtension;
+Format_Settings_PacketBitStream;格式設定, Packet Bitstream
+Format_Settings_PictureStructure;
 Format_Settings_PS;格式設定, PS
 Format_Settings_Pulldown;格式設定, Pulldown
-Format_Settings_Mode;
-Format_Settings_FrameMode;
-Format_Settings_Emphasis;
-Format_Settings_ModeExtension;
-Format_Settings_GOP;
-Format_Settings_PictureStructure;
+Format_Settings_QPel;格式設定, QPel
+Format_Settings_RefFrames;格式設定, RefFrames
+Format_Settings_SBR;格式設定, SBR
+Format_Settings_Sign;格式設定, Sign
 Format_Settings_Wrapping;
-Format_Version;格式版本
 Format_Url;該格式的網址
+Format_Version;格式版本
 FrameCount;影格數
 FrameRate;影格頻率
+FrameRate_Maximum;最大影格頻率
+FrameRate_Minimum;最小影格頻率
 FrameRate_Mode;影格頻率模式
 FrameRate_Mode_CFR;常數式
 FrameRate_Mode_VFR;可變式
-FrameRate_Minimum;最小影格頻率
 FrameRate_Nominal;正常影格頻率
-FrameRate_Maximum;最大影格頻率
 FrameRate_Original;原始影格頻率
 General;一般
 Genre;類型
@@ -574,16 +574,16 @@ Image_Codec_List;圖片編解碼器
 ImageCount;圖片串流數
 Info;相關資訊
 Instruments;樂器
-Interlacement;交錯
-Interlaced_Interlaced;有交錯
-Interlaced_TFF;前場優先
 Interlaced_BFF;後場優先
+Interlaced_Interlaced;有交錯
 Interlaced_PPF;漸進式
 Interlaced_Progressive;漸進式
-Interleaved;
+Interlaced_TFF;前場優先
+Interlacement;交錯
 Interleave_Duration;交錯訊號, 持續時間
 Interleave_Preload;交錯訊號, 預先載入時間
 Interleave_VideoFrames;交錯訊號, 持續時間
+Interleaved;
 InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
@@ -594,7 +594,6 @@ Known formats;已知格式
 Known parameters;已知參數
 Label;標籤
 Language;語系
-Language_More;語系, 詳細資訊
 Language_aa;伊索匹亞語 (Afar)
 Language_ab;阿布哈茲語 (Abkhazian)
 Language_ae;古波斯語 (Avestan)
@@ -705,6 +704,7 @@ Language_mk;馬其頓語 (Macedonian)
 Language_ml;馬拉雅拉姆語 (Malayalam)
 Language_mn;蒙古語 (Mongolian)
 Language_mo;摩達維亞語 (Moldavian)
+Language_More;語系, 詳細資訊
 Language_mr;馬拉塔語 (Marathi)
 Language_ms;馬來語 (Malay)
 Language_mt;馬爾他語 (Maltese)
@@ -792,21 +792,21 @@ LCCN;LCCN
 Library;合成函式庫
 Lightness;亮度
 List;清單
-Lyrics;歌詞
 Lyricist;作詞者
+Lyrics;歌詞
 Mastered_Date;後製日期
 MasteredBy;後製者
-matrix_coefficients;矩陣係數
-Matrix_Format;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
+matrix_coefficients;矩陣係數
+Matrix_Format;
 MediaInfo_About;支援非常詳盡的多媒體檔案資訊:\r\nMatroska, OGG (包含 OGM)\r\nMPEG-1 (包含 VCD)\r\nMPEG-2 (包含 DVD, SVCD)\r\nMPEG-4 (包含 iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (包含 WMV, WMA)\r\nMicrosoft RIFF (包含 AVI, WAV)\r\n純聲音格式 (AC3, DTS, AAC, AU, AIFF...)
 Menu;選單
 Menu stream(s);選單串流
 Menu_Codec_List;選單編解碼器
+Menu_Hint;更多可能
 Menu_No;無選單
 MenuCount;選單串流數
-Menu_Hint;更多可能
 MenuID;選單ID
 mn;分
 Mood;情緒
@@ -824,8 +824,8 @@ NetworkName;網路名稱
 New;新增
 Newest version;檢查最新的版本 (需要網路連線)
 NewVersion_Menu;有新版本
-NewVersion_Question_Title;有新版本發布!
 NewVersion_Question_Content;有新版本 (v%Version%) 了, 您想下載嗎?
+NewVersion_Question_Title;有新版本發布!
 No;否
 Not yet;還沒好
 NumColors;色彩數
@@ -913,16 +913,17 @@ ReplayGain_Gain;播放增益
 ReplayGain_Peak;播放增益尖峰值
 Resolution;顏色深度
 s;秒
+SamplingCount;
 SamplingRate;取樣率
 Save;儲存
-ScanType;掃描型態
-ScanType_Original;
-ScanType_StoreMethod;
 ScanOrder;掃描順序
 ScanOrder_Original;
 ScanOrder_Stored;
 ScanOrder_StoredDisplayedInverted;
 ScanOrder_StoreMethod;
+ScanType;掃描型態
+ScanType_Original;
+ScanType_StoreMethod;
 ScreenplayBy;編劇
 Season;季期
 see below;詳見下述
@@ -945,7 +946,6 @@ Shell InfoTip;資訊提示 (在檔案總管裡, 將滑鼠移到檔案上會顯�
 Show menu;顯示選單
 Show toolbar;顯示工具列
 Sort;排序
-SamplingCount;
 SoundEngineer;音響工程師
 Source;
 Source_Duration;
@@ -992,14 +992,14 @@ Text3;第三字幕串流
 TextCount;字幕串流數
 ThanksTo;感謝
 Thousands separator;千位分隔符號
-Title;標題
-Title_More;標題, 詳細資訊
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
 TimeZone;時區
+Title;標題
+Title_More;標題, 詳細資訊
 Total;總和
 Track;音軌
 Track_Count;音軌數

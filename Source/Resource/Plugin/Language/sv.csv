@@ -37,12 +37,12 @@
  file1; fil
  file2; filer
  file3; filer
- frame1;
- frame2;
- frame3;
  fps1; fps
  fps2; fps
  fps3; fps
+ frame1;
+ frame2;
+ frame3;
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -180,13 +180,13 @@ Basic_Note; OBS: För mer information om den här filen, måste du välja en ann
 BitDepth;
 BitDepth_Stored;
 BitRate; Bitrate
+BitRate_Encoded;
 BitRate_Maximum;
 BitRate_Minimum;
 BitRate_Mode; Bitrateläge
 BitRate_Mode_CBR;
 BitRate_Mode_VBR;
 BitRate_Nominal;
-BitRate_Encoded;
 Bits-(Pixel*Frame); Bits/(Pixel*Frame)
 BufferSize;
 Cancel; Ångra
@@ -214,20 +214,20 @@ Close all before open; Stäng alla före öppna
 Codec; Codec
 Codec_Description;
 Codec_Info; Codecdetaljer
-Codec_Settings; Codecinställningar
-Codec_Settings_PacketBitStream;
-Codec_Settings_BVOP;
-Codec_Settings_QPel;
-Codec_Settings_GMC;
-Codec_Settings_Matrix;
-Codec_Settings_Floor;
-Codec_Settings_CABAC;
-Codec_Settings_Firm;
-Codec_Settings_Endianness;
-Codec_Settings_Sign;
-Codec_Settings_Law;
-Codec_Settings_ITU;
 Codec_Profile; Codecprofil
+Codec_Settings; Codecinställningar
+Codec_Settings_BVOP;
+Codec_Settings_CABAC;
+Codec_Settings_Endianness;
+Codec_Settings_Firm;
+Codec_Settings_Floor;
+Codec_Settings_GMC;
+Codec_Settings_ITU;
+Codec_Settings_Law;
+Codec_Settings_Matrix;
+Codec_Settings_PacketBitStream;
+Codec_Settings_QPel;
+Codec_Settings_Sign;
 Codec_Url; Länk till codec
 CodecID;
 CodecID_Description;
@@ -324,41 +324,41 @@ Format_Description;
 Format_Info;
 Format_Profile;
 Format_Settings;
-Format_Settings_PacketBitStream;
 Format_Settings_BVOP;
-Format_Settings_QPel;
+Format_Settings_CABAC;
+Format_Settings_Emphasis;
+Format_Settings_Endianness;
+Format_Settings_Firm;
+Format_Settings_Floor;
+Format_Settings_FrameMode;
 Format_Settings_GMC;
+Format_Settings_GOP;
+Format_Settings_ITU;
+Format_Settings_Law;
 Format_Settings_Matrix;
 Format_Settings_Matrix_Custom;
 Format_Settings_Matrix_Default;
-Format_Settings_Floor;
-Format_Settings_CABAC;
-Format_Settings_Firm;
-Format_Settings_Endianness;
-Format_Settings_RefFrames;
-Format_Settings_Sign;
-Format_Settings_Law;
-Format_Settings_ITU;
-Format_Settings_SBR;
+Format_Settings_Mode;
+Format_Settings_ModeExtension;
+Format_Settings_PacketBitStream;
+Format_Settings_PictureStructure;
 Format_Settings_PS;
 Format_Settings_Pulldown;
-Format_Settings_Mode;
-Format_Settings_FrameMode;
-Format_Settings_Emphasis;
-Format_Settings_ModeExtension;
-Format_Settings_GOP;
-Format_Settings_PictureStructure;
+Format_Settings_QPel;
+Format_Settings_RefFrames;
+Format_Settings_SBR;
+Format_Settings_Sign;
 Format_Settings_Wrapping;
-Format_Version;
 Format_Url;
+Format_Version;
 FrameCount;
 FrameRate; Bildhastighet (Frame rate)
+FrameRate_Maximum;
+FrameRate_Minimum;
 FrameRate_Mode;
 FrameRate_Mode_CFR;
 FrameRate_Mode_VFR;
-FrameRate_Minimum;
 FrameRate_Nominal;
-FrameRate_Maximum;
 FrameRate_Original;
 General; Allmänt
 Genre; Genre
@@ -574,16 +574,16 @@ Image_Codec_List; Bildcodecs
 ImageCount; Antal bildströmmar
 Info;
 Instruments; Instrument
-Interlacement;
-Interlaced_Interlaced;
-Interlaced_TFF;
 Interlaced_BFF;
+Interlaced_Interlaced;
 Interlaced_PPF;
 Interlaced_Progressive;
-Interleaved;
+Interlaced_TFF;
+Interlacement;
 Interleave_Duration;
 Interleave_Preload;
 Interleave_VideoFrames;
+Interleaved;
 InternetMediaType;
 IRCA; IRCA
 ISBN; ISBN
@@ -594,7 +594,6 @@ Known formats; Kända format
 Known parameters; Kända parametrar
 Label; Etikett
 Language; Språk
-Language_More;
 Language_aa; Afar
 Language_ab; Abkhazian
 Language_ae; Avestan
@@ -705,6 +704,7 @@ Language_mk; Macedonian
 Language_ml; Malayalam
 Language_mn; Mongolian
 Language_mo; Moldavian
+Language_More;
 Language_mr; Marathi
 Language_ms; Malay
 Language_mt; Maltese
@@ -792,21 +792,21 @@ LCCN; LCCN
 Library; Muxningsbibliotek
 Lightness;
 List;
-Lyrics;
 Lyricist; Texter från
+Lyrics;
 Mastered_Date; Masterdatum
 MasteredBy; Mastrad av
-matrix_coefficients;
-Matrix_Format;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
+matrix_coefficients;
+Matrix_Format;
 MediaInfo_About;Ger mycket detaljerad information\r\nom en multimediafil:\r\nMatroska, OGG (inklusive OGM)\r\nMPEG1 (inklusive VCD)\r\nMPEG2 (inklusive DVD and SVCD)\r\nMPEG4 (inklusive Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (inklusive WMV, WMA)\r\nMicrosoft RIFF (inklusive AVI, WAV)\r\nLjud-endast format (AC3, DTS, AAC, AU, AIFF...)
 Menu; Meny
 Menu stream(s);
 Menu_Codec_List;
+Menu_Hint; Mer möjligheter
 Menu_No;
 MenuCount;
-Menu_Hint; Mer möjligheter
 MenuID;
 mn; min
 Mood; Humör
@@ -824,8 +824,8 @@ NetworkName;
 New; Ny
 Newest version; Sök efter nyare version (kräver Internetanslutning)
 NewVersion_Menu;
-NewVersion_Question_Title;
 NewVersion_Question_Content;
+NewVersion_Question_Title;
 No; Nej
 Not yet;
 NumColors;
@@ -913,16 +913,17 @@ ReplayGain_Gain;
 ReplayGain_Peak;
 Resolution; Upplösning
 s; s
+SamplingCount;
 SamplingRate; Samplingstakt
 Save; Spara
-ScanType;
-ScanType_Original;
-ScanType_StoreMethod;
 ScanOrder;
 ScanOrder_Original;
 ScanOrder_Stored;
 ScanOrder_StoredDisplayedInverted;
 ScanOrder_StoreMethod;
+ScanType;
+ScanType_Original;
+ScanType_StoreMethod;
 ScreenplayBy; Framträdande av
 Season; Säsong
 see below; se nedan
@@ -945,7 +946,6 @@ Shell InfoTip;
 Show menu; Visa meny
 Show toolbar; Visa verktygsfält
 Sort; Sorterad av
-SamplingCount;
 SoundEngineer; Ljudingenjör
 Source;
 Source_Duration;
@@ -992,14 +992,14 @@ Text3; Trejde textströmmen
 TextCount; Antal textströmmar
 ThanksTo; Tack till
 Thousands separator; Tusentalsseparator
-Title; titel
-Title_More; Title, mer info
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
 TimeZone;
+Title; titel
+Title_More; Title, mer info
 Total; Totalt
 Track; Spårnamn
 Track_Count; Antal spår

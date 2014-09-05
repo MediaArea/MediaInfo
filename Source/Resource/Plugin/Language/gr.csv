@@ -37,12 +37,12 @@
  file1; αρχείο
  file2; αρχεία
  file3; αρχεία
- frame1;
- frame2;
- frame3;
  fps1; fps
  fps2; fps
  fps3; fps
+ frame1;
+ frame2;
+ frame3;
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -180,13 +180,13 @@ Basic_Note;Σημείωση : για περισσότερες πληροφορί
 BitDepth;
 BitDepth_Stored;
 BitRate;Ρυθμός μετάδοσης δεδομένων
+BitRate_Encoded;
 BitRate_Maximum;
 BitRate_Minimum;
 BitRate_Mode;Bit rate mode
 BitRate_Mode_CBR;
 BitRate_Mode_VBR;
 BitRate_Nominal;
-BitRate_Encoded;
 Bits-(Pixel*Frame);Bits/(Εικονοστοιχείο*Πλαίσιο)
 BufferSize;
 Cancel;Άκυρο
@@ -214,20 +214,20 @@ Close all before open;Κλείστε όλα τα ανοιχτά αρχεία π�
 Codec;Συμπιεστής
 Codec_Description;
 Codec_Info;Λεπτομέρειες του συμπιεστή
-Codec_Settings;Ρυθμίσεις συμπιεστή
-Codec_Settings_PacketBitStream;
-Codec_Settings_BVOP;
-Codec_Settings_QPel;
-Codec_Settings_GMC;
-Codec_Settings_Matrix;
-Codec_Settings_Floor;
-Codec_Settings_CABAC;
-Codec_Settings_Firm;
-Codec_Settings_Endianness;
-Codec_Settings_Sign;
-Codec_Settings_Law;
-Codec_Settings_ITU;
 Codec_Profile;Προφίλ συμπιεστή
+Codec_Settings;Ρυθμίσεις συμπιεστή
+Codec_Settings_BVOP;
+Codec_Settings_CABAC;
+Codec_Settings_Endianness;
+Codec_Settings_Firm;
+Codec_Settings_Floor;
+Codec_Settings_GMC;
+Codec_Settings_ITU;
+Codec_Settings_Law;
+Codec_Settings_Matrix;
+Codec_Settings_PacketBitStream;
+Codec_Settings_QPel;
+Codec_Settings_Sign;
 Codec_Url;Σύνδεσμος συμπιεστή (url)
 CodecID;
 CodecID_Description;
@@ -324,41 +324,41 @@ Format_Description;
 Format_Info;
 Format_Profile;
 Format_Settings;
-Format_Settings_PacketBitStream;
 Format_Settings_BVOP;
-Format_Settings_QPel;
+Format_Settings_CABAC;
+Format_Settings_Emphasis;
+Format_Settings_Endianness;
+Format_Settings_Firm;
+Format_Settings_Floor;
+Format_Settings_FrameMode;
 Format_Settings_GMC;
+Format_Settings_GOP;
+Format_Settings_ITU;
+Format_Settings_Law;
 Format_Settings_Matrix;
 Format_Settings_Matrix_Custom;
 Format_Settings_Matrix_Default;
-Format_Settings_Floor;
-Format_Settings_CABAC;
-Format_Settings_Firm;
-Format_Settings_Endianness;
-Format_Settings_RefFrames;
-Format_Settings_Sign;
-Format_Settings_Law;
-Format_Settings_ITU;
-Format_Settings_SBR;
+Format_Settings_Mode;
+Format_Settings_ModeExtension;
+Format_Settings_PacketBitStream;
+Format_Settings_PictureStructure;
 Format_Settings_PS;
 Format_Settings_Pulldown;
-Format_Settings_Mode;
-Format_Settings_FrameMode;
-Format_Settings_Emphasis;
-Format_Settings_ModeExtension;
-Format_Settings_GOP;
-Format_Settings_PictureStructure;
+Format_Settings_QPel;
+Format_Settings_RefFrames;
+Format_Settings_SBR;
+Format_Settings_Sign;
 Format_Settings_Wrapping;
-Format_Version;
 Format_Url;
+Format_Version;
 FrameCount;
 FrameRate;Ρυθμός ανανέωσης πλαισίου
+FrameRate_Maximum;Μέγιστος ρυθμός ανανέωσης πλαισίου
+FrameRate_Minimum;Ελάχιστος ρυθμός ανανέωσης πλαισίου
 FrameRate_Mode;
 FrameRate_Mode_CFR;
 FrameRate_Mode_VFR;
-FrameRate_Minimum;Ελάχιστος ρυθμός ανανέωσης πλαισίου
 FrameRate_Nominal;
-FrameRate_Maximum;Μέγιστος ρυθμός ανανέωσης πλαισίου
 FrameRate_Original;
 General;Γενικά
 Genre;Genre
@@ -574,16 +574,16 @@ Image_Codec_List;Συμπιεστές εικόνας
 ImageCount;Αριθμός των ροών εικόνας
 Info;
 Instruments;Όργανα
-Interlacement;Interlacement
-Interlaced_Interlaced;Διαπλεκόμενη σάρωση
-Interlaced_TFF;Top Field First
 Interlaced_BFF;Bottom Field First
+Interlaced_Interlaced;Διαπλεκόμενη σάρωση
 Interlaced_PPF;Συνεχής σάρωση
 Interlaced_Progressive;Συνεχής σάρωση
-Interleaved;
+Interlaced_TFF;Top Field First
+Interlacement;Interlacement
 Interleave_Duration;
 Interleave_Preload;
 Interleave_VideoFrames;
+Interleaved;
 InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
@@ -594,7 +594,6 @@ Known formats;Γνωστές μορφοποιήσεις
 Known parameters;Γνωστοί παράμετροι
 Label;Ετικέτα
 Language;Γλώσσα
-Language_More;
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -705,6 +704,7 @@ Language_mk;Macedonian
 Language_ml;Malayalam
 Language_mn;Mongolian
 Language_mo;Moldavian
+Language_More;
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
@@ -792,21 +792,21 @@ LCCN;LCCN
 Library;Muxing library
 Lightness;
 List;
-Lyrics;
 Lyricist;Lyricist
+Lyrics;
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
-matrix_coefficients;
-Matrix_Format;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
+matrix_coefficients;
+Matrix_Format;
 MediaInfo_About;Παρέχει λεπτομερείς πληροφορίες\r\nγια αρχεία πολυμέσων:\r\nMatroska, OGG (συμπεριλαμβάνεται OGM)\r\nMPEG1 (συμπεριλαμβάνεται VCD)\r\nMPEG2 (συμπεριλαμβάνεται DVD και SVCD)\r\nMPEG4 (συμπεριλαμβάνεται Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (συμπεριλαμβάνεται WMV, WMA)\r\nMicrosoft RIFF (συμπεριλαμβάνεται AVI, WAV)\r\nΜορφοποιήσεις ήχου (AC3, DTS, AAC, AU, AIFF...)
 Menu;Μενού
 Menu stream(s);Ροές μενού
 Menu_Codec_List;Συμπιεστές μενού
+Menu_Hint;Περισσότερες πιθανότητες
 Menu_No;Χωρίς μενού
 MenuCount;Αριθμός των ροών μενού
-Menu_Hint;Περισσότερες πιθανότητες
 MenuID;
 mn;mn
 Mood;Mood
@@ -824,8 +824,8 @@ NetworkName;
 New;Νέο
 Newest version;Έλεγχος για νεότερη έκδοση (προϋποθέτει ύπαρξη σύνδεσης στο Διαδύκτιο)
 NewVersion_Menu;
-NewVersion_Question_Title;
 NewVersion_Question_Content;
+NewVersion_Question_Title;
 No;Όχι
 Not yet;
 NumColors;
@@ -913,16 +913,17 @@ ReplayGain_Gain;
 ReplayGain_Peak;
 Resolution;Ανάλυση
 s;s
+SamplingCount;
 SamplingRate;Συχνότητα δειγματοληψίας
 Save;Αποθήκευση
-ScanType;
-ScanType_Original;
-ScanType_StoreMethod;
 ScanOrder;
 ScanOrder_Original;
 ScanOrder_Stored;
 ScanOrder_StoredDisplayedInverted;
 ScanOrder_StoreMethod;
+ScanType;
+ScanType_Original;
+ScanType_StoreMethod;
 ScreenplayBy;Screenplay by
 Season;Season
 see below;δείτε παρακάτω
@@ -945,7 +946,6 @@ Shell InfoTip;Shell InfoTip (in explorer, move the mouse on file, info will be d
 Show menu;Εμφάνιση μενού
 Show toolbar;Εμφάνιση εργαλειοθήκης
 Sort;Ταξινόμηση κατά
-SamplingCount;
 SoundEngineer;Sound engineer
 Source;
 Source_Duration;
@@ -992,14 +992,14 @@ Text3;Τρίτη ροή κειμένου
 TextCount;Αριθμός ροών κειμένου
 ThanksTo;Ευχαριστώ τους
 Thousands separator;Διαχωριστής χιλιάδων
-Title;Τίτλος
-Title_More;Τίτλος, περισσότερες πληροφορίες
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
 TimeZone;
+Title;Τίτλος
+Title_More;Τίτλος, περισσότερες πληροφορίες
 Total;Total
 Track;Track name
 Track_Count;Track count

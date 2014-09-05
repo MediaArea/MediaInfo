@@ -37,12 +37,12 @@
  file1; fichier
  file2; fichiers
  file3; fichiers
- frame1; image
- frame2; images
- frame3; images
  fps1; Im/s
  fps2; Im/s
  fps3; Im/s
+ frame1; image
+ frame2; images
+ frame3; images
  GB; Go
  Gb; Gb
  Gbps; Gbps
@@ -180,13 +180,13 @@ Basic_Note;Note : pour plus d'informations sur ce fichier, vous devez utiliser u
 BitDepth;Profondeur des couleurs
 BitDepth_Stored;Profondeur stockée des couleurs
 BitRate;Débit
+BitRate_Encoded;débit encodé
 BitRate_Maximum;Débit maximum
 BitRate_Minimum;Débit minimum
 BitRate_Mode;Type de débit
 BitRate_Mode_CBR;Constant
 BitRate_Mode_VBR;Variable
 BitRate_Nominal;Débit nominal
-BitRate_Encoded;débit encodé
 Bits-(Pixel*Frame);Bits/(Pixel*Image)
 BufferSize;Taille du buffer
 Cancel;Annuler
@@ -214,20 +214,20 @@ Close all before open;Tout fermer avant d'ouvrir
 Codec;Codec
 Codec_Description;Description du codec
 Codec_Info;Infos sur le Codec
-Codec_Settings;Paramètres du codec
-Codec_Settings_PacketBitStream;Paramètres du codec, Packet bitstream
-Codec_Settings_BVOP;Paramètres du codec, BVOP
-Codec_Settings_QPel;Paramètres du codec, QPel
-Codec_Settings_GMC;Paramètres du codec, GMC
-Codec_Settings_Matrix;Paramètres du codec, Matrice
-Codec_Settings_Floor;Paramètres du codec, Seuil
-Codec_Settings_CABAC;Paramètres du codec, CABAC
-Codec_Settings_Firm;Paramètres du codec, Entreprise
-Codec_Settings_Endianness;Paramètres du codec, Endianness
-Codec_Settings_Sign;Paramètres du codec, Signe
-Codec_Settings_Law;Paramètres du codec, Law
-Codec_Settings_ITU;Paramètres du codec, ITU
 Codec_Profile;Profile du codec
+Codec_Settings;Paramètres du codec
+Codec_Settings_BVOP;Paramètres du codec, BVOP
+Codec_Settings_CABAC;Paramètres du codec, CABAC
+Codec_Settings_Endianness;Paramètres du codec, Endianness
+Codec_Settings_Firm;Paramètres du codec, Entreprise
+Codec_Settings_Floor;Paramètres du codec, Seuil
+Codec_Settings_GMC;Paramètres du codec, GMC
+Codec_Settings_ITU;Paramètres du codec, ITU
+Codec_Settings_Law;Paramètres du codec, Law
+Codec_Settings_Matrix;Paramètres du codec, Matrice
+Codec_Settings_PacketBitStream;Paramètres du codec, Packet bitstream
+Codec_Settings_QPel;Paramètres du codec, QPel
+Codec_Settings_Sign;Paramètres du codec, Signe
 Codec_Url;Lien Internet sur le codec
 CodecID;Identifiant du codec
 CodecID_Description;Description du codec
@@ -324,41 +324,41 @@ Format_Description;Description du format
 Format_Info;Infos sur le format
 Format_Profile;Profil du format
 Format_Settings;Paramètres du format
-Format_Settings_PacketBitStream;Paramètres du format, Packet bitstream
 Format_Settings_BVOP;Paramètres du format, BVOP
-Format_Settings_QPel;Paramètres du format, QPel
+Format_Settings_CABAC;Paramètres du format, CABAC
+Format_Settings_Emphasis;Emphase
+Format_Settings_Endianness;Paramètres du format, Endianness
+Format_Settings_Firm;Paramètres du format, Entreprise
+Format_Settings_Floor;Paramètres du format, Seuil
+Format_Settings_FrameMode;Type de répétition
 Format_Settings_GMC;Paramètres du format, GMC
+Format_Settings_GOP;Paramètres du format, GOP
+Format_Settings_ITU;Paramètres du format, ITU
+Format_Settings_Law;Paramètres du format, Law
 Format_Settings_Matrix;Paramètres du format, Matrice
 Format_Settings_Matrix_Custom;Personnalisée
 Format_Settings_Matrix_Default;Par défaut
-Format_Settings_Floor;Paramètres du format, Seuil
-Format_Settings_CABAC;Paramètres du format, CABAC
-Format_Settings_Firm;Paramètres du format, Entreprise
-Format_Settings_Endianness;Paramètres du format, Endianness
-Format_Settings_RefFrames;Paramètres du format, RefFrames
-Format_Settings_Sign;Paramètres du format, Signe
-Format_Settings_Law;Paramètres du format, Law
-Format_Settings_ITU;Paramètres du format, ITU
-Format_Settings_SBR;Paramètres du format, SBR
+Format_Settings_Mode;Paramètres du format, Mode
+Format_Settings_ModeExtension;Extension du mode
+Format_Settings_PacketBitStream;Paramètres du format, Packet bitstream
+Format_Settings_PictureStructure;Paramètres du format, structure de l'image
 Format_Settings_PS;Paramètres du format, PS
 Format_Settings_Pulldown;Paramètres du format, Pulldown
-Format_Settings_Mode;Paramètres du format, Mode
-Format_Settings_FrameMode;Type de répétition
-Format_Settings_Emphasis;Emphase
-Format_Settings_ModeExtension;Extension du mode
-Format_Settings_GOP;Paramètres du format, GOP
-Format_Settings_PictureStructure;Paramètres du format, structure de l'image
+Format_Settings_QPel;Paramètres du format, QPel
+Format_Settings_RefFrames;Paramètres du format, RefFrames
+Format_Settings_SBR;Paramètres du format, SBR
+Format_Settings_Sign;Paramètres du format, Signe
 Format_Settings_Wrapping;Paramètres du format, mode d'empaquetage
-Format_Version;Version du format
 Format_Url;Lien Internet sur le format
+Format_Version;Version du format
 FrameCount;Nombre d'images
 FrameRate;Images par seconde
+FrameRate_Maximum;Images/s maxi
+FrameRate_Minimum;Images/s mini
 FrameRate_Mode;Type d'images/s
 FrameRate_Mode_CFR;Constant
 FrameRate_Mode_VFR;Variable
-FrameRate_Minimum;Images/s mini
 FrameRate_Nominal;Images/s nominal
-FrameRate_Maximum;Images/s maxi
 FrameRate_Original;Images/s d'origine
 General;Général
 Genre;Genre
@@ -574,16 +574,16 @@ Image_Codec_List;Codecs Image
 ImageCount;Nombre de pistes image
 Info;Info
 Instruments;Instruments
-Interlacement;Entrelacement
-Interlaced_Interlaced;Entrelacé
-Interlaced_TFF;Ligne du haut d'abord
 Interlaced_BFF;Ligne du bas d'abord
+Interlaced_Interlaced;Entrelacé
 Interlaced_PPF;Progressif
 Interlaced_Progressive;Progressif
-Interleaved;Imbrication
+Interlaced_TFF;Ligne du haut d'abord
+Interlacement;Entrelacement
 Interleave_Duration;Imbrication, durée
 Interleave_Preload;Imbrication, d. de pré-chargement
 Interleave_VideoFrames;Imbrication, durée
+Interleaved;Imbrication
 InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
@@ -594,7 +594,6 @@ Known formats;Formats connus
 Known parameters;Paramètres connus
 Label;Label
 Language;Langue
-Language_More;Langue, plus d'info
 Language_aa;Afar
 Language_ab;Abkhaze
 Language_ae;Avestique
@@ -705,6 +704,7 @@ Language_mk;Macédonien
 Language_ml;Malayalam
 Language_mn;Mongol
 Language_mo;Moldave
+Language_More;Langue, plus d'info
 Language_mr;Marathe
 Language_ms;Malais
 Language_mt;Maltais
@@ -792,21 +792,21 @@ LCCN;LCCN
 Library;Bibliotheque utilisée
 Lightness;Luminosité
 List;Liste
-Lyrics;Paroles
 Lyricist;Parolier
+Lyrics;Paroles
 Mastered_Date;Date de création
 MasteredBy;Créé par
-matrix_coefficients;Coefficients de la matrice
-Matrix_Format;Encodage matriciel, format
 Matrix_Channel(s);Encodage matriciel, canaux
 Matrix_ChannelPositions;Encodage matriciel, position des cannaux
+matrix_coefficients;Coefficients de la matrice
+Matrix_Format;Encodage matriciel, format
 MediaInfo_About;MediaInfo fournit des informations techniques et les tags à propos de vos fichiers video et audio.\r\nExcepté l'interface graphique du Mac App Store, c'est un logiciel libre, ce qui signifie qu'il est gratuit pour l'utilisateur final et que les développeurs on la liberté de l'étudier, l'améliorer et le redistribuer (licence BSD)
 Menu;Menu
 Menu stream(s);Piste(s) menu
 Menu_Codec_List;Codecs Menu
+Menu_Hint;Plus de possibilités
 Menu_No;Pas de menu
 MenuCount;Nombre de pistes menu
-Menu_Hint;Plus de possibilités
 MenuID;ID de menu
 mn;mn
 Mood;Humeur
@@ -824,8 +824,8 @@ NetworkName;Nom du réseau
 New;Nouveau
 Newest version;Vérifier s'il y a une nouvelle version
 NewVersion_Menu;Une nouvelle version est disponible
-NewVersion_Question_Title;Une nouvelle version est sortie!
 NewVersion_Question_Content;Une nouvelle version (v%Version%) est disponible, souhaitez-vous la télécharger?
+NewVersion_Question_Title;Une nouvelle version est sortie!
 No;Non
 Not yet;Pas encore
 NumColors;Nombre de couleurs
@@ -913,16 +913,17 @@ ReplayGain_Gain;Gain en lecture
 ReplayGain_Peak;Crête de gain en lecture
 Resolution;Résolution
 s;s
+SamplingCount;Nombre d'échantillons
 SamplingRate;Echantillonnage
 Save;Sauvegarder
-ScanType;Type de balayage
-ScanType_Original;Type de balayage original
-ScanType_StoreMethod;Ordre de balayage, mode d'enregistrement
 ScanOrder;Ordre de balayage
 ScanOrder_Original;Ordre original de balayage
 ScanOrder_Stored;Ordre stocké de balayage
 ScanOrder_StoredDisplayedInverted;Ordre de balayage invversé entre affiché/stocké
 ScanOrder_StoreMethod;Ordre de balayage, mode d'enregistrement
+ScanType;Type de balayage
+ScanType_Original;Type de balayage original
+ScanType_StoreMethod;Ordre de balayage, mode d'enregistrement
 ScreenplayBy;Joué par
 Season;Saison
 see below;voir ci-dessous
@@ -945,7 +946,6 @@ Shell InfoTip;Extension bulle d'aide (passez la souris sur un fichier, il y aura
 Show menu;Montrer le menu
 Show toolbar;Montrer la barre d'outils
 Sort;Trié par
-SamplingCount;Nombre d'échantillons
 SoundEngineer;Ingénieur du son
 Source;Source
 Source_Duration;Durée de la source duration
@@ -992,14 +992,14 @@ Text3;Troisième piste Texte
 TextCount;Nombre de pistes texte
 ThanksTo;Remerciements
 Thousands separator;Séparateur de milliers
-Title;Titre
-Title_More;Titre, plus d'info
 TimeCode;Time code
 TimeCode_FirstFrame;Time code de la première image
 TimeCode_Settings;Paramètres du time code
 TimeCode_Source;Source du time code
 TimeStamp;Time stamp
 TimeZone;Fuseau horaire
+Title;Titre
+Title_More;Titre, plus d'info
 Total;Total
 Track;Piste
 Track_Count;Nombre de pistes

@@ -37,12 +37,12 @@
  file1; arquivo
  file2; arquivo
  file3; arquivo
- frame1;
- frame2;
- frame3;
  fps1; fps
  fps2; fps
  fps3; fps
+ frame1;
+ frame2;
+ frame3;
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -180,13 +180,13 @@ Basic_Note;Nota : para máis información sobre este arquivo selecciona outra vi
 BitDepth;
 BitDepth_Stored;
 BitRate;Bit rate
+BitRate_Encoded;
 BitRate_Maximum;BitRate máximo
 BitRate_Minimum;BitRate mínimo
 BitRate_Mode;Tipo de Bitrate
 BitRate_Mode_CBR;BitRate constante
 BitRate_Mode_VBR;BitRate variable
 BitRate_Nominal;
-BitRate_Encoded;
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;
 Cancel;Cancelar
@@ -214,20 +214,20 @@ Close all before open;Pechar todo antes de abrir
 Codec;Codec
 Codec_Description; Descrición do codec
 Codec_Info;Info do codec
-Codec_Settings;Configuración do codec
-Codec_Settings_PacketBitStream;
-Codec_Settings_BVOP;
-Codec_Settings_QPel;
-Codec_Settings_GMC;
-Codec_Settings_Matrix;
-Codec_Settings_Floor;
-Codec_Settings_CABAC;
-Codec_Settings_Firm;
-Codec_Settings_Endianness;
-Codec_Settings_Sign;
-Codec_Settings_Law;
-Codec_Settings_ITU;
 Codec_Profile;Perfil del codec
+Codec_Settings;Configuración do codec
+Codec_Settings_BVOP;
+Codec_Settings_CABAC;
+Codec_Settings_Endianness;
+Codec_Settings_Firm;
+Codec_Settings_Floor;
+Codec_Settings_GMC;
+Codec_Settings_ITU;
+Codec_Settings_Law;
+Codec_Settings_Matrix;
+Codec_Settings_PacketBitStream;
+Codec_Settings_QPel;
+Codec_Settings_Sign;
 Codec_Url;Web do codec
 CodecID;
 CodecID_Description;
@@ -324,41 +324,41 @@ Format_Description;
 Format_Info;Info do codec
 Format_Profile;Perfil do formato
 Format_Settings;Axustes do formato
-Format_Settings_PacketBitStream;
 Format_Settings_BVOP;
-Format_Settings_QPel;
+Format_Settings_CABAC;
+Format_Settings_Emphasis;
+Format_Settings_Endianness;
+Format_Settings_Firm;
+Format_Settings_Floor;
+Format_Settings_FrameMode;
 Format_Settings_GMC;
+Format_Settings_GOP;
+Format_Settings_ITU;
+Format_Settings_Law;
 Format_Settings_Matrix;
 Format_Settings_Matrix_Custom;
 Format_Settings_Matrix_Default;
-Format_Settings_Floor;
-Format_Settings_CABAC;
-Format_Settings_Firm;
-Format_Settings_Endianness;
-Format_Settings_RefFrames;
-Format_Settings_Sign;
-Format_Settings_Law;
-Format_Settings_ITU;
-Format_Settings_SBR;
+Format_Settings_Mode;Mode
+Format_Settings_ModeExtension;
+Format_Settings_PacketBitStream;
+Format_Settings_PictureStructure;
 Format_Settings_PS;
 Format_Settings_Pulldown;
-Format_Settings_Mode;Mode
-Format_Settings_FrameMode;
-Format_Settings_Emphasis;
-Format_Settings_ModeExtension;
-Format_Settings_GOP;
-Format_Settings_PictureStructure;
+Format_Settings_QPel;
+Format_Settings_RefFrames;
+Format_Settings_SBR;
+Format_Settings_Sign;
 Format_Settings_Wrapping;
-Format_Version;Versión do formato
 Format_Url;Web do formato
+Format_Version;Versión do formato
 FrameCount;
 FrameRate;Frame rate
+FrameRate_Maximum;
+FrameRate_Minimum;
 FrameRate_Mode;
 FrameRate_Mode_CFR;
 FrameRate_Mode_VFR;
-FrameRate_Minimum;
 FrameRate_Nominal;
-FrameRate_Maximum;
 FrameRate_Original;
 General;Xeral
 Genre;Xenero
@@ -574,16 +574,16 @@ Image_Codec_List;Codecs de imaxe
 ImageCount;Nº de pistas de imaxe
 Info;
 Instruments;Instrumentos
-Interlacement;Entrelazado
-Interlaced_Interlaced;Entrelazado
-Interlaced_TFF;
 Interlaced_BFF;
+Interlaced_Interlaced;Entrelazado
 Interlaced_PPF;
 Interlaced_Progressive;Entrelazado progresivo
-Interleaved;
+Interlaced_TFF;
+Interlacement;Entrelazado
 Interleave_Duration;
 Interleave_Preload;
 Interleave_VideoFrames;
+Interleaved;
 InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
@@ -594,7 +594,6 @@ Known formats;Formatos coñecidos
 Known parameters;Parámetros coñecidos
 Label;Etiqueta
 Language;Linguaxe
-Language_More;
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -705,6 +704,7 @@ Language_mk;Macedonian
 Language_ml;Malayalam
 Language_mn;Mongolian
 Language_mo;Moldavian
+Language_More;
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
@@ -792,21 +792,21 @@ LCCN;LCCN
 Library;Bibliografía
 Lightness;
 List;Lista
-Lyrics;Letra
 Lyricist;Letrista
+Lyrics;Letra
 Mastered_Date;Data de edición
 MasteredBy;Editado por
-matrix_coefficients;
-Matrix_Format;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
+matrix_coefficients;
+Matrix_Format;
 MediaInfo_About;Mostra información detallada\r\nsobre un arquivo multimedia:\r\nMatroska, OGG (incluíndo OGM)\r\nMPEG1 (incluíndo VCD)\r\nMPEG2 (incluíndo DVD e SVCD)\r\nMPEG4 (incluíndo Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (incluíndo WMV, WMA)\r\nMicrosoft RIFF (incluíndo AVI, WAV)\r\nformatos de son (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menú
 Menu stream(s);
 Menu_Codec_List;
+Menu_Hint;Máis posibilidades
 Menu_No;
 MenuCount;
-Menu_Hint;Máis posibilidades
 MenuID;
 mn;mn
 Mood;Humor
@@ -824,8 +824,8 @@ NetworkName;
 New;Novo
 Newest version;Buscar nova versión (require conexión a Internet)
 NewVersion_Menu;
-NewVersion_Question_Title;
 NewVersion_Question_Content;
+NewVersion_Question_Title;
 No;No
 Not yet;Aínda non dispoñible
 NumColors;
@@ -913,16 +913,17 @@ ReplayGain_Gain;
 ReplayGain_Peak;
 Resolution;Resolución
 s;s
+SamplingCount;
 SamplingRate;Ratio de mostraxe
 Save;Gardar
-ScanType;
-ScanType_Original;
-ScanType_StoreMethod;
 ScanOrder;
 ScanOrder_Original;
 ScanOrder_Stored;
 ScanOrder_StoredDisplayedInverted;
 ScanOrder_StoreMethod;
+ScanType;
+ScanType_Original;
+ScanType_StoreMethod;
 ScreenplayBy;Guión de
 Season;Tempada
 see below;ver abaixo
@@ -945,7 +946,6 @@ Shell InfoTip;Shell InfoTip (no explorer, situa o rato sobre o arquivo para ver 
 Show menu;Mostrar menú
 Show toolbar;Mostrar barra de ferramentas
 Sort;Ordear por
-SamplingCount;
 SoundEngineer;Enxeñeiro de son
 Source;
 Source_Duration;
@@ -992,14 +992,14 @@ Text3;Terceira pista de texto
 TextCount;Nº pistas texto
 ThanksTo;Gracias a
 Thousands separator;Separador de millares
-Title;Título
-Title_More;Título, máis información
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
 TimeZone;
+Title;Título
+Title_More;Título, máis información
 Total;Total
 Track;Nome da pista
 Track_Count;Número de pistas

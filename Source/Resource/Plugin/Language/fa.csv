@@ -37,12 +37,12 @@
  file1;فایل
  file2;فایل ها
  file3;فایل ها
- frame1;فریم
- frame2;فریم ها
- frame3;فریم ها
  fps1; fps
  fps2; fps
  fps3; fps
+ frame1;فریم
+ frame2;فریم ها
+ frame3;فریم ها
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -180,13 +180,13 @@ Basic_Note;برای اطلاعات بیشتر اینجا را کلیک کنید
 BitDepth;
 BitDepth_Stored;
 BitRate;نرخ بيت
+BitRate_Encoded;
 BitRate_Maximum;بیشترین نرخ بيت
 BitRate_Minimum;کمترین نرخ بيت
 BitRate_Mode;حالت نرخ بيت
 BitRate_Mode_CBR;پايدار
 BitRate_Mode_VBR;متغییر
 BitRate_Nominal;نرخ بيت غیرواقعی 
-BitRate_Encoded;
 Bits-(Pixel*Frame);بیتها /(Pixel*Frame)
 BufferSize;
 Cancel;لغو
@@ -214,20 +214,20 @@ Close all before open;قبل از باز کردن ببند
 Codec;کدک
 Codec_Description;شرح کدک
 Codec_Info;جزییات کدک
-Codec_Settings;تنظیمات کدک
-Codec_Settings_PacketBitStream;تنظیمات کدک  Packet bitstream
-Codec_Settings_BVOP;تنظیمات کدک, BVOP
-Codec_Settings_QPel;تنظیمات کدک, QPel
-Codec_Settings_GMC;تنظیمات کدک, GMC
-Codec_Settings_Matrix;تنظیمات کدک, Matrix
-Codec_Settings_Floor;تنظیمات کدک, Floor
-Codec_Settings_CABAC;تنظیمات کدک, CABAC
-Codec_Settings_Firm;تنظیمات کدک, Firm
-Codec_Settings_Endianness;تنظیمات کدک, Endianness
-Codec_Settings_Sign;تنظیمات کدک, Sign
-Codec_Settings_Law;تنظیمات کدک, Law
-Codec_Settings_ITU;تنظیمات کدک, ITU
 Codec_Profile;پروفایل کدک
+Codec_Settings;تنظیمات کدک
+Codec_Settings_BVOP;تنظیمات کدک, BVOP
+Codec_Settings_CABAC;تنظیمات کدک, CABAC
+Codec_Settings_Endianness;تنظیمات کدک, Endianness
+Codec_Settings_Firm;تنظیمات کدک, Firm
+Codec_Settings_Floor;تنظیمات کدک, Floor
+Codec_Settings_GMC;تنظیمات کدک, GMC
+Codec_Settings_ITU;تنظیمات کدک, ITU
+Codec_Settings_Law;تنظیمات کدک, Law
+Codec_Settings_Matrix;تنظیمات کدک, Matrix
+Codec_Settings_PacketBitStream;تنظیمات کدک  Packet bitstream
+Codec_Settings_QPel;تنظیمات کدک, QPel
+Codec_Settings_Sign;تنظیمات کدک, Sign
 Codec_Url;لینک کدک
 CodecID;هویت کدک
 CodecID_Description;شرح کدک
@@ -324,41 +324,41 @@ Format_Description;شرح فرمت
 Format_Info;جزییات فرمت
 Format_Profile;پروفایل فرمت
 Format_Settings;تنظیمات فرمت
-Format_Settings_PacketBitStream;تنظیمات فرمت, Packet bitstream
 Format_Settings_BVOP;تنظیمات فرمت, BVOP
-Format_Settings_QPel;تنظیمات فرمت, QPel
+Format_Settings_CABAC;تنظیمات فرمت, CABAC
+Format_Settings_Emphasis;
+Format_Settings_Endianness;تنظیمات فرمت, Endianness
+Format_Settings_Firm;تنظیمات فرمت, Firm
+Format_Settings_Floor;تنظیمات فرمت, Floor
+Format_Settings_FrameMode;
 Format_Settings_GMC;تنظیمات فرمت, GMC
+Format_Settings_GOP;
+Format_Settings_ITU;تنظیمات فرمت, ITU
+Format_Settings_Law;تنظیمات فرمت, Law
 Format_Settings_Matrix;تنظیمات فرمت, Matrix
 Format_Settings_Matrix_Custom;شخصی
 Format_Settings_Matrix_Default;پيش فرض
-Format_Settings_Floor;تنظیمات فرمت, Floor
-Format_Settings_CABAC;تنظیمات فرمت, CABAC
-Format_Settings_Firm;تنظیمات فرمت, Firm
-Format_Settings_Endianness;تنظیمات فرمت, Endianness
-Format_Settings_RefFrames;تنظیمات فرمت, ReFrames
-Format_Settings_Sign;تنظیمات فرمت, Sign
-Format_Settings_Law;تنظیمات فرمت, Law
-Format_Settings_ITU;تنظیمات فرمت, ITU
-Format_Settings_SBR;تنظیمات فرمت, SBR
+Format_Settings_Mode;
+Format_Settings_ModeExtension;
+Format_Settings_PacketBitStream;تنظیمات فرمت, Packet bitstream
+Format_Settings_PictureStructure;
 Format_Settings_PS;تنظیمات فرمت, PS
 Format_Settings_Pulldown;تنظیمات فرمت, Pulldown
-Format_Settings_Mode;
-Format_Settings_FrameMode;
-Format_Settings_Emphasis;
-Format_Settings_ModeExtension;
-Format_Settings_GOP;
-Format_Settings_PictureStructure;
+Format_Settings_QPel;تنظیمات فرمت, QPel
+Format_Settings_RefFrames;تنظیمات فرمت, ReFrames
+Format_Settings_SBR;تنظیمات فرمت, SBR
+Format_Settings_Sign;تنظیمات فرمت, Sign
 Format_Settings_Wrapping;
-Format_Version;نسخه فرمت
 Format_Url;لینک فرمت
+Format_Version;نسخه فرمت
 FrameCount;تعداد فرمت
 FrameRate;نرخ فرمت
+FrameRate_Maximum;بیشترین نرخ فرمت
+FrameRate_Minimum;کمترین نرخ فرمت
 FrameRate_Mode;حالت نرخ فرمت
 FrameRate_Mode_CFR;پایدار
 FrameRate_Mode_VFR;متغییر
-FrameRate_Minimum;کمترین نرخ فرمت
 FrameRate_Nominal;نرخ فرمت غیر واقعی
-FrameRate_Maximum;بیشترین نرخ فرمت
 FrameRate_Original;نرخ فرمت اصلی
 General;کلی
 Genre;دسته
@@ -574,16 +574,16 @@ Image_Codec_List;کدک تصویر
 ImageCount;تعداد استریم تصویر
 Info;اطلاعات
 Instruments;ساز
-Interlacement;بهم پيچيدگى
-Interlaced_Interlaced;درهم بافته
-Interlaced_TFF;فیلد بالا در اول
 Interlaced_BFF;فیلد پایین در اول
+Interlaced_Interlaced;درهم بافته
 Interlaced_PPF;تصاعدى
 Interlaced_Progressive;تصاعدى
-Interleaved;
+Interlaced_TFF;فیلد بالا در اول
+Interlacement;بهم پيچيدگى
 Interleave_Duration;جاگذارى, مدت
 Interleave_Preload;جاگذارى, مدت بارگذاری
 Interleave_VideoFrames;جاگذارى, مدت
+Interleaved;
 InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
@@ -594,7 +594,6 @@ Known formats;فرمت مشخص
 Known parameters;پارامتر مشخص
 Label;برچسب
 Language;زبان
-Language_More;زبان, اطلاعات بیشتر
 Language_aa;بعد
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -705,6 +704,7 @@ Language_mk;Macedonian
 Language_ml;Malayalam
 Language_mn;Mongolian
 Language_mo;Moldavian
+Language_More;زبان, اطلاعات بیشتر
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
@@ -792,21 +792,21 @@ LCCN;LCCN
 Library;کتابخانه تسهيم کننده
 Lightness;روشنايى
 List;لیست
-Lyrics;متن آهنگ
 Lyricist;لایرسکسیست
+Lyrics;متن آهنگ
 Mastered_Date;تاریخ مستر
 MasteredBy;مستر شده توسط
-matrix_coefficients;
-Matrix_Format;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
+matrix_coefficients;
+Matrix_Format;
 MediaInfo_About;اطلاعات جزیی\r\nدرباره فایل مولتی مدیا:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
 Menu;منو
 Menu stream(s);استریم منو
 Menu_Codec_List;کدک منو
+Menu_Hint;احتمالات بیشتر
 Menu_No;منویی وجود ندارد
 MenuCount;تعداد استریم منو
-Menu_Hint;احتمالات بیشتر
 MenuID;هویت منو
 mn;mn
 Mood;حالت
@@ -824,8 +824,8 @@ NetworkName;نام شبکه
 New;جدید
 Newest version;کنترل برای نسخه جدید نیاز به اینترنت
 NewVersion_Menu;نسخه جدید موجود است
-NewVersion_Question_Title;نسخه جدید انتشار یافت
 NewVersion_Question_Content;نسخه جدید (v%Version%) موجود است, می خواهید آن را دانلود کنید?
+NewVersion_Question_Title;نسخه جدید انتشار یافت
 No;خیر
 Not yet;هنوز خیر
 NumColors;تعداد رنگ ها
@@ -913,16 +913,17 @@ ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replay gain peak
 Resolution;وضوح
 s;s
+SamplingCount;
 SamplingRate;نرخ نمونه
 Save;ذخیره
-ScanType;نوع اسکن
-ScanType_Original;
-ScanType_StoreMethod;
 ScanOrder;دستور اسکن
 ScanOrder_Original;
 ScanOrder_Stored;
 ScanOrder_StoredDisplayedInverted;
 ScanOrder_StoreMethod;
+ScanType;نوع اسکن
+ScanType_Original;
+ScanType_StoreMethod;
 ScreenplayBy;نمايشنامه توسط
 Season;فصل
 see below;پایین را ببینید
@@ -945,7 +946,6 @@ Shell InfoTip;Shell InfoTip (in Explorer, move the mouse over the file, info wil
 Show menu;نمایش منو
 Show toolbar;نمایش نوارابزار
 Sort;طبقه بندى توسط
-SamplingCount;
 SoundEngineer;مهندس صدا
 Source;
 Source_Duration;
@@ -992,14 +992,14 @@ Text3;سومین استریم متن
 TextCount;تعداد استریم متن
 ThanksTo;تشکر از
 Thousands separator;هزاران جداکننده
-Title;عنوان
-Title_More;عنوان, اطلاعات بیشتر
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
 TimeZone;منطقه ساعتى جهانى
+Title;عنوان
+Title_More;عنوان, اطلاعات بیشتر
 Total;کلی
 Track;نام ترک
 Track_Count;تعداد ترک

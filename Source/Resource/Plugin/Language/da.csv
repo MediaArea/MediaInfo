@@ -37,12 +37,12 @@
  file1; fil
  file2; filer
  file3; filer
- frame1; billede
- frame2; billeder
- frame3; billeder
  fps1; fps
  fps2; fps
  fps3; fps
+ frame1; billede
+ frame2; billeder
+ frame3; billeder
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -180,13 +180,13 @@ Basic_Note;Bemærk : for mere information om denne fil, skal du vælge en anden 
 BitDepth;Bitdybde
 BitDepth_Stored;
 BitRate;Bitrate
+BitRate_Encoded;
 BitRate_Maximum;Maksimum bitrate
 BitRate_Minimum;Minimum bitrate
 BitRate_Mode;Bitratemodus
 BitRate_Mode_CBR;Konstant
 BitRate_Mode_VBR;Variabel
 BitRate_Nominal;Nominel bitrate
-BitRate_Encoded;
 Bits-(Pixel*Frame);Bits/(Billedpunkter*Billed)
 BufferSize;Buffer-størrelse
 Cancel;Annuller
@@ -214,20 +214,20 @@ Close all before open;Luk alle før åbning
 Codec;Codec
 Codec_Description;Codec-beskrivelse
 Codec_Info;Codec-detaljer
-Codec_Settings;Codec-indstillinger
-Codec_Settings_PacketBitStream;Codec-indstillinger, Packet bitstrøm
-Codec_Settings_BVOP;Codec-indstillinger, BVOP
-Codec_Settings_QPel;Codec-indstillinger, QPel
-Codec_Settings_GMC;Codec-indstillinger, GMC
-Codec_Settings_Matrix;Codec-indstillinger, Matrix
-Codec_Settings_Floor;Codec-indstillinger, Floor
-Codec_Settings_CABAC;Codec-indstillinger, CABAC
-Codec_Settings_Firm;Codec-indstillinger, Firm
-Codec_Settings_Endianness;Codec-indstillinger, Endianness
-Codec_Settings_Sign;Codec-indstillinger, Sign
-Codec_Settings_Law;Codec-indstillinger, Law
-Codec_Settings_ITU;Codec-indstillinger, ITU
 Codec_Profile;Codec-profil
+Codec_Settings;Codec-indstillinger
+Codec_Settings_BVOP;Codec-indstillinger, BVOP
+Codec_Settings_CABAC;Codec-indstillinger, CABAC
+Codec_Settings_Endianness;Codec-indstillinger, Endianness
+Codec_Settings_Firm;Codec-indstillinger, Firm
+Codec_Settings_Floor;Codec-indstillinger, Floor
+Codec_Settings_GMC;Codec-indstillinger, GMC
+Codec_Settings_ITU;Codec-indstillinger, ITU
+Codec_Settings_Law;Codec-indstillinger, Law
+Codec_Settings_Matrix;Codec-indstillinger, Matrix
+Codec_Settings_PacketBitStream;Codec-indstillinger, Packet bitstrøm
+Codec_Settings_QPel;Codec-indstillinger, QPel
+Codec_Settings_Sign;Codec-indstillinger, Sign
 Codec_Url;Weblink til codec
 CodecID;Codec-ID
 CodecID_Description;Beskrivelse af codec
@@ -324,41 +324,41 @@ Format_Description;Formatbeskrivelse
 Format_Info;Formatdetaljer
 Format_Profile;Formatprofil
 Format_Settings;Formatindstillinger
-Format_Settings_PacketBitStream;Formatindstillinger
 Format_Settings_BVOP;Formatindstillinger, BVOP
-Format_Settings_QPel;Formatindstillinger, Qpel
+Format_Settings_CABAC;Formatindstillinger, CABC
+Format_Settings_Emphasis;
+Format_Settings_Endianness;Formatindstillinger, Endianness
+Format_Settings_Firm;Formatindstillinger, Firm
+Format_Settings_Floor;Formatindstillinger, Floor
+Format_Settings_FrameMode;Billedtilstand
 Format_Settings_GMC;Formatindstillinger, GMC
+Format_Settings_GOP;Formatindstillinger, GOP
+Format_Settings_ITU;Formatindstillinger, ITU
+Format_Settings_Law;Formatindstillinger, Law
 Format_Settings_Matrix;Formatindstillinger, Matrix
 Format_Settings_Matrix_Custom;Tilpas
 Format_Settings_Matrix_Default;Standard
-Format_Settings_Floor;Formatindstillinger, Floor
-Format_Settings_CABAC;Formatindstillinger, CABC
-Format_Settings_Firm;Formatindstillinger, Firm
-Format_Settings_Endianness;Formatindstillinger, Endianness
-Format_Settings_RefFrames;Formatindstillinger, ReFrames
-Format_Settings_Sign;Formatindstillinger, Sign
-Format_Settings_Law;Formatindstillinger, Law
-Format_Settings_ITU;Formatindstillinger, ITU
-Format_Settings_SBR;Formatindstillinger, SBR
+Format_Settings_Mode;Tilstand
+Format_Settings_ModeExtension;
+Format_Settings_PacketBitStream;Formatindstillinger
+Format_Settings_PictureStructure;
 Format_Settings_PS;Formatindstillinger, PS
 Format_Settings_Pulldown;Formatindstillinger, Pulldown
-Format_Settings_Mode;Tilstand
-Format_Settings_FrameMode;Billedtilstand
-Format_Settings_Emphasis;
-Format_Settings_ModeExtension;
-Format_Settings_GOP;Formatindstillinger, GOP
-Format_Settings_PictureStructure;
+Format_Settings_QPel;Formatindstillinger, Qpel
+Format_Settings_RefFrames;Formatindstillinger, ReFrames
+Format_Settings_SBR;Formatindstillinger, SBR
+Format_Settings_Sign;Formatindstillinger, Sign
 Format_Settings_Wrapping;
-Format_Version;Formatversion
 Format_Url;Weblink til format
+Format_Version;Formatversion
 FrameCount;Antal billeder
 FrameRate;Billedfrekvens
+FrameRate_Maximum;Maksimum billedfrekvens
+FrameRate_Minimum;Minimum billedfrekvens
 FrameRate_Mode;Billedratemodus
 FrameRate_Mode_CFR;Konstant
 FrameRate_Mode_VFR;Variabel
-FrameRate_Minimum;Minimum billedfrekvens
 FrameRate_Nominal;Nominel billedfrekvens
-FrameRate_Maximum;Maksimum billedfrekvens
 FrameRate_Original;Original billedrate
 General;Generelt
 Genre;Genre
@@ -574,16 +574,16 @@ Image_Codec_List;Billed-codecs
 ImageCount;Antal billedstrømme
 Info;Info
 Instruments;Instrumenter
-Interlacement;Sammenfletning
-Interlaced_Interlaced;Sammenflettet
-Interlaced_TFF;Topfelt først
 Interlaced_BFF;Bundfelt først
+Interlaced_Interlaced;Sammenflettet
 Interlaced_PPF;Progressiv
 Interlaced_Progressive;Progressiv
-Interleaved;Interleaved
+Interlaced_TFF;Topfelt først
+Interlacement;Sammenfletning
 Interleave_Duration;Interleave, varighed
 Interleave_Preload;Interleave, forudindlæst varighed
 Interleave_VideoFrames;Interleave, varighed
+Interleaved;Interleaved
 InternetMediaType;Internet mediatype
 IRCA;IRCA
 ISBN;ISBN
@@ -594,7 +594,6 @@ Known formats;Kendte formater
 Known parameters;Kendte parametre
 Label;Pladeselskab
 Language;Sprog
-Language_More;Sprog, mere info
 Language_aa;
 Language_ab;
 Language_ae;
@@ -705,6 +704,7 @@ Language_mk;Makedonsk
 Language_ml;
 Language_mn;Mongolsk
 Language_mo;Moldavisk
+Language_More;Sprog, mere info
 Language_mr;
 Language_ms;Malajisk
 Language_mt;Maltesisk
@@ -792,21 +792,21 @@ LCCN;LCCN
 Library;Muxing-bibliotek
 Lightness;Lysstyrke
 List;Liste
-Lyrics;Sangtekster
 Lyricist;Tekstforfatter
+Lyrics;Sangtekster
 Mastered_Date;Masteret den
 MasteredBy;Masteret af
-matrix_coefficients;Matrix-coefficienter
-Matrix_Format;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
+matrix_coefficients;Matrix-coefficienter
+Matrix_Format;
 MediaInfo_About;Leverer meget detaljeret information\r\nom en multimediefil:\r\nMatroska, Ogg (inklusive OGM)\r\nMPEG1 (inklusive VCD)\r\nMPEG2 (inklusive DVD og SVCD)\r\nMPEG4 (inklusive Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (inklusive WMV, WMA)\r\Microsoft RIFF (inklusive AVI, WAV)\r\nRene lydformater (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menu
 Menu stream(s);Menustrømme
 Menu_Codec_List;Menu-codecs
+Menu_Hint;Flere muligheder
 Menu_No;Ingen menu
 MenuCount;Antal menustrømme
-Menu_Hint;Flere muligheder
 MenuID;Menu-ID
 mn;min.
 Mood;Stemning
@@ -824,8 +824,8 @@ NetworkName;Netværksnavn
 New;Ny
 Newest version;Tjek for nyeste version (kræver internetforbindelse)
 NewVersion_Menu;En ny version er tilgængelig
-NewVersion_Question_Title;En ny version er udkommet!
 NewVersion_Question_Content;En ny version (v%Version%) er tilgængelig, vil du downloade den?
+NewVersion_Question_Title;En ny version er udkommet!
 No;Nej
 Not yet;Ikke endnu
 NumColors;Antal farver
@@ -913,16 +913,17 @@ ReplayGain_Gain;Reply gain
 ReplayGain_Peak;Reply gain peak
 Resolution;Opløsning
 s;sek.
+SamplingCount;Antal samplinger
 SamplingRate;Samplingsrate
 Save;Gem
-ScanType;Skantype
-ScanType_Original;
-ScanType_StoreMethod;
 ScanOrder;Skanorden
 ScanOrder_Original;
 ScanOrder_Stored;
 ScanOrder_StoredDisplayedInverted;
 ScanOrder_StoreMethod;
+ScanType;Skantype
+ScanType_Original;
+ScanType_StoreMethod;
 ScreenplayBy;Manuskript af
 Season;Sæson
 see below;se nedenunder
@@ -945,7 +946,6 @@ Shell InfoTip;Shell-infotip (bevæg musen over filen i stifinder og info vises)
 Show menu;Vis menu
 Show toolbar;Vis værktøjslinje
 Sort;Sorteret efter
-SamplingCount;Antal samplinger
 SoundEngineer;Lydtekniker
 Source;
 Source_Duration;
@@ -992,14 +992,14 @@ Text3;Tredie tekststrøm
 TextCount;Antal tekststrømme
 ThanksTo;Tak til
 Thousands separator;Tusindseparator
-Title;Titel
-Title_More;Titel, mere info
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
 TimeZone;Tidszone
+Title;Titel
+Title_More;Titel, mere info
 Total;Totalt
 Track;Spornavn
 Track_Count;Spornummer

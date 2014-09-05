@@ -37,12 +37,12 @@
  file1; ไฟล์
  file2; ไฟล์
  file3; ไฟล์
- frame1;
- frame2;
- frame3;
  fps1; fps
  fps2; fps
  fps3; fps
+ frame1;
+ frame2;
+ frame3;
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -180,13 +180,13 @@ Basic_Note;หมายเหตุ : สำหรับข้อมูลเพ
 BitDepth;
 BitDepth_Stored;
 BitRate;บิตเรต
+BitRate_Encoded;
 BitRate_Maximum;บิตเรตสูงสุด
 BitRate_Minimum;บิตเรตต่ำสุด
 BitRate_Mode;บิตเรตโหมด
 BitRate_Mode_CBR;
 BitRate_Mode_VBR;
 BitRate_Nominal;Nominal bit rate
-BitRate_Encoded;
 Bits-(Pixel*Frame);บิต/(พิกเซล*เฟรม)
 BufferSize;
 Cancel;ยกเลิก
@@ -214,20 +214,20 @@ Close all before open;ปิดทั้งหมดก่อนเปิด
 Codec;Codec
 Codec_Description;รายละเอียด Codec
 Codec_Info;รายละเอียดของ codec
-Codec_Settings;ตั้งค่า Codec
-Codec_Settings_PacketBitStream;ตั้งค่า Codec, Packet bitstream
-Codec_Settings_BVOP;ตั้งค่า Codec, BVOP
-Codec_Settings_QPel;ตั้งค่า Codec, QPel
-Codec_Settings_GMC;ตั้งค่า Codec, GMC
-Codec_Settings_Matrix;ตั้งค่า Codec, Matrix
-Codec_Settings_Floor;ตั้งค่า Codec, Floor
-Codec_Settings_CABAC;ตั้งค่า Codec, CABAC
-Codec_Settings_Firm;ตั้งค่า Codec, Firm
-Codec_Settings_Endianness;ตั้งค่า Codec, Endianness
-Codec_Settings_Sign;ตั้งค่า Codec, Sign
-Codec_Settings_Law;ตั้งค่า Codec, Law
-Codec_Settings_ITU;ตั้งค่า Codec, ITU
 Codec_Profile;Codec โพรไฟล์
+Codec_Settings;ตั้งค่า Codec
+Codec_Settings_BVOP;ตั้งค่า Codec, BVOP
+Codec_Settings_CABAC;ตั้งค่า Codec, CABAC
+Codec_Settings_Endianness;ตั้งค่า Codec, Endianness
+Codec_Settings_Firm;ตั้งค่า Codec, Firm
+Codec_Settings_Floor;ตั้งค่า Codec, Floor
+Codec_Settings_GMC;ตั้งค่า Codec, GMC
+Codec_Settings_ITU;ตั้งค่า Codec, ITU
+Codec_Settings_Law;ตั้งค่า Codec, Law
+Codec_Settings_Matrix;ตั้งค่า Codec, Matrix
+Codec_Settings_PacketBitStream;ตั้งค่า Codec, Packet bitstream
+Codec_Settings_QPel;ตั้งค่า Codec, QPel
+Codec_Settings_Sign;ตั้งค่า Codec, Sign
 Codec_Url;เว็บลิงค์ของ codec
 CodecID;รหัสประจำตัว Codec
 CodecID_Description;
@@ -324,41 +324,41 @@ Format_Description;รายละเอียดของรูปแบบ
 Format_Info;ข้อมูลของรูปแบบ
 Format_Profile;โพรไฟล์รูปแบบ
 Format_Settings;ตั้งค่ารูปแบบ
-Format_Settings_PacketBitStream;ตั้งค่ารูปแบบ, พ็อกเก็ตบิตสตรีม
 Format_Settings_BVOP;ตั้งค่ารูปแบบ, BVOP
-Format_Settings_QPel;ตั้งค่ารูปแบบ, QPel
+Format_Settings_CABAC;ตั้งค่ารูปแบบ, CABAC
+Format_Settings_Emphasis;
+Format_Settings_Endianness;ตั้งค่ารูปแบบ, Endianness
+Format_Settings_Firm;ตั้งค่ารูปแบบ, Firm
+Format_Settings_Floor;ตั้งค่ารูปแบบ, Floor
+Format_Settings_FrameMode;
 Format_Settings_GMC;ตั้งค่ารูปแบบ, GMC
+Format_Settings_GOP;
+Format_Settings_ITU;ตั้งค่ารูปแบบ, ITU
+Format_Settings_Law;ตั้งค่ารูปแบบ, Law
 Format_Settings_Matrix;ตั้งค่ารูปแบบ, Matrix
 Format_Settings_Matrix_Custom;
 Format_Settings_Matrix_Default;
-Format_Settings_Floor;ตั้งค่ารูปแบบ, Floor
-Format_Settings_CABAC;ตั้งค่ารูปแบบ, CABAC
-Format_Settings_Firm;ตั้งค่ารูปแบบ, Firm
-Format_Settings_Endianness;ตั้งค่ารูปแบบ, Endianness
-Format_Settings_RefFrames;ตั้งค่ารูปแบบ, RefFrames
-Format_Settings_Sign;ตั้งค่ารูปแบบ, Sign
-Format_Settings_Law;ตั้งค่ารูปแบบ, Law
-Format_Settings_ITU;ตั้งค่ารูปแบบ, ITU
-Format_Settings_SBR;ตั้งค่ารูปแบบ, SBR
+Format_Settings_Mode;
+Format_Settings_ModeExtension;
+Format_Settings_PacketBitStream;ตั้งค่ารูปแบบ, พ็อกเก็ตบิตสตรีม
+Format_Settings_PictureStructure;
 Format_Settings_PS;ตั้งค่ารูปแบบ, PS
 Format_Settings_Pulldown;ตั้งค่ารูปแบบ, Pulldown
-Format_Settings_Mode;
-Format_Settings_FrameMode;
-Format_Settings_Emphasis;
-Format_Settings_ModeExtension;
-Format_Settings_GOP;
-Format_Settings_PictureStructure;
+Format_Settings_QPel;ตั้งค่ารูปแบบ, QPel
+Format_Settings_RefFrames;ตั้งค่ารูปแบบ, RefFrames
+Format_Settings_SBR;ตั้งค่ารูปแบบ, SBR
+Format_Settings_Sign;ตั้งค่ารูปแบบ, Sign
 Format_Settings_Wrapping;
-Format_Version;เวอร์ชันรูปแบบ
 Format_Url;
+Format_Version;เวอร์ชันรูปแบบ
 FrameCount;
 FrameRate;เฟรมเรต
+FrameRate_Maximum;เฟรมเรตสูงสุด
+FrameRate_Minimum;เฟรมเรตต่ำสุด
 FrameRate_Mode;เฟรมเรตโหมด
 FrameRate_Mode_CFR;
 FrameRate_Mode_VFR;
-FrameRate_Minimum;เฟรมเรตต่ำสุด
 FrameRate_Nominal;เฟรมเรต Nominal
-FrameRate_Maximum;เฟรมเรตสูงสุด
 FrameRate_Original;เฟรมเรตต้นฉบับ
 General;ทั่วไป
 Genre;แนวเพลง
@@ -574,16 +574,16 @@ Image_Codec_List;Codecs รูปภาพ
 ImageCount;จำนวนของสตรีมภาพ
 Info;ข้อมูล
 Instruments;Instruments
-Interlacement;Interlacement
-Interlaced_Interlaced;Interlaced
-Interlaced_TFF;ช่องบนสุดก่อน
 Interlaced_BFF;ช่องล่างก่อน
+Interlaced_Interlaced;Interlaced
 Interlaced_PPF;Progressive
 Interlaced_Progressive;Progressive
-Interleaved;
+Interlaced_TFF;ช่องบนสุดก่อน
+Interlacement;Interlacement
 Interleave_Duration;
 Interleave_Preload;
 Interleave_VideoFrames;
+Interleaved;
 InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
@@ -594,7 +594,6 @@ Known formats;รูปแบบที่รู้จัก
 Known parameters;พารามิเตอร์ที่รู้จัก
 Label;ป้ายชื่อ
 Language;ภาษา
-Language_More;
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -705,6 +704,7 @@ Language_mk;มาซิโดเนีย
 Language_ml;มะละยาลัม
 Language_mn;มองโกเลีย
 Language_mo;มอลเดเวีย
+Language_More;
 Language_mr;มาราฐี
 Language_ms;มาเลย์
 Language_mt;มัลตีส
@@ -792,21 +792,21 @@ LCCN;LCCN
 Library;Muxing library
 Lightness;
 List;รายการ
-Lyrics;
 Lyricist;Lyricist
+Lyrics;
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
-matrix_coefficients;
-Matrix_Format;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
+matrix_coefficients;
+Matrix_Format;
 MediaInfo_About;แสดงข้อมูลอย่างละเอียด\r\nของไฟล์มัลติมีเดีย:\r\nMatroska, OGG (รวมทั้ง OGM)\r\nMPEG1 (รวมทั้ง VCD)\r\nMPEG2 (รวมทั้ง DVD และ SVCD)\r\nMPEG4 (รวมทั้ง Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (รวมทั้ง WMV, WMA)\r\nMicrosoft RIFF (รวมทั้ง AVI, WAV)\r\nรูปแบบเสียงอย่างเดียว (AC3, DTS, AAC, AU, AIFF...)
 Menu;เมนู
 Menu stream(s);สตรีมเมนู
 Menu_Codec_List;codecs เมนู
+Menu_Hint;More possibilities
 Menu_No;ไม่มีเมนู
 MenuCount;จำนวนของสตรีมเมนู
-Menu_Hint;More possibilities
 MenuID;รหัสประจำตัวเมนู
 mn;mn
 Mood;Mood
@@ -824,8 +824,8 @@ NetworkName;
 New;ใหม่
 Newest version;ตรวจสอบเวอร์ชันใหม่ล่าสุด (ต้องการการเชื่อมต่ออินเตอร์เน็ต)
 NewVersion_Menu;
-NewVersion_Question_Title;
 NewVersion_Question_Content;
+NewVersion_Question_Title;
 No;ไม่ใช่
 Not yet;
 NumColors;
@@ -913,16 +913,17 @@ ReplayGain_Gain;
 ReplayGain_Peak;
 Resolution;ความละเอียด
 s;s
+SamplingCount;
 SamplingRate;
 Save;บันทึก
-ScanType;
-ScanType_Original;
-ScanType_StoreMethod;
 ScanOrder;
 ScanOrder_Original;
 ScanOrder_Stored;
 ScanOrder_StoredDisplayedInverted;
 ScanOrder_StoreMethod;
+ScanType;
+ScanType_Original;
+ScanType_StoreMethod;
 ScreenplayBy;Screenplay by
 Season;Season
 see below;ดูด้านล่าง
@@ -945,7 +946,6 @@ Shell InfoTip;ข้อมูลเคล็บลับ Shell (ใน explorer,
 Show menu;แสดงเมนู
 Show toolbar;แสดงแถบเครื่องมือ
 Sort;จัดเรียงโดย
-SamplingCount;
 SoundEngineer;ซาวน์เอนจิเนียร์
 Source;
 Source_Duration;
@@ -992,14 +992,14 @@ Text3;ข้อความสตรีมที่สาม
 TextCount;จำนวนของสตรีมข้อความ
 ThanksTo;ขอขอบคุณ
 Thousands separator;ตัวแบ่งหลักพัน
-Title;ชื่อเรื่อง
-Title_More;ชื่อเรื่อง, ข้อมูลเพิ่มเติม
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
 TimeStamp;
 TimeZone;
+Title;ชื่อเรื่อง
+Title_More;ชื่อเรื่อง, ข้อมูลเพิ่มเติม
 Total;ทั้งหมด
 Track;ชื่อแทร็ค
 Track_Count;Track count
