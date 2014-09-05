@@ -1842,7 +1842,7 @@ bool File_Mpegv::Demux_UnpacketizeContainer_Test()
             Demux_Offset=Buffer_Offset;
             Demux_IntermediateItemFound=false;
         }
-        if (ParserIDs[0]==MediaInfo_Parser_Mxf)
+        if (IsSub && ParserIDs[0]==MediaInfo_Parser_Mxf) //TODO: find a better way to demux, currently implemeted this way because we need I-frame status info from MXF
         {
             Demux_Offset=Buffer_Size;
             Demux_IntermediateItemFound=true;
