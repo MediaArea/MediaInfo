@@ -854,6 +854,44 @@ void File__Analyze::Streams_Finish_InterStreams()
         }
     }
 
+    //FrameRate if General not filled
+    if (Retrieve(Stream_General, 0, General_FrameRate).empty() && Count_Get(Stream_Video))
+    {
+        Ztring FrameRate=Retrieve(Stream_Video, 0, Video_FrameRate);
+        bool IsOk=true;
+        if (FrameRate.empty())
+        {
+            for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)
+                for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
+                {
+                    Ztring FrameRate2=Retrieve((stream_t)StreamKind, StreamPos, Fill_Parameter((stream_t)StreamKind, Generic_FrameRate));
+                    if (!FrameRate2.empty() && FrameRate2!=FrameRate)
+                        IsOk=false;
+                }
+        }
+        if (IsOk)
+            Fill(Stream_General, 0, General_FrameRate, FrameRate);
+    }
+
+    //FrameCount if General not filled
+    if (Retrieve(Stream_General, 0, General_FrameCount).empty() && Count_Get(Stream_Video))
+    {
+        Ztring FrameCount=Retrieve(Stream_Video, 0, Video_FrameCount);
+        bool IsOk=true;
+        if (FrameCount.empty())
+        {
+            for (size_t StreamKind=Stream_General+1; StreamKind<Stream_Max; StreamKind++)
+                for (size_t StreamPos=0; StreamPos<Count_Get((stream_t)StreamKind); StreamPos++)
+                {
+                    Ztring FrameCount2=Retrieve((stream_t)StreamKind, StreamPos, Fill_Parameter((stream_t)StreamKind, Generic_FrameCount));
+                    if (!FrameCount2.empty() && FrameCount2!=FrameCount)
+                        IsOk=false;
+                }
+        }
+        if (IsOk)
+            Fill(Stream_General, 0, General_FrameCount, FrameCount);
+    }
+
     //Tags
     Tags();
 }

@@ -1887,6 +1887,115 @@ void File__Analyze::Duration_Duration123(stream_t StreamKind, size_t StreamPos, 
         Fill(StreamKind, StreamPos, Parameter+2, DurationString1); // /String1
         Fill(StreamKind, StreamPos, Parameter+3, DurationString2); // /String2
         Fill(StreamKind, StreamPos, Parameter+4, DurationString3); // /String3
+
+        if (Parameter==Fill_Parameter(StreamKind, Generic_Duration))
+        {
+            Ztring DurationString4;
+            Ztring FrameRateS=Retrieve(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_FrameRate));
+            Ztring FrameCountS=Retrieve(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_FrameCount));
+            if (!FrameRateS.empty() && !FrameCountS.empty() && FrameRateS.To_int64u() && FrameRateS.To_int64u()<256)
+            {
+                bool DropFrame=false;
+                bool DropFrame_IsValid=false;
+            
+                // Testing time code
+                if (StreamKind==Stream_Video)
+                {
+                    Ztring TC=Retrieve(Stream_Video, StreamPos, Video_TimeCode_FirstFrame);
+                    if (TC.size()>=11 && TC[2]==__T(':') && TC[5]==__T(':'))
+                    {
+                        switch (TC[8])
+                        {
+                            case __T(':'): 
+                                            DropFrame=false;
+                                            DropFrame_IsValid=true;
+                                            break;
+                            case __T(';'): 
+                                            DropFrame=true;
+                                            DropFrame_IsValid=true;
+                                            break;
+                            default      :  ;
+                        }
+                    }
+                }
+
+                // Testing delay
+                if (!DropFrame_IsValid)
+                {
+                    Ztring TC=Retrieve(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Delay_Original_DropFrame));
+                    if (TC.size()>=11 && TC[2]==__T(':') && TC[5]==__T(':'))
+                    {
+                        switch (TC[8])
+                        {
+                            case __T(':'): 
+                                            DropFrame=false;
+                                            DropFrame_IsValid=true;
+                                            break;
+                            case __T(';'): 
+                                            DropFrame=true;
+                                            DropFrame_IsValid=true;
+                                            break;
+                            default      :  ;
+                        }
+                    }
+                }
+
+                // Testing time code track
+                if (!DropFrame_IsValid)
+                {
+                    for (size_t TC_Pos=0; TC_Pos<Count_Get(Stream_Other); ++TC_Pos)
+                        if (Retrieve(Stream_Other, StreamPos, Other_Type)==__T("Time code"))
+                        {
+                            Ztring TC=Retrieve(Stream_Other, StreamPos, Other_TimeCode_FirstFrame);
+                            if (TC.size()>=11 && TC[2]==__T(':') && TC[5]==__T(':'))
+                            {
+                                switch (TC[8])
+                                {
+                                    case __T(':'): 
+                                                    DropFrame=false;
+                                                    DropFrame_IsValid=true;
+                                                    break;
+                                    case __T(';'): 
+                                                    DropFrame=true;
+                                                    DropFrame_IsValid=true;
+                                                    break;
+                                    default      :  ;
+                                }
+                            }
+
+                            if (DropFrame_IsValid)
+                                break; //Using first time code track
+                        }
+                }
+
+                // Testing frame rate (1/1001)
+                if (!DropFrame_IsValid)
+                {
+                    float32 FrameRateF=FrameRateS.To_float32();
+                    int32s  FrameRateI=float32_int32s(FrameRateS.To_float32());
+                    float FrameRateF_Min=((float32)FrameRateI)/((float32)1.002);
+                    float FrameRateF_Max=(float32)FrameRateI;
+                    if (FrameRateF>=FrameRateF_Min && FrameRateF<FrameRateF_Max)
+                        DropFrame=true;
+                    else
+                        DropFrame=false;
+                }
+
+                TimeCode TC(FrameCountS.To_int64s(), (int8u)float32_int32s(FrameRateS.To_float32()), DropFrame);
+                DurationString4.From_UTF8(TC.ToString());
+
+                Fill(StreamKind, StreamPos, Parameter+5, DurationString4); // /String4
+            }
+            Ztring DurationString5(DurationString3);
+            if (!DurationString4.empty())
+            {
+                DurationString5+=__T(' ');
+                DurationString5+=__T('(');
+                DurationString5+=DurationString4;
+                DurationString5+=__T(')');
+            }
+            Fill(StreamKind, StreamPos, Parameter+6, DurationString5); // /String5
+        }
     }
 }
 
