@@ -800,6 +800,114 @@ protected :
     typedef std::map<int128u, dmscheme1> dmscheme1s; //Key is InstanceUID of the DMScheme1
     dmscheme1s DMScheme1s;
 
+    //Descriptive Metadata - AS11
+    struct as11
+    {
+        Ztring SerieTitle;
+        Ztring ProgrammeTitle;
+        Ztring EpisodeTitleNumber;
+        Ztring ShimName;
+        int8u  AudioTrackLayout;
+        Ztring PrimaryAudioLanguage;
+        int8u  ClosedCaptionsPresent;
+        int8u  ClosedCaptionsType;
+        Ztring ClosedCaptionsLanguage;
+        int16u PartNumber;
+        int16u PartTotal;
+        Ztring ProductionNumber;
+        Ztring Synopsis;
+        Ztring Originator;
+        Ztring CopyrightYear;
+        Ztring OtherIdentifier;
+        Ztring OtherIdentifierType;
+        Ztring Genre;
+        Ztring Distributor;
+        int32u PictureRatio_N;
+        int32u PictureRatio_D;
+        int8u  ThreeD;
+        int8u  ThreeDType;
+        int8u  ProductPlacement;
+        int8u  FpaPass;
+        Ztring FpaManufacturer;
+        Ztring FpaVersion;
+        Ztring VideoComments;
+        Ztring SecondaryAudioLanguage;
+        Ztring TertiaryAudioLanguage;
+        int8u  AudioLoudnessStandard;
+        Ztring AudioComments;
+        int64u LineUpStart;
+        int64u IdentClockStart;
+        int16u TotalNumberOfParts;
+        int64u TotalProgrammeDuration;
+        int8u  AudioDescriptionPresent;
+        int8u  AudioDescriptionType;
+        int8u  OpenCaptionsPresent;
+        int8u  OpenCaptionsType;
+        Ztring OpenCaptionsLanguage;
+        int8u  SigningPresent;
+        int8u  SignLanguage;
+        int64u CompletionDate;
+        int8u  TextlessElementsExist;
+        int8u  ProgrammeHasText;
+        Ztring ProgrammeTextLanguage;
+        Ztring ContactEmail;
+        Ztring ContactTelephoneNumber;
+
+        as11()
+        {
+            AudioTrackLayout=(int8u)-1;
+            ClosedCaptionsPresent=(int8u)-1;
+            ClosedCaptionsType=(int8u)-1;
+            PartNumber=(int16u)-1;
+            PartTotal=(int16u)-1;
+            PictureRatio_N=(int32u)-1;
+            PictureRatio_D=(int32u)-1;
+            ThreeD=(int8u)-1;
+            ThreeDType=(int8u)-1;
+            ProductPlacement=(int8u)-1;
+            AudioLoudnessStandard=(int8u)-1;
+            LineUpStart=(int64u)-1;
+            IdentClockStart=(int64u)-1;
+            TotalNumberOfParts=(int16u)-1;
+            TotalProgrammeDuration=(int64u)-1;
+            AudioDescriptionPresent=(int8u)-1;
+            AudioDescriptionType=(int8u)-1;
+            OpenCaptionsPresent=(int8u)-1;
+            OpenCaptionsType=(int8u)-1;
+            SigningPresent=(int8u)-1;
+            SignLanguage=(int8u)-1;
+            CompletionDate=(int64u)-1;
+            TextlessElementsExist=(int8u)-1;
+            ProgrammeHasText=(int8u)-1;
+        }
+
+        ~as11()
+        {
+            /*
+            //Core
+            Fill(Stream_Other, StreamPos_Last, "SerieTitle", AS11->second.SerieTitle);
+            Fill(Stream_Other, StreamPos_Last, "ProgrammeTitle", AS11->second.ProgrammeTitle);
+            Fill(Stream_Other, StreamPos_Last, "EpisodeTitleNumber", AS11->second.EpisodeTitleNumber);
+            Fill(Stream_Other, StreamPos_Last, "ShimName", AS11->second.ShimName);
+            Fill(Stream_Other, StreamPos_Last, "AudioTrackLayout", AS11->second.AudioTrackLayout);
+            Fill(Stream_Other, StreamPos_Last, "PrimaryAudioLanguage", AS11->second.PrimaryAudioLanguage);
+            if (AS11->second.ClosedCaptionsPresent<2)
+                Fill(Stream_Other, StreamPos_Last, "ClosedCaptionsPresent", AS11->second.ClosedCaptionsPresent?"Yes":"No");
+            if (Value<Mxf_AS11_ClosedCaptionType_Count)
+                Fill(Stream_Other, StreamPos_Last, "ClosedCaptionType", Mxf_AS11_ClosedCaptionType[AS11->second.ClosedCaptionType]);
+            Fill(Stream_Other, StreamPos_Last, "ClosedCaptionsLanguage", AS11->second.ClosedCaptionsLanguage);
+            Fill(Stream_Other, StreamPos_Last, "PartNumber", AS11->second.PartNumber);
+            Fill(Stream_Other, StreamPos_Last, "", AS11->second.);
+            Fill(Stream_Other, StreamPos_Last, "", AS11->second.);
+            Fill(Stream_Other, StreamPos_Last, "", AS11->second.);
+            Fill(Stream_Other, StreamPos_Last, "", AS11->second.);
+            */
+
+        }
+    };
+    typedef std::map<int128u, as11> as11s; //Key is InstanceUID of the DMScheme1
+    as11s AS11s;
+
     //Parsers
     void           ChooseParser__FromEssence(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
     void           ChooseParser__Aaf(const essences::iterator &Essence, const descriptors::iterator &Descriptor);

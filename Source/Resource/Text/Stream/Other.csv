@@ -36,6 +36,8 @@ Duration/String;;;Y NT;;;Play time in format : XXx YYy only, YYy omited if zero
 Duration/String1;;;N NT;;;Play time in format : HHh MMmn SSs MMMms, XX omited if zero
 Duration/String2;;;N NT;;;Play time in format : XXx YYy only, YYy omited if zero
 Duration/String3;;;N NT;;;Play time in format : HH:MM:SS.MMM
+Duration/String4;;;N NT;;;Play time in format : HH:MM:SS:FF, last colon replaced by semicolon for drop frame if available
+Duration/String5;;;N NT;;;Play time in format : HH:MM:SS.mmm (HH:MM:SS:FF)
 Duration_Start;;;Y YT;;;
 Duration_End;;;Y YT;;;
 FrameRate;; fps;N YF;;;Frames per second
@@ -46,7 +48,9 @@ TimeStamp_FirstFrame/String;;;Y NT;;;TimeStamp with measurement;
 TimeStamp_FirstFrame/String1;;;N NT;;;TimeStamp with measurement;
 TimeStamp_FirstFrame/String2;;;N NT;;;TimeStamp with measurement;
 TimeStamp_FirstFrame/String3;;;N NT;;;TimeStamp in format : HH:MM:SS.MMM;
-TimeCode_FirstFrame;;;Y YC;;;Time code in HH:MM:SS:FF (HH:MM:SS;FF for drop frame, if available) format
+TimeStamp_FirstFrame/String4;;;N NT;;;TimeStamp in format : HH:MM:SS:FF, last colon replaced by semicolon for drop frame if available
+TimeStamp_FirstFrame/String5;;;N NT;;;TimeStamp in format : HH:MM:SS.mmm (HH:MM:SS:FF)
+TimeCode_FirstFrame;;;Y YC;;;Time code in HH:MM:SS:FF, last colon replaced by semicolon for drop frame if available format
 TimeCode_Settings;;;Y YT;;;Time code settings
 Title;;;Y YI;;;Name of this menu
 Language;;;N YT;;;Language (2-letter ISO 639-1 if exists, else 3-letter ISO 639-2, and with optional ISO 3166-1 country separated by a dash if available, e.g. en, en-us, zh-cn)

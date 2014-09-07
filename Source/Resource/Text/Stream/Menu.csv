@@ -38,6 +38,8 @@ Duration/String;;;Y NT;;;Play time in format : XXx YYy only, YYy omited if zero
 Duration/String1;;;N NT;;;Play time in format : HHh MMmn SSs MMMms, XX omited if zero
 Duration/String2;;;N NT;;;Play time in format : XXx YYy only, YYy omited if zero
 Duration/String3;;;N NT;;;Play time in format : HH:MM:SS.MMM
+Duration/String4;;;N NT;;;Play time in format : HH:MM:SS:FF, last colon replaced by semicolon for drop frame if available
+Duration/String5;;;N NT;;;Play time in format : HH:MM:SS.mmm (HH:MM:SS:FF)
 Duration_Start;;;Y YT;;;
 Duration_End;;;Y YT;;;
 Delay;; ms;N NI;;;Delay fixed in the stream (relative) IN MS;
@@ -45,7 +47,8 @@ Delay/String;;;N NT;;;Delay with measurement;
 Delay/String1;;;N NT;;;Delay with measurement;
 Delay/String2;;;N NT;;;Delay with measurement;
 Delay/String3;;;N NT;;;Delay in format : HH:MM:SS.MMM;
-Delay/String4;;;N NT;;;Delay in format : HH:MM:SS:FF (HH:MM:SS;FF for drop frame, if available)
+Delay/String4;;;N NT;;;Delay in format : HH:MM:SS:FF, last colon replaced by semicolon for drop frame if available
+Delay/String5;;;N NT;;;Delay in format : HH:MM:SS.mmm (HH:MM:SS:FF)
 Delay_Settings;;;N NT;;;Delay settings (in case of timecode for example);
 Delay_DropFrame;;;N NT;;;Delay drop frame;
 Delay_Source;;;N NT;;;Delay source (Container or Stream or empty);

@@ -23,11 +23,15 @@ Duration/String
 Duration/String1
 Duration/String2
 Duration/String3
+Duration/String4
+Duration/String5
 Source_Duration
 Source_Duration/String
 Source_Duration/String1
 Source_Duration/String2
 Source_Duration/String3
+Source_Duration/String4
+Source_Duration/String5
 BitRate_Mode
 BitRate_Mode/String
 BitRate
@@ -40,6 +44,8 @@ BitRate_Maximum
 BitRate_Maximum/String
 BitRate_Encoded
 BitRate_Encoded/String
+FrameRate;
+FrameRate/String
 FrameCount
 Source_FrameCount
 ColorSpace
@@ -57,6 +63,7 @@ Delay/String1
 Delay/String2
 Delay/String3
 Delay/String4
+Delay/String5
 Delay_Settings
 Delay_DropFrame
 Delay_Source
@@ -67,6 +74,7 @@ Delay_Original/String1
 Delay_Original/String2
 Delay_Original/String3
 Delay_Original/String4
+Delay_Original/String5
 Delay_Original_Settings
 Delay_Original_DropFrame
 Delay_Original_Source
@@ -76,6 +84,7 @@ Video_Delay/String1
 Video_Delay/String2
 Video_Delay/String3
 Video_Delay/String4
+Video_Delay/String5
 StreamSize
 StreamSize/String
 StreamSize/String1

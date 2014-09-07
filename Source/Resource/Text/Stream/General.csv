@@ -90,6 +90,8 @@ Duration/String;;;Y NT;;;Play time in format : XXx YYy only, YYy omited if zero
 Duration/String1;;;N NT;;;Play time in format : HHh MMmn SSs MMMms, XX omited if zero
 Duration/String2;;;N NT;;;Play time in format : XXx YYy only, YYy omited if zero
 Duration/String3;;;N NT;;;Play time in format : HH:MM:SS.MMM
+Duration/String4;;;N NT;;;Play time in format : HH:MM:SS:FF, last colon replaced by semicolon for drop frame if available
+Duration/String5;;;N NT;;;Play time in format : HH:MM:SS.mmm (HH:MM:SS:FF)
 Duration_Start;;;Y YT;;;
 Duration_End;;;Y YT;;;
 OverallBitRate_Mode;;;N YT;;;Bit rate mode of all streams (VBR, CBR)
@@ -102,11 +104,20 @@ OverallBitRate_Nominal;; bps;N YF;;;Nominal Bit rate in bps
 OverallBitRate_Nominal/String;;;Y NT;;;Nominal Bit rate (with measurement)
 OverallBitRate_Maximum;; bps;N YF;;;Maximum Bit rate in bps
 OverallBitRate_Maximum/String;;;Y NT;;;Maximum Bit rate (with measurement)
+FrameRate;; fps;N YF;;;Frames per second
+FrameRate/String;;;N NT;;;Frames per second (with measurement)
+FrameCount;;;N NI;;;Frame count (a frame contains a count of samples depends of the format);;
 Delay;; ms;N YI;;;Delay fixed in the stream (relative) IN MS
 Delay/String;;;N NT;;;Delay with measurement
 Delay/String1;;;N NT;;;Delay with measurement
 Delay/String2;;;N NT;;;Delay with measurement
 Delay/String3;;;N NT;;;format : HH:MM:SS.MMM
+Delay/String4;;;N NT;;;Delay in format : HH:MM:SS:FF, last colon replaced by semicolon for drop frame if available
+Delay/String5;;;N NT;;;Delay in format : HH:MM:SS.mmm (HH:MM:SS:FF)
+Delay_Settings;;;N NT;;;Delay settings (in case of timecode for example);
+Delay_DropFrame;;;N NT;;;Delay drop frame;
+Delay_Source;;;N NT;;;Delay source (Container or Stream or empty);
+Delay_Source/String;;;N NT;;;Delay source (Container or Stream or empty);
 StreamSize;; byte;N YI;;;Stream size in bytes
 StreamSize/String;;;N NT;;;
 StreamSize/String1;;;N NT;;;
@@ -166,8 +177,8 @@ Original/Album;;;Y YT;;;Original name of album, serie...;;Title
 Original/Movie;;;Y YT;;;Original name of the movie;;Title
 Original/Part;;;Y YT;;;Original name of the part in the original support;;Title
 Original/Track;;;Y YT;;;Original name of the track in the original support;;Title
-Compilation;;;Y YT;;;iTunes compilation;;Title
-Compilation/String;;Yes;Y YT;;;iTunes compilation;;Title
+Compilation;;Yes;Y YT;;;iTunes compilation;;Title
+Compilation/String;;;Y YT;;;iTunes compilation;;Title
 Performer;;;Y YT;;;Main performer/artist of this file;;Entity
 Performer/Sort;;;Y YT;;;;;Entity
 Performer/Url;;;Y YT;;;Homepage of the performer/artist;;Entity

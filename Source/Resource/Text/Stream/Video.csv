@@ -75,32 +75,43 @@ Duration/String;;;Y NT;;;Play time in format : XXx YYy only, YYy omited if zero;
 Duration/String1;;;N NT;;;Play time in format : HHh MMmn SSs MMMms, XX omited if zero;
 Duration/String2;;;N NT;;;Play time in format : XXx YYy only, YYy omited if zero;
 Duration/String3;;;N NT;;;Play time in format : HH:MM:SS.MMM;
-Duration/String4;;;N NT;;;Play time in format : HH:MM:SS:FF (HH:MM:SS;FF for drop frame, if available)
+Duration/String4;;;N NT;;;Play time in format : HH:MM:SS:FF, last colon replaced by semicolon for drop frame if available
+Duration/String5;;;N NT;;;Play time in format : HH:MM:SS.mmm (HH:MM:SS:FF)
 Duration_FirstFrame;; ms;N YI;;;Duration of the first frame if it is longer than others, in ms;
 Duration_FirstFrame/String;;;Y NT;;;Duration of the first frame if it is longer than others, in format : XXx YYy only, YYy omited if zero;
 Duration_FirstFrame/String1;;;N NT;;;Duration of the first frame if it is longer than others, in format : HHh MMmn SSs MMMms, XX omited if zero;
 Duration_FirstFrame/String2;;;N NT;;;Duration of the first frame if it is longer than others, in format : XXx YYy only, YYy omited if zero;
 Duration_FirstFrame/String3;;;N NT;;;Duration of the first frame if it is longer than others, in format : HH:MM:SS.MMM;
+Duration_FirstFrame/String4;;;N NT;;;Play time in format : HH:MM:SS:FF, last colon replaced by semicolon for drop frame if available
+Duration_FirstFrame/String5;;;N NT;;;Play time in format : HH:MM:SS.mmm (HH:MM:SS:FF)
 Duration_LastFrame;; ms;N YI;;;Duration of the last frame if it is longer than others, in ms;
 Duration_LastFrame/String;;;Y NT;;;Duration of the last frame if it is longer than others, in format : XXx YYy only, YYy omited if zero;
 Duration_LastFrame/String1;;;N NT;;;Duration of the last frame if it is longer than others, in format : HHh MMmn SSs MMMms, XX omited if zero;
 Duration_LastFrame/String2;;;N NT;;;Duration of the last frame if it is longer than others, in format : XXx YYy only, YYy omited if zero;
 Duration_LastFrame/String3;;;N NT;;;Duration of the last frame if it is longer than others, in format : HH:MM:SS.MMM;
+Duration_LastFrame/String4;;;N NT;;;Play time in format : HH:MM:SS:FF, last colon replaced by semicolon for drop frame if available
+Duration_LastFrame/String5;;;N NT;;;Play time in format : HH:MM:SS.mmm (HH:MM:SS:FF)
 Source_Duration;; ms;N YI;;;Source Play time of the stream, in ms;;
 Source_Duration/String;;;Y NT;;;Source Play time in format : XXx YYy only, YYy omited if zero;;
 Source_Duration/String1;;;N NT;;;Source Play time in format : HHh MMmn SSs MMMms, XX omited if zero;;
 Source_Duration/String2;;;N NT;;;Source Play time in format : XXx YYy only, YYy omited if zero;;
 Source_Duration/String3;;;N NT;;;Source Play time in format : HH:MM:SS.MMM;;
+Source_Duration/String4;;;N NT;;;Play time in format : HH:MM:SS:FF, last colon replaced by semicolon for drop frame if available
+Source_Duration/String5;;;N NT;;;Play time in format : HH:MM:SS.mmm (HH:MM:SS:FF)
 Source_Duration_FirstFrame;; ms;N YI;;;Source Duration of the first frame if it is longer than others, in ms;
 Source_Duration_FirstFrame/String;;;Y NT;;;Source Duration of the first frame if it is longer than others, in format : XXx YYy only, YYy omited if zero;
 Source_Duration_FirstFrame/String1;;;N NT;;;Source Duration of the first frame if it is longer than others, in format : HHh MMmn SSs MMMms, XX omited if zero;
 Source_Duration_FirstFrame/String2;;;N NT;;;Source Duration of the first frame if it is longer than others, in format : XXx YYy only, YYy omited if zero;
 Source_Duration_FirstFrame/String3;;;N NT;;;Source Duration of the first frame if it is longer than others, in format : HH:MM:SS.MMM;
+Source_Duration_FirstFrame/String4;;;N NT;;;Play time in format : HH:MM:SS:FF, last colon replaced by semicolon for drop frame if available
+Source_Duration_FirstFrame/String5;;;N NT;;;Play time in format : HH:MM:SS.mmm (HH:MM:SS:FF)
 Source_Duration_LastFrame;; ms;N YI;;;Source Duration of the last frame if it is longer than others, in ms;
 Source_Duration_LastFrame/String;;;Y NT;;;Source Duration of the last frame if it is longer than others, in format : XXx YYy only, YYy omited if zero;
 Source_Duration_LastFrame/String1;;;N NT;;;Source Duration of the last frame if it is longer than others, in format : HHh MMmn SSs MMMms, XX omited if zero;
 Source_Duration_LastFrame/String2;;;N NT;;;Source Duration of the last frame if it is longer than others, in format : XXx YYy only, YYy omited if zero;
 Source_Duration_LastFrame/String3;;;N NT;;;Source Duration of the last frame if it is longer than others, in format : HH:MM:SS.MMM;
+Source_Duration_LastFrame/String4;;;N NT;;;Play time in format : HH:MM:SS:FF, last colon replaced by semicolon for drop frame if available
+Source_Duration_LastFrame/String5;;;N NT;;;Play time in format : HH:MM:SS.mmm (HH:MM:SS:FF)
 BitRate_Mode;;;N YT;;;Bit rate mode (VBR, CBR);
 BitRate_Mode/String;;;Y NT;;;Bit rate mode (Variable, Cconstant);
 BitRate;; bps;N YF;;;Bit rate in bps;
@@ -187,7 +198,8 @@ Delay/String;;;N NT;;;Delay with measurement;
 Delay/String1;;;N NT;;;Delay with measurement;
 Delay/String2;;;N NT;;;Delay with measurement;
 Delay/String3;;;N NT;;;Delay in format : HH:MM:SS.MMM;
-Delay/String4;;;N NT;;;Delay in format : HH:MM:SS:FF (HH:MM:SS;FF for drop frame, if available)
+Delay/String4;;;N NT;;;Delay in format : HH:MM:SS:FF, last colon replaced by semicolon for drop frame if available
+Delay/String5;;;N NT;;;Delay in format : HH:MM:SS.mmm (HH:MM:SS:FF)
 Delay_Settings;;;N NT;;;Delay settings (in case of timecode for example);
 Delay_DropFrame;;;N NT;;;Delay drop frame;
 Delay_Source;;;N NT;;;Delay source (Container or Stream or empty);
@@ -197,7 +209,8 @@ Delay_Original/String;;;N NT;;;Delay with measurement;
 Delay_Original/String1;;;N NT;;;Delay with measurement;
 Delay_Original/String2;;;N NT;;;Delay with measurement;
 Delay_Original/String3;;;N NT;;;Delay in format: HH:MM:SS.MMM;;
-Delay_Original/String4;;;N NT;;;Delay in format: HH:MM:SS:FF (HH:MM:SS;FF for drop frame, if available);
+Delay_Original/String4;;;N NT;;;Delay in format: HH:MM:SS:FF, last colon replaced by semicolon for drop frame if available;
+Delay_Original/String5;;;N NT;;;Delay in format : HH:MM:SS.mmm (HH:MM:SS:FF)
 Delay_Original_Settings;;;N NT;;;Delay settings (in case of timecode for example);;
 Delay_Original_DropFrame;;;N NT;;;Delay drop frame info;
 Delay_Original_Source;;;N NT;;;Delay source (Stream or empty);
@@ -206,7 +219,9 @@ TimeStamp_FirstFrame/String;;;Y NT;;;TimeStamp with measurement;
 TimeStamp_FirstFrame/String1;;;N NT;;;TimeStamp with measurement;
 TimeStamp_FirstFrame/String2;;;N NT;;;TimeStamp with measurement;
 TimeStamp_FirstFrame/String3;;;N NT;;;TimeStamp in format : HH:MM:SS.MMM;
-TimeCode_FirstFrame;;;Y YC;;;Time code in HH:MM:SS:FF (HH:MM:SS;FF for drop frame, if available) format
+TimeStamp_FirstFrame/String4;;;N NT;;;TimeStamp in format: HH:MM:SS:FF, last colon replaced by semicolon for drop frame if available;
+TimeStamp_FirstFrame/String5;;;N NT;;;TimeStamp in format : HH:MM:SS.mmm (HH:MM:SS:FF)
+TimeCode_FirstFrame;;;Y YC;;;Time code in HH:MM:SS:FF, last colon replaced by semicolon for drop frame if available format
 TimeCode_Settings;;;Y YT;;;Time code settings
 TimeCode_Source;;;Y YT;;;Time code source (Container, Stream, SystemScheme1, SDTI, ANC...)
 StreamSize;; byte;N YI;;;Streamsize in bytes;;
