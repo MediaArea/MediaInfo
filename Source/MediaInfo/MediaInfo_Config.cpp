@@ -1717,6 +1717,22 @@ const Ztring MediaInfo_Config::Iso639_Find (const Ztring &Value)
 }
 
 //---------------------------------------------------------------------------
+const Ztring MediaInfo_Config::Iso639_Translate (const Ztring Value)
+{
+    Ztring Code(Value);
+    if (Code.size()==3 && !MediaInfoLib::Config.Iso639_1_Get(Code).empty())
+        Code=MediaInfoLib::Config.Iso639_1_Get(Code);
+    if (Code.size()>3 && !MediaInfoLib::Config.Iso639_Find(Code).empty())
+        Code=MediaInfoLib::Config.Iso639_Find(Code);
+    if (Code.size()>3)
+        return Value;
+    Ztring Language_Translated=MediaInfoLib::Config.Language_Get(__T("Language_")+Code);
+    if (Language_Translated.find(__T("Language_"))==0)
+        return Value; //No translation found
+    return Language_Translated;
+}
+
+//---------------------------------------------------------------------------
 const Ztring &MediaInfo_Config::Info_Get (stream_t KindOfStream, const Ztring &Value, info_t KindOfInfo)
 {
     //Loading codec table if not yet done
