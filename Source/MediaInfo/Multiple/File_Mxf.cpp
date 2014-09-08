@@ -9711,7 +9711,8 @@ void File_Mxf::AS11_Core_ShimName()
 void File_Mxf::AS11_Core_AudioTrackLayout()
 {
     //Parsing
-    Info_B1(Value,                                              "Value"); Element_Info1C(Value<Mxf_AS11_AudioTrackLayout_Count, Mxf_AS11_AudioTrackLayout[Value]);
+    int8u Value;
+    Get_B1 (Value,                                               "Value"); Element_Info1C(Value<Mxf_AS11_AudioTrackLayout_Count, Mxf_AS11_AudioTrackLayout[Value]);
 
     FILLING_BEGIN();
         AS11s[InstanceUID].AudioTrackLayout=Value;
@@ -9921,8 +9922,9 @@ void File_Mxf::AS11_UKDPP_Distributor()
 void File_Mxf::AS11_UKDPP_PictureRatio()
 {
     //Parsing
-    Info_B4(Numerator,                                          "Numerator");
-    Info_B4(Denominator,                                        "Denominator");
+    int32u Numerator, Denominator;
+    Get_B4 (Numerator,                                          "Numerator");
+    Get_B4 (Denominator,                                        "Denominator");
     Element_Info1(Ztring::ToZtring(Numerator)+__T(':')+Ztring::ToZtring(Denominator));
 
     FILLING_BEGIN();
