@@ -1541,6 +1541,124 @@ const char* Mxf_AS11_AudioTrackLayout[Mxf_AS11_AudioTrackLayout_Count]=
     "EBU R 123: 16e",
     "EBU R 123: 16f",
 };
+struct mxf_as11_audiotracklayout_assignment
+{
+    size_t Count;
+    const char* Assign[16];
+};
+const mxf_as11_audiotracklayout_assignment Mxf_AS11_AudioTrackLayout_ChannelPositions[Mxf_AS11_AudioTrackLayout_Count]=
+{
+    {  2, "Front: C", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, }, //48 1a
+    {  4, "Front: C", NULL, "Front: C", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, }, //48 1b
+    {  8, "Front: C", NULL, "Front: C", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, }, //48 1c
+    {  2, "Front: L", "Front: R", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, }, //48 2a
+    {  4, "Front: L", "Front: R", "Front: L", "Front: R", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, }, //48 2b
+    {  8, "Front: L", "Front: R", "Front: L", "Front: R", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, }, //48 2c
+    {  4, "Front: L", "Front: R", "Front: L", "Front: R", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, }, //48 3a
+    {  8, "Front: L", "Front: R", "Front: L", "Front: R", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, }, //48 3b
+    {  2, "EBU R 48: 4a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  4, "EBU R 48: 4b", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 48: 4c", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  4, "EBU R 48: 5a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 48: 5b", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  4, "EBU R 48: 6a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 48: 6b", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  4, "EBU R 48: 7a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 48: 7b", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  2, "EBU R 48: 8a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  4, "EBU R 48: 8b", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 48: 8c", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  4, "EBU R 48: 9a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 48: 9b", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  2, "EBU R 48: 10a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  4, "EBU R 48: 11a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 48: 11b", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 48: 11c", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  2, "EBU R 123: 2a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  4, "EBU R 123: 4a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  4, "EBU R 123: 4b", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  4, "EBU R 123: 4c", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 123: 8a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 123: 8b", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 123: 8c", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 123: 8d", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 123: 8e", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 123: 8f", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 123: 8g", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 123: 8h", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 123: 8i", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    { 12, "EBU R 123: 12a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    { 12, "EBU R 123: 12b", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    { 12, "EBU R 123: 12c", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    { 12, "EBU R 123: 12d", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    { 12, "EBU R 123: 12e", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    { 12, "EBU R 123: 12f", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    { 12, "EBU R 123: 12g", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    { 12, "EBU R 123: 12h", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    { 16, "Front: L", "Front: R", "Front: L", "Front: R", "Front: C", "LFE", "Side: L", "Side: R", "Front: L", "Front: R", "Front: L", "Front: R", "Front: C", "LFE", "Side: L", "Side: R", }, //123 16a
+    { 16, "Front: L", "Front: R", "Front: C", "LFE", "Side: L", "Side: R", "Front: L", "Front: R", "Front: C", "LFE", "Side: L", "Side: R", }, //123 16b
+    { 16, "Front: L", "Front: R", "Front: L", "Front: R", "Front: L", "Front: R", "Front: C", "LFE", "Side: L", "Side: R", "Front: L", "Front: R", "Front: C", "LFE", "Side: L", "Side: R", }, //123 16c
+    { 16, "Front: L", "Front: R", "Front: C", "LFE", "Side: L", "Side: R", "Front: L", "Front: R", "Front: L", "Front: R", "Front: C", "LFE", "Side: L", "Side: R", "Front: L", "Front: R", }, //123 16d
+    { 16, "Front: L", "Front: R", "Front: C", "LFE", "Side: L", "Side: R", "Front: L", "Front: R", "Front: C", "LFE", "Side: L", "Side: R", "Side: L", "Side: R", "Side: L", "Side: R", }, //123 16e
+    { 16, "Front: L", "Front: R", NULL, NULL, "Front: L", "Front: R", NULL, NULL, "Front: L", "Front: R", NULL, NULL, "Front: L", "Front: R", "Front: L", "Front: R", }, //123 16f
+};
+const mxf_as11_audiotracklayout_assignment Mxf_AS11_AudioTrackLayout_ChannelLayout[Mxf_AS11_AudioTrackLayout_Count]=
+{
+    {  2, "C", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, }, //48 1a
+    {  4, "C", NULL, "C", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, }, //48 1b
+    {  8, "C", NULL, "C", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, }, //48 1c
+    {  2, "L", "R", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, }, //48 2a
+    {  4, "L", "R", "L", "R", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, }, //48 2b
+    {  8, "L", "R", "L", "R", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, }, //48 2c
+    {  4, "L", "R", "L", "R", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, }, //48 3a
+    {  8, "L", "R", "L", "R", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, }, //48 3b
+    {  2, "EBU R 48: 4a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  4, "EBU R 48: 4b", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 48: 4c", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  4, "EBU R 48: 5a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 48: 5b", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  4, "EBU R 48: 6a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 48: 6b", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  4, "EBU R 48: 7a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 48: 7b", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  2, "EBU R 48: 8a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  4, "EBU R 48: 8b", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 48: 8c", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  4, "EBU R 48: 9a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 48: 9b", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  2, "EBU R 48: 10a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  4, "EBU R 48: 11a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 48: 11b", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 48: 11c", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  2, "EBU R 123: 2a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  4, "EBU R 123: 4a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  4, "EBU R 123: 4b", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  4, "EBU R 123: 4c", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 123: 8a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 123: 8b", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 123: 8c", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 123: 8d", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 123: 8e", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 123: 8f", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 123: 8g", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 123: 8h", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    {  8, "EBU R 123: 8i", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    { 12, "EBU R 123: 12a", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    { 12, "EBU R 123: 12b", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    { 12, "EBU R 123: 12c", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    { 12, "EBU R 123: 12d", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    { 12, "EBU R 123: 12e", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    { 12, "EBU R 123: 12f", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    { 12, "EBU R 123: 12g", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    { 12, "EBU R 123: 12h", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, },
+    { 16, "L", "R", "C", "LFE", "Ls", "Rs", "L", "R", "L", "R", "C", "LFE", "Ls", "Rs", "L", "R", }, //123 16a
+    { 16, "L", "R", "L", "R", "C", "LFE", "Ls", "Rs", "L", "R", "L", "R", "C", "LFE", "Ls", "Rs", }, //123 16b
+    { 16, "L", "R", "L", "R", "L", "R", "C", "LFE", "Ls", "Rs", "L", "R", "C", "LFE", "Ls", "Rs", }, //123 16c
+    { 16, "L", "R", "C", "LFE", "Ls", "Rs", "L", "R", "L", "R", "C", "LFE", "Ls", "Rs", "L", "R", }, //123 16d
+    { 16, "L", "R", "C", "LFE", "Ls", "Rs", "L", "R", "C", "LFE", "Ls", "Rs", "L", "R", "L", "R", }, //123 16e
+    { 16, "L", "R", NULL, NULL, "L", "R", NULL, NULL, "L", "R", NULL, NULL, "L", "R", "L", "R", }, //123 16f
+};
+
 
 //---------------------------------------------------------------------------
 const size_t Mxf_AS11_FpaPass_Count=3;
@@ -3254,7 +3372,22 @@ void File_Mxf::Streams_Finish_Component_ForAS11(const int128u ComponentUID, floa
                                                     Fill(Stream_Other, StreamPos_Last, "EpisodeTitleNumber", AS11->second.EpisodeTitleNumber);
                                                     Fill(Stream_Other, StreamPos_Last, "ShimName", AS11->second.ShimName);
                                                     if (AS11->second.AudioTrackLayout<Mxf_AS11_AudioTrackLayout_Count)
+                                                    {
                                                         Fill(Stream_Other, StreamPos_Last, "AudioTrackLayout", Mxf_AS11_AudioTrackLayout[AS11->second.AudioTrackLayout]);
+
+                                                        //Per track
+                                                        const mxf_as11_audiotracklayout_assignment &ChP=Mxf_AS11_AudioTrackLayout_ChannelPositions[AS11->second.AudioTrackLayout];
+                                                        const mxf_as11_audiotracklayout_assignment &ChL=Mxf_AS11_AudioTrackLayout_ChannelLayout[AS11->second.AudioTrackLayout];
+                                                        if (Count_Get(Stream_Audio)>=ChP.Count)
+                                                            for (size_t Pos=0; Pos<ChP.Count; ++Pos)
+                                                            {
+                                                                if (ChP.Assign[Pos])
+                                                                    Fill(Stream_Audio, Pos, Audio_ChannelPositions, ChP.Assign[Pos]);
+                                                                if (ChL.Assign[Pos])
+                                                                    Fill(Stream_Audio, Pos, Audio_ChannelLayout, ChL.Assign[Pos]);
+                                                                Fill(Stream_Audio, Pos, Audio_ChannelLayoutID, Mxf_AS11_AudioTrackLayout[AS11->second.AudioTrackLayout]);
+                                                            }
+                                                    }
                                                     Fill(Stream_Other, StreamPos_Last, "PrimaryAudioLanguage", AS11->second.PrimaryAudioLanguage);
                                                     //(*Stream_More)[Stream_Other][StreamPos_Last](Ztring().From_Local("PrimaryAudioLanguage"), Info_Options)=__T("N NT");
                                                     //if (MediaInfoLib::Config.Iso639_Find(AS11->second.PrimaryAudioLanguage).empty())
