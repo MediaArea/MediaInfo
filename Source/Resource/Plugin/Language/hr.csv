@@ -28,6 +28,9 @@
  chapters stream1; tok poglavlja
  chapters stream2; toka poglavlja
  chapters stream3; tokova poglavlja
+ character1;
+ character2;
+ character3;
  day1; dan
  day2; dana
  day3; dana
@@ -141,6 +144,8 @@
  year3; godine
 , ;, 
 : ;: 
+3D;
+3DType;
 About;O programu...
 About_Hint;Kontakt i pronalaženje posljednje inačice
 Accompaniment;Pratnja
@@ -172,7 +177,12 @@ Audio_Codec_List;Kôdeki zvuka
 Audio_No;Nečujno
 Audio1;Prvi zvučni tok
 Audio2;Drugi zvučni tok
+AudioComments;
 AudioCount;Broj zvučnih tokova
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;Autor
 BarCode;Crtičasti kôd
 Basic;Osnovno
@@ -211,6 +221,9 @@ Chroma;Kromatizam
 ChromaSubsampling;
 Close;Zatvoriti
 Close all before open;Prije otvaranja sve ostale zatvoriti
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;Kôdek
 Codec_Description;Opis kôdeka
 Codec_Info;Pojedinosti o kôdeku
@@ -239,16 +252,20 @@ Comment;Komentar
 CommissionedBy;Prema nalogu
 Compilation;
 CompleteName;Potpuni naziv
+CompletionDate;
 Composer;Skladatelj
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;Omjer sažimanja
 Conductor;Ravnatelj
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;Oblik spremnika i opće informacije
 ContentType;Vrsta sadržaja
 CoProducer;Koproducent
 Copyright;Zaštićeno autorsko pravo
+CopyrightYear;
 CostumeDesigner;Kostimograf
 Count;Broj
 Country;Zemlja
@@ -276,6 +293,7 @@ DirectorOfPhotography;Ravnatelj fotografije
 DisplayAspectRatio;Omjer slike
 DisplayAspectRatio_Original;Izvorni omjer slike
 DistributedBy;Distribucija
+Distributor;
 Donate;Potpora razvoju MediaInfo
 DotsPerInch;Točaka po palcu (DPI)
 Duration;Trajanje
@@ -291,6 +309,7 @@ Encoded_Library_Settings;Postavke kodiranja
 Encoded_Original;Original podržava
 EncodedBy;Kodirao
 EPG_Positions;Položaj EPG-a
+EpisodeTitleNumber;
 Error_File;Pogreška tijekom učitavanja datoteke
 ExecutiveProducer;Izvršni producent
 Exit;Svršetak
@@ -351,6 +370,9 @@ Format_Settings_Sign;Postavke oblika datoteke za Sign
 Format_Settings_Wrapping;
 Format_Url;Spletna poveznica oblika datoteke
 Format_Version;Inačica oblika datoteke
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;Broj sličica
 FrameRate;Protok sličica
 FrameRate_Maximum;Maksimalna stopa protoka sličica
@@ -568,6 +590,7 @@ How many text streams?;Koliko tokova teksta?
 How many video streams?;Koliko tokova video-snimke?
 HTML;HTML
 ID;ID
+IdentClockStart;
 Image;Slika
 Image stream(s);Tokovi slike
 Image_Codec_List;Slikovni kôdeki
@@ -791,6 +814,7 @@ LawRating;Dopušteno za mladež od
 LCCN;LCCN
 Library;Knjižnica multipleksera
 Lightness;Svjetlina
+LineUpStart;
 List;Spisak
 Lyricist;Tekstopisac
 Lyrics;Tekst pjesme
@@ -868,13 +892,19 @@ OpenCandy_33;Ne instalirati
 OpenCandy_34;Molim odaberite jednu od mogućnosti instalacije
 OpenCandy_35;______ preporučuje ovaj software
 OpenCandy_36;Vaša tekuća instalacija neće biti prekinuta
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;Mogućnosti
 Options_Hint;Prilagodbe
 Original;Izvorno
 OriginalNetworkName;Izvorni naziv mreže
 OriginalSourceForm;Prvobitni oblik izvora
 OriginalSourceMedium;Prvobitni medij izvora
+Originator;
 Other;Ostalo
+OtherIdentifier;
+OtherIdentifierType;
 Output;Izlaz
 Output format;Izlazni oblik
 OverallBitRate;Ukupni protok podataka
@@ -884,9 +914,12 @@ OverallBitRate_Mode;Način ukupnog protoka podataka
 OverallBitRate_Nominal;Nominalni ukupni protok podataka
 Part;Dio
 Part_Count;Ukupni broj
+PartNumber;
+PartTotal;
 Performer;Izvođač
 Period;Razdoblje
 Phone;Telefon
+PictureRatio;
 PixelAspectRatio;Omjer piksela
 PixelAspectRatio_Original;Izvorni omjer piksela
 PlayCounter;Brojač izvedbi
@@ -897,9 +930,15 @@ PlayTime;Trajanje izvedbe
 Position;položaj
 Position_Total;ukupno
 Preferences;Prilagodbe
+PrimaryAudioLanguage;
 Producer;Producent
 ProductionDesigner;Designer proizvodnje
+ProductionNumber;
 ProductionStudio;Proizvodni studio
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;Nakladnik
 Purchased_Date;Nadnevak kupovine
 Quote character;Znaci navoda
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Scenarij
 Season;Razdoblje
+SecondaryAudioLanguage;
 see below;pogledati dolje
 Send HeaderFile;Molim zaglavnu datoteku poslati ovamo: http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;Razdjelnik redaka
 Separator_Lines;Razdjelnik crta
+SerieTitle;
 ServiceChannel;Broj uslužnog kanala
 ServiceName;Naziv usluge
 ServiceProvider;Pružatelj usluge
@@ -943,8 +984,11 @@ Sheet (Complete);Tablica (potpuna)
 Shell extension;Proširenje ljuske sustava (desnim klikom u Pregledniku će se pojaviti mogućnosti Media Info)
 Shell extension, folder;Za mape također
 Shell InfoTip;Info-naznaka (prelaskom miša preko neke datoteke u Pregledniku će se prikazati informacije o njoj)
+ShimName;
 Show menu;Prikazati izbornik
 Show toolbar;Prikazati alatnu traku
+SigningPresent;
+SignLanguage;
 Sort;Poređano prema
 SoundEngineer;Tonski tehničar
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;Označeno aplikacijom
 Tagged_Date;Nadnevak označavanja
 Technician;Tehničar
 TermsOfUse;Uvjeti korištenja
+TertiaryAudioLanguage;
 Text;Tekst
 Text - Custom;Vlastiti tekst
 Text (HTML);Tekst (HTML)
@@ -990,6 +1035,7 @@ Text1;Prvi tok teksta
 Text2;Drugi tok teksta
 Text3;Treći tok teksta
 TextCount;Broj tok teksta
+TextlessElementsExist;
 ThanksTo;Zahvala
 Thousands separator;Razdjelnik tisuća
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;
 Title;Naslov
 Title_More;Više podataka o naslovu
 Total;Ukupno
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;Naziv snimke
 Track_Count;Broj snimke
 transfer_characteristics;
@@ -1018,6 +1066,7 @@ Video_Delay;Zaostajanje prikaza video-slike
 Video_No;Bez prikaza video-slike
 Video0_Delay;Zaostajanje video0-slike
 Video1;Prvi tok video-slike
+VideoComments;
 VideoCount;Broj tokova video-slike
 View;Prikaz
 View_Hint;Mijenja mogućnosti prikaza informacije
@@ -1041,5 +1090,5 @@ Written_Location;Mjesto početka pisanja
 WrittenBy;Napisao
 Yes;Da
 Your system;Informacije o Vašem sustavu
-ZZ_Automatic_Percent;89
-ZZ_AutomaticLanguage_Percent;94
+ZZ_Automatic_Percent;85
+ZZ_AutomaticLanguage_Percent;89

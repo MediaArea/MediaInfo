@@ -28,6 +28,9 @@
  chapters stream1; բաժինների հոսքը
  chapters stream2; բաժինների հոսքը
  chapters stream3; բաժինների հոսքը
+ character1;
+ character2;
+ character3;
  day1; օր.
  day2; օր.
  day3; օր.
@@ -141,6 +144,8 @@
  year3; տարի
 , ;, 
 : ;: 
+3D;
+3DType;
 About;Ծրագրի մասին
 About_Hint;Կապնվել ծրագրի հեղինակի հետ կամ բացել ծրագրի կայքը
 Accompaniment;Ուղեկցումը
@@ -172,7 +177,12 @@ Audio_Codec_List;Ձայնի կոդավորիչները
 Audio_No;Չկա ձայն
 Audio1;Առաջին ձայնը
 Audio2;Երկրորդ ձայնը
+AudioComments;
 AudioCount;Ձայների քանակը
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;Հեղինակը
 BarCode;Կոդը
 Basic;Կարճ
@@ -211,6 +221,9 @@ Chroma;Գույնայնությունը
 ChromaSubsampling;Գույների ընտրություն
 Close;Փակել
 Close all before open;Բացելուց առաջ փակել բոլորը
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;Կոդավորիչը
 Codec_Description;Կոդավորիչի նկարագր-ը
 Codec_Info;Մանրամասներ կոդավորիչի մասին
@@ -239,16 +252,20 @@ Comment;Մեկնաբանություն
 CommissionedBy;Երաշխավորող
 Compilation;
 CompleteName;Ամբողջական անունը
+CompletionDate;
 Composer;Կոմպոզիտորը
 Compression_Mode;Սեղման եղանակը
 Compression_Mode_Lossless;Առանց կորստի
 Compression_Mode_Lossy;Կորստով
 Compression_Ratio;Սեղման աստիճանը
 Conductor;Դիրիժորը
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;Ընդհանուր տեղեկությունը
 ContentType;Պարունակության տեսակը
 CoProducer;Համառեժիսոր
 Copyright;Հեղ. իրավունքը
+CopyrightYear;
 CostumeDesigner;Հագուստի դիզայնը
 Count;Քանակը
 Country;Երկիրը
@@ -276,6 +293,7 @@ DirectorOfPhotography;Օպերատորը
 DisplayAspectRatio;Կողմերի հարաբերականությունը
 DisplayAspectRatio_Original;Կողմերի հարաբեր-ը օրիգինալում
 DistributedBy;Տարածողը
+Distributor;
 Donate;Օժանդակություն
 DotsPerInch;Կետեր դյույմի վրա
 Duration;Տևողությունը
@@ -291,6 +309,7 @@ Encoded_Library_Settings;Ծրագրի կարգավորումները
 Encoded_Original;Օրիգինալի աղբյուրը
 EncodedBy;Կոդավորիչը
 EPG_Positions;EPG-ի դիրքը (ներքին)
+EpisodeTitleNumber;
 Error_File;Սխալ ֆայլում
 ExecutiveProducer;Ռեժիսորի օգնականը
 Exit;Ելք
@@ -351,6 +370,9 @@ Format_Settings_Sign;Sign տեսակի ցուցիչները
 Format_Settings_Wrapping;
 Format_Url;Տեսակի հղումը
 Format_Version;Տեսակի տարբերակը
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;Կադրերի հաշվիչ
 FrameRate;Կադրերի հաճախականությունը
 FrameRate_Maximum;Կադրերի առավելագույն հաճախ-ը
@@ -568,6 +590,7 @@ How many text streams?;Տեքստային հոսքերի քանակը.
 How many video streams?;Տեսանյութերի հոսքերի քանակը.
 HTML;HTML
 ID;ID-ին
+IdentClockStart;
 Image;Պատկերը
 Image stream(s);Պատկերների հոսքերը
 Image_Codec_List;Պատկերների կոդավորիչները
@@ -791,6 +814,7 @@ LawRating;Իրավունքների սահ-ում
 LCCN;LCCN
 Library;Շտեմարանը
 Lightness;Պայծառությունը
+LineUpStart;
 List;Ցանկը
 Lyricist;Երգի տեքստը
 Lyrics;Երգերի տեքստը
@@ -868,13 +892,19 @@ OpenCandy_33;Չտեղակայել
 OpenCandy_34;Ընտրեք տեղակայման ցուցիչները
 OpenCandy_35;______-ի երաշխավորած ծրագիրը
 OpenCandy_36;Ընթացիկ տեղակայումը չի ընդհատվի
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;Ընտրանքներ
 Options_Hint;Ծրագրի կարգավորումները
 Original;Բնօրինակը
 OriginalNetworkName;Ցանցի հիմնական անունը
 OriginalSourceForm;Օրիգինալի ֆայլը
 OriginalSourceMedium;Օրիգինալի կրիչը
+Originator;
 Other;Այլ
+OtherIdentifier;
+OtherIdentifierType;
 Output;Արտածում
 Output format;Արտածման տեսակը
 OverallBitRate;Ընդհանուր հոսքը
@@ -884,9 +914,12 @@ OverallBitRate_Mode;Բիթրեյթի ընդ. եղանակը
 OverallBitRate_Nominal;Բիթրեյթի պայմ. եղանակը
 Part;Մաս
 Part_Count;Ժամերի ք-ը.
+PartNumber;
+PartTotal;
 Performer;Կատարողը
 Period;Շրջանը
 Phone;Հեռախոս
+PictureRatio;
 PixelAspectRatio;Փիքսելների համամասնությունը
 PixelAspectRatio_Original;Փիքսելների հարաբեր-ը օրիգինալում
 PlayCounter;Վերարտադրման հաշվիչ
@@ -897,9 +930,15 @@ PlayTime;Տևողությունը
 Position;Դիրքը
 Position_Total;Ընդամենը
 Preferences;Կարգավորումներ
+PrimaryAudioLanguage;
 Producer;Պրոդյուսերը
 ProductionDesigner;Դիզայնի մշակողը
+ProductionNumber;
 ProductionStudio;Դիզայնի ստուդիան
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;Թողարկողը
 Purchased_Date;Գնման ամսաթիվը
 Quote character;Չակերտների նշանը
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Սցենարը՝
 Season;Խաղաշրջանը
+SecondaryAudioLanguage;
 see below;նայեք ներքև
 Send HeaderFile;Ուղարկեք այս ֆայլի գլխագիրը http://sourceforge.net/projects/mediainfo/ (Սխալների բաժին)
 Separator_Columns;Սյուների բաժանիչ
 Separator_Lines;Տողերի բաժանիչ
+SerieTitle;
 ServiceChannel;Ծառայության ալիքի համարը
 ServiceName;Ծառայության անունը
 ServiceProvider;Ծառայության մատակարարը
@@ -943,8 +984,11 @@ Sheet (Complete);Աղյուսակը (ամբողջական)
 Shell extension;Ինտեգրել Explorer-ում
 Shell extension, folder;Ինտեգրել թղթապանակների Explorer-ում
 Shell InfoTip;Ցուցադրել հուշում Explorer-ում
+ShimName;
 Show menu;Ցուցադրել ընտրացանկը
 Show toolbar;Ցուցադրել վահանակը
+SigningPresent;
+SignLanguage;
 Sort;Դասավորել ըստ
 SoundEngineer;Ձայն. ռեժիսորը
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;Նշված ծրագիրը
 Tagged_Date;Նշման ամսաթիվը
 Technician;Տեխնիկը
 TermsOfUse;Օգտագ. կանոնները
+TertiaryAudioLanguage;
 Text;Տեքստ
 Text - Custom;Տեքստ - Ընտրովի
 Text (HTML);Տեքստ (HTML)
@@ -990,6 +1035,7 @@ Text1;Առաջին տեքստային հոսքը
 Text2;Երկրորդ տեքստային հոսքը
 Text3;Երրորդ տեքստային հոսքը
 TextCount;Տեքստային հոսքը ք-ը
+TextlessElementsExist;
 ThanksTo;Շնորհակալ ենք
 Thousands separator;Հազարյակի բաժանիչը
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;Ժամային գոտին
 Title;Անունը
 Title_More;Անունը, լրացուցիչ
 Total;Ընդամենը
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;Շավիղը
 Track_Count;Շավիղների ք-ը
 transfer_characteristics;Փոխանցման բնութագրումը
@@ -1018,6 +1066,7 @@ Video_Delay;Տեսանյութի դադարը
 Video_No;Չկա տեսանյութ
 Video0_Delay;Տեսանյութի դադարը
 Video1;Առաջին տեսահոսքը
+VideoComments;
 VideoCount;Տեսահոսքերի ք-ը
 View;Տեսքը
 View_Hint;Պատկերման եղանակը
@@ -1041,5 +1090,5 @@ Written_Location;Գրելու տեղը
 WrittenBy;Գրվել է՝
 Yes;Այո
 Your system;Ձեր համակարգը
-ZZ_Automatic_Percent;92
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;88
+ZZ_AutomaticLanguage_Percent;92

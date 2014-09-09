@@ -28,6 +28,9 @@
  chapters stream1; струмень падзелаў
  chapters stream2; струмені падзелаў
  chapters stream3; струмені падзелаў
+ character1;
+ character2;
+ character3;
  day1; дзень
  day2; дзён
  day3; дзён
@@ -141,6 +144,8 @@
  year3; гадоў
 , ;, 
 : ;: 
+3D;
+3DType;
 About;Пра праграму
 About_Hint;Як звязацца са мной і знайсці апошнюю версію праграмы
 Accompaniment;Суправаджэнне
@@ -172,7 +177,12 @@ Audio_Codec_List;Аўдыёкодэкі
 Audio_No;Няма аўдыёструменя
 Audio1;Першы аўдыёструмень
 Audio2;Другі аўдыёструмень
+AudioComments;
 AudioCount;Коль-ць аўдыёструменяў
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;Аўтар
 BarCode;Штрыхкод
 Basic;Каротка
@@ -211,6 +221,9 @@ Chroma;Каляровасць
 ChromaSubsampling;
 Close;Зачыніць
 Close all before open;Закрыць усё перад адкрыццём
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;Кодэк
 Codec_Description;Апісанне кодэка
 Codec_Info;Падрабязна аб кодэку
@@ -239,16 +252,20 @@ Comment;Каментар
 CommissionedBy;Даручальнік
 Compilation;Кампіляцыя
 CompleteName;Поўнае імя
+CompletionDate;
 Composer;Кампазітар
 Compression_Mode;Метад сціску
 Compression_Mode_Lossless;Без страт
 Compression_Mode_Lossy;Са стратамі
 Compression_Ratio;Ступень сціску
 Conductor;Дырыжор
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;Агульная інфармацыя
 ContentType;Тып змесціва
 CoProducer;Сапрадзюсар
 Copyright;Праваўладальнік
+CopyrightYear;
 CostumeDesigner;Дызайн гарнітураў
 Count;Кольк-ць
 Country;Краіна
@@ -276,6 +293,7 @@ DirectorOfPhotography;Аператар
 DisplayAspectRatio;Суадносіны кадра
 DisplayAspectRatio_Original;Арыгінальныя суадносіны бакоў
 DistributedBy;Распаўсюджвальнік
+Distributor;
 Donate;Ахвяраваць
 DotsPerInch;Кропак на дзюйм
 Duration;Працягласць
@@ -291,6 +309,7 @@ Encoded_Library_Settings;Налады праграмы
 Encoded_Original;Першапачаткова кадавана
 EncodedBy;Кадаваў
 EPG_Positions;EPG пазіцыіі (унутр)
+EpisodeTitleNumber;
 Error_File;Памылка ў файле
 ExecutiveProducer;Выканаўчы прадзюсар
 Exit;Выхад
@@ -351,6 +370,9 @@ Format_Settings_Sign;Налада Sign фармату
 Format_Settings_Wrapping;
 Format_Url;Спасылка на фармат
 Format_Version;Версія фармату
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;Лічыльнік кадраў
 FrameRate;Частата кадраў
 FrameRate_Maximum;Максімальная частата кадраў
@@ -568,6 +590,7 @@ How many text streams?;Колькасць тэкставых струменяў?
 How many video streams?;Колькасць відэаструменяў?
 HTML;HTML
 ID;Ідэнтыфікатар
+IdentClockStart;
 Image;Малюнкі
 Image stream(s);Струмень(і) малюнкаў
 Image_Codec_List;Кодэкі малюнкаў
@@ -791,6 +814,7 @@ LawRating;Абмежаванне правоў
 LCCN;LCCN
 Library;Бібліятэка
 Lightness;Яркасць
+LineUpStart;
 List;Спіс
 Lyricist;Паэт-песеннік
 Lyrics;Тэкст песен
@@ -868,13 +892,19 @@ OpenCandy_33;Не ўсталёўваць
 OpenCandy_34;Абярыце параметры ўсталёўкі
 OpenCandy_35;______ рэкамендуюць гэтую праграму
 OpenCandy_36;Ваша бягучая ўсталеўка не будзе перапынена
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;Параметры
 Options_Hint;Налады праграмы
 Original;Арыгінал
 OriginalNetworkName;Арыгінальнае сеткавае імя
 OriginalSourceForm;Фармат арыгінала
 OriginalSourceMedium;Носьбіт арыгінала
+Originator;
 Other;Іншае
+OtherIdentifier;
+OtherIdentifierType;
 Output;Выхад
 Output format;Фармат вываду
 OverallBitRate;Агульны струмень
@@ -884,9 +914,12 @@ OverallBitRate_Mode;Рэжым агульнага бітрэйту
 OverallBitRate_Nominal;Намінальны агульны бітрэйт
 Part;Частка
 Part_Count;Коль-ць частак
+PartNumber;
+PartTotal;
 Performer;Выканаўца
 Period;Перыяд
 Phone;Тэлефон
+PictureRatio;
 PixelAspectRatio;Суадносіны пікселяў
 PixelAspectRatio_Original;Суадносіны пікселяў
 PlayCounter;Лічыльнік прайгравання
@@ -897,9 +930,15 @@ PlayTime;Працягласць
 Position;Пазіцыя
 Position_Total;Усяго
 Preferences;Налады
+PrimaryAudioLanguage;
 Producer;Прадзюсар
 ProductionDesigner;Распрацоўнік афармлення
+ProductionNumber;
 ProductionStudio;Студыя афармлення
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;Апублікавана
 Purchased_Date;Дата куплі
 Quote character;Знак двукоссяў
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Сцэнарыст
 Season;Сезон
+SecondaryAudioLanguage;
 see below;гл. ніжэй
 Send HeaderFile;Адправіць загаловак гэтага файла на http://sourceforge.net/projects/mediainfo/ (Падзел памылак)
 Separator_Columns;Падзельнік слупкоў
 Separator_Lines;Падзельнік радкоў
+SerieTitle;
 ServiceChannel;Нумар канала сэрвіса
 ServiceName;Назва сэрвіса
 ServiceProvider;Пастаўшчык сэрвіса
@@ -943,8 +984,11 @@ Sheet (Complete);Табліца (поўная)
 Shell extension;Пашырэнне правадыра (пункт у меню па правай кнопцы)
 Shell extension, folder;Для папак таксама
 Shell InfoTip;Паказваць меню
+ShimName;
 Show menu;Паказваць меню
 Show toolbar;Паказваць панэль
+SigningPresent;
+SignLanguage;
 Sort;Сартаваць па
 SoundEngineer;Гукарэжысёр
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;Праграма, якая пазначыла
 Tagged_Date;Дата адзнакі
 Technician;Тэхнік
 TermsOfUse;Умовы выкарыстання
+TertiaryAudioLanguage;
 Text;Тэкст
 Text - Custom;Тэкст - Выбаркова
 Text (HTML);Тэкст (HTML)
@@ -990,6 +1035,7 @@ Text1;Першы тэкставы струмень
 Text2;Другі тэкставы струмень
 Text3;Трэці тэкставы струмень
 TextCount;Коль-ць тэкставых струменяў
+TextlessElementsExist;
 ThanksTo;Падзякі
 Thousands separator;Падзельнік тысяч
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;Гадзінная зона
 Title;Загаловак
 Title_More;Загаловак
 Total;Усяго
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;Сцежка
 Track_Count;Коль-ць дарожак
 transfer_characteristics;Характарыстыкі трансферу
@@ -1018,6 +1066,7 @@ Video_Delay;Затрымка відэа
 Video_No;Няма відэаструменя
 Video0_Delay;Затрымка відэа
 Video1;Першы відэаструмень
+VideoComments;
 VideoCount;Коль-ць відэаструменяў
 View;Прагляд
 View_Hint;Прагляд
@@ -1041,5 +1090,5 @@ Written_Location;Месца напісання
 WrittenBy;Напісаў
 Yes;Так
 Your system;Ваша сістэма
-ZZ_Automatic_Percent;91
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;87
+ZZ_AutomaticLanguage_Percent;91

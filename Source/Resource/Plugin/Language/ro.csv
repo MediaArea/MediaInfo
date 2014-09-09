@@ -28,6 +28,9 @@
  chapters stream1;flux capitole
  chapters stream2;fluxuri capitole
  chapters stream3;fluxuri capitole
+ character1;
+ character2;
+ character3;
  day1;zi
  day2;zile
  day3;zile
@@ -141,6 +144,8 @@
  year3;ani
 , ;
 : ;
+3D;
+3DType;
 About;Despre
 About_Hint;Sfaturi
 Accompaniment;Acompaniament
@@ -172,7 +177,12 @@ Audio_Codec_List;Codecuri audio
 Audio_No;Fara sunet
 Audio1;Primul flux audio
 Audio2;Al doilea flux audia
+AudioComments;
 AudioCount;Numarul de fluxuri audio
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;Autor
 BarCode;Cod de bare
 Basic;Principal
@@ -211,6 +221,9 @@ Chroma;
 ChromaSubsampling;
 Close;Inchideti
 Close all before open;Inchideti tot inainte de a deschide
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;Codec
 Codec_Description;
 Codec_Info;Detalii despre codec
@@ -239,16 +252,20 @@ Comment;Comentariu
 CommissionedBy;
 Compilation;
 CompleteName;Nume complet
+CompletionDate;
 Composer;Compositor
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;
 Conductor;
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;Container si informatii generale
 ContentType;Tip continut
 CoProducer;Coproducator
 Copyright;Drept autor
+CopyrightYear;
 CostumeDesigner;Costume
 Count;
 Country;Tara
@@ -276,6 +293,7 @@ DirectorOfPhotography;Director de film
 DisplayAspectRatio;Raport imagine
 DisplayAspectRatio_Original;
 DistributedBy;Distribuit de
+Distributor;
 Donate;Donatii
 DotsPerInch;
 Duration;
@@ -291,6 +309,7 @@ Encoded_Library_Settings;Setari codare
 Encoded_Original;Original
 EncodedBy;Codificat de
 EPG_Positions;
+EpisodeTitleNumber;
 Error_File;Eroare la citirea fisierului
 ExecutiveProducer;Director executiv
 Exit;Iesire
@@ -351,6 +370,9 @@ Format_Settings_Sign;
 Format_Settings_Wrapping;
 Format_Url;
 Format_Version;
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;
 FrameRate;Frecventa cadre
 FrameRate_Maximum;
@@ -568,6 +590,7 @@ How many text streams?;Cate fluxuri text?
 How many video streams?;Cate fluxuri video?
 HTML;HTML
 ID;ID
+IdentClockStart;
 Image;Imagine
 Image stream(s);Fluxuri imagine
 Image_Codec_List;Codecuri imagine
@@ -791,6 +814,7 @@ LawRating;
 LCCN;
 Library;Biblioteca muxing
 Lightness;
+LineUpStart;
 List;
 Lyricist;Textier
 Lyrics;
@@ -868,13 +892,19 @@ OpenCandy_33;
 OpenCandy_34;
 OpenCandy_35;
 OpenCandy_36;
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;Optiuni
 Options_Hint;Preferinte
 Original;Original
 OriginalNetworkName;
 OriginalSourceForm;
 OriginalSourceMedium;
+Originator;
 Other;Altele
+OtherIdentifier;
+OtherIdentifierType;
 Output;Iesire
 Output format;Format iesire
 OverallBitRate;BitRate general
@@ -884,9 +914,12 @@ OverallBitRate_Mode;
 OverallBitRate_Nominal;
 Part;Parte
 Part_Count;
+PartNumber;
+PartTotal;
 Performer;Cantaret
 Period;Perioada
 Phone;Telefon
+PictureRatio;
 PixelAspectRatio;Dimensiune pixel
 PixelAspectRatio_Original;Dimensiune pixel
 PlayCounter;Numar redari
@@ -897,9 +930,15 @@ PlayTime;Durata redare
 Position;Pozitie
 Position_Total;
 Preferences;Preferinte
+PrimaryAudioLanguage;
 Producer;Producator
 ProductionDesigner;Director productie
+ProductionNumber;
 ProductionStudio;Director studio
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;
 Purchased_Date;Data achizitionarii
 Quote character;Citate
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Scenariu de
 Season;Sezon
+SecondaryAudioLanguage;
 see below;vezi mai jos
 Send HeaderFile;
 Separator_Columns;separator coloane
 Separator_Lines;separator linii
+SerieTitle;
 ServiceChannel;
 ServiceName;
 ServiceProvider;
@@ -943,8 +984,11 @@ Sheet (Complete);Afisare (completa)
 Shell extension; Extenise (in explorer executati click dreapta)
 Shell extension, folder;
 Shell InfoTip;
+ShimName;
 Show menu;Afisare meniu
 Show toolbar;Afisare toolbar
+SigningPresent;
+SignLanguage;
 Sort;Sortat de
 SoundEngineer;Inginer de sunet
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;
 Tagged_Date;Data marcarii
 Technician;Tehnician
 TermsOfUse;Condifiile de utilizare
+TertiaryAudioLanguage;
 Text;Text
 Text - Custom;Text - particularizat
 Text (HTML);Text (HTLM)
@@ -990,6 +1035,7 @@ Text1;Frimul flux text
 Text2;Al doilea flux text
 Text3;Al treilea flux text
 TextCount;Numar fluxuri text
+TextlessElementsExist;
 ThanksTo;Multumita
 Thousands separator;Separator mii
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;
 Title;Titlu
 Title_More;Titlu, mai multe informatii
 Total;Total
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;Nume pista
 Track_Count;Numar piste
 transfer_characteristics;
@@ -1018,6 +1066,7 @@ Video_Delay;Intrziere video
 Video_No;Fara video
 Video0_Delay;Intrziere video
 Video1;Primul flux video
+VideoComments;
 VideoCount;Numarul de fluxuri video
 View;Vizualizare
 View_Hint;Modificati modul de vizualizare a informatiilor
@@ -1041,5 +1090,5 @@ Written_Location;Locul mesajului
 WrittenBy;Scris de
 Yes;Da
 Your system;Sistemul dvs
-ZZ_Automatic_Percent;32
-ZZ_AutomaticLanguage_Percent;72
+ZZ_Automatic_Percent;30
+ZZ_AutomaticLanguage_Percent;69

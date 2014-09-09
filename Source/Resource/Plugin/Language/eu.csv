@@ -28,6 +28,9 @@
  chapters stream1; atal jarioa
  chapters stream2; atal jarioa
  chapters stream3; atal jarioa
+ character1;
+ character2;
+ character3;
  day1; egun
  day2; egun
  day3; egun
@@ -141,6 +144,8 @@
  year3; urte
 , ;, 
 : ;: 
+3D;
+3DType;
 About;Honi buruz
 About_Hint;Nola jarri harremanetan nirekin eta azken bertsioa aurkitu
 Accompaniment;Laguntza
@@ -172,7 +177,12 @@ Audio_Codec_List;Audio kodekak
 Audio_No;Audiorik ez
 Audio1;Lehen audioa jarioa
 Audio2;Bigarren audioa jarioa
+AudioComments;
 AudioCount;Audio jario zenbatekoa
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;Egilea
 BarCode;BarraKodea
 Basic;Ohinarrizkoa
@@ -211,6 +221,9 @@ Chroma;Margoa
 ChromaSubsampling;Margo azpilaginketa
 Close;Itxi
 Close all before open;Itxi dena ireki aurretik
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;Kodeka
 Codec_Description;Kodek azalpena
 Codec_Info;Kodekaren xehetasunak
@@ -239,16 +252,20 @@ Comment;Aipamena
 CommissionedBy;Eskatzailea
 Compilation;Bilketa
 CompleteName;Izen osoa
+CompletionDate;
 Composer;Osatzailea
 Compression_Mode;Konpresio modua
 Compression_Mode_Lossless;Galeragabe
 Compression_Mode_Lossy;Galerakin
 Compression_Ratio;Konpresio maila
 Conductor;Gidaria
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;Edukiontzia eta argibide orokorrak
 ContentType;Eduki-Mota
 CoProducer;Ekoizkidea
 Copyright;Copyrighta
+CopyrightYear;
 CostumeDesigner;Diseinatzailea
 Count;Zenbatekoa
 Country;Herrialdea
@@ -276,6 +293,7 @@ DirectorOfPhotography;Argazki zuzendaria
 DisplayAspectRatio;Erakuspen ikuspegi maila
 DisplayAspectRatio_Original;Jatorrizko ikuspegi maila
 DistributedBy;Banatzailea
+Distributor;
 Donate;Eman dirulaguntza bat
 DotsPerInch;Puntu hatzbeteko
 Duration;Iraupena
@@ -291,6 +309,7 @@ Encoded_Library_Settings;Kodeaketa ezarpenak
 Encoded_Original;Jatorrizko sostengua
 EncodedBy;Kodeatzailea
 EPG_Positions;EPG kokapenak (barnean)
+EpisodeTitleNumber;
 Error_File;Akatsa agiria irakurtzerakoan
 ExecutiveProducer;Ekintza ekoizlea
 Exit;Irten
@@ -351,6 +370,9 @@ Format_Settings_Sign;Heuskarri ezarpenak, Sign
 Format_Settings_Wrapping;
 Format_Url;Heuskarriaren weblotura
 Format_Version;Heuskarri bertsioa
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;Frame zenbatekoa
 FrameRate;Frame neurria
 FrameRate_Maximum;Gehienezko frame neurria
@@ -568,6 +590,7 @@ How many text streams?;Zenbat idazki jario?
 How many video streams?;Zenbat bideo jario?
 HTML;HTML
 ID;ID-a
+IdentClockStart;
 Image;Irudia
 Image stream(s);Irudi jarioak
 Image_Codec_List;Kodek Irudia
@@ -791,6 +814,7 @@ LawRating;Lege maila
 LCCN;LCCN
 Library;Nahasketa liburutegia
 Lightness;Argitasuna
+LineUpStart;
 List;Zerrenda
 Lyricist;Abestidazlea
 Lyrics;Abestidatziak
@@ -868,13 +892,19 @@ OpenCandy_33;Ez Ezarri
 OpenCandy_34;Mesedez hautatu ezarpen aukera
 OpenCandy_35;______ software hau gomendatzen du
 OpenCandy_36;Zure uneko ezarpena ez da etengo
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;Aukerak
 Options_Hint;Hobespenak
 Original;Jatorrizkoa
 OriginalNetworkName;Jatorrizko sare izena
 OriginalSourceForm;Jatorrizko iturburua forma
 OriginalSourceMedium;Jatorrizko iturburu tartekoa
+Originator;
 Other;Beste
+OtherIdentifier;
+OtherIdentifierType;
 Output;Irteera
 Output format;Irteera heuskarria
 OverallBitRate;Bit neurria guztira
@@ -884,9 +914,12 @@ OverallBitRate_Mode;Bit neurri modua guztira
 OverallBitRate_Nominal;Bit neurria izendatua guztira
 Part;Zatia
 Part_Count;Zenbatekoa guztira
+PartNumber;
+PartTotal;
 Performer;Egilea
 Period;Aldia
 Phone;Urrutizkina
+PictureRatio;
 PixelAspectRatio;Pixel ikuspegi maila
 PixelAspectRatio_Original;Jatorrizko ikuspegi maila
 PlayCounter;Irakurketa-Zenbatzailea
@@ -897,9 +930,15 @@ PlayTime;Irakurketa-Denbora
 Position;Kokapena
 Position_Total;Guztira
 Preferences;Hobespenak
+PrimaryAudioLanguage;
 Producer;Ekoizlea
 ProductionDesigner;Ekoizpen diseinatzailea
+ProductionNumber;
 ProductionStudio;Ekoizpen estudioa
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;Argitaratzailea
 Purchased_Date;erosketa eguna
 Quote character;Kakotxa hizkirria
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Gidoilaria
 Season;Denboraldia
+SecondaryAudioLanguage;
 see below;ikusi behean
 Send HeaderFile;Mesedez bidalidazu Idazburu agiria hona : http://sourceforge.net/projects/mediainfo/ (Akats arloa)
 Separator_Columns;Zutabe banantzailea
 Separator_Lines;Lerro banatzailea
+SerieTitle;
 ServiceChannel;Zerbitzuaren bide zenbatekoa
 ServiceName;Zerbitzuaren izena
 ServiceProvider;Zerbitzu hornitzailea
@@ -943,8 +984,11 @@ Sheet (Complete);Orria (Osoa)
 Shell extension;Explorer hedapena (Windows Explorer, eskuin klikatu agiri bat, MediaInfo aukera bat egongo da)
 Shell extension, folder;Agiritegientzat ere bai
 Shell InfoTip;Explorer Tresnaburua (Explorerrean, mugitu sagua agiriaren gainean, argibideak erakutsiko dira)
+ShimName;
 Show menu;Erakutsi menua
 Show toolbar;Erakutsi tresnabarra
+SigningPresent;
+SignLanguage;
 Sort;Antolatu honela
 SoundEngineer;Soinu ingeniaria
 Source;Iturburua
@@ -979,6 +1023,7 @@ Tagged_Application;Aplikazio etiketatzea
 Tagged_Date;Etiketatze eguna
 Technician;Teknikaria
 TermsOfUse;Erabilpen baldintzak
+TertiaryAudioLanguage;
 Text;Idazkia
 Text - Custom;Idazkia - Egilea
 Text (HTML);Idazkia (HTML)
@@ -990,6 +1035,7 @@ Text1;Lehen idazki jarioa
 Text2;Bigarren idazki jarioa
 Text3;Hirugarren idazki jarioa
 TextCount;Idazki jario zenbatekoa
+TextlessElementsExist;
 ThanksTo;Eskerrak
 Thousands separator;Milaka bananatzaile
 TimeCode;Denbora-kodea
@@ -1001,6 +1047,8 @@ TimeZone;Ordu-Eremua
 Title;Izenburua
 Title_More;Izenburua, argibide gehiago
 Total;Guztira
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;Bide izena
 Track_Count;Bide zenbatekoa
 transfer_characteristics;Eskualdaketa ezaugarriak
@@ -1018,6 +1066,7 @@ Video_Delay;Bideoarekiko atzerapena
 Video_No;Bideorik ez
 Video0_Delay;Bideo0 atzerapena
 Video1;Lehen bideo jarioa
+VideoComments;
 VideoCount;Bideo jario zenbatekoa
 View;Ikusi
 View_Hint;Aldatu argibideak ikusteko modua
@@ -1041,5 +1090,5 @@ Written_Location;Idazte helbidea
 WrittenBy;Idazlea
 Yes;Bai
 Your system;Zure sistema
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;93
+ZZ_AutomaticLanguage_Percent;93

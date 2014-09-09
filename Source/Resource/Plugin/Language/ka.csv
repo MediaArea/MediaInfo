@@ -28,6 +28,9 @@
  chapters stream1; სექციების ნაკადი
  chapters stream2; სექციების ნაკადები
  chapters stream3; სექციების ნაკადები
+ character1;
+ character2;
+ character3;
  day1; დღე
  day2; დღეები
  day3; დღეები
@@ -141,6 +144,8 @@
  year3; წელი
 , ;, 
 : ;: 
+3D;
+3DType;
 About; ამის შესახებ
 About_Hint;როგორ დამიკავშირდეთ მე და ვიპოვოთ უახლესი ვერსია
 Accompaniment;უზრუნველყოფა
@@ -172,7 +177,12 @@ Audio_Codec_List;აუდიო კოდეკები
 Audio_No;არ არის აუდიო
 Audio1;პირველი აუდიო ნაკადი
 Audio2;მეორე აუდიიო ნაკადი
+AudioComments;
 AudioCount;აუდიო ნაკადების რაოდენობა
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;ავტორი
 BarCode;BarCode
 Basic;ძირითადი
@@ -211,6 +221,9 @@ Chroma;Chroma
 ChromaSubsampling;Chroma subsampling
 Close;დახურვა
 Close all before open;დახურე ყველა გახსნამდე
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;კოდეკი
 Codec_Description;კოდეკის აღწერა
 Codec_Info;კოდეკების დეტალები
@@ -239,16 +252,20 @@ Comment;კომენტარი
 CommissionedBy;Commissioned by
 Compilation;Compilation
 CompleteName;სრული სახელი
+CompletionDate;
 Composer;Composer
 Compression_Mode;შეკუმშვის რეჟიმი
 Compression_Mode_Lossless;Lossless
 Compression_Mode_Lossy;Lossy
 Compression_Ratio;შეკუმშვის რატიო
 Conductor;Conductor
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;კონტეინერი და მთავარი ინფორმაცია
 ContentType;კონტენტის ტიპი
 CoProducer;Coproducer
 Copyright;ყველა უფლება დაცულია
+CopyrightYear;
 CostumeDesigner;Costume designer
 Count;ანგარიში
 Country;ქვეყანა
@@ -276,6 +293,7 @@ DirectorOfPhotography;Director of photography
 DisplayAspectRatio;გამოსახულების ასპექტ რატიო
 DisplayAspectRatio_Original;Original display aspect ratio
 DistributedBy;გავრცელების ავტორი
+Distributor;
 Donate;შემოწირულობა
 DotsPerInch;Dots per inch
 Duration;ხანგრძლივობა
@@ -291,6 +309,7 @@ Encoded_Library_Settings;ენკოდირების პარამეტ
 Encoded_Original;Original support
 EncodedBy;ენკოდირების ავტორი
 EPG_Positions;EPG positions (internal)
+EpisodeTitleNumber;
 Error_File;ფაილის წაკითვის დროს აღმოჩენილია შეცდომა
 ExecutiveProducer;Executive producer
 Exit;გასვლა
@@ -351,6 +370,9 @@ Format_Settings_Sign;ფორმატის პარამეტრები,
 Format_Settings_Wrapping;
 Format_Url;ვებ-გვერდის ფორმატი
 Format_Version;ფორნატის ვერსია
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;Frame count
 FrameRate;კადრების სიხშირე
 FrameRate_Maximum;კადრების სიხშირის მაქსიმუმი
@@ -568,6 +590,7 @@ How many text streams?;რამდენი ტესტის ნაკად�
 How many video streams?;რამდენი ვიდეოს ნაკადია?
 HTML;HTML
 ID;ID
+IdentClockStart;
 Image;სურათი
 Image stream(s);სურათის ნაკადი
 Image_Codec_List;სურათის კოდეკები
@@ -791,6 +814,7 @@ LawRating;Law rating
 LCCN;LCCN
 Library;Muxing library
 Lightness;Lightness
+LineUpStart;
 List;სია
 Lyricist;Lyricist
 Lyrics;Lyrics
@@ -868,13 +892,19 @@ OpenCandy_33;არ დააინსტალირო
 OpenCandy_34;აირჩიეთ ინსტალაციის ოპციები
 OpenCandy_35;______ გირჩევთ ამ პროგრამას
 OpenCandy_36;მიმდინარე ინსტალაცია არ იქნება შეჩერებული
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;ოპციები
 Options_Hint;პარამეტრები
 Original;ორიგინალი
 OriginalNetworkName;Original network name
 OriginalSourceForm;Original source form
 OriginalSourceMedium;Original source medium
+Originator;
 Other;სხვა
+OtherIdentifier;
+OtherIdentifierType;
 Output;გამავალი
 Output format;გამავალის ფორმატი
 OverallBitRate;საერთო ბიტ რეიტი
@@ -884,9 +914,12 @@ OverallBitRate_Mode;ბიტ რეიტის რეჟიმი მთლი
 OverallBitRate_Nominal;Nominal Overall bit rate
 Part;ნაწილი
 Part_Count;სულ ჯამში
+PartNumber;
+PartTotal;
 Performer;Performer
 Period;პერიოდი
 Phone;ტელეფონი
+PictureRatio;
 PixelAspectRatio;პიქსელის ასპექტ რატიო
 PixelAspectRatio_Original;პიქსელის ორიგინალი ასპექტ რატიო
 PlayCounter;PlayCounter
@@ -897,9 +930,15 @@ PlayTime;ხანგრძლივობა
 Position;Position
 Position_Total;ჯამში
 Preferences;პარამეტრები
+PrimaryAudioLanguage;
 Producer;პროდუსერი
 ProductionDesigner;პროდუქცის დიზაინერი
+ProductionNumber;
 ProductionStudio;პროდუქციის სტუდიო
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;გამომცემელი
 Purchased_Date;
 Quote character;Quote character
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Screenplay by
 Season;სეზონი
+SecondaryAudioLanguage;
 see below;see below
 Send HeaderFile;Please send me the Header file here : http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;columns separator
 Separator_Lines;lines separator
+SerieTitle;
 ServiceChannel;სერვისის არხების რაოდენობა
 ServiceName;სერვისის სახელი
 ServiceProvider;სერვის პროვაიდერი
@@ -943,8 +984,11 @@ Sheet (Complete);ცხირილი (სრული)
 Shell extension;Explorer extension (in Windows Explorer, right click on a file, there will be a MediaInfo option)
 Shell extension, folder;For folders too
 Shell InfoTip;Explorer Tooltip (in Windows Explorer, move the mouse over the file, info will be displayed)
+ShimName;
 Show menu;მაჩვენე მენიუ
 Show toolbar;მაჩვენე პანელი
+SigningPresent;
+SignLanguage;
 Sort;დალაგების შესაბამისობა
 SoundEngineer;ხნის ინჟინერი
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;Tagging application
 Tagged_Date;Tagged date
 Technician;ტექნიკური
 TermsOfUse;Terms of use
+TertiaryAudioLanguage;
 Text;ტექსტი
 Text - Custom;ტექსტი - სტანდარტული
 Text (HTML);ტექსტი (HTML)
@@ -990,6 +1035,7 @@ Text1;1-ლი ტექსტის ნაკადი
 Text2;2-ლი ტექსტის ნაკადი
 Text3;მე-3 ტექსტის ნაკადი
 TextCount;ტექსტის ნაკადების რაოდენობა
+TextlessElementsExist;
 ThanksTo;მადლობას ვუხდით
 Thousands separator;Thousands separator
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;Timezone
 Title;სათაური
 Title_More;სათაურზე მეტი ინფორმაცია
 Total;ჯამში
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;ტრეკის სახელი
 Track_Count;Track count
 transfer_characteristics;Transfer characteristics
@@ -1018,6 +1066,7 @@ Video_Delay;Delay relative to video
 Video_No;არ არის ვიდეო
 Video0_Delay;Video0 delay
 Video1;1-ლი ვიდეო ნაკადი
+VideoComments;
 VideoCount;ვიდეო ნაკადების ანგარიში
 View;ჩვენება
 View_Hint;ხედვის ტიპის შეცლა
@@ -1041,5 +1090,5 @@ Written_Location;დაწერის ადგილი
 WrittenBy;დაწერილია
 Yes;დიახ
 Your system;თქვენი სისტემა
-ZZ_Automatic_Percent;92
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;88
+ZZ_AutomaticLanguage_Percent;92

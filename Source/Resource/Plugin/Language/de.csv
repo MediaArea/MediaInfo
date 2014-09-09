@@ -28,6 +28,9 @@
  chapters stream1; Kapitel-Stream
  chapters stream2; Kapitel-Streams
  chapters stream3; Kapitel-Streams
+ character1;
+ character2;
+ character3;
  day1; Tag
  day2; Tage
  day3; Tage
@@ -141,6 +144,8 @@
  year3; Jahre
 , ;,
 : ;:
+3D;
+3DType;
 About;Über
 About_Hint;Kontakt und Infos zur neuesten Version
 Accompaniment;Begleitung
@@ -172,7 +177,12 @@ Audio_Codec_List;Audio-Codecs
 Audio_No;Kein Ton
 Audio1;Erster Audio-Stream
 Audio2;Zweiter Audio-Stream
+AudioComments;
 AudioCount;Anzahl der Audio-Streams
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;Autor
 BarCode;Barcode
 Basic;Einfach
@@ -211,6 +221,9 @@ Chroma;Chroma
 ChromaSubsampling;
 Close;Schließen
 Close all before open;Vor dem Öffnen alle anderen schließen
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;Codec
 Codec_Description;Codec-Beschreibung
 Codec_Info;Codec-Details
@@ -239,16 +252,20 @@ Comment;Kommentar
 CommissionedBy;In Auftrag gegeben von
 Compilation;
 CompleteName;Vollständiger Name
+CompletionDate;
 Composer;Komponist
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;Kompressions-Verhältnis
 Conductor;Leiter
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;Containerformat und allgemeine Informationen
 ContentType;Typ des Inhalts
 CoProducer;Coproduzent
 Copyright;Copyright
+CopyrightYear;
 CostumeDesigner;Kostüm-Designer
 Count;Anzahl
 Country;Land
@@ -276,6 +293,7 @@ DirectorOfPhotography;Chefkameramann
 DisplayAspectRatio;Bildseitenverhältnis
 DisplayAspectRatio_Original;Ursprüngliches Bildseitenverhältnis
 DistributedBy;Vertrieb durch
+Distributor;
 Donate;MediaInfo unterstützen
 DotsPerInch;DPI
 Duration;Dauer
@@ -291,6 +309,7 @@ Encoded_Library_Settings;Kodierungseinstellungen
 Encoded_Original;Original
 EncodedBy;Kodiert von
 EPG_Positions;EPG Positionen (inter)
+EpisodeTitleNumber;
 Error_File;Fehler beim Lesen der Datei
 ExecutiveProducer;Ausführender Produzent
 Exit;Beenden
@@ -351,6 +370,9 @@ Format_Settings_Sign;Format-Einstellungen für Sign
 Format_Settings_Wrapping;
 Format_Url;Web-Link zum Format
 Format_Version;Format-Version
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;Anzahl der Frames
 FrameRate;Bildwiederholungsrate
 FrameRate_Maximum;maximale Bildwiederholungsrate
@@ -568,6 +590,7 @@ How many text streams?;Wieviele Text-Streams?
 How many video streams?;Wieviele Video-Streams?
 HTML;HTML
 ID;ID
+IdentClockStart;
 Image;Bild
 Image stream(s);Bild-Stream(s)
 Image_Codec_List;Bild-Codecs
@@ -791,6 +814,7 @@ LawRating;Altersfreigabe
 LCCN;LCCN
 Library;Muxing-Bibliothek
 Lightness;Helligkeit
+LineUpStart;
 List;Liste
 Lyricist;Liedtexter
 Lyrics;Liedtext
@@ -868,13 +892,19 @@ OpenCandy_33;Nicht installieren
 OpenCandy_34;Wählen Sie bitte eine Installationsoption aus
 OpenCandy_35;_____ empfiehlt diese software
 OpenCandy_36;Ihre aktuelle Installation wird nicht unterbrochen
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;Optionen
 Options_Hint;Voreinstellungen
 Original;Original
 OriginalNetworkName;Originaler Netzwerkname
 OriginalSourceForm;Originale Source-Form
 OriginalSourceMedium;Originales Source-Medium
+Originator;
 Other;Andere
+OtherIdentifier;
+OtherIdentifierType;
 Output;Ausgabe
 Output format;Ausgabeformat
 OverallBitRate;Gesamte Bitrate
@@ -884,9 +914,12 @@ OverallBitRate_Mode;Modus der Gesamtbitrate
 OverallBitRate_Nominal;nominale Gesamtbitrate
 Part;Teil
 Part_Count;Gesamtanzahl
+PartNumber;
+PartTotal;
 Performer;Künstler
 Period;Zeitalter
 Phone;Telefon
+PictureRatio;
 PixelAspectRatio;Pixelverhältnis
 PixelAspectRatio_Original;Pixelverhältnis
 PlayCounter;Wiedergabezähler
@@ -897,9 +930,15 @@ PlayTime;Spielzeit
 Position;Position
 Position_Total;total
 Preferences;Voreinstellungen
+PrimaryAudioLanguage;
 Producer;Produzent
 ProductionDesigner;Produktionsdesigner
+ProductionNumber;
 ProductionStudio;Produktionsstudio
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;Verleger
 Purchased_Date;Kaufdatum
 Quote character;Anführungszeichen
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Drehbuch von
 Season;Staffel
+SecondaryAudioLanguage;
 see below;siehe unten
 Send HeaderFile;Bitte die Header-Datei hierhin schicken: http://sourceforge.net/projects/mediainfo/ (unter Bugs)
 Separator_Columns;Spaltentrenner
 Separator_Lines;Zeilentrenner
+SerieTitle;
 ServiceChannel;Nummer des Service-Kanals
 ServiceName;Service-Name
 ServiceProvider;Service-Anbieter
@@ -943,8 +984,11 @@ Sheet (Complete);Tabelle (komplett)
 Shell extension;Shell-Erweiterung (bei Rechtsklick im Explorer erscheint ein Media Info Eintrag...)
 Shell extension, folder;Auch für Verzeichnisse
 Shell InfoTip;Shell InfoTip (bewege den Mauszeiger im Explorer über eine Datei und Infos werden angezeigt)
+ShimName;
 Show menu;Menü anzeigen
 Show toolbar;Toolbar anzeigen
+SigningPresent;
+SignLanguage;
 Sort;Sortiert nach
 SoundEngineer;Tontechniker
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;Tagging-Anwendung
 Tagged_Date;Tagging-Datum
 Technician;Techniker
 TermsOfUse;Verwendungsrichtlinien
+TertiaryAudioLanguage;
 Text;Text
 Text - Custom;Text - benutzerdefiniert
 Text (HTML);Text (HTML)
@@ -990,6 +1035,7 @@ Text1;Erster Text-Stream
 Text2;Zweiter Text-Stream
 Text3;Dritter Text-Stream
 TextCount;Anzahl der Text-Streams
+TextlessElementsExist;
 ThanksTo;Dank an
 Thousands separator;Tausender-Markierung
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;Zeitzone
 Title;Titel
 Title_More;Titel, mehr Informationen
 Total;Gesamt
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;Track-Name
 Track_Count;Anzahl der Tracks
 transfer_characteristics;
@@ -1018,6 +1066,7 @@ Video_Delay;Video Verzögerung
 Video_No;kein Video
 Video0_Delay;Video0 Verzögerung
 Video1;Erster Video-Stream
+VideoComments;
 VideoCount;Anzahl der Video-Streams
 View;Ansicht
 View_Hint;Ändert die Darstellung der angezeigten Informationen
@@ -1041,5 +1090,5 @@ Written_Location;Ort des Schreibbeginns
 WrittenBy;Geschrieben von
 Yes;Ja
 Your system;Deine Systeminformationen
-ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;94
+ZZ_Automatic_Percent;86
+ZZ_AutomaticLanguage_Percent;90

@@ -28,6 +28,9 @@
  chapters stream1; bölüm akışı
  chapters stream2; bölüm akışı
  chapters stream3; bölüm akışı
+ character1;
+ character2;
+ character3;
  day1; gün
  day2; gün
  day3; gün
@@ -141,6 +144,8 @@
  year3; yıl
 , ;, 
 : ;: 
+3D;
+3DType;
 About;Hakkında
 About_Hint;Son sürümü bulmak ve benle nasıl bağlantı kurmanız için
 Accompaniment;Refakat
@@ -172,7 +177,12 @@ Audio_Codec_List;Ses kodekleri
 Audio_No;Ses yok
 Audio1;Birinci ses
 Audio2;İkinci ses
+AudioComments;
 AudioCount;Ses sayısı
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;Hazırlayan
 BarCode;BarKod
 Basic;Temel
@@ -211,6 +221,9 @@ Chroma;Krom
 ChromaSubsampling;Krom altörnekleme
 Close;Kapat
 Close all before open;Açmadan önce tümünü kapat
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;Kodek
 Codec_Description;Kodek açıklaması
 Codec_Info;Kodek için ayrıntılar
@@ -239,16 +252,20 @@ Comment;Yorum
 CommissionedBy;Görevlendiren
 Compilation;Derleme
 CompleteName;Tam isim
+CompletionDate;
 Composer;Besteci
 Compression_Mode;Sıkıştırma kipi
 Compression_Mode_Lossless;Kayıpsız
 Compression_Mode_Lossy;Kayıplı
 Compression_Ratio;Sıkıştırma oranı
 Conductor;Orkestra şefi
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;Kalıp ve genel bilgi
 ContentType;İçerik Türü
 CoProducer;Yardımcı yapımcı
 Copyright;Telif Hakkı
+CopyrightYear;
 CostumeDesigner;Kıyafet tasarımcısı
 Count;Sayım
 Country;Ülke
@@ -276,6 +293,7 @@ DirectorOfPhotography;Fotoğrafçılık yönetmeni
 DisplayAspectRatio;Görüntü en-boy oranı
 DisplayAspectRatio_Original;Orijinal görüntü en-boy oranı
 DistributedBy;Dağıtan
+Distributor;
 Donate;Bağış
 DotsPerInch;İnç başına nokta
 Duration;Süre
@@ -291,6 +309,7 @@ Encoded_Library_Settings;Kodlama ayarları
 Encoded_Original;Orijinal
 EncodedBy;Kodlayan
 EPG_Positions;EPG konumu (dahili)
+EpisodeTitleNumber;
 Error_File;Dosya okunurken hata
 ExecutiveProducer;İdari yapımcı
 Exit;Çıkış
@@ -351,6 +370,9 @@ Format_Settings_Sign;Biçim ayarları, Sign
 Format_Settings_Wrapping;
 Format_Url;Biçim için web bağlantısı
 Format_Version;Biçim sürümü
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;Kare sayısı
 FrameRate;Kare hızı
 FrameRate_Maximum;En fazla kare hızı
@@ -568,6 +590,7 @@ How many text streams?;Kaç tane yazı akışı?
 How many video streams?;Kaç tane görüntü akışı?
 HTML;HTML
 ID;ID
+IdentClockStart;
 Image;İmaj
 Image stream(s);İmaj akışı
 Image_Codec_List;Kodek İmajı
@@ -791,6 +814,7 @@ LawRating;Kanun oranı
 LCCN;LCCN
 Library;Çoklama kütüphanesi
 Lightness;Canlılık
+LineUpStart;
 List;Liste
 Lyricist;Söz yazarı
 Lyrics;Şarkı Sözleri
@@ -868,13 +892,19 @@ OpenCandy_33;Kurma
 OpenCandy_34;Lütfen kurma seçeneği seçin
 OpenCandy_35;______ recommends this software
 OpenCandy_36;Your current installation will not be interrupted
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;Seçenekler
 Options_Hint;Tercihler
 Original;Orijinal
 OriginalNetworkName;Orijinal ağ adı
 OriginalSourceForm;Orijinal kaynak biçimi
 OriginalSourceMedium;Orijinal kaynak ortamı
+Originator;
 Other;Diğer
+OtherIdentifier;
+OtherIdentifierType;
 Output;Çıktı
 Output format;Çıktı biçimi
 OverallBitRate;Kapsamlı bit oranı
@@ -884,9 +914,12 @@ OverallBitRate_Mode;Kapsamlı bit oranı modu
 OverallBitRate_Nominal;Düşük kapsamlı bit oranı
 Part;Parça
 Part_Count;Toplam sayı
+PartNumber;
+PartTotal;
 Performer;Sanatçı
 Period;Dönem
 Phone;Telefon
+PictureRatio;
 PixelAspectRatio;Piksel oranı
 PixelAspectRatio_Original;Piksel oranı
 PlayCounter;Oynatma Sayacı
@@ -897,9 +930,15 @@ PlayTime;Oynatma Süresi
 Position;Konum
 Position_Total;Toplam
 Preferences;Tercihler
+PrimaryAudioLanguage;
 Producer;Yapımcı
 ProductionDesigner;Üretim tasarımcısı
+ProductionNumber;
 ProductionStudio;Üretim sütüdyosu
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;Yayıncı
 Purchased_Date;Satın alma tarihi
 Quote character;Alıntı bölümü
@@ -926,10 +965,12 @@ ScanType_Original;Orijinal tarama türü
 ScanType_StoreMethod;
 ScreenplayBy;Senaryo
 Season;Sezon
+SecondaryAudioLanguage;
 see below;aşağı bakın
 Send HeaderFile;Lütfen Header dosyasını buraya gönderin : http://sourceforge.net/projects/mediainfo/ (Bug bölümü)
 Separator_Columns;Sütun ayırıcı
 Separator_Lines;Satır ayırıcı
+SerieTitle;
 ServiceChannel;Hizmet kanal numarası
 ServiceName;Hizmet adı
 ServiceProvider;Hizmet sağlayıcısı
@@ -943,8 +984,11 @@ Sheet (Complete);Sayfa (Tam)
 Shell extension;Sistem uzantısı (gezginde sağ tuş tıklamada Media Info seçeneği olacak...)
 Shell extension, folder;Klasörler içinde
 Shell InfoTip;Sistem Bilgisi İpucu (gezginde, fareyi dosya üzerine taşıyın, bilgi görüntülenecek)
+ShimName;
 Show menu;Menü göster
 Show toolbar;Araç çubuğu göster
+SigningPresent;
+SignLanguage;
 Sort;Sıralayan
 SoundEngineer;Ses teknisyeni
 Source;Kaynak
@@ -979,6 +1023,7 @@ Tagged_Application;Etiketleme uygulaması
 Tagged_Date;Etiketleme tarihi
 Technician;Teknisyen
 TermsOfUse;Kullanım şarları
+TertiaryAudioLanguage;
 Text;Metin
 Text - Custom;Metin - Özel
 Text (HTML);Metin (HTML)
@@ -990,6 +1035,7 @@ Text1;Birinci altyazı
 Text2;İkinci altyazı
 Text3;Üçüncü altyazı
 TextCount;Altyazı sayısı
+TextlessElementsExist;
 ThanksTo;Teşekkürler
 Thousands separator;Binlik basamak ayırıcı
 TimeCode;Zaman kodu
@@ -1001,6 +1047,8 @@ TimeZone;Saat dilimi
 Title;Başlık
 Title_More;Başlık, daha fazla bilgi
 Total;Toplam
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;Parça adı
 Track_Count;Parça sayısı
 transfer_characteristics;Aktarım nitelikleri
@@ -1018,6 +1066,7 @@ Video_Delay;Görüntü gecikmesi
 Video_No;Görüntü yok
 Video0_Delay;Görüntü0 gecikmesi
 Video1;Birinci hareketli görüntü
+VideoComments;
 VideoCount;Hareketli görüntü sayısı
 View;Görünüm
 View_Hint;Görünüm bilgilerinin anlamını değiştirir
@@ -1041,5 +1090,5 @@ Written_Location;Yazıldığı yer
 WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;94
+ZZ_AutomaticLanguage_Percent;94

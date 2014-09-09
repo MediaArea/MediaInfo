@@ -28,6 +28,9 @@
  chapters stream1; kapitelström
  chapters stream2; kapitelströmmar
  chapters stream3; kapitelströmmar
+ character1;
+ character2;
+ character3;
  day1; dag
  day2; dagar
  day3; dagar
@@ -141,6 +144,8 @@
  year3; år
 , ; ,
 : ; :
+3D;
+3DType;
 About; Om
 About_Hint; Kontakt - och versionsinformation
 Accompaniment; Ackompanjemang
@@ -172,7 +177,12 @@ Audio_Codec_List; Ljudcodecs
 Audio_No; Inget ljud
 Audio1; Första ljudströmmen
 Audio2; Andra ljudströmmen
+AudioComments;
 AudioCount; Antalet Ljudströmmar
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author; Författare
 BarCode; Streckkod
 Basic; Enkel
@@ -211,6 +221,9 @@ Chroma;
 ChromaSubsampling;
 Close; Stäng
 Close all before open; Stäng alla före öppna
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec; Codec
 Codec_Description;
 Codec_Info; Codecdetaljer
@@ -239,16 +252,20 @@ Comment; Kommentar
 CommissionedBy; Kommissionerad av
 Compilation;
 CompleteName; Fullständigt namn
+CompletionDate;
 Composer; Kompositör
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;
 Conductor; Dirigent
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information; Behållare och allmän information
 ContentType; Innehållstyp
 CoProducer; Medproducent
 Copyright; Copyright
+CopyrightYear;
 CostumeDesigner; Kostymdesigner
 Count; Antal
 Country; Land
@@ -276,6 +293,7 @@ DirectorOfPhotography; Chefkameraman
 DisplayAspectRatio; Bildförhållande
 DisplayAspectRatio_Original;
 DistributedBy; Distribuerad av
+Distributor;
 Donate; Donera
 DotsPerInch;
 Duration;
@@ -291,6 +309,7 @@ Encoded_Library_Settings; Kodningsinställningar
 Encoded_Original; Original
 EncodedBy; Kodad av
 EPG_Positions;
+EpisodeTitleNumber;
 Error_File; Fel under läsning av fil
 ExecutiveProducer; Verkställande producent
 Exit; Stäng
@@ -351,6 +370,9 @@ Format_Settings_Sign;
 Format_Settings_Wrapping;
 Format_Url;
 Format_Version;
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;
 FrameRate; Bildhastighet (Frame rate)
 FrameRate_Maximum;
@@ -568,6 +590,7 @@ How many text streams?;
 How many video streams?;
 HTML; HTML
 ID; ID
+IdentClockStart;
 Image; Bild
 Image stream(s); Bildströmmar
 Image_Codec_List; Bildcodecs
@@ -791,6 +814,7 @@ LawRating; Åldersgräns
 LCCN; LCCN
 Library; Muxningsbibliotek
 Lightness;
+LineUpStart;
 List;
 Lyricist; Texter från
 Lyrics;
@@ -868,13 +892,19 @@ OpenCandy_33;
 OpenCandy_34;
 OpenCandy_35;
 OpenCandy_36;
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options; Alternativ
 Options_Hint; Inställningar
 Original; Original
 OriginalNetworkName;
 OriginalSourceForm;
 OriginalSourceMedium;
+Originator;
 Other; Övrigt
+OtherIdentifier;
+OtherIdentifierType;
 Output; Utdata
 Output format; Utdataformat
 OverallBitRate; Generell Bitrate
@@ -884,9 +914,12 @@ OverallBitRate_Mode;
 OverallBitRate_Nominal;
 Part; Del
 Part_Count; Antal delar
+PartNumber;
+PartTotal;
 Performer; Framträdare
 Period; Period
 Phone; Telefon
+PictureRatio;
 PixelAspectRatio; Pixelförhållande
 PixelAspectRatio_Original; Pixelförhållande
 PlayCounter; Spelräknare
@@ -897,9 +930,15 @@ PlayTime; Speltid
 Position; Position
 Position_Total;
 Preferences; Inställningar
+PrimaryAudioLanguage;
 Producer; Producent
 ProductionDesigner; Produktionsdesigner
+ProductionNumber;
 ProductionStudio; Produktionsstudio
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher; Utgivare
 Purchased_Date; Inköpsdatum
 Quote character; Citationstecken
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy; Framträdande av
 Season; Säsong
+SecondaryAudioLanguage;
 see below; se nedan
 Send HeaderFile;
 Separator_Columns; columnseparator
 Separator_Lines; linjeseparator
+SerieTitle;
 ServiceChannel;
 ServiceName;
 ServiceProvider;
@@ -943,8 +984,11 @@ Sheet (Complete); Tabell (Komplett)
 Shell extension; Shell extension (högerklicka i explorer så kommer ett Media Info alternativ...)
 Shell extension, folder;
 Shell InfoTip;
+ShimName;
 Show menu; Visa meny
 Show toolbar; Visa verktygsfält
+SigningPresent;
+SignLanguage;
 Sort; Sorterad av
 SoundEngineer; Ljudingenjör
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;
 Tagged_Date; Taggingdatum
 Technician; Tekniker
 TermsOfUse; Användarvillkor
+TertiaryAudioLanguage;
 Text; Text
 Text - Custom; Text - Anpassad
 Text (HTML); Text (HTML)
@@ -990,6 +1035,7 @@ Text1; Första textströmmen
 Text2; Andra textströmmen
 Text3; Trejde textströmmen
 TextCount; Antal textströmmar
+TextlessElementsExist;
 ThanksTo; Tack till
 Thousands separator; Tusentalsseparator
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;
 Title; titel
 Title_More; Title, mer info
 Total; Totalt
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track; Spårnamn
 Track_Count; Antal spår
 transfer_characteristics;
@@ -1018,6 +1066,7 @@ Video_Delay; Video fördröjning
 Video_No; Ingen video
 Video0_Delay; Video0 fördröjning
 Video1; Första videoströmmen
+VideoComments;
 VideoCount; Antal videoströmmar
 View; Vy
 View_Hint; Ändra hur informationen skall visas
@@ -1041,5 +1090,5 @@ Written_Location; Ort
 WrittenBy; Skrivet av
 Yes; Ja
 Your system; Ditt system
-ZZ_Automatic_Percent;71
-ZZ_AutomaticLanguage_Percent;79
+ZZ_Automatic_Percent;68
+ZZ_AutomaticLanguage_Percent;76

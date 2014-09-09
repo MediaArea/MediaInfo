@@ -28,6 +28,9 @@
  chapters stream1; faixa de capítulos
  chapters stream2; faixas de capítulos
  chapters stream3; faixas de capítulos
+ character1;
+ character2;
+ character3;
  day1; dia
  day2; dias
  day3; dias
@@ -141,6 +144,8 @@
  year3; anos
 , ;, 
 : ;: 
+3D;
+3DType;
 About;Acerca
 About_Hint;Como contatar-me e encontrar a última versão
 Accompaniment;Acompanhamento
@@ -172,7 +177,12 @@ Audio_Codec_List;Codecs de áudio
 Audio_No;Sem áudio
 Audio1;Primeira faixa de áudio
 Audio2;Segunda faixa de áudio
+AudioComments;
 AudioCount;Número de faixas de áudio
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;Autor
 BarCode;Código de Barras
 Basic;Básico
@@ -211,6 +221,9 @@ Chroma;Saturação
 ChromaSubsampling;Subamostragem de saturação
 Close;Fechar
 Close all before open;Fechar tudo antes de abrir
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;Codec
 Codec_Description;Descrição do codec
 Codec_Info;Detalhes do codec
@@ -239,16 +252,20 @@ Comment;Comentário
 CommissionedBy;Representado por
 Compilation;Complilação
 CompleteName;Nome completo
+CompletionDate;
 Composer;Compositor
 Compression_Mode;Modo de compressão
 Compression_Mode_Lossless;Sem perdas
 Compression_Mode_Lossy;Com perdas
 Compression_Ratio;Taxa de Compressão
 Conductor;Maestro
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;Arquivo recipiente e informação geral
 ContentType;Conteúdo
 CoProducer;Co-Produtor
 Copyright;Direitos de autor
+CopyrightYear;
 CostumeDesigner;Estilista
 Count;Número
 Country;País
@@ -276,6 +293,7 @@ DirectorOfPhotography;Director de fotografia
 DisplayAspectRatio;Proporção da imagem
 DisplayAspectRatio_Original;Proporção original da imagem
 DistributedBy;Distribuído por
+Distributor;
 Donate;Doar
 DotsPerInch;Pontos por polegada
 Duration;Duração
@@ -291,6 +309,7 @@ Encoded_Library_Settings;Config. da codificação
 Encoded_Original;Original
 EncodedBy;Codificado por
 EPG_Positions;Posições EPG (interno)
+EpisodeTitleNumber;
 Error_File;Erro na leitura do ficheiro
 ExecutiveProducer;Produtor executivo
 Exit;Sair
@@ -351,6 +370,9 @@ Format_Settings_Sign;Conf. do formato, Assinatura
 Format_Settings_Wrapping;
 Format_Url;URL parar o formato
 Format_Version;Versão do formato
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;Número de frames
 FrameRate;Taxa de frames
 FrameRate_Maximum;Taxa de frames máxima
@@ -568,6 +590,7 @@ How many text streams?;Quantas faixas de texto?
 How many video streams?;Quantas faixas de vídeo?
 HTML;HTML
 ID;ID
+IdentClockStart;
 Image;Imagem
 Image stream(s);Faixas de imagem
 Image_Codec_List;Codecs de Imagem
@@ -791,6 +814,7 @@ LawRating;Classificação
 LCCN;LCCN
 Library;Biblioteca multiplex
 Lightness;Iluminação
+LineUpStart;
 List;Lista
 Lyricist;Compositor
 Lyrics;Letra
@@ -868,13 +892,19 @@ OpenCandy_33;Não instalar
 OpenCandy_34;Por favor, seleccione uma opção de instalação
 OpenCandy_35;______ recomenda este software
 OpenCandy_36;Sua instalação actual não será interrompida
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;Opções
 Options_Hint;Preferências
 Original;Original
 OriginalNetworkName;Nome original da rede
 OriginalSourceForm;Formato original
 OriginalSourceMedium;Meio original
+Originator;
 Other;Outro
+OtherIdentifier;
+OtherIdentifierType;
 Output;Saída
 Output format;Formato de saída
 OverallBitRate;Taxa de Bits Total
@@ -884,9 +914,12 @@ OverallBitRate_Mode;Taxa de Bits Total, Modo
 OverallBitRate_Nominal;Taxa de Bits Total, Nominal
 Part;Parte
 Part_Count;Número total
+PartNumber;
+PartTotal;
 Performer;Intérprete
 Period;Período
 Phone;Telefone
+PictureRatio;
 PixelAspectRatio;Proporção de pixels
 PixelAspectRatio_Original;Proporção original de pixels
 PlayCounter;Reproduzido
@@ -897,9 +930,15 @@ PlayTime;Duração
 Position;Posição
 Position_Total;Total
 Preferences;Preferências
+PrimaryAudioLanguage;
 Producer;Produtor
 ProductionDesigner;Designer de produção
+ProductionNumber;
 ProductionStudio;Estúdio de produção
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;Publicador
 Purchased_Date;Data de aquisição
 Quote character;Citação personagem
@@ -926,10 +965,12 @@ ScanType_Original;Tipo original de scan
 ScanType_StoreMethod;
 ScreenplayBy;Roteirista
 Season;Temporada
+SecondaryAudioLanguage;
 see below;ver abaixo
 Send HeaderFile;Por favor envie-me o cabeçalho do ficheiro para : http://sourceforge.net/projects/mediainfo/ (secção de Bug)
 Separator_Columns;Separador de colunas
 Separator_Lines;Separador de linhas
+SerieTitle;
 ServiceChannel;Número do canal do serviço
 ServiceName;Nome do serviço
 ServiceProvider;Provedor do serviço
@@ -943,8 +984,11 @@ Sheet (Complete);Formulário (Completo)
 Shell extension;Extensão Shell (no Explorador do Windows, botão direito, haverá uma opção MediaInfo)
 Shell extension, folder;Também para pastas
 Shell InfoTip;Info. Shell (no Explorador do Windows, mova o rato sobre o ficheiro, a info. será exibida)
+ShimName;
 Show menu;Mostrar menu
 Show toolbar;Mostrar barra de ferramentas
+SigningPresent;
+SignLanguage;
 Sort;Ordenado por
 SoundEngineer;Engenheiro de som
 Source;Fonte
@@ -979,6 +1023,7 @@ Tagged_Application;Programa etiquetador
 Tagged_Date;Etiquetado dia
 Technician;Técnico
 TermsOfUse;Termos de uso
+TertiaryAudioLanguage;
 Text;Texto
 Text - Custom;Texto - Personalizado
 Text (HTML);Texto (HTML)
@@ -990,6 +1035,7 @@ Text1;Primeira faixa de texto
 Text2;Segunda faixa de texto
 Text3;Teceira faixa de texto
 TextCount;Número de faixas de texto
+TextlessElementsExist;
 ThanksTo;Abrigado a
 Thousands separator;Separador de milhar
 TimeCode;Código de tempo
@@ -1001,6 +1047,8 @@ TimeZone;Fuso horário
 Title;Título
 Title_More;Título, mais info.
 Total;Total
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;Nome da faixa
 Track_Count;Número da faixa
 transfer_characteristics;Características de transferência
@@ -1018,6 +1066,7 @@ Video_Delay;Atraso do Vídeo
 Video_No;Sem Vídeo
 Video0_Delay;Atraso do Vídeo0
 Video1;Primeira faixa de vídeo
+VideoComments;
 VideoCount;Número de faixas de vídeo
 View;Vista
 View_Hint;Alterar a forma de visualização da informação
@@ -1041,5 +1090,5 @@ Written_Location;Local da escrita
 WrittenBy;Escrito por
 Yes;Sim
 Your system;O seu sistema
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;94
+ZZ_AutomaticLanguage_Percent;94

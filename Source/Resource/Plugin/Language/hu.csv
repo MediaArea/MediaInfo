@@ -28,6 +28,9 @@
  chapters stream1; fejezetsáv
  chapters stream2; fejezetsáv
  chapters stream3; fejezetsáv
+ character1;
+ character2;
+ character3;
  day1; nap
  day2; nap
  day3; nap
@@ -141,6 +144,8 @@
  year3; év
 , ;,
 : ;:
+3D;
+3DType;
 About;Névjegy
 About_Hint;Hogyan léphet velem kapcsolatba, illetve a legfrissebb változat lelőhelye
 Accompaniment;Kíséret
@@ -172,7 +177,12 @@ Audio_Codec_List;Hangkódekek
 Audio_No;Nincs hang
 Audio1;Első hangsáv
 Audio2;Második hangsáv
+AudioComments;
 AudioCount;Hangsávok száma
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;Szerző
 BarCode;Vonalkód
 Basic;Egyszerű
@@ -211,6 +221,9 @@ Chroma;Szín
 ChromaSubsampling;
 Close;Bezárás
 Close all before open;Mindent bezár megnyitás előtt
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;kódek
 Codec_Description;Kódek leírás
 Codec_Info;A kódek részletei
@@ -239,16 +252,20 @@ Comment;Megjegyzés
 CommissionedBy;Megbízó
 Compilation;
 CompleteName;Teljes név
+CompletionDate;
 Composer;Zeneszerző
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;Tömörítési arány
 Conductor;Vezényel
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;Gyűjtő és általános adatok
 ContentType;Tartalom típusa
 CoProducer;Gyártó
 Copyright;Jogok
+CopyrightYear;
 CostumeDesigner;Jelmeztervező
 Count;Számláló
 Country;Ország
@@ -276,6 +293,7 @@ DirectorOfPhotography;Fényképezte
 DisplayAspectRatio;Képarány
 DisplayAspectRatio_Original;Eredeti képarány
 DistributedBy;Terjesztő
+Distributor;
 Donate;Adomány
 DotsPerInch;
 Duration;Időtartam
@@ -291,6 +309,7 @@ Encoded_Library_Settings;Kódoló könyvtár beállításai
 Encoded_Original;Eredeti
 EncodedBy;Kódolta
 EPG_Positions;
+EpisodeTitleNumber;
 Error_File;Fájlolvasási hiba
 ExecutiveProducer;Gyártó
 Exit;Kilépés
@@ -351,6 +370,9 @@ Format_Settings_Sign;Formátum beállítások, Sign
 Format_Settings_Wrapping;
 Format_Url;Formátum weblapja
 Format_Version;Formátum változat
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;Képkockaszám
 FrameRate;Képkockasebesség
 FrameRate_Maximum;Legnagyobb képkockasebesség
@@ -568,6 +590,7 @@ How many text streams?;Hány szövegsáv?
 How many video streams?;Hány képsáv?
 HTML;HTML
 ID;Sáv száma
+IdentClockStart;
 Image;Állókép
 Image stream(s);Állóképsávok
 Image_Codec_List;Állóképkódekek
@@ -791,6 +814,7 @@ LawRating;Korhatár
 LCCN;LCCN
 Library;Keverőkönyvtár
 Lightness;Fényesség
+LineUpStart;
 List;Lista
 Lyricist;Szövegíró
 Lyrics;Dalszöveg
@@ -868,13 +892,19 @@ OpenCandy_33;
 OpenCandy_34;
 OpenCandy_35;
 OpenCandy_36;
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;Beállítások
 Options_Hint;Beállítások
 Original;Eredeti
 OriginalNetworkName;
 OriginalSourceForm;Eredeti forrás formátuma
 OriginalSourceMedium;Eredeti adathordozója
+Originator;
 Other;Egyéb
+OtherIdentifier;
+OtherIdentifierType;
 Output;Kimenet
 Output format;Kimeneti formátum
 OverallBitRate;Teljes adatsebesség
@@ -884,9 +914,12 @@ OverallBitRate_Mode;Teljes adatsebesség
 OverallBitRate_Nominal;Névleges adatsebesség
 Part;Rész
 Part_Count;Részek száma
+PartNumber;
+PartTotal;
 Performer;Előadó
 Period;Korszak
 Phone;Telefon
+PictureRatio;
 PixelAspectRatio;Képpont arány
 PixelAspectRatio_Original;Képpont arány
 PlayCounter;Lejátszás számláló
@@ -897,9 +930,15 @@ PlayTime;Játékidő
 Position;Helyzet
 Position_Total;
 Preferences;Beállítások
+PrimaryAudioLanguage;
 Producer;Gyártó
 ProductionDesigner;Tervező
+ProductionNumber;
 ProductionStudio;Gyártó stúdió
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;Kiadó
 Purchased_Date;Vásárlás dátuma
 Quote character;Idézőjel karakter
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Forgatókönyvíró
 Season;Évad
+SecondaryAudioLanguage;
 see below;lásd alant
 Send HeaderFile;Kérem, küdje el a fejléc fájlt ide: http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;Oszlop elválasztó
 Separator_Lines;Sor elválasztó
+SerieTitle;
 ServiceChannel;Szolgáltatás csatornája
 ServiceName;Szolgáltatás neve
 ServiceProvider;Szolgáltató
@@ -943,8 +984,11 @@ Sheet (Complete);Táblázat (teljes)
 Shell extension;Rendszerhéj-kiterjesztés (az Intézőben a helyzetérzékeny menüben Media Info menüpont...)
 Shell extension, folder;
 Shell InfoTip;Rendszerhéj tipp (ha az egérmutató az Intézőben a fájl fölé visszük, adatokat láthatunk)
+ShimName;
 Show menu;Menü mutatása
 Show toolbar;Eszköztár mutatása
+SigningPresent;
+SignLanguage;
 Sort;Sorba rendezte
 SoundEngineer;Hangmérnök
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;Jelölő alkalmazás
 Tagged_Date;Jelölés dátuma
 Technician;Technikus
 TermsOfUse;Felhasználási feltételek
+TertiaryAudioLanguage;
 Text;Szöveg
 Text - Custom;Szöveg - egyedi
 Text (HTML);Text (HTML)
@@ -990,6 +1035,7 @@ Text1;Első szövegsáv
 Text2;Második szövegsáv
 Text3;Harmadik szövegsáv
 TextCount;Szövegsávok száma
+TextlessElementsExist;
 ThanksTo;Köszönetnyilvánítás
 Thousands separator;Ezres elválasztó jel
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;
 Title;Cím
 Title_More;Cím, több adat
 Total;Összesen
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;Sáv
 Track_Count;Sávok száma
 transfer_characteristics;
@@ -1018,6 +1066,7 @@ Video_Delay;Videó késleltetés
 Video_No;Nincs kép
 Video0_Delay;Video0 késleltetés
 Video1;Első képsáv
+VideoComments;
 VideoCount;Képsávok száma
 View;Nézet
 View_Hint;Megtekintési adatok megváltoztatása
@@ -1041,5 +1090,5 @@ Written_Location;Írás helye
 WrittenBy;Írta
 Yes;igen
 Your system;Rendszer
-ZZ_Automatic_Percent;82
-ZZ_AutomaticLanguage_Percent;92
+ZZ_Automatic_Percent;78
+ZZ_AutomaticLanguage_Percent;88

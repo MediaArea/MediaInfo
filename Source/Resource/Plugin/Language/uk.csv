@@ -28,6 +28,9 @@
  chapters stream1; потік розділів
  chapters stream2; потік(-оки,-оків) розділів
  chapters stream3; потік(-оки,-оків) розділів
+ character1;
+ character2;
+ character3;
  day1; дн.
  day2; дн.
  day3; дн.
@@ -141,6 +144,8 @@
  year3; рік(-и,-ів)
 , ;, 
 : ;: 
+3D;
+3DType;
 About;Про програму
 About_Hint;Контакти та пошук нової версії
 Accompaniment;Супровід
@@ -172,7 +177,12 @@ Audio_Codec_List;Аудіокодеки
 Audio_No;Аудіопотоки відсутні
 Audio1;Перший аудіопотік
 Audio2;Другий аудіопотік
+AudioComments;
 AudioCount;Кількість аудіопотоків
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;Автор
 BarCode;Штрихкод
 Basic;Стисло
@@ -211,6 +221,9 @@ Chroma;Хроматичність
 ChromaSubsampling;Субдискретизація хроматичності
 Close;Закрити
 Close all before open;Закривати все перед відкриттям
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;Кодек
 Codec_Description;Опис кодеку
 Codec_Info;Докладно про кодек
@@ -239,16 +252,20 @@ Comment;Примітка
 CommissionedBy;Поручитель
 Compilation;Компіляція
 CompleteName;Повна назва
+CompletionDate;
 Composer;Композитор
 Compression_Mode;Тип стиснення
 Compression_Mode_Lossless;Без втрат
 Compression_Mode_Lossy;Із втратами
 Compression_Ratio;Ступінь стиснення
 Conductor;Диригент
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;Контейнер і загальна інформація
 ContentType;Тип вмісту
 CoProducer;Співпродюсер
 Copyright;Авторське право
+CopyrightYear;
 CostumeDesigner;Дизайн костюмів
 Count;Кількість
 Country;Країна
@@ -276,6 +293,7 @@ DirectorOfPhotography;Оператор
 DisplayAspectRatio;Співвідношення сторін екрану
 DisplayAspectRatio_Original;Оригінальне співвідношення сторін екрану
 DistributedBy;Розповсюджувач
+Distributor;
 Donate;Пожертвування
 DotsPerInch;Точок на дюйм
 Duration;Тривалість
@@ -291,6 +309,7 @@ Encoded_Library_Settings;Налаштування бібліот. кодуван
 Encoded_Original;Оригінальне кодування
 EncodedBy;Закодовано
 EPG_Positions;EPG положення (внутрішні)
+EpisodeTitleNumber;
 Error_File;Помилка при читанні файлу
 ExecutiveProducer;Виконавчий продюсер
 Exit;Вихід
@@ -351,6 +370,9 @@ Format_Settings_Sign;Налаштування формату, Sign
 Format_Settings_Wrapping;
 Format_Url;Інтернет-адреса формату
 Format_Version;Версія формату
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;Кількість кадрів
 FrameRate;Частота кадрів
 FrameRate_Maximum;Максимальна частота кадрів
@@ -568,6 +590,7 @@ How many text streams?;Скільки текстових потоків?
 How many video streams?;Скільки відеопотоків?
 HTML;HTML
 ID;Ідентифікатор
+IdentClockStart;
 Image;Зображення
 Image stream(s);Потік(-оки) зображень
 Image_Codec_List;Кодеки зображень
@@ -791,6 +814,7 @@ LawRating;Легальний статус
 LCCN;LCCN
 Library;Бібліотека мультиплексування
 Lightness;Яскравість
+LineUpStart;
 List;Список
 Lyricist;Автор тексту
 Lyrics;Текст
@@ -868,13 +892,19 @@ OpenCandy_33;Не встановлювати
 OpenCandy_34;Вибери опції інсталяції
 OpenCandy_35;Рекомендоване ПО
 OpenCandy_36;
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;Опції
 Options_Hint;Налаштування програми
 Original;Оригінальний
 OriginalNetworkName;Оригінальна мережева назва
 OriginalSourceForm;Оригінальна форма джерела
 OriginalSourceMedium;Оригінальне розташування джерела
+Originator;
 Other;Інше
+OtherIdentifier;
+OtherIdentifierType;
 Output;Виведення
 Output format;Формат виведення
 OverallBitRate;Загальний бітрейт
@@ -884,9 +914,12 @@ OverallBitRate_Mode;Режим загального бітрейту
 OverallBitRate_Nominal;Номінальний загальний бітрейт
 Part;Частина
 Part_Count;Кількість частин
+PartNumber;
+PartTotal;
 Performer;Виконавець
 Period;Період
 Phone;Телефон
+PictureRatio;
 PixelAspectRatio;Співвідношення сторін пікселя
 PixelAspectRatio_Original;Оригінальне співвідношення сторін пікселя
 PlayCounter;Лічильник відтворень
@@ -897,9 +930,15 @@ PlayTime;Тривалість програвання
 Position;Положення
 Position_Total;Загальне
 Preferences;Налаштування
+PrimaryAudioLanguage;
 Producer;Продюсер
 ProductionDesigner;Виконавчий дизайнер
+ProductionNumber;
 ProductionStudio;Студія
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;Видавець
 Purchased_Date;Дата придбання
 Quote character;Символ лапок
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Сценарій
 Season;Сезон
+SecondaryAudioLanguage;
 see below;див. нижче
 Send HeaderFile;Відіслати заголовок
 Separator_Columns;Роздільник стовпців
 Separator_Lines;Роздільник рядків
+SerieTitle;
 ServiceChannel;Номер сервісного каналу
 ServiceName;Сервісне ім'я
 ServiceProvider;Провайдер
@@ -943,8 +984,11 @@ Sheet (Complete);Таблиця (повна)
 Shell extension;Контекстне меню провідника
 Shell extension, folder;Включаючи теки
 Shell InfoTip;Підказка провідника (при наведенні вказівника миші на файл відображається інформація)
+ShimName;
 Show menu;Відображати меню
 Show toolbar;Відображати панель
+SigningPresent;
+SignLanguage;
 Sort;Сортування
 SoundEngineer;Звукорежисер
 Source;Вихідний матеріал
@@ -979,6 +1023,7 @@ Tagged_Application;Додаток редагув. тегів
 Tagged_Date;Дата запису тегів
 Technician;Технік
 TermsOfUse;Умови використання
+TertiaryAudioLanguage;
 Text;Текст
 Text - Custom;Текст - звичайний
 Text (HTML);Текст (HTML)
@@ -990,6 +1035,7 @@ Text1;Перший текстовий потік
 Text2;Другий текстовий потік
 Text3;Третій текстовий потік
 TextCount;Кількість текстових потоків
+TextlessElementsExist;
 ThanksTo;Подяка
 Thousands separator;Роздільник розрядів
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;Часовий пояс
 Title;Заголовок
 Title_More;Більше інформації про заголовок
 Total;Сумарно
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;Назва доріжки
 Track_Count;Кількість доріжок
 transfer_characteristics;Характеристики трансферу
@@ -1018,6 +1066,7 @@ Video_Delay;Затримка відносно відео
 Video_No;Відео відсутнє
 Video0_Delay;Затримка відносно відео0
 Video1;Перший відеопотік
+VideoComments;
 VideoCount;Кількість відеопотоків
 View;Вигляд
 View_Hint;Змінити спосіб перегляду інформації
@@ -1041,5 +1090,5 @@ Written_Location;Місце запису
 WrittenBy;Записано
 Yes;Так
 Your system;Ваша система
-ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;86
+ZZ_AutomaticLanguage_Percent;93

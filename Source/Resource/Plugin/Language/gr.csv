@@ -28,6 +28,9 @@
  chapters stream1; ροή κεφαλαίων
  chapters stream2; ροές κεφαλαίων
  chapters stream3; ροές κεφαλαίων
+ character1;
+ character2;
+ character3;
  day1; μέρα
  day2; μέρες
  day3; μέρες
@@ -141,6 +144,8 @@
  year3; χρόνια
 , ;, 
 : ;: 
+3D;
+3DType;
 About;Πληροφορίες
 About_Hint;Πως θα επικοινωνήσετε μαζί μου και θα βρείτε νεότερη έκδoση
 Accompaniment;Συνοδεία
@@ -172,7 +177,12 @@ Audio_Codec_List;Κωδικοποιητές ήχου
 Audio_No;Χωρίς ήχο
 Audio1;Πρώτη ροή ήχου
 Audio2;Δεύτερη ροή ήχου
+AudioComments;
 AudioCount;Αριθμός των ροών ήχου
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;Author
 BarCode;BarCode
 Basic;Βασική
@@ -211,6 +221,9 @@ Chroma;Χρώμα
 ChromaSubsampling;
 Close;Κλείσιμο
 Close all before open;Κλείστε όλα τα ανοιχτά αρχεία πριν το άνοιγμα νέων
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;Συμπιεστής
 Codec_Description;
 Codec_Info;Λεπτομέρειες του συμπιεστή
@@ -239,16 +252,20 @@ Comment;Σχόλιο
 CommissionedBy;Commissioned by
 Compilation;
 CompleteName;Πλήρες όνομα
+CompletionDate;
 Composer;Composer
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;
 Conductor;Conductor
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;Container και γενικές πληροφορίες
 ContentType;Είδος περιεχόμενου
 CoProducer;Συμπαραγωγός
 Copyright;Πνευματικά Δικαιώματα
+CopyrightYear;
 CostumeDesigner;Costume designer
 Count;Αριθμός
 Country;Χώρα
@@ -276,6 +293,7 @@ DirectorOfPhotography;Director of photography
 DisplayAspectRatio;Λόγος εικόνας
 DisplayAspectRatio_Original;
 DistributedBy;Distributed by
+Distributor;
 Donate;Δωρεές
 DotsPerInch;
 Duration;
@@ -291,6 +309,7 @@ Encoded_Library_Settings;Ρυθμίσεις κωδικοποιητή
 Encoded_Original;Original
 EncodedBy;Κωδικοποιημένο από
 EPG_Positions;
+EpisodeTitleNumber;
 Error_File;Παρουσιάστηκε σφάλμα κατά το διάβασμα του αρχείου
 ExecutiveProducer;Executive producer
 Exit;Έξοδος
@@ -351,6 +370,9 @@ Format_Settings_Sign;
 Format_Settings_Wrapping;
 Format_Url;
 Format_Version;
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;
 FrameRate;Ρυθμός ανανέωσης πλαισίου
 FrameRate_Maximum;Μέγιστος ρυθμός ανανέωσης πλαισίου
@@ -568,6 +590,7 @@ How many text streams?;Πόσες ρόες κειμένου?
 How many video streams?;Πόσες ροές video?
 HTML;HTML
 ID;ID
+IdentClockStart;
 Image;Εικόνα
 Image stream(s);Ροές εικόνας
 Image_Codec_List;Συμπιεστές εικόνας
@@ -791,6 +814,7 @@ LawRating;Law rating
 LCCN;LCCN
 Library;Muxing library
 Lightness;
+LineUpStart;
 List;
 Lyricist;Lyricist
 Lyrics;
@@ -868,13 +892,19 @@ OpenCandy_33;
 OpenCandy_34;
 OpenCandy_35;
 OpenCandy_36;
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;Επιλογές
 Options_Hint;Προτιμήσεις
 Original;Original
 OriginalNetworkName;
 OriginalSourceForm;
 OriginalSourceMedium;
+Originator;
 Other;Άλλος
+OtherIdentifier;
+OtherIdentifierType;
 Output;Έξοδος
 Output format;Μορφοποίηση εξόδου
 OverallBitRate;Συνολικό BitRate
@@ -884,9 +914,12 @@ OverallBitRate_Mode;
 OverallBitRate_Nominal;
 Part;Μέρος
 Part_Count;Συνολικός αριθμός
+PartNumber;
+PartTotal;
 Performer;Performer
 Period;Περίοδος
 Phone;Τηλέφωνο
+PictureRatio;
 PixelAspectRatio;Λόγος εικονοστοιχείου
 PixelAspectRatio_Original;Λόγος εικονοστοιχείου
 PlayCounter;PlayCounter
@@ -897,9 +930,15 @@ PlayTime;Διάρκεια
 Position;Θέση
 Position_Total;
 Preferences;Επιλογές/Προτιμήσεις
+PrimaryAudioLanguage;
 Producer;Παραγωγός
 ProductionDesigner;ProductionDesigner
+ProductionNumber;
 ProductionStudio;ProductionStudio
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;Εκδώτης
 Purchased_Date;Ημερομηνία αγοράς
 Quote character;Quote character
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Screenplay by
 Season;Season
+SecondaryAudioLanguage;
 see below;δείτε παρακάτω
 Send HeaderFile;
 Separator_Columns;διαχωριστής στηλών
 Separator_Lines;διαχωριστής γραμμών
+SerieTitle;
 ServiceChannel;
 ServiceName;
 ServiceProvider;
@@ -943,8 +984,11 @@ Sheet (Complete);Φύλλο (Πλήρες)
 Shell extension;Shell extension (in explorer right click there will be a Media Info option)
 Shell extension, folder;
 Shell InfoTip;Shell InfoTip (in explorer, move the mouse on file, info will be displayed)
+ShimName;
 Show menu;Εμφάνιση μενού
 Show toolbar;Εμφάνιση εργαλειοθήκης
+SigningPresent;
+SignLanguage;
 Sort;Ταξινόμηση κατά
 SoundEngineer;Sound engineer
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;
 Tagged_Date;Tagged date
 Technician;Τεχνικός
 TermsOfUse;Όροι χρήσης
+TertiaryAudioLanguage;
 Text;Κείμενο
 Text - Custom;Κείμενο - Προσαρμοσμένο
 Text (HTML);Κείμενο (HTML)
@@ -990,6 +1035,7 @@ Text1;Πρώτη ροή κειμένου
 Text2;Δεύτερη ροή κειμένου
 Text3;Τρίτη ροή κειμένου
 TextCount;Αριθμός ροών κειμένου
+TextlessElementsExist;
 ThanksTo;Ευχαριστώ τους
 Thousands separator;Διαχωριστής χιλιάδων
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;
 Title;Τίτλος
 Title_More;Τίτλος, περισσότερες πληροφορίες
 Total;Total
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;Track name
 Track_Count;Track count
 transfer_characteristics;
@@ -1018,6 +1066,7 @@ Video_Delay;Καθηστέριση video
 Video_No;Χωρίς video
 Video0_Delay;Καθηστέριση video
 Video1;Πρώτη ροή video
+VideoComments;
 VideoCount;Αριθμός των ροών video
 View;Προβολή
 View_Hint;Αλλάζει τον τρόπο προβολής πληροφοριών
@@ -1041,5 +1090,5 @@ Written_Location;Τοποθεσία καταγραφής
 WrittenBy;Γραμμένο από
 Yes;Ναι
 Your system;Το σύστημά σας
-ZZ_Automatic_Percent;73
-ZZ_AutomaticLanguage_Percent;81
+ZZ_Automatic_Percent;69
+ZZ_AutomaticLanguage_Percent;77

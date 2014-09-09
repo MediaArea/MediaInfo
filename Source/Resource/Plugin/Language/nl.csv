@@ -28,6 +28,9 @@
  chapters stream1; hoofdstukkenstroom
  chapters stream2; hoofdstukkenstromen
  chapters stream3; hoofdstukkenstromen
+ character1;
+ character2;
+ character3;
  day1; dag
  day2; dagen
  day3; dagen
@@ -141,6 +144,8 @@
  year3; jaren
 , ;, 
 : ;: 
+3D;
+3DType;
 About;Info
 About_Hint;Hoe neemt u contact met mij op en vindt u de nieuwste versie
 Accompaniment;Begeleiding
@@ -172,7 +177,12 @@ Audio_Codec_List;Audiocodecs
 Audio_No;Geen audio
 Audio1;Eerste audiostroom
 Audio2;Tweede audiostroom
+AudioComments;
 AudioCount;Telling van audiostromen
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;Auteur
 BarCode;Streepjescode
 Basic;Elementair
@@ -211,6 +221,9 @@ Chroma;Chroma
 ChromaSubsampling;
 Close;Sluiten
 Close all before open;Sluit alle alvorens te openen
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;Codec
 Codec_Description;Codecbeschrijving
 Codec_Info;Details voor codec
@@ -239,16 +252,20 @@ Comment;Commentaar
 CommissionedBy;In opdracht van
 Compilation;
 CompleteName;Volledige naam
+CompletionDate;
 Composer;Componist
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;Compressieverhouding
 Conductor;Dirigent
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;Container en algemene informatie
 ContentType;Inhoudstype
 CoProducer;Coproducent
 Copyright;Auteursrecht
+CopyrightYear;
 CostumeDesigner;Kostuumontwerper
 Count;Telling
 Country;Land
@@ -276,6 +293,7 @@ DirectorOfPhotography;Cinematograaf
 DisplayAspectRatio;Beeldverhouding
 DisplayAspectRatio_Original;Originele beeldverhouding
 DistributedBy;Gedistribueerd door
+Distributor;
 Donate;Doneren
 DotsPerInch;Punten per inch
 Duration;Duur
@@ -291,6 +309,7 @@ Encoded_Library_Settings;Instellingen codering
 Encoded_Original;Origineel
 EncodedBy;Gecodeerd door
 EPG_Positions;
+EpisodeTitleNumber;
 Error_File;Fout tijdens lezen bestand
 ExecutiveProducer;Uitvoerend producent
 Exit;Afsluiten
@@ -351,6 +370,9 @@ Format_Settings_Sign;Formaatinstellingen, Sign
 Format_Settings_Wrapping;
 Format_Url;Weblink voor formaat
 Format_Version;Formaatversie
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;Framecount
 FrameRate;Framerate
 FrameRate_Maximum;Maximale framrate
@@ -568,6 +590,7 @@ How many text streams?;Hoeveel tekststromen?
 How many video streams?;Hoeveel videostromen?
 HTML;HTML
 ID;ID
+IdentClockStart;
 Image;Video
 Image stream(s);Videostromen
 Image_Codec_List;Videocodecs
@@ -791,6 +814,7 @@ LawRating;Wettelijke rating
 LCCN;LCCN
 Library;Muxingbibliotheek
 Lightness;Helderheid
+LineUpStart;
 List;Lijst
 Lyricist;Tekstschrijver
 Lyrics;Tekst
@@ -868,13 +892,19 @@ OpenCandy_33;Niet Installeren
 OpenCandy_34;Kies een installatieoptie
 OpenCandy_35;______ beveelt deze software aan
 OpenCandy_36;Uw huidige installatie zal niet worden onderbroken
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;Opties
 Options_Hint;Voorkeuren
 Original;Origineel
 OriginalNetworkName;
 OriginalSourceForm;Originele bronvorm
 OriginalSourceMedium;Originele bronmedium
+Originator;
 Other;Ander
+OtherIdentifier;
+OtherIdentifierType;
 Output;Uitvoer
 Output format;Uitvoerformaat
 OverallBitRate;Totale bitrate
@@ -884,9 +914,12 @@ OverallBitRate_Mode;Totale bitratemodus
 OverallBitRate_Nominal;Nominale Totale bitrate
 Part;Deel
 Part_Count;Totale telling
+PartNumber;
+PartTotal;
 Performer;Artiest
 Period;Periode
 Phone;Telefoon
+PictureRatio;
 PixelAspectRatio;Pixelverhouding
 PixelAspectRatio_Original;Originele pixelverhouding
 PlayCounter;Teller
@@ -897,9 +930,15 @@ PlayTime;Speeltijd
 Position;Positie
 Position_Total;Totaal
 Preferences;Voorkeuren
+PrimaryAudioLanguage;
 Producer;Producent
 ProductionDesigner;Productieontwerper
+ProductionNumber;
 ProductionStudio;Productiestudio
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;Uitgever
 Purchased_Date;Aankoopdatum
 Quote character;Aanhalingsteken
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Draaiboek door
 Season;Seizoen
+SecondaryAudioLanguage;
 see below;zie onder
 Send HeaderFile;A.u.b het Header-bestand hierheen sturen : http://sourceforge.net/projects/mediainfo/ (Bug-sectie)
 Separator_Columns;scheidingsteken kolommen
 Separator_Lines;scheidingsteken regels
+SerieTitle;
 ServiceChannel;Servicekanaalnummer
 ServiceName;Servicenaam
 ServiceProvider;Serviceprovider
@@ -943,8 +984,11 @@ Sheet (Complete);Blad (Compleet)
 Shell extension;Shell-extensie (in explorer-rechtsklikmenu zal een Media Info optie te zien zijn...)
 Shell extension, folder;
 Shell InfoTip;Shell InfoTip (houd in explorer de muiscursor boven een bestand, info wordt getoond)
+ShimName;
 Show menu;Menu tonen
 Show toolbar;Werkbalk tonen
+SigningPresent;
+SignLanguage;
 Sort;Gesorteerd op
 SoundEngineer;Geluidstechnicus
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;Tagapplicatie
 Tagged_Date;Tagdatum
 Technician;Technicus
 TermsOfUse;Gebruiksvoorwaarden
+TertiaryAudioLanguage;
 Text;Tekst
 Text - Custom;Tekst - Aangepast
 Text (HTML);Tekst (HTML)
@@ -990,6 +1035,7 @@ Text1;Eerste tekststroom
 Text2;Tweede teksstroom
 Text3;Derde tekststroom
 TextCount;Telling van tekststromen
+TextlessElementsExist;
 ThanksTo;Dank aan
 Thousands separator;Scheidingsteken duizendtallen
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;
 Title;Titel
 Title_More;Titel, meer info
 Total;Totaal
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;Tracknaam
 Track_Count;Tracktelling
 transfer_characteristics;
@@ -1018,6 +1066,7 @@ Video_Delay;Video vertraging
 Video_No;Geen video
 Video0_Delay;Video0 vertraging
 Video1;Eerste videostroom
+VideoComments;
 VideoCount;Telling van videostromen
 View;Beeld
 View_Hint;Verander de weergave van informatie
@@ -1041,5 +1090,5 @@ Written_Location;Locatie van schrijven
 WrittenBy;Geschreven door
 Yes;Ja
 Your system;Uw systeem
-ZZ_Automatic_Percent;88
-ZZ_AutomaticLanguage_Percent;93
+ZZ_Automatic_Percent;84
+ZZ_AutomaticLanguage_Percent;88

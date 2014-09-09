@@ -28,6 +28,9 @@
  chapters stream1; kapitelstrøm
  chapters stream2; kapitelstrømme
  chapters stream3; kapitelstrømme
+ character1;
+ character2;
+ character3;
  day1; dag
  day2; dage
  day3; dage
@@ -141,6 +144,8 @@
  year3; år
 , ;, 
 : ;: 
+3D;
+3DType;
 About;Om
 About_Hint;Hvordan du kontakter mig og finder seneste version
 Accompaniment;Akkompagnement
@@ -172,7 +177,12 @@ Audio_Codec_List;Lyd-codecs
 Audio_No;Ingen lyd
 Audio1;Første lydstrøm
 Audio2;Anden lydstrøm
+AudioComments;
 AudioCount;Antal lydstrømme
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;Forfatter
 BarCode;Stregkode
 Basic;Grundlæggende
@@ -211,6 +221,9 @@ Chroma;Chroma
 ChromaSubsampling;Chroma subsampling
 Close;Luk
 Close all before open;Luk alle før åbning
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;Codec
 Codec_Description;Codec-beskrivelse
 Codec_Info;Codec-detaljer
@@ -239,16 +252,20 @@ Comment;Kommentar
 CommissionedBy;Bestilt af
 Compilation;
 CompleteName;Fulde navn
+CompletionDate;
 Composer;Komponist
 Compression_Mode;Komprimeringstilstand
 Compression_Mode_Lossless;Lossless
 Compression_Mode_Lossy;Lossy
 Compression_Ratio;Komprimeringsforhold
 Conductor;Dirigent
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;Container og generel information
 ContentType;Indholdstype
 CoProducer;Coproducer
 Copyright;Copyright
+CopyrightYear;
 CostumeDesigner;Kostumedesigner
 Count;Antal
 Country;Land
@@ -276,6 +293,7 @@ DirectorOfPhotography;Cheffotograf
 DisplayAspectRatio;Størrelsesforhold
 DisplayAspectRatio_Original;Oprindeligt størrelsesforhold
 DistributedBy;Distribueret af
+Distributor;
 Donate;Donér
 DotsPerInch;Punkter pr inch
 Duration;Varighed
@@ -291,6 +309,7 @@ Encoded_Library_Settings;Kodningsindstillinger
 Encoded_Original;Original
 EncodedBy;Kodet af
 EPG_Positions;EPG-positioner (internt)
+EpisodeTitleNumber;
 Error_File;Fejl under læsning af fil
 ExecutiveProducer;Udøvende producent
 Exit;Afslut
@@ -351,6 +370,9 @@ Format_Settings_Sign;Formatindstillinger, Sign
 Format_Settings_Wrapping;
 Format_Url;Weblink til format
 Format_Version;Formatversion
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;Antal billeder
 FrameRate;Billedfrekvens
 FrameRate_Maximum;Maksimum billedfrekvens
@@ -568,6 +590,7 @@ How many text streams?;Hvor mange tekststrømme?
 How many video streams?;Hvor mange videostrømme?
 HTML;HTML
 ID;ID
+IdentClockStart;
 Image;Billede
 Image stream(s);Billedstrømme
 Image_Codec_List;Billed-codecs
@@ -791,6 +814,7 @@ LawRating;Aldersgrænse
 LCCN;LCCN
 Library;Muxing-bibliotek
 Lightness;Lysstyrke
+LineUpStart;
 List;Liste
 Lyricist;Tekstforfatter
 Lyrics;Sangtekster
@@ -868,13 +892,19 @@ OpenCandy_33;Installer ikke
 OpenCandy_34;Vælg en installeringsindstilling
 OpenCandy_35;______ anbefaler denne software
 OpenCandy_36;Din nuværende installation bliver ikke påvirket
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;Indstillinger
 Options_Hint;Præferencer
 Original;Original
 OriginalNetworkName;Oprindeligt netværksnavn
 OriginalSourceForm;Oprindelig kildeform
 OriginalSourceMedium;Oprindeligt kildemedie
+Originator;
 Other;Andet
+OtherIdentifier;
+OtherIdentifierType;
 Output;Output
 Output format;Output-format
 OverallBitRate;Samlet bitrate
@@ -884,9 +914,12 @@ OverallBitRate_Mode;Samlet bitratemodus
 OverallBitRate_Nominal;Nominel samlet bitrate
 Part;Del
 Part_Count;I alt
+PartNumber;
+PartTotal;
 Performer;Kunstner
 Period;Tidsalder
 Phone;Telefon
+PictureRatio;
 PixelAspectRatio;Pixelforhold
 PixelAspectRatio_Original;Pixelforhold
 PlayCounter;Tæller
@@ -897,9 +930,15 @@ PlayTime;Spilletid
 Position;Position
 Position_Total;Totalt
 Preferences;Præferencer
+PrimaryAudioLanguage;
 Producer;Producer
 ProductionDesigner;Scenograf
+ProductionNumber;
 ProductionStudio;Produktionsstudie
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;Forlag
 Purchased_Date;Købt den
 Quote character;Anførselstegn
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Manuskript af
 Season;Sæson
+SecondaryAudioLanguage;
 see below;se nedenunder
 Send HeaderFile;Send venligst header-filen her: http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;Kolonneseparator
 Separator_Lines;Linjeseparator
+SerieTitle;
 ServiceChannel;Servicekanalnummer
 ServiceName;Servicenavn
 ServiceProvider;Serviceudbyder
@@ -943,8 +984,11 @@ Sheet (Complete);Ark (komplet)
 Shell extension;Shell-udvidelse ( højreklik viser MediaInfo i stifinder)
 Shell extension, folder;Også for mapper
 Shell InfoTip;Shell-infotip (bevæg musen over filen i stifinder og info vises)
+ShimName;
 Show menu;Vis menu
 Show toolbar;Vis værktøjslinje
+SigningPresent;
+SignLanguage;
 Sort;Sorteret efter
 SoundEngineer;Lydtekniker
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;Tagging-applikation
 Tagged_Date;Tagged den
 Technician;Tekniker
 TermsOfUse;Anvendelsesbetingelser
+TertiaryAudioLanguage;
 Text;Tekst
 Text - Custom;Tekst - tilpas
 Text (HTML);Tekst (HTML)
@@ -990,6 +1035,7 @@ Text1;Første tekststrøm
 Text2;Anden tekststrøm
 Text3;Tredie tekststrøm
 TextCount;Antal tekststrømme
+TextlessElementsExist;
 ThanksTo;Tak til
 Thousands separator;Tusindseparator
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;Tidszone
 Title;Titel
 Title_More;Titel, mere info
 Total;Totalt
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;Spornavn
 Track_Count;Spornummer
 transfer_characteristics;Overførselskarakteristika
@@ -1018,6 +1066,7 @@ Video_Delay;Videoforsinkelse
 Video_No;Ingen video
 Video0_Delay;Video0forsinkelse
 Video1;Første videostrøm
+VideoComments;
 VideoCount;Antal videostrømme
 View;Vis
 View_Hint;Ændr måde til visning af information
@@ -1041,5 +1090,5 @@ Written_Location;Sted
 WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
-ZZ_Automatic_Percent;84
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;80
+ZZ_AutomaticLanguage_Percent;92

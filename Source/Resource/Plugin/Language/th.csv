@@ -28,6 +28,9 @@
  chapters stream1; เชฟเตอร์สตรีม
  chapters stream2; เชฟเตอร์สตรีม
  chapters stream3; เชฟเตอร์สตรีม
+ character1;
+ character2;
+ character3;
  day1; วัน
  day2; วัน
  day3; วัน
@@ -141,6 +144,8 @@
  year3; ปี
 , ;, 
 : ;: 
+3D;
+3DType;
 About;เกี่ยวกับ
 About_Hint;วิธีติดต่อฉันและค้นหาเวอร์ชันล่าสุด
 Accompaniment;Accompaniment
@@ -172,7 +177,12 @@ Audio_Codec_List;codecs เสียง
 Audio_No;ไม่มีเสียง
 Audio1;สตรีมเสียงแรก
 Audio2;สตรีมเสียงที่สอง
+AudioComments;
 AudioCount;จำนวนของสตรีมเสียง
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;ผู้เขียน
 BarCode;บาร์โค้ด
 Basic;พื้นฐาน
@@ -211,6 +221,9 @@ Chroma;Chroma
 ChromaSubsampling;
 Close;ปิด
 Close all before open;ปิดทั้งหมดก่อนเปิด
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;Codec
 Codec_Description;รายละเอียด Codec
 Codec_Info;รายละเอียดของ codec
@@ -239,16 +252,20 @@ Comment;คอมเมนต์
 CommissionedBy;Commissioned by
 Compilation;
 CompleteName;ชื่อเต็ม
+CompletionDate;
 Composer;ผู้เรียบเรียง
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;
 Conductor;ผู้อำนวยเพลง
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;ตัวบรรจุและข้อมูลทั่วไป
 ContentType;ชนิดที่บรรจุ
 CoProducer;ผู้อำนวยการสร้างร่วม
 Copyright;ลิขสิทธิ์
+CopyrightYear;
 CostumeDesigner;ผู้ออกแบบเครื่องแต่งกาย
 Count;Count
 Country;ประเทศ
@@ -276,6 +293,7 @@ DirectorOfPhotography;ผู้กำกับการถ่ายภาพ
 DisplayAspectRatio;อัตราการแสดงผล
 DisplayAspectRatio_Original;
 DistributedBy;เผยแพร่โดย
+Distributor;
 Donate;บริจาค
 DotsPerInch;
 Duration;ระยะเวลา
@@ -291,6 +309,7 @@ Encoded_Library_Settings;ตั้งค่าการเข้ารหัส
 Encoded_Original;ต้นฉบับ
 EncodedBy;เข้ารหัสโดย
 EPG_Positions;
+EpisodeTitleNumber;
 Error_File;เกิดข้อผิดพลาดขณะที่กำลังไฟล์
 ExecutiveProducer;Executive producer
 Exit;ออก
@@ -351,6 +370,9 @@ Format_Settings_Sign;ตั้งค่ารูปแบบ, Sign
 Format_Settings_Wrapping;
 Format_Url;
 Format_Version;เวอร์ชันรูปแบบ
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;
 FrameRate;เฟรมเรต
 FrameRate_Maximum;เฟรมเรตสูงสุด
@@ -568,6 +590,7 @@ How many text streams?;มีจำนวนสตรีมข้อความ
 How many video streams?;มีจำนวนสตรีมวีดีโอเท่าไหร่?
 HTML;HTML
 ID;ID
+IdentClockStart;
 Image;ภาพ
 Image stream(s);สตรีมรูปภาพ
 Image_Codec_List;Codecs รูปภาพ
@@ -791,6 +814,7 @@ LawRating;Law rating
 LCCN;LCCN
 Library;Muxing library
 Lightness;
+LineUpStart;
 List;รายการ
 Lyricist;Lyricist
 Lyrics;
@@ -868,13 +892,19 @@ OpenCandy_33;
 OpenCandy_34;
 OpenCandy_35;
 OpenCandy_36;
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;ตัวเลือก
 Options_Hint;การปรับแต่ง
 Original;ต้นฉบับ
 OriginalNetworkName;
 OriginalSourceForm;
 OriginalSourceMedium;
+Originator;
 Other;อื่นๆ
+OtherIdentifier;
+OtherIdentifierType;
 Output;ผลลัพธ์
 Output format;รูปแบบผลลัพธ์
 OverallBitRate;บิตเรตทั้งหมด
@@ -884,9 +914,12 @@ OverallBitRate_Mode;โหมดบิตเรตทั้งหมด
 OverallBitRate_Nominal;บิตเรต Nominal ทั้งหมด
 Part;ส่วน
 Part_Count;Total count
+PartNumber;
+PartTotal;
 Performer;Performer
 Period;Period
 Phone;โทรศัพท์
+PictureRatio;
 PixelAspectRatio;Pixel Aspect Ratio
 PixelAspectRatio_Original;Pixel Aspect Ratio
 PlayCounter;PlayCounter
@@ -897,9 +930,15 @@ PlayTime;เวลาเล่น
 Position;ตำแหน่ง
 Position_Total;ทั้งหมด
 Preferences;การปรับแต่ง
+PrimaryAudioLanguage;
 Producer;โพรดิวเซอร์
 ProductionDesigner;ผู้ออกแบบการแสดง
+ProductionNumber;
 ProductionStudio;ProductionStudio
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;ผู้เผยแพร่
 Purchased_Date;purchased date
 Quote character;Quote character
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Screenplay by
 Season;Season
+SecondaryAudioLanguage;
 see below;ดูด้านล่าง
 Send HeaderFile;โปรดส่งไฟล์ Header (หัวข้อ)ให้ฉันที่นี่ : http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;ตัวแยกคอลัมน์
 Separator_Lines;ตัวแยกบรรทัด
+SerieTitle;
 ServiceChannel;
 ServiceName;
 ServiceProvider;
@@ -943,8 +984,11 @@ Sheet (Complete);Sheet (Complete)
 Shell extension;ลงทะเบียนชนิดไฟล์ (เมื่อคลิกขวาใน explorer จะแสดงตัวเลือกของ Media)
 Shell extension, folder;
 Shell InfoTip;ข้อมูลเคล็บลับ Shell (ใน explorer, เมื่อชี้เม้าท์ที่ไฟล์, จะแสดงข้อมูลไฟล์)
+ShimName;
 Show menu;แสดงเมนู
 Show toolbar;แสดงแถบเครื่องมือ
+SigningPresent;
+SignLanguage;
 Sort;จัดเรียงโดย
 SoundEngineer;ซาวน์เอนจิเนียร์
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;tagging application
 Tagged_Date;Tagged date
 Technician;Technician
 TermsOfUse;ข้อตกลงการใช้
+TertiaryAudioLanguage;
 Text;ข้อความ
 Text - Custom;Text - Custom
 Text (HTML);ข้อความ (HTML)
@@ -990,6 +1035,7 @@ Text1;ข้อความสตรีมแรก
 Text2;ข้อความสตรีมที่สอง
 Text3;ข้อความสตรีมที่สาม
 TextCount;จำนวนของสตรีมข้อความ
+TextlessElementsExist;
 ThanksTo;ขอขอบคุณ
 Thousands separator;ตัวแบ่งหลักพัน
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;
 Title;ชื่อเรื่อง
 Title_More;ชื่อเรื่อง, ข้อมูลเพิ่มเติม
 Total;ทั้งหมด
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;ชื่อแทร็ค
 Track_Count;Track count
 transfer_characteristics;
@@ -1018,6 +1066,7 @@ Video_Delay;Video delay
 Video_No;ไม่มีวีดีโอ
 Video0_Delay;Video0 delay
 Video1;สตรีมวีดีโอแรก
+VideoComments;
 VideoCount;จำนวนของสตรีมวีดีโอ
 View;มุมมอง
 View_Hint;เปลี่ยนรูปแบบของการแสดงข้อมูล
@@ -1041,5 +1090,5 @@ Written_Location;สถานที่เขียน
 WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
-ZZ_Automatic_Percent;78
-ZZ_AutomaticLanguage_Percent;86
+ZZ_Automatic_Percent;75
+ZZ_AutomaticLanguage_Percent;82

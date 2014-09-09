@@ -28,6 +28,9 @@
  chapters stream1;فصول الدفق
  chapters stream2;فصول الدفق
  chapters stream3;فصول الدفق
+ character1;
+ character2;
+ character3;
  day1;يوم
  day2;أيام
  day3;أيام
@@ -141,6 +144,8 @@
  year3;سنة
 , ;, 
 : ;: 
+3D;
+3DType;
 About;حول البرنامج
 About_Hint;كيفية الاتصال بنا والحصول على أخر نسخة
 Accompaniment;مرافقة
@@ -172,7 +177,12 @@ Audio_Codec_List;ترميز الصوت
 Audio_No;لا صوت
 Audio1;أول مقطع للصوت
 Audio2;ثاني مقطع للصوت
+AudioComments;
 AudioCount;عدد المقاطع الصوتية
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;الكاتب /  المؤلف
 BarCode;باركود
 Basic;أساسي
@@ -211,6 +221,9 @@ Chroma;شروما
 ChromaSubsampling;الاختزال الشروما
 Close;غادر
 Close all before open;إغلاق كافة قبل الفتح
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;الترميز (ِِCodec)
 Codec_Description;وصف الترميز
 Codec_Info;تفاصيل عن الترميز
@@ -239,16 +252,20 @@ Comment;تعليق
 CommissionedBy;مصاند من طرف
 Compilation;
 CompleteName;الاسم الكامل
+CompletionDate;
 Composer;ملحن
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;نسبة الضغط
 Conductor;قائد الاوركسترا
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;حاوية ومعلومات عامة
 ContentType;نوع المحتوى
 CoProducer;شارك في الإنتاج
 Copyright;حقوق
+CopyrightYear;
 CostumeDesigner;مصمم ازياء
 Count;عدد
 Country;دولة
@@ -276,6 +293,7 @@ DirectorOfPhotography;محرر الصور
 DisplayAspectRatio;عرض حجم الشاشة
 DisplayAspectRatio_Original;عرض حجم الشاشة الأصلي
 DistributedBy;موزع من طرف
+Distributor;
 Donate;تبرع
 DotsPerInch;نقطة في البوصة
 Duration;مدة
@@ -291,6 +309,7 @@ Encoded_Library_Settings;إعدادات الترميز (Encoding)
 Encoded_Original;دعم الأصلي
 EncodedBy;مشفرة (Encoded) من طرف
 EPG_Positions;مواضع الـEPG (الداخلية)
+EpisodeTitleNumber;
 Error_File;خطأ أثناء قراءة الملف
 ExecutiveProducer;المنتج التنفيذي
 Exit;خروج
@@ -351,6 +370,9 @@ Format_Settings_Sign;إعدادات الشكل، Sign
 Format_Settings_Wrapping;
 Format_Url;وصلة على شكل
 Format_Version;نسخة الشكل
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;عدد الصور
 FrameRate;عدد الصور في الثانية
 FrameRate_Maximum;أقصى معدل الصور/ثانية
@@ -568,6 +590,7 @@ How many text streams?;كم من دفق النص؟
 How many video streams?;كم من دفق الفيديو؟
 HTML;HTML
 ID;ID
+IdentClockStart;
 Image;صورة
 Image stream(s);مقطع الصور
 Image_Codec_List;ترميز الصورة
@@ -791,6 +814,7 @@ LawRating;تصنيف القانون
 LCCN;LCCN
 Library;المكتبة المستخامة
 Lightness;إضاءة
+LineUpStart;
 List;قائمة
 Lyricist;الشاعر
 Lyrics;كلمات
@@ -868,13 +892,19 @@ OpenCandy_33;عدم تثبيت
 OpenCandy_34;الرجاء تحديد خيار تثبيت
 OpenCandy_35;______ يوصي بهذا البرنامج
 OpenCandy_36;سيتم انقطاع التثبيت الحالي
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;خيارات
 Options_Hint;تفضيلات
 Original;أصلي
 OriginalNetworkName;اسم الشبكة الأصلي
 OriginalSourceForm;الامتداد الأصلي
 OriginalSourceMedium;الدعم الأصلي
+Originator;
 Other;آخر
+OtherIdentifier;
+OtherIdentifierType;
 Output;مخرج
 Output format;الامتداد المخرج
 OverallBitRate;متوسط الصبيب العام
@@ -884,9 +914,12 @@ OverallBitRate_Mode;نوع الصبيب العام
 OverallBitRate_Nominal;المعدل الاسمي للصبيب العام
 Part;جزء
 Part_Count;العدد الكلي
+PartNumber;
+PartTotal;
 Performer;مؤد
 Period;فترة
 Phone;هاتف
+PictureRatio;
 PixelAspectRatio;حجم البكسل
 PixelAspectRatio_Original;حجم البكسل الأصلي
 PlayCounter;عداد القراءة
@@ -897,9 +930,15 @@ PlayTime;مدة القراءة
 Position;موقع
 Position_Total;مجموع
 Preferences;تفضيلات
+PrimaryAudioLanguage;
 Producer;منتج
 ProductionDesigner;مصمم الانتاج
+ProductionNumber;
 ProductionStudio;استوديو الانتاج
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;الناشر
 Purchased_Date;تاريخ الشراء
 Quote character;تنصيص الاقتباس
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;سيناري
 Season;الموسم
+SecondaryAudioLanguage;
 see below;انظر أدناه
 Send HeaderFile;الرجاء ارسال ملف Header الى :   http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;فاصل أعمدة
 Separator_Lines;فاصل الأسطر
+SerieTitle;
 ServiceChannel;قناة الخدمة
 ServiceName;اسم الخدمة
 ServiceProvider;مزود الخدمة
@@ -943,8 +984,11 @@ Sheet (Complete);الجدول (كامل)
 Shell extension;ملحق Shell (اضافة قائمة 'MediaInfo ' عند النقر الأيمن على الملف)
 Shell extension, folder;للمجلدات أيضا
 Shell InfoTip;ماحق InfoTip ( عرض مزيد من التفاصيل عند  تحريك الماوس فوق الملف)
+ShimName;
 Show menu;اظهار القائمة
 Show toolbar;عرض شريط الأدوات
+SigningPresent;
+SignLanguage;
 Sort;مصنفة حسب
 SoundEngineer;مهندس الصوت
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;برنامج الـTagging
 Tagged_Date;تاريخ الـTagging
 Technician;فني
 TermsOfUse;شروط الاستخدام
+TertiaryAudioLanguage;
 Text;نص
 Text - Custom;النص
 Text (HTML);نص (HTML)
@@ -990,6 +1035,7 @@ Text1;أول دفق نص
 Text2;ثاني دفق نص
 Text3;ثالت دفق نص
 TextCount;عدد دفق النص
+TextlessElementsExist;
 ThanksTo;شكرا لـ
 Thousands separator;فاصل الآلاف
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;خط الزمن
 Title;عنوان
 Title_More;عنوان ,مزيد من المعلومات
 Total;مجموع
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;اسم المسار
 Track_Count;عدد المسارات
 transfer_characteristics;خصائص نقل
@@ -1018,6 +1066,7 @@ Video_Delay;تأخير الفيديو
 Video_No;لا توجد أي فيديو
 Video0_Delay;تأخير بالنسبة للفيديو
 Video1;أول دفق فيديو
+VideoComments;
 VideoCount;عدد دفق الفيديو
 View;رؤية
 View_Hint;تغيير وسيلة عرض المعلومات
@@ -1041,5 +1090,5 @@ Written_Location;مكان الكتابة
 WrittenBy;كتبها
 Yes;نعم
 Your system;نظامك
-ZZ_Automatic_Percent;91
-ZZ_AutomaticLanguage_Percent;95
+ZZ_Automatic_Percent;87
+ZZ_AutomaticLanguage_Percent;91

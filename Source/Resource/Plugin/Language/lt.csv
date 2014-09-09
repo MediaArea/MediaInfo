@@ -28,6 +28,9 @@
  chapters stream1;Skyriaus srautas
  chapters stream2;kanalų srautai
  chapters stream3;kanalų srautai
+ character1;
+ character2;
+ character3;
  day1;diena
  day2;dienos
  day3;dienos
@@ -141,6 +144,8 @@
  year3;metai
 , ;, 
 : ;: 
+3D;
+3DType;
 About;Apie
 About_Hint;Kaip man prisijungti ir rasti naujausią versiją
 Accompaniment;Akompanimentas
@@ -172,7 +177,12 @@ Audio_Codec_List;Audio kodekas
 Audio_No;Be audio
 Audio1;Pirmas audio srautas
 Audio2;Antras audio srautas
+AudioComments;
 AudioCount;Audio srautų kiekis
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;Autorius
 BarCode;Brūkšninis kodas
 Basic;Įprastas
@@ -211,6 +221,9 @@ Chroma;Chromas
 ChromaSubsampling;
 Close;Uždaryti
 Close all before open;Uždaryti visus prieš atveriant
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;Kodekas
 Codec_Description;Kodeko aprašymas
 Codec_Info;Kodeko detalės
@@ -239,16 +252,20 @@ Comment;Komentaras
 CommissionedBy;Įgaliotas
 Compilation;
 CompleteName;Pilnas pavadinimas
+CompletionDate;
 Composer;Kūrėjas
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;
 Conductor;Konduktorius
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;Talpykla ir pagrindinė informacija
 ContentType;TurinioTipas
 CoProducer;KoProdiuseris
 Copyright;Autoriaus teisės
+CopyrightYear;
 CostumeDesigner;Kostiumų dizaineris
 Count;Kiekis
 Country;Šalis
@@ -276,6 +293,7 @@ DirectorOfPhotography;Fotografijos direktorius
 DisplayAspectRatio;Rodyti aspekto santykį
 DisplayAspectRatio_Original;
 DistributedBy;Platintojas
+Distributor;
 Donate;Aukoti
 DotsPerInch;
 Duration;Trukmė
@@ -291,6 +309,7 @@ Encoded_Library_Settings;Šifravimo nuostatos
 Encoded_Original;Originalus
 EncodedBy;Užšifravo
 EPG_Positions;
+EpisodeTitleNumber;
 Error_File;Klaida nuskaitant failą
 ExecutiveProducer;Išskirtinis prodiuseris
 Exit;Išeiti
@@ -351,6 +370,9 @@ Format_Settings_Sign;Formato nuostatos, Sign
 Format_Settings_Wrapping;
 Format_Url;
 Format_Version;Formato versija
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;
 FrameRate;Kadrų tempas
 FrameRate_Maximum;Maksimalus kadrų tempas
@@ -568,6 +590,7 @@ How many text streams?;Kiek teksto srautų?
 How many video streams?;Kiek video srautų?
 HTML;HTML
 ID;ID
+IdentClockStart;
 Image;Paveikslėlis
 Image stream(s);Paveikslėlių srautai
 Image_Codec_List;Kodeko paveikslėlis
@@ -791,6 +814,7 @@ LawRating;Law reitingas
 LCCN;LCCN
 Library;Muxing biblioteka
 Lightness;
+LineUpStart;
 List;Sąrašas
 Lyricist;Lyrikas
 Lyrics;
@@ -868,13 +892,19 @@ OpenCandy_33;
 OpenCandy_34;
 OpenCandy_35;
 OpenCandy_36;
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;Pasirinktys
 Options_Hint;Nuostatos
 Original;Originalas
 OriginalNetworkName;
 OriginalSourceForm;
 OriginalSourceMedium;
+Originator;
 Other;Kita
+OtherIdentifier;
+OtherIdentifierType;
 Output;Išėjimas
 Output format;Išėjimo formatas
 OverallBitRate;Bendras bitų tempas
@@ -884,9 +914,12 @@ OverallBitRate_Mode;Bendro bitų tempo rėžimas
 OverallBitRate_Nominal;Bendras nominalus bitų tempas
 Part;Dalis
 Part_Count;Bendra apimtis
+PartNumber;
+PartTotal;
 Performer;Atlikėjas
 Period;Laikotarpis
 Phone;Telefonas
+PictureRatio;
 PixelAspectRatio;Pikselių aspekto koeficientas
 PixelAspectRatio_Original;Pikselių aspekto koeficientas
 PlayCounter;Rodymo skaitiklis
@@ -897,9 +930,15 @@ PlayTime;Rodymo laikas
 Position;Padėtis
 Position_Total;Viso
 Preferences;Pasirinktys
+PrimaryAudioLanguage;
 Producer;Prodiuseris
 ProductionDesigner;Produkcijos dizaineris
+ProductionNumber;
 ProductionStudio;Produkcijos studija
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;Skelbėjas
 Purchased_Date;Pardavimo data
 Quote character;Kabutės
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Ekrano rodymas
 Season;Sezonas
+SecondaryAudioLanguage;
 see below;žiūrėti žemiau
 Send HeaderFile;Prašome siųskite antraštinį failą čia: http://sourceforge.net/projects/mediainfo/ (bug sekcija)
 Separator_Columns;Stulpelių skyryba
 Separator_Lines;Eilučių skyryba
+SerieTitle;
 ServiceChannel;
 ServiceName;
 ServiceProvider;
@@ -943,8 +984,11 @@ Sheet (Complete);Lapas (Pilnas)
 Shell extension;Apvalkalo plėtinys (explorer'yje dešinys paspaudimas ten kur bus Media Info pasirinktis)
 Shell extension, folder;
 Shell InfoTip;Apvalkalo InfoTipas (explorer'yje, užveskite pelę ant failo, bus parodyta informacija)
+ShimName;
 Show menu;Rodyti meniu
 Show toolbar;Rodyti įrankių juostą
+SigningPresent;
+SignLanguage;
 Sort;Rūšiuotojas
 SoundEngineer;Garso inžinierius
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;Žymėjimo programa
 Tagged_Date;Pažymėta data
 Technician;Technikas
 TermsOfUse;Naudojimo sąlygos
+TertiaryAudioLanguage;
 Text;Tekstas
 Text - Custom;Tekstas - Vartotojo
 Text (HTML);Tekstas (HTML)
@@ -990,6 +1035,7 @@ Text1;Pirmas teksto srautas
 Text2;Antras teksto srautas
 Text3;Trečias teksto srautas
 TextCount;Teksto srautų kiekis
+TextlessElementsExist;
 ThanksTo;Dėkojame
 Thousands separator;Tūkstančių skirtukas
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;
 Title;Antraštė
 Title_More;Antraštė, daugiau info
 Total;Iš viso
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;Takelio pavadinimas
 Track_Count;Takelio kiekis
 transfer_characteristics;
@@ -1018,6 +1066,7 @@ Video_Delay;Video atidėjimas
 Video_No;Be video
 Video0_Delay;Video0 atidėjimas
 Video1;Pirmas video srautas
+VideoComments;
 VideoCount;Video srautų kiekis
 View;Rodymas
 View_Hint;Keisti rodymo informacijos reikšmes
@@ -1041,5 +1090,5 @@ Written_Location;Rašymo vieta
 WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
-ZZ_Automatic_Percent;79
-ZZ_AutomaticLanguage_Percent;87
+ZZ_Automatic_Percent;75
+ZZ_AutomaticLanguage_Percent;83

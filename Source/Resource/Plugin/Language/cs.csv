@@ -28,6 +28,9 @@
  chapters stream1; chapters stream
  chapters stream2; chapters streams
  chapters stream3; chapters streams
+ character1;
+ character2;
+ character3;
  day1;den
  day2; dny
  day3; dny
@@ -141,6 +144,8 @@
  year3;roky
 , ;, 
 : ;: 
+3D;
+3DType;
 About;O programu
 About_Hint;O programu
 Accompaniment;Accompaniment
@@ -172,7 +177,12 @@ Audio_Codec_List;Audio kodeky
 Audio_No;Bez audia
 Audio1;První audio stream
 Audio2;Druhý audio stream
+AudioComments;
 AudioCount;Count of audio streams
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;Autor
 BarCode;BarCode
 Basic;Základní
@@ -211,6 +221,9 @@ Chroma;Chroma
 ChromaSubsampling;
 Close;Zavřít
 Close all before open;Zavřít vše před otevřením nového
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;
 Codec_Description;
 Codec_Info;Details for codec
@@ -239,16 +252,20 @@ Comment;Komentář
 CommissionedBy;Commissioned by
 Compilation;
 CompleteName;Celý název a cesta
+CompletionDate;
 Composer;Composer
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;
 Conductor;Conductor
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;Hlavní informace
 ContentType;ContentType
 CoProducer;Coproducer
 Copyright;Copyright
+CopyrightYear;
 CostumeDesigner;Costume designer
 Count;Count
 Country;Country
@@ -276,6 +293,7 @@ DirectorOfPhotography;Director of photography
 DisplayAspectRatio;Poměr stran
 DisplayAspectRatio_Original;
 DistributedBy;Distributed by
+Distributor;
 Donate;Zaslat finanční dar
 DotsPerInch;
 Duration;
@@ -291,6 +309,7 @@ Encoded_Library_Settings;Nastavení enkoderu
 Encoded_Original;Originál
 EncodedBy;Enkódoval
 EPG_Positions;
+EpisodeTitleNumber;
 Error_File;Error while reading file
 ExecutiveProducer;Executive producer
 Exit;Konec
@@ -351,6 +370,9 @@ Format_Settings_Sign;
 Format_Settings_Wrapping;
 Format_Url;
 Format_Version;
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;
 FrameRate;Frame rate
 FrameRate_Maximum;Maximum frame rate
@@ -568,6 +590,7 @@ How many text streams?;How many text streams?
 How many video streams?;How many video streams?
 HTML;HTML
 ID;ID
+IdentClockStart;
 Image;Obrázek
 Image stream(s);Image streams
 Image_Codec_List;Codecs Image
@@ -791,6 +814,7 @@ LawRating;Law rating
 LCCN;LCCN
 Library;Muxing library
 Lightness;
+LineUpStart;
 List;
 Lyricist;Lyricist
 Lyrics;
@@ -868,13 +892,19 @@ OpenCandy_33;
 OpenCandy_34;
 OpenCandy_35;
 OpenCandy_36;
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;Nastavení
 Options_Hint;Předvolby
 Original;Originál
 OriginalNetworkName;
 OriginalSourceForm;
 OriginalSourceMedium;
+Originator;
 Other;Různé
+OtherIdentifier;
+OtherIdentifierType;
 Output;Výstup
 Output format;Zobrazit jako
 OverallBitRate;Celkový BitRate
@@ -884,9 +914,12 @@ OverallBitRate_Mode;
 OverallBitRate_Nominal;
 Part;Část
 Part_Count;Total count
+PartNumber;
+PartTotal;
 Performer;Performer
 Period;Period
 Phone;Phone
+PictureRatio;
 PixelAspectRatio;Poměr pixelů
 PixelAspectRatio_Original;Poměr pixelů
 PlayCounter;PlayCounter
@@ -897,9 +930,15 @@ PlayTime;Hrací čas
 Position;Pozice
 Position_Total;
 Preferences;Předvolby
+PrimaryAudioLanguage;
 Producer;Producer
 ProductionDesigner;ProductionDesigner
+ProductionNumber;
 ProductionStudio;ProductionStudio
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;Publisher
 Purchased_Date;purchased date
 Quote character;Quote character
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Screenplay by
 Season;Season
+SecondaryAudioLanguage;
 see below;see below
 Send HeaderFile;
 Separator_Columns;columns separator
 Separator_Lines;lines separator
+SerieTitle;
 ServiceChannel;
 ServiceName;
 ServiceProvider;
@@ -943,8 +984,11 @@ Sheet (Complete);List (Complete)
 Shell extension;Integrovat do kontextového menu Průzkumníka (pravé tlačítko myši)
 Shell extension, folder;
 Shell InfoTip;Integrovat do kontextového menu (při najetí myši na soubor)
+ShimName;
 Show menu;Zobrazit menu
 Show toolbar;Zobrazit nástrojovou lištu
+SigningPresent;
+SignLanguage;
 Sort;Sorted by
 SoundEngineer;Sound engineer
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;
 Tagged_Date;Tagged date
 Technician;Technician
 TermsOfUse;Terms of use
+TertiaryAudioLanguage;
 Text;Text
 Text - Custom;Text - Vlastní
 Text (HTML);Text (HTML)
@@ -990,6 +1035,7 @@ Text1;První text stream
 Text2;Druhý text stream
 Text3;Třetí text stream
 TextCount;Count of text streams
+TextlessElementsExist;
 ThanksTo;Poděkování
 Thousands separator;Thousands separator
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;
 Title;Titul
 Title_More;Title, more info
 Total;Celkem
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;Název stopy
 Track_Count;Track count
 transfer_characteristics;
@@ -1018,6 +1066,7 @@ Video_Delay;Video delay
 Video_No;No video
 Video0_Delay;Video0 delay
 Video1;První video stream
+VideoComments;
 VideoCount;Počet video streamů
 View;Zobrazit
 View_Hint;Zobrazit
@@ -1041,5 +1090,5 @@ Written_Location;Written location
 WrittenBy;Napsal
 Yes;Ano
 Your system;Instalované kodeky
-ZZ_Automatic_Percent;72
-ZZ_AutomaticLanguage_Percent;81
+ZZ_Automatic_Percent;69
+ZZ_AutomaticLanguage_Percent;77

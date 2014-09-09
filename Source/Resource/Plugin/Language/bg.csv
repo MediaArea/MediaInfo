@@ -28,6 +28,9 @@
  chapters stream1;дял поток1
  chapters stream2;дял поток2
  chapters stream3;дял поток3
+ character1;
+ character2;
+ character3;
  day1;ден1
  day2;ден2
  day3;ден3
@@ -141,6 +144,8 @@
  year3;година3
 , ;,
 : ;:
+3D;
+3DType;
 About;За
 About_Hint;За_Подсказване
 Accompaniment;Съпровод
@@ -172,7 +177,12 @@ Audio_Codec_List;Аудио_Кодек_Списък
 Audio_No;Аудио_№
 Audio1;Аудио1
 Audio2;Аудио2
+AudioComments;
 AudioCount;АудиоБрой
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;Автор
 BarCode;Баркод
 Basic;Основен
@@ -211,6 +221,9 @@ Chroma;Хрома
 ChromaSubsampling;ХромаПодСамплинг
 Close;Затвори
 Close all before open;Затвори всичко преди да отвориш
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;Кодек
 Codec_Description;Кодек_Описание
 Codec_Info;Кодек_Инфо
@@ -239,16 +252,20 @@ Comment;Коментар
 CommissionedBy;ПоръчанОт
 Compilation;
 CompleteName;ЦялосноИме
+CompletionDate;
 Composer;Композитор
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;КомпресияСъотношение
 Conductor;Диригент
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;Контейнер и главна информация
 ContentType;КонтейнерТип
 CoProducer;Ко-Продуцент
 Copyright;ЗапазенаМарка
+CopyrightYear;
 CostumeDesigner;Дизайнер
 Count;Брой
 Country;Държава
@@ -276,6 +293,7 @@ DirectorOfPhotography;Фотограф
 DisplayAspectRatio;СъотношениеОбраз
 DisplayAspectRatio_Original;Оригинално_СъотношениеОбраз
 DistributedBy;РазпространенОт
+Distributor;
 Donate;Дари
 DotsPerInch;ДотНаИнч
 Duration;Продължителност
@@ -291,6 +309,7 @@ Encoded_Library_Settings;Библиотека_Енкодиране_Настро�
 Encoded_Original;Оригинално_Енкодиране
 EncodedBy;ЕнкодиранОт
 EPG_Positions;ЕПГ_Позиции
+EpisodeTitleNumber;
 Error_File;ФайлЗа_Грешки
 ExecutiveProducer;ГлавенПродуцент
 Exit;Излез
@@ -351,6 +370,9 @@ Format_Settings_Sign;Формат_Настройки_Подпис
 Format_Settings_Wrapping;
 Format_Url;Формат_ЮРЛ
 Format_Version;Формат_Версия
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;БройКадри
 FrameRate;СкоростКадри
 FrameRate_Maximum;СкоростКадри_Максимум
@@ -568,6 +590,7 @@ How many text streams?;Колко текстови потоци?
 How many video streams?;Колко видео потоци?
 HTML;HTML
 ID;ИД
+IdentClockStart;
 Image;Изображение
 Image stream(s);Изображение Поток(ци)
 Image_Codec_List;Изображение_Кодек_Списък
@@ -791,6 +814,7 @@ LawRating;НисъкРейтинг
 LCCN;ЛССН
 Library;Библиотека
 Lightness;Осветеност
+LineUpStart;
 List;Списък
 Lyricist;Поет
 Lyrics;Текстове
@@ -868,13 +892,19 @@ OpenCandy_33;ОпенКанди_33
 OpenCandy_34;ОпенКанди_34
 OpenCandy_35;ОпенКанди_35
 OpenCandy_36;ОпенКанди_36
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;Опций
 Options_Hint;Опций_Подсказване
 Original;Оригинал
 OriginalNetworkName;ОригиналноМрежаИме
 OriginalSourceForm;ОригиналенИзточникФормуляр
 OriginalSourceMedium;ОригиналенИзточникНосител
+Originator;
 Other;Други
+OtherIdentifier;
+OtherIdentifierType;
 Output;Изходящ
 Output format;Изходящ Формат
 OverallBitRate;ОбщаБитСкорост
@@ -884,9 +914,12 @@ OverallBitRate_Mode;ОбщаБитСкорост_Режим
 OverallBitRate_Nominal;ОбщаБитСкорост_Номинал
 Part;Част
 Part_Count;Част_Брой
+PartNumber;
+PartTotal;
 Performer;Изпълнител
 Period;Период
 Phone;Телефон
+PictureRatio;
 PixelAspectRatio;ПикселСъотношение
 PixelAspectRatio_Original;ПикселСъотношение_Оргинал
 PlayCounter;ИзпълнителенБрояч
@@ -897,9 +930,15 @@ PlayTime;ВремеИзпълнение
 Position;Позиция
 Position_Total;Позиция_Обща
 Preferences;Настройки
+PrimaryAudioLanguage;
 Producer;Продуцент
 ProductionDesigner;ДизайнерПродукция
+ProductionNumber;
 ProductionStudio;ПродукционноСтудио
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;Издател
 Purchased_Date;ДатаПоръчан
 Quote character;Цитат характер
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;СценарийОт
 Season;Сезон
+SecondaryAudioLanguage;
 see below;виж долу
 Send HeaderFile;Изпрати Хедер Файл
 Separator_Columns;Разделител_Колони
 Separator_Lines;Разделител_Линий
+SerieTitle;
 ServiceChannel;СървисКанал
 ServiceName;СървисИме
 ServiceProvider;СървисДоставчик
@@ -943,8 +984,11 @@ Sheet (Complete);Формуляр (Цялостен)
 Shell extension;Шел екстенция
 Shell extension, folder;Шел екстенция, папка
 Shell InfoTip;Шел ИнфоИнфо
+ShimName;
 Show menu;Показ меню
 Show toolbar;Показ инструментибар
+SigningPresent;
+SignLanguage;
 Sort;Сортиране
 SoundEngineer;ЗвукоИнжинер
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;Етикет_Апликация
 Tagged_Date;Етикет_Дата
 Technician;Техник
 TermsOfUse;УсловияНаПолзване
+TertiaryAudioLanguage;
 Text;Текст
 Text - Custom;Текст - Потребителски
 Text (HTML);Текст (HTML)
@@ -990,6 +1035,7 @@ Text1;Текст1
 Text2;Текст2
 Text3;Текст3
 TextCount;ТекстБрой
+TextlessElementsExist;
 ThanksTo;БлагодарениеНа
 Thousands separator;Хиляден разделител
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;ВремеваЗона
 Title;Име
 Title_More;Име_Повече
 Total;Общо
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;Номер
 Track_Count;Номер_Брой
 transfer_characteristics;трансфер_характеристики
@@ -1018,6 +1066,7 @@ Video_Delay;Видео_Забавяне
 Video_No;Видео_Но
 Video0_Delay;Видео0_Забавяне
 Video1;Видео1
+VideoComments;
 VideoCount;ВидеоБрой
 View;Преглед
 View_Hint;Преглед_Подсказване
@@ -1041,5 +1090,5 @@ Written_Location;Написано_Локация
 WrittenBy;НаписаноОт
 Yes;Да
 Your system;Вашата система
-ZZ_Automatic_Percent;87
-ZZ_AutomaticLanguage_Percent;95
+ZZ_Automatic_Percent;84
+ZZ_AutomaticLanguage_Percent;91

@@ -28,6 +28,9 @@
  chapters stream1; rrymë kapitulli
  chapters stream2; rrymë kapitulli
  chapters stream3; rrymë kapitulli
+ character1;
+ character2;
+ character3;
  day1; ditë
  day2; ditë
  day3; ditë
@@ -141,6 +144,8 @@
  year3; vite
 , ;, 
 : ;: 
+3D;
+3DType;
 About;Për
 About_Hint;Si të kontaktohem dhe të gjendet versioni i fundit
 Accompaniment;Shoqëruesi
@@ -172,7 +177,12 @@ Audio_Codec_List;Kodekët e audios
 Audio_No;Pa audio
 Audio1;Rryma e parë audio
 Audio2;Rryma e dytë audio
+AudioComments;
 AudioCount;Numri i rrymave të audios
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;Autori
 BarCode;BarCode
 Basic;Kryesor
@@ -211,6 +221,9 @@ Chroma;Kroma
 ChromaSubsampling;
 Close;Mbyll
 Close all before open;Mbyll infot para hapjes
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;Kodeku
 Codec_Description;Përshkrimi i kodekut
 Codec_Info;Detajet e kodekut
@@ -239,16 +252,20 @@ Comment;Komenti
 CommissionedBy;Autorizuar nga
 Compilation;
 CompleteName;Emri i plotë
+CompletionDate;
 Composer;Kompozitori
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;Raporti i kompresimit
 Conductor;Dirigjenti
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;Mbajtësi dhe info në përgjithësi
 ContentType;Lloji i përmbajtjes
 CoProducer;Koproducent
 Copyright;Të drejtat e autorit
+CopyrightYear;
 CostumeDesigner;Modeluesi i kostumit
 Count;Numërimi
 Country;Vendi
@@ -276,6 +293,7 @@ DirectorOfPhotography;Regjisori i fotografisë
 DisplayAspectRatio;Raporti i aspektit në ekran
 DisplayAspectRatio_Original;Raporti origjinal i aspektit në ekran
 DistributedBy;Shpërndarë nga
+Distributor;
 Donate;Jep kontribut
 DotsPerInch;Pika për inç
 Duration;Kohëzgjatja
@@ -291,6 +309,7 @@ Encoded_Library_Settings;Vendosjet e kodimit
 Encoded_Original;Origjinal
 EncodedBy;Koduar nga
 EPG_Positions;Pozicionet EPG (të brendshme)
+EpisodeTitleNumber;
 Error_File;Gabim gjatë leximit të skedës
 ExecutiveProducer;Producenti ekzekutiv
 Exit;Dalje
@@ -351,6 +370,9 @@ Format_Settings_Sign;Vendosjet e formatit, Sign
 Format_Settings_Wrapping;
 Format_Url;Lidhësi në rrjetë i formatit
 Format_Version;Versioni i formatit
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;Numri i kuadrove
 FrameRate;Raporti i kuadrit
 FrameRate_Maximum;Raporti maksimal i kuadrit
@@ -568,6 +590,7 @@ How many text streams?;Sa rryma të tekstit?
 How many video streams?;Sa rryma të videos?
 HTML;HTML
 ID;ID
+IdentClockStart;
 Image;Imazh
 Image stream(s);Rrymat e imazhit
 Image_Codec_List;Kodekët e imazhit
@@ -791,6 +814,7 @@ LawRating;Vlerësimi ligjor
 LCCN;LCCN
 Library;Libraria e muksimit
 Lightness;Dritësia
+LineUpStart;
 List;Lista
 Lyricist;Shkrimtari
 Lyrics;Fjalët
@@ -868,13 +892,19 @@ OpenCandy_33;Mos Instalo
 OpenCandy_34;Ju lutem zgjidhni një mundësi instalimi
 OpenCandy_35;______ rekomandon këtë softuer
 OpenCandy_36;Instalimi juaj aktual nuk do ndërpritet
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;Mundësi
 Options_Hint;Pëlqime
 Original;Origjinal
 OriginalNetworkName;Emri origjinal i rrjetit
 OriginalSourceForm;Forma origjinale e burimit
 OriginalSourceMedium;Mediumi origjinal i burimit
+Originator;
 Other;Tjetër
+OtherIdentifier;
+OtherIdentifierType;
 Output;Outputi
 Output format;Formati i outputit
 OverallBitRate;Raporti i plotë i bitit
@@ -884,9 +914,12 @@ OverallBitRate_Mode;Mënyra e raportit të plotë të bitit
 OverallBitRate_Nominal;Raporti nominal i plotë i bitit
 Part;Pjesa
 Part_Count;Numri total
+PartNumber;
+PartTotal;
 Performer;Interpretuesi
 Period;Periudha
 Phone;Telefoni
+PictureRatio;
 PixelAspectRatio;Raporti i aspektit të pikselit
 PixelAspectRatio_Original;Raporti origjinal i aspektit të pikselit
 PlayCounter;Njehsori i lojës
@@ -897,9 +930,15 @@ PlayTime;Koha e lojës
 Position;Pozicioni
 Position_Total;Totali
 Preferences;Pëlqime
+PrimaryAudioLanguage;
 Producer;Producenti
 ProductionDesigner;Modeluesi i produksionit
+ProductionNumber;
 ProductionStudio;Studio e produksionit
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;Publikuesi
 Purchased_Date;Data e blerjes
 Quote character;Citimi i personazhit
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Vënë në ekran nga
 Season;Sezoni
+SecondaryAudioLanguage;
 see below;shih poshtë
 Send HeaderFile;Ju lutem dërgojeni këtu Kokën e skedës : http://sourceforge.net/projects/mediainfo/ (Seksioni i problemeve)
 Separator_Columns;ndarësi i kolonave
 Separator_Lines;ndarësi i rreshtave
+SerieTitle;
 ServiceChannel;Numri i kanalit të shërbimit
 ServiceName;Emri i shërbimit
 ServiceProvider;Siguruesi i shërbimit
@@ -943,8 +984,11 @@ Sheet (Complete);Fletë (Plot)
 Shell extension;Shto në bazë (kur klikon në Explorer me të djathtën do jepet mundësia Media Info)
 Shell extension, folder;Edhe për dosjet
 Shell InfoTip;Këshilla Informuese në bazë (në Explorer, kur çon mausin mbi skedë do shfaqen info)
+ShimName;
 Show menu;Trego menynë
 Show toolbar;Trego brezin e mjeteve
+SigningPresent;
+SignLanguage;
 Sort;Radhitur nga
 SoundEngineer;Inxhinieri i zërit
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;Aplikimi i etiketimit
 Tagged_Date;Data e etiketimit
 Technician;Tekniku
 TermsOfUse;Detyrimet e përdorimit
+TertiaryAudioLanguage;
 Text;Tekst
 Text - Custom;Tekst - Me porosi
 Text (HTML);Tekst (HTML)
@@ -990,6 +1035,7 @@ Text1;Rryma e parë tekst
 Text2;Rryma e dytë tekst
 Text3;Rryma e tretë tekst
 TextCount;Numri i rrymave të tekstit
+TextlessElementsExist;
 ThanksTo;Falënderime për
 Thousands separator;Ndarësi i mijësheve
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;Ora lokale
 Title;Titulli
 Title_More;Titulli, më tepër info
 Total;Totali
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;Emri i kolonës
 Track_Count;Numri i kolonës
 transfer_characteristics;Karakteristikat e transferimit
@@ -1018,6 +1066,7 @@ Video_Delay;Vonesa e videos
 Video_No;Pa video
 Video0_Delay;Vonesa e videos0
 Video1;Rryma e parë video
+VideoComments;
 VideoCount;Numri i rrymave të videos
 View;Pamje
 View_Hint;Ndrysho mënyrën si paraqitet informacioni
@@ -1041,5 +1090,5 @@ Written_Location;Vendi i shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;94
+ZZ_Automatic_Percent;86
+ZZ_AutomaticLanguage_Percent;90

@@ -28,6 +28,9 @@
  chapters stream1; チャプターストリーム
  chapters stream2; チャプターストリーム
  chapters stream3; チャプターストリーム
+ character1;
+ character2;
+ character3;
  day1; 日
  day2; 日
  day3; 日
@@ -141,6 +144,8 @@
  year3; 年
 , ;, 
 : ;: 
+3D;
+3DType;
 About;バージョン情報
 About_Hint;連絡方法と最新版チェック
 Accompaniment;演奏者
@@ -172,7 +177,12 @@ Audio_Codec_List;音声コーデックリスト
 Audio_No;音声なし
 Audio1;プライマリ音声
 Audio2;セカンダリ音声
+AudioComments;
 AudioCount;音声数
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;製作者
 BarCode;バーコード
 Basic;基本
@@ -211,6 +221,9 @@ Chroma;クローマ
 ChromaSubsampling;
 Close;閉じる
 Close all before open;すべて閉じて開く
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;コーデック
 Codec_Description;コーデックの説明
 Codec_Info;コーデックの詳細
@@ -239,16 +252,20 @@ Comment;コメント
 CommissionedBy;コミッショナー
 Compilation;
 CompleteName;完全名称
+CompletionDate;
 Composer;コンポーザ
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;圧縮解像度
 Conductor;コンダクター
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;コンテナと全般情報
 ContentType;コンテンツタイプ
 CoProducer;Co プロデューサ
 Copyright;著作
+CopyrightYear;
 CostumeDesigner;衣装デザイナー
 Count;数
 Country;国
@@ -276,6 +293,7 @@ DirectorOfPhotography;フォトディレクター
 DisplayAspectRatio;解像度
 DisplayAspectRatio_Original;元解像度
 DistributedBy;ディストリビュート by
+Distributor;
 Donate;寄付
 DotsPerInch;ドット/インチ
 Duration;ながさ
@@ -291,6 +309,7 @@ Encoded_Library_Settings;エンコードライブラリの設定
 Encoded_Original;オリジナル
 EncodedBy;エンコード者
 EPG_Positions;EPG 位置
+EpisodeTitleNumber;
 Error_File;ファイル読み込みエラー
 ExecutiveProducer;製作総指揮
 Exit;終了
@@ -351,6 +370,9 @@ Format_Settings_Sign;Sign
 Format_Settings_Wrapping;
 Format_Url;Url フォーマット
 Format_Version;バージョン
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;フレーム数
 FrameRate;フレームレート
 FrameRate_Maximum;最大
@@ -568,6 +590,7 @@ How many text streams?;テキストストリームの数？
 How many video streams?;ビデオストリームの数？
 HTML;HTML
 ID;ID
+IdentClockStart;
 Image;イメージ
 Image stream(s);イメージストリーム
 Image_Codec_List;コーデックのイメージ
@@ -791,6 +814,7 @@ LawRating;レイティング
 LCCN;LCCN
 Library;ライブラリ
 Lightness;明るさ
+LineUpStart;
 List;リスト
 Lyricist;作詞
 Lyrics;歌詞
@@ -868,13 +892,19 @@ OpenCandy_33;オープンキャンディ
 OpenCandy_34;オープンキャンディ
 OpenCandy_35;オープンキャンディ
 OpenCandy_36;オープンキャンディ
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;オプション
 Options_Hint;詳細設定
 Original;オリジナル
 OriginalNetworkName;オリジナル ネットワーク名
 OriginalSourceForm;オリジナル ソース フォーム
 OriginalSourceMedium;中間ソース フォーム
+Originator;
 Other;その他
+OtherIdentifier;
+OtherIdentifierType;
 Output;出力
 Output format;出力フォーマット
 OverallBitRate;オーバルビットレート
@@ -884,9 +914,12 @@ OverallBitRate_Mode;OBR モード
 OverallBitRate_Nominal;OBR ノミナル
 Part;パート
 Part_Count;合計
+PartNumber;
+PartTotal;
 Performer;パフォーマー
 Period;ピリオド
 Phone;電話
+PictureRatio;
 PixelAspectRatio;ピクセル比
 PixelAspectRatio_Original;ピクセル比
 PlayCounter;再生数カウンター
@@ -897,9 +930,15 @@ PlayTime;再生時間
 Position;ポジション
 Position_Total;合計
 Preferences;設定
+PrimaryAudioLanguage;
 Producer;プロデューサー
 ProductionDesigner;プロダクション
+ProductionNumber;
 ProductionStudio;スタジオ
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;発行者
 Purchased_Date;購入日
 Quote character;クオート
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;監督
 Season;シーズン
+SecondaryAudioLanguage;
 see below;以下詳細
 Send HeaderFile;可能ならヘッダファイルを送信してください: http://sourceforge.net/projects/mediainfo/ (バグセクション)
 Separator_Columns;列の区切り
 Separator_Lines;区切り線
+SerieTitle;
 ServiceChannel;チャンネル
 ServiceName;名前
 ServiceProvider;プロバイダ
@@ -943,8 +984,11 @@ Sheet (Complete);シート (完成)
 Shell extension;シェルに統合 （右クリックメニューに登録)
 Shell extension, folder;シェルに統合 （フォルダー）
 Shell InfoTip;シェルでインフォチップ （対応ファイル上でツールチップを表示）
+ShimName;
 Show menu;メニューを表示する
 Show toolbar;ツール バーを表示する
+SigningPresent;
+SignLanguage;
 Sort;並び替え
 SoundEngineer;サウンドエンジニア
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;タギングツール
 Tagged_Date;タグ付け日
 Technician;テクニシャン
 TermsOfUse;使用許諾
+TertiaryAudioLanguage;
 Text;テキスト
 Text - Custom;テキスト - カスタム
 Text (HTML);テキスト (HTML)
@@ -990,6 +1035,7 @@ Text1;プライマリテキストストリーム
 Text2;セカンダリテキストストリーム
 Text3;サードテキストストリーム
 TextCount;テキストストリーム数
+TextlessElementsExist;
 ThanksTo;謝辞
 Thousands separator;区切り
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;タイムゾーン
 Title;タイトル
 Title_More;タイトルと詳細情報
 Total;計
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;トラック名
 Track_Count;トラック数
 transfer_characteristics;
@@ -1018,6 +1066,7 @@ Video_Delay;ビデオ ディレイ
 Video_No;ビデオ番号
 Video0_Delay;ビデオ 0 ディレイ
 Video1;ビデオ 1
+VideoComments;
 VideoCount;ビデオストリーム数
 View;表示
 View_Hint;ヒントを表示する
@@ -1041,5 +1090,5 @@ Written_Location;作成場所
 WrittenBy;著者
 Yes;はい
 Your system;システム情報
-ZZ_Automatic_Percent;89
-ZZ_AutomaticLanguage_Percent;94
+ZZ_Automatic_Percent;85
+ZZ_AutomaticLanguage_Percent;89

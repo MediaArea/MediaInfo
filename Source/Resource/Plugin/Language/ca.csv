@@ -28,6 +28,9 @@
  chapters stream1; pista de capítol
  chapters stream2; pistes de capítols
  chapters stream3; pistes de capítols
+ character1;
+ character2;
+ character3;
  day1; dia
  day2; dies
  day3; dies
@@ -141,6 +144,8 @@
  year3; anys
 , ;, 
 : ;: 
+3D;
+3DType;
 About;Quant a...
 About_Hint;Quant a l'ajuda
 Accompaniment;Banda Sonora
@@ -172,7 +177,12 @@ Audio_Codec_List;Codecs d'àudio
 Audio_No;Sense àudio
 Audio1;Primera pista d'àudio
 Audio2;Segona pista d'àudio
+AudioComments;
 AudioCount;Total de pistes d'àudio
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;Autor
 BarCode;Codi de barres
 Basic;Bàsic
@@ -211,6 +221,9 @@ Chroma;Cromat
 ChromaSubsampling;
 Close;Tanca
 Close all before open;Tanca tot abans d'obrir
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;Còdec
 Codec_Description; Descripció del Còdec
 Codec_Info;Detalls del còdec
@@ -239,16 +252,20 @@ Comment;Comentari
 CommissionedBy;Commissionat per
 Compilation;
 CompleteName;Nom complet
+CompletionDate;
 Composer;Compositor
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;
 Conductor;Conductor
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;Contenidor i informació general
 ContentType;Tipus de contingut
 CoProducer;Co-productor
 Copyright;Drets d'autor
+CopyrightYear;
 CostumeDesigner;Costume designer
 Count;Còmput
 Country;País
@@ -276,6 +293,7 @@ DirectorOfPhotography;Director de fotografia
 DisplayAspectRatio;Relació d'aspecte
 DisplayAspectRatio_Original;
 DistributedBy;Distribuït per
+Distributor;
 Donate;Donació
 DotsPerInch; Punts per polçada
 Duration; Durada
@@ -291,6 +309,7 @@ Encoded_Library_Settings;Opcions de codificació
 Encoded_Original;Original
 EncodedBy;Codificat per
 EPG_Positions;
+EpisodeTitleNumber;
 Error_File;Error en llegir l'arxiu
 ExecutiveProducer;Productor executiu
 Exit;Surt
@@ -351,6 +370,9 @@ Format_Settings_Sign;
 Format_Settings_Wrapping;
 Format_Url; Enllaç
 Format_Version; Versió
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount; Comptador
 FrameRate;Imatges per segon
 FrameRate_Maximum;Imatges per segon màximes
@@ -568,6 +590,7 @@ How many text streams?;Quantes pistes de text?
 How many video streams?;Quantes pistes de vídeo?
 HTML;HTML
 ID;Nombre de canals
+IdentClockStart;
 Image;Imatge
 Image stream(s);Pistes d'imatge
 Image_Codec_List;Llista de codecs
@@ -791,6 +814,7 @@ LawRating;Classificació
 LCCN;LCCN
 Library;Llibreria
 Lightness; Iluminació
+LineUpStart;
 List; Llista
 Lyricist;transcriptor del text
 Lyrics; Lletres
@@ -868,13 +892,19 @@ OpenCandy_33;
 OpenCandy_34;
 OpenCandy_35;
 OpenCandy_36;
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;Opcions
 Options_Hint;Preferències
 Original;Original
 OriginalNetworkName;
 OriginalSourceForm;
 OriginalSourceMedium;
+Originator;
 Other;Altres
+OtherIdentifier;
+OtherIdentifierType;
 Output;Sortida
 Output format;Format de sortida
 OverallBitRate;Velocitat de transmissió
@@ -884,9 +914,12 @@ OverallBitRate_Mode;
 OverallBitRate_Nominal;
 Part;Part
 Part_Count;Comptador Total
+PartNumber;
+PartTotal;
 Performer;Intèrpret
 Period;Període
 Phone;Telèfon
+PictureRatio;
 PixelAspectRatio;Relació d'aspecte
 PixelAspectRatio_Original;Relació d'aspecte
 PlayCounter;Comptador
@@ -897,9 +930,15 @@ PlayTime;Duració
 Position;Posició
 Position_Total;
 Preferences;Preferències
+PrimaryAudioLanguage;
 Producer;Productor
 ProductionDesigner;Disseny de producció
+ProductionNumber;
 ProductionStudio;Estudi de producció
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;Publicista
 Purchased_Date;Data de compra
 Quote character;Caràcter cometes
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;posat en escena per
 Season;Estació
+SecondaryAudioLanguage;
 see below;Mireu mes avall
 Send HeaderFile;
 Separator_Columns;Separador de columnes
 Separator_Lines;Separador de línies
+SerieTitle;
 ServiceChannel; Canal
 ServiceName; Nom
 ServiceProvider; Proveïdor
@@ -943,8 +984,11 @@ Sheet (Complete);Fulla (Completa)
 Shell extension;Veure l'opció Media Info al menú contextual del botó dret del ratolí a l'explorador.
 Shell extension, folder;
 Shell InfoTip;Amplia la informació en passar amb el ratolí per sobre d'un arxiu a l'explorador.
+ShimName;
 Show menu;Mostra el menú
 Show toolbar;Mostra la barra d'eines
+SigningPresent;
+SignLanguage;
 Sort;Endreça per
 SoundEngineer;Enginyer de só
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;
 Tagged_Date;Data
 Technician;Tècnic
 TermsOfUse;Termes d'ús
+TertiaryAudioLanguage;
 Text;Text
 Text - Custom;Text - personalitzat
 Text (HTML);Text (HTML)
@@ -990,6 +1035,7 @@ Text1;Primera pista de text
 Text2;Segona pista de text
 Text3;Tercera pista de text
 TextCount;Total de pistes de text
+TextlessElementsExist;
 ThanksTo;Gràcies a
 Thousands separator;Separador de milers
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;
 Title;Títol
 Title_More;Títol, més informació
 Total;Total
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;Nom de la pista
 Track_Count;Total de pistes
 transfer_characteristics;
@@ -1018,6 +1066,7 @@ Video_Delay;Retard de Vídeo
 Video_No;Sense video
 Video0_Delay;Retard de Vídeo
 Video1;Primera pista de vídeo
+VideoComments;
 VideoCount;Total de pistes de vídeo
 View;Visualitza
 View_Hint;Canvia la manera de visualitzar la informació
@@ -1041,5 +1090,5 @@ Written_Location;Inseriu el lloc de gravació
 WrittenBy;Escrit per
 Yes;Sí
 Your system;El vostre sistema
-ZZ_Automatic_Percent;77
-ZZ_AutomaticLanguage_Percent;86
+ZZ_Automatic_Percent;74
+ZZ_AutomaticLanguage_Percent;82

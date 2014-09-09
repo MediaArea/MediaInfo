@@ -28,6 +28,9 @@
  chapters stream1;段落流
  chapters stream2;个段落流
  chapters stream3;个段落流
+ character1;
+ character2;
+ character3;
  day1;天
  day2;天
  day3;天
@@ -141,6 +144,8 @@
  year3;年
 , ;, 
 : ;: 
+3D;
+3DType;
 About;关于
 About_Hint;联系作者以及获得最新版
 Accompaniment;伴奏
@@ -172,7 +177,12 @@ Audio_Codec_List;音频编解码器
 Audio_No;没有音频
 Audio1;音频1
 Audio2;音频2
+AudioComments;
 AudioCount;音频总数
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;作者
 BarCode;条形码
 Basic;基本
@@ -211,6 +221,9 @@ Chroma;色度
 ChromaSubsampling;色度抽样
 Close;关闭
 Close all before open;打开新文件前关闭其他文件
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;编解码器
 Codec_Description;编解码器描述
 Codec_Info;编解码器信息
@@ -239,16 +252,20 @@ Comment;评论
 CommissionedBy;评论人
 Compilation;
 CompleteName;完整名称
+CompletionDate;
 Composer;作曲
 Compression_Mode;压缩模式
 Compression_Mode_Lossless;无损
 Compression_Mode_Lossy;有损压缩
 Compression_Ratio;压缩比
 Conductor;指挥
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;文件格式和一般信息
 ContentType;内容类型
 CoProducer;联合制片人
 Copyright;版权
+CopyrightYear;
 CostumeDesigner;服装设计
 Count;数量
 Country;国家(地区)
@@ -276,6 +293,7 @@ DirectorOfPhotography;摄影导演
 DisplayAspectRatio;画面比例
 DisplayAspectRatio_Original;原始高宽比
 DistributedBy;发行
+Distributor;
 Donate;赞助
 DotsPerInch;点/英寸(DPI)
 Duration;长度
@@ -291,6 +309,7 @@ Encoded_Library_Settings;编码设置
 Encoded_Original;编码源
 EncodedBy;编码
 EPG_Positions;EPG位置(内部)
+EpisodeTitleNumber;
 Error_File;读文件时出错
 ExecutiveProducer;监制
 Exit;退出
@@ -351,6 +370,9 @@ Format_Settings_Sign;格式设置, Sign
 Format_Settings_Wrapping;
 Format_Url;编解码器网址
 Format_Version;格式版本
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;总帧数
 FrameRate;帧率
 FrameRate_Maximum;最大帧率
@@ -568,6 +590,7 @@ How many text streams?;有多少个字幕?
 How many video streams?;有多少视频?
 HTML;网页
 ID;ID
+IdentClockStart;
 Image;图像
 Image stream(s);图像流
 Image_Codec_List;图像编解码器列表
@@ -791,6 +814,7 @@ LawRating;分级
 LCCN;LCCN
 Library;合成函数库
 Lightness;高亮
+LineUpStart;
 List;列表
 Lyricist;作词
 Lyrics;歌词
@@ -868,13 +892,19 @@ OpenCandy_33;不安装
 OpenCandy_34;请选择一个安装选项
 OpenCandy_35;______ 推荐使用软件
 OpenCandy_36;您当前的配置将不会被阻止
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;选项
 Options_Hint;参数设定
 Original;源
 OriginalNetworkName;源网络名称
 OriginalSourceForm;资源来源
 OriginalSourceMedium;资源媒介
+Originator;
 Other;其它
+OtherIdentifier;
+OtherIdentifierType;
 Output;输出
 Output format;输出格式
 OverallBitRate;平均混合码率
@@ -884,9 +914,12 @@ OverallBitRate_Mode;混合码率模式
 OverallBitRate_Nominal;额定混合码率
 Part;部分
 Part_Count;总计
+PartNumber;
+PartTotal;
 Performer;艺术家
 Period;时代
 Phone;电话
+PictureRatio;
 PixelAspectRatio;画面比例(像素)
 PixelAspectRatio_Original;画面比例(像素)
 PlayCounter;播放计数器
@@ -897,9 +930,15 @@ PlayTime;播放时间
 Position;位置
 Position_Total;总计
 Preferences;参数设置
+PrimaryAudioLanguage;
 Producer;制片人
 ProductionDesigner;制做设计师
+ProductionNumber;
 ProductionStudio;制做机构
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;发行
 Purchased_Date;购买日期
 Quote character;引用符号
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;编剧
 Season;季
+SecondaryAudioLanguage;
 see below;请看下面列出的内容
 Send HeaderFile;发送头文件: http://sourceforge.net/projects/mediainfo/
 Separator_Columns;列分隔符
 Separator_Lines;换行符
+SerieTitle;
 ServiceChannel;服务频道号码
 ServiceName;服务名
 ServiceProvider;服务提供
@@ -943,8 +984,11 @@ Sheet (Complete);表格(完整)
 Shell extension;[资源管理器]右键菜单 (为多媒体文件的右键菜单添加 MediaInfo 选项)
 Shell extension, folder;包含文件夹右键
 Shell InfoTip;[资源管理器]气泡提示 (将鼠标移到文件图标上会显示相关信息)
+ShimName;
 Show menu;显示菜单
 Show toolbar;显示工具栏
+SigningPresent;
+SignLanguage;
 Sort;排序
 SoundEngineer;录音师
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;标记软件
 Tagged_Date;标记日期
 Technician;技术员
 TermsOfUse;使用方法
+TertiaryAudioLanguage;
 Text;文本
 Text - Custom;文本-自定义
 Text (HTML);文本(HTML)
@@ -990,6 +1035,7 @@ Text1;字幕1
 Text2;字幕2
 Text3;字幕3
 TextCount;字幕总数
+TextlessElementsExist;
 ThanksTo;感谢
 Thousands separator;数字分隔符
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;时区
 Title;标题
 Title_More;更多标题
 Total;总计
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;音轨
 Track_Count;音轨数
 transfer_characteristics;传输特质
@@ -1018,6 +1066,7 @@ Video_Delay;视频延迟
 Video_No;没有视频
 Video0_Delay;视频延迟
 Video1;视频1
+VideoComments;
 VideoCount;视频总数
 View;查看
 View_Hint;改变查看方示
@@ -1041,5 +1090,5 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;92
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;88
+ZZ_AutomaticLanguage_Percent;92

@@ -28,6 +28,9 @@
  chapters stream1; chapters stream
  chapters stream2; chapters streams
  chapters stream3; chapters streams
+ character1; character
+ character2; characters
+ character3; characters
  day1; day
  day2; days
  day3; days
@@ -141,6 +144,8 @@
  year3; years
 , ;, 
 : ;: 
+3D;3D
+3DType;3D Type
 About;About
 About_Hint;How to contact me and find last version
 Accompaniment;Accompaniment
@@ -172,7 +177,12 @@ Audio_Codec_List;Audio codecs
 Audio_No;No audio
 Audio1;First audio stream
 Audio2;Second audio stream
+AudioComments;Audio Comments
 AudioCount;Count of audio streams
+AudioDescriptionPresent;Audio Description Present
+AudioDescriptionType;Audio Description Type
+AudioLoudnessStandard;Audio Loudness Standard
+AudioTrackLayout;Audio Track Layout
 Author;Author
 BarCode;BarCode
 Basic;Basic
@@ -211,6 +221,9 @@ Chroma;Chroma
 ChromaSubsampling;Chroma subsampling
 Close;Close
 Close all before open;Close all before open
+ClosedCaptionsLanguage;Closed Captions Language
+ClosedCaptionsPresent;Closed Captions Present
+ClosedCaptionsType;Closed Captions Type
 Codec;Codec
 Codec_Description;Codec description
 Codec_Info;Details for codec
@@ -239,16 +252,20 @@ Comment;Comment
 CommissionedBy;Commissioned by
 Compilation;Compilation
 CompleteName;Complete name
+CompletionDate;Completion Date
 Composer;Composer
 Compression_Mode;Compression mode
 Compression_Mode_Lossless;Lossless
 Compression_Mode_Lossy;Lossy
 Compression_Ratio;Compression ratio
 Conductor;Conductor
+ContactEmail;Contact Email
+ContactTelephoneNumber;Contact Telephone Number
 Container and general information;Container and general information
 ContentType;ContentType
 CoProducer;Coproducer
 Copyright;Copyright
+CopyrightYear;Copyright Year
 CostumeDesigner;Costume designer
 Count;Count
 Country;Country
@@ -276,6 +293,7 @@ DirectorOfPhotography;Director of photography
 DisplayAspectRatio;Display aspect ratio
 DisplayAspectRatio_Original;Original display aspect ratio
 DistributedBy;Distributed by
+Distributor;Distributor
 Donate;Donate
 DotsPerInch;Dots per inch
 Duration;Duration
@@ -291,6 +309,7 @@ Encoded_Library_Settings;Encoding settings
 Encoded_Original;Original support
 EncodedBy;Encoded by
 EPG_Positions;EPG positions (internal)
+EpisodeTitleNumber;Episode Title Number
 Error_File;Error while reading file
 ExecutiveProducer;Executive producer
 Exit;Exit
@@ -351,6 +370,9 @@ Format_Settings_Sign;Format settings, Sign
 Format_Settings_Wrapping;Format settings, wrapping mode
 Format_Url;Weblink for format
 Format_Version;Format version
+FpaManufacturer;FPA Manufacturer
+FpaPass;FPA Pass
+FpaVersion;FPA Version
 FrameCount;Frame count
 FrameRate;Frame rate
 FrameRate_Maximum;Maximum frame rate
@@ -568,6 +590,7 @@ How many text streams?;How many text streams?
 How many video streams?;How many video streams?
 HTML;HTML
 ID;ID
+IdentClockStart;Ident Clock Start
 Image;Image
 Image stream(s);Image streams
 Image_Codec_List;Codecs Image
@@ -791,6 +814,7 @@ LawRating;Law rating
 LCCN;LCCN
 Library;Muxing library
 Lightness;Lightness
+LineUpStart;Line Up Start
 List;List
 Lyricist;Lyricist
 Lyrics;Lyrics
@@ -868,13 +892,19 @@ OpenCandy_33;Don't Install
 OpenCandy_34;Please select an install option
 OpenCandy_35;______ recommends this software
 OpenCandy_36;Your current installation will not be interrupted
+OpenCaptionsLanguage;Open Captions Language
+OpenCaptionsPresent;Open Captions Present
+OpenCaptionsType;Open Captions Type
 Options;Options
 Options_Hint;Preferences
 Original;Original
 OriginalNetworkName;Original network name
 OriginalSourceForm;Original source form
 OriginalSourceMedium;Original source medium
+Originator;Originator
 Other;Other
+OtherIdentifier;Other Identifier
+OtherIdentifierType;Other Identifier Type
 Output;Output
 Output format;Output format
 OverallBitRate;Overall bit rate
@@ -884,9 +914,12 @@ OverallBitRate_Mode;Overall bit rate mode
 OverallBitRate_Nominal;Nominal Overall bit rate
 Part;Part
 Part_Count;Total count
+PartNumber;Part Number
+PartTotal;Part Total
 Performer;Performer
 Period;Period
 Phone;Phone
+PictureRatio;Picture Ratio
 PixelAspectRatio;Pixel aspect ratio
 PixelAspectRatio_Original;Original pixel aspect ratio
 PlayCounter;PlayCounter
@@ -897,9 +930,15 @@ PlayTime;PlayTime
 Position;Position
 Position_Total;Total
 Preferences;Preferences
+PrimaryAudioLanguage;Primary Audio Language
 Producer;Producer
 ProductionDesigner;Production designer
+ProductionNumber;Production Number
 ProductionStudio;Production studio
+ProductPlacement;Product Placement
+ProgrammeHasText;Programme Has Text
+ProgrammeTextLanguage;Programme Text Language
+ProgrammeTitle;Programme Title
 Publisher;Publisher
 Purchased_Date;purchased date
 Quote character;Quote character
@@ -926,10 +965,12 @@ ScanType_Original;Original scan type
 ScanType_StoreMethod;Scan type, store method
 ScreenplayBy;Screenplay by
 Season;Season
+SecondaryAudioLanguage;Secondary Audio Language
 see below;see below
 Send HeaderFile;Please send me the Header file here : http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;columns separator
 Separator_Lines;lines separator
+SerieTitle;Serie Title
 ServiceChannel;Service channel number
 ServiceName;Service name
 ServiceProvider;Service provider
@@ -943,8 +984,11 @@ Sheet (Complete);Sheet (Complete)
 Shell extension;Explorer extension (in Windows Explorer, right click on a file, there will be a MediaInfo option)
 Shell extension, folder;For folders too
 Shell InfoTip;Explorer Tooltip (in Windows Explorer, move the mouse over the file, info will be displayed)
+ShimName;Shim Name
 Show menu;Show menu
 Show toolbar;Show toolbar
+SigningPresent;Signing Present
+SignLanguage;Sign Language
 Sort;Sorted by
 SoundEngineer;Sound engineer
 Source;Source
@@ -979,6 +1023,7 @@ Tagged_Application;Tagging application
 Tagged_Date;Tagged date
 Technician;Technician
 TermsOfUse;Terms of use
+TertiaryAudioLanguage;Tertiary Audio Language
 Text;Text
 Text - Custom;Text - Custom
 Text (HTML);Text (HTML)
@@ -990,6 +1035,7 @@ Text1;First text stream
 Text2;Second text stream
 Text3;Third text stream
 TextCount;Count of text streams
+TextlessElementsExist;Textless Elements Exist
 ThanksTo;Thanks to
 Thousands separator;Thousands separator
 TimeCode;Time code
@@ -1001,6 +1047,8 @@ TimeZone;Timezone
 Title;Title
 Title_More;Title, more info
 Total;Total
+TotalNumberOfParts;Total Number Of Parts
+TotalProgrammeDuration;Total Programme Duration
 Track;Track name
 Track_Count;Track count
 transfer_characteristics;Transfer characteristics
@@ -1018,6 +1066,7 @@ Video_Delay;Delay relative to video
 Video_No;No video
 Video0_Delay;Video0 delay
 Video1;First video stream
+VideoComments;Video Comments
 VideoCount;Count of video streams
 View;View
 View_Hint;Change the means of viewing information

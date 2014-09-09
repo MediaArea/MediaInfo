@@ -28,6 +28,9 @@
  chapters stream1; pistas de capítulo
  chapters stream2; pistas de capítulo
  chapters stream3; pistas de capítulo
+ character1;
+ character2;
+ character3;
  day1; día
  day2; días
  day3; días
@@ -141,6 +144,8 @@
  year3; anos
 , ;, 
 : ;: 
+3D;
+3DType;
 About;Sobre
 About_Hint;Como contactar comigo e atopar a última versión
 Accompaniment;Acompañamento
@@ -172,7 +177,12 @@ Audio_Codec_List;Codecs de audio
 Audio_No;Sen audio
 Audio1;Primeira pista de audio
 Audio2;Segunda pista de audio
+AudioComments;
 AudioCount;Nº pistas audio
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;Autor
 BarCode;Código de Barras
 Basic;Básico
@@ -211,6 +221,9 @@ Chroma;Croma
 ChromaSubsampling;
 Close;Pechar
 Close all before open;Pechar todo antes de abrir
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;Codec
 Codec_Description; Descrición do codec
 Codec_Info;Info do codec
@@ -239,16 +252,20 @@ Comment;Comentario
 CommissionedBy;Encargado por
 Compilation;
 CompleteName;Nome completo
+CompletionDate;
 Composer;Compositor
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;Ratio de compresión
 Conductor;Condutor
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;Contedor e información xeral
 ContentType;Tipo de contido
 CoProducer;Co-productor
 Copyright;Copyright
+CopyrightYear;
 CostumeDesigner;Deseñador
 Count;Cantidade
 Country;País
@@ -276,6 +293,7 @@ DirectorOfPhotography;Director de fotografía
 DisplayAspectRatio;Relación de aspecto
 DisplayAspectRatio_Original;
 DistributedBy;Distribuido por
+Distributor;
 Donate;Doar
 DotsPerInch;Puntos por polgada
 Duration;Duración
@@ -291,6 +309,7 @@ Encoded_Library_Settings;Parámetros de codificación
 Encoded_Original;Soporte orixinal
 EncodedBy;Codificado por
 EPG_Positions;
+EpisodeTitleNumber;
 Error_File;Erro mentres se lía o arquivo
 ExecutiveProducer;Produtor executivo
 Exit;Saír
@@ -351,6 +370,9 @@ Format_Settings_Sign;
 Format_Settings_Wrapping;
 Format_Url;Web do formato
 Format_Version;Versión do formato
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;
 FrameRate;Frame rate
 FrameRate_Maximum;
@@ -568,6 +590,7 @@ How many text streams?;Cantas pistas de texto?
 How many video streams?;Cantas pistas de vídeo?
 HTML;HTML
 ID;ID
+IdentClockStart;
 Image;Imaxe
 Image stream(s);Pistas de imaxe
 Image_Codec_List;Codecs de imaxe
@@ -791,6 +814,7 @@ LawRating;Valoración legal
 LCCN;LCCN
 Library;Bibliografía
 Lightness;
+LineUpStart;
 List;Lista
 Lyricist;Letrista
 Lyrics;Letra
@@ -868,13 +892,19 @@ OpenCandy_33;
 OpenCandy_34;
 OpenCandy_35;
 OpenCandy_36;
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;Opcións
 Options_Hint;Preferencias
 Original;Orixinal
 OriginalNetworkName;
 OriginalSourceForm;
 OriginalSourceMedium;
+Originator;
 Other;Outro
+OtherIdentifier;
+OtherIdentifierType;
 Output;Saída
 Output format;Formato de saída
 OverallBitRate;BitRate total
@@ -884,9 +914,12 @@ OverallBitRate_Mode;
 OverallBitRate_Nominal;
 Part;Parte
 Part_Count;Total
+PartNumber;
+PartTotal;
 Performer;Realizador
 Period;Período
 Phone;Teléfono
+PictureRatio;
 PixelAspectRatio;Pixel ratio
 PixelAspectRatio_Original;Pixel ratio
 PlayCounter;Contador
@@ -897,9 +930,15 @@ PlayTime;Duración
 Position;Posición
 Position_Total;
 Preferences;Preferencias
+PrimaryAudioLanguage;
 Producer;Produtor
 ProductionDesigner;Diseñador
+ProductionNumber;
 ProductionStudio;Estudo
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;Editor
 Purchased_Date;Data compra
 Quote character;Carácter para citar
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Guión de
 Season;Tempada
+SecondaryAudioLanguage;
 see below;ver abaixo
 Send HeaderFile;Por favor envíame o arquivo de cabeceira aquí : http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;Separador de columnas
 Separator_Lines;Separador de liñas
+SerieTitle;
 ServiceChannel;Canle
 ServiceName;Nome
 ServiceProvider;Provedor
@@ -943,8 +984,11 @@ Sheet (Complete);Folla (Completa)
 Shell extension;Shell extension (ao picar co botón dereito do rato aparecerá unha opción Media Info ...)
 Shell extension, folder;
 Shell InfoTip;Shell InfoTip (no explorer, situa o rato sobre o arquivo para ver a información)
+ShimName;
 Show menu;Mostrar menú
 Show toolbar;Mostrar barra de ferramentas
+SigningPresent;
+SignLanguage;
 Sort;Ordear por
 SoundEngineer;Enxeñeiro de son
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;Aplicación de etiquetado
 Tagged_Date;Data de etiqueta
 Technician;Técnico
 TermsOfUse;Condicións de uso
+TertiaryAudioLanguage;
 Text;Texto
 Text - Custom;Texto - Personalizar
 Text (HTML);Texto (HTML)
@@ -990,6 +1035,7 @@ Text1;Primeira pista de texto
 Text2;Segunda pista de texto
 Text3;Terceira pista de texto
 TextCount;Nº pistas texto
+TextlessElementsExist;
 ThanksTo;Gracias a
 Thousands separator;Separador de millares
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;
 Title;Título
 Title_More;Título, máis información
 Total;Total
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;Nome da pista
 Track_Count;Número de pistas
 transfer_characteristics;
@@ -1018,6 +1066,7 @@ Video_Delay;Retraso do vídeo
 Video_No;Sen vídeo
 Video0_Delay;Retraso do vídeo
 Video1;Primeira pista de vídeo
+VideoComments;
 VideoCount;Cantidade de pistas de vídeo
 View;Ver
 View_Hint;Cambia o modo de presentar a información
@@ -1041,5 +1090,5 @@ Written_Location;Escrito en:
 WrittenBy;Escrito por
 Yes;Si
 Your system;O teu sistema
-ZZ_Automatic_Percent;75
-ZZ_AutomaticLanguage_Percent;83
+ZZ_Automatic_Percent;71
+ZZ_AutomaticLanguage_Percent;79

@@ -28,6 +28,9 @@
  chapters stream1; 章節串流
  chapters stream2; 章節串流
  chapters stream3; 章節串流
+ character1;
+ character2;
+ character3;
  day1; 日
  day2; 日
  day3; 日
@@ -141,6 +144,8 @@
  year3; 年
 , ;, 
 : ;: 
+3D;
+3DType;
 About;關於
 About_Hint;如何聯絡作者以及尋找最新版
 Accompaniment;伴奏
@@ -172,7 +177,12 @@ Audio_Codec_List;音訊編解碼器
 Audio_No;無音訊
 Audio1;第一音訊串流
 Audio2;第二音訊串流
+AudioComments;
 AudioCount;音訊串流數
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;作者
 BarCode;條碼
 Basic;基本
@@ -211,6 +221,9 @@ Chroma;彩度
 ChromaSubsampling;
 Close;關閉
 Close all before open;開啟前關閉其它檔案
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;編解碼器
 Codec_Description;編解碼器描述
 Codec_Info;編解碼器詳細資訊
@@ -239,16 +252,20 @@ Comment;註釋
 CommissionedBy;委託
 Compilation;
 CompleteName;完整檔名
+CompletionDate;
 Composer;作曲者
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;壓縮比
 Conductor;指揮
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;容器格式與一般訊息
 ContentType;內容型態
 CoProducer;製作協力
 Copyright;著作權
+CopyrightYear;
 CostumeDesigner;服裝設計
 Count;所有種類
 Country;國家
@@ -276,6 +293,7 @@ DirectorOfPhotography;攝影導演
 DisplayAspectRatio;顯示長寬比例
 DisplayAspectRatio_Original;原始顯示長寬比例
 DistributedBy;發布者
+Distributor;
 Donate;贊助
 DotsPerInch;每吋點數 (DPI)
 Duration;時間長度
@@ -291,6 +309,7 @@ Encoded_Library_Settings;編碼設定
 Encoded_Original;來源
 EncodedBy;編碼者
 EPG_Positions;EPG 電子節目表位置 (內部)
+EpisodeTitleNumber;
 Error_File;讀取檔案錯誤
 ExecutiveProducer;監製
 Exit;離開
@@ -351,6 +370,9 @@ Format_Settings_Sign;格式設定, Sign
 Format_Settings_Wrapping;
 Format_Url;該格式的網址
 Format_Version;格式版本
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;影格數
 FrameRate;影格頻率
 FrameRate_Maximum;最大影格頻率
@@ -568,6 +590,7 @@ How many text streams?;有多少字幕串流?
 How many video streams?;有多少視訊串流?
 HTML;網頁
 ID;識別字
+IdentClockStart;
 Image;圖片
 Image stream(s);圖片串流
 Image_Codec_List;圖片編解碼器
@@ -791,6 +814,7 @@ LawRating;分級
 LCCN;LCCN
 Library;合成函式庫
 Lightness;亮度
+LineUpStart;
 List;清單
 Lyricist;作詞者
 Lyrics;歌詞
@@ -868,13 +892,19 @@ OpenCandy_33;不要安裝
 OpenCandy_34;請選擇安裝選項
 OpenCandy_35;______ 推薦此軟體
 OpenCandy_36;您當前的安裝無法中斷
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;選項
 Options_Hint;偏好設定
 Original;來源
 OriginalNetworkName;來源網路名稱
 OriginalSourceForm;來源格式
 OriginalSourceMedium;來源媒介
+Originator;
 Other;其它
+OtherIdentifier;
+OtherIdentifierType;
 Output;輸出
 Output format;輸出格式
 OverallBitRate;整體流量
@@ -884,9 +914,12 @@ OverallBitRate_Mode;整體流量模式
 OverallBitRate_Nominal;正常整體流量
 Part;部分
 Part_Count;總數
+PartNumber;
+PartTotal;
 Performer;演出者
 Period;時期
 Phone;電話
+PictureRatio;
 PixelAspectRatio;像素長寬比例
 PixelAspectRatio_Original;原始像素長寬比例
 PlayCounter;播放計數器
@@ -897,9 +930,15 @@ PlayTime;播放長度
 Position;順序
 Position_Total;總數
 Preferences;偏好設定
+PrimaryAudioLanguage;
 Producer;製作
 ProductionDesigner;美術指導
+ProductionNumber;
 ProductionStudio;製作中心
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;發布者
 Purchased_Date;購買日期
 Quote character;引號字元
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;編劇
 Season;季期
+SecondaryAudioLanguage;
 see below;詳見下述
 Send HeaderFile;請將標頭檔寄到這給我: http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;換列字元
 Separator_Lines;換行字元
+SerieTitle;
 ServiceChannel;服務頻道
 ServiceName;服務名稱
 ServiceProvider;服務提供者
@@ -943,8 +984,11 @@ Sheet (Complete);表格 (完整)
 Shell extension;快顯功能表 (在檔案總管裡, 按右鍵會出現 MediaInfo 的選項)
 Shell extension, folder;也對資料夾使用
 Shell InfoTip;資訊提示 (在檔案總管裡, 將滑鼠移到檔案上會顯示相關訊息)
+ShimName;
 Show menu;顯示選單
 Show toolbar;顯示工具列
+SigningPresent;
+SignLanguage;
 Sort;排序
 SoundEngineer;音響工程師
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;標記程式
 Tagged_Date;標記日期
 Technician;技師
 TermsOfUse;使用條款
+TertiaryAudioLanguage;
 Text;文字
 Text - Custom;文字 - 自訂
 Text (HTML);文字 (網頁)
@@ -990,6 +1035,7 @@ Text1;第一字幕串流
 Text2;第二字幕串流
 Text3;第三字幕串流
 TextCount;字幕串流數
+TextlessElementsExist;
 ThanksTo;感謝
 Thousands separator;千位分隔符號
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;時區
 Title;標題
 Title_More;標題, 詳細資訊
 Total;總和
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;音軌
 Track_Count;音軌數
 transfer_characteristics;傳輸特性
@@ -1018,6 +1066,7 @@ Video_Delay;視訊延遲
 Video_No;無視訊
 Video0_Delay;視訊0延遲
 Video1;第一視訊串流
+VideoComments;
 VideoCount;視訊串流數
 View;檢視
 View_Hint;改變檢視資訊的方法
@@ -1041,5 +1090,5 @@ Written_Location;撰寫地點
 WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
-ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;94
+ZZ_Automatic_Percent;86
+ZZ_AutomaticLanguage_Percent;90

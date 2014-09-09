@@ -28,6 +28,9 @@
  chapters stream1;استریم  فصل
  chapters stream2;استریم  فصل  ها
  chapters stream3;استریم  فصل  ها
+ character1;
+ character2;
+ character3;
  day1;روز
  day2;روزها
  day3;روزها
@@ -141,6 +144,8 @@
  year3;سال ها
 , ;, 
 : ;: 
+3D;
+3DType;
 About;درباره
 About_Hint;ارتباط با من و آخرین نسخه
 Accompaniment;همراهی
@@ -172,7 +177,12 @@ Audio_Codec_List;کدک صوت ها
 Audio_No;صوتی موجود نیست
 Audio1;اولین استریم صوت
 Audio2;دومبن استریم صوت
+AudioComments;
 AudioCount;تعداد استریم صوت
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;نویسنده
 BarCode;بارکد
 Basic;اولیه
@@ -211,6 +221,9 @@ Chroma;رنگينى
 ChromaSubsampling;
 Close;ببند
 Close all before open;قبل از باز کردن ببند
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;کدک
 Codec_Description;شرح کدک
 Codec_Info;جزییات کدک
@@ -239,16 +252,20 @@ Comment;توضيح
 CommissionedBy;مجاز توسط
 Compilation;
 CompleteName;نام کامل
+CompletionDate;
 Composer;سراينده
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;نرخ فشردگی
 Conductor;رهبر اکسترر
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;محتوی و اطلاعات کلی
 ContentType;نوع محتوا
 CoProducer;تهیه کننده
 Copyright;کپی رایت
+CopyrightYear;
 CostumeDesigner;طراح لباس
 Count;شمارش
 Country;کشور
@@ -276,6 +293,7 @@ DirectorOfPhotography;کارگردان عکسبرداری
 DisplayAspectRatio;نمایش نسبت تصوير
 DisplayAspectRatio_Original;نمایش نسبت تصوير اصلی
 DistributedBy;توزيع شده توسط
+Distributor;
 Donate;کمک مالی
 DotsPerInch;نقطه بر اینچ
 Duration;مدت
@@ -291,6 +309,7 @@ Encoded_Library_Settings;تنظینات رمزى شده
 Encoded_Original;حمایت اصلی
 EncodedBy;رمزى شده توسط
 EPG_Positions;EPG موقعیت (internal)
+EpisodeTitleNumber;
 Error_File;خطا هنگام خواندن فایل
 ExecutiveProducer;تهیه کننده اجرایی
 Exit;خروج
@@ -351,6 +370,9 @@ Format_Settings_Sign;تنظیمات فرمت, Sign
 Format_Settings_Wrapping;
 Format_Url;لینک فرمت
 Format_Version;نسخه فرمت
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;تعداد فرمت
 FrameRate;نرخ فرمت
 FrameRate_Maximum;بیشترین نرخ فرمت
@@ -568,6 +590,7 @@ How many text streams?;تعداد استریم متن?
 How many video streams?;تعداد استریم ویدیو?
 HTML;HTML
 ID;ID
+IdentClockStart;
 Image;تصویر
 Image stream(s);استریم تصویر
 Image_Codec_List;کدک تصویر
@@ -791,6 +814,7 @@ LawRating;Law rating
 LCCN;LCCN
 Library;کتابخانه تسهيم کننده
 Lightness;روشنايى
+LineUpStart;
 List;لیست
 Lyricist;لایرسکسیست
 Lyrics;متن آهنگ
@@ -868,13 +892,19 @@ OpenCandy_33;نصب نکن
 OpenCandy_34;انتخاب تنظیمات نصب
 OpenCandy_35;______ این نرم افزار پیشنهاد میشود
 OpenCandy_36;نصب فعلی متوقف نمی شود
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;تنظیمات
 Options_Hint;تنظیمات
 Original;اصلی
 OriginalNetworkName;نام اصلی شبکه
 OriginalSourceForm;فرم منبع اصلی
 OriginalSourceMedium;فرم میانی اصلی
+Originator;
 Other;دیگر
+OtherIdentifier;
+OtherIdentifierType;
 Output;خروجی
 Output format;فرمت خروجی
 OverallBitRate;نرخ بیت کل
@@ -884,9 +914,12 @@ OverallBitRate_Mode;حالت نرخ بیت کل
 OverallBitRate_Nominal;نرخ بیت کل غیرواقعی
 Part;قسمت
 Part_Count;کل تعداد
+PartNumber;
+PartTotal;
 Performer;مجرى
 Period;دوره
 Phone;تلفن
+PictureRatio;
 PixelAspectRatio;پیکسل نسبت تصوير
 PixelAspectRatio_Original;پیکسل نسبت تصوير اصلی
 PlayCounter;شمارش پخش
@@ -897,9 +930,15 @@ PlayTime;زمان پخش
 Position;موقعیت
 Position_Total;کل
 Preferences;تنظیمات
+PrimaryAudioLanguage;
 Producer;تهیه کننده
 ProductionDesigner;طراح محصول
+ProductionNumber;
 ProductionStudio;استودیو محصول
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;ناشر
 Purchased_Date;تاریخ خرید
 Quote character;کاراکتر اعلام
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;نمايشنامه توسط
 Season;فصل
+SecondaryAudioLanguage;
 see below;پایین را ببینید
 Send HeaderFile;فایل سرصفحه را اینجا بفرستید : http://sourceforge.net/projects/mediainfo/ (قسمت باگ)
 Separator_Columns;جدا کننده ستون
 Separator_Lines;جدا کننده خطوط
+SerieTitle;
 ServiceChannel;شماره کانال سرویس
 ServiceName;نام سرویس
 ServiceProvider;مهيا کننده سرویس
@@ -943,8 +984,11 @@ Sheet (Complete);ورقه کامل
 Shell extension;Shell extension (in Explorer, right click there will be a MediaInfo option)
 Shell extension, folder;برای پوشه ها هم همینطور
 Shell InfoTip;Shell InfoTip (in Explorer, move the mouse over the file, info will be displayed)
+ShimName;
 Show menu;نمایش منو
 Show toolbar;نمایش نوارابزار
+SigningPresent;
+SignLanguage;
 Sort;طبقه بندى توسط
 SoundEngineer;مهندس صدا
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;برنامه ضميمه
 Tagged_Date;تاریخ ضميمه
 Technician;تکنيسين
 TermsOfUse;شرایط استفاده
+TertiaryAudioLanguage;
 Text;استریم متن
 Text - Custom;متن - Custom
 Text (HTML);متن (HTML)
@@ -990,6 +1035,7 @@ Text1;اولین استریم متن
 Text2;دومین استریم متن
 Text3;سومین استریم متن
 TextCount;تعداد استریم متن
+TextlessElementsExist;
 ThanksTo;تشکر از
 Thousands separator;هزاران جداکننده
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;منطقه ساعتى جهانى
 Title;عنوان
 Title_More;عنوان, اطلاعات بیشتر
 Total;کلی
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;نام ترک
 Track_Count;تعداد ترک
 transfer_characteristics;
@@ -1018,6 +1066,7 @@ Video_Delay;مکث ویدیو
 Video_No;ویدیویی وجود ندارد
 Video0_Delay;Video0 delay
 Video1;اولین استریم ویدیو
+VideoComments;
 VideoCount;تعداد استریم ویدیو
 View;نمایش
 View_Hint;تغییر منوی مشاهده اطلاعات
@@ -1041,5 +1090,5 @@ Written_Location;مکان نوشته
 WrittenBy;نوشته شده توسط
 Yes;بلی
 Your system;سیستم شما
-ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;94
+ZZ_Automatic_Percent;86
+ZZ_AutomaticLanguage_Percent;90

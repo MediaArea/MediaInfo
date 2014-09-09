@@ -28,6 +28,9 @@
  chapters stream1; chapters stream
  chapters stream2; chapters streams
  chapters stream3; chapters streams
+ character1;
+ character2;
+ character3;
  day1; deň
  day2; dni
  day3; dní
@@ -141,6 +144,8 @@
  year3; rokov
 , ;, 
 : ;: 
+3D;
+3DType;
 About;O programe
 About_Hint;O programe
 Accompaniment;Accompaniment
@@ -172,7 +177,12 @@ Audio_Codec_List;Audio kodeky
 Audio_No;Bez audia
 Audio1;Prvý audio stream
 Audio2;Druhý audio stream
+AudioComments;
 AudioCount;Počet audio streamov
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;Autor
 BarCode;BarCode
 Basic;Základné
@@ -211,6 +221,9 @@ Chroma;Chroma
 ChromaSubsampling;
 Close;Zatvoriť
 Close all before open;Zatvoriť všetko pred otvorením nového
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;Kodek
 Codec_Description;Popis kodeku
 Codec_Info;Detaily kodeku
@@ -239,16 +252,20 @@ Comment;Komentár
 CommissionedBy;Commissioned by
 Compilation;
 CompleteName;Celý názov a cesta
+CompletionDate;
 Composer;Skladateľ
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;
 Conductor;Conductor
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;Hlavné informácie
 ContentType;Typ obsahu
 CoProducer;sPoluproducent
 Copyright;Autorské práva
+CopyrightYear;
 CostumeDesigner;Costume designer
 Count;Count
 Country;Krajina
@@ -276,6 +293,7 @@ DirectorOfPhotography;Director of photography
 DisplayAspectRatio;Pomer strán
 DisplayAspectRatio_Original;Pôvodný pomer strán pre zobrazenie
 DistributedBy;Distribútor
+Distributor;
 Donate;Zaslat finančný dar
 DotsPerInch;Bodov na palec
 Duration;Trvanie
@@ -291,6 +309,7 @@ Encoded_Library_Settings;Nastavenie kodéru
 Encoded_Original;Originál
 EncodedBy;Zakódoval
 EPG_Positions;
+EpisodeTitleNumber;
 Error_File;Zlyhalo načítavanie súboru
 ExecutiveProducer;Executive producer
 Exit;Koniec
@@ -351,6 +370,9 @@ Format_Settings_Sign;
 Format_Settings_Wrapping;
 Format_Url;
 Format_Version;
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;
 FrameRate;Frekvencia snímok
 FrameRate_Maximum;Maximálna frekvencia snímok
@@ -568,6 +590,7 @@ How many text streams?;How many text streams?
 How many video streams?;How many video streams?
 HTML;HTML
 ID;ID
+IdentClockStart;
 Image;Obrázok
 Image stream(s);Image streams
 Image_Codec_List;Codecs Image
@@ -791,6 +814,7 @@ LawRating;Law rating
 LCCN;LCCN
 Library;Muxing library
 Lightness;
+LineUpStart;
 List;Zoznam
 Lyricist;Textár
 Lyrics;Text
@@ -868,13 +892,19 @@ OpenCandy_33;Neinštalujte
 OpenCandy_34;Vyberte inštalačné nastavenia
 OpenCandy_35;
 OpenCandy_36;
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;Nastavenie
 Options_Hint;Predvoľby
 Original;Originál
 OriginalNetworkName;
 OriginalSourceForm;
 OriginalSourceMedium;
+Originator;
 Other;Rôzne
+OtherIdentifier;
+OtherIdentifierType;
 Output;Výstup
 Output format;Zobraziť ako
 OverallBitRate;Celkový dátový tok
@@ -884,9 +914,12 @@ OverallBitRate_Mode;
 OverallBitRate_Nominal;
 Part;Časť
 Part_Count;Celkový počet
+PartNumber;
+PartTotal;
 Performer;Umelec
 Period;Period
 Phone;Telefón
+PictureRatio;
 PixelAspectRatio;Pomer bodov
 PixelAspectRatio_Original;Pomer bodov
 PlayCounter;PlayCounter
@@ -897,9 +930,15 @@ PlayTime;Hrací čas
 Position;Pozícia
 Position_Total;Celkom
 Preferences;Predvoľby
+PrimaryAudioLanguage;
 Producer;Producent
 ProductionDesigner;ProductionDesigner
+ProductionNumber;
 ProductionStudio;ProductionStudio
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;Publisher
 Purchased_Date;Dátum zakúpenia
 Quote character;Quote character
@@ -926,10 +965,12 @@ ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Screenplay by
 Season;Season
+SecondaryAudioLanguage;
 see below;pozri nižšie
 Send HeaderFile;
 Separator_Columns;Oddeľovač stĺpcov
 Separator_Lines;Oddeľovač riadkov
+SerieTitle;
 ServiceChannel;
 ServiceName;
 ServiceProvider;
@@ -943,8 +984,11 @@ Sheet (Complete);List (kompletný)
 Shell extension;Integrovať do kontextového menu Prieskumníka (pravé tlačíidlo myši)
 Shell extension, folder;
 Shell InfoTip;Integrovať do kontextového menu (pri nadídení myši na súbor)
+ShimName;
 Show menu;Zobraziť menu
 Show toolbar;Zobraziť nástrojovú lištu
+SigningPresent;
+SignLanguage;
 Sort;Zoradiť podľa
 SoundEngineer;Sound engineer
 Source;
@@ -979,6 +1023,7 @@ Tagged_Application;
 Tagged_Date;Tagged date
 Technician;Technician
 TermsOfUse;Terms of use
+TertiaryAudioLanguage;
 Text;Text
 Text - Custom;Text - Vlastný
 Text (HTML);Text (HTML)
@@ -990,6 +1035,7 @@ Text1;Prvý text stream
 Text2;Druhý text stream
 Text3;Tretí text stream
 TextCount;Count of text streams
+TextlessElementsExist;
 ThanksTo;Poďakovanie
 Thousands separator;Oddeľovač tisícok
 TimeCode;
@@ -1001,6 +1047,8 @@ TimeZone;Časová zóna
 Title;Titul
 Title_More;Titul, ďalšie informácie
 Total;Celkom
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;Názov stopy
 Track_Count;Počet stôp
 transfer_characteristics;
@@ -1018,6 +1066,7 @@ Video_Delay;Video delay
 Video_No;Žiadne video
 Video0_Delay;Video0 delay
 Video1;Prvý video stream
+VideoComments;
 VideoCount;Počet video streamov
 View;Zobraziť
 View_Hint;Zobraziť
@@ -1041,5 +1090,5 @@ Written_Location;Written location
 WrittenBy;Napísal
 Yes;Áno
 Your system;Váš systém
-ZZ_Automatic_Percent;79
-ZZ_AutomaticLanguage_Percent;85
+ZZ_Automatic_Percent;76
+ZZ_AutomaticLanguage_Percent;81
