@@ -8,9 +8,9 @@
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
   Config_Text_ThousandsSeparator;.
- audio stream1; lydstrøm
- audio stream2; lydstrømme
- audio stream3; lydstrømme
+ audio stream1; lydstrÃ¸m
+ audio stream2; lydstrÃ¸mme
+ audio stream3; lydstrÃ¸mme
  bit1; bit
  bit2; bits
  bit3; bits
@@ -25,9 +25,9 @@
  chapter1; kapitel
  chapter2; kapitler
  chapter3; kapitler
- chapters stream1; kapitelstrøm
- chapters stream2; kapitelstrømme
- chapters stream3; kapitelstrømme
+ chapters stream1; kapitelstrÃ¸m
+ chapters stream2; kapitelstrÃ¸mme
+ chapters stream3; kapitelstrÃ¸mme
  character1;
  character2;
  character3;
@@ -66,9 +66,9 @@
  hour2; timer
  hour3; timer
  Hz; HZ
- image stream1; billedstrøm
- image stream2; billedstrømme
- image stream3; billedstrømme
+ image stream1; billedstrÃ¸m
+ image stream2; billedstrÃ¸mme
+ image stream3; billedstrÃ¸mme
  KB; KB
  Kb; Kb
  KBps; KBps
@@ -114,24 +114,24 @@
  minute1; minut
  minute2; minutter
  minute3; minutter
- month1; måned
- month2; måneder
- month3; måneder
+ month1; mÃ¥ned
+ month2; mÃ¥neder
+ month3; mÃ¥neder
  pixel1; billedpunkt
  pixel2; billedpunkter
  pixel3; billedpunkter
  second1; sekund
  second2; sekunder
  second3; sekunder
- text stream1; tekststrøm
- text stream2; tekststrømme
- text stream3; tekststrømme
+ text stream1; tekststrÃ¸m
+ text stream2; tekststrÃ¸mme
+ text stream3; tekststrÃ¸mme
  video frames1; videobillede
  video frames2; videobilleder
  video frames3; videobilleder
- video stream1; videostrømme
- video stream2; videostrømme
- video stream3; videostrømme
+ video stream1; videostrÃ¸mme
+ video stream2; videostrÃ¸mme
+ video stream3; videostrÃ¸mme
  warppoint0;Ingen warppoints
  warppoint1; warppoint
  warppoint2; warppoints
@@ -139,9 +139,9 @@
  week1; uge
  week2; uger
  week3; uger
- year1; år
- year2; år
- year3; år
+ year1; Ã¥r
+ year2; Ã¥r
+ year3; Ã¥r
 , ;, 
 : ;: 
 3D;
@@ -153,7 +153,7 @@ ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
 Actor;Skuespiller
 Actor_Character;Rolle
-Added_Date;Tilføjet den
+Added_Date;TilfÃ¸jet den
 Address;Adresse
 Advanced;Avanceret
 Advanced mode;Avanceret tilstand
@@ -161,32 +161,32 @@ Album;Album
 Album_ReplayGain_Gain;Album replay gain
 Album_ReplayGain_Peak;Album replay gain peak
 Alignment;Justering
-Alignment_Aligned;Justeret på interleaves
-Alignment_Split;Delt på interleaves
+Alignment_Aligned;Justeret pÃ¥ interleaves
+Alignment_Split;Delt pÃ¥ interleaves
 All;Alle
 Archival_Location;Arkivsted
-Arranger;Arrangør
+Arranger;ArrangÃ¸r
 ArtDirector;Art Director
-AspectRatio;Størrelsesforhold
-AssistantDirector;Assisterende regissør
+AspectRatio;StÃ¸rrelsesforhold
+AssistantDirector;Assisterende regissÃ¸r
 at;ved
-At least one file;(Du skal åbne mindst en fil)
+At least one file;(Du skal Ã¥bne mindst en fil)
 Audio;Lyd
-Audio stream(s);Lydstrømme
+Audio stream(s);LydstrÃ¸mme
 Audio_Codec_List;Lyd-codecs
 Audio_No;Ingen lyd
-Audio1;Første lydstrøm
-Audio2;Anden lydstrøm
+Audio1;FÃ¸rste lydstrÃ¸m
+Audio2;Anden lydstrÃ¸m
 AudioComments;
-AudioCount;Antal lydstrømme
+AudioCount;Antal lydstrÃ¸mme
 AudioDescriptionPresent;
 AudioDescriptionType;
 AudioLoudnessStandard;
 AudioTrackLayout;
 Author;Forfatter
 BarCode;Stregkode
-Basic;Grundlæggende
-Basic_Note;Bemærk : for mere information om denne fil, skal du vælge en anden visning (Ark, Træstruktur..)
+Basic;GrundlÃ¦ggende
+Basic_Note;BemÃ¦rk : for mere information om denne fil, skal du vÃ¦lge en anden visning (Ark, TrÃ¦struktur..)
 BitDepth;Bitdybde
 BitDepth_Stored;
 BitRate;Bitrate
@@ -198,29 +198,29 @@ BitRate_Mode_CBR;Konstant
 BitRate_Mode_VBR;Variabel
 BitRate_Nominal;Nominel bitrate
 Bits-(Pixel*Frame);Bits/(Billedpunkter*Billed)
-BufferSize;Buffer-størrelse
+BufferSize;Buffer-stÃ¸rrelse
 Cancel;Annuller
 Channel(s);Kanaler
 ChannelPositions;Kanalpositioner
 Chapter(s);Kapitler
 Chapters;Kapitler
-Chapters stream(s);Kapitelstrømme
+Chapters stream(s);KapitelstrÃ¸mme
 Chapters_Codec_List;Kapitel-codecs
 Chapters_No;Ingen kapitler
-ChaptersCount;Antal kapitelstrømme
+ChaptersCount;Antal kapitelstrÃ¸mme
 CheckNewVersion;Tjek for ny version
-Choose custom;Vælg tilpas
-Choose custom sheet;Vælg tilpasset ark
-Choose custom text;Vælg den ønskede tilpassede tekst
-Choose export format;Vælg det ønskede eksportformat
-Choose file(s);Vælg en fil at åbne
-Choose filename;Vælg det ønskede filnavn
-Choose language;Vælg det foretrukne sprog
+Choose custom;VÃ¦lg tilpas
+Choose custom sheet;VÃ¦lg tilpasset ark
+Choose custom text;VÃ¦lg den Ã¸nskede tilpassede tekst
+Choose export format;VÃ¦lg det Ã¸nskede eksportformat
+Choose file(s);VÃ¦lg en fil at Ã¥bne
+Choose filename;VÃ¦lg det Ã¸nskede filnavn
+Choose language;VÃ¦lg det foretrukne sprog
 Choregrapher;Koreograf
 Chroma;Chroma
 ChromaSubsampling;Chroma subsampling
 Close;Luk
-Close all before open;Luk alle før åbning
+Close all before open;Luk alle fÃ¸r Ã¥bning
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
@@ -238,7 +238,7 @@ Codec_Settings_GMC;Codec-indstillinger, GMC
 Codec_Settings_ITU;Codec-indstillinger, ITU
 Codec_Settings_Law;Codec-indstillinger, Law
 Codec_Settings_Matrix;Codec-indstillinger, Matrix
-Codec_Settings_PacketBitStream;Codec-indstillinger, Packet bitstrøm
+Codec_Settings_PacketBitStream;Codec-indstillinger, Packet bitstrÃ¸m
 Codec_Settings_QPel;Codec-indstillinger, QPel
 Codec_Settings_Sign;Codec-indstillinger, Sign
 Codec_Url;Weblink til codec
@@ -274,27 +274,27 @@ Cover_Datas;Cover-data
 Cover_Description;Cover-beskrivelse
 Cover_Mime;Cover MIME
 Cover_Type;Cover-type
-Cropped;Beskæringsdeminsioner
+Cropped;BeskÃ¦ringsdeminsioner
 Custom;Tilpas
 Customize;Tilpas
 Date;Dato
-Debug;Fejlsøg
+Debug;FejlsÃ¸g
 Decimal point;Decimaltegn
 Delay;Forsinkelse
 Delay_Source;Forsinkelse, original
 Delay_Source_Container;Container
-Delay_Source_Stream;Rå strøm
+Delay_Source_Stream;RÃ¥ strÃ¸m
 Delete;Slet
 Description;Beskrivelse
 Digitized_Date;Digitaliseret den
 Dimensions;Dimentioner
-Director;Instruktør
+Director;InstruktÃ¸r
 DirectorOfPhotography;Cheffotograf
-DisplayAspectRatio;Størrelsesforhold
-DisplayAspectRatio_Original;Oprindeligt størrelsesforhold
+DisplayAspectRatio;StÃ¸rrelsesforhold
+DisplayAspectRatio_Original;Oprindeligt stÃ¸rrelsesforhold
 DistributedBy;Distribueret af
 Distributor;
-Donate;Donér
+Donate;DonÃ©r
 DotsPerInch;Punkter pr inch
 Duration;Varighed
 Duration_End;Sluttid
@@ -310,8 +310,8 @@ Encoded_Original;Original
 EncodedBy;Kodet af
 EPG_Positions;EPG-positioner (internt)
 EpisodeTitleNumber;
-Error_File;Fejl under læsning af fil
-ExecutiveProducer;Udøvende producent
+Error_File;Fejl under lÃ¦sning af fil
+ExecutiveProducer;UdÃ¸vende producent
 Exit;Afslut
 Exit_Hint;Afslut programmet
 Export;Eksporter
@@ -320,21 +320,21 @@ Extensions;Filendelser der normalt anvendes
 Family;Familie
 Fax;Fax
 File;Fil
-File size;Filstørrelse
-File_Append;Tilføj til eksisterende fil (Advarsel: vær opmærksom på at have sammeparametre)
+File size;FilstÃ¸rrelse
+File_Append;TilfÃ¸j til eksisterende fil (Advarsel: vÃ¦r opmÃ¦rksom pÃ¥ at have sammeparametre)
 File_Created_Date;Oprettelsesdato
 File_Created_Date_Local;Oprettelsesdato (lokalt)
-File_Hint;Vælg en multimediefil at undersøge
+File_Hint;VÃ¦lg en multimediefil at undersÃ¸ge
 File_Modified_Date;Senest modificeret
 File_Modified_Date_Local;Senest modificeret (lokalt)
 FileExtension;Filendelse
 FileName;Filnavn
-FileSize;Filstørrelse
+FileSize;FilstÃ¸rrelse
 Folder;Mappe
 Folder (R);Mappe (R)
-Folder (R)_Hint;Vælg en mappe at undersøge (med alle mapper rekursivt)
+Folder (R)_Hint;VÃ¦lg en mappe at undersÃ¸ge (med alle mapper rekursivt)
 Folder (Recursively);Mappe (Rekursivt)
-Folder_Hint;Vælg en mappe at undersøge
+Folder_Hint;VÃ¦lg en mappe at undersÃ¸ge
 FolderName;Mappenavn
 Format;Format
 Format_Commercial;Kommercielt navn
@@ -406,7 +406,7 @@ Genre_018;Techno
 Genre_019;Industrial
 Genre_020;Alternative
 Genre_021;Ska
-Genre_022;Dødsmetal
+Genre_022;DÃ¸dsmetal
 Genre_023;Pranks
 Genre_024;Soundtrack
 Genre_025;Euro-Techno
@@ -463,7 +463,7 @@ Genre_075;Polka
 Genre_076;Retro
 Genre_077;Musikal
 Genre_078;Rock & Roll
-Genre_079;Hård rock
+Genre_079;HÃ¥rd rock
 Genre_080;Folk
 Genre_081;Folk-Rock
 Genre_082;National Folk
@@ -576,42 +576,42 @@ Genre_188;
 Genre_189;
 Genre_190;
 Genre_191;
-Go to WebSite;Gå til websted
+Go to WebSite;GÃ¥ til websted
 Grouping;
 h;t
 Header file;Opret en header-fil
-Height;Højde
-Height_Original;Oprindelig højde
-Help;Hjælp
+Height;HÃ¸jde
+Height_Original;Oprindelig hÃ¸jde
+Help;HjÃ¦lp
 Hint;Tip
-How many audio streams?;Hvor mange lydstrømme?
-How many chapters streams?;Hvor mange kapitelstrømme?
-How many text streams?;Hvor mange tekststrømme?
-How many video streams?;Hvor mange videostrømme?
+How many audio streams?;Hvor mange lydstrÃ¸mme?
+How many chapters streams?;Hvor mange kapitelstrÃ¸mme?
+How many text streams?;Hvor mange tekststrÃ¸mme?
+How many video streams?;Hvor mange videostrÃ¸mme?
 HTML;HTML
 ID;ID
 IdentClockStart;
 Image;Billede
-Image stream(s);Billedstrømme
+Image stream(s);BilledstrÃ¸mme
 Image_Codec_List;Billed-codecs
-ImageCount;Antal billedstrømme
+ImageCount;Antal billedstrÃ¸mme
 Info;Info
 Instruments;Instrumenter
-Interlaced_BFF;Bundfelt først
+Interlaced_BFF;Bundfelt fÃ¸rst
 Interlaced_Interlaced;Sammenflettet
 Interlaced_PPF;Progressiv
 Interlaced_Progressive;Progressiv
-Interlaced_TFF;Topfelt først
+Interlaced_TFF;Topfelt fÃ¸rst
 Interlacement;Sammenfletning
 Interleave_Duration;Interleave, varighed
-Interleave_Preload;Interleave, forudindlæst varighed
+Interleave_Preload;Interleave, forudindlÃ¦st varighed
 Interleave_VideoFrames;Interleave, varighed
 Interleaved;Interleaved
 InternetMediaType;Internet mediatype
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-Keywords;Nøgleord
+Keywords;NÃ¸gleord
 Known codecs;Kendte codecs
 Known formats;Kendte formater
 Known parameters;Kendte parametre
@@ -653,7 +653,7 @@ Language_de;Tysk
 Language_dv;
 Language_dz;
 Language_ee;
-Language_el;Græsk
+Language_el;GrÃ¦sk
 Language_en;Engelsk
 Language_en-gb;Engelsk (Storbritanien)
 Language_en-us;Engelsk (US)
@@ -665,17 +665,17 @@ Language_fa;Persisk
 Language_ff;
 Language_fi;Finsk
 Language_fj;Fijiansk
-Language_fo;Færøsk
+Language_fo;FÃ¦rÃ¸sk
 Language_fr;Fransk
 Language_fy;Frisisk
 Language_ga;Irsk
-Language_gd;Gælisk
+Language_gd;GÃ¦lisk
 Language_gl;
 Language_gn;
 Language_gu;
 Language_gv;
 Language_ha;
-Language_he;Hebræisk
+Language_he;HebrÃ¦isk
 Language_hi;Hindi
 Language_ho;
 Language_hr;Kroatisk
@@ -701,7 +701,7 @@ Language_kg;Kongolesisk
 Language_ki;
 Language_kj;
 Language_kk;Kasakisk
-Language_kl;Grøndlandsk
+Language_kl;GrÃ¸ndlandsk
 Language_km;Cambodisk
 Language_kn;Canadisk
 Language_ko;Koreansk
@@ -734,7 +734,7 @@ Language_mt;Maltesisk
 Language_mul;
 Language_my;Burmesisk
 Language_na;Naurisk
-Language_nb;Norsk Bokmål
+Language_nb;Norsk BokmÃ¥l
 Language_nd;
 Language_ne;Nepalesisk
 Language_ng;
@@ -758,7 +758,7 @@ Language_pt-br;Portugisisk (Brasilien)
 Language_qu;
 Language_rm;
 Language_rn;
-Language_ro;Rumænsk
+Language_ro;RumÃ¦nsk
 Language_ru;Russisk
 Language_rw;
 Language_sa;Sanskrit
@@ -810,7 +810,7 @@ Language_zh;Kinesisk
 Language_zh-cn;Kinesisk (Kina)
 Language_zh-tw;Kinesisk (Taiwan)
 Language_zu;Zulu
-LawRating;Aldersgrænse
+LawRating;AldersgrÃ¦nse
 LCCN;LCCN
 Library;Muxing-bibliotek
 Lightness;Lysstyrke
@@ -826,11 +826,11 @@ matrix_coefficients;Matrix-coefficienter
 Matrix_Format;
 MediaInfo_About;Leverer meget detaljeret information\r\nom en multimediefil:\r\nMatroska, Ogg (inklusive OGM)\r\nMPEG1 (inklusive VCD)\r\nMPEG2 (inklusive DVD og SVCD)\r\nMPEG4 (inklusive Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (inklusive WMV, WMA)\r\Microsoft RIFF (inklusive AVI, WAV)\r\nRene lydformater (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menu
-Menu stream(s);Menustrømme
+Menu stream(s);MenustrÃ¸mme
 Menu_Codec_List;Menu-codecs
 Menu_Hint;Flere muligheder
 Menu_No;Ingen menu
-MenuCount;Antal menustrømme
+MenuCount;Antal menustrÃ¸mme
 MenuID;Menu-ID
 mn;min.
 Mood;Stemning
@@ -841,28 +841,28 @@ MSDI;MSID
 MusicBy;Musik af
 MuxingMode;Muxing-modus
 MuxingMode_MoreInfo;Muxing-modus, mere info
-MuxingMode_PackedBitstream;Komprimeret bitstrøm
+MuxingMode_PackedBitstream;Komprimeret bitstrÃ¸m
 Name;Navn
 Nationality;Nationalitet
-NetworkName;Netværksnavn
+NetworkName;NetvÃ¦rksnavn
 New;Ny
-Newest version;Tjek for nyeste version (kræver internetforbindelse)
-NewVersion_Menu;En ny version er tilgængelig
-NewVersion_Question_Content;En ny version (v%Version%) er tilgængelig, vil du downloade den?
+Newest version;Tjek for nyeste version (krÃ¦ver internetforbindelse)
+NewVersion_Menu;En ny version er tilgÃ¦ngelig
+NewVersion_Question_Content;En ny version (v%Version%) er tilgÃ¦ngelig, vil du downloade den?
 NewVersion_Question_Title;En ny version er udkommet!
 No;Nej
 Not yet;Ikke endnu
 NumColors;Antal farver
 OK;OK
 One output file per input file;En output-fil per input-fil
-Open;Åbn
+Open;Ã…bn
 OpenCandy_01;Downloader ________
-OpenCandy_02;__% gennemført
+OpenCandy_02;__% gennemfÃ¸rt
 OpenCandy_03;Internetforbindelse afbrudt
-OpenCandy_04;________ download gennemført
+OpenCandy_04;________ download gennemfÃ¸rt
 OpenCandy_05;Klik for at installere ________
-OpenCandy_06;Er du sikker på du ønsker at annullere installeringen?\r\nHvis du ønsker at udsætte installeringen til senere, vælg 'Nej'.\r\nBemærk: Du kan vælge Afbryd fra menuen for, at udsætte installation indtil efter du rebooter næste gang.
-OpenCandy_07;Download af ________ er sat på pause.\r\nKlik på ikonet på proceslinjen for at fortsætte downloading.
+OpenCandy_06;Er du sikker pÃ¥ du Ã¸nsker at annullere installeringen?\r\nHvis du Ã¸nsker at udsÃ¦tte installeringen til senere, vÃ¦lg 'Nej'.\r\nBemÃ¦rk: Du kan vÃ¦lge Afbryd fra menuen for, at udsÃ¦tte installation indtil efter du rebooter nÃ¦ste gang.
+OpenCandy_07;Download af ________ er sat pÃ¥ pause.\r\nKlik pÃ¥ ikonet pÃ¥ proceslinjen for at fortsÃ¦tte downloading.
 OpenCandy_08;Der opstod en kritisk fejl. Installeringen af _________ vil blive afbrudt.
 OpenCandy_09;Pause download
 OpenCandy_10;Annuller installering
@@ -870,35 +870,35 @@ OpenCandy_11;Genoptag download
 OpenCandy_12;Afslut installeringsprogram
 OpenCandy_13;___________ -Anbefalet af ____________
 OpenCandy_14;Downloader _________
-OpenCandy_15;___________, Programmet anbefalet til dig af ___________, downloades nu. Du vil få besked når det er klar til installering.
+OpenCandy_15;___________, Programmet anbefalet til dig af ___________, downloades nu. Du vil fÃ¥ besked nÃ¥r det er klar til installering.
 OpenCandy_16;___________ er klar til installering
-OpenCandy_17;___________ er nu helt downloaded. Klik på 'Installer' for at fortsætte.
+OpenCandy_17;___________ er nu helt downloaded. Klik pÃ¥ 'Installer' for at fortsÃ¦tte.
 OpenCandy_18;___________ af ___________ downloadet
 OpenCandy_19;Powered by OpenCandy
-OpenCandy_20;Lær mere på OpenCandy.com
+OpenCandy_20;LÃ¦r mere pÃ¥ OpenCandy.com
 OpenCandy_21;Installer
 OpenCandy_22;Installation af ___________
-OpenCandy_23;Dette vil annullere installeringen af ___________\r\nEr du sikker på du ønsker at afslutte?
+OpenCandy_23;Dette vil annullere installeringen af ___________\r\nEr du sikker pÃ¥ du Ã¸nsker at afslutte?
 OpenCandy_24;Pause
-OpenCandy_25;Din download er sat på pause. Klik på 'Genoptag' når du er klar til at fortsætte.
+OpenCandy_25;Din download er sat pÃ¥ pause. Klik pÃ¥ 'Genoptag' nÃ¥r du er klar til at fortsÃ¦tte.
 OpenCandy_26;Genoptag
 OpenCandy_27;Installer nu
 OpenCandy_28;Pause download
 OpenCandy_29;Genoptag download
 OpenCandy_30;Annuller installering
-OpenCandy_31;Vælg venligst en installationsinstilling
+OpenCandy_31;VÃ¦lg venligst en installationsinstilling
 OpenCandy_32;Installer ___________
 OpenCandy_33;Installer ikke
-OpenCandy_34;Vælg en installeringsindstilling
+OpenCandy_34;VÃ¦lg en installeringsindstilling
 OpenCandy_35;______ anbefaler denne software
-OpenCandy_36;Din nuværende installation bliver ikke påvirket
+OpenCandy_36;Din nuvÃ¦rende installation bliver ikke pÃ¥virket
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
 Options;Indstillinger
-Options_Hint;Præferencer
+Options_Hint;PrÃ¦ferencer
 Original;Original
-OriginalNetworkName;Oprindeligt netværksnavn
+OriginalNetworkName;Oprindeligt netvÃ¦rksnavn
 OriginalSourceForm;Oprindelig kildeform
 OriginalSourceMedium;Oprindeligt kildemedie
 Originator;
@@ -922,14 +922,14 @@ Phone;Telefon
 PictureRatio;
 PixelAspectRatio;Pixelforhold
 PixelAspectRatio_Original;Pixelforhold
-PlayCounter;Tæller
+PlayCounter;TÃ¦ller
 Played_Count;Afspillet antal gange
-Played_First_Date;Først afspillet
+Played_First_Date;FÃ¸rst afspillet
 Played_Last_Date;Senest afspillet
 PlayTime;Spilletid
 Position;Position
 Position_Total;Totalt
-Preferences;Præferencer
+Preferences;PrÃ¦ferencer
 PrimaryAudioLanguage;
 Producer;Producer
 ProductionDesigner;Scenograf
@@ -940,17 +940,17 @@ ProgrammeHasText;
 ProgrammeTextLanguage;
 ProgrammeTitle;
 Publisher;Forlag
-Purchased_Date;Købt den
-Quote character;Anførselstegn
+Purchased_Date;KÃ¸bt den
+Quote character;AnfÃ¸rselstegn
 RadioStation;Radiostation
-Rating;Bedømmelse
+Rating;BedÃ¸mmelse
 Recorded_Date;Optaget den
 Recorded_Location;Optaget sted
 Released_Date;Udgivet den
 RemixedBy;Remixet af
 ReplayGain_Gain;Reply gain
 ReplayGain_Peak;Reply gain peak
-Resolution;Opløsning
+Resolution;OplÃ¸sning
 s;sek.
 SamplingCount;Antal samplinger
 SamplingRate;Samplingsrate
@@ -964,7 +964,7 @@ ScanType;Skantype
 ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Manuskript af
-Season;Sæson
+Season;SÃ¦son
 SecondaryAudioLanguage;
 see below;se nedenunder
 Send HeaderFile;Send venligst header-filen her: http://sourceforge.net/projects/mediainfo/ (Bug section)
@@ -975,18 +975,18 @@ ServiceChannel;Servicekanalnummer
 ServiceName;Servicenavn
 ServiceProvider;Serviceudbyder
 ServiceType;Servicetype
-Set;Sæt
-Set_Count;Antal sæt
-Setup;Opsætning
+Set;SÃ¦t
+Set_Count;Antal sÃ¦t
+Setup;OpsÃ¦tning
 Sharpness;Skarphed
 Sheet;Ark
 Sheet (Complete);Ark (komplet)
-Shell extension;Shell-udvidelse ( højreklik viser MediaInfo i stifinder)
-Shell extension, folder;Også for mapper
-Shell InfoTip;Shell-infotip (bevæg musen over filen i stifinder og info vises)
+Shell extension;Shell-udvidelse ( hÃ¸jreklik viser MediaInfo i stifinder)
+Shell extension, folder;OgsÃ¥ for mapper
+Shell InfoTip;Shell-infotip (bevÃ¦g musen over filen i stifinder og info vises)
 ShimName;
 Show menu;Vis menu
-Show toolbar;Vis værktøjslinje
+Show toolbar;Vis vÃ¦rktÃ¸jslinje
 SigningPresent;
 SignLanguage;
 Sort;Sorteret efter
@@ -1002,21 +1002,21 @@ StoreMethod_InterleavedFields;
 StoreMethod_SeparatedFields;
 StoreMethod_SeparatedFields_1;
 StoreMethod_SeparatedFields_2;
-Stream;Strøm
-Stream_MoreInfo;Mere information om strømmen
-StreamCount;Antal sådanne strømme
-StreamID;Strøm-ID
-StreamKind;Strømart
-StreamKindID;Strømidentifikator
-StreamKindPos;Strømidentifikator
-StreamSize;Strømstørrelse
+Stream;StrÃ¸m
+Stream_MoreInfo;Mere information om strÃ¸mmen
+StreamCount;Antal sÃ¥danne strÃ¸mme
+StreamID;StrÃ¸m-ID
+StreamKind;StrÃ¸mart
+StreamKindID;StrÃ¸midentifikator
+StreamKindPos;StrÃ¸midentifikator
+StreamSize;StrÃ¸mstÃ¸rrelse
 StreamSize_Encoded;
-StreamSize_Proportion;Denne strøms størrelsesforhold
+StreamSize_Proportion;Denne strÃ¸ms stÃ¸rrelsesforhold
 Subject;Emne
 SubTrack;Underspor
 Summary;Sammendrag
-Supported formats;Understøttede formater
-Supported?;Understøttet?
+Supported formats;UnderstÃ¸ttede formater
+Supported?;UnderstÃ¸ttet?
 Synopsis;Synopsis
 SystemId;Id
 Tagged_Application;Tagging-applikation
@@ -1027,14 +1027,14 @@ TertiaryAudioLanguage;
 Text;Tekst
 Text - Custom;Tekst - tilpas
 Text (HTML);Tekst (HTML)
-Text stream(s);Tekststrømme
-Text streams;Tekststrømme
+Text stream(s);TekststrÃ¸mme
+Text streams;TekststrÃ¸mme
 Text_Codec_List;Tekst-codecs
 Text_No;Ingen tekst
-Text1;Første tekststrøm
-Text2;Anden tekststrøm
-Text3;Tredie tekststrøm
-TextCount;Antal tekststrømme
+Text1;FÃ¸rste tekststrÃ¸m
+Text2;Anden tekststrÃ¸m
+Text3;Tredie tekststrÃ¸m
+TextCount;Antal tekststrÃ¸mme
 TextlessElementsExist;
 ThanksTo;Tak til
 Thousands separator;Tusindseparator
@@ -1042,6 +1042,7 @@ TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
+TimeCode_Striped;
 TimeStamp;
 TimeZone;Tidszone
 Title;Titel
@@ -1051,44 +1052,44 @@ TotalNumberOfParts;
 TotalProgrammeDuration;
 Track;Spornavn
 Track_Count;Spornummer
-transfer_characteristics;Overførselskarakteristika
-Translator;Oversætter
-Tree;Træstruktur
-Tree & Text;Træstruktur & tekst
+transfer_characteristics;OverfÃ¸rselskarakteristika
+Translator;OversÃ¦tter
+Tree;TrÃ¦struktur
+Tree & Text;TrÃ¦struktur & tekst
 Type;
 UniqueID;Unik ID
 Unknown;Ukendt
 Url;Url
 Video;Video
-Video stream(s);Videostrømme
+Video stream(s);VideostrÃ¸mme
 Video_Codec_List;Codecs Video
 Video_Delay;Videoforsinkelse
 Video_No;Ingen video
 Video0_Delay;Video0forsinkelse
-Video1;Første videostrøm
+Video1;FÃ¸rste videostrÃ¸m
 VideoComments;
-VideoCount;Antal videostrømme
+VideoCount;Antal videostrÃ¸mme
 View;Vis
-View_Hint;Ændr måde til visning af information
-Warning : more streams in the files;Advarsel: Der er flere strømme i filerne
+View_Hint;Ã†ndr mÃ¥de til visning af information
+Warning : more streams in the files;Advarsel: Der er flere strÃ¸mme i filerne
 Web;Web
-WebSite_Audio;Gå til denne lyd-codecs websted
-WebSite_Audio_More;Gå til webstedet (%Url%) for at finde denne lyd-codec
-WebSite_General;Gå til en afspillers webstedet  til denne fil
-WebSite_General_More;Gå til en afspillers webstedet  til denne fil
-WebSite_Text;Gå til denne tekst-codecs websted
-WebSite_Text_More;Gå til webstedet (%Url%) for at finde denne tekst-codec
+WebSite_Audio;GÃ¥ til denne lyd-codecs websted
+WebSite_Audio_More;GÃ¥ til webstedet (%Url%) for at finde denne lyd-codec
+WebSite_General;GÃ¥ til en afspillers webstedet  til denne fil
+WebSite_General_More;GÃ¥ til en afspillers webstedet  til denne fil
+WebSite_Text;GÃ¥ til denne tekst-codecs websted
+WebSite_Text_More;GÃ¥ til webstedet (%Url%) for at finde denne tekst-codec
 WebSite_Url;http://MediaArea.net/MediaInfo
-WebSite_Video;Gå til dette codecs websted
-WebSite_Video_More;Gå til webstedet (%Url%) for at finde dette video-codec
+WebSite_Video;GÃ¥ til dette codecs websted
+WebSite_Video_More;GÃ¥ til webstedet (%Url%) for at finde dette video-codec
 Width;Bredde
 Width_Original;Oprindelig bredde
-WriteMe;Skriv e-mail til programmøren
-WriteToTranslator;Skriv til oversætteren
+WriteMe;Skriv e-mail til programmÃ¸ren
+WriteToTranslator;Skriv til oversÃ¦tteren
 Written_Date;Skrevet den
 Written_Location;Sted
 WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
 ZZ_Automatic_Percent;80
-ZZ_AutomaticLanguage_Percent;92
+ZZ_AutomaticLanguage_Percent;91

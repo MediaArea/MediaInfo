@@ -1,7 +1,7 @@
   Language_ISO639;lt
   Author_Email;pauliusvenckus@gmail.com
   Author_Name;Paulius
-  Author_OldNames;…
+  Author_OldNames;â€¦
   Language_Name;Lithuanian
   Config_Text_ColumnSize;40
   Config_Text_Separator; : 
@@ -26,8 +26,8 @@
  chapter2; skyriai
  chapter3; skyriai
  chapters stream1;Skyriaus srautas
- chapters stream2;kanalų srautai
- chapters stream3;kanalų srautai
+ chapters stream2;kanalÅ³ srautai
+ chapters stream3;kanalÅ³ srautai
  character1;
  character2;
  character3;
@@ -66,9 +66,9 @@
  hour2; valandos
  hour3;valandos
  Hz; Hz
- image stream1;paveikslėlio srautas
- image stream2;paveikslėlių srautai
- image stream3;paveikslėlių srautai
+ image stream1;paveikslÄ—lio srautas
+ image stream2;paveikslÄ—liÅ³ srautai
+ image stream3;paveikslÄ—liÅ³ srautai
  KB; KB
  Kb; Kb
  KBps; KBps
@@ -108,21 +108,21 @@
  MiB; MiB
  Mib; Mib
  MiBps; MiBps
- millisecond1;milisekundė
- millisecond2;milisekundės
- millisecond3;milisekundės
- minute1;minutė
- minute2;minutės
- minute3;minutės
- month1;mėnuo
- month2;mėnesiai
- month3;mėnesiai
+ millisecond1;milisekundÄ—
+ millisecond2;milisekundÄ—s
+ millisecond3;milisekundÄ—s
+ minute1;minutÄ—
+ minute2;minutÄ—s
+ minute3;minutÄ—s
+ month1;mÄ—nuo
+ month2;mÄ—nesiai
+ month3;mÄ—nesiai
  pixel1;pikselis
  pixel2;pikseliai
  pixel3;pikseliai
- second1;sekundė
- second2;sekundės
- second3;sekundės
+ second1;sekundÄ—
+ second2;sekundÄ—s
+ second3;sekundÄ—s
  text stream1;teksto srautas
  text stream2;teksto srautai
  text stream3;teksto srautai
@@ -136,9 +136,9 @@
  warppoint1;
  warppoint2;
  warppoint3;
- week1;savaitė
- week2;savaitės
- week3;savaitės
+ week1;savaitÄ—
+ week2;savaitÄ—s
+ week3;savaitÄ—s
  year1;metai
  year2;metai
  year3;metai
@@ -147,16 +147,16 @@
 3D;
 3DType;
 About;Apie
-About_Hint;Kaip man prisijungti ir rasti naujausią versiją
+About_Hint;Kaip man prisijungti ir rasti naujausiÄ… versijÄ…
 Accompaniment;Akompanimentas
 ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
 Actor;Aktorius
-Actor_Character;rodyti ženklą
+Actor_Character;rodyti Å¾enklÄ…
 Added_Date;
 Address;Adresas
-Advanced;Išplėstinai
-Advanced mode;Išplėstinis režimas
+Advanced;IÅ¡plÄ—stinai
+Advanced mode;IÅ¡plÄ—stinis reÅ¾imas
 Album;Albumas
 Album_ReplayGain_Gain;
 Album_ReplayGain_Peak;
@@ -165,12 +165,12 @@ Alignment_Aligned;
 Alignment_Split;
 All;Visi
 Archival_Location;Archyvavimo vieta
-Arranger;Aranžuotojas
+Arranger;AranÅ¾uotojas
 ArtDirector;Meno Katalogas
 AspectRatio;Aspekto santykis
 AssistantDirector;Asistuojantis dirigentas
 at;-
-At least one file;(Turite atverti bent vieną failą)
+At least one file;(Turite atverti bent vienÄ… failÄ…)
 Audio;Audio
 Audio stream(s);Audio srautai
 Audio_Codec_List;Audio kodekas
@@ -178,55 +178,55 @@ Audio_No;Be audio
 Audio1;Pirmas audio srautas
 Audio2;Antras audio srautas
 AudioComments;
-AudioCount;Audio srautų kiekis
+AudioCount;Audio srautÅ³ kiekis
 AudioDescriptionPresent;
 AudioDescriptionType;
 AudioLoudnessStandard;
 AudioTrackLayout;
 Author;Autorius
-BarCode;Brūkšninis kodas
-Basic;Įprastas
-Basic_Note;Pastaba : jei norite daugiau informacijos apie failą, turite pasirinkti kitą rodymą, (Lapas, Medis...)
+BarCode;BrÅ«kÅ¡ninis kodas
+Basic;Ä®prastas
+Basic_Note;Pastaba : jei norite daugiau informacijos apie failÄ…, turite pasirinkti kitÄ… rodymÄ…, (Lapas, Medis...)
 BitDepth;
 BitDepth_Stored;
-BitRate;Bitų tempas
+BitRate;BitÅ³ tempas
 BitRate_Encoded;
-BitRate_Maximum;Maksimalus bitų tempas
-BitRate_Minimum;Minimalus bitų tempas
-BitRate_Mode;Bitų tempo režimas
+BitRate_Maximum;Maksimalus bitÅ³ tempas
+BitRate_Minimum;Minimalus bitÅ³ tempas
+BitRate_Mode;BitÅ³ tempo reÅ¾imas
 BitRate_Mode_CBR;
 BitRate_Mode_VBR;
-BitRate_Nominal;Nominalus bitų tempas
+BitRate_Nominal;Nominalus bitÅ³ tempas
 Bits-(Pixel*Frame);Bitai/(Pikselis*Kadras)
 BufferSize;
-Cancel;Atšaukti
+Cancel;AtÅ¡aukti
 Channel(s);Kanalas (-ai)
 ChannelPositions;Kanalo pozicijos
 Chapter(s);Skyrius(iai)
 Chapters;Skyriai
-Chapters stream(s);Skyrių srautai
-Chapters_Codec_List;Skyrių kodekas
-Chapters_No;Be skyrių
-ChaptersCount;Skyrių srautų kiekis
-CheckNewVersion;Tikrinti naujesnės versijos
+Chapters stream(s);SkyriÅ³ srautai
+Chapters_Codec_List;SkyriÅ³ kodekas
+Chapters_No;Be skyriÅ³
+ChaptersCount;SkyriÅ³ srautÅ³ kiekis
+CheckNewVersion;Tikrinti naujesnÄ—s versijos
 Choose custom;Pasirinkti vartotojo
-Choose custom sheet;Pasirinkite norimą vartotojo lapą
-Choose custom text;Pasirinkite savo norimą vartotojo tekstą
-Choose export format;Pasirinkite savo norimą eksportavimo formatą
-Choose file(s);Pasirinkite failus atvėrimui
-Choose filename;Pasirinkite norimą failo pavadinimą
-Choose language;Pasirinkite savo norimą kalbą
+Choose custom sheet;Pasirinkite norimÄ… vartotojo lapÄ…
+Choose custom text;Pasirinkite savo norimÄ… vartotojo tekstÄ…
+Choose export format;Pasirinkite savo norimÄ… eksportavimo formatÄ…
+Choose file(s);Pasirinkite failus atvÄ—rimui
+Choose filename;Pasirinkite norimÄ… failo pavadinimÄ…
+Choose language;Pasirinkite savo norimÄ… kalbÄ…
 Choregrapher;Choreografas
 Chroma;Chromas
 ChromaSubsampling;
-Close;Uždaryti
-Close all before open;Uždaryti visus prieš atveriant
+Close;UÅ¾daryti
+Close all before open;UÅ¾daryti visus prieÅ¡ atveriant
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
 Codec;Kodekas
-Codec_Description;Kodeko aprašymas
-Codec_Info;Kodeko detalės
+Codec_Description;Kodeko apraÅ¡ymas
+Codec_Info;Kodeko detalÄ—s
 Codec_Profile;Kodeko profilis
 Codec_Settings;Kodeko nuostatos
 Codec_Settings_BVOP;Kodeko nuostatos, BVOP
@@ -238,10 +238,10 @@ Codec_Settings_GMC;Kodeko nuostatos, GMC
 Codec_Settings_ITU;Kodeko nuostatos, ITU
 Codec_Settings_Law;Kodeko nuostatos, Law
 Codec_Settings_Matrix;Kodeko nuostatos, Matrix
-Codec_Settings_PacketBitStream;Kodeko nuostatos, Paketo bitų srautas
+Codec_Settings_PacketBitStream;Kodeko nuostatos, Paketo bitÅ³ srautas
 Codec_Settings_QPel;Kodeko nuostatos, QPel
 Codec_Settings_Sign;Kodeko nuostatos, Sign
-Codec_Url;Nuoroda į kodeką
+Codec_Url;Nuoroda Ä¯ kodekÄ…
 CodecID;Kodeko ID
 CodecID_Description;
 Collection;Kolekcija
@@ -249,11 +249,11 @@ Colorimetry;Kolorimetrija
 ColorSpace;
 colour_primaries;
 Comment;Komentaras
-CommissionedBy;Įgaliotas
+CommissionedBy;Ä®galiotas
 Compilation;
 CompleteName;Pilnas pavadinimas
 CompletionDate;
-Composer;Kūrėjas
+Composer;KÅ«rÄ—jas
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
@@ -261,86 +261,86 @@ Compression_Ratio;
 Conductor;Konduktorius
 ContactEmail;
 ContactTelephoneNumber;
-Container and general information;Talpykla ir pagrindinė informacija
+Container and general information;Talpykla ir pagrindinÄ— informacija
 ContentType;TurinioTipas
 CoProducer;KoProdiuseris
-Copyright;Autoriaus teisės
+Copyright;Autoriaus teisÄ—s
 CopyrightYear;
-CostumeDesigner;Kostiumų dizaineris
+CostumeDesigner;KostiumÅ³ dizaineris
 Count;Kiekis
-Country;Šalis
-Cover;Viršelis
-Cover_Datas;Viršelio duomenys
+Country;Å alis
+Cover;VirÅ¡elis
+Cover_Datas;VirÅ¡elio duomenys
 Cover_Description;
 Cover_Mime;
 Cover_Type;
 Cropped;
-Custom;Išplėstinis
+Custom;IÅ¡plÄ—stinis
 Customize;Pritaikyti
 Date;Data
 Debug;Suderinti
-Decimal point;Dešimtainis taškas
-Delay;Atidėti
+Decimal point;DeÅ¡imtainis taÅ¡kas
+Delay;AtidÄ—ti
 Delay_Source;
 Delay_Source_Container;
 Delay_Source_Stream;
-Delete;Pašalinti
-Description;Aprašymas
-Digitized_Date;Skaitmeninė data
+Delete;PaÅ¡alinti
+Description;ApraÅ¡ymas
+Digitized_Date;SkaitmeninÄ— data
 Dimensions;
 Director;Direktorius
 DirectorOfPhotography;Fotografijos direktorius
-DisplayAspectRatio;Rodyti aspekto santykį
+DisplayAspectRatio;Rodyti aspekto santykÄ¯
 DisplayAspectRatio_Original;
 DistributedBy;Platintojas
 Distributor;
 Donate;Aukoti
 DotsPerInch;
-Duration;Trukmė
+Duration;TrukmÄ—
 Duration_End;
 Duration_Start;
 Edit;Redaguoti
 EditedBy;Redagavo
-EMail;El. paštas
-Encoded_Application;Rašymo programa
-Encoded_Date;Užkodavimo data
-Encoded_Library;Rašymo biblioteka
-Encoded_Library_Settings;Šifravimo nuostatos
+EMail;El. paÅ¡tas
+Encoded_Application;RaÅ¡ymo programa
+Encoded_Date;UÅ¾kodavimo data
+Encoded_Library;RaÅ¡ymo biblioteka
+Encoded_Library_Settings;Å ifravimo nuostatos
 Encoded_Original;Originalus
-EncodedBy;Užšifravo
+EncodedBy;UÅ¾Å¡ifravo
 EPG_Positions;
 EpisodeTitleNumber;
-Error_File;Klaida nuskaitant failą
-ExecutiveProducer;Išskirtinis prodiuseris
-Exit;Išeiti
-Exit_Hint;Išeiti iš programos
+Error_File;Klaida nuskaitant failÄ…
+ExecutiveProducer;IÅ¡skirtinis prodiuseris
+Exit;IÅ¡eiti
+Exit_Hint;IÅ¡eiti iÅ¡ programos
 Export;Eksportuoti
 Export_Hint;Eksportuoti vartotojo formate
-Extensions;Paprastai naudojami plėtiniai
-Family;Šeima
+Extensions;Paprastai naudojami plÄ—tiniai
+Family;Å eima
 Fax;Faksas
 File;Failas
 File size;Failo dydis
-File_Append;Prijungtas prie egzistuojančio failo (Dėmesio : nenaudokite tų pačių parametrų)
-File_Created_Date;Failo sukūrimo data
+File_Append;Prijungtas prie egzistuojanÄio failo (DÄ—mesio : nenaudokite tÅ³ paÄiÅ³ parametrÅ³)
+File_Created_Date;Failo sukÅ«rimo data
 File_Created_Date_Local;
-File_Hint;Pasirinkite daugialypį failą studijavimui
+File_Hint;Pasirinkite daugialypÄ¯ failÄ… studijavimui
 File_Modified_Date;Failo paskutinio modifikavimo data
 File_Modified_Date_Local;
-FileExtension;Failo plėtinys
+FileExtension;Failo plÄ—tinys
 FileName;Failo pavadinimas
 FileSize;Failo dydis
 Folder;Katalogas
 Folder (R);Katalogas (R)
-Folder (R)_Hint;Pasirinkite katalogą studijavimui (su visais pasikartojančiais katalogais)
-Folder (Recursively);Katalogas (Pasikartojančiai)
-Folder_Hint;Pasirinkite katalogą studijavimui
+Folder (R)_Hint;Pasirinkite katalogÄ… studijavimui (su visais pasikartojanÄiais katalogais)
+Folder (Recursively);Katalogas (PasikartojanÄiai)
+Folder_Hint;Pasirinkite katalogÄ… studijavimui
 FolderName;Katalogo pavadinimas
 Format;Formatas
 Format_Commercial;
 Format_Commercial_IfAny;
-Format_Description;Formatas aprašymas
-Format_Info;Formatas detalės
+Format_Description;Formatas apraÅ¡ymas
+Format_Info;Formatas detalÄ—s
 Format_Profile;Formato profilis
 Format_Settings;Formato nuostatos
 Format_Settings_BVOP;Formato nuostatos, BVOP
@@ -374,27 +374,27 @@ FpaManufacturer;
 FpaPass;
 FpaVersion;
 FrameCount;
-FrameRate;Kadrų tempas
-FrameRate_Maximum;Maksimalus kadrų tempas
-FrameRate_Minimum;Minimalus kadrų tempas
-FrameRate_Mode;Kadrų tempo rėžimas
+FrameRate;KadrÅ³ tempas
+FrameRate_Maximum;Maksimalus kadrÅ³ tempas
+FrameRate_Minimum;Minimalus kadrÅ³ tempas
+FrameRate_Mode;KadrÅ³ tempo rÄ—Å¾imas
 FrameRate_Mode_CFR;
 FrameRate_Mode_VFR;
-FrameRate_Nominal;Nominalus kadrų skaičius
-FrameRate_Original;Originalus kadrų skaičius
+FrameRate_Nominal;Nominalus kadrÅ³ skaiÄius
+FrameRate_Original;Originalus kadrÅ³ skaiÄius
 General;Pagrindinis
-Genre;Žanras
+Genre;Å½anras
 Genre_000;Bliuzas
 Genre_001;Klasikinis rokas
 Genre_002;Kantri
-Genre_003;Šokių
+Genre_003;Å okiÅ³
 Genre_004;Disko
 Genre_005;Fank
 Genre_006;Purvas
 Genre_007;Hip-Hopas
-Genre_008;Džiazas
+Genre_008;DÅ¾iazas
 Genre_009;Metalas
-Genre_010;Naujasis amžius
+Genre_010;Naujasis amÅ¾ius
 Genre_011;Senienos
 Genre_012;Kita
 Genre_013;Pop
@@ -413,55 +413,55 @@ Genre_025;Euro-Techno
 Genre_026;Aplinkos
 Genre_027;Trip-Hop
 Genre_028;Vokalas
-Genre_029;Džiazas+Fank
+Genre_029;DÅ¾iazas+Fank
 Genre_030;Lidinys
 Genre_031;Tranzas
-Genre_032;Klaisikinė
-Genre_033;Instrumentinė
+Genre_032;KlaisikinÄ—
+Genre_033;InstrumentinÄ—
 Genre_034;Acid
 Genre_035;Hausas
-Genre_036;Žaidimų
+Genre_036;Å½aidimÅ³
 Genre_037;Garso klipas
 Genre_038;Gospel
-Genre_039;Triukšmas
+Genre_039;TriukÅ¡mas
 Genre_040;AlternRokas
-Genre_041;Žemi
+Genre_041;Å½emi
 Genre_042;Sielos
-Genre_043;Pankų
-Genre_044;Erdvė
-Genre_045;Meditacinė
+Genre_043;PankÅ³
+Genre_044;ErdvÄ—
+Genre_045;MeditacinÄ—
 Genre_046;Instrumentinis pop
 Genre_047;Instrumentinis rock
-Genre_048;Etninė
-Genre_049;Gotikinė
+Genre_048;EtninÄ—
+Genre_049;GotikinÄ—
 Genre_050;Tamsa
-Genre_051;Techno-pramoninė
-Genre_052;Elektroninė
+Genre_051;Techno-pramoninÄ—
+Genre_052;ElektroninÄ—
 Genre_053;Pop-Folkas
-Genre_054;Eurošokių
-Genre_055;Svajonių
-Genre_056;Pietų Rokas
+Genre_054;EuroÅ¡okiÅ³
+Genre_055;SvajoniÅ³
+Genre_056;PietÅ³ Rokas
 Genre_057;Kodedijos
-Genre_058;Kultinė
-Genre_059;Gangsterių
+Genre_058;KultinÄ—
+Genre_059;GangsteriÅ³
 Genre_060;Top 40
-Genre_061;Krikščionių Repas
+Genre_061;KrikÅ¡ÄioniÅ³ Repas
 Genre_062;Pop/Funk
-Genre_063;Džiunglės
+Genre_063;DÅ¾iunglÄ—s
 Genre_064;Gimtoji amerika
 Genre_065;Kabaretas
 Genre_066;Naujoji banga
-Genre_067;Psichodelinė
+Genre_067;PsichodelinÄ—
 Genre_068;Reivas
-Genre_069;Šou
+Genre_069;Å ou
 Genre_070;Bandomasis
 Genre_071;Lo-Fi
 Genre_072;Tribal
 Genre_073;Acid Punk
-Genre_074;Acid džiazas
+Genre_074;Acid dÅ¾iazas
 Genre_075;Polka
 Genre_076;Retro
-Genre_077;Muzikinė
+Genre_077;MuzikinÄ—
 Genre_078;Rock & Roll
 Genre_079;Sunkus Rock
 Genre_080;Folkas
@@ -470,20 +470,20 @@ Genre_082;Nacionalinis folkas
 Genre_083;Svingas
 Genre_084;Fast Fusion
 Genre_085;Bebob
-Genre_086;Lotynų
+Genre_086;LotynÅ³
 Genre_087;Revival
-Genre_088;Keltų
+Genre_088;KeltÅ³
 Genre_089;Bluegrass
 Genre_090;Avantgarde
 Genre_091;Gotikinis Rokas
 Genre_092;Progresyvus Rokas
 Genre_093;Psichodelinis Rokas
 Genre_094;Simfoninis Rokas
-Genre_095;Lėtas Rock
+Genre_095;LÄ—tas Rock
 Genre_096;Big Band
 Genre_097;Choras
 Genre_098;Lengvo klausymo
-Genre_099;Akustinė
+Genre_099;AkustinÄ—
 Genre_100;Humoras
 Genre_101;Kalba
 Genre_102;Chanson
@@ -496,11 +496,11 @@ Genre_108;Primus
 Genre_109;Porn Groove
 Genre_110;Satire
 Genre_111;Slow Jam
-Genre_112;Klubinė
+Genre_112;KlubinÄ—
 Genre_113;Tango
 Genre_114;Samba
 Genre_115;Folkloras
-Genre_116;Baladės
+Genre_116;BaladÄ—s
 Genre_117;Power Ballad
 Genre_118;Rhythmic Soul
 Genre_119;Freestyle
@@ -576,33 +576,33 @@ Genre_188;
 Genre_189;
 Genre_190;
 Genre_191;
-Go to WebSite;Eiti į internetinę svetainę
+Go to WebSite;Eiti Ä¯ internetinÄ™ svetainÄ™
 Grouping;
 h;v
-Header file;Sukurti pagrindinį failą
-Height;Aukštis
+Header file;Sukurti pagrindinÄ¯ failÄ…
+Height;AukÅ¡tis
 Height_Original;
 Help;Pagalba
 Hint;Zyma
-How many audio streams?;Kiek audio srautų?
-How many chapters streams?;Kiek skyrių srautų?
-How many text streams?;Kiek teksto srautų?
-How many video streams?;Kiek video srautų?
+How many audio streams?;Kiek audio srautÅ³?
+How many chapters streams?;Kiek skyriÅ³ srautÅ³?
+How many text streams?;Kiek teksto srautÅ³?
+How many video streams?;Kiek video srautÅ³?
 HTML;HTML
 ID;ID
 IdentClockStart;
-Image;Paveikslėlis
-Image stream(s);Paveikslėlių srautai
-Image_Codec_List;Kodeko paveikslėlis
-ImageCount;Paveikslėlių srautų kiekis
+Image;PaveikslÄ—lis
+Image stream(s);PaveikslÄ—liÅ³ srautai
+Image_Codec_List;Kodeko paveikslÄ—lis
+ImageCount;PaveikslÄ—liÅ³ srautÅ³ kiekis
 Info;Info
 Instruments;Instrumentai
 Interlaced_BFF;Apatinis laukas pirmiau
-Interlaced_Interlaced;Sumaišytas
+Interlaced_Interlaced;SumaiÅ¡ytas
 Interlaced_PPF;Progresyvus
 Interlaced_Progressive;Progresyvus
-Interlaced_TFF;Viršutinis laukas pirmiau
-Interlacement;Sumaišymas
+Interlaced_TFF;VirÅ¡utinis laukas pirmiau
+Interlacement;SumaiÅ¡ymas
 Interleave_Duration;
 Interleave_Preload;
 Interleave_VideoFrames;
@@ -611,64 +611,64 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-Keywords;Raktiniai žodžiai
-Known codecs;Žinomi kodekai
-Known formats;Žinomi formatai
-Known parameters;Žinomi parametrai
-Label;Etiketė
+Keywords;Raktiniai Å¾odÅ¾iai
+Known codecs;Å½inomi kodekai
+Known formats;Å½inomi formatai
+Known parameters;Å½inomi parametrai
+Label;EtiketÄ—
 Language;Kalba
-Language_aa;Afarų
-Language_ab;Abchazų
-Language_ae;Avestanų
-Language_af;Afrikiečių
-Language_ak;Akanų
-Language_am;Amharkų
-Language_an;Argonų
-Language_ar;Arabų
-Language_as;Asamesų
-Language_av;Avarų
-Language_ay;Aimarų
-Language_az;Azerbaidžianiečių
-Language_ba;Baškitų
-Language_be;Baltarusių
-Language_bg;Bulgarų
-Language_bh;Biharų
-Language_bi;Bislamų
-Language_bm;Bambarų
-Language_bn;Bengalų
+Language_aa;AfarÅ³
+Language_ab;AbchazÅ³
+Language_ae;AvestanÅ³
+Language_af;AfrikieÄiÅ³
+Language_ak;AkanÅ³
+Language_am;AmharkÅ³
+Language_an;ArgonÅ³
+Language_ar;ArabÅ³
+Language_as;AsamesÅ³
+Language_av;AvarÅ³
+Language_ay;AimarÅ³
+Language_az;AzerbaidÅ¾ianieÄiÅ³
+Language_ba;BaÅ¡kitÅ³
+Language_be;BaltarusiÅ³
+Language_bg;BulgarÅ³
+Language_bh;BiharÅ³
+Language_bi;BislamÅ³
+Language_bm;BambarÅ³
+Language_bn;BengalÅ³
 Language_bo;Tibeto
-Language_br;Bretonų
-Language_bs;Bosnių
-Language_ca;Katalonų
-Language_ce;Čekų
+Language_br;BretonÅ³
+Language_bs;BosniÅ³
+Language_ca;KatalonÅ³
+Language_ce;ÄŒekÅ³
 Language_ch;Chamorro
 Language_co;Corsican
 Language_cr;Cree
-Language_cs;Čekų
+Language_cs;ÄŒekÅ³
 Language_cu;Slave
 Language_cv;Chuvash
 Language_cy;Welsh
-Language_da;Danų
-Language_de;Vokiečių
+Language_da;DanÅ³
+Language_de;VokieÄiÅ³
 Language_dv;Divehi
 Language_dz;Dzongkha
 Language_ee;Ewe
 Language_el;Greek
-Language_en;Anglų
+Language_en;AnglÅ³
 Language_en-gb;
 Language_en-us;
 Language_eo;Esperanto
-Language_es;Ispanų
-Language_et;Estų
-Language_eu;Baskų
-Language_fa;Persų
+Language_es;IspanÅ³
+Language_et;EstÅ³
+Language_eu;BaskÅ³
+Language_fa;PersÅ³
 Language_ff;Fulah
-Language_fi;Soumių
+Language_fi;SoumiÅ³
 Language_fj;Fijian
 Language_fo;Faroese
 Language_fr;French
 Language_fy;Frisian
-Language_ga;Airių
+Language_ga;AiriÅ³
 Language_gd;Gaelic
 Language_gl;Galician
 Language_gn;Guarani
@@ -717,9 +717,9 @@ Language_lg;Ganda
 Language_li;Limburgish
 Language_ln;Lingala
 Language_lo;Lao
-Language_lt;Lietuvių
+Language_lt;LietuviÅ³
 Language_lu;Luba-Katanga
-Language_lv;Latvių
+Language_lv;LatviÅ³
 Language_mg;Malagasy
 Language_mh;Marshallese
 Language_mi;Maori
@@ -758,8 +758,8 @@ Language_pt-br;
 Language_qu;Quechua
 Language_rm;Raeto-Romance
 Language_rn;Rundi
-Language_ro;Romėnų
-Language_ru;Rusų
+Language_ro;RomÄ—nÅ³
+Language_ru;RusÅ³
 Language_rw;Kinyarwanda
 Language_sa;Sanskrit
 Language_sc;Sardinian
@@ -772,31 +772,31 @@ Language_sl;Slovenian
 Language_sm;Samoan
 Language_sn;Shona
 Language_so;Somali
-Language_sq;Albanų
-Language_sr;Serbų
+Language_sq;AlbanÅ³
+Language_sr;SerbÅ³
 Language_ss;Swati
 Language_st;Sotho
 Language_su;Sundanese
-Language_sv;Švedų
+Language_sv;Å vedÅ³
 Language_sw;Swahili
 Language_ta;Tamil
 Language_te;Telugu
 Language_tg;Tajik
 Language_th;Thai
 Language_ti;Tigrinya
-Language_tk;Turkmėnų
+Language_tk;TurkmÄ—nÅ³
 Language_tl;Tagalog
 Language_tn;Tswana
 Language_to;Tonga
 Language_tr;Turkish
 Language_ts;Tsonga
-Language_tt;Totorių
+Language_tt;TotoriÅ³
 Language_tw;Twi
 Language_ty;Tahitian
 Language_ug;Uighur
-Language_uk;Ukrainiečių
+Language_uk;UkrainieÄiÅ³
 Language_ur;Urdu
-Language_uz;Uzbekų
+Language_uz;UzbekÅ³
 Language_ve;Venda
 Language_vi;Vietnamo
 Language_vo;Volapuk
@@ -806,7 +806,7 @@ Language_xh;Xhosa
 Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
-Language_zh;Kinų
+Language_zh;KinÅ³
 Language_zh-cn;
 Language_zh-tw;
 Language_zu;Zulu
@@ -815,22 +815,22 @@ LCCN;LCCN
 Library;Muxing biblioteka
 Lightness;
 LineUpStart;
-List;Sąrašas
+List;SÄ…raÅ¡as
 Lyricist;Lyrikas
 Lyrics;
-Mastered_Date;Sukūrimo data
-MasteredBy;Sukūrė
+Mastered_Date;SukÅ«rimo data
+MasteredBy;SukÅ«rÄ—
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;
 Matrix_Format;
-MediaInfo_About;Teikiama detali informacija\r\napie daugialypes bylas:\r\nMatroska, OGG (įskaitant OGM)\r\nMPEG1 (įskaitant VCD)\r\nMPEG2 (įskaitant DVD ir SVCD)\r\nMPEG4 (įskaitant Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (įskaitant WMV, WMA)\r\nMicrosoft RIFF (įskaitant AVI, WAV)\r\nTik-Garso formatai (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About;Teikiama detali informacija\r\napie daugialypes bylas:\r\nMatroska, OGG (Ä¯skaitant OGM)\r\nMPEG1 (Ä¯skaitant VCD)\r\nMPEG2 (Ä¯skaitant DVD ir SVCD)\r\nMPEG4 (Ä¯skaitant Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (Ä¯skaitant WMV, WMA)\r\nMicrosoft RIFF (Ä¯skaitant AVI, WAV)\r\nTik-Garso formatai (AC3, DTS, AAC, AU, AIFF...)
 Menu;Meniu
 Menu stream(s);Meniu srautai
 Menu_Codec_List;Meniu kodekai
-Menu_Hint;Daugiau galimybių
+Menu_Hint;Daugiau galimybiÅ³
 Menu_No;Be meniu
-MenuCount;Meniu srautų kiekis
+MenuCount;Meniu srautÅ³ kiekis
 MenuID;Meniu ID
 mn;mn
 Mood;Nuotaika
@@ -839,14 +839,14 @@ Movie;Filmo pavadinimas
 ms;ms
 MSDI;MSDI
 MusicBy;
-MuxingMode;Muxing rėžimas
+MuxingMode;Muxing rÄ—Å¾imas
 MuxingMode_MoreInfo;
 MuxingMode_PackedBitstream;
 Name;Pavadinimas
-Nationality;Tautybė
+Nationality;TautybÄ—
 NetworkName;
 New;Naujas
-Newest version;Tikrinti naujausių versijų (reikalinga interneto jungtis)
+Newest version;Tikrinti naujausiÅ³ versijÅ³ (reikalinga interneto jungtis)
 NewVersion_Menu;
 NewVersion_Question_Content;
 NewVersion_Question_Title;
@@ -854,7 +854,7 @@ No;Ne
 Not yet;
 NumColors;
 OK;Gerai
-One output file per input file;Vienas įšėjimo failas per įėjimo failą
+One output file per input file;Vienas Ä¯Å¡Ä—jimo failas per Ä¯Ä—jimo failÄ…
 Open;Atverti
 OpenCandy_01;
 OpenCandy_02;
@@ -905,29 +905,29 @@ Originator;
 Other;Kita
 OtherIdentifier;
 OtherIdentifierType;
-Output;Išėjimas
-Output format;Išėjimo formatas
-OverallBitRate;Bendras bitų tempas
-OverallBitRate_Maximum;Bendras maksimalus bitų temas
-OverallBitRate_Minimum;Bendras minimalus bitų tempas
-OverallBitRate_Mode;Bendro bitų tempo rėžimas
-OverallBitRate_Nominal;Bendras nominalus bitų tempas
+Output;IÅ¡Ä—jimas
+Output format;IÅ¡Ä—jimo formatas
+OverallBitRate;Bendras bitÅ³ tempas
+OverallBitRate_Maximum;Bendras maksimalus bitÅ³ temas
+OverallBitRate_Minimum;Bendras minimalus bitÅ³ tempas
+OverallBitRate_Mode;Bendro bitÅ³ tempo rÄ—Å¾imas
+OverallBitRate_Nominal;Bendras nominalus bitÅ³ tempas
 Part;Dalis
 Part_Count;Bendra apimtis
 PartNumber;
 PartTotal;
-Performer;Atlikėjas
+Performer;AtlikÄ—jas
 Period;Laikotarpis
 Phone;Telefonas
 PictureRatio;
-PixelAspectRatio;Pikselių aspekto koeficientas
-PixelAspectRatio_Original;Pikselių aspekto koeficientas
+PixelAspectRatio;PikseliÅ³ aspekto koeficientas
+PixelAspectRatio_Original;PikseliÅ³ aspekto koeficientas
 PlayCounter;Rodymo skaitiklis
 Played_Count;
 Played_First_Date;
 Played_Last_Date;
 PlayTime;Rodymo laikas
-Position;Padėtis
+Position;PadÄ—tis
 Position_Total;Viso
 Preferences;Pasirinktys
 PrimaryAudioLanguage;
@@ -939,22 +939,22 @@ ProductPlacement;
 ProgrammeHasText;
 ProgrammeTextLanguage;
 ProgrammeTitle;
-Publisher;Skelbėjas
+Publisher;SkelbÄ—jas
 Purchased_Date;Pardavimo data
-Quote character;Kabutės
+Quote character;KabutÄ—s
 RadioStation;Radijo stotis
 Rating;Reitingas
-Recorded_Date;Įrašymo data
-Recorded_Location;Įrašymo vieta
-Released_Date;Išleidimo data
+Recorded_Date;Ä®raÅ¡ymo data
+Recorded_Location;Ä®raÅ¡ymo vieta
+Released_Date;IÅ¡leidimo data
 RemixedBy;Permiksavo
 ReplayGain_Gain;
 ReplayGain_Peak;
-Resolution;Raiška
+Resolution;RaiÅ¡ka
 s;Video srautai (s)
 SamplingCount;
 SamplingRate;Atrankos tempas
-Save;Išsaugoti
+Save;IÅ¡saugoti
 ScanOrder;Skenavimo tvarka
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -966,31 +966,31 @@ ScanType_StoreMethod;
 ScreenplayBy;Ekrano rodymas
 Season;Sezonas
 SecondaryAudioLanguage;
-see below;žiūrėti žemiau
-Send HeaderFile;Prašome siųskite antraštinį failą čia: http://sourceforge.net/projects/mediainfo/ (bug sekcija)
-Separator_Columns;Stulpelių skyryba
-Separator_Lines;Eilučių skyryba
+see below;Å¾iÅ«rÄ—ti Å¾emiau
+Send HeaderFile;PraÅ¡ome siÅ³skite antraÅ¡tinÄ¯ failÄ… Äia: http://sourceforge.net/projects/mediainfo/ (bug sekcija)
+Separator_Columns;StulpeliÅ³ skyryba
+Separator_Lines;EiluÄiÅ³ skyryba
 SerieTitle;
 ServiceChannel;
 ServiceName;
 ServiceProvider;
 ServiceType;
 Set;Nustatyti
-Set_Count;Nustatyti kiekį
-Setup;Sąranka
+Set_Count;Nustatyti kiekÄ¯
+Setup;SÄ…ranka
 Sharpness;
 Sheet;Lapas
 Sheet (Complete);Lapas (Pilnas)
-Shell extension;Apvalkalo plėtinys (explorer'yje dešinys paspaudimas ten kur bus Media Info pasirinktis)
+Shell extension;Apvalkalo plÄ—tinys (explorer'yje deÅ¡inys paspaudimas ten kur bus Media Info pasirinktis)
 Shell extension, folder;
-Shell InfoTip;Apvalkalo InfoTipas (explorer'yje, užveskite pelę ant failo, bus parodyta informacija)
+Shell InfoTip;Apvalkalo InfoTipas (explorer'yje, uÅ¾veskite pelÄ™ ant failo, bus parodyta informacija)
 ShimName;
 Show menu;Rodyti meniu
-Show toolbar;Rodyti įrankių juostą
+Show toolbar;Rodyti Ä¯rankiÅ³ juostÄ…
 SigningPresent;
 SignLanguage;
-Sort;Rūšiuotojas
-SoundEngineer;Garso inžinierius
+Sort;RÅ«Å¡iuotojas
+SoundEngineer;Garso inÅ¾inierius
 Source;
 Source_Duration;
 Source_FrameCount;
@@ -1003,10 +1003,10 @@ StoreMethod_SeparatedFields;
 StoreMethod_SeparatedFields_1;
 StoreMethod_SeparatedFields_2;
 Stream;Srautas
-Stream_MoreInfo;Daugiau informacijos apie srautą
-StreamCount;Šios rūšies srautų kiekis
+Stream_MoreInfo;Daugiau informacijos apie srautÄ…
+StreamCount;Å ios rÅ«Å¡ies srautÅ³ kiekis
 StreamID;Srauto ID
-StreamKind;Srauto rūšis
+StreamKind;Srauto rÅ«Å¡is
 StreamKindID;
 StreamKindPos;
 StreamSize;Srauto dydis
@@ -1017,12 +1017,12 @@ SubTrack;SubTakelis
 Summary;Santrauka
 Supported formats;Palaikomi formatai
 Supported?;Palaikomas?
-Synopsis;Trumpa apžvalga
+Synopsis;Trumpa apÅ¾valga
 SystemId;Id
-Tagged_Application;Žymėjimo programa
-Tagged_Date;Pažymėta data
+Tagged_Application;Å½ymÄ—jimo programa
+Tagged_Date;PaÅ¾ymÄ—ta data
 Technician;Technikas
-TermsOfUse;Naudojimo sąlygos
+TermsOfUse;Naudojimo sÄ…lygos
 TertiaryAudioLanguage;
 Text;Tekstas
 Text - Custom;Tekstas - Vartotojo
@@ -1033,62 +1033,63 @@ Text_Codec_List;Teksto kodekas
 Text_No;Be teksto
 Text1;Pirmas teksto srautas
 Text2;Antras teksto srautas
-Text3;Trečias teksto srautas
-TextCount;Teksto srautų kiekis
+Text3;TreÄias teksto srautas
+TextCount;Teksto srautÅ³ kiekis
 TextlessElementsExist;
-ThanksTo;Dėkojame
-Thousands separator;Tūkstančių skirtukas
+ThanksTo;DÄ—kojame
+Thousands separator;TÅ«kstanÄiÅ³ skirtukas
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
+TimeCode_Striped;
 TimeStamp;
 TimeZone;
-Title;Antraštė
-Title_More;Antraštė, daugiau info
-Total;Iš viso
+Title;AntraÅ¡tÄ—
+Title_More;AntraÅ¡tÄ—, daugiau info
+Total;IÅ¡ viso
 TotalNumberOfParts;
 TotalProgrammeDuration;
 Track;Takelio pavadinimas
 Track_Count;Takelio kiekis
 transfer_characteristics;
-Translator;Vertėjas
+Translator;VertÄ—jas
 Tree;Medis
 Tree & Text;Medis ir tekstas
 Type;
 UniqueID;
-Unknown;Nežinomas
+Unknown;NeÅ¾inomas
 Url;Url
 Video;Video
 Video stream(s);Video srautas (ai)
 Video_Codec_List;Kodeko video
-Video_Delay;Video atidėjimas
+Video_Delay;Video atidÄ—jimas
 Video_No;Be video
-Video0_Delay;Video0 atidėjimas
+Video0_Delay;Video0 atidÄ—jimas
 Video1;Pirmas video srautas
 VideoComments;
-VideoCount;Video srautų kiekis
+VideoCount;Video srautÅ³ kiekis
 View;Rodymas
-View_Hint;Keisti rodymo informacijos reikšmes
-Warning : more streams in the files;Dėmesio : faile yra daugiau srautų
+View_Hint;Keisti rodymo informacijos reikÅ¡mes
+Warning : more streams in the files;DÄ—mesio : faile yra daugiau srautÅ³
 Web;Web
-WebSite_Audio;Eiti į šio audio kodeko internetinį puslapį
-WebSite_Audio_More;Eiti į svetainę (%Url%) kad rasti šį kodeką
-WebSite_General;Eiti į šio failo grotuvo internetinį puslapį
-WebSite_General_More;Eiti į šio failo grotuvo puslapį
-WebSite_Text;Eiti į šio teksto kodeko internetinį puslapį
-WebSite_Text_More;Eiti į įnternetinį puslapį  (%Url%) kad rasti šį tekstinį kodeką
+WebSite_Audio;Eiti Ä¯ Å¡io audio kodeko internetinÄ¯ puslapÄ¯
+WebSite_Audio_More;Eiti Ä¯ svetainÄ™ (%Url%) kad rasti Å¡Ä¯ kodekÄ…
+WebSite_General;Eiti Ä¯ Å¡io failo grotuvo internetinÄ¯ puslapÄ¯
+WebSite_General_More;Eiti Ä¯ Å¡io failo grotuvo puslapÄ¯
+WebSite_Text;Eiti Ä¯ Å¡io teksto kodeko internetinÄ¯ puslapÄ¯
+WebSite_Text_More;Eiti Ä¯ Ä¯nternetinÄ¯ puslapÄ¯  (%Url%) kad rasti Å¡Ä¯ tekstinÄ¯ kodekÄ…
 WebSite_Url;http://MediaArea.net/MediaInfo
-WebSite_Video;Eiti į šio video kodeko internetinį puslapį
-WebSite_Video_More;Eiti į internetinę svetainę (%Url%) kad rasti šį kodeką
+WebSite_Video;Eiti Ä¯ Å¡io video kodeko internetinÄ¯ puslapÄ¯
+WebSite_Video_More;Eiti Ä¯ internetinÄ™ svetainÄ™ (%Url%) kad rasti Å¡Ä¯ kodekÄ…
 Width;Plotis
 Width_Original;
-WriteMe;Parašyk man
-WriteToTranslator;Rašyti vertėjui
-Written_Date;Rašymo data
-Written_Location;Rašymo vieta
-WrittenBy;Parašė
+WriteMe;ParaÅ¡yk man
+WriteToTranslator;RaÅ¡yti vertÄ—jui
+Written_Date;RaÅ¡ymo data
+Written_Location;RaÅ¡ymo vieta
+WrittenBy;ParaÅ¡Ä—
 Yes;Taip
-Your system;Jūsų sistema
+Your system;JÅ«sÅ³ sistema
 ZZ_Automatic_Percent;75
 ZZ_AutomaticLanguage_Percent;83

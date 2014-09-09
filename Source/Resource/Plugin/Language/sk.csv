@@ -19,9 +19,9 @@
  Byte1; Byte
  Byte2; Byty
  Byte3; Bytov
- channel1; kanál
- channel2; kanály
- channel3; kanálov
+ channel1; kanÃ¡l
+ channel2; kanÃ¡ly
+ channel3; kanÃ¡lov
  chapter1; kapitola
  chapter2; kapitoly
  chapter3; kapitol
@@ -31,21 +31,21 @@
  character1;
  character2;
  character3;
- day1; deň
+ day1; deÅˆ
  day2; dni
- day3; dní
+ day3; dnÃ­
  dB1; dB
  dB2; dB
  dB3; dB
- file1; súbor
- file2; súbory
- file3; súborov
- fps1; snímok/sek.
- fps2; snímok/sek.
- fps3; snímok/sek.
- frame1;snímka
- frame2;snímky
- frame3;snímok
+ file1; sÃºbor
+ file2; sÃºbory
+ file3; sÃºborov
+ fps1; snÃ­mok/sek.
+ fps2; snÃ­mok/sek.
+ fps3; snÃ­mok/sek.
+ frame1;snÃ­mka
+ frame2;snÃ­mky
+ frame3;snÃ­mok
  GB; GB
  Gb; Gb
  Gbps; Gb/s
@@ -64,7 +64,7 @@
  GigaByte3; GigaBytov
  hour1; hodina
  hour2; hodiny
- hour3; hodín
+ hour3; hodÃ­n
  Hz; Hz
  image stream1; image stream
  image stream2; image streams
@@ -110,10 +110,10 @@
  MiBps; MiB/s
  millisecond1; milisekunda
  millisecond2; milisekundy
- millisecond3; milisekúnd
- minute1; minúta
- minute2; minúty
- minute3; minút
+ millisecond3; milisekÃºnd
+ minute1; minÃºta
+ minute2; minÃºty
+ minute3; minÃºt
  month1; mesiac
  month2; mesiace
  month3; mesiacov
@@ -121,8 +121,8 @@
  pixel2; pixelov
  pixel3; pixelov
  second1; sekunda
- second2; sekúndy
- second3; sekúnd
+ second2; sekÃºndy
+ second3; sekÃºnd
  text stream1; text stream
  text stream2; text streams
  text stream3; text streams
@@ -136,9 +136,9 @@
  warppoint1;
  warppoint2;
  warppoint3;
- week1; týždeň
- week2; týždne
- week3; týždňo
+ week1; tÃ½Å¾deÅˆ
+ week2; tÃ½Å¾dne
+ week3; tÃ½Å¾dÅˆo
  year1; rok
  year2; roky
  year3; rokov
@@ -153,9 +153,9 @@ ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
 Actor;Herec
 Actor_Character;Character played
-Added_Date;Dátum pridania
+Added_Date;DÃ¡tum pridania
 Address;Adresa
-Advanced;Pokročilé
+Advanced;PokroÄilÃ©
 Advanced mode;Viac detailov
 Album;Album
 Album_ReplayGain_Gain;
@@ -163,44 +163,44 @@ Album_ReplayGain_Peak;
 Alignment;
 Alignment_Aligned;
 Alignment_Split;
-All;Všetko
+All;VÅ¡etko
 Archival_Location;Archival location
 Arranger;Arranger
 ArtDirector;ArtDirector
-AspectRatio;Pomer strán
+AspectRatio;Pomer strÃ¡n
 AssistantDirector;AssistantDirector
 at;pri
-At least one file;(Musíš najprv otvoriť súbor)
+At least one file;(MusÃ­Å¡ najprv otvoriÅ¥ sÃºbor)
 Audio;Audio
 Audio stream(s);Audio streamy
 Audio_Codec_List;Audio kodeky
 Audio_No;Bez audia
-Audio1;Prvý audio stream
-Audio2;Druhý audio stream
+Audio1;PrvÃ½ audio stream
+Audio2;DruhÃ½ audio stream
 AudioComments;
-AudioCount;Počet audio streamov
+AudioCount;PoÄet audio streamov
 AudioDescriptionPresent;
 AudioDescriptionType;
 AudioLoudnessStandard;
 AudioTrackLayout;
 Author;Autor
 BarCode;BarCode
-Basic;Základné
-Basic_Note;Info : Pre viac detailov vyberte iný režim zobrazenia (List, Strom...)
+Basic;ZÃ¡kladnÃ©
+Basic_Note;Info : Pre viac detailov vyberte inÃ½ reÅ¾im zobrazenia (List, Strom...)
 BitDepth;
 BitDepth_Stored;
-BitRate;Dátový tok
+BitRate;DÃ¡tovÃ½ tok
 BitRate_Encoded;
-BitRate_Maximum;Maximálny dátový tok
-BitRate_Minimum;Minimálny dátový tok
-BitRate_Mode;Režim dátového toku
-BitRate_Mode_CBR;Konštantný dátový tok
-BitRate_Mode_VBR;Variabilný dátový tok
+BitRate_Maximum;MaximÃ¡lny dÃ¡tovÃ½ tok
+BitRate_Minimum;MinimÃ¡lny dÃ¡tovÃ½ tok
+BitRate_Mode;ReÅ¾im dÃ¡tovÃ©ho toku
+BitRate_Mode_CBR;KonÅ¡tantnÃ½ dÃ¡tovÃ½ tok
+BitRate_Mode_VBR;VariabilnÃ½ dÃ¡tovÃ½ tok
 BitRate_Nominal;
-Bits-(Pixel*Frame);Bitov/(Bod*Snímka)
+Bits-(Pixel*Frame);Bitov/(Bod*SnÃ­mka)
 BufferSize;
-Cancel;Zrušiť
-Channel(s);Kanál(y)
+Cancel;ZruÅ¡iÅ¥
+Channel(s);KanÃ¡l(y)
 ChannelPositions;Channel positions
 Chapter(s);Kapitola(y)
 Chapters;Kapitoly
@@ -208,19 +208,19 @@ Chapters stream(s);Chapters stream(s)
 Chapters_Codec_List;Chapters Codecs
 Chapters_No;No chapters
 ChaptersCount;Count of chapter streams
-CheckNewVersion;Skontrolovať novú verziu
-Choose custom;Výber užívateľa
-Choose custom sheet;Vyberte požadovaný formát zobrazení
-Choose custom text;Vyberte vlastné nastavenie textu
-Choose export format;Vyberte požadovaný exportný formát
-Choose file(s);Vyberte súbor pre otvorenie
-Choose filename;Vyberte požadovaný názov súboru
-Choose language;Vybrať jazyk
+CheckNewVersion;SkontrolovaÅ¥ novÃº verziu
+Choose custom;VÃ½ber uÅ¾Ã­vateÄ¾a
+Choose custom sheet;Vyberte poÅ¾adovanÃ½ formÃ¡t zobrazenÃ­
+Choose custom text;Vyberte vlastnÃ© nastavenie textu
+Choose export format;Vyberte poÅ¾adovanÃ½ exportnÃ½ formÃ¡t
+Choose file(s);Vyberte sÃºbor pre otvorenie
+Choose filename;Vyberte poÅ¾adovanÃ½ nÃ¡zov sÃºboru
+Choose language;VybraÅ¥ jazyk
 Choregrapher;Choreograf
 Chroma;Chroma
 ChromaSubsampling;
-Close;Zatvoriť
-Close all before open;Zatvoriť všetko pred otvorením nového
+Close;ZatvoriÅ¥
+Close all before open;ZatvoriÅ¥ vÅ¡etko pred otvorenÃ­m novÃ©ho
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
@@ -242,18 +242,18 @@ Codec_Settings_PacketBitStream;
 Codec_Settings_QPel;
 Codec_Settings_Sign;
 Codec_Url;Adresa pre stiahnutie kodeku
-CodecID;Označenie kodeku
+CodecID;OznaÄenie kodeku
 CodecID_Description;Popis kodeku
 Collection;Collection
 Colorimetry;
 ColorSpace;
 colour_primaries;
-Comment;Komentár
+Comment;KomentÃ¡r
 CommissionedBy;Commissioned by
 Compilation;
-CompleteName;Celý názov a cesta
+CompleteName;CelÃ½ nÃ¡zov a cesta
 CompletionDate;
-Composer;Skladateľ
+Composer;SkladateÄ¾
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
@@ -261,88 +261,88 @@ Compression_Ratio;
 Conductor;Conductor
 ContactEmail;
 ContactTelephoneNumber;
-Container and general information;Hlavné informácie
+Container and general information;HlavnÃ© informÃ¡cie
 ContentType;Typ obsahu
 CoProducer;sPoluproducent
-Copyright;Autorské práva
+Copyright;AutorskÃ© prÃ¡va
 CopyrightYear;
 CostumeDesigner;Costume designer
 Count;Count
 Country;Krajina
 Cover;Obal
-Cover_Datas;Údaje obalu
+Cover_Datas;Ãšdaje obalu
 Cover_Description;Popis obalu
 Cover_Mime;
 Cover_Type;Typ obalu
 Cropped;
-Custom;Vlastné
-Customize;Prispôsobiť
-Date;Dátum
-Debug;Pokročilé
+Custom;VlastnÃ©
+Customize;PrispÃ´sobiÅ¥
+Date;DÃ¡tum
+Debug;PokroÄilÃ©
 Decimal point;Decimal point
 Delay;Delay
 Delay_Source;
 Delay_Source_Container;
 Delay_Source_Stream;
-Delete;Odstrániť
+Delete;OdstrÃ¡niÅ¥
 Description;Popis
 Digitized_Date;Digitized date
 Dimensions;
 Director;Director
 DirectorOfPhotography;Director of photography
-DisplayAspectRatio;Pomer strán
-DisplayAspectRatio_Original;Pôvodný pomer strán pre zobrazenie
-DistributedBy;Distribútor
+DisplayAspectRatio;Pomer strÃ¡n
+DisplayAspectRatio_Original;PÃ´vodnÃ½ pomer strÃ¡n pre zobrazenie
+DistributedBy;DistribÃºtor
 Distributor;
-Donate;Zaslat finančný dar
+Donate;Zaslat finanÄnÃ½ dar
 DotsPerInch;Bodov na palec
 Duration;Trvanie
 Duration_End;
 Duration_Start;
-Edit;Upraviť
+Edit;UpraviÅ¥
 EditedBy;Upravil
 EMail;E-Mail
-Encoded_Application;Použitý software
-Encoded_Date;Dátum zakódovania
-Encoded_Library;Zakódoval
-Encoded_Library_Settings;Nastavenie kodéru
-Encoded_Original;Originál
-EncodedBy;Zakódoval
+Encoded_Application;PouÅ¾itÃ½ software
+Encoded_Date;DÃ¡tum zakÃ³dovania
+Encoded_Library;ZakÃ³doval
+Encoded_Library_Settings;Nastavenie kodÃ©ru
+Encoded_Original;OriginÃ¡l
+EncodedBy;ZakÃ³doval
 EPG_Positions;
 EpisodeTitleNumber;
-Error_File;Zlyhalo načítavanie súboru
+Error_File;Zlyhalo naÄÃ­tavanie sÃºboru
 ExecutiveProducer;Executive producer
 Exit;Koniec
-Exit_Hint;Ukončiť program
-Export;Exportovať
-Export_Hint;Exportovať do vybraného formátu
-Extensions;Všeobecne používaná koncovka
+Exit_Hint;UkonÄiÅ¥ program
+Export;ExportovaÅ¥
+Export_Hint;ExportovaÅ¥ do vybranÃ©ho formÃ¡tu
+Extensions;VÅ¡eobecne pouÅ¾Ã­vanÃ¡ koncovka
 Family;
 Fax;Fax
-File;Súbor
-File size;Veľkosť súboru
-File_Append;Pripojiť k existujúcemu súboru (Upozornenie : buďte si istý rovnakými parametrami)
-File_Created_Date;Dátum vytvorenia súboru
-File_Created_Date_Local;Dátum (miestny) vytvorenia súboru
-File_Hint;Otvoriť súbor
-File_Modified_Date;Dátum poslednej úpravy súboru
-File_Modified_Date_Local;Dátum (miestny) poslednej úpravy súboru
-FileExtension;Prípona súboru
-FileName;Názov súboru
-FileSize;Veľkosť súboru
-Folder;Adresár
-Folder (R);Adresár (R)
+File;SÃºbor
+File size;VeÄ¾kosÅ¥ sÃºboru
+File_Append;PripojiÅ¥ k existujÃºcemu sÃºboru (Upozornenie : buÄte si istÃ½ rovnakÃ½mi parametrami)
+File_Created_Date;DÃ¡tum vytvorenia sÃºboru
+File_Created_Date_Local;DÃ¡tum (miestny) vytvorenia sÃºboru
+File_Hint;OtvoriÅ¥ sÃºbor
+File_Modified_Date;DÃ¡tum poslednej Ãºpravy sÃºboru
+File_Modified_Date_Local;DÃ¡tum (miestny) poslednej Ãºpravy sÃºboru
+FileExtension;PrÃ­pona sÃºboru
+FileName;NÃ¡zov sÃºboru
+FileSize;VeÄ¾kosÅ¥ sÃºboru
+Folder;AdresÃ¡r
+Folder (R);AdresÃ¡r (R)
 Folder (R)_Hint;Select a folder to study (with all folders recursively)
-Folder (Recursively);Adresár (Recursively)
-Folder_Hint;Otvoriť všetko v adresári
-FolderName;Názov adresára
-Format;Formát
+Folder (Recursively);AdresÃ¡r (Recursively)
+Folder_Hint;OtvoriÅ¥ vÅ¡etko v adresÃ¡ri
+FolderName;NÃ¡zov adresÃ¡ra
+Format;FormÃ¡t
 Format_Commercial;
 Format_Commercial_IfAny;
-Format_Description;Popis formátu
-Format_Info;Informácie o formáte
-Format_Profile;Profil formátu
-Format_Settings;Nastavenia formátu
+Format_Description;Popis formÃ¡tu
+Format_Info;InformÃ¡cie o formÃ¡te
+Format_Profile;Profil formÃ¡tu
+Format_Settings;Nastavenia formÃ¡tu
 Format_Settings_BVOP;
 Format_Settings_CABAC;
 Format_Settings_Emphasis;
@@ -355,9 +355,9 @@ Format_Settings_GOP;
 Format_Settings_ITU;
 Format_Settings_Law;
 Format_Settings_Matrix;
-Format_Settings_Matrix_Custom;Vlastné
-Format_Settings_Matrix_Default;Pôvodné
-Format_Settings_Mode;Režim
+Format_Settings_Matrix_Custom;VlastnÃ©
+Format_Settings_Matrix_Default;PÃ´vodnÃ©
+Format_Settings_Mode;ReÅ¾im
 Format_Settings_ModeExtension;
 Format_Settings_PacketBitStream;
 Format_Settings_PictureStructure;
@@ -374,16 +374,16 @@ FpaManufacturer;
 FpaPass;
 FpaVersion;
 FrameCount;
-FrameRate;Frekvencia snímok
-FrameRate_Maximum;Maximálna frekvencia snímok
-FrameRate_Minimum;Minimálna frekvencia snímok
-FrameRate_Mode;Režim frekvencie snímok
-FrameRate_Mode_CFR;Konštantný
-FrameRate_Mode_VFR;Variabilný
-FrameRate_Nominal;Nominálna frekvencia snímok
-FrameRate_Original;Pôvodná frekvencia snímok
-General;Hlavné parametre
-Genre;žáner
+FrameRate;Frekvencia snÃ­mok
+FrameRate_Maximum;MaximÃ¡lna frekvencia snÃ­mok
+FrameRate_Minimum;MinimÃ¡lna frekvencia snÃ­mok
+FrameRate_Mode;ReÅ¾im frekvencie snÃ­mok
+FrameRate_Mode_CFR;KonÅ¡tantnÃ½
+FrameRate_Mode_VFR;VariabilnÃ½
+FrameRate_Nominal;NominÃ¡lna frekvencia snÃ­mok
+FrameRate_Original;PÃ´vodnÃ¡ frekvencia snÃ­mok
+General;HlavnÃ© parametre
+Genre;Å¾Ã¡ner
 Genre_000;Blues
 Genre_001;Classic Rock
 Genre_002;Country
@@ -396,7 +396,7 @@ Genre_008;Jazz
 Genre_009;Metal
 Genre_010;New Age
 Genre_011;Oldies
-Genre_012;Iné
+Genre_012;InÃ©
 Genre_013;Pop
 Genre_014;R&B
 Genre_015;Rap
@@ -580,9 +580,9 @@ Go to WebSite;Web programu
 Grouping;
 h;h
 Header file;Create a header file
-Height;Výška
-Height_Original;Pôvodná výška
-Help;Pomocník
+Height;VÃ½Å¡ka
+Height_Original;PÃ´vodnÃ¡ vÃ½Å¡ka
+Help;PomocnÃ­k
 Hint;
 How many audio streams?;How many audio streams?
 How many chapters streams?;How many chapters streams?
@@ -591,17 +591,17 @@ How many video streams?;How many video streams?
 HTML;HTML
 ID;ID
 IdentClockStart;
-Image;Obrázok
+Image;ObrÃ¡zok
 Image stream(s);Image streams
 Image_Codec_List;Codecs Image
 ImageCount;Count of image streams
 Info;Info
 Instruments;Instruments
-Interlaced_BFF;Dolný riadok ako prvý
-Interlaced_Interlaced;Prekladané
-Interlaced_PPF;Progresívne
-Interlaced_Progressive;Progresívne
-Interlaced_TFF;Horný riadok ako prvý
+Interlaced_BFF;DolnÃ½ riadok ako prvÃ½
+Interlaced_Interlaced;PrekladanÃ©
+Interlaced_PPF;ProgresÃ­vne
+Interlaced_Progressive;ProgresÃ­vne
+Interlaced_TFF;HornÃ½ riadok ako prvÃ½
 Interlacement;Prekladanie riadkov obrazu
 Interleave_Duration;
 Interleave_Preload;
@@ -611,10 +611,10 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-Keywords;Identifikujúce slová
-Known codecs;Známe kodeky
-Known formats;Známe formáty
-Known parameters;Známe parametre
+Keywords;IdentifikujÃºce slovÃ¡
+Known codecs;ZnÃ¡me kodeky
+Known formats;ZnÃ¡me formÃ¡ty
+Known parameters;ZnÃ¡me parametre
 Label;Label
 Language;Jazyk
 Language_aa;Afar
@@ -644,31 +644,31 @@ Language_ce;Chechen
 Language_ch;Chamorro
 Language_co;Corsican
 Language_cr;Cree
-Language_cs;Česky
+Language_cs;ÄŒesky
 Language_cu;Slave
 Language_cv;Chuvash
 Language_cy;Welsh
-Language_da;Dánsky
+Language_da;DÃ¡nsky
 Language_de;Nemecky
 Language_dv;Divehi
 Language_dz;Dzongkha
 Language_ee;Ewe
-Language_el;Grécky
+Language_el;GrÃ©cky
 Language_en;Anglicky
-Language_en-gb;Anglicky (V.Británia)
+Language_en-gb;Anglicky (V.BritÃ¡nia)
 Language_en-us;Anglicky (USA)
 Language_eo;Esperanto
-Language_es;Španielsky
-Language_et;Estónsky
+Language_es;Å panielsky
+Language_et;EstÃ³nsky
 Language_eu;Baskidsky
 Language_fa;Perzsky
 Language_ff;Fulah
-Language_fi;Fínsky
+Language_fi;FÃ­nsky
 Language_fj;Fijian
 Language_fo;Faroese
-Language_fr;Francúzsky
+Language_fr;FrancÃºzsky
 Language_fy;Frisian
-Language_ga;Írsky
+Language_ga;Ãrsky
 Language_gd;Gaelic
 Language_gl;Galician
 Language_gn;Guarani
@@ -678,10 +678,10 @@ Language_ha;Hausa
 Language_he;Hebrew
 Language_hi;Hindsky
 Language_ho;Hiri Motu
-Language_hr;Chorvátsky
+Language_hr;ChorvÃ¡tsky
 Language_ht;Haitian
-Language_hu;Maďarsky
-Language_hy;Arménsky
+Language_hu;MaÄarsky
+Language_hy;ArmÃ©nsky
 Language_hz;Herero
 Language_ia;Auxiliary Language Association
 Language_id;Indonesian
@@ -689,7 +689,7 @@ Language_ie;Interlingue
 Language_ig;Igbo
 Language_ii;Sichuan Yi
 Language_ik;Inupiaq
-Language_Info;Informácie o jazyku
+Language_Info;InformÃ¡cie o jazyku
 Language_io;Ido
 Language_is;Islandsky
 Language_it;Taliansky
@@ -700,11 +700,11 @@ Language_ka;Georgian
 Language_kg;Kongo
 Language_ki;Kikuyu
 Language_kj;Kuanyama
-Language_kk;Kazašsky
+Language_kk;KazaÅ¡sky
 Language_kl;Kalaallisut
 Language_km;Khmer
 Language_kn;Kannada
-Language_ko;Kórejsky
+Language_ko;KÃ³rejsky
 Language_kr;Kanuri
 Language_ks;Kashmiri
 Language_ku;Kurdsky
@@ -723,7 +723,7 @@ Language_lv;Lytovsky
 Language_mg;Malagasy
 Language_mh;Marshallese
 Language_mi;Maori
-Language_mk;Macedónsky
+Language_mk;MacedÃ³nsky
 Language_ml;Malayalam
 Language_mn;Mongolsky
 Language_mo;Moldavsky
@@ -740,7 +740,7 @@ Language_ne;Nepali
 Language_ng;Ndonga
 Language_nl;Holandsky
 Language_nn;Norwegian Nynorsk
-Language_no;Nórsky
+Language_no;NÃ³rsky
 Language_nr;Ndebele
 Language_nv;Navaho
 Language_ny;Nyanja
@@ -751,10 +751,10 @@ Language_or;Oriya
 Language_os;Ossetic
 Language_pa;Panjabi
 Language_pi;Pali
-Language_pl;Poľsky
+Language_pl;PoÄ¾sky
 Language_ps;Pushto
 Language_pt;Portugalsky
-Language_pt-br;Portugalsky (Brazília)
+Language_pt-br;Portugalsky (BrazÃ­lia)
 Language_qu;Quechua
 Language_rm;Raeto-Romance
 Language_rn;Rundi
@@ -772,19 +772,19 @@ Language_sl;Slovinsky
 Language_sm;Samoan
 Language_sn;Shona
 Language_so;Somali
-Language_sq;Albánsky
+Language_sq;AlbÃ¡nsky
 Language_sr;Srbsky
 Language_ss;Swati
 Language_st;Sotho
 Language_su;Sundanese
-Language_sv;Švédsky
+Language_sv;Å vÃ©dsky
 Language_sw;Swahili
 Language_ta;Tamil
 Language_te;Telugu
 Language_tg;Tajik
 Language_th;Thai
 Language_ti;Tigrinya
-Language_tk;Turkménsky
+Language_tk;TurkmÃ©nsky
 Language_tl;Tagalog
 Language_tn;Tswana
 Language_to;Tonga
@@ -806,9 +806,9 @@ Language_xh;Xhosa
 Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
-Language_zh;Čínsky
-Language_zh-cn;Čínsky (Čína)
-Language_zh-tw;Čínsky (Taiwan)
+Language_zh;ÄŒÃ­nsky
+Language_zh-cn;ÄŒÃ­nsky (ÄŒÃ­na)
+Language_zh-tw;ÄŒÃ­nsky (Taiwan)
 Language_zu;Zulu
 LawRating;Law rating
 LCCN;LCCN
@@ -816,7 +816,7 @@ Library;Muxing library
 Lightness;
 LineUpStart;
 List;Zoznam
-Lyricist;Textár
+Lyricist;TextÃ¡r
 Lyrics;Text
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
@@ -829,107 +829,107 @@ Menu;Menu
 Menu stream(s);Menu streams
 Menu_Codec_List;
 Menu_Hint;More possibilities
-Menu_No;Žiadne menu
+Menu_No;Å½iadne menu
 MenuCount;Count of menu streams
-MenuID;Označenie menu
+MenuID;OznaÄenie menu
 mn; min
 Mood;Mood
 More;Viac
-Movie;Názov filmu
+Movie;NÃ¡zov filmu
 ms; ms
 MSDI;MSDI
-MusicBy;Hudbu zložil
+MusicBy;Hudbu zloÅ¾il
 MuxingMode;
 MuxingMode_MoreInfo;
 MuxingMode_PackedBitstream;
-Name;Názov
-Nationality;Národnosť
+Name;NÃ¡zov
+Nationality;NÃ¡rodnosÅ¥
 NetworkName;
-New;Nový
-Newest version;Pri spustení kontrolovať nové verzie
-NewVersion_Menu;Nová verzia je k dispozícii
-NewVersion_Question_Content;K dispozícii je nová verzia (v%Version%), chcete si ju stiahnuť ?
-NewVersion_Question_Title;Bola vydaná nová verzia!
+New;NovÃ½
+Newest version;Pri spustenÃ­ kontrolovaÅ¥ novÃ© verzie
+NewVersion_Menu;NovÃ¡ verzia je k dispozÃ­cii
+NewVersion_Question_Content;K dispozÃ­cii je novÃ¡ verzia (v%Version%), chcete si ju stiahnuÅ¥ ?
+NewVersion_Question_Title;Bola vydanÃ¡ novÃ¡ verzia!
 No;Nie
-Not yet;Ešte nie
+Not yet;EÅ¡te nie
 NumColors;
 OK;OK
 One output file per input file;One output file per input file
-Open;Otvoriť
-OpenCandy_01;Sťahovanie
-OpenCandy_02;Dokončené:    %
-OpenCandy_03;Internetové spojenie prerušené!
-OpenCandy_04;Sťahovanie ukončené.
-OpenCandy_05;Kliknutím nainštalujte.
+Open;OtvoriÅ¥
+OpenCandy_01;SÅ¥ahovanie
+OpenCandy_02;DokonÄenÃ©:    %
+OpenCandy_03;InternetovÃ© spojenie preruÅ¡enÃ©!
+OpenCandy_04;SÅ¥ahovanie ukonÄenÃ©.
+OpenCandy_05;KliknutÃ­m nainÅ¡talujte.
 OpenCandy_06;
 OpenCandy_07;
 OpenCandy_08;
 OpenCandy_09;
-OpenCandy_10;Zrušiť inštaláciu
+OpenCandy_10;ZruÅ¡iÅ¥ inÅ¡talÃ¡ciu
 OpenCandy_11;
-OpenCandy_12;Ukončiť inštalátor
+OpenCandy_12;UkonÄiÅ¥ inÅ¡talÃ¡tor
 OpenCandy_13;
-OpenCandy_14;Sťahovanie
+OpenCandy_14;SÅ¥ahovanie
 OpenCandy_15;
 OpenCandy_16;
 OpenCandy_17;
 OpenCandy_18;
 OpenCandy_19;
 OpenCandy_20;
-OpenCandy_21;Inštalácia
-OpenCandy_22;Inštalácia
+OpenCandy_21;InÅ¡talÃ¡cia
+OpenCandy_22;InÅ¡talÃ¡cia
 OpenCandy_23;
-OpenCandy_24;Prerušenie
+OpenCandy_24;PreruÅ¡enie
 OpenCandy_25;
 OpenCandy_26;
-OpenCandy_27;Inštalujte teraz
+OpenCandy_27;InÅ¡talujte teraz
 OpenCandy_28;
 OpenCandy_29;
-OpenCandy_30;Zrušenie inštalácie
-OpenCandy_31;Vyberte inštalačné nastavenia
-OpenCandy_32;Inštalujte
-OpenCandy_33;Neinštalujte
-OpenCandy_34;Vyberte inštalačné nastavenia
+OpenCandy_30;ZruÅ¡enie inÅ¡talÃ¡cie
+OpenCandy_31;Vyberte inÅ¡talaÄnÃ© nastavenia
+OpenCandy_32;InÅ¡talujte
+OpenCandy_33;NeinÅ¡talujte
+OpenCandy_34;Vyberte inÅ¡talaÄnÃ© nastavenia
 OpenCandy_35;
 OpenCandy_36;
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
 Options;Nastavenie
-Options_Hint;Predvoľby
-Original;Originál
+Options_Hint;PredvoÄ¾by
+Original;OriginÃ¡l
 OriginalNetworkName;
 OriginalSourceForm;
 OriginalSourceMedium;
 Originator;
-Other;Rôzne
+Other;RÃ´zne
 OtherIdentifier;
 OtherIdentifierType;
-Output;Výstup
-Output format;Zobraziť ako
-OverallBitRate;Celkový dátový tok
+Output;VÃ½stup
+Output format;ZobraziÅ¥ ako
+OverallBitRate;CelkovÃ½ dÃ¡tovÃ½ tok
 OverallBitRate_Maximum;
 OverallBitRate_Minimum;
 OverallBitRate_Mode;
 OverallBitRate_Nominal;
-Part;Časť
-Part_Count;Celkový počet
+Part;ÄŒasÅ¥
+Part_Count;CelkovÃ½ poÄet
 PartNumber;
 PartTotal;
 Performer;Umelec
 Period;Period
-Phone;Telefón
+Phone;TelefÃ³n
 PictureRatio;
 PixelAspectRatio;Pomer bodov
 PixelAspectRatio_Original;Pomer bodov
 PlayCounter;PlayCounter
 Played_Count;
-Played_First_Date;Dátum prvého prehratia
-Played_Last_Date;Dátum posledného prehratia
-PlayTime;Hrací čas
-Position;Pozícia
+Played_First_Date;DÃ¡tum prvÃ©ho prehratia
+Played_Last_Date;DÃ¡tum poslednÃ©ho prehratia
+PlayTime;HracÃ­ Äas
+Position;PozÃ­cia
 Position_Total;Celkom
-Preferences;Predvoľby
+Preferences;PredvoÄ¾by
 PrimaryAudioLanguage;
 Producer;Producent
 ProductionDesigner;ProductionDesigner
@@ -940,21 +940,21 @@ ProgrammeHasText;
 ProgrammeTextLanguage;
 ProgrammeTitle;
 Publisher;Publisher
-Purchased_Date;Dátum zakúpenia
+Purchased_Date;DÃ¡tum zakÃºpenia
 Quote character;Quote character
-RadioStation;Rozhlasová stanica
+RadioStation;RozhlasovÃ¡ stanica
 Rating;Hodnotenie
-Recorded_Date;Dátum nahrávania
-Recorded_Location;Lokalita nahrávania
-Released_Date;Dátum vydania
+Recorded_Date;DÃ¡tum nahrÃ¡vania
+Recorded_Location;Lokalita nahrÃ¡vania
+Released_Date;DÃ¡tum vydania
 RemixedBy;Remixoval/-a
 ReplayGain_Gain;
 ReplayGain_Peak;
-Resolution;Rozlíšenie
+Resolution;RozlÃ­Å¡enie
 s; sek.
 SamplingCount;
 SamplingRate;Sampling rate
-Save;Uložiť
+Save;UloÅ¾iÅ¥
 ScanOrder;
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -966,30 +966,30 @@ ScanType_StoreMethod;
 ScreenplayBy;Screenplay by
 Season;Season
 SecondaryAudioLanguage;
-see below;pozri nižšie
+see below;pozri niÅ¾Å¡ie
 Send HeaderFile;
-Separator_Columns;Oddeľovač stĺpcov
-Separator_Lines;Oddeľovač riadkov
+Separator_Columns;OddeÄ¾ovaÄ stÄºpcov
+Separator_Lines;OddeÄ¾ovaÄ riadkov
 SerieTitle;
 ServiceChannel;
 ServiceName;
 ServiceProvider;
 ServiceType;
-Set;Nastaviť
+Set;NastaviÅ¥
 Set_Count;Set count
-Setup;Hlavné
+Setup;HlavnÃ©
 Sharpness;
 Sheet;List
-Sheet (Complete);List (kompletný) 
-Shell extension;Integrovať do kontextového menu Prieskumníka (pravé tlačíidlo myši)
+Sheet (Complete);List (kompletnÃ½) 
+Shell extension;IntegrovaÅ¥ do kontextovÃ©ho menu PrieskumnÃ­ka (pravÃ© tlaÄÃ­idlo myÅ¡i)
 Shell extension, folder;
-Shell InfoTip;Integrovať do kontextového menu (pri nadídení myši na súbor)
+Shell InfoTip;IntegrovaÅ¥ do kontextovÃ©ho menu (pri nadÃ­denÃ­ myÅ¡i na sÃºbor)
 ShimName;
-Show menu;Zobraziť menu
-Show toolbar;Zobraziť nástrojovú lištu
+Show menu;ZobraziÅ¥ menu
+Show toolbar;ZobraziÅ¥ nÃ¡strojovÃº liÅ¡tu
 SigningPresent;
 SignLanguage;
-Sort;Zoradiť podľa
+Sort;ZoradiÅ¥ podÄ¾a
 SoundEngineer;Sound engineer
 Source;
 Source_Duration;
@@ -997,12 +997,12 @@ Source_FrameCount;
 Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
-Standard;Štandard
+Standard;Å tandard
 StoreMethod_InterleavedFields;
 StoreMethod_SeparatedFields;
 StoreMethod_SeparatedFields_1;
 StoreMethod_SeparatedFields_2;
-Stream;Dátový stream
+Stream;DÃ¡tovÃ½ stream
 Stream_MoreInfo;More information about the stream
 StreamCount;Count of stream of this kind
 StreamID;Stream ID
@@ -1015,8 +1015,8 @@ StreamSize_Proportion;
 Subject;Subjekt
 SubTrack;SubTrack
 Summary;Summary
-Supported formats;Podporované formáty
-Supported?;Podporovaný?
+Supported formats;PodporovanÃ© formÃ¡ty
+Supported?;PodporovanÃ½?
 Synopsis;Synopsis
 SystemId;Id
 Tagged_Application;
@@ -1025,70 +1025,71 @@ Technician;Technician
 TermsOfUse;Terms of use
 TertiaryAudioLanguage;
 Text;Text
-Text - Custom;Text - Vlastný
+Text - Custom;Text - VlastnÃ½
 Text (HTML);Text (HTML)
 Text stream(s);Text streams
 Text streams;Text streams
 Text_Codec_List;Text codecs
 Text_No;Bez textu
-Text1;Prvý text stream
-Text2;Druhý text stream
-Text3;Tretí text stream
+Text1;PrvÃ½ text stream
+Text2;DruhÃ½ text stream
+Text3;TretÃ­ text stream
 TextCount;Count of text streams
 TextlessElementsExist;
-ThanksTo;Poďakovanie
-Thousands separator;Oddeľovač tisícok
+ThanksTo;PoÄakovanie
+Thousands separator;OddeÄ¾ovaÄ tisÃ­cok
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
+TimeCode_Striped;
 TimeStamp;
-TimeZone;Časová zóna
+TimeZone;ÄŒasovÃ¡ zÃ³na
 Title;Titul
-Title_More;Titul, ďalšie informácie
+Title_More;Titul, ÄalÅ¡ie informÃ¡cie
 Total;Celkom
 TotalNumberOfParts;
 TotalProgrammeDuration;
-Track;Názov stopy
-Track_Count;Počet stôp
+Track;NÃ¡zov stopy
+Track_Count;PoÄet stÃ´p
 transfer_characteristics;
-Translator;Preložil
+Translator;PreloÅ¾il
 Tree;Strom
 Tree & Text;Strom a text
 Type;
 UniqueID;
-Unknown;Neznámy
+Unknown;NeznÃ¡my
 Url;Url
 Video;Video
 Video stream(s);Video stream(y)
 Video_Codec_List;Video kodeky
 Video_Delay;Video delay
-Video_No;Žiadne video
+Video_No;Å½iadne video
 Video0_Delay;Video0 delay
-Video1;Prvý video stream
+Video1;PrvÃ½ video stream
 VideoComments;
-VideoCount;Počet video streamov
-View;Zobraziť
-View_Hint;Zobraziť
-Warning : more streams in the files;Pozor: v súboroch je viacero streamov !
+VideoCount;PoÄet video streamov
+View;ZobraziÅ¥
+View_Hint;ZobraziÅ¥
+Warning : more streams in the files;Pozor: v sÃºboroch je viacero streamov !
 Web;Web
-WebSite_Audio;Navštív webstránku tohoto audiokodeku
-WebSite_Audio_More;Vyhľadaj tento audiokodek na webstránke (%Url%)
+WebSite_Audio;NavÅ¡tÃ­v webstrÃ¡nku tohoto audiokodeku
+WebSite_Audio_More;VyhÄ¾adaj tento audiokodek na webstrÃ¡nke (%Url%)
 WebSite_General;Go to the web site of a player for this file
 WebSite_General_More;Go to the web site of a player for this file
 WebSite_Text;Go to the web site of this text codec
 WebSite_Text_More;Go to the web site (%Url%) to find this text codec
 WebSite_Url;http://MediaArea.net/MediaInfo
-WebSite_Video;Ísť na stránku s týmto video-kodekom
-WebSite_Video_More;Vyhľadaj tento videokodek na webstránke (%Url%)
-Width;Šírka
+WebSite_Video;ÃsÅ¥ na strÃ¡nku s tÃ½mto video-kodekom
+WebSite_Video_More;VyhÄ¾adaj tento videokodek na webstrÃ¡nke (%Url%)
+Width;Å Ã­rka
 Width_Original;
-WriteMe;Napíš autorovi
-WriteToTranslator;Napíš prekladateľovi
+WriteMe;NapÃ­Å¡ autorovi
+WriteToTranslator;NapÃ­Å¡ prekladateÄ¾ovi
 Written_Date;Written date
 Written_Location;Written location
-WrittenBy;Napísal
-Yes;Áno
-Your system;Váš systém
+WrittenBy;NapÃ­sal
+Yes;Ãno
+Your system;VÃ¡Å¡ systÃ©m
 ZZ_Automatic_Percent;76
 ZZ_AutomaticLanguage_Percent;81

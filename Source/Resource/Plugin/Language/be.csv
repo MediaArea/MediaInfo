@@ -1,389 +1,389 @@
   Language_ISO639;be
   Author_Email;mister-sh@users.sourceforge.net
-  Author_Name;Micтэр Ш
+  Author_Name;MicÑ‚ÑÑ€ Ð¨
   Author_OldNames;
-  Language_Name;Беларуская
+  Language_Name;Ð‘ÐµÐ»Ð°Ñ€ÑƒÑÐºÐ°Ñ
   Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
   Config_Text_ThousandsSeparator; 
- audio stream1; Аўдыёструмень
- audio stream2; Аўдыёструмені
- audio stream3; Аўдыёструмені
- bit1; біт
- bit2; біт
- bit3; біт
- bps; біт/сек
- Bps; байт/сек
- Byte1; Байт
- Byte2; Байт
- Byte3; Байт
- channel1; канал
- channel2; канала
- channel3; каналаў
- chapter1; падзел
- chapter2; падзелы
- chapter3; падзелы
- chapters stream1; струмень падзелаў
- chapters stream2; струмені падзелаў
- chapters stream3; струмені падзелаў
+ audio stream1; ÐÑžÐ´Ñ‹Ñ‘ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑŒ
+ audio stream2; ÐÑžÐ´Ñ‹Ñ‘ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ–
+ audio stream3; ÐÑžÐ´Ñ‹Ñ‘ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ–
+ bit1; Ð±Ñ–Ñ‚
+ bit2; Ð±Ñ–Ñ‚
+ bit3; Ð±Ñ–Ñ‚
+ bps; Ð±Ñ–Ñ‚/ÑÐµÐº
+ Bps; Ð±Ð°Ð¹Ñ‚/ÑÐµÐº
+ Byte1; Ð‘Ð°Ð¹Ñ‚
+ Byte2; Ð‘Ð°Ð¹Ñ‚
+ Byte3; Ð‘Ð°Ð¹Ñ‚
+ channel1; ÐºÐ°Ð½Ð°Ð»
+ channel2; ÐºÐ°Ð½Ð°Ð»Ð°
+ channel3; ÐºÐ°Ð½Ð°Ð»Ð°Ñž
+ chapter1; Ð¿Ð°Ð´Ð·ÐµÐ»
+ chapter2; Ð¿Ð°Ð´Ð·ÐµÐ»Ñ‹
+ chapter3; Ð¿Ð°Ð´Ð·ÐµÐ»Ñ‹
+ chapters stream1; ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑŒ Ð¿Ð°Ð´Ð·ÐµÐ»Ð°Ñž
+ chapters stream2; ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ– Ð¿Ð°Ð´Ð·ÐµÐ»Ð°Ñž
+ chapters stream3; ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ– Ð¿Ð°Ð´Ð·ÐµÐ»Ð°Ñž
  character1;
  character2;
  character3;
- day1; дзень
- day2; дзён
- day3; дзён
- dB1; дБ
- dB2; дБ
- dB3; дБ
- file1; файл
- file2; файлы
- file3; файлы
- fps1; кадр/сек
- fps2; кадр/сек
- fps3; кадр/сек
- frame1; кадр
- frame2; кадры
- frame3; кадраў
- GB; Гбайт
- Gb; Гбіт
- Gbps; Гбіт/сек
- GBps; Гбайт/сек
- GHz; Ггц
- GiB; Гігабайт
- GibiByte1; Гібібайт
- GibiByte2; Гібібайт
- GibiByte3; Гібібайт
- GiBps; Гб/сек
- GigaBit1; Гігабіт
- GigaBit2; Гігабіт
- GigaBit3; Гігабіт
- GigaByte1; Гігабайт
- GigaByte2; Гігабайт
- GigaByte3; Гігабайт
- hour1; гадзіна
- hour2; гадзін
- hour3; гадзін
- Hz; Гц
- image stream1; струмень малюнкаў
- image stream2; струмені малюнкаў
- image stream3; струмені малюнкаў
- KB; Кбайт
- Kb; Кбіт
- KBps; Кбайт/сек
- Kbps; Кбіт/сек
- KHz; Кгц
- KiB; Кілабайт
- KibiBit1; Кiбiбiт
- KibiBit2; Кiбiбiт
- KibiBit3; Кiбiбiт
- KibiByte1; Кiбiбайт
- KibiByte2; Кiбiбайт
- KibiByte3; Кiбiбайт
- KiBps; Кiлабайт/сек
- KiloBit1; Кілабіт
- KiloBit2; Кілабіт
- KiloBit3; Кілабіт
- KiloByte1; Кілабайт
- KiloByte2; Кілабайт
- KiloByte3; Кілабайт
- MB; Мбайт
- Mb; Мбіт
- Mbps; Мбіт/сек
- MBps; Мбайт
- MebiBit1; Мебiбiт
- MebiBit2; Мебiбiт
- MebiBit3; Мебiбiт
- MebiByte1; Мебiбайт
- MebiByte2; Мебiбайт
- MebiByte3; Мебiбайт
- MegaBit1; Мегабіт
- MegaBit2; Мегабіт
- MegaBit3; Мегабіт
- MegaByte1; Мегабайт
- MegaByte2; Мегабайт
- MegaByte3; Мегабайт
- MHz; Мгц
- MiB; Мегабайт
- Mib; Міб
- MiBps; Мбайт/сек
- millisecond1; мілісекунда
- millisecond2; мілісекунд
- millisecond3; мілісекунд
- minute1; хв.
- minute2; хв.
- minute3; хв.
- month1; мес.
- month2; мес.
- month3; мес.
- pixel1; пiкс.
- pixel2; пiкс.
- pixel3; пiкс.
- second1; сек.
- second2; сек.
- second3; сек.
- text stream1; тэкставы струмень
- text stream2; тэкставыя струмені
- text stream3; тэкставыя струмені
- video frames1; відэакадр
- video frames2; відэакадраў
- video frames3; відэакадраў
- video stream1; відэаструмень
- video stream2; відэаструмені
- video stream3; відэаструмені
- warppoint0;Без кропкі пераходу
- warppoint1; кропка пераходу
- warppoint2; кропкі пераходу
- warppoint3; кропкі пераходу
- week1; тыд.
- week2; тыдняў
- week3; тыдняў
- year1; год
- year2; гады
- year3; гадоў
+ day1; Ð´Ð·ÐµÐ½ÑŒ
+ day2; Ð´Ð·Ñ‘Ð½
+ day3; Ð´Ð·Ñ‘Ð½
+ dB1; Ð´Ð‘
+ dB2; Ð´Ð‘
+ dB3; Ð´Ð‘
+ file1; Ñ„Ð°Ð¹Ð»
+ file2; Ñ„Ð°Ð¹Ð»Ñ‹
+ file3; Ñ„Ð°Ð¹Ð»Ñ‹
+ fps1; ÐºÐ°Ð´Ñ€/ÑÐµÐº
+ fps2; ÐºÐ°Ð´Ñ€/ÑÐµÐº
+ fps3; ÐºÐ°Ð´Ñ€/ÑÐµÐº
+ frame1; ÐºÐ°Ð´Ñ€
+ frame2; ÐºÐ°Ð´Ñ€Ñ‹
+ frame3; ÐºÐ°Ð´Ñ€Ð°Ñž
+ GB; Ð“Ð±Ð°Ð¹Ñ‚
+ Gb; Ð“Ð±Ñ–Ñ‚
+ Gbps; Ð“Ð±Ñ–Ñ‚/ÑÐµÐº
+ GBps; Ð“Ð±Ð°Ð¹Ñ‚/ÑÐµÐº
+ GHz; Ð“Ð³Ñ†
+ GiB; Ð“Ñ–Ð³Ð°Ð±Ð°Ð¹Ñ‚
+ GibiByte1; Ð“Ñ–Ð±Ñ–Ð±Ð°Ð¹Ñ‚
+ GibiByte2; Ð“Ñ–Ð±Ñ–Ð±Ð°Ð¹Ñ‚
+ GibiByte3; Ð“Ñ–Ð±Ñ–Ð±Ð°Ð¹Ñ‚
+ GiBps; Ð“Ð±/ÑÐµÐº
+ GigaBit1; Ð“Ñ–Ð³Ð°Ð±Ñ–Ñ‚
+ GigaBit2; Ð“Ñ–Ð³Ð°Ð±Ñ–Ñ‚
+ GigaBit3; Ð“Ñ–Ð³Ð°Ð±Ñ–Ñ‚
+ GigaByte1; Ð“Ñ–Ð³Ð°Ð±Ð°Ð¹Ñ‚
+ GigaByte2; Ð“Ñ–Ð³Ð°Ð±Ð°Ð¹Ñ‚
+ GigaByte3; Ð“Ñ–Ð³Ð°Ð±Ð°Ð¹Ñ‚
+ hour1; Ð³Ð°Ð´Ð·Ñ–Ð½Ð°
+ hour2; Ð³Ð°Ð´Ð·Ñ–Ð½
+ hour3; Ð³Ð°Ð´Ð·Ñ–Ð½
+ Hz; Ð“Ñ†
+ image stream1; ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑŒ Ð¼Ð°Ð»ÑŽÐ½ÐºÐ°Ñž
+ image stream2; ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ– Ð¼Ð°Ð»ÑŽÐ½ÐºÐ°Ñž
+ image stream3; ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ– Ð¼Ð°Ð»ÑŽÐ½ÐºÐ°Ñž
+ KB; ÐšÐ±Ð°Ð¹Ñ‚
+ Kb; ÐšÐ±Ñ–Ñ‚
+ KBps; ÐšÐ±Ð°Ð¹Ñ‚/ÑÐµÐº
+ Kbps; ÐšÐ±Ñ–Ñ‚/ÑÐµÐº
+ KHz; ÐšÐ³Ñ†
+ KiB; ÐšÑ–Ð»Ð°Ð±Ð°Ð¹Ñ‚
+ KibiBit1; ÐšiÐ±iÐ±iÑ‚
+ KibiBit2; ÐšiÐ±iÐ±iÑ‚
+ KibiBit3; ÐšiÐ±iÐ±iÑ‚
+ KibiByte1; ÐšiÐ±iÐ±Ð°Ð¹Ñ‚
+ KibiByte2; ÐšiÐ±iÐ±Ð°Ð¹Ñ‚
+ KibiByte3; ÐšiÐ±iÐ±Ð°Ð¹Ñ‚
+ KiBps; ÐšiÐ»Ð°Ð±Ð°Ð¹Ñ‚/ÑÐµÐº
+ KiloBit1; ÐšÑ–Ð»Ð°Ð±Ñ–Ñ‚
+ KiloBit2; ÐšÑ–Ð»Ð°Ð±Ñ–Ñ‚
+ KiloBit3; ÐšÑ–Ð»Ð°Ð±Ñ–Ñ‚
+ KiloByte1; ÐšÑ–Ð»Ð°Ð±Ð°Ð¹Ñ‚
+ KiloByte2; ÐšÑ–Ð»Ð°Ð±Ð°Ð¹Ñ‚
+ KiloByte3; ÐšÑ–Ð»Ð°Ð±Ð°Ð¹Ñ‚
+ MB; ÐœÐ±Ð°Ð¹Ñ‚
+ Mb; ÐœÐ±Ñ–Ñ‚
+ Mbps; ÐœÐ±Ñ–Ñ‚/ÑÐµÐº
+ MBps; ÐœÐ±Ð°Ð¹Ñ‚
+ MebiBit1; ÐœÐµÐ±iÐ±iÑ‚
+ MebiBit2; ÐœÐµÐ±iÐ±iÑ‚
+ MebiBit3; ÐœÐµÐ±iÐ±iÑ‚
+ MebiByte1; ÐœÐµÐ±iÐ±Ð°Ð¹Ñ‚
+ MebiByte2; ÐœÐµÐ±iÐ±Ð°Ð¹Ñ‚
+ MebiByte3; ÐœÐµÐ±iÐ±Ð°Ð¹Ñ‚
+ MegaBit1; ÐœÐµÐ³Ð°Ð±Ñ–Ñ‚
+ MegaBit2; ÐœÐµÐ³Ð°Ð±Ñ–Ñ‚
+ MegaBit3; ÐœÐµÐ³Ð°Ð±Ñ–Ñ‚
+ MegaByte1; ÐœÐµÐ³Ð°Ð±Ð°Ð¹Ñ‚
+ MegaByte2; ÐœÐµÐ³Ð°Ð±Ð°Ð¹Ñ‚
+ MegaByte3; ÐœÐµÐ³Ð°Ð±Ð°Ð¹Ñ‚
+ MHz; ÐœÐ³Ñ†
+ MiB; ÐœÐµÐ³Ð°Ð±Ð°Ð¹Ñ‚
+ Mib; ÐœÑ–Ð±
+ MiBps; ÐœÐ±Ð°Ð¹Ñ‚/ÑÐµÐº
+ millisecond1; Ð¼Ñ–Ð»Ñ–ÑÐµÐºÑƒÐ½Ð´Ð°
+ millisecond2; Ð¼Ñ–Ð»Ñ–ÑÐµÐºÑƒÐ½Ð´
+ millisecond3; Ð¼Ñ–Ð»Ñ–ÑÐµÐºÑƒÐ½Ð´
+ minute1; Ñ…Ð².
+ minute2; Ñ…Ð².
+ minute3; Ñ…Ð².
+ month1; Ð¼ÐµÑ.
+ month2; Ð¼ÐµÑ.
+ month3; Ð¼ÐµÑ.
+ pixel1; Ð¿iÐºÑ.
+ pixel2; Ð¿iÐºÑ.
+ pixel3; Ð¿iÐºÑ.
+ second1; ÑÐµÐº.
+ second2; ÑÐµÐº.
+ second3; ÑÐµÐº.
+ text stream1; Ñ‚ÑÐºÑÑ‚Ð°Ð²Ñ‹ ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑŒ
+ text stream2; Ñ‚ÑÐºÑÑ‚Ð°Ð²Ñ‹Ñ ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ–
+ text stream3; Ñ‚ÑÐºÑÑ‚Ð°Ð²Ñ‹Ñ ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ–
+ video frames1; Ð²Ñ–Ð´ÑÐ°ÐºÐ°Ð´Ñ€
+ video frames2; Ð²Ñ–Ð´ÑÐ°ÐºÐ°Ð´Ñ€Ð°Ñž
+ video frames3; Ð²Ñ–Ð´ÑÐ°ÐºÐ°Ð´Ñ€Ð°Ñž
+ video stream1; Ð²Ñ–Ð´ÑÐ°ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑŒ
+ video stream2; Ð²Ñ–Ð´ÑÐ°ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ–
+ video stream3; Ð²Ñ–Ð´ÑÐ°ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ–
+ warppoint0;Ð‘ÐµÐ· ÐºÑ€Ð¾Ð¿ÐºÑ– Ð¿ÐµÑ€Ð°Ñ…Ð¾Ð´Ñƒ
+ warppoint1; ÐºÑ€Ð¾Ð¿ÐºÐ° Ð¿ÐµÑ€Ð°Ñ…Ð¾Ð´Ñƒ
+ warppoint2; ÐºÑ€Ð¾Ð¿ÐºÑ– Ð¿ÐµÑ€Ð°Ñ…Ð¾Ð´Ñƒ
+ warppoint3; ÐºÑ€Ð¾Ð¿ÐºÑ– Ð¿ÐµÑ€Ð°Ñ…Ð¾Ð´Ñƒ
+ week1; Ñ‚Ñ‹Ð´.
+ week2; Ñ‚Ñ‹Ð´Ð½ÑÑž
+ week3; Ñ‚Ñ‹Ð´Ð½ÑÑž
+ year1; Ð³Ð¾Ð´
+ year2; Ð³Ð°Ð´Ñ‹
+ year3; Ð³Ð°Ð´Ð¾Ñž
 , ;, 
 : ;: 
 3D;
 3DType;
-About;Пра праграму
-About_Hint;Як звязацца са мной і знайсці апошнюю версію праграмы
-Accompaniment;Суправаджэнне
+About;ÐŸÑ€Ð° Ð¿Ñ€Ð°Ð³Ñ€Ð°Ð¼Ñƒ
+About_Hint;Ð¯Ðº Ð·Ð²ÑÐ·Ð°Ñ†Ñ†Ð° ÑÐ° Ð¼Ð½Ð¾Ð¹ Ñ– Ð·Ð½Ð°Ð¹ÑÑ†Ñ– Ð°Ð¿Ð¾ÑˆÐ½ÑŽÑŽ Ð²ÐµÑ€ÑÑ–ÑŽ Ð¿Ñ€Ð°Ð³Ñ€Ð°Ð¼Ñ‹
+Accompaniment;Ð¡ÑƒÐ¿Ñ€Ð°Ð²Ð°Ð´Ð¶ÑÐ½Ð½Ðµ
 ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
-Actor;Актор
-Actor_Character;Роля
-Added_Date;Дата дадання
-Address;Адрас
-Advanced;Дадаткова
-Advanced mode;Пашыраны рэжым
-Album;Альбом
-Album_ReplayGain_Gain;Нармалізатар гуку альбома
-Album_ReplayGain_Peak;Пік нармалізатара гуку альбома
-Alignment;Выраўніванне
-Alignment_Aligned;Злучэнне па прамежках
-Alignment_Split;Падзел па прамежках
-All;Усё
-Archival_Location;Месца захоўвання
-Arranger;Размясціў
-ArtDirector;Рэжысёр
-AspectRatio;Суадносіны
-AssistantDirector;Памагаты рэжысёра
-at;у
-At least one file;Як мінімум адзін файл
-Audio;Аўдыё
-Audio stream(s);Аўдыёструмень(і)
-Audio_Codec_List;Аўдыёкодэкі
-Audio_No;Няма аўдыёструменя
-Audio1;Першы аўдыёструмень
-Audio2;Другі аўдыёструмень
+Actor;ÐÐºÑ‚Ð¾Ñ€
+Actor_Character;Ð Ð¾Ð»Ñ
+Added_Date;Ð”Ð°Ñ‚Ð° Ð´Ð°Ð´Ð°Ð½Ð½Ñ
+Address;ÐÐ´Ñ€Ð°Ñ
+Advanced;Ð”Ð°Ð´Ð°Ñ‚ÐºÐ¾Ð²Ð°
+Advanced mode;ÐŸÐ°ÑˆÑ‹Ñ€Ð°Ð½Ñ‹ Ñ€ÑÐ¶Ñ‹Ð¼
+Album;ÐÐ»ÑŒÐ±Ð¾Ð¼
+Album_ReplayGain_Gain;ÐÐ°Ñ€Ð¼Ð°Ð»Ñ–Ð·Ð°Ñ‚Ð°Ñ€ Ð³ÑƒÐºÑƒ Ð°Ð»ÑŒÐ±Ð¾Ð¼Ð°
+Album_ReplayGain_Peak;ÐŸÑ–Ðº Ð½Ð°Ñ€Ð¼Ð°Ð»Ñ–Ð·Ð°Ñ‚Ð°Ñ€Ð° Ð³ÑƒÐºÑƒ Ð°Ð»ÑŒÐ±Ð¾Ð¼Ð°
+Alignment;Ð’Ñ‹Ñ€Ð°ÑžÐ½Ñ–Ð²Ð°Ð½Ð½Ðµ
+Alignment_Aligned;Ð—Ð»ÑƒÑ‡ÑÐ½Ð½Ðµ Ð¿Ð° Ð¿Ñ€Ð°Ð¼ÐµÐ¶ÐºÐ°Ñ…
+Alignment_Split;ÐŸÐ°Ð´Ð·ÐµÐ» Ð¿Ð° Ð¿Ñ€Ð°Ð¼ÐµÐ¶ÐºÐ°Ñ…
+All;Ð£ÑÑ‘
+Archival_Location;ÐœÐµÑÑ†Ð° Ð·Ð°Ñ…Ð¾ÑžÐ²Ð°Ð½Ð½Ñ
+Arranger;Ð Ð°Ð·Ð¼ÑÑÑ†Ñ–Ñž
+ArtDirector;Ð ÑÐ¶Ñ‹ÑÑ‘Ñ€
+AspectRatio;Ð¡ÑƒÐ°Ð´Ð½Ð¾ÑÑ–Ð½Ñ‹
+AssistantDirector;ÐŸÐ°Ð¼Ð°Ð³Ð°Ñ‚Ñ‹ Ñ€ÑÐ¶Ñ‹ÑÑ‘Ñ€Ð°
+at;Ñƒ
+At least one file;Ð¯Ðº Ð¼Ñ–Ð½Ñ–Ð¼ÑƒÐ¼ Ð°Ð´Ð·Ñ–Ð½ Ñ„Ð°Ð¹Ð»
+Audio;ÐÑžÐ´Ñ‹Ñ‘
+Audio stream(s);ÐÑžÐ´Ñ‹Ñ‘ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑŒ(Ñ–)
+Audio_Codec_List;ÐÑžÐ´Ñ‹Ñ‘ÐºÐ¾Ð´ÑÐºÑ–
+Audio_No;ÐÑÐ¼Ð° Ð°ÑžÐ´Ñ‹Ñ‘ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ
+Audio1;ÐŸÐµÑ€ÑˆÑ‹ Ð°ÑžÐ´Ñ‹Ñ‘ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑŒ
+Audio2;Ð”Ñ€ÑƒÐ³Ñ– Ð°ÑžÐ´Ñ‹Ñ‘ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑŒ
 AudioComments;
-AudioCount;Коль-ць аўдыёструменяў
+AudioCount;ÐšÐ¾Ð»ÑŒ-Ñ†ÑŒ Ð°ÑžÐ´Ñ‹Ñ‘ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑÑž
 AudioDescriptionPresent;
 AudioDescriptionType;
 AudioLoudnessStandard;
 AudioTrackLayout;
-Author;Аўтар
-BarCode;Штрыхкод
-Basic;Каротка
-Basic_Note;Падказка: для дадатковай інфармацыі абярыце іншую закладку (Табліца, Дрэва,...)
+Author;ÐÑžÑ‚Ð°Ñ€
+BarCode;Ð¨Ñ‚Ñ€Ñ‹Ñ…ÐºÐ¾Ð´
+Basic;ÐšÐ°Ñ€Ð¾Ñ‚ÐºÐ°
+Basic_Note;ÐŸÐ°Ð´ÐºÐ°Ð·ÐºÐ°: Ð´Ð»Ñ Ð´Ð°Ð´Ð°Ñ‚ÐºÐ¾Ð²Ð°Ð¹ Ñ–Ð½Ñ„Ð°Ñ€Ð¼Ð°Ñ†Ñ‹Ñ– Ð°Ð±ÑÑ€Ñ‹Ñ†Ðµ Ñ–Ð½ÑˆÑƒÑŽ Ð·Ð°ÐºÐ»Ð°Ð´ÐºÑƒ (Ð¢Ð°Ð±Ð»Ñ–Ñ†Ð°, Ð”Ñ€ÑÐ²Ð°,...)
 BitDepth;
 BitDepth_Stored;
-BitRate;Бітрэйт
+BitRate;Ð‘Ñ–Ñ‚Ñ€ÑÐ¹Ñ‚
 BitRate_Encoded;
-BitRate_Maximum;Максімальны бітрэйт
-BitRate_Minimum;Мінімальны бітрэйт
-BitRate_Mode;Рэжым разліку бітрэйту
-BitRate_Mode_CBR;Сталы
-BitRate_Mode_VBR;Пераменны
-BitRate_Nominal;Намінальны бітрэйт
-Bits-(Pixel*Frame);Біт/(Пікселі*Кадры)
-BufferSize;Памер буфера
-Cancel;Адмена
-Channel(s);Канал(ы)
-ChannelPositions;Размяшчэнне каналаў
-Chapter(s);Падзел(ы)
-Chapters;Падзелы
-Chapters stream(s);Струмень(і) падзелаў
-Chapters_Codec_List;Кодэкі падзелаў
-Chapters_No;Няма падзелаў
-ChaptersCount;Коль-ць падзелаў
-CheckNewVersion;Праверыць новую версію
-Choose custom;Абраць
-Choose custom sheet;Абраць табліцу
-Choose custom text;Абраць тэкст
-Choose export format;Абярыце фармат вываду
-Choose file(s);Абярыце файл(ы)
-Choose filename;Абярыце імя файла
-Choose language;Абярыце мову
-Choregrapher;Харэограф
-Chroma;Каляровасць
+BitRate_Maximum;ÐœÐ°ÐºÑÑ–Ð¼Ð°Ð»ÑŒÐ½Ñ‹ Ð±Ñ–Ñ‚Ñ€ÑÐ¹Ñ‚
+BitRate_Minimum;ÐœÑ–Ð½Ñ–Ð¼Ð°Ð»ÑŒÐ½Ñ‹ Ð±Ñ–Ñ‚Ñ€ÑÐ¹Ñ‚
+BitRate_Mode;Ð ÑÐ¶Ñ‹Ð¼ Ñ€Ð°Ð·Ð»Ñ–ÐºÑƒ Ð±Ñ–Ñ‚Ñ€ÑÐ¹Ñ‚Ñƒ
+BitRate_Mode_CBR;Ð¡Ñ‚Ð°Ð»Ñ‹
+BitRate_Mode_VBR;ÐŸÐµÑ€Ð°Ð¼ÐµÐ½Ð½Ñ‹
+BitRate_Nominal;ÐÐ°Ð¼Ñ–Ð½Ð°Ð»ÑŒÐ½Ñ‹ Ð±Ñ–Ñ‚Ñ€ÑÐ¹Ñ‚
+Bits-(Pixel*Frame);Ð‘Ñ–Ñ‚/(ÐŸÑ–ÐºÑÐµÐ»Ñ–*ÐšÐ°Ð´Ñ€Ñ‹)
+BufferSize;ÐŸÐ°Ð¼ÐµÑ€ Ð±ÑƒÑ„ÐµÑ€Ð°
+Cancel;ÐÐ´Ð¼ÐµÐ½Ð°
+Channel(s);ÐšÐ°Ð½Ð°Ð»(Ñ‹)
+ChannelPositions;Ð Ð°Ð·Ð¼ÑÑˆÑ‡ÑÐ½Ð½Ðµ ÐºÐ°Ð½Ð°Ð»Ð°Ñž
+Chapter(s);ÐŸÐ°Ð´Ð·ÐµÐ»(Ñ‹)
+Chapters;ÐŸÐ°Ð´Ð·ÐµÐ»Ñ‹
+Chapters stream(s);Ð¡Ñ‚Ñ€ÑƒÐ¼ÐµÐ½ÑŒ(Ñ–) Ð¿Ð°Ð´Ð·ÐµÐ»Ð°Ñž
+Chapters_Codec_List;ÐšÐ¾Ð´ÑÐºÑ– Ð¿Ð°Ð´Ð·ÐµÐ»Ð°Ñž
+Chapters_No;ÐÑÐ¼Ð° Ð¿Ð°Ð´Ð·ÐµÐ»Ð°Ñž
+ChaptersCount;ÐšÐ¾Ð»ÑŒ-Ñ†ÑŒ Ð¿Ð°Ð´Ð·ÐµÐ»Ð°Ñž
+CheckNewVersion;ÐŸÑ€Ð°Ð²ÐµÑ€Ñ‹Ñ†ÑŒ Ð½Ð¾Ð²ÑƒÑŽ Ð²ÐµÑ€ÑÑ–ÑŽ
+Choose custom;ÐÐ±Ñ€Ð°Ñ†ÑŒ
+Choose custom sheet;ÐÐ±Ñ€Ð°Ñ†ÑŒ Ñ‚Ð°Ð±Ð»Ñ–Ñ†Ñƒ
+Choose custom text;ÐÐ±Ñ€Ð°Ñ†ÑŒ Ñ‚ÑÐºÑÑ‚
+Choose export format;ÐÐ±ÑÑ€Ñ‹Ñ†Ðµ Ñ„Ð°Ñ€Ð¼Ð°Ñ‚ Ð²Ñ‹Ð²Ð°Ð´Ñƒ
+Choose file(s);ÐÐ±ÑÑ€Ñ‹Ñ†Ðµ Ñ„Ð°Ð¹Ð»(Ñ‹)
+Choose filename;ÐÐ±ÑÑ€Ñ‹Ñ†Ðµ Ñ–Ð¼Ñ Ñ„Ð°Ð¹Ð»Ð°
+Choose language;ÐÐ±ÑÑ€Ñ‹Ñ†Ðµ Ð¼Ð¾Ð²Ñƒ
+Choregrapher;Ð¥Ð°Ñ€ÑÐ¾Ð³Ñ€Ð°Ñ„
+Chroma;ÐšÐ°Ð»ÑÑ€Ð¾Ð²Ð°ÑÑ†ÑŒ
 ChromaSubsampling;
-Close;Зачыніць
-Close all before open;Закрыць усё перад адкрыццём
+Close;Ð—Ð°Ñ‡Ñ‹Ð½Ñ–Ñ†ÑŒ
+Close all before open;Ð—Ð°ÐºÑ€Ñ‹Ñ†ÑŒ ÑƒÑÑ‘ Ð¿ÐµÑ€Ð°Ð´ Ð°Ð´ÐºÑ€Ñ‹Ñ†Ñ†Ñ‘Ð¼
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
-Codec;Кодэк
-Codec_Description;Апісанне кодэка
-Codec_Info;Падрабязна аб кодэку
-Codec_Profile;Прафайл кодэка
-Codec_Settings;Налады кодэка
-Codec_Settings_BVOP;Налада BVOP кодэка
-Codec_Settings_CABAC;Налада CABAC кодэка
-Codec_Settings_Endianness;Налада Endianness кодэка
-Codec_Settings_Firm;Налада Firm кодэка
-Codec_Settings_Floor;Налада Floor кодэка
-Codec_Settings_GMC;Налада GMC кодэка
-Codec_Settings_ITU;Налада ITU кодэка
-Codec_Settings_Law;Налада Law кодэка
-Codec_Settings_Matrix;Налада матрыцы кодэка
-Codec_Settings_PacketBitStream;Налада пакетнага струменя дадзеных кодэка
-Codec_Settings_QPel;Налада QPel кодэка
-Codec_Settings_Sign;Налада Sign кодэка
-Codec_Url;Спасылка на кодэк
-CodecID;Ідэнтыфікатар кодэка
-CodecID_Description;Апісанне кодэка
-Collection;Калекцыя
-Colorimetry;Каларыметрыя
+Codec;ÐšÐ¾Ð´ÑÐº
+Codec_Description;ÐÐ¿Ñ–ÑÐ°Ð½Ð½Ðµ ÐºÐ¾Ð´ÑÐºÐ°
+Codec_Info;ÐŸÐ°Ð´Ñ€Ð°Ð±ÑÐ·Ð½Ð° Ð°Ð± ÐºÐ¾Ð´ÑÐºÑƒ
+Codec_Profile;ÐŸÑ€Ð°Ñ„Ð°Ð¹Ð» ÐºÐ¾Ð´ÑÐºÐ°
+Codec_Settings;ÐÐ°Ð»Ð°Ð´Ñ‹ ÐºÐ¾Ð´ÑÐºÐ°
+Codec_Settings_BVOP;ÐÐ°Ð»Ð°Ð´Ð° BVOP ÐºÐ¾Ð´ÑÐºÐ°
+Codec_Settings_CABAC;ÐÐ°Ð»Ð°Ð´Ð° CABAC ÐºÐ¾Ð´ÑÐºÐ°
+Codec_Settings_Endianness;ÐÐ°Ð»Ð°Ð´Ð° Endianness ÐºÐ¾Ð´ÑÐºÐ°
+Codec_Settings_Firm;ÐÐ°Ð»Ð°Ð´Ð° Firm ÐºÐ¾Ð´ÑÐºÐ°
+Codec_Settings_Floor;ÐÐ°Ð»Ð°Ð´Ð° Floor ÐºÐ¾Ð´ÑÐºÐ°
+Codec_Settings_GMC;ÐÐ°Ð»Ð°Ð´Ð° GMC ÐºÐ¾Ð´ÑÐºÐ°
+Codec_Settings_ITU;ÐÐ°Ð»Ð°Ð´Ð° ITU ÐºÐ¾Ð´ÑÐºÐ°
+Codec_Settings_Law;ÐÐ°Ð»Ð°Ð´Ð° Law ÐºÐ¾Ð´ÑÐºÐ°
+Codec_Settings_Matrix;ÐÐ°Ð»Ð°Ð´Ð° Ð¼Ð°Ñ‚Ñ€Ñ‹Ñ†Ñ‹ ÐºÐ¾Ð´ÑÐºÐ°
+Codec_Settings_PacketBitStream;ÐÐ°Ð»Ð°Ð´Ð° Ð¿Ð°ÐºÐµÑ‚Ð½Ð°Ð³Ð° ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ Ð´Ð°Ð´Ð·ÐµÐ½Ñ‹Ñ… ÐºÐ¾Ð´ÑÐºÐ°
+Codec_Settings_QPel;ÐÐ°Ð»Ð°Ð´Ð° QPel ÐºÐ¾Ð´ÑÐºÐ°
+Codec_Settings_Sign;ÐÐ°Ð»Ð°Ð´Ð° Sign ÐºÐ¾Ð´ÑÐºÐ°
+Codec_Url;Ð¡Ð¿Ð°ÑÑ‹Ð»ÐºÐ° Ð½Ð° ÐºÐ¾Ð´ÑÐº
+CodecID;Ð†Ð´ÑÐ½Ñ‚Ñ‹Ñ„Ñ–ÐºÐ°Ñ‚Ð°Ñ€ ÐºÐ¾Ð´ÑÐºÐ°
+CodecID_Description;ÐÐ¿Ñ–ÑÐ°Ð½Ð½Ðµ ÐºÐ¾Ð´ÑÐºÐ°
+Collection;ÐšÐ°Ð»ÐµÐºÑ†Ñ‹Ñ
+Colorimetry;ÐšÐ°Ð»Ð°Ñ€Ñ‹Ð¼ÐµÑ‚Ñ€Ñ‹Ñ
 ColorSpace;
-colour_primaries;Асноўныя колеры
-Comment;Каментар
-CommissionedBy;Даручальнік
-Compilation;Кампіляцыя
-CompleteName;Поўнае імя
+colour_primaries;ÐÑÐ½Ð¾ÑžÐ½Ñ‹Ñ ÐºÐ¾Ð»ÐµÑ€Ñ‹
+Comment;ÐšÐ°Ð¼ÐµÐ½Ñ‚Ð°Ñ€
+CommissionedBy;Ð”Ð°Ñ€ÑƒÑ‡Ð°Ð»ÑŒÐ½Ñ–Ðº
+Compilation;ÐšÐ°Ð¼Ð¿Ñ–Ð»ÑÑ†Ñ‹Ñ
+CompleteName;ÐŸÐ¾ÑžÐ½Ð°Ðµ Ñ–Ð¼Ñ
 CompletionDate;
-Composer;Кампазітар
-Compression_Mode;Метад сціску
-Compression_Mode_Lossless;Без страт
-Compression_Mode_Lossy;Са стратамі
-Compression_Ratio;Ступень сціску
-Conductor;Дырыжор
+Composer;ÐšÐ°Ð¼Ð¿Ð°Ð·Ñ–Ñ‚Ð°Ñ€
+Compression_Mode;ÐœÐµÑ‚Ð°Ð´ ÑÑ†Ñ–ÑÐºÑƒ
+Compression_Mode_Lossless;Ð‘ÐµÐ· ÑÑ‚Ñ€Ð°Ñ‚
+Compression_Mode_Lossy;Ð¡Ð° ÑÑ‚Ñ€Ð°Ñ‚Ð°Ð¼Ñ–
+Compression_Ratio;Ð¡Ñ‚ÑƒÐ¿ÐµÐ½ÑŒ ÑÑ†Ñ–ÑÐºÑƒ
+Conductor;Ð”Ñ‹Ñ€Ñ‹Ð¶Ð¾Ñ€
 ContactEmail;
 ContactTelephoneNumber;
-Container and general information;Агульная інфармацыя
-ContentType;Тып змесціва
-CoProducer;Сапрадзюсар
-Copyright;Праваўладальнік
+Container and general information;ÐÐ³ÑƒÐ»ÑŒÐ½Ð°Ñ Ñ–Ð½Ñ„Ð°Ñ€Ð¼Ð°Ñ†Ñ‹Ñ
+ContentType;Ð¢Ñ‹Ð¿ Ð·Ð¼ÐµÑÑ†Ñ–Ð²Ð°
+CoProducer;Ð¡Ð°Ð¿Ñ€Ð°Ð´Ð·ÑŽÑÐ°Ñ€
+Copyright;ÐŸÑ€Ð°Ð²Ð°ÑžÐ»Ð°Ð´Ð°Ð»ÑŒÐ½Ñ–Ðº
 CopyrightYear;
-CostumeDesigner;Дызайн гарнітураў
-Count;Кольк-ць
-Country;Краіна
-Cover;Вокладка
-Cover_Datas;Вокладка (дадзеныя)
-Cover_Description;Апісанне вокладкі
-Cover_Mime;MIME-тып вокладкі
-Cover_Type;Тып вокладкі
-Cropped;Памеры падрэзкі
-Custom;Выбаркова
-Customize;Фармат вываду
-Date;Дата
-Debug;Адладка
-Decimal point;Дзесятковая кропка
-Delay;Затрымка
-Delay_Source;Затрымка ў арыгінале
-Delay_Source_Container;Кантэйнер
-Delay_Source_Stream;'Сыры' струмень
-Delete;Выдаліць
-Description;Апісанне
-Digitized_Date;Дата аблічбоўкі
-Dimensions;Памеры
-Director;Рэжысёр
-DirectorOfPhotography;Аператар
-DisplayAspectRatio;Суадносіны кадра
-DisplayAspectRatio_Original;Арыгінальныя суадносіны бакоў
-DistributedBy;Распаўсюджвальнік
+CostumeDesigner;Ð”Ñ‹Ð·Ð°Ð¹Ð½ Ð³Ð°Ñ€Ð½Ñ–Ñ‚ÑƒÑ€Ð°Ñž
+Count;ÐšÐ¾Ð»ÑŒÐº-Ñ†ÑŒ
+Country;ÐšÑ€Ð°Ñ–Ð½Ð°
+Cover;Ð’Ð¾ÐºÐ»Ð°Ð´ÐºÐ°
+Cover_Datas;Ð’Ð¾ÐºÐ»Ð°Ð´ÐºÐ° (Ð´Ð°Ð´Ð·ÐµÐ½Ñ‹Ñ)
+Cover_Description;ÐÐ¿Ñ–ÑÐ°Ð½Ð½Ðµ Ð²Ð¾ÐºÐ»Ð°Ð´ÐºÑ–
+Cover_Mime;MIME-Ñ‚Ñ‹Ð¿ Ð²Ð¾ÐºÐ»Ð°Ð´ÐºÑ–
+Cover_Type;Ð¢Ñ‹Ð¿ Ð²Ð¾ÐºÐ»Ð°Ð´ÐºÑ–
+Cropped;ÐŸÐ°Ð¼ÐµÑ€Ñ‹ Ð¿Ð°Ð´Ñ€ÑÐ·ÐºÑ–
+Custom;Ð’Ñ‹Ð±Ð°Ñ€ÐºÐ¾Ð²Ð°
+Customize;Ð¤Ð°Ñ€Ð¼Ð°Ñ‚ Ð²Ñ‹Ð²Ð°Ð´Ñƒ
+Date;Ð”Ð°Ñ‚Ð°
+Debug;ÐÐ´Ð»Ð°Ð´ÐºÐ°
+Decimal point;Ð”Ð·ÐµÑÑÑ‚ÐºÐ¾Ð²Ð°Ñ ÐºÑ€Ð¾Ð¿ÐºÐ°
+Delay;Ð—Ð°Ñ‚Ñ€Ñ‹Ð¼ÐºÐ°
+Delay_Source;Ð—Ð°Ñ‚Ñ€Ñ‹Ð¼ÐºÐ° Ñž Ð°Ñ€Ñ‹Ð³Ñ–Ð½Ð°Ð»Ðµ
+Delay_Source_Container;ÐšÐ°Ð½Ñ‚ÑÐ¹Ð½ÐµÑ€
+Delay_Source_Stream;'Ð¡Ñ‹Ñ€Ñ‹' ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑŒ
+Delete;Ð’Ñ‹Ð´Ð°Ð»Ñ–Ñ†ÑŒ
+Description;ÐÐ¿Ñ–ÑÐ°Ð½Ð½Ðµ
+Digitized_Date;Ð”Ð°Ñ‚Ð° Ð°Ð±Ð»Ñ–Ñ‡Ð±Ð¾ÑžÐºÑ–
+Dimensions;ÐŸÐ°Ð¼ÐµÑ€Ñ‹
+Director;Ð ÑÐ¶Ñ‹ÑÑ‘Ñ€
+DirectorOfPhotography;ÐÐ¿ÐµÑ€Ð°Ñ‚Ð°Ñ€
+DisplayAspectRatio;Ð¡ÑƒÐ°Ð´Ð½Ð¾ÑÑ–Ð½Ñ‹ ÐºÐ°Ð´Ñ€Ð°
+DisplayAspectRatio_Original;ÐÑ€Ñ‹Ð³Ñ–Ð½Ð°Ð»ÑŒÐ½Ñ‹Ñ ÑÑƒÐ°Ð´Ð½Ð¾ÑÑ–Ð½Ñ‹ Ð±Ð°ÐºÐ¾Ñž
+DistributedBy;Ð Ð°ÑÐ¿Ð°ÑžÑÑŽÐ´Ð¶Ð²Ð°Ð»ÑŒÐ½Ñ–Ðº
 Distributor;
-Donate;Ахвяраваць
-DotsPerInch;Кропак на дзюйм
-Duration;Працягласць
-Duration_End;Час канчатку
-Duration_Start;Час пачатку
-Edit;Змяніць
-EditedBy;Зменена
-EMail;Пошта
-Encoded_Application;Праграма-кадавальнік
-Encoded_Date;Дата кадавання
-Encoded_Library;Бібліятэка кадавання
-Encoded_Library_Settings;Налады праграмы
-Encoded_Original;Першапачаткова кадавана
-EncodedBy;Кадаваў
-EPG_Positions;EPG пазіцыіі (унутр)
+Donate;ÐÑ…Ð²ÑÑ€Ð°Ð²Ð°Ñ†ÑŒ
+DotsPerInch;ÐšÑ€Ð¾Ð¿Ð°Ðº Ð½Ð° Ð´Ð·ÑŽÐ¹Ð¼
+Duration;ÐŸÑ€Ð°Ñ†ÑÐ³Ð»Ð°ÑÑ†ÑŒ
+Duration_End;Ð§Ð°Ñ ÐºÐ°Ð½Ñ‡Ð°Ñ‚ÐºÑƒ
+Duration_Start;Ð§Ð°Ñ Ð¿Ð°Ñ‡Ð°Ñ‚ÐºÑƒ
+Edit;Ð—Ð¼ÑÐ½Ñ–Ñ†ÑŒ
+EditedBy;Ð—Ð¼ÐµÐ½ÐµÐ½Ð°
+EMail;ÐŸÐ¾ÑˆÑ‚Ð°
+Encoded_Application;ÐŸÑ€Ð°Ð³Ñ€Ð°Ð¼Ð°-ÐºÐ°Ð´Ð°Ð²Ð°Ð»ÑŒÐ½Ñ–Ðº
+Encoded_Date;Ð”Ð°Ñ‚Ð° ÐºÐ°Ð´Ð°Ð²Ð°Ð½Ð½Ñ
+Encoded_Library;Ð‘Ñ–Ð±Ð»Ñ–ÑÑ‚ÑÐºÐ° ÐºÐ°Ð´Ð°Ð²Ð°Ð½Ð½Ñ
+Encoded_Library_Settings;ÐÐ°Ð»Ð°Ð´Ñ‹ Ð¿Ñ€Ð°Ð³Ñ€Ð°Ð¼Ñ‹
+Encoded_Original;ÐŸÐµÑ€ÑˆÐ°Ð¿Ð°Ñ‡Ð°Ñ‚ÐºÐ¾Ð²Ð° ÐºÐ°Ð´Ð°Ð²Ð°Ð½Ð°
+EncodedBy;ÐšÐ°Ð´Ð°Ð²Ð°Ñž
+EPG_Positions;EPG Ð¿Ð°Ð·Ñ–Ñ†Ñ‹Ñ–Ñ– (ÑƒÐ½ÑƒÑ‚Ñ€)
 EpisodeTitleNumber;
-Error_File;Памылка ў файле
-ExecutiveProducer;Выканаўчы прадзюсар
-Exit;Выхад
-Exit_Hint;Выхад з праграмы
-Export;Экспарт
-Export_Hint;Экспарт дадзеных у розных фарматах
-Extensions;Выкарыстоўваецца ў
-Family;Сямейства
-Fax;Факс
-File;Файл
-File size;Памер файла
-File_Append;Дадаць да файла
-File_Created_Date;Файл створаны
-File_Created_Date_Local;Файл створаны (лакальна)
-File_Hint;Аперацыі з файламі
-File_Modified_Date;Файл зменены
-File_Modified_Date_Local;Файл зменены (лакальна)
-FileExtension;Пашырэнне
-FileName;Імя файла
-FileSize;Памер файла
-Folder;Тэчку
-Folder (R);Тэчка (Р)
-Folder (R)_Hint;Абярыце тэчку для апрацоўкі (са ўсімі ўкладзенымі тэчкамі)
-Folder (Recursively);Тэчка (рэкурсіўна)...
-Folder_Hint;Аперацыі з тэчкамі
-FolderName;Імя тэчкі
-Format;Фармат
-Format_Commercial;Камерцыйная назва
+Error_File;ÐŸÐ°Ð¼Ñ‹Ð»ÐºÐ° Ñž Ñ„Ð°Ð¹Ð»Ðµ
+ExecutiveProducer;Ð’Ñ‹ÐºÐ°Ð½Ð°ÑžÑ‡Ñ‹ Ð¿Ñ€Ð°Ð´Ð·ÑŽÑÐ°Ñ€
+Exit;Ð’Ñ‹Ñ…Ð°Ð´
+Exit_Hint;Ð’Ñ‹Ñ…Ð°Ð´ Ð· Ð¿Ñ€Ð°Ð³Ñ€Ð°Ð¼Ñ‹
+Export;Ð­ÐºÑÐ¿Ð°Ñ€Ñ‚
+Export_Hint;Ð­ÐºÑÐ¿Ð°Ñ€Ñ‚ Ð´Ð°Ð´Ð·ÐµÐ½Ñ‹Ñ… Ñƒ Ñ€Ð¾Ð·Ð½Ñ‹Ñ… Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ð°Ñ…
+Extensions;Ð’Ñ‹ÐºÐ°Ñ€Ñ‹ÑÑ‚Ð¾ÑžÐ²Ð°ÐµÑ†Ñ†Ð° Ñž
+Family;Ð¡ÑÐ¼ÐµÐ¹ÑÑ‚Ð²Ð°
+Fax;Ð¤Ð°ÐºÑ
+File;Ð¤Ð°Ð¹Ð»
+File size;ÐŸÐ°Ð¼ÐµÑ€ Ñ„Ð°Ð¹Ð»Ð°
+File_Append;Ð”Ð°Ð´Ð°Ñ†ÑŒ Ð´Ð° Ñ„Ð°Ð¹Ð»Ð°
+File_Created_Date;Ð¤Ð°Ð¹Ð» ÑÑ‚Ð²Ð¾Ñ€Ð°Ð½Ñ‹
+File_Created_Date_Local;Ð¤Ð°Ð¹Ð» ÑÑ‚Ð²Ð¾Ñ€Ð°Ð½Ñ‹ (Ð»Ð°ÐºÐ°Ð»ÑŒÐ½Ð°)
+File_Hint;ÐÐ¿ÐµÑ€Ð°Ñ†Ñ‹Ñ– Ð· Ñ„Ð°Ð¹Ð»Ð°Ð¼Ñ–
+File_Modified_Date;Ð¤Ð°Ð¹Ð» Ð·Ð¼ÐµÐ½ÐµÐ½Ñ‹
+File_Modified_Date_Local;Ð¤Ð°Ð¹Ð» Ð·Ð¼ÐµÐ½ÐµÐ½Ñ‹ (Ð»Ð°ÐºÐ°Ð»ÑŒÐ½Ð°)
+FileExtension;ÐŸÐ°ÑˆÑ‹Ñ€ÑÐ½Ð½Ðµ
+FileName;Ð†Ð¼Ñ Ñ„Ð°Ð¹Ð»Ð°
+FileSize;ÐŸÐ°Ð¼ÐµÑ€ Ñ„Ð°Ð¹Ð»Ð°
+Folder;Ð¢ÑÑ‡ÐºÑƒ
+Folder (R);Ð¢ÑÑ‡ÐºÐ° (Ð )
+Folder (R)_Hint;ÐÐ±ÑÑ€Ñ‹Ñ†Ðµ Ñ‚ÑÑ‡ÐºÑƒ Ð´Ð»Ñ Ð°Ð¿Ñ€Ð°Ñ†Ð¾ÑžÐºÑ– (ÑÐ° ÑžÑÑ–Ð¼Ñ– ÑžÐºÐ»Ð°Ð´Ð·ÐµÐ½Ñ‹Ð¼Ñ– Ñ‚ÑÑ‡ÐºÐ°Ð¼Ñ–)
+Folder (Recursively);Ð¢ÑÑ‡ÐºÐ° (Ñ€ÑÐºÑƒÑ€ÑÑ–ÑžÐ½Ð°)...
+Folder_Hint;ÐÐ¿ÐµÑ€Ð°Ñ†Ñ‹Ñ– Ð· Ñ‚ÑÑ‡ÐºÐ°Ð¼Ñ–
+FolderName;Ð†Ð¼Ñ Ñ‚ÑÑ‡ÐºÑ–
+Format;Ð¤Ð°Ñ€Ð¼Ð°Ñ‚
+Format_Commercial;ÐšÐ°Ð¼ÐµÑ€Ñ†Ñ‹Ð¹Ð½Ð°Ñ Ð½Ð°Ð·Ð²Ð°
 Format_Commercial_IfAny;
-Format_Description;Апісанне фармату
-Format_Info;Падрабязна аб фармаце
-Format_Profile;Прафайл фармату
-Format_Settings;Налады фармату
-Format_Settings_BVOP;Налада BVOP фармату
-Format_Settings_CABAC;Налада CABAC фармату
-Format_Settings_Emphasis;Выразнасць
-Format_Settings_Endianness;Налада Endianness фармату
-Format_Settings_Firm;Налада Firm фармату
-Format_Settings_Floor;Налада Floor фармату
-Format_Settings_FrameMode;Рэжым кадраў
-Format_Settings_GMC;Налада GMC фармату
+Format_Description;ÐÐ¿Ñ–ÑÐ°Ð½Ð½Ðµ Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñƒ
+Format_Info;ÐŸÐ°Ð´Ñ€Ð°Ð±ÑÐ·Ð½Ð° Ð°Ð± Ñ„Ð°Ñ€Ð¼Ð°Ñ†Ðµ
+Format_Profile;ÐŸÑ€Ð°Ñ„Ð°Ð¹Ð» Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñƒ
+Format_Settings;ÐÐ°Ð»Ð°Ð´Ñ‹ Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñƒ
+Format_Settings_BVOP;ÐÐ°Ð»Ð°Ð´Ð° BVOP Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñƒ
+Format_Settings_CABAC;ÐÐ°Ð»Ð°Ð´Ð° CABAC Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñƒ
+Format_Settings_Emphasis;Ð’Ñ‹Ñ€Ð°Ð·Ð½Ð°ÑÑ†ÑŒ
+Format_Settings_Endianness;ÐÐ°Ð»Ð°Ð´Ð° Endianness Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñƒ
+Format_Settings_Firm;ÐÐ°Ð»Ð°Ð´Ð° Firm Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñƒ
+Format_Settings_Floor;ÐÐ°Ð»Ð°Ð´Ð° Floor Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñƒ
+Format_Settings_FrameMode;Ð ÑÐ¶Ñ‹Ð¼ ÐºÐ°Ð´Ñ€Ð°Ñž
+Format_Settings_GMC;ÐÐ°Ð»Ð°Ð´Ð° GMC Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñƒ
 Format_Settings_GOP;
-Format_Settings_ITU;Налада ITU фармату
-Format_Settings_Law;Налада Law фармату
-Format_Settings_Matrix;Налада матрыцы фармату
-Format_Settings_Matrix_Custom;Выбарковая
-Format_Settings_Matrix_Default;Стандартная
-Format_Settings_Mode;Рэжым
+Format_Settings_ITU;ÐÐ°Ð»Ð°Ð´Ð° ITU Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñƒ
+Format_Settings_Law;ÐÐ°Ð»Ð°Ð´Ð° Law Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñƒ
+Format_Settings_Matrix;ÐÐ°Ð»Ð°Ð´Ð° Ð¼Ð°Ñ‚Ñ€Ñ‹Ñ†Ñ‹ Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñƒ
+Format_Settings_Matrix_Custom;Ð’Ñ‹Ð±Ð°Ñ€ÐºÐ¾Ð²Ð°Ñ
+Format_Settings_Matrix_Default;Ð¡Ñ‚Ð°Ð½Ð´Ð°Ñ€Ñ‚Ð½Ð°Ñ
+Format_Settings_Mode;Ð ÑÐ¶Ñ‹Ð¼
 Format_Settings_ModeExtension;
-Format_Settings_PacketBitStream;Налада пакетнага струменя дадзеных фармату
+Format_Settings_PacketBitStream;ÐÐ°Ð»Ð°Ð´Ð° Ð¿Ð°ÐºÐµÑ‚Ð½Ð°Ð³Ð° ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ Ð´Ð°Ð´Ð·ÐµÐ½Ñ‹Ñ… Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñƒ
 Format_Settings_PictureStructure;
-Format_Settings_PS;Налада PS фармату
-Format_Settings_Pulldown;Абраць налады фармату
-Format_Settings_QPel;Налада QPel фармату
-Format_Settings_RefFrames;Налада ReFrames фармату
-Format_Settings_SBR;Налада SBR фармату
-Format_Settings_Sign;Налада Sign фармату
+Format_Settings_PS;ÐÐ°Ð»Ð°Ð´Ð° PS Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñƒ
+Format_Settings_Pulldown;ÐÐ±Ñ€Ð°Ñ†ÑŒ Ð½Ð°Ð»Ð°Ð´Ñ‹ Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñƒ
+Format_Settings_QPel;ÐÐ°Ð»Ð°Ð´Ð° QPel Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñƒ
+Format_Settings_RefFrames;ÐÐ°Ð»Ð°Ð´Ð° ReFrames Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñƒ
+Format_Settings_SBR;ÐÐ°Ð»Ð°Ð´Ð° SBR Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñƒ
+Format_Settings_Sign;ÐÐ°Ð»Ð°Ð´Ð° Sign Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñƒ
 Format_Settings_Wrapping;
-Format_Url;Спасылка на фармат
-Format_Version;Версія фармату
+Format_Url;Ð¡Ð¿Ð°ÑÑ‹Ð»ÐºÐ° Ð½Ð° Ñ„Ð°Ñ€Ð¼Ð°Ñ‚
+Format_Version;Ð’ÐµÑ€ÑÑ–Ñ Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñƒ
 FpaManufacturer;
 FpaPass;
 FpaVersion;
-FrameCount;Лічыльнік кадраў
-FrameRate;Частата кадраў
-FrameRate_Maximum;Максімальная частата кадраў
-FrameRate_Minimum;Мінімальная частата кадраў
-FrameRate_Mode;Рэжым частаты кадраў
-FrameRate_Mode_CFR;Сталы
-FrameRate_Mode_VFR;Пераменны
-FrameRate_Nominal;Намінальная частата кадраў
-FrameRate_Original;Першасная частата кадраў
-General;Агульнае
-Genre;Жанр
+FrameCount;Ð›Ñ–Ñ‡Ñ‹Ð»ÑŒÐ½Ñ–Ðº ÐºÐ°Ð´Ñ€Ð°Ñž
+FrameRate;Ð§Ð°ÑÑ‚Ð°Ñ‚Ð° ÐºÐ°Ð´Ñ€Ð°Ñž
+FrameRate_Maximum;ÐœÐ°ÐºÑÑ–Ð¼Ð°Ð»ÑŒÐ½Ð°Ñ Ñ‡Ð°ÑÑ‚Ð°Ñ‚Ð° ÐºÐ°Ð´Ñ€Ð°Ñž
+FrameRate_Minimum;ÐœÑ–Ð½Ñ–Ð¼Ð°Ð»ÑŒÐ½Ð°Ñ Ñ‡Ð°ÑÑ‚Ð°Ñ‚Ð° ÐºÐ°Ð´Ñ€Ð°Ñž
+FrameRate_Mode;Ð ÑÐ¶Ñ‹Ð¼ Ñ‡Ð°ÑÑ‚Ð°Ñ‚Ñ‹ ÐºÐ°Ð´Ñ€Ð°Ñž
+FrameRate_Mode_CFR;Ð¡Ñ‚Ð°Ð»Ñ‹
+FrameRate_Mode_VFR;ÐŸÐµÑ€Ð°Ð¼ÐµÐ½Ð½Ñ‹
+FrameRate_Nominal;ÐÐ°Ð¼Ñ–Ð½Ð°Ð»ÑŒÐ½Ð°Ñ Ñ‡Ð°ÑÑ‚Ð°Ñ‚Ð° ÐºÐ°Ð´Ñ€Ð°Ñž
+FrameRate_Original;ÐŸÐµÑ€ÑˆÐ°ÑÐ½Ð°Ñ Ñ‡Ð°ÑÑ‚Ð°Ñ‚Ð° ÐºÐ°Ð´Ñ€Ð°Ñž
+General;ÐÐ³ÑƒÐ»ÑŒÐ½Ð°Ðµ
+Genre;Ð–Ð°Ð½Ñ€
 Genre_000;Blues
 Genre_001;Classic Rock
 Genre_002;Country
@@ -576,47 +576,47 @@ Genre_188;
 Genre_189;
 Genre_190;
 Genre_191;
-Go to WebSite;Перайсці на сайт
-Grouping;Групаванне
-h;г.
-Header file;Стварыць загаловак
-Height;Вышыня
+Go to WebSite;ÐŸÐµÑ€Ð°Ð¹ÑÑ†Ñ– Ð½Ð° ÑÐ°Ð¹Ñ‚
+Grouping;Ð“Ñ€ÑƒÐ¿Ð°Ð²Ð°Ð½Ð½Ðµ
+h;Ð³.
+Header file;Ð¡Ñ‚Ð²Ð°Ñ€Ñ‹Ñ†ÑŒ Ð·Ð°Ð³Ð°Ð»Ð¾Ð²Ð°Ðº
+Height;Ð’Ñ‹ÑˆÑ‹Ð½Ñ
 Height_Original;
-Help;Дапамога
-Hint;Падказка
-How many audio streams?;Колькасць аўдыёструменяў?
-How many chapters streams?;Колькасць струменяў падзелаў?
-How many text streams?;Колькасць тэкставых струменяў?
-How many video streams?;Колькасць відэаструменяў?
+Help;Ð”Ð°Ð¿Ð°Ð¼Ð¾Ð³Ð°
+Hint;ÐŸÐ°Ð´ÐºÐ°Ð·ÐºÐ°
+How many audio streams?;ÐšÐ¾Ð»ÑŒÐºÐ°ÑÑ†ÑŒ Ð°ÑžÐ´Ñ‹Ñ‘ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑÑž?
+How many chapters streams?;ÐšÐ¾Ð»ÑŒÐºÐ°ÑÑ†ÑŒ ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑÑž Ð¿Ð°Ð´Ð·ÐµÐ»Ð°Ñž?
+How many text streams?;ÐšÐ¾Ð»ÑŒÐºÐ°ÑÑ†ÑŒ Ñ‚ÑÐºÑÑ‚Ð°Ð²Ñ‹Ñ… ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑÑž?
+How many video streams?;ÐšÐ¾Ð»ÑŒÐºÐ°ÑÑ†ÑŒ Ð²Ñ–Ð´ÑÐ°ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑÑž?
 HTML;HTML
-ID;Ідэнтыфікатар
+ID;Ð†Ð´ÑÐ½Ñ‚Ñ‹Ñ„Ñ–ÐºÐ°Ñ‚Ð°Ñ€
 IdentClockStart;
-Image;Малюнкі
-Image stream(s);Струмень(і) малюнкаў
-Image_Codec_List;Кодэкі малюнкаў
-ImageCount;Коль-ць струменяў малюнкаў
-Info;Інфармацыя
-Instruments;Прылады
-Interlaced_BFF;Ніжняе поле першае
-Interlaced_Interlaced;Празрадковая
-Interlaced_PPF;Прагрэсіўная
-Interlaced_Progressive;Прагрэсіўная
-Interlaced_TFF;Верхняе поле першае
-Interlacement;Перапляценне
-Interleave_Duration;Працягласць прамежку
-Interleave_Preload;Час перадзагрузкі прамежку
-Interleave_VideoFrames;Працягласць прамежку
-Interleaved;Якая чаргуецца
-InternetMediaType;Інтэрнэт-тып носьбіта
+Image;ÐœÐ°Ð»ÑŽÐ½ÐºÑ–
+Image stream(s);Ð¡Ñ‚Ñ€ÑƒÐ¼ÐµÐ½ÑŒ(Ñ–) Ð¼Ð°Ð»ÑŽÐ½ÐºÐ°Ñž
+Image_Codec_List;ÐšÐ¾Ð´ÑÐºÑ– Ð¼Ð°Ð»ÑŽÐ½ÐºÐ°Ñž
+ImageCount;ÐšÐ¾Ð»ÑŒ-Ñ†ÑŒ ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑÑž Ð¼Ð°Ð»ÑŽÐ½ÐºÐ°Ñž
+Info;Ð†Ð½Ñ„Ð°Ñ€Ð¼Ð°Ñ†Ñ‹Ñ
+Instruments;ÐŸÑ€Ñ‹Ð»Ð°Ð´Ñ‹
+Interlaced_BFF;ÐÑ–Ð¶Ð½ÑÐµ Ð¿Ð¾Ð»Ðµ Ð¿ÐµÑ€ÑˆÐ°Ðµ
+Interlaced_Interlaced;ÐŸÑ€Ð°Ð·Ñ€Ð°Ð´ÐºÐ¾Ð²Ð°Ñ
+Interlaced_PPF;ÐŸÑ€Ð°Ð³Ñ€ÑÑÑ–ÑžÐ½Ð°Ñ
+Interlaced_Progressive;ÐŸÑ€Ð°Ð³Ñ€ÑÑÑ–ÑžÐ½Ð°Ñ
+Interlaced_TFF;Ð’ÐµÑ€Ñ…Ð½ÑÐµ Ð¿Ð¾Ð»Ðµ Ð¿ÐµÑ€ÑˆÐ°Ðµ
+Interlacement;ÐŸÐµÑ€Ð°Ð¿Ð»ÑÑ†ÐµÐ½Ð½Ðµ
+Interleave_Duration;ÐŸÑ€Ð°Ñ†ÑÐ³Ð»Ð°ÑÑ†ÑŒ Ð¿Ñ€Ð°Ð¼ÐµÐ¶ÐºÑƒ
+Interleave_Preload;Ð§Ð°Ñ Ð¿ÐµÑ€Ð°Ð´Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÑ– Ð¿Ñ€Ð°Ð¼ÐµÐ¶ÐºÑƒ
+Interleave_VideoFrames;ÐŸÑ€Ð°Ñ†ÑÐ³Ð»Ð°ÑÑ†ÑŒ Ð¿Ñ€Ð°Ð¼ÐµÐ¶ÐºÑƒ
+Interleaved;Ð¯ÐºÐ°Ñ Ñ‡Ð°Ñ€Ð³ÑƒÐµÑ†Ñ†Ð°
+InternetMediaType;Ð†Ð½Ñ‚ÑÑ€Ð½ÑÑ‚-Ñ‚Ñ‹Ð¿ Ð½Ð¾ÑÑŒÐ±Ñ–Ñ‚Ð°
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-Keywords;Ключавыя словы
-Known codecs;Вядомыя кодэкі
-Known formats;Вядомыя фарматы
-Known parameters;Вядомыя параметры
-Label;Пазнака
-Language;Мова
+Keywords;ÐšÐ»ÑŽÑ‡Ð°Ð²Ñ‹Ñ ÑÐ»Ð¾Ð²Ñ‹
+Known codecs;Ð’ÑÐ´Ð¾Ð¼Ñ‹Ñ ÐºÐ¾Ð´ÑÐºÑ–
+Known formats;Ð’ÑÐ´Ð¾Ð¼Ñ‹Ñ Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñ‹
+Known parameters;Ð’ÑÐ´Ð¾Ð¼Ñ‹Ñ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹
+Label;ÐŸÐ°Ð·Ð½Ð°ÐºÐ°
+Language;ÐœÐ¾Ð²Ð°
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -689,7 +689,7 @@ Language_ie;Interlingue
 Language_ig;Igbo
 Language_ii;Sichuan Yi
 Language_ik;Inupiaq
-Language_Info;Аб мове
+Language_Info;ÐÐ± Ð¼Ð¾Ð²Ðµ
 Language_io;Ido
 Language_is;Icelandic
 Language_it;Italian
@@ -727,11 +727,11 @@ Language_mk;Macedonian
 Language_ml;Malayalam
 Language_mn;Mongolian
 Language_mo;Moldavian
-Language_More;Яшчэ мовы
+Language_More;Ð¯ÑˆÑ‡Ñ Ð¼Ð¾Ð²Ñ‹
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
-Language_mul;Шматмоўнасць
+Language_mul;Ð¨Ð¼Ð°Ñ‚Ð¼Ð¾ÑžÐ½Ð°ÑÑ†ÑŒ
 Language_my;Burmese
 Language_na;Nauru
 Language_nb;Norwegian Bokmal
@@ -810,285 +810,286 @@ Language_zh;Chinese
 Language_zh-cn;Chinese (China)
 Language_zh-tw;Chinese (Taiwan)
 Language_zu;Zulu
-LawRating;Абмежаванне правоў
+LawRating;ÐÐ±Ð¼ÐµÐ¶Ð°Ð²Ð°Ð½Ð½Ðµ Ð¿Ñ€Ð°Ð²Ð¾Ñž
 LCCN;LCCN
-Library;Бібліятэка
-Lightness;Яркасць
+Library;Ð‘Ñ–Ð±Ð»Ñ–ÑÑ‚ÑÐºÐ°
+Lightness;Ð¯Ñ€ÐºÐ°ÑÑ†ÑŒ
 LineUpStart;
-List;Спіс
-Lyricist;Паэт-песеннік
-Lyrics;Тэкст песен
-Mastered_Date;Дата майстарынгу
-MasteredBy;Майстарынг
+List;Ð¡Ð¿Ñ–Ñ
+Lyricist;ÐŸÐ°ÑÑ‚-Ð¿ÐµÑÐµÐ½Ð½Ñ–Ðº
+Lyrics;Ð¢ÑÐºÑÑ‚ Ð¿ÐµÑÐµÐ½
+Mastered_Date;Ð”Ð°Ñ‚Ð° Ð¼Ð°Ð¹ÑÑ‚Ð°Ñ€Ñ‹Ð½Ð³Ñƒ
+MasteredBy;ÐœÐ°Ð¹ÑÑ‚Ð°Ñ€Ñ‹Ð½Ð³
 Matrix_Channel(s);
 Matrix_ChannelPositions;
-matrix_coefficients;Каэфіцыенты матрыцы
+matrix_coefficients;ÐšÐ°ÑÑ„Ñ–Ñ†Ñ‹ÐµÐ½Ñ‚Ñ‹ Ð¼Ð°Ñ‚Ñ€Ñ‹Ñ†Ñ‹
 Matrix_Format;
-MediaInfo_About;Адлюстроўвае дэталёвую інфармацыю\r\nпра мультымедыя-файлы Matroska, OGG (уключаючы OGM)\r\nMPEG1 (уключаючы VCD), MPEG2 (уключаючы DVD і SVCD), MPEG4 (уключаючы iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (уключаючы WMV, WMA)\r\nMicrosoft RIFF (уключаючы AVI, WAV, DivX)\r\nгукавыя фарматы (AC3, DTS, SSC, AU, AIFF)
-Menu;Меню
-Menu stream(s);Меню струменяў
-Menu_Codec_List;Меню кодэкаў
-Menu_Hint;Дадатковыя магчымасці
-Menu_No;Няма меню
-MenuCount;Коль-ць струменяў меню
-MenuID;Ідэнтыфікатар меню
-mn;хв.
-Mood;Настрой
-More;Яшчэ
-Movie;Фільм
-ms;мс
+MediaInfo_About;ÐÐ´Ð»ÑŽÑÑ‚Ñ€Ð¾ÑžÐ²Ð°Ðµ Ð´ÑÑ‚Ð°Ð»Ñ‘Ð²ÑƒÑŽ Ñ–Ð½Ñ„Ð°Ñ€Ð¼Ð°Ñ†Ñ‹ÑŽ\r\nÐ¿Ñ€Ð° Ð¼ÑƒÐ»ÑŒÑ‚Ñ‹Ð¼ÐµÐ´Ñ‹Ñ-Ñ„Ð°Ð¹Ð»Ñ‹ Matroska, OGG (ÑƒÐºÐ»ÑŽÑ‡Ð°ÑŽÑ‡Ñ‹ OGM)\r\nMPEG1 (ÑƒÐºÐ»ÑŽÑ‡Ð°ÑŽÑ‡Ñ‹ VCD), MPEG2 (ÑƒÐºÐ»ÑŽÑ‡Ð°ÑŽÑ‡Ñ‹ DVD Ñ– SVCD), MPEG4 (ÑƒÐºÐ»ÑŽÑ‡Ð°ÑŽÑ‡Ñ‹ iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (ÑƒÐºÐ»ÑŽÑ‡Ð°ÑŽÑ‡Ñ‹ WMV, WMA)\r\nMicrosoft RIFF (ÑƒÐºÐ»ÑŽÑ‡Ð°ÑŽÑ‡Ñ‹ AVI, WAV, DivX)\r\nÐ³ÑƒÐºÐ°Ð²Ñ‹Ñ Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñ‹ (AC3, DTS, SSC, AU, AIFF)
+Menu;ÐœÐµÐ½ÑŽ
+Menu stream(s);ÐœÐµÐ½ÑŽ ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑÑž
+Menu_Codec_List;ÐœÐµÐ½ÑŽ ÐºÐ¾Ð´ÑÐºÐ°Ñž
+Menu_Hint;Ð”Ð°Ð´Ð°Ñ‚ÐºÐ¾Ð²Ñ‹Ñ Ð¼Ð°Ð³Ñ‡Ñ‹Ð¼Ð°ÑÑ†Ñ–
+Menu_No;ÐÑÐ¼Ð° Ð¼ÐµÐ½ÑŽ
+MenuCount;ÐšÐ¾Ð»ÑŒ-Ñ†ÑŒ ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑÑž Ð¼ÐµÐ½ÑŽ
+MenuID;Ð†Ð´ÑÐ½Ñ‚Ñ‹Ñ„Ñ–ÐºÐ°Ñ‚Ð°Ñ€ Ð¼ÐµÐ½ÑŽ
+mn;Ñ…Ð².
+Mood;ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹
+More;Ð¯ÑˆÑ‡Ñ
+Movie;Ð¤Ñ–Ð»ÑŒÐ¼
+ms;Ð¼Ñ
 MSDI;MSDI
-MusicBy;Кампазітар
-MuxingMode;Рэжым змешвання
-MuxingMode_MoreInfo;Рэжым змешвання, болей інфармацыі
-MuxingMode_PackedBitstream;Сціснуты бітавы струмень
-Name;Імя
-Nationality;Нацыянальнасць
-NetworkName;Сеткавае імя
-New;Новы
-Newest version;Праверыць на абнаўленне (патрабуецца падлучэнне да інтэрнэту)
-NewVersion_Menu;Даступная новая версія
-NewVersion_Question_Content;Даступная новая версія (v%Version%, жадаеце запампаваць?
-NewVersion_Question_Title;Новая версія выпушчана!
-No;Не
-Not yet;Яшчэ няма
-NumColors;Колькасць колераў
-OK;Добра
-One output file per input file;Адзін файл на кожны зыходны
-Open;Адкрыць
-OpenCandy_01;Загружаецца ________
-OpenCandy_02;__% выканана
-OpenCandy_03;Выхад у інтэрнэт немагчымы
-OpenCandy_04;________ запампавана
-OpenCandy_05;Пстрыкніце для ўсталёўкі ________
-OpenCandy_06;Вы сапраўды жадаеце перапыніць усталёўку?\r\nКалі вы жадаеце адкласці ўсталёўку, абярыце 'Не'.\r\nПрым.: Вы можаце абраць Выйсці з меню, каб адкласці ўсталёўку да наступнай перазагрузкі.
-OpenCandy_07;Загрузка ________ была прыпыненая.\r\nКлікніце па значку ў трэі для аднаўлення загрузкі.
-OpenCandy_08;Выяўленая крытычная памылка. Усталёўка _________ будзе перапынена.
-OpenCandy_09;Прыпыніць загрузку
-OpenCandy_10;Адмяніць усталёўку
-OpenCandy_11;Працягнуць загрузку
-OpenCandy_12;Выйсці з усталёўкі
-OpenCandy_13;___________ - рэкамендавана ____________
-OpenCandy_14;Загружаецца _________
-OpenCandy_15;___________, праграма, рэкамендаваная ___________, цяпер загружаецца па Вашым запыце. Мы дамо шляхту, калі яна будзе гатовая для ўсталёўкі.
-OpenCandy_16;___________ гатовая для ўсталёўкі
-OpenCandy_17;___________ цалкам загружаная. Націсніце 'Усталёўка' для пачатку працэсу.
-OpenCandy_18;___________ з ___________ загружана
-OpenCandy_19;Распрацавана OpenCandy
-OpenCandy_20;Дадатковая інфармацыя на OpenCandy.com
-OpenCandy_21;Усталёўка
-OpenCandy_22;Усталёўка ___________
-OpenCandy_23;Гэта перапыніць усталёўку ___________\r\nВы сапраўды жадаеце выйсці?
-OpenCandy_24;Паўза
-OpenCandy_25;Загрузка была прыпыненая. Націсніце 'Працягнуць' для аднаўлення.
-OpenCandy_26;Працягнуць
-OpenCandy_27;Усталёўка
-OpenCandy_28;Прыпыніць загрузку
-OpenCandy_29;Працягнуць загрузку
-OpenCandy_30;Адмяніць усталёўку
-OpenCandy_31;Абярыце параметры ўсталёўкі
-OpenCandy_32;Усталёўка ___________
-OpenCandy_33;Не ўсталёўваць
-OpenCandy_34;Абярыце параметры ўсталёўкі
-OpenCandy_35;______ рэкамендуюць гэтую праграму
-OpenCandy_36;Ваша бягучая ўсталеўка не будзе перапынена
+MusicBy;ÐšÐ°Ð¼Ð¿Ð°Ð·Ñ–Ñ‚Ð°Ñ€
+MuxingMode;Ð ÑÐ¶Ñ‹Ð¼ Ð·Ð¼ÐµÑˆÐ²Ð°Ð½Ð½Ñ
+MuxingMode_MoreInfo;Ð ÑÐ¶Ñ‹Ð¼ Ð·Ð¼ÐµÑˆÐ²Ð°Ð½Ð½Ñ, Ð±Ð¾Ð»ÐµÐ¹ Ñ–Ð½Ñ„Ð°Ñ€Ð¼Ð°Ñ†Ñ‹Ñ–
+MuxingMode_PackedBitstream;Ð¡Ñ†Ñ–ÑÐ½ÑƒÑ‚Ñ‹ Ð±Ñ–Ñ‚Ð°Ð²Ñ‹ ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑŒ
+Name;Ð†Ð¼Ñ
+Nationality;ÐÐ°Ñ†Ñ‹ÑÐ½Ð°Ð»ÑŒÐ½Ð°ÑÑ†ÑŒ
+NetworkName;Ð¡ÐµÑ‚ÐºÐ°Ð²Ð°Ðµ Ñ–Ð¼Ñ
+New;ÐÐ¾Ð²Ñ‹
+Newest version;ÐŸÑ€Ð°Ð²ÐµÑ€Ñ‹Ñ†ÑŒ Ð½Ð° Ð°Ð±Ð½Ð°ÑžÐ»ÐµÐ½Ð½Ðµ (Ð¿Ð°Ñ‚Ñ€Ð°Ð±ÑƒÐµÑ†Ñ†Ð° Ð¿Ð°Ð´Ð»ÑƒÑ‡ÑÐ½Ð½Ðµ Ð´Ð° Ñ–Ð½Ñ‚ÑÑ€Ð½ÑÑ‚Ñƒ)
+NewVersion_Menu;Ð”Ð°ÑÑ‚ÑƒÐ¿Ð½Ð°Ñ Ð½Ð¾Ð²Ð°Ñ Ð²ÐµÑ€ÑÑ–Ñ
+NewVersion_Question_Content;Ð”Ð°ÑÑ‚ÑƒÐ¿Ð½Ð°Ñ Ð½Ð¾Ð²Ð°Ñ Ð²ÐµÑ€ÑÑ–Ñ (v%Version%, Ð¶Ð°Ð´Ð°ÐµÑ†Ðµ Ð·Ð°Ð¿Ð°Ð¼Ð¿Ð°Ð²Ð°Ñ†ÑŒ?
+NewVersion_Question_Title;ÐÐ¾Ð²Ð°Ñ Ð²ÐµÑ€ÑÑ–Ñ Ð²Ñ‹Ð¿ÑƒÑˆÑ‡Ð°Ð½Ð°!
+No;ÐÐµ
+Not yet;Ð¯ÑˆÑ‡Ñ Ð½ÑÐ¼Ð°
+NumColors;ÐšÐ¾Ð»ÑŒÐºÐ°ÑÑ†ÑŒ ÐºÐ¾Ð»ÐµÑ€Ð°Ñž
+OK;Ð”Ð¾Ð±Ñ€Ð°
+One output file per input file;ÐÐ´Ð·Ñ–Ð½ Ñ„Ð°Ð¹Ð» Ð½Ð° ÐºÐ¾Ð¶Ð½Ñ‹ Ð·Ñ‹Ñ…Ð¾Ð´Ð½Ñ‹
+Open;ÐÐ´ÐºÑ€Ñ‹Ñ†ÑŒ
+OpenCandy_01;Ð—Ð°Ð³Ñ€ÑƒÐ¶Ð°ÐµÑ†Ñ†Ð° ________
+OpenCandy_02;__% Ð²Ñ‹ÐºÐ°Ð½Ð°Ð½Ð°
+OpenCandy_03;Ð’Ñ‹Ñ…Ð°Ð´ Ñƒ Ñ–Ð½Ñ‚ÑÑ€Ð½ÑÑ‚ Ð½ÐµÐ¼Ð°Ð³Ñ‡Ñ‹Ð¼Ñ‹
+OpenCandy_04;________ Ð·Ð°Ð¿Ð°Ð¼Ð¿Ð°Ð²Ð°Ð½Ð°
+OpenCandy_05;ÐŸÑÑ‚Ñ€Ñ‹ÐºÐ½Ñ–Ñ†Ðµ Ð´Ð»Ñ ÑžÑÑ‚Ð°Ð»Ñ‘ÑžÐºÑ– ________
+OpenCandy_06;Ð’Ñ‹ ÑÐ°Ð¿Ñ€Ð°ÑžÐ´Ñ‹ Ð¶Ð°Ð´Ð°ÐµÑ†Ðµ Ð¿ÐµÑ€Ð°Ð¿Ñ‹Ð½Ñ–Ñ†ÑŒ ÑƒÑÑ‚Ð°Ð»Ñ‘ÑžÐºÑƒ?\r\nÐšÐ°Ð»Ñ– Ð²Ñ‹ Ð¶Ð°Ð´Ð°ÐµÑ†Ðµ Ð°Ð´ÐºÐ»Ð°ÑÑ†Ñ– ÑžÑÑ‚Ð°Ð»Ñ‘ÑžÐºÑƒ, Ð°Ð±ÑÑ€Ñ‹Ñ†Ðµ 'ÐÐµ'.\r\nÐŸÑ€Ñ‹Ð¼.: Ð’Ñ‹ Ð¼Ð¾Ð¶Ð°Ñ†Ðµ Ð°Ð±Ñ€Ð°Ñ†ÑŒ Ð’Ñ‹Ð¹ÑÑ†Ñ– Ð· Ð¼ÐµÐ½ÑŽ, ÐºÐ°Ð± Ð°Ð´ÐºÐ»Ð°ÑÑ†Ñ– ÑžÑÑ‚Ð°Ð»Ñ‘ÑžÐºÑƒ Ð´Ð° Ð½Ð°ÑÑ‚ÑƒÐ¿Ð½Ð°Ð¹ Ð¿ÐµÑ€Ð°Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÑ–.
+OpenCandy_07;Ð—Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° ________ Ð±Ñ‹Ð»Ð° Ð¿Ñ€Ñ‹Ð¿Ñ‹Ð½ÐµÐ½Ð°Ñ.\r\nÐšÐ»Ñ–ÐºÐ½Ñ–Ñ†Ðµ Ð¿Ð° Ð·Ð½Ð°Ñ‡ÐºÑƒ Ñž Ñ‚Ñ€ÑÑ– Ð´Ð»Ñ Ð°Ð´Ð½Ð°ÑžÐ»ÐµÐ½Ð½Ñ Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÑ–.
+OpenCandy_08;Ð’Ñ‹ÑÑžÐ»ÐµÐ½Ð°Ñ ÐºÑ€Ñ‹Ñ‚Ñ‹Ñ‡Ð½Ð°Ñ Ð¿Ð°Ð¼Ñ‹Ð»ÐºÐ°. Ð£ÑÑ‚Ð°Ð»Ñ‘ÑžÐºÐ° _________ Ð±ÑƒÐ´Ð·Ðµ Ð¿ÐµÑ€Ð°Ð¿Ñ‹Ð½ÐµÐ½Ð°.
+OpenCandy_09;ÐŸÑ€Ñ‹Ð¿Ñ‹Ð½Ñ–Ñ†ÑŒ Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÑƒ
+OpenCandy_10;ÐÐ´Ð¼ÑÐ½Ñ–Ñ†ÑŒ ÑƒÑÑ‚Ð°Ð»Ñ‘ÑžÐºÑƒ
+OpenCandy_11;ÐŸÑ€Ð°Ñ†ÑÐ³Ð½ÑƒÑ†ÑŒ Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÑƒ
+OpenCandy_12;Ð’Ñ‹Ð¹ÑÑ†Ñ– Ð· ÑƒÑÑ‚Ð°Ð»Ñ‘ÑžÐºÑ–
+OpenCandy_13;___________ - Ñ€ÑÐºÐ°Ð¼ÐµÐ½Ð´Ð°Ð²Ð°Ð½Ð° ____________
+OpenCandy_14;Ð—Ð°Ð³Ñ€ÑƒÐ¶Ð°ÐµÑ†Ñ†Ð° _________
+OpenCandy_15;___________, Ð¿Ñ€Ð°Ð³Ñ€Ð°Ð¼Ð°, Ñ€ÑÐºÐ°Ð¼ÐµÐ½Ð´Ð°Ð²Ð°Ð½Ð°Ñ ___________, Ñ†ÑÐ¿ÐµÑ€ Ð·Ð°Ð³Ñ€ÑƒÐ¶Ð°ÐµÑ†Ñ†Ð° Ð¿Ð° Ð’Ð°ÑˆÑ‹Ð¼ Ð·Ð°Ð¿Ñ‹Ñ†Ðµ. ÐœÑ‹ Ð´Ð°Ð¼Ð¾ ÑˆÐ»ÑÑ…Ñ‚Ñƒ, ÐºÐ°Ð»Ñ– ÑÐ½Ð° Ð±ÑƒÐ´Ð·Ðµ Ð³Ð°Ñ‚Ð¾Ð²Ð°Ñ Ð´Ð»Ñ ÑžÑÑ‚Ð°Ð»Ñ‘ÑžÐºÑ–.
+OpenCandy_16;___________ Ð³Ð°Ñ‚Ð¾Ð²Ð°Ñ Ð´Ð»Ñ ÑžÑÑ‚Ð°Ð»Ñ‘ÑžÐºÑ–
+OpenCandy_17;___________ Ñ†Ð°Ð»ÐºÐ°Ð¼ Ð·Ð°Ð³Ñ€ÑƒÐ¶Ð°Ð½Ð°Ñ. ÐÐ°Ñ†Ñ–ÑÐ½Ñ–Ñ†Ðµ 'Ð£ÑÑ‚Ð°Ð»Ñ‘ÑžÐºÐ°' Ð´Ð»Ñ Ð¿Ð°Ñ‡Ð°Ñ‚ÐºÑƒ Ð¿Ñ€Ð°Ñ†ÑÑÑƒ.
+OpenCandy_18;___________ Ð· ___________ Ð·Ð°Ð³Ñ€ÑƒÐ¶Ð°Ð½Ð°
+OpenCandy_19;Ð Ð°ÑÐ¿Ñ€Ð°Ñ†Ð°Ð²Ð°Ð½Ð° OpenCandy
+OpenCandy_20;Ð”Ð°Ð´Ð°Ñ‚ÐºÐ¾Ð²Ð°Ñ Ñ–Ð½Ñ„Ð°Ñ€Ð¼Ð°Ñ†Ñ‹Ñ Ð½Ð° OpenCandy.com
+OpenCandy_21;Ð£ÑÑ‚Ð°Ð»Ñ‘ÑžÐºÐ°
+OpenCandy_22;Ð£ÑÑ‚Ð°Ð»Ñ‘ÑžÐºÐ° ___________
+OpenCandy_23;Ð“ÑÑ‚Ð° Ð¿ÐµÑ€Ð°Ð¿Ñ‹Ð½Ñ–Ñ†ÑŒ ÑƒÑÑ‚Ð°Ð»Ñ‘ÑžÐºÑƒ ___________\r\nÐ’Ñ‹ ÑÐ°Ð¿Ñ€Ð°ÑžÐ´Ñ‹ Ð¶Ð°Ð´Ð°ÐµÑ†Ðµ Ð²Ñ‹Ð¹ÑÑ†Ñ–?
+OpenCandy_24;ÐŸÐ°ÑžÐ·Ð°
+OpenCandy_25;Ð—Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° Ð±Ñ‹Ð»Ð° Ð¿Ñ€Ñ‹Ð¿Ñ‹Ð½ÐµÐ½Ð°Ñ. ÐÐ°Ñ†Ñ–ÑÐ½Ñ–Ñ†Ðµ 'ÐŸÑ€Ð°Ñ†ÑÐ³Ð½ÑƒÑ†ÑŒ' Ð´Ð»Ñ Ð°Ð´Ð½Ð°ÑžÐ»ÐµÐ½Ð½Ñ.
+OpenCandy_26;ÐŸÑ€Ð°Ñ†ÑÐ³Ð½ÑƒÑ†ÑŒ
+OpenCandy_27;Ð£ÑÑ‚Ð°Ð»Ñ‘ÑžÐºÐ°
+OpenCandy_28;ÐŸÑ€Ñ‹Ð¿Ñ‹Ð½Ñ–Ñ†ÑŒ Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÑƒ
+OpenCandy_29;ÐŸÑ€Ð°Ñ†ÑÐ³Ð½ÑƒÑ†ÑŒ Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÑƒ
+OpenCandy_30;ÐÐ´Ð¼ÑÐ½Ñ–Ñ†ÑŒ ÑƒÑÑ‚Ð°Ð»Ñ‘ÑžÐºÑƒ
+OpenCandy_31;ÐÐ±ÑÑ€Ñ‹Ñ†Ðµ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹ ÑžÑÑ‚Ð°Ð»Ñ‘ÑžÐºÑ–
+OpenCandy_32;Ð£ÑÑ‚Ð°Ð»Ñ‘ÑžÐºÐ° ___________
+OpenCandy_33;ÐÐµ ÑžÑÑ‚Ð°Ð»Ñ‘ÑžÐ²Ð°Ñ†ÑŒ
+OpenCandy_34;ÐÐ±ÑÑ€Ñ‹Ñ†Ðµ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹ ÑžÑÑ‚Ð°Ð»Ñ‘ÑžÐºÑ–
+OpenCandy_35;______ Ñ€ÑÐºÐ°Ð¼ÐµÐ½Ð´ÑƒÑŽÑ†ÑŒ Ð³ÑÑ‚ÑƒÑŽ Ð¿Ñ€Ð°Ð³Ñ€Ð°Ð¼Ñƒ
+OpenCandy_36;Ð’Ð°ÑˆÐ° Ð±ÑÐ³ÑƒÑ‡Ð°Ñ ÑžÑÑ‚Ð°Ð»ÐµÑžÐºÐ° Ð½Ðµ Ð±ÑƒÐ´Ð·Ðµ Ð¿ÐµÑ€Ð°Ð¿Ñ‹Ð½ÐµÐ½Ð°
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
-Options;Параметры
-Options_Hint;Налады праграмы
-Original;Арыгінал
-OriginalNetworkName;Арыгінальнае сеткавае імя
-OriginalSourceForm;Фармат арыгінала
-OriginalSourceMedium;Носьбіт арыгінала
+Options;ÐŸÐ°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹
+Options_Hint;ÐÐ°Ð»Ð°Ð´Ñ‹ Ð¿Ñ€Ð°Ð³Ñ€Ð°Ð¼Ñ‹
+Original;ÐÑ€Ñ‹Ð³Ñ–Ð½Ð°Ð»
+OriginalNetworkName;ÐÑ€Ñ‹Ð³Ñ–Ð½Ð°Ð»ÑŒÐ½Ð°Ðµ ÑÐµÑ‚ÐºÐ°Ð²Ð°Ðµ Ñ–Ð¼Ñ
+OriginalSourceForm;Ð¤Ð°Ñ€Ð¼Ð°Ñ‚ Ð°Ñ€Ñ‹Ð³Ñ–Ð½Ð°Ð»Ð°
+OriginalSourceMedium;ÐÐ¾ÑÑŒÐ±Ñ–Ñ‚ Ð°Ñ€Ñ‹Ð³Ñ–Ð½Ð°Ð»Ð°
 Originator;
-Other;Іншае
+Other;Ð†Ð½ÑˆÐ°Ðµ
 OtherIdentifier;
 OtherIdentifierType;
-Output;Выхад
-Output format;Фармат вываду
-OverallBitRate;Агульны струмень
-OverallBitRate_Maximum;Максімальны агульны бітрэйт
-OverallBitRate_Minimum;Мінімальны агульны бітрэйт
-OverallBitRate_Mode;Рэжым агульнага бітрэйту
-OverallBitRate_Nominal;Намінальны агульны бітрэйт
-Part;Частка
-Part_Count;Коль-ць частак
+Output;Ð’Ñ‹Ñ…Ð°Ð´
+Output format;Ð¤Ð°Ñ€Ð¼Ð°Ñ‚ Ð²Ñ‹Ð²Ð°Ð´Ñƒ
+OverallBitRate;ÐÐ³ÑƒÐ»ÑŒÐ½Ñ‹ ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑŒ
+OverallBitRate_Maximum;ÐœÐ°ÐºÑÑ–Ð¼Ð°Ð»ÑŒÐ½Ñ‹ Ð°Ð³ÑƒÐ»ÑŒÐ½Ñ‹ Ð±Ñ–Ñ‚Ñ€ÑÐ¹Ñ‚
+OverallBitRate_Minimum;ÐœÑ–Ð½Ñ–Ð¼Ð°Ð»ÑŒÐ½Ñ‹ Ð°Ð³ÑƒÐ»ÑŒÐ½Ñ‹ Ð±Ñ–Ñ‚Ñ€ÑÐ¹Ñ‚
+OverallBitRate_Mode;Ð ÑÐ¶Ñ‹Ð¼ Ð°Ð³ÑƒÐ»ÑŒÐ½Ð°Ð³Ð° Ð±Ñ–Ñ‚Ñ€ÑÐ¹Ñ‚Ñƒ
+OverallBitRate_Nominal;ÐÐ°Ð¼Ñ–Ð½Ð°Ð»ÑŒÐ½Ñ‹ Ð°Ð³ÑƒÐ»ÑŒÐ½Ñ‹ Ð±Ñ–Ñ‚Ñ€ÑÐ¹Ñ‚
+Part;Ð§Ð°ÑÑ‚ÐºÐ°
+Part_Count;ÐšÐ¾Ð»ÑŒ-Ñ†ÑŒ Ñ‡Ð°ÑÑ‚Ð°Ðº
 PartNumber;
 PartTotal;
-Performer;Выканаўца
-Period;Перыяд
-Phone;Тэлефон
+Performer;Ð’Ñ‹ÐºÐ°Ð½Ð°ÑžÑ†Ð°
+Period;ÐŸÐµÑ€Ñ‹ÑÐ´
+Phone;Ð¢ÑÐ»ÐµÑ„Ð¾Ð½
 PictureRatio;
-PixelAspectRatio;Суадносіны пікселяў
-PixelAspectRatio_Original;Суадносіны пікселяў
-PlayCounter;Лічыльнік прайгравання
-Played_Count;Разоў прайгравалася
-Played_First_Date;Першы раз прайгравалася
-Played_Last_Date;Апошні раз прайгравалася
-PlayTime;Працягласць
-Position;Пазіцыя
-Position_Total;Усяго
-Preferences;Налады
+PixelAspectRatio;Ð¡ÑƒÐ°Ð´Ð½Ð¾ÑÑ–Ð½Ñ‹ Ð¿Ñ–ÐºÑÐµÐ»ÑÑž
+PixelAspectRatio_Original;Ð¡ÑƒÐ°Ð´Ð½Ð¾ÑÑ–Ð½Ñ‹ Ð¿Ñ–ÐºÑÐµÐ»ÑÑž
+PlayCounter;Ð›Ñ–Ñ‡Ñ‹Ð»ÑŒÐ½Ñ–Ðº Ð¿Ñ€Ð°Ð¹Ð³Ñ€Ð°Ð²Ð°Ð½Ð½Ñ
+Played_Count;Ð Ð°Ð·Ð¾Ñž Ð¿Ñ€Ð°Ð¹Ð³Ñ€Ð°Ð²Ð°Ð»Ð°ÑÑ
+Played_First_Date;ÐŸÐµÑ€ÑˆÑ‹ Ñ€Ð°Ð· Ð¿Ñ€Ð°Ð¹Ð³Ñ€Ð°Ð²Ð°Ð»Ð°ÑÑ
+Played_Last_Date;ÐÐ¿Ð¾ÑˆÐ½Ñ– Ñ€Ð°Ð· Ð¿Ñ€Ð°Ð¹Ð³Ñ€Ð°Ð²Ð°Ð»Ð°ÑÑ
+PlayTime;ÐŸÑ€Ð°Ñ†ÑÐ³Ð»Ð°ÑÑ†ÑŒ
+Position;ÐŸÐ°Ð·Ñ–Ñ†Ñ‹Ñ
+Position_Total;Ð£ÑÑÐ³Ð¾
+Preferences;ÐÐ°Ð»Ð°Ð´Ñ‹
 PrimaryAudioLanguage;
-Producer;Прадзюсар
-ProductionDesigner;Распрацоўнік афармлення
+Producer;ÐŸÑ€Ð°Ð´Ð·ÑŽÑÐ°Ñ€
+ProductionDesigner;Ð Ð°ÑÐ¿Ñ€Ð°Ñ†Ð¾ÑžÐ½Ñ–Ðº Ð°Ñ„Ð°Ñ€Ð¼Ð»ÐµÐ½Ð½Ñ
 ProductionNumber;
-ProductionStudio;Студыя афармлення
+ProductionStudio;Ð¡Ñ‚ÑƒÐ´Ñ‹Ñ Ð°Ñ„Ð°Ñ€Ð¼Ð»ÐµÐ½Ð½Ñ
 ProductPlacement;
 ProgrammeHasText;
 ProgrammeTextLanguage;
 ProgrammeTitle;
-Publisher;Апублікавана
-Purchased_Date;Дата куплі
-Quote character;Знак двукоссяў
-RadioStation;Радыёстанцыя
-Rating;Рэйтынг
-Recorded_Date;Дата запісу
-Recorded_Location;Месца запісу
-Released_Date;Дата выпуску
-RemixedBy;Рэмікс ад
-ReplayGain_Gain;Нармалізатар гука
-ReplayGain_Peak;Пік нармалізатара гука
-Resolution;Вырашальнасць (Resolution)
-s;с
-SamplingCount;Колькасць узораў
-SamplingRate;Частата
-Save;Захаваць
-ScanOrder;Парадак разгорткі
+Publisher;ÐÐ¿ÑƒÐ±Ð»Ñ–ÐºÐ°Ð²Ð°Ð½Ð°
+Purchased_Date;Ð”Ð°Ñ‚Ð° ÐºÑƒÐ¿Ð»Ñ–
+Quote character;Ð—Ð½Ð°Ðº Ð´Ð²ÑƒÐºÐ¾ÑÑÑÑž
+RadioStation;Ð Ð°Ð´Ñ‹Ñ‘ÑÑ‚Ð°Ð½Ñ†Ñ‹Ñ
+Rating;Ð ÑÐ¹Ñ‚Ñ‹Ð½Ð³
+Recorded_Date;Ð”Ð°Ñ‚Ð° Ð·Ð°Ð¿Ñ–ÑÑƒ
+Recorded_Location;ÐœÐµÑÑ†Ð° Ð·Ð°Ð¿Ñ–ÑÑƒ
+Released_Date;Ð”Ð°Ñ‚Ð° Ð²Ñ‹Ð¿ÑƒÑÐºÑƒ
+RemixedBy;Ð ÑÐ¼Ñ–ÐºÑ Ð°Ð´
+ReplayGain_Gain;ÐÐ°Ñ€Ð¼Ð°Ð»Ñ–Ð·Ð°Ñ‚Ð°Ñ€ Ð³ÑƒÐºÐ°
+ReplayGain_Peak;ÐŸÑ–Ðº Ð½Ð°Ñ€Ð¼Ð°Ð»Ñ–Ð·Ð°Ñ‚Ð°Ñ€Ð° Ð³ÑƒÐºÐ°
+Resolution;Ð’Ñ‹Ñ€Ð°ÑˆÐ°Ð»ÑŒÐ½Ð°ÑÑ†ÑŒ (Resolution)
+s;Ñ
+SamplingCount;ÐšÐ¾Ð»ÑŒÐºÐ°ÑÑ†ÑŒ ÑƒÐ·Ð¾Ñ€Ð°Ñž
+SamplingRate;Ð§Ð°ÑÑ‚Ð°Ñ‚Ð°
+Save;Ð—Ð°Ñ…Ð°Ð²Ð°Ñ†ÑŒ
+ScanOrder;ÐŸÐ°Ñ€Ð°Ð´Ð°Ðº Ñ€Ð°Ð·Ð³Ð¾Ñ€Ñ‚ÐºÑ–
 ScanOrder_Original;
 ScanOrder_Stored;
 ScanOrder_StoredDisplayedInverted;
 ScanOrder_StoreMethod;
-ScanType;Тып разгорткі
+ScanType;Ð¢Ñ‹Ð¿ Ñ€Ð°Ð·Ð³Ð¾Ñ€Ñ‚ÐºÑ–
 ScanType_Original;
 ScanType_StoreMethod;
-ScreenplayBy;Сцэнарыст
-Season;Сезон
+ScreenplayBy;Ð¡Ñ†ÑÐ½Ð°Ñ€Ñ‹ÑÑ‚
+Season;Ð¡ÐµÐ·Ð¾Ð½
 SecondaryAudioLanguage;
-see below;гл. ніжэй
-Send HeaderFile;Адправіць загаловак гэтага файла на http://sourceforge.net/projects/mediainfo/ (Падзел памылак)
-Separator_Columns;Падзельнік слупкоў
-Separator_Lines;Падзельнік радкоў
+see below;Ð³Ð». Ð½Ñ–Ð¶ÑÐ¹
+Send HeaderFile;ÐÐ´Ð¿Ñ€Ð°Ð²Ñ–Ñ†ÑŒ Ð·Ð°Ð³Ð°Ð»Ð¾Ð²Ð°Ðº Ð³ÑÑ‚Ð°Ð³Ð° Ñ„Ð°Ð¹Ð»Ð° Ð½Ð° http://sourceforge.net/projects/mediainfo/ (ÐŸÐ°Ð´Ð·ÐµÐ» Ð¿Ð°Ð¼Ñ‹Ð»Ð°Ðº)
+Separator_Columns;ÐŸÐ°Ð´Ð·ÐµÐ»ÑŒÐ½Ñ–Ðº ÑÐ»ÑƒÐ¿ÐºÐ¾Ñž
+Separator_Lines;ÐŸÐ°Ð´Ð·ÐµÐ»ÑŒÐ½Ñ–Ðº Ñ€Ð°Ð´ÐºÐ¾Ñž
 SerieTitle;
-ServiceChannel;Нумар канала сэрвіса
-ServiceName;Назва сэрвіса
-ServiceProvider;Пастаўшчык сэрвіса
-ServiceType;Іып сэрвіса
-Set;Налада
-Set_Count;Коль-ць
-Setup;Налады
-Sharpness;Рэзкасць
-Sheet;Табліца
-Sheet (Complete);Табліца (поўная)
-Shell extension;Пашырэнне правадыра (пункт у меню па правай кнопцы)
-Shell extension, folder;Для папак таксама
-Shell InfoTip;Паказваць меню
+ServiceChannel;ÐÑƒÐ¼Ð°Ñ€ ÐºÐ°Ð½Ð°Ð»Ð° ÑÑÑ€Ð²Ñ–ÑÐ°
+ServiceName;ÐÐ°Ð·Ð²Ð° ÑÑÑ€Ð²Ñ–ÑÐ°
+ServiceProvider;ÐŸÐ°ÑÑ‚Ð°ÑžÑˆÑ‡Ñ‹Ðº ÑÑÑ€Ð²Ñ–ÑÐ°
+ServiceType;Ð†Ñ‹Ð¿ ÑÑÑ€Ð²Ñ–ÑÐ°
+Set;ÐÐ°Ð»Ð°Ð´Ð°
+Set_Count;ÐšÐ¾Ð»ÑŒ-Ñ†ÑŒ
+Setup;ÐÐ°Ð»Ð°Ð´Ñ‹
+Sharpness;Ð ÑÐ·ÐºÐ°ÑÑ†ÑŒ
+Sheet;Ð¢Ð°Ð±Ð»Ñ–Ñ†Ð°
+Sheet (Complete);Ð¢Ð°Ð±Ð»Ñ–Ñ†Ð° (Ð¿Ð¾ÑžÐ½Ð°Ñ)
+Shell extension;ÐŸÐ°ÑˆÑ‹Ñ€ÑÐ½Ð½Ðµ Ð¿Ñ€Ð°Ð²Ð°Ð´Ñ‹Ñ€Ð° (Ð¿ÑƒÐ½ÐºÑ‚ Ñƒ Ð¼ÐµÐ½ÑŽ Ð¿Ð° Ð¿Ñ€Ð°Ð²Ð°Ð¹ ÐºÐ½Ð¾Ð¿Ñ†Ñ‹)
+Shell extension, folder;Ð”Ð»Ñ Ð¿Ð°Ð¿Ð°Ðº Ñ‚Ð°ÐºÑÐ°Ð¼Ð°
+Shell InfoTip;ÐŸÐ°ÐºÐ°Ð·Ð²Ð°Ñ†ÑŒ Ð¼ÐµÐ½ÑŽ
 ShimName;
-Show menu;Паказваць меню
-Show toolbar;Паказваць панэль
+Show menu;ÐŸÐ°ÐºÐ°Ð·Ð²Ð°Ñ†ÑŒ Ð¼ÐµÐ½ÑŽ
+Show toolbar;ÐŸÐ°ÐºÐ°Ð·Ð²Ð°Ñ†ÑŒ Ð¿Ð°Ð½ÑÐ»ÑŒ
 SigningPresent;
 SignLanguage;
-Sort;Сартаваць па
-SoundEngineer;Гукарэжысёр
+Sort;Ð¡Ð°Ñ€Ñ‚Ð°Ð²Ð°Ñ†ÑŒ Ð¿Ð°
+SoundEngineer;Ð“ÑƒÐºÐ°Ñ€ÑÐ¶Ñ‹ÑÑ‘Ñ€
 Source;
 Source_Duration;
 Source_FrameCount;
 Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
-Standard;Стандарт вяшчання
+Standard;Ð¡Ñ‚Ð°Ð½Ð´Ð°Ñ€Ñ‚ Ð²ÑÑˆÑ‡Ð°Ð½Ð½Ñ
 StoreMethod_InterleavedFields;
 StoreMethod_SeparatedFields;
 StoreMethod_SeparatedFields_1;
 StoreMethod_SeparatedFields_2;
-Stream;Струмень
-Stream_MoreInfo;Дадатковая інфармацыя аб струмені
-StreamCount;Коль-ць струменяў
-StreamID;Ідэнтыфікатар струменя
-StreamKind;Тып струменя
-StreamKindID;Ідэнтыфікатар струменя
-StreamKindPos;Ідэнтыфікатар струменя
-StreamSize;Памер струменя
+Stream;Ð¡Ñ‚Ñ€ÑƒÐ¼ÐµÐ½ÑŒ
+Stream_MoreInfo;Ð”Ð°Ð´Ð°Ñ‚ÐºÐ¾Ð²Ð°Ñ Ñ–Ð½Ñ„Ð°Ñ€Ð¼Ð°Ñ†Ñ‹Ñ Ð°Ð± ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ–
+StreamCount;ÐšÐ¾Ð»ÑŒ-Ñ†ÑŒ ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑÑž
+StreamID;Ð†Ð´ÑÐ½Ñ‚Ñ‹Ñ„Ñ–ÐºÐ°Ñ‚Ð°Ñ€ ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ
+StreamKind;Ð¢Ñ‹Ð¿ ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ
+StreamKindID;Ð†Ð´ÑÐ½Ñ‚Ñ‹Ñ„Ñ–ÐºÐ°Ñ‚Ð°Ñ€ ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ
+StreamKindPos;Ð†Ð´ÑÐ½Ñ‚Ñ‹Ñ„Ñ–ÐºÐ°Ñ‚Ð°Ñ€ ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ
+StreamSize;ÐŸÐ°Ð¼ÐµÑ€ ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ
 StreamSize_Encoded;
-StreamSize_Proportion;Прапорцыі струменя
-Subject;Тэма
-SubTrack;Падпаток
-Summary;Зводка
-Supported formats;Падтрымліваемыя фарматы
-Supported?;Падтрымліваецца?
-Synopsis;Коратка
-SystemId;Ідэнтыфікатар
-Tagged_Application;Праграма, якая пазначыла
-Tagged_Date;Дата адзнакі
-Technician;Тэхнік
-TermsOfUse;Умовы выкарыстання
+StreamSize_Proportion;ÐŸÑ€Ð°Ð¿Ð¾Ñ€Ñ†Ñ‹Ñ– ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ
+Subject;Ð¢ÑÐ¼Ð°
+SubTrack;ÐŸÐ°Ð´Ð¿Ð°Ñ‚Ð¾Ðº
+Summary;Ð—Ð²Ð¾Ð´ÐºÐ°
+Supported formats;ÐŸÐ°Ð´Ñ‚Ñ€Ñ‹Ð¼Ð»Ñ–Ð²Ð°ÐµÐ¼Ñ‹Ñ Ñ„Ð°Ñ€Ð¼Ð°Ñ‚Ñ‹
+Supported?;ÐŸÐ°Ð´Ñ‚Ñ€Ñ‹Ð¼Ð»Ñ–Ð²Ð°ÐµÑ†Ñ†Ð°?
+Synopsis;ÐšÐ¾Ñ€Ð°Ñ‚ÐºÐ°
+SystemId;Ð†Ð´ÑÐ½Ñ‚Ñ‹Ñ„Ñ–ÐºÐ°Ñ‚Ð°Ñ€
+Tagged_Application;ÐŸÑ€Ð°Ð³Ñ€Ð°Ð¼Ð°, ÑÐºÐ°Ñ Ð¿Ð°Ð·Ð½Ð°Ñ‡Ñ‹Ð»Ð°
+Tagged_Date;Ð”Ð°Ñ‚Ð° Ð°Ð´Ð·Ð½Ð°ÐºÑ–
+Technician;Ð¢ÑÑ…Ð½Ñ–Ðº
+TermsOfUse;Ð£Ð¼Ð¾Ð²Ñ‹ Ð²Ñ‹ÐºÐ°Ñ€Ñ‹ÑÑ‚Ð°Ð½Ð½Ñ
 TertiaryAudioLanguage;
-Text;Тэкст
-Text - Custom;Тэкст - Выбаркова
-Text (HTML);Тэкст (HTML)
-Text stream(s);Тэкставы(я) струмень(і)
-Text streams;Тэкставыя струмені
-Text_Codec_List;Тэкставы кодэк
-Text_No;Тэкставы струмень №
-Text1;Першы тэкставы струмень
-Text2;Другі тэкставы струмень
-Text3;Трэці тэкставы струмень
-TextCount;Коль-ць тэкставых струменяў
+Text;Ð¢ÑÐºÑÑ‚
+Text - Custom;Ð¢ÑÐºÑÑ‚ - Ð’Ñ‹Ð±Ð°Ñ€ÐºÐ¾Ð²Ð°
+Text (HTML);Ð¢ÑÐºÑÑ‚ (HTML)
+Text stream(s);Ð¢ÑÐºÑÑ‚Ð°Ð²Ñ‹(Ñ) ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑŒ(Ñ–)
+Text streams;Ð¢ÑÐºÑÑ‚Ð°Ð²Ñ‹Ñ ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ–
+Text_Codec_List;Ð¢ÑÐºÑÑ‚Ð°Ð²Ñ‹ ÐºÐ¾Ð´ÑÐº
+Text_No;Ð¢ÑÐºÑÑ‚Ð°Ð²Ñ‹ ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑŒ â„–
+Text1;ÐŸÐµÑ€ÑˆÑ‹ Ñ‚ÑÐºÑÑ‚Ð°Ð²Ñ‹ ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑŒ
+Text2;Ð”Ñ€ÑƒÐ³Ñ– Ñ‚ÑÐºÑÑ‚Ð°Ð²Ñ‹ ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑŒ
+Text3;Ð¢Ñ€ÑÑ†Ñ– Ñ‚ÑÐºÑÑ‚Ð°Ð²Ñ‹ ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑŒ
+TextCount;ÐšÐ¾Ð»ÑŒ-Ñ†ÑŒ Ñ‚ÑÐºÑÑ‚Ð°Ð²Ñ‹Ñ… ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑÑž
 TextlessElementsExist;
-ThanksTo;Падзякі
-Thousands separator;Падзельнік тысяч
+ThanksTo;ÐŸÐ°Ð´Ð·ÑÐºÑ–
+Thousands separator;ÐŸÐ°Ð´Ð·ÐµÐ»ÑŒÐ½Ñ–Ðº Ñ‚Ñ‹ÑÑÑ‡
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
+TimeCode_Striped;
 TimeStamp;
-TimeZone;Гадзінная зона
-Title;Загаловак
-Title_More;Загаловак
-Total;Усяго
+TimeZone;Ð“Ð°Ð´Ð·Ñ–Ð½Ð½Ð°Ñ Ð·Ð¾Ð½Ð°
+Title;Ð—Ð°Ð³Ð°Ð»Ð¾Ð²Ð°Ðº
+Title_More;Ð—Ð°Ð³Ð°Ð»Ð¾Ð²Ð°Ðº
+Total;Ð£ÑÑÐ³Ð¾
 TotalNumberOfParts;
 TotalProgrammeDuration;
-Track;Сцежка
-Track_Count;Коль-ць дарожак
-transfer_characteristics;Характарыстыкі трансферу
-Translator;Перакладчык
-Tree;Дрэва
-Tree & Text;Дрэва і тэкст
+Track;Ð¡Ñ†ÐµÐ¶ÐºÐ°
+Track_Count;ÐšÐ¾Ð»ÑŒ-Ñ†ÑŒ Ð´Ð°Ñ€Ð¾Ð¶Ð°Ðº
+transfer_characteristics;Ð¥Ð°Ñ€Ð°ÐºÑ‚Ð°Ñ€Ñ‹ÑÑ‚Ñ‹ÐºÑ– Ñ‚Ñ€Ð°Ð½ÑÑ„ÐµÑ€Ñƒ
+Translator;ÐŸÐµÑ€Ð°ÐºÐ»Ð°Ð´Ñ‡Ñ‹Ðº
+Tree;Ð”Ñ€ÑÐ²Ð°
+Tree & Text;Ð”Ñ€ÑÐ²Ð° Ñ– Ñ‚ÑÐºÑÑ‚
 Type;
-UniqueID;Унікальны ідэнтыфікатар
-Unknown;Невядома
-Url;Спасылка
-Video;Відэа
-Video stream(s);Відэапаток(і)
-Video_Codec_List;Відэакодэкі
-Video_Delay;Затрымка відэа
-Video_No;Няма відэаструменя
-Video0_Delay;Затрымка відэа
-Video1;Першы відэаструмень
+UniqueID;Ð£Ð½Ñ–ÐºÐ°Ð»ÑŒÐ½Ñ‹ Ñ–Ð´ÑÐ½Ñ‚Ñ‹Ñ„Ñ–ÐºÐ°Ñ‚Ð°Ñ€
+Unknown;ÐÐµÐ²ÑÐ´Ð¾Ð¼Ð°
+Url;Ð¡Ð¿Ð°ÑÑ‹Ð»ÐºÐ°
+Video;Ð’Ñ–Ð´ÑÐ°
+Video stream(s);Ð’Ñ–Ð´ÑÐ°Ð¿Ð°Ñ‚Ð¾Ðº(Ñ–)
+Video_Codec_List;Ð’Ñ–Ð´ÑÐ°ÐºÐ¾Ð´ÑÐºÑ–
+Video_Delay;Ð—Ð°Ñ‚Ñ€Ñ‹Ð¼ÐºÐ° Ð²Ñ–Ð´ÑÐ°
+Video_No;ÐÑÐ¼Ð° Ð²Ñ–Ð´ÑÐ°ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ
+Video0_Delay;Ð—Ð°Ñ‚Ñ€Ñ‹Ð¼ÐºÐ° Ð²Ñ–Ð´ÑÐ°
+Video1;ÐŸÐµÑ€ÑˆÑ‹ Ð²Ñ–Ð´ÑÐ°ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑŒ
 VideoComments;
-VideoCount;Коль-ць відэаструменяў
-View;Прагляд
-View_Hint;Прагляд
-Warning : more streams in the files;Увага: у файле ёсць яшчэ струмені
-Web;Сайт
-WebSite_Audio;Сайт аўдыёкодэка
-WebSite_Audio_More;Перайсці на сайт (%Url%) для пошуку гэтага аўдыёкодэка
-WebSite_General;Перайсці на сайт прайгравальніка для гэтага файла
-WebSite_General_More;Перайсці на сайт прайгравальніка для гэтага файла
-WebSite_Text;Сайт тэкставага кодэка
-WebSite_Text_More;Перайсці на сайт (%Url%) праглядніка для гэтага тэкставага кодэка
+VideoCount;ÐšÐ¾Ð»ÑŒ-Ñ†ÑŒ Ð²Ñ–Ð´ÑÐ°ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½ÑÑž
+View;ÐŸÑ€Ð°Ð³Ð»ÑÐ´
+View_Hint;ÐŸÑ€Ð°Ð³Ð»ÑÐ´
+Warning : more streams in the files;Ð£Ð²Ð°Ð³Ð°: Ñƒ Ñ„Ð°Ð¹Ð»Ðµ Ñ‘ÑÑ†ÑŒ ÑÑˆÑ‡Ñ ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ–
+Web;Ð¡Ð°Ð¹Ñ‚
+WebSite_Audio;Ð¡Ð°Ð¹Ñ‚ Ð°ÑžÐ´Ñ‹Ñ‘ÐºÐ¾Ð´ÑÐºÐ°
+WebSite_Audio_More;ÐŸÐµÑ€Ð°Ð¹ÑÑ†Ñ– Ð½Ð° ÑÐ°Ð¹Ñ‚ (%Url%) Ð´Ð»Ñ Ð¿Ð¾ÑˆÑƒÐºÑƒ Ð³ÑÑ‚Ð°Ð³Ð° Ð°ÑžÐ´Ñ‹Ñ‘ÐºÐ¾Ð´ÑÐºÐ°
+WebSite_General;ÐŸÐµÑ€Ð°Ð¹ÑÑ†Ñ– Ð½Ð° ÑÐ°Ð¹Ñ‚ Ð¿Ñ€Ð°Ð¹Ð³Ñ€Ð°Ð²Ð°Ð»ÑŒÐ½Ñ–ÐºÐ° Ð´Ð»Ñ Ð³ÑÑ‚Ð°Ð³Ð° Ñ„Ð°Ð¹Ð»Ð°
+WebSite_General_More;ÐŸÐµÑ€Ð°Ð¹ÑÑ†Ñ– Ð½Ð° ÑÐ°Ð¹Ñ‚ Ð¿Ñ€Ð°Ð¹Ð³Ñ€Ð°Ð²Ð°Ð»ÑŒÐ½Ñ–ÐºÐ° Ð´Ð»Ñ Ð³ÑÑ‚Ð°Ð³Ð° Ñ„Ð°Ð¹Ð»Ð°
+WebSite_Text;Ð¡Ð°Ð¹Ñ‚ Ñ‚ÑÐºÑÑ‚Ð°Ð²Ð°Ð³Ð° ÐºÐ¾Ð´ÑÐºÐ°
+WebSite_Text_More;ÐŸÐµÑ€Ð°Ð¹ÑÑ†Ñ– Ð½Ð° ÑÐ°Ð¹Ñ‚ (%Url%) Ð¿Ñ€Ð°Ð³Ð»ÑÐ´Ð½Ñ–ÐºÐ° Ð´Ð»Ñ Ð³ÑÑ‚Ð°Ð³Ð° Ñ‚ÑÐºÑÑ‚Ð°Ð²Ð°Ð³Ð° ÐºÐ¾Ð´ÑÐºÐ°
 WebSite_Url;http://MediaArea.net/MediaInfo
-WebSite_Video;Сайт відэакодэка
-WebSite_Video_More;Перайсці на сайт (%Url%) праглядніка для гэтага відэакодэка
-Width;Шырыня
+WebSite_Video;Ð¡Ð°Ð¹Ñ‚ Ð²Ñ–Ð´ÑÐ°ÐºÐ¾Ð´ÑÐºÐ°
+WebSite_Video_More;ÐŸÐµÑ€Ð°Ð¹ÑÑ†Ñ– Ð½Ð° ÑÐ°Ð¹Ñ‚ (%Url%) Ð¿Ñ€Ð°Ð³Ð»ÑÐ´Ð½Ñ–ÐºÐ° Ð´Ð»Ñ Ð³ÑÑ‚Ð°Ð³Ð° Ð²Ñ–Ð´ÑÐ°ÐºÐ¾Ð´ÑÐºÐ°
+Width;Ð¨Ñ‹Ñ€Ñ‹Ð½Ñ
 Width_Original;
-WriteMe;Напісаць мне
-WriteToTranslator;Напісаць перакладчыку
-Written_Date;Дата напісання
-Written_Location;Месца напісання
-WrittenBy;Напісаў
-Yes;Так
-Your system;Ваша сістэма
+WriteMe;ÐÐ°Ð¿Ñ–ÑÐ°Ñ†ÑŒ Ð¼Ð½Ðµ
+WriteToTranslator;ÐÐ°Ð¿Ñ–ÑÐ°Ñ†ÑŒ Ð¿ÐµÑ€Ð°ÐºÐ»Ð°Ð´Ñ‡Ñ‹ÐºÑƒ
+Written_Date;Ð”Ð°Ñ‚Ð° Ð½Ð°Ð¿Ñ–ÑÐ°Ð½Ð½Ñ
+Written_Location;ÐœÐµÑÑ†Ð° Ð½Ð°Ð¿Ñ–ÑÐ°Ð½Ð½Ñ
+WrittenBy;ÐÐ°Ð¿Ñ–ÑÐ°Ñž
+Yes;Ð¢Ð°Ðº
+Your system;Ð’Ð°ÑˆÐ° ÑÑ–ÑÑ‚ÑÐ¼Ð°
 ZZ_Automatic_Percent;87
 ZZ_AutomaticLanguage_Percent;91

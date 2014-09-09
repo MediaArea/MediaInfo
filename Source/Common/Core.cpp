@@ -164,7 +164,7 @@ size_t Core::Menu_File_Open_Files_Continue (const String &FileName)
     //MI->Option(__T("LegacyStreamDisplay"), __T("0"));
     //MI->Option(__T("File_MpegTs_Atsc_transport_stream_id_Trust"), __T("0"));
     //MI->Option(__T("Trace_Level"), __T("Container1;1"));
-    //MI->Option(__T("Language"), __T("raw"));
+    MI->Option(__T("File_Mxf_TimeCodeFromMaterialPackage"), __T("1"));
     //MI->Option(__T("demux"), __T("container"));
     //MI->Option(__T("file_demux_unpacketize"), __T("1"));
     return MI->Open(FileName);

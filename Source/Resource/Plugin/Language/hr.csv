@@ -1,7 +1,7 @@
   Language_ISO639;hr
   Author_Email;domazd@mail.ru
-  Author_Name;Dominko Aždajić
-  Author_OldNames;Dominko Aždajić
+  Author_Name;Dominko AÅ¾dajiÄ‡
+  Author_OldNames;Dominko AÅ¾dajiÄ‡
   Language_Name;Hrvatski
   Config_Text_ColumnSize;40
   Config_Text_Separator; : 
@@ -43,9 +43,9 @@
  fps1; fps
  fps2; fps
  fps3; fps
- frame1; sličica
- frame2; sličice
- frame3; sličice
+ frame1; sliÄica
+ frame2; sliÄice
+ frame3; sliÄice
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -126,16 +126,16 @@
  text stream1; protok teksta
  text stream2; protoka teksta
  text stream3; protoci teksta
- video frames1; video-sličica
- video frames2; video-sličice
- video frames3; video-sličice
+ video frames1; video-sliÄica
+ video frames2; video-sliÄice
+ video frames3; video-sliÄice
  video stream1; tok slike
  video stream2; toka slike
  video stream3; toka slike
- warppoint0;Nema točki izobličavanja
- warppoint1; točka izobličavanja
- warppoint2; točke izobličavanja
- warppoint3; točke izobličavanja
+ warppoint0;Nema toÄki izobliÄavanja
+ warppoint1; toÄka izobliÄavanja
+ warppoint2; toÄke izobliÄavanja
+ warppoint3; toÄke izobliÄavanja
  week1; tjedan
  week2; tjedna
  week3; tjedna
@@ -147,7 +147,7 @@
 3D;
 3DType;
 About;O programu...
-About_Hint;Kontakt i pronalaženje posljednje inačice
+About_Hint;Kontakt i pronalaÅ¾enje posljednje inaÄice
 Accompaniment;Pratnja
 ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
@@ -155,61 +155,61 @@ Actor;Glumac
 Actor_Character;Uloga
 Added_Date;Dodano dana
 Address;Adresa
-Advanced;Prošireno
-Advanced mode;Prošireni način
+Advanced;ProÅ¡ireno
+Advanced mode;ProÅ¡ireni naÄin
 Album;Album
-Album_ReplayGain_Gain;Pojačavanje izvedbe albuma
-Album_ReplayGain_Peak;Vrhunac pojačanog zvuka izvedbe albuma
+Album_ReplayGain_Gain;PojaÄavanje izvedbe albuma
+Album_ReplayGain_Peak;Vrhunac pojaÄanog zvuka izvedbe albuma
 Alignment;Usmjerenje
-Alignment_Aligned;Usmjerenje sukladno čimbeniku 'interleave'
+Alignment_Aligned;Usmjerenje sukladno Äimbeniku 'interleave'
 Alignment_Split;Rasporediti preko interleavea
 All;Sve
 Archival_Location;Mjesto pohranjivanja
-Arranger;Aranžer
-ArtDirector;Umjetnički ravnatelj
+Arranger;AranÅ¾er
+ArtDirector;UmjetniÄki ravnatelj
 AspectRatio;Omjer stranica slike
-AssistantDirector;Pomoćnik ravnatelja
+AssistantDirector;PomoÄ‡nik ravnatelja
 at;pri
 At least one file;(Morate otvoriti bar jednu datoteku)
 Audio;Audio
 Audio stream(s);Tokovi zvuka
-Audio_Codec_List;Kôdeki zvuka
-Audio_No;Nečujno
-Audio1;Prvi zvučni tok
-Audio2;Drugi zvučni tok
+Audio_Codec_List;KÃ´deki zvuka
+Audio_No;NeÄujno
+Audio1;Prvi zvuÄni tok
+Audio2;Drugi zvuÄni tok
 AudioComments;
-AudioCount;Broj zvučnih tokova
+AudioCount;Broj zvuÄnih tokova
 AudioDescriptionPresent;
 AudioDescriptionType;
 AudioLoudnessStandard;
 AudioTrackLayout;
 Author;Autor
-BarCode;Crtičasti kôd
+BarCode;CrtiÄasti kÃ´d
 Basic;Osnovno
-Basic_Note;Napomena: za više informacija o ovoj datoteci morate odabrati različite prikaze (tabela, stablo...)
+Basic_Note;Napomena: za viÅ¡e informacija o ovoj datoteci morate odabrati razliÄite prikaze (tabela, stablo...)
 BitDepth;
 BitDepth_Stored;
 BitRate;Stopa protoka podataka
 BitRate_Encoded;
 BitRate_Maximum;Maksimum protoka podataka
 BitRate_Minimum;Minimum protoka podataka
-BitRate_Mode;Način protoka podataka
+BitRate_Mode;NaÄin protoka podataka
 BitRate_Mode_CBR;Ustaljeno
 BitRate_Mode_VBR;Promjenjivo
 BitRate_Nominal;Nominalni protok podataka
-Bits-(Pixel*Frame);Bita/(piksela*sličica)
+Bits-(Pixel*Frame);Bita/(piksela*sliÄica)
 BufferSize;
-Cancel;Poništiti
+Cancel;PoniÅ¡titi
 Channel(s);Kanali
-ChannelPositions;Položaj kanala
+ChannelPositions;PoloÅ¾aj kanala
 Chapter(s);Poglavlja
 Chapters;Poglavlja
 Chapters stream(s);Tokovi poglavlja
-Chapters_Codec_List;Kôdeki poglavlja
+Chapters_Codec_List;KÃ´deki poglavlja
 Chapters_No;Bez poglavlja
 ChaptersCount;Broj tokova poglavlja
-CheckNewVersion;Provjeriti dostupnost nove inačice
-Choose custom;Izbor po želji zadanih stavki
+CheckNewVersion;Provjeriti dostupnost nove inaÄice
+Choose custom;Izbor po Å¾elji zadanih stavki
 Choose custom sheet;Odaberite tabelu
 Choose custom text;Odaberite tekst
 Choose export format;Odaberite izvozni oblik datoteka
@@ -224,26 +224,26 @@ Close all before open;Prije otvaranja sve ostale zatvoriti
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
-Codec;Kôdek
-Codec_Description;Opis kôdeka
-Codec_Info;Pojedinosti o kôdeku
-Codec_Profile;Profili kôdeka
-Codec_Settings;Postavke kôdeka
-Codec_Settings_BVOP;Postavke kôdeka za BVOP
-Codec_Settings_CABAC;Postavke kôdeka za CABAC
-Codec_Settings_Endianness;Postavke kôdeka za Endianness
-Codec_Settings_Firm;Postavke kôdeka za Firm
-Codec_Settings_Floor;Postavke kôdeka za Floor
-Codec_Settings_GMC;Postavke kôdeka za GMC
-Codec_Settings_ITU;Postavke kôdeka za ITU
-Codec_Settings_Law;Postavke kôdeka za Law
-Codec_Settings_Matrix;Postavke kôdeka za Matrix
-Codec_Settings_PacketBitStream;Postavke kôdeka za usredotočeni protok podataka
-Codec_Settings_QPel;Postavke kôdeka za QPel
-Codec_Settings_Sign;Postavke kôdeka za Sign
-Codec_Url;Spletna poveznica kôdeka
-CodecID;ID kôdeka
-CodecID_Description;Opis kôdeka
+Codec;KÃ´dek
+Codec_Description;Opis kÃ´deka
+Codec_Info;Pojedinosti o kÃ´deku
+Codec_Profile;Profili kÃ´deka
+Codec_Settings;Postavke kÃ´deka
+Codec_Settings_BVOP;Postavke kÃ´deka za BVOP
+Codec_Settings_CABAC;Postavke kÃ´deka za CABAC
+Codec_Settings_Endianness;Postavke kÃ´deka za Endianness
+Codec_Settings_Firm;Postavke kÃ´deka za Firm
+Codec_Settings_Floor;Postavke kÃ´deka za Floor
+Codec_Settings_GMC;Postavke kÃ´deka za GMC
+Codec_Settings_ITU;Postavke kÃ´deka za ITU
+Codec_Settings_Law;Postavke kÃ´deka za Law
+Codec_Settings_Matrix;Postavke kÃ´deka za Matrix
+Codec_Settings_PacketBitStream;Postavke kÃ´deka za usredotoÄeni protok podataka
+Codec_Settings_QPel;Postavke kÃ´deka za QPel
+Codec_Settings_Sign;Postavke kÃ´deka za Sign
+Codec_Url;Spletna poveznica kÃ´deka
+CodecID;ID kÃ´deka
+CodecID_Description;Opis kÃ´deka
 Collection;Zbirka
 Colorimetry;Kolorimetrija
 ColorSpace;
@@ -257,14 +257,14 @@ Composer;Skladatelj
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
-Compression_Ratio;Omjer sažimanja
+Compression_Ratio;Omjer saÅ¾imanja
 Conductor;Ravnatelj
 ContactEmail;
 ContactTelephoneNumber;
-Container and general information;Oblik spremnika i opće informacije
-ContentType;Vrsta sadržaja
+Container and general information;Oblik spremnika i opÄ‡e informacije
+ContentType;Vrsta sadrÅ¾aja
 CoProducer;Koproducent
-Copyright;Zaštićeno autorsko pravo
+Copyright;ZaÅ¡tiÄ‡eno autorsko pravo
 CopyrightYear;
 CostumeDesigner;Kostimograf
 Count;Broj
@@ -278,8 +278,8 @@ Cropped;Omjer reza
 Custom;Vlastito
 Customize;Prilagoditi
 Date;Nadnevak
-Debug;Uklanjanje pogreški
-Decimal point;Decimalna točka
+Debug;Uklanjanje pogreÅ¡ki
+Decimal point;Decimalna toÄka
 Delay;Zaostajanje
 Delay_Source;
 Delay_Source_Container;
@@ -288,48 +288,48 @@ Delete;Izbrisati
 Description;Opis
 Digitized_Date;Nadnevak digitaliziranja
 Dimensions;Dimenzije
-Director;Režiser
+Director;ReÅ¾iser
 DirectorOfPhotography;Ravnatelj fotografije
 DisplayAspectRatio;Omjer slike
 DisplayAspectRatio_Original;Izvorni omjer slike
 DistributedBy;Distribucija
 Distributor;
 Donate;Potpora razvoju MediaInfo
-DotsPerInch;Točaka po palcu (DPI)
+DotsPerInch;ToÄaka po palcu (DPI)
 Duration;Trajanje
-Duration_End;Vrijeme svršetka
-Duration_Start;Vrijeme početka
-Edit;Uređivanje
+Duration_End;Vrijeme svrÅ¡etka
+Duration_Start;Vrijeme poÄetka
+Edit;UreÄ‘ivanje
 EditedBy;Uredio
-EMail;E-pošta
-Encoded_Application;Kodirajući program
+EMail;E-poÅ¡ta
+Encoded_Application;KodirajuÄ‡i program
 Encoded_Date;Nadnevak kodiranja
-Encoded_Library;Kodirano pomoću knjižnice
+Encoded_Library;Kodirano pomoÄ‡u knjiÅ¾nice
 Encoded_Library_Settings;Postavke kodiranja
-Encoded_Original;Original podržava
+Encoded_Original;Original podrÅ¾ava
 EncodedBy;Kodirao
-EPG_Positions;Položaj EPG-a
+EPG_Positions;PoloÅ¾aj EPG-a
 EpisodeTitleNumber;
-Error_File;Pogreška tijekom učitavanja datoteke
-ExecutiveProducer;Izvršni producent
-Exit;Svršetak
-Exit_Hint;Okončati program
+Error_File;PogreÅ¡ka tijekom uÄitavanja datoteke
+ExecutiveProducer;IzvrÅ¡ni producent
+Exit;SvrÅ¡etak
+Exit_Hint;OkonÄati program
 Export;Izvoz
 Export_Hint;Izvoz u odabranom obliku
-Extensions;Uobičajeni nastavci naziva datoteke
+Extensions;UobiÄajeni nastavci naziva datoteke
 Family;Obitelj
 Fax;Faks
 File;Datoteka
-File size;Veličina datoteke
-File_Append;Dodati u postojeću datoteku (Pozor: Pripazite na istovjetne parametere!)
+File size;VeliÄina datoteke
+File_Append;Dodati u postojeÄ‡u datoteku (Pozor: Pripazite na istovjetne parametere!)
 File_Created_Date;Nadnevak stvaranja datoteke
 File_Created_Date_Local;Nadnevak nastanka datoteke (mjesni)
-File_Hint;Odaberite multimedijalnu datoteku za proučiti
+File_Hint;Odaberite multimedijalnu datoteku za prouÄiti
 File_Modified_Date;Nadnevak posljednje izmjene datoteke
 File_Modified_Date_Local;Nadnevak zadnje izmjene datoteke (mjesni)
 FileExtension;Nastavak naziva datoteke
 FileName;Naziv datoteke
-FileSize;Veličina datoteke
+FileSize;VeliÄina datoteke
 Folder;Mapa
 Folder (R);Mapa (R)
 Folder (R)_Hint;Odaberite mapu za promatranje (rekurzivno sa svim mapama)
@@ -369,23 +369,23 @@ Format_Settings_SBR;Postavke oblika datoteke za SBR
 Format_Settings_Sign;Postavke oblika datoteke za Sign
 Format_Settings_Wrapping;
 Format_Url;Spletna poveznica oblika datoteke
-Format_Version;Inačica oblika datoteke
+Format_Version;InaÄica oblika datoteke
 FpaManufacturer;
 FpaPass;
 FpaVersion;
-FrameCount;Broj sličica
-FrameRate;Protok sličica
-FrameRate_Maximum;Maksimalna stopa protoka sličica
-FrameRate_Minimum;Minimalna stopa protoka sličica
-FrameRate_Mode;Način protoka sličica
+FrameCount;Broj sliÄica
+FrameRate;Protok sliÄica
+FrameRate_Maximum;Maksimalna stopa protoka sliÄica
+FrameRate_Minimum;Minimalna stopa protoka sliÄica
+FrameRate_Mode;NaÄin protoka sliÄica
 FrameRate_Mode_CFR;Ustaljeno
 FrameRate_Mode_VFR;Izmjenjivo
-FrameRate_Nominal;Nominalna stopa protoka sličica
-FrameRate_Original;Izvorna stopa protoka sličica
-General;Općenito
+FrameRate_Nominal;Nominalna stopa protoka sliÄica
+FrameRate_Original;Izvorna stopa protoka sliÄica
+General;OpÄ‡enito
 Genre;Glazbeni smjer
 Genre_000;Blues
-Genre_001;Klasični rock
+Genre_001;KlasiÄni rock
 Genre_002;Country
 Genre_003;Dance
 Genre_004;Disco
@@ -416,14 +416,14 @@ Genre_028;Vocal
 Genre_029;Jazz+Funk
 Genre_030;Fusion
 Genre_031;Trance
-Genre_032;Klasično
+Genre_032;KlasiÄno
 Genre_033;Instrumentalno
 Genre_034;Acid
 Genre_035;House
 Genre_036;Igra
 Genre_037;Sound Clip
 Genre_038;Gospel
-Genre_039;Šum
+Genre_039;Å um
 Genre_040;AlternRock
 Genre_041;Bass
 Genre_042;Soul
@@ -436,7 +436,7 @@ Genre_048;Ethnic
 Genre_049;Gothic
 Genre_050;Darkwave
 Genre_051;Techno-Industrial
-Genre_052;Elektroničko
+Genre_052;ElektroniÄko
 Genre_053;Pop-Folk
 Genre_054;Eurodance
 Genre_055;Dream
@@ -475,23 +475,23 @@ Genre_087;Revival
 Genre_088;Celtic
 Genre_089;Bluegrass
 Genre_090;Avantgarda
-Genre_091;Gotični rock
+Genre_091;GotiÄni rock
 Genre_092;Progresivni rock
-Genre_093;Psihodelični rock
+Genre_093;PsihodeliÄni rock
 Genre_094;Simfonijski rock
 Genre_095;Lagani rock
 Genre_096;Big Band
 Genre_097;Zbor
-Genre_098;Umirujuće slušanje
-Genre_099;Akustično
-Genre_100;Humoristično
+Genre_098;UmirujuÄ‡e sluÅ¡anje
+Genre_099;AkustiÄno
+Genre_100;HumoristiÄno
 Genre_101;Govor
-Genre_102;Šansona
+Genre_102;Å ansona
 Genre_103;Opera
 Genre_104;Komorna glazba
 Genre_105;Sonata
 Genre_106;Simfonija
-Genre_107;Pojačani bas
+Genre_107;PojaÄani bas
 Genre_108;Primus
 Genre_109;Porn Groove
 Genre_110;Satira
@@ -501,8 +501,8 @@ Genre_113;Tango
 Genre_114;Samba
 Genre_115;Folklor
 Genre_116;Balada
-Genre_117;Naglašena balada
-Genre_118;Ritmični Soul
+Genre_117;NaglaÅ¡ena balada
+Genre_118;RitmiÄni Soul
 Genre_119;Slobodni stil
 Genre_120;Duet
 Genre_121;Punk Rock
@@ -576,15 +576,15 @@ Genre_188;
 Genre_189;
 Genre_190;
 Genre_191;
-Go to WebSite;Prijeći na spletni sadržaj
+Go to WebSite;PrijeÄ‡i na spletni sadrÅ¾aj
 Grouping;
 h;h
 Header file;Kreirati zaglavnu datoteku
 Height;Visina
 Height_Original;
-Help;Pomoć
+Help;PomoÄ‡
 Hint;Naznaka
-How many audio streams?;Koliko zvučnih tokova?
+How many audio streams?;Koliko zvuÄnih tokova?
 How many chapters streams?;Koliko tokova poglavlja?
 How many text streams?;Koliko tokova teksta?
 How many video streams?;Koliko tokova video-snimke?
@@ -593,7 +593,7 @@ ID;ID
 IdentClockStart;
 Image;Slika
 Image stream(s);Tokovi slike
-Image_Codec_List;Slikovni kôdeki
+Image_Codec_List;Slikovni kÃ´deki
 ImageCount;Broj slikovnih tokova
 Info;Informacija
 Instruments;Instrumenti
@@ -604,15 +604,15 @@ Interlaced_Progressive;Progresivno
 Interlaced_TFF;Najprije gornje polje
 Interlacement;Interlace
 Interleave_Duration;Interleave, trajanje
-Interleave_Preload;Interleave, trajanje predučitavanja
+Interleave_Preload;Interleave, trajanje preduÄitavanja
 Interleave_VideoFrames;Interleave, trajanje
 Interleaved;
 InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-Keywords;Ključne riječi
-Known codecs;Poznati kôdeki
+Keywords;KljuÄne rijeÄi
+Known codecs;Poznati kÃ´deki
 Known formats;Poznati oblici datoteka
 Known parameters;Poznati parametri
 Label;Znamka
@@ -628,8 +628,8 @@ Language_ar;Arapski
 Language_as;Asamski
 Language_av;Avarski
 Language_ay;Ajmarski
-Language_az;Azerbejđžanski
-Language_ba;Baškirski
+Language_az;AzerbejÄ‘Å¾anski
+Language_ba;BaÅ¡kirski
 Language_be;Bjeloruski
 Language_bg;Bugarski
 Language_bh;Biharski
@@ -638,34 +638,34 @@ Language_bm;Bambarski
 Language_bn;Bengalski
 Language_bo;Tibetanski
 Language_br;Bretonski
-Language_bs;Bošnjački
+Language_bs;BoÅ¡njaÄki
 Language_ca;Katalanski
-Language_ce;Čečenski
-Language_ch;Čamoro
+Language_ce;ÄŒeÄenski
+Language_ch;ÄŒamoro
 Language_co;Korzikanski
 Language_cr;Cree
-Language_cs;Češki
+Language_cs;ÄŒeÅ¡ki
 Language_cu;Slavenski
-Language_cv;Čuvaški
-Language_cy;Velški
+Language_cv;ÄŒuvaÅ¡ki
+Language_cy;VelÅ¡ki
 Language_da;Danski
-Language_de;Njemački
-Language_dv;Diveheški
+Language_de;NjemaÄki
+Language_dv;DiveheÅ¡ki
 Language_dz;Dzongkha
 Language_ee;Ewe
-Language_el;Grčki
+Language_el;GrÄki
 Language_en;Engleski
 Language_en-gb;Engleski (Velika Britanija)
-Language_en-us;Engleski (Sjedinjene Države)
+Language_en-us;Engleski (Sjedinjene DrÅ¾ave)
 Language_eo;Esperanto
-Language_es;Španjolski
+Language_es;Å panjolski
 Language_et;Estonski
 Language_eu;Baskijski
 Language_fa;Perzijski
 Language_ff;Fulah
 Language_fi;Finski
-Language_fj;Fidži
-Language_fo;Jezik Ovčjih otoka
+Language_fj;FidÅ¾i
+Language_fo;Jezik OvÄjih otoka
 Language_fr;Francuski
 Language_fy;Frizijski
 Language_ga;Irski
@@ -679,17 +679,17 @@ Language_he;Hebrejski
 Language_hi;Hindu
 Language_ho;Hiri Motu
 Language_hr;Hrvatski
-Language_ht;Haićanski
-Language_hu;Madžarski
+Language_ht;HaiÄ‡anski
+Language_hu;MadÅ¾arski
 Language_hy;Armenski
 Language_hz;Herero
-Language_ia;Udruga za pomoćne jezike
+Language_ia;Udruga za pomoÄ‡ne jezike
 Language_id;Indonezijski
 Language_ie;Interlingue
 Language_ig;Igbo
-Language_ii;Sičuanski Yi
+Language_ii;SiÄuanski Yi
 Language_ik;Inupiaq
-Language_Info;Jezična informacija
+Language_Info;JeziÄna informacija
 Language_io;Ido
 Language_is;Islandski
 Language_it;Talijanski
@@ -700,28 +700,28 @@ Language_ka;Gruzijski
 Language_kg;Kongo
 Language_ki;Kikuyu
 Language_kj;Kuanyama
-Language_kk;Kazaški
+Language_kk;KazaÅ¡ki
 Language_kl;Kalaallisut
 Language_km;Kmerski
-Language_kn;Kanađanski
+Language_kn;KanaÄ‘anski
 Language_ko;Korejski
 Language_kr;Kanuri
-Language_ks;Kašmirski
+Language_ks;KaÅ¡mirski
 Language_ku;Kurdski
 Language_kv;Komi
-Language_kw;Korniški
+Language_kw;KorniÅ¡ki
 Language_ky;Kirgiski
 Language_la;Latinski
-Language_lb;Luksemburški
+Language_lb;LuksemburÅ¡ki
 Language_lg;Ganda
-Language_li;Limburški
+Language_li;LimburÅ¡ki
 Language_ln;Lingala
-Language_lo;Laoški
+Language_lo;LaoÅ¡ki
 Language_lt;Litvanski
 Language_lu;Luba-Katanga
 Language_lv;Latvijski
-Language_mg;Malagaški
-Language_mh;Maršalski
+Language_mg;MalagaÅ¡ki
+Language_mh;MarÅ¡alski
 Language_mi;Maorski
 Language_mk;Makedonski
 Language_ml;Malayalam
@@ -730,17 +730,17 @@ Language_mo;Moldavski
 Language_More;Jezik, podrobnije
 Language_mr;Marathi
 Language_ms;Malajski
-Language_mt;Malteški
-Language_mul;Višestruki jezici
-Language_my;Burmeški
+Language_mt;MalteÅ¡ki
+Language_mul;ViÅ¡estruki jezici
+Language_my;BurmeÅ¡ki
 Language_na;Nauru
-Language_nb;Norveški Bokmal
+Language_nb;NorveÅ¡ki Bokmal
 Language_nd;Ndebele
 Language_ne;Nepalski
 Language_ng;Ndonga
 Language_nl;Nizozemski
-Language_nn;Norveški Bokmal
-Language_no;Norveški
+Language_nn;NorveÅ¡ki Bokmal
+Language_no;NorveÅ¡ki
 Language_nr;Ndebele
 Language_nv;Navaho
 Language_ny;Nyanja
@@ -749,13 +749,13 @@ Language_oj;Ojibwa
 Language_om;Oromo
 Language_or;Oriya
 Language_os;Osetijski
-Language_pa;Pandžabski
+Language_pa;PandÅ¾abski
 Language_pi;Pali
 Language_pl;Poljski
 Language_ps;Pushto
 Language_pt;Portugalski
 Language_pt-br;Portugalski (Brazil)
-Language_qu;Kečuanski
+Language_qu;KeÄuanski
 Language_rm;Reto-romanski
 Language_rn;Rundi
 Language_ro;Rumunjski
@@ -764,10 +764,10 @@ Language_rw;Kinyarwanda
 Language_sa;Sanskrt
 Language_sc;Sardinijski
 Language_sd;Sindhi
-Language_se;Sjevernosâmski
+Language_se;SjevernosÃ¢mski
 Language_sg;Sango
-Language_si;Singaleški
-Language_sk;Slovački
+Language_si;SingaleÅ¡ki
+Language_sk;SlovaÄki
 Language_sl;Slovenski
 Language_sm;Samoanski
 Language_sn;Shona
@@ -777,11 +777,11 @@ Language_sr;Srpski
 Language_ss;Swati
 Language_st;Sotho
 Language_su;Sundaneski
-Language_sv;Švedski
+Language_sv;Å vedski
 Language_sw;Swahili
 Language_ta;Tamilski
 Language_te;Telugu
-Language_tg;Tadžički
+Language_tg;TadÅ¾iÄki
 Language_th;Tajski
 Language_ti;Tigrinijski
 Language_tk;Turkmenski
@@ -792,27 +792,27 @@ Language_tr;Turski
 Language_ts;Tsonga
 Language_tt;Tatarski
 Language_tw;Twi
-Language_ty;Tahićanski
+Language_ty;TahiÄ‡anski
 Language_ug;Ujgurski
 Language_uk;Ukrajinski
 Language_ur;Urdu
-Language_uz;Uzbečki
+Language_uz;UzbeÄki
 Language_ve;Venda
 Language_vi;Vijetnamski
 Language_vo;Volapuk
 Language_wa;Walloon
 Language_wo;Wolof
 Language_xh;Xhosa
-Language_yi;Jidiš
+Language_yi;JidiÅ¡
 Language_yo;Yoruba
 Language_za;Zhuang
 Language_zh;Kineski
 Language_zh-cn;Kineski (Kina)
 Language_zh-tw;Kineski (Taiwan)
 Language_zu;Zulu
-LawRating;Dopušteno za mladež od
+LawRating;DopuÅ¡teno za mladeÅ¾ od
 LCCN;LCCN
-Library;Knjižnica multipleksera
+Library;KnjiÅ¾nica multipleksera
 Lightness;Svjetlina
 LineUpStart;
 List;Spisak
@@ -824,34 +824,34 @@ Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;
 Matrix_Format;
-MediaInfo_About;Pruža vrlo podrobne informacije\r\no multimedijalnim datotekama:\r\nMatroska, OGG (uključujući OGM)\r\nMPEG1 (uključujući VCD)\r\nMPEG2 (uključujući DVD i SVCD)\r\nMPEG4 (uključujući Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (uključujući WMV, WMA)\r\nMicrosoft RIFF (uključujući AVI, WAV)\r\nSamo zvukovnim oblicima (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About;PruÅ¾a vrlo podrobne informacije\r\no multimedijalnim datotekama:\r\nMatroska, OGG (ukljuÄujuÄ‡i OGM)\r\nMPEG1 (ukljuÄujuÄ‡i VCD)\r\nMPEG2 (ukljuÄujuÄ‡i DVD i SVCD)\r\nMPEG4 (ukljuÄujuÄ‡i Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (ukljuÄujuÄ‡i WMV, WMA)\r\nMicrosoft RIFF (ukljuÄujuÄ‡i AVI, WAV)\r\nSamo zvukovnim oblicima (AC3, DTS, AAC, AU, AIFF...)
 Menu;Izbornik
 Menu stream(s);Izbornik - tokovi
-Menu_Codec_List;Izbornik - kôdeksi
-Menu_Hint;Dodatne mogućnosti
+Menu_Codec_List;Izbornik - kÃ´deksi
+Menu_Hint;Dodatne moguÄ‡nosti
 Menu_No;Bez izbornika
-MenuCount;Broj izborničkih tokova
-MenuID;Izbornički ID
+MenuCount;Broj izborniÄkih tokova
+MenuID;IzborniÄki ID
 mn;min
-Mood;Raspoloženje
-More;Više...
+Mood;RaspoloÅ¾enje
+More;ViÅ¡e...
 Movie;Naslov filma
 ms;ms
 MSDI;MSDI
 MusicBy;Glazba
-MuxingMode;Način rada multipleksera
-MuxingMode_MoreInfo;Više informacija o radu multipleksera
-MuxingMode_PackedBitstream;Usredotočeni protok podataka
+MuxingMode;NaÄin rada multipleksera
+MuxingMode_MoreInfo;ViÅ¡e informacija o radu multipleksera
+MuxingMode_PackedBitstream;UsredotoÄeni protok podataka
 Name;Ime
 Nationality;Nacionalnost
-NetworkName;Naziv mreže
+NetworkName;Naziv mreÅ¾e
 New;Novo
-Newest version;Provjera dostupnosti nove inačice (iziskuje vezu s Internetom)
-NewVersion_Menu;Raspoloživa je novija inačica
-NewVersion_Question_Content;Raspoloživa je novija inačica (v%Version%)! Da li bi ste je željeli preuzeti?
-NewVersion_Question_Title;Objavljena je nova inačica!
+Newest version;Provjera dostupnosti nove inaÄice (iziskuje vezu s Internetom)
+NewVersion_Menu;RaspoloÅ¾iva je novija inaÄica
+NewVersion_Question_Content;RaspoloÅ¾iva je novija inaÄica (v%Version%)! Da li bi ste je Å¾eljeli preuzeti?
+NewVersion_Question_Title;Objavljena je nova inaÄica!
 No;Ne
-Not yet;Još ne
+Not yet;JoÅ¡ ne
 NumColors;Broj boja
 OK;U redu
 One output file per input file;Po jedna izlazna datoteka na jednu ulaznu
@@ -861,44 +861,44 @@ OpenCandy_02;__% upotpunjeno
 OpenCandy_03;Veza s Internetom prekinuta
 OpenCandy_04;________ preuzimanje upotpunjeno
 OpenCandy_05;Ovdje kliknuti za instalaciju ________
-OpenCandy_06;Jeste li sigurni da želite poništiti ovu instalaciju?\r\nUkoliko instalaciju želite odložiti za kasnije, odaberite 'Ne'.\r\nNapomena: U izborniku možete odabrati 'Svršetak' kako bi instalaciju odložili do nakon slijedećeg pokretanja sustava.
-OpenCandy_07;Preuzimanje ________ je bilo obustavljeno.\r\nZa nastavak preuzimanja kliknite na ikonu u traci zadaća.
-OpenCandy_08;Nastupila je jedna kritička pogreška. Instalacija _________ će stoga biti prekinuta.
+OpenCandy_06;Jeste li sigurni da Å¾elite poniÅ¡titi ovu instalaciju?\r\nUkoliko instalaciju Å¾elite odloÅ¾iti za kasnije, odaberite 'Ne'.\r\nNapomena: U izborniku moÅ¾ete odabrati 'SvrÅ¡etak' kako bi instalaciju odloÅ¾ili do nakon slijedeÄ‡eg pokretanja sustava.
+OpenCandy_07;Preuzimanje ________ je bilo obustavljeno.\r\nZa nastavak preuzimanja kliknite na ikonu u traci zadaÄ‡a.
+OpenCandy_08;Nastupila je jedna kritiÄka pogreÅ¡ka. Instalacija _________ Ä‡e stoga biti prekinuta.
 OpenCandy_09;Stanka pri preuzimanju
-OpenCandy_10;Poništiti instalaciju
+OpenCandy_10;PoniÅ¡titi instalaciju
 OpenCandy_11;Nastaviti preuzimanje
-OpenCandy_12;Okončati instalacijski program
-OpenCandy_13;___________ - preporučeno od ____________
+OpenCandy_12;OkonÄati instalacijski program
+OpenCandy_13;___________ - preporuÄeno od ____________
 OpenCandy_14;Preuzimanje _________
-OpenCandy_15;___________, software koji Vam je preporučen od ___________, se upravo preuzima na Vaš zahtjev. Dojavit ćemo Vam kada bude pripravan za instalaciju.
+OpenCandy_15;___________, software koji Vam je preporuÄen od ___________, se upravo preuzima na VaÅ¡ zahtjev. Dojavit Ä‡emo Vam kada bude pripravan za instalaciju.
 OpenCandy_16;___________ je pripravan za instalaciju.
 OpenCandy_17;___________ je ovim u potpunosti preuzet. Za nastavak molim kliknite na 'Instalirati'.
 OpenCandy_18;___________ od ___________ je preuzeto
 OpenCandy_19;Powered by OpenCandy
-OpenCandy_20;Saznajte više na OpenCandy.com
+OpenCandy_20;Saznajte viÅ¡e na OpenCandy.com
 OpenCandy_21;Instalirati
 OpenCandy_22;Instalacija ___________
-OpenCandy_23;Ovim će se poništiti preuzimanje ___________\r\nJeste li sigurni da želite završiti rad programa?
+OpenCandy_23;Ovim Ä‡e se poniÅ¡titi preuzimanje ___________\r\nJeste li sigurni da Å¾elite zavrÅ¡iti rad programa?
 OpenCandy_24;Stanka
-OpenCandy_25;Vaše preuzimanje je bilo obustavljeno. Ukoliko ste spremni za nastavak, kliknite 'Nastaviti'.
+OpenCandy_25;VaÅ¡e preuzimanje je bilo obustavljeno. Ukoliko ste spremni za nastavak, kliknite 'Nastaviti'.
 OpenCandy_26;Nastaviti
 OpenCandy_27;Odmah instalirati
 OpenCandy_28;Zaustaviti preuzimanje
 OpenCandy_29;Nastaviti preuzimanje
-OpenCandy_30;Poništiti instalaciju
-OpenCandy_31;Molim odaberite jednu od mogućnosti instalacije
+OpenCandy_30;PoniÅ¡titi instalaciju
+OpenCandy_31;Molim odaberite jednu od moguÄ‡nosti instalacije
 OpenCandy_32;Instalirati ___________
 OpenCandy_33;Ne instalirati
-OpenCandy_34;Molim odaberite jednu od mogućnosti instalacije
-OpenCandy_35;______ preporučuje ovaj software
-OpenCandy_36;Vaša tekuća instalacija neće biti prekinuta
+OpenCandy_34;Molim odaberite jednu od moguÄ‡nosti instalacije
+OpenCandy_35;______ preporuÄuje ovaj software
+OpenCandy_36;VaÅ¡a tekuÄ‡a instalacija neÄ‡e biti prekinuta
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
-Options;Mogućnosti
+Options;MoguÄ‡nosti
 Options_Hint;Prilagodbe
 Original;Izvorno
-OriginalNetworkName;Izvorni naziv mreže
+OriginalNetworkName;Izvorni naziv mreÅ¾e
 OriginalSourceForm;Prvobitni oblik izvora
 OriginalSourceMedium;Prvobitni medij izvora
 Originator;
@@ -910,24 +910,24 @@ Output format;Izlazni oblik
 OverallBitRate;Ukupni protok podataka
 OverallBitRate_Maximum;Maksimum ukupnog protoka podataka
 OverallBitRate_Minimum;Minimum ukupnog protoka podataka
-OverallBitRate_Mode;Način ukupnog protoka podataka
+OverallBitRate_Mode;NaÄin ukupnog protoka podataka
 OverallBitRate_Nominal;Nominalni ukupni protok podataka
 Part;Dio
 Part_Count;Ukupni broj
 PartNumber;
 PartTotal;
-Performer;Izvođač
+Performer;IzvoÄ‘aÄ
 Period;Razdoblje
 Phone;Telefon
 PictureRatio;
 PixelAspectRatio;Omjer piksela
 PixelAspectRatio_Original;Izvorni omjer piksela
-PlayCounter;Brojač izvedbi
+PlayCounter;BrojaÄ izvedbi
 Played_Count;puta izvedeno
-Played_First_Date;prvi put izvođeno
-Played_Last_Date;posljednji put izvođeno
+Played_First_Date;prvi put izvoÄ‘eno
+Played_Last_Date;posljednji put izvoÄ‘eno
 PlayTime;Trajanje izvedbe
-Position;položaj
+Position;poloÅ¾aj
 Position_Total;ukupno
 Preferences;Prilagodbe
 PrimaryAudioLanguage;
@@ -948,12 +948,12 @@ Recorded_Date;Nadnevak snimanja
 Recorded_Location;Mjesto snimanja
 Released_Date;Nadnevak objavljivanja
 RemixedBy;Remixed by
-ReplayGain_Gain;Pojačavanje zvuka izvedbe
-ReplayGain_Peak;Vrhunac pojačanog zvuka izvedbe
-Resolution;Razlučivost
+ReplayGain_Gain;PojaÄavanje zvuka izvedbe
+ReplayGain_Peak;Vrhunac pojaÄanog zvuka izvedbe
+Resolution;RazluÄivost
 s;s
 SamplingCount;
-SamplingRate;Učestalost uzorkovanja
+SamplingRate;UÄestalost uzorkovanja
 Save;Pohraniti
 ScanOrder;Redoslijed pregledavanja
 ScanOrder_Original;
@@ -971,26 +971,26 @@ Send HeaderFile;Molim zaglavnu datoteku poslati ovamo: http://sourceforge.net/pr
 Separator_Columns;Razdjelnik redaka
 Separator_Lines;Razdjelnik crta
 SerieTitle;
-ServiceChannel;Broj uslužnog kanala
+ServiceChannel;Broj usluÅ¾nog kanala
 ServiceName;Naziv usluge
-ServiceProvider;Pružatelj usluge
+ServiceProvider;PruÅ¾atelj usluge
 ServiceType;Vrsta usluge
 Set;Medijalni sklop
 Set_Count;Broj u medijalnom sklopu
 Setup;Postavljanje
-Sharpness;Oštrost
+Sharpness;OÅ¡trost
 Sheet;Tablica
 Sheet (Complete);Tablica (potpuna)
-Shell extension;Proširenje ljuske sustava (desnim klikom u Pregledniku će se pojaviti mogućnosti Media Info)
-Shell extension, folder;Za mape također
-Shell InfoTip;Info-naznaka (prelaskom miša preko neke datoteke u Pregledniku će se prikazati informacije o njoj)
+Shell extension;ProÅ¡irenje ljuske sustava (desnim klikom u Pregledniku Ä‡e se pojaviti moguÄ‡nosti Media Info)
+Shell extension, folder;Za mape takoÄ‘er
+Shell InfoTip;Info-naznaka (prelaskom miÅ¡a preko neke datoteke u Pregledniku Ä‡e se prikazati informacije o njoj)
 ShimName;
 Show menu;Prikazati izbornik
 Show toolbar;Prikazati alatnu traku
 SigningPresent;
 SignLanguage;
-Sort;Poređano prema
-SoundEngineer;Tonski tehničar
+Sort;PoreÄ‘ano prema
+SoundEngineer;Tonski tehniÄar
 Source;
 Source_Duration;
 Source_FrameCount;
@@ -1003,49 +1003,50 @@ StoreMethod_SeparatedFields;
 StoreMethod_SeparatedFields_1;
 StoreMethod_SeparatedFields_2;
 Stream;Tok
-Stream_MoreInfo;Više informacija o tom toku
+Stream_MoreInfo;ViÅ¡e informacija o tom toku
 StreamCount;Broj tokova te vrste
 StreamID;Prepoznavanje toka
 StreamKind;Vrsta toka
 StreamKindID;Prepoznavatelj toka
-StreamKindPos;Položaj prepoznavatelja toka
-StreamSize;Veličina toka
+StreamKindPos;PoloÅ¾aj prepoznavatelja toka
+StreamSize;VeliÄina toka
 StreamSize_Encoded;
-StreamSize_Proportion;Omjeri dotičnog toka
-Subject;Sadržaj
+StreamSize_Proportion;Omjeri dotiÄnog toka
+Subject;SadrÅ¾aj
 SubTrack;Podsnimka
 Summary;Sveukupno
-Supported formats;Podržavani oblici datoteka
-Supported?;Podržavano?
-Synopsis;Sažetak
+Supported formats;PodrÅ¾avani oblici datoteka
+Supported?;PodrÅ¾avano?
+Synopsis;SaÅ¾etak
 SystemId;ID
-Tagged_Application;Označeno aplikacijom
-Tagged_Date;Nadnevak označavanja
-Technician;Tehničar
-TermsOfUse;Uvjeti korištenja
+Tagged_Application;OznaÄeno aplikacijom
+Tagged_Date;Nadnevak oznaÄavanja
+Technician;TehniÄar
+TermsOfUse;Uvjeti koriÅ¡tenja
 TertiaryAudioLanguage;
 Text;Tekst
 Text - Custom;Vlastiti tekst
 Text (HTML);Tekst (HTML)
 Text stream(s);Tokovi teksta
 Text streams;Tokovi teksta
-Text_Codec_List;Kôdeki teksta
+Text_Codec_List;KÃ´deki teksta
 Text_No;Bez teksta
 Text1;Prvi tok teksta
 Text2;Drugi tok teksta
-Text3;Treći tok teksta
+Text3;TreÄ‡i tok teksta
 TextCount;Broj tok teksta
 TextlessElementsExist;
 ThanksTo;Zahvala
-Thousands separator;Razdjelnik tisuća
+Thousands separator;Razdjelnik tisuÄ‡a
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
+TimeCode_Striped;
 TimeStamp;
 TimeZone;
 Title;Naslov
-Title_More;Više podataka o naslovu
+Title_More;ViÅ¡e podataka o naslovu
 Total;Ukupno
 TotalNumberOfParts;
 TotalProgrammeDuration;
@@ -1061,7 +1062,7 @@ Unknown;Nepoznato
 Url;URL
 Video;Video
 Video stream(s);Video tok(-ovi)
-Video_Codec_List;Video-kôdeki
+Video_Codec_List;Video-kÃ´deki
 Video_Delay;Zaostajanje prikaza video-slike
 Video_No;Bez prikaza video-slike
 Video0_Delay;Zaostajanje video0-slike
@@ -1069,26 +1070,26 @@ Video1;Prvi tok video-slike
 VideoComments;
 VideoCount;Broj tokova video-slike
 View;Prikaz
-View_Hint;Mijenja mogućnosti prikaza informacije
-Warning : more streams in the files;Pozor!: U datotekama se nalazi više tokova!
+View_Hint;Mijenja moguÄ‡nosti prikaza informacije
+Warning : more streams in the files;Pozor!: U datotekama se nalazi viÅ¡e tokova!
 Web;Internet
-WebSite_Audio;Prijeći na spletnu stranicu ovog kôdeka
-WebSite_Audio_More;Prijeći na spletnu sadržaj (%Url%) za pronalaženje tog audio-kôdeka
-WebSite_General;Prijeći na spletni sadržaj nekog programa za izvođenje ove datoteke
-WebSite_General_More;Prijeći na spletni sadržaj nekog programa za izvođenje ove datoteke
-WebSite_Text;Prijeći na spletnu stranicu tog tekstualnog kôdeka
-WebSite_Text_More;Prijeći na spletni sadržaj (%Url%) za pronalaženje tog tekstualnog kôdeka
+WebSite_Audio;PrijeÄ‡i na spletnu stranicu ovog kÃ´deka
+WebSite_Audio_More;PrijeÄ‡i na spletnu sadrÅ¾aj (%Url%) za pronalaÅ¾enje tog audio-kÃ´deka
+WebSite_General;PrijeÄ‡i na spletni sadrÅ¾aj nekog programa za izvoÄ‘enje ove datoteke
+WebSite_General_More;PrijeÄ‡i na spletni sadrÅ¾aj nekog programa za izvoÄ‘enje ove datoteke
+WebSite_Text;PrijeÄ‡i na spletnu stranicu tog tekstualnog kÃ´deka
+WebSite_Text_More;PrijeÄ‡i na spletni sadrÅ¾aj (%Url%) za pronalaÅ¾enje tog tekstualnog kÃ´deka
 WebSite_Url;http://MediaArea.net/MediaInfo
-WebSite_Video;Prijeći na spletnu stranicu tog video-kôdeka
-WebSite_Video_More;Prijeći na spletni sadržaj (%Url%) za pronalaženje tog video-kôdeka
-Width;Širina
+WebSite_Video;PrijeÄ‡i na spletnu stranicu tog video-kÃ´deka
+WebSite_Video_More;PrijeÄ‡i na spletni sadrÅ¾aj (%Url%) za pronalaÅ¾enje tog video-kÃ´deka
+Width;Å irina
 Width_Original;
 WriteMe;Poruka autoru
 WriteToTranslator;Poruka prevoditelju
-Written_Date;Nadnevak početka pisanja
-Written_Location;Mjesto početka pisanja
+Written_Date;Nadnevak poÄetka pisanja
+Written_Location;Mjesto poÄetka pisanja
 WrittenBy;Napisao
 Yes;Da
-Your system;Informacije o Vašem sustavu
+Your system;Informacije o VaÅ¡em sustavu
 ZZ_Automatic_Percent;85
 ZZ_AutomaticLanguage_Percent;89

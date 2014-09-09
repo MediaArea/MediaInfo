@@ -1042,6 +1042,7 @@ TimeCode;;;;;;;;Time code;;Denbora-kodea;;Time code;;;;Timecode;;;;;;Código de 
 TimeCode_FirstFrame;;;;;;;;Time code of first frame;;Denbora-kodea, lehen Framea;;Time code de la première image;;;;Timecode del primo frame;;;;;;Código de tempo do primeiro frame;;;Временной код первого кадра;;;;;İlk karenin zaman kodu;;;;;;
 TimeCode_Settings;;;;;;;;Time code settings;;Denbora-kodea, ezarpenak;;Paramètres du time code;;;;Impostazioni timecode;;;;;;Configuração do código de tempo;;;Параметры временного кода;;;;;Zaman kodu ayarları;;;;;;
 TimeCode_Source;;;;;;;;Time code source;;Denbora-kodea, iturburua;;Source du time code;;;;Timecode sorgente;;;;;;Fonte do código de tempo;;;Оригинал временного кода;;;;;Zaman kodu kaynağı;;;;;;
+TimeCode_Striped;;;;;;;;Time code, striped;;;;time code, calculé;;;;;;;;;;;;;;;;;;;;;;;;
 TimeStamp;;;;;;;;Time stamp;;TimeZone;;Time stamp;;;;Data/ora;;;;;;Marca temporal;;;Временная метка;;;;;Zaman damgası;;;;;;
 TimeZone;خط الزمن;Гадзінная зона;ВремеваЗона;;;Tidszone;Zeitzone;Timezone;;Ordu-Eremua;منطقه ساعتى جهانى;Fuseau horaire;;;;Fuso orario;タイムゾーン;시간대;;;Strefa czasowa;Fuso horário;Hora local;;Часовой пояс;Časová zóna;Ora lokale;;;Saat dilimi;Часовий пояс;时区;時區;;Ժամային գոտին;Timezone
 Title;عنوان;Загаловак;Име;Títol;Titul;Titel;Titel;Title;Título;Izenburua;عنوان;Titre;Título;Τίτλος;Cím;Titolo;タイトル;제목;Antraštė;Titel;Tytuł;Título;Título;Titlu;Заголовок;Titul;Titulli; titel;ชื่อเรื่อง;Başlık;Заголовок;标题;標題;Naslov;Անունը;სათაური

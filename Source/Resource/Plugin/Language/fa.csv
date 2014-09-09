@@ -2,50 +2,50 @@
   Author_Email;Martik.Panosian@gmail.com
   Author_Name;Martik Panosian
   Author_OldNames;Martik
-  Language_Name;Persian  فارسی
+  Language_Name;Persian  ÙØ§Ø±Ø³ÛŒ
   Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
   Config_Text_ThousandsSeparator; 
- audio stream1;استریم صوت
- audio stream2;استریم صوت ها
- audio stream3;استریم صوت ها
- bit1;بیت
- bit2;بیت ها
- bit3;بیت ها
+ audio stream1;Ø§Ø³ØªØ±ÛŒÙ… ØµÙˆØª
+ audio stream2;Ø§Ø³ØªØ±ÛŒÙ… ØµÙˆØª Ù‡Ø§
+ audio stream3;Ø§Ø³ØªØ±ÛŒÙ… ØµÙˆØª Ù‡Ø§
+ bit1;Ø¨ÛŒØª
+ bit2;Ø¨ÛŒØª Ù‡Ø§
+ bit3;Ø¨ÛŒØª Ù‡Ø§
  bps; bps
  Bps; Bps
- Byte1;بایت
- Byte2;بایت ها
- Byte3;بایت ها
- channel1;کانال
- channel2;کانال ها
- channel3;کانال ها
- chapter1; فصل
- chapter2; فصل ها
- chapter3; فصل ها
- chapters stream1;استریم  فصل
- chapters stream2;استریم  فصل  ها
- chapters stream3;استریم  فصل  ها
+ Byte1;Ø¨Ø§ÛŒØª
+ Byte2;Ø¨Ø§ÛŒØª Ù‡Ø§
+ Byte3;Ø¨Ø§ÛŒØª Ù‡Ø§
+ channel1;Ú©Ø§Ù†Ø§Ù„
+ channel2;Ú©Ø§Ù†Ø§Ù„ Ù‡Ø§
+ channel3;Ú©Ø§Ù†Ø§Ù„ Ù‡Ø§
+ chapter1; ÙØµÙ„
+ chapter2; ÙØµÙ„ Ù‡Ø§
+ chapter3; ÙØµÙ„ Ù‡Ø§
+ chapters stream1;Ø§Ø³ØªØ±ÛŒÙ…  ÙØµÙ„
+ chapters stream2;Ø§Ø³ØªØ±ÛŒÙ…  ÙØµÙ„  Ù‡Ø§
+ chapters stream3;Ø§Ø³ØªØ±ÛŒÙ…  ÙØµÙ„  Ù‡Ø§
  character1;
  character2;
  character3;
- day1;روز
- day2;روزها
- day3;روزها
+ day1;Ø±ÙˆØ²
+ day2;Ø±ÙˆØ²Ù‡Ø§
+ day3;Ø±ÙˆØ²Ù‡Ø§
  dB1; dB
  dB2; dB
  dB3; dB
- file1;فایل
- file2;فایل ها
- file3;فایل ها
+ file1;ÙØ§ÛŒÙ„
+ file2;ÙØ§ÛŒÙ„ Ù‡Ø§
+ file3;ÙØ§ÛŒÙ„ Ù‡Ø§
  fps1; fps
  fps2; fps
  fps3; fps
- frame1;فریم
- frame2;فریم ها
- frame3;فریم ها
+ frame1;ÙØ±ÛŒÙ…
+ frame2;ÙØ±ÛŒÙ… Ù‡Ø§
+ frame3;ÙØ±ÛŒÙ… Ù‡Ø§
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -56,19 +56,19 @@
  GibiByte2; GibiBytes
  GibiByte3; GibiBytes
  GiBps; GiBps
- GigaBit1;گیگابیت
- GigaBit2;گیگابیت ها
- GigaBit3;گیگابیت ها
- GigaByte1;گیگابایت
- GigaByte2;گیگابایت ها
- GigaByte3;گیگابایت ها
- hour1;ساعت
- hour2;ساعت ها
- hour3;ساعت ها
+ GigaBit1;Ú¯ÛŒÚ¯Ø§Ø¨ÛŒØª
+ GigaBit2;Ú¯ÛŒÚ¯Ø§Ø¨ÛŒØª Ù‡Ø§
+ GigaBit3;Ú¯ÛŒÚ¯Ø§Ø¨ÛŒØª Ù‡Ø§
+ GigaByte1;Ú¯ÛŒÚ¯Ø§Ø¨Ø§ÛŒØª
+ GigaByte2;Ú¯ÛŒÚ¯Ø§Ø¨Ø§ÛŒØª Ù‡Ø§
+ GigaByte3;Ú¯ÛŒÚ¯Ø§Ø¨Ø§ÛŒØª Ù‡Ø§
+ hour1;Ø³Ø§Ø¹Øª
+ hour2;Ø³Ø§Ø¹Øª Ù‡Ø§
+ hour3;Ø³Ø§Ø¹Øª Ù‡Ø§
  Hz; Hz
- image stream1;استریم تصویر
- image stream2;استریم تصویر ها
- image stream3;استریم تصویر ها
+ image stream1;Ø§Ø³ØªØ±ÛŒÙ… ØªØµÙˆÛŒØ±
+ image stream2;Ø§Ø³ØªØ±ÛŒÙ… ØªØµÙˆÛŒØ± Ù‡Ø§
+ image stream3;Ø§Ø³ØªØ±ÛŒÙ… ØªØµÙˆÛŒØ± Ù‡Ø§
  KB; KB
  Kb; Kb
  KBps; KBps
@@ -82,12 +82,12 @@
  KibiByte2; KibiBytes
  KibiByte3; KibiBytes
  KiBps; KiBps
- KiloBit1;کیلوبیت
- KiloBit2;کیلوبیت ها
- KiloBit3;کیلوبیت ها
- KiloByte1;کیلوبایت
- KiloByte2;کیلوبایت ها
- KiloByte3;کیلوبایت ها
+ KiloBit1;Ú©ÛŒÙ„ÙˆØ¨ÛŒØª
+ KiloBit2;Ú©ÛŒÙ„ÙˆØ¨ÛŒØª Ù‡Ø§
+ KiloBit3;Ú©ÛŒÙ„ÙˆØ¨ÛŒØª Ù‡Ø§
+ KiloByte1;Ú©ÛŒÙ„ÙˆØ¨Ø§ÛŒØª
+ KiloByte2;Ú©ÛŒÙ„ÙˆØ¨Ø§ÛŒØª Ù‡Ø§
+ KiloByte3;Ú©ÛŒÙ„ÙˆØ¨Ø§ÛŒØª Ù‡Ø§
  MB; MB
  Mb; Mb
  Mbps; Mbps
@@ -98,292 +98,292 @@
  MebiByte1; MebiByte
  MebiByte2; MebiBytes
  MebiByte3; MebiBytes
- MegaBit1;مگابیت
- MegaBit2;مگابیت ها
- MegaBit3;مگابیت ها
- MegaByte1;مگابایت
- MegaByte2;مگابایت ها
- MegaByte3;مگابایت ها
+ MegaBit1;Ù…Ú¯Ø§Ø¨ÛŒØª
+ MegaBit2;Ù…Ú¯Ø§Ø¨ÛŒØª Ù‡Ø§
+ MegaBit3;Ù…Ú¯Ø§Ø¨ÛŒØª Ù‡Ø§
+ MegaByte1;Ù…Ú¯Ø§Ø¨Ø§ÛŒØª
+ MegaByte2;Ù…Ú¯Ø§Ø¨Ø§ÛŒØª Ù‡Ø§
+ MegaByte3;Ù…Ú¯Ø§Ø¨Ø§ÛŒØª Ù‡Ø§
  MHz; MHz
  MiB; MiB
  Mib; Mib
  MiBps; MiBps
- millisecond1;میلی ثانیه
- millisecond2;میلی ثانیه ها
- millisecond3;میلی ثانیه ها
- minute1;دقیقه
- minute2;دقیقه ها
- minute3;دقیقه ها
- month1;ماه
- month2;ماه ها
- month3;ماه ها
- pixel1;پیکسل
- pixel2;پیکسل ها
- pixel3;پیکسل ها
- second1;ثانیه
- second2;ثانیه ها
- second3;ثانیه ها
- text stream1;استریم متن
- text stream2;استریم متن ها
- text stream3;استریم متن ها
- video frames1;فریم ویدیو
- video frames2;فریم ویدیو ها
- video frames3;فریم ویدیو ها
- video stream1;استریم ویدیو
- video stream2;استریم ویدیو خا
- video stream3;استریم ویدیو ها
+ millisecond1;Ù…ÛŒÙ„ÛŒ Ø«Ø§Ù†ÛŒÙ‡
+ millisecond2;Ù…ÛŒÙ„ÛŒ Ø«Ø§Ù†ÛŒÙ‡ Ù‡Ø§
+ millisecond3;Ù…ÛŒÙ„ÛŒ Ø«Ø§Ù†ÛŒÙ‡ Ù‡Ø§
+ minute1;Ø¯Ù‚ÛŒÙ‚Ù‡
+ minute2;Ø¯Ù‚ÛŒÙ‚Ù‡ Ù‡Ø§
+ minute3;Ø¯Ù‚ÛŒÙ‚Ù‡ Ù‡Ø§
+ month1;Ù…Ø§Ù‡
+ month2;Ù…Ø§Ù‡ Ù‡Ø§
+ month3;Ù…Ø§Ù‡ Ù‡Ø§
+ pixel1;Ù¾ÛŒÚ©Ø³Ù„
+ pixel2;Ù¾ÛŒÚ©Ø³Ù„ Ù‡Ø§
+ pixel3;Ù¾ÛŒÚ©Ø³Ù„ Ù‡Ø§
+ second1;Ø«Ø§Ù†ÛŒÙ‡
+ second2;Ø«Ø§Ù†ÛŒÙ‡ Ù‡Ø§
+ second3;Ø«Ø§Ù†ÛŒÙ‡ Ù‡Ø§
+ text stream1;Ø§Ø³ØªØ±ÛŒÙ… Ù…ØªÙ†
+ text stream2;Ø§Ø³ØªØ±ÛŒÙ… Ù…ØªÙ† Ù‡Ø§
+ text stream3;Ø§Ø³ØªØ±ÛŒÙ… Ù…ØªÙ† Ù‡Ø§
+ video frames1;ÙØ±ÛŒÙ… ÙˆÛŒØ¯ÛŒÙˆ
+ video frames2;ÙØ±ÛŒÙ… ÙˆÛŒØ¯ÛŒÙˆ Ù‡Ø§
+ video frames3;ÙØ±ÛŒÙ… ÙˆÛŒØ¯ÛŒÙˆ Ù‡Ø§
+ video stream1;Ø§Ø³ØªØ±ÛŒÙ… ÙˆÛŒØ¯ÛŒÙˆ
+ video stream2;Ø§Ø³ØªØ±ÛŒÙ… ÙˆÛŒØ¯ÛŒÙˆ Ø®Ø§
+ video stream3;Ø§Ø³ØªØ±ÛŒÙ… ÙˆÛŒØ¯ÛŒÙˆ Ù‡Ø§
  warppoint0;No warppoints
  warppoint1; warppoint
  warppoint2; warppoints
  warppoint3; warppoints
- week1;هفته
- week2;هفته ها
- week3;هفته ها
- year1;سال
- year2;سال ها
- year3;سال ها
+ week1;Ù‡ÙØªÙ‡
+ week2;Ù‡ÙØªÙ‡ Ù‡Ø§
+ week3;Ù‡ÙØªÙ‡ Ù‡Ø§
+ year1;Ø³Ø§Ù„
+ year2;Ø³Ø§Ù„ Ù‡Ø§
+ year3;Ø³Ø§Ù„ Ù‡Ø§
 , ;, 
 : ;: 
 3D;
 3DType;
-About;درباره
-About_Hint;ارتباط با من و آخرین نسخه
-Accompaniment;همراهی
+About;Ø¯Ø±Ø¨Ø§Ø±Ù‡
+About_Hint;Ø§Ø±ØªØ¨Ø§Ø· Ø¨Ø§ Ù…Ù† Ùˆ Ø¢Ø®Ø±ÛŒÙ† Ù†Ø³Ø®Ù‡
+Accompaniment;Ù‡Ù…Ø±Ø§Ù‡ÛŒ
 ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
-Actor;بازیگر
-Actor_Character;بازی کاراکتر
-Added_Date;تاریخ اضافه شده
-Address;آدرس
-Advanced;پیشرفته
-Advanced mode;حالت پیشرفته
-Album;آلبوم
+Actor;Ø¨Ø§Ø²ÛŒÚ¯Ø±
+Actor_Character;Ø¨Ø§Ø²ÛŒ Ú©Ø§Ø±Ø§Ú©ØªØ±
+Added_Date;ØªØ§Ø±ÛŒØ® Ø§Ø¶Ø§ÙÙ‡ Ø´Ø¯Ù‡
+Address;Ø¢Ø¯Ø±Ø³
+Advanced;Ù¾ÛŒØ´Ø±ÙØªÙ‡
+Advanced mode;Ø­Ø§Ù„Øª Ù¾ÛŒØ´Ø±ÙØªÙ‡
+Album;Ø¢Ù„Ø¨ÙˆÙ…
 Album_ReplayGain_Gain;Album replay gain
 Album_ReplayGain_Peak;Album replay gain peak
-Alignment;هم ترازی
-Alignment_Aligned;هم ترازی بین صفحات
-Alignment_Split;شکاف بین صفحات
-All;همه
-Archival_Location;مسیر بایگانی
-Arranger;مرتب کننده
-ArtDirector;کارگردان هنری
-AspectRatio;نسبت تصوير
-AssistantDirector;دستیار کارگردان
-at;در
-At least one file;(حداقل یک فایل را باز کنید)
-Audio;صوت
-Audio stream(s);استریم صوت ها
-Audio_Codec_List;کدک صوت ها
-Audio_No;صوتی موجود نیست
-Audio1;اولین استریم صوت
-Audio2;دومبن استریم صوت
+Alignment;Ù‡Ù… ØªØ±Ø§Ø²ÛŒ
+Alignment_Aligned;Ù‡Ù… ØªØ±Ø§Ø²ÛŒ Ø¨ÛŒÙ† ØµÙØ­Ø§Øª
+Alignment_Split;Ø´Ú©Ø§Ù Ø¨ÛŒÙ† ØµÙØ­Ø§Øª
+All;Ù‡Ù…Ù‡
+Archival_Location;Ù…Ø³ÛŒØ± Ø¨Ø§ÛŒÚ¯Ø§Ù†ÛŒ
+Arranger;Ù…Ø±ØªØ¨ Ú©Ù†Ù†Ø¯Ù‡
+ArtDirector;Ú©Ø§Ø±Ú¯Ø±Ø¯Ø§Ù† Ù‡Ù†Ø±ÛŒ
+AspectRatio;Ù†Ø³Ø¨Øª ØªØµÙˆÙŠØ±
+AssistantDirector;Ø¯Ø³ØªÛŒØ§Ø± Ú©Ø§Ø±Ú¯Ø±Ø¯Ø§Ù†
+at;Ø¯Ø±
+At least one file;(Ø­Ø¯Ø§Ù‚Ù„ ÛŒÚ© ÙØ§ÛŒÙ„ Ø±Ø§ Ø¨Ø§Ø² Ú©Ù†ÛŒØ¯)
+Audio;ØµÙˆØª
+Audio stream(s);Ø§Ø³ØªØ±ÛŒÙ… ØµÙˆØª Ù‡Ø§
+Audio_Codec_List;Ú©Ø¯Ú© ØµÙˆØª Ù‡Ø§
+Audio_No;ØµÙˆØªÛŒ Ù…ÙˆØ¬ÙˆØ¯ Ù†ÛŒØ³Øª
+Audio1;Ø§ÙˆÙ„ÛŒÙ† Ø§Ø³ØªØ±ÛŒÙ… ØµÙˆØª
+Audio2;Ø¯ÙˆÙ…Ø¨Ù† Ø§Ø³ØªØ±ÛŒÙ… ØµÙˆØª
 AudioComments;
-AudioCount;تعداد استریم صوت
+AudioCount;ØªØ¹Ø¯Ø§Ø¯ Ø§Ø³ØªØ±ÛŒÙ… ØµÙˆØª
 AudioDescriptionPresent;
 AudioDescriptionType;
 AudioLoudnessStandard;
 AudioTrackLayout;
-Author;نویسنده
-BarCode;بارکد
-Basic;اولیه
-Basic_Note;برای اطلاعات بیشتر اینجا را کلیک کنید
+Author;Ù†ÙˆÛŒØ³Ù†Ø¯Ù‡
+BarCode;Ø¨Ø§Ø±Ú©Ø¯
+Basic;Ø§ÙˆÙ„ÛŒÙ‡
+Basic_Note;Ø¨Ø±Ø§ÛŒ Ø§Ø·Ù„Ø§Ø¹Ø§Øª Ø¨ÛŒØ´ØªØ± Ø§ÛŒÙ†Ø¬Ø§ Ø±Ø§ Ú©Ù„ÛŒÚ© Ú©Ù†ÛŒØ¯
 BitDepth;
 BitDepth_Stored;
-BitRate;نرخ بيت
+BitRate;Ù†Ø±Ø® Ø¨ÙŠØª
 BitRate_Encoded;
-BitRate_Maximum;بیشترین نرخ بيت
-BitRate_Minimum;کمترین نرخ بيت
-BitRate_Mode;حالت نرخ بيت
-BitRate_Mode_CBR;پايدار
-BitRate_Mode_VBR;متغییر
-BitRate_Nominal;نرخ بيت غیرواقعی 
-Bits-(Pixel*Frame);بیتها /(Pixel*Frame)
+BitRate_Maximum;Ø¨ÛŒØ´ØªØ±ÛŒÙ† Ù†Ø±Ø® Ø¨ÙŠØª
+BitRate_Minimum;Ú©Ù…ØªØ±ÛŒÙ† Ù†Ø±Ø® Ø¨ÙŠØª
+BitRate_Mode;Ø­Ø§Ù„Øª Ù†Ø±Ø® Ø¨ÙŠØª
+BitRate_Mode_CBR;Ù¾Ø§ÙŠØ¯Ø§Ø±
+BitRate_Mode_VBR;Ù…ØªØºÛŒÛŒØ±
+BitRate_Nominal;Ù†Ø±Ø® Ø¨ÙŠØª ØºÛŒØ±ÙˆØ§Ù‚Ø¹ÛŒ 
+Bits-(Pixel*Frame);Ø¨ÛŒØªÙ‡Ø§ /(Pixel*Frame)
 BufferSize;
-Cancel;لغو
-Channel(s);کانال ها
-ChannelPositions;موقعیت کانال ها
-Chapter(s);فصل ها
-Chapters;فصل ها
-Chapters stream(s);استریم فصل ها
-Chapters_Codec_List;کدک فصل ها
-Chapters_No;فصلی وجود ندارد
-ChaptersCount;تعداد استریم فصل ها
-CheckNewVersion;کنترل نسخه جدید
-Choose custom;انتخاب دیگر
-Choose custom sheet;ورقه موردنظر را انتخاب کنید
-Choose custom text;متن موردنظر را انتخاب کنید
-Choose export format;فرمت خروجی را انتخاب کنید
-Choose file(s);فایل را برای باز کردن انتخاب کنید
-Choose filename;نام فایل موردنظر را انتخاب کنید
-Choose language;زمان موردنظر را انتخاب کنید
-Choregrapher;رقاص
-Chroma;رنگينى
+Cancel;Ù„ØºÙˆ
+Channel(s);Ú©Ø§Ù†Ø§Ù„ Ù‡Ø§
+ChannelPositions;Ù…ÙˆÙ‚Ø¹ÛŒØª Ú©Ø§Ù†Ø§Ù„ Ù‡Ø§
+Chapter(s);ÙØµÙ„ Ù‡Ø§
+Chapters;ÙØµÙ„ Ù‡Ø§
+Chapters stream(s);Ø§Ø³ØªØ±ÛŒÙ… ÙØµÙ„ Ù‡Ø§
+Chapters_Codec_List;Ú©Ø¯Ú© ÙØµÙ„ Ù‡Ø§
+Chapters_No;ÙØµÙ„ÛŒ ÙˆØ¬ÙˆØ¯ Ù†Ø¯Ø§Ø±Ø¯
+ChaptersCount;ØªØ¹Ø¯Ø§Ø¯ Ø§Ø³ØªØ±ÛŒÙ… ÙØµÙ„ Ù‡Ø§
+CheckNewVersion;Ú©Ù†ØªØ±Ù„ Ù†Ø³Ø®Ù‡ Ø¬Ø¯ÛŒØ¯
+Choose custom;Ø§Ù†ØªØ®Ø§Ø¨ Ø¯ÛŒÚ¯Ø±
+Choose custom sheet;ÙˆØ±Ù‚Ù‡ Ù…ÙˆØ±Ø¯Ù†Ø¸Ø± Ø±Ø§ Ø§Ù†ØªØ®Ø§Ø¨ Ú©Ù†ÛŒØ¯
+Choose custom text;Ù…ØªÙ† Ù…ÙˆØ±Ø¯Ù†Ø¸Ø± Ø±Ø§ Ø§Ù†ØªØ®Ø§Ø¨ Ú©Ù†ÛŒØ¯
+Choose export format;ÙØ±Ù…Øª Ø®Ø±ÙˆØ¬ÛŒ Ø±Ø§ Ø§Ù†ØªØ®Ø§Ø¨ Ú©Ù†ÛŒØ¯
+Choose file(s);ÙØ§ÛŒÙ„ Ø±Ø§ Ø¨Ø±Ø§ÛŒ Ø¨Ø§Ø² Ú©Ø±Ø¯Ù† Ø§Ù†ØªØ®Ø§Ø¨ Ú©Ù†ÛŒØ¯
+Choose filename;Ù†Ø§Ù… ÙØ§ÛŒÙ„ Ù…ÙˆØ±Ø¯Ù†Ø¸Ø± Ø±Ø§ Ø§Ù†ØªØ®Ø§Ø¨ Ú©Ù†ÛŒØ¯
+Choose language;Ø²Ù…Ø§Ù† Ù…ÙˆØ±Ø¯Ù†Ø¸Ø± Ø±Ø§ Ø§Ù†ØªØ®Ø§Ø¨ Ú©Ù†ÛŒØ¯
+Choregrapher;Ø±Ù‚Ø§Øµ
+Chroma;Ø±Ù†Ú¯ÙŠÙ†Ù‰
 ChromaSubsampling;
-Close;ببند
-Close all before open;قبل از باز کردن ببند
+Close;Ø¨Ø¨Ù†Ø¯
+Close all before open;Ù‚Ø¨Ù„ Ø§Ø² Ø¨Ø§Ø² Ú©Ø±Ø¯Ù† Ø¨Ø¨Ù†Ø¯
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
-Codec;کدک
-Codec_Description;شرح کدک
-Codec_Info;جزییات کدک
-Codec_Profile;پروفایل کدک
-Codec_Settings;تنظیمات کدک
-Codec_Settings_BVOP;تنظیمات کدک, BVOP
-Codec_Settings_CABAC;تنظیمات کدک, CABAC
-Codec_Settings_Endianness;تنظیمات کدک, Endianness
-Codec_Settings_Firm;تنظیمات کدک, Firm
-Codec_Settings_Floor;تنظیمات کدک, Floor
-Codec_Settings_GMC;تنظیمات کدک, GMC
-Codec_Settings_ITU;تنظیمات کدک, ITU
-Codec_Settings_Law;تنظیمات کدک, Law
-Codec_Settings_Matrix;تنظیمات کدک, Matrix
-Codec_Settings_PacketBitStream;تنظیمات کدک  Packet bitstream
-Codec_Settings_QPel;تنظیمات کدک, QPel
-Codec_Settings_Sign;تنظیمات کدک, Sign
-Codec_Url;لینک کدک
-CodecID;هویت کدک
-CodecID_Description;شرح کدک
-Collection;جمع اورى
-Colorimetry;سنجش رنگ
+Codec;Ú©Ø¯Ú©
+Codec_Description;Ø´Ø±Ø­ Ú©Ø¯Ú©
+Codec_Info;Ø¬Ø²ÛŒÛŒØ§Øª Ú©Ø¯Ú©
+Codec_Profile;Ù¾Ø±ÙˆÙØ§ÛŒÙ„ Ú©Ø¯Ú©
+Codec_Settings;ØªÙ†Ø¸ÛŒÙ…Ø§Øª Ú©Ø¯Ú©
+Codec_Settings_BVOP;ØªÙ†Ø¸ÛŒÙ…Ø§Øª Ú©Ø¯Ú©, BVOP
+Codec_Settings_CABAC;ØªÙ†Ø¸ÛŒÙ…Ø§Øª Ú©Ø¯Ú©, CABAC
+Codec_Settings_Endianness;ØªÙ†Ø¸ÛŒÙ…Ø§Øª Ú©Ø¯Ú©, Endianness
+Codec_Settings_Firm;ØªÙ†Ø¸ÛŒÙ…Ø§Øª Ú©Ø¯Ú©, Firm
+Codec_Settings_Floor;ØªÙ†Ø¸ÛŒÙ…Ø§Øª Ú©Ø¯Ú©, Floor
+Codec_Settings_GMC;ØªÙ†Ø¸ÛŒÙ…Ø§Øª Ú©Ø¯Ú©, GMC
+Codec_Settings_ITU;ØªÙ†Ø¸ÛŒÙ…Ø§Øª Ú©Ø¯Ú©, ITU
+Codec_Settings_Law;ØªÙ†Ø¸ÛŒÙ…Ø§Øª Ú©Ø¯Ú©, Law
+Codec_Settings_Matrix;ØªÙ†Ø¸ÛŒÙ…Ø§Øª Ú©Ø¯Ú©, Matrix
+Codec_Settings_PacketBitStream;ØªÙ†Ø¸ÛŒÙ…Ø§Øª Ú©Ø¯Ú©  Packet bitstream
+Codec_Settings_QPel;ØªÙ†Ø¸ÛŒÙ…Ø§Øª Ú©Ø¯Ú©, QPel
+Codec_Settings_Sign;ØªÙ†Ø¸ÛŒÙ…Ø§Øª Ú©Ø¯Ú©, Sign
+Codec_Url;Ù„ÛŒÙ†Ú© Ú©Ø¯Ú©
+CodecID;Ù‡ÙˆÛŒØª Ú©Ø¯Ú©
+CodecID_Description;Ø´Ø±Ø­ Ú©Ø¯Ú©
+Collection;Ø¬Ù…Ø¹ Ø§ÙˆØ±Ù‰
+Colorimetry;Ø³Ù†Ø¬Ø´ Ø±Ù†Ú¯
 ColorSpace;
 colour_primaries;
-Comment;توضيح
-CommissionedBy;مجاز توسط
+Comment;ØªÙˆØ¶ÙŠØ­
+CommissionedBy;Ù…Ø¬Ø§Ø² ØªÙˆØ³Ø·
 Compilation;
-CompleteName;نام کامل
+CompleteName;Ù†Ø§Ù… Ú©Ø§Ù…Ù„
 CompletionDate;
-Composer;سراينده
+Composer;Ø³Ø±Ø§ÙŠÙ†Ø¯Ù‡
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
-Compression_Ratio;نرخ فشردگی
-Conductor;رهبر اکسترر
+Compression_Ratio;Ù†Ø±Ø® ÙØ´Ø±Ø¯Ú¯ÛŒ
+Conductor;Ø±Ù‡Ø¨Ø± Ø§Ú©Ø³ØªØ±Ø±
 ContactEmail;
 ContactTelephoneNumber;
-Container and general information;محتوی و اطلاعات کلی
-ContentType;نوع محتوا
-CoProducer;تهیه کننده
-Copyright;کپی رایت
+Container and general information;Ù…Ø­ØªÙˆÛŒ Ùˆ Ø§Ø·Ù„Ø§Ø¹Ø§Øª Ú©Ù„ÛŒ
+ContentType;Ù†ÙˆØ¹ Ù…Ø­ØªÙˆØ§
+CoProducer;ØªÙ‡ÛŒÙ‡ Ú©Ù†Ù†Ø¯Ù‡
+Copyright;Ú©Ù¾ÛŒ Ø±Ø§ÛŒØª
 CopyrightYear;
-CostumeDesigner;طراح لباس
-Count;شمارش
-Country;کشور
-Cover;روکش
-Cover_Datas;داده روکش ها
-Cover_Description;شرح روکش
-Cover_Mime;روکش MIME
-Cover_Type;نوع روکش
-Cropped;بریدن اندازه
-Custom;دیگر
-Customize;شخصی سازی
-Date;تاریخ
-Debug;اشکال زدائى
-Decimal point;مميز اعشارى
-Delay;مکث
+CostumeDesigner;Ø·Ø±Ø§Ø­ Ù„Ø¨Ø§Ø³
+Count;Ø´Ù…Ø§Ø±Ø´
+Country;Ú©Ø´ÙˆØ±
+Cover;Ø±ÙˆÚ©Ø´
+Cover_Datas;Ø¯Ø§Ø¯Ù‡ Ø±ÙˆÚ©Ø´ Ù‡Ø§
+Cover_Description;Ø´Ø±Ø­ Ø±ÙˆÚ©Ø´
+Cover_Mime;Ø±ÙˆÚ©Ø´ MIME
+Cover_Type;Ù†ÙˆØ¹ Ø±ÙˆÚ©Ø´
+Cropped;Ø¨Ø±ÛŒØ¯Ù† Ø§Ù†Ø¯Ø§Ø²Ù‡
+Custom;Ø¯ÛŒÚ¯Ø±
+Customize;Ø´Ø®ØµÛŒ Ø³Ø§Ø²ÛŒ
+Date;ØªØ§Ø±ÛŒØ®
+Debug;Ø§Ø´Ú©Ø§Ù„ Ø²Ø¯Ø§Ø¦Ù‰
+Decimal point;Ù…Ù…ÙŠØ² Ø§Ø¹Ø´Ø§Ø±Ù‰
+Delay;Ù…Ú©Ø«
 Delay_Source;
 Delay_Source_Container;
 Delay_Source_Stream;
-Delete;حذف
-Description;شرح
-Digitized_Date;تاریخ رقمى
-Dimensions;اندازه گرفتن
-Director;کارگردان
-DirectorOfPhotography;کارگردان عکسبرداری
-DisplayAspectRatio;نمایش نسبت تصوير
-DisplayAspectRatio_Original;نمایش نسبت تصوير اصلی
-DistributedBy;توزيع شده توسط
+Delete;Ø­Ø°Ù
+Description;Ø´Ø±Ø­
+Digitized_Date;ØªØ§Ø±ÛŒØ® Ø±Ù‚Ù…Ù‰
+Dimensions;Ø§Ù†Ø¯Ø§Ø²Ù‡ Ú¯Ø±ÙØªÙ†
+Director;Ú©Ø§Ø±Ú¯Ø±Ø¯Ø§Ù†
+DirectorOfPhotography;Ú©Ø§Ø±Ú¯Ø±Ø¯Ø§Ù† Ø¹Ú©Ø³Ø¨Ø±Ø¯Ø§Ø±ÛŒ
+DisplayAspectRatio;Ù†Ù…Ø§ÛŒØ´ Ù†Ø³Ø¨Øª ØªØµÙˆÙŠØ±
+DisplayAspectRatio_Original;Ù†Ù…Ø§ÛŒØ´ Ù†Ø³Ø¨Øª ØªØµÙˆÙŠØ± Ø§ØµÙ„ÛŒ
+DistributedBy;ØªÙˆØ²ÙŠØ¹ Ø´Ø¯Ù‡ ØªÙˆØ³Ø·
 Distributor;
-Donate;کمک مالی
-DotsPerInch;نقطه بر اینچ
-Duration;مدت
-Duration_End;زمان پایان
-Duration_Start;زمان شروع
-Edit;ویرایش
-EditedBy;ویرایش شده توست
-EMail;ایمیل
-Encoded_Application;برنامه نوشتاری
-Encoded_Date;تاریخ رمزى شده
-Encoded_Library;کتابخان نوشتاری
-Encoded_Library_Settings;تنظینات رمزى شده
-Encoded_Original;حمایت اصلی
-EncodedBy;رمزى شده توسط
-EPG_Positions;EPG موقعیت (internal)
+Donate;Ú©Ù…Ú© Ù…Ø§Ù„ÛŒ
+DotsPerInch;Ù†Ù‚Ø·Ù‡ Ø¨Ø± Ø§ÛŒÙ†Ú†
+Duration;Ù…Ø¯Øª
+Duration_End;Ø²Ù…Ø§Ù† Ù¾Ø§ÛŒØ§Ù†
+Duration_Start;Ø²Ù…Ø§Ù† Ø´Ø±ÙˆØ¹
+Edit;ÙˆÛŒØ±Ø§ÛŒØ´
+EditedBy;ÙˆÛŒØ±Ø§ÛŒØ´ Ø´Ø¯Ù‡ ØªÙˆØ³Øª
+EMail;Ø§ÛŒÙ…ÛŒÙ„
+Encoded_Application;Ø¨Ø±Ù†Ø§Ù…Ù‡ Ù†ÙˆØ´ØªØ§Ø±ÛŒ
+Encoded_Date;ØªØ§Ø±ÛŒØ® Ø±Ù…Ø²Ù‰ Ø´Ø¯Ù‡
+Encoded_Library;Ú©ØªØ§Ø¨Ø®Ø§Ù† Ù†ÙˆØ´ØªØ§Ø±ÛŒ
+Encoded_Library_Settings;ØªÙ†Ø¸ÛŒÙ†Ø§Øª Ø±Ù…Ø²Ù‰ Ø´Ø¯Ù‡
+Encoded_Original;Ø­Ù…Ø§ÛŒØª Ø§ØµÙ„ÛŒ
+EncodedBy;Ø±Ù…Ø²Ù‰ Ø´Ø¯Ù‡ ØªÙˆØ³Ø·
+EPG_Positions;EPG Ù…ÙˆÙ‚Ø¹ÛŒØª (internal)
 EpisodeTitleNumber;
-Error_File;خطا هنگام خواندن فایل
-ExecutiveProducer;تهیه کننده اجرایی
-Exit;خروج
-Exit_Hint;خروج از برنامه
-Export;خارج سازی
-Export_Hint;خارج سازی به فرمت...
-Extensions;پسوند معمولا استفاده شده است
-Family;خانوادگی
-Fax;فکس
-File;فایل
-File size;اندازه فایل
-File_Append;هشدار : از پارامترهای یکسان استفاده نکنید
-File_Created_Date;تاریخ ایجاد فایل
-File_Created_Date_Local;تاریخ ایجاد فایل (local)
-File_Hint;انتخاب فایل مولتی مدیا
-File_Modified_Date;آخرین تاریخ اصلاح فایل
-File_Modified_Date_Local;آخرین تاریخ اصلاح فایل (local)
-FileExtension;پسوند فایل
-FileName;نام فایل
-FileSize;اندازه فایل
-Folder;پوشه
-Folder (R);پوشه (R)
-Folder (R)_Hint;انتخاب پوشه (with all folders recursively)
-Folder (Recursively);پوشه (Recursively)
-Folder_Hint;انتخاب پوشه
-FolderName;نام پوشه
-Format;فرمت
+Error_File;Ø®Ø·Ø§ Ù‡Ù†Ú¯Ø§Ù… Ø®ÙˆØ§Ù†Ø¯Ù† ÙØ§ÛŒÙ„
+ExecutiveProducer;ØªÙ‡ÛŒÙ‡ Ú©Ù†Ù†Ø¯Ù‡ Ø§Ø¬Ø±Ø§ÛŒÛŒ
+Exit;Ø®Ø±ÙˆØ¬
+Exit_Hint;Ø®Ø±ÙˆØ¬ Ø§Ø² Ø¨Ø±Ù†Ø§Ù…Ù‡
+Export;Ø®Ø§Ø±Ø¬ Ø³Ø§Ø²ÛŒ
+Export_Hint;Ø®Ø§Ø±Ø¬ Ø³Ø§Ø²ÛŒ Ø¨Ù‡ ÙØ±Ù…Øª...
+Extensions;Ù¾Ø³ÙˆÙ†Ø¯ Ù…Ø¹Ù…ÙˆÙ„Ø§ Ø§Ø³ØªÙØ§Ø¯Ù‡ Ø´Ø¯Ù‡ Ø§Ø³Øª
+Family;Ø®Ø§Ù†ÙˆØ§Ø¯Ú¯ÛŒ
+Fax;ÙÚ©Ø³
+File;ÙØ§ÛŒÙ„
+File size;Ø§Ù†Ø¯Ø§Ø²Ù‡ ÙØ§ÛŒÙ„
+File_Append;Ù‡Ø´Ø¯Ø§Ø± : Ø§Ø² Ù¾Ø§Ø±Ø§Ù…ØªØ±Ù‡Ø§ÛŒ ÛŒÚ©Ø³Ø§Ù† Ø§Ø³ØªÙØ§Ø¯Ù‡ Ù†Ú©Ù†ÛŒØ¯
+File_Created_Date;ØªØ§Ø±ÛŒØ® Ø§ÛŒØ¬Ø§Ø¯ ÙØ§ÛŒÙ„
+File_Created_Date_Local;ØªØ§Ø±ÛŒØ® Ø§ÛŒØ¬Ø§Ø¯ ÙØ§ÛŒÙ„ (local)
+File_Hint;Ø§Ù†ØªØ®Ø§Ø¨ ÙØ§ÛŒÙ„ Ù…ÙˆÙ„ØªÛŒ Ù…Ø¯ÛŒØ§
+File_Modified_Date;Ø¢Ø®Ø±ÛŒÙ† ØªØ§Ø±ÛŒØ® Ø§ØµÙ„Ø§Ø­ ÙØ§ÛŒÙ„
+File_Modified_Date_Local;Ø¢Ø®Ø±ÛŒÙ† ØªØ§Ø±ÛŒØ® Ø§ØµÙ„Ø§Ø­ ÙØ§ÛŒÙ„ (local)
+FileExtension;Ù¾Ø³ÙˆÙ†Ø¯ ÙØ§ÛŒÙ„
+FileName;Ù†Ø§Ù… ÙØ§ÛŒÙ„
+FileSize;Ø§Ù†Ø¯Ø§Ø²Ù‡ ÙØ§ÛŒÙ„
+Folder;Ù¾ÙˆØ´Ù‡
+Folder (R);Ù¾ÙˆØ´Ù‡ (R)
+Folder (R)_Hint;Ø§Ù†ØªØ®Ø§Ø¨ Ù¾ÙˆØ´Ù‡ (with all folders recursively)
+Folder (Recursively);Ù¾ÙˆØ´Ù‡ (Recursively)
+Folder_Hint;Ø§Ù†ØªØ®Ø§Ø¨ Ù¾ÙˆØ´Ù‡
+FolderName;Ù†Ø§Ù… Ù¾ÙˆØ´Ù‡
+Format;ÙØ±Ù…Øª
 Format_Commercial;
 Format_Commercial_IfAny;
-Format_Description;شرح فرمت
-Format_Info;جزییات فرمت
-Format_Profile;پروفایل فرمت
-Format_Settings;تنظیمات فرمت
-Format_Settings_BVOP;تنظیمات فرمت, BVOP
-Format_Settings_CABAC;تنظیمات فرمت, CABAC
+Format_Description;Ø´Ø±Ø­ ÙØ±Ù…Øª
+Format_Info;Ø¬Ø²ÛŒÛŒØ§Øª ÙØ±Ù…Øª
+Format_Profile;Ù¾Ø±ÙˆÙØ§ÛŒÙ„ ÙØ±Ù…Øª
+Format_Settings;ØªÙ†Ø¸ÛŒÙ…Ø§Øª ÙØ±Ù…Øª
+Format_Settings_BVOP;ØªÙ†Ø¸ÛŒÙ…Ø§Øª ÙØ±Ù…Øª, BVOP
+Format_Settings_CABAC;ØªÙ†Ø¸ÛŒÙ…Ø§Øª ÙØ±Ù…Øª, CABAC
 Format_Settings_Emphasis;
-Format_Settings_Endianness;تنظیمات فرمت, Endianness
-Format_Settings_Firm;تنظیمات فرمت, Firm
-Format_Settings_Floor;تنظیمات فرمت, Floor
+Format_Settings_Endianness;ØªÙ†Ø¸ÛŒÙ…Ø§Øª ÙØ±Ù…Øª, Endianness
+Format_Settings_Firm;ØªÙ†Ø¸ÛŒÙ…Ø§Øª ÙØ±Ù…Øª, Firm
+Format_Settings_Floor;ØªÙ†Ø¸ÛŒÙ…Ø§Øª ÙØ±Ù…Øª, Floor
 Format_Settings_FrameMode;
-Format_Settings_GMC;تنظیمات فرمت, GMC
+Format_Settings_GMC;ØªÙ†Ø¸ÛŒÙ…Ø§Øª ÙØ±Ù…Øª, GMC
 Format_Settings_GOP;
-Format_Settings_ITU;تنظیمات فرمت, ITU
-Format_Settings_Law;تنظیمات فرمت, Law
-Format_Settings_Matrix;تنظیمات فرمت, Matrix
-Format_Settings_Matrix_Custom;شخصی
-Format_Settings_Matrix_Default;پيش فرض
+Format_Settings_ITU;ØªÙ†Ø¸ÛŒÙ…Ø§Øª ÙØ±Ù…Øª, ITU
+Format_Settings_Law;ØªÙ†Ø¸ÛŒÙ…Ø§Øª ÙØ±Ù…Øª, Law
+Format_Settings_Matrix;ØªÙ†Ø¸ÛŒÙ…Ø§Øª ÙØ±Ù…Øª, Matrix
+Format_Settings_Matrix_Custom;Ø´Ø®ØµÛŒ
+Format_Settings_Matrix_Default;Ù¾ÙŠØ´ ÙØ±Ø¶
 Format_Settings_Mode;
 Format_Settings_ModeExtension;
-Format_Settings_PacketBitStream;تنظیمات فرمت, Packet bitstream
+Format_Settings_PacketBitStream;ØªÙ†Ø¸ÛŒÙ…Ø§Øª ÙØ±Ù…Øª, Packet bitstream
 Format_Settings_PictureStructure;
-Format_Settings_PS;تنظیمات فرمت, PS
-Format_Settings_Pulldown;تنظیمات فرمت, Pulldown
-Format_Settings_QPel;تنظیمات فرمت, QPel
-Format_Settings_RefFrames;تنظیمات فرمت, ReFrames
-Format_Settings_SBR;تنظیمات فرمت, SBR
-Format_Settings_Sign;تنظیمات فرمت, Sign
+Format_Settings_PS;ØªÙ†Ø¸ÛŒÙ…Ø§Øª ÙØ±Ù…Øª, PS
+Format_Settings_Pulldown;ØªÙ†Ø¸ÛŒÙ…Ø§Øª ÙØ±Ù…Øª, Pulldown
+Format_Settings_QPel;ØªÙ†Ø¸ÛŒÙ…Ø§Øª ÙØ±Ù…Øª, QPel
+Format_Settings_RefFrames;ØªÙ†Ø¸ÛŒÙ…Ø§Øª ÙØ±Ù…Øª, ReFrames
+Format_Settings_SBR;ØªÙ†Ø¸ÛŒÙ…Ø§Øª ÙØ±Ù…Øª, SBR
+Format_Settings_Sign;ØªÙ†Ø¸ÛŒÙ…Ø§Øª ÙØ±Ù…Øª, Sign
 Format_Settings_Wrapping;
-Format_Url;لینک فرمت
-Format_Version;نسخه فرمت
+Format_Url;Ù„ÛŒÙ†Ú© ÙØ±Ù…Øª
+Format_Version;Ù†Ø³Ø®Ù‡ ÙØ±Ù…Øª
 FpaManufacturer;
 FpaPass;
 FpaVersion;
-FrameCount;تعداد فرمت
-FrameRate;نرخ فرمت
-FrameRate_Maximum;بیشترین نرخ فرمت
-FrameRate_Minimum;کمترین نرخ فرمت
-FrameRate_Mode;حالت نرخ فرمت
-FrameRate_Mode_CFR;پایدار
-FrameRate_Mode_VFR;متغییر
-FrameRate_Nominal;نرخ فرمت غیر واقعی
-FrameRate_Original;نرخ فرمت اصلی
-General;کلی
-Genre;دسته
+FrameCount;ØªØ¹Ø¯Ø§Ø¯ ÙØ±Ù…Øª
+FrameRate;Ù†Ø±Ø® ÙØ±Ù…Øª
+FrameRate_Maximum;Ø¨ÛŒØ´ØªØ±ÛŒÙ† Ù†Ø±Ø® ÙØ±Ù…Øª
+FrameRate_Minimum;Ú©Ù…ØªØ±ÛŒÙ† Ù†Ø±Ø® ÙØ±Ù…Øª
+FrameRate_Mode;Ø­Ø§Ù„Øª Ù†Ø±Ø® ÙØ±Ù…Øª
+FrameRate_Mode_CFR;Ù¾Ø§ÛŒØ¯Ø§Ø±
+FrameRate_Mode_VFR;Ù…ØªØºÛŒÛŒØ±
+FrameRate_Nominal;Ù†Ø±Ø® ÙØ±Ù…Øª ØºÛŒØ± ÙˆØ§Ù‚Ø¹ÛŒ
+FrameRate_Original;Ù†Ø±Ø® ÙØ±Ù…Øª Ø§ØµÙ„ÛŒ
+General;Ú©Ù„ÛŒ
+Genre;Ø¯Ø³ØªÙ‡
 Genre_000;Blues
 Genre_001;Classic Rock
 Genre_002;Country
@@ -576,48 +576,48 @@ Genre_188;
 Genre_189;
 Genre_190;
 Genre_191;
-Go to WebSite;وب سایت
+Go to WebSite;ÙˆØ¨ Ø³Ø§ÛŒØª
 Grouping;
 h;h
-Header file;ایجاد فایل سر صفحه
-Height;بلندی
+Header file;Ø§ÛŒØ¬Ø§Ø¯ ÙØ§ÛŒÙ„ Ø³Ø± ØµÙØ­Ù‡
+Height;Ø¨Ù„Ù†Ø¯ÛŒ
 Height_Original;
-Help;راهنمایی
-Hint;اشارات
-How many audio streams?;تعداد استریم صوت?
-How many chapters streams?;تعداد استریم فصل?
-How many text streams?;تعداد استریم متن?
-How many video streams?;تعداد استریم ویدیو?
+Help;Ø±Ø§Ù‡Ù†Ù…Ø§ÛŒÛŒ
+Hint;Ø§Ø´Ø§Ø±Ø§Øª
+How many audio streams?;ØªØ¹Ø¯Ø§Ø¯ Ø§Ø³ØªØ±ÛŒÙ… ØµÙˆØª?
+How many chapters streams?;ØªØ¹Ø¯Ø§Ø¯ Ø§Ø³ØªØ±ÛŒÙ… ÙØµÙ„?
+How many text streams?;ØªØ¹Ø¯Ø§Ø¯ Ø§Ø³ØªØ±ÛŒÙ… Ù…ØªÙ†?
+How many video streams?;ØªØ¹Ø¯Ø§Ø¯ Ø§Ø³ØªØ±ÛŒÙ… ÙˆÛŒØ¯ÛŒÙˆ?
 HTML;HTML
 ID;ID
 IdentClockStart;
-Image;تصویر
-Image stream(s);استریم تصویر
-Image_Codec_List;کدک تصویر
-ImageCount;تعداد استریم تصویر
-Info;اطلاعات
-Instruments;ساز
-Interlaced_BFF;فیلد پایین در اول
-Interlaced_Interlaced;درهم بافته
-Interlaced_PPF;تصاعدى
-Interlaced_Progressive;تصاعدى
-Interlaced_TFF;فیلد بالا در اول
-Interlacement;بهم پيچيدگى
-Interleave_Duration;جاگذارى, مدت
-Interleave_Preload;جاگذارى, مدت بارگذاری
-Interleave_VideoFrames;جاگذارى, مدت
+Image;ØªØµÙˆÛŒØ±
+Image stream(s);Ø§Ø³ØªØ±ÛŒÙ… ØªØµÙˆÛŒØ±
+Image_Codec_List;Ú©Ø¯Ú© ØªØµÙˆÛŒØ±
+ImageCount;ØªØ¹Ø¯Ø§Ø¯ Ø§Ø³ØªØ±ÛŒÙ… ØªØµÙˆÛŒØ±
+Info;Ø§Ø·Ù„Ø§Ø¹Ø§Øª
+Instruments;Ø³Ø§Ø²
+Interlaced_BFF;ÙÛŒÙ„Ø¯ Ù¾Ø§ÛŒÛŒÙ† Ø¯Ø± Ø§ÙˆÙ„
+Interlaced_Interlaced;Ø¯Ø±Ù‡Ù… Ø¨Ø§ÙØªÙ‡
+Interlaced_PPF;ØªØµØ§Ø¹Ø¯Ù‰
+Interlaced_Progressive;ØªØµØ§Ø¹Ø¯Ù‰
+Interlaced_TFF;ÙÛŒÙ„Ø¯ Ø¨Ø§Ù„Ø§ Ø¯Ø± Ø§ÙˆÙ„
+Interlacement;Ø¨Ù‡Ù… Ù¾ÙŠÚ†ÙŠØ¯Ú¯Ù‰
+Interleave_Duration;Ø¬Ø§Ú¯Ø°Ø§Ø±Ù‰, Ù…Ø¯Øª
+Interleave_Preload;Ø¬Ø§Ú¯Ø°Ø§Ø±Ù‰, Ù…Ø¯Øª Ø¨Ø§Ø±Ú¯Ø°Ø§Ø±ÛŒ
+Interleave_VideoFrames;Ø¬Ø§Ú¯Ø°Ø§Ø±Ù‰, Ù…Ø¯Øª
 Interleaved;
 InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-Keywords;کلمه کلیدی
-Known codecs;کدک مشخص
-Known formats;فرمت مشخص
-Known parameters;پارامتر مشخص
-Label;برچسب
-Language;زبان
-Language_aa;بعد
+Keywords;Ú©Ù„Ù…Ù‡ Ú©Ù„ÛŒØ¯ÛŒ
+Known codecs;Ú©Ø¯Ú© Ù…Ø´Ø®Øµ
+Known formats;ÙØ±Ù…Øª Ù…Ø´Ø®Øµ
+Known parameters;Ù¾Ø§Ø±Ø§Ù…ØªØ± Ù…Ø´Ø®Øµ
+Label;Ø¨Ø±Ú†Ø³Ø¨
+Language;Ø²Ø¨Ø§Ù†
+Language_aa;Ø¨Ø¹Ø¯
 Language_ab;Abkhazian
 Language_ae;Avestan
 Language_af;Afrikaans
@@ -727,7 +727,7 @@ Language_mk;Macedonian
 Language_ml;Malayalam
 Language_mn;Mongolian
 Language_mo;Moldavian
-Language_More;زبان, اطلاعات بیشتر
+Language_More;Ø²Ø¨Ø§Ù†, Ø§Ø·Ù„Ø§Ø¹Ø§Øª Ø¨ÛŒØ´ØªØ±
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
@@ -812,283 +812,284 @@ Language_zh-tw;Chinese (Taiwan)
 Language_zu;Zulu
 LawRating;Law rating
 LCCN;LCCN
-Library;کتابخانه تسهيم کننده
-Lightness;روشنايى
+Library;Ú©ØªØ§Ø¨Ø®Ø§Ù†Ù‡ ØªØ³Ù‡ÙŠÙ… Ú©Ù†Ù†Ø¯Ù‡
+Lightness;Ø±ÙˆØ´Ù†Ø§ÙŠÙ‰
 LineUpStart;
-List;لیست
-Lyricist;لایرسکسیست
-Lyrics;متن آهنگ
-Mastered_Date;تاریخ مستر
-MasteredBy;مستر شده توسط
+List;Ù„ÛŒØ³Øª
+Lyricist;Ù„Ø§ÛŒØ±Ø³Ú©Ø³ÛŒØ³Øª
+Lyrics;Ù…ØªÙ† Ø¢Ù‡Ù†Ú¯
+Mastered_Date;ØªØ§Ø±ÛŒØ® Ù…Ø³ØªØ±
+MasteredBy;Ù…Ø³ØªØ± Ø´Ø¯Ù‡ ØªÙˆØ³Ø·
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;
 Matrix_Format;
-MediaInfo_About;اطلاعات جزیی\r\nدرباره فایل مولتی مدیا:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
-Menu;منو
-Menu stream(s);استریم منو
-Menu_Codec_List;کدک منو
-Menu_Hint;احتمالات بیشتر
-Menu_No;منویی وجود ندارد
-MenuCount;تعداد استریم منو
-MenuID;هویت منو
+MediaInfo_About;Ø§Ø·Ù„Ø§Ø¹Ø§Øª Ø¬Ø²ÛŒÛŒ\r\nØ¯Ø±Ø¨Ø§Ø±Ù‡ ÙØ§ÛŒÙ„ Ù…ÙˆÙ„ØªÛŒ Ù…Ø¯ÛŒØ§:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
+Menu;Ù…Ù†Ùˆ
+Menu stream(s);Ø§Ø³ØªØ±ÛŒÙ… Ù…Ù†Ùˆ
+Menu_Codec_List;Ú©Ø¯Ú© Ù…Ù†Ùˆ
+Menu_Hint;Ø§Ø­ØªÙ…Ø§Ù„Ø§Øª Ø¨ÛŒØ´ØªØ±
+Menu_No;Ù…Ù†ÙˆÛŒÛŒ ÙˆØ¬ÙˆØ¯ Ù†Ø¯Ø§Ø±Ø¯
+MenuCount;ØªØ¹Ø¯Ø§Ø¯ Ø§Ø³ØªØ±ÛŒÙ… Ù…Ù†Ùˆ
+MenuID;Ù‡ÙˆÛŒØª Ù…Ù†Ùˆ
 mn;mn
-Mood;حالت
-More;بیشتر
-Movie;نام فیلم
+Mood;Ø­Ø§Ù„Øª
+More;Ø¨ÛŒØ´ØªØ±
+Movie;Ù†Ø§Ù… ÙÛŒÙ„Ù…
 ms;ms
 MSDI;MSDI
-MusicBy;موسیقی توسط
-MuxingMode;حالت تسهيم کننده
-MuxingMode_MoreInfo;حالت تسهيم کننده, اطلاعات بیشتر
+MusicBy;Ù…ÙˆØ³ÛŒÙ‚ÛŒ ØªÙˆØ³Ø·
+MuxingMode;Ø­Ø§Ù„Øª ØªØ³Ù‡ÙŠÙ… Ú©Ù†Ù†Ø¯Ù‡
+MuxingMode_MoreInfo;Ø­Ø§Ù„Øª ØªØ³Ù‡ÙŠÙ… Ú©Ù†Ù†Ø¯Ù‡, Ø§Ø·Ù„Ø§Ø¹Ø§Øª Ø¨ÛŒØ´ØªØ±
 MuxingMode_PackedBitstream;Packed bitstream
-Name;نام
-Nationality;مليت
-NetworkName;نام شبکه
-New;جدید
-Newest version;کنترل برای نسخه جدید نیاز به اینترنت
-NewVersion_Menu;نسخه جدید موجود است
-NewVersion_Question_Content;نسخه جدید (v%Version%) موجود است, می خواهید آن را دانلود کنید?
-NewVersion_Question_Title;نسخه جدید انتشار یافت
-No;خیر
-Not yet;هنوز خیر
-NumColors;تعداد رنگ ها
-OK;موافق
-One output file per input file;یک فایل خروجی بر فابل ورودی
-Open;باز کن
-OpenCandy_01;در حال دانلود ________
-OpenCandy_02;__% تکمیل شده
-OpenCandy_03;قطع ارتباط اینترنتی
-OpenCandy_04;________ دانلود کامل شد
-OpenCandy_05;کلیک برای نصب ________
-OpenCandy_06;لغو نصب?\r\nتاخیر تا ریبوت بعدی
-OpenCandy_07;دانلود ________ متوقف شد.\r\nکلیک کنید برای ادامه
-OpenCandy_08;خطا در نصب _________ باید خارج شود.
-OpenCandy_09;توقف دانلود
-OpenCandy_10;لغو نصب
-OpenCandy_11;ادامه دانلود
-OpenCandy_12;خروج از نصب
-OpenCandy_13;___________ - توصیه شده توسط ____________
-OpenCandy_14;در حال دانلود _________
-OpenCandy_15;___________, توصیه شده توسط ___________, در حال دانلود است
-OpenCandy_16;___________ برای نصب آماده است
-OpenCandy_17;___________ دانلود کامل شد برای نصب کردن کلیک کنید
-OpenCandy_18;___________ از ___________ دانلود شده
-OpenCandy_19;OpenCandy توسط
-OpenCandy_20;OpenCandy.com اطلاعات بیشتر در
-OpenCandy_21;نصب
-OpenCandy_22;نصب ___________
-OpenCandy_23;موجب لغو نصب می شود ___________\r\nخارج می شوید?
-OpenCandy_24;توقف
-OpenCandy_25;دانلود متوقف شد. هر وقت آماده اید بر روی ادامه کلیک کنید.
-OpenCandy_26;ادامه
-OpenCandy_27;اکنون نصب کن
-OpenCandy_28;توقف دانلود
-OpenCandy_29;ادامه دانلود
-OpenCandy_30;لغو نصب
-OpenCandy_31;انتخاب تنظیمات نصب
-OpenCandy_32;نصب ___________
-OpenCandy_33;نصب نکن
-OpenCandy_34;انتخاب تنظیمات نصب
-OpenCandy_35;______ این نرم افزار پیشنهاد میشود
-OpenCandy_36;نصب فعلی متوقف نمی شود
+Name;Ù†Ø§Ù…
+Nationality;Ù…Ù„ÙŠØª
+NetworkName;Ù†Ø§Ù… Ø´Ø¨Ú©Ù‡
+New;Ø¬Ø¯ÛŒØ¯
+Newest version;Ú©Ù†ØªØ±Ù„ Ø¨Ø±Ø§ÛŒ Ù†Ø³Ø®Ù‡ Ø¬Ø¯ÛŒØ¯ Ù†ÛŒØ§Ø² Ø¨Ù‡ Ø§ÛŒÙ†ØªØ±Ù†Øª
+NewVersion_Menu;Ù†Ø³Ø®Ù‡ Ø¬Ø¯ÛŒØ¯ Ù…ÙˆØ¬ÙˆØ¯ Ø§Ø³Øª
+NewVersion_Question_Content;Ù†Ø³Ø®Ù‡ Ø¬Ø¯ÛŒØ¯ (v%Version%) Ù…ÙˆØ¬ÙˆØ¯ Ø§Ø³Øª, Ù…ÛŒ Ø®ÙˆØ§Ù‡ÛŒØ¯ Ø¢Ù† Ø±Ø§ Ø¯Ø§Ù†Ù„ÙˆØ¯ Ú©Ù†ÛŒØ¯?
+NewVersion_Question_Title;Ù†Ø³Ø®Ù‡ Ø¬Ø¯ÛŒØ¯ Ø§Ù†ØªØ´Ø§Ø± ÛŒØ§ÙØª
+No;Ø®ÛŒØ±
+Not yet;Ù‡Ù†ÙˆØ² Ø®ÛŒØ±
+NumColors;ØªØ¹Ø¯Ø§Ø¯ Ø±Ù†Ú¯ Ù‡Ø§
+OK;Ù…ÙˆØ§ÙÙ‚
+One output file per input file;ÛŒÚ© ÙØ§ÛŒÙ„ Ø®Ø±ÙˆØ¬ÛŒ Ø¨Ø± ÙØ§Ø¨Ù„ ÙˆØ±ÙˆØ¯ÛŒ
+Open;Ø¨Ø§Ø² Ú©Ù†
+OpenCandy_01;Ø¯Ø± Ø­Ø§Ù„ Ø¯Ø§Ù†Ù„ÙˆØ¯ ________
+OpenCandy_02;__% ØªÚ©Ù…ÛŒÙ„ Ø´Ø¯Ù‡
+OpenCandy_03;Ù‚Ø·Ø¹ Ø§Ø±ØªØ¨Ø§Ø· Ø§ÛŒÙ†ØªØ±Ù†ØªÛŒ
+OpenCandy_04;________ Ø¯Ø§Ù†Ù„ÙˆØ¯ Ú©Ø§Ù…Ù„ Ø´Ø¯
+OpenCandy_05;Ú©Ù„ÛŒÚ© Ø¨Ø±Ø§ÛŒ Ù†ØµØ¨ ________
+OpenCandy_06;Ù„ØºÙˆ Ù†ØµØ¨?\r\nØªØ§Ø®ÛŒØ± ØªØ§ Ø±ÛŒØ¨ÙˆØª Ø¨Ø¹Ø¯ÛŒ
+OpenCandy_07;Ø¯Ø§Ù†Ù„ÙˆØ¯ ________ Ù…ØªÙˆÙ‚Ù Ø´Ø¯.\r\nÚ©Ù„ÛŒÚ© Ú©Ù†ÛŒØ¯ Ø¨Ø±Ø§ÛŒ Ø§Ø¯Ø§Ù…Ù‡
+OpenCandy_08;Ø®Ø·Ø§ Ø¯Ø± Ù†ØµØ¨ _________ Ø¨Ø§ÛŒØ¯ Ø®Ø§Ø±Ø¬ Ø´ÙˆØ¯.
+OpenCandy_09;ØªÙˆÙ‚Ù Ø¯Ø§Ù†Ù„ÙˆØ¯
+OpenCandy_10;Ù„ØºÙˆ Ù†ØµØ¨
+OpenCandy_11;Ø§Ø¯Ø§Ù…Ù‡ Ø¯Ø§Ù†Ù„ÙˆØ¯
+OpenCandy_12;Ø®Ø±ÙˆØ¬ Ø§Ø² Ù†ØµØ¨
+OpenCandy_13;___________ - ØªÙˆØµÛŒÙ‡ Ø´Ø¯Ù‡ ØªÙˆØ³Ø· ____________
+OpenCandy_14;Ø¯Ø± Ø­Ø§Ù„ Ø¯Ø§Ù†Ù„ÙˆØ¯ _________
+OpenCandy_15;___________, ØªÙˆØµÛŒÙ‡ Ø´Ø¯Ù‡ ØªÙˆØ³Ø· ___________, Ø¯Ø± Ø­Ø§Ù„ Ø¯Ø§Ù†Ù„ÙˆØ¯ Ø§Ø³Øª
+OpenCandy_16;___________ Ø¨Ø±Ø§ÛŒ Ù†ØµØ¨ Ø¢Ù…Ø§Ø¯Ù‡ Ø§Ø³Øª
+OpenCandy_17;___________ Ø¯Ø§Ù†Ù„ÙˆØ¯ Ú©Ø§Ù…Ù„ Ø´Ø¯ Ø¨Ø±Ø§ÛŒ Ù†ØµØ¨ Ú©Ø±Ø¯Ù† Ú©Ù„ÛŒÚ© Ú©Ù†ÛŒØ¯
+OpenCandy_18;___________ Ø§Ø² ___________ Ø¯Ø§Ù†Ù„ÙˆØ¯ Ø´Ø¯Ù‡
+OpenCandy_19;OpenCandy ØªÙˆØ³Ø·
+OpenCandy_20;OpenCandy.com Ø§Ø·Ù„Ø§Ø¹Ø§Øª Ø¨ÛŒØ´ØªØ± Ø¯Ø±
+OpenCandy_21;Ù†ØµØ¨
+OpenCandy_22;Ù†ØµØ¨ ___________
+OpenCandy_23;Ù…ÙˆØ¬Ø¨ Ù„ØºÙˆ Ù†ØµØ¨ Ù…ÛŒ Ø´ÙˆØ¯ ___________\r\nØ®Ø§Ø±Ø¬ Ù…ÛŒ Ø´ÙˆÛŒØ¯?
+OpenCandy_24;ØªÙˆÙ‚Ù
+OpenCandy_25;Ø¯Ø§Ù†Ù„ÙˆØ¯ Ù…ØªÙˆÙ‚Ù Ø´Ø¯. Ù‡Ø± ÙˆÙ‚Øª Ø¢Ù…Ø§Ø¯Ù‡ Ø§ÛŒØ¯ Ø¨Ø± Ø±ÙˆÛŒ Ø§Ø¯Ø§Ù…Ù‡ Ú©Ù„ÛŒÚ© Ú©Ù†ÛŒØ¯.
+OpenCandy_26;Ø§Ø¯Ø§Ù…Ù‡
+OpenCandy_27;Ø§Ú©Ù†ÙˆÙ† Ù†ØµØ¨ Ú©Ù†
+OpenCandy_28;ØªÙˆÙ‚Ù Ø¯Ø§Ù†Ù„ÙˆØ¯
+OpenCandy_29;Ø§Ø¯Ø§Ù…Ù‡ Ø¯Ø§Ù†Ù„ÙˆØ¯
+OpenCandy_30;Ù„ØºÙˆ Ù†ØµØ¨
+OpenCandy_31;Ø§Ù†ØªØ®Ø§Ø¨ ØªÙ†Ø¸ÛŒÙ…Ø§Øª Ù†ØµØ¨
+OpenCandy_32;Ù†ØµØ¨ ___________
+OpenCandy_33;Ù†ØµØ¨ Ù†Ú©Ù†
+OpenCandy_34;Ø§Ù†ØªØ®Ø§Ø¨ ØªÙ†Ø¸ÛŒÙ…Ø§Øª Ù†ØµØ¨
+OpenCandy_35;______ Ø§ÛŒÙ† Ù†Ø±Ù… Ø§ÙØ²Ø§Ø± Ù¾ÛŒØ´Ù†Ù‡Ø§Ø¯ Ù…ÛŒØ´ÙˆØ¯
+OpenCandy_36;Ù†ØµØ¨ ÙØ¹Ù„ÛŒ Ù…ØªÙˆÙ‚Ù Ù†Ù…ÛŒ Ø´ÙˆØ¯
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
-Options;تنظیمات
-Options_Hint;تنظیمات
-Original;اصلی
-OriginalNetworkName;نام اصلی شبکه
-OriginalSourceForm;فرم منبع اصلی
-OriginalSourceMedium;فرم میانی اصلی
+Options;ØªÙ†Ø¸ÛŒÙ…Ø§Øª
+Options_Hint;ØªÙ†Ø¸ÛŒÙ…Ø§Øª
+Original;Ø§ØµÙ„ÛŒ
+OriginalNetworkName;Ù†Ø§Ù… Ø§ØµÙ„ÛŒ Ø´Ø¨Ú©Ù‡
+OriginalSourceForm;ÙØ±Ù… Ù…Ù†Ø¨Ø¹ Ø§ØµÙ„ÛŒ
+OriginalSourceMedium;ÙØ±Ù… Ù…ÛŒØ§Ù†ÛŒ Ø§ØµÙ„ÛŒ
 Originator;
-Other;دیگر
+Other;Ø¯ÛŒÚ¯Ø±
 OtherIdentifier;
 OtherIdentifierType;
-Output;خروجی
-Output format;فرمت خروجی
-OverallBitRate;نرخ بیت کل
-OverallBitRate_Maximum;بیشترین نرخ بیت کل
-OverallBitRate_Minimum;کمترین نرخ بیت کل
-OverallBitRate_Mode;حالت نرخ بیت کل
-OverallBitRate_Nominal;نرخ بیت کل غیرواقعی
-Part;قسمت
-Part_Count;کل تعداد
+Output;Ø®Ø±ÙˆØ¬ÛŒ
+Output format;ÙØ±Ù…Øª Ø®Ø±ÙˆØ¬ÛŒ
+OverallBitRate;Ù†Ø±Ø® Ø¨ÛŒØª Ú©Ù„
+OverallBitRate_Maximum;Ø¨ÛŒØ´ØªØ±ÛŒÙ† Ù†Ø±Ø® Ø¨ÛŒØª Ú©Ù„
+OverallBitRate_Minimum;Ú©Ù…ØªØ±ÛŒÙ† Ù†Ø±Ø® Ø¨ÛŒØª Ú©Ù„
+OverallBitRate_Mode;Ø­Ø§Ù„Øª Ù†Ø±Ø® Ø¨ÛŒØª Ú©Ù„
+OverallBitRate_Nominal;Ù†Ø±Ø® Ø¨ÛŒØª Ú©Ù„ ØºÛŒØ±ÙˆØ§Ù‚Ø¹ÛŒ
+Part;Ù‚Ø³Ù…Øª
+Part_Count;Ú©Ù„ ØªØ¹Ø¯Ø§Ø¯
 PartNumber;
 PartTotal;
-Performer;مجرى
-Period;دوره
-Phone;تلفن
+Performer;Ù…Ø¬Ø±Ù‰
+Period;Ø¯ÙˆØ±Ù‡
+Phone;ØªÙ„ÙÙ†
 PictureRatio;
-PixelAspectRatio;پیکسل نسبت تصوير
-PixelAspectRatio_Original;پیکسل نسبت تصوير اصلی
-PlayCounter;شمارش پخش
-Played_Count;تعداد پخش شده
-Played_First_Date;اولین پخش
-Played_Last_Date;آخرین پخش
-PlayTime;زمان پخش
-Position;موقعیت
-Position_Total;کل
-Preferences;تنظیمات
+PixelAspectRatio;Ù¾ÛŒÚ©Ø³Ù„ Ù†Ø³Ø¨Øª ØªØµÙˆÙŠØ±
+PixelAspectRatio_Original;Ù¾ÛŒÚ©Ø³Ù„ Ù†Ø³Ø¨Øª ØªØµÙˆÙŠØ± Ø§ØµÙ„ÛŒ
+PlayCounter;Ø´Ù…Ø§Ø±Ø´ Ù¾Ø®Ø´
+Played_Count;ØªØ¹Ø¯Ø§Ø¯ Ù¾Ø®Ø´ Ø´Ø¯Ù‡
+Played_First_Date;Ø§ÙˆÙ„ÛŒÙ† Ù¾Ø®Ø´
+Played_Last_Date;Ø¢Ø®Ø±ÛŒÙ† Ù¾Ø®Ø´
+PlayTime;Ø²Ù…Ø§Ù† Ù¾Ø®Ø´
+Position;Ù…ÙˆÙ‚Ø¹ÛŒØª
+Position_Total;Ú©Ù„
+Preferences;ØªÙ†Ø¸ÛŒÙ…Ø§Øª
 PrimaryAudioLanguage;
-Producer;تهیه کننده
-ProductionDesigner;طراح محصول
+Producer;ØªÙ‡ÛŒÙ‡ Ú©Ù†Ù†Ø¯Ù‡
+ProductionDesigner;Ø·Ø±Ø§Ø­ Ù…Ø­ØµÙˆÙ„
 ProductionNumber;
-ProductionStudio;استودیو محصول
+ProductionStudio;Ø§Ø³ØªÙˆØ¯ÛŒÙˆ Ù…Ø­ØµÙˆÙ„
 ProductPlacement;
 ProgrammeHasText;
 ProgrammeTextLanguage;
 ProgrammeTitle;
-Publisher;ناشر
-Purchased_Date;تاریخ خرید
-Quote character;کاراکتر اعلام
-RadioStation;ایستگاه رادیو
-Rating;رتبه
-Recorded_Date;تاریخ ضبط
-Recorded_Location;مکان ضبط
-Released_Date;تاریخ انتشار
-RemixedBy;ریمیکس توسط
+Publisher;Ù†Ø§Ø´Ø±
+Purchased_Date;ØªØ§Ø±ÛŒØ® Ø®Ø±ÛŒØ¯
+Quote character;Ú©Ø§Ø±Ø§Ú©ØªØ± Ø§Ø¹Ù„Ø§Ù…
+RadioStation;Ø§ÛŒØ³ØªÚ¯Ø§Ù‡ Ø±Ø§Ø¯ÛŒÙˆ
+Rating;Ø±ØªØ¨Ù‡
+Recorded_Date;ØªØ§Ø±ÛŒØ® Ø¶Ø¨Ø·
+Recorded_Location;Ù…Ú©Ø§Ù† Ø¶Ø¨Ø·
+Released_Date;ØªØ§Ø±ÛŒØ® Ø§Ù†ØªØ´Ø§Ø±
+RemixedBy;Ø±ÛŒÙ…ÛŒÚ©Ø³ ØªÙˆØ³Ø·
 ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replay gain peak
-Resolution;وضوح
+Resolution;ÙˆØ¶ÙˆØ­
 s;s
 SamplingCount;
-SamplingRate;نرخ نمونه
-Save;ذخیره
-ScanOrder;دستور اسکن
+SamplingRate;Ù†Ø±Ø® Ù†Ù…ÙˆÙ†Ù‡
+Save;Ø°Ø®ÛŒØ±Ù‡
+ScanOrder;Ø¯Ø³ØªÙˆØ± Ø§Ø³Ú©Ù†
 ScanOrder_Original;
 ScanOrder_Stored;
 ScanOrder_StoredDisplayedInverted;
 ScanOrder_StoreMethod;
-ScanType;نوع اسکن
+ScanType;Ù†ÙˆØ¹ Ø§Ø³Ú©Ù†
 ScanType_Original;
 ScanType_StoreMethod;
-ScreenplayBy;نمايشنامه توسط
-Season;فصل
+ScreenplayBy;Ù†Ù…Ø§ÙŠØ´Ù†Ø§Ù…Ù‡ ØªÙˆØ³Ø·
+Season;ÙØµÙ„
 SecondaryAudioLanguage;
-see below;پایین را ببینید
-Send HeaderFile;فایل سرصفحه را اینجا بفرستید : http://sourceforge.net/projects/mediainfo/ (قسمت باگ)
-Separator_Columns;جدا کننده ستون
-Separator_Lines;جدا کننده خطوط
+see below;Ù¾Ø§ÛŒÛŒÙ† Ø±Ø§ Ø¨Ø¨ÛŒÙ†ÛŒØ¯
+Send HeaderFile;ÙØ§ÛŒÙ„ Ø³Ø±ØµÙØ­Ù‡ Ø±Ø§ Ø§ÛŒÙ†Ø¬Ø§ Ø¨ÙØ±Ø³ØªÛŒØ¯ : http://sourceforge.net/projects/mediainfo/ (Ù‚Ø³Ù…Øª Ø¨Ø§Ú¯)
+Separator_Columns;Ø¬Ø¯Ø§ Ú©Ù†Ù†Ø¯Ù‡ Ø³ØªÙˆÙ†
+Separator_Lines;Ø¬Ø¯Ø§ Ú©Ù†Ù†Ø¯Ù‡ Ø®Ø·ÙˆØ·
 SerieTitle;
-ServiceChannel;شماره کانال سرویس
-ServiceName;نام سرویس
-ServiceProvider;مهيا کننده سرویس
-ServiceType;نوع سرویس
-Set;آماده کردن
-Set_Count;آماده کردن تعداد
-Setup;نصب
-Sharpness;تیزی
-Sheet;ورقه
-Sheet (Complete);ورقه کامل
+ServiceChannel;Ø´Ù…Ø§Ø±Ù‡ Ú©Ø§Ù†Ø§Ù„ Ø³Ø±ÙˆÛŒØ³
+ServiceName;Ù†Ø§Ù… Ø³Ø±ÙˆÛŒØ³
+ServiceProvider;Ù…Ù‡ÙŠØ§ Ú©Ù†Ù†Ø¯Ù‡ Ø³Ø±ÙˆÛŒØ³
+ServiceType;Ù†ÙˆØ¹ Ø³Ø±ÙˆÛŒØ³
+Set;Ø¢Ù…Ø§Ø¯Ù‡ Ú©Ø±Ø¯Ù†
+Set_Count;Ø¢Ù…Ø§Ø¯Ù‡ Ú©Ø±Ø¯Ù† ØªØ¹Ø¯Ø§Ø¯
+Setup;Ù†ØµØ¨
+Sharpness;ØªÛŒØ²ÛŒ
+Sheet;ÙˆØ±Ù‚Ù‡
+Sheet (Complete);ÙˆØ±Ù‚Ù‡ Ú©Ø§Ù…Ù„
 Shell extension;Shell extension (in Explorer, right click there will be a MediaInfo option)
-Shell extension, folder;برای پوشه ها هم همینطور
+Shell extension, folder;Ø¨Ø±Ø§ÛŒ Ù¾ÙˆØ´Ù‡ Ù‡Ø§ Ù‡Ù… Ù‡Ù…ÛŒÙ†Ø·ÙˆØ±
 Shell InfoTip;Shell InfoTip (in Explorer, move the mouse over the file, info will be displayed)
 ShimName;
-Show menu;نمایش منو
-Show toolbar;نمایش نوارابزار
+Show menu;Ù†Ù…Ø§ÛŒØ´ Ù…Ù†Ùˆ
+Show toolbar;Ù†Ù…Ø§ÛŒØ´ Ù†ÙˆØ§Ø±Ø§Ø¨Ø²Ø§Ø±
 SigningPresent;
 SignLanguage;
-Sort;طبقه بندى توسط
-SoundEngineer;مهندس صدا
+Sort;Ø·Ø¨Ù‚Ù‡ Ø¨Ù†Ø¯Ù‰ ØªÙˆØ³Ø·
+SoundEngineer;Ù…Ù‡Ù†Ø¯Ø³ ØµØ¯Ø§
 Source;
 Source_Duration;
 Source_FrameCount;
 Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
-Standard;استاندارد
+Standard;Ø§Ø³ØªØ§Ù†Ø¯Ø§Ø±Ø¯
 StoreMethod_InterleavedFields;
 StoreMethod_SeparatedFields;
 StoreMethod_SeparatedFields_1;
 StoreMethod_SeparatedFields_2;
-Stream;استریم
-Stream_MoreInfo;اطلاعات بیشتر درمورد استریم
-StreamCount;تعداد این نوع استریم
-StreamID;هویت استریم
-StreamKind;نوع استریم
-StreamKindID;معرف استریم
-StreamKindPos;معرف استریم
-StreamSize;اندازه استریم
+Stream;Ø§Ø³ØªØ±ÛŒÙ…
+Stream_MoreInfo;Ø§Ø·Ù„Ø§Ø¹Ø§Øª Ø¨ÛŒØ´ØªØ± Ø¯Ø±Ù…ÙˆØ±Ø¯ Ø§Ø³ØªØ±ÛŒÙ…
+StreamCount;ØªØ¹Ø¯Ø§Ø¯ Ø§ÛŒÙ† Ù†ÙˆØ¹ Ø§Ø³ØªØ±ÛŒÙ…
+StreamID;Ù‡ÙˆÛŒØª Ø§Ø³ØªØ±ÛŒÙ…
+StreamKind;Ù†ÙˆØ¹ Ø§Ø³ØªØ±ÛŒÙ…
+StreamKindID;Ù…Ø¹Ø±Ù Ø§Ø³ØªØ±ÛŒÙ…
+StreamKindPos;Ù…Ø¹Ø±Ù Ø§Ø³ØªØ±ÛŒÙ…
+StreamSize;Ø§Ù†Ø¯Ø§Ø²Ù‡ Ø§Ø³ØªØ±ÛŒÙ…
 StreamSize_Encoded;
-StreamSize_Proportion;نسبت این استریم
-Subject;موضوع
-SubTrack;ساب ترک
-Summary;خلاصه
-Supported formats;فرمت های پشتيبانى شده
-Supported?;پشتيبانى شده?
-Synopsis;خلاصه
+StreamSize_Proportion;Ù†Ø³Ø¨Øª Ø§ÛŒÙ† Ø§Ø³ØªØ±ÛŒÙ…
+Subject;Ù…ÙˆØ¶ÙˆØ¹
+SubTrack;Ø³Ø§Ø¨ ØªØ±Ú©
+Summary;Ø®Ù„Ø§ØµÙ‡
+Supported formats;ÙØ±Ù…Øª Ù‡Ø§ÛŒ Ù¾Ø´ØªÙŠØ¨Ø§Ù†Ù‰ Ø´Ø¯Ù‡
+Supported?;Ù¾Ø´ØªÙŠØ¨Ø§Ù†Ù‰ Ø´Ø¯Ù‡?
+Synopsis;Ø®Ù„Ø§ØµÙ‡
 SystemId;Id
-Tagged_Application;برنامه ضميمه
-Tagged_Date;تاریخ ضميمه
-Technician;تکنيسين
-TermsOfUse;شرایط استفاده
+Tagged_Application;Ø¨Ø±Ù†Ø§Ù…Ù‡ Ø¶Ù…ÙŠÙ…Ù‡
+Tagged_Date;ØªØ§Ø±ÛŒØ® Ø¶Ù…ÙŠÙ…Ù‡
+Technician;ØªÚ©Ù†ÙŠØ³ÙŠÙ†
+TermsOfUse;Ø´Ø±Ø§ÛŒØ· Ø§Ø³ØªÙØ§Ø¯Ù‡
 TertiaryAudioLanguage;
-Text;استریم متن
-Text - Custom;متن - Custom
-Text (HTML);متن (HTML)
-Text stream(s);استریم متن
-Text streams;استریم متن
-Text_Codec_List;کدک متن
-Text_No;متنی وجود ندارد
-Text1;اولین استریم متن
-Text2;دومین استریم متن
-Text3;سومین استریم متن
-TextCount;تعداد استریم متن
+Text;Ø§Ø³ØªØ±ÛŒÙ… Ù…ØªÙ†
+Text - Custom;Ù…ØªÙ† - Custom
+Text (HTML);Ù…ØªÙ† (HTML)
+Text stream(s);Ø§Ø³ØªØ±ÛŒÙ… Ù…ØªÙ†
+Text streams;Ø§Ø³ØªØ±ÛŒÙ… Ù…ØªÙ†
+Text_Codec_List;Ú©Ø¯Ú© Ù…ØªÙ†
+Text_No;Ù…ØªÙ†ÛŒ ÙˆØ¬ÙˆØ¯ Ù†Ø¯Ø§Ø±Ø¯
+Text1;Ø§ÙˆÙ„ÛŒÙ† Ø§Ø³ØªØ±ÛŒÙ… Ù…ØªÙ†
+Text2;Ø¯ÙˆÙ…ÛŒÙ† Ø§Ø³ØªØ±ÛŒÙ… Ù…ØªÙ†
+Text3;Ø³ÙˆÙ…ÛŒÙ† Ø§Ø³ØªØ±ÛŒÙ… Ù…ØªÙ†
+TextCount;ØªØ¹Ø¯Ø§Ø¯ Ø§Ø³ØªØ±ÛŒÙ… Ù…ØªÙ†
 TextlessElementsExist;
-ThanksTo;تشکر از
-Thousands separator;هزاران جداکننده
+ThanksTo;ØªØ´Ú©Ø± Ø§Ø²
+Thousands separator;Ù‡Ø²Ø§Ø±Ø§Ù† Ø¬Ø¯Ø§Ú©Ù†Ù†Ø¯Ù‡
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
+TimeCode_Striped;
 TimeStamp;
-TimeZone;منطقه ساعتى جهانى
-Title;عنوان
-Title_More;عنوان, اطلاعات بیشتر
-Total;کلی
+TimeZone;Ù…Ù†Ø·Ù‚Ù‡ Ø³Ø§Ø¹ØªÙ‰ Ø¬Ù‡Ø§Ù†Ù‰
+Title;Ø¹Ù†ÙˆØ§Ù†
+Title_More;Ø¹Ù†ÙˆØ§Ù†, Ø§Ø·Ù„Ø§Ø¹Ø§Øª Ø¨ÛŒØ´ØªØ±
+Total;Ú©Ù„ÛŒ
 TotalNumberOfParts;
 TotalProgrammeDuration;
-Track;نام ترک
-Track_Count;تعداد ترک
+Track;Ù†Ø§Ù… ØªØ±Ú©
+Track_Count;ØªØ¹Ø¯Ø§Ø¯ ØªØ±Ú©
 transfer_characteristics;
-Translator;مترجم
-Tree;درختی
-Tree & Text;درختی ومتنی
+Translator;Ù…ØªØ±Ø¬Ù…
+Tree;Ø¯Ø±Ø®ØªÛŒ
+Tree & Text;Ø¯Ø±Ø®ØªÛŒ ÙˆÙ…ØªÙ†ÛŒ
 Type;
 UniqueID;
-Unknown;نامعلوم
+Unknown;Ù†Ø§Ù…Ø¹Ù„ÙˆÙ…
 Url;Url
-Video;ویدیو
-Video stream(s);استریم ویدیو
-Video_Codec_List;کدک ویدیو
-Video_Delay;مکث ویدیو
-Video_No;ویدیویی وجود ندارد
+Video;ÙˆÛŒØ¯ÛŒÙˆ
+Video stream(s);Ø§Ø³ØªØ±ÛŒÙ… ÙˆÛŒØ¯ÛŒÙˆ
+Video_Codec_List;Ú©Ø¯Ú© ÙˆÛŒØ¯ÛŒÙˆ
+Video_Delay;Ù…Ú©Ø« ÙˆÛŒØ¯ÛŒÙˆ
+Video_No;ÙˆÛŒØ¯ÛŒÙˆÛŒÛŒ ÙˆØ¬ÙˆØ¯ Ù†Ø¯Ø§Ø±Ø¯
 Video0_Delay;Video0 delay
-Video1;اولین استریم ویدیو
+Video1;Ø§ÙˆÙ„ÛŒÙ† Ø§Ø³ØªØ±ÛŒÙ… ÙˆÛŒØ¯ÛŒÙˆ
 VideoComments;
-VideoCount;تعداد استریم ویدیو
-View;نمایش
-View_Hint;تغییر منوی مشاهده اطلاعات
-Warning : more streams in the files;هشدار : بیشتر از یک استریم در این فایل وجود دارد
-Web;وب
-WebSite_Audio;سایت کدک صوت
-WebSite_Audio_More;به سایت (%Url%) برای پیدا کردن کدک صوت بروید
-WebSite_General;سایت پخش کننده این فایل
-WebSite_General_More;سایت پخش کننده این فایل
-WebSite_Text;سایت کدک متن
-WebSite_Text_More;به سایت (%Url%) برای پیدا کردن کدک متن بروید
+VideoCount;ØªØ¹Ø¯Ø§Ø¯ Ø§Ø³ØªØ±ÛŒÙ… ÙˆÛŒØ¯ÛŒÙˆ
+View;Ù†Ù…Ø§ÛŒØ´
+View_Hint;ØªØºÛŒÛŒØ± Ù…Ù†ÙˆÛŒ Ù…Ø´Ø§Ù‡Ø¯Ù‡ Ø§Ø·Ù„Ø§Ø¹Ø§Øª
+Warning : more streams in the files;Ù‡Ø´Ø¯Ø§Ø± : Ø¨ÛŒØ´ØªØ± Ø§Ø² ÛŒÚ© Ø§Ø³ØªØ±ÛŒÙ… Ø¯Ø± Ø§ÛŒÙ† ÙØ§ÛŒÙ„ ÙˆØ¬ÙˆØ¯ Ø¯Ø§Ø±Ø¯
+Web;ÙˆØ¨
+WebSite_Audio;Ø³Ø§ÛŒØª Ú©Ø¯Ú© ØµÙˆØª
+WebSite_Audio_More;Ø¨Ù‡ Ø³Ø§ÛŒØª (%Url%) Ø¨Ø±Ø§ÛŒ Ù¾ÛŒØ¯Ø§ Ú©Ø±Ø¯Ù† Ú©Ø¯Ú© ØµÙˆØª Ø¨Ø±ÙˆÛŒØ¯
+WebSite_General;Ø³Ø§ÛŒØª Ù¾Ø®Ø´ Ú©Ù†Ù†Ø¯Ù‡ Ø§ÛŒÙ† ÙØ§ÛŒÙ„
+WebSite_General_More;Ø³Ø§ÛŒØª Ù¾Ø®Ø´ Ú©Ù†Ù†Ø¯Ù‡ Ø§ÛŒÙ† ÙØ§ÛŒÙ„
+WebSite_Text;Ø³Ø§ÛŒØª Ú©Ø¯Ú© Ù…ØªÙ†
+WebSite_Text_More;Ø¨Ù‡ Ø³Ø§ÛŒØª (%Url%) Ø¨Ø±Ø§ÛŒ Ù¾ÛŒØ¯Ø§ Ú©Ø±Ø¯Ù† Ú©Ø¯Ú© Ù…ØªÙ† Ø¨Ø±ÙˆÛŒØ¯
 WebSite_Url;http://MediaArea.net/MediaInfo
-WebSite_Video;سایت ویدیو کدک
-WebSite_Video_More;به سایت (%Url%) برای پیدا کردن ویدیو کدک بروید
-Width;عرض
+WebSite_Video;Ø³Ø§ÛŒØª ÙˆÛŒØ¯ÛŒÙˆ Ú©Ø¯Ú©
+WebSite_Video_More;Ø¨Ù‡ Ø³Ø§ÛŒØª (%Url%) Ø¨Ø±Ø§ÛŒ Ù¾ÛŒØ¯Ø§ Ú©Ø±Ø¯Ù† ÙˆÛŒØ¯ÛŒÙˆ Ú©Ø¯Ú© Ø¨Ø±ÙˆÛŒØ¯
+Width;Ø¹Ø±Ø¶
 Width_Original;
-WriteMe;نوشته برای نویسنده
-WriteToTranslator;نوشته برای مترجم
-Written_Date;تاریخ نوشته
-Written_Location;مکان نوشته
-WrittenBy;نوشته شده توسط
-Yes;بلی
-Your system;سیستم شما
-ZZ_Automatic_Percent;86
-ZZ_AutomaticLanguage_Percent;90
+WriteMe;Ù†ÙˆØ´ØªÙ‡ Ø¨Ø±Ø§ÛŒ Ù†ÙˆÛŒØ³Ù†Ø¯Ù‡
+WriteToTranslator;Ù†ÙˆØ´ØªÙ‡ Ø¨Ø±Ø§ÛŒ Ù…ØªØ±Ø¬Ù…
+Written_Date;ØªØ§Ø±ÛŒØ® Ù†ÙˆØ´ØªÙ‡
+Written_Location;Ù…Ú©Ø§Ù† Ù†ÙˆØ´ØªÙ‡
+WrittenBy;Ù†ÙˆØ´ØªÙ‡ Ø´Ø¯Ù‡ ØªÙˆØ³Ø·
+Yes;Ø¨Ù„ÛŒ
+Your system;Ø³ÛŒØ³ØªÙ… Ø´Ù…Ø§
+ZZ_Automatic_Percent;85
+ZZ_AutomaticLanguage_Percent;89

@@ -1,45 +1,45 @@
   Language_ISO639;th
-  Author_Email;ประสิทธิ์ แคภูเขียว<hs3pln@users.sourceforge.net>
-  Author_Name;ประสิทธิ์ แคภูเขียว
+  Author_Email;à¸›à¸£à¸°à¸ªà¸´à¸—à¸˜à¸´à¹Œ à¹à¸„à¸ à¸¹à¹€à¸‚à¸µà¸¢à¸§<hs3pln@users.sourceforge.net>
+  Author_Name;à¸›à¸£à¸°à¸ªà¸´à¸—à¸˜à¸´à¹Œ à¹à¸„à¸ à¸¹à¹€à¸‚à¸µà¸¢à¸§
   Author_OldNames;Initial translator
-  Language_Name;ไทย
+  Language_Name;à¹„à¸—à¸¢
   Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
   Config_Text_ThousandsSeparator; 
- audio stream1; สตรีมเสียง
- audio stream2; สตรีมเสียง
- audio stream3; สตรีมเสียง
- bit1; บิต
- bit2; บิต
- bit3; บิต
+ audio stream1; à¸ªà¸•à¸£à¸µà¸¡à¹€à¸ªà¸µà¸¢à¸‡
+ audio stream2; à¸ªà¸•à¸£à¸µà¸¡à¹€à¸ªà¸µà¸¢à¸‡
+ audio stream3; à¸ªà¸•à¸£à¸µà¸¡à¹€à¸ªà¸µà¸¢à¸‡
+ bit1; à¸šà¸´à¸•
+ bit2; à¸šà¸´à¸•
+ bit3; à¸šà¸´à¸•
  bps; bps
  Bps; Bps
- Byte1; ไบต์
- Byte2; ไบต์
- Byte3; ไบต์
- channel1; ช่อง
- channel2; ช่อง
- channel3; ช่อง
- chapter1; เชฟเตอร์
- chapter2; เชฟเตอร์
- chapter3; เชฟเตอร์
- chapters stream1; เชฟเตอร์สตรีม
- chapters stream2; เชฟเตอร์สตรีม
- chapters stream3; เชฟเตอร์สตรีม
+ Byte1; à¹„à¸šà¸•à¹Œ
+ Byte2; à¹„à¸šà¸•à¹Œ
+ Byte3; à¹„à¸šà¸•à¹Œ
+ channel1; à¸Šà¹ˆà¸­à¸‡
+ channel2; à¸Šà¹ˆà¸­à¸‡
+ channel3; à¸Šà¹ˆà¸­à¸‡
+ chapter1; à¹€à¸Šà¸Ÿà¹€à¸•à¸­à¸£à¹Œ
+ chapter2; à¹€à¸Šà¸Ÿà¹€à¸•à¸­à¸£à¹Œ
+ chapter3; à¹€à¸Šà¸Ÿà¹€à¸•à¸­à¸£à¹Œ
+ chapters stream1; à¹€à¸Šà¸Ÿà¹€à¸•à¸­à¸£à¹Œà¸ªà¸•à¸£à¸µà¸¡
+ chapters stream2; à¹€à¸Šà¸Ÿà¹€à¸•à¸­à¸£à¹Œà¸ªà¸•à¸£à¸µà¸¡
+ chapters stream3; à¹€à¸Šà¸Ÿà¹€à¸•à¸­à¸£à¹Œà¸ªà¸•à¸£à¸µà¸¡
  character1;
  character2;
  character3;
- day1; วัน
- day2; วัน
- day3; วัน
+ day1; à¸§à¸±à¸™
+ day2; à¸§à¸±à¸™
+ day3; à¸§à¸±à¸™
  dB1;
  dB2;
  dB3;
- file1; ไฟล์
- file2; ไฟล์
- file3; ไฟล์
+ file1; à¹„à¸Ÿà¸¥à¹Œ
+ file2; à¹„à¸Ÿà¸¥à¹Œ
+ file3; à¹„à¸Ÿà¸¥à¹Œ
  fps1; fps
  fps2; fps
  fps3; fps
@@ -52,23 +52,23 @@
  GBps; GBps
  GHz; GHz
  GiB; GiB
- GibiByte1; กิกะไบต์
- GibiByte2; กิกะไบต์
- GibiByte3; กิกะไบต์
+ GibiByte1; à¸à¸´à¸à¸°à¹„à¸šà¸•à¹Œ
+ GibiByte2; à¸à¸´à¸à¸°à¹„à¸šà¸•à¹Œ
+ GibiByte3; à¸à¸´à¸à¸°à¹„à¸šà¸•à¹Œ
  GiBps; GiBps
- GigaBit1; กิกะบิต
- GigaBit2; กิกะบิต
- GigaBit3; กิกะบิต
- GigaByte1; กิกะไบต์
- GigaByte2; กิกะไบต์
- GigaByte3; กิกะไบต์
- hour1; ชั่วโมง
- hour2; ชั่วโมง
- hour3; ชั่วโมง
+ GigaBit1; à¸à¸´à¸à¸°à¸šà¸´à¸•
+ GigaBit2; à¸à¸´à¸à¸°à¸šà¸´à¸•
+ GigaBit3; à¸à¸´à¸à¸°à¸šà¸´à¸•
+ GigaByte1; à¸à¸´à¸à¸°à¹„à¸šà¸•à¹Œ
+ GigaByte2; à¸à¸´à¸à¸°à¹„à¸šà¸•à¹Œ
+ GigaByte3; à¸à¸´à¸à¸°à¹„à¸šà¸•à¹Œ
+ hour1; à¸Šà¸±à¹ˆà¸§à¹‚à¸¡à¸‡
+ hour2; à¸Šà¸±à¹ˆà¸§à¹‚à¸¡à¸‡
+ hour3; à¸Šà¸±à¹ˆà¸§à¹‚à¸¡à¸‡
  Hz; Hz
- image stream1; สตรีมรูปภาพ
- image stream2; สตรีมรูปภาพ
- image stream3; สตรีมรูปภาพ
+ image stream1; à¸ªà¸•à¸£à¸µà¸¡à¸£à¸¹à¸›à¸ à¸²à¸ž
+ image stream2; à¸ªà¸•à¸£à¸µà¸¡à¸£à¸¹à¸›à¸ à¸²à¸ž
+ image stream3; à¸ªà¸•à¸£à¸µà¸¡à¸£à¸¹à¸›à¸ à¸²à¸ž
  KB; KB
  Kb; Kb
  KBps; KBps
@@ -82,12 +82,12 @@
  KibiByte2; KibiBytes
  KibiByte3; KibiBytes
  KiBps; KiBps
- KiloBit1; กิโลบิต
- KiloBit2; กิโลบิต
- KiloBit3; กิโลบิต
- KiloByte1; กิโลไบต์
- KiloByte2; กิโลไบต์
- KiloByte3; กิโลไบต์
+ KiloBit1; à¸à¸´à¹‚à¸¥à¸šà¸´à¸•
+ KiloBit2; à¸à¸´à¹‚à¸¥à¸šà¸´à¸•
+ KiloBit3; à¸à¸´à¹‚à¸¥à¸šà¸´à¸•
+ KiloByte1; à¸à¸´à¹‚à¸¥à¹„à¸šà¸•à¹Œ
+ KiloByte2; à¸à¸´à¹‚à¸¥à¹„à¸šà¸•à¹Œ
+ KiloByte3; à¸à¸´à¹‚à¸¥à¹„à¸šà¸•à¹Œ
  MB; MB
  Mb; Mb
  Mbps; Mbps
@@ -98,330 +98,330 @@
  MebiByte1; MebiByte
  MebiByte2; MebiBytes
  MebiByte3; MebiBytes
- MegaBit1; เมกะบิต
- MegaBit2; เมกะบิต
- MegaBit3; เมกะบิต
- MegaByte1; เมกะไบต์
- MegaByte2; เมกะไบต์
- MegaByte3; เมกะไบต์
+ MegaBit1; à¹€à¸¡à¸à¸°à¸šà¸´à¸•
+ MegaBit2; à¹€à¸¡à¸à¸°à¸šà¸´à¸•
+ MegaBit3; à¹€à¸¡à¸à¸°à¸šà¸´à¸•
+ MegaByte1; à¹€à¸¡à¸à¸°à¹„à¸šà¸•à¹Œ
+ MegaByte2; à¹€à¸¡à¸à¸°à¹„à¸šà¸•à¹Œ
+ MegaByte3; à¹€à¸¡à¸à¸°à¹„à¸šà¸•à¹Œ
  MHz; MHz
  MiB; MiB
  Mib; Mib
  MiBps; MiBps
- millisecond1; มิลลิวินาที
- millisecond2; มิลลิวินาที
- millisecond3; มิลลิวินาที
- minute1; นาที
- minute2; นาที
- minute3; นาที
- month1; เดือน
- month2; เดือน
- month3; เดือน
- pixel1; พิกเซล
- pixel2; พิกเซล
- pixel3; พิกเซล
- second1; วินาที
- second2; วินาที
- second3; วินาที
- text stream1; สตรีมข้อความ
- text stream2; สตรีมข้อความ
- text stream3; สตรีมข้อความ
+ millisecond1; à¸¡à¸´à¸¥à¸¥à¸´à¸§à¸´à¸™à¸²à¸—à¸µ
+ millisecond2; à¸¡à¸´à¸¥à¸¥à¸´à¸§à¸´à¸™à¸²à¸—à¸µ
+ millisecond3; à¸¡à¸´à¸¥à¸¥à¸´à¸§à¸´à¸™à¸²à¸—à¸µ
+ minute1; à¸™à¸²à¸—à¸µ
+ minute2; à¸™à¸²à¸—à¸µ
+ minute3; à¸™à¸²à¸—à¸µ
+ month1; à¹€à¸”à¸·à¸­à¸™
+ month2; à¹€à¸”à¸·à¸­à¸™
+ month3; à¹€à¸”à¸·à¸­à¸™
+ pixel1; à¸žà¸´à¸à¹€à¸‹à¸¥
+ pixel2; à¸žà¸´à¸à¹€à¸‹à¸¥
+ pixel3; à¸žà¸´à¸à¹€à¸‹à¸¥
+ second1; à¸§à¸´à¸™à¸²à¸—à¸µ
+ second2; à¸§à¸´à¸™à¸²à¸—à¸µ
+ second3; à¸§à¸´à¸™à¸²à¸—à¸µ
+ text stream1; à¸ªà¸•à¸£à¸µà¸¡à¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡
+ text stream2; à¸ªà¸•à¸£à¸µà¸¡à¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡
+ text stream3; à¸ªà¸•à¸£à¸µà¸¡à¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡
  video frames1;
  video frames2;
  video frames3;
- video stream1; สตรีมวีดีโอ
- video stream2; สตรีมวีดีโอ
- video stream3; สตรีมวีดีโอ
+ video stream1; à¸ªà¸•à¸£à¸µà¸¡à¸§à¸µà¸”à¸µà¹‚à¸­
+ video stream2; à¸ªà¸•à¸£à¸µà¸¡à¸§à¸µà¸”à¸µà¹‚à¸­
+ video stream3; à¸ªà¸•à¸£à¸µà¸¡à¸§à¸µà¸”à¸µà¹‚à¸­
  warppoint0;
  warppoint1;
  warppoint2;
  warppoint3;
- week1; สัปดาห์
- week2; สัปดาห์
- week3; สัปดาห์
- year1; ปี
- year2; ปี
- year3; ปี
+ week1; à¸ªà¸±à¸›à¸”à¸²à¸«à¹Œ
+ week2; à¸ªà¸±à¸›à¸”à¸²à¸«à¹Œ
+ week3; à¸ªà¸±à¸›à¸”à¸²à¸«à¹Œ
+ year1; à¸›à¸µ
+ year2; à¸›à¸µ
+ year3; à¸›à¸µ
 , ;, 
 : ;: 
 3D;
 3DType;
-About;เกี่ยวกับ
-About_Hint;วิธีติดต่อฉันและค้นหาเวอร์ชันล่าสุด
+About;à¹€à¸à¸µà¹ˆà¸¢à¸§à¸à¸±à¸š
+About_Hint;à¸§à¸´à¸˜à¸µà¸•à¸´à¸”à¸•à¹ˆà¸­à¸‰à¸±à¸™à¹à¸¥à¸°à¸„à¹‰à¸™à¸«à¸²à¹€à¸§à¸­à¸£à¹Œà¸Šà¸±à¸™à¸¥à¹ˆà¸²à¸ªà¸¸à¸”
 Accompaniment;Accompaniment
 ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
-Actor;นักแสดง
+Actor;à¸™à¸±à¸à¹à¸ªà¸”à¸‡
 Actor_Character;Character played
 Added_Date;
-Address;ที่อยู่
-Advanced;ขั้นสูง
-Advanced mode;โหมดขั้นสูง
-Album;อัลบั้ม
+Address;à¸—à¸µà¹ˆà¸­à¸¢à¸¹à¹ˆ
+Advanced;à¸‚à¸±à¹‰à¸™à¸ªà¸¹à¸‡
+Advanced mode;à¹‚à¸«à¸¡à¸”à¸‚à¸±à¹‰à¸™à¸ªà¸¹à¸‡
+Album;à¸­à¸±à¸¥à¸šà¸±à¹‰à¸¡
 Album_ReplayGain_Gain;
 Album_ReplayGain_Peak;
 Alignment;
 Alignment_Aligned;
 Alignment_Split;
-All;ทั้งหมด
+All;à¸—à¸±à¹‰à¸‡à¸«à¸¡à¸”
 Archival_Location;Archival location
 Arranger;Arranger
-ArtDirector;ผู้กำกับศิลป์
-AspectRatio;อัตราการแสดง
-AssistantDirector;ผู้ช่วยผู้กำกับ
-at;ที่
-At least one file;(คุณต้องเปิดอย่างน้อยหนึ่งไฟล์)
-Audio;เสียง
-Audio stream(s);สตรีมเสียง
-Audio_Codec_List;codecs เสียง
-Audio_No;ไม่มีเสียง
-Audio1;สตรีมเสียงแรก
-Audio2;สตรีมเสียงที่สอง
+ArtDirector;à¸œà¸¹à¹‰à¸à¸³à¸à¸±à¸šà¸¨à¸´à¸¥à¸›à¹Œ
+AspectRatio;à¸­à¸±à¸•à¸£à¸²à¸à¸²à¸£à¹à¸ªà¸”à¸‡
+AssistantDirector;à¸œà¸¹à¹‰à¸Šà¹ˆà¸§à¸¢à¸œà¸¹à¹‰à¸à¸³à¸à¸±à¸š
+at;à¸—à¸µà¹ˆ
+At least one file;(à¸„à¸¸à¸“à¸•à¹‰à¸­à¸‡à¹€à¸›à¸´à¸”à¸­à¸¢à¹ˆà¸²à¸‡à¸™à¹‰à¸­à¸¢à¸«à¸™à¸¶à¹ˆà¸‡à¹„à¸Ÿà¸¥à¹Œ)
+Audio;à¹€à¸ªà¸µà¸¢à¸‡
+Audio stream(s);à¸ªà¸•à¸£à¸µà¸¡à¹€à¸ªà¸µà¸¢à¸‡
+Audio_Codec_List;codecs à¹€à¸ªà¸µà¸¢à¸‡
+Audio_No;à¹„à¸¡à¹ˆà¸¡à¸µà¹€à¸ªà¸µà¸¢à¸‡
+Audio1;à¸ªà¸•à¸£à¸µà¸¡à¹€à¸ªà¸µà¸¢à¸‡à¹à¸£à¸
+Audio2;à¸ªà¸•à¸£à¸µà¸¡à¹€à¸ªà¸µà¸¢à¸‡à¸—à¸µà¹ˆà¸ªà¸­à¸‡
 AudioComments;
-AudioCount;จำนวนของสตรีมเสียง
+AudioCount;à¸ˆà¸³à¸™à¸§à¸™à¸‚à¸­à¸‡à¸ªà¸•à¸£à¸µà¸¡à¹€à¸ªà¸µà¸¢à¸‡
 AudioDescriptionPresent;
 AudioDescriptionType;
 AudioLoudnessStandard;
 AudioTrackLayout;
-Author;ผู้เขียน
-BarCode;บาร์โค้ด
-Basic;พื้นฐาน
-Basic_Note;หมายเหตุ : สำหรับข้อมูลเพิ่มเติมเกี่ยวกับไฟล์นี้, คุณต้องเลือกการแสดงแบบอื่นๆ (ชีต, Tree...)
+Author;à¸œà¸¹à¹‰à¹€à¸‚à¸µà¸¢à¸™
+BarCode;à¸šà¸²à¸£à¹Œà¹‚à¸„à¹‰à¸”
+Basic;à¸žà¸·à¹‰à¸™à¸à¸²à¸™
+Basic_Note;à¸«à¸¡à¸²à¸¢à¹€à¸«à¸•à¸¸ : à¸ªà¸³à¸«à¸£à¸±à¸šà¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¹€à¸žà¸´à¹ˆà¸¡à¹€à¸•à¸´à¸¡à¹€à¸à¸µà¹ˆà¸¢à¸§à¸à¸±à¸šà¹„à¸Ÿà¸¥à¹Œà¸™à¸µà¹‰, à¸„à¸¸à¸“à¸•à¹‰à¸­à¸‡à¹€à¸¥à¸·à¸­à¸à¸à¸²à¸£à¹à¸ªà¸”à¸‡à¹à¸šà¸šà¸­à¸·à¹ˆà¸™à¹† (à¸Šà¸µà¸•, Tree...)
 BitDepth;
 BitDepth_Stored;
-BitRate;บิตเรต
+BitRate;à¸šà¸´à¸•à¹€à¸£à¸•
 BitRate_Encoded;
-BitRate_Maximum;บิตเรตสูงสุด
-BitRate_Minimum;บิตเรตต่ำสุด
-BitRate_Mode;บิตเรตโหมด
+BitRate_Maximum;à¸šà¸´à¸•à¹€à¸£à¸•à¸ªà¸¹à¸‡à¸ªà¸¸à¸”
+BitRate_Minimum;à¸šà¸´à¸•à¹€à¸£à¸•à¸•à¹ˆà¸³à¸ªà¸¸à¸”
+BitRate_Mode;à¸šà¸´à¸•à¹€à¸£à¸•à¹‚à¸«à¸¡à¸”
 BitRate_Mode_CBR;
 BitRate_Mode_VBR;
 BitRate_Nominal;Nominal bit rate
-Bits-(Pixel*Frame);บิต/(พิกเซล*เฟรม)
+Bits-(Pixel*Frame);à¸šà¸´à¸•/(à¸žà¸´à¸à¹€à¸‹à¸¥*à¹€à¸Ÿà¸£à¸¡)
 BufferSize;
-Cancel;ยกเลิก
-Channel(s);ช่อง
-ChannelPositions;ตำแหน่งช่อง
-Chapter(s);เชฟเตอร์
-Chapters;เชฟเตอร์
-Chapters stream(s);เชฟเตอร์สตรีม
-Chapters_Codec_List;เชฟเตอร์ Codecs
-Chapters_No;ไม่มีเชฟเตอร์
-ChaptersCount;จำนวนของสตรีมเชฟเตอร์
-CheckNewVersion;ตรวจสอบรุ่นใหม่
-Choose custom;กำหนดเอง
-Choose custom sheet;เลือกชีตที่คุณต้องการ
-Choose custom text;เลือกข้อความที่คุณต้องการ
-Choose export format;เลือกรูปแบบผลลัพธ์ที่คุณต้องการ
-Choose file(s);เลือกไฟล์ที่จะเปิด
-Choose filename;เลือกชื่อไฟล์ที่คุณต้องการ
-Choose language;เลือกภาษาที่คุณต้องการ
+Cancel;à¸¢à¸à¹€à¸¥à¸´à¸
+Channel(s);à¸Šà¹ˆà¸­à¸‡
+ChannelPositions;à¸•à¸³à¹à¸«à¸™à¹ˆà¸‡à¸Šà¹ˆà¸­à¸‡
+Chapter(s);à¹€à¸Šà¸Ÿà¹€à¸•à¸­à¸£à¹Œ
+Chapters;à¹€à¸Šà¸Ÿà¹€à¸•à¸­à¸£à¹Œ
+Chapters stream(s);à¹€à¸Šà¸Ÿà¹€à¸•à¸­à¸£à¹Œà¸ªà¸•à¸£à¸µà¸¡
+Chapters_Codec_List;à¹€à¸Šà¸Ÿà¹€à¸•à¸­à¸£à¹Œ Codecs
+Chapters_No;à¹„à¸¡à¹ˆà¸¡à¸µà¹€à¸Šà¸Ÿà¹€à¸•à¸­à¸£à¹Œ
+ChaptersCount;à¸ˆà¸³à¸™à¸§à¸™à¸‚à¸­à¸‡à¸ªà¸•à¸£à¸µà¸¡à¹€à¸Šà¸Ÿà¹€à¸•à¸­à¸£à¹Œ
+CheckNewVersion;à¸•à¸£à¸§à¸ˆà¸ªà¸­à¸šà¸£à¸¸à¹ˆà¸™à¹ƒà¸«à¸¡à¹ˆ
+Choose custom;à¸à¸³à¸«à¸™à¸”à¹€à¸­à¸‡
+Choose custom sheet;à¹€à¸¥à¸·à¸­à¸à¸Šà¸µà¸•à¸—à¸µà¹ˆà¸„à¸¸à¸“à¸•à¹‰à¸­à¸‡à¸à¸²à¸£
+Choose custom text;à¹€à¸¥à¸·à¸­à¸à¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡à¸—à¸µà¹ˆà¸„à¸¸à¸“à¸•à¹‰à¸­à¸‡à¸à¸²à¸£
+Choose export format;à¹€à¸¥à¸·à¸­à¸à¸£à¸¹à¸›à¹à¸šà¸šà¸œà¸¥à¸¥à¸±à¸žà¸˜à¹Œà¸—à¸µà¹ˆà¸„à¸¸à¸“à¸•à¹‰à¸­à¸‡à¸à¸²à¸£
+Choose file(s);à¹€à¸¥à¸·à¸­à¸à¹„à¸Ÿà¸¥à¹Œà¸—à¸µà¹ˆà¸ˆà¸°à¹€à¸›à¸´à¸”
+Choose filename;à¹€à¸¥à¸·à¸­à¸à¸Šà¸·à¹ˆà¸­à¹„à¸Ÿà¸¥à¹Œà¸—à¸µà¹ˆà¸„à¸¸à¸“à¸•à¹‰à¸­à¸‡à¸à¸²à¸£
+Choose language;à¹€à¸¥à¸·à¸­à¸à¸ à¸²à¸©à¸²à¸—à¸µà¹ˆà¸„à¸¸à¸“à¸•à¹‰à¸­à¸‡à¸à¸²à¸£
 Choregrapher;Choregrapher
 Chroma;Chroma
 ChromaSubsampling;
-Close;ปิด
-Close all before open;ปิดทั้งหมดก่อนเปิด
+Close;à¸›à¸´à¸”
+Close all before open;à¸›à¸´à¸”à¸—à¸±à¹‰à¸‡à¸«à¸¡à¸”à¸à¹ˆà¸­à¸™à¹€à¸›à¸´à¸”
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
 Codec;Codec
-Codec_Description;รายละเอียด Codec
-Codec_Info;รายละเอียดของ codec
-Codec_Profile;Codec โพรไฟล์
-Codec_Settings;ตั้งค่า Codec
-Codec_Settings_BVOP;ตั้งค่า Codec, BVOP
-Codec_Settings_CABAC;ตั้งค่า Codec, CABAC
-Codec_Settings_Endianness;ตั้งค่า Codec, Endianness
-Codec_Settings_Firm;ตั้งค่า Codec, Firm
-Codec_Settings_Floor;ตั้งค่า Codec, Floor
-Codec_Settings_GMC;ตั้งค่า Codec, GMC
-Codec_Settings_ITU;ตั้งค่า Codec, ITU
-Codec_Settings_Law;ตั้งค่า Codec, Law
-Codec_Settings_Matrix;ตั้งค่า Codec, Matrix
-Codec_Settings_PacketBitStream;ตั้งค่า Codec, Packet bitstream
-Codec_Settings_QPel;ตั้งค่า Codec, QPel
-Codec_Settings_Sign;ตั้งค่า Codec, Sign
-Codec_Url;เว็บลิงค์ของ codec
-CodecID;รหัสประจำตัว Codec
+Codec_Description;à¸£à¸²à¸¢à¸¥à¸°à¹€à¸­à¸µà¸¢à¸” Codec
+Codec_Info;à¸£à¸²à¸¢à¸¥à¸°à¹€à¸­à¸µà¸¢à¸”à¸‚à¸­à¸‡ codec
+Codec_Profile;Codec à¹‚à¸žà¸£à¹„à¸Ÿà¸¥à¹Œ
+Codec_Settings;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸² Codec
+Codec_Settings_BVOP;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸² Codec, BVOP
+Codec_Settings_CABAC;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸² Codec, CABAC
+Codec_Settings_Endianness;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸² Codec, Endianness
+Codec_Settings_Firm;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸² Codec, Firm
+Codec_Settings_Floor;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸² Codec, Floor
+Codec_Settings_GMC;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸² Codec, GMC
+Codec_Settings_ITU;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸² Codec, ITU
+Codec_Settings_Law;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸² Codec, Law
+Codec_Settings_Matrix;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸² Codec, Matrix
+Codec_Settings_PacketBitStream;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸² Codec, Packet bitstream
+Codec_Settings_QPel;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸² Codec, QPel
+Codec_Settings_Sign;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸² Codec, Sign
+Codec_Url;à¹€à¸§à¹‡à¸šà¸¥à¸´à¸‡à¸„à¹Œà¸‚à¸­à¸‡ codec
+CodecID;à¸£à¸«à¸±à¸ªà¸›à¸£à¸°à¸ˆà¸³à¸•à¸±à¸§ Codec
 CodecID_Description;
 Collection;Collection
 Colorimetry;
 ColorSpace;
 colour_primaries;
-Comment;คอมเมนต์
+Comment;à¸„à¸­à¸¡à¹€à¸¡à¸™à¸•à¹Œ
 CommissionedBy;Commissioned by
 Compilation;
-CompleteName;ชื่อเต็ม
+CompleteName;à¸Šà¸·à¹ˆà¸­à¹€à¸•à¹‡à¸¡
 CompletionDate;
-Composer;ผู้เรียบเรียง
+Composer;à¸œà¸¹à¹‰à¹€à¸£à¸µà¸¢à¸šà¹€à¸£à¸µà¸¢à¸‡
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;
-Conductor;ผู้อำนวยเพลง
+Conductor;à¸œà¸¹à¹‰à¸­à¸³à¸™à¸§à¸¢à¹€à¸žà¸¥à¸‡
 ContactEmail;
 ContactTelephoneNumber;
-Container and general information;ตัวบรรจุและข้อมูลทั่วไป
-ContentType;ชนิดที่บรรจุ
-CoProducer;ผู้อำนวยการสร้างร่วม
-Copyright;ลิขสิทธิ์
+Container and general information;à¸•à¸±à¸§à¸šà¸£à¸£à¸ˆà¸¸à¹à¸¥à¸°à¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¸—à¸±à¹ˆà¸§à¹„à¸›
+ContentType;à¸Šà¸™à¸´à¸”à¸—à¸µà¹ˆà¸šà¸£à¸£à¸ˆà¸¸
+CoProducer;à¸œà¸¹à¹‰à¸­à¸³à¸™à¸§à¸¢à¸à¸²à¸£à¸ªà¸£à¹‰à¸²à¸‡à¸£à¹ˆà¸§à¸¡
+Copyright;à¸¥à¸´à¸‚à¸ªà¸´à¸—à¸˜à¸´à¹Œ
 CopyrightYear;
-CostumeDesigner;ผู้ออกแบบเครื่องแต่งกาย
+CostumeDesigner;à¸œà¸¹à¹‰à¸­à¸­à¸à¹à¸šà¸šà¹€à¸„à¸£à¸·à¹ˆà¸­à¸‡à¹à¸•à¹ˆà¸‡à¸à¸²à¸¢
 Count;Count
-Country;ประเทศ
+Country;à¸›à¸£à¸°à¹€à¸—à¸¨
 Cover;Cover
 Cover_Datas;Cover datas
 Cover_Description;
 Cover_Mime;
 Cover_Type;
 Cropped;
-Custom;กำหนดเอง
-Customize;กำหนดเอง
-Date;วันที่
-Debug;ดีบั๊ก
-Decimal point;จุดทศนิยม
+Custom;à¸à¸³à¸«à¸™à¸”à¹€à¸­à¸‡
+Customize;à¸à¸³à¸«à¸™à¸”à¹€à¸­à¸‡
+Date;à¸§à¸±à¸™à¸—à¸µà¹ˆ
+Debug;à¸”à¸µà¸šà¸±à¹Šà¸
+Decimal point;à¸ˆà¸¸à¸”à¸—à¸¨à¸™à¸´à¸¢à¸¡
 Delay;Delay
 Delay_Source;
 Delay_Source_Container;
 Delay_Source_Stream;
-Delete;ลบ
-Description;รายละเอียด
+Delete;à¸¥à¸š
+Description;à¸£à¸²à¸¢à¸¥à¸°à¹€à¸­à¸µà¸¢à¸”
 Digitized_Date;Digitized date
 Dimensions;
-Director;ผู้กำกับการแสดง
-DirectorOfPhotography;ผู้กำกับการถ่ายภาพ
-DisplayAspectRatio;อัตราการแสดงผล
+Director;à¸œà¸¹à¹‰à¸à¸³à¸à¸±à¸šà¸à¸²à¸£à¹à¸ªà¸”à¸‡
+DirectorOfPhotography;à¸œà¸¹à¹‰à¸à¸³à¸à¸±à¸šà¸à¸²à¸£à¸–à¹ˆà¸²à¸¢à¸ à¸²à¸ž
+DisplayAspectRatio;à¸­à¸±à¸•à¸£à¸²à¸à¸²à¸£à¹à¸ªà¸”à¸‡à¸œà¸¥
 DisplayAspectRatio_Original;
-DistributedBy;เผยแพร่โดย
+DistributedBy;à¹€à¸œà¸¢à¹à¸žà¸£à¹ˆà¹‚à¸”à¸¢
 Distributor;
-Donate;บริจาค
+Donate;à¸šà¸£à¸´à¸ˆà¸²à¸„
 DotsPerInch;
-Duration;ระยะเวลา
+Duration;à¸£à¸°à¸¢à¸°à¹€à¸§à¸¥à¸²
 Duration_End;
 Duration_Start;
-Edit;แก้ไข
-EditedBy;แก้ไขโดย
-EMail;อี-เมลล์
+Edit;à¹à¸à¹‰à¹„à¸‚
+EditedBy;à¹à¸à¹‰à¹„à¸‚à¹‚à¸”à¸¢
+EMail;à¸­à¸µ-à¹€à¸¡à¸¥à¸¥à¹Œ
 Encoded_Application;Writing application
-Encoded_Date;วันที่เข้ารหัส
-Encoded_Library;การเขียนไลบรารี
-Encoded_Library_Settings;ตั้งค่าการเข้ารหัส
-Encoded_Original;ต้นฉบับ
-EncodedBy;เข้ารหัสโดย
+Encoded_Date;à¸§à¸±à¸™à¸—à¸µà¹ˆà¹€à¸‚à¹‰à¸²à¸£à¸«à¸±à¸ª
+Encoded_Library;à¸à¸²à¸£à¹€à¸‚à¸µà¸¢à¸™à¹„à¸¥à¸šà¸£à¸²à¸£à¸µ
+Encoded_Library_Settings;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²à¸à¸²à¸£à¹€à¸‚à¹‰à¸²à¸£à¸«à¸±à¸ª
+Encoded_Original;à¸•à¹‰à¸™à¸‰à¸šà¸±à¸š
+EncodedBy;à¹€à¸‚à¹‰à¸²à¸£à¸«à¸±à¸ªà¹‚à¸”à¸¢
 EPG_Positions;
 EpisodeTitleNumber;
-Error_File;เกิดข้อผิดพลาดขณะที่กำลังไฟล์
+Error_File;à¹€à¸à¸´à¸”à¸‚à¹‰à¸­à¸œà¸´à¸”à¸žà¸¥à¸²à¸”à¸‚à¸“à¸°à¸—à¸µà¹ˆà¸à¸³à¸¥à¸±à¸‡à¹„à¸Ÿà¸¥à¹Œ
 ExecutiveProducer;Executive producer
-Exit;ออก
-Exit_Hint;ออกจากโปรแกรม
-Export;ส่งออก
-Export_Hint;ส่งออกในรูปแบบที่กำหนดเอง
+Exit;à¸­à¸­à¸
+Exit_Hint;à¸­à¸­à¸à¸ˆà¸²à¸à¹‚à¸›à¸£à¹à¸à¸£à¸¡
+Export;à¸ªà¹ˆà¸‡à¸­à¸­à¸
+Export_Hint;à¸ªà¹ˆà¸‡à¸­à¸­à¸à¹ƒà¸™à¸£à¸¹à¸›à¹à¸šà¸šà¸—à¸µà¹ˆà¸à¸³à¸«à¸™à¸”à¹€à¸­à¸‡
 Extensions;
 Family;Family
-Fax;แฟ็ก
-File;แฟ้ม
-File size;ขนาดไฟล์
-File_Append;เพิ่มเติมไปยังไฟล์ที่มีอยู่ (คำเตือน : โปรดระมัดระวังเมื่อมีตัวแปรเดียวกัน)
-File_Created_Date;วันที่สร้างไฟล์
+Fax;à¹à¸Ÿà¹‡à¸
+File;à¹à¸Ÿà¹‰à¸¡
+File size;à¸‚à¸™à¸²à¸”à¹„à¸Ÿà¸¥à¹Œ
+File_Append;à¹€à¸žà¸´à¹ˆà¸¡à¹€à¸•à¸´à¸¡à¹„à¸›à¸¢à¸±à¸‡à¹„à¸Ÿà¸¥à¹Œà¸—à¸µà¹ˆà¸¡à¸µà¸­à¸¢à¸¹à¹ˆ (à¸„à¸³à¹€à¸•à¸·à¸­à¸™ : à¹‚à¸›à¸£à¸”à¸£à¸°à¸¡à¸±à¸”à¸£à¸°à¸§à¸±à¸‡à¹€à¸¡à¸·à¹ˆà¸­à¸¡à¸µà¸•à¸±à¸§à¹à¸›à¸£à¹€à¸”à¸µà¸¢à¸§à¸à¸±à¸™)
+File_Created_Date;à¸§à¸±à¸™à¸—à¸µà¹ˆà¸ªà¸£à¹‰à¸²à¸‡à¹„à¸Ÿà¸¥à¹Œ
 File_Created_Date_Local;
-File_Hint;เลือกไฟล์มัลติมีเดียเพื่อเรียนรู้
-File_Modified_Date;วันที่แก้ไขไฟล์ล่าสุด
+File_Hint;à¹€à¸¥à¸·à¸­à¸à¹„à¸Ÿà¸¥à¹Œà¸¡à¸±à¸¥à¸•à¸´à¸¡à¸µà¹€à¸”à¸µà¸¢à¹€à¸žà¸·à¹ˆà¸­à¹€à¸£à¸µà¸¢à¸™à¸£à¸¹à¹‰
+File_Modified_Date;à¸§à¸±à¸™à¸—à¸µà¹ˆà¹à¸à¹‰à¹„à¸‚à¹„à¸Ÿà¸¥à¹Œà¸¥à¹ˆà¸²à¸ªà¸¸à¸”
 File_Modified_Date_Local;
-FileExtension;ชนิดไฟล์
-FileName;ชื่อไฟล์
-FileSize;ขนาดไฟล์
-Folder;โฟลเดอร์
-Folder (R);โฟลเดอร์ (R)
-Folder (R)_Hint;เลือกโฟลเดอร์เพื่อเรียนรู้ (พร้อมทั้งโฟลเดอร์ย่อยทั้งหมด)
-Folder (Recursively);โฟลเดอร์ (Recursively)
-Folder_Hint;เลือกโฟลเดอร์เพื่อเรียนรู้
-FolderName;ชื่อโฟลเดอร์
-Format;รูปแบบ
+FileExtension;à¸Šà¸™à¸´à¸”à¹„à¸Ÿà¸¥à¹Œ
+FileName;à¸Šà¸·à¹ˆà¸­à¹„à¸Ÿà¸¥à¹Œ
+FileSize;à¸‚à¸™à¸²à¸”à¹„à¸Ÿà¸¥à¹Œ
+Folder;à¹‚à¸Ÿà¸¥à¹€à¸”à¸­à¸£à¹Œ
+Folder (R);à¹‚à¸Ÿà¸¥à¹€à¸”à¸­à¸£à¹Œ (R)
+Folder (R)_Hint;à¹€à¸¥à¸·à¸­à¸à¹‚à¸Ÿà¸¥à¹€à¸”à¸­à¸£à¹Œà¹€à¸žà¸·à¹ˆà¸­à¹€à¸£à¸µà¸¢à¸™à¸£à¸¹à¹‰ (à¸žà¸£à¹‰à¸­à¸¡à¸—à¸±à¹‰à¸‡à¹‚à¸Ÿà¸¥à¹€à¸”à¸­à¸£à¹Œà¸¢à¹ˆà¸­à¸¢à¸—à¸±à¹‰à¸‡à¸«à¸¡à¸”)
+Folder (Recursively);à¹‚à¸Ÿà¸¥à¹€à¸”à¸­à¸£à¹Œ (Recursively)
+Folder_Hint;à¹€à¸¥à¸·à¸­à¸à¹‚à¸Ÿà¸¥à¹€à¸”à¸­à¸£à¹Œà¹€à¸žà¸·à¹ˆà¸­à¹€à¸£à¸µà¸¢à¸™à¸£à¸¹à¹‰
+FolderName;à¸Šà¸·à¹ˆà¸­à¹‚à¸Ÿà¸¥à¹€à¸”à¸­à¸£à¹Œ
+Format;à¸£à¸¹à¸›à¹à¸šà¸š
 Format_Commercial;
 Format_Commercial_IfAny;
-Format_Description;รายละเอียดของรูปแบบ
-Format_Info;ข้อมูลของรูปแบบ
-Format_Profile;โพรไฟล์รูปแบบ
-Format_Settings;ตั้งค่ารูปแบบ
-Format_Settings_BVOP;ตั้งค่ารูปแบบ, BVOP
-Format_Settings_CABAC;ตั้งค่ารูปแบบ, CABAC
+Format_Description;à¸£à¸²à¸¢à¸¥à¸°à¹€à¸­à¸µà¸¢à¸”à¸‚à¸­à¸‡à¸£à¸¹à¸›à¹à¸šà¸š
+Format_Info;à¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¸‚à¸­à¸‡à¸£à¸¹à¸›à¹à¸šà¸š
+Format_Profile;à¹‚à¸žà¸£à¹„à¸Ÿà¸¥à¹Œà¸£à¸¹à¸›à¹à¸šà¸š
+Format_Settings;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²à¸£à¸¹à¸›à¹à¸šà¸š
+Format_Settings_BVOP;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²à¸£à¸¹à¸›à¹à¸šà¸š, BVOP
+Format_Settings_CABAC;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²à¸£à¸¹à¸›à¹à¸šà¸š, CABAC
 Format_Settings_Emphasis;
-Format_Settings_Endianness;ตั้งค่ารูปแบบ, Endianness
-Format_Settings_Firm;ตั้งค่ารูปแบบ, Firm
-Format_Settings_Floor;ตั้งค่ารูปแบบ, Floor
+Format_Settings_Endianness;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²à¸£à¸¹à¸›à¹à¸šà¸š, Endianness
+Format_Settings_Firm;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²à¸£à¸¹à¸›à¹à¸šà¸š, Firm
+Format_Settings_Floor;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²à¸£à¸¹à¸›à¹à¸šà¸š, Floor
 Format_Settings_FrameMode;
-Format_Settings_GMC;ตั้งค่ารูปแบบ, GMC
+Format_Settings_GMC;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²à¸£à¸¹à¸›à¹à¸šà¸š, GMC
 Format_Settings_GOP;
-Format_Settings_ITU;ตั้งค่ารูปแบบ, ITU
-Format_Settings_Law;ตั้งค่ารูปแบบ, Law
-Format_Settings_Matrix;ตั้งค่ารูปแบบ, Matrix
+Format_Settings_ITU;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²à¸£à¸¹à¸›à¹à¸šà¸š, ITU
+Format_Settings_Law;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²à¸£à¸¹à¸›à¹à¸šà¸š, Law
+Format_Settings_Matrix;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²à¸£à¸¹à¸›à¹à¸šà¸š, Matrix
 Format_Settings_Matrix_Custom;
 Format_Settings_Matrix_Default;
 Format_Settings_Mode;
 Format_Settings_ModeExtension;
-Format_Settings_PacketBitStream;ตั้งค่ารูปแบบ, พ็อกเก็ตบิตสตรีม
+Format_Settings_PacketBitStream;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²à¸£à¸¹à¸›à¹à¸šà¸š, à¸žà¹‡à¸­à¸à¹€à¸à¹‡à¸•à¸šà¸´à¸•à¸ªà¸•à¸£à¸µà¸¡
 Format_Settings_PictureStructure;
-Format_Settings_PS;ตั้งค่ารูปแบบ, PS
-Format_Settings_Pulldown;ตั้งค่ารูปแบบ, Pulldown
-Format_Settings_QPel;ตั้งค่ารูปแบบ, QPel
-Format_Settings_RefFrames;ตั้งค่ารูปแบบ, RefFrames
-Format_Settings_SBR;ตั้งค่ารูปแบบ, SBR
-Format_Settings_Sign;ตั้งค่ารูปแบบ, Sign
+Format_Settings_PS;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²à¸£à¸¹à¸›à¹à¸šà¸š, PS
+Format_Settings_Pulldown;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²à¸£à¸¹à¸›à¹à¸šà¸š, Pulldown
+Format_Settings_QPel;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²à¸£à¸¹à¸›à¹à¸šà¸š, QPel
+Format_Settings_RefFrames;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²à¸£à¸¹à¸›à¹à¸šà¸š, RefFrames
+Format_Settings_SBR;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²à¸£à¸¹à¸›à¹à¸šà¸š, SBR
+Format_Settings_Sign;à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²à¸£à¸¹à¸›à¹à¸šà¸š, Sign
 Format_Settings_Wrapping;
 Format_Url;
-Format_Version;เวอร์ชันรูปแบบ
+Format_Version;à¹€à¸§à¸­à¸£à¹Œà¸Šà¸±à¸™à¸£à¸¹à¸›à¹à¸šà¸š
 FpaManufacturer;
 FpaPass;
 FpaVersion;
 FrameCount;
-FrameRate;เฟรมเรต
-FrameRate_Maximum;เฟรมเรตสูงสุด
-FrameRate_Minimum;เฟรมเรตต่ำสุด
-FrameRate_Mode;เฟรมเรตโหมด
+FrameRate;à¹€à¸Ÿà¸£à¸¡à¹€à¸£à¸•
+FrameRate_Maximum;à¹€à¸Ÿà¸£à¸¡à¹€à¸£à¸•à¸ªà¸¹à¸‡à¸ªà¸¸à¸”
+FrameRate_Minimum;à¹€à¸Ÿà¸£à¸¡à¹€à¸£à¸•à¸•à¹ˆà¸³à¸ªà¸¸à¸”
+FrameRate_Mode;à¹€à¸Ÿà¸£à¸¡à¹€à¸£à¸•à¹‚à¸«à¸¡à¸”
 FrameRate_Mode_CFR;
 FrameRate_Mode_VFR;
-FrameRate_Nominal;เฟรมเรต Nominal
-FrameRate_Original;เฟรมเรตต้นฉบับ
-General;ทั่วไป
-Genre;แนวเพลง
-Genre_000;บลู
-Genre_001;คลาสสิคร็อค
-Genre_002;คันทรี
-Genre_003;แดนซ์
-Genre_004;ดิสโก้
-Genre_005;ฟังค์
+FrameRate_Nominal;à¹€à¸Ÿà¸£à¸¡à¹€à¸£à¸• Nominal
+FrameRate_Original;à¹€à¸Ÿà¸£à¸¡à¹€à¸£à¸•à¸•à¹‰à¸™à¸‰à¸šà¸±à¸š
+General;à¸—à¸±à¹ˆà¸§à¹„à¸›
+Genre;à¹à¸™à¸§à¹€à¸žà¸¥à¸‡
+Genre_000;à¸šà¸¥à¸¹
+Genre_001;à¸„à¸¥à¸²à¸ªà¸ªà¸´à¸„à¸£à¹‡à¸­à¸„
+Genre_002;à¸„à¸±à¸™à¸—à¸£à¸µ
+Genre_003;à¹à¸”à¸™à¸‹à¹Œ
+Genre_004;à¸”à¸´à¸ªà¹‚à¸à¹‰
+Genre_005;à¸Ÿà¸±à¸‡à¸„à¹Œ
 Genre_006;Grunge
-Genre_007;ฮิบ-ฮอบ
-Genre_008;แจ๊ส
-Genre_009;เมทอล
+Genre_007;à¸®à¸´à¸š-à¸®à¸­à¸š
+Genre_008;à¹à¸ˆà¹Šà¸ª
+Genre_009;à¹€à¸¡à¸—à¸­à¸¥
 Genre_010;New Age
 Genre_011;Oldies
-Genre_012;อื่นๆ
-Genre_013;ป๊อบ
+Genre_012;à¸­à¸·à¹ˆà¸™à¹†
+Genre_013;à¸›à¹Šà¸­à¸š
 Genre_014;R&B
-Genre_015;แร๊ป
-Genre_016;เร็กเก้
-Genre_017;ร็อค
-Genre_018;เทคโน
+Genre_015;à¹à¸£à¹Šà¸›
+Genre_016;à¹€à¸£à¹‡à¸à¹€à¸à¹‰
+Genre_017;à¸£à¹‡à¸­à¸„
+Genre_018;à¹€à¸—à¸„à¹‚à¸™
 Genre_019;Industrial
-Genre_020;อัลเทอร์เนทีฟ
+Genre_020;à¸­à¸±à¸¥à¹€à¸—à¸­à¸£à¹Œà¹€à¸™à¸—à¸µà¸Ÿ
 Genre_021;Ska
-Genre_022;เด็ทเมทอล
+Genre_022;à¹€à¸”à¹‡à¸—à¹€à¸¡à¸—à¸­à¸¥
 Genre_023;Pranks
 Genre_024;Soundtrack
-Genre_025;ยูโร-เทคโน
+Genre_025;à¸¢à¸¹à¹‚à¸£-à¹€à¸—à¸„à¹‚à¸™
 Genre_026;Ambient
 Genre_027;Trip-Hop
 Genre_028;Vocal
-Genre_029;แจ๊ส+ฟังค์
+Genre_029;à¹à¸ˆà¹Šà¸ª+à¸Ÿà¸±à¸‡à¸„à¹Œ
 Genre_030;Fusion
 Genre_031;Trance
-Genre_032;คลาสสิค
+Genre_032;à¸„à¸¥à¸²à¸ªà¸ªà¸´à¸„
 Genre_033;Instrumental
 Genre_034;Acid
 Genre_035;House
-Genre_036;เกม
-Genre_037;คลิปเสียง
+Genre_036;à¹€à¸à¸¡
+Genre_037;à¸„à¸¥à¸´à¸›à¹€à¸ªà¸µà¸¢à¸‡
 Genre_038;Gospel
 Genre_039;Noise
 Genre_040;AlternRock
@@ -436,8 +436,8 @@ Genre_048;Ethnic
 Genre_049;Gothic
 Genre_050;Darkwave
 Genre_051;Techno-Industrial
-Genre_052;อิเล็กทรอนิกส์
-Genre_053;ป๊อบ-โฟล์ค
+Genre_052;à¸­à¸´à¹€à¸¥à¹‡à¸à¸—à¸£à¸­à¸™à¸´à¸à¸ªà¹Œ
+Genre_053;à¸›à¹Šà¸­à¸š-à¹‚à¸Ÿà¸¥à¹Œà¸„
 Genre_054;Eurodance
 Genre_055;Dream
 Genre_056;Southern Rock
@@ -445,14 +445,14 @@ Genre_057;Comedy
 Genre_058;Cult
 Genre_059;Gangsta
 Genre_060;Top 40
-Genre_061;คริสเตียนแร็ป
-Genre_062;ป๊อบ/ฟังค์
+Genre_061;à¸„à¸£à¸´à¸ªà¹€à¸•à¸µà¸¢à¸™à¹à¸£à¹‡à¸›
+Genre_062;à¸›à¹Šà¸­à¸š/à¸Ÿà¸±à¸‡à¸„à¹Œ
 Genre_063;Jungle
 Genre_064;Native American
-Genre_065;คาบาเรต์
+Genre_065;à¸„à¸²à¸šà¸²à¹€à¸£à¸•à¹Œ
 Genre_066;New Wave
 Genre_067;Psychadelic
-Genre_068;แร็ฟ
+Genre_068;à¹à¸£à¹‡à¸Ÿ
 Genre_069;Showtunes
 Genre_070;Trailer
 Genre_071;Lo-Fi
@@ -462,15 +462,15 @@ Genre_074;Acid Jazz
 Genre_075;Polka
 Genre_076;Retro
 Genre_077;Musical
-Genre_078;ร็อค & โรล
-Genre_079;ฮาร์ดร็อค
-Genre_080;โฟล์ค
-Genre_081;โฟล์ค-ร็อค
+Genre_078;à¸£à¹‡à¸­à¸„ & à¹‚à¸£à¸¥
+Genre_079;à¸®à¸²à¸£à¹Œà¸”à¸£à¹‡à¸­à¸„
+Genre_080;à¹‚à¸Ÿà¸¥à¹Œà¸„
+Genre_081;à¹‚à¸Ÿà¸¥à¹Œà¸„-à¸£à¹‡à¸­à¸„
 Genre_082;National Folk
 Genre_083;Swing
 Genre_084;Fast Fusion
 Genre_085;Bebob
-Genre_086;ลาติน
+Genre_086;à¸¥à¸²à¸•à¸´à¸™
 Genre_087;Revival
 Genre_088;Celtic
 Genre_089;Bluegrass
@@ -481,56 +481,56 @@ Genre_093;Psychedelic Rock
 Genre_094;Symphonic Rock
 Genre_095;Slow Rock
 Genre_096;Big Band
-Genre_097;ลูกคู่
+Genre_097;à¸¥à¸¹à¸à¸„à¸¹à¹ˆ
 Genre_098;Easy Listening
 Genre_099;Acoustic
 Genre_100;Humour
 Genre_101;Speech
 Genre_102;Chanson
-Genre_103;โอเปร่า
+Genre_103;à¹‚à¸­à¹€à¸›à¸£à¹ˆà¸²
 Genre_104;Chamber Music
 Genre_105;Sonata
-Genre_106;ซิมโฟนี
+Genre_106;à¸‹à¸´à¸¡à¹‚à¸Ÿà¸™à¸µ
 Genre_107;Booty Bass
 Genre_108;Primus
 Genre_109;Porn Groove
 Genre_110;Satire
 Genre_111;Slow Jam
 Genre_112;Club
-Genre_113;แทงโก
-Genre_114;แซมบา
-Genre_115;โฟลโคเร
+Genre_113;à¹à¸—à¸‡à¹‚à¸
+Genre_114;à¹à¸‹à¸¡à¸šà¸²
+Genre_115;à¹‚à¸Ÿà¸¥à¹‚à¸„à¹€à¸£
 Genre_116;Ballad
 Genre_117;Power Ballad
 Genre_118;Rhythmic Soul
-Genre_119;ฟรีสไตล์
+Genre_119;à¸Ÿà¸£à¸µà¸ªà¹„à¸•à¸¥à¹Œ
 Genre_120;Duet
-Genre_121;พังค์ร็อค
+Genre_121;à¸žà¸±à¸‡à¸„à¹Œà¸£à¹‡à¸­à¸„
 Genre_122;Drum Solo
-Genre_123;อะ คัปเปลา
+Genre_123;à¸­à¸° à¸„à¸±à¸›à¹€à¸›à¸¥à¸²
 Genre_124;Euro-House
 Genre_125;Dance Hall
 Genre_126;Goa
 Genre_127;Drum & Bass
 Genre_128;Club-House
-Genre_129;ฮาร์ดคอร์
+Genre_129;à¸®à¸²à¸£à¹Œà¸”à¸„à¸­à¸£à¹Œ
 Genre_130;Terror
-Genre_131;อินดี้
+Genre_131;à¸­à¸´à¸™à¸”à¸µà¹‰
 Genre_132;Britpop
 Genre_133;Negerpunk
 Genre_134;Polsk Punk
 Genre_135;Beat
 Genre_136;Christian Gangsta Rap
-Genre_137;เฮวี เมทอล
+Genre_137;à¹€à¸®à¸§à¸µ à¹€à¸¡à¸—à¸­à¸¥
 Genre_138;Black Metal
 Genre_139;Crossover
 Genre_140;Contemporary Christian
-Genre_141;คริสเตียนร็อค
+Genre_141;à¸„à¸£à¸´à¸ªà¹€à¸•à¸µà¸¢à¸™à¸£à¹‡à¸­à¸„
 Genre_142;Merengue
 Genre_143;Salsa
 Genre_144;Trash Metal
 Genre_145;Anime
-Genre_146;เจป๊อบ
+Genre_146;à¹€à¸ˆà¸›à¹Šà¸­à¸š
 Genre_147;Synthpop
 Genre_148;
 Genre_149;
@@ -576,32 +576,32 @@ Genre_188;
 Genre_189;
 Genre_190;
 Genre_191;
-Go to WebSite;ไปที่เว็บไซต์
+Go to WebSite;à¹„à¸›à¸—à¸µà¹ˆà¹€à¸§à¹‡à¸šà¹„à¸‹à¸•à¹Œ
 Grouping;
 h;h
-Header file;สร้างไฟล์ header
-Height;ความสูง
+Header file;à¸ªà¸£à¹‰à¸²à¸‡à¹„à¸Ÿà¸¥à¹Œ header
+Height;à¸„à¸§à¸²à¸¡à¸ªà¸¹à¸‡
 Height_Original;
-Help;ช่วยเหลือ
-Hint;คำแนะนำ
-How many audio streams?;มีจำนวนสตรีมเสียงเท่าไหร่?
-How many chapters streams?;มีจำนวนเชฟเตอร์สตรีมเท่าไหร่?
-How many text streams?;มีจำนวนสตรีมข้อความเท่าไหร่?
-How many video streams?;มีจำนวนสตรีมวีดีโอเท่าไหร่?
+Help;à¸Šà¹ˆà¸§à¸¢à¹€à¸«à¸¥à¸·à¸­
+Hint;à¸„à¸³à¹à¸™à¸°à¸™à¸³
+How many audio streams?;à¸¡à¸µà¸ˆà¸³à¸™à¸§à¸™à¸ªà¸•à¸£à¸µà¸¡à¹€à¸ªà¸µà¸¢à¸‡à¹€à¸—à¹ˆà¸²à¹„à¸«à¸£à¹ˆ?
+How many chapters streams?;à¸¡à¸µà¸ˆà¸³à¸™à¸§à¸™à¹€à¸Šà¸Ÿà¹€à¸•à¸­à¸£à¹Œà¸ªà¸•à¸£à¸µà¸¡à¹€à¸—à¹ˆà¸²à¹„à¸«à¸£à¹ˆ?
+How many text streams?;à¸¡à¸µà¸ˆà¸³à¸™à¸§à¸™à¸ªà¸•à¸£à¸µà¸¡à¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡à¹€à¸—à¹ˆà¸²à¹„à¸«à¸£à¹ˆ?
+How many video streams?;à¸¡à¸µà¸ˆà¸³à¸™à¸§à¸™à¸ªà¸•à¸£à¸µà¸¡à¸§à¸µà¸”à¸µà¹‚à¸­à¹€à¸—à¹ˆà¸²à¹„à¸«à¸£à¹ˆ?
 HTML;HTML
 ID;ID
 IdentClockStart;
-Image;ภาพ
-Image stream(s);สตรีมรูปภาพ
-Image_Codec_List;Codecs รูปภาพ
-ImageCount;จำนวนของสตรีมภาพ
-Info;ข้อมูล
+Image;à¸ à¸²à¸ž
+Image stream(s);à¸ªà¸•à¸£à¸µà¸¡à¸£à¸¹à¸›à¸ à¸²à¸ž
+Image_Codec_List;Codecs à¸£à¸¹à¸›à¸ à¸²à¸ž
+ImageCount;à¸ˆà¸³à¸™à¸§à¸™à¸‚à¸­à¸‡à¸ªà¸•à¸£à¸µà¸¡à¸ à¸²à¸ž
+Info;à¸‚à¹‰à¸­à¸¡à¸¹à¸¥
 Instruments;Instruments
-Interlaced_BFF;ช่องล่างก่อน
+Interlaced_BFF;à¸Šà¹ˆà¸­à¸‡à¸¥à¹ˆà¸²à¸‡à¸à¹ˆà¸­à¸™
 Interlaced_Interlaced;Interlaced
 Interlaced_PPF;Progressive
 Interlaced_Progressive;Progressive
-Interlaced_TFF;ช่องบนสุดก่อน
+Interlaced_TFF;à¸Šà¹ˆà¸­à¸‡à¸šà¸™à¸ªà¸¸à¸”à¸à¹ˆà¸­à¸™
 Interlacement;Interlacement
 Interleave_Duration;
 Interleave_Preload;
@@ -611,102 +611,102 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-Keywords;คีย์เวิร์ด
-Known codecs;codecs ที่รู้จัก
-Known formats;รูปแบบที่รู้จัก
-Known parameters;พารามิเตอร์ที่รู้จัก
-Label;ป้ายชื่อ
-Language;ภาษา
+Keywords;à¸„à¸µà¸¢à¹Œà¹€à¸§à¸´à¸£à¹Œà¸”
+Known codecs;codecs à¸—à¸µà¹ˆà¸£à¸¹à¹‰à¸ˆà¸±à¸
+Known formats;à¸£à¸¹à¸›à¹à¸šà¸šà¸—à¸µà¹ˆà¸£à¸¹à¹‰à¸ˆà¸±à¸
+Known parameters;à¸žà¸²à¸£à¸²à¸¡à¸´à¹€à¸•à¸­à¸£à¹Œà¸—à¸µà¹ˆà¸£à¸¹à¹‰à¸ˆà¸±à¸
+Label;à¸›à¹‰à¸²à¸¢à¸Šà¸·à¹ˆà¸­
+Language;à¸ à¸²à¸©à¸²
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
-Language_af;แอฟริกา
+Language_af;à¹à¸­à¸Ÿà¸£à¸´à¸à¸²
 Language_ak;Akan
-Language_am;อัมฮาริค
+Language_am;à¸­à¸±à¸¡à¸®à¸²à¸£à¸´à¸„
 Language_an;Aragonese
-Language_ar;อาหรับ
-Language_as;อัสสมี
+Language_ar;à¸­à¸²à¸«à¸£à¸±à¸š
+Language_as;à¸­à¸±à¸ªà¸ªà¸¡à¸µ
 Language_av;Avaric
 Language_ay;Aymara
 Language_az;Azerbaijani
 Language_ba;Bashkir
-Language_be;เบลารูเชียน
-Language_bg;บัลแกเรีย
-Language_bh;พิหาร
+Language_be;à¹€à¸šà¸¥à¸²à¸£à¸¹à¹€à¸Šà¸µà¸¢à¸™
+Language_bg;à¸šà¸±à¸¥à¹à¸à¹€à¸£à¸µà¸¢
+Language_bh;à¸žà¸´à¸«à¸²à¸£
 Language_bi;Bislama
 Language_bm;Bambara
-Language_bn;เบงกอล
-Language_bo;ทิเบต
+Language_bn;à¹€à¸šà¸‡à¸à¸­à¸¥
+Language_bo;à¸—à¸´à¹€à¸šà¸•
 Language_br;Breton
-Language_bs;บอซเนีย
-Language_ca;คาตะลาน
+Language_bs;à¸šà¸­à¸‹à¹€à¸™à¸µà¸¢
+Language_ca;à¸„à¸²à¸•à¸°à¸¥à¸²à¸™
 Language_ce;Chechen
 Language_ch;Chamorro
-Language_co;คอร์ซิกา
+Language_co;à¸„à¸­à¸£à¹Œà¸‹à¸´à¸à¸²
 Language_cr;Cree
-Language_cs;เช็ก
+Language_cs;à¹€à¸Šà¹‡à¸
 Language_cu;Slave
 Language_cv;Chuvash
-Language_cy;เวลส์
-Language_da;เดนมาร์ก
-Language_de;เยอรมัน
+Language_cy;à¹€à¸§à¸¥à¸ªà¹Œ
+Language_da;à¹€à¸”à¸™à¸¡à¸²à¸£à¹Œà¸
+Language_de;à¹€à¸¢à¸­à¸£à¸¡à¸±à¸™
 Language_dv;Divehi
 Language_dz;Dzongkha
 Language_ee;Ewe
-Language_el;กรีก
-Language_en;อังกฤษ
+Language_el;à¸à¸£à¸µà¸
+Language_en;à¸­à¸±à¸‡à¸à¸¤à¸©
 Language_en-gb;
 Language_en-us;
 Language_eo;Esperanto
-Language_es;สเปน
-Language_et;เอสโตเนีย
-Language_eu;แบ็ซค์
-Language_fa;เปอร์เซีย
+Language_es;à¸ªà¹€à¸›à¸™
+Language_et;à¹€à¸­à¸ªà¹‚à¸•à¹€à¸™à¸µà¸¢
+Language_eu;à¹à¸šà¹‡à¸‹à¸„à¹Œ
+Language_fa;à¹€à¸›à¸­à¸£à¹Œà¹€à¸‹à¸µà¸¢
 Language_ff;Fulah
-Language_fi;ฟินแลนด์
-Language_fj;ฟิจิ
-Language_fo;แฟโร
-Language_fr;ฝรั่งเศส
+Language_fi;à¸Ÿà¸´à¸™à¹à¸¥à¸™à¸”à¹Œ
+Language_fj;à¸Ÿà¸´à¸ˆà¸´
+Language_fo;à¹à¸Ÿà¹‚à¸£
+Language_fr;à¸à¸£à¸±à¹ˆà¸‡à¹€à¸¨à¸ª
 Language_fy;Frisian
-Language_ga;ไอริช
+Language_ga;à¹„à¸­à¸£à¸´à¸Š
 Language_gd;Gaelic
-Language_gl;กาลิเชียน
+Language_gl;à¸à¸²à¸¥à¸´à¹€à¸Šà¸µà¸¢à¸™
 Language_gn;Guarani
-Language_gu;คุชราตี
+Language_gu;à¸„à¸¸à¸Šà¸£à¸²à¸•à¸µ
 Language_gv;Manx
 Language_ha;Hausa
-Language_he;ฮิบรู
-Language_hi;ฮินดี
+Language_he;à¸®à¸´à¸šà¸£à¸¹
+Language_hi;à¸®à¸´à¸™à¸”à¸µ
 Language_ho;Hiri Motu
-Language_hr;โครเอเชีย
+Language_hr;à¹‚à¸„à¸£à¹€à¸­à¹€à¸Šà¸µà¸¢
 Language_ht;Haitian
-Language_hu;ฮังการี
-Language_hy;อาร์เมเนียน
+Language_hu;à¸®à¸±à¸‡à¸à¸²à¸£à¸µ
+Language_hy;à¸­à¸²à¸£à¹Œà¹€à¸¡à¹€à¸™à¸µà¸¢à¸™
 Language_hz;Herero
 Language_ia;Auxiliary Language Association
-Language_id;อินโดนีเซีย
+Language_id;à¸­à¸´à¸™à¹‚à¸”à¸™à¸µà¹€à¸‹à¸µà¸¢
 Language_ie;Interlingue
 Language_ig;Igbo
 Language_ii;Sichuan Yi
 Language_ik;Inupiaq
-Language_Info;ข้อมูลภาษา
+Language_Info;à¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¸ à¸²à¸©à¸²
 Language_io;Ido
-Language_is;ไอซ์แลนด์
-Language_it;อิตาลี
+Language_is;à¹„à¸­à¸‹à¹Œà¹à¸¥à¸™à¸”à¹Œ
+Language_it;à¸­à¸´à¸•à¸²à¸¥à¸µ
 Language_iu;Inuktitut
-Language_ja;ญี่ปุ่น
+Language_ja;à¸à¸µà¹ˆà¸›à¸¸à¹ˆà¸™
 Language_jv;Javanese
-Language_ka;จอร์เจีย
-Language_kg;คองโก
+Language_ka;à¸ˆà¸­à¸£à¹Œà¹€à¸ˆà¸µà¸¢
+Language_kg;à¸„à¸­à¸‡à¹‚à¸
 Language_ki;Kikuyu
 Language_kj;Kuanyama
 Language_kk;Kazakh
 Language_kl;Kalaallisut
-Language_km;เขมร
-Language_kn;กัณณาท
-Language_ko;เกาหลี
+Language_km;à¹€à¸‚à¸¡à¸£
+Language_kn;à¸à¸±à¸“à¸“à¸²à¸—
+Language_ko;à¹€à¸à¸²à¸«à¸¥à¸µ
 Language_kr;Kanuri
-Language_ks;กัศมีรี
+Language_ks;à¸à¸±à¸¨à¸¡à¸µà¸£à¸µ
 Language_ku;Kurdish
 Language_kv;Komi
 Language_kw;Cornish
@@ -716,89 +716,89 @@ Language_lb;Luxembourgish
 Language_lg;Ganda
 Language_li;Limburgish
 Language_ln;Lingala
-Language_lo;ลาว
-Language_lt;ลิทัวเนีย
+Language_lo;à¸¥à¸²à¸§
+Language_lt;à¸¥à¸´à¸—à¸±à¸§à¹€à¸™à¸µà¸¢
 Language_lu;Luba-Katanga
-Language_lv;ลัตเวีย
+Language_lv;à¸¥à¸±à¸•à¹€à¸§à¸µà¸¢
 Language_mg;Malagasy
-Language_mh;มาร์แชล
-Language_mi;เมารี
-Language_mk;มาซิโดเนีย
-Language_ml;มะละยาลัม
-Language_mn;มองโกเลีย
-Language_mo;มอลเดเวีย
+Language_mh;à¸¡à¸²à¸£à¹Œà¹à¸Šà¸¥
+Language_mi;à¹€à¸¡à¸²à¸£à¸µ
+Language_mk;à¸¡à¸²à¸‹à¸´à¹‚à¸”à¹€à¸™à¸µà¸¢
+Language_ml;à¸¡à¸°à¸¥à¸°à¸¢à¸²à¸¥à¸±à¸¡
+Language_mn;à¸¡à¸­à¸‡à¹‚à¸à¹€à¸¥à¸µà¸¢
+Language_mo;à¸¡à¸­à¸¥à¹€à¸”à¹€à¸§à¸µà¸¢
 Language_More;
-Language_mr;มาราฐี
-Language_ms;มาเลย์
-Language_mt;มัลตีส
+Language_mr;à¸¡à¸²à¸£à¸²à¸à¸µ
+Language_ms;à¸¡à¸²à¹€à¸¥à¸¢à¹Œ
+Language_mt;à¸¡à¸±à¸¥à¸•à¸µà¸ª
 Language_mul;Multiple languages
-Language_my;พม่า
-Language_na;นาอูรู
+Language_my;à¸žà¸¡à¹ˆà¸²
+Language_na;à¸™à¸²à¸­à¸¹à¸£à¸¹
 Language_nb;Norwegian Bokmal
 Language_nd;Ndebele
-Language_ne;เนปาล
+Language_ne;à¹€à¸™à¸›à¸²à¸¥
 Language_ng;Ndonga
-Language_nl;ดัทช์
+Language_nl;à¸”à¸±à¸—à¸Šà¹Œ
 Language_nn;Norwegian Nynorsk
 Language_no;Norwegian
 Language_nr;Ndebele
 Language_nv;Navaho
 Language_ny;Nyanja
-Language_oc;ออกซิตัน
+Language_oc;à¸­à¸­à¸à¸‹à¸´à¸•à¸±à¸™
 Language_oj;Ojibwa
 Language_om;Oromo
-Language_or;โอริยา
+Language_or;à¹‚à¸­à¸£à¸´à¸¢à¸²
 Language_os;Ossetic
-Language_pa;ปันจาบ
-Language_pi;บาลี
-Language_pl;โปแลนด์
+Language_pa;à¸›à¸±à¸™à¸ˆà¸²à¸š
+Language_pi;à¸šà¸²à¸¥à¸µ
+Language_pl;à¹‚à¸›à¹à¸¥à¸™à¸”à¹Œ
 Language_ps;Pushto
-Language_pt;โปรตุเกส
+Language_pt;à¹‚à¸›à¸£à¸•à¸¸à¹€à¸à¸ª
 Language_pt-br;
 Language_qu;Quechua
 Language_rm;Raeto-Romance
 Language_rn;Rundi
-Language_ro;โรมาเนีย
-Language_ru;รัสเซีย
+Language_ro;à¹‚à¸£à¸¡à¸²à¹€à¸™à¸µà¸¢
+Language_ru;à¸£à¸±à¸ªà¹€à¸‹à¸µà¸¢
 Language_rw;Kinyarwanda
-Language_sa;สันสกฤต
-Language_sc;ซาร์ดิเนีย
-Language_sd;สินธี
+Language_sa;à¸ªà¸±à¸™à¸ªà¸à¸¤à¸•
+Language_sc;à¸‹à¸²à¸£à¹Œà¸”à¸´à¹€à¸™à¸µà¸¢
+Language_sd;à¸ªà¸´à¸™à¸˜à¸µ
 Language_se;Northern Sami
 Language_sg;Sango
-Language_si;สิงหล
-Language_sk;สโลวะเกีย
-Language_sl;สโลเวเนียน
-Language_sm;ซามัว
+Language_si;à¸ªà¸´à¸‡à¸«à¸¥
+Language_sk;à¸ªà¹‚à¸¥à¸§à¸°à¹€à¸à¸µà¸¢
+Language_sl;à¸ªà¹‚à¸¥à¹€à¸§à¹€à¸™à¸µà¸¢à¸™
+Language_sm;à¸‹à¸²à¸¡à¸±à¸§
 Language_sn;Shona
-Language_so;โซมาเลีย
-Language_sq;อัลบาเนียน
-Language_sr;เซอร์เบียน
+Language_so;à¹‚à¸‹à¸¡à¸²à¹€à¸¥à¸µà¸¢
+Language_sq;à¸­à¸±à¸¥à¸šà¸²à¹€à¸™à¸µà¸¢à¸™
+Language_sr;à¹€à¸‹à¸­à¸£à¹Œà¹€à¸šà¸µà¸¢à¸™
 Language_ss;Swati
 Language_st;Sotho
-Language_su;ซุนดา
-Language_sv;สวีเดน
-Language_sw;สวาฮีลี
-Language_ta;ทมิฬ
-Language_te;เตลุคู
+Language_su;à¸‹à¸¸à¸™à¸”à¸²
+Language_sv;à¸ªà¸§à¸µà¹€à¸”à¸™
+Language_sw;à¸ªà¸§à¸²à¸®à¸µà¸¥à¸µ
+Language_ta;à¸—à¸¡à¸´à¸¬
+Language_te;à¹€à¸•à¸¥à¸¸à¸„à¸¹
 Language_tg;Tajik
-Language_th;ไทย
-Language_ti;ทีกรินยา
-Language_tk;เติร์กเมนิสถาน
-Language_tl;ตากาลอค
+Language_th;à¹„à¸—à¸¢
+Language_ti;à¸—à¸µà¸à¸£à¸´à¸™à¸¢à¸²
+Language_tk;à¹€à¸•à¸´à¸£à¹Œà¸à¹€à¸¡à¸™à¸´à¸ªà¸–à¸²à¸™
+Language_tl;à¸•à¸²à¸à¸²à¸¥à¸­à¸„
 Language_tn;Tswana
-Language_to;ตองกา
-Language_tr;ตุรกี
+Language_to;à¸•à¸­à¸‡à¸à¸²
+Language_tr;à¸•à¸¸à¸£à¸à¸µ
 Language_ts;Tsonga
 Language_tt;Tatar
 Language_tw;Twi
-Language_ty;ตาฮิติ
+Language_ty;à¸•à¸²à¸®à¸´à¸•à¸´
 Language_ug;Uighur
-Language_uk;ยูเครน
-Language_ur;อูรดู
-Language_uz;อุบเบกิสถาน
-Language_ve;เวนดา
-Language_vi;เวียดนาม
+Language_uk;à¸¢à¸¹à¹€à¸„à¸£à¸™
+Language_ur;à¸­à¸¹à¸£à¸”à¸¹
+Language_uz;à¸­à¸¸à¸šà¹€à¸šà¸à¸´à¸ªà¸–à¸²à¸™
+Language_ve;à¹€à¸§à¸™à¸”à¸²
+Language_vi;à¹€à¸§à¸µà¸¢à¸”à¸™à¸²à¸¡
 Language_vo;Volapuk
 Language_wa;Walloon
 Language_wo;Wolof
@@ -806,16 +806,16 @@ Language_xh;Xhosa
 Language_yi;Yiddish
 Language_yo;Yoruba
 Language_za;Zhuang
-Language_zh;จีน
+Language_zh;à¸ˆà¸µà¸™
 Language_zh-cn;
 Language_zh-tw;
-Language_zu;ซูลู
+Language_zu;à¸‹à¸¹à¸¥à¸¹
 LawRating;Law rating
 LCCN;LCCN
 Library;Muxing library
 Lightness;
 LineUpStart;
-List;รายการ
+List;à¸£à¸²à¸¢à¸à¸²à¸£
 Lyricist;Lyricist
 Lyrics;
 Mastered_Date;Mastered date
@@ -824,38 +824,38 @@ Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;
 Matrix_Format;
-MediaInfo_About;แสดงข้อมูลอย่างละเอียด\r\nของไฟล์มัลติมีเดีย:\r\nMatroska, OGG (รวมทั้ง OGM)\r\nMPEG1 (รวมทั้ง VCD)\r\nMPEG2 (รวมทั้ง DVD และ SVCD)\r\nMPEG4 (รวมทั้ง Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (รวมทั้ง WMV, WMA)\r\nMicrosoft RIFF (รวมทั้ง AVI, WAV)\r\nรูปแบบเสียงอย่างเดียว (AC3, DTS, AAC, AU, AIFF...)
-Menu;เมนู
-Menu stream(s);สตรีมเมนู
-Menu_Codec_List;codecs เมนู
+MediaInfo_About;à¹à¸ªà¸”à¸‡à¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¸­à¸¢à¹ˆà¸²à¸‡à¸¥à¸°à¹€à¸­à¸µà¸¢à¸”\r\nà¸‚à¸­à¸‡à¹„à¸Ÿà¸¥à¹Œà¸¡à¸±à¸¥à¸•à¸´à¸¡à¸µà¹€à¸”à¸µà¸¢:\r\nMatroska, OGG (à¸£à¸§à¸¡à¸—à¸±à¹‰à¸‡ OGM)\r\nMPEG1 (à¸£à¸§à¸¡à¸—à¸±à¹‰à¸‡ VCD)\r\nMPEG2 (à¸£à¸§à¸¡à¸—à¸±à¹‰à¸‡ DVD à¹à¸¥à¸° SVCD)\r\nMPEG4 (à¸£à¸§à¸¡à¸—à¸±à¹‰à¸‡ Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (à¸£à¸§à¸¡à¸—à¸±à¹‰à¸‡ WMV, WMA)\r\nMicrosoft RIFF (à¸£à¸§à¸¡à¸—à¸±à¹‰à¸‡ AVI, WAV)\r\nà¸£à¸¹à¸›à¹à¸šà¸šà¹€à¸ªà¸µà¸¢à¸‡à¸­à¸¢à¹ˆà¸²à¸‡à¹€à¸”à¸µà¸¢à¸§ (AC3, DTS, AAC, AU, AIFF...)
+Menu;à¹€à¸¡à¸™à¸¹
+Menu stream(s);à¸ªà¸•à¸£à¸µà¸¡à¹€à¸¡à¸™à¸¹
+Menu_Codec_List;codecs à¹€à¸¡à¸™à¸¹
 Menu_Hint;More possibilities
-Menu_No;ไม่มีเมนู
-MenuCount;จำนวนของสตรีมเมนู
-MenuID;รหัสประจำตัวเมนู
+Menu_No;à¹„à¸¡à¹ˆà¸¡à¸µà¹€à¸¡à¸™à¸¹
+MenuCount;à¸ˆà¸³à¸™à¸§à¸™à¸‚à¸­à¸‡à¸ªà¸•à¸£à¸µà¸¡à¹€à¸¡à¸™à¸¹
+MenuID;à¸£à¸«à¸±à¸ªà¸›à¸£à¸°à¸ˆà¸³à¸•à¸±à¸§à¹€à¸¡à¸™à¸¹
 mn;mn
 Mood;Mood
-More;เพิ่มเติม
-Movie;ชื่อภาพยนตร์
+More;à¹€à¸žà¸´à¹ˆà¸¡à¹€à¸•à¸´à¸¡
+Movie;à¸Šà¸·à¹ˆà¸­à¸ à¸²à¸žà¸¢à¸™à¸•à¸£à¹Œ
 ms;ms
 MSDI;MSDI
 MusicBy;
-MuxingMode;โหมด Muxing
+MuxingMode;à¹‚à¸«à¸¡à¸” Muxing
 MuxingMode_MoreInfo;
 MuxingMode_PackedBitstream;
-Name;ชื่อ
+Name;à¸Šà¸·à¹ˆà¸­
 Nationality;Nationality
 NetworkName;
-New;ใหม่
-Newest version;ตรวจสอบเวอร์ชันใหม่ล่าสุด (ต้องการการเชื่อมต่ออินเตอร์เน็ต)
+New;à¹ƒà¸«à¸¡à¹ˆ
+Newest version;à¸•à¸£à¸§à¸ˆà¸ªà¸­à¸šà¹€à¸§à¸­à¸£à¹Œà¸Šà¸±à¸™à¹ƒà¸«à¸¡à¹ˆà¸¥à¹ˆà¸²à¸ªà¸¸à¸” (à¸•à¹‰à¸­à¸‡à¸à¸²à¸£à¸à¸²à¸£à¹€à¸Šà¸·à¹ˆà¸­à¸¡à¸•à¹ˆà¸­à¸­à¸´à¸™à¹€à¸•à¸­à¸£à¹Œà¹€à¸™à¹‡à¸•)
 NewVersion_Menu;
 NewVersion_Question_Content;
 NewVersion_Question_Title;
-No;ไม่ใช่
+No;à¹„à¸¡à¹ˆà¹ƒà¸Šà¹ˆ
 Not yet;
 NumColors;
-OK;ตกลง
-One output file per input file;หนึ่งไฟล์ผลลัพธ์ต่อไฟล์นำเข้า
-Open;เปิด
+OK;à¸•à¸à¸¥à¸‡
+One output file per input file;à¸«à¸™à¸¶à¹ˆà¸‡à¹„à¸Ÿà¸¥à¹Œà¸œà¸¥à¸¥à¸±à¸žà¸˜à¹Œà¸•à¹ˆà¸­à¹„à¸Ÿà¸¥à¹Œà¸™à¸³à¹€à¸‚à¹‰à¸²
+Open;à¹€à¸›à¸´à¸”
 OpenCandy_01;
 OpenCandy_02;
 OpenCandy_03;
@@ -895,30 +895,30 @@ OpenCandy_36;
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
-Options;ตัวเลือก
-Options_Hint;การปรับแต่ง
-Original;ต้นฉบับ
+Options;à¸•à¸±à¸§à¹€à¸¥à¸·à¸­à¸
+Options_Hint;à¸à¸²à¸£à¸›à¸£à¸±à¸šà¹à¸•à¹ˆà¸‡
+Original;à¸•à¹‰à¸™à¸‰à¸šà¸±à¸š
 OriginalNetworkName;
 OriginalSourceForm;
 OriginalSourceMedium;
 Originator;
-Other;อื่นๆ
+Other;à¸­à¸·à¹ˆà¸™à¹†
 OtherIdentifier;
 OtherIdentifierType;
-Output;ผลลัพธ์
-Output format;รูปแบบผลลัพธ์
-OverallBitRate;บิตเรตทั้งหมด
-OverallBitRate_Maximum;บิตเรตทั้งหมดสูงสุด
-OverallBitRate_Minimum;บิตเรตทั้งหมดต่ำสุด
-OverallBitRate_Mode;โหมดบิตเรตทั้งหมด
-OverallBitRate_Nominal;บิตเรต Nominal ทั้งหมด
-Part;ส่วน
+Output;à¸œà¸¥à¸¥à¸±à¸žà¸˜à¹Œ
+Output format;à¸£à¸¹à¸›à¹à¸šà¸šà¸œà¸¥à¸¥à¸±à¸žà¸˜à¹Œ
+OverallBitRate;à¸šà¸´à¸•à¹€à¸£à¸•à¸—à¸±à¹‰à¸‡à¸«à¸¡à¸”
+OverallBitRate_Maximum;à¸šà¸´à¸•à¹€à¸£à¸•à¸—à¸±à¹‰à¸‡à¸«à¸¡à¸”à¸ªà¸¹à¸‡à¸ªà¸¸à¸”
+OverallBitRate_Minimum;à¸šà¸´à¸•à¹€à¸£à¸•à¸—à¸±à¹‰à¸‡à¸«à¸¡à¸”à¸•à¹ˆà¸³à¸ªà¸¸à¸”
+OverallBitRate_Mode;à¹‚à¸«à¸¡à¸”à¸šà¸´à¸•à¹€à¸£à¸•à¸—à¸±à¹‰à¸‡à¸«à¸¡à¸”
+OverallBitRate_Nominal;à¸šà¸´à¸•à¹€à¸£à¸• Nominal à¸—à¸±à¹‰à¸‡à¸«à¸¡à¸”
+Part;à¸ªà¹ˆà¸§à¸™
 Part_Count;Total count
 PartNumber;
 PartTotal;
 Performer;Performer
 Period;Period
-Phone;โทรศัพท์
+Phone;à¹‚à¸—à¸£à¸¨à¸±à¸žà¸—à¹Œ
 PictureRatio;
 PixelAspectRatio;Pixel Aspect Ratio
 PixelAspectRatio_Original;Pixel Aspect Ratio
@@ -926,35 +926,35 @@ PlayCounter;PlayCounter
 Played_Count;
 Played_First_Date;
 Played_Last_Date;
-PlayTime;เวลาเล่น
-Position;ตำแหน่ง
-Position_Total;ทั้งหมด
-Preferences;การปรับแต่ง
+PlayTime;à¹€à¸§à¸¥à¸²à¹€à¸¥à¹ˆà¸™
+Position;à¸•à¸³à¹à¸«à¸™à¹ˆà¸‡
+Position_Total;à¸—à¸±à¹‰à¸‡à¸«à¸¡à¸”
+Preferences;à¸à¸²à¸£à¸›à¸£à¸±à¸šà¹à¸•à¹ˆà¸‡
 PrimaryAudioLanguage;
-Producer;โพรดิวเซอร์
-ProductionDesigner;ผู้ออกแบบการแสดง
+Producer;à¹‚à¸žà¸£à¸”à¸´à¸§à¹€à¸‹à¸­à¸£à¹Œ
+ProductionDesigner;à¸œà¸¹à¹‰à¸­à¸­à¸à¹à¸šà¸šà¸à¸²à¸£à¹à¸ªà¸”à¸‡
 ProductionNumber;
 ProductionStudio;ProductionStudio
 ProductPlacement;
 ProgrammeHasText;
 ProgrammeTextLanguage;
 ProgrammeTitle;
-Publisher;ผู้เผยแพร่
+Publisher;à¸œà¸¹à¹‰à¹€à¸œà¸¢à¹à¸žà¸£à¹ˆ
 Purchased_Date;purchased date
 Quote character;Quote character
-RadioStation;สถานีวิทยุ
-Rating;เรตติ้ง
-Recorded_Date;วันที่บันทึก
+RadioStation;à¸ªà¸–à¸²à¸™à¸µà¸§à¸´à¸—à¸¢à¸¸
+Rating;à¹€à¸£à¸•à¸•à¸´à¹‰à¸‡
+Recorded_Date;à¸§à¸±à¸™à¸—à¸µà¹ˆà¸šà¸±à¸™à¸—à¸¶à¸
 Recorded_Location;Recorded location
 Released_Date;Released date
-RemixedBy;รีมิกซ์โดย
+RemixedBy;à¸£à¸µà¸¡à¸´à¸à¸‹à¹Œà¹‚à¸”à¸¢
 ReplayGain_Gain;
 ReplayGain_Peak;
-Resolution;ความละเอียด
+Resolution;à¸„à¸§à¸²à¸¡à¸¥à¸°à¹€à¸­à¸µà¸¢à¸”
 s;s
 SamplingCount;
 SamplingRate;
-Save;บันทึก
+Save;à¸šà¸±à¸™à¸—à¸¶à¸
 ScanOrder;
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -966,129 +966,130 @@ ScanType_StoreMethod;
 ScreenplayBy;Screenplay by
 Season;Season
 SecondaryAudioLanguage;
-see below;ดูด้านล่าง
-Send HeaderFile;โปรดส่งไฟล์ Header (หัวข้อ)ให้ฉันที่นี่ : http://sourceforge.net/projects/mediainfo/ (Bug section)
-Separator_Columns;ตัวแยกคอลัมน์
-Separator_Lines;ตัวแยกบรรทัด
+see below;à¸”à¸¹à¸”à¹‰à¸²à¸™à¸¥à¹ˆà¸²à¸‡
+Send HeaderFile;à¹‚à¸›à¸£à¸”à¸ªà¹ˆà¸‡à¹„à¸Ÿà¸¥à¹Œ Header (à¸«à¸±à¸§à¸‚à¹‰à¸­)à¹ƒà¸«à¹‰à¸‰à¸±à¸™à¸—à¸µà¹ˆà¸™à¸µà¹ˆ : http://sourceforge.net/projects/mediainfo/ (Bug section)
+Separator_Columns;à¸•à¸±à¸§à¹à¸¢à¸à¸„à¸­à¸¥à¸±à¸¡à¸™à¹Œ
+Separator_Lines;à¸•à¸±à¸§à¹à¸¢à¸à¸šà¸£à¸£à¸—à¸±à¸”
 SerieTitle;
 ServiceChannel;
 ServiceName;
 ServiceProvider;
 ServiceType;
-Set;กำหนด
+Set;à¸à¸³à¸«à¸™à¸”
 Set_Count;Set count
-Setup;ติดตั้ง
+Setup;à¸•à¸´à¸”à¸•à¸±à¹‰à¸‡
 Sharpness;
-Sheet;ชีต
+Sheet;à¸Šà¸µà¸•
 Sheet (Complete);Sheet (Complete)
-Shell extension;ลงทะเบียนชนิดไฟล์ (เมื่อคลิกขวาใน explorer จะแสดงตัวเลือกของ Media)
+Shell extension;à¸¥à¸‡à¸—à¸°à¹€à¸šà¸µà¸¢à¸™à¸Šà¸™à¸´à¸”à¹„à¸Ÿà¸¥à¹Œ (à¹€à¸¡à¸·à¹ˆà¸­à¸„à¸¥à¸´à¸à¸‚à¸§à¸²à¹ƒà¸™ explorer à¸ˆà¸°à¹à¸ªà¸”à¸‡à¸•à¸±à¸§à¹€à¸¥à¸·à¸­à¸à¸‚à¸­à¸‡ Media)
 Shell extension, folder;
-Shell InfoTip;ข้อมูลเคล็บลับ Shell (ใน explorer, เมื่อชี้เม้าท์ที่ไฟล์, จะแสดงข้อมูลไฟล์)
+Shell InfoTip;à¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¹€à¸„à¸¥à¹‡à¸šà¸¥à¸±à¸š Shell (à¹ƒà¸™ explorer, à¹€à¸¡à¸·à¹ˆà¸­à¸Šà¸µà¹‰à¹€à¸¡à¹‰à¸²à¸—à¹Œà¸—à¸µà¹ˆà¹„à¸Ÿà¸¥à¹Œ, à¸ˆà¸°à¹à¸ªà¸”à¸‡à¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¹„à¸Ÿà¸¥à¹Œ)
 ShimName;
-Show menu;แสดงเมนู
-Show toolbar;แสดงแถบเครื่องมือ
+Show menu;à¹à¸ªà¸”à¸‡à¹€à¸¡à¸™à¸¹
+Show toolbar;à¹à¸ªà¸”à¸‡à¹à¸–à¸šà¹€à¸„à¸£à¸·à¹ˆà¸­à¸‡à¸¡à¸·à¸­
 SigningPresent;
 SignLanguage;
-Sort;จัดเรียงโดย
-SoundEngineer;ซาวน์เอนจิเนียร์
+Sort;à¸ˆà¸±à¸”à¹€à¸£à¸µà¸¢à¸‡à¹‚à¸”à¸¢
+SoundEngineer;à¸‹à¸²à¸§à¸™à¹Œà¹€à¸­à¸™à¸ˆà¸´à¹€à¸™à¸µà¸¢à¸£à¹Œ
 Source;
 Source_Duration;
 Source_FrameCount;
 Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
-Standard;มาตรฐาน
+Standard;à¸¡à¸²à¸•à¸£à¸à¸²à¸™
 StoreMethod_InterleavedFields;
 StoreMethod_SeparatedFields;
 StoreMethod_SeparatedFields_1;
 StoreMethod_SeparatedFields_2;
-Stream;สตรีม
-Stream_MoreInfo;ข้อมูลเพิ่มเติมเกี่ยวกับสตรีม
-StreamCount;จำนวนสตรีมของชนิดนี้
-StreamID;รหัสประจำตัวสตรีม
-StreamKind;ชนิดของสตรีม
+Stream;à¸ªà¸•à¸£à¸µà¸¡
+Stream_MoreInfo;à¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¹€à¸žà¸´à¹ˆà¸¡à¹€à¸•à¸´à¸¡à¹€à¸à¸µà¹ˆà¸¢à¸§à¸à¸±à¸šà¸ªà¸•à¸£à¸µà¸¡
+StreamCount;à¸ˆà¸³à¸™à¸§à¸™à¸ªà¸•à¸£à¸µà¸¡à¸‚à¸­à¸‡à¸Šà¸™à¸´à¸”à¸™à¸µà¹‰
+StreamID;à¸£à¸«à¸±à¸ªà¸›à¸£à¸°à¸ˆà¸³à¸•à¸±à¸§à¸ªà¸•à¸£à¸µà¸¡
+StreamKind;à¸Šà¸™à¸´à¸”à¸‚à¸­à¸‡à¸ªà¸•à¸£à¸µà¸¡
 StreamKindID;
 StreamKindPos;
-StreamSize;ขนาดสตรีม
+StreamSize;à¸‚à¸™à¸²à¸”à¸ªà¸•à¸£à¸µà¸¡
 StreamSize_Encoded;
 StreamSize_Proportion;
 Subject;Subject
-SubTrack;แทร็กย่อย
-Summary;สรุป
-Supported formats;รูปแบบที่สนับสนุน
-Supported?;สนับสนุนแล้ว?
+SubTrack;à¹à¸—à¸£à¹‡à¸à¸¢à¹ˆà¸­à¸¢
+Summary;à¸ªà¸£à¸¸à¸›
+Supported formats;à¸£à¸¹à¸›à¹à¸šà¸šà¸—à¸µà¹ˆà¸ªà¸™à¸±à¸šà¸ªà¸™à¸¸à¸™
+Supported?;à¸ªà¸™à¸±à¸šà¸ªà¸™à¸¸à¸™à¹à¸¥à¹‰à¸§?
 Synopsis;Synopsis
 SystemId;Id
 Tagged_Application;tagging application
 Tagged_Date;Tagged date
 Technician;Technician
-TermsOfUse;ข้อตกลงการใช้
+TermsOfUse;à¸‚à¹‰à¸­à¸•à¸à¸¥à¸‡à¸à¸²à¸£à¹ƒà¸Šà¹‰
 TertiaryAudioLanguage;
-Text;ข้อความ
+Text;à¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡
 Text - Custom;Text - Custom
-Text (HTML);ข้อความ (HTML)
-Text stream(s);สตรีมข้อความ
-Text streams;สตรีมข้อความ
-Text_Codec_List;codecs ข้อความ
-Text_No;ไม่มีข้อความ
-Text1;ข้อความสตรีมแรก
-Text2;ข้อความสตรีมที่สอง
-Text3;ข้อความสตรีมที่สาม
-TextCount;จำนวนของสตรีมข้อความ
+Text (HTML);à¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡ (HTML)
+Text stream(s);à¸ªà¸•à¸£à¸µà¸¡à¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡
+Text streams;à¸ªà¸•à¸£à¸µà¸¡à¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡
+Text_Codec_List;codecs à¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡
+Text_No;à¹„à¸¡à¹ˆà¸¡à¸µà¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡
+Text1;à¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡à¸ªà¸•à¸£à¸µà¸¡à¹à¸£à¸
+Text2;à¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡à¸ªà¸•à¸£à¸µà¸¡à¸—à¸µà¹ˆà¸ªà¸­à¸‡
+Text3;à¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡à¸ªà¸•à¸£à¸µà¸¡à¸—à¸µà¹ˆà¸ªà¸²à¸¡
+TextCount;à¸ˆà¸³à¸™à¸§à¸™à¸‚à¸­à¸‡à¸ªà¸•à¸£à¸µà¸¡à¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡
 TextlessElementsExist;
-ThanksTo;ขอขอบคุณ
-Thousands separator;ตัวแบ่งหลักพัน
+ThanksTo;à¸‚à¸­à¸‚à¸­à¸šà¸„à¸¸à¸“
+Thousands separator;à¸•à¸±à¸§à¹à¸šà¹ˆà¸‡à¸«à¸¥à¸±à¸à¸žà¸±à¸™
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
+TimeCode_Striped;
 TimeStamp;
 TimeZone;
-Title;ชื่อเรื่อง
-Title_More;ชื่อเรื่อง, ข้อมูลเพิ่มเติม
-Total;ทั้งหมด
+Title;à¸Šà¸·à¹ˆà¸­à¹€à¸£à¸·à¹ˆà¸­à¸‡
+Title_More;à¸Šà¸·à¹ˆà¸­à¹€à¸£à¸·à¹ˆà¸­à¸‡, à¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¹€à¸žà¸´à¹ˆà¸¡à¹€à¸•à¸´à¸¡
+Total;à¸—à¸±à¹‰à¸‡à¸«à¸¡à¸”
 TotalNumberOfParts;
 TotalProgrammeDuration;
-Track;ชื่อแทร็ค
+Track;à¸Šà¸·à¹ˆà¸­à¹à¸—à¸£à¹‡à¸„
 Track_Count;Track count
 transfer_characteristics;
-Translator;แปลไทยโดย
+Translator;à¹à¸›à¸¥à¹„à¸—à¸¢à¹‚à¸”à¸¢
 Tree;Tree
 Tree & Text;Tree & Text
 Type;
 UniqueID;
-Unknown;ไม่รู้จัก
+Unknown;à¹„à¸¡à¹ˆà¸£à¸¹à¹‰à¸ˆà¸±à¸
 Url;Url
-Video;วีดีโอ
-Video stream(s);สตรีมวีดีโอ
-Video_Codec_List;Codecs วีดีโอ
+Video;à¸§à¸µà¸”à¸µà¹‚à¸­
+Video stream(s);à¸ªà¸•à¸£à¸µà¸¡à¸§à¸µà¸”à¸µà¹‚à¸­
+Video_Codec_List;Codecs à¸§à¸µà¸”à¸µà¹‚à¸­
 Video_Delay;Video delay
-Video_No;ไม่มีวีดีโอ
+Video_No;à¹„à¸¡à¹ˆà¸¡à¸µà¸§à¸µà¸”à¸µà¹‚à¸­
 Video0_Delay;Video0 delay
-Video1;สตรีมวีดีโอแรก
+Video1;à¸ªà¸•à¸£à¸µà¸¡à¸§à¸µà¸”à¸µà¹‚à¸­à¹à¸£à¸
 VideoComments;
-VideoCount;จำนวนของสตรีมวีดีโอ
-View;มุมมอง
-View_Hint;เปลี่ยนรูปแบบของการแสดงข้อมูล
-Warning : more streams in the files;คำเตือน : มีหลายสตรีมในไฟล์
-Web;เว็บ
-WebSite_Audio;ไปที่เว็บไซต์ของ audio codec นี้
-WebSite_Audio_More;ไปที่เว็บไซต์ (%Url%) เพื่อค้นหา audio codec นี้
-WebSite_General;ไปที่เว็บไซต์ของตัวเล่นไฟล์นี้
-WebSite_General_More;ไปที่เว็บไซต์ของตัวเล่นไฟล์นี้
-WebSite_Text;ไปที่เว็บไซต์เพื่อค้นหาของ text codec นี้
-WebSite_Text_More;ไปที่เว็บไซต์ (%Url%) เพื่อค้นหา text codec นี้
+VideoCount;à¸ˆà¸³à¸™à¸§à¸™à¸‚à¸­à¸‡à¸ªà¸•à¸£à¸µà¸¡à¸§à¸µà¸”à¸µà¹‚à¸­
+View;à¸¡à¸¸à¸¡à¸¡à¸­à¸‡
+View_Hint;à¹€à¸›à¸¥à¸µà¹ˆà¸¢à¸™à¸£à¸¹à¸›à¹à¸šà¸šà¸‚à¸­à¸‡à¸à¸²à¸£à¹à¸ªà¸”à¸‡à¸‚à¹‰à¸­à¸¡à¸¹à¸¥
+Warning : more streams in the files;à¸„à¸³à¹€à¸•à¸·à¸­à¸™ : à¸¡à¸µà¸«à¸¥à¸²à¸¢à¸ªà¸•à¸£à¸µà¸¡à¹ƒà¸™à¹„à¸Ÿà¸¥à¹Œ
+Web;à¹€à¸§à¹‡à¸š
+WebSite_Audio;à¹„à¸›à¸—à¸µà¹ˆà¹€à¸§à¹‡à¸šà¹„à¸‹à¸•à¹Œà¸‚à¸­à¸‡ audio codec à¸™à¸µà¹‰
+WebSite_Audio_More;à¹„à¸›à¸—à¸µà¹ˆà¹€à¸§à¹‡à¸šà¹„à¸‹à¸•à¹Œ (%Url%) à¹€à¸žà¸·à¹ˆà¸­à¸„à¹‰à¸™à¸«à¸² audio codec à¸™à¸µà¹‰
+WebSite_General;à¹„à¸›à¸—à¸µà¹ˆà¹€à¸§à¹‡à¸šà¹„à¸‹à¸•à¹Œà¸‚à¸­à¸‡à¸•à¸±à¸§à¹€à¸¥à¹ˆà¸™à¹„à¸Ÿà¸¥à¹Œà¸™à¸µà¹‰
+WebSite_General_More;à¹„à¸›à¸—à¸µà¹ˆà¹€à¸§à¹‡à¸šà¹„à¸‹à¸•à¹Œà¸‚à¸­à¸‡à¸•à¸±à¸§à¹€à¸¥à¹ˆà¸™à¹„à¸Ÿà¸¥à¹Œà¸™à¸µà¹‰
+WebSite_Text;à¹„à¸›à¸—à¸µà¹ˆà¹€à¸§à¹‡à¸šà¹„à¸‹à¸•à¹Œà¹€à¸žà¸·à¹ˆà¸­à¸„à¹‰à¸™à¸«à¸²à¸‚à¸­à¸‡ text codec à¸™à¸µà¹‰
+WebSite_Text_More;à¹„à¸›à¸—à¸µà¹ˆà¹€à¸§à¹‡à¸šà¹„à¸‹à¸•à¹Œ (%Url%) à¹€à¸žà¸·à¹ˆà¸­à¸„à¹‰à¸™à¸«à¸² text codec à¸™à¸µà¹‰
 WebSite_Url;http://MediaArea.net/MediaInfo
-WebSite_Video;ไปที่เว็บไซต์ของ video codec นี้
-WebSite_Video_More;ไปที่เว็บไซต์ (%Url%) เพื่อค้นหา video codec นี้
+WebSite_Video;à¹„à¸›à¸—à¸µà¹ˆà¹€à¸§à¹‡à¸šà¹„à¸‹à¸•à¹Œà¸‚à¸­à¸‡ video codec à¸™à¸µà¹‰
+WebSite_Video_More;à¹„à¸›à¸—à¸µà¹ˆà¹€à¸§à¹‡à¸šà¹„à¸‹à¸•à¹Œ (%Url%) à¹€à¸žà¸·à¹ˆà¸­à¸„à¹‰à¸™à¸«à¸² video codec à¸™à¸µà¹‰
 Width;Width
 Width_Original;
-WriteMe;เขียนถึงฉัน
-WriteToTranslator;เขียนถึงผู้แปล
-Written_Date;วันที่เขียน
-Written_Location;สถานที่เขียน
-WrittenBy;เขียนโดย
-Yes;ใช่
-Your system;ระบบของคุณ
-ZZ_Automatic_Percent;75
+WriteMe;à¹€à¸‚à¸µà¸¢à¸™à¸–à¸¶à¸‡à¸‰à¸±à¸™
+WriteToTranslator;à¹€à¸‚à¸µà¸¢à¸™à¸–à¸¶à¸‡à¸œà¸¹à¹‰à¹à¸›à¸¥
+Written_Date;à¸§à¸±à¸™à¸—à¸µà¹ˆà¹€à¸‚à¸µà¸¢à¸™
+Written_Location;à¸ªà¸–à¸²à¸™à¸—à¸µà¹ˆà¹€à¸‚à¸µà¸¢à¸™
+WrittenBy;à¹€à¸‚à¸µà¸¢à¸™à¹‚à¸”à¸¢
+Yes;à¹ƒà¸Šà¹ˆ
+Your system;à¸£à¸°à¸šà¸šà¸‚à¸­à¸‡à¸„à¸¸à¸“
+ZZ_Automatic_Percent;74
 ZZ_AutomaticLanguage_Percent;82

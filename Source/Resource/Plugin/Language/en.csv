@@ -1042,6 +1042,7 @@ TimeCode;Time code
 TimeCode_FirstFrame;Time code of first frame
 TimeCode_Settings;Time code settings
 TimeCode_Source;Time code source
+TimeCode_Striped;Time code, striped
 TimeStamp;Time stamp
 TimeZone;Timezone
 Title;Title

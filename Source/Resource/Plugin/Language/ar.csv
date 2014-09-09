@@ -1,414 +1,414 @@
   Language_ISO639;ar
   Author_Email;Info@MediaArea.net
   Author_Name;Zen
-  Author_OldNames;المترجم الأصلي
-  Language_Name;العربية
+  Author_OldNames;Ø§Ù„Ù…ØªØ±Ø¬Ù… Ø§Ù„Ø£ØµÙ„ÙŠ
+  Language_Name;Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©
   Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
   Config_Text_ThousandsSeparator; 
- audio stream1;دفق الصوت
- audio stream2;أدفاق صوتية
- audio stream3;أدفاق صوتية
- bit1;بت
- bit2;بت
- bit3;بت
- bps;بت/الثانية
- Bps;بت/الثانية
- Byte1;بايت
- Byte2;بايت
- Byte3;بايت
- channel1;قناة
- channel2;القنوات
- channel3;القنوات
- chapter1;الفصل
- chapter2;الفصول
- chapter3;الفصول
- chapters stream1;فصول الدفق
- chapters stream2;فصول الدفق
- chapters stream3;فصول الدفق
+ audio stream1;Ø¯ÙÙ‚ Ø§Ù„ØµÙˆØª
+ audio stream2;Ø£Ø¯ÙØ§Ù‚ ØµÙˆØªÙŠØ©
+ audio stream3;Ø£Ø¯ÙØ§Ù‚ ØµÙˆØªÙŠØ©
+ bit1;Ø¨Øª
+ bit2;Ø¨Øª
+ bit3;Ø¨Øª
+ bps;Ø¨Øª/Ø§Ù„Ø«Ø§Ù†ÙŠØ©
+ Bps;Ø¨Øª/Ø§Ù„Ø«Ø§Ù†ÙŠØ©
+ Byte1;Ø¨Ø§ÙŠØª
+ Byte2;Ø¨Ø§ÙŠØª
+ Byte3;Ø¨Ø§ÙŠØª
+ channel1;Ù‚Ù†Ø§Ø©
+ channel2;Ø§Ù„Ù‚Ù†ÙˆØ§Øª
+ channel3;Ø§Ù„Ù‚Ù†ÙˆØ§Øª
+ chapter1;Ø§Ù„ÙØµÙ„
+ chapter2;Ø§Ù„ÙØµÙˆÙ„
+ chapter3;Ø§Ù„ÙØµÙˆÙ„
+ chapters stream1;ÙØµÙˆÙ„ Ø§Ù„Ø¯ÙÙ‚
+ chapters stream2;ÙØµÙˆÙ„ Ø§Ù„Ø¯ÙÙ‚
+ chapters stream3;ÙØµÙˆÙ„ Ø§Ù„Ø¯ÙÙ‚
  character1;
  character2;
  character3;
- day1;يوم
- day2;أيام
- day3;أيام
- dB1; dB (ديسيبل )
+ day1;ÙŠÙˆÙ…
+ day2;Ø£ÙŠØ§Ù…
+ day3;Ø£ÙŠØ§Ù…
+ dB1; dB (Ø¯ÙŠØ³ÙŠØ¨Ù„ )
  dB2; dB
  dB3; dB
- file1;ملف
- file2;ملفات
- file3;ملفات
- fps1;لقطة في الثاني
- fps2;لقطة في الثاني
- fps3;لقطة في الثاني
- frame1;لقطة
- frame2;لقطة
- frame3;لقطة
- GB;غيغابايت
- Gb;غيغابت
- Gbps;جيغا بت في الثانية
- GBps;جيغا بايت في الثانية
+ file1;Ù…Ù„Ù
+ file2;Ù…Ù„ÙØ§Øª
+ file3;Ù…Ù„ÙØ§Øª
+ fps1;Ù„Ù‚Ø·Ø© ÙÙŠ Ø§Ù„Ø«Ø§Ù†ÙŠ
+ fps2;Ù„Ù‚Ø·Ø© ÙÙŠ Ø§Ù„Ø«Ø§Ù†ÙŠ
+ fps3;Ù„Ù‚Ø·Ø© ÙÙŠ Ø§Ù„Ø«Ø§Ù†ÙŠ
+ frame1;Ù„Ù‚Ø·Ø©
+ frame2;Ù„Ù‚Ø·Ø©
+ frame3;Ù„Ù‚Ø·Ø©
+ GB;ØºÙŠØºØ§Ø¨Ø§ÙŠØª
+ Gb;ØºÙŠØºØ§Ø¨Øª
+ Gbps;Ø¬ÙŠØºØ§ Ø¨Øª ÙÙŠ Ø§Ù„Ø«Ø§Ù†ÙŠØ©
+ GBps;Ø¬ÙŠØºØ§ Ø¨Ø§ÙŠØª ÙÙŠ Ø§Ù„Ø«Ø§Ù†ÙŠØ©
  GHz; GHz
  GiB; GiB
- GibiByte1;جيغي بايت
- GibiByte2;جيغي بايت
- GibiByte3;جيغي بايت
- GiBps;جيغي بايت في الثانية
- GigaBit1;جيغا بت
- GigaBit2;جيغا بت
- GigaBit3;جيغا بت
- GigaByte1;جيغا بايت
- GigaByte2;جيغا بايت
- GigaByte3;جيغا بايت
- hour1;ساعة
- hour2;ساعة
- hour3;ساعة
- Hz;هرتز
- image stream1;دفق الصورة
- image stream2;دفق الصور
- image stream3;دفق الصور
+ GibiByte1;Ø¬ÙŠØºÙŠ Ø¨Ø§ÙŠØª
+ GibiByte2;Ø¬ÙŠØºÙŠ Ø¨Ø§ÙŠØª
+ GibiByte3;Ø¬ÙŠØºÙŠ Ø¨Ø§ÙŠØª
+ GiBps;Ø¬ÙŠØºÙŠ Ø¨Ø§ÙŠØª ÙÙŠ Ø§Ù„Ø«Ø§Ù†ÙŠØ©
+ GigaBit1;Ø¬ÙŠØºØ§ Ø¨Øª
+ GigaBit2;Ø¬ÙŠØºØ§ Ø¨Øª
+ GigaBit3;Ø¬ÙŠØºØ§ Ø¨Øª
+ GigaByte1;Ø¬ÙŠØºØ§ Ø¨Ø§ÙŠØª
+ GigaByte2;Ø¬ÙŠØºØ§ Ø¨Ø§ÙŠØª
+ GigaByte3;Ø¬ÙŠØºØ§ Ø¨Ø§ÙŠØª
+ hour1;Ø³Ø§Ø¹Ø©
+ hour2;Ø³Ø§Ø¹Ø©
+ hour3;Ø³Ø§Ø¹Ø©
+ Hz;Ù‡Ø±ØªØ²
+ image stream1;Ø¯ÙÙ‚ Ø§Ù„ØµÙˆØ±Ø©
+ image stream2;Ø¯ÙÙ‚ Ø§Ù„ØµÙˆØ±
+ image stream3;Ø¯ÙÙ‚ Ø§Ù„ØµÙˆØ±
  KB; KB
  Kb; Kb
- KBps;كيلوبايت في الثانية
- Kbps;كيلوبت في الثانية
- KHz;كيلوهرتز
+ KBps;ÙƒÙŠÙ„ÙˆØ¨Ø§ÙŠØª ÙÙŠ Ø§Ù„Ø«Ø§Ù†ÙŠØ©
+ Kbps;ÙƒÙŠÙ„ÙˆØ¨Øª ÙÙŠ Ø§Ù„Ø«Ø§Ù†ÙŠØ©
+ KHz;ÙƒÙŠÙ„ÙˆÙ‡Ø±ØªØ²
  KiB; KiB
- KibiBit1;كيبي بت
- KibiBit2;كيبي بت
- KibiBit3;كيبي بت
- KibiByte1;كيبي بايت
- KibiByte2;كيبي بايت
- KibiByte3;كيبي بايت
- KiBps;كيبي بايت في الثانية
- KiloBit1;كيلوبت
- KiloBit2;كيلوبت
- KiloBit3;كيلوبت
- KiloByte1;كيلوبايت
- KiloByte2;كيلوبايت
- KiloByte3;كيلوبايت
- MB;ميغابايت
- Mb;ميغابت
- Mbps;ميغابت في الثانية
- MBps;ميغابايت في الثانية
- MebiBit1;ميبي بت
- MebiBit2;ميبي بت
- MebiBit3;ميبي بت
- MebiByte1;ميبي بايت
- MebiByte2;ميبي بايت
- MebiByte3;ميبي بايت
- MegaBit1;ميغا بت
- MegaBit2;ميغا بت
- MegaBit3;ميغا بت
- MegaByte1;ميغا بايت
- MegaByte2;ميغا بايت
- MegaByte3;ميغا بايت
- MHz;ميغاهيرتز
- MiB;ميلي بايت
- Mib;ميلي بت
- MiBps;ميلي بايت في الثانية
- millisecond1;ميلي ثانية
- millisecond2;ميلي ثانية
- millisecond3;ميلي ثانية
- minute1;دقيقة
- minute2;دقيقة
- minute3;دقيقة
- month1;شهر
- month2;شهرا
- month3;شهرا
- pixel1;بكسل
- pixel2;بكسل
- pixel3;بكسل
- second1;ثانية
- second2;ثانية
- second3;ثانية
- text stream1;دفق النص
- text stream2;دفق النص
- text stream3;دفق النص
- video frames1;صورة فيديو
- video frames2;صور فيديو
- video frames3;صور فيديو
- video stream1;دفق الفيديو
- video stream2;دفق فيديو
- video stream3;دفق فيديو
- warppoint0;لا warppoints
+ KibiBit1;ÙƒÙŠØ¨ÙŠ Ø¨Øª
+ KibiBit2;ÙƒÙŠØ¨ÙŠ Ø¨Øª
+ KibiBit3;ÙƒÙŠØ¨ÙŠ Ø¨Øª
+ KibiByte1;ÙƒÙŠØ¨ÙŠ Ø¨Ø§ÙŠØª
+ KibiByte2;ÙƒÙŠØ¨ÙŠ Ø¨Ø§ÙŠØª
+ KibiByte3;ÙƒÙŠØ¨ÙŠ Ø¨Ø§ÙŠØª
+ KiBps;ÙƒÙŠØ¨ÙŠ Ø¨Ø§ÙŠØª ÙÙŠ Ø§Ù„Ø«Ø§Ù†ÙŠØ©
+ KiloBit1;ÙƒÙŠÙ„ÙˆØ¨Øª
+ KiloBit2;ÙƒÙŠÙ„ÙˆØ¨Øª
+ KiloBit3;ÙƒÙŠÙ„ÙˆØ¨Øª
+ KiloByte1;ÙƒÙŠÙ„ÙˆØ¨Ø§ÙŠØª
+ KiloByte2;ÙƒÙŠÙ„ÙˆØ¨Ø§ÙŠØª
+ KiloByte3;ÙƒÙŠÙ„ÙˆØ¨Ø§ÙŠØª
+ MB;Ù…ÙŠØºØ§Ø¨Ø§ÙŠØª
+ Mb;Ù…ÙŠØºØ§Ø¨Øª
+ Mbps;Ù…ÙŠØºØ§Ø¨Øª ÙÙŠ Ø§Ù„Ø«Ø§Ù†ÙŠØ©
+ MBps;Ù…ÙŠØºØ§Ø¨Ø§ÙŠØª ÙÙŠ Ø§Ù„Ø«Ø§Ù†ÙŠØ©
+ MebiBit1;Ù…ÙŠØ¨ÙŠ Ø¨Øª
+ MebiBit2;Ù…ÙŠØ¨ÙŠ Ø¨Øª
+ MebiBit3;Ù…ÙŠØ¨ÙŠ Ø¨Øª
+ MebiByte1;Ù…ÙŠØ¨ÙŠ Ø¨Ø§ÙŠØª
+ MebiByte2;Ù…ÙŠØ¨ÙŠ Ø¨Ø§ÙŠØª
+ MebiByte3;Ù…ÙŠØ¨ÙŠ Ø¨Ø§ÙŠØª
+ MegaBit1;Ù…ÙŠØºØ§ Ø¨Øª
+ MegaBit2;Ù…ÙŠØºØ§ Ø¨Øª
+ MegaBit3;Ù…ÙŠØºØ§ Ø¨Øª
+ MegaByte1;Ù…ÙŠØºØ§ Ø¨Ø§ÙŠØª
+ MegaByte2;Ù…ÙŠØºØ§ Ø¨Ø§ÙŠØª
+ MegaByte3;Ù…ÙŠØºØ§ Ø¨Ø§ÙŠØª
+ MHz;Ù…ÙŠØºØ§Ù‡ÙŠØ±ØªØ²
+ MiB;Ù…ÙŠÙ„ÙŠ Ø¨Ø§ÙŠØª
+ Mib;Ù…ÙŠÙ„ÙŠ Ø¨Øª
+ MiBps;Ù…ÙŠÙ„ÙŠ Ø¨Ø§ÙŠØª ÙÙŠ Ø§Ù„Ø«Ø§Ù†ÙŠØ©
+ millisecond1;Ù…ÙŠÙ„ÙŠ Ø«Ø§Ù†ÙŠØ©
+ millisecond2;Ù…ÙŠÙ„ÙŠ Ø«Ø§Ù†ÙŠØ©
+ millisecond3;Ù…ÙŠÙ„ÙŠ Ø«Ø§Ù†ÙŠØ©
+ minute1;Ø¯Ù‚ÙŠÙ‚Ø©
+ minute2;Ø¯Ù‚ÙŠÙ‚Ø©
+ minute3;Ø¯Ù‚ÙŠÙ‚Ø©
+ month1;Ø´Ù‡Ø±
+ month2;Ø´Ù‡Ø±Ø§
+ month3;Ø´Ù‡Ø±Ø§
+ pixel1;Ø¨ÙƒØ³Ù„
+ pixel2;Ø¨ÙƒØ³Ù„
+ pixel3;Ø¨ÙƒØ³Ù„
+ second1;Ø«Ø§Ù†ÙŠØ©
+ second2;Ø«Ø§Ù†ÙŠØ©
+ second3;Ø«Ø§Ù†ÙŠØ©
+ text stream1;Ø¯ÙÙ‚ Ø§Ù„Ù†Øµ
+ text stream2;Ø¯ÙÙ‚ Ø§Ù„Ù†Øµ
+ text stream3;Ø¯ÙÙ‚ Ø§Ù„Ù†Øµ
+ video frames1;ØµÙˆØ±Ø© ÙÙŠØ¯ÙŠÙˆ
+ video frames2;ØµÙˆØ± ÙÙŠØ¯ÙŠÙˆ
+ video frames3;ØµÙˆØ± ÙÙŠØ¯ÙŠÙˆ
+ video stream1;Ø¯ÙÙ‚ Ø§Ù„ÙÙŠØ¯ÙŠÙˆ
+ video stream2;Ø¯ÙÙ‚ ÙÙŠØ¯ÙŠÙˆ
+ video stream3;Ø¯ÙÙ‚ ÙÙŠØ¯ÙŠÙˆ
+ warppoint0;Ù„Ø§ warppoints
  warppoint1; warppoint
  warppoint2; warppoints
  warppoint3; warppoints
- week1;أسبوع
- week2;أسبوع
- week3;أسبوع
- year1;سنة
- year2;سنة
- year3;سنة
+ week1;Ø£Ø³Ø¨ÙˆØ¹
+ week2;Ø£Ø³Ø¨ÙˆØ¹
+ week3;Ø£Ø³Ø¨ÙˆØ¹
+ year1;Ø³Ù†Ø©
+ year2;Ø³Ù†Ø©
+ year3;Ø³Ù†Ø©
 , ;, 
 : ;: 
 3D;
 3DType;
-About;حول البرنامج
-About_Hint;كيفية الاتصال بنا والحصول على أخر نسخة
-Accompaniment;مرافقة
+About;Ø­ÙˆÙ„ Ø§Ù„Ø¨Ø±Ù†Ø§Ù…Ø¬
+About_Hint;ÙƒÙŠÙÙŠØ© Ø§Ù„Ø§ØªØµØ§Ù„ Ø¨Ù†Ø§ ÙˆØ§Ù„Ø­ØµÙˆÙ„ Ø¹Ù„Ù‰ Ø£Ø®Ø± Ù†Ø³Ø®Ø©
+Accompaniment;Ù…Ø±Ø§ÙÙ‚Ø©
 ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
-Actor;ممثل
-Actor_Character;الشخصية الملعوب دورها
-Added_Date;تاريخ الاضافة
-Address;عنوان
-Advanced;متقدم
-Advanced mode;الوضع المتقدم
-Album;ألبوم
-Album_ReplayGain_Gain;كسب عند قراءة الألبوم
-Album_ReplayGain_Peak;ذروة الكسب عند قراءة الألبوم
-Alignment;محاذاة
-Alignment_Aligned;محاذاة في الـinterleaves
-Alignment_Split;المنتشرة في الـinterleaves
-All;كل
-Archival_Location;الأرشيف
-Arranger;منظم
-ArtDirector;المدير الفني
-AspectRatio;حجم الشاشة
-AssistantDirector;مساعد المدير
-at;عند
-At least one file;(يجب على الأقل فتح ملف واحد)
-Audio;صوت
-Audio stream(s);دفق الصوت
-Audio_Codec_List;ترميز الصوت
-Audio_No;لا صوت
-Audio1;أول مقطع للصوت
-Audio2;ثاني مقطع للصوت
+Actor;Ù…Ù…Ø«Ù„
+Actor_Character;Ø§Ù„Ø´Ø®ØµÙŠØ© Ø§Ù„Ù…Ù„Ø¹ÙˆØ¨ Ø¯ÙˆØ±Ù‡Ø§
+Added_Date;ØªØ§Ø±ÙŠØ® Ø§Ù„Ø§Ø¶Ø§ÙØ©
+Address;Ø¹Ù†ÙˆØ§Ù†
+Advanced;Ù…ØªÙ‚Ø¯Ù…
+Advanced mode;Ø§Ù„ÙˆØ¶Ø¹ Ø§Ù„Ù…ØªÙ‚Ø¯Ù…
+Album;Ø£Ù„Ø¨ÙˆÙ…
+Album_ReplayGain_Gain;ÙƒØ³Ø¨ Ø¹Ù†Ø¯ Ù‚Ø±Ø§Ø¡Ø© Ø§Ù„Ø£Ù„Ø¨ÙˆÙ…
+Album_ReplayGain_Peak;Ø°Ø±ÙˆØ© Ø§Ù„ÙƒØ³Ø¨ Ø¹Ù†Ø¯ Ù‚Ø±Ø§Ø¡Ø© Ø§Ù„Ø£Ù„Ø¨ÙˆÙ…
+Alignment;Ù…Ø­Ø§Ø°Ø§Ø©
+Alignment_Aligned;Ù…Ø­Ø§Ø°Ø§Ø© ÙÙŠ Ø§Ù„Ù€interleaves
+Alignment_Split;Ø§Ù„Ù…Ù†ØªØ´Ø±Ø© ÙÙŠ Ø§Ù„Ù€interleaves
+All;ÙƒÙ„
+Archival_Location;Ø§Ù„Ø£Ø±Ø´ÙŠÙ
+Arranger;Ù…Ù†Ø¸Ù…
+ArtDirector;Ø§Ù„Ù…Ø¯ÙŠØ± Ø§Ù„ÙÙ†ÙŠ
+AspectRatio;Ø­Ø¬Ù… Ø§Ù„Ø´Ø§Ø´Ø©
+AssistantDirector;Ù…Ø³Ø§Ø¹Ø¯ Ø§Ù„Ù…Ø¯ÙŠØ±
+at;Ø¹Ù†Ø¯
+At least one file;(ÙŠØ¬Ø¨ Ø¹Ù„Ù‰ Ø§Ù„Ø£Ù‚Ù„ ÙØªØ­ Ù…Ù„Ù ÙˆØ§Ø­Ø¯)
+Audio;ØµÙˆØª
+Audio stream(s);Ø¯ÙÙ‚ Ø§Ù„ØµÙˆØª
+Audio_Codec_List;ØªØ±Ù…ÙŠØ² Ø§Ù„ØµÙˆØª
+Audio_No;Ù„Ø§ ØµÙˆØª
+Audio1;Ø£ÙˆÙ„ Ù…Ù‚Ø·Ø¹ Ù„Ù„ØµÙˆØª
+Audio2;Ø«Ø§Ù†ÙŠ Ù…Ù‚Ø·Ø¹ Ù„Ù„ØµÙˆØª
 AudioComments;
-AudioCount;عدد المقاطع الصوتية
+AudioCount;Ø¹Ø¯Ø¯ Ø§Ù„Ù…Ù‚Ø§Ø·Ø¹ Ø§Ù„ØµÙˆØªÙŠØ©
 AudioDescriptionPresent;
 AudioDescriptionType;
 AudioLoudnessStandard;
 AudioTrackLayout;
-Author;الكاتب /  المؤلف
-BarCode;باركود
-Basic;أساسي
-Basic_Note;ملاحظة : لمزيد من المعلومات حول هذا الملف ، يجب استخدام وجهة نظر مختلفة (جدول ، شجرة...)
-BitDepth;عمق الألوان
+Author;Ø§Ù„ÙƒØ§ØªØ¨ /  Ø§Ù„Ù…Ø¤Ù„Ù
+BarCode;Ø¨Ø§Ø±ÙƒÙˆØ¯
+Basic;Ø£Ø³Ø§Ø³ÙŠ
+Basic_Note;Ù…Ù„Ø§Ø­Ø¸Ø© : Ù„Ù…Ø²ÙŠØ¯ Ù…Ù† Ø§Ù„Ù…Ø¹Ù„ÙˆÙ…Ø§Øª Ø­ÙˆÙ„ Ù‡Ø°Ø§ Ø§Ù„Ù…Ù„Ù ØŒ ÙŠØ¬Ø¨ Ø§Ø³ØªØ®Ø¯Ø§Ù… ÙˆØ¬Ù‡Ø© Ù†Ø¸Ø± Ù…Ø®ØªÙ„ÙØ© (Ø¬Ø¯ÙˆÙ„ ØŒ Ø´Ø¬Ø±Ø©...)
+BitDepth;Ø¹Ù…Ù‚ Ø§Ù„Ø£Ù„ÙˆØ§Ù†
 BitDepth_Stored;
-BitRate;صبيب
+BitRate;ØµØ¨ÙŠØ¨
 BitRate_Encoded;
-BitRate_Maximum;أقصى صبيب
-BitRate_Minimum;أدنى صبيب
-BitRate_Mode;نوع  الصبيب
-BitRate_Mode_CBR;ثابت
-BitRate_Mode_VBR;متغير
-BitRate_Nominal;المعدل الاسمي للصبيب
-Bits-(Pixel*Frame);بت /(صورة*بكسل)
+BitRate_Maximum;Ø£Ù‚ØµÙ‰ ØµØ¨ÙŠØ¨
+BitRate_Minimum;Ø£Ø¯Ù†Ù‰ ØµØ¨ÙŠØ¨
+BitRate_Mode;Ù†ÙˆØ¹  Ø§Ù„ØµØ¨ÙŠØ¨
+BitRate_Mode_CBR;Ø«Ø§Ø¨Øª
+BitRate_Mode_VBR;Ù…ØªØºÙŠØ±
+BitRate_Nominal;Ø§Ù„Ù…Ø¹Ø¯Ù„ Ø§Ù„Ø§Ø³Ù…ÙŠ Ù„Ù„ØµØ¨ÙŠØ¨
+Bits-(Pixel*Frame);Ø¨Øª /(ØµÙˆØ±Ø©*Ø¨ÙƒØ³Ù„)
 BufferSize;
-Cancel;إلغاء
-Channel(s);قناة
-ChannelPositions;مواقع القنوات
-Chapter(s);فصل
-Chapters;فصل
-Chapters stream(s);مقطع الفصل
-Chapters_Codec_List;ترميز الفصول
-Chapters_No;لا يوجد أي فصل
-ChaptersCount;عدد مقاطع الفصول
-CheckNewVersion;التحقق من وجود نسخة جديدة
-Choose custom;اختر مخصص
-Choose custom sheet;اختيار الجدول مخصص
-Choose custom text;اختيار نص مخصص
-Choose export format;اختيار صيغة تصدير الماف
-Choose file(s);اختيار الماف
-Choose filename;اختر اسم الملف
-Choose language;اختر اللغة التي تريدها
-Choregrapher;المسؤول عن الكوريغرافيا
-Chroma;شروما
-ChromaSubsampling;الاختزال الشروما
-Close;غادر
-Close all before open;إغلاق كافة قبل الفتح
+Cancel;Ø¥Ù„ØºØ§Ø¡
+Channel(s);Ù‚Ù†Ø§Ø©
+ChannelPositions;Ù…ÙˆØ§Ù‚Ø¹ Ø§Ù„Ù‚Ù†ÙˆØ§Øª
+Chapter(s);ÙØµÙ„
+Chapters;ÙØµÙ„
+Chapters stream(s);Ù…Ù‚Ø·Ø¹ Ø§Ù„ÙØµÙ„
+Chapters_Codec_List;ØªØ±Ù…ÙŠØ² Ø§Ù„ÙØµÙˆÙ„
+Chapters_No;Ù„Ø§ ÙŠÙˆØ¬Ø¯ Ø£ÙŠ ÙØµÙ„
+ChaptersCount;Ø¹Ø¯Ø¯ Ù…Ù‚Ø§Ø·Ø¹ Ø§Ù„ÙØµÙˆÙ„
+CheckNewVersion;Ø§Ù„ØªØ­Ù‚Ù‚ Ù…Ù† ÙˆØ¬ÙˆØ¯ Ù†Ø³Ø®Ø© Ø¬Ø¯ÙŠØ¯Ø©
+Choose custom;Ø§Ø®ØªØ± Ù…Ø®ØµØµ
+Choose custom sheet;Ø§Ø®ØªÙŠØ§Ø± Ø§Ù„Ø¬Ø¯ÙˆÙ„ Ù…Ø®ØµØµ
+Choose custom text;Ø§Ø®ØªÙŠØ§Ø± Ù†Øµ Ù…Ø®ØµØµ
+Choose export format;Ø§Ø®ØªÙŠØ§Ø± ØµÙŠØºØ© ØªØµØ¯ÙŠØ± Ø§Ù„Ù…Ø§Ù
+Choose file(s);Ø§Ø®ØªÙŠØ§Ø± Ø§Ù„Ù…Ø§Ù
+Choose filename;Ø§Ø®ØªØ± Ø§Ø³Ù… Ø§Ù„Ù…Ù„Ù
+Choose language;Ø§Ø®ØªØ± Ø§Ù„Ù„ØºØ© Ø§Ù„ØªÙŠ ØªØ±ÙŠØ¯Ù‡Ø§
+Choregrapher;Ø§Ù„Ù…Ø³Ø¤ÙˆÙ„ Ø¹Ù† Ø§Ù„ÙƒÙˆØ±ÙŠØºØ±Ø§ÙÙŠØ§
+Chroma;Ø´Ø±ÙˆÙ…Ø§
+ChromaSubsampling;Ø§Ù„Ø§Ø®ØªØ²Ø§Ù„ Ø§Ù„Ø´Ø±ÙˆÙ…Ø§
+Close;ØºØ§Ø¯Ø±
+Close all before open;Ø¥ØºÙ„Ø§Ù‚ ÙƒØ§ÙØ© Ù‚Ø¨Ù„ Ø§Ù„ÙØªØ­
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
-Codec;الترميز (ِِCodec)
-Codec_Description;وصف الترميز
-Codec_Info;تفاصيل عن الترميز
-Codec_Profile;بروفايل الترميز
-Codec_Settings;إعدادات الترميز
-Codec_Settings_BVOP;إعدادات الترميز، BVOP
-Codec_Settings_CABAC;إعدادات الترميز، CABAC
-Codec_Settings_Endianness;إعدادات الترميز، Endianness
-Codec_Settings_Firm;إعدادات الترميز، Firm
-Codec_Settings_Floor;إعدادات الترميز، Floor
-Codec_Settings_GMC;إعدادات الترميز، GMC
-Codec_Settings_ITU;إعدادات الترميز، ITU
-Codec_Settings_Law;إعدادات الترميز، Law
-Codec_Settings_Matrix;إعدادات الترميز، Matrix
-Codec_Settings_PacketBitStream;إعدادات الترميز، Packet bitstream
-Codec_Settings_QPel;إعدادات الترميز، QPel
-Codec_Settings_Sign;إعدادات الترميز، Sign
-Codec_Url;وصلة الترميز
-CodecID;تعريف الترميز
-CodecID_Description;وصف الترميز
-Collection;مجموعة
-Colorimetry;قياس الألوان
-ColorSpace;لون الفضاء
-colour_primaries;إحداثيات اللونية
-Comment;تعليق
-CommissionedBy;مصاند من طرف
+Codec;Ø§Ù„ØªØ±Ù…ÙŠØ² (ÙÙCodec)
+Codec_Description;ÙˆØµÙ Ø§Ù„ØªØ±Ù…ÙŠØ²
+Codec_Info;ØªÙØ§ØµÙŠÙ„ Ø¹Ù† Ø§Ù„ØªØ±Ù…ÙŠØ²
+Codec_Profile;Ø¨Ø±ÙˆÙØ§ÙŠÙ„ Ø§Ù„ØªØ±Ù…ÙŠØ²
+Codec_Settings;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„ØªØ±Ù…ÙŠØ²
+Codec_Settings_BVOP;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„ØªØ±Ù…ÙŠØ²ØŒ BVOP
+Codec_Settings_CABAC;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„ØªØ±Ù…ÙŠØ²ØŒ CABAC
+Codec_Settings_Endianness;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„ØªØ±Ù…ÙŠØ²ØŒ Endianness
+Codec_Settings_Firm;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„ØªØ±Ù…ÙŠØ²ØŒ Firm
+Codec_Settings_Floor;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„ØªØ±Ù…ÙŠØ²ØŒ Floor
+Codec_Settings_GMC;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„ØªØ±Ù…ÙŠØ²ØŒ GMC
+Codec_Settings_ITU;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„ØªØ±Ù…ÙŠØ²ØŒ ITU
+Codec_Settings_Law;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„ØªØ±Ù…ÙŠØ²ØŒ Law
+Codec_Settings_Matrix;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„ØªØ±Ù…ÙŠØ²ØŒ Matrix
+Codec_Settings_PacketBitStream;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„ØªØ±Ù…ÙŠØ²ØŒ Packet bitstream
+Codec_Settings_QPel;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„ØªØ±Ù…ÙŠØ²ØŒ QPel
+Codec_Settings_Sign;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„ØªØ±Ù…ÙŠØ²ØŒ Sign
+Codec_Url;ÙˆØµÙ„Ø© Ø§Ù„ØªØ±Ù…ÙŠØ²
+CodecID;ØªØ¹Ø±ÙŠÙ Ø§Ù„ØªØ±Ù…ÙŠØ²
+CodecID_Description;ÙˆØµÙ Ø§Ù„ØªØ±Ù…ÙŠØ²
+Collection;Ù…Ø¬Ù…ÙˆØ¹Ø©
+Colorimetry;Ù‚ÙŠØ§Ø³ Ø§Ù„Ø£Ù„ÙˆØ§Ù†
+ColorSpace;Ù„ÙˆÙ† Ø§Ù„ÙØ¶Ø§Ø¡
+colour_primaries;Ø¥Ø­Ø¯Ø§Ø«ÙŠØ§Øª Ø§Ù„Ù„ÙˆÙ†ÙŠØ©
+Comment;ØªØ¹Ù„ÙŠÙ‚
+CommissionedBy;Ù…ØµØ§Ù†Ø¯ Ù…Ù† Ø·Ø±Ù
 Compilation;
-CompleteName;الاسم الكامل
+CompleteName;Ø§Ù„Ø§Ø³Ù… Ø§Ù„ÙƒØ§Ù…Ù„
 CompletionDate;
-Composer;ملحن
+Composer;Ù…Ù„Ø­Ù†
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
-Compression_Ratio;نسبة الضغط
-Conductor;قائد الاوركسترا
+Compression_Ratio;Ù†Ø³Ø¨Ø© Ø§Ù„Ø¶ØºØ·
+Conductor;Ù‚Ø§Ø¦Ø¯ Ø§Ù„Ø§ÙˆØ±ÙƒØ³ØªØ±Ø§
 ContactEmail;
 ContactTelephoneNumber;
-Container and general information;حاوية ومعلومات عامة
-ContentType;نوع المحتوى
-CoProducer;شارك في الإنتاج
-Copyright;حقوق
+Container and general information;Ø­Ø§ÙˆÙŠØ© ÙˆÙ…Ø¹Ù„ÙˆÙ…Ø§Øª Ø¹Ø§Ù…Ø©
+ContentType;Ù†ÙˆØ¹ Ø§Ù„Ù…Ø­ØªÙˆÙ‰
+CoProducer;Ø´Ø§Ø±Ùƒ ÙÙŠ Ø§Ù„Ø¥Ù†ØªØ§Ø¬
+Copyright;Ø­Ù‚ÙˆÙ‚
 CopyrightYear;
-CostumeDesigner;مصمم ازياء
-Count;عدد
-Country;دولة
-Cover;غلاف
-Cover_Datas;معلومات عن الغلاف
-Cover_Description;وصف الغلاف
-Cover_Mime;غلاف MIME
-Cover_Type;الغلاف الأصلي
-Cropped;أبعاد ريسيزينج
-Custom;معدل
-Customize;تعديل
-Date;تاريخ
-Debug;تصحيح (Debug)
-Decimal point;نقطة عشرية
-Delay;تأخير
+CostumeDesigner;Ù…ØµÙ…Ù… Ø§Ø²ÙŠØ§Ø¡
+Count;Ø¹Ø¯Ø¯
+Country;Ø¯ÙˆÙ„Ø©
+Cover;ØºÙ„Ø§Ù
+Cover_Datas;Ù…Ø¹Ù„ÙˆÙ…Ø§Øª Ø¹Ù† Ø§Ù„ØºÙ„Ø§Ù
+Cover_Description;ÙˆØµÙ Ø§Ù„ØºÙ„Ø§Ù
+Cover_Mime;ØºÙ„Ø§Ù MIME
+Cover_Type;Ø§Ù„ØºÙ„Ø§Ù Ø§Ù„Ø£ØµÙ„ÙŠ
+Cropped;Ø£Ø¨Ø¹Ø§Ø¯ Ø±ÙŠØ³ÙŠØ²ÙŠÙ†Ø¬
+Custom;Ù…Ø¹Ø¯Ù„
+Customize;ØªØ¹Ø¯ÙŠÙ„
+Date;ØªØ§Ø±ÙŠØ®
+Debug;ØªØµØ­ÙŠØ­ (Debug)
+Decimal point;Ù†Ù‚Ø·Ø© Ø¹Ø´Ø±ÙŠØ©
+Delay;ØªØ£Ø®ÙŠØ±
 Delay_Source;
 Delay_Source_Container;
 Delay_Source_Stream;
-Delete;حذف
-Description;وصف
-Digitized_Date;تاريخ الرقمية
-Dimensions;الأبعاد
-Director;المدير الفني
-DirectorOfPhotography;محرر الصور
-DisplayAspectRatio;عرض حجم الشاشة
-DisplayAspectRatio_Original;عرض حجم الشاشة الأصلي
-DistributedBy;موزع من طرف
+Delete;Ø­Ø°Ù
+Description;ÙˆØµÙ
+Digitized_Date;ØªØ§Ø±ÙŠØ® Ø§Ù„Ø±Ù‚Ù…ÙŠØ©
+Dimensions;Ø§Ù„Ø£Ø¨Ø¹Ø§Ø¯
+Director;Ø§Ù„Ù…Ø¯ÙŠØ± Ø§Ù„ÙÙ†ÙŠ
+DirectorOfPhotography;Ù…Ø­Ø±Ø± Ø§Ù„ØµÙˆØ±
+DisplayAspectRatio;Ø¹Ø±Ø¶ Ø­Ø¬Ù… Ø§Ù„Ø´Ø§Ø´Ø©
+DisplayAspectRatio_Original;Ø¹Ø±Ø¶ Ø­Ø¬Ù… Ø§Ù„Ø´Ø§Ø´Ø© Ø§Ù„Ø£ØµÙ„ÙŠ
+DistributedBy;Ù…ÙˆØ²Ø¹ Ù…Ù† Ø·Ø±Ù
 Distributor;
-Donate;تبرع
-DotsPerInch;نقطة في البوصة
-Duration;مدة
-Duration_End;وقت النهاية
-Duration_Start;وقت البدء
-Edit;تغيير
-EditedBy;حرره
-EMail;البريد الإلكتروني
-Encoded_Application;برنامج التحرير
-Encoded_Date;تاريخ الترميز (Encoding)
-Encoded_Library;المكتبة (Library) المستعملة
-Encoded_Library_Settings;إعدادات الترميز (Encoding)
-Encoded_Original;دعم الأصلي
-EncodedBy;مشفرة (Encoded) من طرف
-EPG_Positions;مواضع الـEPG (الداخلية)
+Donate;ØªØ¨Ø±Ø¹
+DotsPerInch;Ù†Ù‚Ø·Ø© ÙÙŠ Ø§Ù„Ø¨ÙˆØµØ©
+Duration;Ù…Ø¯Ø©
+Duration_End;ÙˆÙ‚Øª Ø§Ù„Ù†Ù‡Ø§ÙŠØ©
+Duration_Start;ÙˆÙ‚Øª Ø§Ù„Ø¨Ø¯Ø¡
+Edit;ØªØºÙŠÙŠØ±
+EditedBy;Ø­Ø±Ø±Ù‡
+EMail;Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ
+Encoded_Application;Ø¨Ø±Ù†Ø§Ù…Ø¬ Ø§Ù„ØªØ­Ø±ÙŠØ±
+Encoded_Date;ØªØ§Ø±ÙŠØ® Ø§Ù„ØªØ±Ù…ÙŠØ² (Encoding)
+Encoded_Library;Ø§Ù„Ù…ÙƒØªØ¨Ø© (Library) Ø§Ù„Ù…Ø³ØªØ¹Ù…Ù„Ø©
+Encoded_Library_Settings;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„ØªØ±Ù…ÙŠØ² (Encoding)
+Encoded_Original;Ø¯Ø¹Ù… Ø§Ù„Ø£ØµÙ„ÙŠ
+EncodedBy;Ù…Ø´ÙØ±Ø© (Encoded) Ù…Ù† Ø·Ø±Ù
+EPG_Positions;Ù…ÙˆØ§Ø¶Ø¹ Ø§Ù„Ù€EPG (Ø§Ù„Ø¯Ø§Ø®Ù„ÙŠØ©)
 EpisodeTitleNumber;
-Error_File;خطأ أثناء قراءة الملف
-ExecutiveProducer;المنتج التنفيذي
-Exit;خروج
-Exit_Hint;إنهاء البرنامج
-Export;تصدير
-Export_Hint;التصدير في شكل مخصص
-Extensions;التمديدات المستخدمة عادة
-Family;عائلة
-Fax;فاكس
-File;ملف
-File size;حجم الملف
-File_Append;إضافة إلى ملف موجود (تأكد من أن إعدادات متطابقة)
-File_Created_Date;تاريخ إنشاء الملف
-File_Created_Date_Local;تاريخ إنشاء الملف (محلي)
-File_Hint;حدد ملف وسائط لدراسة
-File_Modified_Date;تاريخ تعديل الملف الأخير
-File_Modified_Date_Local;تاريخ تعديل الملف الأخير (محلي)
-FileExtension;نوع الملف
-FileName;اسم الملف
-FileSize;حجم الملف
-Folder;مجلد
-Folder (R);مجلد (R)
-Folder (R)_Hint;تحديد مجلد لدراسة (مع جميع مجلداته الفرعية)
-Folder (Recursively);المجلد (بشكل تكراري)
-Folder_Hint;تحديد مجلد لدراسة
-FolderName;اسم المجلد
-Format;شكل
+Error_File;Ø®Ø·Ø£ Ø£Ø«Ù†Ø§Ø¡ Ù‚Ø±Ø§Ø¡Ø© Ø§Ù„Ù…Ù„Ù
+ExecutiveProducer;Ø§Ù„Ù…Ù†ØªØ¬ Ø§Ù„ØªÙ†ÙÙŠØ°ÙŠ
+Exit;Ø®Ø±ÙˆØ¬
+Exit_Hint;Ø¥Ù†Ù‡Ø§Ø¡ Ø§Ù„Ø¨Ø±Ù†Ø§Ù…Ø¬
+Export;ØªØµØ¯ÙŠØ±
+Export_Hint;Ø§Ù„ØªØµØ¯ÙŠØ± ÙÙŠ Ø´ÙƒÙ„ Ù…Ø®ØµØµ
+Extensions;Ø§Ù„ØªÙ…Ø¯ÙŠØ¯Ø§Øª Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…Ø© Ø¹Ø§Ø¯Ø©
+Family;Ø¹Ø§Ø¦Ù„Ø©
+Fax;ÙØ§ÙƒØ³
+File;Ù…Ù„Ù
+File size;Ø­Ø¬Ù… Ø§Ù„Ù…Ù„Ù
+File_Append;Ø¥Ø¶Ø§ÙØ© Ø¥Ù„Ù‰ Ù…Ù„Ù Ù…ÙˆØ¬ÙˆØ¯ (ØªØ£ÙƒØ¯ Ù…Ù† Ø£Ù† Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ù…ØªØ·Ø§Ø¨Ù‚Ø©)
+File_Created_Date;ØªØ§Ø±ÙŠØ® Ø¥Ù†Ø´Ø§Ø¡ Ø§Ù„Ù…Ù„Ù
+File_Created_Date_Local;ØªØ§Ø±ÙŠØ® Ø¥Ù†Ø´Ø§Ø¡ Ø§Ù„Ù…Ù„Ù (Ù…Ø­Ù„ÙŠ)
+File_Hint;Ø­Ø¯Ø¯ Ù…Ù„Ù ÙˆØ³Ø§Ø¦Ø· Ù„Ø¯Ø±Ø§Ø³Ø©
+File_Modified_Date;ØªØ§Ø±ÙŠØ® ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ù…Ù„Ù Ø§Ù„Ø£Ø®ÙŠØ±
+File_Modified_Date_Local;ØªØ§Ø±ÙŠØ® ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ù…Ù„Ù Ø§Ù„Ø£Ø®ÙŠØ± (Ù…Ø­Ù„ÙŠ)
+FileExtension;Ù†ÙˆØ¹ Ø§Ù„Ù…Ù„Ù
+FileName;Ø§Ø³Ù… Ø§Ù„Ù…Ù„Ù
+FileSize;Ø­Ø¬Ù… Ø§Ù„Ù…Ù„Ù
+Folder;Ù…Ø¬Ù„Ø¯
+Folder (R);Ù…Ø¬Ù„Ø¯ (R)
+Folder (R)_Hint;ØªØ­Ø¯ÙŠØ¯ Ù…Ø¬Ù„Ø¯ Ù„Ø¯Ø±Ø§Ø³Ø© (Ù…Ø¹ Ø¬Ù…ÙŠØ¹ Ù…Ø¬Ù„Ø¯Ø§ØªÙ‡ Ø§Ù„ÙØ±Ø¹ÙŠØ©)
+Folder (Recursively);Ø§Ù„Ù…Ø¬Ù„Ø¯ (Ø¨Ø´ÙƒÙ„ ØªÙƒØ±Ø§Ø±ÙŠ)
+Folder_Hint;ØªØ­Ø¯ÙŠØ¯ Ù…Ø¬Ù„Ø¯ Ù„Ø¯Ø±Ø§Ø³Ø©
+FolderName;Ø§Ø³Ù… Ø§Ù„Ù…Ø¬Ù„Ø¯
+Format;Ø´ÙƒÙ„
 Format_Commercial;
 Format_Commercial_IfAny;
-Format_Description;وصف الشكل
-Format_Info;تفاصيل عن شكل
-Format_Profile;لبروفايل الشكل
-Format_Settings;إعدادات الشكل
-Format_Settings_BVOP;إعدادات الشكل، BVOP
-Format_Settings_CABAC;إعدادات الشكل، CABAC
-Format_Settings_Emphasis;إعدادات الشكل، Emphasis
-Format_Settings_Endianness;إعدادات الشكل، Endianness
-Format_Settings_Firm;إعدادات الشكل، Firm
-Format_Settings_Floor;إعدادات الشكل، Floor
-Format_Settings_FrameMode;إعدادات الشكل، Frame mode
-Format_Settings_GMC;إعدادات الشكل، GMC
-Format_Settings_GOP;إعدادات الشكل، Format settings, GOP
-Format_Settings_ITU;إعدادات الشكل، ITU
-Format_Settings_Law;إعدادات الشكل، Law
-Format_Settings_Matrix;إعدادات الشكل، Matrix
-Format_Settings_Matrix_Custom;معدل
-Format_Settings_Matrix_Default;افتراضي
-Format_Settings_Mode;نمط
-Format_Settings_ModeExtension;إعدادات الشكل، Mode extension
-Format_Settings_PacketBitStream;إعدادات الشكل، Packet bitstream
+Format_Description;ÙˆØµÙ Ø§Ù„Ø´ÙƒÙ„
+Format_Info;ØªÙØ§ØµÙŠÙ„ Ø¹Ù† Ø´ÙƒÙ„
+Format_Profile;Ù„Ø¨Ø±ÙˆÙØ§ÙŠÙ„ Ø§Ù„Ø´ÙƒÙ„
+Format_Settings;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´ÙƒÙ„
+Format_Settings_BVOP;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´ÙƒÙ„ØŒ BVOP
+Format_Settings_CABAC;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´ÙƒÙ„ØŒ CABAC
+Format_Settings_Emphasis;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´ÙƒÙ„ØŒ Emphasis
+Format_Settings_Endianness;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´ÙƒÙ„ØŒ Endianness
+Format_Settings_Firm;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´ÙƒÙ„ØŒ Firm
+Format_Settings_Floor;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´ÙƒÙ„ØŒ Floor
+Format_Settings_FrameMode;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´ÙƒÙ„ØŒ Frame mode
+Format_Settings_GMC;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´ÙƒÙ„ØŒ GMC
+Format_Settings_GOP;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´ÙƒÙ„ØŒ Format settings, GOP
+Format_Settings_ITU;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´ÙƒÙ„ØŒ ITU
+Format_Settings_Law;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´ÙƒÙ„ØŒ Law
+Format_Settings_Matrix;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´ÙƒÙ„ØŒ Matrix
+Format_Settings_Matrix_Custom;Ù…Ø¹Ø¯Ù„
+Format_Settings_Matrix_Default;Ø§ÙØªØ±Ø§Ø¶ÙŠ
+Format_Settings_Mode;Ù†Ù…Ø·
+Format_Settings_ModeExtension;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´ÙƒÙ„ØŒ Mode extension
+Format_Settings_PacketBitStream;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´ÙƒÙ„ØŒ Packet bitstream
 Format_Settings_PictureStructure;
-Format_Settings_PS;إعدادات الشكل، PS
-Format_Settings_Pulldown;إعدادات الشكل، Pulldown
-Format_Settings_QPel;إعدادات الشكل، QPel
-Format_Settings_RefFrames;إعدادات الشكل، ReFrames
-Format_Settings_SBR;إعدادات الشكل، SBR
-Format_Settings_Sign;إعدادات الشكل، Sign
+Format_Settings_PS;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´ÙƒÙ„ØŒ PS
+Format_Settings_Pulldown;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´ÙƒÙ„ØŒ Pulldown
+Format_Settings_QPel;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´ÙƒÙ„ØŒ QPel
+Format_Settings_RefFrames;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´ÙƒÙ„ØŒ ReFrames
+Format_Settings_SBR;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´ÙƒÙ„ØŒ SBR
+Format_Settings_Sign;Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´ÙƒÙ„ØŒ Sign
 Format_Settings_Wrapping;
-Format_Url;وصلة على شكل
-Format_Version;نسخة الشكل
+Format_Url;ÙˆØµÙ„Ø© Ø¹Ù„Ù‰ Ø´ÙƒÙ„
+Format_Version;Ù†Ø³Ø®Ø© Ø§Ù„Ø´ÙƒÙ„
 FpaManufacturer;
 FpaPass;
 FpaVersion;
-FrameCount;عدد الصور
-FrameRate;عدد الصور في الثانية
-FrameRate_Maximum;أقصى معدل الصور/ثانية
-FrameRate_Minimum;أدنى معدل الصور/ثانية
-FrameRate_Mode;نمط الصور/ثانية
-FrameRate_Mode_CFR;ثابت
-FrameRate_Mode_VFR;متغير
-FrameRate_Nominal;معدل الاسمي لصور/ثانية
-FrameRate_Original;معدل الصور/ثانية الأصلي
-General;عام
-Genre;النوع
-Genre_000;البلوز Blues
-Genre_001;كلاسيك روك Classic Rock
-Genre_002;الريفي Country
-Genre_003;رقص Dance
-Genre_004;ديسكو Disco
-Genre_005;دغر Funk
-Genre_006;الجرونج Grunge
-Genre_007;الهيب هوب Hip-Hop
-Genre_008;الجاز Jazz
+FrameCount;Ø¹Ø¯Ø¯ Ø§Ù„ØµÙˆØ±
+FrameRate;Ø¹Ø¯Ø¯ Ø§Ù„ØµÙˆØ± ÙÙŠ Ø§Ù„Ø«Ø§Ù†ÙŠØ©
+FrameRate_Maximum;Ø£Ù‚ØµÙ‰ Ù…Ø¹Ø¯Ù„ Ø§Ù„ØµÙˆØ±/Ø«Ø§Ù†ÙŠØ©
+FrameRate_Minimum;Ø£Ø¯Ù†Ù‰ Ù…Ø¹Ø¯Ù„ Ø§Ù„ØµÙˆØ±/Ø«Ø§Ù†ÙŠØ©
+FrameRate_Mode;Ù†Ù…Ø· Ø§Ù„ØµÙˆØ±/Ø«Ø§Ù†ÙŠØ©
+FrameRate_Mode_CFR;Ø«Ø§Ø¨Øª
+FrameRate_Mode_VFR;Ù…ØªØºÙŠØ±
+FrameRate_Nominal;Ù…Ø¹Ø¯Ù„ Ø§Ù„Ø§Ø³Ù…ÙŠ Ù„ØµÙˆØ±/Ø«Ø§Ù†ÙŠØ©
+FrameRate_Original;Ù…Ø¹Ø¯Ù„ Ø§Ù„ØµÙˆØ±/Ø«Ø§Ù†ÙŠØ© Ø§Ù„Ø£ØµÙ„ÙŠ
+General;Ø¹Ø§Ù…
+Genre;Ø§Ù„Ù†ÙˆØ¹
+Genre_000;Ø§Ù„Ø¨Ù„ÙˆØ² Blues
+Genre_001;ÙƒÙ„Ø§Ø³ÙŠÙƒ Ø±ÙˆÙƒ Classic Rock
+Genre_002;Ø§Ù„Ø±ÙŠÙÙŠ Country
+Genre_003;Ø±Ù‚Øµ Dance
+Genre_004;Ø¯ÙŠØ³ÙƒÙˆ Disco
+Genre_005;Ø¯ØºØ± Funk
+Genre_006;Ø§Ù„Ø¬Ø±ÙˆÙ†Ø¬ Grunge
+Genre_007;Ø§Ù„Ù‡ÙŠØ¨ Ù‡ÙˆØ¨ Hip-Hop
+Genre_008;Ø§Ù„Ø¬Ø§Ø² Jazz
 Genre_009;Metal
 Genre_010;New Age
 Genre_011;Oldies
-Genre_012;آخر Other
+Genre_012;Ø¢Ø®Ø± Other
 Genre_013;Pop
 Genre_014;R&B
-Genre_015;الراب Rap
-Genre_016;الريجيه Reggae
+Genre_015;Ø§Ù„Ø±Ø§Ø¨ Rap
+Genre_016;Ø§Ù„Ø±ÙŠØ¬ÙŠÙ‡ Reggae
 Genre_017;Rock
-Genre_018;تكنو Techno
+Genre_018;ØªÙƒÙ†Ùˆ Techno
 Genre_019;Industrial
 Genre_020;Alternative
 Genre_021;Ska
 Genre_022;Death Metal
 Genre_023;Pranks
-Genre_024;الموسيقى التصويرية Soundtrack
+Genre_024;Ø§Ù„Ù…ÙˆØ³ÙŠÙ‚Ù‰ Ø§Ù„ØªØµÙˆÙŠØ±ÙŠØ© Soundtrack
 Genre_025;Euro-Techno
 Genre_026;Ambient
 Genre_027;Trip-Hop
@@ -416,7 +416,7 @@ Genre_028;Vocal
 Genre_029;Jazz+Funk
 Genre_030;Fusion
 Genre_031;Trance
-Genre_032;كلاسيكي Classical
+Genre_032;ÙƒÙ„Ø§Ø³ÙŠÙƒÙŠ Classical
 Genre_033;Instrumental
 Genre_034;Acid
 Genre_035;House
@@ -429,27 +429,27 @@ Genre_041;Bass
 Genre_042;Soul
 Genre_043;Punk
 Genre_044;Space
-Genre_045;تأملي Meditative
+Genre_045;ØªØ£Ù…Ù„ÙŠ Meditative
 Genre_046;Instrumental Pop
 Genre_047;Instrumental Rock
 Genre_048;Ethnic
 Genre_049;Gothic
 Genre_050;Darkwave
 Genre_051;Techno-Industrial
-Genre_052;إلكتروني Electronic
+Genre_052;Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ Electronic
 Genre_053;Pop-Folk
 Genre_054;Eurodance
 Genre_055;Dream
 Genre_056;Southern Rock
-Genre_057;كوميديا Comedy
-Genre_058;عبادة Cult
+Genre_057;ÙƒÙˆÙ…ÙŠØ¯ÙŠØ§ Comedy
+Genre_058;Ø¹Ø¨Ø§Ø¯Ø© Cult
 Genre_059;Gangsta
 Genre_060;Top 40
 Genre_061;Christian Rap
-Genre_062;البوب / فونك Pop/Funk
+Genre_062;Ø§Ù„Ø¨ÙˆØ¨ / ÙÙˆÙ†Ùƒ Pop/Funk
 Genre_063;Jungle
 Genre_064;Native American
-Genre_065;ملهى Cabaret
+Genre_065;Ù…Ù„Ù‡Ù‰ Cabaret
 Genre_066;New Wave
 Genre_067;Psychadelic
 Genre_068;Rave
@@ -461,7 +461,7 @@ Genre_073;Acid Punk
 Genre_074;Acid Jazz
 Genre_075;Polka
 Genre_076;Retro
-Genre_077;موسيقي Musical
+Genre_077;Ù…ÙˆØ³ÙŠÙ‚ÙŠ Musical
 Genre_078;Rock & Roll
 Genre_079;Hard Rock
 Genre_080;Folk
@@ -481,25 +481,25 @@ Genre_093;Psychedelic Rock
 Genre_094;Symphonic Rock
 Genre_095;Slow Rock
 Genre_096;Big Band
-Genre_097;جوقة Chorus
+Genre_097;Ø¬ÙˆÙ‚Ø© Chorus
 Genre_098;Easy Listening
 Genre_099;Acoustic
-Genre_100;الفكاهة Humour
-Genre_101;خطاب Speech
+Genre_100;Ø§Ù„ÙÙƒØ§Ù‡Ø© Humour
+Genre_101;Ø®Ø·Ø§Ø¨ Speech
 Genre_102;Chanson
-Genre_103;أوبرا Opera
+Genre_103;Ø£ÙˆØ¨Ø±Ø§ Opera
 Genre_104;Chamber Music
 Genre_105;Sonata
-Genre_106;سمفونية Symphony
+Genre_106;Ø³Ù…ÙÙˆÙ†ÙŠØ© Symphony
 Genre_107;Booty Bass
 Genre_108;Primus
 Genre_109;Porn Groove
 Genre_110;Satire
 Genre_111;Slow Jam
 Genre_112;Club
-Genre_113;التانغو Tango
-Genre_114;سامبا Samba
-Genre_115;فولكلور Folklore
+Genre_113;Ø§Ù„ØªØ§Ù†ØºÙˆ Tango
+Genre_114;Ø³Ø§Ù…Ø¨Ø§ Samba
+Genre_115;ÙÙˆÙ„ÙƒÙ„ÙˆØ± Folklore
 Genre_116;Ballad
 Genre_117;Power Ballad
 Genre_118;Rhythmic Soul
@@ -529,7 +529,7 @@ Genre_141;Christian Rock
 Genre_142;Merengue
 Genre_143;Salsa
 Genre_144;Trash Metal
-Genre_145;انمي Anime
+Genre_145;Ø§Ù†Ù…ÙŠ Anime
 Genre_146;JPop
 Genre_147;Synthpop
 Genre_148;
@@ -576,519 +576,520 @@ Genre_188;
 Genre_189;
 Genre_190;
 Genre_191;
-Go to WebSite;زيارة الموقع
+Go to WebSite;Ø²ÙŠØ§Ø±Ø© Ø§Ù„Ù…ÙˆÙ‚Ø¹
 Grouping;
 h;h
-Header file;إنشاء ملف header
-Height;ارتفاع
-Height_Original;ارتفاع الأصلي
-Help;ساعدة
-Hint;اقتراح
-How many audio streams?;كم من دفق الصوت؟
-How many chapters streams?;كم من دفق الفصول؟
-How many text streams?;كم من دفق النص؟
-How many video streams?;كم من دفق الفيديو؟
+Header file;Ø¥Ù†Ø´Ø§Ø¡ Ù…Ù„Ù header
+Height;Ø§Ø±ØªÙØ§Ø¹
+Height_Original;Ø§Ø±ØªÙØ§Ø¹ Ø§Ù„Ø£ØµÙ„ÙŠ
+Help;Ø³Ø§Ø¹Ø¯Ø©
+Hint;Ø§Ù‚ØªØ±Ø§Ø­
+How many audio streams?;ÙƒÙ… Ù…Ù† Ø¯ÙÙ‚ Ø§Ù„ØµÙˆØªØŸ
+How many chapters streams?;ÙƒÙ… Ù…Ù† Ø¯ÙÙ‚ Ø§Ù„ÙØµÙˆÙ„ØŸ
+How many text streams?;ÙƒÙ… Ù…Ù† Ø¯ÙÙ‚ Ø§Ù„Ù†ØµØŸ
+How many video streams?;ÙƒÙ… Ù…Ù† Ø¯ÙÙ‚ Ø§Ù„ÙÙŠØ¯ÙŠÙˆØŸ
 HTML;HTML
 ID;ID
 IdentClockStart;
-Image;صورة
-Image stream(s);مقطع الصور
-Image_Codec_List;ترميز الصورة
-ImageCount;عدد من المسارات الصور
-Info;معلومات
-Instruments;الالة الموسيقية
-Interlaced_BFF;البداية من السطر الأخير
-Interlaced_Interlaced;متشابك
-Interlaced_PPF;تصاعدي
-Interlaced_Progressive;تصاعدي
-Interlaced_TFF;البداية من السطر الأول
-Interlacement;التشابك
-Interleave_Duration;تداخل ، المدة
-Interleave_Preload;تداخل ، مدة التحميل المسبق
-Interleave_VideoFrames;تداخل ، المدة
+Image;ØµÙˆØ±Ø©
+Image stream(s);Ù…Ù‚Ø·Ø¹ Ø§Ù„ØµÙˆØ±
+Image_Codec_List;ØªØ±Ù…ÙŠØ² Ø§Ù„ØµÙˆØ±Ø©
+ImageCount;Ø¹Ø¯Ø¯ Ù…Ù† Ø§Ù„Ù…Ø³Ø§Ø±Ø§Øª Ø§Ù„ØµÙˆØ±
+Info;Ù…Ø¹Ù„ÙˆÙ…Ø§Øª
+Instruments;Ø§Ù„Ø§Ù„Ø© Ø§Ù„Ù…ÙˆØ³ÙŠÙ‚ÙŠØ©
+Interlaced_BFF;Ø§Ù„Ø¨Ø¯Ø§ÙŠØ© Ù…Ù† Ø§Ù„Ø³Ø·Ø± Ø§Ù„Ø£Ø®ÙŠØ±
+Interlaced_Interlaced;Ù…ØªØ´Ø§Ø¨Ùƒ
+Interlaced_PPF;ØªØµØ§Ø¹Ø¯ÙŠ
+Interlaced_Progressive;ØªØµØ§Ø¹Ø¯ÙŠ
+Interlaced_TFF;Ø§Ù„Ø¨Ø¯Ø§ÙŠØ© Ù…Ù† Ø§Ù„Ø³Ø·Ø± Ø§Ù„Ø£ÙˆÙ„
+Interlacement;Ø§Ù„ØªØ´Ø§Ø¨Ùƒ
+Interleave_Duration;ØªØ¯Ø§Ø®Ù„ ØŒ Ø§Ù„Ù…Ø¯Ø©
+Interleave_Preload;ØªØ¯Ø§Ø®Ù„ ØŒ Ù…Ø¯Ø© Ø§Ù„ØªØ­Ù…ÙŠÙ„ Ø§Ù„Ù…Ø³Ø¨Ù‚
+Interleave_VideoFrames;ØªØ¯Ø§Ø®Ù„ ØŒ Ø§Ù„Ù…Ø¯Ø©
 Interleaved;
 InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-Keywords;الكلمات الرئيسية
-Known codecs;الترميزات المعروفة
-Known formats;الامتدلدات المعروفة
-Known parameters;الاعدادات المعروفة
-Label;صنف
-Language;لغة
+Keywords;Ø§Ù„ÙƒÙ„Ù…Ø§Øª Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©
+Known codecs;Ø§Ù„ØªØ±Ù…ÙŠØ²Ø§Øª Ø§Ù„Ù…Ø¹Ø±ÙˆÙØ©
+Known formats;Ø§Ù„Ø§Ù…ØªØ¯Ù„Ø¯Ø§Øª Ø§Ù„Ù…Ø¹Ø±ÙˆÙØ©
+Known parameters;Ø§Ù„Ø§Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ù…Ø¹Ø±ÙˆÙØ©
+Label;ØµÙ†Ù
+Language;Ù„ØºØ©
 Language_aa;Afar
-Language_ab;Аҧсны / Apsny
+Language_ab;ÐÒ§ÑÐ½Ñ‹ / Apsny
 Language_ae;Avestan
 Language_af;Afrikaans
 Language_ak;Akan
-Language_am;አማርኛ amarəñña
+Language_am;áŠ áˆ›áˆ­áŠ› amarÉ™Ã±Ã±a
 Language_an;Aragonese
-Language_ar;العربية
-Language_as;অসমীয়া
-Language_av;Авар мацӀ
+Language_ar;Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©
+Language_as;à¦…à¦¸à¦®à§€à¦¯à¦¼à¦¾
+Language_av;ÐÐ²Ð°Ñ€ Ð¼Ð°Ñ†Ó€
 Language_ay;Aymara
-Language_az;آذربایجان دیلی
-Language_ba;Башҡорт теле Başqort
-Language_be;Беларуская мова
-Language_bg;Български език
+Language_az;Ø¢Ø°Ø±Ø¨Ø§ÛŒØ¬Ø§Ù† Ø¯ÛŒÙ„ÛŒ
+Language_ba;Ð‘Ð°ÑˆÒ¡Ð¾Ñ€Ñ‚ Ñ‚ÐµÐ»Ðµ BaÅŸqort
+Language_be;Ð‘ÐµÐ»Ð°Ñ€ÑƒÑÐºÐ°Ñ Ð¼Ð¾Ð²Ð°
+Language_bg;Ð‘ÑŠÐ»Ð³Ð°Ñ€ÑÐºÐ¸ ÐµÐ·Ð¸Ðº
 Language_bh;Bihari
 Language_bi;Bislama
 Language_bm;Bambara
-Language_bn;বাংলা
-Language_bo;བོད་སྐད་
+Language_bn;à¦¬à¦¾à¦‚à¦²à¦¾
+Language_bo;à½–à½¼à½‘à¼‹à½¦à¾à½‘à¼‹
 Language_br;Brezhoneg
 Language_bs;Bosanski
 Language_ca;Catalan
-Language_ce;Нохчийн мотт
+Language_ce;ÐÐ¾Ñ…Ñ‡Ð¸Ð¹Ð½ Ð¼Ð¾Ñ‚Ñ‚
 Language_ch;Chamorro
 Language_co;Corsu
-Language_cr;Nēhiyawēwin
-Language_cs;Čeština
+Language_cr;NÄ“hiyawÄ“win
+Language_cs;ÄŒeÅ¡tina
 Language_cu;Slave
-Language_cv;Чӑвашла
+Language_cv;Ð§Ó‘Ð²Ð°ÑˆÐ»Ð°
 Language_cy;Cymraeg
 Language_da;dansk
 Language_de;Deutsch
 Language_dv;Divehi
-Language_dz;རྫོང་ཁ
-Language_ee;Eʋegbě
-Language_el;Ελληνικά
+Language_dz;à½¢à¾«à½¼à½„à¼‹à½
+Language_ee;EÊ‹egbÄ›
+Language_el;Î•Î»Î»Î·Î½Î¹ÎºÎ¬
 Language_en;English
 Language_en-gb;English (Great Britain)
 Language_en-us;English (United States)
 Language_eo;Esperanto
-Language_es;Español
+Language_es;EspaÃ±ol
 Language_et;eesti keel
 Language_eu;Euskara
-Language_fa;فارس
+Language_fa;ÙØ§Ø±Ø³
 Language_ff;Fulfulde
 Language_fi;suomi
 Language_fj;Fijian
-Language_fo;føroyskt
-Language_fr;Français
+Language_fo;fÃ¸royskt
+Language_fr;FranÃ§ais
 Language_fy;Frysk
 Language_ga;Gaeilge
 Language_gd;Gaelic
 Language_gl;Galego
 Language_gn;Guarani
-Language_gu;ગુજરાતી
+Language_gu;àª—à«àªœàª°àª¾àª¤à«€
 Language_gv;yn Ghaelg
-Language_ha;هَوْسَ
-Language_he;עִבְרִית
+Language_ha;Ù‡ÙŽÙˆÙ’Ø³ÙŽ
+Language_he;×¢Ö´×‘Ö°×¨Ö´×™×ª
 Language_hi;Hindi
 Language_ho;Hiri Motu
 Language_hr;hrvatski
-Language_ht;Kreyòl
+Language_ht;KreyÃ²l
 Language_hu;Magyar
-Language_hy;Հայերէն
+Language_hy;Õ€Õ¡ÕµÕ¥Ö€Õ§Õ¶
 Language_hz;Herero
 Language_ia;Auxiliary Language Association
 Language_id;Bahasa
 Language_ie;Interlingue
-Language_ig;Asụsụ
-Language_ii;ꆈꌠ꒿
+Language_ig;Asá»¥sá»¥
+Language_ii;ê†ˆêŒ ê’¿
 Language_ik;Inupiatun
-Language_Info;معلومات عن اللغة
+Language_Info;Ù…Ø¹Ù„ÙˆÙ…Ø§Øª Ø¹Ù† Ø§Ù„Ù„ØºØ©
 Language_io;Ido
-Language_is;Íslenska
+Language_is;Ãslenska
 Language_it;Italiano
 Language_iu;Inuktitut
-Language_ja;日本語
+Language_ja;æ—¥æœ¬èªž
 Language_jv;Basa Jawa
-Language_ka;ქართული
+Language_ka;áƒ¥áƒáƒ áƒ—áƒ£áƒšáƒ˜
 Language_kg;Kikongo
-Language_ki;Gĩkũyũ
+Language_ki;GÄ©kÅ©yÅ©
 Language_kj;Kuanyama
-Language_kk; قازاق تىلى‎
+Language_kk; Ù‚Ø§Ø²Ø§Ù‚ ØªÙ‰Ù„Ù‰â€Ž
 Language_kl;Kalaallisut
-Language_km;ភាសាខ្មែរ
+Language_km;áž—áž¶ážŸáž¶ážáŸ’áž˜áŸ‚ážš
 Language_kn;Kannada
-Language_ko;한국어
+Language_ko;í•œêµ­ì–´
 Language_kr;Kanuri
-Language_ks;كأشُر
-Language_ku;كوردی
-Language_kv;Коми
+Language_ks;ÙƒØ£Ø´ÙØ±
+Language_ku;ÙƒÙˆØ±Ø¯ÛŒ
+Language_kv;ÐšÐ¾Ð¼Ð¸
 Language_kw;Kernewek
-Language_ky;قیرغیز تیلى
+Language_ky;Ù‚ÛŒØ±ØºÛŒØ² ØªÛŒÙ„Ù‰
 Language_la;latina
-Language_lb;Lëtzebuergesch
+Language_lb;LÃ«tzebuergesch
 Language_lg;Ganda
 Language_li;Limburgs
-Language_ln;Lingála
-Language_lo;ພາສາລາວ
-Language_lt;Lietuvių
+Language_ln;LingÃ¡la
+Language_lo;àºžàº²àºªàº²àº¥àº²àº§
+Language_lt;LietuviÅ³
 Language_lu;Luba-Katanga
-Language_lv;latviešu valoda
+Language_lv;latvieÅ¡u valoda
 Language_mg;Malagasy
-Language_mh;Kajin M̧ajeļ
-Language_mi;Māori
-Language_mk;Македонски јазик
+Language_mh;Kajin MÌ§ajeÄ¼
+Language_mi;MÄori
+Language_mk;ÐœÐ°ÐºÐµÐ´Ð¾Ð½ÑÐºÐ¸ Ñ˜Ð°Ð·Ð¸Ðº
 Language_ml;Malayalam
-Language_mn;Монгол
+Language_mn;ÐœÐ¾Ð½Ð³Ð¾Ð»
 Language_mo;Moldavian
-Language_More;اللغة ، مزيد من المعلومات
-Language_mr;मराठी
-Language_ms;بهاس ملايو
+Language_More;Ø§Ù„Ù„ØºØ© ØŒ Ù…Ø²ÙŠØ¯ Ù…Ù† Ø§Ù„Ù…Ø¹Ù„ÙˆÙ…Ø§Øª
+Language_mr;à¤®à¤°à¤¾à¤ à¥€
+Language_ms;Ø¨Ù‡Ø§Ø³ Ù…Ù„Ø§ÙŠÙˆ
 Language_mt;Malti
-Language_mul;لغات متعددة
+Language_mul;Ù„ØºØ§Øª Ù…ØªØ¹Ø¯Ø¯Ø©
 Language_my;Burmese
-Language_na;Ekaiairũ Naoero
+Language_na;EkaiairÅ© Naoero
 Language_nb;norsk
 Language_nd;Ndebele
-Language_ne;नेपाली
+Language_ne;à¤¨à¥‡à¤ªà¤¾à¤²à¥€
 Language_ng;Ndonga
 Language_nl;Dutch
 Language_nn;norsk
 Language_no;Norwegian
 Language_nr;Ndebele
-Language_nv;Diné bizaad
+Language_nv;DinÃ© bizaad
 Language_ny;Nyanja
 Language_oc;Occitan
 Language_oj;Anishinaabemowin
 Language_om;Afaan Oromoo
-Language_or;ଓଡିଆ
-Language_os;Иронау
-Language_pa;پنجابی
+Language_or;à¬“à¬¡à¬¿à¬†
+Language_os;Ð˜Ñ€Ð¾Ð½Ð°Ñƒ
+Language_pa;Ù¾Ù†Ø¬Ø§Ø¨ÛŒ
 Language_pi;Pali
-Language_pl;język polski
+Language_pl;jÄ™zyk polski
 Language_ps;Pushto
-Language_pt;Português
-Language_pt-br;Português (Brazil)
+Language_pt;PortuguÃªs
+Language_pt-br;PortuguÃªs (Brazil)
 Language_qu;Quechua
 Language_rm;Rumantsch
 Language_rn;Rundi
-Language_ro;română
-Language_ru;Русский
+Language_ro;romÃ¢nÄƒ
+Language_ru;Ð ÑƒÑÑÐºÐ¸Ð¹
 Language_rw;Kinyarwanda
 Language_sa;Sanskrit
 Language_sc;Sardu
-Language_sd;سنڌي
-Language_se;davvisámegiella
-Language_sg;yângâ tî sängö
-Language_si;සිංහල
-Language_sk;slovenčina
+Language_sd;Ø³Ù†ÚŒÙŠ
+Language_se;davvisÃ¡megiella
+Language_sg;yÃ¢ngÃ¢ tÃ® sÃ¤ngÃ¶
+Language_si;à·ƒà·’à¶‚à·„à¶½
+Language_sk;slovenÄina
 Language_sl;slovenski jezik
-Language_sm;Gagana Sāmoa
+Language_sm;Gagana SÄmoa
 Language_sn;Shona
-Language_so;الصومالية
+Language_so;Ø§Ù„ØµÙˆÙ…Ø§Ù„ÙŠØ©
 Language_sq;Shqip
-Language_sr;српски
+Language_sr;ÑÑ€Ð¿ÑÐºÐ¸
 Language_ss;SiSwati
 Language_st;Sesotho
 Language_su;Sundanese
 Language_sv;svenska
 Language_sw;Swahili
 Language_ta;Kiswahili
-Language_te;తెలుగు
-Language_tg;тоҷикӣ
+Language_te;à°¤à±†à°²à±à°—à±
+Language_tg;Ñ‚Ð¾Ò·Ð¸ÐºÓ£
 Language_th;Thai
-Language_ti;ภาษาไทย
-Language_tk;تورکمن ﺗﻴﻠی
+Language_ti;à¸ à¸²à¸©à¸²à¹„à¸—à¸¢
+Language_tk;ØªÙˆØ±Ú©Ù…Ù† ïº—ï»´ï» ÛŒ
 Language_tl;Tagalog
 Language_tn;Setswana
 Language_to;Tonga
-Language_tr;Türkçe
+Language_tr;TÃ¼rkÃ§e
 Language_ts;Tsonga
-Language_tt;татарча
+Language_tt;Ñ‚Ð°Ñ‚Ð°Ñ€Ñ‡Ð°
 Language_tw;Twi
 Language_ty;Reo Tahiti
-Language_ug;ئۇيغۇرچە‎
-Language_uk;українська
-Language_ur;اردو
-Language_uz;O‘zbek
-Language_ve;Tshivenḓa
-Language_vi;Tiếng Việt
+Language_ug;Ø¦Û‡ÙŠØºÛ‡Ø±Ú†Û•â€Ž
+Language_uk;ÑƒÐºÑ€Ð°Ñ—Ð½ÑÑŒÐºÐ°
+Language_ur;Ø§Ø±Ø¯Ùˆ
+Language_uz;Oâ€˜zbek
+Language_ve;Tshivená¸“a
+Language_vi;Tiáº¿ng Viá»‡t
 Language_vo;Volapuk
 Language_wa;Walon
 Language_wo;Wolof
 Language_xh;isiXhosa
-Language_yi;ייִדיש
-Language_yo;èdèe Yorùbá
+Language_yi;×™×™Ö´×“×™×©
+Language_yo;Ã¨dÃ¨e YorÃ¹bÃ¡
 Language_za;Vahcuengh
-Language_zh;汉语
-Language_zh-cn;汉语 (China)
-Language_zh-tw;中文 (Taiwan)
+Language_zh;æ±‰è¯­
+Language_zh-cn;æ±‰è¯­ (China)
+Language_zh-tw;ä¸­æ–‡ (Taiwan)
 Language_zu;isiZulu
-LawRating;تصنيف القانون
+LawRating;ØªØµÙ†ÙŠÙ Ø§Ù„Ù‚Ø§Ù†ÙˆÙ†
 LCCN;LCCN
-Library;المكتبة المستخامة
-Lightness;إضاءة
+Library;Ø§Ù„Ù…ÙƒØªØ¨Ø© Ø§Ù„Ù…Ø³ØªØ®Ø§Ù…Ø©
+Lightness;Ø¥Ø¶Ø§Ø¡Ø©
 LineUpStart;
-List;قائمة
-Lyricist;الشاعر
-Lyrics;كلمات
-Mastered_Date;تاريخ الإنشاء
-MasteredBy;تم إنشاؤها من طرف
+List;Ù‚Ø§Ø¦Ù…Ø©
+Lyricist;Ø§Ù„Ø´Ø§Ø¹Ø±
+Lyrics;ÙƒÙ„Ù…Ø§Øª
+Mastered_Date;ØªØ§Ø±ÙŠØ® Ø§Ù„Ø¥Ù†Ø´Ø§Ø¡
+MasteredBy;ØªÙ… Ø¥Ù†Ø´Ø§Ø¤Ù‡Ø§ Ù…Ù† Ø·Ø±Ù
 Matrix_Channel(s);
 Matrix_ChannelPositions;
-matrix_coefficients;معاملات الـMatrix
+matrix_coefficients;Ù…Ø¹Ø§Ù…Ù„Ø§Øª Ø§Ù„Ù€Matrix
 Matrix_Format;
-MediaInfo_About;تقديم معلومات مفصلة\r\nحول ملف الوسائط المتعددة :\r\nMatroska، OGG (including OGM)\r\nMPEG1 (بما في ذلك VCD)\r\nMPEG2 (بما في ذلك DVD و SVCD)\r\nMPEG4 (بما في ذلك Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia ((بما في ذلك WMV، WMA)\r\nMicrosoft RIFF ((بما في ذلك AVI, WAV)\r\nامتدادات الصوت فقط (AC3، DTS، AAC، AU، AIFF...)
-Menu;القائمة
-Menu stream(s);قائمة الدفق
-Menu_Codec_List;قائمة الترميز
-Menu_Hint;مزيد من الإمكانيات
-Menu_No;لا توجد أي قائمة
-MenuCount;عدد قوائم الدفق
-MenuID;معرف القائمة
+MediaInfo_About;ØªÙ‚Ø¯ÙŠÙ… Ù…Ø¹Ù„ÙˆÙ…Ø§Øª Ù…ÙØµÙ„Ø©\r\nØ­ÙˆÙ„ Ù…Ù„Ù Ø§Ù„ÙˆØ³Ø§Ø¦Ø· Ø§Ù„Ù…ØªØ¹Ø¯Ø¯Ø© :\r\nMatroskaØŒ OGG (including OGM)\r\nMPEG1 (Ø¨Ù…Ø§ ÙÙŠ Ø°Ù„Ùƒ VCD)\r\nMPEG2 (Ø¨Ù…Ø§ ÙÙŠ Ø°Ù„Ùƒ DVD Ùˆ SVCD)\r\nMPEG4 (Ø¨Ù…Ø§ ÙÙŠ Ø°Ù„Ùƒ Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia ((Ø¨Ù…Ø§ ÙÙŠ Ø°Ù„Ùƒ WMVØŒ WMA)\r\nMicrosoft RIFF ((Ø¨Ù…Ø§ ÙÙŠ Ø°Ù„Ùƒ AVI, WAV)\r\nØ§Ù…ØªØ¯Ø§Ø¯Ø§Øª Ø§Ù„ØµÙˆØª ÙÙ‚Ø· (AC3ØŒ DTSØŒ AACØŒ AUØŒ AIFF...)
+Menu;Ø§Ù„Ù‚Ø§Ø¦Ù…Ø©
+Menu stream(s);Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ø¯ÙÙ‚
+Menu_Codec_List;Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„ØªØ±Ù…ÙŠØ²
+Menu_Hint;Ù…Ø²ÙŠØ¯ Ù…Ù† Ø§Ù„Ø¥Ù…ÙƒØ§Ù†ÙŠØ§Øª
+Menu_No;Ù„Ø§ ØªÙˆØ¬Ø¯ Ø£ÙŠ Ù‚Ø§Ø¦Ù…Ø©
+MenuCount;Ø¹Ø¯Ø¯ Ù‚ÙˆØ§Ø¦Ù… Ø§Ù„Ø¯ÙÙ‚
+MenuID;Ù…Ø¹Ø±Ù Ø§Ù„Ù‚Ø§Ø¦Ù…Ø©
 mn;mn
-Mood;مزاج
-More;أكثر
-Movie;اسم الفيلم
+Mood;Ù…Ø²Ø§Ø¬
+More;Ø£ÙƒØ«Ø±
+Movie;Ø§Ø³Ù… Ø§Ù„ÙÙŠÙ„Ù…
 ms;ms
 MSDI;MSDI
-MusicBy;الموسيقى من قبل
-MuxingMode;نوع الـmuxing
-MuxingMode_MoreInfo;نوع الـmuxing ،مزيد من المعلومات
+MusicBy;Ø§Ù„Ù…ÙˆØ³ÙŠÙ‚Ù‰ Ù…Ù† Ù‚Ø¨Ù„
+MuxingMode;Ù†ÙˆØ¹ Ø§Ù„Ù€muxing
+MuxingMode_MoreInfo;Ù†ÙˆØ¹ Ø§Ù„Ù€muxing ØŒÙ…Ø²ÙŠØ¯ Ù…Ù† Ø§Ù„Ù…Ø¹Ù„ÙˆÙ…Ø§Øª
 MuxingMode_PackedBitstream;Packed bitstream
-Name;اسم
-Nationality;جنسية
-NetworkName;اسم الشبكة
-New;جديد
-Newest version;تحقق من الإصدارات الجديدة (يتطلب اتصال إنترنت)
-NewVersion_Menu;نسخة جديدة متاحة
-NewVersion_Question_Content;نسخة جديدة (v%Version%) متاحة،هل ترغب في تحميلها؟
-NewVersion_Question_Title;تم إصدار نسخة جديدة!
-No;لا
-Not yet;ليس بعد
-NumColors;عدد الألوان
-OK;موافق
-One output file per input file;خطأ عند قراءة الملف
-Open;فتح
-OpenCandy_01;تحميل ________
-OpenCandy_02;__% أنهى
-OpenCandy_03;انقطاع الاتصال بالإنترنت
-OpenCandy_04;________ تحميل كامل
-OpenCandy_05;انقر لتثبيت ________
-OpenCandy_06;هل أنت متأكد أنك ترغب في إلغاء تثبيت?\r\nإذا كنت ترغب في تأجيل تثبيت حتى وقت لاحق ، اختر 'لا'.\r\nملاحظة : يمكنك اختيار إنهاء من القائمة لتأجيل التثبيت حتى تشغيل الكمبيوتر التالي.
-OpenCandy_07;تحميل ________ تم إيقافه.\r\nانقر على أيقونة الصغيرة لاستئناف تحميل.
-OpenCandy_08;حدث خطأ فادح. تثبيت _________ثم الغاؤه.
-OpenCandy_09;ايقاف التحميل
-OpenCandy_10;إلغاء التثبيت
-OpenCandy_11;استئناف التحميل
-OpenCandy_12;الخروج من التثبيت
-OpenCandy_13;___________-يوصى به من طرف ____________
-OpenCandy_14;التحميل جاري _________
-OpenCandy_15;___________، يوصى البرنامج إليكم من ___________،يتم تحميله الآن بناء على طلبك ونحن سوف نعلمك عندما يكون مستعدا للتسطيب..
-OpenCandy_16;___________جاهز للتثبيت
-OpenCandy_17;___________تم تحميله بالكامل. الرجاء النقر على 'تثبيت' للمضي قدما.
-OpenCandy_18;___________ من أصل ___________ تم تحميلها
-OpenCandy_19;بدعم من OpenCandy
-OpenCandy_20;معرفة المزيد في OpenCandy.com
-OpenCandy_21;تثبيت
-OpenCandy_22;تثبيت ___________
-OpenCandy_23;سيتم  إلغاء تثبيت ___________\r\nهل أنت متأكد من أنك تريد الخروج؟
-OpenCandy_24;ايقاف
-OpenCandy_25;تم إيقاف التحميل. انقر فوق 'استئناف' لمواصلة التحميل.
-OpenCandy_26;استئناف
-OpenCandy_27;تثبيت الآن
-OpenCandy_28;ايقاف التحميل
-OpenCandy_29;استئناف التحميل
-OpenCandy_30;إلغاء التثبيت
-OpenCandy_31;الرجاء اختيار اعدادات التثبيت
-OpenCandy_32;تثبيت ___________
-OpenCandy_33;عدم تثبيت
-OpenCandy_34;الرجاء تحديد خيار تثبيت
-OpenCandy_35;______ يوصي بهذا البرنامج
-OpenCandy_36;سيتم انقطاع التثبيت الحالي
+Name;Ø§Ø³Ù…
+Nationality;Ø¬Ù†Ø³ÙŠØ©
+NetworkName;Ø§Ø³Ù… Ø§Ù„Ø´Ø¨ÙƒØ©
+New;Ø¬Ø¯ÙŠØ¯
+Newest version;ØªØ­Ù‚Ù‚ Ù…Ù† Ø§Ù„Ø¥ØµØ¯Ø§Ø±Ø§Øª Ø§Ù„Ø¬Ø¯ÙŠØ¯Ø© (ÙŠØªØ·Ù„Ø¨ Ø§ØªØµØ§Ù„ Ø¥Ù†ØªØ±Ù†Øª)
+NewVersion_Menu;Ù†Ø³Ø®Ø© Ø¬Ø¯ÙŠØ¯Ø© Ù…ØªØ§Ø­Ø©
+NewVersion_Question_Content;Ù†Ø³Ø®Ø© Ø¬Ø¯ÙŠØ¯Ø© (v%Version%) Ù…ØªØ§Ø­Ø©ØŒÙ‡Ù„ ØªØ±ØºØ¨ ÙÙŠ ØªØ­Ù…ÙŠÙ„Ù‡Ø§ØŸ
+NewVersion_Question_Title;ØªÙ… Ø¥ØµØ¯Ø§Ø± Ù†Ø³Ø®Ø© Ø¬Ø¯ÙŠØ¯Ø©!
+No;Ù„Ø§
+Not yet;Ù„ÙŠØ³ Ø¨Ø¹Ø¯
+NumColors;Ø¹Ø¯Ø¯ Ø§Ù„Ø£Ù„ÙˆØ§Ù†
+OK;Ù…ÙˆØ§ÙÙ‚
+One output file per input file;Ø®Ø·Ø£ Ø¹Ù†Ø¯ Ù‚Ø±Ø§Ø¡Ø© Ø§Ù„Ù…Ù„Ù
+Open;ÙØªØ­
+OpenCandy_01;ØªØ­Ù…ÙŠÙ„ ________
+OpenCandy_02;__% Ø£Ù†Ù‡Ù‰
+OpenCandy_03;Ø§Ù†Ù‚Ø·Ø§Ø¹ Ø§Ù„Ø§ØªØµØ§Ù„ Ø¨Ø§Ù„Ø¥Ù†ØªØ±Ù†Øª
+OpenCandy_04;________ ØªØ­Ù…ÙŠÙ„ ÙƒØ§Ù…Ù„
+OpenCandy_05;Ø§Ù†Ù‚Ø± Ù„ØªØ«Ø¨ÙŠØª ________
+OpenCandy_06;Ù‡Ù„ Ø£Ù†Øª Ù…ØªØ£ÙƒØ¯ Ø£Ù†Ùƒ ØªØ±ØºØ¨ ÙÙŠ Ø¥Ù„ØºØ§Ø¡ ØªØ«Ø¨ÙŠØª?\r\nØ¥Ø°Ø§ ÙƒÙ†Øª ØªØ±ØºØ¨ ÙÙŠ ØªØ£Ø¬ÙŠÙ„ ØªØ«Ø¨ÙŠØª Ø­ØªÙ‰ ÙˆÙ‚Øª Ù„Ø§Ø­Ù‚ ØŒ Ø§Ø®ØªØ± 'Ù„Ø§'.\r\nÙ…Ù„Ø§Ø­Ø¸Ø© : ÙŠÙ…ÙƒÙ†Ùƒ Ø§Ø®ØªÙŠØ§Ø± Ø¥Ù†Ù‡Ø§Ø¡ Ù…Ù† Ø§Ù„Ù‚Ø§Ø¦Ù…Ø© Ù„ØªØ£Ø¬ÙŠÙ„ Ø§Ù„ØªØ«Ø¨ÙŠØª Ø­ØªÙ‰ ØªØ´ØºÙŠÙ„ Ø§Ù„ÙƒÙ…Ø¨ÙŠÙˆØªØ± Ø§Ù„ØªØ§Ù„ÙŠ.
+OpenCandy_07;ØªØ­Ù…ÙŠÙ„ ________ ØªÙ… Ø¥ÙŠÙ‚Ø§ÙÙ‡.\r\nØ§Ù†Ù‚Ø± Ø¹Ù„Ù‰ Ø£ÙŠÙ‚ÙˆÙ†Ø© Ø§Ù„ØµØºÙŠØ±Ø© Ù„Ø§Ø³ØªØ¦Ù†Ø§Ù ØªØ­Ù…ÙŠÙ„.
+OpenCandy_08;Ø­Ø¯Ø« Ø®Ø·Ø£ ÙØ§Ø¯Ø­. ØªØ«Ø¨ÙŠØª _________Ø«Ù… Ø§Ù„ØºØ§Ø¤Ù‡.
+OpenCandy_09;Ø§ÙŠÙ‚Ø§Ù Ø§Ù„ØªØ­Ù…ÙŠÙ„
+OpenCandy_10;Ø¥Ù„ØºØ§Ø¡ Ø§Ù„ØªØ«Ø¨ÙŠØª
+OpenCandy_11;Ø§Ø³ØªØ¦Ù†Ø§Ù Ø§Ù„ØªØ­Ù…ÙŠÙ„
+OpenCandy_12;Ø§Ù„Ø®Ø±ÙˆØ¬ Ù…Ù† Ø§Ù„ØªØ«Ø¨ÙŠØª
+OpenCandy_13;___________-ÙŠÙˆØµÙ‰ Ø¨Ù‡ Ù…Ù† Ø·Ø±Ù ____________
+OpenCandy_14;Ø§Ù„ØªØ­Ù…ÙŠÙ„ Ø¬Ø§Ø±ÙŠ _________
+OpenCandy_15;___________ØŒ ÙŠÙˆØµÙ‰ Ø§Ù„Ø¨Ø±Ù†Ø§Ù…Ø¬ Ø¥Ù„ÙŠÙƒÙ… Ù…Ù† ___________ØŒÙŠØªÙ… ØªØ­Ù…ÙŠÙ„Ù‡ Ø§Ù„Ø¢Ù† Ø¨Ù†Ø§Ø¡ Ø¹Ù„Ù‰ Ø·Ù„Ø¨Ùƒ ÙˆÙ†Ø­Ù† Ø³ÙˆÙ Ù†Ø¹Ù„Ù…Ùƒ Ø¹Ù†Ø¯Ù…Ø§ ÙŠÙƒÙˆÙ† Ù…Ø³ØªØ¹Ø¯Ø§ Ù„Ù„ØªØ³Ø·ÙŠØ¨..
+OpenCandy_16;___________Ø¬Ø§Ù‡Ø² Ù„Ù„ØªØ«Ø¨ÙŠØª
+OpenCandy_17;___________ØªÙ… ØªØ­Ù…ÙŠÙ„Ù‡ Ø¨Ø§Ù„ÙƒØ§Ù…Ù„. Ø§Ù„Ø±Ø¬Ø§Ø¡ Ø§Ù„Ù†Ù‚Ø± Ø¹Ù„Ù‰ 'ØªØ«Ø¨ÙŠØª' Ù„Ù„Ù…Ø¶ÙŠ Ù‚Ø¯Ù…Ø§.
+OpenCandy_18;___________ Ù…Ù† Ø£ØµÙ„ ___________ ØªÙ… ØªØ­Ù…ÙŠÙ„Ù‡Ø§
+OpenCandy_19;Ø¨Ø¯Ø¹Ù… Ù…Ù† OpenCandy
+OpenCandy_20;Ù…Ø¹Ø±ÙØ© Ø§Ù„Ù…Ø²ÙŠØ¯ ÙÙŠ OpenCandy.com
+OpenCandy_21;ØªØ«Ø¨ÙŠØª
+OpenCandy_22;ØªØ«Ø¨ÙŠØª ___________
+OpenCandy_23;Ø³ÙŠØªÙ…  Ø¥Ù„ØºØ§Ø¡ ØªØ«Ø¨ÙŠØª ___________\r\nÙ‡Ù„ Ø£Ù†Øª Ù…ØªØ£ÙƒØ¯ Ù…Ù† Ø£Ù†Ùƒ ØªØ±ÙŠØ¯ Ø§Ù„Ø®Ø±ÙˆØ¬ØŸ
+OpenCandy_24;Ø§ÙŠÙ‚Ø§Ù
+OpenCandy_25;ØªÙ… Ø¥ÙŠÙ‚Ø§Ù Ø§Ù„ØªØ­Ù…ÙŠÙ„. Ø§Ù†Ù‚Ø± ÙÙˆÙ‚ 'Ø§Ø³ØªØ¦Ù†Ø§Ù' Ù„Ù…ÙˆØ§ØµÙ„Ø© Ø§Ù„ØªØ­Ù…ÙŠÙ„.
+OpenCandy_26;Ø§Ø³ØªØ¦Ù†Ø§Ù
+OpenCandy_27;ØªØ«Ø¨ÙŠØª Ø§Ù„Ø¢Ù†
+OpenCandy_28;Ø§ÙŠÙ‚Ø§Ù Ø§Ù„ØªØ­Ù…ÙŠÙ„
+OpenCandy_29;Ø§Ø³ØªØ¦Ù†Ø§Ù Ø§Ù„ØªØ­Ù…ÙŠÙ„
+OpenCandy_30;Ø¥Ù„ØºØ§Ø¡ Ø§Ù„ØªØ«Ø¨ÙŠØª
+OpenCandy_31;Ø§Ù„Ø±Ø¬Ø§Ø¡ Ø§Ø®ØªÙŠØ§Ø± Ø§Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„ØªØ«Ø¨ÙŠØª
+OpenCandy_32;ØªØ«Ø¨ÙŠØª ___________
+OpenCandy_33;Ø¹Ø¯Ù… ØªØ«Ø¨ÙŠØª
+OpenCandy_34;Ø§Ù„Ø±Ø¬Ø§Ø¡ ØªØ­Ø¯ÙŠØ¯ Ø®ÙŠØ§Ø± ØªØ«Ø¨ÙŠØª
+OpenCandy_35;______ ÙŠÙˆØµÙŠ Ø¨Ù‡Ø°Ø§ Ø§Ù„Ø¨Ø±Ù†Ø§Ù…Ø¬
+OpenCandy_36;Ø³ÙŠØªÙ… Ø§Ù†Ù‚Ø·Ø§Ø¹ Ø§Ù„ØªØ«Ø¨ÙŠØª Ø§Ù„Ø­Ø§Ù„ÙŠ
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
-Options;خيارات
-Options_Hint;تفضيلات
-Original;أصلي
-OriginalNetworkName;اسم الشبكة الأصلي
-OriginalSourceForm;الامتداد الأصلي
-OriginalSourceMedium;الدعم الأصلي
+Options;Ø®ÙŠØ§Ø±Ø§Øª
+Options_Hint;ØªÙØ¶ÙŠÙ„Ø§Øª
+Original;Ø£ØµÙ„ÙŠ
+OriginalNetworkName;Ø§Ø³Ù… Ø§Ù„Ø´Ø¨ÙƒØ© Ø§Ù„Ø£ØµÙ„ÙŠ
+OriginalSourceForm;Ø§Ù„Ø§Ù…ØªØ¯Ø§Ø¯ Ø§Ù„Ø£ØµÙ„ÙŠ
+OriginalSourceMedium;Ø§Ù„Ø¯Ø¹Ù… Ø§Ù„Ø£ØµÙ„ÙŠ
 Originator;
-Other;آخر
+Other;Ø¢Ø®Ø±
 OtherIdentifier;
 OtherIdentifierType;
-Output;مخرج
-Output format;الامتداد المخرج
-OverallBitRate;متوسط الصبيب العام
-OverallBitRate_Maximum;الحد الأقصى للصبيب العام
-OverallBitRate_Minimum;الحد الأدنى للصبيب العام
-OverallBitRate_Mode;نوع الصبيب العام
-OverallBitRate_Nominal;المعدل الاسمي للصبيب العام
-Part;جزء
-Part_Count;العدد الكلي
+Output;Ù…Ø®Ø±Ø¬
+Output format;Ø§Ù„Ø§Ù…ØªØ¯Ø§Ø¯ Ø§Ù„Ù…Ø®Ø±Ø¬
+OverallBitRate;Ù…ØªÙˆØ³Ø· Ø§Ù„ØµØ¨ÙŠØ¨ Ø§Ù„Ø¹Ø§Ù…
+OverallBitRate_Maximum;Ø§Ù„Ø­Ø¯ Ø§Ù„Ø£Ù‚ØµÙ‰ Ù„Ù„ØµØ¨ÙŠØ¨ Ø§Ù„Ø¹Ø§Ù…
+OverallBitRate_Minimum;Ø§Ù„Ø­Ø¯ Ø§Ù„Ø£Ø¯Ù†Ù‰ Ù„Ù„ØµØ¨ÙŠØ¨ Ø§Ù„Ø¹Ø§Ù…
+OverallBitRate_Mode;Ù†ÙˆØ¹ Ø§Ù„ØµØ¨ÙŠØ¨ Ø§Ù„Ø¹Ø§Ù…
+OverallBitRate_Nominal;Ø§Ù„Ù…Ø¹Ø¯Ù„ Ø§Ù„Ø§Ø³Ù…ÙŠ Ù„Ù„ØµØ¨ÙŠØ¨ Ø§Ù„Ø¹Ø§Ù…
+Part;Ø¬Ø²Ø¡
+Part_Count;Ø§Ù„Ø¹Ø¯Ø¯ Ø§Ù„ÙƒÙ„ÙŠ
 PartNumber;
 PartTotal;
-Performer;مؤد
-Period;فترة
-Phone;هاتف
+Performer;Ù…Ø¤Ø¯
+Period;ÙØªØ±Ø©
+Phone;Ù‡Ø§ØªÙ
 PictureRatio;
-PixelAspectRatio;حجم البكسل
-PixelAspectRatio_Original;حجم البكسل الأصلي
-PlayCounter;عداد القراءة
-Played_Count;عدد القراءات
-Played_First_Date;أول قراءة
-Played_Last_Date;اخر قراءة
-PlayTime;مدة القراءة
-Position;موقع
-Position_Total;مجموع
-Preferences;تفضيلات
+PixelAspectRatio;Ø­Ø¬Ù… Ø§Ù„Ø¨ÙƒØ³Ù„
+PixelAspectRatio_Original;Ø­Ø¬Ù… Ø§Ù„Ø¨ÙƒØ³Ù„ Ø§Ù„Ø£ØµÙ„ÙŠ
+PlayCounter;Ø¹Ø¯Ø§Ø¯ Ø§Ù„Ù‚Ø±Ø§Ø¡Ø©
+Played_Count;Ø¹Ø¯Ø¯ Ø§Ù„Ù‚Ø±Ø§Ø¡Ø§Øª
+Played_First_Date;Ø£ÙˆÙ„ Ù‚Ø±Ø§Ø¡Ø©
+Played_Last_Date;Ø§Ø®Ø± Ù‚Ø±Ø§Ø¡Ø©
+PlayTime;Ù…Ø¯Ø© Ø§Ù„Ù‚Ø±Ø§Ø¡Ø©
+Position;Ù…ÙˆÙ‚Ø¹
+Position_Total;Ù…Ø¬Ù…ÙˆØ¹
+Preferences;ØªÙØ¶ÙŠÙ„Ø§Øª
 PrimaryAudioLanguage;
-Producer;منتج
-ProductionDesigner;مصمم الانتاج
+Producer;Ù…Ù†ØªØ¬
+ProductionDesigner;Ù…ØµÙ…Ù… Ø§Ù„Ø§Ù†ØªØ§Ø¬
 ProductionNumber;
-ProductionStudio;استوديو الانتاج
+ProductionStudio;Ø§Ø³ØªÙˆØ¯ÙŠÙˆ Ø§Ù„Ø§Ù†ØªØ§Ø¬
 ProductPlacement;
 ProgrammeHasText;
 ProgrammeTextLanguage;
 ProgrammeTitle;
-Publisher;الناشر
-Purchased_Date;تاريخ الشراء
-Quote character;تنصيص الاقتباس
-RadioStation;محطة إذاعية
-Rating;تصنيف
-Recorded_Date;تاريخ التسجيل
-Recorded_Location;مكان التسجيل
-Released_Date;تاريخ البث الأول
-RemixedBy;تم الـRemixe من طرف
-ReplayGain_Gain;كسب في القراءة
-ReplayGain_Peak;ذروة الكسب في القراءة
-Resolution;دقة الصورة
+Publisher;Ø§Ù„Ù†Ø§Ø´Ø±
+Purchased_Date;ØªØ§Ø±ÙŠØ® Ø§Ù„Ø´Ø±Ø§Ø¡
+Quote character;ØªÙ†ØµÙŠØµ Ø§Ù„Ø§Ù‚ØªØ¨Ø§Ø³
+RadioStation;Ù…Ø­Ø·Ø© Ø¥Ø°Ø§Ø¹ÙŠØ©
+Rating;ØªØµÙ†ÙŠÙ
+Recorded_Date;ØªØ§Ø±ÙŠØ® Ø§Ù„ØªØ³Ø¬ÙŠÙ„
+Recorded_Location;Ù…ÙƒØ§Ù† Ø§Ù„ØªØ³Ø¬ÙŠÙ„
+Released_Date;ØªØ§Ø±ÙŠØ® Ø§Ù„Ø¨Ø« Ø§Ù„Ø£ÙˆÙ„
+RemixedBy;ØªÙ… Ø§Ù„Ù€Remixe Ù…Ù† Ø·Ø±Ù
+ReplayGain_Gain;ÙƒØ³Ø¨ ÙÙŠ Ø§Ù„Ù‚Ø±Ø§Ø¡Ø©
+ReplayGain_Peak;Ø°Ø±ÙˆØ© Ø§Ù„ÙƒØ³Ø¨ ÙÙŠ Ø§Ù„Ù‚Ø±Ø§Ø¡Ø©
+Resolution;Ø¯Ù‚Ø© Ø§Ù„ØµÙˆØ±Ø©
 s;s
 SamplingCount;
-SamplingRate;أخذ العينات
-Save;حفظ
-ScanOrder;ترتيب التفحص
+SamplingRate;Ø£Ø®Ø° Ø§Ù„Ø¹ÙŠÙ†Ø§Øª
+Save;Ø­ÙØ¸
+ScanOrder;ØªØ±ØªÙŠØ¨ Ø§Ù„ØªÙØ­Øµ
 ScanOrder_Original;
-ScanOrder_Stored;Ordre stocké de balayage
-ScanOrder_StoredDisplayedInverted;Ordre de balayage invversé entre affiché/stocké
+ScanOrder_Stored;Ordre stockÃ© de balayage
+ScanOrder_StoredDisplayedInverted;Ordre de balayage invversÃ© entre affichÃ©/stockÃ©
 ScanOrder_StoreMethod;
-ScanType;تفحص نوع
+ScanType;ØªÙØ­Øµ Ù†ÙˆØ¹
 ScanType_Original;
 ScanType_StoreMethod;
-ScreenplayBy;سيناري
-Season;الموسم
+ScreenplayBy;Ø³ÙŠÙ†Ø§Ø±ÙŠ
+Season;Ø§Ù„Ù…ÙˆØ³Ù…
 SecondaryAudioLanguage;
-see below;انظر أدناه
-Send HeaderFile;الرجاء ارسال ملف Header الى :   http://sourceforge.net/projects/mediainfo/ (Bug section)
-Separator_Columns;فاصل أعمدة
-Separator_Lines;فاصل الأسطر
+see below;Ø§Ù†Ø¸Ø± Ø£Ø¯Ù†Ø§Ù‡
+Send HeaderFile;Ø§Ù„Ø±Ø¬Ø§Ø¡ Ø§Ø±Ø³Ø§Ù„ Ù…Ù„Ù Header Ø§Ù„Ù‰ :   http://sourceforge.net/projects/mediainfo/ (Bug section)
+Separator_Columns;ÙØ§ØµÙ„ Ø£Ø¹Ù…Ø¯Ø©
+Separator_Lines;ÙØ§ØµÙ„ Ø§Ù„Ø£Ø³Ø·Ø±
 SerieTitle;
-ServiceChannel;قناة الخدمة
-ServiceName;اسم الخدمة
-ServiceProvider;مزود الخدمة
-ServiceType;نوع الخدمة
-Set;تشكيلة
-Set_Count;عدد التشكيلات
-Setup;الإعداد
-Sharpness;وضوح
-Sheet;الجدول
-Sheet (Complete);الجدول (كامل)
-Shell extension;ملحق Shell (اضافة قائمة 'MediaInfo ' عند النقر الأيمن على الملف)
-Shell extension, folder;للمجلدات أيضا
-Shell InfoTip;ماحق InfoTip ( عرض مزيد من التفاصيل عند  تحريك الماوس فوق الملف)
+ServiceChannel;Ù‚Ù†Ø§Ø© Ø§Ù„Ø®Ø¯Ù…Ø©
+ServiceName;Ø§Ø³Ù… Ø§Ù„Ø®Ø¯Ù…Ø©
+ServiceProvider;Ù…Ø²ÙˆØ¯ Ø§Ù„Ø®Ø¯Ù…Ø©
+ServiceType;Ù†ÙˆØ¹ Ø§Ù„Ø®Ø¯Ù…Ø©
+Set;ØªØ´ÙƒÙŠÙ„Ø©
+Set_Count;Ø¹Ø¯Ø¯ Ø§Ù„ØªØ´ÙƒÙŠÙ„Ø§Øª
+Setup;Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯
+Sharpness;ÙˆØ¶ÙˆØ­
+Sheet;Ø§Ù„Ø¬Ø¯ÙˆÙ„
+Sheet (Complete);Ø§Ù„Ø¬Ø¯ÙˆÙ„ (ÙƒØ§Ù…Ù„)
+Shell extension;Ù…Ù„Ø­Ù‚ Shell (Ø§Ø¶Ø§ÙØ© Ù‚Ø§Ø¦Ù…Ø© 'MediaInfo ' Ø¹Ù†Ø¯ Ø§Ù„Ù†Ù‚Ø± Ø§Ù„Ø£ÙŠÙ…Ù† Ø¹Ù„Ù‰ Ø§Ù„Ù…Ù„Ù)
+Shell extension, folder;Ù„Ù„Ù…Ø¬Ù„Ø¯Ø§Øª Ø£ÙŠØ¶Ø§
+Shell InfoTip;Ù…Ø§Ø­Ù‚ InfoTip ( Ø¹Ø±Ø¶ Ù…Ø²ÙŠØ¯ Ù…Ù† Ø§Ù„ØªÙØ§ØµÙŠÙ„ Ø¹Ù†Ø¯  ØªØ­Ø±ÙŠÙƒ Ø§Ù„Ù…Ø§ÙˆØ³ ÙÙˆÙ‚ Ø§Ù„Ù…Ù„Ù)
 ShimName;
-Show menu;اظهار القائمة
-Show toolbar;عرض شريط الأدوات
+Show menu;Ø§Ø¸Ù‡Ø§Ø± Ø§Ù„Ù‚Ø§Ø¦Ù…Ø©
+Show toolbar;Ø¹Ø±Ø¶ Ø´Ø±ÙŠØ· Ø§Ù„Ø£Ø¯ÙˆØ§Øª
 SigningPresent;
 SignLanguage;
-Sort;مصنفة حسب
-SoundEngineer;مهندس الصوت
+Sort;Ù…ØµÙ†ÙØ© Ø­Ø³Ø¨
+SoundEngineer;Ù…Ù‡Ù†Ø¯Ø³ Ø§Ù„ØµÙˆØª
 Source;
 Source_Duration;
 Source_FrameCount;
 Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
-Standard;قاعدي
+Standard;Ù‚Ø§Ø¹Ø¯ÙŠ
 StoreMethod_InterleavedFields;
 StoreMethod_SeparatedFields;
 StoreMethod_SeparatedFields_1;
 StoreMethod_SeparatedFields_2;
-Stream;دفق
-Stream_MoreInfo;مزيد من المعلومات حول الدفق
-StreamCount;عدد الدفق من هذا النوع
-StreamID;معرف الدفق
-StreamKind;نوع الدفق
-StreamKindID;معرف الدفق
-StreamKindPos;معرف الدفق
-StreamSize;حجم الدفق
+Stream;Ø¯ÙÙ‚
+Stream_MoreInfo;Ù…Ø²ÙŠØ¯ Ù…Ù† Ø§Ù„Ù…Ø¹Ù„ÙˆÙ…Ø§Øª Ø­ÙˆÙ„ Ø§Ù„Ø¯ÙÙ‚
+StreamCount;Ø¹Ø¯Ø¯ Ø§Ù„Ø¯ÙÙ‚ Ù…Ù† Ù‡Ø°Ø§ Ø§Ù„Ù†ÙˆØ¹
+StreamID;Ù…Ø¹Ø±Ù Ø§Ù„Ø¯ÙÙ‚
+StreamKind;Ù†ÙˆØ¹ Ø§Ù„Ø¯ÙÙ‚
+StreamKindID;Ù…Ø¹Ø±Ù Ø§Ù„Ø¯ÙÙ‚
+StreamKindPos;Ù…Ø¹Ø±Ù Ø§Ù„Ø¯ÙÙ‚
+StreamSize;Ø­Ø¬Ù… Ø§Ù„Ø¯ÙÙ‚
 StreamSize_Encoded;
-StreamSize_Proportion;نسبة الدفق
-Subject;موضوع
-SubTrack;المسار الثانوي
-Summary;ملخص
-Supported formats;الامتدادات المدعومة
-Supported?;مدعوم؟
-Synopsis;موجز
-SystemId;معرف
-Tagged_Application;برنامج الـTagging
-Tagged_Date;تاريخ الـTagging
-Technician;فني
-TermsOfUse;شروط الاستخدام
+StreamSize_Proportion;Ù†Ø³Ø¨Ø© Ø§Ù„Ø¯ÙÙ‚
+Subject;Ù…ÙˆØ¶ÙˆØ¹
+SubTrack;Ø§Ù„Ù…Ø³Ø§Ø± Ø§Ù„Ø«Ø§Ù†ÙˆÙŠ
+Summary;Ù…Ù„Ø®Øµ
+Supported formats;Ø§Ù„Ø§Ù…ØªØ¯Ø§Ø¯Ø§Øª Ø§Ù„Ù…Ø¯Ø¹ÙˆÙ…Ø©
+Supported?;Ù…Ø¯Ø¹ÙˆÙ…ØŸ
+Synopsis;Ù…ÙˆØ¬Ø²
+SystemId;Ù…Ø¹Ø±Ù
+Tagged_Application;Ø¨Ø±Ù†Ø§Ù…Ø¬ Ø§Ù„Ù€Tagging
+Tagged_Date;ØªØ§Ø±ÙŠØ® Ø§Ù„Ù€Tagging
+Technician;ÙÙ†ÙŠ
+TermsOfUse;Ø´Ø±ÙˆØ· Ø§Ù„Ø§Ø³ØªØ®Ø¯Ø§Ù…
 TertiaryAudioLanguage;
-Text;نص
-Text - Custom;النص
-Text (HTML);نص (HTML)
-Text stream(s); دفق النص
-Text streams; دفق النص
-Text_Codec_List;ترميز النص
-Text_No;لا يوجد نص
-Text1;أول دفق نص
-Text2;ثاني دفق نص
-Text3;ثالت دفق نص
-TextCount;عدد دفق النص
+Text;Ù†Øµ
+Text - Custom;Ø§Ù„Ù†Øµ
+Text (HTML);Ù†Øµ (HTML)
+Text stream(s); Ø¯ÙÙ‚ Ø§Ù„Ù†Øµ
+Text streams; Ø¯ÙÙ‚ Ø§Ù„Ù†Øµ
+Text_Codec_List;ØªØ±Ù…ÙŠØ² Ø§Ù„Ù†Øµ
+Text_No;Ù„Ø§ ÙŠÙˆØ¬Ø¯ Ù†Øµ
+Text1;Ø£ÙˆÙ„ Ø¯ÙÙ‚ Ù†Øµ
+Text2;Ø«Ø§Ù†ÙŠ Ø¯ÙÙ‚ Ù†Øµ
+Text3;Ø«Ø§Ù„Øª Ø¯ÙÙ‚ Ù†Øµ
+TextCount;Ø¹Ø¯Ø¯ Ø¯ÙÙ‚ Ø§Ù„Ù†Øµ
 TextlessElementsExist;
-ThanksTo;شكرا لـ
-Thousands separator;فاصل الآلاف
+ThanksTo;Ø´ÙƒØ±Ø§ Ù„Ù€
+Thousands separator;ÙØ§ØµÙ„ Ø§Ù„Ø¢Ù„Ø§Ù
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
 TimeCode_Source;
+TimeCode_Striped;
 TimeStamp;
-TimeZone;خط الزمن
-Title;عنوان
-Title_More;عنوان ,مزيد من المعلومات
-Total;مجموع
+TimeZone;Ø®Ø· Ø§Ù„Ø²Ù…Ù†
+Title;Ø¹Ù†ÙˆØ§Ù†
+Title_More;Ø¹Ù†ÙˆØ§Ù† ,Ù…Ø²ÙŠØ¯ Ù…Ù† Ø§Ù„Ù…Ø¹Ù„ÙˆÙ…Ø§Øª
+Total;Ù…Ø¬Ù…ÙˆØ¹
 TotalNumberOfParts;
 TotalProgrammeDuration;
-Track;اسم المسار
-Track_Count;عدد المسارات
-transfer_characteristics;خصائص نقل
-Translator;مترجم
-Tree;شجرة
-Tree & Text;شجرة والنصوص
+Track;Ø§Ø³Ù… Ø§Ù„Ù…Ø³Ø§Ø±
+Track_Count;Ø¹Ø¯Ø¯ Ø§Ù„Ù…Ø³Ø§Ø±Ø§Øª
+transfer_characteristics;Ø®ØµØ§Ø¦Øµ Ù†Ù‚Ù„
+Translator;Ù…ØªØ±Ø¬Ù…
+Tree;Ø´Ø¬Ø±Ø©
+Tree & Text;Ø´Ø¬Ø±Ø© ÙˆØ§Ù„Ù†ØµÙˆØµ
 Type;
 UniqueID;
-Unknown;مجهول
-Url;رابط
-Video;فيديو
-Video stream(s);دفق الفيديو
-Video_Codec_List;ترميزالفيديو
-Video_Delay;تأخير الفيديو
-Video_No;لا توجد أي فيديو
-Video0_Delay;تأخير بالنسبة للفيديو
-Video1;أول دفق فيديو
+Unknown;Ù…Ø¬Ù‡ÙˆÙ„
+Url;Ø±Ø§Ø¨Ø·
+Video;ÙÙŠØ¯ÙŠÙˆ
+Video stream(s);Ø¯ÙÙ‚ Ø§Ù„ÙÙŠØ¯ÙŠÙˆ
+Video_Codec_List;ØªØ±Ù…ÙŠØ²Ø§Ù„ÙÙŠØ¯ÙŠÙˆ
+Video_Delay;ØªØ£Ø®ÙŠØ± Ø§Ù„ÙÙŠØ¯ÙŠÙˆ
+Video_No;Ù„Ø§ ØªÙˆØ¬Ø¯ Ø£ÙŠ ÙÙŠØ¯ÙŠÙˆ
+Video0_Delay;ØªØ£Ø®ÙŠØ± Ø¨Ø§Ù„Ù†Ø³Ø¨Ø© Ù„Ù„ÙÙŠØ¯ÙŠÙˆ
+Video1;Ø£ÙˆÙ„ Ø¯ÙÙ‚ ÙÙŠØ¯ÙŠÙˆ
 VideoComments;
-VideoCount;عدد دفق الفيديو
-View;رؤية
-View_Hint;تغيير وسيلة عرض المعلومات
-Warning : more streams in the files;تحذير : هناك المزيد من التيارات في الملفات
-Web;النت
-WebSite_Audio;انتقل إلى موقع ترميز الصوت
-WebSite_Audio_More;انتقل إلى موقع (%Url%)العثور على ترميز الصوت
-WebSite_General;انتقل إلى موقع على شبكة الإنترنت لقارئ لهذا الملف
-WebSite_General_More;انتقل إلى موقع على شبكة الإنترنت لقارئ لهذا الملف
-WebSite_Text;انتقل إلى موقع ترميز النص
-WebSite_Text_More;انتقل إلى موقع (%Url%)العثور على ترميز النص
+VideoCount;Ø¹Ø¯Ø¯ Ø¯ÙÙ‚ Ø§Ù„ÙÙŠØ¯ÙŠÙˆ
+View;Ø±Ø¤ÙŠØ©
+View_Hint;ØªØºÙŠÙŠØ± ÙˆØ³ÙŠÙ„Ø© Ø¹Ø±Ø¶ Ø§Ù„Ù…Ø¹Ù„ÙˆÙ…Ø§Øª
+Warning : more streams in the files;ØªØ­Ø°ÙŠØ± : Ù‡Ù†Ø§Ùƒ Ø§Ù„Ù…Ø²ÙŠØ¯ Ù…Ù† Ø§Ù„ØªÙŠØ§Ø±Ø§Øª ÙÙŠ Ø§Ù„Ù…Ù„ÙØ§Øª
+Web;Ø§Ù„Ù†Øª
+WebSite_Audio;Ø§Ù†ØªÙ‚Ù„ Ø¥Ù„Ù‰ Ù…ÙˆÙ‚Ø¹ ØªØ±Ù…ÙŠØ² Ø§Ù„ØµÙˆØª
+WebSite_Audio_More;Ø§Ù†ØªÙ‚Ù„ Ø¥Ù„Ù‰ Ù…ÙˆÙ‚Ø¹ (%Url%)Ø§Ù„Ø¹Ø«ÙˆØ± Ø¹Ù„Ù‰ ØªØ±Ù…ÙŠØ² Ø§Ù„ØµÙˆØª
+WebSite_General;Ø§Ù†ØªÙ‚Ù„ Ø¥Ù„Ù‰ Ù…ÙˆÙ‚Ø¹ Ø¹Ù„Ù‰ Ø´Ø¨ÙƒØ© Ø§Ù„Ø¥Ù†ØªØ±Ù†Øª Ù„Ù‚Ø§Ø±Ø¦ Ù„Ù‡Ø°Ø§ Ø§Ù„Ù…Ù„Ù
+WebSite_General_More;Ø§Ù†ØªÙ‚Ù„ Ø¥Ù„Ù‰ Ù…ÙˆÙ‚Ø¹ Ø¹Ù„Ù‰ Ø´Ø¨ÙƒØ© Ø§Ù„Ø¥Ù†ØªØ±Ù†Øª Ù„Ù‚Ø§Ø±Ø¦ Ù„Ù‡Ø°Ø§ Ø§Ù„Ù…Ù„Ù
+WebSite_Text;Ø§Ù†ØªÙ‚Ù„ Ø¥Ù„Ù‰ Ù…ÙˆÙ‚Ø¹ ØªØ±Ù…ÙŠØ² Ø§Ù„Ù†Øµ
+WebSite_Text_More;Ø§Ù†ØªÙ‚Ù„ Ø¥Ù„Ù‰ Ù…ÙˆÙ‚Ø¹ (%Url%)Ø§Ù„Ø¹Ø«ÙˆØ± Ø¹Ù„Ù‰ ØªØ±Ù…ÙŠØ² Ø§Ù„Ù†Øµ
 WebSite_Url;http://MediaArea.net/MediaInfo
-WebSite_Video;انتقل إلى موقع ترميز الفيديو
-WebSite_Video_More;انتقل إلى موقع (%Url%)العثور على ترميز  الفيديو
-Width;العرض
-Width_Original;العرض الأصلي
-WriteMe;كتابة البريد للمؤلف
-WriteToTranslator;كتابة البريد للمترجم
-Written_Date;تاريخ الكتابة
-Written_Location;مكان الكتابة
-WrittenBy;كتبها
-Yes;نعم
-Your system;نظامك
+WebSite_Video;Ø§Ù†ØªÙ‚Ù„ Ø¥Ù„Ù‰ Ù…ÙˆÙ‚Ø¹ ØªØ±Ù…ÙŠØ² Ø§Ù„ÙÙŠØ¯ÙŠÙˆ
+WebSite_Video_More;Ø§Ù†ØªÙ‚Ù„ Ø¥Ù„Ù‰ Ù…ÙˆÙ‚Ø¹ (%Url%)Ø§Ù„Ø¹Ø«ÙˆØ± Ø¹Ù„Ù‰ ØªØ±Ù…ÙŠØ²  Ø§Ù„ÙÙŠØ¯ÙŠÙˆ
+Width;Ø§Ù„Ø¹Ø±Ø¶
+Width_Original;Ø§Ù„Ø¹Ø±Ø¶ Ø§Ù„Ø£ØµÙ„ÙŠ
+WriteMe;ÙƒØªØ§Ø¨Ø© Ø§Ù„Ø¨Ø±ÙŠØ¯ Ù„Ù„Ù…Ø¤Ù„Ù
+WriteToTranslator;ÙƒØªØ§Ø¨Ø© Ø§Ù„Ø¨Ø±ÙŠØ¯ Ù„Ù„Ù…ØªØ±Ø¬Ù…
+Written_Date;ØªØ§Ø±ÙŠØ® Ø§Ù„ÙƒØªØ§Ø¨Ø©
+Written_Location;Ù…ÙƒØ§Ù† Ø§Ù„ÙƒØªØ§Ø¨Ø©
+WrittenBy;ÙƒØªØ¨Ù‡Ø§
+Yes;Ù†Ø¹Ù…
+Your system;Ù†Ø¸Ø§Ù…Ùƒ
 ZZ_Automatic_Percent;87
 ZZ_AutomaticLanguage_Percent;91

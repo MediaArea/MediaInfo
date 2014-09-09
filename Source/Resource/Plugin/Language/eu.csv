@@ -1042,6 +1042,7 @@ TimeCode;Denbora-kodea
 TimeCode_FirstFrame;Denbora-kodea, lehen Framea
 TimeCode_Settings;Denbora-kodea, ezarpenak
 TimeCode_Source;Denbora-kodea, iturburua
+TimeCode_Striped;
 TimeStamp;TimeZone
 TimeZone;Ordu-Eremua
 Title;Izenburua
