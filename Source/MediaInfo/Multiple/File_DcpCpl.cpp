@@ -226,7 +226,7 @@ bool File_DcpCpl::FileHeader_Begin()
             ReferenceFile.StreamKind=Stream_Other;
             ReferenceFile.Infos["Type"]=__T("Time code");
             ReferenceFile.Infos["Format"]=__T("CPL TC");
-            ReferenceFile.Infos["TimeCode_Settings"]=__T("Striped");
+            ReferenceFile.Infos["TimeCode_Striped"]=__T("Yes");
             bool IsDropFrame=false;
 
             for (XMLElement* CompositionTimecode_Item=CompositionPlaylist_Item->FirstChildElement(); CompositionTimecode_Item; CompositionTimecode_Item=CompositionTimecode_Item->NextSiblingElement())

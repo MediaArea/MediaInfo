@@ -2,6 +2,10 @@ I changed some elements in the interface.
 No break in binary compatibily (no crash), but some details.
 
 
+0.7.70 --> 0.7.71
+-----------------
+- Time code striped/not striped information is moved from "Format_Settings" to "TimeCode_Striped"
+
 0.7.69 --> 0.7.70
 -----------------
 - BitDepth: for very rare MXF containing PCM having quantization bits not same as stored bit depth, Stored bit depth has moved from "BitDepth" to "BitDepth_Stored". "BitDepth is the quantization bits value.

@@ -2163,11 +2163,11 @@ void File_Mxf::Streams_Finish_Package (const int128u PackageUID)
 void File_Mxf::Streams_Finish_Package_ForTimeCode (const int128u PackageUID)
 {
     packages::iterator Package=Packages.find(PackageUID);
-    if (Package==Packages.end() || ((TimeCodeFromMaterialPackage && Package->second.IsSourcePackage || (!TimeCodeFromMaterialPackage && !Package->second.IsSourcePackage))))
+    if (Package==Packages.end())
         return;
 
     for (size_t Pos=0; Pos<Package->second.Tracks.size(); Pos++)
-        Streams_Finish_Track_ForTimeCode(Package->second.Tracks[Pos]);
+        Streams_Finish_Track_ForTimeCode(Package->second.Tracks[Pos], Package->second.IsSourcePackage);
 }
 
 //---------------------------------------------------------------------------
@@ -2201,7 +2201,7 @@ void File_Mxf::Streams_Finish_Track(const int128u TrackUID)
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Streams_Finish_Track_ForTimeCode(const int128u TrackUID)
+void File_Mxf::Streams_Finish_Track_ForTimeCode(const int128u TrackUID, bool IsSourcePackage)
 {
     tracks::iterator Track=Tracks.find(TrackUID);
     if (Track==Tracks.end() || Track->second.Stream_Finish_Done)
@@ -2211,7 +2211,7 @@ void File_Mxf::Streams_Finish_Track_ForTimeCode(const int128u TrackUID)
     StreamPos_Last=(size_t)-1;
 
     //Sequence
-    Streams_Finish_Component_ForTimeCode(Track->second.Sequence, Track->second.EditRate_Real?Track->second.EditRate_Real:Track->second.EditRate, Track->second.TrackID, Track->second.Origin);
+    Streams_Finish_Component_ForTimeCode(Track->second.Sequence, Track->second.EditRate_Real?Track->second.EditRate_Real:Track->second.EditRate, Track->second.TrackID, Track->second.Origin, IsSourcePackage);
 }
 
 //---------------------------------------------------------------------------
@@ -3251,7 +3251,7 @@ void File_Mxf::Streams_Finish_Component(const int128u ComponentUID, float64 Edit
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::Streams_Finish_Component_ForTimeCode(const int128u ComponentUID, float64 EditRate, int32u TrackID, int64u Origin)
+void File_Mxf::Streams_Finish_Component_ForTimeCode(const int128u ComponentUID, float64 EditRate, int32u TrackID, int64u Origin, bool IsSourcePackage)
 {
     components::iterator Component=Components.find(ComponentUID);
     if (Component==Components.end())
@@ -3263,27 +3263,29 @@ void File_Mxf::Streams_Finish_Component_ForTimeCode(const int128u ComponentUID, 
         components::iterator Component2=Components.find(Component->second.StructuralComponents[Pos]);
         if (Component2!=Components.end() && Component2->second.TimeCode_StartTimecode!=(int64u)-1 && !Config->File_IsReferenced_Get())
         {
-            bool IsDuplicate=false;
+            /*bool IsDuplicate=false;
             for (size_t Pos2=0; Pos2<Count_Get(Stream_Other); Pos2++)
                 if (Ztring::ToZtring(TrackID)==Retrieve(Stream_Other, Pos2, "ID"))
                     IsDuplicate=true;
-            if (!IsDuplicate)
+            if (!IsDuplicate)*/
             {
                 //Note: Origin is not part of the StartTimecode for the first frame in the source package. From specs: "For a Timecode Track with a single Timecode Component and with origin N, where N greater than 0, the timecode value at the Zero Point of the Track equals the start timecode of the Timecode Component incremented by N units."
                 TimeCode TC(Component2->second.TimeCode_StartTimecode+Config->File_IgnoreFramesBefore, (int8u)Component2->second.TimeCode_RoundedTimecodeBase, Component2->second.TimeCode_DropFrame);
                 Stream_Prepare(Stream_Other);
-                Fill(Stream_Other, StreamPos_Last, Other_ID, TrackID);
+                Fill(Stream_Other, StreamPos_Last, Other_ID, Ztring::ToZtring(TrackID)+(IsSourcePackage?__T("-Source"):__T("-Material")));
                 Fill(Stream_Other, StreamPos_Last, Other_Type, "Time code");
                 Fill(Stream_Other, StreamPos_Last, Other_Format, "MXF TC");
                 Fill(Stream_Other, StreamPos_Last, Other_TimeCode_FirstFrame, TC.ToString().c_str());
-                Fill(Stream_Other, StreamPos_Last, Other_TimeCode_Settings, "Striped");
+                Fill(Stream_Other, StreamPos_Last, Other_TimeCode_Settings, IsSourcePackage?__T("Source Package"):__T("Material Package"));
+                Fill(Stream_Other, StreamPos_Last, Other_TimeCode_Striped, "Yes");
             }
 
-            TimeCode_RoundedTimecodeBase=Component2->second.TimeCode_RoundedTimecodeBase;
-            TimeCode_StartTimecode=Component2->second.TimeCode_StartTimecode;
-            TimeCode_DropFrame=Component2->second.TimeCode_DropFrame;
-            if (Frame_Count_NotParsedIncluded==0)
+            if ((!TimeCodeFromMaterialPackage && IsSourcePackage) || (TimeCodeFromMaterialPackage && !IsSourcePackage))
             {
+                TimeCode_RoundedTimecodeBase=Component2->second.TimeCode_RoundedTimecodeBase;
+                TimeCode_StartTimecode=Component2->second.TimeCode_StartTimecode;
+                TimeCode_DropFrame=Component2->second.TimeCode_DropFrame;
+
                 DTS_Delay=((float64)TimeCode_StartTimecode)/TimeCode_RoundedTimecodeBase;
                 if (TimeCode_DropFrame)
                 {
@@ -3906,7 +3908,6 @@ void File_Mxf::Read_Buffer_Unsynched()
     }
     if (Partitions_IsCalculatingSdtiByteCount)
         Partitions_IsCalculatingSdtiByteCount=false;
-    Essences_FirstEssence_Parsed=false;
 
     #if MEDIAINFO_SEEK
         IndexTables_Pos=0;

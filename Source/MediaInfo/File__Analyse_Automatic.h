@@ -1272,6 +1272,8 @@ enum other
     Other_TimeStamp_FirstFrame_String5,
     Other_TimeCode_FirstFrame,
     Other_TimeCode_Settings,
+    Other_TimeCode_Striped,
+    Other_TimeCode_Striped_String,
     Other_Title,
     Other_Language,
     Other_Language_String,
