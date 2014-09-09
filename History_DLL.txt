@@ -13,6 +13,7 @@ Version 0.7.71, 2014-
 + AS-11 (Core, Segmentation, UK DPP items) display
 + MXF: option --File_Mxf_TimeCodeFromMaterialPackage for using the time code track from Material package instead of Source package (CLI/DLL only)
 + Duration in HH:MM:SS:FF format (hidden by default)
++ AVC: detection of Intra profiles
 x SMPTE ST 337: infinite loop during scanning of some non ST 337 streams
 
 Version 0.7.70, 2014-09-03

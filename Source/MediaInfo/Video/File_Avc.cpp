@@ -463,7 +463,18 @@ void File_Avc::Streams_Fill(std::vector<seq_parameter_set_struct*>::iterator seq
     Fill(Stream_Video, 0, Video_Format, "AVC");
     Fill(Stream_Video, 0, Video_Codec, "AVC");
 
-    Ztring Profile=Ztring().From_Local(Avc_profile_idc((*seq_parameter_set_Item)->profile_idc))+__T("@L")+Ztring().From_Number(((float)(*seq_parameter_set_Item)->level_idc)/10, 1);
+    Ztring Profile=Ztring().From_Local(Avc_profile_idc((*seq_parameter_set_Item)->profile_idc));
+    switch ((*seq_parameter_set_Item)->profile_idc)
+    {
+        case  44 : // CAVLC 4:4:4 Intra
+        case 100 : // High
+        case 110 : // High 10
+        case 122 : // High 4:2:2"
+        case 244 : // High 4:4:4 Predictive
+                    if ((*seq_parameter_set_Item)->constraint_set3_flag)
+                        Profile+=__T(" Intra");
+    }
+    Profile+=__T("@L")+Ztring().From_Number(((float)(*seq_parameter_set_Item)->level_idc)/10, 1);
     Fill(Stream_Video, 0, Video_Format_Profile, Profile);
     Fill(Stream_Video, 0, Video_Codec_Profile, Profile);
     Fill(Stream_Video, StreamPos_Last, Video_Width, Width);
