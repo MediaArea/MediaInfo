@@ -4228,6 +4228,9 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
 
             //PCM parser
             File_Pcm* Parser=new File_Pcm;
+            Parser->Channels=(int8u)Channels;
+            Parser->SamplingRate=SampleRate;
+            Parser->BitDepth=(int8u)SampleSize;
             #if MEDIAINFO_DEMUX
                 if (Config->Demux_Unpacketize_Get())
                 {
