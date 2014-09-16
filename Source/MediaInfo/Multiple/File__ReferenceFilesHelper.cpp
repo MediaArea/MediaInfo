@@ -591,7 +591,7 @@ void File__ReferenceFilesHelper::ParseReferences()
                     for (references::iterator ReferenceSource=References.begin(); ReferenceSource!=References.end(); ++ReferenceSource)
                         if (ReferenceSource->FileNames.empty())
                             CountOfReferencesToParse--;
-                    DTS_Interval=3000000000LL; // 3 seconds
+                    DTS_Interval=250000000LL; // 250 milliseconds
                 }
             }
             else
@@ -678,10 +678,10 @@ void File__ReferenceFilesHelper::ParseReferences()
 
                 #if MEDIAINFO_NEXTPACKET
                     //Minimal DTS
-                    if (DTS_Interval!=(int64u)-1 && !Reference->Status[File__Analyze::IsFinished] && ReferenceTemp->CompleteDuration_Pos<ReferenceTemp->CompleteDuration.size())
+                    if (DTS_Interval!=(int64u)-1 && !Reference->Status[File__Analyze::IsFinished] && (ReferenceTemp->CompleteDuration.empty() || ReferenceTemp->CompleteDuration_Pos<ReferenceTemp->CompleteDuration.size()))
                     {
                         int64u DTS_Temp;
-                        if (ReferenceTemp->CompleteDuration_Pos)
+                        if (!ReferenceTemp->CompleteDuration.empty() && ReferenceTemp->CompleteDuration_Pos)
                             DTS_Temp=ReferenceTemp->CompleteDuration[ReferenceTemp->CompleteDuration_Pos].MI->Info->FrameInfo.DTS;
                         else
                             DTS_Temp=ReferenceTemp->MI->Info->FrameInfo.DTS;
@@ -883,14 +883,14 @@ void File__ReferenceFilesHelper::ParseReference()
     if (Reference->MI)
     {
         #if MEDIAINFO_EVENTS && MEDIAINFO_NEXTPACKET
-            if (DTS_Interval!=(int64u)-1 && !Reference->Status[File__Analyze::IsFinished] && Reference->MI->Info->FrameInfo.DTS!=(int64u)-1 && DTS_Minimal!=(int64u)-1 && Reference->CompleteDuration_Pos<Reference->CompleteDuration.size())
+            if (DTS_Interval!=(int64u)-1 && !Reference->Status[File__Analyze::IsFinished] && Reference->MI->Info->FrameInfo.DTS!=(int64u)-1 && DTS_Minimal!=(int64u)-1 && (Reference->CompleteDuration.empty() || Reference->CompleteDuration_Pos<Reference->CompleteDuration.size()))
             {
                 int64u DTS_Temp;
-                if (Reference->CompleteDuration_Pos)
+                if (!Reference->CompleteDuration.empty() && Reference->CompleteDuration_Pos)
                     DTS_Temp=Reference->CompleteDuration[Reference->CompleteDuration_Pos].MI->Info->FrameInfo.DTS;
                 else
                     DTS_Temp=Reference->MI->Info->FrameInfo.DTS;
-                if (Reference->CompleteDuration_Pos<Reference->CompleteDuration.size() && Reference->CompleteDuration[Reference->CompleteDuration_Pos].IgnoreFramesRate && Reference->CompleteDuration[Reference->CompleteDuration_Pos].IgnoreFramesBefore)
+                if (!Reference->CompleteDuration.empty() && Reference->CompleteDuration_Pos<Reference->CompleteDuration.size() && Reference->CompleteDuration[Reference->CompleteDuration_Pos].IgnoreFramesRate && Reference->CompleteDuration[Reference->CompleteDuration_Pos].IgnoreFramesBefore)
                 {
                     int64u TimeOffset=float64_int64s(((float64)Reference->CompleteDuration[Reference->CompleteDuration_Pos].IgnoreFramesBefore)/Reference->CompleteDuration[Reference->CompleteDuration_Pos].IgnoreFramesRate*1000000000);
                     if (DTS_Temp>TimeOffset)
