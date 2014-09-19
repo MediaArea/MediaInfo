@@ -2131,8 +2131,19 @@ void File_Mxf::Streams_Finish_ContentStorage_ForTimeCode (const int128u ContentS
         return;
 
     //Searching the right Time code track first TODO: this is an hack in order to get material or source time code, we need to have something more conform in the future
+    // Material Package then Source Package
     for (size_t Pos=0; Pos<ContentStorage->second.Packages.size(); Pos++)
-        Streams_Finish_Package_ForTimeCode(ContentStorage->second.Packages[Pos]);
+    {
+        packages::iterator Package=Packages.find(ContentStorage->second.Packages[Pos]);
+        if (Package!=Packages.end() && !Package->second.IsSourcePackage)
+            Streams_Finish_Package_ForTimeCode(ContentStorage->second.Packages[Pos]);
+    }
+    for (size_t Pos=0; Pos<ContentStorage->second.Packages.size(); Pos++)
+    {
+        packages::iterator Package=Packages.find(ContentStorage->second.Packages[Pos]);
+        if (Package!=Packages.end() && Package->second.IsSourcePackage)
+            Streams_Finish_Package_ForTimeCode(ContentStorage->second.Packages[Pos]);
+    }
 }
 
 //---------------------------------------------------------------------------
