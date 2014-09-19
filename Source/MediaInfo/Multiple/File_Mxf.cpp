@@ -199,9 +199,9 @@ namespace Elements
     UUID(AS11_Core_AudioTrackLayout,                            060E2B34, 01010101, 0D010701, 0B010105)
     UUID(AS11_Core_PrimaryAudioLanguage,                        060E2B34, 01010101, 0D010701, 0B010106)
     UUID(AS11_Core_ClosedCaptionsPresent,                       060E2B34, 01010101, 0D010701, 0B010107)
-    UUID(AS11_Core_08,                                          060E2B34, 01010101, 0D010701, 0B010108)
+    UUID(AS11_Core_ClosedCaptionsType,                          060E2B34, 01010101, 0D010701, 0B010108)
     UUID(AS11_Core_ClosedCaptionsLanguage,                      060E2B34, 01010101, 0D010701, 0B010109)
-    UUID(AS11_Core_ClosedCaptionsType,                          060E2B34, 01010101, 0D010701, 0B01010A)
+    UUID(AS11_Core_ShimVersion,                                 060E2B34, 01010101, 0D010701, 0B01010A)
 
     //Item - Elements - User organization registred for public use - AAF Association - AS-11 segmentation metadata framework
     UUID(AS11_Segment_PartNumber,                               060E2B34, 01010101, 0D010701, 0B020101)
@@ -3377,6 +3377,16 @@ void File_Mxf::Streams_Finish_Component_ForAS11(const int128u ComponentUID, floa
                                                     Fill(Stream_Other, StreamPos_Last, "ProgrammeTitle", AS11->second.ProgrammeTitle);
                                                     Fill(Stream_Other, StreamPos_Last, "EpisodeTitleNumber", AS11->second.EpisodeTitleNumber);
                                                     Fill(Stream_Other, StreamPos_Last, "ShimName", AS11->second.ShimName);
+                                                    if (AS11->second.ShimVersion_Major!=(int8u)-1)
+                                                    {
+                                                       Ztring Version=Ztring::ToZtring(AS11->second.ShimVersion_Major);
+                                                       if (AS11->second.ShimVersion_Minor!=(int8u)-1)
+                                                       {
+                                                           Version+=__T('.');
+                                                           Version+=Ztring::ToZtring(AS11->second.ShimVersion_Minor);
+                                                       }
+                                                       Fill(Stream_Other, StreamPos_Last, "ShimVersion", Version);
+                                                    }
                                                     if (AS11->second.AudioTrackLayout<Mxf_AS11_AudioTrackLayout_Count)
                                                     {
                                                         Fill(Stream_Other, StreamPos_Last, "AudioTrackLayout", Mxf_AS11_AudioTrackLayout[AS11->second.AudioTrackLayout]);
@@ -6312,9 +6322,9 @@ void File_Mxf::AS11_AAF_Core()
             ELEMENT_UUID(AS11_Core_AudioTrackLayout,            "Audio Track Layout")
             ELEMENT_UUID(AS11_Core_PrimaryAudioLanguage,        "Primary Audio Language")
             ELEMENT_UUID(AS11_Core_ClosedCaptionsPresent,       "Closed Captions Present")
-            ELEMENT_UUID(AS11_Core_08,                          ".08")
             ELEMENT_UUID(AS11_Core_ClosedCaptionsType,          "Closed Captions Type")
             ELEMENT_UUID(AS11_Core_ClosedCaptionsLanguage,      "Closed Captions Language")
+            ELEMENT_UUID(AS11_Core_ShimVersion,                 "Shim Version")
             else
             {
                 Element_Info1(Ztring().From_UUID(Primer_Value->second));
@@ -9884,26 +9894,9 @@ void File_Mxf::AS11_Core_ClosedCaptionsPresent()
 
 //---------------------------------------------------------------------------
 // AAF
-void File_Mxf::AS11_Core_08()
-{
-    //Parsing
-    Info_B1(Value,                                              "Value"); Element_Info1(Value);
-}
-
-//---------------------------------------------------------------------------
-// AAF
 void File_Mxf::AS11_Core_ClosedCaptionsType()
 {
     //Parsing
-    if (Length2==2)
-    {
-        //Found in 1 file, what is it?
-        Info_B1(Value1,                                         "Value 1"); Element_Info1(Value1);
-        Info_B1(Value2,                                         "Value 2"); Element_Info1(Value2);
-        Element_Info1("2 bytes in this file vs 1 byte in specs?");
-        return;
-    }
-        
     int8u Value;
     Get_B1 (Value,                                              "Value"); Element_Info1C(Value<Mxf_AS11_ClosedCaptionType_Count, Mxf_AS11_ClosedCaptionType[Value]);
 
@@ -9922,6 +9915,21 @@ void File_Mxf::AS11_Core_ClosedCaptionsLanguage()
 
     FILLING_BEGIN();
         AS11s[InstanceUID].ClosedCaptionsLanguage=Value;
+    FILLING_END();
+}
+
+//---------------------------------------------------------------------------
+// AAF
+void File_Mxf::AS11_Core_ShimVersion()
+{
+    //Parsing
+    int8u Major, Minor;
+    Get_B1 (Major,                                              "Major"); Element_Info1(Major);
+    Get_B1 (Minor,                                              "Minor"); Element_Info1(Minor);
+
+    FILLING_BEGIN();
+        AS11s[InstanceUID].ShimVersion_Major=Major;
+        AS11s[InstanceUID].ShimVersion_Minor=Minor;
     FILLING_END();
 }
 

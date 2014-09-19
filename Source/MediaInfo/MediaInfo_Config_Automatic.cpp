@@ -1014,6 +1014,7 @@ void MediaInfo_Config_DefaultLanguage (Translation &Info)
     "Shell extension, folder;For folders too\n"
     "Shell InfoTip;Explorer Tooltip (in Windows Explorer, move the mouse over the file, info will be displayed)\n"
     "ShimName;Shim Name\n"
+    "ShimVersion;Shim Version\n"
     "Show menu;Show menu\n"
     "Show toolbar;Show toolbar\n"
     "SigningPresent;Signing Present\n"

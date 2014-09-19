@@ -393,9 +393,9 @@ protected :
     void AS11_Core_AudioTrackLayout();
     void AS11_Core_PrimaryAudioLanguage();
     void AS11_Core_ClosedCaptionsPresent();
-    void AS11_Core_08();
     void AS11_Core_ClosedCaptionsType();
     void AS11_Core_ClosedCaptionsLanguage();
+    void AS11_Core_ShimVersion();
     void AS11_Segment_PartNumber();
     void AS11_Segment_PartTotal();
     void AS11_UKDPP_ProductionNumber();
@@ -884,6 +884,8 @@ protected :
         int8u  ClosedCaptionsPresent;
         int8u  ClosedCaptionsType;
         Ztring ClosedCaptionsLanguage;
+        int8u  ShimVersion_Major;
+        int8u  ShimVersion_Minor;
         int16u PartNumber;
         int16u PartTotal;
         Ztring ProductionNumber;
@@ -931,6 +933,8 @@ protected :
             AudioTrackLayout=(int8u)-1;
             ClosedCaptionsPresent=(int8u)-1;
             ClosedCaptionsType=(int8u)-1;
+            ShimVersion_Major=(int8u)-1;
+            ShimVersion_Major=(int8u)-1;
             PartNumber=(int16u)-1;
             PartTotal=(int16u)-1;
             CopyrightYear=(int16u)-1;
