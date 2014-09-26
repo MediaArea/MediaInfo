@@ -1320,21 +1320,9 @@ void File_Eia708::DFx(int8u WindowID)
     Window->Minimal.x=0;
     Window->Minimal.y=0;
 
-    if (Window->row_count>12)
+    if (Window->row_count>14)
     {
-        Window->row_count=12; //Limitation of specifications
-    }
-    if (AspectRatio && Window->column_count>(int8u)(24*AspectRatio))
-    {
-        Window->column_count=(int8u)(24*AspectRatio); //Limitation of specifications
-    }
-    Window->Minimal.CC.resize(Window->row_count);
-    for (int8u Pos_Y=0; Pos_Y<Window->row_count; Pos_Y++)
-        Window->Minimal.CC[Pos_Y].resize(Window->column_count);
-
-    if (Window->row_count>12)
-    {
-        Window->row_count=12; //Limitation of specifications
+        Window->row_count=14; //Limitation of specifications
     }
     if (AspectRatio && Window->column_count>(int8u)(24*AspectRatio))
     {
