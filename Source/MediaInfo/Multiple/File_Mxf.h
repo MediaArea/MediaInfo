@@ -934,7 +934,7 @@ protected :
             ClosedCaptionsPresent=(int8u)-1;
             ClosedCaptionsType=(int8u)-1;
             ShimVersion_Major=(int8u)-1;
-            ShimVersion_Major=(int8u)-1;
+            ShimVersion_Minor=(int8u)-1;
             PartNumber=(int16u)-1;
             PartTotal=(int16u)-1;
             CopyrightYear=(int16u)-1;
