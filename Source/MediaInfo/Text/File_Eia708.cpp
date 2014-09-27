@@ -164,7 +164,7 @@ void File_Eia708::Read_Buffer_Continue()
 //---------------------------------------------------------------------------
 void File_Eia708::Read_Buffer_Unsynched()
 {
-    for (int8u service_number=1; service_number<Streams.size(); service_number++)
+    for (service_number=1; service_number<Streams.size(); service_number++)
         if (Streams[service_number])
         {
             //Per window
@@ -192,6 +192,12 @@ void File_Eia708::Read_Buffer_Unsynched()
                 }
             }
         }
+
+    #if MEDIAINFO_EVENTS
+        for (service_number=1; service_number<Streams.size(); service_number++)
+            if (Streams[service_number])
+                HasChanged();
+    #endif //MEDIAINFO_EVENTS
 }
 
 //***************************************************************************
