@@ -1943,29 +1943,36 @@ void File__Analyze::Duration_Duration123(stream_t StreamKind, size_t StreamPos, 
                 // Testing time code track
                 if (!DropFrame_IsValid)
                 {
-                    for (size_t TC_Pos=0; TC_Pos<Count_Get(Stream_Other); ++TC_Pos)
-                        if (Retrieve(Stream_Other, StreamPos, Other_Type)==__T("Time code"))
-                        {
-                            Ztring TC=Retrieve(Stream_Other, StreamPos, Other_TimeCode_FirstFrame);
-                            if (TC.size()>=11 && TC[2]==__T(':') && TC[5]==__T(':'))
+                    for (size_t Step=Retrieve(Stream_General, 0, General_Format)==__T("MXF")?0:1; Step<2; ++Step)
+                    {
+                        for (size_t TC_Pos=0; TC_Pos<Count_Get(Stream_Other); ++TC_Pos)
+                            if (Retrieve(Stream_Other, TC_Pos, Other_Type)==__T("Time code")
+                             && (Step || Retrieve(Stream_Other, TC_Pos, Other_TimeCode_Settings)==__T("Source Package")))
                             {
-                                switch (TC[8])
+                                Ztring TC=Retrieve(Stream_Other, TC_Pos, Other_TimeCode_FirstFrame);
+                                if (TC.size()>=11 && TC[2]==__T(':') && TC[5]==__T(':'))
                                 {
-                                    case __T(':'): 
-                                                    DropFrame=false;
-                                                    DropFrame_IsValid=true;
-                                                    break;
-                                    case __T(';'): 
-                                                    DropFrame=true;
-                                                    DropFrame_IsValid=true;
-                                                    break;
-                                    default      :  ;
+                                    switch (TC[8])
+                                    {
+                                        case __T(':'): 
+                                                        DropFrame=false;
+                                                        DropFrame_IsValid=true;
+                                                        break;
+                                        case __T(';'): 
+                                                        DropFrame=true;
+                                                        DropFrame_IsValid=true;
+                                                        break;
+                                        default      :  ;
+                                    }
                                 }
+
+                                if (DropFrame_IsValid)
+                                    break; //Using first time code track
                             }
 
-                            if (DropFrame_IsValid)
-                                break; //Using first time code track
-                        }
+                        if (DropFrame_IsValid)
+                            break; //Using first time code track
+                    }
                 }
 
                 // Testing frame rate (1/1001)
