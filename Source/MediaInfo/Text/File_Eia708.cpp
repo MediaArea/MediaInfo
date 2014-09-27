@@ -1326,9 +1326,9 @@ void File_Eia708::DFx(int8u WindowID)
     Window->Minimal.x=0;
     Window->Minimal.y=0;
 
-    if (Window->row_count>14)
+    if (Window->row_count>15)
     {
-        Window->row_count=14; //Limitation of specifications
+        Window->row_count=15; //Limitation of specifications
     }
     if (AspectRatio && Window->column_count>(int8u)(24*AspectRatio))
     {
