@@ -16,6 +16,7 @@ Version 0.7.71, 2014-
 + AVC: detection of Intra profiles
 + MXF: both Material and Source package time codes are displayed
 + MPEG-TS: more information for Teletext subtitle e.g. "For hearing impaired people"
++ Detecting sidecar XML files for captions (e.g. TTML/DFXP), option for CLI and Lib
 x Time code striped/not striped information is moved from "Format_Settings" to "TimeCode_Striped"
 x SMPTE ST 337: infinite loop during scanning of some non ST 337 streams
 x MP4/MOV: Using less data during detection of Dolby E hidden in a PCM track
