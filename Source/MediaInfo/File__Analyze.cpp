@@ -3124,7 +3124,7 @@ void File__Analyze::GoToFromEnd (int64u GoToFromEnd, const char* ParserName)
                 ForceFinish(); //We can not jump
         return;
     }
-        
+
     GoTo(File_Size-GoToFromEnd, ParserName);
 }
 #else //MEDIAINFO_TRACE

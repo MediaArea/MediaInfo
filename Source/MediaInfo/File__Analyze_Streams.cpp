@@ -1897,7 +1897,7 @@ void File__Analyze::Duration_Duration123(stream_t StreamKind, size_t StreamPos, 
             {
                 bool DropFrame=false;
                 bool DropFrame_IsValid=false;
-            
+
                 // Testing time code
                 if (StreamKind==Stream_Video)
                 {
@@ -1906,11 +1906,11 @@ void File__Analyze::Duration_Duration123(stream_t StreamKind, size_t StreamPos, 
                     {
                         switch (TC[8])
                         {
-                            case __T(':'): 
+                            case __T(':'):
                                             DropFrame=false;
                                             DropFrame_IsValid=true;
                                             break;
-                            case __T(';'): 
+                            case __T(';'):
                                             DropFrame=true;
                                             DropFrame_IsValid=true;
                                             break;
@@ -1927,11 +1927,11 @@ void File__Analyze::Duration_Duration123(stream_t StreamKind, size_t StreamPos, 
                     {
                         switch (TC[8])
                         {
-                            case __T(':'): 
+                            case __T(':'):
                                             DropFrame=false;
                                             DropFrame_IsValid=true;
                                             break;
-                            case __T(';'): 
+                            case __T(';'):
                                             DropFrame=true;
                                             DropFrame_IsValid=true;
                                             break;
@@ -1954,11 +1954,11 @@ void File__Analyze::Duration_Duration123(stream_t StreamKind, size_t StreamPos, 
                                 {
                                     switch (TC[8])
                                     {
-                                        case __T(':'): 
+                                        case __T(':'):
                                                         DropFrame=false;
                                                         DropFrame_IsValid=true;
                                                         break;
-                                        case __T(';'): 
+                                        case __T(';'):
                                                         DropFrame=true;
                                                         DropFrame_IsValid=true;
                                                         break;

@@ -25,6 +25,6 @@ Audio_End;\n    ]\n
 ;
 Text; "%Language%"
 Text_Begin;     ,"Subs": [
-Text_Middle;, 
+Text_Middle;,
 Text_End;]\n
 ;

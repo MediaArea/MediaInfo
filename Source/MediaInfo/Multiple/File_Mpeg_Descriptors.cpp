@@ -2716,7 +2716,7 @@ void File_Mpeg_Descriptors::Descriptor_7F_0F()
     //Parsing
     int8u config_id;
     Get_B1(config_id,                                           "config_id");
-    
+
     FILLING_BEGIN();
         if (elementary_PID_IsValid)
         {

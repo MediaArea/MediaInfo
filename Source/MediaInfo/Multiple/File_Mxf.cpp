@@ -2187,7 +2187,7 @@ void File_Mxf::Streams_Finish_Package_ForAS11 (const int128u PackageUID)
     packages::iterator Package=Packages.find(PackageUID);
     if (Package==Packages.end() || Package->second.IsSourcePackage)
         return;
-    
+
     for (size_t Pos=0; Pos<Package->second.Tracks.size(); Pos++)
         Streams_Finish_Track_ForAS11(Package->second.Tracks[Pos]);
 }
@@ -2241,7 +2241,7 @@ void File_Mxf::Streams_Finish_Track_ForAS11(const int128u TrackUID)
     //TrackName
     if (StreamKind_Last!=Stream_Max && !Track->second.TrackName.empty())
         Fill(StreamKind_Last, StreamPos_Last, "Title", Track->second.TrackName);
-    
+
     //Done
     Track->second.Stream_Finish_Done=true;
 }
@@ -3368,7 +3368,7 @@ void File_Mxf::Streams_Finish_Component_ForAS11(const int128u ComponentUID, floa
                             Fill(Stream_Other, StreamPos_Last, "PartTotal", AS11->second.PartTotal);
                     }
                 }
-                
+
                 switch (AS11->second.Type)
                 {
                     case as11::Type_Core:
