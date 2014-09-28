@@ -17,6 +17,7 @@ Version 0.7.71, 2014-
 + MXF: both Material and Source package time codes are displayed
 + MPEG-TS: more information for Teletext subtitle e.g. "For hearing impaired people"
 + Detecting sidecar XML files for captions (e.g. TTML/DFXP), option for CLI and Lib
+x More coherency between the File interface and the By buffer interface
 x Matroska: wrong dection of video/audio delay in case of B-frames before the first I-frame
 x Time code striped/not striped information is moved from "Format_Settings" to "TimeCode_Striped"
 x SMPTE ST 337: infinite loop during scanning of some non ST 337 streams
