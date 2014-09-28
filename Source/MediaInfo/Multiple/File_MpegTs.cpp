@@ -1968,7 +1968,7 @@ size_t File_MpegTs::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                 MI.Option(__T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
                 MI.Option(__T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
                 if (!MiOpenResult)
-                    return -1;
+                    return (size_t)-1;
                 for (ibi::streams::iterator IbiStream_Temp=((File_MpegTs*)MI.Info)->Ibi.Streams.begin(); IbiStream_Temp!=((File_MpegTs*)MI.Info)->Ibi.Streams.end(); ++IbiStream_Temp)
                 {
                     if (Ibi.Streams[IbiStream_Temp->first]==NULL)
