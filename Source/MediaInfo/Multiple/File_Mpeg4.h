@@ -333,6 +333,7 @@ private :
     bool                                    IsSecondPass;
     bool                                    IsParsing_mdat;
     bool                                    IsFragmented;
+    size_t                                  StreamOrder;
 
     //Data
     struct stream

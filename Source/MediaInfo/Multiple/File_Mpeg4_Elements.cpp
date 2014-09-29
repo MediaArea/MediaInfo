@@ -2793,7 +2793,8 @@ void File_Mpeg4::moov_trak()
         moov_trak_tkhd_Rotation=0;
         Stream_Prepare(Stream_Max); //clear filling
         Streams.erase((int32u)-1);
-        Fill(StreamKind_Last, StreamPos_Last, General_StreamOrder, Streams.size());
+        Fill(StreamKind_Last, StreamPos_Last, General_StreamOrder, StreamOrder);
+        ++StreamOrder;
     FILLING_END();
 }
 

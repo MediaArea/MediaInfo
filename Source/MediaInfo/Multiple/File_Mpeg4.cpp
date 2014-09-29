@@ -220,6 +220,7 @@ File_Mpeg4::File_Mpeg4()
     IsSecondPass=false;
     IsParsing_mdat=false;
     IsFragmented=false;
+    StreamOrder=0;
     moov_trak_tkhd_TrackID=(int32u)-1;
     #if defined(MEDIAINFO_REFERENCES_YES)
         ReferenceFiles=NULL;
