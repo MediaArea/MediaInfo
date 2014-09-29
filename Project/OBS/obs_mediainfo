@@ -12,36 +12,28 @@ Download_Packages()
 {
 #-----------------------------------------------------------------------
 # Downloading
-wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/mediainfo$dash$mediainfov-$1$6$9.$type"
-mv mediainfo$dash$mediainfov-$1$6$9.$type \
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/mediainfo$dash$mediainfov-$1$6$9.$type" -O \
  download/binary/mediainfo/$mediainfov/mediainfo$dash$mediainfov-$destversion$9.$7.$type
 
-wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/mediainfo-gui$dash$mediainfov-$1$6$9.$type"
-mv mediainfo-gui$dash$mediainfov-$1$6$9.$type \
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/mediainfo-gui$dash$mediainfov-$1$6$9.$type" -O \
  download/binary/mediainfo-gui/$mediainfov/mediainfo-gui$dash$mediainfov-$destversion$9.$7.$type
 
-wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libmediainfo0$dash$libmediainfov-$2$6$9.$type"
-mv libmediainfo0$dash$libmediainfov-$2$6$9.$type \
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libmediainfo0$dash$libmediainfov-$2$6$9.$type" -O \
  download/binary/libmediainfo0/$libmediainfov/libmediainfo0$dash$libmediainfov-$destversion$9.$7.$type
 
-wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libmediainfo-$devext$dash$libmediainfov-$2$6$9.$type"
-mv libmediainfo-$devext$dash$libmediainfov-$2$6$9.$type \
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libmediainfo-$devext$dash$libmediainfov-$2$6$9.$type" -O \
  download/binary/libmediainfo0/$libmediainfov/libmediainfo-$devext$dash$libmediainfov-$destversion$9.$7.$type
 
-wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libmediainfo-doc$dash$libmediainfov-$2$6$9.$type"
-mv libmediainfo-doc$dash$libmediainfov-$2$6$9.$type \
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libmediainfo-doc$dash$libmediainfov-$2$6$9.$type" -O \
  download/binary/libmediainfo0/$libmediainfov/libmediainfo-doc$dash$libmediainfov-$destversion$9.$7.$type
 
-wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libzen0$dash$libzenv-$3$6$9.$type"
-mv libzen0$dash$libzenv-$3$6$9.$type \
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libzen0$dash$libzenv-$3$6$9.$type" -O \
  download/binary/libzen0/$libzenv/libzen0$dash$libzenv-$destversion$9.$7.$type
 
-wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libzen-$devext$dash$libzenv-$3$6$9.$type"
-mv libzen-$devext$dash$libzenv-$3$6$9.$type \
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libzen-$devext$dash$libzenv-$3$6$9.$type" -O \
  download/binary/libzen0/$libzenv/libzen-$devext$dash$libzenv-$destversion$9.$7.$type
 
-wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libzen-doc$dash$libzenv-$3$6$9.$type"
-mv libzen-doc$dash$libzenv-$3$6$9.$type \
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libzen-doc$dash$libzenv-$3$6$9.$type" -O \
  download/binary/libzen0/$libzenv/libzen-doc$dash$libzenv-$destversion$9.$7.$type
 }
 
@@ -163,13 +155,14 @@ libmediainfov="0.7.70"
 libzenv="0.4.29"
 destversion="1"
 
-Download_Global 315.3 321.3 x.1
+Download_Global 322.1 331.1 x.1
 
 #mkdir download/binary/wxGTK/2.8.12/
 #Download_Wx 6.1 x x  x x ""           CentOS_5        i386   .i386
 #Download_Wx 6.1 x x  x x ""           CentOS_5        x86_64 .x86_64
 #Download_Wx 6.1 x x  x x ""           CentOS_6        i386   .i386
 #Download_Wx 6.1 x x  x x ""           CentOS_6        x86_64 .x86_64
+#Download_Wx 6.1 x x  x x ""           CentOS_7        x86_64 .x86_64
 #Download_Wx 6.1 x x  x x ""           RHEL_5          i386   .i386
 #Download_Wx 6.1 x x  x x ""           RHEL_5          x86_64 .x86_64
 #Download_Wx 6.1 x x  x x ""           RHEL_6          i386   .i386
