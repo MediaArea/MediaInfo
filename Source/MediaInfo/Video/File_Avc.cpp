@@ -131,6 +131,13 @@ extern const char* Avc_video_format[]=
 };
 
 //---------------------------------------------------------------------------
+extern const char* Avc_video_full_range[]=
+{
+    "Limited",
+    "Full",
+};
+
+//---------------------------------------------------------------------------
 const char* Avc_primary_pic_type[]=
 {
     "I",
@@ -400,6 +407,7 @@ void File_Avc::Streams_Fill(std::vector<seq_parameter_set_struct*>::iterator seq
         if ((*seq_parameter_set_Item)->vui_parameters->video_signal_type_present_flag)
         {
             Fill(Stream_Video, 0, Video_Standard, Avc_video_format[(*seq_parameter_set_Item)->vui_parameters->video_format]);
+            Fill(Stream_Video, 0, Video_colour_range, Avc_video_full_range[(*seq_parameter_set_Item)->vui_parameters->video_full_range_flag]);
             if ((*seq_parameter_set_Item)->vui_parameters->colour_description_present_flag)
             {
                 Fill(Stream_Video, 0, Video_colour_description_present, "Yes");
@@ -3385,7 +3393,7 @@ void File_Avc::vui_parameters(seq_parameter_set_struct::vui_parameters_struct* &
     seq_parameter_set_struct::vui_parameters_struct::bitstream_restriction_struct* bitstream_restriction=NULL;
     int32u  num_units_in_tick=(int32u)-1, time_scale=(int32u)-1;
     int16u  sar_width=(int16u)-1, sar_height=(int16u)-1;
-    int8u   aspect_ratio_idc=0, video_format=5, colour_primaries=2, transfer_characteristics=2, matrix_coefficients=2;
+    int8u   aspect_ratio_idc=0, video_format=5, video_full_range_flag = 0, colour_primaries=2, transfer_characteristics=2, matrix_coefficients=2;
     bool    aspect_ratio_info_present_flag, video_signal_type_present_flag, colour_description_present_flag=false, timing_info_present_flag, fixed_frame_rate_flag=false, nal_hrd_parameters_present_flag, vcl_hrd_parameters_present_flag, pic_struct_present_flag;
     TEST_SB_GET (aspect_ratio_info_present_flag,                "aspect_ratio_info_present_flag");
         Get_S1 (8, aspect_ratio_idc,                            "aspect_ratio_idc"); Param_Info1C((aspect_ratio_idc<Avc_PixelAspectRatio_Size), Avc_PixelAspectRatio[aspect_ratio_idc]);
@@ -3400,7 +3408,7 @@ void File_Avc::vui_parameters(seq_parameter_set_struct::vui_parameters_struct* &
     TEST_SB_END();
     TEST_SB_GET (video_signal_type_present_flag,                "video_signal_type_present_flag");
         Get_S1 (3, video_format,                                "video_format"); Param_Info1(Avc_video_format[video_format]);
-        Skip_SB(                                                "video_full_range_flag");
+        Get_S1 (1, video_full_range_flag,                       "video_full_range_flag"); Param_Info1(Avc_video_full_range[video_full_range_flag]);
         TEST_SB_GET (colour_description_present_flag,           "colour_description_present_flag");
             Get_S1 (8, colour_primaries,                        "colour_primaries"); Param_Info1(Mpegv_colour_primaries(colour_primaries));
             Get_S1 (8, transfer_characteristics,                "transfer_characteristics"); Param_Info1(Mpegv_transfer_characteristics(transfer_characteristics));
@@ -3451,6 +3459,7 @@ void File_Avc::vui_parameters(seq_parameter_set_struct::vui_parameters_struct* &
                                                                                     sar_height,
                                                                                     aspect_ratio_idc,
                                                                                     video_format,
+                                                                                    video_full_range_flag,
                                                                                     colour_primaries,
                                                                                     transfer_characteristics,
                                                                                     matrix_coefficients,
