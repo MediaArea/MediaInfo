@@ -290,3 +290,4 @@ colour_description_present_Original;;;N YT;;;Presence of colour description
 colour_primaries_Original;;;Y YT;;;Chromaticity coordinates of the source primaries
 transfer_characteristics_Original;;;Y YT;;;Opto-electronic transfer characteristic of the source picture
 matrix_coefficients_Original;;;Y YT;;;Matrix coefficients used in deriving luma and chroma signals from the green, blue, and red primaries
+colour_range;;;Y YT;;;Colour range for YUV colour space

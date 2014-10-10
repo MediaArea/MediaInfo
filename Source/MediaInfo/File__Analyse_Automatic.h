@@ -743,6 +743,7 @@ enum video
     Video_colour_primaries,
     Video_transfer_characteristics,
     Video_matrix_coefficients,
+    Video_colour_range,
     Video_colour_description_present_Original,
     Video_colour_primaries_Original,
     Video_transfer_characteristics_Original,
