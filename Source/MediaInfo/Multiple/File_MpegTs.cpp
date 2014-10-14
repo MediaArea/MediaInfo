@@ -317,7 +317,17 @@ void File_MpegTs::Streams_Accept()
     #endif //MEDIAINFO_DEMUX && MEDIAINFO_NEXTPACKET
 
     if (!IsSub)
+    {
+        #if MEDIAINFO_ADVANCED
+            // TODO: temporary disabling theses options for MPEG-TS, because it does not work as expected
+            if (Config->File_IgnoreSequenceFileSize_Get())
+                Config->File_IgnoreSequenceFileSize_Set(false);
+            if (Config->File_IgnoreSequenceFilesCount_Get())
+                Config->File_IgnoreSequenceFilesCount_Set(false);
+        #endif MEDIAINFO_ADVANCED
+
         TestContinuousFileNames();
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -1909,7 +1919,7 @@ void File_MpegTs::Read_Buffer_AfterParsing()
             //Jumping
             if (Config->ParseSpeed<1.0 && Config->File_IsSeekable_Get()
             #if MEDIAINFO_ADVANCED
-             && (!Config->File_IgnoreSequenceFileSize_Get() || Config->File_Names_Pos!=Config->File_Names.size())
+             && (!Config->File_IgnoreSequenceFileSize_Get() || Config->File_Names_Pos!=Config->File_Names.size()) // TODO: temporary disabling theses options for MPEG-TS (see above), because it does not work as expected
             #endif //MEDIAINFO_ADVANCED
              && File_Offset+Buffer_Size<File_Size-MpegTs_JumpTo_End && MpegTs_JumpTo_End)
             {

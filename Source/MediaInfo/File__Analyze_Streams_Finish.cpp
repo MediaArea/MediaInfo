@@ -147,7 +147,7 @@ void File__Analyze::TestContinuousFileNames(size_t CountOfFiles, Ztring FileExte
         size_t Pos_Base = (size_t)Pos;
         size_t Pos_Add_Max = 1;
         #if MEDIAINFO_ADVANCED
-            bool File_IgnoreSequenceFileSize=Config->File_IgnoreSequenceFilesCount_Get();
+            bool File_IgnoreSequenceFileSize=Config->File_IgnoreSequenceFilesCount_Get(); //TODO: double check if it is expected
         #endif //MEDIAINFO_ADVANCED
         for (;;)
         {
