@@ -828,6 +828,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_Sdp.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_SubRip.cpp"
 					>
 				</File>
@@ -1627,6 +1631,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Text\File_Scc.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Text\File_Sdp.h"
 					>
 				</File>
 				<File

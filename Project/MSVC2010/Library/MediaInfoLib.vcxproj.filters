@@ -707,6 +707,9 @@
     <ClCompile Include="..\..\..\Source\ThirdParty\aes-gladman\aestab.c">
       <Filter>ThirdParty\aes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Sdp.cpp">
+      <Filter>Source Files\Text</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -1150,9 +1153,6 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_DvbSubtitle.h">
       <Filter>Header Files\Text</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Teletext.h">
-      <Filter>Header Files\Text</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Scc.h">
       <Filter>Header Files\Text</Filter>
     </ClInclude>
@@ -1323,6 +1323,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\ThirdParty\aes-gladman\brg_types.h">
       <Filter>ThirdParty\aes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Sdp.h">
+      <Filter>Header Files\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Wst.h">
+      <Filter>Header Files\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Teletext.h">
+      <Filter>Header Files\Text</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

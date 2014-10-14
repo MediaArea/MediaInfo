@@ -384,6 +384,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_DvbSubtitle.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Pdf.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Scc.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Sdp.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_SubRip.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Teletext.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_TimedText.cpp" />
@@ -683,10 +684,12 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Pdf.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Scc.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Scte20.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Sdp.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_SubRip.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Teletext.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_TimedText.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Ttml.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Wst.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\TimeCode.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Aic.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Video\File_Avc.h" />

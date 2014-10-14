@@ -175,6 +175,7 @@ lib@MediaInfoLib_LibName@_la_SOURCES = \
                        ../../../Source/MediaInfo/Text/File_Pgs.cpp \
                        ../../../Source/MediaInfo/Text/File_Scc.cpp \
                        ../../../Source/MediaInfo/Text/File_Scte20.cpp \
+                       ../../../Source/MediaInfo/Text/File_Sdp.cpp \
                        ../../../Source/MediaInfo/Text/File_SubRip.cpp \
                        ../../../Source/MediaInfo/Text/File_Teletext.cpp \
                        ../../../Source/MediaInfo/Text/File_TimedText.cpp \

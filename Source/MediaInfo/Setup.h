@@ -671,6 +671,9 @@
 #if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_SCTE20_NO) && !defined(MEDIAINFO_SCTE20_YES)
     #define MEDIAINFO_SCTE20_YES
 #endif
+#if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_SDP_NO) && !defined(MEDIAINFO_SDP_YES)
+    #define MEDIAINFO_SDP_YES
+#endif
 #if !defined(MEDIAINFO_TEXT_NO) && !defined(MEDIAINFO_SUBRIP_NO) && !defined(MEDIAINFO_SUBRIP_YES)
     #define MEDIAINFO_SUBRIP_YES
 #endif

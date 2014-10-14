@@ -6,39 +6,33 @@
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
-// Information about Teletext streams
+// Information about SDP streams
 //
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //---------------------------------------------------------------------------
-#ifndef MediaInfo_File_TeletextH
-#define MediaInfo_File_TeletextH
+#ifndef MediaInfo_File_SdpH
+#define MediaInfo_File_SdpH
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
 #include "MediaInfo/File__Analyze.h"
-#include <bitset>
-#include <string>
 //---------------------------------------------------------------------------
 
 namespace MediaInfoLib
 {
 
 //***************************************************************************
-// Class File_Teletext
+// Class File_Sdp
 //***************************************************************************
 
-class File_Teletext : public File__Analyze
+class File_Teletext;
+
+class File_Sdp : public File__Analyze
 {
 public :
-    File_Teletext();
-    ~File_Teletext();
-
-    //In
-    #if defined(MEDIAINFO_MPEGPS_YES)
-        bool FromMpegPs;
-    #endif
-    bool IsSubtitle;
+    File_Sdp();
+    ~File_Sdp();
 
 private :
     //Streams management
@@ -48,56 +42,28 @@ private :
     //Buffer - Synchro
     bool Synchronize();
     bool Synched_Test();
-    void Synched_Init();
 
     //Buffer - Global
     void Read_Buffer_Unsynched();
-    void Read_Buffer_Continue();
 
     //Buffer - Per element
     void Header_Parse();
     void Data_Parse();
 
-    //Elements
-    void Character_Fill(wchar_t Character);
-    void HasChanged();
-
-    //Streams
+    //Temp
     struct stream
     {
-        vector<std::wstring> CC_Displayed_Values;
+        File_Teletext*  Parser;
 
         stream()
+            :
+            Parser(NULL)
         {
-            CC_Displayed_Values.resize(26);
-            for (size_t PosY=0; PosY<26; ++PosY)
-                CC_Displayed_Values[PosY].resize(40, L' ');
         }
-
-        void Clear()
-        {
-            for (size_t PosY=0; PosY<26; ++PosY)
-                for (size_t PosX=0; PosX<40; ++PosX)
-                    CC_Displayed_Values[PosY][PosX]=L' ';
-        }
-
     };
-    typedef map<int16u, stream> streams; //Key is Magazine+PageNumber
+    typedef std::map<int8u, stream> streams;
     streams Streams;
-    int16u Stream_HasChanged;
-
-    //Temp
-    int8u   X;
-    int8u   Y;
-    std::bitset<16> C;
-    int8u   PageNumber;
-    int16u  SubCode;
-    int64u  End;
-
-    //Ancillary
-    #if defined(MEDIAINFO_MPEGPS_YES)
-        File_Teletext* Parser;
-    #endif
+    int8u FieldLines[5];
 };
 
 } //NameSpace

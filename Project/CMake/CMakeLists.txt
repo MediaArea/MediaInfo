@@ -269,6 +269,7 @@ set(MediaInfoLib_SRCS
   ${MediaInfoLib_SOURCES_PATH}/MediaInfo/Text/File_Pgs.cpp
   ${MediaInfoLib_SOURCES_PATH}/MediaInfo/Text/File_Scc.cpp
   ${MediaInfoLib_SOURCES_PATH}/MediaInfo/Text/File_Scte20.cpp
+  ${MediaInfoLib_SOURCES_PATH}/MediaInfo/Text/File_Sdp.cpp
   ${MediaInfoLib_SOURCES_PATH}/MediaInfo/Text/File_SubRip.cpp
   ${MediaInfoLib_SOURCES_PATH}/MediaInfo/Text/File_Teletext.cpp
   ${MediaInfoLib_SOURCES_PATH}/MediaInfo/Text/File_TimedText.cpp
