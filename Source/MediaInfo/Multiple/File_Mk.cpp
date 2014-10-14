@@ -411,12 +411,6 @@ void File_Mk::Streams_Finish()
         }
     }
 
-    //Attachments
-    for (size_t Pos=0; Pos<AttachedFiles.size(); Pos++)
-    {
-        Segment_Attachements_AttachedFile_FileName();
-    }
-
     //Purge what is not needed anymore
     if (!File_Name.empty()) //Only if this is not a buffer, with buffer we can have more data
         Stream.clear();
@@ -1104,8 +1098,6 @@ void File_Mk::Segment_Attachements()
 void File_Mk::Segment_Attachements_AttachedFile()
 {
     Element_Name("AttachedFile");
-
-    AttachedFiles.resize(AttachedFiles.size()+1);
 }
 
 //---------------------------------------------------------------------------
@@ -1115,11 +1107,6 @@ void File_Mk::Segment_Attachements_AttachedFile_FileData()
 
     //Parsing
     Skip_XX(Element_TotalSize_Get(),                            "Data");
-
-    FILLING_BEGIN();
-        if (AttachedFiles[AttachedFiles.size()-1].empty())
-            AttachedFiles[AttachedFiles.size()-1]=__T("Yes");
-    FILLING_END();
 }
 
 //---------------------------------------------------------------------------

@@ -24,6 +24,8 @@ x Matroska: wrong dection of video/audio delay in case of B-frames before the fi
 x Time code striped/not striped information is moved from "Format_Settings" to "TimeCode_Striped"
 x SMPTE ST 337: infinite loop during scanning of some non ST 337 streams
 x MP4/MOV: Using less data during detection of Dolby E hidden in a PCM track
+x Matroska: some crashs after file name of attachments update
+
 
 Version 0.7.70, 2014-09-03
 --------------
