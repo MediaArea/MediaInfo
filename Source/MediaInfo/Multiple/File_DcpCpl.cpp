@@ -332,7 +332,11 @@ bool File_DcpCpl::FileHeader_Begin()
 
                                                         //EntryPoint
                                                         if (!strcmp(Resource_Item->Value(), "EntryPoint"))
+                                                        {
                                                             Resource.IgnoreFramesBefore=atoi(Resource_Item->GetText());
+                                                            if (Resource.IgnoreFramesAfter!=(int64u)-1)
+                                                                Resource.IgnoreFramesAfter+=Resource.IgnoreFramesBefore;
+                                                        }
 
                                                         //Id
                                                         if (!strcmp(File_Item->Value(), "Id") && Resource_Id.empty())
@@ -340,7 +344,7 @@ bool File_DcpCpl::FileHeader_Begin()
 
                                                         //SourceDuration
                                                         if (!strcmp(Resource_Item->Value(), "SourceDuration"))
-                                                            Resource.IgnoreFramesAfterDuration=atoi(Resource_Item->GetText());
+                                                            Resource.IgnoreFramesAfter=Resource.IgnoreFramesBefore+atoi(Resource_Item->GetText());
 
                                                         //TrackFileId
                                                         if (!strcmp(Resource_Item->Value(), "TrackFileId"))
@@ -413,4 +417,3 @@ bool File_DcpCpl::FileHeader_Begin()
 } //NameSpace
 
 #endif //MEDIAINFO_DCP_YES
-

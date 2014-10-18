@@ -682,7 +682,7 @@ void File__ReferenceFilesHelper::ParseReferences()
                     {
                         int64u DTS_Temp;
                         if (!ReferenceTemp->CompleteDuration.empty() && ReferenceTemp->CompleteDuration_Pos)
-                            DTS_Temp=ReferenceTemp->CompleteDuration[ReferenceTemp->CompleteDuration_Pos].MI->Info->FrameInfo.DTS;
+                            DTS_Temp=ReferenceTemp->CompleteDuration[ReferenceTemp->CompleteDuration_Pos].Demux_Offset_DTS+ReferenceTemp->CompleteDuration[ReferenceTemp->CompleteDuration_Pos].MI->Info->FrameInfo.DTS;
                         else
                             DTS_Temp=ReferenceTemp->MI->Info->FrameInfo.DTS;
                         if (DTS_Minimal>DTS_Temp)
@@ -755,36 +755,54 @@ bool File__ReferenceFilesHelper::ParseReference_Init()
     {
         for (size_t Pos=0; Pos<Reference->CompleteDuration.size(); Pos++)
         {
-            MediaInfo_Internal MI2;
-            MI2.Option(__T("File_KeepInfo"), __T("1"));
-            Ztring ParseSpeed_Save=MI2.Option(__T("ParseSpeed_Get"), __T("0"));
-            Ztring Demux_Save=MI2.Option(__T("Demux_Get"), __T(""));
-            MI2.Option(__T("ParseSpeed"), __T("0"));
-            MI2.Option(__T("Demux"), Ztring());
-            size_t MiOpenResult=MI2.Open(Reference->CompleteDuration[Pos].FileName);
-            MI2.Option(__T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
-            MI2.Option(__T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
-            if (MiOpenResult)
+            if (Reference->CompleteDuration[0].IgnoreFramesRate)
             {
                 #if MEDIAINFO_DEMUX
-                    int64u Duration=MI2.Get(Reference->StreamKind, 0, __T("Duration")).To_int64u()*1000000;
-                    int64u FrameCount=MI2.Get(Reference->StreamKind, 0, __T("FrameCount")).To_int64u();
                     if (Pos==0)
                     {
-                        int64u Delay=MI2.Get(Stream_Video, 0, Video_Delay).To_int64u()*1000000;
-                        if (Reference->StreamKind==Stream_Video && Offset_Video_DTS==0)
-                            Offset_Video_DTS=Delay;
-                        Reference->CompleteDuration[0].Demux_Offset_DTS=Offset_Video_DTS;
+                        Reference->CompleteDuration[0].Demux_Offset_DTS=0;
                         Reference->CompleteDuration[0].Demux_Offset_Frame=0;
                     }
                     if (Pos+1<Reference->CompleteDuration.size())
                     {
-                        Reference->CompleteDuration[Pos+1].Demux_Offset_DTS=Reference->CompleteDuration[Pos].Demux_Offset_DTS+Duration;
-                        Reference->CompleteDuration[Pos+1].Demux_Offset_Frame=Reference->CompleteDuration[Pos].Demux_Offset_Frame+FrameCount;
+                        Reference->CompleteDuration[Pos+1].Demux_Offset_DTS=float64_int64s(Reference->CompleteDuration[Pos].Demux_Offset_DTS+(Reference->CompleteDuration[Pos].IgnoreFramesAfter-Reference->CompleteDuration[Pos].IgnoreFramesBefore)/Reference->CompleteDuration[0].IgnoreFramesRate*1000000000);
+                        Reference->CompleteDuration[Pos+1].Demux_Offset_Frame=Reference->CompleteDuration[Pos].Demux_Offset_Frame+Reference->CompleteDuration[Pos].IgnoreFramesAfter-Reference->CompleteDuration[Pos].IgnoreFramesBefore;
                     }
-                    else
-                        Duration=Reference->CompleteDuration[Pos].Demux_Offset_DTS+Duration-Reference->CompleteDuration[0].Demux_Offset_DTS;
                 #endif //MEDIAINFO_DEMUX
+            }
+            else
+            {
+                MediaInfo_Internal MI2;
+                MI2.Option(__T("File_KeepInfo"), __T("1"));
+                Ztring ParseSpeed_Save=MI2.Option(__T("ParseSpeed_Get"), __T("0"));
+                Ztring Demux_Save=MI2.Option(__T("Demux_Get"), __T(""));
+                MI2.Option(__T("ParseSpeed"), __T("0"));
+                MI2.Option(__T("Demux"), Ztring());
+                size_t MiOpenResult=MI2.Open(Reference->CompleteDuration[Pos].FileName);
+                MI2.Option(__T("ParseSpeed"), ParseSpeed_Save); //This is a global value, need to reset it. TODO: local value
+                MI2.Option(__T("Demux"), Demux_Save); //This is a global value, need to reset it. TODO: local value
+                if (MiOpenResult)
+                {
+                    #if MEDIAINFO_DEMUX
+                        int64u Duration=MI2.Get(Reference->StreamKind, 0, __T("Duration")).To_int64u()*1000000;
+                        int64u FrameCount=MI2.Get(Reference->StreamKind, 0, __T("FrameCount")).To_int64u();
+                        if (Pos==0)
+                        {
+                            int64u Delay=MI2.Get(Stream_Video, 0, Video_Delay).To_int64u()*1000000;
+                            if (Reference->StreamKind==Stream_Video && Offset_Video_DTS==0)
+                                Offset_Video_DTS=Delay;
+                            Reference->CompleteDuration[0].Demux_Offset_DTS=Offset_Video_DTS;
+                            Reference->CompleteDuration[0].Demux_Offset_Frame=0;
+                        }
+                        if (Pos+1<Reference->CompleteDuration.size())
+                        {
+                            Reference->CompleteDuration[Pos+1].Demux_Offset_DTS=Reference->CompleteDuration[Pos].Demux_Offset_DTS+Duration;
+                            Reference->CompleteDuration[Pos+1].Demux_Offset_Frame=Reference->CompleteDuration[Pos].Demux_Offset_Frame+FrameCount;
+                        }
+                        else
+                            Duration=Reference->CompleteDuration[Pos].Demux_Offset_DTS+Duration-Reference->CompleteDuration[0].Demux_Offset_DTS;
+                    #endif //MEDIAINFO_DEMUX
+                }
             }
 
             if (Pos)
@@ -1434,7 +1452,9 @@ MediaInfo_Internal* File__ReferenceFilesHelper::MI_Create()
         if (Config->Demux_Hevc_Transcode_Iso14496_15_to_AnnexB_Get())
             MI_Temp->Option(__T("File_Demux_Hevc_Transcode_Iso14496_15_to_AnnexB"), __T("1"));
         if (FrameRate)
-            MI_Temp->Option(__T("File_Demux_Rate"), Ztring::ToZtring(FrameRate, 25));
+            MI_Temp->Option(__T("File_Demux_Rate"), Ztring::ToZtring(FrameRate));
+        else if (!Reference->CompleteDuration.empty() && Reference->CompleteDuration[0].IgnoreFramesRate) //TODO: per Pos
+            MI_Temp->Option(__T("File_Demux_Rate"), Ztring::ToZtring(Reference->CompleteDuration[0].IgnoreFramesRate));
         switch (Config->Demux_InitData_Get())
         {
             case 0 : MI_Temp->Option(__T("File_Demux_InitData"), __T("Event")); break;

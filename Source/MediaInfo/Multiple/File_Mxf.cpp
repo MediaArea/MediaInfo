@@ -4006,7 +4006,20 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
     //Config - TODO: merge with the one in Data_Parse()
     if (!Essences_FirstEssence_Parsed)
     {
-        if (Descriptors.size()==1 && Descriptors.begin()->second.StreamKind==Stream_Audio)
+        //Searching single descriptor if it is the only valid descriptor
+        descriptors::iterator SingleDescriptor=Descriptors.end();
+        for (descriptors::iterator SingleDescriptor_Temp=Descriptors.begin(); SingleDescriptor_Temp!=Descriptors.end(); SingleDescriptor_Temp++)
+            if (SingleDescriptor_Temp->second.StreamKind!=Stream_Max)
+            {
+                if (SingleDescriptor!=Descriptors.end())
+                {
+                    SingleDescriptor=Descriptors.end();
+                    break; // 2 or more descriptors, can not be used
+                }
+                SingleDescriptor=SingleDescriptor_Temp;
+            }
+
+        if (SingleDescriptor!=Descriptors.end() && SingleDescriptor->second.StreamKind==Stream_Audio)
         {
             //Configuring bitrate is not available in descriptor
             if (Descriptors.begin()->second.ByteRate==(int32u)-1 && Descriptors.begin()->second.Infos.find("SamplingRate")!=Descriptors.begin()->second.Infos.end())
@@ -4451,18 +4464,31 @@ bool File_Mxf::Header_Begin()
     while (Buffer_End)
     {
         #if MEDIAINFO_DEMUX
-            if (Demux_UnpacketizeContainer && Descriptors.size()==1 && Descriptors.begin()->second.ByteRate!=(int32u)-1 && Descriptors.begin()->second.BlockAlign && Descriptors.begin()->second.BlockAlign!=(int16u)-1  && Descriptors.begin()->second.SampleRate)
+            //Searching single descriptor if it is the only valid descriptor
+            descriptors::iterator SingleDescriptor=Descriptors.end();
+            for (descriptors::iterator SingleDescriptor_Temp=Descriptors.begin(); SingleDescriptor_Temp!=Descriptors.end(); SingleDescriptor_Temp++)
+                if (SingleDescriptor_Temp->second.StreamKind!=Stream_Max)
+                {
+                    if (SingleDescriptor!=Descriptors.end())
+                    {
+                        SingleDescriptor=Descriptors.end();
+                        break; // 2 or more descriptors, can not be used
+                    }
+                    SingleDescriptor=SingleDescriptor_Temp;
+                }
+
+            if (Demux_UnpacketizeContainer && SingleDescriptor!=Descriptors.end() && SingleDescriptor->second.ByteRate!=(int32u)-1 && SingleDescriptor->second.BlockAlign && SingleDescriptor->second.BlockAlign!=(int16u)-1  && SingleDescriptor->second.SampleRate)
             {
-                float64 BytesPerFrame=((float64)Descriptors.begin()->second.ByteRate)/Descriptors.begin()->second.SampleRate;
+                float64 BytesPerFrame=((float64)SingleDescriptor->second.ByteRate)/SingleDescriptor->second.SampleRate;
                 int64u FramesAlreadyParsed=float64_int64s(((float64)(File_Offset+Buffer_Offset-Buffer_Begin))/BytesPerFrame);
-                Element_Size=float64_int64s(Descriptors.begin()->second.ByteRate/Descriptors.begin()->second.SampleRate*(FramesAlreadyParsed+1));
-                Element_Size/=Descriptors.begin()->second.BlockAlign;
-                Element_Size*=Descriptors.begin()->second.BlockAlign;
+                Element_Size=float64_int64s(SingleDescriptor->second.ByteRate/SingleDescriptor->second.SampleRate*(FramesAlreadyParsed+1));
+                Element_Size/=SingleDescriptor->second.BlockAlign;
+                Element_Size*=SingleDescriptor->second.BlockAlign;
                 Element_Size-=File_Offset+Buffer_Offset-Buffer_Begin;
                 if (Config->File_IsGrowing && Element_Size && File_Offset+Buffer_Offset+Element_Size>Buffer_End)
                     return false; //Waiting for more data
                 while (Element_Size && File_Offset+Buffer_Offset+Element_Size>Buffer_End)
-                    Element_Size-=Descriptors.begin()->second.BlockAlign;
+                    Element_Size-=SingleDescriptor->second.BlockAlign;
                 if (Element_Size==0)
                     Element_Size=Buffer_End-(File_Offset+Buffer_Offset);
                 if (Buffer_Offset+Element_Size>Buffer_Size)
@@ -4993,34 +5019,47 @@ void File_Mxf::Data_Parse()
         {
             Streams_Finish_Preface_ForTimeCode(Preface_Current); //Configuring DTS_Delay
 
-            if (Descriptors.size()==1 && Descriptors.begin()->second.StreamKind==Stream_Audio)
+            //Searching single descriptor if it is the only valid descriptor
+            descriptors::iterator SingleDescriptor=Descriptors.end();
+            for (descriptors::iterator SingleDescriptor_Temp=Descriptors.begin(); SingleDescriptor_Temp!=Descriptors.end(); SingleDescriptor_Temp++)
+                if (SingleDescriptor_Temp->second.StreamKind!=Stream_Max)
+                {
+                    if (SingleDescriptor!=Descriptors.end())
+                    {
+                        SingleDescriptor=Descriptors.end();
+                        break; // 2 or more descriptors, can not be used
+                    }
+                    SingleDescriptor=SingleDescriptor_Temp;
+                }
+
+            if (SingleDescriptor!=Descriptors.end() && SingleDescriptor->second.StreamKind==Stream_Audio)
             {
                 //Configuring bitrate is not available in descriptor
-                if (Descriptors.begin()->second.ByteRate==(int32u)-1 && Descriptors.begin()->second.Infos.find("SamplingRate")!=Descriptors.begin()->second.Infos.end())
+                if (SingleDescriptor->second.ByteRate==(int32u)-1 && SingleDescriptor->second.Infos.find("SamplingRate")!=SingleDescriptor->second.Infos.end())
                 {
-                    int32u SamplingRate=Descriptors.begin()->second.Infos["SamplingRate"].To_int32u();
+                    int32u SamplingRate=SingleDescriptor->second.Infos["SamplingRate"].To_int32u();
 
-                    if (Descriptors.begin()->second.BlockAlign!=(int16u)-1)
-                        Descriptors.begin()->second.ByteRate=SamplingRate*Descriptors.begin()->second.BlockAlign;
-                    else if (Descriptors.begin()->second.QuantizationBits!=(int8u)-1)
-                        Descriptors.begin()->second.ByteRate=SamplingRate*Descriptors.begin()->second.QuantizationBits/8;
+                    if (SingleDescriptor->second.BlockAlign!=(int16u)-1)
+                        SingleDescriptor->second.ByteRate=SamplingRate*SingleDescriptor->second.BlockAlign;
+                    else if (SingleDescriptor->second.QuantizationBits!=(int8u)-1)
+                        SingleDescriptor->second.ByteRate=SamplingRate*SingleDescriptor->second.QuantizationBits/8;
                 }
 
                 //Configuring EditRate if needed (e.g. audio at 48000 Hz)
                 if (Demux_Rate) //From elsewhere
                 {
-                    Descriptors.begin()->second.SampleRate=Demux_Rate;
+                    SingleDescriptor->second.SampleRate=Demux_Rate;
                 }
-                else if (Descriptors.begin()->second.SampleRate>1000)
+                else if (SingleDescriptor->second.SampleRate>1000)
                 {
                     float64 EditRate_FromTrack=DBL_MAX;
                     for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); ++Track)
                         if (EditRate_FromTrack>Track->second.EditRate)
                             EditRate_FromTrack=Track->second.EditRate;
                     if (EditRate_FromTrack>1000)
-                        Descriptors.begin()->second.SampleRate=24; //Default value
+                        SingleDescriptor->second.SampleRate=24; //Default value
                     else
-                        Descriptors.begin()->second.SampleRate=EditRate_FromTrack;
+                        SingleDescriptor->second.SampleRate=EditRate_FromTrack;
                     for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); ++Track)
                         if (Track->second.EditRate>EditRate_FromTrack)
                         {
@@ -5069,9 +5108,22 @@ void File_Mxf::Data_Parse()
 
         if (Essence->second.Parsers.empty())
         {
+            //Searching single descriptor if it is the only valid descriptor
+            descriptors::iterator SingleDescriptor=Descriptors.end();
+            for (descriptors::iterator SingleDescriptor_Temp=Descriptors.begin(); SingleDescriptor_Temp!=Descriptors.end(); SingleDescriptor_Temp++)
+                if (SingleDescriptor_Temp->second.StreamKind!=Stream_Max)
+                {
+                    if (SingleDescriptor!=Descriptors.end())
+                    {
+                        SingleDescriptor=Descriptors.end();
+                        break; // 2 or more descriptors, can not be used
+                    }
+                    SingleDescriptor=SingleDescriptor_Temp;
+                }
+
             //Format_Settings_Wrapping
-            if (Descriptors.size()==1 && (Descriptors.begin()->second.Infos.find("Format_Settings_Wrapping")==Descriptors.begin()->second.Infos.end() || Descriptors.begin()->second.Infos["Format_Settings_Wrapping"].empty()) && (Buffer_End?(Buffer_End-Buffer_Begin):Element_Size)>File_Size/2) //Divided by 2 for testing if this is a big chunk = Clip based and not frames.
-                Descriptors.begin()->second.Infos["Format_Settings_Wrapping"]=__T("Clip"); //By default, not sure about it, should be from descriptor
+            if (SingleDescriptor!=Descriptors.end() && (SingleDescriptor->second.Infos.find("Format_Settings_Wrapping")==SingleDescriptor->second.Infos.end() || SingleDescriptor->second.Infos["Format_Settings_Wrapping"].empty()) && (Buffer_End?(Buffer_End-Buffer_Begin):Element_Size)>File_Size/2) //Divided by 2 for testing if this is a big chunk = Clip based and not frames.
+                SingleDescriptor->second.Infos["Format_Settings_Wrapping"]=__T("Clip"); //By default, not sure about it, should be from descriptor
 
             //Searching the corresponding Track (for TrackID)
             if (!Essence->second.TrackID_WasLookedFor)
@@ -5093,7 +5145,7 @@ void File_Mxf::Data_Parse()
 
             //Searching the corresponding Descriptor
             for (descriptors::iterator Descriptor=Descriptors.begin(); Descriptor!=Descriptors.end(); ++Descriptor)
-                if (Descriptors.size()==1 || (Descriptor->second.LinkedTrackID==Essence->second.TrackID && Descriptor->second.LinkedTrackID!=(int32u)-1))
+                if (Descriptor==SingleDescriptor || (Descriptor->second.LinkedTrackID==Essence->second.TrackID && Descriptor->second.LinkedTrackID!=(int32u)-1))
                 {
                     Essence->second.StreamPos_Initial=Essence->second.StreamPos=Code_Compare4&0x000000FF;
                     if ((Code_Compare4&0x000000FF)==0x00000000)
@@ -5140,7 +5192,7 @@ void File_Mxf::Data_Parse()
                     if (Essence->second.Frame_Count_NotParsedIncluded!=(int64u)-1 && Essence->second.Frame_Count_NotParsedIncluded)
                         Essence->second.Frame_Count_NotParsedIncluded--; //Info is from the first essence parsed, and 1 frame is already parsed
                     Essence->second.FrameInfo.DTS=FrameInfo.DTS;
-                    if (Essence->second.FrameInfo.DTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1)
+                    if (Essence->second.FrameInfo.DTS!=(int64u)-1 && FrameInfo.DUR!=(int64u)-1 && Frame_Count_NotParsedIncluded)
                         Essence->second.FrameInfo.DTS-=FrameInfo.DUR; //Info is from the first essence parsed, and 1 frame is already parsed
                     if (!Tracks.empty() && Tracks.begin()->second.EditRate) //TODO: use the corresponding track instead of the first one
                         Essence->second.FrameInfo.DUR=float64_int64s(1000000000/Tracks.begin()->second.EditRate);
@@ -5192,12 +5244,28 @@ void File_Mxf::Data_Parse()
                 Stream_Size=File_Size; //TODO: find a way to remove header/footer correctly
             if (Stream_Size!=(int64u)-1)
             {
-                if (Descriptors.size()==1 && Descriptors.begin()->second.ByteRate!=(int32u)-1)
-                    for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); ++Parser)
-                        (*Parser)->Stream_BitRateFromContainer=Descriptors.begin()->second.ByteRate*8;
-                else if (Descriptors.size()==1 && Descriptors.begin()->second.Infos["Duration"].To_float64())
-                    for (parsers::iterator Parser=Essences.begin()->second.Parsers.begin(); Parser!=Essences.begin()->second.Parsers.end(); ++Parser)
-                        (*Parser)->Stream_BitRateFromContainer=((float64)Stream_Size)*8/(Descriptors.begin()->second.Infos["Duration"].To_float64()/1000);
+                //Searching single descriptor if it is the only valid descriptor
+                descriptors::iterator SingleDescriptor=Descriptors.end();
+                for (descriptors::iterator SingleDescriptor_Temp=Descriptors.begin(); SingleDescriptor_Temp!=Descriptors.end(); SingleDescriptor_Temp++)
+                    if (SingleDescriptor_Temp->second.StreamKind!=Stream_Max)
+                    {
+                        if (SingleDescriptor!=Descriptors.end())
+                        {
+                            SingleDescriptor=Descriptors.end();
+                            break; // 2 or more descriptors, can not be used
+                        }
+                        SingleDescriptor=SingleDescriptor_Temp;
+                    }
+
+                if (SingleDescriptor!=Descriptors.end())
+                {
+                    if (SingleDescriptor->second.ByteRate!=(int32u)-1)
+                        for (parsers::iterator Parser=Essence->second.Parsers.begin(); Parser!=Essence->second.Parsers.end(); ++Parser)
+                            (*Parser)->Stream_BitRateFromContainer=SingleDescriptor->second.ByteRate*8;
+                    else if (SingleDescriptor->second.Infos["Duration"].To_float64())
+                        for (parsers::iterator Parser=Essences.begin()->second.Parsers.begin(); Parser!=Essences.begin()->second.Parsers.end(); ++Parser)
+                            (*Parser)->Stream_BitRateFromContainer=((float64)Stream_Size)*8/(SingleDescriptor->second.Infos["Duration"].To_float64()/1000);
+                }
             }
         }
 
