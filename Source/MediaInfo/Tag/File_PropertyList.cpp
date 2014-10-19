@@ -50,6 +50,9 @@ const char* PropertyList_key(const string &key)
         return "ScreenplayBy";
     if (key=="studio" || key=="studios")
         return "ProductionStudio";
+    if (key=="cast")
+        return "Actor";
+    return key.c_str();
 }
 
 //***************************************************************************
