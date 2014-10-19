@@ -342,6 +342,7 @@ enum general
     General_Original_Lyricist,
     General_Conductor,
     General_Director,
+    General_CoDirector,
     General_AssistantDirector,
     General_DirectorOfPhotography,
     General_SoundEngineer,

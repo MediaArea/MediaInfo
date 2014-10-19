@@ -253,6 +253,7 @@ set(MediaInfoLib_SRCS
   ${MediaInfoLib_SOURCES_PATH}/MediaInfo/Tag/File_Id3v2.cpp
   ${MediaInfoLib_SOURCES_PATH}/MediaInfo/Tag/File_Lyrics3.cpp
   ${MediaInfoLib_SOURCES_PATH}/MediaInfo/Tag/File_Lyrics3v2.cpp
+  ${MediaInfoLib_SOURCES_PATH}/MediaInfo/Tag/File_PropertyList.cpp
   ${MediaInfoLib_SOURCES_PATH}/MediaInfo/Tag/File_VorbisCom.cpp
   ${MediaInfoLib_SOURCES_PATH}/MediaInfo/Tag/File_Xmp.cpp
   ${MediaInfoLib_SOURCES_PATH}/MediaInfo/Text/File_AribStdB24B37.cpp

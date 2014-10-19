@@ -378,6 +378,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseA|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File_PropertyList.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File_Xmp.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_AribStdB24B37.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_DtvccTransport.cpp" />
@@ -677,6 +678,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Swf.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Umf.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Multiple\File_Wm.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Tag\File_PropertyList.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Tag\File_Xmp.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_AribStdB24B37.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_DtvccTransport.h" />

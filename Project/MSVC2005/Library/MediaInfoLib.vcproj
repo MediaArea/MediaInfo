@@ -876,6 +876,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Tag\File_PropertyList.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Tag\File_VorbisCom.cpp"
 					>
 				</File>
@@ -1679,6 +1683,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Tag\File_Lyrics3v2.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Tag\File_PropertyList.h"
 					>
 				</File>
 				<File

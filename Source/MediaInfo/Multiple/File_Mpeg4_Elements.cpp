@@ -82,8 +82,11 @@
 #if defined(MEDIAINFO_CDP_YES)
     #include "MediaInfo/Text/File_Cdp.h"
 #endif
-#if defined(MEDIAINFO_EIA608_YES)
-    #include "MediaInfo/Text/File_Eia608.h"
+#if defined(MEDIAINFO_CDP_YES)
+    #include "MediaInfo/Text/File_Cdp.h"
+#endif
+#if defined(MEDIAINFO_PROPERTYLIST_YES)
+    #include "MediaInfo/Tag/File_PropertyList.h"
 #endif
 #if defined(MEDIAINFO_TIMEDTEXT_YES)
     #include "MediaInfo/Text/File_TimedText.h"
@@ -2504,7 +2507,18 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                 FILLING_BEGIN();
                     std::string Parameter;
                     if (Element_Code_Get(Element_Level-1)==Elements::moov_meta______)
-                        Metadata_Get(Parameter, moov_meta_ilst_xxxx_name_Name);
+                    {
+                        if (moov_meta_ilst_xxxx_name_Name=="iTunMOVI" && Element_Size>8)
+                        {
+                            File_PropertyList MI;
+                            Open_Buffer_Init(&MI);
+                            Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+8, Element_Size-8);
+                            Open_Buffer_Finalize();
+                            Merge(MI, Stream_General, 0, 0);
+                        }
+                        else   
+                            Metadata_Get(Parameter, moov_meta_ilst_xxxx_name_Name);
+                    }
                     else
                         Metadata_Get(Parameter, Element_Code_Get(Element_Level-1));
                     if (Parameter=="Encoded_Application")

@@ -191,6 +191,7 @@ Lyricist;;;Y YT;;;The person who wrote the lyrics for a musical item.;;Entity
 Original/Lyricist;;;Y YT;;;Original lyricist(s)/text writer(s).;;Entity
 Conductor;;;Y YT;;;The artist(s) who performed the work. In classical music this would be the conductor, orchestra, soloists.;;Entity
 Director;;;Y YT;;;Name of the director.;;Entity
+CoDirector;;;Y YT;;;Name of the codirector.;;Entity
 AssistantDirector;;;Y YT;;;Name of the assistant director.;;Entity
 DirectorOfPhotography;;;Y YT;;;The name of the director of photography, also known as cinematographer.;;Entity
 SoundEngineer;;;Y YT;;;The name of the sound engineer or sound recordist.;;Entity

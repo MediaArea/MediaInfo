@@ -244,6 +244,7 @@ Codec_Settings_Sign;Codec settings, Sign
 Codec_Url;Weblink for codec
 CodecID;Codec ID
 CodecID_Description;Description of the codec
+CoDirector;Codirector
 Collection;Collection
 Colorimetry;Colorimetry
 ColorSpace;Color space

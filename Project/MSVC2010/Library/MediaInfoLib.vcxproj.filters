@@ -710,6 +710,9 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Sdp.cpp">
       <Filter>Source Files\Text</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File_PropertyList.cpp">
+      <Filter>Source Files\Tag</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -1332,6 +1335,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Teletext.h">
       <Filter>Header Files\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Tag\File_PropertyList.h">
+      <Filter>Header Files\Tag</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

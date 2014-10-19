@@ -710,6 +710,9 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Text\File_Sdp.cpp">
       <Filter>Source Files\Tag</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File_PropertyList.cpp">
+      <Filter>Source Files\Tag</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -1328,6 +1331,9 @@
       <Filter>ThirdParty\aes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Text\File_Sdp.h">
+      <Filter>Header Files\Tag</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Tag\File_PropertyList.h">
       <Filter>Header Files\Tag</Filter>
     </ClInclude>
   </ItemGroup>
