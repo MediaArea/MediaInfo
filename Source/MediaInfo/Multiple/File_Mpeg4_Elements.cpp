@@ -2513,7 +2513,7 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                             File_PropertyList MI;
                             Open_Buffer_Init(&MI);
                             Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+8, Element_Size-8);
-                            Open_Buffer_Finalize();
+                            Open_Buffer_Finalize(&MI);
                             Merge(MI, Stream_General, 0, 0);
                         }
                         else   
