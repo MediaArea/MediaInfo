@@ -536,6 +536,21 @@ void File_Avc::Streams_Fill(std::vector<seq_parameter_set_struct*>::iterator seq
         string Result=ScanOrder_Detect(ScanOrders);
         if (!Result.empty())
             Fill(Stream_Video, 0, Video_Interlacement, Result, true, true);
+        else
+        {
+            switch ((*seq_parameter_set_Item)->pic_struct_FirstDetected)
+            {
+                case  1 :
+                case  3 :
+                            Fill(Stream_Video, 0, Video_ScanOrder, (string) "TFF");
+                            break;
+                case  2 :
+                case  4 :
+                            Fill(Stream_Video, 0, Video_ScanOrder, (string) "BFF");
+                            break;
+                default : ;
+            }
+        }
     }
     Fill(Stream_Video, 0, Video_Format_Settings_GOP, GOP_Detect(PictureTypes));
 
