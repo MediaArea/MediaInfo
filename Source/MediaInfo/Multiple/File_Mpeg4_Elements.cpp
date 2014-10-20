@@ -770,6 +770,7 @@ namespace Elements
     const int64u moov_trak_tref_ssrc=0x73737263;
     const int64u moov_trak_tref_sync=0x73796E63;
     const int64u moov_trak_tref_tmcd=0x746D6364;
+    const int64u moov_trak_udta=0x75647461;
     const int64u moov_udta=0x75647461;
     const int64u moov_udta_AllF=0x416C6C46;
     const int64u moov_udta_chpl=0x6368706C;
@@ -1109,6 +1110,8 @@ void File_Mpeg4::Data_Parse()
                 ATOM(moov_trak_tref_sync)
                 ATOM(moov_trak_tref_tmcd)
                 ATOM_END
+            LIST(moov_trak_udta)
+                ATOM_DEFAULT_ALONE (moov_trak_udta_xxxx);
             ATOM_END
         LIST(moov_udta)
             ATOM_BEGIN
@@ -6349,9 +6352,23 @@ void File_Mpeg4::moov_trak_tref_tmcd()
 }
 
 //---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_udta()
+{
+    Element_Name("User Data");
+}
+
+//---------------------------------------------------------------------------
+void File_Mpeg4::moov_trak_udta_xxxx()
+{
+    moov_udta_xxxx();
+}
+
+//---------------------------------------------------------------------------
 void File_Mpeg4::moov_udta()
 {
     Element_Name("User Data");
+
+    moov_trak_tkhd_TrackID=(int32u)-1;
 }
 
 //---------------------------------------------------------------------------
@@ -6783,6 +6800,15 @@ void File_Mpeg4::moov_udta_xxxx()
     method Method=Metadata_Get(Parameter, Element_Code);
     Element_Info1(Parameter.c_str());
 
+    if (moov_trak_tkhd_TrackID!=(int32u)-1)
+        switch (Method)
+        {
+            case Method_String:
+            case Method_String2:
+                                Method=Method_String3; break;
+            default: ;
+        }
+
     switch (Method)
     {
         case Method_None :
@@ -6840,8 +6866,15 @@ void File_Mpeg4::moov_udta_xxxx()
                     }
 
                     FILLING_BEGIN();
-                        if (Retrieve(Stream_General, 0, Parameter.c_str()).empty())
-                            Fill(Stream_General, 0, Parameter.c_str(), Value);
+                        if (moov_trak_tkhd_TrackID==(int32u)-1)
+                        {
+                            if (Retrieve(Stream_General, 0, Parameter.c_str()).empty())
+                                Fill(Stream_General, 0, Parameter.c_str(), Value);
+                        }
+                        else
+                        {
+                            Streams[moov_trak_tkhd_TrackID].Infos[Parameter]=Value;
+                        }
                     FILLING_END();
 
                     if (Element_Offset+1==Element_Size)
@@ -6892,15 +6925,25 @@ void File_Mpeg4::moov_udta_xxxx()
                         Get_UTF16(Element_Size-Element_Offset, Value, "Value");
 
                     FILLING_BEGIN();
-                       if (Retrieve(Stream_General, 0, Parameter.c_str()).empty())
-                            Fill(Stream_General, 0, Parameter.c_str(), Value);
+                        if (moov_trak_tkhd_TrackID==(int32u)-1)
+                        {
+                            if (Retrieve(Stream_General, 0, Parameter.c_str()).empty())
+                                Fill(Stream_General, 0, Parameter.c_str(), Value);
+                        }
+                        else
+                        {
+                            Streams[moov_trak_tkhd_TrackID].Infos[Parameter]=Value;
+                        }
                     FILLING_END();
                 }
             }
             break;
         case Method_String3 :
             {
-                NAME_VERSION_FLAG("Text");
+                if (moov_trak_tkhd_TrackID==(int32u)-1)
+                {
+                    NAME_VERSION_FLAG("Text");
+                }
 
                 //Parsing
                 Ztring Value;
@@ -6909,8 +6952,18 @@ void File_Mpeg4::moov_udta_xxxx()
                     Get_UTF8(Element_Size-Element_Offset, Value,"Value");
 
                     FILLING_BEGIN();
-                       if (Retrieve(Stream_General, 0, Parameter.c_str()).empty())
-                            Fill(Stream_General, 0, Parameter.c_str(), Value);
+                        if (moov_trak_tkhd_TrackID==(int32u)-1)
+                        {
+                            if (Retrieve(Stream_General, 0, Parameter.c_str()).empty())
+                                Fill(Stream_General, 0, Parameter.c_str(), Value);
+                        }
+                        else
+                        {
+                            if (Parameter!="Omud" // Some complex data is in Omud, but nothing interessant found
+                             && Parameter!="_SGI" // Found "_SGIxV4" with DM_IMAGE_PIXEL_ASPECT, in RLE, ignoring it for the moment
+                             && Parameter!="hway") // Unknown
+                                Streams[moov_trak_tkhd_TrackID].Infos[Parameter]=Value;
+                        }
                     FILLING_END();
                 }
             }
