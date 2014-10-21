@@ -16,6 +16,7 @@ dnl -------------------------------------------------------------------------
 dnl sets build, host, target variables and the same with _alias
 dnl
 AC_CANONICAL_BUILD
+AC_CANONICAL_HOST
 AM_INIT_AUTOMAKE([foreign -Wall])
 
 dnl -------------------------------------------------------------------------
@@ -247,6 +248,12 @@ esac
 dnl -------------------------------------------------------------------------
 dnl Mac Architecture and SDK
 dnl
+case "$host_os" in
+    darwin* )
+        LDFLAGS="$LDFLAGS -framework CoreFoundation"
+    ;;
+esac
+
 if test "$enable_universal_binary" = "yes"; then
 	enable_arch_ppc=yes
 	enable_arch_i386=yes
