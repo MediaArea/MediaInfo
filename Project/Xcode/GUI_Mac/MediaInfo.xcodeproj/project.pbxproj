@@ -698,7 +698,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_VERSION = 0.7.68;
 				CODE_SIGN_ENTITLEMENTS = MediaInfo.entitlements;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "3rd Party Mac Developer Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -726,7 +725,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_VERSION = 0.7.68;
 				CODE_SIGN_ENTITLEMENTS = MediaInfo.entitlements;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "3rd Party Mac Developer Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
