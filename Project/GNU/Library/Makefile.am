@@ -205,6 +205,19 @@ lib@MediaInfoLib_LibName@_la_SOURCES = \
                        ../../../Source/MediaInfo/Video/File_Y4m.cpp \
                        ../../../Source/MediaInfoDLL/MediaInfoDLL.cpp
 
+@MediaInfoLib_LibName@includedir = $(includedir)/MediaInfo
+@MediaInfoLib_LibName@include_HEADERS = \
+ ../../../Source/MediaInfo/MediaInfo.h \
+ ../../../Source/MediaInfo/MediaInfoList.h \
+ ../../../Source/MediaInfo/MediaInfo_Const.h \
+ ../../../Source/MediaInfo/MediaInfo_Events.h
+
+@MediaInfoLib_LibName@DLLincludedir = $(includedir)/MediaInfoDLL
+@MediaInfoLib_LibName@DLLinclude_HEADERS = \
+ ../../../Source/MediaInfoDLL/MediaInfoDLL.h \
+ ../../../Source/MediaInfoDLL/MediaInfoDLL_Static.h
+
+
 if COMPILE_AES
 lib@MediaInfoLib_LibName@_la_SOURCES += \
                        ../../../Source/ThirdParty/aes-gladman/aes_modes.c \
