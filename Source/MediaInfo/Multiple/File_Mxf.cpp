@@ -13520,6 +13520,9 @@ void File_Mxf::ChooseParser(const essences::iterator &Essence, const descriptors
                                     switch (Code4)
                                     {
                                         case 0x01 : //Uncompressed Sound Coding
+                                                    ChooseParser__FromEssenceContainer (Essence, Descriptor); //e.g. for D-10 Audio
+                                                    if (!Essence->second.Parsers.empty())
+                                                        return;
                                                     switch (Code5)
                                                     {
                                                         case 0x01 :
