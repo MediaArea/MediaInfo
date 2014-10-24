@@ -1245,7 +1245,19 @@ void File__ReferenceFilesHelper::ParseReference_Finalize_PerStream ()
         MI->Fill(StreamKind_Last, StreamPos_To, General_ID_String, ID_String, true);
         MI->Fill(StreamKind_Last, StreamPos_To, "MenuID", MenuID, true);
         MI->Fill(StreamKind_Last, StreamPos_To, "MenuID/String", MenuID_String, true);
-        MI->Fill(StreamKind_Last, StreamPos_To, "Source", Reference->Source, true);
+        if (!MI->Retrieve(StreamKind_Last, StreamPos_To, "Source").empty())
+        {
+            if (MI->Retrieve(StreamKind_Last, StreamPos_To, "Source_Original").empty() && Reference->Source!=MI->Retrieve(StreamKind_Last, StreamPos_To, "Source")) // TODO: better handling
+            {
+                MI->Fill(StreamKind_Last, StreamPos_To, "Source_Original", MI->Retrieve(StreamKind_Last, StreamPos_To, "Source"));
+                MI->Fill(StreamKind_Last, StreamPos_To, "Source_Original_Kind", MI->Retrieve(StreamKind_Last, StreamPos_To, "Source_Kind"));
+                MI->Fill(StreamKind_Last, StreamPos_To, "Source_Original_Info", MI->Retrieve(StreamKind_Last, StreamPos_To, "Source_Info"));
+            }
+            MI->Clear(StreamKind_Last, StreamPos_To, "Source");
+            MI->Clear(StreamKind_Last, StreamPos_To, "Source_Kind");
+            MI->Clear(StreamKind_Last, StreamPos_To, "Source_Info");
+        }
+        MI->Fill(StreamKind_Last, StreamPos_To, "Source", Reference->Source);
     }
     for (std::map<string, Ztring>::iterator Info=Reference->Infos.begin(); Info!=Reference->Infos.end(); ++Info)
         if (MI->Retrieve(StreamKind_Last, StreamPos_To, Info->first.c_str()).empty())
