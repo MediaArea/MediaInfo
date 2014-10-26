@@ -83,6 +83,7 @@ lib@MediaInfoLib_LibName@_la_SOURCES = \
                        ../../../Source/MediaInfo/Export/Export_EbuCore.cpp \
                        ../../../Source/MediaInfo/Export/Export_Mpeg7.cpp \
                        ../../../Source/MediaInfo/Export/Export_PBCore.cpp \
+                       ../../../Source/MediaInfo/Export/Export_PBCore2.cpp \
                        ../../../Source/MediaInfo/Export/Export_reVTMD.cpp \
                        ../../../Source/MediaInfo/Image/File_ArriRaw.cpp \
                        ../../../Source/MediaInfo/Image/File_Bmp.cpp \

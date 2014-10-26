@@ -338,6 +338,10 @@
 				<DependentOn>..\..\..\Source\MediaInfo\Export\Export_PBCore.h</DependentOn>
 				<BuildOrder>127</BuildOrder>
 			</CppCompile>
+			<CppCompile Include="..\..\..\Source\MediaInfo\Export\Export_PBCore2.cpp">
+				<DependentOn>..\..\..\Source\MediaInfo\Export\Export_PBCore2.h</DependentOn>
+				<BuildOrder>128</BuildOrder>
+			</CppCompile>
 			<None Include="..\..\..\Source\MediaInfo\Image\File_ArriRaw.h">
 				<BuildOrder>197</BuildOrder>
 			</None>

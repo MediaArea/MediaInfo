@@ -1,4 +1,4 @@
-﻿Notes:
+Notes:
 ------
 + Added
 - Deleted
@@ -23,6 +23,7 @@ Version 0.7.71, 2014-
 + MOV/MPEG-4: support of track title and few other track related tags
 + AVC: using the first pic_struct as fallback for scan order if other methods fail, thanks to Smit for the idea
 + IMF: better compatibility with packages from different vendors
++ PBCore 2.0 technical metadata output option, thanks to Dave Rice
 x B872, MOV: StreamOrder field was wrong in case of chapter references
 x More coherency between the File interface and the By buffer interface
 x Matroska: wrong dection of video/audio delay in case of B-frames before the first I-frame
