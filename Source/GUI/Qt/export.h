@@ -23,6 +23,7 @@ public:
         HTML=1,
         XML,
         PBCORE,
+        PBCORE2,
         MPEG7,
         CSV,
 

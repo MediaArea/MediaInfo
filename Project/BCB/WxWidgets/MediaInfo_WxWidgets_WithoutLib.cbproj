@@ -728,6 +728,10 @@
 				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\Export\Export_PBCore.h</DependentOn>
 				<BuildOrder>170</BuildOrder>
 			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Export\Export_PBCore2.cpp">
+				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\Export\Export_PBCore2.h</DependentOn>
+				<BuildOrder>171</BuildOrder>
+			</CppCompile>
 			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Video\File_Flic.cpp">
 				<BuildOrder>75</BuildOrder>
 				<BuildOrder>133</BuildOrder>

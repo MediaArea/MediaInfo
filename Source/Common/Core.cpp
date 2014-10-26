@@ -222,6 +222,13 @@ void Core::Menu_View_PBCore ()
 }
 
 //---------------------------------------------------------------------------
+void Core::Menu_View_PBCore2 ()
+{
+    MI->Option(__T("Inform"), __T("PBCore2"));
+    Kind=Kind_PBCore2;
+}
+
+//---------------------------------------------------------------------------
 void Core::Menu_View_reVTMD ()
 {
     MI->Option(__T("Inform"), __T("reVTMD"));

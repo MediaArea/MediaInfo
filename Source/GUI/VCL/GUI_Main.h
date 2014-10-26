@@ -182,6 +182,7 @@ __published:    // IDE-managed Components
     TMenuItem *M_View_XML;
     TMenuItem *M_View_MPEG7;
     TMenuItem *M_View_PBCore;
+    TMenuItem *M_View_PBCore2;
     TMenuItem *M_View_EBUCore_1_5;
     TMenuItem *M_Digimetrics;
     TToolButton *Tool_Digimetrics;
@@ -189,6 +190,7 @@ __published:    // IDE-managed Components
     TMenuItem *ToolBar_View_XML;
     TMenuItem *ToolBar_View_MPEG7;
     TMenuItem *ToolBar_View_PBCore;
+    TMenuItem *ToolBar_View_PBCore2;
     TMenuItem *ToolBar_View_EBUCore_1_5;
     TMenuItem *ToolBar_View_reVTMD;
     void __fastcall FormResize(TObject *Sender);
@@ -246,6 +248,7 @@ __published:    // IDE-managed Components
     void __fastcall M_NewVersionClick(TObject *Sender);
     void __fastcall M_View_MPEG7Click(TObject *Sender);
     void __fastcall M_View_PBCoreClick(TObject *Sender);
+    void __fastcall M_View_PBCore2Click(TObject *Sender);
     void __fastcall M_View_EBUCore_1_5Click(TObject *Sender);
     void __fastcall M_View_XMLClick(TObject *Sender);
     void __fastcall M_DigimetricsClick(TObject *Sender);
