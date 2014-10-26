@@ -215,7 +215,7 @@ void __fastcall TMainF::GUI_Configure()
     else if (Prefs->Config(__T("Output"))==__T("MPEG-7")) {M_View_MPEG7Click(NULL); M_View_MPEG7->Checked=true;}
     else if (Prefs->Config(__T("Output"))==__T("PBCore_1.2")) {M_View_PBCoreClick(NULL); M_View_PBCore->Checked=true;}
     else if (Prefs->Config(__T("Output"))==__T("PBCore_2.0")) {M_View_PBCore2Click(NULL); M_View_PBCore2->Checked=true;}
-    else if (Prefs->Config(__T("Output"))==__T("EBUCore_1.5")) {M_View_PBCoreClick(NULL); M_View_EBUCore_1_5->Checked=true;}
+    else if (Prefs->Config(__T("Output"))==__T("EBUCore_1.5")) {M_View_EBUCore_1_5Click(NULL); M_View_EBUCore_1_5->Checked=true;}
     else if (Prefs->Config(__T("Output"))==__T("reVTMD")) {M_View_reVTMDClick(NULL); M_View_reVTMD->Checked=true;}
     else if (Prefs->Config(__T("Output"))==__T("Custom")) {M_View_CustomClick(NULL); M_View_Custom->Checked=true;}
 
