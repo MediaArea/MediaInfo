@@ -95,6 +95,12 @@ void TExportF::Name_Adapt()
         SaveDialog1->DefaultExt=__T("xml");
         SaveDialog1->Filter=__T("XML File|*.xml");
     }
+    else if (Export->ActivePage==Export_PBCore2)
+    {
+        FN.Extension_Set(__T("xml"));
+        SaveDialog1->DefaultExt=__T("xml");
+        SaveDialog1->Filter=__T("XML File|*.xml");
+    }
     else if (Export->ActivePage==Export_EBUCore_1_5)
     {
         FN.Extension_Set(__T("xml"));
@@ -145,6 +151,8 @@ int TExportF::Run(MediaInfoNameSpace::MediaInfoList &MI, ZenLib::Ztring DefaultF
         Export->ActivePage=Export_MPEG7;
     else if (Info==__T("PBCore_1.2"))
         Export->ActivePage=Export_PBCore;
+    else if (Info==__T("PBCore_2.0"))
+        Export->ActivePage=Export_PBCore2;
     else if (Info==__T("EBUCore_1.5"))
         Export->ActivePage=Export_EBUCore_1_5;
     else if (Info==__T("reVTMD"))
@@ -420,6 +428,22 @@ void TExportF::Export_Run()
         }
         Text=ToExport->Inform().c_str();
     }
+    else if (Export->ActivePage==Export_PBCore2)
+    {
+        ToExport->Option_Static(__T("Inform"), __T("PBCore_2.0"));
+        if (Export_PBCore2_SideCar->Checked)
+        {
+            for (size_t Pos=0; Pos<ToExport->Count_Get(); Pos++)
+            {
+                Text=ToExport->Inform(Pos).c_str();
+                File F;
+                F.Create(Ztring(ToExport->Get(Pos, Stream_General, 0, __T("CompleteName")).c_str())+__T(".PBCore2.xml"));
+                F.Write(Text);
+            }
+            return;
+        }
+        Text=ToExport->Inform().c_str();
+    }
     else if (Export->ActivePage==Export_EBUCore_1_5)
     {
         ToExport->Option_Static(__T("Inform"), __T("EBUCore_1.5"));
@@ -513,6 +537,13 @@ void __fastcall TExportF::ExportChange(TObject *Sender)
         File_Append->Visible=false;
         Name_Choose->Visible=Export_PBCore_SideCar->Checked?false:true;;
     }
+    else if (Export->ActivePage==Export_PBCore2)
+    {
+        Export_PBCore2_SideCarClick(Sender);
+        File_Append->Checked=false;
+        File_Append->Visible=false;
+        Name_Choose->Visible=Export_PBCore2_SideCar->Checked?false:true;;
+    }
     else if (Export->ActivePage==Export_EBUCore_1_5)
     {
         Export_EBUCore_1_5_SideCarClick(Sender);
@@ -594,6 +625,12 @@ void __fastcall TExportF::Export_MPEG7_SideCarClick(TObject *Sender)
 void __fastcall TExportF::Export_PBCore_SideCarClick(TObject *Sender)
 {
     Name_Choose->Visible=Export_PBCore_SideCar->Checked?false:true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TExportF::Export_PBCore2_SideCarClick(TObject *Sender)
+{
+    Name_Choose->Visible=Export_PBCore2_SideCar->Checked?false:true;
 }
 //---------------------------------------------------------------------------
 

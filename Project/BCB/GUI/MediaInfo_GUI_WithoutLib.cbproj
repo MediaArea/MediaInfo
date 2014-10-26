@@ -684,6 +684,10 @@
 				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\Export\Export_PBCore.h</DependentOn>
 				<BuildOrder>164</BuildOrder>
 			</CppCompile>
+			<CppCompile Include="..\..\..\..\MediaInfoLib\Source\MediaInfo\Export\Export_PBCore2.cpp">
+				<DependentOn>..\..\..\..\MediaInfoLib\Source\MediaInfo\Export\Export_PBCore2.h</DependentOn>
+				<BuildOrder>165</BuildOrder>
+			</CppCompile>
 			<CppCompile Include="..\..\..\..\ZenLib\Source\ZenLib\ZtringList.cpp">
 				<BuildOrder>70</BuildOrder>
 				<BuildOrder>135</BuildOrder>

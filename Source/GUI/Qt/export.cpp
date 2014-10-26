@@ -87,6 +87,8 @@ QString Export::extension(int mode) {
         break;
     case PBCORE: return "xml";
         break;
+    case PBCORE2: return "xml";
+        break;
     case MPEG7: return "xml";
         break;
     case CSV: return "csv";
@@ -104,6 +106,8 @@ QString Export::name(int mode) {
     case XML: return Tr("XML");
         break;
     case PBCORE: return Tr("PBCore");
+        break;
+    case PBCORE2: return Tr("PBCore 2");
         break;
     case MPEG7: return Tr("MPEG-7");
         break;
@@ -126,6 +130,7 @@ void Export::on_comboBoxMode_currentIndexChanged(int index)
         break;
     case XML:
     case PBCORE:
+    case PBCORE2:
     case MPEG7:
         ui->comboBoxConfig->setEnabled(false);
         ui->checkBoxAdvanced->setEnabled(false);

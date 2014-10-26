@@ -2173,6 +2173,12 @@ object MainF: TMainF
         RadioItem = True
         OnClick = M_View_PBCoreClick
       end
+      object M_View_PBCore2: TMenuItem
+        AutoCheck = True
+        Caption = 'PBCore 2.0'
+        RadioItem = True
+        OnClick = M_View_PBCore2Click
+      end
       object M_View_EBUCore_1_5: TMenuItem
         AutoCheck = True
         Caption = 'EBUCore 1.5'
@@ -3861,6 +3867,10 @@ object MainF: TMainF
     end
     object ToolBar_View_PBCore: TMenuItem
       Caption = 'PBCore 1.2'
+      RadioItem = True
+    end
+    object ToolBar_View_PBCore2: TMenuItem
+      Caption = 'PBCore 2.0'
       RadioItem = True
     end
     object ToolBar_View_EBUCore_1_5: TMenuItem

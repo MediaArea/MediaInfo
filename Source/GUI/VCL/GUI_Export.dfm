@@ -455,6 +455,22 @@ object ExportF: TExportF
           OnClick = Export_PBCore_SideCarClick
         end
       end
+      object Export_PBCore2: TTabSheet
+        Caption = 'PBCore 2.0'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
+        object Export_PBCore2_SideCar: TCheckBox
+          Left = 0
+          Top = 9
+          Width = 597
+          Height = 18
+          Caption = 'Sidecar file (filename.PBCore2.xml)'
+          TabOrder = 0
+          OnClick = Export_PBCore2_SideCarClick
+        end
+      end
       object Export_EBUCore_1_5: TTabSheet
         Caption = 'EBUCore 1.5'
         ImageIndex = 9

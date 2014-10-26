@@ -25,6 +25,8 @@ QString nameView(ViewMode v) {
        break;
    case VIEW_PBCORE: return Tr("PBCore 1.2");
        break;
+   case VIEW_PBCORE2: return Tr("PBCore 2.0");
+       break;
    case VIEW_CUSTOM: return Tr("Custom");
        break;
    default: return Tr("Unknown view");

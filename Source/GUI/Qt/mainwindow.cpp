@@ -408,6 +408,13 @@ void MainWindow::refreshDisplay() {
                 xis->setContent(wstring2QString(C->Inform_Get()));
                 ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
                 break;
+            case VIEW_PBCORE2:
+                C->Menu_View_PBCore2();
+                viewWidget = new QTextBrowser();
+                xis = new QDomDocument();
+                xis->setContent(wstring2QString(C->Inform_Get()));
+                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                break;
             case VIEW_MPEG7:
                 C->Menu_View_MPEG7();
                 viewWidget = new QTextBrowser();
@@ -801,6 +808,10 @@ void MainWindow::on_actionExport_triggered()
             break;
         case Export::PBCORE:
             C->Menu_View_PBCore();
+            file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
+            break;
+        case Export::PBCORE2:
+            C->Menu_View_PBCore2();
             file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
             break;
         case Export::MPEG7:

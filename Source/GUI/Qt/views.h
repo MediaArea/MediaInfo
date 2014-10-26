@@ -18,6 +18,7 @@ typedef enum {
     VIEW_XML,
     VIEW_MPEG7,
     VIEW_PBCORE,
+    VIEW_PBCORE2,
     VIEW_CUSTOM,
     NB_VIEW
 } ViewMode;
