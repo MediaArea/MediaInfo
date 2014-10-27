@@ -713,6 +713,9 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Tag\File_PropertyList.cpp">
       <Filter>Source Files\Tag</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\MediaInfo\Export\Export_PBCore2.cpp">
+      <Filter>Source Files\Export</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h">
@@ -1338,6 +1341,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\MediaInfo\Tag\File_PropertyList.h">
       <Filter>Header Files\Tag</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\MediaInfo\Export\Export_PBCore2.h">
+      <Filter>Header Files\Export</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

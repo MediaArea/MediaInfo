@@ -41,7 +41,7 @@ extern MediaInfo_Config Config;
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-Ztring PBCore_MediaType(MediaInfo_Internal &MI)
+Ztring PBCore2_MediaType(MediaInfo_Internal &MI)
 {
     if (MI.Count_Get(Stream_Video))
         return __T("Moving Image");
@@ -436,10 +436,10 @@ Ztring Export_PBCore2::Transform(MediaInfo_Internal &MI)
     ToReturn+=__T("</instantiationLocation>\n");
 
     //formatMediaType
-    if (!PBCore_MediaType(MI).empty())
+    if (!PBCore2_MediaType(MI).empty())
     {
         ToReturn+=__T("\t<instantiationMediaType>");
-        ToReturn+=PBCore_MediaType(MI);
+        ToReturn+=PBCore2_MediaType(MI);
         ToReturn+=__T("</instantiationMediaType>\n");
     }
 

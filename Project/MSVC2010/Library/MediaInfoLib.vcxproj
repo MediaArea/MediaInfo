@@ -282,6 +282,7 @@
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_SmpteSt0331.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Audio\File_SmpteSt0337.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Export\Export_EbuCore.cpp" />
+    <ClCompile Include="..\..\..\Source\MediaInfo\Export\Export_PBCore2.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\Export\Export_reVTMD.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\File__Analyze.cpp" />
     <ClCompile Include="..\..\..\Source\MediaInfo\File__Analyze_Buffer.cpp" />
@@ -558,6 +559,7 @@
     <ClInclude Include="..\..\..\Source\MediaInfo\Audio\File_SmpteSt0331.h" />
     <ClInclude Include="..\..\..\source\mediainfo\audio\File_SmpteSt0337.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Export\Export_EbuCore.h" />
+    <ClInclude Include="..\..\..\Source\MediaInfo\Export\Export_PBCore2.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\Export\Export_reVTMD.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyse_Automatic.h" />
     <ClInclude Include="..\..\..\Source\MediaInfo\File__Analyze.h" />

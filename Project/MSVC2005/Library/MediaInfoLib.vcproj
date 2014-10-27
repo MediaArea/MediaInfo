@@ -936,6 +936,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\MediaInfo\Export\Export_PBCore2.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\MediaInfo\Export\Export_reVTMD.cpp"
 					>
 				</File>
@@ -1743,6 +1747,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\MediaInfo\Export\Export_PBCore.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\MediaInfo\Export\Export_PBCore2.h"
 					>
 				</File>
 				<File
