@@ -127,7 +127,7 @@ protected :
     void TerminatingFiller();
     void XmlDocumentText();
     void SubDescriptors();
-    void DMSegment_Filler();
+    void Filler_53();
     void Sequence();
     void SourceClip();
     void TimecodeComponent();
@@ -144,7 +144,7 @@ protected :
     void SourcePackage();
     void EventTrack();
     void StaticTrack();
-    void Track();
+    void TimelineTrack();
     void DMSegment();
     void GenericSoundEssenceDescriptor();
     void GenericDataEssenceDescriptor();
@@ -160,6 +160,8 @@ protected :
     void ApplicationPlugInObject();
     void ApplicationReferencedObject();
     void MCALabelSubDescriptor();
+    void TimedTextDescriptor();
+    void TimedTextResourceSubDescriptor();
     void AudioChannelLabelSubDescriptor();
     void SoundfieldGroupLabelSubDescriptor();
     void GroupOfSoundfieldGroupsLabelSubDescriptor();
