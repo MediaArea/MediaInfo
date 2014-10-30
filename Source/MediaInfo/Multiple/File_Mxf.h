@@ -160,8 +160,6 @@ protected :
     void ApplicationPlugInObject();
     void ApplicationReferencedObject();
     void MCALabelSubDescriptor();
-    void TimedTextDescriptor();
-    void TimedTextResourceSubDescriptor();
     void AudioChannelLabelSubDescriptor();
     void SoundfieldGroupLabelSubDescriptor();
     void GroupOfSoundfieldGroupsLabelSubDescriptor();
