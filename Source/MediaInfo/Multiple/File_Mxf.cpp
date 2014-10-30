@@ -6798,26 +6798,6 @@ void File_Mxf::MCALabelSubDescriptor()
 }
 
 //---------------------------------------------------------------------------
-void File_Mxf::TimedTextDescriptor()
-{
-    //switch(Code2)
-    //{
-    //    default:
-                GenericDataEssenceDescriptor();
-    //}
-}
-
-//---------------------------------------------------------------------------
-void File_Mxf::TimedTextResourceSubDescriptor()
-{
-    //switch(Code2)
-    //{
-    //    default:
-                GenerationInterchangeObject();
-    //}
-}
-
-//---------------------------------------------------------------------------
 void File_Mxf::AudioChannelLabelSubDescriptor()
 {
     if (Descriptors[InstanceUID].Type==descriptor::Type_Unknown)
