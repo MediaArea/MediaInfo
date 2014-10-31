@@ -64,6 +64,9 @@
 #if defined(MEDIAINFO_JPEG_YES)
     #include "MediaInfo/Image/File_Jpeg.h"
 #endif
+#if defined(MEDIAINFO_TTML_YES)
+    #include "MediaInfo/Text/File_Ttml.h"
+#endif
 #include "MediaInfo/TimeCode.h"
 #include "MediaInfo/File_Unknown.h"
 #include "ZenLib/File.h"
@@ -113,8 +116,12 @@ namespace Elements
 {
     //                       01 - Identifiers and locators
     //                         01 - Globally Unique Identifiers
+    //                           15 - Object Identifiers
+    UUID(060E2B34, 0101010C, 01011512, 00000000, 0000, "SMPTE ST 429-5", ResourceID, "Resource ID")
 
     //                         02 - Globally Unique Locators
+    //                           01 - Uniform Resource Locators
+    UUID(060E2B34, 0101010C, 01020105, 01000000, 0000, "SMPTE ST 429-5", NamespaceURI, "Namespace URI")
 
     //                         03 - Locally Unique Identifiers
     //                           04 - ?
@@ -211,6 +218,9 @@ namespace Elements
     UUID(060E2B34, 0101010A, 04010603, 0C000000, 0000, "", JPEG2000PictureSubDescriptor_CodingStyleDefault, "")
     UUID(060E2B34, 0101010A, 04010603, 0D000000, 0000, "", JPEG2000PictureSubDescriptor_QuantizationDefault, "")
 
+    //                         09 - Format Characteristics
+    UUID(060E2B34, 0101010C, 04090500, 00000000, 0000, "SMPTE ST 429-5", UCSEncoding, "UCS Encoding")
+
     //                       06 - Relational
     //                         01 - Essence and Metadata Relationships
     //                           04 - Essence to Essence Relationships
@@ -264,6 +274,8 @@ namespace Elements
     UUID(060E2B34, 02530101, 0D010101, 01016100, 0000, "SMPTE ST 377-1", ApplicationPlugInObject, "")
     UUID(060E2B34, 02530101, 0D010101, 01016200, 0000, "SMPTE ST 377-1", ApplicationReferencedObject, "")
     UUID(060E2B34, 0253010C, 0D010101, 01016300, 0000, "SMPTE ST 429-10", StereoscopicPictureSubDescriptor, "")
+    UUID(060E2B34, 02530101, 0D010101, 01016400, 0000, "SMPTE ST 429-5", TimedTextDescriptor, "")
+    UUID(060E2B34, 02530101, 0D010101, 01016500, 0000, "SMPTE ST 429-5", TimedTextResourceSubDescriptor, "")
     UUID(060E2B34, 02530101, 0D010101, 01016600, 0000, "SMPTE ST 377-1", ApplicationObject, "Application Object")
     UUID(060E2B34, 02530101, 0D010101, 01016A00, 0000, "SMPTE ST 377-4", MCALabelSubDescriptor, "")
     UUID(060E2B34, 02530101, 0D010101, 01016B00, 0000, "SMPTE ST 377-4", AudioChannelLabelSubDescriptor, "")
@@ -571,6 +583,7 @@ const char* Mxf_EssenceElement(const int128u EssenceElement)
                     {
                         case 0x01 : return "VBI"; //Frame-Wrapped VBI Data Element
                         case 0x02 : return "ANC"; //Frame-Wrapped ANC Data Element
+                        case 0x0B : return "Timed Text"; //Clip-Wrapped Timed Text Data Element, SMPTE ST 429-5
                         default   : return "Unknown stream";
                     }
         case 0x18 : //GC Compound
@@ -624,6 +637,7 @@ const char* Mxf_EssenceContainer(const int128u EssenceContainer)
                                                                                         case 0x0C : return "JPEG 2000";
                                                                                         case 0x10 : return "AVC";
                                                                                         case 0x11 : return "VC-3";
+                                                                                        case 0x13 : return "Timed Text";
                                                                                         default   : return "";
                                                                                     }
                                                                         default   : return "";
@@ -765,6 +779,8 @@ const char* Mxf_EssenceContainer_Mapping(int8u Code6, int8u Code7, int8u Code8)
                         case 0x02 : return "Clip";
                         default   : return "";
                     }
+        case 0x13 : //Timed Text
+                    return "Clip";
         default   : return "";
     }
 }
@@ -4998,6 +5014,8 @@ void File_Mxf::Data_Parse()
     ELEMENT(ApplicationPlugInObject,                            "Application Plug-In Object")
     ELEMENT(ApplicationReferencedObject,                        "Application Referenced Object")
     ELEMENT(MCALabelSubDescriptor,                              "MCA Label Sub-Descriptor")
+    ELEMENT(TimedTextDescriptor,                                "Timed Text Descriptor")
+    ELEMENT(TimedTextResourceSubDescriptor,                     "Timed Text Resource Sub-Descriptor")
     ELEMENT(AudioChannelLabelSubDescriptor,                     "Audio Channel Label Sub-Descriptor")
     ELEMENT(SoundfieldGroupLabelSubDescriptor,                  "Soundfield Group Label Sub-Descriptor")
     ELEMENT(GroupOfSoundfieldGroupsLabelSubDescriptor,          "Group Of Soundfield Groups Label Sub-Descriptor")
@@ -5181,6 +5199,41 @@ void File_Mxf::Data_Parse()
                                 Essence->second.TrackID=Track->second.TrackID;
                     }
                 #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
+                
+                // Fallback in case TrackID is not detected, forcing TrackID and TrackNumber
+                if (Essence->second.TrackID==(int32u)-1 && SingleDescriptor!=Descriptors.end())
+                {
+                    Essence->second.TrackID=SingleDescriptor->second.LinkedTrackID;
+
+                    prefaces::iterator Preface=Prefaces.find(Preface_Current);
+                    if (Preface!=Prefaces.end())
+                    {
+                        contentstorages::iterator ContentStorage=ContentStorages.find(Preface->second.ContentStorage);
+                        if (ContentStorage!=ContentStorages.end())
+                        {
+                            for (size_t Pos=0; Pos<ContentStorage->second.Packages.size(); Pos++)
+                            {
+                                packages::iterator Package=Packages.find(ContentStorage->second.Packages[Pos]);
+                                if (Package!=Packages.end() && Package->second.IsSourcePackage)
+                                {
+                                    for (size_t Pos=0; Pos<Package->second.Tracks.size(); Pos++)
+                                    {
+                                        tracks::iterator Track=Tracks.find(Package->second.Tracks[Pos]);
+                                        if (Track!=Tracks.end())
+                                        {
+                                            if (Track->second.TrackNumber==0 && Track->second.TrackID==Essence->second.TrackID)
+                                            {
+                                                Track->second.TrackNumber=Essence->first;
+                                                Essence->second.Track_Number_IsMappedToTrack=true;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
                 Essence->second.TrackID_WasLookedFor=true;
             }
 
@@ -6795,6 +6848,79 @@ void File_Mxf::MCALabelSubDescriptor()
     //    default:
                 GenerationInterchangeObject();
     //}
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::TimedTextDescriptor()
+{
+    if (Code2>=0x8000)
+    {
+        // Not a short code
+        std::map<int16u, int128u>::iterator Primer_Value=Primer_Values.find(Code2);
+        if (Primer_Value!=Primer_Values.end())
+        {
+            int32u Code_Compare1=Primer_Value->second.hi>>32;
+            int32u Code_Compare2=(int32u)Primer_Value->second.hi;
+            int32u Code_Compare3=Primer_Value->second.lo>>32;
+            int32u Code_Compare4=(int32u)Primer_Value->second.lo;
+            if(0);
+            ELEMENT_UUID(ResourceID,                            "Resource ID")
+            ELEMENT_UUID(NamespaceURI,                          "Namespace URI")
+            ELEMENT_UUID(UCSEncoding,                           "UCS Encoding")
+            else
+            {
+                Element_Info1(Ztring().From_UUID(Primer_Value->second));
+                Skip_XX(Length2,                                "Data");
+            }
+
+            return;
+        }
+    }
+
+    //switch(Code2)
+    //{
+    //    default:
+                GenericDataEssenceDescriptor();
+    //}
+
+    if (Descriptors[InstanceUID].StreamKind==Stream_Max)
+    {
+        Descriptors[InstanceUID].StreamKind=Stream_Text;
+        if (Streams_Count==(size_t)-1)
+            Streams_Count=0;
+        Streams_Count++;
+    }
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::TimedTextResourceSubDescriptor()
+{
+    //switch(Code2)
+    //{
+    //    default:
+                GenerationInterchangeObject();
+    //}
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::ResourceID()
+{
+    //Parsing
+    Info_UUID(Data,                                             "UUID"); Element_Info1(Ztring().From_UUID(Data));
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::NamespaceURI()
+{
+    //Parsing
+    Info_UTF16B (Length2, Value,                                "Value"); Element_Info1(Value);
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::UCSEncoding()
+{
+    //Parsing
+    Info_UTF16B (Length2, Value,                                "Value"); Element_Info1(Value);
 }
 
 //---------------------------------------------------------------------------
@@ -8450,7 +8576,8 @@ void File_Mxf::GenericTrack_TrackNumber()
     Get_B4 (Data,                                                "Data"); Element_Info1(Ztring::ToZtring(Data, 16));
 
     FILLING_BEGIN();
-        Tracks[InstanceUID].TrackNumber=Data;
+        if (Tracks[InstanceUID].TrackNumber==(int32u)-1 || Data) // In some cases, TrackNumber is 0 for all track and we have replaced with the right value during the parsing
+            Tracks[InstanceUID].TrackNumber=Data;
         Track_Number_IsAvailable=true;
     FILLING_END();
 }
@@ -12984,6 +13111,13 @@ void File_Mxf::Info_UL_040101_Values()
                                                     Skip_B1(            "Reserved");
                                                     }
                                                     break;
+                                                case 0x13 :
+                                                    {
+                                                    Param_Info1("Timed Text");
+                                                    Skip_B1(            "Reserved");
+                                                    Skip_B1(            "Reserved");
+                                                    }
+                                                    break;
                                                 case 0x16 :
                                                     {
                                                     Param_Info1("AVC Picture Element");
@@ -13685,6 +13819,7 @@ void File_Mxf::ChooseParser__FromEssenceContainer(const essences::iterator &Esse
                                                                                         case 0x0C : return ChooseParser_Jpeg2000(Essence, Descriptor);
                                                                                         case 0x10 : return ChooseParser_Avc(Essence, Descriptor);
                                                                                         case 0x11 : return ChooseParser_Vc3(Essence, Descriptor);
+                                                                                        case 0x13 : return ChooseParser_TimedText(Essence, Descriptor);
                                                                                         default   : return;
                                                                                     }
                                                                         default   : return;
@@ -13973,6 +14108,9 @@ void File_Mxf::ChooseParser__Aaf_GC_Data(const essences::iterator &Essence, cons
         case 0x09 : //Line Wrapped VANC Data Element, SMPTE 384M
         case 0x0A : //Line Wrapped HANC Data Element, SMPTE 384M
                     break;
+        case 0x0B : //Timed Text
+                    ChooseParser_TimedText(Essence, Descriptor);
+                    break;
         default   : //Unknown
                     ;
     }
@@ -14164,6 +14302,24 @@ void File_Mxf::ChooseParser_Vc3(const essences::iterator &Essence, const descrip
         Open_Buffer_Init(Parser);
         Parser->Stream_Prepare(Stream_Video);
         Parser->Fill(Stream_Video, 0, Video_Format, "VC-3");
+    #endif
+    Essence->second.Parsers.push_back(Parser);
+}
+
+//---------------------------------------------------------------------------
+void File_Mxf::ChooseParser_TimedText(const essences::iterator &Essence, const descriptors::iterator &Descriptor)
+{
+    Essence->second.StreamKind=Stream_Text;
+
+    //Filling
+    #if defined(MEDIAINFO_TTML_YES)
+        File_Ttml* Parser=new File_Ttml;
+    #else
+        //Filling
+        File__Analyze* Parser=new File_Unknown();
+        Open_Buffer_Init(Parser);
+        Parser->Stream_Prepare(Stream_Text);
+        Parser->Fill(Stream_Text, 0, Text_Format, "Timed Text");
     #endif
     Essence->second.Parsers.push_back(Parser);
 }

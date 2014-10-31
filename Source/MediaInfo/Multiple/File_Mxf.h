@@ -121,6 +121,9 @@ protected :
     void MCAEpisode();
     void MCAAudioContentKind();
     void MCAAudioElementKind();
+    void ResourceID();
+    void NamespaceURI();
+    void UCSEncoding();
     void Filler();
     void Filler01() {Filler();}
     void Filler02() {Filler();}
@@ -160,6 +163,8 @@ protected :
     void ApplicationPlugInObject();
     void ApplicationReferencedObject();
     void MCALabelSubDescriptor();
+    void TimedTextDescriptor();
+    void TimedTextResourceSubDescriptor();
     void AudioChannelLabelSubDescriptor();
     void SoundfieldGroupLabelSubDescriptor();
     void GroupOfSoundfieldGroupsLabelSubDescriptor();
@@ -990,6 +995,7 @@ protected :
     void           ChooseParser_Raw(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
     void           ChooseParser_RV24(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
     void           ChooseParser_Vc3(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
+    void           ChooseParser_TimedText(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
     void           ChooseParser_Aac(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
     void           ChooseParser_Ac3(const essences::iterator &Essence, const descriptors::iterator &Descriptor);
     void           ChooseParser_Alaw(const essences::iterator &Essence, const descriptors::iterator &Descriptor);

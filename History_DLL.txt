@@ -1,4 +1,4 @@
-Notes:
+﻿Notes:
 ------
 + Added
 - Deleted
@@ -11,6 +11,7 @@ https://sourceforge.net/p/mediainfo/_list/tickets
 Version 0.7.71, 2014-
 --------------
 + AS-11 (Core, Segmentation, UK DPP items) display
++ MXF: support of TTML (SMPTE ST 2052) detection
 + MXF: option --File_Mxf_TimeCodeFromMaterialPackage for using the time code track from Material package instead of Source package (CLI/DLL only)
 + Duration in HH:MM:SS:FF format (hidden by default)
 + AVC: detection of Intra profiles
