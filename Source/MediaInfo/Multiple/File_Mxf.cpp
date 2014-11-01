@@ -5512,7 +5512,6 @@ void File_Mxf::Data_Parse()
 
             if (Essence->second.Parsers.size()==1 && Essence->second.Parsers[0]->Status[IsAccepted] && Essence->second.Frame_Count_NotParsedIncluded==(int64u)-1)
             {
-                Essence->second.Frame_Count_NotParsedIncluded=Essence->second.Parsers[0]->Frame_Count_NotParsedIncluded;
                 Essence->second.FrameInfo.DTS=Essence->second.Parsers[0]->FrameInfo.DTS;
                 Essence->second.FrameInfo.PTS=Essence->second.Parsers[0]->FrameInfo.PTS;
                 Essence->second.FrameInfo.DUR=Essence->second.Parsers[0]->FrameInfo.DUR;
