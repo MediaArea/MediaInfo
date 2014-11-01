@@ -79,6 +79,9 @@
 #if defined(MEDIAINFO_PCM_YES)
     #include "MediaInfo/Audio/File_Pcm.h"
 #endif
+#if defined(MEDIAINFO_SMPTEST0337_YES)
+    #include "MediaInfo/Audio/File_SmpteSt0337.h"
+#endif
 #if defined(MEDIAINFO_CDP_YES)
     #include "MediaInfo/Text/File_Cdp.h"
 #endif
@@ -2515,7 +2518,7 @@ void File_Mpeg4::moov_meta_ilst_xxxx_data()
                         {
                             File_PropertyList MI;
                             Open_Buffer_Init(&MI);
-                            Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+8, Element_Size-8);
+                            Open_Buffer_Continue(&MI, Buffer+Buffer_Offset+8, (size_t)(Element_Size-8));
                             Open_Buffer_Finalize(&MI);
                             Merge(MI, Stream_General, 0, 0);
                         }
@@ -4243,6 +4246,25 @@ void File_Mpeg4::moov_trak_mdia_minf_stbl_stsd_xxxxSound()
 
                 Streams[moov_trak_tkhd_TrackID].Parsers.push_back(Parser);
             }
+
+            //Specific cases
+            #if defined(MEDIAINFO_SMPTEST0337_YES)
+            if (Channels==2 && SampleSize<=32 && SampleRate==48000) //Some SMPTE ST 337 streams are hidden in PCM stream
+            {
+                File_SmpteSt0337* Parser=new File_SmpteSt0337;
+                Parser->Container_Bits=(int8u)SampleSize;
+                Parser->Endianness=(Flags&0x02)?'B':'L';
+                Parser->ShouldContinueParsing=true;
+                #if MEDIAINFO_DEMUX
+                    if (Config->Demux_Unpacketize_Get())
+                    {
+                        Parser->Demux_Level=2; //Container
+                        Parser->Demux_UnpacketizeContainer=true;
+                    }
+                #endif //MEDIAINFO_DEMUX
+                Streams[moov_trak_tkhd_TrackID].Parsers.push_back(Parser);
+            }
+            #endif
 
             //PCM parser
             File_Pcm* Parser=new File_Pcm;

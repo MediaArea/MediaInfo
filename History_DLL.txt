@@ -22,6 +22,7 @@ Version 0.7.71, 2014-
 + OP-47/SDP/Teletext: detection of magazine numbers
 + MOV/MPEG-4: basic support of iTunMOVI tag
 + MOV/MPEG-4: support of track title and few other track related tags
++ MOV/MPEG-4: detection of Dolby E in a stereo track
 + AVC: using the first pic_struct as fallback for scan order if other methods fail, thanks to Smit for the idea
 + IMF: better compatibility with packages from different vendors
 + PBCore 2.0 technical metadata output option, thanks to Dave Rice
