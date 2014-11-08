@@ -647,6 +647,10 @@ object MainF: TMainF
     object Page_HTML: TTabSheet
       Caption = 'HTML'
       ImageIndex = 6
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Page_HTML_HTML: TCppWebBrowser
         Left = 4
         Top = 0
@@ -666,6 +670,10 @@ object MainF: TMainF
       ImageIndex = 4
       ParentShowHint = False
       ShowHint = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Page_Custom_Text: TMemo
         Left = 2
         Top = 2
@@ -702,6 +710,10 @@ object MainF: TMainF
     object Page_System: TTabSheet
       Caption = 'Your system'
       ImageIndex = 3
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Page_System_Buttons: TGroupBox
         Left = 9
         Top = 0
@@ -866,7 +878,6 @@ object MainF: TMainF
     Margins.Top = 0
     Margins.Right = 0
     Margins.Bottom = 0
-    DoubleBuffered = True
     Glyph.Data = {
       8E0D0000424D8E0D00000000000036040000280000005C0000001A0000000100
       08000000000058090000C40E0000C40E00000001000000010000DBF1FF00F8FD
@@ -978,7 +989,6 @@ object MainF: TMainF
       C2C2C2C2C2C2C2C2C2C2C2C2C2C2C2C2C2C2C2C2C2C2C2C2C2C2C2C2C2C2C2C2
       C2C2C2C2C2C2C2C2C20F0F0F0F0F0F0F0F0F}
     Layout = blGlyphBottom
-    ParentDoubleBuffered = False
     Spacing = 0
     TabOrder = 2
     TabStop = False
@@ -993,7 +1003,6 @@ object MainF: TMainF
     Margins.Top = 0
     Margins.Right = 0
     Margins.Bottom = 0
-    DoubleBuffered = True
     Glyph.Data = {
       CE0E0000424DCE0E00000000000036020000280000007C0000001A0000000100
       080000000000980C0000C40E0000C40E0000800000008000000073543000DCF2
@@ -1115,7 +1124,6 @@ object MainF: TMainF
       7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E
       7E7E7E7E7E7E7E7E7E7E7F7F7F7F7F7F7F7F}
     Layout = blGlyphBottom
-    ParentDoubleBuffered = False
     Spacing = 0
     TabOrder = 3
     TabStop = False
@@ -1144,7 +1152,6 @@ object MainF: TMainF
     Margins.Top = 0
     Margins.Right = 0
     Margins.Bottom = 0
-    DoubleBuffered = True
     Glyph.Data = {
       5E0C0000424D5E0C0000000000003602000028000000620000001A0000000100
       080000000000280A0000C40E0000C40E000080000000800000008C958E004288
@@ -1247,7 +1254,6 @@ object MainF: TMainF
       7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7F7F7F7F7F7F7F7F
       0000}
     Layout = blGlyphBottom
-    ParentDoubleBuffered = False
     Spacing = 0
     TabOrder = 5
     TabStop = False
@@ -1262,7 +1268,6 @@ object MainF: TMainF
     Margins.Top = 0
     Margins.Right = 0
     Margins.Bottom = 0
-    DoubleBuffered = True
     Glyph.Data = {
       8E0D0000424D8E0D00000000000036040000280000005C0000001A0000000100
       08000000000058090000C40E0000C40E00000001000000010000F8FDFF004FBA
@@ -1374,7 +1379,6 @@ object MainF: TMainF
       0101010101010101010101010101010101010101010101010101010101010101
       010101010101930D1DC011C3C3C3C3C3C3C3}
     Layout = blGlyphBottom
-    ParentDoubleBuffered = False
     Spacing = 0
     TabOrder = 6
     TabStop = False
@@ -1389,7 +1393,6 @@ object MainF: TMainF
     Margins.Top = 0
     Margins.Right = 0
     Margins.Bottom = 0
-    DoubleBuffered = True
     Glyph.Data = {
       960D0000424D960D00000000000036020000280000006E0000001A0000000100
       080000000000600B0000C40E0000C40E00008000000080000000C3E8FF0041B4
@@ -1501,7 +1504,6 @@ object MainF: TMainF
       3434343434343434343434343434343434343434343434343434343434343434
       343434343434343434343434393F4D7C437F7F7F7F7F7F7F0000}
     Layout = blGlyphBottom
-    ParentDoubleBuffered = False
     Spacing = 0
     TabOrder = 7
     TabStop = False
@@ -1516,7 +1518,6 @@ object MainF: TMainF
     Margins.Top = 0
     Margins.Right = 0
     Margins.Bottom = 0
-    DoubleBuffered = True
     Glyph.Data = {
       8E0D0000424D8E0D00000000000036040000280000005C0000001A0000000100
       08000000000058090000C40E0000C40E000000010000000100004FBAFF00F8FD
@@ -1628,7 +1629,6 @@ object MainF: TMainF
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000004D0D1FBF12C2C2C2C2C2C2C2}
     Layout = blGlyphBottom
-    ParentDoubleBuffered = False
     Spacing = 0
     TabOrder = 8
     TabStop = False
@@ -1643,7 +1643,6 @@ object MainF: TMainF
     Margins.Top = 0
     Margins.Right = 0
     Margins.Bottom = 0
-    DoubleBuffered = True
     Glyph.Data = {
       AE130000424DAE130000000000003602000028000000A90000001A0000000100
       08000000000078110000C40E0000C40E000080000000800000008AD4FE00765E
@@ -1804,7 +1803,6 @@ object MainF: TMainF
       7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E7E
       7E7E7E7E7E7E7F487F7F7F7F7F7F7F000000}
     Layout = blGlyphBottom
-    ParentDoubleBuffered = False
     Spacing = 0
     TabOrder = 9
     TabStop = False
@@ -1819,7 +1817,6 @@ object MainF: TMainF
     Margins.Top = 0
     Margins.Right = 0
     Margins.Bottom = 0
-    DoubleBuffered = True
     Glyph.Data = {
       8E0D0000424D8E0D00000000000036040000280000005C0000001A0000000100
       08000000000058090000C40E0000C40E00000001000000010000DBF1FF00F8FD
@@ -1931,7 +1928,6 @@ object MainF: TMainF
       5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F
       5F5F5F5F5F5F04A556B70F0F0F0F0F0F0F0F}
     Layout = blGlyphBottom
-    ParentDoubleBuffered = False
     Spacing = 0
     TabOrder = 10
     TabStop = False
@@ -1946,7 +1942,6 @@ object MainF: TMainF
     Margins.Top = 0
     Margins.Right = 0
     Margins.Bottom = 0
-    DoubleBuffered = True
     Glyph.Data = {
       8E0D0000424D8E0D00000000000036040000280000005C0000001A0000000100
       08000000000058090000C40E0000C40E00000001000000010000663300006C3E
@@ -2058,7 +2053,6 @@ object MainF: TMainF
       BDBDBDBDBDBDBDBDBDBDBDBDBDBDBDBDBDBDBDBDBDBDBDBDBDBDBDBDBDBDBDBD
       BDBDBDBDBDBDAFA8A8CDCDCDCDCDCDCDCDCD}
     Layout = blGlyphBottom
-    ParentDoubleBuffered = False
     Spacing = 0
     TabOrder = 11
     TabStop = False
@@ -2351,7 +2345,7 @@ object MainF: TMainF
     Left = 744
     Top = 136
     Bitmap = {
-      494C01010A000E00FC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010A000E00000110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2760,7 +2754,7 @@ object MainF: TMainF
     Left = 744
     Top = 160
     Bitmap = {
-      494C010107000900740120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900780120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       000000000000000000000000000000000000F0F0F0FFF0F0F0FFF0F0F0FFF0F0
       F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0

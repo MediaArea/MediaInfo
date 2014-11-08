@@ -115,15 +115,14 @@ Section "SectionPrincipale" SEC01
   SetOutPath "$SMPROGRAMS"
   CreateShortCut "$SMPROGRAMS\MediaInfo.lnk" "$INSTDIR\MediaInfo.exe" "" "" "" "" "" "Convenient unified display of the most relevant technical and tag data for video and audio files"
   SetOutPath "$INSTDIR"
+  File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Win32\Release\MediaInfo_GUI.exe"
+  File "/oname=MediaInfo_i386.dll" "..\..\..\MediaInfoLib\Project\MSVC2013\DLL\Win32\Release\MediaInfo.dll"
   ${If} ${RunningX64}
-    File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Release_Build\MediaInfo_GUI_x64.exe"
-    File "..\..\..\MediaInfoLib\Project\MSVC2010\ShellExtension\x64\Release\MediaInfo_InfoTip.dll"
-    File "..\..\..\MediaInfoLib\Project\MSVC2010\DLL\x64\Release\MediaInfo.dll"
-    File "/oname=MediaInfo_i386.dll" "..\..\..\MediaInfoLib\Project\MSVC2010\DLL\Win32\Release\MediaInfo.dll"
+    File "..\..\..\MediaInfoLib\Project\MSVC2013\ShellExtension\x64\Release\MediaInfo_InfoTip.dll"
+    File "..\..\..\MediaInfoLib\Project\MSVC2013\DLL\x64\Release\MediaInfo.dll"
   ${Else}
-    File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Release_Build\MediaInfo_GUI.exe"
-    File "..\..\..\MediaInfoLib\Project\MSVC2010\ShellExtension\Win32\Release\MediaInfo_InfoTip.dll"
-    File "..\..\..\MediaInfoLib\Project\MSVC2010\DLL\Win32\Release\MediaInfo.dll"
+    File "..\..\..\MediaInfoLib\Project\MSVC2013\ShellExtension\Win32\Release\MediaInfo_InfoTip.dll"
+    File "..\..\..\MediaInfoLib\Project\MSVC2013\DLL\Win32\Release\MediaInfo.dll"
   ${EndIf}
   File "/oname=History.txt" "..\..\History_GUI.txt"
   File "..\..\License.html"
