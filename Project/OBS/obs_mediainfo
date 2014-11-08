@@ -151,6 +151,8 @@ Download_Packages $1 $2 $3  x x ""           openSUSE_12.3   i586   .i586
 Download_Packages $1 $2 $3  x x ""           openSUSE_12.3   x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           openSUSE_13.1   i586   .i586
 Download_Packages $1 $2 $3  x x ""           openSUSE_13.1   x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           openSUSE_13.2   i586   .i586
+Download_Packages $1 $2 $3  x x ""           openSUSE_13.2   x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           openSUSE_Factory i586   .i586
 Download_Packages $1 $2 $3  x x ""           openSUSE_Factory x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           openSUSE_Tumbleweed i586   .i586
