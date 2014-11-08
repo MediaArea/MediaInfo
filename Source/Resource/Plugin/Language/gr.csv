@@ -2,15 +2,15 @@
   Author_Email;ajinchv@csd.auth.gr
   Author_Name;Alexander Ntzintsvelasvili
   Author_OldNames;Initial translator
-  Language_Name;Î•Î»Î»Î·Î½Î¹ÎºÎ¬
+  Language_Name;Ελληνικά
   Config_Text_ColumnSize;40
   Config_Text_Separator; : 
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
   Config_Text_ThousandsSeparator; 
- audio stream1; ÏÎ¿Î® Î®Ï‡Î¿Ï…
- audio stream2; ÏÎ¿Î­Ï‚ Î®Ï‡Î¿Ï…
- audio stream3; ÏÎ¿Î­Ï‚ Î®Ï‡Î¿Ï…
+ audio stream1; ροή ήχου
+ audio stream2; ροές ήχου
+ audio stream3; ροές ήχου
  bit1; bit
  bit2; bits
  bit3; bits
@@ -19,27 +19,27 @@
  Byte1; Byte
  Byte2; Bytes
  Byte3; Bytes
- channel1; ÎºÎ±Î½Î¬Î»Î¹
- channel2; ÎºÎ±Î½Î¬Î»Î¹Î±
- channel3; ÎºÎ±Î½Î¬Î»Î¹Î±
- chapter1; ÎºÎµÏ†Î¬Î»Î±Î¹Î¿
- chapter2; ÎºÎµÏ†Î¬Î»Î±Î¹Î±
- chapter3; ÎºÎµÏ†Î¬Î»Î±Î¹Î±
- chapters stream1; ÏÎ¿Î® ÎºÎµÏ†Î±Î»Î±Î¯Ï‰Î½
- chapters stream2; ÏÎ¿Î­Ï‚ ÎºÎµÏ†Î±Î»Î±Î¯Ï‰Î½
- chapters stream3; ÏÎ¿Î­Ï‚ ÎºÎµÏ†Î±Î»Î±Î¯Ï‰Î½
+ channel1; κανάλι
+ channel2; κανάλια
+ channel3; κανάλια
+ chapter1; κεφάλαιο
+ chapter2; κεφάλαια
+ chapter3; κεφάλαια
+ chapters stream1; ροή κεφαλαίων
+ chapters stream2; ροές κεφαλαίων
+ chapters stream3; ροές κεφαλαίων
  character1;
  character2;
  character3;
- day1; Î¼Î­ÏÎ±
- day2; Î¼Î­ÏÎµÏ‚
- day3; Î¼Î­ÏÎµÏ‚
+ day1; μέρα
+ day2; μέρες
+ day3; μέρες
  dB1;
  dB2;
  dB3;
- file1; Î±ÏÏ‡ÎµÎ¯Î¿
- file2; Î±ÏÏ‡ÎµÎ¯Î±
- file3; Î±ÏÏ‡ÎµÎ¯Î±
+ file1; αρχείο
+ file2; αρχεία
+ file3; αρχεία
  fps1; fps
  fps2; fps
  fps3; fps
@@ -62,13 +62,13 @@
  GigaByte1; GigaByte
  GigaByte2; GigaBytes
  GigaByte3; GigaBytes
- hour1; ÏŽÏÎ±
- hour2; ÏŽÏÎµÏ‚
- hour3; ÏŽÏÎµÏ‚
+ hour1; ώρα
+ hour2; ώρες
+ hour3; ώρες
  Hz; Hz
- image stream1; ÏÎ¿Î® ÎµÎ¹ÎºÏŒÎ½Î±Ï‚
- image stream2; ÏÎ¿Î­Ï‚ ÎµÎ¹ÎºÏŒÎ½Î±Ï‚
- image stream3; ÏÎ¿Î­Ï‚ ÎµÎ¹ÎºÏŒÎ½Î±Ï‚
+ image stream1; ροή εικόνας
+ image stream2; ροές εικόνας
+ image stream3; ροές εικόνας
  KB; KB
  Kb; Kb
  KBps; KBps
@@ -111,85 +111,85 @@
  millisecond1; millisecond
  millisecond2; milliseconds
  millisecond3; milliseconds
- minute1; Î»ÎµÏ€Ï„ÏŒ
- minute2; Î»ÎµÏ€Ï„Î¬
- minute3; Î»ÎµÏ€Ï„Î¬
- month1; Î¼Î®Î½Î±Ï‚
- month2; Î¼Î®Î½ÎµÏ‚
- month3; Î¼Î®Î½ÎµÏ‚
- pixel1; ÎµÎ¹ÎºÎ¿Î½Î¿ÏƒÏ„Î¿Î¹Ï‡ÎµÎ¯Î¿
- pixel2; ÎµÎ¹ÎºÎ¿Î½Î¿ÏƒÏ„Î¿Î¹Ï‡ÎµÎ¯Î±
- pixel3; ÎµÎ¹ÎºÎ¿Î½Î¿ÏƒÏ„Î¿Î¹Ï‡ÎµÎ¯Î±
- second1; Î´ÎµÏ…Ï„ÎµÏÏŒÎ»ÎµÏ€Ï„Î¿
- second2; Î´ÎµÏ…Ï„ÎµÏÏŒÎ»ÎµÏ€Ï„Î±
- second3; Î´ÎµÏ…Ï„ÎµÏÏŒÎ»ÎµÏ€Ï„Î±
- text stream1; ÏÎ¿Î® ÎºÎµÎ¹Î¼Î­Î½Î¿Ï…
- text stream2; ÏÎ¿Î­Ï‚ ÎºÎµÎ¹Î¼Î­Î½Î¿Ï…
- text stream3; ÏÎ¿Î­Ï‚ ÎºÎµÎ¹Î¼Î­Î½Î¿Ï…
+ minute1; λεπτό
+ minute2; λεπτά
+ minute3; λεπτά
+ month1; μήνας
+ month2; μήνες
+ month3; μήνες
+ pixel1; εικονοστοιχείο
+ pixel2; εικονοστοιχεία
+ pixel3; εικονοστοιχεία
+ second1; δευτερόλεπτο
+ second2; δευτερόλεπτα
+ second3; δευτερόλεπτα
+ text stream1; ροή κειμένου
+ text stream2; ροές κειμένου
+ text stream3; ροές κειμένου
  video frames1;
  video frames2;
  video frames3;
- video stream1; ÏÎ¿Î® video
- video stream2; ÏÎ¿Î­Ï‚ video
- video stream3; ÏÎ¿Î­Ï‚ video
+ video stream1; ροή video
+ video stream2; ροές video
+ video stream3; ροές video
  warppoint0;
  warppoint1;
  warppoint2;
  warppoint3;
- week1; ÎµÎ²Î´Î¿Î¼Î¬Î´Î±
- week2; ÎµÎ²Î´Î¿Î¼Î¬Î´ÎµÏ‚
- week3; ÎµÎ²Î´Î¿Î¼Î¬Î´ÎµÏ‚
- year1; Ï‡ÏÏŒÎ½Î¿Ï‚
- year2; Ï‡ÏÏŒÎ½Î¹Î±
- year3; Ï‡ÏÏŒÎ½Î¹Î±
+ week1; εβδομάδα
+ week2; εβδομάδες
+ week3; εβδομάδες
+ year1; χρόνος
+ year2; χρόνια
+ year3; χρόνια
 , ;, 
 : ;: 
 3D;
 3DType;
-About;Î Î»Î·ÏÎ¿Ï†Î¿ÏÎ¯ÎµÏ‚
-About_Hint;Î Ï‰Ï‚ Î¸Î± ÎµÏ€Î¹ÎºÎ¿Î¹Î½Ï‰Î½Î®ÏƒÎµÏ„Îµ Î¼Î±Î¶Î¯ Î¼Î¿Ï… ÎºÎ±Î¹ Î¸Î± Î²ÏÎµÎ¯Ï„Îµ Î½ÎµÏŒÏ„ÎµÏÎ· Î­ÎºÎ´oÏƒÎ·
-Accompaniment;Î£Ï…Î½Î¿Î´ÎµÎ¯Î±
+About;Πληροφορίες
+About_Hint;Πως θα επικοινωνήσετε μαζί μου και θα βρείτε νεότερη έκδoση
+Accompaniment;Συνοδεία
 ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
 Actor;Actor
 Actor_Character;Character played
 Added_Date;
-Address;Î”Î¹ÎµÏÎ¸Ï…Î½ÏƒÎ·
-Advanced;Î“Î¹Î± Ï€ÏÎ¿Ï‡Ï‰ÏÎ·Î¼Î­Î½Î¿Ï…Ï‚
-Advanced mode;ÎšÎ±Ï„Î¬ÏƒÏ„Î±ÏƒÎ· Î»ÎµÎ¹Ï„Î¿Ï…ÏÎ³Î¯Î±Ï‚ Î³Î¹Î± Ï€ÏÎ¿Ï‡Ï‰ÏÎ·Î¼Î­Î½Î¿Ï…Ï‚
+Address;Διεύθυνση
+Advanced;Για προχωρημένους
+Advanced mode;Κατάσταση λειτουργίας για προχωρημένους
 Album;Album
 Album_ReplayGain_Gain;
 Album_ReplayGain_Peak;
 Alignment;
 Alignment_Aligned;
 Alignment_Split;
-All;ÎŒÎ»Î±
+All;Όλα
 Archival_Location;Archival location
 Arranger;Arranger
 ArtDirector;ArtDirector
-AspectRatio;Î›ÏŒÎ³Î¿Ï‚ ÎµÎ¹ÎºÏŒÎ½Î±Ï‚
+AspectRatio;Λόγος εικόνας
 AssistantDirector;AssistantDirector
 at;at
-At least one file;(Î ÏÎ­Ï€ÎµÎ¹ Î½Î± Î±Î½Î¿Î¯Î¾ÎµÏ„Îµ Ï„Î¿Ï…Î»Î¬Ï‡Î¹ÏƒÏ„Î¿Î½ Î­Î½Î± Î±ÏÏ‡ÎµÎ¯Î¿)
-Audio;Î‰Ï‡Î¿Ï‚
-Audio stream(s);Î¡Î¿Î­Ï‚ Î®Ï‡Î¿Ï…
-Audio_Codec_List;ÎšÏ‰Î´Î¹ÎºÎ¿Ï€Î¿Î¹Î·Ï„Î­Ï‚ Î®Ï‡Î¿Ï…
-Audio_No;Î§Ï‰ÏÎ¯Ï‚ Î®Ï‡Î¿
-Audio1;Î ÏÏŽÏ„Î· ÏÎ¿Î® Î®Ï‡Î¿Ï…
-Audio2;Î”ÎµÏÏ„ÎµÏÎ· ÏÎ¿Î® Î®Ï‡Î¿Ï…
+At least one file;(Πρέπει να ανοίξετε τουλάχιστον ένα αρχείο)
+Audio;Ήχος
+Audio stream(s);Ροές ήχου
+Audio_Codec_List;Κωδικοποιητές ήχου
+Audio_No;Χωρίς ήχο
+Audio1;Πρώτη ροή ήχου
+Audio2;Δεύτερη ροή ήχου
 AudioComments;
-AudioCount;Î‘ÏÎ¹Î¸Î¼ÏŒÏ‚ Ï„Ï‰Î½ ÏÎ¿ÏŽÎ½ Î®Ï‡Î¿Ï…
+AudioCount;Αριθμός των ροών ήχου
 AudioDescriptionPresent;
 AudioDescriptionType;
 AudioLoudnessStandard;
 AudioTrackLayout;
 Author;Author
 BarCode;BarCode
-Basic;Î’Î±ÏƒÎ¹ÎºÎ®
-Basic_Note;Î£Î·Î¼ÎµÎ¯Ï‰ÏƒÎ· : Î³Î¹Î± Ï€ÎµÏÎ¹ÏƒÏƒÏŒÏ„ÎµÏÎµÏ‚ Ï€Î»Î·ÏÎ¿Ï†Î¿ÏÎ¯ÎµÏ‚ ÏƒÏ‡ÎµÏ„Î¹ÎºÎ¬ Î¼Îµ Ï„Î¿ Î±ÏÏ‡ÎµÎ¯Î¿, ÎµÏ€Î¹Î»Î­Î¾Ï„Îµ Î´Î¹Î±Ï†Î¿ÏÎµÏ„Î¹ÎºÎ® Ï€ÏÎ¿Î²Î¿Î»Î® (Î¦ÏÎ»Î»Î¿, Î”Î­Î½Î´ÏÎ¿...)
+Basic;Βασική
+Basic_Note;Σημείωση : για περισσότερες πληροφορίες σχετικά με το αρχείο, επιλέξτε διαφορετική προβολή (Φύλλο, Δένδρο...)
 BitDepth;
 BitDepth_Stored;
-BitRate;Î¡Ï…Î¸Î¼ÏŒÏ‚ Î¼ÎµÏ„Î¬Î´Î¿ÏƒÎ·Ï‚ Î´ÎµÎ´Î¿Î¼Î­Î½Ï‰Î½
+BitRate;Ρυθμός μετάδοσης δεδομένων
 BitRate_Encoded;
 BitRate_Maximum;
 BitRate_Minimum;
@@ -197,38 +197,38 @@ BitRate_Mode;Bit rate mode
 BitRate_Mode_CBR;
 BitRate_Mode_VBR;
 BitRate_Nominal;
-Bits-(Pixel*Frame);Bits/(Î•Î¹ÎºÎ¿Î½Î¿ÏƒÏ„Î¿Î¹Ï‡ÎµÎ¯Î¿*Î Î»Î±Î¯ÏƒÎ¹Î¿)
+Bits-(Pixel*Frame);Bits/(Εικονοστοιχείο*Πλαίσιο)
 BufferSize;
-Cancel;Î†ÎºÏ…ÏÎ¿
-Channel(s);ÎšÎ±Î½Î¬Î»Î¹(Î±)
-ChannelPositions;Î˜Î­ÏƒÎµÎ¹Ï‚ ÎºÎ±Î½Î±Î»Î¹ÏŽÎ½
-Chapter(s);ÎšÎµÏ†Î¬Î»Î±Î¹Î¿(Î±)
-Chapters;ÎšÎµÏ†Î¬Î»Î±Î¹Î±
-Chapters stream(s);Î¡Î¿Î­Ï‚ ÎºÎµÏ†Î±Î»Î±Î¯Ï‰Î½
-Chapters_Codec_List;Î£Ï…Î¼Ï€Î¹ÎµÏƒÏ„Î­Ï‚ ÎºÎµÏ†Î±Î»Î±Î¯Ï‰Î½
-Chapters_No;Î§Ï‰ÏÎ¯Ï‚ ÎºÎµÏ†Î¬Î»Î±Î¹Î±
-ChaptersCount;Î‘ÏÎ¹Î¸Î¼ÏŒÏ‚ Ï„Ï‰Î½ ÎºÎµÏ†Î±Î»Î±Î¯Ï‰Î½
-CheckNewVersion; ÎˆÎ»ÎµÎ³Ï‡oÏ‚ Î³Î¹Î± ÎµÎ½Î·Î¼ÎµÏÏ‰Î¼Î­Î½ÎµÏ‚ ÎµÎºÎ´ÏŽÏƒÎµÎ¹Ï‚
-Choose custom;Î•Ï€Î¹Î»Î­Î¾Ï„Îµ Ï€ÏÎ¿ÏƒÎ±ÏÎ¼Î¿ÏƒÎ¼Î­Î½Î¿:
-Choose custom sheet;Î•Ï€Î¹Î»Î­Î¾Ï„Îµ Ï„Î¿ ÎµÏ€Î¹Î¸Ï…Î¼Î·Ï„ÏŒ Ï€ÏÎ¿ÏƒÎ±ÏÎ¼Î¿ÏƒÎ¼Î­Î½Î¿ Ï†ÏÎ»Î»Î¿
-Choose custom text;Î•Ï€Î¹Î»Î­Î¾Ï„Îµ Ï„Î¿ ÎµÏ€Î¹Î¸Ï…Î¼Î·Ï„ÏŒ Ï€ÏÎ¿ÏƒÎ±ÏÎ¼Î¿ÏƒÎ¼Î­Î½Î¿ ÎºÎµÎ¯Î¼ÎµÎ½Î¿
-Choose export format;Î•Ï€Î¹Î»Î­Î¾Ï„Îµ your desired export format
-Choose file(s);Î•Ï€Î¹Î»Î­Î¾Ï„Îµ Ï„Î¿ Î±ÏÏ‡ÎµÎ¯Î¿ Î³Î¹Î± Î¬Î½Î¿Î¹Î³Î¼Î±
-Choose filename;Î•Ï€Î¹Î»Î­Î¾Ï„Îµ Ï„Î¿ ÎµÏ€Î¹Î¸Ï…Î¼Î·Ï„ÏŒ ÏŒÎ½Î¿Î¼Î± Î±ÏÏ‡ÎµÎ¯Î¿Ï…
-Choose language;Î•Ï€Î¹Î»Î­Î¾Ï„Îµ Ï„Î·Î½ ÎµÏ€Î¹Î¸Ï…Î¼Î·Ï„Î® Î³Î»ÏŽÏƒÏƒÎ±
-Choregrapher;Î§Î¿ÏÎ¿Î³ÏÎ¬Ï†Î¿Ï‚
-Chroma;Î§ÏÏŽÎ¼Î±
+Cancel;Άκυρο
+Channel(s);Κανάλι(α)
+ChannelPositions;Θέσεις καναλιών
+Chapter(s);Κεφάλαιο(α)
+Chapters;Κεφάλαια
+Chapters stream(s);Ροές κεφαλαίων
+Chapters_Codec_List;Συμπιεστές κεφαλαίων
+Chapters_No;Χωρίς κεφάλαια
+ChaptersCount;Αριθμός των κεφαλαίων
+CheckNewVersion; Έλεγχoς για ενημερωμένες εκδώσεις
+Choose custom;Επιλέξτε προσαρμοσμένο:
+Choose custom sheet;Επιλέξτε το επιθυμητό προσαρμοσμένο φύλλο
+Choose custom text;Επιλέξτε το επιθυμητό προσαρμοσμένο κείμενο
+Choose export format;Επιλέξτε your desired export format
+Choose file(s);Επιλέξτε το αρχείο για άνοιγμα
+Choose filename;Επιλέξτε το επιθυμητό όνομα αρχείου
+Choose language;Επιλέξτε την επιθυμητή γλώσσα
+Choregrapher;Χορογράφος
+Chroma;Χρώμα
 ChromaSubsampling;
-Close;ÎšÎ»ÎµÎ¯ÏƒÎ¹Î¼Î¿
-Close all before open;ÎšÎ»ÎµÎ¯ÏƒÏ„Îµ ÏŒÎ»Î± Ï„Î± Î±Î½Î¿Î¹Ï‡Ï„Î¬ Î±ÏÏ‡ÎµÎ¯Î± Ï€ÏÎ¹Î½ Ï„Î¿ Î¬Î½Î¿Î¹Î³Î¼Î± Î½Î­Ï‰Î½
+Close;Κλείσιμο
+Close all before open;Κλείστε όλα τα ανοιχτά αρχεία πριν το άνοιγμα νέων
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
-Codec;Î£Ï…Î¼Ï€Î¹ÎµÏƒÏ„Î®Ï‚
+Codec;Συμπιεστής
 Codec_Description;
-Codec_Info;Î›ÎµÏ€Ï„Î¿Î¼Î­ÏÎµÎ¹ÎµÏ‚ Ï„Î¿Ï… ÏƒÏ…Î¼Ï€Î¹ÎµÏƒÏ„Î®
-Codec_Profile;Î ÏÎ¿Ï†Î¯Î» ÏƒÏ…Î¼Ï€Î¹ÎµÏƒÏ„Î®
-Codec_Settings;Î¡Ï…Î¸Î¼Î¯ÏƒÎµÎ¹Ï‚ ÏƒÏ…Î¼Ï€Î¹ÎµÏƒÏ„Î®
+Codec_Info;Λεπτομέρειες του συμπιεστή
+Codec_Profile;Προφίλ συμπιεστή
+Codec_Settings;Ρυθμίσεις συμπιεστή
 Codec_Settings_BVOP;
 Codec_Settings_CABAC;
 Codec_Settings_Endianness;
@@ -241,17 +241,17 @@ Codec_Settings_Matrix;
 Codec_Settings_PacketBitStream;
 Codec_Settings_QPel;
 Codec_Settings_Sign;
-Codec_Url;Î£ÏÎ½Î´ÎµÏƒÎ¼Î¿Ï‚ ÏƒÏ…Î¼Ï€Î¹ÎµÏƒÏ„Î® (url)
+Codec_Url;Σύνδεσμος συμπιεστή (url)
 CodecID;
 CodecID_Description;
-Collection;Î£Ï…Î»Î»Î¿Î³Î®
+Collection;Συλλογή
 Colorimetry;
 ColorSpace;
 colour_primaries;
-Comment;Î£Ï‡ÏŒÎ»Î¹Î¿
+Comment;Σχόλιο
 CommissionedBy;Commissioned by
 Compilation;
-CompleteName;Î Î»Î®ÏÎµÏ‚ ÏŒÎ½Î¿Î¼Î±
+CompleteName;Πλήρες όνομα
 CompletionDate;
 Composer;Composer
 Compression_Mode;
@@ -261,82 +261,82 @@ Compression_Ratio;
 Conductor;Conductor
 ContactEmail;
 ContactTelephoneNumber;
-Container and general information;Container ÎºÎ±Î¹ Î³ÎµÎ½Î¹ÎºÎ­Ï‚ Ï€Î»Î·ÏÎ¿Ï†Î¿ÏÎ¯ÎµÏ‚
-ContentType;Î•Î¯Î´Î¿Ï‚ Ï€ÎµÏÎ¹ÎµÏ‡ÏŒÎ¼ÎµÎ½Î¿Ï…
-CoProducer;Î£Ï…Î¼Ï€Î±ÏÎ±Î³Ï‰Î³ÏŒÏ‚
-Copyright;Î Î½ÎµÏ…Î¼Î±Ï„Î¹ÎºÎ¬ Î”Î¹ÎºÎ±Î¹ÏŽÎ¼Î±Ï„Î±
+Container and general information;Container και γενικές πληροφορίες
+ContentType;Είδος περιεχόμενου
+CoProducer;Συμπαραγωγός
+Copyright;Πνευματικά Δικαιώματα
 CopyrightYear;
 CostumeDesigner;Costume designer
-Count;Î‘ÏÎ¹Î¸Î¼ÏŒÏ‚
-Country;Î§ÏŽÏÎ±
+Count;Αριθμός
+Country;Χώρα
 Cover;Cover
 Cover_Datas;Cover datas
 Cover_Description;
 Cover_Mime;
 Cover_Type;
 Cropped;
-Custom;Î ÏÎ¿ÏƒÎ±ÏÎ¼Î¿ÏƒÎ¼Î­Î½Î·
-Customize;Î ÏÎ¿ÏƒÎ±ÏÎ¼ÏŒÏƒÏ„Îµ
-Date;Î—Î¼ÎµÏÎ¿Î¼Î·Î½Î¯Î±
-Debug;Î‘Ï€Î¿ÏƒÏ†Î±Î»Î¼Î¬Ï„Ï‰ÏƒÎ·
+Custom;Προσαρμοσμένη
+Customize;Προσαρμόστε
+Date;Ημερομηνία
+Debug;Αποσφαλμάτωση
 Decimal point;Decimal point
-Delay;ÎšÎ±Î¸Ï…ÏƒÏ„Î­ÏÎ·ÏƒÎ·
+Delay;Καθυστέρηση
 Delay_Source;
 Delay_Source_Container;
 Delay_Source_Stream;
-Delete;Î”Î¹Î±Î³ÏÎ±Ï†Î®
-Description;Î ÎµÏÎ¹Î³ÏÎ±Ï†Î®
-Digitized_Date;Î—Î¼ÎµÏÎ¿Î¼Î·Î½Î¯Î± Î¨Î·Ï†Î¹Î¿Ï€Î¿Î¯Î·ÏƒÎ·Ï‚
+Delete;Διαγραφή
+Description;Περιγραφή
+Digitized_Date;Ημερομηνία Ψηφιοποίησης
 Dimensions;
 Director;Director
 DirectorOfPhotography;Director of photography
-DisplayAspectRatio;Î›ÏŒÎ³Î¿Ï‚ ÎµÎ¹ÎºÏŒÎ½Î±Ï‚
+DisplayAspectRatio;Λόγος εικόνας
 DisplayAspectRatio_Original;
 DistributedBy;Distributed by
 Distributor;
-Donate;Î”Ï‰ÏÎµÎ­Ï‚
+Donate;Δωρεές
 DotsPerInch;
 Duration;
 Duration_End;
 Duration_Start;
-Edit;Î•Ï€ÎµÎ¾ÎµÏÎ³Î±ÏƒÎ¯Î±
-EditedBy;Î¤ÏÎ¿Ï€Î¿Ï€Î¿Î¹Î·Î¼Î­Î½Î¿ Î±Ï€ÏŒ
+Edit;Επεξεργασία
+EditedBy;Τροποποιημένο από
 EMail;E-Mail
-Encoded_Application;Î•Ï†Î±ÏÎ¼Î¿Î³Î® ÎµÎ³Î³ÏÎ±Ï†Î®Ï‚
-Encoded_Date;Î—Î¼ÎµÏÎ¿Î¼Î·Î½Î¯Î± ÎºÏ‰Î´Î¹ÎºÎ¿Ï€Î¿Î¯Î·ÏƒÎ·Ï‚
-Encoded_Library;Î’Î¹Î²Î»Î¹Î¿Î¸Î®ÎºÎ· ÎºÏ‰Î´Î¹ÎºÎ¿Ï€Î¿Î¹Î·Ï„Î®
-Encoded_Library_Settings;Î¡Ï…Î¸Î¼Î¯ÏƒÎµÎ¹Ï‚ ÎºÏ‰Î´Î¹ÎºÎ¿Ï€Î¿Î¹Î·Ï„Î®
+Encoded_Application;Εφαρμογή εγγραφής
+Encoded_Date;Ημερομηνία κωδικοποίησης
+Encoded_Library;Βιβλιοθήκη κωδικοποιητή
+Encoded_Library_Settings;Ρυθμίσεις κωδικοποιητή
 Encoded_Original;Original
-EncodedBy;ÎšÏ‰Î´Î¹ÎºÎ¿Ï€Î¿Î¹Î·Î¼Î­Î½Î¿ Î±Ï€ÏŒ
+EncodedBy;Κωδικοποιημένο από
 EPG_Positions;
 EpisodeTitleNumber;
-Error_File;Î Î±ÏÎ¿Ï…ÏƒÎ¹Î¬ÏƒÏ„Î·ÎºÎµ ÏƒÏ†Î¬Î»Î¼Î± ÎºÎ±Ï„Î¬ Ï„Î¿ Î´Î¹Î¬Î²Î±ÏƒÎ¼Î± Ï„Î¿Ï… Î±ÏÏ‡ÎµÎ¯Î¿Ï…
+Error_File;Παρουσιάστηκε σφάλμα κατά το διάβασμα του αρχείου
 ExecutiveProducer;Executive producer
-Exit;ÎˆÎ¾Î¿Î´Î¿Ï‚
-Exit_Hint;ÎšÎ»ÎµÎ¯Î½ÎµÎ¹ Ï„Î¿ Ï€ÏÏŒÎ³ÏÎ±Î¼Î¼Î±
-Export;Î•Î¾Î±Î³Ï‰Î³Î®
-Export_Hint;Î•Î¾Î±Î³Ï‰Î³Î® ÏƒÎµ custom format
-Extensions;Î£Ï…Î½Î®Î¸ÎµÎ¹Ï‚ ÎµÏ€ÎµÎºÏ„Î¬ÏƒÎµÎ¹Ï‚
+Exit;Έξοδος
+Exit_Hint;Κλείνει το πρόγραμμα
+Export;Εξαγωγή
+Export_Hint;Εξαγωγή σε custom format
+Extensions;Συνήθεις επεκτάσεις
 Family;
 Fax;Fax
-File;Î‘ÏÏ‡ÎµÎ¯Î¿
-File size;ÎœÎ­Î³ÎµÎ¸Î¿Ï‚ Î±ÏÏ‡ÎµÎ¯Î¿Ï…
-File_Append;Î ÏÏŒÏƒÎ¸ÎµÏƒÎ· ÏƒÏ„Î¿ Ï„Î­Î»Î¿Ï‚ Ï…Ï€Î¬ÏÏ‡Î¿Î½Ï„Î¿Ï‚ Î±ÏÏ‡ÎµÎ¯Î¿Ï… (Î ÏÎ¿ÎµÎ¹Î´Î¿Ï€Î¿Î¯Î·ÏƒÎ· : Ï€ÏÎ­Ï€ÎµÎ¹ Î½Î± Î­Ï‡Î¿Ï…Î½ ÏŒÎ¼Î¿Î¹Î¿Ï…Ï‚ Ï€Î±ÏÎ±Î¼Î­Ï„ÏÎ¿Ï…Ï‚)
+File;Αρχείο
+File size;Μέγεθος αρχείου
+File_Append;Πρόσθεση στο τέλος υπάρχοντος αρχείου (Προειδοποίηση : πρέπει να έχουν όμοιους παραμέτρους)
 File_Created_Date;
 File_Created_Date_Local;
-File_Hint;Î•Ï€Î¹Î»Î­Î¾Ï„Îµ Î­Î½Î± Î±ÏÏ‡ÎµÎ¯Î¿ Ï€Î¿Î»Ï…Î¼Î­ÏƒÏ‰Î½ Î³Î¹Î± ÎµÎ¾Î­Ï„Î±ÏƒÎ·
+File_Hint;Επιλέξτε ένα αρχείο πολυμέσων για εξέταση
 File_Modified_Date;
 File_Modified_Date_Local;
-FileExtension;Î•Ï€Î­ÎºÏ„Î±ÏƒÎ· Î±ÏÏ‡ÎµÎ¯Î¿Ï…
-FileName;ÎŒÎ½Î¿Î¼Î± Î±ÏÏ‡ÎµÎ¯Î¿Ï…
-FileSize;ÎœÎ­Î³ÎµÎ¸Î¿Ï‚ Î±ÏÏ‡ÎµÎ¯Î¿Ï…
-Folder;Î¦Î¬ÎºÎµÎ»Î¿Ï‚
-Folder (R);Î¦Î¬ÎºÎµÎ»Î¿Ï‚ (R)
-Folder (R)_Hint;Î•Ï€Î¹Î»Î­Î¾Ï„Îµ Î­Î½Î±Î½ Ï†Î¬ÎºÎµÎ»Î¿ Î³Î¹Î± ÎµÎ¾Î­Ï„Î±ÏƒÎ· (Î¼Îµ Ï„Î¿Ï…Ï‚ Ï…Ï€Î¿Ï†Î±ÎºÎ­Î»Î¿Ï…Ï‚ Î±Î½Î±Î´ÏÎ¿Î¼Î¹ÎºÎ¬)
-Folder (Recursively);Î¦Î¬ÎºÎµÎ»Î¿Ï‚ (Î‘Î½Î±Î´ÏÎ¿Î¼Î¹ÎºÎ¬)
-Folder_Hint;Î•Ï€Î¹Î»Î­Î¾Ï„Îµ Î­Î½Î±Î½ Ï†Î¬ÎºÎµÎ»Î¿ Î³Î¹Î± ÎµÎ¾Î­Ï„Î±ÏƒÎ·
-FolderName;ÎŒÎ½Î¿Î¼Î± Ï†Î±ÎºÎ­Î»Î¿Ï…
-Format;ÎœÎ¿ÏÏ†Î¿Ï€Î¿Î¯Î·ÏƒÎ·
+FileExtension;Επέκταση αρχείου
+FileName;Όνομα αρχείου
+FileSize;Μέγεθος αρχείου
+Folder;Φάκελος
+Folder (R);Φάκελος (R)
+Folder (R)_Hint;Επιλέξτε έναν φάκελο για εξέταση (με τους υποφακέλους αναδρομικά)
+Folder (Recursively);Φάκελος (Αναδρομικά)
+Folder_Hint;Επιλέξτε έναν φάκελο για εξέταση
+FolderName;Όνομα φακέλου
+Format;Μορφοποίηση
 Format_Commercial;
 Format_Commercial_IfAny;
 Format_Description;
@@ -374,15 +374,15 @@ FpaManufacturer;
 FpaPass;
 FpaVersion;
 FrameCount;
-FrameRate;Î¡Ï…Î¸Î¼ÏŒÏ‚ Î±Î½Î±Î½Î­Ï‰ÏƒÎ·Ï‚ Ï€Î»Î±Î¹ÏƒÎ¯Î¿Ï…
-FrameRate_Maximum;ÎœÎ­Î³Î¹ÏƒÏ„Î¿Ï‚ ÏÏ…Î¸Î¼ÏŒÏ‚ Î±Î½Î±Î½Î­Ï‰ÏƒÎ·Ï‚ Ï€Î»Î±Î¹ÏƒÎ¯Î¿Ï…
-FrameRate_Minimum;Î•Î»Î¬Ï‡Î¹ÏƒÏ„Î¿Ï‚ ÏÏ…Î¸Î¼ÏŒÏ‚ Î±Î½Î±Î½Î­Ï‰ÏƒÎ·Ï‚ Ï€Î»Î±Î¹ÏƒÎ¯Î¿Ï…
+FrameRate;Ρυθμός ανανέωσης πλαισίου
+FrameRate_Maximum;Μέγιστος ρυθμός ανανέωσης πλαισίου
+FrameRate_Minimum;Ελάχιστος ρυθμός ανανέωσης πλαισίου
 FrameRate_Mode;
 FrameRate_Mode_CFR;
 FrameRate_Mode_VFR;
 FrameRate_Nominal;
 FrameRate_Original;
-General;Î“ÎµÎ½Î¹ÎºÎ¬
+General;Γενικά
 Genre;Genre
 Genre_000;Blues
 Genre_001;Classic Rock
@@ -576,31 +576,31 @@ Genre_188;
 Genre_189;
 Genre_190;
 Genre_191;
-Go to WebSite;Î•Ï€Î¯ÏƒÎºÎµÏˆÎ· Ï„Î¿Ï… Î´Ï…ÎºÏ„Î¹Î±ÎºÎ¿Ï Ï„ÏŒÏ€Î¿Ï…
+Go to WebSite;Επίσκεψη του δυκτιακού τόπου
 Grouping;
 h;h
-Header file;Î”Î·Î¼Î¹Î¿Ï…ÏÎ³Î®ÏƒÏ„Îµ Î±ÏÏ‡ÎµÎ¯Î¿ ÎºÎµÏ†Î±Î»Î¯Î´Î±Ï‚
-Height;ÎŽÏˆÎ¿Ï‚
+Header file;Δημιουργήστε αρχείο κεφαλίδας
+Height;Ύψος
 Height_Original;
-Help;Î’Î¿Î®Î¸ÎµÎ¹Î±
+Help;Βοήθεια
 Hint;
-How many audio streams?;Î ÏŒÏƒÎµÏ‚ ÏÎ¿Î­Ï‚ Î®Ï‡Î¿Ï…?
-How many chapters streams?;Î ÏŒÏƒÎµÏ‚ ÏÎ¿Î­Ï‚ ÎºÎµÏ†Î±Î»Î±Î¯Ï‰Î½?
-How many text streams?;Î ÏŒÏƒÎµÏ‚ ÏÏŒÎµÏ‚ ÎºÎµÎ¹Î¼Î­Î½Î¿Ï…?
-How many video streams?;Î ÏŒÏƒÎµÏ‚ ÏÎ¿Î­Ï‚ video?
+How many audio streams?;Πόσες ροές ήχου?
+How many chapters streams?;Πόσες ροές κεφαλαίων?
+How many text streams?;Πόσες ρόες κειμένου?
+How many video streams?;Πόσες ροές video?
 HTML;HTML
 ID;ID
 IdentClockStart;
-Image;Î•Î¹ÎºÏŒÎ½Î±
-Image stream(s);Î¡Î¿Î­Ï‚ ÎµÎ¹ÎºÏŒÎ½Î±Ï‚
-Image_Codec_List;Î£Ï…Î¼Ï€Î¹ÎµÏƒÏ„Î­Ï‚ ÎµÎ¹ÎºÏŒÎ½Î±Ï‚
-ImageCount;Î‘ÏÎ¹Î¸Î¼ÏŒÏ‚ Ï„Ï‰Î½ ÏÎ¿ÏŽÎ½ ÎµÎ¹ÎºÏŒÎ½Î±Ï‚
+Image;Εικόνα
+Image stream(s);Ροές εικόνας
+Image_Codec_List;Συμπιεστές εικόνας
+ImageCount;Αριθμός των ροών εικόνας
 Info;
-Instruments;ÎŒÏÎ³Î±Î½Î±
+Instruments;Όργανα
 Interlaced_BFF;Bottom Field First
-Interlaced_Interlaced;Î”Î¹Î±Ï€Î»ÎµÎºÏŒÎ¼ÎµÎ½Î· ÏƒÎ¬ÏÏ‰ÏƒÎ·
-Interlaced_PPF;Î£Ï…Î½ÎµÏ‡Î®Ï‚ ÏƒÎ¬ÏÏ‰ÏƒÎ·
-Interlaced_Progressive;Î£Ï…Î½ÎµÏ‡Î®Ï‚ ÏƒÎ¬ÏÏ‰ÏƒÎ·
+Interlaced_Interlaced;Διαπλεκόμενη σάρωση
+Interlaced_PPF;Συνεχής σάρωση
+Interlaced_Progressive;Συνεχής σάρωση
 Interlaced_TFF;Top Field First
 Interlacement;Interlacement
 Interleave_Duration;
@@ -611,12 +611,12 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-Keywords;Î›Î­Î¾ÎµÎ¹Ï‚ ÎºÎ»ÎµÎ¹Î´Î¹Î¬
-Known codecs;Î“Î½Ï‰ÏƒÏ„Î¿Î¯ ÏƒÏ…Î¼Ï€Î¹ÎµÏƒÏ„Î­Ï‚
-Known formats;Î“Î½Ï‰ÏƒÏ„Î­Ï‚ Î¼Î¿ÏÏ†Î¿Ï€Î¿Î¹Î®ÏƒÎµÎ¹Ï‚
-Known parameters;Î“Î½Ï‰ÏƒÏ„Î¿Î¯ Ï€Î±ÏÎ¬Î¼ÎµÏ„ÏÎ¿Î¹
-Label;Î•Ï„Î¹ÎºÎ­Ï„Î±
-Language;Î“Î»ÏŽÏƒÏƒÎ±
+Keywords;Λέξεις κλειδιά
+Known codecs;Γνωστοί συμπιεστές
+Known formats;Γνωστές μορφοποιήσεις
+Known parameters;Γνωστοί παράμετροι
+Label;Ετικέτα
+Language;Γλώσσα
 Language_aa;Afar
 Language_ab;Abkhazian
 Language_ae;Avestan
@@ -731,7 +731,7 @@ Language_More;
 Language_mr;Marathi
 Language_ms;Malay
 Language_mt;Maltese
-Language_mul;Î Î¿Î»Î»Î±Ï€Î»Î­Ï‚ Î³Î»ÏŽÏƒÏƒÎµÏ‚
+Language_mul;Πολλαπλές γλώσσες
 Language_my;Burmese
 Language_na;Nauru
 Language_nb;Norwegian Bokmal
@@ -824,38 +824,38 @@ Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;
 Matrix_Format;
-MediaInfo_About;Î Î±ÏÎ­Ï‡ÎµÎ¹ Î»ÎµÏ€Ï„Î¿Î¼ÎµÏÎµÎ¯Ï‚ Ï€Î»Î·ÏÎ¿Ï†Î¿ÏÎ¯ÎµÏ‚\r\nÎ³Î¹Î± Î±ÏÏ‡ÎµÎ¯Î± Ï€Î¿Î»Ï…Î¼Î­ÏƒÏ‰Î½:\r\nMatroska, OGG (ÏƒÏ…Î¼Ï€ÎµÏÎ¹Î»Î±Î¼Î²Î¬Î½ÎµÏ„Î±Î¹ OGM)\r\nMPEG1 (ÏƒÏ…Î¼Ï€ÎµÏÎ¹Î»Î±Î¼Î²Î¬Î½ÎµÏ„Î±Î¹ VCD)\r\nMPEG2 (ÏƒÏ…Î¼Ï€ÎµÏÎ¹Î»Î±Î¼Î²Î¬Î½ÎµÏ„Î±Î¹ DVD ÎºÎ±Î¹ SVCD)\r\nMPEG4 (ÏƒÏ…Î¼Ï€ÎµÏÎ¹Î»Î±Î¼Î²Î¬Î½ÎµÏ„Î±Î¹ Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (ÏƒÏ…Î¼Ï€ÎµÏÎ¹Î»Î±Î¼Î²Î¬Î½ÎµÏ„Î±Î¹ WMV, WMA)\r\nMicrosoft RIFF (ÏƒÏ…Î¼Ï€ÎµÏÎ¹Î»Î±Î¼Î²Î¬Î½ÎµÏ„Î±Î¹ AVI, WAV)\r\nÎœÎ¿ÏÏ†Î¿Ï€Î¿Î¹Î®ÏƒÎµÎ¹Ï‚ Î®Ï‡Î¿Ï… (AC3, DTS, AAC, AU, AIFF...)
-Menu;ÎœÎµÎ½Î¿Ï
-Menu stream(s);Î¡Î¿Î­Ï‚ Î¼ÎµÎ½Î¿Ï
-Menu_Codec_List;Î£Ï…Î¼Ï€Î¹ÎµÏƒÏ„Î­Ï‚ Î¼ÎµÎ½Î¿Ï
-Menu_Hint;Î ÎµÏÎ¹ÏƒÏƒÏŒÏ„ÎµÏÎµÏ‚ Ï€Î¹Î¸Î±Î½ÏŒÏ„Î·Ï„ÎµÏ‚
-Menu_No;Î§Ï‰ÏÎ¯Ï‚ Î¼ÎµÎ½Î¿Ï
-MenuCount;Î‘ÏÎ¹Î¸Î¼ÏŒÏ‚ Ï„Ï‰Î½ ÏÎ¿ÏŽÎ½ Î¼ÎµÎ½Î¿Ï
+MediaInfo_About;Παρέχει λεπτομερείς πληροφορίες\r\nγια αρχεία πολυμέσων:\r\nMatroska, OGG (συμπεριλαμβάνεται OGM)\r\nMPEG1 (συμπεριλαμβάνεται VCD)\r\nMPEG2 (συμπεριλαμβάνεται DVD και SVCD)\r\nMPEG4 (συμπεριλαμβάνεται Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (συμπεριλαμβάνεται WMV, WMA)\r\nMicrosoft RIFF (συμπεριλαμβάνεται AVI, WAV)\r\nΜορφοποιήσεις ήχου (AC3, DTS, AAC, AU, AIFF...)
+Menu;Μενού
+Menu stream(s);Ροές μενού
+Menu_Codec_List;Συμπιεστές μενού
+Menu_Hint;Περισσότερες πιθανότητες
+Menu_No;Χωρίς μενού
+MenuCount;Αριθμός των ροών μενού
 MenuID;
 mn;mn
 Mood;Mood
-More;Î ÎµÏÎ¹ÏƒÏƒÏŒÏ„ÎµÏÎ±
-Movie;ÎŒÎ½Î¿Î¼Î± Ï„Î±Î¹Î½Î¯Î±Ï‚
+More;Περισσότερα
+Movie;Όνομα ταινίας
 ms;ms
 MSDI;MSDI
 MusicBy;
 MuxingMode;
 MuxingMode_MoreInfo;
 MuxingMode_PackedBitstream;
-Name;ÎŒÎ½Î¿Î¼Î±
+Name;Όνομα
 Nationality;Nationality
 NetworkName;
-New;ÎÎ­Î¿
-Newest version;ÎˆÎ»ÎµÎ³Ï‡Î¿Ï‚ Î³Î¹Î± Î½ÎµÏŒÏ„ÎµÏÎ· Î­ÎºÎ´Î¿ÏƒÎ· (Ï€ÏÎ¿Ï‹Ï€Î¿Î¸Î­Ï„ÎµÎ¹ ÏÏ€Î±ÏÎ¾Î· ÏƒÏÎ½Î´ÎµÏƒÎ·Ï‚ ÏƒÏ„Î¿ Î”Î¹Î±Î´ÏÎºÏ„Î¹Î¿)
+New;Νέο
+Newest version;Έλεγχος για νεότερη έκδοση (προϋποθέτει ύπαρξη σύνδεσης στο Διαδύκτιο)
 NewVersion_Menu;
 NewVersion_Question_Content;
 NewVersion_Question_Title;
-No;ÎŒÏ‡Î¹
+No;Όχι
 Not yet;
 NumColors;
 OK;OK
-One output file per input file;ÎˆÎ½Î± Î±ÏÏ‡ÎµÎ¯Î¿ ÎµÎ¾ÏŒÎ´Î¿Ï… Î³Î¹Î± ÎºÎ¬Î¸Îµ Î±ÏÏ‡ÎµÎ¯Î¿ ÎµÎ¹ÏƒÏŒÎ´Î¿Ï…
-Open;Î†Î½Î¿Î¹Î³Î¼Î±
+One output file per input file;Ένα αρχείο εξόδου για κάθε αρχείο εισόδου
+Open;Άνοιγμα
 OpenCandy_01;
 OpenCandy_02;
 OpenCandy_03;
@@ -895,43 +895,43 @@ OpenCandy_36;
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
-Options;Î•Ï€Î¹Î»Î¿Î³Î­Ï‚
-Options_Hint;Î ÏÎ¿Ï„Î¹Î¼Î®ÏƒÎµÎ¹Ï‚
+Options;Επιλογές
+Options_Hint;Προτιμήσεις
 Original;Original
 OriginalNetworkName;
 OriginalSourceForm;
 OriginalSourceMedium;
 Originator;
-Other;Î†Î»Î»Î¿Ï‚
+Other;Άλλος
 OtherIdentifier;
 OtherIdentifierType;
-Output;ÎˆÎ¾Î¿Î´Î¿Ï‚
-Output format;ÎœÎ¿ÏÏ†Î¿Ï€Î¿Î¯Î·ÏƒÎ· ÎµÎ¾ÏŒÎ´Î¿Ï…
-OverallBitRate;Î£Ï…Î½Î¿Î»Î¹ÎºÏŒ BitRate
+Output;Έξοδος
+Output format;Μορφοποίηση εξόδου
+OverallBitRate;Συνολικό BitRate
 OverallBitRate_Maximum;
 OverallBitRate_Minimum;
 OverallBitRate_Mode;
 OverallBitRate_Nominal;
-Part;ÎœÎ­ÏÎ¿Ï‚
-Part_Count;Î£Ï…Î½Î¿Î»Î¹ÎºÏŒÏ‚ Î±ÏÎ¹Î¸Î¼ÏŒÏ‚
+Part;Μέρος
+Part_Count;Συνολικός αριθμός
 PartNumber;
 PartTotal;
 Performer;Performer
-Period;Î ÎµÏÎ¯Î¿Î´Î¿Ï‚
-Phone;Î¤Î·Î»Î­Ï†Ï‰Î½Î¿
+Period;Περίοδος
+Phone;Τηλέφωνο
 PictureRatio;
-PixelAspectRatio;Î›ÏŒÎ³Î¿Ï‚ ÎµÎ¹ÎºÎ¿Î½Î¿ÏƒÏ„Î¿Î¹Ï‡ÎµÎ¯Î¿Ï…
-PixelAspectRatio_Original;Î›ÏŒÎ³Î¿Ï‚ ÎµÎ¹ÎºÎ¿Î½Î¿ÏƒÏ„Î¿Î¹Ï‡ÎµÎ¯Î¿Ï…
+PixelAspectRatio;Λόγος εικονοστοιχείου
+PixelAspectRatio_Original;Λόγος εικονοστοιχείου
 PlayCounter;PlayCounter
 Played_Count;
 Played_First_Date;
 Played_Last_Date;
-PlayTime;Î”Î¹Î¬ÏÎºÎµÎ¹Î±
-Position;Î˜Î­ÏƒÎ·
+PlayTime;Διάρκεια
+Position;Θέση
 Position_Total;
-Preferences;Î•Ï€Î¹Î»Î¿Î³Î­Ï‚/Î ÏÎ¿Ï„Î¹Î¼Î®ÏƒÎµÎ¹Ï‚
+Preferences;Επιλογές/Προτιμήσεις
 PrimaryAudioLanguage;
-Producer;Î Î±ÏÎ±Î³Ï‰Î³ÏŒÏ‚
+Producer;Παραγωγός
 ProductionDesigner;ProductionDesigner
 ProductionNumber;
 ProductionStudio;ProductionStudio
@@ -939,22 +939,22 @@ ProductPlacement;
 ProgrammeHasText;
 ProgrammeTextLanguage;
 ProgrammeTitle;
-Publisher;Î•ÎºÎ´ÏŽÏ„Î·Ï‚
-Purchased_Date;Î—Î¼ÎµÏÎ¿Î¼Î·Î½Î¯Î± Î±Î³Î¿ÏÎ¬Ï‚
+Publisher;Εκδώτης
+Purchased_Date;Ημερομηνία αγοράς
 Quote character;Quote character
-RadioStation;Î¡Î±Î´Î¹Î¿Ï†Ï‰Î½Î¹ÎºÏŒÏ‚ ÏƒÏ„Î±Î¸Î¼ÏŒÏ‚
-Rating;Î‘Î¾Î¹Î¿Î»ÏŒÎ³Î·ÏƒÎ·
-Recorded_Date;Î—Î¼ÎµÏÎ¿Î¼Î·Î½Î¯Î± ÎµÎ³Î³ÏÎ±Ï†Î®Ï‚
-Recorded_Location;Î¤Î¿Ï€Î¿Î¸ÎµÏƒÎ¯Î± ÎµÎ³Î³ÏÎ±Ï†Î®Ï‚
-Released_Date;Î—Î¼ÎµÏÎ¿Î¼Î·Î½Î¯Î± ÎˆÎºÎ´Î¿ÏƒÎ·Ï‚
+RadioStation;Ραδιοφωνικός σταθμός
+Rating;Αξιολόγηση
+Recorded_Date;Ημερομηνία εγγραφής
+Recorded_Location;Τοποθεσία εγγραφής
+Released_Date;Ημερομηνία Έκδοσης
 RemixedBy;Remixed by
 ReplayGain_Gain;
 ReplayGain_Peak;
-Resolution;Î‘Î½Î¬Î»Ï…ÏƒÎ·
+Resolution;Ανάλυση
 s;s
 SamplingCount;
-SamplingRate;Î£Ï…Ï‡Î½ÏŒÏ„Î·Ï„Î± Î´ÎµÎ¹Î³Î¼Î±Ï„Î¿Î»Î·ÏˆÎ¯Î±Ï‚
-Save;Î‘Ï€Î¿Î¸Î®ÎºÎµÏ…ÏƒÎ·
+SamplingRate;Συχνότητα δειγματοληψίας
+Save;Αποθήκευση
 ScanOrder;
 ScanOrder_Original;
 ScanOrder_Stored;
@@ -966,10 +966,10 @@ ScanType_StoreMethod;
 ScreenplayBy;Screenplay by
 Season;Season
 SecondaryAudioLanguage;
-see below;Î´ÎµÎ¯Ï„Îµ Ï€Î±ÏÎ±ÎºÎ¬Ï„Ï‰
+see below;δείτε παρακάτω
 Send HeaderFile;
-Separator_Columns;Î´Î¹Î±Ï‡Ï‰ÏÎ¹ÏƒÏ„Î®Ï‚ ÏƒÏ„Î·Î»ÏŽÎ½
-Separator_Lines;Î´Î¹Î±Ï‡Ï‰ÏÎ¹ÏƒÏ„Î®Ï‚ Î³ÏÎ±Î¼Î¼ÏŽÎ½
+Separator_Columns;διαχωριστής στηλών
+Separator_Lines;διαχωριστής γραμμών
 SerieTitle;
 ServiceChannel;
 ServiceName;
@@ -977,19 +977,19 @@ ServiceProvider;
 ServiceType;
 Set;Set
 Set_Count;Set count
-Setup;Î¡Ï…Î¸Î¼Î¯ÏƒÎµÎ¹Ï‚
+Setup;Ρυθμίσεις
 Sharpness;
-Sheet;Î¦ÏÎ»Î»Î¿
-Sheet (Complete);Î¦ÏÎ»Î»Î¿ (Î Î»Î®ÏÎµÏ‚)
+Sheet;Φύλλο
+Sheet (Complete);Φύλλο (Πλήρες)
 Shell extension;Shell extension (in explorer right click there will be a Media Info option)
 Shell extension, folder;
 Shell InfoTip;Shell InfoTip (in explorer, move the mouse on file, info will be displayed)
 ShimName;
-Show menu;Î•Î¼Ï†Î¬Î½Î¹ÏƒÎ· Î¼ÎµÎ½Î¿Ï
-Show toolbar;Î•Î¼Ï†Î¬Î½Î¹ÏƒÎ· ÎµÏÎ³Î±Î»ÎµÎ¹Î¿Î¸Î®ÎºÎ·Ï‚
+Show menu;Εμφάνιση μενού
+Show toolbar;Εμφάνιση εργαλειοθήκης
 SigningPresent;
 SignLanguage;
-Sort;Î¤Î±Î¾Î¹Î½ÏŒÎ¼Î·ÏƒÎ· ÎºÎ±Ï„Î¬
+Sort;Ταξινόμηση κατά
 SoundEngineer;Sound engineer
 Source;
 Source_Duration;
@@ -997,16 +997,16 @@ Source_FrameCount;
 Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
-Standard;Î£Ï„Î¬Î½Ï„Î±Ï
+Standard;Στάνταρ
 StoreMethod_InterleavedFields;
 StoreMethod_SeparatedFields;
 StoreMethod_SeparatedFields_1;
 StoreMethod_SeparatedFields_2;
-Stream;Î¡Î¿Î®
-Stream_MoreInfo;Î ÎµÏÎ¹ÏƒÏƒÏŒÏ„ÎµÏÎµÏ‚ Ï€Î»Î·ÏÎ¿Ï†Î¿ÏÎ¯ÎµÏ‚ ÏƒÏ‡ÎµÏ„Î¹ÎºÎ¬ Î¼Îµ Ï„Î·Î½ ÏÎ¿Î®
-StreamCount;Î‘ÏÎ¹Î¸Î¼ÏŒÏ‚ Ï„Ï‰Î½ ÏÎ¿ÏŽÎ½ Î±Ï…Ï„Î¿Ï Ï„Î¿Ï… Ï„ÏÏ€Î¿Ï…
+Stream;Ροή
+Stream_MoreInfo;Περισσότερες πληροφορίες σχετικά με την ροή
+StreamCount;Αριθμός των ροών αυτού του τύπου
 StreamID;Stream ID
-StreamKind;Î¤ÏÏ€Î¿Ï‚/Î•Î¯Î´Î¿Ï‚ Î¡Î¿Î®Ï‚
+StreamKind;Τύπος/Είδος Ροής
 StreamKindID;
 StreamKindPos;
 StreamSize;
@@ -1014,30 +1014,30 @@ StreamSize_Encoded;
 StreamSize_Proportion;
 Subject;Subject
 SubTrack;SubTrack
-Summary;Î ÎµÏÎ¯Î»Î·ÏˆÎ·
-Supported formats;Î¥Ï€Î¿ÏƒÏ„Î·ÏÎ¹Î¶ÏŒÎ¼ÎµÎ½ÎµÏ‚ Î¼Î¿ÏÏ†Î¿Ï€Î¿Î¹Î®ÏƒÎµÎ¹Ï‚
-Supported?;Î¥Ï€Î¿ÏƒÏ„Î·ÏÎ¯Î¶ÎµÏ„Î±Î¹?
-Synopsis;Î£ÏÎ½Î¿ÏˆÎ·
+Summary;Περίληψη
+Supported formats;Υποστηριζόμενες μορφοποιήσεις
+Supported?;Υποστηρίζεται?
+Synopsis;Σύνοψη
 SystemId;Id
 Tagged_Application;
 Tagged_Date;Tagged date
-Technician;Î¤ÎµÏ‡Î½Î¹ÎºÏŒÏ‚
-TermsOfUse;ÎŒÏÎ¿Î¹ Ï‡ÏÎ®ÏƒÎ·Ï‚
+Technician;Τεχνικός
+TermsOfUse;Όροι χρήσης
 TertiaryAudioLanguage;
-Text;ÎšÎµÎ¯Î¼ÎµÎ½Î¿
-Text - Custom;ÎšÎµÎ¯Î¼ÎµÎ½Î¿ - Î ÏÎ¿ÏƒÎ±ÏÎ¼Î¿ÏƒÎ¼Î­Î½Î¿
-Text (HTML);ÎšÎµÎ¯Î¼ÎµÎ½Î¿ (HTML)
-Text stream(s);Î¡Î¿Î­Ï‚ ÎºÎµÎ¹Î¼Î­Î½Î¿Ï…
-Text streams;Î¡Î¿Î­Ï‚ ÎºÎµÎ¹Î¼Î­Î½Î¿Ï…
-Text_Codec_List;Î£Ï…Î¼Ï€Î¹ÎµÏƒÏ„Î­Ï‚ ÎºÎµÎ¹Î¼Î­Î½Î¿Ï…
-Text_No;Î§Ï‰ÏÎ¯Ï‚ ÎºÎµÎ¯Î¼ÎµÎ½Î¿
-Text1;Î ÏÏŽÏ„Î· ÏÎ¿Î® ÎºÎµÎ¹Î¼Î­Î½Î¿Ï…
-Text2;Î”ÎµÏÏ„ÎµÏÎ· ÏÎ¿Î® ÎºÎµÎ¹Î¼Î­Î½Î¿Ï…
-Text3;Î¤ÏÎ¯Ï„Î· ÏÎ¿Î® ÎºÎµÎ¹Î¼Î­Î½Î¿Ï…
-TextCount;Î‘ÏÎ¹Î¸Î¼ÏŒÏ‚ ÏÎ¿ÏŽÎ½ ÎºÎµÎ¹Î¼Î­Î½Î¿Ï…
+Text;Κείμενο
+Text - Custom;Κείμενο - Προσαρμοσμένο
+Text (HTML);Κείμενο (HTML)
+Text stream(s);Ροές κειμένου
+Text streams;Ροές κειμένου
+Text_Codec_List;Συμπιεστές κειμένου
+Text_No;Χωρίς κείμενο
+Text1;Πρώτη ροή κειμένου
+Text2;Δεύτερη ροή κειμένου
+Text3;Τρίτη ροή κειμένου
+TextCount;Αριθμός ροών κειμένου
 TextlessElementsExist;
-ThanksTo;Î•Ï…Ï‡Î±ÏÎ¹ÏƒÏ„ÏŽ Ï„Î¿Ï…Ï‚
-Thousands separator;Î”Î¹Î±Ï‡Ï‰ÏÎ¹ÏƒÏ„Î®Ï‚ Ï‡Î¹Î»Î¹Î¬Î´Ï‰Î½
+ThanksTo;Ευχαριστώ τους
+Thousands separator;Διαχωριστής χιλιάδων
 TimeCode;
 TimeCode_FirstFrame;
 TimeCode_Settings;
@@ -1045,51 +1045,51 @@ TimeCode_Source;
 TimeCode_Striped;
 TimeStamp;
 TimeZone;
-Title;Î¤Î¯Ï„Î»Î¿Ï‚
-Title_More;Î¤Î¯Ï„Î»Î¿Ï‚, Ï€ÎµÏÎ¹ÏƒÏƒÏŒÏ„ÎµÏÎµÏ‚ Ï€Î»Î·ÏÎ¿Ï†Î¿ÏÎ¯ÎµÏ‚
+Title;Τίτλος
+Title_More;Τίτλος, περισσότερες πληροφορίες
 Total;Total
 TotalNumberOfParts;
 TotalProgrammeDuration;
 Track;Track name
 Track_Count;Track count
 transfer_characteristics;
-Translator;ÎœÎµÏ„Î±Ï†ÏÎ±ÏƒÏ„Î®Ï‚
-Tree;Î”Î­Î½Î´ÏÎ¿
-Tree & Text;Î”Î­Î½Î´ÏÎ¿ & ÎšÎµÎ¯Î¼ÎµÎ½Î¿
+Translator;Μεταφραστής
+Tree;Δένδρο
+Tree & Text;Δένδρο & Κείμενο
 Type;
 UniqueID;
-Unknown;Î†Î³Î½Ï‰ÏƒÏ„Î¿
+Unknown;Άγνωστο
 Url;Url
 Video;Video
 Video stream(s);Video stream(s)
-Video_Codec_List;Î£Ï…Î¼Ï€Î¹ÎµÏƒÏ„Î­Ï‚ Video
-Video_Delay;ÎšÎ±Î¸Î·ÏƒÏ„Î­ÏÎ¹ÏƒÎ· video
-Video_No;Î§Ï‰ÏÎ¯Ï‚ video
-Video0_Delay;ÎšÎ±Î¸Î·ÏƒÏ„Î­ÏÎ¹ÏƒÎ· video
-Video1;Î ÏÏŽÏ„Î· ÏÎ¿Î® video
+Video_Codec_List;Συμπιεστές Video
+Video_Delay;Καθηστέριση video
+Video_No;Χωρίς video
+Video0_Delay;Καθηστέριση video
+Video1;Πρώτη ροή video
 VideoComments;
-VideoCount;Î‘ÏÎ¹Î¸Î¼ÏŒÏ‚ Ï„Ï‰Î½ ÏÎ¿ÏŽÎ½ video
-View;Î ÏÎ¿Î²Î¿Î»Î®
-View_Hint;Î‘Î»Î»Î¬Î¶ÎµÎ¹ Ï„Î¿Î½ Ï„ÏÏŒÏ€Î¿ Ï€ÏÎ¿Î²Î¿Î»Î®Ï‚ Ï€Î»Î·ÏÎ¿Ï†Î¿ÏÎ¹ÏŽÎ½
-Warning : more streams in the files;Î ÏÎ¿ÎµÎ¹Î´Î¿Ï€Î¿Î¯Î·ÏƒÎ· : Ï…Ï€Î¬ÏÏ‡Î¿Ï…Î½ Ï€ÎµÏÎ¹ÏƒÏƒÏŒÏ„ÎµÏÎµÏ‚ ÏÎ¿Î­Ï‚ ÏƒÏ„Î± Î±ÏÏ‡ÎµÎ¯Î±
-Web;Î”Î¹Î±Î´ÏÎºÏ„Î¹Î¿
-WebSite_Audio;Î Î®Î³Î±Î¹Î½Îµ ÏƒÏ„Î·Î½ Î¹ÏƒÏ„Î¿ÏƒÎµÎ»Î¯Î´Î± Î±Ï…Ï„Î¿Ï Ï„Î¿Ï… ÏƒÏ…Î¼Ï€Î¹ÎµÏƒÏ„Î® Î®Ï‡Î¿Ï…
-WebSite_Audio_More;Î Î®Î³Î±Î¹Î½Îµ ÏƒÏ„Î·Î½ Î¹ÏƒÏ„Î¿ÏƒÎµÎ»Î¯Î´Î± (%Url%) to find this audio codec
+VideoCount;Αριθμός των ροών video
+View;Προβολή
+View_Hint;Αλλάζει τον τρόπο προβολής πληροφοριών
+Warning : more streams in the files;Προειδοποίηση : υπάρχουν περισσότερες ροές στα αρχεία
+Web;Διαδύκτιο
+WebSite_Audio;Πήγαινε στην ιστοσελίδα αυτού του συμπιεστή ήχου
+WebSite_Audio_More;Πήγαινε στην ιστοσελίδα (%Url%) to find this audio codec
 WebSite_General;Go to the web site of a player for this file
 WebSite_General_More;Go to the web site of a player for this file
-WebSite_Text;Î Î®Î³Î±Î¹Î½Îµ ÏƒÏ„Î·Î½ Î¹ÏƒÏ„Î¿ÏƒÎµÎ»Î¯Î´Î± Î±Ï…Ï„Î¿Ï Ï„Î¿Ï… ÏƒÏ…Î¼Ï€Î¹ÎµÏƒÏ„Î® ÎºÎµÎ¹Î¼Î­Î½Î¿Ï…
-WebSite_Text_More;Î Î®Î³Î±Î¹Î½Îµ ÏƒÏ„Î·Î½ Î¹ÏƒÏ„Î¿ÏƒÎµÎ»Î¯Î´Î± (%Url%) to find this text codec
+WebSite_Text;Πήγαινε στην ιστοσελίδα αυτού του συμπιεστή κειμένου
+WebSite_Text_More;Πήγαινε στην ιστοσελίδα (%Url%) to find this text codec
 WebSite_Url;http://MediaArea.net/MediaInfo
-WebSite_Video;Î Î®Î³Î±Î¹Î½Îµ ÏƒÏ„Î·Î½ Î¹ÏƒÏ„Î¿ÏƒÎµÎ»Î¯Î´Î± Î±Ï…Ï„Î¿Ï Ï„Î¿Ï… ÏƒÏ…Î¼Ï€Î¹ÎµÏƒÏ„Î® video
-WebSite_Video_More;Î Î®Î³Î±Î¹Î½Îµ ÏƒÏ„Î·Î½ Î¹ÏƒÏ„Î¿ÏƒÎµÎ»Î¯Î´Î± (%Url%) to find this video codec
-Width;Î Î»Î¬Ï„Î¿Ï‚
+WebSite_Video;Πήγαινε στην ιστοσελίδα αυτού του συμπιεστή video
+WebSite_Video_More;Πήγαινε στην ιστοσελίδα (%Url%) to find this video codec
+Width;Πλάτος
 Width_Original;
-WriteMe;Î•Ï€Î¹ÎºÎ¿Î¹Î½Ï‰Î½Î¯Î± Î¼Î±Î¶Î¯ Î¼Î¿Ï…
-WriteToTranslator;Î•Ï€Î¹ÎºÎ¿Î¹Î½Ï‰Î½Î¯Î± Î¼Îµ Ï„Î¿Î½ Î¼ÎµÏ„Î±Ï†ÏÎ±ÏƒÏ„Î®
-Written_Date;Î—Î¼ÎµÏÎ¿Î¼Î·Î½Î¯Î± ÎºÎ±Ï„Î±Î³ÏÎ±Ï†Î®Ï‚
-Written_Location;Î¤Î¿Ï€Î¿Î¸ÎµÏƒÎ¯Î± ÎºÎ±Ï„Î±Î³ÏÎ±Ï†Î®Ï‚
-WrittenBy;Î“ÏÎ±Î¼Î¼Î­Î½Î¿ Î±Ï€ÏŒ
-Yes;ÎÎ±Î¹
-Your system;Î¤Î¿ ÏƒÏÏƒÏ„Î·Î¼Î¬ ÏƒÎ±Ï‚
+WriteMe;Επικοινωνία μαζί μου
+WriteToTranslator;Επικοινωνία με τον μεταφραστή
+Written_Date;Ημερομηνία καταγραφής
+Written_Location;Τοποθεσία καταγραφής
+WrittenBy;Γραμμένο από
+Yes;Ναι
+Your system;Το σύστημά σας
 ZZ_Automatic_Percent;69
 ZZ_AutomaticLanguage_Percent;77
