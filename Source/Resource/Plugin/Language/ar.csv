@@ -991,7 +991,7 @@ Shell extension;ملحق Shell (اضافة قائمة 'MediaInfo ' عند الن
 Shell extension, folder;للمجلدات أيضا
 Shell InfoTip;ماحق InfoTip ( عرض مزيد من التفاصيل عند  تحريك الماوس فوق الملف)
 ShimName;
-ShimName;
+ShimVersion;
 Show menu;اظهار القائمة
 Show toolbar;عرض شريط الأدوات
 SigningPresent;

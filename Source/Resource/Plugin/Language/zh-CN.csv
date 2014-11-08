@@ -991,7 +991,7 @@ Shell extension;[资源管理器]右键菜单 (为多媒体文件的右键菜单
 Shell extension, folder;包含文件夹右键
 Shell InfoTip;[资源管理器]气泡提示 (将鼠标移到文件图标上会显示相关信息)
 ShimName;
-ShimName;
+ShimVersion;
 Show menu;显示菜单
 Show toolbar;显示工具栏
 SigningPresent;

@@ -249,7 +249,7 @@ Collection;Collection
 Colorimetry;Colorimetry
 ColorSpace;Color space
 colour_primaries;Color primaries
-colour_range;colour range
+colour_range;Color range
 Comment;Comment
 CommissionedBy;Commissioned by
 Compilation;Compilation
@@ -991,7 +991,7 @@ Shell extension;Explorer extension (in Windows Explorer, right click on a file, 
 Shell extension, folder;For folders too
 Shell InfoTip;Explorer Tooltip (in Windows Explorer, move the mouse over the file, info will be displayed)
 ShimName;Shim Name
-ShimName;Shim Version
+ShimVersion;Shim Version
 Show menu;Show menu
 Show toolbar;Show toolbar
 SigningPresent;Signing Present

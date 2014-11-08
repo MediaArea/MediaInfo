@@ -249,7 +249,7 @@ Collection;Collection
 Colorimetry;Colorimétrie
 ColorSpace;Espace de couleurs
 colour_primaries;Coordonnées de chromaticité
-colour_range;gamme de couleurs
+colour_range;Gamme de couleurs
 Comment;Commentaire
 CommissionedBy;Commanditaire
 Compilation;Compilation
@@ -991,7 +991,7 @@ Shell extension;Extension Shell (clic droit sur le fichier, il y aura un menu 'M
 Shell extension, folder;Pour les répertoires aussi
 Shell InfoTip;Extension bulle d'aide (passez la souris sur un fichier, il y aura toutes les infos)
 ShimName;
-ShimName;
+ShimVersion;
 Show menu;Montrer le menu
 Show toolbar;Montrer la barre d'outils
 SigningPresent;

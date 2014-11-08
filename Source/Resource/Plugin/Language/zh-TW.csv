@@ -991,7 +991,7 @@ Shell extension;快顯功能表 (在檔案總管裡, 按右鍵會出現 MediaInf
 Shell extension, folder;也對資料夾使用
 Shell InfoTip;資訊提示 (在檔案總管裡, 將滑鼠移到檔案上會顯示相關訊息)
 ShimName;
-ShimName;
+ShimVersion;
 Show menu;顯示選單
 Show toolbar;顯示工具列
 SigningPresent;

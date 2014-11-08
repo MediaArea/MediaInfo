@@ -991,7 +991,7 @@ Shell extension;쉘 익스텐션 (탐색기 마우스 오른쪽 버튼 메뉴에
 Shell extension, folder;폴더에도 추가
 Shell InfoTip;쉘 인포팁 (탐색기에서 파일에 마우스를 올려 놓으면 정보를 보여줍니다)
 ShimName;
-ShimName;
+ShimVersion;
 Show menu;메뉴 보기
 Show toolbar;도구 모음 보기
 SigningPresent;

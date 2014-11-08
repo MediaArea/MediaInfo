@@ -991,7 +991,7 @@ Shell extension;Explorer extension (in Windows Explorer, right click on a file, 
 Shell extension, folder;For folders too
 Shell InfoTip;Explorer Tooltip (in Windows Explorer, move the mouse over the file, info will be displayed)
 ShimName;
-ShimName;
+ShimVersion;
 Show menu;მაჩვენე მენიუ
 Show toolbar;მაჩვენე პანელი
 SigningPresent;
