@@ -1385,6 +1385,23 @@ void File_Mpegv::Streams_Fill()
         Fill(Stream_Video, 0, Video_Delay_Settings, Ztring(__T("broken_link="))+(group_start_broken_link?__T("1"):__T("0")));
         Fill(Stream_Video, 0, Video_Delay_Source, "Stream");
         Fill(Stream_Video, 0, Video_Delay_DropFrame, group_start_drop_frame_flag?"Yes":"No");
+        
+        if (group_start_closed_gop_Closed+group_start_closed_gop_Open>=4
+         && ((group_start_closed_gop && group_start_closed_gop_Closed==1) 
+          || group_start_closed_gop_Closed==0
+          || group_start_closed_gop_Open==0)) // Testing a couple of GOPs, and coherant
+        {
+            if (group_start_closed_gop_Open)
+            {
+                Fill(Stream_Video, 0, "Gop_OpenClosed", "Open");
+                if (group_start_closed_gop)
+                    Fill(Stream_Video, 0, "Gop_OpenClosed_FirstFrame", "Closed");
+            }
+            else
+            {
+                Fill(Stream_Video, 0, "Gop_OpenClosed", "Closed");
+            }
+        }
 
         Fill(Stream_Video, 0, Video_TimeCode_FirstFrame, TimeCode_FirstFrame.c_str());
         if (IsSub)
@@ -4014,7 +4031,15 @@ void File_Mpegv::group_start()
             TimeCode_FirstFrame+=drop_frame_flag?';':':';
             TimeCode_FirstFrame+=('0'+Frames/10);
             TimeCode_FirstFrame+=('0'+Frames%10);
+
+            group_start_closed_gop_Closed=0;
+            group_start_closed_gop_Open=0;
         }
+
+        if (closed_gop)
+            group_start_closed_gop_Closed++;
+        else
+            group_start_closed_gop_Open++;
 
         RefFramesCount=0;
 

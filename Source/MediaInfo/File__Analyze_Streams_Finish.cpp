@@ -1058,6 +1058,13 @@ void File__Analyze::Streams_Finish_HumanReadable_PerStream(stream_t StreamKind, 
         Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(__T("Delay_Source_"))+Value);
         Fill(StreamKind, StreamPos, Fill_Parameter(StreamKind, Generic_Delay_Source_String), Translated.find(__T("Delay_Source_"))?Translated:Value);
     }
+
+    //Gop_OpenClosed
+    if (StreamKind==Stream_Video && (Parameter==Video_Gop_OpenClosed || Parameter==Video_Gop_OpenClosed_FirstFrame))
+    {
+        Ztring Translated=MediaInfoLib::Config.Language_Get(Ztring(__T("Gop_OpenClosed_"))+Value);
+        Fill(Stream_Video, StreamPos, Parameter+1, Translated.find(__T("Gop_OpenClosed_"))?Translated:Value, true);
+    }
 }
 
 } //NameSpace
