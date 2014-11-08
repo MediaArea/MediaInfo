@@ -577,7 +577,10 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Aller sur le site Web
-Grouping;Grouping
+Gop_OpenClosed;GOP, ouvert/fermé
+Gop_OpenClosed_Open;Ouvert
+Gop_OpenClosed_Closed;Fermé
+Gop_OpenClosed_FirstFrame;GOP, ouvert/fermé de la première imageGrouping
 h;h
 Header file;Créer un fichier Header
 Height;Hauteur

@@ -577,7 +577,10 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Web サイトへ移動
-Grouping;
+Gop_OpenClosed;
+Gop_OpenClosed_Open;
+Gop_OpenClosed_Closed;
+Gop_OpenClosed_FirstFrame;
 h;時
 Header file;ヘッダーファイルを作成
 Height;高さ

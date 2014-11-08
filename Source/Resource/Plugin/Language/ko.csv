@@ -577,7 +577,10 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;웹사이트로 가기
-Grouping;
+Gop_OpenClosed;
+Gop_OpenClosed_Open;
+Gop_OpenClosed_Closed;
+Gop_OpenClosed_FirstFrame;
 h;시
 Header file;헤더 파일 만들기
 Height;높이

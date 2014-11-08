@@ -577,7 +577,10 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Επίσκεψη του δυκτιακού τόπου
-Grouping;
+Gop_OpenClosed;
+Gop_OpenClosed_Open;
+Gop_OpenClosed_Closed;
+Gop_OpenClosed_FirstFrame;Групаванне
 h;h
 Header file;Δημιουργήστε αρχείο κεφαλίδας
 Height;Ύψος

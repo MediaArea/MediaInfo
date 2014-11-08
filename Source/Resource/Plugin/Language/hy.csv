@@ -577,7 +577,10 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Բացել կայքը
-Grouping;
+Gop_OpenClosed;
+Gop_OpenClosed_Open;
+Gop_OpenClosed_Closed;
+Gop_OpenClosed_FirstFrame;
 h; ժ.
 Header file;Ստեղծել գլխագիրը
 Height;Բարձր-ը
@@ -1091,5 +1094,5 @@ Written_Location;Գրելու տեղը
 WrittenBy;Գրվել է՝
 Yes;Այո
 Your system;Ձեր համակարգը
-ZZ_Automatic_Percent;88
-ZZ_AutomaticLanguage_Percent;92
+ZZ_Automatic_Percent;87
+ZZ_AutomaticLanguage_Percent;91

@@ -577,7 +577,10 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Към Уебсайта
-Grouping;
+Gop_OpenClosed;
+Gop_OpenClosed_Open;
+Gop_OpenClosed_Closed;
+Gop_OpenClosed_FirstFrame;
 h;х
 Header file;Хедър файл
 Height;Височина
@@ -1092,4 +1095,4 @@ WrittenBy;НаписаноОт
 Yes;Да
 Your system;Вашата система
 ZZ_Automatic_Percent;83
-ZZ_AutomaticLanguage_Percent;91
+ZZ_AutomaticLanguage_Percent;90

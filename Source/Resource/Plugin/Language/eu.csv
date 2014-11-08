@@ -577,7 +577,10 @@ Genre_189;Dubstep
 Genre_190;Garage Rocka
 Genre_191;Psybienta
 Go to WebSite;Joan webgunera
-Grouping;Multzokapena
+Gop_OpenClosed;
+Gop_OpenClosed_Open;
+Gop_OpenClosed_Closed;
+Gop_OpenClosed_FirstFrame;
 h;h
 Header file;Sortu idazburu agiria
 Height;Garaiera
