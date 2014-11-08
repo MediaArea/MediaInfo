@@ -5073,11 +5073,11 @@ void File_Mxf::Data_Parse()
         Element_Name(Mxf_EssenceElement(Code));
 
         //Config
-        #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
         if (!Essences_FirstEssence_Parsed)
         {
             Streams_Finish_Preface_ForTimeCode(Preface_Current); //Configuring DTS_Delay
 
+            #if MEDIAINFO_DEMUX || MEDIAINFO_SEEK
             //Searching single descriptor if it is the only valid descriptor
             descriptors::iterator SingleDescriptor=Descriptors.end();
             for (descriptors::iterator SingleDescriptor_Temp=Descriptors.begin(); SingleDescriptor_Temp!=Descriptors.end(); SingleDescriptor_Temp++)
@@ -5127,10 +5127,10 @@ void File_Mxf::Data_Parse()
                         }
                 }
             }
+            #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
 
             Essences_FirstEssence_Parsed=true;
         }
-        #endif //MEDIAINFO_DEMUX || MEDIAINFO_SEEK
 
         if (IsParsingEnd)
         {
