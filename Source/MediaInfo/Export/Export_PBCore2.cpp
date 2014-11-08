@@ -561,6 +561,9 @@ Ztring Export_PBCore2::Transform(MediaInfo_Internal &MI)
 
     ToReturn+=__T("</pbcoreInstantiationDocument>\n");
 
+    //Carriage return
+    ToReturn.FindAndReplace(__T("\n"), EOL, 0, Ztring_Recursive);
+
     return ToReturn;
 }
 
