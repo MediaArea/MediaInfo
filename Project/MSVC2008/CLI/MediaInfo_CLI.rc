@@ -1,8 +1,8 @@
 #include <winresrc.h>
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,7,70,0
- PRODUCTVERSION 0,7,70,0
+ FILEVERSION 0,7,71,0
+ PRODUCTVERSION 0,7,71,0
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -19,12 +19,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "MediaArea.net"
             VALUE "FileDescription", "All about your audio and video files"
-            VALUE "FileVersion", "0.7.70.0"
+            VALUE "FileVersion", "0.7.71.0"
             VALUE "InternalName", "MediaInfo - CLI - MSVC 2010"
             VALUE "LegalCopyright", "MediaArea.net"
             VALUE "OriginalFilename", "MediaInfo.exe"
             VALUE "ProductName", "MediaInfo"
-            VALUE "ProductVersion", "0.7.70.0"
+            VALUE "ProductVersion", "0.7.71.0"
         END
     END
     BLOCK "VarFileInfo"

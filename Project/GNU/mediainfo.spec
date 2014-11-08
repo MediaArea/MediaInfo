@@ -1,6 +1,6 @@
-%define mediainfo_version           0.7.70
-%define libmediainfo_version        0.7.70
-%define libzen_version              0.4.29
+%define mediainfo_version           0.7.71
+%define libmediainfo_version        0.7.71
+%define libzen_version              0.4.30
 
 Name:           mediainfo
 Version:        %{mediainfo_version}
