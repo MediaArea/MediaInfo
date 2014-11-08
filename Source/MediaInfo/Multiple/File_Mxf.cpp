@@ -5572,7 +5572,7 @@ void File_Mxf::Data_Parse()
     else
         Skip_XX(Element_Size,                                   "Unknown");
 
-    if (Buffer_End && File_Offset+Buffer_Offset+Element_Size>=Buffer_End)
+    if (Buffer_End && (File_Offset+Buffer_Offset+Element_Size>=Buffer_End || File_GoTo!=(int64u)-1) )
     {
         Buffer_Begin=(int64u)-1;
         Buffer_End=0;
