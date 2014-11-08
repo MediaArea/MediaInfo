@@ -4682,7 +4682,7 @@ bool File_Mxf::Header_Begin()
         Element_Offset=0;
         Element_End0();
 
-        if (Buffer_End && File_Offset+Buffer_Offset+Element_Size>=Buffer_End)
+        if (Buffer_End && (File_Offset+Buffer_Offset+Element_Size>=Buffer_End || File_GoTo!=(int64u)-1) )
         {
             Buffer_Begin=(int64u)-1;
             Buffer_End=0;
