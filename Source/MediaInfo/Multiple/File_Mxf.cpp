@@ -4088,22 +4088,20 @@ size_t File_Mxf::Read_Buffer_Seek (size_t Method, int64u Value, int64u ID)
                 else if (Descriptors.begin()->second.QuantizationBits!=(int8u)-1)
                     Descriptors.begin()->second.ByteRate=SamplingRate*Descriptors.begin()->second.QuantizationBits/8;
             }
+        }
 
+        for (descriptors::iterator Descriptor=Descriptors.begin(); Descriptor!=Descriptors.end(); Descriptor++)
+        {
             //Configuring EditRate if needed (e.g. audio at 48000 Hz)
-            if (Demux_Rate) //From elsewhere
-            {
-                Descriptors.begin()->second.SampleRate=Demux_Rate;
-            }
-            else if (Descriptors.begin()->second.SampleRate>1000)
+            if (Descriptor->second.SampleRate>1000)
             {
                 float64 EditRate_FromTrack=DBL_MAX;
                 for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); ++Track)
                     if (EditRate_FromTrack>Track->second.EditRate)
                         EditRate_FromTrack=Track->second.EditRate;
                 if (EditRate_FromTrack>1000)
-                    Descriptors.begin()->second.SampleRate=24; //Default value
-                else
-                    Descriptors.begin()->second.SampleRate=EditRate_FromTrack;
+                    EditRate_FromTrack=Demux_Rate; //Default value;
+                Descriptor->second.SampleRate=EditRate_FromTrack;
                 for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); ++Track)
                     if (Track->second.EditRate>EditRate_FromTrack)
                     {
@@ -5103,22 +5101,20 @@ void File_Mxf::Data_Parse()
                     else if (SingleDescriptor->second.QuantizationBits!=(int8u)-1)
                         SingleDescriptor->second.ByteRate=SamplingRate*SingleDescriptor->second.QuantizationBits/8;
                 }
+            }
 
+            for (descriptors::iterator Descriptor=Descriptors.begin(); Descriptor!=Descriptors.end(); Descriptor++)
+            {
                 //Configuring EditRate if needed (e.g. audio at 48000 Hz)
-                if (Demux_Rate) //From elsewhere
-                {
-                    SingleDescriptor->second.SampleRate=Demux_Rate;
-                }
-                else if (SingleDescriptor->second.SampleRate>1000)
+                if (Descriptor->second.SampleRate>1000)
                 {
                     float64 EditRate_FromTrack=DBL_MAX;
                     for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); ++Track)
                         if (EditRate_FromTrack>Track->second.EditRate)
                             EditRate_FromTrack=Track->second.EditRate;
                     if (EditRate_FromTrack>1000)
-                        SingleDescriptor->second.SampleRate=24; //Default value
-                    else
-                        SingleDescriptor->second.SampleRate=EditRate_FromTrack;
+                        EditRate_FromTrack=Demux_Rate; //Default value;
+                    Descriptor->second.SampleRate=EditRate_FromTrack;
                     for (tracks::iterator Track=Tracks.begin(); Track!=Tracks.end(); ++Track)
                         if (Track->second.EditRate>EditRate_FromTrack)
                         {

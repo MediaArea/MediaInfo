@@ -682,20 +682,9 @@ void File__ReferenceFilesHelper::ParseReferences()
                     {
                         int64u DTS_Temp;
                         if (!ReferenceTemp->CompleteDuration.empty() && ReferenceTemp->CompleteDuration_Pos)
-                        {
-                            if (ReferenceTemp->CompleteDuration[ReferenceTemp->CompleteDuration_Pos].MI->Info->FrameInfo.DTS!=(int64u)-1)
-                                DTS_Temp=ReferenceTemp->CompleteDuration[ReferenceTemp->CompleteDuration_Pos].MI->Info->FrameInfo.DTS-ReferenceTemp->CompleteDuration[ReferenceTemp->CompleteDuration_Pos].MI->Info->Config->Demux_Offset_DTS_FromStream;
-                            else
-                                DTS_Temp=0;
-                        }
+                            DTS_Temp=ReferenceTemp->CompleteDuration[ReferenceTemp->CompleteDuration_Pos].Demux_Offset_DTS+ReferenceTemp->CompleteDuration[ReferenceTemp->CompleteDuration_Pos].MI->Info->FrameInfo.DTS-ReferenceTemp->CompleteDuration[ReferenceTemp->CompleteDuration_Pos].MI->Info->Config->Demux_Offset_DTS_FromStream;
                         else
-                        {
-                            if (ReferenceTemp->MI->Info->FrameInfo.DTS!=(int64u)-1)
-                                DTS_Temp=ReferenceTemp->MI->Info->FrameInfo.DTS-ReferenceTemp->MI->Info->Config->Demux_Offset_DTS_FromStream;
-                            else
-                                DTS_Temp=0;
-                        }
-                        DTS_Temp+=ReferenceTemp->CompleteDuration[ReferenceTemp->CompleteDuration_Pos].Demux_Offset_DTS;
+                            DTS_Temp=ReferenceTemp->MI->Info->FrameInfo.DTS-ReferenceTemp->MI->Info->Config->Demux_Offset_DTS_FromStream;
                         if (DTS_Minimal>DTS_Temp)
                             DTS_Minimal=DTS_Temp;
                     }
@@ -916,20 +905,9 @@ void File__ReferenceFilesHelper::ParseReference()
             {
                 int64u DTS_Temp;
                 if (!Reference->CompleteDuration.empty() && Reference->CompleteDuration_Pos)
-                {
-                    if (Reference->CompleteDuration[Reference->CompleteDuration_Pos].MI->Info->FrameInfo.DTS!=(int64u)-1)
-                        DTS_Temp=Reference->CompleteDuration[Reference->CompleteDuration_Pos].MI->Info->FrameInfo.DTS-Reference->CompleteDuration[Reference->CompleteDuration_Pos].MI->Info->Config->Demux_Offset_DTS_FromStream;
-                    else
-                        DTS_Temp=0;
-                }
+                    DTS_Temp=Reference->CompleteDuration[Reference->CompleteDuration_Pos].MI->Info->FrameInfo.DTS-Reference->CompleteDuration[Reference->CompleteDuration_Pos].MI->Info->Config->Demux_Offset_DTS_FromStream;
                 else
-                {
-                    if (Reference->MI->Info->FrameInfo.DTS!=(int64u)-1)
-                        DTS_Temp=Reference->MI->Info->FrameInfo.DTS-Reference->MI->Info->Config->Demux_Offset_DTS_FromStream;
-                    else
-                        DTS_Temp=0;
-                }
-                DTS_Temp+=Reference->CompleteDuration[Reference->CompleteDuration_Pos].Demux_Offset_DTS;
+                    DTS_Temp=Reference->MI->Info->FrameInfo.DTS-Reference->MI->Info->Config->Demux_Offset_DTS_FromStream;
                 if (!Reference->CompleteDuration.empty() && Reference->CompleteDuration_Pos<Reference->CompleteDuration.size() && Reference->CompleteDuration[Reference->CompleteDuration_Pos].IgnoreFramesRate && Reference->CompleteDuration[Reference->CompleteDuration_Pos].IgnoreFramesBefore)
                 {
                     int64u TimeOffset=float64_int64s(((float64)Reference->CompleteDuration[Reference->CompleteDuration_Pos].IgnoreFramesBefore)/Reference->CompleteDuration[Reference->CompleteDuration_Pos].IgnoreFramesRate*1000000000);
