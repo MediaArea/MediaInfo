@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.8.11)
 
 set(MediaInfoLib_MAJOR_VERSION 0)
 set(MediaInfoLib_MINOR_VERSION 7)
-set(MediaInfoLib_PATCH_VERSION 69)
+set(MediaInfoLib_PATCH_VERSION 71)
 set(MediaInfoLib_VERSION ${MediaInfoLib_MAJOR_VERSION}.${MediaInfoLib_MINOR_VERSION}.${MediaInfoLib_PATCH_VERSION})
 
 if (NOT WIN32)

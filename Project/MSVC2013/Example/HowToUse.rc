@@ -47,14 +47,14 @@ BEGIN
             VALUE "Comments", "\0"
             VALUE "CompanyName", "http://MediaArea.net/MediaInfo\0"
             VALUE "FileDescription", "Read info about media files (command line)\0"
-            VALUE "FileVersion", "0,7,70,0\0"
+            VALUE "FileVersion", "0,7,71,0\0"
             VALUE "InternalName", "MediaInfo - Cmd - Win32 - Microsoft\0"
             VALUE "LegalCopyright", "BSD-2-Clause\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "MediaInfo.exe\0"
             VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "MediaInfo (Cmd)\0"
-            VALUE "ProductVersion", "0,7,70,0\0"
+            VALUE "ProductVersion", "0,7,71,0\0"
             VALUE "SpecialBuild", "\0"
         END
     END

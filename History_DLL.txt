@@ -8,7 +8,7 @@ bug reports and feature request are here:
 https://sourceforge.net/p/mediainfo/_list/tickets
 
 
-Version 0.7.71, 2014-
+Version 0.7.71, 2014-11-09
 --------------
 + AS-11 (Core, Segmentation, UK DPP items) display
 + MXF: support of TTML (SMPTE ST 2052) detection
