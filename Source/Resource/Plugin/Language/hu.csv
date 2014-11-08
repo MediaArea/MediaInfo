@@ -244,10 +244,12 @@ Codec_Settings_Sign;Kódek beállításai, Sign
 Codec_Url;Kódek weblapja
 CodecID;Kódek azonosító
 CodecID_Description;Kódek leírás
+CoDirector;
 Collection;Gyűjtemény
 Colorimetry;Színkódolás
 ColorSpace;
 colour_primaries;
+colour_range;
 Comment;Megjegyzés
 CommissionedBy;Megbízó
 Compilation;
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;A weblap meglátogatása
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -988,6 +991,7 @@ Shell extension;Rendszerhéj-kiterjesztés (az Intézőben a helyzetérzékeny m
 Shell extension, folder;
 Shell InfoTip;Rendszerhéj tipp (ha az egérmutató az Intézőben a fájl fölé visszük, adatokat láthatunk)
 ShimName;
+ShimName;
 Show menu;Menü mutatása
 Show toolbar;Eszköztár mutatása
 SigningPresent;
@@ -1095,4 +1099,4 @@ WrittenBy;Írta
 Yes;igen
 Your system;Rendszer
 ZZ_Automatic_Percent;78
-ZZ_AutomaticLanguage_Percent;88
+ZZ_AutomaticLanguage_Percent;87

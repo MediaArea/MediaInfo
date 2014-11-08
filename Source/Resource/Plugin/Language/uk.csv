@@ -244,10 +244,12 @@ Codec_Settings_Sign;Налаштування кодеку, Sign
 Codec_Url;Інтернет-адреса кодеку
 CodecID;Ідентифікатор кодеку
 CodecID_Description;Опис кодеку
+CoDirector;
 Collection;Колекція
 Colorimetry;Колориметрія
 ColorSpace;Простір кольору
 colour_primaries;Основні кольори
+colour_range;
 Comment;Примітка
 CommissionedBy;Поручитель
 Compilation;Компіляція
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Перейти до сайту
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -988,6 +991,7 @@ Shell extension;Контекстне меню провідника
 Shell extension, folder;Включаючи теки
 Shell InfoTip;Підказка провідника (при наведенні вказівника миші на файл відображається інформація)
 ShimName;
+ShimName;
 Show menu;Відображати меню
 Show toolbar;Відображати панель
 SigningPresent;
@@ -1095,4 +1099,4 @@ WrittenBy;Записано
 Yes;Так
 Your system;Ваша система
 ZZ_Automatic_Percent;86
-ZZ_AutomaticLanguage_Percent;93
+ZZ_AutomaticLanguage_Percent;92

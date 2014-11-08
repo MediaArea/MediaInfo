@@ -244,10 +244,12 @@ Codec_Settings_Sign;
 Codec_Url;Web do codec
 CodecID;
 CodecID_Description;
+CoDirector;
 Collection;Colección
 Colorimetry;
 ColorSpace;
 colour_primaries;
+colour_range;
 Comment;Comentario
 CommissionedBy;Encargado por
 Compilation;
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Ir ao web
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -987,6 +990,7 @@ Sheet (Complete);Folla (Completa)
 Shell extension;Shell extension (ao picar co botón dereito do rato aparecerá unha opción Media Info ...)
 Shell extension, folder;
 Shell InfoTip;Shell InfoTip (no explorer, situa o rato sobre o arquivo para ver a información)
+ShimName;
 ShimName;
 Show menu;Mostrar menú
 Show toolbar;Mostrar barra de ferramentas

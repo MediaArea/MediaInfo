@@ -244,10 +244,12 @@ Codec_Settings_Sign;Кодек_Настройки_Подпис
 Codec_Url;Кодек_ЮРЛ
 CodecID;КодекИД
 CodecID_Description;КодекИД_Описание
+CoDirector;
 Collection;Колекция
 Colorimetry;ЦветоваГама
 ColorSpace;ЦветовоПронстранство
 colour_primaries;цветови_основи
+colour_range;
 Comment;Коментар
 CommissionedBy;ПоръчанОт
 Compilation;
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Към Уебсайта
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -987,6 +990,7 @@ Sheet (Complete);Формуляр (Цялостен)
 Shell extension;Шел екстенция
 Shell extension, folder;Шел екстенция, папка
 Shell InfoTip;Шел ИнфоИнфо
+ShimName;
 ShimName;
 Show menu;Показ меню
 Show toolbar;Показ инструментибар

@@ -244,10 +244,12 @@ Codec_Settings_Sign;Налада Sign кодэка
 Codec_Url;Спасылка на кодэк
 CodecID;Ідэнтыфікатар кодэка
 CodecID_Description;Апісанне кодэка
+CoDirector;
 Collection;Калекцыя
 Colorimetry;Каларыметрыя
 ColorSpace;
 colour_primaries;Асноўныя колеры
+colour_range;
 Comment;Каментар
 CommissionedBy;Даручальнік
 Compilation;Кампіляцыя
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Перайсці на сайт
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -987,6 +990,7 @@ Sheet (Complete);Табліца (поўная)
 Shell extension;Пашырэнне правадыра (пункт у меню па правай кнопцы)
 Shell extension, folder;Для папак таксама
 Shell InfoTip;Паказваць меню
+ShimName;
 ShimName;
 Show menu;Паказваць меню
 Show toolbar;Паказваць панэль

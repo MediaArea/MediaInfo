@@ -244,10 +244,12 @@ Codec_Settings_Sign;ตั้งค่า Codec, Sign
 Codec_Url;เว็บลิงค์ของ codec
 CodecID;รหัสประจำตัว Codec
 CodecID_Description;
+CoDirector;
 Collection;Collection
 Colorimetry;
 ColorSpace;
 colour_primaries;
+colour_range;
 Comment;คอมเมนต์
 CommissionedBy;Commissioned by
 Compilation;
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;ไปที่เว็บไซต์
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -987,6 +990,7 @@ Sheet (Complete);Sheet (Complete)
 Shell extension;ลงทะเบียนชนิดไฟล์ (เมื่อคลิกขวาใน explorer จะแสดงตัวเลือกของ Media)
 Shell extension, folder;
 Shell InfoTip;ข้อมูลเคล็บลับ Shell (ใน explorer, เมื่อชี้เม้าท์ที่ไฟล์, จะแสดงข้อมูลไฟล์)
+ShimName;
 ShimName;
 Show menu;แสดงเมนู
 Show toolbar;แสดงแถบเครื่องมือ

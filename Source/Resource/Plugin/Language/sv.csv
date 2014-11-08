@@ -244,10 +244,12 @@ Codec_Settings_Sign;
 Codec_Url; Länk till codec
 CodecID;
 CodecID_Description;
+CoDirector;
 Collection; Samling
 Colorimetry;
 ColorSpace;
 colour_primaries;
+colour_range;
 Comment; Kommentar
 CommissionedBy; Kommissionerad av
 Compilation;
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite; Besök hemsida
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -988,6 +991,7 @@ Shell extension; Shell extension (högerklicka i explorer så kommer ett Media I
 Shell extension, folder;
 Shell InfoTip;
 ShimName;
+ShimName;
 Show menu; Visa meny
 Show toolbar; Visa verktygsfält
 SigningPresent;
@@ -1094,5 +1098,5 @@ Written_Location; Ort
 WrittenBy; Skrivet av
 Yes; Ja
 Your system; Ditt system
-ZZ_Automatic_Percent;68
+ZZ_Automatic_Percent;67
 ZZ_AutomaticLanguage_Percent;75

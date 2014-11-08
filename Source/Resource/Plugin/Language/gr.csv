@@ -244,10 +244,12 @@ Codec_Settings_Sign;
 Codec_Url;Σύνδεσμος συμπιεστή (url)
 CodecID;
 CodecID_Description;
+CoDirector;
 Collection;Συλλογή
 Colorimetry;
 ColorSpace;
 colour_primaries;
+colour_range;
 Comment;Σχόλιο
 CommissionedBy;Commissioned by
 Compilation;
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Επίσκεψη του δυκτιακού τόπου
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -987,6 +990,7 @@ Sheet (Complete);Φύλλο (Πλήρες)
 Shell extension;Shell extension (in explorer right click there will be a Media Info option)
 Shell extension, folder;
 Shell InfoTip;Shell InfoTip (in explorer, move the mouse on file, info will be displayed)
+ShimName;
 ShimName;
 Show menu;Εμφάνιση μενού
 Show toolbar;Εμφάνιση εργαλειοθήκης

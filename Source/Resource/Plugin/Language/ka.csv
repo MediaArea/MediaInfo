@@ -244,10 +244,12 @@ Codec_Settings_Sign;კოდეკის პარამეტრები, Sig
 Codec_Url;კოდეკების ვებმისამართი
 CodecID;კოდეკის ID
 CodecID_Description;კოდეკის აღწერა
+CoDirector;
 Collection;კოლექცია
 Colorimetry;Colorimetry
 ColorSpace;Color space
 colour_primaries;Color primaries
+colour_range;
 Comment;კომენტარი
 CommissionedBy;Commissioned by
 Compilation;Compilation
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;გადადით ვებ-გვერდძე
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -987,6 +990,7 @@ Sheet (Complete);ცხირილი (სრული)
 Shell extension;Explorer extension (in Windows Explorer, right click on a file, there will be a MediaInfo option)
 Shell extension, folder;For folders too
 Shell InfoTip;Explorer Tooltip (in Windows Explorer, move the mouse over the file, info will be displayed)
+ShimName;
 ShimName;
 Show menu;მაჩვენე მენიუ
 Show toolbar;მაჩვენე პანელი

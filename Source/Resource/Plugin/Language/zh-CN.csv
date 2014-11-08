@@ -244,10 +244,12 @@ Codec_Settings_Sign;编码设置, Sign
 Codec_Url;编码设置网址
 CodecID;编码设置ID
 CodecID_Description;编码描述
+CoDirector;
 Collection;收集
 Colorimetry;比色法
 ColorSpace;色彩空间
 colour_primaries;颜色初选
+colour_range;
 Comment;评论
 CommissionedBy;评论人
 Compilation;
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;访问网站
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -987,6 +990,7 @@ Sheet (Complete);表格(完整)
 Shell extension;[资源管理器]右键菜单 (为多媒体文件的右键菜单添加 MediaInfo 选项)
 Shell extension, folder;包含文件夹右键
 Shell InfoTip;[资源管理器]气泡提示 (将鼠标移到文件图标上会显示相关信息)
+ShimName;
 ShimName;
 Show menu;显示菜单
 Show toolbar;显示工具栏

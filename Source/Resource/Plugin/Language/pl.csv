@@ -244,10 +244,12 @@ Codec_Settings_Sign;Ustawienia kodeka, znak
 Codec_Url;Adres sieciowy kodeka
 CodecID;ID kodeka
 CodecID_Description;Opis kodeka
+CoDirector;
 Collection;Kolekcja
 Colorimetry;Kolorymetria
 ColorSpace;
 colour_primaries;
+colour_range;
 Comment;Komentarz
 CommissionedBy;Powierzony przez
 Compilation;
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Odwiedź stronę programu
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -987,6 +990,7 @@ Sheet (Complete);Karta (komplet)
 Shell extension;Rozszerzenie powłoki (menu kontekstowe w eksploratorze)
 Shell extension, folder;Także dla folderów
 Shell InfoTip;Informacje powłoki (w eksploratorze najedź kursorem na plik, wyświetlą się informacje)
+ShimName;
 ShimName;
 Show menu;Pokaż menu
 Show toolbar;Pokaż pasek narzędzi

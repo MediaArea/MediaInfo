@@ -244,10 +244,12 @@ Codec_Settings_Sign;
 Codec_Url;Adresa pro stažení kodeku
 CodecID;
 CodecID_Description;
+CoDirector;
 Collection;Collection
 Colorimetry;
 ColorSpace;
 colour_primaries;
+colour_range;
 Comment;Komentář
 CommissionedBy;Commissioned by
 Compilation;
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Web programu
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -988,6 +991,7 @@ Shell extension;Integrovat do kontextového menu Průzkumníka (pravé tlačítk
 Shell extension, folder;
 Shell InfoTip;Integrovat do kontextového menu (při najetí myši na soubor)
 ShimName;
+ShimName;
 Show menu;Zobrazit menu
 Show toolbar;Zobrazit nástrojovou lištu
 SigningPresent;
@@ -1095,4 +1099,4 @@ WrittenBy;Napsal
 Yes;Ano
 Your system;Instalované kodeky
 ZZ_Automatic_Percent;69
-ZZ_AutomaticLanguage_Percent;77
+ZZ_AutomaticLanguage_Percent;76

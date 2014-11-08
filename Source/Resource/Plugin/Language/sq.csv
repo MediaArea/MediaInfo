@@ -244,10 +244,12 @@ Codec_Settings_Sign;Vendosjet e kodekut, Sign
 Codec_Url;Lidhësi në rrjetë i kodekut
 CodecID;ID i kodekut
 CodecID_Description;Përshkrimi i kodekut
+CoDirector;
 Collection;Koleksioni
 Colorimetry;Kolorimetria
 ColorSpace;
 colour_primaries;Primarët e ngjyrës
+colour_range;
 Comment;Komenti
 CommissionedBy;Autorizuar nga
 Compilation;
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Shko te trualli në rrjetë
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -988,6 +991,7 @@ Shell extension;Shto në bazë (kur klikon në Explorer me të djathtën do jepe
 Shell extension, folder;Edhe për dosjet
 Shell InfoTip;Këshilla Informuese në bazë (në Explorer, kur çon mausin mbi skedë do shfaqen info)
 ShimName;
+ShimName;
 Show menu;Trego menynë
 Show toolbar;Trego brezin e mjeteve
 SigningPresent;
@@ -1094,5 +1098,5 @@ Written_Location;Vendi i shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;86
-ZZ_AutomaticLanguage_Percent;90
+ZZ_Automatic_Percent;85
+ZZ_AutomaticLanguage_Percent;89

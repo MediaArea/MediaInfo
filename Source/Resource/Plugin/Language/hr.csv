@@ -244,10 +244,12 @@ Codec_Settings_Sign;Postavke kôdeka za Sign
 Codec_Url;Spletna poveznica kôdeka
 CodecID;ID kôdeka
 CodecID_Description;Opis kôdeka
+CoDirector;
 Collection;Zbirka
 Colorimetry;Kolorimetrija
 ColorSpace;
 colour_primaries;
+colour_range;
 Comment;Komentar
 CommissionedBy;Prema nalogu
 Compilation;
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Prijeći na spletni sadržaj
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -987,6 +990,7 @@ Sheet (Complete);Tablica (potpuna)
 Shell extension;Proširenje ljuske sustava (desnim klikom u Pregledniku će se pojaviti mogućnosti Media Info)
 Shell extension, folder;Za mape također
 Shell InfoTip;Info-naznaka (prelaskom miša preko neke datoteke u Pregledniku će se prikazati informacije o njoj)
+ShimName;
 ShimName;
 Show menu;Prikazati izbornik
 Show toolbar;Prikazati alatnu traku

@@ -244,10 +244,12 @@ Codec_Settings_Sign;코덱 설정, Sign
 Codec_Url;코덱 웹링크
 CodecID;코덱 ID
 CodecID_Description;코덱 설명
+CoDirector;
 Collection;콜렉션
 Colorimetry;색체계
 ColorSpace;
 colour_primaries;
+colour_range;
 Comment;주석
 CommissionedBy;의뢰
 Compilation;
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;웹사이트로 가기
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -987,6 +990,7 @@ Sheet (Complete);시트 (전체)
 Shell extension;쉘 익스텐션 (탐색기 마우스 오른쪽 버튼 메뉴에 Media Info를 추가합니다)
 Shell extension, folder;폴더에도 추가
 Shell InfoTip;쉘 인포팁 (탐색기에서 파일에 마우스를 올려 놓으면 정보를 보여줍니다)
+ShimName;
 ShimName;
 Show menu;메뉴 보기
 Show toolbar;도구 모음 보기

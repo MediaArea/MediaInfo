@@ -244,10 +244,12 @@ Codec_Settings_Sign;Параметр Sign кодека
 Codec_Url;Ссылка на кодек
 CodecID;Идентификатор кодека
 CodecID_Description;Описание кодека
+CoDirector;
 Collection;Коллекция
 Colorimetry;Колориметрия
 ColorSpace;Цветовое пространство
 colour_primaries;Основные цвета
+colour_range;
 Comment;Примечание
 CommissionedBy;Поручитель
 Compilation;Компиляция
@@ -577,6 +579,7 @@ Genre_189;Dubstep
 Genre_190;Garage Rock
 Genre_191;Psybient
 Go to WebSite;Перейти на сайт программы
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -987,6 +990,7 @@ Sheet (Complete);Таблица (полная)
 Shell extension;Расширение Проводника (пункт в меню по правой кнопке)
 Shell extension, folder;Расширение Проводника для папок
 Shell InfoTip;Всплывающая подсказка в Проводнике
+ShimName;
 ShimName;
 Show menu;Показывать меню
 Show toolbar;Показывать панель

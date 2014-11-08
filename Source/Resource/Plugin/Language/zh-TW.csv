@@ -244,10 +244,12 @@ Codec_Settings_Sign;編解碼器設定, Sign
 Codec_Url;編解碼器的網址
 CodecID;編解碼器識別字
 CodecID_Description;編解碼器描述
+CoDirector;
 Collection;收藏
 Colorimetry;比色法
 ColorSpace;
 colour_primaries;色彩原色
+colour_range;
 Comment;註釋
 CommissionedBy;委託
 Compilation;
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;前往網站
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -987,6 +990,7 @@ Sheet (Complete);表格 (完整)
 Shell extension;快顯功能表 (在檔案總管裡, 按右鍵會出現 MediaInfo 的選項)
 Shell extension, folder;也對資料夾使用
 Shell InfoTip;資訊提示 (在檔案總管裡, 將滑鼠移到檔案上會顯示相關訊息)
+ShimName;
 ShimName;
 Show menu;顯示選單
 Show toolbar;顯示工具列

@@ -244,10 +244,12 @@ Codec_Settings_Sign;Kodek ayarları, Sign
 Codec_Url;Kodek için web bağlantısı
 CodecID;Kodek ID
 CodecID_Description;Kodek açıklaması
+CoDirector;
 Collection;Koleksiyon
 Colorimetry;Renkölçüm
 ColorSpace;Renk alanı
 colour_primaries;Renk öncelikleri
+colour_range;
 Comment;Yorum
 CommissionedBy;Görevlendiren
 Compilation;Derleme
@@ -577,6 +579,7 @@ Genre_189;Dubstep
 Genre_190;Garage Rock
 Genre_191;Psybient
 Go to WebSite;Web sitesine git
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -987,6 +990,7 @@ Sheet (Complete);Sayfa (Tam)
 Shell extension;Sistem uzantısı (gezginde sağ tuş tıklamada Media Info seçeneği olacak...)
 Shell extension, folder;Klasörler içinde
 Shell InfoTip;Sistem Bilgisi İpucu (gezginde, fareyi dosya üzerine taşıyın, bilgi görüntülenecek)
+ShimName;
 ShimName;
 Show menu;Menü göster
 Show toolbar;Araç çubuğu göster

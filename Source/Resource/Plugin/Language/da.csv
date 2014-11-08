@@ -244,10 +244,12 @@ Codec_Settings_Sign;Codec-indstillinger, Sign
 Codec_Url;Weblink til codec
 CodecID;Codec-ID
 CodecID_Description;Beskrivelse af codec
+CoDirector;
 Collection;Samling
 Colorimetry;Kolorimetri
 ColorSpace;Farverum
 colour_primaries;
+colour_range;
 Comment;Kommentar
 CommissionedBy;Bestilt af
 Compilation;
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Gå til websted
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -987,6 +990,7 @@ Sheet (Complete);Ark (komplet)
 Shell extension;Shell-udvidelse ( højreklik viser MediaInfo i stifinder)
 Shell extension, folder;Også for mapper
 Shell InfoTip;Shell-infotip (bevæg musen over filen i stifinder og info vises)
+ShimName;
 ShimName;
 Show menu;Vis menu
 Show toolbar;Vis værktøjslinje

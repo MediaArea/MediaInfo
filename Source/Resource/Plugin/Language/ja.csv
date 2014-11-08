@@ -244,10 +244,12 @@ Codec_Settings_Sign;Sign
 Codec_Url;コーデックの URL
 CodecID;コーデック ID
 CodecID_Description;コーデック ID の説明
+CoDirector;
 Collection;コレクション
 Colorimetry;カラーリメトリ
 ColorSpace;
 colour_primaries;
+colour_range;
 Comment;コメント
 CommissionedBy;コミッショナー
 Compilation;
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Web サイトへ移動
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -987,6 +990,7 @@ Sheet (Complete);シート (完成)
 Shell extension;シェルに統合 （右クリックメニューに登録)
 Shell extension, folder;シェルに統合 （フォルダー）
 Shell InfoTip;シェルでインフォチップ （対応ファイル上でツールチップを表示）
+ShimName;
 ShimName;
 Show menu;メニューを表示する
 Show toolbar;ツール バーを表示する

@@ -244,10 +244,12 @@ Codec_Settings_Sign;Sign կոդավորիչի ցուցիչը
 Codec_Url;Կոդավորիչի հղումը
 CodecID;Կոդավորիչի ID-ին
 CodecID_Description;Կոդավորիչի նկարագրությունը
+CoDirector;
 Collection;Հավաքածուն
 Colorimetry;Գույնայնությունը
 ColorSpace;Գույնային տարածքը
 colour_primaries;Հիմնական գույները
+colour_range;
 Comment;Մեկնաբանություն
 CommissionedBy;Երաշխավորող
 Compilation;
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Բացել կայքը
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -987,6 +990,7 @@ Sheet (Complete);Աղյուսակը (ամբողջական)
 Shell extension;Ինտեգրել Explorer-ում
 Shell extension, folder;Ինտեգրել թղթապանակների Explorer-ում
 Shell InfoTip;Ցուցադրել հուշում Explorer-ում
+ShimName;
 ShimName;
 Show menu;Ցուցադրել ընտրացանկը
 Show toolbar;Ցուցադրել վահանակը

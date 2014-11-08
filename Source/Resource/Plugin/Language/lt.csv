@@ -244,10 +244,12 @@ Codec_Settings_Sign;Kodeko nuostatos, Sign
 Codec_Url;Nuoroda į kodeką
 CodecID;Kodeko ID
 CodecID_Description;
+CoDirector;
 Collection;Kolekcija
 Colorimetry;Kolorimetrija
 ColorSpace;
 colour_primaries;
+colour_range;
 Comment;Komentaras
 CommissionedBy;Įgaliotas
 Compilation;
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Eiti į internetinę svetainę
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -988,6 +991,7 @@ Shell extension;Apvalkalo plėtinys (explorer'yje dešinys paspaudimas ten kur b
 Shell extension, folder;
 Shell InfoTip;Apvalkalo InfoTipas (explorer'yje, užveskite pelę ant failo, bus parodyta informacija)
 ShimName;
+ShimName;
 Show menu;Rodyti meniu
 Show toolbar;Rodyti įrankių juostą
 SigningPresent;
@@ -1094,5 +1098,5 @@ Written_Location;Rašymo vieta
 WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
-ZZ_Automatic_Percent;75
-ZZ_AutomaticLanguage_Percent;83
+ZZ_Automatic_Percent;74
+ZZ_AutomaticLanguage_Percent;82

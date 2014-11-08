@@ -244,10 +244,12 @@ Codec_Settings_Sign;
 Codec_Url;Legatira web pentru codec
 CodecID;
 CodecID_Description;
+CoDirector;
 Collection;Colectie
 Colorimetry;
 ColorSpace;
 colour_primaries;
+colour_range;
 Comment;Comentariu
 CommissionedBy;
 Compilation;
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -988,6 +991,7 @@ Shell extension; Extenise (in explorer executati click dreapta)
 Shell extension, folder;
 Shell InfoTip;
 ShimName;
+ShimName;
 Show menu;Afisare meniu
 Show toolbar;Afisare toolbar
 SigningPresent;
@@ -1095,4 +1099,4 @@ WrittenBy;Scris de
 Yes;Da
 Your system;Sistemul dvs
 ZZ_Automatic_Percent;30
-ZZ_AutomaticLanguage_Percent;69
+ZZ_AutomaticLanguage_Percent;68

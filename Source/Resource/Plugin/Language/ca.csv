@@ -244,10 +244,12 @@ Codec_Settings_Sign;
 Codec_Url;Enllaç del codec
 CodecID;
 CodecID_Description;
+CoDirector;
 Collection;Col·lecció
 Colorimetry;
 ColorSpace;
 colour_primaries;
+colour_range;
 Comment;Comentari
 CommissionedBy;Commissionat per
 Compilation;
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Ves-hi a la pàgina
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -988,6 +991,7 @@ Shell extension;Veure l'opció Media Info al menú contextual del botó dret del
 Shell extension, folder;
 Shell InfoTip;Amplia la informació en passar amb el ratolí per sobre d'un arxiu a l'explorador.
 ShimName;
+ShimName;
 Show menu;Mostra el menú
 Show toolbar;Mostra la barra d'eines
 SigningPresent;
@@ -1094,5 +1098,5 @@ Written_Location;Inseriu el lloc de gravació
 WrittenBy;Escrit per
 Yes;Sí
 Your system;El vostre sistema
-ZZ_Automatic_Percent;74
+ZZ_Automatic_Percent;73
 ZZ_AutomaticLanguage_Percent;81

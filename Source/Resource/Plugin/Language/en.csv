@@ -244,10 +244,12 @@ Codec_Settings_Sign;Codec settings, Sign
 Codec_Url;Weblink for codec
 CodecID;Codec ID
 CodecID_Description;Description of the codec
+CoDirector;Codirector
 Collection;Collection
 Colorimetry;Colorimetry
 ColorSpace;Color space
 colour_primaries;Color primaries
+colour_range;colour range
 Comment;Comment
 CommissionedBy;Commissioned by
 Compilation;Compilation
@@ -577,6 +579,7 @@ Genre_189;Dubstep
 Genre_190;Garage Rock
 Genre_191;Psybient
 Go to WebSite;Go to website
+Grouping;Grouping
 Gop_OpenClosed;GOP, Open/Closed
 Gop_OpenClosed_Open;Open
 Gop_OpenClosed_Closed;Closed
@@ -988,6 +991,7 @@ Shell extension;Explorer extension (in Windows Explorer, right click on a file, 
 Shell extension, folder;For folders too
 Shell InfoTip;Explorer Tooltip (in Windows Explorer, move the mouse over the file, info will be displayed)
 ShimName;Shim Name
+ShimName;Shim Version
 Show menu;Show menu
 Show toolbar;Show toolbar
 SigningPresent;Signing Present

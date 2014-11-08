@@ -244,10 +244,12 @@ Codec_Settings_Sign;
 Codec_Url;Adresa pre stiahnutie kodeku
 CodecID;Označenie kodeku
 CodecID_Description;Popis kodeku
+CoDirector;
 Collection;Collection
 Colorimetry;
 ColorSpace;
 colour_primaries;
+colour_range;
 Comment;Komentár
 CommissionedBy;Commissioned by
 Compilation;
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Web programu
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -987,6 +990,7 @@ Sheet (Complete);List (kompletný)
 Shell extension;Integrovať do kontextového menu Prieskumníka (pravé tlačíidlo myši)
 Shell extension, folder;
 Shell InfoTip;Integrovať do kontextového menu (pri nadídení myši na súbor)
+ShimName;
 ShimName;
 Show menu;Zobraziť menu
 Show toolbar;Zobraziť nástrojovú lištu

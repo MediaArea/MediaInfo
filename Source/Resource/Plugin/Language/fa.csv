@@ -244,10 +244,12 @@ Codec_Settings_Sign;تنظیمات کدک, Sign
 Codec_Url;لینک کدک
 CodecID;هویت کدک
 CodecID_Description;شرح کدک
+CoDirector;
 Collection;جمع اورى
 Colorimetry;سنجش رنگ
 ColorSpace;
 colour_primaries;
+colour_range;
 Comment;توضيح
 CommissionedBy;مجاز توسط
 Compilation;
@@ -577,6 +579,7 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;وب سایت
+Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
@@ -987,6 +990,7 @@ Sheet (Complete);ورقه کامل
 Shell extension;Shell extension (in Explorer, right click there will be a MediaInfo option)
 Shell extension, folder;برای پوشه ها هم همینطور
 Shell InfoTip;Shell InfoTip (in Explorer, move the mouse over the file, info will be displayed)
+ShimName;
 ShimName;
 Show menu;نمایش منو
 Show toolbar;نمایش نوارابزار
