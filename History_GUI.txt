@@ -33,6 +33,7 @@ Version 0.7.71, 2014-11-09
 + PBCore 2.0 technical metadata output option, thanks to Dave Rice
 + WMV: Time code track and value of first frame display, sponsored by AVCOM
 + MPEG Video: Open/Closed GOP status
++ HEVC: Support of Pixel Aspect Ratio in VUI, thanks to Kurtnoise
 x SMPTE ST 331: wrong channel positions
 x B872, MOV: StreamOrder field was wrong in case of chapter references
 x More coherency between the File interface and the By buffer interface
