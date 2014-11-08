@@ -1527,66 +1527,66 @@ void File_Wm::Data_Packet()
         else
         {
             Trusted_IsNot("Padding size problem");
-            return; //Problem
         }
         if (Element_Offset+PayloadLength+Data_Parse_Padding>Element_Size)
         {
             Trusted_IsNot("Payload Length problem");
-            return; //problem
-        }
-
-        //Demux
-        Element_Code=Stream_Number;
-        Demux(Buffer+(size_t)Element_Offset, (size_t)PayloadLength, ContentType_MainStream);
-
-        //Analyzing
-        if (Stream[Stream_Number].Parser && Stream[Stream_Number].SearchingPayload)
-        {
-            //Handling of spanned on multiple chunks
-            #if defined(MEDIAINFO_VC1_YES)
-                bool FrameIsAlwaysComplete=true;
-            #endif
-            if (PayloadLength!=SizeOfMediaObject)
-            {
-                if (SizeOfMediaObject_BytesAlreadyParsed==0)
-                    SizeOfMediaObject_BytesAlreadyParsed=SizeOfMediaObject-PayloadLength;
-                else
-                    SizeOfMediaObject_BytesAlreadyParsed-=PayloadLength;
-                if (SizeOfMediaObject_BytesAlreadyParsed==0)
-                    Element_Show_Count++;
-                #if defined(MEDIAINFO_VC1_YES)
-                else
-                    FrameIsAlwaysComplete=false;
-                #endif
-            }
-            else
-                Element_Show_Count++;
-
-            //Codec specific
-            #if defined(MEDIAINFO_VC1_YES)
-            if (Retrieve(Stream[Stream_Number].StreamKind, Stream[Stream_Number].StreamPos, Fill_Parameter(Stream[Stream_Number].StreamKind, Generic_Format))==__T("VC-1"))
-                ((File_Vc1*)Stream[Stream_Number].Parser)->FrameIsAlwaysComplete=FrameIsAlwaysComplete;
-            #endif
-
-            Open_Buffer_Continue(Stream[Stream_Number].Parser, (size_t)PayloadLength);
-            if (Stream[Stream_Number].Parser->Status[IsFinished]
-             || (Stream[Stream_Number].PresentationTime_Count>=300 && MediaInfoLib::Config.ParseSpeed_Get()<1))
-            {
-                Stream[Stream_Number].Parser->Open_Buffer_Unsynch();
-                Stream[Stream_Number].SearchingPayload=false;
-                Streams_Count--;
-            }
-
-            Element_Show();
         }
         else
         {
-            Skip_XX(PayloadLength,                              "Data");
-            if (Stream[Stream_Number].SearchingPayload
-             && (Stream[Stream_Number].StreamKind==Stream_Video && Stream[Stream_Number].PresentationTime_Count>=300))
+            //Demux
+            Element_Code=Stream_Number;
+            Demux(Buffer+(size_t)Element_Offset, (size_t)PayloadLength, ContentType_MainStream);
+
+            //Analyzing
+            if (Stream[Stream_Number].Parser && Stream[Stream_Number].SearchingPayload)
             {
-                Stream[Stream_Number].SearchingPayload=false;
-                Streams_Count--;
+                //Handling of spanned on multiple chunks
+                #if defined(MEDIAINFO_VC1_YES)
+                    bool FrameIsAlwaysComplete=true;
+                #endif
+                if (PayloadLength!=SizeOfMediaObject)
+                {
+                    if (SizeOfMediaObject_BytesAlreadyParsed==0)
+                        SizeOfMediaObject_BytesAlreadyParsed=SizeOfMediaObject-PayloadLength;
+                    else
+                        SizeOfMediaObject_BytesAlreadyParsed-=PayloadLength;
+                    if (SizeOfMediaObject_BytesAlreadyParsed==0)
+                        Element_Show_Count++;
+                    #if defined(MEDIAINFO_VC1_YES)
+                    else
+                        FrameIsAlwaysComplete=false;
+                    #endif
+                }
+                else
+                    Element_Show_Count++;
+
+                //Codec specific
+                #if defined(MEDIAINFO_VC1_YES)
+                if (Retrieve(Stream[Stream_Number].StreamKind, Stream[Stream_Number].StreamPos, Fill_Parameter(Stream[Stream_Number].StreamKind, Generic_Format))==__T("VC-1"))
+                    ((File_Vc1*)Stream[Stream_Number].Parser)->FrameIsAlwaysComplete=FrameIsAlwaysComplete;
+                #endif
+
+                Open_Buffer_Continue(Stream[Stream_Number].Parser, (size_t)PayloadLength);
+                if (Stream[Stream_Number].Parser->Status[IsFinished]
+                 || (Stream[Stream_Number].PresentationTime_Count>=300 && MediaInfoLib::Config.ParseSpeed_Get()<1))
+                {
+                    Stream[Stream_Number].Parser->Open_Buffer_Unsynch();
+                    Stream[Stream_Number].SearchingPayload=false;
+                    Streams_Count--;
+                }
+
+                Element_Show();
+            }
+            else
+            {
+                Skip_XX(PayloadLength,                              "Data");
+                if (Stream[Stream_Number].SearchingPayload
+                 && (Stream[Stream_Number].StreamKind==Stream_Video && Stream[Stream_Number].PresentationTime_Count>=300))
+                {
+                    Stream[Stream_Number].SearchingPayload=false;
+                    Streams_Count--;
+                }
             }
         }
         Element_End0();
