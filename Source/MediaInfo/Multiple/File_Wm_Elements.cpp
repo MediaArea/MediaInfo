@@ -875,12 +875,16 @@ void File_Wm::Header_HeaderExtension_IndexParameters()
 //---------------------------------------------------------------------------
 void File_Wm::Header_HeaderExtension_MediaIndexParameters()
 {
+    Header_HeaderExtension_IndexParameters();
+
     Element_Name("MediaIndex Parameters");
 }
 
 //---------------------------------------------------------------------------
 void File_Wm::Header_HeaderExtension_TimecodeIndexParameters()
 {
+    Header_HeaderExtension_IndexParameters();
+
     Element_Name("Timecode Index Parameters");
 }
 
@@ -1736,7 +1740,85 @@ void File_Wm::MediaIndex()
 //---------------------------------------------------------------------------
 void File_Wm::TimecodeIndex()
 {
-    Element_Name("TimecodeIndex");
+    Element_Name("Timecode Index");
+
+    //Parsing
+    int32u TimeCode_First=(int32u)-1;
+    int32u IndexBlocksCount;
+    int16u IndexSpecifiersCount;
+    Skip_L4(                                                    "Reserved");
+    Get_L2 (IndexSpecifiersCount,                               "Index Specifiers Count");
+    Get_L4 (IndexBlocksCount,                                   "Index Blocks Count");
+    Element_Begin1("Index Specifiers");
+        for (int16u Pos=0; Pos<IndexSpecifiersCount; ++Pos)
+        {
+            Element_Begin1("Index Specifier");
+            Skip_L2(                                                "Stream Number");
+            Info_L2(IndexType,                                      "Index Type");
+            Element_Info1(IndexType);
+            Element_End0();
+        }
+    Element_End0();
+    Element_Begin1("Index Blocks");
+        for (int16u Pos=0; Pos<IndexBlocksCount; ++Pos)
+        {
+            Element_Begin1("Index Block");
+            int32u IndexEntryCount;
+            Get_L4 (IndexEntryCount,                                "Index Entry Count");
+            Skip_L2(                                                "Timecode Range");
+            Element_Begin1("Block Positions");
+                for (int16u Pos=0; Pos<IndexSpecifiersCount; ++Pos)
+                    Skip_L8(                                        "Block Position");
+            Element_End0();
+            Element_Begin1("Index Entries");
+                for (int32u Pos=0; Pos<IndexEntryCount; ++Pos)
+                {
+                    Element_Begin1("Index Entry");
+                    if (TimeCode_First==(int32u)-1)
+                        Get_L4 (TimeCode_First,                     "Timecode");
+                    else
+                        Skip_L4(                                    "Timecode");
+                    for (int16u Pos=0; Pos<IndexSpecifiersCount; ++Pos)
+                        Skip_L4(                                    "Offsets");
+                    Element_End0();
+                }
+            Element_End0();
+            Element_End0();
+        }
+    Element_End0();
+
+    FILLING_BEGIN();
+        Stream_Prepare(Stream_Other);
+        Fill(Stream_Other, StreamPos_Last, Other_Type, "Time code");
+        Fill(Stream_Other, StreamPos_Last, Other_Format, "WM TC");
+        if (TimeCode_First!=(int32u)-1)
+        {
+            int8u H1= TimeCode_First>>28;
+            int8u H2=(TimeCode_First>>24)&0xF;
+            int8u M1=(TimeCode_First>>20)&0xF;
+            int8u M2=(TimeCode_First>>16)&0xF;
+            int8u S1=(TimeCode_First>>12)&0xF;
+            int8u S2=(TimeCode_First>> 8)&0xF;
+            int8u F1=(TimeCode_First>> 4)&0xF;
+            int8u F2= TimeCode_First     &0xF;
+            if (H1<10 && H2<10 && M1<10 && M2<10 && S1<10 && S2<10 && F1<10 && F2<10)
+            {
+                string TC;
+                TC+='0'+H1;
+                TC+='0'+H2;
+                TC+=':';
+                TC+='0'+M1;
+                TC+='0'+M2;
+                TC+=':';
+                TC+='0'+S1;
+                TC+='0'+S2;
+                TC+=':';
+                TC+='0'+F1;
+                TC+='0'+F2;
+                Fill(Stream_Other, StreamPos_Last, Other_TimeCode_FirstFrame, TC.c_str());
+            }
+        }
+    FILLING_END();
 }
 
 //***************************************************************************
