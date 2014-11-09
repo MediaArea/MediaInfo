@@ -258,7 +258,7 @@ void File_Pcm::Read_Buffer_Continue()
         int64u BitRate=SamplingRate*BitDepth*Channels;
         int64u ByteRate=BitRate/8;
         if (Buffer_Size>=ByteRate/4) // 1/4 of second is enough for detection
-            Frame_Count_Valid=1;
+            Frame_Count_Valid=2;
     }
 
     #if MEDIAINFO_DEMUX
