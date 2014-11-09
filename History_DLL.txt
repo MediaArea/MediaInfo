@@ -38,6 +38,7 @@ x SMPTE ST 337: infinite loop during scanning of some non ST 337 streams
 x MP4/MOV: Using less data during detection of Dolby E hidden in a PCM track
 x Matroska: some crashs after file name of attachments update
 x MXF: MXF time code track was not displayed with some compilation options (e.g. the default Windows build)
+x WMV: reviewing the frame rate detection, with e.g. report of difference of real 23.976 fps and thoritical 24.000 fps
 
 Version 0.7.70, 2014-09-03
 --------------

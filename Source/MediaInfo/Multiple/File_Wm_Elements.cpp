@@ -1491,14 +1491,7 @@ void File_Wm::Data_Packet()
                 std::map<int16u, stream>::iterator Strea=Stream.find(Stream_Number);
                 if (Strea!=Stream.end() && Strea->second.StreamKind==Stream_Video)
                 {
-                    if (Strea->second.PresentationTime_Old==0)
-                        Strea->second.PresentationTime_Old=FileProperties_Preroll;
-                    if (PresentationTime!=Strea->second.PresentationTime_Old)
-                    {
-                        Strea->second.PresentationTime_Deltas[PresentationTime-Strea->second.PresentationTime_Old]++;
-                        Strea->second.PresentationTime_Old=PresentationTime;
-                        Strea->second.PresentationTime_Count++;
-                    }
+                    Strea->second.PresentationTimes.insert(PresentationTime);
                 }
             }
             else if (ReplicatedDataLength==1)
@@ -1569,7 +1562,7 @@ void File_Wm::Data_Packet()
 
                 Open_Buffer_Continue(Stream[Stream_Number].Parser, (size_t)PayloadLength);
                 if (Stream[Stream_Number].Parser->Status[IsFinished]
-                 || (Stream[Stream_Number].PresentationTime_Count>=300 && MediaInfoLib::Config.ParseSpeed_Get()<1))
+                 || (Stream[Stream_Number].PresentationTimes.size()>=300 && MediaInfoLib::Config.ParseSpeed_Get()<1))
                 {
                     Stream[Stream_Number].Parser->Open_Buffer_Unsynch();
                     Stream[Stream_Number].SearchingPayload=false;
@@ -1582,7 +1575,7 @@ void File_Wm::Data_Packet()
             {
                 Skip_XX(PayloadLength,                              "Data");
                 if (Stream[Stream_Number].SearchingPayload
-                 && (Stream[Stream_Number].StreamKind==Stream_Video && Stream[Stream_Number].PresentationTime_Count>=300))
+                 && (Stream[Stream_Number].StreamKind==Stream_Video && Stream[Stream_Number].PresentationTimes.size()>=300))
                 {
                     Stream[Stream_Number].SearchingPayload=false;
                     Streams_Count--;

@@ -797,7 +797,7 @@ void File__Analyze::Fill (stream_t StreamKind, size_t StreamPos, size_t Paramete
         {
             float32 FrameRate=Retrieve(Stream_Video, StreamPos, Video_FrameRate).To_float32();
             float32 FrameRate_Nominal=Retrieve(Stream_Video, StreamPos, Video_FrameRate_Nominal).To_float32();
-            if (FrameRate_Nominal>FrameRate*0.995 && FrameRate_Nominal<FrameRate*1.005)
+            if (FrameRate_Nominal>FrameRate*0.9995 && FrameRate_Nominal<FrameRate*1.0005)
             {
                 Ztring Temp=Retrieve(StreamKind, StreamPos, Video_FrameRate_Nominal);
                 Clear(StreamKind, StreamPos, Video_FrameRate_Nominal);
