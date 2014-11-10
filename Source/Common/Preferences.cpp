@@ -74,28 +74,13 @@ Preferences::Preferences()
 //---------------------------------------------------------------------------
 int Preferences::Config_Create()
 {
-    Config.Load(BaseFolder+__T("MediaInfo.cfg"));
-    Config(__T("Version"))=MediaInfo_Version_GUI;
-    Config(__T("NewestVersion"))=MediaInfo_Version_GUI;
-    if (Config(__T("Output")).empty()) Config(__T("Output"))=__T("Basic");
-    if (Config(__T("Language")).empty()) Config(__T("Language"))=__T("en");
-    if (Config(__T("Sheet")).empty()) Config(__T("Sheet"))=__T("Example");
-    if (Config(__T("Tree")).empty()) Config(__T("Tree"))=__T("Example");
-    if (Config(__T("Custom")).empty()) Config(__T("Custom"))=__T("Example");
-    if (Config(__T("CheckUpdate")).empty()) Config(__T("CheckUpdate"))=__T("1");
-    if (Config(__T("ShellExtension")).empty()) Config(__T("ShellExtension"))=__T("1");
-    if (Config(__T("ShellExtension_Folder")).empty()) Config(__T("ShellExtension_Folder"))=__T("0");
-    if (Config(__T("ShellInfoTip")).empty()) Config(__T("ShellInfoTip"))=__T("0");
-    if (Config(__T("ShowToolBar")).empty()) Config(__T("ShowToolBar"))=__T("1");
-    if (Config(__T("ShowMenu")).empty()) Config(__T("ShowMenu"))=__T("1");
-    if (Config(__T("CloseAllAuto")).empty()) Config(__T("CloseAllAuto"))=__T("1");
-    if (Config(__T("FirstInstall")).empty()) Config(__T("FirstInstall")).From_Number((int64u)time(NULL));
-    Config(__T("Install")).From_Number((int64u)time(NULL));
-    if (Config(__T("Donated")).empty()) Config(__T("Donated"))=__T("0");
-    if (Config(__T("Donate_Display")).empty()) Config(__T("Donate_Display"))=__T("1");
-    Config.Save(BaseFolder+__T("MediaInfo.cfg"));
+	if (File::Exists(BaseFolder+__T("MediaInfo.cfg")))
+		Config.Load(BaseFolder+__T("MediaInfo.cfg"));
 
-    return 1;
+	Config(__T("Version"))=MediaInfo_Version_GUI;
+	Config(__T("NewestVersion"))=MediaInfo_Version_GUI;
+	Config(__T("Install")).From_Number((int64u)time(NULL));
+	return Config_Save();
 }
 
 //---------------------------------------------------------------------------
@@ -103,12 +88,22 @@ int Preferences::Config_Load()
 {
     int Retour=1;
 
-    //Base folder
-    BaseFolder=Application->ExeName.c_str();
-    BaseFolder=BaseFolder.substr(0, BaseFolder.rfind(__T("\\"))+1);
-    if (!Dir::Exists(BaseFolder+__T("Plugin")))
-        Dir::Create(BaseFolder+__T("Plugin"));
-    BaseFolder+=__T("Plugin\\");
+	//Base folder
+	TCHAR szPath[MAX_PATH];
+	if(FAILED(SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, szPath)))
+		return 1;
+	BaseFolder=szPath;
+	BaseFolder+=__T("\\MediaInfo");
+	if (!Dir::Exists(BaseFolder) || !Dir::Exists(BaseFolder+__T("\\Plugin")))
+	{
+		BaseFolder=Application->ExeName.c_str();
+		BaseFolder=BaseFolder.substr(0, BaseFolder.rfind(__T("\\"))+1);
+		if (!Dir::Exists(BaseFolder+__T("Plugin")))
+			Dir::Create(BaseFolder+__T("Plugin"));
+		BaseFolder+=__T("Plugin\\");
+	}
+	else
+		BaseFolder+=__T("\\Plugin\\");
 
     //Directories
     for (size_t Pos=0; Pos<FolderNames.size(); Pos++)
@@ -121,7 +116,8 @@ int Preferences::Config_Load()
     Load(Prefs_Language_English, __T("en"));
 
     //Configuration
-    Config.Load(BaseFolder+__T("MediaInfo.cfg"));
+	if (File::Exists(BaseFolder+__T("MediaInfo.cfg")))
+		Config.Load(BaseFolder+__T("MediaInfo.cfg"));
     if (Config.size()==0 || Config(__T("Version"))!=MediaInfo_Version_GUI)
     {
         Config_Create();
@@ -182,7 +178,56 @@ int Preferences::Config_Load()
 //---------------------------------------------------------------------------
 int Preferences::Config_Save()
 {
-    return Config.Save();
+	if (Config(__T("Version")).empty()) Config(__T("Version"))=MediaInfo_Version_GUI;
+	if (Config(__T("NewestVersion")).empty()) Config(__T("NewestVersion"))=MediaInfo_Version_GUI;
+	if (Config(__T("Install")).empty()) Config(__T("Install")).From_Number((int64u)time(NULL));
+	if (Config(__T("Output")).empty()) Config(__T("Output"))=__T("Basic");
+	if (Config(__T("Language")).empty()) Config(__T("Language"))=__T("en");
+	if (Config(__T("Sheet")).empty()) Config(__T("Sheet"))=__T("Example");
+	if (Config(__T("Tree")).empty()) Config(__T("Tree"))=__T("Example");
+	if (Config(__T("Custom")).empty()) Config(__T("Custom"))=__T("Example");
+	if (Config(__T("CheckUpdate")).empty()) Config(__T("CheckUpdate"))=__T("1");
+	if (Config(__T("ShellExtension")).empty()) Config(__T("ShellExtension"))=__T("1");
+	if (Config(__T("ShellExtension_Folder")).empty()) Config(__T("ShellExtension_Folder"))=__T("0");
+	if (Config(__T("ShellInfoTip")).empty()) Config(__T("ShellInfoTip"))=__T("0");
+	if (Config(__T("ShowToolBar")).empty()) Config(__T("ShowToolBar"))=__T("1");
+	if (Config(__T("ShowMenu")).empty()) Config(__T("ShowMenu"))=__T("1");
+	if (Config(__T("CloseAllAuto")).empty()) Config(__T("CloseAllAuto"))=__T("1");
+	if (Config(__T("FirstInstall")).empty()) Config(__T("FirstInstall")).From_Number((int64u)time(NULL));
+	if (Config(__T("Donated")).empty()) Config(__T("Donated"))=__T("0");
+	if (Config(__T("Donate_Display")).empty()) Config(__T("Donate_Display"))=__T("1");
+
+	HANDLE Temp=CreateFile((BaseFolder+__T("MediaInfo.cfg")).c_str(), GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, 0, NULL);
+	if (Temp==INVALID_HANDLE_VALUE)
+	{
+		//Base folder
+		TCHAR szPath[MAX_PATH];
+		if(FAILED(SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, szPath)))
+			return 1;
+		Ztring NewBaseFolder=szPath;
+		NewBaseFolder+=__T("\\MediaInfo");
+		if (!Dir::Exists(NewBaseFolder) || !Dir::Exists(NewBaseFolder+__T("\\Plugin")))
+		{
+			Dir::Create(BaseFolder);
+
+			Ztring From=BaseFolder+__T('\0');
+			Ztring To=NewBaseFolder+__T("\\Plugin\0");
+
+			SHFILEOPSTRUCT s = { 0 };
+			s.hwnd = NULL;
+			s.wFunc = FO_COPY;
+			s.fFlags = FOF_SILENT;
+			s.pFrom = From.c_str();
+			s.pTo = To.c_str();
+			SHFileOperation(&s);
+		}
+
+		BaseFolder=NewBaseFolder+__T("\\Plugin\\");
+	}
+	else
+		CloseHandle(Temp);
+
+	return Config.Save(BaseFolder+__T("MediaInfo.cfg"));;
 }
 
 //---------------------------------------------------------------------------
@@ -366,19 +411,19 @@ void __fastcall ThreadInternetCheck::Execute()
         //Inscription version connue pour pas repeter l'avertissement
         int Version_Pos=Prefs->Config.Find(__T("NewestVersion"));
         Prefs->Config(Version_Pos, 1)=NewestVersion;
-        Prefs->Config.Save();
+        Prefs->Config_Save();
     }
 
     //Donation button
     if (Prefs->Config(__T("Donate_Display"))==__T("0") && Download(__T("DonateButton"))==__T("1"))
     {
         Prefs->Config(__T("Donate_Display"))=__T("1");
-        Prefs->Config.Save();
+        Prefs->Config_Save();
     }
     if (Prefs->Config(__T("Donate_Display"))==__T("1") && Download(__T("DonateButton"))==__T("0"))
     {
         Prefs->Config(__T("Donate_Display"))=__T("0");
-        Prefs->Config.Save();
+        Prefs->Config_Save();
     }
 
     //Chargement de pages
