@@ -1,0 +1,28 @@
+General;  <tr>\r\n    <td><table width="100%">\r\n        <tr>\r\n          <td><i>Nome          :</i></td>\r\n          <td>%FileName%</td>\r\n        </tr>\r\n        <tr>\r\n          <td><i>Formato:</i></td>\r\n          <td>%Format_String%$if(%OverallBitRate%, a %OverallBitRate_String%)</td>\r\n</tr>\r\n        <tr>\r\n          <td><i>Durata :</i></td>\r\n          <td>%FileSize_String% per %Duration_String2%</td>\r\n        </tr>\r\n      </table></td>\r\n  </tr>\r\n;">\r\n  <tr> \r\n    <td><i>Name :</i></td>\r\n    <td colspan="3">%FileName%</td>\r\n  </tr>\r\n  <tr> \r\n    <td><i>Format :</i></td>\r\n    <td colspan="3">%Format%$if(%OverallBitRate%, at %OverallBitRate_String%)</td>\r\n  </tr>\r\n  <tr> \r\n    <td><i>Lenght :</i></td>\r\n    <td colspan="3">%FileSize_String% for %Duration_String1%</td>\r\n  </tr>\r\n</table>\r\n<p>&nbsp;</p>\r\n\r\"
+Video;          <td>\r\n            <table width="100%" border="0" cellpadding="1" cellspacing="2" style="border:1px solid Navy">\r\n              <tr>\r\n                <td><i>Traccia Video %ID%:</i></td>\r\n<td>%Format_String%$if(%Bitrate%, a %Bitrate_String%)</td>\r\n</tr>\r\n<tr>\r\n<td><i>AspectRatio :</i></td>\r\n<td>%Width% x %Height% (%AspectRatio%) a %FrameRate% fps</td>\r\n              </tr>\r\n            </table>\r\n		  </td>\r\n;">\r\n  <tr> \r\n    <td>Video #%ID% <i>:</i></td>\r\n    <td colspan="3"> %Format_String%$if(%Bitrate%, at %Bitrate_String%)</td>\r\n  </tr>\r\n  <tr> \r\n    <td><i>Aspect :</i></td>\r\n    <td colspan="3">%Width% x %Height% (%AspectRatio%) at %fps% fps</td>\r\n  </tr>\r\n</table>\r\n<p>&nbsp;</p>\r\n\r\"
+Audio;          <td>\r\n            <table width="100%" height="100%" border="0" cellpadding="1" cellspacing="2" style="border:1px solid Navy">\r\n              <tr>\r\n                <td><i>Traccia Audio %ID% :</i></td>\r\n                <td>%Format_String%$if(%Bitrate%, a %Bitrate_String%)</td>\r\n              </tr>\r\n              <tr>\r\n                <td><i>Altre Informazioni :</i></td>\r\n                <td>%Channels% cannale(i), %SamplingRate_String%</td>\r\n              </tr>\r\n              <tr>\r\n                <td><i>Lingua : </i></td>\r\n                <td>%Language_String%</td>\r\n              </tr>\r\n            </table>\r\n		  </td>;">\r\n  <tr> \r\n    <td><em>Audio #%ID% :</em></td>\r\n    <td colspan="3"> %Format_String%$if(%Bitrate%, at %Bitrate_String%) :</td>\r\n  </tr>\r\n  <tr> \r\n    <td><em>Infos :</em></td>\r\n    <td colspan="3">%Channels% channel(s), %SamplingRate_String%</td>\r\n  </tr>\r\n  <tr> \r\n    <td><em>Language : </em></td>\r\n    <td colspan="3">%Language_String%</td>\r\n  </tr>\r\n</table>\r\n<p>&nbsp;</p"
+Text;          <td>\r\n            <table width="100%" border="0" cellpadding="1" cellspacing="2" style="border:1px solid Navy">\r\n              <tr>\r\n                <td><i>Sottotitolo %ID% :</i></td>\r\n                <td>%Format_String%$if(%Language%, Lingua : %Language%)</td>\r\n              </tr>\r\n            </table>\r\n		  </td>\r\n
+Chapters;          <td>\r\n            <table width="100%" border="0" cellpadding="1" cellspacing="2" style="border:1px solid Navy">\r\n              <tr>\r\n                <td><i>Numero Capitoli %ID% :</i></td>\r\n                <td>%Total% capitoli</td>\r\n              </tr>\r\n            </table>\r\n		  </td>\r\n
+Image
+File_Begin;<table width="100%" border="0" cellpadding="1" cellspacing="2" style="border:3px solid Navy">
+File_End;</table>
+Page_Begin;<html>\r\n<head>\r\n  <title>Media Info</title>\r\n</head>\r\n\r\n<body bgcolor="#DDDDDD">\r\n
+Page_Middle;<hr>\r\n
+Page_End;</body>\r\n</html>\r\n
+General_Begin;  <tr>\r\n    <td>\r\n	  <table width="100%">\r\n        <tr>\r\n
+General_End;        </tr>\r\n      </table>\r\n	 </td>\r\n  </tr>\r\n
+Video_Begin;  <tr>\r\n    <td>\r\n	  <table width="100%">\r\n        <tr>\r\n
+Video_Middle
+Video_End;        </tr>\r\n      </table>\r\n	 </td>\r\n  </tr>\r\n
+Audio_Begin;  <tr>\r\n    <td>\r\n	  <table width="100%">\r\n        <tr>\r\n
+Audio_Middle
+Audio_End;        </tr>\r\n      </table>\r\n	 </td>\r\n  </tr>\r\n
+Text_Begin;  <tr>\r\n    <td>\r\n	  <table width="100%">\r\n        <tr>\r\n
+Text_Middle
+Text_End;        </tr>\r\n      </table>\r\n	 </td>\r\n  </tr>\r\n
+Chapters_Begin;  <tr>\r\n    <td>\r\n	  <table width="100%">\r\n        <tr>\r\n
+Chapters_Middle
+Chapters_End;        </tr>\r\n      </table>\r\n	 </td>\r\n  </tr>\r\n
+Image_Begin
+Image_Middle
+Image_End

@@ -1,0 +1,1102 @@
+  Language_ISO639;fa
+  Author_Email;Martik.Panosian@gmail.com
+  Author_Name;Martik Panosian
+  Author_OldNames;Martik
+  Language_Name;Persian  فارسی
+  Config_Text_ColumnSize;40
+  Config_Text_Separator; : 
+  Config_Text_NumberTag; #
+  Config_Text_FloatSeparator;.
+  Config_Text_ThousandsSeparator; 
+ audio stream1;استریم صوت
+ audio stream2;استریم صوت ها
+ audio stream3;استریم صوت ها
+ bit1;بیت
+ bit2;بیت ها
+ bit3;بیت ها
+ bps; bps
+ Bps; Bps
+ Byte1;بایت
+ Byte2;بایت ها
+ Byte3;بایت ها
+ channel1;کانال
+ channel2;کانال ها
+ channel3;کانال ها
+ chapter1; فصل
+ chapter2; فصل ها
+ chapter3; فصل ها
+ chapters stream1;استریم  فصل
+ chapters stream2;استریم  فصل  ها
+ chapters stream3;استریم  فصل  ها
+ character1;
+ character2;
+ character3;
+ day1;روز
+ day2;روزها
+ day3;روزها
+ dB1; dB
+ dB2; dB
+ dB3; dB
+ file1;فایل
+ file2;فایل ها
+ file3;فایل ها
+ fps1; fps
+ fps2; fps
+ fps3; fps
+ frame1;فریم
+ frame2;فریم ها
+ frame3;فریم ها
+ GB; GB
+ Gb; Gb
+ Gbps; Gbps
+ GBps; GBps
+ GHz; GHz
+ GiB; GiB
+ GibiByte1; GibiBytes
+ GibiByte2; GibiBytes
+ GibiByte3; GibiBytes
+ GiBps; GiBps
+ GigaBit1;گیگابیت
+ GigaBit2;گیگابیت ها
+ GigaBit3;گیگابیت ها
+ GigaByte1;گیگابایت
+ GigaByte2;گیگابایت ها
+ GigaByte3;گیگابایت ها
+ hour1;ساعت
+ hour2;ساعت ها
+ hour3;ساعت ها
+ Hz; Hz
+ image stream1;استریم تصویر
+ image stream2;استریم تصویر ها
+ image stream3;استریم تصویر ها
+ KB; KB
+ Kb; Kb
+ KBps; KBps
+ Kbps; Kbps
+ KHz; KHz
+ KiB; KiB
+ KibiBit1; KibiBit
+ KibiBit2; KibiBits
+ KibiBit3; KibiBits
+ KibiByte1; KibiByte
+ KibiByte2; KibiBytes
+ KibiByte3; KibiBytes
+ KiBps; KiBps
+ KiloBit1;کیلوبیت
+ KiloBit2;کیلوبیت ها
+ KiloBit3;کیلوبیت ها
+ KiloByte1;کیلوبایت
+ KiloByte2;کیلوبایت ها
+ KiloByte3;کیلوبایت ها
+ MB; MB
+ Mb; Mb
+ Mbps; Mbps
+ MBps; MebiBytes
+ MebiBit1; MebiBit
+ MebiBit2; MebiBits
+ MebiBit3; MebiBits
+ MebiByte1; MebiByte
+ MebiByte2; MebiBytes
+ MebiByte3; MebiBytes
+ MegaBit1;مگابیت
+ MegaBit2;مگابیت ها
+ MegaBit3;مگابیت ها
+ MegaByte1;مگابایت
+ MegaByte2;مگابایت ها
+ MegaByte3;مگابایت ها
+ MHz; MHz
+ MiB; MiB
+ Mib; Mib
+ MiBps; MiBps
+ millisecond1;میلی ثانیه
+ millisecond2;میلی ثانیه ها
+ millisecond3;میلی ثانیه ها
+ minute1;دقیقه
+ minute2;دقیقه ها
+ minute3;دقیقه ها
+ month1;ماه
+ month2;ماه ها
+ month3;ماه ها
+ pixel1;پیکسل
+ pixel2;پیکسل ها
+ pixel3;پیکسل ها
+ second1;ثانیه
+ second2;ثانیه ها
+ second3;ثانیه ها
+ text stream1;استریم متن
+ text stream2;استریم متن ها
+ text stream3;استریم متن ها
+ video frames1;فریم ویدیو
+ video frames2;فریم ویدیو ها
+ video frames3;فریم ویدیو ها
+ video stream1;استریم ویدیو
+ video stream2;استریم ویدیو خا
+ video stream3;استریم ویدیو ها
+ warppoint0;No warppoints
+ warppoint1; warppoint
+ warppoint2; warppoints
+ warppoint3; warppoints
+ week1;هفته
+ week2;هفته ها
+ week3;هفته ها
+ year1;سال
+ year2;سال ها
+ year3;سال ها
+, ;, 
+: ;: 
+3D;
+3DType;
+About;درباره
+About_Hint;ارتباط با من و آخرین نسخه
+Accompaniment;همراهی
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
+Actor;بازیگر
+Actor_Character;بازی کاراکتر
+Added_Date;تاریخ اضافه شده
+Address;آدرس
+Advanced;پیشرفته
+Advanced mode;حالت پیشرفته
+Album;آلبوم
+Album_ReplayGain_Gain;Album replay gain
+Album_ReplayGain_Peak;Album replay gain peak
+Alignment;هم ترازی
+Alignment_Aligned;هم ترازی بین صفحات
+Alignment_Split;شکاف بین صفحات
+All;همه
+Archival_Location;مسیر بایگانی
+Arranger;مرتب کننده
+ArtDirector;کارگردان هنری
+AspectRatio;نسبت تصوير
+AssistantDirector;دستیار کارگردان
+at;در
+At least one file;(حداقل یک فایل را باز کنید)
+Audio;صوت
+Audio stream(s);استریم صوت ها
+Audio_Codec_List;کدک صوت ها
+Audio_No;صوتی موجود نیست
+Audio1;اولین استریم صوت
+Audio2;دومبن استریم صوت
+AudioComments;
+AudioCount;تعداد استریم صوت
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
+Author;نویسنده
+BarCode;بارکد
+Basic;اولیه
+Basic_Note;برای اطلاعات بیشتر اینجا را کلیک کنید
+BitDepth;
+BitDepth_Stored;
+BitRate;نرخ بيت
+BitRate_Encoded;
+BitRate_Maximum;بیشترین نرخ بيت
+BitRate_Minimum;کمترین نرخ بيت
+BitRate_Mode;حالت نرخ بيت
+BitRate_Mode_CBR;پايدار
+BitRate_Mode_VBR;متغییر
+BitRate_Nominal;نرخ بيت غیرواقعی 
+Bits-(Pixel*Frame);بیتها /(Pixel*Frame)
+BufferSize;
+Cancel;لغو
+Channel(s);کانال ها
+ChannelPositions;موقعیت کانال ها
+Chapter(s);فصل ها
+Chapters;فصل ها
+Chapters stream(s);استریم فصل ها
+Chapters_Codec_List;کدک فصل ها
+Chapters_No;فصلی وجود ندارد
+ChaptersCount;تعداد استریم فصل ها
+CheckNewVersion;کنترل نسخه جدید
+Choose custom;انتخاب دیگر
+Choose custom sheet;ورقه موردنظر را انتخاب کنید
+Choose custom text;متن موردنظر را انتخاب کنید
+Choose export format;فرمت خروجی را انتخاب کنید
+Choose file(s);فایل را برای باز کردن انتخاب کنید
+Choose filename;نام فایل موردنظر را انتخاب کنید
+Choose language;زمان موردنظر را انتخاب کنید
+Choregrapher;رقاص
+Chroma;رنگينى
+ChromaSubsampling;
+Close;ببند
+Close all before open;قبل از باز کردن ببند
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
+Codec;کدک
+Codec_Description;شرح کدک
+Codec_Info;جزییات کدک
+Codec_Profile;پروفایل کدک
+Codec_Settings;تنظیمات کدک
+Codec_Settings_BVOP;تنظیمات کدک, BVOP
+Codec_Settings_CABAC;تنظیمات کدک, CABAC
+Codec_Settings_Endianness;تنظیمات کدک, Endianness
+Codec_Settings_Firm;تنظیمات کدک, Firm
+Codec_Settings_Floor;تنظیمات کدک, Floor
+Codec_Settings_GMC;تنظیمات کدک, GMC
+Codec_Settings_ITU;تنظیمات کدک, ITU
+Codec_Settings_Law;تنظیمات کدک, Law
+Codec_Settings_Matrix;تنظیمات کدک, Matrix
+Codec_Settings_PacketBitStream;تنظیمات کدک  Packet bitstream
+Codec_Settings_QPel;تنظیمات کدک, QPel
+Codec_Settings_Sign;تنظیمات کدک, Sign
+Codec_Url;لینک کدک
+CodecID;هویت کدک
+CodecID_Description;شرح کدک
+CoDirector;
+Collection;جمع اورى
+Colorimetry;سنجش رنگ
+ColorSpace;
+colour_primaries;
+colour_range;
+Comment;توضيح
+CommissionedBy;مجاز توسط
+Compilation;
+CompleteName;نام کامل
+CompletionDate;
+Composer;سراينده
+Compression_Mode;
+Compression_Mode_Lossless;
+Compression_Mode_Lossy;
+Compression_Ratio;نرخ فشردگی
+Conductor;رهبر اکسترر
+ContactEmail;
+ContactTelephoneNumber;
+Container and general information;محتوی و اطلاعات کلی
+ContentType;نوع محتوا
+CoProducer;تهیه کننده
+Copyright;کپی رایت
+CopyrightYear;
+CostumeDesigner;طراح لباس
+Count;شمارش
+Country;کشور
+Cover;روکش
+Cover_Datas;داده روکش ها
+Cover_Description;شرح روکش
+Cover_Mime;روکش MIME
+Cover_Type;نوع روکش
+Cropped;بریدن اندازه
+Custom;دیگر
+Customize;شخصی سازی
+Date;تاریخ
+Debug;اشکال زدائى
+Decimal point;مميز اعشارى
+Delay;مکث
+Delay_Source;
+Delay_Source_Container;
+Delay_Source_Stream;
+Delete;حذف
+Description;شرح
+Digitized_Date;تاریخ رقمى
+Dimensions;اندازه گرفتن
+Director;کارگردان
+DirectorOfPhotography;کارگردان عکسبرداری
+DisplayAspectRatio;نمایش نسبت تصوير
+DisplayAspectRatio_Original;نمایش نسبت تصوير اصلی
+DistributedBy;توزيع شده توسط
+Distributor;
+Donate;کمک مالی
+DotsPerInch;نقطه بر اینچ
+Duration;مدت
+Duration_End;زمان پایان
+Duration_Start;زمان شروع
+Edit;ویرایش
+EditedBy;ویرایش شده توست
+EMail;ایمیل
+Encoded_Application;برنامه نوشتاری
+Encoded_Date;تاریخ رمزى شده
+Encoded_Library;کتابخان نوشتاری
+Encoded_Library_Settings;تنظینات رمزى شده
+Encoded_Original;حمایت اصلی
+EncodedBy;رمزى شده توسط
+EPG_Positions;EPG موقعیت (internal)
+EpisodeTitleNumber;
+Error_File;خطا هنگام خواندن فایل
+ExecutiveProducer;تهیه کننده اجرایی
+Exit;خروج
+Exit_Hint;خروج از برنامه
+Export;خارج سازی
+Export_Hint;خارج سازی به فرمت...
+Extensions;پسوند معمولا استفاده شده است
+Family;خانوادگی
+Fax;فکس
+File;فایل
+File size;اندازه فایل
+File_Append;هشدار : از پارامترهای یکسان استفاده نکنید
+File_Created_Date;تاریخ ایجاد فایل
+File_Created_Date_Local;تاریخ ایجاد فایل (local)
+File_Hint;انتخاب فایل مولتی مدیا
+File_Modified_Date;آخرین تاریخ اصلاح فایل
+File_Modified_Date_Local;آخرین تاریخ اصلاح فایل (local)
+FileExtension;پسوند فایل
+FileName;نام فایل
+FileSize;اندازه فایل
+Folder;پوشه
+Folder (R);پوشه (R)
+Folder (R)_Hint;انتخاب پوشه (with all folders recursively)
+Folder (Recursively);پوشه (Recursively)
+Folder_Hint;انتخاب پوشه
+FolderName;نام پوشه
+Format;فرمت
+Format_Commercial;
+Format_Commercial_IfAny;
+Format_Description;شرح فرمت
+Format_Info;جزییات فرمت
+Format_Profile;پروفایل فرمت
+Format_Settings;تنظیمات فرمت
+Format_Settings_BVOP;تنظیمات فرمت, BVOP
+Format_Settings_CABAC;تنظیمات فرمت, CABAC
+Format_Settings_Emphasis;
+Format_Settings_Endianness;تنظیمات فرمت, Endianness
+Format_Settings_Firm;تنظیمات فرمت, Firm
+Format_Settings_Floor;تنظیمات فرمت, Floor
+Format_Settings_FrameMode;
+Format_Settings_GMC;تنظیمات فرمت, GMC
+Format_Settings_GOP;
+Format_Settings_ITU;تنظیمات فرمت, ITU
+Format_Settings_Law;تنظیمات فرمت, Law
+Format_Settings_Matrix;تنظیمات فرمت, Matrix
+Format_Settings_Matrix_Custom;شخصی
+Format_Settings_Matrix_Default;پيش فرض
+Format_Settings_Mode;
+Format_Settings_ModeExtension;
+Format_Settings_PacketBitStream;تنظیمات فرمت, Packet bitstream
+Format_Settings_PictureStructure;
+Format_Settings_PS;تنظیمات فرمت, PS
+Format_Settings_Pulldown;تنظیمات فرمت, Pulldown
+Format_Settings_QPel;تنظیمات فرمت, QPel
+Format_Settings_RefFrames;تنظیمات فرمت, ReFrames
+Format_Settings_SBR;تنظیمات فرمت, SBR
+Format_Settings_Sign;تنظیمات فرمت, Sign
+Format_Settings_Wrapping;
+Format_Url;لینک فرمت
+Format_Version;نسخه فرمت
+FpaManufacturer;
+FpaPass;
+FpaVersion;
+FrameCount;تعداد فرمت
+FrameRate;نرخ فرمت
+FrameRate_Maximum;بیشترین نرخ فرمت
+FrameRate_Minimum;کمترین نرخ فرمت
+FrameRate_Mode;حالت نرخ فرمت
+FrameRate_Mode_CFR;پایدار
+FrameRate_Mode_VFR;متغییر
+FrameRate_Nominal;نرخ فرمت غیر واقعی
+FrameRate_Original;نرخ فرمت اصلی
+General;کلی
+Genre;دسته
+Genre_000;Blues
+Genre_001;Classic Rock
+Genre_002;Country
+Genre_003;Dance
+Genre_004;Disco
+Genre_005;Funk
+Genre_006;Grunge
+Genre_007;Hip-Hop
+Genre_008;Jazz
+Genre_009;Metal
+Genre_010;New Age
+Genre_011;Oldies
+Genre_012;Other
+Genre_013;Pop
+Genre_014;R&B
+Genre_015;Rap
+Genre_016;Reggae
+Genre_017;Rock
+Genre_018;Techno
+Genre_019;Industrial
+Genre_020;Alternative
+Genre_021;Ska
+Genre_022;Death Metal
+Genre_023;Pranks
+Genre_024;Soundtrack
+Genre_025;Euro-Techno
+Genre_026;Ambient
+Genre_027;Trip-Hop
+Genre_028;Vocal
+Genre_029;Jazz+Funk
+Genre_030;Fusion
+Genre_031;Trance
+Genre_032;Classical
+Genre_033;Instrumental
+Genre_034;Acid
+Genre_035;House
+Genre_036;Game
+Genre_037;Sound Clip
+Genre_038;Gospel
+Genre_039;Noise
+Genre_040;AlternRock
+Genre_041;Bass
+Genre_042;Soul
+Genre_043;Punk
+Genre_044;Space
+Genre_045;Meditative
+Genre_046;Instrumental Pop
+Genre_047;Instrumental Rock
+Genre_048;Ethnic
+Genre_049;Gothic
+Genre_050;Darkwave
+Genre_051;Techno-Industrial
+Genre_052;Electronic
+Genre_053;Pop-Folk
+Genre_054;Eurodance
+Genre_055;Dream
+Genre_056;Southern Rock
+Genre_057;Comedy
+Genre_058;Cult
+Genre_059;Gangsta
+Genre_060;Top 40
+Genre_061;Christian Rap
+Genre_062;Pop/Funk
+Genre_063;Jungle
+Genre_064;Native American
+Genre_065;Cabaret
+Genre_066;New Wave
+Genre_067;Psychadelic
+Genre_068;Rave
+Genre_069;Showtunes
+Genre_070;Trailer
+Genre_071;Lo-Fi
+Genre_072;Tribal
+Genre_073;Acid Punk
+Genre_074;Acid Jazz
+Genre_075;Polka
+Genre_076;Retro
+Genre_077;Musical
+Genre_078;Rock & Roll
+Genre_079;Hard Rock
+Genre_080;Folk
+Genre_081;Folk-Rock
+Genre_082;National Folk
+Genre_083;Swing
+Genre_084;Fast Fusion
+Genre_085;Bebob
+Genre_086;Latin
+Genre_087;Revival
+Genre_088;Celtic
+Genre_089;Bluegrass
+Genre_090;Avantgarde
+Genre_091;Gothic Rock
+Genre_092;Progressive Rock
+Genre_093;Psychedelic Rock
+Genre_094;Symphonic Rock
+Genre_095;Slow Rock
+Genre_096;Big Band
+Genre_097;Chorus
+Genre_098;Easy Listening
+Genre_099;Acoustic
+Genre_100;Humour
+Genre_101;Speech
+Genre_102;Chanson
+Genre_103;Opera
+Genre_104;Chamber Music
+Genre_105;Sonata
+Genre_106;Symphony
+Genre_107;Booty Bass
+Genre_108;Primus
+Genre_109;Porn Groove
+Genre_110;Satire
+Genre_111;Slow Jam
+Genre_112;Club
+Genre_113;Tango
+Genre_114;Samba
+Genre_115;Folklore
+Genre_116;Ballad
+Genre_117;Power Ballad
+Genre_118;Rhythmic Soul
+Genre_119;Freestyle
+Genre_120;Duet
+Genre_121;Punk Rock
+Genre_122;Drum Solo
+Genre_123;A capella
+Genre_124;Euro-House
+Genre_125;Dance Hall
+Genre_126;Goa
+Genre_127;Drum & Bass
+Genre_128;Club-House
+Genre_129;Hardcore
+Genre_130;Terror
+Genre_131;Indie
+Genre_132;Britpop
+Genre_133;Negerpunk
+Genre_134;Polsk Punk
+Genre_135;Beat
+Genre_136;Christian Gangsta Rap
+Genre_137;Heavy Metal
+Genre_138;Black Metal
+Genre_139;Crossover
+Genre_140;Contemporary Christian
+Genre_141;Christian Rock
+Genre_142;Merengue
+Genre_143;Salsa
+Genre_144;Trash Metal
+Genre_145;Anime
+Genre_146;JPop
+Genre_147;Synthpop
+Genre_148;
+Genre_149;
+Genre_150;
+Genre_151;
+Genre_152;
+Genre_153;
+Genre_154;
+Genre_155;
+Genre_156;
+Genre_157;
+Genre_158;
+Genre_159;
+Genre_160;
+Genre_161;
+Genre_162;
+Genre_163;
+Genre_164;
+Genre_165;
+Genre_166;
+Genre_167;
+Genre_168;
+Genre_169;
+Genre_170;
+Genre_171;
+Genre_172;
+Genre_173;
+Genre_174;
+Genre_175;
+Genre_176;
+Genre_177;
+Genre_178;
+Genre_179;
+Genre_180;
+Genre_181;
+Genre_182;
+Genre_183;
+Genre_184;
+Genre_185;
+Genre_186;
+Genre_187;
+Genre_188;
+Genre_189;
+Genre_190;
+Genre_191;
+Go to WebSite;وب سایت
+Grouping;
+Gop_OpenClosed;
+Gop_OpenClosed_Open;
+Gop_OpenClosed_Closed;
+Gop_OpenClosed_FirstFrame;
+h;h
+Header file;ایجاد فایل سر صفحه
+Height;بلندی
+Height_Original;
+Help;راهنمایی
+Hint;اشارات
+How many audio streams?;تعداد استریم صوت?
+How many chapters streams?;تعداد استریم فصل?
+How many text streams?;تعداد استریم متن?
+How many video streams?;تعداد استریم ویدیو?
+HTML;HTML
+ID;ID
+IdentClockStart;
+Image;تصویر
+Image stream(s);استریم تصویر
+Image_Codec_List;کدک تصویر
+ImageCount;تعداد استریم تصویر
+Info;اطلاعات
+Instruments;ساز
+Interlaced_BFF;فیلد پایین در اول
+Interlaced_Interlaced;درهم بافته
+Interlaced_PPF;تصاعدى
+Interlaced_Progressive;تصاعدى
+Interlaced_TFF;فیلد بالا در اول
+Interlacement;بهم پيچيدگى
+Interleave_Duration;جاگذارى, مدت
+Interleave_Preload;جاگذارى, مدت بارگذاری
+Interleave_VideoFrames;جاگذارى, مدت
+Interleaved;
+InternetMediaType;
+IRCA;IRCA
+ISBN;ISBN
+ISRC;ISRC
+Keywords;کلمه کلیدی
+Known codecs;کدک مشخص
+Known formats;فرمت مشخص
+Known parameters;پارامتر مشخص
+Label;برچسب
+Language;زبان
+Language_aa;بعد
+Language_ab;Abkhazian
+Language_ae;Avestan
+Language_af;Afrikaans
+Language_ak;Akan
+Language_am;Amharic
+Language_an;Aragonese
+Language_ar;Arabic
+Language_as;Assamese
+Language_av;Avaric
+Language_ay;Aymara
+Language_az;Azerbaijani
+Language_ba;Bashkir
+Language_be;Belarusian
+Language_bg;Bulgarian
+Language_bh;Bihari
+Language_bi;Bislama
+Language_bm;Bambara
+Language_bn;Bengali
+Language_bo;Tibetan
+Language_br;Breton
+Language_bs;Bosnian
+Language_ca;Catalan
+Language_ce;Chechen
+Language_ch;Chamorro
+Language_co;Corsican
+Language_cr;Cree
+Language_cs;Czech
+Language_cu;Slave
+Language_cv;Chuvash
+Language_cy;Welsh
+Language_da;Danish
+Language_de;German
+Language_dv;Divehi
+Language_dz;Dzongkha
+Language_ee;Ewe
+Language_el;Greek
+Language_en;English
+Language_en-gb;English (Great Britain)
+Language_en-us;English (United States)
+Language_eo;Esperanto
+Language_es;Spanish
+Language_et;Estonian
+Language_eu;Basque
+Language_fa;Persian
+Language_ff;Fulah
+Language_fi;Finnish
+Language_fj;Fijian
+Language_fo;Faroese
+Language_fr;French
+Language_fy;Frisian
+Language_ga;Irish
+Language_gd;Gaelic
+Language_gl;Galician
+Language_gn;Guarani
+Language_gu;Gujarati
+Language_gv;Manx
+Language_ha;Hausa
+Language_he;Hebrew
+Language_hi;Hindi
+Language_ho;Hiri Motu
+Language_hr;Croatian
+Language_ht;Haitian
+Language_hu;Hungarian
+Language_hy;Armenian
+Language_hz;Herero
+Language_ia;Auxiliary Language Association
+Language_id;Indonesian
+Language_ie;Interlingue
+Language_ig;Igbo
+Language_ii;Sichuan Yi
+Language_ik;Inupiaq
+Language_Info;Language info
+Language_io;Ido
+Language_is;Icelandic
+Language_it;Italian
+Language_iu;Inuktitut
+Language_ja;Japanese
+Language_jv;Javanese
+Language_ka;Georgian
+Language_kg;Kongo
+Language_ki;Kikuyu
+Language_kj;Kuanyama
+Language_kk;Kazakh
+Language_kl;Kalaallisut
+Language_km;Khmer
+Language_kn;Kannada
+Language_ko;Korean
+Language_kr;Kanuri
+Language_ks;Kashmiri
+Language_ku;Kurdish
+Language_kv;Komi
+Language_kw;Cornish
+Language_ky;Kirghiz
+Language_la;Latin
+Language_lb;Luxembourgish
+Language_lg;Ganda
+Language_li;Limburgish
+Language_ln;Lingala
+Language_lo;Lao
+Language_lt;Lithuanian
+Language_lu;Luba-Katanga
+Language_lv;Latvian
+Language_mg;Malagasy
+Language_mh;Marshallese
+Language_mi;Maori
+Language_mk;Macedonian
+Language_ml;Malayalam
+Language_mn;Mongolian
+Language_mo;Moldavian
+Language_More;زبان, اطلاعات بیشتر
+Language_mr;Marathi
+Language_ms;Malay
+Language_mt;Maltese
+Language_mul;Multiple languages
+Language_my;Burmese
+Language_na;Nauru
+Language_nb;Norwegian Bokmal
+Language_nd;Ndebele
+Language_ne;Nepali
+Language_ng;Ndonga
+Language_nl;Dutch
+Language_nn;Norwegian Nynorsk
+Language_no;Norwegian
+Language_nr;Ndebele
+Language_nv;Navaho
+Language_ny;Nyanja
+Language_oc;Occitan
+Language_oj;Ojibwa
+Language_om;Oromo
+Language_or;Oriya
+Language_os;Ossetic
+Language_pa;Panjabi
+Language_pi;Pali
+Language_pl;Polish
+Language_ps;Pushto
+Language_pt;Portuguese
+Language_pt-br;Portuguese (Brazil)
+Language_qu;Quechua
+Language_rm;Raeto-Romance
+Language_rn;Rundi
+Language_ro;Romanian
+Language_ru;Russian
+Language_rw;Kinyarwanda
+Language_sa;Sanskrit
+Language_sc;Sardinian
+Language_sd;Sindhi
+Language_se;Northern Sami
+Language_sg;Sango
+Language_si;Sinhala
+Language_sk;Slovak
+Language_sl;Slovenian
+Language_sm;Samoan
+Language_sn;Shona
+Language_so;Somali
+Language_sq;Albanian
+Language_sr;Serbian
+Language_ss;Swati
+Language_st;Sotho
+Language_su;Sundanese
+Language_sv;Swedish
+Language_sw;Swahili
+Language_ta;Tamil
+Language_te;Telugu
+Language_tg;Tajik
+Language_th;Thai
+Language_ti;Tigrinya
+Language_tk;Turkmen
+Language_tl;Tagalog
+Language_tn;Tswana
+Language_to;Tonga
+Language_tr;Turkish
+Language_ts;Tsonga
+Language_tt;Tatar
+Language_tw;Twi
+Language_ty;Tahitian
+Language_ug;Uighur
+Language_uk;Ukrainian
+Language_ur;Urdu
+Language_uz;Uzbek
+Language_ve;Venda
+Language_vi;Vietnamese
+Language_vo;Volapuk
+Language_wa;Walloon
+Language_wo;Wolof
+Language_xh;Xhosa
+Language_yi;Yiddish
+Language_yo;Yoruba
+Language_za;Zhuang
+Language_zh;Chinese
+Language_zh-cn;Chinese (China)
+Language_zh-tw;Chinese (Taiwan)
+Language_zu;Zulu
+LawRating;Law rating
+LCCN;LCCN
+Library;کتابخانه تسهيم کننده
+Lightness;روشنايى
+LineUpStart;
+List;لیست
+Lyricist;لایرسکسیست
+Lyrics;متن آهنگ
+Mastered_Date;تاریخ مستر
+MasteredBy;مستر شده توسط
+Matrix_Channel(s);
+Matrix_ChannelPositions;
+matrix_coefficients;
+Matrix_Format;
+MediaInfo_About;اطلاعات جزیی\r\nدرباره فایل مولتی مدیا:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
+Menu;منو
+Menu stream(s);استریم منو
+Menu_Codec_List;کدک منو
+Menu_Hint;احتمالات بیشتر
+Menu_No;منویی وجود ندارد
+MenuCount;تعداد استریم منو
+MenuID;هویت منو
+mn;mn
+Mood;حالت
+More;بیشتر
+Movie;نام فیلم
+ms;ms
+MSDI;MSDI
+MusicBy;موسیقی توسط
+MuxingMode;حالت تسهيم کننده
+MuxingMode_MoreInfo;حالت تسهيم کننده, اطلاعات بیشتر
+MuxingMode_PackedBitstream;Packed bitstream
+Name;نام
+Nationality;مليت
+NetworkName;نام شبکه
+New;جدید
+Newest version;کنترل برای نسخه جدید نیاز به اینترنت
+NewVersion_Menu;نسخه جدید موجود است
+NewVersion_Question_Content;نسخه جدید (v%Version%) موجود است, می خواهید آن را دانلود کنید?
+NewVersion_Question_Title;نسخه جدید انتشار یافت
+No;خیر
+Not yet;هنوز خیر
+NumColors;تعداد رنگ ها
+OK;موافق
+One output file per input file;یک فایل خروجی بر فابل ورودی
+Open;باز کن
+OpenCandy_01;در حال دانلود ________
+OpenCandy_02;__% تکمیل شده
+OpenCandy_03;قطع ارتباط اینترنتی
+OpenCandy_04;________ دانلود کامل شد
+OpenCandy_05;کلیک برای نصب ________
+OpenCandy_06;لغو نصب?\r\nتاخیر تا ریبوت بعدی
+OpenCandy_07;دانلود ________ متوقف شد.\r\nکلیک کنید برای ادامه
+OpenCandy_08;خطا در نصب _________ باید خارج شود.
+OpenCandy_09;توقف دانلود
+OpenCandy_10;لغو نصب
+OpenCandy_11;ادامه دانلود
+OpenCandy_12;خروج از نصب
+OpenCandy_13;___________ - توصیه شده توسط ____________
+OpenCandy_14;در حال دانلود _________
+OpenCandy_15;___________, توصیه شده توسط ___________, در حال دانلود است
+OpenCandy_16;___________ برای نصب آماده است
+OpenCandy_17;___________ دانلود کامل شد برای نصب کردن کلیک کنید
+OpenCandy_18;___________ از ___________ دانلود شده
+OpenCandy_19;OpenCandy توسط
+OpenCandy_20;OpenCandy.com اطلاعات بیشتر در
+OpenCandy_21;نصب
+OpenCandy_22;نصب ___________
+OpenCandy_23;موجب لغو نصب می شود ___________\r\nخارج می شوید?
+OpenCandy_24;توقف
+OpenCandy_25;دانلود متوقف شد. هر وقت آماده اید بر روی ادامه کلیک کنید.
+OpenCandy_26;ادامه
+OpenCandy_27;اکنون نصب کن
+OpenCandy_28;توقف دانلود
+OpenCandy_29;ادامه دانلود
+OpenCandy_30;لغو نصب
+OpenCandy_31;انتخاب تنظیمات نصب
+OpenCandy_32;نصب ___________
+OpenCandy_33;نصب نکن
+OpenCandy_34;انتخاب تنظیمات نصب
+OpenCandy_35;______ این نرم افزار پیشنهاد میشود
+OpenCandy_36;نصب فعلی متوقف نمی شود
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
+Options;تنظیمات
+Options_Hint;تنظیمات
+Original;اصلی
+OriginalNetworkName;نام اصلی شبکه
+OriginalSourceForm;فرم منبع اصلی
+OriginalSourceMedium;فرم میانی اصلی
+Originator;
+Other;دیگر
+OtherIdentifier;
+OtherIdentifierType;
+Output;خروجی
+Output format;فرمت خروجی
+OverallBitRate;نرخ بیت کل
+OverallBitRate_Maximum;بیشترین نرخ بیت کل
+OverallBitRate_Minimum;کمترین نرخ بیت کل
+OverallBitRate_Mode;حالت نرخ بیت کل
+OverallBitRate_Nominal;نرخ بیت کل غیرواقعی
+Part;قسمت
+Part_Count;کل تعداد
+PartNumber;
+PartTotal;
+Performer;مجرى
+Period;دوره
+Phone;تلفن
+PictureRatio;
+PixelAspectRatio;پیکسل نسبت تصوير
+PixelAspectRatio_Original;پیکسل نسبت تصوير اصلی
+PlayCounter;شمارش پخش
+Played_Count;تعداد پخش شده
+Played_First_Date;اولین پخش
+Played_Last_Date;آخرین پخش
+PlayTime;زمان پخش
+Position;موقعیت
+Position_Total;کل
+Preferences;تنظیمات
+PrimaryAudioLanguage;
+Producer;تهیه کننده
+ProductionDesigner;طراح محصول
+ProductionNumber;
+ProductionStudio;استودیو محصول
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
+Publisher;ناشر
+Purchased_Date;تاریخ خرید
+Quote character;کاراکتر اعلام
+RadioStation;ایستگاه رادیو
+Rating;رتبه
+Recorded_Date;تاریخ ضبط
+Recorded_Location;مکان ضبط
+Released_Date;تاریخ انتشار
+RemixedBy;ریمیکس توسط
+ReplayGain_Gain;Replay gain
+ReplayGain_Peak;Replay gain peak
+Resolution;وضوح
+s;s
+SamplingCount;
+SamplingRate;نرخ نمونه
+Save;ذخیره
+ScanOrder;دستور اسکن
+ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
+ScanType;نوع اسکن
+ScanType_Original;
+ScanType_StoreMethod;
+ScreenplayBy;نمايشنامه توسط
+Season;فصل
+SecondaryAudioLanguage;
+see below;پایین را ببینید
+Send HeaderFile;فایل سرصفحه را اینجا بفرستید : http://sourceforge.net/projects/mediainfo/ (قسمت باگ)
+Separator_Columns;جدا کننده ستون
+Separator_Lines;جدا کننده خطوط
+SerieTitle;
+ServiceChannel;شماره کانال سرویس
+ServiceName;نام سرویس
+ServiceProvider;مهيا کننده سرویس
+ServiceType;نوع سرویس
+Set;آماده کردن
+Set_Count;آماده کردن تعداد
+Setup;نصب
+Sharpness;تیزی
+Sheet;ورقه
+Sheet (Complete);ورقه کامل
+Shell extension;Shell extension (in Explorer, right click there will be a MediaInfo option)
+Shell extension, folder;برای پوشه ها هم همینطور
+Shell InfoTip;Shell InfoTip (in Explorer, move the mouse over the file, info will be displayed)
+ShimName;
+ShimVersion;
+Show menu;نمایش منو
+Show toolbar;نمایش نوارابزار
+SigningPresent;
+SignLanguage;
+Sort;طبقه بندى توسط
+SoundEngineer;مهندس صدا
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_SamplingCount;
+Source_StreamSize;
+Source_StreamSize_Encoded;
+Standard;استاندارد
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
+Stream;استریم
+Stream_MoreInfo;اطلاعات بیشتر درمورد استریم
+StreamCount;تعداد این نوع استریم
+StreamID;هویت استریم
+StreamKind;نوع استریم
+StreamKindID;معرف استریم
+StreamKindPos;معرف استریم
+StreamSize;اندازه استریم
+StreamSize_Encoded;
+StreamSize_Proportion;نسبت این استریم
+Subject;موضوع
+SubTrack;ساب ترک
+Summary;خلاصه
+Supported formats;فرمت های پشتيبانى شده
+Supported?;پشتيبانى شده?
+Synopsis;خلاصه
+SystemId;Id
+Tagged_Application;برنامه ضميمه
+Tagged_Date;تاریخ ضميمه
+Technician;تکنيسين
+TermsOfUse;شرایط استفاده
+TertiaryAudioLanguage;
+Text;استریم متن
+Text - Custom;متن - Custom
+Text (HTML);متن (HTML)
+Text stream(s);استریم متن
+Text streams;استریم متن
+Text_Codec_List;کدک متن
+Text_No;متنی وجود ندارد
+Text1;اولین استریم متن
+Text2;دومین استریم متن
+Text3;سومین استریم متن
+TextCount;تعداد استریم متن
+TextlessElementsExist;
+ThanksTo;تشکر از
+Thousands separator;هزاران جداکننده
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeCode_Striped;
+TimeStamp;
+TimeZone;منطقه ساعتى جهانى
+Title;عنوان
+Title_More;عنوان, اطلاعات بیشتر
+Total;کلی
+TotalNumberOfParts;
+TotalProgrammeDuration;
+Track;نام ترک
+Track_Count;تعداد ترک
+transfer_characteristics;
+Translator;مترجم
+Tree;درختی
+Tree & Text;درختی ومتنی
+Type;
+UniqueID;
+Unknown;نامعلوم
+Url;Url
+Video;ویدیو
+Video stream(s);استریم ویدیو
+Video_Codec_List;کدک ویدیو
+Video_Delay;مکث ویدیو
+Video_No;ویدیویی وجود ندارد
+Video0_Delay;Video0 delay
+Video1;اولین استریم ویدیو
+VideoComments;
+VideoCount;تعداد استریم ویدیو
+View;نمایش
+View_Hint;تغییر منوی مشاهده اطلاعات
+Warning : more streams in the files;هشدار : بیشتر از یک استریم در این فایل وجود دارد
+Web;وب
+WebSite_Audio;سایت کدک صوت
+WebSite_Audio_More;به سایت (%Url%) برای پیدا کردن کدک صوت بروید
+WebSite_General;سایت پخش کننده این فایل
+WebSite_General_More;سایت پخش کننده این فایل
+WebSite_Text;سایت کدک متن
+WebSite_Text_More;به سایت (%Url%) برای پیدا کردن کدک متن بروید
+WebSite_Url;http://MediaArea.net/MediaInfo
+WebSite_Video;سایت ویدیو کدک
+WebSite_Video_More;به سایت (%Url%) برای پیدا کردن ویدیو کدک بروید
+Width;عرض
+Width_Original;
+WriteMe;نوشته برای نویسنده
+WriteToTranslator;نوشته برای مترجم
+Written_Date;تاریخ نوشته
+Written_Location;مکان نوشته
+WrittenBy;نوشته شده توسط
+Yes;بلی
+Your system;سیستم شما
+ZZ_Automatic_Percent;85
+ZZ_AutomaticLanguage_Percent;89

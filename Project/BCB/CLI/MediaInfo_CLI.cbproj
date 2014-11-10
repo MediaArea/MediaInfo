@@ -1,0 +1,180 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{495339ED-8D73-45A2-9591-DF05D985EE3E}</ProjectGuid>
+			<ProjectType>CppConsoleApplication</ProjectType>
+			<Config Condition="'$(Config)'==''">Débogage</Config>
+			<ProjectVersion>12.0</ProjectVersion>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Débogage' or '$(Cfg_1)'!=''">
+			<Cfg_1>true</Cfg_1>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
+			<Cfg_2>true</Cfg_2>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Base)'!=''">
+			<ILINK_AdditionalOptions>-tWM</ILINK_AdditionalOptions>
+			<LinkPackageStatics>xmlrtl.lib;rtl.lib;vclx.lib;vcl.lib;vclie.lib</LinkPackageStatics>
+			<IncludePath>..\..\..\Source\Common\;..\..\..\Source\CLI\;..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple;..\..\..\..\MediaInfoLib\Source\MediaInfo;..\..\..\Source\Common;..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\CLI;$(IncludePath)</IncludePath>
+			<BRCC_Defines>_RTLDLL;NO_STRICT;_NO_VCL;WIN32;_WIN32;UNICODE;_UNICODE;MEDIAINFO_DLLx;$(BRCC_Defines)</BRCC_Defines>
+			<PackageImports>vcl.bpi;rtl.bpi;vclx.bpi;xmlrtl.bpi;vclie.bpi;inet.bpi;inetdbbde.bpi;inetdbxpress.bpi;soaprtl.bpi;dbrtl.bpi;dsnap.bpi;bcbie.bpi;vcldb.bpi;websnap.bpi;webdsnap.bpi;vclactnband.bpi;Jcl.bpi</PackageImports>
+			<TASM_Defines>_RTLDLL;NO_STRICT;_NO_VCL;WIN32;_WIN32;UNICODE;_UNICODE;MEDIAINFO_DLLx;$(TASM_Defines)</TASM_Defines>
+			<DCC_UnitSearchPath>..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\Common;..\..\..\Source\CLI;D:\Programmation\MediaInfo\Source\CLI;C:\Documents and Settings\Jerome\Mes documents\Borland Studio Projects;$(BDS)\lib;$(BDS)\lib\obj;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+			<DCC_ResourcePath>..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\Common;..\..\..\Source\CLI;D:\Programmation\MediaInfo\Source\CLI;$(DCC_ResourcePath)</DCC_ResourcePath>
+			<BCC_IncludePath>..\..\..\Source;..\..\..\..\ZenLib\Source;..\..\..\..\MediaInfoLib\Source;..\..\..\Source\Common;..\..\..\Source\CLI;$(BDS)\include;$(BDS)\include\dinkumware;$(BDS)\include\vcl;$(BCC_IncludePath)</BCC_IncludePath>
+			<BRCC_IncludePath>..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source;..\..\..\Source\Common;..\..\..\Source\CLI;..\..\..\..\shared\include;..\..\..\..\mediainfolib\source;$(BDS)\include;$(BDS)\include\dinkumware;$(BDS)\include\vcl;$(BRCC_IncludePath)</BRCC_IncludePath>
+			<DCC_IncludePath>..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\Common;..\..\..\Source\CLI;D:\Programmation\MediaInfo\Source\CLI;C:\Documents and Settings\Jerome\Mes documents\Borland Studio Projects;$(BDS)\lib;$(BDS)\lib\obj;$(DCC_IncludePath)</DCC_IncludePath>
+			<BCC_PCHCache>true</BCC_PCHCache>
+			<TASM_IncludePath>..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source;..\..\..\Source\Common;..\..\..\Source\CLI;..\..\..\..\shared\include;..\..\..\..\mediainfolib\source;$(BDS)\include;$(BDS)\include\dinkumware;$(BDS)\include\vcl;$(TASM_IncludePath)</TASM_IncludePath>
+			<OutputExt>exe</OutputExt>
+			<BCC_GenerateConsoleApp>true</BCC_GenerateConsoleApp>
+			<ILINK_ObjectSearchPath>..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\Common;..\..\..\Source\CLI;D:\Programmation\MediaInfo\Source\CLI;$(ILINK_ObjectSearchPath)</ILINK_ObjectSearchPath>
+			<AllPackageLibs>xmlrtl.lib;rtl.lib;vclx.lib;vcl.lib;vclie.lib</AllPackageLibs>
+			<DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
+			<NoVCL>true</NoVCL>
+			<BCC_Defines>NO_STRICT;WIN32;_WIN32;UNICODE;_UNICODE;MEDIAINFO_DLLx;$(BCC_Defines)</BCC_Defines>
+			<ILINK_LibraryPath>..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\;..\..\..\..\MediaInfoLib\Project\BCB\Library\Release_Build\;..\..\..\Source\Common\;..\..\..\..\zlib\projects\BCB\Release_Build\;..\..\..\Source\CLI\;..\..\..\..\MediaInfoLib\Source\MediaInfo\Multiple;..\..\..\..\MediaInfoLib\Source\MediaInfo;..\..\..\..\MediaInfoLib\Project\BCB\Library\Release_Build;..\..\..\..\zlib\projects\BCB\Release_Build;..\..\..\..\ZenLib\Project\BCB\Library\Release_Build;..\..\..\..\Shared\Library\BCB;..\..\..\..\MediaInfoLib\Release\BCB\Library;..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\Common;..\..\..\Source\CLI;D:\Programmation\MediaInfo\Source\CLI;$(BDS)\lib;$(BDS)\lib\obj;$(BDS)\lib\psdk;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+			<DCC_ObjPath>..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\Common;..\..\..\Source\CLI;D:\Programmation\MediaInfo\Source\CLI;$(DCC_ObjPath)</DCC_ObjPath>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_1)'!=''">
+			<BCC_Defines>_DEBUG;$(BCC_Defines);$(BCC_Defines)</BCC_Defines>
+			<BCC_UserSuppliedOptions> -k</BCC_UserSuppliedOptions>
+			<ILINK_LibraryPath>$(BDS)\lib\debug;$(ILINK_LibraryPath);$(ILINK_LibraryPath)</ILINK_LibraryPath>
+			<DCC_Define>DEBUG;$(DCC_Define);$(DCC_Define)</DCC_Define>
+			<BCC_SourceDebuggingOn>true</BCC_SourceDebuggingOn>
+			<IntermediateOutputDir>Debug_Build</IntermediateOutputDir>
+			<ILINK_FullDebugInfo>true</ILINK_FullDebugInfo>
+			<TASM_DisplaySourceLines>true</TASM_DisplaySourceLines>
+			<ILINK_DisableIncrementalLinking>true</ILINK_DisableIncrementalLinking>
+			<BCC_DisableOptimizations>true</BCC_DisableOptimizations>
+			<TASM_Debugging>Full</TASM_Debugging>
+			<DCC_AdditionalSwitches> -V</DCC_AdditionalSwitches>
+			<BCC_DebugLineNumbers>true</BCC_DebugLineNumbers>
+			<DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+			<BCC_InlineFunctionExpansion>false</BCC_InlineFunctionExpansion>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_2)'!=''">
+			<BCC_Defines>NDEBUG;$(BCC_Defines);$(BCC_Defines)</BCC_Defines>
+			<BCC_UserSuppliedOptions> -r</BCC_UserSuppliedOptions>
+			<BCC_OptimizeForSpeed>true</BCC_OptimizeForSpeed>
+			<IntermediateOutputDir>Release_Build</IntermediateOutputDir>
+			<FinalOutputDir>..\..\..\release\BCB\CLI\</FinalOutputDir>
+			<TASM_Debugging>None</TASM_Debugging>
+			<ILINK_LibraryPath>$(BDS)\lib\release;$(ILINK_LibraryPath);$(ILINK_LibraryPath)</ILINK_LibraryPath>
+			<DCC_AdditionalSwitches> -$O+</DCC_AdditionalSwitches>
+		</PropertyGroup>
+		<ItemGroup>
+			<LibFiles Include="..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\ZenLib.lib">
+				<IgnorePath>true</IgnorePath>
+				<BuildOrder>7</BuildOrder>
+			</LibFiles>
+			<CppCompile Include="..\..\..\Source\CLI\Help.cpp">
+				<BuildOrder>8</BuildOrder>
+				<BuildOrder>3</BuildOrder>
+			</CppCompile>
+			<LibFiles Include="..\..\..\..\MediaInfoLib\Project\BCB\Library\Release_Build\MediaInfoLib.lib">
+				<IgnorePath>true</IgnorePath>
+				<BuildOrder>8</BuildOrder>
+			</LibFiles>
+			<LibFiles Include="..\..\..\..\zlib\projects\BCB\Release_Build\zlib.lib">
+				<IgnorePath>true</IgnorePath>
+				<BuildOrder>8</BuildOrder>
+			</LibFiles>
+			<CppCompile Include="..\..\..\Source\CLI\CLI_Main.cpp">
+				<BuildOrder>5</BuildOrder>
+				<BuildOrder>2</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\Common\Core.cpp">
+				<BuildOrder>5</BuildOrder>
+				<DependentOn>..\..\..\Source\Common\Core.h</DependentOn>
+				<BuildOrder>4</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\CLI\CommandLine_Parser.cpp">
+				<BuildOrder>7</BuildOrder>
+				<BuildOrder>4</BuildOrder>
+			</CppCompile>
+			<ResFiles Include="MediaInfo_CLI.res">
+				<BuildOrder>-1</BuildOrder>
+				<BuildOrder>1</BuildOrder>
+			</ResFiles>
+			<BuildConfiguration Include="Base">
+				<Key>Base</Key>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Release">
+				<Key>Cfg_2</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Débogage">
+				<Key>Cfg_1</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+		</ItemGroup>
+		<Import Project="$(BDS)\Bin\CodeGear.Cpp.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Cpp.Targets')"/>
+		<ProjectExtensions>
+			<Borland.Personality>CPlusPlusBuilder.Personality.12</Borland.Personality>
+			<Borland.ProjectType>CppConsoleApplication</Borland.ProjectType>
+			<BorlandProject>
+				<CPlusPlusBuilder.Personality>
+					<VersionInfo>
+						<VersionInfo Name="IncludeVerInfo">False</VersionInfo>
+						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
+						<VersionInfo Name="MajorVer">1</VersionInfo>
+						<VersionInfo Name="MinorVer">0</VersionInfo>
+						<VersionInfo Name="Release">0</VersionInfo>
+						<VersionInfo Name="Build">0</VersionInfo>
+						<VersionInfo Name="Debug">False</VersionInfo>
+						<VersionInfo Name="PreRelease">False</VersionInfo>
+						<VersionInfo Name="Special">False</VersionInfo>
+						<VersionInfo Name="Private">False</VersionInfo>
+						<VersionInfo Name="DLL">False</VersionInfo>
+						<VersionInfo Name="Locale">1036</VersionInfo>
+						<VersionInfo Name="CodePage">1252</VersionInfo>
+					</VersionInfo>
+					<VersionInfoKeys>
+						<VersionInfoKeys Name="CompanyName"/>
+						<VersionInfoKeys Name="FileDescription"/>
+						<VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="InternalName"/>
+						<VersionInfoKeys Name="LegalCopyright"/>
+						<VersionInfoKeys Name="LegalTrademarks"/>
+						<VersionInfoKeys Name="OriginalFilename"/>
+						<VersionInfoKeys Name="ProductName"/>
+						<VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="Comments"/>
+					</VersionInfoKeys>
+					<Debugging>
+						<Debugging Name="DebugSourceDirs"/>
+					</Debugging>
+					<Parameters>
+						<Parameters Name="RunParams">&quot;F:\Programmation\MediaInfoLib_CrashTest\Nominal\Multiple\RIFF (AVI-DivX-WAV)\AAC&quot;</Parameters>
+						<Parameters Name="Launcher"/>
+						<Parameters Name="UseLauncher">True</Parameters>
+						<Parameters Name="DebugCWD">F:\Programmation\MediaInfo\Release\BCB\CLI</Parameters>
+						<Parameters Name="HostApplication"/>
+						<Parameters Name="RemoteHost"/>
+						<Parameters Name="RemotePath"/>
+						<Parameters Name="RemoteParams"/>
+						<Parameters Name="RemoteLauncher"/>
+						<Parameters Name="UseRemoteLauncher">False</Parameters>
+						<Parameters Name="RemoteCWD"/>
+						<Parameters Name="RemoteDebug">False</Parameters>
+						<Parameters Name="Debug Symbols Search Path"/>
+						<Parameters Name="LoadAllSymbols">True</Parameters>
+						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
+					</Parameters>
+					<ProjectProperties>
+						<ProjectProperties Name="AutoShowDeps">False</ProjectProperties>
+						<ProjectProperties Name="ManagePaths">True</ProjectProperties>
+						<ProjectProperties Name="VerifyPackages">True</ProjectProperties>
+					</ProjectProperties>
+				</CPlusPlusBuilder.Personality>
+			</BorlandProject>
+			<ProjectFileVersion>12</ProjectFileVersion>
+		</ProjectExtensions>
+	</Project>

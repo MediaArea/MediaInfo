@@ -1,0 +1,52 @@
+;x
+;x
+;"Bug: ""Page_Begin"", ""Page_Middle"" and ""Page_End"" sections are picked on lines 10, 11 and 12 regardless what is there. So it is better to leave them there."
+;"Bug: \r\n is not turned into a newline on ""Page"" entries."
+;"Bug: ""Image"" sections are not active, but should."
+
+
+
+Page;(unused)\r\n
+Page_Begin;<?xml version='1.0' encoding='ISO-8859-1'?><MediaInfo>
+Page_Middle;
+Page_End;</MediaInfo>
+
+File;
+File_Begin;<File CompleteFileName='ToDo'>\r\n
+File_Middle;
+File_End;</File>\r\n
+
+General;<Stream ID='%StreamKindID%'><Tag ID='Format/String'>%Format%</Tag>\r\n<Tag ID='OverallBitRate/String'>%OverallBitRate/String%</Tag>\r\n<Tag ID='FileSize/String'>%FileSize/String%</Tag>\r\n</Stream>\r\n
+General_Begin;<StreamKind ID='General'>\r\n
+General_Middle;
+General_End;</StreamKind>\r\n
+
+Video;<Stream ID='%StreamKindID%'><Tag ID='Codec/String'>%Format%</Tag>\r\n<Tag ID='Width'>%Width%</Tag>\r\n<Tag ID='Height'>%Height%</Tag>\r\n</Stream>\r\n
+Video_Begin;<StreamKind ID='Video'>\r\n
+Video_Middle;
+Video_End;</StreamKind>\r\n
+
+Audio;<Stream ID='%StreamKindID%'><Tag ID='Codec/String'>%Format%</Tag>\r\n<Tag ID='SamplingRate/String'>%SamplingRate/String%</Tag>\r\n</Stream>\r\n
+Audio_Begin;<StreamKind ID='Audio'>\r\n
+Audio_Middle;
+Audio_End;</StreamKind>\r\n
+
+Text;
+Text_Begin;
+Text_Middle;
+Text_End;
+
+Chapters;
+Chapters_Begin;
+Chapters_Middle;
+Chapters_End;
+
+Image;
+Image_Begin;
+Image_Middle;
+Image_End;
+
+Menu;
+Menu_Begin;
+Menu_Middle;
+Menu_End;

@@ -1,3 +1,9 @@
+/*  Copyright (c) MediaArea.net SARL. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license that can
+ *  be found in the License.html file in the root of the source tree.
+ */
+
 #include "wx/wxprec.h"
 #ifdef __BORLANDC__
     #pragma hdrstop
@@ -20,8 +26,8 @@ public:
     ~GUI_Main();
 
     // event handlers (these functions should _not_ be virtual)
-    void OldFiles(wxCommandEvent& event);
-    void Resources(wxCommandEvent& event);
+    void Language_All(wxCommandEvent& event);
+    void Language_Others(wxCommandEvent& event);
 
 private:
     wxTextCtrl* Text;

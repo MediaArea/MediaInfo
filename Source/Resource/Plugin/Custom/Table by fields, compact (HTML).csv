@@ -1,0 +1,53 @@
+;
+;
+;Bug: "Page_Begin", "Page_Middle" and "Page_End" sections are picked on lines 10, 11 and 12 regardless what is there. So it is better to leave them there.
+;Bug: \r\n is not turned into a newline on "Page" entries.
+;Bug: "Image" sections are not active, but should.
+;
+;
+;
+Page;(unused)\r\n
+Page_Begin;<html><head><title>Media Info</title><style type="text/css">html,body,table{font-size:xx-small} html,body{margin:0} html,body{padding:0} table{empty-cells:show} td.Name{white-space:pre-wrap} td.RowHead{font-weight:bold}</style></head><body><table class="body" width="100%" border="1" cellpadding="1" cellspacing="0" style="border:0px"><col span="3"><col span="4" align="right" style="white-space:nowrap"><caption></caption><thead><tr align="center" style="white-space:normal"><th>Kind</th><th>Format</th><th>Lng</th><th align="center">Def.</th><th align="center">Bits</th><th align="center">Freq.</th><th align="center">Bitrate</th></tr></thead>
+Page_Middle;
+Page_End;</table></body></html>
+;
+File;(unused)\r\n
+File_Begin;
+File_Middle;(unused)\r\n
+File_End;
+;
+General;<tr><td class="Name" colspan="7">%FileName%.%FileExtension%</td></tr><tr bgcolor="#DFDFDF"><td class="RowHead">Cont</td><td>$if(%Format%,%Format%,<center>?</center>)</td><td colspan="4" align="center">($if(%FileSize%,%FileSize/String2%,size ?)$if(%Duration%, ~ %Duration/String%))</td><td>$if(%BitRate%,%BitRate/String%,<center>?</center>)</td></tr>
+General_Begin;
+General_Middle;(unused)\r\n
+General_End;
+;
+Video;<tr><td class="RowHead">Video</td><td>$if(%Format%,%Format%,<center>?</center>)</td><td>$if(%Language%,%Language%,<center>?</center>)</td><td>[%Width%x%Height%] [%Channel(s)% ch]</td><td>$if(%Resolution%,%Resolution%,<center>?</center>)</td><td>$if(%FrameRate%,%FrameRate%,<center>?</center>)</td><td>$if(%BitRate%,%BitRate/String%,<center>?</center>)</td></tr>
+Video_Begin;<tbody bgcolor="#FFBFBF">
+Video_Middle;
+Video_End;</tbody>
+;
+Audio;<tr><td class="RowHead">Audio</td><td>$if(%Format%,%Format%,<center>?</center>)</td><td>$if(%Language%,%Language%,<center>?</center>)</td><td>%Channel(s)% ch</td><td>$if(%Resolution%,%Resolution%,<center>?</center>)</td><td>$if(%SamplingRate%,%SamplingRate/String%,<center>?</center>)</td><td>$if(%BitRate%,%BitRate/String%,<center>?</center>)</td></tr>
+Audio_Begin;<tbody bgcolor="#BFFFBF">
+Audio_Middle;
+Audio_End;</tbody>
+;
+Text; $if(%Format%,%Format%,?)@$if(%Language%,%Language%,?)
+Text_Begin;<tbody bgcolor="#BFBFFF"><tr><td class="RowHead">Subs</td><td colspan="6">
+Text_Middle;
+Text_End;</td></tr></tbody>
+;
+Chapters; $if(%Format%,%Format%,?)@$if(%Language%,%Language%,?)
+Chapters_Begin;<tbody bgcolor="#FFFFBF"><tr><td class="RowHead">Chaps</td><td colspan="6">
+Chapters_Middle;
+Chapters_End;</tbody>
+;
+Image;<tr><td>class="RowHead">Img</td><td>$if(%Format%,%Format%,<center>?</center>)</td><td>$if(%Language%,%Language%,<center>?</center>)</td><td>[%Width%x%Height%] [%Channel(s)% ch]</td><td>$if(%Resolution%,%Resolution%,<center>?</center>)</td><td>$if(%FrameRate%,%FrameRate%,<center>-</center>)</td><td>$if(%BitRate%,%BitRate/String%,<center>?</center>)</td></tr>
+Image_Begin;<tbody bgcolor="#FFBFFF">
+Image_Middle;
+Image_End;</tbody>
+;
+Menu;<tr><td class="RowHead">Menu</td><td>$if(%Format%,%Format%,<center>?</center>)</td><td>$if(%Language%,%Language%,<center>?</center>)</td><td>[%Width%x%Height%] [%Channel(s)% ch]</td><td>$if(%Resolution%,%Resolution%,<center>?</center>)</td><td>$if(%FrameRate%,%FrameRate%,<center>?</center>)</td><td>$if(%BitRate%,%BitRate/String%,<center>?</center>)</td></tr>
+Menu_Begin;<tbody bgcolor="#BFFFFF">
+Menu_Middle;
+Menu_End;</tbody>
+;

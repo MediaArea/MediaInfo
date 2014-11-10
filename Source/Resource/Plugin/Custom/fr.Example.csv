@@ -1,0 +1,28 @@
+General;General           : %FileName%\r\nFormat            : %Format%$if(%OverallBitRate%, at %OverallBitRate_String%,)\r\nTaille            : %FileSize_String% pour %Duration_String1%\r\n\r\n
+Video;Video #%ID%          : %Format_String%$if(%Bitrate%, à %Bitrate_String%,)\r\nRésolution        : %Width% x %Height% (%AspectRatio%) à %fps% im/s\r\n\r\n
+Audio;Audio #%ID%          : %Format_String%$if(%Bitrate%, à %Bitrate_String%,)\r\nInfos             : %Channels% canaux, %SamplingRate_String%\r\n$if(%Language%,Langue            : %Language%\r\n)\r\n
+Text;Texte #%ID%          : %Format_String%\r\n$if(%Language%,Langue            : %Language%\r\n)\r\n
+Chapters;Chapitres #%ID%      : %Total% chapitres\r\n
+Image;
+File_Begin
+File_End
+Page_Begin
+Page_Middle
+Page_End
+General_Begin
+General_End
+Video_Begin
+Video_Middle
+Video_End
+Audio_Begin
+Audio_Middle
+Audio_End
+Text_Begin
+Text_Middle
+Text_End
+Chapters_Begin
+Chapters_Middle
+Chapters_End
+Image_Begin
+Image_Middle
+Image_End

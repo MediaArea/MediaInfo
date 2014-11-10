@@ -1,17 +1,17 @@
-Source: libmediainfo
+Source: mediainfo
 Priority: optional
 Maintainer: MediaArea.net SARL <info@mediaarea.net>
-Build-Depends: debhelper (>= 5), doxygen, tofrodos, libzen-dev (>= 0.4.30), zlib1g-dev, pkg-config, automake, autoconf, libtool
+Build-Depends: debhelper (>= 5), tofrodos, libmediainfo-dev (>= 0.7.7), libzen-dev (>= 0.4.30), libwxgtk2.8-dev, zlib1g-dev, pkg-config, automake, autoconf, libtool
 Standards-Version: 3.7.3
 Section: libs
 Homepage: http://MediaArea.net/MediaInfo
-Vcs-Svn: https://mediainfo.svn.sourceforge.net/svnroot/mediainfo/MediaInfoLib/
-Vcs-Browser: http://mediainfo.svn.sourceforge.net/viewvc/mediainfo/MediaInfoLib/
+Vcs-Svn: https://mediainfo.svn.sourceforge.net/svnroot/mediainfo/MediaInfo/
+Vcs-Browser: http://mediainfo.svn.sourceforge.net/viewvc/mediainfo/MediaInfo/
 
-Package: libmediainfo0
-Section: libs
+Package: mediainfo
+Section: utils
 Architecture: any
-Depends: libzen0 (>= 0.4.30), zlib1g
+Depends: libmediainfo0 (>= 0.7.71), libzen0 (>= 0.4.30), zlib1g
 Description: MediaInfo is a convenient unified display of the most relevant technical
  and tag data for video and audio files.
  .
@@ -36,13 +36,12 @@ Description: MediaInfo is a convenient unified display of the most relevant tech
  - Subtitles: CEA-608, CEA-708, DTVCC, SCTE-20, SCTE-128, ATSC/53, CDP, 
    DVB Subtitle, Teletext, SRT, SSA, ASS, SAMI...
  .
- This package contains the shared library for MediaInfo.
+ This package includes the command line interface
 
-Package: libmediainfo-dev
-Section: libdevel
+Package: mediainfo-gui
+Section: utils
 Architecture: any
-Depends: libmediainfo0 (>= 0.7.71), libzen-dev (>= 0.4.30)
-Replaces: libmediainfo0-dev
+Depends: libmediainfo0 (>= 0.7.71), libzen0 (>= 0.4.30), libwxgtk2.8-0, zlib1g
 Description: MediaInfo is a convenient unified display of the most relevant technical
  and tag data for video and audio files.
  .
@@ -67,5 +66,4 @@ Description: MediaInfo is a convenient unified display of the most relevant tech
  - Subtitles: CEA-608, CEA-708, DTVCC, SCTE-20, SCTE-128, ATSC/53, CDP, 
    DVB Subtitle, Teletext, SRT, SSA, ASS, SAMI...
  .
- This package contains the development support files needed for compiling
- and linking applications and libraries which use MediaInfo shared library.
+ This package contains the graphical user interface

@@ -1,6 +1,0 @@
-
-//---------------------------------------------------------------------------
-void %Name% (%Class% &Info)
-{
-    Info.Separator_Set(0, __T("\n"));
-    Info.Write(Ztring().From_UTF8(

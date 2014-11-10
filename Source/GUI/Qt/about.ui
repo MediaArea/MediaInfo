@@ -1,0 +1,200 @@
+<ui version="4.0">
+ <class>About</class>
+ <widget class="QDialog" name="About">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>479</width>
+    <height>381</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>About</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_6">
+       <item>
+        <widget class="QLabel" name="logo">
+         <property name="maximumSize">
+          <size>
+           <width>128</width>
+           <height>128</height>
+          </size>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="../../Ressource/Resources.qrc">:/icon/icon.png</pixmap>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QLabel" name="aboutText">
+       <property name="text">
+        <string>MediaInfo 0.7.34
+Copyright (C) 2002-2009 Jerome Martinez
+
+Supply very detailled information
+about a multimedia file:
+Matroska, OGG (including OGM)
+MPEG1 (including VCD)
+MPEG2 (including DVD and SVCD)
+MPEG4 (including Itunes M4A)
+Quicktime
+RealMedia
+WindowsMedia (including WMV, WMA)
+Microsoft RIFF (including AVI, WAV)
+Sound-only formats (AC3, DTS, AAC, AU, AIFF...)</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="logoMail">
+       <property name="maximumSize">
+        <size>
+         <width>64</width>
+         <height>64</height>
+        </size>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="../../Ressource/Resources.qrc">:/icon/aboutmail.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="buttons">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="website">
+         <property name="text">
+          <string>Go to website</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="checkversion">
+         <property name="text">
+          <string>Check for new version</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="donate">
+         <property name="text">
+          <string>Donate</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="mail">
+         <property name="text">
+          <string>Write mail to author</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Translator : Zen</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="okButton">
+         <property name="text">
+          <string>OK</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../../Ressource/Resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

@@ -1,0 +1,181 @@
+#!/bin/sh
+
+#-----------------------------------------------------------------------
+# $1=mediainfo Package version,
+# $2=libmediainfo Package version,
+# $3=libzen Package version,
+# $4=,
+# $5=,
+# $6=Distro extension from OBS,
+# $7=Platform, $8=CPU, $9=CPU target
+Download_Packages()
+{
+#-----------------------------------------------------------------------
+# Downloading
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/mediainfo$dash$mediainfov-$1$6$9.$type"
+mv mediainfo$dash$mediainfov-$1$6$9.$type \
+ download/binary/mediainfo/$mediainfov/mediainfo$dash$mediainfov-$destversion$9.$7.$type
+
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/mediainfo-gui$dash$mediainfov-$1$6$9.$type"
+mv mediainfo-gui$dash$mediainfov-$1$6$9.$type \
+ download/binary/mediainfo-gui/$mediainfov/mediainfo-gui$dash$mediainfov-$destversion$9.$7.$type
+
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libmediainfo0$dash$libmediainfov-$2$6$9.$type"
+mv libmediainfo0$dash$libmediainfov-$2$6$9.$type \
+ download/binary/libmediainfo0/$libmediainfov/libmediainfo0$dash$libmediainfov-$destversion$9.$7.$type
+
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libmediainfo-$devext$dash$libmediainfov-$2$6$9.$type"
+mv libmediainfo-$devext$dash$libmediainfov-$2$6$9.$type \
+ download/binary/libmediainfo0/$libmediainfov/libmediainfo-$devext$dash$libmediainfov-$destversion$9.$7.$type
+
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libmediainfo-doc$dash$libmediainfov-$2$6$9.$type"
+mv libmediainfo-doc$dash$libmediainfov-$2$6$9.$type \
+ download/binary/libmediainfo0/$libmediainfov/libmediainfo-doc$dash$libmediainfov-$destversion$9.$7.$type
+
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libzen0$dash$libzenv-$3$6$9.$type"
+mv libzen0$dash$libzenv-$3$6$9.$type \
+ download/binary/libzen0/$libzenv/libzen0$dash$libzenv-$destversion$9.$7.$type
+
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libzen-$devext$dash$libzenv-$3$6$9.$type"
+mv libzen-$devext$dash$libzenv-$3$6$9.$type \
+ download/binary/libzen0/$libzenv/libzen-$devext$dash$libzenv-$destversion$9.$7.$type
+
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/libzen-doc$dash$libzenv-$3$6$9.$type"
+mv libzen-doc$dash$libzenv-$3$6$9.$type \
+ download/binary/libzen0/$libzenv/libzen-doc$dash$libzenv-$destversion$9.$7.$type
+}
+
+#-----------------------------------------------------------------------
+# $1=Wx Package version,
+# $7=Platform, $8=CPU, $9=CPU target
+Download_Wx()
+{
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/wxGTK-2.8.12-$1$6$9.$type"
+mv wxGTK-2.8.12-$1$6$9.$type \
+ download/binary/wxGTK/2.8.12/wxGTK-2.8.12-1$9.$7.$type
+
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/$7/$8/wxGTK-devel-2.8.12-$1$6$9.$type"
+mv wxGTK-devel-2.8.12-$1$6$9.$type \
+ download/binary/wxGTK/2.8.12/wxGTK-devel-2.8.12-1$9.$7.$type
+}
+
+#-----------------------------------------------------------------------
+# $1=MI version, $2=ZL version, $3=Package version
+Download_Global()
+{
+#-----------------------------------------------------------------------
+# Clean up
+#rm download/binary/mediainfo/$mediainfov/*.rpm -f
+#rm download/binary/mediainfo/$mediainfov/*.deb -f
+#rm download/binary/mediainfo-gui/$mediainfov/*.rpm -f
+#rm download/binary/mediainfo-gui/$mediainfov/*.deb -f
+#rm download/binary/libmediainfo0/$libmediainfov/*.rpm -f
+#rm download/binary/libmediainfo0/$libmediainfov/*.deb -f
+#rm download/binary/libzen0/$libzen/*.rpm -f
+#rm download/binary/libzen0/$libzen/*.deb -f
+mkdir download/binary/mediainfo/$mediainfov
+mkdir download/binary/mediainfo-gui/$mediainfov
+mkdir download/binary/libmediainfo0/$libmediainfov
+mkdir download/binary/libzen0/$libzenv/
+
+#-----------------------------------------------------------------------
+# Downloading
+type="deb"
+devext="dev"
+dash="_"
+Download_Packages 1  1  1   x x ""           Debian_6.0    i386   _i386
+Download_Packages 1  1  1   x x ""           Debian_6.0    amd64  _amd64
+Download_Packages 1  1  1   x x ""           Debian_7.0    i386   _i386
+Download_Packages 1  1  1   x x ""           Debian_7.0    amd64  _amd64
+Download_Packages 1  1  1   x x ""           xUbuntu_10.04  i386   _i386
+Download_Packages 1  1  1   x x ""           xUbuntu_10.04  amd64  _amd64
+Download_Packages 1  1  1   x x ""           xUbuntu_11.10  i386   _i386
+Download_Packages 1  1  1   x x ""           xUbuntu_11.10  amd64  _amd64
+Download_Packages 1  1  1   x x ""           xUbuntu_12.04  i386   _i386
+Download_Packages 1  1  1   x x ""           xUbuntu_12.04  amd64  _amd64
+Download_Packages 1  1  1   x x ""           xUbuntu_12.10  i386   _i386
+Download_Packages 1  1  1   x x ""           xUbuntu_12.10  amd64  _amd64
+Download_Packages 1  1  1   x x ""           xUbuntu_13.04  i386   _i386
+Download_Packages 1  1  1   x x ""           xUbuntu_13.04  amd64  _amd64
+Download_Packages 1  1  1   x x ""           xUbuntu_13.10  i386   _i386
+Download_Packages 1  1  1   x x ""           xUbuntu_13.10  amd64  _amd64
+Download_Packages 1  1  1   x x ""           xUbuntu_14.04  i386   _i386
+Download_Packages 1  1  1   x x ""           xUbuntu_14.04  amd64  _amd64
+
+type="rpm"
+devext="devel"
+dash="-"
+Download_Packages $1 $2 $3  x x ""           CentOS_5        i386   .i386
+Download_Packages $1 $2 $3  x x ""           CentOS_5        x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           CentOS_6        i686   .i686
+Download_Packages $1 $2 $3  x x ""           CentOS_6        x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           CentOS_7        x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           Fedora_17       i686   .i686
+Download_Packages $1 $2 $3  x x ""           Fedora_17       x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           Fedora_18       i686   .i686
+Download_Packages $1 $2 $3  x x ""           Fedora_18       x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           Fedora_19       i686   .i686
+Download_Packages $1 $2 $3  x x ""           Fedora_19       x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           Fedora_20       i686   .i686
+Download_Packages $1 $2 $3  x x ""           Fedora_20       x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           Mandriva_2009.1 i586   .i586
+Download_Packages $1 $2 $3  x x ""           Mandriva_2009.1 x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           Mandriva_2010   i586   .i586
+Download_Packages $1 $2 $3  x x ""           Mandriva_2010   x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           Mandriva_2010.1 i586   .i586
+Download_Packages $1 $2 $3  x x ""           Mandriva_2010.1 x86_64 .x86_64
+Download_Packages $1 $2 $3  x x -mdv2011.0   Mandriva_2011   i586   .i586
+Download_Packages $1 $2 $3  x x -mdv2011.0   Mandriva_2011   x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           RHEL_5          i386   .i386
+Download_Packages $1 $2 $3  x x ""           RHEL_5          x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           RHEL_6          i686   .i686
+Download_Packages $1 $2 $3  x x ""           RHEL_6          x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           RHEL_7          x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           RHEL_7          ppc64  .ppc64
+Download_Packages $1 $2 $3  x x ""           SLE_11          i586   .i586
+Download_Packages $1 $2 $3  x x ""           SLE_11          x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           SLE_11_SP1      i586   .i586
+Download_Packages $1 $2 $3  x x ""           SLE_11_SP1      x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           SLE_11_SP2      i586   .i586
+Download_Packages $1 $2 $3  x x ""           SLE_11_SP2      x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           SLE_11_SP2      ppc64  .ppc64
+Download_Packages $1 $2 $3  x x ""           SLE_11_SP3      i586   .i586
+Download_Packages $1 $2 $3  x x ""           SLE_11_SP3      x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           openSUSE_11.4   i586   .i586
+Download_Packages $1 $2 $3  x x ""           openSUSE_11.4   x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           openSUSE_12.1   i586   .i586
+Download_Packages $1 $2 $3  x x ""           openSUSE_12.1   x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           openSUSE_12.2   i586   .i586
+Download_Packages $1 $2 $3  x x ""           openSUSE_12.2   x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           openSUSE_12.3   i586   .i586
+Download_Packages $1 $2 $3  x x ""           openSUSE_12.3   x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           openSUSE_13.1   i586   .i586
+Download_Packages $1 $2 $3  x x ""           openSUSE_13.1   x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           openSUSE_13.2   i586   .i586
+Download_Packages $1 $2 $3  x x ""           openSUSE_13.2   x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           openSUSE_Factory i586   .i586
+Download_Packages $1 $2 $3  x x ""           openSUSE_Factory x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           openSUSE_Tumbleweed i586   .i586
+Download_Packages $1 $2 $3  x x ""           openSUSE_Tumbleweed x86_64 .x86_64
+}
+
+
+mediainfov="0.7.71"
+libmediainfov="0.7.71"
+libzenv="0.4.30"
+destversion="1"
+
+Download_Global 3.1 3.1 3.1
+
+#mkdir download/binary/wxGTK/2.8.12/
+#Download_Wx 6.1 x x  x x ""           CentOS_5        i386   .i386
+#Download_Wx 6.1 x x  x x ""           CentOS_5        x86_64 .x86_64
+#Download_Wx 6.1 x x  x x ""           CentOS_6        i386   .i386
+#Download_Wx 6.1 x x  x x ""           CentOS_6        x86_64 .x86_64
+#Download_Wx 6.1 x x  x x ""           CentOS_7        x86_64 .x86_64
+#Download_Wx 6.1 x x  x x ""           RHEL_5          i386   .i386
+#Download_Wx 6.1 x x  x x ""           RHEL_5          x86_64 .x86_64
+#Download_Wx 6.1 x x  x x ""           RHEL_6          i386   .i386
+#Download_Wx 6.1 x x  x x ""           RHEL_6          x86_64 .x86_64
+#Download_Wx 6.1 x x  x x ""           RHEL_7          x86_64 .x86_64
+#Download_Wx 6.1 x x  x x ""           RHEL_7          ppc64  .ppc64

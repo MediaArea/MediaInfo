@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\_Automated">
+      <UniqueIdentifier>{f262c011-c712-4aa6-86ea-95146eb3ffa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\_Automated">
+      <UniqueIdentifier>{27060a07-2ab1-40b6-bb52-4526264f9155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Source\GUI\Qt\about.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\Qt\columneditsheet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\Qt\configtreetext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Common\Core.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\Qt\easyviewwidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\Qt\editconfigtreetext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\Qt\editsheet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\Qt\export.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\Qt\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\Qt\mainwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\Qt\preferences.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\Qt\sheet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\Qt\sheetview.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\Qt\translate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\Qt\views.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_Automated\moc_about.cpp">
+      <Filter>Source Files\_Automated</Filter>
+    </ClCompile>
+    <ClCompile Include="_Automated\moc_columneditsheet.cpp">
+      <Filter>Source Files\_Automated</Filter>
+    </ClCompile>
+    <ClCompile Include="_Automated\moc_configtreetext.cpp">
+      <Filter>Source Files\_Automated</Filter>
+    </ClCompile>
+    <ClCompile Include="_Automated\moc_easyviewwidget.cpp">
+      <Filter>Source Files\_Automated</Filter>
+    </ClCompile>
+    <ClCompile Include="_Automated\moc_editconfigtreetext.cpp">
+      <Filter>Source Files\_Automated</Filter>
+    </ClCompile>
+    <ClCompile Include="_Automated\moc_editsheet.cpp">
+      <Filter>Source Files\_Automated</Filter>
+    </ClCompile>
+    <ClCompile Include="_Automated\moc_export.cpp">
+      <Filter>Source Files\_Automated</Filter>
+    </ClCompile>
+    <ClCompile Include="_Automated\moc_mainwindow.cpp">
+      <Filter>Source Files\_Automated</Filter>
+    </ClCompile>
+    <ClCompile Include="_Automated\moc_preferences.cpp">
+      <Filter>Source Files\_Automated</Filter>
+    </ClCompile>
+    <ClCompile Include="_Automated\moc_sheetview.cpp">
+      <Filter>Source Files\_Automated</Filter>
+    </ClCompile>
+    <ClCompile Include="_Automated\qrc_Resources.cpp">
+      <Filter>Source Files\_Automated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\Qt\custom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\Qt\editcustom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_Automated\moc_editcustom.cpp">
+      <Filter>Source Files\_Automated</Filter>
+    </ClCompile>
+    <ClCompile Include="_Automated\moc_bottombar.cpp">
+      <Filter>Source Files\_Automated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\Qt\bottombar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\Qt\language.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\Qt\myqtsettings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Source\GUI\Qt\about.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\GUI\Qt\columneditsheet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\GUI\Qt\configtreetext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\Common\Core.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\GUI\Qt\easyviewwidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\GUI\Qt\editconfigtreetext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\GUI\Qt\editsheet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\GUI\Qt\export.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\GUI\Qt\mainwindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\GUI\Qt\preferences.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\GUI\Qt\sheet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\GUI\Qt\sheetview.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\GUI\Qt\translate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\GUI\Qt\views.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="_Automated\ui_about.h">
+      <Filter>Header Files\_Automated</Filter>
+    </ClInclude>
+    <ClInclude Include="_Automated\ui_editconfigtreetext.h">
+      <Filter>Header Files\_Automated</Filter>
+    </ClInclude>
+    <ClInclude Include="_Automated\ui_editsheet.h">
+      <Filter>Header Files\_Automated</Filter>
+    </ClInclude>
+    <ClInclude Include="_Automated\ui_export.h">
+      <Filter>Header Files\_Automated</Filter>
+    </ClInclude>
+    <ClInclude Include="_Automated\ui_mainwindow.h">
+      <Filter>Header Files\_Automated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\QMake\GUI\_Automated\ui_mainwindow.h">
+      <Filter>Header Files\_Automated</Filter>
+    </ClInclude>
+    <ClInclude Include="_Automated\ui_preferences.h">
+      <Filter>Header Files\_Automated</Filter>
+    </ClInclude>
+    <ClInclude Include="_Automated\ui_sheetview.h">
+      <Filter>Header Files\_Automated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\GUI\Qt\editcustom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\GUI\Qt\bottombar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\GUI\Qt\language.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\GUI\Qt\myqtsettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

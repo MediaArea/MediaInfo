@@ -1,0 +1,48 @@
+##  Copyright (c) MediaArea.net SARL. All Rights Reserved.
+ #
+ #  Use of this source code is governed by a BSD-style license that can
+ #  be found in the License.html file in the root of the source tree.
+ ##
+
+#! /bin/sh
+
+#-----------------------------------------------------------------------
+# $1=OS, $2=Platform
+Release_CLI()
+{
+#-----------------------------------------------------------------------
+# Clean up
+test -e MediaInfo_CLI_$1_$2.tar     && rm    MediaInfo_CLI_$1_$2.tar
+test -e MediaInfo_CLI_$1_$2.tar.bz2 && rm    MediaInfo_CLI_$1_$2.tar.bz2
+test -d MediaInfo_CLI_$1_$2         && rm -r MediaInfo_CLI_$1_$2
+mkdir   MediaInfo_CLI_$1_$2
+
+#-----------------------------------------------------------------------
+# Copying : Exe
+cp ../Project/GNU/CLI/mediainfo MediaInfo_CLI_$1_$2/mediainfo
+cd MediaInfo_CLI_$1_$2
+strip mediainfo
+cd ..
+
+#-----------------------------------------------------------------------
+# Copying : Information file
+cp ../License.html MediaInfo_CLI_$1_$2/
+cp ../History_CLI.txt MediaInfo_CLI_$1_$2/History.txt
+cp ReadMe_CLI_$1.txt MediaInfo_CLI_$1_$2/ReadMe.txt
+
+#-----------------------------------------------------------------------
+# Copying : Information file
+mkdir -p MediaInfo_CLI_$1_$2/Contrib
+cp ../Contrib/CLI_Help.doc MediaInfo_CLI_$1_$2/Contrib/
+
+#-----------------------------------------------------------------------
+# Compressing Archive
+tar jchf MediaInfo_CLI_$1_$2.tar.bz2 MediaInfo_CLI_$1_$2
+
+#-----------------------------------------------------------------------
+# Clean up
+#if "%1"=="SkipCleanUp" goto SkipCleanUp
+#rm -r MediaInfo_CLI_$1_$2
+#:SkipCleanUp
+}
+

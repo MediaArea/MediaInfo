@@ -1,0 +1,43 @@
+##  Copyright (c) MediaArea.net SARL. All Rights Reserved.
+ #
+ #  Use of this source code is governed by a BSD-style license that can
+ #  be found in the License.html file in the root of the source tree.
+ ##
+
+#! /bin/sh
+
+#-----------------------------------------------------------------------
+# $1=OS, $2=Platform
+Release_GUI()
+{
+#-----------------------------------------------------------------------
+# Clean up
+test -e MediaInfo_GUI_$1_$2.tar     && rm    MediaInfo_GUI_$1_$2.tar
+test -e MediaInfo_GUI_$1_$2.tar.bz2 && rm    MediaInfo_GUI_$1_$2.tar.bz2
+test -d MediaInfo_GUI_$1_$2         && rm -r MediaInfo_GUI_$1_$2
+mkdir   MediaInfo_GUI_$1_$2
+
+#-----------------------------------------------------------------------
+# Copying : Exe
+cp ../Project/GNU/GUI/mediainfo-gui MediaInfo_GUI_$1_$2/mediainfo-gui
+cd MediaInfo_GUI_$1_$2
+strip mediainfo-gui
+cd ..
+
+#-----------------------------------------------------------------------
+# Copying : Information file
+cp ../License.html MediaInfo_GUI_$1_$2/
+cp ../History_GUI.txt MediaInfo_GUI_$1_$2/History.txt
+cp ReadMe_GUI_$1.txt MediaInfo_GUI_$1_$2/ReadMe.txt
+
+#-----------------------------------------------------------------------
+# Compressing Archive
+tar jchf MediaInfo_GUI_$1_$2.tar.bz2 MediaInfo_GUI_$1_$2
+
+#-----------------------------------------------------------------------
+# Clean up
+#if "%1"=="SkipCleanUp" goto SkipCleanUp
+#rm -r MediaInfo_GUI_$1_$2
+#:SkipCleanUp
+}
+

@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file>Image/MediaInfo.ico</file>
+        <file alias="icon.png">Image/MediaInfo.png</file>
+        <file>Image/MediaInfo.xpm</file>
+        <file alias="export.svg">Image/Menu/K20/File_Export.svg</file>
+        <file alias="opendir.svg">Image/Menu/K20/File_Open_Directory.svg</file>
+        <file alias="openfile.svg">Image/Menu/K20/File_Open_File.svg</file>
+        <file alias="save.svg">Image/Menu/K20/File_Save.svg</file>
+        <file alias="about.svg">Image/Menu/K20/Help_About.svg</file>
+        <file alias="prefs.svg">Image/Menu/K20/Options_Prefs.svg</file>
+        <file alias="view.svg">Image/Menu/K20/View.svg</file>
+        <file>Image/Menu/K20/View2.svg</file>
+        <file alias="aboutmail.png">Image/Menu/K20/Help_About.png</file>
+    </qresource>
+</RCC>

@@ -2,27 +2,22 @@
 # -*- makefile -*-
 
 # Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
-
-# shared library versions
-version=`ls src/.libs/lib*.so.* | \
- awk '{if (match($$0,/[0-9]+\.[0-9]+\.[0-9]+$$/)) print substr($$0,RSTART)}'`
-major=`ls src/.libs/lib*.so.* | \
- awk '{if (match($$0,/\.so\.[0-9]+$$/)) print substr($$0,RSTART+4)}'`
-
+export DH_VERBOSE=1
 
 configure: configure-stamp
 configure-stamp:
 	dh_testdir
 	# Add here commands to configure the package.
 
-	fromdos      *.txt *.html Source/Doc/*.html
-	chmod 644    *.txt *.html Source/Doc/*.html
-	cd Source/Doc && doxygen Doxyfile
-	cp Source/Doc/*.html ./
-	cd Project/GNU/Library && chmod u+x autogen
-	cd Project/GNU/Library && ./autogen
-	cd Project/GNU/Library && ./configure --disable-static --enable-shared --prefix=/usr --enable-visibility --disable-libcurl --disable-libmms
+	fromdos      *.txt
+	chmod 644    *.txt
+	cd Project/GNU/CLI && chmod u+x autogen
+	cd Project/GNU/CLI && ./autogen
+	cd Project/GNU/CLI && ./configure --prefix=/usr
+
+	cd Project/GNU/GUI && chmod u+x autogen
+	cd Project/GNU/GUI && ./autogen
+	cd Project/GNU/GUI && ./configure --prefix=/usr
 
 	touch $@
 
@@ -32,7 +27,9 @@ build-stamp: configure-stamp
 	dh_testdir
 
 	# Add here commands to compile the package.
-	cd Project/GNU/Library && $(MAKE)
+	cd Project/GNU/CLI && $(MAKE)
+
+	cd Project/GNU/GUI && $(MAKE)
 
 	touch $@
 
@@ -52,40 +49,34 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/tmp
-	cd Project/GNU/Library && $(MAKE) DESTDIR=$(CURDIR)/debian/tmp install
-	install -dm 755 $(CURDIR)/debian/tmp/usr/include/MediaInfo
-	install -m 644 Source/MediaInfo/MediaInfo.h $(CURDIR)/debian/tmp/usr/include/MediaInfo
-	install -m 644 Source/MediaInfo/MediaInfoList.h $(CURDIR)/debian/tmp/usr/include/MediaInfo
-	install -m 644 Source/MediaInfo/MediaInfo_Const.h $(CURDIR)/debian/tmp/usr/include/MediaInfo
-	install -m 644 Source/MediaInfo/MediaInfo_Events.h $(CURDIR)/debian/tmp/usr/include/MediaInfo
-	install -dm 755 $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
-	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.cs $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
-	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.def $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
-	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.h $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
-	install -m 644 Source/MediaInfoDLL/MediaInfoDLL_Static.h $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
-	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.JNA.java $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
-	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.JNative.java $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
-	install -m 644 Source/MediaInfoDLL/MediaInfoDLL.py $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
-	install -m 644 Source/MediaInfoDLL/MediaInfoDLL3.py $(CURDIR)/debian/tmp/usr/include/MediaInfoDLL
+	cd Project/GNU/CLI && $(MAKE) install DESTDIR=$(CURDIR)/debian/tmp
+	cd Project/GNU/GUI && $(MAKE) install DESTDIR=$(CURDIR)/debian/tmp
 
-	sed -i -e 's|Version: |Version: %{version}|g' Project/GNU/Library/libmediainfo.pc
-	install -dm 755 $(CURDIR)/debian/tmp/usr/lib/pkgconfig
-	install -m 644 Project/GNU/Library/libmediainfo.pc $(CURDIR)/debian/tmp/usr/lib/pkgconfig
+	install -dm 755 $(CURDIR)/debian/tmp/usr/share/doc/mediainfo
+	install -m 644 Release/ReadMe_CLI_Linux.txt $(CURDIR)/debian/tmp/usr/share/doc/mediainfo/ReadMe.txt
+	install -m 644 History_CLI.txt $(CURDIR)/debian/tmp/usr/share/doc/mediainfo/History.txt
+	install -m 644 License.html $(CURDIR)/debian/tmp/usr/share/doc/mediainfo
 
-	install -dm 755 $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0
-	install -m 644 Release/ReadMe_DLL_Linux.txt $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0/ReadMe.txt
-	install -m 644 History_DLL.txt $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0/History.txt
-	install -m 644 License.html $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo0
-	install -dm 755 $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo-dev
-	install -m 644 Changes.txt $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo-dev
-	install -m 644 Documentation.html $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo-dev
-	install -dm 755 $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo-dev/Doc
-	install -m 644 Doc/*.* $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo-dev/Doc
-	if test -d Doc/search/ ; then install -dm 755 $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo-dev/Doc/search ; fi
-	if test -d Doc/search/ ; then install -m 644 Doc/search/*.* $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo-dev/Doc/search ; fi
-	install -dm 755 $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo-dev/Examples
-	install -m 644 Source/Example/HowToUse* $(CURDIR)/debian/tmp/usr/share/doc/libmediainfo-dev/Examples
+	install -dm 755 $(CURDIR)/debian/tmp/usr/share/doc/mediainfo-gui
+	install -m 644 Release/ReadMe_CLI_Linux.txt $(CURDIR)/debian/tmp/usr/share/doc/mediainfo-gui/ReadMe.txt
+	install -m 644 History_GUI.txt $(CURDIR)/debian/tmp/usr/share/doc/mediainfo-gui/History.txt
+	install -m 644 License.html $(CURDIR)/debian/tmp/usr/share/doc/mediainfo-gui
 
+	install -dm 755 $(CURDIR)/debian/tmp/usr/share/pixmaps
+	install -m 644 Source/Resource/Image/MediaInfo.xpm $(CURDIR)/debian/tmp/usr/share/pixmaps/mediainfo.xpm
+	install -dm 755 $(CURDIR)/debian/tmp/usr/share/icons/hicolor
+	install -m 644 Source/Resource/Image/MediaInfoBig.png $(CURDIR)/debian/tmp/usr/share/icons/hicolor/mediainfo.png
+	install -dm 755 $(CURDIR)/debian/tmp/usr/share/icons/hicolor/256x256/apps
+	install -m 644 Source/Resource/Image/MediaInfo.png $(CURDIR)/debian/tmp/usr/share/icons/hicolor/256x256/apps/mediainfo.png
+	install -dm 755 $(CURDIR)/debian/tmp/usr/share/icons/hicolor/scalable/apps
+	install -m 644 Source/Resource/Image/MediaInfo.svg $(CURDIR)/debian/tmp/usr/share/icons/hicolor/scalable/apps/mediainfo.svg
+
+	install -dm 755 $(CURDIR)/debian/tmp/usr/share/applications
+	install -m 644 Project/GNU/GUI/mediainfo-gui.desktop $(CURDIR)/debian/tmp/usr/share/applications
+	install -dm 755 $(CURDIR)/debian/tmp/usr/share/apps/konqueror/servicemenus/
+	install -m 644 Project/GNU/GUI/mediainfo-gui.kde3.desktop $(CURDIR)/debian/tmp/usr/share/apps/konqueror/servicemenus/mediainfo-gui.desktop
+	install -dm 755 $(CURDIR)/debian/tmp/usr/share/kde4/services/ServiceMenus/
+	install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop $(CURDIR)/debian/tmp/usr/share/kde4/services/ServiceMenus/mediainfo-gui.desktop
 
 # Build architecture-independent files here.
 binary-indep: build install

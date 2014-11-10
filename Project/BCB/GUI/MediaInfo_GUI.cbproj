@@ -1,0 +1,262 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{8AF87745-B671-4B4E-A428-B47B72F174BA}</ProjectGuid>
+			<ProjectVersion>13.4</ProjectVersion>
+			<FrameworkType>VCL</FrameworkType>
+			<MainSource>MediaInfo_GUI.cpp</MainSource>
+			<Base>True</Base>
+			<Config Condition="'$(Config)'==''">Release</Config>
+			<Platform Condition="'$(Platform)'==''">Win32</Platform>
+			<TargetedPlatforms>1</TargetedPlatforms>
+			<AppType>Application</AppType>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+			<Base_Win32>true</Base_Win32>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
+			<Cfg_1>true</Cfg_1>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
+			<Cfg_1_Win32>true</Cfg_1_Win32>
+			<CfgParent>Cfg_1</CfgParent>
+			<Cfg_1>true</Cfg_1>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
+			<Cfg_2>true</Cfg_2>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
+			<Cfg_2_Win32>true</Cfg_2_Win32>
+			<CfgParent>Cfg_2</CfgParent>
+			<Cfg_2>true</Cfg_2>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Base)'!=''">
+			<Defines>MEDIAINFO_DLL_STATIC;$(Defines)</Defines>
+			<VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=0.7.71.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=;Comments=</VerInfo_Keys>
+			<Manifest_File>None</Manifest_File>
+			<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+			<VerInfo_MinorVer>7</VerInfo_MinorVer>
+			<VerInfo_Release>71</VerInfo_Release>
+			<VerInfo_MajorVer>0</VerInfo_MajorVer>
+			<VerInfo_Locale>1033</VerInfo_Locale>
+			<PackageImports>IPIndyImpl;bindcompfmx;fmx;rtl;dbrtl;IndySystem;DbxClientDriver;bindcomp;inetdb;DBXInterBaseDriver;DataSnapCommon;DataSnapClient;DataSnapServer;DataSnapProviderClient;xmlrtl;DbxCommonDriver;IndyProtocols;DBXMySQLDriver;dbxcds;bindengine;soaprtl;DBXOracleDriver;dsnap;DBXInformixDriver;IndyCore;fmxase;DBXFirebirdDriver;inet;fmxobj;inetdbxpress;DBXSybaseASADriver;fmxdae;dbexpress;DataSnapIndy10ServerTransport;$(PackageImports)</PackageImports>
+			<Multithreaded>true</Multithreaded>
+			<ILINK_LibraryPath>..\..\..\Source\Common\;..\..\..\Source\GUI\VCL\;D:\Programmation\MediaInfo\Project\BCB\GUI\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+			<ProjectType>CppVCLApplication</ProjectType>
+			<DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
+			<Icon_MainIcon>..\..\..\Source\Resource\Image\MediaInfo.ico</Icon_MainIcon>
+			<IncludePath>..\..\..\Source\Common\;..\..\..\Source\;..\..\..\Source\GUI\VCL\;..\..\..\..\ZenLib\Source\;..\..\..\..\MediaInfoLib\Source\;$(IncludePath)</IncludePath>
+			<AllPackageLibs>rtl.lib;vcl.lib;bcbie.lib</AllPackageLibs>
+			<_TCHARMapping>wchar_t</_TCHARMapping>
+			<DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
+			<IntermediateOutputDir>.\$(Platform)\$(Config)</IntermediateOutputDir>
+			<FinalOutputDir>.\$(Platform)\$(Config)</FinalOutputDir>
+			<BCC_wpar>false</BCC_wpar>
+			<BCC_OptimizeForSpeed>true</BCC_OptimizeForSpeed>
+			<BCC_ExtendedErrorInfo>true</BCC_ExtendedErrorInfo>
+			<ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\release\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Base_Win32)'!=''">
+			<ILINK_LibraryPath>D:\Programmation\MediaInfo\Project\BCB\GUI\Win32\Release\;D:\Programmation\MediaInfoLib\Project\BCB\Dll\Win32\Release\;C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\lib\win32\release\;D:\Programmation\zlib\projects\BCB\Win32\Release\;D:\Programmation\MediaInfoLib\Project\BCB\Library\Win32\Release\;D:\Programmation\ZenLib\Project\BCB\Library\Win32\Release\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+			<PackageImports>vcldbx;frx16;TeeDB;Rave100VCL;vclib;Tee;inetdbbde;DBXOdbcDriver;DBXSybaseASEDriver;ibxpress;vclimg;frxDB16;intrawebdb_120_160;fs16;TeeUI;FMXTee;vclactnband;vcldb;vcldsnap;bindcompvcl;vclie;vcltouch;Intraweb_120_160;DBXDb2Driver;bcbsmp;websnap;vclribbon;frxe16;VclSmp;fsDB16;vcl;DataSnapConnectors;CloudService;DBXMSSQLDriver;FmxTeeUI;dsnapcon;vclx;webdsnap;bdertl;adortl;bcbie;$(PackageImports)</PackageImports>
+			<DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
+			<IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
+			<Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+			<VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_1)'!=''">
+			<BCC_OptimizeForSpeed>false</BCC_OptimizeForSpeed>
+			<BCC_DisableOptimizations>true</BCC_DisableOptimizations>
+			<DCC_Optimize>false</DCC_Optimize>
+			<DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+			<Defines>_DEBUG;$(Defines)</Defines>
+			<BCC_InlineFunctionExpansion>false</BCC_InlineFunctionExpansion>
+			<BCC_UseRegisterVariables>None</BCC_UseRegisterVariables>
+			<DCC_Define>DEBUG</DCC_Define>
+			<BCC_DebugLineNumbers>true</BCC_DebugLineNumbers>
+			<TASM_DisplaySourceLines>true</TASM_DisplaySourceLines>
+			<BCC_StackFrames>true</BCC_StackFrames>
+			<ILINK_FullDebugInfo>true</ILINK_FullDebugInfo>
+			<TASM_Debugging>Full</TASM_Debugging>
+			<BCC_SourceDebuggingOn>true</BCC_SourceDebuggingOn>
+			<ILINK_LibraryPath>$(BDSLIB)\$(PLATFORM)\debug;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+			<ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\debug\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+			<LinkPackageStatics>rtl.lib;vcl.lib;bcbie.lib</LinkPackageStatics>
+			<VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+			<Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_2)'!=''">
+			<Defines>NDEBUG;$(Defines)</Defines>
+			<TASM_Debugging>None</TASM_Debugging>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+			<LinkPackageStatics>rtl.lib;vcl.lib;bcbie.lib</LinkPackageStatics>
+			<VerInfo_Keys>CompanyName=MediaArea.net;FileDescription=Convenient unified display of the most relevant technical and tag data for video and audio files;FileVersion=0.7.71.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=MediaInfo;ProductVersion=0.7.71.0;Comments=</VerInfo_Keys>
+			<Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+		</PropertyGroup>
+		<ItemGroup>
+			<LibFiles Condition="'$(Platform)'=='Win32'" Include="C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\lib\win32\release\wininet.lib">
+				<BuildOrder>16</BuildOrder>
+				<IgnorePath>true</IgnorePath>
+			</LibFiles>
+			<LibFiles Condition="'$(Platform)'=='Win32'" Include="..\..\..\..\MediaInfoLib\Project\BCB\Dll\Win32\Release\MediaInfo_i386.lib">
+				<BuildOrder>16</BuildOrder>
+				<IgnorePath>true</IgnorePath>
+			</LibFiles>
+			<CppCompile Include="MediaInfo_GUI.cpp">
+				<BuildOrder>0</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\Common\Core.cpp">
+				<DependentOn>..\..\..\Source\Common\Core.h</DependentOn>
+				<BuildOrder>13</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\Common\Preferences.cpp">
+				<DependentOn>..\..\..\Source\Common\Preferences.h</DependentOn>
+				<BuildOrder>14</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\Common\Utilsx.cpp">
+				<BuildOrder>16</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_About.cpp">
+				<Form>AboutF</Form>
+				<DependentOn>..\..\..\Source\GUI\VCL\GUI_About.h</DependentOn>
+				<BuildOrder>5</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Export.cpp">
+				<Form>ExportF</Form>
+				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Export.h</DependentOn>
+				<BuildOrder>1</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Main.cpp">
+				<Form>MainF</Form>
+				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Main.h</DependentOn>
+				<BuildOrder>2</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Preferences.cpp">
+				<Form>PreferencesF</Form>
+				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Preferences.h</DependentOn>
+				<BuildOrder>3</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Custom.cpp">
+				<Form>Preferences_CustomF</Form>
+				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Preferences_Custom.h</DependentOn>
+				<BuildOrder>6</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Language.cpp">
+				<Form>Preferences_LanguageF</Form>
+				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Preferences_Language.h</DependentOn>
+				<BuildOrder>7</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Output.cpp">
+				<Form>Preferences_OutputF</Form>
+				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Preferences_Output.h</DependentOn>
+				<BuildOrder>8</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Sheet.cpp">
+				<Form>Preferences_SheetF</Form>
+				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Preferences_Sheet.h</DependentOn>
+				<BuildOrder>9</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Web.cpp">
+				<Form>WebF</Form>
+				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Web.h</DependentOn>
+				<BuildOrder>4</BuildOrder>
+			</CppCompile>
+			<LibFiles Condition="'$(Platform)'=='Win32'" Include="..\..\..\..\ZenLib\Project\BCB\Library\Win32\Release\ZenLib.lib">
+				<BuildOrder>10</BuildOrder>
+				<IgnorePath>true</IgnorePath>
+			</LibFiles>
+			<LibFiles Condition="'$(Platform)'=='Win32'" Include="..\..\..\..\zlib\projects\BCB\Win32\Release\zlib.lib">
+				<BuildOrder>12</BuildOrder>
+				<IgnorePath>true</IgnorePath>
+			</LibFiles>
+			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Language.dfm"/>
+			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Output.dfm"/>
+			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences.dfm"/>
+			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Custom.dfm"/>
+			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Sheet.dfm"/>
+			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Web.dfm"/>
+			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Main.dfm"/>
+			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_About.dfm"/>
+			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Export.dfm"/>
+			<BuildConfiguration Include="Release">
+				<Key>Cfg_2</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Base">
+				<Key>Base</Key>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Debug">
+				<Key>Cfg_1</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>CPlusPlusBuilder.Personality.12</Borland.Personality>
+			<Borland.ProjectType>CppVCLApplication</Borland.ProjectType>
+			<BorlandProject>
+				<CPlusPlusBuilder.Personality>
+					<Source>
+						<Source Name="MainSource">MediaInfo_GUI.cpp</Source>
+					</Source>
+					<VersionInfo>
+						<VersionInfo Name="IncludeVerInfo">False</VersionInfo>
+						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
+						<VersionInfo Name="MajorVer">1</VersionInfo>
+						<VersionInfo Name="MinorVer">0</VersionInfo>
+						<VersionInfo Name="Release">0</VersionInfo>
+						<VersionInfo Name="Build">0</VersionInfo>
+						<VersionInfo Name="Debug">False</VersionInfo>
+						<VersionInfo Name="PreRelease">False</VersionInfo>
+						<VersionInfo Name="Special">False</VersionInfo>
+						<VersionInfo Name="Private">False</VersionInfo>
+						<VersionInfo Name="DLL">False</VersionInfo>
+						<VersionInfo Name="Locale">1036</VersionInfo>
+						<VersionInfo Name="CodePage">1252</VersionInfo>
+					</VersionInfo>
+					<VersionInfoKeys>
+						<VersionInfoKeys Name="CompanyName"/>
+						<VersionInfoKeys Name="FileDescription"/>
+						<VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="InternalName"/>
+						<VersionInfoKeys Name="LegalCopyright"/>
+						<VersionInfoKeys Name="LegalTrademarks"/>
+						<VersionInfoKeys Name="OriginalFilename"/>
+						<VersionInfoKeys Name="ProductName"/>
+						<VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="Comments"/>
+					</VersionInfoKeys>
+					<ProjectProperties>
+						<ProjectProperties Name="AutoShowDeps">False</ProjectProperties>
+						<ProjectProperties Name="ManagePaths">True</ProjectProperties>
+						<ProjectProperties Name="VerifyPackages">True</ProjectProperties>
+					</ProjectProperties>
+					<Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\bcboffice2k160.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\bcbofficexp160.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\dcloffice2k160.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\dclofficexp160.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+					</Excluded_Packages>
+				</CPlusPlusBuilder.Personality>
+				<Deployment/>
+				<Platforms>
+					<Platform value="Win32">True</Platform>
+				</Platforms>
+			</BorlandProject>
+			<ProjectFileVersion>12</ProjectFileVersion>
+		</ProjectExtensions>
+		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Cpp.Targets')" Project="$(BDS)\Bin\CodeGear.Cpp.Targets"/>
+		<Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj"/>
+	</Project>

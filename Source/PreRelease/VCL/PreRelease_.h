@@ -1,3 +1,9 @@
+/*  Copyright (c) MediaArea.net SARL. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license that can
+ *  be found in the License.html file in the root of the source tree.
+ */
+
 //---------------------------------------------------------------------------
 
 #ifndef PreRelease_H
@@ -15,10 +21,12 @@ __published:    // IDE-managed Components
     TMainMenu *MainMenu1;
     TMemo *Memo1;
     TMenuItem *File1;
-    TMenuItem *Testiftherearetoooldfiles1;
-    TMenuItem *Updateresourcefiles1;
-    void __fastcall Testiftherearetoooldfiles1Click(TObject *Sender);
-    void __fastcall Updateresourcefiles1Click(TObject *Sender);
+    TMenuItem *CreateotherlanguagefilesfromAllcsv1;
+    TMenuItem *UpdateAllcsvfromotherlanguagefiles1;
+    void __fastcall CreateotherlanguagefilesfromAllcsv1Click(
+          TObject *Sender);
+    void __fastcall UpdateAllcsvfromotherlanguagefiles1Click(
+          TObject *Sender);
 private:    // User declarations
 public:     // User declarations
     __fastcall TForm1(TComponent* Owner);
@@ -26,14 +34,4 @@ public:     // User declarations
 //---------------------------------------------------------------------------
 extern PACKAGE TForm1 *Form1;
 //---------------------------------------------------------------------------
-
-//---------------------------------------------------------------------------
-// For Widgets with DEBUG in BCB
-// Here only because this is useful everywhere
-#ifdef _DEBUG
-    void wxAssert(int, const wchar_t*, int, const wchar_t*, const wchar_t*) {}
-#endif //_DEBUG
-//---------------------------------------------------------------------------
-
-
 #endif

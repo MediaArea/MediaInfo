@@ -1,0 +1,53 @@
+;
+;
+;Bug: "Page_Begin", "Page_Middle" and "Page_End" sections are picked on lines 10, 11 and 12 regardless what is there. So it is better to leave them there.
+;Bug: \r\n is not turned into a newline on "Page" entries.
+;Bug: "Image" sections are not active, but should.
+;
+;
+;
+Page;(unused)\r\n
+Page_Begin;<html><head><title>Media Info</title><style type="text/css">html,body,table{font-size:x-small} html,body{margin:0} html,body{padding:0} table{empty-cells:show} td.Name{white-space:pre-wrap} td.RowIndent{empty-cells:hide} td.RowIndent{background-color:white} td.RowIndent{border:hidden} td.RowHead{font-weight:bold}</style></head><body><table class="body" width="100%" border="1" cellpadding="1" cellspacing="0" style="border:0px"><caption></caption><col span="2" width="6"><col span="5"><col span="7" align="right"><col align="right"  style="white-space:nowrap"><thead><tr align="center" style="white-space:normal"><th colspan="3">Kind</th><th>#</th><th>Name</th><th>Format (Family)</th><th>Language</th><th align="center">Dimensions</th><th align="center">Channels</th><th align="center">Resolution</th><th align="center">Sampling Frequency</th><th align="center">Bits / Elements</th><th align="center">Bitrate (Mode)</th><th align="center">Extent</th><th align="center">Size</th><th>Extra</th></tr><tr bgcolor="black" height="4" style="border:hidden"><td colspan="99"></td></tr></thead> 
+Page_Middle;<tr bgcolor="#696969" height="4" style="border:hidden"><td colspan="99"></td></tr>
+Page_End;<tr bgcolor="black" height="4"><td width="4"></td><td width="4"></td><td colspan="99"></td></tr></table></body></html>
+;
+File;(unused)\r\n
+File_Begin;
+File_Middle;(unused)\r\n
+File_End;
+;
+General;<tr><td colspan="3" class="RowHead">File</td><td>-</td><td class="Name" colspan="10">%FolderName%\<br>%FileName%.%FileExtension%</td><td>$if(%FileSize%,%FileSize% B,<center>?</center>)</td><td><center>?</center></td></tr><tr bgcolor="#DFDFDF"><td class="RowIndent"></td><td colspan="2" class="RowHead">Container</td><td>%StreamKindID%</td><td class="Name">%Title%[<br>"%Title/More%"]</td><td>%Format%[ (%Format/Family%)]</td><td>$if(%Language%,%Language/String%,<center>-</center>)</td><td>[%Width%x%Height%pix] [AR:%AspectRatio%=~%AspectRatio/String%]</td><td>[%Channel(s)% ch]</td><td>$if(%Resolution%,%Resolution/String%,<center>-</center>)</td><td>[%FrameRate/String%] [%SamplingRate/String%]</td><td>%Bits-(Pixel*Frame)%</td><td>$if(%BitRate%,%BitRate%bps,<center>?</center>)[ %BitRate_Mode%]</td><td>$if(%Duration%,%Duration/String1%,?time)[ %Coherency/Duration% coh] [%FrameCount%frames]</td><td>$if(%StreamSize%,%StreamSize% B,<center>?</center>)</td><td>[Count:%Count% ~ ][%Format_Settings% ~ ]$if(%Cover%,Cover)</td></tr>
+General_Begin;
+General_Middle;(unused)\r\n
+General_End;
+;
+Video;<tr><td class="RowIndent" colspan="2"></td><td class="RowHead">Video</td><td>%StreamKindID%</td><td class="Name">%Title%</td><td>$if(%Format%,%Format%,?)[ (%Format/Family%)]</td><td>$if(%Language%,%Language/String%,<center>?</center>)</td><td>[%Width%x%Height%pix] [AR:%AspectRatio%=~%AspectRatio/String%]</td><td>[%Channel(s)% ch]</td><td>$if(%Resolution%,%Resolution/String%,<center>?</center>)</td><td>$if(%FrameRate%,%FrameRate/String%,<center>?</center>)</td><td>%Bits-(Pixel*Frame)%</td><td>$if(%BitRate%,%BitRate%bps,<center>?</center>)[ %BitRate_Mode%]</td><td>$if(%Duration%,%Duration/String1%,?time)[ %Coherency/Duration%coh] $if(%FrameCount%,%FrameCount%,?)frames</td><td>$if(%StreamSize%,%StreamSize% B,<center>?</center>)</td><td>[Count:%Count% ~ ][Chroma:%Colorimetry% ~ ][%ScanType/String% ~ ][%Format_Settings%]</td></tr>
+Video_Begin;<tbody bgcolor="#FFBFBF">
+Video_Middle;
+Video_End;</tbody>
+;
+Audio;<tr><td class="RowIndent" colspan="2"></td><td class="RowHead">Audio</td><td>%StreamKindID%</td><td class="Name">%Title%</td><td>$if(%Format%,%Format%,?)[ (%Format/Family%)]</td><td>$if(%Language%,%Language/String%,<center>?</center>)</td><td><center>-</center></td><td>[%Channel(s)% ch]</td><td>$if(%Resolution%,%Resolution/String%,<center>?</center>)</td><td>$if(%SamplingRate%,%SamplingRate% Hz,<center>?</center>)</td><td>%Bits-(Pixel*Frame)%</td><td>$if(%BitRate%,%BitRate%bps,<center>?</center>)[ %BitRate_Mode%]</td><td>$if(%Duration%,%Duration/String1%,?time)[ %Coherency/Duration%coh] $if(%SamplingCount%,%SamplingCount%,?)samples</td><td>$if(%StreamSize%,%StreamSize% B,<center>?</center>)</td><td>[Count:%Count% ~ ][%Format_Profile% ~ ][%Format_Settings%]</td></tr>
+Audio_Begin;<tbody bgcolor="#BFFFBF">
+Audio_Middle;
+Audio_End;</tbody>
+;
+Text;<tr><td class="RowIndent" colspan="2"></td><td class="RowHead">Subtitle</td><td>%StreamKindID%</td><td class="Name">%Title%</td><td>$if(%Format%,%Format%,?)[ (%Format/Family%)]</td><td>$if(%Language%,%Language/String%,<center>?</center>)</td><td>[%Width%x%Height%pix] [AR:%AspectRatio%=~%AspectRatio/String%]</td><td>[%Channel(s)% ch]</td><td>$if(%Resolution%,%Resolution/String%,<center>?</center>)</td><td>$if(%FrameRate%,%FrameRate/String%,<center>-</center>)</td><td>%Bits-(Pixel*Frame)%</td><td>$if(%BitRate%,%BitRate%bps,<center>?</center>)[ %BitRate_Mode%]</td><td>[Duration/String1% ][%Coherency/Duration%coh ][FrameCount% frames ]</td><td>$if(%StreamSize%,%StreamSize% B,<center>?</center>)</td><td>[Count:%Count% ~ ][Summary:%Summary%]</td></tr>
+Text_Begin;<tbody bgcolor="#BFBFFF">
+Text_Middle;
+Text_End;</tbody>
+;
+Chapters;<tr><td class="RowIndent" colspan="2"></td><td class="RowHead">Chapters</td><td>%StreamKindID%</td><td class="Name">%Title%</td><td>$if(%Format%,%Format%,?)[ (%Format/Family%)]</td><td>$if(%Language%,%Language/String%,<center>?</center>)</td><td>[%Width%x%Height%pix] [AR:%AspectRatio%=~%AspectRatio/String%]</td><td>[%Channel(s)% ch]</td><td>$if(%Resolution%,%Resolution/String%,<center>?</center>)</td><td>$if(%FrameRate%,%FrameRate/String%,<center>-</center>)</td><td>%Bits-(Pixel*Frame)%</td><td>$if(%BitRate%,%BitRate%bps,<center>?</center>)[ %BitRate_Mode%]</td><td>[Duration/String1% ][%Coherency/Duration%coh ][FrameCount% frames ]$if(%Total%,%Total%,?)entries</td><td>$if(%StreamSize%,%StreamSize% B,<center>?</center>)</td><td>[Count:%Count% ~ ]</td></tr>
+Chapters_Begin;<tbody bgcolor="#FFFFBF">
+Chapters_Middle;
+Chapters_End;</tbody>
+;
+Image;<tr><td class="RowIndent" colspan="2"></td><td class="RowHead">Image</td><td>%StreamKindID%</td><td class="Name">%Title%</td><td>$if(%Format%,%Format%,?)[ (%Format/Family%)]</td><td>$if(%Language%,%Language/String%,<center>?</center>)</td><td>[%Width%x%Height%pix] [AR:%AspectRatio%=~%AspectRatio/String%]</td><td>[%Channel(s)% ch]</td><td>$if(%Resolution%,%Resolution/String%,<center>?</center>)</td><td>$if(%FrameRate%,%FrameRate/String%,<center>-</center>)</td><td>%Bits-(Pixel*Frame)%</td><td>$if(%BitRate%,%BitRate%bps,<center>?</center>)[ %BitRate_Mode%]</td><td>[Duration/String1% ][%Coherency/Duration%coh ][FrameCount% frames]</td><td>$if(%StreamSize%,%StreamSize% B,<center>?</center>)</td><td>[Count:%Count% ~ ][Chroma:%Colorimetry% ~ ][%ScanType/String% ~ ][%Format_Settings%][Summary:%Summary%]</td></tr>
+Image_Begin;<tbody bgcolor="#FFBFFF">
+Image_Middle;
+Image_End;</tbody>
+;
+Menu;<tr><td class="RowIndent" colspan="2"></td><td class="RowHead">Menu</td><td>%StreamKindID%</td><td class="Name">%Title%</td><td>$if(%Format%,%Format%,?)[ (%Format/Family%)]</td><td>$if(%Language%,%Language/String%,<center>?</center>)</td><td>[%Width%x%Height%pix] [AR:%AspectRatio%=~%AspectRatio/String%]</td><td>[%Channel(s)% ch]</td><td>$if(%Resolution%,%Resolution/String%,<center>?</center>)</td><td>$if(%FrameRate%,%FrameRate/String%,<center>?</center>)</td><td>%Bits-(Pixel*Frame)%</td><td>$if(%BitRate%,%BitRate%bps,<center>?</center>)[ %BitRate_Mode%]</td><td>[Duration/String1% ][%Coherency/Duration%coh ][FrameCount% frames ]</td><td>$if(%StreamSize%,%StreamSize% B,<center>?</center>)</td><td>[Count:%Count% ~ ][Chroma:%Colorimetry% ~ ][%ScanType/String% ~ ][%Format_Settings%]</td></tr>
+Menu_Begin;<tbody bgcolor="#BFFFFF">
+Menu_Middle;
+Menu_End;</tbody>
+;

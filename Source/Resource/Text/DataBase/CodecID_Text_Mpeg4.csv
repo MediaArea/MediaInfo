@@ -1,8 +1,0 @@
-c608;EIA-608
-c708;EIA-708
-subp;VobSub;;The same subtitle format used on DVDs;
-text;Apple text;;;http://www.apple.com/quicktime/download/standalone.html
-sbtl;Apple text;(iPhone);;http://www.apple.com/quicktime/download/standalone.html
-dfxp;TTML
-tx3g;Timed text;;;http://www.apple.com/quicktime/download/standalone.html
-enct;(Encrypted);;;

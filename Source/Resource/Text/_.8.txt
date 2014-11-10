@@ -1,3 +1,0 @@
-    ));
-    Info.Separator_Set(0, ZenLib::EOL);
-}

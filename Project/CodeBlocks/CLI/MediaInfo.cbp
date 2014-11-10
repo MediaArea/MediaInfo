@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="CLI" />
+		<Option makefile="../../GCC/CLI/Makefile.mingw32" />
+		<Option makefile_is_custom="1" />
+		<Option pch_mode="0" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="default">
+				<Option output="..\..\..\Release\GCC_MinGW32\CLI\MediaInfo.exe" prefix_auto="0" extension_auto="0" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option projectResourceIncludeDirsRelation="1" />
+				<Compiler>
+					<Add option="-march=i586" />
+					<Add option="-O3" />
+					<Add option="-Wall" />
+					<Add option="-DWIN32" />
+					<Add option="-D_WIN32" />
+					<Add option="-DUNICODE" />
+					<Add option="-D_UNICODE" />
+					<Add directory="..\..\..\..\MediaInfoLib\Source" />
+					<Add directory="..\..\..\..\Shared\Include" />
+				</Compiler>
+			</Target>
+		</Build>
+		<VirtualTargets>
+			<Add alias="All" targets="default;" />
+		</VirtualTargets>
+		<Compiler>
+			<Add option="-DWIN32" />
+			<Add option="-D_WIN32" />
+		</Compiler>
+		<Linker>
+			<Add library="Unicows" />
+			<Add library="ZenLib" />
+			<Add library="WxWidgets" />
+			<Add library="ZLib" />
+			<Add library="wsock32" />
+			<Add library="ctl3d32" />
+			<Add library="advapi32" />
+			<Add library="comctl32" />
+			<Add library="comdlg32" />
+			<Add library="kernel32" />
+			<Add library="gdi32" />
+			<Add library="odbc32" />
+			<Add library="ole32" />
+			<Add library="oleaut32" />
+			<Add library="rpcrt4" />
+			<Add library="shell32" />
+			<Add library="user32" />
+			<Add library="uuid" />
+			<Add library="winmm" />
+			<Add library="winspool" />
+			<Add directory="..\..\..\..\MediaInfoLib\Release\GCC_MinGW32\Library" />
+			<Add directory="..\..\..\..\Shared\Library\GCC_MinGW32" />
+		</Linker>
+		<Unit filename="..\..\..\Source\CLI\CLI_Main.cpp" />
+		<Unit filename="..\..\..\Source\CLI\CLI_Main.h" />
+		<Unit filename="..\..\..\Source\CLI\CommandLine_Parser.cpp" />
+		<Unit filename="..\..\..\Source\CLI\CommandLine_Parser.h" />
+		<Unit filename="..\..\..\Source\CLI\Config.h" />
+		<Unit filename="..\..\..\Source\CLI\Help.cpp" />
+		<Unit filename="..\..\..\Source\CLI\Help.h" />
+		<Unit filename="..\..\..\Source\Common\Core.cpp" />
+		<Unit filename="..\..\..\Source\Common\Core.h" />
+		<Extensions>
+			<code_completion />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

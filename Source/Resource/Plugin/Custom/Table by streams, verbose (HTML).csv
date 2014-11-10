@@ -1,0 +1,53 @@
+;
+;
+;Bug: "Page_Begin", "Page_Middle" and "Page_End" sections are picked on lines 10, 11 and 12 regardless what is there. So it is better to leave them there.
+;Bug: \r\n is not turned into a newline on "Page" entries.
+;Bug: "Image" sections are not active, but should.
+;
+;
+;
+Page;(unused)\r\n
+Page_Begin;<html><head><title>Media Info</title><style type="text/css">html,body,table{font-size:x-small} html,body{margin:0} html,body{padding:0} table{empty-cells:show} td.Name{white-space:pre-wrap} </style></head><body><table class="body" width="100%" border="1" cellpadding="1" cellspacing="0" style="border:0px"><caption></caption><thead><tr><th>File</th><th>Size / Other</th><th>Container</th><th>Video tracks</th><th>Audio Tracks</th><th>Subtitle Tracks</th><th>Chapters list</th></tr></thead><tbody>
+Page_Middle;
+Page_End;</tbody></table></body></html>
+;
+File;(unused)\r\n
+File_Begin;<tr>
+File_Middle;(unused)\r\n
+File_End;</tr>
+;
+General;<td class="Name">%FileName%.%FileExtension%</td><td>[%FileSize% B]$if(%Cover%,\, Cover)</td><td bgcolor="#DFDFDF">%Format%[(%Format/Family%)][, %BitRate%bps][(%BitRate_Mode%)][, %Duration/String1%][, %Coherency/Duration% coh][, %StreamSize% B][, %Width%x%Height%pix][, AR:%AspectRatio%=~%AspectRatio/String%][, %Channel(s)%ch][, %Resolution/String%][, %FrameRate/String%][, %SamplingRate/String%][, %Bits-(Pixel*Frame)%bpf][, %FrameCount%frames][, Count:%Count%][, %Format_Settings%][, %Language/String%][, '%Title%'][&'%Title/More%']</td>$if(%Video_Codec_List%,,<td bgcolor="white"></td>)
+General_Begin;
+General_Middle;(unused)\r\n
+General_End;
+;
+Video;<b>#%StreamKindID%:</b>%Format%[(%Format/Family%)][, %BitRate%bps][(%BitRate_Mode%)][, %Duration/String1%][, %Coherency/Duration% coh][, %StreamSize% B][, %Width%x%Height%pix][, AR:%AspectRatio%=~%AspectRatio/String%][, %Channel(s)%ch][, %Resolution/String%][, %FrameRate/String%][, %SamplingRate/String%][, %Bits-(Pixel*Frame)%bpf][, %FrameCount%frames][, Count:%Count%][, %Format_Settings%][, Chroma:%Colorimetry%][, %ScanType/String%][, %Format_Settings%][, %Language/String%][, '%Title%'][&'%Title/More%']
+Video_Begin;<td bgcolor="#FFBFBF">
+Video_Middle;<br>
+Video_End;</td>
+;
+Audio;<b>#%StreamKindID%:</b>%Format%[(%Format/Family%)][, %BitRate%bps][(%BitRate_Mode%)][, %Duration/String1%][, %Coherency/Duration% coh][, %StreamSize% B][, %Width%x%Height%pix][, AR:%AspectRatio%=~%AspectRatio/String%][, %Channel(s)%ch][, %Resolution/String%][, %FrameRate/String%][, %SamplingRate/String%][, %Bits-(Pixel*Frame)%bpf][, %FrameCount%frames][, Count:%Count%][, %Format_Profile%][, %Format_Settings%][, %Language/String%][, '%Title%'][&'%Title/More%']
+Audio_Begin;<td bgcolor="#BFFFBF">
+Audio_Middle;<br>
+Audio_End;</td>
+;
+Text;<b>#%StreamKindID%:</b>%Format%[(%Format/Family%)][, %BitRate%bps][(%BitRate_Mode%)][, %Duration/String1%][, %Coherency/Duration% coh][, %StreamSize% B][, %Width%x%Height%pix][, AR:%AspectRatio%=~%AspectRatio/String%][, %Channel(s)%ch][, %Resolution/String%][, %FrameRate/String%][, %SamplingRate/String%][, %Bits-(Pixel*Frame)%bpf][, %FrameCount%frames][, Count:%Count%][, Summary:%Summary%][, %Language/String%][, '%Title%'][&'%Title/More%']
+Text_Begin;<td bgcolor="#BFBFFF">
+Text_Middle;<br>
+Text_End;</td>
+;
+Chapters;<b>#%StreamKindID%:</b>%Format%[(%Format/Family%)][, %BitRate%bps][(%BitRate_Mode%)][, %Duration/String1%][, %Coherency/Duration% coh][, %StreamSize% B][, %Width%x%Height%pix][, AR:%AspectRatio%=~%AspectRatio/String%][, %Channel(s)%ch][, %Resolution/String%][, %FrameRate/String%][, %SamplingRate/String%][, %Bits-(Pixel*Frame)%bpf][, %FrameCount%frames][, Count:%Count%][, %Total% entries][, %Language/String%][, '%Title%'][&'%Title/More%']
+Chapters_Begin;<td bgcolor="#FFFFBF">
+Chapters_Middle;<br>
+Chapters_End;
+;
+Image;<b>#%StreamKindID%:</b>%Format%[(%Format/Family%)][, %BitRate%bps][(%BitRate_Mode%)][, %Duration/String1%][, %Coherency/Duration% coh][, %StreamSize% B][, %Width%x%Height%pix][, AR:%AspectRatio%=~%AspectRatio/String%][, %Channel(s)%ch][, %Resolution/String%][, %FrameRate/String%][, %SamplingRate/String%][, %Bits-(Pixel*Frame)%bpf][, %FrameCount%frames][, Count:%Count%][, %Format_Settings%][, Chroma:%Colorimetry%][, %ScanType/String%][, %Format_Settings%][, Summary:%Summary%][, %Language/String%][, '%Title%'][&'%Title/More%']
+Image_Begin;<td bgcolor="#FFBFFF">
+Image_Middle;<br>
+Image_End;
+;
+Menu;<b>#%StreamKindID%:</b>%Format%[(%Format/Family%)][, %BitRate%bps][(%BitRate_Mode%)][, %Duration/String1%][, %Coherency/Duration% coh][, %StreamSize% B][, %Width%x%Height%pix][, AR:%AspectRatio%=~%AspectRatio/String%][, %Channel(s)%ch][, %Resolution/String%][, %FrameRate/String%][, %SamplingRate/String%][, %Bits-(Pixel*Frame)%bpf][, %FrameCount%frames][, Count:%Count%][, %Format_Settings%][, Chroma:%Colorimetry%][, %ScanType/String%][, %Format_Settings%][, %Language/String%][, '%Title%'][&'%Title/More%']
+Menu_Begin;<td bgcolor="#BFFFFF">
+Menu_Middle;<br>
+Menu_End;</td>
+;

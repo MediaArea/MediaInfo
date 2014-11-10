@@ -1,0 +1,248 @@
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="acceptDrops">
+   <bool>true</bool>
+  </property>
+  <property name="windowTitle">
+   <string>MediaInfo</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../Ressource/Resources.qrc">
+    <normaloff>:/icon/icon.png</normaloff>:/icon/icon.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QHBoxLayout">
+    <property name="spacing">
+     <number>6</number>
+    </property>
+    <property name="margin">
+     <number>11</number>
+    </property>
+    <item>
+     <widget class="QTextBrowser" name="textBrowser"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>600</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+    <addaction name="actionKnown_formats"/>
+    <addaction name="actionKnown_codecs"/>
+    <addaction name="actionKnown_parameters"/>
+   </widget>
+   <widget class="QMenu" name="menuOptions">
+    <property name="title">
+     <string>Options</string>
+    </property>
+    <addaction name="actionPreferences"/>
+    <addaction name="actionReset_field_sizes"/>
+    <addaction name="actionAdapt_columns_to_content"/>
+    <addaction name="actionAdvanced_Mode"/>
+   </widget>
+   <widget class="QMenu" name="menuLanguage">
+    <property name="title">
+     <string>Language</string>
+    </property>
+    <addaction name="actionEnglish"/>
+    <addaction name="actionFran_ais"/>
+   </widget>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionOpen_Folder"/>
+    <addaction name="actionExport"/>
+    <addaction name="actionClose_All"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuView"/>
+   <addaction name="menuOptions"/>
+   <addaction name="menuHelp"/>
+   <addaction name="menuLanguage"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>32</width>
+     <height>32</height>
+    </size>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionOpen"/>
+   <addaction name="actionOpen_Folder"/>
+   <addaction name="actionExport"/>
+   <addaction name="separator"/>
+   <addaction name="actionAbout"/>
+   <addaction name="separator"/>
+   <addaction name="actionPreferences"/>
+  </widget>
+  <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="../../Ressource/Resources.qrc">
+     <normaloff>:/icon/openfile.svg</normaloff>:/icon/openfile.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Open File(s)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="../../Ressource/Resources.qrc">
+     <normaloff>:/icon/about.svg</normaloff>:/icon/about.svg</iconset>
+   </property>
+   <property name="text">
+    <string>About</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
+   </property>
+  </action>
+  <action name="actionOpen_Folder">
+   <property name="icon">
+    <iconset resource="../../Ressource/Resources.qrc">
+     <normaloff>:/icon/opendir.svg</normaloff>:/icon/opendir.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Open Folder</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionKnown_formats">
+   <property name="text">
+    <string>Known formats</string>
+   </property>
+  </action>
+  <action name="actionKnown_codecs">
+   <property name="text">
+    <string>Known codecs</string>
+   </property>
+  </action>
+  <action name="actionKnown_parameters">
+   <property name="text">
+    <string>Known parameters</string>
+   </property>
+  </action>
+  <action name="actionEnglish">
+   <property name="text">
+    <string>English</string>
+   </property>
+  </action>
+  <action name="actionFran_ais">
+   <property name="text">
+    <string>Français</string>
+   </property>
+  </action>
+  <action name="actionPreferences">
+   <property name="icon">
+    <iconset resource="../../Ressource/Resources.qrc">
+     <normaloff>:/icon/prefs.svg</normaloff>:/icon/prefs.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Preferences</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="actionExport">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../Ressource/Resources.qrc">
+     <normaloff>:/icon/export.svg</normaloff>:/icon/export.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Export</string>
+   </property>
+   <property name="toolTip">
+    <string>Export in a customized format</string>
+   </property>
+  </action>
+  <action name="actionAdvanced_Mode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Advanced Mode</string>
+   </property>
+  </action>
+  <action name="actionReset_field_sizes">
+   <property name="text">
+    <string>reset columns sizes</string>
+   </property>
+  </action>
+  <action name="actionAdapt_columns_to_content">
+   <property name="text">
+    <string>adapt columns to content</string>
+   </property>
+  </action>
+  <action name="actionClose_All">
+   <property name="text">
+    <string>Close All</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+W</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="../../Ressource/Resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

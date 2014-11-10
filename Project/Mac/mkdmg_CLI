@@ -1,0 +1,76 @@
+#!/bin/sh
+
+#if [ $# != 3 ]; then
+# echo "usage: mkdmg appname version"
+# exit 0
+#fi
+
+APPNAME="$1"
+VERSION="$2"
+FILES="$3"
+
+APPNAME="MediaInfo"
+KIND="CLI"
+VERSION="0.7.68"
+SIGNATURE="MediaArea.net"
+
+DMG="tmp-${APPNAME}_${KIND}.dmg"
+FILES="tmp-${APPNAME}_${KIND}"
+
+# Prepare the CLI
+rm -f "{FILES}-Root"
+mkdir "${FILES}-Root"
+mkdir "${FILES}-Root/usr"
+mkdir "${FILES}-Root/usr/local"
+mkdir "${FILES}-Root/usr/local/bin"
+cp ../GNU/CLI/mediainfo "${FILES}-Root/usr/local/bin/"
+codesign -f -s "Developer ID Application: ${SIGNATURE}" --verbose "${FILES}-Root/usr/local/bin/mediainfo"
+
+# Create the package
+rm -f "{FILES}"
+mkdir "${FILES}"
+pkgbuild --root "${FILES}-Root" --identifier net.mediaarea.mediainfo.mac-cli --sign "Developer ID Installer: ${SIGNATURE}" --version "${VERSION}" "${FILES}/mediainfo.pkg"
+codesign -f -s "Developer ID Application: ${SIGNATURE}" --verbose "${FILES}/mediainfo.pkg"
+cp ../../License.html "${FILES}/License.html"
+cp ../../Release/ReadMe_CLI_Mac.txt "${FILES}/ReadMe.txt"
+cp ../../History_CLI.txt "${FILES}/History.txt"
+mkdir "${FILES}/.background"
+cp Logo_White.icns "${FILES}/.background/Logo_White.icns"
+
+
+# Create the disk image
+hdiutil create "$DMG" -ov -format UDRW -volname "${APPNAME}" -srcfolder "${FILES}"
+DEVICE=$(hdiutil attach -readwrite -noverify "${DMG}" | egrep '^/dev/' | sed 1q | awk '{print $1}')
+echo $DEVICE
+sleep 2
+pushd /Volumes/"${APPNAME}"
+rm .DS_Store
+popd
+echo '
+   tell application "Finder"
+     tell disk "'${APPNAME}'"
+           open
+           set current view of container window to icon view
+           set toolbar visible of container window to false
+           set the bounds of container window to {400, 100, 950, 600}
+           set viewOptions to the icon view options of container window
+           set arrangement of viewOptions to not arranged
+           set icon size of viewOptions to 72
+           set background picture of viewOptions to file ".background:Logo_White.icns"
+           set position of item "mediainfo.pkg" of container window to {125, 175}
+           set position of item "ReadMe.txt" of container window to {450, 125}
+           set position of item "License.html" of container window to {450, 225}
+           set position of item "History.txt" of container window to {450, 325}
+           close
+     end tell
+   end tell
+' | osascript
+hdiutil detach "${DEVICE}"
+sleep 2
+
+# convert to compressed image, delete temp image
+rm -f "${APPNAME}_${KIND}.dmg"
+hdiutil convert "$DMG" -format UDBZ -o "${APPNAME}.dmg"
+codesign -f -s "Developer ID Application: ${SIGNATURE}" --verbose "${APPNAME}.dmg"
+rm -f "{FILES}"
+rm -f "$DMG"

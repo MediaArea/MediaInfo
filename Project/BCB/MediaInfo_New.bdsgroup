@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<PersonalityInfo>
+		<Option>
+			<Option Name="Personality">Default.Personality</Option>
+			<Option Name="ProjectType"></Option>
+			<Option Name="Version">1.0</Option>
+			<Option Name="GUID">{29914E39-A5C7-43D7-8803-30DE7190E4C0}</Option>
+		</Option>
+	</PersonalityInfo>
+	<Default.Personality>  <Projects>
+      <Projects Name="GUI_New.exe">GUI_New\GUI_New.bdsproj</Projects>
+      <Projects Name="MediaInfo_WxWidgets.exe">WxWidgets\MediaInfo_WxWidgets.bdsproj</Projects>
+      <Projects Name="Targets">GUI_New.exe MediaInfo_WxWidgets.exe</Projects>
+    </Projects>
+    <Dependencies/>
+  </Default.Personality>
+</BorlandProject>

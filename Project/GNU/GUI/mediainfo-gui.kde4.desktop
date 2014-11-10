@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Service
+Name=mediainfo-gui.desktop
+ServiceTypes=KonqPopupMenu/Plugin,audio/*,video/*,image/*,application/x-flash-video
+Actions=mediainfo-gui
+X-KDE-Priority=TopLevel
+
+[Desktop Action mediainfo-gui]
+Name=MediaInfo
+GenericName=Media Analyzer
+Exec=mediainfo-gui %u
+Icon=mediainfo

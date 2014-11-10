@@ -1,0 +1,1102 @@
+  Language_ISO639;th
+  Author_Email;ประสิทธิ์ แคภูเขียว<hs3pln@users.sourceforge.net>
+  Author_Name;ประสิทธิ์ แคภูเขียว
+  Author_OldNames;Initial translator
+  Language_Name;ไทย
+  Config_Text_ColumnSize;40
+  Config_Text_Separator; : 
+  Config_Text_NumberTag; #
+  Config_Text_FloatSeparator;.
+  Config_Text_ThousandsSeparator; 
+ audio stream1; สตรีมเสียง
+ audio stream2; สตรีมเสียง
+ audio stream3; สตรีมเสียง
+ bit1; บิต
+ bit2; บิต
+ bit3; บิต
+ bps; bps
+ Bps; Bps
+ Byte1; ไบต์
+ Byte2; ไบต์
+ Byte3; ไบต์
+ channel1; ช่อง
+ channel2; ช่อง
+ channel3; ช่อง
+ chapter1; เชฟเตอร์
+ chapter2; เชฟเตอร์
+ chapter3; เชฟเตอร์
+ chapters stream1; เชฟเตอร์สตรีม
+ chapters stream2; เชฟเตอร์สตรีม
+ chapters stream3; เชฟเตอร์สตรีม
+ character1;
+ character2;
+ character3;
+ day1; วัน
+ day2; วัน
+ day3; วัน
+ dB1;
+ dB2;
+ dB3;
+ file1; ไฟล์
+ file2; ไฟล์
+ file3; ไฟล์
+ fps1; fps
+ fps2; fps
+ fps3; fps
+ frame1;
+ frame2;
+ frame3;
+ GB; GB
+ Gb; Gb
+ Gbps; Gbps
+ GBps; GBps
+ GHz; GHz
+ GiB; GiB
+ GibiByte1; กิกะไบต์
+ GibiByte2; กิกะไบต์
+ GibiByte3; กิกะไบต์
+ GiBps; GiBps
+ GigaBit1; กิกะบิต
+ GigaBit2; กิกะบิต
+ GigaBit3; กิกะบิต
+ GigaByte1; กิกะไบต์
+ GigaByte2; กิกะไบต์
+ GigaByte3; กิกะไบต์
+ hour1; ชั่วโมง
+ hour2; ชั่วโมง
+ hour3; ชั่วโมง
+ Hz; Hz
+ image stream1; สตรีมรูปภาพ
+ image stream2; สตรีมรูปภาพ
+ image stream3; สตรีมรูปภาพ
+ KB; KB
+ Kb; Kb
+ KBps; KBps
+ Kbps; Kbps
+ KHz; KHz
+ KiB; KiB
+ KibiBit1; KibiBit
+ KibiBit2; KibiBits
+ KibiBit3; KibiBits
+ KibiByte1; KibiByte
+ KibiByte2; KibiBytes
+ KibiByte3; KibiBytes
+ KiBps; KiBps
+ KiloBit1; กิโลบิต
+ KiloBit2; กิโลบิต
+ KiloBit3; กิโลบิต
+ KiloByte1; กิโลไบต์
+ KiloByte2; กิโลไบต์
+ KiloByte3; กิโลไบต์
+ MB; MB
+ Mb; Mb
+ Mbps; Mbps
+ MBps; MebiBytes
+ MebiBit1; MebiBit
+ MebiBit2; MebiBits
+ MebiBit3; MebiBits
+ MebiByte1; MebiByte
+ MebiByte2; MebiBytes
+ MebiByte3; MebiBytes
+ MegaBit1; เมกะบิต
+ MegaBit2; เมกะบิต
+ MegaBit3; เมกะบิต
+ MegaByte1; เมกะไบต์
+ MegaByte2; เมกะไบต์
+ MegaByte3; เมกะไบต์
+ MHz; MHz
+ MiB; MiB
+ Mib; Mib
+ MiBps; MiBps
+ millisecond1; มิลลิวินาที
+ millisecond2; มิลลิวินาที
+ millisecond3; มิลลิวินาที
+ minute1; นาที
+ minute2; นาที
+ minute3; นาที
+ month1; เดือน
+ month2; เดือน
+ month3; เดือน
+ pixel1; พิกเซล
+ pixel2; พิกเซล
+ pixel3; พิกเซล
+ second1; วินาที
+ second2; วินาที
+ second3; วินาที
+ text stream1; สตรีมข้อความ
+ text stream2; สตรีมข้อความ
+ text stream3; สตรีมข้อความ
+ video frames1;
+ video frames2;
+ video frames3;
+ video stream1; สตรีมวีดีโอ
+ video stream2; สตรีมวีดีโอ
+ video stream3; สตรีมวีดีโอ
+ warppoint0;
+ warppoint1;
+ warppoint2;
+ warppoint3;
+ week1; สัปดาห์
+ week2; สัปดาห์
+ week3; สัปดาห์
+ year1; ปี
+ year2; ปี
+ year3; ปี
+, ;, 
+: ;: 
+3D;
+3DType;
+About;เกี่ยวกับ
+About_Hint;วิธีติดต่อฉันและค้นหาเวอร์ชันล่าสุด
+Accompaniment;Accompaniment
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
+Actor;นักแสดง
+Actor_Character;Character played
+Added_Date;
+Address;ที่อยู่
+Advanced;ขั้นสูง
+Advanced mode;โหมดขั้นสูง
+Album;อัลบั้ม
+Album_ReplayGain_Gain;
+Album_ReplayGain_Peak;
+Alignment;
+Alignment_Aligned;
+Alignment_Split;
+All;ทั้งหมด
+Archival_Location;Archival location
+Arranger;Arranger
+ArtDirector;ผู้กำกับศิลป์
+AspectRatio;อัตราการแสดง
+AssistantDirector;ผู้ช่วยผู้กำกับ
+at;ที่
+At least one file;(คุณต้องเปิดอย่างน้อยหนึ่งไฟล์)
+Audio;เสียง
+Audio stream(s);สตรีมเสียง
+Audio_Codec_List;codecs เสียง
+Audio_No;ไม่มีเสียง
+Audio1;สตรีมเสียงแรก
+Audio2;สตรีมเสียงที่สอง
+AudioComments;
+AudioCount;จำนวนของสตรีมเสียง
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
+Author;ผู้เขียน
+BarCode;บาร์โค้ด
+Basic;พื้นฐาน
+Basic_Note;หมายเหตุ : สำหรับข้อมูลเพิ่มเติมเกี่ยวกับไฟล์นี้, คุณต้องเลือกการแสดงแบบอื่นๆ (ชีต, Tree...)
+BitDepth;
+BitDepth_Stored;
+BitRate;บิตเรต
+BitRate_Encoded;
+BitRate_Maximum;บิตเรตสูงสุด
+BitRate_Minimum;บิตเรตต่ำสุด
+BitRate_Mode;บิตเรตโหมด
+BitRate_Mode_CBR;
+BitRate_Mode_VBR;
+BitRate_Nominal;Nominal bit rate
+Bits-(Pixel*Frame);บิต/(พิกเซล*เฟรม)
+BufferSize;
+Cancel;ยกเลิก
+Channel(s);ช่อง
+ChannelPositions;ตำแหน่งช่อง
+Chapter(s);เชฟเตอร์
+Chapters;เชฟเตอร์
+Chapters stream(s);เชฟเตอร์สตรีม
+Chapters_Codec_List;เชฟเตอร์ Codecs
+Chapters_No;ไม่มีเชฟเตอร์
+ChaptersCount;จำนวนของสตรีมเชฟเตอร์
+CheckNewVersion;ตรวจสอบรุ่นใหม่
+Choose custom;กำหนดเอง
+Choose custom sheet;เลือกชีตที่คุณต้องการ
+Choose custom text;เลือกข้อความที่คุณต้องการ
+Choose export format;เลือกรูปแบบผลลัพธ์ที่คุณต้องการ
+Choose file(s);เลือกไฟล์ที่จะเปิด
+Choose filename;เลือกชื่อไฟล์ที่คุณต้องการ
+Choose language;เลือกภาษาที่คุณต้องการ
+Choregrapher;Choregrapher
+Chroma;Chroma
+ChromaSubsampling;
+Close;ปิด
+Close all before open;ปิดทั้งหมดก่อนเปิด
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
+Codec;Codec
+Codec_Description;รายละเอียด Codec
+Codec_Info;รายละเอียดของ codec
+Codec_Profile;Codec โพรไฟล์
+Codec_Settings;ตั้งค่า Codec
+Codec_Settings_BVOP;ตั้งค่า Codec, BVOP
+Codec_Settings_CABAC;ตั้งค่า Codec, CABAC
+Codec_Settings_Endianness;ตั้งค่า Codec, Endianness
+Codec_Settings_Firm;ตั้งค่า Codec, Firm
+Codec_Settings_Floor;ตั้งค่า Codec, Floor
+Codec_Settings_GMC;ตั้งค่า Codec, GMC
+Codec_Settings_ITU;ตั้งค่า Codec, ITU
+Codec_Settings_Law;ตั้งค่า Codec, Law
+Codec_Settings_Matrix;ตั้งค่า Codec, Matrix
+Codec_Settings_PacketBitStream;ตั้งค่า Codec, Packet bitstream
+Codec_Settings_QPel;ตั้งค่า Codec, QPel
+Codec_Settings_Sign;ตั้งค่า Codec, Sign
+Codec_Url;เว็บลิงค์ของ codec
+CodecID;รหัสประจำตัว Codec
+CodecID_Description;
+CoDirector;
+Collection;Collection
+Colorimetry;
+ColorSpace;
+colour_primaries;
+colour_range;
+Comment;คอมเมนต์
+CommissionedBy;Commissioned by
+Compilation;
+CompleteName;ชื่อเต็ม
+CompletionDate;
+Composer;ผู้เรียบเรียง
+Compression_Mode;
+Compression_Mode_Lossless;
+Compression_Mode_Lossy;
+Compression_Ratio;
+Conductor;ผู้อำนวยเพลง
+ContactEmail;
+ContactTelephoneNumber;
+Container and general information;ตัวบรรจุและข้อมูลทั่วไป
+ContentType;ชนิดที่บรรจุ
+CoProducer;ผู้อำนวยการสร้างร่วม
+Copyright;ลิขสิทธิ์
+CopyrightYear;
+CostumeDesigner;ผู้ออกแบบเครื่องแต่งกาย
+Count;Count
+Country;ประเทศ
+Cover;Cover
+Cover_Datas;Cover datas
+Cover_Description;
+Cover_Mime;
+Cover_Type;
+Cropped;
+Custom;กำหนดเอง
+Customize;กำหนดเอง
+Date;วันที่
+Debug;ดีบั๊ก
+Decimal point;จุดทศนิยม
+Delay;Delay
+Delay_Source;
+Delay_Source_Container;
+Delay_Source_Stream;
+Delete;ลบ
+Description;รายละเอียด
+Digitized_Date;Digitized date
+Dimensions;
+Director;ผู้กำกับการแสดง
+DirectorOfPhotography;ผู้กำกับการถ่ายภาพ
+DisplayAspectRatio;อัตราการแสดงผล
+DisplayAspectRatio_Original;
+DistributedBy;เผยแพร่โดย
+Distributor;
+Donate;บริจาค
+DotsPerInch;
+Duration;ระยะเวลา
+Duration_End;
+Duration_Start;
+Edit;แก้ไข
+EditedBy;แก้ไขโดย
+EMail;อี-เมลล์
+Encoded_Application;Writing application
+Encoded_Date;วันที่เข้ารหัส
+Encoded_Library;การเขียนไลบรารี
+Encoded_Library_Settings;ตั้งค่าการเข้ารหัส
+Encoded_Original;ต้นฉบับ
+EncodedBy;เข้ารหัสโดย
+EPG_Positions;
+EpisodeTitleNumber;
+Error_File;เกิดข้อผิดพลาดขณะที่กำลังไฟล์
+ExecutiveProducer;Executive producer
+Exit;ออก
+Exit_Hint;ออกจากโปรแกรม
+Export;ส่งออก
+Export_Hint;ส่งออกในรูปแบบที่กำหนดเอง
+Extensions;
+Family;Family
+Fax;แฟ็ก
+File;แฟ้ม
+File size;ขนาดไฟล์
+File_Append;เพิ่มเติมไปยังไฟล์ที่มีอยู่ (คำเตือน : โปรดระมัดระวังเมื่อมีตัวแปรเดียวกัน)
+File_Created_Date;วันที่สร้างไฟล์
+File_Created_Date_Local;
+File_Hint;เลือกไฟล์มัลติมีเดียเพื่อเรียนรู้
+File_Modified_Date;วันที่แก้ไขไฟล์ล่าสุด
+File_Modified_Date_Local;
+FileExtension;ชนิดไฟล์
+FileName;ชื่อไฟล์
+FileSize;ขนาดไฟล์
+Folder;โฟลเดอร์
+Folder (R);โฟลเดอร์ (R)
+Folder (R)_Hint;เลือกโฟลเดอร์เพื่อเรียนรู้ (พร้อมทั้งโฟลเดอร์ย่อยทั้งหมด)
+Folder (Recursively);โฟลเดอร์ (Recursively)
+Folder_Hint;เลือกโฟลเดอร์เพื่อเรียนรู้
+FolderName;ชื่อโฟลเดอร์
+Format;รูปแบบ
+Format_Commercial;
+Format_Commercial_IfAny;
+Format_Description;รายละเอียดของรูปแบบ
+Format_Info;ข้อมูลของรูปแบบ
+Format_Profile;โพรไฟล์รูปแบบ
+Format_Settings;ตั้งค่ารูปแบบ
+Format_Settings_BVOP;ตั้งค่ารูปแบบ, BVOP
+Format_Settings_CABAC;ตั้งค่ารูปแบบ, CABAC
+Format_Settings_Emphasis;
+Format_Settings_Endianness;ตั้งค่ารูปแบบ, Endianness
+Format_Settings_Firm;ตั้งค่ารูปแบบ, Firm
+Format_Settings_Floor;ตั้งค่ารูปแบบ, Floor
+Format_Settings_FrameMode;
+Format_Settings_GMC;ตั้งค่ารูปแบบ, GMC
+Format_Settings_GOP;
+Format_Settings_ITU;ตั้งค่ารูปแบบ, ITU
+Format_Settings_Law;ตั้งค่ารูปแบบ, Law
+Format_Settings_Matrix;ตั้งค่ารูปแบบ, Matrix
+Format_Settings_Matrix_Custom;
+Format_Settings_Matrix_Default;
+Format_Settings_Mode;
+Format_Settings_ModeExtension;
+Format_Settings_PacketBitStream;ตั้งค่ารูปแบบ, พ็อกเก็ตบิตสตรีม
+Format_Settings_PictureStructure;
+Format_Settings_PS;ตั้งค่ารูปแบบ, PS
+Format_Settings_Pulldown;ตั้งค่ารูปแบบ, Pulldown
+Format_Settings_QPel;ตั้งค่ารูปแบบ, QPel
+Format_Settings_RefFrames;ตั้งค่ารูปแบบ, RefFrames
+Format_Settings_SBR;ตั้งค่ารูปแบบ, SBR
+Format_Settings_Sign;ตั้งค่ารูปแบบ, Sign
+Format_Settings_Wrapping;
+Format_Url;
+Format_Version;เวอร์ชันรูปแบบ
+FpaManufacturer;
+FpaPass;
+FpaVersion;
+FrameCount;
+FrameRate;เฟรมเรต
+FrameRate_Maximum;เฟรมเรตสูงสุด
+FrameRate_Minimum;เฟรมเรตต่ำสุด
+FrameRate_Mode;เฟรมเรตโหมด
+FrameRate_Mode_CFR;
+FrameRate_Mode_VFR;
+FrameRate_Nominal;เฟรมเรต Nominal
+FrameRate_Original;เฟรมเรตต้นฉบับ
+General;ทั่วไป
+Genre;แนวเพลง
+Genre_000;บลู
+Genre_001;คลาสสิคร็อค
+Genre_002;คันทรี
+Genre_003;แดนซ์
+Genre_004;ดิสโก้
+Genre_005;ฟังค์
+Genre_006;Grunge
+Genre_007;ฮิบ-ฮอบ
+Genre_008;แจ๊ส
+Genre_009;เมทอล
+Genre_010;New Age
+Genre_011;Oldies
+Genre_012;อื่นๆ
+Genre_013;ป๊อบ
+Genre_014;R&B
+Genre_015;แร๊ป
+Genre_016;เร็กเก้
+Genre_017;ร็อค
+Genre_018;เทคโน
+Genre_019;Industrial
+Genre_020;อัลเทอร์เนทีฟ
+Genre_021;Ska
+Genre_022;เด็ทเมทอล
+Genre_023;Pranks
+Genre_024;Soundtrack
+Genre_025;ยูโร-เทคโน
+Genre_026;Ambient
+Genre_027;Trip-Hop
+Genre_028;Vocal
+Genre_029;แจ๊ส+ฟังค์
+Genre_030;Fusion
+Genre_031;Trance
+Genre_032;คลาสสิค
+Genre_033;Instrumental
+Genre_034;Acid
+Genre_035;House
+Genre_036;เกม
+Genre_037;คลิปเสียง
+Genre_038;Gospel
+Genre_039;Noise
+Genre_040;AlternRock
+Genre_041;Bass
+Genre_042;Soul
+Genre_043;Punk
+Genre_044;Space
+Genre_045;Meditative
+Genre_046;Instrumental Pop
+Genre_047;Instrumental Rock
+Genre_048;Ethnic
+Genre_049;Gothic
+Genre_050;Darkwave
+Genre_051;Techno-Industrial
+Genre_052;อิเล็กทรอนิกส์
+Genre_053;ป๊อบ-โฟล์ค
+Genre_054;Eurodance
+Genre_055;Dream
+Genre_056;Southern Rock
+Genre_057;Comedy
+Genre_058;Cult
+Genre_059;Gangsta
+Genre_060;Top 40
+Genre_061;คริสเตียนแร็ป
+Genre_062;ป๊อบ/ฟังค์
+Genre_063;Jungle
+Genre_064;Native American
+Genre_065;คาบาเรต์
+Genre_066;New Wave
+Genre_067;Psychadelic
+Genre_068;แร็ฟ
+Genre_069;Showtunes
+Genre_070;Trailer
+Genre_071;Lo-Fi
+Genre_072;Tribal
+Genre_073;Acid Punk
+Genre_074;Acid Jazz
+Genre_075;Polka
+Genre_076;Retro
+Genre_077;Musical
+Genre_078;ร็อค & โรล
+Genre_079;ฮาร์ดร็อค
+Genre_080;โฟล์ค
+Genre_081;โฟล์ค-ร็อค
+Genre_082;National Folk
+Genre_083;Swing
+Genre_084;Fast Fusion
+Genre_085;Bebob
+Genre_086;ลาติน
+Genre_087;Revival
+Genre_088;Celtic
+Genre_089;Bluegrass
+Genre_090;Avantgarde
+Genre_091;Gothic Rock
+Genre_092;Progressive Rock
+Genre_093;Psychedelic Rock
+Genre_094;Symphonic Rock
+Genre_095;Slow Rock
+Genre_096;Big Band
+Genre_097;ลูกคู่
+Genre_098;Easy Listening
+Genre_099;Acoustic
+Genre_100;Humour
+Genre_101;Speech
+Genre_102;Chanson
+Genre_103;โอเปร่า
+Genre_104;Chamber Music
+Genre_105;Sonata
+Genre_106;ซิมโฟนี
+Genre_107;Booty Bass
+Genre_108;Primus
+Genre_109;Porn Groove
+Genre_110;Satire
+Genre_111;Slow Jam
+Genre_112;Club
+Genre_113;แทงโก
+Genre_114;แซมบา
+Genre_115;โฟลโคเร
+Genre_116;Ballad
+Genre_117;Power Ballad
+Genre_118;Rhythmic Soul
+Genre_119;ฟรีสไตล์
+Genre_120;Duet
+Genre_121;พังค์ร็อค
+Genre_122;Drum Solo
+Genre_123;อะ คัปเปลา
+Genre_124;Euro-House
+Genre_125;Dance Hall
+Genre_126;Goa
+Genre_127;Drum & Bass
+Genre_128;Club-House
+Genre_129;ฮาร์ดคอร์
+Genre_130;Terror
+Genre_131;อินดี้
+Genre_132;Britpop
+Genre_133;Negerpunk
+Genre_134;Polsk Punk
+Genre_135;Beat
+Genre_136;Christian Gangsta Rap
+Genre_137;เฮวี เมทอล
+Genre_138;Black Metal
+Genre_139;Crossover
+Genre_140;Contemporary Christian
+Genre_141;คริสเตียนร็อค
+Genre_142;Merengue
+Genre_143;Salsa
+Genre_144;Trash Metal
+Genre_145;Anime
+Genre_146;เจป๊อบ
+Genre_147;Synthpop
+Genre_148;
+Genre_149;
+Genre_150;
+Genre_151;
+Genre_152;
+Genre_153;
+Genre_154;
+Genre_155;
+Genre_156;
+Genre_157;
+Genre_158;
+Genre_159;
+Genre_160;
+Genre_161;
+Genre_162;
+Genre_163;
+Genre_164;
+Genre_165;
+Genre_166;
+Genre_167;
+Genre_168;
+Genre_169;
+Genre_170;
+Genre_171;
+Genre_172;
+Genre_173;
+Genre_174;
+Genre_175;
+Genre_176;
+Genre_177;
+Genre_178;
+Genre_179;
+Genre_180;
+Genre_181;
+Genre_182;
+Genre_183;
+Genre_184;
+Genre_185;
+Genre_186;
+Genre_187;
+Genre_188;
+Genre_189;
+Genre_190;
+Genre_191;
+Go to WebSite;ไปที่เว็บไซต์
+Grouping;
+Gop_OpenClosed;
+Gop_OpenClosed_Open;
+Gop_OpenClosed_Closed;
+Gop_OpenClosed_FirstFrame;
+h;h
+Header file;สร้างไฟล์ header
+Height;ความสูง
+Height_Original;
+Help;ช่วยเหลือ
+Hint;คำแนะนำ
+How many audio streams?;มีจำนวนสตรีมเสียงเท่าไหร่?
+How many chapters streams?;มีจำนวนเชฟเตอร์สตรีมเท่าไหร่?
+How many text streams?;มีจำนวนสตรีมข้อความเท่าไหร่?
+How many video streams?;มีจำนวนสตรีมวีดีโอเท่าไหร่?
+HTML;HTML
+ID;ID
+IdentClockStart;
+Image;ภาพ
+Image stream(s);สตรีมรูปภาพ
+Image_Codec_List;Codecs รูปภาพ
+ImageCount;จำนวนของสตรีมภาพ
+Info;ข้อมูล
+Instruments;Instruments
+Interlaced_BFF;ช่องล่างก่อน
+Interlaced_Interlaced;Interlaced
+Interlaced_PPF;Progressive
+Interlaced_Progressive;Progressive
+Interlaced_TFF;ช่องบนสุดก่อน
+Interlacement;Interlacement
+Interleave_Duration;
+Interleave_Preload;
+Interleave_VideoFrames;
+Interleaved;
+InternetMediaType;
+IRCA;IRCA
+ISBN;ISBN
+ISRC;ISRC
+Keywords;คีย์เวิร์ด
+Known codecs;codecs ที่รู้จัก
+Known formats;รูปแบบที่รู้จัก
+Known parameters;พารามิเตอร์ที่รู้จัก
+Label;ป้ายชื่อ
+Language;ภาษา
+Language_aa;Afar
+Language_ab;Abkhazian
+Language_ae;Avestan
+Language_af;แอฟริกา
+Language_ak;Akan
+Language_am;อัมฮาริค
+Language_an;Aragonese
+Language_ar;อาหรับ
+Language_as;อัสสมี
+Language_av;Avaric
+Language_ay;Aymara
+Language_az;Azerbaijani
+Language_ba;Bashkir
+Language_be;เบลารูเชียน
+Language_bg;บัลแกเรีย
+Language_bh;พิหาร
+Language_bi;Bislama
+Language_bm;Bambara
+Language_bn;เบงกอล
+Language_bo;ทิเบต
+Language_br;Breton
+Language_bs;บอซเนีย
+Language_ca;คาตะลาน
+Language_ce;Chechen
+Language_ch;Chamorro
+Language_co;คอร์ซิกา
+Language_cr;Cree
+Language_cs;เช็ก
+Language_cu;Slave
+Language_cv;Chuvash
+Language_cy;เวลส์
+Language_da;เดนมาร์ก
+Language_de;เยอรมัน
+Language_dv;Divehi
+Language_dz;Dzongkha
+Language_ee;Ewe
+Language_el;กรีก
+Language_en;อังกฤษ
+Language_en-gb;
+Language_en-us;
+Language_eo;Esperanto
+Language_es;สเปน
+Language_et;เอสโตเนีย
+Language_eu;แบ็ซค์
+Language_fa;เปอร์เซีย
+Language_ff;Fulah
+Language_fi;ฟินแลนด์
+Language_fj;ฟิจิ
+Language_fo;แฟโร
+Language_fr;ฝรั่งเศส
+Language_fy;Frisian
+Language_ga;ไอริช
+Language_gd;Gaelic
+Language_gl;กาลิเชียน
+Language_gn;Guarani
+Language_gu;คุชราตี
+Language_gv;Manx
+Language_ha;Hausa
+Language_he;ฮิบรู
+Language_hi;ฮินดี
+Language_ho;Hiri Motu
+Language_hr;โครเอเชีย
+Language_ht;Haitian
+Language_hu;ฮังการี
+Language_hy;อาร์เมเนียน
+Language_hz;Herero
+Language_ia;Auxiliary Language Association
+Language_id;อินโดนีเซีย
+Language_ie;Interlingue
+Language_ig;Igbo
+Language_ii;Sichuan Yi
+Language_ik;Inupiaq
+Language_Info;ข้อมูลภาษา
+Language_io;Ido
+Language_is;ไอซ์แลนด์
+Language_it;อิตาลี
+Language_iu;Inuktitut
+Language_ja;ญี่ปุ่น
+Language_jv;Javanese
+Language_ka;จอร์เจีย
+Language_kg;คองโก
+Language_ki;Kikuyu
+Language_kj;Kuanyama
+Language_kk;Kazakh
+Language_kl;Kalaallisut
+Language_km;เขมร
+Language_kn;กัณณาท
+Language_ko;เกาหลี
+Language_kr;Kanuri
+Language_ks;กัศมีรี
+Language_ku;Kurdish
+Language_kv;Komi
+Language_kw;Cornish
+Language_ky;Kirghiz
+Language_la;Latin
+Language_lb;Luxembourgish
+Language_lg;Ganda
+Language_li;Limburgish
+Language_ln;Lingala
+Language_lo;ลาว
+Language_lt;ลิทัวเนีย
+Language_lu;Luba-Katanga
+Language_lv;ลัตเวีย
+Language_mg;Malagasy
+Language_mh;มาร์แชล
+Language_mi;เมารี
+Language_mk;มาซิโดเนีย
+Language_ml;มะละยาลัม
+Language_mn;มองโกเลีย
+Language_mo;มอลเดเวีย
+Language_More;
+Language_mr;มาราฐี
+Language_ms;มาเลย์
+Language_mt;มัลตีส
+Language_mul;Multiple languages
+Language_my;พม่า
+Language_na;นาอูรู
+Language_nb;Norwegian Bokmal
+Language_nd;Ndebele
+Language_ne;เนปาล
+Language_ng;Ndonga
+Language_nl;ดัทช์
+Language_nn;Norwegian Nynorsk
+Language_no;Norwegian
+Language_nr;Ndebele
+Language_nv;Navaho
+Language_ny;Nyanja
+Language_oc;ออกซิตัน
+Language_oj;Ojibwa
+Language_om;Oromo
+Language_or;โอริยา
+Language_os;Ossetic
+Language_pa;ปันจาบ
+Language_pi;บาลี
+Language_pl;โปแลนด์
+Language_ps;Pushto
+Language_pt;โปรตุเกส
+Language_pt-br;
+Language_qu;Quechua
+Language_rm;Raeto-Romance
+Language_rn;Rundi
+Language_ro;โรมาเนีย
+Language_ru;รัสเซีย
+Language_rw;Kinyarwanda
+Language_sa;สันสกฤต
+Language_sc;ซาร์ดิเนีย
+Language_sd;สินธี
+Language_se;Northern Sami
+Language_sg;Sango
+Language_si;สิงหล
+Language_sk;สโลวะเกีย
+Language_sl;สโลเวเนียน
+Language_sm;ซามัว
+Language_sn;Shona
+Language_so;โซมาเลีย
+Language_sq;อัลบาเนียน
+Language_sr;เซอร์เบียน
+Language_ss;Swati
+Language_st;Sotho
+Language_su;ซุนดา
+Language_sv;สวีเดน
+Language_sw;สวาฮีลี
+Language_ta;ทมิฬ
+Language_te;เตลุคู
+Language_tg;Tajik
+Language_th;ไทย
+Language_ti;ทีกรินยา
+Language_tk;เติร์กเมนิสถาน
+Language_tl;ตากาลอค
+Language_tn;Tswana
+Language_to;ตองกา
+Language_tr;ตุรกี
+Language_ts;Tsonga
+Language_tt;Tatar
+Language_tw;Twi
+Language_ty;ตาฮิติ
+Language_ug;Uighur
+Language_uk;ยูเครน
+Language_ur;อูรดู
+Language_uz;อุบเบกิสถาน
+Language_ve;เวนดา
+Language_vi;เวียดนาม
+Language_vo;Volapuk
+Language_wa;Walloon
+Language_wo;Wolof
+Language_xh;Xhosa
+Language_yi;Yiddish
+Language_yo;Yoruba
+Language_za;Zhuang
+Language_zh;จีน
+Language_zh-cn;
+Language_zh-tw;
+Language_zu;ซูลู
+LawRating;Law rating
+LCCN;LCCN
+Library;Muxing library
+Lightness;
+LineUpStart;
+List;รายการ
+Lyricist;Lyricist
+Lyrics;
+Mastered_Date;Mastered date
+MasteredBy;Mastered by
+Matrix_Channel(s);
+Matrix_ChannelPositions;
+matrix_coefficients;
+Matrix_Format;
+MediaInfo_About;แสดงข้อมูลอย่างละเอียด\r\nของไฟล์มัลติมีเดีย:\r\nMatroska, OGG (รวมทั้ง OGM)\r\nMPEG1 (รวมทั้ง VCD)\r\nMPEG2 (รวมทั้ง DVD และ SVCD)\r\nMPEG4 (รวมทั้ง Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (รวมทั้ง WMV, WMA)\r\nMicrosoft RIFF (รวมทั้ง AVI, WAV)\r\nรูปแบบเสียงอย่างเดียว (AC3, DTS, AAC, AU, AIFF...)
+Menu;เมนู
+Menu stream(s);สตรีมเมนู
+Menu_Codec_List;codecs เมนู
+Menu_Hint;More possibilities
+Menu_No;ไม่มีเมนู
+MenuCount;จำนวนของสตรีมเมนู
+MenuID;รหัสประจำตัวเมนู
+mn;mn
+Mood;Mood
+More;เพิ่มเติม
+Movie;ชื่อภาพยนตร์
+ms;ms
+MSDI;MSDI
+MusicBy;
+MuxingMode;โหมด Muxing
+MuxingMode_MoreInfo;
+MuxingMode_PackedBitstream;
+Name;ชื่อ
+Nationality;Nationality
+NetworkName;
+New;ใหม่
+Newest version;ตรวจสอบเวอร์ชันใหม่ล่าสุด (ต้องการการเชื่อมต่ออินเตอร์เน็ต)
+NewVersion_Menu;
+NewVersion_Question_Content;
+NewVersion_Question_Title;
+No;ไม่ใช่
+Not yet;
+NumColors;
+OK;ตกลง
+One output file per input file;หนึ่งไฟล์ผลลัพธ์ต่อไฟล์นำเข้า
+Open;เปิด
+OpenCandy_01;
+OpenCandy_02;
+OpenCandy_03;
+OpenCandy_04;
+OpenCandy_05;
+OpenCandy_06;
+OpenCandy_07;
+OpenCandy_08;
+OpenCandy_09;
+OpenCandy_10;
+OpenCandy_11;
+OpenCandy_12;
+OpenCandy_13;
+OpenCandy_14;
+OpenCandy_15;
+OpenCandy_16;
+OpenCandy_17;
+OpenCandy_18;
+OpenCandy_19;
+OpenCandy_20;
+OpenCandy_21;
+OpenCandy_22;
+OpenCandy_23;
+OpenCandy_24;
+OpenCandy_25;
+OpenCandy_26;
+OpenCandy_27;
+OpenCandy_28;
+OpenCandy_29;
+OpenCandy_30;
+OpenCandy_31;
+OpenCandy_32;
+OpenCandy_33;
+OpenCandy_34;
+OpenCandy_35;
+OpenCandy_36;
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
+Options;ตัวเลือก
+Options_Hint;การปรับแต่ง
+Original;ต้นฉบับ
+OriginalNetworkName;
+OriginalSourceForm;
+OriginalSourceMedium;
+Originator;
+Other;อื่นๆ
+OtherIdentifier;
+OtherIdentifierType;
+Output;ผลลัพธ์
+Output format;รูปแบบผลลัพธ์
+OverallBitRate;บิตเรตทั้งหมด
+OverallBitRate_Maximum;บิตเรตทั้งหมดสูงสุด
+OverallBitRate_Minimum;บิตเรตทั้งหมดต่ำสุด
+OverallBitRate_Mode;โหมดบิตเรตทั้งหมด
+OverallBitRate_Nominal;บิตเรต Nominal ทั้งหมด
+Part;ส่วน
+Part_Count;Total count
+PartNumber;
+PartTotal;
+Performer;Performer
+Period;Period
+Phone;โทรศัพท์
+PictureRatio;
+PixelAspectRatio;Pixel Aspect Ratio
+PixelAspectRatio_Original;Pixel Aspect Ratio
+PlayCounter;PlayCounter
+Played_Count;
+Played_First_Date;
+Played_Last_Date;
+PlayTime;เวลาเล่น
+Position;ตำแหน่ง
+Position_Total;ทั้งหมด
+Preferences;การปรับแต่ง
+PrimaryAudioLanguage;
+Producer;โพรดิวเซอร์
+ProductionDesigner;ผู้ออกแบบการแสดง
+ProductionNumber;
+ProductionStudio;ProductionStudio
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
+Publisher;ผู้เผยแพร่
+Purchased_Date;purchased date
+Quote character;Quote character
+RadioStation;สถานีวิทยุ
+Rating;เรตติ้ง
+Recorded_Date;วันที่บันทึก
+Recorded_Location;Recorded location
+Released_Date;Released date
+RemixedBy;รีมิกซ์โดย
+ReplayGain_Gain;
+ReplayGain_Peak;
+Resolution;ความละเอียด
+s;s
+SamplingCount;
+SamplingRate;
+Save;บันทึก
+ScanOrder;
+ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
+ScanType;
+ScanType_Original;
+ScanType_StoreMethod;
+ScreenplayBy;Screenplay by
+Season;Season
+SecondaryAudioLanguage;
+see below;ดูด้านล่าง
+Send HeaderFile;โปรดส่งไฟล์ Header (หัวข้อ)ให้ฉันที่นี่ : http://sourceforge.net/projects/mediainfo/ (Bug section)
+Separator_Columns;ตัวแยกคอลัมน์
+Separator_Lines;ตัวแยกบรรทัด
+SerieTitle;
+ServiceChannel;
+ServiceName;
+ServiceProvider;
+ServiceType;
+Set;กำหนด
+Set_Count;Set count
+Setup;ติดตั้ง
+Sharpness;
+Sheet;ชีต
+Sheet (Complete);Sheet (Complete)
+Shell extension;ลงทะเบียนชนิดไฟล์ (เมื่อคลิกขวาใน explorer จะแสดงตัวเลือกของ Media)
+Shell extension, folder;
+Shell InfoTip;ข้อมูลเคล็บลับ Shell (ใน explorer, เมื่อชี้เม้าท์ที่ไฟล์, จะแสดงข้อมูลไฟล์)
+ShimName;
+ShimVersion;
+Show menu;แสดงเมนู
+Show toolbar;แสดงแถบเครื่องมือ
+SigningPresent;
+SignLanguage;
+Sort;จัดเรียงโดย
+SoundEngineer;ซาวน์เอนจิเนียร์
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_SamplingCount;
+Source_StreamSize;
+Source_StreamSize_Encoded;
+Standard;มาตรฐาน
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
+Stream;สตรีม
+Stream_MoreInfo;ข้อมูลเพิ่มเติมเกี่ยวกับสตรีม
+StreamCount;จำนวนสตรีมของชนิดนี้
+StreamID;รหัสประจำตัวสตรีม
+StreamKind;ชนิดของสตรีม
+StreamKindID;
+StreamKindPos;
+StreamSize;ขนาดสตรีม
+StreamSize_Encoded;
+StreamSize_Proportion;
+Subject;Subject
+SubTrack;แทร็กย่อย
+Summary;สรุป
+Supported formats;รูปแบบที่สนับสนุน
+Supported?;สนับสนุนแล้ว?
+Synopsis;Synopsis
+SystemId;Id
+Tagged_Application;tagging application
+Tagged_Date;Tagged date
+Technician;Technician
+TermsOfUse;ข้อตกลงการใช้
+TertiaryAudioLanguage;
+Text;ข้อความ
+Text - Custom;Text - Custom
+Text (HTML);ข้อความ (HTML)
+Text stream(s);สตรีมข้อความ
+Text streams;สตรีมข้อความ
+Text_Codec_List;codecs ข้อความ
+Text_No;ไม่มีข้อความ
+Text1;ข้อความสตรีมแรก
+Text2;ข้อความสตรีมที่สอง
+Text3;ข้อความสตรีมที่สาม
+TextCount;จำนวนของสตรีมข้อความ
+TextlessElementsExist;
+ThanksTo;ขอขอบคุณ
+Thousands separator;ตัวแบ่งหลักพัน
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeCode_Striped;
+TimeStamp;
+TimeZone;
+Title;ชื่อเรื่อง
+Title_More;ชื่อเรื่อง, ข้อมูลเพิ่มเติม
+Total;ทั้งหมด
+TotalNumberOfParts;
+TotalProgrammeDuration;
+Track;ชื่อแทร็ค
+Track_Count;Track count
+transfer_characteristics;
+Translator;แปลไทยโดย
+Tree;Tree
+Tree & Text;Tree & Text
+Type;
+UniqueID;
+Unknown;ไม่รู้จัก
+Url;Url
+Video;วีดีโอ
+Video stream(s);สตรีมวีดีโอ
+Video_Codec_List;Codecs วีดีโอ
+Video_Delay;Video delay
+Video_No;ไม่มีวีดีโอ
+Video0_Delay;Video0 delay
+Video1;สตรีมวีดีโอแรก
+VideoComments;
+VideoCount;จำนวนของสตรีมวีดีโอ
+View;มุมมอง
+View_Hint;เปลี่ยนรูปแบบของการแสดงข้อมูล
+Warning : more streams in the files;คำเตือน : มีหลายสตรีมในไฟล์
+Web;เว็บ
+WebSite_Audio;ไปที่เว็บไซต์ของ audio codec นี้
+WebSite_Audio_More;ไปที่เว็บไซต์ (%Url%) เพื่อค้นหา audio codec นี้
+WebSite_General;ไปที่เว็บไซต์ของตัวเล่นไฟล์นี้
+WebSite_General_More;ไปที่เว็บไซต์ของตัวเล่นไฟล์นี้
+WebSite_Text;ไปที่เว็บไซต์เพื่อค้นหาของ text codec นี้
+WebSite_Text_More;ไปที่เว็บไซต์ (%Url%) เพื่อค้นหา text codec นี้
+WebSite_Url;http://MediaArea.net/MediaInfo
+WebSite_Video;ไปที่เว็บไซต์ของ video codec นี้
+WebSite_Video_More;ไปที่เว็บไซต์ (%Url%) เพื่อค้นหา video codec นี้
+Width;Width
+Width_Original;
+WriteMe;เขียนถึงฉัน
+WriteToTranslator;เขียนถึงผู้แปล
+Written_Date;วันที่เขียน
+Written_Location;สถานที่เขียน
+WrittenBy;เขียนโดย
+Yes;ใช่
+Your system;ระบบของคุณ
+ZZ_Automatic_Percent;74
+ZZ_AutomaticLanguage_Percent;82
