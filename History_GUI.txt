@@ -13,6 +13,10 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.72
+--------------
+x Launchpad #1277299: mediainfo-gui.desktop should have a populated MimeType= line for use in unity launcher, thanks to Doug McMahon
+
 Version 0.7.71, 2014-11-09
 --------------
 + AS-11 (Core, Segmentation, UK DPP items) display
