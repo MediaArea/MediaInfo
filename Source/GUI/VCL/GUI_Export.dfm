@@ -488,6 +488,23 @@ object ExportF: TExportF
           OnClick = Export_EBUCore_1_5_SideCarClick
         end
       end
+      object Export_EBUCore_1_6: TTabSheet
+        Caption = 'EBUCore 1.6'
+        ImageIndex = 9
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
+        object Export_EBUCore_1_6_SideCar: TCheckBox
+          Left = 0
+          Top = 9
+          Width = 597
+          Height = 18
+          Caption = 'Sidecar file (filename.EBUCore.xml)'
+          TabOrder = 0
+          OnClick = Export_EBUCore_1_6_SideCarClick
+        end
+      end
       object Export_reVTMD: TTabSheet
         Caption = 'reVTMD'
         ExplicitLeft = 0

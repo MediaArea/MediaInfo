@@ -184,6 +184,7 @@ __published:    // IDE-managed Components
     TMenuItem *M_View_PBCore;
     TMenuItem *M_View_PBCore2;
     TMenuItem *M_View_EBUCore_1_5;
+    TMenuItem *M_View_EBUCore_1_6;
     TMenuItem *M_Digimetrics;
     TToolButton *Tool_Digimetrics;
     TMenuItem *M_View_reVTMD;
@@ -192,6 +193,7 @@ __published:    // IDE-managed Components
     TMenuItem *ToolBar_View_PBCore;
     TMenuItem *ToolBar_View_PBCore2;
     TMenuItem *ToolBar_View_EBUCore_1_5;
+    TMenuItem *ToolBar_View_EBUCore_1_6;
     TMenuItem *ToolBar_View_reVTMD;
     void __fastcall FormResize(TObject *Sender);
     void __fastcall M_Help_AboutClick(TObject *Sender);
@@ -250,6 +252,7 @@ __published:    // IDE-managed Components
     void __fastcall M_View_PBCoreClick(TObject *Sender);
     void __fastcall M_View_PBCore2Click(TObject *Sender);
     void __fastcall M_View_EBUCore_1_5Click(TObject *Sender);
+    void __fastcall M_View_EBUCore_1_6Click(TObject *Sender);
     void __fastcall M_View_XMLClick(TObject *Sender);
     void __fastcall M_DigimetricsClick(TObject *Sender);
     void __fastcall M_View_reVTMDClick(TObject *Sender);
