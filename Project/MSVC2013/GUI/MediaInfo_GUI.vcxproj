@@ -127,6 +127,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DisableSpecificWarnings>4100;4996;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>../../../../wx/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -172,6 +173,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DisableSpecificWarnings>4100;4996;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>../../../../wx/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -197,6 +199,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <OmitFramePointers>true</OmitFramePointers>
       <DisableSpecificWarnings>4100;4996;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>../../../../wx/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -250,6 +253,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <DisableSpecificWarnings>4100;4996;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>../../../../wx/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
