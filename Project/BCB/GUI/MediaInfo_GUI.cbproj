@@ -42,7 +42,7 @@
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
 			<Defines>MEDIAINFO_DLL_STATIC;$(Defines)</Defines>
-			<VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=0.7.71.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=;Comments=</VerInfo_Keys>
+			<VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=0.7.72.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=;Comments=</VerInfo_Keys>
 			<Manifest_File>None</Manifest_File>
 			<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
 			<VerInfo_MinorVer>7</VerInfo_MinorVer>
@@ -102,8 +102,9 @@
 			<TASM_Debugging>None</TASM_Debugging>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+			<VerInfo_Release>72</VerInfo_Release>
 			<LinkPackageStatics>rtl.lib;vcl.lib;bcbie.lib</LinkPackageStatics>
-			<VerInfo_Keys>CompanyName=MediaArea.net;FileDescription=Convenient unified display of the most relevant technical and tag data for video and audio files;FileVersion=0.7.71.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=MediaInfo;ProductVersion=0.7.71.0;Comments=</VerInfo_Keys>
+			<VerInfo_Keys>CompanyName=MediaArea.net;FileDescription=Convenient unified display of the most relevant technical and tag data for video and audio files;FileVersion=0.7.72.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=MediaInfo;ProductVersion=0.7.72.0;Comments=</VerInfo_Keys>
 			<Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
 		</PropertyGroup>
 		<ItemGroup>

@@ -13,11 +13,28 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
-Version 0.7.72
+Version 0.7.72, 2015-01-
 --------------
++ MXF: MXF version (e.g. "1.3")
++ Option "File_IsImageSequence" for being able to skip frames in a sequence of files.
++ EBUCore: EBUCore 1.6 draft output, sponsored by EBU
++ EBUCore: AS-11 to EBUCore mapping, sponsored by EBU
++ EBUCore: more technicalAttributes, sponsored by EBU
++ MXF Acquisition Metadata (RDD-18, EBU Tech 3349) basic support
 x Launchpad #1277299: mediainfo-gui.desktop should have a populated MimeType= line for use in unity launcher, thanks to Doug McMahon
+x EBUCore: time code tracks moved to their own "format" block
+x EBUCore: audioTrackConfiguration removed (not the expected behavior)
+x EBUCore: OverallBitRate information changed from technicalAttributeString to technicalAttributeInteger
+x OP-47/SDP/Teletext: some streams were not detected
+x Previous version was built with SSE2 instructions, switching back to SSE instructions
+x AVC: infinite loop fix
+x AVC: trying to avoid the wrong detection of AVC in the case of invalid (e.g. encrypted) streams
+x Crash on Windows Vista and Win7 pre-SP1 and a CPU having FMA support, due to a bug in MSVC2013, since 0.7.72. Thanks to Pavel Pimenov for the report and patch
+x MXF: AS-11 Typo (SerieTitle changed to SeriesTitle), TotalProgrammeDuration added
+x ID3v2: support of 3-byte ID3v2.3 tags
+x CEA-608 in MPEG-4: demux PTS was wrong in case of multiple blocks in one frame
 
-Version 0.7.71, 2014-11-09
+Version 0.7.72, 2014-11-09
 --------------
 + AS-11 (Core, Segmentation, UK DPP items) display
 + MXF: support of TTML (SMPTE ST 2052) detection
