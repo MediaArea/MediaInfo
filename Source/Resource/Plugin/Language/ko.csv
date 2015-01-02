@@ -976,7 +976,7 @@ see below;아래 참고
 Send HeaderFile;여기로 헤더 파일을 보내주세요 : http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;컬럼 구분자
 Separator_Lines;라인 구분자
-SerieTitle;
+SeriesTitle;
 ServiceChannel;서비스 채널 번호
 ServiceName;서비스 이름
 ServiceProvider;서비스 제공자

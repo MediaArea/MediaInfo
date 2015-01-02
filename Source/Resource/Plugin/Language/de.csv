@@ -976,7 +976,7 @@ see below;siehe unten
 Send HeaderFile;Bitte die Header-Datei hierhin schicken: http://sourceforge.net/projects/mediainfo/ (unter Bugs)
 Separator_Columns;Spaltentrenner
 Separator_Lines;Zeilentrenner
-SerieTitle;
+SeriesTitle;
 ServiceChannel;Nummer des Service-Kanals
 ServiceName;Service-Name
 ServiceProvider;Service-Anbieter

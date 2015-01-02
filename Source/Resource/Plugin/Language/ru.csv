@@ -976,7 +976,7 @@ see below;см. ниже
 Send HeaderFile;Отправить заголовок этого файла на http://sourceforge.net/projects/mediainfo/ (Раздел ошибок)
 Separator_Columns;Разделитель столбцов
 Separator_Lines;Разделитель строк
-SerieTitle;
+SeriesTitle;
 ServiceChannel;Номер канала сервиса
 ServiceName;Название сервиса
 ServiceProvider;Поставщик сервиса

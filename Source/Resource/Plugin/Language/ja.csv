@@ -976,7 +976,7 @@ see below;以下詳細
 Send HeaderFile;可能ならヘッダファイルを送信してください: http://sourceforge.net/projects/mediainfo/ (バグセクション)
 Separator_Columns;列の区切り
 Separator_Lines;区切り線
-SerieTitle;
+SeriesTitle;
 ServiceChannel;チャンネル
 ServiceName;名前
 ServiceProvider;プロバイダ

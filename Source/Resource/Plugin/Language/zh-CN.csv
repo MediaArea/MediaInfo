@@ -976,7 +976,7 @@ see below;请看下面列出的内容
 Send HeaderFile;发送头文件: http://sourceforge.net/projects/mediainfo/
 Separator_Columns;列分隔符
 Separator_Lines;换行符
-SerieTitle;
+SeriesTitle;
 ServiceChannel;服务频道号码
 ServiceName;服务名
 ServiceProvider;服务提供

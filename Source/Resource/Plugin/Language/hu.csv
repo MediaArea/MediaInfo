@@ -976,7 +976,7 @@ see below;lásd alant
 Send HeaderFile;Kérem, küdje el a fejléc fájlt ide: http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;Oszlop elválasztó
 Separator_Lines;Sor elválasztó
-SerieTitle;
+SeriesTitle;
 ServiceChannel;Szolgáltatás csatornája
 ServiceName;Szolgáltatás neve
 ServiceProvider;Szolgáltató

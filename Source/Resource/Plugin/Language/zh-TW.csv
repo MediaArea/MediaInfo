@@ -976,7 +976,7 @@ see below;詳見下述
 Send HeaderFile;請將標頭檔寄到這給我: http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;換列字元
 Separator_Lines;換行字元
-SerieTitle;
+SeriesTitle;
 ServiceChannel;服務頻道
 ServiceName;服務名稱
 ServiceProvider;服務提供者
