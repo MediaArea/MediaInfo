@@ -101,6 +101,8 @@ Download_Packages 1  1  1   x x ""           xUbuntu_13.10  i386   _i386
 Download_Packages 1  1  1   x x ""           xUbuntu_13.10  amd64  _amd64
 Download_Packages 1  1  1   x x ""           xUbuntu_14.04  i386   _i386
 Download_Packages 1  1  1   x x ""           xUbuntu_14.04  amd64  _amd64
+Download_Packages 1  1  1   x x ""           xUbuntu_14.10  i386   _i386
+Download_Packages 1  1  1   x x ""           xUbuntu_14.10  amd64  _amd64
 
 type="rpm"
 devext="devel"
