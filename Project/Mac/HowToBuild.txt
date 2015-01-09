@@ -55,6 +55,6 @@ Per version (for Mac App Store)
 ----------------------------------------
 copy libmediainfo.dylib in the project root dir
 install_name_tool -id @executable_path/../Resources/libmediainfo.dylib libmediainfo.dylib
-Xcode "Build Settings", change APP_VERSION
+Xcode "Build Settings", change APP_VERSION (edit: not found in new Xcode, need to edit MediaInfo.xcodeproj/project.pbxproj)
 Xcode menu, Product, Archive
 Organizer will be opened. Click Validate. After validation, click Submit.

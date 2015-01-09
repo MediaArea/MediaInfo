@@ -8,7 +8,7 @@ bug reports and feature request are here :
 https://sourceforge.net/p/mediainfo/_list/tickets
 
 
-Version 0.7.72, 2015-01-
+Version 0.7.72, 2015-01-07
 --------------
 + MXF: MXF version (e.g. "1.3")
 + Option "File_IsImageSequence" for being able to skip frames in a sequence of files.
@@ -19,6 +19,8 @@ Version 0.7.72, 2015-01-
 x EBUCore: time code tracks moved to their own "format" block
 x EBUCore: audioTrackConfiguration removed (not the expected behavior)
 x EBUCore: OverallBitRate information changed from technicalAttributeString to technicalAttributeInteger
+x PBCore: invalid output in case of time code stream, fix thanks to Dave Rice
+x PBCore2: codecid changed, thanks to Dave Rice
 x OP-47/SDP/Teletext: some streams were not detected
 x Previous version was built with SSE2 instructions, switching back to SSE instructions
 x AVC: infinite loop fix
@@ -27,6 +29,7 @@ x Crash on Windows Vista and Win7 pre-SP1 and a CPU having FMA support, due to a
 x MXF: AS-11 Typo (SerieTitle changed to SeriesTitle), TotalProgrammeDuration added
 x ID3v2: support of 3-byte ID3v2.3 tags
 x CEA-608 in MPEG-4: demux PTS was wrong in case of multiple blocks in one frame
+x MOV: better Grey scale files and color palettes handling, with help from Vittorio Giovara
 
 Version 0.7.72, 2014-11-09
 --------------
