@@ -1,0 +1,979 @@
+  Language_ISO639;ka
+  Author_Email;
+  Author_Name;G Release
+  Author_OldNames;
+  Language_Name;ქართული
+  Config_Text_ColumnSize;40
+  Config_Text_Separator; : 
+  Config_Text_NumberTag; #
+  Config_Text_FloatSeparator;.
+  Config_Text_ThousandsSeparator; 
+ audio stream1; აუდიო ნაკადი1
+ audio stream2; აუდიო ნაკადი2
+ audio stream3; აუდიო ნაკადი3
+ bit1; ბიტი
+ bit2; ბიტი
+ bit3; ბიტი
+ bps; bps
+ Bps; Bps
+ Byte1; ბაიტი
+ Byte2; ბაიტი
+ Byte3; ბაიტი
+ channel1; არხი
+ channel2; არხები
+ channel3; არხები
+ chapter1; სექცია
+ chapter2; სექცია
+ chapter3; სექციები
+ chapters stream1; სექციების ნაკადი
+ chapters stream2; სექციების ნაკადები
+ chapters stream3; სექციების ნაკადები
+ day1; დღე
+ day2; დღეები
+ day3; დღეები
+ dB1; დბ
+ dB2; დბ
+ dB3; დბ
+ file1; ფაილი
+ file2; ფაილები
+ file3; ფაილები
+ frame1; კადრი
+ frame2; კადრი
+ frame3; კადრები
+ fps1; კადრ/წმ
+ fps2; კადრ/წმ
+ fps3; კადრ/წმ
+ GB; გბ
+ Gb; გბ
+ Gbps; გიგაბიტ/წმ
+ GBps; გიგაბაიტ/წმ
+ GHz; გჰც
+ GiB; გბაიტი
+ GibiByte1; გიგაბაიტი
+ GibiByte2; გიგაბაიტი
+ GibiByte3; გიგაბაიტი
+ GiBps; გბაიტ/წმ
+ GigaBit1; გიგაბიტი
+ GigaBit2; გიგაბიტი
+ GigaBit3; გიგაბიტი
+ GigaByte1; გიგაბაიტი
+ GigaByte2; გიგაბაიტი
+ GigaByte3; გიგაბაიტი
+ hour1; საათი
+ hour2; საათები
+ hour3; საათები
+ Hz; ჰც
+ image stream1; სურათის ნაკადი
+ image stream2; სურათების ნაკადი
+ image stream3; სურათების ნაკადი
+ KB; კბ
+ Kb; კბ
+ KBps; კბაიტ/წმ
+ Kbps; კბიტ/წმ
+ KHz; კჰც
+ KiB; კბაიტი
+ KibiBit1; კიბიბიტი
+ KibiBit2; კიბიბიტი
+ KibiBit3; კიბიბიტი
+ KibiByte1; კიბიბაიტი
+ KibiByte2; კიბიბაიტი
+ KibiByte3; კიბიბაიტი
+ KiBps; კბაიტ/წმ
+ KiloBit1; კილობიტი
+ KiloBit2; კილობიტი
+ KiloBit3; კილობიტი
+ KiloByte1; კილობაიტი
+ KiloByte2; კილობაიტი
+ KiloByte3; კილობაიტი
+ MB; მბ
+ Mb; მბ
+ Mbps; მბიტ/წმ
+ MBps; მბაიტ/წმ
+ MebiBit1; მებიბიტი
+ MebiBit2; მებიბიტი
+ MebiBit3; მებიბიტი
+ MebiByte1; მებიბაიტი
+ MebiByte2; მებიბაიტი
+ MebiByte3; მებიბაიტი
+ MegaBit1; მეგაბიტი
+ MegaBit2; მეგაბიტი
+ MegaBit3; მეგაბიტი
+ MegaByte1; მეგაბაიტი
+ MegaByte2; მეგაბაიტი
+ MegaByte3; მეგაბაიტი
+ MHz; მჰც
+ MiB; მბაიტი
+ Mib; მიბ
+ MiBps; მბაიტ/წმ
+ millisecond1; millisecond
+ millisecond2; milliseconds
+ millisecond3; milliseconds
+ minute1; წუთი
+ minute2; წუთი
+ minute3; წუთი
+ month1; თვე
+ month2; თვეები
+ month3; თვეები
+ pixel1; პიქსელი
+ pixel2; პიქსელები
+ pixel3;პიქსელები
+ second1; წამი
+ second2; წამი
+ second3; წამი
+ text stream1; ტექსტ ნაკადი
+ text stream2; ტექსტ ნაკადი
+ text stream3; ტექსტ ნაკადი
+ video frames1; ვიდეო კადრი
+ video frames2; ვიდეო კადრი
+ video frames3; ვიდეო კადრი
+ video stream1; ვიდეო ნაკადი
+ video stream2; ვიდეო ნაკადი
+ video stream3; ვიდეო ნაკადი
+ warppoint0;გარდამავალი პუნქტის გარეშე
+ warppoint1; გარდამავალი პუნქტი
+ warppoint2; გარდამავალი პუნქტი
+ warppoint3; გარდამავალი პუნქტი
+ week1; კვირა
+ week2; კვირა
+ week3; კვირა
+ year1; წელი
+ year2; წელი
+ year3; წელი
+, ;, 
+: ;: 
+About; ამის შესახებ
+About_Hint;როგორ დამიკავშირდეთ მე და ვიპოვოთ უახლესი ვერსია
+Accompaniment;უზრუნველყოფა
+ActiveFormatDescription;
+ActiveFormatDescription_MuxingMode;
+Actor;შემსრულებელი
+Actor_Character;როლი
+Added_Date;დამატების თარიღი
+Address;მისამართი
+Advanced;დამატებით
+Advanced mode;დამატებითი რეჟიმი
+Album;ალბომი
+Album_ReplayGain_Gain;ალბომში ხმის დამარეგულირებელი
+Album_ReplayGain_Peak;Album replay gain peak
+Alignment;Alignment
+Alignment_Aligned;Aligned on interleaves
+Alignment_Split;Split accross interleaves
+All;ყველა
+Archival_Location;Archival location
+Arranger;Arranger
+ArtDirector;ArtDirector
+AspectRatio;ასპექტის რატიო
+AssistantDirector;AssistantDirector
+at;at
+At least one file;(შენ უნდა გახსნა სულ ცოტა ერთი ფაილი)
+Audio;აუდიო
+Audio stream(s);აუდიო ნაკადები
+Audio_Codec_List;აუდიო კოდეკები
+Audio_No;არ არის აუდიო
+Audio1;პირველი აუდიო ნაკადი
+Audio2;მეორე აუდიიო ნაკადი
+AudioCount;აუდიო ნაკადების რაოდენობა
+Author;ავტორი
+BarCode;BarCode
+Basic;ძირითადი
+Basic_Note;შენიშვნა : ამ ფაილის მეტი ინფორმაციის გასაგებად თქვენ უნდა აირჩიოთ განსხვავებული ხედვის ტიპი (Sheet, Tree...)
+BitDepth;Bit depth
+BitRate;ბიტ რეიტი
+BitRate_Maximum;მაქსიმალური ბიტ რეიტი
+BitRate_Minimum;მინიმალური ბიტ  რეიტი
+BitRate_Mode;ბიტ რეიტის რეჟიმი
+BitRate_Mode_CBR;Constant
+BitRate_Mode_VBR;Variable
+BitRate_Nominal;Nominal bit rate
+BitRate_Encoded;
+Bits-(Pixel*Frame);Bits/(Pixel*Frame)
+BufferSize;ბუფერის ზომა
+Cancel;გაჩერება
+Channel(s);არხი(ები)
+ChannelPositions;Channel positions
+Chapter(s);სექცია(ები)
+Chapters;სექციები
+Chapters stream(s);სექციების ნაკადი(ები)
+Chapters_Codec_List;სექციების კოდეკები
+Chapters_No;სექცია არ არუს
+ChaptersCount;ნაკადების სექციების რაოდენობა
+CheckNewVersion;ახალი ვერსიის შემოწმება
+Choose custom;არჩევა
+Choose custom sheet;Choose your desired custom sheet
+Choose custom text;Choose your desired custom text
+Choose export format;Choose your desired export format
+Choose file(s);გახსნითვის აირჩიეთ ფაილები
+Choose filename;Choose your desired filename
+Choose language;აირჩიეთ თქვენი სასურველი ენა
+Choregrapher;Choregrapher
+Chroma;Chroma
+ChromaSubsampling;Chroma subsampling
+Close;დახურვა
+Close all before open;დახურე ყველა გახსნამდე
+Codec;კოდეკი
+Codec_Description;კოდეკის აღწერა
+Codec_Info;კოდეკების დეტალები
+Codec_Settings;კოდეკების პარამეტრები
+Codec_Settings_PacketBitStream;კოდეკის პარამეტრები, Packet bitstream
+Codec_Settings_BVOP;კოდეკის პარამეტრები, BVOP
+Codec_Settings_QPel;კოდეკის პარამეტრები, QPel
+Codec_Settings_GMC;კოდეკის პარამეტრები, GMC
+Codec_Settings_Matrix;კოდეკის პარამეტრები, Matrix
+Codec_Settings_Floor;კოდეკის პარამეტრები, Floor
+Codec_Settings_CABAC;კოდეკის პარამეტრები, CABAC
+Codec_Settings_Firm;კოდეკის პარამეტრები, Firm
+Codec_Settings_Endianness;კოდეკის პარამეტრები, Endianness
+Codec_Settings_Sign;კოდეკის პარამეტრები, Sign
+Codec_Settings_Law;კოდეკის პარამეტრები, Law
+Codec_Settings_ITU;კოდეკის პარამეტრები, ITU
+Codec_Profile;კოდეკის პროფილი
+Codec_Url;კოდეკების ვებმისამართი
+CodecID;კოდეკის ID
+CodecID_Description;კოდეკის აღწერა
+Collection;კოლექცია
+Colorimetry;Colorimetry
+ColorSpace;Color space
+colour_primaries;Color primaries
+Comment;კომენტარი
+CommissionedBy;Commissioned by
+Compilation;Compilation
+CompleteName;სრული სახელი
+Composer;Composer
+Compression_Mode;შეკუმშვის რეჟიმი
+Compression_Mode_Lossless;Lossless
+Compression_Mode_Lossy;Lossy
+Compression_Ratio;შეკუმშვის რატიო
+Conductor;Conductor
+Container and general information;კონტეინერი და მთავარი ინფორმაცია
+ContentType;კონტენტის ტიპი
+CoProducer;Coproducer
+Copyright;ყველა უფლება დაცულია
+CostumeDesigner;Costume designer
+Count;ანგარიში
+Country;ქვეყანა
+Cover;Cover
+Cover_Datas;Cover datas
+Cover_Description;Cover description
+Cover_Mime;Cover MIME
+Cover_Type;Cover type
+Cropped;Crop dimensions
+Custom;სტანდარტული
+Customize;მორგება
+Date;თარიგი
+Debug;გამართვა
+Decimal point;Decimal point
+Delay;Delay
+Delay_Source;Delay, origin
+Delay_Source_Container;Container
+Delay_Source_Stream;Raw stream
+Delete;წაშლა
+Description;აღწერა
+Digitized_Date;Digitized date
+Dimensions;Dimensions
+Director;დირექტორი
+DirectorOfPhotography;Director of photography
+DisplayAspectRatio;გამოსახულების ასპექტ რატიო
+DisplayAspectRatio_Original;Original display aspect ratio
+DistributedBy;გავრცელების ავტორი
+Donate;შემოწირულობა
+DotsPerInch;Dots per inch
+Duration;ხანგრძლივობა
+Duration_End;დასასწრულის დრო
+Duration_Start;დაწყების დრო
+Edit;რედაქტირება
+EditedBy;რედაქტირების ავტორი
+EMail;ელ-ფოსტა
+Encoded_Application;დამწერი აპლიკაცია
+Encoded_Date;ენკოდირების თარიღი
+Encoded_Library;დაწერილია
+Encoded_Library_Settings;ენკოდირების პარამეტრები
+Encoded_Original;Original support
+EncodedBy;ენკოდირების ავტორი
+EPG_Positions;EPG positions (internal)
+Error_File;ფაილის წაკითვის დროს აღმოჩენილია შეცდომა
+ExecutiveProducer;Executive producer
+Exit;გასვლა
+Exit_Hint;პროგრამის დატოვება
+Export;გატანა
+Export_Hint;Export in a customized format
+Extensions;Extensions usually used
+Family;გვარი
+Fax;ფაქსი
+File;ფაილი
+File size;ფაილის ზომა
+File_Append;Append to the existing file (Warning : be careful to have the same parameters)
+File_Created_Date;ფაილის შექმნის თარიღი
+File_Created_Date_Local;ფაილის შექმნის თარიღი (ლოკალური)
+File_Hint;Select a multimedia file to examine
+File_Modified_Date;ფაილის ბოლო მოდიფიკაციის თარიღი
+File_Modified_Date_Local;File last modification date (local)
+FileExtension;File extension
+FileName;ფაილის სახელი
+FileSize;ფაილის ზომა
+Folder;ფოლდერი
+Folder (R);ფოლდერ (R)
+Folder (R)_Hint;Select a folder to examine (with all folders recursively)
+Folder (Recursively);Folder (Recursively)
+Folder_Hint;განხილვისთვის აირჩიეთ ფოლდერი
+FolderName;ფოლდერის სახელი
+Format;ფორმატი
+Format_Commercial;Commercial name
+Format_Commercial_IfAny;
+Format_Description;ფორმატის აღწერა
+Format_Info;ფორმატის დეტალები
+Format_Profile;ფორმატის პროფილი
+Format_Settings;ფორმატის პარამეტრები
+Format_Settings_PacketBitStream;ფორმატის პარამეტრები, Packet bitstream
+Format_Settings_BVOP;ფორმატის პარამეტრები, BVOP
+Format_Settings_QPel;ფორმატის პარამეტრები, QPel
+Format_Settings_GMC;ფორმატის პარამეტრები, GMC
+Format_Settings_Matrix;ფორმატის პარამეტრები, Matrix
+Format_Settings_Matrix_Custom;Custom
+Format_Settings_Matrix_Default;Default
+Format_Settings_Floor;ფორმატის პარამეტრები, Floor
+Format_Settings_CABAC;ფორმატის პარამეტრები, CABAC
+Format_Settings_Firm;ფორმატის პარამეტრები, Firm
+Format_Settings_Endianness;ფორმატის პარამეტრები, Endianness
+Format_Settings_RefFrames;ფორმატის პარამეტრები, ReFrames
+Format_Settings_Sign;ფორმატის პარამეტრები, Sign
+Format_Settings_Law;ფორმატის პარამეტრები, Law
+Format_Settings_ITU;ფორმატის პარამეტრები, ITU
+Format_Settings_SBR;ფორმატის პარამეტრები, SBR
+Format_Settings_PS;ფორმატის პარამეტრები, PS
+Format_Settings_Pulldown;ფორმატის პარამეტრები, Pulldown
+Format_Settings_Mode;რეჟიმი
+Format_Settings_FrameMode;კადრების რეჟიმი
+Format_Settings_Emphasis;Emphasis
+Format_Settings_ModeExtension;Mode extension
+Format_Settings_GOP;ფორმატის პარამეტრები, GOP
+Format_Version;ფორნატის ვერსია
+Format_Url;ვებ-გვერდის ფორმატი
+FrameCount;Frame count
+FrameRate;კადრების სიხშირე
+FrameRate_Mode;კადრების სიხშირის რეჟიმი
+FrameRate_Mode_CFR;მუდმივი
+FrameRate_Mode_VFR;Variable
+FrameRate_Minimum;კადრების სიხშირის მინიმუმი
+FrameRate_Nominal;კადრების სიხშირის ნომინალური
+FrameRate_Maximum;კადრების სიხშირის მაქსიმუმი
+FrameRate_Original;კადრების ორიგინალი სიხშირე
+General;მთავარი
+Genre;ჟანრი
+Genre_000;Blues
+Genre_001;Classic Rock
+Genre_002;Country
+Genre_003;Dance
+Genre_004;Disco
+Genre_005;Funk
+Genre_006;Grunge
+Genre_007;Hip-Hop
+Genre_008;Jazz
+Genre_009;Metal
+Genre_010;New Age
+Genre_011;Oldies
+Genre_012;Other
+Genre_013;Pop
+Genre_014;R&B
+Genre_015;Rap
+Genre_016;Reggae
+Genre_017;Rock
+Genre_018;Techno
+Genre_019;Industrial
+Genre_020;Alternative
+Genre_021;Ska
+Genre_022;Death Metal
+Genre_023;Pranks
+Genre_024;Soundtrack
+Genre_025;Euro-Techno
+Genre_026;Ambient
+Genre_027;Trip-Hop
+Genre_028;Vocal
+Genre_029;Jazz+Funk
+Genre_030;Fusion
+Genre_031;Trance
+Genre_032;Classical
+Genre_033;Instrumental
+Genre_034;Acid
+Genre_035;House
+Genre_036;Game
+Genre_037;Sound Clip
+Genre_038;Gospel
+Genre_039;Noise
+Genre_040;AlternRock
+Genre_041;Bass
+Genre_042;Soul
+Genre_043;Punk
+Genre_044;Space
+Genre_045;Meditative
+Genre_046;Instrumental Pop
+Genre_047;Instrumental Rock
+Genre_048;Ethnic
+Genre_049;Gothic
+Genre_050;Darkwave
+Genre_051;Techno-Industrial
+Genre_052;Electronic
+Genre_053;Pop-Folk
+Genre_054;Eurodance
+Genre_055;Dream
+Genre_056;Southern Rock
+Genre_057;Comedy
+Genre_058;Cult
+Genre_059;Gangsta
+Genre_060;Top 40
+Genre_061;Christian Rap
+Genre_062;Pop/Funk
+Genre_063;Jungle
+Genre_064;Native American
+Genre_065;Cabaret
+Genre_066;New Wave
+Genre_067;Psychadelic
+Genre_068;Rave
+Genre_069;Showtunes
+Genre_070;Trailer
+Genre_071;Lo-Fi
+Genre_072;Tribal
+Genre_073;Acid Punk
+Genre_074;Acid Jazz
+Genre_075;Polka
+Genre_076;Retro
+Genre_077;Musical
+Genre_078;Rock & Roll
+Genre_079;Hard Rock
+Genre_080;Folk
+Genre_081;Folk-Rock
+Genre_082;National Folk
+Genre_083;Swing
+Genre_084;Fast Fusion
+Genre_085;Bebob
+Genre_086;Latin
+Genre_087;Revival
+Genre_088;Celtic
+Genre_089;Bluegrass
+Genre_090;Avantgarde
+Genre_091;Gothic Rock
+Genre_092;Progressive Rock
+Genre_093;Psychedelic Rock
+Genre_094;Symphonic Rock
+Genre_095;Slow Rock
+Genre_096;Big Band
+Genre_097;Chorus
+Genre_098;Easy Listening
+Genre_099;Acoustic
+Genre_100;Humour
+Genre_101;Speech
+Genre_102;Chanson
+Genre_103;Opera
+Genre_104;Chamber Music
+Genre_105;Sonata
+Genre_106;Symphony
+Genre_107;Booty Bass
+Genre_108;Primus
+Genre_109;Porn Groove
+Genre_110;Satire
+Genre_111;Slow Jam
+Genre_112;Club
+Genre_113;Tango
+Genre_114;Samba
+Genre_115;Folklore
+Genre_116;Ballad
+Genre_117;Power Ballad
+Genre_118;Rhythmic Soul
+Genre_119;Freestyle
+Genre_120;Duet
+Genre_121;Punk Rock
+Genre_122;Drum Solo
+Genre_123;A capella
+Genre_124;Euro-House
+Genre_125;Dance Hall
+Genre_126;Goa
+Genre_127;Drum & Bass
+Genre_128;Club-House
+Genre_129;Hardcore
+Genre_130;Terror
+Genre_131;Indie
+Genre_132;Britpop
+Genre_133;Negerpunk
+Genre_134;Polsk Punk
+Genre_135;Beat
+Genre_136;Christian Gangsta Rap
+Genre_137;Heavy Metal
+Genre_138;Black Metal
+Genre_139;Crossover
+Genre_140;Contemporary Christian
+Genre_141;Christian Rock 
+Genre_142;Merengue
+Genre_143;Salsa
+Genre_144;Trash Metal
+Genre_145;Anime
+Genre_146;JPop
+Genre_147;Synthpop
+Go to WebSite;გადადით ვებ-გვერდძე
+Grouping;დაჯგუფება
+h;h
+Header file;ჰედერის ფაილის შექმნა
+Height;სიმაღლე
+Height_Original;ორიგინალი სიმაღლე
+Help;დახმარება
+Hint;Hint
+How many audio streams?;რამდენი აუდიო ნაკადია?
+How many chapters streams?;რამდენი პუნქტია?
+How many text streams?;რამდენი ტესტის ნაკადია?
+How many video streams?;რამდენი ვიდეოს ნაკადია?
+HTML;HTML
+ID;ID
+Image;სურათი
+Image stream(s);სურათის ნაკადი
+Image_Codec_List;სურათის კოდეკები
+ImageCount;Count of image streams
+Info;ინფორმაცია
+Instruments;ინსტრუმენტები
+Interlacement;Interlacement
+Interlaced_Interlaced;Interlaced
+Interlaced_TFF;Top Field First
+Interlaced_BFF;Bottom Field First
+Interlaced_PPF;Progressive
+Interlaced_Progressive;Progressive
+Interleaved;Interleaved
+Interleave_Duration;Interleave, duration
+Interleave_Preload;Interleave, preload duration
+Interleave_VideoFrames;Interleave, duration
+InternetMediaType;Internet media type
+IRCA;IRCA
+ISBN;ISBN
+ISRC;ISRC
+Keywords;საკვანძო სიტყვები
+Known codecs;ცნობილი კოდეკები
+Known formats;ცნობილი ფორმატები
+Known parameters;ცნობილი პარამეტრები
+Label;Label
+Language;ინტერფეისის ენა
+Language_More;მეტი ინფორმაცია ენებზე
+Language_aa;Afar
+Language_ab;Abkhazian
+Language_ae;Avestan
+Language_af;Afrikaans
+Language_ak;Akan
+Language_am;Amharic
+Language_an;Aragonese
+Language_ar;Arabic
+Language_as;Assamese
+Language_av;Avaric
+Language_ay;Aymara
+Language_az;Azerbaijani
+Language_ba;Bashkir
+Language_be;Belarusian
+Language_bg;Bulgarian
+Language_bh;Bihari
+Language_bi;Bislama
+Language_bm;Bambara
+Language_bn;Bengali
+Language_bo;Tibetan
+Language_br;Breton
+Language_bs;Bosnian
+Language_ca;Catalan
+Language_ce;Chechen
+Language_ch;Chamorro
+Language_co;Corsican
+Language_cr;Cree
+Language_cs;Czech
+Language_cu;Slave
+Language_cv;Chuvash
+Language_cy;Welsh
+Language_da;Danish
+Language_de;German
+Language_dv;Divehi
+Language_dz;Dzongkha
+Language_ee;Ewe
+Language_el;Greek
+Language_en;English
+Language_en-gb;English (Great Britain)
+Language_en-us;English (United States)
+Language_eo;Esperanto
+Language_es;Spanish
+Language_et;Estonian
+Language_eu;Basque
+Language_fa;Persian
+Language_ff;Fulah
+Language_fi;Finnish
+Language_fj;Fijian
+Language_fo;Faroese
+Language_fr;French
+Language_fy;Frisian
+Language_ga;Irish
+Language_gd;Gaelic
+Language_gl;Galician
+Language_gn;Guarani
+Language_gu;Gujarati
+Language_gv;Manx
+Language_ha;Hausa
+Language_he;Hebrew
+Language_hi;Hindi
+Language_ho;Hiri Motu
+Language_hr;Croatian
+Language_ht;Haitian
+Language_hu;Hungarian
+Language_hy;Armenian
+Language_hz;Herero
+Language_ia;Auxiliary Language Association
+Language_id;Indonesian
+Language_ie;Interlingue
+Language_ig;Igbo
+Language_ii;Sichuan Yi
+Language_ik;Inupiaq
+Language_Info;ინფორმაცია ენაზე
+Language_io;Ido
+Language_is;Icelandic
+Language_it;Italian
+Language_iu;Inuktitut
+Language_ja;Japanese
+Language_jv;Javanese
+Language_ka;Georgian
+Language_kg;Kongo
+Language_ki;Kikuyu
+Language_kj;Kuanyama
+Language_kk;Kazakh
+Language_kl;Kalaallisut
+Language_km;Khmer
+Language_kn;Kannada
+Language_ko;Korean
+Language_kr;Kanuri
+Language_ks;Kashmiri
+Language_ku;Kurdish
+Language_kv;Komi
+Language_kw;Cornish
+Language_ky;Kirghiz
+Language_la;Latin
+Language_lb;Luxembourgish
+Language_lg;Ganda
+Language_li;Limburgish
+Language_ln;Lingala
+Language_lo;Lao
+Language_lt;Lithuanian
+Language_lu;Luba-Katanga
+Language_lv;Latvian
+Language_mg;Malagasy
+Language_mh;Marshallese
+Language_mi;Maori
+Language_mk;Macedonian
+Language_ml;Malayalam
+Language_mn;Mongolian
+Language_mo;Moldavian
+Language_mr;Marathi
+Language_ms;Malay
+Language_mt;Maltese
+Language_mul;Multiple languages
+Language_my;Burmese
+Language_na;Nauru
+Language_nb;Norwegian Bokmal
+Language_nd;Ndebele
+Language_ne;Nepali
+Language_ng;Ndonga
+Language_nl;Dutch
+Language_nn;Norwegian Nynorsk
+Language_no;Norwegian
+Language_nr;Ndebele
+Language_nv;Navaho
+Language_ny;Nyanja
+Language_oc;Occitan
+Language_oj;Ojibwa
+Language_om;Oromo
+Language_or;Oriya
+Language_os;Ossetic
+Language_pa;Panjabi
+Language_pi;Pali
+Language_pl;Polish
+Language_ps;Pushto
+Language_pt;Portuguese
+Language_pt-br;Portuguese (Brazil)
+Language_qu;Quechua
+Language_rm;Raeto-Romance
+Language_rn;Rundi
+Language_ro;Romanian
+Language_ru;Russian
+Language_rw;Kinyarwanda
+Language_sa;Sanskrit
+Language_sc;Sardinian
+Language_sd;Sindhi
+Language_se;Northern Sami
+Language_sg;Sango
+Language_si;Sinhala
+Language_sk;Slovak
+Language_sl;Slovenian
+Language_sm;Samoan
+Language_sn;Shona
+Language_so;Somali
+Language_sq;Albanian
+Language_sr;Serbian
+Language_ss;Swati
+Language_st;Sotho
+Language_su;Sundanese
+Language_sv;Swedish
+Language_sw;Swahili
+Language_ta;Tamil
+Language_te;Telugu
+Language_tg;Tajik
+Language_th;Thai
+Language_ti;Tigrinya
+Language_tk;Turkmen
+Language_tl;Tagalog
+Language_tn;Tswana
+Language_to;Tonga
+Language_tr;Turkish
+Language_ts;Tsonga
+Language_tt;Tatar
+Language_tw;Twi
+Language_ty;Tahitian
+Language_ug;Uighur
+Language_uk;Ukrainian
+Language_ur;Urdu
+Language_uz;Uzbek
+Language_ve;Venda
+Language_vi;Vietnamese
+Language_vo;Volapuk
+Language_wa;Walloon
+Language_wo;Wolof
+Language_xh;Xhosa
+Language_yi;Yiddish
+Language_yo;Yoruba
+Language_za;Zhuang
+Language_zh;Chinese
+Language_zh-cn;Chinese (China)
+Language_zh-tw;Chinese (Taiwan)
+Language_zu;Zulu
+LawRating;Law rating
+LCCN;LCCN
+Library;Muxing library
+Lightness;Lightness
+List;სია
+Lyrics;Lyrics
+Lyricist;Lyricist
+Mastered_Date;Mastered date
+MasteredBy;Mastered by
+matrix_coefficients;Matrix coefficients
+MediaInfo_About;Supply very detailled information\r\nabout a multimedia file:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
+Menu;მენიუ
+Menu stream(s);ნაკადების მენიუ
+Menu_Codec_List;კოდეკების მენიუ
+Menu_No;არ არის მენიუ
+MenuCount;ნაკადების მენიუს რაოდენობა
+Menu_Hint;უფრო მეტი შესაძლებლობები
+MenuID;მენიუს ID
+mn;მნ
+Mood;ხასიათი
+More;მეტი
+Movie;ფილმის სახელი
+ms;ms
+MSDI;MSDI
+MusicBy;კომპოზიტორი
+MuxingMode;Muxing mode
+MuxingMode_MoreInfo;Muxing mode, more info
+MuxingMode_PackedBitstream;Packed bitstream
+Name;სახელი
+Nationality;Nationality
+NetworkName;Network name
+New;ახალიმოითხოვსინტერნეტს
+Newest version;ჩეამოწმე განახლება ( )
+NewVersion_Menu;პროგრამის ახალი ვერსია ხელმისაწვდომია
+NewVersion_Question_Title;პროგრამის ახალი ვერსია გამოვიდა!
+NewVersion_Question_Content;ახალი ვერსია(v%Version%) უკვე ხელმისაწვდომია, გადმოწერა გსურს?
+No;არა
+Not yet;ჯერ არა
+NumColors;ფერების რიცხვი
+OK;კარგი
+One output file per input file;One output file per input file
+Open;გახსნა
+OpenCandy_01;გადმოწერილია ________
+OpenCandy_02;__% მზადაა
+OpenCandy_03;Internet connection interrupted
+OpenCandy_04;________ გადმოწერა შესრულებია
+OpenCandy_05;სწრაფი ინსტალაცია ________
+OpenCandy_06;Are you sure you wish to cancel the install?\r\nIf you wish to postpone the install until later, select 'No'.\r\nNote: You may select Exit from the menu to defer installation until after the next time you reboot.
+OpenCandy_07;გადმოწერილი ________ დაპაუზებული იქნა.\r\nდააჭირე ხელახლა მცდელობის იკონს,რომ გააგრძელო გადმოწერა.
+OpenCandy_08;A critical error has occurred. Installation of _________ will be aborted.
+OpenCandy_09;გადმოწერის დაპაუზება
+OpenCandy_10;ინსტალაციის შეჩერება
+OpenCandy_11;გადმოწერის გაგრძელება
+OpenCandy_12;საინსტალაციოდან გასვლა
+OpenCandy_13;___________ - როკომენდირებულია ____________ -სგან
+OpenCandy_14;გადმოწერილია _________
+OpenCandy_15;___________, ეს პროგრამა რეკომენდირბეულია ___________-სგან, is now downloading at your requestWe will let you know when it is ready to be installed.
+OpenCandy_16;___________ მზადაა ინსტალაციისთვის
+OpenCandy_17;___________ უკვე სრულად გადმოწერილია. დააკლიკეთ 'ინსტალაციას' ,რომ დააყენოთ პროგრამა.
+OpenCandy_18;___________ გან ___________ გადმოწერილია
+OpenCandy_19;პროგრამირება OpenCandy
+OpenCandy_20;გაიგე მეტი OpenCandy.com-ზე
+OpenCandy_21;ინსტალაცია
+OpenCandy_22;დაინსტალირებულია ___________
+OpenCandy_23;This will cancel the installation of ___________\r\nAre you sure you wish to exit?
+OpenCandy_24;პაუზა
+OpenCandy_25;გადმოწერილი დაპაუზდა. დააჭირეთ 'გაგრძელება' როცა შენ იქნები მზად გადმოწერისთვის.
+OpenCandy_26;გაგრძელება
+OpenCandy_27;დაინსტალირე ახლავე
+OpenCandy_28;დაპაუზება
+OpenCandy_29;გაგრძელება
+OpenCandy_30;ინსტალაციის შეჩერება
+OpenCandy_31;აირჩიეთ ინსტალტორის ოპციები
+OpenCandy_32;დაინსტალირდა ___________
+OpenCandy_33;არ დააინსტალირო
+OpenCandy_34;აირჩიეთ ინსტალაციის ოპციები
+OpenCandy_35;______ გირჩევთ ამ პროგრამას
+OpenCandy_36;მიმდინარე ინსტალაცია არ იქნება შეჩერებული
+Options;ოპციები
+Options_Hint;პარამეტრები
+Original;ორიგინალი
+OriginalNetworkName;Original network name
+OriginalSourceForm;Original source form
+OriginalSourceMedium;Original source medium
+Other;სხვა
+Output;გამავალი
+Output format;გამავალის ფორმატი
+OverallBitRate;საერთო ბიტ რეიტი
+OverallBitRate_Maximum;მაქსიმალური ბიტ რეიტის მთლიანობა 
+OverallBitRate_Minimum;მინიმალური ბიტ რეიტის მთლიანობა
+OverallBitRate_Mode;ბიტ რეიტის რეჟიმი მთლიანობაში
+OverallBitRate_Nominal;Nominal Overall bit rate
+Part;ნაწილი
+Part_Count;სულ ჯამში
+Performer;Performer
+Period;პერიოდი
+Phone;ტელეფონი
+PixelAspectRatio;პიქსელის ასპექტ რატიო
+PixelAspectRatio_Original;პიქსელის ორიგინალი ასპექტ რატიო
+PlayCounter;PlayCounter
+Played_Count;Times played
+Played_First_Date;პირველად ჩართული
+Played_Last_Date;ბოლოს ჩართული
+PlayTime;ხანგრძლივობა
+Position;Position
+Position_Total;ჯამში
+Preferences;პარამეტრები
+Producer;პროდუსერი
+ProductionDesigner;პროდუქცის დიზაინერი
+ProductionStudio;პროდუქციის სტუდიო
+Publisher;გამომცემელი
+Purchased_Date;
+Quote character;Quote character
+RadioStation;რადიო სადგური
+Rating;რეიტინგი
+Recorded_Date;ჩაწერის თარიღი
+Recorded_Location;ჩაწერის ადგილი
+Released_Date;გამოშვების თარიღი
+RemixedBy;რემიქსის ავტორი
+ReplayGain_Gain;Replay gain
+ReplayGain_Peak;Replay gain peak
+Resolution;გაფართოება
+s;s
+SamplingRate;Sampling rate
+Save;დამახსოვრება
+ScanType;სკანირების ტიპი
+ScanOrder;Scan order
+ScreenplayBy;Screenplay by
+Season;სეზონი
+see below;see below
+Send HeaderFile;Please send me the Header file here : http://sourceforge.net/projects/mediainfo/ (Bug section)
+Separator_Columns;columns separator
+Separator_Lines;lines separator
+ServiceChannel;სერვისის არხების რაოდენობა
+ServiceName;სერვისის სახელი
+ServiceProvider;სერვის პროვაიდერი
+ServiceType;Service type
+Set;Set
+Set_Count;Set count
+Setup;ინსტლაცია
+Sharpness;Sharpness
+Sheet;ცხრილი
+Sheet (Complete);ცხირილი (სრული)
+Shell extension;Explorer extension (in Windows Explorer, right click on a file, there will be a MediaInfo option)
+Shell extension, folder;For folders too
+Shell InfoTip;Explorer Tooltip (in Windows Explorer, move the mouse over the file, info will be displayed)
+Show menu;მაჩვენე მენიუ
+Show toolbar;მაჩვენე პანელი
+Sort;დალაგების შესაბამისობა
+SamplingCount;ნიმუშების რაოდენობა
+SoundEngineer;ხნის ინჟინერი
+Source;
+Source_Duration;
+Source_FrameCount;
+Source_SamplingCount;
+Source_StreamSize;
+Source_StreamSize_Encoded;
+Standard;სტანდარტი
+Stream;ნაკადი
+Stream_MoreInfo;უფრო მეტი ინფორმაცია ნაკადზე
+StreamCount;ამ ნაკადის სახეობის რაოდენობა
+StreamID;ნაკადის ID
+StreamKind;ნაკადების სახეობები
+StreamKindID;Stream identifier
+StreamKindPos;Stream identifier
+StreamSize;ნაკადი ზომა
+StreamSize_Encoded;
+StreamSize_Proportion;Proportion of this stream
+Subject;Subject
+SubTrack;SubTrack
+Summary;Summary
+Supported formats;Supported formats
+Supported?;მხარდაჭერა?
+Synopsis;Synopsis
+SystemId;Id
+Tagged_Application;Tagging application
+Tagged_Date;Tagged date
+Technician;ტექნიკური
+TermsOfUse;Terms of use
+Text;ტექსტი
+Text - Custom;ტექსტი - სტანდარტული
+Text (HTML);ტექსტი (HTML)
+Text stream(s);ტექსტის ნაკადები
+Text streams;ტექსტის ნაკადები
+Text_Codec_List;ტექსტის კოდეკები
+Text_No;ტექსტი არაა
+Text1;1-ლი ტექსტის ნაკადი
+Text2;2-ლი ტექსტის ნაკადი
+Text3;მე-3 ტექსტის ნაკადი
+TextCount;ტექსტის ნაკადების რაოდენობა
+ThanksTo;მადლობას ვუხდით
+Thousands separator;Thousands separator
+Title;სათაური
+Title_More;სათაურზე მეტი ინფორმაცია
+TimeZone;Timezone
+Total;ჯამში
+Track;ტრეკის სახელი
+Track_Count;Track count
+transfer_characteristics;Transfer characteristics
+Translator;მთარგმნელი
+Tree;სვეტი
+Tree & Text;სვეტი & ტექსტი
+UniqueID;უნიკალური ID
+Unknown;უცნობია
+Url;Url
+Video;ვიდეო
+Video stream(s);ვიდეო ნაკადი(ები)
+Video_Codec_List;ვიდეოს კოდეკები
+Video_Delay;Delay relative to video
+Video_No;არ არის ვიდეო
+Video0_Delay;Video0 delay
+Video1;1-ლი ვიდეო ნაკადი
+VideoCount;ვიდეო ნაკადების ანგარიში
+View;ჩვენება
+View_Hint;ხედვის ტიპის შეცლა
+Warning : more streams in the files;გაფრთხილება : ფაილში ბევრი ნაკადებია
+Web;ვებ-გვერდი
+WebSite_Audio;შედი ამ აუდიოს კოდეკის ვებ-გვერდზე
+WebSite_Audio_More;შედი ამ ვებ-გვერდზე (%Url%) ,რომ იპოვო ამ აუდიოს კოდეკი
+WebSite_General;ამ ფაილის ფლეიერის ვებ-გვერდზე გადასვლა
+WebSite_General_More;ამ ფაილის ფლეიერის ვებ-გვერდზე გადასვლა
+WebSite_Text;შედი ამ ტექსტის კოდეკის ვებ-გვერდზე
+WebSite_Text_More;შედი ამ ვებ-გვერდზე (%Url%) ,რომ იპოვო ამ ტექსტის კოდეკი
+WebSite_Url;http://mediainfo.sourceforge.net
+WebSite_Video;შედი ამ ვიდეო კოდეკის ვებ-გვერდზე
+WebSite_Video_More;შედი ამ ვებ-გვერდზე (%Url%) ,რომ იპოვო ამ ვიდეოს კოდეკი
+Width;სიგანე
+Width_Original;ორიგინალი სიგანე
+WriteMe;მიწერეთ ავტორს
+WriteToTranslator;მიწერეთ მთარგმნელს
+Written_Date;დაწერის თარიღი
+Written_Location;დაწერის ადგილი
+WrittenBy;დაწერილია
+Yes;დიახ
+Your system;თქვენი სისტემა
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98
