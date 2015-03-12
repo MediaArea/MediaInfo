@@ -23,3 +23,7 @@ mediainfo_gui_SOURCES = \
 #mediainfo_gui_LDFLAGS     = -no-undefined -version-info 0:0:0
 
 AM_CPPFLAGS = -I../../../Source -I../../../../MediaInfoLib/Source -I../../../../ZenLib/Source
+
+appdatadir = $(datarootdir)/appdata
+dist_appdata_DATA = mediainfo-gui.appdata.xml
+
