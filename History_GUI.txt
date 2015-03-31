@@ -16,6 +16,7 @@ Known bugs
 Version 0.7.72, 2015-01-07
 --------------
 + Swedish translation updated, thanks to Åke Engelbrektson
++ Russian translation updated, thanks to solokot
 + MXF: MXF version (e.g. "1.3")
 + Option "File_IsImageSequence" for being able to skip frames in a sequence of files.
 + EBUCore: EBUCore 1.6 draft output, sponsored by EBU
