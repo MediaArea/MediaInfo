@@ -32,7 +32,7 @@ object AboutF: TAboutF
     Font.Style = []
     ParentFont = False
   end
-  object Digimetrics_Label: TLabel
+  object Tektronix_Label: TLabel
     Left = 184
     Top = 412
     Width = 71
@@ -173,15 +173,15 @@ object AboutF: TAboutF
     EdgeOuter = esNone
     Images = ImageList3
     TabOrder = 9
-    object Digimetrics: TToolButton
+    object Tektronix: TToolButton
       Left = 0
       Top = 0
-      Hint = 'Visit Digimetrics website'
+      Hint = 'Visit Tektronix website'
       Caption = 'ToolButton1'
       ImageIndex = 0
       ParentShowHint = False
       ShowHint = True
-      OnClick = DigimetricsClick
+      OnClick = TektronixClick
     end
   end
   object ImageList1: TImageList

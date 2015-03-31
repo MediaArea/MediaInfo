@@ -47,16 +47,16 @@ __published:    // IDE-managed Components
     TImageList *ImageList1;
     TImageList *ImageList2;
     TToolBar *ToolBar3;
-    TToolButton *Digimetrics;
+    TToolButton *Tektronix;
     TImageList *ImageList3;
-    TLabel *Digimetrics_Label;
+    TLabel *Tektronix_Label;
     void __fastcall WebSiteClick(TObject *Sender);
     void __fastcall FormShow(TObject *Sender);
     void __fastcall NewVersionClick(TObject *Sender);
     void __fastcall DonateClick(TObject *Sender);
     void __fastcall WriteMeClick(TObject *Sender);
     void __fastcall WriteToTranslatorClick(TObject *Sender);
-    void __fastcall DigimetricsClick(TObject *Sender);
+    void __fastcall TektronixClick(TObject *Sender);
 private:    // User declarations
 public:        // User declarations
     __fastcall TAboutF(TComponent* Owner);

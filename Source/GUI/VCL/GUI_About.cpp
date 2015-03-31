@@ -79,8 +79,8 @@ void __fastcall TAboutF::FormShow(TObject *Sender)
 
     if (Prefs->Donated)
     {
-        Digimetrics->Visible=false;
-        Digimetrics_Label->Visible=false;
+        Tektronix->Visible=false;
+        Tektronix_Label->Visible=false;
     }
 }
 
@@ -124,9 +124,9 @@ void __fastcall TAboutF::WebSiteClick(TObject *Sender)
 
 
 
-void __fastcall TAboutF::DigimetricsClick(TObject *Sender)
+void __fastcall TAboutF::TektronixClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, __T("http://digi-metrics.com/"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("http://www.tek.com/file-based-qc-solutions"), NULL, NULL, SW_SHOWNORMAL);
 }
 //---------------------------------------------------------------------------
 

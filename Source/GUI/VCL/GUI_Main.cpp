@@ -584,8 +584,8 @@ void __fastcall TMainF::Translate()
     }
     if (Prefs->Donated)
     {
-        M_Digimetrics->Visible=false;
-        Tool_Digimetrics->Visible=false;
+        M_Tektronix->Visible=false;
+        Tool_Tektronix->Visible=false;
     }
 }
 
@@ -888,7 +888,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
     {
         Caption=MEDIAINFO_TITLE;
         if (Prefs->Donated)
-            Caption+=" - Sponsored by Digimetrics";
+            Caption+=" - Sponsored by Tektronix";
     }
     else if (FilesCount==1)
         //un fichier
@@ -1660,9 +1660,9 @@ void __fastcall TMainF::M_NewVersionClick(TObject *Sender)
     ShellExecute(NULL, NULL, (Ztring(__T("http://mediaarea.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("/MediaInfo/?NewVersionRequested=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
 
-void __fastcall TMainF::M_DigimetricsClick(TObject *Sender)
+void __fastcall TMainF::M_TektronixClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, __T("http://digi-metrics.com/"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("http://www.tek.com/file-based-qc-solutions"), NULL, NULL, SW_SHOWNORMAL);
 }
 //---------------------------------------------------------------------------
 

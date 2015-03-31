@@ -185,8 +185,8 @@ __published:    // IDE-managed Components
     TMenuItem *M_View_PBCore2;
     TMenuItem *M_View_EBUCore_1_5;
     TMenuItem *M_View_EBUCore_1_6;
-    TMenuItem *M_Digimetrics;
-    TToolButton *Tool_Digimetrics;
+    TMenuItem *M_Tektronix;
+    TToolButton *Tool_Tektronix;
     TMenuItem *M_View_reVTMD;
     TMenuItem *ToolBar_View_XML;
     TMenuItem *ToolBar_View_MPEG7;
@@ -254,7 +254,7 @@ __published:    // IDE-managed Components
     void __fastcall M_View_EBUCore_1_5Click(TObject *Sender);
     void __fastcall M_View_EBUCore_1_6Click(TObject *Sender);
     void __fastcall M_View_XMLClick(TObject *Sender);
-    void __fastcall M_DigimetricsClick(TObject *Sender);
+    void __fastcall M_TektronixClick(TObject *Sender);
     void __fastcall M_View_reVTMDClick(TObject *Sender);
 private:    // User declarations
 public:        // User declarations

@@ -859,13 +859,13 @@ object MainF: TMainF
       ImageIndex = 5
       Wrap = True
     end
-    object Tool_Digimetrics: TToolButton
+    object Tool_Tektronix: TToolButton
       Left = 0
       Top = 234
-      Hint = 'Visit Digimetrics website'
-      Caption = 'Digimetrics website'
+      Hint = 'Visit Tektronix website'
+      Caption = 'Tektronix website'
       ImageIndex = 6
-      MenuItem = M_Digimetrics
+      MenuItem = M_Tektronix
       Wrap = True
     end
   end
@@ -2340,11 +2340,11 @@ object MainF: TMainF
       Visible = False
       OnClick = M_NewVersionClick
     end
-    object M_Digimetrics: TMenuItem
-      Caption = 'Digimetrics website'
-      Hint = 'Visit Digimetrics website'
+    object M_Tektronix: TMenuItem
+      Caption = 'Tektronix website'
+      Hint = 'Visit Tektronix website'
       ImageIndex = 6
-      OnClick = M_DigimetricsClick
+      OnClick = M_TektronixClick
     end
   end
   object Menu_Image: TImageList
