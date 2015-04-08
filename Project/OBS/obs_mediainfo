@@ -112,10 +112,6 @@ Download_Packages $1 $2 $3  x x ""           CentOS_5        x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           CentOS_6        i686   .i686
 Download_Packages $1 $2 $3  x x ""           CentOS_6        x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           CentOS_7        x86_64 .x86_64
-Download_Packages $1 $2 $3  x x ""           Fedora_17       i686   .i686
-Download_Packages $1 $2 $3  x x ""           Fedora_17       x86_64 .x86_64
-Download_Packages $1 $2 $3  x x ""           Fedora_18       i686   .i686
-Download_Packages $1 $2 $3  x x ""           Fedora_18       x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           Fedora_19       i686   .i686
 Download_Packages $1 $2 $3  x x ""           Fedora_19       x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           Fedora_20       i686   .i686
@@ -147,8 +143,6 @@ Download_Packages $1 $2 $3  x x ""           SLE_11_SP3      i586   .i586
 Download_Packages $1 $2 $3  x x ""           SLE_11_SP3      x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           openSUSE_11.4   i586   .i586
 Download_Packages $1 $2 $3  x x ""           openSUSE_11.4   x86_64 .x86_64
-Download_Packages $1 $2 $3  x x ""           openSUSE_12.1   i586   .i586
-Download_Packages $1 $2 $3  x x ""           openSUSE_12.1   x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           openSUSE_12.2   i586   .i586
 Download_Packages $1 $2 $3  x x ""           openSUSE_12.2   x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           openSUSE_12.3   i586   .i586
@@ -164,9 +158,9 @@ Download_Packages $1 $2 $3  x x ""           openSUSE_Tumbleweed x86_64 .x86_64
 }
 
 
-mediainfov="0.7.72"
-libmediainfov="0.7.72"
-libzenv="0.4.30"
+mediainfov="0.7.73"
+libmediainfov="0.7.73"
+libzenv="0.4.31"
 destversion="1"
 
 Download_Global 8.1 17.1 3.1 #MediaInfo, MediaInfoLib, ZenLib

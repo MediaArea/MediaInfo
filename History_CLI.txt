@@ -8,6 +8,44 @@ bug reports and feature request are here :
 https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.73, 2015-04-09
+--------------
++ BPG: basic support, thanks to Kurtnoise
++ CAF: basic support of Apple Core Audio Format, sponsored by FlavorSys
++ JPEG-2000: Display of profile (Rsiz)
++ JPEG-2000: detection of XYZ colorspace (based on D-Cinema profile)
++ FFV1 in MOV: more details (version...)
++ MOV/MPEG-4: handling of clcn (little endian nclc) Color parameter type
++ #P84, Matroska: Add TEXTST support to the MKV Parser, thanks to Kurtnoise
++ #P85, MPEG-TS: Add TEXTST support to the MPEG-PSI Parser, thanks to Kurtnoise
++ MediaInfoDLL interface: clean up, more debug features added
++ MediaInfoDLL interface: Giant threads lock removed
++ #F460, VC-3/DNxHD: detection of RGB 444 and other SMPTE ST 2019 (2014) new CIDs
++ VC-3/DNxHD: version number (HVN)
++ Clean aperture size is move from width/height to its own field
++ HEVC: tier
++ MXF: writing library and writing application fields are cleaned up
++ ProRes: support of 4444 profiles
++ CAP: detection of CAP files from Cheetah and Lambda
+x B886, XML and HTML outputs were broken
+x B902: EBU AspectRatio invalid in case of non classic numerator:denominator format
+x #B758, VC-3/DNxHD: wrong color space and subsampling in case of unknown CID, now empty if format version is not known
+x #B903, MXG: Incorrect timecode track used for AS-11 DPP MXF files
+x #B904, MXF: Handling repetition of Header Metadata in MXF files
+x MXF: AFD value was wrong (displaying the complete byte, but AFD is only 4 bits of this byte)
+x DTS: some streams in Little endian were not detected
+x MPEG-4: some files were having an incorrect frame count
+x AVC: Some SCTE 128 caption streams were displayed twice
+x BMP; accepting files with file size information set to -1
+x RF64: samplesCount was not always right
+x MOV: avoid wrong parsing in case of "colr" atom with "prof" color parameter type
+x DCP/IMF: ID has now the AM/PKL CPL order in order in all cases (not only when there is more than one CPL)
+x #B893, MXF: Crash with Panasonic P2 3.0 files
+x DPX: time information was with native ":" character
+x Images sequence: "Delay" field is filled from the number in the name of the first file
+x FLV: some files were not having the right duration
+x DPX: Cineon files were detected as DPX Version 1, version number was not corresponding to the real version
+
 Version 0.7.72, 2015-01-07
 --------------
 + MXF: MXF version (e.g. "1.3")
