@@ -1,6 +1,0 @@
-The project is not yet integrated in the complete source code tree.
-
-***
-
-copy libmediainfo.dylib in the project root dir
-if you plan to execute a .app, run "install_name_tool -id @executable_path/../Resources/libmediainfo.dylib libmediainfo.dylib" first.
