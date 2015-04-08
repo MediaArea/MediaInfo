@@ -1,10 +1,10 @@
-//
-//  oMediaInfoList.m
-//  MediaInfo
-//
+/*  Copyright (c) MediaArea.net SARL. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license that can
+ *  be found in the License.html file in the root of the source tree.
+ */
+
 //  Created by Max Pozdeev on 06.02.12.
-//  Copyright 2012 Jerome Martinez. All rights reserved.
-//
 
 #include "oMediaInfoList.h"
 #include "MediaInfoDLL/MediaInfoDLL_Static.h"
@@ -38,8 +38,9 @@
 - (BOOL)openURL:(NSURL *)fileURL {
 	
 	NSString *filename = [fileURL path];
-/*
-	//this works for non-latin files
+
+	/*
+    //this works for non-latin files
 	const char *cstr = [filename UTF8String];
 	wchar_t *wstr = new wchar_t[strlen(cstr)+1];
 	int newlen = mbstowcs(wstr, cstr, strlen(cstr));
@@ -50,6 +51,7 @@
 	delete[] wstr;
 	*/
 	
+	MediaInfoList_Option(MIL, [@"setlocale_LC_CTYPE" WCHARString], [@"UTF-8" WCHARString]);
 	size_t ret = MediaInfoList_Open(MIL, [filename WCHARString], MediaInfo_FileOption_Nothing);
 	
 	return ret ? YES : NO;

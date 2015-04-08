@@ -232,7 +232,7 @@
 	if (max == 1)
 	{
 		array = [info componentsSeparatedByString:@"\r"];
-        max = [array count];
+         max = [array count];
 	}
 	NSMutableArray *finalArray = [NSMutableArray array];
 	NSMutableArray *textArray = [NSMutableArray array];
