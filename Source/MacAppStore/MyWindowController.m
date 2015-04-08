@@ -227,13 +227,19 @@
 
 	//tree view
 	
-	NSArray *array = [info componentsSeparatedByString:@"\r"];
+	NSArray *array = [info componentsSeparatedByString:@"\n"];
+	NSInteger max = [array count];
+	if (max == 1)
+	{
+		array = [info componentsSeparatedByString:@"\r"];
+        max = [array count];
+	}
 	NSMutableArray *finalArray = [NSMutableArray array];
 	NSMutableArray *textArray = [NSMutableArray array];
 
 	
 	
-	NSInteger i, max = [array count];
+	NSInteger i;
 	NSMutableArray *currentRoot = finalArray;
 	
 	
