@@ -293,6 +293,7 @@ Dimensions; Mides
 Director;Director
 DirectorOfPhotography;Director de fotografia
 DisplayAspectRatio;Relació d'aspecte
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;
 DistributedBy;Distribuït per
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;
 h;h
 Header file;Capçalera de l'arxiu
 Height;Alçada
+Height_CleanAperture;
 Height_Original;
 Help;Ajuda
 Hint;
@@ -927,6 +929,7 @@ Period;Període
 Phone;Telèfon
 PictureRatio;
 PixelAspectRatio;Relació d'aspecte
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;Relació d'aspecte
 PlayCounter;Comptador
 Played_Count;Temps reproduït
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Visiteu el web d'aquest tipus de còdec
 WebSite_Video_More;Aneu al web (%Url%)  per a trobar aquest tipus de còdec
 Width;Amplada
+Width_CleanAperture;
 Width_Original;
 WriteMe;Escriviu-me
 WriteToTranslator;Escriviu al traductor

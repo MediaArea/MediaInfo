@@ -293,6 +293,7 @@ Dimensions;
 Director;Director
 DirectorOfPhotography;Director of photography
 DisplayAspectRatio;Λόγος εικόνας
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;
 DistributedBy;Distributed by
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;Групаванне
 h;h
 Header file;Δημιουργήστε αρχείο κεφαλίδας
 Height;Ύψος
+Height_CleanAperture;
 Height_Original;
 Help;Βοήθεια
 Hint;
@@ -927,6 +929,7 @@ Period;Περίοδος
 Phone;Τηλέφωνο
 PictureRatio;
 PixelAspectRatio;Λόγος εικονοστοιχείου
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;Λόγος εικονοστοιχείου
 PlayCounter;PlayCounter
 Played_Count;
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Πήγαινε στην ιστοσελίδα αυτού του συμπιεστή video
 WebSite_Video_More;Πήγαινε στην ιστοσελίδα (%Url%) to find this video codec
 Width;Πλάτος
+Width_CleanAperture;
 Width_Original;
 WriteMe;Επικοινωνία μαζί μου
 WriteToTranslator;Επικοινωνία με τον μεταφραστή

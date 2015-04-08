@@ -293,6 +293,7 @@ Dimensions;ディメンション
 Director;ディレクター
 DirectorOfPhotography;フォトディレクター
 DisplayAspectRatio;解像度
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;元解像度
 DistributedBy;ディストリビュート by
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;
 h;時
 Header file;ヘッダーファイルを作成
 Height;高さ
+Height_CleanAperture;
 Height_Original;
 Help;ヘルプ
 Hint;ヒント
@@ -927,6 +929,7 @@ Period;ピリオド
 Phone;電話
 PictureRatio;
 PixelAspectRatio;ピクセル比
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;ピクセル比
 PlayCounter;再生数カウンター
 Played_Count;再生数
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;このビデオコーデックについて
 WebSite_Video_More; (%Url%) へ移動してこのビデオコーデックを探す
 Width;幅
+Width_CleanAperture;
 Width_Original;
 WriteMe;メール送信
 WriteToTranslator;翻訳者
@@ -1098,5 +1102,5 @@ Written_Location;作成場所
 WrittenBy;著者
 Yes;はい
 Your system;システム情報
-ZZ_Automatic_Percent;85
-ZZ_AutomaticLanguage_Percent;89
+ZZ_Automatic_Percent;84
+ZZ_AutomaticLanguage_Percent;88

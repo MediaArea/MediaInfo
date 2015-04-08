@@ -293,6 +293,7 @@ Dimensions;Dimensione
 Director;Regjisori
 DirectorOfPhotography;Regjisori i fotografisë
 DisplayAspectRatio;Raporti i aspektit në ekran
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Raporti origjinal i aspektit në ekran
 DistributedBy;Shpërndarë nga
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;
 h;h
 Header file;Krijo një kokë skede
 Height;Lartësia
+Height_CleanAperture;
 Height_Original;
 Help;Ndihmë
 Hint;Këshillë
@@ -927,6 +929,7 @@ Period;Periudha
 Phone;Telefoni
 PictureRatio;
 PixelAspectRatio;Raporti i aspektit të pikselit
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;Raporti origjinal i aspektit të pikselit
 PlayCounter;Njehsori i lojës
 Played_Count;Herët e Luajtura
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Shko te trualli në rrjetë i kodekut për video
 WebSite_Video_More;Shko te trualli në rrjetë (%Url%) për të gjetur kodekun për video
 Width;Gjerësia
+Width_CleanAperture;
 Width_Original;
 WriteMe;Shkruaji autorit
 WriteToTranslator;Shkruaji përkthyesit

@@ -293,6 +293,7 @@ Dimensions;Չափերը
 Director;Ռեժիսորը
 DirectorOfPhotography;Օպերատորը
 DisplayAspectRatio;Կողմերի հարաբերականությունը
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Կողմերի հարաբեր-ը օրիգինալում
 DistributedBy;Տարածողը
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;
 h; ժ.
 Header file;Ստեղծել գլխագիրը
 Height;Բարձր-ը
+Height_CleanAperture;
 Height_Original;Օրիգինալի բարձր-ը
 Help;Օգնություն
 Hint;Հուշում
@@ -927,6 +929,7 @@ Period;Շրջանը
 Phone;Հեռախոս
 PictureRatio;
 PixelAspectRatio;Փիքսելների համամասնությունը
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;Փիքսելների հարաբեր-ը օրիգինալում
 PlayCounter;Վերարտադրման հաշվիչ
 Played_Count;Վերարտադրվել է մեկ անգամ
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Տեսակոդավորիչի կայքը
 WebSite_Video_More;Բացել (%Url%) կայքը՝ այս տեսակոդավորիչի մանրամասների համար
 Width;Լայն-ը
+Width_CleanAperture;
 Width_Original;Օրիգինալի լայն-ը
 WriteMe;Նամակ հեղինակին
 WriteToTranslator;Նամակ թարգմանչին

@@ -293,6 +293,7 @@ Dimensions;維度
 Director;導演
 DirectorOfPhotography;攝影導演
 DisplayAspectRatio;顯示長寬比例
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;原始顯示長寬比例
 DistributedBy;發布者
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;
 h;時
 Header file;建立標頭檔案
 Height;畫面高度
+Height_CleanAperture;
 Height_Original;
 Help;說明
 Hint;提示
@@ -927,6 +929,7 @@ Period;時期
 Phone;電話
 PictureRatio;
 PixelAspectRatio;像素長寬比例
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;原始像素長寬比例
 PlayCounter;播放計數器
 Played_Count;已播放數
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo/zh-TW
 WebSite_Video;前往此視訊編解碼器的網站
 WebSite_Video_More;前往網站 (%Url%) 找尋此視訊編解碼器
 Width;畫面寬度
+Width_CleanAperture;
 Width_Original;
 WriteMe;寫信給作者
 WriteToTranslator;寫信給譯者

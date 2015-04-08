@@ -293,6 +293,7 @@ Dimensions;Afmetingen
 Director;Regisseur
 DirectorOfPhotography;Cinematograaf
 DisplayAspectRatio;Beeldverhouding
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Originele beeldverhouding
 DistributedBy;Gedistribueerd door
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;Grouping
 h;h
 Header file;Headerbestand maken
 Height;Hoogte
+Height_CleanAperture;
 Height_Original;
 Help;Help
 Hint;Hint
@@ -927,6 +929,7 @@ Period;Periode
 Phone;Telefoon
 PictureRatio;
 PixelAspectRatio;Pixelverhouding
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;Originele pixelverhouding
 PlayCounter;Teller
 Played_Count; Keren gespeeld
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Ga naar de website van deze videocodec
 WebSite_Video_More;Ga naar de website (%Url%) om deze videocodec te vinden
 Width;Breedte
+Width_CleanAperture;
 Width_Original;
 WriteMe;Schrijf mij
 WriteToTranslator;Schrijf naar vertaler
@@ -1098,5 +1102,5 @@ Written_Location;Locatie van schrijven
 WrittenBy;Geschreven door
 Yes;Ja
 Your system;Uw systeem
-ZZ_Automatic_Percent;84
-ZZ_AutomaticLanguage_Percent;88
+ZZ_Automatic_Percent;83
+ZZ_AutomaticLanguage_Percent;87

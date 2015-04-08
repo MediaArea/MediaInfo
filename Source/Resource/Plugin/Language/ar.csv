@@ -293,6 +293,7 @@ Dimensions;الأبعاد
 Director;المدير الفني
 DirectorOfPhotography;محرر الصور
 DisplayAspectRatio;عرض حجم الشاشة
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;عرض حجم الشاشة الأصلي
 DistributedBy;موزع من طرف
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;
 h;h
 Header file;إنشاء ملف header
 Height;ارتفاع
+Height_CleanAperture;
 Height_Original;ارتفاع الأصلي
 Help;ساعدة
 Hint;اقتراح
@@ -927,6 +929,7 @@ Period;فترة
 Phone;هاتف
 PictureRatio;
 PixelAspectRatio;حجم البكسل
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;حجم البكسل الأصلي
 PlayCounter;عداد القراءة
 Played_Count;عدد القراءات
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;انتقل إلى موقع ترميز الفيديو
 WebSite_Video_More;انتقل إلى موقع (%Url%)العثور على ترميز  الفيديو
 Width;العرض
+Width_CleanAperture;
 Width_Original;العرض الأصلي
 WriteMe;كتابة البريد للمؤلف
 WriteToTranslator;كتابة البريد للمترجم

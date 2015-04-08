@@ -293,6 +293,7 @@ Dimensions;Dimentioner
 Director;Instruktør
 DirectorOfPhotography;Cheffotograf
 DisplayAspectRatio;Størrelsesforhold
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Oprindeligt størrelsesforhold
 DistributedBy;Distribueret af
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;
 h;t
 Header file;Opret en header-fil
 Height;Højde
+Height_CleanAperture;
 Height_Original;Oprindelig højde
 Help;Hjælp
 Hint;Tip
@@ -927,6 +929,7 @@ Period;Tidsalder
 Phone;Telefon
 PictureRatio;
 PixelAspectRatio;Pixelforhold
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;Pixelforhold
 PlayCounter;Tæller
 Played_Count;Afspillet antal gange
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Gå til dette codecs websted
 WebSite_Video_More;Gå til webstedet (%Url%) for at finde dette video-codec
 Width;Bredde
+Width_CleanAperture;
 Width_Original;Oprindelig bredde
 WriteMe;Skriv e-mail til programmøren
 WriteToTranslator;Skriv til oversætteren

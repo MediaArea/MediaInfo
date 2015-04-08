@@ -293,6 +293,7 @@ Dimensions;Dimensions
 Director;Réalisateur
 DirectorOfPhotography;Responsable de la photographie
 DisplayAspectRatio;Format à l'écran
+DisplayAspectRatio_CleanAperture;Format à l'écran, Clean Aperture
 DisplayAspectRatio_Original;Format à l'écran d'origine
 DistributedBy;Distribué par
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;GOP, ouvert/fermé de la première imageGrouping
 h;h
 Header file;Créer un fichier Header
 Height;Hauteur
+Height_CleanAperture;Hauteur, Clean Aperture
 Height_Original;Largeur originale
 Help;Aide
 Hint;Suggestion
@@ -927,6 +929,7 @@ Period;Période
 Phone;Téléphone
 PictureRatio;
 PixelAspectRatio;Taille du pixel
+PixelAspectRatio_CleanAperture;Taille du pixel, Clean Aperture
 PixelAspectRatio_Original;Taille originale du pixel
 PlayCounter;Compteur de lecture
 Played_Count;Nombre de lectures
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo/
 WebSite_Video;Aller sur le site web du codec vidéo
 WebSite_Video_More;Aller sur le site web (%Url%) du codec vidéo
 Width;Largeur
+Width_CleanAperture;Largeur, Clean Aperture
 Width_Original;Largeur
 WriteMe;écrire à l'auteur
 WriteToTranslator;Écrire au traducteur

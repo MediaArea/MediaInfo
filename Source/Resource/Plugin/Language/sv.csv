@@ -293,6 +293,7 @@ Dimensions;Dimensioner
 Director;Regissör
 DirectorOfPhotography;Kamerachef
 DisplayAspectRatio;Skärmbildförhållande
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Ursprungligt skärmbildförhållande
 DistributedBy;Distribuerad av
 Distributor;Distributör
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;GOP, Öppen/Stängd av första bildrutan
 h;h
 Header file;Skapa en header-fil
 Height;Höjd
+Height_CleanAperture;
 Height_Original;Ursprunglig höjd
 Help;Hjälp
 Hint;Tips
@@ -927,6 +929,7 @@ Period;Period
 Phone;Telefon
 PictureRatio;Bildförhållande
 PixelAspectRatio;Pixelförhållande
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;Ursprungligt pixelförhållande
 PlayCounter;Spelräknare
 Played_Count;Spelad
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Gå till webbsidan för denna videokodec
 WebSite_Video_More;Gå till webbsidan (%Url%) för att hitta denna videokodek
 Width;Bredd
+Width_CleanAperture;
 Width_Original;Ursprunglig bredd
 WriteMe;Kontakta utvecklaren
 WriteToTranslator;Kontakta översättaren

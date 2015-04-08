@@ -293,6 +293,7 @@ Dimensions;Neurriak
 Director;Zuzendaria
 DirectorOfPhotography;Argazki zuzendaria
 DisplayAspectRatio;Erakuspen ikuspegi maila
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Jatorrizko ikuspegi maila
 DistributedBy;Banatzailea
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;
 h;h
 Header file;Sortu idazburu agiria
 Height;Garaiera
+Height_CleanAperture;
 Height_Original;Jatorrizko garaiera
 Help;Laguntza
 Hint;Hint
@@ -927,6 +929,7 @@ Period;Aldia
 Phone;Urrutizkina
 PictureRatio;
 PixelAspectRatio;Pixel ikuspegi maila
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;Jatorrizko ikuspegi maila
 PlayCounter;Irakurketa-Zenbatzailea
 Played_Count;Irakurritako aldiak
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Joan bideo kodek honen webgunera
 WebSite_Video_More;Joan webgunera (%Url%) bideo kodek hau bilatzeko
 Width;Zabalera
+Width_CleanAperture;
 Width_Original;Jatorrizko zabalera
 WriteMe;Idatzi post@ egileari
 WriteToTranslator;Idatzi itzultzaileari
@@ -1098,5 +1102,5 @@ Written_Location;Idazte helbidea
 WrittenBy;Idazlea
 Yes;Bai
 Your system;Zure sistema
-ZZ_Automatic_Percent;93
-ZZ_AutomaticLanguage_Percent;93
+ZZ_Automatic_Percent;92
+ZZ_AutomaticLanguage_Percent;92

@@ -293,6 +293,7 @@ Dimensions;Dimenzije
 Director;Režiser
 DirectorOfPhotography;Ravnatelj fotografije
 DisplayAspectRatio;Omjer slike
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Izvorni omjer slike
 DistributedBy;Distribucija
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;Agrupamento
 h;h
 Header file;Kreirati zaglavnu datoteku
 Height;Visina
+Height_CleanAperture;
 Height_Original;
 Help;Pomoć
 Hint;Naznaka
@@ -927,6 +929,7 @@ Period;Razdoblje
 Phone;Telefon
 PictureRatio;
 PixelAspectRatio;Omjer piksela
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;Izvorni omjer piksela
 PlayCounter;Brojač izvedbi
 Played_Count;puta izvedeno
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Prijeći na spletnu stranicu tog video-kôdeka
 WebSite_Video_More;Prijeći na spletni sadržaj (%Url%) za pronalaženje tog video-kôdeka
 Width;Širina
+Width_CleanAperture;
 Width_Original;
 WriteMe;Poruka autoru
 WriteToTranslator;Poruka prevoditelju

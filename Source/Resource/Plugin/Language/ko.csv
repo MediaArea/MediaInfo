@@ -293,6 +293,7 @@ Dimensions;영역
 Director;감독
 DirectorOfPhotography;촬영 감독
 DisplayAspectRatio;화면 종횡비
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;원본 화면 종횡비
 DistributedBy;배포
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;
 h;시
 Header file;헤더 파일 만들기
 Height;높이
+Height_CleanAperture;
 Height_Original;
 Help;도움말
 Hint;힌트
@@ -927,6 +929,7 @@ Period;시대
 Phone;전화
 PictureRatio;
 PixelAspectRatio;픽셀 종횡비
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;원본 픽셀 종횡비
 PlayCounter;재생 횟수
 Played_Count;재생 횟수
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;이 비디오 코덱의 웹사이트로 가기
 WebSite_Video_More;이 비디오 코덱을 찾기 위한 웹사이트(%Url%)로 가기
 Width;폭
+Width_CleanAperture;
 Width_Original;
 WriteMe;제작자에게 메일쓰기
 WriteToTranslator;번역자에게 메일쓰기

@@ -293,6 +293,7 @@ Dimensions;
 Director;Director
 DirectorOfPhotography;Director of photography
 DisplayAspectRatio;Poměr stran
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;
 DistributedBy;Distributed by
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;
 h;h
 Header file;Create a header file
 Height;Výška
+Height_CleanAperture;
 Height_Original;
 Help;Nápověda
 Hint;
@@ -927,6 +929,7 @@ Period;Period
 Phone;Phone
 PictureRatio;
 PixelAspectRatio;Poměr pixelů
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;Poměr pixelů
 PlayCounter;PlayCounter
 Played_Count;
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Jdi na stránky s tímto kodekem
 WebSite_Video_More;Go to the web site (%Url%) to find this video codec
 Width;Šířka
+Width_CleanAperture;
 Width_Original;
 WriteMe;Napiš autorovi
 WriteToTranslator;Napiš překladateli
@@ -1098,5 +1102,5 @@ Written_Location;Written location
 WrittenBy;Napsal
 Yes;Ano
 Your system;Instalované kodeky
-ZZ_Automatic_Percent;69
+ZZ_Automatic_Percent;68
 ZZ_AutomaticLanguage_Percent;76

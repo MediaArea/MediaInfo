@@ -293,6 +293,7 @@ Dimensions;Boyutlar
 Director;Yönetmen
 DirectorOfPhotography;Fotoğrafçılık yönetmeni
 DisplayAspectRatio;Görüntü en-boy oranı
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Orijinal görüntü en-boy oranı
 DistributedBy;Dağıtan
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;
 h;s
 Header file;Üst bilgi dosyası oluştur
 Height;Yükseklik
+Height_CleanAperture;
 Height_Original;Orijinal yükseklik
 Help;Yardım
 Hint;İpucu
@@ -927,6 +929,7 @@ Period;Dönem
 Phone;Telefon
 PictureRatio;
 PixelAspectRatio;Piksel oranı
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;Piksel oranı
 PlayCounter;Oynatma Sayacı
 Played_Count;Oynatma süresi
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Bu görüntü kodek'inin web sitesine git
 WebSite_Video_More;Bu görüntü kodek'ini bulmak için (%Url%) web sitesine git
 Width;Genişlik
+Width_CleanAperture;
 Width_Original;Orijinal genişlik
 WriteMe;Bana yazın
 WriteToTranslator;Çevirmene yazın

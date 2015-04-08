@@ -293,6 +293,7 @@ Dimensions;规模
 Director;导演
 DirectorOfPhotography;摄影导演
 DisplayAspectRatio;画面比例
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;原始高宽比
 DistributedBy;发行
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;
 h;小时
 Header file;创建头文件
 Height;画面高度
+Height_CleanAperture;
 Height_Original;原始高度
 Help;帮助
 Hint;提示信息
@@ -927,6 +929,7 @@ Period;时代
 Phone;电话
 PictureRatio;
 PixelAspectRatio;画面比例(像素)
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;画面比例(像素)
 PlayCounter;播放计数器
 Played_Count;已播放时间
@@ -1090,6 +1093,7 @@ WebSite_Url;网址http://MediaArea.net/MediaInfo
 WebSite_Video;访问此视频编解码器的网页
 WebSite_Video_More;更多视频编解码器的网页(%Url%)
 Width;画面宽度
+Width_CleanAperture;
 Width_Original;原始宽度
 WriteMe;给作者写信
 WriteToTranslator;给译者写信

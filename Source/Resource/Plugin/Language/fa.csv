@@ -293,6 +293,7 @@ Dimensions;اندازه گرفتن
 Director;کارگردان
 DirectorOfPhotography;کارگردان عکسبرداری
 DisplayAspectRatio;نمایش نسبت تصوير
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;نمایش نسبت تصوير اصلی
 DistributedBy;توزيع شده توسط
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;
 h;h
 Header file;ایجاد فایل سر صفحه
 Height;بلندی
+Height_CleanAperture;
 Height_Original;
 Help;راهنمایی
 Hint;اشارات
@@ -927,6 +929,7 @@ Period;دوره
 Phone;تلفن
 PictureRatio;
 PixelAspectRatio;پیکسل نسبت تصوير
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;پیکسل نسبت تصوير اصلی
 PlayCounter;شمارش پخش
 Played_Count;تعداد پخش شده
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;سایت ویدیو کدک
 WebSite_Video_More;به سایت (%Url%) برای پیدا کردن ویدیو کدک بروید
 Width;عرض
+Width_CleanAperture;
 Width_Original;
 WriteMe;نوشته برای نویسنده
 WriteToTranslator;نوشته برای مترجم

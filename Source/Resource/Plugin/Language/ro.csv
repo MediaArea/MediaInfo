@@ -293,6 +293,7 @@ Dimensions;
 Director;Director
 DirectorOfPhotography;Director de film
 DisplayAspectRatio;Raport imagine
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;
 DistributedBy;Distribuit de
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;Grouping
 h;h
 Header file;Generare header fisier
 Height;Inaltime
+Height_CleanAperture;
 Height_Original;
 Help;Ajutor
 Hint;
@@ -927,6 +929,7 @@ Period;Perioada
 Phone;Telefon
 PictureRatio;
 PixelAspectRatio;Dimensiune pixel
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;Dimensiune pixel
 PlayCounter;Numar redari
 Played_Count;
@@ -1090,6 +1093,7 @@ WebSite_Url;
 WebSite_Video;Accesati site-ul web al acestui codec video
 WebSite_Video_More;Accesati site-ul web (%Url%) pentru a gasii acest codec video
 Width;Latime
+Width_CleanAperture;
 Width_Original;
 WriteMe;Scrieti-mi
 WriteToTranslator;Scrieti-i traducatorului

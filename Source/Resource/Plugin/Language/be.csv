@@ -293,6 +293,7 @@ Dimensions;Памеры
 Director;Рэжысёр
 DirectorOfPhotography;Аператар
 DisplayAspectRatio;Суадносіны кадра
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Арыгінальныя суадносіны бакоў
 DistributedBy;Распаўсюджвальнік
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;
 h;г.
 Header file;Стварыць загаловак
 Height;Вышыня
+Height_CleanAperture;
 Height_Original;
 Help;Дапамога
 Hint;Падказка
@@ -927,6 +929,7 @@ Period;Перыяд
 Phone;Тэлефон
 PictureRatio;
 PixelAspectRatio;Суадносіны пікселяў
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;Суадносіны пікселяў
 PlayCounter;Лічыльнік прайгравання
 Played_Count;Разоў прайгравалася
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Сайт відэакодэка
 WebSite_Video_More;Перайсці на сайт (%Url%) праглядніка для гэтага відэакодэка
 Width;Шырыня
+Width_CleanAperture;
 Width_Original;
 WriteMe;Напісаць мне
 WriteToTranslator;Напісаць перакладчыку
@@ -1098,5 +1102,5 @@ Written_Location;Месца напісання
 WrittenBy;Напісаў
 Yes;Так
 Your system;Ваша сістэма
-ZZ_Automatic_Percent;87
-ZZ_AutomaticLanguage_Percent;91
+ZZ_Automatic_Percent;86
+ZZ_AutomaticLanguage_Percent;90

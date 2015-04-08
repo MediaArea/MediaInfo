@@ -293,6 +293,7 @@ Dimensions;Dimensions
 Director;დირექტორი
 DirectorOfPhotography;Director of photography
 DisplayAspectRatio;გამოსახულების ასპექტ რატიო
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Original display aspect ratio
 DistributedBy;გავრცელების ავტორი
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;
 h;h
 Header file;ჰედერის ფაილის შექმნა
 Height;სიმაღლე
+Height_CleanAperture;
 Height_Original;ორიგინალი სიმაღლე
 Help;დახმარება
 Hint;Hint
@@ -927,6 +929,7 @@ Period;პერიოდი
 Phone;ტელეფონი
 PictureRatio;
 PixelAspectRatio;პიქსელის ასპექტ რატიო
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;პიქსელის ორიგინალი ასპექტ რატიო
 PlayCounter;PlayCounter
 Played_Count;Times played
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;შედი ამ ვიდეო კოდეკის ვებ-გვერდზე
 WebSite_Video_More;შედი ამ ვებ-გვერდზე (%Url%) ,რომ იპოვო ამ ვიდეოს კოდეკი
 Width;სიგანე
+Width_CleanAperture;
 Width_Original;ორიგინალი სიგანე
 WriteMe;მიწერეთ ავტორს
 WriteToTranslator;მიწერეთ მთარგმნელს

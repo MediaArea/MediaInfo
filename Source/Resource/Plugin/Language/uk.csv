@@ -293,6 +293,7 @@ Dimensions;Розміри
 Director;Режисер
 DirectorOfPhotography;Оператор
 DisplayAspectRatio;Співвідношення сторін екрану
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Оригінальне співвідношення сторін екрану
 DistributedBy;Розповсюджувач
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;
 h; год.
 Header file;Створити файл заголовку
 Height;Висота кадру
+Height_CleanAperture;
 Height_Original;Оригінальна висота кадру
 Help;Допомога
 Hint;Підказка
@@ -927,6 +929,7 @@ Period;Період
 Phone;Телефон
 PictureRatio;
 PixelAspectRatio;Співвідношення сторін пікселя
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;Оригінальне співвідношення сторін пікселя
 PlayCounter;Лічильник відтворень
 Played_Count;Кількість відтворень
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Перейти на сайт цього відеокодеку
 WebSite_Video_More;Перейти на сайт (%Url%) цього відеокодеку
 Width;Ширина кадру
+Width_CleanAperture;
 Width_Original;Оригінальна ширина кадру
 WriteMe;Написати лист автору
 WriteToTranslator;Написати перекладачу
@@ -1098,5 +1102,5 @@ Written_Location;Місце запису
 WrittenBy;Записано
 Yes;Так
 Your system;Ваша система
-ZZ_Automatic_Percent;86
+ZZ_Automatic_Percent;85
 ZZ_AutomaticLanguage_Percent;92

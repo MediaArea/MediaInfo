@@ -293,6 +293,7 @@ Dimensions;Méretek
 Director;Rendező
 DirectorOfPhotography;Fényképezte
 DisplayAspectRatio;Képarány
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Eredeti képarány
 DistributedBy;Terjesztő
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;
 h; óra
 Header file;Fejléc fájl létrehozása
 Height;Magasság
+Height_CleanAperture;
 Height_Original;
 Help;Súgó
 Hint;Tipp
@@ -927,6 +929,7 @@ Period;Korszak
 Phone;Telefon
 PictureRatio;
 PixelAspectRatio;Képpont arány
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;Képpont arány
 PlayCounter;Lejátszás számláló
 Played_Count;Lejátszások száma
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;A képkódek weblapjának meglátogatása
 WebSite_Video_More;Látogassa meg a képkódek weblapját (%Url%)
 Width;Szélesség
+Width_CleanAperture;
 Width_Original;
 WriteMe;Írjon
 WriteToTranslator;Írjon a fordítónak

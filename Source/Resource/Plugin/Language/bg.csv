@@ -293,6 +293,7 @@ Dimensions;Размери
 Director;Режисьор
 DirectorOfPhotography;Фотограф
 DisplayAspectRatio;СъотношениеОбраз
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Оригинално_СъотношениеОбраз
 DistributedBy;РазпространенОт
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;
 h;х
 Header file;Хедър файл
 Height;Височина
+Height_CleanAperture;
 Height_Original;Оригинална_Височина
 Help;Помощ
 Hint;Подсказване
@@ -927,6 +929,7 @@ Period;Период
 Phone;Телефон
 PictureRatio;
 PixelAspectRatio;ПикселСъотношение
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;ПикселСъотношение_Оргинал
 PlayCounter;ИзпълнителенБрояч
 Played_Count;Изпълнени_Брой
@@ -1090,6 +1093,7 @@ WebSite_Url;Уебсайт_ЮРЛ
 WebSite_Video;Уебсайт_Видео
 WebSite_Video_More;Уебсайт_Видео_Повече
 Width;Ширина
+Width_CleanAperture;
 Width_Original;Ширина_Оригинал
 WriteMe;ПишетеМи
 WriteToTranslator;ПишетеНаПреводача

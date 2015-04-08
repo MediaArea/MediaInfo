@@ -293,6 +293,7 @@ Dimensions;
 Director;Direktorius
 DirectorOfPhotography;Fotografijos direktorius
 DisplayAspectRatio;Rodyti aspekto santykį
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;
 DistributedBy;Platintojas
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;
 h;v
 Header file;Sukurti pagrindinį failą
 Height;Aukštis
+Height_CleanAperture;
 Height_Original;
 Help;Pagalba
 Hint;Zyma
@@ -927,6 +929,7 @@ Period;Laikotarpis
 Phone;Telefonas
 PictureRatio;
 PixelAspectRatio;Pikselių aspekto koeficientas
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;Pikselių aspekto koeficientas
 PlayCounter;Rodymo skaitiklis
 Played_Count;
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Eiti į šio video kodeko internetinį puslapį
 WebSite_Video_More;Eiti į internetinę svetainę (%Url%) kad rasti šį kodeką
 Width;Plotis
+Width_CleanAperture;
 Width_Original;
 WriteMe;Parašyk man
 WriteToTranslator;Rašyti vertėjui

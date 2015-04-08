@@ -293,6 +293,7 @@ Dimensions;Размеры
 Director;Режиссёр
 DirectorOfPhotography;Оператор
 DisplayAspectRatio;Соотношение сторон
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Соотношение сторон в оригинале
 DistributedBy;Распространитель
 Distributor;Распространитель
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;GOP, открыто/закрыто на первом �
 h; ч.
 Header file;Создать заголовок
 Height;Высота
+Height_CleanAperture;
 Height_Original;Высота оригинала
 Help;Помощь
 Hint;Подсказка
@@ -927,6 +929,7 @@ Period;Период
 Phone;Телефон
 PictureRatio;Изображение радио
 PixelAspectRatio;Пропорции пикселя
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;Пропорции пикселя в оригинале
 PlayCounter;Счётчик воспроизведения
 Played_Count;Воспроизведено раз
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Сайт видеокодека
 WebSite_Video_More;Перейти на сайт (%Url%) для поиска этого видеокодека
 Width;Ширина
+Width_CleanAperture;
 Width_Original;Ширина оригинала
 WriteMe;Написать автору
 WriteToTranslator;Написать переводчику

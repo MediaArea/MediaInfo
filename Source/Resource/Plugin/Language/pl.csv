@@ -293,6 +293,7 @@ Dimensions;Wymiary
 Director;Reżyser
 DirectorOfPhotography;Zdjęcia
 DisplayAspectRatio;Proporcje obrazu
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Oryginalne proporcje obrazu
 DistributedBy;Rozpowszechnianie
 Distributor;
@@ -587,6 +588,7 @@ Gop_OpenClosed_FirstFrame;
 h;h
 Header file;Utwórz plik nagłówka
 Height;Wysokość
+Height_CleanAperture;
 Height_Original;
 Help;Pomoc
 Hint;Wskazówka
@@ -927,6 +929,7 @@ Period;Okres
 Phone;Telefon
 PictureRatio;
 PixelAspectRatio;Proporcje pikseli
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;Oryginalne proporcje pikseli
 PlayCounter;Licznik odtwarzania
 Played_Count;Odtwarzany razy
@@ -1090,6 +1093,7 @@ WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Odwiedź witrynę tego kodeka wideo
 WebSite_Video_More;Odwiedź witrynę (%Url%) aby poszukać kodeka wideo
 Width;Szerokość
+Width_CleanAperture;
 Width_Original;
 WriteMe;Napisz do mnie
 WriteToTranslator;Napisz do tłumacza
@@ -1098,5 +1102,5 @@ Written_Location;Lokalizacja
 WrittenBy;Napisał
 Yes;Tak
 Your system;System
-ZZ_Automatic_Percent;76
+ZZ_Automatic_Percent;75
 ZZ_AutomaticLanguage_Percent;89
