@@ -38,6 +38,7 @@ cp ../Project/GNU/GUI/Makefile.am MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
 cp ../Project/GNU/GUI/Makefile.in MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
 cp ../Project/GNU/GUI/missing MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
 cp ../Project/GNU/GUI/wxwin.m4 MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
+cp ../Project/GNU/GUI/mediainfo-gui.appdata.xml MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
 cp ../Project/GNU/GUI/mediainfo-gui.desktop MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
 cp ../Project/GNU/GUI/mediainfo-gui.kde3.desktop MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
 cp ../Project/GNU/GUI/mediainfo-gui.kde4.desktop MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
