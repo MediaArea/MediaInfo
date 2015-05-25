@@ -8,6 +8,24 @@ bug reports and feature request are here :
 https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.74, 2015-05-25
+--------------
++ FIMS: Preliminary version (not for production)
++ D-10 audio: display of real bitrate beside the encoded bitrate
++ VC-3: detection of CDP packets (608/708 captions), created by Nexio, inside the VC-3 private data
++ AES3: generic term AES3 replaced by more precise SMPTE ST numbers (302, 331, 337)
++ NUT: basic detection
++ FFV1: more parsing of the bitstream, support of any version of FFV1 in MOV and Matroska
++ DPX: color space and frame rate
+x #B906, Matroska: duration was missing if Info block is at the end of the file
+x #B908, AC-3: bit depth removed
+x #P86, MPEG-4: moov_trak_edts_elst Atom was ignoring version of the atom
+x Dolby E: the MXF channel count value was sometimes reported instead of the real channel count
+x VorbisComment: WAVEFORMATEXTENSIBLE_CHANNEL_MASK "0X" ("x" in uppercase) is accepted now
+x EBUCore: TotalProgrammeDuration was wrongly filled with IdentClockStart value
+x EBUCore: Source/Material moved from timecodeStart to timecodeTrack
+x MPEG-4: info is missing for some streams in some specific cases
+
 Version 0.7.73, 2015-04-09
 --------------
 + BPG: basic support, thanks to Kurtnoise
