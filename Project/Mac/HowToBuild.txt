@@ -40,16 +40,21 @@ Tested on Mac OS X 10.9
 WxWidgets 2.9.5: ./configure --with-osx_cocoa --without-libtiff --disable-mediactrl --disable-sound --enable-unicode --disable-shared --disable-precomp-headers --enable-static --enable-stl --with-macosx-version-min=10.5 CFLAGS=' -arch i386 -arch x86_64' CXXFLAGS=' -arch i386 -arch x86_64' LDFLAGS=' -arch i386 -arch x86_64' OBJCFLAGS=' -arch i386 -arch x86_64' OBJCXXFLAGS=' -arch i386 -arch x86_64'
 GUI Wx:
 ./GUI_Compile.sh --with-wx-static --enable-arch-i386 --enable-arch-x86_64 --with-macosx-version-min=10.5
-Copy MediaInfo/Project/Mac and launch ./mkdmg_GUI
+or (as Wx is not compiled for i386 for now) :
+cd Project/GNU/GUI/
+./configure --with-wx-static --enable-arch-x86_64 --with-macosx-version-min=10.5
+make
+Copy MediaInfo/Project/Mac directory from MediaInfo source and go to this directory, update VERSION in mkdmg_GUI and launch ./mkdmg_GUI
 CLI:
 ./CLI_Compile.sh --enable-arch-i386 --enable-arch-x86_64 --with-macosx-version-min=10.5
-Copy MediaInfo/Project/Mac and launch ./mkdmg_CLI
+Copy MediaInfo/Project/Mac directory from MediaInfo source and go to this directory, update VERSION in mkdmg_CLI and launch ./mkdmg_CLI
 DLL:
 ./SO_Compile.sh --enable-arch-i386 --enable-arch-x86_64 --with-macosx-version-min=10.5
 codesign -f -s "Developer ID Application: ${SIGNATURE}" --verbose MediaInfoLib/Project/GNU/Library/.libs/libmediainfo.dylib
 Verify that code signing is OK:
 spctl --assess -v MediaInfoLib/Project/GNU/Library/.libs/libmediainfo.dylib
-MediaInfoLib/Release/Release_DLL_Mac_Universal.sh
+
+cd MediaInfoLib/Release/ && ./Release_DLL_Mac_Universal.sh
 
 Per version (for Mac App Store)
 ----------------------------------------
@@ -58,4 +63,4 @@ install_name_tool -id @executable_path/../Resources/libmediainfo.dylib libmediai
 Xcode "Build Settings", change APP_VERSION (edit: not found in new Xcode, need to edit MediaInfo.xcodeproj/project.pbxproj)
 Xcode, run, test all views + version
 Xcode menu, Product, Archive
-Organizer will be opened. Click Validate. After validation, click Submit.
+Organizer will be opened. Click Validate. After validation, click Distribute.

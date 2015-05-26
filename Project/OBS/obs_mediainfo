@@ -89,20 +89,14 @@ Download_Packages 1  1  1   x x ""           Debian_7.0    i386   _i386
 Download_Packages 1  1  1   x x ""           Debian_7.0    amd64  _amd64
 Download_Packages 1  1  1   x x ""           xUbuntu_10.04  i386   _i386
 Download_Packages 1  1  1   x x ""           xUbuntu_10.04  amd64  _amd64
-Download_Packages 1  1  1   x x ""           xUbuntu_11.10  i386   _i386
-Download_Packages 1  1  1   x x ""           xUbuntu_11.10  amd64  _amd64
 Download_Packages 1  1  1   x x ""           xUbuntu_12.04  i386   _i386
 Download_Packages 1  1  1   x x ""           xUbuntu_12.04  amd64  _amd64
-Download_Packages 1  1  1   x x ""           xUbuntu_12.10  i386   _i386
-Download_Packages 1  1  1   x x ""           xUbuntu_12.10  amd64  _amd64
-Download_Packages 1  1  1   x x ""           xUbuntu_13.04  i386   _i386
-Download_Packages 1  1  1   x x ""           xUbuntu_13.04  amd64  _amd64
-Download_Packages 1  1  1   x x ""           xUbuntu_13.10  i386   _i386
-Download_Packages 1  1  1   x x ""           xUbuntu_13.10  amd64  _amd64
 Download_Packages 1  1  1   x x ""           xUbuntu_14.04  i386   _i386
 Download_Packages 1  1  1   x x ""           xUbuntu_14.04  amd64  _amd64
 Download_Packages 1  1  1   x x ""           xUbuntu_14.10  i386   _i386
 Download_Packages 1  1  1   x x ""           xUbuntu_14.10  amd64  _amd64
+Download_Packages 1  1  1   x x ""           xUbuntu_15.04  i386   _i386
+Download_Packages 1  1  1   x x ""           xUbuntu_15.04  amd64  _amd64
 
 type="rpm"
 devext="devel"
@@ -112,14 +106,10 @@ Download_Packages $1 $2 $3  x x ""           CentOS_5        x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           CentOS_6        i686   .i686
 Download_Packages $1 $2 $3  x x ""           CentOS_6        x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           CentOS_7        x86_64 .x86_64
-Download_Packages $1 $2 $3  x x ""           Fedora_19       i686   .i686
-Download_Packages $1 $2 $3  x x ""           Fedora_19       x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           Fedora_20       i686   .i686
 Download_Packages $1 $2 $3  x x ""           Fedora_20       x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           Fedora_21       i686   .i686
 Download_Packages $1 $2 $3  x x ""           Fedora_21       x86_64 .x86_64
-Download_Packages $1 $2 $3  x x -mdv2011.0   Mandriva_2011   i586   .i586
-Download_Packages $1 $2 $3  x x -mdv2011.0   Mandriva_2011   x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           RHEL_5          i386   .i386
 Download_Packages $1 $2 $3  x x ""           RHEL_5          x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           RHEL_6          i686   .i686
@@ -138,10 +128,6 @@ Download_Packages $1 $2 $3  x x ""           SLE_11_SP3      x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           SLE_12          x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           openSUSE_11.4   i586   .i586
 Download_Packages $1 $2 $3  x x ""           openSUSE_11.4   x86_64 .x86_64
-Download_Packages $1 $2 $3  x x ""           openSUSE_12.2   i586   .i586
-Download_Packages $1 $2 $3  x x ""           openSUSE_12.2   x86_64 .x86_64
-Download_Packages $1 $2 $3  x x ""           openSUSE_12.3   i586   .i586
-Download_Packages $1 $2 $3  x x ""           openSUSE_12.3   x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           openSUSE_13.1   i586   .i586
 Download_Packages $1 $2 $3  x x ""           openSUSE_13.1   x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           openSUSE_13.2   i586   .i586
@@ -158,7 +144,7 @@ libmediainfov="0.7.74"
 libzenv="0.4.31"
 destversion="1"
 
-Download_Global 25.1 12.1 2.1 #MediaInfo, MediaInfoLib, ZenLib
+Download_Global 1.1 6.1 2.1 #MediaInfo, MediaInfoLib, ZenLib
 
 #mkdir download/binary/wxGTK/2.8.12/
 #Download_Wx 6.1 x x  x x ""           CentOS_5        i386   .i386
