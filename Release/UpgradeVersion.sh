@@ -1,4 +1,6 @@
-function btask.UpdateMediaInfo.run () {
+# Upgrade the version number of MediaInfo
+
+function btask.UpgradeVersion.run () {
 
     if [ $(b.opt.get_opt --source-path) ]; then
         MI_source=$(sanitize_arg $(b.opt.get_opt --source-path))
@@ -63,7 +65,6 @@ function btask.UpdateMediaInfo.run () {
         echo ${MI_source}/${MI_file}
         updateFile $Version_old_comma $Version_new_comma ${MI_source}/${MI_file}
     done
-    unset -v MI_files index
 
     echo
     echo "Replace major/minor/patch in ${MI_source}/Project/BCB/GUI/MediaInfo_GUI.cbproj"
@@ -77,5 +78,5 @@ function btask.UpdateMediaInfo.run () {
         "<VerInfo_Release>"$Version_new_patch"<\/VerInfo_Release>" \
         "${MI_source}/Project/BCB/GUI/MediaInfo_GUI.cbproj"
 
-    unset -v MI_source
+    unset -v MI_files index MI_source
 }
