@@ -99,8 +99,8 @@ dnl
 dnl Download and compile
 WxBuiltInCompile()
 {
-	if test -e ../../../../Shared/Project/WxWidgets.sh; then
-		cd ../../../../Shared/Project/WxWidgets
+	if test -e ../../../../Shared/Project/wxWidgets/Compile.sh; then
+		cd ../../../../Shared/Project/wxWidgets
 		chmod u+x Compile.sh
 		./Compile.sh --enable-unicode=$enable_unicode --enable-static=yes --enable-gui=$with_wx_gui --build=$build
 		cd $Home
