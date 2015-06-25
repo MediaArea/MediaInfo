@@ -11,7 +11,7 @@ FILES="$3"
 
 APPNAME="MediaInfo"
 KIND="CLI"
-VERSION="0.7.68"
+VERSION="0.7.74"
 SIGNATURE="MediaArea.net"
 
 DMG="tmp-${APPNAME}_${KIND}.dmg"
