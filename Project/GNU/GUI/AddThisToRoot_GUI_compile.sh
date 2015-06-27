@@ -1,27 +1,30 @@
-#! /bin/bash
+#! /bin/sh
 
 ##########################################################################
 Parallel_Build () {
     local numprocs=1
-    echo $numprocs
-    if [ "$OS" == "mac" ]; then
+    case $OS in
+    'linux')
+        numprocs=`grep -c ^processor /proc/cpuinfo 2>/dev/null`
+        if [ "$numprocs" = "" ] || [ "$numprocs" = "0" ]; then
+            numprocs=1
+        fi
+        ;;
+    'mac') 
         if type sysctl &> /dev/null; then
             numprocs=`sysctl -n hw.ncpu`
             if [ "$numprocs" = "" ] || [ "$numprocs" = "0" ]; then
                 numprocs=1
             fi
         fi
-    elif [ "$OS" == "linux" ]; then
-        if test -e /proc/stat; then
-            numprocs=`grep -c ^processor /proc/cpuinfo 2>/dev/null`
-            if [ "$numprocs" = "" ] || [ "$numprocs" = "0" ]; then
-                numprocs=1
-            fi
-        fi
-    fi
-    #elif [ "$OS" == "solaris" ]; then
-        # on Solaris you need to use psrinfo -p instead
-    #fi
+        ;;
+    #"solaris')
+    #    on Solaris you need to use psrinfo -p instead
+    #    ;;
+    #'freebsd')
+    #    ;;
+    *) ;;
+    esac
     make -s -j$numprocs
 }
 
@@ -31,7 +34,11 @@ ZenLib () {
         cd ZenLib/Project/GNU/Library/
         test -e Makefile && rm Makefile
         chmod u+x configure
-        ./configure $ZenLib_Options $*
+        if [ "$OS" = "mac" ]; then
+            ./configure $ZenLib_Options $MacOptions $*
+        else
+            ./configure $ZenLib_Options $*
+        fi
         if test -e Makefile; then
             make clean
             Parallel_Build
@@ -58,7 +65,11 @@ MediaInfoLib () {
         cd MediaInfoLib/Project/GNU/Library/
         test -e Makefile && rm Makefile
         chmod u+x configure
-        ./configure $*
+        if [ "$OS" = "mac" ]; then
+            ./configure $MacOptions $*
+        else
+            ./configure $*
+        fi
         if test -e Makefile; then
             make clean
             Parallel_Build
@@ -80,13 +91,16 @@ MediaInfoLib () {
 }
 
 ##########################################################################
-# MediaInfo
 MediaInfo () {
     if test -e MediaInfo/Project/GNU/GUI/configure; then
         cd MediaInfo/Project/GNU/GUI/
         test -e Makefile && rm Makefile
         chmod u+x configure
-        ./configure $*
+        if [ "$OS" = "mac" ]; then
+            ./configure $MacOptions $*
+        else
+            ./configure $*
+        fi
         if test -e Makefile; then
             make clean
             Parallel_Build
@@ -111,25 +125,26 @@ MediaInfo () {
 
 Home=`pwd`
 ZenLib_Options=" --without-subdirs --enable-gui"
+MacOptions="--with-macosx-version-min=10.5"
 
-uname=$(uname -s)
+OS=$(uname -s)
 # expr isn’t available on mac
-if [ "$uname" == "Darwin" ]; then
+if [ "$uname" = "Darwin" ]; then
     OS="mac"
 # if the 5 first caracters of $OS equal "Linux"
-elif [ "$(expr substr $uname 1 5)" == "Linux" ]; then
+elif [ "$(expr substr $uname 1 5)" = "Linux" ]; then
     OS="linux"
-#elif [ "$(expr substr $uname 1 7)" == "Solaris" ]; then
+#elif [ "$(expr substr $uname 1 5)" = "SunOS" ]; then
     #OS="solaris"
+
+
+#'FreeBSD')
 fi
 
 ZenLib
 MediaInfoLib
 MediaInfo
 
-echo `pwd`
-echo $Home
-cd $Home
 echo "MediaInfo executable is in MediaInfo/Project/GNU/GUI"
 
 unset -v Home ZenLib_Options OS
