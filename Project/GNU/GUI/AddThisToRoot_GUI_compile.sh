@@ -125,16 +125,17 @@ MediaInfo () {
 
 Home=`pwd`
 ZenLib_Options=" --without-subdirs --enable-gui"
+# For wx compilation
 MacOptions="--with-macosx-version-min=10.5"
 
 OS=$(uname -s)
 # expr isn’t available on mac
-if [ "$uname" = "Darwin" ]; then
+if [ "$OS" = "Darwin" ]; then
     OS="mac"
 # if the 5 first caracters of $OS equal "Linux"
-elif [ "$(expr substr $uname 1 5)" = "Linux" ]; then
+elif [ "$(expr substr $OS 1 5)" = "Linux" ]; then
     OS="linux"
-#elif [ "$(expr substr $uname 1 5)" = "SunOS" ]; then
+#elif [ "$(expr substr $OS 1 5)" = "SunOS" ]; then
     #OS="solaris"
 
 
