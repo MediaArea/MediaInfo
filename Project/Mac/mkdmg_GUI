@@ -11,7 +11,7 @@ FILES="$3"
 
 APPNAME="MediaInfo"
 KIND="GUI"
-VERSION="0.7.74"
+VERSION="0.7.75"
 SIGNATURE="MediaArea.net"
 
 DMG="tmp-${APPNAME}_${KIND}.dmg"

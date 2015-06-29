@@ -8,6 +8,16 @@ bug reports and feature request are here :
 https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.75, 2015-06-30
+--------------
++ MXF: consideraing 60 fps timecode tracks with 2 components having a difference of 2 frames as a single timecode
++ EBUCore 1.6: switch to the link of the final XSD
+x XDCAM: some directory structures were wrongly detected as XDCAM structure having a XML file
+x MXF: SDTI 60 fps times were wrong
+x #B927, DPX: date/time specific DPX format was used instead of the ISO-like one
+x #B927, EBUCore: invalid content in attribute startDate 
+x ProRes: streams with apcs CodecID were displayed with an incoherent bit depth instead of no bit depth
+
 Version 0.7.74, 2015-05-25
 --------------
 + FIMS: Preliminary version (not for production)
