@@ -1,14 +1,5 @@
 #!/bin/sh
 
-#if [ $# != 3 ]; then
-# echo "usage: mkdmg appname version"
-# exit 0
-#fi
-
-APPNAME="$1"
-VERSION="$2"
-FILES="$3"
-
 APPNAME="MediaInfo"
 KIND="CLI"
 VERSION="0.7.75"
@@ -17,17 +8,18 @@ SIGNATURE="MediaArea.net"
 DMG="tmp-${APPNAME}_${KIND}.dmg"
 FILES="tmp-${APPNAME}_${KIND}"
 
+# Clean up
+rm -fr "${FILES}-Root"
+rm -fr "${FILES}"
+rm -f "$DMG"
+rm -f "${APPNAME}.dmg"
+
 # Prepare the CLI
-rm -f "{FILES}-Root"
-mkdir "${FILES}-Root"
-mkdir "${FILES}-Root/usr"
-mkdir "${FILES}-Root/usr/local"
-mkdir "${FILES}-Root/usr/local/bin"
+mkdir -p "${FILES}"-Root/usr/local/bin
 cp ../GNU/CLI/mediainfo "${FILES}-Root/usr/local/bin/"
 codesign -f -s "Developer ID Application: ${SIGNATURE}" --verbose "${FILES}-Root/usr/local/bin/mediainfo"
 
 # Create the package
-rm -f "{FILES}"
 mkdir "${FILES}"
 pkgbuild --root "${FILES}-Root" --identifier net.mediaarea.mediainfo.mac-cli --sign "Developer ID Installer: ${SIGNATURE}" --version "${VERSION}" "${FILES}/mediainfo.pkg"
 codesign -f -s "Developer ID Application: ${SIGNATURE}" --verbose "${FILES}/mediainfo.pkg"
@@ -48,7 +40,8 @@ rm .DS_Store
 popd
 echo '
    tell application "Finder"
-     tell disk "'${APPNAME}'"
+     #tell disk "'${APPNAME}'"
+     tell disk "'/Volumes/${APPNAME}'"
            open
            set current view of container window to icon view
            set toolbar visible of container window to false
@@ -69,8 +62,10 @@ hdiutil detach "${DEVICE}"
 sleep 2
 
 # convert to compressed image, delete temp image
-rm -f "${APPNAME}_${KIND}.dmg"
 hdiutil convert "$DMG" -format UDBZ -o "${APPNAME}.dmg"
 codesign -f -s "Developer ID Application: ${SIGNATURE}" --verbose "${APPNAME}.dmg"
-rm -f "{FILES}"
+
+# Clean up
+rm -fr "${FILES}-Root"
+rm -fr "${FILES}"
 rm -f "$DMG"

@@ -1,14 +1,5 @@
 #!/bin/sh
 
-#if [ $# != 3 ]; then
-# echo "usage: mkdmg appname version"
-# exit 0
-#fi
-
-APPNAME="$1"
-VERSION="$2"
-FILES="$3"
-
 APPNAME="MediaInfo"
 KIND="GUI"
 VERSION="0.7.75"
@@ -17,13 +8,15 @@ SIGNATURE="MediaArea.net"
 DMG="tmp-${APPNAME}_${KIND}.dmg"
 FILES="tmp-${APPNAME}_${KIND}"
 
+# Clean up
+rm -fr "${FILES}"
+rm -f "$DMG"
+rm -f "${APPNAME}.dmg"
+
 # Create the package
-rm -f "{FILES}"
-mkdir "${FILES}"
-mkdir "${FILES}/${APPNAME}.app"
-mkdir "${FILES}/${APPNAME}.app/Contents"
-mkdir "${FILES}/${APPNAME}.app/Contents/MacOS"
+mkdir -p "${FILES}/${APPNAME}.app/Contents/MacOS"
 mkdir "${FILES}/${APPNAME}.app/Contents/Resources"
+mkdir "${FILES}/.background"
 cp Info.plist "${FILES}/${APPNAME}.app/Contents/"
 sed -i '' -e "s/VERSION/${VERSION}/g" "${FILES}/${APPNAME}.app/Contents/Info.plist"
 echo -n 'APPL????' > "${FILES}/${APPNAME}.app/Contents/PkgInfo"
@@ -33,7 +26,6 @@ codesign -f -s "Developer ID Application: ${SIGNATURE}" --verbose "${FILES}/${AP
 codesign -f -s "Developer ID Application: ${SIGNATURE}" --verbose "${FILES}/MediaInfo.app"
 cp ../../License.html "${FILES}/License.html"
 cp ../../History_GUI.txt "${FILES}/History.txt"
-mkdir "${FILES}/.background"
 cp Logo_White.icns "${FILES}/.background/Logo_White.icns"
 
 
@@ -69,8 +61,9 @@ hdiutil detach "${DEVICE}"
 sleep 2
 
 # convert to compressed image, delete temp image
-rm -f "${APPNAME}_${KIND}.dmg"
 hdiutil convert "$DMG" -format UDBZ -o "${APPNAME}.dmg"
 codesign -f -s "Developer ID Application: ${SIGNATURE}" --verbose "${APPNAME}.dmg"
-rm -f "{FILES}"
+
+# Clean up
+rm -fr "${FILES}"
 rm -f "$DMG"
