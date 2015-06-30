@@ -647,10 +647,6 @@ object MainF: TMainF
     object Page_HTML: TTabSheet
       Caption = 'HTML'
       ImageIndex = 6
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_HTML_HTML: TCppWebBrowser
         Left = 4
         Top = 0
@@ -670,10 +666,6 @@ object MainF: TMainF
       ImageIndex = 4
       ParentShowHint = False
       ShowHint = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_Custom_Text: TMemo
         Left = 2
         Top = 2
@@ -710,10 +702,6 @@ object MainF: TMainF
     object Page_System: TTabSheet
       Caption = 'Your system'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Page_System_Buttons: TGroupBox
         Left = 9
         Top = 0
@@ -2185,6 +2173,25 @@ object MainF: TMainF
         RadioItem = True
         OnClick = M_View_EBUCore_1_6Click
       end
+      object M_View_FIMS_1_1: TMenuItem
+        AutoCheck = True
+        Caption = 'FIMS 1.1 (beta)'
+        RadioItem = True
+        OnClick = M_View_FIMS_1_1Click
+      end
+      object M_View_FIMS_1_2: TMenuItem
+        AutoCheck = True
+        Caption = 'FIMS 1.2 (beta)'
+        RadioItem = True
+        OnClick = M_View_FIMS_1_2Click
+      end
+      object M_View_FIMS_1_3: TMenuItem
+        AutoCheck = True
+        Caption = 'FIMS 1.3 (beta)'
+        RadioItem = True
+        Visible = False
+        OnClick = M_View_FIMS_1_3Click
+      end
       object M_View_reVTMD: TMenuItem
         AutoCheck = True
         Caption = 'reVTMD'
@@ -2351,7 +2358,7 @@ object MainF: TMainF
     Left = 744
     Top = 136
     Bitmap = {
-      494C01010A000E00000110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010A000E00100110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2760,7 +2767,7 @@ object MainF: TMainF
     Left = 744
     Top = 160
     Bitmap = {
-      494C010107000900780120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900880120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       000000000000000000000000000000000000F0F0F0FFF0F0F0FFF0F0F0FFF0F0
       F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0
@@ -3878,6 +3885,15 @@ object MainF: TMainF
     end
     object ToolBar_View_EBUCore_1_6: TMenuItem
       Caption = 'EBUCore 1.6'
+    end
+    object ToolBar_View_FIMS_1_1: TMenuItem
+      Caption = 'FIMS 1.1 (beta)'
+    end
+    object ToolBar_View_FIMS_1_2: TMenuItem
+      Caption = 'FIMS 1.2 (beta)'
+    end
+    object ToolBar_View_FIMS_1_3: TMenuItem
+      Caption = 'FIMS 1.3 (beta)'
     end
     object ToolBar_View_reVTMD: TMenuItem
       Caption = 'reVTMD'

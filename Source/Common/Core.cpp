@@ -252,6 +252,27 @@ void Core::Menu_View_EBUCore_1_4 ()
 }
 
 //---------------------------------------------------------------------------
+void Core::Menu_View_FIMS_1_1 ()
+{
+    MI->Option(__T("Inform"), __T("FIMS_1.1"));
+    Kind=Kind_FIMS_1_1;
+}
+
+//---------------------------------------------------------------------------
+void Core::Menu_View_FIMS_1_2 ()
+{
+    MI->Option(__T("Inform"), __T("FIMS_1.2"));
+    Kind=Kind_FIMS_1_2;
+}
+
+//---------------------------------------------------------------------------
+void Core::Menu_View_FIMS_1_3 ()
+{
+    MI->Option(__T("Inform"), __T("FIMS_1.3"));
+    Kind=Kind_FIMS_1_3;
+}
+
+//---------------------------------------------------------------------------
 void Core::Menu_View_Text ()
 {
     MI->Option(__T("Inform"), String());

@@ -48,9 +48,10 @@ object ExportF: TExportF
       Top = 18
       Width = 608
       Height = 224
-      ActivePage = Export_EBUCore_1_5
+      ActivePage = Export_FIMS_1_3
       MultiLine = True
       TabOrder = 0
+      Visible = False
       OnChange = ExportChange
       object Export_CSV: TTabSheet
         Caption = 'CSV'
@@ -474,10 +475,6 @@ object ExportF: TExportF
       object Export_EBUCore_1_5: TTabSheet
         Caption = 'EBUCore 1.5'
         ImageIndex = 9
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Export_EBUCore_1_5_SideCar: TCheckBox
           Left = 0
           Top = 9
@@ -503,6 +500,53 @@ object ExportF: TExportF
           Caption = 'Sidecar file (filename.EBUCore.xml)'
           TabOrder = 0
           OnClick = Export_EBUCore_1_6_SideCarClick
+        end
+      end
+      object Export_FIMS_1_1: TTabSheet
+        Caption = 'FIMS 1.1'
+        ImageIndex = 9
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
+        object Export_FIMS_1_1_SideCar: TCheckBox
+          Left = 0
+          Top = 9
+          Width = 597
+          Height = 18
+          Caption = 'Sidecar file (filename.FIMS.xml)'
+          TabOrder = 0
+          OnClick = Export_FIMS_1_1_SideCarClick
+        end
+      end
+      object Export_FIMS_1_2: TTabSheet
+        Caption = 'FIMS 1.2'
+        ImageIndex = 9
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
+        object Export_FIMS_1_2_SideCar: TCheckBox
+          Left = 0
+          Top = 9
+          Width = 597
+          Height = 18
+          Caption = 'Sidecar file (filename.FIMS.xml)'
+          TabOrder = 0
+          OnClick = Export_FIMS_1_2_SideCarClick
+        end
+      end
+      object Export_FIMS_1_3: TTabSheet
+        Caption = 'FIMS 1.3'
+        ImageIndex = 9
+        object Export_FIMS_1_3_SideCar: TCheckBox
+          Left = 0
+          Top = 9
+          Width = 597
+          Height = 18
+          Caption = 'Sidecar file (filename.FIMS.xml)'
+          TabOrder = 0
+          OnClick = Export_FIMS_1_3_SideCarClick
         end
       end
       object Export_reVTMD: TTabSheet
