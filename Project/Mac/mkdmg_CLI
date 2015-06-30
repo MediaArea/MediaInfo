@@ -40,8 +40,7 @@ rm .DS_Store
 popd
 echo '
    tell application "Finder"
-     #tell disk "'${APPNAME}'"
-     tell disk "'/Volumes/${APPNAME}'"
+     tell disk "'${APPNAME}'"
            open
            set current view of container window to icon view
            set toolbar visible of container window to false
