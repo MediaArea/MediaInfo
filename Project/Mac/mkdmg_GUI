@@ -36,7 +36,7 @@ echo $DEVICE
 sleep 2
 pushd /Volumes/"${APPNAME}"
 ln -s /Applications
-rm .DS_Store
+test -e .DS_Store && rm -fr .DS_Store
 popd
 echo '
    tell application "Finder"

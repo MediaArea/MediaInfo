@@ -36,7 +36,7 @@ DEVICE=$(hdiutil attach -readwrite -noverify "${DMG}" | egrep '^/dev/' | sed 1q 
 echo $DEVICE
 sleep 2
 pushd /Volumes/"${APPNAME}"
-rm .DS_Store
+test -e .DS_Store && rm -fr .DS_Store
 popd
 echo '
    tell application "Finder"
