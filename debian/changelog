@@ -1,6 +1,150 @@
-mediainfo (0.7.75-1) unstable; urgency=low
+mediainfo (0.7.75) unstable; urgency=medium
 
-  * See History.txt for more info and real dates
+  * New upstream release
 
- -- MediaArea.net SARL <info@mediaarea.net>  Sat, 01 Jan 2011 00:07:23 +0000
+ -- Guillaume Roques <guillaume@mediaarea.net>  Tue, 30 Jun 2015 12:37:49 +0200
+
+mediainfo (0.7.70-1) unstable; urgency=medium
+
+  * [b20412e] Imported Upstream version 0.7.70
+
+ -- Chow Loong Jin <hyperair@debian.org>  Thu, 18 Sep 2014 19:03:32 +0800
+
+mediainfo (0.7.69-1) unstable; urgency=medium
+
+  * [17045c0] Imported Upstream version 0.7.69
+
+ -- Chow Loong Jin <hyperair@debian.org>  Mon, 05 May 2014 03:26:27 +0800
+
+mediainfo (0.7.68-1) unstable; urgency=medium
+
+  * [fc903ce] Imported Upstream version 0.7.68
+
+ -- Chow Loong Jin <hyperair@debian.org>  Sat, 12 Apr 2014 23:26:49 +0800
+
+mediainfo (0.7.67-1.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Update to build with wxWidgets 3.0.
+
+ -- Olly Betts <olly@survex.com>  Mon, 17 Mar 2014 01:27:40 +1300
+
+mediainfo (0.7.67-1) unstable; urgency=low
+
+  * [9875916] Imported Upstream version 0.7.67
+  * [8df7ba4] No-change bump of Standards-Version to 3.9.5
+
+ -- Chow Loong Jin <hyperair@debian.org>  Tue, 14 Jan 2014 02:04:49 +0800
+
+mediainfo (0.7.65-1) unstable; urgency=low
+
+  * [7efedad] Imported Upstream version 0.7.65
+
+ -- Chow Loong Jin <hyperair@debian.org>  Sun, 01 Dec 2013 23:15:20 +0800
+
+mediainfo (0.7.64-1) unstable; urgency=low
+
+  * [490aeb4] Imported Upstream version 0.7.64
+  * [f6356bd] Update copyright
+
+ -- Chow Loong Jin <hyperair@debian.org>  Wed, 10 Jul 2013 01:06:48 +0800
+
+mediainfo (0.7.63-1) unstable; urgency=low
+
+  * [fb15622] Imported Upstream version 0.7.63pe
+
+ -- Chow Loong Jin <hyperair@debian.org>  Fri, 17 May 2013 21:38:53 +0800
+
+mediainfo (0.7.62-1) experimental; urgency=low
+
+  * [7275af9] Imported Upstream version 0.7.62
+  * [4b68523] No-change bump of Standards-Version to 3.9.4
+
+ -- Chow Loong Jin <hyperair@debian.org>  Mon, 11 Mar 2013 22:45:25 +0800
+
+mediainfo (0.7.61-1) experimental; urgency=low
+
+  * [87a00e0] Imported Upstream version 0.7.61
+  * [7e36e66] Bump version in libmediainfo-dev dependency
+
+ -- Chow Loong Jin <hyperair@debian.org>  Sun, 28 Oct 2012 04:31:09 +0800
+
+mediainfo (0.7.60-1) experimental; urgency=low
+
+  * [797d551] Imported Upstream version 0.7.60
+
+ -- Chow Loong Jin <hyperair@debian.org>  Tue, 04 Sep 2012 21:53:46 +0800
+
+mediainfo (0.7.59-1) experimental; urgency=low
+
+  * [7a959c6] Update build-dep versions
+    - Bump libmediainfo-dev version to 0.7.58
+    - Bump libzen-dev version to 0.4.25
+  * [9d8fd34] Fix typo in manpage (Dislpay -> Display)
+    Thanks to Gerben
+  * [41ea7ed] Strip debian revision from upstream version
+  * [882e544] Imported Upstream version 0.7.59
+  * [9a918ca] Bump libmediainfo-dev dependency to 0.7.59
+
+ -- Chow Loong Jin <hyperair@debian.org>  Sun, 19 Aug 2012 20:43:25 +0800
+
+mediainfo (0.7.58-1) unstable; urgency=low
+
+  * [e07a210] Imported Upstream version 0.7.58
+
+ -- Chow Loong Jin <hyperair@debian.org>  Sun, 03 Jun 2012 15:20:12 +0800
+
+mediainfo (0.7.57-1) unstable; urgency=low
+
+  * [7f970de] Imported Upstream version 0.7.57
+
+ -- Chow Loong Jin <hyperair@debian.org>  Fri, 25 May 2012 09:18:37 +0800
+
+mediainfo (0.7.56-2) unstable; urgency=low
+
+  * [7624c6d] Replace LDFLAGS use with DEB_LDFLAGS_MAINT_APPEND.
+    This avoids overriding the hardening build flags from dpkg-buildflags.
+    Thanks to Simon Ruderich (Closes: #670758)
+
+ -- Chow Loong Jin <hyperair@debian.org>  Sun, 29 Apr 2012 04:20:38 +0800
+
+mediainfo (0.7.56-1) unstable; urgency=low
+
+  * [7f5c284] Update watch url (use sf.net)
+  * [08b8716] Imported Upstream version 0.7.54
+  * [f5d61bb] Imported Upstream version 0.7.56
+  * [9093973] Bump Standards-Version to 3.9.3
+    - Update debian/copyright Format URL
+  * [bf37e84] Bump debhelper compat level to 9 for buildflags
+  * [36422a0] Update copyright date and remove FIXME section
+
+ -- Chow Loong Jin <hyperair@debian.org>  Sun, 22 Apr 2012 21:38:10 +0800
+
+mediainfo (0.7.53-2) unstable; urgency=low
+
+  * [80f090f] Add --with=autoreconf to clean rule.
+    This fixes issues with autotools files left behind after debian/rules clean
+
+ -- Chow Loong Jin <hyperair@debian.org>  Sun, 29 Jan 2012 07:02:56 +0800
+
+mediainfo (0.7.53-1) unstable; urgency=low
+
+  * [1cfec75] Add watchfile
+  * [8c31015] Drop gbp.conf.
+    Pristine-tar doesn't need to be disabled now that we're using gz
+    tarballs. Apparently pristine-gz throws the entire tarball into the branch
+    if it can't regenerate it.
+  * [c2cbae6] Imported Upstream version 0.7.53
+  * [596a055] Drop debian/
+  * [7b93157] Enable parallel builds
+  * [8e18ec2] Correct path to Resource in mediainfo-gui.install
+
+ -- Chow Loong Jin <hyperair@debian.org>  Thu, 26 Jan 2012 12:04:30 +0800
+
+mediainfo (0.7.52-1) unstable; urgency=low
+
+  * Initial release (Closes: #653894)
+    - Packaging based on initial upstream debian/ directory
+
+ -- Chow Loong Jin <hyperair@debian.org>  Sun, 01 Jan 2012 18:14:37 +0800
 

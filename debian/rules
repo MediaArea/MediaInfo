@@ -1,118 +1,58 @@
 #!/usr/bin/make -f
-# -*- makefile -*-
 
-# Uncomment this to turn on verbose mode.
-export DH_VERBOSE=1
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs -Wl,--as-needed
 
-configure: configure-stamp
-configure-stamp:
-	dh_testdir
-	# Add here commands to configure the package.
+auto_build_cmd =					\
+	cat debian/autoreconf | while read path; do	\
+		$(1) -D"$$path";			\
+	done
 
-	fromdos      *.txt
-	chmod 644    *.txt
-	cd Project/GNU/CLI && chmod u+x autogen
-	cd Project/GNU/CLI && ./autogen
-	cd Project/GNU/CLI && ./configure --prefix=/usr
+override_dh_autoreconf:
+	dh_autoreconf --as-needed
 
-	cd Project/GNU/GUI && chmod u+x autogen
-	cd Project/GNU/GUI && ./autogen
-	cd Project/GNU/GUI && ./configure --prefix=/usr
+override_dh_auto_configure:
+	$(call auto_build_cmd,dh_auto_configure)
 
-	touch $@
+override_dh_auto_build:
+	$(call auto_build_cmd,dh_auto_build)
 
+override_dh_auto_install:
+	$(call auto_build_cmd,dh_auto_install)
 
-build: build-stamp
-build-stamp: configure-stamp  
-	dh_testdir
+override_dh_auto_clean:
+	$(call auto_build_cmd,dh_auto_clean)
 
-	# Add here commands to compile the package.
-	cd Project/GNU/CLI && $(MAKE)
+override_dh_installchangelogs:
+	dh_installchangelogs -p mediainfo History_CLI.txt
+	dh_installchangelogs -p mediainfo-gui History_GUI.txt
 
-	cd Project/GNU/GUI && $(MAKE)
+override_dh_install:
+	dh_install --fail-missing
 
-	touch $@
+	find debian/mediainfo-gui				\
+		-name MediaInfo\*				\
+		-exec prename 's/MediaInfo\.(png|svg|xpm)$$/mediainfo.$$1/g' '{}' '+'
 
-clean: 
-	dh_testdir
-	dh_testroot
+	find debian/mediainfo-gui						\
+		-name \*.desktop						\
+		-exec prename 's/\.kde[34]\.desktop$$/.desktop/' '{}' '+'
 
-	# Add here commands to clean up after the build process.
-	# $(MAKE) clean
+	find debian/mediainfo-gui/usr/share -type f -exec chmod 0644 '{}' '+'
 
-	dh_clean 
-
-install: build
-	dh_testdir
-	dh_testroot
-	dh_clean -k 
-	dh_installdirs
-
-	# Add here commands to install the package into debian/tmp
-	cd Project/GNU/CLI && $(MAKE) install DESTDIR=$(CURDIR)/debian/tmp
-	cd Project/GNU/GUI && $(MAKE) install DESTDIR=$(CURDIR)/debian/tmp
-
-	install -dm 755 $(CURDIR)/debian/tmp/usr/share/doc/mediainfo
-	install -m 644 Release/ReadMe_CLI_Linux.txt $(CURDIR)/debian/tmp/usr/share/doc/mediainfo/ReadMe.txt
-	install -m 644 History_CLI.txt $(CURDIR)/debian/tmp/usr/share/doc/mediainfo/History.txt
-	install -m 644 License.html $(CURDIR)/debian/tmp/usr/share/doc/mediainfo
-
-	install -dm 755 $(CURDIR)/debian/tmp/usr/share/doc/mediainfo-gui
-	install -m 644 Release/ReadMe_CLI_Linux.txt $(CURDIR)/debian/tmp/usr/share/doc/mediainfo-gui/ReadMe.txt
-	install -m 644 History_GUI.txt $(CURDIR)/debian/tmp/usr/share/doc/mediainfo-gui/History.txt
-	install -m 644 License.html $(CURDIR)/debian/tmp/usr/share/doc/mediainfo-gui
-
-	install -dm 755 $(CURDIR)/debian/tmp/usr/share/pixmaps
-	install -m 644 Source/Resource/Image/MediaInfo.xpm $(CURDIR)/debian/tmp/usr/share/pixmaps/mediainfo.xpm
-	install -dm 755 $(CURDIR)/debian/tmp/usr/share/icons/hicolor
-	install -m 644 Source/Resource/Image/MediaInfoBig.png $(CURDIR)/debian/tmp/usr/share/icons/hicolor/mediainfo.png
-	install -dm 755 $(CURDIR)/debian/tmp/usr/share/icons/hicolor/256x256/apps
-	install -m 644 Source/Resource/Image/MediaInfo.png $(CURDIR)/debian/tmp/usr/share/icons/hicolor/256x256/apps/mediainfo.png
-	install -dm 755 $(CURDIR)/debian/tmp/usr/share/icons/hicolor/scalable/apps
-	install -m 644 Source/Resource/Image/MediaInfo.svg $(CURDIR)/debian/tmp/usr/share/icons/hicolor/scalable/apps/mediainfo.svg
-
-	install -dm 755 $(CURDIR)/debian/tmp/usr/share/applications
-	install -m 644 Project/GNU/GUI/mediainfo-gui.desktop $(CURDIR)/debian/tmp/usr/share/applications
-	install -dm 755 $(CURDIR)/debian/tmp/usr/share/apps/konqueror/servicemenus/
-	install -m 644 Project/GNU/GUI/mediainfo-gui.kde3.desktop $(CURDIR)/debian/tmp/usr/share/apps/konqueror/servicemenus/mediainfo-gui.desktop
-	install -dm 755 $(CURDIR)/debian/tmp/usr/share/kde4/services/ServiceMenus/
-	install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop $(CURDIR)/debian/tmp/usr/share/kde4/services/ServiceMenus/mediainfo-gui.desktop
-
-# Build architecture-independent files here.
-binary-indep: build install
-# We have nothing to do by default.
-
-# Build architecture-dependent files here.
-binary-arch: build install
-	dh_testdir
-	dh_testroot
-	dh_install --sourcedir=debian/tmp
-	dh_installchangelogs 
+override_dh_installdocs:
 	dh_installdocs
-	dh_installexamples
-#	dh_install
-#	dh_installmenu
-#	dh_installdebconf	
-#	dh_installlogrotate
-#	dh_installemacsen
-#	dh_installpam
-#	dh_installmime
-#	dh_installinit
-#	dh_installcron
-#	dh_installinfo
-	dh_installman
-	dh_link
-	dh_strip
-	dh_compress
-	dh_fixperms
-#	dh_perl
-#	dh_python
-	dh_makeshlibs
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
 
-binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install configure
+	prename 's/ReadMe_.*\.txt$$/README/' debian/*/usr/share/doc/*/ReadMe*
+
+%.1: %.pod
+	pod2man --center "User Commands" --release=MediaInfo\ 0.7.52 $< > $@
+
+override_dh_installman: debian/mediainfo.1 debian/mediainfo-gui.1
+	dh_installman
+
+clean:
+	rm -f debian/*.1
+	dh clean --with=autoreconf
+
+%:
+	dh $@ --with=autoreconf --parallel
