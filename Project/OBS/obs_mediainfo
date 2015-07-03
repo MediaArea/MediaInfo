@@ -46,6 +46,47 @@ mv libzen-doc$dash$libzenv-$3$6$9.$type \
 }
 
 #-----------------------------------------------------------------------
+# ${1}=Platform
+# ${3}=CPU
+# ${3}=CPU target
+Download_deb_Packages()
+{
+#-----------------------------------------------------------------------
+# Downloading
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/${1}/${2}/mediainfo${dash}${mediainfov}${3}.${type}"
+mv mediainfo${dash}${mediainfov}${3}.${type} \
+ download/binary/mediainfo/${mediainfov}/mediainfo${dash}${mediainfov}-${destversion}${3}.${1}.${type}
+
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/${1}/${2}/mediainfo-gui${dash}${mediainfov}${3}.${type}"
+mv mediainfo-gui${dash}${mediainfov}${3}.${type} \
+ download/binary/mediainfo-gui/${mediainfov}/mediainfo-gui${dash}${mediainfov}-${destversion}${3}.${1}.${type}
+
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/${1}/${2}/libmediainfo0${dash}${libmediainfov}${3}.${type}"
+mv libmediainfo0${dash}${libmediainfov}${3}.${type} \
+ download/binary/libmediainfo0/${libmediainfov}/libmediainfo0${dash}${libmediainfov}-${destversion}${3}.${1}.${type}
+
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/${1}/${2}/libmediainfo-${devext}${dash}${libmediainfov}${3}.${type}"
+mv libmediainfo-${devext}${dash}${libmediainfov}${3}.${type} \
+ download/binary/libmediainfo0/${libmediainfov}/libmediainfo-${devext}${dash}${libmediainfov}-${destversion}${3}.${1}.${type}
+
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/${1}/${2}/libmediainfo-doc${dash}${libmediainfov}${3}.${type}"
+mv libmediainfo-doc${dash}${libmediainfov}${3}.${type} \
+ download/binary/libmediainfo0/${libmediainfov}/libmediainfo-doc${dash}${libmediainfov}-${destversion}${3}.${1}.${type}
+
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/${1}/${2}/libzen0${dash}${libzenv}${3}.${type}"
+mv libzen0${dash}${libzenv}${3}.${type} \
+ download/binary/libzen0/${libzenv}/libzen0${dash}${libzenv}-${destversion}${3}.${1}.${type}
+
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/${1}/${2}/libzen-${devext}${dash}${libzenv}${3}.${type}"
+mv libzen-${devext}${dash}${libzenv}${3}.${type} \
+ download/binary/libzen0/${libzenv}/libzen-${devext}${dash}${libzenv}-${destversion}${3}.${1}.${type}
+
+wget "http://download.opensuse.org/repositories/home:/MediaArea_net/${1}/${2}/libzen-doc${dash}${libzenv}${3}.${type}"
+mv libzen-doc${dash}${libzenv}${3}.${type} \
+ download/binary/libzen0/${libzenv}/libzen-doc${dash}${libzenv}-${destversion}${3}.${1}.${type}
+}
+
+#-----------------------------------------------------------------------
 # $1=Wx Package version,
 # $7=Platform, $8=CPU, $9=CPU target
 Download_Wx()
@@ -83,20 +124,18 @@ mkdir download/binary/libzen0/$libzenv/
 type="deb"
 devext="dev"
 dash="_"
-Download_Packages 1  1  1   x x ""           Debian_6.0    i386   _i386
-Download_Packages 1  1  1   x x ""           Debian_6.0    amd64  _amd64
-Download_Packages 1  1  1   x x ""           Debian_7.0    i386   _i386
-Download_Packages 1  1  1   x x ""           Debian_7.0    amd64  _amd64
-Download_Packages 1  1  1   x x ""           xUbuntu_10.04  i386   _i386
-Download_Packages 1  1  1   x x ""           xUbuntu_10.04  amd64  _amd64
-Download_Packages 1  1  1   x x ""           xUbuntu_12.04  i386   _i386
-Download_Packages 1  1  1   x x ""           xUbuntu_12.04  amd64  _amd64
-Download_Packages 1  1  1   x x ""           xUbuntu_14.04  i386   _i386
-Download_Packages 1  1  1   x x ""           xUbuntu_14.04  amd64  _amd64
-Download_Packages 1  1  1   x x ""           xUbuntu_14.10  i386   _i386
-Download_Packages 1  1  1   x x ""           xUbuntu_14.10  amd64  _amd64
-Download_Packages 1  1  1   x x ""           xUbuntu_15.04  i386   _i386
-Download_Packages 1  1  1   x x ""           xUbuntu_15.04  amd64  _amd64
+Download_deb_Packages    Debian_7.0    i386   _i386
+Download_deb_Packages    Debian_7.0    amd64  _amd64
+Download_deb_Packages    Debian_8.0    i386   _i386
+Download_deb_Packages    Debian_8.0    amd64  _amd64
+Download_deb_Packages    xUbuntu_12.04  i386   _i386
+Download_deb_Packages    xUbuntu_12.04  amd64  _amd64
+Download_deb_Packages    xUbuntu_14.04  i386   _i386
+Download_deb_Packages    xUbuntu_14.04  amd64  _amd64
+Download_deb_Packages    xUbuntu_14.10  i386   _i386
+Download_deb_Packages    xUbuntu_14.10  amd64  _amd64
+Download_deb_Packages    xUbuntu_15.04  i386   _i386
+Download_deb_Packages    xUbuntu_15.04  amd64  _amd64
 
 type="rpm"
 devext="devel"
@@ -110,6 +149,8 @@ Download_Packages $1 $2 $3  x x ""           Fedora_20       i686   .i686
 Download_Packages $1 $2 $3  x x ""           Fedora_20       x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           Fedora_21       i686   .i686
 Download_Packages $1 $2 $3  x x ""           Fedora_21       x86_64 .x86_64
+Download_Packages $1 $2 $3  x x ""           Fedora_22       i686   .i686
+Download_Packages $1 $2 $3  x x ""           Fedora_22       x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           RHEL_5          i386   .i386
 Download_Packages $1 $2 $3  x x ""           RHEL_5          x86_64 .x86_64
 Download_Packages $1 $2 $3  x x ""           RHEL_6          i686   .i686
@@ -144,7 +185,7 @@ libmediainfov="0.7.75"
 libzenv="0.4.31"
 destversion="1"
 
-Download_Global 1.1 6.1 2.1 #MediaInfo, MediaInfoLib, ZenLib
+Download_Global 9.1 17.1 2.1 #MediaInfo, MediaInfoLib, ZenLib
 
 #mkdir download/binary/wxGTK/2.8.12/
 #Download_Wx 6.1 x x  x x ""           CentOS_5        i386   .i386
