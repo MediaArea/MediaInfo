@@ -79,13 +79,13 @@ dnl -------------------------------------------------------------------------
 dnl Unicode
 dnl
 if test -e ../../../../ZenLib/Project/GNU/Library/libzen-config; then
-	enable_unicode="$(../../../../ZenLib/Project/GNU/Library/libzen-config Unicode)"
+    enable_unicode="$(../../../../ZenLib/Project/GNU/Library/libzen-config Unicode)"
 else
-	if pkg-config --exists libzen; then
-		enable_unicode="$(pkg-config --variable=Unicode libzen)"
-	else
-		AC_MSG_ERROR([libzen configuration is not found])
-	fi
+    if pkg-config --exists libzen; then
+        enable_unicode="$(pkg-config --variable=Unicode libzen)"
+    else
+        AC_MSG_ERROR([libzen configuration is not found])
+    fi
 fi
 
 dnl #########################################################################
@@ -99,52 +99,52 @@ dnl
 dnl Download and compile
 WxBuiltInCompile()
 {
-	if test -e ../../../../Shared/Project/wxWidgets/Compile.sh; then
-		cd ../../../../Shared/Project/wxWidgets
-		chmod u+x Compile.sh
-		./Compile.sh --enable-unicode=$enable_unicode --enable-static=yes --enable-gui=$with_wx_gui --build=$build
-		cd $Home
-		if test -e ../../../../Shared/Source/WxWidgets/wx-config; then
-			if test "x$(../../../../Shared/Source/WxWidgets/wx-config --unicode=$enable_unicode --version)" = "x"; then
-				echo TEST a
-				with_wxwidgets="no"
-			else
-				dnl Compiled builtin lib found!
-				echo TEST b
-				with_wxwidgets="builtin"
-			fi
-		else
-			dnl Problem while compiling
-			echo TEST c
-			with_wxwidgets="no"
-		fi
-	else
-		echo TEST d
-		with_wxwidgets="no"
-	fi
+    if test -e ../../../../Shared/Project/wxWidgets/Compile.sh; then
+        cd ../../../../Shared/Project/wxWidgets
+        chmod u+x Compile.sh
+        ./Compile.sh --enable-unicode=$enable_unicode --enable-static=yes --enable-gui=$with_wx_gui --build=$build
+        cd $Home
+        if test -e ../../../../Shared/Source/WxWidgets/wx-config; then
+            if test "x$(../../../../Shared/Source/WxWidgets/wx-config --unicode=$enable_unicode --version)" = "x"; then
+                echo TEST a
+                with_wxwidgets="no"
+            else
+                dnl Compiled builtin lib found!
+                echo TEST b
+                with_wxwidgets="builtin"
+            fi
+        else
+            dnl Problem while compiling
+            echo TEST c
+            with_wxwidgets="no"
+        fi
+    else
+        echo TEST d
+        with_wxwidgets="no"
+    fi
 }
 
 dnl Search for a good build, else built it
 WxBuiltInSearchGoodBuild()
 {
-	if test -e ../../../../Shared/Source/WxWidgets/wx-config; then
-		dnl There is already a compiled version
-		if test "x$(../../../../Shared/Source/WxWidgets/wx-config --unicode=$enable_unicode --static=$with_wx_static --version)" = "x"; then
-			if test "x$(../../../../Shared/Source/WxWidgets/wx-config --unicode=$enable_unicode --version)" = "x"; then
-				dnl Not well compiled, try to compile again
-				WxBuiltInCompile
-			else
-				dnl Already compiled builtin lib found!
-				with_wxwidgets="builtin"
-			fi
-		else
-			dnl Already compiled builtin lib found!
-			with_wxwidgets="builtin"
-		fi
-	else
-		dnl Not yet compiled, try to compile
-		WxBuiltInCompile
-	fi
+    if test -e ../../../../Shared/Source/WxWidgets/wx-config; then
+        dnl There is already a compiled version
+        if test "x$(../../../../Shared/Source/WxWidgets/wx-config --unicode=$enable_unicode --static=$with_wx_static --version)" = "x"; then
+            if test "x$(../../../../Shared/Source/WxWidgets/wx-config --unicode=$enable_unicode --version)" = "x"; then
+                dnl Not well compiled, try to compile again
+                WxBuiltInCompile
+            else
+                dnl Already compiled builtin lib found!
+                with_wxwidgets="builtin"
+            fi
+        else
+            dnl Already compiled builtin lib found!
+            with_wxwidgets="builtin"
+        fi
+    else
+        dnl Not yet compiled, try to compile
+        WxBuiltInCompile
+    fi
 }
 
 dnl The test
@@ -160,35 +160,35 @@ if test "$with_wxwidgets" = "yes"; then
     AM_PATH_WXCONFIG("$WxVersion", WxSystemLibs=1, WxSystemLibs=0, [base], --unicode=$enable_unicode --static=$with_wx_static)
     if test "$WxSystemLibs" != 1; then
         dnl Searching builtin libs
-		WxBuiltInSearchGoodBuild
-	else
+        WxBuiltInSearchGoodBuild
+    else
         dnl System lib found!
-		with_wxwidgets="system"
-	fi
-	
-	if test "$with_wxwidgets" = "no"; then
-		AC_MSG_ERROR([
-			wxWidgets must be installed on your system.
-	 
-			Please check that wx-config is in path, the directory
-			where wxWidgets libraries are installed (returned by
-			'wx-config --libs' or 'wx-config --static --libs' command)
-			is in LD_LIBRARY_PATH or equivalent variable and
-			wxWidgets version is 2.9.0 or above, and the compilation 
-			is compatible with 
-			--unicode=$enable_unicode --static=$with_wx_static
-			])
-	fi
-	if test "$with_wxwidgets" = "system"; then
-		if test "${with_wx_config+set}" = set; then
-			ZenLib_Wx_Config=$with_wx_config;
-		else
-			ZenLib_Wx_Config="wx-config"
-		fi
-	fi
-	if test "$with_wxwidgets" = "builtin"; then
+        with_wxwidgets="system"
+    fi
+    
+    if test "$with_wxwidgets" = "no"; then
+        AC_MSG_ERROR([
+            wxWidgets must be installed on your system.
+     
+            Please check that wx-config is in path, the directory
+            where wxWidgets libraries are installed (returned by
+            'wx-config --libs' or 'wx-config --static --libs' command)
+            is in LD_LIBRARY_PATH or equivalent variable and
+            wxWidgets version is 2.9.0 or above, and the compilation 
+            is compatible with 
+            --unicode=$enable_unicode --static=$with_wx_static
+            ])
+    fi
+    if test "$with_wxwidgets" = "system"; then
+        if test "${with_wx_config+set}" = set; then
+            ZenLib_Wx_Config=$with_wx_config;
+        else
+            ZenLib_Wx_Config="wx-config"
+        fi
+    fi
+    if test "$with_wxwidgets" = "builtin"; then
        ZenLib_Wx_Config="../../../../Shared/Source/WxWidgets/wx-config"
-	fi
+    fi
 fi
 
 dnl #########################################################################
@@ -233,17 +233,17 @@ dnl GNU compiler
 dnl
 dnl C/C++ compiler options used to compile
 if test "$GXX" = yes ; then
-	if test "$enable_debug" = "yes"; then
-		CFLAGS="$CFLAGS -O0 -g -Wall -Wundef"
-		CXXFLAGS="$CXXFLAGS -O0 -g -Wall -W -Wundef -Wcast-qual -Wno-ctor-dtor-privacy"
-	else
-		CFLAGS="$CFLAGS -O2"
-		CXXFLAGS="$CXXFLAGS -O2"
-	fi
-	if test "$enable_gprof" = "yes"; then
-		CFLAGS="$CFLAGS -pg -g"
-		CXXFLAGS="$CXXFLAGS -pg -g"
-	fi
+    if test "$enable_debug" = "yes"; then
+        CFLAGS="$CFLAGS -O0 -g -Wall -Wundef"
+        CXXFLAGS="$CXXFLAGS -O0 -g -Wall -W -Wundef -Wcast-qual -Wno-ctor-dtor-privacy"
+    else
+        CFLAGS="$CFLAGS -O2"
+        CXXFLAGS="$CXXFLAGS -O2"
+    fi
+    if test "$enable_gprof" = "yes"; then
+        CFLAGS="$CFLAGS -pg -g"
+        CXXFLAGS="$CXXFLAGS -pg -g"
+    fi
 fi
 
 dnl #########################################################################
@@ -254,62 +254,62 @@ dnl -------------------------------------------------------------------------
 dnl MediaInfoLib
 dnl
 if test "$with_dll" != "yes"; then
-	with_dll="no"
-	if test -e ../../../../MediaInfoLib/Project/GNU/Library/libmediainfo.la; then
-		CXXFLAGS="$CXXFLAGS $(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config CXXFLAGS)"
-		if test "$enable_staticlibs" = "yes"; then
-			with_mediainfolib="builtin (static)"
-			LIBS="$LIBS $(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config LIBS_Static)"
-		else
-			with_mediainfolib="builtin"
-			LIBS="$LIBS $(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config LIBS)"
-		fi
-	else
-		if pkg-config --exists libmediainfo; then
-			CXXFLAGS="$CXXFLAGS $(pkg-config --cflags libmediainfo)"
-			if test "$enable_staticlibs" = "yes"; then
-				with_mediainfolib="system (static)"
-				LIBS="$LIBS $(pkg-config --variable=Libs_Static libmediainfo)"
-			else
-				with_mediainfolib="system"
-				LIBS="$LIBS $(pkg-config --libs libmediainfo)"
-			fi
-		else
-			AC_MSG_ERROR([libmediainfo configuration is not found])
-		fi
-	fi
+    with_dll="no"
+    if test -e ../../../../MediaInfoLib/Project/GNU/Library/libmediainfo.la; then
+        CXXFLAGS="$CXXFLAGS $(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config CXXFLAGS)"
+        if test "$enable_staticlibs" = "yes"; then
+            with_mediainfolib="builtin (static)"
+            LIBS="$LIBS $(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config LIBS_Static)"
+        else
+            with_mediainfolib="builtin"
+            LIBS="$LIBS $(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config LIBS)"
+        fi
+    else
+        if pkg-config --exists libmediainfo; then
+            CXXFLAGS="$CXXFLAGS $(pkg-config --cflags libmediainfo)"
+            if test "$enable_staticlibs" = "yes"; then
+                with_mediainfolib="system (static)"
+                LIBS="$LIBS $(pkg-config --variable=Libs_Static libmediainfo)"
+            else
+                with_mediainfolib="system"
+                LIBS="$LIBS $(pkg-config --libs libmediainfo)"
+            fi
+        else
+            AC_MSG_ERROR([libmediainfo configuration is not found])
+        fi
+    fi
 else
-	with_dll="yes"
-	with_mediainfolib="system"
+    with_dll="yes"
+    with_mediainfolib="system"
 fi
 
 dnl -------------------------------------------------------------------------
 dnl ZenLib
 dnl
 if test -e ../../../../ZenLib/Project/GNU/Library/libzen.la; then
-	CXXFLAGS="$CXXFLAGS $(../../../../ZenLib/Project/GNU/Library/libzen-config CXXFLAGS)"
-	MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(../../../../ZenLib/Project/GNU/Library/libzen-config CXXFLAGS)"
-	if test "$enable_staticlibs" = "yes"; then
-		with_zenlib="builtin (static)"
-		LIBS="$LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS_Static)"
-	else
-		with_zenlib="builtin"
-		LIBS="$LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS)"
-	fi
+    CXXFLAGS="$CXXFLAGS $(../../../../ZenLib/Project/GNU/Library/libzen-config CXXFLAGS)"
+    MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(../../../../ZenLib/Project/GNU/Library/libzen-config CXXFLAGS)"
+    if test "$enable_staticlibs" = "yes"; then
+        with_zenlib="builtin (static)"
+        LIBS="$LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS_Static)"
+    else
+        with_zenlib="builtin"
+        LIBS="$LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS)"
+    fi
 else
-	if pkg-config --exists libzen; then
-		CXXFLAGS="$CXXFLAGS $(pkg-config --cflags libzen)"
-		MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(pkg-config --cflags libzen)"
-		if test "$enable_staticlibs" = "yes"; then
-			with_zenlib="system (static)"
-			LIBS="$LIBS $(pkg-config --variable=Libs_Static libzen)"
-		else
-			with_zenlib="system"
-			LIBS="$LIBS $(pkg-config --libs libzen)"
-		fi
-	else
-		AC_MSG_ERROR([libzen configuration is not found])
-	fi
+    if pkg-config --exists libzen; then
+        CXXFLAGS="$CXXFLAGS $(pkg-config --cflags libzen)"
+        MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(pkg-config --cflags libzen)"
+        if test "$enable_staticlibs" = "yes"; then
+            with_zenlib="system (static)"
+            LIBS="$LIBS $(pkg-config --variable=Libs_Static libzen)"
+        else
+            with_zenlib="system"
+            LIBS="$LIBS $(pkg-config --libs libzen)"
+        fi
+    else
+        AC_MSG_ERROR([libzen configuration is not found])
+    fi
 fi
 
 dnl #########################################################################
@@ -328,48 +328,48 @@ dnl -------------------------------------------------------------------------
 dnl Mac Architecture and SDK
 dnl
 if test "$enable_universal_binary" = "yes"; then
-	enable_arch_ppc=yes
-	enable_arch_i386=yes
-	if test "$with_macosx_sdk" = no ; then
-		with_macosx_sdk="/Developer/SDKs/MacOSX10.4u.sdk"
-	fi
-	if test "$with_macosx_version_min" = no ; then
-		with_macosx_version_min="10.4"
-	fi
+    enable_arch_ppc=yes
+    enable_arch_i386=yes
+    if test "$with_macosx_sdk" = no ; then
+        with_macosx_sdk="/Developer/SDKs/MacOSX10.4u.sdk"
+    fi
+    if test "$with_macosx_version_min" = no ; then
+        with_macosx_version_min="10.4"
+    fi
 fi
 if test "$enable_arch_ppc" = "yes"; then
-	CXXFLAGS="$CXXFLAGS -arch ppc"
-	CFLAGS="$CFLAGS -arch ppc"
-	LDFLAGS="$LDFLAGS -arch ppc"
+    CXXFLAGS="$CXXFLAGS -arch ppc"
+    CFLAGS="$CFLAGS -arch ppc"
+    LDFLAGS="$LDFLAGS -arch ppc"
 fi
 if test "$enable_arch_ppc64" = "yes"; then
-	CXXFLAGS="$CXXFLAGS -arch ppc64"
-	CFLAGS="$CFLAGS -arch ppc64"
-	LDFLAGS="$LDFLAGS -arch ppc64"
+    CXXFLAGS="$CXXFLAGS -arch ppc64"
+    CFLAGS="$CFLAGS -arch ppc64"
+    LDFLAGS="$LDFLAGS -arch ppc64"
 fi
 if test "$enable_arch_i386" = "yes"; then
-	CXXFLAGS="$CXXFLAGS -arch i386"
-	CFLAGS="$CFLAGS -arch i386"
-	LDFLAGS="$LDFLAGS -arch i386"
+    CXXFLAGS="$CXXFLAGS -arch i386"
+    CFLAGS="$CFLAGS -arch i386"
+    LDFLAGS="$LDFLAGS -arch i386"
 fi
 if test "$enable_arch_x86_64" = "yes"; then
-	CXXFLAGS="$CXXFLAGS -arch x86_64"
-	CFLAGS="$CFLAGS -arch x86_64"
-	LDFLAGS="$LDFLAGS -arch x86_64"
+    CXXFLAGS="$CXXFLAGS -arch x86_64"
+    CFLAGS="$CFLAGS -arch x86_64"
+    LDFLAGS="$LDFLAGS -arch x86_64"
 fi
 if test "$with_macosx_sdk" = "yes" ; then
-	CXXFLAGS="-isysroot /Developer/SDKs/MacOSX10.4u.sdk $CXXFLAGS"
-	CFLAGS="-isysroot /Developer/SDKs/MacOSX10.4u.sdk $CFLAGS"
-	LDFLAGS="-isysroot /Developer/SDKs/MacOSX10.4u.sdk $LDFLAGS"
+    CXXFLAGS="-isysroot /Developer/SDKs/MacOSX10.4u.sdk $CXXFLAGS"
+    CFLAGS="-isysroot /Developer/SDKs/MacOSX10.4u.sdk $CFLAGS"
+    LDFLAGS="-isysroot /Developer/SDKs/MacOSX10.4u.sdk $LDFLAGS"
 elif test "x$with_macosx_sdk" != xno ; then
-	CXXFLAGS="-isysroot $with_macosx_sdk $CXXFLAGS"
-	CFLAGS="-isysroot $with_macosx_sdk $CFLAGS"
-	LDFLAGS="-isysroot $with_macosx_sdk $LDFLAGS"
+    CXXFLAGS="-isysroot $with_macosx_sdk $CXXFLAGS"
+    CFLAGS="-isysroot $with_macosx_sdk $CFLAGS"
+    LDFLAGS="-isysroot $with_macosx_sdk $LDFLAGS"
 fi
 if test "x$with_macosx_version_min" != xno ; then
-	CXXFLAGS="-mmacosx-version-min=$with_macosx_version_min $CXXFLAGS"
-	CFLAGS="-mmacosx-version-min=$with_macosx_version_min $CFLAGS"
-	LDFLAGS="-mmacosx-version-min=$with_macosx_version_min $LDFLAGS"
+    CXXFLAGS="-mmacosx-version-min=$with_macosx_version_min $CXXFLAGS"
+    CFLAGS="-mmacosx-version-min=$with_macosx_version_min $CFLAGS"
+    LDFLAGS="-mmacosx-version-min=$with_macosx_version_min $LDFLAGS"
 fi
 
 dnl #########################################################################
