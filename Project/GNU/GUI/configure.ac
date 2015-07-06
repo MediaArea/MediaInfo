@@ -63,6 +63,7 @@ AC_ARG_WITH(macosx-version-min, AC_HELP_STRING([--with-macosx-version-min], [For
 AC_ARG_WITH(wxwidgets,      AC_HELP_STRING([--with-wxwidgets],      [Use WxWidgets]),                           , with_wxwidgets=yes)
 AC_ARG_WITH(wx_static,      AC_HELP_STRING([--with-wx-static],      [Use WxWidgets static libs]),               , with_wx_static=no)
 AC_ARG_WITH(wx_gui,         AC_HELP_STRING([--with-wx-gui],         [Use WxWidgets GUI]),                       , with_wx_gui=yes)
+#AC_ARG_WITH(wx-path,        AC_HELP_STRING([--with-wx-path=PATH],    [Use local version of wxWidgets]),            , with_wxdir=no)
 AC_ARG_WITH(dll,            AC_HELP_STRING([--with-dll],            [Use DLL instead of static link]),          , with_dll=no)
 
 dnl -------------------------------------------------------------------------
@@ -99,27 +100,33 @@ dnl
 dnl Download and compile
 WxBuiltInCompile()
 {
-    if test -e ../../../../Shared/Project/wxWidgets/Compile.sh; then
-        cd ../../../../Shared/Project/wxWidgets
-        chmod u+x Compile.sh
+    if test -e ../../../../Shared/Project/WxWidgets/Compile.sh; then
+        cd ../../../../Shared/Project/WxWidgets
+        chmod +x Compile.sh
         ./Compile.sh --enable-unicode=$enable_unicode --enable-static=yes --enable-gui=$with_wx_gui --build=$build
         cd $Home
         if test -e ../../../../Shared/Source/WxWidgets/wx-config; then
             if test "x$(../../../../Shared/Source/WxWidgets/wx-config --unicode=$enable_unicode --version)" = "x"; then
-                echo TEST a
+                echo
+                echo Problem while compiling WxWidgets
+                echo
                 with_wxwidgets="no"
             else
-                dnl Compiled builtin lib found!
-                echo TEST b
+                echo
+                echo Compiled WxWidgets found!
+                echo
                 with_wxwidgets="builtin"
             fi
         else
-            dnl Problem while compiling
-            echo TEST c
+            echo
+            echo Problem while compiling WxWidgets
+            echo
             with_wxwidgets="no"
         fi
     else
-        echo TEST d
+        echo
+        echo File Shared/Project/WxWidgets/Compile.sh not found
+        echo
         with_wxwidgets="no"
     fi
 }
@@ -127,22 +134,41 @@ WxBuiltInCompile()
 dnl Search for a good build, else built it
 WxBuiltInSearchGoodBuild()
 {
+    #if ! test -z "$with_wxdir"; then
+    #    if test -e $with_wxdir/configure; then
+    #        test -d ../../Source || mkdir -p ../../Source
+    #        cp -r $with_wxdir ../../../../Shared/Source/WxWidgets
+    #    else
+    #        echo
+    #        echo The specified path to local WxWidgets sources is wrong.
+    #        echo
+    #        exit 1
+    #    fi
+    #fi
     if test -e ../../../../Shared/Source/WxWidgets/wx-config; then
         dnl There is already a compiled version
         if test "x$(../../../../Shared/Source/WxWidgets/wx-config --unicode=$enable_unicode --static=$with_wx_static --version)" = "x"; then
             if test "x$(../../../../Shared/Source/WxWidgets/wx-config --unicode=$enable_unicode --version)" = "x"; then
-                dnl Not well compiled, try to compile again
+                echo
+                echo WxWidgets not well compiled, try to compile again
+                echo
                 WxBuiltInCompile
             else
-                dnl Already compiled builtin lib found!
+                echo
+                echo Already compiled WxWidgets found!
+                echo
                 with_wxwidgets="builtin"
             fi
         else
-            dnl Already compiled builtin lib found!
+            echo
+            echo Already compiled WxWidgets found!
+            echo
             with_wxwidgets="builtin"
         fi
     else
-        dnl Not yet compiled, try to compile
+        echo
+        echo WxWidgets not yet compiled, try to compile
+        echo
         WxBuiltInCompile
     fi
 }
@@ -174,7 +200,7 @@ if test "$with_wxwidgets" = "yes"; then
             where wxWidgets libraries are installed (returned by
             'wx-config --libs' or 'wx-config --static --libs' command)
             is in LD_LIBRARY_PATH or equivalent variable and
-            wxWidgets version is 2.9.0 or above, and the compilation 
+            wxWidgets version is $WxVersion or above, and the compilation 
             is compatible with 
             --unicode=$enable_unicode --static=$with_wx_static
             ])

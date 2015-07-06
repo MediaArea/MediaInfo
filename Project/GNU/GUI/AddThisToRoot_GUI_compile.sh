@@ -6,16 +6,10 @@ Parallel_Build () {
     case $OS in
     'linux')
         numprocs=`grep -c ^processor /proc/cpuinfo 2>/dev/null`
-        if [ "$numprocs" = "" ] || [ "$numprocs" = "0" ]; then
-            numprocs=1
-        fi
         ;;
     'mac') 
         if type sysctl &> /dev/null; then
             numprocs=`sysctl -n hw.ncpu`
-            if [ "$numprocs" = "" ] || [ "$numprocs" = "0" ]; then
-                numprocs=1
-            fi
         fi
         ;;
     #"solaris')
@@ -25,6 +19,9 @@ Parallel_Build () {
     #    ;;
     *) ;;
     esac
+    if [ "$numprocs" = "" ] || [ "$numprocs" = "0" ]; then
+        numprocs=1
+    fi
     make -s -j$numprocs
 }
 
@@ -35,7 +32,7 @@ ZenLib () {
         test -e Makefile && rm Makefile
         chmod u+x configure
         if [ "$OS" = "mac" ]; then
-            ./configure $ZenLib_Options $MacOptions $*
+            ./configure $MacOptions $ZenLib_Options $*
         else
             ./configure $ZenLib_Options $*
         fi
@@ -136,10 +133,9 @@ if [ "$OS" = "Darwin" ]; then
 elif [ "$(expr substr $OS 1 5)" = "Linux" ]; then
     OS="linux"
 #elif [ "$(expr substr $OS 1 5)" = "SunOS" ]; then
-    #OS="solaris"
-
-
-#'FreeBSD')
+#    OS="solaris"
+#elif [ "$(expr substr $OS 1 7)" = "FreeBSD" ]; then
+#    OS="freebsd"
 fi
 
 ZenLib
