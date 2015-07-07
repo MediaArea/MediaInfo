@@ -16,16 +16,10 @@ APPNAME="$1"
 KIND="$2"
 VERSION="$3"
 
-echo
-echo
-echo
-
 if [ "$KIND" = "CLI" ] || [ "$KIND" = "cli" ]; then
-    echo "CLI "
     KIND="CLI"
 elif [ "$KIND" = "GUI" ] || [ "$KIND" = "gui" ]; then
     KIND="GUI"
-    echo "GUI "
 else
     echo
     echo "KIND must be either [MediaInfo | mi] or [MediaConch | mc]"
@@ -33,10 +27,8 @@ else
     exit 1
 fi
 if [ "$APPNAME" = "MediaInfo" ] || [ "$APPNAME" = "mediainfo" ] || [ "$APPNAME" = "mi" ]; then
-    echo "MediaInfo"
     APPNAME="MediaInfo"
 elif [ "$APPNAME" = "MediaConch" ] || [ "$APPNAME" = "mediaconch" ] || [ "$APPNAME" = "mc" ]; then
-    echo "MediaConch"
     APPNAME="MediaConch"
 else
     echo
@@ -44,10 +36,6 @@ else
     echo
     exit 1
 fi
-
-echo
-echo
-echo
 
 APPNAME_lower=`echo ${APPNAME} |awk '{print tolower($0)}'`
 KIND_lower=`echo ${KIND} |awk '{print tolower($0)}'`

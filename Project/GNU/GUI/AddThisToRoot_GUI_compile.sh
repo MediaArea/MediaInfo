@@ -12,10 +12,10 @@ Parallel_Build () {
             numprocs=`sysctl -n hw.ncpu`
         fi
         ;;
+    #'freebsd')
+    #    ;;
     #"solaris')
     #    on Solaris you need to use psrinfo -p instead
-    #    ;;
-    #'freebsd')
     #    ;;
     *) ;;
     esac
@@ -102,13 +102,13 @@ MediaInfo () {
             make clean
             Parallel_Build
             if test -e mediainfo-gui; then
-                echo MediaInfo compiled
+                echo "MediaInfo (GUI) compiled"
             else
-                echo Problem while compiling MediaInfo
+                echo "Problem while compiling MediaInfo (GUI)"
                 exit
             fi
         else
-            echo Problem while configuring MediaInfo
+            echo "Problem while configuring MediaInfo (GUI)"
             exit
         fi
     else
@@ -132,16 +132,17 @@ if [ "$OS" = "Darwin" ]; then
 # if the 5 first caracters of $OS equal "Linux"
 elif [ "$(expr substr $OS 1 5)" = "Linux" ]; then
     OS="linux"
-#elif [ "$(expr substr $OS 1 5)" = "SunOS" ]; then
-#    OS="solaris"
 #elif [ "$(expr substr $OS 1 7)" = "FreeBSD" ]; then
 #    OS="freebsd"
+#elif [ "$(expr substr $OS 1 5)" = "SunOS" ]; then
+#    OS="solaris"
 fi
 
 ZenLib
 MediaInfoLib
 MediaInfo
 
-echo "MediaInfo executable is in MediaInfo/Project/GNU/GUI"
+echo "MediaInfo executable is MediaInfo/Project/GNU/GUI/mediainfo-gui"
+echo "For installing, cd MediaInfo/Project/GNU/GUI && make install"
 
-unset -v Home ZenLib_Options OS
+unset -v Home ZenLib_Options MacOptions OS
