@@ -15,8 +15,8 @@ osascript_Function () {
                 set position of item "'${APPNAME}'.app" of container window to {125, 175}
                 set position of item "Applications" of container window to {275, 200}
                 set position of item "ReadMe.txt" of container window to {450, 125}
-                set position of item "License.html" of container window to {450, 175}
-                set position of item "History.txt" of container window to {450, 275}
+                set position of item "License.html" of container window to {450, 225}
+                set position of item "History.txt" of container window to {450, 325}
                 close
             end tell
         end tell
