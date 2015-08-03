@@ -1,6 +1,7 @@
 #! /bin/sh
 
 ##################################################################
+
 Parallel_Make () {
     local numprocs=1
     case $OS in
@@ -12,10 +13,10 @@ Parallel_Make () {
             numprocs=`sysctl -n hw.ncpu`
         fi
         ;;
-    #'freebsd')
-    #    ;;
     #"solaris')
     #    on Solaris you need to use psrinfo -p instead
+    #    ;;
+    #'freebsd')
     #    ;;
     *) ;;
     esac
@@ -39,10 +40,10 @@ if [ "$OS" = "Darwin" ]; then
 # if the 5 first caracters of $OS equal "Linux"
 elif [ "$(expr substr $OS 1 5)" = "Linux" ]; then
     OS="linux"
-#elif [ "$(expr substr $OS 1 7)" = "FreeBSD" ]; then
-#    OS="freebsd"
 #elif [ "$(expr substr $OS 1 5)" = "SunOS" ]; then
 #    OS="solaris"
+#elif [ "$(expr substr $OS 1 7)" = "FreeBSD" ]; then
+#    OS="freebsd"
 fi
 
 ##################################################################
@@ -79,7 +80,7 @@ if test -e MediaInfoLib/Project/GNU/Library/configure; then
     cd MediaInfoLib/Project/GNU/Library/
     test -e Makefile && rm Makefile
     chmod +x configure
-	./configure $*
+    ./configure $*
     if test -e Makefile; then
         make clean
         Parallel_Make
