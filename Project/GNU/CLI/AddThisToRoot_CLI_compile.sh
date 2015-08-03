@@ -31,7 +31,7 @@ Parallel_Make () {
 
 Home=`pwd`
 ZenLib_Options=""
-MacOptions=""
+MacOptions="--with-macosx-version-min=10.5"
 
 OS=$(uname -s)
 # expr isn’t available on mac
@@ -53,7 +53,11 @@ if test -e ZenLib/Project/GNU/Library/configure; then
     cd ZenLib/Project/GNU/Library/
     test -e Makefile && rm Makefile
     chmod +x configure
-    ./configure $ZenLib_Options $*
+    if [ "$OS" = "mac" ]; then
+        ./configure $MacOptions $ZenLib_Options $*
+    else
+        ./configure $ZenLib_Options $*
+    fi
     if test -e Makefile; then
         make clean
         Parallel_Make
@@ -80,7 +84,11 @@ if test -e MediaInfoLib/Project/GNU/Library/configure; then
     cd MediaInfoLib/Project/GNU/Library/
     test -e Makefile && rm Makefile
     chmod +x configure
-    ./configure $*
+    if [ "$OS" = "mac" ]; then
+        ./configure $MacOptions $*
+    else
+        ./configure $*
+    fi
     if test -e Makefile; then
         make clean
         Parallel_Make
@@ -109,6 +117,13 @@ if test -e MediaInfo/Project/GNU/CLI/configure; then
     test -e Makefile && rm Makefile
     chmod +x configure
     ./configure --enable-staticlibs $*
+
+    if [ "$OS" = "mac" ]; then
+        ./configure $MacOptions --enable-staticlibs $*
+    else
+        ./configure --enable-staticlibs $*
+    fi
+
     if test -e Makefile; then
         make clean
         Parallel_Make
