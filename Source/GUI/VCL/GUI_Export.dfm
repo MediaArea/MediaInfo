@@ -48,17 +48,12 @@ object ExportF: TExportF
       Top = 18
       Width = 608
       Height = 224
-      ActivePage = Export_FIMS_1_3
+      ActivePage = Export_Text
       MultiLine = True
       TabOrder = 0
-      Visible = False
       OnChange = ExportChange
       object Export_CSV: TTabSheet
         Caption = 'CSV'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object CSV_Stream_Video_Caption: TLabel
           Left = 0
           Top = 9
@@ -315,10 +310,6 @@ object ExportF: TExportF
       end
       object Export_Sheet: TTabSheet
         Caption = 'Sheet'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Sheet_Quote_Caption: TLabel
           Left = 0
           Top = 9
@@ -379,10 +370,6 @@ object ExportF: TExportF
       object Export_Text: TTabSheet
         Caption = 'Text'
         ImageIndex = 1
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Text_Advanced: TCheckBox
           Left = 0
           Top = 9
@@ -395,10 +382,6 @@ object ExportF: TExportF
       object Export_HTML: TTabSheet
         Caption = 'HTML'
         ImageIndex = 2
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object HTML_Advanced: TCheckBox
           Left = 0
           Top = 9
@@ -410,10 +393,6 @@ object ExportF: TExportF
       end
       object Export_XML: TTabSheet
         Caption = 'XML'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Export_XML_SideCar: TCheckBox
           Left = 0
           Top = 9
@@ -426,10 +405,6 @@ object ExportF: TExportF
       end
       object Export_MPEG7: TTabSheet
         Caption = 'MPEG-7'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Export_MPEG7_SideCar: TCheckBox
           Left = 0
           Top = 9
@@ -442,10 +417,6 @@ object ExportF: TExportF
       end
       object Export_PBCore: TTabSheet
         Caption = 'PBCore 1.2'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Export_PBCore_SideCar: TCheckBox
           Left = 0
           Top = 9
@@ -458,10 +429,6 @@ object ExportF: TExportF
       end
       object Export_PBCore2: TTabSheet
         Caption = 'PBCore 2.0'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Export_PBCore2_SideCar: TCheckBox
           Left = 0
           Top = 9
@@ -488,10 +455,6 @@ object ExportF: TExportF
       object Export_EBUCore_1_6: TTabSheet
         Caption = 'EBUCore 1.6'
         ImageIndex = 9
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Export_EBUCore_1_6_SideCar: TCheckBox
           Left = 0
           Top = 9
@@ -505,10 +468,6 @@ object ExportF: TExportF
       object Export_FIMS_1_1: TTabSheet
         Caption = 'FIMS 1.1'
         ImageIndex = 9
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Export_FIMS_1_1_SideCar: TCheckBox
           Left = 0
           Top = 9
@@ -522,10 +481,6 @@ object ExportF: TExportF
       object Export_FIMS_1_2: TTabSheet
         Caption = 'FIMS 1.2'
         ImageIndex = 9
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Export_FIMS_1_2_SideCar: TCheckBox
           Left = 0
           Top = 9
@@ -551,10 +506,6 @@ object ExportF: TExportF
       end
       object Export_reVTMD: TTabSheet
         Caption = 'reVTMD'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Export_reVTMD_SideCar: TCheckBox
           Left = 0
           Top = 9
@@ -568,10 +519,6 @@ object ExportF: TExportF
       object Export_Custom: TTabSheet
         Caption = 'Custom'
         ImageIndex = 3
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Custom_One: TCheckBox
           Left = 0
           Top = 9
