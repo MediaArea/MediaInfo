@@ -13,6 +13,20 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.76, 2015-08-06
+--------------
++ XML output: line breaks and indents in between attributes for readability
++ Trace feature: XML trace update, only if compiled with trace feature
++ Amazon S3 support (REST API v2), CLI/DLL only and if compiled with libcurl support
++ FFV1: improved slice analysis (currently activated only with trace feature and for 1st frame)
+x MXF: optimization of the parsing, reading a lot less data (e.g. can be reduced from 1 GB to 10 MB with some UHD files)
+x MXF: wrong frame count with files not having the video stream as the first stream
+x Dolby E in MPEG-TS: "SMPTE ST 302" information was accidentally removed
+x MPEG-TS: avoid filling delay from file name, not applicable on MPEG-TS
+x MXF: better handling of huge padding blocks, better handling of descriptors without link to a TrackID
+x IMX: streams claiming that they are IMX are actually pure MPEG Video, probing both IMX and MPEG Video
+x FIMS menus update has inadvertently hidden export format selection tabs
+
 Version 0.7.75, 2015-06-30
 --------------
 + MXF: consideraing 60 fps timecode tracks with 2 components having a difference of 2 frames as a single timecode
