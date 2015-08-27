@@ -11,7 +11,7 @@ Group:          Applications/Multimedia
 License:        BSD-2-Clause
 URL:            http://MediaArea.net/MediaInfo
 Packager:       MediaArea.net SARL <info@mediaarea.net>
-Source0:        %{name}_%{version}-1.tar.gz
+Source0:        %{name}_%{version}.tar.gz
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:  gcc-c++
@@ -219,7 +219,7 @@ install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop \
 
 
 %changelog
-* Tue Jan 01 2009 MediaArea.net SARL <info@mediaarea.net> - 0.7.76
+* Tue Jan 01 2009 MediaArea.net SARL <info@mediaarea.net> - %{mediainfo_version}
 - See History.txt for more info and real dates
 - Previous packages made by Toni Graffy <toni@links2linux.de>
 - Fedora style made by Vasiliy N. Glazov <vascom2@gmail.com>
