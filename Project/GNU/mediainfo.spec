@@ -210,7 +210,7 @@ install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop \
 %dir %{_datadir}/kde4/services
 %dir %{_datadir}/kde4/services/ServiceMenus
 %{_datadir}/kde4/services/ServiceMenus/*.desktop
-%if (%{undefined rhel_version} || %{?rhel_version} >= 600) && (%{undefined centos_version} || %{?centos_version} >= 600)
+%if (%{undefined rhel_version} || 0%{?rhel_version} >= 600) && (%{undefined centos_version} || 0%{?centos_version} >= 600)
 %dir %{_datadir}/appdata
 %{_datadir}/appdata/*.xml
 %else
