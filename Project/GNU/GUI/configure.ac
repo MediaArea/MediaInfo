@@ -176,7 +176,13 @@ WxBuiltInSearchGoodBuild()
 dnl The test
 if test "$with_wxwidgets" = "yes"; then
     dnl Searching system libs
-    WxVersion="3.0.2"
+    WxVersion="2.6.0"
+    case "${build}" in
+        *apple* )
+            dnl version 2.9 for Mac
+            WxVersion="2.9.0"
+        ;;
+    esac
     AM_PATH_WXCONFIG("$WxVersion", WxSystemLibs=1, WxSystemLibs=0, [base], --unicode=$enable_unicode --static=$with_wx_static)
     if test "$WxSystemLibs" != 1; then
         dnl Searching builtin libs

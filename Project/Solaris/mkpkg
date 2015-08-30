@@ -22,7 +22,7 @@ fi
 
 #Compile and install
 cd ../GNU/CLI
-./autogen
+./autogen.sh
 ./configure --prefix=${install_prefix} --enable-shared --disable-static $*
 make
 if test -e mediainfo; then

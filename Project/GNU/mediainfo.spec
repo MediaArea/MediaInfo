@@ -11,7 +11,7 @@ Group:          Applications/Multimedia
 License:        BSD-2-Clause
 URL:            http://MediaArea.net/MediaInfo
 Packager:       MediaArea.net SARL <info@mediaarea.net>
-Source0:        %{name}_%{version}-1.tar.gz
+Source0:        %{name}_%{version}.tar.gz
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:  gcc-c++
@@ -210,7 +210,7 @@ install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop \
 %dir %{_datadir}/kde4/services
 %dir %{_datadir}/kde4/services/ServiceMenus
 %{_datadir}/kde4/services/ServiceMenus/*.desktop
-%if (%{undefined rhel_version} || %{?rhel_version} >= 600) && (%{undefined centos_version} || %{?centos_version} >= 600)
+%if (%{undefined rhel_version} || 0%{?rhel_version} >= 600) && (%{undefined centos_version} || 0%{?centos_version} >= 600)
 %dir %{_datadir}/appdata
 %{_datadir}/appdata/*.xml
 %else
@@ -219,7 +219,7 @@ install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop \
 
 
 %changelog
-* Tue Jan 01 2009 MediaArea.net SARL <info@mediaarea.net> - 0.7.76
+* Tue Jan 01 2009 MediaArea.net SARL <info@mediaarea.net> - %{mediainfo_version}
 - See History.txt for more info and real dates
 - Previous packages made by Toni Graffy <toni@links2linux.de>
 - Fedora style made by Vasiliy N. Glazov <vascom2@gmail.com>
