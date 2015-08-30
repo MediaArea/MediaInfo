@@ -13,6 +13,10 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.76, 2015-
+--------------
+x Windows, "Open with" is not using the same field in the .rc, trying to have a more friendly name on Windows 8.1+
+
 Version 0.7.76, 2015-08-06
 --------------
 + XML output: line breaks and indents in between attributes for readability
