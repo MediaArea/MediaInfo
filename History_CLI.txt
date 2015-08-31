@@ -13,6 +13,18 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.77, 2015-08-31
+--------------
++ #B941, MXF: files having only a video stream and an ancillary data stream were having incorrect second video stream
++ MOV: detection of r210 CodecID as raw RGB
++ Ancillary data: detection of all metadata blocks (previously: only the first one was detected)
+x MPEG-TS: Wrong demux of TSP (188+16 TS) files having PES with only padding
+x MediaTrace #2: XML malformed with Flags items (hotfix, flags meaning disabled in XML output)
+x MediaTrace #3: XML malformed with some MP4 files
+x MediaTrace #6: XML duplicated attributes
+x MediaTrace #10: versioned xsd, creating library name and version
+x #B947, Amazon S3 support (REST API v2), CLI/DLL only and if compiled with libcurl support: Analyze file on s3 was not working if secret key contains / character
+
 Version 0.7.76, 2015-08-06
 --------------
 + XML output: line breaks and indents in between attributes for readability
