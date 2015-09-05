@@ -1,0 +1,58 @@
+#!/usr/bin/make -f
+
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs -Wl,--as-needed
+
+auto_build_cmd =					\
+	cat debian/autoreconf | while read path; do	\
+		$(1) -D"$$path";			\
+	done
+
+override_dh_autoreconf:
+	dh_autoreconf --as-needed
+
+override_dh_auto_configure:
+	$(call auto_build_cmd,dh_auto_configure)
+
+override_dh_auto_build:
+	$(call auto_build_cmd,dh_auto_build)
+
+override_dh_auto_install:
+	$(call auto_build_cmd,dh_auto_install)
+
+override_dh_auto_clean:
+	$(call auto_build_cmd,dh_auto_clean)
+
+override_dh_installchangelogs:
+	dh_installchangelogs -p mediainfo History_CLI.txt
+	dh_installchangelogs -p mediainfo-gui History_GUI.txt
+
+override_dh_install:
+	dh_install --fail-missing
+
+	find debian/mediainfo-gui				\
+		-name MediaInfo\*				\
+		-exec prename 's/MediaInfo\.(png|svg|xpm)$$/mediainfo.$$1/g' '{}' '+'
+
+	find debian/mediainfo-gui						\
+		-name \*.desktop						\
+		-exec prename 's/\.kde[34]\.desktop$$/.desktop/' '{}' '+'
+
+	find debian/mediainfo-gui/usr/share -type f -exec chmod 0644 '{}' '+'
+
+override_dh_installdocs:
+	dh_installdocs
+
+	prename 's/ReadMe_.*\.txt$$/README/' debian/*/usr/share/doc/*/ReadMe*
+
+%.1: %.pod
+	pod2man --center "User Commands" --release=MediaInfo\ 0.7.52 $< > $@
+
+override_dh_installman: debian/mediainfo.1 debian/mediainfo-gui.1
+	dh_installman
+
+clean:
+	rm -f debian/*.1
+	dh clean --with=autoreconf
+
+%:
+	dh $@ --with=autoreconf --parallel

@@ -2,7 +2,7 @@ Source: mediainfo
 Priority: optional
 Section: utils
 Maintainer: MediaArea.net SARL <info@mediaarea.net>
-Build-Depends: debhelper (>= 8),
+Build-Depends: debhelper (>= 9),
                dh-autoreconf,
                libmediainfo-dev (>= 0.7.61),
                libzen-dev (>= 0.4.25),
