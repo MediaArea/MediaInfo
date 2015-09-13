@@ -1,0 +1,3 @@
+version=3
+
+opts="uversionmangle=s/-.*$//" http://sf.net/mediainfo/mediainfo_(.*)\.tar\.gz

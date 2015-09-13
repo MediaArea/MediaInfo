@@ -13,7 +13,7 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
-Version 0.7.77, 2015-08-31
+Version 0.7.77, 2015-09-02
 --------------
 + #B941, MXF: files having only a video stream and an ancillary data stream were having incorrect second video stream
 + MOV: detection of r210 CodecID as raw RGB
@@ -23,6 +23,7 @@ x MediaTrace #2: XML malformed with Flags items (hotfix, flags meaning disabled 
 x MediaTrace #3: XML malformed with some MP4 files
 x MediaTrace #6: XML duplicated attributes
 x MediaTrace #10: versioned xsd, creating library name and version
+x MediaTrace: XML content was not escaped
 x #B947, Amazon S3 support (REST API v2), CLI/DLL only and if compiled with libcurl support: Analyze file on s3 was not working if secret key contains / character
 x Windows, "Open with" is not using the same field in the .rc, trying to have a more friendly name on Windows 8.1+
 

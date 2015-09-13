@@ -1,0 +1,63 @@
+Source: mediainfo
+Priority: optional
+Section: utils
+Maintainer: MediaArea.net SARL <info@mediaarea.net>
+Build-Depends: debhelper (>= 9),
+               dh-autoreconf,
+               libmediainfo-dev (>= 0.7.61),
+               libzen-dev (>= 0.4.25),
+               zlib1g-dev,
+               pkg-config,
+Standards-Version: 3.9.6
+Homepage: http://mediainfo.sourceforge.net
+Vcs-Git: https://github.com/MediaArea/MediaInfo.git
+Vcs-Browser: https://github.com/MediaArea/MediaInfo
+
+Package: mediainfo
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: command-line utility for reading information from audio/video files
+ MediaInfo is a utility used for retrieving technical information and other
+ metadata about audio or video files.
+ .
+ A non-exhaustive list of the information MediaInfo can retrieve from media
+ files include:
+  - General: title, author, director, album, track number, date, duration...
+  - Video: codec, aspect, fps, bitrate...
+  - Audio: codec, sample rate, channels, language, bitrate...
+  - Text: language of subtitle
+  - Chapters: number of chapters, list of chapters
+ .
+ MediaInfo supports the following formats:
+  - Video: MKV, OGM, AVI, DivX, WMV, QuickTime, Real, MPEG-1, MPEG-2,
+           MPEG-4, DVD (VOB)...
+  - Video Codecs: DivX, XviD, MSMPEG4, ASP, H.264, AVC...)
+  - Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF...
+  - Subtitles: SRT, SSA, ASS, SAMI...
+ MediaInfo supplies technical and tag information about a video or audio file
+ .
+ This package includes the command line interface.
+
+Package: mediainfo-gui
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: graphical utility for reading information from audio/video files
+ MediaInfo is a utility used for retrieving technical information and other
+ metadata about audio or video files.
+ .
+ A non-exhaustive list of the information MediaInfo can retrieve from media
+ files include:
+  - General: title, author, director, album, track number, date, duration...
+  - Video: codec, aspect, fps, bitrate...
+  - Audio: codec, sample rate, channels, language, bitrate...
+  - Text: language of subtitle
+  - Chapters: number of chapters, list of chapters
+ .
+ MediaInfo supports the following formats:
+  - Video: MKV, OGM, AVI, DivX, WMV, QuickTime, Real, MPEG-1, MPEG-2,
+           MPEG-4, DVD (VOB)...
+  - Video Codecs: DivX, XviD, MSMPEG4, ASP, H.264, AVC...)
+  - Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF...
+  - Subtitles: SRT, SSA, ASS, SAMI...
+ .
+ This package contains the graphical user interface.

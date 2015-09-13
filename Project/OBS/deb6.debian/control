@@ -1,0 +1,69 @@
+Source: mediainfo
+Priority: optional
+Maintainer: MediaArea.net SARL <info@mediaarea.net>
+Build-Depends: debhelper (>= 5), tofrodos, libmediainfo-dev (>= 0.7.73), libzen-dev (>= 0.4.30), libwxgtk2.8-dev, zlib1g-dev, pkg-config, automake, autoconf, libtool
+Standards-Version: 3.7.3
+Section: libs
+Homepage: http://MediaArea.net/MediaInfo
+Vcs-Svn: https://mediainfo.svn.sourceforge.net/svnroot/mediainfo/MediaInfo/
+Vcs-Browser: http://mediainfo.svn.sourceforge.net/viewvc/mediainfo/MediaInfo/
+
+Package: mediainfo
+Section: utils
+Architecture: any
+Depends: libmediainfo0 (>= 0.7.73), libzen0 (>= 0.4.30), zlib1g
+Description: MediaInfo is a convenient unified display of the most relevant technical
+ and tag data for video and audio files.
+ .
+ The MediaInfo data display includes:
+ - Container: format, profile, commercial name of the format, duration,
+   overall bit rate, writing application and library, title, author,
+   director, album, track number, date, duration...
+ - Video: format, codec id, aspect, frame rate, bit rate, color space,
+   chroma subsampling, bit depth, scan type, scan order...
+ - Audio: format, codec id, sample rate, channels, bit depth, language,
+   bit rate...
+ - Text: format, codec id, language of subtitle...
+ - Chapters: count of chapters, list of chapters...
+ .
+ MediaInfo analyticals include:
+ - Container: MPEG-4, QuickTime, Matroska, AVI, MPEG-PS (including DVD),
+   MPEG-TS (including Blu-ray), MXF, GXF, LXF, WMV, FLV, Real...
+ - Tags: Id3v1, Id3v2, Vorbis comments, APE tags...
+ - Video: MPEG-1/2 Video, H.263, MPEG-4 Visual (including DivX, XviD),
+   H.264/AVC, Dirac...
+ - Audio: MPEG Audio (including MP3), AC3, DTS, AAC, Dolby E, AES3, FLAC...
+ - Subtitles: CEA-608, CEA-708, DTVCC, SCTE-20, SCTE-128, ATSC/53, CDP, 
+   DVB Subtitle, Teletext, SRT, SSA, ASS, SAMI...
+ .
+ This package includes the command line interface
+
+Package: mediainfo-gui
+Section: utils
+Architecture: any
+Depends: libmediainfo0 (>= 0.7.73), libzen0 (>= 0.4.30), libwxgtk2.8-0, zlib1g
+Description: MediaInfo is a convenient unified display of the most relevant technical
+ and tag data for video and audio files.
+ .
+ The MediaInfo data display includes:
+ - Container: format, profile, commercial name of the format, duration,
+   overall bit rate, writing application and library, title, author,
+   director, album, track number, date, duration...
+ - Video: format, codec id, aspect, frame rate, bit rate, color space,
+   chroma subsampling, bit depth, scan type, scan order...
+ - Audio: format, codec id, sample rate, channels, bit depth, language,
+   bit rate...
+ - Text: format, codec id, language of subtitle...
+ - Chapters: count of chapters, list of chapters...
+ .
+ MediaInfo analyticals include:
+ - Container: MPEG-4, QuickTime, Matroska, AVI, MPEG-PS (including DVD),
+   MPEG-TS (including Blu-ray), MXF, GXF, LXF, WMV, FLV, Real...
+ - Tags: Id3v1, Id3v2, Vorbis comments, APE tags...
+ - Video: MPEG-1/2 Video, H.263, MPEG-4 Visual (including DivX, XviD),
+   H.264/AVC, Dirac...
+ - Audio: MPEG Audio (including MP3), AC3, DTS, AAC, Dolby E, AES3, FLAC...
+ - Subtitles: CEA-608, CEA-708, DTVCC, SCTE-20, SCTE-128, ATSC/53, CDP, 
+   DVB Subtitle, Teletext, SRT, SSA, ASS, SAMI...
+ .
+ This package contains the graphical user interface
