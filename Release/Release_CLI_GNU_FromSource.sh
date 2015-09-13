@@ -17,8 +17,8 @@ mkdir MediaInfo_CLI_GNU_FromSource
 #-----------------------------------------------------------------------
 # Preparing : Project
 cd ../Project/GNU/CLI
-chmod u+x autogen
-./autogen
+chmod u+x autogen.sh
+./autogen.sh
 cd ../../../Release
 
 
@@ -26,7 +26,7 @@ cd ../../../Release
 # Copying : Project
 mkdir -p MediaInfo_CLI_GNU_FromSource/Project/GNU/CLI
 cp ../Project/GNU/CLI/aclocal.m4 MediaInfo_CLI_GNU_FromSource/Project/GNU/CLI/
-cp ../Project/GNU/CLI/autogen MediaInfo_CLI_GNU_FromSource/Project/GNU/CLI/
+cp ../Project/GNU/CLI/autogen.sh MediaInfo_CLI_GNU_FromSource/Project/GNU/CLI/
 cp ../Project/GNU/CLI/config.guess MediaInfo_CLI_GNU_FromSource/Project/GNU/CLI/
 cp ../Project/GNU/CLI/config.sub MediaInfo_CLI_GNU_FromSource/Project/GNU/CLI/
 cp ../Project/GNU/CLI/configure MediaInfo_CLI_GNU_FromSource/Project/GNU/CLI/

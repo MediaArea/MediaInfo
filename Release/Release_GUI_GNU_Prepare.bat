@@ -28,7 +28,7 @@ xcopy ..\Source\*.icns MediaInfo_GUI_GNU_Prepare\Source\ /S
 rem --- Copying : Projects ---
 xcopy ..\debian\* MediaInfo_GUI_GNU_Prepare\debian\
 xcopy ..\Project\GNU\mediainfo.* MediaInfo_GUI_GNU_Prepare\Project\GNU\
-xcopy ..\Project\GNU\GUI\autogen MediaInfo_GUI_GNU_Prepare\Project\GNU\GUI\ /S
+xcopy ..\Project\GNU\GUI\autogen.sh MediaInfo_GUI_GNU_Prepare\Project\GNU\GUI\ /S
 xcopy ..\Project\GNU\GUI\configure.ac MediaInfo_GUI_GNU_Prepare\Project\GNU\GUI\ /S
 xcopy ..\Project\GNU\GUI\Makefile.am MediaInfo_GUI_GNU_Prepare\Project\GNU\GUI\ /S
 xcopy ..\Project\GNU\GUI\wxwin.m4 MediaInfo_GUI_GNU_Prepare\Project\GNU\GUI\ /S

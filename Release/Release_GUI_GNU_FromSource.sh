@@ -17,8 +17,8 @@ mkdir MediaInfo_GUI_GNU_FromSource
 #-----------------------------------------------------------------------
 # Preparing : Project
 cd ../Project/GNU/GUI
-chmod u+x autogen
-./autogen
+chmod u+x autogen.sh
+./autogen.sh
 cd ../../../Release
 
 
@@ -26,7 +26,7 @@ cd ../../../Release
 # Copying : Project
 mkdir -p MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI
 cp ../Project/GNU/GUI/aclocal.m4 MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
-cp ../Project/GNU/GUI/autogen MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
+cp ../Project/GNU/GUI/autogen.sh MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
 cp ../Project/GNU/GUI/config.guess MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
 cp ../Project/GNU/GUI/config.sub MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
 cp ../Project/GNU/GUI/configure MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/

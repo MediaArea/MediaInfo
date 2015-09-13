@@ -19,7 +19,7 @@ xcopy ..\Source\CLI\*.cpp MediaInfo_CLI_GNU_Prepare\Source\CLI\ /S
 xcopy ..\Source\CLI\*.h MediaInfo_CLI_GNU_Prepare\Source\CLI\ /S
 
 rem --- Copying : Projects ---
-xcopy ..\Project\GNU\CLI\autogen MediaInfo_CLI_GNU_Prepare\Project\GNU\CLI\ /S
+xcopy ..\Project\GNU\CLI\autogen.sh MediaInfo_CLI_GNU_Prepare\Project\GNU\CLI\ /S
 xcopy ..\Project\GNU\CLI\configure.ac MediaInfo_CLI_GNU_Prepare\Project\GNU\CLI\ /S
 xcopy ..\Project\GNU\CLI\Makefile.am MediaInfo_CLI_GNU_Prepare\Project\GNU\CLI\ /S
 xcopy ..\Project\GNU\CLI\AddThisToRoot_CLI_compile.sh MediaInfo_CLI_GNU_Prepare\Project\GNU\CLI\ /S
