@@ -13,6 +13,16 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.78, 2015-10-01
+--------------
++ MOV: AVrp CodecID support
++ Video Stored_Width/Stored_Height and Sampled_Width/Sampled_Height added (hidden by default)
++ Speed optimization for the parsing of tiny files e.g. JPEG files
++ Option (command line / DLL) --Legacy=0 for disabling some legacy fields
++ Option (command line / DLL) --Output=MAXML, XML with MediaInfo and MediaTrace output together, technology preview (not for production)
+x MPEG-TS: Teletext and Teletext Subtitle were missing in the menu list
+x Chroma subsampling "4:4:4" was sometimes indicated for RGB, which is not useful
+
 Version 0.7.77, 2015-09-02
 --------------
 + #B941, MXF: files having only a video stream and an ancillary data stream were having incorrect second video stream
