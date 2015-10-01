@@ -13,7 +13,7 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
-Version 0.7.78, 2015-10-01
+Version 0.7.78, 2015-10-02
 --------------
 + MOV: AVrp CodecID support
 + Video Stored_Width/Stored_Height and Sampled_Width/Sampled_Height added (hidden by default)
