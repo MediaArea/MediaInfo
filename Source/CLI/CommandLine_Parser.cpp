@@ -191,7 +191,12 @@ CL_OPTION(Default)
     else
         Value=__T('1');
 
-    MI.Menu_Option_Preferences_Option(Option, Value);
+    String Result=MI.Menu_Option_Preferences_Option(Option, Value);
+    if (!Result.empty())
+    {
+        STRINGOUT(Result);
+        return -1;
+    }
 
     return 0;
 }
