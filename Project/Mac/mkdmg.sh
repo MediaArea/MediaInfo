@@ -1,7 +1,5 @@
 #!/bin/sh
 
-# codesign and osascript requires an GUI session
-
 if [ $# != 3 ]; then
     echo
     echo "Usage: mkdmg appname kind version"
@@ -142,7 +140,7 @@ echo
 
 # Check if an old image isn't already attached
 DEVICE=$(hdiutil info |grep -B 1 "/Volumes/${APPNAME}" |egrep '^/dev/' | sed 1q | awk '{print $1}')
-test -e "$DEVICE" && hdiutil detach "${DEVICE}"
+test -e "$DEVICE" && hdiutil detach -force "${DEVICE}"
 
 hdiutil create "${TEMPDMG}" -ov -format UDRW -volname "${APPNAME}" -srcfolder "${FILES}"
 DEVICE=$(hdiutil attach -readwrite -noverify "${TEMPDMG}" | egrep '^/dev/' | sed 1q | awk '{print $1}')
