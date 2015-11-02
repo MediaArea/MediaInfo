@@ -13,6 +13,14 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.79, 2015-11-02
+--------------
++ CLI/DLL only, XML: new option --Output=MIXML, with XML v2.0beta1 status, not for production, see https://github.com/MediaArea/MediaAreaXml for more details
++ MediaTrace: support of more than 1 file in XML output.
++ CLI/DLL only, XML: new option --Output=MAXML, with XML v0.1 status, in order to have bot MediaInfo and MediaTrace in the same output, not for production, see https://github.com/MediaArea/MediaAreaXml for more details
+x MediaTrace: fixed some invalid outputs
+x #B951, Amazon S3 support (REST API v2), CLI/DLL only and if compiled with libcurl support: URL without credential were badly interpreted
+
 Version 0.7.78, 2015-10-02
 --------------
 + MOV: AVrp CodecID support
