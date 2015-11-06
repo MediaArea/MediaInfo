@@ -10,6 +10,7 @@
 		02B7FB4F17576A61002B92FE /* ServicesMenu.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02B7FB4D17576A61002B92FE /* ServicesMenu.strings */; };
 		256AC3DA0F4B6AC300CF3369 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* AppController.m */; };
 		43098011154815B600E9F818 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4309800F154815B600E9F818 /* Localizable.strings */; };
+		431876161BECF79B00B687E9 /* DraggingFixView.m in Sources */ = {isa = PBXBuildFile; fileRef = 431876151BECF79B00B687E9 /* DraggingFixView.m */; };
 		431E2488150E774E0070748A /* AboutWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 431E2487150E774E0070748A /* AboutWindowController.m */; };
 		436A06D0150E732400F5E09A /* MediaInfoBig.png in Resources */ = {isa = PBXBuildFile; fileRef = 436A06CF150E732400F5E09A /* MediaInfoBig.png */; };
 		436C50A615B9E06D000AF072 /* TreeOutlineDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 436C50A515B9E06D000AF072 /* TreeOutlineDelegate.m */; };
@@ -82,6 +83,8 @@
 		43098027154815D000E9F818 /* pt-PT */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		43098028154815D000E9F818 /* hr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		43098029154819E900E9F818 /* ru */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		431876141BECF79B00B687E9 /* DraggingFixView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraggingFixView.h; sourceTree = "<group>"; };
+		431876151BECF79B00B687E9 /* DraggingFixView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraggingFixView.m; sourceTree = "<group>"; };
 		431E2486150E774E0070748A /* AboutWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutWindowController.h; sourceTree = "<group>"; };
 		431E2487150E774E0070748A /* AboutWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutWindowController.m; sourceTree = "<group>"; };
 		436A06CF150E732400F5E09A /* MediaInfoBig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MediaInfoBig.png; sourceTree = "<group>"; };
@@ -236,6 +239,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				431876141BECF79B00B687E9 /* DraggingFixView.h */,
+				431876151BECF79B00B687E9 /* DraggingFixView.m */,
 				4395314E14E0465300537F55 /* NSString+wchar.h */,
 				4395314F14E0465300537F55 /* NSString+wchar.m */,
 				43E0EFB815DD64B3001E8F7C /* HyperlinkButton.h */,
@@ -470,6 +475,7 @@
 				256AC3DA0F4B6AC300CF3369 /* AppController.m in Sources */,
 				4395309314E0288100537F55 /* oMediaInfoList.mm in Sources */,
 				4395315014E0465300537F55 /* NSString+wchar.m in Sources */,
+				431876161BECF79B00B687E9 /* DraggingFixView.m in Sources */,
 				4395327D14E1263300537F55 /* MyWindowController.m in Sources */,
 				439535AC14E3020600537F55 /* TreeOutline.m in Sources */,
 				43EBC78814EADE0D00D639FF /* MediaInfoExporter.m in Sources */,
