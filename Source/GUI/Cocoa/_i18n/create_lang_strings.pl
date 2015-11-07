@@ -8,6 +8,8 @@ use File::Basename;
 
 my $stringsdb = "./stringsdb.txt";
 my $langdbdir = "../Language/";
+my $csvdbdir = $langdbdir;
+#my $csvdbdir = "../../../Resource/Plugin/Language/"; # Use localized csv from MediaInfo
 my $lprojdir = "../";
 my $appname = "MediaInfo";
 
@@ -23,7 +25,7 @@ unless(-d $langdir) {
     print "$langdir doesnt exist. Creating...\n";
     mkdir $langdir;
 }
-my $lang_csv = $langdbdir."$lang.csv";
+my $lang_csv = $csvdbdir."$lang.csv";
 unless(-f $lang_csv) {
     die "$lang_csv: csv doesnt exist";
 }
