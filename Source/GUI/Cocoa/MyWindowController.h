@@ -33,6 +33,7 @@
 
 -(IBAction)openFile:(id)sender;
 -(IBAction)clickOnViewSelector:(id)sender;
+-(IBAction)selectEasyTab:(id)sender;
 -(IBAction)selectTreeTab:(id)sender;
 -(IBAction)selectTextTab:(id)sender;
 -(IBAction)export:(id)sender;

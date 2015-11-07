@@ -1232,10 +1232,19 @@
 						<object class="NSMenu" key="NSSubmenu" id="466310130">
 							<string key="NSTitle">View</string>
 							<array class="NSMutableArray" key="NSMenuItems">
+								<object class="NSMenuItem" id="525798834">
+									<reference key="NSMenu" ref="466310130"/>
+									<string key="NSTitle">Easy</string>
+									<string key="NSKeyEquiv">1</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
 								<object class="NSMenuItem" id="343327283">
 									<reference key="NSMenu" ref="466310130"/>
-									<string key="NSTitle">Tree View</string>
-									<string key="NSKeyEquiv">1</string>
+									<string key="NSTitle">Tree</string>
+									<string key="NSKeyEquiv">2</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -1243,8 +1252,8 @@
 								</object>
 								<object class="NSMenuItem" id="853944553">
 									<reference key="NSMenu" ref="466310130"/>
-									<string key="NSTitle">Text View</string>
-									<string key="NSKeyEquiv">2</string>
+									<string key="NSTitle">Text</string>
+									<string key="NSKeyEquiv">3</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -2025,6 +2034,14 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
+						<string key="label">selectEasyTab:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="525798834"/>
+					</object>
+					<string key="id">Lgg-7U-SYd</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
 						<string key="label">addFontTrait:</string>
 						<reference key="source" ref="755631768"/>
 						<reference key="destination" ref="305399458"/>
@@ -2497,6 +2514,7 @@
 							<reference ref="343327283"/>
 							<reference ref="853944553"/>
 							<reference ref="812954755"/>
+							<reference ref="525798834"/>
 						</array>
 						<reference key="parent" ref="586577488"/>
 					</object>
@@ -3067,6 +3085,11 @@
 						<reference key="object" ref="233626464"/>
 						<reference key="parent" ref="720053764"/>
 					</object>
+					<object class="IBObjectRecord">
+						<string key="id">ok7-rU-jbg</string>
+						<reference key="object" ref="525798834"/>
+						<reference key="parent" ref="466310130"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -3223,6 +3246,7 @@
 				<string key="82.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="83.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="92.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="ok7-rU-jbg.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>

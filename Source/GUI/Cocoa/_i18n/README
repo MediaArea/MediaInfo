@@ -18,7 +18,7 @@ $ ./update_xibs.sh all
 If you changed or added a string in original interface file (.xib)
 -----------------------------------------------------
 1. Generate new .strings file in English.lproj (base language) directory with command like:
-$ ibtool --export-strings-file About.string About.xib
+$ ibtool --export-strings-file About.strings About.xib
 
 2. Refresh stringsdb with command (in _i18n folder):
 $ ./refresh_stringsdb.sh
