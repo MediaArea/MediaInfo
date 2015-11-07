@@ -28,6 +28,9 @@
  chapters stream1; tok poglavlja
  chapters stream2; toka poglavlja
  chapters stream3; tokova poglavlja
+ character1;
+ character2;
+ character3;
  day1; dan
  day2; dana
  day3; dana
@@ -37,12 +40,12 @@
  file1; datoteka
  file2; datoteke
  file3; datoteke
- frame1; sličica
- frame2; sličice
- frame3; sličice
  fps1; fps
  fps2; fps
  fps3; fps
+ frame1; sličica
+ frame2; sličice
+ frame3; sličice
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -141,6 +144,8 @@
  year3; godine
 , ;, 
 : ;: 
+3D;
+3DType;
 About;O programu...
 About_Hint;Kontakt i pronalaženje posljednje inačice
 Accompaniment;Pratnja
@@ -172,20 +177,26 @@ Audio_Codec_List;Kôdeki zvuka
 Audio_No;Nečujno
 Audio1;Prvi zvučni tok
 Audio2;Drugi zvučni tok
+AudioComments;
 AudioCount;Broj zvučnih tokova
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;Autor
 BarCode;Crtičasti kôd
 Basic;Osnovno
 Basic_Note;Napomena: za više informacija o ovoj datoteci morate odabrati različite prikaze (tabela, stablo...)
 BitDepth;
+BitDepth_Stored;
 BitRate;Stopa protoka podataka
+BitRate_Encoded;
 BitRate_Maximum;Maksimum protoka podataka
 BitRate_Minimum;Minimum protoka podataka
 BitRate_Mode;Način protoka podataka
 BitRate_Mode_CBR;Ustaljeno
 BitRate_Mode_VBR;Promjenjivo
 BitRate_Nominal;Nominalni protok podataka
-BitRate_Encoded;
 Bits-(Pixel*Frame);Bita/(piksela*sličica)
 BufferSize;
 Cancel;Poništiti
@@ -210,44 +221,53 @@ Chroma;Kromatizam
 ChromaSubsampling;
 Close;Zatvoriti
 Close all before open;Prije otvaranja sve ostale zatvoriti
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;Kôdek
 Codec_Description;Opis kôdeka
 Codec_Info;Pojedinosti o kôdeku
-Codec_Settings;Postavke kôdeka
-Codec_Settings_PacketBitStream;Postavke kôdeka za usredotočeni protok podataka
-Codec_Settings_BVOP;Postavke kôdeka za BVOP
-Codec_Settings_QPel;Postavke kôdeka za QPel
-Codec_Settings_GMC;Postavke kôdeka za GMC
-Codec_Settings_Matrix;Postavke kôdeka za Matrix
-Codec_Settings_Floor;Postavke kôdeka za Floor
-Codec_Settings_CABAC;Postavke kôdeka za CABAC
-Codec_Settings_Firm;Postavke kôdeka za Firm
-Codec_Settings_Endianness;Postavke kôdeka za Endianness
-Codec_Settings_Sign;Postavke kôdeka za Sign
-Codec_Settings_Law;Postavke kôdeka za Law
-Codec_Settings_ITU;Postavke kôdeka za ITU
 Codec_Profile;Profili kôdeka
+Codec_Settings;Postavke kôdeka
+Codec_Settings_BVOP;Postavke kôdeka za BVOP
+Codec_Settings_CABAC;Postavke kôdeka za CABAC
+Codec_Settings_Endianness;Postavke kôdeka za Endianness
+Codec_Settings_Firm;Postavke kôdeka za Firm
+Codec_Settings_Floor;Postavke kôdeka za Floor
+Codec_Settings_GMC;Postavke kôdeka za GMC
+Codec_Settings_ITU;Postavke kôdeka za ITU
+Codec_Settings_Law;Postavke kôdeka za Law
+Codec_Settings_Matrix;Postavke kôdeka za Matrix
+Codec_Settings_PacketBitStream;Postavke kôdeka za usredotočeni protok podataka
+Codec_Settings_QPel;Postavke kôdeka za QPel
+Codec_Settings_Sign;Postavke kôdeka za Sign
 Codec_Url;Spletna poveznica kôdeka
 CodecID;ID kôdeka
 CodecID_Description;Opis kôdeka
+CoDirector;
 Collection;Zbirka
 Colorimetry;Kolorimetrija
 ColorSpace;
 colour_primaries;
+colour_range;
 Comment;Komentar
 CommissionedBy;Prema nalogu
 Compilation;
 CompleteName;Potpuni naziv
+CompletionDate;
 Composer;Skladatelj
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;Omjer sažimanja
 Conductor;Ravnatelj
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;Oblik spremnika i opće informacije
 ContentType;Vrsta sadržaja
 CoProducer;Koproducent
 Copyright;Zaštićeno autorsko pravo
+CopyrightYear;
 CostumeDesigner;Kostimograf
 Count;Broj
 Country;Zemlja
@@ -273,8 +293,10 @@ Dimensions;Dimenzije
 Director;Režiser
 DirectorOfPhotography;Ravnatelj fotografije
 DisplayAspectRatio;Omjer slike
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Izvorni omjer slike
 DistributedBy;Distribucija
+Distributor;
 Donate;Potpora razvoju MediaInfo
 DotsPerInch;Točaka po palcu (DPI)
 Duration;Trajanje
@@ -290,6 +312,7 @@ Encoded_Library_Settings;Postavke kodiranja
 Encoded_Original;Original podržava
 EncodedBy;Kodirao
 EPG_Positions;Položaj EPG-a
+EpisodeTitleNumber;
 Error_File;Pogreška tijekom učitavanja datoteke
 ExecutiveProducer;Izvršni producent
 Exit;Svršetak
@@ -323,39 +346,44 @@ Format_Description;Opis oblika datoteke
 Format_Info;Pojedinosti oblika datoteke
 Format_Profile;Profil oblika datoteke
 Format_Settings;Postavke oblika datoteke
-Format_Settings_PacketBitStream;Postavke oblika datoteke za paket bitstream
 Format_Settings_BVOP;Postavke oblika datoteke za BVOP
-Format_Settings_QPel;Postavke oblika datoteke za QPel
+Format_Settings_CABAC;Postavke oblika datoteke za CABAC
+Format_Settings_Emphasis;
+Format_Settings_Endianness;Postavke oblika datoteke za Endianness
+Format_Settings_Firm;Postavke oblika datoteke za Firm
+Format_Settings_Floor;Postavke oblika datoteke za Floor
+Format_Settings_FrameMode;
 Format_Settings_GMC;Postavke oblika datoteke za GMC
+Format_Settings_GOP;
+Format_Settings_ITU;Postavke oblika datoteke za ITU
+Format_Settings_Law;Postavke oblika datoteke za Law
 Format_Settings_Matrix;Postavke oblika datoteke za Matrix
 Format_Settings_Matrix_Custom;Vlastito
 Format_Settings_Matrix_Default;Polazno
-Format_Settings_Floor;Postavke oblika datoteke za Floor
-Format_Settings_CABAC;Postavke oblika datoteke za CABAC
-Format_Settings_Firm;Postavke oblika datoteke za Firm
-Format_Settings_Endianness;Postavke oblika datoteke za Endianness
-Format_Settings_RefFrames;Postavke oblika datoteke za ReFrames
-Format_Settings_Sign;Postavke oblika datoteke za Sign
-Format_Settings_Law;Postavke oblika datoteke za Law
-Format_Settings_ITU;Postavke oblika datoteke za ITU
-Format_Settings_SBR;Postavke oblika datoteke za SBR
+Format_Settings_Mode;
+Format_Settings_ModeExtension;
+Format_Settings_PacketBitStream;Postavke oblika datoteke za paket bitstream
+Format_Settings_PictureStructure;
 Format_Settings_PS;Postavke oblika datoteke za PS
 Format_Settings_Pulldown;Postavke oblika datoteke za Pulldown
-Format_Settings_Mode;
-Format_Settings_FrameMode;
-Format_Settings_Emphasis;
-Format_Settings_ModeExtension;
-Format_Settings_GOP;
-Format_Version;Inačica oblika datoteke
+Format_Settings_QPel;Postavke oblika datoteke za QPel
+Format_Settings_RefFrames;Postavke oblika datoteke za ReFrames
+Format_Settings_SBR;Postavke oblika datoteke za SBR
+Format_Settings_Sign;Postavke oblika datoteke za Sign
+Format_Settings_Wrapping;
 Format_Url;Spletna poveznica oblika datoteke
+Format_Version;Inačica oblika datoteke
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;Broj sličica
 FrameRate;Protok sličica
+FrameRate_Maximum;Maksimalna stopa protoka sličica
+FrameRate_Minimum;Minimalna stopa protoka sličica
 FrameRate_Mode;Način protoka sličica
 FrameRate_Mode_CFR;Ustaljeno
 FrameRate_Mode_VFR;Izmjenjivo
-FrameRate_Minimum;Minimalna stopa protoka sličica
 FrameRate_Nominal;Nominalna stopa protoka sličica
-FrameRate_Maximum;Maksimalna stopa protoka sličica
 FrameRate_Original;Izvorna stopa protoka sličica
 General;Općenito
 Genre;Glazbeni smjer
@@ -500,18 +528,67 @@ Genre_137;Heavy Metal
 Genre_138;Black Metal
 Genre_139;Crossover
 Genre_140;Contemporary Christian
-Genre_141;Christian Rock 
+Genre_141;Christian Rock
 Genre_142;Merengue
 Genre_143;Salsa
 Genre_144;Trash Metal
 Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
+Genre_148;
+Genre_149;
+Genre_150;
+Genre_151;
+Genre_152;
+Genre_153;
+Genre_154;
+Genre_155;
+Genre_156;
+Genre_157;
+Genre_158;
+Genre_159;
+Genre_160;
+Genre_161;
+Genre_162;
+Genre_163;
+Genre_164;
+Genre_165;
+Genre_166;
+Genre_167;
+Genre_168;
+Genre_169;
+Genre_170;
+Genre_171;
+Genre_172;
+Genre_173;
+Genre_174;
+Genre_175;
+Genre_176;
+Genre_177;
+Genre_178;
+Genre_179;
+Genre_180;
+Genre_181;
+Genre_182;
+Genre_183;
+Genre_184;
+Genre_185;
+Genre_186;
+Genre_187;
+Genre_188;
+Genre_189;
+Genre_190;
+Genre_191;
 Go to WebSite;Prijeći na spletni sadržaj
 Grouping;
+Gop_OpenClosed;
+Gop_OpenClosed_Open;
+Gop_OpenClosed_Closed;
+Gop_OpenClosed_FirstFrame;Agrupamento
 h;h
 Header file;Kreirati zaglavnu datoteku
 Height;Visina
+Height_CleanAperture;
 Height_Original;
 Help;Pomoć
 Hint;Naznaka
@@ -521,22 +598,23 @@ How many text streams?;Koliko tokova teksta?
 How many video streams?;Koliko tokova video-snimke?
 HTML;HTML
 ID;ID
+IdentClockStart;
 Image;Slika
 Image stream(s);Tokovi slike
 Image_Codec_List;Slikovni kôdeki
 ImageCount;Broj slikovnih tokova
 Info;Informacija
 Instruments;Instrumenti
-Interlacement;Interlace
-Interlaced_Interlaced;Interlaced
-Interlaced_TFF;Najprije gornje polje
 Interlaced_BFF;Najprije donje polje
+Interlaced_Interlaced;Interlaced
 Interlaced_PPF;Progresivno
 Interlaced_Progressive;Progresivno
-Interleaved;
+Interlaced_TFF;Najprije gornje polje
+Interlacement;Interlace
 Interleave_Duration;Interleave, trajanje
 Interleave_Preload;Interleave, trajanje predučitavanja
 Interleave_VideoFrames;Interleave, trajanje
+Interleaved;
 InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
@@ -547,7 +625,6 @@ Known formats;Poznati oblici datoteka
 Known parameters;Poznati parametri
 Label;Znamka
 Language;Jezik
-Language_More;Jezik, podrobnije
 Language_aa;Afarski
 Language_ab;Abhaski
 Language_ae;Avestanski
@@ -658,6 +735,7 @@ Language_mk;Makedonski
 Language_ml;Malayalam
 Language_mn;Mongolski
 Language_mo;Moldavski
+Language_More;Jezik, podrobnije
 Language_mr;Marathi
 Language_ms;Malajski
 Language_mt;Malteški
@@ -744,19 +822,23 @@ LawRating;Dopušteno za mladež od
 LCCN;LCCN
 Library;Knjižnica multipleksera
 Lightness;Svjetlina
+LineUpStart;
 List;Spisak
-Lyrics;Tekst pjesme
 Lyricist;Tekstopisac
+Lyrics;Tekst pjesme
 Mastered_Date;Nadnevak glavne snimke
 MasteredBy;Glavnu snimku napravio
+Matrix_Channel(s);
+Matrix_ChannelPositions;
 matrix_coefficients;
+Matrix_Format;
 MediaInfo_About;Pruža vrlo podrobne informacije\r\no multimedijalnim datotekama:\r\nMatroska, OGG (uključujući OGM)\r\nMPEG1 (uključujući VCD)\r\nMPEG2 (uključujući DVD i SVCD)\r\nMPEG4 (uključujući Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (uključujući WMV, WMA)\r\nMicrosoft RIFF (uključujući AVI, WAV)\r\nSamo zvukovnim oblicima (AC3, DTS, AAC, AU, AIFF...)
 Menu;Izbornik
 Menu stream(s);Izbornik - tokovi
 Menu_Codec_List;Izbornik - kôdeksi
+Menu_Hint;Dodatne mogućnosti
 Menu_No;Bez izbornika
 MenuCount;Broj izborničkih tokova
-Menu_Hint;Dodatne mogućnosti
 MenuID;Izbornički ID
 mn;min
 Mood;Raspoloženje
@@ -774,8 +856,8 @@ NetworkName;Naziv mreže
 New;Novo
 Newest version;Provjera dostupnosti nove inačice (iziskuje vezu s Internetom)
 NewVersion_Menu;Raspoloživa je novija inačica
-NewVersion_Question_Title;Objavljena je nova inačica!
 NewVersion_Question_Content;Raspoloživa je novija inačica (v%Version%)! Da li bi ste je željeli preuzeti?
+NewVersion_Question_Title;Objavljena je nova inačica!
 No;Ne
 Not yet;Još ne
 NumColors;Broj boja
@@ -818,13 +900,19 @@ OpenCandy_33;Ne instalirati
 OpenCandy_34;Molim odaberite jednu od mogućnosti instalacije
 OpenCandy_35;______ preporučuje ovaj software
 OpenCandy_36;Vaša tekuća instalacija neće biti prekinuta
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;Mogućnosti
 Options_Hint;Prilagodbe
 Original;Izvorno
 OriginalNetworkName;Izvorni naziv mreže
 OriginalSourceForm;Prvobitni oblik izvora
 OriginalSourceMedium;Prvobitni medij izvora
+Originator;
 Other;Ostalo
+OtherIdentifier;
+OtherIdentifierType;
 Output;Izlaz
 Output format;Izlazni oblik
 OverallBitRate;Ukupni protok podataka
@@ -834,10 +922,14 @@ OverallBitRate_Mode;Način ukupnog protoka podataka
 OverallBitRate_Nominal;Nominalni ukupni protok podataka
 Part;Dio
 Part_Count;Ukupni broj
+PartNumber;
+PartTotal;
 Performer;Izvođač
 Period;Razdoblje
 Phone;Telefon
+PictureRatio;
 PixelAspectRatio;Omjer piksela
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;Izvorni omjer piksela
 PlayCounter;Brojač izvedbi
 Played_Count;puta izvedeno
@@ -847,9 +939,15 @@ PlayTime;Trajanje izvedbe
 Position;položaj
 Position_Total;ukupno
 Preferences;Prilagodbe
+PrimaryAudioLanguage;
 Producer;Producent
 ProductionDesigner;Designer proizvodnje
+ProductionNumber;
 ProductionStudio;Proizvodni studio
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;Nakladnik
 Purchased_Date;Nadnevak kupovine
 Quote character;Znaci navoda
@@ -863,16 +961,25 @@ ReplayGain_Gain;Pojačavanje zvuka izvedbe
 ReplayGain_Peak;Vrhunac pojačanog zvuka izvedbe
 Resolution;Razlučivost
 s;s
+SamplingCount;
 SamplingRate;Učestalost uzorkovanja
 Save;Pohraniti
-ScanType;Vrsta pregledavanja
 ScanOrder;Redoslijed pregledavanja
+ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
+ScanType;Vrsta pregledavanja
+ScanType_Original;
+ScanType_StoreMethod;
 ScreenplayBy;Scenarij
 Season;Razdoblje
+SecondaryAudioLanguage;
 see below;pogledati dolje
 Send HeaderFile;Molim zaglavnu datoteku poslati ovamo: http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;Razdjelnik redaka
 Separator_Lines;Razdjelnik crta
+SeriesTitle;
 ServiceChannel;Broj uslužnog kanala
 ServiceName;Naziv usluge
 ServiceProvider;Pružatelj usluge
@@ -886,10 +993,13 @@ Sheet (Complete);Tablica (potpuna)
 Shell extension;Proširenje ljuske sustava (desnim klikom u Pregledniku će se pojaviti mogućnosti Media Info)
 Shell extension, folder;Za mape također
 Shell InfoTip;Info-naznaka (prelaskom miša preko neke datoteke u Pregledniku će se prikazati informacije o njoj)
+ShimName;
+ShimVersion;
 Show menu;Prikazati izbornik
 Show toolbar;Prikazati alatnu traku
+SigningPresent;
+SignLanguage;
 Sort;Poređano prema
-SamplingCount;
 SoundEngineer;Tonski tehničar
 Source;
 Source_Duration;
@@ -898,6 +1008,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;Standardno
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;Tok
 Stream_MoreInfo;Više informacija o tom toku
 StreamCount;Broj tokova te vrste
@@ -919,6 +1033,7 @@ Tagged_Application;Označeno aplikacijom
 Tagged_Date;Nadnevak označavanja
 Technician;Tehničar
 TermsOfUse;Uvjeti korištenja
+TertiaryAudioLanguage;
 Text;Tekst
 Text - Custom;Vlastiti tekst
 Text (HTML);Tekst (HTML)
@@ -930,18 +1045,28 @@ Text1;Prvi tok teksta
 Text2;Drugi tok teksta
 Text3;Treći tok teksta
 TextCount;Broj tok teksta
+TextlessElementsExist;
 ThanksTo;Zahvala
 Thousands separator;Razdjelnik tisuća
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeCode_Striped;
+TimeStamp;
+TimeZone;
 Title;Naslov
 Title_More;Više podataka o naslovu
-TimeZone;
 Total;Ukupno
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;Naziv snimke
 Track_Count;Broj snimke
 transfer_characteristics;
 Translator;Prevoditelj
 Tree;Stablo
 Tree & Text;Stablo i tekst
+Type;
 UniqueID;
 Unknown;Nepoznato
 Url;URL
@@ -952,6 +1077,7 @@ Video_Delay;Zaostajanje prikaza video-slike
 Video_No;Bez prikaza video-slike
 Video0_Delay;Zaostajanje video0-slike
 Video1;Prvi tok video-slike
+VideoComments;
 VideoCount;Broj tokova video-slike
 View;Prikaz
 View_Hint;Mijenja mogućnosti prikaza informacije
@@ -963,10 +1089,11 @@ WebSite_General;Prijeći na spletni sadržaj nekog programa za izvođenje ove da
 WebSite_General_More;Prijeći na spletni sadržaj nekog programa za izvođenje ove datoteke
 WebSite_Text;Prijeći na spletnu stranicu tog tekstualnog kôdeka
 WebSite_Text_More;Prijeći na spletni sadržaj (%Url%) za pronalaženje tog tekstualnog kôdeka
-WebSite_Url;http://mediainfo.sourceforge.net
+WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Prijeći na spletnu stranicu tog video-kôdeka
 WebSite_Video_More;Prijeći na spletni sadržaj (%Url%) za pronalaženje tog video-kôdeka
 Width;Širina
+Width_CleanAperture;
 Width_Original;
 WriteMe;Poruka autoru
 WriteToTranslator;Poruka prevoditelju
@@ -975,5 +1102,5 @@ Written_Location;Mjesto početka pisanja
 WrittenBy;Napisao
 Yes;Da
 Your system;Informacije o Vašem sustavu
-ZZ_Automatic_Percent;96
-ZZ_AutomaticLanguage_Percent;96
+ZZ_Automatic_Percent;85
+ZZ_AutomaticLanguage_Percent;89

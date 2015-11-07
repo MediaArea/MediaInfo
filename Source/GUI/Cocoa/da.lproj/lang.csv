@@ -28,6 +28,9 @@
  chapters stream1; kapitelstrøm
  chapters stream2; kapitelstrømme
  chapters stream3; kapitelstrømme
+ character1;
+ character2;
+ character3;
  day1; dag
  day2; dage
  day3; dage
@@ -37,12 +40,12 @@
  file1; fil
  file2; filer
  file3; filer
- frame1; billede
- frame2; billeder
- frame3; billeder
  fps1; fps
  fps2; fps
  fps3; fps
+ frame1; billede
+ frame2; billeder
+ frame3; billeder
  GB; GB
  Gb; Gb
  Gbps; Gbps
@@ -141,6 +144,8 @@
  year3; år
 , ;, 
 : ;: 
+3D;
+3DType;
 About;Om
 About_Hint;Hvordan du kontakter mig og finder seneste version
 Accompaniment;Akkompagnement
@@ -159,7 +164,7 @@ Alignment;Justering
 Alignment_Aligned;Justeret på interleaves
 Alignment_Split;Delt på interleaves
 All;Alle
-Archival_Location;Arkivsted 
+Archival_Location;Arkivsted
 Arranger;Arrangør
 ArtDirector;Art Director
 AspectRatio;Størrelsesforhold
@@ -172,20 +177,26 @@ Audio_Codec_List;Lyd-codecs
 Audio_No;Ingen lyd
 Audio1;Første lydstrøm
 Audio2;Anden lydstrøm
+AudioComments;
 AudioCount;Antal lydstrømme
+AudioDescriptionPresent;
+AudioDescriptionType;
+AudioLoudnessStandard;
+AudioTrackLayout;
 Author;Forfatter
 BarCode;Stregkode
 Basic;Grundlæggende
 Basic_Note;Bemærk : for mere information om denne fil, skal du vælge en anden visning (Ark, Træstruktur..)
 BitDepth;Bitdybde
+BitDepth_Stored;
 BitRate;Bitrate
+BitRate_Encoded;
 BitRate_Maximum;Maksimum bitrate
 BitRate_Minimum;Minimum bitrate
 BitRate_Mode;Bitratemodus
 BitRate_Mode_CBR;Konstant
 BitRate_Mode_VBR;Variabel
 BitRate_Nominal;Nominel bitrate
-BitRate_Encoded;
 Bits-(Pixel*Frame);Bits/(Billedpunkter*Billed)
 BufferSize;Buffer-størrelse
 Cancel;Annuller
@@ -210,44 +221,53 @@ Chroma;Chroma
 ChromaSubsampling;Chroma subsampling
 Close;Luk
 Close all before open;Luk alle før åbning
+ClosedCaptionsLanguage;
+ClosedCaptionsPresent;
+ClosedCaptionsType;
 Codec;Codec
 Codec_Description;Codec-beskrivelse
 Codec_Info;Codec-detaljer
-Codec_Settings;Codec-indstillinger
-Codec_Settings_PacketBitStream;Codec-indstillinger, Packet bitstrøm
-Codec_Settings_BVOP;Codec-indstillinger, BVOP
-Codec_Settings_QPel;Codec-indstillinger, QPel
-Codec_Settings_GMC;Codec-indstillinger, GMC
-Codec_Settings_Matrix;Codec-indstillinger, Matrix
-Codec_Settings_Floor;Codec-indstillinger, Floor
-Codec_Settings_CABAC;Codec-indstillinger, CABAC
-Codec_Settings_Firm;Codec-indstillinger, Firm
-Codec_Settings_Endianness;Codec-indstillinger, Endianness
-Codec_Settings_Sign;Codec-indstillinger, Sign
-Codec_Settings_Law;Codec-indstillinger, Law
-Codec_Settings_ITU;Codec-indstillinger, ITU
 Codec_Profile;Codec-profil
+Codec_Settings;Codec-indstillinger
+Codec_Settings_BVOP;Codec-indstillinger, BVOP
+Codec_Settings_CABAC;Codec-indstillinger, CABAC
+Codec_Settings_Endianness;Codec-indstillinger, Endianness
+Codec_Settings_Firm;Codec-indstillinger, Firm
+Codec_Settings_Floor;Codec-indstillinger, Floor
+Codec_Settings_GMC;Codec-indstillinger, GMC
+Codec_Settings_ITU;Codec-indstillinger, ITU
+Codec_Settings_Law;Codec-indstillinger, Law
+Codec_Settings_Matrix;Codec-indstillinger, Matrix
+Codec_Settings_PacketBitStream;Codec-indstillinger, Packet bitstrøm
+Codec_Settings_QPel;Codec-indstillinger, QPel
+Codec_Settings_Sign;Codec-indstillinger, Sign
 Codec_Url;Weblink til codec
 CodecID;Codec-ID
 CodecID_Description;Beskrivelse af codec
+CoDirector;
 Collection;Samling
 Colorimetry;Kolorimetri
 ColorSpace;Farverum
 colour_primaries;
+colour_range;
 Comment;Kommentar
 CommissionedBy;Bestilt af
 Compilation;
 CompleteName;Fulde navn
+CompletionDate;
 Composer;Komponist
 Compression_Mode;Komprimeringstilstand
 Compression_Mode_Lossless;Lossless
 Compression_Mode_Lossy;Lossy
 Compression_Ratio;Komprimeringsforhold
 Conductor;Dirigent
+ContactEmail;
+ContactTelephoneNumber;
 Container and general information;Container og generel information
 ContentType;Indholdstype
 CoProducer;Coproducer
 Copyright;Copyright
+CopyrightYear;
 CostumeDesigner;Kostumedesigner
 Count;Antal
 Country;Land
@@ -273,8 +293,10 @@ Dimensions;Dimentioner
 Director;Instruktør
 DirectorOfPhotography;Cheffotograf
 DisplayAspectRatio;Størrelsesforhold
+DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Oprindeligt størrelsesforhold
 DistributedBy;Distribueret af
+Distributor;
 Donate;Donér
 DotsPerInch;Punkter pr inch
 Duration;Varighed
@@ -290,6 +312,7 @@ Encoded_Library_Settings;Kodningsindstillinger
 Encoded_Original;Original
 EncodedBy;Kodet af
 EPG_Positions;EPG-positioner (internt)
+EpisodeTitleNumber;
 Error_File;Fejl under læsning af fil
 ExecutiveProducer;Udøvende producent
 Exit;Afslut
@@ -323,39 +346,44 @@ Format_Description;Formatbeskrivelse
 Format_Info;Formatdetaljer
 Format_Profile;Formatprofil
 Format_Settings;Formatindstillinger
-Format_Settings_PacketBitStream;Formatindstillinger
 Format_Settings_BVOP;Formatindstillinger, BVOP
-Format_Settings_QPel;Formatindstillinger, Qpel
+Format_Settings_CABAC;Formatindstillinger, CABC
+Format_Settings_Emphasis;
+Format_Settings_Endianness;Formatindstillinger, Endianness
+Format_Settings_Firm;Formatindstillinger, Firm
+Format_Settings_Floor;Formatindstillinger, Floor
+Format_Settings_FrameMode;Billedtilstand
 Format_Settings_GMC;Formatindstillinger, GMC
+Format_Settings_GOP;Formatindstillinger, GOP
+Format_Settings_ITU;Formatindstillinger, ITU
+Format_Settings_Law;Formatindstillinger, Law
 Format_Settings_Matrix;Formatindstillinger, Matrix
 Format_Settings_Matrix_Custom;Tilpas
 Format_Settings_Matrix_Default;Standard
-Format_Settings_Floor;Formatindstillinger, Floor
-Format_Settings_CABAC;Formatindstillinger, CABC
-Format_Settings_Firm;Formatindstillinger, Firm
-Format_Settings_Endianness;Formatindstillinger, Endianness
-Format_Settings_RefFrames;Formatindstillinger, ReFrames
-Format_Settings_Sign;Formatindstillinger, Sign
-Format_Settings_Law;Formatindstillinger, Law
-Format_Settings_ITU;Formatindstillinger, ITU
-Format_Settings_SBR;Formatindstillinger, SBR
+Format_Settings_Mode;Tilstand
+Format_Settings_ModeExtension;
+Format_Settings_PacketBitStream;Formatindstillinger
+Format_Settings_PictureStructure;
 Format_Settings_PS;Formatindstillinger, PS
 Format_Settings_Pulldown;Formatindstillinger, Pulldown
-Format_Settings_Mode;Tilstand
-Format_Settings_FrameMode;Billedtilstand
-Format_Settings_Emphasis;
-Format_Settings_ModeExtension;
-Format_Settings_GOP;Formatindstillinger, GOP
-Format_Version;Formatversion
+Format_Settings_QPel;Formatindstillinger, Qpel
+Format_Settings_RefFrames;Formatindstillinger, ReFrames
+Format_Settings_SBR;Formatindstillinger, SBR
+Format_Settings_Sign;Formatindstillinger, Sign
+Format_Settings_Wrapping;
 Format_Url;Weblink til format
+Format_Version;Formatversion
+FpaManufacturer;
+FpaPass;
+FpaVersion;
 FrameCount;Antal billeder
 FrameRate;Billedfrekvens
+FrameRate_Maximum;Maksimum billedfrekvens
+FrameRate_Minimum;Minimum billedfrekvens
 FrameRate_Mode;Billedratemodus
 FrameRate_Mode_CFR;Konstant
 FrameRate_Mode_VFR;Variabel
-FrameRate_Minimum;Minimum billedfrekvens
 FrameRate_Nominal;Nominel billedfrekvens
-FrameRate_Maximum;Maksimum billedfrekvens
 FrameRate_Original;Original billedrate
 General;Generelt
 Genre;Genre
@@ -463,7 +491,7 @@ Genre_100;Humor
 Genre_101;Tale
 Genre_102;Chanson
 Genre_103;Opera
-Genre_104;Kammermusik 
+Genre_104;Kammermusik
 Genre_105;Sonate
 Genre_106;Symfoni
 Genre_107;Booty Bass
@@ -507,11 +535,60 @@ Genre_144;Trash Metal
 Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
+Genre_148;
+Genre_149;
+Genre_150;
+Genre_151;
+Genre_152;
+Genre_153;
+Genre_154;
+Genre_155;
+Genre_156;
+Genre_157;
+Genre_158;
+Genre_159;
+Genre_160;
+Genre_161;
+Genre_162;
+Genre_163;
+Genre_164;
+Genre_165;
+Genre_166;
+Genre_167;
+Genre_168;
+Genre_169;
+Genre_170;
+Genre_171;
+Genre_172;
+Genre_173;
+Genre_174;
+Genre_175;
+Genre_176;
+Genre_177;
+Genre_178;
+Genre_179;
+Genre_180;
+Genre_181;
+Genre_182;
+Genre_183;
+Genre_184;
+Genre_185;
+Genre_186;
+Genre_187;
+Genre_188;
+Genre_189;
+Genre_190;
+Genre_191;
 Go to WebSite;Gå til websted
 Grouping;
+Gop_OpenClosed;
+Gop_OpenClosed_Open;
+Gop_OpenClosed_Closed;
+Gop_OpenClosed_FirstFrame;
 h;t
 Header file;Opret en header-fil
 Height;Højde
+Height_CleanAperture;
 Height_Original;Oprindelig højde
 Help;Hjælp
 Hint;Tip
@@ -521,22 +598,23 @@ How many text streams?;Hvor mange tekststrømme?
 How many video streams?;Hvor mange videostrømme?
 HTML;HTML
 ID;ID
+IdentClockStart;
 Image;Billede
 Image stream(s);Billedstrømme
 Image_Codec_List;Billed-codecs
 ImageCount;Antal billedstrømme
 Info;Info
 Instruments;Instrumenter
-Interlacement;Sammenfletning
-Interlaced_Interlaced;Sammenflettet
-Interlaced_TFF;Topfelt først
 Interlaced_BFF;Bundfelt først
+Interlaced_Interlaced;Sammenflettet
 Interlaced_PPF;Progressiv
 Interlaced_Progressive;Progressiv
-Interleaved;Interleaved
+Interlaced_TFF;Topfelt først
+Interlacement;Sammenfletning
 Interleave_Duration;Interleave, varighed
 Interleave_Preload;Interleave, forudindlæst varighed
 Interleave_VideoFrames;Interleave, varighed
+Interleaved;Interleaved
 InternetMediaType;Internet mediatype
 IRCA;IRCA
 ISBN;ISBN
@@ -547,7 +625,6 @@ Known formats;Kendte formater
 Known parameters;Kendte parametre
 Label;Pladeselskab
 Language;Sprog
-Language_More;Sprog, mere info
 Language_aa;
 Language_ab;
 Language_ae;
@@ -643,7 +720,7 @@ Language_kv;
 Language_kw;Kornisk
 Language_ky;Kirgisisk
 Language_la;Latin
-Language_lb;Luxembourgsk 
+Language_lb;Luxembourgsk
 Language_lg;
 Language_li;
 Language_ln;
@@ -658,8 +735,9 @@ Language_mk;Makedonsk
 Language_ml;
 Language_mn;Mongolsk
 Language_mo;Moldavisk
+Language_More;Sprog, mere info
 Language_mr;
-Language_ms;Malajisk 
+Language_ms;Malajisk
 Language_mt;Maltesisk
 Language_mul;
 Language_my;Burmesisk
@@ -744,19 +822,23 @@ LawRating;Aldersgrænse
 LCCN;LCCN
 Library;Muxing-bibliotek
 Lightness;Lysstyrke
+LineUpStart;
 List;Liste
-Lyrics;Sangtekster
 Lyricist;Tekstforfatter
+Lyrics;Sangtekster
 Mastered_Date;Masteret den
 MasteredBy;Masteret af
+Matrix_Channel(s);
+Matrix_ChannelPositions;
 matrix_coefficients;Matrix-coefficienter
+Matrix_Format;
 MediaInfo_About;Leverer meget detaljeret information\r\nom en multimediefil:\r\nMatroska, Ogg (inklusive OGM)\r\nMPEG1 (inklusive VCD)\r\nMPEG2 (inklusive DVD og SVCD)\r\nMPEG4 (inklusive Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (inklusive WMV, WMA)\r\Microsoft RIFF (inklusive AVI, WAV)\r\nRene lydformater (AC3, DTS, AAC, AU, AIFF...)
 Menu;Menu
 Menu stream(s);Menustrømme
 Menu_Codec_List;Menu-codecs
+Menu_Hint;Flere muligheder
 Menu_No;Ingen menu
 MenuCount;Antal menustrømme
-Menu_Hint;Flere muligheder
 MenuID;Menu-ID
 mn;min.
 Mood;Stemning
@@ -774,8 +856,8 @@ NetworkName;Netværksnavn
 New;Ny
 Newest version;Tjek for nyeste version (kræver internetforbindelse)
 NewVersion_Menu;En ny version er tilgængelig
-NewVersion_Question_Title;En ny version er udkommet!
 NewVersion_Question_Content;En ny version (v%Version%) er tilgængelig, vil du downloade den?
+NewVersion_Question_Title;En ny version er udkommet!
 No;Nej
 Not yet;Ikke endnu
 NumColors;Antal farver
@@ -818,13 +900,19 @@ OpenCandy_33;Installer ikke
 OpenCandy_34;Vælg en installeringsindstilling
 OpenCandy_35;______ anbefaler denne software
 OpenCandy_36;Din nuværende installation bliver ikke påvirket
+OpenCaptionsLanguage;
+OpenCaptionsPresent;
+OpenCaptionsType;
 Options;Indstillinger
 Options_Hint;Præferencer
 Original;Original
 OriginalNetworkName;Oprindeligt netværksnavn
 OriginalSourceForm;Oprindelig kildeform
 OriginalSourceMedium;Oprindeligt kildemedie
+Originator;
 Other;Andet
+OtherIdentifier;
+OtherIdentifierType;
 Output;Output
 Output format;Output-format
 OverallBitRate;Samlet bitrate
@@ -834,10 +922,14 @@ OverallBitRate_Mode;Samlet bitratemodus
 OverallBitRate_Nominal;Nominel samlet bitrate
 Part;Del
 Part_Count;I alt
+PartNumber;
+PartTotal;
 Performer;Kunstner
 Period;Tidsalder
 Phone;Telefon
+PictureRatio;
 PixelAspectRatio;Pixelforhold
+PixelAspectRatio_CleanAperture;
 PixelAspectRatio_Original;Pixelforhold
 PlayCounter;Tæller
 Played_Count;Afspillet antal gange
@@ -847,9 +939,15 @@ PlayTime;Spilletid
 Position;Position
 Position_Total;Totalt
 Preferences;Præferencer
+PrimaryAudioLanguage;
 Producer;Producer
 ProductionDesigner;Scenograf
+ProductionNumber;
 ProductionStudio;Produktionsstudie
+ProductPlacement;
+ProgrammeHasText;
+ProgrammeTextLanguage;
+ProgrammeTitle;
 Publisher;Forlag
 Purchased_Date;Købt den
 Quote character;Anførselstegn
@@ -863,16 +961,25 @@ ReplayGain_Gain;Reply gain
 ReplayGain_Peak;Reply gain peak
 Resolution;Opløsning
 s;sek.
+SamplingCount;Antal samplinger
 SamplingRate;Samplingsrate
 Save;Gem
-ScanType;Skantype
 ScanOrder;Skanorden
+ScanOrder_Original;
+ScanOrder_Stored;
+ScanOrder_StoredDisplayedInverted;
+ScanOrder_StoreMethod;
+ScanType;Skantype
+ScanType_Original;
+ScanType_StoreMethod;
 ScreenplayBy;Manuskript af
 Season;Sæson
+SecondaryAudioLanguage;
 see below;se nedenunder
 Send HeaderFile;Send venligst header-filen her: http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;Kolonneseparator
 Separator_Lines;Linjeseparator
+SeriesTitle;
 ServiceChannel;Servicekanalnummer
 ServiceName;Servicenavn
 ServiceProvider;Serviceudbyder
@@ -886,10 +993,13 @@ Sheet (Complete);Ark (komplet)
 Shell extension;Shell-udvidelse ( højreklik viser MediaInfo i stifinder)
 Shell extension, folder;Også for mapper
 Shell InfoTip;Shell-infotip (bevæg musen over filen i stifinder og info vises)
+ShimName;
+ShimVersion;
 Show menu;Vis menu
 Show toolbar;Vis værktøjslinje
+SigningPresent;
+SignLanguage;
 Sort;Sorteret efter
-SamplingCount;Antal samplinger
 SoundEngineer;Lydtekniker
 Source;
 Source_Duration;
@@ -898,6 +1008,10 @@ Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
 Standard;Standard
+StoreMethod_InterleavedFields;
+StoreMethod_SeparatedFields;
+StoreMethod_SeparatedFields_1;
+StoreMethod_SeparatedFields_2;
 Stream;Strøm
 Stream_MoreInfo;Mere information om strømmen
 StreamCount;Antal sådanne strømme
@@ -919,6 +1033,7 @@ Tagged_Application;Tagging-applikation
 Tagged_Date;Tagged den
 Technician;Tekniker
 TermsOfUse;Anvendelsesbetingelser
+TertiaryAudioLanguage;
 Text;Tekst
 Text - Custom;Tekst - tilpas
 Text (HTML);Tekst (HTML)
@@ -930,18 +1045,28 @@ Text1;Første tekststrøm
 Text2;Anden tekststrøm
 Text3;Tredie tekststrøm
 TextCount;Antal tekststrømme
+TextlessElementsExist;
 ThanksTo;Tak til
 Thousands separator;Tusindseparator
+TimeCode;
+TimeCode_FirstFrame;
+TimeCode_Settings;
+TimeCode_Source;
+TimeCode_Striped;
+TimeStamp;
+TimeZone;Tidszone
 Title;Titel
 Title_More;Titel, mere info
-TimeZone;Tidszone
 Total;Totalt
+TotalNumberOfParts;
+TotalProgrammeDuration;
 Track;Spornavn
 Track_Count;Spornummer
 transfer_characteristics;Overførselskarakteristika
 Translator;Oversætter
 Tree;Træstruktur
 Tree & Text;Træstruktur & tekst
+Type;
 UniqueID;Unik ID
 Unknown;Ukendt
 Url;Url
@@ -952,6 +1077,7 @@ Video_Delay;Videoforsinkelse
 Video_No;Ingen video
 Video0_Delay;Video0forsinkelse
 Video1;Første videostrøm
+VideoComments;
 VideoCount;Antal videostrømme
 View;Vis
 View_Hint;Ændr måde til visning af information
@@ -963,10 +1089,11 @@ WebSite_General;Gå til en afspillers webstedet  til denne fil
 WebSite_General_More;Gå til en afspillers webstedet  til denne fil
 WebSite_Text;Gå til denne tekst-codecs websted
 WebSite_Text_More;Gå til webstedet (%Url%) for at finde denne tekst-codec
-WebSite_Url;http://mediainfo.sourceforge.net
+WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Gå til dette codecs websted
 WebSite_Video_More;Gå til webstedet (%Url%) for at finde dette video-codec
 Width;Bredde
+Width_CleanAperture;
 Width_Original;Oprindelig bredde
 WriteMe;Skriv e-mail til programmøren
 WriteToTranslator;Skriv til oversætteren
@@ -975,5 +1102,5 @@ Written_Location;Sted
 WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
-ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;80
+ZZ_AutomaticLanguage_Percent;91
