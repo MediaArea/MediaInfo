@@ -9,3 +9,4 @@ OpenError; Can not open file(s)
 SaveError; Can not save file
 GeneralBox; General
 StreamsBox; Streams
+AnalyzeServicesMenu; Analyze with MediaInfo
