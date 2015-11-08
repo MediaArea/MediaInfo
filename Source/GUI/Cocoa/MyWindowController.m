@@ -201,7 +201,7 @@
 	
 	//prepare font attributes for text view
 	
-	NSString *fontFamily = [[NSFont systemFontOfSize:13.0] familyName];
+	NSString *fontFamily = [[NSFont userFontOfSize:13.0] familyName];
 	
 	NSFontManager *fontManager = [NSFontManager sharedFontManager];
 	NSFont *boldFont = [fontManager fontWithFamily:fontFamily

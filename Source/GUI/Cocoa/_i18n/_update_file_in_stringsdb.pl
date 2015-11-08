@@ -25,7 +25,7 @@ if(-f $stringsdb) {
     my @lines = split /\n/, $content;
     foreach(@lines) {
         
-        if($_ =~ /^(\S+?)\s*=\s*(.+)/) {
+        if($_ =~ /^([^=]+)\s*=\s*(.+)/) {
             my $fileparam = $1;
             my $value = $2;
             my($file,$param)=split /\//, $fileparam, 2;

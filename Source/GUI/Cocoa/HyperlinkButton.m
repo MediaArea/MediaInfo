@@ -21,20 +21,11 @@
 	[self setBezelStyle:NSRegularSquareBezelStyle];
 	[self setButtonType:NSMomentaryChangeButton];
 		
-	NSString *fontFamily = [[NSFont systemFontOfSize:12.0] familyName];
-	NSFontManager *fontManager = [NSFontManager sharedFontManager];
-	NSFont *normalFont = [fontManager fontWithFamily:fontFamily
-											  traits:0
-											  weight:0
-												size:12];
+	NSDictionary *attributes = @{
+								 NSUnderlineStyleAttributeName  : [NSNumber numberWithInt:NSUnderlineStyleSingle],
+								 NSForegroundColorAttributeName : [NSColor blueColor]
+								};
 	
-	NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-								[NSNumber numberWithInt:NSUnderlineStyleSingle], NSUnderlineStyleAttributeName,
-								/*@"go", NSLinkAttributeName,*/
-								normalFont, NSFontAttributeName,
-								[NSColor blueColor], NSForegroundColorAttributeName,
-								nil];
-
 	self.attributedTitle = [[NSAttributedString alloc] initWithString:self.title attributes:attributes];
 	[self sizeToFit]; //will align to left
 	
