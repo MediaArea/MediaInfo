@@ -13,6 +13,10 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.80
+--------------
++ Hongkongese language added
+
 Version 0.7.79, 2015-11-02
 --------------
 x MediaTrace: fixed some invalid outputs

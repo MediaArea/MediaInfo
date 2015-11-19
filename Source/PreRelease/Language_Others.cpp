@@ -79,6 +79,7 @@ Ztring Language_Others_Run ()
     Run_File(Dest, L"tr");
     Run_File(Dest, L"uk");
     Run_File(Dest, L"zh-CN");
+    Run_File(Dest, L"zh-HK");
     Run_File(Dest, L"zh-TW");
 
     Dest.Save();
