@@ -1,6 +1,7 @@
 %define mediainfo_version           0.7.79
 %define libmediainfo_version        0.7.79
 %define libzen_version              0.4.32
+%define debug_package %{nil}
 
 Name:           mediainfo
 Version:        %{mediainfo_version}
@@ -219,7 +220,7 @@ install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop \
 
 
 %changelog
-* Tue Jan 01 2009 MediaArea.net SARL <info@mediaarea.net> - %{mediainfo_version}
+* Thu Jan 01 2009 MediaArea.net SARL <info@mediaarea.net> - %{mediainfo_version}
 - See History.txt for more info and real dates
 - Previous packages made by Toni Graffy <toni@links2linux.de>
 - Fedora style made by Vasiliy N. Glazov <vascom2@gmail.com>
