@@ -6,9 +6,9 @@ Version: 0.7.79-1
 Maintainer: MediaArea.net SARL <info@mediaarea.net>
 Homepage: http://MediaArea.net/MediaInfo
 Standards-Version: 3.9.6
-Vcs-Browser: https://github.com/MediaArea/MediaInfo
-Vcs-Git: https://github.com/MediaArea/MediaInfo.git
-Build-Depends: debhelper (>= 9), dh-autoreconf, libmediainfo-dev (>= 0.7.79), libzen-dev (>= 0.4.32), libwxgtk2.8-dev, zlib1g-dev, pkg-config
+Vcs-Browser: https://github.com/MediaArea/MediaInfoLib
+Vcs-Git: https://github.com/MediaArea/MediaInfoLib.git
+Build-Depends: debhelper (>= 9), dh-autoreconf, libmediainfo-dev (>= 0.7.79), libzen-dev (>= 0.4.32), libwxgtk3.0-dev, zlib1g-dev, pkg-config
 Package-List:
  mediainfo deb utils optional arch=any
  mediainfo-gui deb utils optional arch=any
