@@ -5,6 +5,51 @@ mediainfo (0.7.79-1) experimental; urgency=medium
 
  -- MediaArea <info@mediaarea.net>  Mon, 02 Nov 2015 10:30:00 +0100
 
+mediainfo (0.7.78-1) unstable; urgency=medium
+
+  * [fe1aafd] Imported Upstream version 0.7.78
+
+ -- Chow Loong Jin <hyperair@debian.org>  Mon, 05 Oct 2015 03:42:44 +0800
+
+mediainfo (0.7.77-1) unstable; urgency=medium
+
+  * [a70e2ed] Imported Upstream version 0.7.77
+
+ -- Chow Loong Jin <hyperair@debian.org>  Sun, 20 Sep 2015 18:57:38 +0800
+
+mediainfo (0.7.76-1) experimental; urgency=medium
+
+  * [f0b8f3d] Install appdata file
+  * [dfba336] Imported Upstream version 0.7.76
+  * [734ad56] Update copyright years and relicense packaging to BSD-2-clause
+
+ -- Chow Loong Jin <hyperair@debian.org>  Fri, 21 Aug 2015 16:44:33 +0800
+
+mediainfo (0.7.73-1) experimental; urgency=medium
+
+  * [f582c56] Imported Upstream version 0.7.73
+
+ -- Chow Loong Jin <hyperair@debian.org>  Mon, 20 Apr 2015 02:03:23 +0800
+
+mediainfo (0.7.72-1) experimental; urgency=medium
+
+  * [5b41f78] Imported Upstream version 0.7.72
+
+ -- Chow Loong Jin <hyperair@debian.org>  Thu, 15 Jan 2015 12:28:40 +0800
+
+mediainfo (0.7.71-1) experimental; urgency=medium
+
+  * [7134f89] Imported Upstream version 0.7.71
+  * [032e00e] No-change bump of Standards-Version to 3.9.6
+
+ -- Chow Loong Jin <hyperair@debian.org>  Mon, 24 Nov 2014 11:00:54 +0800
+
+mediainfo (0.7.70-1) unstable; urgency=medium
+
+  * [b20412e] Imported Upstream version 0.7.70
+
+ -- Chow Loong Jin <hyperair@debian.org>  Thu, 18 Sep 2014 19:03:32 +0800
+
 mediainfo (0.7.69-1) unstable; urgency=medium
 
   * [17045c0] Imported Upstream version 0.7.69

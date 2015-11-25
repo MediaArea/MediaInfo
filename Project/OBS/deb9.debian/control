@@ -11,8 +11,8 @@ Build-Depends: debhelper (>= 9),
                pkg-config,
 Standards-Version: 3.9.6
 Homepage: http://MediaArea.net/MediaInfo
-Vcs-Git: https://github.com/MediaArea/MediaInfo.git
-Vcs-Browser: https://github.com/MediaArea/MediaInfo
+Vcs-Git: https://github.com/MediaArea/MediaInfoLib.git
+Vcs-Browser: https://github.com/MediaArea/MediaInfoLib
 
 Package: mediainfo
 Architecture: any

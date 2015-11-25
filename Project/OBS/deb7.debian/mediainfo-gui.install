@@ -1,4 +1,5 @@
 /usr/bin/mediainfo-gui
+/usr/share/appdata/mediainfo-gui.appdata.xml
 
 Source/Resource/Image/MediaInfo.xpm         /usr/share/pixmaps
 Source/Resource/Image/MediaInfo.png         /usr/share/icons/hicolor/256x256/apps
@@ -7,4 +8,3 @@ Source/Resource/Image/MediaInfo.svg         /usr/share/icons/hicolor/scalable/ap
 Project/GNU/GUI/mediainfo-gui.desktop       /usr/share/applications
 Project/GNU/GUI/mediainfo-gui.kde3.desktop  /usr/share/apps/konqueror/servicemenus
 Project/GNU/GUI/mediainfo-gui.kde4.desktop  /usr/share/kde4/services/ServiceMenus
-/usr/share/appdata/mediainfo-gui.appdata.xml

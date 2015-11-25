@@ -1,0 +1,195 @@
+=pod
+
+=head1 NAME
+
+MediaInfo - command line utility to display information about audio/video files
+
+MediaInfo-Gui - graphical utility to display information about audio/video files
+
+=head1 SYNOPSIS
+
+=over
+
+=item mediainfo [F<-Options>...] F<FileName1> [F<Filename2>...]
+
+=item mediainfo F<--Inform=FMT> F<FileName>
+
+=item mediainfo-gui [F<-Options>...] F<FileName1> [F<Filename2>...]
+
+=item mediainfo-gui F<--Inform=FMT> F<FileName>
+
+=back
+
+
+=head1 DESCRIPTION
+
+MediaInfo supplies technical and tag information about a video or audio file
+
+What information can I get from MediaInfo?
+
+=over
+
+=item -
+General: title, author, director, album, track number, date, duration...
+
+=item -
+Video: codec, aspect, fps, bitrate...
+
+=item -
+Audio: codec, sample rate, channels, language, bitrate...
+
+=item -
+Text: language of subtitle
+
+=item -
+Chapters: number of chapters, list of chapters
+
+=back
+
+What format does MediaInfo support?
+
+=over
+
+=item -
+Video: MKV, OGM, AVI, DivX, WMV, QuickTime, Real, MPEG-1, MPEG-2, MPEG-4, DVD (VOB)...
+
+=item -
+Video Codecs: DivX, XviD, MSMPEG4, ASP, H.264, AVC...
+
+=item -
+Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF...
+
+=item -
+Subtitles: SRT, SSA, ASS, SAMI...
+
+=back
+
+
+What can I do with it?
+
+=over
+
+=item -
+Read many video and audio file formats
+
+=item -
+View information in different formats (text, sheet, tree, HTML...)
+
+=item -
+Customise these viewing formats
+
+=item -
+Export information as text, CSV, HTML...
+
+=item -
+Graphical Interface, Command Line, or library versions available
+
+=back
+
+
+=head1 OPTIONS
+
+MediaInfo supports the following case-insensitive options:
+
+=over
+
+=item B<--Help>, B<-h>
+
+Display help and exit
+
+=item B<--Help-Inform>
+
+Display help for B<--Inform> option
+
+=item B<--Help-AnOption>
+
+Display help for "AnOption"
+
+=item B<--Version>
+
+Display MediaInfo version and exit
+
+=item B<--Full>, B<-f>
+
+Full information Display (all internal tags)
+
+=item B<--Output=HTML>
+
+Full information Display with HTML tags
+
+=item B<--Output=XML>
+
+Full information Display with XML tags
+
+=item B<--Inform=FMT>
+
+Template defined information display.
+
+FMT is "[xxx;]Text", where xxx can be any one of General, Video, Audio, Text,
+Chapter, Image, or Menu. Text can be the template text, or a filename in the
+form of file:///path
+
+See B<--Info-Parameters> for available parameters in the text. Parameters must
+be surrounded by "%".
+
+=item B<--Info-Parameters>
+
+Display list of B<--Inform> parameters
+
+=item B<--Language=raw>
+
+Display non-translated unique identifiers (internal text)
+
+=item B<--LogFile=F<LogFile>>
+
+Save the output in F<LogFile>
+
+=back
+
+
+=head1 EXAMPLES
+
+=head2 Display information about a video file
+
+ $ mediainfo foo.mkv
+
+=head2 Display aspect ratio
+
+ $ mediainfo --Inform="Video;%DisplayAspectRatio%" foo.mkv
+ $ mediainfo --Inform="Video;file://Video.txt" foo.mkv
+
+Both forms are equivalent if Video.txt contains:
+ %DisplayAspectRatio%
+
+=head2 Display aspect ration and audio format
+
+ $ mediainfo --Inform="file://Text.txt foo.mkv
+
+If Text.txt contains:
+
+=over
+
+=item -
+"Video;%DisplayAspectRatio%"
+
+Then the display aspect ratio is printed out.
+
+=item -
+"Audio;%Format%"
+
+Then the audio format is printed out.
+
+=back
+
+=head1 AUTHOR
+
+This manual page was written by Chow Loong Jin <hyperair@debian.org> for the
+Debian system (but may be used by others). Permissions is granted to copy,
+distribute, and/or modify this document under the terms of the GNU General
+Public License, Version 3 or any later version published by the Free Software
+Foundation.
+
+On Debian systems, the full text of the GNU General Public License, Version 3
+can be found in /usr/share/common-licenses/GPL-3.
+
+=cut
