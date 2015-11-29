@@ -1,4 +1,4 @@
-  Language_ISO639;zh-HK
+﻿  Language_ISO639;zh-HK
   Author_Email;cordon@gmail.com
   Author_Name;Kin Kwok
   Author_OldNames;Initial translator
@@ -370,7 +370,7 @@ Format_Settings_QPel;格式設定 - QPel
 Format_Settings_RefFrames;格式設定 - 參考畫格
 Format_Settings_SBR;格式設定 - SBR
 Format_Settings_Sign;格式設定 - Sign
-Format_Settings_Wrapping;
+Format_Settings_Wrapping;格式設定 - Wrapping模式
 Format_Url;該格式的網址
 Format_Version;格式版本
 FpaManufacturer;FPA製造商
@@ -760,7 +760,7 @@ Language_os;奧西梯語　Ossetic
 Language_pa;旁遮普語　Panjabi
 Language_pi;巴利語　Pali
 Language_pl;波蘭語　Polish
-Language_ps;阿富汗語　Pushto
+Language_ps;普什圖語　Pushto
 Language_pt;葡語　Portuguese
 Language_pt-br;巴西葡語　Brazilian Portuguese
 Language_qu;克丘亞語　Quechua
@@ -811,7 +811,7 @@ Language_vo;窩拉普克語　Volapuk
 Language_wa;華隆語　Walloon
 Language_wo;窩洛夫語　Wolof
 Language_xh;班圖語　Xhosa
-Language_yi;意第緒語　Yiddish
+Language_yi;伊地語　Yiddish
 Language_yo;約魯巴語　Yoruba
 Language_za;壯語　Zhang
 Language_zh;中國漢語　Putonghua
@@ -824,7 +824,7 @@ Library;合成函式庫
 Lightness;亮度
 LineUpStart;開始編排
 List;清單
-Lyricist;作詞
+Lyricist;填詞
 Lyrics;歌詞
 Mastered_Date;後製於
 MasteredBy;後製者
@@ -1102,5 +1102,5 @@ Written_Location;編寫地點
 WrittenBy;作者
 Yes;是
 Your system;可識別清單
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;
+ZZ_AutomaticLanguage_Percent;
