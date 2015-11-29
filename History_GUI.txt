@@ -16,6 +16,7 @@ Known bugs
 Version 0.7.80
 --------------
 + Hongkongese language added
++ Option "Full parsing"
 
 Version 0.7.79, 2015-11-02
 --------------
