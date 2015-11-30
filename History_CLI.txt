@@ -27,8 +27,20 @@ Version 0.7.80, 2015-11-30
 + DTS: difference between DTS-HRA with 96k option and pure DTS-96/24
 + DTS: detection of DTS:X
 + Samples per frame info
++ AC-3: detection of Atmos inside TrueHD
++ Video frame rate: showing precision of 1/1.001 frame rates (e.g. "23.976 (24000/1001) fps" and "23.976 (23976/1000) fps")
++ MPEG-4/MOV: showing the complete list of compatible brands in the CodecID field
++ MPEG-4/MOV: Alternate groups
++ MPEG-4/MOV: "Disabled" tag
++ MPEG-4/MOV: "Forced" tag
++ MPEG-4/MOV: showing links between tracks (chapters for, subtitles for, fallback for)
++ MXF: handling of more acquisition metadata items
++ MXF: Package name
++ AVC: Store method of interlaced content (Interleaved Fields or Separated Fields)
++ EBUCore: acquisition metadata (Proof of concept, for feedback only)
 x Matroska: frame rate detection algorithm revisited, less wrong numbers are expected
 x SDP/Teletext: some pages were sometimes (when present in 2 different SDP lines) displayed several times
+x MPEG-4/MOV: some hint tracks were not displayed
 
 Version 0.7.79, 2015-11-02
 --------------
