@@ -49,28 +49,28 @@ USEFORM("..\..\..\Source\GUI\VCL\GUI_About.cpp", AboutF);
 //---------------------------------------------------------------------------
 WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {
-	try
-	{
-		Application->Initialize();
-		Application->MainFormOnTaskBar = true;
-		Application->CreateForm(__classid(TMainF), &MainF);
-		Application->Run();
-	}
-	catch (Exception &exception)
-	{
-		Application->ShowException(&exception);
-	}
-	catch (...)
-	{
-		try
-		{
-			throw Exception("");
-		}
-		catch (Exception &exception)
-		{
-			Application->ShowException(&exception);
-		}
-	}
-	return 0;
+    try
+    {
+        Application->Initialize();
+        Application->MainFormOnTaskBar = true;
+        Application->CreateForm(__classid(TMainF), &MainF);
+        Application->Run();
+    }
+    catch (Exception &exception)
+    {
+        Application->ShowException(&exception);
+    }
+    catch (...)
+    {
+        try
+        {
+            throw Exception("");
+        }
+        catch (Exception &exception)
+        {
+            Application->ShowException(&exception);
+        }
+    }
+    return 0;
 }
 //---------------------------------------------------------------------------

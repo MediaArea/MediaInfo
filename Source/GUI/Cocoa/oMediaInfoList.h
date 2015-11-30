@@ -15,18 +15,18 @@
 
 typedef enum oMediaInfoStream_t
 {
-	oMediaInfoStream_General = MediaInfo_Stream_General,
-	oMediaInfoStream_Video = MediaInfo_Stream_Video,
-	oMediaInfoStream_Audio = MediaInfo_Stream_Audio,
-	oMediaInfoStream_Text = MediaInfo_Stream_Text,
-	oMediaInfoStream_Chapters = MediaInfo_Stream_Chapters,
-	oMediaInfoStream_Image = MediaInfo_Stream_Image,
-	oMediaInfoStream_Menu = MediaInfo_Stream_Menu
+    oMediaInfoStream_General = MediaInfo_Stream_General,
+    oMediaInfoStream_Video = MediaInfo_Stream_Video,
+    oMediaInfoStream_Audio = MediaInfo_Stream_Audio,
+    oMediaInfoStream_Text = MediaInfo_Stream_Text,
+    oMediaInfoStream_Chapters = MediaInfo_Stream_Chapters,
+    oMediaInfoStream_Image = MediaInfo_Stream_Image,
+    oMediaInfoStream_Menu = MediaInfo_Stream_Menu
 } oMediaInfoStream;
 
 
 @interface oMediaInfoList : NSObject {
-	void *MIL;
+    void *MIL;
 }
 
 - (BOOL)openURL:(NSURL *)fileURL;

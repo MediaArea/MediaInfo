@@ -9,8 +9,8 @@
 #import <Cocoa/Cocoa.h>
 
 @interface AboutWindowController : NSWindowController {
-	IBOutlet NSTextField *versionLabel;
-	IBOutlet NSTextField *copyrightLabel;
+    IBOutlet NSTextField *versionLabel;
+    IBOutlet NSTextField *copyrightLabel;
 }
 
 + (AboutWindowController*)controller;

@@ -9,9 +9,9 @@
 #import <Cocoa/Cocoa.h>
 
 @interface PreferencesWindowController : NSWindowController {
-	//IBOutlet NSArrayController *languagesArrayController;
-	IBOutlet NSToolbar *toolbar;
-	IBOutlet NSPopUpButton *langsCombo;
+    //IBOutlet NSArrayController *languagesArrayController;
+    IBOutlet NSToolbar *toolbar;
+    IBOutlet NSPopUpButton *langsCombo;
 }
 
 

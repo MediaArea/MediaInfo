@@ -11,8 +11,8 @@
 
 
 @interface MediaInfoExporter : NSObject {
-	oMediaInfoList *mil;
-	BOOL extensionHidden;
+    oMediaInfoList *mil;
+    BOOL extensionHidden;
 }
 
 @property (nonatomic, assign) BOOL extensionHidden;

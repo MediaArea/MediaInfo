@@ -10,8 +10,8 @@
 #import "MyWindowController.h"
 
 @interface AppController : NSObject <NSApplicationDelegate> {
-	MyWindowController *wc;
-	NSArray *filesToOpenAtStart;
+    MyWindowController *wc;
+    NSArray *filesToOpenAtStart;
 }
 
 -(void)doWorkWithFiles:(NSArray*)array;

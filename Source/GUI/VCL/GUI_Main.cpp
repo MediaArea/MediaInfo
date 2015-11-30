@@ -1238,7 +1238,7 @@ void __fastcall TMainF::M_Debug_HeaderClick(TObject *Sender)
 void __fastcall TMainF::M_Help_AboutClick(TObject *Sender)
 {
     #ifndef MEDIAINFOGUI_PREFS_NO
-	TAboutF* A=new TAboutF(this);
+    TAboutF* A=new TAboutF(this);
     A->ShowModal();
     delete A;
     #endif //MEDIAINFOGUI_PREFS_NO
@@ -1250,12 +1250,12 @@ void __fastcall TMainF::M_Debug_AdvancedClick(TObject *Sender)
     if (I->Option_Static(__T("Complete_Get"))!=__T(""))
     {
         I->Option_Static(__T("Complete"));
-		M_Debug_Advanced->Checked=false;
+        M_Debug_Advanced->Checked=false;
         M_Debug_Avanced_More->Visible=false;
     }
     else
     {
-		I->Option_Static(__T("Complete"), __T("1"));
+        I->Option_Static(__T("Complete"), __T("1"));
         M_Debug_Advanced->Checked=true;
         M_Debug_Avanced_More->Visible=true;
     }
@@ -1267,14 +1267,14 @@ void __fastcall TMainF::M_Debug_AdvancedClick(TObject *Sender)
 
 void __fastcall TMainF::M_Debug_FullParsingClick(TObject *Sender)
 {
-	M_Debug_FullParsing->Checked=!M_Debug_FullParsing->Checked;
-	I->Option_Static(__T("ParseSpeed"), M_Debug_FullParsing->Checked?__T("1"):__T("0"));
+    M_Debug_FullParsing->Checked=!M_Debug_FullParsing->Checked;
+    I->Option_Static(__T("ParseSpeed"), M_Debug_FullParsing->Checked?__T("1"):__T("0"));
 }
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_Debug_DummyClick(TObject *Sender)
 {
-	I->Option(__T("Create_Dummy"));
-	Refresh();
+    I->Option(__T("Create_Dummy"));
+    Refresh();
 }
 
 //---------------------------------------------------------------------------

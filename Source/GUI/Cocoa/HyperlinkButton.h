@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface HyperlinkButton : NSButton {
-	NSURL *url;
+    NSURL *url;
 }
 
 - (void)setActionUrl:(NSURL*)anUrl;
