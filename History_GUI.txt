@@ -42,6 +42,7 @@ x Matroska: frame rate detection algorithm revisited, less wrong numbers are exp
 x SDP/Teletext: some pages were sometimes (when present in 2 different SDP lines) displayed several times
 x MPEG-4/MOV: some hint tracks were not displayed
 + Hongkongese language added
++ Option "Full parsing"
 
 Version 0.7.79, 2015-11-02
 --------------
