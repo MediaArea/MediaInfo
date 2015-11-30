@@ -13,10 +13,23 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
-Version 0.7.80
+Version 0.7.80, 2015-11-30
 --------------
++ Matroska: support of MKVMerge statistics tags (duration frame count, stream size, bit rate) per track, thanks to ndjamena
++ FLAC: Channel positions, thanks to ndjamena
++ FLAC: difference between detected bit depth and stored bit depth
++ MPEG-TS: if DTVCC transport stream is present and no DTVCC service descriptor, scan also in the middle of the file in order to detect more caption services
++ Subtitle frame rate computing if frame count and duration are available (hidden by default)
++ Subtitles in Matroska: count of elements
++ Matroska and MP4/MOV: detection of truncated files
++ DTS: difference between ES Matrix and ES Discrete
++ DTS: display ES Matrix or ES Discrete even if HRA or MA is present
++ DTS: difference between DTS-HRA with 96k option and pure DTS-96/24
++ DTS: detection of DTS:X
++ Samples per frame info
+x Matroska: frame rate detection algorithm revisited, less wrong numbers are expected
+x SDP/Teletext: some pages were sometimes (when present in 2 different SDP lines) displayed several times
 + Hongkongese language added
-+ Option "Full parsing"
 
 Version 0.7.79, 2015-11-02
 --------------
