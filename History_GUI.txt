@@ -13,6 +13,21 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.81, 2015-12-31
+--------------
++ Acquisition Metadata: support of all SMPTE RDD18 elements
++ Matroska: cover presence and content of the cover, thanks to Max Pozdeev
++ #F446, Matroska: Handling of cropping values, thanks to Max Pozdeev
++ Improvement of Python binding: Mac Os X support, Python2 and Python3 can use same MediaInfoDLL.py
++ #F484, AVI: OpenDML Interlaced / Progressive scan type detection
++ MP4: support of AtomicParsley imdb tag
+x #B959, MPEG-TS: MPEG-1 Video appeared as MPEG-2 Video
+x #B914, Matroska: Undefined number of chapters in some M4V with Timed Text, thanks to Max Pozdeev
+x #B962, Matroska: negative timecodes were not correctly handled
+x #B964, FLV: was hanging trying to open some FLV files
+x JPEG in AVI or MOV: better handling of buggy APP0/AVI1, avoiding some false positives about interlacement
+x DVCPRO HD: some containers consider DVCPRO HD as with width 1920 despite the fact it is 1280 or 1440, using 1280 or 1440 in all cases
+
 Version 0.7.80, 2015-11-30
 --------------
 + Matroska: support of MKVMerge statistics tags (duration frame count, stream size, bit rate) per track, thanks to ndjamena
