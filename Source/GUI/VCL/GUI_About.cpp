@@ -77,7 +77,7 @@ void __fastcall TAboutF::FormShow(TObject *Sender)
         WriteToTranslator->Visible=true;
     }
 
-    if (Prefs->Donated)
+    //if (Prefs->Donated) //No more
     {
         Tektronix->Visible=false;
         Tektronix_Label->Visible=false;

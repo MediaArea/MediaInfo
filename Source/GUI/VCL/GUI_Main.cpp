@@ -585,7 +585,7 @@ void __fastcall TMainF::Translate()
         }
         */
     }
-    if (Prefs->Donated)
+    //if (Prefs->Donated) //No more
     {
         M_Tektronix->Visible=false;
         Tool_Tektronix->Visible=false;
