@@ -4,6 +4,7 @@ Name=mediainfo-gui.desktop
 ServiceTypes=KonqPopupMenu/Plugin,audio/*,video/*,image/*,application/x-flash-video
 Actions=mediainfo-gui
 X-KDE-Priority=TopLevel
+Keywords=media info;metadata;tag;video;audio;subtitles;chapters;codec;mkv;mpeg;mp3;h264;avc;h265;hevc;avi;
 
 [Desktop Action mediainfo-gui]
 Name=MediaInfo
