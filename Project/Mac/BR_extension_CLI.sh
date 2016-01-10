@@ -10,5 +10,3 @@ cd ../../../../MediaInfo/Project/GNU/CLI
 cd ../../../..
 
 ./CLI_Compile.sh --enable-arch-x86_64 --enable-arch-i386
-
-strip -u -r MediaInfo/Project/GNU/CLI/mediainfo
