@@ -37,7 +37,7 @@
 			<IncludePath>..\..\..\Source\PreRelease\VCL\;..\..\..\..\ZenLib\Source\ZenLib\;..\..\..\Source\PreRelease\;..\..\..\Source\PreRelease\VCL;..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\PreRelease;$(IncludePath)</IncludePath>
 			<TASM_Defines>_RTLDLL;USEPACKAGES;NO_STRICT;UNICODE;$(TASM_Defines)</TASM_Defines>
 			<BRCC_Defines>_RTLDLL;USEPACKAGES;NO_STRICT;UNICODE;$(BRCC_Defines)</BRCC_Defines>
-			<PackageImports>vcl.bpi;rtl.bpi;vclx.bpi;xmlrtl.bpi;vclie.bpi;inet.bpi;inetdbbde.bpi;inetdbxpress.bpi;soaprtl.bpi;dbrtl.bpi;dsnap.bpi;bcbie.bpi;vcldb.bpi;websnap.bpi;webdsnap.bpi;vclactnband.bpi;$(PackageImports)</PackageImports>
+			<PackageImports>vcl.bpi;rtl.bpi;vclx.bpi;xmlrtl.bpi;vclie.bpi;inet.bpi;inetdbbde.bpi;inetdbxpress.bpi;soaprtl.bpi;dbrtl.bpi;dsnap.bpi;bcbie.bpi;vcldb.bpi;websnap.bpi;webdsnap.bpi;vclactnband.bpi;$(PackageImports).bpi;$(PackageImports)</PackageImports>
 			<DCC_UnitSearchPath>..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\PreRelease\VCL;..\..\..\Source\PreRelease;E:\Programmation\MediaInfo\Project\BCB\PreRelease;C:\Documents and Settings\Jerome\Mes documents\Borland Studio Projects;$(BDS)\lib;$(BDS)\lib\obj;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
 			<DCC_ResourcePath>..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\PreRelease\VCL;..\..\..\Source\PreRelease;E:\Programmation\MediaInfo\Project\BCB\PreRelease;$(DCC_ResourcePath)</DCC_ResourcePath>
 			<ILINK_AppType>Windows</ILINK_AppType>
@@ -58,17 +58,10 @@
 			<DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
 			<DynamicRTL>true</DynamicRTL>
 			<Multithreaded>true</Multithreaded>
-			<ILINK_LibraryPath>..\..\..\..\wx\lib\bcc_lib\;..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\;..\..\..\..\zlib\projects\BCB\Release_Build\;..\..\..\Source\PreRelease\VCL\;..\..\..\..\ZenLib\Source\ZenLib\;..\..\..\Source\PreRelease\;..\..\..\..\wxWidgets\lib\bcc_lib\;..\..\..\..\wxWidgets\lib\bcc_lib;..\..\..\..\zlib\projects\BCB\Release_Build;..\..\..\..\ZenLib\Project\BCB\Library\Release_Build;..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\PreRelease\VCL;..\..\..\..\Shared\Library\BCB;..\..\..\Source\PreRelease;E:\Programmation\MediaInfo\Project\BCB\PreRelease;$(BDS)\lib;$(BDS)\lib\obj;$(BDS)\lib\psdk;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+			<ILINK_LibraryPath>..\..\..\..\ZenLib\Project\BCB\Library\Win32\Release\;..\..\..\..\wx\lib\bcc_lib\;..\..\..\..\ZenLib\Project\BCB\Library\Release_Build\;..\..\..\..\zlib\projects\BCB\Release_Build\;..\..\..\Source\PreRelease\VCL\;..\..\..\..\ZenLib\Source\ZenLib\;..\..\..\Source\PreRelease\;..\..\..\..\wxWidgets\lib\bcc_lib\;..\..\..\..\wxWidgets\lib\bcc_lib;..\..\..\..\zlib\projects\BCB\Release_Build;..\..\..\..\ZenLib\Project\BCB\Library\Release_Build;..\..\..\..\ZenLib\Source\ZenLib;..\..\..\Source\PreRelease\VCL;..\..\..\..\Shared\Library\BCB;..\..\..\Source\PreRelease;E:\Programmation\MediaInfo\Project\BCB\PreRelease;$(BDS)\lib;$(BDS)\lib\obj;$(BDS)\lib\psdk;$(ILINK_LibraryPath)</ILINK_LibraryPath>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base_Win32)'!=''">
-			<Icon_MainIcon>PreRelease_Icon2.ico</Icon_MainIcon>
-			<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-			<IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
-			<DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
-			<Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
-			<VerInfo_Locale>1033</VerInfo_Locale>
-			<ILINK_LibraryPath>D:\Programmation\ZenLib\Project\BCB\Library\Win32\Release\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
-			<VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+			<ILINK_LibraryPath>C:\Programmation\ZenLib\Project\BCB\Library\Win32\Release\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_1)'!=''">
 			<BCC_Defines>_DEBUG;$(BCC_Defines);$(BCC_Defines)</BCC_Defines>
@@ -149,7 +142,7 @@
 			<BorlandProject>
 				<CPlusPlusBuilder.Personality>
 					<VersionInfo>
-						<VersionInfo Name="IncludeVerInfo">False</VersionInfo>
+						<VersionInfo Name="IncludeVerInfo">True</VersionInfo>
 						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
 						<VersionInfo Name="MajorVer">1</VersionInfo>
 						<VersionInfo Name="MinorVer">0</VersionInfo>
