@@ -13,6 +13,18 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.82, 2016-01-27
+--------------
++ Matroska: CRC-32 validation
++ Matroska: support of padding/junk at the start of a segment
++ Matroska: trace is activated for all elements (but report is still based on the first element met)
++ Matroska: add an intermediate level in the trace for the raw stream parser
+x FLV: potential infinite loop fixed
+x #B966, DTS: DTS-HD HR 3840 not detected anymore
+x AC-3: wrong sample rate with 32 kHz streams
+x #B948, EBUCore 1.6: invalid output due to position of containerEncoding element
+x #B957, MPEG-7 output: No XML encoded value output
+
 Version 0.7.81, 2015-12-31
 --------------
 + Acquisition Metadata: support of all SMPTE RDD18 elements
@@ -108,7 +120,7 @@ Version 0.7.75, 2015-06-30
 x XDCAM: some directory structures were wrongly detected as XDCAM structure having a XML file
 x MXF: SDTI 60 fps times were wrong
 x #B927, DPX: date/time specific DPX format was used instead of the ISO-like one
-x #B927, EBUCore: invalid content in attribute startDate 
+x #B927, EBUCore: invalid content in attribute startDate
 x ProRes: streams with apcs CodecID were displayed with an incoherent bit depth instead of no bit depth
 
 Version 0.7.74, 2015-05-25
@@ -302,7 +314,7 @@ Version 0.7.68, 2014-04-02
 + Node.js examples added, in contrib directory
 + GXF: support of DVCPRO HD
 + GXF: Media Type is reported
-+ HEVC: added support of scaling_list_data 
++ HEVC: added support of scaling_list_data
 + HEVC: deactivated general_profile_compatibility_flag validity test because some encoders do not implement it correctly
 + MPEG-4/MOV: Speed improvement, especially for full parsing of 100+ GB files.
 + File reading: Speed improvement of big files, especially for full parsing, with the help of a dedicated reading thread
