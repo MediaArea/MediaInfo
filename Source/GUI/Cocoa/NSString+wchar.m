@@ -18,7 +18,9 @@
 }
 
 - (const wchar_t *) WCHARString {
-	return (wchar_t*)[self cStringUsingEncoding:WCHAR_4BYTE_ENCODING];
+	NSMutableData *data = [NSMutableData dataWithData:[self dataUsingEncoding:WCHAR_4BYTE_ENCODING]];
+	[data setLength:[data length] + 4]; //add 4 null-terminating bytes
+	return (const wchar_t*)[data bytes];
 }
 
 @end
