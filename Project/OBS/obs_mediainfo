@@ -180,9 +180,9 @@ Download_Packages $1 $2 $3  x x ""           openSUSE_Tumbleweed x86_64 .x86_64
 }
 
 
-mediainfov="0.7.79"
-libmediainfov="0.7.79"
-libzenv="0.4.31"
+mediainfov="0.7.82"
+libmediainfov="0.7.82"
+libzenv="0.4.32"
 destversion="1"
 
 Download_Global 9.1 17.1 2.1 #MediaInfo, MediaInfoLib, ZenLib

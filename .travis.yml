@@ -1,0 +1,15 @@
+sudo: required
+language: cpp
+compiler: gcc
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -y libmms0 libwxgtk3.0-dev zlib1g-dev pkg-config
+  - wget http://mediaarea.net/download/binary/libzen0/0.4.32/libzen0_0.4.32-1_amd64.xUbuntu_12.04.deb
+  - sudo dpkg -i libzen0_0.4.32-1_amd64.xUbuntu_12.04.deb
+  - wget http://mediaarea.net/download/binary/libzen0/0.4.32/libzen-dev_0.4.32-1_amd64.xUbuntu_12.04.deb
+  - sudo dpkg -i libzen-dev_0.4.32-1_amd64.xUbuntu_12.04.deb
+  - wget http://mediaarea.net/download/binary/libmediainfo0/0.7.80/libmediainfo0_0.7.80-1_amd64.xUbuntu_12.04.deb
+  - sudo dpkg -i libmediainfo0_0.7.80-1_amd64.xUbuntu_12.04.deb
+  - wget http://mediaarea.net/download/binary/libmediainfo0/0.7.80/libmediainfo-dev_0.7.80-1_amd64.xUbuntu_12.04.deb
+  - sudo dpkg -i libmediainfo-dev_0.7.80-1_amd64.xUbuntu_12.04.deb
+script: cd Project/GNU/CLI/ && ./autogen.sh && ./configure && make && cd ../GUI/ && ./autogen.sh && ./configure && make

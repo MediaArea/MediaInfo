@@ -3,10 +3,10 @@
 			<ProjectGuid>{9BC64FBB-D1DE-4EA9-815A-CA946F8D3857}</ProjectGuid>
 		</PropertyGroup>
 		<ItemGroup>
-			<Projects Include="GUI\MediaInfo_GUI.cbproj">
+			<Projects Include="PreRelease\PreRelease.cbproj">
 				<Dependencies/>
 			</Projects>
-			<Projects Include="PreRelease\PreRelease.cbproj">
+			<Projects Include="GUI\MediaInfo_GUI.cbproj">
 				<Dependencies/>
 			</Projects>
 		</ItemGroup>
@@ -17,32 +17,32 @@
 				<Default.Personality/>
 			</BorlandProject>
 		</ProjectExtensions>
-		<Target Name="MediaInfo_GUI">
-			<MSBuild Projects="GUI\MediaInfo_GUI.cbproj"/>
-		</Target>
-		<Target Name="MediaInfo_GUI:Clean">
-			<MSBuild Projects="GUI\MediaInfo_GUI.cbproj" Targets="Clean"/>
-		</Target>
-		<Target Name="MediaInfo_GUI:Make">
-			<MSBuild Projects="GUI\MediaInfo_GUI.cbproj" Targets="Make"/>
-		</Target>
 		<Target Name="PreRelease">
 			<MSBuild Projects="PreRelease\PreRelease.cbproj"/>
 		</Target>
 		<Target Name="PreRelease:Clean">
-			<MSBuild Projects="PreRelease\PreRelease.cbproj" Targets="Clean"/>
+			<MSBuild Targets="Clean" Projects="PreRelease\PreRelease.cbproj"/>
 		</Target>
 		<Target Name="PreRelease:Make">
-			<MSBuild Projects="PreRelease\PreRelease.cbproj" Targets="Make"/>
+			<MSBuild Targets="Make" Projects="PreRelease\PreRelease.cbproj"/>
+		</Target>
+		<Target Name="MediaInfo_GUI">
+			<MSBuild Projects="GUI\MediaInfo_GUI.cbproj"/>
+		</Target>
+		<Target Name="MediaInfo_GUI:Clean">
+			<MSBuild Targets="Clean" Projects="GUI\MediaInfo_GUI.cbproj"/>
+		</Target>
+		<Target Name="MediaInfo_GUI:Make">
+			<MSBuild Targets="Make" Projects="GUI\MediaInfo_GUI.cbproj"/>
 		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="MediaInfo_GUI;PreRelease"/>
+			<CallTarget Targets="PreRelease;MediaInfo_GUI"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="MediaInfo_GUI:Clean;PreRelease:Clean"/>
+			<CallTarget Targets="PreRelease:Clean;MediaInfo_GUI:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="MediaInfo_GUI:Make;PreRelease:Make"/>
+			<CallTarget Targets="PreRelease:Make;MediaInfo_GUI:Make"/>
 		</Target>
-		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
+		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 	</Project>

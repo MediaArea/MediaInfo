@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface easyStreamsTableDelegate : NSObject {
-	IBOutlet NSTableView *table;
+    IBOutlet NSTableView *table;
 }
 
 @end

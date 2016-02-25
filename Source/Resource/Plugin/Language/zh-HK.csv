@@ -1,0 +1,1106 @@
+﻿  Language_ISO639;zh-HK
+  Author_Email;cordon@gmail.com
+  Author_Name;Kin Kwok
+  Author_OldNames;Initial translator
+  Language_Name;香港正體字
+  Config_Text_ColumnSize;40
+  Config_Text_Separator;：
+  Config_Text_NumberTag;＃
+  Config_Text_FloatSeparator;.
+  Config_Text_ThousandsSeparator; 
+ audio stream1;聲頻
+ audio stream2;個聲頻
+ audio stream3;個聲頻
+ bit1;位元
+ bit2;位元
+ bit3;位元
+ bps; bps
+ Bps; Bps
+ Byte1;位元組
+ Byte2;位元組
+ Byte3;位元組
+ channel1;聲道
+ channel2;聲道
+ channel3;聲道
+ chapter1;章節
+ chapter2;章節
+ chapter3;章節
+ chapters stream1;章節串流
+ chapters stream2;個章節串流
+ chapters stream3;個章節串流
+ character1;字元
+ character2;個字元
+ character3;個字元
+ day1;日
+ day2;日
+ day3;日
+ dB1; dB
+ dB2; dB
+ dB3; dB
+ file1;檔案
+ file2;個檔案
+ file3;個檔案
+ fps1; fps
+ fps2; fps
+ fps3; fps
+ frame1;畫格
+ frame2;畫格
+ frame3;畫格
+ GB; GB
+ Gb; Gb
+ Gbps; Gbps
+ GBps; GBps
+ GHz; GHz
+ GiB; GiB
+ GibiByte1; GibiBytes
+ GibiByte2; GibiBytes
+ GibiByte3; GibiBytes
+ GiBps; GiBps
+ GigaBit1; GigaBit
+ GigaBit2; GigaBits
+ GigaBit3; GigaBits
+ GigaByte1; GigaByte
+ GigaByte2; GigaBytes
+ GigaByte3; GigaBytes
+ hour1;小時
+ hour2;小時
+ hour3;小時
+ Hz; Hz
+ image stream1;圖像串流
+ image stream2;圖像串流
+ image stream3;圖像串流
+ KB; KB
+ Kb; Kb
+ KBps; KBps
+ Kbps; Kbps
+ KHz; KHz
+ KiB; KiB
+ KibiBit1; KibiBit
+ KibiBit2; KibiBits
+ KibiBit3; KibiBits
+ KibiByte1; KibiByte
+ KibiByte2; KibiBytes
+ KibiByte3; KibiBytes
+ KiBps; KiBps
+ KiloBit1; KiloBit
+ KiloBit2; KiloBits
+ KiloBit3; KiloBits
+ KiloByte1; KiloByte
+ KiloByte2; KiloBytes
+ KiloByte3; KiloBytes
+ MB; MB
+ Mb; Mb
+ Mbps; Mbps
+ MBps; MebiBytes
+ MebiBit1; MebiBit
+ MebiBit2; MebiBits
+ MebiBit3; MebiBits
+ MebiByte1; MebiByte
+ MebiByte2; MebiBytes
+ MebiByte3; MebiBytes
+ MegaBit1; MegaBit
+ MegaBit2; MegaBits
+ MegaBit3; MegaBits
+ MegaByte1; MegaByte
+ MegaByte2; MegaBytes
+ MegaByte3; MegaBytes
+ MHz; MHz
+ MiB; MiB
+ Mib; Mib
+ MiBps; MiBps
+ millisecond1;毫秒
+ millisecond2;毫秒
+ millisecond3;毫秒
+ minute1;分
+ minute2;分
+ minute3;分
+ month1;月
+ month2;月
+ month3;月
+ pixel1;像素
+ pixel2;像素
+ pixel3;像素
+ second1;秒
+ second2;秒
+ second3;秒
+ text stream1;字幕串流
+ text stream2;個字幕串流
+ text stream3;個字幕串流
+ video frames1;畫格
+ video frames2;畫格
+ video frames3;畫格
+ video stream1;影片串流
+ video stream2;影片串流
+ video stream3;影片串流
+ warppoint0;沒有跳躍點
+ warppoint1;跳躍點
+ warppoint2;跳躍點
+ warppoint3;跳躍點
+ week1;週
+ week2;週
+ week3;週
+ year1;年
+ year2;年
+ year3;年
+, ;, 
+: ;: 
+3D;3D
+3DType;3D類型
+About;關於
+About_Hint;聯絡作者和取得最新版
+Accompaniment;伴奏
+ActiveFormatDescription;活躍格式描述
+ActiveFormatDescription_MuxingMode;活躍格式描述 - 混合模式
+Actor;演員
+Actor_Character;角色
+Added_Date;加入於
+Address;地址
+Advanced;進階
+Advanced mode;進階模式
+Album;專輯
+Album_ReplayGain_Gain;專輯播放增益
+Album_ReplayGain_Peak;專輯播放增益最高值
+Alignment;聲頻編排
+Alignment_Aligned;對齊
+Alignment_Split;分散
+All;全部
+Archival_Location;檔案位置
+Arranger;編曲
+ArtDirector;藝術指導
+AspectRatio;闊高比
+AssistantDirector;副導演
+at;於
+At least one file;（請選取檔案）
+Audio;聲音
+Audio stream(s);聲頻
+Audio_Codec_List;聲音編解碼器
+Audio_No;無聲頻
+Audio1;第一聲頻
+Audio2;第二聲頻
+AudioComments;聲音評註
+AudioCount;聲頻數量
+AudioDescriptionPresent;聲音描述呈現
+AudioDescriptionType;聲音描述類型
+AudioLoudnessStandard;聲音響度標準
+AudioTrackLayout;聲頻佈置
+Author;作者
+BarCode;條碼
+Basic;基本
+Basic_Note;注意：想得道更多此檔案的資訊，請選擇不同檢視方式（表格、樹狀圖…）
+BitDepth;深度
+BitDepth_Stored;儲存位元深度
+BitRate;流量
+BitRate_Encoded;編碼位元率
+BitRate_Maximum;最大流量
+BitRate_Minimum;最小流量
+BitRate_Mode;流量模式
+BitRate_Mode_CBR;固定式
+BitRate_Mode_VBR;浮動式
+BitRate_Nominal;預設流量
+Bits-(Pixel*Frame);數據密度【位元╱(像素×畫格)】
+BufferSize;緩衝大小
+Cancel;取消
+Channel(s);聲道數
+ChannelPositions;聲道位置
+Chapter(s);章節
+Chapters;章節
+Chapters stream(s);章節串流
+Chapters_Codec_List;章節編解碼器
+Chapters_No;無章節
+ChaptersCount;章節串流數
+CheckNewVersion;檢查新版本
+Choose custom;選擇自訂
+Choose custom sheet;選擇自訂表格
+Choose custom text;選擇自訂文字
+Choose export format;選擇匯出格式
+Choose file(s);選擇檔案
+Choose filename;選擇檔名
+Choose language;選擇語言
+Choregrapher;動作指導
+Chroma;色度
+ChromaSubsampling;色像取樣
+Close;關閉
+Close all before open;開啟前關閉其他檔案
+ClosedCaptionsLanguage;隱藏式字幕語言
+ClosedCaptionsPresent;隱藏式字幕呈垷
+ClosedCaptionsType;隱藏式字幕類型
+Codec;編碼
+Codec_Description;編解碼器描述
+Codec_Info;編解碼器資訊
+Codec_Profile;編解碼器類型
+Codec_Settings;編解碼器設定
+Codec_Settings_BVOP;編解碼器設定 - BVOP
+Codec_Settings_CABAC;編解碼器設定 - CABAC
+Codec_Settings_Endianness;編解碼器設定 - Endianness
+Codec_Settings_Firm;編解碼器設定 - Firm
+Codec_Settings_Floor;編解碼器設定 - Floor
+Codec_Settings_GMC;編解碼器設定 - GMC
+Codec_Settings_ITU;編解碼器設定 - ITU
+Codec_Settings_Law;編解碼器設定 - Law
+Codec_Settings_Matrix;編解碼器設定 - Matrix
+Codec_Settings_PacketBitStream;編解碼器設定 - Packet Bitstream
+Codec_Settings_QPel;編解碼器設定 - QPel
+Codec_Settings_Sign;編解碼器設定 - Sign
+Codec_Url;編解碼器網址
+CodecID;編碼代號
+CodecID_Description;編碼描述
+CoDirector;聯合執導
+Collection;收藏
+Colorimetry;比色法
+ColorSpace;色彩空間
+colour_primaries;色彩原色
+colour_range;色彩範圍
+Comment;評註
+CommissionedBy;委託者
+Compilation;合輯
+CompleteName;路徑
+CompletionDate;完成於
+Composer;作曲
+Compression_Mode;壓縮模式
+Compression_Mode_Lossless;無損
+Compression_Mode_Lossy;有損
+Compression_Ratio;壓縮比
+Conductor;指揮
+ContactEmail;聯絡電郵
+ContactTelephoneNumber;聯絡電話
+Container and general information;容器和一般資訊
+ContentType;內容型態
+CoProducer;聯合監制
+Copyright;版權持有
+CopyrightYear;版權年份
+CostumeDesigner;服裝設計
+Count;數量
+Country;國家
+Cover;封面
+Cover_Datas;封面資料
+Cover_Description;封面描述
+Cover_Mime;封面MIME
+Cover_Type;封面類型
+Cropped;已裁剪
+Custom;自訂
+Customize;自訂
+Date;日期
+Debug;偵錯
+Decimal point;小數點
+Delay;延遲
+Delay_Source;延遲，初始值
+Delay_Source_Container;容器
+Delay_Source_Stream;原始串流
+Delete;刪除
+Description;描述
+Digitized_Date;數碼化於
+Dimensions;維度
+Director;導演
+DirectorOfPhotography;攝影指導
+DisplayAspectRatio;顯示闊高比
+DisplayAspectRatio_CleanAperture;清除Aperture顯示闊高比
+DisplayAspectRatio_Original;原始顯示闊高比
+DistributedBy;發行商
+Distributor;發行商
+Donate;贊助
+DotsPerInch;每吋點數（DPI）
+Duration;時間長度
+Duration_End;完結時間
+Duration_Start;開始時間
+Edit;編輯
+EditedBy;編輯者
+EMail;電郵
+Encoded_Application;編碼程式
+Encoded_Date;編碼於
+Encoded_Library;編碼函式庫
+Encoded_Library_Settings;編碼設定
+Encoded_Original;來源
+EncodedBy;編碼者
+EPG_Positions;電子節目表位置（內部）
+EpisodeTitleNumber;集數標題編號
+Error_File;讀取檔案錯誤
+ExecutiveProducer;監製
+Exit;離開
+Exit_Hint;離開程式
+Export;匯出
+Export_Hint;以自訂格式匯出
+Extensions;副檔名
+Family;系列
+Fax;傳真
+File;檔案
+File size;檔案大小
+File_Append;附加到目前檔案後（警告：同參數時要小心）
+File_Created_Date;建立於
+File_Created_Date_Local;建立於（本地時間）
+File_Hint;選擇要檢視的影音或圖像檔案
+File_Modified_Date;最後更改於
+File_Modified_Date_Local;最後更改於（本地時間）
+FileExtension;副檔名
+FileName;檔案
+FileSize;檔案大小
+Folder;資料夾
+Folder (R);資料夾（含）
+Folder (R)_Hint;選擇要檢視的資料夾（含子資料夾）
+Folder (Recursively);資料夾（含子資料夾）
+Folder_Hint;選擇要檢視的資料夾
+FolderName;資料夾
+Format;格式
+Format_Commercial;廣告名稱
+Format_Commercial_IfAny;廣告名稱
+Format_Description;格式描述
+Format_Info;格式資訊
+Format_Profile;格式類型
+Format_Settings;格式設定
+Format_Settings_BVOP;格式設定 - BVOP
+Format_Settings_CABAC;格式設定 - CABAC
+Format_Settings_Emphasis;加強
+Format_Settings_Endianness;格式設定 - Endianness
+Format_Settings_Firm;格式設定 - Firm
+Format_Settings_Floor;格式設定 - Floor
+Format_Settings_FrameMode;畫格模式
+Format_Settings_GMC;格式設定 - GMC
+Format_Settings_GOP;格式設定 - GOP
+Format_Settings_ITU;格式設定 - ITU
+Format_Settings_Law;格式設定 - Law
+Format_Settings_Matrix;格式設定 - Matrix
+Format_Settings_Matrix_Custom;自訂
+Format_Settings_Matrix_Default;預設
+Format_Settings_Mode;模式
+Format_Settings_ModeExtension;模式延伸
+Format_Settings_PacketBitStream;格式設定 - Packet Bitstream
+Format_Settings_PictureStructure;格式設定 - Picture Structure
+Format_Settings_PS;格式設定 - PS
+Format_Settings_Pulldown;格式設定 - Pulldown
+Format_Settings_QPel;格式設定 - QPel
+Format_Settings_RefFrames;格式設定 - 參考畫格
+Format_Settings_SBR;格式設定 - SBR
+Format_Settings_Sign;格式設定 - Sign
+Format_Settings_Wrapping;格式設定 - Wrapping模式
+Format_Url;該格式的網址
+Format_Version;格式版本
+FpaManufacturer;FPA製造商
+FpaPass;FPA通道
+FpaVersion;FPA版本
+FrameCount;畫格數
+FrameRate;畫格率
+FrameRate_Maximum;最大畫格率
+FrameRate_Minimum;最小畫格率
+FrameRate_Mode;畫格率模式
+FrameRate_Mode_CFR;固定式
+FrameRate_Mode_VFR;浮動式
+FrameRate_Nominal;預設畫格率
+FrameRate_Original;原始畫格率
+General;一般
+Genre;類型
+Genre_000;藍調　Blues
+Genre_001;古典搖滾　Classic Rock
+Genre_002;鄉村　Country
+Genre_003;舞曲　Dance
+Genre_004;的士高　Disco
+Genre_005;放克　Funk
+Genre_006;頹廢　Grunge
+Genre_007;嘻哈　Hip-Hop
+Genre_008;爵士　Jazz
+Genre_009;金屬　Metal
+Genre_010;新世紀　New Age
+Genre_011;金曲　Oldies
+Genre_012;其他　Other
+Genre_013;流行　Pop
+Genre_014;節奏藍調　R&B
+Genre_015;唸唱　Rap
+Genre_016;滑基　Reggae
+Genre_017;搖滾　Rock
+Genre_018;科舞　Techno
+Genre_019;工業　Industrial
+Genre_020;另類　Alternative
+Genre_021;斯卡　Ska
+Genre_022;致命金屬　Death Metal
+Genre_023;惡作劇　Pranks
+Genre_024;原聲帶　Soundtrack
+Genre_025;歐式科舞　Euro-Techno
+Genre_026;氛圍　Ambient
+Genre_027;輕快嘻哈　Trip-Hop
+Genre_028;聲樂　Vocal
+Genre_029;爵士放克　Jazz+Funk
+Genre_030;融合　Fusion
+Genre_031;玄幻　Trance
+Genre_032;古典　Classical
+Genre_033;器樂　Instrumental
+Genre_034;狂幻　Acid
+Genre_035;浩室　House
+Genre_036;遊戲　Game
+Genre_037;音效素材　Sound Clip
+Genre_038;福音　Gospel
+Genre_039;噪音　Noise
+Genre_040;另類搖滾　AlternRock
+Genre_041;貝斯　Bass
+Genre_042;騷靈　Soul
+Genre_043;龐克　Punk
+Genre_044;太空　Space
+Genre_045;冥想　Meditative
+Genre_046;器樂流行　Instrumental Pop
+Genre_047;器樂搖滾　Instrumental Rock
+Genre_048;民族　Ethnic
+Genre_049;歌德　Gothic
+Genre_050;黑潮　Darkwave
+Genre_051;科舞工業　Techno-Industrial
+Genre_052;電子　Electronic
+Genre_053;流行民歌　Pop-Folk
+Genre_054;歐式舞曲　Eurodance
+Genre_055;夢幻　Dream
+Genre_056;南方搖滾　Southern Rock
+Genre_057;喜劇　Comedy
+Genre_058;狂熱　Cult
+Genre_059;幫派　Gangsta
+Genre_060;排行榜　Top 40
+Genre_061;基督唸唱　Christian Rap
+Genre_062;流行╱放克　Pop╱Funk
+Genre_063;叢林　Jungle
+Genre_064;美洲原住民　Native American
+Genre_065;酒館　Cabaret
+Genre_066;新浪潮　New Wave
+Genre_067;迷幻　Psychedelic
+Genre_068;銳舞　Rave
+Genre_069;秀場音樂　Showtunes
+Genre_070;預告片　Trailer
+Genre_071;低保真　Lo-Fi
+Genre_072;部落　Tribal
+Genre_073;狂幻龐克　Acid Punk
+Genre_074;狂幻爵士　Acid Jazz
+Genre_075;波卡　Polka
+Genre_076;復刻　Retro
+Genre_077;音樂劇　Musical
+Genre_078;搖滾　Rock n Roll
+Genre_079;硬搖滾　Hard Rock
+Genre_080;民歌　Folk　
+Genre_081;民歌搖滾　Folk-Rock
+Genre_082;國族民歌　National Folk
+Genre_083;搖擺　Swing
+Genre_084;快速融合　Fast Fusion
+Genre_085;比博　Bebop
+Genre_086;拉丁　Latin
+Genre_087;復興　Revival
+Genre_088;凱爾特　Celtic
+Genre_089;藍草　Bluegrass
+Genre_090;先驅　Avantgarde
+Genre_091;歌德搖滾　Gothic Rock
+Genre_092;前衛搖滾　Progressive Rock
+Genre_093;迷幻搖滾　Psychedelic Rock
+Genre_094;交響搖滾　Symphonic Rock
+Genre_095;慢搖滾　Slow Rock
+Genre_096;大樂隊　Big Band
+Genre_097;和聲　Chorus
+Genre_098;輕音樂　Easy Listening
+Genre_099;原味　Acoustic
+Genre_100;幽默　Humour
+Genre_101;演說　Speech
+Genre_102;香頌　Chanson
+Genre_103;歌劇　Opera
+Genre_104;小廳　Chamber Music
+Genre_105;奏鳴曲　Sonata
+Genre_106;交響樂　Symphony
+Genre_107;戰利貝斯　Booty Bass
+Genre_108;派默斯　Primus
+Genre_109;絕色　Porn Groove
+Genre_110;譏諷　Satire
+Genre_111;慢即興　Slow Jam
+Genre_112;會所　Club
+Genre_113;探戈　Tango
+Genre_114;森巴　Samba
+Genre_115;民俗　Folklore
+Genre_116;歌謠　Ballad
+Genre_117;煽情歌謠　Power Ballad
+Genre_118;節奏騷靈　Rhythmic Soul
+Genre_119;自由式　Freestyle
+Genre_120;二重奏　Duet
+Genre_121;龐克搖滾　Punk Rock
+Genre_122;獨鼓　Drum Solo
+Genre_123;無伴奏　A capella
+Genre_124;歐式浩室　Euro-House
+Genre_125;舞廳　Dance Hall
+Genre_126;果亞　Goa
+Genre_127;鼓和貝斯　Drum & Bass
+Genre_128;會所浩室　Club-House
+Genre_129;硬核　Hardcore
+Genre_130;驚恐　Terror
+Genre_131;獨立製作　Indie
+Genre_132;英倫流行　Britpop
+Genre_133;非裔龐克　Negerpunk
+Genre_134;波蘭龐克　Polsk Punk
+Genre_135;節拍　Beat
+Genre_136;基督幫派唸唱　Christian Gangsta Rap
+Genre_137;重金屬　Heavy Metal
+Genre_138;黑金屬　Black Metal
+Genre_139;跨界　Crossover
+Genre_140;當代基督　Contemporary Christian
+Genre_141;基督搖滾　Christian Rock
+Genre_142;美倫格　Merengue
+Genre_143;莎莎　Salsa
+Genre_144;敲擊金屬　Thrash Metal
+Genre_145;動畫　Anime
+Genre_146;日本流行　JPop
+Genre_147;合成流行　Synthpop
+Genre_148;抽象　Abstract
+Genre_149;藝術搖滾　Art Rock
+Genre_150;巴羅克　Baroque
+Genre_151;班格拉　Bhangra
+Genre_152;大節拍　Big Beat
+Genre_153;霹靂節拍　Breakbeat
+Genre_154;鬆弛　Chillout
+Genre_155;緩拍　Downtempo
+Genre_156;迴響　Dub
+Genre_157;電體　EBM
+Genre_158;兼收　Eclectic
+Genre_159;電放　Electro
+Genre_160;電放復刻　Electroclash
+Genre_161;情感搖滾　Emo
+Genre_162;實驗　Experimental
+Genre_163;修車　Garage
+Genre_164;全球　Global
+Genre_165;智舞　IDM
+Genre_166;病態氛圍　Illbient
+Genre_167;工業歌德　Industro-Goth
+Genre_168;即興樂隊　Jam Band
+Genre_169;德式搖滾　Krautrock
+Genre_170;左場　Leftfield
+Genre_171;酒廊　Lounge
+Genre_172;數學搖滾　Math Rock
+Genre_173;新浪漫　New Romantic
+Genre_174;新霹靂　Nu-Breakz
+Genre_175;後龐克　Post-Punk
+Genre_176;後搖滾　Post-Rock
+Genre_177;迷玄　Psytrance
+Genre_178;瞪鞋搖滾　Shoegaze
+Genre_179;太空搖滾　Space Rock
+Genre_180;熱帶搖滾　Trop Rock
+Genre_181;世界　World Music
+Genre_182;新古典　Neoclassical
+Genre_183;聲音書　Audiobook
+Genre_184;聲劇院　Audio Theatre
+Genre_185;新德國浪潮　Neue Deutsche Welle
+Genre_186;隨身播　Podcast
+Genre_187;獨立搖滾　Indie Rock
+Genre_188;G放克　G-Funk
+Genre_189;迴響貝斯　Dubstep
+Genre_190;修車搖滾　Garage Rock
+Genre_191;迷幻氛圍　Psybient
+Go to WebSite;前往網站
+Grouping;群組
+Gop_OpenClosed;開啟╱關閉GOP
+Gop_OpenClosed_Open;開啟
+Gop_OpenClosed_Closed;關閉
+Gop_OpenClosed_FirstFrame;開啟╱關閉GOP的首個畫格
+h;時
+Header file;建立標頭檔案
+Height;高
+Height_CleanAperture;清除Aperture高度
+Height_Original;原始高度
+Help;說明
+Hint;提示
+How many audio streams?;有多少聲頻？
+How many chapters streams?;有多少章節串流？
+How many text streams?;有多少字幕串流？
+How many video streams?;有多少影片串流？
+HTML;網頁式
+ID;識別字
+IdentClockStart;開啟倒數時鐘
+Image;圖像
+Image stream(s);圖像串流
+Image_Codec_List;圖像編解碼器
+ImageCount;圖像串流數
+Info;描述
+Instruments;樂器
+Interlaced_BFF;底場優先
+Interlaced_Interlaced;隔行掃描
+Interlaced_PPF;逐行掃描
+Interlaced_Progressive;逐行掃描
+Interlaced_TFF;頂場優先
+Interlacement;掃描模式
+Interleave_Duration;聲頻間距
+Interleave_Preload;聲頻預載
+Interleave_VideoFrames;聲頻間距
+Interleaved;聲頻影像交錯
+InternetMediaType;網上影音類型
+IRCA;IRCA
+ISBN;ISBN
+ISRC;ISRC
+Keywords;關鍵字
+Known codecs;已知編解碼器
+Known formats;已知格式
+Known parameters;已知項目
+Label;標記
+Language;語言
+Language_aa;阿法爾語　Afar
+Language_ab;阿布哈茲語　Abkhazian
+Language_ae;阿維斯陀語　Avestan
+Language_af;南非荷蘭語　Afrikaans
+Language_ak;阿坎語　Akan
+Language_am;阿姆哈拉語　Amharic
+Language_an;阿拉貢語　Aragonese
+Language_ar;阿拉伯語　Arabic
+Language_as;阿薩姆語　Assamese
+Language_av;阿華爾語　Avaric
+Language_ay;艾馬拉語　Aymara
+Language_az;阿西拜疆語　Azerbaijani
+Language_ba;巴什基爾語　Bashkir
+Language_be;白俄羅斯語　Belarusian
+Language_bg;保加利亞語　Bulgarian
+Language_bh;比哈爾語　Bihari
+Language_bi;比斯拉馬語　Bislama
+Language_bm;班巴拉語　Bambara
+Language_bn;孟加拉語　Bengali
+Language_bo;藏語　Tibetan
+Language_br;布列塔尼語　Breton
+Language_bs;波斯尼亞語　Bosnian
+Language_ca;加泰隆語　Catalan
+Language_ce;車臣語　Chechen
+Language_ch;查莫羅語　Chamorro
+Language_co;科西嘉語　Corsican
+Language_cr;克里語　Cree
+Language_cs;捷克語　Czech
+Language_cu;教會斯拉夫語　Church Slavonic
+Language_cv;楚瓦什語　Chuvash
+Language_cy;威爾斯語　Welsh
+Language_da;丹麥語　Danish
+Language_de;德語　German
+Language_dv;迪維西語　Divehi
+Language_dz;不丹語　Dzongkha
+Language_ee;埃維語　Ewe
+Language_el;希臘語　Greek
+Language_en;英語　English
+Language_en-gb;英式英語　British English
+Language_en-us;美式英語　American English
+Language_eo;世界語　Esperanto
+Language_es;西班牙語　Spanish
+Language_et;愛沙尼亞語　Estonian
+Language_eu;巴斯克語　Basque
+Language_fa;波斯語　Persian
+Language_ff;富拉語　Fulah
+Language_fi;芬蘭語　Finnish
+Language_fj;斐濟語　Fijian
+Language_fo;法羅語　Faroese
+Language_fr;法語　French
+Language_fy;弗里西語　Frisian
+Language_ga;愛爾蘭語　Irish
+Language_gd;蘇格蘭蓋爾語　Gaelic
+Language_gl;加里西亞語　Galician
+Language_gn;瓜拉尼語　Guarani
+Language_gu;古吉拉特語　Gujarati
+Language_gv;曼島語　Manx
+Language_ha;豪薩語　Hausa
+Language_he;希伯來語　Hebrew
+Language_hi;北印度語　Hindi
+Language_ho;希里莫圖語　Hiri Motu
+Language_hr;克羅地亞語　Croatian
+Language_ht;海地語　Haitian
+Language_hu;匈牙利語　Hungarian
+Language_hy;亞美尼亞語　Armenian
+Language_hz;凱雷羅語　Herero
+Language_ia;國際語　Interlingua
+Language_id;印尼語　Indonesian
+Language_ie;西洋語　Interlingue
+Language_ig;伊博語　Igbo
+Language_ii;四川彝語　Sichuan Yi
+Language_ik;伊紐特語　Inupiaq
+Language_Info;語言資訊
+Language_io;伊多語　Ido
+Language_is;冰島語　Icelandic
+Language_it;意大利語　Italian
+Language_iu;伊努特語　Inuktitut
+Language_ja;日本語　Japanese
+Language_jv;爪哇語　Javanese
+Language_ka;格魯吉亞語　Georgian
+Language_kg;剛果語　Kongo
+Language_ki;基庫尤語　Kikuyu
+Language_kj;關耶瑪語　Kwanyama
+Language_kk;哈薩克語　Kazakh
+Language_kl;格陵蘭語　Kalaallisut
+Language_km;高棉語　Khmer
+Language_kn;卡納達語　Kannada
+Language_ko;韓語　Korean
+Language_kr;卡努里語　Kanuri
+Language_ks;克什米爾語　Kashmiri
+Language_ku;庫爾德語　Kurdish
+Language_kv;科米語　Komi
+Language_kw;康和語　Cornish
+Language_ky;吉爾吉斯語　Kirghiz
+Language_la;拉丁語　Latin
+Language_lb;盧森堡語　Luxembourgish
+Language_lg;盧干達語　Luganda
+Language_li;林堡語　Limburgish
+Language_ln;林加拉語　Lingala
+Language_lo;寮語　Lao
+Language_lt;立陶宛語　Lithuanian
+Language_lu;盧巴卡丹加語　Luba-Katanga
+Language_lv;拉脫維亞語　Latvian
+Language_mg;馬拉加斯語　Malagasy
+Language_mh;馬紹爾語　Marshallese
+Language_mi;毛利語　Maori
+Language_mk;馬其頓語　Macedonian
+Language_ml;馬拉雅拉姆語　Malayalam
+Language_mn;蒙古語　Mongolian
+Language_mo;摩爾多瓦語　Moldavian
+Language_More;語言，更多資訊
+Language_mr;馬拉地語　Marathi
+Language_ms;馬來語　Malay
+Language_mt;馬爾他語　Maltese
+Language_mul;多語言
+Language_my;緬甸語　Burmese
+Language_na;瑙魯語　Nauru
+Language_nb;挪威伯克梅爾語　Norwegian Bokmal
+Language_nd;北恩德貝勒語　Ndebele
+Language_ne;尼泊爾語　Nepali
+Language_ng;恩東加語　Ndonga
+Language_nl;荷蘭語　Dutch
+Language_nn;挪威尼諾斯克語　Norwegian Nynorsk
+Language_no;挪威語　Norwegian
+Language_nr;南恩德貝勒語　Ndebele
+Language_nv;納瓦荷語　Navaho
+Language_ny;尼揚賈語　Nyanja
+Language_oc;奧克語　Occitan
+Language_oj;奧吉布華語　Ojibwa
+Language_om;奧羅莫語　Oromo
+Language_or;奧里雅語　Oriya
+Language_os;奧西梯語　Ossetic
+Language_pa;旁遮普語　Panjabi
+Language_pi;巴利語　Pali
+Language_pl;波蘭語　Polish
+Language_ps;普什圖語　Pushto
+Language_pt;葡語　Portuguese
+Language_pt-br;巴西葡語　Brazilian Portuguese
+Language_qu;克丘亞語　Quechua
+Language_rm;羅曼什語　Raeto-Romance
+Language_rn;隆迪語　Rundi
+Language_ro;羅馬尼亞語　Romanian
+Language_ru;俄語　Russian
+Language_rw;盧旺達語　Kinyarwanda
+Language_sa;梵語　Sanskrit
+Language_sc;薩丁尼亞語　Sardinian
+Language_sd;信德語　Sindhi
+Language_se;北薩米語　Northern Sami
+Language_sg;桑戈語　Sango
+Language_si;僧伽羅語　Sinhala
+Language_sk;斯洛伐克語　Slovak
+Language_sl;斯洛文尼亞語　Slovenian
+Language_sm;薩摩亞語　Samoan
+Language_sn;紹納語　Shona
+Language_so;索馬里語　Somali
+Language_sq;阿爾巴尼亞語　Albanian
+Language_sr;西爾維亞語　Serbian
+Language_ss;斯威士語　Swati
+Language_st;南部索托語　Sotho
+Language_su;巽他語　Sundanese
+Language_sv;瑞典語　Swedish
+Language_sw;斯華希里語　Swahili
+Language_ta;泰米爾語　Tamil
+Language_te;泰盧固語　Telugu
+Language_tg;塔吉克語　Tajik
+Language_th;泰語　Thai
+Language_ti;提格利尼亞語　Tigrinya
+Language_tk;土庫曼語　Turkmen
+Language_tl;菲律賓語　Tagalog
+Language_tn;茨華納語　Tswana
+Language_to;湯加語　Tonga
+Language_tr;土耳其語　Turkish
+Language_ts;嵩加語　Tsonga
+Language_tt;韃靼語　Tatar
+Language_tw;奇維語　Twi
+Language_ty;大溪地語　Tahitian
+Language_ug;維吾爾語　Uighur
+Language_uk;烏克蘭語　Ukrainian
+Language_ur;烏爾都語　Urdu
+Language_uz;烏茲別克語　Uzbek
+Language_ve;文達語　Venda
+Language_vi;越南語　Vietnamese
+Language_vo;窩拉普克語　Volapuk
+Language_wa;華隆語　Walloon
+Language_wo;窩洛夫語　Wolof
+Language_xh;班圖語　Xhosa
+Language_yi;伊地語　Yiddish
+Language_yo;約魯巴語　Yoruba
+Language_za;壯語　Zhang
+Language_zh;中國漢語　Putonghua
+Language_zh-cn;中國漢語　Putonghua
+Language_zh-tw;臺灣華語　Mandarin
+Language_zu;祖魯語　Zulu
+LawRating;分級
+LCCN;LCCN
+Library;合成函式庫
+Lightness;亮度
+LineUpStart;開始編排
+List;清單
+Lyricist;填詞
+Lyrics;歌詞
+Mastered_Date;後製於
+MasteredBy;後製者
+Matrix_Channel(s);矩陣編碼 - 聲道
+Matrix_ChannelPositions;矩陣編碼 - 聲道位置
+matrix_coefficients;矩陣系數
+Matrix_Format;矩陣格式
+MediaInfo_About;使用MediaInfo可輕易觀看影音和圖像檔案的技術和標籤資訊。\r\n除蘋果應用程式商店圖像用戶介面外，它是開源的。\r\n按BSD式授權協議，用戶和開發者可免費研習、更改和再發佈本程式。
+Menu;選單
+Menu stream(s);選單串流
+Menu_Codec_List;選單編解碼器
+Menu_Hint;更多可能
+Menu_No;無選單
+MenuCount;選單串流數
+MenuID;選單識別字
+mn;分
+Mood;情緒
+More;更多
+Movie;標題
+ms;毫秒
+MSDI;MSDI
+MusicBy;配樂者
+MuxingMode;混合模式
+MuxingMode_MoreInfo;更多資訊
+MuxingMode_PackedBitstream;Packed bitstream
+Name;名稱
+Nationality;國籍
+NetworkName;網絡名稱
+New;新建
+Newest version;檢查更新（須網絡連線）
+NewVersion_Menu;存在新版本
+NewVersion_Question_Content;存在新版本（v%Version%），下載嗎？
+NewVersion_Question_Title;新版本已推出！
+No;否
+Not yet;仍未
+NumColors;色彩數量
+OK;確定
+One output file per input file;一個輸入檔對應一個輸出檔
+Open;開啟
+OpenCandy_01;正在下載________
+OpenCandy_02;__% 完成
+OpenCandy_03;網絡連線被中斷
+OpenCandy_04;________下載完成
+OpenCandy_05;按一下安裝________
+OpenCandy_06;取消安裝？\r\n想繼續，按「否」。\r\n注意：可按下選單上的「離開」，到下次重新開機時再安裝。
+OpenCandy_07;已暫停下載________。\r\n請按通知區域圖示以繼續。
+OpenCandy_08;發生嚴重錯誤。_________的安裝被終止.
+OpenCandy_09;暫停下載
+OpenCandy_10;取消安裝
+OpenCandy_11;繼續下載
+OpenCandy_12;離開安裝程式
+OpenCandy_13;___________ - 由____________推介
+OpenCandy_14;正在下載_________
+OpenCandy_15;按閣下指示，正在下載___________（由___________推介）。準備好安裝時我們會再作通知。  
+OpenCandy_16;已準備好安裝___________。
+OpenCandy_17;已完成下載___________。請按「安裝」繼續。
+OpenCandy_18;已下載___________（總計___________）
+OpenCandy_19;由OpenCandy全力支援
+OpenCandy_20;到OpenCandy.com了解更多。
+OpenCandy_21;安裝
+OpenCandy_22;安裝___________
+OpenCandy_23;取消安裝___________ 。\r\n確定？
+OpenCandy_24;暫停
+OpenCandy_25;下載已暫停。準備好時，請按「繼續」。
+OpenCandy_26;繼續
+OpenCandy_27;立即安裝
+OpenCandy_28;暫停下載
+OpenCandy_29;繼續下載
+OpenCandy_30;取消安裝
+OpenCandy_31;請選取安裝選項
+OpenCandy_32;安裝___________
+OpenCandy_33;不要安裝
+OpenCandy_34;請選取安裝選項
+OpenCandy_35;______推介此軟件
+OpenCandy_36;目前安裝無法中斷
+OpenCaptionsLanguage;開放式字幕語言
+OpenCaptionsPresent;開放式字幕呈現
+OpenCaptionsType;開放式字幕類型
+Options;選項
+Options_Hint;喜好設定
+Original;來源
+OriginalNetworkName;來源網絡名稱
+OriginalSourceForm;來源自
+OriginalSourceMedium;來源媒介
+Originator;原創者
+Other;其他
+OtherIdentifier;其他識別字
+OtherIdentifierType;其他識別字類型
+Output;輸出
+Output format;檢視方式
+OverallBitRate;整體流量
+OverallBitRate_Maximum;整體最大流量
+OverallBitRate_Minimum;整體最小流量
+OverallBitRate_Mode;整體流量模式
+OverallBitRate_Nominal;預設整體流量
+Part;部份
+Part_Count;總數
+PartNumber;此部份的編號
+PartTotal;部份的總計數量
+Performer;演出者
+Period;時期
+Phone;電話
+PictureRatio;比例
+PixelAspectRatio;像素闊高比
+PixelAspectRatio_CleanAperture;清除Aperture闊高比
+PixelAspectRatio_Original;原始像素闊高比
+PlayCounter;播放計數器
+Played_Count;已播放
+Played_First_Date;首次播放
+Played_Last_Date;上次播放
+PlayTime;播放長度
+Position;位置
+Position_Total;總數
+Preferences;喜好設定
+PrimaryAudioLanguage;主要語音
+Producer;製作
+ProductionDesigner;美術指導
+ProductionNumber;產品編號
+ProductionStudio;製作中心
+ProductPlacement;產品位置
+ProgrammeHasText;節目包含文字
+ProgrammeTextLanguage;節目文字的語言
+ProgrammeTitle;節目名稱
+Publisher;發行商
+Purchased_Date;購買於
+Quote character;引用字元
+RadioStation;電台
+Rating;分級
+Recorded_Date;錄製於
+Recorded_Location;錄製地點
+Released_Date;發行於
+RemixedBy;重新混音者
+ReplayGain_Gain;播放增益
+ReplayGain_Peak;播放增益最高值
+Resolution;解像度
+s;秒
+SamplingCount;取樣數量
+SamplingRate;取樣率
+Save;儲存
+ScanOrder;掃描順序
+ScanOrder_Original;原始掃描順序
+ScanOrder_Stored;儲存的掃描順序
+ScanOrder_StoredDisplayedInverted;場序互換
+ScanOrder_StoreMethod;掃描順序 - 儲存方式
+ScanType;型態
+ScanType_Original;原始掃描型態
+ScanType_StoreMethod;掃描型態 - 儲存方式
+ScreenplayBy;編劇
+Season;季度
+SecondaryAudioLanguage;第二語音
+see below;詳見下方
+Send HeaderFile;請將標頭檔寄到： http://sourceforge.net/projects/mediainfo/ （Bug section）
+Separator_Columns;換欄字元
+Separator_Lines;換行字元
+SeriesTitle;系列名稱
+ServiceChannel;服務頻道
+ServiceName;服務名稱
+ServiceProvider;服務提供者
+ServiceType;服務類型
+Set;集合
+Set_Count;集合數
+Setup;設定
+Sharpness;銳利度
+Sheet;表格
+Sheet (Complete);表格（完整）
+Shell extension;快顯功能表（影音檔案右鍵選單加入MediaInfo選項）
+Shell extension, folder;資料夾同時適用
+Shell InfoTip;檔案提示（滑鼠移到檔案上顯示相關訊息）
+ShimName;Shim名稱
+ShimVersion;Shim版本
+Show menu;顯示選單
+Show toolbar;顯示工具列
+SigningPresent;Signing Present
+SignLanguage;手語
+Sort;排序
+SoundEngineer;音響工程師
+Source;來源
+Source_Duration;來源時間長度
+Source_FrameCount;來源畫格數
+Source_SamplingCount;來源取樣數量
+Source_StreamSize;來源串流大小
+Source_StreamSize_Encoded;來源編碼串流大小
+Standard;標準
+StoreMethod_InterleavedFields;聲頻影像交錯場
+StoreMethod_SeparatedFields;單獨場
+StoreMethod_SeparatedFields_1;單獨場（每批量1場）
+StoreMethod_SeparatedFields_2;單獨場（每批量兩場）
+Stream;串流
+Stream_MoreInfo;更多資訊
+StreamCount;此類串流數量
+StreamID;串流ID
+StreamKind;串流類型
+StreamKindID;串流識別字
+StreamKindPos;串流識別字
+StreamSize;串流大小
+StreamSize_Encoded;編碼串流大小
+StreamSize_Proportion;此串流的比例
+Subject;主題
+SubTrack;子聲頻
+Summary;摘要
+Supported formats;支援格式
+Supported?;是否支援？
+Synopsis;系统摘要
+SystemId;識別字
+Tagged_Application;標籤程式
+Tagged_Date;標籤於
+Technician;技術員
+TermsOfUse;授權條款
+TertiaryAudioLanguage;第三語音
+Text;文字
+Text - Custom;文字 - 自訂
+Text (HTML);文字（HTML）
+Text stream(s);字幕串流
+Text streams;字幕串流
+Text_Codec_List;字幕編解碼器
+Text_No;無字幕
+Text1;第一字幕串流
+Text2;第二字幕串流
+Text3;第三字幕串流
+TextCount;字幕串流數
+TextlessElementsExist;存在無文字元素
+ThanksTo;鳴謝
+Thousands separator;千位分隔符號
+TimeCode;時間代碼
+TimeCode_FirstFrame;首畫格的時間代碼
+TimeCode_Settings;時間代碼設定
+TimeCode_Source;時間代碼來源
+TimeCode_Striped;時間代碼 - 條紋
+TimeStamp;時間戳
+TimeZone;時區
+Title;標題
+Title_More;更多資訊
+Total;總數
+TotalNumberOfParts;部份的總計數量
+TotalProgrammeDuration;總節目時間長度
+Track;聲頻
+Track_Count;聲頻數
+transfer_characteristics;傳輸特性
+Translator;「香港正體字」譯者
+Tree;樹狀圖
+Tree & Text;樹狀圖和文字
+Type;類型
+UniqueID;獨立識別字
+Unknown;未知
+Url;相關網址
+Video;影像
+Video stream(s);影片串流
+Video_Codec_List;影片編解碼器
+Video_Delay;影像延遲
+Video_No;無影片
+Video0_Delay;影片0延遲
+Video1;首影片串流
+VideoComments;影片評註
+VideoCount;影片串流數
+View;檢視
+View_Hint;更改檢視方式
+Warning : more streams in the files;注意：檔案中有更多串流
+Web;網頁
+WebSite_Audio;前往此聲音編解碼器的網站
+WebSite_Audio_More;前往網站（%Url%）找尋此聲音編解碼器
+WebSite_General;前往可播放這檔案其中一個程式的網站
+WebSite_General_More;前往可播放這檔案其中一個程式的網站
+WebSite_Text;前往此文字編解碼器的網站
+WebSite_Text_More;前往網站（%Url%）找尋此文字編解碼器
+WebSite_Url;https://mediaarea.net/zh-HK/MediaInfo
+WebSite_Video;前往此影片編解碼器的網站
+WebSite_Video_More;前往網站（%Url%）找尋此影片編解碼器
+Width;闊
+Width_CleanAperture;清除Aperture闊度
+Width_Original;原始闊度
+WriteMe;寫信給作者
+WriteToTranslator;寫信給「香港正體字」譯者
+Written_Date;編寫於
+Written_Location;編寫地點
+WrittenBy;作者
+Yes;是
+Your system;可識別清單
+ZZ_Automatic_Percent;
+ZZ_AutomaticLanguage_Percent;

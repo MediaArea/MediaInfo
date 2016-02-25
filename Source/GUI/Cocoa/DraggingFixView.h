@@ -9,9 +9,9 @@
 #import <Cocoa/Cocoa.h>
 
 /*
- 
+
  Use this class for the root NSView in NSTabViewItem. In El Capitan (OSX 10.11) this should fix the file dragging.
- 
+
  */
 
 @interface DraggingFixView : NSView

@@ -201,6 +201,7 @@ __published:    // IDE-managed Components
     TMenuItem *ToolBar_View_FIMS_1_2;
     TMenuItem *ToolBar_View_FIMS_1_3;
     TMenuItem *ToolBar_View_reVTMD;
+    TMenuItem *M_Debug_FullParsing;
     void __fastcall FormResize(TObject *Sender);
     void __fastcall M_Help_AboutClick(TObject *Sender);
     void __fastcall M_Options_PreferencesClick(TObject *Sender);
@@ -265,6 +266,7 @@ __published:    // IDE-managed Components
     void __fastcall M_View_XMLClick(TObject *Sender);
     void __fastcall M_TektronixClick(TObject *Sender);
     void __fastcall M_View_reVTMDClick(TObject *Sender);
+    void __fastcall M_Debug_FullParsingClick(TObject *Sender);
 private:    // User declarations
 public:        // User declarations
     MESSAGE void __fastcall HandleDropFiles (TMessage&);

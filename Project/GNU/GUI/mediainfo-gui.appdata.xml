@@ -53,6 +53,24 @@
    <image>https://mediaarea.net/_/img/Screenshot/MediaInfo_Linux_Html_mkv_en.png</image>
   </screenshot>
  </screenshots>
+ <keywords>
+  <keyword>media info</keyword>
+  <keyword>metadata</keyword>
+  <keyword>tag</keyword>
+  <keyword>video</keyword>
+  <keyword>audio</keyword>
+  <keyword>subtitles</keyword>
+  <keyword>chapters</keyword>
+  <keyword>codec</keyword>
+  <keyword>mkv</keyword>
+  <keyword>mpeg</keyword>
+  <keyword>mp3</keyword>
+  <keyword>h264</keyword>
+  <keyword>avc</keyword>
+  <keyword>h265</keyword>
+  <keyword>hevc</keyword>
+  <keyword>avi</keyword>
+ </keywords>
  <url type="homepage">https://mediaarea.net/</url>
  <url type="faq">https://mediaarea.net/MediaInfo/Support/FAQ</url>
  <url type="bugtracker">https://sourceforge.net/p/mediainfo/bugs/</url>

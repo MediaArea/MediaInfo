@@ -121,7 +121,6 @@ void __fastcall TPreferences_CustomF::HelpClick(TObject *Sender)
 {
     TForm* Form=new TForm(this);
     Form->Caption="Help on Custom text";
-    Form->Caption="Help on Custom text";
     Form->Width=600;
     Form->Height=300;
     Form->BorderIcons<<biSystemMenu;

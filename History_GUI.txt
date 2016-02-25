@@ -13,6 +13,64 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.82, 2016-01-27
+--------------
++ Matroska: CRC-32 validation
++ Matroska: support of padding/junk at the start of a segment
++ Matroska: trace is activated for all elements (but report is still based on the first element met)
++ Matroska: add an intermediate level in the trace for the raw stream parser
+x FLV: potential infinite loop fixed
+x #B966, DTS: DTS-HD HR 3840 not detected anymore
+x AC-3: wrong sample rate with 32 kHz streams
+x #B948, EBUCore 1.6: invalid output due to position of containerEncoding element
+x #B957, MPEG-7 output: No XML encoded value output
+
+Version 0.7.81, 2015-12-31
+--------------
++ Acquisition Metadata: support of all SMPTE RDD18 elements
++ Matroska: cover presence and content of the cover, thanks to Max Pozdeev
++ #F446, Matroska: Handling of cropping values, thanks to Max Pozdeev
++ Improvement of Python binding: Mac Os X support, Python2 and Python3 can use same MediaInfoDLL.py
++ #F484, AVI: OpenDML Interlaced / Progressive scan type detection
++ MP4: support of AtomicParsley imdb tag
+x #B959, MPEG-TS: MPEG-1 Video appeared as MPEG-2 Video
+x #B914, Matroska: Undefined number of chapters in some M4V with Timed Text, thanks to Max Pozdeev
+x #B962, Matroska: negative timecodes were not correctly handled
+x #B964, FLV: was hanging trying to open some FLV files
+x JPEG in AVI or MOV: better handling of buggy APP0/AVI1, avoiding some false positives about interlacement
+x DVCPRO HD: some containers consider DVCPRO HD as with width 1920 despite the fact it is 1280 or 1440, using 1280 or 1440 in all cases
+
+Version 0.7.80, 2015-11-30
+--------------
++ Matroska: support of MKVMerge statistics tags (duration frame count, stream size, bit rate) per track, thanks to ndjamena
++ FLAC: Channel positions, thanks to ndjamena
++ FLAC: difference between detected bit depth and stored bit depth
++ MPEG-TS: if DTVCC transport stream is present and no DTVCC service descriptor, scan also in the middle of the file in order to detect more caption services
++ Subtitle frame rate computing if frame count and duration are available (hidden by default)
++ Subtitles in Matroska: count of elements
++ Matroska, MXF and MP4/MOV: detection of truncated files
++ DTS: difference between ES Matrix and ES Discrete
++ DTS: display ES Matrix or ES Discrete even if HRA or MA is present
++ DTS: difference between DTS-HRA with 96k option and pure DTS-96/24
++ DTS: detection of DTS:X
++ Samples per frame info
++ AC-3: detection of Atmos inside TrueHD
++ Video frame rate: showing precision of 1/1.001 frame rates (e.g. "23.976 (24000/1001) fps" and "23.976 (23976/1000) fps")
++ MPEG-4/MOV: showing the complete list of compatible brands in the CodecID field
++ MPEG-4/MOV: Alternate groups
++ MPEG-4/MOV: "Disabled" tag
++ MPEG-4/MOV: "Forced" tag
++ MPEG-4/MOV: showing links between tracks (chapters for, subtitles for, fallback for)
++ MXF: handling of more acquisition metadata items
++ MXF: Package name
++ AVC: Store method of interlaced content (Interleaved Fields or Separated Fields)
++ EBUCore: acquisition metadata (Proof of concept, for feedback only)
+x Matroska: frame rate detection algorithm revisited, less wrong numbers are expected
+x SDP/Teletext: some pages were sometimes (when present in 2 different SDP lines) displayed several times
+x MPEG-4/MOV: some hint tracks were not displayed
++ Hongkongese language added
++ Option "Full parsing"
+
 Version 0.7.79, 2015-11-02
 --------------
 x MediaTrace: fixed some invalid outputs
@@ -62,7 +120,7 @@ Version 0.7.75, 2015-06-30
 x XDCAM: some directory structures were wrongly detected as XDCAM structure having a XML file
 x MXF: SDTI 60 fps times were wrong
 x #B927, DPX: date/time specific DPX format was used instead of the ISO-like one
-x #B927, EBUCore: invalid content in attribute startDate 
+x #B927, EBUCore: invalid content in attribute startDate
 x ProRes: streams with apcs CodecID were displayed with an incoherent bit depth instead of no bit depth
 
 Version 0.7.74, 2015-05-25
@@ -256,7 +314,7 @@ Version 0.7.68, 2014-04-02
 + Node.js examples added, in contrib directory
 + GXF: support of DVCPRO HD
 + GXF: Media Type is reported
-+ HEVC: added support of scaling_list_data 
++ HEVC: added support of scaling_list_data
 + HEVC: deactivated general_profile_compatibility_flag validity test because some encoders do not implement it correctly
 + MPEG-4/MOV: Speed improvement, especially for full parsing of 100+ GB files.
 + File reading: Speed improvement of big files, especially for full parsing, with the help of a dedicated reading thread

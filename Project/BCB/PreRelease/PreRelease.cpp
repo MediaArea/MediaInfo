@@ -8,6 +8,8 @@
 
 
 
+
+
 USEFORM("..\..\..\Source\PreRelease\VCL\PreRelease_.cpp", Form1);
 //---------------------------------------------------------------------------
 WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)

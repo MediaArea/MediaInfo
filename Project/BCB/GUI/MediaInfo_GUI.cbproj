@@ -42,11 +42,11 @@
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
 			<Defines>MEDIAINFO_DLL_STATIC;$(Defines)</Defines>
-			<VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=0.7.79.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=;Comments=</VerInfo_Keys>
+			<VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=0.7.82.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=;Comments=</VerInfo_Keys>
 			<Manifest_File>None</Manifest_File>
 			<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
 			<VerInfo_MinorVer>7</VerInfo_MinorVer>
-			<VerInfo_Release>79</VerInfo_Release>
+			<VerInfo_Release>82</VerInfo_Release>
 			<VerInfo_MajorVer>0</VerInfo_MajorVer>
 			<VerInfo_Locale>1033</VerInfo_Locale>
 			<PackageImports>IPIndyImpl;bindcompfmx;fmx;rtl;dbrtl;IndySystem;DbxClientDriver;bindcomp;inetdb;DBXInterBaseDriver;DataSnapCommon;DataSnapClient;DataSnapServer;DataSnapProviderClient;xmlrtl;DbxCommonDriver;IndyProtocols;DBXMySQLDriver;dbxcds;bindengine;soaprtl;DBXOracleDriver;dsnap;DBXInformixDriver;IndyCore;fmxase;DBXFirebirdDriver;inet;fmxobj;inetdbxpress;DBXSybaseASADriver;fmxdae;dbexpress;DataSnapIndy10ServerTransport;$(PackageImports)</PackageImports>
@@ -67,7 +67,7 @@
 			<ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\release\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base_Win32)'!=''">
-			<ILINK_LibraryPath>D:\Programmation\MediaInfo\Project\BCB\GUI\Win32\Release\;D:\Programmation\MediaInfoLib\Project\BCB\Dll\Win32\Release\;C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\lib\win32\release\;D:\Programmation\zlib\projects\BCB\Win32\Release\;D:\Programmation\MediaInfoLib\Project\BCB\Library\Win32\Release\;D:\Programmation\ZenLib\Project\BCB\Library\Win32\Release\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+			<ILINK_LibraryPath>C:\Programmation\zlib\contrib\BCB\Win32\Release\;C:\Programmation\ZenLib\Project\BCB\Library\Win32\Release\;C:\Programmation\MediaInfoLib\Project\BCB\Dll\Win32\Release\;D:\Programmation\MediaInfo\Project\BCB\GUI\Win32\Release\;D:\Programmation\MediaInfoLib\Project\BCB\Dll\Win32\Release\;C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\lib\win32\release\;D:\Programmation\zlib\projects\BCB\Win32\Release\;D:\Programmation\MediaInfoLib\Project\BCB\Library\Win32\Release\;D:\Programmation\ZenLib\Project\BCB\Library\Win32\Release\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
 			<PackageImports>vcldbx;frx16;TeeDB;Rave100VCL;vclib;Tee;inetdbbde;DBXOdbcDriver;DBXSybaseASEDriver;ibxpress;vclimg;frxDB16;intrawebdb_120_160;fs16;TeeUI;FMXTee;vclactnband;vcldb;vcldsnap;bindcompvcl;vclie;vcltouch;Intraweb_120_160;DBXDb2Driver;bcbsmp;websnap;vclribbon;frxe16;VclSmp;fsDB16;vcl;DataSnapConnectors;CloudService;DBXMSSQLDriver;FmxTeeUI;dsnapcon;vclx;webdsnap;bdertl;adortl;bcbie;$(PackageImports)</PackageImports>
 			<DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
 			<IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
@@ -102,9 +102,9 @@
 			<TASM_Debugging>None</TASM_Debugging>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-			<VerInfo_Release>79</VerInfo_Release>
+			<VerInfo_Release>82</VerInfo_Release>
 			<LinkPackageStatics>rtl.lib;vcl.lib;bcbie.lib</LinkPackageStatics>
-			<VerInfo_Keys>CompanyName=MediaArea.net;FileDescription=Convenient unified display of the most relevant technical and tag data for video and audio files;FileVersion=0.7.79.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=MediaInfo;ProductVersion=0.7.79.0;Comments=</VerInfo_Keys>
+			<VerInfo_Keys>CompanyName=MediaArea.net;FileDescription=Convenient unified display of the most relevant technical and tag data for video and audio files;FileVersion=0.7.82.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=MediaInfo;ProductVersion=0.7.82.0;Comments=</VerInfo_Keys>
 			<Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
 		</PropertyGroup>
 		<ItemGroup>
@@ -113,7 +113,7 @@
 				<IgnorePath>true</IgnorePath>
 			</LibFiles>
 			<LibFiles Condition="'$(Platform)'=='Win32'" Include="..\..\..\..\MediaInfoLib\Project\BCB\Dll\Win32\Release\MediaInfo_i386.lib">
-				<BuildOrder>16</BuildOrder>
+				<BuildOrder>14</BuildOrder>
 				<IgnorePath>true</IgnorePath>
 			</LibFiles>
 			<CppCompile Include="MediaInfo_GUI.cpp">
@@ -176,11 +176,11 @@
 				<BuildOrder>4</BuildOrder>
 			</CppCompile>
 			<LibFiles Condition="'$(Platform)'=='Win32'" Include="..\..\..\..\ZenLib\Project\BCB\Library\Win32\Release\ZenLib.lib">
-				<BuildOrder>10</BuildOrder>
+				<BuildOrder>15</BuildOrder>
 				<IgnorePath>true</IgnorePath>
 			</LibFiles>
-			<LibFiles Condition="'$(Platform)'=='Win32'" Include="..\..\..\..\zlib\projects\BCB\Win32\Release\zlib.lib">
-				<BuildOrder>12</BuildOrder>
+			<LibFiles Condition="'$(Platform)'=='Win32'" Include="..\..\..\..\zlib\contrib\BCB\Win32\Release\zlib.lib">
+				<BuildOrder>16</BuildOrder>
 				<IgnorePath>true</IgnorePath>
 			</LibFiles>
 			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Language.dfm"/>

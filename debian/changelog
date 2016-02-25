@@ -1,14 +1,9 @@
-mediainfo (0.7.79) unstable; urgency=medium
+mediainfo (0.7.82-1) experimental; urgency=medium
 
-  * New upstream release
+  * Upstream version 0.7.82
+    For details, see https://github.com/MediaArea/MediaInfo/blob/master/History_GUI.txt
 
- -- Guillaume Roques <guillaume@mediaarea.net>  Tue, 30 Jun 2015 12:37:49 +0200
-
-mediainfo (0.7.70-1) unstable; urgency=medium
-
-  * [b20412e] Imported Upstream version 0.7.70
-
- -- Chow Loong Jin <hyperair@debian.org>  Thu, 18 Sep 2014 19:03:32 +0800
+ -- MediaArea <info@mediaarea.net>  Mon, 02 Nov 2015 10:30:00 +0100
 
 mediainfo (0.7.69-1) unstable; urgency=medium
 

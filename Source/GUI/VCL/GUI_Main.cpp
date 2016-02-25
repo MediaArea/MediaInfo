@@ -585,7 +585,7 @@ void __fastcall TMainF::Translate()
         }
         */
     }
-    if (Prefs->Donated)
+    //if (Prefs->Donated) //No more
     {
         M_Tektronix->Visible=false;
         Tool_Tektronix->Visible=false;
@@ -1263,6 +1263,13 @@ void __fastcall TMainF::M_Debug_AdvancedClick(TObject *Sender)
     Refresh();
 }
 
+//---------------------------------------------------------------------------
+
+void __fastcall TMainF::M_Debug_FullParsingClick(TObject *Sender)
+{
+    M_Debug_FullParsing->Checked=!M_Debug_FullParsing->Checked;
+    I->Option_Static(__T("ParseSpeed"), M_Debug_FullParsing->Checked?__T("1"):__T("0"));
+}
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_Debug_DummyClick(TObject *Sender)
 {

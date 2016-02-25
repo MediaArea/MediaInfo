@@ -11,22 +11,22 @@
 #import "HyperlinkButton.h"
 
 @interface MyWindowController : NSWindowController {
-	
-	IBOutlet NSArrayController *comboController;
-	IBOutlet NSTabView *tabs;
-	IBOutlet NSSegmentedControl *tabSelector;
-	IBOutlet NSOutlineView *treeOutline;
-	IBOutlet NSTreeController *treeOutlineController;
-	IBOutlet NSTextView *textField;
-	
-	IBOutlet NSTextField *easyGeneralTextLeft;
-	IBOutlet NSTextField *easyGeneralTextRight;
-	IBOutlet HyperlinkButton *easyGeneralLinkButton;
-	IBOutlet NSArrayController *easyStreamsController;
-	IBOutlet NSTableView *easyTable;
-	
-	oMediaInfoList *mediaList;
-	NSInteger selectedFileIndex;
+
+    IBOutlet NSArrayController *comboController;
+    IBOutlet NSTabView *tabs;
+    IBOutlet NSSegmentedControl *tabSelector;
+    IBOutlet NSOutlineView *treeOutline;
+    IBOutlet NSTreeController *treeOutlineController;
+    IBOutlet NSTextView *textField;
+
+    IBOutlet NSTextField *easyGeneralTextLeft;
+    IBOutlet NSTextField *easyGeneralTextRight;
+    IBOutlet HyperlinkButton *easyGeneralLinkButton;
+    IBOutlet NSArrayController *easyStreamsController;
+    IBOutlet NSTableView *easyTable;
+
+    oMediaInfoList *mediaList;
+    NSInteger selectedFileIndex;
 }
 
 //@property (assign) NSInteger selectedFileIndex;

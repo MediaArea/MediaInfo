@@ -5,7 +5,7 @@ RequestExecutionLevel admin
 ; Some defines
 !define PRODUCT_NAME "MediaInfo"
 !define PRODUCT_PUBLISHER "MediaArea.net"
-!define PRODUCT_VERSION "0.7.79"
+!define PRODUCT_VERSION "0.7.82"
 !define PRODUCT_VERSION4 "${PRODUCT_VERSION}.0"
 !define PRODUCT_WEB_SITE "http://MediaArea.net/MediaInfo"
 !define COMPANY_REGISTRY "Software\MediaArea.net"
@@ -116,13 +116,13 @@ Section "SectionPrincipale" SEC01
   CreateShortCut "$SMPROGRAMS\MediaInfo.lnk" "$INSTDIR\MediaInfo.exe" "" "" "" "" "" "Convenient unified display of the most relevant technical and tag data for video and audio files"
   SetOutPath "$INSTDIR"
   File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Win32\Release\MediaInfo_GUI.exe"
-  File "/oname=MediaInfo_i386.dll" "..\..\..\MediaInfoLib\Project\MSVC2013\DLL\Win32\Release\MediaInfo.dll"
+  File "/oname=MediaInfo_i386.dll" "..\..\..\MediaInfoLib\Project\MSVC2013\Win32\Release\MediaInfo.dll"
   ${If} ${RunningX64}
-    File "..\..\..\MediaInfoLib\Project\MSVC2013\ShellExtension\x64\Release\MediaInfo_InfoTip.dll"
-    File "..\..\..\MediaInfoLib\Project\MSVC2013\DLL\x64\Release\MediaInfo.dll"
+    File "..\..\..\MediaInfoLib\Project\MSVC2013\x64\Release\MediaInfo_InfoTip.dll"
+    File "..\..\..\MediaInfoLib\Project\MSVC2013\x64\Release\MediaInfo.dll"
   ${Else}
-    File "..\..\..\MediaInfoLib\Project\MSVC2013\ShellExtension\Win32\Release\MediaInfo_InfoTip.dll"
-    File "..\..\..\MediaInfoLib\Project\MSVC2013\DLL\Win32\Release\MediaInfo.dll"
+    File "..\..\..\MediaInfoLib\Project\MSVC2013\Win32\Release\MediaInfo_InfoTip.dll"
+    File "..\..\..\MediaInfoLib\Project\MSVC2013\Win32\Release\MediaInfo.dll"
   ${EndIf}
   File "/oname=History.txt" "..\..\History_GUI.txt"
   File "..\..\License.html"
