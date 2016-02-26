@@ -828,6 +828,8 @@ Lyricist;Autor słów
 Lyrics;Słowa
 Mastered_Date;Data nagrania
 MasteredBy;Nagrane przez
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;
@@ -1103,4 +1105,4 @@ WrittenBy;Napisał
 Yes;Tak
 Your system;System
 ZZ_Automatic_Percent;75
-ZZ_AutomaticLanguage_Percent;89
+ZZ_AutomaticLanguage_Percent;88

@@ -828,6 +828,8 @@ Lyricist;Söz yazarı
 Lyrics;Şarkı Sözleri
 Mastered_Date;Sahip olma tarihi
 MasteredBy;Sahibi
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;Matriks katsayısı

@@ -828,6 +828,8 @@ Lyricist;作詞
 Lyrics;歌詞
 Mastered_Date;マスタリング日
 MasteredBy;マスタリング by
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;

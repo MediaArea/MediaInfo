@@ -828,6 +828,8 @@ Lyricist;transcriptor del text
 Lyrics; Lletres
 Mastered_Date;Data de masterització
 MasteredBy;Masteritzat per
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;

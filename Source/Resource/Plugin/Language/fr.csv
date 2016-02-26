@@ -828,6 +828,8 @@ Lyricist;Parolier
 Lyrics;Paroles
 Mastered_Date;Date de création
 MasteredBy;Créé par
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);Encodage matriciel, canaux
 Matrix_ChannelPositions;Encodage matriciel, position des cannaux
 matrix_coefficients;Coefficients de la matrice

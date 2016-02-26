@@ -828,6 +828,8 @@ Lyricist;Letrista
 Lyrics;Letra
 Mastered_Date;Data de edición
 MasteredBy;Editado por
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;
@@ -1102,5 +1104,5 @@ Written_Location;Escrito en:
 WrittenBy;Escrito por
 Yes;Si
 Your system;O teu sistema
-ZZ_Automatic_Percent;71
+ZZ_Automatic_Percent;70
 ZZ_AutomaticLanguage_Percent;78

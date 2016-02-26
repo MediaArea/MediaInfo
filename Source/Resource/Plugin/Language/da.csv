@@ -828,6 +828,8 @@ Lyricist;Tekstforfatter
 Lyrics;Sangtekster
 Mastered_Date;Masteret den
 MasteredBy;Masteret af
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;Matrix-coefficienter
@@ -1102,5 +1104,5 @@ Written_Location;Sted
 WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
-ZZ_Automatic_Percent;80
-ZZ_AutomaticLanguage_Percent;91
+ZZ_Automatic_Percent;79
+ZZ_AutomaticLanguage_Percent;90

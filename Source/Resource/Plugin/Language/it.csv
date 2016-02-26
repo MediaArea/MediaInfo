@@ -828,6 +828,8 @@ Lyricist;Autore del testo
 Lyrics;Testo
 Mastered_Date;Data di incisione 
 MasteredBy;Inciso da
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;Coefficienti matrici

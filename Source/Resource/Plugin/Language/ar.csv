@@ -828,6 +828,8 @@ Lyricist;الشاعر
 Lyrics;كلمات
 Mastered_Date;تاريخ الإنشاء
 MasteredBy;تم إنشاؤها من طرف
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;معاملات الـMatrix

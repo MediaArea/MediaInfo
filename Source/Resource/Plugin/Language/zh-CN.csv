@@ -828,6 +828,8 @@ Lyricist;作词
 Lyrics;歌词
 Mastered_Date;母带完成日期
 MasteredBy;母带制做
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;矩阵系数

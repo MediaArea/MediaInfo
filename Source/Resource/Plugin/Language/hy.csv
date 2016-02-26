@@ -828,6 +828,8 @@ Lyricist;Երգի տեքստը
 Lyrics;Երգերի տեքստը
 Mastered_Date;Օրիգինալի ամսաթիվը
 MasteredBy;Օրիգինալը՝
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;Կետացանցի գործակիցը

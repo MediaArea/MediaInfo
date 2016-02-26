@@ -828,6 +828,8 @@ Lyricist;Compositor
 Lyrics;Letra
 Mastered_Date;Data de criação
 MasteredBy;Criado por
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;Coeficientes matriz

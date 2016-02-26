@@ -828,6 +828,8 @@ Lyricist;لایرسکسیست
 Lyrics;متن آهنگ
 Mastered_Date;تاریخ مستر
 MasteredBy;مستر شده توسط
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;
@@ -1102,5 +1104,5 @@ Written_Location;مکان نوشته
 WrittenBy;نوشته شده توسط
 Yes;بلی
 Your system;سیستم شما
-ZZ_Automatic_Percent;85
-ZZ_AutomaticLanguage_Percent;89
+ZZ_Automatic_Percent;84
+ZZ_AutomaticLanguage_Percent;88

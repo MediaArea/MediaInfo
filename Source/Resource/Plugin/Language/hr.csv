@@ -828,6 +828,8 @@ Lyricist;Tekstopisac
 Lyrics;Tekst pjesme
 Mastered_Date;Nadnevak glavne snimke
 MasteredBy;Glavnu snimku napravio
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;
@@ -1102,5 +1104,5 @@ Written_Location;Mjesto početka pisanja
 WrittenBy;Napisao
 Yes;Da
 Your system;Informacije o Vašem sustavu
-ZZ_Automatic_Percent;85
-ZZ_AutomaticLanguage_Percent;89
+ZZ_Automatic_Percent;84
+ZZ_AutomaticLanguage_Percent;88

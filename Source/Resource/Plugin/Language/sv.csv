@@ -828,6 +828,8 @@ Lyricist;Texter från
 Lyrics;Texter
 Mastered_Date;Master-datum
 MasteredBy;Mastrad av
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);Matriskodning
 Matrix_ChannelPositions;Matriskodning, kanalpositioner
 matrix_coefficients;Matriskoefficienter

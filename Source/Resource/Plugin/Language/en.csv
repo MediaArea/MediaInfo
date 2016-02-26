@@ -828,6 +828,8 @@ Lyricist;Lyricist
 Lyrics;Lyrics
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
+MasteringDisplay_ColorPrimaries;Mastering display color primaries
+MasteringDisplay_Luminance;Mastering display luminance
 Matrix_Channel(s);Matrix encoding, Channel(s)
 Matrix_ChannelPositions;Matrix encoding, channel positions
 matrix_coefficients;Matrix coefficients

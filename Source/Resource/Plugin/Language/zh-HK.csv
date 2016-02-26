@@ -1,4 +1,4 @@
-﻿  Language_ISO639;zh-HK
+  Language_ISO639;zh-HK
   Author_Email;cordon@gmail.com
   Author_Name;Kin Kwok
   Author_OldNames;Initial translator
@@ -828,6 +828,8 @@ Lyricist;填詞
 Lyrics;歌詞
 Mastered_Date;後製於
 MasteredBy;後製者
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);矩陣編碼 - 聲道
 Matrix_ChannelPositions;矩陣編碼 - 聲道位置
 matrix_coefficients;矩陣系數
@@ -1102,5 +1104,5 @@ Written_Location;編寫地點
 WrittenBy;作者
 Yes;是
 Your system;可識別清單
-ZZ_Automatic_Percent;
-ZZ_AutomaticLanguage_Percent;
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

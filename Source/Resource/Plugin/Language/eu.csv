@@ -828,6 +828,8 @@ Lyricist;Abestidazlea
 Lyrics;Abestidatziak
 Mastered_Date;Masterizatze eguna
 MasteredBy;Masterizatzailea
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;Matrize ezaugarriak

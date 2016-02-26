@@ -828,6 +828,8 @@ Lyricist;Textár
 Lyrics;Text
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;
@@ -1103,4 +1105,4 @@ WrittenBy;Napísal
 Yes;Áno
 Your system;Váš systém
 ZZ_Automatic_Percent;75
-ZZ_AutomaticLanguage_Percent;81
+ZZ_AutomaticLanguage_Percent;80

@@ -828,6 +828,8 @@ Lyricist;Поэт-песенник
 Lyrics;Текст песен
 Mastered_Date;Дата мастеринга
 MasteredBy;Мастеринг произвёл
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);Канал(ы) кодирования матрицы
 Matrix_ChannelPositions;Позиции каналов кодирования матрицы
 matrix_coefficients;Коэффициенты матрицы

@@ -828,6 +828,8 @@ Lyricist;Автор тексту
 Lyrics;Текст
 Mastered_Date;Дата мастерингу
 MasteredBy;Мастеринг
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;Матричні коефіцієнти
