@@ -834,6 +834,8 @@ Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;мартица_коефициент
 Matrix_Format;
+MaxCLL;
+MaxFALL;
 MediaInfo_About;Медиа Инфо_За
 Menu;Меню
 Menu stream(s);Меню поток(ци)

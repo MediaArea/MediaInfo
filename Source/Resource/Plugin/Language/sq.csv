@@ -834,6 +834,8 @@ Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;Koeficientët e matricës
 Matrix_Format;
+MaxCLL;
+MaxFALL;
 MediaInfo_About;Jep informacione shumë të detajuara për\r\nskedat multimediatike:\r\nMatroska, OGG (përfshirë OGM)\r\nMPEG1 (përfshirë VCD)\r\nMPEG2 (përfshirë DVD dhe SVCD)\r\nMPEG4 (përfshirë Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (përfshirë WMV, WMA)\r\nMicrosoft RIFF (përfshirë AVI, WAV)\r\nFormate zanore (AC3, DTS, AAC, AU, AIFF...)
 Menu;Meny
 Menu stream(s);Rrymat e menysë
