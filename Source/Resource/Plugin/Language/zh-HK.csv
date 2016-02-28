@@ -1,4 +1,4 @@
-﻿  Language_ISO639;zh-HK
+  Language_ISO639;zh-HK
   Author_Email;cordon@gmail.com
   Author_Name;Kin Kwok
   Author_OldNames;Initial translator
@@ -828,10 +828,14 @@ Lyricist;填詞
 Lyrics;歌詞
 Mastered_Date;後製於
 MasteredBy;後製者
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);矩陣編碼 - 聲道
 Matrix_ChannelPositions;矩陣編碼 - 聲道位置
 matrix_coefficients;矩陣系數
 Matrix_Format;矩陣格式
+MaxCLL;
+MaxFALL;
 MediaInfo_About;使用MediaInfo可輕易觀看影音和圖像檔案的技術和標籤資訊。\r\n除蘋果應用程式商店圖像用戶介面外，它是開源的。\r\n按BSD式授權協議，用戶和開發者可免費研習、更改和再發佈本程式。
 Menu;選單
 Menu stream(s);選單串流
@@ -1102,5 +1106,5 @@ Written_Location;編寫地點
 WrittenBy;作者
 Yes;是
 Your system;可識別清單
-ZZ_Automatic_Percent;
-ZZ_AutomaticLanguage_Percent;
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

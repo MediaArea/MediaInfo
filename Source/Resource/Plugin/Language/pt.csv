@@ -828,10 +828,14 @@ Lyricist;Compositor
 Lyrics;Letra
 Mastered_Date;Data de criação
 MasteredBy;Criado por
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;Coeficientes matriz
 Matrix_Format;
+MaxCLL;
+MaxFALL;
 MediaInfo_About;MediaInfo proporciona um fácil acesso a informações simples e técnicas acerca de ficheiros de vídeo e áudio.\r\nExceptuando a interface gráfica do utilizador da Mac App Store, é um software de código aberto, o que significa que é gratuito para o utilizador final e os programadores têm liberdade de estudar, de melhorar e de redistribuir o programa (licença BSD).\r\n\r\nExemplos de ficheiros multimédia:\r\nMatroska, OGG (incluíndo OGM)\r\nMPEG1 (incluíndo VCD)\r\nMPEG2 (incluíndo DVD e SVCD)\r\nMPEG4 (incluíndo Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindows Media (incluíndo WMV, WMA)\r\nMicrosoft RIFF (incluíndo AVI, WAV)\r\nSom nos formatos (AC3, DTS, AAC, AU, AIFF, MP3)
 Menu;Menu
 Menu stream(s);Faixa(s) de menu
@@ -1102,5 +1106,5 @@ Written_Location;Local da escrita
 WrittenBy;Escrito por
 Yes;Sim
 Your system;O seu sistema
-ZZ_Automatic_Percent;93
-ZZ_AutomaticLanguage_Percent;93
+ZZ_Automatic_Percent;92
+ZZ_AutomaticLanguage_Percent;92

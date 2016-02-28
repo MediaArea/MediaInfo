@@ -828,10 +828,14 @@ Lyricist;Поет
 Lyrics;Текстове
 Mastered_Date;Дата изработка
 MasteredBy;ИзработкаОт
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;мартица_коефициент
 Matrix_Format;
+MaxCLL;
+MaxFALL;
 MediaInfo_About;Медиа Инфо_За
 Menu;Меню
 Menu stream(s);Меню поток(ци)
@@ -1102,5 +1106,5 @@ Written_Location;Написано_Локация
 WrittenBy;НаписаноОт
 Yes;Да
 Your system;Вашата система
-ZZ_Automatic_Percent;83
-ZZ_AutomaticLanguage_Percent;90
+ZZ_Automatic_Percent;82
+ZZ_AutomaticLanguage_Percent;89

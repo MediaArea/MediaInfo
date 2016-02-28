@@ -828,10 +828,14 @@ Lyricist;Tekstopisac
 Lyrics;Tekst pjesme
 Mastered_Date;Nadnevak glavne snimke
 MasteredBy;Glavnu snimku napravio
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;
 Matrix_Format;
+MaxCLL;
+MaxFALL;
 MediaInfo_About;Pruža vrlo podrobne informacije\r\no multimedijalnim datotekama:\r\nMatroska, OGG (uključujući OGM)\r\nMPEG1 (uključujući VCD)\r\nMPEG2 (uključujući DVD i SVCD)\r\nMPEG4 (uključujući Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (uključujući WMV, WMA)\r\nMicrosoft RIFF (uključujući AVI, WAV)\r\nSamo zvukovnim oblicima (AC3, DTS, AAC, AU, AIFF...)
 Menu;Izbornik
 Menu stream(s);Izbornik - tokovi
@@ -1102,5 +1106,5 @@ Written_Location;Mjesto početka pisanja
 WrittenBy;Napisao
 Yes;Da
 Your system;Informacije o Vašem sustavu
-ZZ_Automatic_Percent;85
-ZZ_AutomaticLanguage_Percent;89
+ZZ_Automatic_Percent;84
+ZZ_AutomaticLanguage_Percent;88

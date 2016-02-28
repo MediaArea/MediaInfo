@@ -828,10 +828,14 @@ Lyricist;الشاعر
 Lyrics;كلمات
 Mastered_Date;تاريخ الإنشاء
 MasteredBy;تم إنشاؤها من طرف
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;معاملات الـMatrix
 Matrix_Format;
+MaxCLL;
+MaxFALL;
 MediaInfo_About;تقديم معلومات مفصلة\r\nحول ملف الوسائط المتعددة :\r\nMatroska، OGG (including OGM)\r\nMPEG1 (بما في ذلك VCD)\r\nMPEG2 (بما في ذلك DVD و SVCD)\r\nMPEG4 (بما في ذلك Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia ((بما في ذلك WMV، WMA)\r\nMicrosoft RIFF ((بما في ذلك AVI, WAV)\r\nامتدادات الصوت فقط (AC3، DTS، AAC، AU، AIFF...)
 Menu;القائمة
 Menu stream(s);قائمة الدفق
