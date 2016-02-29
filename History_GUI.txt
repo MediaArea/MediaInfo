@@ -13,6 +13,16 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.83, 2016-02-29
+--------------
++ HEVC: Maximum Content Light Level (MaxCLL) and Maximum Frame-Average Light Level (MaxFALL), metadata mandated by CEA-861.3 for HDR support
++ HEVC: Mastering display color primaries and luminance (based on SMPTE ST 2084), metadata mandated by CEA-861.3 for HDR support
++ HEVC: SMPTE ST 2048 and SMPTE ST 428-1 transfer characteristics
++ HEVC: Chroma subsampling location (indication of the location type described in the HEVC spec)
++ MPEG-TS: ATSC Modulation Mode (Analog, SCTE_mode_1 aka 64-QAM, SCTE_mode_2 aka 256-QAM, 8-VSB, 16-VSB)
++ #B981, MP4: support of buggy file having "hint" SubType 
+x HLS: better handling of media playlists having EXT-X-BYTERANGE
+
 Version 0.7.82, 2016-01-27
 --------------
 + Matroska: CRC-32 validation
