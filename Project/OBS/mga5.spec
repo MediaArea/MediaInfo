@@ -24,24 +24,11 @@ BuildRequires:  zlib-devel
 BuildRequires:  libtool
 BuildRequires:  automake
 BuildRequires:  autoconf
-
-# wxWidgets package name
-%if 0%{?suse_version} && 0%{?suse_version} >= 1140
-BuildRequires:  wxWidgets-devel
-%else
-#%if 0%{?mageia_version}
-#BuildRequires:  wxgtk2.8-devel
-#%else
-BuildRequires:  wxGTK-devel
-#%endif
-%endif
-
-%if 0%{?suse_version}
-BuildRequires:  update-desktop-files
-%endif
-%if 0%{?fedora_version}
-BuildRequires:  desktop-file-utils
-%endif
+BuildRequires:  wxgtk2.8-devel
+BuildRequires:  sane-backends-iscan
+BuildRequires:  libuuid-devel
+# For Cauldron
+#BuildRequires:  libllvm-devel
 
 %description
 MediaInfo is a convenient unified display of the most relevant technical
@@ -73,17 +60,7 @@ Summary:    Supplies technical and tag information about a video or audio file (
 Group:      Applications/Multimedia
 Requires:   libzen0 >= %{libzen_version}
 Requires:   libmediainfo0 >= %{libmediainfo_version}
-
-# wxWidgets package name
-%if 0%{?suse_version} && 0%{?suse_version} >= 1140
-Requires:   wxWidgets
-%else
-#%if 0%{?mageia_version}
-#Requires:  wxgtk2.8
-#%else
-Requires:   wxGTK
-#%endif
-%endif
+Requires:   wxgtk2.8
 
 %description gui
 MediaInfo is a convenient unified display of the most relevant technical
