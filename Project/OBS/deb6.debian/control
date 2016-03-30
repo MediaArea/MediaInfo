@@ -1,7 +1,7 @@
 Source: mediainfo
 Priority: optional
 Maintainer: MediaArea.net SARL <info@mediaarea.net>
-Build-Depends: debhelper (>= 5), tofrodos, libmediainfo-dev (>= 0.7.83), libzen-dev (>= 0.4.33), libwxgtk2.8-dev, zlib1g-dev, pkg-config, automake, autoconf, libtool
+Build-Depends: debhelper (>= 5), tofrodos, libmediainfo-dev (>= 0.7.84), libzen-dev (>= 0.4.33), libwxgtk2.8-dev, zlib1g-dev, pkg-config, automake, autoconf, libtool
 Standards-Version: 3.7.3
 Section: libs
 Homepage: http://MediaArea.net/MediaInfo
@@ -11,7 +11,7 @@ Vcs-Browser: http://mediainfo.svn.sourceforge.net/viewvc/mediainfo/MediaInfo/
 Package: mediainfo
 Section: utils
 Architecture: any
-Depends: libmediainfo0 (>= 0.7.83), libzen0 (>= 0.4.33), zlib1g
+Depends: libmediainfo0 (>= 0.7.84), libzen0 (>= 0.4.33), zlib1g
 Description: MediaInfo is a convenient unified display of the most relevant technical
  and tag data for video and audio files.
  .
@@ -41,7 +41,7 @@ Description: MediaInfo is a convenient unified display of the most relevant tech
 Package: mediainfo-gui
 Section: utils
 Architecture: any
-Depends: libmediainfo0 (>= 0.7.83), libzen0 (>= 0.4.32), libwxgtk2.8-0, zlib1g
+Depends: libmediainfo0 (>= 0.7.84), libzen0 (>= 0.4.32), libwxgtk2.8-0, zlib1g
 Description: MediaInfo is a convenient unified display of the most relevant technical
  and tag data for video and audio files.
  .

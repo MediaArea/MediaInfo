@@ -13,6 +13,13 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.84, 2016-03-31
+--------------
+x #I122, MPEG-4/MOV: Crash if mdhd timescale is 0
+x MPEG-4/MOV: Infinite loop if malformed stsc / stsz (detected by fuzzing)
+x MPEG-TS: some DVB Subtitles were not detected
+x HLS: better handling of media playlists having EXT-X-BYTERANGE
+
 Version 0.7.83, 2016-02-29
 --------------
 + HEVC: Maximum Content Light Level (MaxCLL) and Maximum Frame-Average Light Level (MaxFALL), metadata mandated by CEA-861.3 for HDR support
