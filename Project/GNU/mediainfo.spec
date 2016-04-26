@@ -14,6 +14,9 @@ URL:            http://MediaArea.net/MediaInfo
 Packager:       MediaArea.net SARL <info@mediaarea.net>
 Source0:        %{name}_%{version}.tar.gz
 
+Requires:       libzen0 >= %{libzen_version}
+Requires:       libmediainfo0 >= %{libmediainfo_version}
+
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig
@@ -158,35 +161,37 @@ install -dm 755 %{buildroot}%{_datadir}/pixmaps
 install -m 644 Source/Resource/Image/MediaInfo.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
 
 # menu-entry
-install -dm 755 %{buildroot}/%{_datadir}/applications
-install -m 644 Project/GNU/GUI/mediainfo-gui.desktop %{buildroot}/%{_datadir}/applications
+install -dm 755 %{buildroot}%{_datadir}/applications
+install -m 644 Project/GNU/GUI/mediainfo-gui.desktop %{buildroot}%{_datadir}/applications
 %if 0%{?suse_version}
   %suse_update_desktop_file -n mediainfo-gui AudioVideo AudioVideoEditing
 %endif
 %if 0%{?fedora_version}
   desktop-file-install --dir="%{buildroot}%{_datadir}/applications" -m 644 Project/GNU/GUI/mediainfo-gui.desktop
 %endif
-install -dm 755 %{buildroot}/%{_datadir}/apps/konqueror/servicemenus
-install -m 644 Project/GNU/GUI/mediainfo-gui.kde3.desktop %{buildroot}/%{_datadir}/apps/konqueror/servicemenus/mediainfo-gui.desktop
+install -dm 755 %{buildroot}%{_datadir}/apps/konqueror/servicemenus
+install -m 644 Project/GNU/GUI/mediainfo-gui.kde3.desktop %{buildroot}%{_datadir}/apps/konqueror/servicemenus/mediainfo-gui.desktop
 %if 0%{?suse_version}
-  %suse_update_desktop_file -n %{buildroot}/%{_datadir}/apps/konqueror/servicemenus/mediainfo-gui.desktop AudioVideo AudioVideoEditing
+  %suse_update_desktop_file -n %{buildroot}%{_datadir}/apps/konqueror/servicemenus/mediainfo-gui.desktop AudioVideo AudioVideoEditing
 %endif
-install -dm 755 %{buildroot}/%{_datadir}/kde4/services/ServiceMenus/
+install -dm 755 %{buildroot}%{_datadir}/kde4/services/ServiceMenus/
 install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop \
-    %{buildroot}/%{_datadir}/kde4/services/ServiceMenus/mediainfo-gui.desktop
+    %{buildroot}%{_datadir}/kde4/services/ServiceMenus/mediainfo-gui.desktop
 %if 0%{?suse_version}
-  %suse_update_desktop_file -n %{buildroot}/%{_datadir}/kde4/services/ServiceMenus/mediainfo-gui.desktop AudioVideo AudioVideoEditing
+  %suse_update_desktop_file -n %{buildroot}%{_datadir}/kde4/services/ServiceMenus/mediainfo-gui.desktop AudioVideo AudioVideoEditing
 %endif
 
 
 %files
 %defattr(-,root,root,-)
-%doc Release/ReadMe_CLI_Linux.txt License.html History_CLI.txt
+%doc Release/ReadMe_CLI_Linux.txt History_CLI.txt
+%license License.html
 %{_bindir}/mediainfo
 
 %files gui
 %defattr(-,root,root,-)
-%doc Release/ReadMe_GUI_Linux.txt License.html History_GUI.txt
+%doc Release/ReadMe_GUI_Linux.txt History_GUI.txt
+%license License.html
 %{_bindir}/mediainfo-gui
 %{_datadir}/applications/*.desktop
 %{_datadir}/pixmaps/*.png
@@ -206,7 +211,7 @@ install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop \
 %dir %{_datadir}/appdata
 %{_datadir}/appdata/*.xml
 %else
-%define _unpackaged_files_terminate_build 0 
+%define _unpackaged_files_terminate_build 0
 %endif
 
 
