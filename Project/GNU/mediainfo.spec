@@ -195,10 +195,10 @@ install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop \
 %files gui
 %defattr(-,root,root,-)
 %if 0%{?fedora} || 0%{?centos_version} >= 700 || 0%{?rhel_version} >= 700
-%doc Release/ReadMe_CLI_Linux.txt History_CLI.txt
+%doc Release/ReadMe_GUI_Linux.txt History_GUI.txt
 %license License.html
 %else
-%doc Release/ReadMe_CLI_Linux.txt History_CLI.txt License.html
+%doc Release/ReadMe_GUI_Linux.txt History_GUI.txt License.html
 %endif
 %{_bindir}/mediainfo-gui
 %{_datadir}/applications/*.desktop
