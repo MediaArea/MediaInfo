@@ -199,6 +199,7 @@ install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop \
 %license License.html
 %else
 %doc Release/ReadMe_CLI_Linux.txt History_CLI.txt License.html
+%endif
 %{_bindir}/mediainfo-gui
 %{_datadir}/applications/*.desktop
 %{_datadir}/pixmaps/*.png
