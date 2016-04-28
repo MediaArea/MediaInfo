@@ -13,6 +13,18 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.85, 2016-04-29
+--------------
++ FFV1: ScanType and ScanOrder
++ Detection of Omneon VBI and move of the VBI track from Video part to Others part
++ N19/STL: Support of etection of less standard frame rates (23.976 and 29.970)
++ Teletext in MPEG-TS: Teletext not subtitle moved to "Other" part
++ Teletext in MPEG-TS: display of CodecID and timestamp of first frame
+x Teletext in MXF: some IDs were wrong (when there are more than one Teletext service)
+x MPEG-4/MOV: default of raw audio to Signed in case of stsd atom version <2
+x MPEG Video: some CEA-608/708 captions were not correctly detected due to some packets discarded by the parser with interlaced content
+x MPEG-4/MOV: Dolby E with 2 or more audio services were not correctly reported
+
 Version 0.7.84, 2016-03-31
 --------------
 x #I122, MPEG-4/MOV: Crash if mdhd timescale is 0
