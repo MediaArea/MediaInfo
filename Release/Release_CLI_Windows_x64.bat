@@ -25,7 +25,7 @@ copy Readme_CLI_Windows.txt MediaInfo_CLI_Windows_x64\ReadMe.txt
 
 rem --- Compressing Archive ---
 cd MediaInfo_CLI_Windows_x64\
-..\..\..\Shared\Binary\Windows_i386\7-Zip\7z a -r -tzip ..\MediaInfo_CLI_Windows_x64.zip *
+..\..\..\..\MediaArea-Utils-Binaries\Windows\7-Zip\7z a -r -tzip ..\MediaInfo_CLI_Windows_x64.zip *
 cd ..
 
 rem --- Clean up ---

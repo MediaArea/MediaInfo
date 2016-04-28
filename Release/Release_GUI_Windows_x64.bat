@@ -30,11 +30,8 @@ copy ReadMe_GUI_Windows.txt MediaInfo_GUI_Windows_x64\ReadMe.txt
 
 rem --- Compressing Archive ---
 cd MediaInfo_GUI_Windows_x64\
-..\..\..\Shared\Binary\Windows_i386\7-Zip\7z a -r -t7z -mx9 ..\MediaInfo_GUI_Windows_x64_WithoutInstaller.7z *
+..\..\..\..\MediaArea-Utils-Binaries\Windows\7-Zip\7z a -r -t7z -mx9 ..\MediaInfo_GUI_Windows_x64_WithoutInstaller.7z *
 cd ..
-
-rem --- Installer ---
-..\..\Shared\Binary\Windows_i386\NSIS\makensis ..\Source\Install\MediaInfo_GUI_Windows_x64.nsi
 
 rem --- Clean up ---
 if "%1"=="SkipCleanUp" goto SkipCleanUp

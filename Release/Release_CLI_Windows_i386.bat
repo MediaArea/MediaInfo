@@ -28,9 +28,8 @@ copy ..\Contrib\CLI_Help.doc MediaInfo_CLI_Windows_i386\Contrib\
 
 rem --- Compressing Archive ---
 cd MediaInfo_CLI_Windows_i386\
-..\..\..\Shared\Binary\Windows_i386\7-Zip\7z a -r -tzip ..\MediaInfo_CLI_Windows_i386.zip *
+..\..\..\..\MediaArea-Utils-Binaries\Windows\7-Zip\7z a -r -tzip ..\MediaInfo_CLI_Windows_i386.zip *
 cd ..
-
 
 rem --- Clean up ---
 if "%1"=="SkipCleanUp" goto SkipCleanUp
