@@ -67,7 +67,7 @@
 			<ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\release\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base_Win32)'!=''">
-			<ILINK_LibraryPath>C:\Programmation\zlib\contrib\BCB\Win32\Release\;C:\Programmation\ZenLib\Project\BCB\Library\Win32\Release\;C:\Programmation\MediaInfoLib\Project\BCB\Dll\Win32\Release\;D:\Programmation\MediaInfo\Project\BCB\GUI\Win32\Release\;D:\Programmation\MediaInfoLib\Project\BCB\Dll\Win32\Release\;C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\lib\win32\release\;D:\Programmation\zlib\projects\BCB\Win32\Release\;D:\Programmation\MediaInfoLib\Project\BCB\Library\Win32\Release\;D:\Programmation\ZenLib\Project\BCB\Library\Win32\Release\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+			<ILINK_LibraryPath>..\..\..\..\zlib\contrib\BCB\Win32\Release\;..\..\..\..\ZenLib\Project\BCB\Library\Win32\Release\;..\..\..\..\MediaInfoLib\Project\BCB\Dll\Win32\Release\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
 			<PackageImports>vcldbx;frx16;TeeDB;Rave100VCL;vclib;Tee;inetdbbde;DBXOdbcDriver;DBXSybaseASEDriver;ibxpress;vclimg;frxDB16;intrawebdb_120_160;fs16;TeeUI;FMXTee;vclactnband;vcldb;vcldsnap;bindcompvcl;vclie;vcltouch;Intraweb_120_160;DBXDb2Driver;bcbsmp;websnap;vclribbon;frxe16;VclSmp;fsDB16;vcl;DataSnapConnectors;CloudService;DBXMSSQLDriver;FmxTeeUI;dsnapcon;vclx;webdsnap;bdertl;adortl;bcbie;$(PackageImports)</PackageImports>
 			<DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
 			<IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
