@@ -3,6 +3,14 @@
 %define libzen_version              0.4.33
 %define debug_package %{nil}
 
+%if 0%{?fedora} || 0%{?centos_version} >= 600 || 0%{?rhel_version} >= 600
+%define libmediainfo_name libmediainfo
+%define libzen_name libzen
+%else
+%define libmediainfo_name libmediainfo0
+%define libzen_name libzen0
+%endif
+
 Name:           mediainfo
 Version:        %{mediainfo_version}
 Release:        1
@@ -14,8 +22,8 @@ URL:            http://MediaArea.net/MediaInfo
 Packager:       MediaArea.net SARL <info@mediaarea.net>
 Source0:        %{name}_%{version}.tar.gz
 
-Requires:       libzen0 >= %{libzen_version}
-Requires:       libmediainfo0 >= %{libmediainfo_version}
+Requires:       %{libzen_name}%{?_isa} >= %{libzen_version}
+Requires:       %{libmediainfo_name}%{?_isa} >= %{libmediainfo_version}
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:  gcc-c++
@@ -74,8 +82,8 @@ This package includes the command line interface.
 %package gui
 Summary:    Supplies technical and tag information about a video or audio file (GUI)
 Group:      Applications/Multimedia
-Requires:   libzen0 >= %{libzen_version}
-Requires:   libmediainfo0 >= %{libmediainfo_version}
+Requires:   %{libzen_name}%{?_isa} >= %{libzen_version}
+Requires:   %{libmediainfo_name}%{?_isa} >= %{libmediainfo_version}
 
 # wxWidgets package name
 %if 0%{?suse_version} && 0%{?suse_version} >= 1140
@@ -117,8 +125,7 @@ This package includes the graphical user interface.
 %setup -q -n MediaInfo
 sed -i 's/.$//' *.txt *.html Release/*.txt
 
-find Source -type f -exec chmod 644 {} ';'
-chmod 644 *.html *.txt Release/*.txt
+find . -type f -exec chmod 644 {} ';'
 
 pushd Project/GNU/CLI
     autoreconf -i
@@ -184,21 +191,21 @@ install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop \
 
 %files
 %defattr(-,root,root,-)
-%if 0%{?fedora} || 0%{?centos_version} >= 700 || 0%{?rhel_version} >= 700
 %doc Release/ReadMe_CLI_Linux.txt History_CLI.txt
+%if 0%{?fedora} || 0%{?centos_version} >= 700 || 0%{?rhel_version} >= 700
 %license License.html
 %else
-%doc Release/ReadMe_CLI_Linux.txt History_CLI.txt License.html
+%doc License.html
 %endif
 %{_bindir}/mediainfo
 
 %files gui
 %defattr(-,root,root,-)
-%if 0%{?fedora} || 0%{?centos_version} >= 700 || 0%{?rhel_version} >= 700
 %doc Release/ReadMe_GUI_Linux.txt History_GUI.txt
+%if 0%{?fedora} || 0%{?centos_version} >= 700 || 0%{?rhel_version} >= 700
 %license License.html
 %else
-%doc Release/ReadMe_GUI_Linux.txt History_GUI.txt License.html
+%doc License.html
 %endif
 %{_bindir}/mediainfo-gui
 %{_datadir}/applications/*.desktop
