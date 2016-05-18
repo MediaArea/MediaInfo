@@ -26,7 +26,7 @@
 								 NSForegroundColorAttributeName : [NSColor blueColor]
 								};
 	
-	self.attributedTitle = [[NSAttributedString alloc] initWithString:self.title attributes:attributes];
+	self.attributedTitle = [[[NSAttributedString alloc] initWithString:self.title attributes:attributes] autorelease];
 	[self sizeToFit]; //will align to left
 	
 	//calc parent bounds to center the button's frame
