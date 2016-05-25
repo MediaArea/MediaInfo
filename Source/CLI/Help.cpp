@@ -41,7 +41,7 @@ int Help()
     TEXTOUT("--Output=XML");
     TEXTOUT("                    Full information Display with XML tags");
     TEXTOUT("--Output=EBUCore");
-    TEXTOUT("                    Full information Display with EBUCore compliant XML tags")
+    TEXTOUT("                    Full information Display with EBUCore compliant XML tags");
     TEXTOUT("--Output=...y");
     TEXTOUT("                    Template defined information Display");
     TEXTOUT("--Info-Parameters");
