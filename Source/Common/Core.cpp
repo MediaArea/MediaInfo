@@ -203,6 +203,15 @@ void Core::Menu_View_Tree ()
 }
 
 //---------------------------------------------------------------------------
+void Core::Menu_View_Text()
+{
+    MI->Option(__T("Inform"), String());
+    Kind = Kind_Text;
+    if (Details>0)
+        Menu_Debug_Details(Details);
+}
+
+//---------------------------------------------------------------------------
 void Core::Menu_View_HTML ()
 {
     MI->Option(__T("Inform"), __T("HTML"));
@@ -231,13 +240,6 @@ void Core::Menu_View_PBCore2 ()
 }
 
 //---------------------------------------------------------------------------
-void Core::Menu_View_reVTMD ()
-{
-    MI->Option(__T("Inform"), __T("reVTMD"));
-    Kind=Kind_reVTMD;
-}
-
-//---------------------------------------------------------------------------
 void Core::Menu_View_MPEG7 ()
 {
     MI->Option(__T("Inform"), __T("MPEG-7"));
@@ -245,10 +247,17 @@ void Core::Menu_View_MPEG7 ()
 }
 
 //---------------------------------------------------------------------------
-void Core::Menu_View_EBUCore_1_4 ()
+void Core::Menu_View_EBUCore_1_5 ()
 {
-    MI->Option(__T("Inform"), __T("EBUCore_1.4"));
+    MI->Option(__T("Inform"), __T("EBUCore_1.5"));
     Kind=Kind_EBUCore_1_4;
+}
+
+//---------------------------------------------------------------------------
+void Core::Menu_View_EBUCore_1_6()
+{
+    MI->Option(__T("Inform"), __T("EBUCore_1.6"));
+    Kind = Kind_EBUCore_1_4;
 }
 
 //---------------------------------------------------------------------------
@@ -273,12 +282,10 @@ void Core::Menu_View_FIMS_1_3 ()
 }
 
 //---------------------------------------------------------------------------
-void Core::Menu_View_Text ()
+void Core::Menu_View_reVTMD()
 {
-    MI->Option(__T("Inform"), String());
-    Kind=Kind_Text;
-    if (Details>0)
-        Menu_Debug_Details(Details);
+    MI->Option(__T("Inform"), __T("reVTMD"));
+    Kind = Kind_reVTMD;
 }
 
 //---------------------------------------------------------------------------
