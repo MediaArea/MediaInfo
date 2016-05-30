@@ -37,8 +37,17 @@ enum
     ID_Menu_View_Easy,
     ID_Menu_View_Sheet,
     ID_Menu_View_Tree,
-    ID_Menu_View_HTML,
     ID_Menu_View_Text,
+    ID_Menu_View_HTML,
+    ID_Menu_View_XML,
+    ID_Menu_View_MPEG7,
+    ID_Menu_View_PBCore_1_2,
+    ID_Menu_View_PBCore_2_0,
+    ID_Menu_View_EBUCore_1_5,
+    ID_Menu_View_EBUCore_1_6,
+    ID_Menu_View_FIMS_1_1,
+    ID_Menu_View_FIMS_1_2,
+    ID_Menu_View_reVTMD,
     ID_Menu_Debug_Complete,
     ID_Menu_Debug_Details,
     ID_Menu_Debug_Demux,
@@ -59,8 +68,16 @@ BEGIN_EVENT_TABLE(GUI_Main, wxFrame)
     EVT_MENU(ID_Menu_View_Easy,             GUI_Main::OnMenu_View_Easy)
     EVT_MENU(ID_Menu_View_Sheet,            GUI_Main::OnMenu_View_Sheet)
     EVT_MENU(ID_Menu_View_Tree,             GUI_Main::OnMenu_View_Tree)
-    EVT_MENU(ID_Menu_View_HTML,             GUI_Main::OnMenu_View_HTML)
     EVT_MENU(ID_Menu_View_Text,             GUI_Main::OnMenu_View_Text)
+    EVT_MENU(ID_Menu_View_HTML,             GUI_Main::OnMenu_View_HTML)
+    EVT_MENU(ID_Menu_View_XML,              GUI_Main::OnMenu_View_XML)
+    EVT_MENU(ID_Menu_View_MPEG7,            GUI_Main::OnMenu_View_MPEG7)
+    EVT_MENU(ID_Menu_View_PBCore_1_2,       GUI_Main::OnMenu_View_PBCore_1_2)
+    EVT_MENU(ID_Menu_View_PBCore_2_0,       GUI_Main::OnMenu_View_PBCore_2_0)
+    EVT_MENU(ID_Menu_View_EBUCore_1_5,      GUI_Main::OnMenu_View_EBUCore_1_5)
+    EVT_MENU(ID_Menu_View_EBUCore_1_6,      GUI_Main::OnMenu_View_EBUCore_1_6)
+    EVT_MENU(ID_Menu_View_FIMS_1_1,         GUI_Main::OnMenu_View_FIMS_1_1)
+    EVT_MENU(ID_Menu_View_FIMS_1_2,         GUI_Main::OnMenu_View_FIMS_1_2)
     EVT_MENU(ID_Menu_Debug_Complete,        GUI_Main::OnMenu_Debug_Complete)
     EVT_MENU(ID_Menu_Debug_Details,         GUI_Main::OnMenu_Debug_Details)
     EVT_MENU(ID_Menu_Debug_Demux_None,      GUI_Main::OnMenu_Debug_Demux_None)
@@ -102,11 +119,20 @@ void GUI_Main::Menu_Create()
 
     //View
     Menu_View                   =new wxMenu;
-    Menu_View_Easy              =Menu_View->AppendRadioItem(ID_Menu_View_Easy, __T("Easy"), __T("Easy view"));
-    Menu_View_Sheet             =Menu_View->AppendRadioItem(ID_Menu_View_Sheet, __T("Sheet"), __T("Sheet view"));
-    Menu_View_Tree              =Menu_View->AppendRadioItem(ID_Menu_View_Tree, __T("Tree"), __T("Tree view"));
-    Menu_View_HTML              =Menu_View->AppendRadioItem(ID_Menu_View_HTML, __T("HTML"), __T("HTML view"));
-    Menu_View_Text              =Menu_View->AppendRadioItem(ID_Menu_View_Text, __T("Text"), __T("Text view"));
+    Menu_View_Easy              =Menu_View->AppendRadioItem(ID_Menu_View_Easy, __T("Easy"));
+    Menu_View_Sheet             =Menu_View->AppendRadioItem(ID_Menu_View_Sheet, __T("Sheet"));
+    Menu_View_Tree              =Menu_View->AppendRadioItem(ID_Menu_View_Tree, __T("Tree"));
+    Menu_View_Text              =Menu_View->AppendRadioItem(ID_Menu_View_Text, __T("Text"));
+    Menu_View_HTML              =Menu_View->AppendRadioItem(ID_Menu_View_HTML, __T("HTML"));
+    Menu_View_XML               =Menu_View->AppendRadioItem(ID_Menu_View_XML, __T("XML"));
+    Menu_View_MPEG7             =Menu_View->AppendRadioItem(ID_Menu_View_MPEG7, __T("MPEG-7"));
+    Menu_View_PBCore_1_2        =Menu_View->AppendRadioItem(ID_Menu_View_PBCore_1_2, __T("PBCore 1.2"));
+    Menu_View_PBCore_2_0        =Menu_View->AppendRadioItem(ID_Menu_View_PBCore_2_0, __T("PBCore 2.0"));
+    Menu_View_EBUCore_1_5       =Menu_View->AppendRadioItem(ID_Menu_View_EBUCore_1_5, __T("EBUCore 1.5"));
+    Menu_View_EBUCore_1_6       =Menu_View->AppendRadioItem(ID_Menu_View_EBUCore_1_6, __T("EBUCore 1.6"));
+    Menu_View_FIMS_1_1          =Menu_View->AppendRadioItem(ID_Menu_View_FIMS_1_1, __T("FIMS 1.1 (beta)"));
+    Menu_View_FIMS_1_2          =Menu_View->AppendRadioItem(ID_Menu_View_FIMS_1_2, __T("FIMS 1.2 (beta)"));
+    Menu_View_reVTMD            =Menu_View->AppendRadioItem(ID_Menu_View_reVTMD, __T("reVTMD"));
 
     //Debug - Demux
     Menu_Debug_Demux            =new wxMenu;
@@ -223,6 +249,17 @@ void GUI_Main::OnMenu_View_Tree(wxCommandEvent& WXUNUSED(event))
 }
 
 //---------------------------------------------------------------------------
+void GUI_Main::OnMenu_View_Text(wxCommandEvent& WXUNUSED(event))
+{
+    //Configuring
+    C->Menu_View_Text();
+
+    //Showing
+    GUI_Main_Common_Core* View_New = new GUI_Main_Text(C, this);
+    delete View; View = View_New;
+}
+
+//---------------------------------------------------------------------------
 void GUI_Main::OnMenu_View_HTML(wxCommandEvent& WXUNUSED(event))
 {
     //Configuring
@@ -234,14 +271,102 @@ void GUI_Main::OnMenu_View_HTML(wxCommandEvent& WXUNUSED(event))
 }
 
 //---------------------------------------------------------------------------
-void GUI_Main::OnMenu_View_Text(wxCommandEvent& WXUNUSED(event))
+void GUI_Main::OnMenu_View_XML(wxCommandEvent& WXUNUSED(event))
 {
     //Configuring
-    C->Menu_View_Text();
+    C->Menu_View_HTML();
 
     //Showing
-    GUI_Main_Common_Core* View_New=new GUI_Main_Text(C, this);
-    delete View; View=View_New;
+    GUI_Main_Common_Core* View_New = new GUI_Main_Text(C, this);
+    delete View; View = View_New;
+}
+
+//---------------------------------------------------------------------------
+void GUI_Main::OnMenu_View_MPEG7(wxCommandEvent& WXUNUSED(event))
+{
+    //Configuring
+    C->Menu_View_MPEG7();
+
+    //Showing
+    GUI_Main_Common_Core* View_New = new GUI_Main_Text(C, this);
+    delete View; View = View_New;
+}
+
+//---------------------------------------------------------------------------
+void GUI_Main::OnMenu_View_PBCore_1_2(wxCommandEvent& WXUNUSED(event))
+{
+    //Configuring
+    C->Menu_View_PBCore();
+
+    //Showing
+    GUI_Main_Common_Core* View_New = new GUI_Main_Text(C, this);
+    delete View; View = View_New;
+}
+
+//---------------------------------------------------------------------------
+void GUI_Main::OnMenu_View_PBCore_2_0(wxCommandEvent& WXUNUSED(event))
+{
+    //Configuring
+    C->Menu_View_PBCore2();
+
+    //Showing
+    GUI_Main_Common_Core* View_New = new GUI_Main_Text(C, this);
+    delete View; View = View_New;
+}
+
+//---------------------------------------------------------------------------
+void GUI_Main::OnMenu_View_EBUCore_1_5(wxCommandEvent& WXUNUSED(event))
+{
+    //Configuring
+    C->Menu_View_EBUCore_1_5();
+
+    //Showing
+    GUI_Main_Common_Core* View_New = new GUI_Main_Text(C, this);
+    delete View; View = View_New;
+}
+
+//---------------------------------------------------------------------------
+void GUI_Main::OnMenu_View_EBUCore_1_6(wxCommandEvent& WXUNUSED(event))
+{
+    //Configuring
+    C->Menu_View_EBUCore_1_6();
+
+    //Showing
+    GUI_Main_Common_Core* View_New = new GUI_Main_Text(C, this);
+    delete View; View = View_New;
+}
+
+//---------------------------------------------------------------------------
+void GUI_Main::OnMenu_View_FIMS_1_1(wxCommandEvent& WXUNUSED(event))
+{
+    //Configuring
+    C->Menu_View_FIMS_1_1();
+
+    //Showing
+    GUI_Main_Common_Core* View_New = new GUI_Main_Text(C, this);
+    delete View; View = View_New;
+}
+
+//---------------------------------------------------------------------------
+void GUI_Main::OnMenu_View_FIMS_1_2(wxCommandEvent& WXUNUSED(event))
+{
+    //Configuring
+    C->Menu_View_FIMS_1_2();
+
+    //Showing
+    GUI_Main_Common_Core* View_New = new GUI_Main_Text(C, this);
+    delete View; View = View_New;
+}
+
+//---------------------------------------------------------------------------
+void GUI_Main::OnMenu_View_reVTMD(wxCommandEvent& WXUNUSED(event))
+{
+    //Configuring
+    C->Menu_View_reVTMD();
+
+    //Showing
+    GUI_Main_Common_Core* View_New = new GUI_Main_Text(C, this);
+    delete View; View = View_New;
 }
 
 //---------------------------------------------------------------------------

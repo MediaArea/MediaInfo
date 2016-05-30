@@ -15,6 +15,10 @@ Known bugs
 
 Version 0.7.85, 2016-04-29
 --------------
++ Linux/Mac: more output formats (PBCore, EBUCore, FIMS)
+
+Version 0.7.85, 2016-04-29
+--------------
 + FFV1: ScanType and ScanOrder
 + Detection of Omneon VBI and move of the VBI track from Video part to Others part
 + N19/STL: Support of etection of less standard frame rates (23.976 and 29.970)
