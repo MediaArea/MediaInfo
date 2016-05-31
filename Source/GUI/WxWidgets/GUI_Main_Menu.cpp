@@ -78,6 +78,7 @@ BEGIN_EVENT_TABLE(GUI_Main, wxFrame)
     EVT_MENU(ID_Menu_View_EBUCore_1_6,      GUI_Main::OnMenu_View_EBUCore_1_6)
     EVT_MENU(ID_Menu_View_FIMS_1_1,         GUI_Main::OnMenu_View_FIMS_1_1)
     EVT_MENU(ID_Menu_View_FIMS_1_2,         GUI_Main::OnMenu_View_FIMS_1_2)
+    EVT_MENU(ID_Menu_View_reVTMD,           GUI_Main::OnMenu_View_reVTMD)
     EVT_MENU(ID_Menu_Debug_Complete,        GUI_Main::OnMenu_Debug_Complete)
     EVT_MENU(ID_Menu_Debug_Details,         GUI_Main::OnMenu_Debug_Details)
     EVT_MENU(ID_Menu_Debug_Demux_None,      GUI_Main::OnMenu_Debug_Demux_None)
@@ -274,7 +275,7 @@ void GUI_Main::OnMenu_View_HTML(wxCommandEvent& WXUNUSED(event))
 void GUI_Main::OnMenu_View_XML(wxCommandEvent& WXUNUSED(event))
 {
     //Configuring
-    C->Menu_View_HTML();
+    C->Menu_View_XML();
 
     //Showing
     GUI_Main_Common_Core* View_New = new GUI_Main_Text(C, this);
