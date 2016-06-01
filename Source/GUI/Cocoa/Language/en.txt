@@ -1,4 +1,4 @@
-MacCopyright; Copyright 2002-2012 MediaArea.net SARL
+MacCopyright; Copyright 2002-2016 MediaArea.net SARL
 MacCreatedBy; GUI created by Max Pozdeev
 MediaInfoWebsite; MediaInfo Website
 GeneralPreferences; General
