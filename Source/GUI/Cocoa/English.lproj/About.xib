@@ -127,7 +127,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="299408078">
 								<int key="NSCellFlags">68288064</int>
 								<int key="NSCellFlags2">138544128</int>
-								<string key="NSContents">Copyright 2002-2012 MediaArea.net SARL</string>
+								<string key="NSContents">Copyright 2002-2016 MediaArea.net SARL</string>
 								<object class="NSFont" key="NSSupport" id="26">
 									<string key="NSName">LucidaGrande</string>
 									<double key="NSSize">11</double>
