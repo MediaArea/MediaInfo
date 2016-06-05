@@ -13,6 +13,7 @@
 #define kEasyTabIndex 0
 #define kTreeTabIndex 1
 #define kTextTabIndex 2
+#define kOtherViewsSelectorIndex 3
 
 @implementation MyWindowController
 
@@ -25,6 +26,8 @@
 	//make transparent background for table in easy tab
 	[easyTable setBackgroundColor:[NSColor clearColor]];
 	[easyGeneralLinkButton setHidden:YES];
+	_lastTextKind = Kind_Text;
+	[tabSelector setMenu:otherViewsMenu forSegment:kOtherViewsSelectorIndex];
 }
 
 #pragma mark -
@@ -46,8 +49,11 @@
 
 -(IBAction)clickOnViewSelector:(id)sender {
 	int segment = [(NSSegmentedControl*)sender selectedSegment];
-	if(segment == 2) {
-		[tabs selectTabViewItemAtIndex:kTextTabIndex];
+	if(segment == 3) {
+		//[NSMenu popUpContextMenu:otherViewsMenu withEvent:[NSApp currentEvent] forView:tabSelector];
+	}
+	else if(segment == 2) {
+		[self selectTextTab:nil];
 	}
 	else if(segment == 1) {
 		[tabs selectTabViewItemAtIndex:kTreeTabIndex];
@@ -69,8 +75,68 @@
 }
 
 -(IBAction)selectTextTab:(id)sender {
+	
+	if (_lastTextKind != Kind_Text)
+	{
+		_lastTextKind = Kind_Text;
+		[self updateTextTabWithFileAtIndex:selectedFileIndex];
+	}
 	[tabSelector setSelectedSegment:kTextTabIndex];
 	[tabs selectTabViewItemAtIndex:kTextTabIndex];
+}
+
+-(void)_selectViewOFKind:(ViewMenu_Kind)_kind
+{
+	_lastTextKind = _kind;
+	[tabSelector setSelectedSegment:kOtherViewsSelectorIndex];
+	[self updateTextTabWithFileAtIndex:selectedFileIndex];
+	[tabs selectTabViewItemAtIndex:kTextTabIndex];
+}
+
+-(IBAction)selectViewMPEG7:(id)sender
+{
+	[self _selectViewOFKind:Kind_MPEG7];
+}
+
+-(IBAction)selectViewPBCore:(id)sender
+{
+	[self _selectViewOFKind:Kind_PBCore];
+}
+
+-(IBAction)selectViewPBCore2:(id)sender
+{
+	[self _selectViewOFKind:Kind_PBCore2];
+}
+
+-(IBAction)selectViewEBUCore15:(id)sender
+{
+	[self _selectViewOFKind:Kind_EBUCore_1_5];
+}
+
+-(IBAction)selectViewEBUCore16:(id)sender
+{
+	[self _selectViewOFKind:Kind_EBUCore_1_6];
+}
+
+
+-(IBAction)selectViewFIMS11:(id)sender
+{
+	[self _selectViewOFKind:Kind_FIMS_1_1];
+}
+
+-(IBAction)selectViewFIMS12:(id)sender
+{
+	[self _selectViewOFKind:Kind_FIMS_1_2];
+}
+
+-(IBAction)selectViewFIMS13:(id)sender
+{
+	[self _selectViewOFKind:Kind_FIMS_1_3];
+}
+
+-(IBAction)selectViewReVTMD:(id)sender
+{
+	[self _selectViewOFKind:Kind_reVTMD];
 }
 
 
@@ -199,26 +265,10 @@
 	[self updateEasyTabWithFileAtIndex:index];
 	
 	
-	//prepare font attributes for text view
+	//Text View
 	
-	NSString *fontFamily = [[NSFont userFontOfSize:13.0] familyName];
-	
-	NSFontManager *fontManager = [NSFontManager sharedFontManager];
-	NSFont *boldFont = [fontManager fontWithFamily:fontFamily
-											  traits:NSBoldFontMask
-											  weight:0
-												size:13];
-	NSFont *normalFont = [fontManager fontWithFamily:fontFamily
-											traits:0
-											weight:0
-											  size:13];
-	
-	NSDictionary *normalAttr = [[NSDictionary alloc] initWithObjectsAndKeys:
-								normalFont, NSFontAttributeName,
-								nil];
-	NSDictionary *boldAttr = [[NSDictionary alloc] initWithObjectsAndKeys:
-								boldFont, NSFontAttributeName,
-								nil];
+	[self updateTextTabWithFileAtIndex:index];
+
 	
 	//go,go,go
 	
@@ -235,14 +285,8 @@
          max = [array count];
 	}
 	NSMutableArray *finalArray = [NSMutableArray array];
-	NSMutableArray *textArray = [NSMutableArray array];
-
-	
-	
 	NSInteger i;
 	NSMutableArray *currentRoot = finalArray;
-	
-	
 	
 	for(i=0; i<max; i++) {
 		
@@ -251,10 +295,8 @@
 		
 		NSArray *a = [tmp componentsSeparatedByString:@" : "];
 		
-		NSAttributedString *strToAdd = nil;
-		
-		if(2 == [a count]) {
-			
+		if(2 == [a count])
+		{
 			NSString *name = [[a objectAtIndex:0] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 			NSString *value = [[a objectAtIndex:1] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 			
@@ -266,12 +308,9 @@
 			
 			[currentRoot addObject:dict];
 			
-			strToAdd = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@ : %@", name, value]
-													   attributes:normalAttr];
-
 		}
-		else {
-			
+		else
+		{
 			NSMutableArray *children = [NSMutableArray array];
 			
 			NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -282,35 +321,13 @@
 			
 			[finalArray addObject:dict];
 			currentRoot = children;
-			
-			NSString *prefix = (i>0 ? @"\n\n" : @"");
-			strToAdd = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@",prefix,tmp]
-													   attributes:boldAttr];
-	
-			
 		}
-										   
-		[textArray addObject:strToAdd];
-										   
 										   
 	}
 	
 	[treeOutlineController setContent:finalArray];
 	[treeOutline expandItem:nil expandChildren:YES];
 	
-	
-	//text view example
-	//to disable word-wrapping see http://snipplr.com/view/2676/
-	
-	NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:@""];
-	
-	max = [textArray count];
-	for(i=0; i<max; i++) {
-		[attrStr appendAttributedString:[textArray objectAtIndex:i]];
-	}
-	
-	[[textField textStorage] setAttributedString:attrStr];
-
 	
 	//recent items
 	NSString *filename = [mediaList filenameAtIndex:index];
@@ -395,6 +412,160 @@
 
 }
 
+
+-(void)updateTextTabWithFileAtIndex:(NSUInteger)index
+{
+	NSString *_inform = nil;
+	switch (_lastTextKind)
+	{
+		case Kind_MPEG7:		_inform = @"MPEG-7"; break;
+		case Kind_PBCore: 		_inform = @"PBCore"; break;
+		case Kind_PBCore2:		_inform = @"PBCore2"; break;
+		case Kind_EBUCore_1_5:	_inform = @"EBUCore_1.5"; break;
+		case Kind_EBUCore_1_6:	_inform = @"EBUCore_1.6"; break;
+		case Kind_FIMS_1_1:		_inform = @"FIMS_1.1"; break;
+		case Kind_FIMS_1_2:		_inform = @"FIMS_1.2"; break;
+		case Kind_FIMS_1_3:		_inform = @"FIMS_1.3"; break;
+		case Kind_reVTMD:		_inform = @"reVTMD"; break;
+			
+		case Kind_Text:
+		default:				break;
+	}
+	if (!_inform)
+	{
+		[mediaList setOption:@"Inform" withValue:@""];
+		[self _updateTextTabWithContentOfAttributedTextAtIndex:index];
+	}
+	else
+	{
+		[mediaList setOption:@"Inform" withValue:_inform];
+		[self _updateTextTabWithContentOfSimpleTextAtIndex:index];
+		[mediaList setOption:@"Inform" withValue:@""];
+	}
+}
+
+-(void)_updateTextTabWithContentOfAttributedTextAtIndex:(NSUInteger)index
+{
+	NSString *info = [mediaList informAtIndex:index];
+	if (!info) return;
+	
+	//prepare font attributes for text view
+	
+	NSString *fontFamily = [[NSFont userFontOfSize:13.0] familyName];
+	
+	NSFontManager *fontManager = [NSFontManager sharedFontManager];
+	NSFont *boldFont = [fontManager fontWithFamily:fontFamily
+											traits:NSBoldFontMask
+											weight:0
+											  size:13];
+	NSFont *normalFont = [fontManager fontWithFamily:fontFamily
+											  traits:0
+											  weight:0
+												size:13];
+	
+	NSDictionary *normalAttr = [NSDictionary dictionaryWithObjectsAndKeys:
+								normalFont, NSFontAttributeName,
+								nil];
+	NSDictionary *boldAttr = [NSDictionary dictionaryWithObjectsAndKeys:
+							  boldFont, NSFontAttributeName,
+							  nil];
+	
+	//go
+	
+	
+	NSArray *array = [info componentsSeparatedByString:@"\n"];
+	NSInteger max = [array count];
+	if (max == 1)
+	{
+		array = [info componentsSeparatedByString:@"\r"];
+		max = [array count];
+	}
+	
+	NSMutableArray *textArray = [NSMutableArray array];
+	
+	for(NSInteger i=0; i<max; i++)
+	{
+		NSString *tmp = [array objectAtIndex:i];
+		if([tmp isEqualToString:@""]) continue;
+		
+		NSArray *a = [tmp componentsSeparatedByString:@" : "];
+		
+		NSAttributedString *strToAdd = nil;
+		
+		if(2 == [a count])
+		{
+			NSString *name = [[a objectAtIndex:0] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+			NSString *value = [[a objectAtIndex:1] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+			
+			strToAdd = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@ : %@", name, value]
+													   attributes:normalAttr];
+			
+		}
+		else
+		{
+			NSString *prefix = (i>0 ? @"\n\n" : @"");
+			strToAdd = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@",prefix,tmp]
+													   attributes:boldAttr];
+		}
+		
+		[textArray addObject:strToAdd];
+		[strToAdd release];
+	}
+	
+	//text view example
+	//to disable word-wrapping see http://snipplr.com/view/2676/
+	
+	NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:@""];
+	
+	max = [textArray count];
+	for(NSInteger i=0; i<max; i++) {
+		[attrStr appendAttributedString:[textArray objectAtIndex:i]];
+	}
+	
+	[[textField textStorage] setAttributedString:attrStr];
+	[attrStr release];
+}
+
+
+-(void)_updateTextTabWithContentOfSimpleTextAtIndex:(NSUInteger)index
+{
+	NSString *info = [mediaList informAtIndex:index];
+	if (!info) return;
+	
+	//prepare font attributes for text view
+
+	CGFloat fontSize = 12.0;
+	NSString *fontFamily = [[NSFont userFixedPitchFontOfSize:fontSize] familyName];
+	
+	//CGFloat fontSize = 13.0;
+	//NSString *fontFamily = [[NSFont userFontOfSize:fontSize] familyName];
+
+	
+	NSFontManager *fontManager = [NSFontManager sharedFontManager];
+	NSFont *normalFont = [fontManager fontWithFamily:fontFamily
+											  traits:0
+											  weight:0
+												size:fontSize];
+	
+	NSDictionary *normalAttr = [NSDictionary dictionaryWithObjectsAndKeys:
+								normalFont, NSFontAttributeName,
+								nil];
+
+	
+	//fix \r and \n
+	NSArray *array = [info componentsSeparatedByString:@"\n"];
+	if (array.count == 1)
+		array = [info componentsSeparatedByString:@"\r"];
+	
+	NSAttributedString *as = [[NSAttributedString alloc] initWithString:[array componentsJoinedByString:@"\n"]
+															 attributes:normalAttr];
+	
+
+	[textField.textStorage setAttributedString:as];
+	[as release];
+}
+
+
 #pragma mark -
 #pragma mark comboController friends
 
@@ -425,7 +596,44 @@
 		[menuItem setState: ([tabSelector selectedSegment] == kTreeTabIndex ? NSOnState : NSOffState)];
 	}
 	else if(action == @selector(selectTextTab:)) {
-		[menuItem setState: ([tabSelector selectedSegment] == kTextTabIndex ? NSOnState : NSOffState)];
+		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_Text ? YES : NO;
+		[menuItem setState: (state ? NSOnState : NSOffState)];
+	}
+	else if(action == @selector(selectViewMPEG7:)) {
+		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_MPEG7 ? YES : NO;
+		[menuItem setState: (state ? NSOnState : NSOffState)];
+	}
+	else if(action == @selector(selectViewPBCore:)) {
+		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_PBCore ? YES : NO;
+		[menuItem setState: (state ? NSOnState : NSOffState)];
+	}
+	else if(action == @selector(selectViewPBCore2:)) {
+		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_PBCore2 ? YES : NO;
+		[menuItem setState: (state ? NSOnState : NSOffState)];
+	}
+	else if(action == @selector(selectViewEBUCore15:)) {
+		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_EBUCore_1_5 ? YES : NO;
+		[menuItem setState: (state ? NSOnState : NSOffState)];
+	}
+	else if(action == @selector(selectViewEBUCore16:)) {
+		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_EBUCore_1_6 ? YES : NO;
+		[menuItem setState: (state ? NSOnState : NSOffState)];
+	}
+	else if(action == @selector(selectViewFIMS11:)) {
+		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_FIMS_1_1 ? YES : NO;
+		[menuItem setState: (state ? NSOnState : NSOffState)];
+	}
+	else if(action == @selector(selectViewFIMS12:)) {
+		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_FIMS_1_2 ? YES : NO;
+		[menuItem setState: (state ? NSOnState : NSOffState)];
+	}
+	else if(action == @selector(selectViewFIMS13:)) {
+		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_FIMS_1_3 ? YES : NO;
+		[menuItem setState: (state ? NSOnState : NSOffState)];
+	}
+	else if(action == @selector(selectViewReVTMD:)) {
+		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_reVTMD ? YES : NO;
+		[menuItem setState: (state ? NSOnState : NSOffState)];
 	}
 	else if(action == @selector(export:)) {
 		return (mediaList != nil); //be careful if it's in background processing

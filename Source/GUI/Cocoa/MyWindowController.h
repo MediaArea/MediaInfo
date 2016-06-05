@@ -10,6 +10,8 @@
 #import "oMediaInfoList.h"
 #import "HyperlinkButton.h"
 
+typedef enum { Kind_Text, Kind_XML, Kind_PBCore, Kind_PBCore2, Kind_reVTMD, Kind_MPEG7, Kind_EBUCore_1_5, Kind_EBUCore_1_6, Kind_FIMS_1_1, Kind_FIMS_1_2, Kind_FIMS_1_3} ViewMenu_Kind;
+
 @interface MyWindowController : NSWindowController {
 
     IBOutlet NSArrayController *comboController;
@@ -18,6 +20,7 @@
     IBOutlet NSOutlineView *treeOutline;
     IBOutlet NSTreeController *treeOutlineController;
     IBOutlet NSTextView *textField;
+	IBOutlet NSMenu *otherViewsMenu;
 
     IBOutlet NSTextField *easyGeneralTextLeft;
     IBOutlet NSTextField *easyGeneralTextRight;
@@ -27,6 +30,8 @@
 
     oMediaInfoList *mediaList;
     NSInteger selectedFileIndex;
+
+	ViewMenu_Kind _lastTextKind;
 }
 
 //@property (assign) NSInteger selectedFileIndex;
@@ -36,6 +41,18 @@
 -(IBAction)selectEasyTab:(id)sender;
 -(IBAction)selectTreeTab:(id)sender;
 -(IBAction)selectTextTab:(id)sender;
+
+-(void)_selectViewOFKind:(ViewMenu_Kind)_kind;
+-(IBAction)selectViewMPEG7:(id)sender;
+-(IBAction)selectViewPBCore:(id)sender;
+-(IBAction)selectViewPBCore2:(id)sender;
+-(IBAction)selectViewEBUCore15:(id)sender;
+-(IBAction)selectViewEBUCore16:(id)sender;
+-(IBAction)selectViewFIMS11:(id)sender;
+-(IBAction)selectViewFIMS12:(id)sender;
+-(IBAction)selectViewFIMS13:(id)sender;
+-(IBAction)selectViewReVTMD:(id)sender;
+
 -(IBAction)export:(id)sender;
 
 
@@ -45,5 +62,8 @@
 -(void)processFiles:(NSArray *)URLs;
 -(void)showFileAtIndex:(NSUInteger)index;
 -(void)updateEasyTabWithFileAtIndex:(NSUInteger)index;
+-(void)updateTextTabWithFileAtIndex:(NSUInteger)index;
+-(void)_updateTextTabWithContentOfAttributedTextAtIndex:(NSUInteger)index;
+-(void)_updateTextTabWithContentOfSimpleTextAtIndex:(NSUInteger)index;
 
 @end

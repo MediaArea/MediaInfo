@@ -21,6 +21,8 @@
 		4395327D14E1263300537F55 /* MyWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4395327C14E1263300537F55 /* MyWindowController.m */; };
 		439533AD14E172C500537F55 /* mediainfo.icns in Resources */ = {isa = PBXBuildFile; fileRef = 439533AC14E172C500537F55 /* mediainfo.icns */; };
 		439535AC14E3020600537F55 /* TreeOutline.m in Sources */ = {isa = PBXBuildFile; fileRef = 439535AB14E3020600537F55 /* TreeOutline.m */; };
+		43B17B9A1CE6029E0012C3E3 /* SegmentedCellWithMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B17B991CE6029E0012C3E3 /* SegmentedCellWithMenu.m */; };
+		43B17B9D1CE672110012C3E3 /* SegmentedControlWithMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B17B9C1CE672110012C3E3 /* SegmentedControlWithMenu.m */; };
 		43BB5AA215336722002400F8 /* About.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43BB5AA415336722002400F8 /* About.xib */; };
 		43BB5AA515336BE2002400F8 /* MyWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43BB5AA715336BE2002400F8 /* MyWindow.xib */; };
 		43BB5AA815336BEB002400F8 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43BB5AAA15336BEB002400F8 /* MainMenu.xib */; };
@@ -140,6 +142,10 @@
 		43A059EC153F23B40056CD79 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hant"; path = "zh-Hant.lproj/MainMenu.xib"; sourceTree = "<group>"; };
 		43A059ED153F23B80056CD79 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hans"; path = "zh-Hans.lproj/Preferences.xib"; sourceTree = "<group>"; };
 		43A059EE153F23B90056CD79 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hant"; path = "zh-Hant.lproj/Preferences.xib"; sourceTree = "<group>"; };
+		43B17B981CE6029E0012C3E3 /* SegmentedCellWithMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentedCellWithMenu.h; sourceTree = "<group>"; };
+		43B17B991CE6029E0012C3E3 /* SegmentedCellWithMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentedCellWithMenu.m; sourceTree = "<group>"; };
+		43B17B9B1CE672110012C3E3 /* SegmentedControlWithMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentedControlWithMenu.h; sourceTree = "<group>"; };
+		43B17B9C1CE672110012C3E3 /* SegmentedControlWithMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentedControlWithMenu.m; sourceTree = "<group>"; };
 		43BB5AA315336722002400F8 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/About.xib; sourceTree = "<group>"; };
 		43BB5AA615336BE2002400F8 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MyWindow.xib; sourceTree = "<group>"; };
 		43BB5AA915336BEB002400F8 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -239,6 +245,10 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				43B17B9B1CE672110012C3E3 /* SegmentedControlWithMenu.h */,
+				43B17B9C1CE672110012C3E3 /* SegmentedControlWithMenu.m */,
+				43B17B981CE6029E0012C3E3 /* SegmentedCellWithMenu.h */,
+				43B17B991CE6029E0012C3E3 /* SegmentedCellWithMenu.m */,
 				431876141BECF79B00B687E9 /* DraggingFixView.h */,
 				431876151BECF79B00B687E9 /* DraggingFixView.m */,
 				4395314E14E0465300537F55 /* NSString+wchar.h */,
@@ -373,11 +383,6 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = MediaArea.net;
-				TargetAttributes = {
-					8D1107260486CEB800E47090 = {
-						DevelopmentTeam = C2SZ4M9843;
-					};
-				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MediaInfo" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -473,6 +478,7 @@
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* AppController.m in Sources */,
 				4395309314E0288100537F55 /* oMediaInfoList.mm in Sources */,
+				43B17B9A1CE6029E0012C3E3 /* SegmentedCellWithMenu.m in Sources */,
 				4395315014E0465300537F55 /* NSString+wchar.m in Sources */,
 				431876161BECF79B00B687E9 /* DraggingFixView.m in Sources */,
 				4395327D14E1263300537F55 /* MyWindowController.m in Sources */,
@@ -482,6 +488,7 @@
 				43BB5AB215346721002400F8 /* PreferencesWindowController.m in Sources */,
 				436C50A615B9E06D000AF072 /* TreeOutlineDelegate.m in Sources */,
 				43E0EFB415DC12AC001E8F7C /* easyStreamsTableDelegate.m in Sources */,
+				43B17B9D1CE672110012C3E3 /* SegmentedControlWithMenu.m in Sources */,
 				43E0EFBA15DD64B3001E8F7C /* HyperlinkButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -701,10 +708,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APP_VERSION = 0.7.85;
+				APP_VERSION = 0.7.86;
 				CODE_SIGN_ENTITLEMENTS = MediaInfo.entitlements;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "3rd Party Mac Developer Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -729,10 +734,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APP_VERSION = 0.7.85;
+				APP_VERSION = 0.7.86;
 				CODE_SIGN_ENTITLEMENTS = MediaInfo.entitlements;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "3rd Party Mac Developer Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;

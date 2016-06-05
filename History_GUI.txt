@@ -13,6 +13,19 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.86, 2016-05-31
+--------------
++ Linux/Mac: more output formats (PBCore, EBUCore, FIMS)
++ FFV1 parsing optimization, avoiding by default a too verbose trace
++ Matroska: more elements support and typo fixes in the trace
++ #I172, Trace feature: provide the name of the main parser in the media element
++ Matroska: consider all values below 0x10 EBML names as 1-byte junk
+x Matroska: better support (including speed improvement) of huge lossless frames (e.g. 20 MB FFV1 4K)
+x #I144, Python binding: Python 2 on Linux does not automatically provide the locale to the shared object
+x HTML output: don't escape carriage returns from the input file
+x FFV1: some streams were rejected despite the fact they are valid
+x Python binding: some errors during call of Get() API with Python3 on Linux/Mac
+
 Version 0.7.85, 2016-04-29
 --------------
 + FFV1: ScanType and ScanOrder
