@@ -69,8 +69,8 @@
  image stream1;دفق الصورة
  image stream2;دفق الصور
  image stream3;دفق الصور
- KB; KB
- Kb; Kb
+ KB; kB
+ Kb; kb
  KBps;كيلوبايت في الثانية
  Kbps;كيلوبت في الثانية
  KHz;كيلوهرتز
@@ -844,11 +844,11 @@ Menu_Hint;مزيد من الإمكانيات
 Menu_No;لا توجد أي قائمة
 MenuCount;عدد قوائم الدفق
 MenuID;معرف القائمة
-mn;mn
+mn; min
 Mood;مزاج
 More;أكثر
 Movie;اسم الفيلم
-ms;ms
+ms; ms
 MSDI;MSDI
 MusicBy;الموسيقى من قبل
 MuxingMode;نوع الـmuxing
@@ -964,7 +964,7 @@ RemixedBy;تم الـRemixe من طرف
 ReplayGain_Gain;كسب في القراءة
 ReplayGain_Peak;ذروة الكسب في القراءة
 Resolution;دقة الصورة
-s;s
+s; s
 SamplingCount;
 SamplingRate;أخذ العينات
 Save;حفظ

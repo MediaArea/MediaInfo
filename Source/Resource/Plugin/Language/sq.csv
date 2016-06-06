@@ -14,8 +14,8 @@
  bit1; bit
  bit2; bit
  bit3; bit
- bps; bps
- Bps; Bps
+ bps; b/s
+ Bps; B/s
  Byte1; Bajt
  Byte2; Bajt
  Byte3; Bajt
@@ -34,28 +34,28 @@
  day1; ditë
  day2; ditë
  day3; ditë
- dB1;dB
- dB2;dB
- dB3;dB
+ dB1; dB
+ dB2; dB
+ dB3; dB
  file1; skedë
  file2; skeda
  file3; skeda
- fps1; fps
- fps2; fps
- fps3; fps
+ fps1; FPS
+ fps2; FPS
+ fps3; FPS
  frame1; kuadër
  frame2; kuadro
  frame3; kuadro
  GB; GB
  Gb; Gb
- Gbps; Gbps
- GBps; GBps
+ Gbps; Gb/s
+ GBps; GB/s
  GHz; GHz
  GiB; GiB
  GibiByte1; GibiBajt
  GibiByte2; Gibibajt
  GibiByte3; Gibibajt
- GiBps; GiBps
+ GiBps; GiB/s
  GigaBit1; GigaBit
  GigaBit2; GigaBit
  GigaBit3; GigaBit
@@ -69,11 +69,11 @@
  image stream1; rrymë figure
  image stream2; rrymë figure
  image stream3; rrymë figure
- KB; KB
- Kb; Kb
- KBps; KBps
- Kbps; Kbps
- KHz; KHz
+ KB; kB
+ Kb; kb
+ KBps; kB/s
+ Kbps; kb/s
+ KHz; kHz
  KiB; KiB
  KibiBit1; KibiBit
  KibiBit2; KibiBit
@@ -81,7 +81,7 @@
  KibiByte1; KibiBajt
  KibiByte2; KibiBajt
  KibiByte3; KibiBajt
- KiBps; KiBps
+ KiBps; KiB/s
  KiloBit1; KiloBit
  KiloBit2; KiloBit
  KiloBit3; KiloBit
@@ -90,7 +90,7 @@
  KiloByte3; KiloBajt
  MB; MB
  Mb; Mb
- Mbps; Mbps
+ Mbps; Mb/s
  MBps; MebiBajt
  MebiBit1; MebiBit
  MebiBit2; MebiBit
@@ -107,7 +107,7 @@
  MHz; MHz
  MiB; MiB
  Mib; Mib
- MiBps; MiBps
+ MiBps; MiB/s
  millisecond1; milisekondë
  millisecond2; milisekonda
  millisecond3; milisekonda
@@ -844,11 +844,11 @@ Menu_Hint;Mundësi të tjera
 Menu_No;Pa meny
 MenuCount;Numri i rrymave të menysë
 MenuID;ID i menysë
-mn;mn
+mn; min
 Mood;Gjendja shpirtërore
 More;Akoma
 Movie;Emri i filmit
-ms;ms
+ms; ms
 MSDI;MSDI
 MusicBy;Muzikë nga
 MuxingMode;Mënyra e muksimit

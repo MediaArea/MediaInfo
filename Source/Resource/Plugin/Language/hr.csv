@@ -14,8 +14,8 @@
  bit1; bit
  bit2; bita
  bit3; bita
- bps; bps
- Bps; Bps
+ bps; b/s
+ Bps; B/s
  Byte1; bajt
  Byte2; bajta
  Byte3; bajta
@@ -40,22 +40,22 @@
  file1; datoteka
  file2; datoteke
  file3; datoteke
- fps1; fps
- fps2; fps
- fps3; fps
+ fps1; FPS
+ fps2; FPS
+ fps3; FPS
  frame1; sličica
  frame2; sličice
  frame3; sličice
  GB; GB
  Gb; Gb
- Gbps; Gbps
- GBps; GBps
+ Gbps; Gb/s
+ GBps; GB/s
  GHz; GHz
  GiB; GiB
  GibiByte1; GibiBytes
  GibiByte2; GibiBytes
  GibiByte3; GibiBytes
- GiBps; GiBps
+ GiBps; GiB/s
  GigaBit1; GigaBit
  GigaBit2; GigaBits
  GigaBit3; GigaBits
@@ -69,11 +69,11 @@
  image stream1; tok slike
  image stream2; toka slike
  image stream3; toka slike
- KB; KB
- Kb; Kb
- KBps; KBps
- Kbps; Kbps
- KHz; KHz
+ KB; kB
+ Kb; kb
+ KBps; kB/s
+ Kbps; kb/s
+ KHz; kHz
  KiB; KiB
  KibiBit1; KibiBit
  KibiBit2; KibiBits
@@ -81,7 +81,7 @@
  KibiByte1; KibiByte
  KibiByte2; KibiBytes
  KibiByte3; KibiBytes
- KiBps; KiBps
+ KiBps; KiB/s
  KiloBit1; KiloBit
  KiloBit2; KiloBits
  KiloBit3; KiloBits
@@ -90,7 +90,7 @@
  KiloByte3; KiloBytes
  MB; MB
  Mb; Mb
- Mbps; Mbps
+ Mbps; Mb/s
  MBps; MebiBytes
  MebiBit1; MebiBit
  MebiBit2; MebiBits
@@ -107,7 +107,7 @@
  MHz; MHz
  MiB; MiB
  Mib; Mib
- MiBps; MiBps
+ MiBps; MiB/s
  millisecond1; millisecond
  millisecond2; milliseconds
  millisecond3; milliseconds
@@ -844,11 +844,11 @@ Menu_Hint;Dodatne mogućnosti
 Menu_No;Bez izbornika
 MenuCount;Broj izborničkih tokova
 MenuID;Izbornički ID
-mn;min
+mn; min
 Mood;Raspoloženje
 More;Više...
 Movie;Naslov filma
-ms;ms
+ms; ms
 MSDI;MSDI
 MusicBy;Glazba
 MuxingMode;Način rada multipleksera
