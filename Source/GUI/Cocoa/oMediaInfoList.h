@@ -38,6 +38,7 @@ typedef enum oMediaInfoStream_t
 - (NSUInteger)count;
 - (NSString*)filenameAtIndex:(NSInteger)index;
 - (NSArray*)files;
+- (NSString*)inform;
 - (NSString*)informAtIndex:(NSUInteger)fileIndex;
 - (NSInteger)numberOFStreamsAtIndex:(NSUInteger)fileIndex ofStreamKind:(oMediaInfoStream)streamKind;
 - (void)setOption:(NSString*)option withValue:(NSString*)value;

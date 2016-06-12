@@ -145,6 +145,12 @@
 	
 }
 
+- (NSString*)inform
+{
+	const wchar_t *s = MediaInfoList_Inform(MIL, -1, 0);
+	return [NSString stringFromWCHAR:s];
+}
+
 - (NSString*)informAtIndex:(NSUInteger)fileIndex {
 	
 	const wchar_t *s = MediaInfoList_Inform(MIL, fileIndex, 0);

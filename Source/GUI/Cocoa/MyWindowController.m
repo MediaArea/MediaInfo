@@ -15,6 +15,27 @@
 #define kTextTabIndex 2
 #define kOtherViewsSelectorIndex 3
 
+NSString* TextKindToNSString(ViewMenu_Kind kind)
+{
+	NSString *_ret = nil;
+	switch (kind)
+	{
+		case Kind_MPEG7:		_ret = @"MPEG-7"; break;
+		case Kind_PBCore: 		_ret = @"PBCore"; break;
+		case Kind_PBCore2:		_ret = @"PBCore2"; break;
+		case Kind_EBUCore_1_5:	_ret = @"EBUCore_1.5"; break;
+		case Kind_EBUCore_1_6:	_ret = @"EBUCore_1.6"; break;
+		case Kind_FIMS_1_1:		_ret = @"FIMS_1.1"; break;
+		case Kind_FIMS_1_2:		_ret = @"FIMS_1.2"; break;
+		case Kind_FIMS_1_3:		_ret = @"FIMS_1.3"; break;
+		case Kind_reVTMD:		_ret = @"reVTMD"; break;
+		case Kind_Text:
+								_ret = @"";
+		default:				break;
+	}
+	return _ret;
+}
+
 @implementation MyWindowController
 
 -(void)dealloc {
@@ -28,6 +49,7 @@
 	[easyGeneralLinkButton setHidden:YES];
 	_lastTextKind = Kind_Text;
 	[tabSelector setMenu:otherViewsMenu forSegment:kOtherViewsSelectorIndex];
+	_exportSavePanel = nil;
 }
 
 #pragma mark -
@@ -172,32 +194,93 @@
 }
 
 
+-(IBAction)changeExportFormat:(id)sender
+{
+	if (!_exportSavePanel)
+		return;
+	
+	NSInteger tag = exportFormatButton.selectedTag;
+	
+	if (tag > 0)
+		[_exportSavePanel setAllowedFileTypes:@[@"xml"]];
+	else
+		[_exportSavePanel setAllowedFileTypes:@[@"txt"]];
+}
+
 -(IBAction)export:(id)sender {
 	
 	//save panel
 	NSSavePanel *savePanel	= [NSSavePanel savePanel];
+	_exportSavePanel = savePanel;
 	
 	[savePanel setCanCreateDirectories:YES];
 	//[savePanel setCanSelectHiddenExtension:YES];
 	[savePanel setExtensionHidden:NO];
+	[savePanel setAccessoryView:formatSelectionAccView];
 
-	[savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"txt"]];
 	[savePanel setNameFieldStringValue:@"MediaInfo.txt"];
+	[self changeExportFormat:nil];
 	
 	[savePanel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
 		
-		if(result == NSFileHandlingPanelOKButton) {
-			
+		if (result == NSFileHandlingPanelOKButton)
+		{
 			MediaInfoExporter *exporter = [[[MediaInfoExporter alloc] initWithObj:mediaList] autorelease];
 			exporter.extensionHidden = [savePanel isExtensionHidden];
-			BOOL result = [exporter exportToText:[savePanel URL]];
-			if(!result) {
+			
+			BOOL result;
+			NSString *format = nil;
+			switch (exportFormatButton.selectedTag)
+			{
+				case 1:
+					format = TextKindToNSString(Kind_MPEG7);
+					break;
+				case 2:
+					format = TextKindToNSString(Kind_PBCore);
+					break;
+				case 3:
+					format = TextKindToNSString(Kind_PBCore2);
+					break;
+				case 4:
+					format = TextKindToNSString(Kind_EBUCore_1_5);
+					break;
+				case 5:
+					format = TextKindToNSString(Kind_EBUCore_1_6);
+					break;
+				case 6:
+					format = TextKindToNSString(Kind_FIMS_1_1);
+					break;
+				case 7:
+					format = TextKindToNSString(Kind_FIMS_1_2);
+					break;
+				case 8:
+					format = TextKindToNSString(Kind_FIMS_1_3);
+					break;
+				case 9:
+					format = TextKindToNSString(Kind_reVTMD);
+					break;
+					
+				case 0:
+				default:
+					//Text or Unknown tag
+					break;
+			}
+
+			if (format)
+				result = [exporter exportFormat:format toUrl:savePanel.URL];
+			else
+				result = [exporter exportToText:savePanel.URL];
+				
+			if (!result)
+			{
 				[[NSAlert alertWithMessageText:NSLocalizedString(@"Error", @"Error header") 
 								 defaultButton:nil 
 							   alternateButton:nil 
 								   otherButton:nil 
 					 informativeTextWithFormat:NSLocalizedString(@"Can not save file", @"Error text while export")] runModal];
 			}
+			
+			_exportSavePanel = nil;
 		}
 	}];
 	
@@ -415,22 +498,7 @@
 
 -(void)updateTextTabWithFileAtIndex:(NSUInteger)index
 {
-	NSString *_inform = nil;
-	switch (_lastTextKind)
-	{
-		case Kind_MPEG7:		_inform = @"MPEG-7"; break;
-		case Kind_PBCore: 		_inform = @"PBCore"; break;
-		case Kind_PBCore2:		_inform = @"PBCore2"; break;
-		case Kind_EBUCore_1_5:	_inform = @"EBUCore_1.5"; break;
-		case Kind_EBUCore_1_6:	_inform = @"EBUCore_1.6"; break;
-		case Kind_FIMS_1_1:		_inform = @"FIMS_1.1"; break;
-		case Kind_FIMS_1_2:		_inform = @"FIMS_1.2"; break;
-		case Kind_FIMS_1_3:		_inform = @"FIMS_1.3"; break;
-		case Kind_reVTMD:		_inform = @"reVTMD"; break;
-			
-		case Kind_Text:
-		default:				break;
-	}
+	NSString *_inform = TextKindToNSString(_lastTextKind);
 	if (!_inform)
 	{
 		[mediaList setOption:@"Inform" withValue:@""];

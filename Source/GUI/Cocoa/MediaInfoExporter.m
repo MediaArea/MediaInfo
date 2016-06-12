@@ -30,21 +30,23 @@
 
 #pragma mark -
 
-- (BOOL)exportToText:(NSURL*)url {
-
-	NSMutableArray *a = [NSMutableArray array];
-	
-	NSUInteger i, count = [mil count];
-	for(i=0; i<count; i++) {
-		
-		NSString *info = [mil informAtIndex:i];
-		[a addObject:info];
-	}
-
-	NSString *text = [a componentsJoinedByString:@"\n\n"];
+- (BOOL)exportToText:(NSURL*)url
+{
+	NSString *text = [mil inform];
 	
 	return [self saveData:[text dataUsingEncoding:NSUTF8StringEncoding] toUrl:url];
 	
+}
+
+- (BOOL)exportFormat:(NSString*)format toUrl:(NSURL*)url
+{
+	[mil setOption:@"Inform" withValue:format];
+	
+	NSString *text = [mil inform];
+	
+	[mil setOption:@"Inform" withValue:@""]; //reset
+	
+	return [self saveData:[text dataUsingEncoding:NSUTF8StringEncoding] toUrl:url];
 }
 
 

@@ -21,6 +21,8 @@ typedef enum { Kind_Text, Kind_XML, Kind_PBCore, Kind_PBCore2, Kind_reVTMD, Kind
     IBOutlet NSTreeController *treeOutlineController;
     IBOutlet NSTextView *textField;
 	IBOutlet NSMenu *otherViewsMenu;
+	IBOutlet NSView *formatSelectionAccView;
+	IBOutlet NSPopUpButton *exportFormatButton;
 
     IBOutlet NSTextField *easyGeneralTextLeft;
     IBOutlet NSTextField *easyGeneralTextRight;
@@ -32,6 +34,7 @@ typedef enum { Kind_Text, Kind_XML, Kind_PBCore, Kind_PBCore2, Kind_reVTMD, Kind
     NSInteger selectedFileIndex;
 
 	ViewMenu_Kind _lastTextKind;
+	NSSavePanel *_exportSavePanel;
 }
 
 //@property (assign) NSInteger selectedFileIndex;
@@ -54,7 +57,7 @@ typedef enum { Kind_Text, Kind_XML, Kind_PBCore, Kind_PBCore2, Kind_reVTMD, Kind
 -(IBAction)selectViewReVTMD:(id)sender;
 
 -(IBAction)export:(id)sender;
-
+-(IBAction)changeExportFormat:(id)sender;
 
 -(NSInteger)selectedFileIndex;
 -(void)setSelectedFileIndex:(NSInteger)index;
