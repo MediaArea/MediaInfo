@@ -13,6 +13,10 @@ Known bugs
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
 
+Version 0.7.87, 2016-06-30
+--------------
++ Spanish and catalan languages updated, thanks to Sergi Medina
+
 Version 0.7.86, 2016-05-31
 --------------
 + Linux/Mac: more output formats (PBCore, EBUCore, FIMS)
