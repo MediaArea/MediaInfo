@@ -14,6 +14,8 @@
                 <outlet property="easyGeneralTextRight" destination="140" id="143"/>
                 <outlet property="easyStreamsController" destination="153" id="154"/>
                 <outlet property="easyTable" destination="145" id="168"/>
+                <outlet property="exportFormatButton" destination="j1u-Ak-VG3" id="K4p-gd-tbT"/>
+                <outlet property="formatSelectionAccView" destination="xCY-zS-1YJ" id="eeC-lK-5e4"/>
                 <outlet property="otherViewsMenu" destination="4PR-wq-KNx" id="kYH-53-DSC"/>
                 <outlet property="tabSelector" destination="37" id="119"/>
                 <outlet property="tabs" destination="13" id="51"/>
@@ -24,7 +26,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="MediaInfo" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" frameAutosaveName="MyWindow" animationBehavior="default" id="1">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -40,14 +42,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="85">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
+                            <font key="font" metaFont="menu"/>
                             <menu key="menu" id="86"/>
                         </popUpButtonCell>
                         <connections>
                             <binding destination="29" name="content" keyPath="arrangedObjects" id="90"/>
+                            <binding destination="29" name="enabled" keyPath="arrangedObjects.@count" id="106"/>
                             <binding destination="29" name="contentObjects" keyPath="arrangedObjects.title" previousBinding="90" id="91"/>
                             <binding destination="29" name="contentValues" keyPath="arrangedObjects.value" previousBinding="91" id="92"/>
-                            <binding destination="29" name="enabled" keyPath="arrangedObjects.@count" id="106"/>
                             <binding destination="-2" name="selectedIndex" keyPath="selectedFileIndex" previousBinding="92" id="97"/>
                         </connections>
                     </popUpButton>
@@ -79,7 +81,7 @@
                                                         <rect key="frame" x="15" y="39" width="213" height="80"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" id="138">
-                                                            <font key="font" metaFont="titleBar" size="12"/>
+                                                            <font key="font" metaFont="cellTitle"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
@@ -88,7 +90,7 @@
                                                         <rect key="frame" x="238" y="39" width="213" height="80"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" id="141">
-                                                            <font key="font" metaFont="titleBar" size="12"/>
+                                                            <font key="font" metaFont="cellTitle"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
@@ -96,7 +98,7 @@
                                                     <button id="180" customClass="HyperlinkButton">
                                                         <rect key="frame" x="18" y="16" width="430" height="15"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="square" title="Go to the website of a player for this file" bezelStyle="shadowlessSquare" image="FAB448A6-86CF-43F9-B74D-2FCD7FD0F0DE" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="181">
+                                                        <buttonCell key="cell" type="square" title="Go to the website of a player for this file" bezelStyle="shadowlessSquare" image="D2EC8255-A083-446F-A4D2-1264876BFEF7" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="181">
                                                             <behavior key="behavior" lightByContents="YES"/>
                                                             <font key="font" metaFont="titleBar" size="12"/>
                                                         </buttonCell>
@@ -121,7 +123,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="16" id="145">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="451" height="95"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="451" height="19"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="2" height="3"/>
                                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -149,7 +151,7 @@
                                                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                                                             </tableHeaderCell>
                                                                             <textFieldCell key="dataCell" controlSize="small" selectable="YES" editable="YES" allowsUndo="NO" alignment="left" id="151">
-                                                                                <font key="font" metaFont="titleBar" size="12"/>
+                                                                                <font key="font" metaFont="cellTitle"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
@@ -196,7 +198,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" autosaveName="treeOutline" rowHeight="16" headerView="110" indentationPerLevel="16" outlineTableColumn="21" id="18" userLabel="treeOutline" customClass="TreeOutline">
-                                                        <rect key="frame" x="0.0" y="0.0" width="486" height="271"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="486" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <size key="intercellSpacing" width="3" height="2"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -216,12 +218,12 @@
                                                                 </textFieldCell>
                                                                 <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                                                 <connections>
-                                                                    <binding destination="121" name="fontSize" keyPath="values.treeFontSize" id="122"/>
                                                                     <binding destination="62" name="value" keyPath="arrangedObjects.name" id="111">
                                                                         <dictionary key="options">
                                                                             <bool key="NSConditionallySetsEditable" value="YES"/>
                                                                         </dictionary>
                                                                     </binding>
+                                                                    <binding destination="121" name="fontSize" keyPath="values.treeFontSize" id="122"/>
                                                                 </connections>
                                                             </tableColumn>
                                                             <tableColumn identifier="value" editable="NO" width="237" minWidth="10" maxWidth="3.4028234663852886e+38" id="107">
@@ -237,12 +239,12 @@
                                                                 </textFieldCell>
                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                                 <connections>
-                                                                    <binding destination="121" name="fontSize" keyPath="values.treeFontSize" id="132"/>
                                                                     <binding destination="62" name="value" keyPath="arrangedObjects.value" id="112">
                                                                         <dictionary key="options">
                                                                             <bool key="NSConditionallySetsEditable" value="YES"/>
                                                                         </dictionary>
                                                                     </binding>
+                                                                    <binding destination="121" name="fontSize" keyPath="values.treeFontSize" id="132"/>
                                                                 </connections>
                                                             </tableColumn>
                                                         </tableColumns>
@@ -448,9 +450,51 @@
             </items>
             <point key="canvasLocation" x="254.5" y="737.5"/>
         </menu>
+        <customView id="xCY-zS-1YJ">
+            <rect key="frame" x="0.0" y="0.0" width="358" height="54"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="obM-WT-j1Q">
+                    <rect key="frame" x="18" y="34" width="322" height="14"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Choose your desired export format" id="PWm-W6-Msn">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <popUpButton verticalHuggingPriority="750" id="j1u-Ak-VG3">
+                    <rect key="frame" x="105" y="5" width="148" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="EOL-gd-Ads">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                        <menu key="menu" id="oZ6-Fh-pcv">
+                            <items>
+                                <menuItem title="Text" id="l1c-6L-mdF"/>
+                                <menuItem title="MPEG-7" tag="1" id="qPy-3h-POF"/>
+                                <menuItem title="PBCore 1.2" tag="2" id="a3A-Ao-7OV"/>
+                                <menuItem title="PBCore 2.0" tag="3" id="1yR-Ww-Nc9"/>
+                                <menuItem title="EBUCore 1.5" tag="4" id="lYi-0o-NUT"/>
+                                <menuItem title="EBUCore 1.6" tag="5" id="TZc-xn-Gdh"/>
+                                <menuItem title="FIMS 1.1 (beta)" tag="6" id="nMZ-Jy-aQJ"/>
+                                <menuItem title="FIMS 1.2 (beta)" tag="7" id="Dun-Cc-kMM"/>
+                                <menuItem title="FIMS 1.3 (beta)" tag="8" id="XHo-fC-op4"/>
+                                <menuItem title="reVTMD" tag="9" id="O4d-KN-zYb"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="changeExportFormat:" target="-2" id="hBS-0x-O8a"/>
+                        <binding destination="121" name="selectedTag" keyPath="values.exportFormatTag" id="Ef8-re-mue"/>
+                    </connections>
+                </popUpButton>
+            </subviews>
+            <point key="canvasLocation" x="211" y="634"/>
+        </customView>
     </objects>
     <resources>
-        <image name="FAB448A6-86CF-43F9-B74D-2FCD7FD0F0DE" width="1" height="1">
+        <image name="D2EC8255-A083-446F-A4D2-1264876BFEF7" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

@@ -20,6 +20,7 @@
 - (id)initWithObj:(oMediaInfoList*)obj;
 
 - (BOOL)exportToText:(NSURL*)url;
+- (BOOL)exportFormat:(NSString*)format toUrl:(NSURL*)url;
 
 - (BOOL)saveData:(NSData*)aData toUrl:(NSURL*)url;
 
