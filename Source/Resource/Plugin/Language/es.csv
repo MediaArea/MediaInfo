@@ -11,14 +11,14 @@
  audio stream1;pista de audio
  audio stream2;pista de audio
  audio stream3;pista de audio
- bit1;bit
- bit2;bits
- bit3;bits
- bps;bps
- Bps;Bps
- Byte1;Byte
- Byte2;Bytes
- Byte3;Bytes
+ bit1; bit
+ bit2; bits
+ bit3; bits
+ bps; b/s
+ Bps; B/s
+ Byte1; Byte
+ Byte2; Bytes
+ Byte3; Bytes
  channel1;canal
  channel2;canales
  channel3;canales
@@ -34,95 +34,95 @@
  day1;día
  day2;días
  day3;días
- dB1;dB
- dB2;dB
- dB3;dB
+ dB1; dB
+ dB2; dB
+ dB3; dB
  file1;archivo
  file2;archivos
  file3;archivos
- fps1;fps
- fps2;fps
- fps3;fps
+ fps1; FPS
+ fps2; FPS
+ fps3; FPS
  frame1;marco
  frame2;marcos
  frame3;marcos
- GB;GB
- Gb;Gb
- Gbps;Gbps
- GBps;GBps
- GHz;GHz
- GiB;GIB
- GibiByte1;GibiBytes
- GibiByte2;GibiBytes
- GibiByte3;GibiBytes
- GiBps;GiBps
- GigaBit1;GigaBit
- GigaBit2;GigaBits
- GigaBit3;GigaBits
- GigaByte1;GigaBits
- GigaByte2;GigaByte
- GigaByte3;GigaBytes
- hour1;GigaBytes
- hour2;hora
- hour3;horas
+ GB; GB
+ Gb; Gb
+ Gbps; Gb/s
+ GBps; GB/s
+ GHz; GHz
+ GiB; GiB
+ GibiByte1; GibiBytes
+ GibiByte2; GibiBytes
+ GibiByte3; GibiBytes
+ GiBps; GiB/s
+ GigaBit1; GigaBit
+ GigaBit2; GigaBits
+ GigaBit3; GigaBits
+ GigaByte1; GigaByte
+ GigaByte2; GigaBytes
+ GigaByte3; GigaBytes
+ hour1; hora
+ hour2; horas
+ hour3; horas
  Hz;Hz
  image stream1;Primera pista de imágen
  image stream2;Segundo pista de imágen
  image stream3;Tercera pista de imágen
- KB;KB
- Kb;Kb
- KBps;KBps
- Kbps;Kbps
- KHz;KHz
- KiB;Kib
- KibiBit1;KibiBit
- KibiBit2;KibiBits
- KibiBit3;KibiBits
- KibiByte1;KibiByte
- KibiByte2;KibiBytes
- KibiByte3;KibiBytes
- KiBps;KiBps
- KiloBit1;KiloBit
- KiloBit2;KiloBits
- KiloBit3;KiloBits
- KiloByte1;KiloByte
- KiloByte2;KiloBytes
- KiloByte3;KiloBytes
- MB;MB
- Mb;Mb
- Mbps;Mbps
- MBps;MebiBytes
- MebiBit1;MebiBit
- MebiBit2;MebiBits
- MebiBit3;MebiBits
- MebiByte1;MebiByte
- MebiByte2;MebiBytes
- MebiByte3;MebiBytes
- MegaBit1;MegaBit
- MegaBit2;MegaBits
- MegaBit3;MegaBits
- MegaByte1;MegaByte
- MegaByte2;MegaBytes
- MegaByte3;MegaBytes
- MHz;MHZ
- MiB;MB
- Mib;Mib
- MiBps;Mibps
- millisecond1;milisegundo
- millisecond2;milisegundos
- millisecond3;milisegundos
- minute1;minuto
- minute2;minutos
- minute3;minutos
- month1;mes
- month2;meses
- month3;meses
- pixel1;pixel
- pixel2;pixeles
- pixel3;pixeles
- second1;segundo
- second2;segundos
- second3;segundos
+ KB; kB
+ Kb; kb
+ KBps; kB/s
+ Kbps; kb/s
+ KHz; kHz
+ KiB; KiB
+ KibiBit1; KibiBit
+ KibiBit2; KibiBits
+ KibiBit3; KibiBits
+ KibiByte1; KibiByte
+ KibiByte2; KibiBytes
+ KibiByte3; KibiBytes
+ KiBps; KiB/s
+ KiloBit1; KiloBit
+ KiloBit2; KiloBits
+ KiloBit3; KiloBits
+ KiloByte1; KiloByte
+ KiloByte2; KiloBytes
+ KiloByte3; KiloBytes
+ MB; MB
+ Mb; Mb
+ Mbps; Mb/s
+ MBps; MebiBytes
+ MebiBit1; MebiBit
+ MebiBit2; MebiBits
+ MebiBit3; MebiBits
+ MebiByte1; MebiByte
+ MebiByte2; MebiBytes
+ MebiByte3; MebiBytes
+ MegaBit1; MegaBit
+ MegaBit2; MegaBits
+ MegaBit3; MegaBits
+ MegaByte1; MegaByte
+ MegaByte2; MegaBytes
+ MegaByte3; MegaBytes
+ MHz; MHz
+ MiB; MiB
+ Mib; Mib
+ MiBps; MiB/s
+ millisecond1; milisegundo
+ millisecond2; milisegundos
+ millisecond3; milisegundos
+ minute1; minuto
+ minute2; minutos
+ minute3; minutos
+ month1; mes
+ month2; meses
+ month3; meses
+ pixel1; píxel
+ pixel2; píxeles
+ pixel3; píxeles
+ second1; segundo
+ second2; segundos
+ second3; segundos
  text stream1;Primera pista de texto
  text stream2;Segunda pista de texto
  text stream3;Tercera pista de texto
@@ -265,7 +265,7 @@ ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Información general
 ContentType;Tipo de Contenido
-CoProducer;Co-productor
+CoProducer;Coproductor
 Copyright;Derechos de autor
 CopyrightYear;
 CostumeDesigner;Diseñador
@@ -844,11 +844,11 @@ Menu_Hint;Más posibilidades
 Menu_No;Sin menú
 MenuCount;Cantidad de menú
 MenuID;ID Menú
-mn;min.
+mn; min
 Mood;Humor
 More;Más
 Movie;Película
-ms;ms
+ms; ms
 MSDI;MSDI
 MusicBy;Música de
 MuxingMode;Modo Muxing

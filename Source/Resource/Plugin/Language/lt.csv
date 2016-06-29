@@ -14,8 +14,8 @@
  bit1; bitas
  bit2; bitai
  bit3; bitai
- bps; bps
- Bps; Bps
+ bps; b/s
+ Bps; B/s
  Byte1; Baitas
  Byte2; Baitai
  Byte3;Baitai
@@ -48,14 +48,14 @@
  frame3;
  GB; GB
  Gb; Gb
- Gbps; Gbps
- GBps; GBps
+ Gbps; Gb/s
+ GBps; GB/s
  GHz; GHz
  GiB; GiB
- GibiByte1;Gigabaitai
- GibiByte2;Gigabaitai
- GibiByte3;Gigabaitai
- GiBps; GiBps
+ GibiByte1; Gigabaitai
+ GibiByte2; Gigabaitai
+ GibiByte3; Gigabaitai
+ GiBps; GiB/s
  GigaBit1; GigaBitas
  GigaBit2; GigaBitai
  GigaBit3; GigaBitai
@@ -69,11 +69,11 @@
  image stream1;paveikslėlio srautas
  image stream2;paveikslėlių srautai
  image stream3;paveikslėlių srautai
- KB; KB
- Kb; Kb
- KBps; KBps
- Kbps; Kbps
- KHz; KHz
+ KB; kB
+ Kb; kb
+ KBps; kB/s
+ Kbps; kb/s
+ KHz; kHz
  KiB; KiB
  KibiBit1; KibiBitas
  KibiBit2; KibiBitai
@@ -81,7 +81,7 @@
  KibiByte1; KibiBaitas
  KibiByte2; KibiBaitai
  KibiByte3; KibiBaitai
- KiBps; KiBps
+ KiBps; KiB/s
  KiloBit1; KiloBitas
  KiloBit2; KiloBitai
  KiloBit3; KiloBitai
@@ -90,8 +90,8 @@
  KiloByte3; KiloBaitai
  MB; MB
  Mb; Mb
- Mbps; Mbps
- MBps;MBps
+ Mbps; Mb/s
+ MBps; MebiBytes
  MebiBit1; MebiBitas
  MebiBit2; MebiBitai
  MebiBit3; MebiBitai
@@ -107,7 +107,7 @@
  MHz; MHz
  MiB; MiB
  Mib; Mib
- MiBps; MiBps
+ MiBps; MiB/s
  millisecond1;milisekundė
  millisecond2;milisekundės
  millisecond3;milisekundės
@@ -844,11 +844,11 @@ Menu_Hint;Daugiau galimybių
 Menu_No;Be meniu
 MenuCount;Meniu srautų kiekis
 MenuID;Meniu ID
-mn;mn
+mn; min
 Mood;Nuotaika
 More;Daugiau
 Movie;Filmo pavadinimas
-ms;ms
+ms; ms
 MSDI;MSDI
 MusicBy;
 MuxingMode;Muxing rėžimas
