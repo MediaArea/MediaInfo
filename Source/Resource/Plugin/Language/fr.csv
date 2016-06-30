@@ -585,7 +585,7 @@ Gop_OpenClosed;GOP, ouvert/fermé
 Gop_OpenClosed_Open;Ouvert
 Gop_OpenClosed_Closed;Fermé
 Gop_OpenClosed_FirstFrame;GOP, ouvert/fermé de la première imageGrouping
-h;h
+h; h
 Header file;Créer un fichier Header
 Height;Hauteur
 Height_CleanAperture;Hauteur, Clean Aperture

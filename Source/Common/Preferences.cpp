@@ -126,6 +126,18 @@ int Preferences::Config_Load()
 
     RefreshFilesList(Prefs_Language);
     Load(Prefs_Language, Config(FolderNames[Prefs_Language]));
+	{
+		//Now we prioritize language files in the app dir instead of the language files in the user dir
+		//TODO: forbid edit of default language files
+		ZenLib::Ztring BaseFolderOld=BaseFolder;
+		BaseFolder=Application->ExeName.c_str();
+		BaseFolder=BaseFolder.substr(0, BaseFolder.rfind(__T("\\"))+1);
+		if (!Dir::Exists(BaseFolder+__T("Plugin")))
+			Dir::Create(BaseFolder+__T("Plugin"));
+		BaseFolder+=__T("Plugin\\");
+		Load(Prefs_Language, Config(FolderNames[Prefs_Language]));
+		BaseFolder=BaseFolderOld;
+	}
     RefreshFilesList(Prefs_Sheet);
     Load(Prefs_Sheet, Config(FolderNames[Prefs_Sheet]));
     RefreshFilesList(Prefs_Tree);

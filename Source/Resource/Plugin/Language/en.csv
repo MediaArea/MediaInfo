@@ -585,7 +585,7 @@ Gop_OpenClosed;GOP, Open/Closed
 Gop_OpenClosed_Open;Open
 Gop_OpenClosed_Closed;Closed
 Gop_OpenClosed_FirstFrame;GOP, Open/Closed of first frame
-h;h
+h; h
 Header file;Create a header file
 Height;Height
 Height_CleanAperture;Clean aperture height

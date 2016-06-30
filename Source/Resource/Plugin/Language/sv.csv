@@ -585,7 +585,7 @@ Gop_OpenClosed;GOP, Öppen/Stängd
 Gop_OpenClosed_Open;Öppen
 Gop_OpenClosed_Closed;Stängd
 Gop_OpenClosed_FirstFrame;GOP, Öppen/Stängd av första bildrutan
-h;h
+h; h
 Header file;Skapa en header-fil
 Height;Höjd
 Height_CleanAperture;
