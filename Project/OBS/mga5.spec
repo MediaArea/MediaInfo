@@ -1,5 +1,5 @@
-%define mediainfo_version           0.7.86
-%define libmediainfo_version        0.7.86
+%define mediainfo_version           0.7.87
+%define libmediainfo_version        0.7.87
 %define libzen_version              0.4.33
 %define debug_package %{nil}
 
