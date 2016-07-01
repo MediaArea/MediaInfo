@@ -1,0 +1,55 @@
+# $Id$
+# Maintainer: MediaArea.net SARL <info@mediaarea.net>
+# Contributor: hydro <hydro@freenet.de>
+
+pkgname=('mediainfo' 'mediainfo-gui')
+pkgver=0.7.87
+pkgrel=1
+pkgdesc="supplies technical and tag information about a video or audio file"
+url="http://mediaarea.net"
+license=('GPL')
+source=(${pkgname}_${pkgver}.orig.tar.xz)
+md5sums=('00000000000000000000000000000000')
+arch=('i686' 'x86_64')
+
+depends=('libmediainfo' 'wxgtk' 'libsm' 'desktop-file-utils')
+
+prepare() {
+    cd "${srcdir}"/MediaInfo/Project/GNU/CLI
+    sh ./autogen.sh
+    ./configure --prefix=/usr
+
+    cd "${srcdir}"/MediaInfo/Project/GNU/GUI
+    sh ./autogen.sh
+    ./configure --prefix=/usr
+}
+
+build() {
+    cd "${srcdir}"/MediaInfo/Project/GNU/CLI
+    make
+
+    cd "${srcdir}"/MediaInfo/Project/GNU/GUI
+    make
+}
+
+package_mediainfo() {
+    pkgdesc="${pkgdesc} (CLI)"
+    depends=('libmediainfo')
+
+    cd "${srcdir}"/MediaInfo/Project/GNU/CLI
+    make DESTDIR="${pkgdir}" install
+}
+
+package_mediainfo-gui() {
+    pkgdesc="${pkgdesc} (GUI)"
+    depends=('libmediainfo' 'wxgtk' 'libsm' 'desktop-file-utils')
+
+    cd "${srcdir}"/MediaInfo/Project/GNU/GUI
+    make DESTDIR="${pkgdir}" install
+
+    install -D -m 0644 "${srcdir}"/MediaInfo/Source/Resource/Image/MediaInfo.png "${pkgdir}"/usr/share/icons/hicolor/256x256/apps/mediainfo.png
+    install -D -m 0644 "${srcdir}"/MediaInfo/Source/Resource/Image/MediaInfo.{svg,ico,xpm} "${pkgdir}"/usr/share/icons/
+    install -D -m 0644 "${srcdir}"/MediaInfo/Source/Resource/Image/MediaInfo.png "${pkgdir}"/usr/share/pixmaps/mediainfo-gui.png
+    install -D -m 0644 "${srcdir}"/MediaInfo/Project/GNU/GUI/mediainfo-gui.desktop "${pkgdir}"/usr/share/applications/mediainfo-gui.desktop
+}
+
