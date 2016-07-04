@@ -1,0 +1,27 @@
+# $Id$
+# Maintainer: MediaArea.net SARL <info@mediaarea.net>
+# Contributor: hydro <hydro@freenet.de>
+
+pkgname=mediainfo
+pkgver=0.7.87
+pkgrel=1
+pkgdesc="supplies technical and tag information about a video or audio file"
+arch=('i686' 'x86_64')
+url="http://mediaarea.net"
+license=('GPL')
+depends=('libmediainfo')
+makedepends=('libtool' 'automake' 'autoconf')
+source=(${pkgname}_${pkgver}.orig.tar.xz)
+md5sums=('00000000000000000000000000000000')
+
+build() {
+  cd $srcdir/MediaInfo/Project/GNU/CLI
+  sh ./autogen.sh
+  ./configure --prefix=/usr
+  make
+}
+package() {
+  cd $srcdir/MediaInfo/Project/GNU/CLI
+  make DESTDIR=$pkgdir install
+}
+
