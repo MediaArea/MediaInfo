@@ -6,6 +6,15 @@
 
 @rem echo off
 
+@rem --- Search binaries ---
+set BPATH=
+if exist "%~dp0\..\..\..\MediaArea-Utils-Binaries" set BPATH="%~dp0\..\..\..\MediaArea-Utils-Binaries"
+if exist "%~dp0\..\..\MediaArea-Utils-Binaries" set BPATH="%~dp0\..\..\MediaArea-Utils-Binaries"
+if "%BPATH%"=="" (
+    echo "ERROR: binaries path not found"
+    exit /b 1
+)
+
 @rem --- Clean up ---
 del   MediaInfo_All_Windows_i386.zip
 rmdir MediaInfo_All_Windows_i386 /S /Q
@@ -28,9 +37,9 @@ xcopy MediaInfo_GUI_Windows_i386\*.* MediaInfo_All_Windows_i386\ /S /Y
 xcopy MediaInfo_CLI_Windows_i386\*.* MediaInfo_All_Windows_i386\ /S /Y
 xcopy ..\..\MediaInfoLib\Release\MediaInfoDLL_Windows_i386\*.* MediaInfo_All_Windows_i386\ /S /Y
 
-rem --- Compressing Archive ---
+@rem --- Compressing Archive ---
 cd MediaInfo_All_Windows_i386\
-..\..\..\Shared\Binary\7z a -r -t7z -mx9 ..\MediaInfo_All_Windows_i386.7z *
+%BPATH%\Windows\7-Zip\7z a -r -t7z -mx9 ..\MediaInfo_All_Windows_i386.7z *
 cd ..
 
 

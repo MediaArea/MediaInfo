@@ -6,6 +6,15 @@
 
 @echo off
 
+rem --- Search binaries ---
+set BPATH=
+if exist "%~dp0\..\..\..\MediaArea-Utils-Binaries" set BPATH="%~dp0\..\..\..\MediaArea-Utils-Binaries"
+if exist "%~dp0\..\..\MediaArea-Utils-Binaries" set BPATH="%~dp0\..\..\MediaArea-Utils-Binaries"
+if "%BPATH%"=="" (
+    echo "ERROR: binaries path not found"
+    exit /b 1
+)
+
 rem --- Clean up ---
 del mediainfo_.tar.bz2
 del MediaInfo_Source.tar
@@ -128,11 +137,11 @@ xcopy ..\..\Shared\Source\wx .\wx\ /S
 rem --- Compressing Archive ---
 if "%2"=="SkipCompression" goto SkipCompression
 move MediaInfo_Source MediaInfo
-..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -ttar -mx9 MediaInfo_Source.tar MediaInfo\*
-..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -tbzip2 -mx9 mediainfo_.tar.bz2 MediaInfo_Source.tar
-..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -tgzip -mx9 mediainfo_-1.tar.gz MediaInfo_Source.tar
+%BPATH%\Windows\7-zip\7z a -r -ttar -mx9 MediaInfo_Source.tar MediaInfo\*
+%BPATH%\Windows\7-zip\7z a -r -tbzip2 -mx9 mediainfo_.tar.bz2 MediaInfo_Source.tar
+%BPATH%\Windows\7-zip\7z a -r -tgzip -mx9 mediainfo_-1.tar.gz MediaInfo_Source.tar
 del MediaInfo_Source.tar
-..\..\Shared\Binary\Windows_i386\7-zip\7z a -r -t7z -mx9 mediainfo__AllInclusive.7z MediaInfo\* MediaInfoLib\* ZenLib\* wxMSW\* zlib\*
+%BPATH%\Windows\7-zip\7z a -r -t7z -mx9 mediainfo__AllInclusive.7z MediaInfo\* MediaInfoLib\* ZenLib\* wxMSW\* zlib\*
 move MediaInfo MediaInfo_Source
 :SkipCompression
 

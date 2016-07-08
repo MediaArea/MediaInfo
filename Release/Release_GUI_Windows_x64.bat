@@ -6,6 +6,15 @@
 
 @rem echo off
 
+rem --- Search binaries ---
+set BPATH=
+if exist "%~dp0\..\..\..\MediaArea-Utils-Binaries" set BPATH="%~dp0\..\..\..\MediaArea-Utils-Binaries"
+if exist "%~dp0\..\..\MediaArea-Utils-Binaries" set BPATH="%~dp0\..\..\MediaArea-Utils-Binaries"
+if "%BPATH%"=="" (
+    echo "ERROR: binaries path not found"
+    exit /b 1
+)
+
 @rem --- Clean up ---
 del   MediaInfo_GUI_Windows_x64.exe
 del   MediaInfo_GUI_Windows_x64_WithoutInstaller.7z
@@ -30,7 +39,7 @@ copy ReadMe_GUI_Windows.txt MediaInfo_GUI_Windows_x64\ReadMe.txt
 
 rem --- Compressing Archive ---
 cd MediaInfo_GUI_Windows_x64\
-..\..\..\..\MediaArea-Utils-Binaries\Windows\7-Zip\7z a -r -t7z -mx9 ..\MediaInfo_GUI_Windows_x64_WithoutInstaller.7z *
+%BPATH%\Windows\7-Zip\7z a -r -t7z -mx9 ..\MediaInfo_GUI_Windows_x64_WithoutInstaller.7z *
 cd ..
 
 rem --- Clean up ---
