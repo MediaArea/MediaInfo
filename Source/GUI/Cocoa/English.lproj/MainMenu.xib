@@ -653,19 +653,19 @@
                                     <action selector="selectViewEBUCore16:" target="-1" id="Hvo-Qg-epn"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="FIMS 1.1 (beta)" id="Spf-9d-cwU">
+                            <menuItem title="FIMS 1.1" id="Spf-9d-cwU">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="selectViewFIMS11:" target="-1" id="Nc4-Gw-uSP"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="FIMS 1.2 (beta)" id="Fg1-T0-6gi">
+                            <menuItem title="FIMS 1.2" id="Fg1-T0-6gi">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="selectViewFIMS12:" target="-1" id="3SX-Bp-FDV"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="FIMS 1.3 (beta)" id="vEC-jU-MAH">
+                            <menuItem title="FIMS 1.3" id="vEC-jU-MAH">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="selectViewFIMS13:" target="-1" id="fui-jY-KS1"/>
