@@ -36,15 +36,20 @@ BuildRequires:  libtool
 BuildRequires:  automake
 BuildRequires:  autoconf
 
+%if 0%{?mageia}
+BuildRequires:  sane-backends-iscan
+BuildRequires:  libuuid-devel
+%endif
+
 # wxWidgets package name
 %if 0%{?suse_version} && 0%{?suse_version} >= 1140
 BuildRequires:  wxWidgets-devel
 %else
-#%if 0%{?mageia_version}
-#BuildRequires:  wxgtk2.8-devel
-#%else
+%if 0%{?mageia}
+BuildRequires:  wxgtk2.8-devel
+%else
 BuildRequires:  wxGTK-devel
-#%endif
+%endif
 %endif
 
 %if 0%{?suse_version}
@@ -89,11 +94,11 @@ Requires:   %{libmediainfo_name}%{?_isa} >= %{libmediainfo_version}
 %if 0%{?suse_version} && 0%{?suse_version} >= 1140
 Requires:   wxWidgets
 %else
-#%if 0%{?mageia_version}
-#Requires:  wxgtk2.8
-#%else
+%if 0%{?mageia}
+Requires:  wxgtk2.8
+%else
 Requires:   wxGTK
-#%endif
+%endif
 %endif
 
 %description gui
