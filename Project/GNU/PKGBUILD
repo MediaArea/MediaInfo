@@ -12,7 +12,7 @@ source=(${pkgname}_${pkgver}.orig.tar.xz)
 md5sums=('00000000000000000000000000000000')
 arch=('i686' 'x86_64')
 
-depends=('libmediainfo' 'wxgtk' 'libsm' 'desktop-file-utils')
+depends=('libzen>=0.4.33' 'libmediainfo>=0.7.87' 'wxgtk' 'libsm' 'desktop-file-utils')
 
 prepare() {
     cd "${srcdir}"/MediaInfo/Project/GNU/CLI
