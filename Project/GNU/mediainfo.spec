@@ -1,7 +1,6 @@
 %define mediainfo_version           0.7.87
 %define libmediainfo_version        0.7.87
 %define libzen_version              0.4.33
-%define debug_package %{nil}
 
 %if 0%{?fedora} || 0%{?centos_version} >= 600 || 0%{?rhel_version} >= 600
 %define libmediainfo_name libmediainfo
@@ -159,11 +158,11 @@ popd
 
 %install
 pushd Project/GNU/CLI
-    make install-strip DESTDIR=%{buildroot}
+    make install DESTDIR=%{buildroot}
 popd
 
 pushd Project/GNU/GUI
-    make install-strip DESTDIR=%{buildroot}
+    make install DESTDIR=%{buildroot}
 popd
 
 # icon

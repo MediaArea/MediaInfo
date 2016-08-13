@@ -1,6 +1,6 @@
 Format: 3.0 (quilt)
 Source: mediainfo
-Binary: mediainfo, mediainfo-gui
+Binary: mediainfo, mediainfo-dbg, mediainfo-gui, mediainfo-gui-dbg
 Architecture: any
 Version: 0.7.87-1deb9
 Maintainer: MediaArea.net SARL <info@mediaarea.net>

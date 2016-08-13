@@ -50,6 +50,10 @@ override_dh_installdocs:
 override_dh_installman: debian/mediainfo.1 debian/mediainfo-gui.1
 	dh_installman
 
+override_dh_strip:
+	dh_strip -p mediainfo --dbg-package=mediainfo-dbg
+	dh_strip -p mediainfo-gui --dbg-package=mediainfo-gui-dbg
+
 clean:
 	rm -f debian/*.1
 	dh clean --with=autoreconf
