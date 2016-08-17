@@ -1,6 +1,6 @@
 Format: 1.0
 Source: mediainfo
-Binary: mediainfo, mediainfo-gui
+Binary: mediainfo, mediainfo-dbg, mediainfo-gui, mediainfo-gui-dbg
 Architecture: any
 Version: 0.7.87-1deb6
 Maintainer: MediaArea.net SARL <info@mediaarea.net>
