@@ -12,6 +12,11 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 0.7.88, 2016-08-31
+--------------
++ MediaInfo distributed with HTTP/HTTPS support: support of Amazon S3 with Signature Version 4
++ FFV1: parsing speed slight improvement
+x Duration: fixed regression in last release, sometimes duration was displayed with only count of minutes
 
 Version 0.7.87, 2016-06-30
 --------------
