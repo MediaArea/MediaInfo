@@ -83,3 +83,11 @@ inline void TEXTOUT(const char* Text)
 {
     STRINGOUT(ZenLib::Ztring().From_ISO_8859_1(Text));
 }
+
+enum MI_Return
+{
+    MI_OK    = 0,
+    MI_ERROR,
+    MI_STOP,
+    MI_ADD,
+};

@@ -128,15 +128,17 @@ int main(int argc, char* argv_ansi[])
             Egal_Pos=Argument.size();
         transform(Argument.begin(), Argument.begin()+Egal_Pos, Argument.begin(), (int(*)(int))tolower); //(int(*)(int)) is a patch for unix
         int Return=Parse (MI, Argument);
-        if (Return<0)
-            return Return; //no more tasks to do
-        if (Return>0)
+        if (Return==MI_STOP)
+            return MI_OK; //no more tasks to do
+        else if (Return==MI_ERROR)
+            return Return; //error
+        else if (Return==MI_ADD)
             List.push_back(argv[Pos]); //Append the filename to the list of filenames to parse
     }
 
     //If no filenames (and no options)
     if (List.empty())
-        return Help_Nothing();
+        return Usage();
 
     //Callback for error handling
     CallBack_Set(MI, (void*)Event_CallBackFunction);
@@ -153,7 +155,10 @@ int main(int argc, char* argv_ansi[])
     //Output, in a file if needed
     LogFile_Action(MI.Inform_Get());
 
-    return Files_Count?0:1;
+    if (Files_Count)
+        return MI_OK;
+
+    return MI_ERROR;
 }
 //---------------------------------------------------------------------------
 

@@ -21,7 +21,7 @@
 #define LAUNCH(_METHOD) \
     { \
         int Return=_METHOD(MI, Argument); \
-        if (Return<0) \
+        if (Return==MI_STOP||Return==MI_ERROR) \
             return Return; \
     } \
 
@@ -61,9 +61,9 @@ int Parse(Core &MI, MediaInfoNameSpace::String &Argument)
     //Default
     OPTION("--",                                            Default)
     else
-        return 1;
+        return MI_ADD;
 
-    return 0;
+    return MI_OK;
 }
 
 //---------------------------------------------------------------------------
@@ -71,7 +71,7 @@ CL_OPTION(Full)
 {
     MI.Menu_Debug_Complete(1);
 
-    return 0;
+    return MI_OK;
 }
 
 //---------------------------------------------------------------------------
@@ -81,7 +81,8 @@ CL_OPTION(Help)
 
     TEXTOUT("MediaInfo Command line, ");
     STRINGOUT(MI.Text_Get());
-    return Help();
+    Help();
+    return MI_STOP;
 }
 
 //---------------------------------------------------------------------------
@@ -93,7 +94,7 @@ CL_OPTION(Help_xxx)
     else
         TEXTOUT("No help available yet");
 
-    return -1;
+    return MI_STOP;
 }
 
 //---------------------------------------------------------------------------
@@ -103,7 +104,7 @@ CL_OPTION(Info_Parameters)
 
     STRINGOUT(MI.Text_Get());
 
-    return -1;
+    return MI_STOP;
 }
 
 //---------------------------------------------------------------------------
@@ -116,7 +117,7 @@ CL_OPTION(Inform)
 
     MI.Menu_Option_Preferences_Inform(Argument.substr(Egal_Pos+1));
 
-    return 0;
+    return MI_OK;
 }
 
 //---------------------------------------------------------------------------
@@ -126,7 +127,7 @@ CL_OPTION(Language)
     if (Egal_Pos!=String::npos)
         MI.Menu_Language(Argument.substr(Egal_Pos+1));
 
-    return 0;
+    return MI_OK;
 }
 
 //---------------------------------------------------------------------------
@@ -139,7 +140,7 @@ CL_OPTION(Output)
 
     MI.Menu_Option_Preferences_Inform(Argument.substr(Egal_Pos+1));
 
-    return 0;
+    return MI_OK;
 }
 
 //---------------------------------------------------------------------------
@@ -154,7 +155,7 @@ CL_OPTION(Bom)
         CLI_Option_Bom=true;
     #endif //defined(_MSC_VER) && defined(UNICODE)
 
-    return 0;
+    return MI_OK;
 }
 
 //---------------------------------------------------------------------------
@@ -165,7 +166,7 @@ CL_OPTION(Version)
     TEXTOUT("MediaInfo Command line, ");
     STRINGOUT(MI.Text_Get());
 
-    return -1;
+    return MI_STOP;
 }
 
 //---------------------------------------------------------------------------
@@ -174,7 +175,7 @@ CL_OPTION(LogFile)
     //Form : --LogFile=Text
     LogFile_FileName.assign(Argument, 10, std::string::npos);
 
-    return 0;
+    return MI_OK;
 }
 
 //---------------------------------------------------------------------------
@@ -183,7 +184,7 @@ CL_OPTION(Default)
     //Form : --Option=Text
     size_t Egal_Pos=Argument.find(__T('='));
     if (Egal_Pos<2)
-        return 0;
+        return MI_OK;
     MediaInfoNameSpace::String Option(Argument, 2, Egal_Pos-2);
     MediaInfoNameSpace::String Value;
     if (Egal_Pos!=std::string::npos)
@@ -195,10 +196,10 @@ CL_OPTION(Default)
     if (!Result.empty())
     {
         STRINGOUT(Result);
-        return -1;
+        return MI_ERROR;
     }
 
-    return 0;
+    return MI_OK;
 }
 
 void LogFile_Action(ZenLib::Ztring Inform)
