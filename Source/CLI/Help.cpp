@@ -108,7 +108,7 @@ int Help()
     TEXTOUT("                    (you don't need to accept the key with ssh first)");
     TEXTOUT("                    Use it at your own risks");
 
-    return -1;
+    return MI_OK;
 }
 
 //---------------------------------------------------------------------------
@@ -117,7 +117,7 @@ int Help_Nothing()
     TEXTOUT("Usage: \"MediaInfo [-Options...] FileName1 [Filename2...]\"");
     TEXTOUT("\"MediaInfo --Help\" for displaying more information");
 
-    return -1;
+    return MI_OK;
 }
 
 //---------------------------------------------------------------------------
@@ -144,7 +144,7 @@ int Help_Output()
     TEXTOUT("\"Video;%DisplayAspectRatio%\"  for Video Aspect Ratio.");
     TEXTOUT("\"Audio;%Format%\"              for Audio Format.");
 
-    return -1;
+    return MI_ERROR;
 }
 
 //---------------------------------------------------------------------------
@@ -153,6 +153,13 @@ int Help_Security()
     TEXTOUT("Usage: \"MediaInfo [-Options...] FileName1 [Filename2...]\"");
     TEXTOUT("\"MediaInfo --Help\" for displaying more information");
 
-    return -1;
+    return MI_OK;
 }
 
+
+//---------------------------------------------------------------------------
+int Usage()
+{
+    Help_Nothing();
+    return MI_ERROR;
+}
