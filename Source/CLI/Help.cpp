@@ -42,6 +42,10 @@ int Help()
     TEXTOUT("                    Full information Display with XML tags");
     TEXTOUT("--Output=EBUCore");
     TEXTOUT("                    Full information Display with EBUCore compliant XML tags");
+    TEXTOUT("--Output=PBCore");
+    TEXTOUT("                    Full information Display with PBCore compliant XML tags");
+    TEXTOUT("--Output=PBCore2");
+    TEXTOUT("                    Full information Display with PBCore 2.0 compliant XML tags");
     TEXTOUT("--Output=...y");
     TEXTOUT("                    Template defined information Display");
     TEXTOUT("--Info-Parameters");
@@ -49,6 +53,10 @@ int Help()
     TEXTOUT("");
     TEXTOUT("--Language=raw");
     TEXTOUT("                    Display non-translated unique identifiers (internal text)");
+    TEXTOUT("--Details=1");
+    TEXTOUT("                    Display mediatrace info");
+    TEXTOUT("--File_TestContinuousFileNames=0");
+    TEXTOUT("                    Disable image sequence detection");
     TEXTOUT("--LogFile=...");
     TEXTOUT("                    Save the output in the specified file");
     TEXTOUT("--BOM");
