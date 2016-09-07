@@ -203,7 +203,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>${APP_VERSION}</string>
 	<key>CFBundleVersion</key>
-	<string>${APP_VERSION}</string>
+	<string>1.0.1</string>
 	<key>DTCompiler</key>
 	<string></string>
 	<key>DTPlatformBuild</key>
