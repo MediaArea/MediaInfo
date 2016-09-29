@@ -12,6 +12,10 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 0.7.89, 2016-
+--------------
+x Tree view for Windows: present the results at the top of the tree
+
 Version 0.7.88, 2016-08-31
 --------------
 + MediaInfo distributed with HTTP/HTTPS support: support of Amazon S3 with Signature Version 4

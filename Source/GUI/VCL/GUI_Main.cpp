@@ -686,10 +686,14 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
         bool Commplete=I->Option_Static(__T("Complete_Get"))!=__T("");
         Page_Tree_Tree->Visible=false;
         Page_Tree_Tree->Items->Clear();
+        TTreeNode* Top=NULL;
+
         for (size_t FilePos=0; FilePos<FilesCount; FilePos++)
         {
             //Pour chaque fichier
             TTreeNode* Parent=Page_Tree_Tree->Items->Add(NULL, I->Get(FilePos, Stream_General, 0, __T("CompleteName")).c_str());
+            if (Top==NULL)
+                Top=Parent;
 
             for (int StreamKind=(int)Stream_General; StreamKind<(int)Stream_Max; StreamKind++)
             {
@@ -729,6 +733,8 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             }
         }
         Page_Tree_Tree->FullExpand();
+        if (Top)
+            Top->MakeVisible();
         Page_Tree_Tree->Visible=true;
 
         //Specific in case of no file
