@@ -12,6 +12,24 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 0.7.89, 2016-09-30
+--------------
++ QuickTime: support of Panasonic AVC-Intra 50/100/200 without SPS/PPS ("aixx" and "AVin" CodecID)
++ More QuickTime/MP4/AVC/HEVC color descriptions based on future ISO 23001-8:201x/PDAM1
++ FFV1: handling 16+ bitdepth (YUV and RGB) while handling buggy version <= 3 YUV 16-bit streams
++ Improved growing file detection, option for forcing the growing file test
++ Matroska: support of video FieldOrder, MatrixCoefficients, BitsPerChannel, Range, TransferCharacteristics, Primaries
++ Acquisition Metadata: support of more elements (IrisTNumber, IrisRingPosition, FocusRingPosition, ZoomRingPosition, ColorMatrix)
++ Add stream counts to MIXML output
++ I242, AVI/Matroska: mapping of mjp2 to JPEG 2000 format name
++ MPEG-4 Visual: parsing of Studio profiles, providing width/height/frame rate...
++ MXF: reading MPEG-4 Visual profile from MXF sub-descriptor and/or EssenceCompression
++ MXF: reading Intra GOP info from descriptors
++ Sequence of images: detection of sequence even if the provided path separator is the Unix one (Windows only)
+x Acquisition Metadata: IrisFNumber, FocusPosition, LensZoom were not correctly reported
+x LXF: fixed crash in case of some malformed files
+x LXF: reject bad frames instead of displaying wrong duration and bit rate
+
 Version 0.7.88, 2016-08-31
 --------------
 + MediaInfo distributed with HTTP/HTTPS support: support of Amazon S3 with Signature Version 4
