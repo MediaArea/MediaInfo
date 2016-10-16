@@ -151,17 +151,23 @@ cd MediaInfo/Project/GNU/CLI
 ./autogen.sh
 ```
 
-Then, under Mac:
+##### Then, under Mac:
 
 ```sh
 ./configure --enable-staticlibs
 make
 ```
 
-Under Linux:
+##### Under Linux:
 
 ```sh
 ./configure --enable-shared
+make
+```
+
+Or, if you also build ZenLib and MediaInfoLib:
+```sh
+./configure --enable-staticlibs
 make
 ```
 
@@ -184,7 +190,7 @@ cd MediaInfo/Project/GNU/CLI
 ./autogen.sh
 ```
 
-Then, under Mac:
+##### Then, under Mac:
 
 ```sh
 export PATH=$PATH:/opt/local/Library/Frameworks/wxWidgets.framework/Versions/wxWidgets/3/0/bin
@@ -192,10 +198,16 @@ export PATH=$PATH:/opt/local/Library/Frameworks/wxWidgets.framework/Versions/wxW
 make
 ```
 
-Under Linux:
+##### Under Linux:
 
 ```sh
 ./configure --enable-shared
+make
+```
+
+Or, if you also build ZenLib and MediaInfoLib:
+```sh
+./configure --enable-staticlibs
 make
 ```
 
@@ -216,7 +228,7 @@ cd $BUILD_DIR
 git clone https://github.com/MediaArea/ZenLib.git
 cd ZenLib/Project/GNU/Library
 ./autogen.sh
-./configure
+./configure --enable-static
 make
 ```
 
@@ -229,7 +241,7 @@ cd $BUILD_DIR
 git clone https://github.com/MediaArea/MediaInfoLib.git
 cd MediaInfoLib/Project/GNU/Library
 ./autogen.sh
-./configure
+./configure --enable-static
 make
 ```
 
