@@ -12,6 +12,22 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 0.7.90, 2016-10-31
+--------------
++ #M94, WAV: support of file with a buggy RIFF header
++ Matroska: detection of segment size of zero (compatibility risks e.g. Windows 10 Media Player does not play such file)
++ MXF: detection of some incoherences between header and footer
++ MXF: display of Locked information
++ N19/STL: support of 48/50/60 fps content
++ N19/STL: display of time code of first frame
++ AC-3: bit depth
++ MPEG Video: CBR bitrate mode information based on vbv_delay
++ DXW: support of fake time code attribute
+x Teletext in MPEG-TS: CodecID, format (classic teletext or subtitle), video delay were sometimes not displayed
+x PDF: fixed crash with some files with full analysis set
+x #B485, BMP height is negative
+x Several minor fixes
+
 Version 0.7.89, 2016-09-30
 --------------
 + QuickTime: support of Panasonic AVC-Intra 50/100/200 without SPS/PPS ("aixx" and "AVin" CodecID)
