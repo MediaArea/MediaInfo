@@ -14,6 +14,7 @@ Known bugs
 
 Version 0.7.90, 2016-10-31
 --------------
+Brought to you by http://extremereach.com
 + #M94, WAV: support of file with a buggy RIFF header
 + Matroska: detection of segment size of zero (compatibility risks e.g. Windows 10 Media Player does not play such file)
 + MXF: detection of some incoherences between header and footer
