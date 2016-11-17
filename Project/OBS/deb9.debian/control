@@ -8,7 +8,6 @@ Build-Depends: debhelper (>= 9),
                libzen-dev (>= 0.4.33),
                libwxgtk3.0-dev,
                adwaita-icon-theme,
-               humanity-icon-theme,
                zlib1g-dev,
                pkg-config,
 Standards-Version: 3.9.6
