@@ -62,22 +62,6 @@ install: build
 	install -m 644 History_GUI.txt $(CURDIR)/debian/tmp/usr/share/doc/mediainfo-gui/History.txt
 	install -m 644 License.html $(CURDIR)/debian/tmp/usr/share/doc/mediainfo-gui
 
-	install -dm 755 $(CURDIR)/debian/tmp/usr/share/pixmaps
-	install -m 644 Source/Resource/Image/MediaInfo.xpm $(CURDIR)/debian/tmp/usr/share/pixmaps/mediainfo.xpm
-	install -dm 755 $(CURDIR)/debian/tmp/usr/share/icons/hicolor
-	install -m 644 Source/Resource/Image/MediaInfoBig.png $(CURDIR)/debian/tmp/usr/share/icons/hicolor/mediainfo.png
-	install -dm 755 $(CURDIR)/debian/tmp/usr/share/icons/hicolor/256x256/apps
-	install -m 644 Source/Resource/Image/MediaInfo.png $(CURDIR)/debian/tmp/usr/share/icons/hicolor/256x256/apps/mediainfo.png
-	install -dm 755 $(CURDIR)/debian/tmp/usr/share/icons/hicolor/scalable/apps
-	install -m 644 Source/Resource/Image/MediaInfo.svg $(CURDIR)/debian/tmp/usr/share/icons/hicolor/scalable/apps/mediainfo.svg
-
-	install -dm 755 $(CURDIR)/debian/tmp/usr/share/applications
-	install -m 644 Project/GNU/GUI/mediainfo-gui.desktop $(CURDIR)/debian/tmp/usr/share/applications
-	install -dm 755 $(CURDIR)/debian/tmp/usr/share/apps/konqueror/servicemenus/
-	install -m 644 Project/GNU/GUI/mediainfo-gui.kde3.desktop $(CURDIR)/debian/tmp/usr/share/apps/konqueror/servicemenus/mediainfo-gui.desktop
-	install -dm 755 $(CURDIR)/debian/tmp/usr/share/kde4/services/ServiceMenus/
-	install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop $(CURDIR)/debian/tmp/usr/share/kde4/services/ServiceMenus/mediainfo-gui.desktop
-
 # Build architecture-independent files here.
 binary-indep: build install
 # We have nothing to do by default.

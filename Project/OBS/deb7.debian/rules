@@ -29,16 +29,6 @@ override_dh_installchangelogs:
 override_dh_install:
 	dh_install --fail-missing
 
-	find debian/mediainfo-gui				\
-		-name MediaInfo\*				\
-		-exec prename 's/MediaInfo\.(png|svg|xpm)$$/mediainfo.$$1/g' '{}' '+'
-
-	find debian/mediainfo-gui						\
-		-name \*.desktop						\
-		-exec prename 's/\.kde[34]\.desktop$$/.desktop/' '{}' '+'
-
-	find debian/mediainfo-gui/usr/share -type f -exec chmod 0644 '{}' '+'
-
 override_dh_installdocs:
 	dh_installdocs
 
