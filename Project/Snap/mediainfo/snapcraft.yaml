@@ -1,0 +1,65 @@
+name: mediainfo
+version: 0.7.91
+summary: Command-line utility for reading information from audio/video files
+description: |
+  MediaInfo is a utility used for retrieving technical information and other
+  metadata about audio or video files.
+confinement: strict
+grade: stable
+
+apps:
+  mediainfo:
+    command: mediainfo
+    plugs:
+      - home
+      - network
+
+parts:
+  mediainfo:
+    plugin: autotools-subdir
+    source: MediaInfo
+    make-directory: Project/GNU/CLI
+    build-packages:
+      - zlib1g-dev
+      - libcurl4-gnutls-dev
+    after:
+      - libmediainfo
+      - libzen
+      - build-essential
+
+  libmediainfo:
+    plugin: autotools-subdir
+    source: MediaInfoLib
+    make-directory: Project/GNU/Library
+    configflags:
+      - --enable-shared
+      - --disable-static
+      - --with-libcurl
+      - --with-libmms
+    build-packages:
+      - libcurl4-gnutls-dev
+      - libglib2.0-dev
+      - libmms-dev
+      - zlib1g-dev
+    after:
+      - libzen
+      - build-essential
+    snap:
+      - lib/libmediainfo.*
+
+  libzen:
+    plugin: autotools-subdir
+    source: ZenLib
+    make-directory: Project/GNU/Library
+    configflags:
+      - --enable-shared
+      - --disable-static
+    snap:
+      - lib/libzen.*
+    after:
+      - build-essential
+
+  build-essential:
+    plugin: nil
+    build-packages:
+      - build-essential
