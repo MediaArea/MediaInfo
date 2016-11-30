@@ -1,0 +1,36 @@
+{
+    "app-id": "net.mediaarea.mediainfo",
+    "sdk": "org.freedesktop.Sdk",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "1.4",
+    "command": "mediainfo",
+    "finish-args": [ "--filesystem=host", "--share=network" ],
+
+    "modules": [
+        {
+            "name": "libzen",
+            "subdir": "Project/GNU/Library",
+            "config-opts": [ "--enable-shared", "--disable-static" ],
+            "cleanup": [ "/bin", "/include", "/lib/pkgconfig" ],
+            "sources": [
+                { "type": "git", "url": "https://github.com/MediaArea/ZenLib.git" }
+            ]
+        },
+        {
+            "name": "libmediainfo",
+            "subdir": "Project/GNU/Library",
+            "config-opts": [ "--enable-shared", "--disable-static" ],
+            "cleanup": [ "/bin", "/include", "/lib/pkgconfig" ],
+            "sources": [
+                { "type": "git", "url": "https://github.com/MediaArea/MediaInfoLib.git" }
+            ]
+        },
+        {
+            "name": "mediainfo",
+            "subdir": "Project/GNU/CLI",
+            "sources": [
+                { "type": "git", "url": "https://github.com/MediaArea/MediaInfo.git" }
+            ]
+        }
+    ]
+}
