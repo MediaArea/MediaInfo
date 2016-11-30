@@ -12,6 +12,16 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 0.7.91, 2016-11-30
+--------------
++ IMF and PTX: more languages detected from file names (but the full list of common languages tags still need to be added)
++ IMF and PTX: support of non-standard but common "LAS" = "Spanish (Latin America)" language code
++ MXF: Support of color primaries, transfer characteristic, coding equations defined in SMPTE ST 2067-21:2016 e.g. xvYCC or BT.2020
++ Minor performance optimizations and cleanup (Thanks to Pavel Pimenov)
++ MediaTrace optimization for Matroska
+x Fixed parsing of FFV1 v0/v1
+x PTX: fix crash due to bad parsing of some file names while looking for track language
+
 Version 0.7.90, 2016-10-31
 --------------
 + #M94, WAV: support of file with a buggy RIFF header

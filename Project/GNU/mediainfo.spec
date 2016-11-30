@@ -1,6 +1,6 @@
-%define mediainfo_version           0.7.90
-%define libmediainfo_version        0.7.90
-%define libzen_version              0.4.33
+%define mediainfo_version           0.7.91
+%define libmediainfo_version        0.7.91
+%define libzen_version              0.4.34
 
 %if 0%{?fedora} || 0%{?centos_version} >= 600 || 0%{?rhel_version} >= 600
 %define libmediainfo_name libmediainfo
