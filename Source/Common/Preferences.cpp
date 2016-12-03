@@ -473,7 +473,9 @@ int Preferences::ExplorerShell()
     List=__T(
         ".264;H264File\r\n"
         ".3g2;mpeg4File\r\n"
+	".3ga;mpeg4File\r\n"    
         ".3gp;mpeg4File\r\n"
+	".3gpa;mpeg4File\r\n"
         ".3gpp;mpeg4File\r\n"
         ".aac;AACFile\r\n"
         ".ac3;AC3File\r\n"
