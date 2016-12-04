@@ -34,7 +34,9 @@
   ; Per item
   !insertmacro MediaInfo_Extensions_Install_I ".264"
   !insertmacro MediaInfo_Extensions_Install_I ".3g2"
+  !insertmacro MediaInfo_Extensions_Install_I ".3ga"
   !insertmacro MediaInfo_Extensions_Install_I ".3gp"
+  !insertmacro MediaInfo_Extensions_Install_I ".3gpa"
   !insertmacro MediaInfo_Extensions_Install_I ".3gpp"
   !insertmacro MediaInfo_Extensions_Install_I ".aac"
   !insertmacro MediaInfo_Extensions_Install_I ".ac3"
@@ -155,7 +157,9 @@
 
   !insertmacro MediaInfo_Extensions_Uninstall_I ".264"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".3g2"
+  !insertmacro MediaInfo_Extensions_Uninstall_I ".3ga"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".3gp"
+  !insertmacro MediaInfo_Extensions_Uninstall_I ".3gpa"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".3gpp"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".aac"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".ac3"
