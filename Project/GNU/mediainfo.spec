@@ -165,33 +165,11 @@ pushd Project/GNU/GUI
     make install DESTDIR=%{buildroot}
 popd
 
-# icon
-install -dm 755 %{buildroot}%{_datadir}/icons/hicolor/256x256/apps
-install -m 644 Source/Resource/Image/MediaInfo.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/%{name}.png
-install -dm 755 %{buildroot}%{_datadir}/pixmaps
-install -m 644 Source/Resource/Image/MediaInfo.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
-
-# menu-entry
-install -dm 755 %{buildroot}%{_datadir}/applications
-install -m 644 Project/GNU/GUI/mediainfo-gui.desktop %{buildroot}%{_datadir}/applications
 %if 0%{?suse_version}
   %suse_update_desktop_file -n mediainfo-gui AudioVideo AudioVideoEditing
-%endif
-%if 0%{?fedora_version}
-  desktop-file-install --dir="%{buildroot}%{_datadir}/applications" -m 644 Project/GNU/GUI/mediainfo-gui.desktop
-%endif
-install -dm 755 %{buildroot}%{_datadir}/apps/konqueror/servicemenus
-install -m 644 Project/GNU/GUI/mediainfo-gui.kde3.desktop %{buildroot}%{_datadir}/apps/konqueror/servicemenus/mediainfo-gui.desktop
-%if 0%{?suse_version}
   %suse_update_desktop_file -n %{buildroot}%{_datadir}/apps/konqueror/servicemenus/mediainfo-gui.desktop AudioVideo AudioVideoEditing
-%endif
-install -dm 755 %{buildroot}%{_datadir}/kde4/services/ServiceMenus/
-install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop \
-    %{buildroot}%{_datadir}/kde4/services/ServiceMenus/mediainfo-gui.desktop
-%if 0%{?suse_version}
   %suse_update_desktop_file -n %{buildroot}%{_datadir}/kde4/services/ServiceMenus/mediainfo-gui.desktop AudioVideo AudioVideoEditing
 %endif
-
 
 %files
 %defattr(-,root,root,-)
@@ -213,11 +191,16 @@ install -m 644 Project/GNU/GUI/mediainfo-gui.kde4.desktop \
 %endif
 %{_bindir}/mediainfo-gui
 %{_datadir}/applications/*.desktop
-%{_datadir}/pixmaps/*.png
+%{_datadir}/pixmaps/*.xpm
 %dir %{_datadir}/icons/hicolor
 %dir %{_datadir}/icons/hicolor/256x256
 %dir %{_datadir}/icons/hicolor/256x256/apps
 %{_datadir}/icons/hicolor/256x256/apps/*.png
+%dir %{_datadir}/icons/hicolor
+%dir %{_datadir}/icons/hicolor/scalable
+%dir %{_datadir}/icons/hicolor/scalable/apps
+%{_datadir}/icons/hicolor/scalable/apps/*.svg
+
 %dir %{_datadir}/apps
 %dir %{_datadir}/apps/konqueror
 %dir %{_datadir}/apps/konqueror/servicemenus

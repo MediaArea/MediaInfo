@@ -46,10 +46,5 @@ package_mediainfo-gui() {
 
     cd "${srcdir}"/MediaInfo/Project/GNU/GUI
     make DESTDIR="${pkgdir}" install
-
-    install -D -m 0644 "${srcdir}"/MediaInfo/Source/Resource/Image/MediaInfo.png "${pkgdir}"/usr/share/icons/hicolor/256x256/apps/mediainfo.png
-    install -D -m 0644 "${srcdir}"/MediaInfo/Source/Resource/Image/MediaInfo.{svg,ico,xpm} "${pkgdir}"/usr/share/icons/
-    install -D -m 0644 "${srcdir}"/MediaInfo/Source/Resource/Image/MediaInfo.png "${pkgdir}"/usr/share/pixmaps/mediainfo-gui.png
-    install -D -m 0644 "${srcdir}"/MediaInfo/Project/GNU/GUI/mediainfo-gui.desktop "${pkgdir}"/usr/share/applications/mediainfo-gui.desktop
 }
 
