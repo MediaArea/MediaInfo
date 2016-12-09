@@ -70,7 +70,7 @@ curl -L -O https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rp
 rpm -i --nodeps epel-release-*.rpm
 
 # Install build and AppImage dependencies
-yum install -y file wget tar fuse-libs gcc-c++ pkgconfig libtool automake autoconf \
+yum install -y file wget tar fuse-libs fuse gcc-c++ pkgconfig libtool automake autoconf \
                git zlib-devel libcurl-devel cairo-devel wxGTK-devel
 
 # Compile ZenLib
