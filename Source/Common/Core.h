@@ -101,6 +101,7 @@ protected:
 
 private:
     Core (const Core&);
+	Core &operator =(const Core &a);
 
     friend class GUI_Main_Common_Core;
     friend class GUI_Main_Easy_Core;

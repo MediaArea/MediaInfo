@@ -46,7 +46,7 @@ Core::~Core()
 void Core::Data_Prepare()
 {
     //Inform
-    Text=MI->Inform((size_t)-1).c_str();
+    Text=MI->Inform((size_t)-1);
 }
 
 //***************************************************************************
@@ -365,7 +365,7 @@ void Core::Menu_Language (const String& Language)
 String& Core::Inform_Get ()
 {
     if (Text_Temp.empty())
-        Text=MI->Inform((size_t)-1).c_str();
+        Text=MI->Inform((size_t)-1);
     else
         Text=Text_Temp;
     return Text;
@@ -381,7 +381,7 @@ Core::kind Core::Kind_Get ()
 String Core::Inform_Get(size_t Pos, stream_t StreamKind, size_t StreamPos)
 {
     MI->Option(__T("Inform"), String());
-    return MI->Get(Pos, StreamKind, StreamPos, __T("Inform")).c_str();
+    return MI->Get(Pos, StreamKind, StreamPos, __T("Inform"));
 }
 
 // Accessors
@@ -399,7 +399,7 @@ size_t Core::Count_Get(size_t File_Pos, stream_t StreamKind, size_t StreamNumber
 String Core::Summary_Get(int File_Pos, stream_t StreamKind, size_t StreamPos)
 {
     MI->Option(__T("Inform"), __T("Summary"));
-    return MI->Get(File_Pos, StreamKind, StreamPos, __T("Inform")).c_str();
+    return MI->Get(File_Pos, StreamKind, StreamPos, __T("Inform"));
 }
 
 //---------------------------------------------------------------------------
