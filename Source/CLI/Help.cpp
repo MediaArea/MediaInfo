@@ -155,15 +155,6 @@ int Help_Output()
     return MI_ERROR;
 }
 
-//---------------------------------------------------------------------------
-int Help_Security()
-{
-    TEXTOUT("Usage: \"MediaInfo [-Options...] FileName1 [Filename2...]\"");
-    TEXTOUT("\"MediaInfo --Help\" for displaying more information");
-
-    return MI_OK;
-}
-
 
 //---------------------------------------------------------------------------
 int Usage()
