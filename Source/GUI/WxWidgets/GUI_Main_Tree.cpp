@@ -83,6 +83,11 @@ void GUI_Main_Tree::Item_Show(const wxTreeItemId &Item)
 {
     DeleteChildren(Item);
 
+    //Finding size of the file offset string
+    size_t Offset=Text.find(__T(' '))+1;
+    if (!Offset || Offset>64+1)
+        return;
+
     wxTreeItemId ItemID;
     //wxFont Font(8, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
     //wxFont Font(10, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
@@ -93,7 +98,7 @@ void GUI_Main_Tree::Item_Show(const wxTreeItemId &Item)
     if (Pos1!=(size_t)-1)
     {
         //Not the root level
-        LevelBase=Text.find_first_not_of(__T(' '), Pos1+9)-(Pos1+9);
+        LevelBase=Text.find_first_not_of(__T(' '), Pos1+Offset)-(Pos1+Offset);
         Pos1=Text.find(__T('\n'), Pos1)+1;
     }
     else
@@ -110,14 +115,14 @@ void GUI_Main_Tree::Item_Show(const wxTreeItemId &Item)
         #else
             #define SIZE 0
         #endif
-        Level=Text.find_first_not_of(__T(' '), Pos1+9)-(Pos1+9);
+        Level=Text.find_first_not_of(__T(' '), Pos1+Offset)-(Pos1+Offset);
         if (Level==LevelBase+1)
         {
             //Showing line
             String Line=Text.substr(Pos1, Pos2-Pos1-SIZE);
-            if (Line.size()>10 && Line[9]==__T(' '))
+            if (Line.size()>11 && Line[Offset]==__T(' '))
             {
-                Line.erase(9, Level);
+                Line.erase(Offset, Level);
             }
             if (!Line.empty())
             {
