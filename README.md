@@ -3,6 +3,9 @@
 MediaInfo is a convenient unified display of the most relevant technical and tag data for video and audio files.
 
 [![Build Status](https://travis-ci.org/MediaArea/MediaInfo.svg?branch=master)](https://travis-ci.org/MediaArea/MediaInfo)
+[![Build status](https://ci.appveyor.com/api/projects/status/msq8b4fuqfy9jmvr/branch/master?svg=true)](https://ci.appveyor.com/project/MediaArea/mediainfo/branch/master)
+
+
 
 # How to build MediaInfo
 
@@ -165,7 +168,7 @@ make
 make
 ```
 
-Or, if you also build ZenLib and MediaInfoLib:
+Or for statically linked executable, if you also build ZenLib and MediaInfoLib:
 ```sh
 ./configure --enable-staticlibs
 make
@@ -205,7 +208,7 @@ make
 make
 ```
 
-Or, if you also build ZenLib and MediaInfoLib:
+Or for statically linked executable, if you also build ZenLib and MediaInfoLib:
 ```sh
 ./configure --enable-staticlibs
 make
