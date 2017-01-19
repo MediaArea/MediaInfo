@@ -12,6 +12,10 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 0.7.92
+--------------
+x Windows version was sometimes showing a long character string in Windows explorer, changed to a shorter character string
+
 Version 0.7.91, 2016-11-30
 --------------
 + Add TIFF extension to Windows shell extension
