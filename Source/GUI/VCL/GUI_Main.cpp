@@ -196,14 +196,15 @@ void __fastcall TMainF::GUI_Configure()
         #endif //MEDIAINFOGUI_PREFS_NO
     }
 
-    #ifndef MEDIAINFOGUI_UPDATE_NO
+    // Removed, no more needed
+    //#ifndef MEDIAINFOGUI_UPDATE_NO
     //Web Updates
-    if (Prefs->Config(__T("CheckUpdate"))==__T("1"))
-    {
-        WebF=new TWebF(this);
-        WebF->Execute();
-    }
-    #endif //MEDIAINFOGUI_UPDATE_NO
+    //if (Prefs->Config(__T("CheckUpdate"))==__T("1"))
+    //{
+    //    WebF=new TWebF(this);
+    //    WebF->Execute();
+    //}
+    //#endif //MEDIAINFOGUI_UPDATE_NO
 
     //Menu - View
          if (Prefs->Config(__T("Output"))==__T("Basic")) {M_View_EasyClick(NULL); M_View_Easy->Checked=true;}
