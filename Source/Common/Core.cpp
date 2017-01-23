@@ -352,6 +352,12 @@ void Core::Menu_Help_Info_Parameters ()
 }
 
 //---------------------------------------------------------------------------
+void Core::Menu_Help_Info_CanHandleUrls()
+{
+    Text=MI->Option(__T("Info_CanHandleUrls"));
+}
+
+//---------------------------------------------------------------------------
 void Core::Menu_Language (const String& Language)
 {
     MI->Option(__T("Language"), Language);
