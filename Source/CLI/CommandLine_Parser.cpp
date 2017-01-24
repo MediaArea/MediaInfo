@@ -51,6 +51,7 @@ int Parse(Core &MI, MediaInfoNameSpace::String &Argument)
     OPTION("--help",                                        Help)
     OPTION("-h",                                            Help)
     OPTION("--info-parameters",                             Info_Parameters)
+    OPTION("--info-canhandleurls",                          Info_CanHandleUrls)
     OPTION("--language",                                    Language)
     OPTION("--output=",                                     Output)
     OPTION("--logfile",                                     LogFile)
@@ -101,6 +102,16 @@ CL_OPTION(Help_xxx)
 CL_OPTION(Info_Parameters)
 {
     MI.Menu_Help_Info_Parameters();
+
+    STRINGOUT(MI.Text_Get());
+
+    return MI_STOP;
+}
+
+//---------------------------------------------------------------------------
+CL_OPTION(Info_CanHandleUrls)
+{
+    MI.Menu_Help_Info_CanHandleUrls();
 
     STRINGOUT(MI.Text_Get());
 

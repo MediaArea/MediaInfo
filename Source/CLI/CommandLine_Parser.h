@@ -32,6 +32,7 @@ CL_OPTION(Full);
 CL_OPTION(Help);
 CL_OPTION(Help_xxx);
 CL_OPTION(Info_Parameters);
+CL_OPTION(Info_CanHandleUrls);
 CL_OPTION(Inform);
 CL_OPTION(Language);
 CL_OPTION(Output);

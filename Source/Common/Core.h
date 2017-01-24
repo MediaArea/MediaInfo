@@ -69,6 +69,7 @@ public:
     void    Menu_Help_Info_Formats          ();
     void    Menu_Help_Info_Codecs           ();
     void    Menu_Help_Info_Parameters       ();
+    void    Menu_Help_Info_CanHandleUrls    ();
     void    Menu_Language                   (const MediaInfoNameSpace::String &Language);
 
     //Datas
