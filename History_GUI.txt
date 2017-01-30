@@ -12,8 +12,21 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
-Version 0.7.92
+Version 0.7.92, 2017-01-31
 --------------
++ #F507, MXF: detection of HLG Transfer Characteristic
++ #F508, HEVC: support of preferred_transfer_characteristics SEI (from HEVC/H.265 draft, preferred method for HLG in DVB)
++ MXF: parsing of AVC descriptors and crosscheck with the essence content
++ MP4: more AppleStoreCountry values mapped to countries, show the country number if unknown
++ File extension: test if the file extension correspond to the container format
++ AVI/WAV: test of truncated file
++ MIXML output: Format_Profile divided in Format_Profile, Format_Level, Format_Tier
++ ID3v2: TCAP tag is mapped to new field "PodcastCategory"
+x MIXML output: some *_Original values were missing
+x MXF/Teletext: was not correctly detecting non subtitle streams
+x ID3v2: TP2 tag was incorrectly mapped to "Accompaniment", now mapped to "Album_Performer"
+x ID3v2: TSO2 tag was incorrectly mapped to "Performer_Sort", now mapped to "Album_Performer_Sort"
+x ID3v2: TCMP tag was displayed twice (2 "Compilation" lines)
 x Windows version was sometimes showing a long character string in Windows explorer, changed to a shorter character string
 
 Version 0.7.91, 2016-11-30
