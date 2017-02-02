@@ -12,6 +12,10 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 0.7.92.1, 2017-02-02
+--------------
+x Fix a performance regression in the matroska parser
+
 Version 0.7.92, 2017-01-31
 --------------
 + #F507, MXF: detection of HLG Transfer Characteristic
