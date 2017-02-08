@@ -466,7 +466,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"$CODE_SIGNING_ALLOWED\" = \"YES\" -a \"$CODE_SIGN_IDENTITY\" != \"\" -a \"$CODE_SIGN_IDENTITY\" != \"Don't Code Sign\" ]; then\ncd \"$CODESIGNING_FOLDER_PATH\"\n#ls -la\ninstall_name_tool -id @executable_path/../Resources/libmediainfo.dylib Contents/Resources/libmediainfo.dylib\n/usr/bin/codesign -f -s \"$CODE_SIGN_IDENTITY\" --verbose Contents/Resources/libmediainfo.dylib\nfi ";
+			shellScript = "if [ \"$CODE_SIGNING_ALLOWED\" = \"YES\" -a \"$EXPANDED_CODE_SIGN_IDENTITY\" != \"\" -a \"$EXPANDED_CODE_SIGN_IDENTITY\" != \"Don't Code Sign\" ]; then\ncd \"$CODESIGNING_FOLDER_PATH\"\n#ls -la\ninstall_name_tool -id @executable_path/../Resources/libmediainfo.dylib Contents/Resources/libmediainfo.dylib\n/usr/bin/codesign -f -s \"$EXPANDED_CODE_SIGN_IDENTITY\" --verbose Contents/Resources/libmediainfo.dylib\nfi ";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -719,7 +719,7 @@
 				GCC_PREFIX_HEADER = MediaInfo_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "APP_VERSION_STRING=\\\"$(APP_VERSION)\\\"";
 				INFOPLIST_FILE = "MediaInfo-Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
+				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -743,7 +743,7 @@
 				GCC_PREFIX_HEADER = MediaInfo_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "APP_VERSION_STRING=\\\"$(APP_VERSION)\\\"";
 				INFOPLIST_FILE = "MediaInfo-Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
+				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -758,7 +758,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -776,7 +775,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
