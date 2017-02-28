@@ -164,6 +164,7 @@ Alignment;
 Alignment_Aligned;
 Alignment_Split;
 All;Todo
+AlternateGroup;
 Archival_Location;Localización de arquivos
 Arranger;Arranxador
 ArtDirector;Director Artístico
@@ -188,6 +189,7 @@ BarCode;Código de Barras
 Basic;Básico
 Basic_Note;Nota : para máis información sobre este arquivo selecciona outra vista (Folla, Árbore...)
 BitDepth;
+BitDepth_Detected;
 BitDepth_Stored;
 BitRate;Bit rate
 BitRate_Encoded;
@@ -292,6 +294,7 @@ Digitized_Date;Data de dixitalización
 Dimensions;
 Director;Director
 DirectorOfPhotography;Director de fotografía
+Disabled;
 DisplayAspectRatio;Relación de aspecto
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;
@@ -304,6 +307,7 @@ Duration_End;
 Duration_Start;
 Edit;Editar
 EditedBy;Editado por
+ElementCount;
 EMail;E-Mail
 Encoded_Application;Aplicación codificadora
 Encoded_Date;Data de codificación
@@ -345,6 +349,8 @@ Format_Commercial_IfAny;
 Format_Description;
 Format_Info;Info do codec
 Format_Profile;Perfil do formato
+Format_Level;
+Format_Tier;
 Format_Settings;Axustes do formato
 Format_Settings_BVOP;
 Format_Settings_CABAC;
@@ -580,11 +586,11 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Ir ao web
-Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
+Grouping;
 h; h
 Header file;Crear un arquivo cabeceira
 Height;Alto
@@ -667,6 +673,7 @@ Language_en-gb;
 Language_en-us;
 Language_eo;Esperanto
 Language_es;Spanish
+Language_es-419;
 Language_et;Estonian
 Language_eu;Basque
 Language_fa;Persian
@@ -913,6 +920,7 @@ Original;Orixinal
 OriginalNetworkName;
 OriginalSourceForm;
 OriginalSourceMedium;
+OriginalSourceMedium_ID;
 Originator;
 Other;Outro
 OtherIdentifier;
@@ -924,12 +932,14 @@ OverallBitRate_Maximum;
 OverallBitRate_Minimum;
 OverallBitRate_Mode;
 OverallBitRate_Nominal;
+PackageName;
 Part;Parte
 Part_Count;Total
 PartNumber;
 PartTotal;
 Performer;Realizador
 Period;Período
+PodcastCategory;
 Phone;Teléfono
 PictureRatio;
 PixelAspectRatio;Pixel ratio
@@ -965,6 +975,7 @@ ReplayGain_Gain;
 ReplayGain_Peak;
 Resolution;Resolución
 s;s
+SamplesPerFrame;
 SamplingCount;
 SamplingRate;Ratio de mostraxe
 Save;Gardar
@@ -985,6 +996,7 @@ Separator_Columns;Separador de columnas
 Separator_Lines;Separador de liñas
 SeriesTitle;
 ServiceChannel;Canle
+ServiceKind;
 ServiceName;Nome
 ServiceProvider;Provedor
 ServiceType;Tipo
@@ -1024,6 +1036,7 @@ StreamKind;Clase de pista
 StreamKindID;
 StreamKindPos;
 StreamSize;
+StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;
 Subject;Asunto
@@ -1106,5 +1119,5 @@ Written_Location;Escrito en:
 WrittenBy;Escrito por
 Yes;Si
 Your system;O teu sistema
-ZZ_Automatic_Percent;70
-ZZ_AutomaticLanguage_Percent;78
+ZZ_Automatic_Percent;69
+ZZ_AutomaticLanguage_Percent;77

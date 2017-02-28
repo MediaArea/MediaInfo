@@ -164,6 +164,7 @@ Alignment;Подравняване
 Alignment_Aligned;Подравняване_Подравнен
 Alignment_Split;Подравняване_Разделен
 All;Всичко
+AlternateGroup;
 Archival_Location;Архивна_Локация
 Arranger;Подреждане
 ArtDirector;ХудожественДиректор
@@ -188,6 +189,7 @@ BarCode;Баркод
 Basic;Основен
 Basic_Note;Основен_Забележка
 BitDepth;БитДълбочина
+BitDepth_Detected;
 BitDepth_Stored;
 BitRate;БитРейт
 BitRate_Encoded;
@@ -292,6 +294,7 @@ Digitized_Date;Дата_Дигитализиране
 Dimensions;Размери
 Director;Режисьор
 DirectorOfPhotography;Фотограф
+Disabled;
 DisplayAspectRatio;СъотношениеОбраз
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Оригинално_СъотношениеОбраз
@@ -304,6 +307,7 @@ Duration_End;Продължителност_Край
 Duration_Start;Продължителност_Начало
 Edit;Преработи
 EditedBy;ПреработенОт
+ElementCount;
 EMail;Имейл
 Encoded_Application;Енкодирана_Апликация
 Encoded_Date;Дата_Енкодиране
@@ -345,6 +349,8 @@ Format_Commercial_IfAny;
 Format_Description;Формат_Описание
 Format_Info;Формат_Инфо
 Format_Profile;Формат_Профил
+Format_Level;
+Format_Tier;
 Format_Settings;Формат_Настройки
 Format_Settings_BVOP;Формат_Настройки_БВОП
 Format_Settings_CABAC;Формат_Настройки_Кабак
@@ -580,11 +586,11 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Към Уебсайта
-Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
+Grouping;
 h;х
 Header file;Хедър файл
 Height;Височина
@@ -667,6 +673,7 @@ Language_en-gb;Език_ен–гб
 Language_en-us;Език_ен-юс
 Language_eo;Език_ео
 Language_es;Език_ес
+Language_es-419;
 Language_et;Език_ет
 Language_eu;Език_еу
 Language_fa;Език_фа
@@ -913,6 +920,7 @@ Original;Оригинал
 OriginalNetworkName;ОригиналноМрежаИме
 OriginalSourceForm;ОригиналенИзточникФормуляр
 OriginalSourceMedium;ОригиналенИзточникНосител
+OriginalSourceMedium_ID;
 Originator;
 Other;Други
 OtherIdentifier;
@@ -924,12 +932,14 @@ OverallBitRate_Maximum;ОбщаБитСкорост_Максимум
 OverallBitRate_Minimum;ОбщаБитСкорост_Минимум
 OverallBitRate_Mode;ОбщаБитСкорост_Режим
 OverallBitRate_Nominal;ОбщаБитСкорост_Номинал
+PackageName;
 Part;Част
 Part_Count;Част_Брой
 PartNumber;
 PartTotal;
 Performer;Изпълнител
 Period;Период
+PodcastCategory;
 Phone;Телефон
 PictureRatio;
 PixelAspectRatio;ПикселСъотношение
@@ -965,6 +975,7 @@ ReplayGain_Gain;УсилващоПовторение_Усилване
 ReplayGain_Peak;УсилващоПовторение_Усилване_Връх
 Resolution;Резолюция
 s;с
+SamplesPerFrame;
 SamplingCount;
 SamplingRate;ВъзпроизвежданеСкорост
 Save;Запази
@@ -985,6 +996,7 @@ Separator_Columns;Разделител_Колони
 Separator_Lines;Разделител_Линий
 SeriesTitle;
 ServiceChannel;СървисКанал
+ServiceKind;
 ServiceName;СървисИме
 ServiceProvider;СървисДоставчик
 ServiceType;СървисТип
@@ -1024,6 +1036,7 @@ StreamKind;ПотокВид
 StreamKindID;ПотокВидИД
 StreamKindPos;ПотокВидПоз
 StreamSize;ПотокРазмер
+StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;ПотокРазмер_Пропорций
 Subject;Относно
@@ -1106,5 +1119,5 @@ Written_Location;Написано_Локация
 WrittenBy;НаписаноОт
 Yes;Да
 Your system;Вашата система
-ZZ_Automatic_Percent;82
-ZZ_AutomaticLanguage_Percent;89
+ZZ_Automatic_Percent;81
+ZZ_AutomaticLanguage_Percent;88

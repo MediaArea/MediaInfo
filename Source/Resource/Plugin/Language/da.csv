@@ -164,6 +164,7 @@ Alignment;Justering
 Alignment_Aligned;Justeret på interleaves
 Alignment_Split;Delt på interleaves
 All;Alle
+AlternateGroup;
 Archival_Location;Arkivsted
 Arranger;Arrangør
 ArtDirector;Art Director
@@ -188,6 +189,7 @@ BarCode;Stregkode
 Basic;Grundlæggende
 Basic_Note;Bemærk : for mere information om denne fil, skal du vælge en anden visning (Ark, Træstruktur..)
 BitDepth;Bitdybde
+BitDepth_Detected;
 BitDepth_Stored;
 BitRate;Bitrate
 BitRate_Encoded;
@@ -292,6 +294,7 @@ Digitized_Date;Digitaliseret den
 Dimensions;Dimentioner
 Director;Instruktør
 DirectorOfPhotography;Cheffotograf
+Disabled;
 DisplayAspectRatio;Størrelsesforhold
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Oprindeligt størrelsesforhold
@@ -304,6 +307,7 @@ Duration_End;Sluttid
 Duration_Start;Starttid
 Edit;Rediger
 EditedBy;Redigeret af
+ElementCount;
 EMail;E-mail
 Encoded_Application;Skrivende program
 Encoded_Date;Kodet den
@@ -345,6 +349,8 @@ Format_Commercial_IfAny;
 Format_Description;Formatbeskrivelse
 Format_Info;Formatdetaljer
 Format_Profile;Formatprofil
+Format_Level;
+Format_Tier;
 Format_Settings;Formatindstillinger
 Format_Settings_BVOP;Formatindstillinger, BVOP
 Format_Settings_CABAC;Formatindstillinger, CABC
@@ -580,11 +586,11 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Gå til websted
-Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
+Grouping;
 h; t
 Header file;Opret en header-fil
 Height;Højde
@@ -667,6 +673,7 @@ Language_en-gb;Engelsk (Storbritanien)
 Language_en-us;Engelsk (US)
 Language_eo;Esperanto
 Language_es;Spansk
+Language_es-419;
 Language_et;Estisk
 Language_eu;Basisk
 Language_fa;Persisk
@@ -913,6 +920,7 @@ Original;Original
 OriginalNetworkName;Oprindeligt netværksnavn
 OriginalSourceForm;Oprindelig kildeform
 OriginalSourceMedium;Oprindeligt kildemedie
+OriginalSourceMedium_ID;
 Originator;
 Other;Andet
 OtherIdentifier;
@@ -924,12 +932,14 @@ OverallBitRate_Maximum;Maksimum samlet bitrate
 OverallBitRate_Minimum;Minimum samlet bitrate
 OverallBitRate_Mode;Samlet bitratemodus
 OverallBitRate_Nominal;Nominel samlet bitrate
+PackageName;
 Part;Del
 Part_Count;I alt
 PartNumber;
 PartTotal;
 Performer;Kunstner
 Period;Tidsalder
+PodcastCategory;
 Phone;Telefon
 PictureRatio;
 PixelAspectRatio;Pixelforhold
@@ -965,6 +975,7 @@ ReplayGain_Gain;Reply gain
 ReplayGain_Peak;Reply gain peak
 Resolution;Opløsning
 s;sek.
+SamplesPerFrame;
 SamplingCount;Antal samplinger
 SamplingRate;Samplingsrate
 Save;Gem
@@ -985,6 +996,7 @@ Separator_Columns;Kolonneseparator
 Separator_Lines;Linjeseparator
 SeriesTitle;
 ServiceChannel;Servicekanalnummer
+ServiceKind;
 ServiceName;Servicenavn
 ServiceProvider;Serviceudbyder
 ServiceType;Servicetype
@@ -1024,6 +1036,7 @@ StreamKind;Strømart
 StreamKindID;Strømidentifikator
 StreamKindPos;Strømidentifikator
 StreamSize;Strømstørrelse
+StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;Denne strøms størrelsesforhold
 Subject;Emne
@@ -1106,5 +1119,5 @@ Written_Location;Sted
 WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
-ZZ_Automatic_Percent;79
-ZZ_AutomaticLanguage_Percent;90
+ZZ_Automatic_Percent;78
+ZZ_AutomaticLanguage_Percent;89

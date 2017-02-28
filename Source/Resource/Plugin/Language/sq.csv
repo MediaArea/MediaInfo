@@ -164,6 +164,7 @@ Alignment;Radhitja
 Alignment_Aligned;Radhitur te gërshetimet
 Alignment_Split;Ndarë te gërshetimet
 All;Gjithçka
+AlternateGroup;
 Archival_Location;Vendi i arkivimit
 Arranger;Radhitësi
 ArtDirector;RegjisorArtistik
@@ -188,6 +189,7 @@ BarCode;BarCode
 Basic;Kryesor
 Basic_Note;Shënim : për më shumë info rreth skedës, mund të zgjidhet një pamje tjetër (Fletë, Pemë...)
 BitDepth;
+BitDepth_Detected;
 BitDepth_Stored;
 BitRate;Raporti i bitit
 BitRate_Encoded;
@@ -292,6 +294,7 @@ Digitized_Date;Data e shifruar
 Dimensions;Dimensione
 Director;Regjisori
 DirectorOfPhotography;Regjisori i fotografisë
+Disabled;
 DisplayAspectRatio;Raporti i aspektit në ekran
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Raporti origjinal i aspektit në ekran
@@ -304,6 +307,7 @@ Duration_End;Koha e përfundimit
 Duration_Start;Koha e nisjes
 Edit;Edito
 EditedBy;Edituar nga
+ElementCount;
 EMail;Posta-e
 Encoded_Application;Aplikimi i shkrimit
 Encoded_Date;Data e kodimit
@@ -345,6 +349,8 @@ Format_Commercial_IfAny;
 Format_Description;Përshkrimi i formatit
 Format_Info;Detajet e formatit
 Format_Profile;Profili i formatit
+Format_Level;
+Format_Tier;
 Format_Settings;Vendosjet e formatit
 Format_Settings_BVOP;Vendosjet e formatit, BVOP
 Format_Settings_CABAC;Vendosjet e formatit, CABAC
@@ -580,11 +586,11 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Shko te trualli në rrjetë
-Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
+Grouping;
 h; h
 Header file;Krijo një kokë skede
 Height;Lartësia
@@ -667,6 +673,7 @@ Language_en-gb;Anglisht (Britani e Madhe)
 Language_en-us;Anglisht (Shtetet e Bashkuara)
 Language_eo;Esperanto
 Language_es;Spanjisht
+Language_es-419;
 Language_et;Estonian
 Language_eu;Basque
 Language_fa;Persisht
@@ -913,6 +920,7 @@ Original;Origjinal
 OriginalNetworkName;Emri origjinal i rrjetit
 OriginalSourceForm;Forma origjinale e burimit
 OriginalSourceMedium;Mediumi origjinal i burimit
+OriginalSourceMedium_ID;
 Originator;
 Other;Tjetër
 OtherIdentifier;
@@ -924,12 +932,14 @@ OverallBitRate_Maximum;Raporti maksimal i plotë i bitit
 OverallBitRate_Minimum;Raporti minimal i plotë i bitit
 OverallBitRate_Mode;Mënyra e raportit të plotë të bitit
 OverallBitRate_Nominal;Raporti nominal i plotë i bitit
+PackageName;
 Part;Pjesa
 Part_Count;Numri total
 PartNumber;
 PartTotal;
 Performer;Interpretuesi
 Period;Periudha
+PodcastCategory;
 Phone;Telefoni
 PictureRatio;
 PixelAspectRatio;Raporti i aspektit të pikselit
@@ -965,6 +975,7 @@ ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Piku i replay gain
 Resolution;Rezolucioni
 s;s
+SamplesPerFrame;
 SamplingCount;
 SamplingRate;Raporti i shëmbëllimit
 Save;Ruaj
@@ -985,6 +996,7 @@ Separator_Columns;ndarësi i kolonave
 Separator_Lines;ndarësi i rreshtave
 SeriesTitle;
 ServiceChannel;Numri i kanalit të shërbimit
+ServiceKind;
 ServiceName;Emri i shërbimit
 ServiceProvider;Siguruesi i shërbimit
 ServiceType;Lloji i shërbimit
@@ -1024,6 +1036,7 @@ StreamKind;Lloji i rrymës
 StreamKindID;Identifikuesi i rrymës
 StreamKindPos;Identifikuesi i rrymës
 StreamSize;Masa e rrymës
+StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;Proporcioni i rrymës
 Subject;Subjekti
@@ -1106,5 +1119,5 @@ Written_Location;Vendi i shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;85
-ZZ_AutomaticLanguage_Percent;89
+ZZ_Automatic_Percent;84
+ZZ_AutomaticLanguage_Percent;88
