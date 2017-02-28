@@ -164,6 +164,7 @@ Alignment;对齐方式
 Alignment_Aligned;对齐标注
 Alignment_Split;分离标注
 All;全部
+AlternateGroup;
 Archival_Location;归档地址
 Arranger;改编者
 ArtDirector;艺术指导
@@ -188,6 +189,7 @@ BarCode;条形码
 Basic;基本
 Basic_Note;注意: 要了解更多关于此文件的信息, 请选择不同的视图 (表格, 树状图 ...)
 BitDepth;位深度
+BitDepth_Detected;
 BitDepth_Stored;
 BitRate;码率
 BitRate_Encoded;
@@ -292,6 +294,7 @@ Digitized_Date;数字化日期
 Dimensions;规模
 Director;导演
 DirectorOfPhotography;摄影导演
+Disabled;
 DisplayAspectRatio;画面比例
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;原始高宽比
@@ -304,6 +307,7 @@ Duration_End;结束时间
 Duration_Start;开始时间
 Edit;编辑
 EditedBy;编辑
+ElementCount;
 EMail;电子邮件
 Encoded_Application;编码程序
 Encoded_Date;编码日期
@@ -345,6 +349,8 @@ Format_Commercial_IfAny;
 Format_Description;格式描述
 Format_Info;格式详情
 Format_Profile;格式简介
+Format_Level;
+Format_Tier;
 Format_Settings;格式设置
 Format_Settings_BVOP;格式设置, BVOP
 Format_Settings_CABAC;格式设置, CABAC
@@ -580,11 +586,11 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;访问网站
-Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
+Grouping;
 h;小时
 Header file;创建头文件
 Height;画面高度
@@ -667,6 +673,7 @@ Language_en-gb;English (Great Britain)
 Language_en-us;English (United States)
 Language_eo;Esperanto
 Language_es;Spanish
+Language_es-419;
 Language_et;Estonian
 Language_eu;Basque
 Language_fa;Persian
@@ -913,6 +920,7 @@ Original;源
 OriginalNetworkName;源网络名称
 OriginalSourceForm;资源来源
 OriginalSourceMedium;资源媒介
+OriginalSourceMedium_ID;
 Originator;
 Other;其它
 OtherIdentifier;
@@ -924,12 +932,14 @@ OverallBitRate_Maximum;最大混合码率
 OverallBitRate_Minimum;最小混合码率
 OverallBitRate_Mode;混合码率模式
 OverallBitRate_Nominal;额定混合码率
+PackageName;
 Part;部分
 Part_Count;总计
 PartNumber;
 PartTotal;
 Performer;艺术家
 Period;时代
+PodcastCategory;
 Phone;电话
 PictureRatio;
 PixelAspectRatio;画面比例(像素)
@@ -965,6 +975,7 @@ ReplayGain_Gain;回放增益
 ReplayGain_Peak;回放增益峰值
 Resolution;分辨率
 s;秒
+SamplesPerFrame;
 SamplingCount;样本计数
 SamplingRate;采样率
 Save;保存
@@ -985,6 +996,7 @@ Separator_Columns;列分隔符
 Separator_Lines;换行符
 SeriesTitle;
 ServiceChannel;服务频道号码
+ServiceKind;
 ServiceName;服务名
 ServiceProvider;服务提供
 ServiceType;服务类型
@@ -1024,6 +1036,7 @@ StreamKind;流类型
 StreamKindID;流ID
 StreamKindPos;流ID
 StreamSize;大小
+StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;流属性
 Subject;主题
@@ -1106,5 +1119,5 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;87
+ZZ_Automatic_Percent;86
 ZZ_AutomaticLanguage_Percent;90

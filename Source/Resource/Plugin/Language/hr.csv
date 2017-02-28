@@ -164,6 +164,7 @@ Alignment;Usmjerenje
 Alignment_Aligned;Usmjerenje sukladno čimbeniku 'interleave'
 Alignment_Split;Rasporediti preko interleavea
 All;Sve
+AlternateGroup;
 Archival_Location;Mjesto pohranjivanja
 Arranger;Aranžer
 ArtDirector;Umjetnički ravnatelj
@@ -188,6 +189,7 @@ BarCode;Crtičasti kôd
 Basic;Osnovno
 Basic_Note;Napomena: za više informacija o ovoj datoteci morate odabrati različite prikaze (tabela, stablo...)
 BitDepth;
+BitDepth_Detected;
 BitDepth_Stored;
 BitRate;Stopa protoka podataka
 BitRate_Encoded;
@@ -292,6 +294,7 @@ Digitized_Date;Nadnevak digitaliziranja
 Dimensions;Dimenzije
 Director;Režiser
 DirectorOfPhotography;Ravnatelj fotografije
+Disabled;
 DisplayAspectRatio;Omjer slike
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Izvorni omjer slike
@@ -304,6 +307,7 @@ Duration_End;Vrijeme svršetka
 Duration_Start;Vrijeme početka
 Edit;Uređivanje
 EditedBy;Uredio
+ElementCount;
 EMail;E-pošta
 Encoded_Application;Kodirajući program
 Encoded_Date;Nadnevak kodiranja
@@ -345,6 +349,8 @@ Format_Commercial_IfAny;
 Format_Description;Opis oblika datoteke
 Format_Info;Pojedinosti oblika datoteke
 Format_Profile;Profil oblika datoteke
+Format_Level;
+Format_Tier;
 Format_Settings;Postavke oblika datoteke
 Format_Settings_BVOP;Postavke oblika datoteke za BVOP
 Format_Settings_CABAC;Postavke oblika datoteke za CABAC
@@ -580,11 +586,11 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Prijeći na spletni sadržaj
-Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;Agrupamento
+Grouping;
 h; h
 Header file;Kreirati zaglavnu datoteku
 Height;Visina
@@ -667,6 +673,7 @@ Language_en-gb;Engleski (Velika Britanija)
 Language_en-us;Engleski (Sjedinjene Države)
 Language_eo;Esperanto
 Language_es;Španjolski
+Language_es-419;
 Language_et;Estonski
 Language_eu;Baskijski
 Language_fa;Perzijski
@@ -913,6 +920,7 @@ Original;Izvorno
 OriginalNetworkName;Izvorni naziv mreže
 OriginalSourceForm;Prvobitni oblik izvora
 OriginalSourceMedium;Prvobitni medij izvora
+OriginalSourceMedium_ID;
 Originator;
 Other;Ostalo
 OtherIdentifier;
@@ -924,12 +932,14 @@ OverallBitRate_Maximum;Maksimum ukupnog protoka podataka
 OverallBitRate_Minimum;Minimum ukupnog protoka podataka
 OverallBitRate_Mode;Način ukupnog protoka podataka
 OverallBitRate_Nominal;Nominalni ukupni protok podataka
+PackageName;
 Part;Dio
 Part_Count;Ukupni broj
 PartNumber;
 PartTotal;
 Performer;Izvođač
 Period;Razdoblje
+PodcastCategory;
 Phone;Telefon
 PictureRatio;
 PixelAspectRatio;Omjer piksela
@@ -965,6 +975,7 @@ ReplayGain_Gain;Pojačavanje zvuka izvedbe
 ReplayGain_Peak;Vrhunac pojačanog zvuka izvedbe
 Resolution;Razlučivost
 s;s
+SamplesPerFrame;
 SamplingCount;
 SamplingRate;Učestalost uzorkovanja
 Save;Pohraniti
@@ -985,6 +996,7 @@ Separator_Columns;Razdjelnik redaka
 Separator_Lines;Razdjelnik crta
 SeriesTitle;
 ServiceChannel;Broj uslužnog kanala
+ServiceKind;
 ServiceName;Naziv usluge
 ServiceProvider;Pružatelj usluge
 ServiceType;Vrsta usluge
@@ -1024,6 +1036,7 @@ StreamKind;Vrsta toka
 StreamKindID;Prepoznavatelj toka
 StreamKindPos;Položaj prepoznavatelja toka
 StreamSize;Veličina toka
+StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;Omjeri dotičnog toka
 Subject;Sadržaj
@@ -1106,5 +1119,5 @@ Written_Location;Mjesto početka pisanja
 WrittenBy;Napisao
 Yes;Da
 Your system;Informacije o Vašem sustavu
-ZZ_Automatic_Percent;84
-ZZ_AutomaticLanguage_Percent;88
+ZZ_Automatic_Percent;83
+ZZ_AutomaticLanguage_Percent;87

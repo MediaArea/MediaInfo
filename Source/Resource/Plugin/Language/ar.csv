@@ -164,6 +164,7 @@ Alignment;محاذاة
 Alignment_Aligned;محاذاة في الـinterleaves
 Alignment_Split;المنتشرة في الـinterleaves
 All;كل
+AlternateGroup;Alternate group
 Archival_Location;الأرشيف
 Arranger;منظم
 ArtDirector;المدير الفني
@@ -188,6 +189,7 @@ BarCode;باركود
 Basic;أساسي
 Basic_Note;ملاحظة : لمزيد من المعلومات حول هذا الملف ، يجب استخدام وجهة نظر مختلفة (جدول ، شجرة...)
 BitDepth;عمق الألوان
+BitDepth_Detected;Detected bit depth
 BitDepth_Stored;
 BitRate;صبيب
 BitRate_Encoded;
@@ -292,6 +294,7 @@ Digitized_Date;تاريخ الرقمية
 Dimensions;الأبعاد
 Director;المدير الفني
 DirectorOfPhotography;محرر الصور
+Disabled;Disabled
 DisplayAspectRatio;عرض حجم الشاشة
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;عرض حجم الشاشة الأصلي
@@ -304,6 +307,7 @@ Duration_End;وقت النهاية
 Duration_Start;وقت البدء
 Edit;تغيير
 EditedBy;حرره
+ElementCount;Count of elements
 EMail;البريد الإلكتروني
 Encoded_Application;برنامج التحرير
 Encoded_Date;تاريخ الترميز (Encoding)
@@ -345,6 +349,8 @@ Format_Commercial_IfAny;
 Format_Description;وصف الشكل
 Format_Info;تفاصيل عن شكل
 Format_Profile;لبروفايل الشكل
+Format_Level;Format level
+Format_Tier;Format tier
 Format_Settings;إعدادات الشكل
 Format_Settings_BVOP;إعدادات الشكل، BVOP
 Format_Settings_CABAC;إعدادات الشكل، CABAC
@@ -580,11 +586,11 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;زيارة الموقع
-Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
+Grouping;
 h; h
 Header file;إنشاء ملف header
 Height;ارتفاع
@@ -667,6 +673,7 @@ Language_en-gb;English (Great Britain)
 Language_en-us;English (United States)
 Language_eo;Esperanto
 Language_es;Español
+Language_es-419;Spanish (Latin America)
 Language_et;eesti keel
 Language_eu;Euskara
 Language_fa;فارس
@@ -913,6 +920,7 @@ Original;أصلي
 OriginalNetworkName;اسم الشبكة الأصلي
 OriginalSourceForm;الامتداد الأصلي
 OriginalSourceMedium;الدعم الأصلي
+OriginalSourceMedium_ID;ID in the original source medium
 Originator;
 Other;آخر
 OtherIdentifier;
@@ -924,12 +932,14 @@ OverallBitRate_Maximum;الحد الأقصى للصبيب العام
 OverallBitRate_Minimum;الحد الأدنى للصبيب العام
 OverallBitRate_Mode;نوع الصبيب العام
 OverallBitRate_Nominal;المعدل الاسمي للصبيب العام
+PackageName;Package name
 Part;جزء
 Part_Count;العدد الكلي
 PartNumber;
 PartTotal;
 Performer;مؤد
 Period;فترة
+PodcastCategory;Podcast category
 Phone;هاتف
 PictureRatio;
 PixelAspectRatio;حجم البكسل
@@ -965,6 +975,7 @@ ReplayGain_Gain;كسب في القراءة
 ReplayGain_Peak;ذروة الكسب في القراءة
 Resolution;دقة الصورة
 s; s
+SamplesPerFrame;Samples per frame
 SamplingCount;
 SamplingRate;أخذ العينات
 Save;حفظ
@@ -985,6 +996,7 @@ Separator_Columns;فاصل أعمدة
 Separator_Lines;فاصل الأسطر
 SeriesTitle;
 ServiceChannel;قناة الخدمة
+ServiceKind;Service kind
 ServiceName;اسم الخدمة
 ServiceProvider;مزود الخدمة
 ServiceType;نوع الخدمة
@@ -1024,6 +1036,7 @@ StreamKind;نوع الدفق
 StreamKindID;معرف الدفق
 StreamKindPos;معرف الدفق
 StreamSize;حجم الدفق
+StreamSize_Demuxed;Stream size when demuxed
 StreamSize_Encoded;
 StreamSize_Proportion;نسبة الدفق
 Subject;موضوع

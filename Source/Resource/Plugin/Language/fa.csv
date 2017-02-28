@@ -164,6 +164,7 @@ Alignment;هم ترازی
 Alignment_Aligned;هم ترازی بین صفحات
 Alignment_Split;شکاف بین صفحات
 All;همه
+AlternateGroup;
 Archival_Location;مسیر بایگانی
 Arranger;مرتب کننده
 ArtDirector;کارگردان هنری
@@ -188,6 +189,7 @@ BarCode;بارکد
 Basic;اولیه
 Basic_Note;برای اطلاعات بیشتر اینجا را کلیک کنید
 BitDepth;
+BitDepth_Detected;
 BitDepth_Stored;
 BitRate;نرخ بيت
 BitRate_Encoded;
@@ -292,6 +294,7 @@ Digitized_Date;تاریخ رقمى
 Dimensions;اندازه گرفتن
 Director;کارگردان
 DirectorOfPhotography;کارگردان عکسبرداری
+Disabled;
 DisplayAspectRatio;نمایش نسبت تصوير
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;نمایش نسبت تصوير اصلی
@@ -304,6 +307,7 @@ Duration_End;زمان پایان
 Duration_Start;زمان شروع
 Edit;ویرایش
 EditedBy;ویرایش شده توست
+ElementCount;
 EMail;ایمیل
 Encoded_Application;برنامه نوشتاری
 Encoded_Date;تاریخ رمزى شده
@@ -345,6 +349,8 @@ Format_Commercial_IfAny;
 Format_Description;شرح فرمت
 Format_Info;جزییات فرمت
 Format_Profile;پروفایل فرمت
+Format_Level;
+Format_Tier;
 Format_Settings;تنظیمات فرمت
 Format_Settings_BVOP;تنظیمات فرمت, BVOP
 Format_Settings_CABAC;تنظیمات فرمت, CABAC
@@ -580,11 +586,11 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;وب سایت
-Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
+Grouping;
 h; h
 Header file;ایجاد فایل سر صفحه
 Height;بلندی
@@ -667,6 +673,7 @@ Language_en-gb;English (Great Britain)
 Language_en-us;English (United States)
 Language_eo;Esperanto
 Language_es;Spanish
+Language_es-419;
 Language_et;Estonian
 Language_eu;Basque
 Language_fa;Persian
@@ -913,6 +920,7 @@ Original;اصلی
 OriginalNetworkName;نام اصلی شبکه
 OriginalSourceForm;فرم منبع اصلی
 OriginalSourceMedium;فرم میانی اصلی
+OriginalSourceMedium_ID;
 Originator;
 Other;دیگر
 OtherIdentifier;
@@ -924,12 +932,14 @@ OverallBitRate_Maximum;بیشترین نرخ بیت کل
 OverallBitRate_Minimum;کمترین نرخ بیت کل
 OverallBitRate_Mode;حالت نرخ بیت کل
 OverallBitRate_Nominal;نرخ بیت کل غیرواقعی
+PackageName;
 Part;قسمت
 Part_Count;کل تعداد
 PartNumber;
 PartTotal;
 Performer;مجرى
 Period;دوره
+PodcastCategory;
 Phone;تلفن
 PictureRatio;
 PixelAspectRatio;پیکسل نسبت تصوير
@@ -965,6 +975,7 @@ ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replay gain peak
 Resolution;وضوح
 s;s
+SamplesPerFrame;
 SamplingCount;
 SamplingRate;نرخ نمونه
 Save;ذخیره
@@ -985,6 +996,7 @@ Separator_Columns;جدا کننده ستون
 Separator_Lines;جدا کننده خطوط
 SeriesTitle;
 ServiceChannel;شماره کانال سرویس
+ServiceKind;
 ServiceName;نام سرویس
 ServiceProvider;مهيا کننده سرویس
 ServiceType;نوع سرویس
@@ -1024,6 +1036,7 @@ StreamKind;نوع استریم
 StreamKindID;معرف استریم
 StreamKindPos;معرف استریم
 StreamSize;اندازه استریم
+StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;نسبت این استریم
 Subject;موضوع
@@ -1106,5 +1119,5 @@ Written_Location;مکان نوشته
 WrittenBy;نوشته شده توسط
 Yes;بلی
 Your system;سیستم شما
-ZZ_Automatic_Percent;84
-ZZ_AutomaticLanguage_Percent;88
+ZZ_Automatic_Percent;83
+ZZ_AutomaticLanguage_Percent;87
