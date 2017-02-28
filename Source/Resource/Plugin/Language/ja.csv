@@ -865,10 +865,10 @@ Name;名前
 Nationality;製作国
 NetworkName;ネットワーク名
 New;新規
-Newest version;新バージョンチェック（要インターネット接続）
-NewVersion_Menu;新バージョンメニュー
-NewVersion_Question_Content;新バージョン確認 コンテンツ
-NewVersion_Question_Title;新バージョン確認 タイトル
+Newest version;新しいバージョンを確認（要インターネット接続
+NewVersion_Menu;新しいバージョンがあります
+NewVersion_Question_Content;新しいバージョン(v%Version%)があります。更新しますか？
+NewVersion_Question_Title;新しいバージョン
 No;いいえ
 Not yet;準備中です
 NumColors;色
