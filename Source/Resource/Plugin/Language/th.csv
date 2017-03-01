@@ -164,6 +164,7 @@ Alignment;
 Alignment_Aligned;
 Alignment_Split;
 All;ทั้งหมด
+AlternateGroup;
 Archival_Location;Archival location
 Arranger;Arranger
 ArtDirector;ผู้กำกับศิลป์
@@ -188,6 +189,7 @@ BarCode;บาร์โค้ด
 Basic;พื้นฐาน
 Basic_Note;หมายเหตุ : สำหรับข้อมูลเพิ่มเติมเกี่ยวกับไฟล์นี้, คุณต้องเลือกการแสดงแบบอื่นๆ (ชีต, Tree...)
 BitDepth;
+BitDepth_Detected;
 BitDepth_Stored;
 BitRate;บิตเรต
 BitRate_Encoded;
@@ -292,6 +294,7 @@ Digitized_Date;Digitized date
 Dimensions;
 Director;ผู้กำกับการแสดง
 DirectorOfPhotography;ผู้กำกับการถ่ายภาพ
+Disabled;
 DisplayAspectRatio;อัตราการแสดงผล
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;
@@ -304,6 +307,7 @@ Duration_End;
 Duration_Start;
 Edit;แก้ไข
 EditedBy;แก้ไขโดย
+ElementCount;
 EMail;อี-เมลล์
 Encoded_Application;Writing application
 Encoded_Date;วันที่เข้ารหัส
@@ -345,6 +349,8 @@ Format_Commercial_IfAny;
 Format_Description;รายละเอียดของรูปแบบ
 Format_Info;ข้อมูลของรูปแบบ
 Format_Profile;โพรไฟล์รูปแบบ
+Format_Level;
+Format_Tier;
 Format_Settings;ตั้งค่ารูปแบบ
 Format_Settings_BVOP;ตั้งค่ารูปแบบ, BVOP
 Format_Settings_CABAC;ตั้งค่ารูปแบบ, CABAC
@@ -580,11 +586,11 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;ไปที่เว็บไซต์
-Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
+Grouping;
 h; h
 Header file;สร้างไฟล์ header
 Height;ความสูง
@@ -667,6 +673,7 @@ Language_en-gb;
 Language_en-us;
 Language_eo;Esperanto
 Language_es;สเปน
+Language_es-419;
 Language_et;เอสโตเนีย
 Language_eu;แบ็ซค์
 Language_fa;เปอร์เซีย
@@ -913,6 +920,7 @@ Original;ต้นฉบับ
 OriginalNetworkName;
 OriginalSourceForm;
 OriginalSourceMedium;
+OriginalSourceMedium_ID;
 Originator;
 Other;อื่นๆ
 OtherIdentifier;
@@ -924,12 +932,14 @@ OverallBitRate_Maximum;บิตเรตทั้งหมดสูงสุด
 OverallBitRate_Minimum;บิตเรตทั้งหมดต่ำสุด
 OverallBitRate_Mode;โหมดบิตเรตทั้งหมด
 OverallBitRate_Nominal;บิตเรต Nominal ทั้งหมด
+PackageName;
 Part;ส่วน
 Part_Count;Total count
 PartNumber;
 PartTotal;
 Performer;Performer
 Period;Period
+PodcastCategory;
 Phone;โทรศัพท์
 PictureRatio;
 PixelAspectRatio;Pixel Aspect Ratio
@@ -965,6 +975,7 @@ ReplayGain_Gain;
 ReplayGain_Peak;
 Resolution;ความละเอียด
 s;s
+SamplesPerFrame;
 SamplingCount;
 SamplingRate;
 Save;บันทึก
@@ -985,6 +996,7 @@ Separator_Columns;ตัวแยกคอลัมน์
 Separator_Lines;ตัวแยกบรรทัด
 SeriesTitle;
 ServiceChannel;
+ServiceKind;
 ServiceName;
 ServiceProvider;
 ServiceType;
@@ -1024,6 +1036,7 @@ StreamKind;ชนิดของสตรีม
 StreamKindID;
 StreamKindPos;
 StreamSize;ขนาดสตรีม
+StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;
 Subject;Subject
@@ -1107,4 +1120,4 @@ WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
 ZZ_Automatic_Percent;73
-ZZ_AutomaticLanguage_Percent;81
+ZZ_AutomaticLanguage_Percent;80

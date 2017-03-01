@@ -164,6 +164,7 @@ Alignment;Alignment
 Alignment_Aligned;Aligned on interleaves
 Alignment_Split;Split accross interleaves
 All;ყველა
+AlternateGroup;
 Archival_Location;Archival location
 Arranger;Arranger
 ArtDirector;ArtDirector
@@ -188,6 +189,7 @@ BarCode;BarCode
 Basic;ძირითადი
 Basic_Note;შენიშვნა : ამ ფაილის მეტი ინფორმაციის გასაგებად თქვენ უნდა აირჩიოთ განსხვავებული ხედვის ტიპი (Sheet, Tree...)
 BitDepth;Bit depth
+BitDepth_Detected;
 BitDepth_Stored;
 BitRate;ბიტ რეიტი
 BitRate_Encoded;
@@ -292,6 +294,7 @@ Digitized_Date;Digitized date
 Dimensions;Dimensions
 Director;დირექტორი
 DirectorOfPhotography;Director of photography
+Disabled;
 DisplayAspectRatio;გამოსახულების ასპექტ რატიო
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Original display aspect ratio
@@ -304,6 +307,7 @@ Duration_End;დასასწრულის დრო
 Duration_Start;დაწყების დრო
 Edit;რედაქტირება
 EditedBy;რედაქტირების ავტორი
+ElementCount;
 EMail;ელ-ფოსტა
 Encoded_Application;დამწერი აპლიკაცია
 Encoded_Date;ენკოდირების თარიღი
@@ -345,6 +349,8 @@ Format_Commercial_IfAny;
 Format_Description;ფორმატის აღწერა
 Format_Info;ფორმატის დეტალები
 Format_Profile;ფორმატის პროფილი
+Format_Level;
+Format_Tier;
 Format_Settings;ფორმატის პარამეტრები
 Format_Settings_BVOP;ფორმატის პარამეტრები, BVOP
 Format_Settings_CABAC;ფორმატის პარამეტრები, CABAC
@@ -580,11 +586,11 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;გადადით ვებ-გვერდძე
-Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
+Grouping;
 h; h
 Header file;ჰედერის ფაილის შექმნა
 Height;სიმაღლე
@@ -667,6 +673,7 @@ Language_en-gb;English (Great Britain)
 Language_en-us;English (United States)
 Language_eo;Esperanto
 Language_es;Spanish
+Language_es-419;
 Language_et;Estonian
 Language_eu;Basque
 Language_fa;Persian
@@ -913,6 +920,7 @@ Original;ორიგინალი
 OriginalNetworkName;Original network name
 OriginalSourceForm;Original source form
 OriginalSourceMedium;Original source medium
+OriginalSourceMedium_ID;
 Originator;
 Other;სხვა
 OtherIdentifier;
@@ -924,12 +932,14 @@ OverallBitRate_Maximum;მაქსიმალური ბიტ რეიტ�
 OverallBitRate_Minimum;მინიმალური ბიტ რეიტის მთლიანობა
 OverallBitRate_Mode;ბიტ რეიტის რეჟიმი მთლიანობაში
 OverallBitRate_Nominal;Nominal Overall bit rate
+PackageName;
 Part;ნაწილი
 Part_Count;სულ ჯამში
 PartNumber;
 PartTotal;
 Performer;Performer
 Period;პერიოდი
+PodcastCategory;
 Phone;ტელეფონი
 PictureRatio;
 PixelAspectRatio;პიქსელის ასპექტ რატიო
@@ -965,6 +975,7 @@ ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replay gain peak
 Resolution;გაფართოება
 s;s
+SamplesPerFrame;
 SamplingCount;ნიმუშების რაოდენობა
 SamplingRate;Sampling rate
 Save;დამახსოვრება
@@ -985,6 +996,7 @@ Separator_Columns;columns separator
 Separator_Lines;lines separator
 SeriesTitle;
 ServiceChannel;სერვისის არხების რაოდენობა
+ServiceKind;
 ServiceName;სერვისის სახელი
 ServiceProvider;სერვის პროვაიდერი
 ServiceType;Service type
@@ -1024,6 +1036,7 @@ StreamKind;ნაკადების სახეობები
 StreamKindID;Stream identifier
 StreamKindPos;Stream identifier
 StreamSize;ნაკადი ზომა
+StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;Proportion of this stream
 Subject;Subject
@@ -1106,5 +1119,5 @@ Written_Location;დაწერის ადგილი
 WrittenBy;დაწერილია
 Yes;დიახ
 Your system;თქვენი სისტემა
-ZZ_Automatic_Percent;86
-ZZ_AutomaticLanguage_Percent;90
+ZZ_Automatic_Percent;85
+ZZ_AutomaticLanguage_Percent;89

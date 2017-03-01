@@ -164,6 +164,7 @@ Alignment;聲頻編排
 Alignment_Aligned;對齊
 Alignment_Split;分散
 All;全部
+AlternateGroup;
 Archival_Location;檔案位置
 Arranger;編曲
 ArtDirector;藝術指導
@@ -188,6 +189,7 @@ BarCode;條碼
 Basic;基本
 Basic_Note;注意：想得道更多此檔案的資訊，請選擇不同檢視方式（表格、樹狀圖…）
 BitDepth;深度
+BitDepth_Detected;
 BitDepth_Stored;儲存位元深度
 BitRate;流量
 BitRate_Encoded;編碼位元率
@@ -292,6 +294,7 @@ Digitized_Date;數碼化於
 Dimensions;維度
 Director;導演
 DirectorOfPhotography;攝影指導
+Disabled;
 DisplayAspectRatio;顯示闊高比
 DisplayAspectRatio_CleanAperture;清除Aperture顯示闊高比
 DisplayAspectRatio_Original;原始顯示闊高比
@@ -304,6 +307,7 @@ Duration_End;完結時間
 Duration_Start;開始時間
 Edit;編輯
 EditedBy;編輯者
+ElementCount;
 EMail;電郵
 Encoded_Application;編碼程式
 Encoded_Date;編碼於
@@ -345,6 +349,8 @@ Format_Commercial_IfAny;廣告名稱
 Format_Description;格式描述
 Format_Info;格式資訊
 Format_Profile;格式類型
+Format_Level;
+Format_Tier;
 Format_Settings;格式設定
 Format_Settings_BVOP;格式設定 - BVOP
 Format_Settings_CABAC;格式設定 - CABAC
@@ -580,11 +586,11 @@ Genre_189;迴響貝斯　Dubstep
 Genre_190;修車搖滾　Garage Rock
 Genre_191;迷幻氛圍　Psybient
 Go to WebSite;前往網站
-Grouping;群組
 Gop_OpenClosed;開啟╱關閉GOP
 Gop_OpenClosed_Open;開啟
 Gop_OpenClosed_Closed;關閉
 Gop_OpenClosed_FirstFrame;開啟╱關閉GOP的首個畫格
+Grouping;群組
 h;時
 Header file;建立標頭檔案
 Height;高
@@ -667,6 +673,7 @@ Language_en-gb;英式英語　British English
 Language_en-us;美式英語　American English
 Language_eo;世界語　Esperanto
 Language_es;西班牙語　Spanish
+Language_es-419;
 Language_et;愛沙尼亞語　Estonian
 Language_eu;巴斯克語　Basque
 Language_fa;波斯語　Persian
@@ -913,6 +920,7 @@ Original;來源
 OriginalNetworkName;來源網絡名稱
 OriginalSourceForm;來源自
 OriginalSourceMedium;來源媒介
+OriginalSourceMedium_ID;
 Originator;原創者
 Other;其他
 OtherIdentifier;其他識別字
@@ -924,12 +932,14 @@ OverallBitRate_Maximum;整體最大流量
 OverallBitRate_Minimum;整體最小流量
 OverallBitRate_Mode;整體流量模式
 OverallBitRate_Nominal;預設整體流量
+PackageName;
 Part;部份
 Part_Count;總數
 PartNumber;此部份的編號
 PartTotal;部份的總計數量
 Performer;演出者
 Period;時期
+PodcastCategory;
 Phone;電話
 PictureRatio;比例
 PixelAspectRatio;像素闊高比
@@ -965,6 +975,7 @@ ReplayGain_Gain;播放增益
 ReplayGain_Peak;播放增益最高值
 Resolution;解像度
 s;秒
+SamplesPerFrame;
 SamplingCount;取樣數量
 SamplingRate;取樣率
 Save;儲存
@@ -985,6 +996,7 @@ Separator_Columns;換欄字元
 Separator_Lines;換行字元
 SeriesTitle;系列名稱
 ServiceChannel;服務頻道
+ServiceKind;
 ServiceName;服務名稱
 ServiceProvider;服務提供者
 ServiceType;服務類型
@@ -1024,6 +1036,7 @@ StreamKind;串流類型
 StreamKindID;串流識別字
 StreamKindPos;串流識別字
 StreamSize;串流大小
+StreamSize_Demuxed;
 StreamSize_Encoded;編碼串流大小
 StreamSize_Proportion;此串流的比例
 Subject;主題
@@ -1106,5 +1119,5 @@ Written_Location;編寫地點
 WrittenBy;作者
 Yes;是
 Your system;可識別清單
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

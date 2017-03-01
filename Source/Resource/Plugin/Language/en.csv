@@ -164,6 +164,7 @@ Alignment;Alignment
 Alignment_Aligned;Aligned on interleaves
 Alignment_Split;Split accross interleaves
 All;All
+AlternateGroup;Alternate group
 Archival_Location;Archival location
 Arranger;Arranger
 ArtDirector;ArtDirector
@@ -188,6 +189,7 @@ BarCode;BarCode
 Basic;Basic
 Basic_Note;Note : for more information about this file, you must select a different view (Sheet, Tree...)
 BitDepth;Bit depth
+BitDepth_Detected;Detected bit depth
 BitDepth_Stored;Stored bit depth
 BitRate;Bit rate
 BitRate_Encoded;Encoded bit rate
@@ -292,6 +294,7 @@ Digitized_Date;Digitized date
 Dimensions;Dimensions
 Director;Director
 DirectorOfPhotography;Director of photography
+Disabled;Disabled
 DisplayAspectRatio;Display aspect ratio
 DisplayAspectRatio_CleanAperture;Clean aperture display aspect ratio
 DisplayAspectRatio_Original;Original display aspect ratio
@@ -304,6 +307,7 @@ Duration_End;End time
 Duration_Start;Start time
 Edit;Edit
 EditedBy;Edited by
+ElementCount;Count of elements
 EMail;E-Mail
 Encoded_Application;Writing application
 Encoded_Date;Encoded date
@@ -345,6 +349,8 @@ Format_Commercial_IfAny;Commercial name
 Format_Description;Format description
 Format_Info;Details for format
 Format_Profile;Format profile
+Format_Level;Format level
+Format_Tier;Format tier
 Format_Settings;Format settings
 Format_Settings_BVOP;Format settings, BVOP
 Format_Settings_CABAC;Format settings, CABAC
@@ -580,11 +586,11 @@ Genre_189;Dubstep
 Genre_190;Garage Rock
 Genre_191;Psybient
 Go to WebSite;Go to website
-Grouping;Grouping
 Gop_OpenClosed;GOP, Open/Closed
 Gop_OpenClosed_Open;Open
 Gop_OpenClosed_Closed;Closed
 Gop_OpenClosed_FirstFrame;GOP, Open/Closed of first frame
+Grouping;Grouping
 h; h
 Header file;Create a header file
 Height;Height
@@ -667,6 +673,7 @@ Language_en-gb;English (Great Britain)
 Language_en-us;English (United States)
 Language_eo;Esperanto
 Language_es;Spanish
+Language_es-419;Spanish (Latin America)
 Language_et;Estonian
 Language_eu;Basque
 Language_fa;Persian
@@ -913,6 +920,7 @@ Original;Original
 OriginalNetworkName;Original network name
 OriginalSourceForm;Original source form
 OriginalSourceMedium;Original source medium
+OriginalSourceMedium_ID;ID in the original source medium
 Originator;Originator
 Other;Other
 OtherIdentifier;Other Identifier
@@ -924,12 +932,14 @@ OverallBitRate_Maximum;Maximum Overall bit rate
 OverallBitRate_Minimum;Minimum Overall bit rate
 OverallBitRate_Mode;Overall bit rate mode
 OverallBitRate_Nominal;Nominal Overall bit rate
+PackageName;Package name
 Part;Part
 Part_Count;Total count
 PartNumber;Part Number
 PartTotal;Part Total
 Performer;Performer
 Period;Period
+PodcastCategory;Podcast category
 Phone;Phone
 PictureRatio;Picture Ratio
 PixelAspectRatio;Pixel aspect ratio
@@ -965,6 +975,7 @@ ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replay gain peak
 Resolution;Resolution
 s; s
+SamplesPerFrame;Samples per frame
 SamplingCount;Samples count
 SamplingRate;Sampling rate
 Save;Save
@@ -985,6 +996,7 @@ Separator_Columns;columns separator
 Separator_Lines;lines separator
 SeriesTitle;Series Title
 ServiceChannel;Service channel number
+ServiceKind;Service kind
 ServiceName;Service name
 ServiceProvider;Service provider
 ServiceType;Service type
@@ -1024,6 +1036,7 @@ StreamKind;Kind of stream
 StreamKindID;Stream identifier
 StreamKindPos;Stream identifier
 StreamSize;Stream size
+StreamSize_Demuxed;Stream size when demuxed
 StreamSize_Encoded;Encoded stream size
 StreamSize_Proportion;Proportion of this stream
 Subject;Subject

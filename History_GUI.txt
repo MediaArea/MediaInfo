@@ -12,6 +12,23 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 0.7.93, 2017-02-28
+--------------
++ Matroska: detection of native FFV1 CodecID ("V_FFV1")
++ AC-3/E-AC-3: detection of Atmos inside core streams
++ AC-3/E-AC-3: slight reorganization of metadata display for dual mono and surround
++ AC-3/E-AC-3: "complete main" and similar info moved to "Service kind" dedicated line
++ AC-3/E-AC-3: more precision about how is built a stream (e.g. "E-AC-3+Atmos / E-AC-3" or "TrueHD+Atmos / TrueHD / AC-3")
++ WTV: basic detection
++ MPEG-TS: Detection of Opus
++ URL: "URLEncode" option for saying if the input should be URL encoded or not (default is guess = no change except if it contains spaces)
+x MediaTrace: for bitstreams (not bytestreams), bit offset was wrong
+x HLS: duration was sometimes wrong, reading only the first TS file duration. Now full duration is displayed
+x MPEG-TS: if stream is encrypted or invalid, level was sometimes not the expected one for AVC (e.g. "BaseLine@3.0" instead of "Baseline@3")
+x Matroska: FFV1 stream width/height was not initialized when Matroska track header width/height is after CodecID
+x FFV1: fix potential crash with some buggy slice headers
+x Matroska: crash in case of big attachment and CRC32 present
+
 Version 0.7.92.1, 2017-02-02
 --------------
 x Fix a performance regression in the matroska parser

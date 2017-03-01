@@ -164,6 +164,7 @@ Alignment;
 Alignment_Aligned;
 Alignment_Split;
 All;Visi
+AlternateGroup;
 Archival_Location;Archyvavimo vieta
 Arranger;Aranžuotojas
 ArtDirector;Meno Katalogas
@@ -188,6 +189,7 @@ BarCode;Brūkšninis kodas
 Basic;Įprastas
 Basic_Note;Pastaba : jei norite daugiau informacijos apie failą, turite pasirinkti kitą rodymą, (Lapas, Medis...)
 BitDepth;
+BitDepth_Detected;
 BitDepth_Stored;
 BitRate;Bitų tempas
 BitRate_Encoded;
@@ -292,6 +294,7 @@ Digitized_Date;Skaitmeninė data
 Dimensions;
 Director;Direktorius
 DirectorOfPhotography;Fotografijos direktorius
+Disabled;
 DisplayAspectRatio;Rodyti aspekto santykį
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;
@@ -304,6 +307,7 @@ Duration_End;
 Duration_Start;
 Edit;Redaguoti
 EditedBy;Redagavo
+ElementCount;
 EMail;El. paštas
 Encoded_Application;Rašymo programa
 Encoded_Date;Užkodavimo data
@@ -345,6 +349,8 @@ Format_Commercial_IfAny;
 Format_Description;Formatas aprašymas
 Format_Info;Formatas detalės
 Format_Profile;Formato profilis
+Format_Level;
+Format_Tier;
 Format_Settings;Formato nuostatos
 Format_Settings_BVOP;Formato nuostatos, BVOP
 Format_Settings_CABAC;Formato nuostatos, CABAC
@@ -580,11 +586,11 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Eiti į internetinę svetainę
-Grouping;
 Gop_OpenClosed;
 Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
+Grouping;
 h; v
 Header file;Sukurti pagrindinį failą
 Height;Aukštis
@@ -667,6 +673,7 @@ Language_en-gb;
 Language_en-us;
 Language_eo;Esperanto
 Language_es;Ispanų
+Language_es-419;
 Language_et;Estų
 Language_eu;Baskų
 Language_fa;Persų
@@ -913,6 +920,7 @@ Original;Originalas
 OriginalNetworkName;
 OriginalSourceForm;
 OriginalSourceMedium;
+OriginalSourceMedium_ID;
 Originator;
 Other;Kita
 OtherIdentifier;
@@ -924,12 +932,14 @@ OverallBitRate_Maximum;Bendras maksimalus bitų temas
 OverallBitRate_Minimum;Bendras minimalus bitų tempas
 OverallBitRate_Mode;Bendro bitų tempo rėžimas
 OverallBitRate_Nominal;Bendras nominalus bitų tempas
+PackageName;
 Part;Dalis
 Part_Count;Bendra apimtis
 PartNumber;
 PartTotal;
 Performer;Atlikėjas
 Period;Laikotarpis
+PodcastCategory;
 Phone;Telefonas
 PictureRatio;
 PixelAspectRatio;Pikselių aspekto koeficientas
@@ -965,6 +975,7 @@ ReplayGain_Gain;
 ReplayGain_Peak;
 Resolution;Raiška
 s;Video srautai (s)
+SamplesPerFrame;
 SamplingCount;
 SamplingRate;Atrankos tempas
 Save;Išsaugoti
@@ -985,6 +996,7 @@ Separator_Columns;Stulpelių skyryba
 Separator_Lines;Eilučių skyryba
 SeriesTitle;
 ServiceChannel;
+ServiceKind;
 ServiceName;
 ServiceProvider;
 ServiceType;
@@ -1024,6 +1036,7 @@ StreamKind;Srauto rūšis
 StreamKindID;
 StreamKindPos;
 StreamSize;Srauto dydis
+StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;
 Subject;Tema
@@ -1106,5 +1119,5 @@ Written_Location;Rašymo vieta
 WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
-ZZ_Automatic_Percent;74
-ZZ_AutomaticLanguage_Percent;82
+ZZ_Automatic_Percent;73
+ZZ_AutomaticLanguage_Percent;81
