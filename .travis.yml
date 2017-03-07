@@ -1,15 +1,26 @@
-sudo: required
 language: cpp
-compiler: gcc
+
+sudo: required
+dist: trusty
+
+matrix:
+  include:
+    - os: linux
+      compiler: gcc
+    - os: osx
+      compiler: clang
+
 before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -y libmms0 libwxgtk3.0-dev zlib1g-dev pkg-config
-  - wget http://mediaarea.net/download/binary/libzen0/0.4.33/libzen0_0.4.33-1_amd64.xUbuntu_12.04.deb
-  - sudo dpkg -i libzen0_0.4.33-1_amd64.xUbuntu_12.04.deb
-  - wget http://mediaarea.net/download/binary/libzen0/0.4.33/libzen-dev_0.4.33-1_amd64.xUbuntu_12.04.deb
-  - sudo dpkg -i libzen-dev_0.4.33-1_amd64.xUbuntu_12.04.deb
-  - wget http://mediaarea.net/download/binary/libmediainfo0/0.7.86/libmediainfo0_0.7.86-1_amd64.xUbuntu_12.04.deb
-  - sudo dpkg -i libmediainfo0_0.7.86-1_amd64.xUbuntu_12.04.deb
-  - wget http://mediaarea.net/download/binary/libmediainfo0/0.7.86/libmediainfo-dev_0.7.86-1_amd64.xUbuntu_12.04.deb
-  - sudo dpkg -i libmediainfo-dev_0.7.86-1_amd64.xUbuntu_12.04.deb
-script: cd Project/GNU/CLI/ && ./autogen.sh && ./configure && make && cd ../GUI/ && ./autogen.sh && ./configure && make
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]] ; then sudo apt-get update -qq ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]] ; then sudo apt-get install -y libmms0 libwxgtk3.0-dev zlib1g-dev pkg-config ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]] ; then wget http://mediaarea.net/download/binary/libzen0/0.4.34/libzen0_0.4.34-1_amd64.xUbuntu_14.04.deb ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]] ; then wget http://mediaarea.net/download/binary/libzen0/0.4.34/libzen-dev_0.4.34-1_amd64.xUbuntu_14.04.deb ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]] ; then wget http://mediaarea.net/download/binary/libmediainfo0/0.7.93/libmediainfo0_0.7.93-1_amd64.xUbuntu_14.04.deb ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]] ; then wget http://mediaarea.net/download/binary/libmediainfo0/0.7.93/libmediainfo-dev_0.7.93-1_amd64.xUbuntu_14.04.deb ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]] ; then sudo dpkg -i libzen*.deb libmediainfo*.deb ; fi
+
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]] ; then brew update && brew install wxmac media-info ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]] ; then git -C .. clone https://github.com/MediaArea/ZenLib.git ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]] ; then pushd ../ZenLib/Project/GNU/Library && ./autogen.sh && ./configure --prefix=/usr/local && make && sudo make install && popd ; fi
+
+script: cd Project/GNU/CLI/ && ./autogen.sh && ./configure && make && cd ../GUI/ && ./autogen.sh && ./configure --with-dll && make
