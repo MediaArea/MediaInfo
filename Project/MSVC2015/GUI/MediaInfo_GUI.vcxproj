@@ -198,8 +198,8 @@
     <ProjectReference Include="..\..\..\..\ZenLib\Project\MSVC2015\Library\ZenLib.vcxproj">
       <Project>{0da1da7d-f393-4e7c-a7ce-cb5c6a67bc94}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\zlib\build-VS2015\libz-static\libz-static.vcxproj">
-      <Project>{b56d17bc-072b-42f3-844a-870a07afbaaa}</Project>
+    <ProjectReference Include="..\..\..\..\zlib\contrib\vstudio\vc14\zlibstat.vcxproj">
+      <Project>{745dec58-ebb3-47a9-a9b8-4c6627c01bf8}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
