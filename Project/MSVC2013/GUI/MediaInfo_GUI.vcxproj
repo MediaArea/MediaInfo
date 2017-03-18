@@ -183,16 +183,16 @@
     <ProjectReference Include="..\..\..\..\MediaInfoLib\Project\MSVC2013\Library\MediaInfoLib.vcxproj">
       <Project>{20e0f8d6-213c-460b-b361-9c725cb375c7}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\wxWidgets\build\msw\wx_vc12_base.vcxproj">
+    <ProjectReference Include="..\..\..\..\wxWidgets\build\msw\wx_base.vcxproj">
       <Project>{3fcc50c2-81e9-5db2-b8d8-2129427568b1}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\wxWidgets\build\msw\wx_vc12_core.vcxproj">
+    <ProjectReference Include="..\..\..\..\wxWidgets\build\msw\wx_core.vcxproj">
       <Project>{6744dad8-9c70-574a-bff2-9f8dddb24a75}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\wxWidgets\build\msw\wx_vc12_html.vcxproj">
+    <ProjectReference Include="..\..\..\..\wxWidgets\build\msw\wx_html.vcxproj">
       <Project>{33cc42f9-7756-5587-863c-8d4461b7c5dd}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\wxWidgets\build\msw\wx_vc12_wxpng.vcxproj">
+    <ProjectReference Include="..\..\..\..\wxWidgets\build\msw\wx_wxpng.vcxproj">
       <Project>{8acc122a-ca6a-5aa6-9c97-9cdd2e533db0}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\ZenLib\Project\MSVC2013\Library\ZenLib.vcxproj">

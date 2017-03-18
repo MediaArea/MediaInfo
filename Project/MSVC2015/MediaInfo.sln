@@ -29,29 +29,29 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfoDll", "..\..\..\Me
 		{20E0F8D6-213C-460B-B361-9C725CB375C7} = {20E0F8D6-213C-460B-B361-9C725CB375C7}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "base", "..\..\..\wxWidgets\build\msw\wx_vc14_base.vcxproj", "{3FCC50C2-81E9-5DB2-B8D8-2129427568B1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "base", "..\..\..\wxWidgets\build\msw\wx_base.vcxproj", "{3FCC50C2-81E9-5DB2-B8D8-2129427568B1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{01F4CE10-2CFB-41A8-B41F-E54337868A1D} = {01F4CE10-2CFB-41A8-B41F-E54337868A1D}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WxWidgets", "WxWidgets", "{04D93003-160A-4F76-9E90-B069C508F134}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "core", "..\..\..\wxWidgets\build\msw\wx_vc14_core.vcxproj", "{6744DAD8-9C70-574A-BFF2-9F8DDDB24A75}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "core", "..\..\..\wxWidgets\build\msw\wx_core.vcxproj", "{6744DAD8-9C70-574A-BFF2-9F8DDDB24A75}"
 	ProjectSection(ProjectDependencies) = postProject
 		{8ACC122A-CA6A-5AA6-9C97-9CDD2E533DB0} = {8ACC122A-CA6A-5AA6-9C97-9CDD2E533DB0}
 		{3FCC50C2-81E9-5DB2-B8D8-2129427568B1} = {3FCC50C2-81E9-5DB2-B8D8-2129427568B1}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "html", "..\..\..\wxWidgets\build\msw\wx_vc14_html.vcxproj", "{33CC42F9-7756-5587-863C-8D4461B7C5DD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "html", "..\..\..\wxWidgets\build\msw\wx_html.vcxproj", "{33CC42F9-7756-5587-863C-8D4461B7C5DD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6744DAD8-9C70-574A-BFF2-9F8DDDB24A75} = {6744DAD8-9C70-574A-BFF2-9F8DDDB24A75}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wxpng", "..\..\..\wxWidgets\build\msw\wx_vc14_wxpng.vcxproj", "{8ACC122A-CA6A-5AA6-9C97-9CDD2E533DB0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wxpng", "..\..\..\wxWidgets\build\msw\wx_wxpng.vcxproj", "{8ACC122A-CA6A-5AA6-9C97-9CDD2E533DB0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MediaInfoLib", "MediaInfoLib", "{9E732559-27A9-4413-B849-E78EF98C00F1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_custom_build", "..\..\..\wxWidgets\build\msw\wx_vc14_custom_build.vcxproj", "{01F4CE10-2CFB-41A8-B41F-E54337868A1D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_custom_build", "..\..\..\wxWidgets\build\msw\wx_custom_build.vcxproj", "{01F4CE10-2CFB-41A8-B41F-E54337868A1D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlibstat", "..\..\..\zlib\contrib\vstudio\vc14\zlibstat.vcxproj", "{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}"
 EndProject
