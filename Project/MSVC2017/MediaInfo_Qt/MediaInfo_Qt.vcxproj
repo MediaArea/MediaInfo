@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -27,22 +27,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -80,7 +80,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>ZenLib.lib;QtCore.lib;QtGui.lib;QtXml.lib;QtNetwork.lib;qtsvg.lib;qsvgd.lib;qtmain.lib;winmm.lib;ws2_32.lib;imm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2015\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2015\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2015\$(Platform)\$(Configuration);../../../../Qt\lib\MSVC2015\$(Platform)\$(Configuration);../../../../Qt\plugins\imageformats;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2017\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2017\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2017\$(Platform)\$(Configuration);../../../../Qt\lib\MSVC2017\$(Platform)\$(Configuration);../../../../Qt\plugins\imageformats;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -104,7 +104,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>ZenLib.lib;MediaInfo.lib;QtCored.lib;QtGuid.lib;QtXmld.lib;QtNetworkd.lib;qsvgd.lib;qtsvgd.lib;qtmaind.lib;winmm.lib;ws2_32.lib;imm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2015\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2015\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2015\$(Platform)\$(Configuration);../../../../Qt\lib\MSVC2015\$(Platform);../../../../Qt\plugins\imageformats;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2017\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2017\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2017\$(Platform)\$(Configuration);../../../../Qt\lib\MSVC2017\$(Platform);../../../../Qt\plugins\imageformats;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX64</TargetMachine>
@@ -124,7 +124,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>ZenLib.lib;QtCore.lib;QtGui.lib;QtXml.lib;qtsvg.lib;qsvg.lib;qtmain.lib;winmm.lib;ws2_32.lib;imm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2015\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2015\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2015\$(Platform)\$(Configuration);../../../../Qt/lib/$(Platform)\$(Configuration);../../../../Qt\plugins\imageformats;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2017\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2017\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2017\$(Platform)\$(Configuration);../../../../Qt/lib/$(Platform)\$(Configuration);../../../../Qt\plugins\imageformats;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>

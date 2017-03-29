@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThirdParty", "ThirdParty", "{70DAF034-E8BA-4636-A42C-CC581B3ECC94}"
 EndProject
@@ -17,14 +17,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfo-GUI", "GUI\MediaI
 		{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5} = {BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZenLib", "..\..\..\ZenLib\Project\MSVC2015\Library\ZenLib.vcxproj", "{0DA1DA7D-F393-4E7C-A7CE-CB5C6A67BC94}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZenLib", "..\..\..\ZenLib\Project\MSVC2017\Library\ZenLib.vcxproj", "{0DA1DA7D-F393-4E7C-A7CE-CB5C6A67BC94}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfoLib", "..\..\..\MediaInfoLib\Project\MSVC2015\Library\MediaInfoLib.vcxproj", "{20E0F8D6-213C-460B-B361-9C725CB375C7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfoLib", "..\..\..\MediaInfoLib\Project\MSVC2017\Library\MediaInfoLib.vcxproj", "{20E0F8D6-213C-460B-B361-9C725CB375C7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{0DA1DA7D-F393-4E7C-A7CE-CB5C6A67BC94} = {0DA1DA7D-F393-4E7C-A7CE-CB5C6A67BC94}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfoDll", "..\..\..\MediaInfoLib\Project\MSVC2015\Dll\MediaInfoDll.vcxproj", "{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaInfoDll", "..\..\..\MediaInfoLib\Project\MSVC2017\Dll\MediaInfoDll.vcxproj", "{BE6D3EF8-2F82-4F1E-956A-890C3614A2D5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{20E0F8D6-213C-460B-B361-9C725CB375C7} = {20E0F8D6-213C-460B-B361-9C725CB375C7}
 	EndProjectSection
@@ -53,7 +53,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MediaInfoLib", "MediaInfoLi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_custom_build", "..\..\..\wxWidgets\build\msw\wx_custom_build.vcxproj", "{01F4CE10-2CFB-41A8-B41F-E54337868A1D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlibstat", "..\..\..\zlib\contrib\vstudio\vc14\zlibstat.vcxproj", "{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlibstat", "..\..\..\zlib\contrib\vstudio\vc15\zlibstat.vcxproj", "{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

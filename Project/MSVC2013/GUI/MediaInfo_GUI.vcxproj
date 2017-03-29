@@ -70,7 +70,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../wxWidgets/lib/MSVC2013/$(Platform)/mswud;../../../../wxWidgets/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../wxWidgets/include;../../../../wxWidgets/lib/vc_lib/mswud;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -78,64 +78,67 @@
       <AdditionalIncludeDirectories>../../../../wxWidgets/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>wxbase30ud.lib;wxmsw30ud_core.lib;wxmsw30ud_html.lib;wxpngd.lib;comctl32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\..\curl\Project\MSVC2013\Library\$(Platform)\$(Configuration);..\..\..\..\wxWidgets\lib\MSVC2013\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>wxbase31ud.lib;wxmsw31ud_core.lib;wxmsw31ud_html.lib;wxpngd.lib;comctl32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\..\..\wxWidgets\lib\vc_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <TargetMachine>MachineX86</TargetMachine>
       <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../wxWidgets/include;../../../../wxWidgets/lib/vc_x64_lib\mswud;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../wxWidgets/include;../../../../wxWidgets/lib/vc_x64_lib/mswud;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PreprocessorDefinitions>MEDIAINFO_ADVANCED2_NO;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>../../../../wxWidgets/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>comctl32.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>wxbase31ud.lib;wxmsw31ud_core.lib;wxmsw31ud_html.lib;wxpngd.lib;comctl32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\..\..\wxWidgets\lib\vc_x64_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../wxWidgets/lib/MSVC2013/$(Platform)/mswu;../../../../wxWidgets/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../wxWidgets/include;../../../../wxWidgets/lib/vc_lib/mswu;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>None</DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>../../../../wxWidgets/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>wxbase30u.lib;wxmsw30u_core.lib;wxmsw30u_html.lib;wxpng.lib;comctl32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\..\wxWidgets\lib\MSVC2013\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_html.lib;wxpng.lib;comctl32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\..\..\wxWidgets\lib\vc_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
       <SetChecksum>true</SetChecksum>
+      <GenerateDebugInformation>No</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../wxWidgets/lib/MSVC2013/$(Platform)/mswu;../../../../wxWidgets/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../Source;../../../../MediaInfoLib/Source;../../../../ZenLib/Source;../../../../wxWidgets/include;../../../../wxWidgets/lib/vc_x64_lib/mswu;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>None</DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
       <AdditionalIncludeDirectories>../../../../wxWidgets/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>wxbase30u.lib;wxmsw30u_core.lib;wxmsw30u_html.lib;wxpng.lib;comctl32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\..\wxWidgets\lib\MSVC2013\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>wxbase31u.lib;wxmsw31u_core.lib;wxmsw31u_html.lib;wxpng.lib;comctl32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\..\..\wxWidgets\lib\vc_x64_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX64</TargetMachine>
       <SetChecksum>true</SetChecksum>
+      <GenerateDebugInformation>No</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
