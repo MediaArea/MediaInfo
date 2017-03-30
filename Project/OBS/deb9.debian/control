@@ -17,7 +17,7 @@ Vcs-Browser: https://github.com/MediaArea/MediaInfoLib
 
 Package: mediainfo
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libmediainfo0v5 (>= 0.7.94), libzen0 (>= 0.4.35)
+Depends: ${shlibs:Depends}, ${misc:Depends}, libmediainfo0v5 (>= 0.7.94), libzen0v5 (>= 0.4.35)
 Description: command-line utility for reading information from audio/video files
  MediaInfo is a utility used for retrieving technical information and other
  metadata about audio or video files.
@@ -42,7 +42,7 @@ Description: command-line utility for reading information from audio/video files
 
 Package: mediainfo-gui
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libmediainfo0v5 (>= 0.7.94), libzen0 (>= 0.4.35)
+Depends: ${shlibs:Depends}, ${misc:Depends}, libmediainfo0v5 (>= 0.7.94), libzen0v5 (>= 0.4.35)
 Description: graphical utility for reading information from audio/video files
  MediaInfo is a utility used for retrieving technical information and other
  metadata about audio or video files.
