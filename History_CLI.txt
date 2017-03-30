@@ -12,6 +12,17 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 0.7.94, 2017-03-31
+--------------
++ VC-3: detection of embedded time code
++ VC-3: better support of stream with width 960 or 1440
++ VC-3: support of version 3 (a.k.a. DNxHR), including profile and level for version 1/2 (a.k.a. DNxHD)
++ Matroska trace feature: reduction of its size
++ MXF trace feature: reduction of its size
++ Visual Studio 2017 project files
+x M143, MXF with Acquisition Metadata: crash fixed
+x Several crash fixes
+
 Version 0.7.93, 2017-02-28
 --------------
 + Matroska: detection of native FFV1 CodecID ("V_FFV1")
