@@ -26,6 +26,10 @@ xcopy ..\Project\MSVC2015\x64\Release\MediaInfo.exe MediaInfo_CLI_Windows_x64\ /
 rem --- Copying : Plugins ---
 xcopy ..\Source\Resource\Plugin\Custom\* MediaInfo_CLI_Windows_x64\Plugin\Custom\ /S
 
+rem --- Copying : libCURL --
+copy %BPATH%\Windows\libcurl\x64\Release\LIBCURL.DLL MediaInfo_CLI_Windows_x64\
+copy %BPATH%\Windows\libcurl\curl-ca-bundle.crt  MediaInfo_CLI_Windows_x64\
+
 rem --- Copying : Information files ---
 copy ..\License.* MediaInfo_CLI_Windows_x64\
 copy ..\History_CLI.txt MediaInfo_CLI_Windows_x64\History.txt
