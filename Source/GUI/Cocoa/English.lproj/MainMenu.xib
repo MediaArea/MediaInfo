@@ -653,6 +653,18 @@
                                     <action selector="selectViewEBUCore16:" target="-1" id="Hvo-Qg-epn"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="EBUCore 1.8 (acq. metadata: parameter then segment)" id="9ww-i9-val">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="selectViewEBUCore18_ps:" target="-1" id="arl-m9-yID"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="EBUCore 1.8 (acq. metadata: segment then parameter)" id="e0w-NN-AjM">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="selectViewEBUCore18_sp:" target="-1" id="amA-yM-coB"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="FIMS 1.1" id="Spf-9d-cwU">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>

@@ -423,6 +423,18 @@
                         <action selector="selectViewEBUCore16:" target="-1" id="Qxo-bL-kUA"/>
                     </connections>
                 </menuItem>
+                <menuItem title="EBUCore 1.8 (acq. metadata: parameter then segment)" id="Qzz-w6-b1Q">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="selectViewEBUCore18_ps:" target="-1" id="wSw-MJ-Azp"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="EBUCore 1.8 (acq. metadata: segment then parameter)" id="JtW-MJ-gL9">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="selectViewEBUCore18_sp:" target="-1" id="mdj-k9-lHC"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="FIMS 1.1" id="Wwc-YI-tNy">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -477,10 +489,12 @@
                                 <menuItem title="PBCore 2.0" tag="3" id="1yR-Ww-Nc9"/>
                                 <menuItem title="EBUCore 1.5" tag="4" id="lYi-0o-NUT"/>
                                 <menuItem title="EBUCore 1.6" tag="5" id="TZc-xn-Gdh"/>
-                                <menuItem title="FIMS 1.1" tag="6" id="nMZ-Jy-aQJ"/>
-                                <menuItem title="FIMS 1.2" tag="7" id="Dun-Cc-kMM"/>
-                                <menuItem title="FIMS 1.3" tag="8" id="XHo-fC-op4"/>
-                                <menuItem title="reVTMD" tag="9" id="O4d-KN-zYb"/>
+                                <menuItem title="EBUCore 1.8 (acq. metadata: parameter then segment)" tag="6" id="FYI-Th-BU1"/>
+                                <menuItem title="EBUCore 1.8 (acq. metadata: segment then parameter)" tag="7" id="fNe-yJ-2vy"/>
+                                <menuItem title="FIMS 1.1" tag="8" id="nMZ-Jy-aQJ"/>
+                                <menuItem title="FIMS 1.2" tag="9" id="Dun-Cc-kMM"/>
+                                <menuItem title="FIMS 1.3" tag="10" id="XHo-fC-op4"/>
+                                <menuItem title="reVTMD" tag="11" id="O4d-KN-zYb"/>
                             </items>
                         </menu>
                     </popUpButtonCell>
