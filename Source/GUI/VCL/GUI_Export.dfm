@@ -465,6 +465,40 @@ object ExportF: TExportF
           OnClick = Export_EBUCore_1_6_SideCarClick
         end
       end
+      object Export_EBUCore_1_8_ps: TTabSheet
+        Caption = 'EBUCore 1.8 (ps)'
+        ImageIndex = 9
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
+        object Export_EBUCore_1_8_sp_SideCar: TCheckBox
+          Left = 0
+          Top = 9
+          Width = 597
+          Height = 18
+          Caption = 'Sidecar file (filename.EBUCore.xml)'
+          TabOrder = 0
+          OnClick = Export_EBUCore_1_8_ps_SideCarClick
+        end
+      end
+      object Export_EBUCore_1_8_sp: TTabSheet
+        Caption = 'EBUCore 1.8 (sp)'
+        ImageIndex = 9
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
+        object Export_EBUCore_1_8_sp_SideCar: TCheckBox
+          Left = 0
+          Top = 9
+          Width = 597
+          Height = 18
+          Caption = 'Sidecar file (filename.EBUCore.xml)'
+          TabOrder = 0
+          OnClick = Export_EBUCore_1_8_ps_SideCarClick
+        end
+      end
       object Export_FIMS_1_1: TTabSheet
         Caption = 'FIMS 1.1'
         ImageIndex = 9

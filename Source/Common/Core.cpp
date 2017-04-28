@@ -250,14 +250,28 @@ void Core::Menu_View_MPEG7 ()
 void Core::Menu_View_EBUCore_1_5 ()
 {
     MI->Option(__T("Inform"), __T("EBUCore_1.5"));
-    Kind=Kind_EBUCore_1_4;
+    Kind=Kind_EBUCore_1_5;
 }
 
 //---------------------------------------------------------------------------
 void Core::Menu_View_EBUCore_1_6()
 {
     MI->Option(__T("Inform"), __T("EBUCore_1.6"));
-    Kind = Kind_EBUCore_1_4;
+    Kind = Kind_EBUCore_1_6;
+}
+
+//---------------------------------------------------------------------------
+void Core::Menu_View_EBUCore_1_8_ps()
+{
+    MI->Option(__T("Inform"), __T("EBUCore_1.8_parameterSegment"));
+    Kind=Kind_EBUCore_1_8_ps;
+}
+
+//---------------------------------------------------------------------------
+void Core::Menu_View_EBUCore_1_8_sp()
+{
+    MI->Option(__T("Inform"), __T("EBUCore_1.8_segmentParameter"));
+    Kind=Kind_EBUCore_1_8_sp;
 }
 
 //---------------------------------------------------------------------------

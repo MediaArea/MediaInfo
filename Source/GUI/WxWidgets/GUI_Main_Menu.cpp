@@ -45,6 +45,8 @@ enum
     ID_Menu_View_PBCore_2_0,
     ID_Menu_View_EBUCore_1_5,
     ID_Menu_View_EBUCore_1_6,
+    ID_Menu_View_EBUCore_1_8_ps,
+    ID_Menu_View_EBUCore_1_8_sp,
     ID_Menu_View_FIMS_1_1,
     ID_Menu_View_FIMS_1_2,
     ID_Menu_View_reVTMD,
@@ -76,6 +78,8 @@ BEGIN_EVENT_TABLE(GUI_Main, wxFrame)
     EVT_MENU(ID_Menu_View_PBCore_2_0,       GUI_Main::OnMenu_View_PBCore_2_0)
     EVT_MENU(ID_Menu_View_EBUCore_1_5,      GUI_Main::OnMenu_View_EBUCore_1_5)
     EVT_MENU(ID_Menu_View_EBUCore_1_6,      GUI_Main::OnMenu_View_EBUCore_1_6)
+    EVT_MENU(ID_Menu_View_EBUCore_1_8_ps,   GUI_Main::OnMenu_View_EBUCore_1_8_ps)
+    EVT_MENU(ID_Menu_View_EBUCore_1_8_sp,   GUI_Main::OnMenu_View_EBUCore_1_8_sp)
     EVT_MENU(ID_Menu_View_FIMS_1_1,         GUI_Main::OnMenu_View_FIMS_1_1)
     EVT_MENU(ID_Menu_View_FIMS_1_2,         GUI_Main::OnMenu_View_FIMS_1_2)
     EVT_MENU(ID_Menu_View_reVTMD,           GUI_Main::OnMenu_View_reVTMD)
@@ -131,6 +135,8 @@ void GUI_Main::Menu_Create()
     Menu_View_PBCore_2_0        =Menu_View->AppendRadioItem(ID_Menu_View_PBCore_2_0, __T("PBCore 2.0"));
     Menu_View_EBUCore_1_5       =Menu_View->AppendRadioItem(ID_Menu_View_EBUCore_1_5, __T("EBUCore 1.5"));
     Menu_View_EBUCore_1_6       =Menu_View->AppendRadioItem(ID_Menu_View_EBUCore_1_6, __T("EBUCore 1.6"));
+    Menu_View_EBUCore_1_8_ps    =Menu_View->AppendRadioItem(ID_Menu_View_EBUCore_1_8_ps, __T("EBUCore 1.8 (acq. metadata: parameter then segment)"));
+    Menu_View_EBUCore_1_8_sp    =Menu_View->AppendRadioItem(ID_Menu_View_EBUCore_1_8_sp, __T("EBUCore 1.8 (acq. metadata: segment then parameter)"));
     Menu_View_FIMS_1_1          =Menu_View->AppendRadioItem(ID_Menu_View_FIMS_1_1, __T("FIMS 1.1 (beta)"));
     Menu_View_FIMS_1_2          =Menu_View->AppendRadioItem(ID_Menu_View_FIMS_1_2, __T("FIMS 1.2 (beta)"));
     Menu_View_reVTMD            =Menu_View->AppendRadioItem(ID_Menu_View_reVTMD, __T("reVTMD"));
@@ -331,6 +337,28 @@ void GUI_Main::OnMenu_View_EBUCore_1_6(wxCommandEvent& WXUNUSED(event))
 {
     //Configuring
     C->Menu_View_EBUCore_1_6();
+
+    //Showing
+    GUI_Main_Common_Core* View_New = new GUI_Main_Text(C, this);
+    delete View; View = View_New;
+}
+
+//---------------------------------------------------------------------------
+void GUI_Main::OnMenu_View_EBUCore_1_8_ps(wxCommandEvent& WXUNUSED(event))
+{
+    //Configuring
+    C->Menu_View_EBUCore_1_8_ps();
+
+    //Showing
+    GUI_Main_Common_Core* View_New = new GUI_Main_Text(C, this);
+    delete View; View = View_New;
+}
+
+//---------------------------------------------------------------------------
+void GUI_Main::OnMenu_View_EBUCore_1_8_sp(wxCommandEvent& WXUNUSED(event))
+{
+    //Configuring
+    C->Menu_View_EBUCore_1_8_sp();
 
     //Showing
     GUI_Main_Common_Core* View_New = new GUI_Main_Text(C, this);

@@ -45,6 +45,8 @@ __published:    // IDE-managed Components
     TTabSheet *Export_PBCore2;
     TTabSheet *Export_EBUCore_1_5;
     TTabSheet *Export_EBUCore_1_6;
+    TTabSheet *Export_EBUCore_1_8_sp;
+    TTabSheet *Export_EBUCore_1_8_ps;
     TTabSheet *Export_FIMS_1_1;
     TTabSheet *Export_FIMS_1_2;
     TTabSheet *Export_FIMS_1_3;
@@ -92,6 +94,8 @@ __published:    // IDE-managed Components
     TCheckBox *Export_PBCore2_SideCar;
     TCheckBox *Export_EBUCore_1_5_SideCar;
     TCheckBox *Export_EBUCore_1_6_SideCar;
+    TCheckBox *Export_EBUCore_1_8_ps_SideCar;
+    TCheckBox *Export_EBUCore_1_8_sp_SideCar;
     TCheckBox *Export_FIMS_1_1_SideCar;
     TCheckBox *Export_FIMS_1_2_SideCar;
     TCheckBox *Export_FIMS_1_3_SideCar;
@@ -110,6 +114,8 @@ __published:    // IDE-managed Components
     void __fastcall Export_PBCore2_SideCarClick(TObject *Sender);
     void __fastcall Export_EBUCore_1_5_SideCarClick(TObject *Sender);
     void __fastcall Export_EBUCore_1_6_SideCarClick(TObject *Sender);
+    void __fastcall Export_EBUCore_1_8_ps_SideCarClick(TObject *Sender);
+    void __fastcall Export_EBUCore_1_8_sp_SideCarClick(TObject *Sender);
     void __fastcall Export_FIMS_1_1_SideCarClick(TObject *Sender);
     void __fastcall Export_FIMS_1_2_SideCarClick(TObject *Sender);
     void __fastcall Export_FIMS_1_3_SideCarClick(TObject *Sender);

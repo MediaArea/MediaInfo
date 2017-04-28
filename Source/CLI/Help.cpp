@@ -46,8 +46,10 @@ int Help()
     TEXTOUT("                    Full information Display with PBCore compliant XML tags");
     TEXTOUT("--Output=PBCore2");
     TEXTOUT("                    Full information Display with PBCore 2.0 compliant XML tags");
-    TEXTOUT("--Output=...y");
-    TEXTOUT("                    Template defined information Display");
+    TEXTOUT("--AcquisitionDataOutputMode=segmentParameter");
+    TEXTOUT("                    Display Acquisition Data by segment then parameter (EBUCore output)");
+    TEXTOUT("--AcquisitionDataOutputMode=parameterSegment");
+    TEXTOUT("                    Display Acquisition Data by parameter then segment (EBUCore output)");
     TEXTOUT("--Info-Parameters");
     TEXTOUT("                    Display list of Inform= parameters");
     TEXTOUT("");
