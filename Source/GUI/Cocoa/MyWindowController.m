@@ -25,6 +25,8 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 		case Kind_PBCore2:		_ret = @"PBCore2"; break;
 		case Kind_EBUCore_1_5:	_ret = @"EBUCore_1.5"; break;
 		case Kind_EBUCore_1_6:	_ret = @"EBUCore_1.6"; break;
+		case Kind_EBUCore_1_8_ps:	_ret = @"EBUCore_1.8_ps"; break;
+		case Kind_EBUCore_1_8_sp:	_ret = @"EBUCore_1.8_sp"; break;
 		case Kind_FIMS_1_1:		_ret = @"FIMS_1.1"; break;
 		case Kind_FIMS_1_2:		_ret = @"FIMS_1.2"; break;
 		case Kind_FIMS_1_3:		_ret = @"FIMS_1.3"; break;
@@ -140,6 +142,15 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	[self _selectViewOFKind:Kind_EBUCore_1_6];
 }
 
+-(IBAction)selectViewEBUCore18_ps:(id)sender
+{
+	[self _selectViewOFKind:Kind_EBUCore_1_8_ps];
+}
+
+-(IBAction)selectViewEBUCore18_sp:(id)sender
+{
+	[self _selectViewOFKind:Kind_EBUCore_1_8_sp];
+}
 
 -(IBAction)selectViewFIMS11:(id)sender
 {
@@ -248,18 +259,24 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 					format = TextKindToNSString(Kind_EBUCore_1_6);
 					break;
 				case 6:
-					format = TextKindToNSString(Kind_FIMS_1_1);
+					format = TextKindToNSString(Kind_EBUCore_1_8_ps);
 					break;
 				case 7:
-					format = TextKindToNSString(Kind_FIMS_1_2);
+					format = TextKindToNSString(Kind_EBUCore_1_8_sp);
 					break;
 				case 8:
-					format = TextKindToNSString(Kind_FIMS_1_3);
+					format = TextKindToNSString(Kind_FIMS_1_1);
 					break;
 				case 9:
+					format = TextKindToNSString(Kind_FIMS_1_2);
+					break;
+				case 10:
+					format = TextKindToNSString(Kind_FIMS_1_3);
+					break;
+				case 11:
 					format = TextKindToNSString(Kind_reVTMD);
 					break;
-					
+
 				case 0:
 				default:
 					//Text or Unknown tag
@@ -685,6 +702,14 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	}
 	else if(action == @selector(selectViewEBUCore16:)) {
 		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_EBUCore_1_6 ? YES : NO;
+		[menuItem setState: (state ? NSOnState : NSOffState)];
+	}
+	else if(action == @selector(selectViewEBUCore18_ps:)) {
+		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_EBUCore_1_8_ps ? YES : NO;
+		[menuItem setState: (state ? NSOnState : NSOffState)];
+	}
+	else if(action == @selector(selectViewEBUCore18_sp:)) {
+		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_EBUCore_1_8_sp ? YES : NO;
 		[menuItem setState: (state ? NSOnState : NSOffState)];
 	}
 	else if(action == @selector(selectViewFIMS11:)) {
