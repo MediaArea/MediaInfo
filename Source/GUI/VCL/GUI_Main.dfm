@@ -2173,6 +2173,18 @@ object MainF: TMainF
         RadioItem = True
         OnClick = M_View_EBUCore_1_6Click
       end
+      object M_View_EBUCore_1_8_ps: TMenuItem
+        AutoCheck = True
+        Caption = 'EBUCore 1.8 (acq. metadata: parameter then segment)'
+        RadioItem = True
+        OnClick = M_View_EBUCore_1_8_psClick
+      end
+      object M_View_EBUCore_1_8_sp: TMenuItem
+        AutoCheck = True
+        Caption = 'EBUCore 1.8 (acq. metadata: segment then parameter)'
+        RadioItem = True
+        OnClick = M_View_EBUCore_1_8_spClick
+      end
       object M_View_FIMS_1_1: TMenuItem
         AutoCheck = True
         Caption = 'FIMS 1.1 (beta)'
@@ -3890,6 +3902,12 @@ object MainF: TMainF
     end
     object ToolBar_View_EBUCore_1_6: TMenuItem
       Caption = 'EBUCore 1.6'
+    end
+    object ToolBar_View_EBUCore_1_8_ps: TMenuItem
+      Caption = 'EBUCore 1.8 (acq. metadata: parameter then segment)'
+    end
+    object ToolBar_View_EBUCore_1_8_sp: TMenuItem
+      Caption = 'EBUCore 1.8 (acq. metadata: segment then parameter)'
     end
     object ToolBar_View_FIMS_1_1: TMenuItem
       Caption = 'FIMS 1.1 (beta)'

@@ -185,6 +185,8 @@ __published:    // IDE-managed Components
     TMenuItem *M_View_PBCore2;
     TMenuItem *M_View_EBUCore_1_5;
     TMenuItem *M_View_EBUCore_1_6;
+    TMenuItem *M_View_EBUCore_1_8_ps;
+    TMenuItem *M_View_EBUCore_1_8_sp;
     TMenuItem *M_View_FIMS_1_1;
     TMenuItem *M_View_FIMS_1_2;
     TMenuItem *M_View_FIMS_1_3;
@@ -197,6 +199,8 @@ __published:    // IDE-managed Components
     TMenuItem *ToolBar_View_PBCore2;
     TMenuItem *ToolBar_View_EBUCore_1_5;
     TMenuItem *ToolBar_View_EBUCore_1_6;
+    TMenuItem *ToolBar_View_EBUCore_1_8_ps;
+    TMenuItem *ToolBar_View_EBUCore_1_8_sp;
     TMenuItem *ToolBar_View_FIMS_1_1;
     TMenuItem *ToolBar_View_FIMS_1_2;
     TMenuItem *ToolBar_View_FIMS_1_3;
@@ -260,6 +264,8 @@ __published:    // IDE-managed Components
     void __fastcall M_View_PBCore2Click(TObject *Sender);
     void __fastcall M_View_EBUCore_1_5Click(TObject *Sender);
     void __fastcall M_View_EBUCore_1_6Click(TObject *Sender);
+    void __fastcall M_View_EBUCore_1_8_psClick(TObject *Sender);
+    void __fastcall M_View_EBUCore_1_8_spClick(TObject *Sender);
     void __fastcall M_View_FIMS_1_1Click(TObject *Sender);
     void __fastcall M_View_FIMS_1_2Click(TObject *Sender);
     void __fastcall M_View_FIMS_1_3Click(TObject *Sender);
