@@ -12,6 +12,26 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 0.7.95, 2017-05-04
+--------------
++ EBUCore: EBUCore 1.8 with acquisition metadata output.
++ Better support of growing files, especially when accessed by FTP
++ Matroska: better support of some broken files (high EBMLMaxSizeLength, padding before start of EBML)
++ EXR: showing Multipart and Deep flags
++ EXR: show image compression method
+x EBUCore: fixed display aspect ratio (was using rational)
+x EBUCore: fixed frame rate factor (was num/den instead of factor)
+x AVC: some streams with dynamic frame type were having a wrong frame rate
+x MPEG-4: some old AAC tracks were not correctly detected
+x Matroska: was sometimes displaying "Bit depth: Bit0" when bit depth is unknown
+x Nut: fix crash with some files
+x FFV1: PixelAspectRatio was an integer, switched to 3-digit rational
+x DTS: fix frame count
+x Dolby E: fix frame count
+x EBUCore: fix regression creating invalid XML files
+x AVC: some streams with dynamic frame type were having a wrong frame rate
+x I490, EXR: was not supporting valid 31-char attribute names
+
 Version 0.7.94, 2017-03-31
 --------------
 + VC-3: detection of embedded time code
