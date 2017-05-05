@@ -472,7 +472,7 @@ object ExportF: TExportF
         ExplicitTop = 0
         ExplicitWidth = 0
         ExplicitHeight = 0
-        object Export_EBUCore_1_8_sp_SideCar: TCheckBox
+        object Export_EBUCore_1_8_ps_SideCar: TCheckBox
           Left = 0
           Top = 9
           Width = 597
@@ -496,7 +496,7 @@ object ExportF: TExportF
           Height = 18
           Caption = 'Sidecar file (filename.EBUCore.xml)'
           TabOrder = 0
-          OnClick = Export_EBUCore_1_8_ps_SideCarClick
+          OnClick = Export_EBUCore_1_8_sp_SideCarClick
         end
       end
       object Export_FIMS_1_1: TTabSheet
