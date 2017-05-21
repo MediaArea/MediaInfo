@@ -110,6 +110,11 @@ Function .onInit
     SetRegView 64
   ${EndIf}
   !insertmacro MUI_LANGDLL_DISPLAY
+  
+  ; Increment install count
+  ReadRegDWORD $0 HKCU "${PRODUCT_REGISTRY}" "InstallCount"
+  IntOp $0 $0 + 1
+  WriteRegDWORD HKCU "${PRODUCT_REGISTRY}" "InstallCount" $0
 FunctionEnd
 
 Section "SectionPrincipale" SEC01
