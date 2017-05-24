@@ -8,8 +8,10 @@ RequestExecutionLevel admin
 !define PRODUCT_VERSION "0.7.95"
 !define PRODUCT_VERSION4 "${PRODUCT_VERSION}.0"
 !define PRODUCT_WEB_SITE "http://MediaArea.net/MediaInfo"
-!define COMPANY_REGISTRY "Software\MediaArea.net"
-!define PRODUCT_REGISTRY "Software\MediaArea.net\MediaInfo"
+!define COMPANY_REGISTRY_OLD "Software\MediaArea.net"
+!define PRODUCT_REGISTRY_OLD "Software\MediaArea.net\MediaInfo"
+!define COMPANY_REGISTRY "Software\MediaArea"
+!define PRODUCT_REGISTRY "Software\MediaArea\MediaInfo"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\MediaInfo.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
@@ -108,6 +110,11 @@ Function .onInit
     SetRegView 64
   ${EndIf}
   !insertmacro MUI_LANGDLL_DISPLAY
+  
+  ; Increment install count
+  ReadRegDWORD $0 HKCU "${PRODUCT_REGISTRY}" "InstallCount"
+  IntOp $0 $0 + 1
+  WriteRegDWORD HKCU "${PRODUCT_REGISTRY}" "InstallCount" $0
 FunctionEnd
 
 Section "SectionPrincipale" SEC01
@@ -215,6 +222,10 @@ Section Uninstall
   DeleteRegKey /ifempty HKLM "${COMPANY_REGISTRY}"
   DeleteRegKey HKCU "${PRODUCT_REGISTRY}"
   DeleteRegKey /ifempty HKCU "${COMPANY_REGISTRY}"
+  DeleteRegKey HKLM "${PRODUCT_REGISTRY_OLD}"
+  DeleteRegKey /ifempty HKLM "${COMPANY_REGISTRY_OLD}"
+  DeleteRegKey HKCU "${PRODUCT_REGISTRY_OLD}"
+  DeleteRegKey /ifempty HKCU "${COMPANY_REGISTRY_OLD}"
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
   DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"
   SetAutoClose true
