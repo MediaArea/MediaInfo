@@ -171,6 +171,18 @@ int Preferences::Config_Load()
         }
     }
     catch (...){}
+    try
+    {
+        if (Reg_User->OpenKey(__T("Software\\MediaArea\\MediaInfo"), false))
+        {
+            //Test if donation was given
+            if (Reg_User->ValueExists("Donated"))
+                Donated=Reg_User->ReadInteger("Donated");
+            if (Donated)
+                Donate_Display=false;
+        }
+    }
+    catch (...){}
     if (Config(__T("Donated"))==__T("1"))
     {
         Donated=true;
