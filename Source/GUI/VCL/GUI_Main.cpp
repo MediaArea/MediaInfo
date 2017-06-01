@@ -1381,10 +1381,11 @@ void __fastcall TMainF::Page_Easy_FileChange(TObject *Sender)
                 if (Page_Easy_File->ItemIndex!=-1) //To avoid refresh on the first GUI show
                     Page_Easy_X[KindOfStream][StreamPos]->Visible=Page_Easy_X_Codec[KindOfStream][StreamPos]->Caption.Length();
                 //Web
-                Page_Easy_X_Web_Url[KindOfStream][StreamPos]=I->Get(Page_Position, (stream_t)KindOfStream, StreamPos, __T("CodecID/Url")).c_str();
-                if (Page_Easy_X_Web_Url[KindOfStream][StreamPos].empty())
-                    Page_Easy_X_Web_Url[KindOfStream][StreamPos]=I->Get(Page_Position, (stream_t)KindOfStream, StreamPos, __T("Format/Url")).c_str();
-                Page_Easy_X_Web[KindOfStream][StreamPos]->Visible=Page_Easy_X_Web_Url[KindOfStream][StreamPos].size();
+                // Disabled because links are outdated
+                //Page_Easy_X_Web_Url[KindOfStream][StreamPos]=I->Get(Page_Position, (stream_t)KindOfStream, StreamPos, __T("CodecID/Url")).c_str();
+                //if (Page_Easy_X_Web_Url[KindOfStream][StreamPos].empty())
+                //    Page_Easy_X_Web_Url[KindOfStream][StreamPos]=I->Get(Page_Position, (stream_t)KindOfStream, StreamPos, __T("Format/Url")).c_str();
+                //Page_Easy_X_Web[KindOfStream][StreamPos]->Visible=Page_Easy_X_Web_Url[KindOfStream][StreamPos].size();
             }
         }
         //List
