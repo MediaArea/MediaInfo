@@ -12,6 +12,17 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 0.7.96, 2017-06-01
+--------------
++ MPEG-4: display of recorded date from DV substream
+x I505, AC-3: crash with some potentially malformed frames
+x I477, AVC: fix hang when open .mpls from some 3D BD
+x MPEG-4: does not show "1904" year is raw value is 0 (Mac/Linux)
+x Dedicated read thread disabled by default (rare dead locks)
+x #B1027, MPEG-TS: some files where detected as MPEG-TS or BDAV but they aren't
+x Sequence of files : frame count was wrong with sequence of MPEG-TS files (was count of files)
+x MXF: detection of more 608/708 with parsing of few frames in the middle of the file was broken
+
 Version 0.7.95, 2017-05-04
 --------------
 + EBUCore: EBUCore 1.8 with acquisition metadata output.
