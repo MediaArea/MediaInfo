@@ -2,7 +2,7 @@
 %define libmediainfo_version        0.7.96
 %define libzen_version              0.4.35
 
-%if 0%{?fedora} || 0%{?centos_version} >= 600 || 0%{?rhel_version} >= 600
+%if 0%{?fedora_version} || 0%{?centos_version} >= 600 || 0%{?rhel_version} >= 600
 %define libmediainfo_name libmediainfo
 %define libzen_name libzen
 %else
@@ -34,6 +34,10 @@ BuildRequires:  zlib-devel
 BuildRequires:  libtool
 BuildRequires:  automake
 BuildRequires:  autoconf
+
+%if 0%{?fedora_version} == 99
+BuildRequires: gnu-free-sans-fonts
+%endif
 
 %if 0%{?mageia}
 BuildRequires:  sane-backends-iscan
@@ -145,13 +149,21 @@ export CXXFLAGS="%{optflags}"
 
 # build CLI
 pushd Project/GNU/CLI
-    %configure
+    %if 0%{?mageia} > 5
+        %configure --disable-dependency-tracking
+    %else
+        %configure
+    %endif
     make %{?_smp_mflags}
 popd
 
 # now build GUI
 pushd Project/GNU/GUI
-    %configure
+    %if 0%{?mageia} > 5
+        %configure --disable-dependency-tracking
+    %else
+        %configure
+    %endif
     make %{?_smp_mflags}
 popd
 
@@ -174,7 +186,7 @@ popd
 %files
 %defattr(-,root,root,-)
 %doc Release/ReadMe_CLI_Linux.txt History_CLI.txt
-%if 0%{?fedora} || 0%{?centos_version} >= 700 || 0%{?rhel_version} >= 700
+%if 0%{?fedora_version} || 0%{?centos_version} >= 700 || 0%{?rhel_version} >= 700
 %license License.html
 %else
 %doc License.html
@@ -184,7 +196,7 @@ popd
 %files gui
 %defattr(-,root,root,-)
 %doc Release/ReadMe_GUI_Linux.txt History_GUI.txt
-%if 0%{?fedora} || 0%{?centos_version} >= 700 || 0%{?rhel_version} >= 700
+%if 0%{?fedora_version} || 0%{?centos_version} >= 700 || 0%{?rhel_version} >= 700
 %license License.html
 %else
 %doc License.html
