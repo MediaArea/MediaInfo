@@ -117,6 +117,10 @@ int main(int argc, char* argv_ansi[])
     //Retrieve command line (mainly for Unicode)
     GETCOMMANDLINE();
 
+    //Get real program name, if aviable
+    if(argc && argv_ansi[0] != '\0')
+        Set_Program_Name(argv[0]);
+
     //Parse command line
     vector<String> List;
     for (int Pos=1; Pos<argc; Pos++)

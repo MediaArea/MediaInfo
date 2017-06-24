@@ -11,6 +11,7 @@
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
+#include "Common/Core.h"
 #include "Help.h"
 #include "Config.h"
 //---------------------------------------------------------------------------
@@ -18,11 +19,24 @@
 //***************************************************************************
 //
 //***************************************************************************
+//---------------------------------------------------------------------------
+String Program_Name = __T("MediaInfo");
+
+void Set_Program_Name(const String &Name)
+{
+    Program_Name = Name;
+    #if defined(_MSC_VER)
+        Program_Name = Program_Name.substr(Program_Name.rfind('\\')+1);
+        Program_Name = Program_Name.substr(0, Program_Name.find('.'));
+    #else
+        Program_Name = Program_Name.substr(Program_Name.rfind('/')+1);
+    #endif
+}
 
 //---------------------------------------------------------------------------
 int Help()
 {
-    TEXTOUT("Usage: \"MediaInfo [-Options...] FileName1 [Filename2...]\"");
+    STRINGOUT(String(__T("Usage: \" [-Options...] FileName1 [Filename2...]\"")).insert(8, Program_Name));
     TEXTOUT("");
     TEXTOUT("Options:");
     TEXTOUT("--Help, -h");
@@ -124,8 +138,8 @@ int Help()
 //---------------------------------------------------------------------------
 int Help_Nothing()
 {
-    TEXTOUT("Usage: \"MediaInfo [-Options...] FileName1 [Filename2...]\"");
-    TEXTOUT("\"MediaInfo --Help\" for displaying more information");
+    STRINGOUT(String(__T("Usage: \" [-Options...] FileName1 [Filename2...]\"")).insert(8, Program_Name));
+    STRINGOUT(String(__T("\" --Help\" for displaying more information")).insert(1, Program_Name));
 
     return MI_OK;
 }
@@ -134,7 +148,7 @@ int Help_Nothing()
 int Help_Output()
 {
     TEXTOUT("--Output=...  Specify a template (BETA)");
-    TEXTOUT("Usage: \"MediaInfo --Output=[xxx;]Text FileName\"");
+    STRINGOUT(String(__T("Usage: \" --Output=[xxx;]Text FileName\"")).insert(8, Program_Name));
     TEXTOUT("");
     TEXTOUT("xxx can be: General, Video, Audio, Text, Chapter, Image, Menu");
     TEXTOUT("Text can be the template text, or a filename");
@@ -143,13 +157,13 @@ int Help_Output()
     TEXTOUT("See --Info-Parameters for available parameters in the text");
     TEXTOUT("(Parameters must be surrounded by \"%\" sign)");
     TEXTOUT("");
-    TEXTOUT("Example: \"MediaInfo --Output=Video;%AspectRatio% FileName\"");
+    STRINGOUT(String(__T("Usage: \" --Output=Video;%AspectRatio% FileName\"")).insert(8, Program_Name));
     TEXTOUT("");
-    TEXTOUT("Example: \"MediaInfo --Output=Video;file://Video.txt FileName\"");
+    STRINGOUT(String(__T("Usage: \" --Output=Video;file://Video.txt FileName\"")).insert(8, Program_Name));
     TEXTOUT("and Video.txt contains ");
     TEXTOUT("\"%DisplayAspectRatio%\"        for Video Aspect Ratio.");
     TEXTOUT("");
-    TEXTOUT("Example: \"MediaInfo --Output=file://Text.txt FileName\"");
+    STRINGOUT(String(__T("Usage: \" --Output=file://Text.txt FileName\"")).insert(8, Program_Name));
     TEXTOUT("and Text.txt contains");
     TEXTOUT("\"Video;%DisplayAspectRatio%\"  for Video Aspect Ratio.");
     TEXTOUT("\"Audio;%Format%\"              for Audio Format.");
