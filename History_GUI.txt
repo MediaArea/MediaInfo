@@ -12,6 +12,27 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 0.7.97, 2017-06-30
+--------------
++ Ubuntu 17.04 packages
++ HEVC: support of stream having VPS hrd_parameters
++ FLV: support of FLV files with an ID3v2 header
++ FLV: detect some incoherent frame rates in buggy files
++ TIFF: support of more tags
++ I518, AAC: consider 4 back channels as 2 side + 2 back channels
++ Matroska: integrate all elements from Matroska specs in MediaTrace
++ WAV: parsing of MPEG Audio extension "mext" chunk and displayed in MediaTrace
++ MPC: channels count
++ AAC: ADTS/ADIF duration in case of full parsing and/or "risky bitrate estimation" option
+x MXF: less false-positive detection of some files as MXF
+x B1053, WAV: metadata coherency, ignore "fact" chunk more often in order to avoid bad information when this chunk is buggy
+x B1029, DPX: DPX endianess not considered with some fields in MediaTrace
+x Custom template: can check "Other" part as any other parts
+x Matroska: fix parsing issue with small byte blocks are taken from the file e.g. when reading from HTTP link
+x Matroska: files with unknown block size were flagged as truncated
+x MediaTrace: values with a \n were breaking the text report lines
+x Some typos (RefFrames, SPF)
+
 Version 0.7.96, 2017-06-01
 --------------
 + Chinese (Simplified) translation updated
