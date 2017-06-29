@@ -118,7 +118,7 @@ int main(int argc, char* argv_ansi[])
     GETCOMMANDLINE();
 
     //Get real program name, if aviable
-    if(argc && argv_ansi[0] != '\0')
+    if(argc && argv_ansi[0] && argv_ansi[0][0])
         Set_Program_Name(argv[0]);
 
     //Parse command line
