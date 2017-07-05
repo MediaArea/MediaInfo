@@ -296,6 +296,7 @@ if test "$with_dll" != "yes"; then
             if test "$enable_staticlibs" = "yes"; then
                 with_mediainfolib="system (static)"
                 LIBS="$LIBS $(pkg-config --variable=Libs_Static libmediainfo)"
+                LIBS="$LIBS $(pkg-config --static --libs libmediainfo)"
             else
                 with_mediainfolib="system"
                 LIBS="$LIBS $(pkg-config --libs libmediainfo)"
@@ -329,6 +330,7 @@ else
         if test "$enable_staticlibs" = "yes"; then
             with_zenlib="system (static)"
             LIBS="$LIBS $(pkg-config --variable=Libs_Static libzen)"
+            LIBS="$LIBS $(pkg-config --static --libs libzen)"
         else
             with_zenlib="system"
             LIBS="$LIBS $(pkg-config --libs libzen)"
