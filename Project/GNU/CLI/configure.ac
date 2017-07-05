@@ -177,14 +177,15 @@ if test "$with_dll" != "yes"; then
 			LIBS="$LIBS $(libmediainfo-config LIBS)"
 		fi
 	else
-		if pkg-config --exists lib$with_libmediainfo_name; then
+		if pkg-config --exists libmediainfo; then
 			CXXFLAGS="$CXXFLAGS $(pkg-config --cflags libmediainfo)"
 			if test "$enable_staticlibs" = "yes"; then
 				with_mediainfolib="system (static)"
-				LIBS="$LIBS $(pkg-config --variable=Libs_Static lib$with_libmediainfo_name)"
+				LIBS="$LIBS $(pkg-config --variable=Libs_Static libmediainfo)"
+				LIBS="$LIBS $(pkg-config --static --libs libmediainfo)"
 			else
 				with_mediainfolib="system"
-				LIBS="$LIBS $(pkg-config --libs lib$with_libmediainfo_name)"
+				LIBS="$LIBS $(pkg-config --libs libmediainfo)"
 			fi
 		else
 			AC_MSG_ERROR([libmediainfo configuration is not found])
@@ -224,6 +225,7 @@ else
 		if test "$enable_staticlibs" = "yes"; then
 			with_zenlib="system (static)"
 			LIBS="$LIBS $(pkg-config --variable=Libs_Static libzen)"
+			LIBS="$LIBS $(pkg-config --static --libs libzen)"
 		else
 			with_zenlib="system"
 			LIBS="$LIBS $(pkg-config --libs libzen)"
