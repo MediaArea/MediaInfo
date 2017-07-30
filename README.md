@@ -13,13 +13,13 @@ MediaInfo is a convenient unified display of the most relevant technical and tag
 
 First, you must create a directory which will receive the MediaInfo directory, and ZenLib and MediaInfoLib if you decide to compile them yourself.
 
-In this document, this directory will be refered as $BUILD_DIR.
+In this document, this directory will be referred as $BUILD_DIR.
 
 ### Dependancies under Mac
 
 #### macport
 
-Some dependencies are availables with macport. To install macport:
+Some dependencies are available with macport. To install macport:
 https://guide.macports.org/#installing
 
 ```sh
