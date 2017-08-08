@@ -12,6 +12,16 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 0.7.98, 2017-08-08
+--------------
++ Matroska: handling of files with Tracks element after Cluster elements
++ Matroska: detection of Duration tag alone and use it even if tag writing date is not there.
++ Matroska: mapping of colour description elements, timecode and handler name to corresponding MediaInfo fields
+x I169, WAV: too much aggressive detection of wrong 5-channel audio, now limited on AC-3 and DTS
+x transfer_characteristics and matrix_coefficients slight change in order to have them unique per ISO integer value
+x EBUCore: All XML elements are correctly escaped
+x PBCore: All XML elements are correctly escaped
+
 Version 0.7.97, 2017-06-30
 --------------
 + Ubuntu 17.04 packages
