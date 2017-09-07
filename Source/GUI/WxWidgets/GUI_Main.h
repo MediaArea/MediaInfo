@@ -77,6 +77,8 @@ public:
     wxMenuItem* Menu_View_EBUCore_1_6;
     wxMenuItem* Menu_View_EBUCore_1_8_ps;
     wxMenuItem* Menu_View_EBUCore_1_8_sp;
+    wxMenuItem* Menu_View_EBUCore_1_8_ps_json;
+    wxMenuItem* Menu_View_EBUCore_1_8_sp_json;
     wxMenuItem* Menu_View_FIMS_1_1;
     wxMenuItem* Menu_View_FIMS_1_2;
     wxMenuItem* Menu_View_reVTMD;
@@ -111,6 +113,8 @@ public:
     void OnMenu_View_EBUCore_1_6        (wxCommandEvent &event);
     void OnMenu_View_EBUCore_1_8_ps     (wxCommandEvent &event);
     void OnMenu_View_EBUCore_1_8_sp     (wxCommandEvent &event);
+    void OnMenu_View_EBUCore_1_8_ps_json   (wxCommandEvent &event);
+    void OnMenu_View_EBUCore_1_8_sp_json   (wxCommandEvent &event);
     void OnMenu_View_FIMS_1_1           (wxCommandEvent &event);
     void OnMenu_View_FIMS_1_2           (wxCommandEvent &event);
     void OnMenu_View_reVTMD             (wxCommandEvent &event);

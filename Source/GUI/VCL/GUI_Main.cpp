@@ -220,6 +220,8 @@ void __fastcall TMainF::GUI_Configure()
     else if (Prefs->Config(__T("Output"))==__T("EBUCore_1.6")) {M_View_EBUCore_1_6Click(NULL); M_View_EBUCore_1_6->Checked=true;}
     else if (Prefs->Config(__T("Output"))==__T("EBUCore_1.8_ps")) {M_View_EBUCore_1_8_psClick(NULL); M_View_EBUCore_1_8_ps->Checked=true;}
     else if (Prefs->Config(__T("Output"))==__T("EBUCore_1.8_sp")) {M_View_EBUCore_1_8_spClick(NULL); M_View_EBUCore_1_8_sp->Checked=true;}
+    else if (Prefs->Config(__T("Output"))==__T("EBUCore_1.8_ps_json")) {M_View_EBUCore_1_8_ps_jsonClick(NULL); M_View_EBUCore_1_8_ps_json->Checked=true;}
+    else if (Prefs->Config(__T("Output"))==__T("EBUCore_1.8_sp_json")) {M_View_EBUCore_1_8_sp_jsonClick(NULL); M_View_EBUCore_1_8_sp_json->Checked=true;}
     else if (Prefs->Config(__T("Output"))==__T("FIMS_1.1")) {M_View_FIMS_1_1Click(NULL); M_View_FIMS_1_1->Checked=true;}
     else if (Prefs->Config(__T("Output"))==__T("FIMS_1.2")) {M_View_FIMS_1_2Click(NULL); M_View_FIMS_1_2->Checked=true;}
     else if (Prefs->Config(__T("Output"))==__T("FIMS_1.3")) {M_View_FIMS_1_3Click(NULL); M_View_FIMS_1_3->Checked=true;}
@@ -814,6 +816,10 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             I->Option_Static(__T("Inform"), __T("EBUCore_1.8_ps"));
         else if (M_View_EBUCore_1_8_sp->Checked)
             I->Option_Static(__T("Inform"), __T("EBUCore_1.8_sp"));
+        else if (M_View_EBUCore_1_8_ps_json->Checked)
+            I->Option_Static(__T("Inform"), __T("EBUCore_1.8_ps_JSON"));
+        else if (M_View_EBUCore_1_8_sp_json->Checked)
+            I->Option_Static(__T("Inform"), __T("EBUCore_1.8_sp_JSON"));
         else if (M_View_FIMS_1_1->Checked)
             I->Option_Static(__T("Inform"), __T("FIMS_1.1"));
         else if (M_View_FIMS_1_2->Checked)
@@ -1165,6 +1171,22 @@ void __fastcall TMainF::M_View_EBUCore_1_8_spClick(TObject *Sender)
 {
     Prefs->Details[Prefs_Custom].Write(__T("EBUCore_1.8_sp"));
     ToolBar_View_EBUCore_1_8_sp->Checked=true;
+    ChangePage(Page_Custom);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::M_View_EBUCore_1_8_ps_jsonClick(TObject *Sender)
+{
+    Prefs->Details[Prefs_Custom].Write(__T("EBUCore_1.8_ps_json"));
+    ToolBar_View_EBUCore_1_8_ps_json->Checked=true;
+    ChangePage(Page_Custom);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::M_View_EBUCore_1_8_sp_jsonClick(TObject *Sender)
+{
+    Prefs->Details[Prefs_Custom].Write(__T("EBUCore_1.8_sp_json"));
+    ToolBar_View_EBUCore_1_8_sp_json->Checked=true;
     ChangePage(Page_Custom);
 }
 
