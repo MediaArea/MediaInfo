@@ -275,6 +275,20 @@ void Core::Menu_View_EBUCore_1_8_sp()
 }
 
 //---------------------------------------------------------------------------
+void Core::Menu_View_EBUCore_1_8_ps_json()
+{
+    MI->Option(__T("Inform"), __T("EBUCore_1.8_parameterSegment_JSON"));
+    Kind=Kind_EBUCore_1_8_ps_json;
+}
+
+//---------------------------------------------------------------------------
+void Core::Menu_View_EBUCore_1_8_sp_json()
+{
+    MI->Option(__T("Inform"), __T("EBUCore_1.8_segmentParameter_JSON"));
+    Kind=Kind_EBUCore_1_8_sp_json;
+}
+
+//---------------------------------------------------------------------------
 void Core::Menu_View_FIMS_1_1 ()
 {
     MI->Option(__T("Inform"), __T("FIMS_1.1"));

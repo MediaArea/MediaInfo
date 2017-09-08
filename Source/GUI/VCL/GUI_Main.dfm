@@ -2185,6 +2185,18 @@ object MainF: TMainF
         RadioItem = True
         OnClick = M_View_EBUCore_1_8_spClick
       end
+      object M_View_EBUCore_1_8_ps_json: TMenuItem
+        AutoCheck = True
+        Caption = 'EBUCore 1.8 (acq. metadata: parameter then segment, json)'
+        RadioItem = True
+        OnClick = M_View_EBUCore_1_8_ps_jsonClick
+      end
+      object M_View_EBUCore_1_8_sp_json: TMenuItem
+        AutoCheck = True
+        Caption = 'EBUCore 1.8 (acq. metadata: segment then parameter, json)'
+        RadioItem = True
+        OnClick = M_View_EBUCore_1_8_sp_jsonClick
+      end
       object M_View_FIMS_1_1: TMenuItem
         AutoCheck = True
         Caption = 'FIMS 1.1 (beta)'
@@ -3908,6 +3920,12 @@ object MainF: TMainF
     end
     object ToolBar_View_EBUCore_1_8_sp: TMenuItem
       Caption = 'EBUCore 1.8 (acq. metadata: segment then parameter)'
+    end
+    object ToolBar_View_EBUCore_1_8_ps_json: TMenuItem
+      Caption = 'EBUCore 1.8 (acq. metadata: parameter then segment, json)'
+    end
+    object ToolBar_View_EBUCore_1_8_sp_json: TMenuItem
+      Caption = 'EBUCore 1.8 (acq. metadata: segment then parameter, json)'
     end
     object ToolBar_View_FIMS_1_1: TMenuItem
       Caption = 'FIMS 1.1 (beta)'

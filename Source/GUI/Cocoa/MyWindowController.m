@@ -27,6 +27,8 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 		case Kind_EBUCore_1_6:	_ret = @"EBUCore_1.6"; break;
 		case Kind_EBUCore_1_8_ps:	_ret = @"EBUCore_1.8_ps"; break;
 		case Kind_EBUCore_1_8_sp:	_ret = @"EBUCore_1.8_sp"; break;
+		case Kind_EBUCore_1_8_ps_json:	_ret = @"EBUCore_1.8_ps_JSON"; break;
+		case Kind_EBUCore_1_8_sp_json:	_ret = @"EBUCore_1.8_sp_JSON"; break;
 		case Kind_FIMS_1_1:		_ret = @"FIMS_1.1"; break;
 		case Kind_FIMS_1_2:		_ret = @"FIMS_1.2"; break;
 		case Kind_FIMS_1_3:		_ret = @"FIMS_1.3"; break;
@@ -152,6 +154,16 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	[self _selectViewOFKind:Kind_EBUCore_1_8_sp];
 }
 
+-(IBAction)selectViewEBUCore18_ps_json:(id)sender
+{
+	[self _selectViewOFKind:Kind_EBUCore_1_8_ps_json];
+}
+
+-(IBAction)selectViewEBUCore18_sp_json:(id)sender
+{
+	[self _selectViewOFKind:Kind_EBUCore_1_8_sp_json];
+}
+
 -(IBAction)selectViewFIMS11:(id)sender
 {
 	[self _selectViewOFKind:Kind_FIMS_1_1];
@@ -209,10 +221,12 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 {
 	if (!_exportSavePanel)
 		return;
-	
+
 	NSInteger tag = exportFormatButton.selectedTag;
-	
-	if (tag > 0)
+
+	if (tag == 8 || tag == 9)
+		[_exportSavePanel setAllowedFileTypes:@[@"json"]];
+	else if (tag > 0)
 		[_exportSavePanel setAllowedFileTypes:@[@"xml"]];
 	else
 		[_exportSavePanel setAllowedFileTypes:@[@"txt"]];
@@ -265,15 +279,21 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 					format = TextKindToNSString(Kind_EBUCore_1_8_sp);
 					break;
 				case 8:
-					format = TextKindToNSString(Kind_FIMS_1_1);
+					format = TextKindToNSString(Kind_EBUCore_1_8_ps_json);
 					break;
 				case 9:
-					format = TextKindToNSString(Kind_FIMS_1_2);
+					format = TextKindToNSString(Kind_EBUCore_1_8_sp_json);
 					break;
 				case 10:
-					format = TextKindToNSString(Kind_FIMS_1_3);
+					format = TextKindToNSString(Kind_FIMS_1_1);
 					break;
 				case 11:
+					format = TextKindToNSString(Kind_FIMS_1_2);
+					break;
+				case 12:
+					format = TextKindToNSString(Kind_FIMS_1_3);
+					break;
+				case 13:
 					format = TextKindToNSString(Kind_reVTMD);
 					break;
 
@@ -710,6 +730,14 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	}
 	else if(action == @selector(selectViewEBUCore18_sp:)) {
 		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_EBUCore_1_8_sp ? YES : NO;
+		[menuItem setState: (state ? NSOnState : NSOffState)];
+	}
+	else if(action == @selector(selectViewEBUCore18_ps_json:)) {
+		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_EBUCore_1_8_ps_json ? YES : NO;
+		[menuItem setState: (state ? NSOnState : NSOffState)];
+	}
+	else if(action == @selector(selectViewEBUCore18_sp_json:)) {
+		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_EBUCore_1_8_sp_json ? YES : NO;
 		[menuItem setState: (state ? NSOnState : NSOffState)];
 	}
 	else if(action == @selector(selectViewFIMS11:)) {

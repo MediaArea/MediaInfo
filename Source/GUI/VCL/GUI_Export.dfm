@@ -499,6 +499,40 @@ object ExportF: TExportF
           OnClick = Export_EBUCore_1_8_sp_SideCarClick
         end
       end
+      object Export_EBUCore_1_8_ps_json: TTabSheet
+        Caption = 'EBUCore 1.8 (ps, json)'
+        ImageIndex = 9
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
+        object Export_EBUCore_1_8_ps_json_SideCar: TCheckBox
+          Left = 0
+          Top = 9
+          Width = 597
+          Height = 18
+          Caption = 'Sidecar file (filename.EBUCore.json)'
+          TabOrder = 0
+          OnClick = Export_EBUCore_1_8_ps_json_SideCarClick
+        end
+      end
+      object Export_EBUCore_1_8_sp_json: TTabSheet
+        Caption = 'EBUCore 1.8 (sp, json)'
+        ImageIndex = 9
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
+        object Export_EBUCore_1_8_sp_json_SideCar: TCheckBox
+          Left = 0
+          Top = 9
+          Width = 597
+          Height = 18
+          Caption = 'Sidecar file (filename.EBUCore.json)'
+          TabOrder = 0
+          OnClick = Export_EBUCore_1_8_sp_json_SideCarClick
+        end
+      end
       object Export_FIMS_1_1: TTabSheet
         Caption = 'FIMS 1.1'
         ImageIndex = 9
