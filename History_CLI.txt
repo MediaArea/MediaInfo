@@ -12,6 +12,20 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 0.7.99, 2017-09-11
+--------------
++ EBUCore: JSON output (--Output=EBUCore_1.8_JSON)
++ EBUCore: add writingLibraryName and writingLibraryVersion attributes
++ Ad-ID identifier display on a single line ("Value (Registry)" format)
++ MPEG-4: Better display of format of VobSub tracks
++ MPEG-4: CodecID is stsd name + ObjectTypeId for mp4a, mp4v, mp4s
++ AVC: preferred_transfer_characteristics support
++ MPEG Video, MPEG-4 Visual, AVC, HEVC, MPEG-4, Matroska: correct detection of RGB
++ matrix_coefficients: detection of Y'D'zD'x and Chromaticity-derived
++ AAC: info about SBR/PS being implicit/explicit/NBC (Not Backward Compatible)
++ AAC: indicate audioObjectType in CodecID
+x Fix a weird 1.334 DAR due to a rounding issue
+
 Version 0.7.98, 2017-08-08
 --------------
 + Matroska: handling of files with Tracks element after Cluster elements
