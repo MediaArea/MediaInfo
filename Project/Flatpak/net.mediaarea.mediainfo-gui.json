@@ -5,7 +5,7 @@
     "runtime-version": "3.22",
     "command": "mediainfo-gui",
     "rename-desktop-file": "mediainfo-gui.desktop",
-    "rename-appdata-file": "mediainfo-gui.appdata.xml",
+    "rename-appdata-file": "mediainfo-gui.metainfo.xml",
     "rename-icon": "mediainfo",
     "finish-args": [ "--filesystem=host",
                      "--share=network",

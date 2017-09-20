@@ -1,5 +1,5 @@
 /usr/bin/mediainfo-gui
-/usr/share/appdata/mediainfo-gui.appdata.xml
+/usr/share/metainfo/mediainfo-gui.metainfo.xml
 
 /usr/share/pixmaps/mediainfo.xpm
 /usr/share/icons/hicolor/256x256/apps/mediainfo.png
