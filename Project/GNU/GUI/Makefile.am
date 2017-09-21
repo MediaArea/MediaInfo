@@ -25,10 +25,10 @@ mediainfo_gui_SOURCES = \
 AM_CPPFLAGS = -I../../../Source -I../../../../MediaInfoLib/Source -I../../../../ZenLib/Source
 
 appdir = $(datadir)/applications
-appdatadir = $(datadir)/appdata
+metainfodir = $(datadir)/metainfo
 
 dist_app_DATA = mediainfo-gui.desktop
-dist_appdata_DATA = mediainfo-gui.appdata.xml
+dist_metainfo_DATA = mediainfo-gui.metainfo.xml
 
 install-data-hook:
 	install -dm 755 $(DESTDIR)$(datadir)/apps/konqueror/servicemenus && \

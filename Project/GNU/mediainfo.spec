@@ -177,6 +177,12 @@ pushd Project/GNU/GUI
     make install DESTDIR=%{buildroot}
 popd
 
+%if %{undefined fedora_version} || 0%{?fedora_version} < 26
+rm -fr %{buildroot}%{_datadir}/metainfo
+install -dm 755 %{buildroot}%{_datadir}/appdata/
+install -m 644 Project/GNU/GUI/mediainfo-gui.metainfo.xml %{buildroot}%{_datadir}/appdata/mediainfo-gui.appdata.xml
+%endif
+
 %if 0%{?suse_version}
   %suse_update_desktop_file -n mediainfo-gui AudioVideo AudioVideoEditing
   %suse_update_desktop_file -n %{buildroot}%{_datadir}/apps/konqueror/servicemenus/mediainfo-gui.desktop AudioVideo AudioVideoEditing
@@ -222,8 +228,13 @@ popd
 %dir %{_datadir}/kde4/services/ServiceMenus
 %{_datadir}/kde4/services/ServiceMenus/*.desktop
 %if (%{undefined rhel_version} || 0%{?rhel_version} >= 600) && (%{undefined centos_version} || 0%{?centos_version} >= 600)
+%if 0%{?fedora_version} && 0%{?fedora_version} >= 26
+%dir %{_datadir}/metainfo
+%{_datadir}/metainfo/*.xml
+%else
 %dir %{_datadir}/appdata
 %{_datadir}/appdata/*.xml
+%endif
 %else
 %define _unpackaged_files_terminate_build 0
 %endif

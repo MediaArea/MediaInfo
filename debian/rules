@@ -18,6 +18,10 @@ override_dh_auto_build:
 
 override_dh_auto_install:
 	$(call auto_build_cmd,dh_auto_install)
+	# Legacy appstream data path
+	rm -fr $(CURDIR)/debian/tmp/usr/share/metainfo
+	install -dm 755 $(CURDIR)/debian/tmp/usr/share/appdata
+	install -m 644 Project/GNU/GUI/mediainfo-gui.metainfo.xml $(CURDIR)/debian/tmp/usr/share/appdata/mediainfo-gui.appdata.xml
 
 override_dh_auto_clean:
 	$(call auto_build_cmd,dh_auto_clean)
