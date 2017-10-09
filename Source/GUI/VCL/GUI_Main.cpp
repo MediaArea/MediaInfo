@@ -79,7 +79,7 @@ TCustomButton*              Donate_Current;
 
 //---------------------------------------------------------------------------
 extern const ZenLib::Char* MEDIAINFO_TITLE;
-const size_t Title_Pos=96; //TODO: Position of Title in General.csv, should shange this...
+const size_t Title_Pos=156; //TODO: Position of Title in General.csv, should shange this...
 MediaInfoList *I;
 //---------------------------------------------------------------------------
 
