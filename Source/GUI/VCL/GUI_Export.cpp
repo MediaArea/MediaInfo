@@ -195,6 +195,8 @@ int TExportF::Run(MediaInfoNameSpace::MediaInfoList &MI, ZenLib::Ztring DefaultF
 
     if (Info==__T("XML"))
         Export->ActivePage=Export_XML;
+    else if (Info==__T("MIXML"))
+        Export->ActivePage=Export_XML;
     else if (Info==__T("MPEG-7"))
         Export->ActivePage=Export_MPEG7;
     else if (Info==__T("PBCore_1.2"))
@@ -446,7 +448,7 @@ void TExportF::Export_Run()
     }
     else if (Export->ActivePage==Export_XML)
     {
-        ToExport->Option_Static(__T("Inform"), __T("XML"));
+        ToExport->Option_Static(__T("Inform"), __T("MIXML"));
         if (Export_XML_SideCar->Checked)
         {
             for (size_t Pos=0; Pos<ToExport->Count_Get(); Pos++)
