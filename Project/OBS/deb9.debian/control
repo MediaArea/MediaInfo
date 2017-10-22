@@ -10,6 +10,7 @@ Build-Depends: debhelper (>= 9),
                adwaita-icon-theme,
                zlib1g-dev,
                pkg-config,
+               rename,
 Standards-Version: 3.9.6
 Homepage: http://MediaArea.net/MediaInfo
 Vcs-Git: https://github.com/MediaArea/MediaInfoLib.git
