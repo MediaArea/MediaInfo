@@ -227,6 +227,9 @@ install -m 644 Project/GNU/GUI/mediainfo-gui.metainfo.xml %{buildroot}%{_datadir
 %dir %{_datadir}/kde4/services
 %dir %{_datadir}/kde4/services/ServiceMenus
 %{_datadir}/kde4/services/ServiceMenus/*.desktop
+%dir %{_datadir}/kservices5
+%dir %{_datadir}/kservices5/ServiceMenus
+%{_datadir}/kservices5/ServiceMenus/*.desktop
 %if (%{undefined rhel_version} || 0%{?rhel_version} >= 600) && (%{undefined centos_version} || 0%{?centos_version} >= 600)
 %if 0%{?fedora_version} && 0%{?fedora_version} >= 26
 %dir %{_datadir}/metainfo
