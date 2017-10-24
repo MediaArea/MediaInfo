@@ -1,7 +1,7 @@
 ﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 		<PropertyGroup>
 			<ProjectGuid>{8AF87745-B671-4B4E-A428-B47B72F174BA}</ProjectGuid>
-			<ProjectVersion>13.4</ProjectVersion>
+			<ProjectVersion>18.2</ProjectVersion>
 			<FrameworkType>VCL</FrameworkType>
 			<MainSource>MediaInfo_GUI.cpp</MainSource>
 			<Base>True</Base>
@@ -73,6 +73,7 @@
 			<IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
 			<Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
 			<VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+			<AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_1)'!=''">
 			<BCC_OptimizeForSpeed>false</BCC_OptimizeForSpeed>
@@ -108,7 +109,7 @@
 			<Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
 		</PropertyGroup>
 		<ItemGroup>
-			<LibFiles Condition="'$(Platform)'=='Win32'" Include="C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\lib\win32\release\wininet.lib">
+			<LibFiles Condition="'$(Platform)'=='Win32'" Include="$(BDSLIB)\win32\release\wininet.lib">
 				<BuildOrder>16</BuildOrder>
 				<IgnorePath>true</IgnorePath>
 			</LibFiles>
