@@ -123,13 +123,13 @@ Section "SectionPrincipale" SEC01
   CreateShortCut "$SMPROGRAMS\MediaInfo.lnk" "$INSTDIR\MediaInfo.exe" "" "" "" "" "" "Convenient unified display of the most relevant technical and tag data for video and audio files"
   SetOutPath "$INSTDIR"
   File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Win32\Release\MediaInfo_GUI.exe"
-  File "/oname=MediaInfo_i386.dll" "..\..\..\MediaInfoLib\Project\MSVC2015\Win32\Release\MediaInfo.dll"
+  File "/oname=MediaInfo_i386.dll" "..\..\..\MediaInfoLib\Project\MSVC2017\Win32\Release\MediaInfo.dll"
   ${If} ${RunningX64}
-    File "..\..\..\MediaInfoLib\Project\MSVC2015\x64\Release\MediaInfo_InfoTip.dll"
-    File "..\..\..\MediaInfoLib\Project\MSVC2015\x64\Release\MediaInfo.dll"
+    File "..\..\..\MediaInfoLib\Project\MSVC2017\x64\Release\MediaInfo_InfoTip.dll"
+    File "..\..\..\MediaInfoLib\Project\MSVC2017\x64\Release\MediaInfo.dll"
   ${Else}
-    File "..\..\..\MediaInfoLib\Project\MSVC2015\Win32\Release\MediaInfo_InfoTip.dll"
-    File "..\..\..\MediaInfoLib\Project\MSVC2015\Win32\Release\MediaInfo.dll"
+    File "..\..\..\MediaInfoLib\Project\MSVC2017\Win32\Release\MediaInfo_InfoTip.dll"
+    File "..\..\..\MediaInfoLib\Project\MSVC2017\Win32\Release\MediaInfo.dll"
   ${EndIf}
   File "$%BPATH%\Windows\libcurl\Win32\Release\LIBCURL.DLL"
   File "$%BPATH%\Windows\libcurl\curl-ca-bundle.crt"
