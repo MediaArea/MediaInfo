@@ -12,6 +12,29 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 17.10, 2017-11-02
+--------------
++ We need your support! Visit https://mediaarea.net/SupportUs
++ Version scheme is now YY.MM (year dot month, 2 digits each)
++ New MediaInfo XML output, with XSD, more suitable for automatic parsing.
++ Universal Ad ID: refactored display, better display of value and registry, XML name slightly modified
++ MOV: support of HDR metadata (MasteringDisplayColorVolume, MaxCLL, MaxFALL)
++ BWF: display of UMID and loudness info
++ AAC: show program_config_element in trace
++ MPEG Audio: frame rate info
++ PCM in WAV and Matroska: Support of ValidBitsPerSample
++ I197, EBUCore: 1.8 output uses now final version of XSD and final XSD location
++ Matroska: tweaking frame rate empirical detection for some corner cases
+x I1070, LAME 3.100 info tag was incorrectly parsed
+x B1068, MPEG Audio: Incoherent duration between General and Audio parts, Audio part duration fixed
+x Matroska: showing "A_MS/ACM" Matroska CodecID
+x MXF: Fix crash with some buggy files
+x MXF: was not well supporting MXF referencing only 1 file
+x PCM in WAV: 8-bit content is unsigned and without endianess
+x PCM in WAV and Matroska: More coherency between Wave info and ExtensibleWave Info (bitdepth, sign)
+x WAV: GUID display was with first 8 bytes in wrong order
+x Several crash fixes
+
 Version 0.7.99, 2017-09-11
 --------------
 + EBUCore: JSON output
