@@ -592,6 +592,7 @@ int Preferences::ExplorerShell()
         ".swf;FlashFile\r\n"
         ".tak;TakVideoFile\r\n"
         ".thd;THDFile\r\n"
+        ".thd+ac3;THDFile\r\n"
 	".tif;TIFFFile\r\n"
 	".tiff;TIFFFile\r\n"
         ".tmf;mpegFile\r\n"
