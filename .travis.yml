@@ -13,10 +13,10 @@ matrix:
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]] ; then sudo apt-get update -qq ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]] ; then sudo apt-get install -y libmms0 libwxgtk3.0-dev zlib1g-dev pkg-config ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]] ; then wget http://mediaarea.net/download/binary/libzen0/0.4.34/libzen0_0.4.34-1_amd64.xUbuntu_14.04.deb ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]] ; then wget http://mediaarea.net/download/binary/libzen0/0.4.34/libzen-dev_0.4.34-1_amd64.xUbuntu_14.04.deb ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]] ; then wget http://mediaarea.net/download/binary/libmediainfo0/0.7.93/libmediainfo0_0.7.93-1_amd64.xUbuntu_14.04.deb ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]] ; then wget http://mediaarea.net/download/binary/libmediainfo0/0.7.93/libmediainfo-dev_0.7.93-1_amd64.xUbuntu_14.04.deb ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]] ; then wget http://mediaarea.net/download/binary/libzen0/0.4.37/libzen0_0.4.37-1_amd64.xUbuntu_14.04.deb ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]] ; then wget http://mediaarea.net/download/binary/libzen0/0.4.37/libzen-dev_0.4.37-1_amd64.xUbuntu_14.04.deb ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]] ; then wget http://mediaarea.net/download/binary/libmediainfo0/17.10/libmediainfo0_17.10-1_amd64.xUbuntu_14.04.deb ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]] ; then wget http://mediaarea.net/download/binary/libmediainfo0/17.10/libmediainfo-dev_17.10-1_amd64.xUbuntu_14.04.deb ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]] ; then sudo dpkg -i libzen*.deb libmediainfo*.deb ; fi
 
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]] ; then brew update && brew install wxmac media-info ; fi
