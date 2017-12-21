@@ -12,6 +12,29 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 17.12, 2017-12-21
+--------------
++ MediaInfoOnline: https://mediaarea.net/MediaInfoOnline
++ JavaScript build and example
++ Dolby Vision: detection of Dolby Vision and display of profile for MPEG-TS and MP4 files
++ MPEG-4: Support of external time code tracks (.qtc)
++ JPEG 2000: Support of IMF profiles
++ F523, BDMV: Support of UHD Blu-ray playlist
++ Endianness and Sign report for PCM Matroska tracks
++ MPEG-4: Resolume DXV display
++ MPEG-4: support of file names >64 chars long or non ASCII for referenced files
++ Slight binary size optimizations
++ colour_description: some changes in order to have more readable names (DCI P3, Display P3, sRGB)
+x MP4: crash with some HEVC streams with Dolby Vision
+x VC-3: frame rate should not be detected as wrong when there are several frames per block
+x Matroska: wrong color range info
+x Matroska: fix crash with some corrupted files
+x MXF: better support of height when there is an incoherence between header and footer
+x transfer_characteristics: fix BT.2020 difference between values 14 and 15
+x Trace: fix freeze with some files
+x Trace: invalid character encoding with some MOV files
+x Some memory leak fixes
+
 Version 17.10, 2017-11-02
 --------------
 + We need your support! Visit https://mediaarea.net/SupportUs

@@ -1,4 +1,4 @@
-%define mediainfo_version           17.10
+%define mediainfo_version           17.12
 %define libmediainfo_version        17.10
 %define libzen_version              0.4.37
 
