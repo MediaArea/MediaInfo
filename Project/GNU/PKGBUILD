@@ -3,7 +3,7 @@
 # Contributor: hydro <hydro@freenet.de>
 
 pkgname=('mediainfo' 'mediainfo-gui')
-pkgver=17.10
+pkgver=17.12
 pkgrel=1
 pkgdesc="supplies technical and tag information about a video or audio file"
 url="http://mediaarea.net"
