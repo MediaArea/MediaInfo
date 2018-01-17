@@ -64,6 +64,10 @@ int Help()
     TEXTOUT("                    Display Acquisition Data by segment then parameter (EBUCore output)");
     TEXTOUT("--AcquisitionDataOutputMode=parameterSegment");
     TEXTOUT("                    Display Acquisition Data by parameter then segment (EBUCore output)");
+    TEXTOUT("--ExternalMetadata=...");
+    TEXTOUT("                    Add external metadata to the output (EBUCore output)");
+    TEXTOUT("--ExternalMetadataConfig=...");
+    TEXTOUT("                    Output template for external metadata (EBUCore output)");
     TEXTOUT("--Info-Parameters");
     TEXTOUT("                    Display list of Inform= parameters");
     TEXTOUT("");
