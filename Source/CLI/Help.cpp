@@ -54,6 +54,8 @@ int Help()
     TEXTOUT("                    Full information Display with HTML tags");
     TEXTOUT("--Output=XML");
     TEXTOUT("                    Full information Display with XML tags");
+    TEXTOUT("--Output=OLDXML");
+    TEXTOUT("                    Full information Display with XML tags using the older MediaInfo schema");    
     TEXTOUT("--Output=EBUCore");
     TEXTOUT("                    Full information Display with EBUCore compliant XML tags");
     TEXTOUT("--Output=PBCore");
