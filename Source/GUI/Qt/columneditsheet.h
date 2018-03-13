@@ -8,11 +8,11 @@
 #define COLUMNEDITSHEET_H
 
 #include "sheet.h"
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QToolButton>
-#include <QtGui/QComboBox>
-#include <QtGui/QSpinBox>
-#include <QtCore/QDebug>
+#include <QHBoxLayout>
+#include <QToolButton>
+#include <QComboBox>
+#include <QSpinBox>
+#include <QDebug>
 
 class ColumnEditSheet : public QHBoxLayout
 {

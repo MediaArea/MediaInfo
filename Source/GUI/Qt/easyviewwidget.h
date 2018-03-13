@@ -7,10 +7,10 @@
 #ifndef EASYVIEWWIDGET_H
 #define EASYVIEWWIDGET_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 #include "Common/Core.h"
-#include <QtGui/QGroupBox>
-#include <QtCore/QDebug>
+#include <QGroupBox>
+#include <QDebug>
 
 class EasyViewWidget : public QWidget
 {

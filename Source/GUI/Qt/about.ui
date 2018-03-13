@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>About</class>
  <widget class="QDialog" name="About">
@@ -26,7 +27,7 @@
           </size>
          </property>
          <property name="pixmap">
-          <pixmap resource="../../Ressource/Resources.qrc">:/icon/icon.png</pixmap>
+          <pixmap resource="../../Resource/Resources.qrc">:/icon/icon.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -54,8 +55,8 @@
      <item>
       <widget class="QLabel" name="aboutText">
        <property name="text">
-        <string>MediaInfo 0.7.34
-Copyright (C) 2002-2009 Jerome Martinez
+        <string>MediaInfo vVERSION
+Copyright (C) 2002-2018 Jerome Martinez
 
 Supply very detailled information
 about a multimedia file:
@@ -100,17 +101,42 @@ Sound-only formats (AC3, DTS, AAC, AU, AIFF...)</string>
     </spacer>
    </item>
    <item>
+    <spacer name="verticalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QLabel" name="logoMail">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
        <property name="maximumSize">
         <size>
-         <width>64</width>
-         <height>64</height>
+         <width>32</width>
+         <height>32</height>
         </size>
        </property>
        <property name="pixmap">
-        <pixmap resource="../../Ressource/Resources.qrc">:/icon/aboutmail.png</pixmap>
+        <pixmap resource="../../Resource/Resources.qrc">:/icon/aboutmail.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -194,7 +220,8 @@ Sound-only formats (AC3, DTS, AAC, AU, AIFF...)</string>
   </layout>
  </widget>
  <resources>
-  <include location="../../Ressource/Resources.qrc"/>
+  <include location="../../Resource/Resources.qrc"/>
+  <include location="../../Resource/Resources.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -6,10 +6,10 @@
 
 #include "columneditsheet.h"
 #include "sheet.h"
-#include <QtGui/QLineEdit>
-#include <QtGui/QSpinBox>
-#include <QtGui/QComboBox>
-#include <QtGui/QToolButton>
+#include <QLineEdit>
+#include <QSpinBox>
+#include <QComboBox>
+#include <QToolButton>
 #include "translate.h"
 
 #include <ZenLib/Ztring.h>
@@ -23,7 +23,7 @@ ColumnEditSheet::ColumnEditSheet(column c, int pos, int nb, Core* C, QWidget *pa
     QHBoxLayout(parent),
     pos(pos),
     C(C),
-    col(c),
+    col(c)
 {
     QLineEdit* lineedit = new QLineEdit(c.name);
     this->addWidget(lineedit);

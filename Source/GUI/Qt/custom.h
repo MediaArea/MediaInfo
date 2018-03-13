@@ -7,13 +7,13 @@
 #ifndef CUSTOM_H
 #define CUSTOM_H
 
-#include <QtCore/QVector>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QSettings>
-#include <QtGui/QComboBox>
+#include <QVector>
+#include <QString>
+#include <QStringList>
+#include <QSettings>
+#include <QComboBox>
 #include "Common/Core.h"
-#include <QtCore/QDebug>
+#include <QDebug>
 
 class Custom
 {

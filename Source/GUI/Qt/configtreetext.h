@@ -7,12 +7,12 @@
 #ifndef CONFIGTREETEXT_H
 #define CONFIGTREETEXT_H
 
-#include <QtCore/QVector>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QSettings>
-#include <QtGui/QComboBox>
-#include <QtCore/QDebug>
+#include <QVector>
+#include <QString>
+#include <QStringList>
+#include <QSettings>
+#include <QComboBox>
+#include <QDebug>
 
 class ConfigTreeText
 {

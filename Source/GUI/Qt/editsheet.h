@@ -7,9 +7,9 @@
 #ifndef EDITSHEET_H
 #define EDITSHEET_H
 
-#include <QtGui/QDialog>
+#include <QDialog>
 #include "sheet.h"
-#include <QtCore/QDebug>
+#include <QDebug>
 
 namespace Ui {
     class EditSheet;

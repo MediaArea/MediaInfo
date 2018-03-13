@@ -8,10 +8,10 @@
 #define EDITCONFIGTREETEXT_H
 
 #include "translate.h"
-#include <QtGui/QDialog>
+#include <QDialog>
 #include "Common/Core.h"
 #include "configtreetext.h"
-#include <QtCore/QDebug>
+#include <QDebug>
 
 namespace Ui {
     class editConfigTreeText;

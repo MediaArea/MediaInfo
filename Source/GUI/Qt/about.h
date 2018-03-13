@@ -7,8 +7,8 @@
 #ifndef ABOUT_H
 #define ABOUT_H
 
-#include <QtGui/QDialog>
-#include <QtCore/QDebug>
+#include <QDialog>
+#include <QDebug>
 
 namespace Ui {
     class About;
@@ -17,7 +17,7 @@ namespace Ui {
 class About : public QDialog {
     Q_OBJECT
 public:
-    About(QWidget *parent = 0);
+    About(const QString& version, QWidget *parent = 0);
     ~About();
 
 protected:

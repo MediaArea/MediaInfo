@@ -6,17 +6,17 @@
 
 #include "translate.h"
 #include "editsheet.h"
-#include "_Automated/ui_editsheet.h"
+#include "ui_editsheet.h"
 #include "sheet.h"
 #include "columneditsheet.h"
-#include "QtGui/QHBoxLayout"
-#include "QtGui/QLabel"
-#include "QtGui/QLineEdit"
-#include "QtGui/QSpinBox"
-#include "QtGui/QPushButton"
-#include "QtGui/QToolButton"
-#include "QtGui/QSizePolicy"
-#include "QtGui/QComboBox"
+#include "QHBoxLayout"
+#include "QLabel"
+#include "QLineEdit"
+#include "QSpinBox"
+#include "QPushButton"
+#include "QToolButton"
+#include "QSizePolicy"
+#include "QComboBox"
 
 EditSheet::EditSheet(Sheet* s, Core* C, QWidget *parent) :
     QDialog(parent),

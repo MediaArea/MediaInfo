@@ -7,9 +7,9 @@
 #ifndef SHEETVIEW_H
 #define SHEETVIEW_H
 
-#include <QtGui/QFrame>
+#include <QFrame>
 #include "Common/Core.h"
-#include <QtCore/QDebug>
+#include <QDebug>
 
 namespace Ui {
     class SheetView;

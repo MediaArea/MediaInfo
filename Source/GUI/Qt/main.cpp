@@ -4,8 +4,8 @@
  *  be found in the License.html file in the root of the source tree.
  */
 
-#include <QtGui/QApplication>
-#include <QtCore/QtPlugin>
+#include <QApplication>
+#include <QtPlugin>
 #include <iostream>
 #include "mainwindow.h"
 

@@ -235,7 +235,7 @@ void Core::Menu_View_JSON ()
 //---------------------------------------------------------------------------
 void Core::Menu_View_PBCore ()
 {
-    MI->Option(__T("Inform"), __T("PBCore"));
+    MI->Option(__T("Inform"), __T("PBCore1"));
     Kind=Kind_PBCore;
 }
 

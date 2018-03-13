@@ -7,10 +7,10 @@
 #ifndef PREFERENCES_H
 #define PREFERENCES_H
 
-#include <QtGui/QDialog>
-#include <QtCore/QSettings>
+#include <QDialog>
+#include <QSettings>
 #include "Common/Core.h"
-#include <QtCore/QDebug>
+#include <QDebug>
 
 namespace Ui {
     class Preferences;
