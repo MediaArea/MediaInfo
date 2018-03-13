@@ -226,6 +226,13 @@ void Core::Menu_View_XML ()
 }
 
 //---------------------------------------------------------------------------
+void Core::Menu_View_JSON ()
+{
+    MI->Option(__T("Inform"), __T("JSON"));
+    Kind=Kind_JSON;
+}
+
+//---------------------------------------------------------------------------
 void Core::Menu_View_PBCore ()
 {
     MI->Option(__T("Inform"), __T("PBCore"));

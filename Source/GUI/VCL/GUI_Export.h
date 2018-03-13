@@ -40,6 +40,7 @@ __published:    // IDE-managed Components
     TTabSheet *Export_Text;
     TTabSheet *Export_HTML;
     TTabSheet *Export_XML;
+    TTabSheet *Export_JSON;
     TTabSheet *Export_MPEG7;
     TTabSheet *Export_PBCore;
     TTabSheet *Export_PBCore2;
@@ -91,6 +92,7 @@ __published:    // IDE-managed Components
     TComboBox *CSV_Decimal;
     TSaveDialog *SaveDialog1;
     TCheckBox *Export_XML_SideCar;
+    TCheckBox *Export_JSON_SideCar;
     TCheckBox *Export_MPEG7_SideCar;
     TCheckBox *Export_PBCore_SideCar;
     TCheckBox *Export_PBCore2_SideCar;
@@ -113,6 +115,7 @@ __published:    // IDE-managed Components
     void __fastcall CSV_Stream_OtherChange(TObject *Sender);
     void __fastcall Export_reVTMD_SideCarClick(TObject *Sender);
     void __fastcall Export_XML_SideCarClick(TObject *Sender);
+    void __fastcall Export_JSON_SideCarClick(TObject *Sender);
     void __fastcall Export_MPEG7_SideCarClick(TObject *Sender);
     void __fastcall Export_PBCore_SideCarClick(TObject *Sender);
     void __fastcall Export_PBCore2_SideCarClick(TObject *Sender);
