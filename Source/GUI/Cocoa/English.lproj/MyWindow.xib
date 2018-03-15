@@ -393,6 +393,12 @@
         </customObject>
         <menu id="4PR-wq-KNx">
             <items>
+                <menuItem title="JSON" id="ro6-xM-h9O">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="selectViewJSON:" target="-1" id="TE0-Mc-LZm"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="MPEG-7" id="ei5-wL-g0P">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>

@@ -20,8 +20,9 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	NSString *_ret = nil;
 	switch (kind)
 	{
+		case Kind_JSON:			_ret = @"JSON"; break;
 		case Kind_MPEG7:		_ret = @"MPEG-7"; break;
-		case Kind_PBCore: 		_ret = @"PBCore"; break;
+		case Kind_PBCore:		_ret = @"PBCore"; break;
 		case Kind_PBCore2:		_ret = @"PBCore2"; break;
 		case Kind_EBUCore_1_5:	_ret = @"EBUCore_1.5"; break;
 		case Kind_EBUCore_1_6:	_ret = @"EBUCore_1.6"; break;
@@ -117,6 +118,11 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	[tabSelector setSelectedSegment:kOtherViewsSelectorIndex];
 	[self updateTextTabWithFileAtIndex:selectedFileIndex];
 	[tabs selectTabViewItemAtIndex:kTextTabIndex];
+}
+
+-(IBAction)selectViewJSON:(id)sender
+{
+	[self _selectViewOFKind:Kind_JSON];
 }
 
 -(IBAction)selectViewMPEG7:(id)sender
@@ -258,42 +264,45 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 			switch (exportFormatButton.selectedTag)
 			{
 				case 1:
-					format = TextKindToNSString(Kind_MPEG7);
+					format = TextKindToNSString(Kind_JSON);
 					break;
 				case 2:
-					format = TextKindToNSString(Kind_PBCore);
+					format = TextKindToNSString(Kind_MPEG7);
 					break;
 				case 3:
-					format = TextKindToNSString(Kind_PBCore2);
+					format = TextKindToNSString(Kind_PBCore);
 					break;
 				case 4:
-					format = TextKindToNSString(Kind_EBUCore_1_5);
+					format = TextKindToNSString(Kind_PBCore2);
 					break;
 				case 5:
-					format = TextKindToNSString(Kind_EBUCore_1_6);
+					format = TextKindToNSString(Kind_EBUCore_1_5);
 					break;
 				case 6:
-					format = TextKindToNSString(Kind_EBUCore_1_8_ps);
+					format = TextKindToNSString(Kind_EBUCore_1_6);
 					break;
 				case 7:
-					format = TextKindToNSString(Kind_EBUCore_1_8_sp);
+					format = TextKindToNSString(Kind_EBUCore_1_8_ps);
 					break;
 				case 8:
-					format = TextKindToNSString(Kind_EBUCore_1_8_ps_json);
+					format = TextKindToNSString(Kind_EBUCore_1_8_sp);
 					break;
 				case 9:
-					format = TextKindToNSString(Kind_EBUCore_1_8_sp_json);
+					format = TextKindToNSString(Kind_EBUCore_1_8_ps_json);
 					break;
 				case 10:
-					format = TextKindToNSString(Kind_FIMS_1_1);
+					format = TextKindToNSString(Kind_EBUCore_1_8_sp_json);
 					break;
 				case 11:
-					format = TextKindToNSString(Kind_FIMS_1_2);
+					format = TextKindToNSString(Kind_FIMS_1_1);
 					break;
 				case 12:
-					format = TextKindToNSString(Kind_FIMS_1_3);
+					format = TextKindToNSString(Kind_FIMS_1_2);
 					break;
 				case 13:
+					format = TextKindToNSString(Kind_FIMS_1_3);
+					break;
+				case 14:
 					format = TextKindToNSString(Kind_reVTMD);
 					break;
 
@@ -702,6 +711,10 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	}
 	else if(action == @selector(selectTextTab:)) {
 		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_Text ? YES : NO;
+		[menuItem setState: (state ? NSOnState : NSOffState)];
+	}
+	else if(action == @selector(selectViewJSON:)) {
+		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_JSON ? YES : NO;
 		[menuItem setState: (state ? NSOnState : NSOffState)];
 	}
 	else if(action == @selector(selectViewMPEG7:)) {

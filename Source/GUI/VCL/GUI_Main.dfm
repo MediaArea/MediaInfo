@@ -2143,6 +2143,12 @@ object MainF: TMainF
         RadioItem = True
         OnClick = M_View_XMLClick
       end
+      object M_View_JSON: TMenuItem
+        AutoCheck = True
+        Caption = 'JSON'
+        RadioItem = True
+        OnClick = M_View_JSONClick
+      end
       object M_View_MPEG7: TMenuItem
         AutoCheck = True
         Caption = 'MPEG-7'
@@ -3895,6 +3901,10 @@ object MainF: TMainF
     end
     object ToolBar_View_XML: TMenuItem
       Caption = 'XML'
+      RadioItem = True
+    end
+    object ToolBar_View_JSON: TMenuItem
+      Caption = 'JSON'
       RadioItem = True
     end
     object ToolBar_View_MPEG7: TMenuItem

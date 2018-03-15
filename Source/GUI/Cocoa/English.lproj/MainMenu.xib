@@ -623,6 +623,12 @@
                                     <action selector="selectTextTab:" target="-1" id="601"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="JSON" id="p8X-bL-6KX">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="selectViewJSON:" target="-1" id="Bll-l2-klY"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="MPEG-7" id="o7W-nM-5JW">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>

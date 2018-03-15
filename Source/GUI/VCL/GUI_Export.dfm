@@ -403,6 +403,18 @@ object ExportF: TExportF
           OnClick = Export_XML_SideCarClick
         end
       end
+      object Export_JSON: TTabSheet
+        Caption = 'JSON'
+        object Export_JSON_SideCar: TCheckBox
+          Left = 0
+          Top = 9
+          Width = 597
+          Height = 18
+          Caption = 'Sidecar file (filename.mediainfo.json)'
+          TabOrder = 0
+          OnClick = Export_JSON_SideCarClick
+        end
+      end
       object Export_MPEG7: TTabSheet
         Caption = 'MPEG-7'
         object Export_MPEG7_SideCar: TCheckBox

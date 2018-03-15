@@ -83,6 +83,12 @@ void TExportF::Name_Adapt()
         SaveDialog1->DefaultExt=__T("xml");
         SaveDialog1->Filter=__T("XML File|*.xml");
     }
+    else if (Export->ActivePage==Export_JSON)
+    {
+        FN.Extension_Set(__T("json"));
+        SaveDialog1->DefaultExt=__T("json");
+        SaveDialog1->Filter=__T("JSON File|*.json");
+    }
     else if (Export->ActivePage==Export_MPEG7)
     {
         FN.Extension_Set(__T("xml"));
@@ -197,6 +203,8 @@ int TExportF::Run(MediaInfoNameSpace::MediaInfoList &MI, ZenLib::Ztring DefaultF
         Export->ActivePage=Export_XML;
     else if (Info==__T("MIXML"))
         Export->ActivePage=Export_XML;
+    else if (Info==__T("JSON"))
+        Export->ActivePage=Export_JSON;
     else if (Info==__T("MPEG-7"))
         Export->ActivePage=Export_MPEG7;
     else if (Info==__T("PBCore_1.2"))
@@ -462,6 +470,22 @@ void TExportF::Export_Run()
         }
         Text=ToExport->Inform().c_str();
     }
+    else if (Export->ActivePage==Export_JSON)
+    {
+        ToExport->Option_Static(__T("Inform"), __T("JSON"));
+        if (Export_JSON_SideCar->Checked)
+        {
+            for (size_t Pos=0; Pos<ToExport->Count_Get(); Pos++)
+            {
+                Text=ToExport->Inform(Pos).c_str();
+                File F;
+                F.Create(Ztring(ToExport->Get(Pos, Stream_General, 0, __T("CompleteName")).c_str())+__T(".mediainfo.json"));
+                F.Write(Text);
+            }
+            return;
+        }
+        Text=ToExport->Inform().c_str();
+    }
     else if (Export->ActivePage==Export_MPEG7)
     {
         ToExport->Option_Static(__T("Inform"), __T("MPEG-7"));
@@ -717,6 +741,13 @@ void __fastcall TExportF::ExportChange(TObject *Sender)
         File_Append->Visible=false;
         Name_Choose->Visible=Export_XML_SideCar->Checked?false:true;;
     }
+    else if (Export->ActivePage==Export_JSON)
+    {
+        Export_JSON_SideCarClick(Sender);
+        File_Append->Checked=false;
+        File_Append->Visible=false;
+        Name_Choose->Visible=Export_JSON_SideCar->Checked?false:true;;
+    }
     else if (Export->ActivePage==Export_MPEG7)
     {
         Export_MPEG7_SideCarClick(Sender);
@@ -863,6 +894,12 @@ void __fastcall TExportF::CSV_Stream_OtherChange(TObject *Sender)
 void __fastcall TExportF::Export_XML_SideCarClick(TObject *Sender)
 {
     Name_Choose->Visible=Export_XML_SideCar->Checked?false:true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TExportF::Export_JSON_SideCarClick(TObject *Sender)
+{
+    Name_Choose->Visible=Export_JSON_SideCar->Checked?false:true;
 }
 //---------------------------------------------------------------------------
 

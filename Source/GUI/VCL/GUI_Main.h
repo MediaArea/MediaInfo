@@ -180,6 +180,7 @@ __published:    // IDE-managed Components
     TBitBtn *Donate_zh_TW;
     TMenuItem *M_NewVersion;
     TMenuItem *M_View_XML;
+    TMenuItem *M_View_JSON;
     TMenuItem *M_View_MPEG7;
     TMenuItem *M_View_PBCore;
     TMenuItem *M_View_PBCore2;
@@ -196,6 +197,7 @@ __published:    // IDE-managed Components
     TToolButton *Tool_Tektronix;
     TMenuItem *M_View_reVTMD;
     TMenuItem *ToolBar_View_XML;
+    TMenuItem *ToolBar_View_JSON;
     TMenuItem *ToolBar_View_MPEG7;
     TMenuItem *ToolBar_View_PBCore;
     TMenuItem *ToolBar_View_PBCore2;
@@ -276,6 +278,7 @@ __published:    // IDE-managed Components
     void __fastcall M_View_FIMS_1_2Click(TObject *Sender);
     void __fastcall M_View_FIMS_1_3Click(TObject *Sender);
     void __fastcall M_View_XMLClick(TObject *Sender);
+    void __fastcall M_View_JSONClick(TObject *Sender);
     void __fastcall M_TektronixClick(TObject *Sender);
     void __fastcall M_View_reVTMDClick(TObject *Sender);
     void __fastcall M_Debug_FullParsingClick(TObject *Sender);
