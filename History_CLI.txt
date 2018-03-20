@@ -12,6 +12,28 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 18.03, 2018-03-19
+--------------
++ AV1: support of AOmedia AV1 based on latest specifications draft, raw (OBU) and in MKV
++ MXF: HDR metadata support
++ MXF: detection and parsing of ProRes (SMPTE RDD 44)
++ MXF: framerate container/stream incoherence detection
++ DPX: endianess, packing mode, compression mode
++ AVC: add consumer camera recording date/time
++ AVC: add consumer camera model name and iris F number
++ JPEG: ICC parsing, display of ICC color space
++ EBUCore: possibility to inject external metadata in the output from MediaInfo
++ JSON output
++ Attachments: do not provide anymore attachments content in XML by default, reducing XML output size
+x colour description: trying (again!) to have more coherent labeling
+x DCP/IMF: fix crash with some CPL files
+x I782, FFV1: Golomb Rice parsing was wrong
+x I210, FFV1: remove sar_den test must be 0 if sar_num is 0
+x AAC: SBR parsing issue with 3+ channel streams, with sometimes  false-positive PS detection
+x BMP: was wrongly considering 4-bit without palette as with palette so  wrong bit depth
+x DPX: some elements in trace were wrongly displayed (wrong endianess)
+x B1082, Ancillary data: fix infinite loop
+
 Version 17.12, 2017-12-21
 --------------
 + MediaInfoOnline: https://mediaarea.net/MediaInfoOnline
