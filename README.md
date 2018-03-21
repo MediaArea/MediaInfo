@@ -6,27 +6,25 @@ MediaInfo is a convenient unified display of the most relevant technical and tag
 [![Build status](https://ci.appveyor.com/api/projects/status/msq8b4fuqfy9jmvr/branch/master?svg=true)](https://ci.appveyor.com/project/MediaArea/mediainfo/branch/master)
 
 
-
 # How to build MediaInfo
 
-## Build under Unix (Mac and Linux)
+## Build under MacOS and Linux
 
 First, you must create a directory which will receive the MediaInfo directory, and ZenLib and MediaInfoLib if you decide to compile them yourself.
 
 In this document, this directory will be referred as $BUILD_DIR.
 
-### Dependancies under Mac
+### Dependencies under MacOS
 
 #### macport
 
-Some dependencies are available with macport. To install macport:
-https://guide.macports.org/#installing
+Some dependencies are available with macport. To install macport see: https://guide.macports.org/#installing
 
 ```sh
 port install autoconf automake libtool pkgconfig zlib wxWidgets-3.0
 ```
 
-### Dependancies under Linux
+### Dependencies under Linux
 
 #### Listing
 
@@ -145,7 +143,7 @@ zypper install libqt4-devel libQtWebKit-devel update-desktop-files
 ### Build MediaInfo CLI
 
 
-When you have done all the prerequisite for you configuration, you can build MediaInfo. We start with the CLI.
+When you have done all the prerequisite for your configuration, then build MediaInfo. We start with the CLI.
 
 ```sh
 cd $BUILD_DIR
@@ -154,7 +152,7 @@ cd MediaInfo/Project/GNU/CLI
 ./autogen.sh
 ```
 
-##### Then, under Mac:
+##### Then, under MacOS:
 
 ```sh
 ./configure --enable-staticlibs
@@ -184,7 +182,7 @@ make
 
 If you have already build the CLI, no need to run git twice. In fact, if you re-run git with an existing MediaInfo directory, git will complain and exit.
 
-To compile MediaInfo GUI under Mac and Linux:
+To compile MediaInfo GUI under MacOS and Linux:
 
 ```sh
 cd $BUILD_DIR
@@ -193,7 +191,7 @@ cd MediaInfo/Project/GNU/CLI
 ./autogen.sh
 ```
 
-##### Then, under Mac:
+##### Then, under MacOS:
 
 ```sh
 export PATH=$PATH:/opt/local/Library/Frameworks/wxWidgets.framework/Versions/wxWidgets/3/0/bin
@@ -224,7 +222,7 @@ make
 
 #### ZenLib
 
-To compile ZenLib under Mac and Linux:
+To compile ZenLib under MacOS and Linux:
 
 ```sh
 cd $BUILD_DIR
@@ -237,7 +235,7 @@ make
 
 #### MediaInfoLib
 
-To compile MediaInfoLib under Mac and Linux:
+To compile MediaInfoLib under MacOS and Linux:
 
 ```sh
 cd $BUILD_DIR
@@ -252,4 +250,4 @@ MediaInfo - https://github.com/MediaArea/MediaInfo
 Copyright (c) MediaArea.net SARL. All Rights Reserved.
 
 This program is freeware under BSD-2-Clause license conditions.
-See License.html for more information
+See the [License.html](http://htmlpreview.github.io/?https://github.com/MediaArea/MediaInfo/blob/master/License.html) for more information
