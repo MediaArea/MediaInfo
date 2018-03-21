@@ -16,9 +16,9 @@ In this document, this directory will be referred as $BUILD_DIR.
 
 ### Dependencies under macOS
 
-#### macport
+#### MacPorts
 
-Some dependencies are available with macport. To install macport:
+Some dependencies are available with MacPorts. To install MacPorts:
 https://guide.macports.org/#installing
 
 ```sh
