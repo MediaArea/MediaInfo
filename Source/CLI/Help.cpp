@@ -61,7 +61,7 @@ int Help()
     TEXTOUT("                    Full information Display using JSON");    
     TEXTOUT("--Output=EBUCore");
     TEXTOUT("                    Full information Display with EBUCore compliant XML tags");
-    TEXTOUT("--Output=EBUCore_1.8_JSON");
+    TEXTOUT("--Output=EBUCore_JSON");
     TEXTOUT("                    Full information Display with EBUCore 1.8 compliant JSON");
     TEXTOUT("--Output=PBCore");
     TEXTOUT("                    Full information Display with PBCore compliant XML tags");
