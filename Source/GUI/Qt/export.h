@@ -7,9 +7,9 @@
 #ifndef EXPORT_H
 #define EXPORT_H
 
-#include <QtGui/QDialog>
-#include <QtCore/QIODevice>
-#include <QtCore/QDebug>
+#include <QDialog>
+#include <QIODevice>
+#include <QDebug>
 
 namespace Ui {
     class Export;
@@ -22,11 +22,20 @@ public:
         TEXT=0,
         HTML=1,
         XML,
+        JSON,
         PBCORE,
         PBCORE2,
+        EBUCORE_1_5,
+        EBUCORE_1_6,
+        EBUCORE_1_8_ps,
+        EBUCORE_1_8_sp,
+        EBUCORE_1_8_ps_JSON,
+        EBUCORE_1_8_sp_JSON,
+        FIMS_1_1,
+        FIMS_1_2,
+        FIMS_1_3,
         MPEG7,
         CSV,
-
         NB_EXPORT_MODE
     };
 

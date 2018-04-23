@@ -6,11 +6,11 @@
 
 #include "sheetview.h"
 #include "translate.h"
-#include "_Automated/ui_sheetview.h"
+#include "ui_sheetview.h"
 #include "sheet.h"
 #include "mainwindow.h"
-#include <QtGui/QDesktopServices>
-#include <QtCore/QUrl>
+#include <QDesktopServices>
+#include <QUrl>
 
 #include <ZenLib/Ztring.h>
 using namespace ZenLib;

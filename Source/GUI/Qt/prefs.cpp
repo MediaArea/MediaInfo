@@ -4,10 +4,10 @@
  *  be found in the License.html file in the root of the source tree.
  */
 
-#include "preferences.h"
+#include "prefs.h"
 #include "translate.h"
-#include "_Automated/ui_preferences.h"
-#include <QtGui/QLabel>
+#include "ui_prefs.h"
+#include <QLabel>
 #include "views.h"
 #include "sheet.h"
 #include "configtreetext.h"

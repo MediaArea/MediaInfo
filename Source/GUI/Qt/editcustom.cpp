@@ -6,9 +6,9 @@
 
 #include "translate.h"
 #include "editcustom.h"
-#include "_Automated/ui_editcustom.h"
+#include "ui_editcustom.h"
 
-#include <QtGui/QTextEdit>
+#include <QTextEdit>
 
 #include <ZenLib/Ztring.h>
 using namespace ZenLib;

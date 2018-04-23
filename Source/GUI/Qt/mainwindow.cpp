@@ -6,23 +6,24 @@
 
 #include "mainwindow.h"
 #include "translate.h"
-#include "_Automated/ui_mainwindow.h"
+#include "ui_mainwindow.h"
 
 #include <iostream>
 #include <iomanip>
-#include <QtGui/QDropEvent>
-#include <QtGui/QFileDialog>
-#include <QtGui/QMessageBox>
-#include <QtCore/QDir>
-#include <QtGui/QActionGroup>
-#include <QtGui/QTextBrowser>
-#include <QtGui/QLabel>
-#include <QtCore/QSettings>
-#include <QtXml/QDomDocument>
-#include <QtGui/QTreeWidget>
-#include <QtGui/QToolButton>
+#include <QDropEvent>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QDir>
+#include <QMimeData>
+#include <QActionGroup>
+#include <QTextBrowser>
+#include <QLabel>
+#include <QSettings>
+#include <QDomDocument>
+#include <QTreeWidget>
+#include <QToolButton>
 #include "easyviewwidget.h"
-#include "preferences.h"
+#include "prefs.h"
 #include "about.h"
 #include "export.h"
 #include "sheetview.h"
@@ -43,7 +44,7 @@ using namespace ZenLib;
 #define QString2wstring(_DATA) \
     Ztring().From_UTF8(_DATA.toUtf8())
 
-#define VERSION "0.7.34"
+#define VERSION "18.03.1"
 
 MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -69,7 +70,7 @@ MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) :
         ui->menuView->addAction(action);
         menuItemGroup->addAction(action);
     }
-    connect(menuItemGroup,SIGNAL(selected(QAction*)),SLOT(actionView_toggled(QAction*)));
+    connect(menuItemGroup,SIGNAL(triggered(QAction*)),SLOT(actionView_toggled(QAction*)));
     menuItemGroup->setParent(ui->menuView);
 
     QToolButton* tb = new QToolButton(ui->toolBar);
@@ -85,10 +86,10 @@ MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) :
 
     //tests
     ui->actionQuit->setIcon(style()->standardIcon(QStyle::SP_DialogCloseButton));
-    ui->actionOpen->setIcon(style()->standardIcon(QStyle::SP_DialogOpenButton));
-    ui->actionOpen_Folder->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
-    ui->actionAbout->setIcon(style()->standardIcon(QStyle::SP_DialogHelpButton));
-    ui->actionExport->setIcon(style()->standardIcon(QStyle::SP_DialogSaveButton));
+    ui->actionOpen->setIcon(QIcon(":/icon/openfile.svg"));
+    ui->actionOpen_Folder->setIcon(QIcon(":/icon/opendir.svg"));
+    ui->actionAbout->setIcon(QIcon(":/icon/about.svg"));
+    ui->actionExport->setIcon(QIcon(":/icon/export.svg"));
     /* TODO
     QIcon::setThemeName("gnome-dust");
     ui->actionQuit->setIcon(QIcon::fromTheme("application-exit"));
@@ -126,10 +127,9 @@ MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-#ifdef NEW_VERSION
 }
 
-
+#ifdef NEW_VERSION
 bool MainWindow::isNewer(QString distant, QString local) {
     QStringList local_list = local.split(".");
     QStringList distant_list = distant.split(".");
@@ -188,8 +188,8 @@ void MainWindow::updateToNewVersion() {
 void MainWindow::httpReadyRead()
 {
         file.append(reply->readAll());
-    #endif //NEW_VERSION
 }
+#endif //NEW_VERSION
 
 void MainWindow::toolBarOptions(QPoint p) {
     QMenu menu("toolbar options",ui->toolBar);
@@ -415,6 +415,65 @@ void MainWindow::refreshDisplay() {
                 xis->setContent(wstring2QString(C->Inform_Get()));
                 ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
                 break;
+            case VIEW_EBUCORE_1_5:
+                C->Menu_View_EBUCore_1_5();
+                viewWidget = new QTextBrowser();
+                xis = new QDomDocument();
+                xis->setContent(wstring2QString(C->Inform_Get()));
+                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                break;
+            case VIEW_EBUCORE_1_6:
+                C->Menu_View_EBUCore_1_6();
+                viewWidget = new QTextBrowser();
+                xis = new QDomDocument();
+                xis->setContent(wstring2QString(C->Inform_Get()));
+                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                break;
+            case VIEW_EBUCORE_1_8_ps:
+                C->Menu_View_EBUCore_1_8_ps();
+                viewWidget = new QTextBrowser();
+                xis = new QDomDocument();
+                xis->setContent(wstring2QString(C->Inform_Get()));
+                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                break;
+            case VIEW_EBUCORE_1_8_sp:
+                C->Menu_View_EBUCore_1_8_sp();
+                viewWidget = new QTextBrowser();
+                xis = new QDomDocument();
+                xis->setContent(wstring2QString(C->Inform_Get()));
+                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                break;
+            case VIEW_EBUCORE_1_8_ps_JSON:
+                C->Menu_View_EBUCore_1_8_ps_json();
+                viewWidget = new QTextBrowser();
+                ((QTextBrowser*)viewWidget)->setText(wstring2QString(C->Inform_Get()));
+                break;
+            case VIEW_EBUCORE_1_8_sp_JSON:
+                C->Menu_View_EBUCore_1_8_sp_json();
+                viewWidget = new QTextBrowser();
+                ((QTextBrowser*)viewWidget)->setText(wstring2QString(C->Inform_Get()));
+                break;
+            case VIEW_FIMS_1_1:
+                C->Menu_View_FIMS_1_1();
+                viewWidget = new QTextBrowser();
+                xis = new QDomDocument();
+                xis->setContent(wstring2QString(C->Inform_Get()));
+                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                break;
+            case VIEW_FIMS_1_2:
+                C->Menu_View_FIMS_1_2();
+                viewWidget = new QTextBrowser();
+                xis = new QDomDocument();
+                xis->setContent(wstring2QString(C->Inform_Get()));
+                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                break;
+            case VIEW_FIMS_1_3:
+                C->Menu_View_FIMS_1_3();
+                viewWidget = new QTextBrowser();
+                xis = new QDomDocument();
+                xis->setContent(wstring2QString(C->Inform_Get()));
+                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                break;
             case VIEW_MPEG7:
                 C->Menu_View_MPEG7();
                 viewWidget = new QTextBrowser();
@@ -428,6 +487,11 @@ void MainWindow::refreshDisplay() {
                 xis = new QDomDocument();
                 xis->setContent(wstring2QString(C->Inform_Get()));
                 ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                break;
+            case VIEW_JSON:
+                C->Menu_View_JSON();
+                viewWidget = new QTextBrowser();
+                ((QTextBrowser*)viewWidget)->setText(wstring2QString(C->Inform_Get()));
                 break;
             case VIEW_EASY:
                 C->Menu_View_Easy();
@@ -713,7 +777,7 @@ void MainWindow::on_actionOpen_Folder_triggered()
 
 void MainWindow::on_actionAbout_triggered()
 {
-    About a(this);
+    About a(VERSION, this);
     a.exec();
 }
 
@@ -806,12 +870,54 @@ void MainWindow::on_actionExport_triggered()
             C->Menu_View_XML();
             file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
             break;
+        case Export::JSON:
+            C->Menu_View_JSON();
+            file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
+            break;
         case Export::PBCORE:
             C->Menu_View_PBCore();
             file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
             break;
         case Export::PBCORE2:
             C->Menu_View_PBCore2();
+            file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
+            break;
+
+        case Export::EBUCORE_1_5:
+            C->Menu_View_EBUCore_1_5();
+            file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
+            break;
+        case Export::EBUCORE_1_6:
+            C->Menu_View_EBUCore_1_6();
+            file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
+            break;
+
+        case Export::EBUCORE_1_8_ps:
+            C->Menu_View_EBUCore_1_8_ps();
+            file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
+            break;
+        case Export::EBUCORE_1_8_sp:
+            C->Menu_View_EBUCore_1_8_sp();
+            file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
+            break;
+        case Export::EBUCORE_1_8_ps_JSON:
+            C->Menu_View_EBUCore_1_8_ps_json();
+            file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
+            break;
+        case Export::EBUCORE_1_8_sp_JSON:
+            C->Menu_View_EBUCore_1_8_sp_json();
+            file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
+            break;
+        case Export::FIMS_1_1:
+            C->Menu_View_FIMS_1_1();
+            file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
+            break;
+        case Export::FIMS_1_2:
+            C->Menu_View_FIMS_1_2();
+            file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
+            break;
+        case Export::FIMS_1_3:
+            C->Menu_View_FIMS_1_3();
             file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
             break;
         case Export::MPEG7:

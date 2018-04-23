@@ -7,7 +7,7 @@
 #ifndef EDITCUSTOM_H
 #define EDITCUSTOM_H
 
-#include <QtGui/QDialog>
+#include <QDialog>
 #include "Common/Core.h"
 #include "custom.h"
 

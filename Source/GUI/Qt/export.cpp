@@ -6,9 +6,9 @@
 
 #include "export.h"
 #include "translate.h"
-#include "_Automated/ui_export.h"
-#include <QtGui/QFileDialog>
-#include <QtGui/QMessageBox>
+#include "ui_export.h"
+#include <QFileDialog>
+#include <QMessageBox>
 #include "configtreetext.h"
 #include "mainwindow.h"
 
@@ -83,13 +83,18 @@ QString Export::extension(int mode) {
         break;
     case HTML: return "html";
         break;
-    case XML: return "xml";
+    case XML:
+    case PBCORE:
+    case PBCORE2:
+    case MPEG7:
+    case EBUCORE_1_5:
+    case EBUCORE_1_6:
+    case EBUCORE_1_8_ps:
+    case EBUCORE_1_8_sp: return "xml";
         break;
-    case PBCORE: return "xml";
-        break;
-    case PBCORE2: return "xml";
-        break;
-    case MPEG7: return "xml";
+    case JSON:
+    case EBUCORE_1_8_ps_JSON:
+    case EBUCORE_1_8_sp_JSON: return "json";
         break;
     case CSV: return "csv";
         break;
@@ -105,12 +110,28 @@ QString Export::name(int mode) {
         break;
     case XML: return Tr("XML");
         break;
+    case JSON: return Tr("JSON");
+        break;
     case PBCORE: return Tr("PBCore");
         break;
     case PBCORE2: return Tr("PBCore 2");
         break;
     case MPEG7: return Tr("MPEG-7");
         break;
+   case EBUCORE_1_8_ps: return Tr("EBUCore 1.8 parameter then segment");
+       break;
+   case EBUCORE_1_8_sp: return Tr("EBUCore 1.8 segment then parameter");
+       break;
+   case EBUCORE_1_8_ps_JSON: return Tr("EBUCore 1.8 parameter then segment (JSON output)");
+       break;
+   case EBUCORE_1_8_sp_JSON: return Tr("EBUCore 1.8 segment then parameter (JSON output)");
+       break;
+   case FIMS_1_1: return Tr("FIMS 1.1");
+       break;
+   case FIMS_1_2: return Tr("FIMS 1.2");
+       break;
+   case FIMS_1_3: return Tr("FIMS 1.3");
+       break;
     case CSV: return Tr("CSV");
         break;
     }
@@ -129,9 +150,19 @@ void Export::on_comboBoxMode_currentIndexChanged(int index)
         ui->checkBoxAdvanced->setEnabled(true);
         break;
     case XML:
+    case JSON:
     case PBCORE:
     case PBCORE2:
     case MPEG7:
+    case EBUCORE_1_5:
+    case EBUCORE_1_6:
+    case EBUCORE_1_8_ps:
+    case EBUCORE_1_8_sp:
+    case EBUCORE_1_8_ps_JSON:
+    case EBUCORE_1_8_sp_JSON:
+    case FIMS_1_1:
+    case FIMS_1_2:
+    case FIMS_1_3:
         ui->comboBoxConfig->setEnabled(false);
         ui->checkBoxAdvanced->setEnabled(false);
         break;

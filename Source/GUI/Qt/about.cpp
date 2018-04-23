@@ -6,15 +6,16 @@
 
 #include "translate.h"
 #include "about.h"
-#include "_Automated/ui_about.h"
-#include <QtGui/QDesktopServices>
-#include <QtCore/QUrl>
+#include "ui_about.h"
+#include <QDesktopServices>
+#include <QUrl>
 
-About::About(QWidget *parent) :
+About::About(const QString& version, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::About)
 {
     ui->setupUi(this);
+    ui->aboutText->setText(ui->aboutText->text().replace("VERSION", version));
 }
 
 About::~About()
@@ -41,7 +42,7 @@ void About::on_okButton_clicked()
 
 void About::on_website_clicked()
 {
-    QDesktopServices::openUrl(QUrl("http://MediaArea.net/MediaInfo"));
+    QDesktopServices::openUrl(QUrl("https://MediaArea.net/MediaInfo"));
 }
 
 void About::on_mail_clicked()
@@ -51,11 +52,11 @@ void About::on_mail_clicked()
 
 void About::on_donate_clicked()
 {
-    QDesktopServices::openUrl(QUrl("http://MediaArea.net/MediaInfo/Donate"));
+    QDesktopServices::openUrl(QUrl("https://MediaArea.net/MediaInfo/Donate"));
 }
 
 void About::on_checkversion_clicked()
 {
-    QDesktopServices::openUrl(QUrl("http://MediaArea.net/MediaInfo"));
+    QDesktopServices::openUrl(QUrl("https://MediaArea.net/MediaInfo"));
     // copied from the VCL interface, not adapted for multi-plateform.
 }

@@ -5,10 +5,10 @@
  */
 
 #include "easyviewwidget.h"
-#include <QtGui/QGroupBox>
-#include <QtGui/QLabel>
-#include <QtGui/QBoxLayout>
-#include <QtGui/QComboBox>
+#include <QGroupBox>
+#include <QLabel>
+#include <QBoxLayout>
+#include <QComboBox>
 
 #include <ZenLib/Ztring.h>
 using namespace ZenLib;

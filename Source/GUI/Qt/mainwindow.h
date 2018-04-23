@@ -7,21 +7,21 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QtGui/QMainWindow>
+#include <QMainWindow>
 #include "Common/Core.h"
-#include <QtCore/QSettings>
-#include <QtCore/QDir>
-#include <QtGui/QTreeWidget>
-#include <QtGui/QTextBrowser>
-#include <QtGui/QProgressDialog>
-#include <QtCore/QTimer>
+#include <QSettings>
+#include <QDir>
+#include <QTreeWidget>
+#include <QTextBrowser>
+#include <QProgressDialog>
+#include <QTimer>
 #include "views.h"
-#include <QtCore/QDebug>
-#include <QtCore/QUrl>
+#include <QDebug>
+#include <QUrl>
 #ifdef NEW_VERSION
-    #include <QtNetwork/QNetworkAccessManager>
-    #include <QtNetwork/QNetworkReply>
-    #include <QtCore/QTemporaryFile>
+    #include <QNetworkAccessManager>
+    #include <QNetworkReply>
+    #include <QTemporaryFile>
 #endif //NEW_VERSION
 
 namespace Ui {

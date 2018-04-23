@@ -5,11 +5,11 @@
  */
 
 #include "editconfigtreetext.h"
-#include "_Automated/ui_editconfigtreetext.h"
+#include "ui_editconfigtreetext.h"
 
 #include "configtreetext.h"
 #include "Common/Core.h"
-#include <QtGui/QCheckBox>
+#include <QCheckBox>
 
 #include <ZenLib/Ztring.h>
 using namespace ZenLib;
