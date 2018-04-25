@@ -838,6 +838,10 @@ void MainWindow::on_actionExport_triggered()
     Export e(name,settings->value("exportMode",Export::TEXT).toInt(),this);
     if(e.exec() == QDialog::Accepted) {
         QFile file(e.getFileName());
+
+        if(file.fileName().isEmpty())
+            return;
+
         if(!file.open(e.getOpenMode()))
             QMessageBox::warning(this,"Error","The file cannot be open");
         C->Menu_Debug_Complete(e.isAdvancedChecked());
@@ -882,7 +886,6 @@ void MainWindow::on_actionExport_triggered()
             C->Menu_View_PBCore2();
             file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
             break;
-
         case Export::EBUCORE_1_5:
             C->Menu_View_EBUCore_1_5();
             file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
@@ -891,7 +894,6 @@ void MainWindow::on_actionExport_triggered()
             C->Menu_View_EBUCore_1_6();
             file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
             break;
-
         case Export::EBUCORE_1_8_ps:
             C->Menu_View_EBUCore_1_8_ps();
             file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());

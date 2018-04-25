@@ -35,7 +35,6 @@ public:
         FIMS_1_2,
         FIMS_1_3,
         MPEG7,
-        CSV,
         NB_EXPORT_MODE
     };
 
@@ -47,6 +46,7 @@ public:
     QIODevice::OpenMode getOpenMode();
     bool isAdvancedChecked();
     QString extension(int mode);
+    QString extensionName(int mode);
     QString name(int mode);
 
 protected:
@@ -54,11 +54,12 @@ protected:
 
 private:
     Ui::Export *ui;
+    QString path;
 
 private slots:
     void on_checkBoxAdvanced_toggled(bool checked);
     void on_comboBoxMode_currentIndexChanged(int index);
-    void on_toolButton_pressed();
+    void on_buttonBox_accepted();
 };
 
 #endif // EXPORT_H

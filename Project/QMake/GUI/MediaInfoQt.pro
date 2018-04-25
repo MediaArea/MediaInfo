@@ -66,49 +66,99 @@ unix {
 }
 
 win32 {
-    contains(QT_ARCH, i386) {
-        exists(../../../../MediaInfoLib/Project/MSVC2017/Win32/Release/MediaInfoLib.lib) {
-            INCLUDEPATH += ../../../../MediaInfoLib/Source
-            LIBS += ../../../../MediaInfoLib/Project/MSVC2017/Win32/Release/MediaInfoLib.lib
-        } else {
-            error("libmediainfo not found on system")
+    contains(UWP, yes|1) {
+        INCLUDEPATH+=$$[QT_INSTALL_PREFIX]/include/QtCore/$$[QT_VERSION]
+
+        contains(QT_ARCH, i386) {
+            exists(../../../../MediaInfoLib/Project/MSVC2017/Win32/Release/MediaInfo-Static_UWP.lib) {
+                INCLUDEPATH += ../../../../MediaInfoLib/Source
+                LIBS += ../../../../MediaInfoLib/Project/MSVC2017/Win32/Release/MediaInfo-Static_UWP.lib
+            } else {
+                error("libmediainfo not found on system")
+            }
+
+            exists(../../../../ZenLib/Project/MSVC2017/Win32/Release/ZenLib_UWP.lib) {
+                INCLUDEPATH += ../../../../ZenLib/Source
+                LIBS += ../../../../ZenLib/Project/MSVC2017/Win32/Release/ZenLib_UWP.lib
+            } else {
+                error("libzen not found on system")
+            }
+
+            exists(../../../../zlib/contrib/vstudio/vc15/x86/Release/zlibuwp.lib) {
+                INCLUDEPATH += ../../../../zlib
+                LIBS += ../../../../zlib/contrib/vstudio/vc15/x86/Release/zlibuwp.lib
+            } else {
+                error("zlib not found on system")
+            }
         }
 
-        exists(../../../../ZenLib/Project/MSVC2017/Win32/Release/ZenLib.lib) {
-            INCLUDEPATH += ../../../../ZenLib/Source
-            LIBS += ../../../../ZenLib/Project/MSVC2017/Win32/Release/ZenLib.lib
-        } else {
-            error("libzen not found on system")
+        contains(QT_ARCH, x86_64) {
+            exists(../../../../MediaInfoLib/Project/MSVC2017/x64/Release/MediaInfo-Static_UWP.lib) {
+                INCLUDEPATH += ../../../../MediaInfoLib/Source
+                LIBS += ../../../../MediaInfoLib/Project/MSVC2017/x64/Release/MediaInfo-Static_UWP.lib
+            } else {
+                error("libmediainfo not found on system")
+            }
+
+            exists(../../../../ZenLib/Project/MSVC2017/x64/Release/ZenLib_UWP.lib) {
+                INCLUDEPATH += ../../../../ZenLib/Source
+                LIBS += ../../../../ZenLib/Project/MSVC2017/x64/Release/ZenLib_UWP.lib
+            } else {
+                error("libzen not found on system")
+            }
+
+            exists(../../../../zlib/contrib/vstudio/vc15/x64/Release/zlibuwp/zlibuwp.lib) {
+                INCLUDEPATH += ../../../../zlib
+                LIBS += ../../../../zlib/contrib/vstudio/vc15/x64/Release/zlibuwp/zlibuwp.lib
+            } else {
+                error("zlib not found on system")
+            }
+        }
+    } else {
+        contains(QT_ARCH, i386) {
+            exists(../../../../MediaInfoLib/Project/MSVC2017/Win32/Release/MediaInfo-Static.lib) {
+                INCLUDEPATH += ../../../../MediaInfoLib/Source
+                LIBS += ../../../../MediaInfoLib/Project/MSVC2017/Win32/Release/MediaInfo-Static.lib
+            } else {
+                error("libmediainfo not found on system")
+            }
+
+            exists(../../../../ZenLib/Project/MSVC2017/Win32/Release/ZenLib.lib) {
+                INCLUDEPATH += ../../../../ZenLib/Source
+                LIBS += ../../../../ZenLib/Project/MSVC2017/Win32/Release/ZenLib.lib
+            } else {
+                error("libzen not found on system")
+            }
+
+            exists(../../../../zlib/contrib/vstudio/vc15/x86/ZlibStatReleaseWithoutAsm/zlibstat.lib) {
+                INCLUDEPATH += ../../../../zlib
+                LIBS += ../../../../zlib/contrib/vstudio/vc15/x86/ZlibStatReleaseWithoutAsm/zlibstat.lib
+            } else {
+                error("zlib not found on system")
+            }
         }
 
-        exists(../../../../zlib/contrib/vstudio/vc15/x86/ZlibStatReleaseWithoutAsm/zlibstat.lib) {
-            INCLUDEPATH += ../../../../zlib
-            LIBS += ../../../../zlib/contrib/vstudio/vc15/x86/ZlibStatReleaseWithoutAsm/zlibstat.lib
-        } else {
-            error("zlib not found on system")
-        }
-    }
+        contains(QT_ARCH, x86_64) {
+            exists(../../../../MediaInfoLib/Project/MSVC2017/x64/Release/MediaInfo-Static.lib) {
+                INCLUDEPATH += ../../../../MediaInfoLib/Source
+                LIBS += ../../../../MediaInfoLib/Project/MSVC2017/x64/Release/MediaInfo-Static.lib
+            } else {
+                error("libmediainfo not found on system")
+            }
 
-    contains(QT_ARCH, x86_64) {
-        exists(../../../../MediaInfoLib/Project/MSVC2017/x64/Release/MediaInfo-Static.lib) {
-            INCLUDEPATH += ../../../../MediaInfoLib/Source
-            LIBS += ../../../../MediaInfoLib/Project/MSVC2017/x64/Release/MediaInfo-Static.lib
-        } else {
-            error("libmediainfo not found on system")
-        }
+            exists(../../../../ZenLib/Project/MSVC2017/x64/Release/ZenLib.lib) {
+                INCLUDEPATH += ../../../../ZenLib/Source
+                LIBS += ../../../../ZenLib/Project/MSVC2017/x64/Release/ZenLib.lib
+            } else {
+                error("libzen not found on system")
+            }
 
-        exists(../../../../ZenLib/Project/MSVC2017/x64/Release/ZenLib.lib) {
-            INCLUDEPATH += ../../../../ZenLib/Source
-            LIBS += ../../../../ZenLib/Project/MSVC2017/x64/Release/ZenLib.lib
-        } else {
-            error("libzen not found on system")
-        }
-
-        exists(../../../../zlib/contrib/vstudio/vc15/x64/ZlibStatReleaseWithoutAsm/zlibstat.lib) {
-            INCLUDEPATH += ../../../../zlib
-            LIBS += ../../../../zlib/contrib/vstudio/vc15/x64/ZlibStatReleaseWithoutAsm/zlibstat.lib
-        } else {
-            error("zlib not found on system")
+            exists(../../../../zlib/contrib/vstudio/vc15/x64/ZlibStatReleaseWithoutAsm/zlibstat.lib) {
+                INCLUDEPATH += ../../../../zlib
+                LIBS += ../../../../zlib/contrib/vstudio/vc15/x64/ZlibStatReleaseWithoutAsm/zlibstat.lib
+            } else {
+                error("zlib not found on system")
+            }
         }
     }
 }

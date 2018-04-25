@@ -14,10 +14,11 @@
 
 Export::Export(QString filename, int mode, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::Export)
+    ui(new Ui::Export),
+    path(filename)
 {
     ui->setupUi(this);
-    ui->lineEdit->setText(QDir::toNativeSeparators(filename));
+
     for(int i=0;i<Export::NB_EXPORT_MODE;i++) {
         ui->comboBoxMode->addItem(name(i),i);
         if(i==mode)
@@ -43,13 +44,6 @@ void Export::changeEvent(QEvent *e)
     }
 }
 
-void Export::on_toolButton_pressed()
-{
-    QString path = QFileDialog::getOpenFileName(this,"",QDir(ui->lineEdit->text()).absolutePath());
-    if(!path.isEmpty())
-        ui->lineEdit->setText(path);
-}
-
 int Export::getExportMode() {
     return ui->comboBoxMode->itemData(ui->comboBoxMode->currentIndex()).toInt();
 }
@@ -62,7 +56,7 @@ int Export::getExportConfig() {
 }
 
 QString Export::getFileName() {
-    return ui->lineEdit->text();
+    return path;
 }
 
 QIODevice::OpenMode Export::getOpenMode() {
@@ -96,7 +90,28 @@ QString Export::extension(int mode) {
     case EBUCORE_1_8_ps_JSON:
     case EBUCORE_1_8_sp_JSON: return "json";
         break;
-    case CSV: return "csv";
+    }
+}
+
+QString Export::extensionName(int mode) {
+    switch(mode) {
+    default:
+    case TEXT: return tr("Text");
+        break;
+    case HTML: return "HTML";
+        break;
+    case XML:
+    case PBCORE:
+    case PBCORE2:
+    case MPEG7:
+    case EBUCORE_1_5:
+    case EBUCORE_1_6:
+    case EBUCORE_1_8_ps:
+    case EBUCORE_1_8_sp: return "XML";
+        break;
+    case JSON:
+    case EBUCORE_1_8_ps_JSON:
+    case EBUCORE_1_8_sp_JSON: return "JSON";
         break;
     }
 }
@@ -118,6 +133,10 @@ QString Export::name(int mode) {
         break;
     case MPEG7: return Tr("MPEG-7");
         break;
+   case EBUCORE_1_5: return Tr("EBUCore 1.5");
+       break;
+   case EBUCORE_1_6: return Tr("EBUCore 1.6");
+       break;
    case EBUCORE_1_8_ps: return Tr("EBUCore 1.8 parameter then segment");
        break;
    case EBUCORE_1_8_sp: return Tr("EBUCore 1.8 segment then parameter");
@@ -132,16 +151,14 @@ QString Export::name(int mode) {
        break;
    case FIMS_1_3: return Tr("FIMS 1.3");
        break;
-    case CSV: return Tr("CSV");
-        break;
     }
 }
 
 void Export::on_comboBoxMode_currentIndexChanged(int index)
 {
-    QStringList filename = ui->lineEdit->text().split(".");
+    QStringList filename = path.split(".");
     filename[filename.size()-1] = extension(index);
-    ui->lineEdit->setText(filename.join("."));
+    path = filename.join(".");
 
     switch(index) {
     default:
@@ -166,7 +183,6 @@ void Export::on_comboBoxMode_currentIndexChanged(int index)
         ui->comboBoxConfig->setEnabled(false);
         ui->checkBoxAdvanced->setEnabled(false);
         break;
-    case CSV:
     case HTML:
         ui->comboBoxConfig->setEnabled(false);
         ui->checkBoxAdvanced->setEnabled(true);
@@ -177,4 +193,9 @@ void Export::on_comboBoxMode_currentIndexChanged(int index)
 void Export::on_checkBoxAdvanced_toggled(bool checked)
 {
     ui->comboBoxConfig->setEnabled( (!checked) && (ui->comboBoxMode->itemData(ui->comboBoxMode->currentIndex()).toInt()==TEXT) );
+}
+
+void Export::on_buttonBox_accepted()
+{
+    path = QFileDialog::getSaveFileName(this,tr("Save File"),QDir(path).absolutePath(), QString(tr("%1 files (*.%2);;all files (*.*)")).arg(extensionName(getExportMode()), extension(getExportMode())));
 }
