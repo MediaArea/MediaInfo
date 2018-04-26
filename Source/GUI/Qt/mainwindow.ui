@@ -77,13 +77,6 @@
     <addaction name="actionAdapt_columns_to_content"/>
     <addaction name="actionAdvanced_Mode"/>
    </widget>
-   <widget class="QMenu" name="menuLanguage">
-    <property name="title">
-     <string>Language</string>
-    </property>
-    <addaction name="actionEnglish"/>
-    <addaction name="actionFran_ais"/>
-   </widget>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>File</string>
@@ -98,7 +91,6 @@
    <addaction name="menuView"/>
    <addaction name="menuOptions"/>
    <addaction name="menuHelp"/>
-   <addaction name="menuLanguage"/>
   </widget>
   <widget class="QToolBar" name="toolBar">
    <property name="enabled">

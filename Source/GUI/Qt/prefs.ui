@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>437</width>
-    <height>215</height>
+    <width>823</width>
+    <height>441</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Preferences</string>
@@ -16,11 +22,18 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="sizeConstraint">
-    <enum>QLayout::SetFixedSize</enum>
-   </property>
-   <item>
+  <layout class="QGridLayout" name="gridLayout_3">
+   <item row="1" column="0">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QTreeWidget" name="treeWidget">
@@ -90,21 +103,13 @@
           <string>4</string>
          </property>
         </item>
-        <item>
-         <property name="text">
-          <string>Language</string>
-         </property>
-         <property name="text">
-          <string>5</string>
-         </property>
-        </item>
        </item>
       </widget>
      </item>
      <item>
       <widget class="QStackedWidget" name="stackedWidget">
        <property name="currentIndex">
-        <number>5</number>
+        <number>4</number>
        </property>
        <widget class="QWidget" name="Setup">
         <property name="sizePolicy">
@@ -113,39 +118,18 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <layout class="QGridLayout" name="gridLayout" columnstretch="25,75">
+        <layout class="QGridLayout" name="gridLayout" columnstretch="25,0">
          <property name="sizeConstraint">
           <enum>QLayout::SetFixedSize</enum>
          </property>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label">
+         <item row="1" column="0">
+          <widget class="QCheckBox" name="checkForNewVersion">
            <property name="text">
-            <string>Language</string>
+            <string>Check for new versions</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QComboBox" name="comboBox_language">
-           <item>
-            <property name="text">
-             <string>Français</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>English</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Default View</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
           <widget class="QComboBox" name="comboBox_defaultview">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -155,14 +139,21 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
-          <widget class="QCheckBox" name="checkForNewVersion">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>Check for new versions</string>
+            <string>Default View</string>
            </property>
           </widget>
          </item>
          <item row="3" column="0">
+          <widget class="QCheckBox" name="shellInfoTip">
+           <property name="text">
+            <string>Shell InfoTip</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
           <widget class="QCheckBox" name="shellExtension">
            <property name="text">
             <string>Shell extension</string>
@@ -170,11 +161,17 @@
           </widget>
          </item>
          <item row="4" column="0">
-          <widget class="QCheckBox" name="shellInfoTip">
-           <property name="text">
-            <string>Shell InfoTip</string>
+          <spacer name="verticalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
            </property>
-          </widget>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </widget>
@@ -183,7 +180,7 @@
          <property name="geometry">
           <rect>
            <x>9</x>
-           <y>10</y>
+           <y>40</y>
            <width>271</width>
            <height>22</height>
           </rect>
@@ -196,7 +193,7 @@
          <property name="geometry">
           <rect>
            <x>9</x>
-           <y>68</y>
+           <y>100</y>
            <width>271</width>
            <height>22</height>
           </rect>
@@ -209,7 +206,7 @@
          <property name="geometry">
           <rect>
            <x>9</x>
-           <y>126</y>
+           <y>10</y>
            <width>271</width>
            <height>22</height>
           </rect>
@@ -222,7 +219,7 @@
          <property name="geometry">
           <rect>
            <x>50</x>
-           <y>40</y>
+           <y>70</y>
            <width>231</width>
            <height>22</height>
           </rect>
@@ -235,7 +232,7 @@
          <property name="geometry">
           <rect>
            <x>9</x>
-           <y>97</y>
+           <y>130</y>
            <width>271</width>
            <height>22</height>
           </rect>
@@ -425,71 +422,9 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="page">
-        <layout class="QVBoxLayout" name="verticalLayout_6">
-         <item>
-          <widget class="QLabel" name="label_6">
-           <property name="text">
-            <string>Choose your desired language</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QComboBox" name="comboBox_5"/>
-         </item>
-         <item>
-          <spacer name="verticalSpacer_4">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_4">
-           <item>
-            <widget class="QPushButton" name="pushButton_9">
-             <property name="text">
-              <string>Delete</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_8">
-             <property name="text">
-              <string>Edit</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_7">
-             <property name="text">
-              <string>New</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
       </widget>
      </item>
     </layout>
-   </item>
-   <item>
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
    </item>
   </layout>
  </widget>
