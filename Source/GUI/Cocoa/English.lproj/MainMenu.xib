@@ -623,6 +623,12 @@
                                     <action selector="selectTextTab:" target="-1" id="601"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="XML" id="o0W-Nz-FBX">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="selectViewXML:" target="-1" id="NDL-pp-lKy"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="JSON" id="p8X-bL-6KX">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
@@ -699,6 +705,12 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="selectViewFIMS13:" target="-1" id="fui-jY-KS1"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="NISO Z39.87" id="pPO-aY-YEy">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="selectViewNISO_Z39_87:" target="-1" id="gaB-0q-gls"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="reVTMD" id="AYy-qK-WOQ">

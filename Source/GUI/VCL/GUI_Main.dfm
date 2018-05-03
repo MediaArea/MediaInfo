@@ -2228,6 +2228,12 @@ object MainF: TMainF
         RadioItem = True
         OnClick = M_View_reVTMDClick
       end
+      object M_View_NISO_Z39_87: TMenuItem
+        AutoCheck = True
+        Caption = 'NISO Z39.87'
+        RadioItem = True
+        OnClick = M_View_NISO_Z39_87Click
+      end
       object M_View_Custom: TMenuItem
         AutoCheck = True
         Caption = 'Custom'
@@ -3945,6 +3951,10 @@ object MainF: TMainF
     end
     object ToolBar_View_FIMS_1_3: TMenuItem
       Caption = 'FIMS 1.3 (beta)'
+    end
+    object ToolBar_View_NISO_Z39_87: TMenuItem
+      Caption = 'NISO Z39.87'
+      RadioItem = True
     end
     object ToolBar_View_reVTMD: TMenuItem
       Caption = 'reVTMD'

@@ -81,6 +81,7 @@ QString Export::extension(int mode) {
     case PBCORE:
     case PBCORE2:
     case MPEG7:
+    case NISO_Z39_87:
     case EBUCORE_1_5:
     case EBUCORE_1_6:
     case EBUCORE_1_8_ps:
@@ -104,6 +105,7 @@ QString Export::extensionName(int mode) {
     case PBCORE:
     case PBCORE2:
     case MPEG7:
+    case NISO_Z39_87:
     case EBUCORE_1_5:
     case EBUCORE_1_6:
     case EBUCORE_1_8_ps:
@@ -151,6 +153,8 @@ QString Export::name(int mode) {
        break;
    case FIMS_1_3: return Tr("FIMS 1.3");
        break;
+    case NISO_Z39_87: return Tr("NISO Z39.87");
+        break;
     }
 }
 
@@ -180,6 +184,7 @@ void Export::on_comboBoxMode_currentIndexChanged(int index)
     case FIMS_1_1:
     case FIMS_1_2:
     case FIMS_1_3:
+    case NISO_Z39_87:
         ui->comboBoxConfig->setEnabled(false);
         ui->checkBoxAdvanced->setEnabled(false);
         break;
