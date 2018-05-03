@@ -8,6 +8,15 @@
 #include "translate.h"
 #include "ui_mainwindow.h"
 
+#include "easyviewwidget.h"
+#include "prefs.h"
+#include "about.h"
+#include "export.h"
+#include "sheetview.h"
+#include "sheet.h"
+#include "configtreetext.h"
+#include "custom.h"
+
 #include <iostream>
 #include <iomanip>
 #include <QDropEvent>
@@ -22,14 +31,9 @@
 #include <QDomDocument>
 #include <QTreeWidget>
 #include <QToolButton>
-#include "easyviewwidget.h"
-#include "prefs.h"
-#include "about.h"
-#include "export.h"
-#include "sheetview.h"
-#include "sheet.h"
-#include "configtreetext.h"
-#include "custom.h"
+#include <QToolBar>
+#include <QMainWindow>
+#include <QMenuBar>
 /*
 #include <qwt/qwt_plot.h>
 #include <qwt/qwt_plot_curve.h>
@@ -45,13 +49,128 @@ using namespace ZenLib;
     Ztring().From_UTF8(_DATA.toUtf8())
 
 #define VERSION "18.03.1"
+#if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) //UWP Application
+#include <QtPlatformHeaders/QWindowsWindowFunctions>
+#include <ZenLib/Os_Utils.h>
+
+//TODO: Use public Qt API when available (see Qt bug #49299)
+#include <QtCore/private/qeventdispatcher_winrt_p.h>
+
+#include <wrl.h>
+#include <windows.foundation.h>
+#include <windows.storage.h>
+#include <windows.storage.pickers.h>
+#include <windows.storage.accesscache.h>
+#include <windows.storage.streams.h>
+
+using namespace Microsoft::WRL;
+using namespace Microsoft::WRL::Wrappers;
+using namespace ABI::Windows::Foundation;
+using namespace ABI::Windows::Foundation::Collections;
+using namespace ABI::Windows::Storage;
+using namespace ABI::Windows::Storage::Pickers;
+using namespace ABI::Windows::Storage::AccessCache;
+using namespace ABI::Windows::Storage::Streams;
+
+static inline HRESULT showFilesPicker(ComPtr<IAsyncOperation<IVectorView<StorageFile*>*> >& AsyncFiles)
+{
+    ComPtr<IFileOpenPicker> Picker;
+    HRESULT ToReturn;
+
+    if (FAILED(ToReturn = ActivateInstance(HString::MakeReference(RuntimeClass_Windows_Storage_Pickers_FileOpenPicker).Get(), &Picker)) || !Picker)
+    {
+        qDebug() << "WinRT: unable to initialize picker";
+        return ToReturn;
+    }
+
+    if (FAILED(ToReturn = Picker->put_ViewMode(PickerViewMode_Thumbnail)))
+    {
+        qDebug() << "WinRT: Unable to set view mode";
+        return ToReturn;
+    }
+
+    if (FAILED(ToReturn = Picker->put_SuggestedStartLocation(PickerLocationId_VideosLibrary)))
+    {
+        qDebug() << "WinRT: Unable to set location";
+        return ToReturn;
+    }
+
+    ComPtr<IVector<HSTRING> > FileTypes;
+
+    if (FAILED(ToReturn = Picker->get_FileTypeFilter(&FileTypes)) || !FileTypes)
+    {
+        qDebug() << "WinRT: Unable to get files filter";
+        return ToReturn;
+    }
+
+    if (FAILED(ToReturn = FileTypes->Append(HString::MakeReference(L"*").Get())))
+    {
+        qDebug() << "WinRT: Unable to append files filter";
+        return ToReturn;
+    }
+
+    if (FAILED(ToReturn = Picker->PickMultipleFilesAsync(&AsyncFiles)) || !AsyncFiles)
+    {
+        qDebug() << "WinRT: unable to pick files";
+        return ToReturn;
+    }
+
+    return ToReturn;
+}
+
+static inline HRESULT showFolderPicker(ComPtr<IAsyncOperation<StorageFolder*> >& AsyncFolder)
+{
+    ComPtr<IFolderPicker> Picker;
+    HRESULT ToReturn;
+
+    if (FAILED(ToReturn = ActivateInstance(HString::MakeReference(RuntimeClass_Windows_Storage_Pickers_FolderPicker).Get(), &Picker)) || !Picker)
+    {
+        qDebug() << "WinRT: unable to initialize picker";
+        return ToReturn;
+    }
+
+    if (FAILED(ToReturn = Picker->put_SuggestedStartLocation(PickerLocationId_VideosLibrary)))
+    {
+        qDebug() << "WinRT: Unable to set location";
+        return ToReturn;
+    }
+
+    ComPtr<IVector<HSTRING> > FileTypes;
+
+    if (FAILED(ToReturn = Picker->get_FileTypeFilter(&FileTypes)) || !FileTypes)
+    {
+        qDebug() << "WinRT: Unable to get files filter";
+        return ToReturn;
+    }
+
+    if (FAILED(ToReturn = FileTypes->Append(HString::MakeReference(L"*").Get())))
+    {
+        qDebug() << "WinRT: Unable to append files filter";
+        return ToReturn;
+    }
+
+    if (FAILED(ToReturn = Picker->PickSingleFolderAsync(&AsyncFolder)) || !AsyncFolder)
+    {
+        qDebug() << "WinRT: unable to pick folder";
+        return ToReturn;
+    }
+
+    return ToReturn;
+}
+#endif
 
 MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     C = new Core();
 
-    settings = new QSettings("MediaArea.net","MediaInfo");
+#if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) //Setup UI for winRT
+    setMenuBar(new QMenuBar(0));
+#else
+    setWindowTitle("MediaInfo");
+#endif
+
+    settings = new QSettings("MediaArea.net", "MediaInfo");
     defaultSettings();
     applySettings();
 
@@ -59,45 +178,45 @@ MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) :
         view=ViewMode(viewasked);
     else
         view = (ViewMode)settings->value("defaultView",VIEW_EASY).toInt();
-    // View menu:
-    QActionGroup* menuItemGroup = new QActionGroup(this);
-    for(int v=VIEW_EASY;v<NB_VIEW;v++) {
-        QAction* action = new QAction(nameView((ViewMode)v),ui->menuView);
-        action->setCheckable(true);
-        if(view==v)
-            action->setChecked(true);
-        action->setProperty("view",v);
-        ui->menuView->addAction(action);
-        menuItemGroup->addAction(action);
-    }
-    connect(menuItemGroup,SIGNAL(triggered(QAction*)),SLOT(actionView_toggled(QAction*)));
-    menuItemGroup->setParent(ui->menuView);
 
-    QToolButton* tb = new QToolButton(ui->toolBar);
-    tb->setMenu(ui->menuView);
-    tb->setText("view");
-    tb->setPopupMode(QToolButton::InstantPopup);
-    tb->setIcon(QIcon(":/icon/view.svg"));
-    connect(ui->toolBar,SIGNAL(toolButtonStyleChanged(Qt::ToolButtonStyle)),tb,SLOT(setToolButtonStyle(Qt::ToolButtonStyle)));
-    ui->toolBar->addWidget(tb);
-
-    ui->toolBar->setContextMenuPolicy(Qt::CustomContextMenu);
-    this->connect(ui->toolBar,SIGNAL(customContextMenuRequested(QPoint)),SLOT(toolBarOptions(QPoint)));
+#if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) //Setup UI for winRT
+    addToolBar(Qt::LeftToolBarArea, ui->toolBar);
+    ui->toolBar->setFloatable(false);
+    ui->toolBar->setMovable(false);
+    ui->menuBar->hide();
+#endif
 
     //tests
     ui->actionQuit->setIcon(style()->standardIcon(QStyle::SP_DialogCloseButton));
+    ui->actionClose_All->setIcon(style()->standardIcon(QStyle::SP_DialogCloseButton));
     ui->actionOpen->setIcon(QIcon(":/icon/openfile.svg"));
     ui->actionOpen_Folder->setIcon(QIcon(":/icon/opendir.svg"));
     ui->actionAbout->setIcon(QIcon(":/icon/about.svg"));
     ui->actionExport->setIcon(QIcon(":/icon/export.svg"));
-    /* TODO
-    QIcon::setThemeName("gnome-dust");
-    ui->actionQuit->setIcon(QIcon::fromTheme("application-exit"));
-    ui->actionOpen->setIcon(QIcon::fromTheme("document-open",QIcon(":/icon/openfile.svg")));
-    ui->actionExport->setIcon(QIcon::fromTheme("document-save",QIcon(":/icon/export.svg")));
-    ui->actionAbout->setIcon(QIcon::fromTheme("help-about",QIcon(":/icon/about.svg")));
-    */
-    qDebug() << "your icon theme is " << QIcon::themeName();
+
+    menuView = new QMenu();
+   QActionGroup* menuItemGroup = new QActionGroup(this);
+   for(int v=VIEW_EASY;v<NB_VIEW;v++) {
+       QAction* action = new QAction(nameView((ViewMode)v));
+       action->setCheckable(true);
+       if(view==v)
+           action->setChecked(true);
+       action->setProperty("view",v);
+       menuItemGroup->addAction(action);
+       ui->menuView->addAction(action);
+       menuView->addAction(action);
+   }
+   connect(menuItemGroup,SIGNAL(triggered(QAction*)),this,SLOT(actionView_toggled(QAction*)));
+
+   buttonView = new QToolButton();
+   buttonView->setText("view");
+   buttonView->setIcon(QIcon(":/icon/view.svg"));
+   connect(buttonView, SIGNAL(clicked()), this, SLOT(buttonViewClicked()));
+   ui->toolBar->addWidget(buttonView);
+
+    ui->toolBar->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->toolBar,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(toolBarOptions(QPoint)));
+    connect(ui->toolBar,SIGNAL(toolButtonStyleChanged(Qt::ToolButtonStyle)),buttonView,SLOT(setToolButtonStyle(Qt::ToolButtonStyle)));
 
     timer=NULL;
     progressDialog=NULL;
@@ -192,6 +311,11 @@ void MainWindow::httpReadyRead()
 #endif //NEW_VERSION
 
 void MainWindow::toolBarOptions(QPoint p) {
+#if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) //QMenu crashes on UWP
+    Q_UNUSED(p);
+
+    return;
+#else
     QMenu menu("toolbar options",ui->toolBar);
     QMenu *menuI = new QMenu(Tr("Icon size"));
     QMenu *menuT = new QMenu(Tr("Text position"));
@@ -241,6 +365,7 @@ void MainWindow::toolBarOptions(QPoint p) {
 
     delete menuT;
     delete menuI;
+#endif
 }
 
 QString MainWindow::shortName(QDir d, QString name) {
@@ -303,7 +428,7 @@ void MainWindow::openFiles(QStringList fileNames) {
     for(int i=0;i<fileNames.size();i++) {
         fileNames[i] = QDir::toNativeSeparators(fileNames[i]);
     }
-    C->Menu_File_Open_Files_Begin(settings->value("closeBeforeOpen",true).toBool());
+    C->Menu_File_Open_Files_Begin(settings->value("closeBeforeOpen",true).toBool(), false);
     for (int Pos=0; Pos<fileNames.size(); Pos++)
         C->Menu_File_Open_Files_Continue(QString2wstring(fileNames[Pos]));
     openTimerInit();
@@ -353,7 +478,7 @@ void MainWindow::openDir(QString dirName) {
 
     //Configuring
     dirName = QDir::toNativeSeparators(dirName);
-    C->Menu_File_Open_Files_Begin(settings->value("closeBeforeOpen",true).toBool());
+    C->Menu_File_Open_Files_Begin(settings->value("closeBeforeOpen",true).toBool(), false);
     C->Menu_File_Open_Directory(QString2wstring(dirName));
     openTimerInit();
 
@@ -368,12 +493,20 @@ void MainWindow::refreshDisplay() {
     ui->actionReset_field_sizes->setVisible(false);
     QWidget* viewWidget;
     ui->actionExport->setEnabled(C->Count_Get()>0);
+    ui->actionClose_All->setEnabled(C->Count_Get()>0);
     QDomDocument* xis;
 
     if(C->Count_Get()<=0) {
+#if defined(_WIN32) && defined(WINAPI_FAMILY) && WINAPI_FAMILY==WINAPI_FAMILY_APP //UWP Application
+        viewWidget = new QLabel(Tr("You must at least open 1 file.\nOpen a file or a directory."));
+#else
         viewWidget = new QLabel(Tr("You must at least open 1 file.\nOpen a file or a directory, or simply drag n drop files in the window."));
+        setWindowTitle(Tr("MediaInfo"));
+#endif
         ((QLabel*)viewWidget)->setAlignment(Qt::AlignCenter);
-    } else
+    }
+    else
+    {
         switch(view) {
             default:
             case VIEW_TEXT:
@@ -528,61 +661,14 @@ void MainWindow::refreshDisplay() {
                 break;
         }
 
-    //-------------- test QWT
-    /*QwtPlot* plot = new QwtPlot;
-    plot->setTitle("test de plot");
-    // Show the axes
-    plot->setAxisTitle( QwtPlot::xBottom, "x" );
-    plot->setAxisTitle( QwtPlot::yLeft, "y" );
-    // Calculate the data, 500 points each
-    const int points = 500;
-    double x[ points ];
-    double sn[ points ];
-    double sg[ points ];
-    for( int i=0; i<points; i++ )
-    {
-      x[i] = (3.0*3.14/double(points))*double(i);
-
-      sn[i] = 2.0*sin( x[i] );
-      sg[i] = (sn[i]>0)?1:((sn[i]<0)?-1:0);
-    }
-
-    // add curves
-    QwtPlotCurve *curve1 = new QwtPlotCurve("Curve 1");
-    QwtPlotCurve *curve2 = new QwtPlotCurve("Curve 2");
-
-    // copy the data into the curves
-    curve1->setData(x, sn, points);
-    curve2->setData(x, sg, points);
-
-    curve1->attach(plot);
-    curve2->attach(plot);
-    // Set the style of the curves
-    curve1->setPen(QPen(Qt::blue));
-    curve2->setPen(QPen(Qt::green, 3));
-    // adding a picker
-    QwtPlotPicker* picker = new QwtPlotPicker( plot->canvas() );
-    //picker->setSelectionFlags( QwtPicker::PointSelection |QwtPicker::DragSelection );
-    //picker->setRubberBand( QwtPicker::CrossRubberBand );
-    picker->setSelectionFlags(QwtPicker::RectSelection | QwtPicker::DragSelection);
-    picker->setRubberBand(QwtPicker::RectRubberBand);
-    picker->setTrackerMode( QwtPicker::AlwaysOn );
-    picker->setTrackerFont( QFont( "Helvetica", 10, QFont::Bold ) );
-    // Show the plots
-    plot->replot();
-    viewWidget=plot;*/
-
-    //-------------- fin test QWT
-
-
-    setCentralWidget(viewWidget);
-    if(C->Count_Get()>0)
+#if !defined(_WIN32) || !defined(WINAPI_FAMILY) || WINAPI_FAMILY!=WINAPI_FAMILY_APP //UWP Application
         if(C->Count_Get()==1)
-            this->setWindowTitle("MediaInfo - "+shortName(C,wstring2QString(C->Get(0, Stream_General, 0, __T("CompleteName")))));
+            setWindowTitle("MediaInfo - "+shortName(C,wstring2QString(C->Get(0, Stream_General, 0, __T("CompleteName")))));
         else
-            this->setWindowTitle(Tr("MediaInfo - %n files","window title",(int)C->Count_Get()));
-    else
-        this->setWindowTitle(Tr("MediaInfo"));
+            setWindowTitle(Tr("MediaInfo - %n files","window title",(int)C->Count_Get()));
+#endif
+    }
+    setCentralWidget(viewWidget);
 }
 
 QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
@@ -751,6 +837,9 @@ void MainWindow::applySettings() {
 
 void MainWindow::dropEvent(QDropEvent *event)
 {
+#if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) // Qt don't provide StorageFile access for d&d
+    event->ignore();
+#else
     QStringList files;
     for(int i=0;i<event->mimeData()->urls().size();i++) {
         files.push_back(event->mimeData()->urls().at(i).toLocalFile());
@@ -758,17 +847,66 @@ void MainWindow::dropEvent(QDropEvent *event)
     }
     openFiles(files);
     event->acceptProposedAction();
+#endif
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)
 {
+#if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) // Qt don't provide StorageFIle access for d&d
+    event->ignore();
+#else
     event->acceptProposedAction();
+#endif
 }
 
 void MainWindow::on_actionOpen_triggered()
 {
-    QStringList fileNames = QFileDialog::getOpenFileNames(this,Tr("Open File(s)"), getCommonDir(C).absolutePath() );
+    QStringList fileNames;
+#if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) //UWP Application
+    ComPtr<IAsyncOperation<IVectorView<StorageFile*>*> > AsyncFiles;
+    ComPtr<IVectorView<StorageFile*> > Files;
+    unsigned int Count = 0;
+
+    if (FAILED(QEventDispatcherWinRT::runOnXamlThread(std::bind(&showFilesPicker, std::ref(AsyncFiles)))) ||
+        !AsyncFiles ||
+        FAILED(Await(AsyncFiles)) ||
+        FAILED(AsyncFiles->GetResults(&Files)) ||
+        !Files ||
+        FAILED(Files->get_Size(&Count)))
+        return;
+
+    for (unsigned int Pos = 0; Pos<Count; ++Pos)
+    {
+        ComPtr<IStorageFile> File;
+        ComPtr<IStorageItem> Item;
+        HString HPath;
+        QString Path;
+
+        if (FAILED(Files->GetAt(Pos, &File)) ||
+            !File ||
+            FAILED(File->QueryInterface(IID_PPV_ARGS(&Item))) ||
+            !Item ||
+            FAILED(Item->get_Path(HPath.GetAddressOf())))
+            continue;
+
+        Path = QString().fromUtf16((ushort*)WindowsGetStringRawBuffer(HPath.Get(), NULL));
+
+        if (Path.isEmpty())
+            continue;
+
+        UINT32 Size=0;
+        PCWSTR PathBuf = WindowsGetStringRawBuffer(HPath.Get(), &Size);
+
+        Add_Item_To_FUA(HStringReference(PathBuf, Size), Item);
+
+        fileNames += Path;
+    }
+#else
+    fileNames = QFileDialog::getOpenFileNames(this, Tr("Open File(s)"), getCommonDir(C).absolutePath());
+#endif
     openFiles(fileNames);
+
+    refreshDisplay();
 }
 
 void MainWindow::on_actionQuit_triggered()
@@ -778,8 +916,44 @@ void MainWindow::on_actionQuit_triggered()
 
 void MainWindow::on_actionOpen_Folder_triggered()
 {
-    QString dirName = QFileDialog::getExistingDirectory(this,Tr("Open Folder"), getCommonDir(C).absolutePath());
+    QString dirName;
+#if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) //UWP Application
+    ComPtr<IAsyncOperation<StorageFolder*> > AsyncFolder;
+    ComPtr<IStorageFolder> Folder;
+    ComPtr<IStorageItem> Item;
+
+    if (FAILED(QEventDispatcherWinRT::runOnXamlThread(std::bind(&showFolderPicker, std::ref(AsyncFolder)))) ||
+        !AsyncFolder ||
+        FAILED(Await(AsyncFolder)) ||
+        FAILED(AsyncFolder->GetResults(&Folder)) ||
+        !Folder)
+        return;
+
+    HString HPath;
+    QString Path;
+
+    if (FAILED(Folder->QueryInterface(IID_PPV_ARGS(&Item))) ||
+        !Item ||
+        FAILED(Item->get_Path(HPath.GetAddressOf())))
+        return;
+
+    Path = QString().fromUtf16((ushort*)WindowsGetStringRawBuffer(HPath.Get(), NULL));
+
+    if (Path.isEmpty())
+        return;
+
+    UINT32 Size=0;
+    PCWSTR PathBuf = WindowsGetStringRawBuffer(HPath.Get(), &Size);
+
+    Add_Item_To_FUA(HStringReference(PathBuf, Size), Item);
+
+    dirName = Path;
+#else
+    dirName = QFileDialog::getExistingDirectory(this,Tr("Open Folder"), getCommonDir(C).absolutePath());
+#endif
     openDir(dirName);
+
+   refreshDisplay();
 }
 
 void MainWindow::on_actionAbout_triggered()
@@ -830,9 +1004,7 @@ void MainWindow::on_actionPreferences_triggered()
         if(settings->value("defaultView",VIEW_EASY)!=oldView) {
             this->view = (ViewMode)settings->value("defaultView",VIEW_EASY).toInt();
         }
-        refreshDisplay();
-    } else
-        qDebug() << "preferences cancelled";
+    }
 }
 
 void MainWindow::on_actionExport_triggered()
@@ -943,8 +1115,7 @@ void MainWindow::on_actionExport_triggered()
         }
 
         settings->setValue("exportMode",e.getExportMode());
-    } else
-        qDebug() << "export cancelled";
+    }
 }
 
 void MainWindow::on_actionAdvanced_Mode_toggled(bool checked)
@@ -957,4 +1128,20 @@ void MainWindow::on_actionClose_All_triggered()
 {
     C->Menu_File_Open_Files_Begin(true);
     refreshDisplay();
+}
+
+void MainWindow::buttonViewClicked()
+{
+#if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) // Menu bug
+    Sleep(200);
+    menuView->show();
+    menuView->hide();
+
+    QPoint p;
+    p.setX(ui->toolBar->rect().right() + 5);
+    p.setY(buttonView->rect().center().y());
+    menuView->exec(p);
+#else
+    menuView->exec(buttonView->mapToGlobal(QPoint(0, 0)));
+#endif
 }

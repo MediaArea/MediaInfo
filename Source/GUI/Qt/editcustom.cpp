@@ -23,6 +23,11 @@ EditCustom::EditCustom(Custom* c, Core* C, QWidget *parent) :
 {
     ui->setupUi(this);
 
+#if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) // Workaround render bug
+    QString style = "QComboBox QAbstractItemView { border: 1px solid gray }";
+    ui->comboBox->setStyleSheet(style);
+#endif
+
     this->C = C;
     this->c = c;
     ui->lineEdit->setText(c->getName());

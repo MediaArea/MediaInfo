@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Preferences</string>
+   <string/>
   </property>
   <property name="modal">
    <bool>true</bool>

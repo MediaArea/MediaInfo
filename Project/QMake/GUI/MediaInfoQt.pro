@@ -67,7 +67,33 @@ unix {
 
 win32 {
     contains(UWP, yes|1) {
+
+        WINRT_ASSETS_PATH=../../../Source/Resource/Image/Assets
+        WINRT_MANIFEST=AppxManifest.xml
         INCLUDEPATH+=$$[QT_INSTALL_PREFIX]/include/QtCore/$$[QT_VERSION]
+
+        contains(QT_ARCH, ARM) {
+            exists(../../../../MediaInfoLib/Project/MSVC2017/Arm/Release/MediaInfo-Static_UWP.lib) {
+                INCLUDEPATH += ../../../../MediaInfoLib/Source
+                LIBS += ../../../../MediaInfoLib/Project/MSVC2017/Arm/Release/MediaInfo-Static_UWP.lib
+            } else {
+                error("libmediainfo not found on system")
+            }
+
+            exists(../../../../ZenLib/Project/MSVC2017/Arm/Release/ZenLib_UWP.lib) {
+                INCLUDEPATH += ../../../../ZenLib/Source
+                LIBS += ../../../../ZenLib/Project/MSVC2017/Arm/Release/ZenLib_UWP.lib
+            } else {
+                error("libzen not found on system")
+            }
+
+            exists(../../../../zlib/contrib/vstudio/vc15/Arm/Release/zlibuwp.lib) {
+                INCLUDEPATH += ../../../../zlib
+                LIBS += ../../../../zlib/contrib/vstudio/Arm/x86/Release/zlibuwp.lib
+            } else {
+                error("zlib not found on system")
+            }
+        }
 
         contains(QT_ARCH, i386) {
             exists(../../../../MediaInfoLib/Project/MSVC2017/Win32/Release/MediaInfo-Static_UWP.lib) {

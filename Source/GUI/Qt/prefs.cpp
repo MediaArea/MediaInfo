@@ -24,6 +24,17 @@ Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
     this->C = C;
 
     ui->setupUi(this);
+
+#if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) // Workaround render bug
+    QString style = "QComboBox QAbstractItemView { border: 1px solid gray }";
+    ui->comboBox_defaultview->setStyleSheet(style);
+    ui->comboBoxSheet->setStyleSheet(style);
+    ui->customComboBox->setStyleSheet(style);
+    ui->treeTextComboBox->setStyleSheet(style);
+#else
+    setWindowTitle("Preferences");
+#endif
+
     ui->treeWidget->setColumnHidden(1,true);
     ui->treeWidget->expandAll();
 
@@ -40,12 +51,22 @@ Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
 #else
     ui->checkForNewVersion->setVisible(false);
 #endif
+
+#if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) //Setup UI for winRT
+    ui->rememberToolBarPosition->setVisible(false);
+    ui->rememberGeometry->setVisible(false);
+    ui->showToolbar->setVisible(false);
+    ui->showMenu->setVisible(false);
+    ui->shellExtension->setVisible(false);
+    ui->shellInfoTip->setVisible(false);
+#else
     ui->rememberToolBarPosition->setChecked(settings->value("rememberToolBarPosition",true).toBool());
     ui->rememberGeometry->setChecked(settings->value("rememberGeometry",false).toBool());
 
     ui->showToolbar->setEnabled(ui->showMenu->isChecked());
     ui->showMenu->setEnabled(ui->showToolbar->isChecked());
     ui->rememberToolBarPosition->setEnabled(ui->showToolbar->isChecked());
+#endif
 
     refreshDisplay();
 

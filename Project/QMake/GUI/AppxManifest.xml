@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  xmlns:mobile="http://schemas.microsoft.com/appx/manifest/mobile/windows10"
+  IgnorableNamespaces="uap uap3 mp mobile">
+  <Identity
+    Name="MediaArea.net.MediaInfo"
+    Publisher="CN=4DBC310E-9C86-41CE-ABE7-5CBFAAC19566"
+    Version="18.3.1.0"
+    ProcessorArchitecture="x64" />
+  <mp:PhoneIdentity PhoneProductId="00000000-0000-0000-0000-000000000000" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <Properties>
+    <DisplayName>MediaInfo</DisplayName>
+    <PublisherDisplayName>MediaArea.net</PublisherDisplayName>
+    <Logo>assets/logo_store.png</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal"
+      MinVersion="10.0.15063.0"
+      MaxVersionTested="10.0.15063.0" />
+    <PackageDependency Name="Microsoft.VCLibs.140.00" MinVersion="14.0.0.0" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
+  </Dependencies>
+  <Resources>
+    <Resource Language="en"/>
+  </Resources>
+  <Applications>
+    <Application Id="App"
+      Executable="MediaInfo.exe"
+      EntryPoint="MediaInfo.App">
+      <uap:VisualElements
+        DisplayName="MediaInfo"
+        Description="MediaInfo is a convenient unified display of the most relevant technical and tag data for video and audio files."
+        BackgroundColor="transparent"
+        Square150x150Logo="assets/logo_150x150.png"
+        Square44x44Logo="assets/logo_44x44.png">
+        <uap:SplashScreen Image="assets/logo_620x300.png" />
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+</Package>

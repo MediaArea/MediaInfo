@@ -39,6 +39,12 @@ void EasyViewWidget::refreshDisplay() {
     setLayout(layout);
 
     QComboBox* fileChoice = new QComboBox();
+
+#if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) // Workaround render bug
+    QString style = "QComboBox QAbstractItemView { border: 1px solid gray }";
+    fileChoice->setStyleSheet(style);
+#endif
+
     layout->addWidget(fileChoice);
     for (size_t Pos=0; Pos<C->Count_Get(); Pos++)
         fileChoice->addItem( wstring2QString(C->Get(Pos, Stream_General, 0, __T("CompleteName"))), (int)Pos);

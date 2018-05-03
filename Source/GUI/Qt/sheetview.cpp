@@ -26,6 +26,12 @@ SheetView::SheetView(Core *C, QWidget *parent) :
     this->C=C;
 
     ui->setupUi(this);
+
+#if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) // Workaround render bug
+    QString style = "QComboBox QAbstractItemView { border: 1px solid gray }";
+    ui->comboBox->setStyleSheet(style);
+#endif
+
     refreshDisplay();
     ui->tableWidget->selectRow(0);
 
