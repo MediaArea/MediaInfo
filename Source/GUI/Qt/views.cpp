@@ -47,6 +47,8 @@ QString nameView(ViewMode v) {
        break;
    case VIEW_FIMS_1_3: return Tr("FIMS 1.3");
        break;
+   case VIEW_NISO_Z39_87: return Tr("NISO Z39.87");
+       break;
    case VIEW_CUSTOM: return Tr("Custom");
        break;
    default: return Tr("Unknown view");

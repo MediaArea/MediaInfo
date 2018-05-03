@@ -196,6 +196,7 @@ __published:    // IDE-managed Components
     TMenuItem *M_Tektronix;
     TToolButton *Tool_Tektronix;
     TMenuItem *M_View_reVTMD;
+    TMenuItem *M_View_NISO_Z39_87;
     TMenuItem *ToolBar_View_XML;
     TMenuItem *ToolBar_View_JSON;
     TMenuItem *ToolBar_View_MPEG7;
@@ -211,6 +212,7 @@ __published:    // IDE-managed Components
     TMenuItem *ToolBar_View_FIMS_1_2;
     TMenuItem *ToolBar_View_FIMS_1_3;
     TMenuItem *ToolBar_View_reVTMD;
+    TMenuItem *ToolBar_View_NISO_Z39_87;
     TMenuItem *M_Debug_FullParsing;
     void __fastcall FormResize(TObject *Sender);
     void __fastcall M_Help_AboutClick(TObject *Sender);
@@ -281,6 +283,7 @@ __published:    // IDE-managed Components
     void __fastcall M_View_JSONClick(TObject *Sender);
     void __fastcall M_TektronixClick(TObject *Sender);
     void __fastcall M_View_reVTMDClick(TObject *Sender);
+    void __fastcall M_View_NISO_Z39_87Click(TObject *Sender);
     void __fastcall M_Debug_FullParsingClick(TObject *Sender);
 private:    // User declarations
 public:        // User declarations

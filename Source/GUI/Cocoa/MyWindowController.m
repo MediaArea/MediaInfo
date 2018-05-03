@@ -20,6 +20,7 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	NSString *_ret = nil;
 	switch (kind)
 	{
+		case Kind_XML:			_ret = @"XML"; break;
 		case Kind_JSON:			_ret = @"JSON"; break;
 		case Kind_MPEG7:		_ret = @"MPEG-7"; break;
 		case Kind_PBCore:		_ret = @"PBCore"; break;
@@ -34,6 +35,7 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 		case Kind_FIMS_1_2:		_ret = @"FIMS_1.2"; break;
 		case Kind_FIMS_1_3:		_ret = @"FIMS_1.3"; break;
 		case Kind_reVTMD:		_ret = @"reVTMD"; break;
+		case Kind_NISO_Z39_87:		_ret = @"NISO_Z39.87"; break;
 		case Kind_Text:
 								_ret = @"";
 		default:				break;
@@ -120,6 +122,11 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	[tabs selectTabViewItemAtIndex:kTextTabIndex];
 }
 
+-(IBAction)selectViewXML:(id)sender
+{
+	[self _selectViewOFKind:Kind_XML];
+}
+
 -(IBAction)selectViewJSON:(id)sender
 {
 	[self _selectViewOFKind:Kind_JSON];
@@ -188,6 +195,11 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 -(IBAction)selectViewReVTMD:(id)sender
 {
 	[self _selectViewOFKind:Kind_reVTMD];
+}
+
+-(IBAction)selectViewNISO_Z39_87:(id)sender
+{
+	[self _selectViewOFKind:Kind_NISO_Z39_87];
 }
 
 
@@ -264,48 +276,53 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 			switch (exportFormatButton.selectedTag)
 			{
 				case 1:
-					format = TextKindToNSString(Kind_JSON);
+					format = TextKindToNSString(Kind_XML);
 					break;
 				case 2:
-					format = TextKindToNSString(Kind_MPEG7);
+					format = TextKindToNSString(Kind_JSON);
 					break;
 				case 3:
-					format = TextKindToNSString(Kind_PBCore);
+					format = TextKindToNSString(Kind_MPEG7);
 					break;
 				case 4:
-					format = TextKindToNSString(Kind_PBCore2);
+					format = TextKindToNSString(Kind_PBCore);
 					break;
 				case 5:
-					format = TextKindToNSString(Kind_EBUCore_1_5);
+					format = TextKindToNSString(Kind_PBCore2);
 					break;
 				case 6:
-					format = TextKindToNSString(Kind_EBUCore_1_6);
+					format = TextKindToNSString(Kind_EBUCore_1_5);
 					break;
 				case 7:
-					format = TextKindToNSString(Kind_EBUCore_1_8_ps);
+					format = TextKindToNSString(Kind_EBUCore_1_6);
 					break;
 				case 8:
-					format = TextKindToNSString(Kind_EBUCore_1_8_sp);
+					format = TextKindToNSString(Kind_EBUCore_1_8_ps);
 					break;
 				case 9:
-					format = TextKindToNSString(Kind_EBUCore_1_8_ps_json);
+					format = TextKindToNSString(Kind_EBUCore_1_8_sp);
 					break;
 				case 10:
-					format = TextKindToNSString(Kind_EBUCore_1_8_sp_json);
+					format = TextKindToNSString(Kind_EBUCore_1_8_ps_json);
 					break;
 				case 11:
-					format = TextKindToNSString(Kind_FIMS_1_1);
+					format = TextKindToNSString(Kind_EBUCore_1_8_sp_json);
 					break;
 				case 12:
-					format = TextKindToNSString(Kind_FIMS_1_2);
+					format = TextKindToNSString(Kind_FIMS_1_1);
 					break;
 				case 13:
-					format = TextKindToNSString(Kind_FIMS_1_3);
+					format = TextKindToNSString(Kind_FIMS_1_2);
 					break;
 				case 14:
+					format = TextKindToNSString(Kind_FIMS_1_3);
+					break;
+				case 15:
 					format = TextKindToNSString(Kind_reVTMD);
 					break;
-
+				case 16:
+					format = TextKindToNSString(Kind_NISO_Z39_87);
+					break;
 				case 0:
 				default:
 					//Text or Unknown tag
@@ -713,6 +730,10 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_Text ? YES : NO;
 		[menuItem setState: (state ? NSOnState : NSOffState)];
 	}
+	else if(action == @selector(selectViewXML:)) {
+		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_XML ? YES : NO;
+		[menuItem setState: (state ? NSOnState : NSOffState)];
+	}
 	else if(action == @selector(selectViewJSON:)) {
 		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_JSON ? YES : NO;
 		[menuItem setState: (state ? NSOnState : NSOffState)];
@@ -767,6 +788,10 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	}
 	else if(action == @selector(selectViewReVTMD:)) {
 		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_reVTMD ? YES : NO;
+		[menuItem setState: (state ? NSOnState : NSOffState)];
+	}
+	else if(action == @selector(selectViewNISO_Z39_87:)) {
+		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_NISO_Z39_87 ? YES : NO;
 		[menuItem setState: (state ? NSOnState : NSOffState)];
 	}
 	else if(action == @selector(export:)) {

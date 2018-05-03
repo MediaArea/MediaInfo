@@ -54,6 +54,7 @@ __published:    // IDE-managed Components
     TTabSheet *Export_FIMS_1_2;
     TTabSheet *Export_FIMS_1_3;
     TTabSheet *Export_reVTMD;
+    TTabSheet *Export_NISO_Z39_87;
     TTabSheet *Export_Custom;
     TGroupBox *Name_Choose;
     TEdit *Name;
@@ -106,6 +107,7 @@ __published:    // IDE-managed Components
     TCheckBox *Export_FIMS_1_2_SideCar;
     TCheckBox *Export_FIMS_1_3_SideCar;
     TCheckBox *Export_reVTMD_SideCar;
+    TCheckBox *Export_NISO_Z39_87_SideCar;
     void __fastcall Name_FileSelectClick(TObject *Sender);
     void __fastcall ExportChange(TObject *Sender);
     void __fastcall OKClick(TObject *Sender);
@@ -128,6 +130,7 @@ __published:    // IDE-managed Components
     void __fastcall Export_FIMS_1_1_SideCarClick(TObject *Sender);
     void __fastcall Export_FIMS_1_2_SideCarClick(TObject *Sender);
     void __fastcall Export_FIMS_1_3_SideCarClick(TObject *Sender);
+    void __fastcall Export_NISO_Z39_87_SideCarClick(TObject *Sender);
 
 private:    // User declarations
     void Name_Adapt();

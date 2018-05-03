@@ -29,6 +29,7 @@ typedef enum {
     VIEW_FIMS_1_1,
     VIEW_FIMS_1_2,
     VIEW_FIMS_1_3,
+    VIEW_NISO_Z39_87,
     VIEW_CUSTOM,
     NB_VIEW
 } ViewMode;

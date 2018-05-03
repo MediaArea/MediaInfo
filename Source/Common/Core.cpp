@@ -324,6 +324,13 @@ void Core::Menu_View_reVTMD()
 }
 
 //---------------------------------------------------------------------------
+void Core::Menu_View_NISO_Z39_87()
+{
+    MI->Option(__T("Inform"), __T("NISO_Z39.87"));
+    Kind = Kind_NISO_Z39_87;
+}
+
+//---------------------------------------------------------------------------
 void Core::Menu_Option_Preferences_Inform (const String& Inform)
 {
     MI->Option(__T("Inform"), Inform);

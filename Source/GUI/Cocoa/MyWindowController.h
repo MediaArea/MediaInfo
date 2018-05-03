@@ -10,7 +10,7 @@
 #import "oMediaInfoList.h"
 #import "HyperlinkButton.h"
 
-typedef enum { Kind_Text, Kind_XML, Kind_JSON, Kind_PBCore, Kind_PBCore2, Kind_reVTMD, Kind_MPEG7, Kind_EBUCore_1_5, Kind_EBUCore_1_6, Kind_EBUCore_1_8_ps, Kind_EBUCore_1_8_sp, Kind_EBUCore_1_8_ps_json, Kind_EBUCore_1_8_sp_json, Kind_FIMS_1_1, Kind_FIMS_1_2, Kind_FIMS_1_3} ViewMenu_Kind;
+typedef enum { Kind_Text, Kind_XML, Kind_JSON, Kind_PBCore, Kind_PBCore2, Kind_reVTMD, Kind_MPEG7, Kind_EBUCore_1_5, Kind_EBUCore_1_6, Kind_EBUCore_1_8_ps, Kind_EBUCore_1_8_sp, Kind_EBUCore_1_8_ps_json, Kind_EBUCore_1_8_sp_json, Kind_FIMS_1_1, Kind_FIMS_1_2, Kind_FIMS_1_3, Kind_NISO_Z39_87} ViewMenu_Kind;
 
 @interface MyWindowController : NSWindowController {
 
@@ -20,10 +20,9 @@ typedef enum { Kind_Text, Kind_XML, Kind_JSON, Kind_PBCore, Kind_PBCore2, Kind_r
     IBOutlet NSOutlineView *treeOutline;
     IBOutlet NSTreeController *treeOutlineController;
     IBOutlet NSTextView *textField;
-	IBOutlet NSMenu *otherViewsMenu;
-	IBOutlet NSView *formatSelectionAccView;
-	IBOutlet NSPopUpButton *exportFormatButton;
-
+    IBOutlet NSMenu *otherViewsMenu;
+    IBOutlet NSView *formatSelectionAccView;
+    IBOutlet NSPopUpButton *exportFormatButton;
     IBOutlet NSTextField *easyGeneralTextLeft;
     IBOutlet NSTextField *easyGeneralTextRight;
     IBOutlet HyperlinkButton *easyGeneralLinkButton;
@@ -33,8 +32,8 @@ typedef enum { Kind_Text, Kind_XML, Kind_JSON, Kind_PBCore, Kind_PBCore2, Kind_r
     oMediaInfoList *mediaList;
     NSInteger selectedFileIndex;
 
-	ViewMenu_Kind _lastTextKind;
-	NSSavePanel *_exportSavePanel;
+    ViewMenu_Kind _lastTextKind;
+    NSSavePanel *_exportSavePanel;
 }
 
 //@property (assign) NSInteger selectedFileIndex;
@@ -46,6 +45,7 @@ typedef enum { Kind_Text, Kind_XML, Kind_JSON, Kind_PBCore, Kind_PBCore2, Kind_r
 -(IBAction)selectTextTab:(id)sender;
 
 -(void)_selectViewOFKind:(ViewMenu_Kind)_kind;
+-(IBAction)selectViewXML:(id)sender;
 -(IBAction)selectViewJSON:(id)sender;
 -(IBAction)selectViewMPEG7:(id)sender;
 -(IBAction)selectViewPBCore:(id)sender;
@@ -60,6 +60,7 @@ typedef enum { Kind_Text, Kind_XML, Kind_JSON, Kind_PBCore, Kind_PBCore2, Kind_r
 -(IBAction)selectViewFIMS12:(id)sender;
 -(IBAction)selectViewFIMS13:(id)sender;
 -(IBAction)selectViewReVTMD:(id)sender;
+-(IBAction)selectViewNISO_Z39_87:(id)sender;
 
 -(IBAction)export:(id)sender;
 -(IBAction)changeExportFormat:(id)sender;

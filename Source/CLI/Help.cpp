@@ -69,10 +69,10 @@ int Help()
     TEXTOUT("                    Full information Display with PBCore 2.0 compliant XML tags");
     TEXTOUT("--AcquisitionDataOutputMode=segmentParameter");
     TEXTOUT("                    Display Acquisition Data by segment then parameter (EBUCore");
-    TEXTOUT("                    output)");
+    TEXTOUT("                    and NISO Z39.87 outputs)");
     TEXTOUT("--AcquisitionDataOutputMode=parameterSegment");
     TEXTOUT("                    Display Acquisition Data by parameter then segment (EBUCore");
-    TEXTOUT("                    output)");
+    TEXTOUT("                    and NISO Z39.87 outputs)");
     TEXTOUT("--ExternalMetadata=...");
     TEXTOUT("                    Add external metadata to the output (EBUCore output)");
     TEXTOUT("--ExternalMetadataConfig=...");

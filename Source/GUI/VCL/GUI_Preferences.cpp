@@ -163,6 +163,12 @@ void __fastcall TPreferencesF::General_Output_SelChange(TObject *Sender)
     }
     if (General_Output_Sel->ItemIndex==11)
     {
+        Prefs->Config(__T("Output"))=__T("NISO_Z39.87");
+        MainF->Page->ActivePage=MainF->Page_Custom;
+        General_Output_More->Visible=false;
+    }
+    if (General_Output_Sel->ItemIndex==12)
+    {
         Prefs->Config(__T("Output"))=__T("Custom");
         MainF->Page->ActivePage=MainF->Page_Custom;
         General_Output_More->Visible=true;
