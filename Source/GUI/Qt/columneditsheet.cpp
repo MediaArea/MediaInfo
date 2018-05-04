@@ -43,6 +43,12 @@ ColumnEditSheet::ColumnEditSheet(column c, int pos, int nb, Core* C, QWidget *pa
     this->addWidget(stream);
     combobox = new QComboBox();
     combobox->addItem(c.key,c.key);
+
+#if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) // Workaround render bug
+    QString style = "QComboBox QAbstractItemView { border: 1px solid gray }";
+    combobox->setStyleSheet(style);
+#endif
+
     this->addWidget(combobox);
     up = new QToolButton();
     up->setArrowType(Qt::UpArrow);

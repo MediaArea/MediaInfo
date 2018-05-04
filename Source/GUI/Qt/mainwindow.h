@@ -7,16 +7,19 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
 #include "Common/Core.h"
+#include "views.h"
+
+#include <QMainWindow>
 #include <QSettings>
 #include <QDir>
 #include <QTreeWidget>
 #include <QTextBrowser>
 #include <QProgressDialog>
 #include <QTimer>
-#include "views.h"
 #include <QDebug>
+#include <QMenu>
+#include <QToolButton>
 #include <QUrl>
 #ifdef NEW_VERSION
     #include <QNetworkAccessManager>
@@ -62,6 +65,8 @@ private:
     void openDir(QString dirName);
     QTreeWidget* showTreeView(bool completeDisplay);
     QTextBrowser* showCustomView(bool forcePlainText=false);
+    QToolButton* buttonView;
+    QMenu* menuView;
 
     Ui::MainWindow *ui;
     //Non-GUI Elements
@@ -93,6 +98,7 @@ private slots:
     void on_actionQuit_triggered();
     void on_actionOpen_triggered();
     void toolBarOptions(QPoint);
+    void buttonViewClicked();
 #ifdef NEW_VERSION
     void httpFinished();
     void httpReadyRead();

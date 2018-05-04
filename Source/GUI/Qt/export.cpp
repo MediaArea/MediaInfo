@@ -19,6 +19,14 @@ Export::Export(QString filename, int mode, QWidget *parent) :
 {
     ui->setupUi(this);
 
+#if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) // Workaround render bug
+    QString style = "QComboBox QAbstractItemView { border: 1px solid gray }";
+    ui->comboBoxConfig->setStyleSheet(style);
+    ui->comboBoxMode->setStyleSheet(style);
+#else
+    setWindowTitle("Export");
+#endif
+
     for(int i=0;i<Export::NB_EXPORT_MODE;i++) {
         ui->comboBoxMode->addItem(name(i),i);
         if(i==mode)
@@ -82,6 +90,9 @@ QString Export::extension(int mode) {
     case PBCORE2:
     case MPEG7:
     case NISO_Z39_87:
+    case FIMS_1_1:
+    case FIMS_1_2:
+    case FIMS_1_3:
     case EBUCORE_1_5:
     case EBUCORE_1_6:
     case EBUCORE_1_8_ps:
@@ -106,6 +117,9 @@ QString Export::extensionName(int mode) {
     case PBCORE2:
     case MPEG7:
     case NISO_Z39_87:
+    case FIMS_1_1:
+    case FIMS_1_2:
+    case FIMS_1_3:
     case EBUCORE_1_5:
     case EBUCORE_1_6:
     case EBUCORE_1_8_ps:
@@ -202,5 +216,5 @@ void Export::on_checkBoxAdvanced_toggled(bool checked)
 
 void Export::on_buttonBox_accepted()
 {
-    path = QFileDialog::getSaveFileName(this,tr("Save File"),QDir(path).absolutePath(), QString(tr("%1 files (*.%2);;all files (*.*)")).arg(extensionName(getExportMode()), extension(getExportMode())));
+    path = QFileDialog::getSaveFileName(this,tr("Save File"),QDir(path).absolutePath(), QString(tr("%1 files (*.%2)")).arg(extensionName(getExportMode()), extension(getExportMode())));
 }

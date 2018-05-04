@@ -15,6 +15,11 @@ About::About(const QString& version, QWidget *parent) :
     ui(new Ui::About)
 {
     ui->setupUi(this);
+
+#if !defined(_WIN32) || !defined(WINAPI_FAMILY) || (WINAPI_FAMILY!=WINAPI_FAMILY_APP) // Workaround render bug
+    setWindowTitle("About");
+#endif
+
     ui->aboutText->setText(ui->aboutText->text().replace("VERSION", version));
 }
 

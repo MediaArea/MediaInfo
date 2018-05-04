@@ -14,7 +14,7 @@
    <bool>true</bool>
   </property>
   <property name="windowTitle">
-   <string>MediaInfo</string>
+   <string/>
   </property>
   <property name="windowIcon">
    <iconset resource="../../Resource/Resources.qrc">
@@ -117,6 +117,8 @@
    <addaction name="actionOpen"/>
    <addaction name="actionOpen_Folder"/>
    <addaction name="actionExport"/>
+   <addaction name="separator"/>
+   <addaction name="actionClose_All"/>
    <addaction name="separator"/>
    <addaction name="actionAbout"/>
    <addaction name="separator"/>

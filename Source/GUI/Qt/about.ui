@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>About</string>
+   <string/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -220,7 +220,6 @@ Sound-only formats (AC3, DTS, AAC, AU, AIFF...)</string>
   </layout>
  </widget>
  <resources>
-  <include location="../../Resource/Resources.qrc"/>
   <include location="../../Resource/Resources.qrc"/>
  </resources>
  <connections/>
