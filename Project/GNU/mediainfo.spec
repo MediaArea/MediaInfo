@@ -24,6 +24,7 @@ Source0:        %{name}_%{version}.tar.gz
 Requires:       %{libzen_name}%{?_isa} >= %{libzen_version}
 Requires:       %{libmediainfo_name}%{?_isa} >= %{libmediainfo_version}
 
+Prefix:         %{_prefix}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig
