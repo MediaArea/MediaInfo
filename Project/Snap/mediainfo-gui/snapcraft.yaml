@@ -1,5 +1,5 @@
 name: mediainfo-gui
-version: 18.03.1
+version: 18.05
 summary: Graphical utility for reading information from audio/video files
 description: |
   MediaInfo is a utility used for retrieving technical information and other
