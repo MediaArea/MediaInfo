@@ -1,5 +1,5 @@
-%define mediainfo_version           18.03.1
-%define libmediainfo_version        18.03.1
+%define mediainfo_version           18.05
+%define libmediainfo_version        18.05
 %define libzen_version              0.4.37
 
 %if 0%{?fedora_version} || 0%{?centos_version} >= 600 || 0%{?rhel_version} >= 600

@@ -12,6 +12,14 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 18.05, 2018-05-09
+--------------
++ PBCore 2.1 export update, sponsored by WGBH as part of the NEH-funded PBCore Development and Preservation Project
++ TIFF: more IFDs are supported (density, software...)
++ NISO Z39.87 output
+x Mastering Display Color Primaries: was always showing BT.709 instead of real value, when present
+x Attachments: do not provide anymore attachments content in XML by default, fixes
+
 Version 18.03.1, 2018-03-26
  --------------
 x Fix regression on Windows with directory names beginning by n or r.
