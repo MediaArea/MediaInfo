@@ -197,12 +197,11 @@ MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) :
     menuView = new QMenu();
    QActionGroup* menuItemGroup = new QActionGroup(this);
    for(int v=VIEW_EASY;v<NB_VIEW;v++) {
-       QAction* action = new QAction(nameView((ViewMode)v));
+       QAction* action = new QAction(nameView((ViewMode)v), menuItemGroup);
        action->setCheckable(true);
        if(view==v)
            action->setChecked(true);
        action->setProperty("view",v);
-       menuItemGroup->addAction(action);
        ui->menuView->addAction(action);
        menuView->addAction(action);
    }
