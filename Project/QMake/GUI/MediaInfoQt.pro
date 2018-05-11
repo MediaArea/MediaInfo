@@ -10,6 +10,8 @@ win32|macx {
     TARGET = "MediaInfo"
 } else {
     TARGET = "mediainfo-gui"
+    target.path=/usr/bin
+    INSTALLS+=target
 }
 
 win32 {
