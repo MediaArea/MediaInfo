@@ -35,7 +35,7 @@ class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
     enum {IONLY,TONLY,TUICONS,TBICONS,NBNAMES} ActionName;
-    enum {SMALL,MEDIUM,BIG,HUGE,NBSIZES} Size;
+    enum {S_SMALL,S_MEDIUM,S_BIG,S_HUGE,NBSIZES} Size;
     MainWindow(QStringList filesnames, int viewasked=-1, QWidget *parent = 0);
     ~MainWindow();
 
