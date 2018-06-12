@@ -11,9 +11,14 @@ apps:
   mediainfo-gui:
     command: desktop-launch mediainfo-gui
     plugs:
+      - x11
       - unity7
+      - wayland
+      - desktop
+      - desktop-legacy
       - home
       - network
+      - gsettings
 
 parts:
   mediainfo-gui:
@@ -24,8 +29,14 @@ parts:
       - libwxgtk3.0-dev
       - zlib1g-dev
       - libcurl4-gnutls-dev
+    stage-packages:
+      - libwxgtk3.0-0v5
+      - libcurl3-gnutls
+      - libdb5.3
+      - libmms0
+      - zlib1g
     after:
-      - desktop-gtk3
+      - desktop-gtk2
       - libmediainfo
       - libzen
       - build-essential
@@ -47,7 +58,7 @@ parts:
     after:
       - libzen
       - build-essential
-    snap:
+    prime:
       - lib/libmediainfo.*
 
   libzen:
@@ -57,7 +68,7 @@ parts:
     configflags:
       - --enable-shared
       - --disable-static
-    snap:
+    prime:
       - lib/libzen.*
     after:
       - build-essential
