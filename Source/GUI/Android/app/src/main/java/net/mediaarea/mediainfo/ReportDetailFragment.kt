@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.content.SharedPreferences
 import android.content.Context
 import android.content.Intent
+import android.text.Html
 import android.view.*
 
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -78,7 +79,18 @@ class ReportDetailFragment : Fragment() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         activity?.title = it.filename
-                        rootView.report_detail.text = Core.convertReport(it.report, view)
+
+                        val report: String = Core.convertReport(it.report, view)
+                        var content: String = ""
+                        if (view != "HTML") {
+                            content += "<html><body><pre>"
+                            content += Html.escapeHtml(report.replace("\t", "    "))
+                            content += "</pre></body></html>"
+                        } else {
+                            content+=report
+                        }
+
+                        rootView.report_detail.loadDataWithBaseURL(null, content, "text/html", "utf-8", null)
              }))
         }
 
