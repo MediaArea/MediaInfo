@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--  Copyright (c) MediaArea.net SARL. All Rights Reserved.
+
+      Use of this source code is governed by a BSD-style license that can
+      be found in the License.html file in the root of the source tree.
+-->
+
+<resources>
+    <dimen name="button_margin">8dp</dimen>
+    <dimen name="text_margin">8dp</dimen>
+    <dimen name="item_width">300dp</dimen>
+</resources>

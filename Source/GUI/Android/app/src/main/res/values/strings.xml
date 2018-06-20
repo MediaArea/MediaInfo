@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--  Copyright (c) MediaArea.net SARL. All Rights Reserved.
+
+      Use of this source code is governed by a BSD-style license that can
+      be found in the License.html file in the root of the source tree.
+-->
+
+<resources>
+    <string name="app_name">MediaInfo</string>
+    <string name="app_version">18.05</string>
+    <string name="hello_text">You must at least open 1 file.</string>
+    <string name="about_title">About MediaInfo</string>
+    <string name="about_text">MediaInfo vMI_VERSION using MediaInfoLib vMIL_VERSION\n
+            Copyright (c) 2002-2018 MediaArea.net SARL. All rights reserved.\n\n
+            MediaInfo provides easy access to technical and tag information about video and audio files.\n
+            It is open-source software, which means that it is free of charge to the end user and developers have freedom to study, to improve and to redistribute the program (BSD license).
+    </string>
+    <string name="website_text">Website</string>
+    <string name="website_url">https://mediaarea.net/en/MediaInfo</string>
+    <string name="donate_text">Donate</string>
+    <string name="donate_url">https://mediaarea.net/en/MediaInfo/Donate</string>
+    <string name="export_title">About MediaInfo</string>
+    <string name="close_text">Close</string>
+    <string name="export_text">Export</string>
+    <string name="format_text">Format: </string>
+    <string name="error_text">Error!</string>
+    <!-- Preferences keys -->
+    <string name="preferences_key">net.mediaarea.mediainfo.preferences</string>
+    <string name="preferences_view_key">net.mediaarea.mediainfo.preferences_view</string>
+</resources>

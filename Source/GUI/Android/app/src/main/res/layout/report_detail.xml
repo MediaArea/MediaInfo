@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--  Copyright (c) MediaArea.net SARL. All Rights Reserved.
+
+      Use of this source code is governed by a BSD-style license that can
+      be found in the License.html file in the root of the source tree.
+-->
+
+<HorizontalScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <TextView
+            android:id="@+id/report_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/text_margin"
+            android:textColor="@android:color/black"
+            android:typeface="monospace"
+            android:textIsSelectable="true" />
+
+    </ScrollView>
+
+</HorizontalScrollView>

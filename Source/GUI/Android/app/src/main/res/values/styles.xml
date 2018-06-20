@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--  Copyright (c) MediaArea.net SARL. All Rights Reserved.
+
+      Use of this source code is governed by a BSD-style license that can
+      be found in the License.html file in the root of the source tree.
+-->
+
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="windowNoTitle">true</item>
+    </style>
+
+   <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>
