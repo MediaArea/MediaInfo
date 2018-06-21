@@ -36,8 +36,6 @@ object Core {
         val report: String =  mi.Inform()
         mi.Close()
 
-        //mi.Open_Async(fd, name)
-
         return report.toByteArray()
     }
 

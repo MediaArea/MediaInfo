@@ -13,6 +13,7 @@ import java.io.IOException
 
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
+import android.support.v4.app.Fragment
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.os.AsyncTask
@@ -125,7 +126,8 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                                                         }
                                                     }
 
-                                                    supportFragmentManager.beginTransaction()
+                                                    supportFragmentManager
+                                                            .beginTransaction()
                                                             .replace(R.id.report_detail_container, fragment)
                                                             .commit()
                                                 } else {
@@ -144,13 +146,22 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     }
 
     fun deleteReport(id: Int) {
-        disposable.add(reportModel.deleteReport(id)
+        disposable.add(reportModel
+                .deleteReport(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe())
 
         if (twoPane) {
-            //TODO: close view id open
+            val fragment: Fragment? = supportFragmentManager.findFragmentById(R.id.report_detail_container)
+            if (fragment != null && (fragment as ReportDetailFragment).id == id) {
+                supportFragmentManager
+                        .beginTransaction()
+                        .detach(fragment)
+                        .commit()
+
+                title = getString(R.string.app_name)
+            }
         }
     }
 
