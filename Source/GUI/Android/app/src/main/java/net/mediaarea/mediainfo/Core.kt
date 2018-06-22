@@ -44,7 +44,7 @@ object Core {
         mi.Option("Inform_Compress", "")
         mi.Option("Input_Compressed", "zlib+base64")
 
-        if (format == "Text" && export == false)
+        if (format == "Text" && !export)
             mi.Option("Language", "  Config_Text_ColumnSize;25")
 
         mi.Open_Buffer_Init(report.size.toLong(), 0L)

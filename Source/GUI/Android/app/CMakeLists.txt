@@ -3,29 +3,19 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
-add_library( # Sets the name of the library.
-             mediainfo-interface
+# Build Zenlib
+set(ZenLib_DIR ${CMAKE_CURRENT_BINARY_DIR}/ZenLib)
+set(ZenLib_LIBRARY zen)
 
-             # Sets the library as a static library.
-             SHARED
-
-             # Provides a relative path to your source file(s).
-             src/main/cpp/mediainfo-interface.cpp )
-
-target_compile_definitions(mediainfo-interface PRIVATE _FILE_OFFSET_BITS=64)
-
-find_library(log-lib log)
-
-option(BUILD_ZENLIB "" ON)
 option(LARGE_FILES "Enable large files support" OFF)
-add_subdirectory(../../../../../MediaInfoLib/Project/CMake ${CMAKE_CURRENT_BINARY_DIR}/MediaInfoLib)
-set(MediaInfoLib_LIBRARY mediainfo)
+add_subdirectory(../../../../../ZenLib/Project/CMake ${ZenLib_DIR})
 include_directories(AFTER SYSTEM ../../../../../ZenLib/Source)
+file(MAKE_DIRECTORY ${ZenLib_DIR}/../../../include) # fake system wide installation
+
+# Build MediaInfoLib
+set(MediaInfoLib_LIBRARY mediainfo)
+set(MediaInfoLib_DIR ${CMAKE_CURRENT_BINARY_DIR}/MediaInfoLib)
+
+option(JNI "Build JNI interface" ON)
+add_subdirectory(../../../../../MediaInfoLib/Project/CMake ${MediaInfoLib_DIR})
 include_directories(AFTER SYSTEM ../../../../../MediaInfoLib/Source)
-
-# Specifies libraries CMake should link to your target library. You
-# can link multiple libraries, such as libraries you define in this
-# build script, prebuilt third-party libraries, or system libraries.
-
-target_link_libraries(mediainfo-interface ${log-lib})
-target_link_libraries(mediainfo-interface ${MediaInfoLib_LIBRARY})
