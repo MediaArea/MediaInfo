@@ -22,6 +22,10 @@ parts:
     build-packages:
       - zlib1g-dev
       - libcurl4-gnutls-dev
+    stage-packages:
+      - libcurl3-gnutls
+      - libdb5.3
+      - libmms0
     after:
       - libmediainfo
       - libzen
