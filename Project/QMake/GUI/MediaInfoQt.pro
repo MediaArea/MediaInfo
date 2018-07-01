@@ -112,9 +112,9 @@ win32 {
                 error("libzen not found on system")
             }
 
-            exists(../../../../zlib/contrib/vstudio/vc15/x86/Release/zlibuwp.lib) {
+            exists(../../../../zlib/contrib/vstudio/vc15/Release/zlibuwp/zlibuwp.lib) {
                 INCLUDEPATH += ../../../../zlib
-                LIBS += ../../../../zlib/contrib/vstudio/vc15/x86/Release/zlibuwp.lib
+                LIBS += ../../../../zlib/contrib/vstudio/vc15/Release/zlibuwp/zlibuwp.lib
             } else {
                 error("zlib not found on system")
             }
