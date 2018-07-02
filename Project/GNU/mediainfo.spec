@@ -1,25 +1,25 @@
-%define mediainfo_version           18.05
-%define mediainfo_version_major     18
-%define mediainfo_version_minor     05
-%define libmediainfo_version        18.05
-%define libmediainfo_version_major  18
-%define libmediainfo_version_minor  05
-%define libzen_version              0.4.37
-%define libzen_version_major        0
-%define libzen_version_minor        4
-%define libzen_version_release      37
+%global mediainfo_version           18.05
+%global mediainfo_version_major     18
+%global mediainfo_version_minor     05
+%global libmediainfo_version        18.05
+%global libmediainfo_version_major  18
+%global libmediainfo_version_minor  05
+%global libzen_version              0.4.37
+%global libzen_version_major        0
+%global libzen_version_minor        4
+%global libzen_version_release      37
 
 %if 0%{?fedora_version} || 0%{?centos_version} >= 600 || 0%{?rhel_version} >= 600
-%define libmediainfo_name libmediainfo
-%define libzen_name libzen
+%global libmediainfo_name libmediainfo
+%global libzen_name libzen
 %else
-%define libmediainfo_name libmediainfo0
-%define libzen_name libzen0
+%global libmediainfo_name libmediainfo0
+%global libzen_name libzen0
 %endif
 
-%define mediainfo_suffix %{mediainfo_version_major}%{mediainfo_version_minor}
-%define libmediainfo_suffix %{libmediainfo_version_major}%{libmediainfo_version_minor}
-%define libzen_suffix %{libzen_version_major}%{libzen_version_minor}%{libzen_version_release}
+%global mediainfo_suffix %{mediainfo_version_major}%{mediainfo_version_minor}
+%global libmediainfo_suffix %{libmediainfo_version_major}%{libmediainfo_version_minor}
+%global libzen_suffix %{libzen_version_major}%{libzen_version_minor}%{libzen_version_release}
 
 Name:           mediainfo
 Version:        %{mediainfo_version}
@@ -79,7 +79,7 @@ BuildRequires:  desktop-file-utils
 Summary:        Most relevant technical and tag data for video and audio files (CLI) -- slot version
 %endif
 
-%define mediainfo_description MediaInfo is a convenient unified display of the most relevant technical\
+%global mediainfo_description MediaInfo is a convenient unified display of the most relevant technical\
 and tag data for video and audio files.\
 \
 What information can I get from MediaInfo?\
@@ -137,7 +137,7 @@ Requires:   %{libmediainfo_name}%{libmediainfo_suffix}%{?_isa} >= %{libmediainfo
 Requires:   wxGTK
 %endif
 
-%define gui_description MediaInfo is a convenient unified display of the most relevant technical\
+%global gui_description MediaInfo is a convenient unified display of the most relevant technical\
 and tag data for video and audio files.\
 \
 What information can I get from MediaInfo?\
@@ -229,7 +229,7 @@ install -m 644 Project/GNU/GUI/mediainfo-gui.metainfo.xml %{buildroot}%{_datadir
   %suse_update_desktop_file -n %{buildroot}%{_datadir}/kde4/services/ServiceMenus/mediainfo-gui.desktop AudioVideo AudioVideoEditing
 %endif
 
-%define mediainfo_files %defattr(-,root,root,-)\
+%global mediainfo_files %defattr(-,root,root,-)\
 %doc Release/ReadMe_CLI_Linux.txt History_CLI.txt\
 %if 0%{?fedora_version} || 0%{?centos_version} >= 700 || 0%{?rhel_version} >= 700\
 %license License.html\
@@ -246,7 +246,7 @@ install -m 644 Project/GNU/GUI/mediainfo-gui.metainfo.xml %{buildroot}%{_datadir
 %{mediainfo_files}
 %endif
 
-%define gui_files %defattr(-,root,root,-)\
+%global gui_files %defattr(-,root,root,-)\
 %if 0%{?fedora_version} || 0%{?centos_version} >= 700 || 0%{?rhel_version} >= 700\
 %license License.html\
 %else\
@@ -284,7 +284,7 @@ install -m 644 Project/GNU/GUI/mediainfo-gui.metainfo.xml %{buildroot}%{_datadir
 %{_datadir}/appdata/*.xml\
 %endif\
 %else\
-%define _unpackaged_files_terminate_build 0\
+%global _unpackaged_files_terminate_build 0\
 %endif\
 %doc Release/ReadMe_GUI_Linux.txt History_GUI.txt
 
