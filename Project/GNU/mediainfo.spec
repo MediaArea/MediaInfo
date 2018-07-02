@@ -229,7 +229,7 @@ install -m 644 Project/GNU/GUI/mediainfo-gui.metainfo.xml %{buildroot}%{_datadir
   %suse_update_desktop_file -n %{buildroot}%{_datadir}/kde4/services/ServiceMenus/mediainfo-gui.desktop AudioVideo AudioVideoEditing
 %endif
 
-%global mediainfo_files %defattr(-,root,root,-)\
+%define mediainfo_files %defattr(-,root,root,-)\
 %doc Release/ReadMe_CLI_Linux.txt History_CLI.txt\
 %if 0%{?fedora_version} || 0%{?centos_version} >= 700 || 0%{?rhel_version} >= 700\
 %license License.html\
@@ -246,7 +246,7 @@ install -m 644 Project/GNU/GUI/mediainfo-gui.metainfo.xml %{buildroot}%{_datadir
 %{mediainfo_files}
 %endif
 
-%global gui_files %defattr(-,root,root,-)\
+%define gui_files %defattr(-,root,root,-)\
 %if 0%{?fedora_version} || 0%{?centos_version} >= 700 || 0%{?rhel_version} >= 700\
 %license License.html\
 %else\
