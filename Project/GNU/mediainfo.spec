@@ -77,6 +77,8 @@ BuildRequires:  desktop-file-utils
 %if 0%{?rhel}
 %package        -n mediainfo%{mediainfo_suffix}
 Summary:        Most relevant technical and tag data for video and audio files (CLI) -- slot version
+Requires:       %{libzen_name}%{libzen_suffix}%{?_isa} >= %{libzen_version}
+Requires:       %{libmediainfo_name}%{libmediainfo_suffix}%{?_isa} >= %{libmediainfo_version}
 %endif
 
 %global mediainfo_description MediaInfo is a convenient unified display of the most relevant technical\
