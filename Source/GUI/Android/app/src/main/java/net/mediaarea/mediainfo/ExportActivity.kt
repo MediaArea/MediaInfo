@@ -60,7 +60,7 @@ class ExportActivity : AppCompatActivity() {
 
         export_btn.setOnClickListener {
             val intent: Intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-            startActivityForResult(intent, SAVE_FILE_REQUEST_CODE);
+            startActivityForResult(intent, SAVE_FILE_REQUEST_CODE)
         }
     }
 

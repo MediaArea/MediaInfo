@@ -13,6 +13,7 @@ import java.io.IOException
 
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
+import android.support.v4.app.Fragment
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.os.AsyncTask
@@ -24,6 +25,7 @@ import android.database.Cursor
 import android.provider.OpenableColumns
 import android.widget.FrameLayout
 import android.widget.TextView
+import android.content.ClipData
 import android.view.*
 
 import io.reactivex.disposables.CompositeDisposable
@@ -97,7 +99,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
                     val fd: ParcelFileDescriptor
                     try {
-                        fd = contentResolver.openFileDescriptor(uri, "r");
+                        fd = contentResolver.openFileDescriptor(uri, "r")
                     } catch (e: FileNotFoundException) {
                         break
                     } catch (e: IOException) {
@@ -110,28 +112,32 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .doOnComplete {
-                                disposable.add(reportModel.getLastId()
-                                        .subscribeOn(Schedulers.io())
-                                        .observeOn(AndroidSchedulers.mainThread())
-                                        .doOnSuccess {
-                                            val id: Int = it
-                                            if (twoPane) {
-                                                val fragment: ReportDetailFragment = ReportDetailFragment().apply {
-                                                    arguments = Bundle().apply {
-                                                        putInt(ReportDetailFragment.ARG_REPORT_ID, id)
+                                // Don't go to report view when opening multiples files
+                                if (params.size == 1) {
+                                    disposable.add(reportModel.getLastId()
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .doOnSuccess {
+                                                val id: Int = it
+                                                if (twoPane) {
+                                                    val fragment: ReportDetailFragment = ReportDetailFragment().apply {
+                                                        arguments = Bundle().apply {
+                                                            putInt(ReportDetailFragment.ARG_REPORT_ID, id)
+                                                        }
                                                     }
+
+                                                    supportFragmentManager
+                                                            .beginTransaction()
+                                                            .replace(R.id.report_detail_container, fragment)
+                                                            .commit()
+                                                } else {
+                                                    val intent = Intent(this@ReportListActivity, ReportDetailActivity::class.java)
+                                                    intent.putExtra(ReportDetailFragment.ARG_REPORT_ID, id)
+
+                                                    startActivity(intent)
                                                 }
-
-                                                supportFragmentManager.beginTransaction()
-                                                        .replace(R.id.report_detail_container, fragment)
-                                                        .commit()
-                                            } else {
-                                                val intent = Intent(this@ReportListActivity, ReportDetailActivity::class.java)
-                                                intent.putExtra(ReportDetailFragment.ARG_REPORT_ID, id)
-
-                                                startActivity(intent)
-                                            }
-                                        }.subscribe())
+                                            }.subscribe())
+                                }
                             }.subscribe())
                 }
             }
@@ -139,62 +145,23 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         }
     }
 
-    private fun addFile(uri: Uri) {
-        val cursor: Cursor = contentResolver.query(uri, null, null, null, null, null)
-
-        // moveToFirst() returns false if the cursor has 0 rows
-        if (cursor.moveToFirst()) {
-            // DISPLAY_NAME is provider-specific, and might not be the file name
-            val displayName: String = cursor
-                    .getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
-
-            cursor.close()
-
-            val fd: ParcelFileDescriptor
-            try {
-                fd = contentResolver.openFileDescriptor(uri, "r");
-            } catch (e: FileNotFoundException) {
-                return;
-            } catch (e: IOException) {
-                return;
-            }
-
-            var report: ByteArray = Core.createReport(fd.detachFd(), displayName)
-
-            disposable.add(reportModel.insertReport(Report(0, displayName, report, Core.version))
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe {
-                        val id: Int = reports.last().id
-                        if (twoPane) {
-                            val fragment: ReportDetailFragment = ReportDetailFragment().apply {
-                                arguments = Bundle().apply {
-                                    putInt(ReportDetailFragment.ARG_REPORT_ID, id)
-                                }
-                            }
-
-                            supportFragmentManager.beginTransaction()
-                                    .replace(R.id.report_detail_container, fragment, "detail")
-                                    .commit()
-                        } else {
-                            val intent = Intent(this, ReportDetailActivity::class.java)
-                            intent.putExtra(ReportDetailFragment.ARG_REPORT_ID, id)
-
-                            startActivity(intent)
-                        }
-                    })
-
-        }
-    }
-
     fun deleteReport(id: Int) {
-        disposable.add(reportModel.deleteReport(id)
+        disposable.add(reportModel
+                .deleteReport(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe())
 
         if (twoPane) {
-            //TODO: close view id open
+            val fragment: Fragment? = supportFragmentManager.findFragmentById(R.id.report_detail_container)
+            if (fragment != null && (fragment as ReportDetailFragment).id == id) {
+                supportFragmentManager
+                        .beginTransaction()
+                        .detach(fragment)
+                        .commit()
+
+                title = getString(R.string.app_name)
+            }
         }
     }
 
@@ -220,7 +187,14 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                     if (resultData == null)
                         return
 
-                    AddFile().execute(resultData.data)
+                    if (resultData.clipData != null) {
+                        var uris: Array<Uri> = Array<Uri>(resultData.clipData.itemCount, {
+                            resultData.clipData.getItemAt(it).uri
+                        })
+                        AddFile().execute(*(uris))
+                    } else if (resultData.data != null) {
+                        AddFile().execute(resultData.data)
+                    }
                 }
             }
         }
@@ -242,12 +216,13 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         reportModel = ViewModelProviders.of(this, viewModelFactory).get(ReportViewModel::class.java)
 
         add_button.setOnClickListener {
-            val intent: Intent = Intent(Intent.ACTION_OPEN_DOCUMENT);
+            val intent: Intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
 
-            intent.addCategory(Intent.CATEGORY_OPENABLE);
-            intent.setType("*/*");
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
+            intent.setType("*/*")
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
 
-            startActivityForResult(intent, OPEN_FILE_REQUEST_CODE);
+            startActivityForResult(intent, OPEN_FILE_REQUEST_CODE)
         }
 
         // The detail container view will be present only in the

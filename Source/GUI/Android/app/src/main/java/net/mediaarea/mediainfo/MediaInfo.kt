@@ -10,7 +10,7 @@ class MediaInfo {
     companion object {
         // load the native library.
         init {
-            System.loadLibrary("mediainfo-interface")
+            System.loadLibrary("mediainfo")
         }
     }
 
@@ -42,12 +42,16 @@ class MediaInfo {
 
     external fun Init(): Long
     external fun Destroy(): Int
-    external fun Open(fd: Int, name: String): Int
+    private external fun OpenFd(fd: Int, name: String): Int
+    private external fun Open(name:String ): Int
+    fun Open(fd: Int, name: String): Int {
+        return OpenFd(fd, name)
+    }
     external fun Open_Buffer_Init(fileSize: Long, fileOffset: Long): Int
     external fun Open_Buffer_Continue(buffer: ByteArray, bufferSize: Long): Int
     external fun Open_Buffer_Continue_GoTo_Get(): Long
     external fun Open_Buffer_Finalize(): Long
-    external fun Close(): Void
+    external fun Close(): Int
     external fun Inform(): String
     private external fun GetI(streamKind: Int, streamNumber: Int, parameter: Int, infoKind: Int): String
     private external fun GetS(streamKind: Int, streamNumber: Int, parameter: String, infoKind: Int, searchKind: Int): String
