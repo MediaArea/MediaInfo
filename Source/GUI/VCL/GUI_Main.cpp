@@ -805,7 +805,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
     {
         if (M_View_XML->Checked)
             I->Option_Static(__T("Inform"), __T("MIXML"));
-        else if (M_View_XML->Checked)
+        else if (M_View_JSON->Checked)
             I->Option_Static(__T("Inform"), __T("JSON"));
         else if (M_View_MPEG7->Checked)
             I->Option_Static(__T("Inform"), __T("MPEG-7"));
@@ -1113,7 +1113,7 @@ void __fastcall TMainF::M_View_XMLClick(TObject *Sender)
     //Language
     I->Option_Static(__T("Language"), __T("raw"));
 
-    Prefs->Details[Prefs_Custom].Write(__T("MIXML"));
+    M_View_XML->Checked=true;
     ToolBar_View_XML->Checked=true;
     ChangePage(Page_Custom);
 }
@@ -1124,7 +1124,7 @@ void __fastcall TMainF::M_View_JSONClick(TObject *Sender)
     //Language
     I->Option_Static(__T("Language"), __T("raw"));
 
-    Prefs->Details[Prefs_Custom].Write(__T("JSON"));
+    M_View_JSON->Checked=true;
     ToolBar_View_JSON->Checked=true;
     ChangePage(Page_Custom);
 }
@@ -1132,7 +1132,7 @@ void __fastcall TMainF::M_View_JSONClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_MPEG7Click(TObject *Sender)
 {
-    Prefs->Details[Prefs_Custom].Write(__T("MPEG-7"));
+    M_View_MPEG7->Checked=true;
     ToolBar_View_MPEG7->Checked=true;
     ChangePage(Page_Custom);
 }
@@ -1140,7 +1140,7 @@ void __fastcall TMainF::M_View_MPEG7Click(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_reVTMDClick(TObject *Sender)
 {
-    Prefs->Details[Prefs_Custom].Write(__T("reVTMD"));
+    M_View_reVTMD->Checked=true;
     ToolBar_View_reVTMD->Checked=true;
     ChangePage(Page_Custom);
 }
@@ -1148,7 +1148,7 @@ void __fastcall TMainF::M_View_reVTMDClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_NISO_Z39_87Click(TObject *Sender)
 {
-    Prefs->Details[Prefs_Custom].Write(__T("NISO_Z39.87"));
+    M_View_NISO_Z39_87->Checked=true;
     ToolBar_View_NISO_Z39_87->Checked=true;
     ChangePage(Page_Custom);
 }
@@ -1156,7 +1156,7 @@ void __fastcall TMainF::M_View_NISO_Z39_87Click(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_PBCoreClick(TObject *Sender)
 {
-    Prefs->Details[Prefs_Custom].Write(__T("PBCore_1.2"));
+    M_View_PBCore->Checked=true;
     ToolBar_View_PBCore->Checked=true;
     ChangePage(Page_Custom);
 }
@@ -1164,7 +1164,7 @@ void __fastcall TMainF::M_View_PBCoreClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_PBCore2Click(TObject *Sender)
 {
-    Prefs->Details[Prefs_Custom].Write(__T("PBCore_2.0"));
+    M_View_PBCore2->Checked=true;
     ToolBar_View_PBCore2->Checked=true;
     ChangePage(Page_Custom);
 }
@@ -1172,7 +1172,7 @@ void __fastcall TMainF::M_View_PBCore2Click(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_EBUCore_1_5Click(TObject *Sender)
 {
-    Prefs->Details[Prefs_Custom].Write(__T("EBUCore_1.5"));
+    M_View_EBUCore_1_5->Checked=true;
     ToolBar_View_EBUCore_1_5->Checked=true;
     ChangePage(Page_Custom);
 }
@@ -1180,7 +1180,7 @@ void __fastcall TMainF::M_View_EBUCore_1_5Click(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_EBUCore_1_6Click(TObject *Sender)
 {
-    Prefs->Details[Prefs_Custom].Write(__T("EBUCore_1.6"));
+    M_View_EBUCore_1_6->Checked=true;
     ToolBar_View_EBUCore_1_6->Checked=true;
     ChangePage(Page_Custom);
 }
@@ -1188,7 +1188,7 @@ void __fastcall TMainF::M_View_EBUCore_1_6Click(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_EBUCore_1_8_psClick(TObject *Sender)
 {
-    Prefs->Details[Prefs_Custom].Write(__T("EBUCore_1.8_ps"));
+    M_View_EBUCore_1_8_ps->Checked=true;
     ToolBar_View_EBUCore_1_8_ps->Checked=true;
     ChangePage(Page_Custom);
 }
@@ -1196,7 +1196,7 @@ void __fastcall TMainF::M_View_EBUCore_1_8_psClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_EBUCore_1_8_spClick(TObject *Sender)
 {
-    Prefs->Details[Prefs_Custom].Write(__T("EBUCore_1.8_sp"));
+    M_View_EBUCore_1_8_sp->Checked=true;
     ToolBar_View_EBUCore_1_8_sp->Checked=true;
     ChangePage(Page_Custom);
 }
@@ -1204,7 +1204,7 @@ void __fastcall TMainF::M_View_EBUCore_1_8_spClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_EBUCore_1_8_ps_jsonClick(TObject *Sender)
 {
-    Prefs->Details[Prefs_Custom].Write(__T("EBUCore_1.8_ps_json"));
+    M_View_EBUCore_1_8_ps_json->Checked=true;
     ToolBar_View_EBUCore_1_8_ps_json->Checked=true;
     ChangePage(Page_Custom);
 }
@@ -1212,7 +1212,7 @@ void __fastcall TMainF::M_View_EBUCore_1_8_ps_jsonClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_EBUCore_1_8_sp_jsonClick(TObject *Sender)
 {
-    Prefs->Details[Prefs_Custom].Write(__T("EBUCore_1.8_sp_json"));
+    M_View_EBUCore_1_8_sp_json->Checked=true;
     ToolBar_View_EBUCore_1_8_sp_json->Checked=true;
     ChangePage(Page_Custom);
 }
@@ -1220,7 +1220,7 @@ void __fastcall TMainF::M_View_EBUCore_1_8_sp_jsonClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_FIMS_1_1Click(TObject *Sender)
 {
-    Prefs->Details[Prefs_Custom].Write(__T("FIMS_1.1"));
+    M_View_FIMS_1_1->Checked=true;
     ToolBar_View_FIMS_1_1->Checked=true;
     ChangePage(Page_Custom);
 }
@@ -1228,7 +1228,7 @@ void __fastcall TMainF::M_View_FIMS_1_1Click(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_FIMS_1_2Click(TObject *Sender)
 {
-    Prefs->Details[Prefs_Custom].Write(__T("FIMS_1.2"));
+    M_View_FIMS_1_2->Checked=true;
     ToolBar_View_FIMS_1_2->Checked=true;
     ChangePage(Page_Custom);
 }
@@ -1236,7 +1236,7 @@ void __fastcall TMainF::M_View_FIMS_1_2Click(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_FIMS_1_3Click(TObject *Sender)
 {
-    Prefs->Details[Prefs_Custom].Write(__T("FIMS_1.3"));
+    M_View_FIMS_1_3->Checked=true;
     ToolBar_View_FIMS_1_3->Checked=true;
     ChangePage(Page_Custom);
 }
