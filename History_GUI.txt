@@ -12,6 +12,34 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 18.08, 2018-08-31
+--------------
++ Dolby Atmos (in E-AC-3 or TrueHD): support of bed channel count/configuration + objects count + complexity index
++ AC-3/DTS/AAC: display of info about legacy decoders behavior removed
++ AC-3/DTS/AAC: some changes in how format is displayed
++ AC-3/DTS/AAC: better split between technical names and commercial names
++ AAC: support of profile information from MP4_IOD_Tag AudioProfileLevelIndication
++ USAC (xHE-AAC) support
++ Audio channel layout: using a new terminology, better suited for 3D Audio, see https://mediaarea.net/AudioChannelLayout
++ DSD (DSF & DSDIFF) support
++ DXD (Digital eXtreme Definition) commercial name
++ Dolby Vision: use new form for profile (numbers instead of acronyms)
++ New format "Directory" when image sequence + audio file is detected (1 directory style for the moment)
++ PBCore2 export update, thanks to WGBH
++ MPEG-7 export update
++ NISO export update
++ AV1: support of AOmedia AV1 based on 1.0.0 specifications
++ ATRAC9 detection
++ Versionned RPMs
++ HEVC: better support of buggy SEI
++ ADTS: CodecID
++ Support of injection of external metadata
++ HTTPS: support of AWS extension "x-amz-*" in HTTPS headers, permitting to manage temporary credentials (AssumeRole)
++ MPEG-4, #1005: Obey edit list in QuickTime Timecode track
+x MIXML: hide fields which were hidden in normal output
+x Hybrid AC-3/E-AC-3 (in Blu-rays): bit rate info was wrong
+x Lot of bug fixes, see full log for more info
+
 Version 18.05, 2018-05-09
 --------------
 + PBCore 2.1 export update, sponsored by WGBH as part of the NEH-funded PBCore Development and Preservation Project
