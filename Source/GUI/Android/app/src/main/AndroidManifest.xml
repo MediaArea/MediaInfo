@@ -46,16 +46,6 @@
                 android:value="net.mediaarea.mediainfo.ReportListActivity" />
         </activity>
 
-        <activity android:name=".ExportActivity"
-            android:label="@string/export_title"
-            android:excludeFromRecents="true"
-            android:parentActivityName=".ReportListActivity"
-            android:theme="@style/AppTheme.Dialog">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="net.mediaarea.mediainfo.ReportListActivity" />
-        </activity>
-
     </application>
 
 </manifest>
