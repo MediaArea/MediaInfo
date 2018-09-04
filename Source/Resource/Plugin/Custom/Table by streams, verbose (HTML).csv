@@ -16,7 +16,7 @@ File_Begin;<tr>
 File_Middle;(unused)\r\n
 File_End;</tr>
 ;
-General;<td class="Name">%FileName%.%FileExtension%</td><td>[%FileSize% B]$if(%Cover%,\, Cover)</td><td bgcolor="#DFDFDF">%Format%[(%Format/Family%)][, %BitRate%bps][(%BitRate_Mode%)][, %Duration/String1%][, %Coherency/Duration% coh][, %StreamSize% B][, %Width%x%Height%pix][, AR:%AspectRatio%=~%AspectRatio/String%][, %Channel(s)%ch][, %Resolution/String%][, %FrameRate/String%][, %SamplingRate/String%][, %Bits-(Pixel*Frame)%bpf][, %FrameCount%frames][, Count:%Count%][, %Format_Settings%][, %Language/String%][, '%Title%'][&'%Title/More%']</td>$if(%Video_Codec_List%,,<td bgcolor="white"></td>)
+General;<td class="Name">%FileName%.%FileExtension%</td><td>[%FileSize% B]$if(%Cover%,\, Cover)</td><td bgcolor="#DFDFDF">%Format%[(%Format/Family%)][, %BitRate%bps][(%BitRate_Mode%)][, %Duration/String1%][, %Coherency/Duration% coh][, %StreamSize% B][, %Width%x%Height%pix][, AR:%AspectRatio%=~%AspectRatio/String%][, %Channel(s)%ch][, %Resolution/String%][, %FrameRate/String%][, %SamplingRate/String%][, %Bits-(Pixel*Frame)%bpf][, %FrameCount%frames][, Count:%Count%][, %Format_Settings%][, %Language/String%][, '%Title%'][&'%Title/More%']</td>$if(%Video_Format_List%,,<td bgcolor="white"></td>)
 General_Begin;
 General_Middle;(unused)\r\n
 General_End;

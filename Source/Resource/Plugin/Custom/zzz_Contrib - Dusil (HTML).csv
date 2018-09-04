@@ -21,7 +21,7 @@ General_Begin;
 General_Middle;(unused)\r\n
 General_End;
 ;
-Video;%Format%[(%Format/Family%)]<td>[%BitRate%]</td><td>[%Duration/String1%]</td><td>[%StreamSize%]</td><td>[%Width%]</td><td>[%Height%]</td><td>[%FrameRate/String%]</td><td>[%Bits-(Pixel*Frame)%]</td><td>[%FrameCount%]</td><td>[%Format_Settings%]</td><td>[%Colorimetry%]</td>
+Video;%Format%[(%Format/Family%)]<td>[%BitRate%]</td><td>[%Duration/String1%]</td><td>[%StreamSize%]</td><td>[%Width%]</td><td>[%Height%]</td><td>[%FrameRate/String%]</td><td>[%Bits-(Pixel*Frame)%]</td><td>[%FrameCount%]</td><td>[%Format_Settings%]</td><td>[%ChromaSubsampling%]</td>
 Video_Begin;<td bgcolor="#FFBFBF">
 Video_Middle;<br>
 Video_End;</td>

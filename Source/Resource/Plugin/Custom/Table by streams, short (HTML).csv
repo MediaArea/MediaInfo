@@ -16,7 +16,7 @@ File_Begin;<tr>
 File_Middle;(unused)\r\n
 File_End;</tr>
 ;
-General;<td class="Name">%FileName%.%FileExtension%</td><td>%FileSize/String4%</td><td>%Duration/String%</td><td bgcolor="#DFDFDF">[%BitRate/String%][, %Format%]</td>$if(%Video_Codec_List%,,<td bgcolor="white"></td>)
+General;<td class="Name">%FileName%.%FileExtension%</td><td>%FileSize/String4%</td><td>%Duration/String%</td><td bgcolor="#DFDFDF">[%BitRate/String%][, %Format%]</td>$if(%Video_Format_List%,,<td bgcolor="white"></td>)
 General_Begin;
 General_Middle;(unused)\r\n
 General_End;
