@@ -6,8 +6,13 @@
 
 package net.mediaarea.mediainfo
 
+import java.io.OutputStream
+
 import android.support.v4.app.Fragment
+import android.support.design.widget.Snackbar
+import android.support.v4.provider.DocumentFile
 import android.os.Bundle
+import android.app.Activity
 import android.content.SharedPreferences
 import android.content.Context
 import android.content.Intent
@@ -23,12 +28,13 @@ import kotlinx.android.synthetic.main.report_detail.view.*
 class ReportDetailFragment : Fragment() {
     companion object {
         const val ARG_REPORT_ID: String = "id"
+        const val SAVE_FILE_REQUEST_CODE: Int = 1
     }
 
     private val disposable: CompositeDisposable = CompositeDisposable()
     private lateinit var activityListener: ReportActivityListener
     private var sharedPreferences: SharedPreferences? = null
-    private var view: String = "Text"
+    private var view: String = "HTML"
     var id: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +62,7 @@ class ReportDetailFragment : Fragment() {
 
         sharedPreferences = activity?.getSharedPreferences(getString(R.string.preferences_key), Context.MODE_PRIVATE)
 
-        sharedPreferences?.getString(getString(R.string.preferences_view_key), "Text").let {
+        sharedPreferences?.getString(getString(R.string.preferences_view_key), "HTML").let {
             if (it != null)
                 view = it
         }
@@ -102,17 +108,8 @@ class ReportDetailFragment : Fragment() {
 
         menu.findItem(R.id.action_export_report).let {
             it.setOnMenuItemClickListener {
-                id?.let {
-                    disposable.add(activityListener.getReportViewModel().getReport(it)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe({
-                                val intent: Intent = Intent(activity, ExportActivity::class.java)
-                                intent.putExtra(ExportActivity.ARG_REPORT_NAME, it.filename)
-                                intent.putExtra(ExportActivity.ARG_REPORT_DATA, it.report)
-                                startActivity(intent)
-                            }))
-                }
+                val intent: Intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+                startActivityForResult(intent, SAVE_FILE_REQUEST_CODE)
 
                 true
             }
@@ -146,6 +143,72 @@ class ReportDetailFragment : Fragment() {
             }.setCheckable(true).setChecked(current.name == view)
 
             viewMenu.setGroupCheckable(R.id.menu_views_group, true, true)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                SAVE_FILE_REQUEST_CODE -> {
+                    if (resultData == null) {
+                        onError()
+                        return
+                    }
+
+                    id.let {
+                        if (it == null) {
+                            onError()
+                            return
+                        }
+
+                        disposable
+                                .add(activityListener.getReportViewModel().getReport(it)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe {
+                                    if (it.report.isEmpty()) {
+                                        onError()
+                                    } else {
+                                        val directory: DocumentFile = DocumentFile.fromTreeUri(context, resultData.data)
+
+                                       if (!directory.canWrite()) {
+                                            onError()
+                                        } else {
+                                            val reportText: String = Core.convertReport(it.report, view, true)
+                                            val filename: String = String.format("%s.%s", it.filename, view)
+                                            val mime: String = Core.views.find { it.name == view }?.mime ?: "text/plain"
+
+                                            try {
+                                                val document: DocumentFile = directory.createFile(mime, filename)
+                                                val ostream: OutputStream? = context?.contentResolver?.openOutputStream(document.uri)
+
+                                                if (ostream == null) {
+                                                    onError()
+                                                } else {
+                                                    ostream.write(reportText.toByteArray())
+                                                    ostream.flush()
+                                                    ostream.close()
+                                                }
+                                            } catch (e: Exception) {
+                                                onError()
+                                            }
+                                        }
+                                    }
+                                })
+                    }
+                }
+            }
+        }
+    }
+
+    private fun onError() {
+        val rootView: View? = getView()
+
+        // Show error message for 5 seconds
+        if (rootView != null) {
+            Snackbar.make(rootView, R.string.error_text, 5000)
+                    .setAction("Action", null)
+                    .show()
         }
     }
 }
