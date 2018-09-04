@@ -1,12 +1,12 @@
 ColumnsCount;20
 Column0;General;0;CompleteName;30
 Column1;General;0;Format;10
-Column2;General;0;Video_Codec_List;10
-Column3;General;0;Audio_Codec_List;10
+Column2;General;0;Video_Format_List;10
+Column3;General;0;Audio_Format_List;10
 Column4;General;0;Audio_Language_List;10
-Column5;General;0;Text_Codec_List;10
+Column5;General;0;Text_Format_List;10
 Column6;General;0;Text_Language_List;10
-Column7;General;0;Chapters_Codec_List;10
+Column7;General;0;Chapters_Format_List;10
 Column8;General;0;Chapters_Language_List;10
 Column9;Video;0;BitRate_String;10
 Column10;Video;0;Width;10
