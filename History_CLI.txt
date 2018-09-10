@@ -12,6 +12,10 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 18.08.1, 2018-09-10
+--------------
+x Fix XML/MPEG-7/PBCore2 output discarding non ANSI characters
+
 Version 18.08, 2018-08-31
 --------------
 + Dolby Atmos (in E-AC-3 or TrueHD): support of bed channel count/configuration + objects count + complexity index
