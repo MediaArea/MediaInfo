@@ -18,9 +18,8 @@
     </string>
     <string name="website_text">Website</string>
     <string name="website_url">https://mediaarea.net/en/MediaInfo</string>
-    <string name="donate_text">Donate</string>
-    <string name="donate_url">https://mediaarea.net/en/MediaInfo/Donate</string>
     <string name="export_title">About MediaInfo</string>
+    <string name="logo_desc">MediaArea logo</string>
     <string name="close_text">Close</string>
     <string name="export_text">Export</string>
     <string name="format_text">Format: </string>

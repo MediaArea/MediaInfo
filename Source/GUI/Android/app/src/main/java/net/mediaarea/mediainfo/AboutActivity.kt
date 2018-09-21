@@ -30,11 +30,5 @@ class AboutActivity : AppCompatActivity() {
             intent.data = Uri.parse(getString(R.string.website_url))
             startActivity(intent)
         }
-
-        donate_btn.setOnClickListener {
-            val intent: Intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(getString(R.string.donate_url))
-            startActivity(intent)
-        }
     }
 }
