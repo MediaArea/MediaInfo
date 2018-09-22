@@ -20,6 +20,10 @@ About::About(const QString& version, QWidget *parent) :
     setWindowTitle("About");
 #endif
 
+#if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) // Remove donate button
+    ui->donate->setVisible(false);
+#endif
+
     ui->aboutText->setText(ui->aboutText->text().replace("VERSION", version));
 }
 
