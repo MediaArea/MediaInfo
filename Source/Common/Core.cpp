@@ -464,22 +464,14 @@ String Core::Get (size_t FilePos, stream_t StreamKind, size_t StreamNumber, cons
 String Core::StreamName (stream_t StreamKind) {
     switch(StreamKind) {
     case Stream_General: return __T("General");
-        break;
-    case Stream_Audio: return __T("Audio");
-        break;
-    case Stream_Video: return __T("Video");
-        break;
-    case Stream_Text: return __T("Text");
-        break;
-    case Stream_Other: return __T("Other");
-        break;
-    case Stream_Image: return __T("Image");
-        break;
-    case Stream_Menu: return __T("Menu");
-        break;
-    default: return __T("Unknown stream");
-        break;
-    }
+	case Stream_Audio: return __T("Audio");
+	case Stream_Video: return __T("Video");
+	case Stream_Text: return __T("Text");
+	case Stream_Other: return __T("Other");
+	case Stream_Image: return __T("Image");
+	case Stream_Menu: return __T("Menu");
+	default: return __T("Unknown stream");
+	}
 }
 
 String Core::Parameters () {
