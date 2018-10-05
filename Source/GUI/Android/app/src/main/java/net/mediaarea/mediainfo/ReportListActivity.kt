@@ -10,11 +10,13 @@ import kotlin.jvm.*
 
 import java.io.FileNotFoundException
 import java.io.IOException
+import java.io.File
 
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.support.v4.app.Fragment
 import android.arch.lifecycle.ViewModelProviders
+import android.os.Build
 import android.os.Bundle
 import android.os.AsyncTask
 import android.os.ParcelFileDescriptor
@@ -26,6 +28,8 @@ import android.provider.OpenableColumns
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.content.ClipData
+import android.content.pm.PackageManager
+import android.support.v4.app.ActivityCompat
 import android.view.*
 
 import io.reactivex.disposables.CompositeDisposable
@@ -48,11 +52,13 @@ import kotlinx.android.synthetic.main.hello_layout.*
  */
 class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     private val OPEN_FILE_REQUEST_CODE = 40
+    private val READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE = 50
 
     private lateinit var reportModel: ReportViewModel
     private var disposable: CompositeDisposable = CompositeDisposable()
     private var twoPane: Boolean = false
     private var reports: List<Report> = listOf()
+    private var pendingFileUris: MutableList<Uri> = mutableListOf()
 
     inner class AddFile: AsyncTask<Uri, Int, Boolean>() {
         override fun onPreExecute() {
@@ -85,63 +91,118 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
         override fun doInBackground(vararg params: Uri?): Boolean {
             for (uri: Uri? in params) {
-                if (uri == null)
+                if (uri == null) {
                     continue
-
-                val cursor: Cursor = contentResolver.query(uri, null, null, null, null, null)
-
-                // moveToFirst() returns false if the cursor has 0 rows
-                if (cursor.moveToFirst()) {
-                    // DISPLAY_NAME is provider-specific, and might not be the file name
-                    val displayName: String = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
-
-                    cursor.close()
-
-                    val fd: ParcelFileDescriptor
-                    try {
-                        fd = contentResolver.openFileDescriptor(uri, "r")
-                    } catch (e: FileNotFoundException) {
-                        break
-                    } catch (e: IOException) {
-                        break
-                    }
-
-                    val report: ByteArray = Core.createReport(fd.detachFd(), displayName)
-
-                    disposable.add(reportModel.insertReport(Report(0, displayName, report, Core.version))
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .doOnComplete {
-                                // Don't go to report view when opening multiples files
-                                if (params.size == 1) {
-                                    disposable.add(reportModel.getLastId()
-                                            .subscribeOn(Schedulers.io())
-                                            .observeOn(AndroidSchedulers.mainThread())
-                                            .doOnSuccess {
-                                                val id: Int = it
-                                                if (twoPane) {
-                                                    val fragment: ReportDetailFragment = ReportDetailFragment().apply {
-                                                        arguments = Bundle().apply {
-                                                            putInt(ReportDetailFragment.ARG_REPORT_ID, id)
-                                                        }
-                                                    }
-
-                                                    supportFragmentManager
-                                                            .beginTransaction()
-                                                            .replace(R.id.report_detail_container, fragment)
-                                                            .commit()
-                                                } else {
-                                                    val intent = Intent(this@ReportListActivity, ReportDetailActivity::class.java)
-                                                    intent.putExtra(ReportDetailFragment.ARG_REPORT_ID, id)
-
-                                                    startActivity(intent)
-                                                }
-                                            }.subscribe())
-                                }
-                            }.subscribe())
                 }
+
+                var fd: ParcelFileDescriptor? = null
+                var displayName = ""
+
+                when (uri.scheme) {
+                    "content" -> {
+                        val cursor: Cursor = contentResolver.query(uri, null, null, null, null, null)
+
+                        // moveToFirst() returns false if the cursor has 0 rows
+                        if (cursor.moveToFirst()) {
+                            // DISPLAY_NAME is provider-specific, and might not be the file name
+                            displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                            cursor.close()
+                            try {
+                                fd = contentResolver.openFileDescriptor(uri, "r")
+                            } catch (e: Exception) {}
+                        }
+                    }
+                    "file" -> {
+                        val file: File = File(uri.path)
+                        try {
+                            fd = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
+                        } catch (e: Exception) {}
+
+                        displayName = uri.lastPathSegment
+                    }
+                }
+
+                if (fd == null) {
+                    continue
+                }
+
+                val report: ByteArray = Core.createReport(fd.detachFd(), displayName)
+
+                disposable.add(reportModel.insertReport(Report(0, displayName, report, Core.version))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnComplete {
+                            // Don't go to report view when opening multiples files
+                            if (params.size == 1) {
+                                disposable.add(reportModel.getLastId()
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .doOnSuccess {
+                                            val id: Int = it
+                                            if (twoPane) {
+                                                val fragment: ReportDetailFragment = ReportDetailFragment().apply {
+                                                    arguments = Bundle().apply {
+                                                        putInt(ReportDetailFragment.ARG_REPORT_ID, id)
+                                                    }
+                                                }
+
+                                                supportFragmentManager
+                                                        .beginTransaction()
+                                                        .replace(R.id.report_detail_container, fragment)
+                                                        .commit()
+                                            } else {
+                                                val intent = Intent(this@ReportListActivity, ReportDetailActivity::class.java)
+                                                intent.putExtra(ReportDetailFragment.ARG_REPORT_ID, id)
+
+                                                startActivity(intent)
+                                            }
+                                        }.subscribe())
+                            }
+                        }.subscribe())
             }
             return true
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    AddFile().execute(*(pendingFileUris.toTypedArray()))
+                    pendingFileUris.clear()
+                } else {
+                    // Abort all pending request
+                    pendingFileUris.clear()
+                }
+            }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleIntent(intent)
+    }
+
+    private fun handleIntent(intent: Intent) {
+        if (intent.action != null) {
+            val action: String = intent.action
+            val uri: Uri? = intent.data
+            if (action == Intent.ACTION_VIEW && uri != null) {
+                if (uri.scheme == "file") {
+                    if (Build.VERSION.SDK_INT >= 23) {
+                        if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                            pendingFileUris.add(uri)
+                            ActivityCompat.requestPermissions(this@ReportListActivity,
+                                    arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+                                    READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE)
+                            return
+                        }
+                    }
+                }
+
+                AddFile().execute(uri)
+            }
         }
     }
 
@@ -233,6 +294,8 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
             twoPane = true
 
         setupRecyclerView(report_list)
+
+        onNewIntent(intent)
     }
 
     override fun onStart() {
