@@ -14,6 +14,9 @@
   ; Old Extension (in 1 version)
   DeleteRegKey HKCR "SystemFileAssociations\${Extension}\Shell\MediaInfo"
   DeleteRegKey /ifempty HKCR "SystemFileAssociations\${Extension}\Shell"
+
+  WriteRegStr HKCU "Software\Classes\SystemFileAssociations\${Extension}\Shell\MediaInfo" "Icon" "$INSTDIR\MediaInfo.exe"
+  WriteRegStr HKCU "Software\Classes\SystemFileAssociations\${Extension}\Shell\MediaInfo\Command" "" "$\"$INSTDIR\MediaInfo.exe$\" $\"%1$\""
 !macroend
 
 !macro MediaInfo_Extensions_Uninstall_I Extension
