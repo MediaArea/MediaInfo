@@ -8,8 +8,6 @@ package net.mediaarea.mediainfo
 
 import kotlin.jvm.*
 
-import java.io.FileNotFoundException
-import java.io.IOException
 import java.io.File
 
 import android.support.v7.app.AppCompatActivity
@@ -27,7 +25,6 @@ import android.database.Cursor
 import android.provider.OpenableColumns
 import android.widget.FrameLayout
 import android.widget.TextView
-import android.content.ClipData
 import android.content.pm.PackageManager
 import android.support.v4.app.ActivityCompat
 import android.view.*
@@ -39,7 +36,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_report_list.*
 import kotlinx.android.synthetic.main.report_list_content.view.*
 import kotlinx.android.synthetic.main.report_list.*
-import kotlinx.android.synthetic.main.spinner_layout.*
 import kotlinx.android.synthetic.main.hello_layout.*
 
 /**
@@ -67,7 +63,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
             add_button.visibility = View.GONE
 
             val rootLayout: FrameLayout = findViewById(R.id.frame_layout)
-            var found: Boolean = false
+            var found = false
             for (i: Int in rootLayout.childCount downTo 1) {
                 if (rootLayout.getChildAt(i - 1).id == R.id.spinner_layout)
                     found = true
@@ -100,20 +96,21 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
                 when (uri.scheme) {
                     "content" -> {
-                        val cursor: Cursor = contentResolver.query(uri, null, null, null, null, null)
-
-                        // moveToFirst() returns false if the cursor has 0 rows
-                        if (cursor.moveToFirst()) {
-                            // DISPLAY_NAME is provider-specific, and might not be the file name
-                            displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
-                            cursor.close()
-                            try {
-                                fd = contentResolver.openFileDescriptor(uri, "r")
-                            } catch (e: Exception) {}
-                        }
+                        try {
+                            val cursor: Cursor = contentResolver.query(uri, null, null, null, null, null)
+                            // moveToFirst() returns false if the cursor has 0 rows
+                            if (cursor.moveToFirst()) {
+                                // DISPLAY_NAME is provider-specific, and might not be the file name
+                                displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                                cursor.close()
+                            }
+                        } catch (e: Exception) {}
+                        try {
+                            fd = contentResolver.openFileDescriptor(uri, "r")
+                        } catch (e: Exception) {}
                     }
                     "file" -> {
-                        val file: File = File(uri.path)
+                        val file = File(uri.path)
                         try {
                             fd = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
                         } catch (e: Exception) {}
@@ -231,7 +228,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
         menu?.findItem(R.id.action_about).let {
             it?.setOnMenuItemClickListener {
-                val intent: Intent = Intent(this,  AboutActivity::class.java)
+                val intent = Intent(this,  AboutActivity::class.java)
                 startActivity(intent)
 
                 true
@@ -249,9 +246,9 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                         return
 
                     if (resultData.clipData != null) {
-                        var uris: Array<Uri> = Array<Uri>(resultData.clipData.itemCount, {
+                        val uris: Array<Uri> = Array(resultData.clipData.itemCount) {
                             resultData.clipData.getItemAt(it).uri
-                        })
+                        }
                         AddFile().execute(*(uris))
                     } else if (resultData.data != null) {
                         AddFile().execute(resultData.data)
@@ -277,10 +274,10 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         reportModel = ViewModelProviders.of(this, viewModelFactory).get(ReportViewModel::class.java)
 
         add_button.setOnClickListener {
-            val intent: Intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
 
             intent.addCategory(Intent.CATEGORY_OPENABLE)
-            intent.setType("*/*")
+            intent.type = "*/*"
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
 
             startActivityForResult(intent, OPEN_FILE_REQUEST_CODE)
@@ -303,13 +300,13 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         disposable.add(reportModel.getAllReports()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
+                .subscribe {
                     reports = it
                     setupRecyclerView(report_list)
 
                     val rootLayout: FrameLayout = findViewById(R.id.frame_layout)
                     if (reports.isEmpty()) {
-                        var found: Boolean = false
+                        var found = false
                         for (i: Int in rootLayout.childCount downTo 1) {
                             if (rootLayout.getChildAt(i - 1).id == R.id.hello_layout)
                                 found = true
@@ -324,7 +321,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                         }
                         rootLayout.removeView(hello_layout)
                     }
-                }))
+                })
     }
 
     override fun onStop() {
@@ -374,7 +371,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val report: Report = reports.get(position)
+            val report: Report = reports[position]
             holder.name.text = report.filename
             holder.id = report.id
 

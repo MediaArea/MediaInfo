@@ -11,7 +11,7 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.content.Context
 
-@Database(entities = arrayOf(Report::class), version = 1, exportSchema = false)
+@Database(entities = [Report::class], version = 1, exportSchema = false)
 abstract class ReportsDatabase : RoomDatabase() {
     companion object {
         @Volatile private var INSTANCE: ReportsDatabase? = null

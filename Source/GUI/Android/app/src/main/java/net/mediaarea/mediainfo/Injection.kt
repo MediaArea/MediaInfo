@@ -9,7 +9,7 @@ package net.mediaarea.mediainfo
 import android.content.Context
 
 object Injection {
-    fun provideReportDataSource(context: Context): ReportDao {
+    private fun provideReportDataSource(context: Context): ReportDao {
         val database: ReportsDatabase = ReportsDatabase.getInstance(context)
         return database.reportDao()
     }
