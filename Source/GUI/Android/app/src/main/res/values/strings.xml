@@ -12,7 +12,7 @@
     <string name="hello_text">You must at least open 1 file.</string>
     <string name="about_title">About MediaInfo</string>
     <string name="about_text">MediaInfo vMI_VERSION using MediaInfoLib vMIL_VERSION\n
-            Copyright (c) 2002-2018 MediaArea.net SARL. All rights reserved.\n\n
+            Copyright &#169; 2002-2018 MediaArea.net SARL. All rights reserved.\n\n
             MediaInfo provides easy access to technical and tag information about video and audio files.\n
             It is open-source software, which means that it is free of charge to the end user and developers have freedom to study, to improve and to redistribute the program (BSD license).
     </string>
@@ -20,10 +20,16 @@
     <string name="website_url">https://mediaarea.net/en/MediaInfo</string>
     <string name="export_title">About MediaInfo</string>
     <string name="logo_desc">MediaArea logo</string>
+    <string name="delete_desc">Delete report</string>
     <string name="close_text">Close</string>
     <string name="export_text">Export</string>
     <string name="format_text">Format: </string>
     <string name="error_text">Error!</string>
+    <string name="menu_export">Export report</string>
+    <string name="menu_views">Change view</string>
+    <string name="media_error_text">External media is not accessible</string>
+    <string name="open_title">Open file(s)</string>
+    <string name="save_title">Save to directory</string>
     <!-- Preferences keys -->
     <string name="preferences_key">net.mediaarea.mediainfo.preferences</string>
     <string name="preferences_view_key">net.mediaarea.mediainfo.preferences_view</string>

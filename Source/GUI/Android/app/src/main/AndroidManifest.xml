@@ -9,6 +9,7 @@
     package="net.mediaarea.mediainfo">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="20" />
 
     <application
         android:allowBackup="true"
