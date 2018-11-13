@@ -30,17 +30,21 @@ class ReportViewModel(private val dataSource: ReportDao) : ViewModel() {
         }
     }
 
+    /* unused
     fun updateReport(report: Report): Completable {
         return Completable.fromAction {
             dataSource.updateReport(report)
         }
     }
+    */
 
+    /* unused
     fun deleteReport(report: Report): Completable {
         return Completable.fromAction {
             dataSource.deleteReport(report)
         }
     }
+    */
 
     fun deleteReport(id: Int): Completable {
         return Completable.fromAction {
@@ -48,9 +52,11 @@ class ReportViewModel(private val dataSource: ReportDao) : ViewModel() {
         }
     }
 
+    /* unused
     fun deleteAllReports(): Completable {
         return Completable.fromAction {
             dataSource.deleteAllReports()
         }
     }
+    */
 }
