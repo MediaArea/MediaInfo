@@ -29,7 +29,7 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
-        app:layoutManager="LinearLayoutManager"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         tools:context="net.mediaarea.mediainfo.ReportListActivity"
         tools:listitem="@layout/report_list_content" />
 
