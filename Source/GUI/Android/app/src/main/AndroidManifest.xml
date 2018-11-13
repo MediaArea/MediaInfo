@@ -28,12 +28,54 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="content" android:mimeType="*/*" />
+                <data android:scheme="content" android:mimeType="audio/*" />
+                <data android:scheme="content" android:mimeType="image/*" />
+                <data android:scheme="content" android:mimeType="video/*" />
+                <data android:scheme="content" android:mimeType="application/acad" />
+                <data android:scheme="content" android:mimeType="application/dash+xml" />
+                <data android:scheme="content" android:mimeType="application/dwg" />
+                <data android:scheme="content" android:mimeType="application/gxf" />
+                <data android:scheme="content" android:mimeType="application/mxf" />
+                <data android:scheme="content" android:mimeType="application/ogg" />
+                <data android:scheme="content" android:mimeType="application/ram" />
+                <data android:scheme="content" android:mimeType="application/ttml+xml" />
+                <data android:scheme="content" android:mimeType="application/vnd.ms-asf" />
+                <data android:scheme="content" android:mimeType="application/vnd.rn-realmedia" />
+                <data android:scheme="content" android:mimeType="application/x-blender" />
+                <data android:scheme="content" android:mimeType="application/x-cd-image" />
+                <data android:scheme="content" android:mimeType="application/x-flac" />
+                <data android:scheme="content" android:mimeType="application/x-matroska" />
+                <data android:scheme="content" android:mimeType="application/x-ogg" />
+                <data android:scheme="content" android:mimeType="application/x-sami" />
+                <data android:scheme="content" android:mimeType="application/x-shockwave" />
+                <data android:scheme="content" android:mimeType="application/x-shockwave-flash" />
+                <data android:scheme="content" android:mimeType="application/x-subrip" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="file" android:mimeType="*/*" />
+                <data android:scheme="file" android:mimeType="audio/*" />
+                <data android:scheme="file" android:mimeType="image/*" />
+                <data android:scheme="file" android:mimeType="video/*" />
+                <data android:scheme="file" android:mimeType="application/acad" />
+                <data android:scheme="file" android:mimeType="application/dash+xml" />
+                <data android:scheme="file" android:mimeType="application/dwg" />
+                <data android:scheme="file" android:mimeType="application/gxf" />
+                <data android:scheme="file" android:mimeType="application/mxf" />
+                <data android:scheme="file" android:mimeType="application/ogg" />
+                <data android:scheme="file" android:mimeType="application/ram" />
+                <data android:scheme="file" android:mimeType="application/ttml+xml" />
+                <data android:scheme="file" android:mimeType="application/vnd.ms-asf" />
+                <data android:scheme="file" android:mimeType="application/vnd.rn-realmedia" />
+                <data android:scheme="file" android:mimeType="application/x-blender" />
+                <data android:scheme="file" android:mimeType="application/x-cd-image" />
+                <data android:scheme="file" android:mimeType="application/x-flac" />
+                <data android:scheme="file" android:mimeType="application/x-matroska" />
+                <data android:scheme="file" android:mimeType="application/x-ogg" />
+                <data android:scheme="file" android:mimeType="application/x-sami" />
+                <data android:scheme="file" android:mimeType="application/x-shockwave" />
+                <data android:scheme="file" android:mimeType="application/x-shockwave-flash" />
+                <data android:scheme="file" android:mimeType="application/x-subrip" />
             </intent-filter>
         </activity>
 
