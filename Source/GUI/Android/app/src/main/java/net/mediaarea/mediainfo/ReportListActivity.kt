@@ -17,6 +17,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Build
 import android.os.Bundle
 import android.os.AsyncTask
+import android.os.Environment
 import android.os.ParcelFileDescriptor
 import android.net.Uri
 import android.app.Activity
@@ -27,7 +28,10 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import android.content.pm.PackageManager
 import android.support.v4.app.ActivityCompat
+import android.support.design.widget.Snackbar
 import android.view.*
+
+
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -37,6 +41,10 @@ import kotlinx.android.synthetic.main.activity_report_list.*
 import kotlinx.android.synthetic.main.report_list_content.view.*
 import kotlinx.android.synthetic.main.report_list.*
 import kotlinx.android.synthetic.main.hello_layout.*
+
+import com.github.angads25.filepicker.model.DialogConfigs
+import com.github.angads25.filepicker.model.DialogProperties
+import com.github.angads25.filepicker.view.FilePickerDialog
 
 /**
  * An activity representing a list of Pings. This activity
@@ -96,18 +104,21 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
                 when (uri.scheme) {
                     "content" -> {
-                        try {
-                            val cursor: Cursor = contentResolver.query(uri, null, null, null, null, null)
-                            // moveToFirst() returns false if the cursor has 0 rows
-                            if (cursor.moveToFirst()) {
-                                // DISPLAY_NAME is provider-specific, and might not be the file name
-                                displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
-                                cursor.close()
+                        if (Build.VERSION.SDK_INT >= 19) {
+                            try {
+                                val cursor: Cursor = contentResolver.query(uri, null, null, null, null, null)
+                                // moveToFirst() returns false if the cursor has 0 rows
+                                if (cursor.moveToFirst()) {
+                                    // DISPLAY_NAME is provider-specific, and might not be the file name
+                                    displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                                    cursor.close()
+                                }
+                            } catch (e: Exception) {
                             }
-                        } catch (e: Exception) {}
-                        try {
-                            fd = contentResolver.openFileDescriptor(uri, "r")
-                        } catch (e: Exception) {}
+                            try {
+                                fd = contentResolver.openFileDescriptor(uri, "r")
+                            } catch (e: Exception) {}
+                        }
                     }
                     "file" -> {
                         val file = File(uri.path)
@@ -242,16 +253,19 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 OPEN_FILE_REQUEST_CODE -> {
-                    if (resultData == null)
-                        return
+                    if (Build.VERSION.SDK_INT >= 19) {
+                        if (resultData == null)
+                            return
 
-                    if (resultData.clipData != null) {
-                        val uris: Array<Uri> = Array(resultData.clipData.itemCount) {
-                            resultData.clipData.getItemAt(it).uri
+                        val clipData = resultData.clipData
+                        if (clipData != null) {
+                            val uris: Array<Uri> = Array(clipData.itemCount) {
+                                clipData.getItemAt(it).uri
+                            }
+                            AddFile().execute(*(uris))
+                        } else if (resultData.data != null) {
+                            AddFile().execute(resultData.data)
                         }
-                        AddFile().execute(*(uris))
-                    } else if (resultData.data != null) {
-                        AddFile().execute(resultData.data)
                     }
                 }
             }
@@ -274,13 +288,48 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         reportModel = ViewModelProviders.of(this, viewModelFactory).get(ReportViewModel::class.java)
 
         add_button.setOnClickListener {
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            if (Build.VERSION.SDK_INT >= 19) {
+                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
 
-            intent.addCategory(Intent.CATEGORY_OPENABLE)
-            intent.type = "*/*"
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                intent.addCategory(Intent.CATEGORY_OPENABLE)
+                intent.type = "*/*"
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
 
-            startActivityForResult(intent, OPEN_FILE_REQUEST_CODE)
+                startActivityForResult(intent, OPEN_FILE_REQUEST_CODE)
+            } else {
+                if (Environment.getExternalStorageState() in setOf(Environment.MEDIA_MOUNTED, Environment.MEDIA_MOUNTED_READ_ONLY)) {
+                    val properties = DialogProperties()
+                    properties.selection_mode = DialogConfigs.MULTI_MODE
+                    properties.selection_type = DialogConfigs.FILE_SELECT
+                    properties.root = File(DialogConfigs.DEFAULT_DIR)
+                    properties.error_dir = File(DialogConfigs.DEFAULT_DIR)
+                    properties.offset = File(DialogConfigs.DEFAULT_DIR)
+                    properties.extensions = null
+
+                    val dialog = FilePickerDialog(this, properties)
+                    dialog.setTitle(R.string.open_title)
+
+                    dialog.setDialogSelectionListener { files: Array<String> ->
+                        var uris: Array<Uri> = arrayOf()
+
+                        files.forEach { uri: String ->
+                            uris += Uri.parse("file://$uri")
+                        }
+                        AddFile().execute(*(uris))
+                    }
+
+                    dialog.show()
+                } else {
+                    val rootView: View? = findViewById(android.R.id.content)
+
+                    // Show error message for 5 seconds
+                    if (rootView != null) {
+                        Snackbar.make(rootView, R.string.media_error_text, 5000)
+                                .setAction("Action", null)
+                                .show()
+                    }
+                }
+            }
         }
 
         // The detail container view will be present only in the

@@ -10,7 +10,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "net.mediaarea.mediainfo"
-        minSdkVersion 19
+        minSdkVersion 14
         targetSdkVersion 27
         versionCode 1
         versionName "18.08.1"
