@@ -34,6 +34,14 @@
   DeleteRegKey HKCR "*\\Shell\\MediaInfo"
   DeleteRegKey HKCU "Software\\MediaInfo"
 
+  ; Removing unwanted entries
+  !insertmacro MediaInfo_Extensions_Uninstall_I "Directory.Audio"
+  !insertmacro MediaInfo_Extensions_Uninstall_I "Directory.Video"
+
+  ; directories
+  WriteRegStr HKCU "Software\Classes\Directory\Shell\MediaInfo" "Icon" "$INSTDIR\MediaInfo.exe"
+  WriteRegStr HKCU "Software\Classes\Directory\\Shell\MediaInfo\Command" "" "$\"$INSTDIR\MediaInfo.exe$\" $\"%1$\""
+
   ; Per item
   !insertmacro MediaInfo_Extensions_Install_I ".264"
   !insertmacro MediaInfo_Extensions_Install_I ".3g2"
@@ -176,8 +184,6 @@
   !insertmacro MediaInfo_Extensions_Install_I ".wvc"
   !insertmacro MediaInfo_Extensions_Install_I ".y4m"
   !insertmacro MediaInfo_Extensions_Install_I "audio"
-  !insertmacro MediaInfo_Extensions_Install_I "Directory.Audio"
-  !insertmacro MediaInfo_Extensions_Install_I "Directory.Video"
   !insertmacro MediaInfo_Extensions_Install_I "Folder"
   !insertmacro MediaInfo_Extensions_Install_I "video"
 !macroend
@@ -190,6 +196,10 @@
   DeleteRegKey HKCU "Software\Classes\CLSID\{869C14C8-1830-491F-B575-5F9AB40D2B42}"
   DeleteRegKey HKCU "Software\Classes\MediaInfoShellExt.MediaInfoShellExt_"
   DeleteRegKey HKCU "Software\Classes\MediaInfoShellExt.MediaInfoShellExt_.1"
+
+  ; directories
+  DeleteRegKey HKCU "Software\Classes\Directory\Shell\MediaInfo"
+  DeleteRegKey /ifempty HKCU "Software\Classes\Directory\Shell"
 
   !insertmacro MediaInfo_Extensions_Uninstall_I ".264"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".3g2"
@@ -328,8 +338,6 @@
   !insertmacro MediaInfo_Extensions_Uninstall_I ".wvc"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".y4m"
   !insertmacro MediaInfo_Extensions_Uninstall_I "audio"
-  !insertmacro MediaInfo_Extensions_Uninstall_I "Directory.Audio"
-  !insertmacro MediaInfo_Extensions_Uninstall_I "Directory.Video"
   !insertmacro MediaInfo_Extensions_Uninstall_I "Folder"
   !insertmacro MediaInfo_Extensions_Uninstall_I "video"
 !macroend
