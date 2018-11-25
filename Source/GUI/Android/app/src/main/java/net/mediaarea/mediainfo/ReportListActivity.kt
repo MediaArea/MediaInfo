@@ -12,7 +12,6 @@ import java.io.File
 
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
-import android.support.v4.app.Fragment
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Build
 import android.os.Bundle
@@ -55,9 +54,6 @@ import com.github.angads25.filepicker.view.FilePickerDialog
  * item details side-by-side using two vertical panes.
  */
 class ReportListActivity : AppCompatActivity(), ReportActivityListener {
-    private val OPEN_FILE_REQUEST_CODE = 40
-    private val READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE = 50
-
     private lateinit var reportModel: ReportViewModel
     private var disposable: CompositeDisposable = CompositeDisposable()
     private var twoPane: Boolean = false
@@ -68,7 +64,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         override fun onPreExecute() {
             super.onPreExecute()
 
-            add_button.visibility = View.GONE
+            add_button.hide()
 
             val rootLayout: FrameLayout = findViewById(R.id.frame_layout)
             var found = false
@@ -84,7 +80,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         override fun onPostExecute(result: Boolean?) {
             super.onPostExecute(result)
 
-            add_button.visibility = View.VISIBLE
+            add_button.show()
 
             val rootLayout: FrameLayout = findViewById(R.id.frame_layout)
             for (i: Int in rootLayout.childCount downTo 1) {
@@ -106,9 +102,9 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                     "content" -> {
                         if (Build.VERSION.SDK_INT >= 19) {
                             try {
-                                val cursor: Cursor = contentResolver.query(uri, null, null, null, null, null)
+                                val cursor: Cursor? = contentResolver.query(uri, null, null, null, null, null)
                                 // moveToFirst() returns false if the cursor has 0 rows
-                                if (cursor.moveToFirst()) {
+                                if (cursor != null && cursor.moveToFirst()) {
                                     // DISPLAY_NAME is provider-specific, and might not be the file name
                                     displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
                                     cursor.close()
@@ -126,7 +122,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                             fd = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
                         } catch (e: Exception) {}
 
-                        displayName = uri.lastPathSegment
+                        displayName = uri.lastPathSegment.orEmpty()
                     }
                 }
 
@@ -174,7 +170,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
-            READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE -> {
+            READ_EXTERNAL_STORAGE_PERMISSION_REQUEST -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     AddFile().execute(*(pendingFileUris.toTypedArray()))
                     pendingFileUris.clear()
@@ -194,7 +190,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
     private fun handleIntent(intent: Intent) {
         if (intent.action != null) {
-            val action: String = intent.action
+            val action: String? = intent.action
             val uri: Uri? = intent.data
             if (action == Intent.ACTION_VIEW && uri != null) {
                 if (uri.scheme == "file") {
@@ -203,7 +199,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                             pendingFileUris.add(uri)
                             ActivityCompat.requestPermissions(this@ReportListActivity,
                                     arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
-                                    READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE)
+                                    READ_EXTERNAL_STORAGE_PERMISSION_REQUEST)
                             return
                         }
                     }
@@ -252,7 +248,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
-                OPEN_FILE_REQUEST_CODE -> {
+                OPEN_FILE_REQUEST -> {
                     if (Build.VERSION.SDK_INT >= 19) {
                         if (resultData == null)
                             return
@@ -295,7 +291,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 intent.type = "*/*"
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
 
-                startActivityForResult(intent, OPEN_FILE_REQUEST_CODE)
+                startActivityForResult(intent, OPEN_FILE_REQUEST)
             } else {
                 if (Environment.getExternalStorageState() in setOf(Environment.MEDIA_MOUNTED, Environment.MEDIA_MOUNTED_READ_ONLY)) {
                     val properties = DialogProperties()
@@ -443,5 +439,10 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 }
             }
         }
+    }
+
+    companion object {
+        const val OPEN_FILE_REQUEST= 40
+        const val READ_EXTERNAL_STORAGE_PERMISSION_REQUEST = 50
     }
 }
