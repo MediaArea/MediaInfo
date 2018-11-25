@@ -6,8 +6,8 @@
 
 package net.mediaarea.mediainfo
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 
 class ViewModelFactory(private val dataSource: ReportDao): ViewModelProvider.Factory {
     override fun <T: ViewModel> create(modelClass: Class<T>): T {

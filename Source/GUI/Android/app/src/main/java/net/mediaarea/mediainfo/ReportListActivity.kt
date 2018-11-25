@@ -10,9 +10,11 @@ import kotlin.jvm.*
 
 import java.io.File
 
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.RecyclerView
-import android.arch.lifecycle.ViewModelProviders
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.ViewModelProviders
+import androidx.core.app.ActivityCompat
+
 import android.os.Build
 import android.os.Bundle
 import android.os.AsyncTask
@@ -26,10 +28,9 @@ import android.provider.OpenableColumns
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.content.pm.PackageManager
-import android.support.v4.app.ActivityCompat
-import android.support.design.widget.Snackbar
 import android.view.*
 
+import com.google.android.material.snackbar.Snackbar
 
 
 import io.reactivex.disposables.CompositeDisposable
@@ -218,7 +219,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 .subscribe())
 
         if (twoPane) {
-            val fragment: Fragment? = supportFragmentManager.findFragmentById(R.id.report_detail_container)
+            val fragment = supportFragmentManager.findFragmentById(R.id.report_detail_container)
             if (fragment != null && (fragment as ReportDetailFragment).id == id) {
                 supportFragmentManager
                         .beginTransaction()

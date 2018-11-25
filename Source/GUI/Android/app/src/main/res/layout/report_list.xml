@@ -6,7 +6,7 @@
       be found in the License.html file in the root of the source tree.
 -->
 
-<android.support.v7.widget.RecyclerView
+<androidx.recyclerview.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,6 +16,6 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="2dp"
     android:layout_marginRight="2dp"
-    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
     tools:context=".ReportListActivity"
     tools:listitem="@layout/report_list_content" />
