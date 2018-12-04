@@ -178,6 +178,7 @@ object MainF: TMainF
           Width = 36
           Height = 15
           Caption = 'Codec'
+          ShowAccelChar = False
         end
         object Page_Easy_A2_Web: TButton
           Left = 4
@@ -219,6 +220,7 @@ object MainF: TMainF
           Width = 36
           Height = 15
           Caption = 'Codec'
+          ShowAccelChar = False
         end
         object Page_Easy_V1_Web: TButton
           Left = 4
@@ -245,6 +247,7 @@ object MainF: TMainF
           Width = 36
           Height = 15
           Caption = 'Codec'
+          ShowAccelChar = False
         end
         object Page_Easy_A1_Web: TButton
           Left = 4
@@ -271,6 +274,7 @@ object MainF: TMainF
           Width = 36
           Height = 15
           Caption = 'Codec'
+          ShowAccelChar = False
         end
         object Page_Easy_T2_Web: TButton
           Left = 4
@@ -297,6 +301,7 @@ object MainF: TMainF
           Width = 36
           Height = 15
           Caption = 'Codec'
+          ShowAccelChar = False
         end
         object Page_Easy_T1_Web: TButton
           Left = 4
@@ -333,6 +338,7 @@ object MainF: TMainF
           Height = 15
           AutoSize = False
           Caption = 'Format'
+          ShowAccelChar = False
         end
         object Page_Easy_General_List_V: TLabel
           Left = 5
@@ -341,6 +347,7 @@ object MainF: TMainF
           Height = 15
           AutoSize = False
           Caption = 'Video'
+          ShowAccelChar = False
         end
         object Page_Easy_General_List_A: TLabel
           Left = 5
@@ -349,6 +356,7 @@ object MainF: TMainF
           Height = 15
           AutoSize = False
           Caption = 'Audio'
+          ShowAccelChar = False
         end
         object Page_Easy_General_List_T: TLabel
           Left = 5
@@ -357,6 +365,7 @@ object MainF: TMainF
           Height = 15
           AutoSize = False
           Caption = 'Text'
+          ShowAccelChar = False
         end
         object Page_Easy_General_List_C: TLabel
           Left = 5
@@ -365,6 +374,7 @@ object MainF: TMainF
           Height = 15
           AutoSize = False
           Caption = 'Chapters'
+          ShowAccelChar = False
         end
         object Page_Easy_General_Tag1: TLabel
           Left = 330
@@ -373,6 +383,7 @@ object MainF: TMainF
           Height = 15
           AutoSize = False
           Caption = 'Tag1'
+          ShowAccelChar = False
         end
         object Page_Easy_General_Tag2: TLabel
           Left = 330
@@ -381,6 +392,7 @@ object MainF: TMainF
           Height = 15
           AutoSize = False
           Caption = 'Tag2'
+          ShowAccelChar = False
         end
         object Page_Easy_General_Tag3: TLabel
           Left = 330
@@ -389,6 +401,7 @@ object MainF: TMainF
           Height = 15
           AutoSize = False
           Caption = 'Tag3'
+          ShowAccelChar = False
         end
         object Page_Easy_General_Tag4: TLabel
           Left = 330
@@ -397,6 +410,7 @@ object MainF: TMainF
           Height = 15
           AutoSize = False
           Caption = 'Tag4'
+          ShowAccelChar = False
         end
         object Page_Easy_General_Tag5: TLabel
           Left = 330
@@ -405,6 +419,7 @@ object MainF: TMainF
           Height = 15
           AutoSize = False
           Caption = 'Tag5'
+          ShowAccelChar = False
         end
         object Page_Easy_G1_Web: TButton
           Left = 4
@@ -441,6 +456,7 @@ object MainF: TMainF
           Width = 36
           Height = 15
           Caption = 'Codec'
+          ShowAccelChar = False
         end
         object Page_Easy_T3_Web: TButton
           Left = 4
