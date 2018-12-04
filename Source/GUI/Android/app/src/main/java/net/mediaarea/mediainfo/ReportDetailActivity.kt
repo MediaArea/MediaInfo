@@ -6,9 +6,10 @@
 
 package net.mediaarea.mediainfo
 
-import android.support.v4.app.NavUtils
-import android.support.v7.app.AppCompatActivity
-import android.arch.lifecycle.ViewModelProviders
+import androidx.core.app.NavUtils
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
+
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem

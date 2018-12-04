@@ -6,12 +6,12 @@
 
 package net.mediaarea.mediainfo
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Query
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.Update
-import android.arch.persistence.room.Delete
-import android.arch.persistence.room.OnConflictStrategy
+import androidx.room.Dao
+import androidx.room.Query
+import androidx.room.Insert
+import androidx.room.Update
+import androidx.room.Delete
+import androidx.room.OnConflictStrategy
 
 import io.reactivex.Flowable
 import io.reactivex.Single

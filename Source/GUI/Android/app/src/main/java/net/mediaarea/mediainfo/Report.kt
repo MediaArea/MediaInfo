@@ -6,10 +6,10 @@
 
 package net.mediaarea.mediainfo
 
-import android.support.annotation.NonNull
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
-import android.arch.persistence.room.ColumnInfo
+import androidx.annotation.NonNull
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.ColumnInfo
 
 @Entity(tableName = "reports")
 data class Report(@PrimaryKey(autoGenerate = true)

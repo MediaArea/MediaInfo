@@ -21,7 +21,7 @@
 
     <!-- This layout is a two-pane layout for the master/detail flow. -->
 
-    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/report_list"
         android:name="net.mediaarea.mediainfo.ReportListFragment"
@@ -29,7 +29,7 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:context="net.mediaarea.mediainfo.ReportListActivity"
         tools:listitem="@layout/report_list_content" />
 
