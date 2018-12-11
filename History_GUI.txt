@@ -12,6 +12,26 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 18.12, 2018-12-10
+--------------
++ Android version: https://play.google.com/store/apps/details?id=net.mediaarea.mediainfo
++ DCP: support of multi-reel packages
++ EBUCore: added some FFV1 related metadata
++ JPEG: better info display of CYMK files
++ Provide source of the color related metadata (container or stream) (hidden by default)
++ MXF: display more information when wrapper/essence values are detected as not same
++ MXF: ProRes profiles
++ MPEG-4: ProRes RAW support
++ MPEG-TS: add support of parsing some ETSI TS 103-433 messages
+x MPEG-2 Video: variable GOP detection fix
+x MPEG-7 export: some fields were missing due to the removal of some legacy fields
+x ADTS: Fix display of channel count for 8-channel streams
+x ID3v2: fix some date related issues
+x I298, ID3v2: fix wrong read of recording date in some cases
+x I1032, PBCore2: fix essenceFrameSize with non Video tracks
+x I1096, JPEG: fix crash with one file
+x Several other crash and memory leak fixes
+
 Version 18.08.1, 2018-09-10
 --------------
 x Fix XML/MPEG-7/PBCore2 output discarding non ANSI characters
