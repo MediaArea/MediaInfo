@@ -12,8 +12,8 @@ android {
         applicationId "net.mediaarea.mediainfo"
         minSdkVersion 14
         targetSdkVersion 28
-        versionCode 1
-        versionName "18.08.1"
+        versionCode 4
+        versionName "18.12"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true

@@ -4,7 +4,7 @@ Section: utils
 Maintainer: MediaArea.net SARL <info@mediaarea.net>
 Build-Depends: debhelper (>= 9),
                dh-autoreconf,
-               libmediainfo-dev (>= 18.08.1),
+               libmediainfo-dev (>= 18.12),
                libzen-dev (>= 0.4.37),
                libwxgtk3.0-dev,
                zlib1g-dev,
@@ -16,7 +16,7 @@ Vcs-Browser: https://github.com/MediaArea/MediaInfo
 
 Package: mediainfo
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libmediainfo0 (>= 18.08.1), libzen0 (>= 0.4.37)
+Depends: ${shlibs:Depends}, ${misc:Depends}, libmediainfo0 (>= 18.12), libzen0 (>= 0.4.37)
 Description: command-line utility for reading information from audio/video files
  MediaInfo is a utility used for retrieving technical information and other
  metadata about audio or video files.
@@ -41,7 +41,7 @@ Description: command-line utility for reading information from audio/video files
 
 Package: mediainfo-gui
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libmediainfo0 (>= 18.08.1), libzen0 (>= 0.4.37)
+Depends: ${shlibs:Depends}, ${misc:Depends}, libmediainfo0 (>= 18.12), libzen0 (>= 0.4.37)
 Description: graphical utility for reading information from audio/video files
  MediaInfo is a utility used for retrieving technical information and other
  metadata about audio or video files.
