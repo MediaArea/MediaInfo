@@ -25,6 +25,11 @@ https://guide.macports.org/#installing
 port install autoconf automake libtool pkgconfig zlib wxWidgets-3.0
 ```
 
+*MediaArea tools*
+* [libzen](#zenlib)
+* [libmediainfo](#mediainfolib)
+
+
 ### Dependencies under Linux
 
 #### Listing
