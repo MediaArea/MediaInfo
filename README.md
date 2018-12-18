@@ -193,7 +193,7 @@ To compile MediaInfo GUI under macOS and Linux:
 ```sh
 cd $BUILD_DIR
 git clone https://github.com/MediaArea/MediaInfo.git
-cd MediaInfo/Project/GNU/CLI
+cd MediaInfo/Project/GNU/GUI
 ./autogen.sh
 ```
 
