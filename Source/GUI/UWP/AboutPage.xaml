@@ -1,0 +1,59 @@
+﻿<!--
+  Copyright (c) MediaArea.net SARL. All Rights Reserved.
+
+      Use of this source code is governed by a BSD-style license that can
+      be found in the License.html file in the root of the source tree.
+-->
+<Page x:Class="MediaInfo.AboutPage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" NavigationCacheMode="Disabled">
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition />
+        </TransitionCollection>
+    </Page.Transitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="TitleBar" Grid.Row="0">
+            <Rectangle x:Name="BackgroundElement" Fill="Transparent" />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="BackButton" Grid.Column="0" VerticalAlignment="Center" Style="{ StaticResource NavigationBackButtonNormalStyle }" Click="BackButton_Click" />
+                <Image Grid.Column="1" VerticalAlignment="Center" Height="32" Margin="5,0" Source="Assets/Square44x44Logo.targetsize-32.png" />
+                <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="MediaInfo - About" />
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1" VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image Grid.Row="0" HorizontalAlignment="Center" Stretch="None" Source="ms-appx:///Assets/StoreLogo.png" />
+            <TextBlock x:Name="AboutTextBlock" Grid.Row="1" Margin="20,20,20,20" HorizontalAlignment="Center" TextWrapping="WrapWholeWords">
+                MediaInfo vMI_VERSION using MediaInfoLib vMIL_VERSION
+                <LineBreak />
+                Copyright (c) 2002-2018 MediaArea.net SARL. All rights reserved.
+                <LineBreak />
+                MediaInfo provides easy access to technical and tag information about video and audio files.
+                <LineBreak />
+                It is open-source software, which means that it is free of charge to the end user and developers have freedom to study, to improve and to redistribute the program (BSD license).
+            </TextBlock>
+            <HyperlinkButton Grid.Row="2" HorizontalAlignment="Center" NavigateUri="https://mediaarea.net/MediaInfo" >WEBSITE</HyperlinkButton>
+        </Grid>
+    </Grid>
+</Page>
