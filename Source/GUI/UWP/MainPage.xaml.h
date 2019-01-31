@@ -45,11 +45,20 @@ namespace MediaInfo
         void MasterListView_ContainerContentChanging(Windows::UI::Xaml::Controls::ListViewBase^ Sender, Windows::UI::Xaml::Controls::ContainerContentChangingEventArgs^ Args);
         void ListViewItem_Delete_Click(Platform::Object^ Sender, Windows::UI::Xaml::RoutedEventArgs^ Event);
         void AdaptiveStates_CurrentStateChanged(Platform::Object^ Sender, Windows::UI::Xaml::VisualStateChangedEventArgs^ Event);
+        void ResizePanel_PointerEntered(Platform::Object^ Sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ Event);
+        void ResizePanel_PointerPressed(Platform::Object^ Sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ Event);
+        void ResizePanel_PointerReleased(Platform::Object^ Sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ Event);
+        void ResizePanel_PointerMoved(Platform::Object^ Sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ Event);
+        void ResizePanel_PointerExited(Platform::Object^ Sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ Event);
         void UpdateForVisualState(Windows::UI::Xaml::VisualState^ NewState, Windows::UI::Xaml::VisualState^ OldState=nullptr);
         void EnableContentTransitions();
         void DisableContentTransitions();
         void Update_Ui();
 
         ReportViewModel^ _CurrentReport;
+
+        bool _Resizing;
+        uint16 _Pointer_Count;
+        Windows::UI::Core::CoreCursor^ _Old_Pointer;
     };
 }

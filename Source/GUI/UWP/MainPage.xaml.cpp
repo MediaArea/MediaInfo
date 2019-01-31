@@ -44,13 +44,11 @@ using namespace concurrency;
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-MainPage::MainPage()
+MainPage::MainPage() : _CurrentReport(ref new ReportViewModel(nullptr)), _Resizing(false), _Pointer_Count(0), _Old_Pointer(nullptr)
 {
     InitializeComponent();
     CoreApplication::GetCurrentView()->TitleBar->ExtendViewIntoTitleBar=true;
     Window::Current->SetTitleBar(BackgroundElement);
-
-    _CurrentReport=ref new ReportViewModel(nullptr);
 
     // Folder picker isn't supported on xBox platforms, see https://docs.microsoft.com/en-us/uwp/extension-sdks/uwp-limitations-on-xbox
     Ztring Platform=Ztring(AnalyticsInfo::VersionInfo->DeviceFamily->Data());
@@ -238,6 +236,14 @@ void MainPage::On_File_Drop(Object^, DragEventArgs^ Event)
 //---------------------------------------------------------------------------
 void MainPage::LayoutRoot_Loaded(Object^, RoutedEventArgs^)
 {
+    ApplicationDataContainer^ LocalSettings=ApplicationData::Current->LocalSettings;
+
+    if (LocalSettings->Values->HasKey(L"FilePanel_Size"))
+    {
+        int FilePanel_Size=static_cast<uint32>(LocalSettings->Values->Lookup(L"FilePanel_Size"));
+        MasterColumn->Width=FilePanel_Size;
+    }
+
     Update_Ui();
 }
 
@@ -261,7 +267,7 @@ void MainPage::OpenFiles_Click(Object^, RoutedEventArgs^) {
 //---------------------------------------------------------------------------
 void MainPage::OpenFolder_Click(Object^, RoutedEventArgs^) {
     // Verify that we are currently snapped and fail silently if we can't unsnap
-    if (ApplicationView::Value == ApplicationViewState::Snapped && !ApplicationView::TryUnsnap())
+    if (ApplicationView::Value==ApplicationViewState::Snapped && !ApplicationView::TryUnsnap())
         return;
 
     FolderPicker^ Picker=ref new FolderPicker();
@@ -426,6 +432,71 @@ void MainPage::AdaptiveStates_CurrentStateChanged(Object^ Sender, VisualStateCha
 }
 
 //---------------------------------------------------------------------------
+void MainPage::ResizePanel_PointerEntered(Object^ Sender, PointerRoutedEventArgs^ Event)
+{
+    if (Window::Current->CoreWindow->PointerCursor->Type!=CoreCursorType::SizeWestEast)
+    {
+        _Old_Pointer=Window::Current->CoreWindow->PointerCursor;
+        Window::Current->CoreWindow->PointerCursor=ref new CoreCursor(CoreCursorType::SizeWestEast, 0);
+    }
+}
+
+//---------------------------------------------------------------------------
+void MainPage::ResizePanel_PointerPressed(Object^ Sender, PointerRoutedEventArgs^ Event)
+{
+    _Resizing=true;
+    _Pointer_Count++;
+
+    ResizePanel->CapturePointer(Event->Pointer);
+}
+
+//---------------------------------------------------------------------------
+void MainPage::ResizePanel_PointerReleased(Object^ Sender, PointerRoutedEventArgs^ Event)
+{
+    ResizePanel->ReleasePointerCapture(Event->Pointer);
+
+    if (--_Pointer_Count==0)
+    {
+        _Resizing=false;
+
+        ApplicationDataContainer^ LocalSettings=ApplicationData::Current->LocalSettings;
+        LocalSettings->Values->Insert(L"FilePanel_Size", static_cast<uint32>(round(MasterColumn->Width.Value)));
+
+        if (_Old_Pointer && Window::Current->CoreWindow->PointerCursor->Type==CoreCursorType::SizeWestEast)
+        {
+            Window::Current->CoreWindow->PointerCursor=_Old_Pointer;
+            _Old_Pointer=nullptr;
+        }
+    }
+
+}
+
+//---------------------------------------------------------------------------
+void MainPage::ResizePanel_PointerMoved(Object^ Sender, PointerRoutedEventArgs^ Event)
+{
+    if (_Resizing==true)
+    {
+        double Width=Event->GetCurrentPoint(MasterListView)->Position.X;
+        if (Width<10)
+            Width=10;
+        else if (Width>Window::Current->Bounds.Width-21) // 10px minimal control size + separator column size
+            Width=Window::Current->Bounds.Width-21;
+
+        MasterColumn->Width=Width;
+    }
+}
+
+//---------------------------------------------------------------------------
+void MainPage::ResizePanel_PointerExited(Object^ Sender, PointerRoutedEventArgs^ Event)
+{
+    if (_Resizing==false && _Old_Pointer && Window::Current->CoreWindow->PointerCursor->Type==CoreCursorType::SizeWestEast)
+    {
+        Window::Current->CoreWindow->PointerCursor=_Old_Pointer;
+        _Old_Pointer=nullptr;
+    }
+}
+
+//---------------------------------------------------------------------------
 void MainPage::UpdateForVisualState(VisualState^ NewState, VisualState^ OldState)
 {
     //NewState isn't consistant in navigation context
@@ -476,10 +547,12 @@ void MediaInfo::MainPage::Update_Ui()
     {
         WelcomePanel->Visibility=Windows::UI::Xaml::Visibility::Collapsed;
         DetailContentPresenter->BorderBrush->Opacity=255;
+        ResizePanel->Visibility=Windows::UI::Xaml::Visibility::Visible;
     }
     else
     {
         WelcomePanel->Visibility=Windows::UI::Xaml::Visibility::Visible;
         DetailContentPresenter->BorderBrush->Opacity=0;
+        ResizePanel->Visibility=Windows::UI::Xaml::Visibility::Collapsed;
     }
 }
