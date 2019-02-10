@@ -32,6 +32,10 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     QStringList args = QCoreApplication::arguments();
 
+    // Strip program path from arguments
+    if (args.size() && args.at(0)==QCoreApplication::applicationFilePath())
+        args.removeFirst();
+
     foreach(QString arg,args) {
         if(!arg.compare("--help",Qt::CaseInsensitive)||!arg.compare("-h",Qt::CaseInsensitive)) {
             cout << "Usage : mediainfo-gui [OPTIONS] [files]" << endl;

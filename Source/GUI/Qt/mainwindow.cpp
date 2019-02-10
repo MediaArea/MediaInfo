@@ -222,7 +222,7 @@ MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) :
 
     refreshDisplay();
 
-    if(filesnames.count()>1) {
+    if(filesnames.count()>0) {
         openFiles(filesnames);
     }
 
@@ -664,7 +664,7 @@ void MainWindow::refreshDisplay() {
         if(C->Count_Get()==1)
             setWindowTitle("MediaInfo - "+shortName(C,wstring2QString(C->Get(0, Stream_General, 0, __T("CompleteName")))));
         else
-            setWindowTitle(Tr("MediaInfo - %n files","window title",(int)C->Count_Get()));
+            setWindowTitle(QString("MediaInfo - %1 ").arg((int)C->Count_Get())+Tr("files","window title"));
 #endif
     }
     setCentralWidget(viewWidget);
