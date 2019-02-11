@@ -27,27 +27,7 @@
             </Grid>
         </DataTemplate>
     </Page.Resources>
-    <Grid x:Name="LayoutRoot" Loaded="LayoutRoot_Loaded" AllowDrop="True" DragOver="On_File_DragOver" DragLeave="On_File_DragLeave" Drop="On_File_Drop">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="AdaptiveStates" CurrentStateChanged="AdaptiveStates_CurrentStateChanged">
-                <VisualState x:Name="DefaultState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="720" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState x:Name="NarrowState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="MasterColumn.Width" Value="*" />
-                        <Setter Target="SeparatorColumn.Width" Value="0" />
-                        <Setter Target="DetailColumn.Width" Value="0" />
-                        <Setter Target="MasterListView.SelectionMode" Value="None" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
+    <Grid x:Name="LayoutRoot" Loaded="LayoutRoot_Loaded" AllowDrop="True" DragOver="On_File_DragOver" DragLeave="On_File_DragLeave" Drop="On_File_Drop" SizeChanged="LayoutRoot_SizeChanged">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -83,7 +63,7 @@
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xe7b3;" />
                     </AppBarButton.Icon>
                     <Button.Flyout>
-                        <MenuFlyout x:Name="ViewListMenu" />
+                        <MenuFlyout x:Name="ViewListMenu" Opening="ViewListMenu_Opening" Closing="ViewListMenu_Closing"/>
                     </Button.Flyout>
                 </AppBarButton>
                 <AppBarButton x:Name="ExportButton" Label="Export" IsEnabled="false" Click="ExportButton_Click">
@@ -112,9 +92,8 @@
             <ContentPresenter.ContentTransitions>
                 <TransitionCollection />
             </ContentPresenter.ContentTransitions>
-            <WebView x:Name="ReportView" EntranceNavigationTransitionInfo.IsTargetElement="True" />
         </ContentPresenter>
-        <RelativePanel x:Name="AddFilePanel" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="#44000000" Visibility="Collapsed">
+        <RelativePanel x:Name="AddFilePanel" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3" Background="#44000000" Visibility="Collapsed">
             <SymbolIcon x:Name="AddSymbol" Symbol="Add" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" Foreground="White" RenderTransformOrigin="0.5,0.5">
                 <SymbolIcon.RenderTransform>
                     <CompositeTransform ScaleX="1.5" ScaleY="1.5"/>

@@ -23,7 +23,7 @@
       <Extensions>
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="mediainfo_uwp">
-            <uap:DisplayName>MediaInfo UWP</uap:DisplayName>
+            <uap:DisplayName>MediaInfo</uap:DisplayName>
             <uap:SupportedFileTypes>
               <uap:FileType>.264</uap:FileType>
               <uap:FileType>.3g2</uap:FileType>

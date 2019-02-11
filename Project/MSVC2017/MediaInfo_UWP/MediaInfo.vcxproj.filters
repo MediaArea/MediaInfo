@@ -22,17 +22,28 @@
     <ClCompile Include="..\..\..\Source\GUI\UWP\ReportPage.xaml.cpp" />
     <ClCompile Include="..\..\..\Source\GUI\UWP\AboutPage.xaml.cpp" />
     <ClCompile Include="..\..\..\Source\GUI\UWP\pch.cpp" />
+    <ClCompile Include="..\..\..\Source\GUI\UWP\EasyView.xaml.cpp" />
+    <ClCompile Include="..\..\..\Source\GUI\UWP\HtmlView.xaml.cpp" />
+    <ClCompile Include="..\..\..\Source\GUI\UWP\SheetView.xaml.cpp" />
+    <ClCompile Include="..\..\..\Source\GUI\UWP\SheetEditDialog.xaml.cpp" />
+    <ClCompile Include="..\..\..\Source\GUI\UWP\SheetEditFieldControl.xaml.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="App.xaml.h" />
-    <ClInclude Include="MainPage.xaml.h" />
-    <ClInclude Include="AppCore.h" />
-    <ClInclude Include="Report.h" />
-    <ClInclude Include="ReportDataSource.h" />
-    <ClInclude Include="ReportViewModel.h" />
-    <ClInclude Include="ReportPage.xaml.h" />
-    <ClInclude Include="AboutPage.xaml.h" />
+    <ClInclude Include="..\..\..\Source\GUI\UWP\AboutPage.xaml.h" />
+    <ClInclude Include="..\..\..\Source\GUI\UWP\AppCore.h" />
+    <ClInclude Include="..\..\..\Source\GUI\UWP\pch.h" />
+    <ClInclude Include="..\..\..\Source\GUI\UWP\App.xaml.h" />
+    <ClInclude Include="..\..\..\Source\GUI\UWP\MainPage.xaml.h" />
+    <ClInclude Include="..\..\..\Source\GUI\UWP\Report.h" />
+    <ClInclude Include="..\..\..\Source\GUI\UWP\ReportDataSource.h" />
+    <ClInclude Include="..\..\..\Source\GUI\UWP\ReportPage.xaml.h" />
+    <ClInclude Include="..\..\..\Source\GUI\UWP\ReportViewModel.h" />
+    <ClInclude Include="..\..\..\Source\GUI\UWP\EasyView.xaml.h" />
+    <ClInclude Include="..\..\..\Source\GUI\UWP\HtmlView.xaml.h" />
+    <ClInclude Include="..\..\..\Source\GUI\UWP\SheetView.xaml.h" />
+    <ClInclude Include="..\..\..\Source\GUI\UWP\SheetViewHelpers.h" />
+    <ClInclude Include="..\..\..\Source\GUI\UWP\SheetEditDialog.xaml.h" />
+    <ClInclude Include="..\..\..\Source\GUI\UWP\SheetEditFieldControl.xaml.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Source\Resource\Image\Assets\LockScreenLogo.scale-200.png">
@@ -172,5 +183,13 @@
     <Page Include="..\..\..\Source\GUI\UWP\MainPage.xaml" />
     <Page Include="..\..\..\Source\GUI\UWP\ReportPage.xaml" />
     <Page Include="..\..\..\Source\GUI\UWP\AboutPage.xaml" />
+    <Page Include="..\..\..\Source\GUI\UWP\HtmlView.xaml" />
+    <Page Include="..\..\..\Source\GUI\UWP\EasyView.xaml" />
+    <Page Include="..\..\..\Source\GUI\UWP\SheetView.xaml" />
+      <Filter>Common</Filter>
+    </Page>
+    <Page Include="..\..\..\Source\GUI\UWP\SheetEditDialog.xaml" />
+    <Page Include="..\..\..\Source\GUI\UWP\SheetEditFieldControl.xaml" />
+    <Page Include="..\..\..\Source\GUI\UWP\DataGrid.xaml" />
   </ItemGroup>
 </Project>

@@ -4,15 +4,13 @@
       Use of this source code is governed by a BSD-style license that can
       be found in the License.html file in the root of the source tree.
 -->
-<Application
-    x:Class="MediaInfo.App"
+<UserControl
+    x:Class="MediaInfo.HtmlView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    RequestedTheme="Light">
-    <Application.Resources>
-        <Style TargetType="ContentDialog" x:Key="LargeDialog">
-            <Setter Property="MaxHeight" Value="640" />
-            <Setter Property="MaxWidth" Value="768" />
-        </Style>
-    </Application.Resources>
-</Application>
+    xmlns:local="using:MediaInfo"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <WebView x:Name="HtmlControl" />
+</UserControl>

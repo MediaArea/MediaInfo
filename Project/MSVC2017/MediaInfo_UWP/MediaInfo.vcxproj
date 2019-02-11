@@ -171,6 +171,9 @@
       <DependentUpon>..\..\..\Source\GUI\UWP\AboutPage.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\GUI\UWP\AppCore.h" />
+    <ClInclude Include="..\..\..\Source\GUI\UWP\DataGrid.xaml.h">
+      <DependentUpon>..\..\..\Source\GUI\UWP\DataGrid.xaml</DependentUpon>
+    </ClInclude>
     <ClInclude Include="..\..\..\Source\GUI\UWP\pch.h" />
     <ClInclude Include="..\..\..\Source\GUI\UWP\App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
@@ -184,6 +187,22 @@
       <DependentUpon>..\..\..\Source\GUI\UWP\ReportPage.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\GUI\UWP\ReportViewModel.h" />
+    <ClInclude Include="..\..\..\Source\GUI\UWP\EasyView.xaml.h">
+      <DependentUpon>..\..\..\Source\GUI\UWP\EasyView.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\GUI\UWP\HtmlView.xaml.h">
+      <DependentUpon>..\..\..\Source\GUI\UWP\HtmlView.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\GUI\UWP\SheetEditDialog.xaml.h">
+      <DependentUpon>..\..\..\Source\GUI\UWP\SheetEditDialog.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\GUI\UWP\SheetView.xaml.h">
+      <DependentUpon>..\..\..\Source\GUI\UWP\SheetView.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\GUI\UWP\SheetEditFieldControl.xaml.h">
+      <DependentUpon>..\..\..\Source\GUI\UWP\SheetEditFieldControl.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\GUI\UWP\SheetViewHelpers.h" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="..\..\..\Source\GUI\UWP\App.xaml">
@@ -192,10 +211,26 @@
     <Page Include="..\..\..\Source\GUI\UWP\AboutPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="..\..\..\Source\GUI\UWP\DataGrid.xaml" />
     <Page Include="..\..\..\Source\GUI\UWP\MainPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="..\..\..\Source\GUI\UWP\ReportPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\..\..\Source\GUI\UWP\EasyView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\..\..\Source\GUI\UWP\HtmlView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\..\..\Source\GUI\UWP\SheetEditDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\..\..\Source\GUI\UWP\SheetView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\..\..\Source\GUI\UWP\SheetEditFieldControl.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
@@ -296,7 +331,6 @@
     <Image Include="..\..\..\Source\Resource\Image\Assets\Square44x44Logo.scale-400.png">
       <Link>Assets\Square44x44Logo.scale-400.png</Link>
     </Image>
-
     <Image Include="..\..\..\Source\Resource\Image\Assets\Square44x44Logo.targetsize-16.png">
       <Link>Assets\Square44x44Logo.targetsize-16.png</Link>
     </Image>
@@ -342,6 +376,9 @@
       <DependentUpon>..\..\..\Source\GUI\UWP\App.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\GUI\UWP\AppCore.cpp" />
+    <ClCompile Include="..\..\..\Source\GUI\UWP\DataGrid.xaml.cpp">
+      <DependentUpon>..\..\..\Source\GUI\UWP\DataGrid.xaml</DependentUpon>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\GUI\UWP\Report.cpp" />
     <ClCompile Include="..\..\..\Source\GUI\UWP\ReportDataSource.cpp" />
     <ClCompile Include="..\..\..\Source\GUI\UWP\ReportPage.xaml.cpp">
@@ -358,6 +395,21 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\UWP\EasyView.xaml.cpp">
+      <DependentUpon>..\..\..\Source\GUI\UWP\EasyView.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\UWP\HtmlView.xaml.cpp">
+      <DependentUpon>..\..\..\Source\GUI\UWP\HtmlView.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\UWP\SheetEditDialog.xaml.cpp">
+      <DependentUpon>..\..\..\Source\GUI\UWP\SheetEditDialog.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\UWP\SheetView.xaml.cpp">
+      <DependentUpon>..\..\..\Source\GUI\UWP\SheetView.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\GUI\UWP\SheetEditFieldControl.xaml.cpp">
+      <DependentUpon>..\..\..\Source\GUI\UWP\SheetEditFieldControl.xaml</DependentUpon>
     </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

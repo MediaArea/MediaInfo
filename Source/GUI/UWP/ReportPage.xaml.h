@@ -42,9 +42,9 @@ namespace MediaInfo
         void OnBackRequested();
         void BackRequested(Platform::Object^ Sender, Windows::UI::Core::BackRequestedEventArgs^ Event);
         void Back_Click(Platform::Object^ Sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ Args);
-        void ViewItem_Click(Platform::Object^ Sender, Windows::UI::Xaml::RoutedEventArgs^ Event);
         void ExportButton_Click(Platform::Object^ Sender, Windows::UI::Xaml::RoutedEventArgs^ Event);
         void AboutButton_Click(Platform::Object^ Sender, Windows::UI::Xaml::RoutedEventArgs^ Event);
+        void Show_Report();
 
         void NavigateBackForWideState(bool UseTransition);
         bool ShouldGoToWideState();
@@ -53,8 +53,11 @@ namespace MediaInfo
         void PageRoot_Loaded(Platform::Object^ Sender, Windows::UI::Xaml::RoutedEventArgs^ Event);
         void PageRoot_Unloaded(Platform::Object^ Sender, Windows::UI::Xaml::RoutedEventArgs^ Event);
         void Window_SizeChanged(Platform::Object^ Sender, Windows::UI::Core::WindowSizeChangedEventArgs^ Event);
+        void ViewListMenu_Opening(Platform::Object^ Sender, Platform::Object^ Event);
+        void ViewListMenu_Closing(Windows::UI::Xaml::Controls::Primitives::FlyoutBase^ Sender, Windows::UI::Xaml::Controls::Primitives::FlyoutBaseClosingEventArgs^ Event);
 
         ReportViewModel^ _CurrentReport;
+        Windows::Foundation::EventRegistrationToken _ViewChangedEventRegistrationToken;
         Windows::Foundation::EventRegistrationToken _SizeChangedEventRegistrationToken;
         Windows::Foundation::EventRegistrationToken _BackRequestedEventRegistrationToken;
     };

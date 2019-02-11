@@ -12,6 +12,7 @@
 #include "ZenLib/FileName.h"
 #include "Zenlib/Ztring.h"
 #include "ZenLib/ZtringList.h"
+#include "ZenLib/ZtringListList.h"
 
 //---------------------------------------------------------------------------
 using namespace MediaInfo;
@@ -44,7 +45,7 @@ using namespace concurrency;
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-MainPage::MainPage() : _CurrentReport(ref new ReportViewModel(nullptr)), _Resizing(false), _Pointer_Count(0), _Old_Pointer(nullptr)
+MainPage::MainPage() : _CurrentReport(ref new ReportViewModel(nullptr)), _CurrentState(WindowState::None), _ViewChangedEventRegistrationToken(), _Resizing(false), _Pointer_Count(0), _Old_Pointer(nullptr)
 {
     InitializeComponent();
     CoreApplication::GetCurrentView()->TitleBar->ExtendViewIntoTitleBar=true;
@@ -54,29 +55,7 @@ MainPage::MainPage() : _CurrentReport(ref new ReportViewModel(nullptr)), _Resizi
     Ztring Platform=Ztring(AnalyticsInfo::VersionInfo->DeviceFamily->Data());
     if (Platform.MakeLowerCase().find(__T("xbox"))!=std::string::npos)
         OpenFolder->Visibility=Windows::UI::Xaml::Visibility::Collapsed;
-
-    // Populate views list menu
-    for (View^ It : AppCore::ViewList)
-    {
-        MenuFlyoutItem^ Item=ref new MenuFlyoutItem();
-        Item->Tag=It->Name;
-        Item->Text=It->Desc;
-
-        if (It->Name==AppCore::View)
-        {
-            FontIcon^ Radio=ref new FontIcon();
-            Radio->FontFamily=ref new Media::FontFamily(L"Segoe MDL2 Assets");
-            Radio->Glyph=L"\uF137";
-
-            Item->Icon=Radio;
-        }
-
-        Item->Click+=ref new RoutedEventHandler(this, &MainPage::ViewItem_Click);
-        ViewListMenu->Items->Append(Item);
-    }
 }
-
-//---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
 // Functions
@@ -123,6 +102,14 @@ void MainPage::OnNavigatedTo(NavigationEventArgs ^ e)
 {
     Page::OnNavigatedTo(e);
 
+    _ViewChangedEventRegistrationToken=AppCore::ViewChangedEvent+=ref new ViewChangedEventHandler([this](Platform::String^ New)
+    {
+        if (_CurrentState==WindowState::Narrow && _CurrentReport && _CurrentReport->Source && New!=L"Sheet")
+            this->Frame->Navigate(TypeName(ReportPage::typeid), _CurrentReport->Source, ref new DrillInNavigationTransitionInfo());
+        else
+            Show_Report();
+    });
+
     MasterListView->ItemsSource=ReportDataSource::GetAllReports();
 
     if (e->Parameter)
@@ -131,10 +118,16 @@ void MainPage::OnNavigatedTo(NavigationEventArgs ^ e)
         Show_Report();
     }
 
-    UpdateForVisualState(AdaptiveStates->CurrentState);
-
     // Don't play a content transition for first item load.
     DisableContentTransitions();
+}
+
+//---------------------------------------------------------------------------
+void MainPage::OnNavigatedFrom(NavigationEventArgs ^ e)
+{
+    AppCore::ViewChangedEvent-=_ViewChangedEventRegistrationToken;
+
+    Page::OnNavigatedFrom(e);
 }
 
 //---------------------------------------------------------------------------
@@ -147,7 +140,7 @@ void MainPage::Open_Files_Internal(Windows::Foundation::Collections::IVectorView
 
     create_task([Paths]() -> Report^
     {
-        Report^ LastReport=nullptr;
+        Vector<Report^>^ ToAdd=ref new Vector<Report^>();
         for (Platform::String^ Path : Paths)
         {
             SYSTEMTIME SystemTime;
@@ -168,15 +161,17 @@ void MainPage::Open_Files_Internal(Windows::Foundation::Collections::IVectorView
             Platform::String^ Data=AppCore::Create_Report(Path);
 
             Report^ NewReport=ref new Report(Id.QuadPart, Name, Data, Version);
-            CoreApplication::MainView->CoreWindow->Dispatcher->RunAsync(CoreDispatcherPriority::Normal, ref new DispatchedHandler([NewReport]()
-            {
-                ReportDataSource::AddReport(NewReport);
-            }));
 
-            LastReport=NewReport;
+            ToAdd->Append(NewReport);
         }
 
-        return LastReport;
+        CoreApplication::MainView->CoreWindow->Dispatcher->RunAsync(CoreDispatcherPriority::Normal, ref new DispatchedHandler([ToAdd]()
+        {
+            for (Report^ NewReport : ToAdd)
+                ReportDataSource::AddReport(NewReport);
+        }));
+
+        return ToAdd->Size?ToAdd->GetAt(ToAdd->Size-1):nullptr;
     }).then([this](task<Report^> Task)
     {
         Report^ NewReport=Task.get();
@@ -236,14 +231,6 @@ void MainPage::On_File_Drop(Object^, DragEventArgs^ Event)
 //---------------------------------------------------------------------------
 void MainPage::LayoutRoot_Loaded(Object^, RoutedEventArgs^)
 {
-    ApplicationDataContainer^ LocalSettings=ApplicationData::Current->LocalSettings;
-
-    if (LocalSettings->Values->HasKey(L"FilePanel_Size"))
-    {
-        int FilePanel_Size=static_cast<uint32>(LocalSettings->Values->Lookup(L"FilePanel_Size"));
-        MasterColumn->Width=FilePanel_Size;
-    }
-
     Update_Ui();
 }
 
@@ -339,57 +326,31 @@ void MainPage::AboutButton_Click(Object^, RoutedEventArgs^)
 }
 
 //---------------------------------------------------------------------------
-void MainPage::ViewItem_Click(Object^ Sender, RoutedEventArgs^)
-{
-    MenuFlyoutItem^ Selected=safe_cast<MenuFlyoutItem^>(Sender);
-    Platform::String^ SelectedView=safe_cast<Platform::String^>(Selected->Tag);
-
-    AppCore::View=SelectedView;
-
-    for (MenuFlyoutItemBase^ It : ViewListMenu->Items)
-    {
-        MenuFlyoutItem^ Item=safe_cast<MenuFlyoutItem^>(It);
-        String^ Tag=safe_cast<String^>(Item->Tag);
-
-        if (Tag==SelectedView)
-        {
-            FontIcon^ Radio=ref new FontIcon();
-            Radio->FontFamily=ref new Media::FontFamily(L"Segoe MDL2 Assets");
-            Radio->Glyph=L"\uF137";
-            Item->Icon=Radio;
-
-            continue;
-        }
-
-        Item->Icon=nullptr;
-    }
-
-    ReportView->NavigateToString(CurrentReport->ReportHtml);
-    EnableContentTransitions();
-}
-
-//---------------------------------------------------------------------------
 void MainPage::Show_Report()
 {
     MasterListView->SelectedItem=CurrentReport->Source;
 
-    //AdaptiveStates->CurrentState isn't consistant in navigation context
-    bool IsNarrow=Window::Current->Bounds.Width<720.0;
-
-    if (IsNarrow)
+    if (AppCore::View==L"Easy")
     {
-        Frame->Navigate(TypeName(ReportPage::typeid), CurrentReport->Source, ref new DrillInNavigationTransitionInfo());
+        DetailContentPresenter->Content=ref new EasyView(_CurrentReport);
+        TitleText->Text=L"MediaInfo - "+CurrentReport->Name;
+    }
+    else if (AppCore::View==L"Sheet")
+    {
+        DetailContentPresenter->Content=ref new SheetView(_CurrentReport);
+        TitleText->Text=L"MediaInfo";
     }
     else
     {
-        ReportView->NavigateToString(CurrentReport->ReportHtml);
-
-        ViewListButton->IsEnabled=true;
-        ExportButton->IsEnabled=true;
+        DetailContentPresenter->Content=ref new HtmlView(_CurrentReport);
         TitleText->Text=L"MediaInfo - "+CurrentReport->Name;
-
-        EnableContentTransitions();
     }
+
+    ViewListButton->IsEnabled=true;
+    ExportButton->IsEnabled=true;
+
+    EnableContentTransitions();
+    Update_Ui();
 }
 
 //---------------------------------------------------------------------------
@@ -398,7 +359,10 @@ void MainPage::MasterListView_ItemClick(Object^, ItemClickEventArgs^ Event)
     Report^ Item=safe_cast<Report^>(Event->ClickedItem);
     CurrentReport->Source=Item;
 
-    Show_Report();
+    if (_CurrentState==WindowState::Narrow)
+        Frame->Navigate(TypeName(ReportPage::typeid), CurrentReport->Source, ref new DrillInNavigationTransitionInfo());
+    else
+        Show_Report();
 }
 
 //---------------------------------------------------------------------------
@@ -419,16 +383,11 @@ void MainPage::ListViewItem_Delete_Click(Platform::Object^ Sender, Windows::UI::
         ViewListButton->IsEnabled=false;
         ExportButton->IsEnabled=false;
         TitleText->Text=L"MediaInfo";
-        ReportView->NavigateToString(L"<html><head></head><body></body></html>");
+
+        DetailContentPresenter->Content=nullptr;
     }
 
     ReportDataSource::DeleteReport(ReportDataSource::GetReportById(Id));
-}
-
-//---------------------------------------------------------------------------
-void MainPage::AdaptiveStates_CurrentStateChanged(Object^ Sender, VisualStateChangedEventArgs^ Event)
-{
-    UpdateForVisualState(Event->NewState, Event->OldState);
 }
 
 //---------------------------------------------------------------------------
@@ -468,7 +427,6 @@ void MainPage::ResizePanel_PointerReleased(Object^ Sender, PointerRoutedEventArg
             _Old_Pointer=nullptr;
         }
     }
-
 }
 
 //---------------------------------------------------------------------------
@@ -494,36 +452,6 @@ void MainPage::ResizePanel_PointerExited(Object^ Sender, PointerRoutedEventArgs^
         Window::Current->CoreWindow->PointerCursor=_Old_Pointer;
         _Old_Pointer=nullptr;
     }
-}
-
-//---------------------------------------------------------------------------
-void MainPage::UpdateForVisualState(VisualState^ NewState, VisualState^ OldState)
-{
-    //NewState isn't consistant in navigation context
-    bool IsNarrow=Window::Current->Bounds.Width<720.0;
-
-    if (IsNarrow && OldState==DefaultState && CurrentReport && CurrentReport->Source && WaitPanel->Visibility==Windows::UI::Xaml::Visibility::Collapsed)
-    {
-        // Resize down to the detail item. Don't play a transition.
-        Frame->Navigate(TypeName(ReportPage::typeid), CurrentReport->Source, ref new SuppressNavigationTransitionInfo());
-    }
-
-    if (IsNarrow)
-    {
-        SectionSeparator->Visibility=Windows::UI::Xaml::Visibility::Collapsed;
-        ViewListButton->Visibility=Windows::UI::Xaml::Visibility::Collapsed;
-        ExportButton->Visibility=Windows::UI::Xaml::Visibility::Collapsed;
-    }
-    else
-    {
-        SectionSeparator->Visibility=Windows::UI::Xaml::Visibility::Visible;
-        ViewListButton->Visibility=Windows::UI::Xaml::Visibility::Visible;
-        ExportButton->Visibility=Windows::UI::Xaml::Visibility::Visible;
-    }
-
-    EntranceNavigationTransitionInfo::SetIsTargetElement(MasterListView, IsNarrow);
-    if (DetailContentPresenter)
-        EntranceNavigationTransitionInfo::SetIsTargetElement(DetailContentPresenter, !IsNarrow);
 }
 
 //---------------------------------------------------------------------------
@@ -554,5 +482,103 @@ void MediaInfo::MainPage::Update_Ui()
         WelcomePanel->Visibility=Windows::UI::Xaml::Visibility::Visible;
         DetailContentPresenter->BorderBrush->Opacity=0;
         ResizePanel->Visibility=Windows::UI::Xaml::Visibility::Collapsed;
+        DetailContentPresenter->Content=nullptr;
     }
+
+    if (AppCore::View==L"Sheet")
+    {
+        MasterColumn->Width=0;
+        SeparatorColumn->Width=0;
+        DetailColumn->Width=GridLengthHelper::FromValueAndType(1, GridUnitType::Star);
+
+        SectionSeparator->Visibility=Windows::UI::Xaml::Visibility::Visible;
+        ViewListButton->Visibility=Windows::UI::Xaml::Visibility::Visible;
+        ExportButton->Visibility=Windows::UI::Xaml::Visibility::Visible;
+
+        return;
+    }
+
+    if (_CurrentState==WindowState::Narrow)
+    {
+        MasterColumn->Width=GridLengthHelper::FromValueAndType(1, GridUnitType::Star);
+        SeparatorColumn->Width=0;
+        DetailColumn->Width=0;
+
+        MasterListView->SelectionMode=ListViewSelectionMode::None;
+
+        SectionSeparator->Visibility=Windows::UI::Xaml::Visibility::Collapsed;
+        ViewListButton->Visibility=Windows::UI::Xaml::Visibility::Collapsed;
+        ExportButton->Visibility=Windows::UI::Xaml::Visibility::Collapsed;
+    }
+    else
+    {
+        int FilePanel_Size=320;
+        ApplicationDataContainer^ LocalSettings=ApplicationData::Current->LocalSettings;
+        if (LocalSettings->Values->HasKey(L"FilePanel_Size"))
+        {
+            uint32 SavedSize=static_cast<uint32>(LocalSettings->Values->Lookup(L"FilePanel_Size"));
+            if (SavedSize>0&&SavedSize<Window::Current->Bounds.Width-21)
+                FilePanel_Size=SavedSize;
+        }
+        MasterColumn->Width=FilePanel_Size;
+        SeparatorColumn->Width=11;
+        DetailColumn->Width=GridLengthHelper::FromValueAndType(1, GridUnitType::Star);;
+
+        MasterListView->SelectionMode=ListViewSelectionMode::Single;
+
+        SectionSeparator->Visibility=Windows::UI::Xaml::Visibility::Visible;
+        ViewListButton->Visibility=Windows::UI::Xaml::Visibility::Visible;
+        ExportButton->Visibility=Windows::UI::Xaml::Visibility::Visible;
+    }
+}
+
+//---------------------------------------------------------------------------
+void MainPage::LayoutRoot_SizeChanged(Object^ Sender, SizeChangedEventArgs^ Event)
+{
+//    bool IsNarrow=Window::Current->Bounds.Width<720.0;
+    WindowState NewState=Window::Current->Bounds.Width<720.0?WindowState::Narrow:WindowState::Wide;
+    if (Window::Current->Bounds.Width<=MasterColumn->ActualWidth && NewState!=WindowState::Narrow)
+        MasterColumn->Width=320; // Reset to default
+
+    if (NewState!=_CurrentState)
+    {
+        WindowState OldState=_CurrentState;
+        _CurrentState=NewState;
+        if (OldState==WindowState::Wide && NewState==WindowState::Narrow && _CurrentReport && _CurrentReport->Source && AppCore::View!=L"Sheet")
+            Frame->Navigate(TypeName(ReportPage::typeid), CurrentReport->Source, ref new SuppressNavigationTransitionInfo());
+        else
+            Update_Ui();
+    }
+}
+
+//---------------------------------------------------------------------------
+void MainPage::ViewListMenu_Opening(Platform::Object^, Platform::Object^)
+{
+    // Populate views list menu
+    for (::MediaInfo::View^ It:AppCore::ViewList)
+    {
+        MenuFlyoutItem^ Item=ref new MenuFlyoutItem();
+        Item->Tag=It->Name;
+        Item->Text=It->Desc;
+        if (It->Current)
+        {
+            FontIcon^ Radio=ref new FontIcon();
+            Radio->FontFamily=ref new Windows::UI::Xaml::Media::FontFamily(L"Segoe MDL2 Assets");
+            Radio->Glyph=L"\uF137";
+
+            Item->Icon=Radio;
+        }
+
+        Item->Click+=ref new RoutedEventHandler([this](Object^ Sender, RoutedEventArgs^)
+        {
+            AppCore::View=safe_cast<Platform::String^>((safe_cast<MenuFlyoutItemBase^>(Sender))->Tag);
+        });
+        ViewListMenu->Items->Append(Item);
+    }
+}
+
+//---------------------------------------------------------------------------
+void MainPage::ViewListMenu_Closing(FlyoutBase^, FlyoutBaseClosingEventArgs^)
+{
+    ViewListMenu->Items->Clear();
 }

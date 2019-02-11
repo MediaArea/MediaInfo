@@ -44,31 +44,11 @@ using namespace concurrency;
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-ReportPage::ReportPage() : _BackRequestedEventRegistrationToken(), _SizeChangedEventRegistrationToken(), _CurrentReport(ref new ReportViewModel(nullptr))
+ReportPage::ReportPage() : _ViewChangedEventRegistrationToken(), _BackRequestedEventRegistrationToken(), _SizeChangedEventRegistrationToken(), _CurrentReport(ref new ReportViewModel(nullptr))
 {
     InitializeComponent();
     CoreApplication::GetCurrentView()->TitleBar->ExtendViewIntoTitleBar=true;
     Window::Current->SetTitleBar(BackgroundElement);
-
-    // Populate views list menu
-    for (View^ It : AppCore::ViewList)
-    {
-        MenuFlyoutItem^ Item=ref new MenuFlyoutItem();
-        Item->Tag=It->Name;
-        Item->Text=It->Desc;
-
-        if (It->Name==AppCore::View)
-        {
-            FontIcon^ Radio=ref new FontIcon();
-            Radio->FontFamily=ref new Media::FontFamily(L"Segoe MDL2 Assets");
-            Radio->Glyph=L"\uF137";
-
-            Item->Icon=Radio;
-        }
-
-        Item->Click+=ref new RoutedEventHandler(this, &ReportPage::ViewItem_Click);
-        ViewListMenu->Items->Append(Item);
-    }
 }
 
 //---------------------------------------------------------------------------
@@ -105,7 +85,7 @@ void ReportPage::Open_Files_Internal(Windows::Foundation::Collections::IVectorVi
 
     create_task([Paths]() -> Report^
     {
-        Report^ LastReport=nullptr;
+        Vector<Report^>^ ToAdd=ref new Vector<Report^>();
         for (Platform::String^ Path : Paths)
         {
             SYSTEMTIME SystemTime;
@@ -126,15 +106,17 @@ void ReportPage::Open_Files_Internal(Windows::Foundation::Collections::IVectorVi
             Platform::String^ Data=AppCore::Create_Report(Path);
 
             Report^ NewReport=ref new Report(Id.QuadPart, Name, Data, Version);
-            CoreApplication::MainView->CoreWindow->Dispatcher->RunAsync(CoreDispatcherPriority::Normal, ref new DispatchedHandler([NewReport]()
-            {
-                ReportDataSource::AddReport(NewReport);
-            }));
 
-            LastReport=NewReport;
+            ToAdd->Append(NewReport);
         }
 
-        return LastReport;
+        CoreApplication::MainView->CoreWindow->Dispatcher->RunAsync(CoreDispatcherPriority::Normal, ref new DispatchedHandler([ToAdd]()
+        {
+            for (Report^ NewReport:ToAdd)
+                ReportDataSource::AddReport(NewReport);
+        }));
+
+        return ToAdd->Size?ToAdd->GetAt(ToAdd->Size-1):nullptr;
     }).then([this](task<Report^> Task)
     {
         Report^ NewReport=Task.get();
@@ -146,7 +128,7 @@ void ReportPage::Open_Files_Internal(Windows::Foundation::Collections::IVectorVi
                 CurrentReport->Source=NewReport;
                 TitleText->Text+=_CurrentReport->Name;
 
-                ReportView->NavigateToString(CurrentReport->ReportHtml);
+                Show_Report();
             }
             WaitPanel->Visibility=Windows::UI::Xaml::Visibility::Collapsed;
             SpinnerRing->IsActive=false;
@@ -246,10 +228,13 @@ void ReportPage::OnNavigatedTo(NavigationEventArgs^ e)
     Page::OnNavigatedTo(e);
 
     if (e->Parameter)
-    {
         CurrentReport->Source=safe_cast<Report^>(e->Parameter);
-        TitleText->Text+=_CurrentReport->Name;
-    }
+
+    _ViewChangedEventRegistrationToken=AppCore::ViewChangedEvent+=ref new ViewChangedEventHandler([this](Platform::String^ New)
+    {
+        Show_Report();
+    });
+
 
     _SizeChangedEventRegistrationToken=Window::Current->SizeChanged+=ref new WindowSizeChangedEventHandler(this, &ReportPage::Window_SizeChanged);
 
@@ -264,13 +249,14 @@ void ReportPage::OnNavigatedFrom(NavigationEventArgs^ e)
     if(e->SourcePageType.Name==TypeName(AboutPage::typeid).Name)
         UpdateNavigationStack();
 
-    Page::OnNavigatedFrom(e);
-
+    AppCore::ViewChangedEvent-=_ViewChangedEventRegistrationToken;
     Window::Current->SizeChanged-=_SizeChangedEventRegistrationToken;
 
     SystemNavigationManager^ systemNavigationManager=SystemNavigationManager::GetForCurrentView();
     systemNavigationManager->BackRequested-=_BackRequestedEventRegistrationToken;
     systemNavigationManager->AppViewBackButtonVisibility=AppViewBackButtonVisibility::Collapsed;
+
+    Page::OnNavigatedFrom(e);
 }
 
 //---------------------------------------------------------------------------
@@ -281,7 +267,7 @@ void ReportPage::PageRoot_Loaded(Object^, RoutedEventArgs^)
     if (ShouldGoToWideState())
         NavigateBackForWideState(true);
     else
-        ReportView->NavigateToString(CurrentReport->ReportHtml);
+        Show_Report();
 }
 
 //---------------------------------------------------------------------------
@@ -350,7 +336,7 @@ void ReportPage::Window_SizeChanged(Object^, WindowSizeChangedEventArgs^)
 //---------------------------------------------------------------------------
 bool ReportPage::ShouldGoToWideState()
 {
-    return Window::Current->Bounds.Width>=720.0;
+    return (Window::Current->Bounds.Width>=720.0);
 }
 
 //---------------------------------------------------------------------------
@@ -371,32 +357,28 @@ void ReportPage::Back_Click(Object^, ItemClickEventArgs^)
 }
 
 //---------------------------------------------------------------------------
-void ReportPage::ViewItem_Click(Object^ Sender, Windows::UI::Xaml::RoutedEventArgs^)
+void ReportPage::Show_Report()
 {
-    MenuFlyoutItem^ Selected=safe_cast<MenuFlyoutItem^>(Sender);
-    Platform::String^ SelectedView=safe_cast<Platform::String^>(Selected->Tag);
+    if (ShouldGoToWideState())
+        NavigateBackForWideState(true);
 
-    AppCore::View=SelectedView;
-
-    for (MenuFlyoutItemBase^ It : ViewListMenu->Items)
+    if (AppCore::View==L"Easy")
     {
-        MenuFlyoutItem^ Item=safe_cast<MenuFlyoutItem^>(It);
-        String^ Tag=safe_cast<String^>(Item->Tag);
-
-        if (Tag == SelectedView)
-        {
-            FontIcon^ Radio=ref new FontIcon();
-            Radio->FontFamily=ref new Media::FontFamily(L"Segoe MDL2 Assets");
-            Radio->Glyph=L"\uF137";
-            Item->Icon=Radio;
-
-            continue;
-        }
-
-        Item->Icon=nullptr;
+        DetailContentPresenter->Content=ref new EasyView(_CurrentReport);
+        TitleText->Text=L"MediaInfo - "+CurrentReport->Name;
+    }
+    else if (AppCore::View==L"Sheet")
+    {
+        NavigateBackForWideState(true);
+    }
+    else
+    {
+        DetailContentPresenter->Content=ref new HtmlView(_CurrentReport);
+        TitleText->Text=L"MediaInfo - "+CurrentReport->Name;
     }
 
-    ReportView->NavigateToString(CurrentReport->ReportHtml);
+        DetailContentPresenter->ContentTransitions->Clear();
+        DetailContentPresenter->ContentTransitions->Append(ref new EntranceThemeTransition());
 }
 
 //---------------------------------------------------------------------------
@@ -453,4 +435,36 @@ void ReportPage::ExportButton_Click(Object^, RoutedEventArgs^)
 void ReportPage::AboutButton_Click(Object^, RoutedEventArgs^)
 {
     Frame->Navigate(TypeName(AboutPage::typeid), nullptr);
+}
+
+//---------------------------------------------------------------------------
+void ReportPage::ViewListMenu_Opening(Platform::Object^, Platform::Object^)
+{
+    // Populate views list menu
+    for (::MediaInfo::View^ It:AppCore::ViewList)
+    {
+        MenuFlyoutItem^ Item=ref new MenuFlyoutItem();
+        Item->Tag=It->Name;
+        Item->Text=It->Desc;
+        if (It->Current)
+        {
+            FontIcon^ Radio=ref new FontIcon();
+            Radio->FontFamily=ref new Windows::UI::Xaml::Media::FontFamily(L"Segoe MDL2 Assets");
+            Radio->Glyph=L"\uF137";
+
+            Item->Icon=Radio;
+        }
+
+        Item->Click+=ref new RoutedEventHandler([this](Object^ Sender, RoutedEventArgs^)
+        {
+            AppCore::View=safe_cast<Platform::String^>((safe_cast<MenuFlyoutItemBase^>(Sender))->Tag);
+        });
+        ViewListMenu->Items->Append(Item);
+    }
+}
+
+//---------------------------------------------------------------------------
+void ReportPage::ViewListMenu_Closing(FlyoutBase^, FlyoutBaseClosingEventArgs^)
+{
+    ViewListMenu->Items->Clear();
 }
