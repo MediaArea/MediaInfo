@@ -16,6 +16,11 @@
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# For native methods, see http://proguard.sourceforge.net/manual/examples.html#native
+-keepclassmembers class net.mediaarea.mediainfo.MediaInfo {
+    *;
+}
+
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
