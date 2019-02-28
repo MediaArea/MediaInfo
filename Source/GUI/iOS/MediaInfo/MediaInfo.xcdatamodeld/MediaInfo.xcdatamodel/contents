@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="16G1510" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Event" representedClassName="Event" codeGenerationType="class">
+        <attribute name="filename" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="report" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date">
+            <userInfo/>
+        </attribute>
+        <attribute name="version" optional="YES" attributeType="String" syncable="YES"/>
+        <userInfo/>
+    </entity>
+    <elements>
+        <element name="Event" positionX="261" positionY="189" width="128" height="105"/>
+    </elements>
+</model>
