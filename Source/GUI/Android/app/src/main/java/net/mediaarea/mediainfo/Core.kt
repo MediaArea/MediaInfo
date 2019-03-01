@@ -16,6 +16,7 @@ object Core {
     val mi: MediaInfo = MediaInfo()
     val views: MutableList<ReportView> = mutableListOf()
     val version: String = mi.Option("Info_Version").replace("MediaInfoLib - v", "")
+    var thanked: Boolean = false
 
     init {
         // populate views list

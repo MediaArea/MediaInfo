@@ -16,13 +16,13 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.app.Activity
+import android.content.res.Configuration
 import android.content.SharedPreferences
 import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
 import android.view.*
-
-import com.google.android.material.snackbar.Snackbar
+import android.widget.Toast
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -105,6 +105,10 @@ class ReportDetailFragment : Fragment() {
                             content+=report
                         }
 
+                        val background=resources.getString(0+R.color.background).removeRange(1, 3)
+                        val foreground=resources.getString(0+R.color.foreground).removeRange(1, 3)
+                        content = content.replace("<body>", "<body style=\"background-color: ${background}; color: ${foreground};\">")
+
                         rootView.report_detail.loadDataWithBaseURL(null, content, "text/html", "utf-8", null)
              })
         }
@@ -165,14 +169,7 @@ class ReportDetailFragment : Fragment() {
 
                         dialog.show()
                     } else {
-                        val rootView: View? = getView()
-
-                        // Show error message for 5 seconds
-                        if (rootView != null) {
-                            Snackbar.make(rootView, R.string.error_text, 5000)
-                                    .setAction("Action", null)
-                                    .show()
-                        }
+                        onError()
                     }
                 }
 
@@ -290,13 +287,10 @@ class ReportDetailFragment : Fragment() {
     }
 
     private fun onError() {
-        val rootView: View? = getView()
-
-        // Show error message for 5 seconds
-        if (rootView != null) {
-            Snackbar.make(rootView, R.string.error_text, 5000)
-                    .setAction("Action", null)
-                    .show()
+        val applicationContext = activity?.applicationContext
+        if (applicationContext!=null) {
+            val toast = Toast.makeText(applicationContext, R.string.error_text, Toast.LENGTH_LONG)
+            toast.show()
         }
     }
 }

@@ -7,9 +7,9 @@
 -->
 
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#3949AB</color>
-    <color name="background">#FFFFFF</color>
-    <color name="foreground">#000000</color>
+    <color name="colorPrimary">#283593</color>
+    <color name="colorPrimaryDark">#1A237E</color>
+    <color name="colorAccent">#283593</color>
+    <color name="background">#212121</color>
+    <color name="foreground">#FFFFFF</color>
 </resources>

@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   Copyright (c) MediaArea.net SARL. All Rights Reserved.
 
       Use of this source code is governed by a BSD-style license that can
@@ -8,6 +9,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.mediaarea.mediainfo">
 
+    <uses-permission android:name="com.android.vending.BILLING" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="20" />
 
@@ -92,6 +94,15 @@
         <activity
             android:name=".AboutActivity"
             android:label="@string/about_title"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="net.mediaarea.mediainfo.ReportListActivity" />
+        </activity>
+
+        <activity
+            android:name=".SubscribeActivity"
+            android:label="@string/subscribe_title"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
