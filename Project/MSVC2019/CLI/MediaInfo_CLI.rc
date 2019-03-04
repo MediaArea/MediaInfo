@@ -1,0 +1,32 @@
+#include <winresrc.h>
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 18,08,1,0
+ PRODUCTVERSION 18,08,1,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0" // U.S. English (0x0409, 1033), Unicode (0x04B0, 1200)
+        BEGIN
+            VALUE "CompanyName", "MediaArea.net"
+            VALUE "FileDescription", "MediaInfo"
+            VALUE "FileVersion", "18.08.1.0"
+            VALUE "LegalCopyright", "Copyright (C) 2002-2015 MediaArea.net SARL"
+            VALUE "ProductName", "MediaInfo"
+            VALUE "ProductVersion", "18.08.1.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
