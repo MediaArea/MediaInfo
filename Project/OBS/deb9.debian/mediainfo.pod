@@ -121,6 +121,30 @@ Full information Display with HTML tags
 
 Full information Display with XML tags
 
+=item B<--Output=OLDXML>
+
+Full information Display with XML tags using the older MediaInfo schema
+
+=item B<--Output=JSON>
+
+Full information Display using JSON
+
+=item B<--Output=EBUCore>
+
+Full information Display with EBUCore compliant XML tags
+
+=item B<--Output=EBUCore_JSON>
+
+Full information Display with EBUCore 1.8 compliant JSON
+
+=item B<--Output=PBCore>
+
+Full information Display with PBCore compliant XML tags
+
+=item B<--Output=PBCore2>
+
+Full information Display with PBCore 2.0 compliant XML tags
+
 =item B<--Inform=FMT>
 
 Template defined information display.
