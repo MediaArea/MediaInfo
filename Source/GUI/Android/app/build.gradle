@@ -49,6 +49,12 @@ android {
             path "CMakeLists.txt"
         }
     }
+    splits {
+        abi {
+            enable true
+            universalApk true
+        }
+    }
     buildToolsVersion '28.0.3'
 }
 
