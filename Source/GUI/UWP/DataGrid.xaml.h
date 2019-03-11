@@ -81,6 +81,7 @@ namespace MediaInfo
 
         property Windows::Foundation::Collections::IObservableVector<Windows::Foundation::Collections::IVectorView<Platform::String^>^>^ Rows
         {
+            Windows::Foundation::Collections::IObservableVector<Windows::Foundation::Collections::IVectorView<Platform::String^>^>^ get() { return _Rows; }
             void set(Windows::Foundation::Collections::IObservableVector<Windows::Foundation::Collections::IVectorView<Platform::String^>^>^ Value);
         }
 
