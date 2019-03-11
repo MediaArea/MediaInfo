@@ -66,6 +66,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.android.support:design:28.2.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
@@ -81,4 +82,9 @@ dependencies {
     kapt "androidx.lifecycle:lifecycle-compiler:2.0.0"
     // Legacy file picker
     implementation 'com.github.angads25:filepicker:1.1.1'
+    // Google Billing
+    implementation "com.android.billingclient:billing:1.2"
+    // KotlinX Coroutines
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.1"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1"
 }

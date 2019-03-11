@@ -18,7 +18,7 @@
     </string>
     <string name="website_text">Website</string>
     <string name="website_url">https://mediaarea.net/en/MediaInfo</string>
-    <string name="export_title">About MediaInfo</string>
+    <string name="export_title">Export</string>
     <string name="logo_desc">MediaArea logo</string>
     <string name="delete_desc">Delete report</string>
     <string name="close_text">Close</string>
@@ -30,7 +30,18 @@
     <string name="media_error_text">External media is not accessible</string>
     <string name="open_title">Open file(s)</string>
     <string name="save_title">Save to directory</string>
+    <string name="uimode_title">Night mode</string>
+    <string name="uimode_auto_title">Night mode auto</string>
+    <string name="subscribe_title">Subscribe</string>
+    <string name="subscribe_text">Subscribe</string>
+    <string name="subscribed_text">Manage subscription</string>
+    <string name="thanks_text">Subscription detected. Thanks for your support!</string>
+    <string name="subscription_detail_text">PRICE per year with free 3 days trial period.</string>
+    <string name="store_text">Support us. Get the dark theme and more features to come.</string>
+    <string name="subscription_sku">net.mediaarea.mediainfo.inapp1</string>
+    <string name="subscription_manage_url">https://play.google.com/store/account/subscriptions?sku=net.mediaarea.mediainfo.inapp1|package=net.mediaarea.mediainfo</string>
     <!-- Preferences keys -->
     <string name="preferences_key">net.mediaarea.mediainfo.preferences</string>
     <string name="preferences_view_key">net.mediaarea.mediainfo.preferences_view</string>
+    <string name="preferences_uimode_key">net.mediaarea.mediainfo.preferences_uimode</string>
 </resources>

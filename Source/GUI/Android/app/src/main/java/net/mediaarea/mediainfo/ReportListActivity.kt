@@ -13,7 +13,9 @@ import java.io.File
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
 import androidx.core.app.ActivityCompat
+import androidx.appcompat.app.AppCompatDelegate
 
 import android.os.Build
 import android.os.Bundle
@@ -27,11 +29,14 @@ import android.database.Cursor
 import android.provider.OpenableColumns
 import android.widget.FrameLayout
 import android.widget.TextView
+import android.content.Context
+import android.widget.Toast
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.graphics.drawable.ColorDrawable
 import android.view.*
 
 import com.google.android.material.snackbar.Snackbar
-
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -55,6 +60,7 @@ import com.github.angads25.filepicker.view.FilePickerDialog
  * item details side-by-side using two vertical panes.
  */
 class ReportListActivity : AppCompatActivity(), ReportActivityListener {
+    private lateinit var subscriptionManager: SubscriptionManager
     private lateinit var reportModel: ReportViewModel
     private var disposable: CompositeDisposable = CompositeDisposable()
     private var twoPane: Boolean = false
@@ -211,6 +217,32 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         }
     }
 
+    private fun applyUiMode() {
+        val sharedPreferences: SharedPreferences? = getSharedPreferences(getString(R.string.preferences_key), Context.MODE_PRIVATE)
+        sharedPreferences?.getString(getString(R.string.preferences_uimode_key), "OFF").let {
+            when (it) {
+                "OFF" -> {
+                    if (AppCompatDelegate.getDefaultNightMode()!=AppCompatDelegate.MODE_NIGHT_NO) {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                        recreate()
+                    }
+                }
+                "ON" -> {
+                    if (AppCompatDelegate.getDefaultNightMode()!=AppCompatDelegate.MODE_NIGHT_YES) {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                        recreate()
+                    }
+                }
+                /* "AUTO" -> {
+                    if (AppCompatDelegate.getDefaultNightMode()!=AppCompatDelegate.MODE_NIGHT_AUTO) {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO)
+                        recreate()
+                    }
+                } */
+            }
+        }
+    }
+
     fun deleteReport(id: Int) {
         disposable.add(reportModel
                 .deleteReport(id)
@@ -233,6 +265,133 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
+
+
+        menu?.findItem(R.id.action_subscribe)?.isEnabled=false
+        subscriptionManager.ready.observe(this, Observer {
+            if (menu?.findItem(R.id.action_subscribe)?.title!=getString(R.string.subscribed_text)) {
+                menu?.findItem(R.id.action_subscribe)?.isEnabled = it
+            }
+        })
+
+        val sharedPreferences: SharedPreferences? = getSharedPreferences(getString(R.string.preferences_key), Context.MODE_PRIVATE)
+        sharedPreferences?.getString(getString(R.string.preferences_uimode_key), "OFF").let {
+            if (it != null) {
+                when (it) {
+                    "OFF" -> {
+                        menu?.findItem(R.id.action_nightmode).let { item ->
+                            item?.setChecked(false)
+                        }
+                        /* menu?.findItem(R.id.action_nightmode_auto).let { item ->
+                            item?.setChecked(false)
+                        } */
+                    }
+                    "ON" -> {
+                        menu?.findItem(R.id.action_nightmode).let { item ->
+                            item?.setChecked(true)
+                        }
+                        /* menu?.findItem(R.id.action_nightmode_auto).let { item ->
+                            item?.setChecked(false)
+                        } */
+                    }
+                    /* "AUTO" -> {
+                        menu?.findItem(R.id.action_nightmode_auto).let { item ->
+                            item?.setChecked(true)
+                        }
+                        menu?.findItem(R.id.action_nightmode).let { item ->
+                            item?.setEnabled(false)
+                        }
+                    } */
+                }
+            }
+        }
+
+        menu?.findItem(R.id.action_nightmode).let {
+            it?.setOnMenuItemClickListener { item ->
+                if (item.isChecked()) {
+                    item.setChecked(false)
+                    sharedPreferences
+                            ?.edit()
+                            ?.putString(getString(R.string.preferences_uimode_key), "OFF")
+                            ?.apply()
+
+                    applyUiMode()
+                } else {
+                    item.setChecked(true)
+                    sharedPreferences
+                            ?.edit()
+                            ?.putString(getString(R.string.preferences_uimode_key), "ON")
+                            ?.apply()
+
+                    applyUiMode()
+                }
+
+                true
+            }
+        }
+
+        /* menu?.findItem(R.id.action_nightmode_auto).let {
+            it?.setOnMenuItemClickListener {
+                if (it.isChecked()) {
+                    it.setChecked(false)
+                    sharedPreferences
+                            ?.edit()
+                            ?.putString(getString(R.string.preferences_uimode_key), "OFF")
+                            ?.apply()
+                    menu?.findItem(R.id.action_nightmode).let { item ->
+                        item?.setEnabled(true)
+                    }
+                    applyUiMode()
+                } else {
+                    it.setChecked(true)
+                    sharedPreferences
+                            ?.edit()
+                            ?.putString(getString(R.string.preferences_uimode_key), "AUTO")
+                            ?.apply()
+                    menu?.findItem(R.id.action_nightmode).let { item ->
+                        item?.setEnabled(false)
+                    }
+                    applyUiMode()
+                }
+                true
+            }
+        } */
+
+        subscriptionManager.subscribed.observe(this, Observer {
+            if (it) {
+                menu?.findItem(R.id.action_nightmode)?.isVisible=true
+                menu?.findItem(R.id.action_subscribe).let { item ->
+                    item?.isEnabled=true
+                    item?.title = getString(R.string.subscribed_text)
+
+                    item?.setOnMenuItemClickListener { _ ->
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        intent.data = Uri.parse(getString(R.string.subscription_manage_url).replace('|', '&'))
+                        startActivity(intent)
+
+                        true
+                    }
+                }
+
+                if (!Core.thanked) {
+                    // Show thanks message
+                    Core.thanked=true
+                    val toast = Toast.makeText(applicationContext, R.string.thanks_text, Toast.LENGTH_SHORT)
+                    toast.show()
+                }
+            } else {
+                menu?.findItem(R.id.action_subscribe).let { item ->
+                    item?.title = getString(R.string.subscribe_text)
+
+                    item?.setOnMenuItemClickListener { _ ->
+                        val intent = Intent(this, SubscribeActivity::class.java)
+                        startActivity(intent)
+
+                        true
+                    }
+                }
+            }
+        })
 
         menu?.findItem(R.id.action_about).let {
             it?.setOnMenuItemClickListener {
@@ -280,6 +439,14 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         setSupportActionBar(tool_bar)
         tool_bar.title = title
 
+        subscriptionManager = SubscriptionManager.getInstance(application)
+        lifecycle.addObserver(subscriptionManager)
+
+        subscriptionManager.subscribed.observe(this, Observer {
+            if (it==true)
+                applyUiMode()
+        })
+
         val viewModelFactory = Injection.provideViewModelFactory(this)
         ViewModelProviders.of(this, viewModelFactory).get(ReportViewModel::class.java)
         reportModel = ViewModelProviders.of(this, viewModelFactory).get(ReportViewModel::class.java)
@@ -317,14 +484,8 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
                     dialog.show()
                 } else {
-                    val rootView: View? = findViewById(android.R.id.content)
-
-                    // Show error message for 5 seconds
-                    if (rootView != null) {
-                        Snackbar.make(rootView, R.string.media_error_text, 5000)
-                                .setAction("Action", null)
-                                .show()
-                    }
+                    val toast = Toast.makeText(applicationContext, R.string.media_error_text, Toast.LENGTH_LONG)
+                    toast.show()
                 }
             }
         }
