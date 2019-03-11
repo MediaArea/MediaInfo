@@ -46,7 +46,7 @@
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xe7b3;" />
                     </AppBarButton.Icon>
                     <Button.Flyout>
-                        <MenuFlyout x:Name="ViewListMenu" />
+                        <MenuFlyout x:Name="ViewListMenu" Opening="ViewListMenu_Opening" Closing="ViewListMenu_Closing" />
                     </Button.Flyout>
                 </AppBarButton>
                 <AppBarButton x:Name="ExportButton" Label="Export" Click="ExportButton_Click">
@@ -63,9 +63,8 @@
             <ContentPresenter.ContentTransitions>
                 <TransitionCollection />
             </ContentPresenter.ContentTransitions>
-            <WebView x:Name="ReportView" EntranceNavigationTransitionInfo.IsTargetElement="True" />
         </ContentPresenter>
-        <RelativePanel x:Name="AddFilePanel" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="#44000000" Visibility="Collapsed">
+        <RelativePanel x:Name="AddFilePanel" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Background="#44000000" Visibility="Collapsed">
             <SymbolIcon x:Name="AddSymbol" Symbol="Add" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" Foreground="White" RenderTransformOrigin="0.5,0.5">
                 <SymbolIcon.RenderTransform>
                     <CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
@@ -73,7 +72,7 @@
             </SymbolIcon>
             <TextBlock RelativePanel.Below="AddSymbol" RelativePanel.AlignHorizontalCenterWithPanel="True" Margin="0,12,0,0" Text="Add file(s)" Foreground="White" FontSize="24"></TextBlock>
         </RelativePanel>
-        <RelativePanel x:Name="WaitPanel" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="#FFFFFFFF" Visibility="Collapsed">
+        <RelativePanel x:Name="WaitPanel" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Background="#FFFFFFFF" Visibility="Collapsed">
             <ProgressRing x:Name="SpinnerRing"  RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" />
         </RelativePanel>
     </Grid>

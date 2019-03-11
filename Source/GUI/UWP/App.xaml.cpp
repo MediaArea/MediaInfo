@@ -58,6 +58,8 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
 
         Window::Current->Activate();
     }
+
+    MainPage^ Page=dynamic_cast<MainPage^>(RootFrame->Content);
 }
 
 //---------------------------------------------------------------------------
@@ -78,10 +80,24 @@ void App::OnFileActivated(FileActivatedEventArgs^ Event)
         return;
 
     Frame^ RootFrame=dynamic_cast<Frame^>(Window::Current->Content);
-    if (TypeName(RootFrame->Content->GetType()).Name!=TypeName(MainPage::typeid).Name)
+
+    if (!RootFrame)
+    {
+        RootFrame=ref new Frame();
+        RootFrame->NavigationFailed+=ref new NavigationFailedEventHandler(this, &App::OnNavigationFailed);
+        Window::Current->Content=RootFrame;
+
+        if (!RootFrame->Content)
+            RootFrame->Navigate(TypeName(MainPage::typeid), nullptr);
+    }
+    else if (!RootFrame->Content || TypeName(RootFrame->Content->GetType()).Name!=TypeName(MainPage::typeid).Name)
     {
         RootFrame->Navigate(TypeName(MainPage::typeid), nullptr);
+
+
     }
+
+    Window::Current->Activate();
 
     MainPage^ Page=dynamic_cast<MainPage^>(RootFrame->Content);
     Page->Open_Files(Event->Files);

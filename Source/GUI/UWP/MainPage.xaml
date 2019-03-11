@@ -27,26 +27,7 @@
             </Grid>
         </DataTemplate>
     </Page.Resources>
-    <Grid x:Name="LayoutRoot" Loaded="LayoutRoot_Loaded" AllowDrop="True" DragOver="On_File_DragOver" DragLeave="On_File_DragLeave" Drop="On_File_Drop">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="AdaptiveStates" CurrentStateChanged="AdaptiveStates_CurrentStateChanged">
-                <VisualState x:Name="DefaultState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="720" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState x:Name="NarrowState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="MasterColumn.Width" Value="*" />
-                        <Setter Target="DetailColumn.Width" Value="0" />
-                        <Setter Target="MasterListView.SelectionMode" Value="None" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
+    <Grid x:Name="LayoutRoot" Loaded="LayoutRoot_Loaded" AllowDrop="True" DragOver="On_File_DragOver" DragLeave="On_File_DragLeave" Drop="On_File_Drop" SizeChanged="LayoutRoot_SizeChanged">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -54,9 +35,10 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="MasterColumn" Width="320"  />
+            <ColumnDefinition x:Name="SeparatorColumn" Width="11" />
             <ColumnDefinition x:Name="DetailColumn" Width="*" />
         </Grid.ColumnDefinitions>
-        <Grid x:Name="TitleBar" Grid.Row="0" Grid.ColumnSpan="2">
+        <Grid x:Name="TitleBar" Grid.Row="0" Grid.ColumnSpan="3">
             <Rectangle x:Name="BackgroundElement" Fill="Transparent" />
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -67,7 +49,7 @@
                 <TextBlock x:Name="TitleText" Grid.Column="1" VerticalAlignment="Center" Text="MediaInfo" TextTrimming="CharacterEllipsis" />
             </Grid>
         </Grid>
-        <CommandBar x:Name="AppBar" Grid.Row="1"  Grid.ColumnSpan="2">
+        <CommandBar x:Name="AppBar" Grid.Row="1"  Grid.ColumnSpan="3">
             <CommandBar.PrimaryCommands>
                 <AppBarButton x:Name="OpenFiles" Icon="OpenFile" Label="Open file" Click="OpenFiles_Click" />
                 <AppBarButton x:Name="OpenFolder" Label="Open folder" Click="OpenFolder_Click">
@@ -81,7 +63,7 @@
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xe7b3;" />
                     </AppBarButton.Icon>
                     <Button.Flyout>
-                        <MenuFlyout x:Name="ViewListMenu" />
+                        <MenuFlyout x:Name="ViewListMenu" Opening="ViewListMenu_Opening" Closing="ViewListMenu_Closing"/>
                     </Button.Flyout>
                 </AppBarButton>
                 <AppBarButton x:Name="ExportButton" Label="Export" IsEnabled="false" Click="ExportButton_Click">
@@ -101,13 +83,17 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
-        <ContentPresenter x:Name="DetailContentPresenter" Grid.Column="1" Grid.Row="2" BorderThickness="1,0,0,0" BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}">
+        <RelativePanel x:Name="ResizePanel" Grid.Row="2" Grid.Column="1" Background="#44000000" PointerPressed="ResizePanel_PointerPressed" PointerReleased="ResizePanel_PointerReleased" PointerMoved="ResizePanel_PointerMoved" PointerEntered="ResizePanel_PointerEntered" PointerExited="ResizePanel_PointerExited" >
+            <TextBlock RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" Foreground="White" FontSize="24" TextWrapping="WrapWholeWords">
+                <Span  FontFamily="Segoe MDL2 Assets" FontSize="12">&#xE769;</Span>
+            </TextBlock>
+        </RelativePanel>
+            <ContentPresenter x:Name="DetailContentPresenter" Grid.Column="2" Grid.Row="2" BorderThickness="1,0,0,0" BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}">
             <ContentPresenter.ContentTransitions>
                 <TransitionCollection />
             </ContentPresenter.ContentTransitions>
-            <WebView x:Name="ReportView" EntranceNavigationTransitionInfo.IsTargetElement="True" />
         </ContentPresenter>
-        <RelativePanel x:Name="AddFilePanel" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="#44000000" Visibility="Collapsed">
+        <RelativePanel x:Name="AddFilePanel" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3" Background="#44000000" Visibility="Collapsed">
             <SymbolIcon x:Name="AddSymbol" Symbol="Add" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" Foreground="White" RenderTransformOrigin="0.5,0.5">
                 <SymbolIcon.RenderTransform>
                     <CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
@@ -115,14 +101,14 @@
             </SymbolIcon>
             <TextBlock RelativePanel.Below="AddSymbol" RelativePanel.AlignHorizontalCenterWithPanel="True" Margin="0,12,0,0" Text="Add file(s)" Foreground="White" FontSize="24"></TextBlock>
         </RelativePanel>
-        <RelativePanel x:Name="WelcomePanel" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Background="#44000000" Visibility="Collapsed">
+        <RelativePanel x:Name="WelcomePanel" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Background="#44000000" Visibility="Collapsed">
             <TextBlock RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" Margin="10,10,10,10" Foreground="White" FontSize="24" TextWrapping="WrapWholeWords">
                 You must at least open (
                 <Span  FontFamily="Segoe MDL2 Assets">&#xe1a5;</Span>
                 ) one file, or simply drag n drop files in the window.
             </TextBlock>
         </RelativePanel>
-        <RelativePanel x:Name="WaitPanel" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="#FFFFFFFF" Visibility="Collapsed">
+        <RelativePanel x:Name="WaitPanel" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3" Background="#FFFFFFFF" Visibility="Collapsed">
             <ProgressRing x:Name="SpinnerRing"  RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" />
         </RelativePanel>
     </Grid>

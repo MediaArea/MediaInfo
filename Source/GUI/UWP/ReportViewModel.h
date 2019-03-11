@@ -6,18 +6,20 @@
 
 #pragma once
 
+#include "MediaInfo/MediaInfo_Internal.h"
+
 //---------------------------------------------------------------------------
 namespace MediaInfo
 {
     public ref class ReportViewModel sealed
     {
     public:
-        ReportViewModel(Report^ Source);
+        ReportViewModel(Report^ SourceReport);
 
         property Report^ Source
         {
-            Report^ get() { return _Source; }
-            void set(Report^ Value) { _Source=Value; }
+            Report^ get();
+            void set(Report^ Value);
         }
 
         property uint64 Id
@@ -44,13 +46,7 @@ namespace MediaInfo
 
         property Platform::String^ ReportText
         {
-            Platform::String^ get()
-            {
-                if (!_Source || !Source->Data)
-                    return L"";
-
-                return AppCore::Convert_Report(_Source->Data, AppCore::View, true);
-            }
+            Platform::String^ get();
         }
 
         property Platform::String^ ReportHtml
@@ -58,7 +54,19 @@ namespace MediaInfo
             Platform::String^ get();
         }
 
+        Platform::String^ Summary(size_t StreamKind, size_t StreamNumber);
+        Platform::String^ Inform(Platform::String^ Format, bool Export);
+        Platform::String^ Inform_Get(size_t StreamKind, size_t StreamNumber);
+        Platform::String^ GetI(size_t StreamKind, size_t StreamNumber, size_t Parameter);
+        Platform::String^ GetI(size_t StreamKind, size_t StreamNumber, size_t Parameter,size_t InfoKind);
+        Platform::String^ Get(size_t StreamKind, size_t StreamNumber, Platform::String^ Parameter, size_t InfoKind, size_t SearchKind);
+        Platform::String^ Get(size_t StreamKind, size_t StreamNumber, Platform::String^ Parameter, size_t InfoKind);
+        Platform::String^ Get(size_t StreamKind, size_t StreamNumber, Platform::String^ Parameter);
+        size_t Count_Get(size_t StreamKind, size_t StreamNumber);
+        size_t Count_Get(size_t StreamKind);
+
     private:
         Report^ _Source;
+        MediaInfoLib::MediaInfo _MI;
     };
 }

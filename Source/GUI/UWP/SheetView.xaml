@@ -1,0 +1,75 @@
+﻿<!--
+  Copyright (c) MediaArea.net SARL. All Rights Reserved.
+
+      Use of this source code is governed by a BSD-style license that can
+      be found in the License.html file in the root of the source tree.
+-->
+<UserControl
+    x:Class="MediaInfo.SheetView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MediaInfo"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="ComboBoxItem" x:Key="VoidStyle">
+        </Style>
+        <DataTemplate x:Key="SheetListTemplate" x:DataType="local:Sheet">
+            <TextBlock Text="{x:Bind Name}" />
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid x:Name="LayoutRoot">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="MainColumn" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition x:Name="DataRow" Height="*" MinHeight="100" />
+            <RowDefinition x:Name="SeparatorRow" Height="11" />
+            <RowDefinition x:Name="StreamRow" Height="320" MinHeight="100" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="FormatBoxColumn" Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ComboBox x:Name="FormatBox" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="0" ItemTemplate="{StaticResource SheetListTemplate}" SelectionChanged="FormatBox_SelectionChanged" />
+            <Button x:Name="EditSheet" FontFamily="Segoe MDL2 Assets" Content="&#xE70F;" Grid.Column="1" Grid.Row="0" VerticalAlignment="Stretch" Click="EditSheet_Click" />
+            <Button x:Name="DeleteSheet" FontFamily="Segoe MDL2 Assets" Content="&#xE74D;" Grid.Column="2" Grid.Row="0" VerticalAlignment="Stretch" Click="DeleteSheet_Click" />
+            <Button x:Name="AddSheet"  FontFamily="Segoe MDL2 Assets" Content="&#xE710;" Grid.Column="3" Grid.Row="0" VerticalAlignment="Stretch" Click="AddSheet_Click" />
+        </Grid>
+        <ScrollViewer Grid.Column="0" Grid.Row="1" Margin="0,10,0,10" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <local:DataGrid x:Name="MainGrid" SelectionChangedEvent="MainGrid_SelectionChangedEvent" RightClickedEvent="MainGrid_RightClickedEvent">
+                <FlyoutBase.AttachedFlyout>
+                    <MenuFlyout x:Name="CloseMenuFlyout">
+                        <MenuFlyoutItem x:Name="CloseMenuItem" Text="Close" Click="CloseMenuItem_Click" />
+                    </MenuFlyout>
+                </FlyoutBase.AttachedFlyout>
+            </local:DataGrid>
+        </ScrollViewer>
+        <RelativePanel x:Name="ResizePanel" Grid.Row="2" Grid.Column="0" Background="#44000000" PointerPressed="ResizePanel_PointerPressed" PointerReleased="ResizePanel_PointerReleased" PointerMoved="ResizePanel_PointerMoved" PointerEntered="ResizePanel_PointerEntered" PointerExited="ResizePanel_PointerExited">
+            <TextBlock RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" Foreground="#44000000" FontSize="24" TextWrapping="WrapWholeWords">
+                <Span  FontFamily="Segoe MDL2 Assets" FontSize="12">&#xE76F;</Span>
+            </TextBlock>
+        </RelativePanel>
+        <Grid x:Name="StreamContainer" Grid.Column="0" Grid.Row="3" Margin="0,1,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ComboBox x:Name="StreamBox" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="0" SelectionChanged="StreamBox_SelectionChanged" />
+            <ScrollViewer Grid.Column="0" Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <TextBlock x:Name="StreamBlock" FontFamily="Consolas" />
+        </ScrollViewer>
+        </Grid>
+    </Grid>
+</UserControl>

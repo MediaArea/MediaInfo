@@ -31,6 +31,12 @@ using namespace Windows::Storage::AccessCache;
 using namespace Windows::Storage::Streams;
 using namespace Concurrency;
 
+
+//---------------------------------------------------------------------------
+// Init
+//---------------------------------------------------------------------------
+IObservableVector<View^>^ AppCore::_Views=nullptr;
+
 //---------------------------------------------------------------------------
 // Properties
 //---------------------------------------------------------------------------
@@ -67,10 +73,16 @@ Platform::String^ AppCore::Version::get()
 }
 
 //---------------------------------------------------------------------------
-IVectorView<View^>^ AppCore::ViewList::get()
+IObservableVector<View^>^ AppCore::ViewList::get()
 {
+    if (_Views)
+        return _Views;
+
     MediaInfoLib::MediaInfo MI;
-    Vector<::MediaInfo::View^>^ ToReturn=ref new Platform::Collections::Vector<::MediaInfo::View^>();
+    _Views=ref new Platform::Collections::Vector<::MediaInfo::View^>();
+
+    _Views->Append(ref new ::MediaInfo::View("Easy", "Easy", "text/plain", View==L"Easy", false));
+    _Views->Append(ref new ::MediaInfo::View("Sheet", "Sheet", "text/plain", View==L"Sheet", false));
 
     ZenLib::ZtringListList ViewsCSV=ZenLib::ZtringListList();
     ViewsCSV.Separator_Set(0, ZenLib::EOL);
@@ -81,28 +93,49 @@ IVectorView<View^>^ AppCore::ViewList::get()
     {
         ZenLib::ZtringList Current=ViewsCSV[It];
         if (Current.size()>=3)
-            ToReturn->Append(ref new ::MediaInfo::View(ref new Platform::String(Current[0].c_str()), ref new Platform::String(Current[1].c_str()), ref new Platform::String(Current[2].c_str())));
+        {
+            Platform::String^ Name=ref new Platform::String(Current[0].c_str());
+            Platform::String^ Desc=ref new Platform::String(Current[1].c_str());
+            Platform::String^ Mime=ref new Platform::String(Current[2].c_str());
+            _Views->Append(ref new ::MediaInfo::View(Name, Desc, Mime, View==Name, true));
+        }
     }
 
-    return ToReturn->GetView();
+    return _Views;
 }
-
 //---------------------------------------------------------------------------
 Platform::String^ AppCore::View::get()
 {
     ApplicationDataContainer^ LocalSettings=ApplicationData::Current->LocalSettings;
-    Platform::String^ CurrentView=safe_cast<Platform::String^>(LocalSettings->Values->Lookup(L"View"));
+    Platform::String^ Current=safe_cast<Platform::String^>(LocalSettings->Values->Lookup(L"View"));
 
-    if (!CurrentView->Length())
-        CurrentView=L"HTML";
+    if (!Current||!Current->Length())
+        Current=L"Easy";
 
-    return CurrentView;
+    return Current;
 }
 
+//---------------------------------------------------------------------------
 void AppCore::View::set(Platform::String^ Value)
 {
     ApplicationDataContainer^ LocalSettings=ApplicationData::Current->LocalSettings;
+
+    Platform::String^ Current=safe_cast<Platform::String^>(LocalSettings->Values->Lookup(L"View"));
+    if (Current && Current->Length() && Current==Value)
+        return;
+
     LocalSettings->Values->Insert(L"View", Value);
+
+    if (_Views)
+    {
+        for (::MediaInfo::View^ It:_Views)
+            if (It->Name==Value)
+                It->Current=true;
+            else if(It->Current)
+                It->Current=false;
+    }
+
+    ViewChangedEvent(Value);
 }
 
 //---------------------------------------------------------------------------
@@ -112,6 +145,9 @@ void AppCore::View::set(Platform::String^ Value)
 //---------------------------------------------------------------------------
 Platform::String^ AppCore::Get_Mime(Platform::String^ Name)
 {
+    if (Name==L"Easy" || Name==L"Sheet")
+        return L"Text/plain";
+
     for (::View^ It : ViewList)
     {
         if (It->Name==Name)
@@ -119,6 +155,43 @@ Platform::String^ AppCore::Get_Mime(Platform::String^ Name)
     }
 
     return L"";
+}
+
+//---------------------------------------------------------------------------
+Platform::String^ AppCore::Get_Stream_Name(size_t StreamKind)
+{
+    switch (static_cast<stream_t>(StreamKind))
+    {
+    case Stream_General: return L"General";
+    case Stream_Video: return L"Video";
+    case Stream_Audio: return L"Audio";
+    case Stream_Text: return L"Text";
+    case Stream_Other: return L"Other";
+    case Stream_Image: return L"Image";
+    case Stream_Menu: return L"Menu";
+    default: return L"Unknown Stream";
+    }
+}
+
+//---------------------------------------------------------------------------
+size_t AppCore::Get_Stream_Id(Platform::String^ StreamKind)
+{
+    if (StreamKind==L"General")
+        return static_cast<size_t>(Stream_General);
+    else if (StreamKind==L"Video")
+        return static_cast<size_t>(Stream_Video);
+    else if (StreamKind==L"Audio")
+        return static_cast<size_t>(Stream_Audio);
+    else if (StreamKind==L"Text")
+        return static_cast<size_t>(Stream_Text);
+    else if (StreamKind==L"Other")
+        return static_cast<size_t>(Stream_Other);
+    else if (StreamKind==L"Image")
+        return static_cast<size_t>(Stream_Image);
+    else if (StreamKind==L"Menu")
+        return static_cast<size_t>(Stream_Menu);
+
+    return static_cast<size_t>(Stream_Max);
 }
 
 //---------------------------------------------------------------------------
@@ -135,30 +208,6 @@ Platform::String^ AppCore::Create_Report(Platform::String^ Path)
     MI.Close();
 
     return ref new Platform::String(Report.c_str());
-}
-
-//---------------------------------------------------------------------------
-Platform::String^ AppCore::Convert_Report(Platform::String^ Report, Platform::String^ Format, bool Export)
-{
-    MediaInfoLib::MediaInfo MI;
-
-    MI.Option(__T("Inform"), Ztring().From_Unicode(Format->Data()));
-    MI.Option(__T("Inform_Compress"), __T(""));
-    MI.Option(__T("Input_Compressed"), __T("zlib+base64"));
-
-    if (Format=="Text" && !Export)
-        MI.Option(__T("Language"), __T("  Config_Text_ColumnSize;25"));
-
-    Ztring Input(Report->Data());
-
-    MI.Open_Buffer_Init(Input.To_UTF8().length(), 0L);
-    MI.Open_Buffer_Continue((int8u*)Input.To_UTF8().c_str(), Input.To_UTF8().length());
-    MI.Open_Buffer_Finalize();
-
-    Ztring Output=MI.Inform();
-    MI.Close();
-
-    return ref new Platform::String(Output.c_str());
 }
 
 //---------------------------------------------------------------------------

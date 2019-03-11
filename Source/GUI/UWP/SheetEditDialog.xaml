@@ -1,0 +1,44 @@
+﻿<!--
+  Copyright (c) MediaArea.net SARL. All Rights Reserved.
+
+      Use of this source code is governed by a BSD-style license that can
+      be found in the License.html file in the root of the source tree.
+-->
+<ContentDialog
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MediaInfo"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    x:Class="MediaInfo.SheetEditDialog"
+    Style="{StaticResource LargeDialog}"
+    Title="TITLE"
+    PrimaryButtonText="OK"
+    SecondaryButtonText="CANCEL"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="MainColumn" Width="640" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" FontSize="18" Foreground="Gray" Text="Name" Margin="0,0,0,10" />
+        <TextBox x:Name="NameText" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" />
+        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="18" Foreground="Gray" Text="Columns" Margin="0,10,0,0" />
+        <ScrollViewer Grid.Row="3" Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <ListView x:Name="FieldList" CanReorderItems="True"  AllowDrop="True" CanDragItems="True" >
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </ScrollViewer>
+    </Grid>
+</ContentDialog>
