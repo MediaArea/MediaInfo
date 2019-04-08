@@ -155,6 +155,7 @@ Actor;นักแสดง
 Actor_Character;Character played
 Added_Date;
 Address;ที่อยู่
+AdID;
 Advanced;ขั้นสูง
 Advanced mode;โหมดขั้นสูง
 Album;อัลบั้ม
@@ -188,6 +189,8 @@ Author;ผู้เขียน
 BarCode;บาร์โค้ด
 Basic;พื้นฐาน
 Basic_Note;หมายเหตุ : สำหรับข้อมูลเพิ่มเติมเกี่ยวกับไฟล์นี้, คุณต้องเลือกการแสดงแบบอื่นๆ (ชีต, Tree...)
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;
 BitDepth_Detected;
 BitDepth_Stored;
@@ -203,6 +206,7 @@ Bits-(Pixel*Frame);บิต/(พิกเซล*เฟรม)
 BufferSize;
 Cancel;ยกเลิก
 Channel(s);ช่อง
+ChannelLayout;
 ChannelPositions;ตำแหน่งช่อง
 Chapter(s);เชฟเตอร์
 Chapters;เชฟเตอร์
@@ -218,7 +222,7 @@ Choose export format;เลือกรูปแบบผลลัพธ์ท�
 Choose file(s);เลือกไฟล์ที่จะเปิด
 Choose filename;เลือกชื่อไฟล์ที่คุณต้องการ
 Choose language;เลือกภาษาที่คุณต้องการ
-Choregrapher;Choregrapher
+Choreographer;Choreographer
 Chroma;Chroma
 ChromaSubsampling;
 Close;ปิด
@@ -244,6 +248,7 @@ Codec_Settings_PacketBitStream;ตั้งค่า Codec, Packet bitstream
 Codec_Settings_QPel;ตั้งค่า Codec, QPel
 Codec_Settings_Sign;ตั้งค่า Codec, Sign
 Codec_Url;เว็บลิงค์ของ codec
+CodecConfigurationBox;
 CodecID;รหัสประจำตัว Codec
 CodecID_Description;
 CoDirector;
@@ -257,6 +262,7 @@ CommissionedBy;Commissioned by
 Compilation;
 CompleteName;ชื่อเต็ม
 CompletionDate;
+ComplexityIndex;
 Composer;ผู้เรียบเรียง
 Compression_Mode;
 Compression_Mode_Lossless;
@@ -336,6 +342,7 @@ File_Modified_Date;วันที่แก้ไขไฟล์ล่าสุ�
 File_Modified_Date_Local;
 FileExtension;ชนิดไฟล์
 FileName;ชื่อไฟล์
+FileNameExtension;
 FileSize;ขนาดไฟล์
 Folder;โฟลเดอร์
 Folder (R);โฟลเดอร์ (R)
@@ -348,9 +355,8 @@ Format_Commercial;
 Format_Commercial_IfAny;
 Format_Description;รายละเอียดของรูปแบบ
 Format_Info;ข้อมูลของรูปแบบ
-Format_Profile;โพรไฟล์รูปแบบ
 Format_Level;
-Format_Tier;
+Format_Profile;โพรไฟล์รูปแบบ
 Format_Settings;ตั้งค่ารูปแบบ
 Format_Settings_BVOP;ตั้งค่ารูปแบบ, BVOP
 Format_Settings_CABAC;ตั้งค่ารูปแบบ, CABAC
@@ -377,6 +383,7 @@ Format_Settings_RefFrames;ตั้งค่ารูปแบบ, RefFrames
 Format_Settings_SBR;ตั้งค่ารูปแบบ, SBR
 Format_Settings_Sign;ตั้งค่ารูปแบบ, Sign
 Format_Settings_Wrapping;
+Format_Tier;
 Format_Url;
 Format_Version;เวอร์ชันรูปแบบ
 FpaManufacturer;
@@ -587,11 +594,12 @@ Genre_190;
 Genre_191;
 Go to WebSite;ไปที่เว็บไซต์
 Gop_OpenClosed;
-Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
+Gop_OpenClosed_Open;
 Grouping;
 h; h
+HDR_Format;
 Header file;สร้างไฟล์ header
 Height;ความสูง
 Height_CleanAperture;
@@ -871,6 +879,7 @@ NewVersion_Question_Content;
 NewVersion_Question_Title;
 No;ไม่ใช่
 Not yet;
+NumberOfDynamicObjects;
 NumColors;
 OK;ตกลง
 One output file per input file;หนึ่งไฟล์ผลลัพธ์ต่อไฟล์นำเข้า
@@ -939,7 +948,6 @@ PartNumber;
 PartTotal;
 Performer;Performer
 Period;Period
-PodcastCategory;
 Phone;โทรศัพท์
 PictureRatio;
 PixelAspectRatio;Pixel Aspect Ratio
@@ -950,6 +958,7 @@ Played_Count;
 Played_First_Date;
 Played_Last_Date;
 PlayTime;เวลาเล่น
+PodcastCategory;
 Position;ตำแหน่ง
 Position_Total;ทั้งหมด
 Preferences;การปรับแต่ง
@@ -1085,6 +1094,9 @@ Tree;Tree
 Tree & Text;Tree & Text
 Type;
 UniqueID;
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;ไม่รู้จัก
 Url;Url
 Video;วีดีโอ
@@ -1119,5 +1131,5 @@ Written_Location;สถานที่เขียน
 WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
-ZZ_Automatic_Percent;73
+ZZ_Automatic_Percent;72
 ZZ_AutomaticLanguage_Percent;80

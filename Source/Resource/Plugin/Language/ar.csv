@@ -155,6 +155,7 @@ Actor;ممثل
 Actor_Character;الشخصية الملعوب دورها
 Added_Date;تاريخ الاضافة
 Address;عنوان
+AdID;
 Advanced;متقدم
 Advanced mode;الوضع المتقدم
 Album;ألبوم
@@ -188,6 +189,8 @@ Author;الكاتب /  المؤلف
 BarCode;باركود
 Basic;أساسي
 Basic_Note;ملاحظة : لمزيد من المعلومات حول هذا الملف ، يجب استخدام وجهة نظر مختلفة (جدول ، شجرة...)
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;عمق الألوان
 BitDepth_Detected;Detected bit depth
 BitDepth_Stored;
@@ -203,6 +206,7 @@ Bits-(Pixel*Frame);بت /(صورة*بكسل)
 BufferSize;
 Cancel;إلغاء
 Channel(s);قناة
+ChannelLayout;
 ChannelPositions;مواقع القنوات
 Chapter(s);فصل
 Chapters;فصل
@@ -218,7 +222,7 @@ Choose export format;اختيار صيغة تصدير الماف
 Choose file(s);اختيار الماف
 Choose filename;اختر اسم الملف
 Choose language;اختر اللغة التي تريدها
-Choregrapher;المسؤول عن الكوريغرافيا
+Choreographer;المسؤول عن الكوريغرافيا
 Chroma;شروما
 ChromaSubsampling;الاختزال الشروما
 Close;غادر
@@ -244,6 +248,7 @@ Codec_Settings_PacketBitStream;إعدادات الترميز، Packet bitstream
 Codec_Settings_QPel;إعدادات الترميز، QPel
 Codec_Settings_Sign;إعدادات الترميز، Sign
 Codec_Url;وصلة الترميز
+CodecConfigurationBox;
 CodecID;تعريف الترميز
 CodecID_Description;وصف الترميز
 CoDirector;
@@ -257,6 +262,7 @@ CommissionedBy;مصاند من طرف
 Compilation;
 CompleteName;الاسم الكامل
 CompletionDate;
+ComplexityIndex;
 Composer;ملحن
 Compression_Mode;
 Compression_Mode_Lossless;
@@ -336,6 +342,7 @@ File_Modified_Date;تاريخ تعديل الملف الأخير
 File_Modified_Date_Local;تاريخ تعديل الملف الأخير (محلي)
 FileExtension;نوع الملف
 FileName;اسم الملف
+FileNameExtension;
 FileSize;حجم الملف
 Folder;مجلد
 Folder (R);مجلد (R)
@@ -348,9 +355,8 @@ Format_Commercial;
 Format_Commercial_IfAny;
 Format_Description;وصف الشكل
 Format_Info;تفاصيل عن شكل
-Format_Profile;لبروفايل الشكل
 Format_Level;Format level
-Format_Tier;Format tier
+Format_Profile;لبروفايل الشكل
 Format_Settings;إعدادات الشكل
 Format_Settings_BVOP;إعدادات الشكل، BVOP
 Format_Settings_CABAC;إعدادات الشكل، CABAC
@@ -377,6 +383,7 @@ Format_Settings_RefFrames;إعدادات الشكل، RefFrames
 Format_Settings_SBR;إعدادات الشكل، SBR
 Format_Settings_Sign;إعدادات الشكل، Sign
 Format_Settings_Wrapping;
+Format_Tier;Format tier
 Format_Url;وصلة على شكل
 Format_Version;نسخة الشكل
 FpaManufacturer;
@@ -587,11 +594,12 @@ Genre_190;
 Genre_191;
 Go to WebSite;زيارة الموقع
 Gop_OpenClosed;
-Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
+Gop_OpenClosed_Open;
 Grouping;
 h; h
+HDR_Format;
 Header file;إنشاء ملف header
 Height;ارتفاع
 Height_CleanAperture;
@@ -871,6 +879,7 @@ NewVersion_Question_Content;نسخة جديدة (v%Version%) متاحة،هل ت
 NewVersion_Question_Title;تم إصدار نسخة جديدة!
 No;لا
 Not yet;ليس بعد
+NumberOfDynamicObjects;
 NumColors;عدد الألوان
 OK;موافق
 One output file per input file;خطأ عند قراءة الملف
@@ -939,7 +948,6 @@ PartNumber;
 PartTotal;
 Performer;مؤد
 Period;فترة
-PodcastCategory;Podcast category
 Phone;هاتف
 PictureRatio;
 PixelAspectRatio;حجم البكسل
@@ -950,6 +958,7 @@ Played_Count;عدد القراءات
 Played_First_Date;أول قراءة
 Played_Last_Date;اخر قراءة
 PlayTime;مدة القراءة
+PodcastCategory;Podcast category
 Position;موقع
 Position_Total;مجموع
 Preferences;تفضيلات
@@ -1085,6 +1094,9 @@ Tree;شجرة
 Tree & Text;شجرة والنصوص
 Type;
 UniqueID;
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;مجهول
 Url;رابط
 Video;فيديو
@@ -1119,5 +1131,5 @@ Written_Location;مكان الكتابة
 WrittenBy;كتبها
 Yes;نعم
 Your system;نظامك
-ZZ_Automatic_Percent;86
-ZZ_AutomaticLanguage_Percent;90
+ZZ_Automatic_Percent;85
+ZZ_AutomaticLanguage_Percent;89

@@ -155,6 +155,7 @@ Actor;演員
 Actor_Character;角色
 Added_Date;加入於
 Address;地址
+AdID;
 Advanced;進階
 Advanced mode;進階模式
 Album;專輯
@@ -188,6 +189,8 @@ Author;作者
 BarCode;條碼
 Basic;基本
 Basic_Note;注意：想得道更多此檔案的資訊，請選擇不同檢視方式（表格、樹狀圖…）
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;深度
 BitDepth_Detected;
 BitDepth_Stored;儲存位元深度
@@ -203,6 +206,7 @@ Bits-(Pixel*Frame);數據密度【位元╱(像素×畫格)】
 BufferSize;緩衝大小
 Cancel;取消
 Channel(s);聲道數
+ChannelLayout;
 ChannelPositions;聲道位置
 Chapter(s);章節
 Chapters;章節
@@ -218,7 +222,7 @@ Choose export format;選擇匯出格式
 Choose file(s);選擇檔案
 Choose filename;選擇檔名
 Choose language;選擇語言
-Choregrapher;動作指導
+Choreographer;動作指導
 Chroma;色度
 ChromaSubsampling;色像取樣
 Close;關閉
@@ -244,6 +248,7 @@ Codec_Settings_PacketBitStream;編解碼器設定 - Packet Bitstream
 Codec_Settings_QPel;編解碼器設定 - QPel
 Codec_Settings_Sign;編解碼器設定 - Sign
 Codec_Url;編解碼器網址
+CodecConfigurationBox;
 CodecID;編碼代號
 CodecID_Description;編碼描述
 CoDirector;聯合執導
@@ -257,6 +262,7 @@ CommissionedBy;委託者
 Compilation;合輯
 CompleteName;路徑
 CompletionDate;完成於
+ComplexityIndex;
 Composer;作曲
 Compression_Mode;壓縮模式
 Compression_Mode_Lossless;無損
@@ -336,6 +342,7 @@ File_Modified_Date;最後更改於
 File_Modified_Date_Local;最後更改於（本地時間）
 FileExtension;副檔名
 FileName;檔案
+FileNameExtension;
 FileSize;檔案大小
 Folder;資料夾
 Folder (R);資料夾（含）
@@ -348,9 +355,8 @@ Format_Commercial;廣告名稱
 Format_Commercial_IfAny;廣告名稱
 Format_Description;格式描述
 Format_Info;格式資訊
-Format_Profile;格式類型
 Format_Level;
-Format_Tier;
+Format_Profile;格式類型
 Format_Settings;格式設定
 Format_Settings_BVOP;格式設定 - BVOP
 Format_Settings_CABAC;格式設定 - CABAC
@@ -377,6 +383,7 @@ Format_Settings_RefFrames;格式設定 - 參考畫格
 Format_Settings_SBR;格式設定 - SBR
 Format_Settings_Sign;格式設定 - Sign
 Format_Settings_Wrapping;格式設定 - Wrapping模式
+Format_Tier;
 Format_Url;該格式的網址
 Format_Version;格式版本
 FpaManufacturer;FPA製造商
@@ -587,11 +594,12 @@ Genre_190;修車搖滾　Garage Rock
 Genre_191;迷幻氛圍　Psybient
 Go to WebSite;前往網站
 Gop_OpenClosed;開啟╱關閉GOP
-Gop_OpenClosed_Open;開啟
 Gop_OpenClosed_Closed;關閉
 Gop_OpenClosed_FirstFrame;開啟╱關閉GOP的首個畫格
+Gop_OpenClosed_Open;開啟
 Grouping;群組
 h;時
+HDR_Format;
 Header file;建立標頭檔案
 Height;高
 Height_CleanAperture;清除Aperture高度
@@ -871,6 +879,7 @@ NewVersion_Question_Content;存在新版本（v%Version%），下載嗎？
 NewVersion_Question_Title;新版本已推出！
 No;否
 Not yet;仍未
+NumberOfDynamicObjects;
 NumColors;色彩數量
 OK;確定
 One output file per input file;一個輸入檔對應一個輸出檔
@@ -939,7 +948,6 @@ PartNumber;此部份的編號
 PartTotal;部份的總計數量
 Performer;演出者
 Period;時期
-PodcastCategory;
 Phone;電話
 PictureRatio;比例
 PixelAspectRatio;像素闊高比
@@ -950,6 +958,7 @@ Played_Count;已播放
 Played_First_Date;首次播放
 Played_Last_Date;上次播放
 PlayTime;播放長度
+PodcastCategory;
 Position;位置
 Position_Total;總數
 Preferences;喜好設定
@@ -1085,6 +1094,9 @@ Tree;樹狀圖
 Tree & Text;樹狀圖和文字
 Type;類型
 UniqueID;獨立識別字
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;未知
 Url;相關網址
 Video;影像
@@ -1119,5 +1131,5 @@ Written_Location;編寫地點
 WrittenBy;作者
 Yes;是
 Your system;可識別清單
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;97
+ZZ_AutomaticLanguage_Percent;97

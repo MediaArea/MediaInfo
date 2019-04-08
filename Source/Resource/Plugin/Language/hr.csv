@@ -155,6 +155,7 @@ Actor;Glumac
 Actor_Character;Uloga
 Added_Date;Dodano dana
 Address;Adresa
+AdID;
 Advanced;Prošireno
 Advanced mode;Prošireni način
 Album;Album
@@ -188,6 +189,8 @@ Author;Autor
 BarCode;Crtičasti kôd
 Basic;Osnovno
 Basic_Note;Napomena: za više informacija o ovoj datoteci morate odabrati različite prikaze (tabela, stablo...)
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;
 BitDepth_Detected;
 BitDepth_Stored;
@@ -203,6 +206,7 @@ Bits-(Pixel*Frame);Bita/(piksela*sličica)
 BufferSize;
 Cancel;Poništiti
 Channel(s);Kanali
+ChannelLayout;
 ChannelPositions;Položaj kanala
 Chapter(s);Poglavlja
 Chapters;Poglavlja
@@ -218,7 +222,7 @@ Choose export format;Odaberite izvozni oblik datoteka
 Choose file(s);Odaberite datoteke za otvoriti
 Choose filename;Odaberite naziv datoteke
 Choose language;Odaberite jezik
-Choregrapher;Koreograf
+Choreographer;Koreograf
 Chroma;Kromatizam
 ChromaSubsampling;
 Close;Zatvoriti
@@ -244,6 +248,7 @@ Codec_Settings_PacketBitStream;Postavke kôdeka za usredotočeni protok podataka
 Codec_Settings_QPel;Postavke kôdeka za QPel
 Codec_Settings_Sign;Postavke kôdeka za Sign
 Codec_Url;Spletna poveznica kôdeka
+CodecConfigurationBox;
 CodecID;ID kôdeka
 CodecID_Description;Opis kôdeka
 CoDirector;
@@ -257,6 +262,7 @@ CommissionedBy;Prema nalogu
 Compilation;
 CompleteName;Potpuni naziv
 CompletionDate;
+ComplexityIndex;
 Composer;Skladatelj
 Compression_Mode;
 Compression_Mode_Lossless;
@@ -336,6 +342,7 @@ File_Modified_Date;Nadnevak posljednje izmjene datoteke
 File_Modified_Date_Local;Nadnevak zadnje izmjene datoteke (mjesni)
 FileExtension;Nastavak naziva datoteke
 FileName;Naziv datoteke
+FileNameExtension;
 FileSize;Veličina datoteke
 Folder;Mapa
 Folder (R);Mapa (R)
@@ -348,9 +355,8 @@ Format_Commercial;
 Format_Commercial_IfAny;
 Format_Description;Opis oblika datoteke
 Format_Info;Pojedinosti oblika datoteke
-Format_Profile;Profil oblika datoteke
 Format_Level;
-Format_Tier;
+Format_Profile;Profil oblika datoteke
 Format_Settings;Postavke oblika datoteke
 Format_Settings_BVOP;Postavke oblika datoteke za BVOP
 Format_Settings_CABAC;Postavke oblika datoteke za CABAC
@@ -377,6 +383,7 @@ Format_Settings_RefFrames;Postavke oblika datoteke za RefFrames
 Format_Settings_SBR;Postavke oblika datoteke za SBR
 Format_Settings_Sign;Postavke oblika datoteke za Sign
 Format_Settings_Wrapping;
+Format_Tier;
 Format_Url;Spletna poveznica oblika datoteke
 Format_Version;Inačica oblika datoteke
 FpaManufacturer;
@@ -587,11 +594,12 @@ Genre_190;
 Genre_191;
 Go to WebSite;Prijeći na spletni sadržaj
 Gop_OpenClosed;
-Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;Agrupamento
+Gop_OpenClosed_Open;
 Grouping;
 h; h
+HDR_Format;
 Header file;Kreirati zaglavnu datoteku
 Height;Visina
 Height_CleanAperture;
@@ -871,6 +879,7 @@ NewVersion_Question_Content;Raspoloživa je novija inačica (v%Version%)! Da li 
 NewVersion_Question_Title;Objavljena je nova inačica!
 No;Ne
 Not yet;Još ne
+NumberOfDynamicObjects;
 NumColors;Broj boja
 OK;U redu
 One output file per input file;Po jedna izlazna datoteka na jednu ulaznu
@@ -939,7 +948,6 @@ PartNumber;
 PartTotal;
 Performer;Izvođač
 Period;Razdoblje
-PodcastCategory;
 Phone;Telefon
 PictureRatio;
 PixelAspectRatio;Omjer piksela
@@ -950,6 +958,7 @@ Played_Count;puta izvedeno
 Played_First_Date;prvi put izvođeno
 Played_Last_Date;posljednji put izvođeno
 PlayTime;Trajanje izvedbe
+PodcastCategory;
 Position;položaj
 Position_Total;ukupno
 Preferences;Prilagodbe
@@ -1085,6 +1094,9 @@ Tree;Stablo
 Tree & Text;Stablo i tekst
 Type;
 UniqueID;
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;Nepoznato
 Url;URL
 Video;Video
@@ -1119,5 +1131,5 @@ Written_Location;Mjesto početka pisanja
 WrittenBy;Napisao
 Yes;Da
 Your system;Informacije o Vašem sustavu
-ZZ_Automatic_Percent;83
-ZZ_AutomaticLanguage_Percent;87
+ZZ_Automatic_Percent;82
+ZZ_AutomaticLanguage_Percent;86

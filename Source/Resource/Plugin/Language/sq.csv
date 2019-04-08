@@ -155,6 +155,7 @@ Actor;Aktori
 Actor_Character;Personazhi i luajtur
 Added_Date;Data e shtimit
 Address;Adresa
+AdID;
 Advanced;Avancuar
 Advanced mode;Mënyrë e avancuar
 Album;Albumi
@@ -188,6 +189,8 @@ Author;Autori
 BarCode;BarCode
 Basic;Kryesor
 Basic_Note;Shënim : për më shumë info rreth skedës, mund të zgjidhet një pamje tjetër (Fletë, Pemë...)
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;
 BitDepth_Detected;
 BitDepth_Stored;
@@ -203,6 +206,7 @@ Bits-(Pixel*Frame);Bit/(Piksel*Kuadër)
 BufferSize;
 Cancel;Anulo
 Channel(s);Kanale
+ChannelLayout;
 ChannelPositions;Pozicionet e kanalit
 Chapter(s);Kapitull
 Chapters;Kapituj
@@ -218,7 +222,7 @@ Choose export format;Zgjedh formatin e eksportimit të dëshiruar
 Choose file(s);Zgjedh skedat që të hapen
 Choose filename;Zgjedh emrin e skedës së dëshiruar
 Choose language;Zgjedh gjuhën e dëshiruar
-Choregrapher;Koreografi
+Choreographer;Koreografi
 Chroma;Kroma
 ChromaSubsampling;
 Close;Mbyll
@@ -244,6 +248,7 @@ Codec_Settings_PacketBitStream;Vendosjet e kodekut, Packet bitstream
 Codec_Settings_QPel;Vendosjet e kodekut, QPel
 Codec_Settings_Sign;Vendosjet e kodekut, Sign
 Codec_Url;Lidhësi në rrjetë i kodekut
+CodecConfigurationBox;
 CodecID;ID i kodekut
 CodecID_Description;Përshkrimi i kodekut
 CoDirector;
@@ -257,6 +262,7 @@ CommissionedBy;Autorizuar nga
 Compilation;
 CompleteName;Emri i plotë
 CompletionDate;
+ComplexityIndex;
 Composer;Kompozitori
 Compression_Mode;
 Compression_Mode_Lossless;
@@ -336,6 +342,7 @@ File_Modified_Date;Modifikimi i fundit i skedës
 File_Modified_Date_Local;Modifikimi i fundit i skedës
 FileExtension;Sigla e skedës
 FileName;Emri i skedës
+FileNameExtension;
 FileSize;Masa e skedës
 Folder;Dosje
 Folder (R);Dosje (R)
@@ -348,9 +355,8 @@ Format_Commercial;
 Format_Commercial_IfAny;
 Format_Description;Përshkrimi i formatit
 Format_Info;Detajet e formatit
-Format_Profile;Profili i formatit
 Format_Level;
-Format_Tier;
+Format_Profile;Profili i formatit
 Format_Settings;Vendosjet e formatit
 Format_Settings_BVOP;Vendosjet e formatit, BVOP
 Format_Settings_CABAC;Vendosjet e formatit, CABAC
@@ -377,6 +383,7 @@ Format_Settings_RefFrames;Vendosjet e formatit, RefFrames
 Format_Settings_SBR;Vendosjet e formatit, SBR
 Format_Settings_Sign;Vendosjet e formatit, Sign
 Format_Settings_Wrapping;
+Format_Tier;
 Format_Url;Lidhësi në rrjetë i formatit
 Format_Version;Versioni i formatit
 FpaManufacturer;
@@ -587,11 +594,12 @@ Genre_190;
 Genre_191;
 Go to WebSite;Shko te trualli në rrjetë
 Gop_OpenClosed;
-Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
+Gop_OpenClosed_Open;
 Grouping;
 h; h
+HDR_Format;
 Header file;Krijo një kokë skede
 Height;Lartësia
 Height_CleanAperture;
@@ -871,6 +879,7 @@ NewVersion_Question_Content;Ka dalë një version i ri (v%Version%), do e shkark
 NewVersion_Question_Title;Është lëshuar një version i ri!
 No;Jo
 Not yet;Ende jo
+NumberOfDynamicObjects;
 NumColors;Numri i ngjyrave
 OK;OK
 One output file per input file;Një skedë output për skedë input
@@ -939,7 +948,6 @@ PartNumber;
 PartTotal;
 Performer;Interpretuesi
 Period;Periudha
-PodcastCategory;
 Phone;Telefoni
 PictureRatio;
 PixelAspectRatio;Raporti i aspektit të pikselit
@@ -950,6 +958,7 @@ Played_Count;Herët e Luajtura
 Played_First_Date;Luajtur në Fillim
 Played_Last_Date;Luajtur së Fundmi
 PlayTime;Koha e lojës
+PodcastCategory;
 Position;Pozicioni
 Position_Total;Totali
 Preferences;Pëlqime
@@ -1085,6 +1094,9 @@ Tree;Pemë
 Tree & Text;Pemë & Tekst
 Type;
 UniqueID;
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;Nuk e di
 Url;URL
 Video;Video
@@ -1119,5 +1131,5 @@ Written_Location;Vendi i shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;84
-ZZ_AutomaticLanguage_Percent;88
+ZZ_Automatic_Percent;83
+ZZ_AutomaticLanguage_Percent;87

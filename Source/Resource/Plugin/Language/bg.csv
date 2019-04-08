@@ -155,6 +155,7 @@ Actor;Актьор
 Actor_Character;Актьор_Характер
 Added_Date;Дата_Прибавен
 Address;Адрес
+AdID;
 Advanced;Разширен
 Advanced mode;Разширен режим
 Album;Албум
@@ -188,6 +189,8 @@ Author;Автор
 BarCode;Баркод
 Basic;Основен
 Basic_Note;Основен_Забележка
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;БитДълбочина
 BitDepth_Detected;
 BitDepth_Stored;
@@ -203,6 +206,7 @@ Bits-(Pixel*Frame);Битове-(Пиксел*Кадър)
 BufferSize;
 Cancel;Откажи
 Channel(s);Канал(и)
+ChannelLayout;
 ChannelPositions;КаналПозиции
 Chapter(s);Дял(ове)
 Chapters;Дялове
@@ -218,7 +222,7 @@ Choose export format;Избери формат за експортиране
 Choose file(s);Избери файл(ове)
 Choose filename;Избери име на файл
 Choose language;Избери език
-Choregrapher;Хореограф
+Choreographer;Хореограф
 Chroma;Хрома
 ChromaSubsampling;ХромаПодСамплинг
 Close;Затвори
@@ -244,6 +248,7 @@ Codec_Settings_PacketBitStream;Кодек_Настройки_ПакетБитП�
 Codec_Settings_QPel;Кодек_Настройки_КюПел
 Codec_Settings_Sign;Кодек_Настройки_Подпис
 Codec_Url;Кодек_ЮРЛ
+CodecConfigurationBox;
 CodecID;КодекИД
 CodecID_Description;КодекИД_Описание
 CoDirector;
@@ -257,6 +262,7 @@ CommissionedBy;ПоръчанОт
 Compilation;
 CompleteName;ЦялосноИме
 CompletionDate;
+ComplexityIndex;
 Composer;Композитор
 Compression_Mode;
 Compression_Mode_Lossless;
@@ -336,6 +342,7 @@ File_Modified_Date;ФайлДатаПромяна
 File_Modified_Date_Local;ФайлДатаПромянаЛокално
 FileExtension;ФайлЕкстенция
 FileName;ИмеФайл
+FileNameExtension;
 FileSize;Големинафайл
 Folder;Папка
 Folder (R);Папка (Ч)
@@ -348,9 +355,8 @@ Format_Commercial;
 Format_Commercial_IfAny;
 Format_Description;Формат_Описание
 Format_Info;Формат_Инфо
-Format_Profile;Формат_Профил
 Format_Level;
-Format_Tier;
+Format_Profile;Формат_Профил
 Format_Settings;Формат_Настройки
 Format_Settings_BVOP;Формат_Настройки_БВОП
 Format_Settings_CABAC;Формат_Настройки_Кабак
@@ -377,6 +383,7 @@ Format_Settings_RefFrames;Формат_Настройки_РефКадри
 Format_Settings_SBR;Формат_Настройки_СБР
 Format_Settings_Sign;Формат_Настройки_Подпис
 Format_Settings_Wrapping;
+Format_Tier;
 Format_Url;Формат_ЮРЛ
 Format_Version;Формат_Версия
 FpaManufacturer;
@@ -587,11 +594,12 @@ Genre_190;
 Genre_191;
 Go to WebSite;Към Уебсайта
 Gop_OpenClosed;
-Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
+Gop_OpenClosed_Open;
 Grouping;
 h;х
+HDR_Format;
 Header file;Хедър файл
 Height;Височина
 Height_CleanAperture;
@@ -871,6 +879,7 @@ NewVersion_Question_Content;НоваВерсия_Въпрос_Съдържани
 NewVersion_Question_Title;НоваВерсия_Въпрос_Име
 No;Не
 Not yet;Още не
+NumberOfDynamicObjects;
 NumColors;НомерЦветове
 OK;Да
 One output file per input file;Един изходящ при един входящ файл
@@ -939,7 +948,6 @@ PartNumber;
 PartTotal;
 Performer;Изпълнител
 Period;Период
-PodcastCategory;
 Phone;Телефон
 PictureRatio;
 PixelAspectRatio;ПикселСъотношение
@@ -950,6 +958,7 @@ Played_Count;Изпълнени_Брой
 Played_First_Date;Изпълнени_Първа_Дата
 Played_Last_Date;Изпълнени_Последна_Дата
 PlayTime;ВремеИзпълнение
+PodcastCategory;
 Position;Позиция
 Position_Total;Позиция_Обща
 Preferences;Настройки
@@ -1085,6 +1094,9 @@ Tree;Дърво
 Tree & Text;Дърво и Текст
 Type;
 UniqueID;
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;Незнаен
 Url;ЮРЛ
 Video;Видео
@@ -1119,5 +1131,5 @@ Written_Location;Написано_Локация
 WrittenBy;НаписаноОт
 Yes;Да
 Your system;Вашата система
-ZZ_Automatic_Percent;81
-ZZ_AutomaticLanguage_Percent;88
+ZZ_Automatic_Percent;80
+ZZ_AutomaticLanguage_Percent;87
