@@ -155,6 +155,7 @@ Actor;Skuespiller
 Actor_Character;Rolle
 Added_Date;Tilføjet den
 Address;Adresse
+AdID;
 Advanced;Avanceret
 Advanced mode;Avanceret tilstand
 Album;Album
@@ -188,6 +189,8 @@ Author;Forfatter
 BarCode;Stregkode
 Basic;Grundlæggende
 Basic_Note;Bemærk : for mere information om denne fil, skal du vælge en anden visning (Ark, Træstruktur..)
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;Bitdybde
 BitDepth_Detected;
 BitDepth_Stored;
@@ -203,6 +206,7 @@ Bits-(Pixel*Frame);Bits/(Billedpunkter*Billed)
 BufferSize;Buffer-størrelse
 Cancel;Annuller
 Channel(s);Kanaler
+ChannelLayout;
 ChannelPositions;Kanalpositioner
 Chapter(s);Kapitler
 Chapters;Kapitler
@@ -218,7 +222,7 @@ Choose export format;Vælg det ønskede eksportformat
 Choose file(s);Vælg en fil at åbne
 Choose filename;Vælg det ønskede filnavn
 Choose language;Vælg det foretrukne sprog
-Choregrapher;Koreograf
+Choreographer;Koreograf
 Chroma;Chroma
 ChromaSubsampling;Chroma subsampling
 Close;Luk
@@ -244,6 +248,7 @@ Codec_Settings_PacketBitStream;Codec-indstillinger, Packet bitstrøm
 Codec_Settings_QPel;Codec-indstillinger, QPel
 Codec_Settings_Sign;Codec-indstillinger, Sign
 Codec_Url;Weblink til codec
+CodecConfigurationBox;
 CodecID;Codec-ID
 CodecID_Description;Beskrivelse af codec
 CoDirector;
@@ -257,6 +262,7 @@ CommissionedBy;Bestilt af
 Compilation;
 CompleteName;Fulde navn
 CompletionDate;
+ComplexityIndex;
 Composer;Komponist
 Compression_Mode;Komprimeringstilstand
 Compression_Mode_Lossless;Lossless
@@ -336,6 +342,7 @@ File_Modified_Date;Senest modificeret
 File_Modified_Date_Local;Senest modificeret (lokalt)
 FileExtension;Filendelse
 FileName;Filnavn
+FileNameExtension;
 FileSize;Filstørrelse
 Folder;Mappe
 Folder (R);Mappe (R)
@@ -348,9 +355,8 @@ Format_Commercial;Kommercielt navn
 Format_Commercial_IfAny;
 Format_Description;Formatbeskrivelse
 Format_Info;Formatdetaljer
-Format_Profile;Formatprofil
 Format_Level;
-Format_Tier;
+Format_Profile;Formatprofil
 Format_Settings;Formatindstillinger
 Format_Settings_BVOP;Formatindstillinger, BVOP
 Format_Settings_CABAC;Formatindstillinger, CABC
@@ -377,6 +383,7 @@ Format_Settings_RefFrames;Formatindstillinger, RefFrames
 Format_Settings_SBR;Formatindstillinger, SBR
 Format_Settings_Sign;Formatindstillinger, Sign
 Format_Settings_Wrapping;
+Format_Tier;
 Format_Url;Weblink til format
 Format_Version;Formatversion
 FpaManufacturer;
@@ -587,11 +594,12 @@ Genre_190;
 Genre_191;
 Go to WebSite;Gå til websted
 Gop_OpenClosed;
-Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
+Gop_OpenClosed_Open;
 Grouping;
 h; t
+HDR_Format;
 Header file;Opret en header-fil
 Height;Højde
 Height_CleanAperture;
@@ -871,6 +879,7 @@ NewVersion_Question_Content;En ny version (v%Version%) er tilgængelig, vil du d
 NewVersion_Question_Title;En ny version er udkommet!
 No;Nej
 Not yet;Ikke endnu
+NumberOfDynamicObjects;
 NumColors;Antal farver
 OK;OK
 One output file per input file;En output-fil per input-fil
@@ -939,7 +948,6 @@ PartNumber;
 PartTotal;
 Performer;Kunstner
 Period;Tidsalder
-PodcastCategory;
 Phone;Telefon
 PictureRatio;
 PixelAspectRatio;Pixelforhold
@@ -950,6 +958,7 @@ Played_Count;Afspillet antal gange
 Played_First_Date;Først afspillet
 Played_Last_Date;Senest afspillet
 PlayTime;Spilletid
+PodcastCategory;
 Position;Position
 Position_Total;Totalt
 Preferences;Præferencer
@@ -1085,6 +1094,9 @@ Tree;Træstruktur
 Tree & Text;Træstruktur & tekst
 Type;
 UniqueID;Unik ID
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;Ukendt
 Url;Url
 Video;Video
@@ -1119,5 +1131,5 @@ Written_Location;Sted
 WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
-ZZ_Automatic_Percent;78
-ZZ_AutomaticLanguage_Percent;89
+ZZ_Automatic_Percent;77
+ZZ_AutomaticLanguage_Percent;88

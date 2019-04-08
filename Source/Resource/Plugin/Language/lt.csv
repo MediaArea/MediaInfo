@@ -155,6 +155,7 @@ Actor;Aktorius
 Actor_Character;rodyti ženklą
 Added_Date;
 Address;Adresas
+AdID;
 Advanced;Išplėstinai
 Advanced mode;Išplėstinis režimas
 Album;Albumas
@@ -188,6 +189,8 @@ Author;Autorius
 BarCode;Brūkšninis kodas
 Basic;Įprastas
 Basic_Note;Pastaba : jei norite daugiau informacijos apie failą, turite pasirinkti kitą rodymą, (Lapas, Medis...)
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;
 BitDepth_Detected;
 BitDepth_Stored;
@@ -203,6 +206,7 @@ Bits-(Pixel*Frame);Bitai/(Pikselis*Kadras)
 BufferSize;
 Cancel;Atšaukti
 Channel(s);Kanalas (-ai)
+ChannelLayout;
 ChannelPositions;Kanalo pozicijos
 Chapter(s);Skyrius(iai)
 Chapters;Skyriai
@@ -218,7 +222,7 @@ Choose export format;Pasirinkite savo norimą eksportavimo formatą
 Choose file(s);Pasirinkite failus atvėrimui
 Choose filename;Pasirinkite norimą failo pavadinimą
 Choose language;Pasirinkite savo norimą kalbą
-Choregrapher;Choreografas
+Choreographer;Choreografas
 Chroma;Chromas
 ChromaSubsampling;
 Close;Uždaryti
@@ -244,6 +248,7 @@ Codec_Settings_PacketBitStream;Kodeko nuostatos, Paketo bitų srautas
 Codec_Settings_QPel;Kodeko nuostatos, QPel
 Codec_Settings_Sign;Kodeko nuostatos, Sign
 Codec_Url;Nuoroda į kodeką
+CodecConfigurationBox;
 CodecID;Kodeko ID
 CodecID_Description;
 CoDirector;
@@ -257,6 +262,7 @@ CommissionedBy;Įgaliotas
 Compilation;
 CompleteName;Pilnas pavadinimas
 CompletionDate;
+ComplexityIndex;
 Composer;Kūrėjas
 Compression_Mode;
 Compression_Mode_Lossless;
@@ -336,6 +342,7 @@ File_Modified_Date;Failo paskutinio modifikavimo data
 File_Modified_Date_Local;
 FileExtension;Failo plėtinys
 FileName;Failo pavadinimas
+FileNameExtension;
 FileSize;Failo dydis
 Folder;Katalogas
 Folder (R);Katalogas (R)
@@ -348,9 +355,8 @@ Format_Commercial;
 Format_Commercial_IfAny;
 Format_Description;Formatas aprašymas
 Format_Info;Formatas detalės
-Format_Profile;Formato profilis
 Format_Level;
-Format_Tier;
+Format_Profile;Formato profilis
 Format_Settings;Formato nuostatos
 Format_Settings_BVOP;Formato nuostatos, BVOP
 Format_Settings_CABAC;Formato nuostatos, CABAC
@@ -377,6 +383,7 @@ Format_Settings_RefFrames;Formato nuostatos, RefFrames
 Format_Settings_SBR;Formato nuostatos, SBR
 Format_Settings_Sign;Formato nuostatos, Sign
 Format_Settings_Wrapping;
+Format_Tier;
 Format_Url;
 Format_Version;Formato versija
 FpaManufacturer;
@@ -587,11 +594,12 @@ Genre_190;
 Genre_191;
 Go to WebSite;Eiti į internetinę svetainę
 Gop_OpenClosed;
-Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
+Gop_OpenClosed_Open;
 Grouping;
 h; v
+HDR_Format;
 Header file;Sukurti pagrindinį failą
 Height;Aukštis
 Height_CleanAperture;
@@ -871,6 +879,7 @@ NewVersion_Question_Content;
 NewVersion_Question_Title;
 No;Ne
 Not yet;
+NumberOfDynamicObjects;
 NumColors;
 OK;Gerai
 One output file per input file;Vienas įšėjimo failas per įėjimo failą
@@ -939,7 +948,6 @@ PartNumber;
 PartTotal;
 Performer;Atlikėjas
 Period;Laikotarpis
-PodcastCategory;
 Phone;Telefonas
 PictureRatio;
 PixelAspectRatio;Pikselių aspekto koeficientas
@@ -950,6 +958,7 @@ Played_Count;
 Played_First_Date;
 Played_Last_Date;
 PlayTime;Rodymo laikas
+PodcastCategory;
 Position;Padėtis
 Position_Total;Viso
 Preferences;Pasirinktys
@@ -1085,6 +1094,9 @@ Tree;Medis
 Tree & Text;Medis ir tekstas
 Type;
 UniqueID;
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;Nežinomas
 Url;Url
 Video;Video
@@ -1119,5 +1131,5 @@ Written_Location;Rašymo vieta
 WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
-ZZ_Automatic_Percent;73
-ZZ_AutomaticLanguage_Percent;81
+ZZ_Automatic_Percent;72
+ZZ_AutomaticLanguage_Percent;80

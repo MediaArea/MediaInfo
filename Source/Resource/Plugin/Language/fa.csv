@@ -155,6 +155,7 @@ Actor;بازیگر
 Actor_Character;بازی کاراکتر
 Added_Date;تاریخ اضافه شده
 Address;آدرس
+AdID;
 Advanced;پیشرفته
 Advanced mode;حالت پیشرفته
 Album;آلبوم
@@ -188,6 +189,8 @@ Author;نویسنده
 BarCode;بارکد
 Basic;اولیه
 Basic_Note;برای اطلاعات بیشتر اینجا را کلیک کنید
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;
 BitDepth_Detected;
 BitDepth_Stored;
@@ -203,6 +206,7 @@ Bits-(Pixel*Frame);بیتها /(Pixel*Frame)
 BufferSize;
 Cancel;لغو
 Channel(s);کانال ها
+ChannelLayout;
 ChannelPositions;موقعیت کانال ها
 Chapter(s);فصل ها
 Chapters;فصل ها
@@ -218,7 +222,7 @@ Choose export format;فرمت خروجی را انتخاب کنید
 Choose file(s);فایل را برای باز کردن انتخاب کنید
 Choose filename;نام فایل موردنظر را انتخاب کنید
 Choose language;زمان موردنظر را انتخاب کنید
-Choregrapher;رقاص
+Choreographer;رقاص
 Chroma;رنگينى
 ChromaSubsampling;
 Close;ببند
@@ -244,6 +248,7 @@ Codec_Settings_PacketBitStream;تنظیمات کدک  Packet bitstream
 Codec_Settings_QPel;تنظیمات کدک, QPel
 Codec_Settings_Sign;تنظیمات کدک, Sign
 Codec_Url;لینک کدک
+CodecConfigurationBox;
 CodecID;هویت کدک
 CodecID_Description;شرح کدک
 CoDirector;
@@ -257,6 +262,7 @@ CommissionedBy;مجاز توسط
 Compilation;
 CompleteName;نام کامل
 CompletionDate;
+ComplexityIndex;
 Composer;سراينده
 Compression_Mode;
 Compression_Mode_Lossless;
@@ -336,6 +342,7 @@ File_Modified_Date;آخرین تاریخ اصلاح فایل
 File_Modified_Date_Local;آخرین تاریخ اصلاح فایل (local)
 FileExtension;پسوند فایل
 FileName;نام فایل
+FileNameExtension;
 FileSize;اندازه فایل
 Folder;پوشه
 Folder (R);پوشه (R)
@@ -348,9 +355,8 @@ Format_Commercial;
 Format_Commercial_IfAny;
 Format_Description;شرح فرمت
 Format_Info;جزییات فرمت
-Format_Profile;پروفایل فرمت
 Format_Level;
-Format_Tier;
+Format_Profile;پروفایل فرمت
 Format_Settings;تنظیمات فرمت
 Format_Settings_BVOP;تنظیمات فرمت, BVOP
 Format_Settings_CABAC;تنظیمات فرمت, CABAC
@@ -377,6 +383,7 @@ Format_Settings_RefFrames;تنظیمات فرمت, RefFrames
 Format_Settings_SBR;تنظیمات فرمت, SBR
 Format_Settings_Sign;تنظیمات فرمت, Sign
 Format_Settings_Wrapping;
+Format_Tier;
 Format_Url;لینک فرمت
 Format_Version;نسخه فرمت
 FpaManufacturer;
@@ -587,11 +594,12 @@ Genre_190;
 Genre_191;
 Go to WebSite;وب سایت
 Gop_OpenClosed;
-Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
+Gop_OpenClosed_Open;
 Grouping;
 h; h
+HDR_Format;
 Header file;ایجاد فایل سر صفحه
 Height;بلندی
 Height_CleanAperture;
@@ -871,6 +879,7 @@ NewVersion_Question_Content;نسخه جدید (v%Version%) موجود است, م
 NewVersion_Question_Title;نسخه جدید انتشار یافت
 No;خیر
 Not yet;هنوز خیر
+NumberOfDynamicObjects;
 NumColors;تعداد رنگ ها
 OK;موافق
 One output file per input file;یک فایل خروجی بر فابل ورودی
@@ -939,7 +948,6 @@ PartNumber;
 PartTotal;
 Performer;مجرى
 Period;دوره
-PodcastCategory;
 Phone;تلفن
 PictureRatio;
 PixelAspectRatio;پیکسل نسبت تصوير
@@ -950,6 +958,7 @@ Played_Count;تعداد پخش شده
 Played_First_Date;اولین پخش
 Played_Last_Date;آخرین پخش
 PlayTime;زمان پخش
+PodcastCategory;
 Position;موقعیت
 Position_Total;کل
 Preferences;تنظیمات
@@ -1085,6 +1094,9 @@ Tree;درختی
 Tree & Text;درختی ومتنی
 Type;
 UniqueID;
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;نامعلوم
 Url;Url
 Video;ویدیو
@@ -1119,5 +1131,5 @@ Written_Location;مکان نوشته
 WrittenBy;نوشته شده توسط
 Yes;بلی
 Your system;سیستم شما
-ZZ_Automatic_Percent;83
-ZZ_AutomaticLanguage_Percent;87
+ZZ_Automatic_Percent;82
+ZZ_AutomaticLanguage_Percent;86

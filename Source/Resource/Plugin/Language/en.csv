@@ -155,6 +155,7 @@ Actor;Actor
 Actor_Character;Character played
 Added_Date;Added date
 Address;Address
+AdID;Ad-ID identifier
 Advanced;Advanced
 Advanced mode;Advanced mode
 Album;Album
@@ -188,6 +189,8 @@ Author;Author
 BarCode;BarCode
 Basic;Basic
 Basic_Note;Note : for more information about this file, you must select a different view (Sheet, Tree...)
+BedChannelConfiguration;Bed channel configuration
+BedChannelCount;Bed channel count
 BitDepth;Bit depth
 BitDepth_Detected;Detected bit depth
 BitDepth_Stored;Stored bit depth
@@ -203,6 +206,7 @@ Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;Buffer size
 Cancel;Cancel
 Channel(s);Channel(s)
+ChannelLayout;Channel layout
 ChannelPositions;Channel positions
 Chapter(s);Chapter(s)
 Chapters;Chapters
@@ -244,6 +248,7 @@ Codec_Settings_PacketBitStream;Codec settings, Packet bitstream
 Codec_Settings_QPel;Codec settings, QPel
 Codec_Settings_Sign;Codec settings, Sign
 Codec_Url;Weblink for codec
+CodecConfigurationBox;Codec configuration box
 CodecID;Codec ID
 CodecID_Description;Description of the codec
 CoDirector;Codirector
@@ -257,6 +262,7 @@ CommissionedBy;Commissioned by
 Compilation;Compilation
 CompleteName;Complete name
 CompletionDate;Completion Date
+ComplexityIndex;Complexity index
 Composer;Composer
 Compression_Mode;Compression mode
 Compression_Mode_Lossless;Lossless
@@ -336,6 +342,7 @@ File_Modified_Date;File last modification date
 File_Modified_Date_Local;File last modification date (local)
 FileExtension;File extension
 FileName;File name
+FileNameExtension;File name extension
 FileSize;File size
 Folder;Folder
 Folder (R);Folder (R)
@@ -348,9 +355,8 @@ Format_Commercial;Commercial name
 Format_Commercial_IfAny;Commercial name
 Format_Description;Format description
 Format_Info;Details for format
-Format_Profile;Format profile
 Format_Level;Format level
-Format_Tier;Format tier
+Format_Profile;Format profile
 Format_Settings;Format settings
 Format_Settings_BVOP;Format settings, BVOP
 Format_Settings_CABAC;Format settings, CABAC
@@ -373,10 +379,11 @@ Format_Settings_PictureStructure;Format settings, picture structure
 Format_Settings_PS;Format settings, PS
 Format_Settings_Pulldown;Format settings, Pulldown
 Format_Settings_QPel;Format settings, QPel
-Format_Settings_RefFrames;Format settings, RefFrames
+Format_Settings_RefFrames;Format settings, Reference frames
 Format_Settings_SBR;Format settings, SBR
 Format_Settings_Sign;Format settings, Sign
 Format_Settings_Wrapping;Format settings, wrapping mode
+Format_Tier;Format tier
 Format_Url;Weblink for format
 Format_Version;Format version
 FpaManufacturer;FPA Manufacturer
@@ -587,11 +594,12 @@ Genre_190;Garage Rock
 Genre_191;Psybient
 Go to WebSite;Go to website
 Gop_OpenClosed;GOP, Open/Closed
-Gop_OpenClosed_Open;Open
 Gop_OpenClosed_Closed;Closed
 Gop_OpenClosed_FirstFrame;GOP, Open/Closed of first frame
+Gop_OpenClosed_Open;Open
 Grouping;Grouping
 h; h
+HDR_Format;HDR format
 Header file;Create a header file
 Height;Height
 Height_CleanAperture;Clean aperture height
@@ -871,6 +879,7 @@ NewVersion_Question_Content;A new version (v%Version%) is available, would you l
 NewVersion_Question_Title;A new version was released!
 No;No
 Not yet;Not yet
+NumberOfDynamicObjects;Number of dynamic objects
 NumColors;Number of colors
 OK;OK
 One output file per input file;One output file per input file
@@ -939,7 +948,6 @@ PartNumber;Part Number
 PartTotal;Part Total
 Performer;Performer
 Period;Period
-PodcastCategory;Podcast category
 Phone;Phone
 PictureRatio;Picture Ratio
 PixelAspectRatio;Pixel aspect ratio
@@ -950,6 +958,7 @@ Played_Count;Times played
 Played_First_Date;First played
 Played_Last_Date;Last played
 PlayTime;PlayTime
+PodcastCategory;Podcast category
 Position;Position
 Position_Total;Total
 Preferences;Preferences
@@ -1085,6 +1094,9 @@ Tree;Tree
 Tree & Text;Tree & Text
 Type;Type
 UniqueID;Unique ID
+UniversalAdID;Universal Ad ID
+UniversalAdID_Registry;Universal Ad ID registry
+UniversalAdID_Value;Universal Ad ID value
 Unknown;Unknown
 Url;Url
 Video;Video

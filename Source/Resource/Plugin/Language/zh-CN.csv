@@ -155,6 +155,7 @@ Actor;演员
 Actor_Character;角色
 Added_Date;附加数据
 Address;地址
+AdID;
 Advanced;高级
 Advanced mode;高级模式
 Album;专辑
@@ -188,6 +189,8 @@ Author;作者
 BarCode;条形码
 Basic;基本
 Basic_Note;注意: 要了解更多关于此文件的信息, 请选择不同的视图 (表格, 树状图 ...)
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;位深
 BitDepth_Detected;检测到的位深
 BitDepth_Stored;存储的位深
@@ -203,6 +206,7 @@ Bits-(Pixel*Frame);数据密度【码率/(像素×帧率)】
 BufferSize;缓冲大小
 Cancel;取消
 Channel(s);声道
+ChannelLayout;
 ChannelPositions;声道位置
 Chapter(s);章节
 Chapters;章节
@@ -218,7 +222,7 @@ Choose export format;选择输出格式
 Choose file(s);选择文件
 Choose filename;选择文件名
 Choose language;选择语言
-Choregrapher;动作指导
+Choreographer;动作指导
 Chroma;色度
 ChromaSubsampling;色度抽样
 Close;关闭
@@ -244,6 +248,7 @@ Codec_Settings_PacketBitStream;编码设置, 数据包比特流
 Codec_Settings_QPel;编码设置, QPel
 Codec_Settings_Sign;编码设置, Sign
 Codec_Url;编解码器的网址
+CodecConfigurationBox;
 CodecID;编解码器ID
 CodecID_Description;编解码器描述
 CoDirector;合作导演
@@ -257,6 +262,7 @@ CommissionedBy;评论人
 Compilation;编辑
 CompleteName;完整名称
 CompletionDate;完整日期
+ComplexityIndex;
 Composer;作曲
 Compression_Mode;压缩模式
 Compression_Mode_Lossless;无损
@@ -336,6 +342,7 @@ File_Modified_Date;最后修改日期
 File_Modified_Date_Local;最后修改日期(本地)
 FileExtension;扩展名
 FileName;文件名
+FileNameExtension;
 FileSize;文件大小
 Folder;文件夹
 Folder (R);文件夹 (R)
@@ -348,9 +355,8 @@ Format_Commercial;格式名称
 Format_Commercial_IfAny;格式名称
 Format_Description;格式描述
 Format_Info;格式详情
-Format_Profile;格式概况
 Format_Level;格式标准
-Format_Tier;格式等级
+Format_Profile;格式概况
 Format_Settings;格式设置
 Format_Settings_BVOP;格式设置, B帧
 Format_Settings_CABAC;格式设置, CABAC
@@ -377,6 +383,7 @@ Format_Settings_RefFrames;格式设置, 参考帧
 Format_Settings_SBR;格式设置, SBR
 Format_Settings_Sign;格式设置, Sign
 Format_Settings_Wrapping;格式设置, 封装模式
+Format_Tier;格式等级
 Format_Url;格式网址
 Format_Version;格式版本
 FpaManufacturer;FPA 制造商
@@ -587,11 +594,12 @@ Genre_190;车库摇滚 (Garage Rock)
 Genre_191;心理环境 (Psybient)
 Go to WebSite;访问网站
 Gop_OpenClosed;GOP, 开启/闭合
-Gop_OpenClosed_Open;开启
 Gop_OpenClosed_Closed;闭合
 Gop_OpenClosed_FirstFrame;GOP, 开启/闭合第一帧
+Gop_OpenClosed_Open;开启
 Grouping;集团
 h; 小时
+HDR_Format;
 Header file;创建头文件
 Height;高度
 Height_CleanAperture;清除采样高度
@@ -871,6 +879,7 @@ NewVersion_Question_Content;新版本 (v%Version%) 可用, 是否下载？
 NewVersion_Question_Title;新版本已发布!
 No;否
 Not yet;尚无
+NumberOfDynamicObjects;
 NumColors;色深
 OK;确定
 One output file per input file;一个输入文件对应一个输出文件
@@ -939,7 +948,6 @@ PartNumber;段数
 PartTotal;分段总数
 Performer;演员
 Period;时期
-PodcastCategory;播客类别
 Phone;电话
 PictureRatio;画面比率
 PixelAspectRatio;像素画面比例
@@ -950,6 +958,7 @@ Played_Count;已播放时间
 Played_First_Date;首次播放
 Played_Last_Date;最后播放
 PlayTime;播放时间
+PodcastCategory;播客类别
 Position;位置
 Position_Total;总计
 Preferences;参数设置
@@ -1085,6 +1094,9 @@ Tree;树状图
 Tree & Text;树状图和文本
 Type;类型
 UniqueID;唯一ID
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;未知
 Url;网址
 Video;视频
@@ -1119,5 +1131,5 @@ Written_Location;写入位置
 WrittenBy;书写人: 
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

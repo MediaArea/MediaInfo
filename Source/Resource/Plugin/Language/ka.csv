@@ -155,6 +155,7 @@ Actor;შემსრულებელი
 Actor_Character;როლი
 Added_Date;დამატების თარიღი
 Address;მისამართი
+AdID;
 Advanced;დამატებით
 Advanced mode;დამატებითი რეჟიმი
 Album;ალბომი
@@ -188,6 +189,8 @@ Author;ავტორი
 BarCode;BarCode
 Basic;ძირითადი
 Basic_Note;შენიშვნა : ამ ფაილის მეტი ინფორმაციის გასაგებად თქვენ უნდა აირჩიოთ განსხვავებული ხედვის ტიპი (Sheet, Tree...)
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;Bit depth
 BitDepth_Detected;
 BitDepth_Stored;
@@ -203,6 +206,7 @@ Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;ბუფერის ზომა
 Cancel;გაჩერება
 Channel(s);არხი(ები)
+ChannelLayout;
 ChannelPositions;Channel positions
 Chapter(s);სექცია(ები)
 Chapters;სექციები
@@ -218,7 +222,7 @@ Choose export format;Choose your desired export format
 Choose file(s);გახსნითვის აირჩიეთ ფაილები
 Choose filename;Choose your desired filename
 Choose language;აირჩიეთ თქვენი სასურველი ენა
-Choregrapher;Choregrapher
+Choreographer;Choreographer
 Chroma;Chroma
 ChromaSubsampling;Chroma subsampling
 Close;დახურვა
@@ -244,6 +248,7 @@ Codec_Settings_PacketBitStream;კოდეკის პარამეტრე
 Codec_Settings_QPel;კოდეკის პარამეტრები, QPel
 Codec_Settings_Sign;კოდეკის პარამეტრები, Sign
 Codec_Url;კოდეკების ვებმისამართი
+CodecConfigurationBox;
 CodecID;კოდეკის ID
 CodecID_Description;კოდეკის აღწერა
 CoDirector;
@@ -257,6 +262,7 @@ CommissionedBy;Commissioned by
 Compilation;Compilation
 CompleteName;სრული სახელი
 CompletionDate;
+ComplexityIndex;
 Composer;Composer
 Compression_Mode;შეკუმშვის რეჟიმი
 Compression_Mode_Lossless;Lossless
@@ -336,6 +342,7 @@ File_Modified_Date;ფაილის ბოლო მოდიფიკაც�
 File_Modified_Date_Local;File last modification date (local)
 FileExtension;File extension
 FileName;ფაილის სახელი
+FileNameExtension;
 FileSize;ფაილის ზომა
 Folder;ფოლდერი
 Folder (R);ფოლდერ (R)
@@ -348,9 +355,8 @@ Format_Commercial;Commercial name
 Format_Commercial_IfAny;
 Format_Description;ფორმატის აღწერა
 Format_Info;ფორმატის დეტალები
-Format_Profile;ფორმატის პროფილი
 Format_Level;
-Format_Tier;
+Format_Profile;ფორმატის პროფილი
 Format_Settings;ფორმატის პარამეტრები
 Format_Settings_BVOP;ფორმატის პარამეტრები, BVOP
 Format_Settings_CABAC;ფორმატის პარამეტრები, CABAC
@@ -377,6 +383,7 @@ Format_Settings_RefFrames;ფორმატის პარამეტრე�
 Format_Settings_SBR;ფორმატის პარამეტრები, SBR
 Format_Settings_Sign;ფორმატის პარამეტრები, Sign
 Format_Settings_Wrapping;
+Format_Tier;
 Format_Url;ვებ-გვერდის ფორმატი
 Format_Version;ფორნატის ვერსია
 FpaManufacturer;
@@ -587,11 +594,12 @@ Genre_190;
 Genre_191;
 Go to WebSite;გადადით ვებ-გვერდძე
 Gop_OpenClosed;
-Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
+Gop_OpenClosed_Open;
 Grouping;
 h; h
+HDR_Format;
 Header file;ჰედერის ფაილის შექმნა
 Height;სიმაღლე
 Height_CleanAperture;
@@ -871,6 +879,7 @@ NewVersion_Question_Content;ახალი ვერსია(v%Version%) უ�
 NewVersion_Question_Title;პროგრამის ახალი ვერსია გამოვიდა!
 No;არა
 Not yet;ჯერ არა
+NumberOfDynamicObjects;
 NumColors;ფერების რიცხვი
 OK;კარგი
 One output file per input file;One output file per input file
@@ -939,7 +948,6 @@ PartNumber;
 PartTotal;
 Performer;Performer
 Period;პერიოდი
-PodcastCategory;
 Phone;ტელეფონი
 PictureRatio;
 PixelAspectRatio;პიქსელის ასპექტ რატიო
@@ -950,6 +958,7 @@ Played_Count;Times played
 Played_First_Date;პირველად ჩართული
 Played_Last_Date;ბოლოს ჩართული
 PlayTime;ხანგრძლივობა
+PodcastCategory;
 Position;Position
 Position_Total;ჯამში
 Preferences;პარამეტრები
@@ -1085,6 +1094,9 @@ Tree;სვეტი
 Tree & Text;სვეტი & ტექსტი
 Type;
 UniqueID;უნიკალური ID
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;უცნობია
 Url;Url
 Video;ვიდეო
@@ -1119,5 +1131,5 @@ Written_Location;დაწერის ადგილი
 WrittenBy;დაწერილია
 Yes;დიახ
 Your system;თქვენი სისტემა
-ZZ_Automatic_Percent;85
-ZZ_AutomaticLanguage_Percent;89
+ZZ_Automatic_Percent;84
+ZZ_AutomaticLanguage_Percent;88
