@@ -162,7 +162,7 @@ Album_ReplayGain_Gain;Album replay gain
 Album_ReplayGain_Peak;Album replay gain peak
 Alignment;Alignment
 Alignment_Aligned;Aligned on interleaves
-Alignment_Split;Split accross interleaves
+Alignment_Split;Split across interleaves
 All;All
 AlternateGroup;Alternate group
 Archival_Location;Archival location
@@ -218,7 +218,7 @@ Choose export format;Choose your desired export format
 Choose file(s);Choose the files to open
 Choose filename;Choose your desired filename
 Choose language;Choose your desired language
-Choregrapher;Choregrapher
+Choreographer;Choreographer
 Chroma;Chroma
 ChromaSubsampling;Chroma subsampling
 Close;Close
