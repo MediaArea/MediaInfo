@@ -596,9 +596,11 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	
 	NSDictionary *normalAttr = [NSDictionary dictionaryWithObjectsAndKeys:
 								normalFont, NSFontAttributeName,
+                                NSColor.textColor, NSForegroundColorAttributeName,
 								nil];
 	NSDictionary *boldAttr = [NSDictionary dictionaryWithObjectsAndKeys:
 							  boldFont, NSFontAttributeName,
+                              NSColor.textColor, NSForegroundColorAttributeName,
 							  nil];
 	
 	//go
@@ -679,7 +681,7 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 												size:fontSize];
 	
 	NSDictionary *normalAttr = [NSDictionary dictionaryWithObjectsAndKeys:
-								normalFont, NSFontAttributeName,
+								normalFont, NSFontAttributeName, NSColor.textColor, NSForegroundColorAttributeName,
 								nil];
 
 	
