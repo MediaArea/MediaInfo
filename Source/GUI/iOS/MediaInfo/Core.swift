@@ -14,6 +14,11 @@ extension String {
     }
 }
 
+extension Notification.Name {
+    static let darkModeEnabled = Notification.Name("net.mediaarea.mediainfo.ios.notifications.darkModeEnabled")
+    static let darkModeDisabled = Notification.Name("net.mediaarea.mediainfo.ios.notifications.darkModeDisabled")
+}
+
 class Core {
     struct ReportView {
         var name: String
@@ -30,7 +35,20 @@ class Core {
         static let Finalized = States(rawValue: 1 << 3)
     }
 
+    static let shared = Core()
+
     var mi: UnsafeMutableRawPointer
+
+    var darkMode: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: "DarkMode")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "DarkMode")
+            NotificationCenter.default.post(name: newValue ? .darkModeEnabled : .darkModeDisabled, object: nil)
+        }
+    }
+
     var views: Array<ReportView> {
         get {
             var views: Array<ReportView> = Array<ReportView>()

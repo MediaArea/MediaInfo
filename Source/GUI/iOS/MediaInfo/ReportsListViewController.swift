@@ -1,4 +1,4 @@
-﻿/*  Copyright (c) MediaArea.net SARL. All Rights Reserved.
+/*  Copyright (c) MediaArea.net SARL. All Rights Reserved.
 *
 *  Use of this source code is governed by a BSD-style license that can
 *  be found in the License.html file in the root of the source tree.
@@ -9,13 +9,18 @@ import CoreData
 import MobileCoreServices
 
 import Toast_Swift
+import PopMenu
 
 extension UITableViewController {
     class func displayWelcome(onView: UIView) -> UIView {
         let welcomeView = UILabel.init(frame: onView.bounds)
         welcomeView.text = "You must at least open 1 file."
 
-        welcomeView.textColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 1)
+        if SubscriptionManager.shared.subscriptionActive && Core.shared.darkMode {
+            welcomeView.textColor = UIColor.white
+        } else {
+            welcomeView.textColor = UIColor.black
+        }
         welcomeView.textAlignment = .center
 
         DispatchQueue.main.async {
@@ -31,22 +36,22 @@ extension UITableViewController {
         }
     }
 }
-class ReportsListViewController: UITableViewController, NSFetchedResultsControllerDelegate, UIDocumentPickerDelegate {
+class ReportsListViewController: UITableViewController, NSFetchedResultsControllerDelegate, UIDocumentPickerDelegate, SubscribeResultDelegate {
 
     var reportViewController: ReportViewController? = nil
     var managedObjectContext: NSManagedObjectContext? = nil
     var selectedReport: Event? = nil
     var welcomeView: UIView? = nil
-
+    var message: String? = nil
     let core: Core = Core()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let aboutButton = UIBarButtonItem.init(title: "About", style: .plain, target: self, action: #selector(showAbout(_:)))
-        navigationItem.leftBarButtonItem = aboutButton
-
+        let menuButton = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(showMenu(_:)))
         let addButton = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(insertReport(_:)))
+
+        navigationItem.leftBarButtonItem = menuButton
         navigationItem.rightBarButtonItem = addButton
 
         if let split = splitViewController {
@@ -60,7 +65,14 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
 
         // Toggle queueing behavior
         ToastManager.shared.isQueueEnabled = true
+
+        if SubscriptionManager.shared.subscriptionActive {
+            subscriptionActive()
+        }
+
+        NotificationCenter.default.addObserver(self, selector: #selector(subscriptionStateChanged(_:)), name: .subscriptionStateChanged, object: nil)
     }
+
     let fetchRequest: NSFetchRequest<Event> = Event.fetchRequest()
 
     override func viewWillAppear(_ animated: Bool) {
@@ -72,8 +84,13 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
             navigationController?.navigationBar.tintAdjustmentMode = .normal
             navigationController?.navigationBar.tintAdjustmentMode = .automatic
         }
+    }
 
+    override func viewDidAppear(_ animated: Bool) {
         showHideWelcome()
+        if SubscriptionManager.shared.shouldNotifyUserForSubscriptionEnd {
+            SubscriptionManager.shared.notifyUserForSubscriptionEnd(parent: self)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -81,8 +98,60 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
         // Dispose of any resources that can be recreated.
     }
 
-    @objc func showAbout(_ sender: Any) {
-       performSegue(withIdentifier: "showAbout", sender: self)
+    @objc func showMenu(_ sender: Any) {
+        let menuViewController = PopMenuViewController(actions: [])
+        if SubscriptionManager.shared.subscriptionActive {
+            if Core.shared.darkMode {
+                menuViewController.addAction(PopMenuDefaultAction(title: "Disable dark mode", didSelect: { _ in
+                    Core.shared.darkMode = false
+                }))
+            } else {
+                menuViewController.addAction(PopMenuDefaultAction(title: "Enable dark mode", didSelect: { _ in
+                    Core.shared.darkMode = true
+                }))
+            }
+            menuViewController.addAction(PopMenuDefaultAction(title: "Manage subscription", didSelect: { [menuViewController] _ in
+                menuViewController.didDismiss = { _ in
+                    let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                    if let subscribeViewController = storyboard.instantiateViewController(withIdentifier: "SubscribeViewController") as? SubscribeViewController {
+                        let navigationController = UINavigationController(rootViewController: subscribeViewController)
+                        subscribeViewController.delegate = self
+
+                        self.present(navigationController, animated: true, completion: nil)
+                    }
+                }
+            }))
+        } else {
+            menuViewController.addAction(PopMenuDefaultAction(title: "Subscribe", didSelect: { [menuViewController] _ in
+                menuViewController.didDismiss = { _ in
+                    let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                    if let subscribeViewController = storyboard.instantiateViewController(withIdentifier: "SubscribeViewController") as? SubscribeViewController {
+                        let navigationController = UINavigationController(rootViewController: subscribeViewController)
+                        subscribeViewController.delegate = self
+
+                        self.present(navigationController, animated: true, completion: nil)
+                    }
+                }
+            }))
+        }
+        menuViewController.addAction(PopMenuDefaultAction(title: "About", didSelect: { [menuViewController] _ in
+            menuViewController.didDismiss = { _ in
+                let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                let aboutViewController = storyboard.instantiateViewController(withIdentifier: "AboutViewController")
+                let navigationController = UINavigationController(rootViewController: aboutViewController)
+
+
+                self.present(navigationController, animated: true, completion: nil)
+            }
+        }))
+
+        present(menuViewController, animated: true, completion: nil)
+    }
+
+    func showMessage(message: String?) {
+        if message != nil {
+            navigationController?.view?.makeToast(message, duration: 5.0, position: .top)
+        }
     }
 
     @objc func insertReport(_ sender: Any) {
@@ -254,9 +323,10 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
 
     func showHideWelcome() {
         if tableView.numberOfRows(inSection: 0) == 0 {
-            if  welcomeView == nil {
-                welcomeView = UITableViewController.displayWelcome(onView: self.view)
+            if let view = welcomeView {
+                UITableViewController.removeWelcome(view: view)
             }
+            welcomeView = UITableViewController.displayWelcome(onView: self.view)
         } else if let view: UIView = welcomeView {
             UITableViewController.removeWelcome(view: view)
             welcomeView = nil
@@ -308,11 +378,6 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
             }
         }
     }
-
-   /* override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedReport = fetchedResultsController.object(at: indexPath)
-     //   performSegue(withIdentifier: "showReport2", sender: self)
-    }*/
 
     func configureCell(_ cell: UITableViewCell, withEvent event: Event) {
         cell.textLabel!.text = event.filename!
@@ -382,5 +447,65 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
         tableView.endUpdates()
 
         showHideWelcome()
+    }
+
+    // MARK: subscription
+
+    @objc func subscriptionStateChanged(_ notification: Notification) {
+        if SubscriptionManager.shared.subscriptionActive {
+            subscriptionActive()
+        }
+    }
+
+    open func subscriptionActive() {
+        if Core.shared.darkMode {
+            enableDarkMode()
+        }
+
+        NotificationCenter.default.addObserver(self, selector: #selector(darkModeEnabled(_:)), name: .darkModeEnabled, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(darkModeDisabled(_:)), name: .darkModeDisabled, object: nil)
+    }
+
+    // MARK: - Theme
+
+    @objc func darkModeEnabled(_ notification: Notification) {
+        enableDarkMode()
+
+        if let view: UIView = welcomeView {
+            UITableViewController.removeWelcome(view: view)
+            welcomeView = UITableViewController.displayWelcome(onView: self.view)
+        }
+        tableView.reloadData()
+    }
+
+    @objc func darkModeDisabled(_ notification: Notification) {
+        disableDarkMode()
+
+        if let view: UIView = welcomeView {
+            UITableViewController.removeWelcome(view: view)
+            welcomeView = UITableViewController.displayWelcome(onView: self.view)
+        }
+        tableView.reloadData()
+    }
+
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if SubscriptionManager.shared.subscriptionActive && Core.shared.darkMode {
+            cell.backgroundColor = UIColor.darkGray
+            cell.textLabel?.textColor = UIColor.white
+        } else {
+            cell.backgroundColor = UIColor.white
+            cell.textLabel?.textColor = UIColor.black
+        }
+    }
+
+    open func enableDarkMode() {
+        view.backgroundColor = UIColor.darkGray
+        navigationController?.navigationBar.barStyle = .black
+    }
+
+    open func disableDarkMode() {
+        view.backgroundColor = UIColor.white
+        navigationController?.navigationBar.barStyle = .default
     }
 }

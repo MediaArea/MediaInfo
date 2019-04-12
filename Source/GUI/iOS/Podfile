@@ -1,5 +1,8 @@
 platform :ios, '10.0'
 
 target 'MediaInfo' do
+  use_frameworks!
   pod 'Toast-Swift', '~> 3.0.1'
+  pod 'NewPopMenu', '~> 2.0'
+  pod 'TPInAppReceipt'
 end

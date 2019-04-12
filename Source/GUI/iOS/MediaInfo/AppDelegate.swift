@@ -1,15 +1,17 @@
-﻿/*  Copyright (c) MediaArea.net SARL. All Rights Reserved.
+/*  Copyright (c) MediaArea.net SARL. All Rights Reserved.
 *
 *  Use of this source code is governed by a BSD-style license that can
 *  be found in the License.html file in the root of the source tree.
 */
 
 import UIKit
+import StoreKit
 import CoreData
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate, SKPaymentTransactionObserver {
     var window: UIWindow?
+    let subscriptionManager = SubscriptionManager.shared
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         let splitViewController = self.window!.rootViewController as! UISplitViewController
@@ -20,6 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let reportsListNavigationController = splitViewController.viewControllers[0] as! UINavigationController
         let controller = reportsListNavigationController.topViewController as! ReportsListViewController
         controller.managedObjectContext = self.persistentContainer.viewContext
+
+        SKPaymentQueue.default().add(self)
+        subscriptionManager.loadSubscription()
+
         return true
     }
 
@@ -89,5 +95,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                 NSLog("ERROR: unable to save context, %@", error as NSError)
             }
         }
+    }
+
+    // MARK: - SKPaymentTransactionObserver
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction in transactions {
+            switch transaction.transactionState {
+            case .purchasing:
+                handlePurchasingState(for: transaction, in: queue)
+            case .purchased:
+                handlePurchasedState(for: transaction, in: queue)
+            case .restored:
+                handleRestoredState(for: transaction, in: queue)
+            case .failed:
+                handleFailedState(for: transaction, in: queue)
+            case .deferred:
+                handleDeferredState(for: transaction, in: queue)
+            }
+        }
+    }
+
+    func paymentQueue(_ queue: SKPaymentQueue, shouldAddStorePayment payment: SKPayment, for product: SKProduct) -> Bool {
+        return true
+    }
+
+    func handlePurchasingState(for transaction: SKPaymentTransaction, in queue: SKPaymentQueue) {
+    }
+
+    func handlePurchasedState(for transaction: SKPaymentTransaction, in queue: SKPaymentQueue) {
+        queue.finishTransaction(transaction)
+        SubscriptionManager.shared.purchased()
+    }
+
+    func handleRestoredState(for transaction: SKPaymentTransaction, in queue: SKPaymentQueue) {
+        queue.finishTransaction(transaction)
+        SubscriptionManager.shared.restored()
+    }
+
+    func handleFailedState(for transaction: SKPaymentTransaction, in queue: SKPaymentQueue) {
+        queue.finishTransaction(transaction)
+        SubscriptionManager.shared.purchaseFailed()
+    }
+
+    func handleDeferredState(for trasaction: SKPaymentTransaction, in queue: SKPaymentQueue) {
+        SubscriptionManager.shared.purchaseDeferred()
     }
 }
