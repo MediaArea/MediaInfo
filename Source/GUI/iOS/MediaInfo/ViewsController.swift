@@ -37,7 +37,7 @@ class ViewsController: UITableViewController {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "ViewCell", for: indexPath)
 
         if(core.views[indexPath.row].name == currentView) {
-            cell.accessoryType = UITableViewCellAccessoryType.checkmark
+            cell.accessoryType = UITableViewCell.AccessoryType.checkmark
         }
         cell.textLabel?.text = core.views[indexPath.row].desc
 

@@ -151,9 +151,10 @@ class Core {
             var state: States = States(rawValue: 0)
             let size = data.count
 
-            _ = data.withUnsafeMutableBytes { (buffer: UnsafeMutablePointer<MediaInfo_int8u>) in
-                state = States(rawValue: MediaInfo_Open_Buffer_Continue(mi, buffer, size))
-            }
+            let buffer: UnsafeMutablePointer<MediaInfo_int8u> = UnsafeMutablePointer<MediaInfo_int8u>.allocate(capacity: size)
+            data.copyBytes(to: buffer, count: size)
+            state = States(rawValue: MediaInfo_Open_Buffer_Continue(mi, buffer, size))
+            buffer.deallocate()
 
             if state == States.Finalized {
                 break

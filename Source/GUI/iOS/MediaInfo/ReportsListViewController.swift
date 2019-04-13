@@ -356,7 +356,7 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
         return true
     }
 
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 
         // Close deleted report
         if editingStyle == .delete {
@@ -440,6 +440,8 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
             case .move:
                 configureCell(tableView.cellForRow(at: indexPath!)!, withEvent: anObject as! Event)
                 tableView.moveRow(at: indexPath!, to: newIndexPath!)
+            @unknown default:
+                return
         }
     }
 
