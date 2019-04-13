@@ -1,4 +1,4 @@
-﻿/*  Copyright (c) MediaArea.net SARL. All Rights Reserved.
+/*  Copyright (c) MediaArea.net SARL. All Rights Reserved.
 *
 *  Use of this source code is governed by a BSD-style license that can
 *  be found in the License.html file in the root of the source tree.
@@ -34,18 +34,45 @@ class ReportViewController: UIViewController, UIDocumentPickerDelegate {
 
     func configureView() {
         // Update the view
+        var bgColor = "#FFFFFF"
+        var fgColor = "#000000"
+        if SubscriptionManager.shared.subscriptionActive && Core.shared.darkMode {
+            bgColor = "#000000"
+            if let bgComponents = UIColor.darkGray.cgColor.components, bgComponents.count > 0 {
+                let r = Float(bgComponents[0])
+                let g = Float(bgComponents.count > 2 ? bgComponents[1] : bgComponents[0])
+                let b = Float(bgComponents.count > 2 ? bgComponents[2] : bgComponents[0])
+
+                bgColor = String(format: "#%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255))
+            }
+
+            fgColor = "#FFFFFF"
+            if let fgComponents = UIColor.white.cgColor.components, fgComponents.count > 0 {
+                let r = Float(fgComponents[0])
+                let g = Float(fgComponents.count > 2 ? fgComponents[1] : fgComponents[0])
+                let b = Float(fgComponents.count > 2 ? fgComponents[2] : fgComponents[0])
+
+                fgColor = String(format: "#%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255))
+            }
+        }
+
         if report != nil {
             if let page: UIWebView = reportView {
                 let reportText: String = core.convertReport(report: (NSKeyedUnarchiver.unarchiveObject(with: report!.report!) as! Array<MediaInfo_int8u>), format: currentView)
 
+                var html: String
                 if currentView == "HTML" {
-                   page.loadHTMLString(reportText, baseURL: nil)
+                   html = reportText
                 } else {
-                    page.loadHTMLString("<html><body><pre>" + reportText
+                    html = "<html><body><pre>" + reportText
                         .replacingOccurrences(of: "\t", with: "    ")
                         .replacingOccurrences(of: "<", with: "&lt;") +
-                        "</pre></body></html>", baseURL: nil)
+                        "</pre></body></html>"
                 }
+
+                html = html.replacingOccurrences(of: "<body>", with: "<body style=\"background-color: \(bgColor); color: \(fgColor)\">")
+
+                page.loadHTMLString(html, baseURL: nil)
             }
 
             if let button: UIButton = exportButton {
@@ -53,9 +80,8 @@ class ReportViewController: UIViewController, UIDocumentPickerDelegate {
             }
         } else {
             navigationItem.title = "Report"
-            if let page: UIWebView = reportView,
-               let url: URL = URL(string: "about:blank") {
-                page.loadRequest(URLRequest(url: url))
+            if let page: UIWebView = reportView {
+                page.loadHTMLString("<html><body style=\"background-color: \(bgColor); color: \(fgColor)\"></body></html>", baseURL: nil)
             }
 
             if let button: UIButton = exportButton {
@@ -73,7 +99,51 @@ class ReportViewController: UIViewController, UIDocumentPickerDelegate {
         // Toggle queueing behavior
         ToastManager.shared.isQueueEnabled = true
 
+        if SubscriptionManager.shared.subscriptionActive {
+            subscriptionActive()
+        }
+
+        NotificationCenter.default.addObserver(self, selector: #selector(subscriptionStateChanged(_:)), name: .subscriptionStateChanged, object: nil)
+
         configureView()
+    }
+
+    @objc func subscriptionStateChanged(_ notification: Notification) {
+        if SubscriptionManager.shared.subscriptionActive {
+            subscriptionActive()
+        }
+    }
+
+    open func subscriptionActive() {
+        if Core.shared.darkMode {
+            enableDarkMode()
+        }
+
+        NotificationCenter.default.addObserver(self, selector: #selector(darkModeEnabled(_:)), name: .darkModeEnabled, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(darkModeDisabled(_:)), name: .darkModeDisabled, object: nil)
+    }
+
+    // MARK: - Theme
+
+    @objc func darkModeEnabled(_ notification: Notification) {
+        enableDarkMode()
+        configureView()
+    }
+
+    @objc func darkModeDisabled(_ notification: Notification) {
+        disableDarkMode()
+        configureView()
+    }
+
+    open func enableDarkMode() {
+        self.view.backgroundColor = UIColor.darkGray
+        self.navigationController?.navigationBar.barStyle = .black
+    }
+
+    open func disableDarkMode() {
+        self.view.backgroundColor = UIColor.white
+        self.navigationController?.navigationBar.barStyle = .default
     }
 
     override func viewWillAppear(_ animated: Bool) {

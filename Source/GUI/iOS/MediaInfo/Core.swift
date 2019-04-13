@@ -14,6 +14,11 @@ extension String {
     }
 }
 
+extension Notification.Name {
+    static let darkModeEnabled = Notification.Name("net.mediaarea.mediainfo.ios.notifications.darkModeEnabled")
+    static let darkModeDisabled = Notification.Name("net.mediaarea.mediainfo.ios.notifications.darkModeDisabled")
+}
+
 class Core {
     struct ReportView {
         var name: String
@@ -30,7 +35,20 @@ class Core {
         static let Finalized = States(rawValue: 1 << 3)
     }
 
+    static let shared = Core()
+
     var mi: UnsafeMutableRawPointer
+
+    var darkMode: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: "DarkMode")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "DarkMode")
+            NotificationCenter.default.post(name: newValue ? .darkModeEnabled : .darkModeDisabled, object: nil)
+        }
+    }
+
     var views: Array<ReportView> {
         get {
             var views: Array<ReportView> = Array<ReportView>()
@@ -133,9 +151,10 @@ class Core {
             var state: States = States(rawValue: 0)
             let size = data.count
 
-            _ = data.withUnsafeMutableBytes { (buffer: UnsafeMutablePointer<MediaInfo_int8u>) in
-                state = States(rawValue: MediaInfo_Open_Buffer_Continue(mi, buffer, size))
-            }
+            let buffer: UnsafeMutablePointer<MediaInfo_int8u> = UnsafeMutablePointer<MediaInfo_int8u>.allocate(capacity: size)
+            data.copyBytes(to: buffer, count: size)
+            state = States(rawValue: MediaInfo_Open_Buffer_Continue(mi, buffer, size))
+            buffer.deallocate()
 
             if state == States.Finalized {
                 break
