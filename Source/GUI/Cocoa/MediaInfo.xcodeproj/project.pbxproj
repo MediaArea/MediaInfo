@@ -466,7 +466,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"$CODE_SIGNING_ALLOWED\" = \"YES\" -a \"$EXPANDED_CODE_SIGN_IDENTITY\" != \"\" -a \"$EXPANDED_CODE_SIGN_IDENTITY\" != \"Don't Code Sign\" ]; then\ncd \"$CODESIGNING_FOLDER_PATH\"\n#ls -la\ninstall_name_tool -id @executable_path/../Resources/libmediainfo.dylib Contents/Resources/libmediainfo.dylib\n/usr/bin/codesign -f -s \"$EXPANDED_CODE_SIGN_IDENTITY\" --verbose Contents/Resources/libmediainfo.dylib\nfi ";
+			shellScript = "if [ \"$CODE_SIGNING_ALLOWED\" = \"YES\" -a \"$EXPANDED_CODE_SIGN_IDENTITY\" != \"\" -a \"$EXPANDED_CODE_SIGN_IDENTITY\" != \"Don't Code Sign\" ]; then\ncd \"$CODESIGNING_FOLDER_PATH\"\n#ls -la\ninstall_name_tool -id @executable_path/../Resources/libmediainfo.dylib Contents/Resources/libmediainfo.dylib\n/usr/bin/codesign -f -s \"$EXPANDED_CODE_SIGN_IDENTITY\" --verbose Contents/Resources/libmediainfo.dylib\nfi \n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
