@@ -56,7 +56,7 @@
       <widget class="QLabel" name="aboutText">
        <property name="text">
         <string>MediaInfo vVERSION
-Copyright (C) 2002-2018 Jerome Martinez
+Copyright (C) 2002-2019 Jerome Martinez
 
 Supply very detailled information
 about a multimedia file:

@@ -3,7 +3,7 @@
 //  MediaInfo
 //
 //  Created by Max Pozdeev on 07.02.12.
-//  Copyright 2012 Jerome Martinez. All rights reserved.
+//  Copyright 2012-2019 Jerome Martinez. All rights reserved.
 //
 
 #import "MyWindowController.h"
