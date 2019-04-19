@@ -33,7 +33,7 @@ class AboutViewController: UIViewController {
         let milVersion: String = Core().version
         aboutText.text = """
                          MediaInfo v\(miVersion) using MediaInfoLib v\(milVersion)\n
-                         Copyright (c) 2002-2018 MediaArea.net SARL. All rights reserved.\n\n
+                         Copyright (c) 2002-2019 MediaArea.net SARL. All rights reserved.\n\n
                          MediaInfo provides easy access to technical and tag information about video and audio files.\n
                          It is open-source software, which means that it is free of charge to the end user and developers have freedom to study, to improve and to redistribute the program (BSD license).
                          """
