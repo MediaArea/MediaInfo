@@ -8,7 +8,7 @@
 
 <resources>
     <string name="app_name">MediaInfo</string>
-    <string name="app_version">18.12</string>
+    <string name="app_version">19.04</string>
     <string name="hello_text">You must at least open 1 file.</string>
     <string name="about_title">About MediaInfo</string>
     <string name="about_text">MediaInfo vMI_VERSION using MediaInfoLib vMIL_VERSION\n
