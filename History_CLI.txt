@@ -12,6 +12,31 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 19.04, 2019-04-23
+--------------
++ USAC: DRC effect types, Sample peak level, True peak level, Program loudness
++ HDR: SMPTE ST 2094 App 4 (including HDR10+) support
++ HDR: move HDR10, Dolby Vision and SL-HDR meta to specific generic "HDR Format" lines
++ Matroska: SMPTE ST 2086 (HDR10) support
++ Matroska: FieldOrder support
++ HEIF image format support
++ AV1: support of AV1 in MP4, HEIF, IVF
++ MOV: Add a lot more countries to AppleStoreCountry field internal list
++ MXF: Fix memory leak when fully parsing big file with acquisition metadata
++ HEVC: more HEVC profiles (Multiview, Scalable, Screen Content...)
++ AAC: better handling of corrupted streams
++ AAC: better handling of unknown channel layouts
++ AVC in MP4: better support of corrupted streams
+x B1101, AVI: fix crash with some invalid streams
+x B1101, SMPTE ST 337: fix crash with some invalid streams
+x Matroska: chapters timestamp were not display if chapters have no name
+x MXF: Fix false positive truncated file detection when there is no Random Index Pack
+x AAC: channel layout typos (Rls instead of Lrs, Lr instead of Rb)
+x ProRes: correctly show color space if alpha plane is present
+x MPEG Audio: some VBR files use "Info" Xing header, so we ignore the  difference between "Info" and "Xing"
+x I943, MPEG-4: wrong display aspect ratio in some corner cases (32-bit release only)
+x I1096, OGG: assign METADATA_BLOCK_PICTURE tag to cover
+
 Version 18.12, 2018-12-10
 --------------
 + DCP: support of multi-reel packages
