@@ -382,8 +382,9 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 		}
 		
 		[comboController setContent:array];
+               [treeView setFiles:mediaList];
 
-	        // display first added file
+		//display first added file
                [self setSelectedFileIndex:oldIndex+1];
                [comboController setSelectionIndex:oldIndex+1];
 	}
@@ -409,69 +410,12 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	
 	
 	//Text View
-	
+
 	[self updateTextTabWithFileAtIndex:index];
 
-	
-	//go,go,go
-	
-	NSString *info = [mediaList informAtIndex:index];
-	
-
 	//tree view
-	
-	NSArray *array = [info componentsSeparatedByString:@"\n"];
-	NSInteger max = [array count];
-	if (max == 1)
-	{
-		array = [info componentsSeparatedByString:@"\r"];
-         max = [array count];
-	}
-	NSMutableArray *finalArray = [NSMutableArray array];
-	NSInteger i;
-	NSMutableArray *currentRoot = finalArray;
-	
-	for(i=0; i<max; i++) {
-		
-		NSString *tmp = [array objectAtIndex:i];
-		if([tmp isEqualToString:@""]) continue;
-		
-		NSArray *a = [tmp componentsSeparatedByString:@" : "];
-		
-		if(2 == [a count])
-		{
-			NSString *name = [[a objectAtIndex:0] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-			NSString *value = [[a objectAtIndex:1] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-			
-			NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-								  name, @"name",
-								  value, @"value",
-								  [NSString stringWithFormat:@"%@ : %@", name, value], @"extValue",
-								  nil];
-			
-			[currentRoot addObject:dict];
-			
-		}
-		else
-		{
-			NSMutableArray *children = [NSMutableArray array];
-			
-			NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-								  tmp, @"name",
-								  tmp, @"extValue",
-								  children, @"children",
-								  nil];
-			
-			[finalArray addObject:dict];
-			currentRoot = children;
-		}
-										   
-	}
-	
-	[treeOutlineController setContent:finalArray];
-	[treeOutline expandItem:nil expandChildren:YES];
-	
-	
+       [treeView setIndex:selectedFileIndex];
+
 	//recent items
 	NSString *filename = [mediaList filenameAtIndex:index];
 	[[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:[NSURL fileURLWithPath:filename]];
@@ -800,10 +744,10 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 		return (mediaList != nil); //be careful if it's in background processing
 	}
     else if(action == @selector(selectNextTab:)) {
-        return mediaList && /* [tabs indexOfTabViewItem:tabs.selectedTabViewItem] != kCompareTabIndex && */ mediaList && [mediaList count] && selectedFileIndex < [mediaList count]-1;
+        return mediaList && [mediaList count] && selectedFileIndex < [mediaList count] - 1;
     }
     else if(action == @selector(selectPreviousTab:)) {
-        return mediaList && /* [tabs indexOfTabViewItem:tabs.selectedTabViewItem] != kCompareTabIndex && */ [mediaList count] && selectedFileIndex > 0;
+        return mediaList && [mediaList count] && selectedFileIndex > 0;
     }
     else if(action == @selector(closeFile:) || action == @selector(closeAllFiles:)) {
         return mediaList && [mediaList count];
@@ -814,15 +758,15 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 }
 
 -(IBAction)selectNextTab:(id)sender {
-    if(mediaList && /* [tabs indexOfTabViewItem:tabs.selectedTabViewItem] != kCompareTabIndex && */ [mediaList count] && selectedFileIndex < [mediaList count] - 1) {
-        [comboController setSelectionIndex:[comboController selectionIndex] + 1];
+    if(mediaList && [mediaList count] && selectedFileIndex < [mediaList count] - 1) {
+        [comboController selectNext:nil];
         [self setSelectedFileIndex:selectedFileIndex + 1];
     }
 }
 
 -(IBAction)selectPreviousTab:(id)sender {
-    if(mediaList && /* [tabs indexOfTabViewItem:tabs.selectedTabViewItem] != kCompareTabIndex && */ [mediaList count] && selectedFileIndex > 0) {
-        [comboController setSelectionIndex:[comboController selectionIndex] - 1];
+    if(mediaList && [mediaList count] && selectedFileIndex > 0) {
+        [comboController selectPrevious:nil];
         [self setSelectedFileIndex:selectedFileIndex - 1];
     }
 }

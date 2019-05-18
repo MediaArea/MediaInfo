@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0299EC70228E028E00D937F6 /* TreeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0299EC6E228E028E00D937F6 /* TreeView.xib */; };
+		0299EC73228E02B500D937F6 /* TreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0299EC72228E02B500D937F6 /* TreeView.m */; };
 		02B7FB4F17576A61002B92FE /* ServicesMenu.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02B7FB4D17576A61002B92FE /* ServicesMenu.strings */; };
 		256AC3DA0F4B6AC300CF3369 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* AppController.m */; };
 		43098011154815B600E9F818 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4309800F154815B600E9F818 /* Localizable.strings */; };
@@ -38,6 +40,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0299EC6F228E028E00D937F6 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/TreeView.xib; sourceTree = "<group>"; };
+		0299EC71228E02B500D937F6 /* TreeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TreeView.h; sourceTree = "<group>"; };
+		0299EC72228E02B500D937F6 /* TreeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TreeView.m; sourceTree = "<group>"; };
 		02B7FB4E17576A61002B92FE /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/ServicesMenu.strings; sourceTree = "<group>"; };
 		02B7FB5017576A90002B92FE /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/ServicesMenu.strings; sourceTree = "<group>"; };
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -273,6 +278,8 @@
 				431E2487150E774E0070748A /* AboutWindowController.m */,
 				43BB5AB015346721002400F8 /* PreferencesWindowController.h */,
 				43BB5AB115346721002400F8 /* PreferencesWindowController.m */,
+				0299EC71228E02B500D937F6 /* TreeView.h */,
+				0299EC72228E02B500D937F6 /* TreeView.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -340,6 +347,7 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				43BB5AAA15336BEB002400F8 /* MainMenu.xib */,
 				43BB5AB515346846002400F8 /* Preferences.xib */,
+				0299EC6E228E028E00D937F6 /* TreeView.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -447,6 +455,7 @@
 				436A06D0150E732400F5E09A /* MediaInfoBig.png in Resources */,
 				43BB5AB315346845002400F8 /* Preferences.xib in Resources */,
 				43EC295015349B1E00943F0A /* lang.csv in Resources */,
+				0299EC70228E028E00D937F6 /* TreeView.xib in Resources */,
 				43098011154815B600E9F818 /* Localizable.strings in Resources */,
 				02B7FB4F17576A61002B92FE /* ServicesMenu.strings in Resources */,
 			);
@@ -477,6 +486,7 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* AppController.m in Sources */,
+				0299EC73228E02B500D937F6 /* TreeView.m in Sources */,
 				4395309314E0288100537F55 /* oMediaInfoList.mm in Sources */,
 				43B17B9A1CE6029E0012C3E3 /* SegmentedCellWithMenu.m in Sources */,
 				4395315014E0465300537F55 /* NSString+wchar.m in Sources */,
@@ -496,6 +506,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		0299EC6E228E028E00D937F6 /* TreeView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0299EC6F228E028E00D937F6 /* English */,
+			);
+			name = TreeView.xib;
+			sourceTree = "<group>";
+		};
 		02B7FB4D17576A61002B92FE /* ServicesMenu.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

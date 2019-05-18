@@ -94,6 +94,51 @@
 	else return r;
 }
 
+- (NSString *)FieldAtIndex:(NSUInteger)fileIndex
+              streamKind:(oMediaInfoStream)streamKind
+            streamNumber:(NSUInteger)streamNumber
+               parameter:(NSUInteger)parameter {
+
+
+    const wchar_t *s = MediaInfoList_GetI(MIL,
+                                         (int)fileIndex,
+                                         (MediaInfo_stream_t)streamKind,
+                                         (int)streamNumber,
+                                         (int)parameter,
+                                         MediaInfo_Info_Name);
+
+    NSString *r = [NSString stringFromWCHAR:s];
+
+    if(r==nil) return @"";
+    else return r;
+}
+
+- (NSString *)FieldNameAtIndex:(NSUInteger)fileIndex
+                    streamKind:(oMediaInfoStream)streamKind
+                  streamNumber:(NSUInteger)streamNumber
+                     parameter:(NSUInteger)parameter {
+
+
+    const wchar_t *s = MediaInfoList_GetI(MIL,
+                                          (int)fileIndex,
+                                          (MediaInfo_stream_t)streamKind,
+                                          (int)streamNumber,
+                                          (int)parameter,
+                                          MediaInfo_Info_Name_Text);
+
+    NSString *r = [NSString stringFromWCHAR:s];
+
+    if(r==nil) return [self FieldAtIndex:fileIndex streamKind:streamKind streamNumber:streamNumber parameter:parameter];
+    else return r;
+}
+
+- (NSUInteger) FieldCountAtIndex:(NSUInteger)fileIndex streamKind:(oMediaInfoStream)streamKind streamNumber:(NSUInteger)streamNumber {
+    return MediaInfoList_Count_Get(MIL, fileIndex, (MediaInfo_stream_t)streamKind, streamNumber);
+}
+
+-(bool) ShowInInform:(NSUInteger)fileIndex streamKind:(oMediaInfoStream)streamKind streamNumber:(NSUInteger)streamNumber parameter:(NSUInteger)parameter {
+    return MediaInfoList_GetI(MIL, fileIndex, (MediaInfo_stream_t)streamKind, streamNumber, parameter, MediaInfo_Info_Options)[MediaInfo_InfoOption_ShowInInform]==L'Y';
+}
 
 - (NSUInteger)count {
 	

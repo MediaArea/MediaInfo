@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "oMediaInfoList.h"
 #import "HyperlinkButton.h"
+#import "TreeView.h"
 
 typedef enum { Kind_Text, Kind_XML, Kind_JSON, Kind_PBCore, Kind_PBCore2, Kind_reVTMD, Kind_MPEG7, Kind_EBUCore_1_5, Kind_EBUCore_1_6, Kind_EBUCore_1_8_ps, Kind_EBUCore_1_8_sp, Kind_EBUCore_1_8_ps_json, Kind_EBUCore_1_8_sp_json, Kind_FIMS_1_1, Kind_FIMS_1_2, Kind_FIMS_1_3, Kind_NISO_Z39_87} ViewMenu_Kind;
 
@@ -18,8 +19,7 @@ typedef enum { Kind_Text, Kind_XML, Kind_JSON, Kind_PBCore, Kind_PBCore2, Kind_r
     IBOutlet NSArrayController *comboController;
     IBOutlet NSTabView *tabs;
     IBOutlet NSSegmentedControl *tabSelector;
-    IBOutlet NSOutlineView *treeOutline;
-    IBOutlet NSTreeController *treeOutlineController;
+    IBOutlet TreeView *treeView;
     IBOutlet NSTextView *textField;
     IBOutlet NSMenu *otherViewsMenu;
     IBOutlet NSView *formatSelectionAccView;

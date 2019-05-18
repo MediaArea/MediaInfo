@@ -21,8 +21,7 @@
                 <outlet property="tabSelector" destination="37" id="119"/>
                 <outlet property="tabs" destination="13" id="51"/>
                 <outlet property="textField" destination="60" id="61"/>
-                <outlet property="treeOutline" destination="18" id="47"/>
-                <outlet property="treeOutlineController" destination="62" id="64"/>
+                <outlet property="treeView" destination="WqW-Ge-Jaj" id="mVM-ZP-SDE"/>
                 <outlet property="window" destination="1" id="35"/>
             </connections>
         </customObject>
@@ -184,84 +183,10 @@
                                     <rect key="frame" x="0.0" y="0.0" width="485" height="294"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="18" horizontalPageScroll="10" verticalLineScroll="18" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="17">
-                                            <rect key="frame" x="0.0" y="0.0" width="486" height="294"/>
+                                        <customView id="WqW-Ge-Jaj" customClass="TreeView">
+                                            <rect key="frame" x="0.0" y="0.0" width="485" height="294"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <clipView key="contentView" id="KRY-m1-S7o">
-                                                <rect key="frame" x="0.0" y="0.0" width="486" height="294"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                                <subviews>
-                                                    <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" autosaveName="treeOutline" rowHeight="16" headerView="110" indentationPerLevel="16" outlineTableColumn="21" id="18" userLabel="treeOutline" customClass="TreeOutline">
-                                                        <rect key="frame" x="0.0" y="0.0" width="486" height="271"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                        <size key="intercellSpacing" width="3" height="2"/>
-                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
-                                                        <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                        <tableColumns>
-                                                            <tableColumn identifier="name" editable="NO" width="243" minWidth="16" maxWidth="10000" id="21">
-                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
-                                                                    <font key="font" metaFont="smallSystem"/>
-                                                                    <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                                    <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
-                                                                </tableHeaderCell>
-                                                                <textFieldCell key="dataCell" selectable="YES" editable="YES" alignment="left" id="22">
-                                                                    <font key="font" metaFont="system"/>
-                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                </textFieldCell>
-                                                                <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
-                                                                <connections>
-                                                                    <binding destination="62" name="value" keyPath="arrangedObjects.name" id="111">
-                                                                        <dictionary key="options">
-                                                                            <bool key="NSConditionallySetsEditable" value="YES"/>
-                                                                        </dictionary>
-                                                                    </binding>
-                                                                    <binding destination="121" name="fontSize" keyPath="values.treeFontSize" id="122"/>
-                                                                </connections>
-                                                            </tableColumn>
-                                                            <tableColumn identifier="value" editable="NO" width="237" minWidth="10" maxWidth="3.4028234663852886e+38" id="107">
-                                                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
-                                                                    <font key="font" metaFont="smallSystem"/>
-                                                                    <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                                    <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                                                </tableHeaderCell>
-                                                                <textFieldCell key="dataCell" selectable="YES" editable="YES" alignment="left" id="108">
-                                                                    <font key="font" metaFont="system"/>
-                                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                </textFieldCell>
-                                                                <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
-                                                                <connections>
-                                                                    <binding destination="62" name="value" keyPath="arrangedObjects.value" id="112">
-                                                                        <dictionary key="options">
-                                                                            <bool key="NSConditionallySetsEditable" value="YES"/>
-                                                                        </dictionary>
-                                                                    </binding>
-                                                                    <binding destination="121" name="fontSize" keyPath="values.treeFontSize" id="132"/>
-                                                                </connections>
-                                                            </tableColumn>
-                                                        </tableColumns>
-                                                        <connections>
-                                                            <outlet property="delegate" destination="133" id="134"/>
-                                                            <outlet property="menu" destination="113" id="117"/>
-                                                        </connections>
-                                                    </outlineView>
-                                                </subviews>
-                                            </clipView>
-                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="19">
-                                                <rect key="frame" x="0.0" y="279" width="486" height="15"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                            </scroller>
-                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="20">
-                                                <rect key="frame" x="464" y="1" width="15" height="272"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                            </scroller>
-                                            <tableHeaderView key="headerView" id="110">
-                                                <rect key="frame" x="0.0" y="0.0" width="486" height="23"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                            </tableHeaderView>
-                                        </scrollView>
+                                        </customView>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -350,13 +275,6 @@
                 <string>@count</string>
             </declaredKeys>
         </arrayController>
-        <treeController objectClassName="NSDictionary" editable="NO" childrenKeyPath="children" id="62" userLabel="treeOutlineController">
-            <declaredKeys>
-                <string>extValue</string>
-                <string>name</string>
-                <string>value</string>
-            </declaredKeys>
-        </treeController>
         <menu id="113">
             <items>
                 <menuItem title="Copy" id="114">
@@ -368,7 +286,6 @@
             </items>
         </menu>
         <userDefaultsController representsSharedInstance="YES" id="121"/>
-        <customObject id="133" customClass="TreeOutlineDelegate"/>
         <arrayController objectClassName="NSDictionary" editable="NO" id="153" userLabel="easyStreamsController"/>
         <customObject id="170" customClass="easyStreamsTableDelegate">
             <connections>
