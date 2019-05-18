@@ -14,6 +14,7 @@ typedef enum { Kind_Text, Kind_XML, Kind_JSON, Kind_PBCore, Kind_PBCore2, Kind_r
 
 @interface MyWindowController : NSWindowController {
 
+    IBOutlet NSPopUpButton *comboBox;
     IBOutlet NSArrayController *comboController;
     IBOutlet NSTabView *tabs;
     IBOutlet NSSegmentedControl *tabSelector;
@@ -75,4 +76,8 @@ typedef enum { Kind_Text, Kind_XML, Kind_JSON, Kind_PBCore, Kind_PBCore2, Kind_r
 -(void)_updateTextTabWithContentOfAttributedTextAtIndex:(NSUInteger)index;
 -(void)_updateTextTabWithContentOfSimpleTextAtIndex:(NSUInteger)index;
 
+-(IBAction)selectNextTab:(id)sender;
+-(IBAction)selectPreviousTab:(id)sender;
+-(IBAction)closeFile:(id)sender;
+-(IBAction)closeAllFiles:(id)sender;
 @end

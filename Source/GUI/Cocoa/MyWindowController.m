@@ -85,10 +85,10 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 		[self selectTextTab:nil];
 	}
 	else if(segment == 1) {
-		[tabs selectTabViewItemAtIndex:kTreeTabIndex];
+		[self selectTreeTab:nil];
 	}
 	else {
-		[tabs selectTabViewItemAtIndex:kEasyTabIndex];
+		[self selectEasyTab:nil];
 	}
 }
 
@@ -356,14 +356,11 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 -(void)processFiles:(NSArray *)URLs {
 	
 	//Process files...
-	
-	if(mediaList != nil) {
-		[mediaList release];
-		mediaList = nil;
-	}
-	
-	mediaList = [[oMediaInfoList alloc] init]; //dont care about release
-	
+    if(!mediaList)
+	    mediaList = [[oMediaInfoList alloc] init]; //dont care about release
+
+    NSInteger oldIndex = [mediaList count]-1;
+
 	if([mediaList openFiles:URLs]) {
 		
 		//Update GUI
@@ -385,10 +382,10 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 		}
 		
 		[comboController setContent:array];
-		
-		//display first file
-		[self setSelectedFileIndex:0];
-		
+
+	        // display first added file
+               [self setSelectedFileIndex:oldIndex+1];
+               [comboController setSelectionIndex:oldIndex+1];
 	}
 	else {
 		//Report about some error while opening?
@@ -724,8 +721,11 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
 
 	SEL action = [menuItem action];
-	
-	if(action == @selector(selectTreeTab:)) {
+
+    if(action == @selector(selectEasyTab:)) {
+        [menuItem setState: ([tabSelector selectedSegment] == kEasyTabIndex ? NSOnState : NSOffState)];
+    }
+    else if(action == @selector(selectTreeTab:)) {
 		[menuItem setState: ([tabSelector selectedSegment] == kTreeTabIndex ? NSOnState : NSOffState)];
 	}
 	else if(action == @selector(selectTextTab:)) {
@@ -799,9 +799,64 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	else if(action == @selector(export:)) {
 		return (mediaList != nil); //be careful if it's in background processing
 	}
-	
+    else if(action == @selector(selectNextTab:)) {
+        return mediaList && /* [tabs indexOfTabViewItem:tabs.selectedTabViewItem] != kCompareTabIndex && */ mediaList && [mediaList count] && selectedFileIndex < [mediaList count]-1;
+    }
+    else if(action == @selector(selectPreviousTab:)) {
+        return mediaList && /* [tabs indexOfTabViewItem:tabs.selectedTabViewItem] != kCompareTabIndex && */ [mediaList count] && selectedFileIndex > 0;
+    }
+    else if(action == @selector(closeFile:) || action == @selector(closeAllFiles:)) {
+        return mediaList && [mediaList count];
+
+    }
+
 	return YES;
 }
 
+-(IBAction)selectNextTab:(id)sender {
+    if(mediaList && /* [tabs indexOfTabViewItem:tabs.selectedTabViewItem] != kCompareTabIndex && */ [mediaList count] && selectedFileIndex < [mediaList count] - 1) {
+        [comboController setSelectionIndex:[comboController selectionIndex] + 1];
+        [self setSelectedFileIndex:selectedFileIndex + 1];
+    }
+}
 
+-(IBAction)selectPreviousTab:(id)sender {
+    if(mediaList && /* [tabs indexOfTabViewItem:tabs.selectedTabViewItem] != kCompareTabIndex && */ [mediaList count] && selectedFileIndex > 0) {
+        [comboController setSelectionIndex:[comboController selectionIndex] - 1];
+        [self setSelectedFileIndex:selectedFileIndex - 1];
+    }
+}
+
+-(IBAction)closeFile:(id)sender {
+    if(mediaList && [mediaList count]) {
+        NSUInteger oldSelectedFileIndex = selectedFileIndex;
+        NSUInteger oldComboControllerIndex = [comboController selectionIndex];
+        NSUInteger newSelectedFileIndex = oldSelectedFileIndex;
+        NSUInteger newComboControllerIndex = oldComboControllerIndex;
+
+       if(selectedFileIndex > 0 && [mediaList count] > 1) {
+           newSelectedFileIndex = oldSelectedFileIndex - 1;
+           newComboControllerIndex = oldComboControllerIndex - 1;
+        }
+
+        NSMutableArray* array = [comboController content];
+        [array removeObjectAtIndex:oldSelectedFileIndex];
+
+        [comboController setContent:array];
+        [mediaList closeAtIndex:oldSelectedFileIndex];
+
+        [comboController setSelectionIndex:newComboControllerIndex];
+        [self setSelectedFileIndex:newSelectedFileIndex];
+    }
+}
+
+-(IBAction)closeAllFiles:(id)sender {
+    if(mediaList && [mediaList count]) {
+        while([mediaList count]) {
+            [mediaList closeAtIndex:0];
+        }
+        [comboController setContent:nil];
+        [self setSelectedFileIndex:0];
+    }
+}
 @end

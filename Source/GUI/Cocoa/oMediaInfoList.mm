@@ -199,4 +199,8 @@
 	return [r componentsJoinedByString:@"\n"];
 }
 
+-(void)closeAtIndex:(NSUInteger)fileIndex {
+    MediaInfoList_Close(MIL, fileIndex);
+}
+
 @end
