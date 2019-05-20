@@ -85,10 +85,10 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 		[self selectTextTab:nil];
 	}
 	else if(segment == 1) {
-		[tabs selectTabViewItemAtIndex:kTreeTabIndex];
+		[self selectTreeTab:nil];
 	}
 	else {
-		[tabs selectTabViewItemAtIndex:kEasyTabIndex];
+		[self selectEasyTab:nil];
 	}
 }
 
@@ -356,14 +356,11 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 -(void)processFiles:(NSArray *)URLs {
 	
 	//Process files...
-	
-	if(mediaList != nil) {
-		[mediaList release];
-		mediaList = nil;
-	}
-	
-	mediaList = [[oMediaInfoList alloc] init]; //dont care about release
-	
+    if(!mediaList)
+	    mediaList = [[oMediaInfoList alloc] init]; //dont care about release
+
+    NSInteger oldIndex = [mediaList count]-1;
+
 	if([mediaList openFiles:URLs]) {
 		
 		//Update GUI
@@ -385,10 +382,11 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 		}
 		
 		[comboController setContent:array];
-		
-		//display first file
-		[self setSelectedFileIndex:0];
-		
+               [treeView setFiles:mediaList];
+
+		//display first added file
+               [self setSelectedFileIndex:oldIndex+1];
+               [comboController setSelectionIndex:oldIndex+1];
 	}
 	else {
 		//Report about some error while opening?
@@ -412,69 +410,12 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	
 	
 	//Text View
-	
+
 	[self updateTextTabWithFileAtIndex:index];
 
-	
-	//go,go,go
-	
-	NSString *info = [mediaList informAtIndex:index];
-	
-
 	//tree view
-	
-	NSArray *array = [info componentsSeparatedByString:@"\n"];
-	NSInteger max = [array count];
-	if (max == 1)
-	{
-		array = [info componentsSeparatedByString:@"\r"];
-         max = [array count];
-	}
-	NSMutableArray *finalArray = [NSMutableArray array];
-	NSInteger i;
-	NSMutableArray *currentRoot = finalArray;
-	
-	for(i=0; i<max; i++) {
-		
-		NSString *tmp = [array objectAtIndex:i];
-		if([tmp isEqualToString:@""]) continue;
-		
-		NSArray *a = [tmp componentsSeparatedByString:@" : "];
-		
-		if(2 == [a count])
-		{
-			NSString *name = [[a objectAtIndex:0] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-			NSString *value = [[a objectAtIndex:1] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-			
-			NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-								  name, @"name",
-								  value, @"value",
-								  [NSString stringWithFormat:@"%@ : %@", name, value], @"extValue",
-								  nil];
-			
-			[currentRoot addObject:dict];
-			
-		}
-		else
-		{
-			NSMutableArray *children = [NSMutableArray array];
-			
-			NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-								  tmp, @"name",
-								  tmp, @"extValue",
-								  children, @"children",
-								  nil];
-			
-			[finalArray addObject:dict];
-			currentRoot = children;
-		}
-										   
-	}
-	
-	[treeOutlineController setContent:finalArray];
-	[treeOutline expandItem:nil expandChildren:YES];
-	
-	
+       [treeView setIndex:selectedFileIndex];
+
 	//recent items
 	NSString *filename = [mediaList filenameAtIndex:index];
 	[[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:[NSURL fileURLWithPath:filename]];
@@ -724,8 +665,11 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
 
 	SEL action = [menuItem action];
-	
-	if(action == @selector(selectTreeTab:)) {
+
+    if(action == @selector(selectEasyTab:)) {
+        [menuItem setState: ([tabSelector selectedSegment] == kEasyTabIndex ? NSOnState : NSOffState)];
+    }
+    else if(action == @selector(selectTreeTab:)) {
 		[menuItem setState: ([tabSelector selectedSegment] == kTreeTabIndex ? NSOnState : NSOffState)];
 	}
 	else if(action == @selector(selectTextTab:)) {
@@ -799,9 +743,64 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	else if(action == @selector(export:)) {
 		return (mediaList != nil); //be careful if it's in background processing
 	}
-	
+    else if(action == @selector(selectNextTab:)) {
+        return mediaList && [mediaList count] && selectedFileIndex < [mediaList count] - 1;
+    }
+    else if(action == @selector(selectPreviousTab:)) {
+        return mediaList && [mediaList count] && selectedFileIndex > 0;
+    }
+    else if(action == @selector(closeFile:) || action == @selector(closeAllFiles:)) {
+        return mediaList && [mediaList count];
+
+    }
+
 	return YES;
 }
 
+-(IBAction)selectNextTab:(id)sender {
+    if(mediaList && [mediaList count] && selectedFileIndex < [mediaList count] - 1) {
+        [comboController selectNext:nil];
+        [self setSelectedFileIndex:selectedFileIndex + 1];
+    }
+}
 
+-(IBAction)selectPreviousTab:(id)sender {
+    if(mediaList && [mediaList count] && selectedFileIndex > 0) {
+        [comboController selectPrevious:nil];
+        [self setSelectedFileIndex:selectedFileIndex - 1];
+    }
+}
+
+-(IBAction)closeFile:(id)sender {
+    if(mediaList && [mediaList count]) {
+        NSUInteger oldSelectedFileIndex = selectedFileIndex;
+        NSUInteger oldComboControllerIndex = [comboController selectionIndex];
+        NSUInteger newSelectedFileIndex = oldSelectedFileIndex;
+        NSUInteger newComboControllerIndex = oldComboControllerIndex;
+
+       if(selectedFileIndex > 0 && [mediaList count] > 1) {
+           newSelectedFileIndex = oldSelectedFileIndex - 1;
+           newComboControllerIndex = oldComboControllerIndex - 1;
+        }
+
+        NSMutableArray* array = [comboController content];
+        [array removeObjectAtIndex:oldSelectedFileIndex];
+
+        [comboController setContent:array];
+        [mediaList closeAtIndex:oldSelectedFileIndex];
+
+        [comboController setSelectionIndex:newComboControllerIndex];
+        [self setSelectedFileIndex:newSelectedFileIndex];
+    }
+}
+
+-(IBAction)closeAllFiles:(id)sender {
+    if(mediaList && [mediaList count]) {
+        while([mediaList count]) {
+            [mediaList closeAtIndex:0];
+        }
+        [comboController setContent:nil];
+        [self setSelectedFileIndex:0];
+    }
+}
 @end
