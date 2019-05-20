@@ -63,7 +63,11 @@ BuildRequires:  wxWidgets-devel
 %if 0%{?mageia}
 BuildRequires:  wxgtk2.8-devel
 %else
+%if 0%{?fedora_version} && 0%{?fedora_version} >= 29
+BuildRequires:  wxGTK3-devel
+%else
 BuildRequires:  wxGTK-devel
+%endif
 %endif
 %endif
 
@@ -126,7 +130,11 @@ Requires:   wxWidgets
 %if 0%{?mageia}
 Requires:  wxgtk2.8
 %else
+%if 0%{?fedora_version} && 0%{?fedora_version} >= 29
+Requires:   wxGTK3
+%else
 Requires:   wxGTK
+%endif
 %endif
 %endif
 
@@ -136,7 +144,11 @@ Summary:    Supplies technical and tag information about a video or audio file (
 Group:      Applications/Multimedia
 Requires:   %{libzen_name}%{libzen_suffix}%{?_isa} >= %{libzen_version}
 Requires:   %{libmediainfo_name}%{libmediainfo_suffix}%{?_isa} >= %{libmediainfo_version}
+%if 0%{?fedora_version} && 0%{?fedora_version} >= 29
+Requires:   wxGTK3
+%else
 Requires:   wxGTK
+%endif
 %endif
 
 %global gui_description MediaInfo is a convenient unified display of the most relevant technical\
