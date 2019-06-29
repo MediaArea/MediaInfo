@@ -36,7 +36,7 @@
 }
 
 -(void)loadNib {
-    [[NSBundle mainBundle] loadNibNamed:@"TreeView" owner:self topLevelObjects:nil];
+    [NSBundle loadNibNamed:@"TreeView" owner:self];
 
     [self addSubview:_contentView];
     self.contentView.frame = self.bounds;
