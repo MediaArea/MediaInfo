@@ -9,6 +9,7 @@
 #import "AppController.h"
 #import "MyWindowController.h"
 #import "AboutWindowController.h"
+#import "SubscribeWindowController.h"
 #import "PreferencesWindowController.h"
 #import "oMediaInfoList.h"
 
@@ -30,9 +31,26 @@
 - (void)awakeFromNib {
 	filesToOpenAtStart = nil;
 	wc = nil;
+
+    if (@available(macOS 10.9, *)) {
+        subscriptionManager = [SubscriptionManager shared];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeExternally) name:NSUbiquitousKeyValueStoreDidChangeExternallyNotification object:[NSUbiquitousKeyValueStore defaultStore]];
+
+        [[NSUbiquitousKeyValueStore defaultStore] synchronize];
+        [subscriptionManager parseSubscriptions];
+
+        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+    }
+    else {
+        subscriptionManager=nil;
+    }
 }
 
 - (void)dealloc {
+    if (@available(macOS 10.9, *)) {
+        [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
+    }
+
 	[filesToOpenAtStart release];
 	[wc release];
 	[super dealloc];
@@ -74,21 +92,30 @@
 		wc = [[MyWindowController alloc] initWithWindowNibName:@"MyWindow"];
 		[[wc window] registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType,nil]];
 		[[wc window] makeKeyAndOrderFront:self];
-		
+
+        if (@available(macOS 10.9, *)) {
+            if(subscriptionManager.shouldNotifyUserForSubscriptionEnd) {
+                NSAlert *alert = [NSAlert alertWithMessageText:@"Your subscription has just ended." defaultButton:@"Renew" alternateButton:@"Close" otherButton:nil informativeTextWithFormat:@"Renew subscription?"];
+                if([alert runModal] == NSModalResponseOK) {
+                    [self openSubscribePanel:nil];
+                }
+                [subscriptionManager userNotifiedForSubscriptionEnd];
+            }
+
+            if(subscriptionManager.shouldNotifyUserForSubscription) {
+                [self openSubscribePanel:nil];
+            }
+        }
+
 		if(filesToOpenAtStart) {
 			[wc processFiles:filesToOpenAtStart];
 		}
 	}
-	
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication {
 	return YES;
 }
-
-
-
-
 
 /*
 - (IBAction)openFile:(id)sender {
@@ -151,11 +178,12 @@
 
 }
 
-
 - (IBAction)openAboutPanel:(id)sender {
-	
 	[[AboutWindowController controller] show];
-	
+}
+
+- (IBAction)openSubscribePanel:(id)sender {
+    [[SubscribeWindowController controller] show];
 }
 
 - (IBAction)clickAuthorWebsite:(id)sender {
@@ -166,5 +194,40 @@
 	[[PreferencesWindowController controller] show];	
 }
 
+-(void)didChangeExternally {
+    if(!subscriptionManager)
+        return;
+
+    [subscriptionManager parseSubscriptions];
+}
+
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray<SKPaymentTransaction *> *)transactions {
+    if(!subscriptionManager)
+        return;
+
+    for(SKPaymentTransaction *transaction in transactions) {
+        switch ([transaction transactionState]) {
+            case SKPaymentTransactionStatePurchasing:
+                break;
+            case SKPaymentTransactionStatePurchased:
+                [subscriptionManager purchaseSucceeded:transaction];
+                [queue finishTransaction:transaction];
+                break;
+            case SKPaymentTransactionStateDeferred:
+                [subscriptionManager purchaseDeferred:transaction];
+                break;
+            case SKPaymentTransactionStateRestored:
+                [subscriptionManager purchaseRestored:transaction];
+                [queue finishTransaction:transaction];
+                break;
+            case SKPaymentTransactionStateFailed:
+                [subscriptionManager purchaseFailed:transaction];
+                [queue finishTransaction:transaction];
+                break;
+            default:
+                break;
+        }
+    }
+}
 
 @end

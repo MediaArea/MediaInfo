@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="comboBox" destination="84" id="67N-9S-pjU"/>
                 <outlet property="comboController" destination="29" id="34"/>
+                <outlet property="compareView" destination="W54-IT-kPU" id="ajd-kz-9Bn"/>
                 <outlet property="easyGeneralLinkButton" destination="180" id="182"/>
                 <outlet property="easyGeneralTextLeft" destination="137" id="142"/>
                 <outlet property="easyGeneralTextRight" destination="140" id="143"/>
@@ -17,6 +18,7 @@
                 <outlet property="easyTable" destination="145" id="168"/>
                 <outlet property="exportFormatButton" destination="j1u-Ak-VG3" id="K4p-gd-tbT"/>
                 <outlet property="formatSelectionAccView" destination="xCY-zS-1YJ" id="eeC-lK-5e4"/>
+                <outlet property="hline" destination="120" id="ZeC-Dk-8ac"/>
                 <outlet property="otherViewsMenu" destination="4PR-wq-KNx" id="kYH-53-DSC"/>
                 <outlet property="tabSelector" destination="37" id="119"/>
                 <outlet property="tabs" destination="13" id="51"/>
@@ -225,6 +227,12 @@
                                     </subviews>
                                 </view>
                             </tabViewItem>
+                            <tabViewItem label="Compare" identifier="" id="eZC-pc-IWN">
+                                <view key="view" id="W54-IT-kPU" customClass="CompareView">
+                                    <rect key="frame" x="10" y="7" width="479" height="266"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
                         </tabViewItems>
                     </tabView>
                 </subviews>
@@ -247,9 +255,10 @@
                                 <font key="font" metaFont="system"/>
                                 <segments>
                                     <segment toolTip="Easy View" image="NSIconViewTemplate" width="28" selected="YES"/>
-                                    <segment toolTip="Tree View" image="NSPathTemplate" width="28" tag="1"/>
+                                    <segment toolTip="Tree View" image="NSPathTemplate" width="28"/>
                                     <segment toolTip="Text View" image="NSListViewTemplate" width="28"/>
-                                    <segment label="…" toolTip="Other Views" width="28"/>
+                                    <segment label="⇆" toolTip="Compare View" width="28"/>
+                                    <segment label="..." toolTip="Other Views" width="28"/>
                                 </segments>
                             </segmentedCell>
                             <connections>
