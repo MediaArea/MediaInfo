@@ -56,6 +56,14 @@ BuildRequires:  sane-backends-iscan
 BuildRequires:  libuuid-devel
 %endif
 
+%if 0%{?mageia} > 6
+%ifarch x86_64
+BuildRequires: lib64openssl-devel
+%else
+BuildRequires: libopenssl-devel
+%endif
+%endif
+
 # wxWidgets package name
 %if 0%{?suse_version} && 0%{?suse_version} >= 1140
 BuildRequires:  wxWidgets-devel
@@ -198,8 +206,8 @@ pushd Project/GNU/GUI
 popd
 
 %build
-export CFLAGS="%{optflags}"
-export CXXFLAGS="%{optflags}"
+export CFLAGS="-g %{optflags}"
+export CXXFLAGS="-g %{optflags}"
 
 # build CLI
 pushd Project/GNU/CLI
