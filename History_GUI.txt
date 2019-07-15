@@ -12,6 +12,26 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 19.07, 2019-07-16
+--------------
++ Mac App Store version: File comparison (InApp purchase)
++ Dolby E: readout of Dolby E program description
++ MXF: Detection of Dolby Vision
++ MP4: support of Spatial Audio Metadata
++ DV: color space is explicit
++ DV: audio format settings
++ Matroska: PCM bit rate
++ MOV, MXF: Time code frame rate
++ DV: DVCAM commercial name for locked audio and PAL 4:2:0
++ MXF: Time code track name
+x USAC: frame rate was missing in case of non standard sampling rate
+x USAC: fix infinite loop with some LATM streams
+x WAV: MP3 delay should be added to BWF time reference
+x TTML: fix wrong output with standalone files
+x N19/STL: fix crash with some uncommon framerates
+x VC-3: fix sub sampling with some v2 files
+x DV: Time code frame number was wrong (divided by 2) for 50/60 fps content
+
 Version 19.04, 2019-04-23
 --------------
 + USAC: DRC effect types, Sample peak level, True peak level, Program loudness
