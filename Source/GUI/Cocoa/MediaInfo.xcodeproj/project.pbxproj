@@ -780,7 +780,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APP_VERSION = 19.04;
+				APP_VERSION = 19.07;
 				CODE_SIGN_ENTITLEMENTS = MediaInfo.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -806,7 +806,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APP_VERSION = 19.04;
+				APP_VERSION = 19.07;
 				CODE_SIGN_ENTITLEMENTS = MediaInfo.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
