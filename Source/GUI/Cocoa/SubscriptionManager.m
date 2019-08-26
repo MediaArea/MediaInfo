@@ -107,7 +107,7 @@ static NSString *_subscriptionPurchaseFailedNotification = @"net.mediaarea.media
         [toReturn addObjectsFromArray:local];
     }
 
-    NSArray *remote = [[NSUbiquitousKeyValueStore defaultStore] arrayForKey:@"subscription"];
+    NSArray *remote = [[NSUbiquitousKeyValueStore defaultStore] arrayForKey:@"subscriptions"];
 
     if(remote) {
         [toReturn addObjectsFromArray:remote];
