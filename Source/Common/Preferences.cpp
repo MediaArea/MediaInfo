@@ -606,6 +606,7 @@ int Preferences::ExplorerShell()
         ".tiff;TIFFFile\r\n"
         ".tmf;mpegFile\r\n"
         ".tp;TPFile\r\n"
+        ".trec;mpeg4File\r\n"
         ".trp;TRPFile\r\n"
         ".ts;tsFile\r\n"
         ".tta;TTAFile\r\n"
