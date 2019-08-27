@@ -10,6 +10,7 @@
 		0226605322C9F19C006CE084 /* MacCompare@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0226605222C9F19C006CE084 /* MacCompare@2x.png */; };
 		026834062296A4B20060542A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 026834052296A4B20060542A /* StoreKit.framework */; };
 		026C61CE22A86824000D5045 /* MacCompare.png in Resources */ = {isa = PBXBuildFile; fileRef = 026C61CD22A86823000D5045 /* MacCompare.png */; };
+		0291B616230EC397006920BA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0291B615230EC396006920BA /* CloudKit.framework */; };
 		0299EC64227C966B00D937F6 /* CompareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0299EC62227C966B00D937F6 /* CompareView.xib */; };
 		0299EC67227C971400D937F6 /* CompareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0299EC66227C971400D937F6 /* CompareView.m */; };
 		0299EC70228E028E00D937F6 /* TreeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0299EC6E228E028E00D937F6 /* TreeView.xib */; };
@@ -52,6 +53,7 @@
 		0268340422949FB50060542A /* SubscriptionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubscriptionManager.h; sourceTree = "<group>"; };
 		026834052296A4B20060542A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		026C61CD22A86823000D5045 /* MacCompare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MacCompare.png; sourceTree = "<group>"; };
+		0291B615230EC396006920BA /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		0299EC63227C966B00D937F6 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/CompareView.xib; sourceTree = "<group>"; };
 		0299EC65227C971400D937F6 /* CompareView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompareView.h; sourceTree = "<group>"; };
 		0299EC66227C971400D937F6 /* CompareView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompareView.m; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0291B616230EC397006920BA /* CloudKit.framework in Frameworks */,
 				026834062296A4B20060542A /* StoreKit.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				4395306C14E0248800537F55 /* libmediainfo.dylib in Frameworks */,
@@ -385,6 +388,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0291B615230EC396006920BA /* CloudKit.framework */,
 				026834052296A4B20060542A /* StoreKit.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
@@ -422,6 +426,20 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = MediaArea.net;
+				TargetAttributes = {
+					8D1107260486CEB800E47090 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MediaInfo" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -782,8 +800,11 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_VERSION = 19.07;
 				CODE_SIGN_ENTITLEMENTS = MediaInfo.entitlements;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -799,6 +820,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = MediaInfo;
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -808,8 +830,11 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_VERSION = 19.07;
 				CODE_SIGN_ENTITLEMENTS = MediaInfo.entitlements;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MediaInfo_Prefix.pch;
@@ -823,6 +848,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = MediaInfo;
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
