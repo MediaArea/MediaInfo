@@ -60,7 +60,7 @@ COKAoiBGaWxlcyBjb21wYXJlA
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="B6c-IE-qrM">
                         <rect key="frame" x="173" y="157" width="134" height="24"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="• More to come" id="25b-t3-0Ag">
+                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="• Select default view" id="25b-t3-0Ag">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -137,7 +137,7 @@ CA
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="X2M-IL-NyT">
                         <rect key="frame" x="331" y="157" width="134" height="24"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" id="TBA-9I-zit">
+                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="• More to come" id="TBA-9I-zit">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
