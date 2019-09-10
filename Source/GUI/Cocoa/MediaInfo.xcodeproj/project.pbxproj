@@ -798,7 +798,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APP_VERSION = 19.07;
+				APP_VERSION = 19.09;
 				CODE_SIGN_ENTITLEMENTS = MediaInfo.entitlements;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -828,7 +828,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APP_VERSION = 19.07;
+				APP_VERSION = 19.09;
 				CODE_SIGN_ENTITLEMENTS = MediaInfo.entitlements;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
