@@ -12,6 +12,20 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 19.09, 2019-09-10
+-------------
++ AC-4: basic detection, raw, in MP4 or TS
++ AC-3/E-AC-3: display time code of the first frame
++ Don't show anymore by default "encoded" bit rates and stream sizes
++ MOV: Decode more language codes
+x MXF: some metadata were missing
+x AC-3: AC-3 actually has no bit depth, removing the default 16 value
+x AC-3/E-AC-3: fix bitrate info (so duration) with streams having a time code
+x AC-3: parse more frames also when in MP4, in order to better detect JOC (Atmos)
+x MP4: do not show audio bit depth if it is the "default" 16 (value is not trustable enough)
+x ProRes RAW: we know only width and height
+x SubRip: bad handling of files having a quote character
+
 Version 19.07, 2019-07-16
 --------------
 + Dolby E: readout of Dolby E program description
