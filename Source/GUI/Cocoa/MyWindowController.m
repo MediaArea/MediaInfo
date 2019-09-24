@@ -165,12 +165,11 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 }
 
 -(IBAction)selectCompareTab:(id)sender {
-    if (!@available(macOS 10.9, *))
-        return;
-
-    [self hideFileSelector];
-    [tabSelector setSelectedSegment:kCompareTabIndex];
-    [tabs selectTabViewItemAtIndex:kCompareTabIndex];
+    if (@available(macOS 10.9, *)) {
+        [self hideFileSelector];
+        [tabSelector setSelectedSegment:kCompareTabIndex];
+        [tabs selectTabViewItemAtIndex:kCompareTabIndex];
+    }
 }
 
 -(IBAction)selectEasyTab:(id)sender {
