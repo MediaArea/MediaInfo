@@ -225,6 +225,7 @@ Choose language;Escolha o idioma
 Choreographer;Coreógrafo
 Chroma;Saturação
 ChromaSubsampling;Subamostragem de saturação
+ClearList;
 Close;Fechar
 Close all before open;Fechar tudo antes de abrir
 ClosedCaptionsLanguage;
@@ -287,9 +288,11 @@ Cover_Type;Tipo de Capa
 Cropped;Dimensões de corte
 Custom;Personalizado
 Customize;Personalizar
+DarkMode;
 Date;Data
 Debug;Depurar
 Decimal point;Ponto decimal
+Default_Setting;
 Delay;Atraso
 Delay_Source;Atraso, origem
 Delay_Source_Container;Arquivo recipiente
@@ -324,12 +327,14 @@ EncodedBy;Codificado por
 EPG_Positions;Posições EPG (interno)
 EpisodeTitleNumber;
 Error_File;Erro na leitura do ficheiro
+Error_File_Write;
 ExecutiveProducer;Produtor executivo
 Exit;Sair
 Exit_Hint;Fechar o programa
 Export;Exportar
 Export_Hint;Exportar num formato personalizado
 Extensions;Extensões populares
+External_Media_NotMounted;
 Family;Família
 Fax;Fax
 File;Ficheiro
@@ -852,6 +857,7 @@ Matrix_Format;
 MaxCLL;
 MaxFALL;
 MediaInfo_About;MediaInfo proporciona um fácil acesso a informações simples e técnicas acerca de ficheiros de vídeo e áudio.\r\nExceptuando a interface gráfica do utilizador da Mac App Store, é um software de código aberto, o que significa que é gratuito para o utilizador final e os programadores têm liberdade de estudar, de melhorar e de redistribuir o programa (licença BSD).\r\n\r\nExemplos de ficheiros multimédia:\r\nMatroska, OGG (incluíndo OGM)\r\nMPEG1 (incluíndo VCD)\r\nMPEG2 (incluíndo DVD e SVCD)\r\nMPEG4 (incluíndo Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindows Media (incluíndo WMV, WMA)\r\nMicrosoft RIFF (incluíndo AVI, WAV)\r\nSom nos formatos (AC3, DTS, AAC, AU, AIFF, MP3)
+MediaInfo_About_About;
 Menu;Menu
 Menu stream(s);Faixa(s) de menu
 Menu_Codec_List;Codecs de menu
@@ -962,6 +968,8 @@ PodcastCategory;
 Position;Posição
 Position_Total;Total
 Preferences;Preferências
+Premium;
+Premium_Summary;
 PrimaryAudioLanguage;
 Producer;Produtor
 ProductionDesigner;Designer de produção
@@ -1049,10 +1057,15 @@ StreamSize_Demuxed;
 StreamSize_Encoded;Tamanho codificado da faixa
 StreamSize_Proportion;Proporção desta faixa
 Subject;Assunto
+Subscribe;
+Subscribe_Manage;
+Subscription_Android;
+Subscription_Thanks;
 SubTrack;Sub-Faixa
 Summary;Sumário
 Supported formats;Formatos suportados
 Supported?;Suportado?
+SupportUs_Android;
 Synopsis;Sinopse
 SystemId;Id
 Tagged_Application;Programa etiquetador
@@ -1089,6 +1102,7 @@ TotalProgrammeDuration;
 Track;Nome da faixa
 Track_Count;Número da faixa
 transfer_characteristics;Características de transferência
+Translate_Reports;
 Translator;Tradutor
 Tree;Árvore
 Tree & Text;Árvore & Texto
@@ -1112,6 +1126,7 @@ View;Vista
 View_Hint;Alterar a forma de visualização da informação
 Warning : more streams in the files;Aviso : existem mais faixas nos ficheiros
 Web;Web
+WebSite;
 WebSite_Audio;Ir para o site deste codec de áudio
 WebSite_Audio_More;Ir para o site (%Url%) para encontrar este codec de áudio
 WebSite_General;Ir para o site de um leitor para este ficheiro
@@ -1131,5 +1146,5 @@ Written_Location;Local da escrita
 WrittenBy;Escrito por
 Yes;Sim
 Your system;O seu sistema
-ZZ_Automatic_Percent;90
-ZZ_AutomaticLanguage_Percent;90
+ZZ_Automatic_Percent;89
+ZZ_AutomaticLanguage_Percent;89

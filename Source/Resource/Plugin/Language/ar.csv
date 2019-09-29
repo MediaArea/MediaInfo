@@ -225,6 +225,7 @@ Choose language;اختر اللغة التي تريدها
 Choreographer;المسؤول عن الكوريغرافيا
 Chroma;شروما
 ChromaSubsampling;الاختزال الشروما
+ClearList;
 Close;غادر
 Close all before open;إغلاق كافة قبل الفتح
 ClosedCaptionsLanguage;
@@ -287,9 +288,11 @@ Cover_Type;الغلاف الأصلي
 Cropped;أبعاد ريسيزينج
 Custom;معدل
 Customize;تعديل
+DarkMode;
 Date;تاريخ
 Debug;تصحيح (Debug)
 Decimal point;نقطة عشرية
+Default_Setting;
 Delay;تأخير
 Delay_Source;
 Delay_Source_Container;
@@ -324,12 +327,14 @@ EncodedBy;مشفرة (Encoded) من طرف
 EPG_Positions;مواضع الـEPG (الداخلية)
 EpisodeTitleNumber;
 Error_File;خطأ أثناء قراءة الملف
+Error_File_Write;
 ExecutiveProducer;المنتج التنفيذي
 Exit;خروج
 Exit_Hint;إنهاء البرنامج
 Export;تصدير
 Export_Hint;التصدير في شكل مخصص
 Extensions;التمديدات المستخدمة عادة
+External_Media_NotMounted;
 Family;عائلة
 Fax;فاكس
 File;ملف
@@ -852,6 +857,7 @@ Matrix_Format;
 MaxCLL;
 MaxFALL;
 MediaInfo_About;تقديم معلومات مفصلة\r\nحول ملف الوسائط المتعددة :\r\nMatroska، OGG (including OGM)\r\nMPEG1 (بما في ذلك VCD)\r\nMPEG2 (بما في ذلك DVD و SVCD)\r\nMPEG4 (بما في ذلك Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia ((بما في ذلك WMV، WMA)\r\nMicrosoft RIFF ((بما في ذلك AVI, WAV)\r\nامتدادات الصوت فقط (AC3، DTS، AAC، AU، AIFF...)
+MediaInfo_About_About;
 Menu;القائمة
 Menu stream(s);قائمة الدفق
 Menu_Codec_List;قائمة الترميز
@@ -962,6 +968,8 @@ PodcastCategory;Podcast category
 Position;موقع
 Position_Total;مجموع
 Preferences;تفضيلات
+Premium;
+Premium_Summary;
 PrimaryAudioLanguage;
 Producer;منتج
 ProductionDesigner;مصمم الانتاج
@@ -1049,10 +1057,15 @@ StreamSize_Demuxed;Stream size when demuxed
 StreamSize_Encoded;
 StreamSize_Proportion;نسبة الدفق
 Subject;موضوع
+Subscribe;
+Subscribe_Manage;
+Subscription_Android;
+Subscription_Thanks;
 SubTrack;المسار الثانوي
 Summary;ملخص
 Supported formats;الامتدادات المدعومة
 Supported?;مدعوم؟
+SupportUs_Android;
 Synopsis;موجز
 SystemId;معرف
 Tagged_Application;برنامج الـTagging
@@ -1089,6 +1102,7 @@ TotalProgrammeDuration;
 Track;اسم المسار
 Track_Count;عدد المسارات
 transfer_characteristics;خصائص نقل
+Translate_Reports;
 Translator;مترجم
 Tree;شجرة
 Tree & Text;شجرة والنصوص
@@ -1112,6 +1126,7 @@ View;رؤية
 View_Hint;تغيير وسيلة عرض المعلومات
 Warning : more streams in the files;تحذير : هناك المزيد من التيارات في الملفات
 Web;النت
+WebSite;
 WebSite_Audio;انتقل إلى موقع ترميز الصوت
 WebSite_Audio_More;انتقل إلى موقع (%Url%)العثور على ترميز الصوت
 WebSite_General;انتقل إلى موقع على شبكة الإنترنت لقارئ لهذا الملف
@@ -1131,5 +1146,5 @@ Written_Location;مكان الكتابة
 WrittenBy;كتبها
 Yes;نعم
 Your system;نظامك
-ZZ_Automatic_Percent;85
-ZZ_AutomaticLanguage_Percent;89
+ZZ_Automatic_Percent;84
+ZZ_AutomaticLanguage_Percent;88

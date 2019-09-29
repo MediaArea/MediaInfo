@@ -225,6 +225,7 @@ Choose language;Vælg det foretrukne sprog
 Choreographer;Koreograf
 Chroma;Chroma
 ChromaSubsampling;Chroma subsampling
+ClearList;
 Close;Luk
 Close all before open;Luk alle før åbning
 ClosedCaptionsLanguage;
@@ -287,9 +288,11 @@ Cover_Type;Cover-type
 Cropped;Beskæringsdeminsioner
 Custom;Tilpas
 Customize;Tilpas
+DarkMode;
 Date;Dato
 Debug;Fejlsøg
 Decimal point;Decimaltegn
+Default_Setting;
 Delay;Forsinkelse
 Delay_Source;Forsinkelse, original
 Delay_Source_Container;Container
@@ -324,12 +327,14 @@ EncodedBy;Kodet af
 EPG_Positions;EPG-positioner (internt)
 EpisodeTitleNumber;
 Error_File;Fejl under læsning af fil
+Error_File_Write;
 ExecutiveProducer;Udøvende producent
 Exit;Afslut
 Exit_Hint;Afslut programmet
 Export;Eksporter
 Export_Hint;Eksporter i et tilpasset format
 Extensions;Filendelser der normalt anvendes
+External_Media_NotMounted;
 Family;Familie
 Fax;Fax
 File;Fil
@@ -852,6 +857,7 @@ Matrix_Format;
 MaxCLL;
 MaxFALL;
 MediaInfo_About;Leverer meget detaljeret information\r\nom en multimediefil:\r\nMatroska, Ogg (inklusive OGM)\r\nMPEG1 (inklusive VCD)\r\nMPEG2 (inklusive DVD og SVCD)\r\nMPEG4 (inklusive Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (inklusive WMV, WMA)\r\Microsoft RIFF (inklusive AVI, WAV)\r\nRene lydformater (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About_About;
 Menu;Menu
 Menu stream(s);Menustrømme
 Menu_Codec_List;Menu-codecs
@@ -962,6 +968,8 @@ PodcastCategory;
 Position;Position
 Position_Total;Totalt
 Preferences;Præferencer
+Premium;
+Premium_Summary;
 PrimaryAudioLanguage;
 Producer;Producer
 ProductionDesigner;Scenograf
@@ -1049,10 +1057,15 @@ StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;Denne strøms størrelsesforhold
 Subject;Emne
+Subscribe;
+Subscribe_Manage;
+Subscription_Android;
+Subscription_Thanks;
 SubTrack;Underspor
 Summary;Sammendrag
 Supported formats;Understøttede formater
 Supported?;Understøttet?
+SupportUs_Android;
 Synopsis;Synopsis
 SystemId;Id
 Tagged_Application;Tagging-applikation
@@ -1089,6 +1102,7 @@ TotalProgrammeDuration;
 Track;Spornavn
 Track_Count;Spornummer
 transfer_characteristics;Overførselskarakteristika
+Translate_Reports;
 Translator;Oversætter
 Tree;Træstruktur
 Tree & Text;Træstruktur & tekst
@@ -1112,6 +1126,7 @@ View;Vis
 View_Hint;Ændr måde til visning af information
 Warning : more streams in the files;Advarsel: Der er flere strømme i filerne
 Web;Web
+WebSite;
 WebSite_Audio;Gå til denne lyd-codecs websted
 WebSite_Audio_More;Gå til webstedet (%Url%) for at finde denne lyd-codec
 WebSite_General;Gå til en afspillers webstedet  til denne fil
@@ -1131,5 +1146,5 @@ Written_Location;Sted
 WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
-ZZ_Automatic_Percent;77
-ZZ_AutomaticLanguage_Percent;88
+ZZ_Automatic_Percent;76
+ZZ_AutomaticLanguage_Percent;87

@@ -225,6 +225,7 @@ Choose language;Pasirinkite savo norimą kalbą
 Choreographer;Choreografas
 Chroma;Chromas
 ChromaSubsampling;
+ClearList;
 Close;Uždaryti
 Close all before open;Uždaryti visus prieš atveriant
 ClosedCaptionsLanguage;
@@ -287,9 +288,11 @@ Cover_Type;
 Cropped;
 Custom;Išplėstinis
 Customize;Pritaikyti
+DarkMode;
 Date;Data
 Debug;Suderinti
 Decimal point;Dešimtainis taškas
+Default_Setting;
 Delay;Atidėti
 Delay_Source;
 Delay_Source_Container;
@@ -324,12 +327,14 @@ EncodedBy;Užšifravo
 EPG_Positions;
 EpisodeTitleNumber;
 Error_File;Klaida nuskaitant failą
+Error_File_Write;
 ExecutiveProducer;Išskirtinis prodiuseris
 Exit;Išeiti
 Exit_Hint;Išeiti iš programos
 Export;Eksportuoti
 Export_Hint;Eksportuoti vartotojo formate
 Extensions;Paprastai naudojami plėtiniai
+External_Media_NotMounted;
 Family;Šeima
 Fax;Faksas
 File;Failas
@@ -852,6 +857,7 @@ Matrix_Format;
 MaxCLL;
 MaxFALL;
 MediaInfo_About;Teikiama detali informacija\r\napie daugialypes bylas:\r\nMatroska, OGG (įskaitant OGM)\r\nMPEG1 (įskaitant VCD)\r\nMPEG2 (įskaitant DVD ir SVCD)\r\nMPEG4 (įskaitant Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (įskaitant WMV, WMA)\r\nMicrosoft RIFF (įskaitant AVI, WAV)\r\nTik-Garso formatai (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About_About;
 Menu;Meniu
 Menu stream(s);Meniu srautai
 Menu_Codec_List;Meniu kodekai
@@ -962,6 +968,8 @@ PodcastCategory;
 Position;Padėtis
 Position_Total;Viso
 Preferences;Pasirinktys
+Premium;
+Premium_Summary;
 PrimaryAudioLanguage;
 Producer;Prodiuseris
 ProductionDesigner;Produkcijos dizaineris
@@ -1049,10 +1057,15 @@ StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;
 Subject;Tema
+Subscribe;
+Subscribe_Manage;
+Subscription_Android;
+Subscription_Thanks;
 SubTrack;SubTakelis
 Summary;Santrauka
 Supported formats;Palaikomi formatai
 Supported?;Palaikomas?
+SupportUs_Android;
 Synopsis;Trumpa apžvalga
 SystemId;Id
 Tagged_Application;Žymėjimo programa
@@ -1089,6 +1102,7 @@ TotalProgrammeDuration;
 Track;Takelio pavadinimas
 Track_Count;Takelio kiekis
 transfer_characteristics;
+Translate_Reports;
 Translator;Vertėjas
 Tree;Medis
 Tree & Text;Medis ir tekstas
@@ -1112,6 +1126,7 @@ View;Rodymas
 View_Hint;Keisti rodymo informacijos reikšmes
 Warning : more streams in the files;Dėmesio : faile yra daugiau srautų
 Web;Web
+WebSite;
 WebSite_Audio;Eiti į šio audio kodeko internetinį puslapį
 WebSite_Audio_More;Eiti į svetainę (%Url%) kad rasti šį kodeką
 WebSite_General;Eiti į šio failo grotuvo internetinį puslapį
@@ -1131,5 +1146,5 @@ Written_Location;Rašymo vieta
 WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
-ZZ_Automatic_Percent;72
-ZZ_AutomaticLanguage_Percent;80
+ZZ_Automatic_Percent;71
+ZZ_AutomaticLanguage_Percent;79

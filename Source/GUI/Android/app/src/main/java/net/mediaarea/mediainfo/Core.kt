@@ -16,6 +16,7 @@ object Core {
     val mi: MediaInfo = MediaInfo()
     val views: MutableList<ReportView> = mutableListOf()
     val version: String = mi.Option("Info_Version").replace("MediaInfoLib - v", "")
+    var language: String =  ""
     var thanked: Boolean = false
 
     init {
@@ -26,6 +27,10 @@ object Core {
             if (view.size > 2)
                 views.add(ReportView(view[0], view[1], view[2], true))
         }
+    }
+
+    fun setLocale(locale: String) {
+        language = locale
     }
 
     fun createReport(fd: Int, name: String): ByteArray {
@@ -45,8 +50,22 @@ object Core {
         mi.Option("Inform_Compress", "")
         mi.Option("Input_Compressed", "zlib+base64")
 
-        if (format == "Text" && !export)
-            mi.Option("Language", "  Config_Text_ColumnSize;25")
+        if (format == "Text" && !export) {
+            if (language.isNotEmpty()) {
+                mi.Option("Language", language.replace("  Config_Text_ColumnSize;40", "  Config_Text_ColumnSize;25"))
+            }
+            else {
+                mi.Option("Language", "  Config_Text_ColumnSize;25")
+            }
+        }
+        else {
+            if (language.isNotEmpty()) {
+                mi.Option("Language", language)
+            }
+            else {
+                mi.Option("Language", "")
+            }
+        }
 
         mi.Open_Buffer_Init(report.size.toLong(), 0L)
         mi.Open_Buffer_Continue(report, report.size.toLong())

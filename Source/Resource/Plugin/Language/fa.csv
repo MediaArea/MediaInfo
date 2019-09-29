@@ -225,6 +225,7 @@ Choose language;زمان موردنظر را انتخاب کنید
 Choreographer;رقاص
 Chroma;رنگينى
 ChromaSubsampling;
+ClearList;
 Close;ببند
 Close all before open;قبل از باز کردن ببند
 ClosedCaptionsLanguage;
@@ -287,9 +288,11 @@ Cover_Type;نوع روکش
 Cropped;بریدن اندازه
 Custom;دیگر
 Customize;شخصی سازی
+DarkMode;
 Date;تاریخ
 Debug;اشکال زدائى
 Decimal point;مميز اعشارى
+Default_Setting;
 Delay;مکث
 Delay_Source;
 Delay_Source_Container;
@@ -324,12 +327,14 @@ EncodedBy;رمزى شده توسط
 EPG_Positions;EPG موقعیت (internal)
 EpisodeTitleNumber;
 Error_File;خطا هنگام خواندن فایل
+Error_File_Write;
 ExecutiveProducer;تهیه کننده اجرایی
 Exit;خروج
 Exit_Hint;خروج از برنامه
 Export;خارج سازی
 Export_Hint;خارج سازی به فرمت...
 Extensions;پسوند معمولا استفاده شده است
+External_Media_NotMounted;
 Family;خانوادگی
 Fax;فکس
 File;فایل
@@ -852,6 +857,7 @@ Matrix_Format;
 MaxCLL;
 MaxFALL;
 MediaInfo_About;اطلاعات جزیی\r\nدرباره فایل مولتی مدیا:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About_About;
 Menu;منو
 Menu stream(s);استریم منو
 Menu_Codec_List;کدک منو
@@ -962,6 +968,8 @@ PodcastCategory;
 Position;موقعیت
 Position_Total;کل
 Preferences;تنظیمات
+Premium;
+Premium_Summary;
 PrimaryAudioLanguage;
 Producer;تهیه کننده
 ProductionDesigner;طراح محصول
@@ -1049,10 +1057,15 @@ StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;نسبت این استریم
 Subject;موضوع
+Subscribe;
+Subscribe_Manage;
+Subscription_Android;
+Subscription_Thanks;
 SubTrack;ساب ترک
 Summary;خلاصه
 Supported formats;فرمت های پشتيبانى شده
 Supported?;پشتيبانى شده?
+SupportUs_Android;
 Synopsis;خلاصه
 SystemId;Id
 Tagged_Application;برنامه ضميمه
@@ -1089,6 +1102,7 @@ TotalProgrammeDuration;
 Track;نام ترک
 Track_Count;تعداد ترک
 transfer_characteristics;
+Translate_Reports;
 Translator;مترجم
 Tree;درختی
 Tree & Text;درختی ومتنی
@@ -1112,6 +1126,7 @@ View;نمایش
 View_Hint;تغییر منوی مشاهده اطلاعات
 Warning : more streams in the files;هشدار : بیشتر از یک استریم در این فایل وجود دارد
 Web;وب
+WebSite;
 WebSite_Audio;سایت کدک صوت
 WebSite_Audio_More;به سایت (%Url%) برای پیدا کردن کدک صوت بروید
 WebSite_General;سایت پخش کننده این فایل
@@ -1131,5 +1146,5 @@ Written_Location;مکان نوشته
 WrittenBy;نوشته شده توسط
 Yes;بلی
 Your system;سیستم شما
-ZZ_Automatic_Percent;82
-ZZ_AutomaticLanguage_Percent;86
+ZZ_Automatic_Percent;81
+ZZ_AutomaticLanguage_Percent;85

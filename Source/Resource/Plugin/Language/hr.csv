@@ -225,6 +225,7 @@ Choose language;Odaberite jezik
 Choreographer;Koreograf
 Chroma;Kromatizam
 ChromaSubsampling;
+ClearList;
 Close;Zatvoriti
 Close all before open;Prije otvaranja sve ostale zatvoriti
 ClosedCaptionsLanguage;
@@ -287,9 +288,11 @@ Cover_Type;Vrsta omota
 Cropped;Omjer reza
 Custom;Vlastito
 Customize;Prilagoditi
+DarkMode;
 Date;Nadnevak
 Debug;Uklanjanje pogreški
 Decimal point;Decimalna točka
+Default_Setting;
 Delay;Zaostajanje
 Delay_Source;
 Delay_Source_Container;
@@ -324,12 +327,14 @@ EncodedBy;Kodirao
 EPG_Positions;Položaj EPG-a
 EpisodeTitleNumber;
 Error_File;Pogreška tijekom učitavanja datoteke
+Error_File_Write;
 ExecutiveProducer;Izvršni producent
 Exit;Svršetak
 Exit_Hint;Okončati program
 Export;Izvoz
 Export_Hint;Izvoz u odabranom obliku
 Extensions;Uobičajeni nastavci naziva datoteke
+External_Media_NotMounted;
 Family;Obitelj
 Fax;Faks
 File;Datoteka
@@ -852,6 +857,7 @@ Matrix_Format;
 MaxCLL;
 MaxFALL;
 MediaInfo_About;Pruža vrlo podrobne informacije\r\no multimedijalnim datotekama:\r\nMatroska, OGG (uključujući OGM)\r\nMPEG1 (uključujući VCD)\r\nMPEG2 (uključujući DVD i SVCD)\r\nMPEG4 (uključujući Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (uključujući WMV, WMA)\r\nMicrosoft RIFF (uključujući AVI, WAV)\r\nSamo zvukovnim oblicima (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About_About;
 Menu;Izbornik
 Menu stream(s);Izbornik - tokovi
 Menu_Codec_List;Izbornik - kôdeksi
@@ -962,6 +968,8 @@ PodcastCategory;
 Position;položaj
 Position_Total;ukupno
 Preferences;Prilagodbe
+Premium;
+Premium_Summary;
 PrimaryAudioLanguage;
 Producer;Producent
 ProductionDesigner;Designer proizvodnje
@@ -1049,10 +1057,15 @@ StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;Omjeri dotičnog toka
 Subject;Sadržaj
+Subscribe;
+Subscribe_Manage;
+Subscription_Android;
+Subscription_Thanks;
 SubTrack;Podsnimka
 Summary;Sveukupno
 Supported formats;Podržavani oblici datoteka
 Supported?;Podržavano?
+SupportUs_Android;
 Synopsis;Sažetak
 SystemId;ID
 Tagged_Application;Označeno aplikacijom
@@ -1089,6 +1102,7 @@ TotalProgrammeDuration;
 Track;Naziv snimke
 Track_Count;Broj snimke
 transfer_characteristics;
+Translate_Reports;
 Translator;Prevoditelj
 Tree;Stablo
 Tree & Text;Stablo i tekst
@@ -1112,6 +1126,7 @@ View;Prikaz
 View_Hint;Mijenja mogućnosti prikaza informacije
 Warning : more streams in the files;Pozor!: U datotekama se nalazi više tokova!
 Web;Internet
+WebSite;
 WebSite_Audio;Prijeći na spletnu stranicu ovog kôdeka
 WebSite_Audio_More;Prijeći na spletnu sadržaj (%Url%) za pronalaženje tog audio-kôdeka
 WebSite_General;Prijeći na spletni sadržaj nekog programa za izvođenje ove datoteke
@@ -1131,5 +1146,5 @@ Written_Location;Mjesto početka pisanja
 WrittenBy;Napisao
 Yes;Da
 Your system;Informacije o Vašem sustavu
-ZZ_Automatic_Percent;82
-ZZ_AutomaticLanguage_Percent;86
+ZZ_Automatic_Percent;81
+ZZ_AutomaticLanguage_Percent;85

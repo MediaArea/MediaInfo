@@ -225,6 +225,7 @@ Choose language;Избери език
 Choreographer;Хореограф
 Chroma;Хрома
 ChromaSubsampling;ХромаПодСамплинг
+ClearList;
 Close;Затвори
 Close all before open;Затвори всичко преди да отвориш
 ClosedCaptionsLanguage;
@@ -287,9 +288,11 @@ Cover_Type;Калъфка_Тип
 Cropped;Умалена
 Custom;Потребителски
 Customize;Нагласи
+DarkMode;
 Date;Дата
 Debug;Дебъг
 Decimal point;Децимална точка
+Default_Setting;
 Delay;Забавяне
 Delay_Source;
 Delay_Source_Container;
@@ -324,12 +327,14 @@ EncodedBy;ЕнкодиранОт
 EPG_Positions;ЕПГ_Позиции
 EpisodeTitleNumber;
 Error_File;ФайлЗа_Грешки
+Error_File_Write;
 ExecutiveProducer;ГлавенПродуцент
 Exit;Излез
 Exit_Hint;Излизане_Подсказване
 Export;Експортиране
 Export_Hint;Експортиране_Подсказване
 Extensions;Екстенции
+External_Media_NotMounted;
 Family;Семеен
 Fax;Факс
 File;Файл
@@ -852,6 +857,7 @@ Matrix_Format;
 MaxCLL;
 MaxFALL;
 MediaInfo_About;Медиа Инфо_За
+MediaInfo_About_About;
 Menu;Меню
 Menu stream(s);Меню поток(ци)
 Menu_Codec_List;Меню_Кодек_Списък
@@ -962,6 +968,8 @@ PodcastCategory;
 Position;Позиция
 Position_Total;Позиция_Обща
 Preferences;Настройки
+Premium;
+Premium_Summary;
 PrimaryAudioLanguage;
 Producer;Продуцент
 ProductionDesigner;ДизайнерПродукция
@@ -1049,10 +1057,15 @@ StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;ПотокРазмер_Пропорций
 Subject;Относно
+Subscribe;
+Subscribe_Manage;
+Subscription_Android;
+Subscription_Thanks;
 SubTrack;СубТрак
 Summary;Обобщение
 Supported formats;Поддържани формати
 Supported?;Поддържан?
+SupportUs_Android;
 Synopsis;Резюме
 SystemId;СистемИД
 Tagged_Application;Етикет_Апликация
@@ -1089,6 +1102,7 @@ TotalProgrammeDuration;
 Track;Номер
 Track_Count;Номер_Брой
 transfer_characteristics;трансфер_характеристики
+Translate_Reports;
 Translator;Преводач
 Tree;Дърво
 Tree & Text;Дърво и Текст
@@ -1112,6 +1126,7 @@ View;Преглед
 View_Hint;Преглед_Подсказване
 Warning : more streams in the files;Предупреждение : повече потоци във файловете
 Web;Уеб
+WebSite;
 WebSite_Audio;Уебсайт_Аудио
 WebSite_Audio_More;Уебсайт_Аудио_Повече
 WebSite_General;Уебсайт_Генерално
@@ -1131,5 +1146,5 @@ Written_Location;Написано_Локация
 WrittenBy;НаписаноОт
 Yes;Да
 Your system;Вашата система
-ZZ_Automatic_Percent;80
-ZZ_AutomaticLanguage_Percent;87
+ZZ_Automatic_Percent;79
+ZZ_AutomaticLanguage_Percent;86
