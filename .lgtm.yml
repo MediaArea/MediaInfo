@@ -1,0 +1,15 @@
+extraction:
+  cpp:
+    prepare:
+      packages: 
+        - libzen-dev
+        - libmediainfo-dev
+    configure:
+      command:
+        - cd Project/GNU/CLI
+        - sh autogen.sh
+        - ./configure
+    index:
+      build_command:
+        - cd Project/GNU/CLI
+        - make
