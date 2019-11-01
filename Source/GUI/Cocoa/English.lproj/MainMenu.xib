@@ -730,16 +730,16 @@
                                     <action selector="selectViewFIMS13:" target="-1" id="fui-jY-KS1"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="NISO Z39.87" id="pPO-aY-YEy">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="selectViewNISO_Z39_87:" target="-1" id="gaB-0q-gls"/>
-                                </connections>
-                            </menuItem>
                             <menuItem title="reVTMD" id="AYy-qK-WOQ">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="selectViewReVTMD:" target="-1" id="Vn8-oA-GqT"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="NISO Z39.87" id="pPO-aY-YEy">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="selectViewNISO_Z39_87:" target="-1" id="gaB-0q-gls"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="599"/>

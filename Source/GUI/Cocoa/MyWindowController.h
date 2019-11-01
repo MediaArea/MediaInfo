@@ -12,7 +12,7 @@
 #import "TreeView.h"
 #import "CompareView.h"
 
-typedef enum { Kind_Text, Kind_XML, Kind_JSON, Kind_PBCore, Kind_PBCore2, Kind_reVTMD, Kind_MPEG7, Kind_EBUCore_1_5, Kind_EBUCore_1_6, Kind_EBUCore_1_8_ps, Kind_EBUCore_1_8_sp, Kind_EBUCore_1_8_ps_json, Kind_EBUCore_1_8_sp_json, Kind_FIMS_1_1, Kind_FIMS_1_2, Kind_FIMS_1_3, Kind_NISO_Z39_87} ViewMenu_Kind;
+typedef enum { Kind_Text, Kind_HTML, Kind_XML, Kind_JSON, Kind_PBCore, Kind_PBCore2, Kind_reVTMD, Kind_MPEG7, Kind_EBUCore_1_5, Kind_EBUCore_1_6, Kind_EBUCore_1_8_ps, Kind_EBUCore_1_8_sp, Kind_EBUCore_1_8_ps_json, Kind_EBUCore_1_8_sp_json, Kind_FIMS_1_1, Kind_FIMS_1_2, Kind_FIMS_1_3, Kind_NISO_Z39_87} ViewMenu_Kind;
 
 @interface MyWindowController : NSWindowController {
 
