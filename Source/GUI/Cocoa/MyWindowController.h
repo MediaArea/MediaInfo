@@ -32,6 +32,7 @@ typedef enum { Kind_Text, Kind_XML, Kind_JSON, Kind_PBCore, Kind_PBCore2, Kind_r
     IBOutlet NSArrayController *easyStreamsController;
     IBOutlet NSTableView *easyTable;
     IBOutlet CompareView *compareView;
+    IBOutlet NSSegmentedControl *subscribeButton;
 
     oMediaInfoList *mediaList;
     NSInteger selectedFileIndex;

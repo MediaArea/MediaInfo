@@ -20,6 +20,7 @@
                 <outlet property="formatSelectionAccView" destination="xCY-zS-1YJ" id="eeC-lK-5e4"/>
                 <outlet property="hline" destination="120" id="ZeC-Dk-8ac"/>
                 <outlet property="otherViewsMenu" destination="4PR-wq-KNx" id="kYH-53-DSC"/>
+                <outlet property="subscribeButton" destination="N1w-10-Mom" id="vhP-MO-VNE"/>
                 <outlet property="tabSelector" destination="37" id="119"/>
                 <outlet property="tabs" destination="13" id="51"/>
                 <outlet property="textField" destination="60" id="61"/>
@@ -257,7 +258,7 @@
                                     <segment toolTip="Easy View" image="NSIconViewTemplate" width="28" selected="YES"/>
                                     <segment toolTip="Tree View" image="NSPathTemplate" width="28"/>
                                     <segment toolTip="Text View" image="NSListViewTemplate" width="28"/>
-                                    <segment label="⇆" toolTip="Compare View" width="28"/>
+                                    <segment label="⇆" toolTip="Compare View (Premium feature)" width="28" enabled="NO"/>
                                     <segment label="..." toolTip="Other Views" width="28"/>
                                 </segments>
                             </segmentedCell>
@@ -266,9 +267,27 @@
                             </connections>
                         </segmentedControl>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="B43DFC04-313B-4E3F-AE0C-AEE98439BA39" label="Subscribe" paletteLabel="Subscribe" sizingBehavior="auto" id="dpG-p5-QwC">
+                        <nil key="toolTip"/>
+                        <segmentedControl key="view" verticalHuggingPriority="750" id="N1w-10-Mom">
+                            <rect key="frame" x="19" y="14" width="23" height="23"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="kut-ID-XH0">
+                                <font key="font" metaFont="system"/>
+                                <segments>
+                                    <segment label="$" toolTip="Subscribe to premium features" width="17" enabled="NO"/>
+                                </segments>
+                            </segmentedCell>
+                            <connections>
+                                <action selector="clickOnSubscribe:" target="-2" id="Ijz-cn-qY6"/>
+                            </connections>
+                        </segmentedControl>
+                    </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="39"/>
+                    <toolbarItem reference="6"/>
+                    <toolbarItem reference="dpG-p5-QwC"/>
                 </defaultToolbarItems>
             </toolbar>
             <connections>
