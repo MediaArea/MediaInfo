@@ -33,10 +33,7 @@ import android.content.Context
 import android.widget.Toast
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.graphics.drawable.ColorDrawable
 import android.view.*
-
-import com.google.android.material.snackbar.Snackbar
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

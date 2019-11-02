@@ -19,10 +19,8 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import android.util.Log
-import android.content.Context
 import android.app.Activity
 import android.app.Application
-import com.android.billingclient.api.SkuDetailsResponseListener
 import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.BillingFlowParams
