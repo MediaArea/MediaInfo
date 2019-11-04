@@ -1,6 +1,6 @@
 Format: 3.0 (quilt)
 Source: mediainfo
-Binary: mediainfo, mediainfo-dbg, mediainfo-gui, mediainfo-gui-dbg
+Binary: mediainfo, mediainfo-dbg, mediainfo-gui, mediainfo-gui-dbg, mediainfo-nautilus-plugin, mediainfo-nemo-plugin
 Architecture: any
 Version: 19.09-1deb9
 Maintainer: MediaArea.net SARL <info@mediaarea.net>
@@ -12,6 +12,8 @@ Build-Depends: debhelper (>= 9), dh-autoreconf, libmediainfo-dev (>= 19.09), lib
 Package-List:
  mediainfo deb utils optional arch=any
  mediainfo-gui deb utils optional arch=any
+ mediainfo-nautilus-plugin deb utils optional arch=any
+ mediainfo-nemo-plugin deb utils optional arch=any
 Checksums-Sha1:
  0000000000000000000000000000000000000000 000000 mediainfo_19.09.orig.tar.xz
  0000000000000000000000000000000000000000 000000 mediainfo_19.09-1deb9.debian.tar.xz

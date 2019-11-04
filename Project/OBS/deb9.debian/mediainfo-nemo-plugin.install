@@ -1,0 +1,5 @@
+/usr/share/nemo-python/extensions/mediainfo/ui/ui.glade
+/usr/share/nemo-python/extensions/mediainfo/locale/*.csv
+/usr/share/nemo-python/extensions/mediainfo/__init__.py
+/usr/share/nemo-python/extensions/mediainfo/tab.py
+/usr/share/nemo-python/extensions/nemo-mediainfo.py

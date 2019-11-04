@@ -1,0 +1,5 @@
+/usr/share/nautilus-python/extensions/mediainfo/ui/ui.glade
+/usr/share/nautilus-python/extensions/mediainfo/locale/*.csv
+/usr/share/nautilus-python/extensions/mediainfo/__init__.py
+/usr/share/nautilus-python/extensions/mediainfo/tab.py
+/usr/share/nautilus-python/extensions/nautilus-mediainfo.py

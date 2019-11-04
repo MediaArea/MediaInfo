@@ -191,6 +191,54 @@ This package includes the graphical user interface.
 %{gui_description}
 %endif
 
+%if ! 0%{?rhel} && ! 0%{?sles_version} && ! 0%{?sle_version}
+%global fms_description MediaInfo is a convenient unified display of the most relevant technical\
+and tag data for video and audio files.\
+\
+What information can I get from MediaInfo?\
+* General: title, author, director, album, track number, date, duration...\
+* Video: codec, aspect, fps, bitrate...\
+* Audio: codec, sample rate, channels, language, bitrate...\
+* Text: language of subtitle\
+* Chapters: number of chapters, list of chapters\
+\
+DivX, XviD, H263, H.263, H264, x264, ASP, AVC, iTunes, MPEG-1,\
+MPEG1, MPEG-2, MPEG2, MPEG-4, MPEG4, MP4, M4A, M4V, QuickTime,\
+RealVideo, RealAudio, RA, RM, MSMPEG4v1, MSMPEG4v2, MSMPEG4v3,\
+VOB, DVD, WMA, VMW, ASF, 3GP, 3GPP, 3GP2\
+\
+What format (container) does MediaInfo support?\
+* Video: MKV, OGM, AVI, DivX, WMV, QuickTime, Real, MPEG-1,\
+  MPEG-2, MPEG-4, DVD (VOB) (Codecs: DivX, XviD, MSMPEG4, ASP,\
+  H.264, AVC...)\
+* Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF\
+* Subtitles: SRT, SSA, ASS, SAMI\
+\
+This package includes the plugin for nautilus-based files managers.
+
+%package nautilus-plugin
+Summary:    Supplies technical and tag information about a video or audio file (Nautilus plugin)
+Group:      Applications/Multimedia
+Requires:   %{libzen_name}%{?_isa} >= %{libzen_version}
+Requires:   %{libmediainfo_name}%{?_isa} >= %{libmediainfo_version}
+Requires:   nautilus-python
+Requires:   python3-mediainfo
+
+%description nautilus-plugin
+%{fms_description}
+
+%package nemo-plugin
+Summary:    Supplies technical and tag information about a video or audio file (Nemo plugin)
+Group:      Applications/Multimedia
+Requires:   %{libzen_name}%{?_isa} >= %{libzen_version}
+Requires:   %{libmediainfo_name}%{?_isa} >= %{libmediainfo_version}
+Requires:   python3-nemo
+Requires:   python3-mediainfo
+
+%description nemo-plugin
+%{fms_description}
+%endif
+
 %prep
 %setup -q -n MediaInfo
 sed -i 's/.$//' *.txt *.html Release/*.txt
@@ -238,6 +286,24 @@ popd
 pushd Project/GNU/GUI
     make install DESTDIR=%{buildroot}
 popd
+
+%if ! 0%{?rhel} && ! 0%{?sles_version} && ! 0%{?sle_version}
+install -m 0755 -d %{buildroot}%{_datadir}/nautilus-python/extensions/mediainfo/ui/
+install -m 0755 -d %{buildroot}%{_datadir}/nautilus-python/extensions/mediainfo/locale/
+install -m 0644 Source/Resource/Plugin/Language/*.csv %{buildroot}%{_datadir}/nautilus-python/extensions/mediainfo/locale/
+install -m 0644 Source/Plugins/FMS/ui.glade %{buildroot}%{_datadir}/nautilus-python/extensions/mediainfo/ui/
+install -m 0644 Source/Plugins/FMS/__init__.py %{buildroot}%{_datadir}/nautilus-python/extensions/mediainfo/
+install -m 0644 Source/Plugins/FMS/tab.py %{buildroot}%{_datadir}/nautilus-python/extensions/mediainfo/
+install -m 0644 Source/Plugins/FMS/nautilus-mediainfo.py %{buildroot}%{_datadir}/nautilus-python/extensions/
+
+install -m 0755 -d %{buildroot}%{_datadir}/nemo-python/extensions/mediainfo/ui/
+install -m 0755 -d %{buildroot}%{_datadir}/nemo-python/extensions/mediainfo/locale/
+install -m 0644 Source/Resource/Plugin/Language/*.csv %{buildroot}%{_datadir}/nemo-python/extensions/mediainfo/locale/
+install -m 0644 Source/Plugins/FMS/ui.glade %{buildroot}%{_datadir}/nemo-python/extensions/mediainfo/ui/
+install -m 0644 Source/Plugins/FMS/__init__.py %{buildroot}%{_datadir}/nemo-python/extensions/mediainfo/
+install -m 0644 Source/Plugins/FMS/tab.py %{buildroot}%{_datadir}/nemo-python/extensions/mediainfo/
+install -m 0644 Source/Plugins/FMS/nemo-mediainfo.py %{buildroot}%{_datadir}/nemo-python/extensions/
+%endif
 
 %if %{undefined fedora_version} || 0%{?fedora_version} < 26
 rm -fr %{buildroot}%{_datadir}/metainfo
@@ -316,6 +382,46 @@ install -m 644 Project/GNU/GUI/mediainfo-gui.metainfo.xml %{buildroot}%{_datadir
 %if 0%{?rhel}
 %files -n mediainfo%{mediainfo_suffix}-gui
 %{gui_files}
+%endif
+
+%if ! 0%{?rhel} && ! 0%{?sles_version} && ! 0%{?sle_version}
+%define nautilus_files %defattr(-,root,root,-)\
+%if 0%{?fedora_version} || 0%{?centos_version} >= 700 || 0%{?rhel_version} >= 700\
+%license License.html\
+%else\
+%doc License.html\
+%endif\
+%dir %{_datadir}/nautilus-python\
+%dir %{_datadir}/nautilus-python/extensions\
+%{_datadir}/nautilus-python/extensions/nautilus-mediainfo.py\
+%dir %{_datadir}/nautilus-python/extensions/mediainfo\
+%{_datadir}/nautilus-python/extensions/mediainfo/*.py\
+%dir %{_datadir}/nautilus-python/extensions/mediainfo/ui\
+%{_datadir}/nautilus-python/extensions/mediainfo/ui/*.glade\
+%dir %{_datadir}/nautilus-python/extensions/mediainfo/locale\
+%{_datadir}/nautilus-python/extensions/mediainfo/locale/*.csv
+
+%files nautilus-plugin
+%{nautilus_files}
+
+%define nemo_files %defattr(-,root,root,-)\
+%if 0%{?fedora_version} || 0%{?centos_version} >= 700 || 0%{?rhel_version} >= 700\
+%license License.html\
+%else\
+%doc License.html\
+%endif\
+%dir %{_datadir}/nemo-python\
+%dir %{_datadir}/nemo-python/extensions\
+%{_datadir}/nemo-python/extensions/nemo-mediainfo.py\
+%dir %{_datadir}/nemo-python/extensions/mediainfo\
+%{_datadir}/nemo-python/extensions/mediainfo/*.py\
+%dir %{_datadir}/nemo-python/extensions/mediainfo/ui\
+%{_datadir}/nemo-python/extensions/mediainfo/ui/*.glade\
+%dir %{_datadir}/nemo-python/extensions/mediainfo/locale\
+%{_datadir}/nemo-python/extensions/mediainfo/locale/*.csv
+
+%files nemo-plugin
+%{nemo_files}
 %endif
 
 %changelog

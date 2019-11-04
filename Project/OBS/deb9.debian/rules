@@ -18,6 +18,15 @@ override_dh_auto_build:
 
 override_dh_auto_install:
 	$(call auto_build_cmd,dh_auto_install)
+	for fms in nautilus nemo ; do \
+		install -m 0755 -d $(CURDIR)/debian/tmp/usr/share/"$$fms"-python/extensions/mediainfo/ui/;\
+		install -m 0644 Source/Plugins/FMS/ui.glade $(CURDIR)/debian/tmp/usr/share/"$$fms"-python/extensions/mediainfo/ui/ui.glade; \
+		install -m 0755 -d $(CURDIR)/debian/tmp/usr/share/"$$fms"-python/extensions/mediainfo/locale/; \
+		install -m 0644 Source/Resource/Plugin/Language/*.csv $(CURDIR)/debian/tmp/usr/share/"$$fms"-python/extensions/mediainfo/locale/; \
+		install -m 0644 Source/Plugins/FMS/__init__.py $(CURDIR)/debian/tmp/usr/share/"$$fms"-python/extensions/mediainfo/; \
+		install -m 0644 Source/Plugins/FMS/tab.py $(CURDIR)/debian/tmp/usr/share/"$$fms"-python/extensions/mediainfo/; \
+		install -m 0644 Source/Plugins/FMS/"$$fms"-mediainfo.py $(CURDIR)/debian/tmp/usr/share/"$$fms"-python/extensions/; \
+	done
 
 override_dh_auto_clean:
 	$(call auto_build_cmd,dh_auto_clean)

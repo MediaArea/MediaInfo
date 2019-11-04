@@ -2,7 +2,7 @@
 # Maintainer: MediaArea.net SARL <info@mediaarea.net>
 # Contributor: hydro <hydro@freenet.de>
 
-pkgname=('mediainfo' 'mediainfo-gui')
+pkgname=('mediainfo' 'mediainfo-gui' 'mediainfo-nautilus-plugin' 'mediainfo-nemo-plugin')
 pkgver=19.09
 pkgrel=1
 pkgdesc="supplies technical and tag information about a video or audio file"
@@ -11,7 +11,6 @@ license=('GPL')
 source=(${pkgname}_${pkgver}.orig.tar.xz)
 md5sums=('00000000000000000000000000000000')
 arch=('i686' 'x86_64')
-
 depends=('libzen>=0.4.37' 'libmediainfo>=19.09' 'wxgtk' 'libsm' 'desktop-file-utils')
 
 prepare() {
@@ -48,3 +47,28 @@ package_mediainfo-gui() {
     make DESTDIR="${pkgdir}" install
 }
 
+package_mediainfo-nautilus-plugin() {
+    pkgdesc="${pkgdesc} (Nautilus plugin)"
+    depends=('python-mediainfo' 'python-nautilus')
+
+    install -m 0755 -d ${pkgdir}/usr/share/nautilus-python/extensions/mediainfo/ui/
+    install -m 0755 -d ${pkgdir}/usr/share/nautilus-python/extensions/mediainfo/locale/
+    install -m 0644 "${srcdir}"/MediaInfo/Source/Resource/Plugin/Language/*.csv ${pkgdir}/usr/share/nautilus-python/extensions/mediainfo/locale/
+    install -m 0644 "${srcdir}"/MediaInfo/Source/Plugins/FMS/ui.glade ${pkgdir}/usr/share/nautilus-python/extensions/mediainfo/ui/
+    install -m 0644 "${srcdir}"/MediaInfo/Source/Plugins/FMS/__init__.py ${pkgdir}/usr/share/nautilus-python/extensions/mediainfo/
+    install -m 0644 "${srcdir}"/MediaInfo/Source/Plugins/FMS/tab.py ${pkgdir}/usr/share/nautilus-python/extensions/mediainfo/
+    install -m 0644 "${srcdir}"/MediaInfo/Source/Plugins/FMS/nautilus-mediainfo.py ${pkgdir}/usr/share/nautilus-python/extensions/
+}
+
+package_mediainfo-nemo-plugin() {
+    pkgdesc="${pkgdesc} (Nemo plugin)"
+    depends=('python-mediainfo' 'nemo-python')
+
+    install -m 0755 -d ${pkgdir}/usr/share/nemo-python/extensions/mediainfo/ui/
+    install -m 0755 -d ${pkgdir}/usr/share/nemo-python/extensions/mediainfo/locale/
+    install -m 0644 "${srcdir}"/MediaInfo/Source/Resource/Plugin/Language/*.csv ${pkgdir}/usr/share/nemo-python/extensions/mediainfo/locale/
+    install -m 0644 "${srcdir}"/MediaInfo/Source/Plugins/FMS/ui.glade ${pkgdir}/usr/share/nemo-python/extensions/mediainfo/ui/
+    install -m 0644 "${srcdir}"/MediaInfo/Source/Plugins/FMS/__init__.py ${pkgdir}/usr/share/nemo-python/extensions/mediainfo/
+    install -m 0644 "${srcdir}"/MediaInfo/Source/Plugins/FMS/tab.py ${pkgdir}/usr/share/nemo-python/extensions/mediainfo/
+    install -m 0644 "${srcdir}"/MediaInfo/Source/Plugins/FMS/nemo-mediainfo.py ${pkgdir}/usr/share/nemo-python/extensions/
+}
