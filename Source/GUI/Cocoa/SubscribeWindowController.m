@@ -88,7 +88,7 @@ static SubscribeWindowController *subscribeCtrl = nil;
     //window object is released automatically when closes (see setReleasedWhenClosed: method)
     //dont forget to bind delegate and window outlet
 
-    [subscribeCtrl release], subscribeCtrl = nil;
+    [subscribeCtrl release]; subscribeCtrl = nil;
 }
 
 -(void)updateSubscriptionDetails {
@@ -109,7 +109,7 @@ static SubscribeWindowController *subscribeCtrl = nil;
                 NSString *message = @"Subscription active until DATE.";
                 message = [message stringByReplacingOccurrencesOfString:@"DATE" withString:[dateFormatter stringFromDate:[SubscriptionManager shared].subscriptionEndDate]];
 
-                if([[[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:7 toDate:[NSDate date] options:nil] isGreaterThan:[SubscriptionManager shared].subscriptionEndDate]) {
+                if([[[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:7 toDate:[NSDate date] options:0] isGreaterThan:[SubscriptionManager shared].subscriptionEndDate]) {
                     [_statusText setTextColor:[NSColor systemOrangeColor]];
                 }
                 else {

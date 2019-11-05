@@ -11,6 +11,7 @@
 #import "MediaInfoExporter.h"
 #import "SubscriptionManager.h"
 #import "SubscribeWindowController.h"
+#import "ProgressDialog.h"
 #define kEasyTabIndex 0
 #define kTreeTabIndex 1
 #define kTextTabIndex 2
@@ -26,6 +27,7 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	NSString *_ret = nil;
 	switch (kind)
 	{
+		case Kind_HTML:			_ret = @"HTML"; break;
 		case Kind_XML:			_ret = @"XML"; break;
 		case Kind_JSON:			_ret = @"JSON"; break;
 		case Kind_MPEG7:		_ret = @"MPEG-7"; break;
@@ -73,6 +75,7 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
     observers = [[NSMutableArray alloc] init];
 
     if (@available(macOS 10.9, *)) {
+        [subscribeButton setEnabled:YES forSegment:0];
         if([[SubscriptionManager shared] subscriptionActive]) {
             [self enableSubscription];
         }
@@ -103,11 +106,10 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 #pragma mark GUI routines
 
 - (IBAction)openFile:(id)sender {
-	
 	NSOpenPanel *openPanel	= [NSOpenPanel openPanel];
 	[openPanel setCanChooseDirectories:YES];
 	[openPanel setAllowsMultipleSelection:YES];
-	
+	[openPanel setCanDownloadUbiquitousContents:NO];
 	[openPanel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
 		if(result == NSFileHandlingPanelOKButton) {
 			[self processFiles:[openPanel URLs]];
@@ -166,15 +168,9 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
     if (!@available(macOS 10.9, *))
         return;
 
-    if([SubscriptionManager shared].subscriptionActive) {
-        [self hideFileSelector];
-        [tabSelector setSelectedSegment:kCompareTabIndex];
-        [tabs selectTabViewItemAtIndex:kCompareTabIndex];
-    }
-    else {
-        [tabSelector setSelectedSegment:0];
-        [[SubscribeWindowController controller] show];
-    }
+    [self hideFileSelector];
+    [tabSelector setSelectedSegment:kCompareTabIndex];
+    [tabs selectTabViewItemAtIndex:kCompareTabIndex];
 }
 
 -(IBAction)selectEasyTab:(id)sender {
@@ -329,9 +325,11 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 
 	NSInteger tag = exportFormatButton.selectedTag;
 
-	if (tag == 8 || tag == 9)
+	if (tag == 3 || tag == 11 || tag == 12)
 		[_exportSavePanel setAllowedFileTypes:@[@"json"]];
-	else if (tag > 0)
+	else if (tag == 1)
+		[_exportSavePanel setAllowedFileTypes:@[@"html"]];
+	else if (tag > 1)
 		[_exportSavePanel setAllowedFileTypes:@[@"xml"]];
 	else
 		[_exportSavePanel setAllowedFileTypes:@[@"txt"]];
@@ -363,51 +361,54 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 			switch (exportFormatButton.selectedTag)
 			{
 				case 1:
-					format = TextKindToNSString(Kind_XML);
+					format = TextKindToNSString(Kind_HTML);
 					break;
 				case 2:
-					format = TextKindToNSString(Kind_JSON);
+					format = TextKindToNSString(Kind_XML);
 					break;
 				case 3:
-					format = TextKindToNSString(Kind_MPEG7);
+					format = TextKindToNSString(Kind_JSON);
 					break;
 				case 4:
-					format = TextKindToNSString(Kind_PBCore);
+					format = TextKindToNSString(Kind_MPEG7);
 					break;
 				case 5:
-					format = TextKindToNSString(Kind_PBCore2);
+					format = TextKindToNSString(Kind_PBCore);
 					break;
 				case 6:
-					format = TextKindToNSString(Kind_EBUCore_1_5);
+					format = TextKindToNSString(Kind_PBCore2);
 					break;
 				case 7:
-					format = TextKindToNSString(Kind_EBUCore_1_6);
+					format = TextKindToNSString(Kind_EBUCore_1_5);
 					break;
 				case 8:
-					format = TextKindToNSString(Kind_EBUCore_1_8_ps);
+					format = TextKindToNSString(Kind_EBUCore_1_6);
 					break;
 				case 9:
-					format = TextKindToNSString(Kind_EBUCore_1_8_sp);
+					format = TextKindToNSString(Kind_EBUCore_1_8_ps);
 					break;
 				case 10:
-					format = TextKindToNSString(Kind_EBUCore_1_8_ps_json);
+					format = TextKindToNSString(Kind_EBUCore_1_8_sp);
 					break;
 				case 11:
-					format = TextKindToNSString(Kind_EBUCore_1_8_sp_json);
+					format = TextKindToNSString(Kind_EBUCore_1_8_ps_json);
 					break;
 				case 12:
-					format = TextKindToNSString(Kind_FIMS_1_1);
+					format = TextKindToNSString(Kind_EBUCore_1_8_sp_json);
 					break;
 				case 13:
-					format = TextKindToNSString(Kind_FIMS_1_2);
+					format = TextKindToNSString(Kind_FIMS_1_1);
 					break;
 				case 14:
-					format = TextKindToNSString(Kind_FIMS_1_3);
+					format = TextKindToNSString(Kind_FIMS_1_2);
 					break;
 				case 15:
-					format = TextKindToNSString(Kind_reVTMD);
+					format = TextKindToNSString(Kind_FIMS_1_3);
 					break;
 				case 16:
+					format = TextKindToNSString(Kind_reVTMD);
+					break;
+				case 17:
 					format = TextKindToNSString(Kind_NISO_Z39_87);
 					break;
 				case 0:
@@ -457,6 +458,12 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
         }
     }
 
+    if (@available(macOS 10.13, *)) {
+        [tabSelector setToolTip:@"Compare View" forSegment:kCompareTabIndex];
+        [subscribeButton setToolTip:@"Manage subscription" forSegment:0];
+    }
+    [tabSelector setEnabled:YES forSegment:kCompareTabIndex];
+
     /* NSUInteger lastSegment = tabSelector.segmentCount - 1;
     NSString *segmentLabel = [tabSelector labelForSegment:lastSegment];
     NSImage *segmentImage = [tabSelector imageForSegment:lastSegment];
@@ -502,23 +509,25 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 -(void)processFiles:(NSArray *)URLs {
 	
 	//Process files...
-    if(!mediaList)
-	    mediaList = [[oMediaInfoList alloc] init]; //dont care about release
+	if(!mediaList)
+		mediaList = [[oMediaInfoList alloc] init]; //dont care about release
 
-    NSInteger oldIndex = [mediaList count]-1;
+	NSInteger oldIndex = [mediaList count]-1;
+	ProgressDialog *wc = [[ProgressDialog alloc] initWithWindowNibName:@"ProgressDialog"];
+	[wc setItems:URLs];
+	[wc setMediaList:mediaList];
 
-	if([mediaList openFiles:URLs]) {
-		
+	[NSApp runModalForWindow:wc.window];
+	[wc.window close];
+	wc = nil;
+
+	if([mediaList count]-1>oldIndex) {
 		//Update GUI
-		
 		NSArray *files = [mediaList files];
-		
 		NSUInteger max = [files count];
-		
 		NSMutableArray *array = [NSMutableArray array];
-		
+
 		for(NSUInteger i=0; i<max; i++) {
-			
 			NSDictionary *listElement = [NSDictionary dictionaryWithObjectsAndKeys:
 										 [files objectAtIndex:i], @"value",
 										 [files objectAtIndex:i], @"title",
@@ -526,45 +535,30 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 			
 			[array addObject:listElement];
 		}
-		
+
 		[comboController setContent:array];
 		[compareView setFiles:mediaList];
 		[treeView setFiles:mediaList];
 
 		//display first added file
-               [self setSelectedFileIndex:oldIndex+1];
-               [comboController setSelectionIndex:oldIndex+1];
+		[self setSelectedFileIndex:oldIndex+1];
+		[comboController setSelectionIndex:oldIndex+1];
 	}
-	else {
-		//Report about some error while opening?
-		
-		[[NSAlert alertWithMessageText:NSLocalizedString(@"Error", @"Error header")
-						 defaultButton:nil 
-					   alternateButton:nil 
-						   otherButton:nil 
-			 informativeTextWithFormat:NSLocalizedString(@"Can not open file(s)", @"Error text while open")] runModal];
-	}
-	
-	
 }
 
 
 -(void)showFileAtIndex:(NSUInteger)index {
-	
 	// Easy view
-	
 	[self updateEasyTabWithFileAtIndex:index];
-	
-	
-	//Text View
 
+	//Text View
 	[self updateTextTabWithFileAtIndex:index];
 
 	//tree view
-       [treeView setIndex:index];
+	[treeView setIndex:index];
 
-    // compare view
-    [compareView reload];
+	// compare view
+	[compareView reload];
 
 	//recent items
 	NSString *filename = [mediaList filenameAtIndex:index];
@@ -955,5 +949,9 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
         [comboController setContent:nil];
         [self setSelectedFileIndex:0];
     }
+}
+
+- (IBAction)clickOnSubscribe:(id)sender {
+    [[SubscribeWindowController controller] show];
 }
 @end

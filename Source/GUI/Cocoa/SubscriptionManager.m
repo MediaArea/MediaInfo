@@ -157,10 +157,10 @@ static NSString *_subscriptionPurchaseFailedNotification = @"net.mediaarea.media
             NSInteger quantity = [subscription[@"quantity"] integerValue];
 
             if([new isGreaterThan:end]) {
-                end = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitYear value:quantity toDate:new options:nil];
+                end = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitYear value:quantity toDate:new options:0];
             }
             else {
-                end = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitYear value:quantity toDate:end options:nil];
+                end = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitYear value:quantity toDate:end options:0];
             }
         }
     }
@@ -212,7 +212,7 @@ static NSString *_subscriptionPurchaseFailedNotification = @"net.mediaarea.media
         [[NSUserDefaults standardUserDefaults] setObject:[saved allObjects] forKey:@"subscriptions"];
         [[NSUbiquitousKeyValueStore defaultStore] setObject:[saved allObjects] forKey:@"subscriptions"];
 
-        [[NSNotificationCenter defaultCenter]    postNotificationName:_subscriptionPurchaseSucceededNotification object:self userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:_subscriptionPurchaseSucceededNotification object:self userInfo:nil];
 
         [self parseSubscriptions];
     }

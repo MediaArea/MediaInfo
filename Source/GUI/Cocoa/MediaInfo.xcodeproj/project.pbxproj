@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0226605322C9F19C006CE084 /* MacCompare@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0226605222C9F19C006CE084 /* MacCompare@2x.png */; };
 		026834062296A4B20060542A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 026834052296A4B20060542A /* StoreKit.framework */; };
+		025E200E236C705D0000571F /* ProgressDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 025E200D236C705D0000571F /* ProgressDialog.m */; };
+		0265BEE02330202C00BC2891 /* ProgressDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0265BEDD2330202C00BC2891 /* ProgressDialog.xib */; };
 		026C61CE22A86824000D5045 /* MacCompare.png in Resources */ = {isa = PBXBuildFile; fileRef = 026C61CD22A86823000D5045 /* MacCompare.png */; };
 		0291B616230EC397006920BA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0291B615230EC396006920BA /* CloudKit.framework */; };
 		0299EC64227C966B00D937F6 /* CompareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0299EC62227C966B00D937F6 /* CompareView.xib */; };
@@ -50,6 +52,9 @@
 
 /* Begin PBXFileReference section */
 		0226605222C9F19C006CE084 /* MacCompare@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MacCompare@2x.png"; sourceTree = "<group>"; };
+		025E200C236C705D0000571F /* ProgressDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressDialog.h; sourceTree = "<group>"; };
+		025E200D236C705D0000571F /* ProgressDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressDialog.m; sourceTree = "<group>"; };
+		0265BEDE2330202C00BC2891 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ProgressDialog.xib; sourceTree = "<group>"; };
 		0268340422949FB50060542A /* SubscriptionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubscriptionManager.h; sourceTree = "<group>"; };
 		026834052296A4B20060542A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		026C61CD22A86823000D5045 /* MacCompare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MacCompare.png; sourceTree = "<group>"; };
@@ -273,6 +278,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				025E200C236C705D0000571F /* ProgressDialog.h */,
+				025E200D236C705D0000571F /* ProgressDialog.m */,
 				43B17B9B1CE672110012C3E3 /* SegmentedControlWithMenu.h */,
 				43B17B9C1CE672110012C3E3 /* SegmentedControlWithMenu.m */,
 				43B17B981CE6029E0012C3E3 /* SegmentedCellWithMenu.h */,
@@ -381,6 +388,7 @@
 				43BB5AB515346846002400F8 /* Preferences.xib */,
 				0299EC6E228E028E00D937F6 /* TreeView.xib */,
 				0299EC7F2291FD8B00D937F6 /* Subscribe.xib */,
+				0265BEDD2330202C00BC2891 /* ProgressDialog.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -498,6 +506,7 @@
 				4395307E14E0252C00537F55 /* libmediainfo.dylib in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				0299EC64227C966B00D937F6 /* CompareView.xib in Resources */,
+				0265BEE02330202C00BC2891 /* ProgressDialog.xib in Resources */,
 				43BB5AA815336BEB002400F8 /* MainMenu.xib in Resources */,
 				43BB5AA515336BE2002400F8 /* MyWindow.xib in Resources */,
 				439533AD14E172C500537F55 /* mediainfo.icns in Resources */,
@@ -552,6 +561,7 @@
 				0299EC7E2291FD5F00D937F6 /* SubscribeWindowController.m in Sources */,
 				0299EC67227C971400D937F6 /* CompareView.m in Sources */,
 				43BB5AB215346721002400F8 /* PreferencesWindowController.m in Sources */,
+				025E200E236C705D0000571F /* ProgressDialog.m in Sources */,
 				436C50A615B9E06D000AF072 /* TreeOutlineDelegate.m in Sources */,
 				43E0EFB415DC12AC001E8F7C /* easyStreamsTableDelegate.m in Sources */,
 				43B17B9D1CE672110012C3E3 /* SegmentedControlWithMenu.m in Sources */,
@@ -562,6 +572,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		0265BEDD2330202C00BC2891 /* ProgressDialog.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0265BEDE2330202C00BC2891 /* English */,
+			);
+			name = ProgressDialog.xib;
+			sourceTree = "<group>";
+		};
 		0299EC62227C966B00D937F6 /* CompareView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -804,6 +822,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 19.09.3;
 				DEVELOPMENT_TEAM = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
@@ -818,6 +837,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PRODUCT_BUNDLE_IDENTIFIER = net.mediaarea.mediainfo.mac;
 				PRODUCT_NAME = MediaInfo;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -833,6 +853,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 19.09.3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				GCC_MODEL_TUNING = G5;
@@ -846,6 +867,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PRODUCT_BUNDLE_IDENTIFIER = net.mediaarea.mediainfo.mac;
 				PRODUCT_NAME = MediaInfo;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
