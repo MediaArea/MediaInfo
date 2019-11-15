@@ -16,7 +16,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.app.Activity
-import android.content.res.Configuration
 import android.content.SharedPreferences
 import android.content.Context
 import android.content.Intent
@@ -60,7 +59,7 @@ class ReportDetailFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
 
         try {

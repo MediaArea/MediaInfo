@@ -24,7 +24,7 @@ object Core {
         viewsCsv.split("\n").forEach {
             val view: List<String> = it.split(",")
             if (view.size > 2)
-                views.add(Core.ReportView(view[0], view[1], view[2], true))
+                views.add(ReportView(view[0], view[1], view[2], true))
         }
     }
 
