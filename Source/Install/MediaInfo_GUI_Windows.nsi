@@ -198,6 +198,8 @@ Section Uninstall
   Delete "$INSTDIR\License.html"
   Delete "$INSTDIR\License.NoModifications.html"
   Delete "$INSTDIR\ReadMe.txt"
+  Delete "$INSTDIR\curl-ca-bundle.crt"
+  Delete "$INSTDIR\LIBCURL.DLL"
   Delete "$INSTDIR\Plugin\MediaInfo.cfg"
   Delete "$INSTDIR\Plugin\Custom\*.csv"
   Delete "$INSTDIR\Plugin\Language\*.csv"
