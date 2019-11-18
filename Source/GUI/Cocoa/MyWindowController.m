@@ -512,7 +512,7 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	if(!mediaList)
 		mediaList = [[oMediaInfoList alloc] init]; //dont care about release
 
-	NSInteger oldIndex = [mediaList count]-1;
+	NSInteger oldCount = [mediaList count];
 	ProgressDialog *wc = [[ProgressDialog alloc] initWithWindowNibName:@"ProgressDialog"];
 	[wc setItems:URLs];
 	[wc setMediaList:mediaList];
@@ -521,7 +521,7 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	[wc.window close];
 	wc = nil;
 
-	if([mediaList count]-1>oldIndex) {
+	if([mediaList count]>oldCount) {
 		//Update GUI
 		NSArray *files = [mediaList files];
 		NSUInteger max = [files count];
@@ -541,8 +541,8 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 		[treeView setFiles:mediaList];
 
 		//display first added file
-		[self setSelectedFileIndex:oldIndex+1];
-		[comboController setSelectionIndex:oldIndex+1];
+		[self setSelectedFileIndex:oldCount];
+		[comboController setSelectionIndex:oldCount];
 	}
 }
 
