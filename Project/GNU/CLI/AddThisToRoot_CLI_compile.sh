@@ -115,13 +115,11 @@ cd $Home
 if test -e MediaInfo/Project/GNU/CLI/configure; then
     cd MediaInfo/Project/GNU/CLI/
     test -e Makefile && rm Makefile
-    chmod +x configure
-    ./configure --enable-staticlibs $*
-
+    chmod +x autogen.sh
     if [ "$OS" = "mac" ]; then
-        ./configure $MacOptions --enable-staticlibs $*
+        ./autogen.sh $MacOptions --enable-staticlibs $*
     else
-        ./configure --enable-staticlibs $*
+        ./autogen.sh --enable-staticlibs $*
     fi
 
     if test -e Makefile; then
