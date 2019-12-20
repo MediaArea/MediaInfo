@@ -30,5 +30,11 @@ class AboutActivity : AppCompatActivity() {
             intent.data = Uri.parse(getString(R.string.website_url))
             startActivity(intent)
         }
+
+        email_btn.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(getString(R.string.email_url))
+            startActivity(intent)
+        }
     }
 }

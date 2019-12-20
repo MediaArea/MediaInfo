@@ -17,7 +17,9 @@
             It is open-source software, which means that it is free of charge to the end user and developers have freedom to study, to improve and to redistribute the program (BSD license).
     </string>
     <string name="website_text">Website</string>
+    <string name="email_text">Email</string>
     <string name="website_url">https://mediaarea.net/en/MediaInfo</string>
+    <string name="email_url">mailto:info@mediaarea.net?subject=MediaInfo Android:</string>
     <string name="export_title">Export</string>
     <string name="logo_desc">MediaArea logo</string>
     <string name="delete_desc">Delete report</string>
