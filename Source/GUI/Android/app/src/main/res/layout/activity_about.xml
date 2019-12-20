@@ -74,6 +74,14 @@
                 android:text="@string/website_text"
                 style="@style/Widget.AppCompat.Button.Borderless"/>
 
+            <Button
+                android:id="@+id/email_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/email_text"
+                style="@style/Widget.AppCompat.Button.Borderless"/>
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
