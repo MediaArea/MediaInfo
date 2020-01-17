@@ -42,6 +42,7 @@
     <string name="store_text">Support us. Get the dark theme and more features to come.</string>
     <string name="subscription_sku">net.mediaarea.mediainfo.inapp1</string>
     <string name="subscription_manage_url">https://play.google.com/store/account/subscriptions?sku=net.mediaarea.mediainfo.inapp1|package=net.mediaarea.mediainfo</string>
+    <string name="clear_text">Clear list</string>
     <!-- Preferences keys -->
     <string name="preferences_key">net.mediaarea.mediainfo.preferences</string>
     <string name="preferences_view_key">net.mediaarea.mediainfo.preferences_view</string>

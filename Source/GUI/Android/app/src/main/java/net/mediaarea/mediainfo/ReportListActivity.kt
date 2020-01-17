@@ -24,16 +24,19 @@ import android.os.Environment
 import android.os.ParcelFileDescriptor
 import android.net.Uri
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.database.Cursor
 import android.provider.OpenableColumns
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.content.Context
+import android.content.DialogInterface
 import android.widget.Toast
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.view.*
+import android.widget.Button
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -47,6 +50,7 @@ import kotlinx.android.synthetic.main.hello_layout.*
 import com.github.angads25.filepicker.model.DialogConfigs
 import com.github.angads25.filepicker.model.DialogProperties
 import com.github.angads25.filepicker.view.FilePickerDialog
+import java.util.concurrent.ScheduledExecutorService
 
 /**
  * An activity representing a list of Pings. This activity
@@ -305,8 +309,8 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
         menu?.findItem(R.id.action_nightmode).let {
             it?.setOnMenuItemClickListener { item ->
-                if (item.isChecked()) {
-                    item.setChecked(false)
+                if (item.isChecked) {
+                    item.isChecked = false
                     sharedPreferences
                             ?.edit()
                             ?.putString(getString(R.string.preferences_uimode_key), "OFF")
@@ -314,7 +318,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
                     applyUiMode()
                 } else {
-                    item.setChecked(true)
+                    item.isChecked = true
                     sharedPreferences
                             ?.edit()
                             ?.putString(getString(R.string.preferences_uimode_key), "ON")
@@ -403,6 +407,8 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 OPEN_FILE_REQUEST -> {
@@ -487,6 +493,25 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
             }
         }
 
+        clear_btn.setOnClickListener {
+            disposable.add(reportModel.deleteAllReports()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    if (twoPane) {
+                        val fragment = supportFragmentManager.findFragmentById(R.id.report_detail_container)
+                        if (fragment != null) {
+                            supportFragmentManager
+                                .beginTransaction()
+                                .detach(fragment)
+                                .commit()
+
+                                title = getString(R.string.app_name)
+                        }
+                    }
+            })
+        }
+
         // The detail container view will be present only in the
         // large-screen layouts (res/values-w900dp).
         // If this view is present, then the
@@ -501,6 +526,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
     override fun onStart() {
         super.onStart()
+
         disposable.add(reportModel.getAllReports()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -518,12 +544,17 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
                         if (!found)
                             View.inflate(this, R.layout.hello_layout, rootLayout)
+
+                        clear_btn.visibility = View.INVISIBLE
                     } else {
                         for (i: Int in rootLayout.childCount downTo 1) {
                             if (rootLayout.getChildAt(i - 1).id == R.id.hello_layout)
                                 rootLayout.removeViewAt(i - 1)
                         }
                         rootLayout.removeView(hello_layout)
+                        clear_btn.visibility = View.VISIBLE
+
+
                     }
                 })
     }
@@ -537,6 +568,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         recyclerView.adapter = ItemRecyclerViewAdapter(this, reports, twoPane)
+        recyclerView.isNestedScrollingEnabled = false
     }
 
     class ItemRecyclerViewAdapter(private val parentActivity: ReportListActivity,

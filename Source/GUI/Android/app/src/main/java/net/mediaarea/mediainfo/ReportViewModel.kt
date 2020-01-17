@@ -52,11 +52,9 @@ class ReportViewModel(private val dataSource: ReportDao) : ViewModel() {
         }
     }
 
-    /* unused
     fun deleteAllReports(): Completable {
         return Completable.fromAction {
             dataSource.deleteAllReports()
         }
     }
-    */
 }

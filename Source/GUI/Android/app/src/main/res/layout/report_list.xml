@@ -6,16 +6,33 @@
       be found in the License.html file in the root of the source tree.
 -->
 
-<androidx.recyclerview.widget.RecyclerView
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/report_list"
-    android:name="net.mediaarea.mediainfo.ReportListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="2dp"
-    android:layout_marginRight="2dp"
-    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    tools:context=".ReportListActivity"
-    tools:listitem="@layout/report_list_content" />
+    android:layout_marginRight="2dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/report_list"
+            android:name="net.mediaarea.mediainfo.ReportListFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:context=".ReportListActivity"
+            tools:listitem="@layout/report_list_content" />
+        <Button
+            android:id="@+id/clear_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFCCCCCC"
+            android:text="@string/clear_text"
+            android:layout_gravity="center"
+            style="@style/Widget.AppCompat.Button.Borderless" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
