@@ -7,7 +7,7 @@
 -->
 
 <resources>
-    <dimen name="button_margin">8dp</dimen>
+    <dimen name="button_margin">16dp</dimen>
     <dimen name="text_margin">8dp</dimen>
     <dimen name="item_width">300dp</dimen>
 </resources>

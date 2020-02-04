@@ -201,7 +201,7 @@ class ReportDetailFragment : Fragment() {
                 }
 
                 true
-            }.setCheckable(true).setChecked(current.name == view)
+            }.setCheckable(true).isChecked = (current.name == view)
 
             viewMenu.setGroupCheckable(R.id.menu_views_group, true, true)
         }
