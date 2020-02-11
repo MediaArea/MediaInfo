@@ -832,7 +832,7 @@ Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;Coefficienti matrici
 Matrix_Format;
-MediaInfo_About;MediaInfo fornisce un acecsso velcoe alle informazioni tecniche ed ai tag dei file audio e video.\r\nAd eccezione dell'interfaccia grafica Mac APp Store, è un sofwtare open-source, che significa che è gratuito per l'utente finale e lo sviluppatore è libero di studiare, e ,migliorare e ridistribuire il programm (licenza LGPL)
+MediaInfo_About;MediaInfo fornisce un acecsso velcoe alle informazioni tecniche ed ai tag dei file audio e video.\r\nAd eccezione dell'interfaccia grafica Mac APp Store, è un sofwtare open-source, che significa che è gratuito per l'utente finale e lo sviluppatore è libero di studiare, e ,migliorare e ridistribuire il programm (licenza BSD)
 Menu;Menu
 Menu stream(s);Flussi del menu
 Menu_Codec_List;Codec dei menu
