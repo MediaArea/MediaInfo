@@ -678,8 +678,9 @@ QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
     headers.append(Tr("value"));
     treeWidget->setHeaderLabels(headers);
     unsigned fileCount = (unsigned)C->Count_Get();
-
     QDir dir = getCommonDir(C);
+
+    C->Menu_Option_Preferences_Option(__T("File_ExpandSubs"), __T("1"));
     for (size_t filePos=0; filePos<fileCount; filePos++) {
         //Pour chaque fichier
         QTreeWidgetItem* treeItem = new QTreeWidgetItem(treeWidget,QStringList(shortName(dir,wstring2QString(C->Get(filePos, Stream_General, 0, __T("CompleteName"))))));
@@ -700,7 +701,11 @@ QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
                     A+=" #"+B;
                 }
                 QTreeWidgetItem* node = new QTreeWidgetItem(treeItem,QStringList(A));
+                node->setExpanded(true);
                 treeItem->addChild(node);
+
+                QVector<QTreeWidgetItem*> tree;
+                tree.append(node);
 
                 if(ConfigTreeText::getIndex()==0) {
                     size_t ChampsCount=C->Count_Get(filePos, (stream_t)streamKind, streamPos);
@@ -715,9 +720,27 @@ QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
                             if (D.isEmpty())
                                 D=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Name)); //Texte n'existe pas
 
+                            int level=0;
+                            while (level < D.length() && D[level]==QChar(' '))
+                                level++;
+
+                            if (level)
+                                D=D.mid(level);
+
+                            if (level==tree.count() && tree.back()->childCount())
+                            {
+                                tree.append(tree.back()->child(tree.back()->childCount()-1));
+                                if (tree.back()->columnCount()>1 && tree.back()->text(1)=="Yes")
+                                    tree.back()->setText(1, "");
+                            }
+                            else if (level<tree.count()-1)
+                            {
+                                tree.resize(level+1);
+                            }
+
                             QStringList sl = QStringList(D);
                             sl.append(A);
-                            node->addChild(new QTreeWidgetItem(node,sl));
+                            tree.back()->addChild(new QTreeWidgetItem(tree.back(),sl));
                         }
                     }
                 } else {
@@ -727,16 +750,32 @@ QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
                         QString B=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Name_Text));
                         if (B.isEmpty())
                             B=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Name));
+
+                        int level=0;
+                        while (level < B.length() && B[level]==QChar(' '))
+                            level++;
+
+                        if (level)
+                            B=B.mid(level);
+
+                        if (level==tree.count() && tree.back()->childCount())
+                           tree.append(tree.back()->child(tree.back()->childCount()-1));
+                        else if (level<tree.count()-1)
+                            tree.resize(level+1);
+
                         QStringList sl = QStringList(B);
                         sl.append(A);
-                        node->addChild(new QTreeWidgetItem(node,sl));
+                        tree.back()->addChild(new QTreeWidgetItem(tree.back(),sl));
                     }
                 }
             }
         }
     }
-    if(C->Count_Get()<=1)
-        treeWidget->expandAll();
+    C->Menu_Option_Preferences_Option(__T("File_ExpandSubs"), __T("0"));
+    if(C->Count_Get()<=1 && treeWidget->topLevelItem(0))
+    {
+        treeWidget->topLevelItem(0)->setExpanded(true);
+    }
     treeWidget->resizeColumnToContents(0);
     return treeWidget;
 }

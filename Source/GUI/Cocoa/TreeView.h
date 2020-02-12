@@ -9,12 +9,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TreeView : NSView <NSOutlineViewDataSource>
+@interface TreeView : NSView <NSOutlineViewDataSource>{
+    NSMutableArray *fields;
+}
 @property (strong) IBOutlet NSView *contentView;
 @property (strong) IBOutlet NSOutlineView *outlineView;
 @property (strong) oMediaInfoList *files;
 @property (nonatomic, assign) NSInteger index;
-@property (strong, readonly) NSArray *fields;
 @end
 
 NS_ASSUME_NONNULL_END

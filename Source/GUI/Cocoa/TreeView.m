@@ -48,13 +48,17 @@
 
 -(void)setIndex:(NSInteger)index
 {
-    if(!_files || index < 0 || [_files count] < index)
+    if(!_files || index<0 || [_files count]<index)
         return;
 
     _index = index;
     [self createFields];
     [_outlineView reloadData];
-    [_outlineView expandItem:nil expandChildren:YES];
+
+    if(fields) {
+        for(id item in fields)
+            [_outlineView expandItem:item];
+    }
 }
 
 - (void)viewWillDraw {
@@ -62,21 +66,22 @@
 }
 
 -(void)createFields {
-    if(_fields) {
-        [_fields release];
-        _fields = nil;
+    if(fields) {
+        [fields release];
+        fields = nil;
     }
 
-    if(!_files || _index < 0 || [_files count] < _index) {
+    if(!_files || _index<0 || [_files count]<_index) {
         [_outlineView reloadData];
         return;
     }
 
-    NSMutableArray* fields = [[[NSMutableArray alloc] init] autorelease];
+    fields = [[NSMutableArray alloc] init];
+    [_files setOption:@"File_ExpandSubs" withValue:@"1"];
     for(NSUInteger streamKind=MediaInfo_Stream_General; streamKind<MediaInfo_Stream_Max; streamKind++) {
         NSUInteger streamCount=[_files numberOFStreamsAtIndex:_index ofStreamKind:streamKind];
         for(NSUInteger streamNumber=0; streamNumber<streamCount; streamNumber++) {
-            NSMutableArray *toAdd = [[[NSMutableArray alloc] init] autorelease];
+
             NSUInteger fieldCount=[_files FieldCountAtIndex:_index streamKind:streamKind streamNumber:streamNumber];
 
             NSString* section=nil;
@@ -91,9 +96,11 @@
             if(streamNumber)
                 section=[NSString stringWithFormat:@"%@ #%lu", section, streamNumber+1];
 
-            NSMutableDictionary *header = [[[NSMutableDictionary alloc] initWithObjectsAndKeys:section, @"name", [[[NSNumber alloc] initWithUnsignedInteger:streamKind] autorelease], @"kind", [[[NSNumber alloc] initWithUnsignedInteger:streamNumber] autorelease], @"number", [[[NSNumber alloc] initWithUnsignedInt:0] autorelease], @"order", @"", @"value", nil] autorelease];
+            NSMutableDictionary *header = [[[NSMutableDictionary alloc] initWithObjectsAndKeys:section, @"name", @(streamKind), @"kind", @(streamNumber), @"number", @"", @"value", [[[NSMutableArray alloc] init] autorelease], @"childs", nil] autorelease];
 
-            [toAdd addObject:header];
+            NSMutableArray *tree = [[[NSMutableArray alloc] init] autorelease];
+            [tree addObject:header];
+
             for(NSUInteger fieldNumber=0; fieldNumber<fieldCount; fieldNumber++) {
                 NSString *field = [_files FieldAtIndex:_index streamKind:streamKind streamNumber:streamNumber parameter:fieldNumber];
                 NSString *name = [_files FieldNameAtIndex:_index streamKind:streamKind streamNumber:streamNumber parameter:fieldNumber];
@@ -101,68 +108,61 @@
                 if (![_files ShowInInform:_index streamKind:streamKind streamNumber:streamNumber parameter:fieldNumber] || [[_files GetAtIndex:_index streamKind:streamKind streamNumber:streamNumber parameter:field] isEqual:@""])
                         continue;
 
-                NSMutableDictionary *entry = [[[NSMutableDictionary alloc] initWithObjectsAndKeys:name, @"name", [[[NSNumber alloc] initWithUnsignedInteger:streamKind] autorelease], @"kind", [[[NSNumber alloc] initWithUnsignedInteger:streamNumber] autorelease], @"number", [[[NSNumber alloc] initWithUnsignedInt:fieldNumber] autorelease], @"order", value, @"value", nil] autorelease];
-                [toAdd addObject:entry];
+                NSUInteger level;
+                for(level=0; level<[name length]; level++) {
+                    if(![@([name characterAtIndex:level]) isEqual:@' '])
+                        break;
+                }
+
+                if (level)
+                    name = [name substringFromIndex:level];
+
+                if(level==[tree count] && [[tree lastObject][@"childs"] count]) {
+                    [tree addObject:[[tree lastObject][@"childs"] lastObject]];
+
+                    if ([[tree lastObject][@"value"] isEqual:@"Yes"])
+                        [tree lastObject][@"value"] = @"";
+                }
+                else if (level+1<[tree count]) {
+                    while ([tree count]>level+1)
+                        [tree removeLastObject];
+                }
+
+                NSMutableDictionary *entry = [[[NSMutableDictionary alloc] initWithObjectsAndKeys:name, @"name",@(streamKind), @"kind", @(streamNumber), @"number", @(fieldNumber), @"order", value, @"value", [[[NSMutableArray alloc] init] autorelease], @"childs", nil] autorelease];
+                [[tree lastObject][@"childs"] addObject:entry];
             }
 
-            if([toAdd count] > 1)
-                [fields addObjectsFromArray:toAdd];
+            if([header[@"childs"] count]>0) {
+                if([_outlineView.sortDescriptors count]>0)
+                    [self sort:header descriptors:_outlineView.sortDescriptors];
+
+                [fields addObject:header];
+            }
         }
     }
-
-    NSArray* descriptors = _outlineView.sortDescriptors;
-    if([descriptors count])
-        _fields = [[fields sortedArrayUsingDescriptors:descriptors] copy];
-    else
-        _fields = [fields copy];
+    [_files setOption:@"File_ExpandSubs" withValue:@"0"];
 }
 
 -(id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item {
-    if(!_fields || index < 0)
+    if(item && [item[@"childs"] count]>=index)
+        return item[@"childs"][index];
+    else if (!item && fields && [fields count]>=index)
+        return fields[index];
+    else
         return nil;
-
-    NSPredicate *predicate = nil;
-    if(item) {
-        NSMutableString *filter = [[[NSMutableString alloc] init] autorelease];
-        NSMutableArray *arguments = [[[NSMutableArray alloc] init] autorelease];
-        [filter appendString:@"kind == %@ AND number == %@ AND order != 0"];
-        [arguments addObject:item[@"kind"]];
-        [arguments addObject:item[@"number"]];
-        predicate = [NSPredicate predicateWithFormat:filter argumentArray:arguments];
-    }
-    else {
-        predicate = [NSPredicate predicateWithFormat:@"order == 0"];
-    }
-
-    NSArray *result = [_fields filteredArrayUsingPredicate:predicate];
-    if(index >= [result count])
-        return nil;
-
-    return result[index];
 }
 
 -(BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item {
-    return item && [item[@"order"] isEqualTo:@0];
+    return item && [item[@"childs"] count]>0;
 }
 
 -(NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {
-    if(!_fields)
+    if (item)
+        return [item[@"childs"] count];
+    else if (fields)
+        return [fields count];
+    else
         return 0;
-
-    NSPredicate *predicate = nil;
-    if(item) {
-        NSMutableString *filter = [[[NSMutableString alloc] init] autorelease];
-        NSMutableArray *arguments = [[[NSMutableArray alloc] init] autorelease];
-        [filter appendString:@"kind == %@ AND number == %@ AND order != 0"];
-        [arguments addObject:item[@"kind"]];
-        [arguments addObject:item[@"number"]];
-        predicate = [NSPredicate predicateWithFormat:filter argumentArray:arguments];
-    }
-    else {
-        predicate = [NSPredicate predicateWithFormat:@"order == 0"];
-    }
-
-    return [[_fields filteredArrayUsingPredicate:predicate] count];
 }
 
 -(id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
@@ -170,22 +170,31 @@
         return @"";
 
     NSInteger column = [[outlineView tableColumns] indexOfObject:tableColumn];
-    if(column == 0)
+    if(column==0)
         return item[@"name"];
 
     return item[@"value"];
 }
 
 -(void)outlineView:(NSOutlineView *)outlineView sortDescriptorsDidChange:(NSArray<NSSortDescriptor *> *)oldDescriptors {
-    if(!_fields)
+    if(!fields)
         return;
 
-    NSArray *fields = [_fields copy];
-    [_fields release];
-    _fields = nil;
+    for(id item in fields)
+        [self sort:item descriptors:outlineView.sortDescriptors];
 
-    NSArray* descriptors = outlineView.sortDescriptors;
-    _fields = [[fields sortedArrayUsingDescriptors:descriptors] copy];
     [outlineView reloadData];
+}
+
+-(void)sort:(id)item descriptors:(NSArray<NSSortDescriptor *> *)descriptors {
+    if(!item || [item[@"childs"] count]==0 || !descriptors || [descriptors count]==0)
+        return;
+
+    for (id child in item[@"childs"]) {
+        if([item[@"childs"] count] > 0)
+            [self sort:child descriptors:descriptors];
+    }
+
+    [item[@"childs"] sortUsingDescriptors:descriptors];
 }
 @end

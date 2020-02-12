@@ -696,6 +696,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
         Page_Tree_Tree->Items->Clear();
         TTreeNode* Top=NULL;
 
+        I->Option(__T("File_ExpandSubs"), __T("1"));
         for (size_t FilePos=0; FilePos<FilesCount; FilePos++)
         {
             //Pour chaque fichier
@@ -719,6 +720,10 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
                         A+=B;
                     }
                     TTreeNode* Node=Page_Tree_Tree->Items->AddChild(Parent, A.c_str());
+
+                    std::vector<TTreeNode*> Tree;
+                    Tree.push_back(Node);
+
                     unsigned ChampsCount=I->Count_Get(FilePos, (stream_t)StreamKind, StreamPos);
                     for (size_t Champ_Pos=0; Champ_Pos<ChampsCount; Champ_Pos++)
                     {
@@ -734,13 +739,29 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
                             if (D.empty())
                                 D=I->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos, Info_Name); //Texte n'existe pas
                             //Affichage
-                            Page_Tree_Tree->Items->AddChild(Node, (D + __T(": ") + A.c_str()).c_str());
+                            size_t Level=D.find_first_not_of(__T(' '));
+
+                            bool Hide=false;
+                            if (A==__T("Yes") && Champ_Pos+1<ChampsCount)
+                                Hide=I->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos+1, Info_Name_Text).find_first_not_of(__T(' '))>Level;
+
+                            if (Level)
+                                D=D.substr(Level);
+
+                            if(Level==Tree.size() && Tree.back()->GetLastChild())
+                                Tree.push_back(Tree.back()->GetLastChild());
+                            else if(Level<Tree.size()-1)
+                                Tree.resize(Level+1);
+
+                            Page_Tree_Tree->Items->AddChild(Tree.back(), Hide?D.c_str():(D + __T(": ") + A).c_str());
                         }
                     }
+                    Node->Expand(false);
                 }
             }
+            Parent->Expand(false);
         }
-        Page_Tree_Tree->FullExpand();
+        I->Option(__T("File_ExpandSubs"), __T("0"));
         if (Top)
             Top->MakeVisible();
         Page_Tree_Tree->Visible=true;
