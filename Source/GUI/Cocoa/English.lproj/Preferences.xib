@@ -3,13 +3,17 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PreferencesWindowController">
             <connections>
                 <outlet property="langsCombo" destination="26" id="47"/>
+                <outlet property="subscribeButton" destination="TL9-gb-Tct" id="bs3-6V-yRt"/>
                 <outlet property="toolbar" destination="5" id="52"/>
+                <outlet property="viewCombo" destination="R7t-1b-La5" id="LgE-V5-BQp"/>
+                <outlet property="viewLabel" destination="J5j-ea-kAp" id="LAP-NP-USC"/>
                 <outlet property="window" destination="1" id="4"/>
             </connections>
         </customObject>
@@ -35,7 +39,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" id="24">
-                                            <rect key="frame" x="17" y="172" width="80" height="17"/>
+                                            <rect key="frame" x="17" y="172" width="84" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Language:" id="25">
                                                 <font key="font" metaFont="system"/>
@@ -44,11 +48,11 @@
                                             </textFieldCell>
                                         </textField>
                                         <popUpButton verticalHuggingPriority="750" imageHugsTitle="YES" id="26">
-                                            <rect key="frame" x="99" y="166" width="286" height="26"/>
+                                            <rect key="frame" x="105" y="166" width="280" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Default" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="48" id="27">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="menu"/>
                                                 <menu key="menu" id="28">
                                                     <items>
                                                         <menuItem title="Default" state="on" id="48">
@@ -63,7 +67,7 @@
                                             </connections>
                                         </popUpButton>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="53">
-                                            <rect key="frame" x="99" y="135" width="286" height="28"/>
+                                            <rect key="frame" x="105" y="135" width="280" height="28"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Changes take effect after application restart" id="54">
                                                 <font key="font" metaFont="smallSystem"/>
@@ -71,6 +75,51 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="J5j-ea-kAp">
+                                            <rect key="frame" x="18" y="110" width="83" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Default view:" id="mz3-nf-7kH">
+                                                <font key="font" usesAppearanceFont="YES"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <outlet property="delegate" destination="-2" id="gXF-lm-Isw"/>
+                                            </connections>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" id="R7t-1b-La5">
+                                            <rect key="frame" x="105" y="103" width="280" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="11o-70-WWm">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" id="8i5-kW-mui"/>
+                                            </popUpButtonCell>
+                                            <connections>
+                                                <action selector="viewChanged:" target="-2" id="bQd-mk-Zb8"/>
+                                            </connections>
+                                        </popUpButton>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="rWx-fM-e08">
+                                            <rect key="frame" x="105" y="87" width="154" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Premium MediaInfo feature" id="eaf-m0-xtv">
+                                                <font key="font" metaFont="system" size="11"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button verticalHuggingPriority="750" id="TL9-gb-Tct">
+                                            <rect key="frame" x="265" y="85" width="106" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="bevel" title="subscribe" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="qvF-It-rlQ">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system" size="11"/>
+                                            </buttonCell>
+                                            <color key="contentTintColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
+                                            <connections>
+                                                <action selector="subscribeClicked:" target="-2" id="sie-Iw-KIs"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -97,6 +146,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="3"/>
             </connections>
+            <point key="canvasLocation" x="140" y="119.5"/>
         </window>
     </objects>
     <resources>

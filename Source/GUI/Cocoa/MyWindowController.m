@@ -78,7 +78,50 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
         [subscribeButton setEnabled:YES forSegment:0];
         if([[SubscriptionManager shared] subscriptionActive]) {
             [self enableSubscription];
-        }
+
+             NSString* defaultView = [[NSUserDefaults standardUserDefaults] stringForKey:@"defaultView"];
+
+            if (defaultView == nil || [defaultView isEqualToString:@"Easy"])
+                [self selectEasyTab:nil];
+            else if ([defaultView isEqualToString:@"Tree"])
+                [self selectTreeTab:nil];
+            else if ([defaultView isEqualToString:@"Compare"])
+                [self selectCompareTab:nil];
+            else if ([defaultView isEqualToString:@"Text"])
+                [self selectTextTab:nil];
+            else if ([defaultView isEqualToString:@"XML"])
+                [self selectViewXML:nil];
+            else if ([defaultView isEqualToString:@"JSON"])
+                [self selectViewJSON:nil];
+            else if ([defaultView isEqualToString:@"MPEG-7"])
+                [self selectViewMPEG7:nil];
+            else if ([defaultView isEqualToString:@"PBCore"])
+                [self selectViewPBCore:nil];
+            else if ([defaultView isEqualToString:@"PBCore2"])
+                [self selectViewPBCore2:nil];
+            else if ([defaultView isEqualToString:@"EBUCore_1.5"])
+                [self selectViewEBUCore15:nil];
+             else if ([defaultView isEqualToString:@"EBUCore_1.6"])
+                [self selectViewEBUCore16:nil];
+            else if ([defaultView isEqualToString:@"EBUCore_1.8_ps"])
+                [self selectViewEBUCore18_ps:nil];
+            else if ([defaultView isEqualToString:@"EBUCore_1.8_sp"])
+                [self selectViewEBUCore18_sp:nil];
+            else if ([defaultView isEqualToString:@"EBUCore_1.8_ps_JSON"])
+                [self selectViewEBUCore18_ps_json:nil];
+            else if ([defaultView isEqualToString:@"EBUCore_1.8_sp_JSON"])
+                [self selectViewEBUCore18_sp_json:nil];
+            else if ([defaultView isEqualToString:@"FIMS_1.1"])
+                [self selectViewFIMS11:nil];
+            else if ([defaultView isEqualToString:@"FIMS_1.2"])
+                [self selectViewFIMS12:nil];
+            else if ([defaultView isEqualToString:@"FIMS_1.3"])
+                [self selectViewFIMS13:nil];
+            else if ([defaultView isEqualToString:@"reVTMD"])
+                [self selectViewReVTMD:nil];
+            else if ([defaultView isEqualToString:@"NISO_Z39.87"])
+                [self selectViewNISO_Z39_87:nil];
+            }
         else {
             [observers addObject:[[NSNotificationCenter defaultCenter] addObserverForName:[SubscriptionManager subscriptionStateChangedNotification] object:[SubscriptionManager shared] queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification) {
                 [self enableSubscription];

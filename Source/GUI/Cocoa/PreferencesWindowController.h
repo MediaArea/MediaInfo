@@ -12,6 +12,11 @@
     //IBOutlet NSArrayController *languagesArrayController;
     IBOutlet NSToolbar *toolbar;
     IBOutlet NSPopUpButton *langsCombo;
+    IBOutlet NSTextField *viewLabel;
+    IBOutlet NSPopUpButton *viewCombo;
+    IBOutlet NSButton *subscribeButton;
+
+    NSMutableArray *observers;
 }
 
 
