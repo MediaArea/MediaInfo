@@ -7,44 +7,50 @@
 -->
 
 <resources>
-    <string name="app_name">MediaInfo</string>
-    <string name="app_version">19.09</string>
-    <string name="hello_text">You must at least open 1 file.</string>
-    <string name="about_title">About MediaInfo</string>
-    <string name="about_text">MediaInfo vMI_VERSION using MediaInfoLib vMIL_VERSION\n
-            Copyright &#169; 2002-2020 MediaArea.net SARL. All rights reserved.\n\n
+  <string name="app_name" translatable="false">MediaInfo</string>
+  <string name="app_version" translatable="false">19.09</string>
+  <string name="hello_text" csv="At least one file">(You must at least open one file)</string>
+  <string name="about_title" csv="About">About</string>
+  <string name="about_about_text" csv="MediaInfo_About_About">MediaInfo v%MI_VERSION% using MediaInfoLib v%MIL_VERSION%</string>
+  <string name="about_copyright_text" translatable="false">Copyright © 2002-2020 MediaArea.net SARL.</string>
+  <string name="about_description_text" csv="MediaInfo_About">
             MediaInfo provides easy access to technical and tag information about video and audio files.\n
-            It is open-source software, which means that it is free of charge to the end user and developers have freedom to study, to improve and to redistribute the program (BSD license).
-    </string>
-    <string name="website_text">Website</string>
-    <string name="email_text">Email</string>
-    <string name="website_url">https://mediaarea.net/en/MediaInfo</string>
-    <string name="email_url">mailto:info@mediaarea.net?subject=MediaInfo Android:</string>
-    <string name="export_title">Export</string>
-    <string name="logo_desc">MediaArea logo</string>
-    <string name="delete_desc">Delete report</string>
-    <string name="close_text">Close</string>
-    <string name="export_text">Export</string>
-    <string name="format_text">Format: </string>
-    <string name="error_text">Error!</string>
-    <string name="menu_export">Export report</string>
-    <string name="menu_views">Change view</string>
-    <string name="media_error_text">External media is not accessible</string>
-    <string name="open_title">Open file(s)</string>
-    <string name="save_title">Save to directory</string>
-    <string name="uimode_title">Night mode</string>
-    <string name="uimode_auto_title">Night mode auto</string>
-    <string name="subscribe_title">Subscribe</string>
-    <string name="subscribe_text">Subscribe</string>
-    <string name="subscribed_text">Manage subscription</string>
-    <string name="thanks_text">Subscription detected. Thanks for your support!</string>
-    <string name="subscription_detail_text">PRICE per year with free 3 days trial period.</string>
-    <string name="store_text">Support us. Get the dark theme and more features to come.</string>
-    <string name="subscription_sku">net.mediaarea.mediainfo.inapp1</string>
-    <string name="subscription_manage_url">https://play.google.com/store/account/subscriptions?sku=net.mediaarea.mediainfo.inapp1|package=net.mediaarea.mediainfo</string>
-    <string name="clear_text">Clear list</string>
-    <!-- Preferences keys -->
-    <string name="preferences_key">net.mediaarea.mediainfo.preferences</string>
-    <string name="preferences_view_key">net.mediaarea.mediainfo.preferences_view</string>
-    <string name="preferences_uimode_key">net.mediaarea.mediainfo.preferences_uimode</string>
+            Except the Mac App Store graphical user interface, it is open-source software, which means that it is free of charge to the end user and developers have freedom to study, to improve and to redistribute the program (BSD license)
+  </string>
+  <string name="website_text" csv="WebSite">WebSite</string>
+  <string name="email_text" csv="EMail">E-Mail</string>
+  <string name="error_write_text" csv="Error_File_Write">Error while writing file</string>
+  <string name="menu_export" csv="Export">Export</string>
+  <string name="menu_views" csv="View">View</string>
+  <string name="uimode_title" csv="DarkMode">Dark mode</string>
+  <string name="preferences_locale_title" csv="Language">Language</string>
+  <string name="report_translate_title" csv="Translate_Reports">Translate reports</string>
+  <string name="settings_title" csv="Options_Hint">Preferences</string>
+  <string name="premium_title" csv="Premium">Premium</string>
+  <string name="premium_summary" csv="Premium_Summary">Exclusive features for premium subscribers</string>
+  <string name="subscribe_title" csv="Subscribe">Subscribe</string>
+  <string name="subscribe_text" csv="Subscribe">Subscribe</string>
+  <string name="subscribed_text" csv="Subscribe_Manage">Manage subscription</string>
+  <string name="thanks_text" csv="Subscription_Thanks">Subscription detected. Thanks for your support!</string>
+  <string name="subscription_detail_text" csv="Subscription_Android">%PRICE% per year with free 3 days trial period.</string>
+  <string name="store_text" csv="SupportUs_Android">Support us. Get the dark theme and more features to come.</string>
+  <string name="clear_text" csv="ClearList">Clear list</string>
+  <string name="text_output_desc" csv="Text">Text</string>
+  <string name="logo_desc">MediaArea logo</string>
+  <string name="delete_desc" csv="Delete">Delete</string>
+  <string name="default_locale_text" csv="Default_Setting">System default</string>
+  <string name="export_title" csv="Export">Export</string>
+  <string name="open_title" csv="Open">Open</string>
+  <string name="save_title" csv="Save">Save</string>
+  <string name="media_error_text" csv="External_Media_NotMounted">External media is not accessible</string>
+  <string name="website_url" translatable="false">https://mediaarea.net/MediaInfo</string>
+  <string name="email_url" translatable="false">mailto:info@mediaarea.net?subject=MediaInfo Android:</string>
+  <string name="subscription_manage_url" translatable="false">https://play.google.com/store/account/subscriptions?sku=net.mediaarea.mediainfo.inapp1|package=net.mediaarea.mediainfo</string>
+  <string name="subscription_sku" translatable="false">net.mediaarea.mediainfo.inapp1</string>
+  <string name="preferences_key" translatable="false">net.mediaarea.mediainfo.preferences</string>
+  <string name="preferences_view_key" translatable="false">net.mediaarea.mediainfo.preferences_view</string>
+  <string name="preferences_uimode_key" translatable="false">net.mediaarea.mediainfo.preferences_uimode</string>
+  <string name="preferences_locale_key" translatable="false">net.mediaarea.mediainfo.preferences_locale</string>
+  <string name="preferences_subscribe_key" translatable="false">net.mediaarea.mediainfo.preferences_subscribe</string>
+  <string name="preferences_report_translate_key" translatable="false">net.mediaarea.mediainfo.preferences_report_translate</string>
 </resources>

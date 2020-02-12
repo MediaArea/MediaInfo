@@ -24,19 +24,18 @@ import android.os.Environment
 import android.os.ParcelFileDescriptor
 import android.net.Uri
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.database.Cursor
 import android.provider.OpenableColumns
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.content.Context
-import android.content.DialogInterface
 import android.widget.Toast
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.view.*
-import android.widget.Button
+import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -50,7 +49,9 @@ import kotlinx.android.synthetic.main.hello_layout.*
 import com.github.angads25.filepicker.model.DialogConfigs
 import com.github.angads25.filepicker.model.DialogProperties
 import com.github.angads25.filepicker.view.FilePickerDialog
-import java.util.concurrent.ScheduledExecutorService
+import com.yariksoffice.lingver.Lingver
+import java.io.BufferedReader
+import java.util.*
 
 /**
  * An activity representing a list of Pings. This activity
@@ -219,16 +220,32 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     }
 
     private fun applyUiMode() {
-        val sharedPreferences: SharedPreferences? = getSharedPreferences(getString(R.string.preferences_key), Context.MODE_PRIVATE)
-        sharedPreferences?.getString(getString(R.string.preferences_uimode_key), "OFF").let {
+        val sharedPreferences = getDefaultSharedPreferences(this)
+        val key = getString(R.string.preferences_uimode_key)
+        if (sharedPreferences?.contains(key) == false) {
+            val oldSharedPreferences = getSharedPreferences(getString(R.string.preferences_key), Context.MODE_PRIVATE)
+            oldSharedPreferences.getString(key, "").let {
+                when (it) {
+                    "ON" -> {
+                        sharedPreferences.edit()?.putBoolean(key, true)?.apply()
+                    }
+                    "OFF" -> {
+                        sharedPreferences.edit()?.putBoolean(key, false)?.apply()
+                    }
+                    else -> {}
+                }
+            }
+        }
+
+        sharedPreferences?.getBoolean(getString(R.string.preferences_uimode_key), false).let {
             when (it) {
-                "OFF" -> {
+                false -> {
                     if (AppCompatDelegate.getDefaultNightMode()!=AppCompatDelegate.MODE_NIGHT_NO) {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                         recreate()
                     }
                 }
-                "ON" -> {
+                true -> {
                     if (AppCompatDelegate.getDefaultNightMode()!=AppCompatDelegate.MODE_NIGHT_YES) {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                         recreate()
@@ -240,6 +257,55 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                         recreate()
                     }
                 } */
+            }
+        }
+    }
+
+    private fun setLocale() {
+        try {
+            val stream = applicationContext.resources.openRawResource(R.raw.lang)
+            val content = stream.bufferedReader().use(BufferedReader::readText)
+            Core.setLocale(content)
+        }
+        catch (error: Exception) {
+        }
+    }
+
+    private fun setPrefLocale() {
+        val sharedPreferences: SharedPreferences? = getDefaultSharedPreferences(this)
+        sharedPreferences?.getBoolean(getString(R.string.preferences_report_translate_key), false).let {
+            when (it) {
+                false -> {
+                    Core.setLocale("")
+                }
+                true -> {
+                    setLocale()
+                }
+            }
+        }
+
+        sharedPreferences?.getString(getString(R.string.preferences_locale_key), "system").let {
+            val locale: Locale =
+                if (it == null || it == "system") {
+                    if (Build.VERSION.SDK_INT >= 24) {
+                        Resources.getSystem().configuration.locales.get(0)
+                    } else {
+                        Resources.getSystem().configuration.locale
+                    }
+                } else {
+                    val language = it.split("-r")
+                    if (language.size > 1) {
+                        Locale(language[0], language[1])
+                    } else {
+                        Locale(language[0])
+                    }
+                }
+
+            Locale.setDefault(locale)
+
+            if (Lingver.getInstance().getLocale() != locale) {
+                Lingver.getInstance().setLocale(this, locale)
+                recreate()
             }
         }
     }
@@ -275,92 +341,9 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
             }
         })
 
-        val sharedPreferences: SharedPreferences? = getSharedPreferences(getString(R.string.preferences_key), Context.MODE_PRIVATE)
-        sharedPreferences?.getString(getString(R.string.preferences_uimode_key), "OFF").let {
-            if (it != null) {
-                when (it) {
-                    "OFF" -> {
-                        menu?.findItem(R.id.action_nightmode).let { item ->
-                            item?.setChecked(false)
-                        }
-                        /* menu?.findItem(R.id.action_nightmode_auto).let { item ->
-                            item?.setChecked(false)
-                        } */
-                    }
-                    "ON" -> {
-                        menu?.findItem(R.id.action_nightmode).let { item ->
-                            item?.setChecked(true)
-                        }
-                        /* menu?.findItem(R.id.action_nightmode_auto).let { item ->
-                            item?.setChecked(false)
-                        } */
-                    }
-                    /* "AUTO" -> {
-                        menu?.findItem(R.id.action_nightmode_auto).let { item ->
-                            item?.setChecked(true)
-                        }
-                        menu?.findItem(R.id.action_nightmode).let { item ->
-                            item?.setEnabled(false)
-                        }
-                    } */
-                }
-            }
-        }
-
-        menu?.findItem(R.id.action_nightmode).let {
-            it?.setOnMenuItemClickListener { item ->
-                if (item.isChecked) {
-                    item.isChecked = false
-                    sharedPreferences
-                            ?.edit()
-                            ?.putString(getString(R.string.preferences_uimode_key), "OFF")
-                            ?.apply()
-
-                    applyUiMode()
-                } else {
-                    item.isChecked = true
-                    sharedPreferences
-                            ?.edit()
-                            ?.putString(getString(R.string.preferences_uimode_key), "ON")
-                            ?.apply()
-
-                    applyUiMode()
-                }
-
-                true
-            }
-        }
-
-        /* menu?.findItem(R.id.action_nightmode_auto).let {
-            it?.setOnMenuItemClickListener {
-                if (it.isChecked()) {
-                    it.setChecked(false)
-                    sharedPreferences
-                            ?.edit()
-                            ?.putString(getString(R.string.preferences_uimode_key), "OFF")
-                            ?.apply()
-                    menu?.findItem(R.id.action_nightmode).let { item ->
-                        item?.setEnabled(true)
-                    }
-                    applyUiMode()
-                } else {
-                    it.setChecked(true)
-                    sharedPreferences
-                            ?.edit()
-                            ?.putString(getString(R.string.preferences_uimode_key), "AUTO")
-                            ?.apply()
-                    menu?.findItem(R.id.action_nightmode).let { item ->
-                        item?.setEnabled(false)
-                    }
-                    applyUiMode()
-                }
-                true
-            }
-        } */
-
         subscriptionManager.subscribed.observe(this, Observer {
             if (it) {
-                menu?.findItem(R.id.action_nightmode)?.isVisible=true
+                //menu?.findItem(R.id.action_settings)?.isVisible=true
                 menu?.findItem(R.id.action_subscribe).let { item ->
                     item?.isEnabled=true
                     item?.title = getString(R.string.subscribed_text)
@@ -397,6 +380,15 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         menu?.findItem(R.id.action_about).let {
             it?.setOnMenuItemClickListener {
                 val intent = Intent(this,  AboutActivity::class.java)
+                startActivity(intent)
+
+                true
+            }
+        }
+
+        menu?.findItem(R.id.action_settings).let {
+            it?.setOnMenuItemClickListener {
+                val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
 
                 true
@@ -445,9 +437,12 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         subscriptionManager = SubscriptionManager.getInstance(application)
         lifecycle.addObserver(subscriptionManager)
 
+        setLocale()
         subscriptionManager.subscribed.observe(this, Observer {
-            if (it==true)
+            if (it==true) {
                 applyUiMode()
+                setPrefLocale()
+            }
         })
 
         val viewModelFactory = Injection.provideViewModelFactory(this)

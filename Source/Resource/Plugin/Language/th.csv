@@ -225,6 +225,7 @@ Choose language;เลือกภาษาที่คุณต้องกา�
 Choreographer;Choreographer
 Chroma;Chroma
 ChromaSubsampling;
+ClearList;
 Close;ปิด
 Close all before open;ปิดทั้งหมดก่อนเปิด
 ClosedCaptionsLanguage;
@@ -287,9 +288,11 @@ Cover_Type;
 Cropped;
 Custom;กำหนดเอง
 Customize;กำหนดเอง
+DarkMode;
 Date;วันที่
 Debug;ดีบั๊ก
 Decimal point;จุดทศนิยม
+Default_Setting;
 Delay;Delay
 Delay_Source;
 Delay_Source_Container;
@@ -324,12 +327,14 @@ EncodedBy;เข้ารหัสโดย
 EPG_Positions;
 EpisodeTitleNumber;
 Error_File;เกิดข้อผิดพลาดขณะที่กำลังไฟล์
+Error_File_Write;
 ExecutiveProducer;Executive producer
 Exit;ออก
 Exit_Hint;ออกจากโปรแกรม
 Export;ส่งออก
 Export_Hint;ส่งออกในรูปแบบที่กำหนดเอง
 Extensions;
+External_Media_NotMounted;
 Family;Family
 Fax;แฟ็ก
 File;แฟ้ม
@@ -852,6 +857,7 @@ Matrix_Format;
 MaxCLL;
 MaxFALL;
 MediaInfo_About;แสดงข้อมูลอย่างละเอียด\r\nของไฟล์มัลติมีเดีย:\r\nMatroska, OGG (รวมทั้ง OGM)\r\nMPEG1 (รวมทั้ง VCD)\r\nMPEG2 (รวมทั้ง DVD และ SVCD)\r\nMPEG4 (รวมทั้ง Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (รวมทั้ง WMV, WMA)\r\nMicrosoft RIFF (รวมทั้ง AVI, WAV)\r\nรูปแบบเสียงอย่างเดียว (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About_About;
 Menu;เมนู
 Menu stream(s);สตรีมเมนู
 Menu_Codec_List;codecs เมนู
@@ -962,6 +968,8 @@ PodcastCategory;
 Position;ตำแหน่ง
 Position_Total;ทั้งหมด
 Preferences;การปรับแต่ง
+Premium;
+Premium_Summary;
 PrimaryAudioLanguage;
 Producer;โพรดิวเซอร์
 ProductionDesigner;ผู้ออกแบบการแสดง
@@ -1049,10 +1057,15 @@ StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;
 Subject;Subject
+Subscribe;
+Subscribe_Manage;
+Subscription_Android;
+Subscription_Thanks;
 SubTrack;แทร็กย่อย
 Summary;สรุป
 Supported formats;รูปแบบที่สนับสนุน
 Supported?;สนับสนุนแล้ว?
+SupportUs_Android;
 Synopsis;Synopsis
 SystemId;Id
 Tagged_Application;tagging application
@@ -1089,6 +1102,7 @@ TotalProgrammeDuration;
 Track;ชื่อแทร็ค
 Track_Count;Track count
 transfer_characteristics;
+Translate_Reports;
 Translator;แปลไทยโดย
 Tree;Tree
 Tree & Text;Tree & Text
@@ -1112,6 +1126,7 @@ View;มุมมอง
 View_Hint;เปลี่ยนรูปแบบของการแสดงข้อมูล
 Warning : more streams in the files;คำเตือน : มีหลายสตรีมในไฟล์
 Web;เว็บ
+WebSite;
 WebSite_Audio;ไปที่เว็บไซต์ของ audio codec นี้
 WebSite_Audio_More;ไปที่เว็บไซต์ (%Url%) เพื่อค้นหา audio codec นี้
 WebSite_General;ไปที่เว็บไซต์ของตัวเล่นไฟล์นี้
@@ -1131,5 +1146,5 @@ Written_Location;สถานที่เขียน
 WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
-ZZ_Automatic_Percent;72
-ZZ_AutomaticLanguage_Percent;80
+ZZ_Automatic_Percent;71
+ZZ_AutomaticLanguage_Percent;78

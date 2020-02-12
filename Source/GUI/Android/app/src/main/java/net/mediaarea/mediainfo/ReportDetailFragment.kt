@@ -11,6 +11,7 @@ import java.io.File
 
 import androidx.fragment.app.Fragment
 import androidx.documentfile.provider.DocumentFile
+import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 
 import android.os.Build
 import android.os.Bundle
@@ -64,11 +65,19 @@ class ReportDetailFragment : Fragment() {
 
         try {
             activityListener = activity as ReportActivityListener
-        } catch (e: ClassCastException) {
+        } catch (_: Throwable) {
             throw ClassCastException(activity.toString() + " must implement ReportActivityListener")
         }
 
-        sharedPreferences = activity?.getSharedPreferences(getString(R.string.preferences_key), Context.MODE_PRIVATE)
+        sharedPreferences = getDefaultSharedPreferences(context)
+        val oldSharedPreferences = activity?.getSharedPreferences(getString(R.string.preferences_key), Context.MODE_PRIVATE)
+        val key = getString(R.string.preferences_view_key)
+
+        if (sharedPreferences?.contains(key) == false && oldSharedPreferences?.contains(key) == true) {
+            sharedPreferences?.edit()
+                             ?.putString(key, oldSharedPreferences.getString(key, "HTML"))
+                             ?.apply()
+        }
 
         sharedPreferences?.getString(getString(R.string.preferences_view_key), "HTML").let {
             if (it != null)
@@ -180,11 +189,14 @@ class ReportDetailFragment : Fragment() {
 
         for (current: Core.ReportView in Core.views) {
             val index: Int = Core.views.indexOf(current)
-            viewMenu.add(R.id.menu_views_group, Menu.NONE, index, current.desc).setOnMenuItemClickListener { item: MenuItem ->
-                val requested: String = Core.views.findLast { it.desc == item.title }?.name.orEmpty()
+            var desc = current.desc
+            if (desc == "Text") {
+                desc = resources.getString(R.string.text_output_desc)
+            }
 
-                if (requested.isNotEmpty() && !requested.contentEquals(view)) {
-                    view = requested
+            viewMenu.add(R.id.menu_views_group, Menu.NONE, index, desc).setOnMenuItemClickListener { _: MenuItem ->
+                if (view != current.name) {
+                    view = current.name
 
                     // Save new default
                     sharedPreferences
@@ -288,7 +300,7 @@ class ReportDetailFragment : Fragment() {
     private fun onError() {
         val applicationContext = activity?.applicationContext
         if (applicationContext!=null) {
-            val toast = Toast.makeText(applicationContext, R.string.error_text, Toast.LENGTH_LONG)
+            val toast = Toast.makeText(applicationContext, R.string.error_write_text, Toast.LENGTH_LONG)
             toast.show()
         }
     }

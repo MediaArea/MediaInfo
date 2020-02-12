@@ -21,9 +21,9 @@ class AboutActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        about_textview.text = about_textview.text.toString()
-                .replace("MI_VERSION", getString(R.string.app_version))
-                .replace("MIL_VERSION", Core.version)
+        about_about_textview.text = about_about_textview.text.toString()
+                .replace("%MI_VERSION%", getString(R.string.app_version))
+                .replace("%MIL_VERSION%", Core.version)
 
         website_btn.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)

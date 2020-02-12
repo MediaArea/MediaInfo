@@ -225,6 +225,7 @@ Choose language;Zgjedh gjuhën e dëshiruar
 Choreographer;Koreografi
 Chroma;Kroma
 ChromaSubsampling;
+ClearList;
 Close;Mbyll
 Close all before open;Mbyll infot para hapjes
 ClosedCaptionsLanguage;
@@ -287,9 +288,11 @@ Cover_Type;Lloji i cover-it
 Cropped;Dimensionet e prerjes
 Custom;Me porosi
 Customize;Porosit
+DarkMode;
 Date;Data
 Debug;Debug
 Decimal point;Pika dhjetore
+Default_Setting;
 Delay;Vonesa
 Delay_Source;
 Delay_Source_Container;
@@ -324,12 +327,14 @@ EncodedBy;Koduar nga
 EPG_Positions;Pozicionet EPG (të brendshme)
 EpisodeTitleNumber;
 Error_File;Gabim gjatë leximit të skedës
+Error_File_Write;
 ExecutiveProducer;Producenti ekzekutiv
 Exit;Dalje
 Exit_Hint;Mbyll Programin
 Export;Eksporto
 Export_Hint;Eksporto në format të porositur
 Extensions;Siglat e zakonshme
+External_Media_NotMounted;
 Family;Familja
 Fax;Faks
 File;Skedë
@@ -852,6 +857,7 @@ Matrix_Format;
 MaxCLL;
 MaxFALL;
 MediaInfo_About;Jep informacione shumë të detajuara për\r\nskedat multimediatike:\r\nMatroska, OGG (përfshirë OGM)\r\nMPEG1 (përfshirë VCD)\r\nMPEG2 (përfshirë DVD dhe SVCD)\r\nMPEG4 (përfshirë Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (përfshirë WMV, WMA)\r\nMicrosoft RIFF (përfshirë AVI, WAV)\r\nFormate zanore (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About_About;
 Menu;Meny
 Menu stream(s);Rrymat e menysë
 Menu_Codec_List;Kodekët e menysë
@@ -962,6 +968,8 @@ PodcastCategory;
 Position;Pozicioni
 Position_Total;Totali
 Preferences;Pëlqime
+Premium;
+Premium_Summary;
 PrimaryAudioLanguage;
 Producer;Producenti
 ProductionDesigner;Modeluesi i produksionit
@@ -1049,10 +1057,15 @@ StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;Proporcioni i rrymës
 Subject;Subjekti
+Subscribe;
+Subscribe_Manage;
+Subscription_Android;
+Subscription_Thanks;
 SubTrack;NënKolona
 Summary;Përmbledhja
 Supported formats;Format e përkrahura
 Supported?;Përkrahet?
+SupportUs_Android;
 Synopsis;Konspekti
 SystemId;Id
 Tagged_Application;Aplikimi i etiketimit
@@ -1089,6 +1102,7 @@ TotalProgrammeDuration;
 Track;Emri i kolonës
 Track_Count;Numri i kolonës
 transfer_characteristics;Karakteristikat e transferimit
+Translate_Reports;
 Translator;Përktheu
 Tree;Pemë
 Tree & Text;Pemë & Tekst
@@ -1112,6 +1126,7 @@ View;Pamje
 View_Hint;Ndrysho mënyrën si paraqitet informacioni
 Warning : more streams in the files;Kujdes : në skeda ka më shumë rryma
 Web;Rrjeta
+WebSite;
 WebSite_Audio;Shko te trualli në rrjetë i kodekut për audio
 WebSite_Audio_More;Shko te trualli në rrjetë (%Url%) për të gjetur kodekun për audio
 WebSite_General;Shko te trualli në rrjetë i luajtësit për këtë skedë
@@ -1131,5 +1146,5 @@ Written_Location;Vendi i shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;83
-ZZ_AutomaticLanguage_Percent;87
+ZZ_Automatic_Percent;82
+ZZ_AutomaticLanguage_Percent;86

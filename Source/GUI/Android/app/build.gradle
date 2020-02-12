@@ -7,6 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 import com.android.build.OutputFile
+import groovy.xml.XmlUtil
 
 android {
     compileSdkVersion 28
@@ -71,6 +72,87 @@ android {
     buildToolsVersion '28.0.3'
 }
 
+task copyLocales(type: DefaultTask) {
+    def locales = [:]
+
+    fileTree("../../../../Source/Resource/Plugin/Language").visit { FileVisitDetails details ->
+        def locale = details.file.name.replace(".csv", "").replace("-", "-r")
+
+        // copy localized csv into raw resources
+        def raw = "src/main/res/raw-" + locale
+
+        if (details.file.name == "en.csv") {
+            raw = "src/main/res/raw"
+        }
+
+        mkdir raw
+        copy {
+            from details.file
+            into raw
+            rename { "lang.csv" }
+        }
+
+        //  update translations xml
+        def csv = [:]
+        file(details.file).splitEachLine(";") {
+            if(it.size()==2 && it[0].size() && it[1].size()) {
+                csv[it[0]] = it[1]
+            }
+        }
+        def xml = new XmlParser().parse(file("src/main/res/values/strings.xml"))
+        xml.string.each {
+            if (it.@translatable == "false" || it.@csv == null || !csv.containsKey(it.@csv)) {
+                xml.remove(it)
+            }
+            else {
+                it.value = csv[it.@csv].replaceAll("\\\\r", "").replaceAll("'", "\\\\'").replaceAll("\"", "\\\\\"")
+            }
+        }
+
+        if (xml.children().size()) {
+            def values = "src/main/res/values-" + locale
+            mkdir values
+
+            def writer = file(values + "/strings.xml").newPrintWriter("UTF-8") // PrintWriter truncates file before write
+            new XmlUtil().serialize(xml, writer)
+            writer.close()
+            //add locale to list
+            locales[csv["  Language_Name"]] = locale
+        }
+    }
+
+    // update translations list
+    def xml = new XmlParser().parse(file("src/main/res/values/arrays.xml"))
+    def locales_array = xml.find { it.@name == "locales" }
+    def locales_values_array = xml.find { it.@name == "locales_values" }
+
+    locales_array.item.each {
+        if (locales_array.children().indexOf(it) > 0) {
+            locales_array.remove(it)
+        }
+    }
+
+    locales_values_array.item.each {
+        if (locales_values_array.children().indexOf(it) > 0) {
+            locales_values_array.remove(it)
+        }
+    }
+
+    locales.sort().each { lang ->
+        def name = new NodeBuilder().item(lang.key)
+        locales_array.append(name)
+
+        def value = new NodeBuilder().item(lang.value)
+        locales_values_array.append(value)
+    }
+
+    def writer = file("src/main/res/values/arrays.xml").newPrintWriter("UTF-8") // PrintWriter truncates file before write
+    new XmlUtil().serialize(xml, writer)
+    writer.close()
+}
+
+preBuild.dependsOn copyLocales
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -101,4 +183,6 @@ dependencies {
     // KotlinX Coroutines
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.2"
+    // Locales manager
+    implementation 'com.github.YarikSOffice:lingver:1.2.1'
 }

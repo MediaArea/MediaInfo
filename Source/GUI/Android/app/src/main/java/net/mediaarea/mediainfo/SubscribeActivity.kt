@@ -11,6 +11,7 @@ import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingFlowParams
 import android.os.Bundle
 import android.view.Gravity
+import android.view.MenuItem
 import android.view.View
 
 import kotlinx.android.synthetic.main.activity_subscribe.*
@@ -33,7 +34,7 @@ class SubscribeActivity : AppCompatActivity() {
                 skuDetailsList?.forEach {
                     if (it.sku==getString(R.string.subscription_sku)) {
                         subscription_detail_text.text = subscription_detail_text.text.toString()
-                                .replace("PRICE", it.price)
+                                .replace("%PRICE%", it.price)
                         subscription_detail_text.visibility= View.VISIBLE
                         subscription_detail_text.gravity=Gravity.CENTER_HORIZONTAL
                     }
@@ -50,5 +51,13 @@ class SubscribeActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == android.R.id.home) {
+            finish()
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

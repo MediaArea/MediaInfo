@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--  Copyright (c) MediaArea.net SARL. All Rights Reserved.
+
+      Use of this source code is governed by a BSD-style license that can
+      be found in the License.html file in the root of the source tree.
+-->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        android:title="@string/premium_title"
+        android:summary="@string/premium_summary">
+
+        <Preference
+            android:key="@string/preferences_subscribe_key"
+            android:summary="@string/subscribe_text"
+            app:selectable="true"
+            app:isPreferenceVisible="false" />
+
+        <DropDownPreference
+            android:key="@string/preferences_locale_key"
+            android:title="@string/preferences_locale_title"
+            android:entries="@array/locales"
+            android:entryValues="@array/locales_values"
+            android:defaultValue="system"
+            android:enabled="false"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            android:key="@string/preferences_report_translate_key"
+            android:title="@string/report_translate_title"
+            android:defaultValue="true"
+            android:enabled="false" />
+
+        <SwitchPreferenceCompat
+            android:key="@string/preferences_uimode_key"
+            android:title="@string/uimode_title"
+            android:enabled="false" />
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -225,6 +225,7 @@ Choose language;აირჩიეთ თქვენი სასურვე�
 Choreographer;Choreographer
 Chroma;Chroma
 ChromaSubsampling;Chroma subsampling
+ClearList;
 Close;დახურვა
 Close all before open;დახურე ყველა გახსნამდე
 ClosedCaptionsLanguage;
@@ -287,9 +288,11 @@ Cover_Type;Cover type
 Cropped;Crop dimensions
 Custom;სტანდარტული
 Customize;მორგება
+DarkMode;
 Date;თარიგი
 Debug;გამართვა
 Decimal point;Decimal point
+Default_Setting;
 Delay;Delay
 Delay_Source;Delay, origin
 Delay_Source_Container;Container
@@ -324,12 +327,14 @@ EncodedBy;ენკოდირების ავტორი
 EPG_Positions;EPG positions (internal)
 EpisodeTitleNumber;
 Error_File;ფაილის წაკითვის დროს აღმოჩენილია შეცდომა
+Error_File_Write;
 ExecutiveProducer;Executive producer
 Exit;გასვლა
 Exit_Hint;პროგრამის დატოვება
 Export;გატანა
 Export_Hint;Export in a customized format
 Extensions;Extensions usually used
+External_Media_NotMounted;
 Family;გვარი
 Fax;ფაქსი
 File;ფაილი
@@ -852,6 +857,7 @@ Matrix_Format;
 MaxCLL;
 MaxFALL;
 MediaInfo_About;Supply very detailled information\r\nabout a multimedia file:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About_About;
 Menu;მენიუ
 Menu stream(s);ნაკადების მენიუ
 Menu_Codec_List;კოდეკების მენიუ
@@ -962,6 +968,8 @@ PodcastCategory;
 Position;Position
 Position_Total;ჯამში
 Preferences;პარამეტრები
+Premium;
+Premium_Summary;
 PrimaryAudioLanguage;
 Producer;პროდუსერი
 ProductionDesigner;პროდუქცის დიზაინერი
@@ -1049,10 +1057,15 @@ StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;Proportion of this stream
 Subject;Subject
+Subscribe;
+Subscribe_Manage;
+Subscription_Android;
+Subscription_Thanks;
 SubTrack;SubTrack
 Summary;Summary
 Supported formats;Supported formats
 Supported?;მხარდაჭერა?
+SupportUs_Android;
 Synopsis;Synopsis
 SystemId;Id
 Tagged_Application;Tagging application
@@ -1089,6 +1102,7 @@ TotalProgrammeDuration;
 Track;ტრეკის სახელი
 Track_Count;Track count
 transfer_characteristics;Transfer characteristics
+Translate_Reports;
 Translator;მთარგმნელი
 Tree;სვეტი
 Tree & Text;სვეტი & ტექსტი
@@ -1112,6 +1126,7 @@ View;ჩვენება
 View_Hint;ხედვის ტიპის შეცლა
 Warning : more streams in the files;გაფრთხილება : ფაილში ბევრი ნაკადებია
 Web;ვებ-გვერდი
+WebSite;
 WebSite_Audio;შედი ამ აუდიოს კოდეკის ვებ-გვერდზე
 WebSite_Audio_More;შედი ამ ვებ-გვერდზე (%Url%) ,რომ იპოვო ამ აუდიოს კოდეკი
 WebSite_General;ამ ფაილის ფლეიერის ვებ-გვერდზე გადასვლა
@@ -1131,5 +1146,5 @@ Written_Location;დაწერის ადგილი
 WrittenBy;დაწერილია
 Yes;დიახ
 Your system;თქვენი სისტემა
-ZZ_Automatic_Percent;84
-ZZ_AutomaticLanguage_Percent;88
+ZZ_Automatic_Percent;83
+ZZ_AutomaticLanguage_Percent;87
