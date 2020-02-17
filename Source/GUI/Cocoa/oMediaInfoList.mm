@@ -34,6 +34,9 @@
 	MediaInfoList_Option(NULL, [@"Language" WCHARString], [langContents WCHARString]);
 }
 
++(void)setOptionStatic:(NSString*)option withValue:(NSString*)value {
+    MediaInfoList_Option(NULL, [option WCHARString], [value WCHARString]);
+}
 
 - (BOOL)openURL:(NSURL *)fileURL {
 	
@@ -138,6 +141,12 @@
 
 -(bool) ShowInInform:(NSUInteger)fileIndex streamKind:(oMediaInfoStream)streamKind streamNumber:(NSUInteger)streamNumber parameter:(NSUInteger)parameter {
     return MediaInfoList_GetI(MIL, fileIndex, (MediaInfo_stream_t)streamKind, streamNumber, parameter, MediaInfo_Info_Options)[MediaInfo_InfoOption_ShowInInform]==L'Y';
+}
+
+-(bool) ShowComplete {
+   const wchar_t *s = MediaInfo_Option(MIL, [@"Complete_Get" WCHARString], [@"" WCHARString]);
+
+    return [[NSString stringFromWCHAR:s] isEqualToString:@"1"];
 }
 
 - (NSUInteger)count {

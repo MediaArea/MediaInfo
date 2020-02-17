@@ -105,7 +105,7 @@
                 NSString *field = [_files FieldAtIndex:_index streamKind:streamKind streamNumber:streamNumber parameter:fieldNumber];
                 NSString *name = [_files FieldNameAtIndex:_index streamKind:streamKind streamNumber:streamNumber parameter:fieldNumber];
                 NSString *value = [_files GetAtIndex:_index streamKind:streamKind streamNumber:streamNumber parameter:field];
-                if (![_files ShowInInform:_index streamKind:streamKind streamNumber:streamNumber parameter:fieldNumber] || [[_files GetAtIndex:_index streamKind:streamKind streamNumber:streamNumber parameter:field] isEqual:@""])
+                if ((![_files ShowComplete] && ![_files ShowInInform:_index streamKind:streamKind streamNumber:streamNumber parameter:fieldNumber]) || [[_files GetAtIndex:_index streamKind:streamKind streamNumber:streamNumber parameter:field] isEqual:@""])
                         continue;
 
                 NSUInteger level;

@@ -626,6 +626,13 @@
                 <menuItem title="View" tag="50" id="295">
                     <menu key="submenu" title="View" id="296">
                         <items>
+                            <menuItem title="Advanced mode" tag="52" hidden="YES" toolTip="Show more in the output, including different formats of time or duration" id="HYj-FA-ksV">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="advancedMode:" target="-1" id="vG8-Z5-Yd4"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem tag="53" hidden="YES" isSeparatorItem="YES" id="Aad-T6-fdc"/>
                             <menuItem title="Easy" keyEquivalent="1" id="ok7-rU-jbg">
                                 <connections>
                                     <action selector="selectEasyTab:" target="-1" id="Lgg-7U-SYd"/>

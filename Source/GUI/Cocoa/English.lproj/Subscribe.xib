@@ -48,11 +48,8 @@ CA
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="tTd-J7-XLG">
                         <rect key="frame" x="16" y="157" width="134" height="24"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" allowsEditingTextAttributes="YES" id="9hJ-Wf-yXr">
+                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="• Files compare" allowsEditingTextAttributes="YES" id="9hJ-Wf-yXr">
                             <font key="font" metaFont="system"/>
-                            <string key="title" base64-UTF8="YES">
-COKAoiBGaWxlcyBjb21wYXJlA
-</string>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -60,7 +57,7 @@ COKAoiBGaWxlcyBjb21wYXJlA
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="B6c-IE-qrM">
                         <rect key="frame" x="173" y="157" width="134" height="24"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="• Select default view" id="25b-t3-0Ag">
+                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="• Advanced mode" id="25b-t3-0Ag">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -80,7 +77,7 @@ COKAoiBGaWxlcyBjb21wYXJlA
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="nou-WM-zJF">
                         <rect key="frame" x="18" y="132" width="444" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" id="GH4-tq-1cm">
+                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="• More to come" id="GH4-tq-1cm">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -137,7 +134,7 @@ CA
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="X2M-IL-NyT">
                         <rect key="frame" x="331" y="157" width="134" height="24"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="• More to come" id="TBA-9I-zit">
+                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="• Select default view" id="TBA-9I-zit">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

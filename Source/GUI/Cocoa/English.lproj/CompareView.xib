@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="CompareView" customModule="MediaInfo">
             <connections>
+                <outlet property="closeMenu" destination="pTh-Nw-Nul" id="Mcy-BM-PdP"/>
                 <outlet property="contentView" destination="c22-O7-iKe" id="YUX-8a-v3K"/>
                 <outlet property="outlineView" destination="vH2-w2-k7r" id="zfY-Np-vSy"/>
             </connections>
@@ -67,7 +68,7 @@
                         <rect key="frame" x="1" y="0.0" width="464" height="342"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" headerView="VHB-Z4-XLA" indentationPerLevel="16" outlineTableColumn="P4Y-4L-rCh" id="vH2-w2-k7r">
+                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" headerView="VHB-Z4-XLA" indentationPerLevel="16" outlineTableColumn="P4Y-4L-rCh" id="vH2-w2-k7r">
                                 <rect key="frame" x="0.0" y="0.0" width="464" height="317"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -108,5 +109,16 @@
             </subviews>
             <point key="canvasLocation" x="94" y="202"/>
         </customView>
+        <menu showsStateColumn="NO" id="pTh-Nw-Nul">
+            <items>
+                <menuItem title="Close" id="EeT-Ck-SZE">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="closeFileInColumn:" target="-1" id="kWK-Iu-AdK"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="-31.5" y="-117"/>
+        </menu>
     </objects>
 </document>
