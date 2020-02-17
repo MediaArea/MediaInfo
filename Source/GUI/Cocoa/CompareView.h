@@ -16,12 +16,16 @@ typedef enum CompareViewMode {
     CompareViewModeEquals
 } CompareViewMode;
 
-@interface CompareView : NSView <NSTableViewDataSource, NSTableViewDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate>
+@interface CompareView : NSView <NSTableViewDataSource, NSTableViewDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate, NSMenuDelegate>
 @property (strong) IBOutlet NSView *contentView;
 @property (strong) IBOutlet NSOutlineView *outlineView;
+@property (assign) IBOutlet NSMenu *closeMenu;
 @property (nonatomic, strong) oMediaInfoList *files;
 @property (strong) NSArray *fields;
 @property (readonly) CompareViewMode mode;
+@property (readonly) NSInteger selectedIndex;
+
+-(IBAction)closeFileInColumn:(id)sender;
 
 -(void)reload;
 @end

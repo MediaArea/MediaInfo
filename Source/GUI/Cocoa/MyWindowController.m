@@ -21,6 +21,8 @@
 #define kSubscribeMenuItemTag 11
 #define kViewMenuTag 50
 #define kCompareMenuItemTag 51
+#define kAdvancedMenuItemTag 52
+#define kAdvancedMenuItemSeparatorTag 53
 
 NSString* TextKindToNSString(ViewMenu_Kind kind)
 {
@@ -495,8 +497,14 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 
         NSMenuItem *view = [menu itemWithTag:kViewMenuTag];
         if(view && view.submenu) {
-            NSMenuItem *item = [view.submenu itemWithTag:kCompareMenuItemTag];
-            [item setHidden:NO];
+            NSMenuItem *compare = [view.submenu itemWithTag:kCompareMenuItemTag];
+            [compare setHidden:NO];
+
+            NSMenuItem *advanced = [view.submenu itemWithTag:kAdvancedMenuItemTag];
+            [advanced setHidden:NO];
+
+            NSMenuItem *separator = [view.submenu itemWithTag:kAdvancedMenuItemSeparatorTag];
+            [separator setHidden:NO];
         }
     }
 
@@ -939,11 +947,37 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
         return mediaList && [tabs indexOfTabViewItem:tabs.selectedTabViewItem] != kCompareTabIndex && [mediaList count] && selectedFileIndex > 0;
     }
     else if(action == @selector(closeFile:) || action == @selector(closeAllFiles:)) {
-        return mediaList && [mediaList count];
+        if(action == @selector(closeFile:) && [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kCompareTabIndex)
+            return mediaList && compareView.selectedIndex > 0 && compareView.selectedIndex - 1 < [mediaList count];
 
+        return mediaList && [mediaList count];
     }
 
 	return YES;
+}
+
+-(void)closeFileAtIndex:(NSUInteger)index {
+    if(mediaList && index < [mediaList count]) {
+        NSUInteger oldSelectedFileIndex = selectedFileIndex;
+        NSUInteger oldComboControllerIndex = [comboController selectionIndex];
+
+        NSUInteger newSelectedFileIndex = oldSelectedFileIndex;
+        NSUInteger newComboControllerIndex = oldComboControllerIndex;
+
+        if((selectedFileIndex > 0) && ((index < selectedFileIndex) || (index == selectedFileIndex && index == [mediaList count] - 1))) {
+            newSelectedFileIndex = oldSelectedFileIndex - 1;
+            newComboControllerIndex = oldComboControllerIndex - 1;
+        }
+
+        NSMutableArray* array = [comboController content];
+        [array removeObjectAtIndex:index];
+        [comboController setContent:array];
+
+        [mediaList closeAtIndex:index];
+
+        [comboController setSelectionIndex:newComboControllerIndex];
+        [self setSelectedFileIndex:newSelectedFileIndex];
+    }
 }
 
 -(IBAction)selectNextTab:(id)sender {
@@ -962,6 +996,14 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 
 -(IBAction)closeFile:(id)sender {
     if(mediaList && [mediaList count]) {
+
+        if ([tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kCompareTabIndex) {
+            if(compareView.selectedIndex > 0 && (compareView.selectedIndex - 1) < [mediaList count])
+                [self closeFileAtIndex:(compareView.selectedIndex - 1)];
+
+            return;
+        }
+
         NSUInteger oldSelectedFileIndex = selectedFileIndex;
         NSUInteger oldComboControllerIndex = [comboController selectionIndex];
         NSUInteger newSelectedFileIndex = oldSelectedFileIndex;
@@ -995,5 +1037,20 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 
 - (IBAction)clickOnSubscribe:(id)sender {
     [[SubscribeWindowController controller] show];
+}
+
+-(IBAction)advancedMode:(id)sender {
+    if([sender isKindOfClass: [NSMenuItem class]]) {
+        NSMenuItem* item = sender;
+
+        BOOL newState = !item.state;
+        [item setState:newState];
+
+        [oMediaInfoList setOptionStatic:@"Complete" withValue:(newState?@"1":@"")];
+
+        if(mediaList && selectedFileIndex < [mediaList count]) {
+            [self showFileAtIndex:selectedFileIndex];
+        }
+    }
 }
 @end

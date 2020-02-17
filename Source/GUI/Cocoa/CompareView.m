@@ -19,9 +19,11 @@
     _files = nil;
     _fields = nil;
     _mode = CompareViewModeAll;
+    _selectedIndex = -1;
     [self loadNib];
     [_outlineView setDataSource:self];
     [_outlineView setDelegate:self];
+    [_closeMenu setDelegate:self];
 }
 
 -(instancetype)initWithCoder:(NSCoder *)decoder {
@@ -65,6 +67,8 @@
 }
 
 -(void) createFields {
+    _selectedIndex = -1;
+
     if (_fields) {
         [_fields release];
         _fields = nil;
@@ -90,7 +94,7 @@
                 for(NSUInteger fieldNumber=0; fieldNumber<fieldCount; fieldNumber++) {
                     NSString *field = [_files FieldAtIndex:fileIndex streamKind:streamKind streamNumber:streamNumber parameter:fieldNumber];
                     NSString *name = [_files FieldNameAtIndex:fileIndex streamKind:streamKind streamNumber:streamNumber parameter:fieldNumber];
-                    if (![_files ShowInInform:fileIndex streamKind:streamKind streamNumber:streamNumber parameter:fieldNumber] || [[_files GetAtIndex:fileIndex streamKind:streamKind streamNumber:streamNumber parameter:field] isEqual:@""] || [field isEqual:@"CompleteName"])
+                    if ((![_files ShowComplete] && ![_files ShowInInform:fileIndex streamKind:streamKind streamNumber:streamNumber parameter:fieldNumber]) || [[_files GetAtIndex:fileIndex streamKind:streamKind streamNumber:streamNumber parameter:field] isEqual:@""] || [field isEqual:@"CompleteName"])
                         continue;
 
 
@@ -173,6 +177,9 @@
         [cell setTextColor:NSColor.textColor];
     else
         [cell setTextColor:[NSColor colorWithRed:1 green:0 blue:0 alpha:1]];
+
+     if([[outlineView tableColumns] indexOfObject:tableColumn] != 0)
+        [cell setMenu:_closeMenu];
 }
 
 -(id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item {
@@ -257,6 +264,36 @@
     NSArray* descriptors =outlineView.sortDescriptors;
     _fields = [[fields sortedArrayUsingDescriptors:descriptors] copy];
     [outlineView reloadData];
+}
+
+-(BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectTableColumn:(nullable NSTableColumn *)tableColumn {
+    return [[outlineView tableColumns] indexOfObject:tableColumn] > 0;
+}
+
+-(void)outlineViewSelectionDidChange:(NSNotification *)notification {
+    _selectedIndex = [_outlineView selectedColumn];
+}
+
+-(void)menuWillOpen:(NSMenu *)menu {
+    NSInteger column = [_outlineView clickedColumn];
+    [_outlineView selectColumnIndexes:[NSIndexSet indexSetWithIndex:column] byExtendingSelection:NO];
+}
+
+-(void)menuDidClose:(NSMenu *)menu {
+    [_outlineView selectColumnIndexes:[NSIndexSet indexSet] byExtendingSelection:NO];
+}
+
+-(IBAction)closeFileInColumn:(id)sender {
+    if(![NSApplication sharedApplication] ||
+       ![[NSApplication sharedApplication] mainWindow] ||
+       ![[[NSApplication sharedApplication] mainWindow] windowController])
+        return;
+
+    id mainWindowController = [[[NSApplication sharedApplication] mainWindow] windowController];
+
+    _selectedIndex = [_outlineView clickedColumn];
+    [mainWindowController performSelector:@selector(closeFile:)];
+    [self reload];
 }
 
 -(void)reload {

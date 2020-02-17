@@ -85,9 +85,10 @@ typedef enum { Kind_Text, Kind_HTML, Kind_XML, Kind_JSON, Kind_PBCore, Kind_PBCo
 -(void)updateTextTabWithFileAtIndex:(NSUInteger)index;
 -(void)_updateTextTabWithContentOfAttributedTextAtIndex:(NSUInteger)index;
 -(void)_updateTextTabWithContentOfSimpleTextAtIndex:(NSUInteger)index;
-
+-(void)closeFileAtIndex:(NSUInteger)index;
 -(IBAction)selectNextTab:(id)sender;
 -(IBAction)selectPreviousTab:(id)sender;
 -(IBAction)closeFile:(id)sender;
 -(IBAction)closeAllFiles:(id)sender;
+-(IBAction)advancedMode:(id)sender;
 @end
