@@ -144,7 +144,7 @@
 }
 
 -(bool) ShowComplete {
-   const wchar_t *s = MediaInfo_Option(MIL, [@"Complete_Get" WCHARString], [@"" WCHARString]);
+   const wchar_t *s = MediaInfoList_Option(NULL, [@"Complete_Get" WCHARString], [@"" WCHARString]);
 
     return [[NSString stringFromWCHAR:s] isEqualToString:@"1"];
 }
