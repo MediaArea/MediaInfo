@@ -745,7 +745,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
                             if (A==__T("Yes") && Champ_Pos+1<ChampsCount)
                                 Hide=I->Get(FilePos, (stream_t)StreamKind, StreamPos, Champ_Pos+1, Info_Name_Text).find_first_not_of(__T(' '))>Level;
 
-                            if (Level)
+                            if (Level && Level!=(size_t)-1)
                                 D=D.substr(Level);
 
                             if(Level==Tree.size() && Tree.back()->GetLastChild())
