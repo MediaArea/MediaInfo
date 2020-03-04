@@ -358,6 +358,7 @@ FolderName;Katalogo pavadinimas
 Format;Formatas
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;Formatas aprašymas
 Format_Info;Formatas detalės
 Format_Level;

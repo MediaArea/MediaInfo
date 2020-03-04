@@ -358,6 +358,7 @@ FolderName;ფოლდერის სახელი
 Format;ფორმატი
 Format_Commercial;Commercial name
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;ფორმატის აღწერა
 Format_Info;ფორმატის დეტალები
 Format_Level;

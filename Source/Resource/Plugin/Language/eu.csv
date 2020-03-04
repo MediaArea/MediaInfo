@@ -358,6 +358,7 @@ FolderName;Agiritegi izena
 Format;Heuskarria
 Format_Commercial;Merkatal izena
 Format_Commercial_IfAny;Merkatal izena
+Format_Compression;
 Format_Description;Heuskarriaren azalpena
 Format_Info;Heuskarriaren xehatasunak
 Format_Level;

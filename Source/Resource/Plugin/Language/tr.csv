@@ -358,6 +358,7 @@ FolderName;Klasör adı
 Format;Biçim
 Format_Commercial;Ticari adı
 Format_Commercial_IfAny;Ticari adı
+Format_Compression;
 Format_Description;Biçim açıklaması
 Format_Info;Biçim için ayrıntılar
 Format_Level;

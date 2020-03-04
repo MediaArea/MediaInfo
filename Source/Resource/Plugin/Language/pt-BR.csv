@@ -358,6 +358,7 @@ FolderName;Nome da pasta
 Format;Formato
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;Descrição do Formato
 Format_Info;Detalhes do codec
 Format_Level;

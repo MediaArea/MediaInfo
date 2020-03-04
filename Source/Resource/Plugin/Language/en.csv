@@ -358,6 +358,7 @@ FolderName;Folder name
 Format;Format
 Format_Commercial;Commercial name
 Format_Commercial_IfAny;Commercial name
+Format_Compression;Compression
 Format_Description;Format description
 Format_Info;Details for format
 Format_Level;Format level
@@ -489,7 +490,7 @@ Genre_080;Folk
 Genre_081;Folk-Rock
 Genre_082;National Folk
 Genre_083;Swing
-Genre_084;Fast-Fusion
+Genre_084;Fast Fusion
 Genre_085;Bebop
 Genre_086;Latin
 Genre_087;Revival

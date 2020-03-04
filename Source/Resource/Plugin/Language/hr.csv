@@ -358,6 +358,7 @@ FolderName;Naziv mape
 Format;Oblik datoteke
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;Opis oblika datoteke
 Format_Info;Pojedinosti oblika datoteke
 Format_Level;

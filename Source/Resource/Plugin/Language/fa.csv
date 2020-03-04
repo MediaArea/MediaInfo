@@ -358,6 +358,7 @@ FolderName;نام پوشه
 Format;فرمت
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;شرح فرمت
 Format_Info;جزییات فرمت
 Format_Level;

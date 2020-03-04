@@ -358,6 +358,7 @@ FolderName;資料夾
 Format;格式
 Format_Commercial;廣告名稱
 Format_Commercial_IfAny;廣告名稱
+Format_Compression;
 Format_Description;格式描述
 Format_Info;格式資訊
 Format_Level;

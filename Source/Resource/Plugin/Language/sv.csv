@@ -358,6 +358,7 @@ FolderName;Mappnamn
 Format;Format
 Format_Commercial;Kommersiellt namn
 Format_Commercial_IfAny;Kommersiellt namn
+Format_Compression;
 Format_Description;Formatbeskrivning
 Format_Info;Formatdetaljer
 Format_Level;

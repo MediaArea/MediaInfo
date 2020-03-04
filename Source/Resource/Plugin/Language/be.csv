@@ -358,6 +358,7 @@ FolderName;Імя тэчкі
 Format;Фармат
 Format_Commercial;Камерцыйная назва
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;Апісанне фармату
 Format_Info;Падрабязна аб фармаце
 Format_Level;

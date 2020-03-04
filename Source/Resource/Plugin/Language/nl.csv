@@ -358,6 +358,7 @@ FolderName;Mapnaam
 Format;Formaat
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;Formaatbeschrijving
 Format_Info;Details over formaat
 Format_Level;

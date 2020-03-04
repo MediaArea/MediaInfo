@@ -358,6 +358,7 @@ FolderName;Όνομα φακέλου
 Format;Μορφοποίηση
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;
 Format_Info;
 Format_Level;

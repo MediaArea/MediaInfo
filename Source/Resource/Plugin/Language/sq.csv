@@ -358,6 +358,7 @@ FolderName;Emri i dosjes
 Format;Formati
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;Përshkrimi i formatit
 Format_Info;Detajet e formatit
 Format_Level;

@@ -358,6 +358,7 @@ FolderName;Թղթապանակի անունը
 Format;Տեսակը
 Format_Commercial;Կոմերցիոն անվանումը
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;Տեսակի նկարագրությունը
 Format_Info;Մանրամասն տեսակի մասին
 Format_Level;

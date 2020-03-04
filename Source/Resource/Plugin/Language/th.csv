@@ -358,6 +358,7 @@ FolderName;ชื่อโฟลเดอร์
 Format;รูปแบบ
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;รายละเอียดของรูปแบบ
 Format_Info;ข้อมูลของรูปแบบ
 Format_Level;

@@ -358,6 +358,7 @@ FolderName;Nom de la carpeta
 Format;Format
 Format_Commercial;Nom comercial
 Format_Commercial_IfAny;Nom comercial
+Format_Compression;
 Format_Description;Descripció format
 Format_Info;Detalls del format
 Format_Level;

@@ -358,6 +358,7 @@ FolderName;Назва каталогу
 Format;Формат
 Format_Commercial;Комерційна назва
 Format_Commercial_IfAny;Комерційна назва
+Format_Compression;
 Format_Description;Опис формату
 Format_Info;Деталі формату
 Format_Level;

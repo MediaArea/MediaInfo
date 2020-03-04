@@ -358,6 +358,7 @@ FolderName;Názov adresára
 Format;Formát
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;Popis formátu
 Format_Info;Informácie o formáte
 Format_Level;

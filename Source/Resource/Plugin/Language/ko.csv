@@ -358,6 +358,7 @@ FolderName;폴더명
 Format;포맷
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;포맷 설명
 Format_Info;포맷 정보
 Format_Level;

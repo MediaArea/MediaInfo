@@ -358,6 +358,7 @@ FolderName;Nazwa folderu
 Format;Format
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;Opis formatu
 Format_Info;Szczegóły formatu
 Format_Level;
@@ -1146,5 +1147,5 @@ Written_Location;Lokalizacja
 WrittenBy;Napisał
 Yes;Tak
 Your system;System
-ZZ_Automatic_Percent;73
+ZZ_Automatic_Percent;72
 ZZ_AutomaticLanguage_Percent;85

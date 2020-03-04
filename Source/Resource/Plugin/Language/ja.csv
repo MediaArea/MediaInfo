@@ -358,6 +358,7 @@ FolderName;フォルダー名
 Format;フォーマット
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;詳細
 Format_Info;情報
 Format_Level;

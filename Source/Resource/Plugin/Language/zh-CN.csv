@@ -358,6 +358,7 @@ FolderName;文件夹名　
 Format;格式
 Format_Commercial;格式名称
 Format_Commercial_IfAny;格式名称
+Format_Compression;
 Format_Description;格式描述
 Format_Info;格式详情
 Format_Level;格式标准

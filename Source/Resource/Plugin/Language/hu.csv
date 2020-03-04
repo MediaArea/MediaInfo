@@ -358,6 +358,7 @@ FolderName;Mappanév
 Format;Formátum
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;Formátum leírás
 Format_Info;A kódek részletei
 Format_Level;
@@ -1146,5 +1147,5 @@ Written_Location;Írás helye
 WrittenBy;Írta
 Yes;igen
 Your system;Rendszer
-ZZ_Automatic_Percent;75
+ZZ_Automatic_Percent;74
 ZZ_AutomaticLanguage_Percent;84
