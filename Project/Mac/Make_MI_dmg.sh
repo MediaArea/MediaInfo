@@ -63,10 +63,10 @@ if [ "$KIND" = "CLI" ]; then
 
     mkdir -p "${FILES}-Root/usr/local/bin"
     cp "../GNU/CLI/${APPNAME_lower}" "${FILES}-Root/usr/local/bin"
-    codesign -f -s "Developer ID Application: ${SIGNATURE}" --verbose "${FILES}-Root/usr/local/bin/${APPNAME_lower}"
+    codesign -f --deep --options=runtime -s "Developer ID Application: ${SIGNATURE}" --verbose "${FILES}-Root/usr/local/bin/${APPNAME_lower}"
 
     pkgbuild --root "${FILES}-Root" --identifier "net.mediaarea.${APPNAME_lower}.mac-${KIND_lower}" --sign "Developer ID Installer: ${SIGNATURE}" --version "${VERSION}" "${FILES}/${APPNAME_lower}.pkg"
-    codesign -f -s "Developer ID Application: ${SIGNATURE}" --verbose "${FILES}/${APPNAME_lower}.pkg"
+    codesign -f --deep --options=runtime -s "Developer ID Application: ${SIGNATURE}" --verbose "${FILES}/${APPNAME_lower}.pkg"
 
 fi
 
@@ -93,8 +93,8 @@ if [ "$KIND" = "GUI" ]; then
     echo -n 'APPL????' > "${FILES}/${APPNAME}.app/Contents/PkgInfo"
     cp ${APPNAME}.icns "${FILES}/${APPNAME}.app/Contents/Resources"
     
-    codesign -f -s "Developer ID Application: ${SIGNATURE}" --verbose "${FILES}/${APPNAME}.app/Contents/MacOS/${APPNAME}"
-    codesign -f -s "Developer ID Application: ${SIGNATURE}" --verbose "${FILES}/${APPNAME}.app"
+    codesign -f --deep --options=runtime -s "Developer ID Application: ${SIGNATURE}" --verbose "${FILES}/${APPNAME}.app/Contents/MacOS/${APPNAME}"
+    codesign -f --deep --options=runtime -s "Developer ID Application: ${SIGNATURE}" --verbose "${FILES}/${APPNAME}.app"
 
 fi
 
@@ -128,9 +128,7 @@ echo ========== Convert to compressed image ==========
 echo
 hdiutil convert "${TEMPDMG}" -format UDBZ -o "${FINALDMG}"
 
-# Useless since the dmg will transit on no HFS+ partition (at least
-# on the linux server)
-#codesign -f -s "Developer ID Application: ${SIGNATURE}" --verbose "${FINALDMG}"
+codesign -f --deep --options=runtime -s "Developer ID Application: ${SIGNATURE}" --verbose "${FINALDMG}"
 
 unset -v APPNAME APPNAME_lower KIND KIND_lower VERSION SIGNATURE
 unset -v TEMPDMG FINALDMG FILES DEVICE
