@@ -49,6 +49,32 @@ class Core {
         }
     }
 
+    var userLocale: Bool {
+        get {
+            if SubscriptionManager.shared.subscriptionActive && UserDefaults.standard.object(forKey: "UserLocale") != nil {
+                  return UserDefaults.standard.bool(forKey: "UserLocale")
+            }
+            else {
+                return true
+            }
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "UserLocale")
+        }
+    }
+
+    var locale: String {
+        get {
+            if userLocale {
+                if let path = Bundle.main.path(forResource: "lang", ofType: "csv") {
+                    if let content = try? String.init(contentsOfFile: path, encoding: .utf8) {
+                        return content
+                    }
+                }
+            }
+            return ""
+        }
+    }
     var views: Array<ReportView> {
         get {
             var views: Array<ReportView> = Array<ReportView>()
@@ -84,6 +110,7 @@ class Core {
 
     init() {
         mi = MediaInfo_New()
+        var _ = locale
     }
 
     deinit {
@@ -147,7 +174,7 @@ class Core {
         MediaInfo_Open_Buffer_Init(mi, fileSize, 0)
 
         while true {
-            var data: Data = file.readData(ofLength: 1024 * 1024)
+            let data: Data = file.readData(ofLength: 1024 * 1024)
             var state: States = States(rawValue: 0)
             let size = data.count
 
@@ -204,8 +231,19 @@ class Core {
         }
 
         if format == "Text" && export == false {
+            var value = locale.replacingOccurrences(of: "  Config_Text_ColumnSize;40", with: "  Config_Text_ColumnSize;25")
+            if value.isEmpty {
+                value = "  Config_Text_ColumnSize;25"
+            }
             _ = "Language".withWideChars { wName in
-                "  Config_Text_ColumnSize;25".withWideChars { wValue in
+                value.withWideChars { wValue in
+                    MediaInfo_Option(mi, wName, wValue)
+                }
+            }
+        }
+        else {
+            _ = "Language".withWideChars { wName in
+                locale.withWideChars { wValue in
                     MediaInfo_Option(mi, wName, wValue)
                 }
             }

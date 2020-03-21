@@ -1017,6 +1017,8 @@ Released_Date;Released date
 RemixedBy;Remixed by
 ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replay gain peak
+Renew;Renew
+Report;Report
 Resolution;Resolution
 s; s
 SamplePeakLevel;Sample peak level
@@ -1088,14 +1090,23 @@ StreamSize_Encoded;Encoded stream size
 StreamSize_Proportion;Proportion of this stream
 Subject;Subject
 Subscribe;Subscribe
+Subscribe_Button;Subscribe (%PRICE% for one year)
+Subscribe_Failed;Purchase canceled or failed
 Subscribe_Manage;Manage subscription
+Subscribe_Renew;Renew subscription?
+Subscribe_Renew_Price;Renew subscription (%PRICE% for one year)
+Subscribe_Unaviable;Unable to retrieve subscription details.
+Subscribe_Waiting;Purchase waiting for parent approval
+Subscription_Active;Subscription active until %DATE%
 Subscription_Android;%PRICE% per year with free 3 days trial period.
+Subscription_Ended;Your subscription has just ended.
+Subscription_Expired;Subscription expired since %DATE%
 Subscription_Thanks;Subscription detected. Thanks for your support!
 SubTrack;SubTrack
 Summary;Summary
 Supported formats;Supported formats
 Supported?;Supported?
-SupportUs_Android;Support us. Get the dark theme and more features to come.
+SupportUs;Support us. Get the dark theme and more features to come.
 Synopsis;Synopsis
 SystemId;Id
 Tagged_Application;Tagging application
@@ -1155,6 +1166,7 @@ Video1;First video stream
 VideoComments;Video Comments
 VideoCount;Count of video streams
 View;View
+Views;Views
 View_Hint;Change the means of viewing information
 Warning : more streams in the files;Warning : there are more streams in the files
 Web;Web

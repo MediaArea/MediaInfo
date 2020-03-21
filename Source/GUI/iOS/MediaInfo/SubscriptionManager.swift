@@ -114,8 +114,8 @@ class SubscriptionManager : NSObject, SKProductsRequestDelegate {
 
     func notifyUserForSubscriptionEnd(parent: UIViewController & SubscribeResultDelegate) {
         NSUbiquitousKeyValueStore.default.set([Date()], forKey: "SubscriptionEndUserNotificationDate")
-        let controller = UIAlertController(title: "Renew subscription?", message: "Your subscription has just ended.", preferredStyle: .alert)
-        controller.addAction(UIAlertAction(title: "Renew", style: .default, handler: { _ in
+        let controller = UIAlertController(title: NSLocalizedString("Renew subscription?", tableName: "Core", comment: ""), message: NSLocalizedString("Your subscription has just ended.", tableName: "Core", comment: ""), preferredStyle: .alert)
+        controller.addAction(UIAlertAction(title: NSLocalizedString("Renew", tableName: "Core", comment: ""), style: .default, handler: { _ in
             let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
             if let subscribeViewController = storyboard.instantiateViewController(withIdentifier: "SubscribeViewController") as? SubscribeViewController {
                 let navigationController = UINavigationController(rootViewController: subscribeViewController)
@@ -124,7 +124,7 @@ class SubscriptionManager : NSObject, SKProductsRequestDelegate {
                 parent.present(navigationController, animated: true, completion: nil)
             }
         }))
-        controller.addAction(UIAlertAction(title: "Close", style: .cancel))
+        controller.addAction(UIAlertAction(title: NSLocalizedString("Close", tableName: "Core", comment: ""), style: .cancel))
 
         parent.present(controller, animated: true)
     }

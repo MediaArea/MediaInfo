@@ -45,14 +45,11 @@ class SubscribeViewController: UIViewController {
 
     var message: String? = nil
     var delegate: SubscribeResultDelegate? = nil
+    var purchasing: Bool = false
 
     @IBAction func subscribe(_ sender: Any) {
         subscribeButton.loadingIndicator(true)
-
-        NotificationCenter.default.addObserver(self, selector: #selector(purchaseFailed(_:)), name: .purchaseFailed, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(purchaseDeferred(_:)), name: .purchaseDeferred, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(purchaseSucceeded(_:)), name: .purchaseSucceeded, object: nil)
-
+        purchasing = true
         SubscriptionManager.shared.purchase()
     }
 
@@ -65,7 +62,7 @@ class SubscribeViewController: UIViewController {
             formatter.timeStyle = .short
 
             if date >= Date() {
-                statusText.text = "Subscription active until \(formatter.string(from: date))"
+                statusText.text = NSLocalizedString("Subscription active until %DATE%", tableName: "Core", comment: "").replacingOccurrences(of: "%DATE%", with: formatter.string(from: date))
                 if let short = Calendar.current.date(byAdding: .day, value: 7, to: Date()), short >= date {
                     statusText.textColor = UIColor.orange
                 } else {
@@ -73,7 +70,7 @@ class SubscribeViewController: UIViewController {
                 }
                 statusText.sizeToFit()
             } else {
-                statusText.text = "Subscription expired since \(formatter.string(from: date))"
+                statusText.text = NSLocalizedString("Subscription expired since %DATE%", tableName: "Core", comment: "").replacingOccurrences(of: "%DATE%", with: formatter.string(from: date))
                 statusText.textColor = UIColor.red
                 statusText.sizeToFit()
             }
@@ -83,8 +80,8 @@ class SubscribeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "Subscribe";
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
+        navigationItem.title = NSLocalizedString("Subscribe", tableName: "Core", comment: "")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Close", tableName: "Core", comment: ""), style: .plain, target: self, action: #selector(close))
         navigationController?.isNavigationBarHidden = false
 
         subscribeButton.loadingIndicator(true)
@@ -97,6 +94,10 @@ class SubscribeViewController: UIViewController {
         } else {
             updateSubscriptionDetails()
         }
+
+        NotificationCenter.default.addObserver(self, selector: #selector(purchaseFailed(_:)), name: .purchaseFailed, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(purchaseDeferred(_:)), name: .purchaseDeferred, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(purchaseSucceeded(_:)), name: .purchaseSucceeded, object: nil)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -108,31 +109,28 @@ class SubscribeViewController: UIViewController {
     }
 
     @objc func purchaseFailed(_ notification: Notification) {
-        NotificationCenter.default.removeObserver(self, name: .purchaseFailed, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .purchaseDeferred, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .purchaseSucceeded, object: nil)
-        subscribeButton.loadingIndicator(false)
-
-        view.makeToast("Purchase canceled or failed", duration: 5.0, position: .top)
+        if (purchasing) {
+            purchasing = false
+            subscribeButton.loadingIndicator(false)
+            view.makeToast(NSLocalizedString("Purchase canceled or failed", tableName: "Core", comment: ""), duration: 5.0, position: .top)
+        }
     }
 
     @objc func purchaseDeferred(_ notification: Notification) {
-        NotificationCenter.default.removeObserver(self, name: .purchaseFailed, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .purchaseDeferred, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .purchaseSucceeded, object: nil)
-        subscribeButton.loadingIndicator(false)
-
-        view.makeToast("Purchase waiting for parent approval", duration: 5.0, position: .top)
+        if (purchasing) {
+            purchasing = false
+            subscribeButton.loadingIndicator(false)
+            view.makeToast(NSLocalizedString("Purchase waiting for parent approval", tableName: "Core", comment: ""), duration: 5.0, position: .top)
+        }
     }
 
     @objc func purchaseSucceeded(_ notification: Notification) {
-        NotificationCenter.default.removeObserver(self, name: .purchaseFailed, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .purchaseDeferred, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .purchaseSucceeded, object: nil)
-        subscribeButton.loadingIndicator(false)
-
-        message = "Purchase succeeded, thanks for your support!"
-        close()
+        if (purchasing) {
+            purchasing = false
+            subscribeButton.loadingIndicator(false)
+            message = NSLocalizedString("Purchase succeeded, thanks for your support!", tableName: "Core", comment: "")
+            close()
+        }
     }
 
     @objc func subscriptionDetailsAviable(_ notification: Notification) {
@@ -149,9 +147,9 @@ class SubscribeViewController: UIViewController {
                 subscribeButton.loadingIndicator(false)
 
                 if SubscriptionManager.shared.subscriptionEndDate != nil {
-                    subscribeButton.setTitle("Renew subscription (\(price) for one year)", for: .normal)
+                    subscribeButton.setTitle(NSLocalizedString("Renew subscription (%PRICE% for one year)", tableName: "Core", comment: "").replacingOccurrences(of: "%PRICE%", with: price), for: .normal)
                 } else {
-                    subscribeButton.setTitle("Subscribe (\(price) for one year)", for: .normal)
+                    subscribeButton.setTitle(NSLocalizedString("Subscribe (%PRICE% for one year)", tableName: "Core", comment: "").replacingOccurrences(of: "%PRICE%", with: price), for: .normal)
                 }
 
                 legalText.text = """
@@ -160,11 +158,11 @@ class SubscribeViewController: UIViewController {
                 """
                 legalText.sizeToFit()
             } else {
-                message = "Unable to retrieve subscription details."
+                message = NSLocalizedString("Unable to retrieve subscription details.", tableName: "Core", comment: "")
                 close()
             }
         } else {
-            message = "Unable to retrieve subscription details."
+            message = NSLocalizedString("Unable to retrieve subscription details.", tableName: "Core", comment: "")
             close()
         }
     }
