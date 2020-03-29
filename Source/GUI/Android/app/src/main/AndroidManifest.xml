@@ -83,8 +83,59 @@
                 <data android:scheme="file" android:mimeType="application/x-shockwave-flash" />
                 <data android:scheme="file" android:mimeType="application/x-subrip" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="audio/*" />
+                <data android:mimeType="image/*" />
+                <data android:mimeType="video/*" />
+                <data android:mimeType="application/acad" />
+                <data android:mimeType="application/dash+xml" />
+                <data android:mimeType="application/dwg" />
+                <data android:mimeType="application/gxf" />
+                <data android:mimeType="application/mxf" />
+                <data android:mimeType="application/ogg" />
+                <data android:mimeType="application/ram" />
+                <data android:mimeType="application/ttml+xml" />
+                <data android:mimeType="application/vnd.ms-asf" />
+                <data android:mimeType="application/vnd.rn-realmedia" />
+                <data android:mimeType="application/x-blender" />
+                <data android:mimeType="application/x-cd-image" />
+                <data android:mimeType="application/x-flac" />
+                <data android:mimeType="application/x-matroska" />
+                <data android:mimeType="application/x-ogg" />
+                <data android:mimeType="application/x-sami" />
+                <data android:mimeType="application/x-shockwave" />
+                <data android:mimeType="application/x-shockwave-flash" />
+                <data android:mimeType="application/x-subrip" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="audio/*" />
+                <data android:mimeType="image/*" />
+                <data android:mimeType="video/*" />
+                <data android:mimeType="application/acad" />
+                <data android:mimeType="application/dash+xml" />
+                <data android:mimeType="application/dwg" />
+                <data android:mimeType="application/gxf" />
+                <data android:mimeType="application/mxf" />
+                <data android:mimeType="application/ogg" />
+                <data android:mimeType="application/ram" />
+                <data android:mimeType="application/ttml+xml" />
+                <data android:mimeType="application/vnd.ms-asf" />
+                <data android:mimeType="application/vnd.rn-realmedia" />
+                <data android:mimeType="application/x-blender" />
+                <data android:mimeType="application/x-cd-image" />
+                <data android:mimeType="application/x-flac" />
+                <data android:mimeType="application/x-matroska" />
+                <data android:mimeType="application/x-ogg" />
+                <data android:mimeType="application/x-sami" />
+                <data android:mimeType="application/x-shockwave" />
+                <data android:mimeType="application/x-shockwave-flash" />
+                <data android:mimeType="application/x-subrip" />
+            </intent-filter>
         </activity>
-
         <activity
             android:name=".ReportDetailActivity"
             android:label="@string/app_name"
