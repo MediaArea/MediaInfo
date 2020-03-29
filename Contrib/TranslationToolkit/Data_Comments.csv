@@ -1,0 +1,415 @@
+﻿Key,Type or Unit,Comment
+Accompaniment,,Band/orchestra/accompaniment/musician
+ActiveFormatDescription,,Active Format Description (AFD value); Active Format Description (text)
+ActiveFormatDescription_MuxingMode,,Active Format Description (AFD value) muxing mode (Ancillary or Raw stream)
+Actor,,Real name of an actor/actress playing a role in the movie
+Actor_Character,,Name of the character an actor or actress plays in this movie
+Added_Date,,Date/year the item was added to the owners collection
+Album,,Name of an audio-album. Eg : The Joshua Tree; Original name of the album
+Album_More,,More info about the album
+Album_ReplayGain_Gain, dB,The gain to apply to reach 89dB SPL on playback
+Album_ReplayGain_Peak,,The maximum absolute peak value of the item
+Alignment,,How this stream file is aligned in the container; Where this stream file is aligned in the container
+AlternateGroup,,Number of a group in order to provide versions of the same track
+Archival_Location,,"Location where an item is archived (e.g. Louvre, Paris, France)"
+Arranger,,The person who arranged the piece (e.g. Ravel)
+ArtDirector,,Name of the person who oversees the artists and craftspeople who build the sets
+AssistantDirector,,Name of the assistant director
+AudioCount,,Number of audio streams
+Audio_Codec_List,,"Deprecated, do not use in new projects"
+Audio_Format_List,,"Audio Codecs in this file,separated by /"
+Audio_Format_WithHint_List,,"Audio Codecs in this file with popular name (hint), separated by /"
+Audio_Language_List,,Audio languages in this file separated by /
+BPM,,Average number of beats per minute
+BarCode,,EAN-13 (13-digit European Article Numbering) or UPC-A (12-digit Universal Product Code) bar code identifier
+BitDepth, bit,"Resolution in bits (8, 16, 20, 24). Note: significant bits in case the stored bit depth is different; 16/24/32; 16/24/32 bits"
+BitDepth_Detected, bit,Detected (during scan of the input by the muxer) resolution in bits
+BitDepth_Stored, bit,"Stored Resolution in bits (8, 16, 20, 24)"
+BitRate, bps,Bit rate in bps; Bit rate (with measurement)
+BitRate_Encoded, bps,"Encoded (with forced padding) bit rate in bps, if some container padding is present; Encoded (with forced padding) bit rate (with measurement), if some container padding is present"
+BitRate_Maximum, bps,Maximum Bit rate in bps; Maximum Bit rate (with measurement)
+BitRate_Minimum, bps,Minimum Bit rate in bps; Minimum Bit rate (with measurement)
+BitRate_Mode,,"Bit rate mode (VBR, CBR); Bit rate mode (Constant, Variable); Bit rate mode (Variable, Cconstant)"
+BitRate_Nominal, bps,Nominal Bit rate in bps; Nominal Bit rate (with measurement)
+Bits-(Pixel*Frame),,bits/(Pixel*Frame) (like Gordian Knot)
+BufferSize,,Defines the size of the buffer needed to decode the sequence.
+CC,,"Deprecated, do not use in new projects; Deprecated"
+CatalogNumber,,A label-specific catalogue number used to identify the release. e.g. TIC 01
+Channel(s), channel,Number of channels; Number of channels (with measurement)
+Channel(s)_Original, channel,Number of channels; Number of channels (with measurement)
+ChannelLayout,,Layout of channels (in the stream)
+ChannelLayoutID,,"ID of layout of channels (e.g. MXF descriptor channel assignment). Warning, sometimes this is not enough for uniquely identifying a layout (e.g. MXF descriptor channel assignment is SMPTE 377-4). For AC-3, the form is x,y with x=acmod and y=lfeon."
+ChannelLayout_Original,,Layout of channels (in the stream)
+ChannelPositions,,Position of channels
+ChannelPositions_Original,,Position of channels
+Chapter,,Name of the chapter
+Chapters_Pos_Begin,,"Used by third-party developers to know about the beginning of the chapters list, to be used by Get(Stream_Menu, x, Pos), where Pos is an Integer between Chapters_Pos_Begin and Chapters_Pos_End"
+Chapters_Pos_End,,Used by third-party developers to know about the end of the chapters list (this position excluded)
+Choreographer,,Name of the choreographer
+CoDirector,,Name of the codirector
+CoProducer,,Name of a co-producer
+Codec,,"Deprecated, do not use in new projects; Deprecated"
+CodecID,,Codec ID (found in some containers)
+CodecID_Compatible,,Compatible CodecIDs
+CodecID_Description,,Manual description given by the container
+CodecID_Version,,Version of the CodecID
+Codec_Description,,"Deprecated, do not use in new projects"
+Codec_Profile,,"Deprecated, do not use in new projects"
+Codec_Settings,,"Deprecated, do not use in new projects"
+Codec_Settings_Automatic,,"Deprecated, do not use in new projects"
+Codec_Settings_BVOP,,"Deprecated, do not use in new projects"
+Codec_Settings_CABAC,,"Deprecated, do not use in new projects"
+Codec_Settings_Endianness,,"Deprecated, do not use in new projects"
+Codec_Settings_Firm,,"Deprecated, do not use in new projects"
+Codec_Settings_Floor,,"Deprecated, do not use in new projects"
+Codec_Settings_GMC, warppoint,"Deprecated, do not use in new projects"
+Codec_Settings_ITU,,"Deprecated, do not use in new projects"
+Codec_Settings_Law,,"Deprecated, do not use in new projects"
+Codec_Settings_Matrix,,"Deprecated, do not use in new projects"
+Codec_Settings_Matrix_Data,,"Deprecated, do not use in new projects"
+Codec_Settings_PacketBitStream,,"Deprecated, do not use in new projects"
+Codec_Settings_QPel,,"Deprecated, do not use in new projects"
+Codec_Settings_RefFrames,,"Deprecated, do not use in new projects"
+Codec_Settings_Sign,,"Deprecated, do not use in new projects"
+Collection,,"Name of the series, e.g. Star Wars movies, Stargate SG-1, Stargate Atlantis, Buffy, Angel"
+Colorimetry,,"Deprecated, do not use in new projects"
+Comic,,Name of the comic.
+Comic_More,,More info about the comic
+Comment,,Any comment related to the content
+CommissionedBy,,Name of the person or organization that commissioned the subject of the file
+Compilation,Yes,iTunes compilation
+CompleteName,,Complete name (Folder+Name+Extension)
+CompleteName_Last,,Complete name (Folder+Name+Extension) of the last file (in the case of a sequence of files)
+Composer,,Name of the original composer
+Compression_Mode,,Compression mode (Lossy or Lossless)
+Compression_Ratio,,Current stream size divided by uncompressed stream size
+Conductor,,"The artist(s) who performed the work. In classical music this would be the conductor, orchestra, soloists, etc."
+ContentType,,"The type or genre of the content. e.g. Documentary, Feature Film, Cartoon, Music Video, Music, Sound FX, etc."
+Copyright,,Copyright attribution
+CostumeDesigner,,Name of the costume designer
+Count,,Count of objects available in this stream
+Country,,"Country, where the movie was produced"
+Cover,,Is there a cover
+Cover_Data,,"Cover, in binary format, encoded as BASE64"
+Cover_Description,,Short description (e.g. Earth in space)
+Cover_Mime,,Mime type of cover file
+Cropped,,"Describes whether an image has been cropped and, if so, how it was cropped; Describes whether the original image has been cropped and, if so, how it was cropped (e.g. 16:9 to 4:3, top and bottom)"
+Default,Yes,Set if that track should be used if no language found matches the user preference.
+Delay, ms,Delay fixed in the stream (relative) IN MS; Delay with measurement; Delay fixed in the stream (relative) (in ms)
+Delay_DropFrame,,Delay drop frame
+Delay_Original, ms,Delay fixed in the raw stream (relative) IN MS; Delay with measurement
+Delay_Original_DropFrame,,Delay drop frame info
+Delay_Original_Settings,,Delay settings (in case of timecode for example)
+Delay_Original_Source,,Delay source (Stream or empty)
+Delay_Settings,,"Delay settings (in case of timecode for example); Delay settings (in case of timecode, for example)"
+Delay_Source,,"Delay source (Container or Stream or empty); Delay source (Container, Stream, empty)"
+Description,,"A short description of the contents, such as 'Two birds flying.'"
+Dimensions,,"Specifies the size of the original subject of the file (e.g. 8.5 in h, 11 in w)"
+Director,,Name of the director
+DirectorOfPhotography,,"Name of the director of photography, also known as cinematographer"
+Disabled,Yes,Set if that track should not be used
+DisplayAspectRatio,,Display Aspect ratio
+DisplayAspectRatio_CleanAperture,,Clean Aperture Display Aspect ratio
+DisplayAspectRatio_Original,,Original (in the raw stream) Display Aspect ratio
+DistributedBy,,Company responsible for distribution of the content; Name of the person or organization who supplied the original subject
+Domain,,"Universe movies belong to, e.g. Star Wars, Stargate, Buffy, Dragonball"
+DotsPerInch,,Stores dots per inch setting of the digitization mechanism used to produce the file
+Duration, ms,"Play time of the stream, in ms; Play time in format : XXx YYy only, YYy omited if zero; Play time of the stream (in ms); Play time in format : XXx YYy only, YYy omitted if zero; Play time of the stream in ms; Play time (formated)"
+Duration_FirstFrame, ms,"Duration of the first frame if it is longer than others, in ms; Duration of the first frame if it is longer than others, in format : XXx YYy only, YYy omited if zero"
+Duration_LastFrame, ms,"Duration of the last frame if it is longer than others, in ms; Duration of the last frame if it is longer than others, in format : XXx YYy only, YYy omited if zero"
+EditedBy,,Editors name
+ElementCount,,Number of displayed elements
+EncodedBy,,Name of the person/organisation that encoded/ripped the audio file.
+Encoded_Application,,"Name of the software package used to create the file, such as Microsoft WaveEdit; Name of the software package used to create the file, such as Microsoft WaveEdit, trying to have the format 'CompanyName ProductName (OperatingSystem) Version (Date)'; Name of the software package used to create the file, such as Microsoft WaveEdiTY"
+Encoded_Application_CompanyName,,Name of the company; Name of the company of the encoding application
+Encoded_Application_Name,,Name of the product; Name of the encoding product
+Encoded_Application_Url,,"Name of the software package used to create the file, such as Microsoft WaveEdit.; URL associated with the encoding software"
+Encoded_Application_Version,,Version of the product; Version of the encoding product
+Encoded_Date,,UTC time that the encoding of this item was completed began.; Time/date/year that the encoding of this content was completed; The time that the encoding of this item was completed began.
+Encoded_Library,,"Software used to create the file; Software used to create the file, trying to have the format 'CompanyName ProductName (OperatingSystem) Version (Date)'"
+Encoded_Library_CompanyName,,Name of the company
+Encoded_Library_Date,,Release date of software; Release date of encoding library
+Encoded_Library_Name,,Name of the the encoding-software; Name of the the encoding library; Info from the software
+Encoded_Library_Settings,,Parameters used by the software; Parameters used by the encoding library
+Encoded_Library_Version,,Version of encoding-software; Version of encoding library; Version of software
+Encoded_OperatingSystem,,Operating System of encoding-software; Operating System used by encoding application
+ExecutiveProducer,,Name of an executive producer
+Extensions,,"Known extensions of this format; Deprecated, do not use in new projects"
+Family,,"Deprecated, do not use in new projects"
+FileExtension,,File extension only
+FileExtension_Last,,File extension only of the last file (in the case of a sequence of files)
+FileName,,File name only
+FileNameExtension,,File name and extension
+FileNameExtension_Last,,File name and extension of the last file (in the case of a sequence of files)
+FileName_Last,,File name only of the last file (in the case of a sequence of files)
+FileSize, byte,File size in bytes; File size (with measure)
+File_Created_Date,,Time that the file was created on the file system
+File_Created_Date_Local,,"Time that the file was created on the file system (Warning: this field depends of local configuration, do not use it in an international database)"
+File_Modified_Date,,Time that the file was last modified on the file system
+File_Modified_Date_Local,,"Time that the file was last modified on the file system (Warning: this field depends of local configuration, do not use it in an international database)"
+FirstPacketOrder,,"Order of the first fully decodable packet met in the file, whatever is the kind of stream (base=0); Order of the first fully decodable packet met in the file for stream type (base=0)"
+FolderName,,Folder name only
+FolderName_Last,,Folder name only of the last file (in the case of a sequence of files)
+Forced,Yes,Set if that track should be used if no language found matches the user preference.
+Format,,Format used; Format used + additional features
+Format_AdditionalFeatures,,Format features needed for fully supporting the content
+Format_Commercial,,Commercial name used by vendor for theses setings or Format field if there is no difference; Commercial name used by vendor for these settings or Format field if there is no difference
+Format_Commercial_IfAny,,Commercial name used by vendor for theses setings if there is one; Commercial name used by vendor for these settings if there is one
+Format_Compression,,Compression method used
+Format_Level,,Level of the Format (only MIXML)
+Format_Profile,,Profile of the Format (old XML: 'Profile@Level' format; Profile of the Format; Profile of the Format (old XML: 'Profile@Level@Tier' format
+Format_Settings,,"Settings needed for decoder used, summary; Settings needed for decoder used"
+Format_Settings_BVOP,Yes,"Settings needed for decoder used, detailled"
+Format_Settings_CABAC,Yes,"Settings needed for decoder used, detailled"
+Format_Settings_FrameMode,,"Settings needed for decoder used, detailled"
+Format_Settings_GMC, warppoint,"Settings needed for decoder used, detailled"
+Format_Settings_GOP,,"Settings needed for decoder used, detailled (M=x N=y)"
+Format_Settings_Matrix,,"Settings needed for decoder used, detailled"
+Format_Settings_Matrix_Data,,"Matrix, in binary format encoded BASE64. Order = intra, non-intra, gray intra, gray non-intra"
+Format_Settings_PS,Yes,
+Format_Settings_PictureStructure,,"Settings needed for decoder used, detailled (Type of frame, and field/frame info)"
+Format_Settings_Pulldown,,"Settings needed for decoder used, detailled"
+Format_Settings_QPel,Yes,"Settings needed for decoder used, detailled"
+Format_Settings_RefFrames, frame,"Settings needed for decoder used, detailled"
+Format_Settings_SBR,Yes,
+Format_Settings_Wrapping,,Wrapping mode (Frame wrapped or Clip wrapped)
+Format_Tier,,Tier of the Format (only MIXML)
+Format_Version,,Version of this format
+FrameCount,,Frame count (a frame contains a count of samples depends of the format); Frame count (if a frame contains a count of samples); Number of frames
+FrameRate, fps,Frames per second; Frames per second (with measurement)
+FrameRate_Den,,"Frames per second, denominator"
+FrameRate_Maximum, fps,Maximum Frames per second; Maximum Frames per second (with measurement)
+FrameRate_Minimum, fps,Minimum Frames per second; Minimum Frames per second (with measurement)
+FrameRate_Mode,,"Frame rate mode (CFR, VFR); Frame rate mode (Constant, Variable)"
+FrameRate_Mode_Original,,"Original frame rate mode (CFR, VFR); Original frame rate mode (Constant, Variable)"
+FrameRate_Nominal, fps,Nominal Frames per second; Nominal Frames per second (with measurement)
+FrameRate_Num,,"Frames per second, numerator"
+FrameRate_Original, fps,Original (in the raw stream) Frames per second; Original (in the raw stream) Frames per second (with measurement); Original (in the raw stream) frames per second; Original (in the raw stream) frames per second (with measurement)
+FrameRate_Original_Den,,"Frames per second, denominator"
+FrameRate_Original_Num,,"Frames per second, numerator"
+GeneralCount,,Number of general streams
+Genre,,"Main genre of the audio or video. e.g. classical, ambient-house, synthpop, sci-fi, drama, etc."
+Gop_OpenClosed, ,Time code information about Open/Closed
+Gop_OpenClosed_FirstFrame, ,Time code information about Open/Closed of first frame if GOP is Open for the other GOPs
+Grouping,,iTunes grouping
+HDR_Format,,Format used; Format used + version + profile + level + layers + settings + compatibility
+HDR_Format_Commercial,,Commercial name used by vendor for theses HDR settings or HDR Format field if there is no difference
+HDR_Format_Compatibility,,Compatibility with some commercial namings
+HDR_Format_Level,,Level of the Format
+HDR_Format_Profile,,Profile of the Format
+HDR_Format_Settings,,Settings of the Format
+HDR_Format_Version,,Version of this format
+Height, pixel;  character,Height (aperture size if present) in pixel; Height (aperture size if present) with measurement (pixel); Height; Height in pixel; Height with measurement (pixel)
+Height_CleanAperture, pixel,Clean Aperture height in pixel; Clean Aperture height with measurement (pixel)
+Height_Offset, pixel,Offset between original height and displayed height (aperture size) in pixel; Offset between original height and displayed height (aperture size)  in pixel; Offset between original height and displayed height in pixel; Offset between original height and displayed height  in pixel
+Height_Original, pixel,Original (in the raw stream) height in pixel; Original (in the raw stream) height with measurement (pixel)
+Hint,,Hint/popular name for this codec ID; A hint/popular name for this Codec; A hint for this codec ID; A hint/popular name for this codec; Hint/popular name for this codec
+ICRA,,The ICRA rating (previously RSACi)
+ID,,The ID for this stream in this file
+ISBN,,International Standard Book Number.
+ISRC,,"International Standard Recording Code, excluding the ISRC prefix and including hyphens"
+ImageCount,,Number of image streams
+Image_Codec_List,,"Deprecated, do not use in new projects"
+Image_Format_List,,"Image Codecs in this file, separated by /"
+Image_Format_WithHint_List,,"Image Codecs in this file with popular name (hint), separated by /"
+Image_Language_List,,"Image languages in this file, separated by /"
+Info,,"Info about the format; Info about codec ID; Deprecated, do not use in new projects; Info about this Format; Info about this Codec; Info about Format; Info about this codec; Deprecated; Info on the codec"
+Inform,,Last **Inform** call
+Interlacement,,"Deprecated, do not use in new projects"
+Interleave_Duration, ms,Between how much time (ms) the stream is inserted; Between how much time and video frames the stream is inserted (with measurement)
+Interleave_Preload, ms,How much time is buffered before the first video frame; How much time is buffered before the first video frame (with measurement)
+Interleave_VideoFrames,,Between how many video frames the stream is inserted
+Interleaved,,If Audio and video are muxed
+InternetMediaType,,"Internet Media Type (aka MIME Type, Content-Type)"
+Keywords,,"Keywords for the content separated by a comma, used for searching"
+LCCN,,Library of Congress Control Number
+Label,,Brand or trademark associated with the marketing of music recordings and music videos
+LabelCode,,"A 4-digit or 5-digit number to identify the record label, typically printed as (LC) xxxx or (LC) 0xxxx on CDs medias or covers, with only the number being stored"
+Language,,"Language (2-letter ISO 639-1 if exists, else 3-letter ISO 639-2, and with optional ISO 3166-1 country separated by a dash if available, e.g. en, en-us, zh-cn); Language (full)"
+Language_More,,More info about Language (e.g. Director's Comment)
+LawRating,,"Legal rating of a movie. Format depends on country of origin (e.g. PG or R in the USA, an age in other countries or a URI defining a logo); Depending on the country it's the format of the rating of a movie (P, R, X in the USA, an age in other countries or a URI defining a logo)."
+LawRating_Reason,,Reason for the law rating
+Lightness,,Describes the changes in lightness settings on the digitization mechanism made during the production of the file
+List,,List of programs available
+List_StreamKind,,List of programs available
+List_StreamPos,,List of programs available
+Lyricist,,The person who wrote the lyrics for the piece; Original lyricist(s)/text writer(s).
+Lyrics,,Text of a song
+MasteredBy,,The engineer who mastered the content for a physical medium or for digital distribution
+Mastered_Date,,Time/date/year that the content was transferred to a digital medium.
+MasteringDisplay_ColorPrimaries,,Chromaticity coordinates of the source primaries of the mastering display
+MasteringDisplay_ColorPrimaries_Original,,Chromaticity coordinates of the source primaries of the mastering display (if incoherencies)
+MasteringDisplay_ColorPrimaries_Original_Source,,Chromaticity coordinates of the source primaries of the mastering display (source if incoherencies)
+MasteringDisplay_ColorPrimaries_Source,,Chromaticity coordinates of the source primaries of the mastering display (source)
+MasteringDisplay_Luminance,,Luminance of the mastering display
+MasteringDisplay_Luminance_Original,,Luminance of the mastering display (if incoherencies)
+MasteringDisplay_Luminance_Original_Source,,Luminance of the mastering display (source if incoherencies)
+MasteringDisplay_Luminance_Source,,Luminance of the mastering display (source)
+Matrix_Channel(s), channel,Number of channels after matrix decoding; Number of channels after matrix decoding (with measurement)
+Matrix_ChannelPositions,,Position of channels after matrix decoding
+Matrix_Format,,Matrix format (e.g. DTS Neural)
+MaxCLL,,Maximum content light level
+MaxCLL_Original,,Maximum content light level (if incoherencies)
+MaxCLL_Original_Source,,Maximum content light level (source if incoherencies)
+MaxCLL_Source,,Maximum content light level (source)
+MaxFALL,,Maximum frame average light level
+MaxFALL_Original,,Maximum frame average light level (if incoherencies)
+MaxFALL_Original_Source,,Maximum frame average light level (source if incoherencies)
+MaxFALL_Source,,Maximum frame average light level (source)
+MenuCount,,Number of menu streams
+MenuID,,The menu ID for this stream in this file
+Menu_Codec_List,,"Deprecated, do not use in new projects"
+Menu_Format_List,,"Menu Codecs in this file, separated by /"
+Menu_Format_WithHint_List,,"Menu Codecs in this file with popular name (hint),separated by /"
+Menu_Language_List,,"Menu languages in this file, separated by /"
+Mood,,"Intended to reflect the mood of the item with a few keywords, e.g. Romantic, Sad, Uplifting, etc."
+Movie,,"Name of the movie. Eg : Star Wars, A New Hope; Original name of the movie"
+Movie_More,,More info about the movie
+MultiView_BaseProfile,,"Multiview, profile of the base stream"
+MultiView_Count,,"Multiview, count of views"
+MultiView_Layout,,"Multiview, how views are muxed in the container in case of it is not muxing in the stream"
+MusicBy,,Main musical artist for a movie
+MuxingMode,,How this stream is muxed in the container; How this file is muxed in the container
+MuxingMode_MoreInfo,,More info (text) about the muxing mode
+Name,,Name of the product the file was originally intended for
+Nationality,,Nationality of the primary composer of the piece (mostly for classical music)
+NumColors,,Number of colors requested when digitizing (e.g. 256 for images or 32 bit RGB for video)
+OriginalSourceForm,,"Original form of the material (e.g. slide, paper, map)"
+OriginalSourceMedium,,"Original medium of the material (e.g. vinyl, Audio-CD, Super8 or BetaMax)"
+OriginalSourceMedium_ID,,The ID for this stream in the original medium of the material
+OtherCount,,Number of other streams
+Other_Codec_List,,"Deprecated, do not use in new projects"
+Other_Format_List,,"Other formats in this file, separated by /"
+Other_Format_WithHint_List,,"Other formats in this file with popular name (hint), separated by /"
+Other_Language_List,,"Chapters languages in this file, separated by /"
+OverallBitRate, bps,Bit rate of all streams (in bps); Bit rate of all streams (with measure)
+OverallBitRate_Maximum, bps,Maximum bit rate (in bps); Maximum bit rate (with measurement)
+OverallBitRate_Minimum, bps,Minimum bit rate (in bps); Minimum bit rate (with measurement)
+OverallBitRate_Mode,,"Bit rate mode of all streams (VBR, CBR); Bit rate mode of all streams (Variable, Constant)"
+OverallBitRate_Nominal, bps,Nominal bit rate (in bps); Nominal bit rate (with measurement)
+Owner,,Owner of the file
+PackageName,,Package name i.e. technical flavor of the content
+Part,,"Name of the part. e.g. CD1, CD2; Original name of the part"
+Performer,,Album performer/artist of this file; Main performer(s)/artist(s); Original artist(s)/performer(s)
+Period,,Describes the period that the piece is from or about. e.g. Renaissance.
+PixelAspectRatio,,Pixel Aspect ratio
+PixelAspectRatio_CleanAperture,,Clean Aperture Pixel Aspect ratio
+PixelAspectRatio_Original,,Original (in the raw stream) Pixel Aspect ratio
+Played_Count,,Number of times an item was played
+Played_First_Date,,Date the owner first played an item
+Played_Last_Date,,Date the owner last played an item
+PodcastCategory,,Podcast category
+Position,,Number of the part; Number of this track
+Position_Total,,"Place of the comic, e.g. 1 of 10; Place of the part e.g. 2 of 3; Place of this track, e.g. 3 of 15"
+Producer,,Name of the producer of the movie
+Producer_Copyright,,Copyright information as per the production copyright holder
+ProductionDesigner,,Name of the person responsible for designing the overall visual appearance of a movie
+ProductionStudio,,Main production studio
+Publisher,,Name of the organization publishing the album (i.e. the 'record label') or movie
+Rating,,"A numeric value defining how much a person likes the song/movie. The number is between 0 and 5 with decimal values possible (e.g. 2.7), 5(.0) being the highest possible rating."
+Recorded_Date,,Time/date/year that the recording began
+Recorded_Location,,Location where track was recorded (See COMPOSITION_LOCATION for format)
+Released_Date,,Date/year that the content was released; Date/year that the content was originally released
+RemixedBy,,"Name of the artist(s) that interpreted, remixed, or otherwise modified the content"
+ReplayGain_Gain, dB,The gain to apply to reach 89dB SPL on playback
+ReplayGain_Peak,,The maximum absolute peak value of the item
+Resolution, bit,"Deprecated, do not use in new projects"
+Rotation,,Rotation; Rotation (if not horizontal)
+Sampled_Height,,Sampled height
+Sampled_Width,,Sampled width
+SamplesPerFrame,,Sampling rate
+SamplingCount,,Sample count (based on sampling rate)
+SamplingRate, Hz,Sampling rate; in KHz
+ScreenplayBy,,Author of the screenplay or scenario (used for movies and TV shows)
+Season,,"Name of the season, e.g. Star Wars first Trilogy, Season 1"
+Season_Position,,Number of the Season
+Season_Position_Total,,"Place of the season, e.g. 2 of 7"
+ServiceKind,,"Service kind, e.g. visually impaired, commentary, voice over; Service kind (full)"
+Sharpness,,Identifies changes in sharpness the digitization mechanism made during the production of the file
+SoundEngineer,,Name of the sound engineer or sound recordist
+Source_Duration, ms,"Source Play time of the stream, in ms; Source Play time in format : XXx YYy only, YYy omited if zero"
+Source_Duration_FirstFrame, ms,"Source Duration of the first frame if it is longer than others, in ms; Source Duration of the first frame if it is longer than others, in format : XXx YYy only, YYy omited if zero"
+Source_Duration_LastFrame, ms,"Source Duration of the last frame if it is longer than others, in ms; Source Duration of the last frame if it is longer than others, in format : XXx YYy only, YYy omited if zero"
+Source_FrameCount,,Source Frame count (a frame contains a count of samples depends of the format); Source Number of frames
+Source_SamplingCount,,Source Sample count (based on sampling rate)
+Source_StreamSize, byte,Source Streamsize in bytes; Source Streamsize in with percentage value
+Source_StreamSize_Encoded, byte,Source Encoded Streamsize in bytes; Source Encoded Streamsize in with percentage value
+Source_StreamSize_Encoded_Proportion,,Source Encoded Stream size divided by file size
+Source_StreamSize_Proportion,,Source Stream size divided by file size
+Standard,,NTSC or PAL
+Status,,"bit field (0=IsAccepted, 1=IsFilled, 2=IsUpdated, 3=IsFinished); Status of bit field (0=IsAccepted, 1=IsFilled, 2=IsUpdated, 3=IsFinished)"
+Stored_Height,,Stored height
+Stored_Width,,Stored width
+StreamCount,,Count of streams of that kind available; Count of streams of this kind available (base=1)
+StreamKind,,Stream type name
+StreamKindID,,Number of the stream (base=0); Stream number (base=0)
+StreamKindPos,,"When multiple streams, number of the stream (base=1); Number of the stream, when multiple (base=1)"
+StreamOrder,,"Stream order in the file, whatever is the kind of stream (base=0); Stream order in the file for type of stream (base=0)"
+StreamSize, byte,Streamsize in bytes; Streamsize in with percentage value; Stream size (in bytes); Stream size in bytes
+StreamSize_Demuxed, byte,StreamSize in bytes of hte stream after demux; StreamSize_Demuxed in with percentage value; StreamSize after demux (in bytes); StreamSize_Demuxed with percentage value
+StreamSize_Encoded, byte,Encoded Streamsize in bytes; Encoded Streamsize in with percentage value
+StreamSize_Encoded_Proportion,,Encoded Stream size divided by file size
+StreamSize_Proportion,,Stream size divided by file size
+SubTrack,,Name of the subtrack
+Subject,,"Describes the topic of the file, such as 'Aerial view of Seattle.'"
+Summary,,Plot outline or a summary of the story
+Synopsis,,Description of the story line of the item
+Tagged_Application,,Software used to tag the file
+Tagged_Date,,UTC time that the tags were done for this item.; Time/date/year that the tags were added to this content; The time that the tags were done for this item.
+TermsOfUse,,"License information (e.g. All Rights Reserved, Any Use Permitted)"
+TextCount,,Number of text streams
+Text_Codec_List,,"Deprecated, do not use in new projects"
+Text_Format_List,,"Text Codecs in this file, separated by /"
+Text_Format_WithHint_List,,"Text Codecs in this file with popular name (hint),separated by /"
+Text_Language_List,,"Text languages in this file, separated by /"
+ThanksTo,,A very general tag for everyone else that wants to be listed
+TimeCode_FirstFrame,,"Time code in HH:MM:SS:FF, last colon replaced by semicolon for drop frame if available format"
+TimeCode_Settings,,Time code settings
+TimeCode_Source,,"Time code source (Container, Stream, SystemScheme1, SDTI, ANC...)"
+TimeCode_Striped,Yes,"Time code is striped (only 1st time code, no discontinuity)"
+TimeStamp_FirstFrame, ms,TimeStamp fixed in the stream (relative) IN MS; TimeStamp with measurement
+Title,,Name of the track; (Generic)Title of file; Name of this menu
+Title_More,,(Generic)More info about the title of file
+Track,,"Name of the track. e.g. track 1, track 2; Original name of the track"
+Track_More,,More info about the track
+Type,,Type
+URL,,Publisher's official webpage
+UniqueID,,"The unique ID for this stream, should be copied with stream copy"
+UniversalAdID,,"Universal Ad-ID, see https://ad-id.org"
+UniversalAdID_Registry,,Universal Ad-ID registry
+UniversalAdID_Value,,Universal Ad-ID value
+Url,,"Homepage of this format; Homepage for more details about this codec ID; Deprecated, do not use in new projects; Link to a description of this format; A link to more details about this Codec ID; (Generic)Url; Homepage for the movie; Homepage of the album performer/artist; Link to a site about this track; Homepage of the performer/artist; Link to a site with copyright/legal information; Link; A link for more details about this codec ID; A link to more details about this codec ID; Deprecated; Homepage for more details about this codec"
+Video0_Delay, ms,"Deprecated, do not use in new projects"
+VideoCount,,Number of video streams
+Video_Codec_List,,"Deprecated, do not use in new projects"
+Video_Delay, ms,Delay fixed in the stream (absolute / video)
+Video_Format_List,,"Video Codecs in this file, separated by /"
+Video_Format_WithHint_List,,"Video Codecs in this file with popular name (hint), separated by /"
+Video_Language_List,,"Video languages in this file, full names, separated by /"
+Width, pixel;  character,Width (aperture size if present) in pixel; Width (aperture size if present) with measurement (pixel); Width
+Width_CleanAperture, pixel,Clean Aperture width in pixel; Clean Aperture width with measurement (pixel)
+Width_Offset, pixel,Offset between original width and displayed width (aperture size) in pixel; Offset between original width and displayed width (aperture size)  in pixel; Offset between original width and displayed width in pixel
+Width_Original, pixel,Original (in the raw stream) width in pixel; Original (in the raw stream) width with measurement (pixel)
+WrittenBy,,Author of the story or script
+Written_Date,,Time/date/year that the composition of the music/script began
+Written_Location,,"Location that the item was originally designed/written. Information should be stored in the following format: country code, state/province, city where the country code is the same 2 octets as in Internet domains, or possibly ISO-3166. e.g. US, Texas, Austin or US, , Austin."
+colour_description_present,,Presence of colour description
+colour_description_present_Original,,Presence of colour description; Presence of colour description (if incoherencies)
+colour_description_present_Original_Source,,Presence of colour description (source if incoherencies)
+colour_description_present_Source,,Presence of colour description (source)
+colour_primaries,,Chromaticity coordinates of the source primaries
+colour_primaries_Original,,Chromaticity coordinates of the source primaries; Chromaticity coordinates of the source primaries (if incoherencies)
+colour_primaries_Original_Source,,Chromaticity coordinates of the source primaries (source if incoherencies)
+colour_primaries_Source,,Chromaticity coordinates of the source primaries (source)
+colour_range,,Colour range for YUV colour space
+colour_range_Original,,Colour range for YUV colour space (if incoherencies)
+colour_range_Original_Source,,Colour range for YUV colour space (source if incoherencies)
+colour_range_Source,,Colour range for YUV colour space (source)
+matrix_coefficients,,"Matrix coefficients used in deriving luma and chroma signals from the green, blue, and red primaries"
+matrix_coefficients_Original,,"Matrix coefficients used in deriving luma and chroma signals from the green, blue, and red primaries; Matrix coefficients used in deriving luma and chroma signals from the green, blue, and red primaries (if incoherencies)"
+matrix_coefficients_Original_Source,,"Matrix coefficients used in deriving luma and chroma signals from the green, blue, and red primaries (source if incoherencies)"
+matrix_coefficients_Source,,"Matrix coefficients used in deriving luma and chroma signals from the green, blue, and red primaries (source)"
+transfer_characteristics,,Opto-electronic transfer characteristic of the source picture
+transfer_characteristics_Original,,Opto-electronic transfer characteristic of the source picture; Opto-electronic transfer characteristic of the source picture (if incoherencies)
+transfer_characteristics_Original_Source,,Opto-electronic transfer characteristic of the source picture (source if incoherencies)
+transfer_characteristics_Source,,Opto-electronic transfer characteristic of the source picture (source)
