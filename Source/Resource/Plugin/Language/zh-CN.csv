@@ -225,7 +225,7 @@ Choose language;选择语言
 Choreographer;动作指导
 Chroma;色度
 ChromaSubsampling;色度抽样
-ClearList;
+ClearList;清除列表
 Close;关闭
 Close all before open;打开新文件前关闭其他文件
 ClosedCaptionsLanguage;隐藏式字幕语言
@@ -270,7 +270,7 @@ Compression_Mode_Lossless;无损
 Compression_Mode_Lossy;有损
 Compression_Ratio;压缩率
 Conductor;指挥
-ConformanceCheck;
+ConformanceCheck;符合性检查
 ContactEmail;联络邮件
 ContactTelephoneNumber;联络电话号码
 Container and general information;容器格式和一般信息
@@ -289,11 +289,11 @@ Cover_Type;封面类型
 Cropped;裁剪信息
 Custom;自定义
 Customize;自定义
-DarkMode;
+DarkMode;深色模式
 Date;日期
 Debug;调试
 Decimal point;小数点
-Default_Setting;
+Default_Setting;系统默认
 Delay;延迟
 Delay_Source;延迟来源
 Delay_Source_Container;容器
@@ -312,8 +312,8 @@ DistributedBy;发行商
 Distributor;发行商
 Donate;赞助
 DotsPerInch;DPI
-DrcSets_Count;
-DrcSets_Effects;
+DrcSets_Count;DRC 组数
+DrcSets_Effects;DRC 效果类型
 Duration;时长
 Duration_End;结束时间
 Duration_Start;开始时间
@@ -330,14 +330,14 @@ EncodedBy;编码者
 EPG_Positions;EPG 位置 (内部)
 EpisodeTitleNumber;集数标题
 Error_File;读取文件出错
-Error_File_Write;
+Error_File_Write;写入文件出错
 ExecutiveProducer;出品人
 Exit;退出
 Exit_Hint;退出程序
 Export;导出
 Export_Hint;以自定义格式导出
 Extensions;扩展名
-External_Media_NotMounted;
+External_Media_NotMounted;无法读取外部储存
 Family;系列
 Fax;传真
 File;文件
@@ -714,7 +714,7 @@ Language_hr;克罗地亚语 (Croatian)
 Language_ht;海地语 (Haitian)
 Language_hu;匈牙利语 (Hungarian)
 Language_hy;亚美尼亚语 (Armenian)
-Language_hy-az;
+Language_hy-az;阿塞拜疆亚美尼亚语 (Armenian, Azerbaijani)
 Language_hz;赫雷罗语 (Herero)
 Language_ia;国际语 (Auxiliary Language Association)
 Language_id;印尼语 (Indonesian)
@@ -759,12 +759,12 @@ Language_mi;毛利语 (Maori)
 Language_mk;马其顿语 (Macedonian)
 Language_ml;马拉雅拉姆语 (Malayalam)
 Language_mn;蒙古语 (Mongolian)
-Language_mn-cn;
+Language_mn-cn;中国蒙古语 (Mongolian, China)
 Language_mo;摩尔多瓦语 (Moldavian)
 Language_More;语言详情
 Language_mr;马拉地语 (Marathi)
 Language_ms;马来语 (Malay)
-Language_ms-bn;
+Language_ms-bn;文莱马来语 (Malay, Brunei)
 Language_mt;马尔他语 (Maltese)
 Language_mul;多国语言
 Language_my;缅甸语 (Burmese)
@@ -774,7 +774,7 @@ Language_nd;北恩德贝勒语 (Ndebele)
 Language_ne;尼泊尔语 (Nepali)
 Language_ng;恩东加语 (Ndonga)
 Language_nl;荷兰语 (Dutch)
-Language_nl-be;
+Language_nl-be;比利时荷兰语 (Flemish)
 Language_nn;新挪威语 (Norwegian Nynorsk)
 Language_no;挪威语 (Norwegian)
 Language_nr;南恩德贝勒语 (Ndebele)
@@ -806,7 +806,7 @@ Language_si;僧伽罗语 (Sinhala)
 Language_sk;斯洛伐克语 (Slovak)
 Language_sl;斯洛文尼亚语 (Slovenian)
 Language_sm;萨摩亚语 (Samoan)
-Language_smi;
+Language_smi;萨米语 (Sami)
 Language_sn;绍纳语 (Shona)
 Language_so;索马里语 (Somali)
 Language_sq;阿尔巴尼亚语 (Albanian)
@@ -853,24 +853,24 @@ Library;混流函数库
 Lightness;亮度
 LineUpStart;Line Up 起始点
 List;列表
-Loudness_Anchor;
-Loudness_Anchor_Album;
-Loudness_Count;
-Loudness_Count_Album;
-Loudness_MaximumMomentary;
-Loudness_MaximumMomentary_Album;
-Loudness_MaximumOfRange;
-Loudness_MaximumOfRange_Album;
-Loudness_MaximumShortTerm;
-Loudness_MaximumShortTerm_Album;
-Loudness_ProductionMixingLevel;
-Loudness_ProductionMixingLevel_Album;
-Loudness_Program;
-Loudness_Program_Album;
-Loudness_Range;
-Loudness_Range_Album;
-Loudness_RoomType;
-Loudness_RoomType_Album;
+Loudness_Anchor;锚点响度
+Loudness_Anchor_Album;锚点响度 (专辑)
+Loudness_Count;响度信息数
+Loudness_Count_Album;响度信息数 (专辑)
+Loudness_MaximumMomentary;最大瞬时响度
+Loudness_MaximumMomentary_Album;最大瞬时响度 (专辑)
+Loudness_MaximumOfRange;范围最大值
+Loudness_MaximumOfRange_Album;范围最大值 (专辑)
+Loudness_MaximumShortTerm;最大短时响度
+Loudness_MaximumShortTerm_Album;最大短时响度 (专辑)
+Loudness_ProductionMixingLevel;制作混音等级
+Loudness_ProductionMixingLevel_Album;制作混音等级 (专辑)
+Loudness_Program;节目响度
+Loudness_Program_Album;节目响度 (专辑)
+Loudness_Range;响度范围
+Loudness_Range_Album;响度范围 (专辑)
+Loudness_RoomType;制作录音室类型
+Loudness_RoomType_Album;制作录音室类型 (专辑)
 Lyricist;作词
 Lyrics;歌词
 Mastered_Date;母带制作日期
@@ -884,7 +884,7 @@ Matrix_Format;矩阵编码, 格式
 MaxCLL;最大内容亮度 (CLL)
 MaxFALL;最大帧平均亮度 (FALL)
 MediaInfo_About;使用 MediaInfo 可以轻松读取音视频文件的编码和标签信息。\r\n本软件按 BSD 授权协议开源，用户可以免费使用，开发者也可以自由地学习、修改、重新发布本软件。（Mac App Store 图形界面除外）
-MediaInfo_About_About;
+MediaInfo_About_About;MediaInfo v%MI_VERSION%，内置 MediaInfoLib v%MIL_VERSION%
 Menu;菜单
 Menu stream(s);菜单流
 Menu_Codec_List;菜单解码器
@@ -995,8 +995,8 @@ PodcastCategory;播客类别
 Position;位置
 Position_Total;总数
 Preferences;设置
-Premium;
-Premium_Summary;
+Premium;高级版
+Premium_Summary;高级版订阅功能
 PrimaryAudioLanguage;主音频语言
 Producer;制片人
 ProductionDesigner;制作设计师
@@ -1019,8 +1019,8 @@ ReplayGain_Gain;播放增益
 ReplayGain_Peak;播放增益峰值
 Resolution;分辨率
 s; 秒
-SamplePeakLevel;
-SamplePeakLevel_Album;
+SamplePeakLevel;采样峰值等级
+SamplePeakLevel_Album;采样峰值等级 (专辑)
 SamplesPerFrame;每帧采样数
 SamplingCount;采样数
 SamplingRate;采样率
@@ -1078,7 +1078,7 @@ Stream;流
 Stream_MoreInfo;关于此流的更多信息
 StreamCount;此类型流的数量
 StreamID;流 ID
-streamIdentifier;
+streamIdentifier;流标识符
 StreamKind;流类型
 StreamKindID;流标识符
 StreamKindPos;流标识符
@@ -1087,15 +1087,15 @@ StreamSize_Demuxed;分离后流大小
 StreamSize_Encoded;编码后流大小
 StreamSize_Proportion;流属性
 Subject;主题
-Subscribe;
-Subscribe_Manage;
-Subscription_Android;
-Subscription_Thanks;
+Subscribe;订阅
+Subscribe_Manage;管理订阅
+Subscription_Android;%PRICE%/年（免费试用 3 天）
+Subscription_Thanks;已检测到订阅。感谢您的支持！
 SubTrack;副轨道
 Summary;摘要
 Supported formats;支持格式
 Supported?;是否支持
-SupportUs_Android;
+SupportUs_Android;请支持我们。不仅可以解锁深色主题，未来还有更多功能。
 Synopsis;系统摘要
 SystemId;ID
 Tagged_Application;标记软件
@@ -1132,12 +1132,12 @@ TotalProgrammeDuration;节目时长总计
 Track;轨道名
 Track_Count;轨道数
 transfer_characteristics;传输特性
-Translate_Reports;
+Translate_Reports;翻译报告
 Translator;翻译
 Tree;树状图
 Tree & Text;树状图和文本
-TruePeakLevel;
-TruePeakLevel_Album;
+TruePeakLevel;真实峰值等级
+TruePeakLevel_Album;真实峰值等级 (专辑)
 Type;类型
 UniqueID;特征 ID
 UniversalAdID;通用广告 ID
@@ -1158,7 +1158,7 @@ View;视图
 View_Hint;改变查看方式
 Warning : more streams in the files;注意: 此文件中还有更多的流
 Web;网页
-WebSite;
+WebSite;网站
 WebSite_Audio;访问此音频解码器的网站
 WebSite_Audio_More;访问网站 (%Url%) 查找此音频解码器
 WebSite_General;访问此文件播放器的网站
