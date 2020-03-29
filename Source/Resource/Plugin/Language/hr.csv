@@ -270,6 +270,7 @@ Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;Omjer sažimanja
 Conductor;Ravnatelj
+ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Oblik spremnika i opće informacije
@@ -311,6 +312,8 @@ DistributedBy;Distribucija
 Distributor;
 Donate;Potpora razvoju MediaInfo
 DotsPerInch;Točaka po palcu (DPI)
+DrcSets_Count;
+DrcSets_Effects;
 Duration;Trajanje
 Duration_End;Vrijeme svršetka
 Duration_Start;Vrijeme početka
@@ -358,6 +361,7 @@ FolderName;Naziv mape
 Format;Oblik datoteke
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;Opis oblika datoteke
 Format_Info;Pojedinosti oblika datoteke
 Format_Level;
@@ -710,6 +714,7 @@ Language_hr;Hrvatski
 Language_ht;Haićanski
 Language_hu;Madžarski
 Language_hy;Armenski
+Language_hy-az;
 Language_hz;Herero
 Language_ia;Udruga za pomoćne jezike
 Language_id;Indonezijski
@@ -754,10 +759,12 @@ Language_mi;Maorski
 Language_mk;Makedonski
 Language_ml;Malayalam
 Language_mn;Mongolski
+Language_mn-cn;
 Language_mo;Moldavski
 Language_More;Jezik, podrobnije
 Language_mr;Marathi
 Language_ms;Malajski
+Language_ms-bn;
 Language_mt;Malteški
 Language_mul;Višestruki jezici
 Language_my;Burmeški
@@ -767,6 +774,7 @@ Language_nd;Ndebele
 Language_ne;Nepalski
 Language_ng;Ndonga
 Language_nl;Nizozemski
+Language_nl-be;
 Language_nn;Norveški Bokmal
 Language_no;Norveški
 Language_nr;Ndebele
@@ -798,6 +806,7 @@ Language_si;Singaleški
 Language_sk;Slovački
 Language_sl;Slovenski
 Language_sm;Samoanski
+Language_smi;
 Language_sn;Shona
 Language_so;Somalijski
 Language_sq;Albanski
@@ -844,6 +853,24 @@ Library;Knjižnica multipleksera
 Lightness;Svjetlina
 LineUpStart;
 List;Spisak
+Loudness_Anchor;
+Loudness_Anchor_Album;
+Loudness_Count;
+Loudness_Count_Album;
+Loudness_MaximumMomentary;
+Loudness_MaximumMomentary_Album;
+Loudness_MaximumOfRange;
+Loudness_MaximumOfRange_Album;
+Loudness_MaximumShortTerm;
+Loudness_MaximumShortTerm_Album;
+Loudness_ProductionMixingLevel;
+Loudness_ProductionMixingLevel_Album;
+Loudness_Program;
+Loudness_Program_Album;
+Loudness_Range;
+Loudness_Range_Album;
+Loudness_RoomType;
+Loudness_RoomType_Album;
 Lyricist;Tekstopisac
 Lyrics;Tekst pjesme
 Mastered_Date;Nadnevak glavne snimke
@@ -992,6 +1019,8 @@ ReplayGain_Gain;Pojačavanje zvuka izvedbe
 ReplayGain_Peak;Vrhunac pojačanog zvuka izvedbe
 Resolution;Razlučivost
 s;s
+SamplePeakLevel;
+SamplePeakLevel_Album;
 SamplesPerFrame;
 SamplingCount;
 SamplingRate;Učestalost uzorkovanja
@@ -1049,6 +1078,7 @@ Stream;Tok
 Stream_MoreInfo;Više informacija o tom toku
 StreamCount;Broj tokova te vrste
 StreamID;Prepoznavanje toka
+streamIdentifier;
 StreamKind;Vrsta toka
 StreamKindID;Prepoznavatelj toka
 StreamKindPos;Položaj prepoznavatelja toka
@@ -1106,6 +1136,8 @@ Translate_Reports;
 Translator;Prevoditelj
 Tree;Stablo
 Tree & Text;Stablo i tekst
+TruePeakLevel;
+TruePeakLevel_Album;
 Type;
 UniqueID;
 UniversalAdID;
@@ -1146,5 +1178,5 @@ Written_Location;Mjesto početka pisanja
 WrittenBy;Napisao
 Yes;Da
 Your system;Informacije o Vašem sustavu
-ZZ_Automatic_Percent;81
-ZZ_AutomaticLanguage_Percent;85
+ZZ_Automatic_Percent;79
+ZZ_AutomaticLanguage_Percent;83

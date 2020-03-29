@@ -270,6 +270,7 @@ Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;نرخ فشردگی
 Conductor;رهبر اکسترر
+ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;محتوی و اطلاعات کلی
@@ -311,6 +312,8 @@ DistributedBy;توزيع شده توسط
 Distributor;
 Donate;کمک مالی
 DotsPerInch;نقطه بر اینچ
+DrcSets_Count;
+DrcSets_Effects;
 Duration;مدت
 Duration_End;زمان پایان
 Duration_Start;زمان شروع
@@ -358,6 +361,7 @@ FolderName;نام پوشه
 Format;فرمت
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;شرح فرمت
 Format_Info;جزییات فرمت
 Format_Level;
@@ -710,6 +714,7 @@ Language_hr;Croatian
 Language_ht;Haitian
 Language_hu;Hungarian
 Language_hy;Armenian
+Language_hy-az;
 Language_hz;Herero
 Language_ia;Auxiliary Language Association
 Language_id;Indonesian
@@ -754,10 +759,12 @@ Language_mi;Maori
 Language_mk;Macedonian
 Language_ml;Malayalam
 Language_mn;Mongolian
+Language_mn-cn;
 Language_mo;Moldavian
 Language_More;زبان, اطلاعات بیشتر
 Language_mr;Marathi
 Language_ms;Malay
+Language_ms-bn;
 Language_mt;Maltese
 Language_mul;Multiple languages
 Language_my;Burmese
@@ -767,6 +774,7 @@ Language_nd;Ndebele
 Language_ne;Nepali
 Language_ng;Ndonga
 Language_nl;Dutch
+Language_nl-be;
 Language_nn;Norwegian Nynorsk
 Language_no;Norwegian
 Language_nr;Ndebele
@@ -798,6 +806,7 @@ Language_si;Sinhala
 Language_sk;Slovak
 Language_sl;Slovenian
 Language_sm;Samoan
+Language_smi;
 Language_sn;Shona
 Language_so;Somali
 Language_sq;Albanian
@@ -844,6 +853,24 @@ Library;کتابخانه تسهيم کننده
 Lightness;روشنايى
 LineUpStart;
 List;لیست
+Loudness_Anchor;
+Loudness_Anchor_Album;
+Loudness_Count;
+Loudness_Count_Album;
+Loudness_MaximumMomentary;
+Loudness_MaximumMomentary_Album;
+Loudness_MaximumOfRange;
+Loudness_MaximumOfRange_Album;
+Loudness_MaximumShortTerm;
+Loudness_MaximumShortTerm_Album;
+Loudness_ProductionMixingLevel;
+Loudness_ProductionMixingLevel_Album;
+Loudness_Program;
+Loudness_Program_Album;
+Loudness_Range;
+Loudness_Range_Album;
+Loudness_RoomType;
+Loudness_RoomType_Album;
 Lyricist;لایرسکسیست
 Lyrics;متن آهنگ
 Mastered_Date;تاریخ مستر
@@ -992,6 +1019,8 @@ ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replay gain peak
 Resolution;وضوح
 s;s
+SamplePeakLevel;
+SamplePeakLevel_Album;
 SamplesPerFrame;
 SamplingCount;
 SamplingRate;نرخ نمونه
@@ -1049,6 +1078,7 @@ Stream;استریم
 Stream_MoreInfo;اطلاعات بیشتر درمورد استریم
 StreamCount;تعداد این نوع استریم
 StreamID;هویت استریم
+streamIdentifier;
 StreamKind;نوع استریم
 StreamKindID;معرف استریم
 StreamKindPos;معرف استریم
@@ -1106,6 +1136,8 @@ Translate_Reports;
 Translator;مترجم
 Tree;درختی
 Tree & Text;درختی ومتنی
+TruePeakLevel;
+TruePeakLevel_Album;
 Type;
 UniqueID;
 UniversalAdID;
@@ -1146,5 +1178,5 @@ Written_Location;مکان نوشته
 WrittenBy;نوشته شده توسط
 Yes;بلی
 Your system;سیستم شما
-ZZ_Automatic_Percent;81
-ZZ_AutomaticLanguage_Percent;85
+ZZ_Automatic_Percent;79
+ZZ_AutomaticLanguage_Percent;83

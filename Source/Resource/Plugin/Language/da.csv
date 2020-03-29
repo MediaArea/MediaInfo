@@ -270,6 +270,7 @@ Compression_Mode_Lossless;Lossless
 Compression_Mode_Lossy;Lossy
 Compression_Ratio;Komprimeringsforhold
 Conductor;Dirigent
+ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Container og generel information
@@ -311,6 +312,8 @@ DistributedBy;Distribueret af
 Distributor;
 Donate;Donér
 DotsPerInch;Punkter pr inch
+DrcSets_Count;
+DrcSets_Effects;
 Duration;Varighed
 Duration_End;Sluttid
 Duration_Start;Starttid
@@ -358,6 +361,7 @@ FolderName;Mappenavn
 Format;Format
 Format_Commercial;Kommercielt navn
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;Formatbeskrivelse
 Format_Info;Formatdetaljer
 Format_Level;
@@ -710,6 +714,7 @@ Language_hr;Kroatisk
 Language_ht;Haitisk
 Language_hu;Ungarsk
 Language_hy;Armensk
+Language_hy-az;
 Language_hz;
 Language_ia;
 Language_id;Indonesisk
@@ -754,10 +759,12 @@ Language_mi;Maori
 Language_mk;Makedonsk
 Language_ml;
 Language_mn;Mongolsk
+Language_mn-cn;
 Language_mo;Moldavisk
 Language_More;Sprog, mere info
 Language_mr;
 Language_ms;Malajisk
+Language_ms-bn;
 Language_mt;Maltesisk
 Language_mul;
 Language_my;Burmesisk
@@ -767,6 +774,7 @@ Language_nd;
 Language_ne;Nepalesisk
 Language_ng;
 Language_nl;Hollandsk
+Language_nl-be;
 Language_nn;Norsk Nynorsk
 Language_no;Norsk
 Language_nr;
@@ -798,6 +806,7 @@ Language_si;Singalesisk
 Language_sk;Slovakisk
 Language_sl;Slovensk
 Language_sm;
+Language_smi;
 Language_sn;
 Language_so;Somailsk
 Language_sq;Albansk
@@ -844,6 +853,24 @@ Library;Muxing-bibliotek
 Lightness;Lysstyrke
 LineUpStart;
 List;Liste
+Loudness_Anchor;
+Loudness_Anchor_Album;
+Loudness_Count;
+Loudness_Count_Album;
+Loudness_MaximumMomentary;
+Loudness_MaximumMomentary_Album;
+Loudness_MaximumOfRange;
+Loudness_MaximumOfRange_Album;
+Loudness_MaximumShortTerm;
+Loudness_MaximumShortTerm_Album;
+Loudness_ProductionMixingLevel;
+Loudness_ProductionMixingLevel_Album;
+Loudness_Program;
+Loudness_Program_Album;
+Loudness_Range;
+Loudness_Range_Album;
+Loudness_RoomType;
+Loudness_RoomType_Album;
 Lyricist;Tekstforfatter
 Lyrics;Sangtekster
 Mastered_Date;Masteret den
@@ -992,6 +1019,8 @@ ReplayGain_Gain;Reply gain
 ReplayGain_Peak;Reply gain peak
 Resolution;Opløsning
 s;sek.
+SamplePeakLevel;
+SamplePeakLevel_Album;
 SamplesPerFrame;
 SamplingCount;Antal samplinger
 SamplingRate;Samplingsrate
@@ -1049,6 +1078,7 @@ Stream;Strøm
 Stream_MoreInfo;Mere information om strømmen
 StreamCount;Antal sådanne strømme
 StreamID;Strøm-ID
+streamIdentifier;
 StreamKind;Strømart
 StreamKindID;Strømidentifikator
 StreamKindPos;Strømidentifikator
@@ -1106,6 +1136,8 @@ Translate_Reports;
 Translator;Oversætter
 Tree;Træstruktur
 Tree & Text;Træstruktur & tekst
+TruePeakLevel;
+TruePeakLevel_Album;
 Type;
 UniqueID;Unik ID
 UniversalAdID;
@@ -1146,5 +1178,5 @@ Written_Location;Sted
 WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
-ZZ_Automatic_Percent;76
-ZZ_AutomaticLanguage_Percent;87
+ZZ_Automatic_Percent;74
+ZZ_AutomaticLanguage_Percent;85
