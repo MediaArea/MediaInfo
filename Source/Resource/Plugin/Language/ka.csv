@@ -270,6 +270,7 @@ Compression_Mode_Lossless;Lossless
 Compression_Mode_Lossy;Lossy
 Compression_Ratio;შეკუმშვის რატიო
 Conductor;Conductor
+ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;კონტეინერი და მთავარი ინფორმაცია
@@ -311,6 +312,8 @@ DistributedBy;გავრცელების ავტორი
 Distributor;
 Donate;შემოწირულობა
 DotsPerInch;Dots per inch
+DrcSets_Count;
+DrcSets_Effects;
 Duration;ხანგრძლივობა
 Duration_End;დასასწრულის დრო
 Duration_Start;დაწყების დრო
@@ -711,6 +714,7 @@ Language_hr;Croatian
 Language_ht;Haitian
 Language_hu;Hungarian
 Language_hy;Armenian
+Language_hy-az;
 Language_hz;Herero
 Language_ia;Auxiliary Language Association
 Language_id;Indonesian
@@ -755,10 +759,12 @@ Language_mi;Maori
 Language_mk;Macedonian
 Language_ml;Malayalam
 Language_mn;Mongolian
+Language_mn-cn;
 Language_mo;Moldavian
 Language_More;მეტი ინფორმაცია ენებზე
 Language_mr;Marathi
 Language_ms;Malay
+Language_ms-bn;
 Language_mt;Maltese
 Language_mul;Multiple languages
 Language_my;Burmese
@@ -768,6 +774,7 @@ Language_nd;Ndebele
 Language_ne;Nepali
 Language_ng;Ndonga
 Language_nl;Dutch
+Language_nl-be;
 Language_nn;Norwegian Nynorsk
 Language_no;Norwegian
 Language_nr;Ndebele
@@ -799,6 +806,7 @@ Language_si;Sinhala
 Language_sk;Slovak
 Language_sl;Slovenian
 Language_sm;Samoan
+Language_smi;
 Language_sn;Shona
 Language_so;Somali
 Language_sq;Albanian
@@ -845,6 +853,24 @@ Library;Muxing library
 Lightness;Lightness
 LineUpStart;
 List;სია
+Loudness_Anchor;
+Loudness_Anchor_Album;
+Loudness_Count;
+Loudness_Count_Album;
+Loudness_MaximumMomentary;
+Loudness_MaximumMomentary_Album;
+Loudness_MaximumOfRange;
+Loudness_MaximumOfRange_Album;
+Loudness_MaximumShortTerm;
+Loudness_MaximumShortTerm_Album;
+Loudness_ProductionMixingLevel;
+Loudness_ProductionMixingLevel_Album;
+Loudness_Program;
+Loudness_Program_Album;
+Loudness_Range;
+Loudness_Range_Album;
+Loudness_RoomType;
+Loudness_RoomType_Album;
 Lyricist;Lyricist
 Lyrics;Lyrics
 Mastered_Date;Mastered date
@@ -993,6 +1019,8 @@ ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replay gain peak
 Resolution;გაფართოება
 s;s
+SamplePeakLevel;
+SamplePeakLevel_Album;
 SamplesPerFrame;
 SamplingCount;ნიმუშების რაოდენობა
 SamplingRate;Sampling rate
@@ -1050,6 +1078,7 @@ Stream;ნაკადი
 Stream_MoreInfo;უფრო მეტი ინფორმაცია ნაკადზე
 StreamCount;ამ ნაკადის სახეობის რაოდენობა
 StreamID;ნაკადის ID
+streamIdentifier;
 StreamKind;ნაკადების სახეობები
 StreamKindID;Stream identifier
 StreamKindPos;Stream identifier
@@ -1107,6 +1136,8 @@ Translate_Reports;
 Translator;მთარგმნელი
 Tree;სვეტი
 Tree & Text;სვეტი & ტექსტი
+TruePeakLevel;
+TruePeakLevel_Album;
 Type;
 UniqueID;უნიკალური ID
 UniversalAdID;
@@ -1147,5 +1178,5 @@ Written_Location;დაწერის ადგილი
 WrittenBy;დაწერილია
 Yes;დიახ
 Your system;თქვენი სისტემა
-ZZ_Automatic_Percent;83
-ZZ_AutomaticLanguage_Percent;87
+ZZ_Automatic_Percent;81
+ZZ_AutomaticLanguage_Percent;85

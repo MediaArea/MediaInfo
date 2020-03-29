@@ -270,6 +270,7 @@ Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;КомпресияСъотношение
 Conductor;Диригент
+ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Контейнер и главна информация
@@ -311,6 +312,8 @@ DistributedBy;РазпространенОт
 Distributor;
 Donate;Дари
 DotsPerInch;ДотНаИнч
+DrcSets_Count;
+DrcSets_Effects;
 Duration;Продължителност
 Duration_End;Продължителност_Край
 Duration_Start;Продължителност_Начало
@@ -711,6 +714,7 @@ Language_hr;Език_хр
 Language_ht;Език_хт
 Language_hu;Език_ху
 Language_hy;Език_хй
+Language_hy-az;
 Language_hz;Език_хз
 Language_ia;Език_иа
 Language_id;Език_ид
@@ -755,10 +759,12 @@ Language_mi;Език_ми
 Language_mk;Език_мк
 Language_ml;Език_мл
 Language_mn;Език_мн
+Language_mn-cn;
 Language_mo;Език_мо
 Language_More;Език_Повече
 Language_mr;Език_мр
 Language_ms;Език_мс
+Language_ms-bn;
 Language_mt;Език_мт
 Language_mul;Език_мул
 Language_my;Език_мя
@@ -768,6 +774,7 @@ Language_nd;Език_нд
 Language_ne;Език_не
 Language_ng;Език_нг
 Language_nl;Език_нл
+Language_nl-be;
 Language_nn;Език_нн
 Language_no;Език_но
 Language_nr;Език_нр
@@ -799,6 +806,7 @@ Language_si;Език_си
 Language_sk;Език_ск
 Language_sl;Език_сл
 Language_sm;Език_см
+Language_smi;
 Language_sn;Език_сн
 Language_so;Език_со
 Language_sq;Език_ся
@@ -845,6 +853,24 @@ Library;Библиотека
 Lightness;Осветеност
 LineUpStart;
 List;Списък
+Loudness_Anchor;
+Loudness_Anchor_Album;
+Loudness_Count;
+Loudness_Count_Album;
+Loudness_MaximumMomentary;
+Loudness_MaximumMomentary_Album;
+Loudness_MaximumOfRange;
+Loudness_MaximumOfRange_Album;
+Loudness_MaximumShortTerm;
+Loudness_MaximumShortTerm_Album;
+Loudness_ProductionMixingLevel;
+Loudness_ProductionMixingLevel_Album;
+Loudness_Program;
+Loudness_Program_Album;
+Loudness_Range;
+Loudness_Range_Album;
+Loudness_RoomType;
+Loudness_RoomType_Album;
 Lyricist;Поет
 Lyrics;Текстове
 Mastered_Date;Дата изработка
@@ -993,6 +1019,8 @@ ReplayGain_Gain;УсилващоПовторение_Усилване
 ReplayGain_Peak;УсилващоПовторение_Усилване_Връх
 Resolution;Резолюция
 s;с
+SamplePeakLevel;
+SamplePeakLevel_Album;
 SamplesPerFrame;
 SamplingCount;
 SamplingRate;ВъзпроизвежданеСкорост
@@ -1050,6 +1078,7 @@ Stream;Поток
 Stream_MoreInfo;Поток_ПовечеИнфо
 StreamCount;Поток_Брой
 StreamID;ПотокИД
+streamIdentifier;
 StreamKind;ПотокВид
 StreamKindID;ПотокВидИД
 StreamKindPos;ПотокВидПоз
@@ -1107,6 +1136,8 @@ Translate_Reports;
 Translator;Преводач
 Tree;Дърво
 Tree & Text;Дърво и Текст
+TruePeakLevel;
+TruePeakLevel_Album;
 Type;
 UniqueID;
 UniversalAdID;
@@ -1147,5 +1178,5 @@ Written_Location;Написано_Локация
 WrittenBy;НаписаноОт
 Yes;Да
 Your system;Вашата система
-ZZ_Automatic_Percent;79
-ZZ_AutomaticLanguage_Percent;86
+ZZ_Automatic_Percent;77
+ZZ_AutomaticLanguage_Percent;84

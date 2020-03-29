@@ -270,6 +270,7 @@ Compression_Mode_Lossless;无损
 Compression_Mode_Lossy;有损压缩
 Compression_Ratio;压缩比
 Conductor;指挥
+ConformanceCheck;
 ContactEmail;联系邮件
 ContactTelephoneNumber;联系电话号码
 Container and general information;容器和一般信息
@@ -311,6 +312,8 @@ DistributedBy;发行商
 Distributor;分销商
 Donate;赞助
 DotsPerInch;点/英寸(DPI)
+DrcSets_Count;
+DrcSets_Effects;
 Duration;持续时间
 Duration_End;结束时间
 Duration_Start;开始时间
@@ -711,6 +714,7 @@ Language_hr;克罗埃西亚语 (Croatian)
 Language_ht;海地语 (Haitian)
 Language_hu;匈牙利语 (Hungarian)
 Language_hy;亚美尼亚语 (Armenian)
+Language_hy-az;
 Language_hz;赫雷罗语 (Herero)
 Language_ia;国际语 (Auxiliary Language Association)
 Language_id;印尼语 (Indonesian)
@@ -755,10 +759,12 @@ Language_mi;毛利语 (Maori)
 Language_mk;马其顿语 (Macedonian)
 Language_ml;马拉雅拉姆语 (Malayalam)
 Language_mn;蒙古语 (Mongolian)
+Language_mn-cn;
 Language_mo;摩达维亚语 (Moldavian)
 Language_More;语言, 详情
 Language_mr;马拉塔语 (Marathi)
 Language_ms;马来语 (Malay)
+Language_ms-bn;
 Language_mt;马尔他语 (Maltese)
 Language_mul;多国语言
 Language_my;缅甸语 (Burmese)
@@ -768,6 +774,7 @@ Language_nd;北恩德贝勒语 (Ndebele)
 Language_ne;尼泊尔语 (Nepali)
 Language_ng;恩东加语 (Ndonga)
 Language_nl;荷兰语 (Dutch)
+Language_nl-be;
 Language_nn;新挪威语 (Norwegian Nynorsk)
 Language_no;挪威语 (Norwegian)
 Language_nr;南恩德贝勒语 (Ndebele)
@@ -799,6 +806,7 @@ Language_si;锡兰语 (Sinhala)
 Language_sk;斯洛伐克语 (Slovak)
 Language_sl;斯洛维尼亚语 (Slovenian)
 Language_sm;萨摩亚语 (Samoan)
+Language_smi;
 Language_sn;绍纳语 (Shona)
 Language_so;索马利语 (Somali)
 Language_sq;阿尔巴尼亚语 (Albanian)
@@ -845,6 +853,24 @@ Library;合成函数库
 Lightness;高亮
 LineUpStart;行向上开始
 List;列表
+Loudness_Anchor;
+Loudness_Anchor_Album;
+Loudness_Count;
+Loudness_Count_Album;
+Loudness_MaximumMomentary;
+Loudness_MaximumMomentary_Album;
+Loudness_MaximumOfRange;
+Loudness_MaximumOfRange_Album;
+Loudness_MaximumShortTerm;
+Loudness_MaximumShortTerm_Album;
+Loudness_ProductionMixingLevel;
+Loudness_ProductionMixingLevel_Album;
+Loudness_Program;
+Loudness_Program_Album;
+Loudness_Range;
+Loudness_Range_Album;
+Loudness_RoomType;
+Loudness_RoomType_Album;
 Lyricist;作词
 Lyrics;歌词
 Mastered_Date;母带完成日期
@@ -993,6 +1019,8 @@ ReplayGain_Gain;播放增益
 ReplayGain_Peak;播放增益峰值
 Resolution;分辨率
 s; 秒
+SamplePeakLevel;
+SamplePeakLevel_Album;
 SamplesPerFrame;每帧采样数
 SamplingCount;采样数
 SamplingRate;采样率
@@ -1050,6 +1078,7 @@ Stream;流
 Stream_MoreInfo;关于此流的更多信息
 StreamCount;此类型流的数量
 StreamID;流ID
+streamIdentifier;
 StreamKind;流类型
 StreamKindID;流ID
 StreamKindPos;流ID
@@ -1107,6 +1136,8 @@ Translate_Reports;
 Translator;翻译
 Tree;树状图
 Tree & Text;树状图和文本
+TruePeakLevel;
+TruePeakLevel_Album;
 Type;类型
 UniqueID;唯一ID
 UniversalAdID;
@@ -1147,5 +1178,5 @@ Written_Location;写入位置
 WrittenBy;书写人: 
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;97
-ZZ_AutomaticLanguage_Percent;97
+ZZ_Automatic_Percent;95
+ZZ_AutomaticLanguage_Percent;95

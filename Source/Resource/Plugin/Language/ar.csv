@@ -270,6 +270,7 @@ Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;نسبة الضغط
 Conductor;قائد الاوركسترا
+ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;حاوية ومعلومات عامة
@@ -311,6 +312,8 @@ DistributedBy;موزع من طرف
 Distributor;
 Donate;تبرع
 DotsPerInch;نقطة في البوصة
+DrcSets_Count;
+DrcSets_Effects;
 Duration;مدة
 Duration_End;وقت النهاية
 Duration_Start;وقت البدء
@@ -711,6 +714,7 @@ Language_hr;hrvatski
 Language_ht;Kreyòl
 Language_hu;Magyar
 Language_hy;Հայերէն
+Language_hy-az;
 Language_hz;Herero
 Language_ia;Auxiliary Language Association
 Language_id;Bahasa
@@ -755,10 +759,12 @@ Language_mi;Māori
 Language_mk;Македонски јазик
 Language_ml;Malayalam
 Language_mn;Монгол
+Language_mn-cn;
 Language_mo;Moldavian
 Language_More;اللغة ، مزيد من المعلومات
 Language_mr;मराठी
 Language_ms;بهاس ملايو
+Language_ms-bn;
 Language_mt;Malti
 Language_mul;لغات متعددة
 Language_my;Burmese
@@ -768,6 +774,7 @@ Language_nd;Ndebele
 Language_ne;नेपाली
 Language_ng;Ndonga
 Language_nl;Dutch
+Language_nl-be;
 Language_nn;norsk
 Language_no;Norwegian
 Language_nr;Ndebele
@@ -799,6 +806,7 @@ Language_si;සිංහල
 Language_sk;slovenčina
 Language_sl;slovenski jezik
 Language_sm;Gagana Sāmoa
+Language_smi;
 Language_sn;Shona
 Language_so;الصومالية
 Language_sq;Shqip
@@ -845,6 +853,24 @@ Library;المكتبة المستخامة
 Lightness;إضاءة
 LineUpStart;
 List;قائمة
+Loudness_Anchor;
+Loudness_Anchor_Album;
+Loudness_Count;
+Loudness_Count_Album;
+Loudness_MaximumMomentary;
+Loudness_MaximumMomentary_Album;
+Loudness_MaximumOfRange;
+Loudness_MaximumOfRange_Album;
+Loudness_MaximumShortTerm;
+Loudness_MaximumShortTerm_Album;
+Loudness_ProductionMixingLevel;
+Loudness_ProductionMixingLevel_Album;
+Loudness_Program;
+Loudness_Program_Album;
+Loudness_Range;
+Loudness_Range_Album;
+Loudness_RoomType;
+Loudness_RoomType_Album;
 Lyricist;الشاعر
 Lyrics;كلمات
 Mastered_Date;تاريخ الإنشاء
@@ -993,6 +1019,8 @@ ReplayGain_Gain;كسب في القراءة
 ReplayGain_Peak;ذروة الكسب في القراءة
 Resolution;دقة الصورة
 s; s
+SamplePeakLevel;
+SamplePeakLevel_Album;
 SamplesPerFrame;Samples per frame
 SamplingCount;
 SamplingRate;أخذ العينات
@@ -1050,6 +1078,7 @@ Stream;دفق
 Stream_MoreInfo;مزيد من المعلومات حول الدفق
 StreamCount;عدد الدفق من هذا النوع
 StreamID;معرف الدفق
+streamIdentifier;
 StreamKind;نوع الدفق
 StreamKindID;معرف الدفق
 StreamKindPos;معرف الدفق
@@ -1107,6 +1136,8 @@ Translate_Reports;
 Translator;مترجم
 Tree;شجرة
 Tree & Text;شجرة والنصوص
+TruePeakLevel;
+TruePeakLevel_Album;
 Type;
 UniqueID;
 UniversalAdID;
@@ -1147,5 +1178,5 @@ Written_Location;مكان الكتابة
 WrittenBy;كتبها
 Yes;نعم
 Your system;نظامك
-ZZ_Automatic_Percent;84
-ZZ_AutomaticLanguage_Percent;88
+ZZ_Automatic_Percent;81
+ZZ_AutomaticLanguage_Percent;86

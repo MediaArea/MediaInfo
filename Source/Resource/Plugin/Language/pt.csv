@@ -270,6 +270,7 @@ Compression_Mode_Lossless;Sem perdas
 Compression_Mode_Lossy;Com perdas
 Compression_Ratio;Taxa de Compressão
 Conductor;Maestro
+ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Arquivo recipiente e informação geral
@@ -311,6 +312,8 @@ DistributedBy;Distribuído por
 Distributor;
 Donate;Doar
 DotsPerInch;Pontos por polegada
+DrcSets_Count;
+DrcSets_Effects;
 Duration;Duração
 Duration_End;Tempo de fim
 Duration_Start;Tempo de ínicio
@@ -711,6 +714,7 @@ Language_hr;Croata
 Language_ht;Haitiano
 Language_hu;Húngaro
 Language_hy;Arménio
+Language_hy-az;
 Language_hz;Herero
 Language_ia;Associação Auxiliar de Idioma
 Language_id;Indonésio
@@ -755,10 +759,12 @@ Language_mi;Maori
 Language_mk;Macedónico
 Language_ml;Malaio
 Language_mn;Mongol
+Language_mn-cn;
 Language_mo;Moldávio
 Language_More;Idioma, mais informações
 Language_mr;Maratha
 Language_ms;Malaio (Malásia)
+Language_ms-bn;
 Language_mt;Maltês
 Language_mul;Múltiplos Idiomas
 Language_my;Birmanês
@@ -768,6 +774,7 @@ Language_nd;Ndebele
 Language_ne;Nepalês
 Language_ng;Ndonga
 Language_nl;Holandês
+Language_nl-be;
 Language_nn;Norueguês (Nynorsk)
 Language_no;Norueguês
 Language_nr;Ndebele
@@ -799,6 +806,7 @@ Language_si;Cingalês
 Language_sk;Eslovaco
 Language_sl;Esloveno
 Language_sm;Samoano
+Language_smi;
 Language_sn;Shona
 Language_so;Somali
 Language_sq;Albanês
@@ -845,6 +853,24 @@ Library;Biblioteca multiplex
 Lightness;Iluminação
 LineUpStart;
 List;Lista
+Loudness_Anchor;
+Loudness_Anchor_Album;
+Loudness_Count;
+Loudness_Count_Album;
+Loudness_MaximumMomentary;
+Loudness_MaximumMomentary_Album;
+Loudness_MaximumOfRange;
+Loudness_MaximumOfRange_Album;
+Loudness_MaximumShortTerm;
+Loudness_MaximumShortTerm_Album;
+Loudness_ProductionMixingLevel;
+Loudness_ProductionMixingLevel_Album;
+Loudness_Program;
+Loudness_Program_Album;
+Loudness_Range;
+Loudness_Range_Album;
+Loudness_RoomType;
+Loudness_RoomType_Album;
 Lyricist;Compositor
 Lyrics;Letra
 Mastered_Date;Data de criação
@@ -993,6 +1019,8 @@ ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Pico do replay gain
 Resolution;Resolução
 s;s
+SamplePeakLevel;
+SamplePeakLevel_Album;
 SamplesPerFrame;
 SamplingCount;Número de amostras
 SamplingRate;Taxa de amostragem
@@ -1050,6 +1078,7 @@ Stream;Faixa
 Stream_MoreInfo;Mais informação sobre a faixa
 StreamCount;Número de faixas do deste tipo
 StreamID;ID da Faixa
+streamIdentifier;
 StreamKind;Tipo de faixa
 StreamKindID;Identificador de faixa
 StreamKindPos;Identificador de faixa
@@ -1107,6 +1136,8 @@ Translate_Reports;
 Translator;Tradutor
 Tree;Árvore
 Tree & Text;Árvore & Texto
+TruePeakLevel;
+TruePeakLevel_Album;
 Type;Tipo
 UniqueID;ID Único
 UniversalAdID;
@@ -1147,5 +1178,5 @@ Written_Location;Local da escrita
 WrittenBy;Escrito por
 Yes;Sim
 Your system;O seu sistema
-ZZ_Automatic_Percent;89
-ZZ_AutomaticLanguage_Percent;89
+ZZ_Automatic_Percent;87
+ZZ_AutomaticLanguage_Percent;87

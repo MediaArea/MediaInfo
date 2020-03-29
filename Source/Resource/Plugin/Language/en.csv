@@ -270,6 +270,7 @@ Compression_Mode_Lossless;Lossless
 Compression_Mode_Lossy;Lossy
 Compression_Ratio;Compression ratio
 Conductor;Conductor
+ConformanceCheck;Conformance check
 ContactEmail;Contact Email
 ContactTelephoneNumber;Contact Telephone Number
 Container and general information;Container and general information
@@ -311,6 +312,8 @@ DistributedBy;Distributed by
 Distributor;Distributor
 Donate;Donate
 DotsPerInch;Dots per inch
+DrcSets_Count;DRC set count
+DrcSets_Effects;DRC effect type(s)
 Duration;Duration
 Duration_End;End time
 Duration_Start;Start time
@@ -711,6 +714,7 @@ Language_hr;Croatian
 Language_ht;Haitian
 Language_hu;Hungarian
 Language_hy;Armenian
+Language_hy-az;Armenian (Azerbaijani)
 Language_hz;Herero
 Language_ia;Auxiliary Language Association
 Language_id;Indonesian
@@ -755,10 +759,12 @@ Language_mi;Maori
 Language_mk;Macedonian
 Language_ml;Malayalam
 Language_mn;Mongolian
+Language_mn-cn;Mongolian (China)
 Language_mo;Moldavian
 Language_More;Language, more info
 Language_mr;Marathi
 Language_ms;Malay
+Language_ms-bn;Malay (Brunei)
 Language_mt;Maltese
 Language_mul;Multiple languages
 Language_my;Burmese
@@ -768,6 +774,7 @@ Language_nd;Ndebele
 Language_ne;Nepali
 Language_ng;Ndonga
 Language_nl;Dutch
+Language_nl-be;Flemish
 Language_nn;Norwegian Nynorsk
 Language_no;Norwegian
 Language_nr;Ndebele
@@ -799,6 +806,7 @@ Language_si;Sinhala
 Language_sk;Slovak
 Language_sl;Slovenian
 Language_sm;Samoan
+Language_smi;Sami
 Language_sn;Shona
 Language_so;Somali
 Language_sq;Albanian
@@ -845,6 +853,24 @@ Library;Muxing library
 Lightness;Lightness
 LineUpStart;Line Up Start
 List;List
+Loudness_Anchor;Anchor loudness
+Loudness_Anchor_Album;Anchor loudness (album)
+Loudness_Count;Loudness info count
+Loudness_Count_Album;Loudness info count (album)
+Loudness_MaximumMomentary;Maximum momentary loudness
+Loudness_MaximumMomentary_Album;Maximum momentary loudness (album)
+Loudness_MaximumOfRange;Maximum of the range
+Loudness_MaximumOfRange_Album;Maximum of the range (album)
+Loudness_MaximumShortTerm;Maximum short-term loudness
+Loudness_MaximumShortTerm_Album;Maximum short-term loudness (album)
+Loudness_ProductionMixingLevel;Production mixing level
+Loudness_ProductionMixingLevel_Album;Production mixing level (album)
+Loudness_Program;Program loudness
+Loudness_Program_Album;Program loudness (album)
+Loudness_Range;Loudness range
+Loudness_Range_Album;Loudness range (album)
+Loudness_RoomType;Production room type
+Loudness_RoomType_Album;Production room type (album)
 Lyricist;Lyricist
 Lyrics;Lyrics
 Mastered_Date;Mastered date
@@ -993,6 +1019,8 @@ ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replay gain peak
 Resolution;Resolution
 s; s
+SamplePeakLevel;Sample peak level
+SamplePeakLevel_Album;Sample peak level (album)
 SamplesPerFrame;Samples per frame
 SamplingCount;Samples count
 SamplingRate;Sampling rate
@@ -1050,6 +1078,7 @@ Stream;Stream
 Stream_MoreInfo;More information about the stream
 StreamCount;Count of stream of this kind
 StreamID;Stream ID
+streamIdentifier;Stream identifier
 StreamKind;Kind of stream
 StreamKindID;Stream identifier
 StreamKindPos;Stream identifier
@@ -1107,6 +1136,8 @@ Translate_Reports;Translate reports
 Translator;Translator
 Tree;Tree
 Tree & Text;Tree & Text
+TruePeakLevel;True peak level
+TruePeakLevel_Album;True peak level (album)
 Type;Type
 UniqueID;Unique ID
 UniversalAdID;Universal Ad ID
