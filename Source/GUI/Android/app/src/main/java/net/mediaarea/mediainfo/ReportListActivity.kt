@@ -197,24 +197,41 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         handleIntent(intent)
     }
 
+    private fun handleUri(uri: Uri) {
+        if (uri.scheme == "file") {
+            if (Build.VERSION.SDK_INT >= 23) {
+                if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    pendingFileUris.add(uri)
+                    ActivityCompat.requestPermissions(this@ReportListActivity,
+                            arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+                            READ_EXTERNAL_STORAGE_PERMISSION_REQUEST)
+                    return
+                }
+            }
+        }
+        AddFile().execute(uri)
+    }
+
     private fun handleIntent(intent: Intent) {
         if (intent.action != null) {
             val action: String? = intent.action
-            val uri: Uri? = intent.data
-            if (action == Intent.ACTION_VIEW && uri != null) {
-                if (uri.scheme == "file") {
-                    if (Build.VERSION.SDK_INT >= 23) {
-                        if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                            pendingFileUris.add(uri)
-                            ActivityCompat.requestPermissions(this@ReportListActivity,
-                                    arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
-                                    READ_EXTERNAL_STORAGE_PERMISSION_REQUEST)
-                            return
+            if (action == Intent.ACTION_VIEW) {
+                val uri: Uri? = intent.data
+                if (uri != null) {
+                    handleUri(uri)
+                }
+            } else if (action == Intent.ACTION_SEND) {
+                val uri = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
+                if (uri != null) {
+                    handleUri(uri)
+                } else if (action == Intent.ACTION_SEND_MULTIPLE) {
+                    val uriList = intent.getParcelableArrayListExtra<Uri>(Intent.EXTRA_STREAM)
+                    if (uriList != null) {
+                        for (uri in uriList) {
+                            handleUri(uri)
                         }
                     }
                 }
-
-                AddFile().execute(uri)
             }
         }
     }
