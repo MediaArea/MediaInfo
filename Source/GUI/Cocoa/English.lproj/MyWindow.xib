@@ -445,21 +445,22 @@
                                 <menuItem title="Text" id="l1c-6L-mdF"/>
                                 <menuItem title="HTML" tag="1" id="SYS-3E-gf4"/>
                                 <menuItem title="XML" tag="2" id="dde-3h-6xM"/>
-                                <menuItem title="JSON" tag="3" id="bDm-AL-Ni3"/>
-                                <menuItem title="MPEG-7" tag="4" id="qPy-3h-POF"/>
-                                <menuItem title="PBCore 1.2" tag="5" id="a3A-Ao-7OV"/>
-                                <menuItem title="PBCore 2.0" tag="6" id="1yR-Ww-Nc9"/>
-                                <menuItem title="EBUCore 1.5" tag="7" id="lYi-0o-NUT"/>
-                                <menuItem title="EBUCore 1.6" tag="8" id="TZc-xn-Gdh"/>
-                                <menuItem title="EBUCore 1.8 (acq. metadata: parameter then segment)" tag="9" id="FYI-Th-BU1"/>
-                                <menuItem title="EBUCore 1.8 (acq. metadata: segment then parameter)" tag="10" id="fNe-yJ-2vy"/>
-                                <menuItem title="EBUCore 1.8 (acq. metadata: parameter then segment, json output)" tag="11" id="lLP-Iz-Bst"/>
-                                <menuItem title="EBUCore 1.8 (acq. metadata: segment then parameter, json output)" tag="12" id="Y2Z-ry-I2z"/>
-                                <menuItem title="FIMS 1.1" tag="13" id="nMZ-Jy-aQJ"/>
-                                <menuItem title="FIMS 1.2" tag="14" id="Dun-Cc-kMM"/>
-                                <menuItem title="FIMS 1.3" tag="15" id="XHo-fC-op4"/>
-                                <menuItem title="reVTMD" tag="16" id="O4d-KN-zYb"/>
-                                <menuItem title="NISO_Z39_87" tag="17" id="JgJ-IK-BAd"/>
+                                <menuItem title="CSV" tag="3" id="dBf-h9-xpG"/>
+                                <menuItem title="JSON" tag="4" id="bDm-AL-Ni3"/>
+                                <menuItem title="MPEG-7" tag="5" id="qPy-3h-POF"/>
+                                <menuItem title="PBCore 1.2" tag="6" id="a3A-Ao-7OV"/>
+                                <menuItem title="PBCore 2.0" tag="7" id="1yR-Ww-Nc9"/>
+                                <menuItem title="EBUCore 1.5" tag="8" id="lYi-0o-NUT"/>
+                                <menuItem title="EBUCore 1.6" tag="9" id="TZc-xn-Gdh"/>
+                                <menuItem title="EBUCore 1.8 (acq. metadata: parameter then segment)" tag="10" id="FYI-Th-BU1"/>
+                                <menuItem title="EBUCore 1.8 (acq. metadata: segment then parameter)" tag="11" id="fNe-yJ-2vy"/>
+                                <menuItem title="EBUCore 1.8 (acq. metadata: parameter then segment, json output)" tag="12" id="lLP-Iz-Bst"/>
+                                <menuItem title="EBUCore 1.8 (acq. metadata: segment then parameter, json output)" tag="13" id="Y2Z-ry-I2z"/>
+                                <menuItem title="FIMS 1.1" tag="14" id="nMZ-Jy-aQJ"/>
+                                <menuItem title="FIMS 1.2" tag="15" id="Dun-Cc-kMM"/>
+                                <menuItem title="FIMS 1.3" tag="16" id="XHo-fC-op4"/>
+                                <menuItem title="reVTMD" tag="17" id="O4d-KN-zYb"/>
+                                <menuItem title="NISO_Z39_87" tag="18" id="JgJ-IK-BAd"/>
                             </items>
                         </menu>
                     </popUpButtonCell>
