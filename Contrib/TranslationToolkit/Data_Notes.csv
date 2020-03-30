@@ -1,0 +1,60 @@
+﻿Keyword,Mode (default: keyword),Notes
+  Author_OldNames,key,put translator history here
+  Config_Text_Separator,key,"to display correctly in Excel, the value is quoted. Default value is "" : "" (space colon space)"
+ audio stream1,key,"the following strings are units. They start with a space. Example: 1 channel, 2 Bytes."
+ warppoint0,key,"leave ""warp point"" as it is if you are not sure. It is used in GMC. Ref: https://forum.doom9.org/showthread.php?p=435239#post435239"
+ year3,key,units end here
+ActiveFormatDescription,key,Use AFD as abbreviation. Ref: https://en.wikipedia.org/wiki/Active_Format_Description
+mux,,"Be careful with ""(de)mux"" ((de)multiplex). Leave as it is if you are not sure."
+Alignment_,key_keyword,for AVI. Ref: https://forum.doom9.org/showthread.php?t=111083
+Alternate group,,for MP4
+aspect ratio,,aspect ratio = width : height
+Present,,xx present = contains xx (Yes or No)
+Bed channel,,"for Dolby Atmos. Ref: https://www.dolby.com/us/en/technologies/cinema/dolby-atmos.html (How It Works) There are translated versions of this page, check it out."
+Bits-(Pixel*Frame),key,"bitrate/(pixel*framerate), where pixel=width*height"
+Chroma subsampling,,Ref: https://en.wikipedia.org/wiki/Chroma_subsampling
+Closed Captions,,Ref: https://en.wikipedia.org/wiki/Closed_captioning
+Profile,,"leave ""profile"" as it is if you are not sure. Ref: https://en.wikipedia.org/wiki/Advanced_Video_Coding#Profiles"
+BVOP,,BVOP = B frames
+Endianness,,Ref: https://en.wikipedia.org/wiki/Endianness
+CodecConfigurationBox,key,for MP4. box ≈ block. Ref A: https://aomediacodec.github.io/av1-isobmff/#av1codecconfigurationbox-section ; Ref B: https://docs.microsoft.com/en-us/windows/win32/medfound/mpeg-4-file-source (Ctrl+F box)
+Color primaries,,Ref: http://www.chaneru.com/Roku/HLS/X264_Settings.htm#colorprim
+Color range,,Ref: http://www.chaneru.com/Roku/HLS/X264_Settings.htm#fullrange
+Complexity index,,an unsigned integer that indicates the decoding complexity (for E-AC-3 JOC). Ref: https://www.etsi.org/deliver/etsi_ts/103400_103499/103420/01.02.01_60/ts_103420v010201p.pdf (page 69)
+Clean aperture,,The clean (adj.) aperture is the portion of the image that is free from artifacts and distortions that appear at the edges of an image. The production aperture is the entire image. // An image’s clean aperture is a region of video free from transition artifacts caused by the encoding of the signal. This is the region of video that should be displayed.
+Encoded_Original,key,not used in the program
+EPG_Positions,key,Ref: https://en.wikipedia.org/wiki/Electronic_program_guide
+File_Append,key,[File] -> [Export] -> [Text]
+Format_Settings_Emphasis,key,≈ frequency boost. Ref: https://en.wikipedia.org/wiki/Emphasis_(telecommunications) ; https://tech.ebu.ch/docs/tech/tech3285s1.pdf (page 10)
+Pulldown,,"leave ""pulldown"" as it is if you are not sure. Ref: http://web.archive.org/web/20160609142256/https://trac.handbrake.fr/wiki/Telecine ; https://en.wikipedia.org/wiki/Telecine#Frame_rate_differences"
+FpaPass,key,passed FPA or not. Ref: http://dpp-assets.s3.amazonaws.com/wp-content/uploads/2014/05/DPP-Metadata-Application-Information-Definitions-v1.0-Published.pdf (page 3)
+Genre_000,key,music genre. Suggestion: leave as it is.
+Gop_OpenClosed,key,"leave ""open""/""closed"" as it is if you are not sure. Simple explanation: for closed GOP,  B frames can only use frames within that GOP for reference. For open GOP, they can use frames from the next GOP for reference. Ref: http://www.chaneru.com/Roku/HLS/X264_Settings.htm#open-gop"
+h,key,(space)+hour
+Ident Clock,,Ref: https://en.wikipedia.org/wiki/Clock_ident
+Interlaced_Interlaced,key,Ref: https://en.wikipedia.org/wiki/Interlaced_video
+Interlaced_BFF,key,Ref: https://en.wikipedia.org/wiki/Field_(video)
+Language_aa,key,Ref: https://en.wikipedia.org/wiki/ISO_639-1 (your language version)
+LineUpStart,key,"leave ""line up"" as it is. Ref: https://docs.microsoft.com/en-us/previous-versions/windows/desktop/windows-media-center-sdk-technical-articles/dd776338(v%3Dmsdn.10)#format-of-the-guide-data-file"
+Mastered_Date,key,Ref: https://en.wikipedia.org/wiki/Mastering_(audio)
+MasteringDisplay_,key_keyword,"Mastering ≈ the making of HDR content. Display ≈ Monitor, screen. Ref: https://x265.readthedocs.io/en/default/cli.html#cmdoption-master-display"
+matrix_coefficients,key,Ref: http://www.chaneru.com/Roku/HLS/X264_Settings.htm#colormatrix
+MaxCLL,key,"Suggestion: add abbreviation ""CLL""/""FALL"". Ref: https://x265.readthedocs.io/en/default/cli.html#cmdoption-max-cll"
+bitstream,,"leave ""xxx bitstream"" as it is if you are not sure."
+NumberOfDynamicObjects,key,for spatial sound. Ref: https://docs.microsoft.com/zh-cn/windows/win32/coreaudio/spatial-sound
+OpenCandy_01,key,OpenCandy ads.
+Open Captions,,"opposite to ""Closed Captions""."
+Quote character,key,"The quote sign (""). [File] -> [Export] -> [Sheet]"
+ScanOrder_StoredDisplayedInverted,key,deprecated. Ref: https://sourceforge.net/p/mediainfo/discussion/297610/thread/f2459e8b/
+Separator_Lines,key,equals to line break. Ref: https://en.wikipedia.org/wiki/Newline
+Set,key,A series or group of something
+Supported?,key,"Yes or No. Equals to ""supported or not""."
+HTML,,HTML=Web page
+Text stream,,Text stream=subtitle stream
+TimeCode_Striped,key,Is it striped or not. Ref: https://helpx.adobe.com/premiere-pro/using/timecode.html (your language version)
+transfer_characteristics,key,Ref: http://www.chaneru.com/Roku/HLS/X264_Settings.htm#transfer
+View,key,[Window Menu] -> [View]
+ZZ_,key_keyword,automatically generated. Don't edit
+at,key,[at] 25 fps. Suggestion: symbol @.
+DRC,,related to USAC loudness. DRC: dynamic range control. Ref: https://www.iso.org/obp/ui/#iso:std:iso-iec:23003:-4:ed-1:v1:en
+Loudness_,key_keyword,related to USAC loudness. Ref: https://www.iis.fraunhofer.de/content/dam/iis/de/doc/ame/wp/FraunhoferIIS_xHE-AAC_Whitepaper.pdf
