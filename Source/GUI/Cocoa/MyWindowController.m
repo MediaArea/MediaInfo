@@ -569,13 +569,26 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 		mediaList = [[oMediaInfoList alloc] init]; //dont care about release
 
 	NSInteger oldCount = [mediaList count];
-	ProgressDialog *wc = [[ProgressDialog alloc] initWithWindowNibName:@"ProgressDialog"];
-	[wc setItems:URLs];
-	[wc setMediaList:mediaList];
 
-	[NSApp runModalForWindow:wc.window];
-	[wc.window close];
-	wc = nil;
+	if([URLs count]==1 && [[NSFileManager defaultManager] fileExistsAtPath:[URLs[0] path]]) {
+		if(![mediaList openFiles:URLs]) {
+			//Report about some error while opening?
+			[[NSAlert alertWithMessageText:NSLocalizedString(@"Error", @"Error header")
+				defaultButton:nil
+				alternateButton:nil
+				otherButton:nil
+				informativeTextWithFormat:NSLocalizedString(@"Can not open file(s)", @"Error text while open")] runModal];
+		}
+	}
+	else {
+		ProgressDialog *wc = [[ProgressDialog alloc] initWithWindowNibName:@"ProgressDialog"];
+		[wc setItems:URLs];
+		[wc setMediaList:mediaList];
+
+		[NSApp runModalForWindow:wc.window];
+		[wc.window close];
+		wc = nil;
+	}
 
 	if([mediaList count]>oldCount) {
 		//Update GUI
