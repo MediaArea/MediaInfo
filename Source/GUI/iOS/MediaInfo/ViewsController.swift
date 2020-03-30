@@ -39,7 +39,12 @@ class ViewsController: UITableViewController {
         if(core.views[indexPath.row].name == currentView) {
             cell.accessoryType = UITableViewCell.AccessoryType.checkmark
         }
-        cell.textLabel?.text = core.views[indexPath.row].desc
+        if(core.views[indexPath.row].desc == "Text") {
+            cell.textLabel?.text = NSLocalizedString("Text", tableName: "Core", comment: "")
+        }
+        else {
+            cell.textLabel?.text = core.views[indexPath.row].desc
+        }
 
         return cell
     }

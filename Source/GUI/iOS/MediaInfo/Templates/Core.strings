@@ -1,0 +1,26 @@
+"MediaInfo v%MI_VERSION% using MediaInfoLib v%MIL_VERSION%" = "MediaInfo v%MI_VERSION% using MediaInfoLib v%MIL_VERSION%"; /* csv="MediaInfo_About_About"; */
+"Purchase succeeded, thanks for your support!" = "Purchase succeeded, thanks for your support!"; /* csv="Subscription_Thanks"; */
+"Renew subscription (%PRICE% for one year)" = "Renew subscription (%PRICE% for one year)"; /* csv="Subscribe_Renew_Price"; */
+"Unable to retrieve subscription details." = "Unable to retrieve subscription details."; /* csv="Subscribe_Unaviable"; */
+"Purchase waiting for parent approval" = "Purchase waiting for parent approval"; /* csv="Subscribe_Waiting"; */
+"Your subscription has just ended." = "Your subscription has just ended."; /* csv="Subscription_Ended"; */
+"(You must at least open one file)" = "(You must at least open one file)"; /* csv="At least one file"; */
+"Subscription expired since %DATE%" = "Subscription expired since %DATE%"; /* csv="Subscription_Expired"; */
+"Subscription active until %DATE%" = "Subscription active until %DATE%"; /* csv="Subscription_Active"; */
+"Subscribe (%PRICE% for one year)" = "Subscribe (%PRICE% for one year)"; /* csv="Subscribe_Button"; */
+"Purchase canceled or failed" = "Purchase canceled or failed"; /* csv="Subscribe_Failed"; */
+"Renew subscription?" = "Renew subscription?"; /* csv="Subscribe_Renew"; */
+"Manage subscription" = "Manage subscription"; /* csv="Subscribe_Manage"; */
+"Translate reports" = "Translate reports"; /* csv="Translate_Reports"; */
+"About_Text" = "About_Text"; /* csv="MediaInfo_About"; */
+"Clear list" = "Clear list"; /* csv="ClearList"; */
+"Subscribe" = "Subscribe"; /* csv="Subscribe"; */
+"Dark mode" = "Dark mode"; /* csv="DarkMode"; */
+"Language" = "Language"; /*csv="Language"; */
+"Report" = "Report"; /* csv="Report"; */
+"Renew" = "Renew"; /* csv="Renew"; */
+"About" = "About"; /* csv="About"; */
+"Close" = "Close"; /* csv="Close"; */
+"Menu" = "Menu"; /* csv="Menu"; */
+"Open" = "Open"; /* csv="Open"; */
+"Text" = "Text"; /* csv="Text"; */

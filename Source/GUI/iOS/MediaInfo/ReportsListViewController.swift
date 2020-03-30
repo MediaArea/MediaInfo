@@ -14,7 +14,7 @@ import PopMenu
 extension UITableViewController {
     class func displayWelcome(onView: UIView) -> UIView {
         let welcomeView = UILabel.init(frame: onView.bounds)
-        welcomeView.text = "You must at least open 1 file."
+        welcomeView.text = NSLocalizedString("(You must at least open one file)", tableName: "Core", comment: "")
 
         if SubscriptionManager.shared.subscriptionActive && Core.shared.darkMode {
             welcomeView.textColor = UIColor.white
@@ -48,8 +48,8 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let menuButton = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(showMenu(_:)))
-        let addButton = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(insertReport(_:)))
+        let menuButton = UIBarButtonItem(title: NSLocalizedString("Menu", tableName: "Core", comment: ""), style: .plain, target: self, action: #selector(showMenu(_:)))
+        let addButton = UIBarButtonItem(title: NSLocalizedString("Open", tableName: "Core", comment: ""), style: .plain, target: self, action: #selector(insertReport(_:)))
 
         navigationItem.leftBarButtonItem = menuButton
         navigationItem.rightBarButtonItem = addButton
@@ -102,15 +102,15 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
         let menuViewController = PopMenuViewController(actions: [])
         if SubscriptionManager.shared.subscriptionActive {
             if Core.shared.darkMode {
-                menuViewController.addAction(PopMenuDefaultAction(title: "Disable dark mode", didSelect: { _ in
+                menuViewController.addAction(PopMenuDefaultAction(title: "✓ " + NSLocalizedString("Dark mode", tableName: "Core", comment: ""), didSelect: { _ in
                     Core.shared.darkMode = false
                 }))
             } else {
-                menuViewController.addAction(PopMenuDefaultAction(title: "Enable dark mode", didSelect: { _ in
+                menuViewController.addAction(PopMenuDefaultAction(title: NSLocalizedString("Dark mode", tableName: "Core", comment: ""), didSelect: { _ in
                     Core.shared.darkMode = true
                 }))
             }
-            menuViewController.addAction(PopMenuDefaultAction(title: "Manage subscription", didSelect: { [menuViewController] _ in
+            menuViewController.addAction(PopMenuDefaultAction(title: NSLocalizedString("Manage subscription", tableName: "Core", comment: ""), didSelect: { [menuViewController] _ in
                 menuViewController.didDismiss = { _ in
                     let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
                     if let subscribeViewController = storyboard.instantiateViewController(withIdentifier: "SubscribeViewController") as? SubscribeViewController {
@@ -121,8 +121,18 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
                     }
                 }
             }))
+        //} else {
+            if Core.shared.userLocale {
+                menuViewController.addAction(PopMenuDefaultAction(title: "✓ " + NSLocalizedString("Translate reports", tableName: "Core", comment: ""), didSelect: { _ in
+                    Core.shared.userLocale = false
+                }))
+            } else {
+                menuViewController.addAction(PopMenuDefaultAction(title: NSLocalizedString("Translate reports", tableName: "Core", comment: ""), didSelect: { _ in
+                    Core.shared.userLocale = true
+                }))
+            }
         } else {
-            menuViewController.addAction(PopMenuDefaultAction(title: "Subscribe", didSelect: { [menuViewController] _ in
+            menuViewController.addAction(PopMenuDefaultAction(title: NSLocalizedString("Subscribe", tableName: "Core", comment: ""), didSelect: { [menuViewController] _ in
                 menuViewController.didDismiss = { _ in
                     let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
                     if let subscribeViewController = storyboard.instantiateViewController(withIdentifier: "SubscribeViewController") as? SubscribeViewController {
@@ -134,7 +144,19 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
                 }
             }))
         }
-        menuViewController.addAction(PopMenuDefaultAction(title: "About", didSelect: { [menuViewController] _ in
+
+        if #available(iOS 13.0, *) {
+            menuViewController.addAction(PopMenuDefaultAction(title: NSLocalizedString("Language", tableName: "Core", comment: ""), didSelect: { [menuViewController] _ in
+                menuViewController.didDismiss = { _ in
+                    if let url = URL(string:  UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+            }))
+        }
+
+
+        menuViewController.addAction(PopMenuDefaultAction(title: NSLocalizedString("About", tableName: "Core", comment: ""), didSelect: { [menuViewController] _ in
             menuViewController.didDismiss = { _ in
                 let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
                 let aboutViewController = storyboard.instantiateViewController(withIdentifier: "AboutViewController")
@@ -447,6 +469,7 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
 
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
+        tableView.reloadData()
 
         showHideWelcome()
     }
@@ -498,6 +521,45 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
         } else {
             cell.backgroundColor = UIColor.white
             cell.textLabel?.textColor = UIColor.black
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let rect = tableView.rectForFooter(inSection: section)
+        if tableView.numberOfRows(inSection: section) == 0 {
+            return UIView()
+        }
+        let clearButton = UIButton(type: .custom)
+        clearButton.setTitle(NSLocalizedString("Clear list", tableName: "Core", comment: "").uppercased(), for: .normal)
+        clearButton.addTarget(self, action: #selector(clearList(_:)), for: .touchUpInside)
+        clearButton.setTitleColor(UIColor.gray, for: .normal)
+        clearButton.frame = rect
+
+        return clearButton
+    }
+
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 40.0
+    }
+
+    @objc func clearList(_ sender: Any) {
+        let context = self.fetchedResultsController.managedObjectContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Event")
+
+        fetchRequest.returnsObjectsAsFaults = false
+
+        do {
+            let results = try context.fetch(fetchRequest)
+            for object in results {
+                if let objectData = object as? NSManagedObject {
+                    context.delete(objectData)
+                }
+            }
+            try context.save()
+        }
+        catch {
+            let nserror = error as NSError
+            self.view.makeToast("ERROR: \(nserror), \(nserror.userInfo) when trying to delete reports", duration: 5.0, position: .top)
         }
     }
 

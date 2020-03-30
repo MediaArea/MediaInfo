@@ -79,7 +79,7 @@ class ReportViewController: UIViewController, UIDocumentPickerDelegate {
                 button.isEnabled = true
             }
         } else {
-            navigationItem.title = "Report"
+            navigationItem.title = NSLocalizedString("Report", tableName: "Core", comment: "")
             if let page: UIWebView = reportView {
                 page.loadHTMLString("<html><body style=\"background-color: \(bgColor); color: \(fgColor)\"></body></html>", baseURL: nil)
             }

@@ -1,0 +1,35 @@
+/* Class = "UIViewController"; title = "Subscribe"; ObjectID = "9gy-ak-LKO"; */
+"9gy-ak-LKO.title" = "Subscribe"; /* csv="Subscribe"; */
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "Arm-wq-HPj"; */
+"Arm-wq-HPj.text" = "Title"; /* csv="Title"; */
+
+/* Class = "UIButton"; normalTitle = "Website"; ObjectID = "EaG-ek-NVk"; */
+"EaG-ek-NVk.normalTitle" = "Website"; /* csv="WebSite"; */
+
+/* Class = "UIButton"; normalTitle = "E-Mail"; ObjectID = "5Yi-5u-GrT"; */
+"5Yi-5u-GrT.normalTitle" = "E-Mail"; /* csv="EMail"; */
+
+/* Class = "UIBarButtonItem"; title = "View"; ObjectID = "Egl-uN-DaG"; */
+"Egl-uN-DaG.title" = "Views"; /* csv="Views"; */
+
+/* Class = "UIViewController"; title = "Report"; ObjectID = "JEX-9P-axG"; */
+"JEX-9P-axG.title" = "Report"; /* csv="Report"; */
+
+/* Class = "UILabel"; text = "Support us. Get the dark theme and more features to come."; ObjectID = "Jn6-6b-eGc"; */
+"Jn6-6b-eGc.text" = "Support us. Get the dark theme and more features to come."; /* csv="SupportUs"; */
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "KMX-0V-hyi"; */
+"KMX-0V-hyi.text" = "Title"; /* csv="Title"; */
+
+/* Class = "UIButton"; normalTitle = "Export"; ObjectID = "QIC-IP-98Y"; */
+"QIC-IP-98Y.normalTitle" = "Export"; /* csv="Export"; */
+
+/* Class = "UITableViewController"; title = "Views"; ObjectID = "Te9-tf-Jlw"; */
+"Te9-tf-Jlw.title" = "Views"; /* csv="Views"; */
+
+/* Class = "UIViewController"; title = "About MediaInfo"; ObjectID = "iD1-Zt-FWg"; */
+"iD1-Zt-FWg.title" = "About"; /* csv="About"; */
+
+/* Class = "UINavigationItem"; title = "Report"; ObjectID = "mOI-FS-AaM"; */
+"mOI-FS-AaM.title" = "Report"; /* csv="Report"; */
