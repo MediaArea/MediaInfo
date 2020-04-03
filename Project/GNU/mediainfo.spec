@@ -71,7 +71,7 @@ BuildRequires:  wxWidgets-devel
 %if 0%{?mageia}
 BuildRequires:  wxgtk2.8-devel
 %else
-%if 0%{?fedora_version} && 0%{?fedora_version} >= 29
+%if (0%{?fedora_version} && 0%{?fedora_version} >= 29) || 0%{?centos_version} >= 800
 BuildRequires:  wxGTK3-devel
 %else
 BuildRequires:  wxGTK-devel
@@ -138,7 +138,7 @@ Requires:   wxWidgets
 %if 0%{?mageia}
 Requires:  wxgtk2.8
 %else
-%if 0%{?fedora_version} && 0%{?fedora_version} >= 29
+%if (0%{?fedora_version} && 0%{?fedora_version} >= 29) || 0%{?centos_version} >= 800
 Requires:   wxGTK3
 %else
 Requires:   wxGTK
