@@ -1,5 +1,5 @@
 name: mediainfo
-version: 19.09
+version: 20.03
 summary: Command-line utility for reading information from audio/video files
 description: |
   MediaInfo is a utility used for retrieving technical information and other
