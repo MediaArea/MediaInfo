@@ -33,7 +33,7 @@ interface ReportDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateReport(report: Report)
 
-    @Delete()
+    @Delete
     fun deleteReport(report: Report)
 
     @Query("DELETE FROM reports WHERE id = :id")

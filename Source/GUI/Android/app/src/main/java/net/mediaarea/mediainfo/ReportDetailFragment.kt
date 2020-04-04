@@ -194,7 +194,7 @@ class ReportDetailFragment : Fragment() {
                 desc = resources.getString(R.string.text_output_desc)
             }
 
-            viewMenu.add(R.id.menu_views_group, Menu.NONE, index, desc).setOnMenuItemClickListener { _: MenuItem ->
+            viewMenu.add(R.id.menu_views_group, Menu.NONE, index, desc).setOnMenuItemClickListener {
                 if (view != current.name) {
                     view = current.name
 
@@ -205,11 +205,13 @@ class ReportDetailFragment : Fragment() {
                             ?.apply()
 
                     // Reset view
-                    fragmentManager
-                            ?.beginTransaction()
-                            ?.detach(this)
-                            ?.attach(this)
-                            ?.commit()
+                    if (isAdded) {
+                        parentFragmentManager
+                                .beginTransaction()
+                                .detach(this)
+                                .attach(this)
+                                .commit()
+                    }
                 }
 
                 true

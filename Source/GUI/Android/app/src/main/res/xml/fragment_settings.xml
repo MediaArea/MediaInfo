@@ -12,11 +12,11 @@
         android:title="@string/premium_title"
         android:summary="@string/premium_summary">
 
-        <Preference
+        <!--<Preference
             android:key="@string/preferences_subscribe_key"
             android:summary="@string/subscribe_text"
             app:selectable="true"
-            app:isPreferenceVisible="false" />
+            app:isPreferenceVisible="false" />-->
 
         <DropDownPreference
             android:key="@string/preferences_locale_key"
