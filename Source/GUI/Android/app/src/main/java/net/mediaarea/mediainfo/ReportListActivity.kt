@@ -12,7 +12,7 @@ import java.io.File
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.Observer
 import androidx.core.app.ActivityCompat
 import androidx.appcompat.app.AppCompatDelegate
@@ -126,7 +126,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                         }
                     }
                     "file" -> {
-                        val file = File(uri.path)
+                        val file = File(uri.path.orEmpty())
                         try {
                             fd = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
                         } catch (e: Exception) {}
@@ -227,8 +227,8 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 } else if (action == Intent.ACTION_SEND_MULTIPLE) {
                     val uriList = intent.getParcelableArrayListExtra<Uri>(Intent.EXTRA_STREAM)
                     if (uriList != null) {
-                        for (uri in uriList) {
-                            handleUri(uri)
+                        for (i in uriList) {
+                            handleUri(i)
                         }
                     }
                 }
@@ -463,8 +463,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         })
 
         val viewModelFactory = Injection.provideViewModelFactory(this)
-        ViewModelProviders.of(this, viewModelFactory).get(ReportViewModel::class.java)
-        reportModel = ViewModelProviders.of(this, viewModelFactory).get(ReportViewModel::class.java)
+        reportModel = ViewModelProvider(this, viewModelFactory).get(ReportViewModel::class.java)
 
         add_button.setOnClickListener {
             if (Build.VERSION.SDK_INT >= 19) {

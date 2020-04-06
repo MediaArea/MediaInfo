@@ -23,16 +23,16 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.fragment_settings, rootKey)
 
-        val subscribeButton: Preference? = findPreference(getString(R.string.preferences_subscribe_key))
+        //val subscribeButton: Preference? = findPreference(getString(R.string.preferences_subscribe_key))
         val localeDropdown: DropDownPreference? = findPreference(getString(R.string.preferences_locale_key))
         val uimodeSwitch: SwitchPreferenceCompat? = findPreference(getString(R.string.preferences_uimode_key))
         val systemLanguageSwitch: SwitchPreferenceCompat? = findPreference(getString(R.string.preferences_report_translate_key))
 
-        subscribeButton?.setOnPreferenceClickListener  {
+        /*subscribeButton?.setOnPreferenceClickListener  {
             val intent = Intent(activity, SubscribeActivity::class.java)
             startActivity(intent)
             true
-        }
+        }*/
 
         if (activity != null) {
             val activityListener = activity as SettingsActivityListener
@@ -40,15 +40,15 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
             lifecycle.addObserver(subscriptionManager)
 
-            subscriptionManager.ready.observe(this, Observer {
+            /*subscriptionManager.ready.observe(this, Observer {
                 if (it==true) {
                     subscribeButton?.isVisible = true
                 }
-            })
+            })*/
 
             subscriptionManager.subscribed.observe(this, Observer {
                 if (it==true) {
-                    subscribeButton?.isVisible = false
+                    //subscribeButton?.isVisible = false
                     uimodeSwitch?.isEnabled = true
                     localeDropdown?.isEnabled = true
                     systemLanguageSwitch?.isEnabled = true

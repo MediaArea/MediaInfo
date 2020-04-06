@@ -8,11 +8,15 @@ package net.mediaarea.mediainfo
 
 import androidx.core.app.NavUtils
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Build
+
 import android.view.MenuItem
+
+import android.content.res.AssetManager
 
 import kotlinx.android.synthetic.main.activity_report_detail.*
 
@@ -21,6 +25,14 @@ class ReportDetailActivity : AppCompatActivity(), ReportActivityListener {
 
     override fun getReportViewModel(): ReportViewModel {
         return reportModel
+    }
+
+    // BUG: appcompat-1.1.0 returns resource that breaks old WebView implementations
+    override fun getAssets(): AssetManager {
+        if (Build.VERSION.SDK_INT in 21..25) {
+            return resources.assets
+        }
+        return super.getAssets()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,8 +44,7 @@ class ReportDetailActivity : AppCompatActivity(), ReportActivityListener {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val viewModelFactory = Injection.provideViewModelFactory(this)
-        ViewModelProviders.of(this, viewModelFactory).get(ReportViewModel::class.java)
-        reportModel = ViewModelProviders.of(this, viewModelFactory).get(ReportViewModel::class.java)
+        reportModel = ViewModelProvider(this, viewModelFactory).get(ReportViewModel::class.java)
 
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity

@@ -11,7 +11,7 @@
   <string name="app_version" translatable="false">20.03</string>
   <string name="hello_text" csv="At least one file">(You must at least open one file)</string>
   <string name="about_title" csv="About">About</string>
-  <string name="about_about_text" csv="MediaInfo_About_About">MediaInfo v%MI_VERSION% using MediaInfoLib v%MIL_VERSION%</string>
+  <string name="about_about_text" formatted="false" csv="MediaInfo_About_About">MediaInfo v%MI_VERSION% using MediaInfoLib v%MIL_VERSION%</string>
   <string name="about_copyright_text" translatable="false">Copyright © 2002-2020 MediaArea.net SARL.</string>
   <string name="about_description_text" csv="MediaInfo_About">
             MediaInfo provides easy access to technical and tag information about video and audio files.\n
@@ -32,7 +32,7 @@
   <string name="subscribe_text" csv="Subscribe">Subscribe</string>
   <string name="subscribed_text" csv="Subscribe_Manage">Manage subscription</string>
   <string name="thanks_text" csv="Subscription_Thanks">Subscription detected. Thanks for your support!</string>
-  <string name="subscription_detail_text" csv="Subscription_Android">%PRICE% per year with free 3 days trial period.</string>
+  <string name="subscription_detail_text" formatted="false" csv="Subscription_Android">%PRICE% per year with free 3 days trial period.</string>
   <string name="store_text" csv="SupportUs">Support us. Get the dark theme and more features to come.</string>
   <string name="clear_text" csv="ClearList">Clear list</string>
   <string name="text_output_desc" csv="Text">Text</string>
