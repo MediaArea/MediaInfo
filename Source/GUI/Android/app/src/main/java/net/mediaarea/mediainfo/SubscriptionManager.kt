@@ -21,23 +21,21 @@ import androidx.lifecycle.OnLifecycleEvent
 import android.util.Log
 import android.app.Activity
 import android.app.Application
-import com.android.billingclient.api.BillingClientStateListener
-import com.android.billingclient.api.PurchasesUpdatedListener
-import com.android.billingclient.api.BillingFlowParams
-import com.android.billingclient.api.SkuDetailsParams
-import com.android.billingclient.api.BillingClient
-import com.android.billingclient.api.SkuDetails
-import com.android.billingclient.api.Purchase
+import com.android.billingclient.api.*
 
 class SubscriptionManager private constructor(private val application: Application) : PurchasesUpdatedListener, BillingClientStateListener, LifecycleObserver {
     val ready = MutableLiveData<Boolean>()
     val subscribed = MutableLiveData<Boolean>()
+    val details = MutableLiveData<SkuDetails>()
 
     private lateinit var billingClient: BillingClient
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun create() {
-        billingClient = BillingClient.newBuilder(application.applicationContext).setListener(this).build()
+        billingClient = BillingClient.newBuilder(application.applicationContext)
+                .enablePendingPurchases()
+                .setListener(this)
+                .build()
 
         updateState(false)
         updateSubscribedState(false)
@@ -70,66 +68,71 @@ class SubscriptionManager private constructor(private val application: Applicati
     }
 
     private fun isSubscriptionSupported(): Boolean {
-        val responseCode = billingClient.isFeatureSupported(BillingClient.FeatureType.SUBSCRIPTIONS)
-        return responseCode == BillingClient.BillingResponse.OK
+        val response = billingClient.isFeatureSupported(BillingClient.FeatureType.SUBSCRIPTIONS)
+        return response.responseCode==BillingClient.BillingResponseCode.OK
     }
 
     fun launchBillingFlow(activity: Activity, params: BillingFlowParams): Int {
         if (!billingClient.isReady) {
             Log.e(LOG_TAG, "BillingClient is not ready to start billing flow")
         }
-        val responseCode = billingClient.launchBillingFlow(activity, params)
-        Log.i(LOG_TAG, "Launch Billing Flow Response Code: $responseCode")
-        return responseCode
+        val response = billingClient.launchBillingFlow(activity, params)
+        Log.i(LOG_TAG, "Launch Billing Flow Response Code: ${response.responseCode}")
+        return response.responseCode
     }
 
-    // Process new purchase
-    override fun onPurchasesUpdated(responseCode: Int, purchases: MutableList<Purchase>?) {
-        if (responseCode == BillingClient.BillingResponse.OK) {
-                handlePurchases(purchases)
-        } else if (responseCode == BillingClient.BillingResponse.DEVELOPER_ERROR) {
+    override fun onPurchasesUpdated(p0: BillingResult?, p1: MutableList<Purchase>?) {
+        if (p0?.responseCode==BillingClient.BillingResponseCode.OK) {
+            handlePurchases(p1)
+        } else if (p0?.responseCode==BillingClient.BillingResponseCode.DEVELOPER_ERROR) {
             Log.e(LOG_TAG, "Your app's configuration is incorrect. Review in the Google Play Console. Possible causes of this error include: APK is not signed with release key; SKU productId mismatch.")
         }
     }
 
-     // Connection to the Play BillingClient successfully established
-    override fun onBillingSetupFinished(responseCode: Int) {
-        if (responseCode == BillingClient.BillingResponse.OK) {
+    override fun onBillingSetupFinished(p0: BillingResult?) {
+        if (p0?.responseCode==BillingClient.BillingResponseCode.OK) {
             RetryPolicies.resetConnectionRetryPolicyCounter()
-            if (isSubscriptionSupported()) {
-                updateState(isSubscriptionSupported())
-            }
 
-            fun task() {
+            fun updatePurchasesTask() {
                 val result = billingClient.queryPurchases(BillingClient.SkuType.SUBS)
-                handlePurchases(result?.purchasesList)
+                handlePurchases(result.purchasesList)
             }
-            RetryPolicies.taskExecutionRetryPolicy(billingClient, this) { task() }
+            RetryPolicies.taskExecutionRetryPolicy(billingClient, this) { updatePurchasesTask() }
+
+            if (isSubscriptionSupported()) {
+                val params = SkuDetailsParams
+                        .newBuilder()
+                        .setSkusList(listOf(application.getString(R.string.subscription_sku)))
+                        .setType(BillingClient.SkuType.SUBS)
+                        .build()
+
+                billingClient.querySkuDetailsAsync(params) { results: BillingResult, list: List<SkuDetails> ->
+                    if (results.responseCode == BillingClient.BillingResponseCode.OK) {
+                        list.forEach {
+                            if (it.sku == application.getString(R.string.subscription_sku)) {
+                                details.postValue(it)
+                                updateState(true)
+                            }
+                        }
+                    }
+                }
+            }
 
             // Trigger cache update
             billingClient.queryPurchaseHistoryAsync(BillingClient.SkuType.SUBS) { _, _ ->
                 val result = billingClient.queryPurchases(BillingClient.SkuType.SUBS)
-                handlePurchases(result?.purchasesList)
+                handlePurchases(result.purchasesList)
             }
         } else  {
             updateState(false)
-            Log.d(LOG_TAG, "onBillingSetupFinished with failure response code: $responseCode")
+            Log.d(LOG_TAG, "onBillingSetupFinished with failure response code: ${p0?.responseCode}")
         }
     }
 
-     // Disconnected from the Play BillingClient
+    // Disconnected from the Play BillingClient
     override fun onBillingServiceDisconnected() {
         updateState(false)
         RetryPolicies.connectionRetryPolicy { billingClient.startConnection(this) }
-    }
-
-    fun querySkuDetailsAsync(listener: (responseCode: Int, skuDetailsList: List<SkuDetails>?) -> Unit) {
-        val params = SkuDetailsParams
-                .newBuilder()
-                .setSkusList(listOf(application.getString(R.string.subscription_sku)))
-                .setType(BillingClient.SkuType.SUBS)
-                .build()
-        billingClient.querySkuDetailsAsync(params, listener)
     }
 
     private fun handlePurchases(purchasesList: List<Purchase>?) {
