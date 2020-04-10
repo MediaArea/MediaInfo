@@ -7,6 +7,8 @@
 package net.mediaarea.mediainfo
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import com.android.billingclient.api.SkuDetails
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingFlowParams
 import android.os.Bundle
@@ -18,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_subscribe.*
 
 class SubscribeActivity : AppCompatActivity() {
     private lateinit var subscriptionManager: SubscriptionManager
+    private lateinit var subscriptionDetails: SkuDetails
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,27 +31,24 @@ class SubscribeActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        subscriptionManager.querySkuDetailsAsync { responseCode, skuDetailsList ->
-            if (responseCode==BillingClient.BillingResponse.OK)
-            {
-                skuDetailsList?.forEach {
-                    if (it.sku==getString(R.string.subscription_sku)) {
-                        subscription_detail_text.text = subscription_detail_text.text.toString()
-                                .replace("%PRICE%", it.price)
-                        subscription_detail_text.visibility= View.VISIBLE
-                        subscription_detail_text.gravity=Gravity.CENTER_HORIZONTAL
-                    }
-                }
-            }
-        }
+        subscriptionManager.details.observe (this, Observer {
+            subscriptionDetails = it
+
+            subscribe_button.isEnabled = true
+            subscription_detail_text.text = subscription_detail_text.text.toString()
+                    .replace("%PRICE%", subscriptionDetails.price)
+            subscription_detail_text.visibility= View.VISIBLE
+            subscription_detail_text.gravity=Gravity.CENTER_HORIZONTAL
+        })
 
         subscribe_button.setOnClickListener {
-            val request = BillingFlowParams.newBuilder()
-                    .setSku(getString(R.string.subscription_sku))
-                    .setType(BillingClient.SkuType.SUBS)
-                    .build()
-            if (subscriptionManager.launchBillingFlow(this, request)==BillingClient.BillingResponse.OK) {
-                finish()
+            if (::subscriptionDetails.isInitialized) {
+                val request = BillingFlowParams.newBuilder()
+                        .setSkuDetails(subscriptionDetails)
+                        .build()
+                if (subscriptionManager.launchBillingFlow(this, request) == BillingClient.BillingResponseCode.OK) {
+                    finish()
+                }
             }
         }
     }
