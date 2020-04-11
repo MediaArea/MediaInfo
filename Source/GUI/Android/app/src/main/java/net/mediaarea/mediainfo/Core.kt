@@ -34,6 +34,7 @@ object Core {
     }
 
     fun createReport(fd: Int, name: String): ByteArray {
+        mi.Option("Language", "")
         mi.Option("Inform", "MIXML")
         mi.Option("Input_Compressed", "")
         mi.Option("Inform_Compress", "zlib+base64")
