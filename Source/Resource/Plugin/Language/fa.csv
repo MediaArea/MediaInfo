@@ -1015,8 +1015,10 @@ Recorded_Date;تاریخ ضبط
 Recorded_Location;مکان ضبط
 Released_Date;تاریخ انتشار
 RemixedBy;ریمیکس توسط
+Renew;
 ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replay gain peak
+Report;
 Resolution;وضوح
 s;s
 SamplePeakLevel;
@@ -1088,8 +1090,17 @@ StreamSize_Encoded;
 StreamSize_Proportion;نسبت این استریم
 Subject;موضوع
 Subscribe;
+Subscribe_Button;
+Subscribe_Failed;
 Subscribe_Manage;
+Subscribe_Renew;
+Subscribe_Renew_Price;
+Subscribe_Unaviable;
+Subscribe_Waiting;
+Subscription_Active;
 Subscription_Android;
+Subscription_Ended;
+Subscription_Expired;
 Subscription_Thanks;
 SubTrack;ساب ترک
 Summary;خلاصه
@@ -1156,6 +1167,7 @@ VideoComments;
 VideoCount;تعداد استریم ویدیو
 View;نمایش
 View_Hint;تغییر منوی مشاهده اطلاعات
+Views;
 Warning : more streams in the files;هشدار : بیشتر از یک استریم در این فایل وجود دارد
 Web;وب
 WebSite;
@@ -1178,5 +1190,5 @@ Written_Location;مکان نوشته
 WrittenBy;نوشته شده توسط
 Yes;بلی
 Your system;سیستم شما
-ZZ_Automatic_Percent;79
-ZZ_AutomaticLanguage_Percent;83
+ZZ_Automatic_Percent;78
+ZZ_AutomaticLanguage_Percent;82

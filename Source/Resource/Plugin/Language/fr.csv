@@ -1015,9 +1015,9 @@ Recorded_Date;Date d'enregistrement
 Recorded_Location;Lieu d'enregistrement
 Released_Date;Date de première diffusion
 RemixedBy;Remixé par
+Renew;Renouveler
 ReplayGain_Gain;Gain en lecture
 ReplayGain_Peak;Crête de gain en lecture
-Renew;Renouveler
 Report;Rapport
 Resolution;Résolution
 s;s
@@ -1166,8 +1166,8 @@ Video1;Première piste Vidéo
 VideoComments;
 VideoCount;Nombre de pistes vidéo
 View;Vue
-Views;Vues
 View_Hint;Change la façon de voir les informations
+Views;Vues
 Warning : more streams in the files;Attention : il y a davantage de flux dans les fichiers!
 Web;Web
 WebSite;Site web

@@ -1015,8 +1015,10 @@ Recorded_Date;ჩაწერის თარიღი
 Recorded_Location;ჩაწერის ადგილი
 Released_Date;გამოშვების თარიღი
 RemixedBy;რემიქსის ავტორი
+Renew;
 ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replay gain peak
+Report;
 Resolution;გაფართოება
 s;s
 SamplePeakLevel;
@@ -1088,8 +1090,17 @@ StreamSize_Encoded;
 StreamSize_Proportion;Proportion of this stream
 Subject;Subject
 Subscribe;
+Subscribe_Button;
+Subscribe_Failed;
 Subscribe_Manage;
+Subscribe_Renew;
+Subscribe_Renew_Price;
+Subscribe_Unaviable;
+Subscribe_Waiting;
+Subscription_Active;
 Subscription_Android;
+Subscription_Ended;
+Subscription_Expired;
 Subscription_Thanks;
 SubTrack;SubTrack
 Summary;Summary
@@ -1156,6 +1167,7 @@ VideoComments;
 VideoCount;ვიდეო ნაკადების ანგარიში
 View;ჩვენება
 View_Hint;ხედვის ტიპის შეცლა
+Views;
 Warning : more streams in the files;გაფრთხილება : ფაილში ბევრი ნაკადებია
 Web;ვებ-გვერდი
 WebSite;
@@ -1178,5 +1190,5 @@ Written_Location;დაწერის ადგილი
 WrittenBy;დაწერილია
 Yes;დიახ
 Your system;თქვენი სისტემა
-ZZ_Automatic_Percent;81
-ZZ_AutomaticLanguage_Percent;85
+ZZ_Automatic_Percent;80
+ZZ_AutomaticLanguage_Percent;84

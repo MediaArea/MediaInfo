@@ -1015,8 +1015,10 @@ Recorded_Date;Kaydedildiği tarih
 Recorded_Location;Kaydedildiği yer
 Released_Date;Yayım tarihi
 RemixedBy;Remiksleyen
+Renew;
 ReplayGain_Gain;Tekrar oynatma kazancı
 ReplayGain_Peak;Tekrar oynatma kazancı ucu
+Report;
 Resolution;Çözünürlük
 s;s
 SamplePeakLevel;
@@ -1088,8 +1090,17 @@ StreamSize_Encoded;Kodlanmış akış boyutu
 StreamSize_Proportion;Bu akışın oranı
 Subject;Konu
 Subscribe;
+Subscribe_Button;
+Subscribe_Failed;
 Subscribe_Manage;
+Subscribe_Renew;
+Subscribe_Renew_Price;
+Subscribe_Unaviable;
+Subscribe_Waiting;
+Subscription_Active;
 Subscription_Android;
+Subscription_Ended;
+Subscription_Expired;
 Subscription_Thanks;
 SubTrack;Altİz
 Summary;Özet
@@ -1156,6 +1167,7 @@ VideoComments;
 VideoCount;Hareketli görüntü sayısı
 View;Görünüm
 View_Hint;Görünüm bilgilerinin anlamını değiştirir
+Views;
 Warning : more streams in the files;Uyarı : Dosyalarda fazla akış var
 Web;Web
 WebSite;
@@ -1178,5 +1190,5 @@ Written_Location;Yazıldığı yer
 WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
-ZZ_Automatic_Percent;87
-ZZ_AutomaticLanguage_Percent;87
+ZZ_Automatic_Percent;86
+ZZ_AutomaticLanguage_Percent;86

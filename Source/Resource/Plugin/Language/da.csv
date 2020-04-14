@@ -1015,8 +1015,10 @@ Recorded_Date;Optaget den
 Recorded_Location;Optaget sted
 Released_Date;Udgivet den
 RemixedBy;Remixet af
+Renew;
 ReplayGain_Gain;Reply gain
 ReplayGain_Peak;Reply gain peak
+Report;
 Resolution;Opløsning
 s;sek.
 SamplePeakLevel;
@@ -1088,8 +1090,17 @@ StreamSize_Encoded;
 StreamSize_Proportion;Denne strøms størrelsesforhold
 Subject;Emne
 Subscribe;
+Subscribe_Button;
+Subscribe_Failed;
 Subscribe_Manage;
+Subscribe_Renew;
+Subscribe_Renew_Price;
+Subscribe_Unaviable;
+Subscribe_Waiting;
+Subscription_Active;
 Subscription_Android;
+Subscription_Ended;
+Subscription_Expired;
 Subscription_Thanks;
 SubTrack;Underspor
 Summary;Sammendrag
@@ -1156,6 +1167,7 @@ VideoComments;
 VideoCount;Antal videostrømme
 View;Vis
 View_Hint;Ændr måde til visning af information
+Views;
 Warning : more streams in the files;Advarsel: Der er flere strømme i filerne
 Web;Web
 WebSite;
@@ -1179,4 +1191,4 @@ WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
 ZZ_Automatic_Percent;74
-ZZ_AutomaticLanguage_Percent;85
+ZZ_AutomaticLanguage_Percent;84

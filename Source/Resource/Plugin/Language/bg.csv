@@ -1015,8 +1015,10 @@ Recorded_Date;Запис_Дата
 Recorded_Location;Запис_Локация
 Released_Date;Издаден_Дата
 RemixedBy;РемиксОт
+Renew;
 ReplayGain_Gain;УсилващоПовторение_Усилване
 ReplayGain_Peak;УсилващоПовторение_Усилване_Връх
+Report;
 Resolution;Резолюция
 s;с
 SamplePeakLevel;
@@ -1088,8 +1090,17 @@ StreamSize_Encoded;
 StreamSize_Proportion;ПотокРазмер_Пропорций
 Subject;Относно
 Subscribe;
+Subscribe_Button;
+Subscribe_Failed;
 Subscribe_Manage;
+Subscribe_Renew;
+Subscribe_Renew_Price;
+Subscribe_Unaviable;
+Subscribe_Waiting;
+Subscription_Active;
 Subscription_Android;
+Subscription_Ended;
+Subscription_Expired;
 Subscription_Thanks;
 SubTrack;СубТрак
 Summary;Обобщение
@@ -1156,6 +1167,7 @@ VideoComments;
 VideoCount;ВидеоБрой
 View;Преглед
 View_Hint;Преглед_Подсказване
+Views;
 Warning : more streams in the files;Предупреждение : повече потоци във файловете
 Web;Уеб
 WebSite;
@@ -1178,5 +1190,5 @@ Written_Location;Написано_Локация
 WrittenBy;НаписаноОт
 Yes;Да
 Your system;Вашата система
-ZZ_Automatic_Percent;77
+ZZ_Automatic_Percent;76
 ZZ_AutomaticLanguage_Percent;84
