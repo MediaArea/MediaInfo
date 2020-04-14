@@ -1015,8 +1015,10 @@ Recorded_Date;Nadnevak snimanja
 Recorded_Location;Mjesto snimanja
 Released_Date;Nadnevak objavljivanja
 RemixedBy;Remixed by
+Renew;
 ReplayGain_Gain;Pojačavanje zvuka izvedbe
 ReplayGain_Peak;Vrhunac pojačanog zvuka izvedbe
+Report;
 Resolution;Razlučivost
 s;s
 SamplePeakLevel;
@@ -1088,8 +1090,17 @@ StreamSize_Encoded;
 StreamSize_Proportion;Omjeri dotičnog toka
 Subject;Sadržaj
 Subscribe;
+Subscribe_Button;
+Subscribe_Failed;
 Subscribe_Manage;
+Subscribe_Renew;
+Subscribe_Renew_Price;
+Subscribe_Unaviable;
+Subscribe_Waiting;
+Subscription_Active;
 Subscription_Android;
+Subscription_Ended;
+Subscription_Expired;
 Subscription_Thanks;
 SubTrack;Podsnimka
 Summary;Sveukupno
@@ -1156,6 +1167,7 @@ VideoComments;
 VideoCount;Broj tokova video-slike
 View;Prikaz
 View_Hint;Mijenja mogućnosti prikaza informacije
+Views;
 Warning : more streams in the files;Pozor!: U datotekama se nalazi više tokova!
 Web;Internet
 WebSite;
@@ -1178,5 +1190,5 @@ Written_Location;Mjesto početka pisanja
 WrittenBy;Napisao
 Yes;Da
 Your system;Informacije o Vašem sustavu
-ZZ_Automatic_Percent;79
-ZZ_AutomaticLanguage_Percent;83
+ZZ_Automatic_Percent;78
+ZZ_AutomaticLanguage_Percent;82

@@ -1015,9 +1015,9 @@ Recorded_Date;Recorded date
 Recorded_Location;Recorded location
 Released_Date;Released date
 RemixedBy;Remixed by
+Renew;Renew
 ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replay gain peak
-Renew;Renew
 Report;Report
 Resolution;Resolution
 s; s
@@ -1166,8 +1166,8 @@ Video1;First video stream
 VideoComments;Video Comments
 VideoCount;Count of video streams
 View;View
-Views;Views
 View_Hint;Change the means of viewing information
+Views;Views
 Warning : more streams in the files;Warning : there are more streams in the files
 Web;Web
 WebSite;WebSite

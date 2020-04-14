@@ -1015,8 +1015,10 @@ Recorded_Date;วันที่บันทึก
 Recorded_Location;Recorded location
 Released_Date;Released date
 RemixedBy;รีมิกซ์โดย
+Renew;
 ReplayGain_Gain;
 ReplayGain_Peak;
+Report;
 Resolution;ความละเอียด
 s;s
 SamplePeakLevel;
@@ -1088,8 +1090,17 @@ StreamSize_Encoded;
 StreamSize_Proportion;
 Subject;Subject
 Subscribe;
+Subscribe_Button;
+Subscribe_Failed;
 Subscribe_Manage;
+Subscribe_Renew;
+Subscribe_Renew_Price;
+Subscribe_Unaviable;
+Subscribe_Waiting;
+Subscription_Active;
 Subscription_Android;
+Subscription_Ended;
+Subscription_Expired;
 Subscription_Thanks;
 SubTrack;แทร็กย่อย
 Summary;สรุป
@@ -1156,6 +1167,7 @@ VideoComments;
 VideoCount;จำนวนของสตรีมวีดีโอ
 View;มุมมอง
 View_Hint;เปลี่ยนรูปแบบของการแสดงข้อมูล
+Views;
 Warning : more streams in the files;คำเตือน : มีหลายสตรีมในไฟล์
 Web;เว็บ
 WebSite;
@@ -1178,5 +1190,5 @@ Written_Location;สถานที่เขียน
 WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
-ZZ_Automatic_Percent;69
-ZZ_AutomaticLanguage_Percent;77
+ZZ_Automatic_Percent;68
+ZZ_AutomaticLanguage_Percent;76
