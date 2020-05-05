@@ -33,7 +33,6 @@ class SubscriptionManager private constructor(private val application: Applicati
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun create() {
         billingClient = BillingClient.newBuilder(application.applicationContext)
-                .enablePendingPurchases()
                 .setListener(this)
                 .build()
 
@@ -69,7 +68,7 @@ class SubscriptionManager private constructor(private val application: Applicati
 
     private fun isSubscriptionSupported(): Boolean {
         val response = billingClient.isFeatureSupported(BillingClient.FeatureType.SUBSCRIPTIONS)
-        return response.responseCode==BillingClient.BillingResponseCode.OK
+        return response==BillingClient.BillingResponse.OK
     }
 
     fun launchBillingFlow(activity: Activity, params: BillingFlowParams): Int {
@@ -77,25 +76,25 @@ class SubscriptionManager private constructor(private val application: Applicati
             Log.e(LOG_TAG, "BillingClient is not ready to start billing flow")
         }
         val response = billingClient.launchBillingFlow(activity, params)
-        Log.i(LOG_TAG, "Launch Billing Flow Response Code: ${response.responseCode}")
-        return response.responseCode
+        Log.i(LOG_TAG, "Launch Billing Flow Response Code: $response")
+        return response
     }
 
-    override fun onPurchasesUpdated(p0: BillingResult?, p1: MutableList<Purchase>?) {
-        if (p0?.responseCode==BillingClient.BillingResponseCode.OK) {
-            handlePurchases(p1)
-        } else if (p0?.responseCode==BillingClient.BillingResponseCode.DEVELOPER_ERROR) {
+    override fun onPurchasesUpdated(response: Int, purchases: MutableList<Purchase>?) {
+        if (response==BillingClient.BillingResponse.OK) {
+            handlePurchases(purchases)
+        } else if (response==BillingClient.BillingResponse.DEVELOPER_ERROR) {
             Log.e(LOG_TAG, "Your app's configuration is incorrect. Review in the Google Play Console. Possible causes of this error include: APK is not signed with release key; SKU productId mismatch.")
         }
     }
 
-    override fun onBillingSetupFinished(p0: BillingResult?) {
-        if (p0?.responseCode==BillingClient.BillingResponseCode.OK) {
+    override fun onBillingSetupFinished(response: Int) {
+        if (response==BillingClient.BillingResponse.OK) {
             RetryPolicies.resetConnectionRetryPolicyCounter()
 
             fun updatePurchasesTask() {
                 val result = billingClient.queryPurchases(BillingClient.SkuType.SUBS)
-                handlePurchases(result.purchasesList)
+                handlePurchases(result?.purchasesList)
             }
             RetryPolicies.taskExecutionRetryPolicy(billingClient, this) { updatePurchasesTask() }
 
@@ -106,9 +105,9 @@ class SubscriptionManager private constructor(private val application: Applicati
                         .setType(BillingClient.SkuType.SUBS)
                         .build()
 
-                billingClient.querySkuDetailsAsync(params) { results: BillingResult, list: List<SkuDetails> ->
-                    if (results.responseCode == BillingClient.BillingResponseCode.OK) {
-                        list.forEach {
+                billingClient.querySkuDetailsAsync(params) { result: Int, list: List<SkuDetails>? ->
+                    if (result == BillingClient.BillingResponse.OK) {
+                        list?.forEach {
                             if (it.sku == application.getString(R.string.subscription_sku)) {
                                 details.postValue(it)
                                 updateState(true)
@@ -121,11 +120,11 @@ class SubscriptionManager private constructor(private val application: Applicati
             // Trigger cache update
             billingClient.queryPurchaseHistoryAsync(BillingClient.SkuType.SUBS) { _, _ ->
                 val result = billingClient.queryPurchases(BillingClient.SkuType.SUBS)
-                handlePurchases(result.purchasesList)
+                handlePurchases(result?.purchasesList)
             }
         } else  {
             updateState(false)
-            Log.d(LOG_TAG, "onBillingSetupFinished with failure response code: ${p0?.responseCode}")
+            Log.d(LOG_TAG, "onBillingSetupFinished with failure response code: $response")
         }
     }
 
