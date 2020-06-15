@@ -9,6 +9,7 @@
 #import "AppController.h"
 #import "MyWindowController.h"
 #import "AboutWindowController.h"
+#import "PurchaseReportController.h"
 #import "SubscribeWindowController.h"
 #import "PreferencesWindowController.h"
 #import "oMediaInfoList.h"
@@ -184,6 +185,10 @@
 
 - (IBAction)openSubscribePanel:(id)sender {
     [[SubscribeWindowController controller] show];
+}
+
+- (IBAction)openSubscriptionReportPanel:(id)sender {
+    [[PurchaseReportController controller] show];
 }
 
 - (IBAction)clickAuthorWebsite:(id)sender {

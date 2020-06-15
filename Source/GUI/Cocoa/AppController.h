@@ -25,6 +25,7 @@
 //- (IBAction)openFile:(id)sender;
 - (IBAction)openAboutPanel:(id)sender;
 - (IBAction)openSubscribePanel:(id)sender;
+- (IBAction)openSubscriptionReportPanel:(id)sender;
 - (IBAction)clickAuthorWebsite:(id)sender;
 - (IBAction)openPreferences:(id)sender;
 
