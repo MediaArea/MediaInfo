@@ -96,7 +96,8 @@
 
         if (@available(macOS 10.9, *)) {
             if(subscriptionManager.shouldNotifyUserForSubscriptionEnd) {
-                NSAlert *alert = [NSAlert alertWithMessageText:@"Your subscription has just ended." defaultButton:@"Renew" alternateButton:@"Close" otherButton:nil informativeTextWithFormat:@"Renew subscription?"];
+                NSAlert *alert = [
+                    NSAlert alertWithMessageText:NSLocalizedString(@"Your subscription has just ended.", @"Subscription Ended") defaultButton:NSLocalizedString(@"Renew", @"Renew") alternateButton:NSLocalizedString(@"Close", @"Close") otherButton:nil informativeTextWithFormat:NSLocalizedString(@"Renew subscription?", @"Renew subscription?")];
                 if([alert runModal] == NSModalResponseOK) {
                     [self openSubscribePanel:nil];
                 }

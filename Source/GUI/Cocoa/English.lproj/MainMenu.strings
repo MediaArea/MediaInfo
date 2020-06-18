@@ -1,4 +1,4 @@
-
+﻿
 /* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5"; */
 "5.title" = "Bring All to Front";
 
@@ -26,8 +26,8 @@
 /* Class = "NSMenuItem"; title = "Open…"; ObjectID = "72"; */
 "72.title" = "Open…";
 
-/* Class = "NSMenuItem"; title = "Close"; ObjectID = "73"; */
-"73.title" = "Close";
+/* Class = "NSMenuItem"; title = "Close Window"; ObjectID = "73"; */
+"73.title" = "Close Window";
 
 /* Class = "NSMenuItem"; title = "Save"; ObjectID = "75"; */
 "75.title" = "Save";
@@ -386,17 +386,35 @@
 /* Class = "NSMenuItem"; title = "Export…"; ObjectID = "603"; */
 "603.title" = "Export…";
 
+/* Class = "NSMenuItem"; title = "Compare"; ObjectID = "608"; */
+"608.title" = "Compare";
+
 /* Class = "NSMenuItem"; title = "EBUCore 1.5"; ObjectID = "6Xz-SX-vaJ"; */
 "6Xz-SX-vaJ.title" = "EBUCore 1.5";
 
 /* Class = "NSMenuItem"; title = "EBUCore 1.6"; ObjectID = "7el-n8-mA7"; */
 "7el-n8-mA7.title" = "EBUCore 1.6";
 
+/* Class = "NSMenuItem"; title = "EBUCore 1.8 (acq. metadata: parameter then segment, json output)"; ObjectID = "8kx-Pp-fre"; */
+"8kx-Pp-fre.title" = "EBUCore 1.8 (acq. metadata: parameter then segment, json output)";
+
+/* Class = "NSMenuItem"; title = "EBUCore 1.8 (acq. metadata: parameter then segment)"; ObjectID = "9ww-i9-val"; */
+"9ww-i9-val.title" = "EBUCore 1.8 (acq. metadata: parameter then segment)";
+
 /* Class = "NSMenuItem"; title = "reVTMD"; ObjectID = "AYy-qK-WOQ"; */
 "AYy-qK-WOQ.title" = "reVTMD";
 
-/* Class = "NSMenuItem"; title = "FIMS 1.2 (beta)"; ObjectID = "Fg1-T0-6gi"; */
-"Fg1-T0-6gi.title" = "FIMS 1.2 (beta)";
+/* Class = "NSMenuItem"; title = "FIMS 1.2"; ObjectID = "Fg1-T0-6gi"; */
+"Fg1-T0-6gi.title" = "FIMS 1.2";
+
+/* Class = "NSMenuItem"; ibShadowedToolTip = "Show more in the output, including different formats of time or duration"; ObjectID = "HYj-FA-ksV"; */
+"HYj-FA-ksV.ibShadowedToolTip" = "Show more in the output, including different formats of time or duration";
+
+/* Class = "NSMenuItem"; title = "Advanced mode"; ObjectID = "HYj-FA-ksV"; */
+"HYj-FA-ksV.title" = "Advanced mode";
+
+/* Class = "NSMenuItem"; title = "Subscribe"; ObjectID = "K4A-dG-lv3"; */
+"K4A-dG-lv3.title" = "Subscribe";
 
 /* Class = "NSMenuItem"; title = "PBCore 2.0"; ObjectID = "PvG-jZ-49r"; */
 "PvG-jZ-49r.title" = "PBCore 2.0";
@@ -404,8 +422,23 @@
 /* Class = "NSMenuItem"; title = "PBCore 1.2"; ObjectID = "R8P-ks-E16"; */
 "R8P-ks-E16.title" = "PBCore 1.2";
 
-/* Class = "NSMenuItem"; title = "FIMS 1.1 (beta)"; ObjectID = "Spf-9d-cwU"; */
-"Spf-9d-cwU.title" = "FIMS 1.1 (beta)";
+/* Class = "NSMenuItem"; title = "FIMS 1.1"; ObjectID = "Spf-9d-cwU"; */
+"Spf-9d-cwU.title" = "FIMS 1.1";
+
+/* Class = "NSMenuItem"; title = "EBUCore 1.8 (acq. metadata: segment then parameter, json output)"; ObjectID = "bcv-hr-Gra"; */
+"bcv-hr-Gra.title" = "EBUCore 1.8 (acq. metadata: segment then parameter, json output)";
+
+/* Class = "NSMenuItem"; title = "EBUCore 1.8 (acq. metadata: segment then parameter)"; ObjectID = "e0w-NN-AjM"; */
+"e0w-NN-AjM.title" = "EBUCore 1.8 (acq. metadata: segment then parameter)";
+
+/* Class = "NSMenuItem"; title = "Close All Files"; ObjectID = "gmp-S7-jxc"; */
+"gmp-S7-jxc.title" = "Close All Files";
+
+/* Class = "NSMenuItem"; title = "Close File"; ObjectID = "hC5-Lk-GZv"; */
+"hC5-Lk-GZv.title" = "Close File";
+
+/* Class = "NSMenuItem"; title = "XML"; ObjectID = "o0W-Nz-FBX"; */
+"o0W-Nz-FBX.title" = "XML";
 
 /* Class = "NSMenuItem"; title = "MPEG-7"; ObjectID = "o7W-nM-5JW"; */
 "o7W-nM-5JW.title" = "MPEG-7";
@@ -413,5 +446,11 @@
 /* Class = "NSMenuItem"; title = "Easy"; ObjectID = "ok7-rU-jbg"; */
 "ok7-rU-jbg.title" = "Easy";
 
-/* Class = "NSMenuItem"; title = "FIMS 1.3 (beta)"; ObjectID = "vEC-jU-MAH"; */
-"vEC-jU-MAH.title" = "FIMS 1.3 (beta)";
+/* Class = "NSMenuItem"; title = "JSON"; ObjectID = "p8X-bL-6KX"; */
+"p8X-bL-6KX.title" = "JSON";
+
+/* Class = "NSMenuItem"; title = "NISO Z39.87"; ObjectID = "pPO-aY-YEy"; */
+"pPO-aY-YEy.title" = "NISO Z39.87";
+
+/* Class = "NSMenuItem"; title = "FIMS 1.3"; ObjectID = "vEC-jU-MAH"; */
+"vEC-jU-MAH.title" = "FIMS 1.3";

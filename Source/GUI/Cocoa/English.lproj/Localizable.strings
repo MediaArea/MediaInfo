@@ -7,3 +7,41 @@
 /* Error header */
 "Error" = "Error";
 
+/* Close */
+"Close" = "Close";
+
+/* Subscription Ended */
+"Your subscription has just ended." = "Your subscription has just ended.";
+
+/* Renew */
+"Renew" = "Renew";
+
+/* Renew subscription? */
+"Renew subscription?" = "Renew subscription?";
+
+/* Manage Subscription */
+"Manage Subscription" = "Manage Subscription";
+
+/* Compare View */
+"Compare View" = "Compare View";
+
+/* Renew Price */
+"Renew subscription %PRICE% for one year" = "Renew subscription %PRICE% for one year";
+
+/* Active Status */
+@"Subscription active until %DATE%." = @"Subscription active until %DATE%.";
+
+/* Expired Status */
+"Subscription expired since %DATE%." = "Subscription expired since %DATE%.";
+
+/* Downloading File */
+"Downloading file(s) %lu of %lu ..." = "Downloading file(s) %lu of %lu ...";
+
+/* Download error with filename */
+"Can not download %@" = "Can not download %@";
+
+/* Opening File */
+"Opening file(s) %lu of %lu ..." = "Opening file(s) %lu of %lu ...";
+
+/* Open error with filename */
+"Can not open %@" = "Can not open %@";

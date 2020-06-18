@@ -77,26 +77,26 @@
         url = [NSURL URLWithString:[[url absoluteString] stringByDeletingPathExtension]];
 
     if([[NSFileManager defaultManager] fileExistsAtPath:[url path]]) {
-        [_progressMessage setStringValue:[NSString stringWithFormat:@"Opening file(s) %lu of %lu ...", index + 1,  [_items count]]];
+        [_progressMessage setStringValue:[NSString stringWithFormat:NSLocalizedString(@"Opening file(s) %lu of %lu ...", @"Opening File"), index + 1,  [_items count]]];
         if(![_mediaList openURL:url]) {
             [[NSAlert alertWithMessageText:NSLocalizedString(@"Error", @"Error header")
                 defaultButton:nil alternateButton:nil otherButton:nil
-                informativeTextWithFormat:@"Can not open %@", url.absoluteString] runModal];
+                informativeTextWithFormat:NSLocalizedString(@"Can not open %@", @"Open error with filename"), url.absoluteString] runModal];
         }
 
         [self next];
     }
     else if(@available(macOS 10.7, *) && [[NSFileManager defaultManager] isUbiquitousItemAtURL:url]) {
-        [_progressMessage setStringValue:[NSString stringWithFormat:@"Downloading file(s) %lu of %lu ...", index + 1,  [_items count]]];
+        [_progressMessage setStringValue:[NSString stringWithFormat:NSLocalizedString(@"Downloading file(s) %lu of %lu ...", @"Downloading File"), index + 1,  [_items count]]];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSError *error = nil;
             [coordinator coordinateReadingItemAtURL:url options:0 error:&error byAccessor:^(NSURL *newURL) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [_progressMessage setStringValue:[NSString stringWithFormat:@"Opening file(s) %lu of %lu ...", index + 1,  [_items count]]];
+                    [_progressMessage setStringValue:[NSString stringWithFormat:NSLocalizedString(@"Opening file(s) %lu of %lu ...", @"Opening File"), index + 1,  [_items count]]];
                     if(!canceled && ![_mediaList openURL:newURL]) {
                         [[NSAlert alertWithMessageText:NSLocalizedString(@"Error", @"Error header")
                             defaultButton:nil alternateButton:nil otherButton:nil
-                            informativeTextWithFormat:@"Can not open %@", url.absoluteString] runModal];
+                            informativeTextWithFormat:NSLocalizedString(@"Can not open %@", @"Open error with filename"), url.absoluteString] runModal];
                     }
                 });
 
@@ -104,7 +104,7 @@
                     if(!canceled && error) {
                         [[NSAlert alertWithMessageText:NSLocalizedString(@"Error", @"Error header")
                             defaultButton:nil alternateButton:nil otherButton:nil
-                            informativeTextWithFormat:@"Can not download %@", url.absoluteString] runModal];
+                            informativeTextWithFormat:NSLocalizedString(@"Can not download %@", @"Download error with filename"), url.absoluteString] runModal];
                     }
                     [self next];
                 });
@@ -114,7 +114,7 @@
     else {
         [[NSAlert alertWithMessageText:NSLocalizedString(@"Error", @"Error header")
             defaultButton:nil alternateButton:nil otherButton:nil
-            informativeTextWithFormat:@"Can not open %@", url.absoluteString] runModal];
+            informativeTextWithFormat:NSLocalizedString(@"Can not open %@", @"Open error with filename"), url.absoluteString] runModal];
     }
 }
 @end

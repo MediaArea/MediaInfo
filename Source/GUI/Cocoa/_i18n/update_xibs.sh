@@ -9,6 +9,10 @@ update_lang_xibs () {
     ibtool --strings-file $language/MainMenu.strings --write $language/MainMenu.xib $base_language/MainMenu.xib
     ibtool --strings-file $language/MyWindow.strings --write $language/MyWindow.xib $base_language/MyWindow.xib
     ibtool --strings-file $language/Preferences.strings --write $language/Preferences.xib $base_language/Preferences.xib
+    ibtool --strings-file $language/CompareView.strings --write $language/CompareView.xib $base_language/CompareView.xib
+    ibtool --strings-file $language/ProgressDialog.strings --write $language/ProgressDialog.xib $base_language/ProgressDialog.xib
+    ibtool --strings-file $language/Subscribe.strings --write $language/Subscribe.xib $base_language/Subscribe.xib
+    ibtool --strings-file $language/TreeView.strings --write $language/TreeView.xib $base_language/TreeView.xib
 }
 
 update_all_xibs () {

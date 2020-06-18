@@ -24,6 +24,24 @@
     [_outlineView setDataSource:self];
     [_outlineView setDelegate:self];
     [_closeMenu setDelegate:self];
+
+    NSRect frame;
+    [_showLabel sizeToFit];
+    [_allFieldsRadio sizeToFit];
+    [_onlyDifferingRadio sizeToFit];
+    [_onlyIdenticalRadio sizeToFit];
+
+    frame = _allFieldsRadio.frame;
+    frame.origin.x = _showLabel.frame.origin.x + _showLabel.frame.size.width + 5;
+    [_allFieldsRadio setFrame:frame];
+
+    frame = _onlyDifferingRadio.frame;
+    frame.origin.x = _allFieldsRadio.frame.origin.x + _allFieldsRadio.frame.size.width + 5;
+    [_onlyDifferingRadio setFrame:frame];
+
+    frame = _onlyIdenticalRadio.frame;
+    frame.origin.x = _onlyDifferingRadio.frame.origin.x + _onlyDifferingRadio.frame.size.width + 5;
+    [_onlyIdenticalRadio setFrame:frame];
 }
 
 -(instancetype)initWithCoder:(NSCoder *)decoder {

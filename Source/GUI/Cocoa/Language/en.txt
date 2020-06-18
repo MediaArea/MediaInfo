@@ -10,3 +10,30 @@ SaveError; Can not save file
 GeneralBox; General
 StreamsBox; Streams
 AnalyzeServicesMenu; Analyze with MediaInfo
+OtherViews; Other views
+Show; Show:
+AllFields; All fields
+OnlyIdentical; Only identical fields
+OnlyDiffer; Only fields with differences
+Compare; Compare
+CloseFile; Close File
+CloseAll; Close All Files
+Advanced; Advanced mode
+ShowMore; Show more in the output, including different formats of time or duration
+CompareView; Compare View (Premium feature)
+SubcribeToPremium; Subscribe to premium features
+PremiumFeature; Premium MediaInfo feature
+DefaultView; Default view:
+Retry; RETRY
+Field; Field
+Value; Value
+AdvancedModeFeature; • Advanced mode
+FilesCompareFeature; • Files compare
+SelectViewFeature; • Select default view
+MoreFeature; • More to come
+SupportUs; Support us by subscribing and get exclusive features.
+DownloadFile; Downloading file(s) %lu of %lu ...
+DownloadFileError; Can not download %@
+OpenFile; Opening file(s) %lu of %lu ...
+OpenFileError; Can not open %@
+PurchaseInformation; Information about the in-app purchase

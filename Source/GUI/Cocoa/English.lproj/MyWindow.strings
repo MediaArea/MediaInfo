@@ -1,4 +1,4 @@
-
+﻿
 /* Class = "NSWindow"; title = "MediaInfo"; ObjectID = "1"; */
 "1.title" = "MediaInfo";
 
@@ -8,8 +8,11 @@
 /* Class = "NSTabViewItem"; label = "Tree"; ObjectID = "15"; */
 "15.label" = "Tree";
 
-/* Class = "NSSegmentedCell"; 38.ibShadowedLabels[3] = "…"; ObjectID = "38"; */
-"38.ibShadowedLabels[3]" = "…";
+/* Class = "NSSegmentedCell"; 38.ibShadowedLabels[3] = "⇆"; ObjectID = "38"; */
+"38.ibShadowedLabels[3]" = "⇆";
+
+/* Class = "NSSegmentedCell"; 38.ibShadowedLabels[4] = "..."; ObjectID = "38"; */
+"38.ibShadowedLabels[4]" = "...";
 
 /* Class = "NSSegmentedCell"; 38.ibShadowedToolTips[0] = "Easy View"; ObjectID = "38"; */
 "38.ibShadowedToolTips[0]" = "Easy View";
@@ -20,8 +23,11 @@
 /* Class = "NSSegmentedCell"; 38.ibShadowedToolTips[2] = "Text View"; ObjectID = "38"; */
 "38.ibShadowedToolTips[2]" = "Text View";
 
-/* Class = "NSSegmentedCell"; 38.ibShadowedToolTips[3] = "Other Views"; ObjectID = "38"; */
-"38.ibShadowedToolTips[3]" = "Other Views";
+/* Class = "NSSegmentedCell"; 38.ibShadowedToolTips[3] = "Compare View (Premium feature)"; ObjectID = "38"; */
+"38.ibShadowedToolTips[3]" = "Compare View (Premium feature)";
+
+/* Class = "NSSegmentedCell"; 38.ibShadowedToolTips[4] = "Other Views"; ObjectID = "38"; */
+"38.ibShadowedToolTips[4]" = "Other Views";
 
 /* Class = "NSToolbarItem"; label = "View"; ObjectID = "39"; */
 "39.label" = "View";
@@ -50,14 +56,26 @@
 /* Class = "NSMenuItem"; title = "PBCore 2.0"; ObjectID = "1yR-Ww-Nc9"; */
 "1yR-Ww-Nc9.title" = "PBCore 2.0";
 
-/* Class = "NSMenuItem"; title = "FIMS 1.3 (beta)"; ObjectID = "7XM-ch-abJ"; */
-"7XM-ch-abJ.title" = "FIMS 1.3 (beta)";
+/* Class = "NSMenuItem"; title = "FIMS 1.3"; ObjectID = "7XM-ch-abJ"; */
+"7XM-ch-abJ.title" = "FIMS 1.3";
 
-/* Class = "NSMenuItem"; title = "FIMS 1.2 (beta)"; ObjectID = "C0i-eA-TA8"; */
-"C0i-eA-TA8.title" = "FIMS 1.2 (beta)";
+/* Class = "NSMenuItem"; title = "FIMS 1.2"; ObjectID = "C0i-eA-TA8"; */
+"C0i-eA-TA8.title" = "FIMS 1.2";
 
-/* Class = "NSMenuItem"; title = "FIMS 1.2 (beta)"; ObjectID = "Dun-Cc-kMM"; */
-"Dun-Cc-kMM.title" = "FIMS 1.2 (beta)";
+/* Class = "NSMenuItem"; title = "FIMS 1.2"; ObjectID = "Dun-Cc-kMM"; */
+"Dun-Cc-kMM.title" = "FIMS 1.2";
+
+/* Class = "NSMenuItem"; title = "EBUCore 1.8 (acq. metadata: parameter then segment)"; ObjectID = "FYI-Th-BU1"; */
+"FYI-Th-BU1.title" = "EBUCore 1.8 (acq. metadata: parameter then segment)";
+
+/* Class = "NSMenuItem"; title = "EBUCore 1.8 (acq. metadata: parameter then segment, json output)"; ObjectID = "Hh4-Yy-Jh"; */
+"Hh4-Yy-Jh.title" = "EBUCore 1.8 (acq. metadata: parameter then segment, json output)";
+
+/* Class = "NSMenuItem"; title = "NISO_Z39_87"; ObjectID = "JgJ-IK-BAd"; */
+"JgJ-IK-BAd.title" = "NISO_Z39_87";
+
+/* Class = "NSMenuItem"; title = "EBUCore 1.8 (acq. metadata: segment then parameter)"; ObjectID = "JtW-MJ-gL9"; */
+"JtW-MJ-gL9.title" = "EBUCore 1.8 (acq. metadata: segment then parameter)";
 
 /* Class = "NSMenuItem"; title = "reVTMD"; ObjectID = "O4d-KN-zYb"; */
 "O4d-KN-zYb.title" = "reVTMD";
@@ -68,26 +86,68 @@
 /* Class = "NSMenuItem"; title = "EBUCore 1.6"; ObjectID = "Qf7-yY-gf8"; */
 "Qf7-yY-gf8.title" = "EBUCore 1.6";
 
+/* Class = "NSMenuItem"; title = "EBUCore 1.8 (acq. metadata: parameter then segment)"; ObjectID = "Qzz-w6-b1Q"; */
+"Qzz-w6-b1Q.title" = "EBUCore 1.8 (acq. metadata: parameter then segment)";
+
 /* Class = "NSMenuItem"; title = "PBCore 2.0"; ObjectID = "SEO-e1-TCc"; */
 "SEO-e1-TCc.title" = "PBCore 2.0";
+
+/* Class = "NSMenuItem"; title = "HTML"; ObjectID = "SYS-3E-gf4"; */
+"SYS-3E-gf4.title" = "HTML";
 
 /* Class = "NSMenuItem"; title = "EBUCore 1.6"; ObjectID = "TZc-xn-Gdh"; */
 "TZc-xn-Gdh.title" = "EBUCore 1.6";
 
-/* Class = "NSMenuItem"; title = "FIMS 1.1 (beta)"; ObjectID = "Wwc-YI-tNy"; */
-"Wwc-YI-tNy.title" = "FIMS 1.1 (beta)";
+/* Class = "NSMenuItem"; title = "FIMS 1.1"; ObjectID = "Wwc-YI-tNy"; */
+"Wwc-YI-tNy.title" = "FIMS 1.1";
 
-/* Class = "NSMenuItem"; title = "FIMS 1.3 (beta)"; ObjectID = "XHo-fC-op4"; */
-"XHo-fC-op4.title" = "FIMS 1.3 (beta)";
+/* Class = "NSMenuItem"; title = "FIMS 1.3"; ObjectID = "XHo-fC-op4"; */
+"XHo-fC-op4.title" = "FIMS 1.3";
+
+/* Class = "NSMenuItem"; title = "EBUCore 1.8 (acq. metadata: segment then parameter, json output)"; ObjectID = "Y2Z-ry-I2z"; */
+"Y2Z-ry-I2z.title" = "EBUCore 1.8 (acq. metadata: segment then parameter, json output)";
 
 /* Class = "NSMenuItem"; title = "PBCore 1.2"; ObjectID = "a3A-Ao-7OV"; */
 "a3A-Ao-7OV.title" = "PBCore 1.2";
 
+/* Class = "NSMenuItem"; title = "JSON"; ObjectID = "bDm-AL-Ni3"; */
+"bDm-AL-Ni3.title" = "JSON";
+
+/* Class = "NSMenuItem"; title = "CSV"; ObjectID = "dBf-h9-xpG"; */
+"dBf-h9-xpG.title" = "CSV";
+
+/* Class = "NSMenuItem"; title = "XML"; ObjectID = "dde-3h-6xM"; */
+"dde-3h-6xM.title" = "XML";
+
+/* Class = "NSToolbarItem"; label = "Subscribe"; ObjectID = "dpG-p5-QwC"; */
+"dpG-p5-QwC.label" = "Subscribe";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Subscribe"; ObjectID = "dpG-p5-QwC"; */
+"dpG-p5-QwC.paletteLabel" = "Subscribe";
+
+/* Class = "NSTabViewItem"; label = "Compare"; ObjectID = "eZC-pc-IWN"; */
+"eZC-pc-IWN.label" = "Compare";
+
 /* Class = "NSMenuItem"; title = "MPEG-7"; ObjectID = "ei5-wL-g0P"; */
 "ei5-wL-g0P.title" = "MPEG-7";
 
+/* Class = "NSMenuItem"; title = "EBUCore 1.8 (acq. metadata: segment then parameter)"; ObjectID = "fNe-yJ-2vy"; */
+"fNe-yJ-2vy.title" = "EBUCore 1.8 (acq. metadata: segment then parameter)";
+
+/* Class = "NSMenuItem"; title = "XML"; ObjectID = "glL-XP-14m"; */
+"glL-XP-14m.title" = "XML";
+
+/* Class = "NSSegmentedCell"; kut-ID-XH0.ibShadowedLabels[0] = "$"; ObjectID = "kut-ID-XH0"; */
+"kut-ID-XH0.ibShadowedLabels[0]" = "$";
+
+/* Class = "NSSegmentedCell"; kut-ID-XH0.ibShadowedToolTips[0] = "Subscribe to premium features"; ObjectID = "kut-ID-XH0"; */
+"kut-ID-XH0.ibShadowedToolTips[0]" = "Subscribe to premium features";
+
 /* Class = "NSMenuItem"; title = "Text"; ObjectID = "l1c-6L-mdF"; */
 "l1c-6L-mdF.title" = "Text";
+
+/* Class = "NSMenuItem"; title = "EBUCore 1.8 (acq. metadata: parameter then segment, json output)"; ObjectID = "lLP-Iz-Bst"; */
+"lLP-Iz-Bst.title" = "EBUCore 1.8 (acq. metadata: parameter then segment, json output)";
 
 /* Class = "NSMenuItem"; title = "EBUCore 1.5"; ObjectID = "lYi-0o-NUT"; */
 "lYi-0o-NUT.title" = "EBUCore 1.5";
@@ -95,11 +155,20 @@
 /* Class = "NSMenuItem"; title = "EBUCore 1.5"; ObjectID = "ljm-rO-wii"; */
 "ljm-rO-wii.title" = "EBUCore 1.5";
 
-/* Class = "NSMenuItem"; title = "FIMS 1.1 (beta)"; ObjectID = "nMZ-Jy-aQJ"; */
-"nMZ-Jy-aQJ.title" = "FIMS 1.1 (beta)";
+/* Class = "NSMenuItem"; title = "FIMS 1.1"; ObjectID = "nMZ-Jy-aQJ"; */
+"nMZ-Jy-aQJ.title" = "FIMS 1.1";
+
+/* Class = "NSMenuItem"; title = "NISO Z39.87"; ObjectID = "ppB-mt-Imm"; */
+"ppB-mt-Imm.title" = "NISO Z39.87";
 
 /* Class = "NSMenuItem"; title = "MPEG-7"; ObjectID = "qPy-3h-POF"; */
 "qPy-3h-POF.title" = "MPEG-7";
+
+/* Class = "NSMenuItem"; title = "JSON"; ObjectID = "ro6-xM-h9O"; */
+"ro6-xM-h9O.title" = "JSON";
+
+/* Class = "NSMenuItem"; title = "EBUCore 1.8 (acq. metadata: segment then parameter, json output)"; ObjectID = "vXW-mS-lp0"; */
+"vXW-mS-lp0.title" = "EBUCore 1.8 (acq. metadata: segment then parameter, json output)";
 
 /* Class = "NSMenuItem"; title = "reVTMD"; ObjectID = "xPu-ct-ud6"; */
 "xPu-ct-ud6.title" = "reVTMD";
