@@ -10,7 +10,6 @@
             <connections>
                 <outlet property="codeBox" destination="MBE-9P-Zkf" id="ubA-Ky-Gpc"/>
                 <outlet property="codeField" destination="5aN-90-gcQ" id="p7Z-qz-2gd"/>
-                <outlet property="copyButton" destination="2ph-Uu-9im" id="l0k-rX-fme"/>
                 <outlet property="reportView" destination="vDo-J3-Mot" id="ixC-aI-9Fy"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
