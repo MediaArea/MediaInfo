@@ -1,29 +1,10 @@
-#libtoolize 
-if test "$(uname)" = "Darwin" ; then
-  #Darwin based Systems like Mac OS X: libtoolize is called glibtoolize.
-  glibtoolize --automake
-else
-  libtoolize --automake
+if which autoreconf > /dev/null; then
+  rm -rf autom4te.cache
+  rm -f aclocal.m4 ltmain.sh
+  autoreconf -f -i -v --warnings=all || exit 1
+fi
+chmod a+x configure
+if [ -z "$NOCONFIGURE" ]; then
+  ./configure "$@"
 fi
 
-#aclocal
-if test -e /usr/bin/aclocal-1.11 ; then
-  #OpenSolaris: no aclocal
-  aclocal-1.11
-elif test -e /usr/bin/aclocal-1.10 ; then
-  aclocal-1.10
-else
-  aclocal
-fi
-
-#automake
-if test -e /usr/bin/automake-1.11 ; then
-  #OpenSolaris: no automake
-  automake-1.11 -a
-elif test -e /usr/bin/automake-1.10 ; then
-  automake-1.10 -a
-else
-  automake -a
-fi
-
-autoreconf -fi
