@@ -46,7 +46,7 @@ static AboutWindowController *aboutCtrl = nil;
 
 
 - (IBAction)clickAuthorWebsite:(id)sender {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://mediainfo.sourceforge.net/"]];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://mediaarea.net/MediaInfo"]];
 }
 
 - (IBAction)clickAuthorEmail:(id)sender {
