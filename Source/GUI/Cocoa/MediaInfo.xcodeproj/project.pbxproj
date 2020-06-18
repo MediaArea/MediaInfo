@@ -21,6 +21,8 @@
 		0299EC812291FD8B00D937F6 /* Subscribe.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0299EC7F2291FD8B00D937F6 /* Subscribe.xib */; };
 		0299EC8622949EE200D937F6 /* SubscriptionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0299EC8522949EE200D937F6 /* SubscriptionManager.m */; };
 		02B7FB4F17576A61002B92FE /* ServicesMenu.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02B7FB4D17576A61002B92FE /* ServicesMenu.strings */; };
+		02E91F3E2495373200BFFF71 /* PurchaseReport.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02E91F3C2495373200BFFF71 /* PurchaseReport.xib */; };
+		02E91F412495374600BFFF71 /* PurchaseReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E91F402495374600BFFF71 /* PurchaseReportController.m */; };
 		256AC3DA0F4B6AC300CF3369 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* AppController.m */; };
 		43098011154815B600E9F818 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4309800F154815B600E9F818 /* Localizable.strings */; };
 		431876161BECF79B00B687E9 /* DraggingFixView.m in Sources */ = {isa = PBXBuildFile; fileRef = 431876151BECF79B00B687E9 /* DraggingFixView.m */; };
@@ -71,6 +73,9 @@
 		0299EC8522949EE200D937F6 /* SubscriptionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubscriptionManager.m; sourceTree = "<group>"; };
 		02B7FB4E17576A61002B92FE /* fr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/ServicesMenu.strings; sourceTree = "<group>"; };
 		02B7FB5017576A90002B92FE /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/ServicesMenu.strings; sourceTree = "<group>"; };
+		02E91F3D2495373200BFFF71 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PurchaseReport.xib; sourceTree = "<group>"; };
+		02E91F3F2495374600BFFF71 /* PurchaseReportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseReportController.h; sourceTree = "<group>"; };
+		02E91F402495374600BFFF71 /* PurchaseReportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PurchaseReportController.m; sourceTree = "<group>"; };
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -278,6 +283,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				02E91F3F2495374600BFFF71 /* PurchaseReportController.h */,
+				02E91F402495374600BFFF71 /* PurchaseReportController.m */,
 				025E200C236C705D0000571F /* ProgressDialog.h */,
 				025E200D236C705D0000571F /* ProgressDialog.m */,
 				43B17B9B1CE672110012C3E3 /* SegmentedControlWithMenu.h */,
@@ -372,6 +379,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				02E91F3C2495373200BFFF71 /* PurchaseReport.xib */,
 				0226605222C9F19C006CE084 /* MacCompare@2x.png */,
 				0299EC62227C966B00D937F6 /* CompareView.xib */,
 				02B7FB4D17576A61002B92FE /* ServicesMenu.strings */,
@@ -508,6 +516,7 @@
 				0299EC64227C966B00D937F6 /* CompareView.xib in Resources */,
 				0265BEE02330202C00BC2891 /* ProgressDialog.xib in Resources */,
 				43BB5AA815336BEB002400F8 /* MainMenu.xib in Resources */,
+				02E91F3E2495373200BFFF71 /* PurchaseReport.xib in Resources */,
 				43BB5AA515336BE2002400F8 /* MyWindow.xib in Resources */,
 				439533AD14E172C500537F55 /* mediainfo.icns in Resources */,
 				0226605322C9F19C006CE084 /* MacCompare@2x.png in Resources */,
@@ -554,6 +563,7 @@
 				43B17B9A1CE6029E0012C3E3 /* SegmentedCellWithMenu.m in Sources */,
 				4395315014E0465300537F55 /* NSString+wchar.m in Sources */,
 				431876161BECF79B00B687E9 /* DraggingFixView.m in Sources */,
+				02E91F412495374600BFFF71 /* PurchaseReportController.m in Sources */,
 				4395327D14E1263300537F55 /* MyWindowController.m in Sources */,
 				439535AC14E3020600537F55 /* TreeOutline.m in Sources */,
 				43EBC78814EADE0D00D639FF /* MediaInfoExporter.m in Sources */,
@@ -611,6 +621,14 @@
 				02B7FB5017576A90002B92FE /* English */,
 			);
 			name = ServicesMenu.strings;
+			sourceTree = "<group>";
+		};
+		02E91F3C2495373200BFFF71 /* PurchaseReport.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				02E91F3D2495373200BFFF71 /* English */,
+			);
+			name = PurchaseReport.xib;
 			sourceTree = "<group>";
 		};
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {

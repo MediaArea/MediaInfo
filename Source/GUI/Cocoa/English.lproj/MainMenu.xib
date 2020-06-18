@@ -787,6 +787,12 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Help" systemMenu="help" id="491">
                         <items>
+                            <menuItem title="Information about the in-app purchase" id="nMH-4I-T3M">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="openSubscriptionReportPanel:" target="-1" id="Be6-Kr-esl"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="MediaInfo Website" keyEquivalent="?" id="492">
                                 <connections>
                                     <action selector="clickAuthorWebsite:" target="-1" id="606"/>
