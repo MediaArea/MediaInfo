@@ -5,8 +5,13 @@
 "38.ibShadowedToolTips[0]" = "Βασική";
 "38.ibShadowedToolTips[1]" = "Δένδρο";
 "38.ibShadowedToolTips[2]" = "Κείμενο";
-"38.ibShadowedToolTips[3]" = "Other Views";
+"38.ibShadowedToolTips[3]" = "Compare View (Premium feature)";
+"38.ibShadowedToolTips[4]" = "Other Views";
 "39.label" = "Προβολή";
 "39.paletteLabel" = "Προβολή";
 "PWm-W6-Msn.title" = "Επιλέξτε your desired export format";
+"dpG-p5-QwC.label" = "";
+"dpG-p5-QwC.paletteLabel" = "Subscribe";
+"eZC-pc-IWN.label" = "Compare";
+"kut-ID-XH0.ibShadowedToolTips[0]" = "Subscribe to premium features";
 "l1c-6L-mdF.title" = "Κείμενο";

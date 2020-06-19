@@ -1,5 +1,5 @@
-"16.title" = "支持多种格式的多媒体文件:\nMatroska, OGG (包括 OGM)\nMPEG-1 (包括 VCD)\nMPEG-2 (包括 DVD, SVCD)\nMPEG-4 (包括 iTunes M4A)\nQuicktime\nRealMedia\nWindowsMedia (包括 WMV, WMA)\nMicrosoft RIFF (包括 AVI, WAV)\n纯声音格式 (AC3, DTS, AAC, AU, AIFF...)";
+"16.title" = "使用 MediaInfo 可以轻松读取音视频文件的编码和标签信息。\n本软件按 BSD 授权协议开源，用户可以免费使用，开发者也可以自由地学习、修改、重新发布本软件。（Mac App Store 图形界面除外）";
 "24.title" = "访问网站";
-"26.title" = "给作者写信";
+"26.title" = "给作者发邮件";
 "29.title" = "GUI created by Max Pozdeev";
 "8.title" = "Copyright 2002-2020 MediaArea.net SARL";

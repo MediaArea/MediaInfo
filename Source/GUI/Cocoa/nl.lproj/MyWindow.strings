@@ -5,8 +5,13 @@
 "38.ibShadowedToolTips[0]" = "Elementair";
 "38.ibShadowedToolTips[1]" = "Boomstructuur";
 "38.ibShadowedToolTips[2]" = "Tekst";
-"38.ibShadowedToolTips[3]" = "Other Views";
+"38.ibShadowedToolTips[3]" = "Compare View (Premium feature)";
+"38.ibShadowedToolTips[4]" = "Other Views";
 "39.label" = "Beeld";
 "39.paletteLabel" = "Beeld";
 "PWm-W6-Msn.title" = "Kies uw gewenste exportformaat";
+"dpG-p5-QwC.label" = "";
+"dpG-p5-QwC.paletteLabel" = "Subscribe";
+"eZC-pc-IWN.label" = "Compare";
+"kut-ID-XH0.ibShadowedToolTips[0]" = "Subscribe to premium features";
 "l1c-6L-mdF.title" = "Tekst";

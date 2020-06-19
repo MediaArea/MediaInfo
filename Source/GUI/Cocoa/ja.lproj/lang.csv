@@ -155,6 +155,7 @@ Actor;主演
 Actor_Character;出演名
 Added_Date;追加日
 Address;アドレス
+AdID;
 Advanced;詳細
 Advanced mode;詳細モード
 Album;アルバム
@@ -164,6 +165,7 @@ Alignment;アラインメント
 Alignment_Aligned;アライン
 Alignment_Split;分割
 All;すべて
+AlternateGroup;
 Archival_Location;作成された場所
 Arranger;アレンジ者
 ArtDirector;アートディレクター
@@ -187,7 +189,10 @@ Author;製作者
 BarCode;バーコード
 Basic;基本
 Basic_Note;メモ : ファイルについてのさらなる情報は別のビューで開かねばなりません(シート、ツリー...)
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;
+BitDepth_Detected;
 BitDepth_Stored;
 BitRate;ビットレート
 BitRate_Encoded;
@@ -201,6 +206,7 @@ Bits-(Pixel*Frame);ビット/(ピクセル*フレーム)
 BufferSize;
 Cancel;キャンセル
 Channel(s);チャンネル
+ChannelLayout;
 ChannelPositions;チャンネルの位置
 Chapter(s);チャプター
 Chapters;チャプター
@@ -216,9 +222,10 @@ Choose export format;出力形式を選択してください
 Choose file(s);開くファイルを選択してください
 Choose filename;ファイル名を選択してください
 Choose language;言語を選択してください
-Choregrapher;コアグラファー
+Choreographer;コアグラファー
 Chroma;クローマ
 ChromaSubsampling;
+ClearList;
 Close;閉じる
 Close all before open;すべて閉じて開く
 ClosedCaptionsLanguage;
@@ -242,6 +249,7 @@ Codec_Settings_PacketBitStream;パケットビットストリーム
 Codec_Settings_QPel;QPel
 Codec_Settings_Sign;Sign
 Codec_Url;コーデックの URL
+CodecConfigurationBox;
 CodecID;コーデック ID
 CodecID_Description;コーデック ID の説明
 CoDirector;
@@ -255,12 +263,14 @@ CommissionedBy;コミッショナー
 Compilation;
 CompleteName;完全名称
 CompletionDate;
+ComplexityIndex;
 Composer;コンポーザ
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;圧縮解像度
 Conductor;コンダクター
+ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;コンテナと全般情報
@@ -279,9 +289,11 @@ Cover_Type;カバーの種類
 Cropped;クロップ
 Custom;カスタム
 Customize;カスタマイズ
+DarkMode;
 Date;日付
 Debug;デバッグ
 Decimal point;箇条
+Default_Setting;
 Delay;遅延
 Delay_Source;
 Delay_Source_Container;
@@ -292,6 +304,7 @@ Digitized_Date;デジタル日付
 Dimensions;ディメンション
 Director;ディレクター
 DirectorOfPhotography;フォトディレクター
+Disabled;
 DisplayAspectRatio;解像度
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;元解像度
@@ -299,11 +312,14 @@ DistributedBy;ディストリビュート by
 Distributor;
 Donate;寄付
 DotsPerInch;ドット/インチ
+DrcSets_Count;
+DrcSets_Effects;
 Duration;ながさ
 Duration_End;終了時間
 Duration_Start;開始時間
 Edit;編集
 EditedBy;編集者
+ElementCount;
 EMail;E-Mail
 Encoded_Application;使用したエンコーダ
 Encoded_Date;エンコード日
@@ -314,12 +330,14 @@ EncodedBy;エンコード者
 EPG_Positions;EPG 位置
 EpisodeTitleNumber;
 Error_File;ファイル読み込みエラー
+Error_File_Write;
 ExecutiveProducer;製作総指揮
 Exit;終了
 Exit_Hint;プログラムの終了
 Export;エクスポート
 Export_Hint;カスタム形式でエクスポート
 Extensions;使用する拡張子
+External_Media_NotMounted;
 Family;ファミリ
 Fax;Fax
 File;ファイル
@@ -332,6 +350,7 @@ File_Modified_Date;ファイル変更日
 File_Modified_Date_Local;ファイル変更日（ローカル）
 FileExtension;拡張子
 FileName;ファイル名
+FileNameExtension;
 FileSize;サイズ
 Folder;フォルダー
 Folder (R);フォルダー(R)
@@ -342,8 +361,10 @@ FolderName;フォルダー名
 Format;フォーマット
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;詳細
 Format_Info;情報
+Format_Level;
 Format_Profile;プロファイル
 Format_Settings;設定
 Format_Settings_BVOP;BVOP
@@ -371,6 +392,7 @@ Format_Settings_RefFrames;RefFrames
 Format_Settings_SBR;SBR
 Format_Settings_Sign;Sign
 Format_Settings_Wrapping;
+Format_Tier;
 Format_Url;Url フォーマット
 Format_Version;バージョン
 FpaManufacturer;
@@ -580,12 +602,13 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Web サイトへ移動
-Grouping;
 Gop_OpenClosed;
-Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
+Gop_OpenClosed_Open;
+Grouping;
 h;時
+HDR_Format;
 Header file;ヘッダーファイルを作成
 Height;高さ
 Height_CleanAperture;
@@ -667,6 +690,7 @@ Language_en-gb;英語(英国)
 Language_en-us;英語(米国)
 Language_eo;Esperanto
 Language_es;エスパーニャ
+Language_es-419;
 Language_et;Estonian
 Language_eu;バスク語
 Language_fa;Persian
@@ -690,6 +714,7 @@ Language_hr;Croatian
 Language_ht;Haitian
 Language_hu;Hungarian
 Language_hy;Armenian
+Language_hy-az;
 Language_hz;Herero
 Language_ia;Auxiliary Language Association
 Language_id;Indonesian
@@ -734,10 +759,12 @@ Language_mi;Maori
 Language_mk;Macedonian
 Language_ml;Malayalam
 Language_mn;Mongolian
+Language_mn-cn;
 Language_mo;Moldavian
 Language_More;さらに
 Language_mr;Marathi
 Language_ms;Malay
+Language_ms-bn;
 Language_mt;Maltese
 Language_mul;複数言語
 Language_my;Burmese
@@ -747,6 +774,7 @@ Language_nd;Ndebele
 Language_ne;Nepali
 Language_ng;Ndonga
 Language_nl;オランダ語
+Language_nl-be;
 Language_nn;Norwegian Nynorsk
 Language_no;Norwegian
 Language_nr;Ndebele
@@ -778,6 +806,7 @@ Language_si;Sinhala
 Language_sk;Slovak
 Language_sl;Slovenian
 Language_sm;Samoan
+Language_smi;
 Language_sn;Shona
 Language_so;Somali
 Language_sq;Albanian
@@ -824,15 +853,38 @@ Library;ライブラリ
 Lightness;明るさ
 LineUpStart;
 List;リスト
+Loudness_Anchor;
+Loudness_Anchor_Album;
+Loudness_Count;
+Loudness_Count_Album;
+Loudness_MaximumMomentary;
+Loudness_MaximumMomentary_Album;
+Loudness_MaximumOfRange;
+Loudness_MaximumOfRange_Album;
+Loudness_MaximumShortTerm;
+Loudness_MaximumShortTerm_Album;
+Loudness_ProductionMixingLevel;
+Loudness_ProductionMixingLevel_Album;
+Loudness_Program;
+Loudness_Program_Album;
+Loudness_Range;
+Loudness_Range_Album;
+Loudness_RoomType;
+Loudness_RoomType_Album;
 Lyricist;作詞
 Lyrics;歌詞
 Mastered_Date;マスタリング日
 MasteredBy;マスタリング by
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;
 Matrix_Format;
+MaxCLL;
+MaxFALL;
 MediaInfo_About; 詳細情報提供者 \r\n マルチメディア ファイル:\r\n Matroska, OGG ( OGM を含む)\r\n MPEG1 ( VCD を含む)\r\n MPEG2 ( DVD , SVCD を含む)\r\n MPEG4 (iTunes の M4A を含む)\r\n Quicktime\r\n RealMedia\r\n WindowsMedia ( WMV , WMA を含む)\r\n Microsoft RIFF ( AVI , WAV を含む)\r\n 音声のみ (AC3 , DTS , AAC , AU , AIFF ...)
+MediaInfo_About_About;
 Menu;メニュー
 Menu stream(s);メニューストリーム
 Menu_Codec_List;メニューコーデック
@@ -854,12 +906,13 @@ Name;名前
 Nationality;製作国
 NetworkName;ネットワーク名
 New;新規
-Newest version;新バージョンチェック（要インターネット接続）
-NewVersion_Menu;新バージョンメニュー
-NewVersion_Question_Content;新バージョン確認 コンテンツ
-NewVersion_Question_Title;新バージョン確認 タイトル
+Newest version;新しいバージョンを確認（要インターネット接続
+NewVersion_Menu;新しいバージョンがあります
+NewVersion_Question_Content;新しいバージョン(v%Version%)があります。更新しますか？
+NewVersion_Question_Title;新しいバージョン
 No;いいえ
 Not yet;準備中です
+NumberOfDynamicObjects;
 NumColors;色
 OK;OK
 One output file per input file;入力ファイルを単一ファイルで出力
@@ -909,6 +962,7 @@ Original;オリジナル
 OriginalNetworkName;オリジナル ネットワーク名
 OriginalSourceForm;オリジナル ソース フォーム
 OriginalSourceMedium;中間ソース フォーム
+OriginalSourceMedium_ID;
 Originator;
 Other;その他
 OtherIdentifier;
@@ -920,6 +974,7 @@ OverallBitRate_Maximum;最大
 OverallBitRate_Minimum;最小
 OverallBitRate_Mode;OBR モード
 OverallBitRate_Nominal;OBR ノミナル
+PackageName;
 Part;パート
 Part_Count;合計
 PartNumber;
@@ -936,9 +991,12 @@ Played_Count;再生数
 Played_First_Date;初再生日
 Played_Last_Date;最終再生日
 PlayTime;再生時間
+PodcastCategory;
 Position;ポジション
 Position_Total;合計
 Preferences;設定
+Premium;
+Premium_Summary;
 PrimaryAudioLanguage;
 Producer;プロデューサー
 ProductionDesigner;プロダクション
@@ -957,10 +1015,15 @@ Recorded_Date;録音日
 Recorded_Location;録音した場所
 Released_Date;リリース日
 RemixedBy;リミックス by
+Renew;
 ReplayGain_Gain;リプレイゲイン ゲイン
 ReplayGain_Peak;リプレイ ゲイン ピーク
+Report;
 Resolution;解像度
 s;秒
+SamplePeakLevel;
+SamplePeakLevel_Album;
+SamplesPerFrame;
 SamplingCount;
 SamplingRate;サンプルレート
 Save;保存
@@ -981,6 +1044,7 @@ Separator_Columns;列の区切り
 Separator_Lines;区切り線
 SeriesTitle;
 ServiceChannel;チャンネル
+ServiceKind;
 ServiceName;名前
 ServiceProvider;プロバイダ
 ServiceType;種類
@@ -1016,17 +1080,33 @@ Stream;ストリーム
 Stream_MoreInfo;このストリームの詳細情報
 StreamCount;この種類のストリーム数
 StreamID;ストリーム ID
+streamIdentifier;
 StreamKind;ストリーム種
 StreamKindID;ID
 StreamKindPos;ポジション
 StreamSize;ストリームサイズ
+StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;サイズ整形
 Subject;件名
+Subscribe;
+Subscribe_Button;
+Subscribe_Failed;
+Subscribe_Manage;
+Subscribe_Renew;
+Subscribe_Renew_Price;
+Subscribe_Unaviable;
+Subscribe_Waiting;
+Subscription_Active;
+Subscription_Android;
+Subscription_Ended;
+Subscription_Expired;
+Subscription_Thanks;
 SubTrack;サブトラック
 Summary;サマリー
 Supported formats;対応フォーマット
 Supported?;サポート？
+SupportUs;
 Synopsis;Synopsis
 SystemId;システム Id
 Tagged_Application;タギングツール
@@ -1063,11 +1143,17 @@ TotalProgrammeDuration;
 Track;トラック名
 Track_Count;トラック数
 transfer_characteristics;
+Translate_Reports;
 Translator;翻訳者
 Tree;ツリー
 Tree & Text;ツリーとテキスト
+TruePeakLevel;
+TruePeakLevel_Album;
 Type;
 UniqueID;
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;不明
 Url;Url
 Video;ビデオ
@@ -1081,8 +1167,10 @@ VideoComments;
 VideoCount;ビデオストリーム数
 View;表示
 View_Hint;ヒントを表示する
+Views;
 Warning : more streams in the files;警告 : このファイルにはさらなるストリームが含まれています
 Web;Web
+WebSite;
 WebSite_Audio;このオーディオコーデックについて
 WebSite_Audio_More; (%Url%) へ移動してこのオーディオコーデックを探す
 WebSite_General;このファイルを再生可能なプレイヤー
@@ -1102,5 +1190,5 @@ Written_Location;作成場所
 WrittenBy;著者
 Yes;はい
 Your system;システム情報
-ZZ_Automatic_Percent;84
-ZZ_AutomaticLanguage_Percent;88
+ZZ_Automatic_Percent;78
+ZZ_AutomaticLanguage_Percent;82

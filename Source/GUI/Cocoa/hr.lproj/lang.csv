@@ -14,8 +14,8 @@
  bit1; bit
  bit2; bita
  bit3; bita
- bps; bps
- Bps; Bps
+ bps; b/s
+ Bps; B/s
  Byte1; bajt
  Byte2; bajta
  Byte3; bajta
@@ -40,22 +40,22 @@
  file1; datoteka
  file2; datoteke
  file3; datoteke
- fps1; fps
- fps2; fps
- fps3; fps
+ fps1; FPS
+ fps2; FPS
+ fps3; FPS
  frame1; sličica
  frame2; sličice
  frame3; sličice
  GB; GB
  Gb; Gb
- Gbps; Gbps
- GBps; GBps
+ Gbps; Gb/s
+ GBps; GB/s
  GHz; GHz
  GiB; GiB
  GibiByte1; GibiBytes
  GibiByte2; GibiBytes
  GibiByte3; GibiBytes
- GiBps; GiBps
+ GiBps; GiB/s
  GigaBit1; GigaBit
  GigaBit2; GigaBits
  GigaBit3; GigaBits
@@ -69,11 +69,11 @@
  image stream1; tok slike
  image stream2; toka slike
  image stream3; toka slike
- KB; KB
- Kb; Kb
- KBps; KBps
- Kbps; Kbps
- KHz; KHz
+ KB; kB
+ Kb; kb
+ KBps; kB/s
+ Kbps; kb/s
+ KHz; kHz
  KiB; KiB
  KibiBit1; KibiBit
  KibiBit2; KibiBits
@@ -81,7 +81,7 @@
  KibiByte1; KibiByte
  KibiByte2; KibiBytes
  KibiByte3; KibiBytes
- KiBps; KiBps
+ KiBps; KiB/s
  KiloBit1; KiloBit
  KiloBit2; KiloBits
  KiloBit3; KiloBits
@@ -90,7 +90,7 @@
  KiloByte3; KiloBytes
  MB; MB
  Mb; Mb
- Mbps; Mbps
+ Mbps; Mb/s
  MBps; MebiBytes
  MebiBit1; MebiBit
  MebiBit2; MebiBits
@@ -107,7 +107,7 @@
  MHz; MHz
  MiB; MiB
  Mib; Mib
- MiBps; MiBps
+ MiBps; MiB/s
  millisecond1; millisecond
  millisecond2; milliseconds
  millisecond3; milliseconds
@@ -155,6 +155,7 @@ Actor;Glumac
 Actor_Character;Uloga
 Added_Date;Dodano dana
 Address;Adresa
+AdID;
 Advanced;Prošireno
 Advanced mode;Prošireni način
 Album;Album
@@ -164,6 +165,7 @@ Alignment;Usmjerenje
 Alignment_Aligned;Usmjerenje sukladno čimbeniku 'interleave'
 Alignment_Split;Rasporediti preko interleavea
 All;Sve
+AlternateGroup;
 Archival_Location;Mjesto pohranjivanja
 Arranger;Aranžer
 ArtDirector;Umjetnički ravnatelj
@@ -187,7 +189,10 @@ Author;Autor
 BarCode;Crtičasti kôd
 Basic;Osnovno
 Basic_Note;Napomena: za više informacija o ovoj datoteci morate odabrati različite prikaze (tabela, stablo...)
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;
+BitDepth_Detected;
 BitDepth_Stored;
 BitRate;Stopa protoka podataka
 BitRate_Encoded;
@@ -201,6 +206,7 @@ Bits-(Pixel*Frame);Bita/(piksela*sličica)
 BufferSize;
 Cancel;Poništiti
 Channel(s);Kanali
+ChannelLayout;
 ChannelPositions;Položaj kanala
 Chapter(s);Poglavlja
 Chapters;Poglavlja
@@ -216,9 +222,10 @@ Choose export format;Odaberite izvozni oblik datoteka
 Choose file(s);Odaberite datoteke za otvoriti
 Choose filename;Odaberite naziv datoteke
 Choose language;Odaberite jezik
-Choregrapher;Koreograf
+Choreographer;Koreograf
 Chroma;Kromatizam
 ChromaSubsampling;
+ClearList;
 Close;Zatvoriti
 Close all before open;Prije otvaranja sve ostale zatvoriti
 ClosedCaptionsLanguage;
@@ -242,6 +249,7 @@ Codec_Settings_PacketBitStream;Postavke kôdeka za usredotočeni protok podataka
 Codec_Settings_QPel;Postavke kôdeka za QPel
 Codec_Settings_Sign;Postavke kôdeka za Sign
 Codec_Url;Spletna poveznica kôdeka
+CodecConfigurationBox;
 CodecID;ID kôdeka
 CodecID_Description;Opis kôdeka
 CoDirector;
@@ -255,12 +263,14 @@ CommissionedBy;Prema nalogu
 Compilation;
 CompleteName;Potpuni naziv
 CompletionDate;
+ComplexityIndex;
 Composer;Skladatelj
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;Omjer sažimanja
 Conductor;Ravnatelj
+ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Oblik spremnika i opće informacije
@@ -279,9 +289,11 @@ Cover_Type;Vrsta omota
 Cropped;Omjer reza
 Custom;Vlastito
 Customize;Prilagoditi
+DarkMode;
 Date;Nadnevak
 Debug;Uklanjanje pogreški
 Decimal point;Decimalna točka
+Default_Setting;
 Delay;Zaostajanje
 Delay_Source;
 Delay_Source_Container;
@@ -292,6 +304,7 @@ Digitized_Date;Nadnevak digitaliziranja
 Dimensions;Dimenzije
 Director;Režiser
 DirectorOfPhotography;Ravnatelj fotografije
+Disabled;
 DisplayAspectRatio;Omjer slike
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Izvorni omjer slike
@@ -299,11 +312,14 @@ DistributedBy;Distribucija
 Distributor;
 Donate;Potpora razvoju MediaInfo
 DotsPerInch;Točaka po palcu (DPI)
+DrcSets_Count;
+DrcSets_Effects;
 Duration;Trajanje
 Duration_End;Vrijeme svršetka
 Duration_Start;Vrijeme početka
 Edit;Uređivanje
 EditedBy;Uredio
+ElementCount;
 EMail;E-pošta
 Encoded_Application;Kodirajući program
 Encoded_Date;Nadnevak kodiranja
@@ -314,12 +330,14 @@ EncodedBy;Kodirao
 EPG_Positions;Položaj EPG-a
 EpisodeTitleNumber;
 Error_File;Pogreška tijekom učitavanja datoteke
+Error_File_Write;
 ExecutiveProducer;Izvršni producent
 Exit;Svršetak
 Exit_Hint;Okončati program
 Export;Izvoz
 Export_Hint;Izvoz u odabranom obliku
 Extensions;Uobičajeni nastavci naziva datoteke
+External_Media_NotMounted;
 Family;Obitelj
 Fax;Faks
 File;Datoteka
@@ -332,6 +350,7 @@ File_Modified_Date;Nadnevak posljednje izmjene datoteke
 File_Modified_Date_Local;Nadnevak zadnje izmjene datoteke (mjesni)
 FileExtension;Nastavak naziva datoteke
 FileName;Naziv datoteke
+FileNameExtension;
 FileSize;Veličina datoteke
 Folder;Mapa
 Folder (R);Mapa (R)
@@ -342,8 +361,10 @@ FolderName;Naziv mape
 Format;Oblik datoteke
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;Opis oblika datoteke
 Format_Info;Pojedinosti oblika datoteke
+Format_Level;
 Format_Profile;Profil oblika datoteke
 Format_Settings;Postavke oblika datoteke
 Format_Settings_BVOP;Postavke oblika datoteke za BVOP
@@ -367,10 +388,11 @@ Format_Settings_PictureStructure;
 Format_Settings_PS;Postavke oblika datoteke za PS
 Format_Settings_Pulldown;Postavke oblika datoteke za Pulldown
 Format_Settings_QPel;Postavke oblika datoteke za QPel
-Format_Settings_RefFrames;Postavke oblika datoteke za ReFrames
+Format_Settings_RefFrames;Postavke oblika datoteke za RefFrames
 Format_Settings_SBR;Postavke oblika datoteke za SBR
 Format_Settings_Sign;Postavke oblika datoteke za Sign
 Format_Settings_Wrapping;
+Format_Tier;
 Format_Url;Spletna poveznica oblika datoteke
 Format_Version;Inačica oblika datoteke
 FpaManufacturer;
@@ -580,12 +602,13 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Prijeći na spletni sadržaj
-Grouping;
 Gop_OpenClosed;
-Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;Agrupamento
-h;h
+Gop_OpenClosed_Open;
+Grouping;
+h; h
+HDR_Format;
 Header file;Kreirati zaglavnu datoteku
 Height;Visina
 Height_CleanAperture;
@@ -667,6 +690,7 @@ Language_en-gb;Engleski (Velika Britanija)
 Language_en-us;Engleski (Sjedinjene Države)
 Language_eo;Esperanto
 Language_es;Španjolski
+Language_es-419;
 Language_et;Estonski
 Language_eu;Baskijski
 Language_fa;Perzijski
@@ -690,6 +714,7 @@ Language_hr;Hrvatski
 Language_ht;Haićanski
 Language_hu;Madžarski
 Language_hy;Armenski
+Language_hy-az;
 Language_hz;Herero
 Language_ia;Udruga za pomoćne jezike
 Language_id;Indonezijski
@@ -734,10 +759,12 @@ Language_mi;Maorski
 Language_mk;Makedonski
 Language_ml;Malayalam
 Language_mn;Mongolski
+Language_mn-cn;
 Language_mo;Moldavski
 Language_More;Jezik, podrobnije
 Language_mr;Marathi
 Language_ms;Malajski
+Language_ms-bn;
 Language_mt;Malteški
 Language_mul;Višestruki jezici
 Language_my;Burmeški
@@ -747,6 +774,7 @@ Language_nd;Ndebele
 Language_ne;Nepalski
 Language_ng;Ndonga
 Language_nl;Nizozemski
+Language_nl-be;
 Language_nn;Norveški Bokmal
 Language_no;Norveški
 Language_nr;Ndebele
@@ -778,6 +806,7 @@ Language_si;Singaleški
 Language_sk;Slovački
 Language_sl;Slovenski
 Language_sm;Samoanski
+Language_smi;
 Language_sn;Shona
 Language_so;Somalijski
 Language_sq;Albanski
@@ -824,15 +853,38 @@ Library;Knjižnica multipleksera
 Lightness;Svjetlina
 LineUpStart;
 List;Spisak
+Loudness_Anchor;
+Loudness_Anchor_Album;
+Loudness_Count;
+Loudness_Count_Album;
+Loudness_MaximumMomentary;
+Loudness_MaximumMomentary_Album;
+Loudness_MaximumOfRange;
+Loudness_MaximumOfRange_Album;
+Loudness_MaximumShortTerm;
+Loudness_MaximumShortTerm_Album;
+Loudness_ProductionMixingLevel;
+Loudness_ProductionMixingLevel_Album;
+Loudness_Program;
+Loudness_Program_Album;
+Loudness_Range;
+Loudness_Range_Album;
+Loudness_RoomType;
+Loudness_RoomType_Album;
 Lyricist;Tekstopisac
 Lyrics;Tekst pjesme
 Mastered_Date;Nadnevak glavne snimke
 MasteredBy;Glavnu snimku napravio
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;
 Matrix_Format;
+MaxCLL;
+MaxFALL;
 MediaInfo_About;Pruža vrlo podrobne informacije\r\no multimedijalnim datotekama:\r\nMatroska, OGG (uključujući OGM)\r\nMPEG1 (uključujući VCD)\r\nMPEG2 (uključujući DVD i SVCD)\r\nMPEG4 (uključujući Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (uključujući WMV, WMA)\r\nMicrosoft RIFF (uključujući AVI, WAV)\r\nSamo zvukovnim oblicima (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About_About;
 Menu;Izbornik
 Menu stream(s);Izbornik - tokovi
 Menu_Codec_List;Izbornik - kôdeksi
@@ -840,11 +892,11 @@ Menu_Hint;Dodatne mogućnosti
 Menu_No;Bez izbornika
 MenuCount;Broj izborničkih tokova
 MenuID;Izbornički ID
-mn;min
+mn; min
 Mood;Raspoloženje
 More;Više...
 Movie;Naslov filma
-ms;ms
+ms; ms
 MSDI;MSDI
 MusicBy;Glazba
 MuxingMode;Način rada multipleksera
@@ -860,6 +912,7 @@ NewVersion_Question_Content;Raspoloživa je novija inačica (v%Version%)! Da li 
 NewVersion_Question_Title;Objavljena je nova inačica!
 No;Ne
 Not yet;Još ne
+NumberOfDynamicObjects;
 NumColors;Broj boja
 OK;U redu
 One output file per input file;Po jedna izlazna datoteka na jednu ulaznu
@@ -909,6 +962,7 @@ Original;Izvorno
 OriginalNetworkName;Izvorni naziv mreže
 OriginalSourceForm;Prvobitni oblik izvora
 OriginalSourceMedium;Prvobitni medij izvora
+OriginalSourceMedium_ID;
 Originator;
 Other;Ostalo
 OtherIdentifier;
@@ -920,6 +974,7 @@ OverallBitRate_Maximum;Maksimum ukupnog protoka podataka
 OverallBitRate_Minimum;Minimum ukupnog protoka podataka
 OverallBitRate_Mode;Način ukupnog protoka podataka
 OverallBitRate_Nominal;Nominalni ukupni protok podataka
+PackageName;
 Part;Dio
 Part_Count;Ukupni broj
 PartNumber;
@@ -936,9 +991,12 @@ Played_Count;puta izvedeno
 Played_First_Date;prvi put izvođeno
 Played_Last_Date;posljednji put izvođeno
 PlayTime;Trajanje izvedbe
+PodcastCategory;
 Position;položaj
 Position_Total;ukupno
 Preferences;Prilagodbe
+Premium;
+Premium_Summary;
 PrimaryAudioLanguage;
 Producer;Producent
 ProductionDesigner;Designer proizvodnje
@@ -957,10 +1015,15 @@ Recorded_Date;Nadnevak snimanja
 Recorded_Location;Mjesto snimanja
 Released_Date;Nadnevak objavljivanja
 RemixedBy;Remixed by
+Renew;
 ReplayGain_Gain;Pojačavanje zvuka izvedbe
 ReplayGain_Peak;Vrhunac pojačanog zvuka izvedbe
+Report;
 Resolution;Razlučivost
 s;s
+SamplePeakLevel;
+SamplePeakLevel_Album;
+SamplesPerFrame;
 SamplingCount;
 SamplingRate;Učestalost uzorkovanja
 Save;Pohraniti
@@ -981,6 +1044,7 @@ Separator_Columns;Razdjelnik redaka
 Separator_Lines;Razdjelnik crta
 SeriesTitle;
 ServiceChannel;Broj uslužnog kanala
+ServiceKind;
 ServiceName;Naziv usluge
 ServiceProvider;Pružatelj usluge
 ServiceType;Vrsta usluge
@@ -1016,17 +1080,33 @@ Stream;Tok
 Stream_MoreInfo;Više informacija o tom toku
 StreamCount;Broj tokova te vrste
 StreamID;Prepoznavanje toka
+streamIdentifier;
 StreamKind;Vrsta toka
 StreamKindID;Prepoznavatelj toka
 StreamKindPos;Položaj prepoznavatelja toka
 StreamSize;Veličina toka
+StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;Omjeri dotičnog toka
 Subject;Sadržaj
+Subscribe;
+Subscribe_Button;
+Subscribe_Failed;
+Subscribe_Manage;
+Subscribe_Renew;
+Subscribe_Renew_Price;
+Subscribe_Unaviable;
+Subscribe_Waiting;
+Subscription_Active;
+Subscription_Android;
+Subscription_Ended;
+Subscription_Expired;
+Subscription_Thanks;
 SubTrack;Podsnimka
 Summary;Sveukupno
 Supported formats;Podržavani oblici datoteka
 Supported?;Podržavano?
+SupportUs;
 Synopsis;Sažetak
 SystemId;ID
 Tagged_Application;Označeno aplikacijom
@@ -1063,11 +1143,17 @@ TotalProgrammeDuration;
 Track;Naziv snimke
 Track_Count;Broj snimke
 transfer_characteristics;
+Translate_Reports;
 Translator;Prevoditelj
 Tree;Stablo
 Tree & Text;Stablo i tekst
+TruePeakLevel;
+TruePeakLevel_Album;
 Type;
 UniqueID;
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;Nepoznato
 Url;URL
 Video;Video
@@ -1081,8 +1167,10 @@ VideoComments;
 VideoCount;Broj tokova video-slike
 View;Prikaz
 View_Hint;Mijenja mogućnosti prikaza informacije
+Views;
 Warning : more streams in the files;Pozor!: U datotekama se nalazi više tokova!
 Web;Internet
+WebSite;
 WebSite_Audio;Prijeći na spletnu stranicu ovog kôdeka
 WebSite_Audio_More;Prijeći na spletnu sadržaj (%Url%) za pronalaženje tog audio-kôdeka
 WebSite_General;Prijeći na spletni sadržaj nekog programa za izvođenje ove datoteke
@@ -1102,5 +1190,5 @@ Written_Location;Mjesto početka pisanja
 WrittenBy;Napisao
 Yes;Da
 Your system;Informacije o Vašem sustavu
-ZZ_Automatic_Percent;85
-ZZ_AutomaticLanguage_Percent;89
+ZZ_Automatic_Percent;78
+ZZ_AutomaticLanguage_Percent;82

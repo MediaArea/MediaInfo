@@ -69,7 +69,7 @@
  image stream1; image stream
  image stream2; image streams
  image stream3; image streams
- KB; KB
+ KB; kB
  Kb; kb
  KBps; kB/s
  Kbps; kb/s
@@ -155,6 +155,7 @@ Actor;Herec
 Actor_Character;Character played
 Added_Date;Dátum pridania
 Address;Adresa
+AdID;
 Advanced;Pokročilé
 Advanced mode;Viac detailov
 Album;Album
@@ -164,6 +165,7 @@ Alignment;
 Alignment_Aligned;
 Alignment_Split;
 All;Všetko
+AlternateGroup;
 Archival_Location;Archival location
 Arranger;Arranger
 ArtDirector;ArtDirector
@@ -187,7 +189,10 @@ Author;Autor
 BarCode;BarCode
 Basic;Základné
 Basic_Note;Info : Pre viac detailov vyberte iný režim zobrazenia (List, Strom...)
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;
+BitDepth_Detected;
 BitDepth_Stored;
 BitRate;Dátový tok
 BitRate_Encoded;
@@ -201,6 +206,7 @@ Bits-(Pixel*Frame);Bitov/(Bod*Snímka)
 BufferSize;
 Cancel;Zrušiť
 Channel(s);Kanál(y)
+ChannelLayout;
 ChannelPositions;Channel positions
 Chapter(s);Kapitola(y)
 Chapters;Kapitoly
@@ -216,9 +222,10 @@ Choose export format;Vyberte požadovaný exportný formát
 Choose file(s);Vyberte súbor pre otvorenie
 Choose filename;Vyberte požadovaný názov súboru
 Choose language;Vybrať jazyk
-Choregrapher;Choreograf
+Choreographer;Choreograf
 Chroma;Chroma
 ChromaSubsampling;
+ClearList;
 Close;Zatvoriť
 Close all before open;Zatvoriť všetko pred otvorením nového
 ClosedCaptionsLanguage;
@@ -242,6 +249,7 @@ Codec_Settings_PacketBitStream;
 Codec_Settings_QPel;
 Codec_Settings_Sign;
 Codec_Url;Adresa pre stiahnutie kodeku
+CodecConfigurationBox;
 CodecID;Označenie kodeku
 CodecID_Description;Popis kodeku
 CoDirector;
@@ -255,12 +263,14 @@ CommissionedBy;Commissioned by
 Compilation;
 CompleteName;Celý názov a cesta
 CompletionDate;
+ComplexityIndex;
 Composer;Skladateľ
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;
 Conductor;Conductor
+ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Hlavné informácie
@@ -279,9 +289,11 @@ Cover_Type;Typ obalu
 Cropped;
 Custom;Vlastné
 Customize;Prispôsobiť
+DarkMode;
 Date;Dátum
 Debug;Pokročilé
 Decimal point;Decimal point
+Default_Setting;
 Delay;Delay
 Delay_Source;
 Delay_Source_Container;
@@ -292,6 +304,7 @@ Digitized_Date;Digitized date
 Dimensions;
 Director;Director
 DirectorOfPhotography;Director of photography
+Disabled;
 DisplayAspectRatio;Pomer strán
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Pôvodný pomer strán pre zobrazenie
@@ -299,11 +312,14 @@ DistributedBy;Distribútor
 Distributor;
 Donate;Zaslat finančný dar
 DotsPerInch;Bodov na palec
+DrcSets_Count;
+DrcSets_Effects;
 Duration;Trvanie
 Duration_End;
 Duration_Start;
 Edit;Upraviť
 EditedBy;Upravil
+ElementCount;
 EMail;E-Mail
 Encoded_Application;Použitý software
 Encoded_Date;Dátum zakódovania
@@ -314,12 +330,14 @@ EncodedBy;Zakódoval
 EPG_Positions;
 EpisodeTitleNumber;
 Error_File;Zlyhalo načítavanie súboru
+Error_File_Write;
 ExecutiveProducer;Executive producer
 Exit;Koniec
 Exit_Hint;Ukončiť program
 Export;Exportovať
 Export_Hint;Exportovať do vybraného formátu
 Extensions;Všeobecne používaná koncovka
+External_Media_NotMounted;
 Family;
 Fax;Fax
 File;Súbor
@@ -332,6 +350,7 @@ File_Modified_Date;Dátum poslednej úpravy súboru
 File_Modified_Date_Local;Dátum (miestny) poslednej úpravy súboru
 FileExtension;Prípona súboru
 FileName;Názov súboru
+FileNameExtension;
 FileSize;Veľkosť súboru
 Folder;Adresár
 Folder (R);Adresár (R)
@@ -342,8 +361,10 @@ FolderName;Názov adresára
 Format;Formát
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;Popis formátu
 Format_Info;Informácie o formáte
+Format_Level;
 Format_Profile;Profil formátu
 Format_Settings;Nastavenia formátu
 Format_Settings_BVOP;
@@ -371,6 +392,7 @@ Format_Settings_RefFrames;
 Format_Settings_SBR;
 Format_Settings_Sign;
 Format_Settings_Wrapping;
+Format_Tier;
 Format_Url;
 Format_Version;
 FpaManufacturer;
@@ -580,12 +602,13 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Web programu
-Grouping;
 Gop_OpenClosed;
-Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
-h;h
+Gop_OpenClosed_Open;
+Grouping;
+h; h
+HDR_Format;
 Header file;Create a header file
 Height;Výška
 Height_CleanAperture;
@@ -667,6 +690,7 @@ Language_en-gb;Anglicky (V.Británia)
 Language_en-us;Anglicky (USA)
 Language_eo;Esperanto
 Language_es;Španielsky
+Language_es-419;
 Language_et;Estónsky
 Language_eu;Baskidsky
 Language_fa;Perzsky
@@ -690,6 +714,7 @@ Language_hr;Chorvátsky
 Language_ht;Haitian
 Language_hu;Maďarsky
 Language_hy;Arménsky
+Language_hy-az;
 Language_hz;Herero
 Language_ia;Auxiliary Language Association
 Language_id;Indonesian
@@ -734,10 +759,12 @@ Language_mi;Maori
 Language_mk;Macedónsky
 Language_ml;Malayalam
 Language_mn;Mongolsky
+Language_mn-cn;
 Language_mo;Moldavsky
 Language_More;
 Language_mr;Marathi
 Language_ms;Malay
+Language_ms-bn;
 Language_mt;Maltese
 Language_mul;Multiple languages
 Language_my;Burmese
@@ -747,6 +774,7 @@ Language_nd;Ndebele
 Language_ne;Nepali
 Language_ng;Ndonga
 Language_nl;Holandsky
+Language_nl-be;
 Language_nn;Norwegian Nynorsk
 Language_no;Nórsky
 Language_nr;Ndebele
@@ -778,6 +806,7 @@ Language_si;Sinhala
 Language_sk;Slovensky
 Language_sl;Slovinsky
 Language_sm;Samoan
+Language_smi;
 Language_sn;Shona
 Language_so;Somali
 Language_sq;Albánsky
@@ -824,15 +853,38 @@ Library;Muxing library
 Lightness;
 LineUpStart;
 List;Zoznam
+Loudness_Anchor;
+Loudness_Anchor_Album;
+Loudness_Count;
+Loudness_Count_Album;
+Loudness_MaximumMomentary;
+Loudness_MaximumMomentary_Album;
+Loudness_MaximumOfRange;
+Loudness_MaximumOfRange_Album;
+Loudness_MaximumShortTerm;
+Loudness_MaximumShortTerm_Album;
+Loudness_ProductionMixingLevel;
+Loudness_ProductionMixingLevel_Album;
+Loudness_Program;
+Loudness_Program_Album;
+Loudness_Range;
+Loudness_Range_Album;
+Loudness_RoomType;
+Loudness_RoomType_Album;
 Lyricist;Textár
 Lyrics;Text
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;
 Matrix_Format;
+MaxCLL;
+MaxFALL;
 MediaInfo_About;Supply very detailled information\r\nabout a multimedia file:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About_About;
 Menu;Menu
 Menu stream(s);Menu streams
 Menu_Codec_List;
@@ -860,6 +912,7 @@ NewVersion_Question_Content;K dispozícii je nová verzia (v%Version%), chcete s
 NewVersion_Question_Title;Bola vydaná nová verzia!
 No;Nie
 Not yet;Ešte nie
+NumberOfDynamicObjects;
 NumColors;
 OK;OK
 One output file per input file;One output file per input file
@@ -909,6 +962,7 @@ Original;Originál
 OriginalNetworkName;
 OriginalSourceForm;
 OriginalSourceMedium;
+OriginalSourceMedium_ID;
 Originator;
 Other;Rôzne
 OtherIdentifier;
@@ -920,6 +974,7 @@ OverallBitRate_Maximum;
 OverallBitRate_Minimum;
 OverallBitRate_Mode;
 OverallBitRate_Nominal;
+PackageName;
 Part;Časť
 Part_Count;Celkový počet
 PartNumber;
@@ -936,9 +991,12 @@ Played_Count;
 Played_First_Date;Dátum prvého prehratia
 Played_Last_Date;Dátum posledného prehratia
 PlayTime;Hrací čas
+PodcastCategory;
 Position;Pozícia
 Position_Total;Celkom
 Preferences;Predvoľby
+Premium;
+Premium_Summary;
 PrimaryAudioLanguage;
 Producer;Producent
 ProductionDesigner;ProductionDesigner
@@ -957,10 +1015,15 @@ Recorded_Date;Dátum nahrávania
 Recorded_Location;Lokalita nahrávania
 Released_Date;Dátum vydania
 RemixedBy;Remixoval/-a
+Renew;
 ReplayGain_Gain;
 ReplayGain_Peak;
+Report;
 Resolution;Rozlíšenie
 s; sek.
+SamplePeakLevel;
+SamplePeakLevel_Album;
+SamplesPerFrame;
 SamplingCount;
 SamplingRate;Sampling rate
 Save;Uložiť
@@ -981,6 +1044,7 @@ Separator_Columns;Oddeľovač stĺpcov
 Separator_Lines;Oddeľovač riadkov
 SeriesTitle;
 ServiceChannel;
+ServiceKind;
 ServiceName;
 ServiceProvider;
 ServiceType;
@@ -1016,17 +1080,33 @@ Stream;Dátový stream
 Stream_MoreInfo;More information about the stream
 StreamCount;Count of stream of this kind
 StreamID;Stream ID
+streamIdentifier;
 StreamKind;Kind of stream
 StreamKindID;
 StreamKindPos;
 StreamSize;
+StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;
 Subject;Subjekt
+Subscribe;
+Subscribe_Button;
+Subscribe_Failed;
+Subscribe_Manage;
+Subscribe_Renew;
+Subscribe_Renew_Price;
+Subscribe_Unaviable;
+Subscribe_Waiting;
+Subscription_Active;
+Subscription_Android;
+Subscription_Ended;
+Subscription_Expired;
+Subscription_Thanks;
 SubTrack;SubTrack
 Summary;Summary
 Supported formats;Podporované formáty
 Supported?;Podporovaný?
+SupportUs;
 Synopsis;Synopsis
 SystemId;Id
 Tagged_Application;
@@ -1063,11 +1143,17 @@ TotalProgrammeDuration;
 Track;Názov stopy
 Track_Count;Počet stôp
 transfer_characteristics;
+Translate_Reports;
 Translator;Preložil
 Tree;Strom
 Tree & Text;Strom a text
+TruePeakLevel;
+TruePeakLevel_Album;
 Type;
 UniqueID;
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;Neznámy
 Url;Url
 Video;Video
@@ -1081,8 +1167,10 @@ VideoComments;
 VideoCount;Počet video streamov
 View;Zobraziť
 View_Hint;Zobraziť
+Views;
 Warning : more streams in the files;Pozor: v súboroch je viacero streamov !
 Web;Web
+WebSite;
 WebSite_Audio;Navštív webstránku tohoto audiokodeku
 WebSite_Audio_More;Vyhľadaj tento audiokodek na webstránke (%Url%)
 WebSite_General;Go to the web site of a player for this file
@@ -1102,5 +1190,5 @@ Written_Location;Written location
 WrittenBy;Napísal
 Yes;Áno
 Your system;Váš systém
-ZZ_Automatic_Percent;75
-ZZ_AutomaticLanguage_Percent;81
+ZZ_Automatic_Percent;69
+ZZ_AutomaticLanguage_Percent;75

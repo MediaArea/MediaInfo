@@ -5,8 +5,13 @@
 "38.ibShadowedToolTips[0]" = "أساسي";
 "38.ibShadowedToolTips[1]" = "شجرة";
 "38.ibShadowedToolTips[2]" = "نص";
-"38.ibShadowedToolTips[3]" = "Other Views";
+"38.ibShadowedToolTips[3]" = "Compare View (Premium feature)";
+"38.ibShadowedToolTips[4]" = "Other Views";
 "39.label" = "رؤية";
 "39.paletteLabel" = "رؤية";
 "PWm-W6-Msn.title" = "اختيار صيغة تصدير الماف";
+"dpG-p5-QwC.label" = "";
+"dpG-p5-QwC.paletteLabel" = "Subscribe";
+"eZC-pc-IWN.label" = "Compare";
+"kut-ID-XH0.ibShadowedToolTips[0]" = "Subscribe to premium features";
 "l1c-6L-mdF.title" = "نص";

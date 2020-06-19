@@ -155,6 +155,7 @@ Actor;Исполнитель
 Actor_Character;Роль
 Added_Date;Дата добавлениия
 Address;Адрес
+AdID;
 Advanced;Дополнительно
 Advanced mode;Расширенный режим
 Album;Альбом
@@ -164,6 +165,7 @@ Alignment;Выравнивание
 Alignment_Aligned;Соединение по промежуткам
 Alignment_Split;Разделение по промежуткам
 All;Все
+AlternateGroup;
 Archival_Location;Место хранения
 Arranger;Аранжировщик
 ArtDirector;Арт-директор
@@ -187,7 +189,10 @@ Author;Автор
 BarCode;Штрих-код
 Basic;Кратко
 Basic_Note;Примечание: для дополнительной информации выберите другую закладку (таблица, дерево,...)
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;Битовая глубина
+BitDepth_Detected;
 BitDepth_Stored;Сохранённая битовая глубина
 BitRate;Битрейт
 BitRate_Encoded;Закодированный битрейт
@@ -201,6 +206,7 @@ Bits-(Pixel*Frame);Бит/(Пиксели*Кадры)
 BufferSize;Размер буфера
 Cancel;Отмена
 Channel(s);Каналы
+ChannelLayout;
 ChannelPositions;Расположение каналов
 Chapter(s);Разделы
 Chapters;Разделы
@@ -216,9 +222,10 @@ Choose export format;Выберите формат вывода
 Choose file(s);Выберите файлы
 Choose filename;Выберите имя файла
 Choose language;Выберите язык
-Choregrapher;Хореограф
+Choreographer;Хореограф
 Chroma;Цветность
 ChromaSubsampling;Субдискретизация насыщенности
+ClearList;
 Close;Закрыть
 Close all before open;Закрывать всё перед открытием новых файлов
 ClosedCaptionsLanguage;Язык субтитров
@@ -242,6 +249,7 @@ Codec_Settings_PacketBitStream;Параметр пакетного потока 
 Codec_Settings_QPel;Параметр QPel кодека
 Codec_Settings_Sign;Параметр Sign кодека
 Codec_Url;Ссылка на кодек
+CodecConfigurationBox;
 CodecID;Идентификатор кодека
 CodecID_Description;Описание кодека
 CoDirector;Содиректор
@@ -255,12 +263,14 @@ CommissionedBy;Поручитель
 Compilation;Компиляция
 CompleteName;Полное имя
 CompletionDate;Дата завершения
+ComplexityIndex;
 Composer;Композитор
 Compression_Mode;Метод сжатия
 Compression_Mode_Lossless;Без потерь
 Compression_Mode_Lossy;С потерями
 Compression_Ratio;Степень сжатия
 Conductor;Дирижёр
+ConformanceCheck;
 ContactEmail;Контактный почтовый адрес
 ContactTelephoneNumber;Контактный телефон
 Container and general information;Общая информация
@@ -279,9 +289,11 @@ Cover_Type;Тип обложки
 Cropped;Размеры подрезки
 Custom;Выборочно
 Customize;Настройка
+DarkMode;
 Date;Дата
 Debug;Отладка
 Decimal point;Десятичная точка
+Default_Setting;
 Delay;Задержка
 Delay_Source;Задержка в оригинале
 Delay_Source_Container;Контейнер
@@ -292,6 +304,7 @@ Digitized_Date;Дата оцифровки
 Dimensions;Размеры
 Director;Режиссёр
 DirectorOfPhotography;Оператор
+Disabled;
 DisplayAspectRatio;Соотношение сторон
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Соотношение сторон в оригинале
@@ -299,11 +312,14 @@ DistributedBy;Распространитель
 Distributor;Распространитель
 Donate;Сделать пожертвование
 DotsPerInch;Точек на дюйм
+DrcSets_Count;
+DrcSets_Effects;
 Duration;Продолжительность
 Duration_End;Время окончания
 Duration_Start;Время начала
 Edit;Править
 EditedBy;Изменено
+ElementCount;
 EMail;Почта
 Encoded_Application;Программа кодирования
 Encoded_Date;Дата кодирования
@@ -314,12 +330,14 @@ EncodedBy;Кодирование произвёл
 EPG_Positions;Позиции EPG (внутренние)
 EpisodeTitleNumber;Номер заголовка эпизода
 Error_File;Ошибка в файле
+Error_File_Write;
 ExecutiveProducer;Исполнительный продюсер
 Exit;Выход
 Exit_Hint;Выход из программы
 Export;Экспорт
 Export_Hint;Экспорт данных в различных форматах
 Extensions;Используется в
+External_Media_NotMounted;
 Family;Семейство
 Fax;Факс
 File;Файл
@@ -332,6 +350,7 @@ File_Modified_Date;Дата изменения файла
 File_Modified_Date_Local;Дата изменения файла (местная)
 FileExtension;Расширение
 FileName;Имя файла
+FileNameExtension;
 FileSize;Размер файла
 Folder;Папка
 Folder (R);Папка (R)
@@ -342,8 +361,10 @@ FolderName;Имя папки
 Format;Формат
 Format_Commercial;Коммерческое название
 Format_Commercial_IfAny;Коммерческое название
+Format_Compression;
 Format_Description;Описание формата
 Format_Info;Подробно о формате
+Format_Level;
 Format_Profile;Профиль формата
 Format_Settings;Настройки формата
 Format_Settings_BVOP;Параметр BVOP формата
@@ -367,10 +388,11 @@ Format_Settings_PictureStructure;Структура изображения
 Format_Settings_PS;Параметр PS формата
 Format_Settings_Pulldown;Параметр Pulldownd формата
 Format_Settings_QPel;Параметр QPel формата
-Format_Settings_RefFrames;Параметр ReFrames формата
+Format_Settings_RefFrames;Параметр RefFrames формата
 Format_Settings_SBR;Параметр SBR формата
 Format_Settings_Sign;Параметр Sign формата
 Format_Settings_Wrapping;Режим переноса
+Format_Tier;
 Format_Url;Ссылка на формат
 Format_Version;Версия формата
 FpaManufacturer;Производитель FPA
@@ -471,7 +493,7 @@ Genre_080;Folk
 Genre_081;Folk-Rock
 Genre_082;National Folk
 Genre_083;Swing
-Genre_084;Fast-Fusion
+Genre_084;Fast Fusion
 Genre_085;Bebop
 Genre_086;Latin
 Genre_087;Revival
@@ -580,12 +602,13 @@ Genre_189;Dubstep
 Genre_190;Garage Rock
 Genre_191;Psybient
 Go to WebSite;Перейти на сайт программы
-Grouping;Группирование
 Gop_OpenClosed;GOP, открыто/закрыто
-Gop_OpenClosed_Open;Открыто
 Gop_OpenClosed_Closed;Закрыто
 Gop_OpenClosed_FirstFrame;GOP, открыто/закрыто на первом кадре
+Gop_OpenClosed_Open;Открыто
+Grouping;Группирование
 h; ч.
+HDR_Format;
 Header file;Создать заголовок
 Height;Высота
 Height_CleanAperture;
@@ -667,6 +690,7 @@ Language_en-gb;English (Great Britain)
 Language_en-us;English (United States)
 Language_eo;Esperanto
 Language_es;Spanish
+Language_es-419;
 Language_et;Estonian
 Language_eu;Basque
 Language_fa;Persian
@@ -690,6 +714,7 @@ Language_hr;Croatian
 Language_ht;Haitian
 Language_hu;Hungarian
 Language_hy;Armenian
+Language_hy-az;
 Language_hz;Herero
 Language_ia;Auxiliary Language Association
 Language_id;Indonesian
@@ -734,10 +759,12 @@ Language_mi;Maori
 Language_mk;Macedonian
 Language_ml;Malayalam
 Language_mn;Mongolian
+Language_mn-cn;
 Language_mo;Moldavian
 Language_More;Язык, дополнительно
 Language_mr;Marathi
 Language_ms;Malay
+Language_ms-bn;
 Language_mt;Maltese
 Language_mul;Несколько языков
 Language_my;Burmese
@@ -747,6 +774,7 @@ Language_nd;Ndebele
 Language_ne;Nepali
 Language_ng;Ndonga
 Language_nl;Dutch
+Language_nl-be;
 Language_nn;Norwegian Nynorsk
 Language_no;Norwegian
 Language_nr;Ndebele
@@ -778,6 +806,7 @@ Language_si;Sinhala
 Language_sk;Slovak
 Language_sl;Slovenian
 Language_sm;Samoan
+Language_smi;
 Language_sn;Shona
 Language_so;Somali
 Language_sq;Albanian
@@ -824,15 +853,38 @@ Library;Библиотека смешивания
 Lightness;Якрость
 LineUpStart;Начало построения
 List;Список
+Loudness_Anchor;
+Loudness_Anchor_Album;
+Loudness_Count;
+Loudness_Count_Album;
+Loudness_MaximumMomentary;
+Loudness_MaximumMomentary_Album;
+Loudness_MaximumOfRange;
+Loudness_MaximumOfRange_Album;
+Loudness_MaximumShortTerm;
+Loudness_MaximumShortTerm_Album;
+Loudness_ProductionMixingLevel;
+Loudness_ProductionMixingLevel_Album;
+Loudness_Program;
+Loudness_Program_Album;
+Loudness_Range;
+Loudness_Range_Album;
+Loudness_RoomType;
+Loudness_RoomType_Album;
 Lyricist;Поэт-песенник
 Lyrics;Текст песен
 Mastered_Date;Дата мастеринга
 MasteredBy;Мастеринг произвёл
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);Канал(ы) кодирования матрицы
 Matrix_ChannelPositions;Позиции каналов кодирования матрицы
 matrix_coefficients;Коэффициенты матрицы
 Matrix_Format;Формат кодирования матрицы
+MaxCLL;
+MaxFALL;
 MediaInfo_About;Отображает детальную информацию\r\nо мультимедиа-файлах Matroska, OGG (включая OGM)\r\nMPEG1 (включая VCD), MPEG2 (включая DVD и SVCD), MPEG4 (включая iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (включая WMV, WMA)\r\nMicrosoft RIFF (включая AVI, WAV, DivX)\r\nзвуковых форматах (AC3, DTS, SSC, AU, AIFF)
+MediaInfo_About_About;
 Menu;Меню
 Menu stream(s);Меню потоков
 Menu_Codec_List;Меню кодеков
@@ -860,6 +912,7 @@ NewVersion_Question_Content;Доступна новая версия %Version%, 
 NewVersion_Question_Title;Выпущена новая версия!
 No;Нет
 Not yet;Ещё нет
+NumberOfDynamicObjects;
 NumColors;Количество цветов
 OK;OK
 One output file per input file;Новый файл для каждого исходного
@@ -909,6 +962,7 @@ Original;Оригинал
 OriginalNetworkName;Оригинальное название сети
 OriginalSourceForm;Формат оригинала
 OriginalSourceMedium;Носитель оригинала
+OriginalSourceMedium_ID;
 Originator;Инициатор
 Other;Прочее
 OtherIdentifier;Другой идентификатор
@@ -920,6 +974,7 @@ OverallBitRate_Maximum;Максимальный общий битрейт
 OverallBitRate_Minimum;Минимальный общий битрейт
 OverallBitRate_Mode;Режим общего битрейта
 OverallBitRate_Nominal;Номинальный общий битрейт
+PackageName;
 Part;Часть
 Part_Count;Количество частей
 PartNumber;Номер части
@@ -936,9 +991,12 @@ Played_Count;Воспроизведено раз
 Played_First_Date;Первое воспроизведение
 Played_Last_Date;Последнее воспроизведение
 PlayTime;Длительность
+PodcastCategory;
 Position;Положение
 Position_Total;Всего
 Preferences;Настройки
+Premium;
+Premium_Summary;
 PrimaryAudioLanguage;Основной язык аудио
 Producer;Продюсер
 ProductionDesigner;Художник-постановщик
@@ -957,10 +1015,15 @@ Recorded_Date;Дата записи
 Recorded_Location;Место записи
 Released_Date;Дата выпуска
 RemixedBy;Ремикс выполнил
+Renew;
 ReplayGain_Gain;Нормализатор звука
 ReplayGain_Peak;Пик нормализатор звука
+Report;
 Resolution;Разрешение
 s; с.
+SamplePeakLevel;
+SamplePeakLevel_Album;
+SamplesPerFrame;
 SamplingCount;Количество образцов
 SamplingRate;Частота
 Save;Сохранить
@@ -981,6 +1044,7 @@ Separator_Columns;Разделитель столбцов
 Separator_Lines;Разделитель строк
 SeriesTitle;Заголовок серий
 ServiceChannel;Номер канала сервиса
+ServiceKind;
 ServiceName;Название сервиса
 ServiceProvider;Поставщик сервиса
 ServiceType;Тип сервиса
@@ -1016,17 +1080,33 @@ Stream;Поток
 Stream_MoreInfo;Дополнительная информация о потоке
 StreamCount;Количество потоков такого типа
 StreamID;Идентификатор потока
+streamIdentifier;
 StreamKind;Тип потока
 StreamKindID;Идентификатор типа потока
 StreamKindPos;Позиция идентификатора типа потока
 StreamSize;Размер потока
+StreamSize_Demuxed;
 StreamSize_Encoded;Закодированный размер потока
 StreamSize_Proportion;Пропорции потока
 Subject;Тема
+Subscribe;
+Subscribe_Button;
+Subscribe_Failed;
+Subscribe_Manage;
+Subscribe_Renew;
+Subscribe_Renew_Price;
+Subscribe_Unaviable;
+Subscribe_Waiting;
+Subscription_Active;
+Subscription_Android;
+Subscription_Ended;
+Subscription_Expired;
+Subscription_Thanks;
 SubTrack;Подпоток
 Summary;Сводка
 Supported formats;Поддерживаемые форматы
 Supported?;Поддерживается?
+SupportUs;
 Synopsis;Сводка
 SystemId;Идентификатор
 Tagged_Application;Пометившая программа
@@ -1063,11 +1143,17 @@ TotalProgrammeDuration;Общая продолжительность прогр�
 Track;Трек
 Track_Count;Количество треков
 transfer_characteristics;Характеристики трансфера
+Translate_Reports;
 Translator;Переводчик
 Tree;Дерево
 Tree & Text;Дерево и текст
+TruePeakLevel;
+TruePeakLevel_Album;
 Type;Тип
 UniqueID;Уникальный идентификатор
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;Неизвестно
 Url;Ссылка
 Video;Видео
@@ -1081,8 +1167,10 @@ VideoComments;Видео комментарии
 VideoCount;Количество видеопотоков
 View;Вид
 View_Hint;Измените отношение к просмотру информации
+Views;
 Warning : more streams in the files;Внимание: в файлах есть ещё потоки
 Web;Сайт
+WebSite;
 WebSite_Audio;Сайт аудиокодека
 WebSite_Audio_More;Перейти на сайт (%Url%) для поиска этого аудиокодека
 WebSite_General;Перейти на сайт проигрывателя для этого файла
@@ -1102,5 +1190,5 @@ Written_Location;Место записи
 WrittenBy;Запись произвёл
 Yes;Да
 Your system;Ваша система
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;92
+ZZ_AutomaticLanguage_Percent;92
