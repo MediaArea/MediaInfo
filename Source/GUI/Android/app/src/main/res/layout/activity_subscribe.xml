@@ -44,14 +44,16 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/text_margin"
                 android:text="@string/store_text"
+                android:layout_gravity="center_horizontal"
                 android:textAlignment="center" />
         </LinearLayout>
     </ScrollView>
     <Button
         android:id="@+id/subscribe_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/subscribe_text"
+        android:layout_margin="10dp"
+        android:text="@string/subscribe_button_text"
         android:enabled="false"
         android:textColor="@android:color/white"
         android:background="@color/colorPrimary"
@@ -65,4 +67,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/subscription_detail_text" />
+    <Button
+        android:id="@+id/lifetime_subscribe_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/lifetime_subscribe_button_text"
+        android:enabled="false"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimary"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>

@@ -1091,6 +1091,7 @@ StreamSize_Proportion;Proportion de ce flux
 Subject;Sujet
 Subscribe;S'abonner
 Subscribe_Button;S'abonner (%PRICE% pour un an)
+Lifetime_Subscribe_Button;S'abonner à vie pour %PRICE%
 Subscribe_Failed;Achat annulé ou échoué
 Subscribe_Manage;Gérer l'abonnement
 Subscribe_Renew;Renouveler l'abonnement ?
@@ -1098,7 +1099,7 @@ Subscribe_Renew_Price;Renouveler l'abonnement (%PRICE% pour un an)
 Subscribe_Unaviable;Impossible de récupérer les details de l'abonnement.
 Subscribe_Waiting;Abonnement en attente d'autorisation parentale
 Subscription_Active;Abonnement actif jusqu'au %DATE%
-Subscription_Android;%PRICE% par an avec une période d'essai gratuite de 3 jours.
+Subscription_Android;Période d'essai gratuite de 3 jours.
 Subscription_Ended;Votre abonnement vient de se terminer.
 Subscription_Expired;Abonnement expiré depuis le %DATE%
 Subscription_Thanks;Abonnement détecté. Merci pour votre soutien !
