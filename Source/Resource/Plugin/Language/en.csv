@@ -850,6 +850,7 @@ Language_zu;Zulu
 LawRating;Law rating
 LCCN;LCCN
 Library;Muxing library
+Lifetime_Subscribe_Button;Lifetime subscription for %PRICE%
 Lightness;Lightness
 LineUpStart;Line Up Start
 List;List
@@ -1020,6 +1021,7 @@ ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replay gain peak
 Report;Report
 Resolution;Resolution
+RestoreLifetimeSubscription;Restore lifetime subscription
 s; s
 SamplePeakLevel;Sample peak level
 SamplePeakLevel_Album;Sample peak level (album)
@@ -1102,6 +1104,7 @@ Subscription_Active;Subscription active until %DATE%
 Subscription_Android;Free 3 days trial period.
 Subscription_Ended;Your subscription has just ended.
 Subscription_Expired;Subscription expired since %DATE%
+Subscription_Lifetime;Lifetime subscription detected
 Subscription_Thanks;Subscription detected. Thanks for your support!
 SubTrack;SubTrack
 Summary;Summary

@@ -33,7 +33,8 @@ typedef enum { Kind_Text, Kind_HTML, Kind_XML, Kind_CSV, Kind_JSON, Kind_PBCore,
     IBOutlet NSTableView *easyTable;
     IBOutlet CompareView *compareView;
     IBOutlet NSSegmentedControl *subscribeButton;
-
+    IBOutlet NSToolbarItem *subscribeButtonItem;
+    IBOutlet NSToolbar *mainToolbar;
     oMediaInfoList *mediaList;
     NSInteger selectedFileIndex;
 

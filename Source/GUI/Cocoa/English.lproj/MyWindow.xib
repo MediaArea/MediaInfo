@@ -19,8 +19,10 @@
                 <outlet property="exportFormatButton" destination="j1u-Ak-VG3" id="K4p-gd-tbT"/>
                 <outlet property="formatSelectionAccView" destination="xCY-zS-1YJ" id="eeC-lK-5e4"/>
                 <outlet property="hline" destination="120" id="ZeC-Dk-8ac"/>
+                <outlet property="mainToolbar" destination="3" id="Km1-b5-mKc"/>
                 <outlet property="otherViewsMenu" destination="4PR-wq-KNx" id="kYH-53-DSC"/>
                 <outlet property="subscribeButton" destination="N1w-10-Mom" id="vhP-MO-VNE"/>
+                <outlet property="subscribeButtonItem" destination="dpG-p5-QwC" id="mAu-Ik-D1b"/>
                 <outlet property="tabSelector" destination="37" id="119"/>
                 <outlet property="tabs" destination="13" id="51"/>
                 <outlet property="textField" destination="60" id="61"/>

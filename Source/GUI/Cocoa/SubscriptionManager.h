@@ -16,7 +16,7 @@
 +(instancetype)shared;
 
 -(void)requestSubscriptionDetails;
--(void)purchaseSubscription;
+-(void)purchaseSubscription:(SKProduct *)product;
 -(void)restoreSubscriptions;
 -(void)parseSubscriptions;
 -(void)purchaseSucceeded:(SKPaymentTransaction *)transaction;
@@ -25,8 +25,10 @@
 -(void)purchaseRestored:(SKPaymentTransaction *)transaction;
 -(void)userNotifiedForSubscriptionEnd;
 
+@property (readonly) BOOL isLifetime;
 @property (readonly, strong) NSDate *subscriptionEndDate;
 @property (readonly, strong) SKProduct *subscription;
+@property (readonly, strong) SKProduct *lifetimeSubscription;
 @property (readonly) NSArray *subscriptions;
 @property (readonly) BOOL subscriptionActive;
 @property (readonly) BOOL shouldNotifyUserForSubscription;

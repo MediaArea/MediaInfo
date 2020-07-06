@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign) IBOutlet NSButton *retryButton;
 @property (assign) IBOutlet NSTextField *statusText;
 @property (assign) IBOutlet NSButton *subscribeButton;
+@property (assign) IBOutlet NSButton *lifetimeSubscribeButton;
+@property (assign) IBOutlet NSButton *restoreButton;
 @property (assign) IBOutlet NSTextField *legalText;
 
 +(instancetype)controller;
