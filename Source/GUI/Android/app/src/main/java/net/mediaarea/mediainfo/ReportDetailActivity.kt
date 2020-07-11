@@ -6,11 +6,11 @@
 
 package net.mediaarea.mediainfo
 
-import androidx.core.app.NavUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 
 import android.content.Intent
+import android.app.Activity
 import android.os.Bundle
 import android.os.Build
 
@@ -18,9 +18,24 @@ import android.view.MenuItem
 
 import android.content.res.AssetManager
 
+import androidx.viewpager.widget.ViewPager
+
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.android.schedulers.AndroidSchedulers
+
 import kotlinx.android.synthetic.main.activity_report_detail.*
 
 class ReportDetailActivity : AppCompatActivity(), ReportActivityListener {
+    private inner class PageChangeListener(private val reports: List<Report>) : ViewPager.SimpleOnPageChangeListener() {
+        override fun onPageSelected(position: Int) {
+            super.onPageSelected(position)
+            title = reports.elementAt(position).filename
+            intent.putExtra(Core.ARG_REPORT_ID, reports.elementAt(position).id)
+
+        }
+    }
+    private var disposable: CompositeDisposable = CompositeDisposable()
     private lateinit var reportModel: ReportViewModel
 
     override fun getReportViewModel(): ReportViewModel {
@@ -43,39 +58,51 @@ class ReportDetailActivity : AppCompatActivity(), ReportActivityListener {
         // Show the Up button in the action bar.
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        if (resources.getBoolean(R.bool.has_two_pane)) {
+            finish()
+            return
+        }
+
         val viewModelFactory = Injection.provideViewModelFactory(this)
         reportModel = ViewModelProvider(this, viewModelFactory).get(ReportViewModel::class.java)
 
-        // savedInstanceState is non-null when there is fragment state
-        // saved from previous configurations of this activity
-        // (e.g. when rotating the screen from portrait to landscape).
-        // In this case, the fragment will automatically be re-added
-        // to its container so we don't need to manually add it.
-        // For more information, see the Fragments API guide at:
-        //
-        // http://developer.android.com/guide/components/fragments.html
-        //
-        if (savedInstanceState == null) {
-            // Create the detail fragment and add it to the activity
-            // using a fragment transaction.
-            val fragment = ReportDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ReportDetailFragment.ARG_REPORT_ID,
-                            intent.getIntExtra(ReportDetailFragment.ARG_REPORT_ID, -1))
+        disposable.add(reportModel.getAllReports()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { reports: List<Report> ->
+                pager.addOnPageChangeListener(PageChangeListener(reports))
+                pager.adapter = PagerAdapter(supportFragmentManager, reports)
+                val id = intent.getIntExtra(Core.ARG_REPORT_ID, -1)
+                if (id!=-1) {
+                    val index = reports.indexOfFirst { it.id == id }
+                    if (index!=-1) {
+                        title = reports.elementAt(index).filename
+                        pager.setCurrentItem(index, false)
+                    }
                 }
-            }
+            })
+    }
 
-            supportFragmentManager.beginTransaction()
-                    .add(R.id.report_detail_container, fragment)
-                    .commit()
-        }
+    override fun onStop() {
+        super.onStop()
+
+        // clear all the subscription
+        disposable.clear()
+    }
+
+    override fun finish() {
+        val id = intent.getIntExtra(Core.ARG_REPORT_ID, -1)
+        val result = Intent()
+        result.putExtra(Core.ARG_REPORT_ID, id)
+        setResult(Activity.RESULT_OK, result)
+
+        super.finish()
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         android.R.id.home -> {
-            NavUtils.navigateUpTo(this, Intent(this, ReportListActivity::class.java))
+            finish()
             true
-
         }
         else -> super.onOptionsItemSelected(item)
     }

@@ -22,9 +22,9 @@ interface ReportDao {
     fun getLastId(): Single<Int>
 
     @Query("SELECT * FROM reports WHERE id = :id")
-    fun getReport(id: Int): Flowable<Report>
+    fun getReport(id: Int): Single<Report>
 
-    @Query("SELECT * FROM reports")
+    @Query("SELECT * FROM reports ORDER BY id")
     fun getAllReports(): Flowable<List<Report>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
