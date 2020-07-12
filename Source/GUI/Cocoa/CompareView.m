@@ -270,6 +270,13 @@
     return [[outlineView tableColumns] indexOfObject:tableColumn] > 0;
 }
 
+-(BOOL)outlineView:(NSOutlineView *)outlineView shouldReorderColumn:(NSInteger)columnIndex toColumn:(NSInteger)newColumnIndex {
+    if (columnIndex==0 || newColumnIndex==0)
+        return NO;
+
+    return YES;
+}
+
 -(void)outlineViewSelectionDidChange:(NSNotification *)notification {
     _selectedIndex = [_outlineView selectedColumn];
 }
