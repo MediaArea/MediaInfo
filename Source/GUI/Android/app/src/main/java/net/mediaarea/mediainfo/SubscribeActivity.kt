@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import com.android.billingclient.api.SkuDetails
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingFlowParams
+import android.app.Activity
 import android.os.Bundle
 import android.view.Gravity
 import android.view.MenuItem
@@ -47,6 +48,7 @@ class SubscribeActivity : AppCompatActivity() {
                         .setSkuDetails(subscriptionDetails)
                         .build()
                 if (subscriptionManager.launchBillingFlow(this, request) == BillingClient.BillingResponse.OK) {
+                    setResult(Activity.RESULT_OK)
                     finish()
                 }
             }
@@ -55,6 +57,7 @@ class SubscribeActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
+            setResult(Activity.RESULT_CANCELED)
             finish()
         }
 
