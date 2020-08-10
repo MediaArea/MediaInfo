@@ -31,8 +31,6 @@ Parallel_Make () {
 
 Home=`pwd`
 ZenLib_Options=""
-# For wx compilation
-MacOptions="--with-macosx-version-min=10.5"
 
 OS=$(uname -s)
 # expr isn’t available on mac
@@ -54,11 +52,8 @@ if test -e ZenLib/Project/GNU/Library/configure; then
     cd ZenLib/Project/GNU/Library/
     test -e Makefile && rm Makefile
     chmod +x configure
-    if [ "$OS" = "mac" ]; then
-        ./configure --enable-static --disable-shared $MacOptions $ZenLib_Options $*
-    else
-        ./configure --enable-static --disable-shared $ZenLib_Options $*
-    fi
+    ./configure --enable-static --disable-shared $ZenLib_Options $*
+
     if test -e Makefile; then
         make clean
         Parallel_Make
@@ -85,11 +80,8 @@ if test -e MediaInfoLib/Project/GNU/Library/configure; then
     cd MediaInfoLib/Project/GNU/Library/
     test -e Makefile && rm Makefile
     chmod +x configure
-    if [ "$OS" = "mac" ]; then
-        ./configure --enable-static --disable-shared $MacOptions $*
-    else
-        ./configure --enable-static --disable-shared $*
-    fi
+    ./configure --enable-static --disable-shared $*
+
     if test -e Makefile; then
         make clean
         Parallel_Make
@@ -116,11 +108,8 @@ if test -e MediaInfo/Project/GNU/GUI/configure; then
     cd MediaInfo/Project/GNU/GUI/
     test -e Makefile && rm Makefile
     chmod +x configure
-    if [ "$OS" = "mac" ]; then
-        ./configure --enable-staticlibs $MacOptions $*
-    else
-        ./configure --enable-staticlibs $*
-    fi
+    ./configure --enable-staticlibs $*
+
     if test -e Makefile; then
         make clean
         Parallel_Make
@@ -145,4 +134,4 @@ cd $Home
 echo "MediaInfo executable is MediaInfo/Project/GNU/GUI/mediainfo-gui"
 echo "For installing, cd MediaInfo/Project/GNU/GUI && make install"
 
-unset -v Home ZenLib_Options MacOptions OS
+unset -v Home ZenLib_Options OS
