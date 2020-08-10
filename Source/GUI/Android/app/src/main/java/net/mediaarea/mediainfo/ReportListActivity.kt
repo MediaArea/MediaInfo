@@ -373,20 +373,13 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                         true
                     }
                 }
-
-                if (!Core.thanked) {
-                    // Show thanks message
-                    Core.thanked=true
-                    val toast = Toast.makeText(applicationContext, R.string.thanks_text, Toast.LENGTH_SHORT)
-                    toast.show()
-                }
             } else {
                 menu?.findItem(R.id.action_subscribe).let { item ->
                     item?.title = getString(R.string.subscribe_text)
 
                     item?.setOnMenuItemClickListener { _ ->
                         val intent = Intent(this, SubscribeActivity::class.java)
-                        startActivity(intent)
+                        startActivityForResult(intent, SUBSCRIBE_REQUEST)
 
                         true
                     }
@@ -435,6 +428,9 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                             AddFile().execute(resultData.data)
                         }
                     }
+                }
+                SUBSCRIBE_REQUEST -> {
+                    Toast.makeText(applicationContext, R.string.thanks_text, Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -644,6 +640,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     }
 
     companion object {
+        const val SUBSCRIBE_REQUEST = 30
         const val OPEN_FILE_REQUEST= 40
         const val READ_EXTERNAL_STORAGE_PERMISSION_REQUEST = 50
     }
