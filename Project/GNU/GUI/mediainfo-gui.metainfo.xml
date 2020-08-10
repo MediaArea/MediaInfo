@@ -101,9 +101,9 @@
   <update_contact>info@mediaarea.net</update_contact>
   <developer_name>MediaArea.net SARL</developer_name>
   <releases>
-    <release version="20.03" date="2020-04-03">
+    <release version="20.08" date="2020-08-11">
       <description>
-        <p>Update to MediaInfo library 20.03 with bug fixes, see https://mediaarea.net/MediaInfo/ChangeLog for more details.</p>
+        <p>Update to MediaInfo library 20.08 with bug fixes, see https://mediaarea.net/MediaInfo/ChangeLog for more details.</p>
       </description>
     </release>
   ​</releases>
