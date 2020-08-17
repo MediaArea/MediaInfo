@@ -103,7 +103,7 @@
   <releases>
     <release version="20.08" date="2020-08-11">
       <description>
-        <p>Update to MediaInfo library 20.08 with bug fixes, see https://mediaarea.net/MediaInfo/ChangeLog for more details.</p>
+        <p>Update to MediaInfo library 20.08 with bug fixes.</p>
       </description>
     </release>
   ​</releases>
