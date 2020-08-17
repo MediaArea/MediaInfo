@@ -1091,6 +1091,7 @@ StreamSize_Proportion;Proportion of this stream
 Subject;Subject
 Subscribe;Subscribe
 Subscribe_Button;Subscribe (%PRICE% for one year)
+Lifetime_Subscribe_Button;Lifetime subscription for %PRICE%
 Subscribe_Failed;Purchase canceled or failed
 Subscribe_Manage;Manage subscription
 Subscribe_Renew;Renew subscription?
@@ -1098,7 +1099,7 @@ Subscribe_Renew_Price;Renew subscription (%PRICE% for one year)
 Subscribe_Unaviable;Unable to retrieve subscription details.
 Subscribe_Waiting;Purchase waiting for parent approval
 Subscription_Active;Subscription active until %DATE%
-Subscription_Android;%PRICE% per year with free 3 days trial period.
+Subscription_Android;Free 3 days trial period.
 Subscription_Ended;Your subscription has just ended.
 Subscription_Expired;Subscription expired since %DATE%
 Subscription_Thanks;Subscription detected. Thanks for your support!

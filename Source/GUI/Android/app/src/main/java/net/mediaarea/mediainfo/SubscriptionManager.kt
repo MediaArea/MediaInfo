@@ -26,7 +26,9 @@ import com.android.billingclient.api.*
 class SubscriptionManager private constructor(private val application: Application) : PurchasesUpdatedListener, BillingClientStateListener, LifecycleObserver {
     val ready = MutableLiveData<Boolean>()
     val subscribed = MutableLiveData<Boolean>()
+    val isLifetime = MutableLiveData<Boolean>()
     val details = MutableLiveData<SkuDetails>()
+    val lifetimeDetails = MutableLiveData<SkuDetails>()
 
     private lateinit var billingClient: BillingClient
 
@@ -38,6 +40,7 @@ class SubscriptionManager private constructor(private val application: Applicati
 
         updateState(false)
         updateSubscribedState(false)
+        updateLifetimeState(false)
 
         if (billingClient.isReady) {
             updateState(isSubscriptionSupported())
@@ -56,13 +59,19 @@ class SubscriptionManager private constructor(private val application: Applicati
 
     private fun updateState(newState: Boolean) {
         if (ready.value!=newState) {
-            ready.postValue(newState)
+            ready.value = newState
         }
     }
 
     private fun updateSubscribedState(newState: Boolean) {
         if (subscribed.value!=newState) {
-            subscribed.postValue(newState)
+            subscribed.value = newState
+        }
+    }
+
+    private fun updateLifetimeState(newState: Boolean) {
+        if (isLifetime.value!=newState) {
+            isLifetime.value = newState
         }
     }
 
@@ -93,8 +102,8 @@ class SubscriptionManager private constructor(private val application: Applicati
             RetryPolicies.resetConnectionRetryPolicyCounter()
 
             fun updatePurchasesTask() {
-                val result = billingClient.queryPurchases(BillingClient.SkuType.SUBS)
-                handlePurchases(result?.purchasesList)
+                handlePurchases(billingClient.queryPurchases(BillingClient.SkuType.SUBS)?.purchasesList)
+                handlePurchases(billingClient.queryPurchases(BillingClient.SkuType.INAPP)?.purchasesList)
             }
             RetryPolicies.taskExecutionRetryPolicy(billingClient, this) { updatePurchasesTask() }
 
@@ -109,10 +118,33 @@ class SubscriptionManager private constructor(private val application: Applicati
                     if (result == BillingClient.BillingResponse.OK) {
                         list?.forEach {
                             if (it.sku == application.getString(R.string.subscription_sku)) {
-                                details.postValue(it)
-                                updateState(true)
+                                details.value = it
                             }
                         }
+
+                        if (details.value != null && lifetimeDetails.value != null) {
+                            updateState(true)
+                        }
+                    }
+                }
+            }
+
+            val params = SkuDetailsParams
+               .newBuilder()
+               .setSkusList(listOf(application.getString(R.string.lifetime_subscription_sku)))
+               .setType(BillingClient.SkuType.INAPP)
+               .build()
+
+            billingClient.querySkuDetailsAsync(params) { result: Int, list: List<SkuDetails>? ->
+                if (result == BillingClient.BillingResponse.OK) {
+                    list?.forEach {
+                        if (it.sku == application.getString(R.string.lifetime_subscription_sku)) {
+                            lifetimeDetails.value = it
+                        }
+                    }
+
+                    if (details.value != null && lifetimeDetails.value != null) {
+                        updateState(true)
                     }
                 }
             }
@@ -120,6 +152,11 @@ class SubscriptionManager private constructor(private val application: Applicati
             // Trigger cache update
             billingClient.queryPurchaseHistoryAsync(BillingClient.SkuType.SUBS) { _, _ ->
                 val result = billingClient.queryPurchases(BillingClient.SkuType.SUBS)
+                handlePurchases(result?.purchasesList)
+            }
+
+            billingClient.queryPurchaseHistoryAsync(BillingClient.SkuType.INAPP) { _, _ ->
+                val result = billingClient.queryPurchases(BillingClient.SkuType.INAPP)
                 handlePurchases(result?.purchasesList)
             }
         } else  {
@@ -139,8 +176,14 @@ class SubscriptionManager private constructor(private val application: Applicati
             return
 
         purchasesList.forEach {
-            if (it.sku == application.getString(R.string.subscription_sku)) {
-                updateSubscribedState(true)
+            when (it.sku) {
+                application.getString(R.string.subscription_sku) -> {
+                    updateSubscribedState(true)
+                }
+                application.getString(R.string.lifetime_subscription_sku) -> {
+                    updateLifetimeState(true)
+                    updateSubscribedState(true)
+                }
             }
         }
     }

@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.activity_subscribe.*
 class SubscribeActivity : AppCompatActivity() {
     private lateinit var subscriptionManager: SubscriptionManager
     private lateinit var subscriptionDetails: SkuDetails
+    private lateinit var lifetimeSubscriptionDetails: SkuDetails
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,17 +37,36 @@ class SubscribeActivity : AppCompatActivity() {
             subscriptionDetails = it
 
             subscribe_button.isEnabled = true
-            subscription_detail_text.text = subscription_detail_text.text.toString()
+            subscribe_button.text = subscribe_button.text.toString()
                     .replace("%PRICE%", subscriptionDetails.price)
             subscription_detail_text.visibility= View.VISIBLE
             subscription_detail_text.gravity=Gravity.CENTER_HORIZONTAL
         })
 
+        subscriptionManager.lifetimeDetails.observe (this, Observer {
+            lifetimeSubscriptionDetails = it
+
+            lifetime_subscribe_button.isEnabled = true
+            lifetime_subscribe_button.text = lifetime_subscribe_button.text.toString()
+                    .replace("%PRICE%", lifetimeSubscriptionDetails.price)
+        })
+
         subscribe_button.setOnClickListener {
             if (::subscriptionDetails.isInitialized) {
                 val request = BillingFlowParams.newBuilder()
-                        .setSkuDetails(subscriptionDetails)
-                        .build()
+                    .setSkuDetails(subscriptionDetails)
+                    .build()
+                if (subscriptionManager.launchBillingFlow(this, request) == BillingClient.BillingResponse.OK) {
+                    finish()
+                }
+            }
+        }
+
+        lifetime_subscribe_button.setOnClickListener {
+            if (::lifetimeSubscriptionDetails.isInitialized) {
+                val request = BillingFlowParams.newBuilder()
+                    .setSkuDetails(lifetimeSubscriptionDetails)
+                    .build()
                 if (subscriptionManager.launchBillingFlow(this, request) == BillingClient.BillingResponse.OK) {
                     setResult(Activity.RESULT_OK)
                     finish()

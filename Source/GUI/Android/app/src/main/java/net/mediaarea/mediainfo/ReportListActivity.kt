@@ -368,24 +368,30 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
         menu?.findItem(R.id.action_subscribe)?.isEnabled=false
         subscriptionManager.ready.observe(this, Observer {
-            if (menu?.findItem(R.id.action_subscribe)?.title!=getString(R.string.subscribed_text)) {
+            if (subscriptionManager.subscribed.value == false) {
                 menu?.findItem(R.id.action_subscribe)?.isEnabled = it
             }
         })
 
         subscriptionManager.subscribed.observe(this, Observer {
             if (it) {
-                //menu?.findItem(R.id.action_settings)?.isVisible=true
-                menu?.findItem(R.id.action_subscribe).let { item ->
-                    item?.isEnabled=true
-                    item?.title = getString(R.string.subscribed_text)
+                if (subscriptionManager.isLifetime.value == true) {
+                    menu?.findItem(R.id.action_subscribe).let { item ->
+                        item?.title = getString(R.string.subscribe_text)
+                        item?.isVisible = false
+                    }
+                } else {
+                    menu?.findItem(R.id.action_subscribe).let { item ->
+                        item?.isEnabled = true
+                        item?.title = getString(R.string.subscribed_text)
 
-                    item?.setOnMenuItemClickListener { _ ->
-                        val intent = Intent(Intent.ACTION_VIEW)
-                        intent.data = Uri.parse(getString(R.string.subscription_manage_url).replace('|', '&'))
-                        startActivity(intent)
+                        item?.setOnMenuItemClickListener { _ ->
+                            val intent = Intent(Intent.ACTION_VIEW)
+                            intent.data = Uri.parse(getString(R.string.subscription_manage_url).replace('|', '&'))
+                            startActivity(intent)
 
-                        true
+                            true
+                        }
                     }
                 }
             } else {
