@@ -1,1 +1,30 @@
+LanguageChanges; Les changements prendront effet au redémarrage de l'application
 AnalyzeServicesMenu; Analyser avec MediaInfo
+OtherViews; Autres vues
+Show; Montrer:
+AllFields; Tous les Champs
+OnlyIdentical; Seulement les champs identiques
+OnlyDiffer; Seulement les champs avec des différences
+Compare; Comparer
+CloseFile; Fermer le fichier
+CloseAll; Fermer tous les fichiers
+Advanced; Mode avancé
+ShowMore; Afficher plus de données dans la sortie, y compris differents formats de temps ou de durée
+CompareView; Comparer (Fonctionnalité premium)
+SubcribeToPremium; S'abonner aux fonctionnalités premium
+PremiumFeature; Fonctionalité premium
+DefaultView; Vue par défaut :
+Retry; RÉESSAYER
+Field; Champ
+Value; Valeur
+AdvancedModeFeature; • Mode avancé
+FilesCompareFeature; • Comparaison de fichiers
+SelectViewFeature; • Choisir la vue par défaut
+MoreFeature; • Et d'autres fonctionnalités à venir
+SupportUs; Soutenez-nous et Obtenez des fonctionnalités exclusives.
+RenewPrice;Renew subscription PRICE for one year
+DownloadFile; Téléchargement du fichier %lu de %lu ...
+DownloadFileError; Impossible de télécharger %@
+OpenFile; Ouverture du fichier %lu de %lu ...
+OpenFileError; Impossible d'ouvrir %@
+PurchaseInformation; Informations à propos des achats in-app

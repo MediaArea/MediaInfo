@@ -14,8 +14,8 @@
  bit1; bit
  bit2; bits
  bit3; bits
- bps; bps
- Bps; Bps
+ bps; b/s
+ Bps; B/s
  Byte1; Byte
  Byte2; Bytes
  Byte3; Bytes
@@ -40,22 +40,22 @@
  file1; 檔案
  file2; 檔案
  file3; 檔案
- fps1; fps
- fps2; fps
- fps3; fps
+ fps1; FPS
+ fps2; FPS
+ fps3; FPS
  frame1; 影格
  frame2; 影格
  frame3; 影格
  GB; GB
  Gb; Gb
- Gbps; Gbps
- GBps; GBps
+ Gbps; Gb/s
+ GBps; GB/s
  GHz; GHz
  GiB; GiB
  GibiByte1; GibiBytes
  GibiByte2; GibiBytes
  GibiByte3; GibiBytes
- GiBps; GiBps
+ GiBps; GiB/s
  GigaBit1; GigaBit
  GigaBit2; GigaBits
  GigaBit3; GigaBits
@@ -69,11 +69,11 @@
  image stream1; 圖片串流
  image stream2; 圖片串流
  image stream3; 圖片串流
- KB; KB
- Kb; Kb
- KBps; KBps
- Kbps; Kbps
- KHz; KHz
+ KB; kB
+ Kb; kb
+ KBps; kB/s
+ Kbps; kb/s
+ KHz; kHz
  KiB; KiB
  KibiBit1; KibiBit
  KibiBit2; KibiBits
@@ -81,7 +81,7 @@
  KibiByte1; KibiByte
  KibiByte2; KibiBytes
  KibiByte3; KibiBytes
- KiBps; KiBps
+ KiBps; KiB/s
  KiloBit1; KiloBit
  KiloBit2; KiloBits
  KiloBit3; KiloBits
@@ -90,7 +90,7 @@
  KiloByte3; KiloBytes
  MB; MB
  Mb; Mb
- Mbps; Mbps
+ Mbps; Mb/s
  MBps; MebiBytes
  MebiBit1; MebiBit
  MebiBit2; MebiBits
@@ -107,7 +107,7 @@
  MHz; MHz
  MiB; MiB
  Mib; Mib
- MiBps; MiBps
+ MiBps; MiB/s
  millisecond1; 毫秒
  millisecond2; 毫秒
  millisecond3; 毫秒
@@ -155,6 +155,7 @@ Actor;主演
 Actor_Character;主演角色
 Added_Date;加入時間
 Address;地址
+AdID;
 Advanced;進階
 Advanced mode;進階模式
 Album;專輯
@@ -164,6 +165,7 @@ Alignment;排列方式
 Alignment_Aligned;對齊交錯訊號
 Alignment_Split;橫越交錯訊號
 All;全部
+AlternateGroup;
 Archival_Location;檔案位置
 Arranger;編曲
 ArtDirector;藝術指導
@@ -187,7 +189,10 @@ Author;作者
 BarCode;條碼
 Basic;基本
 Basic_Note;注意: 想知道更多關於此檔案的資訊, 您得選擇不同的視點 (表格, 樹狀圖 ...)
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;
+BitDepth_Detected;
 BitDepth_Stored;
 BitRate;流量
 BitRate_Encoded;
@@ -201,6 +206,7 @@ Bits-(Pixel*Frame);位元/(像素*影格)
 BufferSize;
 Cancel;取消
 Channel(s);聲道數
+ChannelLayout;
 ChannelPositions;聲道位置
 Chapter(s);章節
 Chapters;章節
@@ -216,9 +222,10 @@ Choose export format;選擇你要的輸出格式
 Choose file(s);選擇你要開啟的檔案
 Choose filename;選擇你要的檔名
 Choose language;選擇你要的語系
-Choregrapher;動作指導
+Choreographer;動作指導
 Chroma;彩度
 ChromaSubsampling;
+ClearList;
 Close;關閉
 Close all before open;開啟前關閉其它檔案
 ClosedCaptionsLanguage;
@@ -242,6 +249,7 @@ Codec_Settings_PacketBitStream;編解碼器設定, Packet bitstream
 Codec_Settings_QPel;編解碼器設定, QPel
 Codec_Settings_Sign;編解碼器設定, Sign
 Codec_Url;編解碼器的網址
+CodecConfigurationBox;
 CodecID;編解碼器識別字
 CodecID_Description;編解碼器描述
 CoDirector;
@@ -255,12 +263,14 @@ CommissionedBy;委託
 Compilation;
 CompleteName;完整檔名
 CompletionDate;
+ComplexityIndex;
 Composer;作曲者
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;壓縮比
 Conductor;指揮
+ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;容器格式與一般訊息
@@ -279,9 +289,11 @@ Cover_Type;封面類型
 Cropped;裁切維度
 Custom;自訂
 Customize;自訂
+DarkMode;
 Date;日期
 Debug;偵錯
 Decimal point;小數點
+Default_Setting;
 Delay;延遲
 Delay_Source;
 Delay_Source_Container;
@@ -292,6 +304,7 @@ Digitized_Date;數位化日期
 Dimensions;維度
 Director;導演
 DirectorOfPhotography;攝影導演
+Disabled;
 DisplayAspectRatio;顯示長寬比例
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;原始顯示長寬比例
@@ -299,11 +312,14 @@ DistributedBy;發布者
 Distributor;
 Donate;贊助
 DotsPerInch;每吋點數 (DPI)
+DrcSets_Count;
+DrcSets_Effects;
 Duration;時間長度
 Duration_End;結束時間
 Duration_Start;開始時間
 Edit;編輯
 EditedBy;編輯者
+ElementCount;
 EMail;電子信箱
 Encoded_Application;使用編碼程式
 Encoded_Date;編碼日期
@@ -314,12 +330,14 @@ EncodedBy;編碼者
 EPG_Positions;EPG 電子節目表位置 (內部)
 EpisodeTitleNumber;
 Error_File;讀取檔案錯誤
+Error_File_Write;
 ExecutiveProducer;監製
 Exit;離開
 Exit_Hint;退出此程式
 Export;匯出
 Export_Hint;以自訂格式匯出
 Extensions;格式副檔名
+External_Media_NotMounted;
 Family;族系
 Fax;傳真
 File;檔案
@@ -332,6 +350,7 @@ File_Modified_Date;最後編輯日期
 File_Modified_Date_Local;最後編輯日期 (本地時間)
 FileExtension;副檔名
 FileName;檔案
+FileNameExtension;
 FileSize;檔案大小
 Folder;資料夾
 Folder (R);資料夾 (R)
@@ -342,8 +361,10 @@ FolderName;資料夾
 Format;格式
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;格式敘述
 Format_Info;格式詳細資訊
+Format_Level;
 Format_Profile;格式類型
 Format_Settings;格式設定
 Format_Settings_BVOP;格式設定, BVOP
@@ -371,6 +392,7 @@ Format_Settings_RefFrames;格式設定, RefFrames
 Format_Settings_SBR;格式設定, SBR
 Format_Settings_Sign;格式設定, Sign
 Format_Settings_Wrapping;
+Format_Tier;
 Format_Url;該格式的網址
 Format_Version;格式版本
 FpaManufacturer;
@@ -580,12 +602,13 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;前往網站
-Grouping;
 Gop_OpenClosed;
-Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
+Gop_OpenClosed_Open;
+Grouping;
 h;時
+HDR_Format;
 Header file;建立標頭檔案
 Height;畫面高度
 Height_CleanAperture;
@@ -667,6 +690,7 @@ Language_en-gb;英語 (英國) (English, Great Britain)
 Language_en-us;英語 (美國) (English, United States)
 Language_eo;世界語 (Esperanto)
 Language_es;西班牙語 (Spanish)
+Language_es-419;
 Language_et;愛沙尼亞語 (Estonian)
 Language_eu;巴斯克語 (Basque)
 Language_fa;波斯語 (Persian)
@@ -690,6 +714,7 @@ Language_hr;克羅埃西亞語 (Croatian)
 Language_ht;海地語 (Haitian)
 Language_hu;匈牙利語 (Hungarian)
 Language_hy;亞美尼亞語 (Armenian)
+Language_hy-az;
 Language_hz;赫雷羅語 (Herero)
 Language_ia;國際語 (Auxiliary Language Association)
 Language_id;印尼語 (Indonesian)
@@ -734,10 +759,12 @@ Language_mi;毛利語 (Maori)
 Language_mk;馬其頓語 (Macedonian)
 Language_ml;馬拉雅拉姆語 (Malayalam)
 Language_mn;蒙古語 (Mongolian)
+Language_mn-cn;
 Language_mo;摩達維亞語 (Moldavian)
 Language_More;語系, 詳細資訊
 Language_mr;馬拉塔語 (Marathi)
 Language_ms;馬來語 (Malay)
+Language_ms-bn;
 Language_mt;馬爾他語 (Maltese)
 Language_mul;多重語系
 Language_my;緬甸語 (Burmese)
@@ -747,6 +774,7 @@ Language_nd;北恩德貝勒語 (Ndebele)
 Language_ne;尼泊爾語 (Nepali)
 Language_ng;恩東加語 (Ndonga)
 Language_nl;荷蘭語 (Dutch)
+Language_nl-be;
 Language_nn;新挪威語 (Norwegian Bokmal)
 Language_no;挪威語 (Norwegian)
 Language_nr;南恩德貝勒語 (Ndebele)
@@ -778,6 +806,7 @@ Language_si;錫蘭語 (Sinhala)
 Language_sk;斯洛伐克語 (Slovak)
 Language_sl;斯洛維尼亞語 (Slovenian)
 Language_sm;薩摩亞語 (Samoan)
+Language_smi;
 Language_sn;紹納語 (Shona)
 Language_so;索馬利語 (Somali)
 Language_sq;阿爾巴尼亞語 (Albanian)
@@ -824,15 +853,38 @@ Library;合成函式庫
 Lightness;亮度
 LineUpStart;
 List;清單
+Loudness_Anchor;
+Loudness_Anchor_Album;
+Loudness_Count;
+Loudness_Count_Album;
+Loudness_MaximumMomentary;
+Loudness_MaximumMomentary_Album;
+Loudness_MaximumOfRange;
+Loudness_MaximumOfRange_Album;
+Loudness_MaximumShortTerm;
+Loudness_MaximumShortTerm_Album;
+Loudness_ProductionMixingLevel;
+Loudness_ProductionMixingLevel_Album;
+Loudness_Program;
+Loudness_Program_Album;
+Loudness_Range;
+Loudness_Range_Album;
+Loudness_RoomType;
+Loudness_RoomType_Album;
 Lyricist;作詞者
 Lyrics;歌詞
 Mastered_Date;後製日期
 MasteredBy;後製者
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;矩陣係數
 Matrix_Format;
+MaxCLL;
+MaxFALL;
 MediaInfo_About;支援非常詳盡的多媒體檔案資訊:\r\nMatroska, OGG (包含 OGM)\r\nMPEG-1 (包含 VCD)\r\nMPEG-2 (包含 DVD, SVCD)\r\nMPEG-4 (包含 iTunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (包含 WMV, WMA)\r\nMicrosoft RIFF (包含 AVI, WAV)\r\n純聲音格式 (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About_About;
 Menu;選單
 Menu stream(s);選單串流
 Menu_Codec_List;選單編解碼器
@@ -860,6 +912,7 @@ NewVersion_Question_Content;有新版本 (v%Version%) 了, 您想下載嗎?
 NewVersion_Question_Title;有新版本發布!
 No;否
 Not yet;還沒好
+NumberOfDynamicObjects;
 NumColors;色彩數
 OK;確認
 One output file per input file;一個輸入檔對應一個輸出檔
@@ -909,6 +962,7 @@ Original;來源
 OriginalNetworkName;來源網路名稱
 OriginalSourceForm;來源格式
 OriginalSourceMedium;來源媒介
+OriginalSourceMedium_ID;
 Originator;
 Other;其它
 OtherIdentifier;
@@ -920,6 +974,7 @@ OverallBitRate_Maximum;最大整體流量
 OverallBitRate_Minimum;最小整體流量
 OverallBitRate_Mode;整體流量模式
 OverallBitRate_Nominal;正常整體流量
+PackageName;
 Part;部分
 Part_Count;總數
 PartNumber;
@@ -936,9 +991,12 @@ Played_Count;已播放數
 Played_First_Date;首次播放
 Played_Last_Date;前次播放
 PlayTime;播放長度
+PodcastCategory;
 Position;順序
 Position_Total;總數
 Preferences;偏好設定
+Premium;
+Premium_Summary;
 PrimaryAudioLanguage;
 Producer;製作
 ProductionDesigner;美術指導
@@ -957,10 +1015,15 @@ Recorded_Date;錄製日期
 Recorded_Location;錄製地點
 Released_Date;發行日期
 RemixedBy;重混者
+Renew;
 ReplayGain_Gain;播放增益
 ReplayGain_Peak;播放增益尖峰值
+Report;
 Resolution;顏色深度
 s;秒
+SamplePeakLevel;
+SamplePeakLevel_Album;
+SamplesPerFrame;
 SamplingCount;
 SamplingRate;取樣率
 Save;儲存
@@ -981,6 +1044,7 @@ Separator_Columns;換列字元
 Separator_Lines;換行字元
 SeriesTitle;
 ServiceChannel;服務頻道
+ServiceKind;
 ServiceName;服務名稱
 ServiceProvider;服務提供者
 ServiceType;服務類型
@@ -1016,17 +1080,33 @@ Stream;串流
 Stream_MoreInfo;更多有關此串流的資訊
 StreamCount;此串流數量
 StreamID;串流ID
+streamIdentifier;
 StreamKind;串流類型
 StreamKindID;串流識別字
 StreamKindPos;串流識別字
 StreamSize;串流大小
+StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;此串流的比例
 Subject;主題
+Subscribe;
+Subscribe_Button;
+Subscribe_Failed;
+Subscribe_Manage;
+Subscribe_Renew;
+Subscribe_Renew_Price;
+Subscribe_Unaviable;
+Subscribe_Waiting;
+Subscription_Active;
+Subscription_Android;
+Subscription_Ended;
+Subscription_Expired;
+Subscription_Thanks;
 SubTrack;子音軌
 Summary;摘要
 Supported formats;支援格式
 Supported?;是否支援?
+SupportUs;
 Synopsis;摘要
 SystemId;識別字
 Tagged_Application;標記程式
@@ -1063,11 +1143,17 @@ TotalProgrammeDuration;
 Track;音軌
 Track_Count;音軌數
 transfer_characteristics;傳輸特性
+Translate_Reports;
 Translator;翻譯
 Tree;樹狀圖
 Tree & Text;樹狀圖與文字
+TruePeakLevel;
+TruePeakLevel_Album;
 Type;
 UniqueID;
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;未知
 Url;相關網址
 Video;視訊
@@ -1081,8 +1167,10 @@ VideoComments;
 VideoCount;視訊串流數
 View;檢視
 View_Hint;改變檢視資訊的方法
+Views;
 Warning : more streams in the files;注意: 檔案中還有更多串流
 Web;網頁
+WebSite;
 WebSite_Audio;前往此音訊編解碼器的網站
 WebSite_Audio_More;前往網站 (%Url%) 找尋此音訊編解碼器
 WebSite_General;前往此播放程式的網站
@@ -1102,5 +1190,5 @@ Written_Location;撰寫地點
 WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
-ZZ_Automatic_Percent;85
-ZZ_AutomaticLanguage_Percent;89
+ZZ_Automatic_Percent;79
+ZZ_AutomaticLanguage_Percent;83

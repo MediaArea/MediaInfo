@@ -14,8 +14,8 @@
  bit1; bit
  bit2; bits
  bit3; bits
- bps; bps
- Bps; Bps
+ bps; b/s
+ Bps; B/s
  Byte1; Byte
  Byte2; Bytes
  Byte3; Bytes
@@ -40,22 +40,22 @@
  file1; soubor
  file2; soubory
  file3; soubory
- fps1; fps
- fps2; fps
- fps3; fps
+ fps1; FPS
+ fps2; FPS
+ fps3; FPS
  frame1;
  frame2;
  frame3;
  GB; GB
  Gb; Gb
- Gbps; Gbps
- GBps; GBps
+ Gbps; Gb/s
+ GBps; GB/s
  GHz; GHz
  GiB; GiB
  GibiByte1; GibiBytes
  GibiByte2; GibiBytes
  GibiByte3; GibiBytes
- GiBps; GiBps
+ GiBps; GiB/s
  GigaBit1; GigaBit
  GigaBit2; GigaBits
  GigaBit3; GigaBits
@@ -69,11 +69,11 @@
  image stream1; image stream
  image stream2; image streams
  image stream3; image streams
- KB; KB
- Kb; Kb
- KBps; KBps
- Kbps; Kbps
- KHz; KHz
+ KB; kB
+ Kb; kb
+ KBps; kB/s
+ Kbps; kb/s
+ KHz; kHz
  KiB; KiB
  KibiBit1; KibiBit
  KibiBit2; KibiBits
@@ -81,7 +81,7 @@
  KibiByte1; KibiByte
  KibiByte2; KibiBytes
  KibiByte3; KibiBytes
- KiBps; KiBps
+ KiBps; KiB/s
  KiloBit1; KiloBit
  KiloBit2; KiloBits
  KiloBit3; KiloBits
@@ -90,7 +90,7 @@
  KiloByte3; KiloBytes
  MB; MB
  Mb; Mb
- Mbps; Mbps
+ Mbps; Mb/s
  MBps; MebiBytes
  MebiBit1; MebiBit
  MebiBit2; MebiBits
@@ -107,7 +107,7 @@
  MHz; MHz
  MiB; MiB
  Mib; Mib
- MiBps; MiBps
+ MiBps; MiB/s
  millisecond1; millisecond
  millisecond2; milliseconds
  millisecond3; milliseconds
@@ -155,6 +155,7 @@ Actor;Herec
 Actor_Character;Character played
 Added_Date;
 Address;Address
+AdID;
 Advanced;Pokročilé
 Advanced mode;Více detailů
 Album;Album
@@ -164,6 +165,7 @@ Alignment;
 Alignment_Aligned;
 Alignment_Split;
 All;Vše
+AlternateGroup;
 Archival_Location;Archival location
 Arranger;Arranger
 ArtDirector;ArtDirector
@@ -187,7 +189,10 @@ Author;Autor
 BarCode;BarCode
 Basic;Základní
 Basic_Note;Info : Pro více detailů vyberte jiný mód zobrazení(List, Strom...)
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;
+BitDepth_Detected;
 BitDepth_Stored;
 BitRate;Bit rate
 BitRate_Encoded;
@@ -201,6 +206,7 @@ Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;
 Cancel;Zrušit
 Channel(s);Kanál(y)
+ChannelLayout;
 ChannelPositions;Channel positions
 Chapter(s);Kapitola(y)
 Chapters;Kapitoly
@@ -216,9 +222,10 @@ Choose export format;Vyberte požadovaný exportní formát
 Choose file(s);Vyberte soubor k otevření
 Choose filename;Choose your desired filename
 Choose language;Vybrat jazyk
-Choregrapher;Choregrapher
+Choreographer;Choreographer
 Chroma;Chroma
 ChromaSubsampling;
+ClearList;
 Close;Zavřít
 Close all before open;Zavřít vše před otevřením nového
 ClosedCaptionsLanguage;
@@ -242,6 +249,7 @@ Codec_Settings_PacketBitStream;
 Codec_Settings_QPel;
 Codec_Settings_Sign;
 Codec_Url;Adresa pro stažení kodeku
+CodecConfigurationBox;
 CodecID;
 CodecID_Description;
 CoDirector;
@@ -255,12 +263,14 @@ CommissionedBy;Commissioned by
 Compilation;
 CompleteName;Celý název a cesta
 CompletionDate;
+ComplexityIndex;
 Composer;Composer
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;
 Conductor;Conductor
+ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Hlavní informace
@@ -279,9 +289,11 @@ Cover_Type;
 Cropped;
 Custom;Vlastní
 Customize;Přizpůsobit
+DarkMode;
 Date;Datum
 Debug;Pokročilé
 Decimal point;Decimal point
+Default_Setting;
 Delay;Delay
 Delay_Source;
 Delay_Source_Container;
@@ -292,6 +304,7 @@ Digitized_Date;Digitized date
 Dimensions;
 Director;Director
 DirectorOfPhotography;Director of photography
+Disabled;
 DisplayAspectRatio;Poměr stran
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;
@@ -299,11 +312,14 @@ DistributedBy;Distributed by
 Distributor;
 Donate;Zaslat finanční dar
 DotsPerInch;
+DrcSets_Count;
+DrcSets_Effects;
 Duration;
 Duration_End;
 Duration_Start;
 Edit;Upravit
 EditedBy;Upravil
+ElementCount;
 EMail;E-Mail
 Encoded_Application;Použitý software
 Encoded_Date;Encoded date
@@ -314,12 +330,14 @@ EncodedBy;Enkódoval
 EPG_Positions;
 EpisodeTitleNumber;
 Error_File;Error while reading file
+Error_File_Write;
 ExecutiveProducer;Executive producer
 Exit;Konec
 Exit_Hint;Ukončit program
 Export;Exportovat
 Export_Hint;Exportovat do vybraného formátu
 Extensions;Extensions usually used
+External_Media_NotMounted;
 Family;
 Fax;Fax
 File;Soubor
@@ -332,6 +350,7 @@ File_Modified_Date;
 File_Modified_Date_Local;
 FileExtension;Přípona souboru
 FileName;Název souboru
+FileNameExtension;
 FileSize;Velikost souboru
 Folder;Složka
 Folder (R);Složka (R)
@@ -342,8 +361,10 @@ FolderName;Název složky
 Format;Formát
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;
 Format_Info;
+Format_Level;
 Format_Profile;
 Format_Settings;
 Format_Settings_BVOP;
@@ -371,6 +392,7 @@ Format_Settings_RefFrames;
 Format_Settings_SBR;
 Format_Settings_Sign;
 Format_Settings_Wrapping;
+Format_Tier;
 Format_Url;
 Format_Version;
 FpaManufacturer;
@@ -580,12 +602,13 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Web programu
-Grouping;
 Gop_OpenClosed;
-Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
-h;h
+Gop_OpenClosed_Open;
+Grouping;
+h; h
+HDR_Format;
 Header file;Create a header file
 Height;Výška
 Height_CleanAperture;
@@ -667,6 +690,7 @@ Language_en-gb;
 Language_en-us;
 Language_eo;Esperanto
 Language_es;Spanish
+Language_es-419;
 Language_et;Estonian
 Language_eu;Basque
 Language_fa;Persian
@@ -690,6 +714,7 @@ Language_hr;Croatian
 Language_ht;Haitian
 Language_hu;Hungarian
 Language_hy;Armenian
+Language_hy-az;
 Language_hz;Herero
 Language_ia;Auxiliary Language Association
 Language_id;Indonesian
@@ -734,10 +759,12 @@ Language_mi;Maori
 Language_mk;Macedonian
 Language_ml;Malayalam
 Language_mn;Mongolian
+Language_mn-cn;
 Language_mo;Moldavian
 Language_More;
 Language_mr;Marathi
 Language_ms;Malay
+Language_ms-bn;
 Language_mt;Maltese
 Language_mul;Multiple languages
 Language_my;Burmese
@@ -747,6 +774,7 @@ Language_nd;Ndebele
 Language_ne;Nepali
 Language_ng;Ndonga
 Language_nl;Dutch
+Language_nl-be;
 Language_nn;Norwegian Nynorsk
 Language_no;Norwegian
 Language_nr;Ndebele
@@ -778,6 +806,7 @@ Language_si;Sinhala
 Language_sk;Slovak
 Language_sl;Slovenian
 Language_sm;Samoan
+Language_smi;
 Language_sn;Shona
 Language_so;Somali
 Language_sq;Albanian
@@ -824,15 +853,38 @@ Library;Muxing library
 Lightness;
 LineUpStart;
 List;
+Loudness_Anchor;
+Loudness_Anchor_Album;
+Loudness_Count;
+Loudness_Count_Album;
+Loudness_MaximumMomentary;
+Loudness_MaximumMomentary_Album;
+Loudness_MaximumOfRange;
+Loudness_MaximumOfRange_Album;
+Loudness_MaximumShortTerm;
+Loudness_MaximumShortTerm_Album;
+Loudness_ProductionMixingLevel;
+Loudness_ProductionMixingLevel_Album;
+Loudness_Program;
+Loudness_Program_Album;
+Loudness_Range;
+Loudness_Range_Album;
+Loudness_RoomType;
+Loudness_RoomType_Album;
 Lyricist;Lyricist
 Lyrics;
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;
 Matrix_Format;
+MaxCLL;
+MaxFALL;
 MediaInfo_About;Supply very detailled information\r\nabout a multimedia file:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About_About;
 Menu;Menu
 Menu stream(s);Menu streams
 Menu_Codec_List;
@@ -840,11 +892,11 @@ Menu_Hint;More possibilities
 Menu_No;No menu
 MenuCount;Count of menu streams
 MenuID;
-mn;mn
+mn; min
 Mood;Mood
 More;Více
 Movie;Název filmu
-ms;ms
+ms; ms
 MSDI;MSDI
 MusicBy;
 MuxingMode;
@@ -860,6 +912,7 @@ NewVersion_Question_Content;
 NewVersion_Question_Title;
 No;Ne
 Not yet;
+NumberOfDynamicObjects;
 NumColors;
 OK;OK
 One output file per input file;One output file per input file
@@ -909,6 +962,7 @@ Original;Originál
 OriginalNetworkName;
 OriginalSourceForm;
 OriginalSourceMedium;
+OriginalSourceMedium_ID;
 Originator;
 Other;Různé
 OtherIdentifier;
@@ -920,6 +974,7 @@ OverallBitRate_Maximum;
 OverallBitRate_Minimum;
 OverallBitRate_Mode;
 OverallBitRate_Nominal;
+PackageName;
 Part;Část
 Part_Count;Total count
 PartNumber;
@@ -936,9 +991,12 @@ Played_Count;
 Played_First_Date;
 Played_Last_Date;
 PlayTime;Hrací čas
+PodcastCategory;
 Position;Pozice
 Position_Total;
 Preferences;Předvolby
+Premium;
+Premium_Summary;
 PrimaryAudioLanguage;
 Producer;Producer
 ProductionDesigner;ProductionDesigner
@@ -957,10 +1015,15 @@ Recorded_Date;Recorded date
 Recorded_Location;Recorded location
 Released_Date;Released date
 RemixedBy;Remixed by
+Renew;
 ReplayGain_Gain;
 ReplayGain_Peak;
+Report;
 Resolution;Rozlišení
-s;s
+s; s
+SamplePeakLevel;
+SamplePeakLevel_Album;
+SamplesPerFrame;
 SamplingCount;
 SamplingRate;Sampling rate
 Save;Uložit
@@ -981,6 +1044,7 @@ Separator_Columns;columns separator
 Separator_Lines;lines separator
 SeriesTitle;
 ServiceChannel;
+ServiceKind;
 ServiceName;
 ServiceProvider;
 ServiceType;
@@ -1016,17 +1080,33 @@ Stream;Datový stream
 Stream_MoreInfo;More information about the stream
 StreamCount;Count of stream of this kind
 StreamID;Stream ID
+streamIdentifier;
 StreamKind;Kind of stream
 StreamKindID;
 StreamKindPos;
 StreamSize;
+StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;
 Subject;Subject
+Subscribe;
+Subscribe_Button;
+Subscribe_Failed;
+Subscribe_Manage;
+Subscribe_Renew;
+Subscribe_Renew_Price;
+Subscribe_Unaviable;
+Subscribe_Waiting;
+Subscription_Active;
+Subscription_Android;
+Subscription_Ended;
+Subscription_Expired;
+Subscription_Thanks;
 SubTrack;SubTrack
 Summary;Summary
 Supported formats;Supported formats
 Supported?;Supported?
+SupportUs;
 Synopsis;Synopsis
 SystemId;Id
 Tagged_Application;
@@ -1063,11 +1143,17 @@ TotalProgrammeDuration;
 Track;Název stopy
 Track_Count;Track count
 transfer_characteristics;
+Translate_Reports;
 Translator;Přeložil
 Tree;Strom
 Tree & Text;Tree & Text
+TruePeakLevel;
+TruePeakLevel_Album;
 Type;
 UniqueID;
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;Neznámý
 Url;Url
 Video;Video
@@ -1081,8 +1167,10 @@ VideoComments;
 VideoCount;Počet video streamů
 View;Zobrazit
 View_Hint;Zobrazit
+Views;
 Warning : more streams in the files;Warning : there are more streams in the files
 Web;Web
+WebSite;
 WebSite_Audio;Go to the web site of this audio codec
 WebSite_Audio_More;Go to the web site (%Url%) to find this audio codec
 WebSite_General;Go to the web site of a player for this file
@@ -1102,5 +1190,5 @@ Written_Location;Written location
 WrittenBy;Napsal
 Yes;Ano
 Your system;Instalované kodeky
-ZZ_Automatic_Percent;68
-ZZ_AutomaticLanguage_Percent;76
+ZZ_Automatic_Percent;63
+ZZ_AutomaticLanguage_Percent;71

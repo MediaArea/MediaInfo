@@ -14,8 +14,8 @@
  bit1; bit
  bit2; bits
  bit3; bits
- bps; bps
- Bps; Bps
+ bps; b/s
+ Bps; B/s
  Byte1; Byte
  Byte2; Bytes
  Byte3; Bytes
@@ -48,14 +48,14 @@
  frame3; frames
  GB; GB
  Gb; Gb
- Gbps; Gbps
- GBps; GBps
+ Gbps; Gb/s
+ GBps; GB/s
  GHz; GHz
  GiB; GiB
  GibiByte1; GibiBytes
  GibiByte2; GibiBytes
  GibiByte3; GibiBytes
- GiBps; GiBps
+ GiBps; GiB/s
  GigaBit1; GigaBit
  GigaBit2; GigaBits
  GigaBit3; GigaBits
@@ -69,11 +69,11 @@
  image stream1; Bild-Stream
  image stream2; Bild-Streams
  image stream3; Bild-Streams
- KB; KB
- Kb; Kb
- KBps; KBps
- Kbps; Kbps
- KHz; KHz
+ KB; kB
+ Kb; kb
+ KBps; kB/s
+ Kbps; kb/s
+ KHz; kHz
  KiB; KiB
  KibiBit1; KibiBit
  KibiBit2; KibiBits
@@ -81,7 +81,7 @@
  KibiByte1; KibiByte
  KibiByte2; KibiBytes
  KibiByte3; KibiBytes
- KiBps; KiBps
+ KiBps; KiB/s
  KiloBit1; KiloBit
  KiloBit2; KiloBits
  KiloBit3; KiloBits
@@ -90,7 +90,7 @@
  KiloByte3; KiloBytes
  MB; MB
  Mb; Mb
- Mbps; Mbps
+ Mbps; Mb/s
  MBps; MebiBytes
  MebiBit1; MebiBit
  MebiBit2; MebiBits
@@ -107,7 +107,7 @@
  MHz; MHz
  MiB; MiB
  Mib; Mib
- MiBps; MiBps
+ MiBps; MiB/s
  millisecond1; Millisekunde
  millisecond2; Millisekunden
  millisecond3; Millisekunden
@@ -155,6 +155,7 @@ Actor;Schauspieler
 Actor_Character;Rolle
 Added_Date;Hinzufügungs-Datum
 Address;Adresse
+AdID;
 Advanced;Erweitert
 Advanced mode;Erweiterter Modus
 Album;Album
@@ -164,6 +165,7 @@ Alignment;Ausrichtung
 Alignment_Aligned;Ausgerichtet an Interleaves
 Alignment_Split;Aufteilung über Interleaves
 All;Alle
+AlternateGroup;
 Archival_Location;Aufbewahrungsort
 Arranger;Arrangeur
 ArtDirector;ArtDirector
@@ -187,7 +189,10 @@ Author;Autor
 BarCode;Barcode
 Basic;Einfach
 Basic_Note;Hinweis: Für mehr Informationen über diese Datei eine andere Ansicht wählen (Baumstruktur, Tabelle...)
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;
+BitDepth_Detected;
 BitDepth_Stored;
 BitRate;Bitrate
 BitRate_Encoded;
@@ -201,6 +206,7 @@ Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;
 Cancel;Abbrechen
 Channel(s);Kanäle
+ChannelLayout;
 ChannelPositions;Kanal-Positionen
 Chapter(s);Kapitel
 Chapters;Kapitel
@@ -216,9 +222,10 @@ Choose export format;Gewünschtes Exportformat auswählen
 Choose file(s);Datei(en) zum Öffnen auswählen
 Choose filename;Gewünschten Dateinamen auswählen
 Choose language;Gewünschte Sprache auswählen
-Choregrapher;Choreograph
+Choreographer;Choreograph
 Chroma;Chroma
 ChromaSubsampling;
+ClearList;
 Close;Schließen
 Close all before open;Vor dem Öffnen alle anderen schließen
 ClosedCaptionsLanguage;
@@ -242,6 +249,7 @@ Codec_Settings_PacketBitStream;Codec-Einstellungen für Packet bitstream
 Codec_Settings_QPel;Codec-Einstellungen für Qpel
 Codec_Settings_Sign;Codec-Einstellungen für Sign
 Codec_Url;Web-Link zum Codec
+CodecConfigurationBox;
 CodecID;Codec-ID
 CodecID_Description;Beschreibung zum Codec
 CoDirector;
@@ -255,12 +263,14 @@ CommissionedBy;In Auftrag gegeben von
 Compilation;
 CompleteName;Vollständiger Name
 CompletionDate;
+ComplexityIndex;
 Composer;Komponist
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;Kompressions-Verhältnis
 Conductor;Leiter
+ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Containerformat und allgemeine Informationen
@@ -279,9 +289,11 @@ Cover_Type;Cover-Typ
 Cropped;Schnitt-Dimensionen
 Custom;Benutzerdefiniert
 Customize;Anpassen
+DarkMode;
 Date;Datum
 Debug;Debug
 Decimal point;Dezimalpunkt
+Default_Setting;
 Delay;Verzögerung
 Delay_Source;
 Delay_Source_Container;
@@ -292,6 +304,7 @@ Digitized_Date;Digitalisierungs-Datum
 Dimensions;Dimensionen
 Director;Regisseur
 DirectorOfPhotography;Chefkameramann
+Disabled;
 DisplayAspectRatio;Bildseitenverhältnis
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Ursprüngliches Bildseitenverhältnis
@@ -299,11 +312,14 @@ DistributedBy;Vertrieb durch
 Distributor;
 Donate;MediaInfo unterstützen
 DotsPerInch;DPI
+DrcSets_Count;
+DrcSets_Effects;
 Duration;Dauer
 Duration_End;Endzeit
 Duration_Start;Anfangszeit
 Edit;Bearbeiten
 EditedBy;Bearbeitet von
+ElementCount;
 EMail;Email
 Encoded_Application;Kodierendes Programm
 Encoded_Date;Kodierungs-Datum
@@ -314,12 +330,14 @@ EncodedBy;Kodiert von
 EPG_Positions;EPG Positionen (inter)
 EpisodeTitleNumber;
 Error_File;Fehler beim Lesen der Datei
+Error_File_Write;
 ExecutiveProducer;Ausführender Produzent
 Exit;Beenden
 Exit_Hint;Beendet das Programm
 Export;Exportieren
 Export_Hint;Exportiert in ein benutzerdefinierten Format
 Extensions;gebräuchliche File-Extension
+External_Media_NotMounted;
 Family;Familie
 Fax;Fax
 File;Datei
@@ -332,6 +350,7 @@ File_Modified_Date;Datum der letzten Datei-Veränderung
 File_Modified_Date_Local;Fileveranderungsdatum (lokal)
 FileExtension;Dateierweiterung
 FileName;Dateiname
+FileNameExtension;
 FileSize;Dateigröße
 Folder;Verzeichnis
 Folder (R);Verzeichnis (R)
@@ -342,8 +361,10 @@ FolderName;Verzeichnisname
 Format;Format
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;Format-Beschreibung
 Format_Info;Format-Details
+Format_Level;
 Format_Profile;Format-Profil
 Format_Settings;Format-Einstellungen
 Format_Settings_BVOP;Format-Einstellungen für BVOP
@@ -367,10 +388,11 @@ Format_Settings_PictureStructure;
 Format_Settings_PS;Format-Einstellungen für PS
 Format_Settings_Pulldown;Format-Einstellungen für Pulldown
 Format_Settings_QPel;Format-Einstellungen für Qpel
-Format_Settings_RefFrames;Format-Einstellungen für ReFrames
+Format_Settings_RefFrames;Format-Einstellungen für RefFrames
 Format_Settings_SBR;Format-Einstellungen für SBR
 Format_Settings_Sign;Format-Einstellungen für Sign
 Format_Settings_Wrapping;
+Format_Tier;
 Format_Url;Web-Link zum Format
 Format_Version;Format-Version
 FpaManufacturer;
@@ -580,12 +602,13 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Zur Webseite gehen
-Grouping;
 Gop_OpenClosed;
-Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
-h;h
+Gop_OpenClosed_Open;
+Grouping;
+h; h
+HDR_Format;
 Header file;Header-Datei erstellen
 Height;Höhe
 Height_CleanAperture;
@@ -667,6 +690,7 @@ Language_en-gb;Englisch (Great Britain)
 Language_en-us;Englisch (United States)
 Language_eo;Esperanto
 Language_es;Spanisch
+Language_es-419;
 Language_et;Estnisch
 Language_eu;Baskisch
 Language_fa;Persisch
@@ -690,6 +714,7 @@ Language_hr;Kroatisch
 Language_ht;Haitianisch
 Language_hu;Ungarisch
 Language_hy;Armenisch
+Language_hy-az;
 Language_hz;Herero
 Language_ia;Interlingua
 Language_id;Indonesisch
@@ -734,10 +759,12 @@ Language_mi;Maorisch
 Language_mk;Mazedonisch
 Language_ml;Malajalam
 Language_mn;Mongolisch
+Language_mn-cn;
 Language_mo;Moldauisch
 Language_More;Sprache, nähere Info
 Language_mr;Marathi
 Language_ms;Malaiisch
+Language_ms-bn;
 Language_mt;Maltesisch
 Language_mul;mehrere Sprachen
 Language_my;Birmanisch
@@ -747,6 +774,7 @@ Language_nd;Nord-Ndebele
 Language_ne;Nepalesisch
 Language_ng;Ndongo
 Language_nl;Niederländisch/Holländisch
+Language_nl-be;
 Language_nn;Norwegisch Nynorsk
 Language_no;Norwegisch
 Language_nr;Süd-Ndebele
@@ -778,6 +806,7 @@ Language_si;Singhalesisch
 Language_sk;Slowakisch
 Language_sl;Slowenisch
 Language_sm;Samoanisch
+Language_smi;
 Language_sn;Shona
 Language_so;Somalisch
 Language_sq;Albanisch
@@ -824,15 +853,38 @@ Library;Muxing-Bibliothek
 Lightness;Helligkeit
 LineUpStart;
 List;Liste
+Loudness_Anchor;
+Loudness_Anchor_Album;
+Loudness_Count;
+Loudness_Count_Album;
+Loudness_MaximumMomentary;
+Loudness_MaximumMomentary_Album;
+Loudness_MaximumOfRange;
+Loudness_MaximumOfRange_Album;
+Loudness_MaximumShortTerm;
+Loudness_MaximumShortTerm_Album;
+Loudness_ProductionMixingLevel;
+Loudness_ProductionMixingLevel_Album;
+Loudness_Program;
+Loudness_Program_Album;
+Loudness_Range;
+Loudness_Range_Album;
+Loudness_RoomType;
+Loudness_RoomType_Album;
 Lyricist;Liedtexter
 Lyrics;Liedtext
 Mastered_Date;Mastering-Datum
 MasteredBy;Gemastert von
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;
 Matrix_Format;
+MaxCLL;
+MaxFALL;
 MediaInfo_About;Liefert sehr detaillierte Informationen\r\nüber Multimedia-Dateien:\r\nMatroska, OGG (einschließlich OGM)\r\nMPEG1 (einschließlich VCD)\r\nMPEG2 (einschließlich DVD and SVCD)\r\nMPEG4 (einschließlich Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (einschließlich WMV, WMA)\r\nMicrosoft RIFF (einschließlich AVI, WAV)\r\nAudio-Formate (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About_About;
 Menu;Menü
 Menu stream(s);Menü-Streams
 Menu_Codec_List;Menü-Codecs
@@ -840,11 +892,11 @@ Menu_Hint;Weitere Möglichkeiten
 Menu_No;Kein Menü
 MenuCount;Anzahl der Menü-Streams
 MenuID;Menü-ID
-mn;min
+mn; min
 Mood;Stimmung
 More;Mehr
 Movie;Filmname
-ms;ms
+ms; ms
 MSDI;MSDI
 MusicBy;Musik von
 MuxingMode;Muxing-Modus
@@ -860,6 +912,7 @@ NewVersion_Question_Content;Eine neue Version (v%Version%) ist verfügbar, soll 
 NewVersion_Question_Title;Eine neue Version wurde veröffentlicht!
 No;Nein
 Not yet;Noch nicht
+NumberOfDynamicObjects;
 NumColors;Farbanzahl
 OK;OK
 One output file per input file;Je eine eigene Ausgabedatei pro Eingabedatei
@@ -909,6 +962,7 @@ Original;Original
 OriginalNetworkName;Originaler Netzwerkname
 OriginalSourceForm;Originale Source-Form
 OriginalSourceMedium;Originales Source-Medium
+OriginalSourceMedium_ID;
 Originator;
 Other;Andere
 OtherIdentifier;
@@ -920,6 +974,7 @@ OverallBitRate_Maximum;maximale Gesamtbitrate
 OverallBitRate_Minimum;minimale Gesamtbitrate
 OverallBitRate_Mode;Modus der Gesamtbitrate
 OverallBitRate_Nominal;nominale Gesamtbitrate
+PackageName;
 Part;Teil
 Part_Count;Gesamtanzahl
 PartNumber;
@@ -936,9 +991,12 @@ Played_Count;mal gespielt
 Played_First_Date;erstmals gespielt
 Played_Last_Date;zuletzt gespielt
 PlayTime;Spielzeit
+PodcastCategory;
 Position;Position
 Position_Total;total
 Preferences;Voreinstellungen
+Premium;
+Premium_Summary;
 PrimaryAudioLanguage;
 Producer;Produzent
 ProductionDesigner;Produktionsdesigner
@@ -957,10 +1015,15 @@ Recorded_Date;Aufnahmedatum
 Recorded_Location;Aufnahmeort
 Released_Date;Veröffentlichungsdatum
 RemixedBy;Remixed von
+Renew;
 ReplayGain_Gain;Wiedergabe-Verstärkung
 ReplayGain_Peak;Wiedergabe-Verstärkung, Spitze
+Report;
 Resolution;Auflösung
 s;s
+SamplePeakLevel;
+SamplePeakLevel_Album;
+SamplesPerFrame;
 SamplingCount;
 SamplingRate;Samplingrate
 Save;Speichern
@@ -981,6 +1044,7 @@ Separator_Columns;Spaltentrenner
 Separator_Lines;Zeilentrenner
 SeriesTitle;
 ServiceChannel;Nummer des Service-Kanals
+ServiceKind;
 ServiceName;Service-Name
 ServiceProvider;Service-Anbieter
 ServiceType;Service-Typ
@@ -1016,17 +1080,33 @@ Stream;Stream
 Stream_MoreInfo;Mehr Informationen über den Stream
 StreamCount;Anzahl der Streams dieser Art
 StreamID;Stream-ID
+streamIdentifier;
 StreamKind;Art des Streams
 StreamKindID;ID des Stream-Identifiers
 StreamKindPos;Position des Stream-Identifiers
 StreamSize;Stream-Größe
+StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;Proportionen dieses Streams
 Subject;Inhalt
+Subscribe;
+Subscribe_Button;
+Subscribe_Failed;
+Subscribe_Manage;
+Subscribe_Renew;
+Subscribe_Renew_Price;
+Subscribe_Unaviable;
+Subscribe_Waiting;
+Subscription_Active;
+Subscription_Android;
+Subscription_Ended;
+Subscription_Expired;
+Subscription_Thanks;
 SubTrack;Sub-Track
 Summary;Zusammenfassung
 Supported formats;Unterstützte Formate
 Supported?;Unterstützt?
+SupportUs;
 Synopsis;Fazit
 SystemId;ID
 Tagged_Application;Tagging-Anwendung
@@ -1063,11 +1143,17 @@ TotalProgrammeDuration;
 Track;Track-Name
 Track_Count;Anzahl der Tracks
 transfer_characteristics;
+Translate_Reports;
 Translator;Übersetzer
 Tree;Baumstruktur
 Tree & Text;Baumstruktur & Text
+TruePeakLevel;
+TruePeakLevel_Album;
 Type;
 UniqueID;
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;Unbekannt
 Url;URL
 Video;Video
@@ -1081,8 +1167,10 @@ VideoComments;
 VideoCount;Anzahl der Video-Streams
 View;Ansicht
 View_Hint;Ändert die Darstellung der angezeigten Informationen
+Views;
 Warning : more streams in the files;Achtung! Es befinden sich mehr Streams in den Dateien
 Web;Internet
+WebSite;
 WebSite_Audio;Lade die Webseite dieses Audio-Codecs
 WebSite_Audio_More;Lade dier Webseite (%Url%) um diesen Audio-Codec zu finden
 WebSite_General;Zur Webseite eines Players für diese Datei gehen
@@ -1102,5 +1190,5 @@ Written_Location;Ort des Schreibbeginns
 WrittenBy;Geschrieben von
 Yes;Ja
 Your system;Deine Systeminformationen
-ZZ_Automatic_Percent;85
-ZZ_AutomaticLanguage_Percent;89
+ZZ_Automatic_Percent;78
+ZZ_AutomaticLanguage_Percent;82

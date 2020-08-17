@@ -14,8 +14,8 @@
  bit1; bit
  bit2; bits
  bit3; bits
- bps; bps
- Bps; Bps
+ bps; b/s
+ Bps; B/s
  Byte1; Byte
  Byte2; Bytes
  Byte3; Bytes
@@ -40,22 +40,22 @@
  file1; αρχείο
  file2; αρχεία
  file3; αρχεία
- fps1; fps
- fps2; fps
- fps3; fps
+ fps1; FPS
+ fps2; FPS
+ fps3; FPS
  frame1;
  frame2;
  frame3;
  GB; GB
  Gb; Gb
- Gbps; Gbps
- GBps; GBps
+ Gbps; Gb/s
+ GBps; GB/s
  GHz; GHz
  GiB; GiB
  GibiByte1; GibiBytes
  GibiByte2; GibiBytes
  GibiByte3; GibiBytes
- GiBps; GiBps
+ GiBps; GiB/s
  GigaBit1; GigaBit
  GigaBit2; GigaBits
  GigaBit3; GigaBits
@@ -69,11 +69,11 @@
  image stream1; ροή εικόνας
  image stream2; ροές εικόνας
  image stream3; ροές εικόνας
- KB; KB
- Kb; Kb
- KBps; KBps
- Kbps; Kbps
- KHz; KHz
+ KB; kB
+ Kb; kb
+ KBps; kB/s
+ Kbps; kb/s
+ KHz; kHz
  KiB; KiB
  KibiBit1; KibiBit
  KibiBit2; KibiBits
@@ -81,7 +81,7 @@
  KibiByte1; KibiByte
  KibiByte2; KibiBytes
  KibiByte3; KibiBytes
- KiBps; KiBps
+ KiBps; KiB/s
  KiloBit1; KiloBit
  KiloBit2; KiloBits
  KiloBit3; KiloBits
@@ -90,7 +90,7 @@
  KiloByte3; KiloBytes
  MB; MB
  Mb; Mb
- Mbps; Mbps
+ Mbps; Mb/s
  MBps; MebiBytes
  MebiBit1; MebiBit
  MebiBit2; MebiBits
@@ -107,7 +107,7 @@
  MHz; MHz
  MiB; MiB
  Mib; Mib
- MiBps; MiBps
+ MiBps; MiB/s
  millisecond1; millisecond
  millisecond2; milliseconds
  millisecond3; milliseconds
@@ -155,6 +155,7 @@ Actor;Actor
 Actor_Character;Character played
 Added_Date;
 Address;Διεύθυνση
+AdID;
 Advanced;Για προχωρημένους
 Advanced mode;Κατάσταση λειτουργίας για προχωρημένους
 Album;Album
@@ -164,6 +165,7 @@ Alignment;
 Alignment_Aligned;
 Alignment_Split;
 All;Όλα
+AlternateGroup;
 Archival_Location;Archival location
 Arranger;Arranger
 ArtDirector;ArtDirector
@@ -187,7 +189,10 @@ Author;Author
 BarCode;BarCode
 Basic;Βασική
 Basic_Note;Σημείωση : για περισσότερες πληροφορίες σχετικά με το αρχείο, επιλέξτε διαφορετική προβολή (Φύλλο, Δένδρο...)
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;
+BitDepth_Detected;
 BitDepth_Stored;
 BitRate;Ρυθμός μετάδοσης δεδομένων
 BitRate_Encoded;
@@ -201,6 +206,7 @@ Bits-(Pixel*Frame);Bits/(Εικονοστοιχείο*Πλαίσιο)
 BufferSize;
 Cancel;Άκυρο
 Channel(s);Κανάλι(α)
+ChannelLayout;
 ChannelPositions;Θέσεις καναλιών
 Chapter(s);Κεφάλαιο(α)
 Chapters;Κεφάλαια
@@ -216,9 +222,10 @@ Choose export format;Επιλέξτε your desired export format
 Choose file(s);Επιλέξτε το αρχείο για άνοιγμα
 Choose filename;Επιλέξτε το επιθυμητό όνομα αρχείου
 Choose language;Επιλέξτε την επιθυμητή γλώσσα
-Choregrapher;Χορογράφος
+Choreographer;Χορογράφος
 Chroma;Χρώμα
 ChromaSubsampling;
+ClearList;
 Close;Κλείσιμο
 Close all before open;Κλείστε όλα τα ανοιχτά αρχεία πριν το άνοιγμα νέων
 ClosedCaptionsLanguage;
@@ -242,6 +249,7 @@ Codec_Settings_PacketBitStream;
 Codec_Settings_QPel;
 Codec_Settings_Sign;
 Codec_Url;Σύνδεσμος συμπιεστή (url)
+CodecConfigurationBox;
 CodecID;
 CodecID_Description;
 CoDirector;
@@ -255,12 +263,14 @@ CommissionedBy;Commissioned by
 Compilation;
 CompleteName;Πλήρες όνομα
 CompletionDate;
+ComplexityIndex;
 Composer;Composer
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;
 Conductor;Conductor
+ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Container και γενικές πληροφορίες
@@ -279,9 +289,11 @@ Cover_Type;
 Cropped;
 Custom;Προσαρμοσμένη
 Customize;Προσαρμόστε
+DarkMode;
 Date;Ημερομηνία
 Debug;Αποσφαλμάτωση
 Decimal point;Decimal point
+Default_Setting;
 Delay;Καθυστέρηση
 Delay_Source;
 Delay_Source_Container;
@@ -292,6 +304,7 @@ Digitized_Date;Ημερομηνία Ψηφιοποίησης
 Dimensions;
 Director;Director
 DirectorOfPhotography;Director of photography
+Disabled;
 DisplayAspectRatio;Λόγος εικόνας
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;
@@ -299,11 +312,14 @@ DistributedBy;Distributed by
 Distributor;
 Donate;Δωρεές
 DotsPerInch;
+DrcSets_Count;
+DrcSets_Effects;
 Duration;
 Duration_End;
 Duration_Start;
 Edit;Επεξεργασία
 EditedBy;Τροποποιημένο από
+ElementCount;
 EMail;E-Mail
 Encoded_Application;Εφαρμογή εγγραφής
 Encoded_Date;Ημερομηνία κωδικοποίησης
@@ -314,12 +330,14 @@ EncodedBy;Κωδικοποιημένο από
 EPG_Positions;
 EpisodeTitleNumber;
 Error_File;Παρουσιάστηκε σφάλμα κατά το διάβασμα του αρχείου
+Error_File_Write;
 ExecutiveProducer;Executive producer
 Exit;Έξοδος
 Exit_Hint;Κλείνει το πρόγραμμα
 Export;Εξαγωγή
 Export_Hint;Εξαγωγή σε custom format
 Extensions;Συνήθεις επεκτάσεις
+External_Media_NotMounted;
 Family;
 Fax;Fax
 File;Αρχείο
@@ -332,6 +350,7 @@ File_Modified_Date;
 File_Modified_Date_Local;
 FileExtension;Επέκταση αρχείου
 FileName;Όνομα αρχείου
+FileNameExtension;
 FileSize;Μέγεθος αρχείου
 Folder;Φάκελος
 Folder (R);Φάκελος (R)
@@ -342,8 +361,10 @@ FolderName;Όνομα φακέλου
 Format;Μορφοποίηση
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;
 Format_Info;
+Format_Level;
 Format_Profile;
 Format_Settings;
 Format_Settings_BVOP;
@@ -371,6 +392,7 @@ Format_Settings_RefFrames;
 Format_Settings_SBR;
 Format_Settings_Sign;
 Format_Settings_Wrapping;
+Format_Tier;
 Format_Url;
 Format_Version;
 FpaManufacturer;
@@ -580,12 +602,13 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Επίσκεψη του δυκτιακού τόπου
-Grouping;
 Gop_OpenClosed;
-Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;Групаванне
-h;h
+Gop_OpenClosed_Open;
+Grouping;
+h; h
+HDR_Format;
 Header file;Δημιουργήστε αρχείο κεφαλίδας
 Height;Ύψος
 Height_CleanAperture;
@@ -667,6 +690,7 @@ Language_en-gb;
 Language_en-us;
 Language_eo;Esperanto
 Language_es;Spanish
+Language_es-419;
 Language_et;Estonian
 Language_eu;Basque
 Language_fa;Persian
@@ -690,6 +714,7 @@ Language_hr;Croatian
 Language_ht;Haitian
 Language_hu;Hungarian
 Language_hy;Armenian
+Language_hy-az;
 Language_hz;Herero
 Language_ia;Auxiliary Language Association
 Language_id;Indonesian
@@ -734,10 +759,12 @@ Language_mi;Maori
 Language_mk;Macedonian
 Language_ml;Malayalam
 Language_mn;Mongolian
+Language_mn-cn;
 Language_mo;Moldavian
 Language_More;
 Language_mr;Marathi
 Language_ms;Malay
+Language_ms-bn;
 Language_mt;Maltese
 Language_mul;Πολλαπλές γλώσσες
 Language_my;Burmese
@@ -747,6 +774,7 @@ Language_nd;Ndebele
 Language_ne;Nepali
 Language_ng;Ndonga
 Language_nl;Dutch
+Language_nl-be;
 Language_nn;Norwegian Nynorsk
 Language_no;Norwegian
 Language_nr;Ndebele
@@ -778,6 +806,7 @@ Language_si;Sinhala
 Language_sk;Slovak
 Language_sl;Slovenian
 Language_sm;Samoan
+Language_smi;
 Language_sn;Shona
 Language_so;Somali
 Language_sq;Albanian
@@ -824,15 +853,38 @@ Library;Muxing library
 Lightness;
 LineUpStart;
 List;
+Loudness_Anchor;
+Loudness_Anchor_Album;
+Loudness_Count;
+Loudness_Count_Album;
+Loudness_MaximumMomentary;
+Loudness_MaximumMomentary_Album;
+Loudness_MaximumOfRange;
+Loudness_MaximumOfRange_Album;
+Loudness_MaximumShortTerm;
+Loudness_MaximumShortTerm_Album;
+Loudness_ProductionMixingLevel;
+Loudness_ProductionMixingLevel_Album;
+Loudness_Program;
+Loudness_Program_Album;
+Loudness_Range;
+Loudness_Range_Album;
+Loudness_RoomType;
+Loudness_RoomType_Album;
 Lyricist;Lyricist
 Lyrics;
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;
 Matrix_Format;
+MaxCLL;
+MaxFALL;
 MediaInfo_About;Παρέχει λεπτομερείς πληροφορίες\r\nγια αρχεία πολυμέσων:\r\nMatroska, OGG (συμπεριλαμβάνεται OGM)\r\nMPEG1 (συμπεριλαμβάνεται VCD)\r\nMPEG2 (συμπεριλαμβάνεται DVD και SVCD)\r\nMPEG4 (συμπεριλαμβάνεται Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (συμπεριλαμβάνεται WMV, WMA)\r\nMicrosoft RIFF (συμπεριλαμβάνεται AVI, WAV)\r\nΜορφοποιήσεις ήχου (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About_About;
 Menu;Μενού
 Menu stream(s);Ροές μενού
 Menu_Codec_List;Συμπιεστές μενού
@@ -840,11 +892,11 @@ Menu_Hint;Περισσότερες πιθανότητες
 Menu_No;Χωρίς μενού
 MenuCount;Αριθμός των ροών μενού
 MenuID;
-mn;mn
+mn; min
 Mood;Mood
 More;Περισσότερα
 Movie;Όνομα ταινίας
-ms;ms
+ms; ms
 MSDI;MSDI
 MusicBy;
 MuxingMode;
@@ -860,6 +912,7 @@ NewVersion_Question_Content;
 NewVersion_Question_Title;
 No;Όχι
 Not yet;
+NumberOfDynamicObjects;
 NumColors;
 OK;OK
 One output file per input file;Ένα αρχείο εξόδου για κάθε αρχείο εισόδου
@@ -909,6 +962,7 @@ Original;Original
 OriginalNetworkName;
 OriginalSourceForm;
 OriginalSourceMedium;
+OriginalSourceMedium_ID;
 Originator;
 Other;Άλλος
 OtherIdentifier;
@@ -920,6 +974,7 @@ OverallBitRate_Maximum;
 OverallBitRate_Minimum;
 OverallBitRate_Mode;
 OverallBitRate_Nominal;
+PackageName;
 Part;Μέρος
 Part_Count;Συνολικός αριθμός
 PartNumber;
@@ -936,9 +991,12 @@ Played_Count;
 Played_First_Date;
 Played_Last_Date;
 PlayTime;Διάρκεια
+PodcastCategory;
 Position;Θέση
 Position_Total;
 Preferences;Επιλογές/Προτιμήσεις
+Premium;
+Premium_Summary;
 PrimaryAudioLanguage;
 Producer;Παραγωγός
 ProductionDesigner;ProductionDesigner
@@ -957,10 +1015,15 @@ Recorded_Date;Ημερομηνία εγγραφής
 Recorded_Location;Τοποθεσία εγγραφής
 Released_Date;Ημερομηνία Έκδοσης
 RemixedBy;Remixed by
+Renew;
 ReplayGain_Gain;
 ReplayGain_Peak;
+Report;
 Resolution;Ανάλυση
 s;s
+SamplePeakLevel;
+SamplePeakLevel_Album;
+SamplesPerFrame;
 SamplingCount;
 SamplingRate;Συχνότητα δειγματοληψίας
 Save;Αποθήκευση
@@ -981,6 +1044,7 @@ Separator_Columns;διαχωριστής στηλών
 Separator_Lines;διαχωριστής γραμμών
 SeriesTitle;
 ServiceChannel;
+ServiceKind;
 ServiceName;
 ServiceProvider;
 ServiceType;
@@ -1016,17 +1080,33 @@ Stream;Ροή
 Stream_MoreInfo;Περισσότερες πληροφορίες σχετικά με την ροή
 StreamCount;Αριθμός των ροών αυτού του τύπου
 StreamID;Stream ID
+streamIdentifier;
 StreamKind;Τύπος/Είδος Ροής
 StreamKindID;
 StreamKindPos;
 StreamSize;
+StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;
 Subject;Subject
+Subscribe;
+Subscribe_Button;
+Subscribe_Failed;
+Subscribe_Manage;
+Subscribe_Renew;
+Subscribe_Renew_Price;
+Subscribe_Unaviable;
+Subscribe_Waiting;
+Subscription_Active;
+Subscription_Android;
+Subscription_Ended;
+Subscription_Expired;
+Subscription_Thanks;
 SubTrack;SubTrack
 Summary;Περίληψη
 Supported formats;Υποστηριζόμενες μορφοποιήσεις
 Supported?;Υποστηρίζεται?
+SupportUs;
 Synopsis;Σύνοψη
 SystemId;Id
 Tagged_Application;
@@ -1063,11 +1143,17 @@ TotalProgrammeDuration;
 Track;Track name
 Track_Count;Track count
 transfer_characteristics;
+Translate_Reports;
 Translator;Μεταφραστής
 Tree;Δένδρο
 Tree & Text;Δένδρο & Κείμενο
+TruePeakLevel;
+TruePeakLevel_Album;
 Type;
 UniqueID;
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;Άγνωστο
 Url;Url
 Video;Video
@@ -1081,8 +1167,10 @@ VideoComments;
 VideoCount;Αριθμός των ροών video
 View;Προβολή
 View_Hint;Αλλάζει τον τρόπο προβολής πληροφοριών
+Views;
 Warning : more streams in the files;Προειδοποίηση : υπάρχουν περισσότερες ροές στα αρχεία
 Web;Διαδύκτιο
+WebSite;
 WebSite_Audio;Πήγαινε στην ιστοσελίδα αυτού του συμπιεστή ήχου
 WebSite_Audio_More;Πήγαινε στην ιστοσελίδα (%Url%) to find this audio codec
 WebSite_General;Go to the web site of a player for this file
@@ -1102,5 +1190,5 @@ Written_Location;Τοποθεσία καταγραφής
 WrittenBy;Γραμμένο από
 Yes;Ναι
 Your system;Το σύστημά σας
-ZZ_Automatic_Percent;69
-ZZ_AutomaticLanguage_Percent;77
+ZZ_Automatic_Percent;64
+ZZ_AutomaticLanguage_Percent;71

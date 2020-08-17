@@ -21,7 +21,7 @@ if(-f $stringsdb) {
     open(my $in, '<:raw', $stringsdb) || die "Couldn't open db file: $!";
     my $text = do { local $/; <$in> };
     close $in;
-    my $content = decode('UTF-16', $text);
+    my $content = decode('UTF-8', $text);
     my @lines = split /\n/, $content;
     foreach(@lines) {
         
@@ -53,7 +53,7 @@ foreach(sort keys %db) {
 }
 
 open my $out, '>:raw', $stringsdb;
-print $out encode("UTF-16", $output_str);
+print $out encode("UTF-8", $output_str);
 close $out;
 
 
@@ -65,7 +65,7 @@ sub addStringsFromFile
     open(my $in, '<:raw', $filename) || die "Couldn't open $filename: $!";
     my $text = do { local $/; <$in> };
     close $in;
-    my $content = decode('UTF-16', $text);
+    my $content = decode('UTF-8', $text);
     my @lines = split /\n/, $content;
 
     foreach(@lines) {

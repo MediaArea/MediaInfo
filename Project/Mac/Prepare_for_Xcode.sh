@@ -6,5 +6,6 @@ install_name_tool -id @executable_path/../Resources/libmediainfo.dylib libmediai
 
 cd _i18n
 chmod +x *pl *sh
+./update_csv.sh all
 ./update_strings.sh all
 ./update_xibs.sh all

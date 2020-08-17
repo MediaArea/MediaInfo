@@ -5,8 +5,13 @@
 "38.ibShadowedToolTips[0]" = "Temel";
 "38.ibShadowedToolTips[1]" = "Ağaç";
 "38.ibShadowedToolTips[2]" = "Metin";
-"38.ibShadowedToolTips[3]" = "Other Views";
+"38.ibShadowedToolTips[3]" = "Compare View (Premium feature)";
+"38.ibShadowedToolTips[4]" = "Other Views";
 "39.label" = "Görünüm";
 "39.paletteLabel" = "Görünüm";
 "PWm-W6-Msn.title" = "İstediğiniz dışarı aktarma biçimini seçin";
+"dpG-p5-QwC.label" = "";
+"dpG-p5-QwC.paletteLabel" = "Subscribe";
+"eZC-pc-IWN.label" = "Compare";
+"kut-ID-XH0.ibShadowedToolTips[0]" = "Subscribe to premium features";
 "l1c-6L-mdF.title" = "Metin";

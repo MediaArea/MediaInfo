@@ -1,3 +1,16 @@
+"Can not download %@" = "Impossible de télécharger %@";
+"Can not open %@" = "Impossible d'ouvrir %@";
 "Can not open file(s)" = "Can not open file(s)";
 "Can not save file" = "Can not save file";
+"Close" = "Fermer";
+"Compare View" = "Comparer (Fonctionnalité premium)";
+"Downloading file(s) %lu of %lu ..." = "Téléchargement du fichier %lu de %lu ...";
 "Error" = "Error";
+"Manage Subscription" = "Gérer l'abonnement";
+"Opening file(s) %lu of %lu ..." = "Ouverture du fichier %lu de %lu ...";
+"Renew" = "Renouveler";
+"Renew subscription %PRICE% for one year" = "Renouveler l'abonnement (%PRICE% pour un an)";
+"Renew subscription?" = "Renouveler l'abonnement ?";
+"Subscription active until %DATE%." = "Abonnement actif jusqu'au %DATE%";
+"Subscription expired since %DATE%." = "Abonnement expiré depuis le %DATE%";
+"Your subscription has just ended." = "Votre abonnement vient de se terminer.";

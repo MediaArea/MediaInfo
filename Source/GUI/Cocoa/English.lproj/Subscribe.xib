@@ -25,14 +25,14 @@
 CA
 </string>
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
-            <rect key="contentRect" x="196" y="240" width="480" height="480"/>
+            <rect key="contentRect" x="196" y="240" width="480" height="582"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1001"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                <rect key="frame" x="0.0" y="0.0" width="480" height="582"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Moo-5g-Bey">
-                        <rect key="frame" x="18" y="452" width="444" height="28"/>
+                        <rect key="frame" x="18" y="534" width="444" height="28"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Support us by subscribing and get exclusive features." id="JYE-X2-6VN">
                             <font key="font" metaFont="system" size="15"/>
@@ -41,32 +41,32 @@ CA
                         </textFieldCell>
                     </textField>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="mQ5-rP-qvC">
-                        <rect key="frame" x="20" y="189" width="440" height="255"/>
+                        <rect key="frame" x="20" y="280" width="440" height="246"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="MacCompare" id="EPL-DB-01U"/>
                     </imageView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="tTd-J7-XLG">
-                        <rect key="frame" x="16" y="157" width="134" height="24"/>
+                        <rect key="frame" x="18" y="248" width="168" height="24"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="• Files compare" allowsEditingTextAttributes="YES" id="9hJ-Wf-yXr">
+                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="• Files compare" allowsEditingTextAttributes="YES" usesSingleLineMode="YES" id="9hJ-Wf-yXr">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="B6c-IE-qrM">
-                        <rect key="frame" x="173" y="157" width="134" height="24"/>
+                        <rect key="frame" x="173" y="248" width="134" height="24"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="• Advanced mode" id="25b-t3-0Ag">
+                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="• Advanced mode" usesSingleLineMode="YES" id="25b-t3-0Ag">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" id="cR0-AD-baK">
-                        <rect key="frame" x="14" y="96" width="457" height="32"/>
+                        <rect key="frame" x="9" y="96" width="457" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="push" title="Subscribe PRICE for one year" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="JL5-kL-wBR">
+                        <buttonCell key="cell" type="push" title="Subscribe %PRICE% for one year" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="JL5-kL-wBR">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                             <connections>
@@ -77,7 +77,7 @@ CA
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="nou-WM-zJF">
                         <rect key="frame" x="18" y="132" width="444" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="• More to come" id="GH4-tq-1cm">
+                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" id="GH4-tq-1cm">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -88,23 +88,37 @@ CA
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" selectable="YES" id="RPE-po-2rg">
                             <font key="font" metaFont="system"/>
-                            <string key="title"> A PRICE purchase will be applied to your iTunes account on confirmation.
+                            <string key="title"> A %PRICE% purchase will be applied to your iTunes account on confirmation.
 If a subscription is already active one year will be added to your current subscription end date.</string>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="X2M-IL-NyT">
+                        <rect key="frame" x="301" y="248" width="166" height="24"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="• Select default view" allowsEditingTextAttributes="YES" usesSingleLineMode="YES" id="TBA-9I-zit">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="ef3-3A-ZJ5">
+                        <rect key="frame" x="18" y="232" width="449" height="17"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="• More to come" id="dbk-rc-jAB">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                     <box boxType="custom" borderType="none" borderWidth="0.0" id="S7w-C1-HHM">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="582"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <view key="contentView" id="Tpu-wS-vIK">
-                            <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                            <rect key="frame" x="0.0" y="0.0" width="480" height="582"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="Rv1-Fb-Hmg">
-                                    <rect key="frame" x="232" y="232" width="16" height="16"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                </progressIndicator>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="YIX-Zg-YNo">
                                     <rect key="frame" x="18" y="250" width="444" height="17"/>
                                     <autoresizingMask key="autoresizingMask"/>
@@ -118,7 +132,7 @@ CA
                                     </textFieldCell>
                                 </textField>
                                 <button verticalHuggingPriority="750" id="DLh-1k-cok">
-                                    <rect key="frame" x="210" y="229" width="62" height="21"/>
+                                    <rect key="frame" x="209" y="20" width="62" height="21"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <buttonCell key="cell" type="bevel" title="RETRY" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="5u4-uz-TBx">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -128,27 +142,22 @@ CA
                                         <action selector="retryRequest:" target="-2" id="13n-3P-cKY"/>
                                     </connections>
                                 </button>
+                                <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="Rv1-Fb-Hmg">
+                                    <rect key="frame" x="232" y="283" width="16" height="16"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </progressIndicator>
                             </subviews>
                         </view>
                     </box>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="X2M-IL-NyT">
-                        <rect key="frame" x="331" y="157" width="134" height="24"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="• Select default view" id="TBA-9I-zit">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                 </subviews>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="sW3-xz-zIT"/>
             </connections>
-            <point key="canvasLocation" x="141" y="42"/>
+            <point key="canvasLocation" x="141" y="93"/>
         </window>
     </objects>
     <resources>
-        <image name="MacCompare" width="653" height="499"/>
+        <image name="MacCompare" width="105.59999847412109" height="61.200000762939453"/>
     </resources>
 </document>

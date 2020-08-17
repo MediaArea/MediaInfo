@@ -14,8 +14,8 @@
  bit1; bit
  bit2; bit
  bit3; bit
- bps; bps
- Bps; Bps
+ bps; b/s
+ Bps; B/s
  Byte1; bájt
  Byte2; bájt
  Byte3; bájt
@@ -40,22 +40,22 @@
  file1; fájl
  file2; fájl
  file3; fájl
- fps1; fps
- fps2; fps
- fps3; fps
+ fps1; FPS
+ fps2; FPS
+ fps3; FPS
  frame1; képkocka
  frame2; képkocka
  frame3; képkocka
  GB; GB
  Gb; Gb
- Gbps; Gbps
- GBps; GBps
+ Gbps; Gb/s
+ GBps; GB/s
  GHz; GHz
  GiB; GiB
  GibiByte1; GibiBájt
  GibiByte2; GibiBájt
  GibiByte3; GibiBájt
- GiBps; GiBps
+ GiBps; GiB/s
  GigaBit1; GigaBit
  GigaBit2; GigaBit
  GigaBit3; GigaBit
@@ -69,11 +69,11 @@
  image stream1; képadat
  image stream2; képadat
  image stream3; képadat
- KB; Kbps
- Kb; Kb
- KBps; KBps
- Kbps; Kbps
- KHz; KHz
+ KB; kb/s
+ Kb; kb
+ KBps; kB/s
+ Kbps; kb/s
+ KHz; kHz
  KiB; KiB
  KibiBit1; KibiBit
  KibiBit2; KibiBit
@@ -81,7 +81,7 @@
  KibiByte1; KibiBájt
  KibiByte2; KibiBájt
  KibiByte3; KibiBájt
- KiBps; KiBps
+ KiBps; KiB/s
  KiloBit1; KiloBit
  KiloBit2; KiloBit
  KiloBit3; KiloBit
@@ -90,7 +90,7 @@
  KiloByte3; KiloBájt
  MB; MB
  Mb; Mb
- Mbps; Mbps
+ Mbps; Mb/s
  MBps; MebiBájt
  MebiBit1; MebiBit
  MebiBit2; MebiBit
@@ -107,7 +107,7 @@
  MHz; MHz
  MiB; MiB
  Mib; Mib
- MiBps; MiBps
+ MiBps; MiB/s
  millisecond1; ezredmásodperc
  millisecond2; ezredmásodperc
  millisecond3; ezredmásodperc
@@ -155,6 +155,7 @@ Actor;Előadó
 Actor_Character;Szerep
 Added_Date;Hozzáadva
 Address;Cím
+AdID;
 Advanced;Bővített
 Advanced mode;Bővített mód
 Album;Album
@@ -164,6 +165,7 @@ Alignment;Igazítás
 Alignment_Aligned;igazított
 Alignment_Split;osztott
 All;Mind
+AlternateGroup;
 Archival_Location;Arhiválás helye
 Arranger;Szerkesztő
 ArtDirector;Művészeti vezető
@@ -187,7 +189,10 @@ Author;Szerző
 BarCode;Vonalkód
 Basic;Egyszerű
 Basic_Note;Megjegyzés: a többi nézet (Táblázat, Fa ...) bővebb adatokat mutat a fájlról
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;
+BitDepth_Detected;
 BitDepth_Stored;
 BitRate;Adatsebesség
 BitRate_Encoded;
@@ -201,6 +206,7 @@ Bits-(Pixel*Frame);Bit/(képpont*képkocka)
 BufferSize;
 Cancel;Mégsem
 Channel(s);Csatornák száma
+ChannelLayout;
 ChannelPositions;Csatorna kiosztás
 Chapter(s);Fejezet
 Chapters;Fejezet
@@ -216,9 +222,10 @@ Choose export format;Adja meg a kívánt egyedi exportálási formátumot
 Choose file(s);Adja meg a megnyitni kívánt fájl nevét
 Choose filename;Adja meg a kívánt fájlnevet
 Choose language;Adja meg a használni kívánt nyelvet
-Choregrapher;Koreográfus
+Choreographer;Koreográfus
 Chroma;Szín
 ChromaSubsampling;
+ClearList;
 Close;Bezárás
 Close all before open;Mindent bezár megnyitás előtt
 ClosedCaptionsLanguage;
@@ -242,6 +249,7 @@ Codec_Settings_PacketBitStream;Codec settings, Packet bitstream
 Codec_Settings_QPel;Kódek beállításai, QPel
 Codec_Settings_Sign;Kódek beállításai, Sign
 Codec_Url;Kódek weblapja
+CodecConfigurationBox;
 CodecID;Kódek azonosító
 CodecID_Description;Kódek leírás
 CoDirector;
@@ -255,12 +263,14 @@ CommissionedBy;Megbízó
 Compilation;
 CompleteName;Teljes név
 CompletionDate;
+ComplexityIndex;
 Composer;Zeneszerző
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;Tömörítési arány
 Conductor;Vezényel
+ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Gyűjtő és általános adatok
@@ -279,9 +289,11 @@ Cover_Type;Borító típusa
 Cropped;Méretek
 Custom;Egyedi
 Customize;Testreszabás
+DarkMode;
 Date;Dátum
 Debug;Hibakeresés
 Decimal point;Tizedesjel
+Default_Setting;
 Delay;Késleltetés
 Delay_Source;
 Delay_Source_Container;
@@ -292,6 +304,7 @@ Digitized_Date;Digitalizálás dátuma
 Dimensions;Méretek
 Director;Rendező
 DirectorOfPhotography;Fényképezte
+Disabled;
 DisplayAspectRatio;Képarány
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Eredeti képarány
@@ -299,11 +312,14 @@ DistributedBy;Terjesztő
 Distributor;
 Donate;Adomány
 DotsPerInch;
+DrcSets_Count;
+DrcSets_Effects;
 Duration;Időtartam
 Duration_End;
 Duration_Start;
 Edit;Szerkesztés
 EditedBy;Szerkesztő
+ElementCount;
 EMail;Email
 Encoded_Application;Kódoló szoftver
 Encoded_Date;Kódolás dátuma
@@ -314,12 +330,14 @@ EncodedBy;Kódolta
 EPG_Positions;
 EpisodeTitleNumber;
 Error_File;Fájlolvasási hiba
+Error_File_Write;
 ExecutiveProducer;Gyártó
 Exit;Kilépés
 Exit_Hint;Kilépés a programból
 Export;Exportálás
 Export_Hint;Exportálás egyedi formátumba
 Extensions;Általában használatos kiterjesztések
+External_Media_NotMounted;
 Family;Család
 Fax;fax
 File;Fájl
@@ -332,6 +350,7 @@ File_Modified_Date;Fájl módosításának dátuma
 File_Modified_Date_Local;
 FileExtension;Fájl kiterjesztés
 FileName;Fájlnév
+FileNameExtension;
 FileSize;Fájlméret
 Folder;Mappa
 Folder (R);Mappa (R)
@@ -342,8 +361,10 @@ FolderName;Mappanév
 Format;Formátum
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;Formátum leírás
 Format_Info;A kódek részletei
+Format_Level;
 Format_Profile;Formátum profil
 Format_Settings;Formátum beállítások
 Format_Settings_BVOP;Formátum beállítások, BVOP
@@ -367,10 +388,11 @@ Format_Settings_PictureStructure;
 Format_Settings_PS;Formátum beállítások, PS
 Format_Settings_Pulldown;Formátum beállítások, Pulldown
 Format_Settings_QPel;Formátum beállítások, QPel
-Format_Settings_RefFrames;Formátum beállítások, ReFrames
+Format_Settings_RefFrames;Formátum beállítások, RefFrames
 Format_Settings_SBR;Formátum beállítások, SBR
 Format_Settings_Sign;Formátum beállítások, Sign
 Format_Settings_Wrapping;
+Format_Tier;
 Format_Url;Formátum weblapja
 Format_Version;Formátum változat
 FpaManufacturer;
@@ -580,12 +602,13 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;A weblap meglátogatása
-Grouping;
 Gop_OpenClosed;
-Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
+Gop_OpenClosed_Open;
+Grouping;
 h; óra
+HDR_Format;
 Header file;Fejléc fájl létrehozása
 Height;Magasság
 Height_CleanAperture;
@@ -667,6 +690,7 @@ Language_en-gb;
 Language_en-us;
 Language_eo;eszperantó
 Language_es;spanyol
+Language_es-419;
 Language_et;észt
 Language_eu;baszk
 Language_fa;perzsa
@@ -690,6 +714,7 @@ Language_hr;horvát
 Language_ht;haiti
 Language_hu;magyar
 Language_hy;örmény
+Language_hy-az;
 Language_hz;herero
 Language_ia;interlingua
 Language_id;indonéz
@@ -734,10 +759,12 @@ Language_mi;maori 
 Language_mk;macedón
 Language_ml;malajziai
 Language_mn;mongol
+Language_mn-cn;
 Language_mo;moldáv
 Language_More;Nyelv, további adatok
 Language_mr;marathi
 Language_ms;maláj
+Language_ms-bn;
 Language_mt;máltai
 Language_mul;Többnyelvű
 Language_my;burmai
@@ -747,6 +774,7 @@ Language_nd; 
 Language_ne;nepáli
 Language_ng; 
 Language_nl;holland
+Language_nl-be;
 Language_nn;norvég bokmál
 Language_no;norvég
 Language_nr; 
@@ -778,6 +806,7 @@ Language_si;szingaléz
 Language_sk;szlovák
 Language_sl;szlovén
 Language_sm;szamoai
+Language_smi;
 Language_sn; 
 Language_so;szomáli
 Language_sq;albán
@@ -824,15 +853,38 @@ Library;Keverőkönyvtár
 Lightness;Fényesség
 LineUpStart;
 List;Lista
+Loudness_Anchor;
+Loudness_Anchor_Album;
+Loudness_Count;
+Loudness_Count_Album;
+Loudness_MaximumMomentary;
+Loudness_MaximumMomentary_Album;
+Loudness_MaximumOfRange;
+Loudness_MaximumOfRange_Album;
+Loudness_MaximumShortTerm;
+Loudness_MaximumShortTerm_Album;
+Loudness_ProductionMixingLevel;
+Loudness_ProductionMixingLevel_Album;
+Loudness_Program;
+Loudness_Program_Album;
+Loudness_Range;
+Loudness_Range_Album;
+Loudness_RoomType;
+Loudness_RoomType_Album;
 Lyricist;Szövegíró
 Lyrics;Dalszöveg
 Mastered_Date;Mesterpéldány kelte
 MasteredBy;Mesterpéldány
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;
 Matrix_Format;
+MaxCLL;
+MaxFALL;
 MediaInfo_About;Igen részletes adatok az alábbi\r\nmultimédia fájlokról:\r\nMatroska, OGG (OGM is)\r\nMPEG1 (VCD is)\r\nMPEG2 (DVD és SVCD is)\r\nMPEG4 (Itunes M4A is)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (WMV, WMA is)\r\nMicrosoft RIFF (AVI, WAV is)\r\nCsak hangot tartalmazó fájlok (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About_About;
 Menu;Menü
 Menu stream(s);Menüsáv
 Menu_Codec_List;Menükódek lista
@@ -860,6 +912,7 @@ NewVersion_Question_Content;Elérhető egy újabb (v%Version%) változat. Kívá
 NewVersion_Question_Title;Új változat jelent meg!
 No;nem
 Not yet;Még nincs
+NumberOfDynamicObjects;
 NumColors;Színek száma
 OK;OK
 One output file per input file;Bemeneti fájlonként egy kimeneti fájl
@@ -909,6 +962,7 @@ Original;Eredeti
 OriginalNetworkName;
 OriginalSourceForm;Eredeti forrás formátuma
 OriginalSourceMedium;Eredeti adathordozója
+OriginalSourceMedium_ID;
 Originator;
 Other;Egyéb
 OtherIdentifier;
@@ -920,6 +974,7 @@ OverallBitRate_Maximum;Legnagyobb adatsebesség
 OverallBitRate_Minimum;Legkisebb adatsebesség
 OverallBitRate_Mode;Teljes adatsebesség
 OverallBitRate_Nominal;Névleges adatsebesség
+PackageName;
 Part;Rész
 Part_Count;Részek száma
 PartNumber;
@@ -936,9 +991,12 @@ Played_Count;Lejátszások száma
 Played_First_Date;Első lejátszás dátuma
 Played_Last_Date;Utolsó lejátszás dátuma
 PlayTime;Játékidő
+PodcastCategory;
 Position;Helyzet
 Position_Total;
 Preferences;Beállítások
+Premium;
+Premium_Summary;
 PrimaryAudioLanguage;
 Producer;Gyártó
 ProductionDesigner;Tervező
@@ -957,10 +1015,15 @@ Recorded_Date;Rögzítés dátuma
 Recorded_Location;Rögzítés helye
 Released_Date;Kiadás dátuma
 RemixedBy;Újrakeverte
+Renew;
 ReplayGain_Gain;Visszajátszás erősítése
 ReplayGain_Peak;Visszajátszás csúcserősítése
+Report;
 Resolution;Felbontás
 s; mp
+SamplePeakLevel;
+SamplePeakLevel_Album;
+SamplesPerFrame;
 SamplingCount;
 SamplingRate;Mintavételezési gyakoriság
 Save;Mentés
@@ -981,6 +1044,7 @@ Separator_Columns;Oszlop elválasztó
 Separator_Lines;Sor elválasztó
 SeriesTitle;
 ServiceChannel;Szolgáltatás csatornája
+ServiceKind;
 ServiceName;Szolgáltatás neve
 ServiceProvider;Szolgáltató
 ServiceType;Szolgáltatás típusa
@@ -1016,17 +1080,33 @@ Stream;Sáv
 Stream_MoreInfo;Több adat a sávról
 StreamCount;A hasonló fajtájú sávok száma
 StreamID;Sávazonosító
+streamIdentifier;
 StreamKind;Sáv fajtája
 StreamKindID;Sáv fajta azonosító
 StreamKindPos;Sáv fajta sorszáma
 StreamSize;Adatfolyam mérete
+StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;Adatofolyam aránya
 Subject;Tárgy
+Subscribe;
+Subscribe_Button;
+Subscribe_Failed;
+Subscribe_Manage;
+Subscribe_Renew;
+Subscribe_Renew_Price;
+Subscribe_Unaviable;
+Subscribe_Waiting;
+Subscription_Active;
+Subscription_Android;
+Subscription_Ended;
+Subscription_Expired;
+Subscription_Thanks;
 SubTrack;Alsáv
 Summary;Kivonat
 Supported formats;Támogatott formátumok
 Supported?;Támogatott?
+SupportUs;
 Synopsis;Áttekintés
 SystemId;Azonosító
 Tagged_Application;Jelölő alkalmazás
@@ -1063,11 +1143,17 @@ TotalProgrammeDuration;
 Track;Sáv
 Track_Count;Sávok száma
 transfer_characteristics;
+Translate_Reports;
 Translator;Fordító
 Tree;Fa
 Tree & Text;Fa és szöveg
+TruePeakLevel;
+TruePeakLevel_Album;
 Type;
 UniqueID;
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;Ismeretlen
 Url;Url
 Video;Kép
@@ -1081,8 +1167,10 @@ VideoComments;
 VideoCount;Képsávok száma
 View;Nézet
 View_Hint;Megtekintési adatok megváltoztatása
+Views;
 Warning : more streams in the files;Figyelem: ebben a fájlban több sáv van
 Web;Web
+WebSite;
 WebSite_Audio;A hangkódek weblapjának meglátogatása
 WebSite_Audio_More;Látogassa meg a hangkódek weblapját (%Url%)
 WebSite_General;A fájl lejátszó weblapjának meglátogatása
@@ -1102,5 +1190,5 @@ Written_Location;Írás helye
 WrittenBy;Írta
 Yes;igen
 Your system;Rendszer
-ZZ_Automatic_Percent;78
-ZZ_AutomaticLanguage_Percent;87
+ZZ_Automatic_Percent;72
+ZZ_AutomaticLanguage_Percent;81

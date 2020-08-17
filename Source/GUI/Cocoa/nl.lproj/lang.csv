@@ -14,8 +14,8 @@
  bit1; bit
  bit2; bits
  bit3; bits
- bps; bps
- Bps; Bps
+ bps; b/s
+ Bps; B/s
  Byte1; Byte
  Byte2; Bytes
  Byte3; Bytes
@@ -40,22 +40,22 @@
  file1; bestand
  file2; bestanden
  file3; bestanden
- fps1; fps
- fps2; fps
- fps3; fps
+ fps1; FPS
+ fps2; FPS
+ fps3; FPS
  frame1; frame
  frame2; frames
  frame3; frames
  GB; GB
  Gb; Gb
- Gbps; Gbps
- GBps; GBps
+ Gbps; Gb/s
+ GBps; GB/s
  GHz; GHz
  GiB; GiB
  GibiByte1; GibiBytes
  GibiByte2; GibiBytes
  GibiByte3; GibiBytes
- GiBps; GiBps
+ GiBps; GiB/s
  GigaBit1; GigaBit
  GigaBit2; GigaBits
  GigaBit3; GigaBits
@@ -69,11 +69,11 @@
  image stream1; videostroom
  image stream2; videostromen
  image stream3; videostromen
- KB; KB
- Kb; Kb
- KBps; KBps
- Kbps; Kbps
- KHz; KHz
+ KB; kB
+ Kb; kb
+ KBps; kB/s
+ Kbps; kb/s
+ KHz; kHz
  KiB; KiB
  KibiBit1; KibiBit
  KibiBit2; KibiBits
@@ -81,7 +81,7 @@
  KibiByte1; KibiByte
  KibiByte2; KibiBytes
  KibiByte3; KibiBytes
- KiBps; KiBps
+ KiBps; KiB/s
  KiloBit1; KiloBit
  KiloBit2; KiloBits
  KiloBit3; KiloBits
@@ -90,7 +90,7 @@
  KiloByte3; KiloBytes
  MB; MB
  Mb; Mb
- Mbps; Mbps
+ Mbps; Mb/s
  MBps; MebiBytes
  MebiBit1; MebiBit
  MebiBit2; MebiBits
@@ -107,7 +107,7 @@
  MHz; MHz
  MiB; MiB
  Mib; Mib
- MiBps; MiBps
+ MiBps; MiB/s
  millisecond1; milliseconde
  millisecond2; milliseconden
  millisecond3; milliseconden
@@ -155,6 +155,7 @@ Actor;Acteur
 Actor_Character;Personage
 Added_Date; Toegevoegde datum
 Address;Adres
+AdID;
 Advanced;Geavanceerd
 Advanced mode;Geavanceerde modus
 Album;Album
@@ -164,6 +165,7 @@ Alignment; Uitlijning
 Alignment_Aligned;Uitgelijnd op interleaves
 Alignment_Split;Gesplitst over interleaves
 All;Alles
+AlternateGroup;
 Archival_Location;Archieflocatie
 Arranger;Arrangeur
 ArtDirector;Artdirector
@@ -187,7 +189,10 @@ Author;Auteur
 BarCode;Streepjescode
 Basic;Elementair
 Basic_Note;Let op : voor meer informatie over dit bestand, moet u een ander beeld kiezen (Blad, Boomstructuur,...)
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;
+BitDepth_Detected;
 BitDepth_Stored;
 BitRate;Bitrate
 BitRate_Encoded;
@@ -201,6 +206,7 @@ Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;
 Cancel;Annuleren
 Channel(s);Kanaal(en)
+ChannelLayout;
 ChannelPositions;Kanaalposities
 Chapter(s);Hoofdstuk(ken)
 Chapters;Hoofdstukken
@@ -216,9 +222,10 @@ Choose export format;Kies uw gewenste exportformaat
 Choose file(s);Kies de te openen bestanden
 Choose filename;Kies uw gewenste bestandsnaam
 Choose language;Kies uw gewenste taal
-Choregrapher;Choreograaf
+Choreographer;Choreograaf
 Chroma;Chroma
 ChromaSubsampling;
+ClearList;
 Close;Sluiten
 Close all before open;Sluit alle alvorens te openen
 ClosedCaptionsLanguage;
@@ -242,6 +249,7 @@ Codec_Settings_PacketBitStream;Codec-instellingen, Packet bitstream
 Codec_Settings_QPel;Codec-instellingen, QPel
 Codec_Settings_Sign;Codec-instellingen, Sign
 Codec_Url;Weblink voor codec
+CodecConfigurationBox;
 CodecID;Codec-ID
 CodecID_Description; Beschrijving van de codec
 CoDirector;
@@ -255,12 +263,14 @@ CommissionedBy;In opdracht van
 Compilation;
 CompleteName;Volledige naam
 CompletionDate;
+ComplexityIndex;
 Composer;Componist
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;Compressieverhouding
 Conductor;Dirigent
+ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Container en algemene informatie
@@ -279,9 +289,11 @@ Cover_Type;Coversoort
 Cropped;Cropafmetingen
 Custom;Aangepast
 Customize;Aanpassen
+DarkMode;
 Date;Datum
 Debug;Debug
 Decimal point;Decimale punt
+Default_Setting;
 Delay;Vertraging
 Delay_Source;
 Delay_Source_Container;
@@ -292,6 +304,7 @@ Digitized_Date;Digitaliseringsdatum
 Dimensions;Afmetingen
 Director;Regisseur
 DirectorOfPhotography;Cinematograaf
+Disabled;
 DisplayAspectRatio;Beeldverhouding
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Originele beeldverhouding
@@ -299,11 +312,14 @@ DistributedBy;Gedistribueerd door
 Distributor;
 Donate;Doneren
 DotsPerInch;Punten per inch
+DrcSets_Count;
+DrcSets_Effects;
 Duration;Duur
 Duration_End;
 Duration_Start;
 Edit;Bewerken
 EditedBy;Bewerkt door
+ElementCount;
 EMail;E-Mail
 Encoded_Application;Gebruikt programma
 Encoded_Date;Datum codering
@@ -314,12 +330,14 @@ EncodedBy;Gecodeerd door
 EPG_Positions;
 EpisodeTitleNumber;
 Error_File;Fout tijdens lezen bestand
+Error_File_Write;
 ExecutiveProducer;Uitvoerend producent
 Exit;Afsluiten
 Exit_Hint;Beëindig het programma
 Export;Exporteren
 Export_Hint;Exporteren in aangepast formaat
 Extensions;Gebruikelijke extensies
+External_Media_NotMounted;
 Family;Familie
 Fax;Fax
 File;Bestand
@@ -332,6 +350,7 @@ File_Modified_Date;Datum laatste bestandswijziging
 File_Modified_Date_Local;
 FileExtension;Bestandsextensie
 FileName;Bestandsnaam
+FileNameExtension;
 FileSize;Bestandsgrootte
 Folder;Map
 Folder (R);Map (R)
@@ -342,8 +361,10 @@ FolderName;Mapnaam
 Format;Formaat
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;Formaatbeschrijving
 Format_Info;Details over formaat
+Format_Level;
 Format_Profile;Formaatprofiel
 Format_Settings;Formaatinstellingen
 Format_Settings_BVOP;Formaatinstellingen, BVOP
@@ -367,10 +388,11 @@ Format_Settings_PictureStructure;
 Format_Settings_PS;Formaatinstellingen, PS
 Format_Settings_Pulldown;Formaatinstellingen, Pulldown
 Format_Settings_QPel;Formaatinstellingen, Qpel
-Format_Settings_RefFrames;Formaatinstellingen, ReFrames
+Format_Settings_RefFrames;Formaatinstellingen, RefFrames
 Format_Settings_SBR;Formaatinstellingen, SBR
 Format_Settings_Sign;Formaatinstellingen, Sign
 Format_Settings_Wrapping;
+Format_Tier;
 Format_Url;Weblink voor formaat
 Format_Version;Formaatversie
 FpaManufacturer;
@@ -580,12 +602,13 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Ga naar website
-Grouping;
 Gop_OpenClosed;
-Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;Grouping
-h;h
+Gop_OpenClosed_Open;
+Grouping;
+h; h
+HDR_Format;
 Header file;Headerbestand maken
 Height;Hoogte
 Height_CleanAperture;
@@ -667,6 +690,7 @@ Language_en-gb;Engels (Groot-Brittannië)
 Language_en-us;Engels (Verenigde Staten)
 Language_eo;Esperanto
 Language_es;Spaans
+Language_es-419;
 Language_et;Estisch
 Language_eu;Baskisch
 Language_fa;Perzisch
@@ -690,6 +714,7 @@ Language_hr;Kroatisch
 Language_ht;Haïtiaans
 Language_hu;Hongaars
 Language_hy;Armeens
+Language_hy-az;
 Language_hz;Herero
 Language_ia;Interlingua
 Language_id;Indonesisch
@@ -734,10 +759,12 @@ Language_mi;Maori
 Language_mk;Macedonisch
 Language_ml;Malayalam
 Language_mn;Mongools
+Language_mn-cn;
 Language_mo;Moldavisch
 Language_More;Taal, meer info
 Language_mr;Marathi
 Language_ms;Maleis
+Language_ms-bn;
 Language_mt;Maltees
 Language_mul;Meerdere talen
 Language_my;Burmees
@@ -747,6 +774,7 @@ Language_nd;Ndebele
 Language_ne;Nepalees
 Language_ng;Ndonga
 Language_nl;Nederlands
+Language_nl-be;
 Language_nn;Noors Bokmal
 Language_no;Noors
 Language_nr;Ndebele
@@ -778,6 +806,7 @@ Language_si;Sinhala
 Language_sk;Slowaaks
 Language_sl;Sloveens
 Language_sm;Samoaans
+Language_smi;
 Language_sn;Shona
 Language_so;Somalisch
 Language_sq;Albanees
@@ -824,15 +853,38 @@ Library;Muxingbibliotheek
 Lightness;Helderheid
 LineUpStart;
 List;Lijst
+Loudness_Anchor;
+Loudness_Anchor_Album;
+Loudness_Count;
+Loudness_Count_Album;
+Loudness_MaximumMomentary;
+Loudness_MaximumMomentary_Album;
+Loudness_MaximumOfRange;
+Loudness_MaximumOfRange_Album;
+Loudness_MaximumShortTerm;
+Loudness_MaximumShortTerm_Album;
+Loudness_ProductionMixingLevel;
+Loudness_ProductionMixingLevel_Album;
+Loudness_Program;
+Loudness_Program_Album;
+Loudness_Range;
+Loudness_Range_Album;
+Loudness_RoomType;
+Loudness_RoomType_Album;
 Lyricist;Tekstschrijver
 Lyrics;Tekst
 Mastered_Date;Datum van master
 MasteredBy;Gemastered door
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;
 Matrix_Format;
+MaxCLL;
+MaxFALL;
 MediaInfo_About;Levert zeer gedetailleerde informatie\r\nover multimediabestanden:\r\nMatroska, OGG (inclusief OGM)\r\nMPEG1 (inclusief VCD)\r\nMPEG2 (inclusief DVD en SVCD)\r\nMPEG4 (inclusief Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (inclusief WMV, WMA)\r\nMicrosoft RIFF (inclusief AVI, WAV)\r\nGeluidsformaten (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About_About;
 Menu;Menu
 Menu stream(s);Menustromen
 Menu_Codec_List;Menucodecs
@@ -840,11 +892,11 @@ Menu_Hint;Meer mogelijkheden
 Menu_No;Geen menu
 MenuCount;Telling van menustromen
 MenuID;Menu-ID
-mn;mn
+mn; min
 Mood;Stemming
 More;Meer
 Movie;Filmnaam
-ms;ms
+ms; ms
 MSDI;MSDI
 MusicBy;Muziek door
 MuxingMode;Muxingmodus
@@ -860,6 +912,7 @@ NewVersion_Question_Content;
 NewVersion_Question_Title;
 No;Nee
 Not yet;Nog niet
+NumberOfDynamicObjects;
 NumColors;Aantal kleuren
 OK;OK
 One output file per input file;Eén exportbestand per invoerbestand
@@ -909,6 +962,7 @@ Original;Origineel
 OriginalNetworkName;
 OriginalSourceForm;Originele bronvorm
 OriginalSourceMedium;Originele bronmedium
+OriginalSourceMedium_ID;
 Originator;
 Other;Ander
 OtherIdentifier;
@@ -920,6 +974,7 @@ OverallBitRate_Maximum;Maximale Totale bitrate
 OverallBitRate_Minimum;Minimale Totale bitrate
 OverallBitRate_Mode;Totale bitratemodus
 OverallBitRate_Nominal;Nominale Totale bitrate
+PackageName;
 Part;Deel
 Part_Count;Totale telling
 PartNumber;
@@ -936,9 +991,12 @@ Played_Count; Keren gespeeld
 Played_First_Date;Eerst gespeeld
 Played_Last_Date;Laatst gespeeld
 PlayTime;Speeltijd
+PodcastCategory;
 Position;Positie
 Position_Total;Totaal
 Preferences;Voorkeuren
+Premium;
+Premium_Summary;
 PrimaryAudioLanguage;
 Producer;Producent
 ProductionDesigner;Productieontwerper
@@ -957,10 +1015,15 @@ Recorded_Date;Opnamedatum
 Recorded_Location;Opnamelocatie
 Released_Date;Releasedatum
 RemixedBy;Geremixed door
+Renew;
 ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replay gain piek
+Report;
 Resolution;Resolutie
 s;s
+SamplePeakLevel;
+SamplePeakLevel_Album;
+SamplesPerFrame;
 SamplingCount;
 SamplingRate;Samplerate
 Save;Opslaan
@@ -981,6 +1044,7 @@ Separator_Columns;scheidingsteken kolommen
 Separator_Lines;scheidingsteken regels
 SeriesTitle;
 ServiceChannel;Servicekanaalnummer
+ServiceKind;
 ServiceName;Servicenaam
 ServiceProvider;Serviceprovider
 ServiceType;Servicesoort
@@ -1016,17 +1080,33 @@ Stream;Stroom
 Stream_MoreInfo;Meer informatie over de stroom
 StreamCount;Telling van dit soort stromen
 StreamID;Stroom-ID
+streamIdentifier;
 StreamKind;Soort stroom
 StreamKindID;Stroomidentifier
 StreamKindPos;Stroomidentifier
 StreamSize;Stroomgrootte
+StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;Proporties van deze stroom
 Subject;Onderwerp
+Subscribe;
+Subscribe_Button;
+Subscribe_Failed;
+Subscribe_Manage;
+Subscribe_Renew;
+Subscribe_Renew_Price;
+Subscribe_Unaviable;
+Subscribe_Waiting;
+Subscription_Active;
+Subscription_Android;
+Subscription_Ended;
+Subscription_Expired;
+Subscription_Thanks;
 SubTrack;Ondertiteling
 Summary;Samenvatting
 Supported formats;Ondersteunde formaten
 Supported?;Ondersteund?
+SupportUs;
 Synopsis;Samenvatting
 SystemId;Id
 Tagged_Application;Tagapplicatie
@@ -1063,11 +1143,17 @@ TotalProgrammeDuration;
 Track;Tracknaam
 Track_Count;Tracktelling
 transfer_characteristics;
+Translate_Reports;
 Translator;Vertaler
 Tree;Boomstructuur
 Tree & Text;Boomstructuur & Tekst
+TruePeakLevel;
+TruePeakLevel_Album;
 Type;
 UniqueID;
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;Onbekend
 Url;Url
 Video;Video
@@ -1081,8 +1167,10 @@ VideoComments;
 VideoCount;Telling van videostromen
 View;Beeld
 View_Hint;Verander de weergave van informatie
+Views;
 Warning : more streams in the files;Waarschuwing : er zijn meer stromen in de bestanden
 Web;Web
+WebSite;
 WebSite_Audio;Ga naar de website van deze audiocodec
 WebSite_Audio_More;Ga naar de website (%Url%) om deze audiocodec te vinden
 WebSite_General;Ga naar de website van een speler voor dit bestand
@@ -1102,5 +1190,5 @@ Written_Location;Locatie van schrijven
 WrittenBy;Geschreven door
 Yes;Ja
 Your system;Uw systeem
-ZZ_Automatic_Percent;83
-ZZ_AutomaticLanguage_Percent;87
+ZZ_Automatic_Percent;77
+ZZ_AutomaticLanguage_Percent;81

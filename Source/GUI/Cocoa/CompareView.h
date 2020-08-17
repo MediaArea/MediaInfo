@@ -24,6 +24,10 @@ typedef enum CompareViewMode {
 @property (strong) NSArray *fields;
 @property (readonly) CompareViewMode mode;
 @property (readonly) NSInteger selectedIndex;
+@property (assign) IBOutlet NSTextField *showLabel;
+@property (assign) IBOutlet NSButton *allFieldsRadio;
+@property (assign) IBOutlet NSButton *onlyDifferingRadio;
+@property (assign) IBOutlet NSButton *onlyIdenticalRadio;
 
 -(IBAction)closeFileInColumn:(id)sender;
 

@@ -42,7 +42,7 @@ if(-f $stringsdb) {
     open(my $in, '<:raw', $stringsdb) || die "Couldn't open db file: $!";
     my $text = do { local $/; <$in> };
     close $in;
-    my $content = decode('UTF-16', $text);
+    my $content = decode('UTF-8', $text);
     my @lines = split /\n/, $content;
     foreach(@lines) {
         
@@ -61,7 +61,7 @@ if(-f $lang_menu) {
     open(my $in, '<:raw', $lang_menu) || die "Couldn't open menu file: $!";
     my $text = do { local $/; <$in> };
     close $in;
-    my $content = decode('UTF-16', $text);
+    my $content = decode('UTF-8', $text);
     my @lines = split /\n/, $content;
     foreach(@lines) {
          if($_ =~ /^"(.+?)"\s*=\s*"(.+)"/) {
@@ -120,11 +120,11 @@ foreach(sort keys %db) {
         my $value = $values[3]; #default value
         
         my $found = 0;
-        if($values[0] eq 'skip') {
+        if($values[0] eq "skip") {
             #print "Skipping $param in $fileIndex\n";
             next;
         }
-        elsif($values[0] eq 'csv') {
+        elsif($values[0] eq "csv") {
             if(defined $csv{$values[1]}) {
                 $value = $csv{$values[1]};
                 #print "csv found $param $value";
@@ -134,7 +134,7 @@ foreach(sort keys %db) {
                 print "csv not found: '$values[1]'\n";
             }
         }
-        elsif($values[0] eq 'menu') {
+        elsif($values[0] eq "menu") {
            if(defined $menu{$values[1]}) {
                 $value = $menu{$values[1]};
                 $found = 1;
@@ -143,7 +143,7 @@ foreach(sort keys %db) {
                 print "menu not found: '$values[1]'\n";
             }
         }
-       elsif($values[0] eq 'txt') {
+       elsif($values[0] eq "txt") {
             if(defined $txt{$values[1]}) {
                 $value = $txt{$values[1]};
                 $found = 1;
@@ -166,7 +166,7 @@ foreach(sort keys %db) {
     }
     
     open my $out, '>:raw', $strings_file;
-    print $out encode("UTF-16", $output_str);
+    print $out encode("UTF-8", $output_str);
     close $out;
 
 }

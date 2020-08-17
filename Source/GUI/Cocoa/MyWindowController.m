@@ -497,7 +497,7 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
         if(main && main.submenu) {
             NSMenuItem *item = [main.submenu itemWithTag:kSubscribeMenuItemTag];
             if(item) {
-                [item setTitle:@"Manage Subscription"];
+                [item setTitle:NSLocalizedString(@"Manage Subscription", @"Manage Subscription")];
             }
         }
 
@@ -515,8 +515,8 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
     }
 
     if (@available(macOS 10.13, *)) {
-        [tabSelector setToolTip:@"Compare View" forSegment:kCompareTabIndex];
-        [subscribeButton setToolTip:@"Manage subscription" forSegment:0];
+        [tabSelector setToolTip:NSLocalizedString(@"Compare View", @"Compare View") forSegment:kCompareTabIndex];
+        [subscribeButton setToolTip:NSLocalizedString(@"Manage subscription", @"Manage Subscription") forSegment:0];
     }
     [tabSelector setEnabled:YES forSegment:kCompareTabIndex];
 

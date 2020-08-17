@@ -1,5 +1,5 @@
-"16.title" = "Proporciona informació detallada\nquant a un arxiu multimèdia:\nMatroska, OGG (including OGM)\nMPEG1 (fins i tot VCD)\nMPEG2 (fins i tot DVD i SVCD)\nMPEG4 (també l'Itunes M4A)\nQuicktime\nRealMedia\nWindowsMedia (també WMV, WMA)\nMicrosoft RIFF (inclouent AVI, WAV)\nArxius només sonors (AC3, DTS, AAC, AU, AIFF...)";
-"24.title" = "Ves-hi a la pàgina";
-"26.title" = "Escriviu-me";
+"16.title" = "MediaInfo proporciona informació tècnica d'arxius de vídeo i àudio.\nExcepte la interfaç gràfica a la Mac App Store, és de codi obert, el que significa que és gratuït per als usuaris i els desenvolupadors tenen accés lliure per a estudiar-lo, millorar-lo i redistribuir-lo (llicència BSD)";
+"24.title" = "Vés al lloc web";
+"26.title" = "Escriu un correu a l'autor";
 "29.title" = "GUI created by Max Pozdeev";
 "8.title" = "Copyright 2002-2020 MediaArea.net SARL";

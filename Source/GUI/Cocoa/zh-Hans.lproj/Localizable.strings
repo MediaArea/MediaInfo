@@ -1,3 +1,16 @@
+"Can not download %@" = "Can not download %@";
+"Can not open %@" = "Can not open %@";
 "Can not open file(s)" = "Can not open file(s)";
 "Can not save file" = "Can not save file";
+"Close" = "关闭";
+"Compare View" = "Compare View";
+"Downloading file(s) %lu of %lu ..." = "Downloading file(s) %lu of %lu ...";
 "Error" = "Error";
+"Manage Subscription" = "管理订阅";
+"Opening file(s) %lu of %lu ..." = "Opening file(s) %lu of %lu ...";
+"Renew" = "续订";
+"Renew subscription %PRICE% for one year" = "续订 (%PRICE% 一年)";
+"Renew subscription?" = "续订？";
+"Subscription active until %DATE%." = "订阅有效期至 %DATE%";
+"Subscription expired since %DATE%." = "订购过期时间 %DATE%";
+"Your subscription has just ended." = "你的订购刚刚到期。";

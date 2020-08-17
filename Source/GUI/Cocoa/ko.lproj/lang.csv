@@ -155,6 +155,7 @@ Actor;배우
 Actor_Character;배역
 Added_Date;추가된 날짜
 Address;주소
+AdID;
 Advanced;고급
 Advanced mode;고급 모드
 Album;앨범
@@ -164,6 +165,7 @@ Alignment;정렬
 Alignment_Aligned;인터리브에 정렬
 Alignment_Split;인터리브로 분할
 All;전체
+AlternateGroup;
 Archival_Location;기록 장소
 Arranger;편곡자
 ArtDirector;미술 감독
@@ -187,7 +189,10 @@ Author;작가
 BarCode;바코드
 Basic;기본
 Basic_Note;노트 : 이 파일에 관한 더 자세한 정보를 원하시면 다른 보기를 선택하세요(시트, 트리...)
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;
+BitDepth_Detected;
 BitDepth_Stored;
 BitRate;비트레이트
 BitRate_Encoded;
@@ -201,6 +206,7 @@ Bits-(Pixel*Frame);비트/(픽셀*프레임)
 BufferSize;
 Cancel;취소
 Channel(s);채널
+ChannelLayout;
 ChannelPositions;채널 위치
 Chapter(s);챕터
 Chapters;챕터
@@ -216,9 +222,10 @@ Choose export format;원하는 내보내기 형식을 선택하세요
 Choose file(s);열기 원하는 파일을 선택하세요
 Choose filename;원하는 파일명을 선택하세요
 Choose language;원하는 언어를 선택하세요
-Choregrapher;안무가
+Choreographer;안무가
 Chroma;색차
 ChromaSubsampling;
+ClearList;
 Close;닫기
 Close all before open;열기 전에 모두 닫기
 ClosedCaptionsLanguage;
@@ -242,6 +249,7 @@ Codec_Settings_PacketBitStream;코덱 설정, 패킷 비트스트림
 Codec_Settings_QPel;코덱 설정, QPel
 Codec_Settings_Sign;코덱 설정, Sign
 Codec_Url;코덱 웹링크
+CodecConfigurationBox;
 CodecID;코덱 ID
 CodecID_Description;코덱 설명
 CoDirector;
@@ -255,12 +263,14 @@ CommissionedBy;의뢰
 Compilation;
 CompleteName;전체 이름
 CompletionDate;
+ComplexityIndex;
 Composer;작곡가
 Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;압축률
 Conductor;지휘자
+ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;컨테이너와 일반 정보
@@ -279,9 +289,11 @@ Cover_Type;표지 타입
 Cropped;자른 영역
 Custom;커스텀
 Customize;커스터마이즈
+DarkMode;
 Date;날짜
 Debug;디버그
 Decimal point;소수점
+Default_Setting;
 Delay;딜레이
 Delay_Source;
 Delay_Source_Container;
@@ -292,6 +304,7 @@ Digitized_Date;디지털화 날짜
 Dimensions;영역
 Director;감독
 DirectorOfPhotography;촬영 감독
+Disabled;
 DisplayAspectRatio;화면 종횡비
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;원본 화면 종횡비
@@ -299,11 +312,14 @@ DistributedBy;배포
 Distributor;
 Donate;기부하기
 DotsPerInch;인치당 도트
+DrcSets_Count;
+DrcSets_Effects;
 Duration;길이
 Duration_End;종료 시간
 Duration_Start;시작 시간
 Edit;편집
 EditedBy;편집
+ElementCount;
 EMail;이메일
 Encoded_Application;인코딩 프로그램
 Encoded_Date;인코딩 날짜
@@ -314,12 +330,14 @@ EncodedBy;인코딩
 EPG_Positions;EPG 포지션 (내부)
 EpisodeTitleNumber;
 Error_File;파일을 읽는 중 에러
+Error_File_Write;
 ExecutiveProducer;제작 감독
 Exit;종료
 Exit_Hint;프로그램을 종료합니다
 Export;내보내기
 Export_Hint;원하는 형식으로 내보냅니다
 Extensions;일반적인 확장자
+External_Media_NotMounted;
 Family;가족
 Fax;팩스
 File;파일
@@ -332,6 +350,7 @@ File_Modified_Date;파일 수정한 날짜
 File_Modified_Date_Local;파일 수정한 날짜 (로컬)
 FileExtension;파일 확장자
 FileName;파일명
+FileNameExtension;
 FileSize;파일 크기
 Folder;폴더
 Folder (R);폴더 (R)
@@ -342,8 +361,10 @@ FolderName;폴더명
 Format;포맷
 Format_Commercial;
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;포맷 설명
 Format_Info;포맷 정보
+Format_Level;
 Format_Profile;포맷 프로파일
 Format_Settings;포맷 설정
 Format_Settings_BVOP;포맷 설정, BVOP
@@ -371,6 +392,7 @@ Format_Settings_RefFrames;포맷 설정, RefFrames
 Format_Settings_SBR;포맷 설정, SBR
 Format_Settings_Sign;포맷 설정, Sign
 Format_Settings_Wrapping;
+Format_Tier;
 Format_Url;포맷 웹링크
 Format_Version;포맷 버전
 FpaManufacturer;
@@ -580,12 +602,13 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;웹사이트로 가기
-Grouping;
 Gop_OpenClosed;
-Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
+Gop_OpenClosed_Open;
+Grouping;
 h;시
+HDR_Format;
 Header file;헤더 파일 만들기
 Height;높이
 Height_CleanAperture;
@@ -667,6 +690,7 @@ Language_en-gb;English (Great Britain)
 Language_en-us;English (United States)
 Language_eo;Esperanto
 Language_es;Spanish
+Language_es-419;
 Language_et;Estonian
 Language_eu;Basque
 Language_fa;Persian
@@ -690,6 +714,7 @@ Language_hr;Croatian
 Language_ht;Haitian
 Language_hu;Hungarian
 Language_hy;Armenian
+Language_hy-az;
 Language_hz;Herero
 Language_ia;Auxiliary Language Association
 Language_id;Indonesian
@@ -734,10 +759,12 @@ Language_mi;Maori
 Language_mk;Macedonian
 Language_ml;Malayalam
 Language_mn;Mongolian
+Language_mn-cn;
 Language_mo;Moldavian
 Language_More;언어, 추가 정보
 Language_mr;Marathi
 Language_ms;Malay
+Language_ms-bn;
 Language_mt;Maltese
 Language_mul;Multiple languages
 Language_my;Burmese
@@ -747,6 +774,7 @@ Language_nd;Ndebele
 Language_ne;Nepali
 Language_ng;Ndonga
 Language_nl;Dutch
+Language_nl-be;
 Language_nn;Norwegian Nynorsk
 Language_no;Norwegian
 Language_nr;Ndebele
@@ -778,6 +806,7 @@ Language_si;Sinhala
 Language_sk;Slovak
 Language_sl;Slovenian
 Language_sm;Samoan
+Language_smi;
 Language_sn;Shona
 Language_so;Somali
 Language_sq;Albanian
@@ -824,15 +853,38 @@ Library;Muxing 라이브러리
 Lightness;밝기
 LineUpStart;
 List;목록
+Loudness_Anchor;
+Loudness_Anchor_Album;
+Loudness_Count;
+Loudness_Count_Album;
+Loudness_MaximumMomentary;
+Loudness_MaximumMomentary_Album;
+Loudness_MaximumOfRange;
+Loudness_MaximumOfRange_Album;
+Loudness_MaximumShortTerm;
+Loudness_MaximumShortTerm_Album;
+Loudness_ProductionMixingLevel;
+Loudness_ProductionMixingLevel_Album;
+Loudness_Program;
+Loudness_Program_Album;
+Loudness_Range;
+Loudness_Range_Album;
+Loudness_RoomType;
+Loudness_RoomType_Album;
 Lyricist;작사가
 Lyrics;가사
 Mastered_Date;마스터 날짜
 MasteredBy;마스터
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;
 Matrix_Format;
+MaxCLL;
+MaxFALL;
 MediaInfo_About;미디어 파일에 대한\r\n상세한 정보를 제공:\r\nMatroska, OGG (OGM 포함)\r\nMPEG1 (VCD 포함)\r\nMPEG2 (DVD와 SVCD 포함)\r\nMPEG4 (Itunes M4A 포함)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (WMV, WMA 포함)\r\nMicrosoft RIFF (AVI, WAV 포함)\r\n음악 포맷 (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About_About;
 Menu;메뉴
 Menu stream(s);메뉴 스트림
 Menu_Codec_List;메뉴 코덱
@@ -860,6 +912,7 @@ NewVersion_Question_Content;새 버전(v%Version%)이 사용 가능합니다, �
 NewVersion_Question_Title;새 버전이 릴리즈되었습니다!
 No;아니오
 Not yet;미정
+NumberOfDynamicObjects;
 NumColors;색상수
 OK;확인
 One output file per input file;입력 파일 마다 하나의 출력 파일
@@ -909,6 +962,7 @@ Original;원본
 OriginalNetworkName;원본 네트워크 이름
 OriginalSourceForm;원본 소스 폼
 OriginalSourceMedium;원본 소스 미디어
+OriginalSourceMedium_ID;
 Originator;
 Other;기타
 OtherIdentifier;
@@ -920,6 +974,7 @@ OverallBitRate_Maximum;최대 총 비트레이트
 OverallBitRate_Minimum;최소 총 비트레이트
 OverallBitRate_Mode;총 비트레이트 모드
 OverallBitRate_Nominal;명목상의 총 비트레이트
+PackageName;
 Part;파트
 Part_Count;총계
 PartNumber;
@@ -936,9 +991,12 @@ Played_Count;재생 횟수
 Played_First_Date;최초 재생
 Played_Last_Date;마지막 재생
 PlayTime;재생시간
+PodcastCategory;
 Position;위치
 Position_Total;전체
 Preferences;환경 설정
+Premium;
+Premium_Summary;
 PrimaryAudioLanguage;
 Producer;제작자
 ProductionDesigner;프로덕션
@@ -957,10 +1015,15 @@ Recorded_Date;기록일
 Recorded_Location;기록 장소
 Released_Date;개봉일
 RemixedBy;리믹스
+Renew;
 ReplayGain_Gain;재생 게인
 ReplayGain_Peak;재생 게인 피크
+Report;
 Resolution;해상도
 s;초
+SamplePeakLevel;
+SamplePeakLevel_Album;
+SamplesPerFrame;
 SamplingCount;
 SamplingRate;샘플링레이트
 Save;저장
@@ -981,6 +1044,7 @@ Separator_Columns;컬럼 구분자
 Separator_Lines;라인 구분자
 SeriesTitle;
 ServiceChannel;서비스 채널 번호
+ServiceKind;
 ServiceName;서비스 이름
 ServiceProvider;서비스 제공자
 ServiceType;서비스 종류
@@ -1016,17 +1080,33 @@ Stream;스트림
 Stream_MoreInfo;이 스트림에 대한 자세한 정보
 StreamCount;이 종류의 스트림 개수
 StreamID;스트림 ID
+streamIdentifier;
 StreamKind;스트림 종류
 StreamKindID;스트림 ID
 StreamKindPos;스트림 ID
 StreamSize;스트림 크기
+StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;이 스트림의 비율
 Subject;제목
+Subscribe;
+Subscribe_Button;
+Subscribe_Failed;
+Subscribe_Manage;
+Subscribe_Renew;
+Subscribe_Renew_Price;
+Subscribe_Unaviable;
+Subscribe_Waiting;
+Subscription_Active;
+Subscription_Android;
+Subscription_Ended;
+Subscription_Expired;
+Subscription_Thanks;
 SubTrack;서브트랙
 Summary;요약
 Supported formats;지원하는 포맷
 Supported?;지원?
+SupportUs;
 Synopsis;시놉시스
 SystemId;Id
 Tagged_Application;태깅 어플리케이션
@@ -1063,11 +1143,17 @@ TotalProgrammeDuration;
 Track;트랙 이름
 Track_Count;트랙 개수
 transfer_characteristics;
+Translate_Reports;
 Translator;번역
 Tree;트리
 Tree & Text;트리 & 텍스트
+TruePeakLevel;
+TruePeakLevel_Album;
 Type;
 UniqueID;
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;알 수 없음
 Url;Url
 Video;비디오
@@ -1081,8 +1167,10 @@ VideoComments;
 VideoCount;비디오 스트림 개수
 View;보기
 View_Hint;정보를 보는 방식을 변경합니다.
+Views;
 Warning : more streams in the files;경고 : 파일에 더 많은 스트림이 있습니다
 Web;웹
+WebSite;
 WebSite_Audio;이 오디오 코덱의 웹사이트로 가기
 WebSite_Audio_More;이 오디오 코덱을 찾기 위한 웹사이트(%Url%)로 가기
 WebSite_General;이 파일을 재생하기 위한 플레이어의 웹사이트로 가기
@@ -1102,5 +1190,5 @@ Written_Location;제작 장소
 WrittenBy;제작자
 Yes;예
 Your system;이 시스템
-ZZ_Automatic_Percent;85
-ZZ_AutomaticLanguage_Percent;89
+ZZ_Automatic_Percent;78
+ZZ_AutomaticLanguage_Percent;82

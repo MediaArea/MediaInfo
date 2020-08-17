@@ -14,8 +14,8 @@
  bit1; bit
  bit2; bits
  bit3; bits
- bps; bps
- Bps; Bps
+ bps; b/s
+ Bps; B/s
  Byte1; Byte
  Byte2; Bytes
  Byte3; Bytes
@@ -40,22 +40,22 @@
  file1; fil
  file2; filer
  file3; filer
- fps1; fps
- fps2; fps
- fps3; fps
+ fps1; FPS
+ fps2; FPS
+ fps3; FPS
  frame1; billede
  frame2; billeder
  frame3; billeder
  GB; GB
  Gb; Gb
- Gbps; Gbps
- GBps; GBps
+ Gbps; Gb/s
+ GBps; GB/s
  GHz; GHz
  GiB; GiB
  GibiByte1; GibiBytes
  GibiByte2; GibiBytes
  GibiByte3; GibiBytes
- GiBps; GiBps
+ GiBps; GiB/s
  GigaBit1; GigaBit
  GigaBit2; GigaBits
  GigaBit3; GigaBits
@@ -65,15 +65,15 @@
  hour1; time
  hour2; timer
  hour3; timer
- Hz; HZ
+ Hz; Hz
  image stream1; billedstrøm
  image stream2; billedstrømme
  image stream3; billedstrømme
- KB; KB
- Kb; Kb
- KBps; KBps
- Kbps; Kbps
- KHz; KHz
+ KB; kB
+ Kb; kb
+ KBps; kB/s
+ Kbps; kb/s
+ KHz; kHz
  KiB; KiB
  KibiBit1; KibiBit
  KibiBit2; KibiBits
@@ -81,7 +81,7 @@
  KibiByte1; KibiByte
  KibiByte2; KibiBytes
  KibiByte3; KibiBytes
- KiBps; KiBps
+ KiBps; KiB/s
  KiloBit1; KiloBit
  KiloBit2; KiloBits
  KiloBit3; KiloBits
@@ -90,7 +90,7 @@
  KiloByte3; KiloBytes
  MB; MB
  Mb; Mb
- Mbps; Mbps
+ Mbps; Mb/s
  MBps; MebiBytes
  MebiBit1; MebiBit
  MebiBit2; MebiBits
@@ -107,7 +107,7 @@
  MHz; MHz
  MiB; MiB
  Mib; Mib
- MiBps; MiBps
+ MiBps; MiB/s
  millisecond1; millisekund
  millisecond2; millisekunder
  millisecond3; millisekunder
@@ -155,6 +155,7 @@ Actor;Skuespiller
 Actor_Character;Rolle
 Added_Date;Tilføjet den
 Address;Adresse
+AdID;
 Advanced;Avanceret
 Advanced mode;Avanceret tilstand
 Album;Album
@@ -164,6 +165,7 @@ Alignment;Justering
 Alignment_Aligned;Justeret på interleaves
 Alignment_Split;Delt på interleaves
 All;Alle
+AlternateGroup;
 Archival_Location;Arkivsted
 Arranger;Arrangør
 ArtDirector;Art Director
@@ -187,7 +189,10 @@ Author;Forfatter
 BarCode;Stregkode
 Basic;Grundlæggende
 Basic_Note;Bemærk : for mere information om denne fil, skal du vælge en anden visning (Ark, Træstruktur..)
+BedChannelConfiguration;
+BedChannelCount;
 BitDepth;Bitdybde
+BitDepth_Detected;
 BitDepth_Stored;
 BitRate;Bitrate
 BitRate_Encoded;
@@ -201,6 +206,7 @@ Bits-(Pixel*Frame);Bits/(Billedpunkter*Billed)
 BufferSize;Buffer-størrelse
 Cancel;Annuller
 Channel(s);Kanaler
+ChannelLayout;
 ChannelPositions;Kanalpositioner
 Chapter(s);Kapitler
 Chapters;Kapitler
@@ -216,9 +222,10 @@ Choose export format;Vælg det ønskede eksportformat
 Choose file(s);Vælg en fil at åbne
 Choose filename;Vælg det ønskede filnavn
 Choose language;Vælg det foretrukne sprog
-Choregrapher;Koreograf
+Choreographer;Koreograf
 Chroma;Chroma
 ChromaSubsampling;Chroma subsampling
+ClearList;
 Close;Luk
 Close all before open;Luk alle før åbning
 ClosedCaptionsLanguage;
@@ -242,6 +249,7 @@ Codec_Settings_PacketBitStream;Codec-indstillinger, Packet bitstrøm
 Codec_Settings_QPel;Codec-indstillinger, QPel
 Codec_Settings_Sign;Codec-indstillinger, Sign
 Codec_Url;Weblink til codec
+CodecConfigurationBox;
 CodecID;Codec-ID
 CodecID_Description;Beskrivelse af codec
 CoDirector;
@@ -255,12 +263,14 @@ CommissionedBy;Bestilt af
 Compilation;
 CompleteName;Fulde navn
 CompletionDate;
+ComplexityIndex;
 Composer;Komponist
 Compression_Mode;Komprimeringstilstand
 Compression_Mode_Lossless;Lossless
 Compression_Mode_Lossy;Lossy
 Compression_Ratio;Komprimeringsforhold
 Conductor;Dirigent
+ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Container og generel information
@@ -279,9 +289,11 @@ Cover_Type;Cover-type
 Cropped;Beskæringsdeminsioner
 Custom;Tilpas
 Customize;Tilpas
+DarkMode;
 Date;Dato
 Debug;Fejlsøg
 Decimal point;Decimaltegn
+Default_Setting;
 Delay;Forsinkelse
 Delay_Source;Forsinkelse, original
 Delay_Source_Container;Container
@@ -292,6 +304,7 @@ Digitized_Date;Digitaliseret den
 Dimensions;Dimentioner
 Director;Instruktør
 DirectorOfPhotography;Cheffotograf
+Disabled;
 DisplayAspectRatio;Størrelsesforhold
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Oprindeligt størrelsesforhold
@@ -299,11 +312,14 @@ DistributedBy;Distribueret af
 Distributor;
 Donate;Donér
 DotsPerInch;Punkter pr inch
+DrcSets_Count;
+DrcSets_Effects;
 Duration;Varighed
 Duration_End;Sluttid
 Duration_Start;Starttid
 Edit;Rediger
 EditedBy;Redigeret af
+ElementCount;
 EMail;E-mail
 Encoded_Application;Skrivende program
 Encoded_Date;Kodet den
@@ -314,12 +330,14 @@ EncodedBy;Kodet af
 EPG_Positions;EPG-positioner (internt)
 EpisodeTitleNumber;
 Error_File;Fejl under læsning af fil
+Error_File_Write;
 ExecutiveProducer;Udøvende producent
 Exit;Afslut
 Exit_Hint;Afslut programmet
 Export;Eksporter
 Export_Hint;Eksporter i et tilpasset format
 Extensions;Filendelser der normalt anvendes
+External_Media_NotMounted;
 Family;Familie
 Fax;Fax
 File;Fil
@@ -332,6 +350,7 @@ File_Modified_Date;Senest modificeret
 File_Modified_Date_Local;Senest modificeret (lokalt)
 FileExtension;Filendelse
 FileName;Filnavn
+FileNameExtension;
 FileSize;Filstørrelse
 Folder;Mappe
 Folder (R);Mappe (R)
@@ -342,8 +361,10 @@ FolderName;Mappenavn
 Format;Format
 Format_Commercial;Kommercielt navn
 Format_Commercial_IfAny;
+Format_Compression;
 Format_Description;Formatbeskrivelse
 Format_Info;Formatdetaljer
+Format_Level;
 Format_Profile;Formatprofil
 Format_Settings;Formatindstillinger
 Format_Settings_BVOP;Formatindstillinger, BVOP
@@ -367,10 +388,11 @@ Format_Settings_PictureStructure;
 Format_Settings_PS;Formatindstillinger, PS
 Format_Settings_Pulldown;Formatindstillinger, Pulldown
 Format_Settings_QPel;Formatindstillinger, Qpel
-Format_Settings_RefFrames;Formatindstillinger, ReFrames
+Format_Settings_RefFrames;Formatindstillinger, RefFrames
 Format_Settings_SBR;Formatindstillinger, SBR
 Format_Settings_Sign;Formatindstillinger, Sign
 Format_Settings_Wrapping;
+Format_Tier;
 Format_Url;Weblink til format
 Format_Version;Formatversion
 FpaManufacturer;
@@ -580,12 +602,13 @@ Genre_189;
 Genre_190;
 Genre_191;
 Go to WebSite;Gå til websted
-Grouping;
 Gop_OpenClosed;
-Gop_OpenClosed_Open;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
-h;t
+Gop_OpenClosed_Open;
+Grouping;
+h; t
+HDR_Format;
 Header file;Opret en header-fil
 Height;Højde
 Height_CleanAperture;
@@ -667,6 +690,7 @@ Language_en-gb;Engelsk (Storbritanien)
 Language_en-us;Engelsk (US)
 Language_eo;Esperanto
 Language_es;Spansk
+Language_es-419;
 Language_et;Estisk
 Language_eu;Basisk
 Language_fa;Persisk
@@ -690,6 +714,7 @@ Language_hr;Kroatisk
 Language_ht;Haitisk
 Language_hu;Ungarsk
 Language_hy;Armensk
+Language_hy-az;
 Language_hz;
 Language_ia;
 Language_id;Indonesisk
@@ -734,10 +759,12 @@ Language_mi;Maori
 Language_mk;Makedonsk
 Language_ml;
 Language_mn;Mongolsk
+Language_mn-cn;
 Language_mo;Moldavisk
 Language_More;Sprog, mere info
 Language_mr;
 Language_ms;Malajisk
+Language_ms-bn;
 Language_mt;Maltesisk
 Language_mul;
 Language_my;Burmesisk
@@ -747,6 +774,7 @@ Language_nd;
 Language_ne;Nepalesisk
 Language_ng;
 Language_nl;Hollandsk
+Language_nl-be;
 Language_nn;Norsk Nynorsk
 Language_no;Norsk
 Language_nr;
@@ -778,6 +806,7 @@ Language_si;Singalesisk
 Language_sk;Slovakisk
 Language_sl;Slovensk
 Language_sm;
+Language_smi;
 Language_sn;
 Language_so;Somailsk
 Language_sq;Albansk
@@ -824,15 +853,38 @@ Library;Muxing-bibliotek
 Lightness;Lysstyrke
 LineUpStart;
 List;Liste
+Loudness_Anchor;
+Loudness_Anchor_Album;
+Loudness_Count;
+Loudness_Count_Album;
+Loudness_MaximumMomentary;
+Loudness_MaximumMomentary_Album;
+Loudness_MaximumOfRange;
+Loudness_MaximumOfRange_Album;
+Loudness_MaximumShortTerm;
+Loudness_MaximumShortTerm_Album;
+Loudness_ProductionMixingLevel;
+Loudness_ProductionMixingLevel_Album;
+Loudness_Program;
+Loudness_Program_Album;
+Loudness_Range;
+Loudness_Range_Album;
+Loudness_RoomType;
+Loudness_RoomType_Album;
 Lyricist;Tekstforfatter
 Lyrics;Sangtekster
 Mastered_Date;Masteret den
 MasteredBy;Masteret af
+MasteringDisplay_ColorPrimaries;
+MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;Matrix-coefficienter
 Matrix_Format;
+MaxCLL;
+MaxFALL;
 MediaInfo_About;Leverer meget detaljeret information\r\nom en multimediefil:\r\nMatroska, Ogg (inklusive OGM)\r\nMPEG1 (inklusive VCD)\r\nMPEG2 (inklusive DVD og SVCD)\r\nMPEG4 (inklusive Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (inklusive WMV, WMA)\r\Microsoft RIFF (inklusive AVI, WAV)\r\nRene lydformater (AC3, DTS, AAC, AU, AIFF...)
+MediaInfo_About_About;
 Menu;Menu
 Menu stream(s);Menustrømme
 Menu_Codec_List;Menu-codecs
@@ -840,11 +892,11 @@ Menu_Hint;Flere muligheder
 Menu_No;Ingen menu
 MenuCount;Antal menustrømme
 MenuID;Menu-ID
-mn;min.
+mn; min
 Mood;Stemning
 More;Mere
 Movie;Filmnavn
-ms;ms.
+ms; ms
 MSDI;MSID
 MusicBy;Musik af
 MuxingMode;Muxing-modus
@@ -860,6 +912,7 @@ NewVersion_Question_Content;En ny version (v%Version%) er tilgængelig, vil du d
 NewVersion_Question_Title;En ny version er udkommet!
 No;Nej
 Not yet;Ikke endnu
+NumberOfDynamicObjects;
 NumColors;Antal farver
 OK;OK
 One output file per input file;En output-fil per input-fil
@@ -909,6 +962,7 @@ Original;Original
 OriginalNetworkName;Oprindeligt netværksnavn
 OriginalSourceForm;Oprindelig kildeform
 OriginalSourceMedium;Oprindeligt kildemedie
+OriginalSourceMedium_ID;
 Originator;
 Other;Andet
 OtherIdentifier;
@@ -920,6 +974,7 @@ OverallBitRate_Maximum;Maksimum samlet bitrate
 OverallBitRate_Minimum;Minimum samlet bitrate
 OverallBitRate_Mode;Samlet bitratemodus
 OverallBitRate_Nominal;Nominel samlet bitrate
+PackageName;
 Part;Del
 Part_Count;I alt
 PartNumber;
@@ -936,9 +991,12 @@ Played_Count;Afspillet antal gange
 Played_First_Date;Først afspillet
 Played_Last_Date;Senest afspillet
 PlayTime;Spilletid
+PodcastCategory;
 Position;Position
 Position_Total;Totalt
 Preferences;Præferencer
+Premium;
+Premium_Summary;
 PrimaryAudioLanguage;
 Producer;Producer
 ProductionDesigner;Scenograf
@@ -957,10 +1015,15 @@ Recorded_Date;Optaget den
 Recorded_Location;Optaget sted
 Released_Date;Udgivet den
 RemixedBy;Remixet af
+Renew;
 ReplayGain_Gain;Reply gain
 ReplayGain_Peak;Reply gain peak
+Report;
 Resolution;Opløsning
 s;sek.
+SamplePeakLevel;
+SamplePeakLevel_Album;
+SamplesPerFrame;
 SamplingCount;Antal samplinger
 SamplingRate;Samplingsrate
 Save;Gem
@@ -981,6 +1044,7 @@ Separator_Columns;Kolonneseparator
 Separator_Lines;Linjeseparator
 SeriesTitle;
 ServiceChannel;Servicekanalnummer
+ServiceKind;
 ServiceName;Servicenavn
 ServiceProvider;Serviceudbyder
 ServiceType;Servicetype
@@ -1016,17 +1080,33 @@ Stream;Strøm
 Stream_MoreInfo;Mere information om strømmen
 StreamCount;Antal sådanne strømme
 StreamID;Strøm-ID
+streamIdentifier;
 StreamKind;Strømart
 StreamKindID;Strømidentifikator
 StreamKindPos;Strømidentifikator
 StreamSize;Strømstørrelse
+StreamSize_Demuxed;
 StreamSize_Encoded;
 StreamSize_Proportion;Denne strøms størrelsesforhold
 Subject;Emne
+Subscribe;
+Subscribe_Button;
+Subscribe_Failed;
+Subscribe_Manage;
+Subscribe_Renew;
+Subscribe_Renew_Price;
+Subscribe_Unaviable;
+Subscribe_Waiting;
+Subscription_Active;
+Subscription_Android;
+Subscription_Ended;
+Subscription_Expired;
+Subscription_Thanks;
 SubTrack;Underspor
 Summary;Sammendrag
 Supported formats;Understøttede formater
 Supported?;Understøttet?
+SupportUs;
 Synopsis;Synopsis
 SystemId;Id
 Tagged_Application;Tagging-applikation
@@ -1063,11 +1143,17 @@ TotalProgrammeDuration;
 Track;Spornavn
 Track_Count;Spornummer
 transfer_characteristics;Overførselskarakteristika
+Translate_Reports;
 Translator;Oversætter
 Tree;Træstruktur
 Tree & Text;Træstruktur & tekst
+TruePeakLevel;
+TruePeakLevel_Album;
 Type;
 UniqueID;Unik ID
+UniversalAdID;
+UniversalAdID_Registry;
+UniversalAdID_Value;
 Unknown;Ukendt
 Url;Url
 Video;Video
@@ -1081,8 +1167,10 @@ VideoComments;
 VideoCount;Antal videostrømme
 View;Vis
 View_Hint;Ændr måde til visning af information
+Views;
 Warning : more streams in the files;Advarsel: Der er flere strømme i filerne
 Web;Web
+WebSite;
 WebSite_Audio;Gå til denne lyd-codecs websted
 WebSite_Audio_More;Gå til webstedet (%Url%) for at finde denne lyd-codec
 WebSite_General;Gå til en afspillers webstedet  til denne fil
@@ -1102,5 +1190,5 @@ Written_Location;Sted
 WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
-ZZ_Automatic_Percent;80
-ZZ_AutomaticLanguage_Percent;91
+ZZ_Automatic_Percent;74
+ZZ_AutomaticLanguage_Percent;84

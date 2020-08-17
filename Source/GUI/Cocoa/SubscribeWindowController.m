@@ -106,8 +106,8 @@ static SubscribeWindowController *subscribeCtrl = nil;
 
             if([[SubscriptionManager shared].subscriptionEndDate
                 isGreaterThanOrEqualTo:[NSDate date]]) {
-                NSString *message = @"Subscription active until DATE.";
-                message = [message stringByReplacingOccurrencesOfString:@"DATE" withString:[dateFormatter stringFromDate:[SubscriptionManager shared].subscriptionEndDate]];
+                NSString *message = NSLocalizedString(@"Subscription active until %DATE%.", @"Active Status");
+                message = [message stringByReplacingOccurrencesOfString:@"%DATE%" withString:[dateFormatter stringFromDate:[SubscriptionManager shared].subscriptionEndDate]];
 
                 if([[[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:7 toDate:[NSDate date] options:0] isGreaterThan:[SubscriptionManager shared].subscriptionEndDate]) {
                     [_statusText setTextColor:[NSColor systemOrangeColor]];
@@ -118,18 +118,18 @@ static SubscribeWindowController *subscribeCtrl = nil;
                 [_statusText setStringValue:message];
             }
             else {
-                NSString *message = @"Subscription expired since DATE.";
-                message = [message stringByReplacingOccurrencesOfString:@"DATE" withString:[dateFormatter stringFromDate:[SubscriptionManager shared].subscriptionEndDate]];
+                NSString *message = NSLocalizedString(@"Subscription expired since %DATE%.", @"Expired Status");
+                message = [message stringByReplacingOccurrencesOfString:@"%DATE%" withString:[dateFormatter stringFromDate:[SubscriptionManager shared].subscriptionEndDate]];
 
                 [_statusText setTextColor:[NSColor systemRedColor]];
                 [_statusText setStringValue:message];
             }
-            [_subscribeButton setTitle:@"Renew subscription PRICE for one year"];
+            [_subscribeButton setTitle:NSLocalizedString(@"Renew subscription %PRICE% for one year", @"Renew Price")];
         }
 
-        [_subscribeButton setTitle: [[_subscribeButton title] stringByReplacingOccurrencesOfString:@"PRICE" withString:price]];
+        [_subscribeButton setTitle: [[_subscribeButton title] stringByReplacingOccurrencesOfString:@"%PRICE%" withString:price]];
 
-        [_legalText setStringValue:[_legalText.stringValue stringByReplacingOccurrencesOfString:@"PRICE" withString:price]];
+        [_legalText setStringValue:[_legalText.stringValue stringByReplacingOccurrencesOfString:@"%PRICE%" withString:price]];
 
         [self hideProgress];
     }

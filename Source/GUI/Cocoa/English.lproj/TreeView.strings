@@ -1,0 +1,12 @@
+﻿
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "41r-Rp-xrS"; */
+"41r-Rp-xrS.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "Field"; ObjectID = "LRh-qX-GDO"; */
+"LRh-qX-GDO.headerCell.title" = "Field";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "LqZ-Y9-Pg4"; */
+"LqZ-Y9-Pg4.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "Value"; ObjectID = "iAe-Hy-FZv"; */
+"iAe-Hy-FZv.headerCell.title" = "Value";

@@ -5,8 +5,13 @@
 "38.ibShadowedToolTips[0]" = "Basique";
 "38.ibShadowedToolTips[1]" = "Arbre";
 "38.ibShadowedToolTips[2]" = "Texte";
-"38.ibShadowedToolTips[3]" = "Other Views";
+"38.ibShadowedToolTips[3]" = "Comparer (Fonctionnalité premium)";
+"38.ibShadowedToolTips[4]" = "Autres vues";
 "39.label" = "Vue";
 "39.paletteLabel" = "Vue";
 "PWm-W6-Msn.title" = "Choisissez le format d'exportation désiré";
+"dpG-p5-QwC.label" = "S'abonner";
+"dpG-p5-QwC.paletteLabel" = "Subscribe";
+"eZC-pc-IWN.label" = "Comparer";
+"kut-ID-XH0.ibShadowedToolTips[0]" = "S'abonner aux fonctionnalités premium";
 "l1c-6L-mdF.title" = "Texte";
