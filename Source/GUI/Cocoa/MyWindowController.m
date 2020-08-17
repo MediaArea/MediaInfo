@@ -518,6 +518,11 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
         [tabSelector setToolTip:NSLocalizedString(@"Compare View", @"Compare View") forSegment:kCompareTabIndex];
         [subscribeButton setToolTip:NSLocalizedString(@"Manage subscription", @"Manage Subscription") forSegment:0];
     }
+
+    NSInteger index = [[mainToolbar items] indexOfObject:subscribeButtonItem];
+    if (index != NSNotFound)
+        [mainToolbar removeItemAtIndex:index];
+
     [tabSelector setEnabled:YES forSegment:kCompareTabIndex];
 
     /* NSUInteger lastSegment = tabSelector.segmentCount - 1;

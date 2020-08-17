@@ -1,6 +1,9 @@
-﻿
+
 /* Class = "NSTextFieldCell"; title = "• Advanced mode"; ObjectID = "25b-t3-0Ag"; */
 "25b-t3-0Ag.title" = "• Advanced mode";
+
+/* Class = "NSButtonCell"; title = "Lifetime subscription for %PRICE%"; ObjectID = "3Bg-Z8-JwL"; */
+"3Bg-Z8-JwL.title" = "Lifetime subscription for %PRICE%";
 
 /* Class = "NSButtonCell"; title = "RETRY"; ObjectID = "5u4-uz-TBx"; */
 "5u4-uz-TBx.title" = "RETRY";
@@ -8,11 +11,8 @@
 /* Class = "NSTextFieldCell"; title = "• Files compare"; ObjectID = "9hJ-Wf-yXr"; */
 "9hJ-Wf-yXr.title" = "• Files compare";
 
-/* Class = "NSTextFieldCell"; title = "• More to come"; ObjectID = "GH4-tq-1cm"; */
-"GH4-tq-1cm.title" = "• More to come";
-
-/* Class = "NSButtonCell"; title = "Subscribe PRICE for one year"; ObjectID = "JL5-kL-wBR"; */
-"JL5-kL-wBR.title" = "Subscribe PRICE for one year";
+/* Class = "NSButtonCell"; title = "Subscribe %PRICE% for one year"; ObjectID = "JL5-kL-wBR"; */
+"JL5-kL-wBR.title" = "Subscribe %PRICE% for one year";
 
 /* Class = "NSTextFieldCell"; title = "Support us by subscribing and get exclusive features."; ObjectID = "JYE-X2-6VN"; */
 "JYE-X2-6VN.title" = "Support us by subscribing and get exclusive features.";
@@ -20,11 +20,17 @@
 /* Class = "NSWindow"; title = "\b"; ObjectID = "QvC-M9-y7g"; */
 "QvC-M9-y7g.title" = "\b";
 
-/* Class = "NSTextFieldCell"; title = " A PRICE purchase will be applied to your iTunes account on confirmation.\nIf a subscription is already active one year will be added to your current subscription end date."; ObjectID = "RPE-po-2rg"; */
-"RPE-po-2rg.title" = " A PRICE purchase will be applied to your iTunes account on confirmation.\nIf a subscription is already active one year will be added to your current subscription end date.";
+/* Class = "NSTextFieldCell"; title = "Purchase will be applied to your iTunes account on confirmation.\nIf a subscription is already active one year will be added to your current subscription end date."; ObjectID = "RPE-po-2rg"; */
+"RPE-po-2rg.title" = "Purchase will be applied to your iTunes account on confirmation.\nIf a subscription is already active one year will be added to your current subscription end date.";
 
 /* Class = "NSTextFieldCell"; title = "• Select default view"; ObjectID = "TBA-9I-zit"; */
 "TBA-9I-zit.title" = "• Select default view";
 
 /* Class = "NSTextFieldCell"; title = "\b"; ObjectID = "bw4-n3-mi1"; */
 "bw4-n3-mi1.title" = "\b";
+
+/* Class = "NSTextFieldCell"; title = "• More to come"; ObjectID = "dbk-rc-jAB"; */
+"dbk-rc-jAB.title" = "• More to come";
+
+/* Class = "NSButtonCell"; title = "Restore lifetime subscription"; ObjectID = "mhh-gg-9x5"; */
+"mhh-gg-9x5.title" = "Restore lifetime subscription";

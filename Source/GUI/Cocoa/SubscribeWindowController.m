@@ -37,8 +37,20 @@ static SubscribeWindowController *subscribeCtrl = nil;
     [_loadingLayer setFillColor:NSColor.controlBackgroundColor];
     [_loadingMessage setStringValue:@"Feching subscription details..."];
     [_retryButton setHidden:YES];
-    [_loadingIndicator setHidden:false];
+    [_loadingIndicator setHidden:NO];
     [_loadingIndicator startAnimation:self];
+}
+
+-(void) disableButtons {
+    [_subscribeButton setEnabled:NO];
+    [_lifetimeSubscribeButton setEnabled:NO];
+    [_restoreButton setEnabled:NO];
+}
+
+-(void)enableButtons {
+    [_subscribeButton setEnabled:![[SubscriptionManager shared] isLifetime]];
+    [_lifetimeSubscribeButton setEnabled:![[SubscriptionManager shared] isLifetime]];
+    [_restoreButton setEnabled:YES];
 }
 
 -(void)hideProgress {
@@ -98,13 +110,19 @@ static SubscribeWindowController *subscribeCtrl = nil;
         formatter.locale = [SubscriptionManager shared].subscription.priceLocale;
 
         NSString *price = [formatter stringFromNumber:[SubscriptionManager shared].subscription.price];
+        NSString *lifetimePrice =  [formatter stringFromNumber:[SubscriptionManager shared].lifetimeSubscription.price];
 
-        if([SubscriptionManager shared].subscriptionEndDate) {
+        if([SubscriptionManager shared].subscriptionEndDate || [SubscriptionManager shared].isLifetime) {
             NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
             [dateFormatter setDateStyle:NSDateFormatterShortStyle];
             [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
 
-            if([[SubscriptionManager shared].subscriptionEndDate
+            if([SubscriptionManager shared].isLifetime) {
+                [_statusText setStringValue:NSLocalizedString(@"Lifetime subscription detected.", @"Lifetime Status")];
+                [_statusText setTextColor:[NSColor systemGreenColor]];
+                [self disableButtons];
+            }
+            else if([[SubscriptionManager shared].subscriptionEndDate
                 isGreaterThanOrEqualTo:[NSDate date]]) {
                 NSString *message = NSLocalizedString(@"Subscription active until %DATE%.", @"Active Status");
                 message = [message stringByReplacingOccurrencesOfString:@"%DATE%" withString:[dateFormatter stringFromDate:[SubscriptionManager shared].subscriptionEndDate]];
@@ -129,7 +147,7 @@ static SubscribeWindowController *subscribeCtrl = nil;
 
         [_subscribeButton setTitle: [[_subscribeButton title] stringByReplacingOccurrencesOfString:@"%PRICE%" withString:price]];
 
-        [_legalText setStringValue:[_legalText.stringValue stringByReplacingOccurrencesOfString:@"%PRICE%" withString:price]];
+        [_lifetimeSubscribeButton setTitle: [[_lifetimeSubscribeButton title] stringByReplacingOccurrencesOfString:@"%PRICE%" withString:lifetimePrice]];
 
         [self hideProgress];
     }
@@ -142,21 +160,29 @@ static SubscribeWindowController *subscribeCtrl = nil;
 }
 
 -(void)purchaseFailed {
-    [_subscribeButton setEnabled:YES];
+    [self enableButtons];
 }
 
 -(void)purchaseDeferred {
-    [_subscribeButton setEnabled:YES];
+    [self enableButtons];
 }
 
 -(void)purchaseSucceeded {
-    [_subscribeButton setEnabled:YES];
+    [self enableButtons];
     [self close];
 }
 
 -(IBAction)subscribe:(id)sender {
-    [_subscribeButton setEnabled:NO];
-    [[SubscriptionManager shared] purchaseSubscription];
+    [self disableButtons];
+    [[SubscriptionManager shared] purchaseSubscription:[[SubscriptionManager shared] subscription]];
+}
+
+- (IBAction)subscribeLifetime:(id)sender {
+    [self disableButtons];
+    [[SubscriptionManager shared] purchaseSubscription:[[SubscriptionManager shared] lifetimeSubscription]];}
+
+- (IBAction)restore:(id)sender {
+    [[SubscriptionManager shared] restoreSubscriptions];
 }
 
 -(IBAction)retryRequest:(id)sender {

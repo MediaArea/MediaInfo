@@ -34,6 +34,9 @@
 /* Expired Status */
 "Subscription expired since %DATE%." = "Subscription expired since %DATE%.";
 
+/* Lifetime Status */
+"Lifetime subscription detected." = "Lifetime subscription detected.";
+
 /* Downloading File */
 "Downloading file(s) %lu of %lu ..." = "Downloading file(s) %lu of %lu ...";
 

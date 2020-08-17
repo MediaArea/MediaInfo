@@ -6,6 +6,7 @@
 "Compare View" = "Compare View";
 "Downloading file(s) %lu of %lu ..." = "Downloading file(s) %lu of %lu ...";
 "Error" = "Error";
+"Lifetime subscription detected." = "Lifetime subscription detected.";
 "Manage Subscription" = "管理订阅";
 "Opening file(s) %lu of %lu ..." = "Opening file(s) %lu of %lu ...";
 "Renew" = "续订";

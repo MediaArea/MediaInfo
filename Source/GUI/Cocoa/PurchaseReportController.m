@@ -88,7 +88,9 @@ static PurchaseReportController *reportCtrl = nil;
 
     NSDate* subscriptionEndDate = [[SubscriptionManager shared] subscriptionEndDate];
     if (subscriptionEndDate != nil) {
-        if ([subscriptionEndDate isGreaterThanOrEqualTo: [NSDate date]])
+        if ([[SubscriptionManager shared] isLifetime])
+            [report appendString:@"Subscription status: lifetime"];
+        else if ([subscriptionEndDate isGreaterThanOrEqualTo: [NSDate date]])
             [report appendFormat:@"Subscription status: active (until %@)\n",
              subscriptionEndDate];
         else

@@ -11,6 +11,7 @@
 @implementation SubscriptionManager
 static SubscriptionManager *sharedInstance = nil;
 static NSString *SKU = @"net.mediaarea.mediainfo.mac.nrsubs.inapp1";
+static NSString *lifetimeSKU = @"net.mediaarea.mediainfo.mac.purchase.inapp1";
 
 static NSString *_subscriptionStateChangedNotification = @"net.mediaarea.mediainfo.mac.notifications.subscriptioStateChanged";
 static NSString *_subscriptionDetailsReadyNotification = @"net.mediaarea.mediainfo.mac.notifications.subscriptionDetailsReady";
@@ -56,22 +57,24 @@ static NSString *_subscriptionPurchaseFailedNotification = @"net.mediaarea.media
 
     _request = nil;
     _subscription = nil;
+    _lifetimeSubscription = nil;
     _subscriptionEndDate = nil;
     _subscriptionActive = NO;
+    _isLifetime = NO;
 
     [self requestSubscriptionDetails];
     [self parseSubscriptions];
 
     _shouldNotifyUserForSubscription = NO;
     NSInteger launchCount = [[NSUserDefaults standardUserDefaults]integerForKey:@"launchCount"];
-    if(launchCount == 10 && !_subscriptionEndDate) {
+    if(!_isLifetime && launchCount == 10 && !_subscriptionEndDate) {
         _shouldNotifyUserForSubscription = YES;
     }
 
     [[NSUserDefaults standardUserDefaults] setInteger:launchCount + 1 forKey:@"launchCount"];
 
     _shouldNotifyUserForSubscriptionEnd = NO;
-    if(_subscriptionEndDate && [_subscriptionEndDate isLessThan:[NSDate date]]) {
+    if(!_isLifetime && _subscriptionEndDate && [_subscriptionEndDate isLessThan:[NSDate date]]) {
     NSDate *subscriptionEndNotificationDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"subscriptionEndNotificationDate"];
 
         if(!subscriptionEndNotificationDate || [subscriptionEndNotificationDate isLessThan:_subscriptionEndDate]) {
@@ -91,6 +94,9 @@ static NSString *_subscriptionPurchaseFailedNotification = @"net.mediaarea.media
         [_subscription release];
     }
 
+    if(_lifetimeSubscription) {
+        [_lifetimeSubscription release];
+    }
     if(_subscriptionEndDate) {
         [_subscriptionEndDate release];
     }
@@ -126,20 +132,20 @@ static NSString *_subscriptionPurchaseFailedNotification = @"net.mediaarea.media
 
 -(void)requestSubscriptionDetails {
     if(!_request) {
-        _request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObjects:SKU, nil]];
+        _request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObjects:SKU, lifetimeSKU, nil]];
         _request.delegate = self;
         [_request start];
     }
 }
 
--(void)purchaseSubscription {
-    if(!_subscription) {
+-(void)purchaseSubscription:(SKProduct *)product {
+    if(!product) {
         [[NSNotificationCenter defaultCenter] postNotificationName:_subscriptionPurchaseFailedNotification object:self userInfo:nil];
 
         return;
     }
 
-    SKPayment *payment = [SKPayment paymentWithProduct:_subscription];
+    SKPayment *payment = [SKPayment paymentWithProduct:product];
     [[SKPaymentQueue defaultQueue] addPayment:payment];
 }
 
@@ -162,6 +168,10 @@ static NSString *_subscriptionPurchaseFailedNotification = @"net.mediaarea.media
             else {
                 end = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitYear value:quantity toDate:end options:0];
             }
+        }
+        else if([subscription[@"product"] isEqualToString:lifetimeSKU]) {
+            end = [NSDate distantFuture];
+            _isLifetime = YES;
         }
     }
 
@@ -187,9 +197,18 @@ static NSString *_subscriptionPurchaseFailedNotification = @"net.mediaarea.media
                 _subscription = nil;
             }
             _subscription = [product retain];
-
-            [[NSNotificationCenter defaultCenter] postNotificationName:_subscriptionDetailsReadyNotification object:self userInfo:nil];
         }
+        else if([product.productIdentifier isEqualToString:lifetimeSKU]) {
+            if(_lifetimeSubscription) {
+                [_lifetimeSubscription release];
+                _lifetimeSubscription = nil;
+            }
+            _lifetimeSubscription = [product retain];
+        }
+    }
+
+    if(_subscription && _lifetimeSubscription) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:_subscriptionDetailsReadyNotification object:self userInfo:nil];
     }
     [_request release];
     _request = nil;
@@ -203,8 +222,8 @@ static NSString *_subscriptionPurchaseFailedNotification = @"net.mediaarea.media
 }
 
 -(void)purchaseSucceeded:(SKPaymentTransaction *)transaction {
-    if(transaction && [transaction.payment.productIdentifier isEqualToString:SKU]) {
-        NSDictionary *new = [[NSDictionary alloc] initWithObjectsAndKeys:transaction.transactionIdentifier, @"id", SKU, @"product",[NSNumber numberWithInteger: transaction.payment.quantity], @"quantity", transaction.transactionDate, @"date", nil];
+    if(transaction && ([transaction.payment.productIdentifier isEqualToString:SKU] || [transaction.payment.productIdentifier isEqualToString:lifetimeSKU])) {
+        NSDictionary *new = [[NSDictionary alloc] initWithObjectsAndKeys:transaction.transactionIdentifier, @"id", transaction.payment.productIdentifier, @"product", [NSNumber numberWithInteger: transaction.payment.quantity], @"quantity", transaction.transactionDate, @"date", nil];
 
         NSMutableSet *saved = [[[NSMutableSet alloc] initWithArray: [self subscriptions]] autorelease];
         [saved addObject:new];
@@ -228,14 +247,16 @@ static NSString *_subscriptionPurchaseFailedNotification = @"net.mediaarea.media
 
 -(void)purchaseRestored:(SKPaymentTransaction *)transaction {
     SKPaymentTransaction *originalTransaction = transaction.originalTransaction;
-    if(originalTransaction && [originalTransaction.payment.productIdentifier isEqualToString:SKU]) {
-        NSDictionary *new = [[NSDictionary alloc] initWithObjectsAndKeys:originalTransaction.transactionIdentifier, @"id", SKU, @"product",[NSNumber numberWithInteger: originalTransaction.payment.quantity], @"quantity", originalTransaction.transactionDate, @"date", nil];
+    if(originalTransaction && ([originalTransaction.payment.productIdentifier isEqualToString:SKU] || [originalTransaction.payment.productIdentifier isEqualToString:lifetimeSKU])) {
+        NSDictionary *new = [[NSDictionary alloc] initWithObjectsAndKeys:originalTransaction.transactionIdentifier, @"id", originalTransaction.payment.productIdentifier, @"product",[NSNumber numberWithInteger: originalTransaction.payment.quantity], @"quantity", originalTransaction.transactionDate, @"date", nil];
 
         NSMutableSet *saved = [[[NSMutableSet alloc] initWithArray: [self subscriptions]] autorelease];
         [saved addObject:new];
 
         [[NSUserDefaults standardUserDefaults] setObject:[saved allObjects] forKey:@"subscriptions"];
         [[NSUbiquitousKeyValueStore defaultStore] setObject:[saved allObjects] forKey:@"subscriptions"];
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:_subscriptionPurchaseSucceededNotification object:self userInfo:nil];
 
         [self parseSubscriptions];
     }
