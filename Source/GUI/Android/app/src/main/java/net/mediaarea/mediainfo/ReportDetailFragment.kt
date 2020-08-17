@@ -36,7 +36,6 @@ import kotlinx.android.synthetic.main.report_detail.view.*
 
 class ReportDetailFragment : Fragment() {
     companion object {
-        const val ARG_REPORT_ID: String = "id"
         const val SAVE_FILE_REQUEST_CODE: Int = 1
     }
 
@@ -50,8 +49,8 @@ class ReportDetailFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            if (it.containsKey(ARG_REPORT_ID)) {
-                val newId: Int = it.getInt(ARG_REPORT_ID)
+            if (it.containsKey(Core.ARG_REPORT_ID)) {
+                val newId: Int = it.getInt(Core.ARG_REPORT_ID)
                 if (newId != -1)
                     id = newId
             }
@@ -100,9 +99,7 @@ class ReportDetailFragment : Fragment() {
             disposable.add(activityListener.getReportViewModel().getReport(id)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe {
-                        activity?.title = it.filename
-
+                    .doOnSuccess {
                         val report: String = Core.convertReport(it.report, view)
                         var content = ""
                         if (view != "HTML") {
@@ -118,7 +115,7 @@ class ReportDetailFragment : Fragment() {
                         content = content.replace("<body>", "<body style=\"background-color: ${background}; color: ${foreground};\">")
 
                         rootView.report_detail.loadDataWithBaseURL(null, content, "text/html", "utf-8", null)
-             })
+             }.subscribe())
         }
 
         return rootView
@@ -205,12 +202,18 @@ class ReportDetailFragment : Fragment() {
                             ?.apply()
 
                     // Reset view
-                    if (isAdded) {
-                        parentFragmentManager
-                                .beginTransaction()
-                                .detach(this)
-                                .attach(this)
-                                .commit()
+                    parentFragmentManager.fragments.forEach {
+                        val fragment = it as? ReportDetailFragment
+                        if (fragment!=null) {
+                            fragment.view = current.name
+                            if (fragment.isAdded) {
+                                parentFragmentManager
+                                        .beginTransaction()
+                                        .detach(it)
+                                        .attach(it)
+                                        .commit()
+                            }
+                        }
                     }
                 }
 

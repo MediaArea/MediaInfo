@@ -151,24 +151,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                                         .subscribeOn(Schedulers.io())
                                         .observeOn(AndroidSchedulers.mainThread())
                                         .doOnSuccess {
-                                            val id: Int = it
-                                            if (twoPane) {
-                                                val fragment: ReportDetailFragment = ReportDetailFragment().apply {
-                                                    arguments = Bundle().apply {
-                                                        putInt(ReportDetailFragment.ARG_REPORT_ID, id)
-                                                    }
-                                                }
-
-                                                supportFragmentManager
-                                                        .beginTransaction()
-                                                        .replace(R.id.report_detail_container, fragment)
-                                                        .commit()
-                                            } else {
-                                                val intent = Intent(this@ReportListActivity, ReportDetailActivity::class.java)
-                                                intent.putExtra(ReportDetailFragment.ARG_REPORT_ID, id)
-
-                                                startActivity(intent)
-                                            }
+                                            showReport(it)
                                         }.subscribe())
                             }
                         }.subscribe())
@@ -307,6 +290,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                     if (Build.VERSION.SDK_INT >= 24) {
                         Resources.getSystem().configuration.locales.get(0)
                     } else {
+                        @Suppress("DEPRECATION")
                         Resources.getSystem().configuration.locale
                     }
                 } else {
@@ -327,6 +311,34 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         }
     }
 
+    fun showReport(id: Int) {
+        intent.putExtra(Core.ARG_REPORT_ID, id)
+        if (twoPane) {
+            val fragment: ReportDetailFragment = ReportDetailFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(Core.ARG_REPORT_ID, id)
+                }
+            }
+
+            supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.report_detail_container, fragment)
+                    .commit()
+
+            disposable.add(reportModel.getReport(id)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSuccess {
+                        title = it.filename
+                    }.subscribe())
+        } else {
+            val intent = Intent(this@ReportListActivity, ReportDetailActivity::class.java)
+            intent.putExtra(Core.ARG_REPORT_ID, id)
+
+            startActivityForResult(intent, SHOW_REPORT_REQUEST)
+        }
+    }
+
     fun deleteReport(id: Int) {
         disposable.add(reportModel
                 .deleteReport(id)
@@ -334,6 +346,9 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe())
 
+        if (intent.getIntExtra(Core.ARG_REPORT_ID, -1)==id) {
+            intent.putExtra(Core.ARG_REPORT_ID, -1)
+        }
         if (twoPane) {
             val fragment = supportFragmentManager.findFragmentById(R.id.report_detail_container)
             if (fragment != null && (fragment as ReportDetailFragment).id == id) {
@@ -432,6 +447,14 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 SUBSCRIBE_REQUEST -> {
                     Toast.makeText(applicationContext, R.string.thanks_text, Toast.LENGTH_SHORT).show()
                 }
+                SHOW_REPORT_REQUEST -> {
+                    if (resultData!=null) {
+                        val id = resultData.getIntExtra(Core.ARG_REPORT_ID, -1)
+                        if (id!=-1 && twoPane) {
+                            showReport(id)
+                        }
+                    }
+                }
             }
         }
     }
@@ -505,6 +528,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
+                    intent.putExtra(Core.ARG_REPORT_ID, -1)
                     if (twoPane) {
                         val fragment = supportFragmentManager.findFragmentById(R.id.report_detail_container)
                         if (fragment != null) {
@@ -564,6 +588,10 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
                     }
                 })
+
+        if (twoPane && intent.getIntExtra(Core.ARG_REPORT_ID, -1)!=-1) {
+            showReport(intent.getIntExtra(Core.ARG_REPORT_ID, -1))
+        }
     }
 
     override fun onStop() {
@@ -574,36 +602,17 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        recyclerView.adapter = ItemRecyclerViewAdapter(this, reports, twoPane)
+        recyclerView.adapter = ItemRecyclerViewAdapter()
         recyclerView.isNestedScrollingEnabled = false
     }
 
-    class ItemRecyclerViewAdapter(private val parentActivity: ReportListActivity,
-                                         private val reports: List<Report>,
-                                         private val twoPane: Boolean) :
-            RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder>() {
-
+    inner class ItemRecyclerViewAdapter : RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder>() {
         private val onClickListener: View.OnClickListener
 
         init {
             onClickListener = View.OnClickListener {
                 val report: Report = it.tag as Report
-                if (twoPane) {
-                    val fragment: ReportDetailFragment = ReportDetailFragment().apply {
-                        arguments = Bundle().apply {
-                            putInt(ReportDetailFragment.ARG_REPORT_ID, report.id)
-                        }
-                    }
-                    parentActivity.supportFragmentManager
-                            .beginTransaction()
-                            .replace(R.id.report_detail_container, fragment)
-                            .commit()
-                } else {
-                    val intent = Intent(it.context, ReportDetailActivity::class.java).apply {
-                        putExtra(ReportDetailFragment.ARG_REPORT_ID, report.id)
-                    }
-                    it.context.startActivity(intent)
-                }
+                showReport(report.id)
             }
         }
 
@@ -633,15 +642,16 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
             init {
                 view.delete_button.setOnClickListener {
                     if (id != -1)
-                        parentActivity.deleteReport(id)
+                        deleteReport(id)
                 }
             }
         }
     }
 
     companion object {
+        const val SHOW_REPORT_REQUEST = 20
         const val SUBSCRIBE_REQUEST = 30
-        const val OPEN_FILE_REQUEST= 40
+        const val OPEN_FILE_REQUEST = 40
         const val READ_EXTERNAL_STORAGE_PERMISSION_REQUEST = 50
     }
 }

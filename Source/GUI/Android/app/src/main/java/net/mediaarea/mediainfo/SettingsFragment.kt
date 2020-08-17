@@ -64,6 +64,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                             Resources.getSystem().configuration.locales.get(0)
                         }
                         else {
+                            @Suppress("DEPRECATION")
                             Resources.getSystem().configuration.locale
                         }
                     }
