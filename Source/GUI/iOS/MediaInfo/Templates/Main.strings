@@ -19,6 +19,9 @@
 /* Class = "UILabel"; text = "Support us. Get the dark theme and more features to come."; ObjectID = "Jn6-6b-eGc"; */
 "Jn6-6b-eGc.text" = "Support us. Get the dark theme and more features to come."; /* csv="SupportUs"; */
 
+/* Class = "UIButton"; normalTitle = "Restore lifetime subscription"; ObjectID = "C23-AR-ZAO"; */
+"C23-AR-ZAO.normalTitle" = "Restore lifetime subscription"; /* csv="RestoreLifetimeSubscription"; */
+
 /* Class = "UILabel"; text = "Title"; ObjectID = "KMX-0V-hyi"; */
 "KMX-0V-hyi.text" = "Title"; /* csv="Title"; */
 

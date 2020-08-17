@@ -185,20 +185,52 @@ CA
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DC3-aG-MB5">
+                                                <rect key="frame" x="8" y="115" width="359" height="30"/>
+                                                <color key="backgroundColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="5Hh-Ii-4My"/>
+                                                </constraints>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <state key="normal">
+                                                    <string key="title" base64-UTF8="YES">
+CA
+</string>
+                                                </state>
+                                                <connections>
+                                                    <action selector="lifetimeSubscribe:" destination="9gy-ak-LKO" eventType="touchUpInside" id="aKH-SQ-Lv0"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C23-AR-ZAO">
+                                                <rect key="frame" x="8" y="153" width="359" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="m44-nS-yvY"/>
+                                                </constraints>
+                                                <state key="normal" title="Restore lifetime subscription"/>
+                                                <connections>
+                                                    <action selector="restore:" destination="9gy-ak-LKO" eventType="touchUpInside" id="z3w-fc-asb"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="vRR-ji-UxU" firstAttribute="top" secondItem="L9G-qR-JwM" secondAttribute="bottom" constant="8" id="1mI-NK-3pG"/>
+                                            <constraint firstItem="vRR-ji-UxU" firstAttribute="top" secondItem="C23-AR-ZAO" secondAttribute="bottom" constant="8" id="1mI-NK-3pG"/>
                                             <constraint firstItem="L9G-qR-JwM" firstAttribute="top" secondItem="ucz-16-YPX" secondAttribute="bottom" constant="8" id="2SA-G8-n9i"/>
                                             <constraint firstAttribute="trailing" secondItem="ucz-16-YPX" secondAttribute="trailing" constant="8" id="3AW-8J-TUE"/>
                                             <constraint firstItem="vRR-ji-UxU" firstAttribute="leading" secondItem="rPY-l7-38z" secondAttribute="leading" constant="8" id="3oO-kt-DRA"/>
                                             <constraint firstAttribute="bottom" secondItem="vRR-ji-UxU" secondAttribute="bottom" id="BS5-e4-zNl"/>
+                                            <constraint firstItem="DC3-aG-MB5" firstAttribute="leading" secondItem="rPY-l7-38z" secondAttribute="leading" constant="8" id="DnP-bZ-cVT"/>
                                             <constraint firstItem="ucz-16-YPX" firstAttribute="top" secondItem="Jn6-6b-eGc" secondAttribute="bottom" constant="8" id="EwT-xN-qbN"/>
+                                            <constraint firstItem="DC3-aG-MB5" firstAttribute="top" secondItem="L9G-qR-JwM" secondAttribute="bottom" constant="8" id="Fvq-LJ-xs3"/>
+                                            <constraint firstItem="C23-AR-ZAO" firstAttribute="leading" secondItem="rPY-l7-38z" secondAttribute="leading" constant="8" id="KIT-t9-ciz"/>
                                             <constraint firstItem="L9G-qR-JwM" firstAttribute="leading" secondItem="rPY-l7-38z" secondAttribute="leading" constant="8" id="MCp-pb-lhg"/>
                                             <constraint firstItem="Jn6-6b-eGc" firstAttribute="top" secondItem="rPY-l7-38z" secondAttribute="top" id="X3T-Fi-8lG"/>
+                                            <constraint firstAttribute="trailing" secondItem="DC3-aG-MB5" secondAttribute="trailing" constant="8" id="YZJ-Gq-4ZU"/>
                                             <constraint firstAttribute="trailing" secondItem="L9G-qR-JwM" secondAttribute="trailing" constant="8" id="fFv-dr-J6y"/>
                                             <constraint firstItem="Jn6-6b-eGc" firstAttribute="leading" secondItem="rPY-l7-38z" secondAttribute="leading" constant="8" id="i1W-aI-Eur"/>
+                                            <constraint firstItem="C23-AR-ZAO" firstAttribute="top" secondItem="DC3-aG-MB5" secondAttribute="bottom" constant="8" id="pat-eS-bOH"/>
                                             <constraint firstAttribute="trailing" secondItem="vRR-ji-UxU" secondAttribute="trailing" constant="8" id="u2b-s4-gFb"/>
+                                            <constraint firstAttribute="trailing" secondItem="C23-AR-ZAO" secondAttribute="trailing" constant="8" id="x6W-Sp-eUl"/>
                                             <constraint firstItem="ucz-16-YPX" firstAttribute="leading" secondItem="rPY-l7-38z" secondAttribute="leading" constant="8" id="zDn-W7-2Kn"/>
                                             <constraint firstAttribute="trailing" secondItem="Jn6-6b-eGc" secondAttribute="trailing" constant="8" id="zhs-jj-vbR"/>
                                         </constraints>
@@ -227,6 +259,8 @@ CFZpZXc
                     </view>
                     <connections>
                         <outlet property="legalText" destination="vRR-ji-UxU" id="FSN-Ti-DhB"/>
+                        <outlet property="lifetimeSubscribeButton" destination="DC3-aG-MB5" id="Ma1-2z-W8f"/>
+                        <outlet property="restoreButton" destination="C23-AR-ZAO" id="weN-0c-aUA"/>
                         <outlet property="statusText" destination="ucz-16-YPX" id="Han-9j-Asx"/>
                         <outlet property="subscribeButton" destination="L9G-qR-JwM" id="uGI-nx-twj"/>
                         <outlet property="subscribeText" destination="Jn6-6b-eGc" id="y1n-ev-NnB"/>

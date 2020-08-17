@@ -23,14 +23,25 @@ class SubscriptionManager : NSObject, SKProductsRequestDelegate {
     static let shared = SubscriptionManager()
 
     private let subscriptionId = "net.mediaarea.mediainfo.ios.nrsubs.inapp1"
+    private let lifetimeSubscriptionId = "net.mediaarea.mediainfo.ios.purchase.inapp1"
 
-    var subscriptionDetails: SKProduct? {
-        didSet {
-            NotificationCenter.default.post(name: .subscriptionDetailsReady, object: nil)
+    var subscriptionDetails: SKProduct?
+    var lifetimeSubscriptionDetails: SKProduct?
+
+    var subscriptionActive: Bool = false {
+        didSet(oldValue) {
+            if subscriptionActive != oldValue {
+                NotificationCenter.default.post(name: .subscriptionStateChanged, object: nil)
+            }
         }
     }
-
-    var subscriptionActive: Bool = false
+    var isLifetime: Bool = false {
+        didSet(oldValue) {
+            if isLifetime {
+                subscriptionActive = true
+            }
+        }
+    }
 
     var subscriptions: [Date] {
         get {
@@ -74,9 +85,8 @@ class SubscriptionManager : NSObject, SKProductsRequestDelegate {
             if let newDate = newValue {
                 if newDate > subscriptionEndDate ?? Date(timeIntervalSince1970: 0.0) {
                     UserDefaults.standard.set([newDate], forKey: "SubscriptionEndDate")
+                    subscriptionActive = subscriptionActive || newDate >= Date()
 
-                    subscriptionActive = newDate >= Date()
-                    NotificationCenter.default.post(name: .subscriptionStateChanged, object: nil)
                 }
             }
         }
@@ -84,7 +94,7 @@ class SubscriptionManager : NSObject, SKProductsRequestDelegate {
 
     var shouldNotifyUserForSubscriptionEnd: Bool {
         get {
-            if let end = subscriptionEndDate, end < Date() {
+            if let end = subscriptionEndDate, end < Date() && !isLifetime {
                 if let saved = NSUbiquitousKeyValueStore.default.array(forKey: "SubscriptionEndUserNotificationDate") as? [Date], saved.count > 0 {
                     let lastNotificationDate = saved[0]
                     if lastNotificationDate <= end {
@@ -105,10 +115,13 @@ class SubscriptionManager : NSObject, SKProductsRequestDelegate {
 
         NSUbiquitousKeyValueStore.default.synchronize()
 
-        parseSubscriptions()
+        parseReceipt()
 
         if let endDate = subscriptionEndDate {
-            subscriptionActive = endDate >= Date()
+            subscriptionActive = isLifetime || endDate >= Date()
+        }
+        if isLifetime {
+            subscriptionActive = true
         }
     }
 
@@ -129,8 +142,8 @@ class SubscriptionManager : NSObject, SKProductsRequestDelegate {
         parent.present(controller, animated: true)
     }
 
-    func purchase() {
-        if let subscription = subscriptionDetails {
+    func purchase(product: SKProduct?) {
+        if let subscription = product {
             let payment = SKPayment(product: subscription)
             SKPaymentQueue.default().add(payment)
         }
@@ -159,7 +172,7 @@ class SubscriptionManager : NSObject, SKProductsRequestDelegate {
     }
 
     func loadSubscription() {
-        let request = SKProductsRequest(productIdentifiers: Set([subscriptionId]))
+        let request = SKProductsRequest(productIdentifiers: Set([subscriptionId, lifetimeSubscriptionId]))
         request.delegate = self
         request.start()
     }
@@ -169,6 +182,12 @@ class SubscriptionManager : NSObject, SKProductsRequestDelegate {
             if product.productIdentifier == subscriptionId {
                 subscriptionDetails = product
             }
+            else if product.productIdentifier == lifetimeSubscriptionId {
+                lifetimeSubscriptionDetails = product
+            }
+        }
+        if subscriptionDetails != nil && lifetimeSubscriptionDetails != nil {
+            NotificationCenter.default.post(name: .subscriptionDetailsReady, object: nil)
         }
     }
 
@@ -207,11 +226,15 @@ class SubscriptionManager : NSObject, SKProductsRequestDelegate {
                         subscriptions.append(subscription.purchaseDate)
                     }
                 }
-                parseSubscriptions()
+
+                if decodedReceipt.purchases(ofProductIdentifier: lifetimeSubscriptionId).count > 0 {
+                    isLifetime = true
+                }
             } catch {
                 NSLog("ERROR: unable to decode receipt, %@", error as NSError)
             }
         }
+        parseSubscriptions()
     }
 
     func loadReceipt() -> Data? {

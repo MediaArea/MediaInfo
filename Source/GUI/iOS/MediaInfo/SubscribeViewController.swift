@@ -41,6 +41,8 @@ class SubscribeViewController: UIViewController {
     @IBOutlet weak var subscribeText: UILabel!
     @IBOutlet weak var statusText: UILabel!
     @IBOutlet weak var subscribeButton: UIButton!
+    @IBOutlet weak var lifetimeSubscribeButton: UIButton!
+    @IBOutlet weak var restoreButton: UIButton!
     @IBOutlet weak var legalText: UILabel!
 
     var message: String? = nil
@@ -50,13 +52,26 @@ class SubscribeViewController: UIViewController {
     @IBAction func subscribe(_ sender: Any) {
         subscribeButton.loadingIndicator(true)
         purchasing = true
-        SubscriptionManager.shared.purchase()
+        SubscriptionManager.shared.purchase(product: SubscriptionManager.shared.subscriptionDetails)
+    }
+
+    @IBAction func lifetimeSubscribe(_ sender: Any) {
+        lifetimeSubscribeButton.loadingIndicator(true)
+        purchasing = true
+        SubscriptionManager.shared.purchase(product: SubscriptionManager.shared.lifetimeSubscriptionDetails)
+    }
+
+    @IBAction func restore(_ sender: Any) {
+        SubscriptionManager.shared.restore()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        if let date = SubscriptionManager.shared.subscriptionEndDate {
+        if SubscriptionManager.shared.isLifetime {
+            statusText.text = NSLocalizedString("Lifetime subscription detected.", tableName: "Core", comment: "")
+        }
+        else if let date = SubscriptionManager.shared.subscriptionEndDate {
             let formatter = DateFormatter()
             formatter.dateStyle = .short
             formatter.timeStyle = .short
@@ -85,8 +100,9 @@ class SubscribeViewController: UIViewController {
         navigationController?.isNavigationBarHidden = false
 
         subscribeButton.loadingIndicator(true)
+        lifetimeSubscribeButton.loadingIndicator(true)
 
-        if SubscriptionManager.shared.subscriptionDetails == nil {
+        if SubscriptionManager.shared.subscriptionDetails == nil || SubscriptionManager.shared.lifetimeSubscriptionDetails == nil {
             NotificationCenter.default.addObserver(self, selector: #selector(subscriptionDetailsAviable(_:)), name: .subscriptionDetailsReady, object: nil)
 
             NotificationCenter.default.addObserver(self, selector: #selector(subscriptionDetailsAviable(_:)), name: .subscriptionDetailsUnaviable, object: nil)
@@ -98,6 +114,7 @@ class SubscribeViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(purchaseFailed(_:)), name: .purchaseFailed, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(purchaseDeferred(_:)), name: .purchaseDeferred, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(purchaseSucceeded(_:)), name: .purchaseSucceeded, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(purchaseRestored(_:)), name: .restoreFinished, object: nil)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -112,6 +129,7 @@ class SubscribeViewController: UIViewController {
         if (purchasing) {
             purchasing = false
             subscribeButton.loadingIndicator(false)
+            lifetimeSubscribeButton.loadingIndicator(false)
             view.makeToast(NSLocalizedString("Purchase canceled or failed", tableName: "Core", comment: ""), duration: 5.0, position: .top)
         }
     }
@@ -120,6 +138,7 @@ class SubscribeViewController: UIViewController {
         if (purchasing) {
             purchasing = false
             subscribeButton.loadingIndicator(false)
+            lifetimeSubscribeButton.loadingIndicator(false)
             view.makeToast(NSLocalizedString("Purchase waiting for parent approval", tableName: "Core", comment: ""), duration: 5.0, position: .top)
         }
     }
@@ -128,8 +147,18 @@ class SubscribeViewController: UIViewController {
         if (purchasing) {
             purchasing = false
             subscribeButton.loadingIndicator(false)
+            lifetimeSubscribeButton.loadingIndicator(false)
             message = NSLocalizedString("Purchase succeeded, thanks for your support!", tableName: "Core", comment: "")
             close()
+        }
+    }
+
+    @objc func purchaseRestored(_ notification: Notification) {
+        if SubscriptionManager.shared.isLifetime {
+            message = NSLocalizedString("Purchase restored", tableName: "Core", comment: "")
+        }
+        else {
+            message = NSLocalizedString("No lifetime purchase found", tableName: "Core", comment: "")
         }
     }
 
@@ -138,7 +167,7 @@ class SubscribeViewController: UIViewController {
     }
 
     open func updateSubscriptionDetails() {
-        if let subscriptionDetails = SubscriptionManager.shared.subscriptionDetails {
+        if let subscriptionDetails = SubscriptionManager.shared.subscriptionDetails, let lifetimeSubscriptionDetails = SubscriptionManager.shared.lifetimeSubscriptionDetails {
             let formatter = NumberFormatter()
             formatter.numberStyle = .currency
             formatter.locale = subscriptionDetails.priceLocale
@@ -149,14 +178,26 @@ class SubscribeViewController: UIViewController {
                 if SubscriptionManager.shared.subscriptionEndDate != nil {
                     subscribeButton.setTitle(NSLocalizedString("Renew subscription (%PRICE% for one year)", tableName: "Core", comment: "").replacingOccurrences(of: "%PRICE%", with: price), for: .normal)
                 } else {
-                    subscribeButton.setTitle(NSLocalizedString("Subscribe (%PRICE% for one year)", tableName: "Core", comment: "").replacingOccurrences(of: "%PRICE%", with: price), for: .normal)
+                    subscribeButton.setTitle(NSLocalizedString("Subscribe %PRICE% for one year", tableName: "Core", comment: "").replacingOccurrences(of: "%PRICE%", with: price), for: .normal)
                 }
 
-                legalText.text = """
-                A \(price) purchase will be applied to your iTunes account on confirmation.
-                If a subscription is already active one year will be added to your current subscription end date.
-                """
-                legalText.sizeToFit()
+                formatter.locale = lifetimeSubscriptionDetails.priceLocale
+
+                if let lifetimePrice = formatter.string(from: lifetimeSubscriptionDetails.price) {
+                    lifetimeSubscribeButton.loadingIndicator(false)
+                    lifetimeSubscribeButton.setTitle(NSLocalizedString("Lifetime subscription for %PRICE%", tableName: "Core", comment: "").replacingOccurrences(of: "%PRICE%", with: lifetimePrice), for: .normal)
+
+                    legalText.text = """
+                        A \(price) renewable or \(lifetimePrice) lifetime purchase will be applied to your iTunes account on confirmation.
+                        For a renewable subscription, if a subscription is already active one year will be added to your current subscription end date.
+                    """
+                    legalText.sizeToFit()
+                }
+
+                if SubscriptionManager.shared.isLifetime {
+                    subscribeButton.isEnabled = false
+                    lifetimeSubscribeButton.isEnabled = false
+                }
             } else {
                 message = NSLocalizedString("Unable to retrieve subscription details.", tableName: "Core", comment: "")
                 close()
