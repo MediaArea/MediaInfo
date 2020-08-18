@@ -7,7 +7,9 @@
 "(You must at least open one file)" = "(You must at least open one file)"; /* csv="At least one file"; */
 "Subscription expired since %DATE%" = "Subscription expired since %DATE%"; /* csv="Subscription_Expired"; */
 "Subscription active until %DATE%" = "Subscription active until %DATE%"; /* csv="Subscription_Active"; */
-"Subscribe (%PRICE% for one year)" = "Subscribe (%PRICE% for one year)"; /* csv="Subscribe_Button"; */
+"Lifetime subscription detected." = "Lifetime subscription detected."; /* csv="Subscription_Lifetime"; */
+"Subscribe %PRICE% for one year" = "Subscribe %PRICE% for one year"; /* csv="Subscribe_Button"; */
+"Lifetime subscription for %PRICE%" = "Lifetime subscription for %PRICE%"; /* csv="Lifetime_Subscribe_Button"; */
 "Purchase canceled or failed" = "Purchase canceled or failed"; /* csv="Subscribe_Failed"; */
 "Renew subscription?" = "Renew subscription?"; /* csv="Subscribe_Renew"; */
 "Manage subscription" = "Manage subscription"; /* csv="Subscribe_Manage"; */

@@ -1093,7 +1093,6 @@ StreamSize_Proportion;Proportion of this stream
 Subject;Subject
 Subscribe;Subscribe
 Subscribe_Button;Subscribe (%PRICE% for one year)
-Lifetime_Subscribe_Button;Lifetime subscription for %PRICE%
 Subscribe_Failed;Purchase canceled or failed
 Subscribe_Manage;Manage subscription
 Subscribe_Renew;Renew subscription?

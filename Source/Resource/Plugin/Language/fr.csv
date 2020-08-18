@@ -1093,7 +1093,6 @@ StreamSize_Proportion;Proportion de ce flux
 Subject;Sujet
 Subscribe;S'abonner
 Subscribe_Button;S'abonner (%PRICE% pour un an)
-Lifetime_Subscribe_Button;S'abonner à vie pour %PRICE%
 Subscribe_Failed;Achat annulé ou échoué
 Subscribe_Manage;Gérer l'abonnement
 Subscribe_Renew;Renouveler l'abonnement ?
