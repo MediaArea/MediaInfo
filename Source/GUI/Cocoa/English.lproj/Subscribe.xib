@@ -33,6 +33,28 @@ CA
                 <rect key="frame" x="0.0" y="0.0" width="480" height="582"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <button verticalHuggingPriority="750" id="fj7-zs-kBH">
+                        <rect key="frame" x="14" y="138" width="455" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Lifetime subscription for %PRICE%" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3Bg-Z8-JwL">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="subscribeLifetime:" target="-2" id="h4X-gX-yhz"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="icC-99-GTH">
+                        <rect key="frame" x="14" y="127" width="455" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="bevel" title="Restore lifetime subscription" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="mhh-gg-9x5">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="restore:" target="-2" id="XaG-5S-BTl"/>
+                        </connections>
+                    </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Moo-5g-Bey">
                         <rect key="frame" x="18" y="534" width="444" height="28"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -91,7 +113,7 @@ CA
                         <textFieldCell key="cell" selectable="YES" id="RPE-po-2rg">
                             <font key="font" metaFont="system"/>
                             <string key="title">Purchase will be applied to your iTunes account on confirmation.
-If a subscription is already active one year will be added to your current subscription end date.</string>
+For a renewable subscription, if a subscription is already active one year will be added to your current subscription end date.</string>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -151,28 +173,6 @@ CA
                             </subviews>
                         </view>
                     </box>
-                    <button verticalHuggingPriority="750" id="fj7-zs-kBH">
-                        <rect key="frame" x="14" y="138" width="455" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="push" title="Lifetime subscription for %PRICE%" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3Bg-Z8-JwL">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="subscribeLifetime:" target="-2" id="h4X-gX-yhz"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" id="icC-99-GTH">
-                        <rect key="frame" x="14" y="127" width="455" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="bevel" title="Restore lifetime subscription" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="mhh-gg-9x5">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="restore:" target="-2" id="XaG-5S-BTl"/>
-                        </connections>
-                    </button>
                 </subviews>
             </view>
             <connections>

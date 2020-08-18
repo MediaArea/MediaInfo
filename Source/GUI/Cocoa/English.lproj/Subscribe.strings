@@ -20,8 +20,8 @@
 /* Class = "NSWindow"; title = "\b"; ObjectID = "QvC-M9-y7g"; */
 "QvC-M9-y7g.title" = "\b";
 
-/* Class = "NSTextFieldCell"; title = "Purchase will be applied to your iTunes account on confirmation.\nIf a subscription is already active one year will be added to your current subscription end date."; ObjectID = "RPE-po-2rg"; */
-"RPE-po-2rg.title" = "Purchase will be applied to your iTunes account on confirmation.\nIf a subscription is already active one year will be added to your current subscription end date.";
+/* Class = "NSTextFieldCell"; title = "Purchase will be applied to your iTunes account on confirmation.\nFor a renewable subscription, if a subscription is already active one year will be added to your current subscription end date."; ObjectID = "RPE-po-2rg"; */
+"RPE-po-2rg.title" = "Purchase will be applied to your iTunes account on confirmation.\nFor a renewable subscription, if a subscription is already active one year will be added to your current subscription end date.";
 
 /* Class = "NSTextFieldCell"; title = "• Select default view"; ObjectID = "TBA-9I-zit"; */
 "TBA-9I-zit.title" = "• Select default view";
