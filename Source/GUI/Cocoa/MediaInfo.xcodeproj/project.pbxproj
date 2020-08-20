@@ -12,7 +12,7 @@
 		025E200E236C705D0000571F /* ProgressDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 025E200D236C705D0000571F /* ProgressDialog.m */; };
 		0265BEE02330202C00BC2891 /* ProgressDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0265BEDD2330202C00BC2891 /* ProgressDialog.xib */; };
 		026C61CE22A86824000D5045 /* MacCompare.png in Resources */ = {isa = PBXBuildFile; fileRef = 026C61CD22A86823000D5045 /* MacCompare.png */; };
-		0291B616230EC397006920BA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0291B615230EC396006920BA /* CloudKit.framework */; };
+		0291B616230EC397006920BA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0291B615230EC396006920BA /* CloudKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0299EC64227C966B00D937F6 /* CompareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0299EC62227C966B00D937F6 /* CompareView.xib */; };
 		0299EC67227C971400D937F6 /* CompareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0299EC66227C971400D937F6 /* CompareView.m */; };
 		0299EC70228E028E00D937F6 /* TreeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0299EC6E228E028E00D937F6 /* TreeView.xib */; };
