@@ -12,7 +12,16 @@
     _files = nil;
     _index = -1;
     [self loadNib];
+
+    delegate = [[TreeOutlineDelegate alloc] init];
+
     [_outlineView setDataSource:self];
+    [_outlineView setDelegate:delegate];
+}
+
+-(void)dealloc {
+    [delegate release];
+    [super dealloc];
 }
 
 -(instancetype)initWithCoder:(NSCoder *)decoder {

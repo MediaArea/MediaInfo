@@ -5,12 +5,14 @@
  */
 
 #import <Cocoa/Cocoa.h>
+#import "TreeOutlineDelegate.h"
 #import "oMediaInfoList.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TreeView : NSView <NSOutlineViewDataSource>{
     NSMutableArray *fields;
+    TreeOutlineDelegate *delegate;
 }
 @property (strong) IBOutlet NSView *contentView;
 @property (strong) IBOutlet NSOutlineView *outlineView;
