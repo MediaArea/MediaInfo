@@ -155,7 +155,9 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	NSOpenPanel *openPanel	= [NSOpenPanel openPanel];
 	[openPanel setCanChooseDirectories:YES];
 	[openPanel setAllowsMultipleSelection:YES];
-	[openPanel setCanDownloadUbiquitousContents:NO];
+    if (@available(macOS 10.10, *)) {
+	    [openPanel setCanDownloadUbiquitousContents:NO];
+    }
 	[openPanel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
 		if(result == NSFileHandlingPanelOKButton) {
 			[self processFiles:[openPanel URLs]];
