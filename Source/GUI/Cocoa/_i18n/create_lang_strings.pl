@@ -81,7 +81,7 @@ if(-f $lang_csv) {
     $content =~ s/\r\n/\n/g;
     my @lines = split /\n/, $content;
     foreach(@lines) {
-         if($_ =~ /^(.+?);\s*(.*)/) {
+         if($_ =~ /^(.+?);\s*(.+)/) {
             $csv{$1} = $2;
          }
     }
@@ -98,7 +98,7 @@ if(-f $lang_txt) {
     $content =~ s/\r\n/\n/g;
     my @lines = split /\n/, $content;
     foreach(@lines) {
-         if($_ =~ /^(.+?);\s*(.*)/) {
+         if($_ =~ /^(.+?);\s*(.+)/) {
             $txt{$1} = $2;
          }
     }
