@@ -25,7 +25,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         //val subscribeButton: Preference? = findPreference(getString(R.string.preferences_subscribe_key))
         val localeDropdown: DropDownPreference? = findPreference(getString(R.string.preferences_locale_key))
-        val uimodeSwitch: SwitchPreferenceCompat? = findPreference(getString(R.string.preferences_uimode_key))
+        val uimodeDropdown: DropDownPreference? = findPreference(getString(R.string.preferences_uimode_key))
         val systemLanguageSwitch: SwitchPreferenceCompat? = findPreference(getString(R.string.preferences_report_translate_key))
 
         /*subscribeButton?.setOnPreferenceClickListener  {
@@ -49,7 +49,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             subscriptionManager.subscribed.observe(this, Observer {
                 if (it==true) {
                     //subscribeButton?.isVisible = false
-                    uimodeSwitch?.isEnabled = true
+                    uimodeDropdown?.isEnabled = true
                     localeDropdown?.isEnabled = true
                     systemLanguageSwitch?.isEnabled = true
                 }
@@ -91,16 +91,23 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
 
-        uimodeSwitch?.setOnPreferenceChangeListener { _, newValue -> Boolean
-            when (newValue) {
-                false -> {
-                    if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_NO) {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        uimodeDropdown?.setOnPreferenceChangeListener { _, newValue -> Boolean
+            if (newValue is String) {
+                when (newValue) {
+                    "off" -> {
+                        if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_NO) {
+                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                        }
                     }
-                }
-                true -> {
-                    if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_YES) {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    "on" -> {
+                        if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_YES) {
+                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                        }
+                    }
+                    "system" -> {
+                        if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
+                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                        }
                     }
                 }
             }

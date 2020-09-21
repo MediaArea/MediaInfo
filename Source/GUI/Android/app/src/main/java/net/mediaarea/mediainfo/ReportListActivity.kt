@@ -219,44 +219,75 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         }
     }
 
+    private fun updatePreferences() {
+        val sharedPreferences = getDefaultSharedPreferences(this)
+        val key = getString(R.string.preferences_uimode_key)
+
+        when (sharedPreferences?.contains(key)) {
+            false -> {
+                val oldSharedPreferences = getSharedPreferences(getString(R.string.preferences_key), Context.MODE_PRIVATE)
+                if (oldSharedPreferences?.contains(key) == true) {
+                    oldSharedPreferences.getString(key, "").let {
+                        when (it) {
+                            "ON" -> {
+                                oldSharedPreferences.edit()?.remove(key)
+                                sharedPreferences.edit()?.putString(key, "on")?.apply()
+                            }
+                            "OFF" -> {
+                                oldSharedPreferences.edit()?.remove(key)
+                                sharedPreferences.edit()?.putString(key, "off")?.apply()
+
+                            }
+                            else -> {
+                            }
+                        }
+                    }
+                }
+            }
+            true -> {
+                try {
+                    sharedPreferences.getBoolean(key, false).let {
+                        when (it) {
+                            false -> {
+                                sharedPreferences.edit()?.remove(key)
+                                sharedPreferences.edit()?.putString(key, "off")?.apply()
+                            }
+                            true -> {
+                                sharedPreferences.edit()?.remove(key)
+                                sharedPreferences.edit()?.putString(key, "on")?.apply()
+                            }
+                        }
+                    }
+                }
+                catch(_: ClassCastException) {}
+            }
+        }
+    }
+
     private fun applyUiMode() {
         val sharedPreferences = getDefaultSharedPreferences(this)
         val key = getString(R.string.preferences_uimode_key)
-        if (sharedPreferences?.contains(key) == false) {
-            val oldSharedPreferences = getSharedPreferences(getString(R.string.preferences_key), Context.MODE_PRIVATE)
-            oldSharedPreferences.getString(key, "").let {
-                when (it) {
-                    "ON" -> {
-                        sharedPreferences.edit()?.putBoolean(key, true)?.apply()
-                    }
-                    "OFF" -> {
-                        sharedPreferences.edit()?.putBoolean(key, false)?.apply()
-                    }
-                    else -> {}
-                }
-            }
-        }
 
-        sharedPreferences?.getBoolean(getString(R.string.preferences_uimode_key), false).let {
+        sharedPreferences?.getString(getString(R.string.preferences_uimode_key), "system").let {
             when (it) {
-                false -> {
+                "off" -> {
                     if (AppCompatDelegate.getDefaultNightMode()!=AppCompatDelegate.MODE_NIGHT_NO) {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                         recreate()
                     }
                 }
-                true -> {
+                "on" -> {
                     if (AppCompatDelegate.getDefaultNightMode()!=AppCompatDelegate.MODE_NIGHT_YES) {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                         recreate()
                     }
                 }
-                /* "AUTO" -> {
-                    if (AppCompatDelegate.getDefaultNightMode()!=AppCompatDelegate.MODE_NIGHT_AUTO) {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO)
+                "system" -> {
+                    if (AppCompatDelegate.getDefaultNightMode()!=AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
                         recreate()
                     }
-                } */
+                }
             }
         }
     }
@@ -475,6 +506,8 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
         setSupportActionBar(tool_bar)
         tool_bar.title = title
+
+        updatePreferences()
 
         subscriptionManager = SubscriptionManager.getInstance(application)
         lifecycle.addObserver(subscriptionManager)

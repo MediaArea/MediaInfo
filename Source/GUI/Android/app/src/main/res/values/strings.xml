@@ -40,7 +40,7 @@
   <string name="text_output_desc" csv="Text">Text</string>
   <string name="logo_desc">MediaArea logo</string>
   <string name="delete_desc" csv="Delete">Delete</string>
-  <string name="default_locale_text" csv="Default_Setting">System default</string>
+  <string name="default_setting_text" csv="Default_Setting">System default</string>
   <string name="export_title" csv="Export">Export</string>
   <string name="open_title" csv="Open">Open</string>
   <string name="save_title" csv="Save">Save</string>
