@@ -32,13 +32,6 @@ object AboutF: TAboutF
     Font.Style = []
     ParentFont = False
   end
-  object Tektronix_Label: TLabel
-    Left = 184
-    Top = 412
-    Width = 71
-    Height = 14
-    Caption = 'Sponsored by:'
-  end
   object Memo: TMemo
     Left = 142
     Top = 1
@@ -159,30 +152,16 @@ object AboutF: TAboutF
     TabOrder = 8
     OnClick = WriteToTranslatorClick
   end
-  object ToolBar3: TToolBar
-    Left = 261
+  object Sponsor_Label: TLinkLabel
+    Left = 145
     Top = 380
-    Width = 265
-    Height = 85
-    Align = alNone
-    ButtonHeight = 70
-    ButtonWidth = 263
-    Caption = 'ToolBar1'
-    DisabledImages = ImageList3
-    EdgeInner = esNone
-    EdgeOuter = esNone
-    Images = ImageList3
+    Width = 380
+    Height = 18
+    Alignment = taRightJustify
+    AutoSize = False
+    Caption = 'Sponsor_Label'
     TabOrder = 9
-    object Tektronix: TToolButton
-      Left = 0
-      Top = 0
-      Hint = 'Visit Tektronix website'
-      Caption = 'ToolButton1'
-      ImageIndex = 0
-      ParentShowHint = False
-      ShowHint = True
-      OnClick = TektronixClick
-    end
+    OnLinkClick = SponsorClick
   end
   object ImageList1: TImageList
     Height = 64

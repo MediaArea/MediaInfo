@@ -87,6 +87,11 @@ public:
     bool Donated;
     bool Donate_Display;
     bool NewVersion_Display;
+
+    //Sponsor
+    bool Sponsored;
+    ZenLib::Ztring SponsorMessage;
+    ZenLib::Ztring SponsorUrl;
 };
 
 //General preference for the whole program

@@ -176,7 +176,7 @@ void __fastcall TMainF::GUI_Configure()
     if (Screen->Width>=1024)
         Width=700;
     if (Screen->Width>=1280)
-        Width=820;
+        Width=830;
     if (Screen->Height>=768)
         Height=500;
     if (Screen->Height>=1024)
@@ -593,10 +593,12 @@ void __fastcall TMainF::Translate()
         }
         */
     }
-    //if (Prefs->Donated) //No more
+
+    M_Sponsor->Caption = Prefs->SponsorMessage.c_str();
+
+    if (!Prefs->Sponsored || Prefs->Donated)
     {
-        M_Tektronix->Visible=false;
-        Tool_Tektronix->Visible=false;
+        M_Sponsor->Visible=false;
     }
 }
 
@@ -943,8 +945,6 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
         //0 fichier
     {
         Caption=MEDIAINFO_TITLE;
-        if (Prefs->Donated)
-            Caption+=" - Sponsored by Tektronix";
     }
     else if (FilesCount==1)
         //un fichier
@@ -1800,9 +1800,9 @@ void __fastcall TMainF::M_NewVersionClick(TObject *Sender)
     ShellExecute(NULL, NULL, (Ztring(__T("http://mediaarea.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("/MediaInfo/?NewVersionRequested=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
 
-void __fastcall TMainF::M_TektronixClick(TObject *Sender)
+void __fastcall TMainF::M_SponsorClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, __T("http://www.tek.com/file-based-qc-solutions"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, Prefs->SponsorUrl.c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
 //---------------------------------------------------------------------------
 
