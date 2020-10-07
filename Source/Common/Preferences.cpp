@@ -199,11 +199,17 @@ int Preferences::Config_Load()
         Donate_Display=false;
 
     // Sponsor
-    if (Config(__T("Sponsored"))==__T("1") && Config(__T("SponsorMessage"))!=__T("") && Config(__T("SponsorUrl"))!=__T(""))
+    if (Config(__T("Sponsored"))==__T("1"))
     {
         Sponsored=true;
-        SponsorMessage=Config(__T("SponsorMessage"));
-        SponsorUrl=Config(__T("SponsorUrl"));
+
+        Ztring Saved=Config(__T("SponsorMessage"));
+        Saved.FindAndReplace(__T("\\r\\n"), __T("\r\n"));
+        SponsorMessage.Write(Saved);
+
+        Saved=Config(__T("SponsorUrl"));
+        Saved.FindAndReplace(__T("\\r\\n"), __T("\r\n"));
+        SponsorUrl.Write(Saved);
     }
 
     delete Reg_User; Reg_User=NULL;
@@ -464,21 +470,30 @@ void __fastcall ThreadInternetCheck::Execute()
     }
 
     //Sponsored
-    ZtringList Sponsor=Download.SubSheet(__T("ShowSponsor"))[0];
-    if (Sponsor(1)==__T("1") && Sponsor(2)!=__T("") && Sponsor(3)!=__T(""))
+    Prefs->Config(__T("Sponsored"))=__T("0");
+    Prefs->Config(__T("SponsorMessage"))=__T("");
+    Prefs->Config(__T("SponsorUrl"))=__T("");
+
+    ZtringListList Sponsor=Download.SubSheet(__T("ShowSponsor"));
+    if (int En=Sponsor.Find(__T("en"), 1)!=-1 && Sponsor[En](2)!=__T("") && Sponsor[En](3)!=__T(""))
     {
         Prefs->Config(__T("Sponsored"))=__T("1");
-        Prefs->Config(__T("SponsorMessage"))=Sponsor(2);
-        Prefs->Config(__T("SponsorUrl"))=Sponsor(3);
-        Prefs->Config_Save();
+        Ztring Message;
+        Ztring Url;
+        for (size_t Pos=0; Pos<Sponsor.size(); Pos++)
+        {
+            if (Sponsor[Pos](1)!=__T(""))
+            {
+                if (Sponsor[Pos](2)!=__T(""))
+                    Message+=(Message.empty()?__T(""):__T("\\r\\n"))+Sponsor[Pos](1)+__T(";")+Sponsor[Pos](2);
+                if (Sponsor[Pos](3)!=__T(""))
+                    Url+=(Url.empty()?__T(""):__T("\\r\\n"))+Sponsor[Pos](1)+__T(";")+Sponsor[Pos](3);
+            }
+        }
+        Prefs->Config(__T("SponsorMessage"))=Message.Quote();
+        Prefs->Config(__T("SponsorUrl"))=Url.Quote();
     }
-    else
-    {
-        Prefs->Config(__T("Sponsored"))=__T("0");
-        Prefs->Config(__T("SponsorMessage"))=__T("");
-        Prefs->Config(__T("SponsorUrl"))=__T("");
-        Prefs->Config_Save();
-    }
+    Prefs->Config_Save();
 
     //Chargement de pages
     ZtringListList Pages=Download.SubSheet(__T("Url"));
@@ -1399,6 +1414,27 @@ int Preferences::ShellToolTip()
 //---------------------------------------------------------------------------
 ZenLib::Ztring &Preferences::Translate(ZenLib::Ztring Name)
 {
+    if (Name==__T("SponsorMessage") || Name==__T("SponsorUrl"))
+    {
+        Ztring Language=Translate(__T("  Language_ISO639"));
+        if (Name==__T("SponsorMessage"))
+        {
+            int Index=SponsorMessage.Find(Language, 0);
+            if (Index==-1 || SponsorMessage(Index)(1)==__T(""))
+                Index=SponsorMessage.Find(__T("en"), 0);
+
+            return SponsorMessage(Index)(1);
+        }
+        else if (Name==__T("SponsorUrl"))
+        {
+            int Index=SponsorUrl.Find(Language, 0);
+            if (Index==-1 || SponsorUrl(Index)(1)==__T(""))
+                Index=SponsorUrl.Find(__T("en"), 0);
+
+            return SponsorUrl(Index)(1);
+        }
+    }
+
     size_t Pos=Details[Prefs_Language].Find(Name, 0, 0, __T("=="), Ztring_CaseSensitive);
 
     //If not in the language, search for English language

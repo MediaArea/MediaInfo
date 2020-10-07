@@ -594,11 +594,11 @@ void __fastcall TMainF::Translate()
         */
     }
 
-    M_Sponsor->Caption = Prefs->SponsorMessage.c_str();
-
-    if (!Prefs->Sponsored || Prefs->Donated)
+    M_Sponsor->Visible=false;
+    if (Prefs->Sponsored && !Prefs->Donated && !Prefs->Translate(__T("SponsorMessage")).empty() && !Prefs->Translate(__T("SponsorMessage")).empty())
     {
-        M_Sponsor->Visible=false;
+        M_Sponsor->Caption =  + Prefs->Translate(__T("SponsorMessage")).c_str();
+        M_Sponsor->Visible=true;
     }
 }
 
@@ -1800,9 +1800,8 @@ void __fastcall TMainF::M_NewVersionClick(TObject *Sender)
     ShellExecute(NULL, NULL, (Ztring(__T("http://mediaarea.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("/MediaInfo/?NewVersionRequested=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
 
+//---------------------------------------------------------------------------
 void __fastcall TMainF::M_SponsorClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, Prefs->SponsorUrl.c_str(), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, Prefs->Translate(__T("SponsorUrl")).c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
-//---------------------------------------------------------------------------
-
