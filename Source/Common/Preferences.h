@@ -59,6 +59,8 @@ public:
     ZenLib::ZtringListListF Config;     //Configuration file
     ZenLib::ZtringList      FilesList[Prefs_Max];  //List of available files for an Item
     ZenLib::ZtringListListF Details[Prefs_Max];
+    ZenLib::ZtringListList  SponsorMessage;
+    ZenLib::ZtringListList  SponsorUrl;
 
     //Useful functions about preferences
     int Config_Create       ();
@@ -90,8 +92,6 @@ public:
 
     //Sponsor
     bool Sponsored;
-    ZenLib::Ztring SponsorMessage;
-    ZenLib::Ztring SponsorUrl;
 };
 
 //General preference for the whole program
