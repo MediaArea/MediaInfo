@@ -77,10 +77,12 @@ void __fastcall TAboutF::FormShow(TObject *Sender)
         WriteToTranslator->Visible=true;
     }
 
-    //if (Prefs->Donated) //No more
+    Sponsor_Label->Caption = (__T("<a href=\"") + Prefs->SponsorUrl + __T("\">") + Prefs->SponsorMessage + __T("</a>")).c_str();
+
+    if (!Prefs->Sponsored || Prefs->Donated)
     {
-        Tektronix->Visible=false;
-        Tektronix_Label->Visible=false;
+        //Sponsor->Visible=false;
+        Sponsor_Label->Visible=false;
     }
 }
 
@@ -124,9 +126,8 @@ void __fastcall TAboutF::WebSiteClick(TObject *Sender)
 
 
 
-void __fastcall TAboutF::TektronixClick(TObject *Sender)
+void __fastcall TAboutF::SponsorClick(TObject *Sender, const UnicodeString Link,
+		  TSysLinkType LinkType)
 {
-    ShellExecute(NULL, NULL, __T("http://www.tek.com/file-based-qc-solutions"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, Link.c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
-//---------------------------------------------------------------------------
-

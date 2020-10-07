@@ -193,8 +193,7 @@ __published:    // IDE-managed Components
     TMenuItem *M_View_FIMS_1_1;
     TMenuItem *M_View_FIMS_1_2;
     TMenuItem *M_View_FIMS_1_3;
-    TMenuItem *M_Tektronix;
-    TToolButton *Tool_Tektronix;
+    TMenuItem *M_Sponsor;
     TMenuItem *M_View_reVTMD;
     TMenuItem *M_View_NISO_Z39_87;
     TMenuItem *ToolBar_View_XML;
@@ -281,7 +280,7 @@ __published:    // IDE-managed Components
     void __fastcall M_View_FIMS_1_3Click(TObject *Sender);
     void __fastcall M_View_XMLClick(TObject *Sender);
     void __fastcall M_View_JSONClick(TObject *Sender);
-    void __fastcall M_TektronixClick(TObject *Sender);
+    void __fastcall M_SponsorClick(TObject *Sender);
     void __fastcall M_View_reVTMDClick(TObject *Sender);
     void __fastcall M_View_NISO_Z39_87Click(TObject *Sender);
     void __fastcall M_Debug_FullParsingClick(TObject *Sender);

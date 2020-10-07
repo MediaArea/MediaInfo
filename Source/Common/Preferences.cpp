@@ -65,6 +65,11 @@ Preferences::Preferences()
     //Donate
     Donated=false;
     Donate_Display=true;
+
+    //Sponsor
+    Sponsored=false;
+    SponsorMessage=__T("");
+    SponsorUrl=__T("");
 }
 
 //***************************************************************************
@@ -193,6 +198,13 @@ int Preferences::Config_Load()
     if ((int64u)time(NULL)-Config(__T("Install")).To_int64u()<7*24*60*60)
         Donate_Display=false;
 
+    // Sponsor
+    if (Config(__T("Sponsored"))==__T("1") && Config(__T("SponsorMessage"))!=__T("") && Config(__T("SponsorUrl"))!=__T(""))
+    {
+        Sponsored=true;
+        SponsorMessage=Config(__T("SponsorMessage"));
+        SponsorUrl=Config(__T("SponsorUrl"));
+    }
 
     delete Reg_User; Reg_User=NULL;
 
@@ -220,6 +232,7 @@ int Preferences::Config_Save()
     if (Config(__T("FirstInstall")).empty()) Config(__T("FirstInstall")).From_Number((int64u)time(NULL));
     if (Config(__T("Donated")).empty()) Config(__T("Donated"))=__T("0");
     if (Config(__T("Donate_Display")).empty()) Config(__T("Donate_Display"))=__T("1");
+    if (Config(__T("Sponsored")).empty()) Config(__T("Sponsored"))=__T("0");
 
     HANDLE Temp=CreateFile((BaseFolder+__T("MediaInfo.cfg")).c_str(), GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, 0, NULL);
     if (Temp==INVALID_HANDLE_VALUE)
@@ -447,6 +460,23 @@ void __fastcall ThreadInternetCheck::Execute()
     if (Prefs->Config(__T("Donate_Display"))==__T("1") && Download(__T("DonateButton"))==__T("0"))
     {
         Prefs->Config(__T("Donate_Display"))=__T("0");
+        Prefs->Config_Save();
+    }
+
+    //Sponsored
+    ZtringList Sponsor=Download.SubSheet(__T("ShowSponsor"))[0];
+    if (Sponsor(1)==__T("1") && Sponsor(2)!=__T("") && Sponsor(3)!=__T(""))
+    {
+        Prefs->Config(__T("Sponsored"))=__T("1");
+        Prefs->Config(__T("SponsorMessage"))=Sponsor(2);
+        Prefs->Config(__T("SponsorUrl"))=Sponsor(3);
+        Prefs->Config_Save();
+    }
+    else
+    {
+        Prefs->Config(__T("Sponsored"))=__T("0");
+        Prefs->Config(__T("SponsorMessage"))=__T("");
+        Prefs->Config(__T("SponsorUrl"))=__T("");
         Prefs->Config_Save();
     }
 

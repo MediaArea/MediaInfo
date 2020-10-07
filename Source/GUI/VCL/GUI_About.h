@@ -19,6 +19,7 @@
 #include <Forms.hpp>
 #include <ComCtrls.hpp>
 #include <StdCtrls.hpp>
+#include <Vcl.ExtCtrls.hpp>
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -46,17 +47,15 @@ __published:    // IDE-managed Components
     TButton *WriteToTranslator;
     TImageList *ImageList1;
     TImageList *ImageList2;
-    TToolBar *ToolBar3;
-    TToolButton *Tektronix;
     TImageList *ImageList3;
-    TLabel *Tektronix_Label;
+    TLinkLabel *Sponsor_Label;
     void __fastcall WebSiteClick(TObject *Sender);
     void __fastcall FormShow(TObject *Sender);
     void __fastcall NewVersionClick(TObject *Sender);
     void __fastcall DonateClick(TObject *Sender);
     void __fastcall WriteMeClick(TObject *Sender);
     void __fastcall WriteToTranslatorClick(TObject *Sender);
-    void __fastcall TektronixClick(TObject *Sender);
+    void __fastcall SponsorClick(TObject *Sender, const UnicodeString Link, TSysLinkType LinkType);
 private:    // User declarations
 public:        // User declarations
     __fastcall TAboutF(TComponent* Owner);
