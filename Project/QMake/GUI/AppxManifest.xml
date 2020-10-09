@@ -9,7 +9,7 @@
   <Identity
     Name="MediaArea.net.MediaInfo"
     Publisher="CN=4DBC310E-9C86-41CE-ABE7-5CBFAAC19566"
-    Version="20.8.0.0"
+    Version="20.9.0.0"
     ProcessorArchitecture="x64" />
   <mp:PhoneIdentity PhoneProductId="00000000-0000-0000-0000-000000000000" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
   <Properties>
