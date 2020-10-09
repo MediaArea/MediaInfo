@@ -12,6 +12,22 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 20.09, 2020-10-09
+-------------
++ Dolby ED2: full featured support (presentations, presentation targets, beds, objects)
++ MKV: support of Dolby Vision metadata
++ MXF: detection of Dolby E hidden in PCM tracks having more than 2 channels
++ WAV: detection of Dolby E hidden in PCM tracks having more than 2 channels
++ CineForm: display of color space (including Bayer), bit depth
+x WAV: more precise sample count
+x SMPTE ST 337: catch of streams starting later than usual (probing increased from 4 to 16 PCM "frames")
+x PNG: detection of additional alpha plane in color space
+x MXF: detection of additional alpha plane in color space
+x AVI: detection of additional alpha plane in color space
+x MPEG Audio: was wrongly flagging Xing info tag as CBR
+x VorbisTag: does not skip DISCID
+x Miscellaneous bug/crash fixes
+
 Version 20.08, 2020-08-11
 -------------
 + MPEG-H 3D Audio full featured support (group presets, switch groups, groups, signal groups)

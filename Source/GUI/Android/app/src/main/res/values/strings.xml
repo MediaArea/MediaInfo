@@ -8,7 +8,7 @@
 
 <resources>
   <string name="app_name" translatable="false">MediaInfo</string>
-  <string name="app_version" translatable="false">20.08</string>
+  <string name="app_version" translatable="false">20.09</string>
   <string name="hello_text" csv="At least one file">(You must at least open one file)</string>
   <string name="about_title" csv="About">About</string>
   <string name="about_about_text" formatted="false" csv="MediaInfo_About_About">MediaInfo v%MI_VERSION% using MediaInfoLib v%MIL_VERSION%</string>
