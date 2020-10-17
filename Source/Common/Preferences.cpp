@@ -204,11 +204,11 @@ int Preferences::Config_Load()
         Sponsored=true;
 
         Ztring Saved=Config(__T("SponsorMessage"));
-        Saved.FindAndReplace(__T("\\r\\n"), __T("\r\n"));
+        Saved.FindAndReplace(__T("\\r\\n"), __T("\r\n"), 0, Ztring_Recursive);
         SponsorMessage.Write(Saved);
 
         Saved=Config(__T("SponsorUrl"));
-        Saved.FindAndReplace(__T("\\r\\n"), __T("\r\n"));
+        Saved.FindAndReplace(__T("\\r\\n"), __T("\r\n"), 0, Ztring_Recursive);
         SponsorUrl.Write(Saved);
     }
 
