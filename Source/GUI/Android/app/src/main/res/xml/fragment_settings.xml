@@ -33,9 +33,13 @@
             android:defaultValue="true"
             android:enabled="false" />
 
-        <SwitchPreferenceCompat
+        <DropDownPreference
             android:key="@string/preferences_uimode_key"
             android:title="@string/uimode_title"
-            android:enabled="false" />
+            android:entries="@array/uimodes"
+            android:entryValues="@array/uimodes_values"
+            android:defaultValue="system"
+            android:enabled="false"
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 </PreferenceScreen>
