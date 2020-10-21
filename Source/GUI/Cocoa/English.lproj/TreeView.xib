@@ -27,18 +27,18 @@
                         <subviews>
                             <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" headerView="Ky1-rw-8tj" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="LRh-qX-GDO" id="45J-rW-6RQ">
                                 <rect key="frame" x="0.0" y="0.0" width="478" height="246"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
                                     <tableColumn editable="NO" width="200" minWidth="40" maxWidth="1000" id="LRh-qX-GDO">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Field">
-                                            <font key="font" metaFont="smallSystem"/>
+                                            <font key="font" metaFont="controlContent" size="11"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
-                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="41r-Rp-xrS">
+                                        <textFieldCell key="dataCell" selectable="YES" editable="YES" title="Text Cell" id="41r-Rp-xrS">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -48,11 +48,11 @@
                                     </tableColumn>
                                     <tableColumn editable="NO" width="271" minWidth="40" maxWidth="10000" id="iAe-Hy-FZv">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Value">
-                                            <font key="font" metaFont="smallSystem"/>
+                                            <font key="font" metaFont="controlContent" size="11"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
-                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="LqZ-Y9-Pg4">
+                                        <textFieldCell key="dataCell" selectable="YES" editable="YES" title="Text Cell" id="LqZ-Y9-Pg4">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
