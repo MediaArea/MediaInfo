@@ -43,6 +43,7 @@ AC_ARG_ENABLE(arch-ppc,         AC_HELP_STRING([--enable-arch-ppc],         [Cre
 AC_ARG_ENABLE(arch-ppc64,       AC_HELP_STRING([--enable-arch-ppc64],       [Create Mac PPC64 architecture]),             , enable_arch_ppc64=no)
 AC_ARG_ENABLE(arch-i386,        AC_HELP_STRING([--enable-arch-i386],        [Create Mac i386 architecture]),              , enable_arch_i386=no)
 AC_ARG_ENABLE(arch-x86_64,      AC_HELP_STRING([--enable-arch-x86_64],      [Create Mac x86_64 architecture]),            , enable_arch_x86_64=no)
+AC_ARG_ENABLE(arch-arm64 ,      AC_HELP_STRING([--enable-arch-arm64],       [Create Mac arm64 architecture]),             , enable_arch_arm64=no)
 AC_ARG_ENABLE(staticlibs,       AC_HELP_STRING([--enable-staticlibs],       [Use static libmediainfo and libzen]),        , enable_staticlibs=no)
 AC_ARG_ENABLE([stream_missing],    [AS_HELP_STRING(([--enable-stream_missing],    [Disable stream support (old compilers)]))],    , [enable_stream_missing=no])
 
@@ -279,6 +280,11 @@ if test "$enable_arch_x86_64" = "yes"; then
 	CXXFLAGS="$CXXFLAGS -arch x86_64"
 	CFLAGS="$CFLAGS -arch x86_64"
 	LDFLAGS="$LDFLAGS -arch x86_64"
+fi
+if test "$enable_arch_arm64" = "yes"; then
+	CXXFLAGS="$CXXFLAGS -arch arm64"
+	CFLAGS="$CFLAGS -arch arm64"
+	LDFLAGS="$LDFLAGS -arch arm64"
 fi
 if test "x$with_macosx_sdk" != xno ; then
 	CXXFLAGS="-isysroot $with_macosx_sdk $CXXFLAGS"
