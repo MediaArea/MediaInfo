@@ -50,6 +50,7 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		9C182E0B257D1337007646AC /* IndexedTableColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C182E0A257D1337007646AC /* IndexedTableColumn.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -360,6 +361,8 @@
 		43EC2995153F108700943F0A /* tr */ = {isa = PBXFileReference; lastKnownFileType = text; name = tr; path = tr.lproj/lang.csv; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MediaInfo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MediaInfo-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* MediaInfo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediaInfo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C182E09257D1337007646AC /* IndexedTableColumn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndexedTableColumn.h; sourceTree = "<group>"; };
+		9C182E0A257D1337007646AC /* IndexedTableColumn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IndexedTableColumn.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -420,6 +423,8 @@
 				0299EC7D2291FD5F00D937F6 /* SubscribeWindowController.m */,
 				0299EC8522949EE200D937F6 /* SubscriptionManager.m */,
 				0268340422949FB50060542A /* SubscriptionManager.h */,
+				9C182E09257D1337007646AC /* IndexedTableColumn.h */,
+				9C182E0A257D1337007646AC /* IndexedTableColumn.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -672,6 +677,7 @@
 				436C50A615B9E06D000AF072 /* TreeOutlineDelegate.m in Sources */,
 				43E0EFB415DC12AC001E8F7C /* easyStreamsTableDelegate.m in Sources */,
 				43B17B9D1CE672110012C3E3 /* SegmentedControlWithMenu.m in Sources */,
+				9C182E0B257D1337007646AC /* IndexedTableColumn.m in Sources */,
 				43E0EFBA15DD64B3001E8F7C /* HyperlinkButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
