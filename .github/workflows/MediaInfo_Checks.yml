@@ -1,0 +1,59 @@
+name: Checks
+
+on: [push, pull_request]
+
+jobs:
+  Unix:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      - name: Dependencies
+        run: |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            sudo apt-get update -y
+            sudo apt-get install -y zlib1g-dev libwxgtk3.0-dev
+          fi
+          if [ "$RUNNER_OS" == "macOS" ]; then
+            brew install automake wxmac
+          fi
+      - name: ZenLib
+        run: |
+          git -C .. clone --depth=1 https://github.com/MediaArea/ZenLib.git
+          pushd ../ZenLib/Project/GNU/Library
+            autoreconf -if
+            ./configure --enable-static
+            make
+          popd
+      - name: MediaInfoLib
+        run: |
+          git -C .. clone --depth=1 https://github.com/MediaArea/MediaInfoLib.git
+          pushd ../MediaInfoLib/Project/GNU/Library
+            autoreconf -if
+            ./configure --enable-static
+            make
+          popd
+      - name: Configure
+        run: |
+          cd Project/GNU/CLI
+          autoreconf -if
+          ./configure --enable-staticlibs
+      - name: Build
+        run: |
+          cd Project/GNU/CLI
+          make
+      - name: Configure GUI
+        run: |
+          cd Project/GNU/GUI
+          autoreconf -if
+          ./configure --enable-staticlibs
+      - name: Build GUI
+        run: |
+          cd Project/GNU/GUI
+          make
