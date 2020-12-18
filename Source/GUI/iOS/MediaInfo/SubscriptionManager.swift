@@ -35,9 +35,22 @@ class SubscriptionManager : NSObject, SKProductsRequestDelegate {
             }
         }
     }
-    var isLifetime: Bool = false {
-        didSet(oldValue) {
-            if isLifetime {
+    var isLifetime: Bool {
+        get {
+            if UserDefaults.standard.bool(forKey: "LifetimeSubscription") {
+                return true
+            }
+
+            if NSUbiquitousKeyValueStore.default.bool(forKey: "LifetimeSubscription") {
+                return true
+            }
+
+            return false
+        }
+        set(newValue) {
+            if newValue {
+                UserDefaults.standard.set(true, forKey: "LifetimeSubscription")
+                NSUbiquitousKeyValueStore.default.set(true, forKey: "LifetimeSubscription")
                 subscriptionActive = true
             }
         }
@@ -74,6 +87,37 @@ class SubscriptionManager : NSObject, SKProductsRequestDelegate {
         }
     }
 
+    var codes: [String] {
+        get {
+            var toReturn: [String] = []
+
+            if let local = UserDefaults.standard.array(forKey: "Codes") as? [String] {
+                toReturn = local
+            }
+
+            if let remote = NSUbiquitousKeyValueStore.default.array(forKey: "Codes") as? [String] {
+                toReturn = Array(Set(toReturn + remote))
+            }
+            return toReturn
+        }
+        set(newValue) {
+            var toAdd = newValue
+
+            if let local = UserDefaults.standard.array(forKey: "Codes") as? [String] {
+                toAdd = Array(Set(toAdd + local))
+            }
+
+            if let remote = NSUbiquitousKeyValueStore.default.array(forKey: "Codes") as? [String] {
+                toAdd = Array(Set(toAdd + remote))
+            }
+
+            if toAdd.count > 0 {
+                UserDefaults.standard.set(toAdd, forKey: "Codes")
+                NSUbiquitousKeyValueStore.default.set(toAdd, forKey: "Codes")
+            }
+        }
+    }
+
     var subscriptionEndDate: Date? {
         get {
             if let saved = UserDefaults.standard.array(forKey: "SubscriptionEndDate") as? [Date], saved.count > 0 {
@@ -85,7 +129,7 @@ class SubscriptionManager : NSObject, SKProductsRequestDelegate {
             if let newDate = newValue {
                 if newDate > subscriptionEndDate ?? Date(timeIntervalSince1970: 0.0) {
                     UserDefaults.standard.set([newDate], forKey: "SubscriptionEndDate")
-                    subscriptionActive = subscriptionActive || newDate >= Date()
+                    subscriptionActive = subscriptionActive || isLifetime || newDate >= Date()
 
                 }
             }
