@@ -1024,8 +1024,8 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
     if(mediaList && [mediaList count]) {
 
         if ([tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kCompareTabIndex) {
-            if(compareView.selectedIndex > 0 && (compareView.selectedIndex - 1) < [mediaList count])
-                [self closeFileAtIndex:(compareView.selectedIndex - 1)];
+            if(compareView.selectedIndex >= 0 && (compareView.selectedIndex) < [mediaList count])
+                [self closeFileAtIndex:(compareView.selectedIndex)];
 
             return;
         }

@@ -6,6 +6,8 @@
 
 #import "CompareView.h"
 
+#import "IndexedTableColumn.h"
+
 @implementation CompareView
 - (IBAction)changeViewMode:(NSButton *)sender {
     if(sender)
@@ -164,7 +166,7 @@
     }
 
     for(NSUInteger fileIndex=0; fileIndex<[_files count]; fileIndex++) {
-        NSTableColumn *column = [[[NSTableColumn alloc] init] autorelease];
+        IndexedTableColumn *column = [[[IndexedTableColumn alloc] init] autorelease];
 
         NSString* fileName=[_files GetAtIndex:fileIndex streamKind:0 streamNumber:0 parameter:@"FileName"];
         NSString *fileExtension=[_files GetAtIndex:fileIndex streamKind:0 streamNumber:0 parameter:@"FileExtension"];
@@ -173,6 +175,7 @@
             fileName=[NSString stringWithFormat:@"%@.%@", fileName, fileExtension];
         }
 
+        [column setIndex: fileIndex];
         [[column headerCell] setTitle:fileName];
         [_outlineView addTableColumn:column];
     }
@@ -259,16 +262,17 @@
     if (!item)
         return @"";
 
-    NSInteger column = [[outlineView tableColumns] indexOfObject:tableColumn];
-
-    if(column == 0)
+    if([[outlineView tableColumns] indexOfObject:tableColumn] == 0)
         return item[@"name"];
 
-    column--;
-    if(column >= [item[@"entries"] count])
+    if (![tableColumn isKindOfClass:[IndexedTableColumn class]])
         return @"";
 
-    return item[@"entries"][column];
+    NSInteger index = [(IndexedTableColumn *)tableColumn index];
+    if(index >= [item[@"entries"] count])
+        return @"";
+
+    return item[@"entries"][index];
 }
 
 -(void)outlineView:(NSOutlineView *)outlineView sortDescriptorsDidChange:(NSArray<NSSortDescriptor *> *)oldDescriptors {
@@ -296,7 +300,15 @@
 }
 
 -(void)outlineViewSelectionDidChange:(NSNotification *)notification {
-    _selectedIndex = [_outlineView selectedColumn];
+    NSUInteger index = [_outlineView clickedColumn];
+    if (index >= [[_outlineView tableColumns] count])
+        return;
+
+    NSTableColumn *column = [[_outlineView tableColumns] objectAtIndex:index];
+    if (![column isKindOfClass: [IndexedTableColumn class]])
+        return;
+
+    _selectedIndex = [(IndexedTableColumn*)column index];
 }
 
 -(void)menuWillOpen:(NSMenu *)menu {
@@ -316,7 +328,16 @@
 
     id mainWindowController = [[[NSApplication sharedApplication] mainWindow] windowController];
 
-    _selectedIndex = [_outlineView clickedColumn];
+    NSUInteger index = [_outlineView clickedColumn];
+    if (index >= [[_outlineView tableColumns] count])
+        return;
+
+    NSTableColumn *column = [[_outlineView tableColumns] objectAtIndex:index];
+    if (![column isKindOfClass: [IndexedTableColumn class]])
+        return;
+
+    _selectedIndex = [(IndexedTableColumn*)column index];
+
     [mainWindowController performSelector:@selector(closeFile:)];
     [self reload];
 }
