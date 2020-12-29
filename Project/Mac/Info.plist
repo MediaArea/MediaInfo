@@ -214,7 +214,7 @@
 	<key>DTSDKBuild</key>
 	<string>10K549</string>
 	<key>DTSDKName</key>
-	<string>macosx10.6</string>
+	<string>macosx10.10</string>
 	<key>DTXcode</key>
 	<string>0420</string>
 	<key>DTXcodeBuild</key>
@@ -222,7 +222,7 @@
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
 	<key>LSMinimumSystemVersion</key>
-	<string>10.6</string>
+	<string>10.10</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>(c) MediaArea.net</string>
 	<key>NSMainNibFile</key>
