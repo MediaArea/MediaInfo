@@ -7,6 +7,7 @@
 #import <Cocoa/Cocoa.h>
 
 #import "oMediaInfoList.h"
+#import "TreeOutlineDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,7 +17,9 @@ typedef enum CompareViewMode {
     CompareViewModeEquals
 } CompareViewMode;
 
-@interface CompareView : NSView <NSTableViewDataSource, NSTableViewDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate, NSMenuDelegate>
+@interface CompareView : NSView <NSTableViewDataSource, NSTableViewDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate, NSMenuDelegate> {
+    TreeOutlineDelegate *delegate;
+}
 @property (strong) IBOutlet NSView *contentView;
 @property (strong) IBOutlet NSOutlineView *outlineView;
 @property (assign) IBOutlet NSMenu *closeMenu;

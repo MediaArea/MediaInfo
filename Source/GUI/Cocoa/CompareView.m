@@ -23,6 +23,9 @@
     _mode = CompareViewModeAll;
     _selectedIndex = -1;
     [self loadNib];
+
+    delegate = [[TreeOutlineDelegate alloc] init];
+
     [_outlineView setDataSource:self];
     [_outlineView setDelegate:self];
     [_closeMenu setDelegate:self];
@@ -44,6 +47,11 @@
     frame = _onlyIdenticalRadio.frame;
     frame.origin.x = _onlyDifferingRadio.frame.origin.x + _onlyDifferingRadio.frame.size.width + 5;
     [_onlyIdenticalRadio setFrame:frame];
+}
+
+-(void)dealloc {
+    [delegate release];
+    [super dealloc];
 }
 
 -(instancetype)initWithCoder:(NSCoder *)decoder {
@@ -192,6 +200,8 @@
 }
 
 -(void)outlineView:(NSOutlineView *)outlineView willDisplayCell:(nonnull id)cell forTableColumn:(nullable NSTableColumn *)tableColumn item:(nonnull id)item {
+    [cell setWraps:YES];
+
     if([[outlineView tableColumns] indexOfObject:tableColumn] == 0)
         [cell setTextColor:[NSColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1]];
     else if([item[@"equal"] boolValue] == YES)
@@ -344,5 +354,13 @@
 
 -(void)reload {
     [self createFields];
+}
+
+- (void)outlineViewColumnDidResize:(NSNotification *)notification {
+    [delegate outlineViewColumnDidResize:notification];
+}
+
+- (CGFloat)outlineView:(NSOutlineView *)outlineView heightOfRowByItem:(id)item {
+    return [delegate outlineView:outlineView heightOfRowByItem:item];
 }
 @end
