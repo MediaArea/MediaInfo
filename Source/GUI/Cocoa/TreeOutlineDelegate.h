@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface TreeOutlineDelegate : NSObject <NSOutlineViewDelegate>
-
+- (void)outlineViewColumnDidResize:(NSNotification *)notification;
+- (CGFloat)outlineView:(NSOutlineView *)outlineView heightOfRowByItem:(id)item;
 @end
