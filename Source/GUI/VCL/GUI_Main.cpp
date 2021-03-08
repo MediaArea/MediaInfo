@@ -784,6 +784,10 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             I->Option_Static(__T("Inform"), __T("Details;1"));
         else
             I->Option_Static(__T("Inform"));
+
+        if (!Prefs->Config(__T("InformVersion")).empty())
+            I->Option_Static(__T("Inform_Version"), Prefs->Config(__T("InformVersion")));
+
         Page_Text_Text->Text=I->Inform().c_str();
 
         //Specific in case of no file
