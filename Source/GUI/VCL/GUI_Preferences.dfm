@@ -210,6 +210,15 @@ object PreferencesF: TPreferencesF
         TabOrder = 2
         OnClick = CB_ShowMenuClick
       end
+      object Advanced_InformVersion: TCheckBox
+        Left = 0
+        Top = 76
+        Width = 268
+        Height = 18
+        Caption = 'Add version to text output'
+        TabOrder = 3
+        OnClick = Advanced_InformVersionClick
+      end
     end
     object Customize_Language: TTabSheet
       Caption = 'Language'

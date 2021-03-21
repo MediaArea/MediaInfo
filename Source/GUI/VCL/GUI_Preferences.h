@@ -41,6 +41,7 @@ __published:    // IDE-managed Components
     TTabSheet *Setup_Advanced;
     TCheckBox *CB_ShowToolBar;
     TCheckBox *Advanced_CloseAllAuto;
+    TCheckBox *Advanced_InformVersion;
     TTabSheet *Customize_Language;
     TLabel *Language_Caption;
     TButton *Language_New;
@@ -84,6 +85,7 @@ __published:    // IDE-managed Components
     void __fastcall CB_ShowToolBarClick(TObject *Sender);
     void __fastcall Language_SelChange(TObject *Sender);
     void __fastcall Advanced_CloseAllAutoClick(TObject *Sender);
+    void __fastcall Advanced_InformVersionClick(TObject *Sender);
     void __fastcall Setup_GeneralShow(TObject *Sender);
     void __fastcall Setup_AdvancedShow(TObject *Sender);
     void __fastcall Customize_LanguageShow(TObject *Sender);

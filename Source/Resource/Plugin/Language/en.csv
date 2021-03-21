@@ -155,6 +155,7 @@ Actor;Actor
 Actor_Character;Character played
 Added_Date;Added date
 Address;Address
+Add version to text output;Add version to text output
 AdID;Ad-ID identifier
 Advanced;Advanced
 Advanced mode;Advanced mode

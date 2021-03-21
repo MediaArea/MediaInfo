@@ -394,6 +394,15 @@ void __fastcall TPreferencesF::Advanced_CloseAllAutoClick(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
+void __fastcall TPreferencesF::Advanced_InformVersionClick(TObject *Sender)
+{
+    if (Advanced_InformVersion->Checked)
+        Prefs->Config(__T("InformVersion"), 1)=__T("1");
+    else
+        Prefs->Config(__T("InformVersion"), 1)=__T("0");
+}
+
+//---------------------------------------------------------------------------
 void __fastcall TPreferencesF::Language_NewClick(TObject *Sender)
 {
     UnicodeString S1=__T("New");
@@ -524,6 +533,7 @@ void __fastcall TPreferencesF::Setup_AdvancedShow(TObject *Sender)
     CB_ShowToolBar->Checked=Prefs->Config(__T("ShowToolBar")).To_int32s();
     CB_ShowMenu->Checked=Prefs->Config(__T("ShowMenu")).To_int32s();
     Advanced_CloseAllAuto->Checked=Prefs->Config(__T("CloseAllAuto")).To_int32s();
+    Advanced_InformVersion->Checked=Prefs->Config(__T("InformVersion")).To_int32s();
 }
 
 //---------------------------------------------------------------------------
@@ -621,6 +631,7 @@ void __fastcall TPreferencesF::GUI_Configure()
     CB_ShowToolBar->Caption=Prefs->Translate(__T("Show toolbar")).c_str();
     CB_ShowMenu->Caption=Prefs->Translate(__T("Show menu")).c_str();
     Advanced_CloseAllAuto->Caption=Prefs->Translate(__T("Close all before open")).c_str();
+    Advanced_InformVersion->Caption=Prefs->Translate(__T("Add version to text output")).c_str();
     //-Language
     Language_Caption->Caption=Prefs->Translate(__T("Choose language")).c_str();
     Language_Edit->Caption=(Prefs->Translate(__T("Edit"))+__T("...")).c_str();
