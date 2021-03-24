@@ -219,6 +219,15 @@ object PreferencesF: TPreferencesF
         TabOrder = 3
         OnClick = Advanced_InformVersionClick
       end
+      object Advanced_InformTimestamp: TCheckBox
+        Left = 0
+        Top = 93
+        Width = 268
+        Height = 18
+        Caption = 'Add creation date to text output'
+        TabOrder = 4
+        OnClick = Advanced_InformTimestampClick
+      end
     end
     object Customize_Language: TTabSheet
       Caption = 'Language'

@@ -86,6 +86,8 @@ int Help()
     TEXTOUT("                    Display mediatrace info");
     TEXTOUT("--inform_version=1");
     TEXTOUT("                    Add MediaInfoLib version to the text output");
+    TEXTOUT("--inform_timestamp=1");
+    TEXTOUT("                    Add report creation timestamp to the text output");
     TEXTOUT("--File_TestContinuousFileNames=0");
     TEXTOUT("                    Disable image sequence detection");
     TEXTOUT("--LogFile=...");
