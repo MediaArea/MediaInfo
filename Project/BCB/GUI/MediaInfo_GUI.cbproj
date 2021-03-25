@@ -42,12 +42,12 @@
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
 			<Defines>MEDIAINFO_DLL_STATIC;$(Defines)</Defines>
-			<VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=20.09.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=;Comments=</VerInfo_Keys>
+			<VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=21.03.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=;Comments=</VerInfo_Keys>
 			<Manifest_File>None</Manifest_File>
 			<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-			<VerInfo_MinorVer>09</VerInfo_MinorVer>
+			<VerInfo_MinorVer>03</VerInfo_MinorVer>
 			<VerInfo_Release>0</VerInfo_Release>
-			<VerInfo_MajorVer>20</VerInfo_MajorVer>
+			<VerInfo_MajorVer>21</VerInfo_MajorVer>
 			<VerInfo_Locale>1033</VerInfo_Locale>
 			<PackageImports>IPIndyImpl;bindcompfmx;fmx;rtl;dbrtl;IndySystem;DbxClientDriver;bindcomp;inetdb;DBXInterBaseDriver;DataSnapCommon;DataSnapClient;DataSnapServer;DataSnapProviderClient;xmlrtl;DbxCommonDriver;IndyProtocols;DBXMySQLDriver;dbxcds;bindengine;soaprtl;DBXOracleDriver;dsnap;DBXInformixDriver;IndyCore;fmxase;DBXFirebirdDriver;inet;fmxobj;inetdbxpress;DBXSybaseASADriver;fmxdae;dbexpress;DataSnapIndy10ServerTransport;$(PackageImports)</PackageImports>
 			<Multithreaded>true</Multithreaded>
@@ -105,7 +105,7 @@
 		<PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
 			<VerInfo_Release>0</VerInfo_Release>
 			<LinkPackageStatics>rtl.lib;vcl.lib;bcbie.lib</LinkPackageStatics>
-			<VerInfo_Keys>CompanyName=MediaArea.net;FileDescription=MediaInfo;FileVersion=20.09.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=MediaInfo;ProductVersion=20.09.0.0;Comments=</VerInfo_Keys>
+			<VerInfo_Keys>CompanyName=MediaArea.net;FileDescription=MediaInfo;FileVersion=21.03.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=MediaInfo;ProductVersion=21.03.0.0;Comments=</VerInfo_Keys>
 			<Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
 		</PropertyGroup>
 		<ItemGroup>
