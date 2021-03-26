@@ -1,9 +1,9 @@
-%global mediainfo_version           20.09
-%global mediainfo_version_major     20
-%global mediainfo_version_minor     09
-%global libmediainfo_version        20.09
-%global libmediainfo_version_major  20
-%global libmediainfo_version_minor  09
+%global mediainfo_version           21.03
+%global mediainfo_version_major     21
+%global mediainfo_version_minor     03
+%global libmediainfo_version        21.03
+%global libmediainfo_version_major  21
+%global libmediainfo_version_minor  03
 %global libzen_version              0.4.37
 %global libzen_version_major        0
 %global libzen_version_minor        4

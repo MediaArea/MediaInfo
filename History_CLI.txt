@@ -12,6 +12,32 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 21.03, 2021-03-26
+-------------
++ WAV: ADM profile detection of Dolby Atmos Master or MPEG-H
++ SMPTE ST 337: support of AC-4
++ AC-3/AC-4: show top layer channels after Lw/Rw, as it becomes the defacto standard layout
++ Dolby Surround EX and Pro Logic IIz detection
++ Matroska: add DV support
++ CLI: read from stdin
++ DV: remove check of zeroed bytes in timecode, considered again as valid timecode
++ TIFF; add support of compression codes 7 and 8
++ WAV: show bext (BWF) version in verbose mode / XML / JSON
++ MXF: detection fo DCI P3 mastering display color primaries
++ Options: add software version to text output
++ Options: add report creation timestamp to text output
++ macOS: native build for Apple Silicon (arm64)
+x HDR: mastering max. luminance precision was wrong
+x WM: fix EncodingTime parsing
+x MOV/MP4: skip XMP huge atoms, fix
+x MPEG-TS: fix inverted supplementary_audio_descriptor mix_type values
+x AAC: fix File_Aac::is_intensity according to ISO/IEC 14496-3:2009
+x I1353, MP4: Skip user data Xtra and free atoms
+x FFV1: fix crash with some bitstreams parsing
+x TIFF: fix division by 0
+x RF64: fix the WAV malformed chunk size test
+x Supported platforms: this is the last version compatible with Windows XP, macOS 10.5-10.9, RHEL/CentOS 6
+
 Version 20.09, 2020-10-09
 -------------
 + Dolby ED2: full featured support (presentations, presentation targets, beds, objects)
