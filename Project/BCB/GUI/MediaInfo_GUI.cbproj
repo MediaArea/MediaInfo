@@ -136,6 +136,11 @@
 				<DependentOn>..\..\..\Source\GUI\VCL\GUI_About.h</DependentOn>
 				<BuildOrder>5</BuildOrder>
 			</CppCompile>
+			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Plugin.cpp">
+				<Form>PluginF</Form>
+				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Plugin.h</DependentOn>
+				<BuildOrder>10</BuildOrder>
+			</CppCompile>
 			<CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Export.cpp">
 				<Form>ExportF</Form>
 				<DependentOn>..\..\..\Source\GUI\VCL\GUI_Export.h</DependentOn>
@@ -192,6 +197,7 @@
 			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Web.dfm"/>
 			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Main.dfm"/>
 			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_About.dfm"/>
+			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Plugin.dfm"/>
 			<FormResources Include="..\..\..\Source\GUI\VCL\GUI_Export.dfm"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>

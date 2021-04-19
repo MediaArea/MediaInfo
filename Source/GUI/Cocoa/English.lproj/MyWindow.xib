@@ -19,6 +19,7 @@
                 <outlet property="exportFormatButton" destination="j1u-Ak-VG3" id="K4p-gd-tbT"/>
                 <outlet property="formatSelectionAccView" destination="xCY-zS-1YJ" id="eeC-lK-5e4"/>
                 <outlet property="hline" destination="120" id="ZeC-Dk-8ac"/>
+                <outlet property="htmlField" destination="rxy-gG-v12" id="xbe-b5-ORg"/>
                 <outlet property="mainToolbar" destination="3" id="Km1-b5-mKc"/>
                 <outlet property="otherViewsMenu" destination="4PR-wq-KNx" id="kYH-53-DSC"/>
                 <outlet property="subscribeButton" destination="N1w-10-Mom" id="vhP-MO-VNE"/>
@@ -230,6 +231,12 @@
                                     </subviews>
                                 </view>
                             </tabViewItem>
+                            <tabViewItem label="HTML" identifier="" id="qkp-EM-NQp">
+                                <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="rxy-gG-v12" customClass="WebKitView">
+                                    <rect key="frame" x="0.0" y="0.0" width="595" height="381"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
                             <tabViewItem label="Compare" identifier="" id="eZC-pc-IWN">
                                 <view key="view" id="W54-IT-kPU" customClass="CompareView">
                                     <rect key="frame" x="10" y="7" width="479" height="266"/>
@@ -324,6 +331,12 @@
         </customObject>
         <menu id="4PR-wq-KNx">
             <items>
+                <menuItem title="HTML" id="m41-PX-Llg">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="selectViewHTML:" target="-1" id="z1n-mL-XzY"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="XML" id="glL-XP-14m">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -334,6 +347,12 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="selectViewJSON:" target="-1" id="TE0-Mc-LZm"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Graph" id="gEv-f7-e5s">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="selectViewGraph_Svg:" target="-1" id="f2z-f2-ef9"/>
                     </connections>
                 </menuItem>
                 <menuItem title="MPEG-7" id="ei5-wL-g0P">
@@ -449,20 +468,21 @@
                                 <menuItem title="XML" tag="2" id="dde-3h-6xM"/>
                                 <menuItem title="CSV" tag="3" id="dBf-h9-xpG"/>
                                 <menuItem title="JSON" tag="4" id="bDm-AL-Ni3"/>
-                                <menuItem title="MPEG-7" tag="5" id="qPy-3h-POF"/>
-                                <menuItem title="PBCore 1.2" tag="6" id="a3A-Ao-7OV"/>
-                                <menuItem title="PBCore 2.0" tag="7" id="1yR-Ww-Nc9"/>
-                                <menuItem title="EBUCore 1.5" tag="8" id="lYi-0o-NUT"/>
-                                <menuItem title="EBUCore 1.6" tag="9" id="TZc-xn-Gdh"/>
-                                <menuItem title="EBUCore 1.8 (acq. metadata: parameter then segment)" tag="10" id="FYI-Th-BU1"/>
-                                <menuItem title="EBUCore 1.8 (acq. metadata: segment then parameter)" tag="11" id="fNe-yJ-2vy"/>
-                                <menuItem title="EBUCore 1.8 (acq. metadata: parameter then segment, json output)" tag="12" id="lLP-Iz-Bst"/>
-                                <menuItem title="EBUCore 1.8 (acq. metadata: segment then parameter, json output)" tag="13" id="Y2Z-ry-I2z"/>
-                                <menuItem title="FIMS 1.1" tag="14" id="nMZ-Jy-aQJ"/>
-                                <menuItem title="FIMS 1.2" tag="15" id="Dun-Cc-kMM"/>
-                                <menuItem title="FIMS 1.3" tag="16" id="XHo-fC-op4"/>
-                                <menuItem title="reVTMD" tag="17" id="O4d-KN-zYb"/>
-                                <menuItem title="NISO_Z39_87" tag="18" id="JgJ-IK-BAd"/>
+                                <menuItem title="Graph" tag="5" id="dg5-3f-9fB"/>
+                                <menuItem title="MPEG-7" tag="6" id="qPy-3h-POF"/>
+                                <menuItem title="PBCore 1.2" tag="7" id="a3A-Ao-7OV"/>
+                                <menuItem title="PBCore 2.0" tag="8" id="1yR-Ww-Nc9"/>
+                                <menuItem title="EBUCore 1.5" tag="9" id="lYi-0o-NUT"/>
+                                <menuItem title="EBUCore 1.6" tag="10" id="TZc-xn-Gdh"/>
+                                <menuItem title="EBUCore 1.8 (acq. metadata: parameter then segment)" tag="11" id="FYI-Th-BU1"/>
+                                <menuItem title="EBUCore 1.8 (acq. metadata: segment then parameter)" tag="12" id="fNe-yJ-2vy"/>
+                                <menuItem title="EBUCore 1.8 (acq. metadata: parameter then segment, json output)" tag="13" id="lLP-Iz-Bst"/>
+                                <menuItem title="EBUCore 1.8 (acq. metadata: segment then parameter, json output)" tag="14" id="Y2Z-ry-I2z"/>
+                                <menuItem title="FIMS 1.1" tag="15" id="nMZ-Jy-aQJ"/>
+                                <menuItem title="FIMS 1.2" tag="16" id="Dun-Cc-kMM"/>
+                                <menuItem title="FIMS 1.3" tag="17" id="XHo-fC-op4"/>
+                                <menuItem title="reVTMD" tag="18" id="O4d-KN-zYb"/>
+                                <menuItem title="NISO_Z39_87" tag="19" id="JgJ-IK-BAd"/>
                             </items>
                         </menu>
                     </popUpButtonCell>

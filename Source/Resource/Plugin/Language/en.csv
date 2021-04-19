@@ -158,6 +158,8 @@ Address;Address
 Add creation date to text output;Add creation date to text output
 Add version to text output;Add version to text output
 AdID;Ad-ID identifier
+ADM: Show ChannelFormats;ADM: Show ChannelFormats
+ADM: Show TrackUIDs;ADM: Show TrackUIDs
 Advanced;Advanced
 Advanced mode;Advanced mode
 Album;Album
@@ -608,6 +610,7 @@ Gop_OpenClosed;GOP, Open/Closed
 Gop_OpenClosed_Closed;Closed
 Gop_OpenClosed_FirstFrame;GOP, Open/Closed of first frame
 Gop_OpenClosed_Open;Open
+Graph;Graph
 Grouping;Grouping
 h; h
 HDR_Format;HDR format

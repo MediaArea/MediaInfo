@@ -9,10 +9,11 @@
 #import <Cocoa/Cocoa.h>
 #import "oMediaInfoList.h"
 #import "HyperlinkButton.h"
+#import "WebKitView.h"
 #import "TreeView.h"
 #import "CompareView.h"
 
-typedef enum { Kind_Text, Kind_HTML, Kind_XML, Kind_CSV, Kind_JSON, Kind_PBCore, Kind_PBCore2, Kind_reVTMD, Kind_MPEG7, Kind_EBUCore_1_5, Kind_EBUCore_1_6, Kind_EBUCore_1_8_ps, Kind_EBUCore_1_8_sp, Kind_EBUCore_1_8_ps_json, Kind_EBUCore_1_8_sp_json, Kind_FIMS_1_1, Kind_FIMS_1_2, Kind_FIMS_1_3, Kind_NISO_Z39_87} ViewMenu_Kind;
+typedef enum { Kind_Text, Kind_HTML, Kind_XML, Kind_CSV, Kind_JSON, Kind_PBCore, Kind_PBCore2, Kind_reVTMD, Kind_MPEG7, Kind_EBUCore_1_5, Kind_EBUCore_1_6, Kind_EBUCore_1_8_ps, Kind_EBUCore_1_8_sp, Kind_EBUCore_1_8_ps_json, Kind_EBUCore_1_8_sp_json, Kind_FIMS_1_1, Kind_FIMS_1_2, Kind_FIMS_1_3, Kind_NISO_Z39_87, Kind_Graph_Svg } ViewMenu_Kind;
 
 @interface MyWindowController : NSWindowController {
 
@@ -23,6 +24,7 @@ typedef enum { Kind_Text, Kind_HTML, Kind_XML, Kind_CSV, Kind_JSON, Kind_PBCore,
     IBOutlet NSSegmentedControl *tabSelector;
     IBOutlet TreeView *treeView;
     IBOutlet NSTextView *textField;
+    IBOutlet WebKitView *htmlField;
     IBOutlet NSMenu *otherViewsMenu;
     IBOutlet NSView *formatSelectionAccView;
     IBOutlet NSPopUpButton *exportFormatButton;
@@ -56,6 +58,7 @@ typedef enum { Kind_Text, Kind_HTML, Kind_XML, Kind_CSV, Kind_JSON, Kind_PBCore,
 -(IBAction)selectCompareTab:(id)sender;
 
 -(void)_selectViewOFKind:(ViewMenu_Kind)_kind;
+-(IBAction)selectViewHTML:(id)sender;
 -(IBAction)selectViewXML:(id)sender;
 -(IBAction)selectViewJSON:(id)sender;
 -(IBAction)selectViewMPEG7:(id)sender;
@@ -72,6 +75,7 @@ typedef enum { Kind_Text, Kind_HTML, Kind_XML, Kind_CSV, Kind_JSON, Kind_PBCore,
 -(IBAction)selectViewFIMS13:(id)sender;
 -(IBAction)selectViewReVTMD:(id)sender;
 -(IBAction)selectViewNISO_Z39_87:(id)sender;
+-(IBAction)selectViewGraph_Svg:(id)sender;
 
 -(IBAction)export:(id)sender;
 -(IBAction)changeExportFormat:(id)sender;

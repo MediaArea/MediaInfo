@@ -2156,6 +2156,12 @@ object MainF: TMainF
         RadioItem = True
         OnClick = M_View_JSONClick
       end
+      object M_View_Graph_Svg: TMenuItem
+        AutoCheck = True
+        Caption = 'Graph'
+        RadioItem = True
+        OnClick = M_View_Graph_SvgClick
+      end
       object M_View_MPEG7: TMenuItem
         AutoCheck = True
         Caption = 'MPEG-7'
@@ -3918,6 +3924,10 @@ object MainF: TMainF
     end
     object ToolBar_View_JSON: TMenuItem
       Caption = 'JSON'
+      RadioItem = True
+    end
+    object ToolBar_View_Graph_Svg: TMenuItem
+      Caption = 'Graph'
       RadioItem = True
     end
     object ToolBar_View_MPEG7: TMenuItem

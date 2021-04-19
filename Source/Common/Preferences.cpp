@@ -70,6 +70,10 @@ Preferences::Preferences()
     Sponsored=false;
     SponsorMessage=__T("");
     SponsorUrl=__T("");
+
+    //Plugins
+    GraphPluginURL=__T("");
+    GraphPluginVersion=__T("");
 }
 
 //***************************************************************************
@@ -211,6 +215,12 @@ int Preferences::Config_Load()
         Saved.FindAndReplace(__T("\\r\\n"), __T("\r\n"), 0, Ztring_Recursive);
         SponsorUrl.Write(Saved);
     }
+
+    if (!Config(__T("GraphPluginURL")).empty())
+        GraphPluginURL=Config(__T("GraphPluginURL"));
+
+    if (!Config(__T("GraphPluginVersion")).empty())
+        GraphPluginVersion=Config(__T("GraphPluginVersion"));
 
     delete Reg_User; Reg_User=NULL;
 
@@ -495,6 +505,20 @@ void __fastcall ThreadInternetCheck::Execute()
     }
     Prefs->Config_Save();
 
+    //Plugins
+    Ztring GraphPluginURL=Download(__T("GraphPluginURL"));
+    if (!GraphPluginURL.empty())
+    {
+        Prefs->Config(__T("GraphPluginURL"))=GraphPluginURL;
+        Prefs->Config_Save();
+    }
+
+    Ztring GraphPluginVersion=Download(__T("GraphPluginVersion"));
+    if (!GraphPluginVersion.empty())
+    {
+        Prefs->Config(__T("GraphPluginVersion"))=GraphPluginVersion;
+        Prefs->Config_Save();
+    }
     //Chargement de pages
     ZtringListList Pages=Download.SubSheet(__T("Url"));
     for (size_t Pos=0; Pos<Pages.size(); Pos++)

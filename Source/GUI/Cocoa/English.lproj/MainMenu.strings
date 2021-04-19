@@ -437,6 +437,9 @@
 /* Class = "NSMenuItem"; title = "Close File"; ObjectID = "hC5-Lk-GZv"; */
 "hC5-Lk-GZv.title" = "Close File";
 
+/* Class = "NSMenuItem"; title = "HTML"; ObjectID = "baz-P1-eG7"; */
+"Baz-P1-eG7.title" = "HTML";
+
 /* Class = "NSMenuItem"; title = "XML"; ObjectID = "o0W-Nz-FBX"; */
 "o0W-Nz-FBX.title" = "XML";
 
@@ -454,3 +457,6 @@
 
 /* Class = "NSMenuItem"; title = "FIMS 1.3"; ObjectID = "vEC-jU-MAH"; */
 "vEC-jU-MAH.title" = "FIMS 1.3";
+
+/* Class = "NSMenuItem"; title = "Graph"; ObjectID = "BlK-Ms-sya"; */
+"BlK-Ms-sya.title" = "Graph";

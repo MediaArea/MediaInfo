@@ -415,6 +415,18 @@ object ExportF: TExportF
           OnClick = Export_JSON_SideCarClick
         end
       end
+      object Export_Graph_Svg: TTabSheet
+        Caption = 'Graph'
+        object Export_Graph_Svg_SideCar: TCheckBox
+          Left = 0
+          Top = 9
+          Width = 597
+          Height = 18
+          Caption = 'Sidecar file (filename.Graph.svg)'
+          TabOrder = 0
+          OnClick = Export_Graph_Svg_SideCarClick
+        end
+      end
       object Export_MPEG7: TTabSheet
         Caption = 'MPEG-7'
         object Export_MPEG7_SideCar: TCheckBox
@@ -595,6 +607,7 @@ object ExportF: TExportF
           TabOrder = 0
           OnClick = Export_NISO_Z39_87_SideCarClick
         end
+      end
       object Export_reVTMD: TTabSheet
         Caption = 'reVTMD'
         object Export_reVTMD_SideCar: TCheckBox
@@ -606,7 +619,6 @@ object ExportF: TExportF
           TabOrder = 0
           OnClick = Export_reVTMD_SideCarClick
         end
-      end
       end
       object Export_Custom: TTabSheet
         Caption = 'Custom'

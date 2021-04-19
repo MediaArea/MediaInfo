@@ -51,6 +51,9 @@
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		9C182E0B257D1337007646AC /* IndexedTableColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C182E0A257D1337007646AC /* IndexedTableColumn.m */; };
+		9CEC3220262F84E40056CA65 /* WebKitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CEC321F262F84E40056CA65 /* WebKitView.m */; };
+		9CEC3224262F8BB70056CA65 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CEC3223262F8BB70056CA65 /* WebKit.framework */; };
+		9CEC32CF263830F00056CA65 /* Plugin in Resources */ = {isa = PBXBuildFile; fileRef = 9CEC32CE263830F00056CA65 /* Plugin */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -363,6 +366,11 @@
 		8D1107320486CEB800E47090 /* MediaInfo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediaInfo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C182E09257D1337007646AC /* IndexedTableColumn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndexedTableColumn.h; sourceTree = "<group>"; };
 		9C182E0A257D1337007646AC /* IndexedTableColumn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IndexedTableColumn.m; sourceTree = "<group>"; };
+		9CEC321E262F84E40056CA65 /* WebKitView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebKitView.h; sourceTree = "<group>"; };
+		9CEC321F262F84E40056CA65 /* WebKitView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebKitView.m; sourceTree = "<group>"; };
+		9CEC3223262F8BB70056CA65 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		9CEC32A526322C990056CA65 /* libmediainfo.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libmediainfo.dylib; sourceTree = "<group>"; };
+		9CEC32CE263830F00056CA65 /* Plugin */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Plugin; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -370,6 +378,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CEC3224262F8BB70056CA65 /* WebKit.framework in Frameworks */,
 				0291B616230EC397006920BA /* CloudKit.framework in Frameworks */,
 				026834062296A4B20060542A /* StoreKit.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
@@ -425,6 +434,8 @@
 				0268340422949FB50060542A /* SubscriptionManager.h */,
 				9C182E09257D1337007646AC /* IndexedTableColumn.h */,
 				9C182E0A257D1337007646AC /* IndexedTableColumn.m */,
+				9CEC321E262F84E40056CA65 /* WebKitView.h */,
+				9CEC321F262F84E40056CA65 /* WebKitView.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -481,6 +492,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9CEC32CE263830F00056CA65 /* Plugin */,
+				9CEC32A526322C990056CA65 /* libmediainfo.dylib */,
 				02E91F3C2495373200BFFF71 /* PurchaseReport.xib */,
 				0226605222C9F19C006CE084 /* MacCompare@2x.png */,
 				0299EC62227C966B00D937F6 /* CompareView.xib */,
@@ -506,6 +519,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9CEC3223262F8BB70056CA65 /* WebKit.framework */,
 				0291B615230EC396006920BA /* CloudKit.framework */,
 				026834052296A4B20060542A /* StoreKit.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
@@ -619,6 +633,7 @@
 				0265BEE02330202C00BC2891 /* ProgressDialog.xib in Resources */,
 				43BB5AA815336BEB002400F8 /* MainMenu.xib in Resources */,
 				02E91F3E2495373200BFFF71 /* PurchaseReport.xib in Resources */,
+				9CEC32CF263830F00056CA65 /* Plugin in Resources */,
 				43BB5AA515336BE2002400F8 /* MyWindow.xib in Resources */,
 				439533AD14E172C500537F55 /* mediainfo.icns in Resources */,
 				0226605322C9F19C006CE084 /* MacCompare@2x.png in Resources */,
@@ -648,7 +663,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"$CODE_SIGNING_ALLOWED\" = \"YES\" -a \"$EXPANDED_CODE_SIGN_IDENTITY\" != \"\" -a \"$EXPANDED_CODE_SIGN_IDENTITY\" != \"Don't Code Sign\" ]; then\ncd \"$CODESIGNING_FOLDER_PATH\"\n#ls -la\ninstall_name_tool -id @executable_path/../Resources/libmediainfo.dylib Contents/Resources/libmediainfo.dylib\n/usr/bin/codesign -f -s \"$EXPANDED_CODE_SIGN_IDENTITY\" --verbose Contents/Resources/libmediainfo.dylib\nfi \n";
+			shellScript = "if [ \"$CODE_SIGNING_ALLOWED\" = \"YES\" -a \"$EXPANDED_CODE_SIGN_IDENTITY\" != \"\" -a \"$EXPANDED_CODE_SIGN_IDENTITY\" != \"Don't Code Sign\" ]; then\ncd \"$CODESIGNING_FOLDER_PATH\"\n#ls -la\ninstall_name_tool -id @executable_path/../Resources/libmediainfo.dylib Contents/Resources/libmediainfo.dylib\nfind Contents/Resources -name *.dylib -exec /usr/bin/codesign --options=runtime -f -s \"$EXPANDED_CODE_SIGN_IDENTITY\" --verbose {} \\;\nfi \n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -677,6 +692,7 @@
 				436C50A615B9E06D000AF072 /* TreeOutlineDelegate.m in Sources */,
 				43E0EFB415DC12AC001E8F7C /* easyStreamsTableDelegate.m in Sources */,
 				43B17B9D1CE672110012C3E3 /* SegmentedControlWithMenu.m in Sources */,
+				9CEC3220262F84E40056CA65 /* WebKitView.m in Sources */,
 				9C182E0B257D1337007646AC /* IndexedTableColumn.m in Sources */,
 				43E0EFBA15DD64B3001E8F7C /* HyperlinkButton.m in Sources */,
 			);
@@ -1050,15 +1066,21 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "APP_VERSION_STRING=\\\"$(APP_VERSION)\\\"";
 				INFOPLIST_FILE = "MediaInfo-Info.plist";
 				INSTALL_PATH = /Applications;
+				"LD_RUNPATH_SEARCH_PATHS[arch=*]" = "$(LD_RUNPATH_SEARCH_PATHS_$(IS_MACCATALYST)) @executable_path/../Resources @executable_path/../Resources/Plugin @executable_path/../Resources/Plugin/Graph";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/graphviz",
+					"$(PROJECT_DIR)/Plugin/Graph",
+					"$(PROJECT_DIR)/Plugin/Graph/graphviz",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = net.mediaarea.mediainfo.mac;
 				PRODUCT_NAME = MediaInfo;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				VALID_ARCHS = "arm64 x86_64";
 			};
 			name = Debug;
 		};
@@ -1066,29 +1088,36 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APP_VERSION = 21.03;
+				APP_VERSION = 21.03.20210426;
 				CODE_SIGN_ENTITLEMENTS = MediaInfo.entitlements;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 21.03.3;
+				CURRENT_PROJECT_VERSION = 21.03.20210426.3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MediaInfo_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "APP_VERSION_STRING=\\\"$(APP_VERSION)\\\"";
 				INFOPLIST_FILE = "MediaInfo-Info.plist";
 				INSTALL_PATH = /Applications;
+				"LD_RUNPATH_SEARCH_PATHS[arch=*]" = "$(LD_RUNPATH_SEARCH_PATHS_$(IS_MACCATALYST)) @executable_path/../Resources @executable_path/../Resources/Plugin @executable_path/../Resources/Plugin/Graph";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/graphviz",
+					"$(PROJECT_DIR)/Plugin/Graph",
+					"$(PROJECT_DIR)/Plugin/Graph/graphviz",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = net.mediaarea.mediainfo.mac;
 				PRODUCT_NAME = MediaInfo;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				VALID_ARCHS = "arm64 x86_64";
 			};
 			name = Release;
 		};
@@ -1105,7 +1134,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
-				VALID_ARCHS = (x86_64, arm64);
+				VALID_ARCHS = "x86_64 arm64";
 			};
 			name = Debug;
 		};
@@ -1121,7 +1150,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
-				VALID_ARCHS = (x86_64, arm64);
+				VALID_ARCHS = "x86_64 arm64";
 			};
 			name = Release;
 		};
