@@ -78,6 +78,9 @@ task copyLocales(type: DefaultTask) {
 
     fileTree("../../../../Source/Resource/Plugin/Language").visit { FileVisitDetails details ->
         def locale = details.file.name.replace(".csv", "").replace("-", "-r")
+        if (locale == "gr") {
+            locale = "el"
+        }
 
         // copy localized csv into raw resources
         def raw = "src/main/res/raw-" + locale
