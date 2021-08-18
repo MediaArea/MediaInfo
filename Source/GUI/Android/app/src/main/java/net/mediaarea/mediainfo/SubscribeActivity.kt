@@ -56,7 +56,7 @@ class SubscribeActivity : AppCompatActivity() {
                 val request = BillingFlowParams.newBuilder()
                     .setSkuDetails(subscriptionDetails)
                     .build()
-                if (subscriptionManager.launchBillingFlow(this, request) == BillingClient.BillingResponse.OK) {
+                if (subscriptionManager.launchBillingFlow(this, request) == BillingClient.BillingResponseCode.OK) {
                     finish()
                 }
             }
@@ -67,7 +67,7 @@ class SubscribeActivity : AppCompatActivity() {
                 val request = BillingFlowParams.newBuilder()
                     .setSkuDetails(lifetimeSubscriptionDetails)
                     .build()
-                if (subscriptionManager.launchBillingFlow(this, request) == BillingClient.BillingResponse.OK) {
+                if (subscriptionManager.launchBillingFlow(this, request) == BillingClient.BillingResponseCode.OK) {
                     setResult(Activity.RESULT_OK)
                     finish()
                 }
