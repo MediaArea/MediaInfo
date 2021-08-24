@@ -10,11 +10,14 @@ import com.android.build.OutputFile
 import groovy.xml.XmlUtil
 
 android {
-    compileSdkVersion 29
+    buildFeatures {
+        viewBinding true
+    }
+    compileSdkVersion 31
     defaultConfig {
         applicationId "net.mediaarea.mediainfo"
         minSdkVersion 14
-        targetSdkVersion 29
+        targetSdkVersion 31
         versionCode 19
         versionName "21.03"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -58,6 +61,11 @@ android {
             universalApk true
         }
     }
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
 
     def abiCodes = ['armeabi-v7a':1, 'arm64-v8a':2, 'x86':3, 'x86_64':4]
     android.applicationVariants.all { variant ->
@@ -75,6 +83,9 @@ task copyLocales(type: DefaultTask) {
 
     fileTree("../../../../Source/Resource/Plugin/Language").visit { FileVisitDetails details ->
         def locale = details.file.name.replace(".csv", "").replace("-", "-r")
+        if (locale == "gr") {
+            locale = "el"
+        }
 
         // copy localized csv into raw resources
         def raw = "src/main/res/raw-" + locale
@@ -160,7 +171,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'com.android.support:design:29.2.0'
+    implementation 'com.android.support:design:31.2.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
