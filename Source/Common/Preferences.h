@@ -92,6 +92,10 @@ public:
 
     //Sponsor
     bool Sponsored;
+
+    //Plugins
+    ZenLib::Ztring GraphPluginURL;
+    ZenLib::Ztring GraphPluginVersion;
 };
 
 //General preference for the whole program

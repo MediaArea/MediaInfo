@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PreferencesWindowController">
             <connections>
+                <outlet property="graphAdmShowChannelFormats" destination="SRz-4F-F2V" id="MST-K8-oSS"/>
+                <outlet property="graphAdmShowTrackUIDs" destination="UWP-Ms-fVg" id="8uz-It-VNh"/>
                 <outlet property="langsCombo" destination="26" id="47"/>
                 <outlet property="subscribeButton" destination="TL9-gb-Tct" id="bs3-6V-yRt"/>
-                <outlet property="toolbar" destination="5" id="52"/>
+                <outlet property="tabView" destination="19" id="CYV-c3-YNr"/>
                 <outlet property="viewCombo" destination="R7t-1b-La5" id="LgE-V5-BQp"/>
                 <outlet property="viewLabel" destination="J5j-ea-kAp" id="LAP-NP-USC"/>
                 <outlet property="window" destination="1" id="4"/>
@@ -22,24 +24,24 @@
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" animationBehavior="documentWindow" frameAutosaveName="PreferencesWindow" id="1">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="276" y="391" width="420" height="209"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="contentRect" x="276" y="391" width="450" height="220"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <view key="contentView" id="2">
-                <rect key="frame" x="0.0" y="0.0" width="420" height="209"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <rect key="frame" x="0.0" y="0.0" width="450" height="220"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <tabView drawsBackground="NO" type="noTabsNoBorder" id="19">
-                        <rect key="frame" x="0.0" y="0.0" width="420" height="209"/>
+                    <tabView fixedFrame="YES" drawsBackground="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19">
+                        <rect key="frame" x="4" y="2" width="442" height="212"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
-                            <tabViewItem identifier="General" id="20">
+                            <tabViewItem label="General" identifier="General" id="20">
                                 <view key="view" id="23">
-                                    <rect key="frame" x="0.0" y="0.0" width="420" height="209"/>
+                                    <rect key="frame" x="10" y="33" width="422" height="166"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField verticalHuggingPriority="750" id="24">
-                                            <rect key="frame" x="18" y="171" width="107" height="17"/>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="24">
+                                            <rect key="frame" x="6" y="146" width="119" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Language:" id="25">
                                                 <font key="font" metaFont="system"/>
@@ -47,12 +49,12 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <popUpButton verticalHuggingPriority="750" imageHugsTitle="YES" id="26">
-                                            <rect key="frame" x="129" y="164" width="268" height="26"/>
+                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="26">
+                                            <rect key="frame" x="129" y="138" width="268" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Default" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="48" id="27">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="menu"/>
                                                 <menu key="menu" id="28">
                                                     <items>
                                                         <menuItem title="Default" state="on" id="48">
@@ -66,8 +68,8 @@
                                                 <action selector="languageChanged:" target="-1" id="50"/>
                                             </connections>
                                         </popUpButton>
-                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="53">
-                                            <rect key="frame" x="129" y="130" width="268" height="37"/>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="53">
+                                            <rect key="frame" x="130" y="104" width="268" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="Changes take effect after application restart" id="54">
                                                 <font key="font" metaFont="controlContent" size="11"/>
@@ -75,31 +77,22 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <popUpButton verticalHuggingPriority="750" id="R7t-1b-La5">
-                                            <rect key="frame" x="129" y="104" width="268" height="25"/>
+                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R7t-1b-La5">
+                                            <rect key="frame" x="129" y="80" width="268" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="11o-70-WWm">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="menu"/>
                                                 <menu key="menu" id="8i5-kW-mui"/>
                                             </popUpButtonCell>
                                             <connections>
                                                 <action selector="viewChanged:" target="-2" id="bQd-mk-Zb8"/>
                                             </connections>
                                         </popUpButton>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="rWx-fM-e08">
-                                            <rect key="frame" x="129" y="89" width="154" height="17"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Premium MediaInfo feature" id="eaf-m0-xtv">
-                                                <font key="font" metaFont="controlContent" size="11"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <button verticalHuggingPriority="750" id="TL9-gb-Tct">
-                                            <rect key="frame" x="289" y="89" width="106" height="21"/>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TL9-gb-Tct">
+                                            <rect key="frame" x="303" y="59" width="90" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="bevel" title="subscribe" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="qvF-It-rlQ">
+                                            <buttonCell key="cell" type="bevel" title="subscribe" bezelStyle="rounded" alignment="right" imageScaling="proportionallyDown" inset="2" id="qvF-It-rlQ">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="controlContent" size="11"/>
                                             </buttonCell>
@@ -108,9 +101,9 @@
                                                 <action selector="subscribeClicked:" target="-2" id="sie-Iw-KIs"/>
                                             </connections>
                                         </button>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="J5j-ea-kAp">
-                                            <rect key="frame" x="18" y="110" width="107" height="17"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J5j-ea-kAp">
+                                            <rect key="frame" x="6" y="85" width="119" height="17"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="right" title="Default view:" id="mz3-nf-7kH">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -120,6 +113,45 @@
                                                 <outlet property="delegate" destination="-2" id="gXF-lm-Isw"/>
                                             </connections>
                                         </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rWx-fM-e08">
+                                            <rect key="frame" x="130" y="59" width="154" height="17"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Premium MediaInfo feature" id="eaf-m0-xtv">
+                                                <font key="font" metaFont="controlContent" size="11"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Graph" identifier="Graph" id="cbY-9w-AHy">
+                                <view key="view" id="4s0-dM-BRS">
+                                    <rect key="frame" x="10" y="33" width="422" height="166"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UWP-Ms-fVg">
+                                            <rect key="frame" x="17" y="146" width="390" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="ADM: Show TrackUIDs" bezelStyle="regularSquare" imagePosition="trailing" inset="2" id="aRP-Ce-Qp6">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="graphAdmShowTrackUIDsClicked:" target="-2" id="0tr-Uo-Ulf"/>
+                                            </connections>
+                                        </button>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SRz-4F-F2V">
+                                            <rect key="frame" x="17" y="124" width="390" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="ADM: Show ChannelFormats" bezelStyle="regularSquare" imagePosition="trailing" inset="2" id="qkz-zN-E77">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="graphAdmShowChannelFormatsClicked:" target="-2" id="xdz-bx-aW4"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -127,29 +159,10 @@
                     </tabView>
                 </subviews>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="56BD3029-7761-4372-8C92-9322E8FC3AF9" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="5">
-                <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="6"/>
-                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="9"/>
-                    <toolbarItem implicitItemIdentifier="CAEB7677-EC04-4A8D-BE7B-311558AF20E0" explicitItemIdentifier="General" label="General" paletteLabel="General" image="NSPreferencesGeneral" selectable="YES" id="12">
-                        <nil key="toolTip"/>
-                        <connections>
-                            <action selector="clickToSelectPrefTab:" target="-1" id="51"/>
-                        </connections>
-                    </toolbarItem>
-                </allowedToolbarItems>
-                <defaultToolbarItems>
-                    <toolbarItem reference="12"/>
-                    <toolbarItem reference="9"/>
-                </defaultToolbarItems>
-            </toolbar>
             <connections>
                 <outlet property="delegate" destination="-2" id="3"/>
             </connections>
-            <point key="canvasLocation" x="101" y="119.5"/>
+            <point key="canvasLocation" x="116" y="125"/>
         </window>
     </objects>
-    <resources>
-        <image name="NSPreferencesGeneral" width="32" height="32"/>
-    </resources>
 </document>

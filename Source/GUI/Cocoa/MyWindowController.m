@@ -15,7 +15,8 @@
 #define kEasyTabIndex 0
 #define kTreeTabIndex 1
 #define kTextTabIndex 2
-#define kCompareTabIndex 3
+#define kHTMLTabIndex 3
+#define kCompareTabIndex 4
 
 #define kApplicationMenuTag 10
 #define kSubscribeMenuItemTag 11
@@ -33,6 +34,7 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 		case Kind_XML:			_ret = @"XML"; break;
 		case Kind_CSV:			_ret = @"CSV"; break;
 		case Kind_JSON:			_ret = @"JSON"; break;
+		case Kind_Graph_Svg:		_ret = @"Graph_Svg"; break;
 		case Kind_MPEG7:		_ret = @"MPEG-7"; break;
 		case Kind_PBCore:		_ret = @"PBCore"; break;
 		case Kind_PBCore2:		_ret = @"PBCore2"; break;
@@ -92,10 +94,14 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
                 [self selectCompareTab:nil];
             else if ([defaultView isEqualToString:@"Text"])
                 [self selectTextTab:nil];
+            else if ([defaultView isEqualToString:@"HTML"])
+                [self selectViewHTML:nil];
             else if ([defaultView isEqualToString:@"XML"])
                 [self selectViewXML:nil];
             else if ([defaultView isEqualToString:@"JSON"])
                 [self selectViewJSON:nil];
+            else if ([defaultView isEqualToString:@"Graph_Svg"])
+                [self selectViewGraph_Svg:nil];
             else if ([defaultView isEqualToString:@"MPEG-7"])
                 [self selectViewMPEG7:nil];
             else if ([defaultView isEqualToString:@"PBCore"])
@@ -248,8 +254,33 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
     [self showFileSelector];
 	_lastTextKind = _kind;
 	[tabSelector setSelectedSegment:tabSelector.segmentCount - 1];
-	[self updateTextTabWithFileAtIndex:selectedFileIndex];
-	[tabs selectTabViewItemAtIndex:kTextTabIndex];
+    if (_kind==Kind_HTML || _kind==Kind_Graph_Svg)
+    {
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"graphAdmShowTrackUIDs"]!=nil)
+        {
+            BOOL value = [[NSUserDefaults standardUserDefaults] boolForKey:@"graphAdmShowTrackUIDs"];
+            [oMediaInfoList setOptionStatic:@"Graph_Adm_ShowTrackUIDs" withValue:(value?@"1":@"0")];
+        }
+
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"graphAdmShowChannelFormat"]!=nil)
+        {
+            BOOL value = [[NSUserDefaults standardUserDefaults] boolForKey:@"graphAdmShowChannelFormats"];
+            [oMediaInfoList setOptionStatic:@"Graph_Adm_ShowChannelFormats" withValue:(value?@"1":@"0")];
+        }
+
+        [self updateHTMLTabWithFileAtIndex:selectedFileIndex];
+        [tabs selectTabViewItemAtIndex:kHTMLTabIndex];
+    }
+    else
+    {
+        [self updateTextTabWithFileAtIndex:selectedFileIndex];
+        [tabs selectTabViewItemAtIndex:kTextTabIndex];
+    }
+}
+
+-(IBAction)selectViewHTML:(id)sender
+{
+    [self _selectViewOFKind:Kind_HTML];
 }
 
 -(IBAction)selectViewXML:(id)sender
@@ -332,6 +363,11 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	[self _selectViewOFKind:Kind_NISO_Z39_87];
 }
 
+-(IBAction)selectViewGraph_Svg:(id)sender
+{
+	[self _selectViewOFKind:Kind_Graph_Svg];
+}
+
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
 	
@@ -372,8 +408,10 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 
 	NSInteger tag = exportFormatButton.selectedTag;
 
-	if (tag == 4 || tag == 12 || tag == 13)
+	if (tag == 4 || tag == 13 || tag == 14)
 		[_exportSavePanel setAllowedFileTypes:@[@"json"]];
+	else if (tag == 5)
+		[_exportSavePanel setAllowedFileTypes:@[@"svg"]];
 	else if (tag == 3)
 		[_exportSavePanel setAllowedFileTypes:@[@"csv"]];
 	else if (tag == 1)
@@ -422,45 +460,48 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 					format = TextKindToNSString(Kind_JSON);
 					break;
 				case 5:
-					format = TextKindToNSString(Kind_MPEG7);
+					format = TextKindToNSString(Kind_Graph_Svg);
 					break;
 				case 6:
-					format = TextKindToNSString(Kind_PBCore);
+					format = TextKindToNSString(Kind_MPEG7);
 					break;
 				case 7:
-					format = TextKindToNSString(Kind_PBCore2);
+					format = TextKindToNSString(Kind_PBCore);
 					break;
 				case 8:
-					format = TextKindToNSString(Kind_EBUCore_1_5);
+					format = TextKindToNSString(Kind_PBCore2);
 					break;
 				case 9:
-					format = TextKindToNSString(Kind_EBUCore_1_6);
+					format = TextKindToNSString(Kind_EBUCore_1_5);
 					break;
 				case 10:
-					format = TextKindToNSString(Kind_EBUCore_1_8_ps);
+					format = TextKindToNSString(Kind_EBUCore_1_6);
 					break;
 				case 11:
-					format = TextKindToNSString(Kind_EBUCore_1_8_sp);
+					format = TextKindToNSString(Kind_EBUCore_1_8_ps);
 					break;
 				case 12:
-					format = TextKindToNSString(Kind_EBUCore_1_8_ps_json);
+					format = TextKindToNSString(Kind_EBUCore_1_8_sp);
 					break;
 				case 13:
-					format = TextKindToNSString(Kind_EBUCore_1_8_sp_json);
+					format = TextKindToNSString(Kind_EBUCore_1_8_ps_json);
 					break;
 				case 14:
-					format = TextKindToNSString(Kind_FIMS_1_1);
+					format = TextKindToNSString(Kind_EBUCore_1_8_sp_json);
 					break;
 				case 15:
-					format = TextKindToNSString(Kind_FIMS_1_2);
+					format = TextKindToNSString(Kind_FIMS_1_1);
 					break;
 				case 16:
-					format = TextKindToNSString(Kind_FIMS_1_3);
+					format = TextKindToNSString(Kind_FIMS_1_2);
 					break;
 				case 17:
-					format = TextKindToNSString(Kind_reVTMD);
+					format = TextKindToNSString(Kind_FIMS_1_3);
 					break;
 				case 18:
+					format = TextKindToNSString(Kind_reVTMD);
+					break;
+				case 19:
 					format = TextKindToNSString(Kind_NISO_Z39_87);
 					break;
 				case 0:
@@ -630,6 +671,9 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	//Text View
 	[self updateTextTabWithFileAtIndex:index];
 
+    //HTML View
+    [self updateHTMLTabWithFileAtIndex:index];
+
 	//tree view
 	[treeView setIndex:index];
 
@@ -719,6 +763,28 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 
 }
 
+-(void)updateHTMLTabWithFileAtIndex:(NSUInteger)index
+{
+    if (_lastTextKind!=Kind_HTML && _lastTextKind!=Kind_Graph_Svg)
+        return;
+
+    NSString *_inform = TextKindToNSString(_lastTextKind);
+    [mediaList setOption:@"Inform" withValue:_inform];
+
+    NSString *html=[mediaList informAtIndex:index];
+    if (_lastTextKind==Kind_Graph_Svg)
+    {
+        NSRange range = [html rangeOfString:@"<svg"];
+        if (range.length)
+            html=[html substringFromIndex:range.location];
+        
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"/Plugin/Graph/Template" ofType:@"html"];
+        NSString *template = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
+        html=[template stringByReplacingOccurrencesOfString:@"@SVG@" withString:html];
+    }
+    [htmlField setContent:html];
+    [mediaList setOption:@"Inform" withValue:@""];
+}
 
 -(void)updateTextTabWithFileAtIndex:(NSUInteger)index
 {
@@ -899,12 +965,20 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
     else if(action == @selector(selectCompareTab:)) {
 		[menuItem setState: ([tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kCompareTabIndex ? NSOnState : NSOffState)];
 	}
+    else if(action == @selector(selectViewHTML:)) {
+        BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kHTMLTabIndex && _lastTextKind == Kind_HTML ? YES : NO;
+        [menuItem setState: (state ? NSOnState : NSOffState)];
+    }
 	else if(action == @selector(selectViewXML:)) {
 		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_XML ? YES : NO;
 		[menuItem setState: (state ? NSOnState : NSOffState)];
 	}
 	else if(action == @selector(selectViewJSON:)) {
 		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_JSON ? YES : NO;
+		[menuItem setState: (state ? NSOnState : NSOffState)];
+	}
+	else if(action == @selector(selectViewGraph_Svg:)) {
+		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_Graph_Svg ? YES : NO;
 		[menuItem setState: (state ? NSOnState : NSOffState)];
 	}
 	else if(action == @selector(selectViewMPEG7:)) {

@@ -188,6 +188,10 @@ Section Uninstall
   Exec 'regsvr32 "$INSTDIR\MediaInfo_InfoTip.dll" /u /s'
   Sleep 3000
 
+  IfFileExists "$INSTDIR\graph_plugin_uninst.exe" 0 +3
+    ExecWait '"$INSTDIR\graph_plugin_uninst.exe" /S _?=$INSTDIR'
+    Delete "$INSTDIR\graph_plugin_uninst.exe"
+
   Delete "$INSTDIR\${PRODUCT_NAME}.url"
   Delete "$INSTDIR\uninst.exe"
   Delete "$INSTDIR\MediaInfo.exe"

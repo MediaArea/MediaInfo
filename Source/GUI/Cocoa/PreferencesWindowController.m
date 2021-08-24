@@ -14,7 +14,6 @@
 
 - (void)addLanguageToComboWithTitle:(NSString*)title andValue:(NSString*)value;
 - (IBAction)languageChanged:(id)sender;
-- (IBAction)clickToSelectPrefTab:(id)sender;
 
 @end
 
@@ -59,9 +58,6 @@ static PreferencesWindowController *prefsCtrl = nil;
         [subscribeButton setEnabled:NO];
         [subscribeButton setHidden:YES];
     }
-
-	[toolbar setSelectedItemIdentifier:@"General"];
-	
 	
 	//Load languages...
 	
@@ -112,8 +108,10 @@ static PreferencesWindowController *prefsCtrl = nil;
 	[self addViewToComboWithTitle:@"Tree" andValue:@"Tree"];
 	[self addViewToComboWithTitle:@"Compare" andValue:@"Compare"];
 	[self addViewToComboWithTitle:@"Text" andValue:@"Text"];
-	[self addViewToComboWithTitle:@"XML" andValue:@"JSON"];
-	[self addViewToComboWithTitle:@"XML" andValue:@"JSON"];
+    [self addViewToComboWithTitle:@"HTML" andValue:@"HTML"];
+	[self addViewToComboWithTitle:@"XML" andValue:@"XML"];
+	[self addViewToComboWithTitle:@"JSON" andValue:@"JSON"];
+	[self addViewToComboWithTitle:@"Graph" andValue:@"Graph_Svg"];
 	[self addViewToComboWithTitle:@"MPEG-7" andValue:@"MPEG-7"];
 	[self addViewToComboWithTitle:@"PBCore" andValue:@"PBCore"];
 	[self addViewToComboWithTitle:@"PBCore2" andValue:@"PBCore2"];
@@ -140,6 +138,13 @@ static PreferencesWindowController *prefsCtrl = nil;
 				break;
 		}
 	}
+
+    // Graph options
+    BOOL savedGraphAdmShowTrackUIDs = [[NSUserDefaults standardUserDefaults] boolForKey:@"graphAdmShowTrackUIDs"];
+    [graphAdmShowTrackUIDs setState:savedGraphAdmShowTrackUIDs?NSControlStateValueOn:NSControlStateValueOff];
+
+    BOOL savedGraphAdmShowChannelFormats = [[NSUserDefaults standardUserDefaults] boolForKey:@"graphAdmShowChannelFormats"];
+    [graphAdmShowChannelFormats setState:savedGraphAdmShowChannelFormats?NSControlStateValueOn:NSControlStateValueOff];
 }
 
 -(void)windowWillClose:(NSNotification *)notification {
@@ -201,14 +206,20 @@ static PreferencesWindowController *prefsCtrl = nil;
     }
 }
 
-- (IBAction)clickToSelectPrefTab:(id)sender {
-	
-}
-
 - (void)enableSubscription {
     [viewCombo setEnabled:YES];
     [subscribeButton setEnabled:NO];
     [subscribeButton setHidden:YES];
 
 }
+- (IBAction)graphAdmShowTrackUIDsClicked:(id)sender {
+    BOOL newGraphAdmShowTrackUIDs = [graphAdmShowTrackUIDs state]==NSControlStateValueOn?TRUE:FALSE;
+    [[NSUserDefaults standardUserDefaults] setBool:newGraphAdmShowTrackUIDs forKey:@"graphAdmShowTrackUIDs"];
+}
+
+- (IBAction)graphAdmShowChannelFormatsClicked:(id)sender {
+    BOOL newGraphAdmShowChannelFormats = [graphAdmShowChannelFormats state]==NSControlStateValueOn?TRUE:FALSE;
+    [[NSUserDefaults standardUserDefaults] setBool:newGraphAdmShowChannelFormats forKey:@"graphAdmShowChannelFormats"];
+}
+
 @end

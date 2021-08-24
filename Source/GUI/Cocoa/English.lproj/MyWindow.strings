@@ -74,6 +74,9 @@
 /* Class = "NSMenuItem"; title = "NISO_Z39_87"; ObjectID = "JgJ-IK-BAd"; */
 "JgJ-IK-BAd.title" = "NISO_Z39_87";
 
+/* Class = "NSMenuItem"; title = "Graph"; ObjectID = "dg5-3f-9fB"; */
+"dg5-3f-9fB.title" = "Graph";
+
 /* Class = "NSMenuItem"; title = "EBUCore 1.8 (acq. metadata: segment then parameter)"; ObjectID = "JtW-MJ-gL9"; */
 "JtW-MJ-gL9.title" = "EBUCore 1.8 (acq. metadata: segment then parameter)";
 
@@ -134,6 +137,9 @@
 /* Class = "NSMenuItem"; title = "EBUCore 1.8 (acq. metadata: segment then parameter)"; ObjectID = "fNe-yJ-2vy"; */
 "fNe-yJ-2vy.title" = "EBUCore 1.8 (acq. metadata: segment then parameter)";
 
+/* Class = "NSMenuItem"; title = "HTML"; ObjectID = "m41-PX-Llg"; */
+"m41-PX-Llg.title" = "HTML";
+
 /* Class = "NSMenuItem"; title = "XML"; ObjectID = "glL-XP-14m"; */
 "glL-XP-14m.title" = "XML";
 
@@ -160,6 +166,9 @@
 
 /* Class = "NSMenuItem"; title = "NISO Z39.87"; ObjectID = "ppB-mt-Imm"; */
 "ppB-mt-Imm.title" = "NISO Z39.87";
+
+/* Class = "NSMenuItem"; title = "Graph"; ObjectID = "gEv-f7-e5s"; */
+"gEv-f7-e5s.title" = "Graph";
 
 /* Class = "NSMenuItem"; title = "MPEG-7"; ObjectID = "qPy-3h-POF"; */
 "qPy-3h-POF.title" = "MPEG-7";
