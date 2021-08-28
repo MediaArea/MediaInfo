@@ -47,4 +47,3 @@ package_mediainfo-gui() {
     cd "${srcdir}"/MediaInfo/Project/GNU/GUI
     make DESTDIR="${pkgdir}" install
 }
-

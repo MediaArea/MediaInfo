@@ -30,4 +30,3 @@ class AutotoolsSubdirPlugin(autotools.AutotoolsPlugin):
 
     def enable_cross_compilation(self):
         return
-

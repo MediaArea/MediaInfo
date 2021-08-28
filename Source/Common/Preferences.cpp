@@ -554,7 +554,7 @@ int Preferences::ExplorerShell()
     List=__T(
         ".264;H264File\r\n"
         ".3g2;mpeg4File\r\n"
-        ".3ga;mpeg4File\r\n"    
+        ".3ga;mpeg4File\r\n"
         ".3gp;mpeg4File\r\n"
         ".3gpa;mpeg4File\r\n"
         ".3gpp;mpeg4File\r\n"
@@ -589,8 +589,8 @@ int Preferences::ExplorerShell()
         ".dvr-ms;DVRMSFile\r\n"
         ".eac3;EAC3File\r\n"
         ".evo;EVOFile\r\n"
-        ".f4a;mpeg4File\r\n"  
-        ".f4b;mpeg4File\r\n" 
+        ".f4a;mpeg4File\r\n"
+        ".f4b;mpeg4File\r\n"
         ".f4v;mpeg4File\r\n"
         ".fla;FLACFile\r\n"
         ".flc;FLICFile\r\n"
@@ -1467,5 +1467,3 @@ ZenLib::Ztring &Preferences::Translate(ZenLib::Ztring Name)
     else
         return Details[Prefs_Language](Pos)(1);
 }
-
-

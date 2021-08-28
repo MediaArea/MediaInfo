@@ -92,7 +92,7 @@ if [ "$KIND" = "GUI" ]; then
     sed -i '' -e "s/VERSION/${VERSION}/g" "${FILES}/${APPNAME}.app/Contents/Info.plist"
     printf '%s' 'APPL????' > "${FILES}/${APPNAME}.app/Contents/PkgInfo"
     cp ${APPNAME}.icns "${FILES}/${APPNAME}.app/Contents/Resources"
-    
+
     codesign -f --deep --options=runtime -s "Developer ID Application: ${SIGNATURE}" --verbose "${FILES}/${APPNAME}.app/Contents/MacOS/${APPNAME}"
     codesign -f --deep --options=runtime -s "Developer ID Application: ${SIGNATURE}" --verbose "${FILES}/${APPNAME}.app"
 

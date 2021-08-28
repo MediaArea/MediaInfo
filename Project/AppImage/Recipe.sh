@@ -133,7 +133,6 @@ else
     exit 1
 fi
 
-
 # Compile MediaInfo
 if test -e MediaInfo; then
     # CLI

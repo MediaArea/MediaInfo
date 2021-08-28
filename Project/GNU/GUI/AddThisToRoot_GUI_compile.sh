@@ -8,7 +8,7 @@ Parallel_Make() {
     'linux')
         numprocs=`grep -c ^processor /proc/cpuinfo 2>/dev/null`
         ;;
-    'mac') 
+    'mac')
         if type sysctl >/dev/null 2>&1; then
             numprocs=`sysctl -n hw.ncpu`
         fi
