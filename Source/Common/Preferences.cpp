@@ -812,7 +812,7 @@ int Preferences::ExplorerShell()
             if (List(I1, 0)==__T("Folder"))
                 ShellExtension=Config.Read(__T("ShellExtension_Folder")).To_int32s();
 
-            //Open (or create) a extension. Create only if Sheel extension is wanted
+            //Open (or create) a extension. Create only if Shell extension is wanted
             if (Reg->OpenKey(List(I1, 0).c_str(), ShellExtension))
             {
                 //test if extension is known

@@ -75,13 +75,13 @@ public:
 
     //Related to user preferences - Action only if Preferences are OK
     int InternetCheck       (); //Test if there is new update
-    int ExplorerShell       (); //To be availble with right clic in Explorer
+    int ExplorerShell       (); //To be available with right click in Explorer
     int ShellToolTip        (); //To be available with mouse in Explorer
 
     //Special things
     ZenLib::Ztring &Translate (ZenLib::Ztring Name); //return in the good language, or in English if not found
 
-    //Info abou Lists
+    //Info about Lists
     ZenLib::ZtringList FolderNames;  //List of list_t --> Foldernames
     ZenLib::ZtringList DefaultNames; //List of list_t --> Default Filenames for a kind
 

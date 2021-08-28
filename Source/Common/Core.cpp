@@ -73,7 +73,7 @@ void Core::Menu_File_Open_Files_Begin (bool Close, bool WithThread)
 size_t Core::Menu_File_Open_Files_Continue (const String &FileName)
 {
     /*
-    //Initilaizing MediaInfo
+    //Initializing MediaInfo
     MediaInfo MI;
 
     //From: preparing an example file for reading

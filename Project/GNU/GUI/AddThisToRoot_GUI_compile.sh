@@ -36,7 +36,7 @@ OS=$(uname -s)
 # expr isn’t available on mac
 if [ "$OS" = "Darwin" ]; then
     OS="mac"
-# if the 5 first caracters of $OS equal "Linux"
+# if the 5 first characters of $OS equal "Linux"
 elif [ "$(expr substr $OS 1 5)" = "Linux" ]; then
     OS="linux"
 #elif [ "$(expr substr $OS 1 5)" = "SunOS" ]; then
