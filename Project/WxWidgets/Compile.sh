@@ -6,7 +6,7 @@ WX_source=../../Source/WxWidgets
 
 ##########################################################################
 # Fetch if necessary
-if test -e $WX_source/configure; then
+if test -e "$WX_source/configure"; then
     echo
     echo The source of WxWidgets are presents
     echo
@@ -14,9 +14,9 @@ else
     echo
     echo Downloading WxWidgets...
     echo
-    rm -fr $WX_source
-    git clone -b "v3.0.2" https://github.com/wxWidgets/wxWidgets $WX_source
-    if test -e $WX_source/configure; then
+    rm -fr "$WX_source"
+    git clone -b "v3.0.2" https://github.com/wxWidgets/wxWidgets "$WX_source"
+    if test -e "$WX_source/configure"; then
         echo
         echo WxWidgets downloaded, compiling it
         echo
@@ -30,7 +30,7 @@ fi
 
 ##########################################################################
 # Already compiled
-if test -e $WX_source/lib/libwx_*; then
+if test -e "$WX_source"/lib/libwx_*; then
     echo
     echo WxWidgets is already compiled, recompiling it
     echo
@@ -38,7 +38,7 @@ fi
 
 ##########################################################################
 # Compile
-cd $WX_source
+cd "$WX_source"
 test -e Makefile && make clean
 echo
 echo Compiling WxWidgets...

@@ -9,7 +9,7 @@ Parallel_Make () {
         numprocs=`grep -c ^processor /proc/cpuinfo 2>/dev/null`
         ;;
     'mac')
-        if type sysctl &> /dev/null; then
+        if type sysctl >/dev/null 2>&1; then
             numprocs=`sysctl -n hw.ncpu`
         fi
         ;;
@@ -23,7 +23,7 @@ Parallel_Make () {
     if [ "$numprocs" = "" ] || [ "$numprocs" = "0" ]; then
         numprocs=1
     fi
-    make -s -j$numprocs
+    make -s -j "$numprocs"
 }
 
 ##################################################################
@@ -71,7 +71,7 @@ else
     echo ZenLib directory is not found
     exit
 fi
-cd $Home
+cd "$Home"
 
 ##################################################################
 # MediaInfoLib
@@ -100,7 +100,7 @@ else
     echo MediaInfoLib directory is not found
     exit
 fi
-cd $Home
+cd "$Home"
 
 ##################################################################
 # MediaInfo (CLI)
@@ -128,7 +128,7 @@ else
     echo MediaInfo directory is not found
     exit
 fi
-cd $Home
+cd "$Home"
 
 ##################################################################
 

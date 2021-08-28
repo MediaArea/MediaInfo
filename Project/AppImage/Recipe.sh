@@ -12,17 +12,17 @@
 function Make_image() {
     local APP=$1 BIN=$2 DESKTOP=$3 ICON=$4 LOWERAPP=${1,,}
 
-    mkdir -p $LOWERAPP/$LOWERAPP.AppDir
-    pushd $LOWERAPP
-    pushd $LOWERAPP.AppDir
+    mkdir -p "$LOWERAPP/$LOWERAPP.AppDir"
+    pushd "$LOWERAPP"
+    pushd "$LOWERAPP.AppDir"
 
     mkdir -p usr/bin
 
-    cp $BIN usr/bin/
-    cp $DESKTOP $ICON .
+    cp "$BIN" usr/bin/
+    cp "$DESKTOP" "$ICON" .
 
     if [ "$LOWERAPP" == "mediainfo-gui" ] ; then
-        get_desktopintegration $LOWERAPP
+        get_desktopintegration "$LOWERAPP"
     fi
 
     get_apprun
@@ -89,7 +89,7 @@ if test -e ZenLib/Project/GNU/Library; then
         exit 1
     fi
 
-    make -j$(nproc)
+    make -j "$(nproc)"
 
     if test ! -e libzen.la; then
         echo Problem while compiling ZenLib
@@ -119,7 +119,7 @@ if test -e MediaInfoLib/Project/GNU/Library; then
         exit 1
     fi
 
-    make -j$(nproc)
+    make -j "$(nproc)"
 
     if test ! -e libmediainfo.la; then
         echo Problem while compiling MediaInfoLib
@@ -139,14 +139,14 @@ if test -e MediaInfo; then
     # CLI
     pushd MediaInfo/Project/GNU/CLI
     autoreconf -i
-    ./configure --prefix=$PREFIX
+    ./configure --prefix="$PREFIX"
 
     if test ! -e Makefile; then
         echo Problem while configuring MediaInfo
         exit 1
     fi
 
-    make -j$(nproc)
+    make -j "$(nproc)"
 
     if test ! -e mediainfo; then
         echo Problem while compiling MediaInfo
@@ -159,14 +159,14 @@ if test -e MediaInfo; then
     # GUI
     pushd MediaInfo/Project/GNU/GUI
     autoreconf -i
-    ./configure --prefix=$PREFIX
+    ./configure --prefix="$PREFIX"
 
     if test ! -e Makefile; then
         echo Problem while configuring MediaInfo GUI
         exit 1
     fi
 
-    make -j$(nproc)
+    make -j "$(nproc)"
 
     if test ! -e mediainfo-gui; then
         echo Problem while compiling MediaInfo GUI
@@ -181,7 +181,7 @@ else
 fi
 
 # Make appImages
-cp ${PWD}/MediaInfo/Source/Resource/Image/MediaInfo.png mediainfo.png
+cp "${PWD}/MediaInfo/Source/Resource/Image/MediaInfo.png" mediainfo.png
 
 cat > mediainfo.desktop <<EOF
 [Desktop Entry]
@@ -193,10 +193,10 @@ Terminal=true
 Categories=Multimedia;
 EOF
 
-Make_image mediainfo $PREFIX/bin/mediainfo \
-                      ${PWD}/mediainfo.desktop \
-                      ${PWD}/mediainfo.png
+Make_image mediainfo "$PREFIX/bin/mediainfo" \
+                      "${PWD}/mediainfo.desktop" \
+                      "${PWD}/mediainfo.png"
 
-Make_image mediainfo-gui $PREFIX/bin/mediainfo-gui \
-                          ${PWD}/MediaInfo/Project/GNU/GUI/mediainfo-gui.desktop \
-                          ${PWD}/mediainfo.png
+Make_image mediainfo-gui "$PREFIX/bin/mediainfo-gui" \
+                          "${PWD}/MediaInfo/Project/GNU/GUI/mediainfo-gui.desktop" \
+                          "${PWD}/mediainfo.png"
