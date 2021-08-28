@@ -1,6 +1,6 @@
 #!/bin/sh
 
-osascript_Function () {
+osascript_Function() {
     echo '
         tell application "Finder"
             tell disk "'${APPNAME}'"

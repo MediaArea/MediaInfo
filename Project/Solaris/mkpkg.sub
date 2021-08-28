@@ -1,7 +1,6 @@
 #!/bin/bash
 
-PackageCreate() 
-{
+PackageCreate() {
 mkdir -p "${packagecreation_prefix}"
 
 #checkinstall
@@ -24,7 +23,7 @@ echo "i pkginfo" > "${packagecreation_prefix}/prototype"
 echo "!default 0755 root bin" >> "${packagecreation_prefix}/prototype"
 echo "i checkinstall" >> "${packagecreation_prefix}/prototype"
 if test -e "${packagecreation_prefix}/depend"; then
-  echo "i depend" >> "${packagecreation_prefix}/prototype"
+    echo "i depend" >> "${packagecreation_prefix}/prototype"
 fi
 cd "${install_prefix}"
 find . -print > "${packagecreation_prefix}/files"

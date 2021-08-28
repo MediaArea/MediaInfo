@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 cp ../dylib_for_xcode/MediaInfoLib/libmediainfo.dylib MediaInfo/Source/GUI/Cocoa/libmediainfo.dylib
 

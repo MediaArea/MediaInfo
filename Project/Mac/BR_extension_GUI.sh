@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 # Because of the autotools bug
 cd ZenLib/Project/GNU/Library

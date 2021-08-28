@@ -9,7 +9,7 @@
 # This script build mediainfo and mediainfo-gui AppImages
 # This script is supposed to be run on a CentOS 6 container or chroot"
 
-function Make_image() {
+Make_image() {
     local APP=$1 BIN=$2 DESKTOP=$3 ICON=$4 LOWERAPP=${1,,}
 
     mkdir -p "$LOWERAPP/$LOWERAPP.AppDir"
@@ -21,7 +21,7 @@ function Make_image() {
     cp "$BIN" usr/bin/
     cp "$DESKTOP" "$ICON" .
 
-    if [ "$LOWERAPP" == "mediainfo-gui" ] ; then
+    if [ "$LOWERAPP" == "mediainfo-gui" ]; then
         get_desktopintegration "$LOWERAPP"
     fi
 
@@ -30,7 +30,7 @@ function Make_image() {
     copy_deps; copy_deps; copy_deps; copy_deps
     move_lib
     delete_blacklisted
-    if [ "$ARCH" == "x86_64" ] ; then
+    if [ "$ARCH" == "x86_64" ]; then
         cp -f /usr/lib64/libnss3.so usr/lib64
     else
         cp -f /usr/lib/libnss3.so usr/lib
@@ -41,7 +41,7 @@ function Make_image() {
 }
 
 # Detect host
-if ! grep "CentOS release 6\..*" /etc/centos-release ; then
+if ! grep "CentOS release 6\..*" /etc/centos-release; then
     echo "This script is supposed to be run on a CentOS 6 container or chroot"
     exit 1
 fi
@@ -49,7 +49,7 @@ fi
 # Setup evironment
 VERSION=21.09
 
-if [ "$(arch)" == "i386" ] ; then
+if [ "$(arch)" == "i386" ]; then
     ARCH="i686"
 else
     ARCH="$(arch)"
@@ -85,21 +85,21 @@ if test -e ZenLib/Project/GNU/Library; then
     fi
 
     if test ! -e Makefile; then
-        echo Problem while configuring ZenLib
+        echo "Problem while configuring ZenLib"
         exit 1
     fi
 
     make -j "$(nproc)"
 
     if test ! -e libzen.la; then
-        echo Problem while compiling ZenLib
+        echo "Problem while compiling ZenLib"
         exit 1
     fi
 
     make install
     popd
 else
-    echo ZenLib directory is not found
+    echo "ZenLib directory is not found"
     exit 1
 fi
 
@@ -115,21 +115,21 @@ if test -e MediaInfoLib/Project/GNU/Library; then
     fi
 
     if test ! -e Makefile; then
-        echo Problem while configuring MediaInfoLib
+        echo "Problem while configuring MediaInfoLib"
         exit 1
     fi
 
     make -j "$(nproc)"
 
     if test ! -e libmediainfo.la; then
-        echo Problem while compiling MediaInfoLib
+        echo "Problem while compiling MediaInfoLib"
         exit 1
     fi
 
     make install
     popd
 else
-    echo MediaInfoLib directory is not found
+    echo "MediaInfoLib directory is not found"
     exit 1
 fi
 
@@ -142,14 +142,14 @@ if test -e MediaInfo; then
     ./configure --prefix="$PREFIX"
 
     if test ! -e Makefile; then
-        echo Problem while configuring MediaInfo
+        echo "Problem while configuring MediaInfo"
         exit 1
     fi
 
     make -j "$(nproc)"
 
     if test ! -e mediainfo; then
-        echo Problem while compiling MediaInfo
+        echo "Problem while compiling MediaInfo"
         exit 1
     fi
 
@@ -162,21 +162,21 @@ if test -e MediaInfo; then
     ./configure --prefix="$PREFIX"
 
     if test ! -e Makefile; then
-        echo Problem while configuring MediaInfo GUI
+        echo "Problem while configuring MediaInfo GUI"
         exit 1
     fi
 
     make -j "$(nproc)"
 
     if test ! -e mediainfo-gui; then
-        echo Problem while compiling MediaInfo GUI
+        echo "Problem while compiling MediaInfo GUI"
         exit 1
     fi
 
     make install
     popd
 else
-    echo MediaInfo directory is not found
+    echo "MediaInfo directory is not found"
     exit 1
 fi
 
