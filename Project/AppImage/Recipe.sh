@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #  Copyright (c) MediaArea.net SARL. All Rights Reserved.
 #
