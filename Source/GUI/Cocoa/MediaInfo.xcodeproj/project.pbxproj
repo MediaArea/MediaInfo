@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -560,8 +560,6 @@
 				ORGANIZATIONNAME = MediaArea.net;
 				TargetAttributes = {
 					8D1107260486CEB800E47090 = {
-						DevelopmentTeam = "";
-						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 1;
@@ -574,7 +572,7 @@
 				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MediaInfo" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -663,7 +661,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"$CODE_SIGNING_ALLOWED\" = \"YES\" -a \"$EXPANDED_CODE_SIGN_IDENTITY\" != \"\" -a \"$EXPANDED_CODE_SIGN_IDENTITY\" != \"Don't Code Sign\" ]; then\ncd \"$CODESIGNING_FOLDER_PATH\"\n#ls -la\ninstall_name_tool -id @executable_path/../Resources/libmediainfo.dylib Contents/Resources/libmediainfo.dylib\nfind Contents/Resources -name *.dylib -exec /usr/bin/codesign --options=runtime -f -s \"$EXPANDED_CODE_SIGN_IDENTITY\" --verbose {} \\;\nfi \n";
+			shellScript = "if [ \"$CODE_SIGNING_ALLOWED\" = \"YES\" -a \"$EXPANDED_CODE_SIGN_IDENTITY\" != \"\" -a \"$EXPANDED_CODE_SIGN_IDENTITY\" != \"Don't Code Sign\" ]; then\ncd \"$CODESIGNING_FOLDER_PATH\"\ninstall_name_tool -id @executable_path/../Resources/libmediainfo.dylib Contents/Resources/libmediainfo.dylib\nfind Contents/Resources -name *.dylib -exec /usr/bin/codesign --options=runtime -f -s \"$EXPANDED_CODE_SIGN_IDENTITY\" --verbose {} \\;\nfi \n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1049,24 +1047,26 @@
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_VERSION = 21.03;
 				CODE_SIGN_ENTITLEMENTS = MediaInfo.entitlements;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 21.03.3;
 				DEVELOPMENT_TEAM = "";
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MediaInfo_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "APP_VERSION_STRING=\\\"$(APP_VERSION)\\\"";
 				INFOPLIST_FILE = "MediaInfo-Info.plist";
 				INSTALL_PATH = /Applications;
-				"LD_RUNPATH_SEARCH_PATHS[arch=*]" = "$(LD_RUNPATH_SEARCH_PATHS_$(IS_MACCATALYST)) @executable_path/../Resources @executable_path/../Resources/Plugin @executable_path/../Resources/Plugin/Graph";
+				"LD_RUNPATH_SEARCH_PATHS[arch=*]" = (
+					"$(LD_RUNPATH_SEARCH_PATHS_$(IS_MACCATALYST))",
+					"@executable_path/../Resources",
+					"@executable_path/../Resources/Plugin",
+					"@executable_path/../Resources/Plugin/Graph",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -1076,34 +1076,36 @@
 					"$(PROJECT_DIR)/Plugin/Graph/graphviz",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = net.mediaarea.mediainfo.mac;
 				PRODUCT_NAME = MediaInfo;
-				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				VALID_ARCHS = "arm64 x86_64";
 			};
 			name = Debug;
 		};
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				APP_VERSION = 21.03.20210426;
+				APP_VERSION = 21.03;
 				CODE_SIGN_ENTITLEMENTS = MediaInfo.entitlements;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 21.03.20210426.3;
+				CURRENT_PROJECT_VERSION = 21.03.3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MediaInfo_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "APP_VERSION_STRING=\\\"$(APP_VERSION)\\\"";
 				INFOPLIST_FILE = "MediaInfo-Info.plist";
 				INSTALL_PATH = /Applications;
-				"LD_RUNPATH_SEARCH_PATHS[arch=*]" = "$(LD_RUNPATH_SEARCH_PATHS_$(IS_MACCATALYST)) @executable_path/../Resources @executable_path/../Resources/Plugin @executable_path/../Resources/Plugin/Graph";
+				"LD_RUNPATH_SEARCH_PATHS[arch=*]" = (
+					"$(LD_RUNPATH_SEARCH_PATHS_$(IS_MACCATALYST))",
+					"@executable_path/../Resources",
+					"@executable_path/../Resources/Plugin",
+					"@executable_path/../Resources/Plugin/Graph",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -1113,11 +1115,10 @@
 					"$(PROJECT_DIR)/Plugin/Graph/graphviz",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = net.mediaarea.mediainfo.mac;
 				PRODUCT_NAME = MediaInfo;
-				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				VALID_ARCHS = "arm64 x86_64";
 			};
 			name = Release;
 		};
@@ -1130,7 +1131,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
@@ -1146,7 +1147,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
