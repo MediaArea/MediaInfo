@@ -12,6 +12,21 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 21.09, 2021-09-17
+-------------
++ Graph view for 3D audio streams (thanks to graphviz)
++ ADM: full featured support (programmes, content, objects, pack formats...)
++ ADM: in WAV (axml, bxml), MXF
++ S-ADM in AES3: support of Levels A1 and AX1
++ MOV/MP4: support of Dolby Vision Metadata XML
++ MXF: detection of IAB
++ SMPTE ST 337 (AES3): support of subframe mode
++ HEVC: CEA-608/708 caption support
++ MP4/QuickTime: Android slow motion real frame rate
++ JSON output: add creatingLibrary field
+x MPEG-4: read too much data with some predecessor definitions
+x EBUCore: fix of fields order and types
+
 Version 21.03, 2021-03-26
 -------------
 + WAV: ADM profile detection of Dolby Atmos Master or MPEG-H
