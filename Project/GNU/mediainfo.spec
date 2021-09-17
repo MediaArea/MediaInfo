@@ -1,13 +1,13 @@
-%global mediainfo_version           21.03
+%global mediainfo_version           21.09
 %global mediainfo_version_major     21
-%global mediainfo_version_minor     03
-%global libmediainfo_version        21.03
+%global mediainfo_version_minor     09
+%global libmediainfo_version        21.09
 %global libmediainfo_version_major  21
-%global libmediainfo_version_minor  03
-%global libzen_version              0.4.37
+%global libmediainfo_version_minor  09
+%global libzen_version              0.4.39
 %global libzen_version_major        0
 %global libzen_version_minor        4
-%global libzen_version_release      37
+%global libzen_version_release      39
 
 %if 0%{?fedora_version} || 0%{?centos_version} >= 600 || 0%{?rhel_version} >= 600
 %global libmediainfo_name libmediainfo
