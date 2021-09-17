@@ -15,8 +15,8 @@
 #define kEasyTabIndex 0
 #define kTreeTabIndex 1
 #define kTextTabIndex 2
-#define kHTMLTabIndex 3
-#define kCompareTabIndex 4
+#define kCompareTabIndex 3
+#define kHTMLTabIndex 4
 
 #define kApplicationMenuTag 10
 #define kSubscribeMenuItemTag 11

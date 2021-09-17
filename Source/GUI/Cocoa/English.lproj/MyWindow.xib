@@ -231,15 +231,15 @@
                                     </subviews>
                                 </view>
                             </tabViewItem>
-                            <tabViewItem label="HTML" identifier="" id="qkp-EM-NQp">
-                                <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="rxy-gG-v12" customClass="WebKitView">
-                                    <rect key="frame" x="0.0" y="0.0" width="595" height="381"/>
+                            <tabViewItem label="Compare" identifier="" id="eZC-pc-IWN">
+                                <view key="view" id="W54-IT-kPU" customClass="CompareView">
+                                    <rect key="frame" x="10" y="33" width="479" height="264"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
-                            <tabViewItem label="Compare" identifier="" id="eZC-pc-IWN">
-                                <view key="view" id="W54-IT-kPU" customClass="CompareView">
-                                    <rect key="frame" x="10" y="7" width="479" height="266"/>
+                            <tabViewItem label="HTML" identifier="" id="qkp-EM-NQp">
+                                <view key="view" id="rxy-gG-v12" customClass="WebKitView">
+                                    <rect key="frame" x="10" y="33" width="479" height="264"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
