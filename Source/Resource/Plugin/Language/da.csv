@@ -34,6 +34,7 @@
  day1; dag
  day2; dage
  day3; dage
+ dB0;
  dB1; dB
  dB2; dB
  dB3; dB
@@ -117,6 +118,9 @@
  month1; måned
  month2; måneder
  month3; måneder
+ object1;
+ object2;
+ object3;
  pixel1; billedpunkt
  pixel2; billedpunkter
  pixel3; billedpunkter
@@ -153,9 +157,14 @@ ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
 Actor;Skuespiller
 Actor_Character;Rolle
+Add creation date to text output;
+Add version to text output;
 Added_Date;Tilføjet den
 Address;Adresse
 AdID;
+ADM: Show ChannelFormats;
+ADM: Show TrackUIDs;
+AdmProfile;
 Advanced;Avanceret
 Advanced mode;Avanceret tilstand
 Album;Album
@@ -181,9 +190,12 @@ Audio1;Første lydstrøm
 Audio2;Anden lydstrøm
 AudioComments;
 AudioCount;Antal lydstrømme
+AudioDescription;
 AudioDescriptionPresent;
 AudioDescriptionType;
 AudioLoudnessStandard;
+AudioRenderingIndication;
+AudioSceneInfoID;
 AudioTrackLayout;
 Author;Forfatter
 BarCode;Stregkode
@@ -206,7 +218,10 @@ Bits-(Pixel*Frame);Bits/(Billedpunkter*Billed)
 BufferSize;Buffer-størrelse
 Cancel;Annuller
 Channel(s);Kanaler
+ChannelCoded;
+ChannelConfiguration;
 ChannelLayout;
+ChannelMode;
 ChannelPositions;Kanalpositioner
 Chapter(s);Kapitler
 Chapters;Kapitler
@@ -225,6 +240,7 @@ Choose language;Vælg det foretrukne sprog
 Choreographer;Koreograf
 Chroma;Chroma
 ChromaSubsampling;Chroma subsampling
+Classifier;
 ClearList;
 Close;Luk
 Close all before open;Luk alle før åbning
@@ -294,12 +310,17 @@ Date;Dato
 Debug;Fejlsøg
 Decimal point;Decimaltegn
 Default_Setting;
+DefaultTargetDeviceConfig;
 Delay;Forsinkelse
 Delay_Source;Forsinkelse, original
 Delay_Source_Container;Container
 Delay_Source_Stream;Rå strøm
 Delete;Slet
 Description;Beskrivelse
+dialnorm;
+DialogueCorrected;
+DialogueEnhancement;
+DialogueNormalization;
 Digitized_Date;Digitaliseret den
 Dimensions;Dimentioner
 Director;Instruktør
@@ -310,15 +331,20 @@ DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Oprindeligt størrelsesforhold
 DistributedBy;Distribueret af
 Distributor;
+DolbyAtmos;
 Donate;Donér
 DotsPerInch;Punkter pr inch
+Downmix;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;Varighed
 Duration_End;Sluttid
 Duration_Start;Starttid
+DynamicRangeControl;
+Eac3DrcProfile;
 Edit;Rediger
 EditedBy;Redigeret af
+EditorialClassification;
 ElementCount;
 EMail;E-mail
 Encoded_Application;Skrivende program
@@ -352,6 +378,7 @@ FileExtension;Filendelse
 FileName;Filnavn
 FileNameExtension;
 FileSize;Filstørrelse
+FlatPanelTv;
 Folder;Mappe
 Folder (R);Mappe (R)
 Folder (R)_Hint;Vælg en mappe at undersøge (med alle mapper rekursivt)
@@ -407,6 +434,7 @@ FrameRate_Mode_CFR;Konstant
 FrameRate_Mode_VFR;Variabel
 FrameRate_Nominal;Nominel billedfrekvens
 FrameRate_Original;Original billedrate
+FrameRate_Real;
 General;Generelt
 Genre;Genre
 Genre_000;Blues
@@ -606,7 +634,10 @@ Gop_OpenClosed;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
 Gop_OpenClosed_Open;
+Graph;
+Group;
 Grouping;
+GroupPreset;
 h; t
 HDR_Format;
 Header file;Opret en header-fil
@@ -615,6 +646,7 @@ Height_CleanAperture;
 Height_Original;Oprindelig højde
 Help;Hjælp
 Hint;Tip
+HomeTheaterAvr;
 How many audio streams?;Hvor mange lydstrømme?
 How many chapters streams?;Hvor mange kapitelstrømme?
 How many text streams?;Hvor mange tekststrømme?
@@ -622,12 +654,17 @@ How many video streams?;Hvor mange videostrømme?
 HTML;HTML
 ID;ID
 IdentClockStart;
+IFrameInterval;
 Image;Billede
 Image stream(s);Billedstrømme
 Image_Codec_List;Billed-codecs
 ImageCount;Antal billedstrømme
+ImmersiveStereo;
 Info;Info
 Instruments;Instrumenter
+IntegratedLoudness_Level;
+IntegratedLoudness_Speech;
+InteractivityEnabled;
 Interlaced_BFF;Bundfelt først
 Interlaced_Interlaced;Sammenflettet
 Interlaced_PPF;Progressiv
@@ -849,10 +886,24 @@ Language_zh-tw;Kinesisk (Taiwan)
 Language_zu;Zulu
 LawRating;Aldersgrænse
 LCCN;LCCN
+LfeAttenuationKnown;
+LfeMixGain;
 Library;Muxing-bibliotek
+Lifetime_Subscribe_Button;
 Lightness;Lysstyrke
 LineUpStart;
+LinkedTo_Bed_Pos;
+LinkedTo_ChannelFormat_Pos;
+LinkedTo_Content_Pos;
+LinkedTo_Group_Pos;
+LinkedTo_Object_Pos;
+LinkedTo_PackFormat_Pos;
+LinkedTo_SignalGroup_Pos;
+LinkedTo_Substream_Pos;
+LinkedTo_TrackUID_Pos;
 List;Liste
+LoRoCenterMixGain;
+LoRoSurroundMixGain;
 Loudness_Anchor;
 Loudness_Anchor_Album;
 Loudness_Count;
@@ -871,6 +922,8 @@ Loudness_Range;
 Loudness_Range_Album;
 Loudness_RoomType;
 Loudness_RoomType_Album;
+LtRtCenterMixGain;
+LtRtSurroundMixGain;
 Lyricist;Tekstforfatter
 Lyrics;Sangtekster
 Mastered_Date;Masteret den
@@ -883,6 +936,9 @@ matrix_coefficients;Matrix-coefficienter
 Matrix_Format;
 MaxCLL;
 MaxFALL;
+MaxGain;
+MaximumMomentaryLoudness;
+MaxTruePeak;
 MediaInfo_About;Leverer meget detaljeret information\r\nom en multimediefil:\r\nMatroska, Ogg (inklusive OGM)\r\nMPEG1 (inklusive VCD)\r\nMPEG2 (inklusive DVD og SVCD)\r\nMPEG4 (inklusive Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (inklusive WMV, WMA)\r\Microsoft RIFF (inklusive AVI, WAV)\r\nRene lydformater (AC3, DTS, AAC, AU, AIFF...)
 MediaInfo_About_About;
 Menu;Menu
@@ -892,12 +948,14 @@ Menu_Hint;Flere muligheder
 Menu_No;Ingen menu
 MenuCount;Antal menustrømme
 MenuID;Menu-ID
+MixType;
 mn; min
 Mood;Stemning
 More;Mere
 Movie;Filmnavn
 ms; ms
 MSDI;MSID
+MultipleStream;
 MusicBy;Musik af
 MuxingMode;Muxing-modus
 MuxingMode_MoreInfo;Muxing-modus, mere info
@@ -912,8 +970,18 @@ NewVersion_Question_Content;En ny version (v%Version%) er tilgængelig, vil du d
 NewVersion_Question_Title;En ny version er udkommet!
 No;Nej
 Not yet;Ikke endnu
+NumberOfChannelFormats;
+NumberOfContents;
 NumberOfDynamicObjects;
+NumberOfElementaryStreams;
+NumberOfObjects;
+NumberOfPackFormats;
+NumberOfPresentations;
+NumberOfProgrammes;
+NumberOfSubstreams;
+NumberOfTrackUIDs;
 NumColors;Antal farver
+ObjectCount;
 OK;OK
 One output file per input file;En output-fil per input-fil
 Open;Åbn
@@ -981,6 +1049,8 @@ PartNumber;
 PartTotal;
 Performer;Kunstner
 Period;Tidsalder
+Phase90FilterInfo;
+Phase90FilterInfo2ch;
 Phone;Telefon
 PictureRatio;
 PixelAspectRatio;Pixelforhold
@@ -992,11 +1062,23 @@ Played_First_Date;Først afspillet
 Played_Last_Date;Senest afspillet
 PlayTime;Spilletid
 PodcastCategory;
+PortableHeadphones;
+PortableSpeakers;
 Position;Position
+Position_Cartesian;
+Position_Polar;
 Position_Total;Totalt
 Preferences;Præferencer
+PreferredDownmix;
 Premium;
 Premium_Summary;
+PreselectionLabel;
+Presentation;
+PresentationConfig;
+PresentationConfig_ContentClassifier;
+PresentationID;
+PreviousDownmixType5ch;
+PreviousMixType2ch;
 PrimaryAudioLanguage;
 Producer;Producer
 ProductionDesigner;Scenograf
@@ -1011,15 +1093,18 @@ Purchased_Date;Købt den
 Quote character;Anførselstegn
 RadioStation;Radiostation
 Rating;Bedømmelse
+RealtimeLoudnessCorrected;
 Recorded_Date;Optaget den
 Recorded_Location;Optaget sted
 Released_Date;Udgivet den
 RemixedBy;Remixet af
+RenderMode;
 Renew;
 ReplayGain_Gain;Reply gain
 ReplayGain_Peak;Reply gain peak
 Report;
 Resolution;Opløsning
+RestoreLifetimeSubscription;
 s;sek.
 SamplePeakLevel;
 SamplePeakLevel_Album;
@@ -1061,9 +1146,11 @@ ShimName;
 ShimVersion;
 Show menu;Vis menu
 Show toolbar;Vis værktøjslinje
+SignalGroup;
 SigningPresent;
 SignLanguage;
 Sort;Sorteret efter
+SoundCategory;
 SoundEngineer;Lydtekniker
 Source;
 Source_Duration;
@@ -1071,6 +1158,7 @@ Source_FrameCount;
 Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
+SpokenSubtitles;
 Standard;Standard
 StoreMethod_InterleavedFields;
 StoreMethod_SeparatedFields;
@@ -1101,16 +1189,22 @@ Subscription_Active;
 Subscription_Android;
 Subscription_Ended;
 Subscription_Expired;
+Subscription_Lifetime;
 Subscription_Thanks;
+Substream;
 SubTrack;Underspor
+SubtstreamIdChannel;
 Summary;Sammendrag
 Supported formats;Understøttede formater
 Supported?;Understøttet?
 SupportUs;
+SurroundAttenuationKnown;
+SwitchGroup;
 Synopsis;Synopsis
 SystemId;Id
 Tagged_Application;Tagging-applikation
 Tagged_Date;Tagged den
+TargetDeviceConfig;
 Technician;Tekniker
 TermsOfUse;Anvendelsesbetingelser
 TertiaryAudioLanguage;
@@ -1150,6 +1244,7 @@ Tree & Text;Træstruktur & tekst
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;
+TypeDefinition;
 UniqueID;Unik ID
 UniversalAdID;
 UniversalAdID_Registry;
@@ -1190,5 +1285,5 @@ Written_Location;Sted
 WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
-ZZ_Automatic_Percent;74
-ZZ_AutomaticLanguage_Percent;84
+ZZ_Automatic_Percent;68
+ZZ_AutomaticLanguage_Percent;78

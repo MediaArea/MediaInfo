@@ -34,6 +34,7 @@
  day1; დღე
  day2; დღეები
  day3; დღეები
+ dB0;
  dB1; დბ
  dB2; დბ
  dB3; დბ
@@ -117,6 +118,9 @@
  month1; თვე
  month2; თვეები
  month3; თვეები
+ object1;
+ object2;
+ object3;
  pixel1; პიქსელი
  pixel2; პიქსელები
  pixel3;პიქსელები
@@ -153,9 +157,14 @@ ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
 Actor;შემსრულებელი
 Actor_Character;როლი
+Add creation date to text output;
+Add version to text output;
 Added_Date;დამატების თარიღი
 Address;მისამართი
 AdID;
+ADM: Show ChannelFormats;
+ADM: Show TrackUIDs;
+AdmProfile;
 Advanced;დამატებით
 Advanced mode;დამატებითი რეჟიმი
 Album;ალბომი
@@ -181,9 +190,12 @@ Audio1;პირველი აუდიო ნაკადი
 Audio2;მეორე აუდიიო ნაკადი
 AudioComments;
 AudioCount;აუდიო ნაკადების რაოდენობა
+AudioDescription;
 AudioDescriptionPresent;
 AudioDescriptionType;
 AudioLoudnessStandard;
+AudioRenderingIndication;
+AudioSceneInfoID;
 AudioTrackLayout;
 Author;ავტორი
 BarCode;BarCode
@@ -206,7 +218,10 @@ Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;ბუფერის ზომა
 Cancel;გაჩერება
 Channel(s);არხი(ები)
+ChannelCoded;
+ChannelConfiguration;
 ChannelLayout;
+ChannelMode;
 ChannelPositions;Channel positions
 Chapter(s);სექცია(ები)
 Chapters;სექციები
@@ -225,6 +240,7 @@ Choose language;აირჩიეთ თქვენი სასურვე�
 Choreographer;Choreographer
 Chroma;Chroma
 ChromaSubsampling;Chroma subsampling
+Classifier;
 ClearList;
 Close;დახურვა
 Close all before open;დახურე ყველა გახსნამდე
@@ -294,12 +310,17 @@ Date;თარიგი
 Debug;გამართვა
 Decimal point;Decimal point
 Default_Setting;
+DefaultTargetDeviceConfig;
 Delay;Delay
 Delay_Source;Delay, origin
 Delay_Source_Container;Container
 Delay_Source_Stream;Raw stream
 Delete;წაშლა
 Description;აღწერა
+dialnorm;
+DialogueCorrected;
+DialogueEnhancement;
+DialogueNormalization;
 Digitized_Date;Digitized date
 Dimensions;Dimensions
 Director;დირექტორი
@@ -310,15 +331,20 @@ DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Original display aspect ratio
 DistributedBy;გავრცელების ავტორი
 Distributor;
+DolbyAtmos;
 Donate;შემოწირულობა
 DotsPerInch;Dots per inch
+Downmix;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;ხანგრძლივობა
 Duration_End;დასასწრულის დრო
 Duration_Start;დაწყების დრო
+DynamicRangeControl;
+Eac3DrcProfile;
 Edit;რედაქტირება
 EditedBy;რედაქტირების ავტორი
+EditorialClassification;
 ElementCount;
 EMail;ელ-ფოსტა
 Encoded_Application;დამწერი აპლიკაცია
@@ -352,6 +378,7 @@ FileExtension;File extension
 FileName;ფაილის სახელი
 FileNameExtension;
 FileSize;ფაილის ზომა
+FlatPanelTv;
 Folder;ფოლდერი
 Folder (R);ფოლდერ (R)
 Folder (R)_Hint;Select a folder to examine (with all folders recursively)
@@ -407,6 +434,7 @@ FrameRate_Mode_CFR;მუდმივი
 FrameRate_Mode_VFR;Variable
 FrameRate_Nominal;კადრების სიხშირის ნომინალური
 FrameRate_Original;კადრების ორიგინალი სიხშირე
+FrameRate_Real;
 General;მთავარი
 Genre;ჟანრი
 Genre_000;Blues
@@ -606,7 +634,10 @@ Gop_OpenClosed;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
 Gop_OpenClosed_Open;
+Graph;
+Group;
 Grouping;
+GroupPreset;
 h; h
 HDR_Format;
 Header file;ჰედერის ფაილის შექმნა
@@ -615,6 +646,7 @@ Height_CleanAperture;
 Height_Original;ორიგინალი სიმაღლე
 Help;დახმარება
 Hint;Hint
+HomeTheaterAvr;
 How many audio streams?;რამდენი აუდიო ნაკადია?
 How many chapters streams?;რამდენი პუნქტია?
 How many text streams?;რამდენი ტესტის ნაკადია?
@@ -622,12 +654,17 @@ How many video streams?;რამდენი ვიდეოს ნაკად
 HTML;HTML
 ID;ID
 IdentClockStart;
+IFrameInterval;
 Image;სურათი
 Image stream(s);სურათის ნაკადი
 Image_Codec_List;სურათის კოდეკები
 ImageCount;Count of image streams
+ImmersiveStereo;
 Info;ინფორმაცია
 Instruments;ინსტრუმენტები
+IntegratedLoudness_Level;
+IntegratedLoudness_Speech;
+InteractivityEnabled;
 Interlaced_BFF;Bottom Field First
 Interlaced_Interlaced;Interlaced
 Interlaced_PPF;Progressive
@@ -849,10 +886,24 @@ Language_zh-tw;Chinese (Taiwan)
 Language_zu;Zulu
 LawRating;Law rating
 LCCN;LCCN
+LfeAttenuationKnown;
+LfeMixGain;
 Library;Muxing library
+Lifetime_Subscribe_Button;
 Lightness;Lightness
 LineUpStart;
+LinkedTo_Bed_Pos;
+LinkedTo_ChannelFormat_Pos;
+LinkedTo_Content_Pos;
+LinkedTo_Group_Pos;
+LinkedTo_Object_Pos;
+LinkedTo_PackFormat_Pos;
+LinkedTo_SignalGroup_Pos;
+LinkedTo_Substream_Pos;
+LinkedTo_TrackUID_Pos;
 List;სია
+LoRoCenterMixGain;
+LoRoSurroundMixGain;
 Loudness_Anchor;
 Loudness_Anchor_Album;
 Loudness_Count;
@@ -871,6 +922,8 @@ Loudness_Range;
 Loudness_Range_Album;
 Loudness_RoomType;
 Loudness_RoomType_Album;
+LtRtCenterMixGain;
+LtRtSurroundMixGain;
 Lyricist;Lyricist
 Lyrics;Lyrics
 Mastered_Date;Mastered date
@@ -883,6 +936,9 @@ matrix_coefficients;Matrix coefficients
 Matrix_Format;
 MaxCLL;
 MaxFALL;
+MaxGain;
+MaximumMomentaryLoudness;
+MaxTruePeak;
 MediaInfo_About;Supply very detailled information\r\nabout a multimedia file:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
 MediaInfo_About_About;
 Menu;მენიუ
@@ -892,12 +948,14 @@ Menu_Hint;უფრო მეტი შესაძლებლობები
 Menu_No;არ არის მენიუ
 MenuCount;ნაკადების მენიუს რაოდენობა
 MenuID;მენიუს ID
+MixType;
 mn;მნ
 Mood;ხასიათი
 More;მეტი
 Movie;ფილმის სახელი
 ms;ms
 MSDI;MSDI
+MultipleStream;
 MusicBy;კომპოზიტორი
 MuxingMode;Muxing mode
 MuxingMode_MoreInfo;Muxing mode, more info
@@ -912,8 +970,18 @@ NewVersion_Question_Content;ახალი ვერსია(v%Version%) უ�
 NewVersion_Question_Title;პროგრამის ახალი ვერსია გამოვიდა!
 No;არა
 Not yet;ჯერ არა
+NumberOfChannelFormats;
+NumberOfContents;
 NumberOfDynamicObjects;
+NumberOfElementaryStreams;
+NumberOfObjects;
+NumberOfPackFormats;
+NumberOfPresentations;
+NumberOfProgrammes;
+NumberOfSubstreams;
+NumberOfTrackUIDs;
 NumColors;ფერების რიცხვი
+ObjectCount;
 OK;კარგი
 One output file per input file;One output file per input file
 Open;გახსნა
@@ -981,6 +1049,8 @@ PartNumber;
 PartTotal;
 Performer;Performer
 Period;პერიოდი
+Phase90FilterInfo;
+Phase90FilterInfo2ch;
 Phone;ტელეფონი
 PictureRatio;
 PixelAspectRatio;პიქსელის ასპექტ რატიო
@@ -992,11 +1062,23 @@ Played_First_Date;პირველად ჩართული
 Played_Last_Date;ბოლოს ჩართული
 PlayTime;ხანგრძლივობა
 PodcastCategory;
+PortableHeadphones;
+PortableSpeakers;
 Position;Position
+Position_Cartesian;
+Position_Polar;
 Position_Total;ჯამში
 Preferences;პარამეტრები
+PreferredDownmix;
 Premium;
 Premium_Summary;
+PreselectionLabel;
+Presentation;
+PresentationConfig;
+PresentationConfig_ContentClassifier;
+PresentationID;
+PreviousDownmixType5ch;
+PreviousMixType2ch;
 PrimaryAudioLanguage;
 Producer;პროდუსერი
 ProductionDesigner;პროდუქცის დიზაინერი
@@ -1011,15 +1093,18 @@ Purchased_Date;
 Quote character;Quote character
 RadioStation;რადიო სადგური
 Rating;რეიტინგი
+RealtimeLoudnessCorrected;
 Recorded_Date;ჩაწერის თარიღი
 Recorded_Location;ჩაწერის ადგილი
 Released_Date;გამოშვების თარიღი
 RemixedBy;რემიქსის ავტორი
+RenderMode;
 Renew;
 ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replay gain peak
 Report;
 Resolution;გაფართოება
+RestoreLifetimeSubscription;
 s;s
 SamplePeakLevel;
 SamplePeakLevel_Album;
@@ -1061,9 +1146,11 @@ ShimName;
 ShimVersion;
 Show menu;მაჩვენე მენიუ
 Show toolbar;მაჩვენე პანელი
+SignalGroup;
 SigningPresent;
 SignLanguage;
 Sort;დალაგების შესაბამისობა
+SoundCategory;
 SoundEngineer;ხნის ინჟინერი
 Source;
 Source_Duration;
@@ -1071,6 +1158,7 @@ Source_FrameCount;
 Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
+SpokenSubtitles;
 Standard;სტანდარტი
 StoreMethod_InterleavedFields;
 StoreMethod_SeparatedFields;
@@ -1101,16 +1189,22 @@ Subscription_Active;
 Subscription_Android;
 Subscription_Ended;
 Subscription_Expired;
+Subscription_Lifetime;
 Subscription_Thanks;
+Substream;
 SubTrack;SubTrack
+SubtstreamIdChannel;
 Summary;Summary
 Supported formats;Supported formats
 Supported?;მხარდაჭერა?
 SupportUs;
+SurroundAttenuationKnown;
+SwitchGroup;
 Synopsis;Synopsis
 SystemId;Id
 Tagged_Application;Tagging application
 Tagged_Date;Tagged date
+TargetDeviceConfig;
 Technician;ტექნიკური
 TermsOfUse;Terms of use
 TertiaryAudioLanguage;
@@ -1150,6 +1244,7 @@ Tree & Text;სვეტი & ტექსტი
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;
+TypeDefinition;
 UniqueID;უნიკალური ID
 UniversalAdID;
 UniversalAdID_Registry;
@@ -1190,5 +1285,5 @@ Written_Location;დაწერის ადგილი
 WrittenBy;დაწერილია
 Yes;დიახ
 Your system;თქვენი სისტემა
-ZZ_Automatic_Percent;80
-ZZ_AutomaticLanguage_Percent;84
+ZZ_Automatic_Percent;74
+ZZ_AutomaticLanguage_Percent;78

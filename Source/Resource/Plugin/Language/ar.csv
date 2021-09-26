@@ -34,6 +34,7 @@
  day1;يوم
  day2;أيام
  day3;أيام
+ dB0;
  dB1; dB (ديسيبل )
  dB2; dB
  dB3; dB
@@ -117,6 +118,9 @@
  month1;شهر
  month2;شهرا
  month3;شهرا
+ object1;
+ object2;
+ object3;
  pixel1;بكسل
  pixel2;بكسل
  pixel3;بكسل
@@ -153,9 +157,14 @@ ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
 Actor;ممثل
 Actor_Character;الشخصية الملعوب دورها
+Add creation date to text output;
+Add version to text output;
 Added_Date;تاريخ الاضافة
 Address;عنوان
 AdID;
+ADM: Show ChannelFormats;
+ADM: Show TrackUIDs;
+AdmProfile;
 Advanced;متقدم
 Advanced mode;الوضع المتقدم
 Album;ألبوم
@@ -181,9 +190,12 @@ Audio1;أول مقطع للصوت
 Audio2;ثاني مقطع للصوت
 AudioComments;
 AudioCount;عدد المقاطع الصوتية
+AudioDescription;
 AudioDescriptionPresent;
 AudioDescriptionType;
 AudioLoudnessStandard;
+AudioRenderingIndication;
+AudioSceneInfoID;
 AudioTrackLayout;
 Author;الكاتب /  المؤلف
 BarCode;باركود
@@ -206,7 +218,10 @@ Bits-(Pixel*Frame);بت /(صورة*بكسل)
 BufferSize;
 Cancel;إلغاء
 Channel(s);قناة
+ChannelCoded;
+ChannelConfiguration;
 ChannelLayout;
+ChannelMode;
 ChannelPositions;مواقع القنوات
 Chapter(s);فصل
 Chapters;فصل
@@ -225,6 +240,7 @@ Choose language;اختر اللغة التي تريدها
 Choreographer;المسؤول عن الكوريغرافيا
 Chroma;شروما
 ChromaSubsampling;الاختزال الشروما
+Classifier;
 ClearList;
 Close;غادر
 Close all before open;إغلاق كافة قبل الفتح
@@ -294,12 +310,17 @@ Date;تاريخ
 Debug;تصحيح (Debug)
 Decimal point;نقطة عشرية
 Default_Setting;
+DefaultTargetDeviceConfig;
 Delay;تأخير
 Delay_Source;
 Delay_Source_Container;
 Delay_Source_Stream;
 Delete;حذف
 Description;وصف
+dialnorm;
+DialogueCorrected;
+DialogueEnhancement;
+DialogueNormalization;
 Digitized_Date;تاريخ الرقمية
 Dimensions;الأبعاد
 Director;المدير الفني
@@ -310,15 +331,20 @@ DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;عرض حجم الشاشة الأصلي
 DistributedBy;موزع من طرف
 Distributor;
+DolbyAtmos;
 Donate;تبرع
 DotsPerInch;نقطة في البوصة
+Downmix;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;مدة
 Duration_End;وقت النهاية
 Duration_Start;وقت البدء
+DynamicRangeControl;
+Eac3DrcProfile;
 Edit;تغيير
 EditedBy;حرره
+EditorialClassification;
 ElementCount;Count of elements
 EMail;البريد الإلكتروني
 Encoded_Application;برنامج التحرير
@@ -352,6 +378,7 @@ FileExtension;نوع الملف
 FileName;اسم الملف
 FileNameExtension;
 FileSize;حجم الملف
+FlatPanelTv;
 Folder;مجلد
 Folder (R);مجلد (R)
 Folder (R)_Hint;تحديد مجلد لدراسة (مع جميع مجلداته الفرعية)
@@ -407,6 +434,7 @@ FrameRate_Mode_CFR;ثابت
 FrameRate_Mode_VFR;متغير
 FrameRate_Nominal;معدل الاسمي لصور/ثانية
 FrameRate_Original;معدل الصور/ثانية الأصلي
+FrameRate_Real;
 General;عام
 Genre;النوع
 Genre_000;البلوز Blues
@@ -606,7 +634,10 @@ Gop_OpenClosed;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
 Gop_OpenClosed_Open;
+Graph;
+Group;
 Grouping;
+GroupPreset;
 h; h
 HDR_Format;
 Header file;إنشاء ملف header
@@ -615,6 +646,7 @@ Height_CleanAperture;
 Height_Original;ارتفاع الأصلي
 Help;ساعدة
 Hint;اقتراح
+HomeTheaterAvr;
 How many audio streams?;كم من دفق الصوت؟
 How many chapters streams?;كم من دفق الفصول؟
 How many text streams?;كم من دفق النص؟
@@ -622,12 +654,17 @@ How many video streams?;كم من دفق الفيديو؟
 HTML;HTML
 ID;ID
 IdentClockStart;
+IFrameInterval;
 Image;صورة
 Image stream(s);مقطع الصور
 Image_Codec_List;ترميز الصورة
 ImageCount;عدد من المسارات الصور
+ImmersiveStereo;
 Info;معلومات
 Instruments;الالة الموسيقية
+IntegratedLoudness_Level;
+IntegratedLoudness_Speech;
+InteractivityEnabled;
 Interlaced_BFF;البداية من السطر الأخير
 Interlaced_Interlaced;متشابك
 Interlaced_PPF;تصاعدي
@@ -849,10 +886,24 @@ Language_zh-tw;中文 (Taiwan)
 Language_zu;isiZulu
 LawRating;تصنيف القانون
 LCCN;LCCN
+LfeAttenuationKnown;
+LfeMixGain;
 Library;المكتبة المستخامة
+Lifetime_Subscribe_Button;
 Lightness;إضاءة
 LineUpStart;
+LinkedTo_Bed_Pos;
+LinkedTo_ChannelFormat_Pos;
+LinkedTo_Content_Pos;
+LinkedTo_Group_Pos;
+LinkedTo_Object_Pos;
+LinkedTo_PackFormat_Pos;
+LinkedTo_SignalGroup_Pos;
+LinkedTo_Substream_Pos;
+LinkedTo_TrackUID_Pos;
 List;قائمة
+LoRoCenterMixGain;
+LoRoSurroundMixGain;
 Loudness_Anchor;
 Loudness_Anchor_Album;
 Loudness_Count;
@@ -871,6 +922,8 @@ Loudness_Range;
 Loudness_Range_Album;
 Loudness_RoomType;
 Loudness_RoomType_Album;
+LtRtCenterMixGain;
+LtRtSurroundMixGain;
 Lyricist;الشاعر
 Lyrics;كلمات
 Mastered_Date;تاريخ الإنشاء
@@ -883,6 +936,9 @@ matrix_coefficients;معاملات الـMatrix
 Matrix_Format;
 MaxCLL;
 MaxFALL;
+MaxGain;
+MaximumMomentaryLoudness;
+MaxTruePeak;
 MediaInfo_About;تقديم معلومات مفصلة\r\nحول ملف الوسائط المتعددة :\r\nMatroska، OGG (including OGM)\r\nMPEG1 (بما في ذلك VCD)\r\nMPEG2 (بما في ذلك DVD و SVCD)\r\nMPEG4 (بما في ذلك Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia ((بما في ذلك WMV، WMA)\r\nMicrosoft RIFF ((بما في ذلك AVI, WAV)\r\nامتدادات الصوت فقط (AC3، DTS، AAC، AU، AIFF...)
 MediaInfo_About_About;
 Menu;القائمة
@@ -892,12 +948,14 @@ Menu_Hint;مزيد من الإمكانيات
 Menu_No;لا توجد أي قائمة
 MenuCount;عدد قوائم الدفق
 MenuID;معرف القائمة
+MixType;
 mn; min
 Mood;مزاج
 More;أكثر
 Movie;اسم الفيلم
 ms; ms
 MSDI;MSDI
+MultipleStream;
 MusicBy;الموسيقى من قبل
 MuxingMode;نوع الـmuxing
 MuxingMode_MoreInfo;نوع الـmuxing ،مزيد من المعلومات
@@ -912,8 +970,18 @@ NewVersion_Question_Content;نسخة جديدة (v%Version%) متاحة،هل ت
 NewVersion_Question_Title;تم إصدار نسخة جديدة!
 No;لا
 Not yet;ليس بعد
+NumberOfChannelFormats;
+NumberOfContents;
 NumberOfDynamicObjects;
+NumberOfElementaryStreams;
+NumberOfObjects;
+NumberOfPackFormats;
+NumberOfPresentations;
+NumberOfProgrammes;
+NumberOfSubstreams;
+NumberOfTrackUIDs;
 NumColors;عدد الألوان
+ObjectCount;
 OK;موافق
 One output file per input file;خطأ عند قراءة الملف
 Open;فتح
@@ -981,6 +1049,8 @@ PartNumber;
 PartTotal;
 Performer;مؤد
 Period;فترة
+Phase90FilterInfo;
+Phase90FilterInfo2ch;
 Phone;هاتف
 PictureRatio;
 PixelAspectRatio;حجم البكسل
@@ -992,11 +1062,23 @@ Played_First_Date;أول قراءة
 Played_Last_Date;اخر قراءة
 PlayTime;مدة القراءة
 PodcastCategory;Podcast category
+PortableHeadphones;
+PortableSpeakers;
 Position;موقع
+Position_Cartesian;
+Position_Polar;
 Position_Total;مجموع
 Preferences;تفضيلات
+PreferredDownmix;
 Premium;
 Premium_Summary;
+PreselectionLabel;
+Presentation;
+PresentationConfig;
+PresentationConfig_ContentClassifier;
+PresentationID;
+PreviousDownmixType5ch;
+PreviousMixType2ch;
 PrimaryAudioLanguage;
 Producer;منتج
 ProductionDesigner;مصمم الانتاج
@@ -1011,15 +1093,18 @@ Purchased_Date;تاريخ الشراء
 Quote character;تنصيص الاقتباس
 RadioStation;محطة إذاعية
 Rating;تصنيف
+RealtimeLoudnessCorrected;
 Recorded_Date;تاريخ التسجيل
 Recorded_Location;مكان التسجيل
 Released_Date;تاريخ البث الأول
 RemixedBy;تم الـRemixe من طرف
+RenderMode;
 Renew;
 ReplayGain_Gain;كسب في القراءة
 ReplayGain_Peak;ذروة الكسب في القراءة
 Report;
 Resolution;دقة الصورة
+RestoreLifetimeSubscription;
 s; s
 SamplePeakLevel;
 SamplePeakLevel_Album;
@@ -1061,9 +1146,11 @@ ShimName;
 ShimVersion;
 Show menu;اظهار القائمة
 Show toolbar;عرض شريط الأدوات
+SignalGroup;
 SigningPresent;
 SignLanguage;
 Sort;مصنفة حسب
+SoundCategory;
 SoundEngineer;مهندس الصوت
 Source;
 Source_Duration;
@@ -1071,6 +1158,7 @@ Source_FrameCount;
 Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
+SpokenSubtitles;
 Standard;قاعدي
 StoreMethod_InterleavedFields;
 StoreMethod_SeparatedFields;
@@ -1101,16 +1189,22 @@ Subscription_Active;
 Subscription_Android;
 Subscription_Ended;
 Subscription_Expired;
+Subscription_Lifetime;
 Subscription_Thanks;
+Substream;
 SubTrack;المسار الثانوي
+SubtstreamIdChannel;
 Summary;ملخص
 Supported formats;الامتدادات المدعومة
 Supported?;مدعوم؟
 SupportUs;
+SurroundAttenuationKnown;
+SwitchGroup;
 Synopsis;موجز
 SystemId;معرف
 Tagged_Application;برنامج الـTagging
 Tagged_Date;تاريخ الـTagging
+TargetDeviceConfig;
 Technician;فني
 TermsOfUse;شروط الاستخدام
 TertiaryAudioLanguage;
@@ -1150,6 +1244,7 @@ Tree & Text;شجرة والنصوص
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;
+TypeDefinition;
 UniqueID;
 UniversalAdID;
 UniversalAdID_Registry;
@@ -1190,5 +1285,5 @@ Written_Location;مكان الكتابة
 WrittenBy;كتبها
 Yes;نعم
 Your system;نظامك
-ZZ_Automatic_Percent;81
-ZZ_AutomaticLanguage_Percent;85
+ZZ_Automatic_Percent;75
+ZZ_AutomaticLanguage_Percent;78

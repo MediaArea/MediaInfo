@@ -34,6 +34,7 @@
  day1; ditë
  day2; ditë
  day3; ditë
+ dB0;
  dB1; dB
  dB2; dB
  dB3; dB
@@ -117,6 +118,9 @@
  month1; muaj
  month2; muaj
  month3; muaj
+ object1;
+ object2;
+ object3;
  pixel1; piksel
  pixel2; piksela
  pixel3; piksela
@@ -153,9 +157,14 @@ ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
 Actor;Aktori
 Actor_Character;Personazhi i luajtur
+Add creation date to text output;
+Add version to text output;
 Added_Date;Data e shtimit
 Address;Adresa
 AdID;
+ADM: Show ChannelFormats;
+ADM: Show TrackUIDs;
+AdmProfile;
 Advanced;Avancuar
 Advanced mode;Mënyrë e avancuar
 Album;Albumi
@@ -181,9 +190,12 @@ Audio1;Rryma e parë audio
 Audio2;Rryma e dytë audio
 AudioComments;
 AudioCount;Numri i rrymave të audios
+AudioDescription;
 AudioDescriptionPresent;
 AudioDescriptionType;
 AudioLoudnessStandard;
+AudioRenderingIndication;
+AudioSceneInfoID;
 AudioTrackLayout;
 Author;Autori
 BarCode;BarCode
@@ -206,7 +218,10 @@ Bits-(Pixel*Frame);Bit/(Piksel*Kuadër)
 BufferSize;
 Cancel;Anulo
 Channel(s);Kanale
+ChannelCoded;
+ChannelConfiguration;
 ChannelLayout;
+ChannelMode;
 ChannelPositions;Pozicionet e kanalit
 Chapter(s);Kapitull
 Chapters;Kapituj
@@ -225,6 +240,7 @@ Choose language;Zgjedh gjuhën e dëshiruar
 Choreographer;Koreografi
 Chroma;Kroma
 ChromaSubsampling;
+Classifier;
 ClearList;
 Close;Mbyll
 Close all before open;Mbyll infot para hapjes
@@ -294,12 +310,17 @@ Date;Data
 Debug;Debug
 Decimal point;Pika dhjetore
 Default_Setting;
+DefaultTargetDeviceConfig;
 Delay;Vonesa
 Delay_Source;
 Delay_Source_Container;
 Delay_Source_Stream;
 Delete;Fshij
 Description;Përshkrimi
+dialnorm;
+DialogueCorrected;
+DialogueEnhancement;
+DialogueNormalization;
 Digitized_Date;Data e shifruar
 Dimensions;Dimensione
 Director;Regjisori
@@ -310,15 +331,20 @@ DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Raporti origjinal i aspektit në ekran
 DistributedBy;Shpërndarë nga
 Distributor;
+DolbyAtmos;
 Donate;Jep kontribut
 DotsPerInch;Pika për inç
+Downmix;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;Kohëzgjatja
 Duration_End;Koha e përfundimit
 Duration_Start;Koha e nisjes
+DynamicRangeControl;
+Eac3DrcProfile;
 Edit;Edito
 EditedBy;Edituar nga
+EditorialClassification;
 ElementCount;
 EMail;Posta-e
 Encoded_Application;Aplikimi i shkrimit
@@ -352,6 +378,7 @@ FileExtension;Sigla e skedës
 FileName;Emri i skedës
 FileNameExtension;
 FileSize;Masa e skedës
+FlatPanelTv;
 Folder;Dosje
 Folder (R);Dosje (R)
 Folder (R)_Hint;Studio një dosje (me gjithë dosjet si rekursive)
@@ -407,6 +434,7 @@ FrameRate_Mode_CFR;Konstant
 FrameRate_Mode_VFR;Variabël
 FrameRate_Nominal;Raporti nominal i kuadrit
 FrameRate_Original;Raporti origjinal i kuadrit
+FrameRate_Real;
 General;Përgjithësi
 Genre;Zhanri
 Genre_000;Blues
@@ -606,7 +634,10 @@ Gop_OpenClosed;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
 Gop_OpenClosed_Open;
+Graph;
+Group;
 Grouping;
+GroupPreset;
 h; h
 HDR_Format;
 Header file;Krijo një kokë skede
@@ -615,6 +646,7 @@ Height_CleanAperture;
 Height_Original;
 Help;Ndihmë
 Hint;Këshillë
+HomeTheaterAvr;
 How many audio streams?;Sa rryma të audios?
 How many chapters streams?;Sa rryma të kapitujve?
 How many text streams?;Sa rryma të tekstit?
@@ -622,12 +654,17 @@ How many video streams?;Sa rryma të videos?
 HTML;HTML
 ID;ID
 IdentClockStart;
+IFrameInterval;
 Image;Imazh
 Image stream(s);Rrymat e imazhit
 Image_Codec_List;Kodekët e imazhit
 ImageCount;Numri i rrymave të imazhit
+ImmersiveStereo;
 Info;Info
 Instruments;Instrumenti
+IntegratedLoudness_Level;
+IntegratedLoudness_Speech;
+InteractivityEnabled;
 Interlaced_BFF;Më Parë Fusha Poshtë
 Interlaced_Interlaced;Gërshetohet
 Interlaced_PPF;Progresiv
@@ -849,10 +886,24 @@ Language_zh-tw;Kinezisht (Tajvan)
 Language_zu;Zulu
 LawRating;Vlerësimi ligjor
 LCCN;LCCN
+LfeAttenuationKnown;
+LfeMixGain;
 Library;Libraria e muksimit
+Lifetime_Subscribe_Button;
 Lightness;Dritësia
 LineUpStart;
+LinkedTo_Bed_Pos;
+LinkedTo_ChannelFormat_Pos;
+LinkedTo_Content_Pos;
+LinkedTo_Group_Pos;
+LinkedTo_Object_Pos;
+LinkedTo_PackFormat_Pos;
+LinkedTo_SignalGroup_Pos;
+LinkedTo_Substream_Pos;
+LinkedTo_TrackUID_Pos;
 List;Lista
+LoRoCenterMixGain;
+LoRoSurroundMixGain;
 Loudness_Anchor;
 Loudness_Anchor_Album;
 Loudness_Count;
@@ -871,6 +922,8 @@ Loudness_Range;
 Loudness_Range_Album;
 Loudness_RoomType;
 Loudness_RoomType_Album;
+LtRtCenterMixGain;
+LtRtSurroundMixGain;
 Lyricist;Shkrimtari
 Lyrics;Fjalët
 Mastered_Date;Data e masterizimit
@@ -883,6 +936,9 @@ matrix_coefficients;Koeficientët e matricës
 Matrix_Format;
 MaxCLL;
 MaxFALL;
+MaxGain;
+MaximumMomentaryLoudness;
+MaxTruePeak;
 MediaInfo_About;Jep informacione shumë të detajuara për\r\nskedat multimediatike:\r\nMatroska, OGG (përfshirë OGM)\r\nMPEG1 (përfshirë VCD)\r\nMPEG2 (përfshirë DVD dhe SVCD)\r\nMPEG4 (përfshirë Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (përfshirë WMV, WMA)\r\nMicrosoft RIFF (përfshirë AVI, WAV)\r\nFormate zanore (AC3, DTS, AAC, AU, AIFF...)
 MediaInfo_About_About;
 Menu;Meny
@@ -892,12 +948,14 @@ Menu_Hint;Mundësi të tjera
 Menu_No;Pa meny
 MenuCount;Numri i rrymave të menysë
 MenuID;ID i menysë
+MixType;
 mn; min
 Mood;Gjendja shpirtërore
 More;Akoma
 Movie;Emri i filmit
 ms; ms
 MSDI;MSDI
+MultipleStream;
 MusicBy;Muzikë nga
 MuxingMode;Mënyra e muksimit
 MuxingMode_MoreInfo;Mënyra e muksimit, më shumë info
@@ -912,8 +970,18 @@ NewVersion_Question_Content;Ka dalë një version i ri (v%Version%), do e shkark
 NewVersion_Question_Title;Është lëshuar një version i ri!
 No;Jo
 Not yet;Ende jo
+NumberOfChannelFormats;
+NumberOfContents;
 NumberOfDynamicObjects;
+NumberOfElementaryStreams;
+NumberOfObjects;
+NumberOfPackFormats;
+NumberOfPresentations;
+NumberOfProgrammes;
+NumberOfSubstreams;
+NumberOfTrackUIDs;
 NumColors;Numri i ngjyrave
+ObjectCount;
 OK;OK
 One output file per input file;Një skedë output për skedë input
 Open;Hap
@@ -981,6 +1049,8 @@ PartNumber;
 PartTotal;
 Performer;Interpretuesi
 Period;Periudha
+Phase90FilterInfo;
+Phase90FilterInfo2ch;
 Phone;Telefoni
 PictureRatio;
 PixelAspectRatio;Raporti i aspektit të pikselit
@@ -992,11 +1062,23 @@ Played_First_Date;Luajtur në Fillim
 Played_Last_Date;Luajtur së Fundmi
 PlayTime;Koha e lojës
 PodcastCategory;
+PortableHeadphones;
+PortableSpeakers;
 Position;Pozicioni
+Position_Cartesian;
+Position_Polar;
 Position_Total;Totali
 Preferences;Pëlqime
+PreferredDownmix;
 Premium;
 Premium_Summary;
+PreselectionLabel;
+Presentation;
+PresentationConfig;
+PresentationConfig_ContentClassifier;
+PresentationID;
+PreviousDownmixType5ch;
+PreviousMixType2ch;
 PrimaryAudioLanguage;
 Producer;Producenti
 ProductionDesigner;Modeluesi i produksionit
@@ -1011,15 +1093,18 @@ Purchased_Date;Data e blerjes
 Quote character;Citimi i personazhit
 RadioStation;Stacioni i radios
 Rating;Vlerësimi
+RealtimeLoudnessCorrected;
 Recorded_Date;Data e regjistrimit
 Recorded_Location;Vendndodhja e regjistrimit
 Released_Date;Data e lëshimit
 RemixedBy;Miksuar nga
+RenderMode;
 Renew;
 ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Piku i replay gain
 Report;
 Resolution;Rezolucioni
+RestoreLifetimeSubscription;
 s;s
 SamplePeakLevel;
 SamplePeakLevel_Album;
@@ -1061,9 +1146,11 @@ ShimName;
 ShimVersion;
 Show menu;Trego menynë
 Show toolbar;Trego brezin e mjeteve
+SignalGroup;
 SigningPresent;
 SignLanguage;
 Sort;Radhitur nga
+SoundCategory;
 SoundEngineer;Inxhinieri i zërit
 Source;
 Source_Duration;
@@ -1071,6 +1158,7 @@ Source_FrameCount;
 Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
+SpokenSubtitles;
 Standard;Standardi
 StoreMethod_InterleavedFields;
 StoreMethod_SeparatedFields;
@@ -1101,16 +1189,22 @@ Subscription_Active;
 Subscription_Android;
 Subscription_Ended;
 Subscription_Expired;
+Subscription_Lifetime;
 Subscription_Thanks;
+Substream;
 SubTrack;NënKolona
+SubtstreamIdChannel;
 Summary;Përmbledhja
 Supported formats;Format e përkrahura
 Supported?;Përkrahet?
 SupportUs;
+SurroundAttenuationKnown;
+SwitchGroup;
 Synopsis;Konspekti
 SystemId;Id
 Tagged_Application;Aplikimi i etiketimit
 Tagged_Date;Data e etiketimit
+TargetDeviceConfig;
 Technician;Tekniku
 TermsOfUse;Detyrimet e përdorimit
 TertiaryAudioLanguage;
@@ -1150,6 +1244,7 @@ Tree & Text;Pemë & Tekst
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;
+TypeDefinition;
 UniqueID;
 UniversalAdID;
 UniversalAdID_Registry;
@@ -1190,5 +1285,5 @@ Written_Location;Vendi i shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;79
-ZZ_AutomaticLanguage_Percent;83
+ZZ_Automatic_Percent;73
+ZZ_AutomaticLanguage_Percent;77

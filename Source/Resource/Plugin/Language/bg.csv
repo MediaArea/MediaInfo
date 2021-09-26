@@ -34,6 +34,7 @@
  day1;ден1
  day2;ден2
  day3;ден3
+ dB0;
  dB1;дБ1
  dB2;дБ2
  dB3;дБ3
@@ -117,6 +118,9 @@
  month1;месец1
  month2;месец2
  month3;месец3
+ object1;
+ object2;
+ object3;
  pixel1;пиксел1
  pixel2;пиксел2
  pixel3;пиксел3
@@ -153,9 +157,14 @@ ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
 Actor;Актьор
 Actor_Character;Актьор_Характер
+Add creation date to text output;
+Add version to text output;
 Added_Date;Дата_Прибавен
 Address;Адрес
 AdID;
+ADM: Show ChannelFormats;
+ADM: Show TrackUIDs;
+AdmProfile;
 Advanced;Разширен
 Advanced mode;Разширен режим
 Album;Албум
@@ -181,9 +190,12 @@ Audio1;Аудио1
 Audio2;Аудио2
 AudioComments;
 AudioCount;АудиоБрой
+AudioDescription;
 AudioDescriptionPresent;
 AudioDescriptionType;
 AudioLoudnessStandard;
+AudioRenderingIndication;
+AudioSceneInfoID;
 AudioTrackLayout;
 Author;Автор
 BarCode;Баркод
@@ -206,7 +218,10 @@ Bits-(Pixel*Frame);Битове-(Пиксел*Кадър)
 BufferSize;
 Cancel;Откажи
 Channel(s);Канал(и)
+ChannelCoded;
+ChannelConfiguration;
 ChannelLayout;
+ChannelMode;
 ChannelPositions;КаналПозиции
 Chapter(s);Дял(ове)
 Chapters;Дялове
@@ -225,6 +240,7 @@ Choose language;Избери език
 Choreographer;Хореограф
 Chroma;Хрома
 ChromaSubsampling;ХромаПодСамплинг
+Classifier;
 ClearList;
 Close;Затвори
 Close all before open;Затвори всичко преди да отвориш
@@ -294,12 +310,17 @@ Date;Дата
 Debug;Дебъг
 Decimal point;Децимална точка
 Default_Setting;
+DefaultTargetDeviceConfig;
 Delay;Забавяне
 Delay_Source;
 Delay_Source_Container;
 Delay_Source_Stream;
 Delete;Премахни
 Description;Описание
+dialnorm;
+DialogueCorrected;
+DialogueEnhancement;
+DialogueNormalization;
 Digitized_Date;Дата_Дигитализиране
 Dimensions;Размери
 Director;Режисьор
@@ -310,15 +331,20 @@ DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Оригинално_СъотношениеОбраз
 DistributedBy;РазпространенОт
 Distributor;
+DolbyAtmos;
 Donate;Дари
 DotsPerInch;ДотНаИнч
+Downmix;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;Продължителност
 Duration_End;Продължителност_Край
 Duration_Start;Продължителност_Начало
+DynamicRangeControl;
+Eac3DrcProfile;
 Edit;Преработи
 EditedBy;ПреработенОт
+EditorialClassification;
 ElementCount;
 EMail;Имейл
 Encoded_Application;Енкодирана_Апликация
@@ -352,6 +378,7 @@ FileExtension;ФайлЕкстенция
 FileName;ИмеФайл
 FileNameExtension;
 FileSize;Големинафайл
+FlatPanelTv;
 Folder;Папка
 Folder (R);Папка (Ч)
 Folder (R)_Hint;Папка (Ч)_Подсказване
@@ -407,6 +434,7 @@ FrameRate_Mode_CFR;СкоростКадри_СФР
 FrameRate_Mode_VFR;СкоростКадри_ВФР
 FrameRate_Nominal;СкоростКадри_Нормално
 FrameRate_Original;СкоростКадри_Оригинално
+FrameRate_Real;
 General;Генерално
 Genre;Жанр
 Genre_000;
@@ -606,7 +634,10 @@ Gop_OpenClosed;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
 Gop_OpenClosed_Open;
+Graph;
+Group;
 Grouping;
+GroupPreset;
 h;х
 HDR_Format;
 Header file;Хедър файл
@@ -615,6 +646,7 @@ Height_CleanAperture;
 Height_Original;Оригинална_Височина
 Help;Помощ
 Hint;Подсказване
+HomeTheaterAvr;
 How many audio streams?;Колко аудио потоци?
 How many chapters streams?;Колко глави потоци?
 How many text streams?;Колко текстови потоци?
@@ -622,12 +654,17 @@ How many video streams?;Колко видео потоци?
 HTML;HTML
 ID;ИД
 IdentClockStart;
+IFrameInterval;
 Image;Изображение
 Image stream(s);Изображение Поток(ци)
 Image_Codec_List;Изображение_Кодек_Списък
 ImageCount;ИзображениеБрой
+ImmersiveStereo;
 Info;Инфо
 Instruments;Инструменти
+IntegratedLoudness_Level;
+IntegratedLoudness_Speech;
+InteractivityEnabled;
 Interlaced_BFF;Сплетен_ВФФ
 Interlaced_Interlaced;Сплетен_Сплетен
 Interlaced_PPF;Сплетен_ППФ
@@ -849,10 +886,24 @@ Language_zh-tw;
 Language_zu;
 LawRating;НисъкРейтинг
 LCCN;ЛССН
+LfeAttenuationKnown;
+LfeMixGain;
 Library;Библиотека
+Lifetime_Subscribe_Button;
 Lightness;Осветеност
 LineUpStart;
+LinkedTo_Bed_Pos;
+LinkedTo_ChannelFormat_Pos;
+LinkedTo_Content_Pos;
+LinkedTo_Group_Pos;
+LinkedTo_Object_Pos;
+LinkedTo_PackFormat_Pos;
+LinkedTo_SignalGroup_Pos;
+LinkedTo_Substream_Pos;
+LinkedTo_TrackUID_Pos;
 List;Списък
+LoRoCenterMixGain;
+LoRoSurroundMixGain;
 Loudness_Anchor;
 Loudness_Anchor_Album;
 Loudness_Count;
@@ -871,6 +922,8 @@ Loudness_Range;
 Loudness_Range_Album;
 Loudness_RoomType;
 Loudness_RoomType_Album;
+LtRtCenterMixGain;
+LtRtSurroundMixGain;
 Lyricist;Поет
 Lyrics;Текстове
 Mastered_Date;Дата изработка
@@ -883,6 +936,9 @@ matrix_coefficients;мартица_коефициент
 Matrix_Format;
 MaxCLL;
 MaxFALL;
+MaxGain;
+MaximumMomentaryLoudness;
+MaxTruePeak;
 MediaInfo_About;Медиа Инфо_За
 MediaInfo_About_About;
 Menu;Меню
@@ -892,12 +948,14 @@ Menu_Hint;Меню_Подсказване
 Menu_No;Меню_Но
 MenuCount;МенюБрой
 MenuID;МенюИД
+MixType;
 mn;мн
 Mood;Настроение
 More;Повече
 Movie;Филм
 ms;мс
 MSDI;МСДИ
+MultipleStream;
 MusicBy;МузикаОт
 MuxingMode;МюксингРежим
 MuxingMode_MoreInfo;МюксингРежим_ПовечеИнфо
@@ -912,8 +970,18 @@ NewVersion_Question_Content;НоваВерсия_Въпрос_Съдържани
 NewVersion_Question_Title;НоваВерсия_Въпрос_Име
 No;Не
 Not yet;Още не
+NumberOfChannelFormats;
+NumberOfContents;
 NumberOfDynamicObjects;
+NumberOfElementaryStreams;
+NumberOfObjects;
+NumberOfPackFormats;
+NumberOfPresentations;
+NumberOfProgrammes;
+NumberOfSubstreams;
+NumberOfTrackUIDs;
 NumColors;НомерЦветове
+ObjectCount;
 OK;Да
 One output file per input file;Един изходящ при един входящ файл
 Open;Отвори
@@ -981,6 +1049,8 @@ PartNumber;
 PartTotal;
 Performer;Изпълнител
 Period;Период
+Phase90FilterInfo;
+Phase90FilterInfo2ch;
 Phone;Телефон
 PictureRatio;
 PixelAspectRatio;ПикселСъотношение
@@ -992,11 +1062,23 @@ Played_First_Date;Изпълнени_Първа_Дата
 Played_Last_Date;Изпълнени_Последна_Дата
 PlayTime;ВремеИзпълнение
 PodcastCategory;
+PortableHeadphones;
+PortableSpeakers;
 Position;Позиция
+Position_Cartesian;
+Position_Polar;
 Position_Total;Позиция_Обща
 Preferences;Настройки
+PreferredDownmix;
 Premium;
 Premium_Summary;
+PreselectionLabel;
+Presentation;
+PresentationConfig;
+PresentationConfig_ContentClassifier;
+PresentationID;
+PreviousDownmixType5ch;
+PreviousMixType2ch;
 PrimaryAudioLanguage;
 Producer;Продуцент
 ProductionDesigner;ДизайнерПродукция
@@ -1011,15 +1093,18 @@ Purchased_Date;ДатаПоръчан
 Quote character;Цитат характер
 RadioStation;РадиоСтанция
 Rating;Рейтинг
+RealtimeLoudnessCorrected;
 Recorded_Date;Запис_Дата
 Recorded_Location;Запис_Локация
 Released_Date;Издаден_Дата
 RemixedBy;РемиксОт
+RenderMode;
 Renew;
 ReplayGain_Gain;УсилващоПовторение_Усилване
 ReplayGain_Peak;УсилващоПовторение_Усилване_Връх
 Report;
 Resolution;Резолюция
+RestoreLifetimeSubscription;
 s;с
 SamplePeakLevel;
 SamplePeakLevel_Album;
@@ -1061,9 +1146,11 @@ ShimName;
 ShimVersion;
 Show menu;Показ меню
 Show toolbar;Показ инструментибар
+SignalGroup;
 SigningPresent;
 SignLanguage;
 Sort;Сортиране
+SoundCategory;
 SoundEngineer;ЗвукоИнжинер
 Source;
 Source_Duration;
@@ -1071,6 +1158,7 @@ Source_FrameCount;
 Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
+SpokenSubtitles;
 Standard;Стандарт
 StoreMethod_InterleavedFields;
 StoreMethod_SeparatedFields;
@@ -1101,16 +1189,22 @@ Subscription_Active;
 Subscription_Android;
 Subscription_Ended;
 Subscription_Expired;
+Subscription_Lifetime;
 Subscription_Thanks;
+Substream;
 SubTrack;СубТрак
+SubtstreamIdChannel;
 Summary;Обобщение
 Supported formats;Поддържани формати
 Supported?;Поддържан?
 SupportUs;
+SurroundAttenuationKnown;
+SwitchGroup;
 Synopsis;Резюме
 SystemId;СистемИД
 Tagged_Application;Етикет_Апликация
 Tagged_Date;Етикет_Дата
+TargetDeviceConfig;
 Technician;Техник
 TermsOfUse;УсловияНаПолзване
 TertiaryAudioLanguage;
@@ -1150,6 +1244,7 @@ Tree & Text;Дърво и Текст
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;
+TypeDefinition;
 UniqueID;
 UniversalAdID;
 UniversalAdID_Registry;
@@ -1190,5 +1285,5 @@ Written_Location;Написано_Локация
 WrittenBy;НаписаноОт
 Yes;Да
 Your system;Вашата система
-ZZ_Automatic_Percent;76
-ZZ_AutomaticLanguage_Percent;84
+ZZ_Automatic_Percent;71
+ZZ_AutomaticLanguage_Percent;77

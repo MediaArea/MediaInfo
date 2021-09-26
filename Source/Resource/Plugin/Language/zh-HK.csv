@@ -34,6 +34,7 @@
  day1;日
  day2;日
  day3;日
+ dB0;
  dB1; dB
  dB2; dB
  dB3; dB
@@ -117,6 +118,9 @@
  month1;月
  month2;月
  month3;月
+ object1;
+ object2;
+ object3;
  pixel1;像素
  pixel2;像素
  pixel3;像素
@@ -153,9 +157,14 @@ ActiveFormatDescription;活躍格式描述
 ActiveFormatDescription_MuxingMode;活躍格式描述 - 混合模式
 Actor;演員
 Actor_Character;角色
+Add creation date to text output;
+Add version to text output;
 Added_Date;加入於
 Address;地址
 AdID;
+ADM: Show ChannelFormats;
+ADM: Show TrackUIDs;
+AdmProfile;
 Advanced;進階
 Advanced mode;進階模式
 Album;專輯
@@ -181,9 +190,12 @@ Audio1;第一聲頻
 Audio2;第二聲頻
 AudioComments;聲音評註
 AudioCount;聲頻數量
+AudioDescription;
 AudioDescriptionPresent;聲音描述呈現
 AudioDescriptionType;聲音描述類型
 AudioLoudnessStandard;聲音響度標準
+AudioRenderingIndication;
+AudioSceneInfoID;
 AudioTrackLayout;聲頻佈置
 Author;作者
 BarCode;條碼
@@ -206,7 +218,10 @@ Bits-(Pixel*Frame);數據密度【位元╱(像素×畫格)】
 BufferSize;緩衝大小
 Cancel;取消
 Channel(s);聲道數
+ChannelCoded;
+ChannelConfiguration;
 ChannelLayout;
+ChannelMode;
 ChannelPositions;聲道位置
 Chapter(s);章節
 Chapters;章節
@@ -225,6 +240,7 @@ Choose language;選擇語言
 Choreographer;動作指導
 Chroma;色度
 ChromaSubsampling;色像取樣
+Classifier;
 ClearList;
 Close;關閉
 Close all before open;開啟前關閉其他檔案
@@ -294,12 +310,17 @@ Date;日期
 Debug;偵錯
 Decimal point;小數點
 Default_Setting;
+DefaultTargetDeviceConfig;
 Delay;延遲
 Delay_Source;延遲，初始值
 Delay_Source_Container;容器
 Delay_Source_Stream;原始串流
 Delete;刪除
 Description;描述
+dialnorm;
+DialogueCorrected;
+DialogueEnhancement;
+DialogueNormalization;
 Digitized_Date;數碼化於
 Dimensions;維度
 Director;導演
@@ -310,15 +331,20 @@ DisplayAspectRatio_CleanAperture;清除Aperture顯示闊高比
 DisplayAspectRatio_Original;原始顯示闊高比
 DistributedBy;發行商
 Distributor;發行商
+DolbyAtmos;
 Donate;贊助
 DotsPerInch;每吋點數（DPI）
+Downmix;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;時間長度
 Duration_End;完結時間
 Duration_Start;開始時間
+DynamicRangeControl;
+Eac3DrcProfile;
 Edit;編輯
 EditedBy;編輯者
+EditorialClassification;
 ElementCount;
 EMail;電郵
 Encoded_Application;編碼程式
@@ -352,6 +378,7 @@ FileExtension;副檔名
 FileName;檔案
 FileNameExtension;
 FileSize;檔案大小
+FlatPanelTv;
 Folder;資料夾
 Folder (R);資料夾（含）
 Folder (R)_Hint;選擇要檢視的資料夾（含子資料夾）
@@ -407,6 +434,7 @@ FrameRate_Mode_CFR;固定式
 FrameRate_Mode_VFR;浮動式
 FrameRate_Nominal;預設畫格率
 FrameRate_Original;原始畫格率
+FrameRate_Real;
 General;一般
 Genre;類型
 Genre_000;藍調　Blues
@@ -606,7 +634,10 @@ Gop_OpenClosed;開啟╱關閉GOP
 Gop_OpenClosed_Closed;關閉
 Gop_OpenClosed_FirstFrame;開啟╱關閉GOP的首個畫格
 Gop_OpenClosed_Open;開啟
+Graph;
+Group;
 Grouping;群組
+GroupPreset;
 h;時
 HDR_Format;
 Header file;建立標頭檔案
@@ -615,6 +646,7 @@ Height_CleanAperture;清除Aperture高度
 Height_Original;原始高度
 Help;說明
 Hint;提示
+HomeTheaterAvr;
 How many audio streams?;有多少聲頻？
 How many chapters streams?;有多少章節串流？
 How many text streams?;有多少字幕串流？
@@ -622,12 +654,17 @@ How many video streams?;有多少影片串流？
 HTML;網頁式
 ID;識別字
 IdentClockStart;開啟倒數時鐘
+IFrameInterval;
 Image;圖像
 Image stream(s);圖像串流
 Image_Codec_List;圖像編解碼器
 ImageCount;圖像串流數
+ImmersiveStereo;
 Info;描述
 Instruments;樂器
+IntegratedLoudness_Level;
+IntegratedLoudness_Speech;
+InteractivityEnabled;
 Interlaced_BFF;底場優先
 Interlaced_Interlaced;隔行掃描
 Interlaced_PPF;逐行掃描
@@ -849,10 +886,24 @@ Language_zh-tw;臺灣華語　Mandarin
 Language_zu;祖魯語　Zulu
 LawRating;分級
 LCCN;LCCN
+LfeAttenuationKnown;
+LfeMixGain;
 Library;合成函式庫
+Lifetime_Subscribe_Button;
 Lightness;亮度
 LineUpStart;開始編排
+LinkedTo_Bed_Pos;
+LinkedTo_ChannelFormat_Pos;
+LinkedTo_Content_Pos;
+LinkedTo_Group_Pos;
+LinkedTo_Object_Pos;
+LinkedTo_PackFormat_Pos;
+LinkedTo_SignalGroup_Pos;
+LinkedTo_Substream_Pos;
+LinkedTo_TrackUID_Pos;
 List;清單
+LoRoCenterMixGain;
+LoRoSurroundMixGain;
 Loudness_Anchor;
 Loudness_Anchor_Album;
 Loudness_Count;
@@ -871,6 +922,8 @@ Loudness_Range;
 Loudness_Range_Album;
 Loudness_RoomType;
 Loudness_RoomType_Album;
+LtRtCenterMixGain;
+LtRtSurroundMixGain;
 Lyricist;填詞
 Lyrics;歌詞
 Mastered_Date;後製於
@@ -883,6 +936,9 @@ matrix_coefficients;矩陣系數
 Matrix_Format;矩陣格式
 MaxCLL;
 MaxFALL;
+MaxGain;
+MaximumMomentaryLoudness;
+MaxTruePeak;
 MediaInfo_About;使用MediaInfo可輕易觀看影音和圖像檔案的技術和標籤資訊。\r\n除蘋果應用程式商店圖像用戶介面外，它是開源的。\r\n按BSD式授權協議，用戶和開發者可免費研習、更改和再發佈本程式。
 MediaInfo_About_About;
 Menu;選單
@@ -892,12 +948,14 @@ Menu_Hint;更多可能
 Menu_No;無選單
 MenuCount;選單串流數
 MenuID;選單識別字
+MixType;
 mn;分
 Mood;情緒
 More;更多
 Movie;標題
 ms;毫秒
 MSDI;MSDI
+MultipleStream;
 MusicBy;配樂者
 MuxingMode;混合模式
 MuxingMode_MoreInfo;更多資訊
@@ -912,8 +970,18 @@ NewVersion_Question_Content;存在新版本（v%Version%），下載嗎？
 NewVersion_Question_Title;新版本已推出！
 No;否
 Not yet;仍未
+NumberOfChannelFormats;
+NumberOfContents;
 NumberOfDynamicObjects;
+NumberOfElementaryStreams;
+NumberOfObjects;
+NumberOfPackFormats;
+NumberOfPresentations;
+NumberOfProgrammes;
+NumberOfSubstreams;
+NumberOfTrackUIDs;
 NumColors;色彩數量
+ObjectCount;
 OK;確定
 One output file per input file;一個輸入檔對應一個輸出檔
 Open;開啟
@@ -981,6 +1049,8 @@ PartNumber;此部份的編號
 PartTotal;部份的總計數量
 Performer;演出者
 Period;時期
+Phase90FilterInfo;
+Phase90FilterInfo2ch;
 Phone;電話
 PictureRatio;比例
 PixelAspectRatio;像素闊高比
@@ -992,11 +1062,23 @@ Played_First_Date;首次播放
 Played_Last_Date;上次播放
 PlayTime;播放長度
 PodcastCategory;
+PortableHeadphones;
+PortableSpeakers;
 Position;位置
+Position_Cartesian;
+Position_Polar;
 Position_Total;總數
 Preferences;喜好設定
+PreferredDownmix;
 Premium;
 Premium_Summary;
+PreselectionLabel;
+Presentation;
+PresentationConfig;
+PresentationConfig_ContentClassifier;
+PresentationID;
+PreviousDownmixType5ch;
+PreviousMixType2ch;
 PrimaryAudioLanguage;主要語音
 Producer;製作
 ProductionDesigner;美術指導
@@ -1011,15 +1093,18 @@ Purchased_Date;購買於
 Quote character;引用字元
 RadioStation;電台
 Rating;分級
+RealtimeLoudnessCorrected;
 Recorded_Date;錄製於
 Recorded_Location;錄製地點
 Released_Date;發行於
 RemixedBy;重新混音者
+RenderMode;
 Renew;
 ReplayGain_Gain;播放增益
 ReplayGain_Peak;播放增益最高值
 Report;
 Resolution;解像度
+RestoreLifetimeSubscription;
 s;秒
 SamplePeakLevel;
 SamplePeakLevel_Album;
@@ -1061,9 +1146,11 @@ ShimName;Shim名稱
 ShimVersion;Shim版本
 Show menu;顯示選單
 Show toolbar;顯示工具列
+SignalGroup;
 SigningPresent;Signing Present
 SignLanguage;手語
 Sort;排序
+SoundCategory;
 SoundEngineer;音響工程師
 Source;來源
 Source_Duration;來源時間長度
@@ -1071,6 +1158,7 @@ Source_FrameCount;來源畫格數
 Source_SamplingCount;來源取樣數量
 Source_StreamSize;來源串流大小
 Source_StreamSize_Encoded;來源編碼串流大小
+SpokenSubtitles;
 Standard;標準
 StoreMethod_InterleavedFields;聲頻影像交錯場
 StoreMethod_SeparatedFields;單獨場
@@ -1101,16 +1189,22 @@ Subscription_Active;
 Subscription_Android;
 Subscription_Ended;
 Subscription_Expired;
+Subscription_Lifetime;
 Subscription_Thanks;
+Substream;
 SubTrack;子聲頻
+SubtstreamIdChannel;
 Summary;摘要
 Supported formats;支援格式
 Supported?;是否支援？
 SupportUs;
+SurroundAttenuationKnown;
+SwitchGroup;
 Synopsis;系统摘要
 SystemId;識別字
 Tagged_Application;標籤程式
 Tagged_Date;標籤於
+TargetDeviceConfig;
 Technician;技術員
 TermsOfUse;授權條款
 TertiaryAudioLanguage;第三語音
@@ -1150,6 +1244,7 @@ Tree & Text;樹狀圖和文字
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;類型
+TypeDefinition;
 UniqueID;獨立識別字
 UniversalAdID;
 UniversalAdID_Registry;
@@ -1190,5 +1285,5 @@ Written_Location;編寫地點
 WrittenBy;作者
 Yes;是
 Your system;可識別清單
-ZZ_Automatic_Percent;92
-ZZ_AutomaticLanguage_Percent;93
+ZZ_Automatic_Percent;85
+ZZ_AutomaticLanguage_Percent;86

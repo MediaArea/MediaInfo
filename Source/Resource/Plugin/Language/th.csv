@@ -34,6 +34,7 @@
  day1; วัน
  day2; วัน
  day3; วัน
+ dB0;
  dB1;
  dB2;
  dB3;
@@ -117,6 +118,9 @@
  month1; เดือน
  month2; เดือน
  month3; เดือน
+ object1;
+ object2;
+ object3;
  pixel1; พิกเซล
  pixel2; พิกเซล
  pixel3; พิกเซล
@@ -153,9 +157,14 @@ ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
 Actor;นักแสดง
 Actor_Character;Character played
+Add creation date to text output;
+Add version to text output;
 Added_Date;
 Address;ที่อยู่
 AdID;
+ADM: Show ChannelFormats;
+ADM: Show TrackUIDs;
+AdmProfile;
 Advanced;ขั้นสูง
 Advanced mode;โหมดขั้นสูง
 Album;อัลบั้ม
@@ -181,9 +190,12 @@ Audio1;สตรีมเสียงแรก
 Audio2;สตรีมเสียงที่สอง
 AudioComments;
 AudioCount;จำนวนของสตรีมเสียง
+AudioDescription;
 AudioDescriptionPresent;
 AudioDescriptionType;
 AudioLoudnessStandard;
+AudioRenderingIndication;
+AudioSceneInfoID;
 AudioTrackLayout;
 Author;ผู้เขียน
 BarCode;บาร์โค้ด
@@ -206,7 +218,10 @@ Bits-(Pixel*Frame);บิต/(พิกเซล*เฟรม)
 BufferSize;
 Cancel;ยกเลิก
 Channel(s);ช่อง
+ChannelCoded;
+ChannelConfiguration;
 ChannelLayout;
+ChannelMode;
 ChannelPositions;ตำแหน่งช่อง
 Chapter(s);เชฟเตอร์
 Chapters;เชฟเตอร์
@@ -225,6 +240,7 @@ Choose language;เลือกภาษาที่คุณต้องกา�
 Choreographer;Choreographer
 Chroma;Chroma
 ChromaSubsampling;
+Classifier;
 ClearList;
 Close;ปิด
 Close all before open;ปิดทั้งหมดก่อนเปิด
@@ -294,12 +310,17 @@ Date;วันที่
 Debug;ดีบั๊ก
 Decimal point;จุดทศนิยม
 Default_Setting;
+DefaultTargetDeviceConfig;
 Delay;Delay
 Delay_Source;
 Delay_Source_Container;
 Delay_Source_Stream;
 Delete;ลบ
 Description;รายละเอียด
+dialnorm;
+DialogueCorrected;
+DialogueEnhancement;
+DialogueNormalization;
 Digitized_Date;Digitized date
 Dimensions;
 Director;ผู้กำกับการแสดง
@@ -310,15 +331,20 @@ DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;
 DistributedBy;เผยแพร่โดย
 Distributor;
+DolbyAtmos;
 Donate;บริจาค
 DotsPerInch;
+Downmix;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;ระยะเวลา
 Duration_End;
 Duration_Start;
+DynamicRangeControl;
+Eac3DrcProfile;
 Edit;แก้ไข
 EditedBy;แก้ไขโดย
+EditorialClassification;
 ElementCount;
 EMail;อี-เมลล์
 Encoded_Application;Writing application
@@ -352,6 +378,7 @@ FileExtension;ชนิดไฟล์
 FileName;ชื่อไฟล์
 FileNameExtension;
 FileSize;ขนาดไฟล์
+FlatPanelTv;
 Folder;โฟลเดอร์
 Folder (R);โฟลเดอร์ (R)
 Folder (R)_Hint;เลือกโฟลเดอร์เพื่อเรียนรู้ (พร้อมทั้งโฟลเดอร์ย่อยทั้งหมด)
@@ -407,6 +434,7 @@ FrameRate_Mode_CFR;
 FrameRate_Mode_VFR;
 FrameRate_Nominal;เฟรมเรต Nominal
 FrameRate_Original;เฟรมเรตต้นฉบับ
+FrameRate_Real;
 General;ทั่วไป
 Genre;แนวเพลง
 Genre_000;บลู
@@ -606,7 +634,10 @@ Gop_OpenClosed;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
 Gop_OpenClosed_Open;
+Graph;
+Group;
 Grouping;
+GroupPreset;
 h; h
 HDR_Format;
 Header file;สร้างไฟล์ header
@@ -615,6 +646,7 @@ Height_CleanAperture;
 Height_Original;
 Help;ช่วยเหลือ
 Hint;คำแนะนำ
+HomeTheaterAvr;
 How many audio streams?;มีจำนวนสตรีมเสียงเท่าไหร่?
 How many chapters streams?;มีจำนวนเชฟเตอร์สตรีมเท่าไหร่?
 How many text streams?;มีจำนวนสตรีมข้อความเท่าไหร่?
@@ -622,12 +654,17 @@ How many video streams?;มีจำนวนสตรีมวีดีโอ�
 HTML;HTML
 ID;ID
 IdentClockStart;
+IFrameInterval;
 Image;ภาพ
 Image stream(s);สตรีมรูปภาพ
 Image_Codec_List;Codecs รูปภาพ
 ImageCount;จำนวนของสตรีมภาพ
+ImmersiveStereo;
 Info;ข้อมูล
 Instruments;Instruments
+IntegratedLoudness_Level;
+IntegratedLoudness_Speech;
+InteractivityEnabled;
 Interlaced_BFF;ช่องล่างก่อน
 Interlaced_Interlaced;Interlaced
 Interlaced_PPF;Progressive
@@ -849,10 +886,24 @@ Language_zh-tw;
 Language_zu;ซูลู
 LawRating;Law rating
 LCCN;LCCN
+LfeAttenuationKnown;
+LfeMixGain;
 Library;Muxing library
+Lifetime_Subscribe_Button;
 Lightness;
 LineUpStart;
+LinkedTo_Bed_Pos;
+LinkedTo_ChannelFormat_Pos;
+LinkedTo_Content_Pos;
+LinkedTo_Group_Pos;
+LinkedTo_Object_Pos;
+LinkedTo_PackFormat_Pos;
+LinkedTo_SignalGroup_Pos;
+LinkedTo_Substream_Pos;
+LinkedTo_TrackUID_Pos;
 List;รายการ
+LoRoCenterMixGain;
+LoRoSurroundMixGain;
 Loudness_Anchor;
 Loudness_Anchor_Album;
 Loudness_Count;
@@ -871,6 +922,8 @@ Loudness_Range;
 Loudness_Range_Album;
 Loudness_RoomType;
 Loudness_RoomType_Album;
+LtRtCenterMixGain;
+LtRtSurroundMixGain;
 Lyricist;Lyricist
 Lyrics;
 Mastered_Date;Mastered date
@@ -883,6 +936,9 @@ matrix_coefficients;
 Matrix_Format;
 MaxCLL;
 MaxFALL;
+MaxGain;
+MaximumMomentaryLoudness;
+MaxTruePeak;
 MediaInfo_About;แสดงข้อมูลอย่างละเอียด\r\nของไฟล์มัลติมีเดีย:\r\nMatroska, OGG (รวมทั้ง OGM)\r\nMPEG1 (รวมทั้ง VCD)\r\nMPEG2 (รวมทั้ง DVD และ SVCD)\r\nMPEG4 (รวมทั้ง Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (รวมทั้ง WMV, WMA)\r\nMicrosoft RIFF (รวมทั้ง AVI, WAV)\r\nรูปแบบเสียงอย่างเดียว (AC3, DTS, AAC, AU, AIFF...)
 MediaInfo_About_About;
 Menu;เมนู
@@ -892,12 +948,14 @@ Menu_Hint;More possibilities
 Menu_No;ไม่มีเมนู
 MenuCount;จำนวนของสตรีมเมนู
 MenuID;รหัสประจำตัวเมนู
+MixType;
 mn;mn
 Mood;Mood
 More;เพิ่มเติม
 Movie;ชื่อภาพยนตร์
 ms;ms
 MSDI;MSDI
+MultipleStream;
 MusicBy;
 MuxingMode;โหมด Muxing
 MuxingMode_MoreInfo;
@@ -912,8 +970,18 @@ NewVersion_Question_Content;
 NewVersion_Question_Title;
 No;ไม่ใช่
 Not yet;
+NumberOfChannelFormats;
+NumberOfContents;
 NumberOfDynamicObjects;
+NumberOfElementaryStreams;
+NumberOfObjects;
+NumberOfPackFormats;
+NumberOfPresentations;
+NumberOfProgrammes;
+NumberOfSubstreams;
+NumberOfTrackUIDs;
 NumColors;
+ObjectCount;
 OK;ตกลง
 One output file per input file;หนึ่งไฟล์ผลลัพธ์ต่อไฟล์นำเข้า
 Open;เปิด
@@ -981,6 +1049,8 @@ PartNumber;
 PartTotal;
 Performer;Performer
 Period;Period
+Phase90FilterInfo;
+Phase90FilterInfo2ch;
 Phone;โทรศัพท์
 PictureRatio;
 PixelAspectRatio;Pixel Aspect Ratio
@@ -992,11 +1062,23 @@ Played_First_Date;
 Played_Last_Date;
 PlayTime;เวลาเล่น
 PodcastCategory;
+PortableHeadphones;
+PortableSpeakers;
 Position;ตำแหน่ง
+Position_Cartesian;
+Position_Polar;
 Position_Total;ทั้งหมด
 Preferences;การปรับแต่ง
+PreferredDownmix;
 Premium;
 Premium_Summary;
+PreselectionLabel;
+Presentation;
+PresentationConfig;
+PresentationConfig_ContentClassifier;
+PresentationID;
+PreviousDownmixType5ch;
+PreviousMixType2ch;
 PrimaryAudioLanguage;
 Producer;โพรดิวเซอร์
 ProductionDesigner;ผู้ออกแบบการแสดง
@@ -1011,15 +1093,18 @@ Purchased_Date;purchased date
 Quote character;Quote character
 RadioStation;สถานีวิทยุ
 Rating;เรตติ้ง
+RealtimeLoudnessCorrected;
 Recorded_Date;วันที่บันทึก
 Recorded_Location;Recorded location
 Released_Date;Released date
 RemixedBy;รีมิกซ์โดย
+RenderMode;
 Renew;
 ReplayGain_Gain;
 ReplayGain_Peak;
 Report;
 Resolution;ความละเอียด
+RestoreLifetimeSubscription;
 s;s
 SamplePeakLevel;
 SamplePeakLevel_Album;
@@ -1061,9 +1146,11 @@ ShimName;
 ShimVersion;
 Show menu;แสดงเมนู
 Show toolbar;แสดงแถบเครื่องมือ
+SignalGroup;
 SigningPresent;
 SignLanguage;
 Sort;จัดเรียงโดย
+SoundCategory;
 SoundEngineer;ซาวน์เอนจิเนียร์
 Source;
 Source_Duration;
@@ -1071,6 +1158,7 @@ Source_FrameCount;
 Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
+SpokenSubtitles;
 Standard;มาตรฐาน
 StoreMethod_InterleavedFields;
 StoreMethod_SeparatedFields;
@@ -1101,16 +1189,22 @@ Subscription_Active;
 Subscription_Android;
 Subscription_Ended;
 Subscription_Expired;
+Subscription_Lifetime;
 Subscription_Thanks;
+Substream;
 SubTrack;แทร็กย่อย
+SubtstreamIdChannel;
 Summary;สรุป
 Supported formats;รูปแบบที่สนับสนุน
 Supported?;สนับสนุนแล้ว?
 SupportUs;
+SurroundAttenuationKnown;
+SwitchGroup;
 Synopsis;Synopsis
 SystemId;Id
 Tagged_Application;tagging application
 Tagged_Date;Tagged date
+TargetDeviceConfig;
 Technician;Technician
 TermsOfUse;ข้อตกลงการใช้
 TertiaryAudioLanguage;
@@ -1150,6 +1244,7 @@ Tree & Text;Tree & Text
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;
+TypeDefinition;
 UniqueID;
 UniversalAdID;
 UniversalAdID_Registry;
@@ -1190,5 +1285,5 @@ Written_Location;สถานที่เขียน
 WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
-ZZ_Automatic_Percent;68
-ZZ_AutomaticLanguage_Percent;76
+ZZ_Automatic_Percent;63
+ZZ_AutomaticLanguage_Percent;70

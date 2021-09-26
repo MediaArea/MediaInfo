@@ -34,6 +34,7 @@
  day1; 日
  day2; 日
  day3; 日
+ dB0;
  dB1; dB1
  dB2; dB2
  dB3; dB3
@@ -117,6 +118,9 @@
  month1; 月
  month2; 月
  month3; 月
+ object1;
+ object2;
+ object3;
  pixel1; ピクセル
  pixel2; ピクセル
  pixel3; ピクセル
@@ -153,9 +157,14 @@ ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
 Actor;主演
 Actor_Character;出演名
+Add creation date to text output;
+Add version to text output;
 Added_Date;追加日
 Address;アドレス
 AdID;
+ADM: Show ChannelFormats;
+ADM: Show TrackUIDs;
+AdmProfile;
 Advanced;詳細
 Advanced mode;詳細モード
 Album;アルバム
@@ -181,9 +190,12 @@ Audio1;プライマリ音声
 Audio2;セカンダリ音声
 AudioComments;
 AudioCount;音声数
+AudioDescription;
 AudioDescriptionPresent;
 AudioDescriptionType;
 AudioLoudnessStandard;
+AudioRenderingIndication;
+AudioSceneInfoID;
 AudioTrackLayout;
 Author;製作者
 BarCode;バーコード
@@ -206,7 +218,10 @@ Bits-(Pixel*Frame);ビット/(ピクセル*フレーム)
 BufferSize;
 Cancel;キャンセル
 Channel(s);チャンネル
+ChannelCoded;
+ChannelConfiguration;
 ChannelLayout;
+ChannelMode;
 ChannelPositions;チャンネルの位置
 Chapter(s);チャプター
 Chapters;チャプター
@@ -225,6 +240,7 @@ Choose language;言語を選択してください
 Choreographer;コアグラファー
 Chroma;クローマ
 ChromaSubsampling;
+Classifier;
 ClearList;
 Close;閉じる
 Close all before open;すべて閉じて開く
@@ -294,12 +310,17 @@ Date;日付
 Debug;デバッグ
 Decimal point;箇条
 Default_Setting;
+DefaultTargetDeviceConfig;
 Delay;遅延
 Delay_Source;
 Delay_Source_Container;
 Delay_Source_Stream;
 Delete;削除
 Description;詳細説明
+dialnorm;
+DialogueCorrected;
+DialogueEnhancement;
+DialogueNormalization;
 Digitized_Date;デジタル日付
 Dimensions;ディメンション
 Director;ディレクター
@@ -310,15 +331,20 @@ DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;元解像度
 DistributedBy;ディストリビュート by
 Distributor;
+DolbyAtmos;
 Donate;寄付
 DotsPerInch;ドット/インチ
+Downmix;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;ながさ
 Duration_End;終了時間
 Duration_Start;開始時間
+DynamicRangeControl;
+Eac3DrcProfile;
 Edit;編集
 EditedBy;編集者
+EditorialClassification;
 ElementCount;
 EMail;E-Mail
 Encoded_Application;使用したエンコーダ
@@ -352,6 +378,7 @@ FileExtension;拡張子
 FileName;ファイル名
 FileNameExtension;
 FileSize;サイズ
+FlatPanelTv;
 Folder;フォルダー
 Folder (R);フォルダー(R)
 Folder (R)_Hint;このフォルダーの詳細(R)
@@ -407,6 +434,7 @@ FrameRate_Mode_CFR;CFR モード
 FrameRate_Mode_VFR;VFR モード
 FrameRate_Nominal;通常
 FrameRate_Original;オリジナル
+FrameRate_Real;
 General;全般
 Genre;ジャンル
 Genre_000;ブルース
@@ -606,7 +634,10 @@ Gop_OpenClosed;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
 Gop_OpenClosed_Open;
+Graph;
+Group;
 Grouping;
+GroupPreset;
 h;時
 HDR_Format;
 Header file;ヘッダーファイルを作成
@@ -615,6 +646,7 @@ Height_CleanAperture;
 Height_Original;
 Help;ヘルプ
 Hint;ヒント
+HomeTheaterAvr;
 How many audio streams?;音声ストリームの数？
 How many chapters streams?;チャプターストリームの数？
 How many text streams?;テキストストリームの数？
@@ -622,12 +654,17 @@ How many video streams?;ビデオストリームの数？
 HTML;HTML
 ID;ID
 IdentClockStart;
+IFrameInterval;
 Image;イメージ
 Image stream(s);イメージストリーム
 Image_Codec_List;コーデックのイメージ
 ImageCount;イメージストリームの数
+ImmersiveStereo;
 Info;情報
 Instruments;インストゥルメンツ
+IntegratedLoudness_Level;
+IntegratedLoudness_Speech;
+InteractivityEnabled;
 Interlaced_BFF;ボトムファースト(BFF)
 Interlaced_Interlaced;インターレース
 Interlaced_PPF;プログレシッブ(PPF)
@@ -849,10 +886,24 @@ Language_zh-tw;中国語(繁体)
 Language_zu;ズールー語
 LawRating;レイティング
 LCCN;LCCN
+LfeAttenuationKnown;
+LfeMixGain;
 Library;ライブラリ
+Lifetime_Subscribe_Button;
 Lightness;明るさ
 LineUpStart;
+LinkedTo_Bed_Pos;
+LinkedTo_ChannelFormat_Pos;
+LinkedTo_Content_Pos;
+LinkedTo_Group_Pos;
+LinkedTo_Object_Pos;
+LinkedTo_PackFormat_Pos;
+LinkedTo_SignalGroup_Pos;
+LinkedTo_Substream_Pos;
+LinkedTo_TrackUID_Pos;
 List;リスト
+LoRoCenterMixGain;
+LoRoSurroundMixGain;
 Loudness_Anchor;
 Loudness_Anchor_Album;
 Loudness_Count;
@@ -871,6 +922,8 @@ Loudness_Range;
 Loudness_Range_Album;
 Loudness_RoomType;
 Loudness_RoomType_Album;
+LtRtCenterMixGain;
+LtRtSurroundMixGain;
 Lyricist;作詞
 Lyrics;歌詞
 Mastered_Date;マスタリング日
@@ -883,6 +936,9 @@ matrix_coefficients;
 Matrix_Format;
 MaxCLL;
 MaxFALL;
+MaxGain;
+MaximumMomentaryLoudness;
+MaxTruePeak;
 MediaInfo_About; 詳細情報提供者 \r\n マルチメディア ファイル:\r\n Matroska, OGG ( OGM を含む)\r\n MPEG1 ( VCD を含む)\r\n MPEG2 ( DVD , SVCD を含む)\r\n MPEG4 (iTunes の M4A を含む)\r\n Quicktime\r\n RealMedia\r\n WindowsMedia ( WMV , WMA を含む)\r\n Microsoft RIFF ( AVI , WAV を含む)\r\n 音声のみ (AC3 , DTS , AAC , AU , AIFF ...)
 MediaInfo_About_About;
 Menu;メニュー
@@ -892,12 +948,14 @@ Menu_Hint;ヒント
 Menu_No;メニュー番号
 MenuCount;メニューストリーム数
 MenuID;ID
+MixType;
 mn;分
 Mood;ムード
 More;さらに
 Movie;映画名
 ms;秒
 MSDI;MSDI
+MultipleStream;
 MusicBy;演奏者
 MuxingMode;Muxing モード
 MuxingMode_MoreInfo;Muxing モード 詳細情報
@@ -912,8 +970,18 @@ NewVersion_Question_Content;新しいバージョン(v%Version%)があります�
 NewVersion_Question_Title;新しいバージョン
 No;いいえ
 Not yet;準備中です
+NumberOfChannelFormats;
+NumberOfContents;
 NumberOfDynamicObjects;
+NumberOfElementaryStreams;
+NumberOfObjects;
+NumberOfPackFormats;
+NumberOfPresentations;
+NumberOfProgrammes;
+NumberOfSubstreams;
+NumberOfTrackUIDs;
 NumColors;色
+ObjectCount;
 OK;OK
 One output file per input file;入力ファイルを単一ファイルで出力
 Open;開く
@@ -981,6 +1049,8 @@ PartNumber;
 PartTotal;
 Performer;パフォーマー
 Period;ピリオド
+Phase90FilterInfo;
+Phase90FilterInfo2ch;
 Phone;電話
 PictureRatio;
 PixelAspectRatio;ピクセル比
@@ -992,11 +1062,23 @@ Played_First_Date;初再生日
 Played_Last_Date;最終再生日
 PlayTime;再生時間
 PodcastCategory;
+PortableHeadphones;
+PortableSpeakers;
 Position;ポジション
+Position_Cartesian;
+Position_Polar;
 Position_Total;合計
 Preferences;設定
+PreferredDownmix;
 Premium;
 Premium_Summary;
+PreselectionLabel;
+Presentation;
+PresentationConfig;
+PresentationConfig_ContentClassifier;
+PresentationID;
+PreviousDownmixType5ch;
+PreviousMixType2ch;
 PrimaryAudioLanguage;
 Producer;プロデューサー
 ProductionDesigner;プロダクション
@@ -1011,15 +1093,18 @@ Purchased_Date;購入日
 Quote character;クオート
 RadioStation;ラジオ局
 Rating;レイティング
+RealtimeLoudnessCorrected;
 Recorded_Date;録音日
 Recorded_Location;録音した場所
 Released_Date;リリース日
 RemixedBy;リミックス by
+RenderMode;
 Renew;
 ReplayGain_Gain;リプレイゲイン ゲイン
 ReplayGain_Peak;リプレイ ゲイン ピーク
 Report;
 Resolution;解像度
+RestoreLifetimeSubscription;
 s;秒
 SamplePeakLevel;
 SamplePeakLevel_Album;
@@ -1061,9 +1146,11 @@ ShimName;
 ShimVersion;
 Show menu;メニューを表示する
 Show toolbar;ツール バーを表示する
+SignalGroup;
 SigningPresent;
 SignLanguage;
 Sort;並び替え
+SoundCategory;
 SoundEngineer;サウンドエンジニア
 Source;
 Source_Duration;
@@ -1071,6 +1158,7 @@ Source_FrameCount;
 Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
+SpokenSubtitles;
 Standard;標準
 StoreMethod_InterleavedFields;
 StoreMethod_SeparatedFields;
@@ -1101,16 +1189,22 @@ Subscription_Active;
 Subscription_Android;
 Subscription_Ended;
 Subscription_Expired;
+Subscription_Lifetime;
 Subscription_Thanks;
+Substream;
 SubTrack;サブトラック
+SubtstreamIdChannel;
 Summary;サマリー
 Supported formats;対応フォーマット
 Supported?;サポート？
 SupportUs;
+SurroundAttenuationKnown;
+SwitchGroup;
 Synopsis;Synopsis
 SystemId;システム Id
 Tagged_Application;タギングツール
 Tagged_Date;タグ付け日
+TargetDeviceConfig;
 Technician;テクニシャン
 TermsOfUse;使用許諾
 TertiaryAudioLanguage;
@@ -1150,6 +1244,7 @@ Tree & Text;ツリーとテキスト
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;
+TypeDefinition;
 UniqueID;
 UniversalAdID;
 UniversalAdID_Registry;
@@ -1190,5 +1285,5 @@ Written_Location;作成場所
 WrittenBy;著者
 Yes;はい
 Your system;システム情報
-ZZ_Automatic_Percent;78
-ZZ_AutomaticLanguage_Percent;82
+ZZ_Automatic_Percent;72
+ZZ_AutomaticLanguage_Percent;76
