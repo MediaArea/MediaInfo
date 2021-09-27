@@ -34,6 +34,7 @@
  day1; day
  day2; days
  day3; days
+ dB0;0 dB
  dB1; dB
  dB2; dB
  dB3; dB
@@ -117,6 +118,9 @@
  month1; month
  month2; months
  month3; months
+ object1; object
+ object2; objects
+ object3; objects
  pixel1; pixel
  pixel2; pixels
  pixel3; pixels
@@ -153,13 +157,14 @@ ActiveFormatDescription;Active Format Description
 ActiveFormatDescription_MuxingMode;Active Format Description, Muxing mode
 Actor;Actor
 Actor_Character;Character played
-Added_Date;Added date
-Address;Address
 Add creation date to text output;Add creation date to text output
 Add version to text output;Add version to text output
+Added_Date;Added date
+Address;Address
 AdID;Ad-ID identifier
 ADM: Show ChannelFormats;ADM: Show ChannelFormats
 ADM: Show TrackUIDs;ADM: Show TrackUIDs
+AdmProfile;ADM profile
 Advanced;Advanced
 Advanced mode;Advanced mode
 Album;Album
@@ -185,9 +190,12 @@ Audio1;First audio stream
 Audio2;Second audio stream
 AudioComments;Audio Comments
 AudioCount;Count of audio streams
+AudioDescription;Audio description
 AudioDescriptionPresent;Audio Description Present
 AudioDescriptionType;Audio Description Type
 AudioLoudnessStandard;Audio Loudness Standard
+AudioRenderingIndication;Audio rendering indication
+AudioSceneInfoID;Audio scene info ID
 AudioTrackLayout;Audio Track Layout
 Author;Author
 BarCode;BarCode
@@ -210,7 +218,10 @@ Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;Buffer size
 Cancel;Cancel
 Channel(s);Channel(s)
+ChannelCoded;Channel coded
+ChannelConfiguration;Channel configuration
 ChannelLayout;Channel layout
+ChannelMode;Channel mode
 ChannelPositions;Channel positions
 Chapter(s);Chapter(s)
 Chapters;Chapters
@@ -229,6 +240,7 @@ Choose language;Choose your desired language
 Choreographer;Choreographer
 Chroma;Chroma
 ChromaSubsampling;Chroma subsampling
+Classifier;Content classifier
 ClearList;Clear list
 Close;Close
 Close all before open;Close all before open
@@ -298,12 +310,17 @@ Date;Date
 Debug;Debug
 Decimal point;Decimal point
 Default_Setting;System default
+DefaultTargetDeviceConfig;Default target device config
 Delay;Delay
 Delay_Source;Delay, origin
 Delay_Source_Container;Container
 Delay_Source_Stream;Raw stream
 Delete;Delete
 Description;Description
+dialnorm;Dialog Normalization
+DialogueCorrected;Dialogue corrected
+DialogueEnhancement;Dialogue enhancement
+DialogueNormalization;Dialogue normalization
 Digitized_Date;Digitized date
 Dimensions;Dimensions
 Director;Director
@@ -314,15 +331,20 @@ DisplayAspectRatio_CleanAperture;Clean aperture display aspect ratio
 DisplayAspectRatio_Original;Original display aspect ratio
 DistributedBy;Distributed by
 Distributor;Distributor
+DolbyAtmos;Dolby Atmos
 Donate;Donate
 DotsPerInch;Dots per inch
+Downmix;Downmix
 DrcSets_Count;DRC set count
 DrcSets_Effects;DRC effect type(s)
 Duration;Duration
 Duration_End;End time
 Duration_Start;Start time
+DynamicRangeControl;Dynamic Range Control
+Eac3DrcProfile;E-AC-3 DRC profile
 Edit;Edit
 EditedBy;Edited by
+EditorialClassification;Editorial classification
 ElementCount;Count of elements
 EMail;E-Mail
 Encoded_Application;Writing application
@@ -356,6 +378,7 @@ FileExtension;File extension
 FileName;File name
 FileNameExtension;File name extension
 FileSize;File size
+FlatPanelTv;Flat panel TV
 Folder;Folder
 Folder (R);Folder (R)
 Folder (R)_Hint;Select a folder to examine (with all folders recursively)
@@ -411,6 +434,7 @@ FrameRate_Mode_CFR;Constant
 FrameRate_Mode_VFR;Variable
 FrameRate_Nominal;Nominal frame rate
 FrameRate_Original;Original frame rate
+FrameRate_Real;Real frame rate
 General;General
 Genre;Genre
 Genre_000;Blues
@@ -611,7 +635,9 @@ Gop_OpenClosed_Closed;Closed
 Gop_OpenClosed_FirstFrame;GOP, Open/Closed of first frame
 Gop_OpenClosed_Open;Open
 Graph;Graph
+Group;Group
 Grouping;Grouping
+GroupPreset;Group preset
 h; h
 HDR_Format;HDR format
 Header file;Create a header file
@@ -620,6 +646,7 @@ Height_CleanAperture;Clean aperture height
 Height_Original;Original height
 Help;Help
 Hint;Hint
+HomeTheaterAvr;Home theater AVR
 How many audio streams?;How many audio streams?
 How many chapters streams?;How many chapters streams?
 How many text streams?;How many text streams?
@@ -627,12 +654,17 @@ How many video streams?;How many video streams?
 HTML;HTML
 ID;ID
 IdentClockStart;Ident Clock Start
+IFrameInterval;I-Frame interval
 Image;Image
 Image stream(s);Image streams
 Image_Codec_List;Codecs Image
 ImageCount;Count of image streams
+ImmersiveStereo;Immersive stereo
 Info;Info
 Instruments;Instruments
+IntegratedLoudness_Level;Integrated loudness (level gated)
+IntegratedLoudness_Speech;Integrated loudness (speech gated)
+InteractivityEnabled;Interactivity enabled
 Interlaced_BFF;Bottom Field First
 Interlaced_Interlaced;Interlaced
 Interlaced_PPF;Progressive
@@ -854,11 +886,24 @@ Language_zh-tw;Chinese (Taiwan)
 Language_zu;Zulu
 LawRating;Law rating
 LCCN;LCCN
+LfeAttenuationKnown;LFE attenuation known
+LfeMixGain;LFE mix gain
 Library;Muxing library
 Lifetime_Subscribe_Button;Lifetime subscription for %PRICE%
 Lightness;Lightness
 LineUpStart;Line Up Start
+LinkedTo_Bed_Pos;Bed #s
+LinkedTo_ChannelFormat_Pos;Channel format #s
+LinkedTo_Content_Pos;Content #s
+LinkedTo_Group_Pos;Group #s
+LinkedTo_Object_Pos;Object #s
+LinkedTo_PackFormat_Pos;Pack format #s
+LinkedTo_SignalGroup_Pos;Signal group #s
+LinkedTo_Substream_Pos;Substream #s
+LinkedTo_TrackUID_Pos;Track UID #s
 List;List
+LoRoCenterMixGain;LoRo center mix gain
+LoRoSurroundMixGain;LoRo surround mix gain
 Loudness_Anchor;Anchor loudness
 Loudness_Anchor_Album;Anchor loudness (album)
 Loudness_Count;Loudness info count
@@ -877,6 +922,8 @@ Loudness_Range;Loudness range
 Loudness_Range_Album;Loudness range (album)
 Loudness_RoomType;Production room type
 Loudness_RoomType_Album;Production room type (album)
+LtRtCenterMixGain;LtRt center mix gain
+LtRtSurroundMixGain;LtRt surround mix gain
 Lyricist;Lyricist
 Lyrics;Lyrics
 Mastered_Date;Mastered date
@@ -889,6 +936,9 @@ matrix_coefficients;Matrix coefficients
 Matrix_Format;Matrix encoding, format
 MaxCLL;Maximum Content Light Level
 MaxFALL;Maximum Frame-Average Light Level
+MaxGain;Max gain
+MaximumMomentaryLoudness;Maximum momentary loudness
+MaxTruePeak;Max true peak
 MediaInfo_About;MediaInfo provides easy access to technical and tag information about video and audio files.\r\nExcept the Mac App Store graphical user interface, it is open-source software, which means that it is free of charge to the end user and developers have freedom to study, to improve and to redistribute the program (BSD license)
 MediaInfo_About_About;MediaInfo v%MI_VERSION% using MediaInfoLib v%MIL_VERSION%
 Menu;Menu
@@ -898,12 +948,14 @@ Menu_Hint;More possibilities
 Menu_No;No menu
 MenuCount;Count of menu streams
 MenuID;Menu ID
+MixType;Mix type
 mn; min
 Mood;Mood
 More;More
 Movie;Movie name
 ms; ms
 MSDI;MSDI
+MultipleStream;Multiple-stream
 MusicBy;Music by
 MuxingMode;Muxing mode
 MuxingMode_MoreInfo;Muxing mode, more info
@@ -918,8 +970,18 @@ NewVersion_Question_Content;A new version (v%Version%) is available, would you l
 NewVersion_Question_Title;A new version was released!
 No;No
 Not yet;Not yet
+NumberOfChannelFormats;Number of channel formats
+NumberOfContents;Number of Contents
 NumberOfDynamicObjects;Number of dynamic objects
+NumberOfElementaryStreams;Number of elementary streams
+NumberOfObjects;Number of objects
+NumberOfPackFormats;Number of pack formats
+NumberOfPresentations;Number of presentations
+NumberOfProgrammes;Number of programmes
+NumberOfSubstreams;Number of substreams
+NumberOfTrackUIDs;Number of track UIDs
 NumColors;Number of colors
+ObjectCount;Object Count
 OK;OK
 One output file per input file;One output file per input file
 Open;Open
@@ -987,6 +1049,8 @@ PartNumber;Part Number
 PartTotal;Part Total
 Performer;Performer
 Period;Period
+Phase90FilterInfo;Phase 90 filter info
+Phase90FilterInfo2ch;Phase 90 Filer Info 2-ch
 Phone;Phone
 PictureRatio;Picture Ratio
 PixelAspectRatio;Pixel aspect ratio
@@ -998,11 +1062,23 @@ Played_First_Date;First played
 Played_Last_Date;Last played
 PlayTime;PlayTime
 PodcastCategory;Podcast category
+PortableHeadphones;Portable headphones
+PortableSpeakers;Portable speakers
 Position;Position
+Position_Cartesian;Position (cartesian)
+Position_Polar;Position (polar)
 Position_Total;Total
 Preferences;Preferences
+PreferredDownmix;Preferred downmix
 Premium;Premium
 Premium_Summary;Premium subscribers features
+PreselectionLabel;Preselection label
+Presentation;Presentation
+PresentationConfig;Presentation config
+PresentationConfig_ContentClassifier;Presentation config from content classifiers
+PresentationID;Presentation ID
+PreviousDownmixType5ch;Previous Downmix Type 5-ch
+PreviousMixType2ch;Previous Mix Type 2-ch
 PrimaryAudioLanguage;Primary Audio Language
 Producer;Producer
 ProductionDesigner;Production designer
@@ -1017,10 +1093,12 @@ Purchased_Date;purchased date
 Quote character;Quote character
 RadioStation;Radio station
 Rating;Rating
+RealtimeLoudnessCorrected;Realtime loudness corrected
 Recorded_Date;Recorded date
 Recorded_Location;Recorded location
 Released_Date;Released date
 RemixedBy;Remixed by
+RenderMode;Render mode
 Renew;Renew
 ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replay gain peak
@@ -1068,9 +1146,11 @@ ShimName;Shim Name
 ShimVersion;Shim Version
 Show menu;Show menu
 Show toolbar;Show toolbar
+SignalGroup;Signal group
 SigningPresent;Signing Present
 SignLanguage;Sign Language
 Sort;Sorted by
+SoundCategory;Sound category
 SoundEngineer;Sound engineer
 Source;Source
 Source_Duration;Source duration
@@ -1078,6 +1158,7 @@ Source_FrameCount;Source frame count
 Source_SamplingCount;Source sample count
 Source_StreamSize;Source stream size
 Source_StreamSize_Encoded;Source encoded stream size
+SpokenSubtitles;Spoken subtitles
 Standard;Standard
 StoreMethod_InterleavedFields;Interleaved fields
 StoreMethod_SeparatedFields;Separated fields
@@ -1110,15 +1191,20 @@ Subscription_Ended;Your subscription has just ended.
 Subscription_Expired;Subscription expired since %DATE%
 Subscription_Lifetime;Lifetime subscription detected
 Subscription_Thanks;Subscription detected. Thanks for your support!
+Substream;Substream
 SubTrack;SubTrack
+SubtstreamIdChannel;Substream start ID & channel index
 Summary;Summary
 Supported formats;Supported formats
 Supported?;Supported?
 SupportUs;Support us. Get the dark theme and more features to come.
+SurroundAttenuationKnown;Surround attenuation known
+SwitchGroup;Switch group
 Synopsis;Synopsis
 SystemId;Id
 Tagged_Application;Tagging application
 Tagged_Date;Tagged date
+TargetDeviceConfig;Target device config
 Technician;Technician
 TermsOfUse;Terms of use
 TertiaryAudioLanguage;Tertiary Audio Language
@@ -1158,6 +1244,7 @@ Tree & Text;Tree & Text
 TruePeakLevel;True peak level
 TruePeakLevel_Album;True peak level (album)
 Type;Type
+TypeDefinition;TypeDefinition
 UniqueID;Unique ID
 UniversalAdID;Universal Ad ID
 UniversalAdID_Registry;Universal Ad ID registry

@@ -34,6 +34,7 @@
  day1; dan
  day2; dana
  day3; dana
+ dB0;
  dB1; dB
  dB2; dB
  dB3; dB
@@ -117,6 +118,9 @@
  month1; mjesec
  month2; mjeseca
  month3; mjeseca
+ object1;
+ object2;
+ object3;
  pixel1; piksel
  pixel2; piksela
  pixel3; piksela
@@ -153,9 +157,14 @@ ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
 Actor;Glumac
 Actor_Character;Uloga
+Add creation date to text output;
+Add version to text output;
 Added_Date;Dodano dana
 Address;Adresa
 AdID;
+ADM: Show ChannelFormats;
+ADM: Show TrackUIDs;
+AdmProfile;
 Advanced;Prošireno
 Advanced mode;Prošireni način
 Album;Album
@@ -181,9 +190,12 @@ Audio1;Prvi zvučni tok
 Audio2;Drugi zvučni tok
 AudioComments;
 AudioCount;Broj zvučnih tokova
+AudioDescription;
 AudioDescriptionPresent;
 AudioDescriptionType;
 AudioLoudnessStandard;
+AudioRenderingIndication;
+AudioSceneInfoID;
 AudioTrackLayout;
 Author;Autor
 BarCode;Crtičasti kôd
@@ -206,7 +218,10 @@ Bits-(Pixel*Frame);Bita/(piksela*sličica)
 BufferSize;
 Cancel;Poništiti
 Channel(s);Kanali
+ChannelCoded;
+ChannelConfiguration;
 ChannelLayout;
+ChannelMode;
 ChannelPositions;Položaj kanala
 Chapter(s);Poglavlja
 Chapters;Poglavlja
@@ -225,6 +240,7 @@ Choose language;Odaberite jezik
 Choreographer;Koreograf
 Chroma;Kromatizam
 ChromaSubsampling;
+Classifier;
 ClearList;
 Close;Zatvoriti
 Close all before open;Prije otvaranja sve ostale zatvoriti
@@ -294,12 +310,17 @@ Date;Nadnevak
 Debug;Uklanjanje pogreški
 Decimal point;Decimalna točka
 Default_Setting;
+DefaultTargetDeviceConfig;
 Delay;Zaostajanje
 Delay_Source;
 Delay_Source_Container;
 Delay_Source_Stream;
 Delete;Izbrisati
 Description;Opis
+dialnorm;
+DialogueCorrected;
+DialogueEnhancement;
+DialogueNormalization;
 Digitized_Date;Nadnevak digitaliziranja
 Dimensions;Dimenzije
 Director;Režiser
@@ -310,15 +331,20 @@ DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Izvorni omjer slike
 DistributedBy;Distribucija
 Distributor;
+DolbyAtmos;
 Donate;Potpora razvoju MediaInfo
 DotsPerInch;Točaka po palcu (DPI)
+Downmix;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;Trajanje
 Duration_End;Vrijeme svršetka
 Duration_Start;Vrijeme početka
+DynamicRangeControl;
+Eac3DrcProfile;
 Edit;Uređivanje
 EditedBy;Uredio
+EditorialClassification;
 ElementCount;
 EMail;E-pošta
 Encoded_Application;Kodirajući program
@@ -352,6 +378,7 @@ FileExtension;Nastavak naziva datoteke
 FileName;Naziv datoteke
 FileNameExtension;
 FileSize;Veličina datoteke
+FlatPanelTv;
 Folder;Mapa
 Folder (R);Mapa (R)
 Folder (R)_Hint;Odaberite mapu za promatranje (rekurzivno sa svim mapama)
@@ -407,6 +434,7 @@ FrameRate_Mode_CFR;Ustaljeno
 FrameRate_Mode_VFR;Izmjenjivo
 FrameRate_Nominal;Nominalna stopa protoka sličica
 FrameRate_Original;Izvorna stopa protoka sličica
+FrameRate_Real;
 General;Općenito
 Genre;Glazbeni smjer
 Genre_000;Blues
@@ -606,7 +634,10 @@ Gop_OpenClosed;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;Agrupamento
 Gop_OpenClosed_Open;
+Graph;
+Group;
 Grouping;
+GroupPreset;
 h; h
 HDR_Format;
 Header file;Kreirati zaglavnu datoteku
@@ -615,6 +646,7 @@ Height_CleanAperture;
 Height_Original;
 Help;Pomoć
 Hint;Naznaka
+HomeTheaterAvr;
 How many audio streams?;Koliko zvučnih tokova?
 How many chapters streams?;Koliko tokova poglavlja?
 How many text streams?;Koliko tokova teksta?
@@ -622,12 +654,17 @@ How many video streams?;Koliko tokova video-snimke?
 HTML;HTML
 ID;ID
 IdentClockStart;
+IFrameInterval;
 Image;Slika
 Image stream(s);Tokovi slike
 Image_Codec_List;Slikovni kôdeki
 ImageCount;Broj slikovnih tokova
+ImmersiveStereo;
 Info;Informacija
 Instruments;Instrumenti
+IntegratedLoudness_Level;
+IntegratedLoudness_Speech;
+InteractivityEnabled;
 Interlaced_BFF;Najprije donje polje
 Interlaced_Interlaced;Interlaced
 Interlaced_PPF;Progresivno
@@ -849,10 +886,24 @@ Language_zh-tw;Kineski (Taiwan)
 Language_zu;Zulu
 LawRating;Dopušteno za mladež od
 LCCN;LCCN
+LfeAttenuationKnown;
+LfeMixGain;
 Library;Knjižnica multipleksera
+Lifetime_Subscribe_Button;
 Lightness;Svjetlina
 LineUpStart;
+LinkedTo_Bed_Pos;
+LinkedTo_ChannelFormat_Pos;
+LinkedTo_Content_Pos;
+LinkedTo_Group_Pos;
+LinkedTo_Object_Pos;
+LinkedTo_PackFormat_Pos;
+LinkedTo_SignalGroup_Pos;
+LinkedTo_Substream_Pos;
+LinkedTo_TrackUID_Pos;
 List;Spisak
+LoRoCenterMixGain;
+LoRoSurroundMixGain;
 Loudness_Anchor;
 Loudness_Anchor_Album;
 Loudness_Count;
@@ -871,6 +922,8 @@ Loudness_Range;
 Loudness_Range_Album;
 Loudness_RoomType;
 Loudness_RoomType_Album;
+LtRtCenterMixGain;
+LtRtSurroundMixGain;
 Lyricist;Tekstopisac
 Lyrics;Tekst pjesme
 Mastered_Date;Nadnevak glavne snimke
@@ -883,6 +936,9 @@ matrix_coefficients;
 Matrix_Format;
 MaxCLL;
 MaxFALL;
+MaxGain;
+MaximumMomentaryLoudness;
+MaxTruePeak;
 MediaInfo_About;Pruža vrlo podrobne informacije\r\no multimedijalnim datotekama:\r\nMatroska, OGG (uključujući OGM)\r\nMPEG1 (uključujući VCD)\r\nMPEG2 (uključujući DVD i SVCD)\r\nMPEG4 (uključujući Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (uključujući WMV, WMA)\r\nMicrosoft RIFF (uključujući AVI, WAV)\r\nSamo zvukovnim oblicima (AC3, DTS, AAC, AU, AIFF...)
 MediaInfo_About_About;
 Menu;Izbornik
@@ -892,12 +948,14 @@ Menu_Hint;Dodatne mogućnosti
 Menu_No;Bez izbornika
 MenuCount;Broj izborničkih tokova
 MenuID;Izbornički ID
+MixType;
 mn; min
 Mood;Raspoloženje
 More;Više...
 Movie;Naslov filma
 ms; ms
 MSDI;MSDI
+MultipleStream;
 MusicBy;Glazba
 MuxingMode;Način rada multipleksera
 MuxingMode_MoreInfo;Više informacija o radu multipleksera
@@ -912,8 +970,18 @@ NewVersion_Question_Content;Raspoloživa je novija inačica (v%Version%)! Da li 
 NewVersion_Question_Title;Objavljena je nova inačica!
 No;Ne
 Not yet;Još ne
+NumberOfChannelFormats;
+NumberOfContents;
 NumberOfDynamicObjects;
+NumberOfElementaryStreams;
+NumberOfObjects;
+NumberOfPackFormats;
+NumberOfPresentations;
+NumberOfProgrammes;
+NumberOfSubstreams;
+NumberOfTrackUIDs;
 NumColors;Broj boja
+ObjectCount;
 OK;U redu
 One output file per input file;Po jedna izlazna datoteka na jednu ulaznu
 Open;Otvoriti
@@ -981,6 +1049,8 @@ PartNumber;
 PartTotal;
 Performer;Izvođač
 Period;Razdoblje
+Phase90FilterInfo;
+Phase90FilterInfo2ch;
 Phone;Telefon
 PictureRatio;
 PixelAspectRatio;Omjer piksela
@@ -992,11 +1062,23 @@ Played_First_Date;prvi put izvođeno
 Played_Last_Date;posljednji put izvođeno
 PlayTime;Trajanje izvedbe
 PodcastCategory;
+PortableHeadphones;
+PortableSpeakers;
 Position;položaj
+Position_Cartesian;
+Position_Polar;
 Position_Total;ukupno
 Preferences;Prilagodbe
+PreferredDownmix;
 Premium;
 Premium_Summary;
+PreselectionLabel;
+Presentation;
+PresentationConfig;
+PresentationConfig_ContentClassifier;
+PresentationID;
+PreviousDownmixType5ch;
+PreviousMixType2ch;
 PrimaryAudioLanguage;
 Producer;Producent
 ProductionDesigner;Designer proizvodnje
@@ -1011,15 +1093,18 @@ Purchased_Date;Nadnevak kupovine
 Quote character;Znaci navoda
 RadioStation;Radijska postaja
 Rating;Vrjednovanje
+RealtimeLoudnessCorrected;
 Recorded_Date;Nadnevak snimanja
 Recorded_Location;Mjesto snimanja
 Released_Date;Nadnevak objavljivanja
 RemixedBy;Remixed by
+RenderMode;
 Renew;
 ReplayGain_Gain;Pojačavanje zvuka izvedbe
 ReplayGain_Peak;Vrhunac pojačanog zvuka izvedbe
 Report;
 Resolution;Razlučivost
+RestoreLifetimeSubscription;
 s;s
 SamplePeakLevel;
 SamplePeakLevel_Album;
@@ -1061,9 +1146,11 @@ ShimName;
 ShimVersion;
 Show menu;Prikazati izbornik
 Show toolbar;Prikazati alatnu traku
+SignalGroup;
 SigningPresent;
 SignLanguage;
 Sort;Poređano prema
+SoundCategory;
 SoundEngineer;Tonski tehničar
 Source;
 Source_Duration;
@@ -1071,6 +1158,7 @@ Source_FrameCount;
 Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
+SpokenSubtitles;
 Standard;Standardno
 StoreMethod_InterleavedFields;
 StoreMethod_SeparatedFields;
@@ -1101,16 +1189,22 @@ Subscription_Active;
 Subscription_Android;
 Subscription_Ended;
 Subscription_Expired;
+Subscription_Lifetime;
 Subscription_Thanks;
+Substream;
 SubTrack;Podsnimka
+SubtstreamIdChannel;
 Summary;Sveukupno
 Supported formats;Podržavani oblici datoteka
 Supported?;Podržavano?
 SupportUs;
+SurroundAttenuationKnown;
+SwitchGroup;
 Synopsis;Sažetak
 SystemId;ID
 Tagged_Application;Označeno aplikacijom
 Tagged_Date;Nadnevak označavanja
+TargetDeviceConfig;
 Technician;Tehničar
 TermsOfUse;Uvjeti korištenja
 TertiaryAudioLanguage;
@@ -1150,6 +1244,7 @@ Tree & Text;Stablo i tekst
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;
+TypeDefinition;
 UniqueID;
 UniversalAdID;
 UniversalAdID_Registry;
@@ -1190,5 +1285,5 @@ Written_Location;Mjesto početka pisanja
 WrittenBy;Napisao
 Yes;Da
 Your system;Informacije o Vašem sustavu
-ZZ_Automatic_Percent;78
-ZZ_AutomaticLanguage_Percent;82
+ZZ_Automatic_Percent;73
+ZZ_AutomaticLanguage_Percent;76

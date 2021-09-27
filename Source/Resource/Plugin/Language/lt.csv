@@ -34,6 +34,7 @@
  day1;diena
  day2;dienos
  day3;dienos
+ dB0;
  dB1;
  dB2;
  dB3;
@@ -117,6 +118,9 @@
  month1;mėnuo
  month2;mėnesiai
  month3;mėnesiai
+ object1;
+ object2;
+ object3;
  pixel1;pikselis
  pixel2;pikseliai
  pixel3;pikseliai
@@ -153,9 +157,14 @@ ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
 Actor;Aktorius
 Actor_Character;rodyti ženklą
+Add creation date to text output;
+Add version to text output;
 Added_Date;
 Address;Adresas
 AdID;
+ADM: Show ChannelFormats;
+ADM: Show TrackUIDs;
+AdmProfile;
 Advanced;Išplėstinai
 Advanced mode;Išplėstinis režimas
 Album;Albumas
@@ -181,9 +190,12 @@ Audio1;Pirmas audio srautas
 Audio2;Antras audio srautas
 AudioComments;
 AudioCount;Audio srautų kiekis
+AudioDescription;
 AudioDescriptionPresent;
 AudioDescriptionType;
 AudioLoudnessStandard;
+AudioRenderingIndication;
+AudioSceneInfoID;
 AudioTrackLayout;
 Author;Autorius
 BarCode;Brūkšninis kodas
@@ -206,7 +218,10 @@ Bits-(Pixel*Frame);Bitai/(Pikselis*Kadras)
 BufferSize;
 Cancel;Atšaukti
 Channel(s);Kanalas (-ai)
+ChannelCoded;
+ChannelConfiguration;
 ChannelLayout;
+ChannelMode;
 ChannelPositions;Kanalo pozicijos
 Chapter(s);Skyrius(iai)
 Chapters;Skyriai
@@ -225,6 +240,7 @@ Choose language;Pasirinkite savo norimą kalbą
 Choreographer;Choreografas
 Chroma;Chromas
 ChromaSubsampling;
+Classifier;
 ClearList;
 Close;Uždaryti
 Close all before open;Uždaryti visus prieš atveriant
@@ -294,12 +310,17 @@ Date;Data
 Debug;Suderinti
 Decimal point;Dešimtainis taškas
 Default_Setting;
+DefaultTargetDeviceConfig;
 Delay;Atidėti
 Delay_Source;
 Delay_Source_Container;
 Delay_Source_Stream;
 Delete;Pašalinti
 Description;Aprašymas
+dialnorm;
+DialogueCorrected;
+DialogueEnhancement;
+DialogueNormalization;
 Digitized_Date;Skaitmeninė data
 Dimensions;
 Director;Direktorius
@@ -310,15 +331,20 @@ DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;
 DistributedBy;Platintojas
 Distributor;
+DolbyAtmos;
 Donate;Aukoti
 DotsPerInch;
+Downmix;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;Trukmė
 Duration_End;
 Duration_Start;
+DynamicRangeControl;
+Eac3DrcProfile;
 Edit;Redaguoti
 EditedBy;Redagavo
+EditorialClassification;
 ElementCount;
 EMail;El. paštas
 Encoded_Application;Rašymo programa
@@ -352,6 +378,7 @@ FileExtension;Failo plėtinys
 FileName;Failo pavadinimas
 FileNameExtension;
 FileSize;Failo dydis
+FlatPanelTv;
 Folder;Katalogas
 Folder (R);Katalogas (R)
 Folder (R)_Hint;Pasirinkite katalogą studijavimui (su visais pasikartojančiais katalogais)
@@ -407,6 +434,7 @@ FrameRate_Mode_CFR;
 FrameRate_Mode_VFR;
 FrameRate_Nominal;Nominalus kadrų skaičius
 FrameRate_Original;Originalus kadrų skaičius
+FrameRate_Real;
 General;Pagrindinis
 Genre;Žanras
 Genre_000;Bliuzas
@@ -606,7 +634,10 @@ Gop_OpenClosed;
 Gop_OpenClosed_Closed;
 Gop_OpenClosed_FirstFrame;
 Gop_OpenClosed_Open;
+Graph;
+Group;
 Grouping;
+GroupPreset;
 h; v
 HDR_Format;
 Header file;Sukurti pagrindinį failą
@@ -615,6 +646,7 @@ Height_CleanAperture;
 Height_Original;
 Help;Pagalba
 Hint;Zyma
+HomeTheaterAvr;
 How many audio streams?;Kiek audio srautų?
 How many chapters streams?;Kiek skyrių srautų?
 How many text streams?;Kiek teksto srautų?
@@ -622,12 +654,17 @@ How many video streams?;Kiek video srautų?
 HTML;HTML
 ID;ID
 IdentClockStart;
+IFrameInterval;
 Image;Paveikslėlis
 Image stream(s);Paveikslėlių srautai
 Image_Codec_List;Kodeko paveikslėlis
 ImageCount;Paveikslėlių srautų kiekis
+ImmersiveStereo;
 Info;Info
 Instruments;Instrumentai
+IntegratedLoudness_Level;
+IntegratedLoudness_Speech;
+InteractivityEnabled;
 Interlaced_BFF;Apatinis laukas pirmiau
 Interlaced_Interlaced;Sumaišytas
 Interlaced_PPF;Progresyvus
@@ -849,10 +886,24 @@ Language_zh-tw;
 Language_zu;Zulu
 LawRating;Law reitingas
 LCCN;LCCN
+LfeAttenuationKnown;
+LfeMixGain;
 Library;Muxing biblioteka
+Lifetime_Subscribe_Button;
 Lightness;
 LineUpStart;
+LinkedTo_Bed_Pos;
+LinkedTo_ChannelFormat_Pos;
+LinkedTo_Content_Pos;
+LinkedTo_Group_Pos;
+LinkedTo_Object_Pos;
+LinkedTo_PackFormat_Pos;
+LinkedTo_SignalGroup_Pos;
+LinkedTo_Substream_Pos;
+LinkedTo_TrackUID_Pos;
 List;Sąrašas
+LoRoCenterMixGain;
+LoRoSurroundMixGain;
 Loudness_Anchor;
 Loudness_Anchor_Album;
 Loudness_Count;
@@ -871,6 +922,8 @@ Loudness_Range;
 Loudness_Range_Album;
 Loudness_RoomType;
 Loudness_RoomType_Album;
+LtRtCenterMixGain;
+LtRtSurroundMixGain;
 Lyricist;Lyrikas
 Lyrics;
 Mastered_Date;Sukūrimo data
@@ -883,6 +936,9 @@ matrix_coefficients;
 Matrix_Format;
 MaxCLL;
 MaxFALL;
+MaxGain;
+MaximumMomentaryLoudness;
+MaxTruePeak;
 MediaInfo_About;Teikiama detali informacija\r\napie daugialypes bylas:\r\nMatroska, OGG (įskaitant OGM)\r\nMPEG1 (įskaitant VCD)\r\nMPEG2 (įskaitant DVD ir SVCD)\r\nMPEG4 (įskaitant Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (įskaitant WMV, WMA)\r\nMicrosoft RIFF (įskaitant AVI, WAV)\r\nTik-Garso formatai (AC3, DTS, AAC, AU, AIFF...)
 MediaInfo_About_About;
 Menu;Meniu
@@ -892,12 +948,14 @@ Menu_Hint;Daugiau galimybių
 Menu_No;Be meniu
 MenuCount;Meniu srautų kiekis
 MenuID;Meniu ID
+MixType;
 mn; min
 Mood;Nuotaika
 More;Daugiau
 Movie;Filmo pavadinimas
 ms; ms
 MSDI;MSDI
+MultipleStream;
 MusicBy;
 MuxingMode;Muxing rėžimas
 MuxingMode_MoreInfo;
@@ -912,8 +970,18 @@ NewVersion_Question_Content;
 NewVersion_Question_Title;
 No;Ne
 Not yet;
+NumberOfChannelFormats;
+NumberOfContents;
 NumberOfDynamicObjects;
+NumberOfElementaryStreams;
+NumberOfObjects;
+NumberOfPackFormats;
+NumberOfPresentations;
+NumberOfProgrammes;
+NumberOfSubstreams;
+NumberOfTrackUIDs;
 NumColors;
+ObjectCount;
 OK;Gerai
 One output file per input file;Vienas įšėjimo failas per įėjimo failą
 Open;Atverti
@@ -981,6 +1049,8 @@ PartNumber;
 PartTotal;
 Performer;Atlikėjas
 Period;Laikotarpis
+Phase90FilterInfo;
+Phase90FilterInfo2ch;
 Phone;Telefonas
 PictureRatio;
 PixelAspectRatio;Pikselių aspekto koeficientas
@@ -992,11 +1062,23 @@ Played_First_Date;
 Played_Last_Date;
 PlayTime;Rodymo laikas
 PodcastCategory;
+PortableHeadphones;
+PortableSpeakers;
 Position;Padėtis
+Position_Cartesian;
+Position_Polar;
 Position_Total;Viso
 Preferences;Pasirinktys
+PreferredDownmix;
 Premium;
 Premium_Summary;
+PreselectionLabel;
+Presentation;
+PresentationConfig;
+PresentationConfig_ContentClassifier;
+PresentationID;
+PreviousDownmixType5ch;
+PreviousMixType2ch;
 PrimaryAudioLanguage;
 Producer;Prodiuseris
 ProductionDesigner;Produkcijos dizaineris
@@ -1011,15 +1093,18 @@ Purchased_Date;Pardavimo data
 Quote character;Kabutės
 RadioStation;Radijo stotis
 Rating;Reitingas
+RealtimeLoudnessCorrected;
 Recorded_Date;Įrašymo data
 Recorded_Location;Įrašymo vieta
 Released_Date;Išleidimo data
 RemixedBy;Permiksavo
+RenderMode;
 Renew;
 ReplayGain_Gain;
 ReplayGain_Peak;
 Report;
 Resolution;Raiška
+RestoreLifetimeSubscription;
 s;Video srautai (s)
 SamplePeakLevel;
 SamplePeakLevel_Album;
@@ -1061,9 +1146,11 @@ ShimName;
 ShimVersion;
 Show menu;Rodyti meniu
 Show toolbar;Rodyti įrankių juostą
+SignalGroup;
 SigningPresent;
 SignLanguage;
 Sort;Rūšiuotojas
+SoundCategory;
 SoundEngineer;Garso inžinierius
 Source;
 Source_Duration;
@@ -1071,6 +1158,7 @@ Source_FrameCount;
 Source_SamplingCount;
 Source_StreamSize;
 Source_StreamSize_Encoded;
+SpokenSubtitles;
 Standard;Standartas
 StoreMethod_InterleavedFields;
 StoreMethod_SeparatedFields;
@@ -1101,16 +1189,22 @@ Subscription_Active;
 Subscription_Android;
 Subscription_Ended;
 Subscription_Expired;
+Subscription_Lifetime;
 Subscription_Thanks;
+Substream;
 SubTrack;SubTakelis
+SubtstreamIdChannel;
 Summary;Santrauka
 Supported formats;Palaikomi formatai
 Supported?;Palaikomas?
 SupportUs;
+SurroundAttenuationKnown;
+SwitchGroup;
 Synopsis;Trumpa apžvalga
 SystemId;Id
 Tagged_Application;Žymėjimo programa
 Tagged_Date;Pažymėta data
+TargetDeviceConfig;
 Technician;Technikas
 TermsOfUse;Naudojimo sąlygos
 TertiaryAudioLanguage;
@@ -1150,6 +1244,7 @@ Tree & Text;Medis ir tekstas
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;
+TypeDefinition;
 UniqueID;
 UniversalAdID;
 UniversalAdID_Registry;
@@ -1190,5 +1285,5 @@ Written_Location;Rašymo vieta
 WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
-ZZ_Automatic_Percent;69
-ZZ_AutomaticLanguage_Percent;76
+ZZ_Automatic_Percent;64
+ZZ_AutomaticLanguage_Percent;71
