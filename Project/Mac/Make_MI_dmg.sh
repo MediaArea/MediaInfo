@@ -22,8 +22,8 @@ else
 fi
 
 APPNAME="MediaInfo"
-APPNAME_lower=`echo ${APPNAME} |awk '{print tolower($0)}'`
-KIND_lower=`echo ${KIND} |awk '{print tolower($0)}'`
+APPNAME_lower=$(echo "${APPNAME}" | awk '{print tolower($0)}')
+KIND_lower=$(echo "${KIND}" | awk '{print tolower($0)}')
 SIGNATURE="MediaArea.net"
 FILES="tmp-${APPNAME}_${KIND}"
 TEMPDMG="tmp-${APPNAME}_${KIND}.dmg"
@@ -90,9 +90,9 @@ if [ "$KIND" = "GUI" ]; then
     cp "../GNU/GUI/${APPNAME_lower}-${KIND_lower}" "${FILES}/${APPNAME}.app/Contents/MacOS/${APPNAME}"
     cp Info.plist "${FILES}/${APPNAME}.app/Contents"
     sed -i '' -e "s/VERSION/${VERSION}/g" "${FILES}/${APPNAME}.app/Contents/Info.plist"
-    echo -n 'APPL????' > "${FILES}/${APPNAME}.app/Contents/PkgInfo"
+    printf '%s' 'APPL????' > "${FILES}/${APPNAME}.app/Contents/PkgInfo"
     cp ${APPNAME}.icns "${FILES}/${APPNAME}.app/Contents/Resources"
-    
+
     codesign -f --deep --options=runtime -s "Developer ID Application: ${SIGNATURE}" --verbose "${FILES}/${APPNAME}.app/Contents/MacOS/${APPNAME}"
     codesign -f --deep --options=runtime -s "Developer ID Application: ${SIGNATURE}" --verbose "${FILES}/${APPNAME}.app"
 
@@ -103,11 +103,11 @@ echo ========== Create the disk image ==========
 echo
 
 # Check if an old image isn't already attached
-DEVICE=$(hdiutil info |grep -B 1 "/Volumes/${APPNAME}" |egrep '^/dev/' | sed 1q | awk '{print $1}')
+DEVICE=$(hdiutil info | grep -B 1 "/Volumes/${APPNAME}" | grep -E '^/dev/' | sed 1q | awk '{print $1}')
 test -e "$DEVICE" && hdiutil detach -force "${DEVICE}"
 
 hdiutil create "${TEMPDMG}" -ov -fs HFS+ -format UDRW -volname "${APPNAME}" -srcfolder "${FILES}"
-DEVICE=$(hdiutil attach -readwrite -noverify "${TEMPDMG}" | egrep '^/dev/' | sed 1q | awk '{print $1}')
+DEVICE=$(hdiutil attach -readwrite -noverify "${TEMPDMG}" | grep -E '^/dev/' | sed 1q | awk '{print $1}')
 sleep 2
 
 cd "/Volumes/${APPNAME}"
@@ -117,7 +117,7 @@ fi
 test -e .DS_Store && rm -fr .DS_Store
 cd - >/dev/null
 
-. Osascript_${KIND}.sh
+. "Osascript_${KIND}.sh"
 osascript_Function
 
 hdiutil detach "${DEVICE}"

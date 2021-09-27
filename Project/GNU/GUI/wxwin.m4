@@ -307,7 +307,7 @@ dnl     AM_PATH_WXRC([HAVE_WXRC=1], [HAVE_WXRC=0])
 dnl     if test "x$HAVE_WXRC" != x1; then
 dnl         AC_MSG_ERROR([
 dnl                The wxrc program was not installed or not found.
-dnl     
+dnl
 dnl                Please check the wxWidgets installation.
 dnl         ])
 dnl     fi
@@ -338,13 +338,13 @@ dnl
 AC_DEFUN([AM_PATH_WXRC],
 [
   AC_ARG_VAR([WXRC], [Path to wxWidget's wxrc resource compiler])
-    
+
   if test "x$WX_CONFIG_NAME" = x; then
     AC_MSG_ERROR([The wxrc tests must run after wxWidgets test.])
   else
-    
+
     AC_MSG_CHECKING([for wxrc])
-    
+
     if test "x$WXRC" = x ; then
       dnl wx-config --utility is a new addition to wxWidgets:
       _WX_PRIVATE_CHECK_VERSION(2,5,3)
@@ -360,7 +360,7 @@ AC_DEFUN([AM_PATH_WXRC],
       AC_MSG_RESULT([$WXRC])
       ifelse([$1], , :, [$1])
     fi
-    
+
     AC_SUBST(WXRC)
   fi
 ])

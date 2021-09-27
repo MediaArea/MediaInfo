@@ -173,4 +173,3 @@ void Debug_Header_Create(const ZenLib::Ztring &FileName, void* Handle)
     delete [] Tout;
     MessageBox(Handle, Prefs->Translate(__T("Send HeaderFile")).c_str(), Prefs->Translate(__T("Header file")).c_str(), 0);
 }
-

@@ -231,4 +231,3 @@ void CallBack_Set(Core &MI, void* Event_CallBackFunction)
     //CallBack configuration
     MI.Menu_Option_Preferences_Option(__T("Event_CallBackFunction"), __T("CallBack=memory://")+ZenLib::Ztring::ToZtring((size_t)Event_CallBackFunction));
 }
-

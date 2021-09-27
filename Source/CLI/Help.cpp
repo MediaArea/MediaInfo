@@ -58,7 +58,7 @@ int Help()
     TEXTOUT("                    Full information Display with XML tags using the older");
     TEXTOUT("                    MediaInfo schema");
     TEXTOUT("--Output=JSON");
-    TEXTOUT("                    Full information Display using JSON");    
+    TEXTOUT("                    Full information Display using JSON");
     TEXTOUT("--Output=EBUCore");
     TEXTOUT("                    Full information Display with EBUCore compliant XML tags");
     TEXTOUT("--Output=EBUCore_JSON");

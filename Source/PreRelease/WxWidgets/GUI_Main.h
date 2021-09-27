@@ -33,4 +33,3 @@ private:
     wxTextCtrl* Text;
     DECLARE_EVENT_TABLE() // any class wishing to process wxWindows events must use this macro
 };
-

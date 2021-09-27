@@ -38,7 +38,7 @@ Tips:
 
 1. After you finish translating, save the translated file as `Language_parsed.csv`.
 
-2. Put the file in this folder, along with the original `Language.csv`. 
+2. Put the file in this folder, along with the original `Language.csv`.
 
 3. (optional) Open `Convert_Compile.py` with your text editor and edit the configurations.
 
@@ -56,7 +56,7 @@ Create a pull request to merge your translated file `Language_translated.csv`. I
 
 The CSV files are Excel-style. You can open them with Microsoft Excel.
 
-- `Data_Comments.csv`: Official comments from `MediaInfoLib` source code. This is used in parsing the language file. 
+- `Data_Comments.csv`: Official comments from `MediaInfoLib` source code. This is used in parsing the language file.
 - `Data_Notes.csv`: Translation notes that I wrote. This includes suggestions, links to reference web pages, etc. This is used in parsing the language file.
 - `Data_Levels_Info.md`: Official information about metadata levels, from `MediaInfoLib` source code. This is not used in the scripts. You can check the chart for reference.
 

@@ -1,15 +1,15 @@
-#! /bin/sh
+#!/bin/sh
 
 ##################################################################
 
-Parallel_Make () {
+Parallel_Make() {
     local numprocs=1
     case $OS in
     'linux')
         numprocs=`grep -c ^processor /proc/cpuinfo 2>/dev/null`
         ;;
     'mac')
-        if type sysctl &> /dev/null; then
+        if type sysctl >/dev/null 2>&1; then
             numprocs=`sysctl -n hw.ncpu`
         fi
         ;;
@@ -23,7 +23,7 @@ Parallel_Make () {
     if [ "$numprocs" = "" ] || [ "$numprocs" = "0" ]; then
         numprocs=1
     fi
-    make -s -j$numprocs
+    make -s -j "$numprocs"
 }
 
 ##################################################################
@@ -36,7 +36,7 @@ OS=$(uname -s)
 # expr isn’t available on mac
 if [ "$OS" = "Darwin" ]; then
     OS="mac"
-# if the 5 first caracters of $OS equal "Linux"
+# if the 5 first characters of $OS equal "Linux"
 elif [ "$(expr substr $OS 1 5)" = "Linux" ]; then
     OS="linux"
 #elif [ "$(expr substr $OS 1 5)" = "SunOS" ]; then
@@ -52,26 +52,26 @@ if test -e ZenLib/Project/GNU/Library/configure; then
     cd ZenLib/Project/GNU/Library/
     test -e Makefile && rm Makefile
     chmod +x configure
-   ./configure --enable-static --disable-shared $ZenLib_Options $*
+    ./configure --enable-static --disable-shared $ZenLib_Options $*
 
     if test -e Makefile; then
         make clean
         Parallel_Make
         if test -e libzen.la; then
-            echo ZenLib compiled
+            echo "ZenLib compiled"
         else
-            echo Problem while compiling ZenLib
+            echo "Problem while compiling ZenLib"
             exit
         fi
     else
-        echo Problem while configuring ZenLib
+        echo "Problem while configuring ZenLib"
         exit
     fi
 else
-    echo ZenLib directory is not found
+    echo "ZenLib directory is not found"
     exit
 fi
-cd $Home
+cd "$Home"
 
 ##################################################################
 # MediaInfoLib
@@ -80,27 +80,27 @@ if test -e MediaInfoLib/Project/GNU/Library/configure; then
     cd MediaInfoLib/Project/GNU/Library/
     test -e Makefile && rm Makefile
     chmod +x configure
-   ./configure --enable-static --disable-shared $*
+    ./configure --enable-static --disable-shared $*
 
     if test -e Makefile; then
         make clean
         Parallel_Make
         #if test "$(./libmediainfo-config la_name)" != "" && test -e $(./libmediainfo-config la_name); then
         if test -e libmediainfo.la; then
-            echo MediaInfoLib compiled
+            echo "MediaInfoLib compiled"
         else
-            echo Problem while compiling MediaInfoLib
+            echo "Problem while compiling MediaInfoLib"
             exit
         fi
     else
-        echo Problem while configuring MediaInfoLib
+        echo "Problem while configuring MediaInfoLib"
         exit
     fi
 else
-    echo MediaInfoLib directory is not found
+    echo "MediaInfoLib directory is not found"
     exit
 fi
-cd $Home
+cd "$Home"
 
 ##################################################################
 # MediaInfo (CLI)
@@ -125,10 +125,10 @@ if test -e MediaInfo/Project/GNU/CLI/configure; then
         exit
     fi
 else
-    echo MediaInfo directory is not found
+    echo "MediaInfo directory is not found"
     exit
 fi
-cd $Home
+cd "$Home"
 
 ##################################################################
 

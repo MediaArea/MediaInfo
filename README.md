@@ -5,7 +5,6 @@ MediaInfo is a convenient unified display of the most relevant technical and tag
 [![Build Status](https://travis-ci.org/MediaArea/MediaInfo.svg?branch=master)](https://travis-ci.org/MediaArea/MediaInfo)
 [![Build status](https://ci.appveyor.com/api/projects/status/msq8b4fuqfy9jmvr/branch/master?svg=true)](https://ci.appveyor.com/project/MediaArea/mediainfo/branch/master)
 
-
 # How to build MediaInfo
 
 ## Build under macOS and Linux
@@ -28,7 +27,6 @@ port install autoconf automake libtool pkgconfig zlib wxWidgets-3.0
 *MediaArea tools*
 * [libzen](#zenlib)
 * [libmediainfo](#mediainfolib)
-
 
 ### Dependencies under Linux
 
@@ -101,7 +99,6 @@ sudo yum install libmediainfo*.rpm libzen*.rpm
 sudo yum install wxGTK-devel desktop-file-utils
 ```
 
-
 #### Debian
 
 *Build tools and CLI/GUI dependencies*
@@ -147,7 +144,6 @@ zypper install libqt4-devel libQtWebKit-devel update-desktop-files
 ```
 
 ### Build MediaInfo CLI
-
 
 When you have done all the prerequisite for your configuration, then build MediaInfo. We start with the CLI.
 

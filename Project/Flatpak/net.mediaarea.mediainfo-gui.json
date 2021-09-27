@@ -18,8 +18,8 @@
             "name": "wxwidgets",
             "cleanup": [ "/bin", "/include", "/share", "/lib/wx" ],
             "config-opts": [ "--enable-shared", "--disable-static", "--enable-monolithic", "--enable-unicode" ],
-            "sources": [ 
-                {  "type": "git", "url": "https://github.com/wxWidgets/wxWidgets", "branch": "v3.0.2" } 
+            "sources": [
+                {  "type": "git", "url": "https://github.com/wxWidgets/wxWidgets", "branch": "v3.0.2" }
             ]
         },
         {

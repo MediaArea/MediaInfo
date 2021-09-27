@@ -13,8 +13,8 @@ version="21.09"
 Home=`pwd`
 install_prefix=${Home}/mk_package
 packagecreation_prefix=${Home}/create_package
-if test -z ${basedir}; then
-  basedir="/"
+if test -z "${basedir}"; then
+    basedir="/"
 fi
 
 #Common code
@@ -23,33 +23,33 @@ fi
 #Compile and install
 cd ../GNU/CLI
 ./autogen.sh
-./configure --prefix=${install_prefix} --enable-shared --disable-static $*
+./configure --prefix="${install_prefix}" --enable-shared --disable-static $*
 make
 if test -e mediainfo; then
-  echo "Compilation OK"
+    echo "Compilation OK"
 else
-  echo "Compilation problem"
-  exit 1
+    echo "Compilation problem"
+    exit 1
 fi
 
 #****************************************************************************
-# Release 
+# Release
 #****************************************************************************
 
-cd ${Home}
-mkdir -p ${install_prefix}
+cd "${Home}"
+mkdir -p "${install_prefix}"
 
 #Copying useful files
 #bin
-install -d -m 755 ${install_prefix}/bin
-cp -rP ../GNU/CLI/mediainfo ${install_prefix}/bin
-cp -rPf ../GNU/CLI/.libs/mediainfo ${install_prefix}/bin
-install -d -m 755 ${install_prefix}/share/doc/${name}
-cp ../../*.txt ${install_prefix}/share/doc/${name}
-cp ../../Release/ReadMe_CLI_Linux.txt ${install_prefix}/share/doc/${name}/ReadMe.txt
-mv ${install_prefix}/share/doc/${name}/History_CLI.txt ${install_prefix}/share/doc/${name}/History.txt
-cp ../../License.html ${install_prefix}/share/doc/${name}/
-chmod 644 ${install_prefix}/share/doc/${name}/*
+install -d -m 755 "${install_prefix}/bin"
+cp -rP ../GNU/CLI/mediainfo "${install_prefix}/bin"
+cp -rPf ../GNU/CLI/.libs/mediainfo "${install_prefix}/bin"
+install -d -m 755 "${install_prefix}/share/doc/${name}"
+cp ../../*.txt "${install_prefix}/share/doc/${name}"
+cp ../../Release/ReadMe_CLI_Linux.txt "${install_prefix}/share/doc/${name}/ReadMe.txt"
+mv "${install_prefix}/share/doc/${name}/History_CLI.txt" "${install_prefix}/share/doc/${name}/History.txt"
+cp ../../License.html "${install_prefix}/share/doc/${name}/"
+chmod 644 "${install_prefix}/share/doc/${name}/"*
 
 #Creation of package
 pkgname="${name}"

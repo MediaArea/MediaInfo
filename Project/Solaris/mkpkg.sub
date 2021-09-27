@@ -1,59 +1,58 @@
 #!/bin/bash
 
-PackageCreate()
-{
-mkdir -p ${packagecreation_prefix}
+PackageCreate() {
+mkdir -p "${packagecreation_prefix}"
 
 #checkinstall
-echo -e "#!/bin/sh" > ${packagecreation_prefix}/checkinstall
-echo -e "" >> ${packagecreation_prefix}/checkinstall
-echo -e "expected_platform=\042${processor}\042" >> ${packagecreation_prefix}/checkinstall
-echo -e "" >> ${packagecreation_prefix}/checkinstall
-echo -e "platform=\0140uname -p\0140" >> ${packagecreation_prefix}/checkinstall
-echo -e "" >> ${packagecreation_prefix}/checkinstall
-echo -e "if [ \044{platform} != \044{expected_platform} ]; then" >> ${packagecreation_prefix}/checkinstall
-echo -e "    echo \042\0134n\0134n\0134n\0134tThis package must be installer on a \044{expected_platform} architecture\0134n\042" >> ${packagecreation_prefix}/checkinstall
-echo -e "    echo \042\0134tAbording intallation.\0134n\0134n\0134n\042" >> ${packagecreation_prefix}/checkinstall
-echo -e "    exit 1" >> ${packagecreation_prefix}/checkinstall
-echo -e "fi" >> ${packagecreation_prefix}/checkinstall
-echo -e "" >> ${packagecreation_prefix}/checkinstall
-echo -e "exit 0" >> ${packagecreation_prefix}/checkinstall
+echo -e "#!/bin/sh" > "${packagecreation_prefix}/checkinstall"
+echo -e "" >> "${packagecreation_prefix}/checkinstall"
+echo -e "expected_platform=\042${processor}\042" >> "${packagecreation_prefix}/checkinstall"
+echo -e "" >> "${packagecreation_prefix}/checkinstall"
+echo -e "platform=\0140uname -p\0140" >> "${packagecreation_prefix}/checkinstall"
+echo -e "" >> "${packagecreation_prefix}/checkinstall"
+echo -e "if [ \044{platform} != \044{expected_platform} ]; then" >> "${packagecreation_prefix}/checkinstall"
+echo -e "    echo \042\0134n\0134n\0134n\0134tThis package must be installer on a \044{expected_platform} architecture\0134n\042" >> "${packagecreation_prefix}/checkinstall"
+echo -e "    echo \042\0134tAbording intallation.\0134n\0134n\0134n\042" >> "${packagecreation_prefix}/checkinstall"
+echo -e "    exit 1" >> "${packagecreation_prefix}/checkinstall"
+echo -e "fi" >> "${packagecreation_prefix}/checkinstall"
+echo -e "" >> "${packagecreation_prefix}/checkinstall"
+echo -e "exit 0" >> "${packagecreation_prefix}/checkinstall"
 
 #prototype file
-echo "i pkginfo" > ${packagecreation_prefix}/prototype
-echo "!default 0755 root bin" >> ${packagecreation_prefix}/prototype
-echo "i checkinstall" >> ${packagecreation_prefix}/prototype
-if test -e ${packagecreation_prefix}/depend; then
-  echo "i depend" >> ${packagecreation_prefix}/prototype
+echo "i pkginfo" > "${packagecreation_prefix}/prototype"
+echo "!default 0755 root bin" >> "${packagecreation_prefix}/prototype"
+echo "i checkinstall" >> "${packagecreation_prefix}/prototype"
+if test -e "${packagecreation_prefix}/depend"; then
+    echo "i depend" >> "${packagecreation_prefix}/prototype"
 fi
-cd ${install_prefix}
-find . -print > ${packagecreation_prefix}/files
-cat  ${packagecreation_prefix}/files | pkgproto | sed "s/ bin bin/ ? /g" | sed "s/ ${user} / ? /g" | sed "s/ ${group}/ ?/g" >> ${packagecreation_prefix}/prototype
+cd "${install_prefix}"
+find . -print > "${packagecreation_prefix}/files"
+cat "${packagecreation_prefix}/files" | pkgproto | sed "s/ bin bin/ ? /g" | sed "s/ ${user} / ? /g" | sed "s/ ${group}/ ?/g" >> "${packagecreation_prefix}/prototype"
 
 #pkginfo file
-echo "PKG=${pkgname}" > ${packagecreation_prefix}/pkginfo
-echo "VERSION=${version}" >> ${packagecreation_prefix}/pkginfo
-echo "ARCH=${processor}" >> ${packagecreation_prefix}/pkginfo
-echo "NAME=${pkgname} ${version} ${kernel} ${release} ${processor}" >> ${packagecreation_prefix}/pkginfo
-echo "DESC=Base library for some other projects" >> ${packagecreation_prefix}/pkginfo
-echo "CLASSES=none" >> ${packagecreation_prefix}/pkginfo
-echo "CATEGORY=utility" >> ${packagecreation_prefix}/pkginfo
-echo "VENDOR=MediaArea.net" >> ${packagecreation_prefix}/pkginfo
-echo "EMAIL=Info@MediaArea.net" >> ${packagecreation_prefix}/pkginfo
-echo "BASEDIR=${basedir}" >> ${packagecreation_prefix}/pkginfo
+echo "PKG=${pkgname}" > "${packagecreation_prefix}/pkginfo"
+echo "VERSION=${version}" >> "${packagecreation_prefix}/pkginfo"
+echo "ARCH=${processor}" >> "${packagecreation_prefix}/pkginfo"
+echo "NAME=${pkgname} ${version} ${kernel} ${release} ${processor}" >> "${packagecreation_prefix}/pkginfo"
+echo "DESC=Base library for some other projects" >> "${packagecreation_prefix}/pkginfo"
+echo "CLASSES=none" >> "${packagecreation_prefix}/pkginfo"
+echo "CATEGORY=utility" >> "${packagecreation_prefix}/pkginfo"
+echo "VENDOR=MediaArea.net" >> "${packagecreation_prefix}/pkginfo"
+echo "EMAIL=Info@MediaArea.net" >> "${packagecreation_prefix}/pkginfo"
+echo "BASEDIR=${basedir}" >> "${packagecreation_prefix}/pkginfo"
 
-cd ${packagecreation_prefix}
-pkgmk -o -b ${install_prefix} -d . -f prototype
-echo tar -cf - $pkgname | gzip -9 -c >${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.tar.gz
-tar -cf - $pkgname | gzip -9 -c >${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.tar.gz
-echo pkgtrans ${packagecreation_prefix} ${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.pkg ${pkgname}
-pkgtrans ${packagecreation_prefix} ${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.pkg ${pkgname}
-echo gzip -9 -cf ${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.pkg >${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.pkg.gz
-gzip -9 -cf ${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.pkg >${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.pkg.gz
+cd "${packagecreation_prefix}"
+pkgmk -o -b "${install_prefix}" -d . -f prototype
+echo tar -cf - "$pkgname" | gzip -9 -c >"${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.tar.gz"
+tar -cf - "$pkgname" | gzip -9 -c >"${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.tar.gz"
+echo pkgtrans "${packagecreation_prefix}" "${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.pkg" "${pkgname}"
+pkgtrans "${packagecreation_prefix}" "${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.pkg" "${pkgname}"
+echo gzip -9 -cf "${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.pkg" >"${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.pkg.gz"
+gzip -9 -cf "${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.pkg" >"${Home}/${pkgname}-${version}-${processor}.${kernel}_${release}.pkg.gz"
 
 #Removing files
-cd ${home}
-rm -rf ${install_prefix}
-rm -rf ${packagecreation_prefix}
+cd "${home}"
+rm -rf "${install_prefix}"
+rm -rf "${packagecreation_prefix}"
 
 }

@@ -192,17 +192,17 @@ if test "$with_wxwidgets" = "yes"; then
         dnl System lib found!
         with_wxwidgets="system"
     fi
-    
+
     if test "$with_wxwidgets" = "no"; then
         AC_MSG_ERROR([
             wxWidgets must be installed on your system.
-     
+
             Please check that wx-config is in path, the directory
             where wxWidgets libraries are installed (returned by
             'wx-config --libs' or 'wx-config --static --libs' command)
             is in LD_LIBRARY_PATH or equivalent variable and
-            wxWidgets version is $WxVersion or above, and the compilation 
-            is compatible with 
+            wxWidgets version is $WxVersion or above, and the compilation
+            is compatible with
             --unicode=$enable_unicode --static=$with_wx_static
             ])
     fi
