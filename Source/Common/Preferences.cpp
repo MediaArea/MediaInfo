@@ -34,7 +34,7 @@ using namespace ZenLib;
 
 //---------------------------------------------------------------------------
 Preferences* Prefs=new Preferences;
-int ExplorerShell_Edit  (const AnsiString &Name, bool ShellExtension, bool &IsChanged, TRegistry* Reg);
+int ExplorerShell_Edit  (const AnsiString &Name, bool ShellExtension, bool &IsChanged);
 //---------------------------------------------------------------------------
 
 //***************************************************************************
@@ -791,10 +791,10 @@ int Preferences::ExplorerShell()
                 }
             }
         }
-        ExplorerShell_Edit("SystemFileAssociations\\audio", 0, IsChanged, Reg);
-        ExplorerShell_Edit("SystemFileAssociations\\Directory.Audio", 0, IsChanged, Reg);
-        ExplorerShell_Edit("SystemFileAssociations\\Directory.Video", 0, IsChanged, Reg);
-        ExplorerShell_Edit("SystemFileAssociations\\video", 0, IsChanged, Reg);
+        ExplorerShell_Edit("SystemFileAssociations\\audio", 0, IsChanged);
+        ExplorerShell_Edit("SystemFileAssociations\\Directory.Audio", 0, IsChanged);
+        ExplorerShell_Edit("SystemFileAssociations\\Directory.Video", 0, IsChanged);
+        ExplorerShell_Edit("SystemFileAssociations\\video", 0, IsChanged);
 
         //Adding/removing to SystemFileAssociations
         int32s ShellExtension=Config.Read(__T("ShellExtension")).To_int32s();
@@ -802,9 +802,9 @@ int Preferences::ExplorerShell()
         {
             //Remove shell ext except "Folder"
             if (List(I1, 0)!=__T("Folder"))
-                ExplorerShell_Edit((__T("Software\\Classes\\SystemFileAssociations\\")+List(I1, 0)).c_str(), ShellExtension, IsChanged, Reg_User);
+                ExplorerShell_Edit((__T("Software\\Classes\\SystemFileAssociations\\")+List(I1, 0)).c_str(), ShellExtension, IsChanged);
         }
-        ExplorerShell_Edit("Software\\Classes\\Directory", Config.Read(__T("ShellExtension_Folder")).To_int32s(), IsChanged, Reg_User);
+        ExplorerShell_Edit("Software\\Classes\\Directory", Config.Read(__T("ShellExtension_Folder")).To_int32s(), IsChanged);
     }
     else
     {
@@ -981,7 +981,7 @@ void Dynamic_Free()
 }
 
 //---------------------------------------------------------------------------
-int ExplorerShell_Edit(const AnsiString &Player, bool ShellExtension, bool &IsChanged, TRegistry* Reg)
+int ExplorerShell_Edit(const AnsiString &Player, bool ShellExtension, bool &IsChanged)
 {
     ::HKEY Key;
     LONG WINAPI Result;
@@ -1019,9 +1019,9 @@ int ExplorerShell_Edit(const AnsiString &Player, bool ShellExtension, bool &IsCh
                     RegCloseKey(Key);
                     return 0;
                 }
-                RegCloseKey(Key);
                 IsChanged=true;
             }
+            RegCloseKey(Key);
         }
         else// if (Player!=__T("Folder"))
         {
@@ -1042,10 +1042,8 @@ int ExplorerShell_Edit(const AnsiString &Player, bool ShellExtension, bool &IsCh
                 return 0;
             }
             Result=RegDeleteKey(HKEY_CURRENT_USER, Ztring().From_Local((Player+"\\Shell").c_str()).c_str()); //Clear it if empty
-
             IsChanged=true;
         }
-        Reg->CloseKey();
     }
     else
     {
@@ -1101,9 +1099,9 @@ int ExplorerShell_Edit(const AnsiString &Player, bool ShellExtension, bool &IsCh
                     RegCloseKey(Key);
                     return 0;
                 }
-                RegCloseKey(Key);
                 IsChanged=true;
             }
+            RegCloseKey(Key);
         }
         else// if (Player!=__T("Folder"))
         {
@@ -1120,7 +1118,6 @@ int ExplorerShell_Edit(const AnsiString &Player, bool ShellExtension, bool &IsCh
 
             IsChanged=true;
         }
-        Reg->CloseKey();
     }
     else
     {
