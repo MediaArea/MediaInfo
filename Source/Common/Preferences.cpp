@@ -747,7 +747,8 @@ int Preferences::ExplorerShell()
             if (Reg->OpenKey(List(I1, 0).c_str(), false))
             {
                 //test if extension is known
-                AnsiString Player=Reg->ReadString(__T(""));
+                AnsiString Player;
+                try {Player=Reg->ReadString("");} catch (...){}
                 Reg->CloseKey();
 
                 //Test if old Media Info shell extension is known
@@ -775,7 +776,8 @@ int Preferences::ExplorerShell()
             if (Reg_User->OpenKey((Ztring(__T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\"))+List(I1, 0)+__T("\\UserChoice")).c_str(), false))
             {
                 //test if extension is known
-                AnsiString Player=Reg_User->ReadString("Progid");
+                AnsiString Player;
+                try {Player=Reg_User->ReadString("Progid");} catch (...){}
                 Reg_User->CloseKey();
 
                 //Test if MediaInfo shell extension is known
@@ -816,7 +818,8 @@ int Preferences::ExplorerShell()
             if (Reg->OpenKey(List(I1, 0).c_str(), ShellExtension))
             {
                 //test if extension is known
-                AnsiString Player=Reg->ReadString(__T(""));
+                AnsiString Player;
+                try {Player=Reg->ReadString("");} catch (...){}
                 if (Player=="")
                 {
                     //extension not known, will use our default
@@ -849,7 +852,8 @@ int Preferences::ExplorerShell()
                     {
                         //test if good writing
                         AnsiString ShellExtensionToWtrite="\"" + Application->ExeName +"\" \"%1\"";
-                        AnsiString ShellExtension=Reg->ReadString(__T("")).c_str();
+                        AnsiString ShellExtension;
+                        try {ShellExtension=Reg->ReadString("");} catch (...){}
                         if (ShellExtension!=ShellExtensionToWtrite)
                         {
                             //This is not the good shell extension, writing new one
@@ -887,7 +891,8 @@ int Preferences::ExplorerShell()
             if (Reg_User->OpenKey((Ztring(__T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\"))+List(I1, 0)+__T("\\UserChoice")).c_str(), false))
             {
                 //test if extension is known
-                AnsiString Player=Reg_User->ReadString("Progid");
+                AnsiString Player;
+                try {Player=Reg_User->ReadString("Progid");} catch (...){}
                 Reg_User->CloseKey();
 
                 //Test if MediaInfo shell extension is known
@@ -900,7 +905,8 @@ int Preferences::ExplorerShell()
                         {
                             //test if good writing
                             AnsiString ShellExtensionToWtrite="\"" + Application->ExeName +"\" \"%1\"";
-                            AnsiString ShellExtension=Reg->ReadString(__T("")).c_str();
+                            AnsiString ShellExtension;
+                            try {ShellExtension=Reg->ReadString("");} catch (...){}
                             if (ShellExtension!=ShellExtensionToWtrite)
                             {
                                 //This is not the good shell extension, writing new one
