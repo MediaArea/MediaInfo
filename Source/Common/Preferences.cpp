@@ -34,7 +34,7 @@ using namespace ZenLib;
 
 //---------------------------------------------------------------------------
 Preferences* Prefs=new Preferences;
-int ExplorerShell_Edit  (const AnsiString &Name, bool ShellExtension, bool &IsChanged, TRegistry* Reg);
+int ExplorerShell_Edit  (const AnsiString &Name, bool ShellExtension, bool &IsChanged);
 //---------------------------------------------------------------------------
 
 //***************************************************************************
@@ -747,7 +747,8 @@ int Preferences::ExplorerShell()
             if (Reg->OpenKey(List(I1, 0).c_str(), false))
             {
                 //test if extension is known
-                AnsiString Player=Reg->ReadString(__T(""));
+                AnsiString Player;
+                try {Player=Reg->ReadString("");} catch (...){}
                 Reg->CloseKey();
 
                 //Test if old Media Info shell extension is known
@@ -775,7 +776,8 @@ int Preferences::ExplorerShell()
             if (Reg_User->OpenKey((Ztring(__T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\"))+List(I1, 0)+__T("\\UserChoice")).c_str(), false))
             {
                 //test if extension is known
-                AnsiString Player=Reg_User->ReadString("Progid");
+                AnsiString Player;
+                try {Player=Reg_User->ReadString("Progid");} catch (...){}
                 Reg_User->CloseKey();
 
                 //Test if MediaInfo shell extension is known
@@ -789,10 +791,10 @@ int Preferences::ExplorerShell()
                 }
             }
         }
-        ExplorerShell_Edit("SystemFileAssociations\\audio", 0, IsChanged, Reg);
-        ExplorerShell_Edit("SystemFileAssociations\\Directory.Audio", 0, IsChanged, Reg);
-        ExplorerShell_Edit("SystemFileAssociations\\Directory.Video", 0, IsChanged, Reg);
-        ExplorerShell_Edit("SystemFileAssociations\\video", 0, IsChanged, Reg);
+        ExplorerShell_Edit("SystemFileAssociations\\audio", 0, IsChanged);
+        ExplorerShell_Edit("SystemFileAssociations\\Directory.Audio", 0, IsChanged);
+        ExplorerShell_Edit("SystemFileAssociations\\Directory.Video", 0, IsChanged);
+        ExplorerShell_Edit("SystemFileAssociations\\video", 0, IsChanged);
 
         //Adding/removing to SystemFileAssociations
         int32s ShellExtension=Config.Read(__T("ShellExtension")).To_int32s();
@@ -800,9 +802,9 @@ int Preferences::ExplorerShell()
         {
             //Remove shell ext except "Folder"
             if (List(I1, 0)!=__T("Folder"))
-                ExplorerShell_Edit((__T("Software\\Classes\\SystemFileAssociations\\")+List(I1, 0)).c_str(), ShellExtension, IsChanged, Reg_User);
+                ExplorerShell_Edit((__T("Software\\Classes\\SystemFileAssociations\\")+List(I1, 0)).c_str(), ShellExtension, IsChanged);
         }
-        ExplorerShell_Edit("Software\\Classes\\Directory", Config.Read(__T("ShellExtension_Folder")).To_int32s(), IsChanged, Reg_User);
+        ExplorerShell_Edit("Software\\Classes\\Directory", Config.Read(__T("ShellExtension_Folder")).To_int32s(), IsChanged);
     }
     else
     {
@@ -816,7 +818,8 @@ int Preferences::ExplorerShell()
             if (Reg->OpenKey(List(I1, 0).c_str(), ShellExtension))
             {
                 //test if extension is known
-                AnsiString Player=Reg->ReadString(__T(""));
+                AnsiString Player;
+                try {Player=Reg->ReadString("");} catch (...){}
                 if (Player=="")
                 {
                     //extension not known, will use our default
@@ -849,7 +852,8 @@ int Preferences::ExplorerShell()
                     {
                         //test if good writing
                         AnsiString ShellExtensionToWtrite="\"" + Application->ExeName +"\" \"%1\"";
-                        AnsiString ShellExtension=Reg->ReadString(__T("")).c_str();
+                        AnsiString ShellExtension;
+                        try {ShellExtension=Reg->ReadString("");} catch (...){}
                         if (ShellExtension!=ShellExtensionToWtrite)
                         {
                             //This is not the good shell extension, writing new one
@@ -887,7 +891,8 @@ int Preferences::ExplorerShell()
             if (Reg_User->OpenKey((Ztring(__T("Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\"))+List(I1, 0)+__T("\\UserChoice")).c_str(), false))
             {
                 //test if extension is known
-                AnsiString Player=Reg_User->ReadString("Progid");
+                AnsiString Player;
+                try {Player=Reg_User->ReadString("Progid");} catch (...){}
                 Reg_User->CloseKey();
 
                 //Test if MediaInfo shell extension is known
@@ -900,7 +905,8 @@ int Preferences::ExplorerShell()
                         {
                             //test if good writing
                             AnsiString ShellExtensionToWtrite="\"" + Application->ExeName +"\" \"%1\"";
-                            AnsiString ShellExtension=Reg->ReadString(__T("")).c_str();
+                            AnsiString ShellExtension;
+                            try {ShellExtension=Reg->ReadString("");} catch (...){}
                             if (ShellExtension!=ShellExtensionToWtrite)
                             {
                                 //This is not the good shell extension, writing new one
@@ -975,7 +981,7 @@ void Dynamic_Free()
 }
 
 //---------------------------------------------------------------------------
-int ExplorerShell_Edit(const AnsiString &Player, bool ShellExtension, bool &IsChanged, TRegistry* Reg)
+int ExplorerShell_Edit(const AnsiString &Player, bool ShellExtension, bool &IsChanged)
 {
     ::HKEY Key;
     LONG WINAPI Result;
@@ -1013,9 +1019,9 @@ int ExplorerShell_Edit(const AnsiString &Player, bool ShellExtension, bool &IsCh
                     RegCloseKey(Key);
                     return 0;
                 }
-                RegCloseKey(Key);
                 IsChanged=true;
             }
+            RegCloseKey(Key);
         }
         else// if (Player!=__T("Folder"))
         {
@@ -1036,10 +1042,8 @@ int ExplorerShell_Edit(const AnsiString &Player, bool ShellExtension, bool &IsCh
                 return 0;
             }
             Result=RegDeleteKey(HKEY_CURRENT_USER, Ztring().From_Local((Player+"\\Shell").c_str()).c_str()); //Clear it if empty
-
             IsChanged=true;
         }
-        Reg->CloseKey();
     }
     else
     {
@@ -1095,9 +1099,9 @@ int ExplorerShell_Edit(const AnsiString &Player, bool ShellExtension, bool &IsCh
                     RegCloseKey(Key);
                     return 0;
                 }
-                RegCloseKey(Key);
                 IsChanged=true;
             }
+            RegCloseKey(Key);
         }
         else// if (Player!=__T("Folder"))
         {
@@ -1114,7 +1118,6 @@ int ExplorerShell_Edit(const AnsiString &Player, bool ShellExtension, bool &IsCh
 
             IsChanged=true;
         }
-        Reg->CloseKey();
     }
     else
     {
