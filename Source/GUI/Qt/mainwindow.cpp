@@ -187,12 +187,13 @@ MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) :
 #endif
 
     //tests
-    ui->actionQuit->setIcon(style()->standardIcon(QStyle::SP_DialogCloseButton));
-    ui->actionClose_All->setIcon(style()->standardIcon(QStyle::SP_DialogCloseButton));
-    ui->actionOpen->setIcon(QIcon(":/icon/openfile.svg"));
-    ui->actionOpen_Folder->setIcon(QIcon(":/icon/opendir.svg"));
-    ui->actionAbout->setIcon(QIcon(":/icon/about.svg"));
-    ui->actionExport->setIcon(QIcon(":/icon/export.svg"));
+    ui->actionQuit->setIcon(QIcon::fromTheme("application-exit"));
+    ui->actionClose_All->setIcon(QIcon::fromTheme("dialog-close"));
+    ui->actionOpen->setIcon(QIcon::fromTheme("document-open"));
+    ui->actionOpen_Folder->setIcon(QIcon::fromTheme("document-open-folder"));
+    ui->actionAbout->setIcon(QIcon::fromTheme("help-about"));
+    ui->actionExport->setIcon(QIcon::fromTheme("document-export"));
+    ui->actionPreferences->setIcon(QIcon::fromTheme("configure"));
 
     menuView = new QMenu();
    QActionGroup* menuItemGroup = new QActionGroup(this);
@@ -209,7 +210,7 @@ MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) :
 
    buttonView = new QToolButton();
    buttonView->setText("view");
-   buttonView->setIcon(QIcon(":/icon/view.svg"));
+   buttonView->setIcon(QIcon::fromTheme("view-list-details"));
    connect(buttonView, SIGNAL(clicked()), this, SLOT(buttonViewClicked()));
    ui->toolBar->addWidget(buttonView);
 
