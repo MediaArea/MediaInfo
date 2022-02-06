@@ -150,6 +150,7 @@
 : ;: 
 3D;
 3DType;
+608_Mode;
 About;Acerca
 About_Hint;Como contatar-me e encontrar a última versão
 Accompaniment;Acompanhamento
@@ -180,6 +181,7 @@ Arranger;Arranjador
 ArtDirector;Diretor de Arte
 AspectRatio;Proporção de imagem
 AssistantDirector;Diretor Assistente
+AssociatedVideo_FrameRate;
 at;a
 At least one file;(Deve abrir pelo menos um ficheiro)
 Audio;Áudio
@@ -203,6 +205,7 @@ Basic;Básico
 Basic_Note;Nota : para mais informações acerca do ficheiro, seleccione um modo de visualização diferente (Formulário, Árvore...)
 BedChannelConfiguration;
 BedChannelCount;
+BinauralRenderMode;
 BitDepth;Profundidade de bits
 BitDepth_Detected;
 BitDepth_Stored;
@@ -217,6 +220,7 @@ BitRate_Nominal;Taxa de bits nominal
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;Tamanho do buffer
 Cancel;Cancelar
+CaptionServiceName;
 Channel(s);Canal(s)
 ChannelCoded;
 ChannelConfiguration;
@@ -331,15 +335,22 @@ DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Proporção original da imagem
 DistributedBy;Distribuído por
 Distributor;
+Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;Doar
 DotsPerInch;Pontos por polegada
 Downmix;
+Downmix_5.1.x;
+Downmix_5to2;
+Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;Duração
 Duration_End;Tempo de fim
+Duration_End_Command;
 Duration_Start;Tempo de ínicio
+Duration_Start_Command;
+Duration_Start2End;
 DynamicRangeControl;
 Eac3DrcProfile;
 Edit;Editar
@@ -357,6 +368,10 @@ EPG_Positions;Posições EPG (interno)
 EpisodeTitleNumber;
 Error_File;Erro na leitura do ficheiro
 Error_File_Write;
+Events_PaintOn;
+Events_PopOn;
+Events_RollUp;
+Events_Total;
 ExecutiveProducer;Produtor executivo
 Exit;Sair
 Exit_Hint;Fechar o programa
@@ -378,7 +393,10 @@ FileExtension;Extensão do ficheiro
 FileName;Nome do ficheiro
 FileNameExtension;
 FileSize;Tamanho do ficheiro
+FirstDisplay_Delay_Frames;
+FirstDisplay_Type;
 FlatPanelTv;
+FlowID;
 Folder;Pasta
 Folder (R);Sub-pasta
 Folder (R)_Hint;Seleccione uma pasta para examinar (incluíndo sub-pastas)
@@ -427,6 +445,7 @@ FpaPass;
 FpaVersion;
 FrameCount;Número de frames
 FrameRate;Taxa de frames
+FrameRate_MaxFrameNumber;
 FrameRate_Maximum;Taxa de frames máxima
 FrameRate_Minimum;Taxa de frames mínima
 FrameRate_Mode;Modo de taxa de frames
@@ -679,6 +698,21 @@ InternetMediaType;Tipo de Internet multimédia
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+JocBalance_FrontBackListener;
+JocBalance_FrontBackOverheadFloor;
+JocTrim_Center;
+JocTrim_Height;
+JocTrim_Surround;
+JocTrimMode;
+JocTrimMode0i;
+JocTrimMode1i;
+JocTrimMode2i;
+JocTrimMode3i;
+JocTrimMode4i;
+JocTrimMode5i;
+JocTrimMode6i;
+JocTrimMode7i;
+JocTrimMode8i;
 Keywords;Palavras chave
 Known codecs;Codecs conhecidos
 Known formats;Formatos conhecidos
@@ -891,6 +925,8 @@ LfeMixGain;
 Library;Biblioteca multiplex
 Lifetime_Subscribe_Button;
 Lightness;Iluminação
+Lines_Count;
+Lines_MaxCountPerEvent;
 LineUpStart;
 LinkedTo_Bed_Pos;
 LinkedTo_ChannelFormat_Pos;
@@ -900,6 +936,7 @@ LinkedTo_Object_Pos;
 LinkedTo_PackFormat_Pos;
 LinkedTo_SignalGroup_Pos;
 LinkedTo_Substream_Pos;
+LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
 List;Lista
 LoRoCenterMixGain;
@@ -948,6 +985,9 @@ Menu_Hint;Mais possibilidades
 Menu_No;Sem menu
 MenuCount;Número de faixas de menu
 MenuID;ID do Menu
+Metadata_Format;
+Metadata_Format_Type;
+Metadata_MuxingMode;
 MixType;
 mn; min
 Mood;Descrição
@@ -978,7 +1018,9 @@ NumberOfObjects;
 NumberOfPackFormats;
 NumberOfPresentations;
 NumberOfProgrammes;
+NumberOfStreamFormats;
 NumberOfSubstreams;
+NumberOfTrackFormats;
 NumberOfTrackUIDs;
 NumColors;Número de cores
 ObjectCount;
@@ -1224,6 +1266,8 @@ ThanksTo;Abrigado a
 Thousands separator;Separador de milhar
 TimeCode;Código de tempo
 TimeCode_FirstFrame;Código de tempo do primeiro frame
+TimeCode_MaxFrameNumber;
+TimeCode_MaxFrameNumber_Theory;
 TimeCode_Settings;Configuração do código de tempo
 TimeCode_Source;Fonte do código de tempo
 TimeCode_Striped;
@@ -1236,9 +1280,12 @@ TotalNumberOfParts;
 TotalProgrammeDuration;
 Track;Nome da faixa
 Track_Count;Número da faixa
+TrackIndex;
+TrackUID;
 transfer_characteristics;Características de transferência
 Translate_Reports;
 Translator;Tradutor
+Transport;
 Tree;Árvore
 Tree & Text;Árvore & Texto
 TruePeakLevel;
@@ -1285,5 +1332,5 @@ Written_Location;Local da escrita
 WrittenBy;Escrito por
 Yes;Sim
 Your system;O seu sistema
-ZZ_Automatic_Percent;79
-ZZ_AutomaticLanguage_Percent;80
+ZZ_Automatic_Percent;77
+ZZ_AutomaticLanguage_Percent;77

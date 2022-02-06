@@ -150,6 +150,7 @@
 : ;: 
 3D;
 3DType;
+608_Mode;
 About;Sobre
 About_Hint;Como contactar comigo e atopar a última versión
 Accompaniment;Acompañamento
@@ -180,6 +181,7 @@ Arranger;Arranxador
 ArtDirector;Director Artístico
 AspectRatio;Relación de aspecto
 AssistantDirector;Director asistente
+AssociatedVideo_FrameRate;
 at;en
 At least one file;(Debes abrir polo menos un arquivo)
 Audio;Audio
@@ -203,6 +205,7 @@ Basic;Básico
 Basic_Note;Nota : para máis información sobre este arquivo selecciona outra vista (Folla, Árbore...)
 BedChannelConfiguration;
 BedChannelCount;
+BinauralRenderMode;
 BitDepth;
 BitDepth_Detected;
 BitDepth_Stored;
@@ -217,6 +220,7 @@ BitRate_Nominal;
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;
 Cancel;Cancelar
+CaptionServiceName;
 Channel(s);Canle(s)
 ChannelCoded;
 ChannelConfiguration;
@@ -331,15 +335,22 @@ DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;
 DistributedBy;Distribuido por
 Distributor;
+Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;Doar
 DotsPerInch;Puntos por polgada
 Downmix;
+Downmix_5.1.x;
+Downmix_5to2;
+Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;Duración
 Duration_End;
+Duration_End_Command;
 Duration_Start;
+Duration_Start_Command;
+Duration_Start2End;
 DynamicRangeControl;
 Eac3DrcProfile;
 Edit;Editar
@@ -357,6 +368,10 @@ EPG_Positions;
 EpisodeTitleNumber;
 Error_File;Erro mentres se lía o arquivo
 Error_File_Write;
+Events_PaintOn;
+Events_PopOn;
+Events_RollUp;
+Events_Total;
 ExecutiveProducer;Produtor executivo
 Exit;Saír
 Exit_Hint;Saír
@@ -378,7 +393,10 @@ FileExtension;Extensión do arquivo
 FileName;Nome do arquivo
 FileNameExtension;
 FileSize;Tamaño do arquivo
+FirstDisplay_Delay_Frames;
+FirstDisplay_Type;
 FlatPanelTv;
+FlowID;
 Folder;Carpeta
 Folder (R);Carpeta (R)
 Folder (R)_Hint;Selecciona unha carpeta para estudar (Recursivamente)
@@ -427,6 +445,7 @@ FpaPass;
 FpaVersion;
 FrameCount;
 FrameRate;Frame rate
+FrameRate_MaxFrameNumber;
 FrameRate_Maximum;
 FrameRate_Minimum;
 FrameRate_Mode;
@@ -679,6 +698,21 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+JocBalance_FrontBackListener;
+JocBalance_FrontBackOverheadFloor;
+JocTrim_Center;
+JocTrim_Height;
+JocTrim_Surround;
+JocTrimMode;
+JocTrimMode0i;
+JocTrimMode1i;
+JocTrimMode2i;
+JocTrimMode3i;
+JocTrimMode4i;
+JocTrimMode5i;
+JocTrimMode6i;
+JocTrimMode7i;
+JocTrimMode8i;
 Keywords;Palabras chave
 Known codecs;Codecs coñecidos
 Known formats;Formatos coñecidos
@@ -891,6 +925,8 @@ LfeMixGain;
 Library;Bibliografía
 Lifetime_Subscribe_Button;
 Lightness;
+Lines_Count;
+Lines_MaxCountPerEvent;
 LineUpStart;
 LinkedTo_Bed_Pos;
 LinkedTo_ChannelFormat_Pos;
@@ -900,6 +936,7 @@ LinkedTo_Object_Pos;
 LinkedTo_PackFormat_Pos;
 LinkedTo_SignalGroup_Pos;
 LinkedTo_Substream_Pos;
+LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
 List;Lista
 LoRoCenterMixGain;
@@ -948,6 +985,9 @@ Menu_Hint;Máis posibilidades
 Menu_No;
 MenuCount;
 MenuID;
+Metadata_Format;
+Metadata_Format_Type;
+Metadata_MuxingMode;
 MixType;
 mn; min
 Mood;Humor
@@ -978,7 +1018,9 @@ NumberOfObjects;
 NumberOfPackFormats;
 NumberOfPresentations;
 NumberOfProgrammes;
+NumberOfStreamFormats;
 NumberOfSubstreams;
+NumberOfTrackFormats;
 NumberOfTrackUIDs;
 NumColors;
 ObjectCount;
@@ -1224,6 +1266,8 @@ ThanksTo;Gracias a
 Thousands separator;Separador de millares
 TimeCode;
 TimeCode_FirstFrame;
+TimeCode_MaxFrameNumber;
+TimeCode_MaxFrameNumber_Theory;
 TimeCode_Settings;
 TimeCode_Source;
 TimeCode_Striped;
@@ -1236,9 +1280,12 @@ TotalNumberOfParts;
 TotalProgrammeDuration;
 Track;Nome da pista
 Track_Count;Número de pistas
+TrackIndex;
+TrackUID;
 transfer_characteristics;
 Translate_Reports;
 Translator;Tradutor
+Transport;
 Tree;Árbore
 Tree & Text;Árbore & Texto
 TruePeakLevel;
@@ -1285,5 +1332,5 @@ Written_Location;Escrito en:
 WrittenBy;Escrito por
 Yes;Si
 Your system;O teu sistema
-ZZ_Automatic_Percent;60
-ZZ_AutomaticLanguage_Percent;68
+ZZ_Automatic_Percent;58
+ZZ_AutomaticLanguage_Percent;65

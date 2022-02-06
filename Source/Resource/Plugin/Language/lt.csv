@@ -150,6 +150,7 @@
 : ;: 
 3D;
 3DType;
+608_Mode;
 About;Apie
 About_Hint;Kaip man prisijungti ir rasti naujausią versiją
 Accompaniment;Akompanimentas
@@ -180,6 +181,7 @@ Arranger;Aranžuotojas
 ArtDirector;Meno Katalogas
 AspectRatio;Aspekto santykis
 AssistantDirector;Asistuojantis dirigentas
+AssociatedVideo_FrameRate;
 at;-
 At least one file;(Turite atverti bent vieną failą)
 Audio;Audio
@@ -203,6 +205,7 @@ Basic;Įprastas
 Basic_Note;Pastaba : jei norite daugiau informacijos apie failą, turite pasirinkti kitą rodymą, (Lapas, Medis...)
 BedChannelConfiguration;
 BedChannelCount;
+BinauralRenderMode;
 BitDepth;
 BitDepth_Detected;
 BitDepth_Stored;
@@ -217,6 +220,7 @@ BitRate_Nominal;Nominalus bitų tempas
 Bits-(Pixel*Frame);Bitai/(Pikselis*Kadras)
 BufferSize;
 Cancel;Atšaukti
+CaptionServiceName;
 Channel(s);Kanalas (-ai)
 ChannelCoded;
 ChannelConfiguration;
@@ -331,15 +335,22 @@ DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;
 DistributedBy;Platintojas
 Distributor;
+Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;Aukoti
 DotsPerInch;
 Downmix;
+Downmix_5.1.x;
+Downmix_5to2;
+Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;Trukmė
 Duration_End;
+Duration_End_Command;
 Duration_Start;
+Duration_Start_Command;
+Duration_Start2End;
 DynamicRangeControl;
 Eac3DrcProfile;
 Edit;Redaguoti
@@ -357,6 +368,10 @@ EPG_Positions;
 EpisodeTitleNumber;
 Error_File;Klaida nuskaitant failą
 Error_File_Write;
+Events_PaintOn;
+Events_PopOn;
+Events_RollUp;
+Events_Total;
 ExecutiveProducer;Išskirtinis prodiuseris
 Exit;Išeiti
 Exit_Hint;Išeiti iš programos
@@ -378,7 +393,10 @@ FileExtension;Failo plėtinys
 FileName;Failo pavadinimas
 FileNameExtension;
 FileSize;Failo dydis
+FirstDisplay_Delay_Frames;
+FirstDisplay_Type;
 FlatPanelTv;
+FlowID;
 Folder;Katalogas
 Folder (R);Katalogas (R)
 Folder (R)_Hint;Pasirinkite katalogą studijavimui (su visais pasikartojančiais katalogais)
@@ -427,6 +445,7 @@ FpaPass;
 FpaVersion;
 FrameCount;
 FrameRate;Kadrų tempas
+FrameRate_MaxFrameNumber;
 FrameRate_Maximum;Maksimalus kadrų tempas
 FrameRate_Minimum;Minimalus kadrų tempas
 FrameRate_Mode;Kadrų tempo rėžimas
@@ -679,6 +698,21 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+JocBalance_FrontBackListener;
+JocBalance_FrontBackOverheadFloor;
+JocTrim_Center;
+JocTrim_Height;
+JocTrim_Surround;
+JocTrimMode;
+JocTrimMode0i;
+JocTrimMode1i;
+JocTrimMode2i;
+JocTrimMode3i;
+JocTrimMode4i;
+JocTrimMode5i;
+JocTrimMode6i;
+JocTrimMode7i;
+JocTrimMode8i;
 Keywords;Raktiniai žodžiai
 Known codecs;Žinomi kodekai
 Known formats;Žinomi formatai
@@ -891,6 +925,8 @@ LfeMixGain;
 Library;Muxing biblioteka
 Lifetime_Subscribe_Button;
 Lightness;
+Lines_Count;
+Lines_MaxCountPerEvent;
 LineUpStart;
 LinkedTo_Bed_Pos;
 LinkedTo_ChannelFormat_Pos;
@@ -900,6 +936,7 @@ LinkedTo_Object_Pos;
 LinkedTo_PackFormat_Pos;
 LinkedTo_SignalGroup_Pos;
 LinkedTo_Substream_Pos;
+LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
 List;Sąrašas
 LoRoCenterMixGain;
@@ -948,6 +985,9 @@ Menu_Hint;Daugiau galimybių
 Menu_No;Be meniu
 MenuCount;Meniu srautų kiekis
 MenuID;Meniu ID
+Metadata_Format;
+Metadata_Format_Type;
+Metadata_MuxingMode;
 MixType;
 mn; min
 Mood;Nuotaika
@@ -978,7 +1018,9 @@ NumberOfObjects;
 NumberOfPackFormats;
 NumberOfPresentations;
 NumberOfProgrammes;
+NumberOfStreamFormats;
 NumberOfSubstreams;
+NumberOfTrackFormats;
 NumberOfTrackUIDs;
 NumColors;
 ObjectCount;
@@ -1224,6 +1266,8 @@ ThanksTo;Dėkojame
 Thousands separator;Tūkstančių skirtukas
 TimeCode;
 TimeCode_FirstFrame;
+TimeCode_MaxFrameNumber;
+TimeCode_MaxFrameNumber_Theory;
 TimeCode_Settings;
 TimeCode_Source;
 TimeCode_Striped;
@@ -1236,9 +1280,12 @@ TotalNumberOfParts;
 TotalProgrammeDuration;
 Track;Takelio pavadinimas
 Track_Count;Takelio kiekis
+TrackIndex;
+TrackUID;
 transfer_characteristics;
 Translate_Reports;
 Translator;Vertėjas
+Transport;
 Tree;Medis
 Tree & Text;Medis ir tekstas
 TruePeakLevel;
@@ -1285,5 +1332,5 @@ Written_Location;Rašymo vieta
 WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
-ZZ_Automatic_Percent;64
-ZZ_AutomaticLanguage_Percent;71
+ZZ_Automatic_Percent;61
+ZZ_AutomaticLanguage_Percent;68

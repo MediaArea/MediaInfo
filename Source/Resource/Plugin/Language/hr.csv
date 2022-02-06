@@ -150,6 +150,7 @@
 : ;: 
 3D;
 3DType;
+608_Mode;
 About;O programu...
 About_Hint;Kontakt i pronalaženje posljednje inačice
 Accompaniment;Pratnja
@@ -180,6 +181,7 @@ Arranger;Aranžer
 ArtDirector;Umjetnički ravnatelj
 AspectRatio;Omjer stranica slike
 AssistantDirector;Pomoćnik ravnatelja
+AssociatedVideo_FrameRate;
 at;pri
 At least one file;(Morate otvoriti bar jednu datoteku)
 Audio;Audio
@@ -203,6 +205,7 @@ Basic;Osnovno
 Basic_Note;Napomena: za više informacija o ovoj datoteci morate odabrati različite prikaze (tabela, stablo...)
 BedChannelConfiguration;
 BedChannelCount;
+BinauralRenderMode;
 BitDepth;
 BitDepth_Detected;
 BitDepth_Stored;
@@ -217,6 +220,7 @@ BitRate_Nominal;Nominalni protok podataka
 Bits-(Pixel*Frame);Bita/(piksela*sličica)
 BufferSize;
 Cancel;Poništiti
+CaptionServiceName;
 Channel(s);Kanali
 ChannelCoded;
 ChannelConfiguration;
@@ -331,15 +335,22 @@ DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Izvorni omjer slike
 DistributedBy;Distribucija
 Distributor;
+Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;Potpora razvoju MediaInfo
 DotsPerInch;Točaka po palcu (DPI)
 Downmix;
+Downmix_5.1.x;
+Downmix_5to2;
+Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;Trajanje
 Duration_End;Vrijeme svršetka
+Duration_End_Command;
 Duration_Start;Vrijeme početka
+Duration_Start_Command;
+Duration_Start2End;
 DynamicRangeControl;
 Eac3DrcProfile;
 Edit;Uređivanje
@@ -357,6 +368,10 @@ EPG_Positions;Položaj EPG-a
 EpisodeTitleNumber;
 Error_File;Pogreška tijekom učitavanja datoteke
 Error_File_Write;
+Events_PaintOn;
+Events_PopOn;
+Events_RollUp;
+Events_Total;
 ExecutiveProducer;Izvršni producent
 Exit;Svršetak
 Exit_Hint;Okončati program
@@ -378,7 +393,10 @@ FileExtension;Nastavak naziva datoteke
 FileName;Naziv datoteke
 FileNameExtension;
 FileSize;Veličina datoteke
+FirstDisplay_Delay_Frames;
+FirstDisplay_Type;
 FlatPanelTv;
+FlowID;
 Folder;Mapa
 Folder (R);Mapa (R)
 Folder (R)_Hint;Odaberite mapu za promatranje (rekurzivno sa svim mapama)
@@ -427,6 +445,7 @@ FpaPass;
 FpaVersion;
 FrameCount;Broj sličica
 FrameRate;Protok sličica
+FrameRate_MaxFrameNumber;
 FrameRate_Maximum;Maksimalna stopa protoka sličica
 FrameRate_Minimum;Minimalna stopa protoka sličica
 FrameRate_Mode;Način protoka sličica
@@ -679,6 +698,21 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+JocBalance_FrontBackListener;
+JocBalance_FrontBackOverheadFloor;
+JocTrim_Center;
+JocTrim_Height;
+JocTrim_Surround;
+JocTrimMode;
+JocTrimMode0i;
+JocTrimMode1i;
+JocTrimMode2i;
+JocTrimMode3i;
+JocTrimMode4i;
+JocTrimMode5i;
+JocTrimMode6i;
+JocTrimMode7i;
+JocTrimMode8i;
 Keywords;Ključne riječi
 Known codecs;Poznati kôdeki
 Known formats;Poznati oblici datoteka
@@ -891,6 +925,8 @@ LfeMixGain;
 Library;Knjižnica multipleksera
 Lifetime_Subscribe_Button;
 Lightness;Svjetlina
+Lines_Count;
+Lines_MaxCountPerEvent;
 LineUpStart;
 LinkedTo_Bed_Pos;
 LinkedTo_ChannelFormat_Pos;
@@ -900,6 +936,7 @@ LinkedTo_Object_Pos;
 LinkedTo_PackFormat_Pos;
 LinkedTo_SignalGroup_Pos;
 LinkedTo_Substream_Pos;
+LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
 List;Spisak
 LoRoCenterMixGain;
@@ -948,6 +985,9 @@ Menu_Hint;Dodatne mogućnosti
 Menu_No;Bez izbornika
 MenuCount;Broj izborničkih tokova
 MenuID;Izbornički ID
+Metadata_Format;
+Metadata_Format_Type;
+Metadata_MuxingMode;
 MixType;
 mn; min
 Mood;Raspoloženje
@@ -978,7 +1018,9 @@ NumberOfObjects;
 NumberOfPackFormats;
 NumberOfPresentations;
 NumberOfProgrammes;
+NumberOfStreamFormats;
 NumberOfSubstreams;
+NumberOfTrackFormats;
 NumberOfTrackUIDs;
 NumColors;Broj boja
 ObjectCount;
@@ -1224,6 +1266,8 @@ ThanksTo;Zahvala
 Thousands separator;Razdjelnik tisuća
 TimeCode;
 TimeCode_FirstFrame;
+TimeCode_MaxFrameNumber;
+TimeCode_MaxFrameNumber_Theory;
 TimeCode_Settings;
 TimeCode_Source;
 TimeCode_Striped;
@@ -1236,9 +1280,12 @@ TotalNumberOfParts;
 TotalProgrammeDuration;
 Track;Naziv snimke
 Track_Count;Broj snimke
+TrackIndex;
+TrackUID;
 transfer_characteristics;
 Translate_Reports;
 Translator;Prevoditelj
+Transport;
 Tree;Stablo
 Tree & Text;Stablo i tekst
 TruePeakLevel;
@@ -1285,5 +1332,5 @@ Written_Location;Mjesto početka pisanja
 WrittenBy;Napisao
 Yes;Da
 Your system;Informacije o Vašem sustavu
-ZZ_Automatic_Percent;73
-ZZ_AutomaticLanguage_Percent;76
+ZZ_Automatic_Percent;70
+ZZ_AutomaticLanguage_Percent;74
