@@ -150,6 +150,7 @@
 : ;: 
 3D;
 3DType;
+608_Mode;
 About;حول البرنامج
 About_Hint;كيفية الاتصال بنا والحصول على أخر نسخة
 Accompaniment;مرافقة
@@ -180,6 +181,7 @@ Arranger;منظم
 ArtDirector;المدير الفني
 AspectRatio;حجم الشاشة
 AssistantDirector;مساعد المدير
+AssociatedVideo_FrameRate;
 at;عند
 At least one file;(يجب على الأقل فتح ملف واحد)
 Audio;صوت
@@ -203,6 +205,7 @@ Basic;أساسي
 Basic_Note;ملاحظة : لمزيد من المعلومات حول هذا الملف ، يجب استخدام وجهة نظر مختلفة (جدول ، شجرة...)
 BedChannelConfiguration;
 BedChannelCount;
+BinauralRenderMode;
 BitDepth;عمق الألوان
 BitDepth_Detected;Detected bit depth
 BitDepth_Stored;
@@ -217,6 +220,7 @@ BitRate_Nominal;المعدل الاسمي للصبيب
 Bits-(Pixel*Frame);بت /(صورة*بكسل)
 BufferSize;
 Cancel;إلغاء
+CaptionServiceName;
 Channel(s);قناة
 ChannelCoded;
 ChannelConfiguration;
@@ -331,15 +335,22 @@ DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;عرض حجم الشاشة الأصلي
 DistributedBy;موزع من طرف
 Distributor;
+Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;تبرع
 DotsPerInch;نقطة في البوصة
 Downmix;
+Downmix_5.1.x;
+Downmix_5to2;
+Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;مدة
 Duration_End;وقت النهاية
+Duration_End_Command;
 Duration_Start;وقت البدء
+Duration_Start_Command;
+Duration_Start2End;
 DynamicRangeControl;
 Eac3DrcProfile;
 Edit;تغيير
@@ -357,6 +368,10 @@ EPG_Positions;مواضع الـEPG (الداخلية)
 EpisodeTitleNumber;
 Error_File;خطأ أثناء قراءة الملف
 Error_File_Write;
+Events_PaintOn;
+Events_PopOn;
+Events_RollUp;
+Events_Total;
 ExecutiveProducer;المنتج التنفيذي
 Exit;خروج
 Exit_Hint;إنهاء البرنامج
@@ -378,7 +393,10 @@ FileExtension;نوع الملف
 FileName;اسم الملف
 FileNameExtension;
 FileSize;حجم الملف
+FirstDisplay_Delay_Frames;
+FirstDisplay_Type;
 FlatPanelTv;
+FlowID;
 Folder;مجلد
 Folder (R);مجلد (R)
 Folder (R)_Hint;تحديد مجلد لدراسة (مع جميع مجلداته الفرعية)
@@ -427,6 +445,7 @@ FpaPass;
 FpaVersion;
 FrameCount;عدد الصور
 FrameRate;عدد الصور في الثانية
+FrameRate_MaxFrameNumber;
 FrameRate_Maximum;أقصى معدل الصور/ثانية
 FrameRate_Minimum;أدنى معدل الصور/ثانية
 FrameRate_Mode;نمط الصور/ثانية
@@ -679,6 +698,21 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+JocBalance_FrontBackListener;
+JocBalance_FrontBackOverheadFloor;
+JocTrim_Center;
+JocTrim_Height;
+JocTrim_Surround;
+JocTrimMode;
+JocTrimMode0i;
+JocTrimMode1i;
+JocTrimMode2i;
+JocTrimMode3i;
+JocTrimMode4i;
+JocTrimMode5i;
+JocTrimMode6i;
+JocTrimMode7i;
+JocTrimMode8i;
 Keywords;الكلمات الرئيسية
 Known codecs;الترميزات المعروفة
 Known formats;الامتدلدات المعروفة
@@ -891,6 +925,8 @@ LfeMixGain;
 Library;المكتبة المستخامة
 Lifetime_Subscribe_Button;
 Lightness;إضاءة
+Lines_Count;
+Lines_MaxCountPerEvent;
 LineUpStart;
 LinkedTo_Bed_Pos;
 LinkedTo_ChannelFormat_Pos;
@@ -900,6 +936,7 @@ LinkedTo_Object_Pos;
 LinkedTo_PackFormat_Pos;
 LinkedTo_SignalGroup_Pos;
 LinkedTo_Substream_Pos;
+LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
 List;قائمة
 LoRoCenterMixGain;
@@ -948,6 +985,9 @@ Menu_Hint;مزيد من الإمكانيات
 Menu_No;لا توجد أي قائمة
 MenuCount;عدد قوائم الدفق
 MenuID;معرف القائمة
+Metadata_Format;
+Metadata_Format_Type;
+Metadata_MuxingMode;
 MixType;
 mn; min
 Mood;مزاج
@@ -978,7 +1018,9 @@ NumberOfObjects;
 NumberOfPackFormats;
 NumberOfPresentations;
 NumberOfProgrammes;
+NumberOfStreamFormats;
 NumberOfSubstreams;
+NumberOfTrackFormats;
 NumberOfTrackUIDs;
 NumColors;عدد الألوان
 ObjectCount;
@@ -1224,6 +1266,8 @@ ThanksTo;شكرا لـ
 Thousands separator;فاصل الآلاف
 TimeCode;
 TimeCode_FirstFrame;
+TimeCode_MaxFrameNumber;
+TimeCode_MaxFrameNumber_Theory;
 TimeCode_Settings;
 TimeCode_Source;
 TimeCode_Striped;
@@ -1236,9 +1280,12 @@ TotalNumberOfParts;
 TotalProgrammeDuration;
 Track;اسم المسار
 Track_Count;عدد المسارات
+TrackIndex;
+TrackUID;
 transfer_characteristics;خصائص نقل
 Translate_Reports;
 Translator;مترجم
+Transport;
 Tree;شجرة
 Tree & Text;شجرة والنصوص
 TruePeakLevel;
@@ -1285,5 +1332,5 @@ Written_Location;مكان الكتابة
 WrittenBy;كتبها
 Yes;نعم
 Your system;نظامك
-ZZ_Automatic_Percent;75
-ZZ_AutomaticLanguage_Percent;78
+ZZ_Automatic_Percent;72
+ZZ_AutomaticLanguage_Percent;76

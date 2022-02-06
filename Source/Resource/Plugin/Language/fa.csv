@@ -150,6 +150,7 @@
 : ;: 
 3D;
 3DType;
+608_Mode;
 About;درباره
 About_Hint;ارتباط با من و آخرین نسخه
 Accompaniment;همراهی
@@ -180,6 +181,7 @@ Arranger;مرتب کننده
 ArtDirector;کارگردان هنری
 AspectRatio;نسبت تصوير
 AssistantDirector;دستیار کارگردان
+AssociatedVideo_FrameRate;
 at;در
 At least one file;(حداقل یک فایل را باز کنید)
 Audio;صوت
@@ -203,6 +205,7 @@ Basic;اولیه
 Basic_Note;برای اطلاعات بیشتر اینجا را کلیک کنید
 BedChannelConfiguration;
 BedChannelCount;
+BinauralRenderMode;
 BitDepth;
 BitDepth_Detected;
 BitDepth_Stored;
@@ -217,6 +220,7 @@ BitRate_Nominal;نرخ بيت غیرواقعی
 Bits-(Pixel*Frame);بیتها /(Pixel*Frame)
 BufferSize;
 Cancel;لغو
+CaptionServiceName;
 Channel(s);کانال ها
 ChannelCoded;
 ChannelConfiguration;
@@ -331,15 +335,22 @@ DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;نمایش نسبت تصوير اصلی
 DistributedBy;توزيع شده توسط
 Distributor;
+Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;کمک مالی
 DotsPerInch;نقطه بر اینچ
 Downmix;
+Downmix_5.1.x;
+Downmix_5to2;
+Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;مدت
 Duration_End;زمان پایان
+Duration_End_Command;
 Duration_Start;زمان شروع
+Duration_Start_Command;
+Duration_Start2End;
 DynamicRangeControl;
 Eac3DrcProfile;
 Edit;ویرایش
@@ -357,6 +368,10 @@ EPG_Positions;EPG موقعیت (internal)
 EpisodeTitleNumber;
 Error_File;خطا هنگام خواندن فایل
 Error_File_Write;
+Events_PaintOn;
+Events_PopOn;
+Events_RollUp;
+Events_Total;
 ExecutiveProducer;تهیه کننده اجرایی
 Exit;خروج
 Exit_Hint;خروج از برنامه
@@ -378,7 +393,10 @@ FileExtension;پسوند فایل
 FileName;نام فایل
 FileNameExtension;
 FileSize;اندازه فایل
+FirstDisplay_Delay_Frames;
+FirstDisplay_Type;
 FlatPanelTv;
+FlowID;
 Folder;پوشه
 Folder (R);پوشه (R)
 Folder (R)_Hint;انتخاب پوشه (with all folders recursively)
@@ -427,6 +445,7 @@ FpaPass;
 FpaVersion;
 FrameCount;تعداد فرمت
 FrameRate;نرخ فرمت
+FrameRate_MaxFrameNumber;
 FrameRate_Maximum;بیشترین نرخ فرمت
 FrameRate_Minimum;کمترین نرخ فرمت
 FrameRate_Mode;حالت نرخ فرمت
@@ -679,6 +698,21 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+JocBalance_FrontBackListener;
+JocBalance_FrontBackOverheadFloor;
+JocTrim_Center;
+JocTrim_Height;
+JocTrim_Surround;
+JocTrimMode;
+JocTrimMode0i;
+JocTrimMode1i;
+JocTrimMode2i;
+JocTrimMode3i;
+JocTrimMode4i;
+JocTrimMode5i;
+JocTrimMode6i;
+JocTrimMode7i;
+JocTrimMode8i;
 Keywords;کلمه کلیدی
 Known codecs;کدک مشخص
 Known formats;فرمت مشخص
@@ -891,6 +925,8 @@ LfeMixGain;
 Library;کتابخانه تسهيم کننده
 Lifetime_Subscribe_Button;
 Lightness;روشنايى
+Lines_Count;
+Lines_MaxCountPerEvent;
 LineUpStart;
 LinkedTo_Bed_Pos;
 LinkedTo_ChannelFormat_Pos;
@@ -900,6 +936,7 @@ LinkedTo_Object_Pos;
 LinkedTo_PackFormat_Pos;
 LinkedTo_SignalGroup_Pos;
 LinkedTo_Substream_Pos;
+LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
 List;لیست
 LoRoCenterMixGain;
@@ -948,6 +985,9 @@ Menu_Hint;احتمالات بیشتر
 Menu_No;منویی وجود ندارد
 MenuCount;تعداد استریم منو
 MenuID;هویت منو
+Metadata_Format;
+Metadata_Format_Type;
+Metadata_MuxingMode;
 MixType;
 mn; min
 Mood;حالت
@@ -978,7 +1018,9 @@ NumberOfObjects;
 NumberOfPackFormats;
 NumberOfPresentations;
 NumberOfProgrammes;
+NumberOfStreamFormats;
 NumberOfSubstreams;
+NumberOfTrackFormats;
 NumberOfTrackUIDs;
 NumColors;تعداد رنگ ها
 ObjectCount;
@@ -1224,6 +1266,8 @@ ThanksTo;تشکر از
 Thousands separator;هزاران جداکننده
 TimeCode;
 TimeCode_FirstFrame;
+TimeCode_MaxFrameNumber;
+TimeCode_MaxFrameNumber_Theory;
 TimeCode_Settings;
 TimeCode_Source;
 TimeCode_Striped;
@@ -1236,9 +1280,12 @@ TotalNumberOfParts;
 TotalProgrammeDuration;
 Track;نام ترک
 Track_Count;تعداد ترک
+TrackIndex;
+TrackUID;
 transfer_characteristics;
 Translate_Reports;
 Translator;مترجم
+Transport;
 Tree;درختی
 Tree & Text;درختی ومتنی
 TruePeakLevel;
@@ -1285,5 +1332,5 @@ Written_Location;مکان نوشته
 WrittenBy;نوشته شده توسط
 Yes;بلی
 Your system;سیستم شما
-ZZ_Automatic_Percent;73
-ZZ_AutomaticLanguage_Percent;76
+ZZ_Automatic_Percent;70
+ZZ_AutomaticLanguage_Percent;74

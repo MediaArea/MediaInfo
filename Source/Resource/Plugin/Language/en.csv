@@ -150,6 +150,7 @@
 : ;: 
 3D;3D
 3DType;3D Type
+608_Mode;EIA-608 conversion mode
 About;About
 About_Hint;How to contact me and find last version
 Accompaniment;Accompaniment
@@ -180,6 +181,7 @@ Arranger;Arranger
 ArtDirector;ArtDirector
 AspectRatio;Aspect ratio
 AssistantDirector;AssistantDirector
+AssociatedVideo_FrameRate;Associated video frame rate
 at;at
 At least one file;(You must at least open one file)
 Audio;Audio
@@ -203,6 +205,7 @@ Basic;Basic
 Basic_Note;Note : for more information about this file, you must select a different view (Sheet, Tree...)
 BedChannelConfiguration;Bed channel configuration
 BedChannelCount;Bed channel count
+BinauralRenderMode;Binaural render mode
 BitDepth;Bit depth
 BitDepth_Detected;Detected bit depth
 BitDepth_Stored;Stored bit depth
@@ -217,6 +220,7 @@ BitRate_Nominal;Nominal bit rate
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;Buffer size
 Cancel;Cancel
+CaptionServiceName;Caption service name
 Channel(s);Channel(s)
 ChannelCoded;Channel coded
 ChannelConfiguration;Channel configuration
@@ -331,15 +335,22 @@ DisplayAspectRatio_CleanAperture;Clean aperture display aspect ratio
 DisplayAspectRatio_Original;Original display aspect ratio
 DistributedBy;Distributed by
 Distributor;Distributor
+Dolby_Atmos_Metadata;Dolby Atmos metadata
 DolbyAtmos;Dolby Atmos
 Donate;Donate
 DotsPerInch;Dots per inch
 Downmix;Downmix
+Downmix_5.1.x;5.1 and 5.1.x downmix
+Downmix_5to2;5.1 to 2.0 downmix
+Downmix_5to2_90deg;5.1 to 2.0 downmix, 90-deg phase shift
 DrcSets_Count;DRC set count
 DrcSets_Effects;DRC effect type(s)
 Duration;Duration
 Duration_End;End time
+Duration_End_Command;End time (commands)
 Duration_Start;Start time
+Duration_Start_Command;Start time (commands)
+Duration_Start2End;Duration of the visible content
 DynamicRangeControl;Dynamic Range Control
 Eac3DrcProfile;E-AC-3 DRC profile
 Edit;Edit
@@ -357,6 +368,10 @@ EPG_Positions;EPG positions (internal)
 EpisodeTitleNumber;Episode Title Number
 Error_File;Error while reading file
 Error_File_Write;Error while writing file
+Events_PaintOn;Count of PaintOn events
+Events_PopOn;Count of PopOn events
+Events_RollUp;Count of RollUp events
+Events_Total;Count of events
 ExecutiveProducer;Executive producer
 Exit;Exit
 Exit_Hint;Quit the program
@@ -378,7 +393,10 @@ FileExtension;File extension
 FileName;File name
 FileNameExtension;File name extension
 FileSize;File size
+FirstDisplay_Delay_Frames;Count of frames before first event
+FirstDisplay_Type;Type of the first event
 FlatPanelTv;Flat panel TV
+FlowID;Flow ID
 Folder;Folder
 Folder (R);Folder (R)
 Folder (R)_Hint;Select a folder to examine (with all folders recursively)
@@ -427,6 +445,7 @@ FpaPass;FPA Pass
 FpaVersion;FPA Version
 FrameCount;Frame count
 FrameRate;Frame rate
+FrameRate_MaxFrameNumber;
 FrameRate_Maximum;Maximum frame rate
 FrameRate_Minimum;Minimum frame rate
 FrameRate_Mode;Frame rate mode
@@ -679,6 +698,21 @@ InternetMediaType;Internet media type
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+JocBalance_FrontBackListener;Front/back listener balance
+JocBalance_FrontBackOverheadFloor;Front/back overhead/floor balance
+JocTrim_Center;Center trim
+JocTrim_Height;Height trim
+JocTrim_Surround;Surround trim
+JocTrimMode;Trim mode
+JocTrimMode0i;Trim mode for 2.0
+JocTrimMode1i;Trim mode for 5.1
+JocTrimMode2i;Trim mode for 7.1
+JocTrimMode3i;Trim mode for 2.1.2
+JocTrimMode4i;Trim mode for 5.1.2
+JocTrimMode5i;Trim mode for 7.1.2
+JocTrimMode6i;Trim mode for 2.1.4
+JocTrimMode7i;Trim mode for 5.1.4
+JocTrimMode8i;Trim mode for 7.1.4
 Keywords;Keywords
 Known codecs;Known codecs
 Known formats;Known formats
@@ -891,6 +925,8 @@ LfeMixGain;LFE mix gain
 Library;Muxing library
 Lifetime_Subscribe_Button;Lifetime subscription for %PRICE%
 Lightness;Lightness
+Lines_Count;Count of lines
+Lines_MaxCountPerEvent;Maximum count of lines per event
 LineUpStart;Line Up Start
 LinkedTo_Bed_Pos;Bed #s
 LinkedTo_ChannelFormat_Pos;Channel format #s
@@ -900,6 +936,7 @@ LinkedTo_Object_Pos;Object #s
 LinkedTo_PackFormat_Pos;Pack format #s
 LinkedTo_SignalGroup_Pos;Signal group #s
 LinkedTo_Substream_Pos;Substream #s
+LinkedTo_TrackFormat_Pos;Track format #s
 LinkedTo_TrackUID_Pos;Track UID #s
 List;List
 LoRoCenterMixGain;LoRo center mix gain
@@ -948,6 +985,9 @@ Menu_Hint;More possibilities
 Menu_No;No menu
 MenuCount;Count of menu streams
 MenuID;Menu ID
+Metadata_Format;Metadata format
+Metadata_Format_Type;Type of the metadata frame
+Metadata_MuxingMode;Metadata muxing mode
 MixType;Mix type
 mn; min
 Mood;Mood
@@ -971,14 +1011,16 @@ NewVersion_Question_Title;A new version was released!
 No;No
 Not yet;Not yet
 NumberOfChannelFormats;Number of channel formats
-NumberOfContents;Number of Contents
+NumberOfContents;Number of contents
 NumberOfDynamicObjects;Number of dynamic objects
 NumberOfElementaryStreams;Number of elementary streams
 NumberOfObjects;Number of objects
 NumberOfPackFormats;Number of pack formats
 NumberOfPresentations;Number of presentations
 NumberOfProgrammes;Number of programmes
+NumberOfStreamFormats;Number of stream formats
 NumberOfSubstreams;Number of substreams
+NumberOfTrackFormats;Number of track formats
 NumberOfTrackUIDs;Number of track UIDs
 NumColors;Number of colors
 ObjectCount;Object Count
@@ -1224,6 +1266,8 @@ ThanksTo;Thanks to
 Thousands separator;Thousands separator
 TimeCode;Time code
 TimeCode_FirstFrame;Time code of first frame
+TimeCode_MaxFrameNumber;Maximum frame number in time codes
+TimeCode_MaxFrameNumber_Theory;Theoritical maximum frame number in time codes
 TimeCode_Settings;Time code settings
 TimeCode_Source;Time code source
 TimeCode_Striped;Time code, striped
@@ -1236,9 +1280,12 @@ TotalNumberOfParts;Total Number Of Parts
 TotalProgrammeDuration;Total Programme Duration
 Track;Track name
 Track_Count;Track count
+TrackIndex;Track index
+TrackUID;TrackUID
 transfer_characteristics;Transfer characteristics
 Translate_Reports;Translate reports
 Translator;Translator
+Transport;Transport
 Tree;Tree
 Tree & Text;Tree & Text
 TruePeakLevel;True peak level
@@ -1285,5 +1332,5 @@ Written_Location;Written location
 WrittenBy;Written by
 Yes;Yes
 Your system;Your system
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

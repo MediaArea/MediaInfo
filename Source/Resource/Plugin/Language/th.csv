@@ -150,6 +150,7 @@
 : ;: 
 3D;
 3DType;
+608_Mode;
 About;เกี่ยวกับ
 About_Hint;วิธีติดต่อฉันและค้นหาเวอร์ชันล่าสุด
 Accompaniment;Accompaniment
@@ -180,6 +181,7 @@ Arranger;Arranger
 ArtDirector;ผู้กำกับศิลป์
 AspectRatio;อัตราการแสดง
 AssistantDirector;ผู้ช่วยผู้กำกับ
+AssociatedVideo_FrameRate;
 at;ที่
 At least one file;(คุณต้องเปิดอย่างน้อยหนึ่งไฟล์)
 Audio;เสียง
@@ -203,6 +205,7 @@ Basic;พื้นฐาน
 Basic_Note;หมายเหตุ : สำหรับข้อมูลเพิ่มเติมเกี่ยวกับไฟล์นี้, คุณต้องเลือกการแสดงแบบอื่นๆ (ชีต, Tree...)
 BedChannelConfiguration;
 BedChannelCount;
+BinauralRenderMode;
 BitDepth;
 BitDepth_Detected;
 BitDepth_Stored;
@@ -217,6 +220,7 @@ BitRate_Nominal;Nominal bit rate
 Bits-(Pixel*Frame);บิต/(พิกเซล*เฟรม)
 BufferSize;
 Cancel;ยกเลิก
+CaptionServiceName;
 Channel(s);ช่อง
 ChannelCoded;
 ChannelConfiguration;
@@ -331,15 +335,22 @@ DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;
 DistributedBy;เผยแพร่โดย
 Distributor;
+Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;บริจาค
 DotsPerInch;
 Downmix;
+Downmix_5.1.x;
+Downmix_5to2;
+Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;ระยะเวลา
 Duration_End;
+Duration_End_Command;
 Duration_Start;
+Duration_Start_Command;
+Duration_Start2End;
 DynamicRangeControl;
 Eac3DrcProfile;
 Edit;แก้ไข
@@ -357,6 +368,10 @@ EPG_Positions;
 EpisodeTitleNumber;
 Error_File;เกิดข้อผิดพลาดขณะที่กำลังไฟล์
 Error_File_Write;
+Events_PaintOn;
+Events_PopOn;
+Events_RollUp;
+Events_Total;
 ExecutiveProducer;Executive producer
 Exit;ออก
 Exit_Hint;ออกจากโปรแกรม
@@ -378,7 +393,10 @@ FileExtension;ชนิดไฟล์
 FileName;ชื่อไฟล์
 FileNameExtension;
 FileSize;ขนาดไฟล์
+FirstDisplay_Delay_Frames;
+FirstDisplay_Type;
 FlatPanelTv;
+FlowID;
 Folder;โฟลเดอร์
 Folder (R);โฟลเดอร์ (R)
 Folder (R)_Hint;เลือกโฟลเดอร์เพื่อเรียนรู้ (พร้อมทั้งโฟลเดอร์ย่อยทั้งหมด)
@@ -427,6 +445,7 @@ FpaPass;
 FpaVersion;
 FrameCount;
 FrameRate;เฟรมเรต
+FrameRate_MaxFrameNumber;
 FrameRate_Maximum;เฟรมเรตสูงสุด
 FrameRate_Minimum;เฟรมเรตต่ำสุด
 FrameRate_Mode;เฟรมเรตโหมด
@@ -679,6 +698,21 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+JocBalance_FrontBackListener;
+JocBalance_FrontBackOverheadFloor;
+JocTrim_Center;
+JocTrim_Height;
+JocTrim_Surround;
+JocTrimMode;
+JocTrimMode0i;
+JocTrimMode1i;
+JocTrimMode2i;
+JocTrimMode3i;
+JocTrimMode4i;
+JocTrimMode5i;
+JocTrimMode6i;
+JocTrimMode7i;
+JocTrimMode8i;
 Keywords;คีย์เวิร์ด
 Known codecs;codecs ที่รู้จัก
 Known formats;รูปแบบที่รู้จัก
@@ -891,6 +925,8 @@ LfeMixGain;
 Library;Muxing library
 Lifetime_Subscribe_Button;
 Lightness;
+Lines_Count;
+Lines_MaxCountPerEvent;
 LineUpStart;
 LinkedTo_Bed_Pos;
 LinkedTo_ChannelFormat_Pos;
@@ -900,6 +936,7 @@ LinkedTo_Object_Pos;
 LinkedTo_PackFormat_Pos;
 LinkedTo_SignalGroup_Pos;
 LinkedTo_Substream_Pos;
+LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
 List;รายการ
 LoRoCenterMixGain;
@@ -948,6 +985,9 @@ Menu_Hint;More possibilities
 Menu_No;ไม่มีเมนู
 MenuCount;จำนวนของสตรีมเมนู
 MenuID;รหัสประจำตัวเมนู
+Metadata_Format;
+Metadata_Format_Type;
+Metadata_MuxingMode;
 MixType;
 mn;mn
 Mood;Mood
@@ -978,7 +1018,9 @@ NumberOfObjects;
 NumberOfPackFormats;
 NumberOfPresentations;
 NumberOfProgrammes;
+NumberOfStreamFormats;
 NumberOfSubstreams;
+NumberOfTrackFormats;
 NumberOfTrackUIDs;
 NumColors;
 ObjectCount;
@@ -1224,6 +1266,8 @@ ThanksTo;ขอขอบคุณ
 Thousands separator;ตัวแบ่งหลักพัน
 TimeCode;
 TimeCode_FirstFrame;
+TimeCode_MaxFrameNumber;
+TimeCode_MaxFrameNumber_Theory;
 TimeCode_Settings;
 TimeCode_Source;
 TimeCode_Striped;
@@ -1236,9 +1280,12 @@ TotalNumberOfParts;
 TotalProgrammeDuration;
 Track;ชื่อแทร็ค
 Track_Count;Track count
+TrackIndex;
+TrackUID;
 transfer_characteristics;
 Translate_Reports;
 Translator;แปลไทยโดย
+Transport;
 Tree;Tree
 Tree & Text;Tree & Text
 TruePeakLevel;
@@ -1285,5 +1332,5 @@ Written_Location;สถานที่เขียน
 WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
-ZZ_Automatic_Percent;63
-ZZ_AutomaticLanguage_Percent;70
+ZZ_Automatic_Percent;61
+ZZ_AutomaticLanguage_Percent;68
