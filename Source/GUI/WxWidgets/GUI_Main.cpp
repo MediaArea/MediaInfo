@@ -18,6 +18,9 @@
 #include "CLI/CommandLine_Parser.h"
 #include <vector>
 #include <algorithm>
+
+#include "wx/config.h"
+
 using namespace std;
 //---------------------------------------------------------------------------
 
@@ -82,12 +85,112 @@ GUI_Main::GUI_Main(int argc, MediaInfoNameSpace::Char** argv_ansi, const wxPoint
         SetDropTarget(new FileDrop(C));
     #endif //wxUSE_DRAG_AND_DROP
 
+    wxConfigBase *pConfig = wxConfigBase::Get();
+
+    wxString view = pConfig->Read(wxT("/View"), "Easy");
+
     //Defaults
     Menu_View_Sheet->Enable(false); //Not yet available
     Menu_View_Tree->Enable (false); //Not yet available
-    Menu_View_Easy->Check(); //Default to HTML with GUI.
+
     wxCommandEvent* EventTemp=new wxCommandEvent();
-    OnMenu_View_Easy(*EventTemp);
+    if (view=="Easy")
+    {
+        Menu_View_Easy->Check();
+        OnMenu_View_Easy(*EventTemp);
+    }
+    else if (view=="HTML")
+    {
+        Menu_View_HTML->Check();
+        OnMenu_View_HTML(*EventTemp);
+    }
+    else if (view=="Text")
+    {
+        Menu_View_Text->Check();
+        OnMenu_View_Text(*EventTemp);
+    }
+    else if (view=="XML")
+    {
+        Menu_View_XML->Check();
+        OnMenu_View_XML(*EventTemp);
+    }
+    else if (view=="JSON")
+    {
+        Menu_View_JSON->Check();
+        OnMenu_View_JSON(*EventTemp);
+    }
+    else if (view=="MPEG7")
+    {
+        Menu_View_MPEG7->Check();
+        OnMenu_View_MPEG7(*EventTemp);
+    }
+    else if (view=="PBCore_1_2")
+    {
+        Menu_View_PBCore_1_2->Check();
+        OnMenu_View_PBCore_1_2(*EventTemp);
+    }
+    else if (view=="PBCore_2_0")
+    {
+        Menu_View_PBCore_2_0->Check();
+        OnMenu_View_PBCore_2_0(*EventTemp);
+    }
+    else if (view=="EBUCore_1_5")
+    {
+        Menu_View_EBUCore_1_5->Check();
+        OnMenu_View_EBUCore_1_5(*EventTemp);
+    }
+    else if (view=="EBUCore_1_6")
+    {
+        Menu_View_EBUCore_1_6->Check();
+        OnMenu_View_EBUCore_1_6(*EventTemp);
+    }
+    else if (view=="EBUCore_1_8_ps")
+    {
+        Menu_View_EBUCore_1_8_ps->Check();
+        OnMenu_View_EBUCore_1_8_ps(*EventTemp);
+    }
+    else if (view=="EBUCore_1_8_sp")
+    {
+        Menu_View_EBUCore_1_8_sp->Check();
+        OnMenu_View_EBUCore_1_8_sp(*EventTemp);
+    }
+    else if (view=="EBUCore_1_8_ps_json")
+    {
+        Menu_View_EBUCore_1_8_ps_json->Check();
+        OnMenu_View_EBUCore_1_8_ps_json(*EventTemp);
+    }
+    else if (view=="EBUCore_1_8_sp_json")
+    {
+        Menu_View_EBUCore_1_8_sp_json->Check();
+        OnMenu_View_EBUCore_1_8_sp_json(*EventTemp);
+    }
+    else if (view=="FIMS_1_1")
+    {
+        Menu_View_FIMS_1_1->Check();
+        OnMenu_View_FIMS_1_1(*EventTemp);
+    }
+    else if (view=="FIMS_1_2")
+    {
+        Menu_View_FIMS_1_2->Check();
+        OnMenu_View_FIMS_1_2(*EventTemp);
+    }
+    else if (view=="reVTMD")
+    {
+        Menu_View_reVTMD->Check();
+        OnMenu_View_reVTMD(*EventTemp);
+    }
+    else if (view=="NISO_Z39_87")
+    {
+        Menu_View_NISO_Z39_87->Check();
+        OnMenu_View_NISO_Z39_87(*EventTemp);
+    }
+    else
+    {
+        Menu_View_Easy->Check();
+        OnMenu_View_Easy(*EventTemp);
+    }
+
+
     delete EventTemp; //This is done to be GCC-compatible...
     Menu_Debug_Demux_None->Check(); //Default to no Debug Demux
 
@@ -119,6 +222,96 @@ GUI_Main::GUI_Main(int argc, MediaInfoNameSpace::Char** argv_ansi, const wxPoint
 //---------------------------------------------------------------------------
 GUI_Main::~GUI_Main()
 {
+
+    //Save view state
+    wxConfig *config = new wxConfig("mediainfo-gui");
+
+
+    wxConfigBase *pConfig = wxConfigBase::Get();
+    if ( pConfig == NULL )
+    {
+        return;
+    }
+
+    bool rememberView;
+    if ( !pConfig->Read("rememberView", &rememberView))
+    {
+        rememberView=1;
+        pConfig->Write(wxT("/rememberView"), 1);
+    }
+
+    if (rememberView == 1)
+    {
+        enum Core::kind currentView = C->Kind_Get();
+
+        switch (currentView)
+        {
+            case 0:
+                pConfig->Write(wxT("/View"), wxT("Easy"));
+                break;
+            case 1:
+                pConfig->Write(wxT("/View"), wxT("Sheet"));
+                break;
+            case 2:
+                pConfig->Write(wxT("/View"), wxT("Tree"));
+                break;
+            case 3:
+                pConfig->Write(wxT("/View"), wxT("HTML"));
+                break;
+            case 4:
+                pConfig->Write(wxT("/View"), wxT("Text"));
+                break;
+            case 5:
+                pConfig->Write(wxT("/View"), wxT("XML"));
+                break;
+            case 6:
+                pConfig->Write(wxT("/View"), wxT("JSON"));
+                break;
+            case 7:
+                pConfig->Write(wxT("/View"), wxT("PBCore"));
+                break;
+            case 8:
+                pConfig->Write(wxT("/View"), wxT("PBCore2"));
+                break;
+            case 9:
+                pConfig->Write(wxT("/View"), wxT("reVTMD"));
+                break;
+            case 10:
+                pConfig->Write(wxT("/View"), wxT("MPEG7"));
+                break;
+            case 11:
+                pConfig->Write(wxT("/View"), wxT("EBUCore_1_5"));
+                break;
+            case 12:
+                pConfig->Write(wxT("/View"), wxT("EBUCore_1_6"));
+                break;
+            case 13:
+                pConfig->Write(wxT("/View"), wxT("EBUCore_1_8_ps"));
+                break;
+            case 14:
+                pConfig->Write(wxT("/View"), wxT("EBUCore_1_8_sp"));
+                break;
+            case 15:
+                pConfig->Write(wxT("/View"), wxT("EBUCore_1_8_ps_json"));
+                break;
+            case 16:
+                pConfig->Write(wxT("/View"), wxT("EBUCore_1_8_sp_json"));
+                break;
+            case 17:
+                pConfig->Write(wxT("/View"), wxT("FIMS_1_1"));
+                break;
+            case 18:
+                pConfig->Write(wxT("/View"), wxT("FIMS_1_2"));
+                break;
+            case 19:
+                pConfig->Write(wxT("/View"), wxT("FIMS_1_3"));
+                break;
+            case 20:
+                pConfig->Write(wxT("/View"), wxT("NISO_Z39_87"));
+                break;
+        }
+    }
+
     delete C; //C=NULL;
     delete View; //View=NULL;
 }
