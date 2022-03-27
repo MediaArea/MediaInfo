@@ -33,7 +33,7 @@ win32 {
 
 TEMPLATE = app
 
-CONFIG += qt release
+CONFIG += qt release c++11
 
 unix {
     exists(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config) {
