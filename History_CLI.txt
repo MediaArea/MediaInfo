@@ -12,6 +12,41 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 22.03, 2022-03-31
+-------------
++ NSV (Nullsoft Video): full featured support
++ NSV: support of proprietary StarDiva metadata (by reverse engineering)
++ HEVC: CEA-608/708 support
++ Dolby Audio Metadata: First frame of action, binaural render modes
++ Dolby Audio Metadata: 5.1 and 5.1.x downmix, 5.1 to 2.0 downmix, associated video frame rate, trim modes
++ MOV/MP4, TTML, SCC, MXF TC: time code of last frame
++ EIA-608: first displayed caption type
++ EIA-608: Maximum count of lines per event and total count of lines
++ EIA-608: duration of the visible content
++ TTML: Total count of lines
++ TTML: Maximum count of lines per event (including overlapping times)
++ TTML: Frame count, display aspect ratio
++ TTML: Support of timestamps in frames
++ SCC: Delay
++ Matroska: Encoding settings metadata support
++ MOV/MP4: Gamma metadata output
++ MPEG-4/MOV: difference between audio Center and Mono when possible
++ MP4/MOV: Support of dec3 atom in wave atom
++ MPEG-4/MOV: show both values in case of chan atom ChannelLayoutTag / ChannelDescriptions mismatch
++ MP4/MOV: Support of dec3 atom in wave atom
++ MXF: better support of AVC streams without SPS/PPS
++ ADM: display channel index of trackUIDs
+x WAV: fix freeze with 32-bit PCM
+x DPX: fix regression with DPX files more than 64 MB
+x Dolby E: fix crash with some invalid streams
+x E-AC-3: service kind was not correctly handled
+x EXR: fix of bad handling of files with long names in attributes
+x TTML: correct handling of 29.97 DF time codes
+x AV1: fix of the parsing of some streams, especially the ones with HDR metadata
+x WebVTT: was not correctly handling WebVTT header with comment
+x Matroska: fix false positive detection of bad CRC32
+x Several other parsing bug/crash fixes
+
 Version 21.09, 2021-09-17
 -------------
 + Graph view for 3D audio streams (thanks to graphviz)
