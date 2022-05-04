@@ -920,7 +920,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
                     File F(InstallFolder+__T("\\Plugin\\Graph\\Template.html"));
                     int8u* Buffer=new int8u[(size_t)F.Size_Get()+1];
                     size_t Count=F.Read(Buffer, (size_t)F.Size_Get());
-                    if (Count==Error)
+                    if (Count==ZenLib::Error)
                     {
                         delete[] Buffer; //Buffer=NULL;
                         S1=__T("Unable to load graph template");

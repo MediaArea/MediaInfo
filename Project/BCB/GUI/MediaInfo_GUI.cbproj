@@ -41,7 +41,7 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
-			<Defines>MEDIAINFO_DLL_STATIC;$(Defines)</Defines>
+			<Defines>MEDIAINFO_DLL_RUNTIME;MEDIAINFODLL_NAME=L\"MediaInfo_i386.dll\";$(Defines)</Defines>
 			<VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=22.03.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=;Comments=</VerInfo_Keys>
 			<Manifest_File>None</Manifest_File>
 			<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
@@ -111,10 +111,6 @@
 		<ItemGroup>
 			<LibFiles Condition="'$(Platform)'=='Win32'" Include="$(BDSLIB)\win32\release\wininet.lib">
 				<BuildOrder>16</BuildOrder>
-				<IgnorePath>true</IgnorePath>
-			</LibFiles>
-			<LibFiles Condition="'$(Platform)'=='Win32'" Include="..\..\..\..\MediaInfoLib\Project\BCB\Dll\Win32\Release\MediaInfo_i386.lib">
-				<BuildOrder>14</BuildOrder>
 				<IgnorePath>true</IgnorePath>
 			</LibFiles>
 			<CppCompile Include="MediaInfo_GUI.cpp">
