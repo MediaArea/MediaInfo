@@ -199,7 +199,7 @@
     <ProjectReference Include="..\..\..\..\ZenLib\Project\MSVC2019\Library\ZenLib.vcxproj">
       <Project>{0da1da7d-f393-4e7c-a7ce-cb5c6a67bc94}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\zlib\contrib\vstudio\vc16\zlibstat.vcxproj">
+    <ProjectReference Include="..\..\..\..\zlib\contrib\vstudio\vc17\zlibstat.vcxproj">
       <Project>{745dec58-ebb3-47a9-a9b8-4c6627c01bf8}</Project>
     </ProjectReference>
   </ItemGroup>
