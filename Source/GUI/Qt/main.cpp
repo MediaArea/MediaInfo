@@ -5,6 +5,7 @@
  */
 
 #include <QApplication>
+#include <QCommandLineParser>
 #include <QtGlobal>
 #include <QtPlugin>
 #include <iostream>
@@ -13,60 +14,54 @@
 #include <ZenLib/Ztring.h>
 #include <ZenLib/ZtringListList.h>
 
-using namespace ZenLib;
-#define wstring2QString(_DATA) \
-    QString::fromUtf8(Ztring(_DATA).To_UTF8().c_str())
-#define QString2wstring(_DATA) \
-    Ztring().From_UTF8(_DATA.toUtf8())
+#include "Common/Preferences.h"
 
+using namespace ZenLib;
 using namespace std;
 
 int main(int argc, char *argv[])
 {
     QStringList filesnames;
     int output = -1;
+
+    QCoreApplication::setApplicationName("mediainfo-gui");
+    QCoreApplication::setApplicationVersion(QString().fromStdString(Ztring(MediaInfo_Version_GUI).To_UTF8()));
+
 #if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) //UWP Application
     QApplication::setAttribute(Qt::AA_ImmediateWidgetCreation, true);
     QApplication a(argc, argv);
 #else
     QApplication a(argc, argv);
-    QStringList args = QCoreApplication::arguments();
+    QCommandLineParser parser;
 
-    // Strip program path from arguments
-    if (args.size() && args.at(0)==QCoreApplication::applicationFilePath())
-        args.removeFirst();
+    parser.addHelpOption();
+    parser.addVersionOption();
+    parser.addPositionalArgument("files", "Files to analyze.");
 
-    foreach(QString arg,args) {
-        if(!arg.compare("--help",Qt::CaseInsensitive)||!arg.compare("-h",Qt::CaseInsensitive)) {
-            cout << "Usage : mediainfo-gui [OPTIONS] [files]" << endl;
-            cout << "Options : " << endl;
-            cout << "-h,--help : show this help" << endl;
-            cout << "--output=OUTPUT : select the view OUTPUT at launch" << endl;
-            cout << "--version : show the version" << endl;
-            return 0;
-        } else if(!arg.compare("--version",Qt::CaseInsensitive)) {
-            Core C;
-            C.Menu_Help_Version();
-            cout << wstring2QString(C.Text_Get()).toStdString() << endl;
-            return 0;
-        } else if(arg.startsWith("--output=",Qt::CaseInsensitive)) {
-            arg.remove(0,9);
-            int i=0;
-            while(i<NB_VIEW) {
-                if(arg.compare(nameView(ViewMode(i)),Qt::CaseInsensitive)==0) {
-                    cout << arg.toStdString() << "view selected" << endl;
-                    output=i;
-                    break;
-                }
-                i++;
+    QCommandLineOption outputOption(QStringList() << "o" << "output", "select the view OUTPUT at launch.", "OUTPUT");
+    parser.addOption(outputOption);
+
+    parser.process(a);
+
+    if(!parser.value(outputOption).isEmpty())
+    {
+        int i=0;
+        while(i<NB_VIEW)
+        {
+            if(parser.value(outputOption).compare(nameView(ViewMode(i)), Qt::CaseInsensitive)==0)
+            {
+                cout << parser.value(outputOption).toStdString() << " view selected" << endl;
+                output=i;
+                break;
             }
-            if(i<0) {
-                cout << arg.toStdString() << " : unkown view" << endl;
-            }
-        } else {
-            filesnames.append(arg);
+            i++;
+        }
+        if(i>=NB_VIEW) {
+            cout << "Unknown view: " << parser.value(outputOption).toStdString() << endl;
         }
     }
+
+    filesnames = parser.positionalArguments();
 #endif
     MainWindow w(filesnames,output);
 
