@@ -210,6 +210,9 @@ class ReportDetailFragment : Fragment() {
                                 parentFragmentManager
                                         .beginTransaction()
                                         .detach(it)
+                                        .commit()
+                                parentFragmentManager
+                                        .beginTransaction()
                                         .attach(it)
                                         .commit()
                             }
