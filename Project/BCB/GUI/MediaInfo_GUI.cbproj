@@ -42,10 +42,10 @@
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
 			<Defines>MEDIAINFO_DLL_RUNTIME;MEDIAINFODLL_NAME=L\"MediaInfo_i386.dll\";$(Defines)</Defines>
-			<VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=22.03.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=;Comments=</VerInfo_Keys>
+			<VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=22.06.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=;Comments=</VerInfo_Keys>
 			<Manifest_File>None</Manifest_File>
 			<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-			<VerInfo_MinorVer>03</VerInfo_MinorVer>
+			<VerInfo_MinorVer>06</VerInfo_MinorVer>
 			<VerInfo_Release>0</VerInfo_Release>
 			<VerInfo_MajorVer>22</VerInfo_MajorVer>
 			<VerInfo_Locale>1033</VerInfo_Locale>
@@ -105,7 +105,7 @@
 		<PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
 			<VerInfo_Release>0</VerInfo_Release>
 			<LinkPackageStatics>rtl.lib;vcl.lib;bcbie.lib</LinkPackageStatics>
-			<VerInfo_Keys>CompanyName=MediaArea.net;FileDescription=MediaInfo;FileVersion=22.03.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=MediaInfo;ProductVersion=22.03.0.0;Comments=</VerInfo_Keys>
+			<VerInfo_Keys>CompanyName=MediaArea.net;FileDescription=MediaInfo;FileVersion=22.06.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=MediaInfo;ProductVersion=22.06.0.0;Comments=</VerInfo_Keys>
 			<Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
 		</PropertyGroup>
 		<ItemGroup>

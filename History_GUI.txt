@@ -12,6 +12,28 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 22.06, 2022-06-23
+-------------
++ MXF: FFV1 support
++ Dolby Vision: add info about more profiles
++ AAC: check of missing ID_END and incoherent count of channels
++ NSV: better handling of buggy StarDiva agenda negative timestamps
++ Text: Show text frame rate
++ Text: frame rate precise numerator/denominator also for text streams
++ CDP: readout of display aspect ratio
++ MPEG-4/MOV: support of time codes >30 fps
++ TTML: Support of more timeExpression flavors
+x ADM: correctly map Dolby binaural render mode to track UID
+x Dolby Audio Metadata: first frame of action in HH:MM:SS:FF format
+x Dolby Vision: profiles and levels in decimal rather than in hexadecimal
+x MXF: fix of Dolby Vision Metadata not displayed if HDR10 metadata is present
+x MPEG-4/MOV: avoid buggy frame rates by taking frame rate from stts atom
+x CDP: better catching of wrong line21_field value
+x NSV: better handling of invalid frames
+x MXF: Include frame count in SDTI and SystemScheme1 time codes to time stamp conversion
+x TTML: do not show frame rate if it is from MediaInfo options
+x DV: timecode trace in HH:MM:SS:FF format
+
 Version 22.03, 2022-03-31
 -------------
 + NSV (Nullsoft Video): full featured support

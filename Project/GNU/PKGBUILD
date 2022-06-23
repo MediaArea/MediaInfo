@@ -3,7 +3,7 @@
 # Contributor: hydro <hydro@freenet.de>
 
 pkgname=('mediainfo' 'mediainfo-gui')
-pkgver=22.03
+pkgver=22.06
 pkgrel=1
 pkgdesc="supplies technical and tag information about a video or audio file"
 url="http://mediaarea.net"
@@ -12,7 +12,7 @@ source=(${pkgname}_${pkgver}.orig.tar.xz)
 md5sums=('00000000000000000000000000000000')
 arch=('i686' 'x86_64')
 
-depends=('libzen>=0.4.39' 'libmediainfo>=22.03' 'wxgtk3' 'webkit2gtk' 'bubblewrap' 'libsm' 'desktop-file-utils')
+depends=('libzen>=0.4.39' 'libmediainfo>=22.06' 'wxgtk3' 'webkit2gtk' 'bubblewrap' 'libsm' 'desktop-file-utils')
 
 prepare() {
     cd "${srcdir}"/MediaInfo/Project/GNU/CLI
