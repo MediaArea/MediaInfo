@@ -12,6 +12,7 @@
 #pragma hdrstop
 #include <Forms.hpp>
 #include <Registry.hpp>
+#include <System.Net.HTTPClientComponent.hpp>
 #include <Wininet.h>
 #include <Shlobj.h>
 #include "Preferences.h"
@@ -434,11 +435,36 @@ void __fastcall ThreadInternetCheck::Execute()
     if (InternetGetConnectedState(NULL, 0)==0)
         return; //No internet connexion
 
-    HTTP_Client H;
-    if (H.Open(Ztring(__T("http://MediaArea.net/mediainfo_check/changelog_"))+MediaInfo_Version_GUI+__T(".bin"))==0)
-        return;
+    Ztring Url = Ztring(__T("https://MediaArea.net/mediainfo_check/changelog_"))+MediaInfo_Version_GUI+__T(".bin");
+    TNetHTTPClient* Client = new TNetHTTPClient(NULL);
+    Client->Asynchronous = false;
+    Client->AllowCookies = false;
+    Client->HandleRedirects = true;
+    _di_IHTTPResponse Response;
 
-    Ztring Z=H.Read();
+    try
+    {
+        Response = Client->Get(Url.c_str());
+    }
+    catch(...)
+    {
+        delete Client;
+        return;
+    }
+
+    if (Response->GetStatusCode()>=400)
+    {
+        delete Client;
+        return;
+    }
+
+    Ztring Z = Ztring().From_Unicode(Response->ContentAsString().c_str());
+
+    delete Client;
+
+    if (Z.empty())
+    return;
+
     ZtringListList Download(Z);
 
     //Verification de la version
@@ -458,7 +484,7 @@ void __fastcall ThreadInternetCheck::Execute()
         Message.FindAndReplace(__T("%Version%"), NewestVersion);
         switch(Application->MessageBox(Message.c_str(), Prefs->Translate(__T("NewVersion_Question_Title")).c_str(), MB_YESNO))
         {
-            case IDYES : ShellExecute(NULL, NULL, (Ztring(__T("http://mediaarea.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("/MediaInfo?NewVersionRequested=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
+            case IDYES : ShellExecute(NULL, NULL, (Ztring(__T("https://mediaarea.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("/MediaInfo?NewVersionRequested=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
             default    : ;
         }
         //Inscription version connue pour pas repeter l'avertissement

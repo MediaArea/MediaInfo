@@ -1827,67 +1827,67 @@ MESSAGE void __fastcall TMainF::HandleDropFiles (TMessage& Msg)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_deClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, __T("http://MediaArea.net/MediaInfo/de/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/de/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_enClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, __T("http://MediaArea.net/MediaInfo/en/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/en/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_esClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, __T("http://MediaArea.net/MediaInfo/es/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/es/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_frClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, __T("http://MediaArea.net/MediaInfo/fr/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/fr/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_itClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, __T("http://MediaArea.net/MediaInfo/it/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/it/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_jaClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, __T("http://MediaArea.net/MediaInfo/ja/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/ja/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_plClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, __T("http://MediaArea.net/MediaInfo/pl/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/pl/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_zh_CNClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, __T("http://MediaArea.net/MediaInfo/zh_CN/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/zh_CN/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate_zh_TWClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, __T("http://MediaArea.net/MediaInfo/zh_TW/Donate"), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/zh_TW/Donate"), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Donate___Click(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, (Ztring(__T("http://mediaarea.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("MediaInfo/Donate")).c_str(), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, (Ztring(__T("https://mediaarea.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("MediaInfo/Donate")).c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_NewVersionClick(TObject *Sender)
 {
-    ShellExecute(NULL, NULL, (Ztring(__T("http://mediaarea.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("/MediaInfo/?NewVersionRequested=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecute(NULL, NULL, (Ztring(__T("https://mediaarea.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("/MediaInfo/?NewVersionRequested=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //---------------------------------------------------------------------------
