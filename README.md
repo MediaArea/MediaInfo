@@ -145,7 +145,7 @@ zypper install libqt4-devel libQtWebKit-devel update-desktop-files
 
 ### Build MediaInfo CLI
 
-When you have done all the prerequisite for your configuration, then build MediaInfo. We start with the CLI.
+When you have done all the prerequisites for your configuration, then build MediaInfo. We start with the CLI.
 
 ```sh
 cd $BUILD_DIR
@@ -182,7 +182,7 @@ make
 
 ### Build MediaInfo GUI
 
-If you have already build the CLI, no need to run git twice. In fact, if you re-run git with an existing MediaInfo directory, git will complain and exit.
+If you have already built the CLI, no need to run git twice. In fact, if you re-run git with an existing MediaInfo directory, git will complain and exit.
 
 To compile MediaInfo GUI under macOS and Linux:
 
