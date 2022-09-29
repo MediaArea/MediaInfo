@@ -1270,7 +1270,7 @@ TimeCode_MaxFrameNumber;Maximum frame number in time codes
 TimeCode_MaxFrameNumber_Theory;Theoritical maximum frame number in time codes
 TimeCode_Settings;Time code settings
 TimeCode_Source;Time code source
-TimeCode_Striped;Time code, striped
+TimeCode_Stripped;Time code, stripped
 TimeStamp;Time stamp
 TimeZone;Timezone
 Title;Title

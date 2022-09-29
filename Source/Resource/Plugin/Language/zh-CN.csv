@@ -1270,7 +1270,7 @@ TimeCode_MaxFrameNumber;
 TimeCode_MaxFrameNumber_Theory;
 TimeCode_Settings;时间码设置
 TimeCode_Source;时间码源
-TimeCode_Striped;时间码, 条带化
+TimeCode_Stripped;时间码, 条带化
 TimeStamp;时间戳
 TimeZone;时区
 Title;标题

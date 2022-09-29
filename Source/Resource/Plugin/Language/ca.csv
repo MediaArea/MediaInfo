@@ -1270,7 +1270,7 @@ TimeCode_MaxFrameNumber;
 TimeCode_MaxFrameNumber_Theory;
 TimeCode_Settings;Ajustos del codi de temps
 TimeCode_Source;Origen del codi de temps
-TimeCode_Striped;Codi de temps, ratllat
+TimeCode_Stripped;Codi de temps, ratllat
 TimeStamp;Segell de temps
 TimeZone;Zona horària
 Title;Títol

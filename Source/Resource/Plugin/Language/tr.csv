@@ -1270,7 +1270,7 @@ TimeCode_MaxFrameNumber;
 TimeCode_MaxFrameNumber_Theory;
 TimeCode_Settings;Zaman kodu ayarları
 TimeCode_Source;Zaman kodu kaynağı
-TimeCode_Striped;Zaman kodu, şeritli
+TimeCode_Stripped;Zaman kodu, şeritli
 TimeStamp;Zaman damgası
 TimeZone;Saat dilimi
 Title;Başlık
