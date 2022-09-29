@@ -150,7 +150,12 @@
 : ;: 
 3D;
 3DType;
+5.1.2ch;
+5.1.4ch;
+5.1ch;
 608_Mode;
+7.1.2ch;
+7.1ch;
 About;เกี่ยวกับ
 About_Hint;วิธีติดต่อฉันและค้นหาเวอร์ชันล่าสุด
 Accompaniment;Accompaniment
@@ -200,6 +205,9 @@ AudioRenderingIndication;
 AudioSceneInfoID;
 AudioTrackLayout;
 Author;ผู้เขียน
+Back4ToBack2;
+Balance_FrontBackListener;
+Balance_FrontBackOverheadFloor;
 BarCode;บาร์โค้ด
 Basic;พื้นฐาน
 Basic_Note;หมายเหตุ : สำหรับข้อมูลเพิ่มเติมเกี่ยวกับไฟล์นี้, คุณต้องเลือกการแสดงแบบอื่นๆ (ชีต, Tree...)
@@ -224,6 +232,7 @@ CaptionServiceName;
 Channel(s);ช่อง
 ChannelCoded;
 ChannelConfiguration;
+ChannelFormat;
 ChannelLayout;
 ChannelMode;
 ChannelPositions;ตำแหน่งช่อง
@@ -281,6 +290,7 @@ colour_range;
 Comment;คอมเมนต์
 CommissionedBy;Commissioned by
 Compilation;
+ComplementaryObject;
 CompleteName;ชื่อเต็ม
 CompletionDate;
 ComplexityIndex;
@@ -294,6 +304,7 @@ ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;ตัวบรรจุและข้อมูลทั่วไป
+Content;
 ContentType;ชนิดที่บรรจุ
 CoProducer;ผู้อำนวยการสร้างร่วม
 Copyright;ลิขสิทธิ์
@@ -308,6 +319,7 @@ Cover_Mime;
 Cover_Type;
 Cropped;
 Custom;กำหนดเอง
+CustomDownmixTargets;
 Customize;กำหนดเอง
 DarkMode;
 Date;วันที่
@@ -342,7 +354,6 @@ DotsPerInch;
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
-Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;ระยะเวลา
@@ -351,11 +362,13 @@ Duration_End_Command;
 Duration_Start;
 Duration_Start_Command;
 Duration_Start2End;
+DynamicObject;
 DynamicRangeControl;
 Eac3DrcProfile;
 Edit;แก้ไข
 EditedBy;แก้ไขโดย
 EditorialClassification;
+ElementaryStream;
 ElementCount;
 EMail;อี-เมลล์
 Encoded_Application;Writing application
@@ -395,6 +408,7 @@ FileNameExtension;
 FileSize;ขนาดไฟล์
 FirstDisplay_Delay_Frames;
 FirstDisplay_Type;
+FirstFrameOfAction;
 FlatPanelTv;
 FlowID;
 Folder;โฟลเดอร์
@@ -440,12 +454,12 @@ Format_Settings_Wrapping;
 Format_Tier;
 Format_Url;
 Format_Version;เวอร์ชันรูปแบบ
+FormatDefinition;
 FpaManufacturer;
 FpaPass;
 FpaVersion;
 FrameCount;
 FrameRate;เฟรมเรต
-FrameRate_MaxFrameNumber;
 FrameRate_Maximum;เฟรมเรตสูงสุด
 FrameRate_Minimum;เฟรมเรตต่ำสุด
 FrameRate_Mode;เฟรมเรตโหมด
@@ -681,6 +695,7 @@ ImageCount;จำนวนของสตรีมภาพ
 ImmersiveStereo;
 Info;ข้อมูล
 Instruments;Instruments
+IntegratedLoudness;
 IntegratedLoudness_Level;
 IntegratedLoudness_Speech;
 InteractivityEnabled;
@@ -698,21 +713,6 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-JocBalance_FrontBackListener;
-JocBalance_FrontBackOverheadFloor;
-JocTrim_Center;
-JocTrim_Height;
-JocTrim_Surround;
-JocTrimMode;
-JocTrimMode0i;
-JocTrimMode1i;
-JocTrimMode2i;
-JocTrimMode3i;
-JocTrimMode4i;
-JocTrimMode5i;
-JocTrimMode6i;
-JocTrimMode7i;
-JocTrimMode8i;
 Keywords;คีย์เวิร์ด
 Known codecs;codecs ที่รู้จัก
 Known formats;รูปแบบที่รู้จัก
@@ -930,11 +930,13 @@ Lines_MaxCountPerEvent;
 LineUpStart;
 LinkedTo_Bed_Pos;
 LinkedTo_ChannelFormat_Pos;
+LinkedTo_ComplementaryObject_Pos;
 LinkedTo_Content_Pos;
 LinkedTo_Group_Pos;
 LinkedTo_Object_Pos;
 LinkedTo_PackFormat_Pos;
 LinkedTo_SignalGroup_Pos;
+LinkedTo_StreamFormat_Pos;
 LinkedTo_Substream_Pos;
 LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
@@ -1023,6 +1025,7 @@ NumberOfSubstreams;
 NumberOfTrackFormats;
 NumberOfTrackUIDs;
 NumColors;
+Object;
 ObjectCount;
 OK;ตกลง
 One output file per input file;หนึ่งไฟล์ผลลัพธ์ต่อไฟล์นำเข้า
@@ -1085,6 +1088,7 @@ OverallBitRate_Minimum;บิตเรตทั้งหมดต่ำสุด
 OverallBitRate_Mode;โหมดบิตเรตทั้งหมด
 OverallBitRate_Nominal;บิตเรต Nominal ทั้งหมด
 PackageName;
+PackFormat;
 Part;ส่วน
 Part_Count;Total count
 PartNumber;
@@ -1127,6 +1131,7 @@ ProductionDesigner;ผู้ออกแบบการแสดง
 ProductionNumber;
 ProductionStudio;ProductionStudio
 ProductPlacement;
+Programme;
 ProgrammeHasText;
 ProgrammeTextLanguage;
 ProgrammeTitle;
@@ -1163,6 +1168,8 @@ ScanType;
 ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Screenplay by
+ScreenToCenter;
+ScreenToFront;
 Season;Season
 SecondaryAudioLanguage;
 see below;ดูด้านล่าง
@@ -1209,6 +1216,7 @@ StoreMethod_SeparatedFields_2;
 Stream;สตรีม
 Stream_MoreInfo;ข้อมูลเพิ่มเติมเกี่ยวกับสตรีม
 StreamCount;จำนวนสตรีมของชนิดนี้
+StreamFormat;
 StreamID;รหัสประจำตัวสตรีม
 streamIdentifier;
 StreamKind;ชนิดของสตรีม
@@ -1266,6 +1274,7 @@ ThanksTo;ขอขอบคุณ
 Thousands separator;ตัวแบ่งหลักพัน
 TimeCode;
 TimeCode_FirstFrame;
+TimeCode_LastFrame;
 TimeCode_MaxFrameNumber;
 TimeCode_MaxFrameNumber_Theory;
 TimeCode_Settings;
@@ -1275,11 +1284,18 @@ TimeStamp;
 TimeZone;
 Title;ชื่อเรื่อง
 Title_More;ชื่อเรื่อง, ข้อมูลเพิ่มเติม
+Top4ToTop2;
+TopBackToFront;
+TopBackToSide;
+TopFrontToBack;
+TopFrontToFront;
+TopFrontToSide;
 Total;ทั้งหมด
 TotalNumberOfParts;
 TotalProgrammeDuration;
 Track;ชื่อแทร็ค
 Track_Count;Track count
+TrackFormat;
 TrackIndex;
 TrackUID;
 transfer_characteristics;
@@ -1288,6 +1304,19 @@ Translator;แปลไทยโดย
 Transport;
 Tree;Tree
 Tree & Text;Tree & Text
+Trim_Center;
+Trim_Height;
+Trim_Surround;
+TrimMode;
+TrimMode0i;
+TrimMode1i;
+TrimMode2i;
+TrimMode3i;
+TrimMode4i;
+TrimMode5i;
+TrimMode6i;
+TrimMode7i;
+TrimMode8i;
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;
@@ -1332,5 +1361,5 @@ Written_Location;สถานที่เขียน
 WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
-ZZ_Automatic_Percent;61
-ZZ_AutomaticLanguage_Percent;68
+ZZ_Automatic_Percent;60
+ZZ_AutomaticLanguage_Percent;66
