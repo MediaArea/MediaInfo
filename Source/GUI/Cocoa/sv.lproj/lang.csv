@@ -1132,7 +1132,7 @@ TimeCode;Tidskod
 TimeCode_FirstFrame;Tidskod för första bildrutan
 TimeCode_Settings;Tidskodinställningar
 TimeCode_Source;Tidskodskälla
-TimeCode_Striped;Tidskod, förinspelad
+TimeCode_Stripped;Tidskod, förinspelad
 TimeStamp;Tidsstämpel
 TimeZone;Tidszon
 Title;Ttitel

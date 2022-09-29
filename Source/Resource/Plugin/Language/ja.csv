@@ -1270,7 +1270,7 @@ TimeCode_MaxFrameNumber;
 TimeCode_MaxFrameNumber_Theory;
 TimeCode_Settings;タイムコードの設定
 TimeCode_Source;タイムコードの参照元
-TimeCode_Striped;タイムコードのストライプ
+TimeCode_Stripped;タイムコードのストライプ
 TimeStamp;タイムスタンプ
 TimeZone;タイムゾーン
 Title;タイトル

@@ -1270,7 +1270,7 @@ TimeCode_MaxFrameNumber;
 TimeCode_MaxFrameNumber_Theory;
 TimeCode_Settings;Paramètres du time code
 TimeCode_Source;Source du time code
-TimeCode_Striped;time code, calculé
+TimeCode_Stripped;time code, calculé
 TimeStamp;Time stamp
 TimeZone;Fuseau horaire
 Title;Titre

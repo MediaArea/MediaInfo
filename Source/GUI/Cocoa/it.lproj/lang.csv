@@ -1132,7 +1132,7 @@ TimeCode;Timecode
 TimeCode_FirstFrame;Timecode del primo frame
 TimeCode_Settings;Impostazioni timecode
 TimeCode_Source;Timecode sorgente
-TimeCode_Striped;
+TimeCode_Stripped;
 TimeStamp;Data/ora
 TimeZone;Fuso orario
 Title;Titolo

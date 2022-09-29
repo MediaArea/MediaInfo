@@ -1270,7 +1270,7 @@ TimeCode_MaxFrameNumber;
 TimeCode_MaxFrameNumber_Theory;
 TimeCode_Settings;Denbora-kodea, ezarpenak
 TimeCode_Source;Denbora-kodea, iturburua
-TimeCode_Striped;
+TimeCode_Stripped;
 TimeStamp;TimeZone
 TimeZone;Ordu-Eremua
 Title;Izenburua

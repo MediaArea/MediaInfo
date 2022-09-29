@@ -1132,7 +1132,7 @@ TimeCode;Временной код
 TimeCode_FirstFrame;Временной код первого кадра
 TimeCode_Settings;Параметры временного кода
 TimeCode_Source;Оригинал временного кода
-TimeCode_Striped;Временной код, чередующийся
+TimeCode_Stripped;Временной код, чередующийся
 TimeStamp;Временная метка
 TimeZone;Часовой пояс
 Title;Заголовок

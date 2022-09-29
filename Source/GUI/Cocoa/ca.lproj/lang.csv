@@ -1132,7 +1132,7 @@ TimeCode;Codi de temps
 TimeCode_FirstFrame;Codi de temps del primer fotograma
 TimeCode_Settings;Ajustos del codi de temps
 TimeCode_Source;Origen del codi de temps
-TimeCode_Striped;Codi de temps, ratllat
+TimeCode_Stripped;Codi de temps, ratllat
 TimeStamp;Segell de temps
 TimeZone;Zona horària
 Title;Títol

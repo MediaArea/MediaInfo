@@ -1132,7 +1132,7 @@ TimeCode;Código de tiempo
 TimeCode_FirstFrame;Código tiempo primer fotograma
 TimeCode_Settings;Opciones código tiempo
 TimeCode_Source;Código tiempo origen
-TimeCode_Striped;Código tiempo, rayado
+TimeCode_Stripped;Código tiempo, rayado
 TimeStamp;Tiempo estampado
 TimeZone;Zona horaria
 Title;Título
