@@ -150,7 +150,12 @@
 : ;: 
 3D;3D
 3DType;3D 类型
+5.1.2ch;
+5.1.4ch;
+5.1ch;
 608_Mode;
+7.1.2ch;
+7.1ch;
 About;关于
 About_Hint;联系作者；获取最新版
 Accompaniment;伴奏
@@ -200,6 +205,9 @@ AudioRenderingIndication;
 AudioSceneInfoID;
 AudioTrackLayout;音轨格式
 Author;作者
+Back4ToBack2;
+Balance_FrontBackListener;
+Balance_FrontBackOverheadFloor;
 BarCode;条形码
 Basic;基本
 Basic_Note;提示：请选择表格、树状图等其他视图了解更多文件信息
@@ -224,6 +232,7 @@ CaptionServiceName;
 Channel(s);声道数
 ChannelCoded;
 ChannelConfiguration;
+ChannelFormat;
 ChannelLayout;声道格式
 ChannelMode;
 ChannelPositions;声道位置
@@ -281,6 +290,7 @@ colour_range;色彩范围
 Comment;注释
 CommissionedBy;委托人
 Compilation;选集
+ComplementaryObject;
 CompleteName;完整名称
 CompletionDate;完整日期
 ComplexityIndex;复杂度指数
@@ -294,6 +304,7 @@ ConformanceCheck;符合性检查
 ContactEmail;联络邮件
 ContactTelephoneNumber;联络电话号码
 Container and general information;容器格式和一般信息
+Content;
 ContentType;内容类型
 CoProducer;联合制片人
 Copyright;版权
@@ -308,6 +319,7 @@ Cover_Mime;封面 MIME
 Cover_Type;封面类型
 Cropped;裁剪信息
 Custom;自定义
+CustomDownmixTargets;
 Customize;自定义
 DarkMode;深色模式
 Date;日期
@@ -342,7 +354,6 @@ DotsPerInch;DPI
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
-Downmix_5to2_90deg;
 DrcSets_Count;DRC 组数
 DrcSets_Effects;DRC 效果类型
 Duration;时长
@@ -351,11 +362,13 @@ Duration_End_Command;
 Duration_Start;开始时间
 Duration_Start_Command;
 Duration_Start2End;
+DynamicObject;
 DynamicRangeControl;
 Eac3DrcProfile;
 Edit;编辑
 EditedBy;编辑者
 EditorialClassification;
+ElementaryStream;
 ElementCount;元素总数
 EMail;电子邮件
 Encoded_Application;编码程序
@@ -395,6 +408,7 @@ FileNameExtension;文件名和扩展名
 FileSize;文件大小
 FirstDisplay_Delay_Frames;
 FirstDisplay_Type;
+FirstFrameOfAction;
 FlatPanelTv;
 FlowID;
 Folder;文件夹
@@ -440,12 +454,12 @@ Format_Settings_Wrapping;格式设置, 封装模式
 Format_Tier;格式等级 (Tier)
 Format_Url;格式网址
 Format_Version;格式版本
+FormatDefinition;
 FpaManufacturer;FPA 制造商
 FpaPass;FPA 通过
 FpaVersion;FPA 版本
 FrameCount;总帧数
 FrameRate;帧率
-FrameRate_MaxFrameNumber;
 FrameRate_Maximum;最高帧率
 FrameRate_Minimum;最低帧率
 FrameRate_Mode;帧率模式
@@ -681,6 +695,7 @@ ImageCount;图像流总数
 ImmersiveStereo;
 Info;信息
 Instruments;乐器
+IntegratedLoudness;
 IntegratedLoudness_Level;
 IntegratedLoudness_Speech;
 InteractivityEnabled;
@@ -698,21 +713,6 @@ InternetMediaType;网络媒体类型
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-JocBalance_FrontBackListener;
-JocBalance_FrontBackOverheadFloor;
-JocTrim_Center;
-JocTrim_Height;
-JocTrim_Surround;
-JocTrimMode;
-JocTrimMode0i;
-JocTrimMode1i;
-JocTrimMode2i;
-JocTrimMode3i;
-JocTrimMode4i;
-JocTrimMode5i;
-JocTrimMode6i;
-JocTrimMode7i;
-JocTrimMode8i;
 Keywords;关键词
 Known codecs;已知解码器
 Known formats;已知格式
@@ -930,11 +930,13 @@ Lines_MaxCountPerEvent;
 LineUpStart;Line Up 起始点
 LinkedTo_Bed_Pos;
 LinkedTo_ChannelFormat_Pos;
+LinkedTo_ComplementaryObject_Pos;
 LinkedTo_Content_Pos;
 LinkedTo_Group_Pos;
 LinkedTo_Object_Pos;
 LinkedTo_PackFormat_Pos;
 LinkedTo_SignalGroup_Pos;
+LinkedTo_StreamFormat_Pos;
 LinkedTo_Substream_Pos;
 LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
@@ -1023,6 +1025,7 @@ NumberOfSubstreams;
 NumberOfTrackFormats;
 NumberOfTrackUIDs;
 NumColors;色彩数量
+Object;
 ObjectCount;
 OK;确定
 One output file per input file;一个输入文件对应一个输出文件
@@ -1085,6 +1088,7 @@ OverallBitRate_Minimum;最低总体码率
 OverallBitRate_Mode;总体码率模式
 OverallBitRate_Nominal;额定总体码率
 PackageName;包名
+PackFormat;
 Part;分段
 Part_Count;总数
 PartNumber;分段编号
@@ -1127,6 +1131,7 @@ ProductionDesigner;制作设计师
 ProductionNumber;制作编号
 ProductionStudio;出品工作室
 ProductPlacement;产品布置
+Programme;
 ProgrammeHasText;节目含有文本
 ProgrammeTextLanguage;节目文本语言
 ProgrammeTitle;节目标题
@@ -1163,6 +1168,8 @@ ScanType;扫描类型
 ScanType_Original;原始扫描类型
 ScanType_StoreMethod;扫描类型储存方式
 ScreenplayBy;编剧
+ScreenToCenter;
+ScreenToFront;
 Season;季期
 SecondaryAudioLanguage;第二音频语言
 see below;点击展开详情
@@ -1209,6 +1216,7 @@ StoreMethod_SeparatedFields_2;单独场（每分块 2 场）
 Stream;流
 Stream_MoreInfo;关于此流的更多信息
 StreamCount;此类型流的数量
+StreamFormat;
 StreamID;流 ID
 streamIdentifier;流标识符
 StreamKind;流类型
@@ -1266,6 +1274,7 @@ ThanksTo;鸣谢
 Thousands separator;千位分隔符
 TimeCode;时间码
 TimeCode_FirstFrame;第一帧时间码
+TimeCode_LastFrame;
 TimeCode_MaxFrameNumber;
 TimeCode_MaxFrameNumber_Theory;
 TimeCode_Settings;时间码设置
@@ -1275,11 +1284,18 @@ TimeStamp;时间戳
 TimeZone;时区
 Title;标题
 Title_More;标题, 更多信息
+Top4ToTop2;
+TopBackToFront;
+TopBackToSide;
+TopFrontToBack;
+TopFrontToFront;
+TopFrontToSide;
 Total;总计
 TotalNumberOfParts;分段总数
 TotalProgrammeDuration;节目时长总计
 Track;轨道名
 Track_Count;轨道数
+TrackFormat;
 TrackIndex;
 TrackUID;
 transfer_characteristics;传输特性
@@ -1288,6 +1304,19 @@ Translator;翻译
 Transport;
 Tree;树状图
 Tree & Text;树状图和文本
+Trim_Center;
+Trim_Height;
+Trim_Surround;
+TrimMode;
+TrimMode0i;
+TrimMode1i;
+TrimMode2i;
+TrimMode3i;
+TrimMode4i;
+TrimMode5i;
+TrimMode6i;
+TrimMode7i;
+TrimMode8i;
 TruePeakLevel;真实峰值等级
 TruePeakLevel_Album;真实峰值等级 (专辑)
 Type;类型
@@ -1332,5 +1361,5 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;89
-ZZ_AutomaticLanguage_Percent;89
+ZZ_Automatic_Percent;87
+ZZ_AutomaticLanguage_Percent;87

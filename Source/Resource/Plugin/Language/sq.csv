@@ -150,7 +150,12 @@
 : ;: 
 3D;
 3DType;
+5.1.2ch;
+5.1.4ch;
+5.1ch;
 608_Mode;
+7.1.2ch;
+7.1ch;
 About;Për
 About_Hint;Si të kontaktohem dhe të gjendet versioni i fundit
 Accompaniment;Shoqëruesi
@@ -200,6 +205,9 @@ AudioRenderingIndication;
 AudioSceneInfoID;
 AudioTrackLayout;
 Author;Autori
+Back4ToBack2;
+Balance_FrontBackListener;
+Balance_FrontBackOverheadFloor;
 BarCode;BarCode
 Basic;Kryesor
 Basic_Note;Shënim : për më shumë info rreth skedës, mund të zgjidhet një pamje tjetër (Fletë, Pemë...)
@@ -224,6 +232,7 @@ CaptionServiceName;
 Channel(s);Kanale
 ChannelCoded;
 ChannelConfiguration;
+ChannelFormat;
 ChannelLayout;
 ChannelMode;
 ChannelPositions;Pozicionet e kanalit
@@ -281,6 +290,7 @@ colour_range;
 Comment;Komenti
 CommissionedBy;Autorizuar nga
 Compilation;
+ComplementaryObject;
 CompleteName;Emri i plotë
 CompletionDate;
 ComplexityIndex;
@@ -294,6 +304,7 @@ ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Mbajtësi dhe info në përgjithësi
+Content;
 ContentType;Lloji i përmbajtjes
 CoProducer;Koproducent
 Copyright;Të drejtat e autorit
@@ -308,6 +319,7 @@ Cover_Mime;MIME i cover-it
 Cover_Type;Lloji i cover-it
 Cropped;Dimensionet e prerjes
 Custom;Me porosi
+CustomDownmixTargets;
 Customize;Porosit
 DarkMode;
 Date;Data
@@ -342,7 +354,6 @@ DotsPerInch;Pika për inç
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
-Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;Kohëzgjatja
@@ -351,11 +362,13 @@ Duration_End_Command;
 Duration_Start;Koha e nisjes
 Duration_Start_Command;
 Duration_Start2End;
+DynamicObject;
 DynamicRangeControl;
 Eac3DrcProfile;
 Edit;Edito
 EditedBy;Edituar nga
 EditorialClassification;
+ElementaryStream;
 ElementCount;
 EMail;Posta-e
 Encoded_Application;Aplikimi i shkrimit
@@ -395,6 +408,7 @@ FileNameExtension;
 FileSize;Masa e skedës
 FirstDisplay_Delay_Frames;
 FirstDisplay_Type;
+FirstFrameOfAction;
 FlatPanelTv;
 FlowID;
 Folder;Dosje
@@ -440,12 +454,12 @@ Format_Settings_Wrapping;
 Format_Tier;
 Format_Url;Lidhësi në rrjetë i formatit
 Format_Version;Versioni i formatit
+FormatDefinition;
 FpaManufacturer;
 FpaPass;
 FpaVersion;
 FrameCount;Numri i kuadrove
 FrameRate;Raporti i kuadrit
-FrameRate_MaxFrameNumber;
 FrameRate_Maximum;Raporti maksimal i kuadrit
 FrameRate_Minimum;Raporti minimal i kuadrit
 FrameRate_Mode;Mënyra e raportit të kuadrit
@@ -681,6 +695,7 @@ ImageCount;Numri i rrymave të imazhit
 ImmersiveStereo;
 Info;Info
 Instruments;Instrumenti
+IntegratedLoudness;
 IntegratedLoudness_Level;
 IntegratedLoudness_Speech;
 InteractivityEnabled;
@@ -698,21 +713,6 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-JocBalance_FrontBackListener;
-JocBalance_FrontBackOverheadFloor;
-JocTrim_Center;
-JocTrim_Height;
-JocTrim_Surround;
-JocTrimMode;
-JocTrimMode0i;
-JocTrimMode1i;
-JocTrimMode2i;
-JocTrimMode3i;
-JocTrimMode4i;
-JocTrimMode5i;
-JocTrimMode6i;
-JocTrimMode7i;
-JocTrimMode8i;
 Keywords;Fjalët kyçe
 Known codecs;Kodekët e njohur
 Known formats;Formatet e njohura
@@ -930,11 +930,13 @@ Lines_MaxCountPerEvent;
 LineUpStart;
 LinkedTo_Bed_Pos;
 LinkedTo_ChannelFormat_Pos;
+LinkedTo_ComplementaryObject_Pos;
 LinkedTo_Content_Pos;
 LinkedTo_Group_Pos;
 LinkedTo_Object_Pos;
 LinkedTo_PackFormat_Pos;
 LinkedTo_SignalGroup_Pos;
+LinkedTo_StreamFormat_Pos;
 LinkedTo_Substream_Pos;
 LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
@@ -1023,6 +1025,7 @@ NumberOfSubstreams;
 NumberOfTrackFormats;
 NumberOfTrackUIDs;
 NumColors;Numri i ngjyrave
+Object;
 ObjectCount;
 OK;OK
 One output file per input file;Një skedë output për skedë input
@@ -1085,6 +1088,7 @@ OverallBitRate_Minimum;Raporti minimal i plotë i bitit
 OverallBitRate_Mode;Mënyra e raportit të plotë të bitit
 OverallBitRate_Nominal;Raporti nominal i plotë i bitit
 PackageName;
+PackFormat;
 Part;Pjesa
 Part_Count;Numri total
 PartNumber;
@@ -1127,6 +1131,7 @@ ProductionDesigner;Modeluesi i produksionit
 ProductionNumber;
 ProductionStudio;Studio e produksionit
 ProductPlacement;
+Programme;
 ProgrammeHasText;
 ProgrammeTextLanguage;
 ProgrammeTitle;
@@ -1163,6 +1168,8 @@ ScanType;Lloji i skanimit
 ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Vënë në ekran nga
+ScreenToCenter;
+ScreenToFront;
 Season;Sezoni
 SecondaryAudioLanguage;
 see below;shih poshtë
@@ -1209,6 +1216,7 @@ StoreMethod_SeparatedFields_2;
 Stream;Rryma
 Stream_MoreInfo;Më shumë info rreth rrymës
 StreamCount;Numri i rrymave si ky lloj
+StreamFormat;
 StreamID;ID i rrymës
 streamIdentifier;
 StreamKind;Lloji i rrymës
@@ -1266,6 +1274,7 @@ ThanksTo;Falënderime për
 Thousands separator;Ndarësi i mijësheve
 TimeCode;
 TimeCode_FirstFrame;
+TimeCode_LastFrame;
 TimeCode_MaxFrameNumber;
 TimeCode_MaxFrameNumber_Theory;
 TimeCode_Settings;
@@ -1275,11 +1284,18 @@ TimeStamp;
 TimeZone;Ora lokale
 Title;Titulli
 Title_More;Titulli, më tepër info
+Top4ToTop2;
+TopBackToFront;
+TopBackToSide;
+TopFrontToBack;
+TopFrontToFront;
+TopFrontToSide;
 Total;Totali
 TotalNumberOfParts;
 TotalProgrammeDuration;
 Track;Emri i kolonës
 Track_Count;Numri i kolonës
+TrackFormat;
 TrackIndex;
 TrackUID;
 transfer_characteristics;Karakteristikat e transferimit
@@ -1288,6 +1304,19 @@ Translator;Përktheu
 Transport;
 Tree;Pemë
 Tree & Text;Pemë & Tekst
+Trim_Center;
+Trim_Height;
+Trim_Surround;
+TrimMode;
+TrimMode0i;
+TrimMode1i;
+TrimMode2i;
+TrimMode3i;
+TrimMode4i;
+TrimMode5i;
+TrimMode6i;
+TrimMode7i;
+TrimMode8i;
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;
@@ -1332,5 +1361,5 @@ Written_Location;Vendi i shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;70
-ZZ_AutomaticLanguage_Percent;74
+ZZ_Automatic_Percent;69
+ZZ_AutomaticLanguage_Percent;73

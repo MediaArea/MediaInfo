@@ -150,7 +150,12 @@
 : ;: 
 3D;
 3DType;
+5.1.2ch;
+5.1.4ch;
+5.1ch;
 608_Mode;
+7.1.2ch;
+7.1ch;
 About;درباره
 About_Hint;ارتباط با من و آخرین نسخه
 Accompaniment;همراهی
@@ -200,6 +205,9 @@ AudioRenderingIndication;
 AudioSceneInfoID;
 AudioTrackLayout;
 Author;نویسنده
+Back4ToBack2;
+Balance_FrontBackListener;
+Balance_FrontBackOverheadFloor;
 BarCode;بارکد
 Basic;اولیه
 Basic_Note;برای اطلاعات بیشتر اینجا را کلیک کنید
@@ -224,6 +232,7 @@ CaptionServiceName;
 Channel(s);کانال ها
 ChannelCoded;
 ChannelConfiguration;
+ChannelFormat;
 ChannelLayout;
 ChannelMode;
 ChannelPositions;موقعیت کانال ها
@@ -281,6 +290,7 @@ colour_range;
 Comment;توضيح
 CommissionedBy;مجاز توسط
 Compilation;
+ComplementaryObject;
 CompleteName;نام کامل
 CompletionDate;
 ComplexityIndex;
@@ -294,6 +304,7 @@ ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;محتوی و اطلاعات کلی
+Content;
 ContentType;نوع محتوا
 CoProducer;تهیه کننده
 Copyright;کپی رایت
@@ -308,6 +319,7 @@ Cover_Mime;روکش MIME
 Cover_Type;نوع روکش
 Cropped;بریدن اندازه
 Custom;دیگر
+CustomDownmixTargets;
 Customize;شخصی سازی
 DarkMode;
 Date;تاریخ
@@ -342,7 +354,6 @@ DotsPerInch;نقطه بر اینچ
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
-Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;مدت
@@ -351,11 +362,13 @@ Duration_End_Command;
 Duration_Start;زمان شروع
 Duration_Start_Command;
 Duration_Start2End;
+DynamicObject;
 DynamicRangeControl;
 Eac3DrcProfile;
 Edit;ویرایش
 EditedBy;ویرایش شده توست
 EditorialClassification;
+ElementaryStream;
 ElementCount;
 EMail;ایمیل
 Encoded_Application;برنامه نوشتاری
@@ -395,6 +408,7 @@ FileNameExtension;
 FileSize;اندازه فایل
 FirstDisplay_Delay_Frames;
 FirstDisplay_Type;
+FirstFrameOfAction;
 FlatPanelTv;
 FlowID;
 Folder;پوشه
@@ -440,12 +454,12 @@ Format_Settings_Wrapping;
 Format_Tier;
 Format_Url;لینک فرمت
 Format_Version;نسخه فرمت
+FormatDefinition;
 FpaManufacturer;
 FpaPass;
 FpaVersion;
 FrameCount;تعداد فرمت
 FrameRate;نرخ فرمت
-FrameRate_MaxFrameNumber;
 FrameRate_Maximum;بیشترین نرخ فرمت
 FrameRate_Minimum;کمترین نرخ فرمت
 FrameRate_Mode;حالت نرخ فرمت
@@ -681,6 +695,7 @@ ImageCount;تعداد استریم تصویر
 ImmersiveStereo;
 Info;اطلاعات
 Instruments;ساز
+IntegratedLoudness;
 IntegratedLoudness_Level;
 IntegratedLoudness_Speech;
 InteractivityEnabled;
@@ -698,21 +713,6 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-JocBalance_FrontBackListener;
-JocBalance_FrontBackOverheadFloor;
-JocTrim_Center;
-JocTrim_Height;
-JocTrim_Surround;
-JocTrimMode;
-JocTrimMode0i;
-JocTrimMode1i;
-JocTrimMode2i;
-JocTrimMode3i;
-JocTrimMode4i;
-JocTrimMode5i;
-JocTrimMode6i;
-JocTrimMode7i;
-JocTrimMode8i;
 Keywords;کلمه کلیدی
 Known codecs;کدک مشخص
 Known formats;فرمت مشخص
@@ -930,11 +930,13 @@ Lines_MaxCountPerEvent;
 LineUpStart;
 LinkedTo_Bed_Pos;
 LinkedTo_ChannelFormat_Pos;
+LinkedTo_ComplementaryObject_Pos;
 LinkedTo_Content_Pos;
 LinkedTo_Group_Pos;
 LinkedTo_Object_Pos;
 LinkedTo_PackFormat_Pos;
 LinkedTo_SignalGroup_Pos;
+LinkedTo_StreamFormat_Pos;
 LinkedTo_Substream_Pos;
 LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
@@ -1023,6 +1025,7 @@ NumberOfSubstreams;
 NumberOfTrackFormats;
 NumberOfTrackUIDs;
 NumColors;تعداد رنگ ها
+Object;
 ObjectCount;
 OK;موافق
 One output file per input file;یک فایل خروجی بر فابل ورودی
@@ -1085,6 +1088,7 @@ OverallBitRate_Minimum;کمترین نرخ بیت کل
 OverallBitRate_Mode;حالت نرخ بیت کل
 OverallBitRate_Nominal;نرخ بیت کل غیرواقعی
 PackageName;
+PackFormat;
 Part;قسمت
 Part_Count;کل تعداد
 PartNumber;
@@ -1127,6 +1131,7 @@ ProductionDesigner;طراح محصول
 ProductionNumber;
 ProductionStudio;استودیو محصول
 ProductPlacement;
+Programme;
 ProgrammeHasText;
 ProgrammeTextLanguage;
 ProgrammeTitle;
@@ -1163,6 +1168,8 @@ ScanType;نوع اسکن
 ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;نمايشنامه توسط
+ScreenToCenter;
+ScreenToFront;
 Season;فصل
 SecondaryAudioLanguage;
 see below;پایین را ببینید
@@ -1209,6 +1216,7 @@ StoreMethod_SeparatedFields_2;
 Stream;استریم
 Stream_MoreInfo;اطلاعات بیشتر درمورد استریم
 StreamCount;تعداد این نوع استریم
+StreamFormat;
 StreamID;هویت استریم
 streamIdentifier;
 StreamKind;نوع استریم
@@ -1266,6 +1274,7 @@ ThanksTo;تشکر از
 Thousands separator;هزاران جداکننده
 TimeCode;
 TimeCode_FirstFrame;
+TimeCode_LastFrame;
 TimeCode_MaxFrameNumber;
 TimeCode_MaxFrameNumber_Theory;
 TimeCode_Settings;
@@ -1275,11 +1284,18 @@ TimeStamp;
 TimeZone;منطقه ساعتى جهانى
 Title;عنوان
 Title_More;عنوان, اطلاعات بیشتر
+Top4ToTop2;
+TopBackToFront;
+TopBackToSide;
+TopFrontToBack;
+TopFrontToFront;
+TopFrontToSide;
 Total;کلی
 TotalNumberOfParts;
 TotalProgrammeDuration;
 Track;نام ترک
 Track_Count;تعداد ترک
+TrackFormat;
 TrackIndex;
 TrackUID;
 transfer_characteristics;
@@ -1288,6 +1304,19 @@ Translator;مترجم
 Transport;
 Tree;درختی
 Tree & Text;درختی ومتنی
+Trim_Center;
+Trim_Height;
+Trim_Surround;
+TrimMode;
+TrimMode0i;
+TrimMode1i;
+TrimMode2i;
+TrimMode3i;
+TrimMode4i;
+TrimMode5i;
+TrimMode6i;
+TrimMode7i;
+TrimMode8i;
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;
@@ -1332,5 +1361,5 @@ Written_Location;مکان نوشته
 WrittenBy;نوشته شده توسط
 Yes;بلی
 Your system;سیستم شما
-ZZ_Automatic_Percent;70
-ZZ_AutomaticLanguage_Percent;74
+ZZ_Automatic_Percent;68
+ZZ_AutomaticLanguage_Percent;72

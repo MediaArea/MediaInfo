@@ -150,7 +150,12 @@
 : ;: 
 3D;
 3DType;
+5.1.2ch;5.1.2
+5.1.4ch;5.1.4
+5.1ch;5.1
 608_Mode;
+7.1.2ch;7.1.2
+7.1ch;7.1
 About;حول البرنامج
 About_Hint;كيفية الاتصال بنا والحصول على أخر نسخة
 Accompaniment;مرافقة
@@ -200,6 +205,9 @@ AudioRenderingIndication;
 AudioSceneInfoID;
 AudioTrackLayout;
 Author;الكاتب /  المؤلف
+Back4ToBack2;Four backs to two backs
+Balance_FrontBackListener;Front/back listener balance
+Balance_FrontBackOverheadFloor;Front/back overhead/floor balance
 BarCode;باركود
 Basic;أساسي
 Basic_Note;ملاحظة : لمزيد من المعلومات حول هذا الملف ، يجب استخدام وجهة نظر مختلفة (جدول ، شجرة...)
@@ -224,6 +232,7 @@ CaptionServiceName;
 Channel(s);قناة
 ChannelCoded;
 ChannelConfiguration;
+ChannelFormat;Channel format
 ChannelLayout;
 ChannelMode;
 ChannelPositions;مواقع القنوات
@@ -281,6 +290,7 @@ colour_range;
 Comment;تعليق
 CommissionedBy;مصاند من طرف
 Compilation;
+ComplementaryObject;Complementary object
 CompleteName;الاسم الكامل
 CompletionDate;
 ComplexityIndex;
@@ -294,6 +304,7 @@ ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;حاوية ومعلومات عامة
+Content;Content
 ContentType;نوع المحتوى
 CoProducer;شارك في الإنتاج
 Copyright;حقوق
@@ -308,6 +319,7 @@ Cover_Mime;غلاف MIME
 Cover_Type;الغلاف الأصلي
 Cropped;أبعاد ريسيزينج
 Custom;معدل
+CustomDownmixTargets;Custom downmix targets
 Customize;تعديل
 DarkMode;
 Date;تاريخ
@@ -342,7 +354,6 @@ DotsPerInch;نقطة في البوصة
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
-Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;مدة
@@ -351,11 +362,13 @@ Duration_End_Command;
 Duration_Start;وقت البدء
 Duration_Start_Command;
 Duration_Start2End;
+DynamicObject;Dynamic object
 DynamicRangeControl;
 Eac3DrcProfile;
 Edit;تغيير
 EditedBy;حرره
 EditorialClassification;
+ElementaryStream;Elementary stream
 ElementCount;Count of elements
 EMail;البريد الإلكتروني
 Encoded_Application;برنامج التحرير
@@ -395,6 +408,7 @@ FileNameExtension;
 FileSize;حجم الملف
 FirstDisplay_Delay_Frames;
 FirstDisplay_Type;
+FirstFrameOfAction;First frame of action
 FlatPanelTv;
 FlowID;
 Folder;مجلد
@@ -440,12 +454,12 @@ Format_Settings_Wrapping;
 Format_Tier;Format tier
 Format_Url;وصلة على شكل
 Format_Version;نسخة الشكل
+FormatDefinition;Format definition
 FpaManufacturer;
 FpaPass;
 FpaVersion;
 FrameCount;عدد الصور
 FrameRate;عدد الصور في الثانية
-FrameRate_MaxFrameNumber;
 FrameRate_Maximum;أقصى معدل الصور/ثانية
 FrameRate_Minimum;أدنى معدل الصور/ثانية
 FrameRate_Mode;نمط الصور/ثانية
@@ -681,6 +695,7 @@ ImageCount;عدد من المسارات الصور
 ImmersiveStereo;
 Info;معلومات
 Instruments;الالة الموسيقية
+IntegratedLoudness;Integrated loudness
 IntegratedLoudness_Level;
 IntegratedLoudness_Speech;
 InteractivityEnabled;
@@ -698,21 +713,6 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-JocBalance_FrontBackListener;
-JocBalance_FrontBackOverheadFloor;
-JocTrim_Center;
-JocTrim_Height;
-JocTrim_Surround;
-JocTrimMode;
-JocTrimMode0i;
-JocTrimMode1i;
-JocTrimMode2i;
-JocTrimMode3i;
-JocTrimMode4i;
-JocTrimMode5i;
-JocTrimMode6i;
-JocTrimMode7i;
-JocTrimMode8i;
 Keywords;الكلمات الرئيسية
 Known codecs;الترميزات المعروفة
 Known formats;الامتدلدات المعروفة
@@ -930,11 +930,13 @@ Lines_MaxCountPerEvent;
 LineUpStart;
 LinkedTo_Bed_Pos;
 LinkedTo_ChannelFormat_Pos;
+LinkedTo_ComplementaryObject_Pos;Complementary object #s
 LinkedTo_Content_Pos;
 LinkedTo_Group_Pos;
 LinkedTo_Object_Pos;
 LinkedTo_PackFormat_Pos;
 LinkedTo_SignalGroup_Pos;
+LinkedTo_StreamFormat_Pos;Stream format #s
 LinkedTo_Substream_Pos;
 LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
@@ -1023,6 +1025,7 @@ NumberOfSubstreams;
 NumberOfTrackFormats;
 NumberOfTrackUIDs;
 NumColors;عدد الألوان
+Object;Object
 ObjectCount;
 OK;موافق
 One output file per input file;خطأ عند قراءة الملف
@@ -1085,6 +1088,7 @@ OverallBitRate_Minimum;الحد الأدنى للصبيب العام
 OverallBitRate_Mode;نوع الصبيب العام
 OverallBitRate_Nominal;المعدل الاسمي للصبيب العام
 PackageName;Package name
+PackFormat;Pack format
 Part;جزء
 Part_Count;العدد الكلي
 PartNumber;
@@ -1127,6 +1131,7 @@ ProductionDesigner;مصمم الانتاج
 ProductionNumber;
 ProductionStudio;استوديو الانتاج
 ProductPlacement;
+Programme;Programme
 ProgrammeHasText;
 ProgrammeTextLanguage;
 ProgrammeTitle;
@@ -1163,6 +1168,8 @@ ScanType;تفحص نوع
 ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;سيناري
+ScreenToCenter;Screen to center
+ScreenToFront;Screen to front
 Season;الموسم
 SecondaryAudioLanguage;
 see below;انظر أدناه
@@ -1209,6 +1216,7 @@ StoreMethod_SeparatedFields_2;
 Stream;دفق
 Stream_MoreInfo;مزيد من المعلومات حول الدفق
 StreamCount;عدد الدفق من هذا النوع
+StreamFormat;Stream format
 StreamID;معرف الدفق
 streamIdentifier;
 StreamKind;نوع الدفق
@@ -1266,6 +1274,7 @@ ThanksTo;شكرا لـ
 Thousands separator;فاصل الآلاف
 TimeCode;
 TimeCode_FirstFrame;
+TimeCode_LastFrame;Time code of last frame
 TimeCode_MaxFrameNumber;
 TimeCode_MaxFrameNumber_Theory;
 TimeCode_Settings;
@@ -1275,11 +1284,18 @@ TimeStamp;
 TimeZone;خط الزمن
 Title;عنوان
 Title_More;عنوان ,مزيد من المعلومات
+Top4ToTop2;Four fronts to two fronts
+TopBackToFront;Top backs to front
+TopBackToSide;Top backs to side
+TopFrontToBack;Top fronts to back
+TopFrontToFront;Top fronts to front
+TopFrontToSide;Top fronts to side
 Total;مجموع
 TotalNumberOfParts;
 TotalProgrammeDuration;
 Track;اسم المسار
 Track_Count;عدد المسارات
+TrackFormat;Track format
 TrackIndex;
 TrackUID;
 transfer_characteristics;خصائص نقل
@@ -1288,6 +1304,19 @@ Translator;مترجم
 Transport;
 Tree;شجرة
 Tree & Text;شجرة والنصوص
+Trim_Center;Center trim
+Trim_Height;Height trim
+Trim_Surround;Surround trim
+TrimMode;Trim mode
+TrimMode0i;Trim mode for 2.0
+TrimMode1i;Trim mode for 5.1
+TrimMode2i;Trim mode for 7.1
+TrimMode3i;Trim mode for 2.1.2
+TrimMode4i;Trim mode for 5.1.2
+TrimMode5i;Trim mode for 7.1.2
+TrimMode6i;Trim mode for 2.1.4
+TrimMode7i;Trim mode for 5.1.4
+TrimMode8i;Trim mode for 7.1.4
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;
@@ -1332,5 +1361,5 @@ Written_Location;مكان الكتابة
 WrittenBy;كتبها
 Yes;نعم
 Your system;نظامك
-ZZ_Automatic_Percent;72
-ZZ_AutomaticLanguage_Percent;76
+ZZ_Automatic_Percent;74
+ZZ_AutomaticLanguage_Percent;77

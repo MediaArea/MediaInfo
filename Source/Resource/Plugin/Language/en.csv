@@ -150,7 +150,12 @@
 : ;: 
 3D;3D
 3DType;3D Type
+5.1.2ch;5.1.2
+5.1.4ch;5.1.4
+5.1ch;5.1
 608_Mode;EIA-608 conversion mode
+7.1.2ch;7.1.2
+7.1ch;7.1
 About;About
 About_Hint;How to contact me and find last version
 Accompaniment;Accompaniment
@@ -200,6 +205,9 @@ AudioRenderingIndication;Audio rendering indication
 AudioSceneInfoID;Audio scene info ID
 AudioTrackLayout;Audio Track Layout
 Author;Author
+Back4ToBack2;Four backs to two backs
+Balance_FrontBackListener;Front/back listener balance
+Balance_FrontBackOverheadFloor;Front/back overhead/floor balance
 BarCode;BarCode
 Basic;Basic
 Basic_Note;Note : for more information about this file, you must select a different view (Sheet, Tree...)
@@ -224,6 +232,7 @@ CaptionServiceName;Caption service name
 Channel(s);Channel(s)
 ChannelCoded;Channel coded
 ChannelConfiguration;Channel configuration
+ChannelFormat;Channel format
 ChannelLayout;Channel layout
 ChannelMode;Channel mode
 ChannelPositions;Channel positions
@@ -281,6 +290,7 @@ colour_range;Color range
 Comment;Comment
 CommissionedBy;Commissioned by
 Compilation;Compilation
+ComplementaryObject;Complementary object
 CompleteName;Complete name
 CompletionDate;Completion Date
 ComplexityIndex;Complexity index
@@ -294,6 +304,7 @@ ConformanceCheck;Conformance check
 ContactEmail;Contact Email
 ContactTelephoneNumber;Contact Telephone Number
 Container and general information;Container and general information
+Content;Content
 ContentType;ContentType
 CoProducer;Coproducer
 Copyright;Copyright
@@ -308,6 +319,7 @@ Cover_Mime;Cover MIME
 Cover_Type;Cover type
 Cropped;Crop dimensions
 Custom;Custom
+CustomDownmixTargets;Custom downmix targets
 Customize;Customize
 DarkMode;Dark mode
 Date;Date
@@ -342,7 +354,6 @@ DotsPerInch;Dots per inch
 Downmix;Downmix
 Downmix_5.1.x;5.1 and 5.1.x downmix
 Downmix_5to2;5.1 to 2.0 downmix
-Downmix_5to2_90deg;5.1 to 2.0 downmix, 90-deg phase shift
 DrcSets_Count;DRC set count
 DrcSets_Effects;DRC effect type(s)
 Duration;Duration
@@ -351,11 +362,13 @@ Duration_End_Command;End time (commands)
 Duration_Start;Start time
 Duration_Start_Command;Start time (commands)
 Duration_Start2End;Duration of the visible content
+DynamicObject;Dynamic object
 DynamicRangeControl;Dynamic Range Control
 Eac3DrcProfile;E-AC-3 DRC profile
 Edit;Edit
 EditedBy;Edited by
 EditorialClassification;Editorial classification
+ElementaryStream;Elementary stream
 ElementCount;Count of elements
 EMail;E-Mail
 Encoded_Application;Writing application
@@ -395,6 +408,7 @@ FileNameExtension;File name extension
 FileSize;File size
 FirstDisplay_Delay_Frames;Count of frames before first event
 FirstDisplay_Type;Type of the first event
+FirstFrameOfAction;First frame of action
 FlatPanelTv;Flat panel TV
 FlowID;Flow ID
 Folder;Folder
@@ -440,12 +454,12 @@ Format_Settings_Wrapping;Format settings, wrapping mode
 Format_Tier;Format tier
 Format_Url;Weblink for format
 Format_Version;Format version
+FormatDefinition;Format definition
 FpaManufacturer;FPA Manufacturer
 FpaPass;FPA Pass
 FpaVersion;FPA Version
 FrameCount;Frame count
 FrameRate;Frame rate
-FrameRate_MaxFrameNumber;
 FrameRate_Maximum;Maximum frame rate
 FrameRate_Minimum;Minimum frame rate
 FrameRate_Mode;Frame rate mode
@@ -681,6 +695,7 @@ ImageCount;Count of image streams
 ImmersiveStereo;Immersive stereo
 Info;Info
 Instruments;Instruments
+IntegratedLoudness;Integrated loudness
 IntegratedLoudness_Level;Integrated loudness (level gated)
 IntegratedLoudness_Speech;Integrated loudness (speech gated)
 InteractivityEnabled;Interactivity enabled
@@ -698,21 +713,6 @@ InternetMediaType;Internet media type
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-JocBalance_FrontBackListener;Front/back listener balance
-JocBalance_FrontBackOverheadFloor;Front/back overhead/floor balance
-JocTrim_Center;Center trim
-JocTrim_Height;Height trim
-JocTrim_Surround;Surround trim
-JocTrimMode;Trim mode
-JocTrimMode0i;Trim mode for 2.0
-JocTrimMode1i;Trim mode for 5.1
-JocTrimMode2i;Trim mode for 7.1
-JocTrimMode3i;Trim mode for 2.1.2
-JocTrimMode4i;Trim mode for 5.1.2
-JocTrimMode5i;Trim mode for 7.1.2
-JocTrimMode6i;Trim mode for 2.1.4
-JocTrimMode7i;Trim mode for 5.1.4
-JocTrimMode8i;Trim mode for 7.1.4
 Keywords;Keywords
 Known codecs;Known codecs
 Known formats;Known formats
@@ -930,11 +930,13 @@ Lines_MaxCountPerEvent;Maximum count of lines per event
 LineUpStart;Line Up Start
 LinkedTo_Bed_Pos;Bed #s
 LinkedTo_ChannelFormat_Pos;Channel format #s
+LinkedTo_ComplementaryObject_Pos;Complementary object #s
 LinkedTo_Content_Pos;Content #s
 LinkedTo_Group_Pos;Group #s
 LinkedTo_Object_Pos;Object #s
 LinkedTo_PackFormat_Pos;Pack format #s
 LinkedTo_SignalGroup_Pos;Signal group #s
+LinkedTo_StreamFormat_Pos;Stream format #s
 LinkedTo_Substream_Pos;Substream #s
 LinkedTo_TrackFormat_Pos;Track format #s
 LinkedTo_TrackUID_Pos;Track UID #s
@@ -1023,6 +1025,7 @@ NumberOfSubstreams;Number of substreams
 NumberOfTrackFormats;Number of track formats
 NumberOfTrackUIDs;Number of track UIDs
 NumColors;Number of colors
+Object;Object
 ObjectCount;Object Count
 OK;OK
 One output file per input file;One output file per input file
@@ -1085,6 +1088,7 @@ OverallBitRate_Minimum;Minimum Overall bit rate
 OverallBitRate_Mode;Overall bit rate mode
 OverallBitRate_Nominal;Nominal Overall bit rate
 PackageName;Package name
+PackFormat;Pack format
 Part;Part
 Part_Count;Total count
 PartNumber;Part Number
@@ -1127,6 +1131,7 @@ ProductionDesigner;Production designer
 ProductionNumber;Production Number
 ProductionStudio;Production studio
 ProductPlacement;Product Placement
+Programme;Programme
 ProgrammeHasText;Programme Has Text
 ProgrammeTextLanguage;Programme Text Language
 ProgrammeTitle;Programme Title
@@ -1163,6 +1168,8 @@ ScanType;Scan type
 ScanType_Original;Original scan type
 ScanType_StoreMethod;Scan type, store method
 ScreenplayBy;Screenplay by
+ScreenToCenter;Screen to center
+ScreenToFront;Screen to front
 Season;Season
 SecondaryAudioLanguage;Secondary Audio Language
 see below;see below
@@ -1209,6 +1216,7 @@ StoreMethod_SeparatedFields_2;Separated fields (2 fields per block)
 Stream;Stream
 Stream_MoreInfo;More information about the stream
 StreamCount;Count of stream of this kind
+StreamFormat;Stream format
 StreamID;Stream ID
 streamIdentifier;Stream identifier
 StreamKind;Kind of stream
@@ -1266,6 +1274,7 @@ ThanksTo;Thanks to
 Thousands separator;Thousands separator
 TimeCode;Time code
 TimeCode_FirstFrame;Time code of first frame
+TimeCode_LastFrame;Time code of last frame
 TimeCode_MaxFrameNumber;Maximum frame number in time codes
 TimeCode_MaxFrameNumber_Theory;Theoritical maximum frame number in time codes
 TimeCode_Settings;Time code settings
@@ -1275,23 +1284,43 @@ TimeStamp;Time stamp
 TimeZone;Timezone
 Title;Title
 Title_More;Title, more info
+Top4ToTop2;Four fronts to two fronts
+TopBackToFront;Top backs to front
+TopBackToSide;Top backs to side
+TopFrontToBack;Top fronts to back
+TopFrontToFront;Top fronts to front
+TopFrontToSide;Top fronts to side
 Total;Total
 TotalNumberOfParts;Total Number Of Parts
 TotalProgrammeDuration;Total Programme Duration
 Track;Track name
 Track_Count;Track count
+TrackFormat;Track format
 TrackIndex;Track index
-TrackUID;TrackUID
+TrackUID;Track UID
 transfer_characteristics;Transfer characteristics
 Translate_Reports;Translate reports
 Translator;Translator
 Transport;Transport
 Tree;Tree
 Tree & Text;Tree & Text
+Trim_Center;Center trim
+Trim_Height;Height trim
+Trim_Surround;Surround trim
+TrimMode;Trim mode
+TrimMode0i;Trim mode for 2.0
+TrimMode1i;Trim mode for 5.1
+TrimMode2i;Trim mode for 7.1
+TrimMode3i;Trim mode for 2.1.2
+TrimMode4i;Trim mode for 5.1.2
+TrimMode5i;Trim mode for 7.1.2
+TrimMode6i;Trim mode for 2.1.4
+TrimMode7i;Trim mode for 5.1.4
+TrimMode8i;Trim mode for 7.1.4
 TruePeakLevel;True peak level
 TruePeakLevel_Album;True peak level (album)
 Type;Type
-TypeDefinition;TypeDefinition
+TypeDefinition;Type definition
 UniqueID;Unique ID
 UniversalAdID;Universal Ad ID
 UniversalAdID_Registry;Universal Ad ID registry
@@ -1332,5 +1361,5 @@ Written_Location;Written location
 WrittenBy;Written by
 Yes;Yes
 Your system;Your system
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100

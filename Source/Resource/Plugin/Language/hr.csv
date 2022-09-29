@@ -150,7 +150,12 @@
 : ;: 
 3D;
 3DType;
+5.1.2ch;
+5.1.4ch;
+5.1ch;
 608_Mode;
+7.1.2ch;
+7.1ch;
 About;O programu...
 About_Hint;Kontakt i pronalaženje posljednje inačice
 Accompaniment;Pratnja
@@ -200,6 +205,9 @@ AudioRenderingIndication;
 AudioSceneInfoID;
 AudioTrackLayout;
 Author;Autor
+Back4ToBack2;
+Balance_FrontBackListener;
+Balance_FrontBackOverheadFloor;
 BarCode;Crtičasti kôd
 Basic;Osnovno
 Basic_Note;Napomena: za više informacija o ovoj datoteci morate odabrati različite prikaze (tabela, stablo...)
@@ -224,6 +232,7 @@ CaptionServiceName;
 Channel(s);Kanali
 ChannelCoded;
 ChannelConfiguration;
+ChannelFormat;
 ChannelLayout;
 ChannelMode;
 ChannelPositions;Položaj kanala
@@ -281,6 +290,7 @@ colour_range;
 Comment;Komentar
 CommissionedBy;Prema nalogu
 Compilation;
+ComplementaryObject;
 CompleteName;Potpuni naziv
 CompletionDate;
 ComplexityIndex;
@@ -294,6 +304,7 @@ ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Oblik spremnika i opće informacije
+Content;
 ContentType;Vrsta sadržaja
 CoProducer;Koproducent
 Copyright;Zaštićeno autorsko pravo
@@ -308,6 +319,7 @@ Cover_Mime;MIME omota
 Cover_Type;Vrsta omota
 Cropped;Omjer reza
 Custom;Vlastito
+CustomDownmixTargets;
 Customize;Prilagoditi
 DarkMode;
 Date;Nadnevak
@@ -342,7 +354,6 @@ DotsPerInch;Točaka po palcu (DPI)
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
-Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;Trajanje
@@ -351,11 +362,13 @@ Duration_End_Command;
 Duration_Start;Vrijeme početka
 Duration_Start_Command;
 Duration_Start2End;
+DynamicObject;
 DynamicRangeControl;
 Eac3DrcProfile;
 Edit;Uređivanje
 EditedBy;Uredio
 EditorialClassification;
+ElementaryStream;
 ElementCount;
 EMail;E-pošta
 Encoded_Application;Kodirajući program
@@ -395,6 +408,7 @@ FileNameExtension;
 FileSize;Veličina datoteke
 FirstDisplay_Delay_Frames;
 FirstDisplay_Type;
+FirstFrameOfAction;
 FlatPanelTv;
 FlowID;
 Folder;Mapa
@@ -440,12 +454,12 @@ Format_Settings_Wrapping;
 Format_Tier;
 Format_Url;Spletna poveznica oblika datoteke
 Format_Version;Inačica oblika datoteke
+FormatDefinition;
 FpaManufacturer;
 FpaPass;
 FpaVersion;
 FrameCount;Broj sličica
 FrameRate;Protok sličica
-FrameRate_MaxFrameNumber;
 FrameRate_Maximum;Maksimalna stopa protoka sličica
 FrameRate_Minimum;Minimalna stopa protoka sličica
 FrameRate_Mode;Način protoka sličica
@@ -681,6 +695,7 @@ ImageCount;Broj slikovnih tokova
 ImmersiveStereo;
 Info;Informacija
 Instruments;Instrumenti
+IntegratedLoudness;
 IntegratedLoudness_Level;
 IntegratedLoudness_Speech;
 InteractivityEnabled;
@@ -698,21 +713,6 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-JocBalance_FrontBackListener;
-JocBalance_FrontBackOverheadFloor;
-JocTrim_Center;
-JocTrim_Height;
-JocTrim_Surround;
-JocTrimMode;
-JocTrimMode0i;
-JocTrimMode1i;
-JocTrimMode2i;
-JocTrimMode3i;
-JocTrimMode4i;
-JocTrimMode5i;
-JocTrimMode6i;
-JocTrimMode7i;
-JocTrimMode8i;
 Keywords;Ključne riječi
 Known codecs;Poznati kôdeki
 Known formats;Poznati oblici datoteka
@@ -930,11 +930,13 @@ Lines_MaxCountPerEvent;
 LineUpStart;
 LinkedTo_Bed_Pos;
 LinkedTo_ChannelFormat_Pos;
+LinkedTo_ComplementaryObject_Pos;
 LinkedTo_Content_Pos;
 LinkedTo_Group_Pos;
 LinkedTo_Object_Pos;
 LinkedTo_PackFormat_Pos;
 LinkedTo_SignalGroup_Pos;
+LinkedTo_StreamFormat_Pos;
 LinkedTo_Substream_Pos;
 LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
@@ -1023,6 +1025,7 @@ NumberOfSubstreams;
 NumberOfTrackFormats;
 NumberOfTrackUIDs;
 NumColors;Broj boja
+Object;
 ObjectCount;
 OK;U redu
 One output file per input file;Po jedna izlazna datoteka na jednu ulaznu
@@ -1085,6 +1088,7 @@ OverallBitRate_Minimum;Minimum ukupnog protoka podataka
 OverallBitRate_Mode;Način ukupnog protoka podataka
 OverallBitRate_Nominal;Nominalni ukupni protok podataka
 PackageName;
+PackFormat;
 Part;Dio
 Part_Count;Ukupni broj
 PartNumber;
@@ -1127,6 +1131,7 @@ ProductionDesigner;Designer proizvodnje
 ProductionNumber;
 ProductionStudio;Proizvodni studio
 ProductPlacement;
+Programme;
 ProgrammeHasText;
 ProgrammeTextLanguage;
 ProgrammeTitle;
@@ -1163,6 +1168,8 @@ ScanType;Vrsta pregledavanja
 ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Scenarij
+ScreenToCenter;
+ScreenToFront;
 Season;Razdoblje
 SecondaryAudioLanguage;
 see below;pogledati dolje
@@ -1209,6 +1216,7 @@ StoreMethod_SeparatedFields_2;
 Stream;Tok
 Stream_MoreInfo;Više informacija o tom toku
 StreamCount;Broj tokova te vrste
+StreamFormat;
 StreamID;Prepoznavanje toka
 streamIdentifier;
 StreamKind;Vrsta toka
@@ -1266,6 +1274,7 @@ ThanksTo;Zahvala
 Thousands separator;Razdjelnik tisuća
 TimeCode;
 TimeCode_FirstFrame;
+TimeCode_LastFrame;
 TimeCode_MaxFrameNumber;
 TimeCode_MaxFrameNumber_Theory;
 TimeCode_Settings;
@@ -1275,11 +1284,18 @@ TimeStamp;
 TimeZone;
 Title;Naslov
 Title_More;Više podataka o naslovu
+Top4ToTop2;
+TopBackToFront;
+TopBackToSide;
+TopFrontToBack;
+TopFrontToFront;
+TopFrontToSide;
 Total;Ukupno
 TotalNumberOfParts;
 TotalProgrammeDuration;
 Track;Naziv snimke
 Track_Count;Broj snimke
+TrackFormat;
 TrackIndex;
 TrackUID;
 transfer_characteristics;
@@ -1288,6 +1304,19 @@ Translator;Prevoditelj
 Transport;
 Tree;Stablo
 Tree & Text;Stablo i tekst
+Trim_Center;
+Trim_Height;
+Trim_Surround;
+TrimMode;
+TrimMode0i;
+TrimMode1i;
+TrimMode2i;
+TrimMode3i;
+TrimMode4i;
+TrimMode5i;
+TrimMode6i;
+TrimMode7i;
+TrimMode8i;
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;
@@ -1332,5 +1361,5 @@ Written_Location;Mjesto početka pisanja
 WrittenBy;Napisao
 Yes;Da
 Your system;Informacije o Vašem sustavu
-ZZ_Automatic_Percent;70
-ZZ_AutomaticLanguage_Percent;74
+ZZ_Automatic_Percent;68
+ZZ_AutomaticLanguage_Percent;72

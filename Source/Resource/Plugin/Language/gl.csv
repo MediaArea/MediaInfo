@@ -150,7 +150,12 @@
 : ;: 
 3D;
 3DType;
+5.1.2ch;
+5.1.4ch;
+5.1ch;
 608_Mode;
+7.1.2ch;
+7.1ch;
 About;Sobre
 About_Hint;Como contactar comigo e atopar a última versión
 Accompaniment;Acompañamento
@@ -200,6 +205,9 @@ AudioRenderingIndication;
 AudioSceneInfoID;
 AudioTrackLayout;
 Author;Autor
+Back4ToBack2;
+Balance_FrontBackListener;
+Balance_FrontBackOverheadFloor;
 BarCode;Código de Barras
 Basic;Básico
 Basic_Note;Nota : para máis información sobre este arquivo selecciona outra vista (Folla, Árbore...)
@@ -224,6 +232,7 @@ CaptionServiceName;
 Channel(s);Canle(s)
 ChannelCoded;
 ChannelConfiguration;
+ChannelFormat;
 ChannelLayout;
 ChannelMode;
 ChannelPositions;Posicións da canle
@@ -281,6 +290,7 @@ colour_range;
 Comment;Comentario
 CommissionedBy;Encargado por
 Compilation;
+ComplementaryObject;
 CompleteName;Nome completo
 CompletionDate;
 ComplexityIndex;
@@ -294,6 +304,7 @@ ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Contedor e información xeral
+Content;
 ContentType;Tipo de contido
 CoProducer;Co-productor
 Copyright;Copyright
@@ -308,6 +319,7 @@ Cover_Mime;
 Cover_Type;
 Cropped;
 Custom;Personalizado
+CustomDownmixTargets;
 Customize;Personalizar
 DarkMode;
 Date;Data
@@ -342,7 +354,6 @@ DotsPerInch;Puntos por polgada
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
-Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;Duración
@@ -351,11 +362,13 @@ Duration_End_Command;
 Duration_Start;
 Duration_Start_Command;
 Duration_Start2End;
+DynamicObject;
 DynamicRangeControl;
 Eac3DrcProfile;
 Edit;Editar
 EditedBy;Editado por
 EditorialClassification;
+ElementaryStream;
 ElementCount;
 EMail;E-Mail
 Encoded_Application;Aplicación codificadora
@@ -395,6 +408,7 @@ FileNameExtension;
 FileSize;Tamaño do arquivo
 FirstDisplay_Delay_Frames;
 FirstDisplay_Type;
+FirstFrameOfAction;
 FlatPanelTv;
 FlowID;
 Folder;Carpeta
@@ -440,12 +454,12 @@ Format_Settings_Wrapping;
 Format_Tier;
 Format_Url;Web do formato
 Format_Version;Versión do formato
+FormatDefinition;
 FpaManufacturer;
 FpaPass;
 FpaVersion;
 FrameCount;
 FrameRate;Frame rate
-FrameRate_MaxFrameNumber;
 FrameRate_Maximum;
 FrameRate_Minimum;
 FrameRate_Mode;
@@ -681,6 +695,7 @@ ImageCount;Nº de pistas de imaxe
 ImmersiveStereo;
 Info;
 Instruments;Instrumentos
+IntegratedLoudness;
 IntegratedLoudness_Level;
 IntegratedLoudness_Speech;
 InteractivityEnabled;
@@ -698,21 +713,6 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-JocBalance_FrontBackListener;
-JocBalance_FrontBackOverheadFloor;
-JocTrim_Center;
-JocTrim_Height;
-JocTrim_Surround;
-JocTrimMode;
-JocTrimMode0i;
-JocTrimMode1i;
-JocTrimMode2i;
-JocTrimMode3i;
-JocTrimMode4i;
-JocTrimMode5i;
-JocTrimMode6i;
-JocTrimMode7i;
-JocTrimMode8i;
 Keywords;Palabras chave
 Known codecs;Codecs coñecidos
 Known formats;Formatos coñecidos
@@ -930,11 +930,13 @@ Lines_MaxCountPerEvent;
 LineUpStart;
 LinkedTo_Bed_Pos;
 LinkedTo_ChannelFormat_Pos;
+LinkedTo_ComplementaryObject_Pos;
 LinkedTo_Content_Pos;
 LinkedTo_Group_Pos;
 LinkedTo_Object_Pos;
 LinkedTo_PackFormat_Pos;
 LinkedTo_SignalGroup_Pos;
+LinkedTo_StreamFormat_Pos;
 LinkedTo_Substream_Pos;
 LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
@@ -1023,6 +1025,7 @@ NumberOfSubstreams;
 NumberOfTrackFormats;
 NumberOfTrackUIDs;
 NumColors;
+Object;
 ObjectCount;
 OK;OK
 One output file per input file;Un arquivo de saída por un de entrada
@@ -1085,6 +1088,7 @@ OverallBitRate_Minimum;
 OverallBitRate_Mode;
 OverallBitRate_Nominal;
 PackageName;
+PackFormat;
 Part;Parte
 Part_Count;Total
 PartNumber;
@@ -1127,6 +1131,7 @@ ProductionDesigner;Diseñador
 ProductionNumber;
 ProductionStudio;Estudo
 ProductPlacement;
+Programme;
 ProgrammeHasText;
 ProgrammeTextLanguage;
 ProgrammeTitle;
@@ -1163,6 +1168,8 @@ ScanType;
 ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Guión de
+ScreenToCenter;
+ScreenToFront;
 Season;Tempada
 SecondaryAudioLanguage;
 see below;ver abaixo
@@ -1209,6 +1216,7 @@ StoreMethod_SeparatedFields_2;
 Stream;Pista
 Stream_MoreInfo;Máis información sobre esta pista
 StreamCount;Pistas desta clase
+StreamFormat;
 StreamID;ID pista
 streamIdentifier;
 StreamKind;Clase de pista
@@ -1266,6 +1274,7 @@ ThanksTo;Gracias a
 Thousands separator;Separador de millares
 TimeCode;
 TimeCode_FirstFrame;
+TimeCode_LastFrame;
 TimeCode_MaxFrameNumber;
 TimeCode_MaxFrameNumber_Theory;
 TimeCode_Settings;
@@ -1275,11 +1284,18 @@ TimeStamp;
 TimeZone;
 Title;Título
 Title_More;Título, máis información
+Top4ToTop2;
+TopBackToFront;
+TopBackToSide;
+TopFrontToBack;
+TopFrontToFront;
+TopFrontToSide;
 Total;Total
 TotalNumberOfParts;
 TotalProgrammeDuration;
 Track;Nome da pista
 Track_Count;Número de pistas
+TrackFormat;
 TrackIndex;
 TrackUID;
 transfer_characteristics;
@@ -1288,6 +1304,19 @@ Translator;Tradutor
 Transport;
 Tree;Árbore
 Tree & Text;Árbore & Texto
+Trim_Center;
+Trim_Height;
+Trim_Surround;
+TrimMode;
+TrimMode0i;
+TrimMode1i;
+TrimMode2i;
+TrimMode3i;
+TrimMode4i;
+TrimMode5i;
+TrimMode6i;
+TrimMode7i;
+TrimMode8i;
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;
@@ -1332,5 +1361,5 @@ Written_Location;Escrito en:
 WrittenBy;Escrito por
 Yes;Si
 Your system;O teu sistema
-ZZ_Automatic_Percent;58
-ZZ_AutomaticLanguage_Percent;65
+ZZ_Automatic_Percent;57
+ZZ_AutomaticLanguage_Percent;64

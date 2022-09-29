@@ -150,7 +150,12 @@
 : ;: 
 3D;
 3DType;
+5.1.2ch;
+5.1.4ch;
+5.1ch;
 608_Mode;
+7.1.2ch;
+7.1ch;
 About;Om
 About_Hint;Hvordan du kontakter mig og finder seneste version
 Accompaniment;Akkompagnement
@@ -200,6 +205,9 @@ AudioRenderingIndication;
 AudioSceneInfoID;
 AudioTrackLayout;
 Author;Forfatter
+Back4ToBack2;
+Balance_FrontBackListener;
+Balance_FrontBackOverheadFloor;
 BarCode;Stregkode
 Basic;Grundlæggende
 Basic_Note;Bemærk : for mere information om denne fil, skal du vælge en anden visning (Ark, Træstruktur..)
@@ -224,6 +232,7 @@ CaptionServiceName;
 Channel(s);Kanaler
 ChannelCoded;
 ChannelConfiguration;
+ChannelFormat;
 ChannelLayout;
 ChannelMode;
 ChannelPositions;Kanalpositioner
@@ -281,6 +290,7 @@ colour_range;
 Comment;Kommentar
 CommissionedBy;Bestilt af
 Compilation;
+ComplementaryObject;
 CompleteName;Fulde navn
 CompletionDate;
 ComplexityIndex;
@@ -294,6 +304,7 @@ ConformanceCheck;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Container og generel information
+Content;
 ContentType;Indholdstype
 CoProducer;Coproducer
 Copyright;Copyright
@@ -308,6 +319,7 @@ Cover_Mime;Cover MIME
 Cover_Type;Cover-type
 Cropped;Beskæringsdeminsioner
 Custom;Tilpas
+CustomDownmixTargets;
 Customize;Tilpas
 DarkMode;
 Date;Dato
@@ -342,7 +354,6 @@ DotsPerInch;Punkter pr inch
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
-Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;Varighed
@@ -351,11 +362,13 @@ Duration_End_Command;
 Duration_Start;Starttid
 Duration_Start_Command;
 Duration_Start2End;
+DynamicObject;
 DynamicRangeControl;
 Eac3DrcProfile;
 Edit;Rediger
 EditedBy;Redigeret af
 EditorialClassification;
+ElementaryStream;
 ElementCount;
 EMail;E-mail
 Encoded_Application;Skrivende program
@@ -395,6 +408,7 @@ FileNameExtension;
 FileSize;Filstørrelse
 FirstDisplay_Delay_Frames;
 FirstDisplay_Type;
+FirstFrameOfAction;
 FlatPanelTv;
 FlowID;
 Folder;Mappe
@@ -440,12 +454,12 @@ Format_Settings_Wrapping;
 Format_Tier;
 Format_Url;Weblink til format
 Format_Version;Formatversion
+FormatDefinition;
 FpaManufacturer;
 FpaPass;
 FpaVersion;
 FrameCount;Antal billeder
 FrameRate;Billedfrekvens
-FrameRate_MaxFrameNumber;
 FrameRate_Maximum;Maksimum billedfrekvens
 FrameRate_Minimum;Minimum billedfrekvens
 FrameRate_Mode;Billedratemodus
@@ -681,6 +695,7 @@ ImageCount;Antal billedstrømme
 ImmersiveStereo;
 Info;Info
 Instruments;Instrumenter
+IntegratedLoudness;
 IntegratedLoudness_Level;
 IntegratedLoudness_Speech;
 InteractivityEnabled;
@@ -698,21 +713,6 @@ InternetMediaType;Internet mediatype
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-JocBalance_FrontBackListener;
-JocBalance_FrontBackOverheadFloor;
-JocTrim_Center;
-JocTrim_Height;
-JocTrim_Surround;
-JocTrimMode;
-JocTrimMode0i;
-JocTrimMode1i;
-JocTrimMode2i;
-JocTrimMode3i;
-JocTrimMode4i;
-JocTrimMode5i;
-JocTrimMode6i;
-JocTrimMode7i;
-JocTrimMode8i;
 Keywords;Nøgleord
 Known codecs;Kendte codecs
 Known formats;Kendte formater
@@ -930,11 +930,13 @@ Lines_MaxCountPerEvent;
 LineUpStart;
 LinkedTo_Bed_Pos;
 LinkedTo_ChannelFormat_Pos;
+LinkedTo_ComplementaryObject_Pos;
 LinkedTo_Content_Pos;
 LinkedTo_Group_Pos;
 LinkedTo_Object_Pos;
 LinkedTo_PackFormat_Pos;
 LinkedTo_SignalGroup_Pos;
+LinkedTo_StreamFormat_Pos;
 LinkedTo_Substream_Pos;
 LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
@@ -1023,6 +1025,7 @@ NumberOfSubstreams;
 NumberOfTrackFormats;
 NumberOfTrackUIDs;
 NumColors;Antal farver
+Object;
 ObjectCount;
 OK;OK
 One output file per input file;En output-fil per input-fil
@@ -1085,6 +1088,7 @@ OverallBitRate_Minimum;Minimum samlet bitrate
 OverallBitRate_Mode;Samlet bitratemodus
 OverallBitRate_Nominal;Nominel samlet bitrate
 PackageName;
+PackFormat;
 Part;Del
 Part_Count;I alt
 PartNumber;
@@ -1127,6 +1131,7 @@ ProductionDesigner;Scenograf
 ProductionNumber;
 ProductionStudio;Produktionsstudie
 ProductPlacement;
+Programme;
 ProgrammeHasText;
 ProgrammeTextLanguage;
 ProgrammeTitle;
@@ -1163,6 +1168,8 @@ ScanType;Skantype
 ScanType_Original;
 ScanType_StoreMethod;
 ScreenplayBy;Manuskript af
+ScreenToCenter;
+ScreenToFront;
 Season;Sæson
 SecondaryAudioLanguage;
 see below;se nedenunder
@@ -1209,6 +1216,7 @@ StoreMethod_SeparatedFields_2;
 Stream;Strøm
 Stream_MoreInfo;Mere information om strømmen
 StreamCount;Antal sådanne strømme
+StreamFormat;
 StreamID;Strøm-ID
 streamIdentifier;
 StreamKind;Strømart
@@ -1266,6 +1274,7 @@ ThanksTo;Tak til
 Thousands separator;Tusindseparator
 TimeCode;
 TimeCode_FirstFrame;
+TimeCode_LastFrame;
 TimeCode_MaxFrameNumber;
 TimeCode_MaxFrameNumber_Theory;
 TimeCode_Settings;
@@ -1275,11 +1284,18 @@ TimeStamp;
 TimeZone;Tidszone
 Title;Titel
 Title_More;Titel, mere info
+Top4ToTop2;
+TopBackToFront;
+TopBackToSide;
+TopFrontToBack;
+TopFrontToFront;
+TopFrontToSide;
 Total;Totalt
 TotalNumberOfParts;
 TotalProgrammeDuration;
 Track;Spornavn
 Track_Count;Spornummer
+TrackFormat;
 TrackIndex;
 TrackUID;
 transfer_characteristics;Overførselskarakteristika
@@ -1288,6 +1304,19 @@ Translator;Oversætter
 Transport;
 Tree;Træstruktur
 Tree & Text;Træstruktur & tekst
+Trim_Center;
+Trim_Height;
+Trim_Surround;
+TrimMode;
+TrimMode0i;
+TrimMode1i;
+TrimMode2i;
+TrimMode3i;
+TrimMode4i;
+TrimMode5i;
+TrimMode6i;
+TrimMode7i;
+TrimMode8i;
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;
@@ -1332,5 +1361,5 @@ Written_Location;Sted
 WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
-ZZ_Automatic_Percent;66
-ZZ_AutomaticLanguage_Percent;75
+ZZ_Automatic_Percent;64
+ZZ_AutomaticLanguage_Percent;74
