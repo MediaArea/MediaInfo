@@ -301,6 +301,9 @@ Compression_Mode_Lossy;С потерями
 Compression_Ratio;Степень сжатия
 Conductor;Дирижёр
 ConformanceCheck;
+ConformanceErrors;
+ConformanceInfos;
+ConformanceWarnings;
 ContactEmail;Контактный почтовый адрес
 ContactTelephoneNumber;Контактный телефон
 Container and general information;Общая информация

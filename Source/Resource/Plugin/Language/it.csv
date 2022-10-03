@@ -301,6 +301,9 @@ Compression_Mode_Lossy;Con perdita
 Compression_Ratio; Rapporto compressione
 Conductor;Direttore d'orchestra 
 ConformanceCheck;Controllo di conformità
+ConformanceErrors;
+ConformanceInfos;
+ConformanceWarnings;
 ContactEmail;Email contatto
 ContactTelephoneNumber;Telefono contatto
 Container and general information;Tipo di file e informazioni generali

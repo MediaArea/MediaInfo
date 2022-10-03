@@ -301,6 +301,9 @@ Compression_Mode_Lossy;
 Compression_Ratio;압축률
 Conductor;지휘자
 ConformanceCheck;
+ConformanceErrors;
+ConformanceInfos;
+ConformanceWarnings;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;컨테이너와 일반 정보

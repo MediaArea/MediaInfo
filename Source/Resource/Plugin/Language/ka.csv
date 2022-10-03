@@ -301,6 +301,9 @@ Compression_Mode_Lossy;Lossy
 Compression_Ratio;შეკუმშვის რატიო
 Conductor;Conductor
 ConformanceCheck;
+ConformanceErrors;
+ConformanceInfos;
+ConformanceWarnings;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;კონტეინერი და მთავარი ინფორმაცია

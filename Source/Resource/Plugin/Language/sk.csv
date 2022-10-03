@@ -301,6 +301,9 @@ Compression_Mode_Lossy;
 Compression_Ratio;
 Conductor;Conductor
 ConformanceCheck;
+ConformanceErrors;
+ConformanceInfos;
+ConformanceWarnings;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Hlavné informácie
@@ -1361,5 +1364,5 @@ Written_Location;Written location
 WrittenBy;Napísal
 Yes;Áno
 Your system;Váš systém
-ZZ_Automatic_Percent;61
+ZZ_Automatic_Percent;60
 ZZ_AutomaticLanguage_Percent;66

@@ -301,6 +301,9 @@ Compression_Mode_Lossy;Са стратамі
 Compression_Ratio;Ступень сціску
 Conductor;Дырыжор
 ConformanceCheck;
+ConformanceErrors;
+ConformanceInfos;
+ConformanceWarnings;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Агульная інфармацыя

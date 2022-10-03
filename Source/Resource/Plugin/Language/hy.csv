@@ -301,6 +301,9 @@ Compression_Mode_Lossy;Կորստով
 Compression_Ratio;Սեղման աստիճանը
 Conductor;Դիրիժորը
 ConformanceCheck;
+ConformanceErrors;
+ConformanceInfos;
+ConformanceWarnings;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Ընդհանուր տեղեկությունը

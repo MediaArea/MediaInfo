@@ -301,6 +301,9 @@ Compression_Mode_Lossy;
 Compression_Ratio;نرخ فشردگی
 Conductor;رهبر اکسترر
 ConformanceCheck;
+ConformanceErrors;
+ConformanceInfos;
+ConformanceWarnings;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;محتوی و اطلاعات کلی

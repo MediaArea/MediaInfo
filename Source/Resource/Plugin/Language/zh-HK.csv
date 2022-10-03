@@ -301,6 +301,9 @@ Compression_Mode_Lossy;有損
 Compression_Ratio;壓縮比
 Conductor;指揮
 ConformanceCheck;
+ConformanceErrors;
+ConformanceInfos;
+ConformanceWarnings;
 ContactEmail;聯絡電郵
 ContactTelephoneNumber;聯絡電話
 Container and general information;容器和一般資訊
@@ -1361,5 +1364,5 @@ Written_Location;編寫地點
 WrittenBy;作者
 Yes;是
 Your system;可識別清單
-ZZ_Automatic_Percent;81
+ZZ_Automatic_Percent;80
 ZZ_AutomaticLanguage_Percent;81

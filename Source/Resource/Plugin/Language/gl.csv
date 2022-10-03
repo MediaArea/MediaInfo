@@ -301,6 +301,9 @@ Compression_Mode_Lossy;
 Compression_Ratio;Ratio de compresión
 Conductor;Condutor
 ConformanceCheck;
+ConformanceErrors;
+ConformanceInfos;
+ConformanceWarnings;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Contedor e información xeral
