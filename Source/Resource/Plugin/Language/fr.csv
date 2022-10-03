@@ -301,6 +301,9 @@ Compression_Mode_Lossy;Avec perte
 Compression_Ratio;Taux de compression
 Conductor;Chef d'orchestre
 ConformanceCheck;
+ConformanceErrors;
+ConformanceInfos;
+ConformanceWarnings;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Conteneur et informations générales
@@ -1361,5 +1364,5 @@ Written_Location;Lieu d'écriture
 WrittenBy;Écrit par
 Yes;Oui
 Your system;Votre système
-ZZ_Automatic_Percent;76
+ZZ_Automatic_Percent;75
 ZZ_AutomaticLanguage_Percent;79

@@ -301,6 +301,9 @@ Compression_Mode_Lossy;
 Compression_Ratio;
 Conductor;Conductor
 ConformanceCheck;
+ConformanceErrors;
+ConformanceInfos;
+ConformanceWarnings;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Hlavní informace

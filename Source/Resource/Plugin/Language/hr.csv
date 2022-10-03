@@ -301,6 +301,9 @@ Compression_Mode_Lossy;
 Compression_Ratio;Omjer sažimanja
 Conductor;Ravnatelj
 ConformanceCheck;
+ConformanceErrors;
+ConformanceInfos;
+ConformanceWarnings;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Oblik spremnika i opće informacije

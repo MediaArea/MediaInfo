@@ -301,6 +301,9 @@ Compression_Mode_Lossy;Galerakin
 Compression_Ratio;Konpresio maila
 Conductor;Gidaria
 ConformanceCheck;
+ConformanceErrors;
+ConformanceInfos;
+ConformanceWarnings;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Edukiontzia eta argibide orokorrak

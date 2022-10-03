@@ -301,6 +301,9 @@ Compression_Mode_Lossy;非可逆
 Compression_Ratio;圧縮比
 Conductor;指揮
 ConformanceCheck;適合性の確認
+ConformanceErrors;
+ConformanceInfos;
+ConformanceWarnings;
 ContactEmail;問い合わせ先メール
 ContactTelephoneNumber;問い合わせ先電話番号
 Container and general information;コンテナと全般情報

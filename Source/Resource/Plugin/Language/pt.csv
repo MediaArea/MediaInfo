@@ -301,6 +301,9 @@ Compression_Mode_Lossy;Com perdas
 Compression_Ratio;Taxa de Compressão
 Conductor;Maestro
 ConformanceCheck;
+ConformanceErrors;
+ConformanceInfos;
+ConformanceWarnings;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Arquivo recipiente e informação geral

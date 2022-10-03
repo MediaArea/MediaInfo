@@ -301,6 +301,9 @@ Compression_Mode_Lossy;
 Compression_Ratio;Raporti i kompresimit
 Conductor;Dirigjenti
 ConformanceCheck;
+ConformanceErrors;
+ConformanceInfos;
+ConformanceWarnings;
 ContactEmail;
 ContactTelephoneNumber;
 Container and general information;Mbajtësi dhe info në përgjithësi
@@ -1362,4 +1365,4 @@ WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
 ZZ_Automatic_Percent;69
-ZZ_AutomaticLanguage_Percent;73
+ZZ_AutomaticLanguage_Percent;72

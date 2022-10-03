@@ -301,6 +301,9 @@ Compression_Mode_Lossy;Kayıplı
 Compression_Ratio;Sıkıştırma oranı
 Conductor;Orkestra şefi
 ConformanceCheck;
+ConformanceErrors;
+ConformanceInfos;
+ConformanceWarnings;
 ContactEmail;İletişim E-postası
 ContactTelephoneNumber;İletişim Telefon Numarası
 Container and general information;Kapsayıcı ve genel bilgiler
@@ -1361,5 +1364,5 @@ Written_Location;Yazıldığı yer
 WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
-ZZ_Automatic_Percent;83
+ZZ_Automatic_Percent;82
 ZZ_AutomaticLanguage_Percent;83

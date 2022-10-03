@@ -301,6 +301,9 @@ Compression_Mode_Lossy;Förstörande
 Compression_Ratio;Komprimeringsförhållande
 Conductor;Dirigent
 ConformanceCheck;
+ConformanceErrors;
+ConformanceInfos;
+ConformanceWarnings;
 ContactEmail;E-postkontakt
 ContactTelephoneNumber;Telefonkontakt
 Container and general information;Behållare och allmän information
@@ -1362,4 +1365,4 @@ WrittenBy;Skrivet av
 Yes;Ja
 Your system;Ditt system
 ZZ_Automatic_Percent;80
-ZZ_AutomaticLanguage_Percent;81
+ZZ_AutomaticLanguage_Percent;80

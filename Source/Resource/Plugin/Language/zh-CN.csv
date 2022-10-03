@@ -301,6 +301,9 @@ Compression_Mode_Lossy;有损
 Compression_Ratio;压缩率
 Conductor;指挥
 ConformanceCheck;符合性检查
+ConformanceErrors;
+ConformanceInfos;
+ConformanceWarnings;
 ContactEmail;联络邮件
 ContactTelephoneNumber;联络电话号码
 Container and general information;容器格式和一般信息
