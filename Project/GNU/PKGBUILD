@@ -12,7 +12,7 @@ source=(${pkgname}_${pkgver}.orig.tar.xz)
 md5sums=('00000000000000000000000000000000')
 arch=('i686' 'x86_64')
 
-depends=('libzen>=0.4.39' 'libmediainfo>=22.06' 'wxgtk3' 'webkit2gtk' 'bubblewrap' 'libsm' 'desktop-file-utils')
+depends=('libzen>=0.4.39' 'libmediainfo>=22.06' 'wxwidgets-gtk3' 'webkit2gtk' 'bubblewrap' 'libsm' 'desktop-file-utils')
 
 prepare() {
     cd "${srcdir}"/MediaInfo/Project/GNU/CLI
@@ -21,7 +21,7 @@ prepare() {
 
     cd "${srcdir}"/MediaInfo/Project/GNU/GUI
     sh ./autogen.sh
-    ./configure --prefix=/usr --with-wx-config=/usr/bin/wx-config-gtk3
+    ./configure --prefix=/usr --with-wx-config=/usr/bin/wx-config
 }
 
 build() {
@@ -42,7 +42,7 @@ package_mediainfo() {
 
 package_mediainfo-gui() {
     pkgdesc="${pkgdesc} (GUI)"
-    depends=('libmediainfo' 'wxgtk3' 'webkit2gtk' 'bubblewrap' 'libsm' 'desktop-file-utils')
+    depends=('libmediainfo' 'wxwidgets-gtk3' 'webkit2gtk' 'bubblewrap' 'libsm' 'desktop-file-utils')
 
     cd "${srcdir}"/MediaInfo/Project/GNU/GUI
     make DESTDIR="${pkgdir}" install
