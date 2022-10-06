@@ -371,7 +371,7 @@ Eac3DrcProfile;E-AC-3 DRC 配置文件
 Edit;编辑
 EditedBy;编辑者
 EditorialClassification;编辑分类
-ElementaryStream;
+ElementaryStream;基本码流
 ElementCount;元素总数
 EMail;电子邮件
 Encoded_Application;编码程序
@@ -411,7 +411,7 @@ FileNameExtension;文件名和扩展名
 FileSize;文件大小
 FirstDisplay_Delay_Frames;第一个事件之前的帧数
 FirstDisplay_Type;第一个事件的类型
-FirstFrameOfAction;
+FirstFrameOfAction;动作的第一帧
 FlatPanelTv;平板电视
 FlowID;流 ID
 Folder;文件夹
@@ -699,8 +699,8 @@ ImmersiveStereo;沉浸式立体声
 Info;信息
 Instruments;乐器
 IntegratedLoudness;综合响度
-IntegratedLoudness_Level;
-IntegratedLoudness_Speech;
+IntegratedLoudness_Level;综合响度 (level gated)
+IntegratedLoudness_Speech;综合响度 (speech gated)
 InteractivityEnabled;启用交互
 Interlaced_BFF;底场优先 (BFF)
 Interlaced_Interlaced;隔行扫描 (交错)
@@ -926,23 +926,23 @@ LCCN;LCCN
 LfeAttenuationKnown;
 LfeMixGain;LFE 混合增益
 Library;混流函数库
-Lifetime_Subscribe_Button;
+Lifetime_Subscribe_Button;终身订阅价格 %PRICE%
 Lightness;亮度
 Lines_Count;行数
 Lines_MaxCountPerEvent;每个事件的最大行数
 LineUpStart;Line Up 起始点
 LinkedTo_Bed_Pos;
-LinkedTo_ChannelFormat_Pos;
+LinkedTo_ChannelFormat_Pos;频道格式 #s
 LinkedTo_ComplementaryObject_Pos;
-LinkedTo_Content_Pos;
+LinkedTo_Content_Pos;内容 #s
 LinkedTo_Group_Pos;
-LinkedTo_Object_Pos;
-LinkedTo_PackFormat_Pos;
-LinkedTo_SignalGroup_Pos;
-LinkedTo_StreamFormat_Pos;
-LinkedTo_Substream_Pos;
-LinkedTo_TrackFormat_Pos;
-LinkedTo_TrackUID_Pos;
+LinkedTo_Object_Pos;对象 #s
+LinkedTo_PackFormat_Pos;包格式 #s
+LinkedTo_SignalGroup_Pos;信号组 #s
+LinkedTo_StreamFormat_Pos;流格式 #s
+LinkedTo_Substream_Pos;子流 #s
+LinkedTo_TrackFormat_Pos;轨道格式 #s
+LinkedTo_TrackUID_Pos;轨道UID #s
 List;列表
 LoRoCenterMixGain;
 LoRoSurroundMixGain;
@@ -1018,9 +1018,9 @@ Not yet;尚无
 NumberOfChannelFormats;频道格式数
 NumberOfContents;内容数
 NumberOfDynamicObjects;动态对象总数
-NumberOfElementaryStreams;
+NumberOfElementaryStreams;基本码流的数量
 NumberOfObjects;对象数
-NumberOfPackFormats;
+NumberOfPackFormats;包格式数量
 NumberOfPresentations;
 NumberOfProgrammes;
 NumberOfStreamFormats;流格式数
@@ -1202,7 +1202,7 @@ SignalGroup;信号组
 SigningPresent;含有签名
 SignLanguage;签名语言
 Sort;排序
-SoundCategory;
+SoundCategory;声音类别
 SoundEngineer;录音师
 Source;源
 Source_Duration;源, 时长
