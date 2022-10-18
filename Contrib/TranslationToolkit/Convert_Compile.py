@@ -53,6 +53,7 @@ with open(language_file, 'r', encoding='utf_8') as f:
     index_lang = header.index(lang_code)
     output_rows.append(header)
     output_lang_rows.append([header[0], header[index_lang]])
+    column_count = len(header)
 
     for row in reader:
         key = row[0]
@@ -65,6 +66,8 @@ with open(language_file, 'r', encoding='utf_8') as f:
         if translated_string.startswith('"') and translated_string.endswith('"'):
             translated_string = translated_string.strip('"')
         new_row = row
+        if len(new_row) < column_count:
+            new_row.extend([''] * (column_count - len(new_row)))
         new_row[index_lang] = translated_string
         output_rows.append(new_row)
         output_lang_rows.append([key, translated_string])

@@ -58,3 +58,41 @@ ZZ_,key_keyword,automatically generated. Don't edit
 at,key,[at] 25 fps. Suggestion: symbol @.
 DRC,,related to USAC loudness. DRC: dynamic range control. Ref: https://www.iso.org/obp/ui/#iso:std:iso-iec:23003:-4:ed-1:v1:en
 Loudness_,key_keyword,related to USAC loudness. Ref: https://www.iis.fraunhofer.de/content/dam/iis/de/doc/ame/wp/FraunhoferIIS_xHE-AAC_Whitepaper.pdf
+ADM,,ADM Ref: https://www.itu.int/rec/R-REC-BS.2076/en
+PackFormat,key,ADM Ref: https://www.itu.int/rec/R-REC-BS.2076/en
+ComplementaryObject,key,ADM Ref: https://www.itu.int/rec/R-REC-BS.2076/en
+Balance_FrontBackListener,key,Dolby Audio
+Balance_FrontBackOverheadFloor,key,Dolby Audio
+ScreenToCenter,key,AC4 gain
+ScreenToFront,key,AC4 gain
+Back4ToBack2,key,AC4 gain
+Top4ToTop2,key,AC4 gain
+TopFrontToFront,key,AC4 gain
+TopFrontToSide,key,AC4 gain
+TopFrontToBack,key,AC4 gain
+TopBackToFront,key,AC4 gain
+TopBackToSide,key,AC4 gain
+TopBackToBack,key,AC4 gain
+ChannelCoded,key,AC4; Yes/No
+Classifier,key,AC4; classifier=category/type
+Conformance,key_keyword,USAC Ref: https://en.wikipedia.org/wiki/Unified_Speech_and_Audio_Coding
+dialnorm,key,AC4
+PreviousMixType2ch,key,"AC4, Ref: https://docs.telosalliance.com/la-5300-broadcast-audio-processor/la-5300-user-manual/dolby-encoding-and-monitoring"
+Phase90FilterInfo2ch,key,"AC4, Ref: https://docs.telosalliance.com/la-5300-broadcast-audio-processor/la-5300-user-manual/dolby-encoding-and-monitoring#downmix-gain-controls"
+PreviousDownmixType5ch,key,"AC4, Ref: https://docs.telosalliance.com/la-5300-broadcast-audio-processor/la-5300-user-manual/dolby-encoding-and-monitoring"
+Phase90FilterInfo,key,"AC4, Ref: https://docs.telosalliance.com/la-5300-broadcast-audio-processor/la-5300-user-manual/dolby-encoding-and-monitoring#downmix-gain-controls"
+SurroundAttenuationKnown,key,"AC4; Yes/No, Ref: https://docs.telosalliance.com/la-5300-broadcast-audio-processor/la-5300-user-manual/dolby-encoding-and-monitoring#downmix-gain-controls"
+LfeAttenuationKnown,key,AC4; Yes/No
+DynamicRangeControl,key,"AC4, Ref: https://docs.telosalliance.com/la-5300-broadcast-audio-processor/la-5300-user-manual/dolby-encoding-and-monitoring"
+LoRoCenterMixGain,key,"AC4, Ref: https://docs.telosalliance.com/la-5300-broadcast-audio-processor/la-5300-user-manual/dolby-encoding-and-monitoring#downmix-gain-controls"
+LoRoSurroundMixGain,key,"AC4, Ref: https://docs.telosalliance.com/la-5300-broadcast-audio-processor/la-5300-user-manual/dolby-encoding-and-monitoring#downmix-gain-controls"
+LtRtCenterMixGain,key,"AC4, Ref: https://docs.telosalliance.com/la-5300-broadcast-audio-processor/la-5300-user-manual/dolby-encoding-and-monitoring#downmix-gain-controls"
+LtRtSurroundMixGain,key,"AC4, Ref: https://docs.telosalliance.com/la-5300-broadcast-audio-processor/la-5300-user-manual/dolby-encoding-and-monitoring#downmix-gain-controls"
+LfeMixGain,key,"AC4, Ref: https://docs.telosalliance.com/la-5300-broadcast-audio-processor/la-5300-user-manual/dolby-encoding-and-monitoring"
+PreferredDownmix,key,"AC4, Ref: https://docs.telosalliance.com/la-5300-broadcast-audio-processor/la-5300-user-manual/dolby-encoding-and-monitoring"
+CustomDownmixTargets,key,AC4
+MultipleStream,key,AC4
+SubtstreamIdChannel,key,"Dolby E, Ref: https://developer.dolby.com/globalassets/professional/dolby-e/dolby-e-high-level-frame-description.pdf"
+SwitchGroup,key,MPEG-H 3D Audio
+Trim,key_keyword,"Dolby Atmos, Ref: http://web.archive.org/web/20220128060439/https://learning.dolby.com/hc/en-us/articles/360054531672-Module-7-4-Renderer-Trim-and-Downmix-Controls-"
+Downmix,key_keyword,"Dolby Atmos, Ref: http://web.archive.org/web/20220128060439/https://learning.dolby.com/hc/en-us/articles/360054531672-Module-7-4-Renderer-Trim-and-Downmix-Controls-"
