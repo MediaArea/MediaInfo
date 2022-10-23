@@ -105,10 +105,11 @@ with open(language_file, 'r', encoding='utf_8') as f:
         key = row[0]
         row_string = [key]
         for index in index_lang:
-            if row[index].startswith(' :'):
-                row_string.append(f'"{row[index]}"')
+            cell_content = row[index] if index < len(row) else ''
+            if cell_content.startswith(' :'):
+                row_string.append(f'"{cell_content}"')
             else:
-                row_string.append(row[index])
+                row_string.append(cell_content)
         if dict_comments:
             if key in dict_comments:
                 row_string.extend(dict_comments[key])

@@ -10,7 +10,7 @@ Album_More,,More info about the album
 Album_ReplayGain_Gain, dB,The gain to apply to reach 89dB SPL on playback
 Album_ReplayGain_Peak,,The maximum absolute peak value of the item
 Alignment,,How this stream file is aligned in the container; Where this stream file is aligned in the container
-AlternateGroup,,Number of a group in order to provide versions of the same track
+AlternateGroup,Yes,Number of a group in order to provide versions of the same track
 Archival_Location,,"Location where an item is archived (e.g. Louvre, Paris, France)"
 Arranger,,The person who arranged the piece (e.g. Ravel)
 ArtDirector,,Name of the person who oversees the artists and craftspeople who build the sets
@@ -115,8 +115,13 @@ DistributedBy,,Company responsible for distribution of the content; Name of the 
 Domain,,"Universe movies belong to, e.g. Star Wars, Stargate, Buffy, Dragonball"
 DotsPerInch,,Stores dots per inch setting of the digitization mechanism used to produce the file
 Duration, ms,"Play time of the stream, in ms; Play time in format : XXx YYy only, YYy omited if zero; Play time of the stream (in ms); Play time in format : XXx YYy only, YYy omitted if zero; Play time of the stream in ms; Play time (formated)"
+Duration_End, ms,"Play time of the stream, in ms; Play time (formated)"
+Duration_End_Command, ms,"Play time of the stream, in ms; Play time (formated)"
 Duration_FirstFrame, ms,"Duration of the first frame if it is longer than others, in ms; Duration of the first frame if it is longer than others, in format : XXx YYy only, YYy omited if zero"
 Duration_LastFrame, ms,"Duration of the last frame if it is longer than others, in ms; Duration of the last frame if it is longer than others, in format : XXx YYy only, YYy omited if zero"
+Duration_Start, ms,"Play time of the stream, in ms; Play time (formated)"
+Duration_Start2End, ms,"Play time of the stream, in ms; Play time (formated)"
+Duration_Start_Command, ms,"Play time of the stream, in ms; Play time (formated)"
 EditedBy,,Editors name
 ElementCount,,Number of displayed elements
 EncodedBy,,Name of the person/organisation that encoded/ripped the audio file.
@@ -184,9 +189,10 @@ FrameRate_Mode,,"Frame rate mode (CFR, VFR); Frame rate mode (Constant, Variable
 FrameRate_Mode_Original,,"Original frame rate mode (CFR, VFR); Original frame rate mode (Constant, Variable)"
 FrameRate_Nominal, fps,Nominal Frames per second; Nominal Frames per second (with measurement)
 FrameRate_Num,,"Frames per second, numerator"
-FrameRate_Original, fps,Original (in the raw stream) Frames per second; Original (in the raw stream) Frames per second (with measurement); Original (in the raw stream) frames per second; Original (in the raw stream) frames per second (with measurement)
+FrameRate_Original, fps,Original (in the raw stream) frames per second; Original (in the raw stream) frames per second (with measurement)
 FrameRate_Original_Den,,"Frames per second, denominator"
 FrameRate_Original_Num,,"Frames per second, numerator"
+FrameRate_Real, fps,Real (capture) frames per second; Real (capture) frames per second (with measurement)
 GeneralCount,,Number of general streams
 Genre,,"Main genre of the audio or video. e.g. classical, ambient-house, synthpop, sci-fi, drama, etc."
 Gop_OpenClosed, ,Time code information about Open/Closed
@@ -363,10 +369,12 @@ Text_Format_List,,"Text Codecs in this file, separated by /"
 Text_Format_WithHint_List,,"Text Codecs in this file with popular name (hint),separated by /"
 Text_Language_List,,"Text languages in this file, separated by /"
 ThanksTo,,A very general tag for everyone else that wants to be listed
+TimeCode_DropFrame,,Delay drop frame
 TimeCode_FirstFrame,,"Time code in HH:MM:SS:FF, last colon replaced by semicolon for drop frame if available format"
+TimeCode_LastFrame,,"Time code of the last frame (excluding the duration of the last frame) in HH:MM:SS:FF, last colon replaced by semicolon for drop frame if available format"
 TimeCode_Settings,,Time code settings
 TimeCode_Source,,"Time code source (Container, Stream, SystemScheme1, SDTI, ANC...)"
-TimeCode_Striped,Yes,"Time code is striped (only 1st time code, no discontinuity)"
+TimeCode_Stripped,Yes,"Time code is Stripped (only 1st time code, no discontinuity)"
 TimeStamp_FirstFrame, ms,TimeStamp fixed in the stream (relative) IN MS; TimeStamp with measurement
 Title,,Name of the track; (Generic)Title of file; Name of this menu
 Title_More,,(Generic)More info about the title of file
