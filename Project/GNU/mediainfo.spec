@@ -9,7 +9,7 @@
 %global libzen_version_minor        4
 %global libzen_version_release      40
 
-%if 0%{?fedora_version} || 0%{?centos_version} >= 600 || 0%{?rhel_version} >= 600
+%if 0%{?fedora} || 0%{?rhel}
 %global libmediainfo_name libmediainfo
 %global libzen_name libzen
 %else
@@ -47,8 +47,8 @@ BuildRequires:  libtool
 BuildRequires:  automake
 BuildRequires:  autoconf
 
-%if 0%{?fedora_version} == 99
-BuildRequires: gnu-free-sans-fonts
+%if 0%{?rhel} >= 8
+BuildRequires:  alternatives
 %endif
 
 %if 0%{?mageia}
@@ -71,7 +71,7 @@ BuildRequires:  wxWidgets-devel
 %if 0%{?mageia}
 BuildRequires:  wxgtk2.8-devel
 %else
-%if (0%{?fedora_version} && 0%{?fedora_version} >= 29) || 0%{?centos_version} >= 800
+%if (0%{?fedora_version} && 0%{?fedora_version} >= 29) || 0%{?rhel} >= 8
 BuildRequires:  wxGTK3-devel
 %else
 BuildRequires:  wxGTK-devel
@@ -138,7 +138,7 @@ Requires:   wxWidgets
 %if 0%{?mageia}
 Requires:  wxgtk2.8
 %else
-%if (0%{?fedora_version} && 0%{?fedora_version} >= 29) || 0%{?centos_version} >= 800
+%if (0%{?fedora_version} && 0%{?fedora_version} >= 29) || 0%{?rhel} >= 8
 Requires:   wxGTK3
 %else
 Requires:   wxGTK
@@ -211,21 +211,13 @@ export CXXFLAGS="-g %{optflags}"
 
 # build CLI
 pushd Project/GNU/CLI
-    %if 0%{?mageia} > 5
-        %configure --disable-dependency-tracking
-    %else
-        %configure
-    %endif
+       %configure
     make %{?_smp_mflags}
 popd
 
 # now build GUI
 pushd Project/GNU/GUI
-    %if 0%{?mageia} > 5
-        %configure --disable-dependency-tracking
-    %else
-        %configure
-    %endif
+    %configure
     make %{?_smp_mflags}
 popd
 
@@ -253,7 +245,7 @@ install -m 644 Project/GNU/GUI/mediainfo-gui.metainfo.xml %{buildroot}%{_datadir
 
 %define mediainfo_files %defattr(-,root,root,-)\
 %doc Release/ReadMe_CLI_Linux.txt History_CLI.txt\
-%if 0%{?fedora_version} || 0%{?centos_version} >= 700 || 0%{?rhel_version} >= 700\
+%if 0%{?fedora} || 0%{?rhel}\
 %license License.html\
 %else\
 %doc License.html\
@@ -269,7 +261,7 @@ install -m 644 Project/GNU/GUI/mediainfo-gui.metainfo.xml %{buildroot}%{_datadir
 %endif
 
 %define gui_files %defattr(-,root,root,-)\
-%if 0%{?fedora_version} || 0%{?centos_version} >= 700 || 0%{?rhel_version} >= 700\
+%if 0%{?fedora} || 0%{?rhel}\
 %license License.html\
 %else\
 %doc License.html\
@@ -297,16 +289,12 @@ install -m 644 Project/GNU/GUI/mediainfo-gui.metainfo.xml %{buildroot}%{_datadir
 %dir %{_datadir}/kservices5\
 %dir %{_datadir}/kservices5/ServiceMenus\
 %{_datadir}/kservices5/ServiceMenus/*.desktop\
-%if (%{undefined rhel_version} || 0%{?rhel_version} >= 600) && (%{undefined centos_version} || 0%{?centos_version} >= 600)\
 %if 0%{?fedora_version} && 0%{?fedora_version} >= 26\
 %dir %{_datadir}/metainfo\
 %{_datadir}/metainfo/*.xml\
 %else\
 %dir %{_datadir}/appdata\
 %{_datadir}/appdata/*.xml\
-%endif\
-%else\
-%global _unpackaged_files_terminate_build 0\
 %endif\
 %doc Release/ReadMe_GUI_Linux.txt History_GUI.txt
 
