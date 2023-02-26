@@ -41,7 +41,9 @@ enum
     ID_Menu_View_HTML,
     ID_Menu_View_XML,
     ID_Menu_View_JSON,
-    ID_Menu_View_MPEG7,
+    ID_Menu_View_MPEG7_Strict,
+    ID_Menu_View_MPEG7_Relaxed,
+    ID_Menu_View_MPEG7_Extended,
     ID_Menu_View_PBCore_1_2,
     ID_Menu_View_PBCore_2_0,
     ID_Menu_View_EBUCore_1_5,
@@ -78,7 +80,9 @@ BEGIN_EVENT_TABLE(GUI_Main, wxFrame)
     EVT_MENU(ID_Menu_View_HTML,             GUI_Main::OnMenu_View_HTML)
     EVT_MENU(ID_Menu_View_XML,              GUI_Main::OnMenu_View_XML)
     EVT_MENU(ID_Menu_View_JSON,             GUI_Main::OnMenu_View_JSON)
-    EVT_MENU(ID_Menu_View_MPEG7,            GUI_Main::OnMenu_View_MPEG7)
+    EVT_MENU(ID_Menu_View_MPEG7_Strict,     GUI_Main::OnMenu_View_MPEG7_Strict)
+    EVT_MENU(ID_Menu_View_MPEG7_Relaxed,    GUI_Main::OnMenu_View_MPEG7_Relaxed)
+    EVT_MENU(ID_Menu_View_MPEG7_Extended,   GUI_Main::OnMenu_View_MPEG7_Extended)
     EVT_MENU(ID_Menu_View_PBCore_1_2,       GUI_Main::OnMenu_View_PBCore_1_2)
     EVT_MENU(ID_Menu_View_PBCore_2_0,       GUI_Main::OnMenu_View_PBCore_2_0)
     EVT_MENU(ID_Menu_View_EBUCore_1_5,      GUI_Main::OnMenu_View_EBUCore_1_5)
@@ -139,7 +143,9 @@ void GUI_Main::Menu_Create()
     Menu_View_HTML              =Menu_View->AppendRadioItem(ID_Menu_View_HTML, __T("HTML"));
     Menu_View_XML               =Menu_View->AppendRadioItem(ID_Menu_View_XML, __T("XML"));
     Menu_View_JSON              =Menu_View->AppendRadioItem(ID_Menu_View_JSON, __T("JSON"));
-    Menu_View_MPEG7             =Menu_View->AppendRadioItem(ID_Menu_View_MPEG7, __T("MPEG-7"));
+    Menu_View_MPEG7_Strict      =Menu_View->AppendRadioItem(ID_Menu_View_MPEG7_Strict, __T("MPEG-7 (strict)"));
+    Menu_View_MPEG7_Relaxed     =Menu_View->AppendRadioItem(ID_Menu_View_MPEG7_Relaxed, __T("MPEG-7 (relaxed)"));
+    Menu_View_MPEG7_Extended    =Menu_View->AppendRadioItem(ID_Menu_View_MPEG7_Extended, __T("MPEG-7 (extended)"));
     Menu_View_PBCore_1_2        =Menu_View->AppendRadioItem(ID_Menu_View_PBCore_1_2, __T("PBCore 1.2"));
     Menu_View_PBCore_2_0        =Menu_View->AppendRadioItem(ID_Menu_View_PBCore_2_0, __T("PBCore 2.0"));
     Menu_View_EBUCore_1_5       =Menu_View->AppendRadioItem(ID_Menu_View_EBUCore_1_5, __T("EBUCore 1.5"));
@@ -312,10 +318,32 @@ void GUI_Main::OnMenu_View_JSON(wxCommandEvent& WXUNUSED(event))
 }
 
 //---------------------------------------------------------------------------
-void GUI_Main::OnMenu_View_MPEG7(wxCommandEvent& WXUNUSED(event))
+void GUI_Main::OnMenu_View_MPEG7_Strict(wxCommandEvent& WXUNUSED(event))
 {
     //Configuring
-    C->Menu_View_MPEG7();
+    C->Menu_View_MPEG7_Strict();
+
+    //Showing
+    GUI_Main_Common_Core* View_New = new GUI_Main_Text(C, this);
+    delete View; View = View_New;
+}
+
+//---------------------------------------------------------------------------
+void GUI_Main::OnMenu_View_MPEG7_Relaxed(wxCommandEvent& WXUNUSED(event))
+{
+    //Configuring
+    C->Menu_View_MPEG7_Relaxed();
+
+    //Showing
+    GUI_Main_Common_Core* View_New = new GUI_Main_Text(C, this);
+    delete View; View = View_New;
+}
+
+//---------------------------------------------------------------------------
+void GUI_Main::OnMenu_View_MPEG7_Extended(wxCommandEvent& WXUNUSED(event))
+{
+    //Configuring
+    C->Menu_View_MPEG7_Extended();
 
     //Showing
     GUI_Main_Common_Core* View_New = new GUI_Main_Text(C, this);

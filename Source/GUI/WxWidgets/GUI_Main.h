@@ -71,7 +71,9 @@ public:
     wxMenuItem* Menu_View_HTML;
     wxMenuItem* Menu_View_XML;
     wxMenuItem* Menu_View_JSON;
-    wxMenuItem* Menu_View_MPEG7;
+    wxMenuItem* Menu_View_MPEG7_Strict;
+    wxMenuItem* Menu_View_MPEG7_Relaxed;
+    wxMenuItem* Menu_View_MPEG7_Extended;
     wxMenuItem* Menu_View_PBCore_1_2;
     wxMenuItem* Menu_View_PBCore_2_0;
     wxMenuItem* Menu_View_EBUCore_1_5;
@@ -109,7 +111,9 @@ public:
     void OnMenu_View_HTML               (wxCommandEvent &event);
     void OnMenu_View_XML                (wxCommandEvent &event);
     void OnMenu_View_JSON               (wxCommandEvent &event);
-    void OnMenu_View_MPEG7              (wxCommandEvent &event);
+    void OnMenu_View_MPEG7_Strict       (wxCommandEvent &event);
+    void OnMenu_View_MPEG7_Relaxed      (wxCommandEvent &event);
+    void OnMenu_View_MPEG7_Extended     (wxCommandEvent &event);
     void OnMenu_View_PBCore_1_2         (wxCommandEvent &event);
     void OnMenu_View_PBCore_2_0         (wxCommandEvent &event);
     void OnMenu_View_EBUCore_1_5        (wxCommandEvent &event);
