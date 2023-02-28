@@ -88,7 +88,9 @@ QString Export::extension(int mode) {
     case XML:
     case PBCORE:
     case PBCORE2:
-    case MPEG7:
+    case MPEG7_Strict:
+    case MPEG7_Relaxed:
+    case MPEG7_Extended:
     case NISO_Z39_87:
     case FIMS_1_1:
     case FIMS_1_2:
@@ -115,7 +117,9 @@ QString Export::extensionName(int mode) {
     case XML:
     case PBCORE:
     case PBCORE2:
-    case MPEG7:
+    case MPEG7_Strict:
+    case MPEG7_Relaxed:
+    case MPEG7_Extended:
     case NISO_Z39_87:
     case FIMS_1_1:
     case FIMS_1_2:
@@ -147,7 +151,11 @@ QString Export::name(int mode) {
         break;
     case PBCORE2: return Tr("PBCore 2");
         break;
-    case MPEG7: return Tr("MPEG-7");
+    case MPEG7_Strict: return Tr("MPEG-7 (strict)");
+        break;
+    case MPEG7_Relaxed: return Tr("MPEG-7 (relaxed)");
+        break;
+    case MPEG7_Extended: return Tr("MPEG-7 (extended)");
         break;
    case EBUCORE_1_5: return Tr("EBUCore 1.5");
        break;
@@ -188,7 +196,9 @@ void Export::on_comboBoxMode_currentIndexChanged(int index)
     case JSON:
     case PBCORE:
     case PBCORE2:
-    case MPEG7:
+    case MPEG7_Strict:
+    case MPEG7_Relaxed:
+    case MPEG7_Extended:
     case EBUCORE_1_5:
     case EBUCORE_1_6:
     case EBUCORE_1_8_ps:

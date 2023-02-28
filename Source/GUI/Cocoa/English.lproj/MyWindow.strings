@@ -131,8 +131,15 @@
 /* Class = "NSTabViewItem"; label = "Compare"; ObjectID = "eZC-pc-IWN"; */
 "eZC-pc-IWN.label" = "Compare";
 
-/* Class = "NSMenuItem"; title = "MPEG-7"; ObjectID = "ei5-wL-g0P"; */
-"ei5-wL-g0P.title" = "MPEG-7";
+/* Class = "NSMenuItem"; title = "MPEG-7 (strict)"; ObjectID = "ei5-wL-g0P"; */
+"ei5-wL-g0P.title" = "MPEG-7 (strict)";
+
+/* Class = "NSMenuItem"; title = "MPEG-7 (relaxed)"; ObjectID = "fj6-xM-h1Q"; */
+"ei5-wL-g0P.title" = "MPEG-7 (relaxed)";
+
+/* Class = "NSMenuItem"; title = "MPEG-7 (extended)"; ObjectID = "gk7-yN-i2R"; */
+"ei5-wL-g0P.title" = "MPEG-7 (extended)";
+
 
 /* Class = "NSMenuItem"; title = "EBUCore 1.8 (acq. metadata: segment then parameter)"; ObjectID = "fNe-yJ-2vy"; */
 "fNe-yJ-2vy.title" = "EBUCore 1.8 (acq. metadata: segment then parameter)";
@@ -170,8 +177,14 @@
 /* Class = "NSMenuItem"; title = "Graph"; ObjectID = "gEv-f7-e5s"; */
 "gEv-f7-e5s.title" = "Graph";
 
-/* Class = "NSMenuItem"; title = "MPEG-7"; ObjectID = "qPy-3h-POF"; */
-"qPy-3h-POF.title" = "MPEG-7";
+/* Class = "NSMenuItem"; title = "MPEG-7 (strict)"; ObjectID = "qPy-3h-POF"; */
+"qPy-3h-POF.title" = "MPEG-7 (strict)";
+
+/* Class = "NSMenuItem"; title = "MPEG-7 (relaxed)"; ObjectID = "rQz-4i-QPG"; */
+"rQz-4i-QPG.title" = "MPEG-7 (relaxed)";
+
+/* Class = "NSMenuItem"; title = "MPEG-7 (extended)"; ObjectID = "sRa-5j-RQH"; */
+"sRa-5j-RQH.title" = "MPEG-7 (extended)";
 
 /* Class = "NSMenuItem"; title = "JSON"; ObjectID = "ro6-xM-h9O"; */
 "ro6-xM-h9O.title" = "JSON";

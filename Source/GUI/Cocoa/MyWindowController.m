@@ -35,7 +35,9 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 		case Kind_CSV:			_ret = @"CSV"; break;
 		case Kind_JSON:			_ret = @"JSON"; break;
 		case Kind_Graph_Svg:		_ret = @"Graph_Svg"; break;
-		case Kind_MPEG7:		_ret = @"MPEG-7"; break;
+		case Kind_MPEG7_Strict:		_ret = @"MPEG-7_Strict"; break;
+		case Kind_MPEG7_Relaxed:	_ret = @"MPEG-7_Relaxed"; break;
+		case Kind_MPEG7_Extended:	_ret = @"MPEG-7_Extended"; break;
 		case Kind_PBCore:		_ret = @"PBCore"; break;
 		case Kind_PBCore2:		_ret = @"PBCore2"; break;
 		case Kind_EBUCore_1_5:	_ret = @"EBUCore_1.5"; break;
@@ -102,8 +104,12 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
                 [self selectViewJSON:nil];
             else if ([defaultView isEqualToString:@"Graph_Svg"])
                 [self selectViewGraph_Svg:nil];
-            else if ([defaultView isEqualToString:@"MPEG-7"])
-                [self selectViewMPEG7:nil];
+            else if ([defaultView isEqualToString:@"MPEG-7_Strict"])
+                [self selectViewMPEG7_Strict:nil];
+            else if ([defaultView isEqualToString:@"MPEG-7_Relaxed"])
+                [self selectViewMPEG7_Relaxed:nil];
+            else if ([defaultView isEqualToString:@"MPEG-7_Extended"])
+                [self selectViewMPEG7_Extended:nil];
             else if ([defaultView isEqualToString:@"PBCore"])
                 [self selectViewPBCore:nil];
             else if ([defaultView isEqualToString:@"PBCore2"])
@@ -293,9 +299,19 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	[self _selectViewOFKind:Kind_JSON];
 }
 
--(IBAction)selectViewMPEG7:(id)sender
+-(IBAction)selectViewMPEG7_Strict:(id)sender
 {
-	[self _selectViewOFKind:Kind_MPEG7];
+	[self _selectViewOFKind:Kind_MPEG7_Strict];
+}
+
+-(IBAction)selectViewMPEG7_Relaxed:(id)sender
+{
+	[self _selectViewOFKind:Kind_MPEG7_Relaxed];
+}
+
+-(IBAction)selectViewMPEG7_Extended:(id)sender
+{
+	[self _selectViewOFKind:Kind_MPEG7_Extended];
 }
 
 -(IBAction)selectViewPBCore:(id)sender
@@ -463,45 +479,51 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 					format = TextKindToNSString(Kind_Graph_Svg);
 					break;
 				case 6:
-					format = TextKindToNSString(Kind_MPEG7);
+					format = TextKindToNSString(Kind_MPEG7_Strict);
 					break;
 				case 7:
-					format = TextKindToNSString(Kind_PBCore);
+					format = TextKindToNSString(Kind_MPEG7_Relaxed);
 					break;
 				case 8:
-					format = TextKindToNSString(Kind_PBCore2);
+					format = TextKindToNSString(Kind_MPEG7_Extended);
 					break;
 				case 9:
-					format = TextKindToNSString(Kind_EBUCore_1_5);
+					format = TextKindToNSString(Kind_PBCore);
 					break;
 				case 10:
-					format = TextKindToNSString(Kind_EBUCore_1_6);
+					format = TextKindToNSString(Kind_PBCore2);
 					break;
 				case 11:
-					format = TextKindToNSString(Kind_EBUCore_1_8_ps);
+					format = TextKindToNSString(Kind_EBUCore_1_5);
 					break;
 				case 12:
-					format = TextKindToNSString(Kind_EBUCore_1_8_sp);
+					format = TextKindToNSString(Kind_EBUCore_1_6);
 					break;
 				case 13:
-					format = TextKindToNSString(Kind_EBUCore_1_8_ps_json);
+					format = TextKindToNSString(Kind_EBUCore_1_8_ps);
 					break;
 				case 14:
-					format = TextKindToNSString(Kind_EBUCore_1_8_sp_json);
+					format = TextKindToNSString(Kind_EBUCore_1_8_sp);
 					break;
 				case 15:
-					format = TextKindToNSString(Kind_FIMS_1_1);
+					format = TextKindToNSString(Kind_EBUCore_1_8_ps_json);
 					break;
 				case 16:
-					format = TextKindToNSString(Kind_FIMS_1_2);
+					format = TextKindToNSString(Kind_EBUCore_1_8_sp_json);
 					break;
 				case 17:
-					format = TextKindToNSString(Kind_FIMS_1_3);
+					format = TextKindToNSString(Kind_FIMS_1_1);
 					break;
 				case 18:
-					format = TextKindToNSString(Kind_reVTMD);
+					format = TextKindToNSString(Kind_FIMS_1_2);
 					break;
 				case 19:
+					format = TextKindToNSString(Kind_FIMS_1_3);
+					break;
+				case 20:
+					format = TextKindToNSString(Kind_reVTMD);
+					break;
+				case 21:
 					format = TextKindToNSString(Kind_NISO_Z39_87);
 					break;
 				case 0:
@@ -981,8 +1003,16 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_Graph_Svg ? YES : NO;
 		[menuItem setState: (state ? NSOnState : NSOffState)];
 	}
-	else if(action == @selector(selectViewMPEG7:)) {
-		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_MPEG7 ? YES : NO;
+	else if(action == @selector(selectViewMPEG7_Strict:)) {
+		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_MPEG7_Strict ? YES : NO;
+		[menuItem setState: (state ? NSOnState : NSOffState)];
+	}
+	else if(action == @selector(selectViewMPEG7_Relaxed:)) {
+		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_MPEG7_Relaxed ? YES : NO;
+		[menuItem setState: (state ? NSOnState : NSOffState)];
+	}
+	else if(action == @selector(selectViewMPEG7_Extended:)) {
+		BOOL state = [tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex && _lastTextKind == Kind_MPEG7_Extended ? YES : NO;
 		[menuItem setState: (state ? NSOnState : NSOffState)];
 	}
 	else if(action == @selector(selectViewPBCore:)) {

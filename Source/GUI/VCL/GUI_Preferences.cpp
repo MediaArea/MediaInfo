@@ -144,89 +144,101 @@ void __fastcall TPreferencesF::General_Output_SelChange(TObject *Sender)
     }
     if (General_Output_Sel->ItemIndex==8)
     {
-        Prefs->Config(__T("Output"))=__T("MPEG-7");
+        Prefs->Config(__T("Output"))=__T("MPEG-7_Strict");
         MainF->Page->ActivePage=MainF->Page_Custom;
         General_Output_More->Visible=false;
     }
     if (General_Output_Sel->ItemIndex==9)
     {
-        Prefs->Config(__T("Output"))=__T("PBCore_1.2");
+        Prefs->Config(__T("Output"))=__T("MPEG-7_Relaxed");
         MainF->Page->ActivePage=MainF->Page_Custom;
         General_Output_More->Visible=false;
     }
     if (General_Output_Sel->ItemIndex==10)
     {
-        Prefs->Config(__T("Output"))=__T("PBCore_2.0");
+        Prefs->Config(__T("Output"))=__T("MPEG-7_Extended");
         MainF->Page->ActivePage=MainF->Page_Custom;
         General_Output_More->Visible=false;
     }
     if (General_Output_Sel->ItemIndex==11)
     {
-        Prefs->Config(__T("Output"))=__T("EBUCore_1.5");
+        Prefs->Config(__T("Output"))=__T("PBCore_1.2");
         MainF->Page->ActivePage=MainF->Page_Custom;
         General_Output_More->Visible=false;
     }
     if (General_Output_Sel->ItemIndex==12)
     {
-        Prefs->Config(__T("Output"))=__T("EBUCore_1.6");
+        Prefs->Config(__T("Output"))=__T("PBCore_2.0");
         MainF->Page->ActivePage=MainF->Page_Custom;
         General_Output_More->Visible=false;
     }
     if (General_Output_Sel->ItemIndex==13)
     {
-        Prefs->Config(__T("Output"))=__T("EBUCore_1.8_ps");
+        Prefs->Config(__T("Output"))=__T("EBUCore_1.5");
         MainF->Page->ActivePage=MainF->Page_Custom;
         General_Output_More->Visible=false;
     }
     if (General_Output_Sel->ItemIndex==14)
     {
-        Prefs->Config(__T("Output"))=__T("EBUCore_1.8_sp");
+        Prefs->Config(__T("Output"))=__T("EBUCore_1.6");
         MainF->Page->ActivePage=MainF->Page_Custom;
         General_Output_More->Visible=false;
     }
     if (General_Output_Sel->ItemIndex==15)
     {
-        Prefs->Config(__T("Output"))=__T("EBUCore_1.8_ps_json");
+        Prefs->Config(__T("Output"))=__T("EBUCore_1.8_ps");
         MainF->Page->ActivePage=MainF->Page_Custom;
         General_Output_More->Visible=false;
     }
     if (General_Output_Sel->ItemIndex==16)
     {
-        Prefs->Config(__T("Output"))=__T("EBUCore_1.8_sp_json");
+        Prefs->Config(__T("Output"))=__T("EBUCore_1.8_sp");
         MainF->Page->ActivePage=MainF->Page_Custom;
         General_Output_More->Visible=false;
     }
     if (General_Output_Sel->ItemIndex==17)
     {
-        Prefs->Config(__T("Output"))=__T("FIMS_1.1");
+        Prefs->Config(__T("Output"))=__T("EBUCore_1.8_ps_json");
         MainF->Page->ActivePage=MainF->Page_Custom;
         General_Output_More->Visible=false;
     }
     if (General_Output_Sel->ItemIndex==18)
     {
-        Prefs->Config(__T("Output"))=__T("FIMS_1.2");
+        Prefs->Config(__T("Output"))=__T("EBUCore_1.8_sp_json");
         MainF->Page->ActivePage=MainF->Page_Custom;
         General_Output_More->Visible=false;
     }
     if (General_Output_Sel->ItemIndex==19)
     {
-        Prefs->Config(__T("Output"))=__T("FIMS_1.3");
+        Prefs->Config(__T("Output"))=__T("FIMS_1.1");
         MainF->Page->ActivePage=MainF->Page_Custom;
         General_Output_More->Visible=false;
     }
     if (General_Output_Sel->ItemIndex==20)
     {
-        Prefs->Config(__T("Output"))=__T("NISO_Z39.87");
+        Prefs->Config(__T("Output"))=__T("FIMS_1.2");
         MainF->Page->ActivePage=MainF->Page_Custom;
         General_Output_More->Visible=false;
     }
     if (General_Output_Sel->ItemIndex==21)
     {
-        Prefs->Config(__T("Output"))=__T("reVTMD");
+        Prefs->Config(__T("Output"))=__T("FIMS_1.3");
         MainF->Page->ActivePage=MainF->Page_Custom;
         General_Output_More->Visible=false;
     }
     if (General_Output_Sel->ItemIndex==22)
+    {
+        Prefs->Config(__T("Output"))=__T("NISO_Z39.87");
+        MainF->Page->ActivePage=MainF->Page_Custom;
+        General_Output_More->Visible=false;
+    }
+    if (General_Output_Sel->ItemIndex==23)
+    {
+        Prefs->Config(__T("Output"))=__T("reVTMD");
+        MainF->Page->ActivePage=MainF->Page_Custom;
+        General_Output_More->Visible=false;
+    }
+    if (General_Output_Sel->ItemIndex==24)
     {
         Prefs->Config(__T("Output"))=__T("Custom");
         MainF->Page->ActivePage=MainF->Page_Custom;
@@ -635,7 +647,9 @@ void __fastcall TPreferencesF::GUI_Configure()
     General_Output_Sel->Items->Add("XML");
     General_Output_Sel->Items->Add("JSON");
     General_Output_Sel->Items->Add("Graph");
-    General_Output_Sel->Items->Add("MPEG-7");
+    General_Output_Sel->Items->Add("MPEG-7 (strict)");
+    General_Output_Sel->Items->Add("MPEG-7 (relaxed)");
+    General_Output_Sel->Items->Add("MPEG-7 (extended)");
     General_Output_Sel->Items->Add("PBCore_1.2");
     General_Output_Sel->Items->Add("PBCore_2.0");
     General_Output_Sel->Items->Add("EBUCore_1.5");
@@ -658,21 +672,23 @@ void __fastcall TPreferencesF::GUI_Configure()
     else if (Prefs->Config(__T("Output"))==__T("XML"))        General_Output_Sel->ItemIndex=5;
     else if (Prefs->Config(__T("Output"))==__T("JSON"))       General_Output_Sel->ItemIndex=6;
     else if (Prefs->Config(__T("Output"))==__T("Graph_Svg")) General_Output_Sel->ItemIndex=7;
-    else if (Prefs->Config(__T("Output"))==__T("MPEG-7"))     General_Output_Sel->ItemIndex=8;
-    else if (Prefs->Config(__T("Output"))==__T("PBCore_1.2")) General_Output_Sel->ItemIndex=9;
-    else if (Prefs->Config(__T("Output"))==__T("PBCore_2.0")) General_Output_Sel->ItemIndex=10;
-    else if (Prefs->Config(__T("Output"))==__T("EBUCore_1.5")) General_Output_Sel->ItemIndex=11;
-    else if (Prefs->Config(__T("Output"))==__T("EBUCore_1.6")) General_Output_Sel->ItemIndex=12;
-    else if (Prefs->Config(__T("Output"))==__T("EBUCore_1.8_ps")) General_Output_Sel->ItemIndex=13;
-    else if (Prefs->Config(__T("Output"))==__T("EBUCore_1.8_sp")) General_Output_Sel->ItemIndex=14;
-    else if (Prefs->Config(__T("Output"))==__T("EBUCore_1.8_ps_json")) General_Output_Sel->ItemIndex=15;
-    else if (Prefs->Config(__T("Output"))==__T("EBUCore_1.8_sp_json")) General_Output_Sel->ItemIndex=16;
-    else if (Prefs->Config(__T("Output"))==__T("FIMS_1.1")) General_Output_Sel->ItemIndex=17;
-    else if (Prefs->Config(__T("Output"))==__T("FIMS_1.2")) General_Output_Sel->ItemIndex=18;
-    else if (Prefs->Config(__T("Output"))==__T("FIMS_1.3")) General_Output_Sel->ItemIndex=19;
-    else if (Prefs->Config(__T("Output"))==__T("NISO_Z39.87")) General_Output_Sel->ItemIndex=20;
-    else if (Prefs->Config(__T("Output"))==__T("reVTMD"))     General_Output_Sel->ItemIndex=21;
-    else if (Prefs->Config(__T("Output"))==__T("Custom"))     General_Output_Sel->ItemIndex=22;
+    else if (Prefs->Config(__T("Output"))==__T("MPEG-7_Strict")) General_Output_Sel->ItemIndex=8;
+    else if (Prefs->Config(__T("Output"))==__T("MPEG-7_Relaxed")) General_Output_Sel->ItemIndex=9;
+    else if (Prefs->Config(__T("Output"))==__T("MPEG-7_Extended")) General_Output_Sel->ItemIndex=10;
+    else if (Prefs->Config(__T("Output"))==__T("PBCore_1.2")) General_Output_Sel->ItemIndex=11;
+    else if (Prefs->Config(__T("Output"))==__T("PBCore_2.0")) General_Output_Sel->ItemIndex=12;
+    else if (Prefs->Config(__T("Output"))==__T("EBUCore_1.5")) General_Output_Sel->ItemIndex=13;
+    else if (Prefs->Config(__T("Output"))==__T("EBUCore_1.6")) General_Output_Sel->ItemIndex=14;
+    else if (Prefs->Config(__T("Output"))==__T("EBUCore_1.8_ps")) General_Output_Sel->ItemIndex=15;
+    else if (Prefs->Config(__T("Output"))==__T("EBUCore_1.8_sp")) General_Output_Sel->ItemIndex=16;
+    else if (Prefs->Config(__T("Output"))==__T("EBUCore_1.8_ps_json")) General_Output_Sel->ItemIndex=17;
+    else if (Prefs->Config(__T("Output"))==__T("EBUCore_1.8_sp_json")) General_Output_Sel->ItemIndex=18;
+    else if (Prefs->Config(__T("Output"))==__T("FIMS_1.1")) General_Output_Sel->ItemIndex=19;
+    else if (Prefs->Config(__T("Output"))==__T("FIMS_1.2")) General_Output_Sel->ItemIndex=20;
+    else if (Prefs->Config(__T("Output"))==__T("FIMS_1.3")) General_Output_Sel->ItemIndex=21;
+    else if (Prefs->Config(__T("Output"))==__T("NISO_Z39.87")) General_Output_Sel->ItemIndex=22;
+    else if (Prefs->Config(__T("Output"))==__T("reVTMD"))     General_Output_Sel->ItemIndex=23;
+    else if (Prefs->Config(__T("Output"))==__T("Custom"))     General_Output_Sel->ItemIndex=24;
     //-Advanced
     Setup_Advanced->Caption=Prefs->Translate(__T("Advanced")).c_str();
     CB_InscrireShell->Caption=Prefs->Translate(__T("Shell extension")).c_str();
