@@ -34,7 +34,9 @@ public:
         FIMS_1_1,
         FIMS_1_2,
         FIMS_1_3,
-        MPEG7,
+        MPEG7_Strict,
+        MPEG7_Relaxed,
+        MPEG7_Extended,
         NISO_Z39_87,
         NB_EXPORT_MODE
     };

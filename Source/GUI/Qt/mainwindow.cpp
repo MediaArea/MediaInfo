@@ -614,13 +614,30 @@ void MainWindow::refreshDisplay() {
                 xis->setContent(wstring2QString(C->Inform_Get()));
                 ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
                 break;
-            case VIEW_MPEG7:
-                C->Menu_View_MPEG7();
+            case VIEW_MPEG7_Strict:
+                C->Menu_View_MPEG7_Strict();
                 viewWidget = new QTextBrowser();
                 xis = new QDomDocument();
                 xis->setContent(wstring2QString(C->Inform_Get()));
                 ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
                 break;
+
+            case VIEW_MPEG7_Relaxed:
+                C->Menu_View_MPEG7_Relaxed();
+                viewWidget = new QTextBrowser();
+                xis = new QDomDocument();
+                xis->setContent(wstring2QString(C->Inform_Get()));
+                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                break;
+
+            case VIEW_MPEG7_Extended:
+                C->Menu_View_MPEG7_Extended();
+                viewWidget = new QTextBrowser();
+                xis = new QDomDocument();
+                xis->setContent(wstring2QString(C->Inform_Get()));
+                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                break;
+
             case VIEW_XML:
                 C->Menu_View_XML();
                 viewWidget = new QTextBrowser();
@@ -1144,8 +1161,16 @@ void MainWindow::on_actionExport_triggered()
             C->Menu_View_NISO_Z39_87();
             file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
             break;
-        case Export::MPEG7:
-            C->Menu_View_MPEG7();
+        case Export::MPEG7_Strict:
+            C->Menu_View_MPEG7_Strict();
+            file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
+            break;
+        case Export::MPEG7_Relaxed:
+            C->Menu_View_MPEG7_Relaxed();
+            file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
+            break;
+        case Export::MPEG7_Extended:
+            C->Menu_View_MPEG7_Extended();
             file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
             break;
         default:

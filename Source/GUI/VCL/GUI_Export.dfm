@@ -427,16 +427,40 @@ object ExportF: TExportF
           OnClick = Export_Graph_Svg_SideCarClick
         end
       end
-      object Export_MPEG7: TTabSheet
-        Caption = 'MPEG-7'
-        object Export_MPEG7_SideCar: TCheckBox
+      object Export_MPEG7_Strict: TTabSheet
+        Caption = 'MPEG-7 (strict)'
+        object Export_MPEG7_Strict_SideCar: TCheckBox
           Left = 0
           Top = 9
           Width = 597
           Height = 18
-          Caption = 'Sidecar file (filename.mpeg7)'
+          Caption = 'Sidecar file (filename.mpeg7_strict)'
           TabOrder = 0
-          OnClick = Export_MPEG7_SideCarClick
+          OnClick = Export_MPEG7_Strict_SideCarClick
+        end
+      end
+      object Export_MPEG7_Relaxed: TTabSheet
+        Caption = 'MPEG-7 (relaxed)'
+        object Export_MPEG7_Relaxed_SideCar: TCheckBox
+          Left = 0
+          Top = 9
+          Width = 597
+          Height = 18
+          Caption = 'Sidecar file (filename.mpeg7_relaxed)'
+          TabOrder = 0
+          OnClick = Export_MPEG7_Relaxed_SideCarClick
+        end
+      end
+      object Export_MPEG7_Extended: TTabSheet
+        Caption = 'MPEG-7 (extended)'
+        object Export_MPEG7_Extended_SideCar: TCheckBox
+          Left = 0
+          Top = 9
+          Width = 597
+          Height = 18
+          Caption = 'Sidecar file (filename.mpeg7_extended)'
+          TabOrder = 0
+          OnClick = Export_MPEG7_Extended_SideCarClick
         end
       end
       object Export_PBCore: TTabSheet

@@ -89,7 +89,19 @@ void TExportF::Name_Adapt()
         SaveDialog1->DefaultExt=__T("json");
         SaveDialog1->Filter=__T("JSON File|*.json");
     }
-    else if (Export->ActivePage==Export_MPEG7)
+    else if (Export->ActivePage==Export_MPEG7_Strict)
+    {
+        FN.Extension_Set(__T("xml"));
+        SaveDialog1->DefaultExt=__T("xml");
+        SaveDialog1->Filter=__T("MPEG-7 File|*.xml");
+    }
+    else if (Export->ActivePage==Export_MPEG7_Relaxed)
+    {
+        FN.Extension_Set(__T("xml"));
+        SaveDialog1->DefaultExt=__T("xml");
+        SaveDialog1->Filter=__T("MPEG-7 File|*.xml");
+    }
+    else if (Export->ActivePage==Export_MPEG7_Extended)
     {
         FN.Extension_Set(__T("xml"));
         SaveDialog1->DefaultExt=__T("xml");
@@ -217,8 +229,12 @@ int TExportF::Run(MediaInfoNameSpace::MediaInfoList &MI, ZenLib::Ztring DefaultF
         Export->ActivePage=Export_XML;
     else if (Info==__T("JSON"))
         Export->ActivePage=Export_JSON;
-    else if (Info==__T("MPEG-7"))
-        Export->ActivePage=Export_MPEG7;
+    else if (Info==__T("MPEG-7_Strict"))
+        Export->ActivePage=Export_MPEG7_Strict;
+    else if (Info==__T("MPEG-7_Relaxed"))
+        Export->ActivePage=Export_MPEG7_Relaxed;
+    else if (Info==__T("MPEG-7_Extended"))
+        Export->ActivePage=Export_MPEG7_Extended;
     else if (Info==__T("PBCore_1.2"))
         Export->ActivePage=Export_PBCore;
     else if (Info==__T("PBCore_2.0"))
@@ -502,16 +518,50 @@ void TExportF::Export_Run()
         }
         Text=ToExport->Inform().c_str();
     }
-    else if (Export->ActivePage==Export_MPEG7)
+    else if (Export->ActivePage==Export_MPEG7_Strict)
     {
-        ToExport->Option_Static(__T("Inform"), __T("MPEG-7"));
-        if (Export_MPEG7_SideCar->Checked)
+        ToExport->Option_Static(__T("Inform"), __T("MPEG-7_Strict"));
+        if (Export_MPEG7_Strict_SideCar->Checked)
         {
             for (size_t Pos=0; Pos<ToExport->Count_Get(); Pos++)
             {
                 Text=ToExport->Inform(Pos).c_str();
                 File F;
-                F.Create(Ztring(ToExport->Get(Pos, Stream_General, 0, __T("CompleteName")).c_str())+__T(".mpeg7.xml"));
+                F.Create(Ztring(ToExport->Get(Pos, Stream_General, 0, __T("CompleteName")).c_str())+__T(".mpeg7_strict.xml"));
+                F.Write(Text);
+            }
+            return;
+        }
+        Text=ToExport->Inform().c_str();
+    }
+
+    else if (Export->ActivePage==Export_MPEG7_Relaxed)
+    {
+        ToExport->Option_Static(__T("Inform"), __T("MPEG-7_Relaxed"));
+        if (Export_MPEG7_Relaxed_SideCar->Checked)
+        {
+            for (size_t Pos=0; Pos<ToExport->Count_Get(); Pos++)
+            {
+                Text=ToExport->Inform(Pos).c_str();
+                File F;
+                F.Create(Ztring(ToExport->Get(Pos, Stream_General, 0, __T("CompleteName")).c_str())+__T(".mpeg7_relaxed.xml"));
+                F.Write(Text);
+            }
+            return;
+        }
+        Text=ToExport->Inform().c_str();
+    }
+
+    else if (Export->ActivePage==Export_MPEG7_Extended)
+    {
+        ToExport->Option_Static(__T("Inform"), __T("MPEG-7_Extended"));
+        if (Export_MPEG7_Extended_SideCar->Checked)
+        {
+            for (size_t Pos=0; Pos<ToExport->Count_Get(); Pos++)
+            {
+                Text=ToExport->Inform(Pos).c_str();
+                File F;
+                F.Create(Ztring(ToExport->Get(Pos, Stream_General, 0, __T("CompleteName")).c_str())+__T(".mpeg7_extended.xml"));
                 F.Write(Text);
             }
             return;
@@ -796,12 +846,26 @@ void __fastcall TExportF::ExportChange(TObject *Sender)
         File_Append->Visible=false;
         Name_Choose->Visible=Export_JSON_SideCar->Checked?false:true;;
     }
-    else if (Export->ActivePage==Export_MPEG7)
+    else if (Export->ActivePage==Export_MPEG7_Strict)
     {
-        Export_MPEG7_SideCarClick(Sender);
+        Export_MPEG7_Strict_SideCarClick(Sender);
         File_Append->Checked=false;
         File_Append->Visible=false;
-        Name_Choose->Visible=Export_MPEG7_SideCar->Checked?false:true;;
+        Name_Choose->Visible=Export_MPEG7_Strict_SideCar->Checked?false:true;;
+    }
+    else if (Export->ActivePage==Export_MPEG7_Relaxed)
+    {
+        Export_MPEG7_Relaxed_SideCarClick(Sender);
+        File_Append->Checked=false;
+        File_Append->Visible=false;
+        Name_Choose->Visible=Export_MPEG7_Relaxed_SideCar->Checked?false:true;;
+    }
+    else if (Export->ActivePage==Export_MPEG7_Extended)
+    {
+        Export_MPEG7_Extended_SideCarClick(Sender);
+        File_Append->Checked=false;
+        File_Append->Visible=false;
+        Name_Choose->Visible=Export_MPEG7_Extended_SideCar->Checked?false:true;;
     }
     else if (Export->ActivePage==Export_PBCore)
     {
@@ -965,9 +1029,21 @@ void __fastcall TExportF::Export_JSON_SideCarClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TExportF::Export_MPEG7_SideCarClick(TObject *Sender)
+void __fastcall TExportF::Export_MPEG7_Strict_SideCarClick(TObject *Sender)
 {
-    Name_Choose->Visible=Export_MPEG7_SideCar->Checked?false:true;
+    Name_Choose->Visible=Export_MPEG7_Strict_SideCar->Checked?false:true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TExportF::Export_MPEG7_Relaxed_SideCarClick(TObject *Sender)
+{
+    Name_Choose->Visible=Export_MPEG7_Relaxed_SideCar->Checked?false:true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TExportF::Export_MPEG7_Extended_SideCarClick(TObject *Sender)
+{
+    Name_Choose->Visible=Export_MPEG7_Extended_SideCar->Checked?false:true;
 }
 //---------------------------------------------------------------------------
 

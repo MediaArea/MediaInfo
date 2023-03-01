@@ -249,8 +249,28 @@ void Core::Menu_View_PBCore2 ()
 //---------------------------------------------------------------------------
 void Core::Menu_View_MPEG7 ()
 {
-    MI->Option(__T("Inform"), __T("MPEG-7"));
-    Kind=Kind_MPEG7;
+    Menu_View_MPEG7_Relaxed();
+}
+
+//---------------------------------------------------------------------------
+void Core::Menu_View_MPEG7_Strict ()
+{
+    MI->Option(__T("Inform"), __T("MPEG-7_Strict"));
+    Kind=Kind_MPEG7_Strict;
+}
+
+//---------------------------------------------------------------------------
+void Core::Menu_View_MPEG7_Relaxed()
+{
+    MI->Option(__T("Inform"), __T("MPEG-7_Relaxed"));
+    Kind = Kind_MPEG7_Relaxed;
+}
+
+//---------------------------------------------------------------------------
+void Core::Menu_View_MPEG7_Extended()
+{
+    MI->Option(__T("Inform"), __T("MPEG-7_Extended"));
+    Kind = Kind_MPEG7_Extended;
 }
 
 //---------------------------------------------------------------------------

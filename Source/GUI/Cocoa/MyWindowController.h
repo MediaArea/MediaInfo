@@ -13,7 +13,7 @@
 #import "TreeView.h"
 #import "CompareView.h"
 
-typedef enum { Kind_Text, Kind_HTML, Kind_XML, Kind_CSV, Kind_JSON, Kind_PBCore, Kind_PBCore2, Kind_reVTMD, Kind_MPEG7, Kind_EBUCore_1_5, Kind_EBUCore_1_6, Kind_EBUCore_1_8_ps, Kind_EBUCore_1_8_sp, Kind_EBUCore_1_8_ps_json, Kind_EBUCore_1_8_sp_json, Kind_FIMS_1_1, Kind_FIMS_1_2, Kind_FIMS_1_3, Kind_NISO_Z39_87, Kind_Graph_Svg } ViewMenu_Kind;
+typedef enum { Kind_Text, Kind_HTML, Kind_XML, Kind_CSV, Kind_JSON, Kind_PBCore, Kind_PBCore2, Kind_reVTMD, Kind_MPEG7_Strict, Kind_MPEG7_Relaxed, Kind_MPEG7_Extended, Kind_EBUCore_1_5, Kind_EBUCore_1_6, Kind_EBUCore_1_8_ps, Kind_EBUCore_1_8_sp, Kind_EBUCore_1_8_ps_json, Kind_EBUCore_1_8_sp_json, Kind_FIMS_1_1, Kind_FIMS_1_2, Kind_FIMS_1_3, Kind_NISO_Z39_87, Kind_Graph_Svg } ViewMenu_Kind;
 
 @interface MyWindowController : NSWindowController {
 
@@ -61,7 +61,9 @@ typedef enum { Kind_Text, Kind_HTML, Kind_XML, Kind_CSV, Kind_JSON, Kind_PBCore,
 -(IBAction)selectViewHTML:(id)sender;
 -(IBAction)selectViewXML:(id)sender;
 -(IBAction)selectViewJSON:(id)sender;
--(IBAction)selectViewMPEG7:(id)sender;
+-(IBAction)selectViewMPEG7_Strict:(id)sender;
+-(IBAction)selectViewMPEG7_Relaxed:(id)sender;
+-(IBAction)selectViewMPEG7_Extended:(id)sender;
 -(IBAction)selectViewPBCore:(id)sender;
 -(IBAction)selectViewPBCore2:(id)sender;
 -(IBAction)selectViewEBUCore15:(id)sender;

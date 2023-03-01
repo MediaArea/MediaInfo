@@ -27,7 +27,11 @@ QString nameView(ViewMode v) {
        break;
    case VIEW_PBCORE2: return Tr("PBCore 2.0");
        break;
-   case VIEW_MPEG7: return Tr("MPEG-7");
+   case VIEW_MPEG7_Strict: return Tr("MPEG-7 (strict)");
+       break;
+   case VIEW_MPEG7_Relaxed: return Tr("MPEG-7 (relaxed)");
+       break;
+   case VIEW_MPEG7_Extended: return Tr("MPEG-7 (extended)");
        break;
    case VIEW_EBUCORE_1_5: return Tr("EBUCore 1.5");
        break;

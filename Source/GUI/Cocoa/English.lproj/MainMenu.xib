@@ -677,12 +677,27 @@
                                     <action selector="selectViewGraph_Svg:" target="-1" id="d1I-dO-g9e"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="MPEG-7" id="o7W-nM-5JW">
+                            <menuItem title="MPEG-7 (strict)" id="o7W-nM-5JW">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="selectViewMPEG7:" target="-1" id="Nkm-M1-jmT"/>
+                                    <action selector="selectViewMPEG7_Strict:" target="-1" id="Nkm-M1-jmT"/>
                                 </connections>
                             </menuItem>
+
+                            <menuItem title="MPEG-7 (relaxed)" id="p8X-mO-6KX">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="selectViewMPEG7_Relaxed:" target="-1" id="Oln-N2-knU"/>
+                                </connections>
+                            </menuItem>
+
+                            <menuItem title="MPEG-7 (extended)" id="q9Y-oP-7LY">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="selectViewMPEG7_Extended:" target="-1" id="Pmo-O3-loV"/>
+                                </connections>
+                            </menuItem>
+
                             <menuItem title="PBCore 1.2" id="R8P-ks-E16">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>

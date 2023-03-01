@@ -2162,11 +2162,23 @@ object MainF: TMainF
         RadioItem = True
         OnClick = M_View_Graph_SvgClick
       end
-      object M_View_MPEG7: TMenuItem
+      object M_View_MPEG7_Strict: TMenuItem
         AutoCheck = True
-        Caption = 'MPEG-7'
+        Caption = 'MPEG-7 (strict)'
         RadioItem = True
-        OnClick = M_View_MPEG7Click
+        OnClick = M_View_MPEG7_StrictClick
+      end
+      object M_View_MPEG7_Relaxed: TMenuItem
+        AutoCheck = True
+        Caption = 'MPEG-7 (relaxed)'
+        RadioItem = True
+        OnClick = M_View_MPEG7_RelaxedClick
+      end
+      object M_View_MPEG7_Extended: TMenuItem
+        AutoCheck = True
+        Caption = 'MPEG-7 (extended)'
+        RadioItem = True
+        OnClick = M_View_MPEG7_ExtendedClick
       end
       object M_View_PBCore: TMenuItem
         AutoCheck = True
@@ -3930,8 +3942,16 @@ object MainF: TMainF
       Caption = 'Graph'
       RadioItem = True
     end
-    object ToolBar_View_MPEG7: TMenuItem
-      Caption = 'MPEG-7'
+    object ToolBar_View_MPEG7_Strict: TMenuItem
+      Caption = 'MPEG-7 (strict)'
+      RadioItem = True
+    end
+    object ToolBar_View_MPEG7_Relaxed: TMenuItem
+      Caption = 'MPEG-7 (relaxed)'
+      RadioItem = True
+    end
+    object ToolBar_View_MPEG7_Extended: TMenuItem
+      Caption = 'MPEG-7 (extended)'
       RadioItem = True
     end
     object ToolBar_View_PBCore: TMenuItem

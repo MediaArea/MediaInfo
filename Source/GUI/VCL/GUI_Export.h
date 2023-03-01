@@ -41,7 +41,9 @@ __published:    // IDE-managed Components
     TTabSheet *Export_HTML;
     TTabSheet *Export_XML;
     TTabSheet *Export_JSON;
-    TTabSheet *Export_MPEG7;
+    TTabSheet *Export_MPEG7_Strict;
+    TTabSheet *Export_MPEG7_Relaxed;
+    TTabSheet *Export_MPEG7_Extended;
     TTabSheet *Export_PBCore;
     TTabSheet *Export_PBCore2;
     TTabSheet *Export_EBUCore_1_5;
@@ -95,7 +97,9 @@ __published:    // IDE-managed Components
     TSaveDialog *SaveDialog1;
     TCheckBox *Export_XML_SideCar;
     TCheckBox *Export_JSON_SideCar;
-    TCheckBox *Export_MPEG7_SideCar;
+    TCheckBox *Export_MPEG7_Strict_SideCar;
+    TCheckBox *Export_MPEG7_Relaxed_SideCar;
+    TCheckBox *Export_MPEG7_Extended_SideCar;
     TCheckBox *Export_PBCore_SideCar;
     TCheckBox *Export_PBCore2_SideCar;
     TCheckBox *Export_EBUCore_1_5_SideCar;
@@ -120,7 +124,9 @@ __published:    // IDE-managed Components
     void __fastcall Export_reVTMD_SideCarClick(TObject *Sender);
     void __fastcall Export_XML_SideCarClick(TObject *Sender);
     void __fastcall Export_JSON_SideCarClick(TObject *Sender);
-    void __fastcall Export_MPEG7_SideCarClick(TObject *Sender);
+    void __fastcall Export_MPEG7_Strict_SideCarClick(TObject *Sender);
+    void __fastcall Export_MPEG7_Relaxed_SideCarClick(TObject *Sender);
+    void __fastcall Export_MPEG7_Extended_SideCarClick(TObject *Sender);
     void __fastcall Export_PBCore_SideCarClick(TObject *Sender);
     void __fastcall Export_PBCore2_SideCarClick(TObject *Sender);
     void __fastcall Export_EBUCore_1_5_SideCarClick(TObject *Sender);

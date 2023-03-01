@@ -181,7 +181,9 @@ __published:    // IDE-managed Components
     TMenuItem *M_NewVersion;
     TMenuItem *M_View_XML;
     TMenuItem *M_View_JSON;
-    TMenuItem *M_View_MPEG7;
+    TMenuItem *M_View_MPEG7_Strict;
+    TMenuItem *M_View_MPEG7_Relaxed;
+    TMenuItem *M_View_MPEG7_Extended;
     TMenuItem *M_View_PBCore;
     TMenuItem *M_View_PBCore2;
     TMenuItem *M_View_EBUCore_1_5;
@@ -199,7 +201,9 @@ __published:    // IDE-managed Components
     TMenuItem *M_View_Graph_Svg;
     TMenuItem *ToolBar_View_XML;
     TMenuItem *ToolBar_View_JSON;
-    TMenuItem *ToolBar_View_MPEG7;
+    TMenuItem *ToolBar_View_MPEG7_Strict;
+    TMenuItem *ToolBar_View_MPEG7_Relaxed;
+    TMenuItem *ToolBar_View_MPEG7_Extended;
     TMenuItem *ToolBar_View_PBCore;
     TMenuItem *ToolBar_View_PBCore2;
     TMenuItem *ToolBar_View_EBUCore_1_5;
@@ -268,7 +272,9 @@ __published:    // IDE-managed Components
     void __fastcall Donate_zh_TWClick(TObject *Sender);
     void __fastcall Donate___Click(TObject *Sender);
     void __fastcall M_NewVersionClick(TObject *Sender);
-    void __fastcall M_View_MPEG7Click(TObject *Sender);
+    void __fastcall M_View_MPEG7_StrictClick(TObject *Sender);
+    void __fastcall M_View_MPEG7_RelaxedClick(TObject *Sender);
+    void __fastcall M_View_MPEG7_ExtendedClick(TObject *Sender);
     void __fastcall M_View_PBCoreClick(TObject *Sender);
     void __fastcall M_View_PBCore2Click(TObject *Sender);
     void __fastcall M_View_EBUCore_1_5Click(TObject *Sender);

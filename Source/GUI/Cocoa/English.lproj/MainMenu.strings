@@ -443,8 +443,14 @@
 /* Class = "NSMenuItem"; title = "XML"; ObjectID = "o0W-Nz-FBX"; */
 "o0W-Nz-FBX.title" = "XML";
 
-/* Class = "NSMenuItem"; title = "MPEG-7"; ObjectID = "o7W-nM-5JW"; */
-"o7W-nM-5JW.title" = "MPEG-7";
+/* Class = "NSMenuItem"; title = "MPEG-7 (strict)"; ObjectID = "o7W-nM-5JW"; */
+"o7W-nM-5JW.title" = "MPEG-7 (strict)";
+
+/* Class = "NSMenuItem"; title = "MPEG-7 (relaxed)"; ObjectID = "rQz-4i-QPG"; */
+"rQz-4i-QPG.title" = "MPEG-7 (relaxed)";
+
+/* Class = "NSMenuItem"; title = "MPEG-7 (extended)"; ObjectID = "sRa-5j-RQH"; */
+"sRa-5j-RQH.title" = "MPEG-7 (extended)";
 
 /* Class = "NSMenuItem"; title = "Easy"; ObjectID = "ok7-rU-jbg"; */
 "ok7-rU-jbg.title" = "Easy";

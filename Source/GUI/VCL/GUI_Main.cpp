@@ -220,7 +220,9 @@ void __fastcall TMainF::GUI_Configure()
     else if (Prefs->Config(__T("Output"))==__T("MIXML")) {M_View_XMLClick(NULL); M_View_XML->Checked=true;}
     else if (Prefs->Config(__T("Output"))==__T("JSON")) {M_View_JSONClick(NULL); M_View_JSON->Checked=true;}
     else if (Prefs->Config(__T("Output"))==__T("Graph_Svg")) {M_View_Graph_SvgClick(NULL); M_View_Graph_Svg->Checked=true;}
-    else if (Prefs->Config(__T("Output"))==__T("MPEG-7")) {M_View_MPEG7Click(NULL); M_View_MPEG7->Checked=true;}
+    else if (Prefs->Config(__T("Output"))==__T("MPEG-7_Strict")) {M_View_MPEG7_StrictClick(NULL); M_View_MPEG7_Strict->Checked=true;}
+    else if (Prefs->Config(__T("Output"))==__T("MPEG-7_Relaxed")) {M_View_MPEG7_RelaxedClick(NULL); M_View_MPEG7_Relaxed->Checked=true;}
+    else if (Prefs->Config(__T("Output"))==__T("MPEG-7_Extended")) {M_View_MPEG7_ExtendedClick(NULL); M_View_MPEG7_Extended->Checked=true;}
     else if (Prefs->Config(__T("Output"))==__T("PBCore_1.2")) {M_View_PBCoreClick(NULL); M_View_PBCore->Checked=true;}
     else if (Prefs->Config(__T("Output"))==__T("PBCore_2.0")) {M_View_PBCore2Click(NULL); M_View_PBCore2->Checked=true;}
     else if (Prefs->Config(__T("Output"))==__T("EBUCore_1.5")) {M_View_EBUCore_1_5Click(NULL); M_View_EBUCore_1_5->Checked=true;}
@@ -852,8 +854,12 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
 
             I->Option_Static(__T("Inform"), __T("Graph_Svg"));
         }
-        else if (M_View_MPEG7->Checked)
-            I->Option_Static(__T("Inform"), __T("MPEG-7"));
+        else if (M_View_MPEG7_Strict->Checked)
+            I->Option_Static(__T("Inform"), __T("MPEG-7_Strict"));
+        else if (M_View_MPEG7_Relaxed->Checked)
+            I->Option_Static(__T("Inform"), __T("MPEG-7_Relaxed"));
+        else if (M_View_MPEG7_Extended->Checked)
+            I->Option_Static(__T("Inform"), __T("MPEG-7_Extended"));
         else if (M_View_PBCore->Checked)
             I->Option_Static(__T("Inform"), __T("PBCore_1.2"));
         else if (M_View_PBCore2->Checked)
@@ -1233,10 +1239,26 @@ void __fastcall TMainF::M_View_JSONClick(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
-void __fastcall TMainF::M_View_MPEG7Click(TObject *Sender)
+void __fastcall TMainF::M_View_MPEG7_StrictClick(TObject *Sender)
 {
-    M_View_MPEG7->Checked=true;
-    ToolBar_View_MPEG7->Checked=true;
+    M_View_MPEG7_Strict->Checked=true;
+    ToolBar_View_MPEG7_Strict->Checked=true;
+    ChangePage(Page_Custom);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::M_View_MPEG7_RelaxedClick(TObject *Sender)
+{
+    M_View_MPEG7_Relaxed->Checked=true;
+    ToolBar_View_MPEG7_Relaxed->Checked=true;
+    ChangePage(Page_Custom);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::M_View_MPEG7_ExtendedClick(TObject *Sender)
+{
+    M_View_MPEG7_Extended->Checked=true;
+    ToolBar_View_MPEG7_Extended->Checked=true;
     ChangePage(Page_Custom);
 }
 
