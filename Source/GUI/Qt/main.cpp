@@ -27,6 +27,10 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("mediainfo-gui");
     QCoreApplication::setApplicationVersion(QString().fromStdString(Ztring(MediaInfo_Version_GUI).To_UTF8()));
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0) && QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+#endif
 #if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) //UWP Application
     QApplication::setAttribute(Qt::AA_ImmediateWidgetCreation, true);
     QApplication a(argc, argv);
