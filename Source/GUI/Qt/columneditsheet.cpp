@@ -22,8 +22,8 @@ using namespace ZenLib;
 ColumnEditSheet::ColumnEditSheet(column c, int pos, int nb, Core* C, QWidget *parent) :
     QHBoxLayout(parent),
     pos(pos),
-    C(C),
-    col(c)
+    col(c),
+    C(C)
 {
     QLineEdit* lineedit = new QLineEdit(c.name);
     this->addWidget(lineedit);
