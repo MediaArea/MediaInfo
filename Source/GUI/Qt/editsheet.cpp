@@ -79,11 +79,10 @@ QLayout* EditSheet::createColumn(column c) {
 
     col->widthBox()->setDisabled(ui->checkBoxAdapt->isChecked());
 
-#if QT_VERSION >= 0x403000
+#if QT_VERSION >= 0x040300
     col->setContentsMargins(0,0,0,0);
 #endif
     col->setSpacing(0);
-    col->setMargin(0);
 
     return col;
 }

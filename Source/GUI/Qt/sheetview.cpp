@@ -96,15 +96,11 @@ void SheetView::on_tableWidget_itemSelectionChanged()
 {
     ui->comboBox->clear();
     ui->comboBox->addItem(Tr("Summary"),QPoint(-1,-1));
-#if QT_VERSION >= 0x404000
-        if(C->Count_Get(filePos,(stream_t)streamKind) && ui->comboBox->count())
-            ui->comboBox->insertSeparator(ui->comboBox->count());
-#endif
     if(ui->tableWidget->selectedItems().isEmpty())
         return;
     int filePos = ui->tableWidget->selectedItems().at(0)->data(Qt::UserRole).toInt();
     for(int streamKind=0;streamKind<Stream_Max;++streamKind) {
-#if QT_VERSION >= 0x404000
+#if QT_VERSION >= 0x040400
         if(C->Count_Get(filePos,(stream_t)streamKind) && ui->comboBox->count())
             ui->comboBox->insertSeparator(ui->comboBox->count());
 #endif
