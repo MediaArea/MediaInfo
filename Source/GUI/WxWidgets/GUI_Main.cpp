@@ -119,10 +119,20 @@ GUI_Main::GUI_Main(int argc, MediaInfoNameSpace::Char** argv_ansi, const wxPoint
         Menu_View_JSON->Check();
         OnMenu_View_JSON(*EventTemp);
     }
-    else if (view=="MPEG7")
+    else if (view=="MPEG7_Strict")
     {
-        Menu_View_MPEG7->Check();
-        OnMenu_View_MPEG7(*EventTemp);
+        Menu_View_MPEG7_Strict->Check();
+        OnMenu_View_MPEG7_Strict(*EventTemp);
+    }
+    else if (view=="MPEG7_Relaxed" || view=="MPEG7")
+    {
+        Menu_View_MPEG7_Relaxed->Check();
+        OnMenu_View_MPEG7_Relaxed(*EventTemp);
+    }
+    else if (view=="MPEG7_Extended")
+    {
+        Menu_View_MPEG7_Extended->Check();
+        OnMenu_View_MPEG7_Extended(*EventTemp);
     }
     else if (view=="PBCore_1_2")
     {
@@ -277,36 +287,42 @@ GUI_Main::~GUI_Main()
                 pConfig->Write(wxT("/View"), wxT("reVTMD"));
                 break;
             case 10:
-                pConfig->Write(wxT("/View"), wxT("MPEG7"));
+                pConfig->Write(wxT("/View"), wxT("MPEG7_Strict"));
                 break;
             case 11:
-                pConfig->Write(wxT("/View"), wxT("EBUCore_1_5"));
+                pConfig->Write(wxT("/View"), wxT("MPEG7_Relaxed"));
                 break;
             case 12:
-                pConfig->Write(wxT("/View"), wxT("EBUCore_1_6"));
+                pConfig->Write(wxT("/View"), wxT("MPEG7_Extended"));
                 break;
             case 13:
-                pConfig->Write(wxT("/View"), wxT("EBUCore_1_8_ps"));
+                pConfig->Write(wxT("/View"), wxT("EBUCore_1_5"));
                 break;
             case 14:
-                pConfig->Write(wxT("/View"), wxT("EBUCore_1_8_sp"));
+                pConfig->Write(wxT("/View"), wxT("EBUCore_1_6"));
                 break;
             case 15:
-                pConfig->Write(wxT("/View"), wxT("EBUCore_1_8_ps_json"));
+                pConfig->Write(wxT("/View"), wxT("EBUCore_1_8_ps"));
                 break;
             case 16:
-                pConfig->Write(wxT("/View"), wxT("EBUCore_1_8_sp_json"));
+                pConfig->Write(wxT("/View"), wxT("EBUCore_1_8_sp"));
                 break;
             case 17:
-                pConfig->Write(wxT("/View"), wxT("FIMS_1_1"));
+                pConfig->Write(wxT("/View"), wxT("EBUCore_1_8_ps_json"));
                 break;
             case 18:
-                pConfig->Write(wxT("/View"), wxT("FIMS_1_2"));
+                pConfig->Write(wxT("/View"), wxT("EBUCore_1_8_sp_json"));
                 break;
             case 19:
-                pConfig->Write(wxT("/View"), wxT("FIMS_1_3"));
+                pConfig->Write(wxT("/View"), wxT("FIMS_1_1"));
                 break;
             case 20:
+                pConfig->Write(wxT("/View"), wxT("FIMS_1_2"));
+                break;
+            case 21:
+                pConfig->Write(wxT("/View"), wxT("FIMS_1_3"));
+                break;
+            case 22:
                 pConfig->Write(wxT("/View"), wxT("NISO_Z39_87"));
                 break;
         }
