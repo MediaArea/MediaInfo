@@ -76,6 +76,7 @@
     <addaction name="actionReset_field_sizes"/>
     <addaction name="actionAdapt_columns_to_content"/>
     <addaction name="actionAdvanced_Mode"/>
+    <addaction name="actionFull_Parse"/>
    </widget>
    <widget class="QMenu" name="menuFile">
     <property name="title">
@@ -223,6 +224,14 @@
    </property>
    <property name="text">
     <string>Advanced Mode</string>
+   </property>
+  </action>
+  <action name="actionFull_Parse">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Full parse</string>
    </property>
   </action>
   <action name="actionReset_field_sizes">

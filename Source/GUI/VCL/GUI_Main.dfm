@@ -2305,6 +2305,14 @@ object MainF: TMainF
       object M_Options_Z1: TMenuItem
         Caption = '-'
       end
+      object M_Options_FullParsing: TMenuItem
+        Caption = 'Full parsing'
+        Hint = 'Full parsing of the file'
+        OnClick = M_Options_FullParsingClick
+      end
+      object M_Options_Z2: TMenuItem
+        Caption = '-'
+      end
       object M_Options_Preferences: TMenuItem
         Caption = 'Preferences...'
         Hint = 'Change your preferences...'
@@ -2325,11 +2333,6 @@ object MainF: TMainF
         Caption = 'Advanced mode'
         Hint = 'Give more information about file'
         OnClick = M_Debug_AdvancedClick
-      end
-      object M_Debug_FullParsing: TMenuItem
-        Caption = 'Full parsing'
-        Hint = 'Full parsing of the file'
-        OnClick = M_Debug_FullParsingClick
       end
       object N6: TMenuItem
         Caption = '-'

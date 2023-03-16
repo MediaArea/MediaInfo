@@ -1476,10 +1476,10 @@ void __fastcall TMainF::M_Debug_AdvancedClick(TObject *Sender)
 
 //---------------------------------------------------------------------------
 
-void __fastcall TMainF::M_Debug_FullParsingClick(TObject *Sender)
+void __fastcall TMainF::M_Options_FullParsingClick(TObject *Sender)
 {
-    M_Debug_FullParsing->Checked=!M_Debug_FullParsing->Checked;
-    I->Option_Static(__T("ParseSpeed"), M_Debug_FullParsing->Checked?__T("1"):__T("0"));
+    M_Options_FullParsing->Checked=!M_Options_FullParsing->Checked;
+    I->Option_Static(__T("ParseSpeed"), M_Options_FullParsing->Checked?__T("1"):__T("0.5"));
 }
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_Debug_DummyClick(TObject *Sender)

@@ -21,9 +21,9 @@
 #define kApplicationMenuTag 10
 #define kSubscribeMenuItemTag 11
 #define kViewMenuTag 50
+#define kOptionsMenuTag 53
 #define kCompareMenuItemTag 51
 #define kAdvancedMenuItemTag 52
-#define kAdvancedMenuItemSeparatorTag 53
 
 NSString* TextKindToNSString(ViewMenu_Kind kind)
 {
@@ -570,12 +570,12 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
         if(view && view.submenu) {
             NSMenuItem *compare = [view.submenu itemWithTag:kCompareMenuItemTag];
             [compare setHidden:NO];
+        }
 
-            NSMenuItem *advanced = [view.submenu itemWithTag:kAdvancedMenuItemTag];
+        NSMenuItem *options = [menu itemWithTag:kOptionsMenuTag];
+        if(options && options.submenu) {
+            NSMenuItem *advanced = [options.submenu itemWithTag:kAdvancedMenuItemTag];
             [advanced setHidden:NO];
-
-            NSMenuItem *separator = [view.submenu itemWithTag:kAdvancedMenuItemSeparatorTag];
-            [separator setHidden:NO];
         }
     }
 
@@ -1183,4 +1183,20 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
         }
     }
 }
+
+-(IBAction)fullParse:(id)sender {
+    if([sender isKindOfClass: [NSMenuItem class]]) {
+        NSMenuItem* item = sender;
+
+        BOOL newState = !item.state;
+        [item setState:newState];
+
+        [oMediaInfoList setOptionStatic:@"ParseSpeed" withValue:(newState?@"1":@"0.5")];
+
+        if(mediaList && selectedFileIndex < [mediaList count]) {
+            [self showFileAtIndex:selectedFileIndex];
+        }
+    }
+}
+
 @end

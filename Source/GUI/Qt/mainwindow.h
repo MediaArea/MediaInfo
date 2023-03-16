@@ -86,7 +86,8 @@ private:
 private slots:
     void updateProgressBar ();
     void on_actionClose_All_triggered();
-    void on_actionAdvanced_Mode_toggled(bool );
+    void on_actionAdvanced_Mode_toggled(bool);
+    void on_actionFull_Parse_toggled(bool);
     void on_actionExport_triggered();
     void on_actionPreferences_triggered();
     void on_actionKnown_parameters_triggered();
