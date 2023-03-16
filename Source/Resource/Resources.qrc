@@ -1,8 +1,6 @@
 <RCC>
     <qresource prefix="/icon">
-        <file>Image/MediaInfo.ico</file>
         <file alias="icon.png">Image/MediaInfo.png</file>
-        <file>Image/MediaInfo.xpm</file>
         <file alias="export.svg">Image/Menu/K20/File_Export.svg</file>
         <file alias="opendir.svg">Image/Menu/K20/File_Open_Directory.svg</file>
         <file alias="openfile.svg">Image/Menu/K20/File_Open_File.svg</file>
