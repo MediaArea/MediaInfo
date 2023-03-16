@@ -413,6 +413,12 @@
 /* Class = "NSMenuItem"; title = "Advanced mode"; ObjectID = "HYj-FA-ksV"; */
 "HYj-FA-ksV.title" = "Advanced mode";
 
+/* Class = "NSMenuItem"; ibShadowedToolTip = "More complete output (slower)"; ObjectID = "JUk-GZ-ldB"; */
+"JUk-GZ-ldB.ibShadowedToolTip" = "More complete output (slower)";
+
+/* Class = "NSMenuItem"; title = "Full parse"; ObjectID = "JUk-GZ-ldB"; */
+"JUk-GZ-ldB.title" = "Full parse";
+
 /* Class = "NSMenuItem"; title = "Subscribe"; ObjectID = "K4A-dG-lv3"; */
 "K4A-dG-lv3.title" = "Subscribe";
 

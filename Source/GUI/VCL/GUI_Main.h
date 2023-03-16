@@ -127,6 +127,8 @@ __published:    // IDE-managed Components
     TMenuItem *N5;
     TMenuItem *M_Options_CloseAllAuto;
     TMenuItem *M_Options_Z1;
+    TMenuItem *M_Options_FullParsing;
+    TMenuItem *M_Options_Z2;
     TMenuItem *M_Options_Preferences;
     TMenuItem *M_Debug;
     TMenuItem *M_Debug_Header;
@@ -218,7 +220,6 @@ __published:    // IDE-managed Components
     TMenuItem *ToolBar_View_reVTMD;
     TMenuItem *ToolBar_View_NISO_Z39_87;
     TMenuItem *ToolBar_View_Graph_Svg;
-    TMenuItem *M_Debug_FullParsing;
     void __fastcall FormResize(TObject *Sender);
     void __fastcall M_Help_AboutClick(TObject *Sender);
     void __fastcall M_Options_PreferencesClick(TObject *Sender);
@@ -292,7 +293,7 @@ __published:    // IDE-managed Components
     void __fastcall M_View_reVTMDClick(TObject *Sender);
     void __fastcall M_View_NISO_Z39_87Click(TObject *Sender);
     void __fastcall M_View_Graph_SvgClick(TObject *Sender);
-    void __fastcall M_Debug_FullParsingClick(TObject *Sender);
+    void __fastcall M_Options_FullParsingClick(TObject *Sender);
 private:    // User declarations
 public:        // User declarations
     MESSAGE void __fastcall HandleDropFiles (TMessage&);

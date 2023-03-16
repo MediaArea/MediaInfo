@@ -623,8 +623,8 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="View" tag="50" id="295">
-                    <menu key="submenu" title="View" id="296">
+                 <menuItem title="Options" tag="53" id="299">
+                    <menu key="submenu" title="Options" id="300">
                         <items>
                             <menuItem title="Advanced mode" tag="52" hidden="YES" toolTip="Show more in the output, including different formats of time or duration" id="HYj-FA-ksV">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -632,7 +632,18 @@
                                     <action selector="advancedMode:" target="-1" id="vG8-Z5-Yd4"/>
                                 </connections>
                             </menuItem>
-                            <menuItem tag="53" hidden="YES" isSeparatorItem="YES" id="Aad-T6-fdc"/>
+                            <menuItem title="Full parsing" tag="54" toolTip="More complete output (slower)" id="JUk-GZ-ldB">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="fullParse:" target="-1" id="bH9-E6-Uf5"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="View" tag="50" id="295">
+                    <menu key="submenu" title="View" id="296">
+                        <items>
                             <menuItem title="Easy" keyEquivalent="1" id="ok7-rU-jbg">
                                 <connections>
                                     <action selector="selectEasyTab:" target="-1" id="Lgg-7U-SYd"/>

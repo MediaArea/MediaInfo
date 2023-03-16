@@ -86,6 +86,8 @@ public:
     wxMenuItem* Menu_View_FIMS_1_2;
     wxMenuItem* Menu_View_reVTMD;
     wxMenuItem* Menu_View_NISO_Z39_87;
+    wxMenu*     Menu_Options;
+    wxMenuItem* Menu_Options_Full_Parse;
     wxMenu*     Menu_Debug;
     wxMenuItem* Menu_Debug_Complete;
     wxMenuItem* Menu_Debug_Details;
@@ -126,6 +128,7 @@ public:
     void OnMenu_View_FIMS_1_2           (wxCommandEvent &event);
     void OnMenu_View_reVTMD             (wxCommandEvent &event);
     void OnMenu_View_NISO_Z39_87        (wxCommandEvent &event);
+    void OnMenu_Options_Full_Parse      (wxCommandEvent &event);
     void OnMenu_Debug_Complete          (wxCommandEvent &event);
     void OnMenu_Debug_Details           (wxCommandEvent &event);
     void OnMenu_Debug_Demux_None        (wxCommandEvent &event);

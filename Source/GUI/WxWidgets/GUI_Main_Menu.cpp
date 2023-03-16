@@ -56,6 +56,7 @@ enum
     ID_Menu_View_FIMS_1_2,
     ID_Menu_View_reVTMD,
     ID_Menu_View_NISO_Z39_87,
+    ID_Menu_Options_Full_Parse,
     ID_Menu_Debug_Complete,
     ID_Menu_Debug_Details,
     ID_Menu_Debug_Demux,
@@ -95,6 +96,7 @@ BEGIN_EVENT_TABLE(GUI_Main, wxFrame)
     EVT_MENU(ID_Menu_View_FIMS_1_2,         GUI_Main::OnMenu_View_FIMS_1_2)
     EVT_MENU(ID_Menu_View_reVTMD,           GUI_Main::OnMenu_View_reVTMD)
     EVT_MENU(ID_Menu_View_NISO_Z39_87,      GUI_Main::OnMenu_View_NISO_Z39_87)
+    EVT_MENU(ID_Menu_Options_Full_Parse,    GUI_Main::OnMenu_Options_Full_Parse)
     EVT_MENU(ID_Menu_Debug_Complete,        GUI_Main::OnMenu_Debug_Complete)
     EVT_MENU(ID_Menu_Debug_Details,         GUI_Main::OnMenu_Debug_Details)
     EVT_MENU(ID_Menu_Debug_Demux_None,      GUI_Main::OnMenu_Debug_Demux_None)
@@ -159,6 +161,10 @@ void GUI_Main::Menu_Create()
     Menu_View_NISO_Z39_87       =Menu_View->AppendRadioItem(ID_Menu_View_NISO_Z39_87, __T("NISO Z39.87"));
     Menu_View_reVTMD            =Menu_View->AppendRadioItem(ID_Menu_View_reVTMD, __T("reVTMD"));
 
+    //Options - Demux
+    Menu_Options                =new wxMenu;
+    Menu_Options_Full_Parse    =Menu_Options->AppendCheckItem(ID_Menu_Options_Full_Parse, __T("Full parse"));
+
     //Debug - Demux
     Menu_Debug_Demux            =new wxMenu;
     Menu_Debug_Demux_None       =Menu_Debug_Demux->AppendRadioItem(ID_Menu_Debug_Demux_None, __T("No demux"));
@@ -183,6 +189,7 @@ void GUI_Main::Menu_Create()
     Menu=new wxMenuBar();
     Menu->Append(Menu_File,     __T("&File"));
     Menu->Append(Menu_View,     __T("&View"));
+    Menu->Append(Menu_Options,  __T("&Options"));
     Menu->Append(Menu_Debug,    __T("&Debug"));
     Menu->Append(Menu_Help,     __T("&Help"));
     SetMenuBar(Menu);
@@ -480,6 +487,16 @@ void GUI_Main::OnMenu_View_NISO_Z39_87(wxCommandEvent& WXUNUSED(event))
     //Showing
     GUI_Main_Common_Core* View_New = new GUI_Main_Text(C, this);
     delete View; View = View_New;
+}
+
+//---------------------------------------------------------------------------
+void GUI_Main::OnMenu_Options_Full_Parse(wxCommandEvent& WXUNUSED(event))
+{
+    //Configuring
+    C->MI->Option_Static(__T("ParseSpeed"), Menu_Options_Full_Parse->IsChecked()? __T("1"):__T("0.5"));
+
+    //Showing
+    View->GUI_Refresh();
 }
 
 //---------------------------------------------------------------------------
