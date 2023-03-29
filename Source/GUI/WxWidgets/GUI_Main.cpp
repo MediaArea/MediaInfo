@@ -87,109 +87,109 @@ GUI_Main::GUI_Main(int argc, MediaInfoNameSpace::Char** argv_ansi, const wxPoint
 
     wxConfigBase *pConfig = wxConfigBase::Get();
 
-    wxString view = pConfig->Read(wxT("/View"), "Easy");
+    wxString view = pConfig->Read(wxT("/View"), wxT("Easy"));
 
     //Defaults
     Menu_View_Sheet->Enable(false); //Not yet available
     Menu_View_Tree->Enable (false); //Not yet available
 
     wxCommandEvent* EventTemp=new wxCommandEvent();
-    if (view=="Easy")
+    if (view==wxT("Easy"))
     {
         Menu_View_Easy->Check();
         OnMenu_View_Easy(*EventTemp);
     }
-    else if (view=="HTML")
+    else if (view==wxT("HTML"))
     {
         Menu_View_HTML->Check();
         OnMenu_View_HTML(*EventTemp);
     }
-    else if (view=="Text")
+    else if (view==wxT("Text"))
     {
         Menu_View_Text->Check();
         OnMenu_View_Text(*EventTemp);
     }
-    else if (view=="XML")
+    else if (view==wxT("XML"))
     {
         Menu_View_XML->Check();
         OnMenu_View_XML(*EventTemp);
     }
-    else if (view=="JSON")
+    else if (view==wxT("JSON"))
     {
         Menu_View_JSON->Check();
         OnMenu_View_JSON(*EventTemp);
     }
-    else if (view=="MPEG7_Strict")
+    else if (view==wxT("MPEG7_Strict"))
     {
         Menu_View_MPEG7_Strict->Check();
         OnMenu_View_MPEG7_Strict(*EventTemp);
     }
-    else if (view=="MPEG7_Relaxed" || view=="MPEG7")
+    else if (view==wxT("MPEG7_Relaxed") || view==wxT("MPEG7"))
     {
         Menu_View_MPEG7_Relaxed->Check();
         OnMenu_View_MPEG7_Relaxed(*EventTemp);
     }
-    else if (view=="MPEG7_Extended")
+    else if (view==wxT("MPEG7_Extended"))
     {
         Menu_View_MPEG7_Extended->Check();
         OnMenu_View_MPEG7_Extended(*EventTemp);
     }
-    else if (view=="PBCore_1_2")
+    else if (view==wxT("PBCore_1_2"))
     {
         Menu_View_PBCore_1_2->Check();
         OnMenu_View_PBCore_1_2(*EventTemp);
     }
-    else if (view=="PBCore_2_0")
+    else if (view==wxT("PBCore_2_0"))
     {
         Menu_View_PBCore_2_0->Check();
         OnMenu_View_PBCore_2_0(*EventTemp);
     }
-    else if (view=="EBUCore_1_5")
+    else if (view==wxT("EBUCore_1_5"))
     {
         Menu_View_EBUCore_1_5->Check();
         OnMenu_View_EBUCore_1_5(*EventTemp);
     }
-    else if (view=="EBUCore_1_6")
+    else if (view==wxT("EBUCore_1_6"))
     {
         Menu_View_EBUCore_1_6->Check();
         OnMenu_View_EBUCore_1_6(*EventTemp);
     }
-    else if (view=="EBUCore_1_8_ps")
+    else if (view==wxT("EBUCore_1_8_ps"))
     {
         Menu_View_EBUCore_1_8_ps->Check();
         OnMenu_View_EBUCore_1_8_ps(*EventTemp);
     }
-    else if (view=="EBUCore_1_8_sp")
+    else if (view==wxT("EBUCore_1_8_sp"))
     {
         Menu_View_EBUCore_1_8_sp->Check();
         OnMenu_View_EBUCore_1_8_sp(*EventTemp);
     }
-    else if (view=="EBUCore_1_8_ps_json")
+    else if (view==wxT("EBUCore_1_8_ps_json"))
     {
         Menu_View_EBUCore_1_8_ps_json->Check();
         OnMenu_View_EBUCore_1_8_ps_json(*EventTemp);
     }
-    else if (view=="EBUCore_1_8_sp_json")
+    else if (view==wxT("EBUCore_1_8_sp_json"))
     {
         Menu_View_EBUCore_1_8_sp_json->Check();
         OnMenu_View_EBUCore_1_8_sp_json(*EventTemp);
     }
-    else if (view=="FIMS_1_1")
+    else if (view==wxT("FIMS_1_1"))
     {
         Menu_View_FIMS_1_1->Check();
         OnMenu_View_FIMS_1_1(*EventTemp);
     }
-    else if (view=="FIMS_1_2")
+    else if (view==wxT("FIMS_1_2"))
     {
         Menu_View_FIMS_1_2->Check();
         OnMenu_View_FIMS_1_2(*EventTemp);
     }
-    else if (view=="reVTMD")
+    else if (view==wxT("reVTMD"))
     {
         Menu_View_reVTMD->Check();
         OnMenu_View_reVTMD(*EventTemp);
     }
-    else if (view=="NISO_Z39_87")
+    else if (view==wxT("NISO_Z39_87"))
     {
         Menu_View_NISO_Z39_87->Check();
         OnMenu_View_NISO_Z39_87(*EventTemp);
@@ -234,7 +234,7 @@ GUI_Main::~GUI_Main()
 {
 
     //Save view state
-    wxConfig *config = new wxConfig("mediainfo-gui");
+    wxConfig *config = new wxConfig(wxT("mediainfo-gui"));
 
 
     wxConfigBase *pConfig = wxConfigBase::Get();
@@ -244,7 +244,7 @@ GUI_Main::~GUI_Main()
     }
 
     bool rememberView;
-    if ( !pConfig->Read("rememberView", &rememberView))
+    if ( !pConfig->Read(wxT("rememberView"), &rememberView))
     {
         rememberView=1;
         pConfig->Write(wxT("/rememberView"), 1);
