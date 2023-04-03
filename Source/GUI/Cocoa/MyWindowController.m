@@ -424,7 +424,7 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 
 	NSInteger tag = exportFormatButton.selectedTag;
 
-	if (tag == 4 || tag == 13 || tag == 14)
+	if (tag == 4 || tag == 15 || tag == 16)
 		[_exportSavePanel setAllowedFileTypes:@[@"json"]];
 	else if (tag == 5)
 		[_exportSavePanel setAllowedFileTypes:@[@"svg"]];
