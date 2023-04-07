@@ -51,10 +51,11 @@ void Log_0 (struct MediaInfo_Event_Log_0* Event, struct UserHandle_struct* UserH
     //Special cases
     switch (Event->MessageCode)
     {
-        case 0xF1010101 : MessageString+=__T(" If you want to use such protocols, compile libcurl with SSL/SSH support"); break;
+        case 0xF1010101 : MessageString+=__T("\n   If you want to use such protocols, compile libcurl with SSL/SSH support"); break;
         case 0xF1010102 :
-        case 0xF1010103 : MessageString+=__T(" If you are in a secure environment, do \"ssh %YourServerName%\" in order to add the fingerprint to the known_hosts file. If you want to ignore security issues, use --Ssh_IgnoreSecurity option"); break;
-        case 0xF1010104 : MessageString+=__T(" If you want to ignore security issues, use --Ssl_IgnoreSecurity option."); break;
+        case 0xF1010103 : MessageString+=__T("\n   If you are in a secure environment, do \"ssh %YourServerName%\" in order to add the fingerprint to the known_hosts file. If you want to ignore security issues, use --Ssh_IgnoreSecurity option"); break;
+        case 0xF1010104 : MessageString+=__T("\n   If you want to ignore security issues, use --Ssl_IgnoreSecurity=... option."); break;
+        case 0xF1010105 : MessageString+=__T("\n   Security files may be provided with --Ssl_CertificateAuthorityFileName=... or --Ssh_PrivateKeyFileName=... options."); break;
         default         : ;
     }
 
