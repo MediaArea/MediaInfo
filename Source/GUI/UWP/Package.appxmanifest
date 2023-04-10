@@ -50,6 +50,7 @@
               <uap:FileType>.bdmv</uap:FileType>
               <uap:FileType>.bmp</uap:FileType>
               <uap:FileType>.bms</uap:FileType>
+              <uap:FileType>.braw</uap:FileType>
               <uap:FileType>.caf</uap:FileType>
               <uap:FileType>.clpi</uap:FileType>
               <uap:FileType>.dat</uap:FileType>
