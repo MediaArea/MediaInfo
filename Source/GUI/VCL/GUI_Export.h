@@ -117,6 +117,7 @@ __published:    // IDE-managed Components
     void __fastcall Name_FileSelectClick(TObject *Sender);
     void __fastcall ExportChange(TObject *Sender);
     void __fastcall OKClick(TObject *Sender);
+    void __fastcall FormCloseQuery(TObject *Sender, bool &CanClose);
     void __fastcall CSV_Stream_VideoChange(TObject *Sender);
     void __fastcall CSV_Stream_AudioChange(TObject *Sender);
     void __fastcall CSV_Stream_TextChange(TObject *Sender);
@@ -147,6 +148,7 @@ private:    // User declarations
     void CSV_Stream_Change (TComboBox* Box, TLabel* Label, MediaInfoNameSpace::stream_t Stream);
     void GUI_Configure();
     MediaInfoNameSpace::MediaInfoList *ToExport;
+    bool CloseDialog;
 public:        // User declarations
     __fastcall TExportF(TComponent* Owner);
     int Run(MediaInfoNameSpace::MediaInfoList &MI, ZenLib::Ztring DefaultFolder);

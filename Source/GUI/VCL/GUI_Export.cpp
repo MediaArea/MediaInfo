@@ -41,8 +41,9 @@ using namespace ZenLib;
 
 //---------------------------------------------------------------------------
 __fastcall TExportF::TExportF(TComponent* Owner)
-    : TForm(Owner)
+    : CloseDialog(true), TForm(Owner)
 {
+    OnCloseQuery=FormCloseQuery;
 }
 
 //---------------------------------------------------------------------------
@@ -825,7 +826,17 @@ void TExportF::Export_Run()
         F.Write(Append_Separator);
     }
     else
+    {
+        if (File::Exists(ZEN_UNICODE(Name->Text)))
+        {
+            if (MessageBox(NULL, __T("File Already exists. Overwrite?"), __T("Overwrite?"), MB_YESNO)!=IDYES)
+            {
+                CloseDialog=false;
+                return;
+            }
+        }
         F.Create(ZEN_UNICODE(Name->Text));
+    }
     F.Write(Text);
 }
 //---------------------------------------------------------------------------
@@ -979,6 +990,14 @@ void __fastcall TExportF::OKClick(TObject *Sender)
 {
     Export_Run();
 }
+
+//---------------------------------------------------------------------------
+void __fastcall TExportF::FormCloseQuery(TObject *Sender, bool &CanClose)
+{
+    CanClose=CloseDialog;
+    CloseDialog=true;
+}
+
 //---------------------------------------------------------------------------
 
 void TExportF::CSV_Stream_Change (TComboBox* Box, TLabel* Label, stream_t Stream)
