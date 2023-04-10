@@ -19,4 +19,6 @@ if "%BPATH%"=="" (
 del   MediaInfo_GUI_Windows.exe
 
 rem --- Installer ---
-%BPATH%\Windows\NSIS\makensis ..\Source\Install\MediaInfo_GUI_Windows.nsi
+pushd %BPATH%\Windows\NSIS
+makensis.exe "%~dp0\..\Source\Install\MediaInfo_GUI_Windows.nsi"
+popd
