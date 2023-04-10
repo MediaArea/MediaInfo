@@ -49,7 +49,7 @@ void EditConfigTreeText::fillToolBox() {
         s.truncate((s.indexOf("\n\n")==-1?s.size():s.indexOf("\n\n")));
         QStringList sl = s.split("\n");
         sl.removeAt(0);
-        sl.replaceInStrings(QRegExp(";(.*)"),"");
+        sl.replaceInStrings(QRegularExpression(";(.*)"),"");
         box->setLayout(new QVBoxLayout());
         for (int i=0; i<sl.size(); ++i) {
             QCheckBox* check = new QCheckBox(sl.at(i));
