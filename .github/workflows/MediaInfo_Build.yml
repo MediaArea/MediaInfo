@@ -1,6 +1,10 @@
 name: Checks
 
-on: [push, pull_request]
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      tag: v23.03
 
 jobs:
   Unix:
