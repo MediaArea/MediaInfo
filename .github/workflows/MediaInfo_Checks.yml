@@ -6,12 +6,12 @@ jobs:
   Unix:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 1
       - name: Dependencies
@@ -57,3 +57,13 @@ jobs:
         run: |
           cd Project/GNU/GUI
           make
+      - name: Upload CLI Path
+        uses: actions/upload-artifact@v3
+        with:
+         name: CLI
+         path: Project/GNU/CLI/*
+      - name: Upload GUI Path
+        uses: actions/upload-artifact@v3
+        with:
+         name: GUI
+         path: Project/GNU/GUI/*
