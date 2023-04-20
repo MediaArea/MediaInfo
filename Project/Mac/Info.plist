@@ -139,7 +139,10 @@
 				<string>aif</string>
 				<string>aiff</string>
 				<string>ape</string>
+				<string>aud</string>
+				<string>aue</string>
 				<string>caf</string>
+				<string>dtshd</string>
 				<string>flac</string>
 				<string>m4a</string>
 				<string>m4b</string>
