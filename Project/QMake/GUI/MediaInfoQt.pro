@@ -2,9 +2,7 @@
 # Project created by QtCreator 2010-07-23T13:03:11
 # -------------------------------------------------
 
-QT += core gui network xml
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += core gui widgets network xml
 
 win32|macx {
     TARGET = "MediaInfo"
