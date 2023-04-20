@@ -134,10 +134,5 @@ void ConfigTreeText::addField(int i, QString f) {
 }
 
 void ConfigTreeText::removeField(int i, QString f) {
-#if QT_VERSION >= 0x040400
     fields[i].removeOne(f);
-#else
-    if(fields[i].indexOf(f))
-        fields[i].removeAt(fields[i].indexOf(f));
-#endif
 }
