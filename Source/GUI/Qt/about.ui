@@ -182,6 +182,9 @@ Sound-only formats (AC3, DTS, AAC, AU, AIFF...)</string>
          <property name="text">
           <string>OK</string>
          </property>
+         <property name="default">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
       </layout>
