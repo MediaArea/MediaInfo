@@ -45,6 +45,8 @@
               <uap:FileType>.asf</uap:FileType>
               <uap:FileType>.at3</uap:FileType>
               <uap:FileType>.au</uap:FileType>
+              <uap:FileType>.aud</uap:FileType>
+              <uap:FileType>.aue</uap:FileType>
               <uap:FileType>.avi</uap:FileType>
               <uap:FileType>.avs</uap:FileType>
               <uap:FileType>.bdmv</uap:FileType>
@@ -60,6 +62,7 @@
               <uap:FileType>.dff</uap:FileType>
               <uap:FileType>.dsd</uap:FileType>
               <uap:FileType>.dts</uap:FileType>
+              <uap:FileType>.dtshd</uap:FileType>
               <uap:FileType>.dv</uap:FileType>
               <uap:FileType>.dvr</uap:FileType>
               <uap:FileType>.dvr-ms</uap:FileType>
