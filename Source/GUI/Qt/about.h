@@ -17,7 +17,7 @@ namespace Ui {
 class About : public QDialog {
     Q_OBJECT
 public:
-    About(const QString& version, QWidget *parent = 0);
+    About(QWidget *parent = 0);
     ~About();
 
 protected:

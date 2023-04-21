@@ -7,10 +7,11 @@
 #include "translate.h"
 #include "about.h"
 #include "ui_about.h"
+#include <QCoreApplication>
 #include <QDesktopServices>
 #include <QUrl>
 
-About::About(const QString& version, QWidget *parent) :
+About::About(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::About)
 {
@@ -24,7 +25,8 @@ About::About(const QString& version, QWidget *parent) :
     ui->donate->setVisible(false);
 #endif
 
-    ui->aboutText->setText(ui->aboutText->text().replace("VERSION", version));
+    ui->logoMail->setPixmap(QIcon(":/icon/aboutmail.svg").pixmap(ui->logoMail->maximumSize()));
+    ui->aboutText->setText(ui->aboutText->text().arg(QCoreApplication::applicationVersion()));
 }
 
 About::~About()

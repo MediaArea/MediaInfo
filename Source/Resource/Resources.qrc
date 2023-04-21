@@ -9,6 +9,6 @@
         <file alias="prefs.svg">Image/Menu/K20/Options_Prefs.svg</file>
         <file alias="view.svg">Image/Menu/K20/View.svg</file>
         <file>Image/Menu/K20/View2.svg</file>
-        <file alias="aboutmail.png">Image/Menu/K20/Help_About.png</file>
+        <file alias="aboutmail.svg">Image/Menu/K20/Help_About.svg</file>
     </qresource>
 </RCC>
