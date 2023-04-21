@@ -106,9 +106,6 @@ Sound-only formats (AC3, DTS, AAC, AU, AIFF...)</string>
          <height>32</height>
         </size>
        </property>
-       <property name="pixmap">
-        <pixmap resource="../../Resource/Resources.qrc">:/icon/aboutmail.png</pixmap>
-       </property>
        <property name="scaledContents">
         <bool>true</bool>
        </property>

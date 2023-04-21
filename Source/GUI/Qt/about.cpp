@@ -24,6 +24,7 @@ About::About(const QString& version, QWidget *parent) :
     ui->donate->setVisible(false);
 #endif
 
+    ui->logoMail->setPixmap(QIcon(":/icon/aboutmail.svg").pixmap(ui->logoMail->maximumSize()));
     ui->aboutText->setText(ui->aboutText->text().replace("VERSION", version));
 }
 
