@@ -52,7 +52,7 @@
      <item>
       <widget class="QLabel" name="aboutText">
        <property name="text">
-        <string>MediaInfo vVERSION
+        <string>MediaInfo v%1
 Copyright (C) 2002-2020 Jerome Martinez
 
 Supply very detailled information

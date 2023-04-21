@@ -1014,7 +1014,7 @@ void MainWindow::on_actionOpen_Folder_triggered()
 
 void MainWindow::on_actionAbout_triggered()
 {
-    About a(VERSION, this);
+    About a(this);
     a.exec();
 }
 
