@@ -180,8 +180,8 @@ Download_Packages $1 $2 $3  x x ""           openSUSE_Tumbleweed x86_64 .x86_64
 }
 
 
-mediainfov="23.03"
-libmediainfov="23.03"
+mediainfov="23.04"
+libmediainfov="23.04"
 libzenv="0.4.32"
 destversion="1"
 
