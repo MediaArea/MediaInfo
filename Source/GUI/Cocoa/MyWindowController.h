@@ -37,12 +37,16 @@ typedef enum { Kind_Text, Kind_HTML, Kind_XML, Kind_CSV, Kind_JSON, Kind_PBCore,
     IBOutlet NSSegmentedControl *subscribeButton;
     IBOutlet NSToolbarItem *subscribeButtonItem;
     IBOutlet NSToolbar *mainToolbar;
+    IBOutlet NSButton *footerButton;
+    IBOutlet NSLayoutConstraint *tabsViewTopConstraint;
+    IBOutlet NSLayoutConstraint *tabsViewBottomConstraint;
     oMediaInfoList *mediaList;
     NSInteger selectedFileIndex;
 
     ViewMenu_Kind _lastTextKind;
     NSSavePanel *_exportSavePanel;
     BOOL fileSelectorIsHidden;
+    BOOL footerButtonIsHidden;
     BOOL subscriptionEnabled;
 
     NSMutableArray *observers;
@@ -84,6 +88,7 @@ typedef enum { Kind_Text, Kind_HTML, Kind_XML, Kind_CSV, Kind_JSON, Kind_PBCore,
 
 -(NSInteger)selectedFileIndex;
 -(void)setSelectedFileIndex:(NSInteger)index;
+- (IBAction)showConformanceInfo:(id)sender;
 
 -(void)enableSubscription;
 -(void)processFiles:(NSArray *)URLs;

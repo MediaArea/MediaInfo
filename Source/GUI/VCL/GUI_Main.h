@@ -295,6 +295,7 @@ __published:    // IDE-managed Components
     void __fastcall M_View_Graph_SvgClick(TObject *Sender);
     void __fastcall M_Options_FullParsingClick(TObject *Sender);
 private:    // User declarations
+    TButton *Footer_Button;
 public:        // User declarations
     MESSAGE void __fastcall HandleDropFiles (TMessage&);
     BEGIN_MESSAGE_MAP
@@ -306,6 +307,7 @@ public:        // User declarations
     void __fastcall Translate();
     void __fastcall Refresh(TTabSheet *Page=NULL);
     void __fastcall ChangePage(TTabSheet *Page);
+    void __fastcall Footer_ButtonClick(TObject *Sender);
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TMainF *MainF;
