@@ -48,6 +48,7 @@ typedef enum oMediaInfoStream_t
 - (NSInteger)numberOFStreamsAtIndex:(NSUInteger)fileIndex ofStreamKind:(oMediaInfoStream)streamKind;
 - (void)setOption:(NSString*)option withValue:(NSString*)value;
 - (NSString*)generalTagsAtIndex:(NSUInteger)index limit:(NSUInteger)limit;
+- (NSString*)getConformanceURLForIndex:(NSUInteger)index;
 - (void)closeAtIndex:(NSUInteger)fileIndex;
 
 +(void)setLanguageWithContents:(NSString*)langContents;

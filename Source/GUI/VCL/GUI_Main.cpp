@@ -159,6 +159,15 @@ __fastcall TMainF::TMainF(TComponent* Owner)
     Donates.push_back(Donate___);
     Donate_Current=NULL;
 
+    //Footer
+    Footer_Button=new TButton(this);
+    Footer_Button->Font->Size=12;
+    Footer_Button->Height=32;
+    Footer_Button->Parent=Page;
+    Footer_Button->Align=alBottom;
+    Footer_Button->OnClick=&Footer_ButtonClick;
+    Footer_Button->Visible=false;
+
     //Configuration of properties
     Page->Top=-6; //Not done with BCB because I want to easy select tabs in it
     Page->TabHeight=1; //Not done with BCB because I want to easy select tabs in it
@@ -607,6 +616,9 @@ void __fastcall TMainF::Translate()
         M_Sponsor->Caption =  + Prefs->Translate(__T("SponsorMessage")).c_str();
         M_Sponsor->Visible=true;
     }
+
+    //Footer
+    Footer_Button->Caption=L"Go to conformance errors and warnings glossary page";
 }
 
 //---------------------------------------------------------------------------
@@ -1061,6 +1073,24 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
         M_File_Close_All->Visible=false;
         M_File_Export->Visible=false;
         Tool_Export->Enabled=false;
+    }
+
+     // Show conformance glossary button
+    if (FilesCount>0 && Page!=Page_System)
+    {
+        bool Display=false;
+        size_t FilePos=0;
+        size_t AudioCount=I->Count_Get(FilePos, Stream_Audio, -1);
+        for (size_t AudioPos=0; AudioPos<AudioCount; AudioPos++)
+        {
+            if (I->Get(FilePos, Stream_Audio, AudioPos, __T("ConformanceErrors"))!=__T("") ||
+                I->Get(FilePos, Stream_Audio, AudioPos, __T("ConformanceWarnings"))!=__T(""))
+            {
+                Display=true;
+                break;
+            }
+        }
+        Footer_Button->Visible=Display;
     }
 }
 
@@ -1916,4 +1946,15 @@ void __fastcall TMainF::M_NewVersionClick(TObject *Sender)
 void __fastcall TMainF::M_SponsorClick(TObject *Sender)
 {
     ShellExecute(NULL, NULL, Prefs->Translate(__T("SponsorUrl")).c_str(), NULL, NULL, SW_SHOWNORMAL);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::Footer_ButtonClick(TObject *Sender)
+{
+    const Ztring Inform_Save=I->Option(__T("Inform_Get"), __T(""));
+    I->Option(__T("Inform"), __T("JSON_URL"));
+
+    const Ztring URL=I->Inform();
+    I->Option(__T("Inform"), Inform_Save);
+    ShellExecute(NULL, NULL, URL.c_str(), NULL, NULL, SW_SHOWNORMAL);
 }

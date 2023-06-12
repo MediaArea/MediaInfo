@@ -253,6 +253,16 @@
 	return [r componentsJoinedByString:@"\n"];
 }
 
+- (NSString*)getConformanceURLForIndex:(NSUInteger)index {
+    NSString *oldInform = [NSString stringFromWCHAR: MediaInfoList_Option(MIL, [@"Inform_Get" WCHARString], [@"" WCHARString])];
+    MediaInfoList_Option(MIL, [@"Inform" WCHARString], [@"JSON_URL" WCHARString]);
+
+    NSString *URL = [NSString stringFromWCHAR: MediaInfoList_Inform(MIL, index, -1)];
+    MediaInfoList_Option(MIL, [@"Inform" WCHARString], [oldInform WCHARString]);
+
+    return URL;
+}
+
 -(void)closeAtIndex:(NSUInteger)fileIndex {
     MediaInfoList_Close(MIL, fileIndex);
 }

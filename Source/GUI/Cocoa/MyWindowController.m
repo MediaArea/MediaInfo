@@ -77,13 +77,16 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	[tabSelector setMenu:otherViewsMenu forSegment:tabSelector.segmentCount - 1];
 	_exportSavePanel = nil;
     fileSelectorIsHidden = NO;
+    footerButtonIsHidden = YES;
     subscriptionEnabled = NO;
 
     observers = [[NSMutableArray alloc] init];
 
+    [tabs setTranslatesAutoresizingMaskIntoConstraints:NO];
+
     if (@available(macOS 10.9, *)) {
         [subscribeButton setEnabled:YES forSegment:0];
-        if([[SubscriptionManager shared] subscriptionActive]) {
+        if([[SubscriptionManager shared] subscriptionActive] || YES) {
             [self enableSubscription];
 
              NSString* defaultView = [[NSUserDefaults standardUserDefaults] stringForKey:@"defaultView"];
@@ -203,10 +206,7 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
         [comboBox setHidden:NO];
         [hline setHidden:NO];
 
-        NSRect frame = [tabs frame];
-        frame.size.height-=42;
-        [tabs setFrame:frame];
-
+        [tabsViewTopConstraint setConstant:42];
         fileSelectorIsHidden = NO;
     }
 }
@@ -216,11 +216,26 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
         [comboBox setHidden:YES];
         [hline setHidden:YES];
 
-        NSRect frame = [tabs frame];
-        frame.size.height+=42;
-        [tabs setFrame:frame];
-
+        [tabsViewTopConstraint setConstant:0];
         fileSelectorIsHidden = YES;
+    }
+}
+
+-(void)showFooterButton {
+    if(footerButtonIsHidden) {
+        [footerButton setHidden:NO];
+
+        [tabsViewBottomConstraint setConstant:42];
+        footerButtonIsHidden = NO;
+    }
+}
+
+-(void)hideFooterButton {
+    if(!footerButtonIsHidden) {
+        [footerButton setHidden:YES];
+
+        [tabsViewBottomConstraint setConstant:0];
+        footerButtonIsHidden = YES;
     }
 }
 
@@ -706,6 +721,23 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	NSString *filename = [mediaList filenameAtIndex:index];
 	[[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:[NSURL fileURLWithPath:filename]];
 
+    // Conformance button
+    NSUInteger audioCount=[mediaList numberOFStreamsAtIndex:index ofStreamKind:oMediaInfoStream_Audio];
+    BOOL display=NO;
+    for (NSUInteger pos = 0; pos < audioCount; pos++)
+    {
+        if ([[mediaList GetAtIndex:index streamKind:oMediaInfoStream_Audio streamNumber:pos parameter:@"ConformanceErrors"] isNotEqualTo:@""] ||
+            [[mediaList GetAtIndex:index streamKind:oMediaInfoStream_Audio streamNumber:pos parameter:@"ConformanceWarnings"] isNotEqualTo:@""])
+        {
+            display=YES;
+            break;
+        }
+    }
+
+    if (display)
+        [self showFooterButton];
+    else
+        [self hideFooterButton];
 }
 
 
@@ -1197,6 +1229,11 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
             [self showFileAtIndex:selectedFileIndex];
         }
     }
+}
+
+- (IBAction)showConformanceInfo:(id)sender {
+    NSString *URL = [mediaList getConformanceURLForIndex:selectedFileIndex];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URL]];
 }
 
 @end
