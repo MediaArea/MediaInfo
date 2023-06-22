@@ -1,151 +1,151 @@
   Language_ISO639;eu
   Author_Email;alexgabi@disroot.org
   Author_Name;Alexander Gabilondo
-  Author_OldNames;
+  Author_OldNames;Xabier Aramendi 
   Language_Name;Euskara
   Config_Text_ColumnSize;40
-  Config_Text_Separator; : 
-  Config_Text_NumberTag; Z
+  Config_Text_Separator;: 
+  Config_Text_NumberTag;Z
   Config_Text_FloatSeparator;,
   Config_Text_ThousandsSeparator; 
- audio stream1; audio jarioa
- audio stream2; audio jarioa
- audio stream3; audio jarioa
- bit1; bit1
- bit2; bit2
- bit3; bit3
- bps; bps
- Bps; Bps
- Byte1; Byte1
- Byte2; Byte2
- Byte3; Byte3
- channel1; kanala1
- channel2; kanala2
- channel3; kanala3
- chapter1; kapitulu1
- chapter2; kapitulu2
- chapter3; kapitulu3
- chapters stream1; jario1 kapituluak
- chapters stream2; jario2 kapituluak
- chapters stream3; jario3 kapituluak
- character1; karaktere1
- character2; karaktere2
- character3; karaktere3
- day1; egun1
- day2; egun2
- day3; egun3
- dB0; dB0
- dB1; dB1
- dB2; dB2
- dB3; dB3
- file1; fitxategia1
- file2; fitxategia2
- file3; fitxategia3
- fps1; fps1
- fps2; fps2
- fps3; fps3
- frame1; fotograma1
- frame2; fotograma2
- frame3; fotograma3
- GB; GB
- Gb; Gb
- Gbps; Gbps
- GBps; GBps
- GHz; GHz
- GiB; GiB
- GibiByte1; GibiByte
- GibiByte2; GibiByte
- GibiByte3; GibiByte
- GiBps; GiBs-ko
- GigaBit1; GigaBit
- GigaBit2; GigaBit
- GigaBit3; GigaBit
- GigaByte1; GigaByte
- GigaByte2; GigaByte
- GigaByte3; GigaByte
- hour1; ordu
- hour2; ordu
- hour3; ordu
- Hz; Hz
- image stream1; irudi jarioa
- image stream2; irudi jarioa
- image stream3; irudi jarioa
- KB; KB
- Kb; Kb
- KBps; KBps
- Kbps; Kbps
- KHz; KHz
- KiB; KiB
- KibiBit1; KibiBit
- KibiBit2; KibiBit
- KibiBit3; KibiBit
- KibiByte1; KibiByte
- KibiByte2; KibiByte
- KibiByte3; KibiByte
- KiBps; KiBps
- KiloBit1; KiloBit
- KiloBit2; KiloBit
- KiloBit3; KiloBit
- KiloByte1; KiloByte
- KiloByte2; KiloByte
- KiloByte3; KiloByte
- MB; MB
- Mb; Mb
- Mbps; Mbps
- MBps; MebiByte
- MebiBit1; MebiBit
- MebiBit2; MebiBit
- MebiBit3; MebiBit
- MebiByte1; MebiByte
- MebiByte2; MebiByte
- MebiByte3; MebiByte
- MegaBit1; MegaBit
- MegaBit2; MegaBit
- MegaBit3; MegaBit
- MegaByte1; MegaByte
- MegaByte2; MegaByte
- MegaByte3; MegaByte
- MHz; MHz
- MiB; MiB
- Mib; Mib
- MiBps; MiBps
- millisecond1; milisegundo
- millisecond2; milisegundo
- millisecond3; milisegundo
- minute1; minutu
- minute2; minutu
- minute3; minutu
- month1; hilabete
- month2; hilabete
- month3; hilabete
- object1; objektu
- object2; objektu
- object3; objektu
- pixel1; pixel
- pixel2; pixel
- pixel3; pixel
- second1; segundo
- second2; segundo
- second3; segundo
- text stream1; testu jarioa
- text stream2; testu jarioa
- text stream3; testu jarioa
- video frames1; bideo fotogramak
- video frames2; bideo fotogramak
- video frames3; bideo fotogramak
- video stream1; bideo jarioa
- video stream2; bideo jarioa
- video stream3; bideo jarioa
- warppoint0; deformazio punturik ez
- warppoint1; deformazio puntua
- warppoint2; deformazio puntua
- warppoint3; deformazio puntua
- week1; aste
- week2; aste
- week3; aste
- year1; urte
- year2; urte
- year3; urte
+ audio stream1;audio jarioa
+ audio stream2;audio jarioa
+ audio stream3;audio jarioa
+ bit1;bit
+ bit2;bit
+ bit3;bit
+ bps;bps
+ Bps;Bps
+ Byte1;Byte
+ Byte2;Byte
+ Byte3;Byte
+ channel1;kanala
+ channel2;kanala
+ channel3;kanala
+ chapter1;kapitulu
+ chapter2;kapitulu
+ chapter3;kapitulu
+ chapters stream1;jarioaren kapituluak
+ chapters stream2;jarioaren kapituluak
+ chapters stream3;jarioaren kapituluak
+ character1;karaktere
+ character2;karaktere
+ character3;karaktere
+ day1;egun
+ day2;egun
+ day3;egun
+ dB0;dB
+ dB1;dB
+ dB2;dB
+ dB3;dB
+ file1;fitxategia
+ file2;fitxategia
+ file3;fitxategia
+ fps1;fps
+ fps2;fps
+ fps3;fps
+ frame1;fotograma
+ frame2;fotograma
+ frame3;fotograma
+ GB;GB
+ Gb;Gb
+ Gbps;Gbps
+ GBps;GBps
+ GHz;GHz
+ GiB;GiB
+ GibiByte1;GibiByte
+ GibiByte2;GibiByte
+ GibiByte3;GibiByte
+ GiBps;GiBps
+ GigaBit1;GigaBit
+ GigaBit2;GigaBit
+ GigaBit3;GigaBit
+ GigaByte1;GigaByte
+ GigaByte2;GigaByte
+ GigaByte3;GigaByte
+ hour1;ordu
+ hour2;ordu
+ hour3;ordu
+ Hz;Hz
+ image stream1;irudi jarioa
+ image stream2;irudi jarioa
+ image stream3;irudi jarioa
+ KB;KB
+ Kb;Kb
+ KBps;KBps
+ Kbps;Kbps
+ KHz;KHz
+ KiB;KiB
+ KibiBit1;KibiBit
+ KibiBit2;KibiBit
+ KibiBit3;KibiBit
+ KibiByte1;KibiByte
+ KibiByte2;KibiByte
+ KibiByte3;KibiByte
+ KiBps;KiBps
+ KiloBit1;KiloBit
+ KiloBit2;KiloBit
+ KiloBit3;KiloBit
+ KiloByte1;KiloByte
+ KiloByte2;KiloByte
+ KiloByte3;KiloByte
+ MB;MB
+ Mb;Mb
+ Mbps;Mbps
+ MBps;MebiByte
+ MebiBit1;MebiBit
+ MebiBit2;MebiBit
+ MebiBit3;MebiBit
+ MebiByte1;MebiByte
+ MebiByte2;MebiByte
+ MebiByte3;MebiByte
+ MegaBit1;MegaBit
+ MegaBit2;MegaBit
+ MegaBit3;MegaBit
+ MegaByte1;MegaByte
+ MegaByte2;MegaByte
+ MegaByte3;MegaByte
+ MHz;MHz
+ MiB;MiB
+ Mib;Mib
+ MiBps;MiBps
+ millisecond1;milisegundo
+ millisecond2;milisegundo
+ millisecond3;milisegundo
+ minute1;minutu
+ minute2;minutu
+ minute3;minutu
+ month1;hilabete
+ month2;hilabete
+ month3;hilabete
+ object1;objektu
+ object2;objektu
+ object3;objektu
+ pixel1;pixel
+ pixel2;pixel
+ pixel3;pixel
+ second1;segundo
+ second2;segundo
+ second3;segundo
+ text stream1;testu jarioa
+ text stream2;testu jarioa
+ text stream3;testu jarioa
+ video frames1;bideo fotogramak
+ video frames2;bideo fotogramak
+ video frames3;bideo fotogramak
+ video stream1;bideo jarioa
+ video stream2;bideo jarioa
+ video stream3;bideo jarioa
+ warppoint0;deformazio punturik ez
+ warppoint1;deformazio puntua
+ warppoint2;deformazio puntua
+ warppoint3;deformazio puntua
+ week1;aste
+ week2;aste
+ week3;aste
+ year1;urte
+ year2;urte
+ year3;urte
 , ;, 
 : ;: 
 3D;
@@ -161,15 +161,15 @@ About_Hint;Nola jarri harremanetan nirekin eta azken bertsioa aurkitu
 Accompaniment;Laguntza
 ActiveFormatDescription;Formatu aktiboaren deskribapena
 ActiveFormatDescription_MuxingMode;Formatu aktiboaren deskribapena, Nahasketa modua
-Actor; Aktorea
+Actor;Aktorea
 Actor_Character;Pertsonaia
 Add creation date to text output; Gehitu sorrera-data testu-irteeran
 Add version to text output; Gehitu bertsioa testu-irteeran
 Added_Date;Gehitu data
 Address;Helbidea
 AdID;
-ADM: Show ChannelFormats; Erakutsi kanalaren formatuak
-ADM: Show TrackUIDs; Erakutsi pistaren UIDak
+ADM: Show ChannelFormats;Erakutsi kanalaren formatuak
+ADM: Show TrackUIDs;Erakutsi pistaren UIDak
 AdmProfile;
 Advanced;Aurreratua
 Advanced mode;Modu aurreratua
@@ -193,8 +193,8 @@ Audio;Audioa
 Audio stream(s);Audio jarioak
 Audio_Codec_List;Audio kodekak
 Audio_No;Audiorik ez
-Audio1;Audio1
-Audio2;Audio2
+Audio1;Audio
+Audio2;Audio
 AudioComments;Audio iruzkinak
 AudioCount;Audio kopurua
 AudioDescription;Audio deskribapena
@@ -225,8 +225,8 @@ BitRate_Mode;Bit emariaren modua
 BitRate_Mode_CBR;Aldagaitza
 BitRate_Mode_VBR;Aldakorra
 BitRate_Nominal;Bit emari nominala
-Bits-(Pixel*Frame);Bit/(Pixel*fotograma)
-BufferSize;Buffer neurria
+Bits-(Pixel*Frame);Bit-(Pixel*fotograma)
+BufferSize;Bufferraren neurria
 Cancel;Ezeztatu
 CaptionServiceName;
 Channel(s);Kanala(k)
@@ -238,7 +238,7 @@ ChannelMode;
 ChannelPositions;Kanalaren kokapenak
 Chapter(s);Atal
 Chapters;Atalak
-Chapters stream(s);Kapitulu jarioa(k)
+Chapters stream(s);Kapitulu jarioa
 Chapters_Codec_List;Kapituluaren kodekak
 Chapters_No;Kapitulurik gabe
 ChaptersCount;Kapitulu kopurua
