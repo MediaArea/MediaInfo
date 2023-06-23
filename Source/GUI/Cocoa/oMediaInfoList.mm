@@ -255,7 +255,7 @@
 
 - (NSString*)getConformanceURLForIndex:(NSUInteger)index {
     NSString *oldInform = [NSString stringFromWCHAR: MediaInfoList_Option(MIL, [@"Inform_Get" WCHARString], [@"" WCHARString])];
-    MediaInfoList_Option(MIL, [@"Inform" WCHARString], [@"JSON_URL" WCHARString]);
+    MediaInfoList_Option(MIL, [@"Inform" WCHARString], [@"Conformance_JSON" WCHARString]);
 
     NSString *URL = [NSString stringFromWCHAR: MediaInfoList_Inform(MIL, index, -1)];
     MediaInfoList_Option(MIL, [@"Inform" WCHARString], [oldInform WCHARString]);

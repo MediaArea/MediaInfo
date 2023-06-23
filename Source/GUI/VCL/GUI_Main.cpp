@@ -1952,7 +1952,7 @@ void __fastcall TMainF::M_SponsorClick(TObject *Sender)
 void __fastcall TMainF::Footer_ButtonClick(TObject *Sender)
 {
     const Ztring Inform_Save=I->Option(__T("Inform_Get"), __T(""));
-    I->Option(__T("Inform"), __T("JSON_URL"));
+    I->Option(__T("Inform"), __T("Conformance_JSON"));
 
     const Ztring URL=I->Inform();
     I->Option(__T("Inform"), Inform_Save);
