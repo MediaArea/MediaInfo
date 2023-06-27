@@ -48,7 +48,7 @@ using namespace ZenLib;
 #define QString2wstring(_DATA) \
     Ztring().From_UTF8(_DATA.toUtf8())
 
-#define VERSION "23.04"
+#define VERSION "23.06"
 #if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) //UWP Application
 #include <QtPlatformHeaders/QWindowsWindowFunctions>
 #include <ZenLib/Os_Utils.h>

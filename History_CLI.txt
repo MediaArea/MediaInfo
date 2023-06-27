@@ -12,6 +12,37 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 23.06, 2023-06-28
+-------------
++ USAC/xHE-AAC conformance checker
++ S-ADM: support of SMPTE ST 2127-1 / SMPTE ST 2109 / SMPTE ST 2127-10 (S-ADM in MGA in MXF)
++ S-ADM: add S-ADM version and support of 1/1.001 frame rates
++ ADM: show FFoA/Start/End as timestamp and timecode
++ MPEG-7 output update with more extensions
++ MPEG-TS: support of JPEG XS
++ DTS-UHD: support of DTS-UHD (a.k.a. DTS-X P2) in MP4
++ MP4: detection of VVC
++ MP4: support of media characteristicd (spoken dialog, translation, easy to read...)
++ MP4: support of more Blackmagic RAW Codec IDs
++ MP4: support of ipcm CodecID
++ MP4: support of service kind
++ HEVC: support of SMPTE ST 2094-10
++ HDR: display of all formats if more than 1 format is detected
++ Matroska: support of SMPTE ST 12 in block additions
++ HEVC: time code SEI readout
++ AVC & HEVC: active format description readout
++ MPEG-TS: support of SMPTE ST 2038 (ancillary data)
+x ADM/Dolby: fix wrong FFoA with 1.001 frame rates
++ MOV/MP4: more info with tracks having unknown type
+x MOV/MP4: avoid to parse too much content with non stripped timecodes
+x MOV/MP4: avoid incoherent behavior if 2 tracks have the same ID
+x TTML: fix default frame rate
+x TimeCode: 1/1.001 frame rate was not always detected
+x MediaTrace: fix some random blank outputs
+x URL: remove query part of the URL in the FileExtension field
+x Referenced files: fix handling of URL encoded with UTF-8 content
+x Matroska: fix crash in support of HDR10+
+
 Version 23.04, 2023-04-26
 -------------
 + MXF: support of SMPTE ST 381-4 (AAC in MXF)

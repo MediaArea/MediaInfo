@@ -9,7 +9,7 @@ release=`uname -r`
 
 #Creation of known directories and filenames
 name="mediainfo"
-version="23.04"
+version="23.06"
 Home=`pwd`
 install_prefix=${Home}/mk_package
 packagecreation_prefix=${Home}/create_package
