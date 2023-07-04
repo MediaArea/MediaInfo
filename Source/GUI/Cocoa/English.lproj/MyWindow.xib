@@ -46,9 +46,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="486" height="336"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="84">
+                    <popUpButton verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="84">
                         <rect key="frame" x="7" y="300" width="473" height="29"/>
-                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="85">
+                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingMiddle" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="85">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>
                             <menu key="menu" id="86"/>
@@ -248,9 +248,9 @@
                             </tabViewItem>
                         </tabViewItems>
                     </tabView>
-                    <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Rj7-4t-ldl">
+                    <button hidden="YES" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Rj7-4t-ldl">
                         <rect key="frame" x="4" y="4" width="478" height="40"/>
-                        <buttonCell key="cell" type="push" title="Go to conformance errors and warnings glossary page" bezelStyle="rounded" alignment="center" controlSize="large" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mab-5f-TeC">
+                        <buttonCell key="cell" type="push" title="Go to conformance errors and warnings glossary page" bezelStyle="rounded" alignment="center" controlSize="large" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mab-5f-TeC">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system" size="15"/>
                         </buttonCell>
