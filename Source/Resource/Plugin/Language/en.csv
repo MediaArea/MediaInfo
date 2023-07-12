@@ -229,6 +229,7 @@ Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;Buffer size
 Cancel;Cancel
 CaptionServiceName;Caption service name
+CatalogNumber;Catalog number
 Channel(s);Channel(s)
 ChannelCoded;Channel coded
 ChannelConfiguration;Channel configuration
@@ -242,6 +243,7 @@ Chapters stream(s);Chapters stream(s)
 Chapters_Codec_List;Chapters Codecs
 Chapters_No;No chapters
 ChaptersCount;Count of chapter streams
+CharacterSet;Character set
 CheckNewVersion;Check for new version
 Choose custom;Choose custom
 Choose custom sheet;Choose your desired custom sheet
@@ -328,6 +330,7 @@ DarkMode;Dark mode
 Date;Date
 Debug;Debug
 Decimal point;Decimal point
+Default;Default
 Default_Setting;System default
 DefaultTargetDeviceConfig;Default target device config
 Delay;Delay
@@ -336,6 +339,7 @@ Delay_Source_Container;Container
 Delay_Source_Stream;Raw stream
 Delete;Delete
 Description;Description
+Details;Details
 dialnorm;Dialog Normalization
 DialogueCorrected;Dialogue corrected
 DialogueEnhancement;Dialogue enhancement
@@ -357,6 +361,7 @@ DotsPerInch;Dots per inch
 Downmix;Downmix
 Downmix_5.1.x;5.1 and 5.1.x downmix
 Downmix_5to2;5.1 to 2.0 downmix
+Downmix_5to2_90deg;
 DrcSets_Count;DRC set count
 DrcSets_Effects;DRC effect type(s)
 Duration;Duration
@@ -384,6 +389,7 @@ EPG_Positions;EPG positions (internal)
 EpisodeTitleNumber;Episode Title Number
 Error_File;Error while reading file
 Error_File_Write;Error while writing file
+Events_MinDuration;Minimum duration per event
 Events_PaintOn;Count of PaintOn events
 Events_PopOn;Count of PopOn events
 Events_RollUp;Count of RollUp events
@@ -420,6 +426,7 @@ Folder (R)_Hint;Select a folder to examine (with all folders recursively)
 Folder (Recursively);Folder (Recursively)
 Folder_Hint;Select a folder to examine
 FolderName;Folder name
+Forced;Forced
 Format;Format
 Format_Commercial;Commercial name
 Format_Commercial_IfAny;Commercial name
@@ -463,6 +470,7 @@ FpaPass;FPA Pass
 FpaVersion;FPA Version
 FrameCount;Frame count
 FrameRate;Frame rate
+FrameRate_MaxFrameNumber;
 FrameRate_Maximum;Maximum frame rate
 FrameRate_Minimum;Minimum frame rate
 FrameRate_Mode;Frame rate mode
@@ -471,7 +479,9 @@ FrameRate_Mode_VFR;Variable
 FrameRate_Nominal;Nominal frame rate
 FrameRate_Original;Original frame rate
 FrameRate_Real;Real frame rate
+FullParsing;Full parsing
 General;General
+GeneralCompliance;General compliance
 Genre;Genre
 Genre_000;Blues
 Genre_001;Classic Rock
@@ -716,6 +726,21 @@ InternetMediaType;Internet media type
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+JocBalance_FrontBackListener;
+JocBalance_FrontBackOverheadFloor;
+JocTrim_Center;
+JocTrim_Height;
+JocTrim_Surround;
+JocTrimMode;
+JocTrimMode0i;
+JocTrimMode1i;
+JocTrimMode2i;
+JocTrimMode3i;
+JocTrimMode4i;
+JocTrimMode5i;
+JocTrimMode6i;
+JocTrimMode7i;
+JocTrimMode8i;
 Keywords;Keywords
 Known codecs;Known codecs
 Known formats;Known formats
@@ -747,6 +772,7 @@ Language_bs;Bosnian
 Language_ca;Catalan
 Language_ce;Chechen
 Language_ch;Chamorro
+Language_cmn;Mandarin
 Language_co;Corsican
 Language_cr;Cree
 Language_cs;Czech
@@ -916,10 +942,17 @@ Language_wo;Wolof
 Language_xh;Xhosa
 Language_yi;Yiddish
 Language_yo;Yoruba
+Language_yue;Cantonese
 Language_za;Zhuang
 Language_zh;Chinese
+Language_zh-cmn;Mandarin
 Language_zh-cn;Chinese (China)
+Language_zh-CN;Chinese (China)
+Language_zh-Hans;Chinese (Simplified)
+Language_zh-Hant;Chinese (Traditional)
 Language_zh-tw;Chinese (Taiwan)
+Language_zh-TW;Chinese (Taiwan)
+Language_zh-yue;Cantonese
 Language_zu;Zulu
 LawRating;Law rating
 LCCN;LCCN
@@ -944,6 +977,7 @@ LinkedTo_Substream_Pos;Substream #s
 LinkedTo_TrackFormat_Pos;Track format #s
 LinkedTo_TrackUID_Pos;Track UID #s
 List;List
+LongTermLoudness;Long term loudness
 LoRoCenterMixGain;LoRo center mix gain
 LoRoSurroundMixGain;LoRo surround mix gain
 Loudness_Anchor;Anchor loudness
@@ -981,6 +1015,8 @@ MaxFALL;Maximum Frame-Average Light Level
 MaxGain;Max gain
 MaximumMomentaryLoudness;Maximum momentary loudness
 MaxTruePeak;Max true peak
+MD5;MD5
+MD5_Unencoded;MD5 of the unencoded content
 MediaInfo_About;MediaInfo provides easy access to technical and tag information about video and audio files.\r\nExcept the Mac App Store graphical user interface, it is open-source software, which means that it is free of charge to the end user and developers have freedom to study, to improve and to redistribute the program (BSD license)
 MediaInfo_About_About;MediaInfo v%MI_VERSION% using MediaInfoLib v%MIL_VERSION%
 Menu;Menu
@@ -1146,6 +1182,7 @@ Rating;Rating
 RealtimeLoudnessCorrected;Realtime loudness corrected
 Recorded_Date;Recorded date
 Recorded_Location;Recorded location
+Reel;Reel
 Released_Date;Released date
 RemixedBy;Remixed by
 RenderMode;Render mode
@@ -1364,5 +1401,5 @@ Written_Location;Written location
 WrittenBy;Written by
 Yes;Yes
 Your system;Your system
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

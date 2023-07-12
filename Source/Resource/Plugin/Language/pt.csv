@@ -229,6 +229,7 @@ Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;Tamanho do buffer
 Cancel;Cancelar
 CaptionServiceName;
+CatalogNumber;
 Channel(s);Canal(s)
 ChannelCoded;
 ChannelConfiguration;
@@ -242,6 +243,7 @@ Chapters stream(s);Faixa(s) de Capítulos
 Chapters_Codec_List;Codecs de Capítulos
 Chapters_No;Sem capítulos
 ChaptersCount;Número de faixas de capítulo
+CharacterSet;
 CheckNewVersion;Procurar nova versão
 Choose custom;Escolha personalizada
 Choose custom sheet;Personalize o modo formulário
@@ -328,6 +330,7 @@ DarkMode;
 Date;Data
 Debug;Depurar
 Decimal point;Ponto decimal
+Default;
 Default_Setting;
 DefaultTargetDeviceConfig;
 Delay;Atraso
@@ -336,6 +339,7 @@ Delay_Source_Container;Arquivo recipiente
 Delay_Source_Stream;Fluxo original
 Delete;Eliminar
 Description;Descrição
+Details;
 dialnorm;
 DialogueCorrected;
 DialogueEnhancement;
@@ -357,6 +361,7 @@ DotsPerInch;Pontos por polegada
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
+Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;Duração
@@ -384,6 +389,7 @@ EPG_Positions;Posições EPG (interno)
 EpisodeTitleNumber;
 Error_File;Erro na leitura do ficheiro
 Error_File_Write;
+Events_MinDuration;
 Events_PaintOn;
 Events_PopOn;
 Events_RollUp;
@@ -420,6 +426,7 @@ Folder (R)_Hint;Seleccione uma pasta para examinar (incluíndo sub-pastas)
 Folder (Recursively);Sub-pasta
 Folder_Hint;Seleccione uma pasta para examinar
 FolderName;Nome da pasta
+Forced;
 Format;Formato
 Format_Commercial;Nome comercial
 Format_Commercial_IfAny;Nome comercial
@@ -463,6 +470,7 @@ FpaPass;
 FpaVersion;
 FrameCount;Número de frames
 FrameRate;Taxa de frames
+FrameRate_MaxFrameNumber;
 FrameRate_Maximum;Taxa de frames máxima
 FrameRate_Minimum;Taxa de frames mínima
 FrameRate_Mode;Modo de taxa de frames
@@ -471,7 +479,9 @@ FrameRate_Mode_VFR;Variável
 FrameRate_Nominal;Taxa de frames nominal
 FrameRate_Original;Taxa de frames original
 FrameRate_Real;
+FullParsing;
 General;Geral
+GeneralCompliance;
 Genre;Género
 Genre_000;Blues
 Genre_001;Rock Clássico
@@ -716,6 +726,21 @@ InternetMediaType;Tipo de Internet multimédia
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+JocBalance_FrontBackListener;
+JocBalance_FrontBackOverheadFloor;
+JocTrim_Center;
+JocTrim_Height;
+JocTrim_Surround;
+JocTrimMode;
+JocTrimMode0i;
+JocTrimMode1i;
+JocTrimMode2i;
+JocTrimMode3i;
+JocTrimMode4i;
+JocTrimMode5i;
+JocTrimMode6i;
+JocTrimMode7i;
+JocTrimMode8i;
 Keywords;Palavras chave
 Known codecs;Codecs conhecidos
 Known formats;Formatos conhecidos
@@ -747,6 +772,7 @@ Language_bs;Bósnio
 Language_ca;Catalão
 Language_ce;Chechen
 Language_ch;Chamorro
+Language_cmn;
 Language_co;Corso
 Language_cr;Cree
 Language_cs;Checo
@@ -916,10 +942,17 @@ Language_wo;Wolof
 Language_xh;Xosa
 Language_yi;Yiddish
 Language_yo;Iorubá
+Language_yue;
 Language_za;Zhuang
 Language_zh;Chinês
+Language_zh-cmn;
 Language_zh-cn;Chinês (China)
+Language_zh-CN;
+Language_zh-Hans;
+Language_zh-Hant;
 Language_zh-tw;Chinês (Taiwan)
+Language_zh-TW;
+Language_zh-yue;
 Language_zu;Zulu
 LawRating;Classificação
 LCCN;LCCN
@@ -944,6 +977,7 @@ LinkedTo_Substream_Pos;
 LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
 List;Lista
+LongTermLoudness;
 LoRoCenterMixGain;
 LoRoSurroundMixGain;
 Loudness_Anchor;
@@ -981,6 +1015,8 @@ MaxFALL;
 MaxGain;
 MaximumMomentaryLoudness;
 MaxTruePeak;
+MD5;
+MD5_Unencoded;
 MediaInfo_About;MediaInfo proporciona um fácil acesso a informações simples e técnicas acerca de ficheiros de vídeo e áudio.\r\nExceptuando a interface gráfica do utilizador da Mac App Store, é um software de código aberto, o que significa que é gratuito para o utilizador final e os programadores têm liberdade de estudar, de melhorar e de redistribuir o programa (licença BSD).\r\n\r\nExemplos de ficheiros multimédia:\r\nMatroska, OGG (incluíndo OGM)\r\nMPEG1 (incluíndo VCD)\r\nMPEG2 (incluíndo DVD e SVCD)\r\nMPEG4 (incluíndo Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindows Media (incluíndo WMV, WMA)\r\nMicrosoft RIFF (incluíndo AVI, WAV)\r\nSom nos formatos (AC3, DTS, AAC, AU, AIFF, MP3)
 MediaInfo_About_About;
 Menu;Menu
@@ -1146,6 +1182,7 @@ Rating;Classificação
 RealtimeLoudnessCorrected;
 Recorded_Date;Data de gravação
 Recorded_Location;Local de gravação
+Reel;
 Released_Date;Data de lançamento
 RemixedBy;Remisturado por
 RenderMode;
@@ -1364,5 +1401,5 @@ Written_Location;Local da escrita
 WrittenBy;Escrito por
 Yes;Sim
 Your system;O seu sistema
-ZZ_Automatic_Percent;75
-ZZ_AutomaticLanguage_Percent;75
+ZZ_Automatic_Percent;73
+ZZ_AutomaticLanguage_Percent;74

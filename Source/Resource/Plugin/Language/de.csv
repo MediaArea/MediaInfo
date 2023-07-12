@@ -229,6 +229,7 @@ Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;
 Cancel;Abbrechen
 CaptionServiceName;
+CatalogNumber;
 Channel(s);Kanäle
 ChannelCoded;
 ChannelConfiguration;
@@ -242,6 +243,7 @@ Chapters stream(s);Kapitel-Stream(s)
 Chapters_Codec_List;Kapitel-Codecs
 Chapters_No;Keine Kapitel
 ChaptersCount;Anzahl der Kapitel-Streams
+CharacterSet;
 CheckNewVersion;Auf neue Version überprüfen
 Choose custom;Benutzerdefinierte auswählen
 Choose custom sheet;Gewünschte benutzerdefinierte Tabelle auswählen
@@ -328,6 +330,7 @@ DarkMode;
 Date;Datum
 Debug;Debug
 Decimal point;Dezimalpunkt
+Default;
 Default_Setting;
 DefaultTargetDeviceConfig;
 Delay;Verzögerung
@@ -336,6 +339,7 @@ Delay_Source_Container;
 Delay_Source_Stream;
 Delete;Löschen
 Description;Beschreibung
+Details;
 dialnorm;
 DialogueCorrected;
 DialogueEnhancement;
@@ -357,6 +361,7 @@ DotsPerInch;DPI
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
+Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;Dauer
@@ -384,6 +389,7 @@ EPG_Positions;EPG Positionen (inter)
 EpisodeTitleNumber;
 Error_File;Fehler beim Lesen der Datei
 Error_File_Write;
+Events_MinDuration;
 Events_PaintOn;
 Events_PopOn;
 Events_RollUp;
@@ -420,6 +426,7 @@ Folder (R)_Hint;Verzeichnis zum Betrachten auswählen (rekursiv mit allen Unterv
 Folder (Recursively);Verzeichnis (rekursiv)
 Folder_Hint;Verzeichnis zum Betrachten auswählen
 FolderName;Verzeichnisname
+Forced;
 Format;Format
 Format_Commercial;
 Format_Commercial_IfAny;
@@ -463,6 +470,7 @@ FpaPass;
 FpaVersion;
 FrameCount;Anzahl der Frames
 FrameRate;Bildwiederholungsrate
+FrameRate_MaxFrameNumber;
 FrameRate_Maximum;maximale Bildwiederholungsrate
 FrameRate_Minimum;minimale Bildwiederholungsrate
 FrameRate_Mode;Modus der Bildwiederholungsrate
@@ -471,7 +479,9 @@ FrameRate_Mode_VFR;variabel
 FrameRate_Nominal;nominale Bildwiederholungsrate
 FrameRate_Original;originale Bildwiederholungsrate
 FrameRate_Real;
+FullParsing;
 General;Allgemein
+GeneralCompliance;
 Genre;Genre
 Genre_000;Blues
 Genre_001;Classic Rock
@@ -716,6 +726,21 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+JocBalance_FrontBackListener;
+JocBalance_FrontBackOverheadFloor;
+JocTrim_Center;
+JocTrim_Height;
+JocTrim_Surround;
+JocTrimMode;
+JocTrimMode0i;
+JocTrimMode1i;
+JocTrimMode2i;
+JocTrimMode3i;
+JocTrimMode4i;
+JocTrimMode5i;
+JocTrimMode6i;
+JocTrimMode7i;
+JocTrimMode8i;
 Keywords;Schlüsselwörter
 Known codecs;Bekannte Codecs
 Known formats;Bekannte Formate
@@ -747,6 +772,7 @@ Language_bs;Bosnisch
 Language_ca;Katalanisch
 Language_ce;Tschetschenisch
 Language_ch;Chamorro
+Language_cmn;
 Language_co;Korsisch
 Language_cr;Cree
 Language_cs;Tschechisch
@@ -916,10 +942,17 @@ Language_wo;Wolof
 Language_xh;Xhosa
 Language_yi;Jiddisch
 Language_yo;Joruba
+Language_yue;
 Language_za;Zhuang
 Language_zh;Chinesisch
+Language_zh-cmn;
 Language_zh-cn;Chinesisch (VR China)
+Language_zh-CN;
+Language_zh-Hans;
+Language_zh-Hant;
 Language_zh-tw;Chinesisch (Taiwan
+Language_zh-TW;
+Language_zh-yue;
 Language_zu;Zulu
 LawRating;Altersfreigabe
 LCCN;LCCN
@@ -944,6 +977,7 @@ LinkedTo_Substream_Pos;
 LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
 List;Liste
+LongTermLoudness;
 LoRoCenterMixGain;
 LoRoSurroundMixGain;
 Loudness_Anchor;
@@ -981,6 +1015,8 @@ MaxFALL;
 MaxGain;
 MaximumMomentaryLoudness;
 MaxTruePeak;
+MD5;
+MD5_Unencoded;
 MediaInfo_About;Liefert sehr detaillierte Informationen\r\nüber Multimedia-Dateien:\r\nMatroska, OGG (einschließlich OGM)\r\nMPEG1 (einschließlich VCD)\r\nMPEG2 (einschließlich DVD and SVCD)\r\nMPEG4 (einschließlich Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (einschließlich WMV, WMA)\r\nMicrosoft RIFF (einschließlich AVI, WAV)\r\nAudio-Formate (AC3, DTS, AAC, AU, AIFF...)
 MediaInfo_About_About;
 Menu;Menü
@@ -1146,6 +1182,7 @@ Rating;Bewertung
 RealtimeLoudnessCorrected;
 Recorded_Date;Aufnahmedatum
 Recorded_Location;Aufnahmeort
+Reel;
 Released_Date;Veröffentlichungsdatum
 RemixedBy;Remixed von
 RenderMode;
@@ -1364,5 +1401,5 @@ Written_Location;Ort des Schreibbeginns
 WrittenBy;Geschrieben von
 Yes;Ja
 Your system;Deine Systeminformationen
-ZZ_Automatic_Percent;68
-ZZ_AutomaticLanguage_Percent;72
+ZZ_Automatic_Percent;66
+ZZ_AutomaticLanguage_Percent;71

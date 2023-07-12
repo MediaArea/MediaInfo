@@ -229,6 +229,7 @@ Bits-(Pixel*Frame);Bit/(pixel*frame)
 BufferSize; Dim. buffer
 Cancel;Annulla
 CaptionServiceName;Titolo nome servizio
+CatalogNumber;
 Channel(s);Canali
 ChannelCoded;Canale codificato
 ChannelConfiguration;Configurazione canale
@@ -242,6 +243,7 @@ Chapters stream(s);Capitoli
 Chapters_Codec_List;Codec capitoli
 Chapters_No;Nessun capitolo
 ChaptersCount;Numero dei capitoli
+CharacterSet;
 CheckNewVersion;Controlla disponibilità nuova versione
 Choose custom;Vista personalizzata
 Choose custom sheet;Personalizza modalità scheda
@@ -328,6 +330,7 @@ DarkMode;Modo scuro
 Date;Data
 Debug;Debug
 Decimal point;Separatore decimale
+Default;
 Default_Setting;Predefinito sistema
 DefaultTargetDeviceConfig;Configurazione predefinita dispositivo destinazione
 Delay;Ritardo
@@ -336,6 +339,7 @@ Delay_Source_Container;Contenitore
 Delay_Source_Stream;Flusso RAW
 Delete;Elimina
 Description;Descrizione
+Details;
 dialnorm;Finestra normalizzazione
 DialogueCorrected;Dialogo corretto
 DialogueEnhancement;Miglioramento del dialogo
@@ -357,6 +361,7 @@ DotsPerInch;Punti per pollice
 Downmix;DownMix
 Downmix_5.1.x;Downmix 5.1 e 5.1.x
 Downmix_5to2;Downmix 5.1 a 2.0 (stereo)
+Downmix_5to2_90deg;Downmix da 5.1 a 2.0 (stereo), sfasamento 90 gradi
 DrcSets_Count;Numero set RDC
 DrcSets_Effects;Tipi effetti DRC
 Duration;Durata
@@ -384,6 +389,7 @@ EPG_Positions;Posizioni EPG (interne)
 EpisodeTitleNumber;Numero titolo episodio
 Error_File;Errore nella lettura del file
 Error_File_Write;Errore durante la scrittura del file
+Events_MinDuration;
 Events_PaintOn;N. eventi PaintOn
 Events_PopOn;N. eventi PopOn
 Events_RollUp;N. eventi RollUp
@@ -420,6 +426,7 @@ Folder (R)_Hint;Seleziona cartella da analizzare (e le sue sottocartelle)
 Folder (Recursively);Cartella (e sottocartelle)
 Folder_Hint;Seleziona cartella con file da analizzare
 FolderName;Cartella
+Forced;
 Format;Formato
 Format_Commercial;Nome commerciale
 Format_Commercial_IfAny;Nome commerciale
@@ -463,6 +470,7 @@ FpaPass;Pass FPA
 FpaVersion;Versione FPA
 FrameCount;Numero fotogrammi
 FrameRate;Frequenza fotogrammi
+FrameRate_MaxFrameNumber;Frame max frame rate
 FrameRate_Maximum;Frame rate massimo
 FrameRate_Minimum;Frame rate minimo
 FrameRate_Mode;Modalità frame rate
@@ -471,7 +479,9 @@ FrameRate_Mode_VFR;Variabile
 FrameRate_Nominal;Frequenza fotogrammi nominale
 FrameRate_Original;Frequenza fotogrammi originale
 FrameRate_Real;Frequenza fotogrammi reale
+FullParsing;
 General;Generale
+GeneralCompliance;
 Genre;Genere
 Genre_000;Blues
 Genre_001;Rock Classico
@@ -716,6 +726,21 @@ InternetMediaType;Tipo supporto internet
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+JocBalance_FrontBackListener;Bilanciamento ascoltatore anteriore/posteriore
+JocBalance_FrontBackOverheadFloor;Bilanciamento overhead anteriore/posteriore pavimento
+JocTrim_Center;Ritaglio centrale
+JocTrim_Height;Ritaglio in altezza
+JocTrim_Surround;Ritaglio surround
+JocTrimMode;Modo ritaglio
+JocTrimMode0i;Modo ritaglio per 2.0 (stereo)
+JocTrimMode1i;Modo ritaglio per 5.1
+JocTrimMode2i;Modo ritaglio per 7.1
+JocTrimMode3i;Modo ritaglio per 2.1.2
+JocTrimMode4i;Modo ritaglio per 5.1.2
+JocTrimMode5i;Modo ritaglio per 7.1.2
+JocTrimMode6i;Modo ritaglio per 2.1.4
+JocTrimMode7i;Modo ritaglio per 5.1.4
+JocTrimMode8i;Modo ritaglio per 7.1.4
 Keywords;Parole chiavi
 Known codecs;Codec conosciuti
 Known formats;Formati conosciuti
@@ -747,6 +772,7 @@ Language_bs;Bosniaco
 Language_ca;Catalano
 Language_ce;Ceceno
 Language_ch;Chamorro
+Language_cmn;
 Language_co;Corso
 Language_cr;Cree
 Language_cs;Ceco
@@ -916,10 +942,17 @@ Language_wo;Wolof
 Language_xh;Xhosa
 Language_yi;Yiddish
 Language_yo;Yoruba
+Language_yue;
 Language_za;Zhuang
 Language_zh;Cinese
+Language_zh-cmn;
 Language_zh-cn;Cinese (Cina)
+Language_zh-CN;
+Language_zh-Hans;
+Language_zh-Hant;
 Language_zh-tw;Cinese (Taiwan)
+Language_zh-TW;
+Language_zh-yue;
 Language_zu;Zulu
 LawRating;Classificazione legale
 LCCN;LCCN
@@ -944,6 +977,7 @@ LinkedTo_Substream_Pos;Sottoflusso #s
 LinkedTo_TrackFormat_Pos;Formato traccia #s
 LinkedTo_TrackUID_Pos;UID traccia #s
 List;Elenco
+LongTermLoudness;
 LoRoCenterMixGain;Guadagno mix LoRo
 LoRoSurroundMixGain;Guadagno mix surround LoRo
 Loudness_Anchor;Ancoraggio loudness
@@ -981,6 +1015,8 @@ MaxFALL;Livello luce media fotogramma max
 MaxGain;Guadagno max
 MaximumMomentaryLoudness;Loudness momentaneo max
 MaxTruePeak;Picco reale max
+MD5;
+MD5_Unencoded;
 MediaInfo_About;MediaInfo fornisce un accesso veloce alle informazioni tecniche ed alle etichette dei file audio e video.\r\nAd eccezione dell'interfaccia grafica Mac App Store, è un software open source, che significa che è gratuito per l'utente finale e lo sviluppatore è libero di studiare e migliorare e ridistribuire il programma (licenza LGPL)
 MediaInfo_About_About;MediaInfo v% MI_VERSION % usando MediaInfoLib v % MIL_VERSION%
 Menu;Menu
@@ -1146,6 +1182,7 @@ Rating;Posizione
 RealtimeLoudnessCorrected;Volume corretto in tempo reale
 Recorded_Date;Data registrazione
 Recorded_Location;Luogo registrazione
+Reel;
 Released_Date;Data distribuzione
 RemixedBy;Remixato da
 RenderMode;Modo render
@@ -1364,5 +1401,5 @@ Written_Location;Realizzato in
 WrittenBy;Realizzato da
 Yes;Si
 Your system;Info sul sistema
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;99

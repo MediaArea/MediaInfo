@@ -229,6 +229,7 @@ Bits-(Pixel*Frame);ビット/(ピクセル*フレーム)
 BufferSize;バッファサイズ
 Cancel;キャンセル
 CaptionServiceName;
+CatalogNumber;
 Channel(s);チャンネル
 ChannelCoded;
 ChannelConfiguration;
@@ -242,6 +243,7 @@ Chapters stream(s);チャプターストリーム
 Chapters_Codec_List;チャプターコーデック
 Chapters_No;チャプターなし
 ChaptersCount;チャプター数
+CharacterSet;
 CheckNewVersion;最新版のチェック
 Choose custom;カスタム選択
 Choose custom sheet;編集するシートを選択してください
@@ -328,6 +330,7 @@ DarkMode;ダークモード
 Date;日付
 Debug;デバッグ
 Decimal point;小数点
+Default;
 Default_Setting;システムの規定
 DefaultTargetDeviceConfig;
 Delay;遅延
@@ -336,6 +339,7 @@ Delay_Source_Container;コンテナ
 Delay_Source_Stream;Raw ストリーム
 Delete;削除
 Description;詳細説明
+Details;
 dialnorm;
 DialogueCorrected;
 DialogueEnhancement;
@@ -357,6 +361,7 @@ DotsPerInch;ドット/インチ
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
+Downmix_5to2_90deg;
 DrcSets_Count;DRC の数
 DrcSets_Effects;DRC エフェクトの種類
 Duration;長さ
@@ -384,6 +389,7 @@ EPG_Positions;EPG 位置 (内部)
 EpisodeTitleNumber;エピソードのタイトル数
 Error_File;ファイル読み込みエラー
 Error_File_Write;ファイル書き込みエラー
+Events_MinDuration;
 Events_PaintOn;
 Events_PopOn;
 Events_RollUp;
@@ -420,6 +426,7 @@ Folder (R)_Hint;フォルダーを選択 (サブフォルダーもすべて読�
 Folder (Recursively);フォルダー (サブフォルダー含む)
 Folder_Hint;調べるフォルダを選択
 FolderName;フォルダー名
+Forced;
 Format;形式
 Format_Commercial;一般名
 Format_Commercial_IfAny;一般名
@@ -463,6 +470,7 @@ FpaPass;FPAパス
 FpaVersion;FPAバージョン
 FrameCount;フレーム数
 FrameRate;フレームレート
+FrameRate_MaxFrameNumber;
 FrameRate_Maximum;最大フレームレート
 FrameRate_Minimum;最小フレームレート
 FrameRate_Mode;フレームレートの種類
@@ -471,7 +479,9 @@ FrameRate_Mode_VFR;可変 (VFR)
 FrameRate_Nominal;フレームレート名
 FrameRate_Original;元のフレームレート
 FrameRate_Real;
+FullParsing;
 General;全般
+GeneralCompliance;
 Genre;ジャンル
 Genre_000;ブルース
 Genre_001;クラシック・ロック
@@ -716,6 +726,21 @@ InternetMediaType;ネット用メディアタイプ
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+JocBalance_FrontBackListener;
+JocBalance_FrontBackOverheadFloor;
+JocTrim_Center;
+JocTrim_Height;
+JocTrim_Surround;
+JocTrimMode;
+JocTrimMode0i;
+JocTrimMode1i;
+JocTrimMode2i;
+JocTrimMode3i;
+JocTrimMode4i;
+JocTrimMode5i;
+JocTrimMode6i;
+JocTrimMode7i;
+JocTrimMode8i;
 Keywords;キーワード
 Known codecs;対応するコーデック
 Known formats;対応する形式
@@ -747,6 +772,7 @@ Language_bs;ボスニア語
 Language_ca;カタルーニャ語
 Language_ce;チェチェン語
 Language_ch;チャモロ語
+Language_cmn;
 Language_co;コルシカ語
 Language_cr;クリー語
 Language_cs;チェコ語
@@ -916,10 +942,17 @@ Language_wo;ウォロフ語
 Language_xh;コサ語
 Language_yi;イディッシュ語
 Language_yo;ヨルバ語
+Language_yue;
 Language_za;チワン語
 Language_zh;中国語
+Language_zh-cmn;
 Language_zh-cn;中国語 (簡体)
+Language_zh-CN;
+Language_zh-Hans;
+Language_zh-Hant;
 Language_zh-tw;中国語 (繁体)
+Language_zh-TW;
+Language_zh-yue;
 Language_zu;ズールー語
 LawRating;規制評価
 LCCN;LCCN
@@ -944,6 +977,7 @@ LinkedTo_Substream_Pos;
 LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
 List;一覧
+LongTermLoudness;
 LoRoCenterMixGain;
 LoRoSurroundMixGain;
 Loudness_Anchor;アンカー ラウドネス
@@ -981,6 +1015,8 @@ MaxFALL;フレームの平均明るさの度合い (MaxFALL)
 MaxGain;
 MaximumMomentaryLoudness;
 MaxTruePeak;
+MD5;
+MD5_Unencoded;
 MediaInfo_About;MediaInfo により、動画ファイルや音声ファイルの技術情報やタグ情報に簡単にアクセスできます。\r\nMac App Store のグラフィカルユーザーインターフェース以外は、オープンソースのソフトウェアです。つまりこのプログラムは最終利用者に無償で提供され、開発者は自由にプログラムを研究、改良、再配布できます (BSDライセンス)。
 MediaInfo_About_About;MediaInfo v%MI_VERSION% (MediaInfoLib v%MIL_VERSION%)
 Menu;メニュー
@@ -1146,6 +1182,7 @@ Rating;評価
 RealtimeLoudnessCorrected;
 Recorded_Date;録音日
 Recorded_Location;録音した場所
+Reel;
 Released_Date;リリース日
 RemixedBy;リミックス者
 RenderMode;
@@ -1364,5 +1401,5 @@ Written_Location;作成場所
 WrittenBy;著者
 Yes;はい
 Your system;システム情報
-ZZ_Automatic_Percent;87
-ZZ_AutomaticLanguage_Percent;87
+ZZ_Automatic_Percent;85
+ZZ_AutomaticLanguage_Percent;85

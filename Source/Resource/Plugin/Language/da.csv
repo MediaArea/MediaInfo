@@ -229,6 +229,7 @@ Bits-(Pixel*Frame);Bits/(Billedpunkter*Billed)
 BufferSize;Buffer-størrelse
 Cancel;Annuller
 CaptionServiceName;
+CatalogNumber;
 Channel(s);Kanaler
 ChannelCoded;
 ChannelConfiguration;
@@ -242,6 +243,7 @@ Chapters stream(s);Kapitelstrømme
 Chapters_Codec_List;Kapitel-codecs
 Chapters_No;Ingen kapitler
 ChaptersCount;Antal kapitelstrømme
+CharacterSet;
 CheckNewVersion;Tjek for ny version
 Choose custom;Vælg tilpas
 Choose custom sheet;Vælg tilpasset ark
@@ -328,6 +330,7 @@ DarkMode;
 Date;Dato
 Debug;Fejlsøg
 Decimal point;Decimaltegn
+Default;
 Default_Setting;
 DefaultTargetDeviceConfig;
 Delay;Forsinkelse
@@ -336,6 +339,7 @@ Delay_Source_Container;Container
 Delay_Source_Stream;Rå strøm
 Delete;Slet
 Description;Beskrivelse
+Details;
 dialnorm;
 DialogueCorrected;
 DialogueEnhancement;
@@ -357,6 +361,7 @@ DotsPerInch;Punkter pr inch
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
+Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;Varighed
@@ -384,6 +389,7 @@ EPG_Positions;EPG-positioner (internt)
 EpisodeTitleNumber;
 Error_File;Fejl under læsning af fil
 Error_File_Write;
+Events_MinDuration;
 Events_PaintOn;
 Events_PopOn;
 Events_RollUp;
@@ -420,6 +426,7 @@ Folder (R)_Hint;Vælg en mappe at undersøge (med alle mapper rekursivt)
 Folder (Recursively);Mappe (Rekursivt)
 Folder_Hint;Vælg en mappe at undersøge
 FolderName;Mappenavn
+Forced;
 Format;Format
 Format_Commercial;Kommercielt navn
 Format_Commercial_IfAny;
@@ -463,6 +470,7 @@ FpaPass;
 FpaVersion;
 FrameCount;Antal billeder
 FrameRate;Billedfrekvens
+FrameRate_MaxFrameNumber;
 FrameRate_Maximum;Maksimum billedfrekvens
 FrameRate_Minimum;Minimum billedfrekvens
 FrameRate_Mode;Billedratemodus
@@ -471,7 +479,9 @@ FrameRate_Mode_VFR;Variabel
 FrameRate_Nominal;Nominel billedfrekvens
 FrameRate_Original;Original billedrate
 FrameRate_Real;
+FullParsing;
 General;Generelt
+GeneralCompliance;
 Genre;Genre
 Genre_000;Blues
 Genre_001;Klassisk rock
@@ -716,6 +726,21 @@ InternetMediaType;Internet mediatype
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+JocBalance_FrontBackListener;
+JocBalance_FrontBackOverheadFloor;
+JocTrim_Center;
+JocTrim_Height;
+JocTrim_Surround;
+JocTrimMode;
+JocTrimMode0i;
+JocTrimMode1i;
+JocTrimMode2i;
+JocTrimMode3i;
+JocTrimMode4i;
+JocTrimMode5i;
+JocTrimMode6i;
+JocTrimMode7i;
+JocTrimMode8i;
 Keywords;Nøgleord
 Known codecs;Kendte codecs
 Known formats;Kendte formater
@@ -747,6 +772,7 @@ Language_bs;Bosnisk
 Language_ca;Katalansk
 Language_ce;Tjetjensk
 Language_ch;
+Language_cmn;
 Language_co;Korsikansk
 Language_cr;
 Language_cs;Tjekkisk
@@ -916,10 +942,17 @@ Language_wo;
 Language_xh;
 Language_yi;Jiddisch
 Language_yo;
+Language_yue;
 Language_za;
 Language_zh;Kinesisk
+Language_zh-cmn;
 Language_zh-cn;Kinesisk (Kina)
+Language_zh-CN;
+Language_zh-Hans;
+Language_zh-Hant;
 Language_zh-tw;Kinesisk (Taiwan)
+Language_zh-TW;
+Language_zh-yue;
 Language_zu;Zulu
 LawRating;Aldersgrænse
 LCCN;LCCN
@@ -944,6 +977,7 @@ LinkedTo_Substream_Pos;
 LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
 List;Liste
+LongTermLoudness;
 LoRoCenterMixGain;
 LoRoSurroundMixGain;
 Loudness_Anchor;
@@ -981,6 +1015,8 @@ MaxFALL;
 MaxGain;
 MaximumMomentaryLoudness;
 MaxTruePeak;
+MD5;
+MD5_Unencoded;
 MediaInfo_About;Leverer meget detaljeret information\r\nom en multimediefil:\r\nMatroska, Ogg (inklusive OGM)\r\nMPEG1 (inklusive VCD)\r\nMPEG2 (inklusive DVD og SVCD)\r\nMPEG4 (inklusive Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (inklusive WMV, WMA)\r\Microsoft RIFF (inklusive AVI, WAV)\r\nRene lydformater (AC3, DTS, AAC, AU, AIFF...)
 MediaInfo_About_About;
 Menu;Menu
@@ -1146,6 +1182,7 @@ Rating;Bedømmelse
 RealtimeLoudnessCorrected;
 Recorded_Date;Optaget den
 Recorded_Location;Optaget sted
+Reel;
 Released_Date;Udgivet den
 RemixedBy;Remixet af
 RenderMode;
@@ -1364,5 +1401,5 @@ Written_Location;Sted
 WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
-ZZ_Automatic_Percent;64
-ZZ_AutomaticLanguage_Percent;74
+ZZ_Automatic_Percent;62
+ZZ_AutomaticLanguage_Percent;72

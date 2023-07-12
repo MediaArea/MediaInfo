@@ -229,6 +229,7 @@ Bits-(Pixel*Frame);บิต/(พิกเซล*เฟรม)
 BufferSize;
 Cancel;ยกเลิก
 CaptionServiceName;
+CatalogNumber;
 Channel(s);ช่อง
 ChannelCoded;
 ChannelConfiguration;
@@ -242,6 +243,7 @@ Chapters stream(s);เชฟเตอร์สตรีม
 Chapters_Codec_List;เชฟเตอร์ Codecs
 Chapters_No;ไม่มีเชฟเตอร์
 ChaptersCount;จำนวนของสตรีมเชฟเตอร์
+CharacterSet;
 CheckNewVersion;ตรวจสอบรุ่นใหม่
 Choose custom;กำหนดเอง
 Choose custom sheet;เลือกชีตที่คุณต้องการ
@@ -328,6 +330,7 @@ DarkMode;
 Date;วันที่
 Debug;ดีบั๊ก
 Decimal point;จุดทศนิยม
+Default;
 Default_Setting;
 DefaultTargetDeviceConfig;
 Delay;Delay
@@ -336,6 +339,7 @@ Delay_Source_Container;
 Delay_Source_Stream;
 Delete;ลบ
 Description;รายละเอียด
+Details;
 dialnorm;
 DialogueCorrected;
 DialogueEnhancement;
@@ -357,6 +361,7 @@ DotsPerInch;
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
+Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;ระยะเวลา
@@ -384,6 +389,7 @@ EPG_Positions;
 EpisodeTitleNumber;
 Error_File;เกิดข้อผิดพลาดขณะที่กำลังไฟล์
 Error_File_Write;
+Events_MinDuration;
 Events_PaintOn;
 Events_PopOn;
 Events_RollUp;
@@ -420,6 +426,7 @@ Folder (R)_Hint;เลือกโฟลเดอร์เพื่อเรี�
 Folder (Recursively);โฟลเดอร์ (Recursively)
 Folder_Hint;เลือกโฟลเดอร์เพื่อเรียนรู้
 FolderName;ชื่อโฟลเดอร์
+Forced;
 Format;รูปแบบ
 Format_Commercial;
 Format_Commercial_IfAny;
@@ -463,6 +470,7 @@ FpaPass;
 FpaVersion;
 FrameCount;
 FrameRate;เฟรมเรต
+FrameRate_MaxFrameNumber;
 FrameRate_Maximum;เฟรมเรตสูงสุด
 FrameRate_Minimum;เฟรมเรตต่ำสุด
 FrameRate_Mode;เฟรมเรตโหมด
@@ -471,7 +479,9 @@ FrameRate_Mode_VFR;
 FrameRate_Nominal;เฟรมเรต Nominal
 FrameRate_Original;เฟรมเรตต้นฉบับ
 FrameRate_Real;
+FullParsing;
 General;ทั่วไป
+GeneralCompliance;
 Genre;แนวเพลง
 Genre_000;บลู
 Genre_001;คลาสสิคร็อค
@@ -716,6 +726,21 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+JocBalance_FrontBackListener;
+JocBalance_FrontBackOverheadFloor;
+JocTrim_Center;
+JocTrim_Height;
+JocTrim_Surround;
+JocTrimMode;
+JocTrimMode0i;
+JocTrimMode1i;
+JocTrimMode2i;
+JocTrimMode3i;
+JocTrimMode4i;
+JocTrimMode5i;
+JocTrimMode6i;
+JocTrimMode7i;
+JocTrimMode8i;
 Keywords;คีย์เวิร์ด
 Known codecs;codecs ที่รู้จัก
 Known formats;รูปแบบที่รู้จัก
@@ -747,6 +772,7 @@ Language_bs;บอซเนีย
 Language_ca;คาตะลาน
 Language_ce;Chechen
 Language_ch;Chamorro
+Language_cmn;
 Language_co;คอร์ซิกา
 Language_cr;Cree
 Language_cs;เช็ก
@@ -916,10 +942,17 @@ Language_wo;Wolof
 Language_xh;Xhosa
 Language_yi;Yiddish
 Language_yo;Yoruba
+Language_yue;
 Language_za;Zhuang
 Language_zh;จีน
+Language_zh-cmn;
 Language_zh-cn;
+Language_zh-CN;
+Language_zh-Hans;
+Language_zh-Hant;
 Language_zh-tw;
+Language_zh-TW;
+Language_zh-yue;
 Language_zu;ซูลู
 LawRating;Law rating
 LCCN;LCCN
@@ -944,6 +977,7 @@ LinkedTo_Substream_Pos;
 LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
 List;รายการ
+LongTermLoudness;
 LoRoCenterMixGain;
 LoRoSurroundMixGain;
 Loudness_Anchor;
@@ -981,6 +1015,8 @@ MaxFALL;
 MaxGain;
 MaximumMomentaryLoudness;
 MaxTruePeak;
+MD5;
+MD5_Unencoded;
 MediaInfo_About;แสดงข้อมูลอย่างละเอียด\r\nของไฟล์มัลติมีเดีย:\r\nMatroska, OGG (รวมทั้ง OGM)\r\nMPEG1 (รวมทั้ง VCD)\r\nMPEG2 (รวมทั้ง DVD และ SVCD)\r\nMPEG4 (รวมทั้ง Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (รวมทั้ง WMV, WMA)\r\nMicrosoft RIFF (รวมทั้ง AVI, WAV)\r\nรูปแบบเสียงอย่างเดียว (AC3, DTS, AAC, AU, AIFF...)
 MediaInfo_About_About;
 Menu;เมนู
@@ -1146,6 +1182,7 @@ Rating;เรตติ้ง
 RealtimeLoudnessCorrected;
 Recorded_Date;วันที่บันทึก
 Recorded_Location;Recorded location
+Reel;
 Released_Date;Released date
 RemixedBy;รีมิกซ์โดย
 RenderMode;
@@ -1364,5 +1401,5 @@ Written_Location;สถานที่เขียน
 WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
-ZZ_Automatic_Percent;60
-ZZ_AutomaticLanguage_Percent;66
+ZZ_Automatic_Percent;58
+ZZ_AutomaticLanguage_Percent;65
