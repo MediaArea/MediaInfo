@@ -12,6 +12,20 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 23.07, 2023-07-12
+-------------
++ Italian language update
++ USAC conformance checker: update DRC presence check
++ USAC conformance checker: sbgp presence check
++ USAC conformance checker: difference between extra zero bytes and other extra bytes
++ ISO 9660: support of DVD video, with option for listing all contents
++ MPEG-7: support of collections (beta)
++ More Blackmagic RAW meta kinds
++ DTS-HD: DTSHDHDR header support (used for raw DTS-HD files)
+x ADIF: fix wrong detection of lot of files as ADIF (Android and MediaInfoOnline)
+x USAC conformance checker: fix arith context handling in some corner cases
+x ADM: some tweaks about FFoA/Start/End time codes
+
 Version 23.06, 2023-06-28
 -------------
 + USAC/xHE-AAC conformance checker
