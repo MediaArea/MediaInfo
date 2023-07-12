@@ -1,9 +1,9 @@
-%global mediainfo_version           23.06
+%global mediainfo_version           23.07
 %global mediainfo_version_major     23
-%global mediainfo_version_minor     06
-%global libmediainfo_version        23.06
+%global mediainfo_version_minor     07
+%global libmediainfo_version        23.07
 %global libmediainfo_version_major  23
-%global libmediainfo_version_minor  06
+%global libmediainfo_version_minor  07
 %global libzen_version              0.4.41
 %global libzen_version_major        0
 %global libzen_version_minor        4
