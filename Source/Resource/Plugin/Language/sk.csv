@@ -1069,42 +1069,6 @@ ObjectCount;
 OK;OK
 One output file per input file;One output file per input file
 Open;Otvoriť
-OpenCandy_01;Sťahovanie
-OpenCandy_02;Dokončené:    %
-OpenCandy_03;Internetové spojenie prerušené!
-OpenCandy_04;Sťahovanie ukončené.
-OpenCandy_05;Kliknutím nainštalujte.
-OpenCandy_06;
-OpenCandy_07;
-OpenCandy_08;
-OpenCandy_09;
-OpenCandy_10;Zrušiť inštaláciu
-OpenCandy_11;
-OpenCandy_12;Ukončiť inštalátor
-OpenCandy_13;
-OpenCandy_14;Sťahovanie
-OpenCandy_15;
-OpenCandy_16;
-OpenCandy_17;
-OpenCandy_18;
-OpenCandy_19;
-OpenCandy_20;
-OpenCandy_21;Inštalácia
-OpenCandy_22;Inštalácia
-OpenCandy_23;
-OpenCandy_24;Prerušenie
-OpenCandy_25;
-OpenCandy_26;
-OpenCandy_27;Inštalujte teraz
-OpenCandy_28;
-OpenCandy_29;
-OpenCandy_30;Zrušenie inštalácie
-OpenCandy_31;Vyberte inštalačné nastavenia
-OpenCandy_32;Inštalujte
-OpenCandy_33;Neinštalujte
-OpenCandy_34;Vyberte inštalačné nastavenia
-OpenCandy_35;
-OpenCandy_36;
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
@@ -1402,4 +1366,4 @@ WrittenBy;Napísal
 Yes;Áno
 Your system;Váš systém
 ZZ_Automatic_Percent;59
-ZZ_AutomaticLanguage_Percent;64
+ZZ_AutomaticLanguage_Percent;63

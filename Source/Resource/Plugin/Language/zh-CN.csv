@@ -1069,42 +1069,6 @@ ObjectCount;对象数量
 OK;确定
 One output file per input file;一个输入文件对应一个输出文件
 Open;打开
-OpenCandy_01;正在下载 ________
-OpenCandy_02;已完成 __%
-OpenCandy_03;网络连接中断
-OpenCandy_04;________ 下载完成
-OpenCandy_05;点击开始安装 ________
-OpenCandy_06;确定要取消安装吗？\r\n如果要继续安装，请点击“否”。\r\n提示：你可以点击菜单中的“退出”，当下次启动电脑的时候再安装。
-OpenCandy_07;已暂停下载 ________。\r\n请点击任务栏图标继续下载。
-OpenCandy_08;发生了严重的错误。将中止安装 _________。
-OpenCandy_09;暂停下载
-OpenCandy_10;取消安装
-OpenCandy_11;继续下载
-OpenCandy_12;退出安装程序
-OpenCandy_13;___________ - 来自 ____________ 的推荐
-OpenCandy_14;正在下载 _________
-OpenCandy_15;正在下载 ___________（由 ___________ 推荐）。下载完成后我们会通知您。
-OpenCandy_16;___________ 可以开始安装了。
-OpenCandy_17;___________ 已下载完成，请点击“安装”继续。
-OpenCandy_18;已下载 ___________ 个（共 ___________ 个）
-OpenCandy_19;由 OpenCandy 提供
-OpenCandy_20;访问 OpenCandy.com 了解更多信息
-OpenCandy_21;安装
-OpenCandy_22;安装 ___________
-OpenCandy_23;将取消安装 ___________。\r\n确定要退出吗？
-OpenCandy_24;暂停
-OpenCandy_25;下载已暂停。点击“继续”可以继续下载。
-OpenCandy_26;继续
-OpenCandy_27;立即安装
-OpenCandy_28;暂停下载
-OpenCandy_29;继续下载
-OpenCandy_30;取消下载
-OpenCandy_31;请选择安装选项
-OpenCandy_32;安装 ___________
-OpenCandy_33;不安装
-OpenCandy_34;请选择安装选项
-OpenCandy_35;______ 推荐此软件
-OpenCandy_36;您当前的安装不会被中断
 OpenCaptionsLanguage;显式字幕语言
 OpenCaptionsPresent;含有显式字幕
 OpenCaptionsType;显式字幕格式

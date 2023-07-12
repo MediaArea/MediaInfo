@@ -1069,42 +1069,6 @@ ObjectCount;
 OK;OK
 One output file per input file;Erreur de lecture du fichier
 Open;Ouvrir
-OpenCandy_01;Téléchargement de _____
-OpenCandy_02;____% Terminé
-OpenCandy_03;Connexion Internet interrompue
-OpenCandy_04;Téléchargement de ____ terminé.
-OpenCandy_05;Cliquez ici pour installer ______
-OpenCandy_06;Êtes-vous sûr de vouloir annuler l'installation?\r\nSi vous souhaitez reporter l'installation à plus tard, sélectionnez 'Non'.\r\nRemarque: Vous pouvez choisir 'Quitter' depuis le menu pour reporter l'installation au prochain redémarrage.
-OpenCandy_07;Le téléchargement de ______ a été mis en pause.\r\nCliquez sur l'icône dans la barre d'état pour reprendre le téléchargement.
-OpenCandy_08;Une erreur critique est survenue. L'installation de ______ va être annulée.
-OpenCandy_09;Mettre le téléchargement en pause.
-OpenCandy_10;Annuler l'installation
-OpenCandy_11;Reprendre le téléchargement
-OpenCandy_12;Quitter l'installation
-OpenCandy_13;________ - recommandé par __________
-OpenCandy_14;Téléchargement de _____
-OpenCandy_15;_________, le logiciel recommandé par _______, est en cours de téléchargement selon votre demande. Nous vous ferons savoir quand il sera prêt à être installé.
-OpenCandy_16;_______ est prêt à être installé.
-OpenCandy_17;_______ est maintenant entièrement téléchargé. Cliquez sur 'Installer' pour continuer.
-OpenCandy_18;_______ sur _______ téléchargé
-OpenCandy_19;Un service de OpenCandy
-OpenCandy_20;En savoir plus : OpenCandy.com
-OpenCandy_21;Installer
-OpenCandy_22;Installation de _______
-OpenCandy_23;Ceci va annuler l'installation de _______.\r\Êtes-vous sûr de vouloir quitter?
-OpenCandy_24;Interrompre
-OpenCandy_25;Votre téléchargement a été interrompu. Cliquez sur 'Reprendre' lorsque vous êtes prêts à continuer.
-OpenCandy_26;Reprendre
-OpenCandy_27;Installer Maintenant
-OpenCandy_28;Interrompre le Téléchargement
-OpenCandy_29;Reprendre le Téléchargement
-OpenCandy_30;Annuler l'installation
-OpenCandy_31;Veuillez choisir une option d'installation
-OpenCandy_32;Installer _______
-OpenCandy_33;Ne pas installer
-OpenCandy_34;Veuillez sélectionner une option d'installation
-OpenCandy_35;______ recommande ce logiciel
-OpenCandy_36;Votre installation en cours ne sera pas interrompue
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
@@ -1402,4 +1366,4 @@ WrittenBy;Écrit par
 Yes;Oui
 Your system;Votre système
 ZZ_Automatic_Percent;73
-ZZ_AutomaticLanguage_Percent;78
+ZZ_AutomaticLanguage_Percent;77

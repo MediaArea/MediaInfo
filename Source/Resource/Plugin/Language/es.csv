@@ -1069,42 +1069,6 @@ ObjectCount;
 OK;Aceptar
 One output file per input file;Un archivo de salida por archivo de entrada
 Open;Abrir
-OpenCandy_01;Descargando ________
-OpenCandy_02;__% completo
-OpenCandy_03;Se interrumpió la conexión a Internet
-OpenCandy_04;descarga ________ completa
-OpenCandy_05;Haz clic para instalar ________
-OpenCandy_06;¿Estás seguro de que deseas cancelar la instalación?\r\nSi deseas posponer la instalación para más adelante, selecciona «No».\r\nNota: Puedes seleccionar «Salir» desde el menú para posponer la instalación hasta la próxima vez que reinicies.
-OpenCandy_07;La descarga de ________  ha sido pausada.\r\nHaz clic en el icono de la bandeja para reanudar la descarga.
-OpenCandy_08;Ha ocurrido un error crítico. La instalación de _________ será cancelada.
-OpenCandy_09;Pausar descarga
-OpenCandy_10;Cancelar instalación
-OpenCandy_11;Reanudar instalación
-OpenCandy_12;Salir del instalador
-OpenCandy_13;___________ - Recomendado por ____________
-OpenCandy_14;Descargando _________
-OpenCandy_15;___________, el programa recomendado por ___________ ahora está descargándose conforme a tu solicitud. Te avisaremos cuando esté listo para ser instalado.
-OpenCandy_16;___________ está listo para la instalación
-OpenCandy_17;___________ ha sido descargado. Por favor, haz clic en «Instalar» para proceder.
-OpenCandy_18;___________ de ___________ descargado
-OpenCandy_19;Ofrecido por OpenCandy
-OpenCandy_20;Obtener más información en OpenCandy.com
-OpenCandy_21;Instalar
-OpenCandy_22;Instalación de ___________
-OpenCandy_23;Esto cancelará la instalación de ___________\r\n¿Estás seguro de que deseas salir?
-OpenCandy_24;Pausa
-OpenCandy_25;La descarga ha sido detenida. Haz clic en «Reanudar» cuando esté listo para continuar.
-OpenCandy_26;Reanudar
-OpenCandy_27;Instalar ahora
-OpenCandy_28;Pausar descarga
-OpenCandy_29;Reanudar descarga
-OpenCandy_30;Cancelar instalación
-OpenCandy_31;Por favor, elige una opción de instalación
-OpenCandy_32;Instalar ___________
-OpenCandy_33;No instalar
-OpenCandy_34;Por favor, elige una opción de instalación
-OpenCandy_35;______ recomienda este software
-OpenCandy_36;Tu instalación actual no será interrumpida
 OpenCaptionsLanguage;Idioma subtítulos incrustados
 OpenCaptionsPresent;Subtítulos incrustados presentes
 OpenCaptionsType;Tipo subtítulos incrustados
@@ -1401,5 +1365,5 @@ Written_Location;Escrito en
 WrittenBy;Escrito por
 Yes;Sí
 Your system;Tu sistema
-ZZ_Automatic_Percent;69
-ZZ_AutomaticLanguage_Percent;80
+ZZ_Automatic_Percent;68
+ZZ_AutomaticLanguage_Percent;79

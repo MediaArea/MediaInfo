@@ -1069,42 +1069,6 @@ ObjectCount;
 OK;კარგი
 One output file per input file;One output file per input file
 Open;გახსნა
-OpenCandy_01;გადმოწერილია ________
-OpenCandy_02;__% მზადაა
-OpenCandy_03;Internet connection interrupted
-OpenCandy_04;________ გადმოწერა შესრულებია
-OpenCandy_05;სწრაფი ინსტალაცია ________
-OpenCandy_06;Are you sure you wish to cancel the install?\r\nIf you wish to postpone the install until later, select 'No'.\r\nNote: You may select Exit from the menu to defer installation until after the next time you reboot.
-OpenCandy_07;გადმოწერილი ________ დაპაუზებული იქნა.\r\nდააჭირე ხელახლა მცდელობის იკონს,რომ გააგრძელო გადმოწერა.
-OpenCandy_08;A critical error has occurred. Installation of _________ will be aborted.
-OpenCandy_09;გადმოწერის დაპაუზება
-OpenCandy_10;ინსტალაციის შეჩერება
-OpenCandy_11;გადმოწერის გაგრძელება
-OpenCandy_12;საინსტალაციოდან გასვლა
-OpenCandy_13;___________ - როკომენდირებულია ____________ -სგან
-OpenCandy_14;გადმოწერილია _________
-OpenCandy_15;___________, ეს პროგრამა რეკომენდირბეულია ___________-სგან, is now downloading at your requestWe will let you know when it is ready to be installed.
-OpenCandy_16;___________ მზადაა ინსტალაციისთვის
-OpenCandy_17;___________ უკვე სრულად გადმოწერილია. დააკლიკეთ 'ინსტალაციას' ,რომ დააყენოთ პროგრამა.
-OpenCandy_18;___________ გან ___________ გადმოწერილია
-OpenCandy_19;პროგრამირება OpenCandy
-OpenCandy_20;გაიგე მეტი OpenCandy.com-ზე
-OpenCandy_21;ინსტალაცია
-OpenCandy_22;დაინსტალირებულია ___________
-OpenCandy_23;This will cancel the installation of ___________\r\nAre you sure you wish to exit?
-OpenCandy_24;პაუზა
-OpenCandy_25;გადმოწერილი დაპაუზდა. დააჭირეთ 'გაგრძელება' როცა შენ იქნები მზად გადმოწერისთვის.
-OpenCandy_26;გაგრძელება
-OpenCandy_27;დაინსტალირე ახლავე
-OpenCandy_28;დაპაუზება
-OpenCandy_29;გაგრძელება
-OpenCandy_30;ინსტალაციის შეჩერება
-OpenCandy_31;აირჩიეთ ინსტალტორის ოპციები
-OpenCandy_32;დაინსტალირდა ___________
-OpenCandy_33;არ დააინსტალირო
-OpenCandy_34;აირჩიეთ ინსტალაციის ოპციები
-OpenCandy_35;______ გირჩევთ ამ პროგრამას
-OpenCandy_36;მიმდინარე ინსტალაცია არ იქნება შეჩერებული
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
@@ -1401,5 +1365,5 @@ Written_Location;დაწერის ადგილი
 WrittenBy;დაწერილია
 Yes;დიახ
 Your system;თქვენი სისტემა
-ZZ_Automatic_Percent;68
+ZZ_Automatic_Percent;67
 ZZ_AutomaticLanguage_Percent;72

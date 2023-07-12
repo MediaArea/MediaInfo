@@ -1069,42 +1069,6 @@ ObjectCount;
 OK;TAMAM
 One output file per input file;Girdi dosyası başına bir çıktı dosyası
 Open;Aç
-OpenCandy_01;İndirilen ________
-OpenCandy_02;__% Tamamlandı
-OpenCandy_03;Internet bağlantısı kopmuş
-OpenCandy_04;________ indirme tamamlandı
-OpenCandy_05;Yüklemek için tıklayın ________
-OpenCandy_06;Kur'u iptal etmek istediğinize emin misiniz?\r\nEğer kurmayı sonraya ertelemek isterseniz, 'Hayır'ı seçin.\r\nNot: Bir dahaki seferden sonra yeniden başlatana kadar kurulumu ertelemek için menüden Çıkış'ı seçebilirsiniz.
-OpenCandy_07;Download of ________ has been paused.\r\nClick on the tray icon to resume downloading.
-OpenCandy_08;A critical error has occurred. Installation of _________ will be aborted.
-OpenCandy_09;İndirmeyi duraklat
-OpenCandy_10;Yüklemeyi iptal et
-OpenCandy_11;İndirmeye devam et
-OpenCandy_12;Yükleyiciden çık
-OpenCandy_13;___________ - Recommended by ____________
-OpenCandy_14;Downloading _________
-OpenCandy_15;___________, the software recommended to you by ___________, is now downloading at your requestWe will let you know when it is ready to be installed.
-OpenCandy_16;___________ is ready for installation
-OpenCandy_17;___________ is now fully downloaded. Please click on 'Install' to proceed.
-OpenCandy_18;___________ of ___________ downloaded
-OpenCandy_19;OpenCandy tarafından desteklenir
-OpenCandy_20;OpenCandy.com 'dan daha fazlasını öğrenin
-OpenCandy_21;Yükle
-OpenCandy_22;Installation of ___________
-OpenCandy_23;This will cancel the installation of ___________\r\nAre you sure you wish to exit?
-OpenCandy_24;Duraklat
-OpenCandy_25;Your download has been paused. Click 'Resume' when you are ready to continue.
-OpenCandy_26;Devam
-OpenCandy_27;Hemen Yükle
-OpenCandy_28;İndirmeyi duraklat
-OpenCandy_29;İndirmeye devam et
-OpenCandy_30;Yüklemeyi İptalEet
-OpenCandy_31;Lütfen kurulum seçeneği seçin
-OpenCandy_32;Yükle ___________
-OpenCandy_33;Yükleme
-OpenCandy_34;Lütfen yükleme seçeneği seçin
-OpenCandy_35;______ recommends this software
-OpenCandy_36;Your current installation will not be interrupted
 OpenCaptionsLanguage;Açık Açıklamalı Alt Yazı Dili
 OpenCaptionsPresent;Açık Açıklamalı Alt Yazı Sunumu
 OpenCaptionsType;Açık Açıklamalı Alt Yazı Türü

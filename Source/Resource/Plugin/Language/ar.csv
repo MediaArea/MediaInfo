@@ -1069,42 +1069,6 @@ ObjectCount;
 OK;موافق
 One output file per input file;خطأ عند قراءة الملف
 Open;فتح
-OpenCandy_01;تحميل ________
-OpenCandy_02;__% أنهى
-OpenCandy_03;انقطاع الاتصال بالإنترنت
-OpenCandy_04;________ تحميل كامل
-OpenCandy_05;انقر لتثبيت ________
-OpenCandy_06;هل أنت متأكد أنك ترغب في إلغاء تثبيت?\r\nإذا كنت ترغب في تأجيل تثبيت حتى وقت لاحق ، اختر 'لا'.\r\nملاحظة : يمكنك اختيار إنهاء من القائمة لتأجيل التثبيت حتى تشغيل الكمبيوتر التالي.
-OpenCandy_07;تحميل ________ تم إيقافه.\r\nانقر على أيقونة الصغيرة لاستئناف تحميل.
-OpenCandy_08;حدث خطأ فادح. تثبيت _________ثم الغاؤه.
-OpenCandy_09;ايقاف التحميل
-OpenCandy_10;إلغاء التثبيت
-OpenCandy_11;استئناف التحميل
-OpenCandy_12;الخروج من التثبيت
-OpenCandy_13;___________-يوصى به من طرف ____________
-OpenCandy_14;التحميل جاري _________
-OpenCandy_15;___________، يوصى البرنامج إليكم من ___________،يتم تحميله الآن بناء على طلبك ونحن سوف نعلمك عندما يكون مستعدا للتسطيب..
-OpenCandy_16;___________جاهز للتثبيت
-OpenCandy_17;___________تم تحميله بالكامل. الرجاء النقر على 'تثبيت' للمضي قدما.
-OpenCandy_18;___________ من أصل ___________ تم تحميلها
-OpenCandy_19;بدعم من OpenCandy
-OpenCandy_20;معرفة المزيد في OpenCandy.com
-OpenCandy_21;تثبيت
-OpenCandy_22;تثبيت ___________
-OpenCandy_23;سيتم  إلغاء تثبيت ___________\r\nهل أنت متأكد من أنك تريد الخروج؟
-OpenCandy_24;ايقاف
-OpenCandy_25;تم إيقاف التحميل. انقر فوق 'استئناف' لمواصلة التحميل.
-OpenCandy_26;استئناف
-OpenCandy_27;تثبيت الآن
-OpenCandy_28;ايقاف التحميل
-OpenCandy_29;استئناف التحميل
-OpenCandy_30;إلغاء التثبيت
-OpenCandy_31;الرجاء اختيار اعدادات التثبيت
-OpenCandy_32;تثبيت ___________
-OpenCandy_33;عدم تثبيت
-OpenCandy_34;الرجاء تحديد خيار تثبيت
-OpenCandy_35;______ يوصي بهذا البرنامج
-OpenCandy_36;سيتم انقطاع التثبيت الحالي
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
@@ -1401,5 +1365,5 @@ Written_Location;مكان الكتابة
 WrittenBy;كتبها
 Yes;نعم
 Your system;نظامك
-ZZ_Automatic_Percent;72
-ZZ_AutomaticLanguage_Percent;76
+ZZ_Automatic_Percent;71
+ZZ_AutomaticLanguage_Percent;75

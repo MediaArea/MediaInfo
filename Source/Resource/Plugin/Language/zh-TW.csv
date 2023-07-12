@@ -1069,42 +1069,6 @@ ObjectCount;
 OK;確認
 One output file per input file;一個輸入檔對應一個輸出檔
 Open;開啟
-OpenCandy_01;正在下載 ________
-OpenCandy_02;__% 完成
-OpenCandy_03;網路連線被中斷
-OpenCandy_04;________ 下載完成
-OpenCandy_05;按一下安裝 ________
-OpenCandy_06;您確定要取消安裝嗎?\r\n如果您想稍後再裝, 請選 'No'.\r\n請留意: 您可以從選單上選擇 '離開', 到下次重開機再繼續安裝.
-OpenCandy_07;________ 的下載已暫停.\r\n請按系統列的圖示以繼續下載.
-OpenCandy_08;發生了嚴重的錯誤. _________ 的下載即將中止.
-OpenCandy_09;暫停下載
-OpenCandy_10;取消安裝
-OpenCandy_11;繼續下載
-OpenCandy_12;離開安裝程式
-OpenCandy_13;___________ - 由 ____________ 推薦
-OpenCandy_14;正在下載 _________
-OpenCandy_15;___________, 由 ___________ 推薦給您的軟體, 正依您的要求下載. 準備好安裝時我們會通知您.
-OpenCandy_16;___________ 已準備好安裝
-OpenCandy_17;___________ 現已下載完全. 請按 '安裝' 繼續.
-OpenCandy_18;已下載 ___________ (總共大小 ___________ )
-OpenCandy_19;由 OpenCandy 提供
-OpenCandy_20;到 OpenCandy.com 了解更多資訊
-OpenCandy_21;安裝
-OpenCandy_22;___________ 安裝
-OpenCandy_23;這會取消 ___________ 的安裝\r\n您確定要離開嗎?
-OpenCandy_24;暫停
-OpenCandy_25;您的下載已暫停. 當您準備好繼續下載時, 請按 '繼續'.
-OpenCandy_26;繼續
-OpenCandy_27;立即安裝
-OpenCandy_28;暫停下載
-OpenCandy_29;繼續下載
-OpenCandy_30;取消安裝
-OpenCandy_31;請選擇安裝選項
-OpenCandy_32;安裝 ___________
-OpenCandy_33;不要安裝
-OpenCandy_34;請選擇安裝選項
-OpenCandy_35;______ 推薦此軟體
-OpenCandy_36;您當前的安裝無法中斷
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
@@ -1401,5 +1365,5 @@ Written_Location;撰寫地點
 WrittenBy;撰寫人
 Yes;是
 Your system;您的系統
-ZZ_Automatic_Percent;67
-ZZ_AutomaticLanguage_Percent;71
+ZZ_Automatic_Percent;66
+ZZ_AutomaticLanguage_Percent;70

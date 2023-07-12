@@ -1069,42 +1069,6 @@ ObjectCount;
 OK;確定
 One output file per input file;一個輸入檔對應一個輸出檔
 Open;開啟
-OpenCandy_01;正在下載________
-OpenCandy_02;__% 完成
-OpenCandy_03;網絡連線被中斷
-OpenCandy_04;________下載完成
-OpenCandy_05;按一下安裝________
-OpenCandy_06;取消安裝？\r\n想繼續，按「否」。\r\n注意：可按下選單上的「離開」，到下次重新開機時再安裝。
-OpenCandy_07;已暫停下載________。\r\n請按通知區域圖示以繼續。
-OpenCandy_08;發生嚴重錯誤。_________的安裝被終止.
-OpenCandy_09;暫停下載
-OpenCandy_10;取消安裝
-OpenCandy_11;繼續下載
-OpenCandy_12;離開安裝程式
-OpenCandy_13;___________ - 由____________推介
-OpenCandy_14;正在下載_________
-OpenCandy_15;按閣下指示，正在下載___________（由___________推介）。準備好安裝時我們會再作通知。  
-OpenCandy_16;已準備好安裝___________。
-OpenCandy_17;已完成下載___________。請按「安裝」繼續。
-OpenCandy_18;已下載___________（總計___________）
-OpenCandy_19;由OpenCandy全力支援
-OpenCandy_20;到OpenCandy.com了解更多。
-OpenCandy_21;安裝
-OpenCandy_22;安裝___________
-OpenCandy_23;取消安裝___________ 。\r\n確定？
-OpenCandy_24;暫停
-OpenCandy_25;下載已暫停。準備好時，請按「繼續」。
-OpenCandy_26;繼續
-OpenCandy_27;立即安裝
-OpenCandy_28;暫停下載
-OpenCandy_29;繼續下載
-OpenCandy_30;取消安裝
-OpenCandy_31;請選取安裝選項
-OpenCandy_32;安裝___________
-OpenCandy_33;不要安裝
-OpenCandy_34;請選取安裝選項
-OpenCandy_35;______推介此軟件
-OpenCandy_36;目前安裝無法中斷
 OpenCaptionsLanguage;開放式字幕語言
 OpenCaptionsPresent;開放式字幕呈現
 OpenCaptionsType;開放式字幕類型

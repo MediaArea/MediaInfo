@@ -1069,42 +1069,6 @@ ObjectCount;
 OK;확인
 One output file per input file;입력 파일 마다 하나의 출력 파일
 Open;열기
-OpenCandy_01;________ 다운로드 중
-OpenCandy_02;__% 완료
-OpenCandy_03;인터넷 연결 중단
-OpenCandy_04;________ 다운로드 완료
-OpenCandy_05;클릭하면 ________ 설치를 시작합니다
-OpenCandy_06;설치를 중단하시겠습니까?\r\n설치를 다음에 하시려면 '아니오'를 선택해주십시오.\r\n주: 시스템 재시작 시에 다시 설치하려면 메뉴에서 종료를 선택할 수 있습니다.
-OpenCandy_07;________ 다운로드를 일시정지했습니다.\r\n다운로드를 다시 시작하려면 트레이 아이콘을 클릭해주십시오.
-OpenCandy_08;심각한 오류가 발생했습니다. _________ 설치가 중단됩니다.
-OpenCandy_09;다운로드 일시정지
-OpenCandy_10;설치 중단
-OpenCandy_11;다운로드 재시작
-OpenCandy_12;설치 종료
-OpenCandy_13;___________ - ____________ 추천
-OpenCandy_14;_________ 다운로드 중
-OpenCandy_15;요청하신 ___________, ___________가 추천한 소프트웨어,가 다운로드 중입니다. 설치 준비가 완료되면 알려드리겠습니다.
-OpenCandy_16;___________ 설치가 준비되었습니다.
-OpenCandy_17;___________가 다운로드되었습니다. 설치를 진행하시려면 '설치'를 눌러주십시오.
-OpenCandy_18;___________ / ___________ 다운로드
-OpenCandy_19;Powered by OpenCandy
-OpenCandy_20;Learn more at OpenCandy.com
-OpenCandy_21;설치
-OpenCandy_22;___________ 설치
-OpenCandy_23;___________ 설치를 중단합니다.\r\n종료하시겠습니까?
-OpenCandy_24;일시정지
-OpenCandy_25;다운로드를 일시정지했습니다. 다시 시작하려면 '재시작'를 눌러주십시오.
-OpenCandy_26;재시작
-OpenCandy_27;지금 설치
-OpenCandy_28;다운로드 일시정지
-OpenCandy_29;다운로드 재시작
-OpenCandy_30;설치 중단
-OpenCandy_31;설치 옵션을 선택해주십시오.
-OpenCandy_32;___________ 설치
-OpenCandy_33;설치하지 않음
-OpenCandy_34;설치 옵션을 선택해주십시오.
-OpenCandy_35;______에서 이 소프트웨어를 추천합니다.
-OpenCandy_36;현재 설치 과정은 중단되지 않습니다.
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
@@ -1402,4 +1366,4 @@ WrittenBy;제작자
 Yes;예
 Your system;이 시스템
 ZZ_Automatic_Percent;66
-ZZ_AutomaticLanguage_Percent;71
+ZZ_AutomaticLanguage_Percent;70

@@ -1069,42 +1069,6 @@ ObjectCount;
 OK;OK
 One output file per input file;Je eine eigene Ausgabedatei pro Eingabedatei
 Open;Öffnen
-OpenCandy_01;________ wird heruntergeladen.
-OpenCandy_02;__% abgeschlossen
-OpenCandy_03;Internetverbindung unterbrochen
-OpenCandy_04;________ vollständig heruntergeladen
-OpenCandy_05;Hier klicken, um ________ zu installieren
-OpenCandy_06;Möchten Sie die Installation wirklich abbrechen?\r\nWenn Sie die Installation zu einem späteren Zeitpunkt vornehmen möchten, wählen Sie „Nein“.\r\nHinweis: Sie können im Menü „Beenden“ auswählen, um die Installation bis zum nächsten Neustart zu verschieben.
-OpenCandy_07;Download von ________ wurde angehalten.\r\nKlicken Sie auf das Tray-Icon, um den Download fortzusetzen.
-OpenCandy_08;Es ist ein kritischer Fehler aufgetreten. Installation von _________ wird abgebrochen.
-OpenCandy_09;Download anhalten
-OpenCandy_10;Installation abbrechen
-OpenCandy_11;Download fortsetzen
-OpenCandy_12;Installationsprogramm beenden
-OpenCandy_13;___________ – Empfohlen von ____________
-OpenCandy_14;_________ wird heruntergeladen
-OpenCandy_15;___________, die Software, die Ihnen von ___________ empfohlen wurde, wird jetzt auf Ihren Wunsch heruntergeladen. Wir geben Ihnen Bescheid, wenn sie zur Installation bereit ist.
-OpenCandy_16;___________ ist zur Installation bereit.
-OpenCandy_17;Der Download von ___________ ist jetzt abgeschlossen. Klicken Sie zum Fortfahren bitte auf 'Installieren'.
-OpenCandy_18;___________ von ___________ heruntergeladen
-OpenCandy_19;Powered by OpenCandy
-OpenCandy_20;Weitere Informationen unter OpenCandy.com
-OpenCandy_21;Installieren
-OpenCandy_22;Installation von ___________
-OpenCandy_23;Damit wird die Installation von ___________ abgebrochen.\r\nMöchten Sie das Programm wirklich beenden?
-OpenCandy_24;Anhalten
-OpenCandy_25;Ihr Download wurde angehalten.Klicken Sie zum Fortfahren auf 'Fortsetzen'.
-OpenCandy_26;Fortsetzen
-OpenCandy_27;Jetzt installieren
-OpenCandy_28;Download anhalten
-OpenCandy_29;Download fortsetzen
-OpenCandy_30;Installation abbrechen
-OpenCandy_31;Wählen Sie bitte eine Installationsoption aus
-OpenCandy_32;___________ installieren
-OpenCandy_33;Nicht installieren
-OpenCandy_34;Wählen Sie bitte eine Installationsoption aus
-OpenCandy_35;_____ empfiehlt diese software
-OpenCandy_36;Ihre aktuelle Installation wird nicht unterbrochen
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
@@ -1402,4 +1366,4 @@ WrittenBy;Geschrieben von
 Yes;Ja
 Your system;Deine Systeminformationen
 ZZ_Automatic_Percent;66
-ZZ_AutomaticLanguage_Percent;71
+ZZ_AutomaticLanguage_Percent;70

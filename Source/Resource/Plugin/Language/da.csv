@@ -1069,42 +1069,6 @@ ObjectCount;
 OK;OK
 One output file per input file;En output-fil per input-fil
 Open;Åbn
-OpenCandy_01;Downloader ________
-OpenCandy_02;__% gennemført
-OpenCandy_03;Internetforbindelse afbrudt
-OpenCandy_04;________ download gennemført
-OpenCandy_05;Klik for at installere ________
-OpenCandy_06;Er du sikker på du ønsker at annullere installeringen?\r\nHvis du ønsker at udsætte installeringen til senere, vælg 'Nej'.\r\nBemærk: Du kan vælge Afbryd fra menuen for, at udsætte installation indtil efter du rebooter næste gang.
-OpenCandy_07;Download af ________ er sat på pause.\r\nKlik på ikonet på proceslinjen for at fortsætte downloading.
-OpenCandy_08;Der opstod en kritisk fejl. Installeringen af _________ vil blive afbrudt.
-OpenCandy_09;Pause download
-OpenCandy_10;Annuller installering
-OpenCandy_11;Genoptag download
-OpenCandy_12;Afslut installeringsprogram
-OpenCandy_13;___________ -Anbefalet af ____________
-OpenCandy_14;Downloader _________
-OpenCandy_15;___________, Programmet anbefalet til dig af ___________, downloades nu. Du vil få besked når det er klar til installering.
-OpenCandy_16;___________ er klar til installering
-OpenCandy_17;___________ er nu helt downloaded. Klik på 'Installer' for at fortsætte.
-OpenCandy_18;___________ af ___________ downloadet
-OpenCandy_19;Powered by OpenCandy
-OpenCandy_20;Lær mere på OpenCandy.com
-OpenCandy_21;Installer
-OpenCandy_22;Installation af ___________
-OpenCandy_23;Dette vil annullere installeringen af ___________\r\nEr du sikker på du ønsker at afslutte?
-OpenCandy_24;Pause
-OpenCandy_25;Din download er sat på pause. Klik på 'Genoptag' når du er klar til at fortsætte.
-OpenCandy_26;Genoptag
-OpenCandy_27;Installer nu
-OpenCandy_28;Pause download
-OpenCandy_29;Genoptag download
-OpenCandy_30;Annuller installering
-OpenCandy_31;Vælg venligst en installationsinstilling
-OpenCandy_32;Installer ___________
-OpenCandy_33;Installer ikke
-OpenCandy_34;Vælg en installeringsindstilling
-OpenCandy_35;______ anbefaler denne software
-OpenCandy_36;Din nuværende installation bliver ikke påvirket
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
@@ -1402,4 +1366,4 @@ WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
 ZZ_Automatic_Percent;62
-ZZ_AutomaticLanguage_Percent;72
+ZZ_AutomaticLanguage_Percent;71

@@ -1069,42 +1069,6 @@ ObjectCount;
 OK;OK
 One output file per input file;Një skedë output për skedë input
 Open;Hap
-OpenCandy_01;Shkarkimi i ________
-OpenCandy_02;__ % Përfunduar
-OpenCandy_03;Ndërpret lidhjen me internetin
-OpenCandy_04;Përfundon shkarkimi i ________
-OpenCandy_05;Klikoni për të instaluar ________
-OpenCandy_06;Jeni i sigurt se doni të anuloni instalimin?\r\nNëse do e shtyni instalimin për më vonë, zgjidheni 'Jo'.\r\nShënim: Mund të zgjidhni Dalje nga menyja për të ndryshuar instalimin herën tjetër që kompjuteri do të rinisë.
-OpenCandy_07;Pushon shkarkimi i ________.\r\nKlikoni mbi ikonën në brez për të rimarrë shkarkimin.
-OpenCandy_08;Ka ndodhur një gabim kritik. Do ndërpritet instalimi i _________.
-OpenCandy_09;Pusho shkarkimin
-OpenCandy_10;Anulo shkarkimin
-OpenCandy_11;Rimerr shkarkimin
-OpenCandy_12;Dalje nga Instaluesi
-OpenCandy_13;___________ - Rekomanduar nga ____________
-OpenCandy_14;Shkarkimi i _________
-OpenCandy_15;___________, softueri që është rekomanduar nga ___________, po shkarkohet me kërkesën tuaj.\r\nNe do ju tregojmë kur të jetë gati të instalohet.
-OpenCandy_16;___________ është gati të instalohet
-OpenCandy_17;___________ është shkarkuar plotësisht. Ju lutem klikoni 'Instalo' për të vijuar.
-OpenCandy_18;___________ nga ___________ e shkarkuar
-OpenCandy_19;Sponsorizuar nga OpenCandy
-OpenCandy_20;Mëso më shumë në OpenCandy.com
-OpenCandy_21;Instalo
-OpenCandy_22;Instalimi i ___________
-OpenCandy_23;Kjo do anulojë instalimin e ___________\r\nJeni i sigurt se doni të dilni?
-OpenCandy_24;Pusho
-OpenCandy_25;Shkarkimi juaj pushon. Klikoni 'Rimerr' kur të jeni gati për të vijuar.
-OpenCandy_26;Rimerr
-OpenCandy_27;Instalo Tani
-OpenCandy_28;Pusho Shkarkimin
-OpenCandy_29;Rimerr Shkarkimin
-OpenCandy_30;Anulo Instalimin
-OpenCandy_31;Ju lutem zgjidhni mundësinë e instalimit
-OpenCandy_32;Instalo ___________
-OpenCandy_33;Mos Instalo
-OpenCandy_34;Ju lutem zgjidhni një mundësi instalimi
-OpenCandy_35;______ rekomandon këtë softuer
-OpenCandy_36;Instalimi juaj aktual nuk do ndërpritet
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
@@ -1401,5 +1365,5 @@ Written_Location;Vendi i shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;67
-ZZ_AutomaticLanguage_Percent;71
+ZZ_Automatic_Percent;66
+ZZ_AutomaticLanguage_Percent;70

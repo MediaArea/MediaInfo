@@ -1069,42 +1069,6 @@ ObjectCount;N. oggetti
 OK;OK
 One output file per input file;Un file destinazione per ogni file sorgente
 Open;Apri
-OpenCandy_01;Download ________
-OpenCandy_02;__% completato
-OpenCandy_03;Connessione internet interrotta
-OpenCandy_04;________ download completato
-OpenCandy_05;Per installare seleziona ________
-OpenCandy_06;Vuoi annullare l'installazione?\r\nSe vuoi posporre l'installazione, seleziona 'No'.\r\nNota: puoi selezionare 'Esci' dal menu per annullare l'installazione sino al nuovo riavvio.
-OpenCandy_07;Il download di ________ è stato messo in pausa.\r\nPer riprendere seleziona l'icona nella barra di sistema .
-OpenCandy_08;ERRORE CRITICO. L'installazione di _________ è stata annullata.
-OpenCandy_09;Pausa
-OpenCandy_10;Annulla installazione
-OpenCandy_11;Riprendi download
-OpenCandy_12;Esci dall'installazione
-OpenCandy_13;___________ - Raccomandato da ____________
-OpenCandy_14;Download di _________
-OpenCandy_15;___________, programma raccomandato da ___________, è in download Verrai avvisato quando sarà pronto per l'installazione.
-OpenCandy_16;___________ è pronto per l'installazione
-OpenCandy_17;___________ è stato scaricato. Per procedere seleziona 'Installa' per procedere.
-OpenCandy_18;___________ di ___________ scaricati
-OpenCandy_19;Realizzato da OpenCandy
-OpenCandy_20;Maggiori informazioni su OpenCandy.com
-OpenCandy_21;Installa
-OpenCandy_22;Installazione di ___________
-OpenCandy_23;Questo annullerà l'installazione di ___________\r\nVuoi annullare l'installazione?
-OpenCandy_24;Pausa
-OpenCandy_25;Il download è stato messo in pausa. Per continuare seleziona 'Riprendi' .
-OpenCandy_26;Riprendi
-OpenCandy_27;Installa ora
-OpenCandy_28;Pausa
-OpenCandy_29;Riprendi
-OpenCandy_30;Annulla installazione
-OpenCandy_31;Seleziona opzioni installazione
-OpenCandy_32;Installa
-OpenCandy_33;Non installare
-OpenCandy_34;Seleziona opzioni installazione
-OpenCandy_35;______ consiglia questo programma
-OpenCandy_36;L'attuale installazione non verrà interrotta
 OpenCaptionsLanguage;Lingua finestre apertura
 OpenCaptionsPresent;Presenti finestre di apertura
 OpenCaptionsType;Tipo finestre di apertura

@@ -1069,42 +1069,6 @@ ObjectCount;
 OK;OK
 One output file per input file;Eén exportbestand per invoerbestand
 Open;Open
-OpenCandy_01;Downloaden ________
-OpenCandy_02;__% Voltooid
-OpenCandy_03;Internetverbinding onderbroken
-OpenCandy_04;________ download voltooid
-OpenCandy_05;Klik om te installeren ________
-OpenCandy_06;Wilt u de installatie afbreken?\r\nAls u de installatie tot later wilt uitstellen, kies 'Nee'.\r\nLet op: U kunt Afsluiten uit het menu kiezen om de installatie tot na de volgende herstart van de computer uit te stellen.
-OpenCandy_07;Download van ________ is onderbroken.\r\nKlik op pictogram in het systeemvak om downloaden te hervatten.
-OpenCandy_08;Kritische fout opgetreden. Installatie van _________ wordt afgebroken.
-OpenCandy_09;Downloaden onderbreken
-OpenCandy_10;Installatie afbreken
-OpenCandy_11;Downloaden hervatten
-OpenCandy_12;Installer afsluiten
-OpenCandy_13;___________ - Aanbevolen door ____________
-OpenCandy_14;Downloaden _________
-OpenCandy_15;___________, de software die wordt aanbevolen door ___________, downloadt nu op uw verzoek. We zullen u laten weten wanneer het gereed is om te worden geïnstalleerd.
-OpenCandy_16;___________ is gereed voor installatie
-OpenCandy_17;___________ is nu volledig gedownload. Klik op 'Installeren' om door te gaan.
-OpenCandy_18;___________ van ___________ gedownload
-OpenCandy_19;Powered by OpenCandy
-OpenCandy_20;Kom meer te weten op OpenCandy.com
-OpenCandy_21;Installeren
-OpenCandy_22;Installatie van ___________
-OpenCandy_23;Dit zal de installatie van ___________ afbreken\r\nWeet u zeker dat u wilt afsluiten?
-OpenCandy_24;Pauze
-OpenCandy_25;Uw download is onderbroken. Klik 'Hervatten' wanneer u door wilt gaan.
-OpenCandy_26;Hervatten
-OpenCandy_27;Nu Installeren
-OpenCandy_28;Download Onderbreken
-OpenCandy_29;Download Hervatten
-OpenCandy_30;Installatie Afbreken
-OpenCandy_31;Kies een installatieoptie
-OpenCandy_32;Installeer ___________
-OpenCandy_33;Niet Installeren
-OpenCandy_34;Kies een installatieoptie
-OpenCandy_35;______ beveelt deze software aan
-OpenCandy_36;Uw huidige installatie zal niet worden onderbroken
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
@@ -1401,5 +1365,5 @@ Written_Location;Locatie van schrijven
 WrittenBy;Geschreven door
 Yes;Ja
 Your system;Uw systeem
-ZZ_Automatic_Percent;66
-ZZ_AutomaticLanguage_Percent;70
+ZZ_Automatic_Percent;65
+ZZ_AutomaticLanguage_Percent;69

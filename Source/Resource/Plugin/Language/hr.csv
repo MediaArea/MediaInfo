@@ -1069,42 +1069,6 @@ ObjectCount;
 OK;U redu
 One output file per input file;Po jedna izlazna datoteka na jednu ulaznu
 Open;Otvoriti
-OpenCandy_01;Preuzima se ________
-OpenCandy_02;__% upotpunjeno
-OpenCandy_03;Veza s Internetom prekinuta
-OpenCandy_04;________ preuzimanje upotpunjeno
-OpenCandy_05;Ovdje kliknuti za instalaciju ________
-OpenCandy_06;Jeste li sigurni da želite poništiti ovu instalaciju?\r\nUkoliko instalaciju želite odložiti za kasnije, odaberite 'Ne'.\r\nNapomena: U izborniku možete odabrati 'Svršetak' kako bi instalaciju odložili do nakon slijedećeg pokretanja sustava.
-OpenCandy_07;Preuzimanje ________ je bilo obustavljeno.\r\nZa nastavak preuzimanja kliknite na ikonu u traci zadaća.
-OpenCandy_08;Nastupila je jedna kritička pogreška. Instalacija _________ će stoga biti prekinuta.
-OpenCandy_09;Stanka pri preuzimanju
-OpenCandy_10;Poništiti instalaciju
-OpenCandy_11;Nastaviti preuzimanje
-OpenCandy_12;Okončati instalacijski program
-OpenCandy_13;___________ - preporučeno od ____________
-OpenCandy_14;Preuzimanje _________
-OpenCandy_15;___________, software koji Vam je preporučen od ___________, se upravo preuzima na Vaš zahtjev. Dojavit ćemo Vam kada bude pripravan za instalaciju.
-OpenCandy_16;___________ je pripravan za instalaciju.
-OpenCandy_17;___________ je ovim u potpunosti preuzet. Za nastavak molim kliknite na 'Instalirati'.
-OpenCandy_18;___________ od ___________ je preuzeto
-OpenCandy_19;Powered by OpenCandy
-OpenCandy_20;Saznajte više na OpenCandy.com
-OpenCandy_21;Instalirati
-OpenCandy_22;Instalacija ___________
-OpenCandy_23;Ovim će se poništiti preuzimanje ___________\r\nJeste li sigurni da želite završiti rad programa?
-OpenCandy_24;Stanka
-OpenCandy_25;Vaše preuzimanje je bilo obustavljeno. Ukoliko ste spremni za nastavak, kliknite 'Nastaviti'.
-OpenCandy_26;Nastaviti
-OpenCandy_27;Odmah instalirati
-OpenCandy_28;Zaustaviti preuzimanje
-OpenCandy_29;Nastaviti preuzimanje
-OpenCandy_30;Poništiti instalaciju
-OpenCandy_31;Molim odaberite jednu od mogućnosti instalacije
-OpenCandy_32;Instalirati ___________
-OpenCandy_33;Ne instalirati
-OpenCandy_34;Molim odaberite jednu od mogućnosti instalacije
-OpenCandy_35;______ preporučuje ovaj software
-OpenCandy_36;Vaša tekuća instalacija neće biti prekinuta
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
@@ -1402,4 +1366,4 @@ WrittenBy;Napisao
 Yes;Da
 Your system;Informacije o Vašem sustavu
 ZZ_Automatic_Percent;66
-ZZ_AutomaticLanguage_Percent;71
+ZZ_AutomaticLanguage_Percent;70

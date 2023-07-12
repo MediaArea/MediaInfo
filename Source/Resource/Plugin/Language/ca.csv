@@ -1069,42 +1069,6 @@ ObjectCount;
 OK;D'acord
 One output file per input file;Un arxiu de sortida per arxiu d'entrada
 Open;Obre
-OpenCandy_01;Descarregant ________
-OpenCandy_02;__ % complet
-OpenCandy_03;Connexió a Internet interrompuda
-OpenCandy_04;________ descàrrega completa
-OpenCandy_05;Fes clic to instal·lar ________
-OpenCandy_06;Estàs segur que vols cancel·lar la instal·lació?\r\nSi vols posposar-la, selecciona «No».\r\nNota: 
-OpenCandy_07;
-OpenCandy_08;Ha ocorregut un error crític. La instal·lació de _________ s'abortarà.
-OpenCandy_09;Pausa descàrrega
-OpenCandy_10;Cancel·la la instal·lació
-OpenCandy_11;Continua la descàrrega
-OpenCandy_12;Surt de l'instal·lador
-OpenCandy_13;
-OpenCandy_14;
-OpenCandy_15;
-OpenCandy_16;
-OpenCandy_17;
-OpenCandy_18;
-OpenCandy_19;Patrocinat per OpenCandy
-OpenCandy_20;Aprèn més a OpenCandy.com
-OpenCandy_21;Instal·lar
-OpenCandy_22;Instal·lació de ___________
-OpenCandy_23;
-OpenCandy_24;Pausa
-OpenCandy_25;La descàrrega s'ha pausat. Fes clic a «Continua» quan estiguis a punt per seguir.
-OpenCandy_26;Continua
-OpenCandy_27;Instal·lar ara
-OpenCandy_28;Pausa descàrrega
-OpenCandy_29;Continua descàrrega
-OpenCandy_30;Cancel·la instal·lació
-OpenCandy_31;Escull una opció d'instal·lació
-OpenCandy_32;Instal·la ___________
-OpenCandy_33;No instal·lar
-OpenCandy_34;Selecciona una opció d'instal·lació
-OpenCandy_35;______ recomana aquest software
-OpenCandy_36;La instal·lació actual no s'interromprà
 OpenCaptionsLanguage;Idioma subtítols incrustats
 OpenCaptionsPresent;Subtítols incrustats presents
 OpenCaptionsType;Tipus subtítols incrustats
@@ -1402,4 +1366,4 @@ WrittenBy;Escrit per
 Yes;Sí
 Your system;El teu sistema
 ZZ_Automatic_Percent;76
-ZZ_AutomaticLanguage_Percent;80
+ZZ_AutomaticLanguage_Percent;79

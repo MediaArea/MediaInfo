@@ -1069,42 +1069,6 @@ ObjectCount;
 OK;Ongi
 One output file per input file;Irteera agiri bat sarrera agiriko
 Open;Ireki
-OpenCandy_01;Jeisten ________
-OpenCandy_02;__% Osatuta
-OpenCandy_03;Internet elkarketa etenda
-OpenCandy_04;________ jeisketa osatatuta
-OpenCandy_05;Klikatu ezartzeko ________
-OpenCandy_06;Zihur zaude ezarpena ezeztatzea nahi duzula?\r\nEzarpen geroagorako uztea nahi baduzu, hautatu 'Ez'.\r\nOharra: Irten hautatu dezakezu menutik ezarpena geroagoratzeko hurrengo aldian berrabiarazi arte.
-OpenCandy_07;________ jeisketa pausatuta dago.\r\nKlikatu erretilu ikurrean jeisketari berrekiteko.
-OpenCandy_08;Akats larri bat gertatu da. _________-ren ezarpena utzi egin da.
-OpenCandy_09;Pausatu jeisketa
-OpenCandy_10;Ezarpena ezeztatu
-OpenCandy_11;Berrekin jeisketa
-OpenCandy_12;Irten Ezartzailetik
-OpenCandy_13;___________ - Gomendatzailea: ____________
-OpenCandy_14;_________ Jeisten
-OpenCandy_15;___________, ___________-k gomendatzen dizun softwarea jeisten ari da. Ezartzeko gertu dagoenean jakinaraziko dizugu.
-OpenCandy_16;___________ gertu dago ezartzeko
-OpenCandy_17;___________ osorik jeitsita dago. Mesedez klikatu 'Ezarri' jarraitzeko.
-OpenCandy_18;___________ -> ___________ jeitsita
-OpenCandy_19;OpenCandy-ek garatuta
-OpenCandy_20;Gehiago jakiteko: OpenCandy.com
-OpenCandy_21;Ezarri
-OpenCandy_22;___________-ren ezarpena
-OpenCandy_23;Honek ___________-ren ezarpena ezeztatuko du\r\nZihur zaude irtetzea nahi duzula?
-OpenCandy_24;Pausatu
-OpenCandy_25;Zure jeisketa pausatuta dago. Klikatu 'Berrekin' jarraitzeko gertu zaudenean.
-OpenCandy_26;Berrekin
-OpenCandy_27;Ezarri Orain
-OpenCandy_28;Pausatu Jeisketa
-OpenCandy_29;Berrekin Jeisketa
-OpenCandy_30;Ezeztatu Ezarpena
-OpenCandy_31;Mesedez hautatu ezarpen aukera
-OpenCandy_32;Ezarri ___________
-OpenCandy_33;Ez Ezarri
-OpenCandy_34;Mesedez hautatu ezarpen aukera
-OpenCandy_35;______ software hau gomendatzen du
-OpenCandy_36;Zure uneko ezarpena ez da etengo
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
@@ -1401,5 +1365,5 @@ Written_Location;Idazte helbidea
 WrittenBy;Idazlea
 Yes;Bai
 Your system;Zure sistema
-ZZ_Automatic_Percent;73
-ZZ_AutomaticLanguage_Percent;74
+ZZ_Automatic_Percent;72
+ZZ_AutomaticLanguage_Percent;73

@@ -1069,42 +1069,6 @@ ObjectCount;
 OK;موافق
 One output file per input file;یک فایل خروجی بر فابل ورودی
 Open;باز کن
-OpenCandy_01;در حال دانلود ________
-OpenCandy_02;__% تکمیل شده
-OpenCandy_03;قطع ارتباط اینترنتی
-OpenCandy_04;________ دانلود کامل شد
-OpenCandy_05;کلیک برای نصب ________
-OpenCandy_06;لغو نصب?\r\nتاخیر تا ریبوت بعدی
-OpenCandy_07;دانلود ________ متوقف شد.\r\nکلیک کنید برای ادامه
-OpenCandy_08;خطا در نصب _________ باید خارج شود.
-OpenCandy_09;توقف دانلود
-OpenCandy_10;لغو نصب
-OpenCandy_11;ادامه دانلود
-OpenCandy_12;خروج از نصب
-OpenCandy_13;___________ - توصیه شده توسط ____________
-OpenCandy_14;در حال دانلود _________
-OpenCandy_15;___________, توصیه شده توسط ___________, در حال دانلود است
-OpenCandy_16;___________ برای نصب آماده است
-OpenCandy_17;___________ دانلود کامل شد برای نصب کردن کلیک کنید
-OpenCandy_18;___________ از ___________ دانلود شده
-OpenCandy_19;OpenCandy توسط
-OpenCandy_20;OpenCandy.com اطلاعات بیشتر در
-OpenCandy_21;نصب
-OpenCandy_22;نصب ___________
-OpenCandy_23;موجب لغو نصب می شود ___________\r\nخارج می شوید?
-OpenCandy_24;توقف
-OpenCandy_25;دانلود متوقف شد. هر وقت آماده اید بر روی ادامه کلیک کنید.
-OpenCandy_26;ادامه
-OpenCandy_27;اکنون نصب کن
-OpenCandy_28;توقف دانلود
-OpenCandy_29;ادامه دانلود
-OpenCandy_30;لغو نصب
-OpenCandy_31;انتخاب تنظیمات نصب
-OpenCandy_32;نصب ___________
-OpenCandy_33;نصب نکن
-OpenCandy_34;انتخاب تنظیمات نصب
-OpenCandy_35;______ این نرم افزار پیشنهاد میشود
-OpenCandy_36;نصب فعلی متوقف نمی شود
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
@@ -1402,4 +1366,4 @@ WrittenBy;نوشته شده توسط
 Yes;بلی
 Your system;سیستم شما
 ZZ_Automatic_Percent;66
-ZZ_AutomaticLanguage_Percent;71
+ZZ_AutomaticLanguage_Percent;70

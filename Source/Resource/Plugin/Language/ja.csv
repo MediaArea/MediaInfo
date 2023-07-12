@@ -1069,42 +1069,6 @@ ObjectCount;
 OK;OK
 One output file per input file;入力ファイルごとに単一ファイルで出力
 Open;開く
-OpenCandy_01;ダウンロード中 ________
-OpenCandy_02;__% 完了
-OpenCandy_03;インターネット接続の中断
-OpenCandy_04;________ ダウンロード完了
-OpenCandy_05;クリックでインストール ________
-OpenCandy_06;インストールをキャンセルしますか ?\r\nインストールを後回しにしたい場合は、いいえ を選択してください。\r\n注：メニューから終了を選択すると、次回の再起動後までインストールを延期できます。
-OpenCandy_07;________ のダウンロードは停止しました。\r\nトレイアイコンのクリックでダウンロードを再開します。
-OpenCandy_08;重大なエラーが発生。 _________ のインストールを中止します。
-OpenCandy_09;ダウンロード停止
-OpenCandy_10;インストールをキャンセル
-OpenCandy_11;ダウンロード再開
-OpenCandy_12;インストーラーを終了
-OpenCandy_13;___________ - ____________ による推薦
-OpenCandy_14;ダウンロード中 _________
-OpenCandy_15;___________ は ___________ によりあなたにこのソフトを推薦しています。現在ダウンロード中です。インストールの準備ができたらお知らせします。
-OpenCandy_16;___________ はインストールの準備完了
-OpenCandy_17;___________ は完全にダウンロードされました。インストールをクリックすると続行します。
-OpenCandy_18;___________ / ___________ ダウンロード済み
-OpenCandy_19;Powered by OpenCandy
-OpenCandy_20;OpenCandy.com にて詳細
-OpenCandy_21;インストール
-OpenCandy_22;___________ のインストール
-OpenCandy_23;これは ___________ のインストールをキャンセルします。\r\n本当に終了しますか ?
-OpenCandy_24;停止
-OpenCandy_25;ダウンロードを停止しました。続けるには再開をクリックします。
-OpenCandy_26;再開
-OpenCandy_27;今すぐインストール
-OpenCandy_28;ダウンロード停止
-OpenCandy_29;ダウンロード再開
-OpenCandy_30;インストールをキャンセル
-OpenCandy_31;インストールの設定を選択してください
-OpenCandy_32;インストール ___________
-OpenCandy_33;インストールしない
-OpenCandy_34;インストールの設定を選択してください
-OpenCandy_35;______  はこのソフトウェアを推薦します
-OpenCandy_36;現在のインストールが中断されることはありません
 OpenCaptionsLanguage;オープンキャプションの言語
 OpenCaptionsPresent;オープンキャプションの有無
 OpenCaptionsType;オープンキャプションの種類
@@ -1401,5 +1365,5 @@ Written_Location;作成場所
 WrittenBy;著者
 Yes;はい
 Your system;システム情報
-ZZ_Automatic_Percent;85
+ZZ_Automatic_Percent;84
 ZZ_AutomaticLanguage_Percent;85
