@@ -229,6 +229,7 @@ Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;ბუფერის ზომა
 Cancel;გაჩერება
 CaptionServiceName;
+CatalogNumber;
 Channel(s);არხი(ები)
 ChannelCoded;
 ChannelConfiguration;
@@ -242,6 +243,7 @@ Chapters stream(s);სექციების ნაკადი(ები)
 Chapters_Codec_List;სექციების კოდეკები
 Chapters_No;სექცია არ არუს
 ChaptersCount;ნაკადების სექციების რაოდენობა
+CharacterSet;
 CheckNewVersion;ახალი ვერსიის შემოწმება
 Choose custom;არჩევა
 Choose custom sheet;Choose your desired custom sheet
@@ -328,6 +330,7 @@ DarkMode;
 Date;თარიგი
 Debug;გამართვა
 Decimal point;Decimal point
+Default;
 Default_Setting;
 DefaultTargetDeviceConfig;
 Delay;Delay
@@ -336,6 +339,7 @@ Delay_Source_Container;Container
 Delay_Source_Stream;Raw stream
 Delete;წაშლა
 Description;აღწერა
+Details;
 dialnorm;
 DialogueCorrected;
 DialogueEnhancement;
@@ -357,6 +361,7 @@ DotsPerInch;Dots per inch
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
+Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;ხანგრძლივობა
@@ -384,6 +389,7 @@ EPG_Positions;EPG positions (internal)
 EpisodeTitleNumber;
 Error_File;ფაილის წაკითვის დროს აღმოჩენილია შეცდომა
 Error_File_Write;
+Events_MinDuration;
 Events_PaintOn;
 Events_PopOn;
 Events_RollUp;
@@ -420,6 +426,7 @@ Folder (R)_Hint;Select a folder to examine (with all folders recursively)
 Folder (Recursively);Folder (Recursively)
 Folder_Hint;განხილვისთვის აირჩიეთ ფოლდერი
 FolderName;ფოლდერის სახელი
+Forced;
 Format;ფორმატი
 Format_Commercial;Commercial name
 Format_Commercial_IfAny;
@@ -463,6 +470,7 @@ FpaPass;
 FpaVersion;
 FrameCount;Frame count
 FrameRate;კადრების სიხშირე
+FrameRate_MaxFrameNumber;
 FrameRate_Maximum;კადრების სიხშირის მაქსიმუმი
 FrameRate_Minimum;კადრების სიხშირის მინიმუმი
 FrameRate_Mode;კადრების სიხშირის რეჟიმი
@@ -471,7 +479,9 @@ FrameRate_Mode_VFR;Variable
 FrameRate_Nominal;კადრების სიხშირის ნომინალური
 FrameRate_Original;კადრების ორიგინალი სიხშირე
 FrameRate_Real;
+FullParsing;
 General;მთავარი
+GeneralCompliance;
 Genre;ჟანრი
 Genre_000;Blues
 Genre_001;Classic Rock
@@ -716,6 +726,21 @@ InternetMediaType;Internet media type
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+JocBalance_FrontBackListener;
+JocBalance_FrontBackOverheadFloor;
+JocTrim_Center;
+JocTrim_Height;
+JocTrim_Surround;
+JocTrimMode;
+JocTrimMode0i;
+JocTrimMode1i;
+JocTrimMode2i;
+JocTrimMode3i;
+JocTrimMode4i;
+JocTrimMode5i;
+JocTrimMode6i;
+JocTrimMode7i;
+JocTrimMode8i;
 Keywords;საკვანძო სიტყვები
 Known codecs;ცნობილი კოდეკები
 Known formats;ცნობილი ფორმატები
@@ -747,6 +772,7 @@ Language_bs;Bosnian
 Language_ca;Catalan
 Language_ce;Chechen
 Language_ch;Chamorro
+Language_cmn;
 Language_co;Corsican
 Language_cr;Cree
 Language_cs;Czech
@@ -916,10 +942,17 @@ Language_wo;Wolof
 Language_xh;Xhosa
 Language_yi;Yiddish
 Language_yo;Yoruba
+Language_yue;
 Language_za;Zhuang
 Language_zh;Chinese
+Language_zh-cmn;
 Language_zh-cn;Chinese (China)
+Language_zh-CN;
+Language_zh-Hans;
+Language_zh-Hant;
 Language_zh-tw;Chinese (Taiwan)
+Language_zh-TW;
+Language_zh-yue;
 Language_zu;Zulu
 LawRating;Law rating
 LCCN;LCCN
@@ -944,6 +977,7 @@ LinkedTo_Substream_Pos;
 LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
 List;სია
+LongTermLoudness;
 LoRoCenterMixGain;
 LoRoSurroundMixGain;
 Loudness_Anchor;
@@ -981,6 +1015,8 @@ MaxFALL;
 MaxGain;
 MaximumMomentaryLoudness;
 MaxTruePeak;
+MD5;
+MD5_Unencoded;
 MediaInfo_About;Supply very detailled information\r\nabout a multimedia file:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
 MediaInfo_About_About;
 Menu;მენიუ
@@ -1033,42 +1069,6 @@ ObjectCount;
 OK;კარგი
 One output file per input file;One output file per input file
 Open;გახსნა
-OpenCandy_01;გადმოწერილია ________
-OpenCandy_02;__% მზადაა
-OpenCandy_03;Internet connection interrupted
-OpenCandy_04;________ გადმოწერა შესრულებია
-OpenCandy_05;სწრაფი ინსტალაცია ________
-OpenCandy_06;Are you sure you wish to cancel the install?\r\nIf you wish to postpone the install until later, select 'No'.\r\nNote: You may select Exit from the menu to defer installation until after the next time you reboot.
-OpenCandy_07;გადმოწერილი ________ დაპაუზებული იქნა.\r\nდააჭირე ხელახლა მცდელობის იკონს,რომ გააგრძელო გადმოწერა.
-OpenCandy_08;A critical error has occurred. Installation of _________ will be aborted.
-OpenCandy_09;გადმოწერის დაპაუზება
-OpenCandy_10;ინსტალაციის შეჩერება
-OpenCandy_11;გადმოწერის გაგრძელება
-OpenCandy_12;საინსტალაციოდან გასვლა
-OpenCandy_13;___________ - როკომენდირებულია ____________ -სგან
-OpenCandy_14;გადმოწერილია _________
-OpenCandy_15;___________, ეს პროგრამა რეკომენდირბეულია ___________-სგან, is now downloading at your requestWe will let you know when it is ready to be installed.
-OpenCandy_16;___________ მზადაა ინსტალაციისთვის
-OpenCandy_17;___________ უკვე სრულად გადმოწერილია. დააკლიკეთ 'ინსტალაციას' ,რომ დააყენოთ პროგრამა.
-OpenCandy_18;___________ გან ___________ გადმოწერილია
-OpenCandy_19;პროგრამირება OpenCandy
-OpenCandy_20;გაიგე მეტი OpenCandy.com-ზე
-OpenCandy_21;ინსტალაცია
-OpenCandy_22;დაინსტალირებულია ___________
-OpenCandy_23;This will cancel the installation of ___________\r\nAre you sure you wish to exit?
-OpenCandy_24;პაუზა
-OpenCandy_25;გადმოწერილი დაპაუზდა. დააჭირეთ 'გაგრძელება' როცა შენ იქნები მზად გადმოწერისთვის.
-OpenCandy_26;გაგრძელება
-OpenCandy_27;დაინსტალირე ახლავე
-OpenCandy_28;დაპაუზება
-OpenCandy_29;გაგრძელება
-OpenCandy_30;ინსტალაციის შეჩერება
-OpenCandy_31;აირჩიეთ ინსტალტორის ოპციები
-OpenCandy_32;დაინსტალირდა ___________
-OpenCandy_33;არ დააინსტალირო
-OpenCandy_34;აირჩიეთ ინსტალაციის ოპციები
-OpenCandy_35;______ გირჩევთ ამ პროგრამას
-OpenCandy_36;მიმდინარე ინსტალაცია არ იქნება შეჩერებული
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
@@ -1146,6 +1146,7 @@ Rating;რეიტინგი
 RealtimeLoudnessCorrected;
 Recorded_Date;ჩაწერის თარიღი
 Recorded_Location;ჩაწერის ადგილი
+Reel;
 Released_Date;გამოშვების თარიღი
 RemixedBy;რემიქსის ავტორი
 RenderMode;
@@ -1364,5 +1365,5 @@ Written_Location;დაწერის ადგილი
 WrittenBy;დაწერილია
 Yes;დიახ
 Your system;თქვენი სისტემა
-ZZ_Automatic_Percent;70
-ZZ_AutomaticLanguage_Percent;74
+ZZ_Automatic_Percent;67
+ZZ_AutomaticLanguage_Percent;72

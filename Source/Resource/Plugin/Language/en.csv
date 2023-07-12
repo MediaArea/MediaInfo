@@ -229,6 +229,7 @@ Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;Buffer size
 Cancel;Cancel
 CaptionServiceName;Caption service name
+CatalogNumber;Catalog number
 Channel(s);Channel(s)
 ChannelCoded;Channel coded
 ChannelConfiguration;Channel configuration
@@ -242,6 +243,7 @@ Chapters stream(s);Chapters stream(s)
 Chapters_Codec_List;Chapters Codecs
 Chapters_No;No chapters
 ChaptersCount;Count of chapter streams
+CharacterSet;Character set
 CheckNewVersion;Check for new version
 Choose custom;Choose custom
 Choose custom sheet;Choose your desired custom sheet
@@ -328,6 +330,7 @@ DarkMode;Dark mode
 Date;Date
 Debug;Debug
 Decimal point;Decimal point
+Default;Default
 Default_Setting;System default
 DefaultTargetDeviceConfig;Default target device config
 Delay;Delay
@@ -336,6 +339,7 @@ Delay_Source_Container;Container
 Delay_Source_Stream;Raw stream
 Delete;Delete
 Description;Description
+Details;Details
 dialnorm;Dialog Normalization
 DialogueCorrected;Dialogue corrected
 DialogueEnhancement;Dialogue enhancement
@@ -357,6 +361,7 @@ DotsPerInch;Dots per inch
 Downmix;Downmix
 Downmix_5.1.x;5.1 and 5.1.x downmix
 Downmix_5to2;5.1 to 2.0 downmix
+Downmix_5to2_90deg;
 DrcSets_Count;DRC set count
 DrcSets_Effects;DRC effect type(s)
 Duration;Duration
@@ -384,6 +389,7 @@ EPG_Positions;EPG positions (internal)
 EpisodeTitleNumber;Episode Title Number
 Error_File;Error while reading file
 Error_File_Write;Error while writing file
+Events_MinDuration;Minimum duration per event
 Events_PaintOn;Count of PaintOn events
 Events_PopOn;Count of PopOn events
 Events_RollUp;Count of RollUp events
@@ -420,6 +426,7 @@ Folder (R)_Hint;Select a folder to examine (with all folders recursively)
 Folder (Recursively);Folder (Recursively)
 Folder_Hint;Select a folder to examine
 FolderName;Folder name
+Forced;Forced
 Format;Format
 Format_Commercial;Commercial name
 Format_Commercial_IfAny;Commercial name
@@ -463,6 +470,7 @@ FpaPass;FPA Pass
 FpaVersion;FPA Version
 FrameCount;Frame count
 FrameRate;Frame rate
+FrameRate_MaxFrameNumber;
 FrameRate_Maximum;Maximum frame rate
 FrameRate_Minimum;Minimum frame rate
 FrameRate_Mode;Frame rate mode
@@ -471,7 +479,9 @@ FrameRate_Mode_VFR;Variable
 FrameRate_Nominal;Nominal frame rate
 FrameRate_Original;Original frame rate
 FrameRate_Real;Real frame rate
+FullParsing;Full parsing
 General;General
+GeneralCompliance;General compliance
 Genre;Genre
 Genre_000;Blues
 Genre_001;Classic Rock
@@ -716,6 +726,21 @@ InternetMediaType;Internet media type
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+JocBalance_FrontBackListener;
+JocBalance_FrontBackOverheadFloor;
+JocTrim_Center;
+JocTrim_Height;
+JocTrim_Surround;
+JocTrimMode;
+JocTrimMode0i;
+JocTrimMode1i;
+JocTrimMode2i;
+JocTrimMode3i;
+JocTrimMode4i;
+JocTrimMode5i;
+JocTrimMode6i;
+JocTrimMode7i;
+JocTrimMode8i;
 Keywords;Keywords
 Known codecs;Known codecs
 Known formats;Known formats
@@ -747,6 +772,7 @@ Language_bs;Bosnian
 Language_ca;Catalan
 Language_ce;Chechen
 Language_ch;Chamorro
+Language_cmn;Mandarin
 Language_co;Corsican
 Language_cr;Cree
 Language_cs;Czech
@@ -916,10 +942,17 @@ Language_wo;Wolof
 Language_xh;Xhosa
 Language_yi;Yiddish
 Language_yo;Yoruba
+Language_yue;Cantonese
 Language_za;Zhuang
 Language_zh;Chinese
+Language_zh-cmn;Mandarin
 Language_zh-cn;Chinese (China)
+Language_zh-CN;Chinese (China)
+Language_zh-Hans;Chinese (Simplified)
+Language_zh-Hant;Chinese (Traditional)
 Language_zh-tw;Chinese (Taiwan)
+Language_zh-TW;Chinese (Taiwan)
+Language_zh-yue;Cantonese
 Language_zu;Zulu
 LawRating;Law rating
 LCCN;LCCN
@@ -944,6 +977,7 @@ LinkedTo_Substream_Pos;Substream #s
 LinkedTo_TrackFormat_Pos;Track format #s
 LinkedTo_TrackUID_Pos;Track UID #s
 List;List
+LongTermLoudness;Long term loudness
 LoRoCenterMixGain;LoRo center mix gain
 LoRoSurroundMixGain;LoRo surround mix gain
 Loudness_Anchor;Anchor loudness
@@ -981,6 +1015,8 @@ MaxFALL;Maximum Frame-Average Light Level
 MaxGain;Max gain
 MaximumMomentaryLoudness;Maximum momentary loudness
 MaxTruePeak;Max true peak
+MD5;MD5
+MD5_Unencoded;MD5 of the unencoded content
 MediaInfo_About;MediaInfo provides easy access to technical and tag information about video and audio files.\r\nExcept the Mac App Store graphical user interface, it is open-source software, which means that it is free of charge to the end user and developers have freedom to study, to improve and to redistribute the program (BSD license)
 MediaInfo_About_About;MediaInfo v%MI_VERSION% using MediaInfoLib v%MIL_VERSION%
 Menu;Menu
@@ -1033,42 +1069,6 @@ ObjectCount;Object Count
 OK;OK
 One output file per input file;One output file per input file
 Open;Open
-OpenCandy_01;Downloading ________
-OpenCandy_02;__% Complete
-OpenCandy_03;Internet connection interrupted
-OpenCandy_04;________ download complete
-OpenCandy_05;Click to install ________
-OpenCandy_06;Are you sure you wish to cancel the install?\r\nIf you wish to postpone the install until later, select 'No'.\r\nNote: You may select Exit from the menu to defer installation until after the next time you reboot.
-OpenCandy_07;Download of ________ has been paused.\r\nClick on the tray icon to resume downloading.
-OpenCandy_08;A critical error has occurred. Installation of _________ will be aborted.
-OpenCandy_09;Pause download
-OpenCandy_10;Cancel install
-OpenCandy_11;Resume download
-OpenCandy_12;Exit Installer
-OpenCandy_13;___________ - Recommended by ____________
-OpenCandy_14;Downloading _________
-OpenCandy_15;___________, the software recommended to you by ___________, is now downloading at your requestWe will let you know when it is ready to be installed.
-OpenCandy_16;___________ is ready for installation
-OpenCandy_17;___________ is now fully downloaded. Please click on 'Install' to proceed.
-OpenCandy_18;___________ of ___________ downloaded
-OpenCandy_19;Powered by OpenCandy
-OpenCandy_20;Learn more at OpenCandy.com
-OpenCandy_21;Install
-OpenCandy_22;Installation of ___________
-OpenCandy_23;This will cancel the installation of ___________\r\nAre you sure you wish to exit?
-OpenCandy_24;Pause
-OpenCandy_25;Your download has been paused. Click 'Resume' when you are ready to continue.
-OpenCandy_26;Resume
-OpenCandy_27;Install Now
-OpenCandy_28;Pause Download
-OpenCandy_29;Resume Download
-OpenCandy_30;Cancel Install
-OpenCandy_31;Please choose an installation option
-OpenCandy_32;Install ___________
-OpenCandy_33;Don't Install
-OpenCandy_34;Please select an install option
-OpenCandy_35;______ recommends this software
-OpenCandy_36;Your current installation will not be interrupted
 OpenCaptionsLanguage;Open Captions Language
 OpenCaptionsPresent;Open Captions Present
 OpenCaptionsType;Open Captions Type
@@ -1146,6 +1146,7 @@ Rating;Rating
 RealtimeLoudnessCorrected;Realtime loudness corrected
 Recorded_Date;Recorded date
 Recorded_Location;Recorded location
+Reel;Reel
 Released_Date;Released date
 RemixedBy;Remixed by
 RenderMode;Render mode
@@ -1364,5 +1365,5 @@ Written_Location;Written location
 WrittenBy;Written by
 Yes;Yes
 Your system;Your system
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;98
+ZZ_AutomaticLanguage_Percent;98

@@ -229,6 +229,7 @@ Bits-(Pixel*Frame);Bitai/(Pikselis*Kadras)
 BufferSize;
 Cancel;Atšaukti
 CaptionServiceName;
+CatalogNumber;
 Channel(s);Kanalas (-ai)
 ChannelCoded;
 ChannelConfiguration;
@@ -242,6 +243,7 @@ Chapters stream(s);Skyrių srautai
 Chapters_Codec_List;Skyrių kodekas
 Chapters_No;Be skyrių
 ChaptersCount;Skyrių srautų kiekis
+CharacterSet;
 CheckNewVersion;Tikrinti naujesnės versijos
 Choose custom;Pasirinkti vartotojo
 Choose custom sheet;Pasirinkite norimą vartotojo lapą
@@ -328,6 +330,7 @@ DarkMode;
 Date;Data
 Debug;Suderinti
 Decimal point;Dešimtainis taškas
+Default;
 Default_Setting;
 DefaultTargetDeviceConfig;
 Delay;Atidėti
@@ -336,6 +339,7 @@ Delay_Source_Container;
 Delay_Source_Stream;
 Delete;Pašalinti
 Description;Aprašymas
+Details;
 dialnorm;
 DialogueCorrected;
 DialogueEnhancement;
@@ -357,6 +361,7 @@ DotsPerInch;
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
+Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;Trukmė
@@ -384,6 +389,7 @@ EPG_Positions;
 EpisodeTitleNumber;
 Error_File;Klaida nuskaitant failą
 Error_File_Write;
+Events_MinDuration;
 Events_PaintOn;
 Events_PopOn;
 Events_RollUp;
@@ -420,6 +426,7 @@ Folder (R)_Hint;Pasirinkite katalogą studijavimui (su visais pasikartojančiais
 Folder (Recursively);Katalogas (Pasikartojančiai)
 Folder_Hint;Pasirinkite katalogą studijavimui
 FolderName;Katalogo pavadinimas
+Forced;
 Format;Formatas
 Format_Commercial;
 Format_Commercial_IfAny;
@@ -463,6 +470,7 @@ FpaPass;
 FpaVersion;
 FrameCount;
 FrameRate;Kadrų tempas
+FrameRate_MaxFrameNumber;
 FrameRate_Maximum;Maksimalus kadrų tempas
 FrameRate_Minimum;Minimalus kadrų tempas
 FrameRate_Mode;Kadrų tempo rėžimas
@@ -471,7 +479,9 @@ FrameRate_Mode_VFR;
 FrameRate_Nominal;Nominalus kadrų skaičius
 FrameRate_Original;Originalus kadrų skaičius
 FrameRate_Real;
+FullParsing;
 General;Pagrindinis
+GeneralCompliance;
 Genre;Žanras
 Genre_000;Bliuzas
 Genre_001;Klasikinis rokas
@@ -716,6 +726,21 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+JocBalance_FrontBackListener;
+JocBalance_FrontBackOverheadFloor;
+JocTrim_Center;
+JocTrim_Height;
+JocTrim_Surround;
+JocTrimMode;
+JocTrimMode0i;
+JocTrimMode1i;
+JocTrimMode2i;
+JocTrimMode3i;
+JocTrimMode4i;
+JocTrimMode5i;
+JocTrimMode6i;
+JocTrimMode7i;
+JocTrimMode8i;
 Keywords;Raktiniai žodžiai
 Known codecs;Žinomi kodekai
 Known formats;Žinomi formatai
@@ -747,6 +772,7 @@ Language_bs;Bosnių
 Language_ca;Katalonų
 Language_ce;Čekų
 Language_ch;Chamorro
+Language_cmn;
 Language_co;Corsican
 Language_cr;Cree
 Language_cs;Čekų
@@ -916,10 +942,17 @@ Language_wo;Wolof
 Language_xh;Xhosa
 Language_yi;Yiddish
 Language_yo;Yoruba
+Language_yue;
 Language_za;Zhuang
 Language_zh;Kinų
+Language_zh-cmn;
 Language_zh-cn;
+Language_zh-CN;
+Language_zh-Hans;
+Language_zh-Hant;
 Language_zh-tw;
+Language_zh-TW;
+Language_zh-yue;
 Language_zu;Zulu
 LawRating;Law reitingas
 LCCN;LCCN
@@ -944,6 +977,7 @@ LinkedTo_Substream_Pos;
 LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
 List;Sąrašas
+LongTermLoudness;
 LoRoCenterMixGain;
 LoRoSurroundMixGain;
 Loudness_Anchor;
@@ -981,6 +1015,8 @@ MaxFALL;
 MaxGain;
 MaximumMomentaryLoudness;
 MaxTruePeak;
+MD5;
+MD5_Unencoded;
 MediaInfo_About;Teikiama detali informacija\r\napie daugialypes bylas:\r\nMatroska, OGG (įskaitant OGM)\r\nMPEG1 (įskaitant VCD)\r\nMPEG2 (įskaitant DVD ir SVCD)\r\nMPEG4 (įskaitant Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (įskaitant WMV, WMA)\r\nMicrosoft RIFF (įskaitant AVI, WAV)\r\nTik-Garso formatai (AC3, DTS, AAC, AU, AIFF...)
 MediaInfo_About_About;
 Menu;Meniu
@@ -1033,42 +1069,6 @@ ObjectCount;
 OK;Gerai
 One output file per input file;Vienas įšėjimo failas per įėjimo failą
 Open;Atverti
-OpenCandy_01;
-OpenCandy_02;
-OpenCandy_03;
-OpenCandy_04;
-OpenCandy_05;
-OpenCandy_06;
-OpenCandy_07;
-OpenCandy_08;
-OpenCandy_09;
-OpenCandy_10;
-OpenCandy_11;
-OpenCandy_12;
-OpenCandy_13;
-OpenCandy_14;
-OpenCandy_15;
-OpenCandy_16;
-OpenCandy_17;
-OpenCandy_18;
-OpenCandy_19;
-OpenCandy_20;
-OpenCandy_21;
-OpenCandy_22;
-OpenCandy_23;
-OpenCandy_24;
-OpenCandy_25;
-OpenCandy_26;
-OpenCandy_27;
-OpenCandy_28;
-OpenCandy_29;
-OpenCandy_30;
-OpenCandy_31;
-OpenCandy_32;
-OpenCandy_33;
-OpenCandy_34;
-OpenCandy_35;
-OpenCandy_36;
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
@@ -1146,6 +1146,7 @@ Rating;Reitingas
 RealtimeLoudnessCorrected;
 Recorded_Date;Įrašymo data
 Recorded_Location;Įrašymo vieta
+Reel;
 Released_Date;Išleidimo data
 RemixedBy;Permiksavo
 RenderMode;
@@ -1365,4 +1366,4 @@ WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
 ZZ_Automatic_Percent;60
-ZZ_AutomaticLanguage_Percent;67
+ZZ_AutomaticLanguage_Percent;65

@@ -229,6 +229,7 @@ Bits-(Pixel*Frame);Bit/(Piksel*Kuadër)
 BufferSize;
 Cancel;Anulo
 CaptionServiceName;
+CatalogNumber;
 Channel(s);Kanale
 ChannelCoded;
 ChannelConfiguration;
@@ -242,6 +243,7 @@ Chapters stream(s);Rryma(t) e kapitujve
 Chapters_Codec_List;Kodekët e Kapitujve
 Chapters_No;Pa kapituj
 ChaptersCount;Numri i rrymave të kapitujve
+CharacterSet;
 CheckNewVersion;Verifiko versionin e ri
 Choose custom;Zgjedh me porosi
 Choose custom sheet;Zgjedh me porosi fletën e dëshiruar
@@ -328,6 +330,7 @@ DarkMode;
 Date;Data
 Debug;Debug
 Decimal point;Pika dhjetore
+Default;
 Default_Setting;
 DefaultTargetDeviceConfig;
 Delay;Vonesa
@@ -336,6 +339,7 @@ Delay_Source_Container;
 Delay_Source_Stream;
 Delete;Fshij
 Description;Përshkrimi
+Details;
 dialnorm;
 DialogueCorrected;
 DialogueEnhancement;
@@ -357,6 +361,7 @@ DotsPerInch;Pika për inç
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
+Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;Kohëzgjatja
@@ -384,6 +389,7 @@ EPG_Positions;Pozicionet EPG (të brendshme)
 EpisodeTitleNumber;
 Error_File;Gabim gjatë leximit të skedës
 Error_File_Write;
+Events_MinDuration;
 Events_PaintOn;
 Events_PopOn;
 Events_RollUp;
@@ -420,6 +426,7 @@ Folder (R)_Hint;Studio një dosje (me gjithë dosjet si rekursive)
 Folder (Recursively);Dosje (Rekursive)
 Folder_Hint;Studio një dosje
 FolderName;Emri i dosjes
+Forced;
 Format;Formati
 Format_Commercial;
 Format_Commercial_IfAny;
@@ -463,6 +470,7 @@ FpaPass;
 FpaVersion;
 FrameCount;Numri i kuadrove
 FrameRate;Raporti i kuadrit
+FrameRate_MaxFrameNumber;
 FrameRate_Maximum;Raporti maksimal i kuadrit
 FrameRate_Minimum;Raporti minimal i kuadrit
 FrameRate_Mode;Mënyra e raportit të kuadrit
@@ -471,7 +479,9 @@ FrameRate_Mode_VFR;Variabël
 FrameRate_Nominal;Raporti nominal i kuadrit
 FrameRate_Original;Raporti origjinal i kuadrit
 FrameRate_Real;
+FullParsing;
 General;Përgjithësi
+GeneralCompliance;
 Genre;Zhanri
 Genre_000;Blues
 Genre_001;Classic Rock
@@ -716,6 +726,21 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+JocBalance_FrontBackListener;
+JocBalance_FrontBackOverheadFloor;
+JocTrim_Center;
+JocTrim_Height;
+JocTrim_Surround;
+JocTrimMode;
+JocTrimMode0i;
+JocTrimMode1i;
+JocTrimMode2i;
+JocTrimMode3i;
+JocTrimMode4i;
+JocTrimMode5i;
+JocTrimMode6i;
+JocTrimMode7i;
+JocTrimMode8i;
 Keywords;Fjalët kyçe
 Known codecs;Kodekët e njohur
 Known formats;Formatet e njohura
@@ -747,6 +772,7 @@ Language_bs;Bosnian
 Language_ca;Katalanisht
 Language_ce;Chechen
 Language_ch;Chamorro
+Language_cmn;
 Language_co;Corsican
 Language_cr;Cree
 Language_cs;Çekisht
@@ -916,10 +942,17 @@ Language_wo;Wolof
 Language_xh;Xhosa
 Language_yi;Yiddish
 Language_yo;Yoruba
+Language_yue;
 Language_za;Zhuang
 Language_zh;Kinezisht
+Language_zh-cmn;
 Language_zh-cn;Kinezisht (Kinë)
+Language_zh-CN;
+Language_zh-Hans;
+Language_zh-Hant;
 Language_zh-tw;Kinezisht (Tajvan)
+Language_zh-TW;
+Language_zh-yue;
 Language_zu;Zulu
 LawRating;Vlerësimi ligjor
 LCCN;LCCN
@@ -944,6 +977,7 @@ LinkedTo_Substream_Pos;
 LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
 List;Lista
+LongTermLoudness;
 LoRoCenterMixGain;
 LoRoSurroundMixGain;
 Loudness_Anchor;
@@ -981,6 +1015,8 @@ MaxFALL;
 MaxGain;
 MaximumMomentaryLoudness;
 MaxTruePeak;
+MD5;
+MD5_Unencoded;
 MediaInfo_About;Jep informacione shumë të detajuara për\r\nskedat multimediatike:\r\nMatroska, OGG (përfshirë OGM)\r\nMPEG1 (përfshirë VCD)\r\nMPEG2 (përfshirë DVD dhe SVCD)\r\nMPEG4 (përfshirë Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (përfshirë WMV, WMA)\r\nMicrosoft RIFF (përfshirë AVI, WAV)\r\nFormate zanore (AC3, DTS, AAC, AU, AIFF...)
 MediaInfo_About_About;
 Menu;Meny
@@ -1033,42 +1069,6 @@ ObjectCount;
 OK;OK
 One output file per input file;Një skedë output për skedë input
 Open;Hap
-OpenCandy_01;Shkarkimi i ________
-OpenCandy_02;__ % Përfunduar
-OpenCandy_03;Ndërpret lidhjen me internetin
-OpenCandy_04;Përfundon shkarkimi i ________
-OpenCandy_05;Klikoni për të instaluar ________
-OpenCandy_06;Jeni i sigurt se doni të anuloni instalimin?\r\nNëse do e shtyni instalimin për më vonë, zgjidheni 'Jo'.\r\nShënim: Mund të zgjidhni Dalje nga menyja për të ndryshuar instalimin herën tjetër që kompjuteri do të rinisë.
-OpenCandy_07;Pushon shkarkimi i ________.\r\nKlikoni mbi ikonën në brez për të rimarrë shkarkimin.
-OpenCandy_08;Ka ndodhur një gabim kritik. Do ndërpritet instalimi i _________.
-OpenCandy_09;Pusho shkarkimin
-OpenCandy_10;Anulo shkarkimin
-OpenCandy_11;Rimerr shkarkimin
-OpenCandy_12;Dalje nga Instaluesi
-OpenCandy_13;___________ - Rekomanduar nga ____________
-OpenCandy_14;Shkarkimi i _________
-OpenCandy_15;___________, softueri që është rekomanduar nga ___________, po shkarkohet me kërkesën tuaj.\r\nNe do ju tregojmë kur të jetë gati të instalohet.
-OpenCandy_16;___________ është gati të instalohet
-OpenCandy_17;___________ është shkarkuar plotësisht. Ju lutem klikoni 'Instalo' për të vijuar.
-OpenCandy_18;___________ nga ___________ e shkarkuar
-OpenCandy_19;Sponsorizuar nga OpenCandy
-OpenCandy_20;Mëso më shumë në OpenCandy.com
-OpenCandy_21;Instalo
-OpenCandy_22;Instalimi i ___________
-OpenCandy_23;Kjo do anulojë instalimin e ___________\r\nJeni i sigurt se doni të dilni?
-OpenCandy_24;Pusho
-OpenCandy_25;Shkarkimi juaj pushon. Klikoni 'Rimerr' kur të jeni gati për të vijuar.
-OpenCandy_26;Rimerr
-OpenCandy_27;Instalo Tani
-OpenCandy_28;Pusho Shkarkimin
-OpenCandy_29;Rimerr Shkarkimin
-OpenCandy_30;Anulo Instalimin
-OpenCandy_31;Ju lutem zgjidhni mundësinë e instalimit
-OpenCandy_32;Instalo ___________
-OpenCandy_33;Mos Instalo
-OpenCandy_34;Ju lutem zgjidhni një mundësi instalimi
-OpenCandy_35;______ rekomandon këtë softuer
-OpenCandy_36;Instalimi juaj aktual nuk do ndërpritet
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
@@ -1146,6 +1146,7 @@ Rating;Vlerësimi
 RealtimeLoudnessCorrected;
 Recorded_Date;Data e regjistrimit
 Recorded_Location;Vendndodhja e regjistrimit
+Reel;
 Released_Date;Data e lëshimit
 RemixedBy;Miksuar nga
 RenderMode;
@@ -1364,5 +1365,5 @@ Written_Location;Vendi i shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;69
-ZZ_AutomaticLanguage_Percent;72
+ZZ_Automatic_Percent;66
+ZZ_AutomaticLanguage_Percent;70

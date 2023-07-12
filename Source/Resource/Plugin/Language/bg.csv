@@ -229,6 +229,7 @@ Bits-(Pixel*Frame);Битове-(Пиксел*Кадър)
 BufferSize;
 Cancel;Откажи
 CaptionServiceName;
+CatalogNumber;
 Channel(s);Канал(и)
 ChannelCoded;
 ChannelConfiguration;
@@ -242,6 +243,7 @@ Chapters stream(s);Дялове поток(ци)
 Chapters_Codec_List;Дялове_Кодек_Списък
 Chapters_No;Дялове_Но
 ChaptersCount;ДяловеБрой
+CharacterSet;
 CheckNewVersion;ПровериНоваВерсия
 Choose custom;Избери потребителски
 Choose custom sheet;Избери потребителски формуляр
@@ -328,6 +330,7 @@ DarkMode;
 Date;Дата
 Debug;Дебъг
 Decimal point;Децимална точка
+Default;
 Default_Setting;
 DefaultTargetDeviceConfig;
 Delay;Забавяне
@@ -336,6 +339,7 @@ Delay_Source_Container;
 Delay_Source_Stream;
 Delete;Премахни
 Description;Описание
+Details;
 dialnorm;
 DialogueCorrected;
 DialogueEnhancement;
@@ -357,6 +361,7 @@ DotsPerInch;ДотНаИнч
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
+Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;Продължителност
@@ -384,6 +389,7 @@ EPG_Positions;ЕПГ_Позиции
 EpisodeTitleNumber;
 Error_File;ФайлЗа_Грешки
 Error_File_Write;
+Events_MinDuration;
 Events_PaintOn;
 Events_PopOn;
 Events_RollUp;
@@ -420,6 +426,7 @@ Folder (R)_Hint;Папка (Ч)_Подсказване
 Folder (Recursively);Папка (Рекурсивна)
 Folder_Hint;Папка_Подсказване
 FolderName;ПапкаИме
+Forced;
 Format;Формат
 Format_Commercial;
 Format_Commercial_IfAny;
@@ -463,6 +470,7 @@ FpaPass;
 FpaVersion;
 FrameCount;БройКадри
 FrameRate;СкоростКадри
+FrameRate_MaxFrameNumber;
 FrameRate_Maximum;СкоростКадри_Максимум
 FrameRate_Minimum;СкоростКадри_Минимум
 FrameRate_Mode;СкоростКадри_Метод
@@ -471,7 +479,9 @@ FrameRate_Mode_VFR;СкоростКадри_ВФР
 FrameRate_Nominal;СкоростКадри_Нормално
 FrameRate_Original;СкоростКадри_Оригинално
 FrameRate_Real;
+FullParsing;
 General;Генерално
+GeneralCompliance;
 Genre;Жанр
 Genre_000;
 Genre_001; Жанр_001
@@ -716,6 +726,21 @@ InternetMediaType;
 IRCA;ИРСА
 ISBN;ИСБН
 ISRC;ИСРК
+JocBalance_FrontBackListener;
+JocBalance_FrontBackOverheadFloor;
+JocTrim_Center;
+JocTrim_Height;
+JocTrim_Surround;
+JocTrimMode;
+JocTrimMode0i;
+JocTrimMode1i;
+JocTrimMode2i;
+JocTrimMode3i;
+JocTrimMode4i;
+JocTrimMode5i;
+JocTrimMode6i;
+JocTrimMode7i;
+JocTrimMode8i;
 Keywords;Тагове
 Known codecs;Познати кодеци
 Known formats;Познати Формати
@@ -747,6 +772,7 @@ Language_bs;Език_бс
 Language_ca;Език_ка
 Language_ce;Език_ке
 Language_ch;Език_чи
+Language_cmn;
 Language_co;Език_ко
 Language_cr;Език_кр
 Language_cs;Език_че
@@ -916,10 +942,17 @@ Language_wo;
 Language_xh;
 Language_yi;
 Language_yo;
+Language_yue;
 Language_za;
 Language_zh;
+Language_zh-cmn;
 Language_zh-cn;
+Language_zh-CN;
+Language_zh-Hans;
+Language_zh-Hant;
 Language_zh-tw;
+Language_zh-TW;
+Language_zh-yue;
 Language_zu;
 LawRating;НисъкРейтинг
 LCCN;ЛССН
@@ -944,6 +977,7 @@ LinkedTo_Substream_Pos;
 LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
 List;Списък
+LongTermLoudness;
 LoRoCenterMixGain;
 LoRoSurroundMixGain;
 Loudness_Anchor;
@@ -981,6 +1015,8 @@ MaxFALL;
 MaxGain;
 MaximumMomentaryLoudness;
 MaxTruePeak;
+MD5;
+MD5_Unencoded;
 MediaInfo_About;Медиа Инфо_За
 MediaInfo_About_About;
 Menu;Меню
@@ -1033,42 +1069,6 @@ ObjectCount;
 OK;Да
 One output file per input file;Един изходящ при един входящ файл
 Open;Отвори
-OpenCandy_01;ОпенКанди_01
-OpenCandy_02;ОпенКанди_02
-OpenCandy_03;ОпенКанди_03
-OpenCandy_04;ОпенКанди_04
-OpenCandy_05;ОпенКанди_05
-OpenCandy_06;ОпенКанди_06
-OpenCandy_07;ОпенКанди_07
-OpenCandy_08;ОпенКанди_08
-OpenCandy_09;ОпенКанди_09
-OpenCandy_10;ОпенКанди_10
-OpenCandy_11;ОпенКанди_11
-OpenCandy_12;ОпенКанди_12
-OpenCandy_13;ОпенКанди_13
-OpenCandy_14;ОпенКанди_14
-OpenCandy_15;ОпенКанди_15
-OpenCandy_16;ОпенКанди_16
-OpenCandy_17;ОпенКанди_17
-OpenCandy_18;ОпенКанди_18
-OpenCandy_19;ОпенКанди_19
-OpenCandy_20;ОпенКанди_20
-OpenCandy_21;ОпенКанди_21
-OpenCandy_22;ОпенКанди_22
-OpenCandy_23;ОпенКанди_23
-OpenCandy_24;ОпенКанди_24
-OpenCandy_25;ОпенКанди_25
-OpenCandy_26;ОпенКанди_26
-OpenCandy_27;ОпенКанди_27
-OpenCandy_28;ОпенКанди_28
-OpenCandy_29;ОпенКанди_29
-OpenCandy_30;ОпенКанди_30
-OpenCandy_31;ОпенКанди_31
-OpenCandy_32;ОпенКанди_32
-OpenCandy_33;ОпенКанди_33
-OpenCandy_34;ОпенКанди_34
-OpenCandy_35;ОпенКанди_35
-OpenCandy_36;ОпенКанди_36
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
@@ -1146,6 +1146,7 @@ Rating;Рейтинг
 RealtimeLoudnessCorrected;
 Recorded_Date;Запис_Дата
 Recorded_Location;Запис_Локация
+Reel;
 Released_Date;Издаден_Дата
 RemixedBy;РемиксОт
 RenderMode;
@@ -1364,5 +1365,5 @@ Written_Location;Написано_Локация
 WrittenBy;НаписаноОт
 Yes;Да
 Your system;Вашата система
-ZZ_Automatic_Percent;67
-ZZ_AutomaticLanguage_Percent;73
+ZZ_Automatic_Percent;64
+ZZ_AutomaticLanguage_Percent;71

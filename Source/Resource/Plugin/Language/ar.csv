@@ -229,6 +229,7 @@ Bits-(Pixel*Frame);بت /(صورة*بكسل)
 BufferSize;
 Cancel;إلغاء
 CaptionServiceName;
+CatalogNumber;
 Channel(s);قناة
 ChannelCoded;
 ChannelConfiguration;
@@ -242,6 +243,7 @@ Chapters stream(s);مقطع الفصل
 Chapters_Codec_List;ترميز الفصول
 Chapters_No;لا يوجد أي فصل
 ChaptersCount;عدد مقاطع الفصول
+CharacterSet;
 CheckNewVersion;التحقق من وجود نسخة جديدة
 Choose custom;اختر مخصص
 Choose custom sheet;اختيار الجدول مخصص
@@ -328,6 +330,7 @@ DarkMode;
 Date;تاريخ
 Debug;تصحيح (Debug)
 Decimal point;نقطة عشرية
+Default;
 Default_Setting;
 DefaultTargetDeviceConfig;
 Delay;تأخير
@@ -336,6 +339,7 @@ Delay_Source_Container;
 Delay_Source_Stream;
 Delete;حذف
 Description;وصف
+Details;
 dialnorm;
 DialogueCorrected;
 DialogueEnhancement;
@@ -357,6 +361,7 @@ DotsPerInch;نقطة في البوصة
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
+Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;مدة
@@ -384,6 +389,7 @@ EPG_Positions;مواضع الـEPG (الداخلية)
 EpisodeTitleNumber;
 Error_File;خطأ أثناء قراءة الملف
 Error_File_Write;
+Events_MinDuration;
 Events_PaintOn;
 Events_PopOn;
 Events_RollUp;
@@ -420,6 +426,7 @@ Folder (R)_Hint;تحديد مجلد لدراسة (مع جميع مجلداته �
 Folder (Recursively);المجلد (بشكل تكراري)
 Folder_Hint;تحديد مجلد لدراسة
 FolderName;اسم المجلد
+Forced;
 Format;شكل
 Format_Commercial;
 Format_Commercial_IfAny;
@@ -463,6 +470,7 @@ FpaPass;
 FpaVersion;
 FrameCount;عدد الصور
 FrameRate;عدد الصور في الثانية
+FrameRate_MaxFrameNumber;
 FrameRate_Maximum;أقصى معدل الصور/ثانية
 FrameRate_Minimum;أدنى معدل الصور/ثانية
 FrameRate_Mode;نمط الصور/ثانية
@@ -471,7 +479,9 @@ FrameRate_Mode_VFR;متغير
 FrameRate_Nominal;معدل الاسمي لصور/ثانية
 FrameRate_Original;معدل الصور/ثانية الأصلي
 FrameRate_Real;
+FullParsing;
 General;عام
+GeneralCompliance;
 Genre;النوع
 Genre_000;البلوز Blues
 Genre_001;كلاسيك روك Classic Rock
@@ -716,6 +726,21 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+JocBalance_FrontBackListener;
+JocBalance_FrontBackOverheadFloor;
+JocTrim_Center;
+JocTrim_Height;
+JocTrim_Surround;
+JocTrimMode;
+JocTrimMode0i;
+JocTrimMode1i;
+JocTrimMode2i;
+JocTrimMode3i;
+JocTrimMode4i;
+JocTrimMode5i;
+JocTrimMode6i;
+JocTrimMode7i;
+JocTrimMode8i;
 Keywords;الكلمات الرئيسية
 Known codecs;الترميزات المعروفة
 Known formats;الامتدلدات المعروفة
@@ -747,6 +772,7 @@ Language_bs;Bosanski
 Language_ca;Catalan
 Language_ce;Нохчийн мотт
 Language_ch;Chamorro
+Language_cmn;
 Language_co;Corsu
 Language_cr;Nēhiyawēwin
 Language_cs;Čeština
@@ -916,10 +942,17 @@ Language_wo;Wolof
 Language_xh;isiXhosa
 Language_yi;ייִדיש
 Language_yo;èdèe Yorùbá
+Language_yue;
 Language_za;Vahcuengh
 Language_zh;汉语
+Language_zh-cmn;
 Language_zh-cn;汉语 (China)
+Language_zh-CN;
+Language_zh-Hans;
+Language_zh-Hant;
 Language_zh-tw;中文 (Taiwan)
+Language_zh-TW;
+Language_zh-yue;
 Language_zu;isiZulu
 LawRating;تصنيف القانون
 LCCN;LCCN
@@ -944,6 +977,7 @@ LinkedTo_Substream_Pos;
 LinkedTo_TrackFormat_Pos;
 LinkedTo_TrackUID_Pos;
 List;قائمة
+LongTermLoudness;
 LoRoCenterMixGain;
 LoRoSurroundMixGain;
 Loudness_Anchor;
@@ -981,6 +1015,8 @@ MaxFALL;
 MaxGain;
 MaximumMomentaryLoudness;
 MaxTruePeak;
+MD5;
+MD5_Unencoded;
 MediaInfo_About;تقديم معلومات مفصلة\r\nحول ملف الوسائط المتعددة :\r\nMatroska، OGG (including OGM)\r\nMPEG1 (بما في ذلك VCD)\r\nMPEG2 (بما في ذلك DVD و SVCD)\r\nMPEG4 (بما في ذلك Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia ((بما في ذلك WMV، WMA)\r\nMicrosoft RIFF ((بما في ذلك AVI, WAV)\r\nامتدادات الصوت فقط (AC3، DTS، AAC، AU، AIFF...)
 MediaInfo_About_About;
 Menu;القائمة
@@ -1033,42 +1069,6 @@ ObjectCount;
 OK;موافق
 One output file per input file;خطأ عند قراءة الملف
 Open;فتح
-OpenCandy_01;تحميل ________
-OpenCandy_02;__% أنهى
-OpenCandy_03;انقطاع الاتصال بالإنترنت
-OpenCandy_04;________ تحميل كامل
-OpenCandy_05;انقر لتثبيت ________
-OpenCandy_06;هل أنت متأكد أنك ترغب في إلغاء تثبيت?\r\nإذا كنت ترغب في تأجيل تثبيت حتى وقت لاحق ، اختر 'لا'.\r\nملاحظة : يمكنك اختيار إنهاء من القائمة لتأجيل التثبيت حتى تشغيل الكمبيوتر التالي.
-OpenCandy_07;تحميل ________ تم إيقافه.\r\nانقر على أيقونة الصغيرة لاستئناف تحميل.
-OpenCandy_08;حدث خطأ فادح. تثبيت _________ثم الغاؤه.
-OpenCandy_09;ايقاف التحميل
-OpenCandy_10;إلغاء التثبيت
-OpenCandy_11;استئناف التحميل
-OpenCandy_12;الخروج من التثبيت
-OpenCandy_13;___________-يوصى به من طرف ____________
-OpenCandy_14;التحميل جاري _________
-OpenCandy_15;___________، يوصى البرنامج إليكم من ___________،يتم تحميله الآن بناء على طلبك ونحن سوف نعلمك عندما يكون مستعدا للتسطيب..
-OpenCandy_16;___________جاهز للتثبيت
-OpenCandy_17;___________تم تحميله بالكامل. الرجاء النقر على 'تثبيت' للمضي قدما.
-OpenCandy_18;___________ من أصل ___________ تم تحميلها
-OpenCandy_19;بدعم من OpenCandy
-OpenCandy_20;معرفة المزيد في OpenCandy.com
-OpenCandy_21;تثبيت
-OpenCandy_22;تثبيت ___________
-OpenCandy_23;سيتم  إلغاء تثبيت ___________\r\nهل أنت متأكد من أنك تريد الخروج؟
-OpenCandy_24;ايقاف
-OpenCandy_25;تم إيقاف التحميل. انقر فوق 'استئناف' لمواصلة التحميل.
-OpenCandy_26;استئناف
-OpenCandy_27;تثبيت الآن
-OpenCandy_28;ايقاف التحميل
-OpenCandy_29;استئناف التحميل
-OpenCandy_30;إلغاء التثبيت
-OpenCandy_31;الرجاء اختيار اعدادات التثبيت
-OpenCandy_32;تثبيت ___________
-OpenCandy_33;عدم تثبيت
-OpenCandy_34;الرجاء تحديد خيار تثبيت
-OpenCandy_35;______ يوصي بهذا البرنامج
-OpenCandy_36;سيتم انقطاع التثبيت الحالي
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
@@ -1146,6 +1146,7 @@ Rating;تصنيف
 RealtimeLoudnessCorrected;
 Recorded_Date;تاريخ التسجيل
 Recorded_Location;مكان التسجيل
+Reel;
 Released_Date;تاريخ البث الأول
 RemixedBy;تم الـRemixe من طرف
 RenderMode;
@@ -1364,5 +1365,5 @@ Written_Location;مكان الكتابة
 WrittenBy;كتبها
 Yes;نعم
 Your system;نظامك
-ZZ_Automatic_Percent;74
-ZZ_AutomaticLanguage_Percent;77
+ZZ_Automatic_Percent;71
+ZZ_AutomaticLanguage_Percent;75
