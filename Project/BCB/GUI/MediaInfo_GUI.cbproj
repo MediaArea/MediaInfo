@@ -41,7 +41,7 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
-			<Defines>MEDIAINFO_DLL_RUNTIME;MEDIAINFODLL_NAME=L\"MediaInfo_i386.dll\";$(Defines)</Defines>
+			<Defines>MEDIAINFO_DLL_RUNTIME;MEDIAINFODLL_NAME=L"MediaInfo_i386.dll";$(Defines)</Defines>
 			<VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=23.07.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=;Comments=</VerInfo_Keys>
 			<Manifest_File>None</Manifest_File>
 			<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
@@ -62,6 +62,7 @@
 			<IntermediateOutputDir>.\$(Platform)\$(Config)</IntermediateOutputDir>
 			<FinalOutputDir>.\$(Platform)\$(Config)</FinalOutputDir>
 			<BCC_wpar>false</BCC_wpar>
+			<BCC_UseClassicCompiler>false</BCC_UseClassicCompiler>
 			<BCC_OptimizeForSpeed>true</BCC_OptimizeForSpeed>
 			<BCC_ExtendedErrorInfo>true</BCC_ExtendedErrorInfo>
 			<ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\release\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>

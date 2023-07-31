@@ -154,12 +154,11 @@ void TPreferences_SheetF::Columns_Adapt()
             Column_Kind[Pos]->Style=Stdctrls::csDropDownList;
             Column_Kind[Pos]->OnChange=Column_Kind0Change;
             Column_Kind[Pos]->Parent=this;
-            Column_Kind[Pos]->Items->SetText(
-                                               L"General\r\n"
-                                                "Video\r\n"
-                                                "Audio\r\n"
-                                                "Text\r\n"
-                                                "Chapters\r\n");
+            Column_Kind[Pos]->Items->SetText(L"General\r\n"
+                                             L"Video\r\n"
+                                             L"Audio\r\n"
+                                             L"Text\r\n"
+                                             L"Chapters\r\n");
             Column_Kind[Pos]->ItemIndex=0;
             Column_Kind0Change(Column_Kind[Pos]);
         }
@@ -255,14 +254,14 @@ void __fastcall TPreferences_SheetF::OKClick(TObject *Sender)
         Z1+=Ztring::ToZtring(Pos);
         int I1=EditedSheet.Find(Z1);
         if (I1!=-1)
-            EditedSheet.erase(&EditedSheet(I1));
+            EditedSheet.erase(EditedSheet.begin()+I1);
     }
 
     //TODO: Purge blank lines, but why is there blank lines?
     while (EditedSheet.Find(__T(""))!=-1)
     {
         int I1=EditedSheet.Find(__T(""));
-        EditedSheet.erase(&EditedSheet(I1));
+        EditedSheet.erase(EditedSheet.begin()+I1);
     }
 
     //Save file
