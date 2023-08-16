@@ -927,10 +927,10 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
                 for (size_t Pos = 0; Pos < I->Count_Get(); Pos++)
                 {
                     Ztring Svg = I->Inform(Pos);
-                    size_t Pos = Svg.find(__T("<svg"));
-                    if (Pos != std::string::npos)
+                    size_t Pos2 = Svg.find(__T("<svg"));
+                    if (Pos2 != std::string::npos)
                         Svg = Svg.substr(Pos);
-                    S1 += (Pos ? __T("<br/>") : __T("")) + Svg;
+                    S1 += (Pos2 ? __T("<br/>") : __T("")) + Svg;
                 }
 
                 if (File::Exists(InstallFolder+__T("\\Plugin\\Graph\\Template.html")))

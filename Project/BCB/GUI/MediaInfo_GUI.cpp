@@ -55,7 +55,7 @@ USEFORM("..\..\..\Source\GUI\VCL\GUI_Main.cpp", MainF);
 USEFORM("..\..\..\Source\GUI\VCL\GUI_About.cpp", AboutF);
 USEFORM("..\..\..\Source\GUI\VCL\GUI_Export.cpp", ExportF);
 //---------------------------------------------------------------------------
-WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
+int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {
     try
     {
