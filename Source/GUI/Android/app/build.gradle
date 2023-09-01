@@ -13,14 +13,14 @@ android {
     buildFeatures {
         viewBinding true
     }
-    compileSdkVersion 32
+    compileSdk 34
     defaultConfig {
         applicationId "net.mediaarea.mediainfo"
         multiDexEnabled = true
         minSdkVersion 14
-        targetSdkVersion 32
         versionCode 33
         versionName "23.07"
+        targetSdkVersion 34
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
