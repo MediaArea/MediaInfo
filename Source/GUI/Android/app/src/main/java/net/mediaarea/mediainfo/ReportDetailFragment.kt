@@ -182,8 +182,7 @@ class ReportDetailFragment : Fragment() {
             }
         }
 
-        val viewMenu: SubMenu = menu.findItem(R.id.action_change_view).subMenu
-
+        val viewMenu: SubMenu = menu.findItem(R.id.action_change_view).subMenu ?: return
         for (current: Core.ReportView in Core.views) {
             val index: Int = Core.views.indexOf(current)
             var desc = current.desc
