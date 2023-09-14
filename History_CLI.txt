@@ -12,6 +12,16 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 23.09, 2023-09-14
+-------------
++ DTS-UHD support (contribution from Xperi)
++ MPEG-7 output update, supporting collections for DVD Video
++ ISO 9660: more metadata
++ AVC: read out of time code
+x DVD Video: better support of ISO having several episodes
+x MPEG Video: fix duration not including last field duration (interlaced content only)
+x I754, AVC&HEVC: fix risk of crash with some streams
+
 Version 23.07, 2023-07-12
 -------------
 + USAC conformance checker: update DRC presence check
