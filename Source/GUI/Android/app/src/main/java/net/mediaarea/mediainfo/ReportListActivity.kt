@@ -13,7 +13,6 @@ import java.io.File
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.Observer
 import androidx.core.app.ActivityCompat
 import androidx.appcompat.app.AppCompatDelegate
 
@@ -33,18 +32,13 @@ import android.content.Context
 import android.widget.Toast
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.content.res.Resources
 import android.view.*
 import androidx.preference.PreferenceManager.getDefaultSharedPreferences
-
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.android.schedulers.AndroidSchedulers
-
-import kotlinx.android.synthetic.main.activity_report_list.*
-import kotlinx.android.synthetic.main.report_list_content.view.*
-import kotlinx.android.synthetic.main.report_list.*
-import kotlinx.android.synthetic.main.hello_layout.*
 
 import com.github.angads25.filepicker.model.DialogConfigs
 import com.github.angads25.filepicker.model.DialogProperties
@@ -52,6 +46,10 @@ import com.github.angads25.filepicker.view.FilePickerDialog
 import com.yariksoffice.lingver.Lingver
 import java.io.BufferedReader
 import java.util.*
+
+import  net.mediaarea.mediainfo.databinding.ActivityReportListBinding
+import  net.mediaarea.mediainfo.databinding.ReportListContentBinding
+import  net.mediaarea.mediainfo.databinding.HelloLayoutBinding
 
 /**
  * An activity representing a list of Pings. This activity
@@ -62,6 +60,8 @@ import java.util.*
  * item details side-by-side using two vertical panes.
  */
 class ReportListActivity : AppCompatActivity(), ReportActivityListener {
+    private lateinit var activityReportListBinding: ActivityReportListBinding
+    private lateinit var helloLayoutBinding: HelloLayoutBinding
     private lateinit var subscriptionManager: SubscriptionManager
     private lateinit var reportModel: ReportViewModel
     private var disposable: CompositeDisposable = CompositeDisposable()
@@ -73,9 +73,8 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         override fun onPreExecute() {
             super.onPreExecute()
 
-            add_button.hide()
-
-            val rootLayout: FrameLayout = findViewById(R.id.frame_layout)
+            activityReportListBinding.addButton.hide()
+            val rootLayout: FrameLayout = activityReportListBinding.frameLayout
             var found = false
             for (i: Int in rootLayout.childCount downTo 1) {
                 if (rootLayout.getChildAt(i - 1).id == R.id.spinner_layout)
@@ -89,9 +88,9 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         override fun onPostExecute(result: Boolean?) {
             super.onPostExecute(result)
 
-            add_button.show()
+            activityReportListBinding.addButton.show()
 
-            val rootLayout: FrameLayout = findViewById(R.id.frame_layout)
+            val rootLayout: FrameLayout = activityReportListBinding.frameLayout
             for (i: Int in rootLayout.childCount downTo 1) {
                 if (rootLayout.getChildAt(i - 1).id == R.id.spinner_layout)
                     rootLayout.removeViewAt(i - 1)
@@ -115,7 +114,10 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                                 // moveToFirst() returns false if the cursor has 0 rows
                                 if (cursor != null && cursor.moveToFirst()) {
                                     // DISPLAY_NAME is provider-specific, and might not be the file name
-                                    displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                                    val column = cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME)
+                                    if (column >= 0) {
+                                        displayName = cursor.getString(column)
+                                    }
                                     cursor.close()
                                 }
                             } catch (e: Exception) {
@@ -161,6 +163,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             READ_EXTERNAL_STORAGE_PERMISSION_REQUEST -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
@@ -172,6 +175,10 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 }
             }
         }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -197,23 +204,33 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
     private fun handleIntent(intent: Intent) {
         if (intent.action != null) {
-            val action: String? = intent.action
-            if (action == Intent.ACTION_VIEW) {
-                val uri: Uri? = intent.data
-                if (uri != null) {
-                    handleUri(uri)
+            if (intent.getBooleanExtra(OPEN_INTENT_PROCESSED, false)) {
+                return
+            }
+
+            when (intent.action) {
+                Intent.ACTION_VIEW -> {
+                    val uri: Uri? = intent.data
+                    if (uri != null) {
+                        handleUri(uri)
+                    }
+                    intent.putExtra(OPEN_INTENT_PROCESSED, true)
                 }
-            } else if (action == Intent.ACTION_SEND) {
-                val uri = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
-                if (uri != null) {
-                    handleUri(uri)
-                } else if (action == Intent.ACTION_SEND_MULTIPLE) {
+                Intent.ACTION_SEND -> {
+                    val uri = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
+                    if (uri != null) {
+                        handleUri(uri)
+                    }
+                    intent.putExtra(OPEN_INTENT_PROCESSED, true)
+                }
+                Intent.ACTION_SEND_MULTIPLE -> {
                     val uriList = intent.getParcelableArrayListExtra<Uri>(Intent.EXTRA_STREAM)
                     if (uriList != null) {
                         for (i in uriList) {
                             handleUri(i)
                         }
                     }
+                    intent.putExtra(OPEN_INTENT_PROCESSED, true)
                 }
             }
         }
@@ -224,7 +241,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         val key = getString(R.string.preferences_uimode_key)
 
         when (sharedPreferences?.contains(key)) {
-            false -> {
+            false, null -> {
                 val oldSharedPreferences = getSharedPreferences(getString(R.string.preferences_key), Context.MODE_PRIVATE)
                 if (oldSharedPreferences?.contains(key) == true) {
                     oldSharedPreferences.getString(key, "").let {
@@ -268,7 +285,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         val sharedPreferences = getDefaultSharedPreferences(this)
         val key = getString(R.string.preferences_uimode_key)
 
-        sharedPreferences?.getString(getString(R.string.preferences_uimode_key), "system").let {
+        sharedPreferences?.getString(key, "system").let {
             when (it) {
                 "off" -> {
                     if (AppCompatDelegate.getDefaultNightMode()!=AppCompatDelegate.MODE_NIGHT_NO) {
@@ -306,7 +323,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         val sharedPreferences: SharedPreferences? = getDefaultSharedPreferences(this)
         sharedPreferences?.getBoolean(getString(R.string.preferences_report_translate_key), false).let {
             when (it) {
-                false -> {
+                false, null -> {
                     Core.setLocale("")
                 }
                 true -> {
@@ -398,13 +415,13 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
 
         menu?.findItem(R.id.action_subscribe)?.isEnabled=false
-        subscriptionManager.ready.observe(this, Observer {
+        subscriptionManager.ready.observe(this) {
             if (subscriptionManager.subscribed.value == false) {
                 menu?.findItem(R.id.action_subscribe)?.isEnabled = it
             }
-        })
+        }
 
-        subscriptionManager.subscribed.observe(this, Observer {
+        subscriptionManager.subscribed.observe(this) {
             if (it) {
                 if (subscriptionManager.isLifetime.value == true) {
                     menu?.findItem(R.id.action_subscribe).let { item ->
@@ -437,7 +454,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                     }
                 }
             }
-        })
+        }
 
         menu?.findItem(R.id.action_about).let {
             it?.setOnMenuItemClickListener {
@@ -502,10 +519,14 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_report_list)
+        activityReportListBinding = ActivityReportListBinding.inflate(layoutInflater)
+        helloLayoutBinding = HelloLayoutBinding.inflate(layoutInflater)
 
-        setSupportActionBar(tool_bar)
-        tool_bar.title = title
+
+        setContentView(activityReportListBinding.root)
+
+        setSupportActionBar(activityReportListBinding.toolBar)
+        activityReportListBinding.toolBar.title = title
 
         updatePreferences()
 
@@ -513,17 +534,17 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         lifecycle.addObserver(subscriptionManager)
 
         setLocale()
-        subscriptionManager.subscribed.observe(this, Observer {
+        subscriptionManager.subscribed.observe(this) {
             if (it==true) {
                 applyUiMode()
                 setPrefLocale()
             }
-        })
+        }
 
         val viewModelFactory = Injection.provideViewModelFactory(this)
-        reportModel = ViewModelProvider(this, viewModelFactory).get(ReportViewModel::class.java)
+        reportModel = ViewModelProvider(this, viewModelFactory)[ReportViewModel::class.java]
 
-        add_button.setOnClickListener {
+        activityReportListBinding.addButton.setOnClickListener {
             if (Build.VERSION.SDK_INT >= 19) {
                 val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
 
@@ -561,8 +582,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 }
             }
         }
-
-        clear_btn.setOnClickListener {
+        activityReportListBinding.reportListLayout.clearBtn.setOnClickListener {
             disposable.add(reportModel.deleteAllReports()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -586,10 +606,10 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         // large-screen layouts (res/values-w900dp).
         // If this view is present, then the
         // activity should be in two-pane mode.
-        if (report_detail_container != null)
+        if (activityReportListBinding.reportListLayout.reportDetailContainer != null)
             twoPane = true
 
-        setupRecyclerView(report_list)
+         setupRecyclerView(activityReportListBinding.reportListLayout.reportList)
 
         onNewIntent(intent)
     }
@@ -602,7 +622,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     reports = it
-                    setupRecyclerView(report_list)
+                    setupRecyclerView(activityReportListBinding.reportListLayout.reportList)
 
                     val rootLayout: FrameLayout = findViewById(R.id.frame_layout)
                     if (reports.isEmpty()) {
@@ -615,14 +635,14 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                         if (!found)
                             View.inflate(this, R.layout.hello_layout, rootLayout)
 
-                        clear_btn.visibility = View.INVISIBLE
+                        activityReportListBinding.reportListLayout.clearBtn.visibility = View.INVISIBLE
                     } else {
                         for (i: Int in rootLayout.childCount downTo 1) {
                             if (rootLayout.getChildAt(i - 1).id == R.id.hello_layout)
                                 rootLayout.removeViewAt(i - 1)
                         }
-                        rootLayout.removeView(hello_layout)
-                        clear_btn.visibility = View.VISIBLE
+                        rootLayout.removeView(helloLayoutBinding.root)
+                        activityReportListBinding.reportListLayout.clearBtn.visibility = View.VISIBLE
 
 
                     }
@@ -643,22 +663,17 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         recyclerView.adapter = ItemRecyclerViewAdapter()
         recyclerView.isNestedScrollingEnabled = false
+        recyclerView.adapter?.notifyDataSetChanged()
     }
 
     inner class ItemRecyclerViewAdapter : RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder>() {
-        private val onClickListener: View.OnClickListener
-
-        init {
-            onClickListener = View.OnClickListener {
-                val report: Report = it.tag as Report
-                showReport(report.id)
-            }
+        private val onClickListener: View.OnClickListener = View.OnClickListener {
+            showReport((it.tag as Report).id)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.report_list_content, parent, false)
-            return ViewHolder(view)
+            val binding = ReportListContentBinding.inflate(layoutInflater, parent, false)
+            return ViewHolder(binding)
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -672,14 +687,16 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
             }
         }
 
-        override fun getItemCount(): Int = reports.size
+        override fun getItemCount(): Int {
+            return reports.size
+        }
 
-        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val name: TextView = view.name_text
+        inner class ViewHolder(binding: ReportListContentBinding) : RecyclerView.ViewHolder(binding.root) {
+            val name: TextView = binding.nameText
             var id: Int = -1
 
             init {
-                view.delete_button.setOnClickListener {
+                binding.deleteButton.setOnClickListener {
                     if (id != -1)
                         deleteReport(id)
                 }
@@ -692,5 +709,6 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         const val SUBSCRIBE_REQUEST = 30
         const val OPEN_FILE_REQUEST = 40
         const val READ_EXTERNAL_STORAGE_PERMISSION_REQUEST = 50
+        const val OPEN_INTENT_PROCESSED = "net.mediaarea.mediainfo.internal.tag.Intent.Processed"
     }
 }

@@ -6,16 +6,13 @@
 
 package net.mediaarea.mediainfo
 
-import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
-import androidx.lifecycle.Observer
 import androidx.preference.DropDownPreference
-import androidx.preference.Preference
 import com.yariksoffice.lingver.Lingver
 import java.util.*
 
@@ -46,14 +43,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
             })*/
 
-            subscriptionManager.subscribed.observe(this, Observer {
+            subscriptionManager.subscribed.observe(this) {
                 if (it==true) {
                     //subscribeButton?.isVisible = false
                     uimodeDropdown?.isEnabled = true
                     localeDropdown?.isEnabled = true
                     systemLanguageSwitch?.isEnabled = true
                 }
-            })
+            }
         }
 
         localeDropdown?.setOnPreferenceChangeListener { _, newValue -> Boolean

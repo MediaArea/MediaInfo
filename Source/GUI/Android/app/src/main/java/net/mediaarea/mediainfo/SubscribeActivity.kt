@@ -17,41 +17,45 @@ import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
 
-import kotlinx.android.synthetic.main.activity_subscribe.*
+import net.mediaarea.mediainfo.databinding.ActivitySubscribeBinding
 
 class SubscribeActivity : AppCompatActivity() {
+    private lateinit var activitySubscribeBinding: ActivitySubscribeBinding
     private lateinit var subscriptionManager: SubscriptionManager
     private lateinit var subscriptionDetails: SkuDetails
     private lateinit var lifetimeSubscriptionDetails: SkuDetails
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_subscribe)
+
+
+        activitySubscribeBinding = ActivitySubscribeBinding.inflate(layoutInflater)
+        setContentView(activitySubscribeBinding.root)
 
         subscriptionManager = SubscriptionManager.getInstance(application)
 
-        setSupportActionBar(toolbar)
+        setSupportActionBar(activitySubscribeBinding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         subscriptionManager.details.observe (this, Observer {
             subscriptionDetails = it
 
-            subscribe_button.isEnabled = true
-            subscribe_button.text = subscribe_button.text.toString()
+            activitySubscribeBinding.subscribeButton.isEnabled = true
+            activitySubscribeBinding.subscribeButton.text = activitySubscribeBinding.subscribeButton.text.toString()
                     .replace("%PRICE%", subscriptionDetails.price)
-            subscription_detail_text.visibility= View.VISIBLE
-            subscription_detail_text.gravity=Gravity.CENTER_HORIZONTAL
+            activitySubscribeBinding.subscriptionDetailText.visibility = View.VISIBLE
+            activitySubscribeBinding.subscriptionDetailText.gravity = Gravity.CENTER_HORIZONTAL
         })
 
         subscriptionManager.lifetimeDetails.observe (this, Observer {
             lifetimeSubscriptionDetails = it
 
-            lifetime_subscribe_button.isEnabled = true
-            lifetime_subscribe_button.text = lifetime_subscribe_button.text.toString()
+            activitySubscribeBinding.lifetimeSubscribeButton.isEnabled = true
+            activitySubscribeBinding.lifetimeSubscribeButton.text = activitySubscribeBinding.lifetimeSubscribeButton.text.toString()
                     .replace("%PRICE%", lifetimeSubscriptionDetails.price)
         })
 
-        subscribe_button.setOnClickListener {
+        activitySubscribeBinding.subscribeButton.setOnClickListener {
             if (::subscriptionDetails.isInitialized) {
                 val request = BillingFlowParams.newBuilder()
                     .setSkuDetails(subscriptionDetails)
@@ -62,7 +66,7 @@ class SubscribeActivity : AppCompatActivity() {
             }
         }
 
-        lifetime_subscribe_button.setOnClickListener {
+        activitySubscribeBinding.lifetimeSubscribeButton.setOnClickListener {
             if (::lifetimeSubscriptionDetails.isInitialized) {
                 val request = BillingFlowParams.newBuilder()
                     .setSkuDetails(lifetimeSubscriptionDetails)

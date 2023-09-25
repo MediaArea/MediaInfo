@@ -23,10 +23,11 @@ import androidx.viewpager.widget.ViewPager
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.android.schedulers.AndroidSchedulers
-
-import kotlinx.android.synthetic.main.activity_report_detail.*
+import net.mediaarea.mediainfo.databinding.ActivityReportDetailBinding
 
 class ReportDetailActivity : AppCompatActivity(), ReportActivityListener {
+    private lateinit var activityReportDetailBinding: ActivityReportDetailBinding
+
     private inner class PageChangeListener(private val reports: List<Report>) : ViewPager.SimpleOnPageChangeListener() {
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)
@@ -52,8 +53,11 @@ class ReportDetailActivity : AppCompatActivity(), ReportActivityListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_report_detail)
-        setSupportActionBar(detail_toolbar)
+
+        activityReportDetailBinding = ActivityReportDetailBinding.inflate(layoutInflater)
+        setContentView(activityReportDetailBinding.root)
+
+        setSupportActionBar(activityReportDetailBinding.detailToolbar)
 
         // Show the Up button in the action bar.
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -64,20 +68,20 @@ class ReportDetailActivity : AppCompatActivity(), ReportActivityListener {
         }
 
         val viewModelFactory = Injection.provideViewModelFactory(this)
-        reportModel = ViewModelProvider(this, viewModelFactory).get(ReportViewModel::class.java)
+        reportModel = ViewModelProvider(this, viewModelFactory)[ReportViewModel::class.java]
 
         disposable.add(reportModel.getAllReports()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { reports: List<Report> ->
-                pager.addOnPageChangeListener(PageChangeListener(reports))
-                pager.adapter = PagerAdapter(supportFragmentManager, reports)
+            .subscribe { reports: List<Report> ->
+                activityReportDetailBinding.pager.addOnPageChangeListener(PageChangeListener(reports))
+                activityReportDetailBinding.pager.adapter = PagerAdapter(supportFragmentManager, reports)
                 val id = intent.getIntExtra(Core.ARG_REPORT_ID, -1)
                 if (id!=-1) {
                     val index = reports.indexOfFirst { it.id == id }
                     if (index!=-1) {
                         title = reports.elementAt(index).filename
-                        pager.setCurrentItem(index, false)
+                        activityReportDetailBinding.pager.setCurrentItem(index, false)
                     }
                 }
             })

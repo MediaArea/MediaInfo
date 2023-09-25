@@ -9,10 +9,11 @@ package net.mediaarea.mediainfo
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_about.*
+
+import net.mediaarea.mediainfo.databinding.ActivitySettingsBinding
 
 class SettingsActivity : AppCompatActivity(), SettingsActivityListener {
-
+    private lateinit var activitySettingsBinding: ActivitySettingsBinding
     override fun getSubscriptionManager(): SubscriptionManager {
         return SubscriptionManager.getInstance(application)
     }
@@ -23,8 +24,12 @@ class SettingsActivity : AppCompatActivity(), SettingsActivityListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
-        setSupportActionBar(toolbar)
+
+        activitySettingsBinding = ActivitySettingsBinding.inflate(layoutInflater)
+        setContentView(activitySettingsBinding.root)
+
+
+        setSupportActionBar(activitySettingsBinding.toolbar)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
