@@ -229,7 +229,7 @@ Bits-(Pixel*Frame);بت /(صورة*بكسل);Біт/(Пікселі*Кадры);
 BufferSize;;Памер буфера;;Mida búfer;;Buffer-størrelse;;Buffer size;Tamaño búfer;Buffer neurria;;Taille du buffer;;;; Dim. buffer;バッファサイズ;;;;;Tamanho do buffer;;;Размер буфера;;;Buffertstorlek;;Arabellek boyutu;Розмір буфера;缓冲大小;緩衝大小;;;Պահոցի չափը;ბუფერის ზომა
 Cancel;إلغاء;Адмена;Откажи;Cancel·la;Zrušit;Annuller;Abbrechen;Cancel;Cancelar;Ezeztatu;لغو;Annuler;Cancelar;Άκυρο;Mégsem;Annulla;キャンセル;취소;Atšaukti;Annuleren;Anuluj;Cancelar;Cancelar;Anulare;Отмена;Zrušiť;Anulo;Avbryt;ยกเลิก;İptal;Відміна;取消;取消;取消;Poništiti;Մերժել;გაჩერება
 CaptionServiceName;;;;;;;;Caption service name;;;;;;;;Titolo nome servizio;;;;;;;;;;;;;;;;字幕服务名称;;;;;
-CatalogNumber;;;;;;;;Catalog number;;;;;;;;Numero catalogo;;;;;;;;;;;;;;;;;;;;;
+CatalogNumber;;;;;;;;Catalog number ;;;;;;;;Numero catalogo;;;;;;;;;;;;;;;;;;;;;
 Channel(s);قناة;Канал(ы);Канал(и);Canal(s);Kanál(y);Kanaler;Kanäle;Channel(s);Canal(es);Bide;کانال ها;Canaux;Canle(s);Κανάλι(α);Csatornák száma;Canali;チャンネル;채널;Kanalas (-ai);Kanaal(en);Kanały;Canal(s);Nº de canais;Canal(e);Каналы;Kanál(y);Kanale;Kanal(er);ช่อง;Kanal;Кількість каналів;声道数;聲道數;聲道數;Kanali;Ալիք(ներ);არხი(ები)
 ChannelCoded;;;;;;;;Channel coded;;;;;;;;Canale codificato;;;;;;;;;;;;;;;;声道是否编码;;;;;
 ChannelConfiguration;;;;;;;;Channel configuration;;;;;;;;Configurazione canale;;;;;;;;;;;;;;;;声道配置;;;;;
@@ -796,6 +796,7 @@ Language_eu;Euskara;Basque;Език_еу;Basc;Basque;Basisk;Baskisch;Basque;Eusk
 Language_fa;فارس;Persian;Език_фа;Persià;Persian;Persisk;Persisch;Persian;Farsi;Persiera;Persian;Persan;Persian;Persian;perzsa;Persiano;ペルシア語;Persian;Persų;Perzisch;Perski;Persa;Persa;;;Perzsky;Persisht;Persiska;เปอร์เซีย;Farsça;Persian;波斯语 (Persian);波斯語　Persian;波斯語 (Persian);Perzijski;Persian;Persian
 Language_ff;Fulfulde;Fulah;Език_фф;Fulah;Fulah;;Fulah;Fulah;Finés;Fulahera;Fulah;Peul;Fulah;Fulah;;Fula;フラニ語;Fulah;Fulah;Fulah;;Fulah;Fulah;;;Fulah;Fulah;Fulah;Fulah;Fulah;Fulah;富拉语 (Fulah);富拉語　Fulah;富拉赫語 (Fulah);Fulah;Fulah;Fulah
 Language_fi;suomi;Finnish;Език_фи;Finlandès;Finnish;Finsk;Finnisch;Finnish;Finnish;Finlandiera;Finnish;Finnois;Finnish;Finnish;finn;Finnico;フィンランド語;Finnish;Soumių;Fins;Fiński;Finlandês;Finnish;;;Fínsky;Finlandisht;Finska;ฟินแลนด์;Fince;Finnish;芬兰语 (Finnish);芬蘭語　Finnish;芬蘭語 (Finnish);Finski;Finnish;Finnish
+Language_fil;;;;;;;;Filipino
 Language_fj;Fijian;Fijian;Език_фй;Fijian;Fijian;Fijiansk;Fidschianisch;Fijian;Fijiano;Fijianera;Fijian;Fidjien;Fijian;Fijian;fidzsi;Fijian;フィジー語;Fijian;Fijian;Fijisch;;Fijian;Fijian;;;Fijian;Fijian;Fijian;ฟิจิ;Fijian;Fijian;斐济语 (Fijian);斐濟語　Fijian;斐濟語 (Fijian);Fidži;Fijian;Fijian
 Language_fo;føroyskt;Faroese;Език_фо;Faroese;Faroese;Færøsk;Färöisch;Faroese;Feroés;Faroera;Faroese;Féroïen;Faroese;Faroese;férői;Faroese;フェロー語;Faroese;Faroese;Faeroërs;;Faroês;Faroese;;;Faroese;Faroese;Faroese;แฟโร;Faroese;Faroese;法罗语 (Faroese);法羅語　Faroese;法羅斯語 (Faroese);Jezik Ovčjih otoka;Faroese;Faroese
 Language_fr;Français;French;Език_фр;Francès;French;Fransk;Französisch;French;Francés;Frantziera;French;Français;French;French;francia;Francese;フランス語;French;French;Frans;Francuski;Francês;Francês;;;Francúzsky;Frëngjisht;Franska;ฝรั่งเศส;Fransızca;French;法语 (French);法語　French;法語 (French);Francuski;French;French

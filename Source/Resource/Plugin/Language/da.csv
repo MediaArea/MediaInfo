@@ -796,6 +796,7 @@ Language_eu;Basisk
 Language_fa;Persisk
 Language_ff;
 Language_fi;Finsk
+Language_fil;
 Language_fj;Fijiansk
 Language_fo;Færøsk
 Language_fr;Fransk
@@ -1365,5 +1366,5 @@ Written_Location;Sted
 WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
-ZZ_Automatic_Percent;62
+ZZ_Automatic_Percent;61
 ZZ_AutomaticLanguage_Percent;71

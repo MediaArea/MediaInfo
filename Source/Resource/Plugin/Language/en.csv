@@ -229,7 +229,7 @@ Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BufferSize;Buffer size
 Cancel;Cancel
 CaptionServiceName;Caption service name
-CatalogNumber;Catalog number
+CatalogNumber;Catalog number 
 Channel(s);Channel(s)
 ChannelCoded;Channel coded
 ChannelConfiguration;Channel configuration
@@ -796,6 +796,7 @@ Language_eu;Basque
 Language_fa;Persian
 Language_ff;Fulah
 Language_fi;Finnish
+Language_fil;Filipino
 Language_fj;Fijian
 Language_fo;Faroese
 Language_fr;French
