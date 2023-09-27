@@ -10,28 +10,32 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.net.Uri
 import android.content.Intent
-
-import kotlinx.android.synthetic.main.activity_about.*
+import net.mediaarea.mediainfo.databinding.ActivityAboutBinding
 
 class AboutActivity : AppCompatActivity() {
+    private lateinit var activityAboutBinding: ActivityAboutBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_about)
-        setSupportActionBar(toolbar)
+
+        activityAboutBinding = ActivityAboutBinding.inflate(layoutInflater)
+        setContentView(activityAboutBinding.root)
+
+        setSupportActionBar(activityAboutBinding.toolbar)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        about_about_textview.text = about_about_textview.text.toString()
+        activityAboutBinding.aboutAboutTextview.text = activityAboutBinding.aboutAboutTextview.text.toString()
                 .replace("%MI_VERSION%", getString(R.string.app_version))
                 .replace("%MIL_VERSION%", Core.version)
 
-        website_btn.setOnClickListener {
+        activityAboutBinding.websiteBtn.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(getString(R.string.website_url))
             startActivity(intent)
         }
 
-        email_btn.setOnClickListener {
+        activityAboutBinding.emailBtn.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(getString(R.string.email_url))
             startActivity(intent)

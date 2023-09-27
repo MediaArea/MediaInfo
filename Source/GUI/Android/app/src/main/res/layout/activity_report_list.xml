@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <include layout="@layout/report_list" />
+        <include android:id="@+id/report_list_layout" layout="@layout/report_list" />
     </FrameLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -43,6 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/button_margin"
+        android:contentDescription="@string/open_title"
         app:srcCompat="@drawable/ic_action_add" />
 
 

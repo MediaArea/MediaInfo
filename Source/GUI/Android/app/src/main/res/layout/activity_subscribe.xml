@@ -31,23 +31,14 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
-    <ScrollView
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/subscribe_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin"
-                android:text="@string/store_text"
-                android:layout_gravity="center_horizontal"
-                android:textAlignment="center" />
-        </LinearLayout>
-    </ScrollView>
+    <TextView
+        android:id="@+id/subscribe_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:text="@string/store_text"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center" />
     <Button
         android:id="@+id/subscribe_button"
         android:layout_width="match_parent"

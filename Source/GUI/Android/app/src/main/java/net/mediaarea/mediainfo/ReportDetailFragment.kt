@@ -31,8 +31,8 @@ import io.reactivex.schedulers.Schedulers
 import com.github.angads25.filepicker.model.DialogConfigs
 import com.github.angads25.filepicker.model.DialogProperties
 import com.github.angads25.filepicker.view.FilePickerDialog
+import net.mediaarea.mediainfo.databinding.ReportDetailBinding
 
-import kotlinx.android.synthetic.main.report_detail.view.*
 
 class ReportDetailFragment : Fragment() {
     companion object {
@@ -42,6 +42,7 @@ class ReportDetailFragment : Fragment() {
     private val disposable: CompositeDisposable = CompositeDisposable()
     private lateinit var activityListener: ReportActivityListener
     private var sharedPreferences: SharedPreferences? = null
+    private lateinit var reportDetailBinding: ReportDetailBinding
     private var view: String = "HTML"
     var id: Int? = null
 
@@ -61,6 +62,8 @@ class ReportDetailFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
+        reportDetailBinding = ReportDetailBinding.inflate(layoutInflater)
 
         try {
             activityListener = activity as ReportActivityListener
@@ -92,8 +95,9 @@ class ReportDetailFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.report_detail, container, false)
+                              savedInstanceState: Bundle?): View {
+
+        //val rootView = inflater.inflate(R.layout.report_detail, container, false)
         // Show the report
         id?.let { id ->
             disposable.add(activityListener.getReportViewModel().getReport(id)
@@ -114,11 +118,11 @@ class ReportDetailFragment : Fragment() {
                         val foreground=resources.getString(0+R.color.foreground).removeRange(1, 3)
                         content = content.replace("<body>", "<body style=\"background-color: ${background}; color: ${foreground};\">")
 
-                        rootView.report_detail.loadDataWithBaseURL(null, content, "text/html", "utf-8", null)
+                        reportDetailBinding.reportDetail.loadDataWithBaseURL(null, content, "text/html", "utf-8", null)
              }.subscribe())
         }
 
-        return rootView
+        return reportDetailBinding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
