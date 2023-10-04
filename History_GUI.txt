@@ -12,6 +12,17 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 23.10, 2023-10-04
+-------------
++ Italian language update
++ Languages: add 'fil' (Filipino)
++ Support of MPEG-H in MPEG-TS
++ MOV/MP4: caption probing time expanded from ~15s to ~30s
++ MPEG-7 and DVD-Video: provide title duration based on frame rate
++ WAV: better display of buggy WAV files have 2 fmt/data chunks
+x MOV/MP4: fix lack of detection of CEA-608/708 if junk at end of stream
+x DVD-Video: fix duration if more than 1 menu
+
 Version 23.09, 2023-09-14
 -------------
 + DTS-UHD support (contribution from Xperi)
