@@ -103,7 +103,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>MediaInfo-Static_UWP.lib;ZenLib_UWP.lib;zlibuwp.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2017\Arm\Debug;..\..\..\..\ZenLib\Project\MSVC2017\Arm\Debug;..\..\..\..\zlib\contrib\vstudio\vc15\Arm\Debug\zlibuwp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2022\Arm\Debug;..\..\..\..\ZenLib\Project\MSVC2022\Arm\Debug;..\..\..\..\zlib\contrib\vstudio\vc15\Arm\Debug\zlibuwp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
@@ -115,7 +115,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>MediaInfo-Static_UWP.lib;ZenLib_UWP.lib;zlibuwp.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2017\Arm\Release;..\..\..\..\ZenLib\Project\MSVC2017\Arm\Release;..\..\..\..\zlib\contrib\vstudio\vc15\Arm\Release\zlibuwp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2022\Arm\Release;..\..\..\..\ZenLib\Project\MSVC2022\Arm\Release;..\..\..\..\zlib\contrib\vstudio\vc15\Arm\Release\zlibuwp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -127,7 +127,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>MediaInfo-Static_UWP.lib;ZenLib_UWP.lib;zlibuwp.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2017\Win32\Debug;..\..\..\..\ZenLib\Project\MSVC2017\Win32\Debug;..\..\..\..\zlib\contrib\vstudio\vc15\Debug\zlibuwp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2022\Win32\Debug;..\..\..\..\ZenLib\Project\MSVC2022\Win32\Debug;..\..\..\..\zlib\contrib\vstudio\vc15\Debug\zlibuwp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -139,7 +139,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>MediaInfo-Static_UWP.lib;ZenLib_UWP.lib;zlibuwp.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2017\Win32\Release;..\..\..\..\ZenLib\Project\MSVC2017\Win32\Release;..\..\..\..\zlib\contrib\vstudio\vc15\Release\zlibuwp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2022\Win32\Release;..\..\..\..\ZenLib\Project\MSVC2022\Win32\Release;..\..\..\..\zlib\contrib\vstudio\vc15\Release\zlibuwp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -151,7 +151,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>MediaInfo-Static_UWP.lib;ZenLib_UWP.lib;zlibuwp.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2017\x64\Debug;..\..\..\..\ZenLib\Project\MSVC2017\x64\Debug;..\..\..\..\zlib\contrib\vstudio\vc15\x64\Debug\zlibuwp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2022\x64\Debug;..\..\..\..\ZenLib\Project\MSVC2022\x64\Debug;..\..\..\..\zlib\contrib\vstudio\vc15\x64\Debug\zlibuwp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -163,7 +163,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>MediaInfo-Static_UWP.lib;ZenLib_UWP.lib;zlibuwp.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2017\x64\Release;..\..\..\..\ZenLib\Project\MSVC2017\x64\Release;..\..\..\..\zlib\contrib\vstudio\vc15\x64\Release\zlibuwp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2022\x64\Release;..\..\..\..\ZenLib\Project\MSVC2022\x64\Release;..\..\..\..\zlib\contrib\vstudio\vc15\x64\Release\zlibuwp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
