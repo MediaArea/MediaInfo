@@ -71,7 +71,7 @@ BuildRequires:  wxWidgets-devel
 %if 0%{?mageia}
 BuildRequires:  wxgtk2.8-devel
 %else
-%if (0%{?fedora_version} && 0%{?fedora_version} >= 29) || 0%{?rhel} >= 8
+%if (0%{?fedora_version} && 0%{?fedora_version} <= 38) || 0%{?rhel} >= 8
 BuildRequires:  wxGTK3-devel
 %else
 BuildRequires:  wxGTK-devel
