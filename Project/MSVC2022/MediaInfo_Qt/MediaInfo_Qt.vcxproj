@@ -80,7 +80,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>ZenLib.lib;QtCore.lib;QtGui.lib;QtXml.lib;QtNetwork.lib;qtsvg.lib;qsvgd.lib;qtmain.lib;winmm.lib;ws2_32.lib;imm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2019\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2019\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2019\$(Platform)\$(Configuration);../../../../Qt\lib\MSVC2019\$(Platform)\$(Configuration);../../../../Qt\plugins\imageformats;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2022\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2022\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2022\$(Platform)\$(Configuration);../../../../Qt\lib\MSVC2022\$(Platform)\$(Configuration);../../../../Qt\plugins\imageformats;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -104,7 +104,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>ZenLib.lib;MediaInfo.lib;QtCored.lib;QtGuid.lib;QtXmld.lib;QtNetworkd.lib;qsvgd.lib;qtsvgd.lib;qtmaind.lib;winmm.lib;ws2_32.lib;imm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2019\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2019\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2019\$(Platform)\$(Configuration);../../../../Qt\lib\MSVC2019\$(Platform);../../../../Qt\plugins\imageformats;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2022\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2022\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2022\$(Platform)\$(Configuration);../../../../Qt\lib\MSVC2022\$(Platform);../../../../Qt\plugins\imageformats;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX64</TargetMachine>
@@ -124,7 +124,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>ZenLib.lib;QtCore.lib;QtGui.lib;QtXml.lib;qtsvg.lib;qsvg.lib;qtmain.lib;winmm.lib;ws2_32.lib;imm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2019\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2019\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2019\$(Platform)\$(Configuration);../../../../Qt/lib/$(Platform)\$(Configuration);../../../../Qt\plugins\imageformats;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\MediaInfoLib\Project\MSVC2022\Library\$(Platform)\$(Configuration);..\..\..\..\ZenLib\Project\MSVC2022\Library\$(Platform)\$(Configuration);..\..\..\..\zlib\projects\MSVC2022\$(Platform)\$(Configuration);../../../../Qt/lib/$(Platform)\$(Configuration);../../../../Qt\plugins\imageformats;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
