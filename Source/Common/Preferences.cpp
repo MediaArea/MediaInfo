@@ -75,6 +75,8 @@ Preferences::Preferences()
     //Plugins
     GraphPluginURL=__T("");
     GraphPluginVersion=__T("");
+    ffmpegPluginURL=__T("");
+    ffmpegPluginVersion=__T("");
 }
 
 //***************************************************************************
@@ -222,6 +224,12 @@ int Preferences::Config_Load()
 
     if (!Config(__T("GraphPluginVersion")).empty())
         GraphPluginVersion=Config(__T("GraphPluginVersion"));
+
+    if (!Config(__T("ffmpegPluginURL")).empty())
+        ffmpegPluginURL=Config(__T("ffmpegPluginURL"));
+
+    if (!Config(__T("ffmpegPluginVersion")).empty())
+        ffmpegPluginVersion=Config(__T("ffmpegPluginVersion"));
 
     delete Reg_User; Reg_User=NULL;
 
@@ -545,6 +553,21 @@ void __fastcall ThreadInternetCheck::Execute()
         Prefs->Config(__T("GraphPluginVersion"))=GraphPluginVersion;
         Prefs->Config_Save();
     }
+
+    Ztring ffmpegPluginURL=Download(__T("ffmpegPluginURL"));
+    if (!ffmpegPluginURL.empty())
+    {
+        Prefs->Config(__T("ffmpegPluginURL"))=ffmpegPluginURL;
+        Prefs->Config_Save();
+    }
+
+    Ztring ffmpegPluginVersion=Download(__T("ffmpegPluginVersion"));
+    if (!ffmpegPluginVersion.empty())
+    {
+        Prefs->Config(__T("ffmpegPluginVersion"))=ffmpegPluginVersion;
+        Prefs->Config_Save();
+    }
+
     //Chargement de pages
     ZtringListList Pages=Download.SubSheet(__T("Url"));
     for (size_t Pos=0; Pos<Pages.size(); Pos++)

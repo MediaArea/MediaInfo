@@ -35,7 +35,8 @@ using namespace ZenLib;
 
 //---------------------------------------------------------------------------
 ZenLib::Char* PluginInfo[PLUGIN_MAX][2] = {
-    {__T("GraphPlugin"), __T("Graph visualization plugin")}
+    {__T("GraphPlugin"), __T("Graph visualization plugin")},
+    {__T("ffmpegPlugin"), __T("FFmpeg plugin")},
 };
 //---------------------------------------------------------------------------
 
@@ -210,7 +211,17 @@ bool __fastcall TPluginF::Configure()
     }
 
     // Get latest plugin installer URL
-    SourceURL = Prefs->Config(__T("GraphPluginURL"));
+    switch (Plugin)
+    {
+    case PLUGIN_GRAPH:
+        SourceURL = Prefs->Config(__T("GraphPluginURL"));
+        break;
+    case PLUGIN_FFMPEG:
+        //SourceURL = Prefs->Config(__T("ffmpegPluginURL"));
+        SourceURL = __T("https://old.mediaarea.net/download/binary/mediainfo-ffmpeg-plugin/6.1/MediaInfo_ffmpegPlugin_6.1_Windows.exe"); //TODO: delete and uncomment previous line
+        break;
+    default:;
+    }
     if (SourceURL.empty())
     {
         MessageBox(NULL, __T("Unable to find installer for the requested plugin, please download it manually from the MediaInfo download page."), __T("Error"), MB_OK);

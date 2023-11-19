@@ -16,6 +16,10 @@
 #include "GUI/VCL/GUI_Preferences_Language.h"
 #include "GUI/VCL/GUI_Preferences_Sheet.h"
 #include "GUI/VCL/GUI_Preferences_Custom.h"
+#ifndef MEDIAINFOGUI_PLUGIN_NO
+    #include "GUI/VCL/GUI_Plugin.h"
+    #include <ZenLib/File.h>
+#endif
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -430,6 +434,34 @@ void __fastcall TPreferencesF::Advanced_InformTimestampClick(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
+void __fastcall TPreferencesF::Advanced_EnableFfmpegClick(TObject *Sender)
+{
+    if (Advanced_EnableFfmpeg->Checked && Prefs->Config(__T("EnableFfmpeg"), 1) != __T("1"))
+    {
+        #ifndef MEDIAINFOGUI_PLUGIN_NO
+        Ztring InstallFolder = Application->ExeName.c_str();
+        InstallFolder = InstallFolder.substr(0, InstallFolder.rfind(__T("\\")) + 1);
+
+        if (!File::Exists(InstallFolder+__T("\\Plugin\\ffmpeg\\version.txt"))) //Try to install plugin
+        {
+            TPluginF* P = new TPluginF(this, PLUGIN_FFMPEG);
+            if (P->Configure())
+                P->ShowModal();
+            delete P;
+
+            if (!File::Exists(InstallFolder+__T("\\Plugin\\ffmpeg\\version.txt")))
+                MessageBox(NULL, __T("An error occured, please download and install the plugin manually from the MediaInfo download page."), __T("Error"), MB_OK);
+        }
+        #endif
+        Prefs->Config(__T("EnableFfmpeg"), 1)=__T("1");
+    }
+    else
+    {
+        Prefs->Config(__T("EnableFfmpeg"), 1)=__T("0");
+    }
+}
+
+//---------------------------------------------------------------------------
 void __fastcall TPreferencesF::Language_NewClick(TObject *Sender)
 {
     UnicodeString S1=__T("New");
@@ -585,6 +617,7 @@ void __fastcall TPreferencesF::Setup_AdvancedShow(TObject *Sender)
     Advanced_CloseAllAuto->Checked=Prefs->Config(__T("CloseAllAuto")).To_int32s();
     Advanced_InformVersion->Checked=Prefs->Config(__T("InformVersion")).To_int32s();
     Advanced_InformTimestamp->Checked=Prefs->Config(__T("InformTimestamp")).To_int32s();
+    Advanced_EnableFfmpeg->Checked=Prefs->Config(__T("EnableFfmpeg")).To_int32s();
 }
 
 //---------------------------------------------------------------------------
@@ -699,6 +732,7 @@ void __fastcall TPreferencesF::GUI_Configure()
     Advanced_CloseAllAuto->Caption=Prefs->Translate(__T("Close all before open")).c_str();
     Advanced_InformVersion->Caption=Prefs->Translate(__T("Add version to text output")).c_str();
     Advanced_InformTimestamp->Caption=Prefs->Translate(__T("Add creation date to text output")).c_str();
+    Advanced_EnableFfmpeg->Caption=Prefs->Translate(__T("Enable FFmpeg plugin")).c_str();
     //-Language
     Language_Caption->Caption=Prefs->Translate(__T("Choose language")).c_str();
     Language_Edit->Caption=(Prefs->Translate(__T("Edit"))+__T("...")).c_str();

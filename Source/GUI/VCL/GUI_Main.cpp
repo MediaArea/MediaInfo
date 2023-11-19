@@ -628,6 +628,9 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
         Page=this->Page->ActivePage;
     size_t FilesCount=I->Count_Get();
 
+    if (!Prefs->Config(__T("EnableFfmpeg")).empty())
+        I->Option_Static(__T("Enable_Ffmpeg"), Prefs->Config(__T("EnableFfmpeg")));
+
     //Easy
          if (Page==Page_Easy)
     {
