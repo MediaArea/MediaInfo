@@ -99,7 +99,7 @@ void __fastcall DownloadInstallerThread::UpdateDownloadProgress()
         return;
 
     Caption.erase(Pos + 3);
-    Caption += __T(" ") + Ztring().From_Number(Progress) + __T("%");
+    Caption += __T(" ") + Ztring().From_Number(Progress, 0) + __T("%");
 
     Parent->DownloadLabel->Caption = Caption.c_str();
 }
@@ -217,8 +217,7 @@ bool __fastcall TPluginF::Configure()
         SourceURL = Prefs->Config(__T("GraphPluginURL"));
         break;
     case PLUGIN_FFMPEG:
-        //SourceURL = Prefs->Config(__T("ffmpegPluginURL"));
-        SourceURL = __T("https://old.mediaarea.net/download/binary/mediainfo-ffmpeg-plugin/6.1/MediaInfo_ffmpegPlugin_6.1_Windows.exe"); //TODO: delete and uncomment previous line
+        SourceURL = Prefs->Config(__T("ffmpegPluginURL"));
         break;
     default:;
     }
