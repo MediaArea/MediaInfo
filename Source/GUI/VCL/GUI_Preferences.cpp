@@ -442,14 +442,14 @@ void __fastcall TPreferencesF::Advanced_EnableFfmpegClick(TObject *Sender)
         Ztring InstallFolder = Application->ExeName.c_str();
         InstallFolder = InstallFolder.substr(0, InstallFolder.rfind(__T("\\")) + 1);
 
-        if (!File::Exists(InstallFolder+__T("\\Plugin\\ffmpeg\\version.txt"))) //Try to install plugin
+        if (!File::Exists(InstallFolder+__T("\\Plugin\\FFmpeg\\version.txt"))) //Try to install plugin
         {
             TPluginF* P = new TPluginF(this, PLUGIN_FFMPEG);
             if (P->Configure())
                 P->ShowModal();
             delete P;
 
-            if (!File::Exists(InstallFolder+__T("\\Plugin\\ffmpeg\\version.txt")))
+            if (!File::Exists(InstallFolder+__T("\\Plugin\\FFmpeg\\version.txt")))
                 MessageBox(NULL, __T("An error occured, please download and install the plugin manually from the MediaInfo download page."), __T("Error"), MB_OK);
         }
         #endif

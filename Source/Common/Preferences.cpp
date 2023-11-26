@@ -75,8 +75,8 @@ Preferences::Preferences()
     //Plugins
     GraphPluginURL=__T("");
     GraphPluginVersion=__T("");
-    ffmpegPluginURL=__T("");
-    ffmpegPluginVersion=__T("");
+    FFmpegPluginURL=__T("");
+    FFmpegPluginVersion=__T("");
 }
 
 //***************************************************************************
@@ -225,11 +225,11 @@ int Preferences::Config_Load()
     if (!Config(__T("GraphPluginVersion")).empty())
         GraphPluginVersion=Config(__T("GraphPluginVersion"));
 
-    if (!Config(__T("ffmpegPluginURL")).empty())
-        ffmpegPluginURL=Config(__T("ffmpegPluginURL"));
+    if (!Config(__T("FFmpegPluginURL")).empty())
+        FFmpegPluginURL=Config(__T("FFmpegPluginURL"));
 
-    if (!Config(__T("ffmpegPluginVersion")).empty())
-        ffmpegPluginVersion=Config(__T("ffmpegPluginVersion"));
+    if (!Config(__T("FFmpegPluginVersion")).empty())
+        FFmpegPluginVersion=Config(__T("FFmpegPluginVersion"));
 
     delete Reg_User; Reg_User=NULL;
 
@@ -554,17 +554,17 @@ void __fastcall ThreadInternetCheck::Execute()
         Prefs->Config_Save();
     }
 
-    Ztring ffmpegPluginURL=Download(__T("ffmpegPluginURL"));
-    if (!ffmpegPluginURL.empty())
+    Ztring FFmpegPluginURL=Download(__T("FFmpegPluginURL"));
+    if (!FFmpegPluginURL.empty())
     {
-        Prefs->Config(__T("ffmpegPluginURL"))=ffmpegPluginURL;
+        Prefs->Config(__T("FFmpegPluginURL"))=FFmpegPluginURL;
         Prefs->Config_Save();
     }
 
-    Ztring ffmpegPluginVersion=Download(__T("ffmpegPluginVersion"));
-    if (!ffmpegPluginVersion.empty())
+    Ztring FFmpegPluginVersion=Download(__T("FFmpegPluginVersion"));
+    if (!FFmpegPluginVersion.empty())
     {
-        Prefs->Config(__T("ffmpegPluginVersion"))=ffmpegPluginVersion;
+        Prefs->Config(__T("FFmpegPluginVersion"))=FFmpegPluginVersion;
         Prefs->Config_Save();
     }
 
