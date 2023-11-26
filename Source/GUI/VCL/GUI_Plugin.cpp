@@ -36,7 +36,7 @@ using namespace ZenLib;
 //---------------------------------------------------------------------------
 ZenLib::Char* PluginInfo[PLUGIN_MAX][2] = {
     {__T("GraphPlugin"), __T("Graph visualization plugin")},
-    {__T("ffmpegPlugin"), __T("FFmpeg plugin")},
+    {__T("FFmpegPlugin"), __T("FFmpeg plugin")},
 };
 //---------------------------------------------------------------------------
 
@@ -217,7 +217,7 @@ bool __fastcall TPluginF::Configure()
         SourceURL = Prefs->Config(__T("GraphPluginURL"));
         break;
     case PLUGIN_FFMPEG:
-        SourceURL = Prefs->Config(__T("ffmpegPluginURL"));
+        SourceURL = Prefs->Config(__T("FFmpegPluginURL"));
         break;
     default:;
     }
