@@ -43,6 +43,7 @@ __published:    // IDE-managed Components
     TCheckBox *Advanced_CloseAllAuto;
     TCheckBox *Advanced_InformVersion;
     TCheckBox *Advanced_InformTimestamp;
+    TCheckBox *Advanced_EnableFfmpeg;
     TTabSheet *Customize_Language;
     TLabel *Language_Caption;
     TButton *Language_New;
@@ -91,6 +92,7 @@ __published:    // IDE-managed Components
     void __fastcall Advanced_CloseAllAutoClick(TObject *Sender);
     void __fastcall Advanced_InformVersionClick(TObject *Sender);
     void __fastcall Advanced_InformTimestampClick(TObject *Sender);
+    void __fastcall Advanced_EnableFfmpegClick(TObject *Sender);
     void __fastcall Graph_Adm_ShowTrackUIDsClick(TObject *Sender);
     void __fastcall Graph_Adm_ShowChannelFormatsClick(TObject *Sender);
     void __fastcall Setup_GeneralShow(TObject *Sender);

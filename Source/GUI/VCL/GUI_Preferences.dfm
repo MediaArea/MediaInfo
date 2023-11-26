@@ -229,6 +229,15 @@ object PreferencesF: TPreferencesF
         TabOrder = 4
         OnClick = Advanced_InformTimestampClick
       end
+      object Advanced_EnableFfmpeg: TCheckBox
+        Left = 0
+        Top = 110
+        Width = 268
+        Height = 18
+        Caption = 'Enable FFmpeg plugin'
+        TabOrder = 4
+        OnClick = Advanced_EnableFfmpegClick
+      end
     end
     object Customize_Language: TTabSheet
       Caption = 'Language'

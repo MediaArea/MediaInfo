@@ -89,8 +89,8 @@ object PluginF: TPluginF
     Visible = False
   end
   object Cancel: TButton
-    Left = 91
-    Top = 169
+    Left = 35
+    Top = 85
     Width = 122
     Height = 26
     Cancel = True
@@ -99,8 +99,8 @@ object PluginF: TPluginF
     OnClick = CancelClick
   end
   object Install: TButton
-    Left = 223
-    Top = 169
+    Left = 160
+    Top = 85
     Width = 122
     Height = 26
     Caption = 'Install'

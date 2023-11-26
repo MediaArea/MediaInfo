@@ -96,6 +96,8 @@ public:
     //Plugins
     ZenLib::Ztring GraphPluginURL;
     ZenLib::Ztring GraphPluginVersion;
+    ZenLib::Ztring FFmpegPluginURL;
+    ZenLib::Ztring FFmpegPluginVersion;
 };
 
 //General preference for the whole program

@@ -35,7 +35,8 @@ using namespace ZenLib;
 
 //---------------------------------------------------------------------------
 ZenLib::Char* PluginInfo[PLUGIN_MAX][2] = {
-    {__T("GraphPlugin"), __T("Graph visualization plugin")}
+    {__T("GraphPlugin"), __T("Graph visualization plugin")},
+    {__T("FFmpegPlugin"), __T("FFmpeg plugin")},
 };
 //---------------------------------------------------------------------------
 
@@ -98,7 +99,7 @@ void __fastcall DownloadInstallerThread::UpdateDownloadProgress()
         return;
 
     Caption.erase(Pos + 3);
-    Caption += __T(" ") + Ztring().From_Number(Progress) + __T("%");
+    Caption += __T(" ") + Ztring().From_Number(Progress, 0) + __T("%");
 
     Parent->DownloadLabel->Caption = Caption.c_str();
 }
@@ -210,7 +211,16 @@ bool __fastcall TPluginF::Configure()
     }
 
     // Get latest plugin installer URL
-    SourceURL = Prefs->Config(__T("GraphPluginURL"));
+    switch (Plugin)
+    {
+    case PLUGIN_GRAPH:
+        SourceURL = Prefs->Config(__T("GraphPluginURL"));
+        break;
+    case PLUGIN_FFMPEG:
+        SourceURL = Prefs->Config(__T("FFmpegPluginURL"));
+        break;
+    default:;
+    }
     if (SourceURL.empty())
     {
         MessageBox(NULL, __T("Unable to find installer for the requested plugin, please download it manually from the MediaInfo download page."), __T("Error"), MB_OK);
