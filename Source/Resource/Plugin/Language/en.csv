@@ -159,6 +159,9 @@
 About;About
 About_Hint;How to contact me and find last version
 Accompaniment;Accompaniment
+Active_DisplayAspectRatio;Active display aspect ratio
+Active_Height;Active height
+Active_Width;Active width
 ActiveFormatDescription;Active Format Description
 ActiveFormatDescription_MuxingMode;Active Format Description, Muxing mode
 Actor;Actor

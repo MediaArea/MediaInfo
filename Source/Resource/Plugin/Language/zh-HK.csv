@@ -159,6 +159,9 @@
 About;關於
 About_Hint;聯絡作者和取得最新版
 Accompaniment;伴奏
+Active_DisplayAspectRatio;
+Active_Height;
+Active_Width;
 ActiveFormatDescription;活躍格式描述
 ActiveFormatDescription_MuxingMode;活躍格式描述 - 混合模式
 Actor;演員
@@ -1366,5 +1369,5 @@ Written_Location;編寫地點
 WrittenBy;作者
 Yes;是
 Your system;可識別清單
-ZZ_Automatic_Percent;78
+ZZ_Automatic_Percent;77
 ZZ_AutomaticLanguage_Percent;79

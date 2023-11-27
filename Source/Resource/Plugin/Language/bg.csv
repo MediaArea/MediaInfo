@@ -159,6 +159,9 @@
 About;За
 About_Hint;За_Подсказване
 Accompaniment;Съпровод
+Active_DisplayAspectRatio;
+Active_Height;
+Active_Width;
 ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
 Actor;Актьор
