@@ -4,8 +4,8 @@ object PluginF: TPluginF
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'Install Plugin'
-  ClientHeight = 200
-  ClientWidth = 350
+  ClientHeight = 146
+  ClientWidth = 320
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

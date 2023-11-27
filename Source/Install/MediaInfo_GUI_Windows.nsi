@@ -192,6 +192,10 @@ Section Uninstall
     ExecWait '"$INSTDIR\graph_plugin_uninst.exe" /S _?=$INSTDIR'
     Delete "$INSTDIR\graph_plugin_uninst.exe"
 
+  IfFileExists "$INSTDIR\ffmpeg_plugin_uninst.exe" 0 +3
+    ExecWait '"$INSTDIR\ffmpeg_plugin_uninst.exe" /S _?=$INSTDIR'
+    Delete "$INSTDIR\ffmpeg_plugin_uninst.exe"
+
   Delete "$INSTDIR\${PRODUCT_NAME}.url"
   Delete "$INSTDIR\uninst.exe"
   Delete "$INSTDIR\MediaInfo.exe"

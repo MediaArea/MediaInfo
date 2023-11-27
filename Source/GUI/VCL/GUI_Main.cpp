@@ -255,6 +255,23 @@ void __fastcall TMainF::GUI_Configure()
     //Toolbar
     ToolBar->Visible=M_Options_ShowToolBar->Checked;
 
+    // FFmpeg
+    #ifndef MEDIAINFOGUI_PLUGIN_NO
+    Ztring InstallFolder = Application->ExeName.c_str();
+    InstallFolder = InstallFolder.substr(0, InstallFolder.rfind(__T("\\")) + 1);
+
+    if (!File::Exists(InstallFolder + __T("\\Plugin\\FFmpeg\\version.txt"))) //Try to install plugin
+    {
+        TPluginF* P = new TPluginF(this, PLUGIN_FFMPEG);
+        if (P->Configure())
+            P->ShowModal();
+        delete P;
+
+        if (!File::Exists(InstallFolder + __T("\\Plugin\\FFmpeg\\version.txt")))
+            MessageBox(NULL, __T("An error occured, please download and install the plugin manually from the MediaInfo download page."), __T("Error"), MB_OK);
+    }
+    #endif
+
     //Translation
     Translate();
 
