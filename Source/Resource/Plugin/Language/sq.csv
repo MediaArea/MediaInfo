@@ -159,6 +159,9 @@
 About;Për
 About_Hint;Si të kontaktohem dhe të gjendet versioni i fundit
 Accompaniment;Shoqëruesi
+Active_DisplayAspectRatio;
+Active_Height;
+Active_Width;
 ActiveFormatDescription;
 ActiveFormatDescription_MuxingMode;
 Actor;Aktori
