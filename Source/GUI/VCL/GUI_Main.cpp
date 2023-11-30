@@ -260,7 +260,7 @@ void __fastcall TMainF::GUI_Configure()
     Ztring InstallFolder = Application->ExeName.c_str();
     InstallFolder = InstallFolder.substr(0, InstallFolder.rfind(__T("\\")) + 1);
 
-    if (!File::Exists(InstallFolder + __T("\\Plugin\\FFmpeg\\version.txt"))) //Try to install plugin
+    if (Prefs->Config(__T("EnableFfmpeg"), 1) == __T("1") && !File::Exists(InstallFolder + __T("\\Plugin\\FFmpeg\\version.txt"))) //Try to install plugin
     {
         TPluginF* P = new TPluginF(this, PLUGIN_FFMPEG);
         if (P->Configure())
