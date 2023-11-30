@@ -12,6 +12,25 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 23.11, 2023-11-30
+-------------
++ XMP: support of a couple of additional metadata
++ PNG: pixel aspect ratio, gamma, active bit depth
++ PNG: support of textual metadata
++ Detection of active width/height/DAR (based on FFmpeg), Windows only
++ Matroska: show ST-12 timecode of first frame
++ ADM: rounding of FFoA to 0 decimal and Start/End time codes to 2 decimals
++ WAV: support of big (1+ GB) axml chunks
++ ADM: support of big (1+ GB) files on 32-bit systems
+x I1876, BWF: fix missing precision in TimeReference export
+x I1607, MPEG-TS/PS: Less Inform() with Open(memory) than Open(file)
+x MP4/MOV: show right time code of last frame with complex time code tracks
+x Duration: timecode output should not use drop frame for 23.976fps
+x AVC+HEVC: fix handling of DF timestamps
+x SF1188, ID3v2: fix wrong handling of chunks having padding
+x I1887, TS DVB: fix wrong handling of UTF-8 strings in service name
+x I1892, Matroska: fix date readout if before the millennium
+
 Version 23.10, 2023-10-04
 -------------
 + Italian language update
