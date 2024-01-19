@@ -24,7 +24,7 @@ typedef enum CompareViewMode {
 @property (strong) IBOutlet NSOutlineView *outlineView;
 @property (assign) IBOutlet NSMenu *closeMenu;
 @property (nonatomic, strong) oMediaInfoList *files;
-@property (strong) NSArray *fields;
+@property (strong) NSMutableDictionary *fields;
 @property (readonly) CompareViewMode mode;
 @property (readonly) NSInteger selectedIndex;
 @property (assign) IBOutlet NSTextField *showLabel;
