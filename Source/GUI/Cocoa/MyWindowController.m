@@ -243,6 +243,12 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
     if (@available(macOS 10.9, *)) {
         [self hideFileSelector];
         [tabSelector setSelectedSegment:kCompareTabIndex];
+
+        if(mediaList) {
+            [compareView setFiles:mediaList];
+            [compareView reload];
+        }
+
         [tabs selectTabViewItemAtIndex:kCompareTabIndex];
     }
 }
@@ -250,12 +256,24 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 -(IBAction)selectEasyTab:(id)sender {
     [self showFileSelector];
 	[tabSelector setSelectedSegment:kEasyTabIndex];
+
+    if(mediaList && selectedFileIndex < [mediaList count])
+        [self updateEasyTabWithFileAtIndex:selectedFileIndex];
+
 	[tabs selectTabViewItemAtIndex:kEasyTabIndex];
 }
 
 -(IBAction)selectTreeTab:(id)sender {
     [self showFileSelector];
 	[tabSelector setSelectedSegment:kTreeTabIndex];
+
+    if(mediaList) {
+        [treeView setFiles:mediaList];
+
+        if(selectedFileIndex < [mediaList count])
+            [treeView setIndex:selectedFileIndex];
+    }
+
 	[tabs selectTabViewItemAtIndex:kTreeTabIndex];
 }
 
@@ -267,6 +285,10 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 		[self updateTextTabWithFileAtIndex:selectedFileIndex];
 	}
 	[tabSelector setSelectedSegment:kTextTabIndex];
+
+	if(mediaList && selectedFileIndex < [mediaList count])
+		[self updateTextTabWithFileAtIndex:selectedFileIndex];
+
 	[tabs selectTabViewItemAtIndex:kTextTabIndex];
 }
 
@@ -691,8 +713,12 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 		}
 
 		[comboController setContent:array];
-		[compareView setFiles:mediaList];
-		[treeView setFiles:mediaList];
+
+		if ([tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kCompareTabIndex)
+			[compareView setFiles:mediaList];
+
+		if ([tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTreeTabIndex)
+			[treeView setFiles:mediaList];
 
 		//display first added file
 		[self setSelectedFileIndex:oldCount];
@@ -703,19 +729,24 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 
 -(void)showFileAtIndex:(NSUInteger)index {
 	// Easy view
-	[self updateEasyTabWithFileAtIndex:index];
+	if ([tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kEasyTabIndex)
+		[self updateEasyTabWithFileAtIndex:index];
 
 	//Text View
-	[self updateTextTabWithFileAtIndex:index];
+	if ([tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTextTabIndex)
+		[self updateTextTabWithFileAtIndex:index];
 
-    //HTML View
-    [self updateHTMLTabWithFileAtIndex:index];
+	//HTML View
+	if ([tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kHTMLTabIndex)
+		[self updateHTMLTabWithFileAtIndex:index];
 
 	//tree view
-	[treeView setIndex:index];
+	if ([tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kTreeTabIndex)
+		[treeView setIndex:index];
 
 	// compare view
-	[compareView reload];
+	if ([tabs indexOfTabViewItem:tabs.selectedTabViewItem] == kCompareTabIndex)
+		[compareView reload];
 
 	//recent items
 	NSString *filename = [mediaList filenameAtIndex:index];
