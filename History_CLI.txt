@@ -12,6 +12,23 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 24.01, 2024-01-31
+-------------
++ ADM: Dolby Atmos Master ADM Profile conformance checker (technology preview)
++ Dolby Vision: support of version 3, with compression info, and profile 20
++ Dolby Vision: explicit display of profile
++ HEVC: support of multiview profile signaled in VPS extension
++ MP4: parsing of vexu (Video Extended Usage) box
++ ICC: support of CCIP in ICC in JPEG, PNG, TIFF, MP4, raw files
++ MPEG-TS: detection of VVC and EVC
++ AVC: count of slices
++ PNG: support of color description chunks (CCIP CLLI MDCV)
++ GXF: support of AVC and VC-3
++ TrueHD: display of Dolby Surround EX & Dolby Pro Logic IIz
+x Matroska: better fallback in case of buggy timecode
+x I1940, MOV/MP4: fix slowness with some unrecognized metadata atoms
+x HDR10/HDR10+: fix HDR10 info even if some characteristics are not met
+
 Version 23.11, 2023-11-30
 -------------
 + XMP: support of a couple of additional metadata
