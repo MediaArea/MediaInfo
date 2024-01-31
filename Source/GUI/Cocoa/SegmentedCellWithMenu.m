@@ -3,7 +3,7 @@
 //  MediaInfo
 //
 //  Created by Max Pozdeev on 13.05.16.
-//  Copyright © 2016-2020 MediaArea.net. All rights reserved.
+//  Copyright © 2016-2024 MediaArea.net SARL. All rights reserved.
 //
 
 #import "SegmentedCellWithMenu.h"

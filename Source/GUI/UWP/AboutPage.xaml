@@ -47,7 +47,7 @@
             <TextBlock x:Name="AboutTextBlock" Grid.Row="1" Margin="20,20,20,20" HorizontalAlignment="Center" TextWrapping="WrapWholeWords">
                 MediaInfo vMI_VERSION using MediaInfoLib vMIL_VERSION
                 <LineBreak />
-                Copyright (c) 2002-2020 MediaArea.net SARL. All rights reserved.
+                Copyright (c) 2002-2024 MediaArea.net SARL. All rights reserved.
                 <LineBreak />
                 MediaInfo provides easy access to technical and tag information about video and audio files.
                 <LineBreak />

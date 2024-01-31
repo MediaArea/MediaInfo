@@ -3,7 +3,7 @@
 //  MediaInfo
 //
 //  Created by Maxime Gervais on 20/04/2021.
-//  Copyright © 2021 MediaArea.net. All rights reserved.
+//  Copyright © 2021 MediaArea.net SARL. All rights reserved.
 //
 
 #import "WebKitView.h"

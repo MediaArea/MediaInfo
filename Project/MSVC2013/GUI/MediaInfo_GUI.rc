@@ -20,7 +20,7 @@ BEGIN
             VALUE "CompanyName", "MediaArea.net"
             VALUE "FileDescription", "MediaInfo"
             VALUE "FileVersion", "23.11.0.0"
-            VALUE "LegalCopyright", "Copyright (C) 2002-2020 MediaArea.net SARL"
+            VALUE "LegalCopyright", "Copyright (C) 2002-2024 MediaArea.net SARL"
             VALUE "ProductName", "MediaInfo"
             VALUE "ProductVersion", "23.11.0.0"
         END
