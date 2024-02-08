@@ -30,9 +30,6 @@ GUI_Main_Text::GUI_Main_Text(Core* Core_, wxWindow* parent)
     Font.SetFamily(wxFONTFAMILY_MODERN);
     wxTextAttr Attr;
     Attr.SetFont(Font);
-    #if wxCHECK_VERSION(2, 9, 0)
-        Attr.SetFontSize(8);
-    #endif
     SetDefaultStyle(Attr);
 
     //Drag and Drop
