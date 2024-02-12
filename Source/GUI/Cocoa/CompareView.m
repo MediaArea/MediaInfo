@@ -235,9 +235,17 @@
             }
         }
     }
-    else {
-        if (index < [_fields count])
-            return [[_fields allKeys] objectAtIndex: index];
+    else if (index < [_fields count]) {
+        return  [[[_fields allKeys] sortedArrayUsingComparator:^NSComparisonResult(id first, id second) {
+            if ([first[@"kind"] isLessThan: second[@"kind"]] || ([first[@"kind"] isEqualTo: second[@"kind"]] && [first[@"number"] isLessThan: second[@"number"]])) {
+                return NSOrderedAscending;
+            }
+            if ([first[@"kind"] isGreaterThan: second[@"kind"]] || ([first[@"kind"] isEqualTo: second[@"kind"]] && [first[@"number"] isGreaterThan: second[@"number"]])) {
+                return NSOrderedDescending;
+            }
+
+            return NSOrderedSame;
+        }] objectAtIndex:index];
     }
 
     return nil;
