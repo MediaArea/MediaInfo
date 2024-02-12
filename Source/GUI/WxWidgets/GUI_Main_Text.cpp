@@ -9,6 +9,7 @@
 #ifndef WX_PRECOMP
     #include "wx/wx.h"
 #endif
+#include "wx/config.h"
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
@@ -26,12 +27,6 @@ GUI_Main_Text::GUI_Main_Text(Core* Core_, wxWindow* parent)
     : wxTextCtrl(parent, -1, __T(""), wxPoint(0, 0), wxSize(parent->GetClientSize().GetWidth()-0, parent->GetClientSize().GetHeight()-0), wxTE_READONLY|wxTE_MULTILINE|wxTE_RICH|wxTE_RICH2),
     GUI_Main_Common_Core(Core_)
 {
-    wxFont Font;
-    Font.SetFamily(wxFONTFAMILY_MODERN);
-    wxTextAttr Attr;
-    Attr.SetFont(Font);
-    SetDefaultStyle(Attr);
-
     //Drag and Drop
     #if wxUSE_DRAG_AND_DROP && defined(__WXMAC__)
         SetDropTarget(new FileDrop(C));
@@ -53,6 +48,19 @@ GUI_Main_Text::~GUI_Main_Text()
 //---------------------------------------------------------------------------
 void GUI_Main_Text::GUI_Refresh()
 {
+    wxConfigBase* Config=wxConfigBase::Get();
+    long TextSize=Config->ReadLong(wxT("/TextSize"), 0);
+    if (TextSize>(long)wxFONTSIZE_XX_LARGE)
+        TextSize=0;
+
+    wxFont Font;
+    Font.SetFamily(wxFONTFAMILY_MODERN);
+    Font.SetSymbolicSize((wxFontSymbolicSize)TextSize);
+
+    wxTextAttr Attr;
+    Attr.SetFont(Font);
+    SetDefaultStyle(Attr);
+
     Clear();
     WriteText(C->Inform_Get().c_str());
 }

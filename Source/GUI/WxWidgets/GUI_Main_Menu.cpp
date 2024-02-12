@@ -19,6 +19,7 @@
 #include "GUI/WxWidgets/GUI_Main_Tree.h"
 #include "GUI/WxWidgets/GUI_Main_HTML.h"
 #include "GUI/WxWidgets/GUI_Main_Text.h"
+#include "GUI/WxWidgets/GUI_Preferences.h"
 #include "Common/Core.h"
 #include <wx/image.h>
 //---------------------------------------------------------------------------
@@ -33,6 +34,7 @@ enum
     ID_Menu_File_Open,
     ID_Menu_File_Open_Files,
     ID_Menu_File_Open_Directory,
+    ID_Menu_File_Preferences,
     ID_Menu_File_Quit,
     ID_Menu_View_Easy,
     ID_Menu_View_Sheet,
@@ -73,6 +75,7 @@ BEGIN_EVENT_TABLE(GUI_Main, wxFrame)
     //Menu
     EVT_MENU(ID_Menu_File_Open_Files,       GUI_Main::OnMenu_File_Open_Files)
     EVT_MENU(ID_Menu_File_Open_Directory,   GUI_Main::OnMenu_File_Open_Directory)
+    EVT_MENU(ID_Menu_File_Preferences,      GUI_Main::OnMenu_File_Preferences)
     EVT_MENU(wxID_EXIT,                     GUI_Main::OnMenu_File_Quit)
     EVT_MENU(ID_Menu_View_Easy,             GUI_Main::OnMenu_View_Easy)
     EVT_MENU(ID_Menu_View_Sheet,            GUI_Main::OnMenu_View_Sheet)
@@ -133,6 +136,7 @@ void GUI_Main::Menu_Create()
     //File
     Menu_File=new wxMenu;
                                  Menu_File->Append(ID_Menu_File_Open, __T("Open"), Menu_File_Open);
+    Menu_File_Preferences       =Menu_File->Append(ID_Menu_File_Preferences, __T("&Preferences"));
                                  Menu_File->AppendSeparator();
     Menu_File_Quit              =Menu_File->Append(wxID_EXIT, __T("E&xit\tAlt-X"), __T("Quit this program"));
 
@@ -220,6 +224,19 @@ void GUI_Main::OnMenu_File_Open_Files(wxCommandEvent& WXUNUSED(event))
 
     //Showing
     View->GUI_Refresh();
+}
+
+
+//---------------------------------------------------------------------------
+void GUI_Main::OnMenu_File_Preferences(wxCommandEvent& WXUNUSED(event))
+{
+    if (!PreferencesEditor)
+    {
+        PreferencesEditor=new wxPreferencesEditor(wxT("Preferences"));
+        PreferencesEditor->AddPage(new GUI_Preferences_Page_General(this));
+    }
+
+    PreferencesEditor->Show(this);
 }
 
 //---------------------------------------------------------------------------

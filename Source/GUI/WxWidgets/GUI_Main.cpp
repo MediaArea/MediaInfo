@@ -6,6 +6,7 @@
 
 //---------------------------------------------------------------------------
 #include "wx/wxprec.h"
+#include "wx/preferences.h"
 #ifndef WX_PRECOMP
     #include "wx/wx.h"
 #endif
@@ -78,6 +79,7 @@ GUI_Main::GUI_Main(int argc, MediaInfoNameSpace::Char** argv_ansi, const wxPoint
 
     //GUI
     View=NULL;
+    PreferencesEditor=NULL;
     CenterOnScreen();
 
     //Drag and Drop
@@ -232,102 +234,6 @@ GUI_Main::GUI_Main(int argc, MediaInfoNameSpace::Char** argv_ansi, const wxPoint
 //---------------------------------------------------------------------------
 GUI_Main::~GUI_Main()
 {
-
-    //Save view state
-    wxConfig *config = new wxConfig(wxT("mediainfo-gui"));
-
-
-    wxConfigBase *pConfig = wxConfigBase::Get();
-    if ( pConfig == NULL )
-    {
-        return;
-    }
-
-    bool rememberView;
-    if ( !pConfig->Read(wxT("rememberView"), &rememberView))
-    {
-        rememberView=1;
-        pConfig->Write(wxT("/rememberView"), 1);
-    }
-
-    if (rememberView == 1)
-    {
-        enum Core::kind currentView = C->Kind_Get();
-
-        switch (currentView)
-        {
-            case 0:
-                pConfig->Write(wxT("/View"), wxT("Easy"));
-                break;
-            case 1:
-                pConfig->Write(wxT("/View"), wxT("Sheet"));
-                break;
-            case 2:
-                pConfig->Write(wxT("/View"), wxT("Tree"));
-                break;
-            case 3:
-                pConfig->Write(wxT("/View"), wxT("HTML"));
-                break;
-            case 4:
-                pConfig->Write(wxT("/View"), wxT("Text"));
-                break;
-            case 5:
-                pConfig->Write(wxT("/View"), wxT("XML"));
-                break;
-            case 6:
-                pConfig->Write(wxT("/View"), wxT("JSON"));
-                break;
-            case 7:
-                pConfig->Write(wxT("/View"), wxT("PBCore"));
-                break;
-            case 8:
-                pConfig->Write(wxT("/View"), wxT("PBCore2"));
-                break;
-            case 9:
-                pConfig->Write(wxT("/View"), wxT("reVTMD"));
-                break;
-            case 10:
-                pConfig->Write(wxT("/View"), wxT("MPEG7_Strict"));
-                break;
-            case 11:
-                pConfig->Write(wxT("/View"), wxT("MPEG7_Relaxed"));
-                break;
-            case 12:
-                pConfig->Write(wxT("/View"), wxT("MPEG7_Extended"));
-                break;
-            case 13:
-                pConfig->Write(wxT("/View"), wxT("EBUCore_1_5"));
-                break;
-            case 14:
-                pConfig->Write(wxT("/View"), wxT("EBUCore_1_6"));
-                break;
-            case 15:
-                pConfig->Write(wxT("/View"), wxT("EBUCore_1_8_ps"));
-                break;
-            case 16:
-                pConfig->Write(wxT("/View"), wxT("EBUCore_1_8_sp"));
-                break;
-            case 17:
-                pConfig->Write(wxT("/View"), wxT("EBUCore_1_8_ps_json"));
-                break;
-            case 18:
-                pConfig->Write(wxT("/View"), wxT("EBUCore_1_8_sp_json"));
-                break;
-            case 19:
-                pConfig->Write(wxT("/View"), wxT("FIMS_1_1"));
-                break;
-            case 20:
-                pConfig->Write(wxT("/View"), wxT("FIMS_1_2"));
-                break;
-            case 21:
-                pConfig->Write(wxT("/View"), wxT("FIMS_1_3"));
-                break;
-            case 22:
-                pConfig->Write(wxT("/View"), wxT("NISO_Z39_87"));
-                break;
-        }
-    }
-
     delete C; //C=NULL;
     delete View; //View=NULL;
 }
