@@ -16,6 +16,7 @@ mediainfo_gui_SOURCES = \
     ../../../Source/GUI/WxWidgets/GUI_Main_Sheet.cpp \
     ../../../Source/GUI/WxWidgets/GUI_Main_Text.cpp \
     ../../../Source/GUI/WxWidgets/GUI_Main_Tree.cpp \
+    ../../../Source/GUI/WxWidgets/GUI_Preferences.cpp \
     ../../../Source/CLI/CommandLine_Parser.cpp \
     ../../../Source/CLI/Help.cpp \
     ../../../Source/Common/Core.cpp
