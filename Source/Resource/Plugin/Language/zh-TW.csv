@@ -382,6 +382,7 @@ EditorialClassification;
 ElementaryStream;
 ElementCount;
 EMail;電子信箱
+Enable FFmpeg plugin;
 Encoded_Application;使用編碼程式
 Encoded_Date;編碼日期
 Encoded_Library;編碼函式庫

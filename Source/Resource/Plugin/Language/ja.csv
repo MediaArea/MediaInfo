@@ -382,6 +382,7 @@ EditorialClassification;
 ElementaryStream;
 ElementCount;要素数
 EMail;電子メール
+Enable FFmpeg plugin;
 Encoded_Application;使用したエンコーダ
 Encoded_Date;エンコード日
 Encoded_Library;使用したライブラリ
