@@ -382,6 +382,7 @@ EditorialClassification;
 ElementaryStream;
 ElementCount;Öğe sayısı
 EMail;E-Posta
+Enable FFmpeg plugin;
 Encoded_Application;Yazma uygulaması
 Encoded_Date;Kodlanma tarihi
 Encoded_Library;Yazma kütüphanesi
@@ -1369,5 +1370,5 @@ Written_Location;Yazıldığı yer
 WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
-ZZ_Automatic_Percent;80
+ZZ_Automatic_Percent;79
 ZZ_AutomaticLanguage_Percent;81

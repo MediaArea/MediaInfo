@@ -382,6 +382,7 @@ EditorialClassification;
 ElementaryStream;
 ElementCount;
 EMail;이메일
+Enable FFmpeg plugin;
 Encoded_Application;인코딩 프로그램
 Encoded_Date;인코딩 날짜
 Encoded_Library;인코딩 라이브러리

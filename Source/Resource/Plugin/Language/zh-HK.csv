@@ -382,6 +382,7 @@ EditorialClassification;
 ElementaryStream;
 ElementCount;
 EMail;電郵
+Enable FFmpeg plugin;
 Encoded_Application;編碼程式
 Encoded_Date;編碼於
 Encoded_Library;編碼函式庫
@@ -1370,4 +1371,4 @@ WrittenBy;作者
 Yes;是
 Your system;可識別清單
 ZZ_Automatic_Percent;77
-ZZ_AutomaticLanguage_Percent;79
+ZZ_AutomaticLanguage_Percent;78

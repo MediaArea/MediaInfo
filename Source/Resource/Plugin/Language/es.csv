@@ -382,6 +382,7 @@ EditorialClassification;
 ElementaryStream;
 ElementCount;
 EMail;Correo
+Enable FFmpeg plugin;
 Encoded_Application;Aplicación de codifición
 Encoded_Date;Fecha de codificación
 Encoded_Library;Librería de codificación

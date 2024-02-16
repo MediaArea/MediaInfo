@@ -382,6 +382,7 @@ EditorialClassification;
 ElementaryStream;
 ElementCount;
 EMail;email
+Enable FFmpeg plugin;
 Encoded_Application;Aplikacja zapisująca
 Encoded_Date;Zdekodowana data
 Encoded_Library;Biblioteka zapisująca

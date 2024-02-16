@@ -382,6 +382,7 @@ EditorialClassification;
 ElementaryStream;Elementary stream
 ElementCount;Count of elements
 EMail;البريد الإلكتروني
+Enable FFmpeg plugin;
 Encoded_Application;برنامج التحرير
 Encoded_Date;تاريخ الترميز (Encoding)
 Encoded_Library;المكتبة (Library) المستعملة

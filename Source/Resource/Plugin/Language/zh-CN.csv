@@ -382,6 +382,7 @@ EditorialClassification;编辑分类
 ElementaryStream;基本流
 ElementCount;元素总数
 EMail;电子邮件
+Enable FFmpeg plugin;
 Encoded_Application;编码程序
 Encoded_Date;编码日期
 Encoded_Library;编码函数库
@@ -1369,5 +1370,5 @@ Written_Location;写入地点
 WrittenBy;作者
 Yes;是
 Your system;您的系统
-ZZ_Automatic_Percent;97
+ZZ_Automatic_Percent;96
 ZZ_AutomaticLanguage_Percent;97
