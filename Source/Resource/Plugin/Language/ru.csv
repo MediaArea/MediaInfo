@@ -127,6 +127,9 @@
  second1; секунда
  second2; секунды
  second3; секунд
+ slice per frame1;
+ slice per frame2;
+ slice per frame3;
  text stream1; текстовый поток
  text stream2; текстовых потока
  text stream3; текстовых потоков
@@ -364,7 +367,6 @@ DotsPerInch;Точек на дюйм
 Downmix;Понижающее микширование
 Downmix_5.1.x;Сведение 5.1 и 5.1.x
 Downmix_5to2;Сведение 5.1 в 2.0
-Downmix_5to2_90deg;Сведение 5.1 в 2.0 с фильтром фазового сдвига на 90°
 DrcSets_Count;Число заданных последовательностей УДД
 DrcSets_Effects;Тип(ы) эффектов УДД
 Duration;Продолжительность
@@ -464,6 +466,7 @@ Format_Settings_QPel;Параметр QPel формата
 Format_Settings_RefFrames;Параметр RefFrames формата
 Format_Settings_SBR;Параметр SBR формата
 Format_Settings_Sign;Параметр Sign формата
+Format_Settings_SliceCount;
 Format_Settings_Wrapping;Параметр режима переноса формата
 Format_Tier;Слой формата
 Format_Url;Ссылка на формат
@@ -474,7 +477,6 @@ FpaPass;Пароль FPA
 FpaVersion;Версия FPA
 FrameCount;Счётчик кадров
 FrameRate;Частота кадров
-FrameRate_MaxFrameNumber;
 FrameRate_Maximum;Максимальная частота кадров
 FrameRate_Minimum;Минимальная частота кадров
 FrameRate_Mode;Режим частоты кадров
@@ -730,21 +732,6 @@ InternetMediaType;Интернет-тип носителя
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-JocBalance_FrontBackListener;
-JocBalance_FrontBackOverheadFloor;
-JocTrim_Center;
-JocTrim_Height;
-JocTrim_Surround;
-JocTrimMode;
-JocTrimMode0i;
-JocTrimMode1i;
-JocTrimMode2i;
-JocTrimMode3i;
-JocTrimMode4i;
-JocTrimMode5i;
-JocTrimMode6i;
-JocTrimMode7i;
-JocTrimMode8i;
 Keywords;Ключевые слова
 Known codecs;Известные кодеки
 Known formats;Известные форматы
@@ -1043,6 +1030,7 @@ ms; мс.
 MSDI;MSDI
 MultipleStream;Несколько потоков
 MusicBy;Автор музыки
+MultiView_Count;
 MuxingMode;Режим смешивания
 MuxingMode_MoreInfo;Режим смешивания, доп. информация
 MuxingMode_PackedBitstream;Сжатый битовый поток
@@ -1370,5 +1358,5 @@ Written_Location;Место записи
 WrittenBy;Запись произвёл
 Yes;Да
 Your system;Ваша система
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

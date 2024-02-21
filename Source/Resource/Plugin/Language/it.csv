@@ -127,6 +127,9 @@
  second1; secondo
  second2; secondi
  second3; secondi
+ slice per frame1;
+ slice per frame2;
+ slice per frame3;
  text stream1; sottotitolo
  text stream2; sottotitoli
  text stream3; sottotitoli
@@ -364,7 +367,6 @@ DotsPerInch;Punti per pollice
 Downmix;DownMix
 Downmix_5.1.x;Downmix 5.1 e 5.1.x
 Downmix_5to2;Downmix 5.1 a 2.0 (stereo)
-Downmix_5to2_90deg;Downmix da 5.1 a 2.0 (stereo), sfasamento 90 gradi
 DrcSets_Count;Numero set RDC
 DrcSets_Effects;Tipi effetti DRC
 Duration;Durata
@@ -464,6 +466,7 @@ Format_Settings_QPel;Impostazioni formato, QPel
 Format_Settings_RefFrames;Impostazioni formato, ReFrames
 Format_Settings_SBR;Impostazioni formato, SBR
 Format_Settings_Sign;Impostazioni formato, Firma
+Format_Settings_SliceCount;
 Format_Settings_Wrapping;Impostazioni formato, modo a capo automatico
 Format_Tier;Livello formato
 Format_Url;Sito web formato
@@ -474,7 +477,6 @@ FpaPass;Pass FPA
 FpaVersion;Versione FPA
 FrameCount;Numero fotogrammi
 FrameRate;Frequenza fotogrammi
-FrameRate_MaxFrameNumber;Frame max frame rate
 FrameRate_Maximum;Frame rate massimo
 FrameRate_Minimum;Frame rate minimo
 FrameRate_Mode;Modalità frame rate
@@ -730,21 +732,6 @@ InternetMediaType;Tipo supporto internet
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-JocBalance_FrontBackListener;Bilanciamento ascoltatore anteriore/posteriore
-JocBalance_FrontBackOverheadFloor;Bilanciamento sopraelevato anteriore/posteriore pavimento
-JocTrim_Center;Ritaglio centrale
-JocTrim_Height;Ritaglio in altezza
-JocTrim_Surround;Ritaglio surround
-JocTrimMode;Modo ritaglio
-JocTrimMode0i;Modo ritaglio audio 2.0 (stereo)
-JocTrimMode1i;Modo ritaglio audio 5.1
-JocTrimMode2i;Modo ritaglio audio 7.1
-JocTrimMode3i;Modo ritaglio audio 2.1.2
-JocTrimMode4i;Modo ritaglio audio 5.1.2
-JocTrimMode5i;Modo ritaglio audio 7.1.2
-JocTrimMode6i;Modo ritaglio audio 2.1.4
-JocTrimMode7i;Modo ritaglio audio 5.1.4
-JocTrimMode8i;Modo ritaglio audio 7.1.4
 Keywords;Parole chiavi
 Known codecs;Codec conosciuti
 Known formats;Formati conosciuti
@@ -1043,6 +1030,7 @@ ms;ms
 MSDI;MSDI
 MultipleStream;Tracce multiple
 MusicBy;Composto da
+MultiView_Count;
 MuxingMode;Modo muxing
 MuxingMode_MoreInfo;Informazioni aggiuntive modo muxing
 MuxingMode_PackedBitstream;Packet Bitstream

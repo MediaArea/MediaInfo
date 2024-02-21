@@ -127,6 +127,9 @@
  second1;ثانية
  second2;ثانية
  second3;ثانية
+ slice per frame1; slice per frame
+ slice per frame2; slices per frame
+ slice per frame3; slices per frame
  text stream1;دفق النص
  text stream2;دفق النص
  text stream3;دفق النص
@@ -364,7 +367,6 @@ DotsPerInch;نقطة في البوصة
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
-Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;مدة
@@ -464,6 +466,7 @@ Format_Settings_QPel;إعدادات الشكل، QPel
 Format_Settings_RefFrames;إعدادات الشكل، RefFrames
 Format_Settings_SBR;إعدادات الشكل، SBR
 Format_Settings_Sign;إعدادات الشكل، Sign
+Format_Settings_SliceCount;Format settings, Slice count
 Format_Settings_Wrapping;
 Format_Tier;Format tier
 Format_Url;وصلة على شكل
@@ -474,7 +477,6 @@ FpaPass;
 FpaVersion;
 FrameCount;عدد الصور
 FrameRate;عدد الصور في الثانية
-FrameRate_MaxFrameNumber;
 FrameRate_Maximum;أقصى معدل الصور/ثانية
 FrameRate_Minimum;أدنى معدل الصور/ثانية
 FrameRate_Mode;نمط الصور/ثانية
@@ -730,21 +732,6 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-JocBalance_FrontBackListener;
-JocBalance_FrontBackOverheadFloor;
-JocTrim_Center;
-JocTrim_Height;
-JocTrim_Surround;
-JocTrimMode;
-JocTrimMode0i;
-JocTrimMode1i;
-JocTrimMode2i;
-JocTrimMode3i;
-JocTrimMode4i;
-JocTrimMode5i;
-JocTrimMode6i;
-JocTrimMode7i;
-JocTrimMode8i;
 Keywords;الكلمات الرئيسية
 Known codecs;الترميزات المعروفة
 Known formats;الامتدلدات المعروفة
@@ -1043,6 +1030,7 @@ ms; ms
 MSDI;MSDI
 MultipleStream;
 MusicBy;الموسيقى من قبل
+MultiView_Count;Count of views
 MuxingMode;نوع الـmuxing
 MuxingMode_MoreInfo;نوع الـmuxing ،مزيد من المعلومات
 MuxingMode_PackedBitstream;Packed bitstream
@@ -1370,5 +1358,5 @@ Written_Location;مكان الكتابة
 WrittenBy;كتبها
 Yes;نعم
 Your system;نظامك
-ZZ_Automatic_Percent;71
-ZZ_AutomaticLanguage_Percent;75
+ZZ_Automatic_Percent;72
+ZZ_AutomaticLanguage_Percent;76

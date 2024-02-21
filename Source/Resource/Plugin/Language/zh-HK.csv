@@ -127,6 +127,9 @@
  second1;秒
  second2;秒
  second3;秒
+ slice per frame1;
+ slice per frame2;
+ slice per frame3;
  text stream1;字幕串流
  text stream2;個字幕串流
  text stream3;個字幕串流
@@ -364,7 +367,6 @@ DotsPerInch;每吋點數（DPI）
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
-Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;時間長度
@@ -464,6 +466,7 @@ Format_Settings_QPel;格式設定 - QPel
 Format_Settings_RefFrames;格式設定 - 參考畫格
 Format_Settings_SBR;格式設定 - SBR
 Format_Settings_Sign;格式設定 - Sign
+Format_Settings_SliceCount;
 Format_Settings_Wrapping;格式設定 - Wrapping模式
 Format_Tier;
 Format_Url;該格式的網址
@@ -474,7 +477,6 @@ FpaPass;FPA通道
 FpaVersion;FPA版本
 FrameCount;畫格數
 FrameRate;畫格率
-FrameRate_MaxFrameNumber;
 FrameRate_Maximum;最大畫格率
 FrameRate_Minimum;最小畫格率
 FrameRate_Mode;畫格率模式
@@ -730,21 +732,6 @@ InternetMediaType;網上影音類型
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-JocBalance_FrontBackListener;
-JocBalance_FrontBackOverheadFloor;
-JocTrim_Center;
-JocTrim_Height;
-JocTrim_Surround;
-JocTrimMode;
-JocTrimMode0i;
-JocTrimMode1i;
-JocTrimMode2i;
-JocTrimMode3i;
-JocTrimMode4i;
-JocTrimMode5i;
-JocTrimMode6i;
-JocTrimMode7i;
-JocTrimMode8i;
 Keywords;關鍵字
 Known codecs;已知編解碼器
 Known formats;已知格式
@@ -1043,6 +1030,7 @@ ms;毫秒
 MSDI;MSDI
 MultipleStream;
 MusicBy;配樂者
+MultiView_Count;
 MuxingMode;混合模式
 MuxingMode_MoreInfo;更多資訊
 MuxingMode_PackedBitstream;Packed bitstream
@@ -1370,5 +1358,5 @@ Written_Location;編寫地點
 WrittenBy;作者
 Yes;是
 Your system;可識別清單
-ZZ_Automatic_Percent;77
-ZZ_AutomaticLanguage_Percent;78
+ZZ_Automatic_Percent;78
+ZZ_AutomaticLanguage_Percent;79

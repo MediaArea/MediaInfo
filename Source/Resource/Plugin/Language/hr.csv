@@ -127,6 +127,9 @@
  second1; sekunda
  second2; seekunde
  second3; sekunde
+ slice per frame1;
+ slice per frame2;
+ slice per frame3;
  text stream1; protok teksta
  text stream2; protoka teksta
  text stream3; protoci teksta
@@ -364,7 +367,6 @@ DotsPerInch;Točaka po palcu (DPI)
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
-Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;Trajanje
@@ -464,6 +466,7 @@ Format_Settings_QPel;Postavke oblika datoteke za QPel
 Format_Settings_RefFrames;Postavke oblika datoteke za RefFrames
 Format_Settings_SBR;Postavke oblika datoteke za SBR
 Format_Settings_Sign;Postavke oblika datoteke za Sign
+Format_Settings_SliceCount;
 Format_Settings_Wrapping;
 Format_Tier;
 Format_Url;Spletna poveznica oblika datoteke
@@ -474,7 +477,6 @@ FpaPass;
 FpaVersion;
 FrameCount;Broj sličica
 FrameRate;Protok sličica
-FrameRate_MaxFrameNumber;
 FrameRate_Maximum;Maksimalna stopa protoka sličica
 FrameRate_Minimum;Minimalna stopa protoka sličica
 FrameRate_Mode;Način protoka sličica
@@ -730,21 +732,6 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-JocBalance_FrontBackListener;
-JocBalance_FrontBackOverheadFloor;
-JocTrim_Center;
-JocTrim_Height;
-JocTrim_Surround;
-JocTrimMode;
-JocTrimMode0i;
-JocTrimMode1i;
-JocTrimMode2i;
-JocTrimMode3i;
-JocTrimMode4i;
-JocTrimMode5i;
-JocTrimMode6i;
-JocTrimMode7i;
-JocTrimMode8i;
 Keywords;Ključne riječi
 Known codecs;Poznati kôdeki
 Known formats;Poznati oblici datoteka
@@ -1043,6 +1030,7 @@ ms; ms
 MSDI;MSDI
 MultipleStream;
 MusicBy;Glazba
+MultiView_Count;
 MuxingMode;Način rada multipleksera
 MuxingMode_MoreInfo;Više informacija o radu multipleksera
 MuxingMode_PackedBitstream;Usredotočeni protok podataka
@@ -1370,5 +1358,5 @@ Written_Location;Mjesto početka pisanja
 WrittenBy;Napisao
 Yes;Da
 Your system;Informacije o Vašem sustavu
-ZZ_Automatic_Percent;65
+ZZ_Automatic_Percent;66
 ZZ_AutomaticLanguage_Percent;70

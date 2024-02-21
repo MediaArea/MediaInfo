@@ -127,6 +127,9 @@
  second1; second
  second2; seconds
  second3; seconds
+ slice per frame1; slice per frame
+ slice per frame2; slices per frame
+ slice per frame3; slices per frame
  text stream1; text stream
  text stream2; text streams
  text stream3; text streams
@@ -364,7 +367,6 @@ DotsPerInch;Dots per inch
 Downmix;Downmix
 Downmix_5.1.x;5.1 and 5.1.x downmix
 Downmix_5to2;5.1 to 2.0 downmix
-Downmix_5to2_90deg;
 DrcSets_Count;DRC set count
 DrcSets_Effects;DRC effect type(s)
 Duration;Duration
@@ -464,6 +466,7 @@ Format_Settings_QPel;Format settings, QPel
 Format_Settings_RefFrames;Format settings, Reference frames
 Format_Settings_SBR;Format settings, SBR
 Format_Settings_Sign;Format settings, Sign
+Format_Settings_SliceCount;Format settings, Slice count
 Format_Settings_Wrapping;Format settings, wrapping mode
 Format_Tier;Format tier
 Format_Url;Weblink for format
@@ -474,7 +477,6 @@ FpaPass;FPA Pass
 FpaVersion;FPA Version
 FrameCount;Frame count
 FrameRate;Frame rate
-FrameRate_MaxFrameNumber;
 FrameRate_Maximum;Maximum frame rate
 FrameRate_Minimum;Minimum frame rate
 FrameRate_Mode;Frame rate mode
@@ -730,21 +732,6 @@ InternetMediaType;Internet media type
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-JocBalance_FrontBackListener;
-JocBalance_FrontBackOverheadFloor;
-JocTrim_Center;
-JocTrim_Height;
-JocTrim_Surround;
-JocTrimMode;
-JocTrimMode0i;
-JocTrimMode1i;
-JocTrimMode2i;
-JocTrimMode3i;
-JocTrimMode4i;
-JocTrimMode5i;
-JocTrimMode6i;
-JocTrimMode7i;
-JocTrimMode8i;
 Keywords;Keywords
 Known codecs;Known codecs
 Known formats;Known formats
@@ -1043,6 +1030,7 @@ ms; ms
 MSDI;MSDI
 MultipleStream;Multiple-stream
 MusicBy;Music by
+MultiView_Count;Count of views
 MuxingMode;Muxing mode
 MuxingMode_MoreInfo;Muxing mode, more info
 MuxingMode_PackedBitstream;Packed bitstream
@@ -1370,5 +1358,5 @@ Written_Location;Written location
 WrittenBy;Written by
 Yes;Yes
 Your system;Your system
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
