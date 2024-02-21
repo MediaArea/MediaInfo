@@ -127,6 +127,9 @@
  second1; วินาที
  second2; วินาที
  second3; วินาที
+ slice per frame1;
+ slice per frame2;
+ slice per frame3;
  text stream1; สตรีมข้อความ
  text stream2; สตรีมข้อความ
  text stream3; สตรีมข้อความ
@@ -364,7 +367,6 @@ DotsPerInch;
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
-Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;ระยะเวลา
@@ -464,6 +466,7 @@ Format_Settings_QPel;ตั้งค่ารูปแบบ, QPel
 Format_Settings_RefFrames;ตั้งค่ารูปแบบ, RefFrames
 Format_Settings_SBR;ตั้งค่ารูปแบบ, SBR
 Format_Settings_Sign;ตั้งค่ารูปแบบ, Sign
+Format_Settings_SliceCount;
 Format_Settings_Wrapping;
 Format_Tier;
 Format_Url;
@@ -474,7 +477,6 @@ FpaPass;
 FpaVersion;
 FrameCount;
 FrameRate;เฟรมเรต
-FrameRate_MaxFrameNumber;
 FrameRate_Maximum;เฟรมเรตสูงสุด
 FrameRate_Minimum;เฟรมเรตต่ำสุด
 FrameRate_Mode;เฟรมเรตโหมด
@@ -730,21 +732,6 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-JocBalance_FrontBackListener;
-JocBalance_FrontBackOverheadFloor;
-JocTrim_Center;
-JocTrim_Height;
-JocTrim_Surround;
-JocTrimMode;
-JocTrimMode0i;
-JocTrimMode1i;
-JocTrimMode2i;
-JocTrimMode3i;
-JocTrimMode4i;
-JocTrimMode5i;
-JocTrimMode6i;
-JocTrimMode7i;
-JocTrimMode8i;
 Keywords;คีย์เวิร์ด
 Known codecs;codecs ที่รู้จัก
 Known formats;รูปแบบที่รู้จัก
@@ -1043,6 +1030,7 @@ ms;ms
 MSDI;MSDI
 MultipleStream;
 MusicBy;
+MultiView_Count;
 MuxingMode;โหมด Muxing
 MuxingMode_MoreInfo;
 MuxingMode_PackedBitstream;
@@ -1370,5 +1358,5 @@ Written_Location;สถานที่เขียน
 WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
-ZZ_Automatic_Percent;59
-ZZ_AutomaticLanguage_Percent;64
+ZZ_Automatic_Percent;60
+ZZ_AutomaticLanguage_Percent;65

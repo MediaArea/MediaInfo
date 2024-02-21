@@ -127,6 +127,9 @@
  second1; წამი
  second2; წამი
  second3; წამი
+ slice per frame1;
+ slice per frame2;
+ slice per frame3;
  text stream1; ტექსტ ნაკადი
  text stream2; ტექსტ ნაკადი
  text stream3; ტექსტ ნაკადი
@@ -364,7 +367,6 @@ DotsPerInch;Dots per inch
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
-Downmix_5to2_90deg;
 DrcSets_Count;
 DrcSets_Effects;
 Duration;ხანგრძლივობა
@@ -464,6 +466,7 @@ Format_Settings_QPel;ფორმატის პარამეტრები,
 Format_Settings_RefFrames;ფორმატის პარამეტრები, RefFrames
 Format_Settings_SBR;ფორმატის პარამეტრები, SBR
 Format_Settings_Sign;ფორმატის პარამეტრები, Sign
+Format_Settings_SliceCount;
 Format_Settings_Wrapping;
 Format_Tier;
 Format_Url;ვებ-გვერდის ფორმატი
@@ -474,7 +477,6 @@ FpaPass;
 FpaVersion;
 FrameCount;Frame count
 FrameRate;კადრების სიხშირე
-FrameRate_MaxFrameNumber;
 FrameRate_Maximum;კადრების სიხშირის მაქსიმუმი
 FrameRate_Minimum;კადრების სიხშირის მინიმუმი
 FrameRate_Mode;კადრების სიხშირის რეჟიმი
@@ -730,21 +732,6 @@ InternetMediaType;Internet media type
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-JocBalance_FrontBackListener;
-JocBalance_FrontBackOverheadFloor;
-JocTrim_Center;
-JocTrim_Height;
-JocTrim_Surround;
-JocTrimMode;
-JocTrimMode0i;
-JocTrimMode1i;
-JocTrimMode2i;
-JocTrimMode3i;
-JocTrimMode4i;
-JocTrimMode5i;
-JocTrimMode6i;
-JocTrimMode7i;
-JocTrimMode8i;
 Keywords;საკვანძო სიტყვები
 Known codecs;ცნობილი კოდეკები
 Known formats;ცნობილი ფორმატები
@@ -1043,6 +1030,7 @@ ms;ms
 MSDI;MSDI
 MultipleStream;
 MusicBy;კომპოზიტორი
+MultiView_Count;
 MuxingMode;Muxing mode
 MuxingMode_MoreInfo;Muxing mode, more info
 MuxingMode_PackedBitstream;Packed bitstream
@@ -1370,5 +1358,5 @@ Written_Location;დაწერის ადგილი
 WrittenBy;დაწერილია
 Yes;დიახ
 Your system;თქვენი სისტემა
-ZZ_Automatic_Percent;67
-ZZ_AutomaticLanguage_Percent;71
+ZZ_Automatic_Percent;68
+ZZ_AutomaticLanguage_Percent;72
