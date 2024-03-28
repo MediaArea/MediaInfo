@@ -12,6 +12,18 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 24.03, 2024-03-28
+-------------
++ ADM: ADM v3, including profile element, support
++ ADM: conformance checks on AdvSS Emission profile
++ Dolby E: display more AC-3 metadata items
++ MOV/MP4: parsing of rtmd (real time metadata) tracks
++ PNG: packing kind (linear or indexed)
+x WAV: support of 4+ GiB axml (useful for huge ADM content)
+x MPEG-H: fix uninitialized values leading to random behavior
+x PDF: fix crash with corrupted files
+x MOV/MP4: fix bit depth info for some PCM tracks with pcmC box
+
 Version 24.01, 2024-01-31
 -------------
 + ADM: Dolby Atmos Master ADM Profile conformance checker (technology preview)
