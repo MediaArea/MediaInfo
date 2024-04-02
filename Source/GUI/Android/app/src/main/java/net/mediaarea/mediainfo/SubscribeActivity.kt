@@ -45,6 +45,11 @@ class SubscribeActivity : AppCompatActivity() {
                     .replace("%PRICE%", subscriptionDetails.price)
             activitySubscribeBinding.subscriptionDetailText.visibility = View.VISIBLE
             activitySubscribeBinding.subscriptionDetailText.gravity = Gravity.CENTER_HORIZONTAL
+
+            activitySubscribeBinding.subscriptionConditionText.text = activitySubscribeBinding.subscriptionConditionText.text.toString()
+                    .replace("%PRICE%", subscriptionDetails.price)
+            activitySubscribeBinding.subscriptionConditionText.visibility = View.VISIBLE
+            activitySubscribeBinding.subscriptionConditionText.gravity = Gravity.CENTER_HORIZONTAL
         })
 
         subscriptionManager.lifetimeDetails.observe (this, Observer {

@@ -49,14 +49,15 @@
         android:textColor="@android:color/white"
         android:background="@color/colorPrimary"
         android:layout_gravity="center_horizontal" />
+
     <TextView
         android:id="@+id/subscription_detail_text"
-        android:visibility="invisible"
-        android:scaleX="0.6"
-        android:scaleY="0.6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:visibility="invisible"
+        android:scaleX="0.7"
+        android:scaleY="0.7"
         android:text="@string/subscription_detail_text" />
     <View
         android:layout_width="match_parent"
@@ -73,4 +74,19 @@
         android:textColor="@android:color/white"
         android:background="@color/colorPrimary"
         android:layout_gravity="center_horizontal" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="10dp"
+        android:background="?android:attr/listDivider"/>
+
+    <TextView
+        android:id="@+id/subscription_condition_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+
+        android:scaleX="0.7"
+        android:scaleY="0.7"
+        android:text="@string/subscription_condition_text" />
 </LinearLayout>
