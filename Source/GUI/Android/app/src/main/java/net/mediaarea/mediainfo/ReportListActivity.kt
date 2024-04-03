@@ -189,7 +189,17 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
     private fun handleUri(uri: Uri) {
         if (uri.scheme == "file") {
-            if (Build.VERSION.SDK_INT >= 23) {
+            if (Build.VERSION.SDK_INT >= 33) {
+                if (checkSelfPermission(android.Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED ||
+                    checkSelfPermission(android.Manifest.permission.READ_MEDIA_VIDEO) != PackageManager.PERMISSION_GRANTED ||
+                    checkSelfPermission(android.Manifest.permission.READ_MEDIA_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                    pendingFileUris.add(uri)
+                    ActivityCompat.requestPermissions(this@ReportListActivity,
+                            arrayOf(android.Manifest.permission.READ_MEDIA_IMAGES, android.Manifest.permission.READ_MEDIA_VIDEO, android.Manifest.permission.READ_MEDIA_AUDIO),
+                            READ_EXTERNAL_STORAGE_PERMISSION_REQUEST)
+                    return
+                }
+            } else if (Build.VERSION.SDK_INT >= 23) {
                 if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     pendingFileUris.add(uri)
                     ActivityCompat.requestPermissions(this@ReportListActivity,
@@ -213,15 +223,15 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                     val uri: Uri? = intent.data
                     if (uri != null) {
                         handleUri(uri)
+                        intent.putExtra(OPEN_INTENT_PROCESSED, true)
                     }
-                    intent.putExtra(OPEN_INTENT_PROCESSED, true)
                 }
                 Intent.ACTION_SEND -> {
                     val uri = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
                     if (uri != null) {
                         handleUri(uri)
+                        intent.putExtra(OPEN_INTENT_PROCESSED, true)
                     }
-                    intent.putExtra(OPEN_INTENT_PROCESSED, true)
                 }
                 Intent.ACTION_SEND_MULTIPLE -> {
                     val uriList = intent.getParcelableArrayListExtra<Uri>(Intent.EXTRA_STREAM)
@@ -229,8 +239,8 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                         for (i in uriList) {
                             handleUri(i)
                         }
+                        intent.putExtra(OPEN_INTENT_PROCESSED, true)
                     }
-                    intent.putExtra(OPEN_INTENT_PROCESSED, true)
                 }
             }
         }
