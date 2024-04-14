@@ -519,7 +519,8 @@ void __fastcall ThreadInternetCheck::Execute()
     Prefs->Config(__T("SponsorUrl"))=__T("");
 
     ZtringListList Sponsor=Download.SubSheet(__T("ShowSponsor"));
-    if (int En=Sponsor.Find(__T("en"), 1)!=-1 && Sponsor[En](2)!=__T("") && Sponsor[En](3)!=__T(""))
+    unsigned int En=Sponsor.Find(__T("en"), 1);
+    if (En!=(unsigned int)-1 && Sponsor[En](2)!=__T("") && Sponsor[En](3)!=__T(""))
     {
         Prefs->Config(__T("Sponsored"))=__T("1");
         Ztring Message;
