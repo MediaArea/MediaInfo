@@ -193,15 +193,15 @@ void __fastcall TPreferences_SheetF::Column_Kind0Change(TObject *Sender)
     //Fill Column_Parameter
     Column_Parameter[Pos]->Items->Clear();
     if (Column_Kind[Pos]->ItemIndex==0) //General
-        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(__T("Info_Parameters_CSV"))).SubString(Prefs->Translate(__T("General"))+__T("\r\n"), __T("\r\n\r\n")));
+        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(__T("Info_Parameters_CSV"))).SubString(__T("General\r\n"), __T("\r\n\r\n")));
     if (Column_Kind[Pos]->ItemIndex==1) //Video
-        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(__T("Info_Parameters_CSV"))).SubString(Prefs->Translate(__T("Video"))+__T("\r\n"), __T("\r\n\r\n")));
+        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(__T("Info_Parameters_CSV"))).SubString(__T("Video\r\n"), __T("\r\n\r\n")));
     if (Column_Kind[Pos]->ItemIndex==2) //Audio
-        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(__T("Info_Parameters_CSV"))).SubString(Prefs->Translate(__T("Audio"))+__T("\r\n"), __T("\r\n\r\n")));
+        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(__T("Info_Parameters_CSV"))).SubString(__T("Audio\r\n"), __T("\r\n\r\n")));
     if (Column_Kind[Pos]->ItemIndex==3) //Text
-        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(__T("Info_Parameters_CSV"))).SubString(Prefs->Translate(__T("Text"))+__T("\r\n"), __T("\r\n\r\n")));
+        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(__T("Info_Parameters_CSV"))).SubString(__T("Text\r\n"), __T("\r\n\r\n")));
     if (Column_Kind[Pos]->ItemIndex==4) //Chapters
-        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(__T("Info_Parameters_CSV"))).SubString(Prefs->Translate(__T("Chapters"))+__T("\r\n"), __T("")));
+        Infos_Parameters[Pos].Write(Ztring(MediaInfoNameSpace::MediaInfo::Option_Static(__T("Info_Parameters_CSV"))).SubString(__T("Chapters\r\n"), __T("")));
     for (size_t Info_Pos=0; Info_Pos<Infos_Parameters[Pos].size(); Info_Pos++)
         Column_Parameter[Pos]->Items->Add(Infos_Parameters[Pos].Read(Info_Pos, 0).c_str());
     Column_Parameter[Pos]->ItemIndex=0;
