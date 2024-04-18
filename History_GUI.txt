@@ -12,6 +12,19 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 24.04, 2024-04-18
+-------------
++ ADM: more AdvSS Emission profile checks
++ AC-3 & Dolby E: more AC-3 metadata readouts
++ AV1: support of chroma_sample_position
++ I1999, WAV: support of BS.2088 BW64 chunkId
++ I2008, Wavpack: support of DSD
++ I1882, CEA-608/708: options for ignoring command only streams
++ I1990, FLV: support of enhanced RTMP
+x WAV: fix support of 4+ GB ADM
+x I2005, WavPack: fix duration with small files
+x I2009, IVF: fix division by zero with buggy files
+
 Version 24.03, 2024-03-28
 -------------
 + French, Italian, Russian and Ukrainian translations update
