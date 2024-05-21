@@ -20,6 +20,10 @@
 #include <ComCtrls.hpp>
 #include <StdCtrls.hpp>
 #include <Vcl.ExtCtrls.hpp>
+#include <System.ImageList.hpp>
+#include <Vcl.BaseImageCollection.hpp>
+#include <Vcl.ImageCollection.hpp>
+#include <Vcl.VirtualImageList.hpp>
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -49,6 +53,9 @@ __published:    // IDE-managed Components
     TImageList *ImageList2;
     TImageList *ImageList3;
     TLinkLabel *Sponsor_Label;
+    TImageCollection* ImageCollection1;
+    TVirtualImageList* VirtualImageList1;
+    TVirtualImageList* VirtualImageList2;
     void __fastcall WebSiteClick(TObject *Sender);
     void __fastcall FormShow(TObject *Sender);
     void __fastcall NewVersionClick(TObject *Sender);

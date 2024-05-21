@@ -56,7 +56,7 @@
 			<DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
 			<Icon_MainIcon>..\..\..\Source\Resource\Image\MediaInfo.ico</Icon_MainIcon>
 			<IncludePath>..\..\..\Source\Common\;..\..\..\Source\;..\..\..\Source\GUI\VCL\;..\..\..\..\ZenLib\Source\;..\..\..\..\MediaInfoLib\Source\;$(IncludePath)</IncludePath>
-			<AllPackageLibs>rtl.lib;vcl.lib;bcbie.lib</AllPackageLibs>
+			<AllPackageLibs>rtl.lib;vcl.lib;bcbie.lib;vclwinx.lib;vclimg.lib;bindengine.lib</AllPackageLibs>
 			<_TCHARMapping>wchar_t</_TCHARMapping>
 			<DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
 			<IntermediateOutputDir>.\$(Platform)\$(Config)</IntermediateOutputDir>
@@ -105,9 +105,11 @@
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
 			<VerInfo_Release>0</VerInfo_Release>
-			<LinkPackageStatics>rtl.lib;vcl.lib;bcbie.lib</LinkPackageStatics>
+			<LinkPackageStatics>rtl.lib;vcl.lib;bcbie.lib;vclwinx.lib;vclimg.lib;bindengine.lib</LinkPackageStatics>
 			<VerInfo_Keys>CompanyName=MediaArea.net;FileDescription=MediaInfo;FileVersion=24.04.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=MediaInfo;ProductVersion=24.04.0.0;Comments=</VerInfo_Keys>
 			<Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+			<AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
+			<Icon_MainIcon>..\..\..\Source\Resource\Image\MediaInfo.ico</Icon_MainIcon>
 		</PropertyGroup>
 		<ItemGroup>
 			<LibFiles Condition="'$(Platform)'=='Win32'" Include="$(BDSLIB)\win32\release\wininet.lib">

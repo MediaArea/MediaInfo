@@ -27,6 +27,10 @@
 #include "SHDocVw_OCX.h"
 #include <ExtCtrls.hpp>
 #include <Buttons.hpp>
+#include <System.ImageList.hpp>
+#include <Vcl.BaseImageCollection.hpp>
+#include <Vcl.ImageCollection.hpp>
+#include <Vcl.VirtualImageList.hpp>
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -220,6 +224,9 @@ __published:    // IDE-managed Components
     TMenuItem *ToolBar_View_reVTMD;
     TMenuItem *ToolBar_View_NISO_Z39_87;
     TMenuItem *ToolBar_View_Graph_Svg;
+    TImageCollection* ImageCollection1;
+    TVirtualImageList* Menu_Image_HiDPI;
+    TVirtualImageList* Toolbar_Image_HiDPI;
     void __fastcall FormResize(TObject *Sender);
     void __fastcall M_Help_AboutClick(TObject *Sender);
     void __fastcall M_Options_PreferencesClick(TObject *Sender);
