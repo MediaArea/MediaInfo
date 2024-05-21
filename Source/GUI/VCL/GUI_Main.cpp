@@ -1978,3 +1978,15 @@ void __fastcall TMainF::Footer_ButtonClick(TObject *Sender)
     I->Option(__T("Inform"), Inform_Save);
     ShellExecute(NULL, NULL, URL.c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::M_Options_DarkmodeClick(TObject* Sender)
+{
+    if (M_Options_Darkmode->Checked) {
+        Vcl::Themes::TStyleManager::TrySetStyle("Windows", false);
+        M_Options_Darkmode->Checked = false;
+    } else {
+        Vcl::Themes::TStyleManager::TrySetStyle("Windows11 Modern Dark", false);
+        M_Options_Darkmode->Checked = true;
+    }
+}

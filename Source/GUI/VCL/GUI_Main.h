@@ -225,6 +225,7 @@ __published:    // IDE-managed Components
     TImageCollection* ImageCollection1;
     TVirtualImageList* Menu_Image;
     TVirtualImageList* Toolbar_Image;
+    TMenuItem *M_Options_Darkmode;
     void __fastcall FormResize(TObject *Sender);
     void __fastcall M_Help_AboutClick(TObject *Sender);
     void __fastcall M_Options_PreferencesClick(TObject *Sender);
@@ -299,6 +300,7 @@ __published:    // IDE-managed Components
     void __fastcall M_View_NISO_Z39_87Click(TObject *Sender);
     void __fastcall M_View_Graph_SvgClick(TObject *Sender);
     void __fastcall M_Options_FullParsingClick(TObject *Sender);
+    void __fastcall M_Options_DarkmodeClick(TObject *Sender);
 private:    // User declarations
     TButton *Footer_Button;
 public:        // User declarations

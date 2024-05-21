@@ -45,6 +45,8 @@
 
 
 
+#include <Vcl.Styles.hpp>
+#include <Vcl.Themes.hpp>
 USEFORM("..\..\..\Source\GUI\VCL\GUI_Preferences_Language.cpp", Preferences_LanguageF);
 USEFORM("..\..\..\Source\GUI\VCL\GUI_Preferences_Output.cpp", Preferences_OutputF);
 USEFORM("..\..\..\Source\GUI\VCL\GUI_Preferences.cpp", PreferencesF);

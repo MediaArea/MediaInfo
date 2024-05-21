@@ -2308,6 +2308,10 @@ object MainF: TMainF
         Hint = 'Show Menu'
         OnClick = M_Options_ShowMenuClick
       end
+      object M_Options_Darkmode: TMenuItem
+        Caption = 'Dark mode'
+        OnClick = M_Options_DarkmodeClick
+      end
       object N5: TMenuItem
         Caption = '-'
       end

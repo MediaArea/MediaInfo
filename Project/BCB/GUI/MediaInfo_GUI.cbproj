@@ -66,6 +66,7 @@
 			<BCC_OptimizeForSpeed>true</BCC_OptimizeForSpeed>
 			<BCC_ExtendedErrorInfo>true</BCC_ExtendedErrorInfo>
 			<ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\release\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
+			<Custom_Styles>&quot;Windows11 Modern Dark|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Windows11_Modern_Dark.vsf&quot;</Custom_Styles>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base_Win32)'!=''">
 			<ILINK_LibraryPath>..\..\..\..\zlib\contrib\BCB\Win32\Release\;..\..\..\..\ZenLib\Project\BCB\Library\Win32\Release\;..\..\..\..\MediaInfoLib\Project\BCB\Dll\Win32\Release\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
