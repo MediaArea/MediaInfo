@@ -21,7 +21,7 @@ jobs:
             sudo apt-get install -y zlib1g-dev libwxgtk3.0-gtk3-dev
           fi
           if [ "$RUNNER_OS" == "macOS" ]; then
-            brew install automake wxmac
+            brew install libtool automake wxmac
           fi
       - name: ZenLib
         run: |
