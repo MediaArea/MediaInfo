@@ -145,8 +145,6 @@ __published:    // IDE-managed Components
     TMenuItem *M_Help_SupportedParameters;
     TMenuItem *M_Language;
     TMenuItem *ToDo1;
-    TImageList *Menu_Image;
-    TImageList *ToolBar_Image;
     TPopupMenu *ToolBar_View_Menu;
     TMenuItem *ToolBar_View_Easy;
     TMenuItem *ToolBar_View_Sheet;
@@ -225,8 +223,8 @@ __published:    // IDE-managed Components
     TMenuItem *ToolBar_View_NISO_Z39_87;
     TMenuItem *ToolBar_View_Graph_Svg;
     TImageCollection* ImageCollection1;
-    TVirtualImageList* Menu_Image_HiDPI;
-    TVirtualImageList* Toolbar_Image_HiDPI;
+    TVirtualImageList* Menu_Image;
+    TVirtualImageList* Toolbar_Image;
     void __fastcall FormResize(TObject *Sender);
     void __fastcall M_Help_AboutClick(TObject *Sender);
     void __fastcall M_Options_PreferencesClick(TObject *Sender);

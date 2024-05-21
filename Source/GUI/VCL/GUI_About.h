@@ -49,9 +49,6 @@ __published:    // IDE-managed Components
     TToolButton *ToolButton2;
     TButton *WriteMe;
     TButton *WriteToTranslator;
-    TImageList *ImageList1;
-    TImageList *ImageList2;
-    TImageList *ImageList3;
     TLinkLabel *Sponsor_Label;
     TImageCollection* ImageCollection1;
     TVirtualImageList* VirtualImageList1;
