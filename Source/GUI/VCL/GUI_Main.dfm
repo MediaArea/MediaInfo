@@ -7310,4 +7310,9 @@ object MainF: TMainF
     Left = 768
     Top = 200
   end
+  object ApplicationEvents1: TApplicationEvents
+    OnSettingChange = ApplicationEvents1OnSettingChange
+    Left = 768
+    Top = 424
+  end
 end

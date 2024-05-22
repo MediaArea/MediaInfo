@@ -86,6 +86,31 @@ extern const ZenLib::Char* MEDIAINFO_TITLE;
 const size_t Title_Pos=156; //TODO: Position of Title in General.csv, should shange this...
 MediaInfoList *I;
 //---------------------------------------------------------------------------
+//***************************************************************************
+// Dark mode handling
+//***************************************************************************
+//---------------------------------------------------------------------------
+bool __fastcall TMainF::WindowsDarkModeEnabled()
+{
+    //Check Windows dark mode
+    TRegistry* Reg_AppsUseLightTheme = new TRegistry;
+    bool DarkModeEnabled = false;
+    try {
+        if (Reg_AppsUseLightTheme->OpenKey(
+                __T("Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize"),
+                false))
+        {
+            if (Reg_AppsUseLightTheme->ValueExists("AppsUseLightTheme"))
+                if (!Reg_AppsUseLightTheme->ReadInteger("AppsUseLightTheme"))
+                    DarkModeEnabled = true;
+            Reg_AppsUseLightTheme->CloseKey();
+        }
+    } catch (...) {
+    }
+    return DarkModeEnabled;
+}
+
+//---------------------------------------------------------------------------
 
 //***************************************************************************
 // Constructor/Destructor
@@ -174,6 +199,12 @@ __fastcall TMainF::TMainF(TComponent* Owner)
     Page_Position=-1;
     Caption=MEDIAINFO_TITLE;
     DragAcceptFiles(Handle, true);
+
+    //Set dark mode
+    if (WindowsDarkModeEnabled()) {
+        TStyleManager::TrySetStyle(DARK_MODE_STYLE, false);
+        M_Options_Darkmode->Checked=true;
+    }
 }
 
 //***************************************************************************
@@ -1983,10 +2014,25 @@ void __fastcall TMainF::Footer_ButtonClick(TObject *Sender)
 void __fastcall TMainF::M_Options_DarkmodeClick(TObject* Sender)
 {
     if (M_Options_Darkmode->Checked) {
-        Vcl::Themes::TStyleManager::TrySetStyle("Windows", false);
+        TStyleManager::TrySetStyle(LIGHT_MODE_STYLE, false);
         M_Options_Darkmode->Checked = false;
     } else {
-        Vcl::Themes::TStyleManager::TrySetStyle("Windows11 Modern Dark", false);
+        TStyleManager::TrySetStyle(DARK_MODE_STYLE, false);
         M_Options_Darkmode->Checked = true;
+    }
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::ApplicationEvents1OnSettingChange(
+    TObject* Sender, int Flag, const UnicodeString Section, int &Result)
+{
+    if (Section == "ImmersiveColorSet") {
+        if (WindowsDarkModeEnabled()) {
+            TStyleManager::TrySetStyle(DARK_MODE_STYLE, false);
+            M_Options_Darkmode->Checked = true;
+        } else {
+            TStyleManager::TrySetStyle(LIGHT_MODE_STYLE, false);
+            M_Options_Darkmode->Checked = false;
+        }
     }
 }
