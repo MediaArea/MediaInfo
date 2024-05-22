@@ -2308,6 +2308,10 @@ object MainF: TMainF
         Hint = 'Show Menu'
         OnClick = M_Options_ShowMenuClick
       end
+      object M_Options_Darkmode: TMenuItem
+        Caption = 'Dark mode'
+        OnClick = M_Options_DarkmodeClick
+      end
       object N5: TMenuItem
         Caption = '-'
       end
@@ -7305,5 +7309,10 @@ object MainF: TMainF
     Height = 32
     Left = 768
     Top = 200
+  end
+  object ApplicationEvents1: TApplicationEvents
+    OnSettingChange = ApplicationEvents1OnSettingChange
+    Left = 768
+    Top = 424
   end
 end

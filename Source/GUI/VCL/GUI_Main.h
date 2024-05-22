@@ -31,6 +31,8 @@
 #include <Vcl.BaseImageCollection.hpp>
 #include <Vcl.ImageCollection.hpp>
 #include <Vcl.VirtualImageList.hpp>
+#include <Registry.hpp>
+#include <Vcl.AppEvnts.hpp>
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -225,6 +227,8 @@ __published:    // IDE-managed Components
     TImageCollection* ImageCollection1;
     TVirtualImageList* Menu_Image;
     TVirtualImageList* Toolbar_Image;
+    TMenuItem *M_Options_Darkmode;
+    TApplicationEvents *ApplicationEvents1;
     void __fastcall FormResize(TObject *Sender);
     void __fastcall M_Help_AboutClick(TObject *Sender);
     void __fastcall M_Options_PreferencesClick(TObject *Sender);
@@ -299,8 +303,17 @@ __published:    // IDE-managed Components
     void __fastcall M_View_NISO_Z39_87Click(TObject *Sender);
     void __fastcall M_View_Graph_SvgClick(TObject *Sender);
     void __fastcall M_Options_FullParsingClick(TObject *Sender);
+    void __fastcall M_Options_DarkmodeClick(TObject *Sender);
+    void __fastcall ApplicationEvents1OnSettingChange(TObject *Sender, int Flag, const UnicodeString Section,
+          int &Result);
+protected:
+    virtual void __fastcall CreateWnd();
+    virtual void __fastcall DestroyWnd();
 private:    // User declarations
     TButton *Footer_Button;
+    const UnicodeString LIGHT_MODE_STYLE = "Windows";               // Name of style for light mode;
+    const UnicodeString DARK_MODE_STYLE = "Windows11 Modern Dark";  // Name of style for dark mode
+    bool __fastcall WindowsDarkModeEnabled();
 public:        // User declarations
     MESSAGE void __fastcall HandleDropFiles (TMessage&);
     BEGIN_MESSAGE_MAP

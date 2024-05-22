@@ -86,6 +86,31 @@ extern const ZenLib::Char* MEDIAINFO_TITLE;
 const size_t Title_Pos=156; //TODO: Position of Title in General.csv, should shange this...
 MediaInfoList *I;
 //---------------------------------------------------------------------------
+//***************************************************************************
+// Dark mode handling
+//***************************************************************************
+//---------------------------------------------------------------------------
+bool __fastcall TMainF::WindowsDarkModeEnabled()
+{
+    //Check Windows dark mode
+    TRegistry* Reg_AppsUseLightTheme = new TRegistry;
+    bool DarkModeEnabled = false;
+    try {
+        if (Reg_AppsUseLightTheme->OpenKey(
+                __T("Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize"),
+                false))
+        {
+            if (Reg_AppsUseLightTheme->ValueExists("AppsUseLightTheme"))
+                if (!Reg_AppsUseLightTheme->ReadInteger("AppsUseLightTheme"))
+                    DarkModeEnabled = true;
+            Reg_AppsUseLightTheme->CloseKey();
+        }
+    } catch (...) {
+    }
+    return DarkModeEnabled;
+}
+
+//---------------------------------------------------------------------------
 
 //***************************************************************************
 // Constructor/Destructor
@@ -173,7 +198,16 @@ __fastcall TMainF::TMainF(TComponent* Owner)
     Page->TabHeight=1; //Not done with BCB because I want to easy select tabs in it
     Page_Position=-1;
     Caption=MEDIAINFO_TITLE;
-    DragAcceptFiles(Handle, true);
+
+    //Set dark mode
+    if (WindowsDarkModeEnabled()) {
+        TStyleManager::TrySetStyle(DARK_MODE_STYLE, false);
+        M_Options_Darkmode->Checked=true;
+    }
+
+    //Opt-out from styling dialogs and use native Windows dialogs for dark mode as well
+    TStyleManager::SystemHooks = TStyleManager::SystemHooks -
+                                 (TStyleManager::TSystemHooks() << TStyleManager::TSystemHook::shDialogs);
 }
 
 //***************************************************************************
@@ -1977,4 +2011,47 @@ void __fastcall TMainF::Footer_ButtonClick(TObject *Sender)
     const Ztring URL=I->Inform();
     I->Option(__T("Inform"), Inform_Save);
     ShellExecute(NULL, NULL, URL.c_str(), NULL, NULL, SW_SHOWNORMAL);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::M_Options_DarkmodeClick(TObject* Sender)
+{
+    if (M_Options_Darkmode->Checked) {
+        TStyleManager::TrySetStyle(LIGHT_MODE_STYLE, false);
+        M_Options_Darkmode->Checked = false;
+    } else {
+        TStyleManager::TrySetStyle(DARK_MODE_STYLE, false);
+        M_Options_Darkmode->Checked = true;
+    }
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::ApplicationEvents1OnSettingChange(
+    TObject* Sender, int Flag, const UnicodeString Section, int &Result)
+{
+    if (Section == "ImmersiveColorSet") {
+        if (WindowsDarkModeEnabled()) {
+            TStyleManager::TrySetStyle(DARK_MODE_STYLE, false);
+            M_Options_Darkmode->Checked = true;
+        } else {
+            TStyleManager::TrySetStyle(LIGHT_MODE_STYLE, false);
+            M_Options_Darkmode->Checked = false;
+        }
+    }
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::CreateWnd()
+{
+    TForm::CreateWnd();
+    if (HandleAllocated())
+        DragAcceptFiles(Handle, true);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::DestroyWnd()
+{
+    if (HandleAllocated())
+        DragAcceptFiles(Handle, false);
+    TForm::DestroyWnd();
 }
