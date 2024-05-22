@@ -306,6 +306,9 @@ __published:    // IDE-managed Components
     void __fastcall M_Options_DarkmodeClick(TObject *Sender);
     void __fastcall ApplicationEvents1OnSettingChange(TObject *Sender, int Flag, const UnicodeString Section,
           int &Result);
+protected:
+    virtual void __fastcall CreateWnd();
+    virtual void __fastcall DestroyWnd();
 private:    // User declarations
     TButton *Footer_Button;
     const UnicodeString LIGHT_MODE_STYLE = "Windows";               // Name of style for light mode;

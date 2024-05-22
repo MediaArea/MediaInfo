@@ -198,7 +198,6 @@ __fastcall TMainF::TMainF(TComponent* Owner)
     Page->TabHeight=1; //Not done with BCB because I want to easy select tabs in it
     Page_Position=-1;
     Caption=MEDIAINFO_TITLE;
-    DragAcceptFiles(Handle, true);
 
     //Set dark mode
     if (WindowsDarkModeEnabled()) {
@@ -2035,4 +2034,20 @@ void __fastcall TMainF::ApplicationEvents1OnSettingChange(
             M_Options_Darkmode->Checked = false;
         }
     }
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::CreateWnd()
+{
+    TForm::CreateWnd();
+    if (HandleAllocated())
+        DragAcceptFiles(Handle, true);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::DestroyWnd()
+{
+    if (HandleAllocated())
+        DragAcceptFiles(Handle, false);
+    TForm::DestroyWnd();
 }
