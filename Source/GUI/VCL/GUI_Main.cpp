@@ -208,6 +208,15 @@ __fastcall TMainF::TMainF(TComponent* Owner)
     //Opt-out from styling dialogs and use native Windows dialogs for dark mode as well
     TStyleManager::SystemHooks = TStyleManager::SystemHooks -
                                  (TStyleManager::TSystemHooks() << TStyleManager::TSystemHook::shDialogs);
+
+    //Set monospaced font to Cascadia Mono if available on current system
+    if (Screen->Fonts->IndexOf("Cascadia Mono") != -1) {
+        TFont* monoFont = new TFont;
+        monoFont->Name = "Cascadia Mono";
+        monoFont->Size = 10;
+        Page_Text_Text->Font = monoFont;
+        Page_Custom_Text->Font = monoFont;
+    }
 }
 
 //***************************************************************************
@@ -2055,3 +2064,4 @@ void __fastcall TMainF::DestroyWnd()
         DragAcceptFiles(Handle, false);
     TForm::DestroyWnd();
 }
+
