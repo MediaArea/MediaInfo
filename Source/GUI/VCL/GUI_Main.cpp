@@ -204,6 +204,10 @@ __fastcall TMainF::TMainF(TComponent* Owner)
         TStyleManager::TrySetStyle(DARK_MODE_STYLE, false);
         M_Options_Darkmode->Checked=true;
     }
+
+    //Opt-out from styling dialogs and use native Windows dialogs for dark mode as well
+    TStyleManager::SystemHooks = TStyleManager::SystemHooks -
+                                 (TStyleManager::TSystemHooks() << TStyleManager::TSystemHook::shDialogs);
 }
 
 //***************************************************************************
