@@ -2576,6 +2576,7 @@ object MainF: TMainF
     Top = 256
   end
   object OpenDialog1: TOpenDialog
+    Options = [ofHideReadOnly, ofAllowMultiSelect, ofEnableSizing]
     Left = 768
     Top = 368
   end
