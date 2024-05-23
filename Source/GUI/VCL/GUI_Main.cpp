@@ -227,16 +227,21 @@ __fastcall TMainF::TMainF(TComponent* Owner)
 void __fastcall TMainF::GUI_Configure()
 {
     //Hard coded
+    float DPIScale=static_cast<float>(GetSystemDpiForProcess(GetCurrentProcess()))/96;
+    float ScaledScreenWidth=Screen->Width/DPIScale;
+    float ScaledScreenHeight=Screen->Height/DPIScale;
     Width=500;
     Height=400;
-    if (Screen->Width>=1024)
+    if (ScaledScreenWidth>=1024)
         Width=700;
-    if (Screen->Width>=1280)
+    if (ScaledScreenWidth>=1280)
         Width=830;
-    if (Screen->Height>=768)
+    if (ScaledScreenHeight>=768)
         Height=500;
-    if (Screen->Height>=1024)
+    if (ScaledScreenHeight>=1024)
         Height=600;
+    Width*=DPIScale;
+    Height*=DPIScale;
     Left=(Screen->Width-Width)/2;
     Top=(Screen->Height-Height)/2;
 
@@ -2064,4 +2069,3 @@ void __fastcall TMainF::DestroyWnd()
         DragAcceptFiles(Handle, false);
     TForm::DestroyWnd();
 }
-
