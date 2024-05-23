@@ -1190,15 +1190,15 @@ void __fastcall TMainF::M_File_Open_FileClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_File_Open_FolderClick(TObject *Sender)
 {
-    Ztring S1=OpenFolder_Show(Application->Handle, __T("Select your directory"), __T("MediaInfo"));
+    if (!FolderOpenDialog1->Execute())
+        return;
 
-    if (S1!=__T(""))
-    {
+    if (TDirectory::GetFiles(FolderOpenDialog1->FileName).Length != 0) {
         // First we clear the list
         if (M_Options_CloseAllAuto->Checked)
             M_File_Close_AllClick(Sender);
 
-        I->Open(S1);
+        I->Open(GUI_Text(FolderOpenDialog1->FileName));
         Refresh();
     }
 }
