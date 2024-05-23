@@ -28,6 +28,7 @@
 #include <ExtCtrls.hpp>
 #include <Buttons.hpp>
 #include <System.ImageList.hpp>
+#include <System.IOUtils.hpp>
 #include <Vcl.BaseImageCollection.hpp>
 #include <Vcl.ImageCollection.hpp>
 #include <Vcl.VirtualImageList.hpp>
@@ -229,6 +230,7 @@ __published:    // IDE-managed Components
     TVirtualImageList* Toolbar_Image;
     TMenuItem *M_Options_Darkmode;
     TApplicationEvents *ApplicationEvents1;
+    TFileOpenDialog *FolderOpenDialog1;
     void __fastcall FormResize(TObject *Sender);
     void __fastcall M_Help_AboutClick(TObject *Sender);
     void __fastcall M_Options_PreferencesClick(TObject *Sender);

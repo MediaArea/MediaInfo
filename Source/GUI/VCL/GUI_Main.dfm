@@ -7313,6 +7313,13 @@ object MainF: TMainF
   object ApplicationEvents1: TApplicationEvents
     OnSettingChange = ApplicationEvents1OnSettingChange
     Left = 768
+    Top = 480
+  end
+  object FolderOpenDialog1: TFileOpenDialog
+    FavoriteLinks = <>
+    FileTypes = <>
+    Options = [fdoPickFolders]
+    Left = 768
     Top = 424
   end
 end
