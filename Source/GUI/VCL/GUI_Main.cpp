@@ -1190,7 +1190,7 @@ void __fastcall TMainF::M_File_Open_FileClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_File_Open_FolderClick(TObject *Sender)
 {
-    if (!FolderOpenDialog1->Execute())
+    if (!FolderOpenDialog1->Execute(Handle))
         return;
 
     if (TDirectory::GetFiles(FolderOpenDialog1->FileName).Length != 0) {
