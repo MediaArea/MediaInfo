@@ -189,17 +189,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
     private fun handleUri(uri: Uri) {
         if (uri.scheme == "file") {
-            if (Build.VERSION.SDK_INT >= 33) {
-                if (checkSelfPermission(android.Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED ||
-                    checkSelfPermission(android.Manifest.permission.READ_MEDIA_VIDEO) != PackageManager.PERMISSION_GRANTED ||
-                    checkSelfPermission(android.Manifest.permission.READ_MEDIA_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-                    pendingFileUris.add(uri)
-                    ActivityCompat.requestPermissions(this@ReportListActivity,
-                            arrayOf(android.Manifest.permission.READ_MEDIA_IMAGES, android.Manifest.permission.READ_MEDIA_VIDEO, android.Manifest.permission.READ_MEDIA_AUDIO),
-                            READ_EXTERNAL_STORAGE_PERMISSION_REQUEST)
-                    return
-                }
-            } else if (Build.VERSION.SDK_INT >= 23) {
+            if (Build.VERSION.SDK_INT >= 23) {
                 if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     pendingFileUris.add(uri)
                     ActivityCompat.requestPermissions(this@ReportListActivity,
@@ -555,8 +545,8 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         reportModel = ViewModelProvider(this, viewModelFactory)[ReportViewModel::class.java]
 
         activityReportListBinding.addButton.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= 19) {
-                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            if (Build.VERSION.SDK_INT >= 20) { // Official Android FileChooser is buggy on Android 4.4 (19)
+                val intent = Intent(Intent.ACTION_GET_CONTENT)
 
                 intent.addCategory(Intent.CATEGORY_OPENABLE)
                 intent.type = "*/*"

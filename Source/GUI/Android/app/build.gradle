@@ -16,7 +16,7 @@ android {
     defaultConfig {
         applicationId "net.mediaarea.mediainfo"
         multiDexEnabled = true
-        minSdkVersion 14
+        minSdkVersion 19
         versionCode 42
         versionName "24.04"
         targetSdkVersion 34
