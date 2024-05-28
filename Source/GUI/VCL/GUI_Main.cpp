@@ -878,6 +878,9 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
         if (!Prefs->Config(__T("InformTimestamp")).empty())
             I->Option_Static(__T("Inform_Timestamp"), Prefs->Config(__T("InformTimestamp")));
 
+        //Set language again to ensure proper display in case it was changed to XML etc.
+        I->Option_Static(__T("Language"), Prefs->Details[Prefs_Language].Read());
+
         Page_Text_Text->Text=I->Inform().c_str();
 
         //Specific in case of no file
