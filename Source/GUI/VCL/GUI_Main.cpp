@@ -1261,6 +1261,12 @@ void __fastcall TMainF::M_File_ExportClick(TObject *Sender)
             Name=Prefs->BaseFolder;
             Name.resize(Name.size()-1);
             Name=Name.substr(0, Name.rfind(__T("\\"))+1); //Folder of MediaInfo
+
+            //If only one file, use folder and filename of that file with added suffix
+            if (I->Count_Get()==1) {
+                Name=I->Get(0, Stream_General, 0, __T("CompleteName")).c_str();
+                Name.append(__T(".MediaInfo."));
+            }
         }
         else
             Name=GUI_Text(OpenDialog1->InitialDir);
