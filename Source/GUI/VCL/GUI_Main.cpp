@@ -216,6 +216,7 @@ __fastcall TMainF::TMainF(TComponent* Owner)
         monoFont->Size = 10;
         Page_Text_Text->Font = monoFont;
         Page_Custom_Text->Font = monoFont;
+        Page_Sheet_Text->Font = monoFont;
     }
 }
 
@@ -421,31 +422,9 @@ void __fastcall TMainF::FormResize(TObject *Sender)
     //Page - Sheet
     else if (Page->ActivePage==Page_Sheet)
     {
-        //Bottom
-        Page_Sheet_Text->Width=Page_Sheet->ClientWidth;
-        Page_Sheet_Text->Top  =Page_Sheet->ClientHeight-Page_Sheet_Text->Height;
-
-        //Streams
-        for (int KindOfStream=Stream_Max-1; KindOfStream>=0; KindOfStream--)
-        {
-            if (Page_Sheet_X[KindOfStream])
-            {
-                if (KindOfStream!=Stream_Max-1 && Page_Sheet_X[KindOfStream+1])
-                    Page_Sheet_X[KindOfStream]->Top =Page_Sheet_X[KindOfStream+1]->Top-Page_Sheet_X[KindOfStream]->Height;
-                else
-                    Page_Sheet_X[KindOfStream]->Top =Page_Sheet_Text->Top-Page_Sheet_X[KindOfStream]->Height; //1st stream, need reference
-                Page_Sheet_X[KindOfStream]->Width   =Page_Sheet->ClientWidth-Page_Sheet_X_Web[KindOfStream]->Width;
-                if (Page_Sheet_X_Web[KindOfStream])
-                {
-                    Page_Sheet_X_Web[KindOfStream]->Top =Page_Sheet_X[KindOfStream]->Top+1;
-                    Page_Sheet_X_Web[KindOfStream]->Left=Page_Sheet_X[KindOfStream]->Width;
-                }
-            }
-        }
-
         //Sheet
         Page_Sheet_Sheet->Width =Page_Sheet->ClientWidth;
-        Page_Sheet_Sheet->Height=Page_Sheet_G->Top;
+        Page_Sheet_Sheet->Height=Page_Sheet_Panel1->Height;
 
         //Columns
         //-Calculate total width
@@ -462,6 +441,31 @@ void __fastcall TMainF::FormResize(TObject *Sender)
         {
             Ztring Z1=__T("Column"); Z1+=Ztring::ToZtring(Pos);
             Page_Sheet_Sheet->ColWidths[Pos]=Prefs->Details[Prefs_Sheet](Z1, 4).To_int32s()*Page_Sheet_Sheet->ClientWidth/Total-1;
+        }
+
+        //Streams
+        for (int KindOfStream=0; KindOfStream<Stream_Max; ++KindOfStream)
+        {
+            if (Page_Sheet_X[KindOfStream])
+            {
+                if (KindOfStream!=0 && Page_Sheet_X[KindOfStream-1])
+                    Page_Sheet_X[KindOfStream]->Top =Page_Sheet_X[KindOfStream-1]->Top+Page_Sheet_X[KindOfStream-1]->Height;
+                else
+                    Page_Sheet_X[KindOfStream]->Top =0; //1st stream, need reference
+                Page_Sheet_X[KindOfStream]->Width   =Page_Sheet->ClientWidth-Page_Sheet_X_Web[KindOfStream]->Width;
+                if (Page_Sheet_X_Web[KindOfStream])
+                {
+                    Page_Sheet_X_Web[KindOfStream]->Top =Page_Sheet_X[KindOfStream]->Top+1;
+                    Page_Sheet_X_Web[KindOfStream]->Left=Page_Sheet_X[KindOfStream]->Width;
+				}
+                if (!Page_Sheet_X[KindOfStream+1]) //reached the bottom
+                {
+                    //Bottom
+                    Page_Sheet_Text->Width =Page_Sheet->ClientWidth;
+                    Page_Sheet_Text->Top   =Page_Sheet_X[KindOfStream]->Top+Page_Sheet_X[KindOfStream]->Height;
+                    Page_Sheet_Text->Height=Page_Sheet_Panel2->Height-(Page_Sheet_X[KindOfStream]->Top+Page_Sheet_X[KindOfStream]->Height);
+                }
+            }
         }
     }
 
@@ -1838,6 +1842,10 @@ void __fastcall TMainF::Page_Sheet_Change(TObject *Sender)
     }
 
     I->Option(__T("Inform"), __T(""));
+
+    //Set language again to ensure proper display in case it was changed to XML etc.
+    I->Option_Static(__T("Language"), Prefs->Details[Prefs_Language].Read());
+
     Page_Sheet_Text->Text=I->Get(Page_Position, (stream_t)KindOfStream, I1, __T("Inform")).c_str();
 }
 
@@ -2071,4 +2079,10 @@ void __fastcall TMainF::DestroyWnd()
     if (HandleAllocated())
         DragAcceptFiles(Handle, false);
     TForm::DestroyWnd();
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::Page_Sheet_Splitter1Moved(TObject *Sender)
+{
+    FormResize(NULL);
 }

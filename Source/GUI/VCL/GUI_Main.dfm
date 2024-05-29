@@ -474,137 +474,167 @@ object MainF: TMainF
       ImageIndex = 2
       ParentShowHint = False
       ShowHint = False
-      object Page_Sheet_A_Web: TButton
-        Left = 566
-        Top = 173
-        Width = 38
-        Height = 21
-        Hint = 'Go to the Web site for this codec'
-        Caption = 'Web'
-        Enabled = False
-        TabOrder = 0
-        OnClick = Page_Sheet_WebClick
-      end
-      object Page_Sheet_V_Web: TButton
-        Left = 566
-        Top = 152
-        Width = 38
-        Height = 20
-        Hint = 'Go to the Web site for this codec'
-        Caption = 'Web'
-        Enabled = False
-        TabOrder = 1
-        OnClick = Page_Sheet_WebClick
-      end
-      object Page_Sheet_G_Web: TButton
-        Left = 566
-        Top = 130
-        Width = 38
-        Height = 20
-        Hint = 'Go to the web site of a player for this file'
-        Caption = 'Web'
-        Enabled = False
-        TabOrder = 2
-        OnClick = Page_Sheet_WebClick
-      end
-      object Page_Sheet_T: TComboBox
+      object Page_Sheet_Splitter1: TSplitter
         Left = 0
-        Top = 198
-        Width = 561
-        Height = 23
-        Enabled = False
-        TabOrder = 3
-        OnChange = Page_Sheet_Change
-        OnEnter = Page_Sheet_Change
+        Top = 121
+        Width = 682
+        Height = 3
+        Cursor = crVSplit
+        Align = alTop
+        AutoSnap = False
+        MinSize = 120
+        OnMoved = Page_Sheet_Splitter1Moved
+        ExplicitWidth = 234
       end
-      object Page_Sheet_T_Web: TButton
-        Left = 566
-        Top = 199
-        Width = 38
-        Height = 20
-        Hint = 'Go to the Web site for this codec'
-        Caption = 'Web'
-        Enabled = False
-        TabOrder = 4
-        OnClick = Page_Sheet_WebClick
-      end
-      object Page_Sheet_C: TComboBox
-        Left = 0
-        Top = 224
-        Width = 561
-        Height = 23
-        Enabled = False
-        TabOrder = 5
-        OnChange = Page_Sheet_Change
-        OnEnter = Page_Sheet_Change
-      end
-      object Page_Sheet_C_Web: TButton
-        Left = 566
-        Top = 225
-        Width = 38
-        Height = 20
-        Hint = 'Go to the Web site for this codec'
-        Caption = 'Web'
-        Enabled = False
-        TabOrder = 6
-        OnClick = Page_Sheet_WebClick
-      end
-      object Page_Sheet_Text: TMemo
-        Left = 0
-        Top = 248
-        Width = 604
-        Height = 105
-        Color = clBtnFace
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = 'System'
-        Font.Pitch = fpFixed
-        Font.Style = []
-        ParentFont = False
-        ScrollBars = ssVertical
-        TabOrder = 7
-      end
-      object Page_Sheet_G: TComboBox
-        Left = 0
-        Top = 127
-        Width = 561
-        Height = 23
-        TabOrder = 8
-        OnChange = Page_Sheet_Change
-        OnEnter = Page_Sheet_Change
-      end
-      object Page_Sheet_V: TComboBox
-        Left = 0
-        Top = 149
-        Width = 561
-        Height = 23
-        Enabled = False
-        TabOrder = 9
-        OnChange = Page_Sheet_Change
-        OnEnter = Page_Sheet_Change
-      end
-      object Page_Sheet_A: TComboBox
-        Left = 0
-        Top = 173
-        Width = 561
-        Height = 23
-        Enabled = False
-        TabOrder = 10
-        OnChange = Page_Sheet_Change
-        OnEnter = Page_Sheet_Change
-      end
-      object Page_Sheet_Sheet: TStringGrid
+      object Page_Sheet_Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 604
+        Width = 682
         Height = 121
-        DefaultRowHeight = 16
-        FixedCols = 0
-        RowCount = 2
-        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goRowSelect]
-        TabOrder = 11
-        OnSelectCell = Page_Sheet_SheetSelectCell
+        Align = alTop
+        Caption = 'Page_Sheet_Panel1'
+        TabOrder = 0
+        object Page_Sheet_Sheet: TStringGrid
+          Left = 1
+          Top = 1
+          Width = 604
+          Height = 118
+          DefaultRowHeight = 16
+          FixedCols = 0
+          RowCount = 2
+          Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goRowSelect]
+          TabOrder = 0
+          OnSelectCell = Page_Sheet_SheetSelectCell
+        end
+      end
+      object Page_Sheet_Panel2: TPanel
+        Left = 0
+        Top = 124
+        Width = 682
+        Height = 231
+        Align = alClient
+        Caption = 'Page_Sheet_Panel2'
+        TabOrder = 1
+        object Page_Sheet_A: TComboBox
+          Left = 1
+          Top = 49
+          Width = 561
+          Height = 23
+          Enabled = False
+          TabOrder = 0
+          OnChange = Page_Sheet_Change
+          OnEnter = Page_Sheet_Change
+        end
+        object Page_Sheet_A_Web: TButton
+          Left = 567
+          Top = 50
+          Width = 38
+          Height = 21
+          Hint = 'Go to the Web site for this codec'
+          Caption = 'Web'
+          Enabled = False
+          TabOrder = 1
+          OnClick = Page_Sheet_WebClick
+        end
+        object Page_Sheet_C: TComboBox
+          Left = 1
+          Top = 97
+          Width = 561
+          Height = 23
+          Enabled = False
+          TabOrder = 2
+          OnChange = Page_Sheet_Change
+          OnEnter = Page_Sheet_Change
+        end
+        object Page_Sheet_C_Web: TButton
+          Left = 567
+          Top = 99
+          Width = 38
+          Height = 20
+          Hint = 'Go to the Web site for this codec'
+          Caption = 'Web'
+          Enabled = False
+          TabOrder = 3
+          OnClick = Page_Sheet_WebClick
+        end
+        object Page_Sheet_G: TComboBox
+          Left = 1
+          Top = 1
+          Width = 561
+          Height = 23
+          TabOrder = 4
+          OnChange = Page_Sheet_Change
+          OnEnter = Page_Sheet_Change
+        end
+        object Page_Sheet_G_Web: TButton
+          Left = 567
+          Top = 3
+          Width = 38
+          Height = 20
+          Hint = 'Go to the web site of a player for this file'
+          Caption = 'Web'
+          Enabled = False
+          TabOrder = 5
+          OnClick = Page_Sheet_WebClick
+        end
+        object Page_Sheet_T: TComboBox
+          Left = 1
+          Top = 73
+          Width = 561
+          Height = 23
+          Enabled = False
+          TabOrder = 6
+          OnChange = Page_Sheet_Change
+          OnEnter = Page_Sheet_Change
+        end
+        object Page_Sheet_T_Web: TButton
+          Left = 567
+          Top = 75
+          Width = 38
+          Height = 20
+          Hint = 'Go to the Web site for this codec'
+          Caption = 'Web'
+          Enabled = False
+          TabOrder = 7
+          OnClick = Page_Sheet_WebClick
+        end
+        object Page_Sheet_Text: TMemo
+          Left = 1
+          Top = 121
+          Width = 604
+          Height = 104
+          Color = clBtnFace
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -12
+          Font.Name = 'System'
+          Font.Pitch = fpFixed
+          Font.Style = []
+          ParentFont = False
+          ScrollBars = ssVertical
+          TabOrder = 8
+        end
+        object Page_Sheet_V: TComboBox
+          Left = 1
+          Top = 25
+          Width = 561
+          Height = 23
+          Enabled = False
+          TabOrder = 9
+          OnChange = Page_Sheet_Change
+          OnEnter = Page_Sheet_Change
+        end
+        object Page_Sheet_V_Web: TButton
+          Left = 567
+          Top = 27
+          Width = 38
+          Height = 20
+          Hint = 'Go to the Web site for this codec'
+          Caption = 'Web'
+          Enabled = False
+          TabOrder = 10
+          OnClick = Page_Sheet_WebClick
+        end
       end
     end
     object Page_Tree: TTabSheet
