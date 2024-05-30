@@ -2047,6 +2047,7 @@ void __fastcall TMainF::Footer_ButtonClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_Options_DarkmodeClick(TObject* Sender)
 {
+    M_View_EasyClick(NULL); // This is for avoiding a popup "Cannot focus a disabled or invisible window when another view is selected. TODO: better handle of this issue
     if (M_Options_Darkmode->Checked) {
         TStyleManager::TrySetStyle(LIGHT_MODE_STYLE, false);
         M_Options_Darkmode->Checked = false;
