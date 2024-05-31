@@ -12,6 +12,30 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 24.05, 2024-05-30
+-------------
++ I2029, MXF: decode of VBI (Line 21 & VITC)
++ I2058, VorbisCom: show MusicBrainz IDs in XML or full text output
++ I1881, MXF & MOV: customizable seek pos and duration of caption probe
++ I2005, WavPack: support of non-standard sampling rate
++ I2021, MP4: support of Qt style AudioSampleEntry in ISO MP4
++ Conformance checker: report of malformed frames for AVC & HEVC & AAC
++ Conformance checker: an element is indicated bigger than its upper element
++ Conformance checker: Add more stream synchronization related checks
++ Conformance checker: Check coherency of MXF elements having vectors
++ Conformance checker: check of MPEG Audio sync loss in raw MP3 & truncated file
++ Conformance checker: FFV1 checks also when in AVI and MOV/MP4
++ Conformance checker: check if a TIFF file is complete
++ Conformance checker: span of frames & frame/timestamp/byte offset
+x Avoid infinite loop with distant files
+x MXF: Support of SMPTE ST 422-2019 I2
+x I2055, Dolby Vision: fix crash with some files
+x I2054, ID3v2: fix crash with some malformed files
+x FFV1: fix conformance checker crash with Golomb Rice parsing
+x AC-3: fix crash with some TrueHD files
+x I2005, WavPack: handle of small files
+x BMP: fix bitdepth info
+
 Version 24.04, 2024-04-18
 -------------
 + ADM: more AdvSS Emission profile checks
