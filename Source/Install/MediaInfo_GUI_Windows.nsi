@@ -5,7 +5,7 @@ RequestExecutionLevel admin
 ; Some defines
 !define PRODUCT_NAME "MediaInfo"
 !define PRODUCT_PUBLISHER "MediaArea.net"
-!define PRODUCT_VERSION "24.04"
+!define PRODUCT_VERSION "24.05"
 !define PRODUCT_VERSION4 "${PRODUCT_VERSION}.0.0"
 !define PRODUCT_WEB_SITE "http://MediaArea.net/MediaInfo"
 !define COMPANY_REGISTRY_OLD "Software\MediaArea.net"
