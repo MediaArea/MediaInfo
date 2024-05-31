@@ -332,31 +332,34 @@ void __fastcall TMainF::GUI_Configure()
 void __fastcall TMainF::FormShow(TObject *Sender)
 {
     //Configuration of MediaInfoLib
-    if (I==NULL)
-        I=new MediaInfoList;
+    if (I == NULL)
+    {
+        I = new MediaInfoList;
 
-    //Load GUI preferences
-    GUI_Configure();
+        //Load GUI preferences
+        GUI_Configure();
 
-    //File(s) in command line
-    #ifdef UNICODE
-        if (IsWin9X())
-        {
-            for (int I1=1; I1<=ParamCount(); I1++)
-                I->Open(ParamStr(I1).c_str());
-        }
-        else
-        {
-            int argc;
-            MediaInfoNameSpace::Char** argv=CommandLineToArgvW(GetCommandLineW(), &argc);
-            for (int I1=1; I1<argc; I1++)
-                I->Open(argv[I1]);
-        }
-    #else
-        for (int I1=1; I1<ParamCount(); I1++)
-             I->Open(Ztring().From_Local(ParamStr(I1).c_str()));
-    #endif
-    Refresh();
+        //File(s) in command line
+        #ifdef UNICODE
+            if (IsWin9X())
+            {
+                for (int I1 = 1; I1 <= ParamCount(); I1++)
+                    I->Open(ParamStr(I1).c_str());
+            }
+            else
+            {
+                int argc;
+                MediaInfoNameSpace::Char** argv = CommandLineToArgvW(GetCommandLineW(), &argc);
+                for (int I1 = 1; I1 < argc; I1++)
+                    I->Open(argv[I1]);
+            }
+        #else
+            for (int I1 = 1; I1 < ParamCount(); I1++)
+                I->Open(Ztring().From_Local(ParamStr(I1).c_str()));
+        #endif
+
+        Refresh();
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -2047,7 +2050,6 @@ void __fastcall TMainF::Footer_ButtonClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_Options_DarkmodeClick(TObject* Sender)
 {
-    M_View_EasyClick(NULL); // This is for avoiding a popup "Cannot focus a disabled or invisible window when another view is selected. TODO: better handle of this issue
     if (M_Options_Darkmode->Checked) {
         TStyleManager::TrySetStyle(LIGHT_MODE_STYLE, false);
         M_Options_Darkmode->Checked = false;
@@ -2062,8 +2064,7 @@ void __fastcall TMainF::ApplicationEvents1OnSettingChange(
     TObject* Sender, int Flag, const UnicodeString Section, int &Result)
 {
     if (Section == "ImmersiveColorSet") {
-	    M_View_EasyClick(NULL); // This is for avoiding a popup "Cannot focus a disabled or invisible window when another view is selected. TODO: better handle of this issue
-		if (WindowsDarkModeEnabled()) {
+        if (WindowsDarkModeEnabled()) {
             TStyleManager::TrySetStyle(DARK_MODE_STYLE, false);
             M_Options_Darkmode->Checked = true;
         } else {
