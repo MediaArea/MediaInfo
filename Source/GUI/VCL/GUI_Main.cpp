@@ -332,31 +332,35 @@ void __fastcall TMainF::GUI_Configure()
 void __fastcall TMainF::FormShow(TObject *Sender)
 {
     //Configuration of MediaInfoLib
-    if (I==NULL)
-        I=new MediaInfoList;
+    if (I == NULL)
+    {
+        I = new MediaInfoList;
 
-    //Load GUI preferences
-    GUI_Configure();
+        //Load GUI preferences
+        GUI_Configure();
 
-    //File(s) in command line
-    #ifdef UNICODE
-        if (IsWin9X())
-        {
-            for (int I1=1; I1<=ParamCount(); I1++)
-                I->Open(ParamStr(I1).c_str());
-        }
-        else
-        {
-            int argc;
-            MediaInfoNameSpace::Char** argv=CommandLineToArgvW(GetCommandLineW(), &argc);
-            for (int I1=1; I1<argc; I1++)
-                I->Open(argv[I1]);
-        }
-    #else
-        for (int I1=1; I1<ParamCount(); I1++)
-             I->Open(Ztring().From_Local(ParamStr(I1).c_str()));
-    #endif
-    Refresh();
+        //if(I->Count_Get()==0){
+        //File(s) in command line
+        #ifdef UNICODE
+            if (IsWin9X())
+            {
+                for (int I1 = 1; I1 <= ParamCount(); I1++)
+                    I->Open(ParamStr(I1).c_str());
+            }
+            else
+            {
+                int argc;
+                MediaInfoNameSpace::Char** argv = CommandLineToArgvW(GetCommandLineW(), &argc);
+                for (int I1 = 1; I1 < argc; I1++)
+                    I->Open(argv[I1]);
+            }
+        #else
+            for (int I1 = 1; I1 < ParamCount(); I1++)
+                I->Open(Ztring().From_Local(ParamStr(I1).c_str()));
+        #endif
+
+        Refresh();
+    }
 }
 
 //---------------------------------------------------------------------------
