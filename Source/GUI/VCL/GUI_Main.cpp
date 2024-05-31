@@ -110,6 +110,21 @@ bool __fastcall TMainF::WindowsDarkModeEnabled()
     return DarkModeEnabled;
 }
 
+//Function to inject a CSS style into html documents to make their look match the dark mode style
+std::wstring __fastcall TMainF::InjectDarkModeHTMLStyle(const wchar_t* HTMLDocument) {
+    const wchar_t* InsertionPoint = wcsstr(HTMLDocument, L"<head>");
+    const wchar_t* StyleContent = L"<style>body { background-color: #1F1F1F; color: #FFFFFF; }</style>";
+
+    if (InsertionPoint != nullptr) {
+        size_t InsertionPos = InsertionPoint - HTMLDocument + wcslen(L"<head>");
+        std::wstring ModifiedHTML(HTMLDocument);
+        ModifiedHTML.insert(InsertionPos, StyleContent);
+        return ModifiedHTML;
+    } else {
+        return HTMLDocument;
+    }
+}
+
 //---------------------------------------------------------------------------
 
 //***************************************************************************
@@ -460,7 +475,7 @@ void __fastcall TMainF::FormResize(TObject *Sender)
                 {
                     Page_Sheet_X_Web[KindOfStream]->Top =Page_Sheet_X[KindOfStream]->Top+1;
                     Page_Sheet_X_Web[KindOfStream]->Left=Page_Sheet_X[KindOfStream]->Width;
-				}
+                }
                 if (!Page_Sheet_X[KindOfStream+1]) //reached the bottom
                 {
                     //Bottom
@@ -904,6 +919,9 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             //Creating file
             Ztring S1=I->Inform().c_str();
             File F;
+            if (M_Options_Darkmode->Checked) {
+                S1=InjectDarkModeHTMLStyle(I->Inform().c_str());
+            }
             if (FileName_Temp==__T(""))
             {
                 FileName_Temp=FileName::TempFileName_Create(__T("MI_"));
@@ -920,9 +938,12 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
         {
             Ztring TempA; TempA=Prefs->Translate(__T("At least one file"));
             Ztring Temp;
-            Temp+=L"about:<html><body>";
+            Temp+=L"about:<html><head></head><body>";
             Temp+=TempA.To_Unicode();
             Temp+=L"</body></html>";
+            if (M_Options_Darkmode->Checked) {
+                Temp=InjectDarkModeHTMLStyle(Temp.c_str());
+            }
             Page_HTML_HTML->Navigate((MediaInfoNameSpace::Char*)Temp.c_str());
         }
     }
@@ -980,7 +1001,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             I->Option_Static(__T("Inform"), Prefs->Details[Prefs_Custom].Read());
         Ztring S1=I->Inform();
         if (S1.empty())
-			S1=Prefs->Translate(__T("At least one file")).c_str();
+            S1=Prefs->Translate(__T("At least one file")).c_str();
 
         if (I->Option_Static(__T("Inform_Get"), __T("")) == __T("Graph_Svg"))
         {
