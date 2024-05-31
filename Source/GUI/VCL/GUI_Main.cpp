@@ -243,7 +243,16 @@ __fastcall TMainF::TMainF(TComponent* Owner)
 void __fastcall TMainF::GUI_Configure()
 {
     //Hard coded
-    float DPIScale=static_cast<float>(GetSystemDpiForProcess(GetCurrentProcess()))/96;
+    OSVERSIONINFO osvi;
+    ZeroMemory(&osvi, sizeof(OSVERSIONINFO));
+    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+    GetVersionEx(&osvi);
+    int DPI;
+    if (osvi.dwMajorVersion >= 10 && (osvi.dwMajorVersion > 10 || osvi.dwMinorVersion > 0 || osvi.dwBuildNumber >= 17134))
+        DPI=GetSystemDpiForProcess(GetCurrentProcess());
+    else
+        DPI=GetDeviceCaps(GetDC(NULL), LOGPIXELSX);
+    float DPIScale=static_cast<float>(DPI)/96;
     float ScaledScreenWidth=Screen->Width/DPIScale;
     float ScaledScreenHeight=Screen->Height/DPIScale;
     Width=500;
