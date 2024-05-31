@@ -2062,7 +2062,8 @@ void __fastcall TMainF::ApplicationEvents1OnSettingChange(
     TObject* Sender, int Flag, const UnicodeString Section, int &Result)
 {
     if (Section == "ImmersiveColorSet") {
-        if (WindowsDarkModeEnabled()) {
+	    M_View_EasyClick(NULL); // This is for avoiding a popup "Cannot focus a disabled or invisible window when another view is selected. TODO: better handle of this issue
+		if (WindowsDarkModeEnabled()) {
             TStyleManager::TrySetStyle(DARK_MODE_STYLE, false);
             M_Options_Darkmode->Checked = true;
         } else {
