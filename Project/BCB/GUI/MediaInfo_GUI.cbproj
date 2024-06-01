@@ -111,6 +111,7 @@
 			<Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
 			<AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
 			<Icon_MainIcon>..\..\..\Source\Resource\Image\MediaInfo.ico</Icon_MainIcon>
+			<ILINK_DelayLoadDll>user32.dll;$(ILINK_DelayLoadDll)</ILINK_DelayLoadDll>
 		</PropertyGroup>
 		<ItemGroup>
 			<LibFiles Condition="'$(Platform)'=='Win32'" Include="$(BDSLIB)\win32\release\wininet.lib">

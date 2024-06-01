@@ -248,8 +248,8 @@ void __fastcall TMainF::GUI_Configure()
     osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
     GetVersionEx(&osvi);
     int DPI;
-    if (osvi.dwMajorVersion >= 10 && (osvi.dwMajorVersion > 10 || osvi.dwMinorVersion > 0 || osvi.dwBuildNumber >= 17134))
-        DPI=GetDeviceCaps(GetDC(NULL), LOGPIXELSX); // GetSystemDpiForProcess(GetCurrentProcess());
+    if (osvi.dwMajorVersion >= 10 && (osvi.dwMajorVersion > 10 || osvi.dwMinorVersion > 0 || osvi.dwBuildNumber >= 14939))
+        DPI=GetDpiForWindow(WindowHandle);
     else
         DPI=GetDeviceCaps(GetDC(NULL), LOGPIXELSX);
     float DPIScale=static_cast<float>(DPI)/96;
