@@ -165,23 +165,23 @@ win32 {
         }
 
         contains(QT_ARCH, x86_64) {
-            exists(../../../../MediaInfoLib/Project/MSVC2017/x64/Release/MediaInfo-Static.lib) {
+            exists(../../../../MediaInfoLib/Project/MSVC2022/x64/Release/MediaInfo-Static.lib) {
                 INCLUDEPATH += ../../../../MediaInfoLib/Source
-                LIBS += ../../../../MediaInfoLib/Project/MSVC2017/x64/Release/MediaInfo-Static.lib
+                LIBS += $$PWD/../../../../MediaInfoLib/Project/MSVC2022/x64/Release/MediaInfo-Static.lib
             } else {
                 error("libmediainfo not found on system")
             }
 
-            exists(../../../../ZenLib/Project/MSVC2017/x64/Release/ZenLib.lib) {
+            exists(../../../../ZenLib/Project/MSVC2022/x64/Release/ZenLib.lib) {
                 INCLUDEPATH += ../../../../ZenLib/Source
-                LIBS += ../../../../ZenLib/Project/MSVC2017/x64/Release/ZenLib.lib
+                LIBS += $$PWD/../../../../ZenLib/Project/MSVC2022/x64/Release/ZenLib.lib
             } else {
                 error("libzen not found on system")
             }
 
-            exists(../../../../zlib/contrib/vstudio/vc15/x64/ZlibStatReleaseWithoutAsm/zlibstat.lib) {
+            exists(../../../../zlib/contrib/vstudio/vc17/x64/ZlibStatReleaseWithoutAsm/zlibstat.lib) {
                 INCLUDEPATH += ../../../../zlib
-                LIBS += ../../../../zlib/contrib/vstudio/vc15/x64/ZlibStatReleaseWithoutAsm/zlibstat.lib
+                LIBS += $$PWD/../../../../zlib/contrib/vstudio/vc17/x64/ZlibStatReleaseWithoutAsm/zlibstat.lib
             } else {
                 error("zlib not found on system")
             }
