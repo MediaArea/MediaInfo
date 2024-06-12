@@ -44,6 +44,18 @@
 				<string>public.audio</string>
 			</array>
 		</dict>
+			<dict>
+			<key>CFBundleTypeName</key>
+			<string>Image</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.image</string>
+			</array>
+		</dict>
 		<dict>
 			<key>CFBundleTypeName</key>
 			<string>Subtitle</string>
@@ -173,6 +185,34 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
+				<string>bmp</string>
+				<string>bpg</string>
+				<string>dds</string>
+				<string>dpx</string>
+				<string>exr</string>
+				<string>gif</string>
+				<string>ico</string>
+				<string>jpg</string>
+				<string>jpeg</string>
+				<string>pcx</string>
+				<string>png</string>
+				<string>psd</string>
+				<string>rle</string>
+				<string>tga</string>
+				<string>tiff</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Image</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSTypeIsPackage</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
 				<string>ass</string>
 				<string>idx</string>
 				<string>jss</string>
@@ -259,6 +299,7 @@
 				<string>public.movie</string>
 				<string>public.video</string>
 				<string>public.audio</string>
+				<string>public.image</string>
 				<string>public.subtitle</string>
 			</array>
 			<key>NSSendTypes</key>
