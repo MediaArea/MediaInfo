@@ -1233,7 +1233,7 @@ void __fastcall TMainF::M_File_Open_FolderClick(TObject *Sender)
     if (!FolderOpenDialog1->Execute(Handle))
         return;
 
-    if (TDirectory::GetFiles(FolderOpenDialog1->FileName).Length != 0) {
+    if (FolderOpenDialog1->FileName.Length != 0) {
         // First we clear the list
         if (M_Options_CloseAllAuto->Checked)
             M_File_Close_AllClick(Sender);
