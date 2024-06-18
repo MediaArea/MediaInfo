@@ -17,8 +17,6 @@
 #include "configtreetext.h"
 #include "custom.h"
 
-#include <iostream>
-#include <iomanip>
 #include <QDropEvent>
 #include <QFileDialog>
 #include <QMessageBox>
