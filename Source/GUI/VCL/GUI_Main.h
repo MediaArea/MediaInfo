@@ -270,6 +270,7 @@ __published:    // IDE-managed Components
     void __fastcall Page_Easy_FileChange(TObject *Sender);
     void __fastcall Page_Easy_DifferentViewClick(TObject *Sender);
     void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
+    void __fastcall FormDestroy(TObject *Sender);
     void __fastcall Page_Sheet_Change(TObject *Sender);
     void __fastcall Page_Sheet_WebClick(TObject *Sender);
     void __fastcall Page_Easy_WebClick(TObject *Sender);
