@@ -110,6 +110,37 @@ bool __fastcall TMainF::WindowsDarkModeEnabled()
     return DarkModeEnabled;
 }
 
+void __fastcall TMainF::ConfigTheme()
+{
+    switch(Prefs->Config(__T("Theme")).To_int32s()) {
+        case 0:
+            M_Options_Theme_System->Checked = true;
+            if (WindowsDarkModeEnabled()) {
+                TStyleManager::TrySetStyle(DARK_MODE_STYLE, false);
+            } else {
+                TStyleManager::TrySetStyle(LIGHT_MODE_STYLE, false);
+            }
+            break;
+        case 1:
+            M_Options_Theme_Light->Checked = true;
+            TStyleManager::TrySetStyle(LIGHT_MODE_STYLE, false);
+            break;
+        case 2:
+            M_Options_Theme_Dark->Checked = true;
+            TStyleManager::TrySetStyle(DARK_MODE_STYLE, false);
+            break;
+        default:
+            Prefs->Config(__T("Theme")) = __T("0");
+            M_Options_Theme_System->Checked = true;
+            if (WindowsDarkModeEnabled()) {
+                TStyleManager::TrySetStyle(DARK_MODE_STYLE, false);
+            } else {
+                TStyleManager::TrySetStyle(LIGHT_MODE_STYLE, false);
+            }
+            break;
+    }
+}
+
 //Function to inject a CSS style into html documents to make their look match the dark mode style
 std::wstring __fastcall TMainF::InjectDarkModeHTMLStyle(const wchar_t* HTMLDocument) {
     const wchar_t* InsertionPoint = wcsstr(HTMLDocument, L"<head>");
@@ -214,12 +245,6 @@ __fastcall TMainF::TMainF(TComponent* Owner)
     Page_Position=-1;
     Caption=MEDIAINFO_TITLE;
 
-    //Set dark mode
-    if (WindowsDarkModeEnabled()) {
-        TStyleManager::TrySetStyle(DARK_MODE_STYLE, false);
-        M_Options_Darkmode->Checked=true;
-    }
-
     //Opt-out from styling dialogs and use native Windows dialogs for dark mode as well
     TStyleManager::SystemHooks = TStyleManager::SystemHooks -
                                  (TStyleManager::TSystemHooks() << TStyleManager::TSystemHook::shDialogs);
@@ -233,6 +258,32 @@ __fastcall TMainF::TMainF(TComponent* Owner)
         Page_Custom_Text->Font = monoFont;
         Page_Sheet_Text->Font = monoFont;
     }
+
+    //Configuration of MediaInfoLib
+    if (I == NULL)
+        I = new MediaInfoList;
+
+    //Load GUI preferences
+    GUI_Configure();
+
+    //File(s) in command line
+    #ifdef UNICODE
+        if (IsWin9X())
+        {
+            for (int I1 = 1; I1 <= ParamCount(); I1++)
+                I->Open(ParamStr(I1).c_str());
+        }
+        else
+        {
+            int argc;
+            MediaInfoNameSpace::Char** argv = CommandLineToArgvW(GetCommandLineW(), &argc);
+            for (int I1 = 1; I1 < argc; I1++)
+                I->Open(argv[I1]);
+        }
+    #else
+        for (int I1 = 1; I1 < ParamCount(); I1++)
+            I->Open(Ztring().From_Local(ParamStr(I1).c_str()));
+    #endif
 }
 
 //***************************************************************************
@@ -242,34 +293,6 @@ __fastcall TMainF::TMainF(TComponent* Owner)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::GUI_Configure()
 {
-    //Hard coded
-    OSVERSIONINFO osvi;
-    ZeroMemory(&osvi, sizeof(OSVERSIONINFO));
-    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-    GetVersionEx(&osvi);
-    int DPI;
-    if (osvi.dwMajorVersion >= 10 && (osvi.dwMajorVersion > 10 || osvi.dwMinorVersion > 0 || osvi.dwBuildNumber >= 14939))
-        DPI=GetDpiForWindow(WindowHandle);
-    else
-        DPI=GetDeviceCaps(GetDC(NULL), LOGPIXELSX);
-    float DPIScale=static_cast<float>(DPI)/96;
-    float ScaledScreenWidth=Screen->Width/DPIScale;
-    float ScaledScreenHeight=Screen->Height/DPIScale;
-    Width=500;
-    Height=400;
-    if (ScaledScreenWidth>=1024)
-        Width=700;
-    if (ScaledScreenWidth>=1280)
-        Width=830;
-    if (ScaledScreenHeight>=768)
-        Height=500;
-    if (ScaledScreenHeight>=1024)
-        Height=600;
-    Width*=DPIScale;
-    Height*=DPIScale;
-    Left=(Screen->Width-Width)/2;
-    Top=(Screen->Height-Height)/2;
-
     //Load Configuration
     if (Prefs->Config_Load()==2) //Showing options if no config
     {
@@ -348,42 +371,44 @@ void __fastcall TMainF::GUI_Configure()
     //Translation
     Translate();
 
-    //Refresh global
-    FormResize(NULL);
+    //Configure theme
+    ConfigTheme();
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::FormShow(TObject *Sender)
 {
-    //Configuration of MediaInfoLib
-    if (I == NULL)
-    {
-        I = new MediaInfoList;
+    //Set window size and position
+    OSVERSIONINFO osvi;
+    ZeroMemory(&osvi, sizeof(OSVERSIONINFO));
+    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+    GetVersionEx(&osvi);
+    int DPI;
+    if (osvi.dwMajorVersion >= 10 && (osvi.dwMajorVersion > 10 || osvi.dwMinorVersion > 0 || osvi.dwBuildNumber >= 14939))
+        DPI=GetDpiForWindow(WindowHandle);
+    else
+        DPI=GetDeviceCaps(GetDC(NULL), LOGPIXELSX);
+    float DPIScale=static_cast<float>(DPI)/96;
+    float ScaledScreenWidth=Screen->Width/DPIScale;
+    float ScaledScreenHeight=Screen->Height/DPIScale;
+    Width=500;
+    Height=400;
+    if (ScaledScreenWidth>=1024)
+        Width=700;
+    if (ScaledScreenWidth>=1280)
+        Width=830;
+    if (ScaledScreenHeight>=768)
+        Height=500;
+    if (ScaledScreenHeight>=1024)
+        Height=600;
+    Width*=DPIScale;
+    Height*=DPIScale;
+    Left=(Screen->Width-Width)/2;
+    Top=(Screen->Height-Height)/2;
 
-        //Load GUI preferences
-        GUI_Configure();
-
-        //File(s) in command line
-        #ifdef UNICODE
-            if (IsWin9X())
-            {
-                for (int I1 = 1; I1 <= ParamCount(); I1++)
-                    I->Open(ParamStr(I1).c_str());
-            }
-            else
-            {
-                int argc;
-                MediaInfoNameSpace::Char** argv = CommandLineToArgvW(GetCommandLineW(), &argc);
-                for (int I1 = 1; I1 < argc; I1++)
-                    I->Open(argv[I1]);
-            }
-        #else
-            for (int I1 = 1; I1 < ParamCount(); I1++)
-                I->Open(Ztring().From_Local(ParamStr(I1).c_str()));
-        #endif
-
-        Refresh();
-    }
+    //Refresh global
+    FormResize(NULL);
+    Refresh();
 }
 
 //---------------------------------------------------------------------------
@@ -940,7 +965,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             //Creating file
             Ztring S1=I->Inform().c_str();
             File F;
-            if (M_Options_Darkmode->Checked) {
+            if (TStyleManager::ActiveStyle == TStyleManager::Style[DARK_MODE_STYLE]) {
                 S1=InjectDarkModeHTMLStyle(I->Inform().c_str());
             }
             if (FileName_Temp==__T(""))
@@ -962,7 +987,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             Temp+=L"about:<html><head></head><body>";
             Temp+=TempA.To_Unicode();
             Temp+=L"</body></html>";
-            if (M_Options_Darkmode->Checked) {
+            if (TStyleManager::ActiveStyle == TStyleManager::Style[DARK_MODE_STYLE]) {
                 Temp=InjectDarkModeHTMLStyle(Temp.c_str());
             }
             Page_HTML_HTML->Navigate((MediaInfoNameSpace::Char*)Temp.c_str());
@@ -2090,15 +2115,27 @@ void __fastcall TMainF::Footer_ButtonClick(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
-void __fastcall TMainF::M_Options_DarkmodeClick(TObject* Sender)
+void __fastcall TMainF::M_Options_Theme_SystemClick(TObject *Sender)
 {
-    if (M_Options_Darkmode->Checked) {
-        TStyleManager::TrySetStyle(LIGHT_MODE_STYLE, false);
-        M_Options_Darkmode->Checked = false;
-    } else {
-        TStyleManager::TrySetStyle(DARK_MODE_STYLE, false);
-        M_Options_Darkmode->Checked = true;
-    }
+    Prefs->Config(__T("Theme")) = __T("0");
+    Prefs->Config.Save();
+    ConfigTheme();
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::M_Options_Theme_LightClick(TObject *Sender)
+{
+    Prefs->Config(__T("Theme")) = __T("1");
+    Prefs->Config.Save();
+    ConfigTheme();
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::M_Options_Theme_DarkClick(TObject *Sender)
+{
+    Prefs->Config(__T("Theme")) = __T("2");
+    Prefs->Config.Save();
+    ConfigTheme();
 }
 
 //---------------------------------------------------------------------------
@@ -2106,13 +2143,7 @@ void __fastcall TMainF::ApplicationEvents1OnSettingChange(
     TObject* Sender, int Flag, const UnicodeString Section, int &Result)
 {
     if (Section == "ImmersiveColorSet") {
-        if (WindowsDarkModeEnabled()) {
-            TStyleManager::TrySetStyle(DARK_MODE_STYLE, false);
-            M_Options_Darkmode->Checked = true;
-        } else {
-            TStyleManager::TrySetStyle(LIGHT_MODE_STYLE, false);
-            M_Options_Darkmode->Checked = false;
-        }
+        ConfigTheme();
     }
 }
 

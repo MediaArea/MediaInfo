@@ -258,6 +258,7 @@ int Preferences::Config_Save()
     if (Config(__T("Donated")).empty()) Config(__T("Donated"))=__T("0");
     if (Config(__T("Donate_Display")).empty()) Config(__T("Donate_Display"))=__T("1");
     if (Config(__T("Sponsored")).empty()) Config(__T("Sponsored"))=__T("0");
+    if (Config(__T("Theme")).empty()) Config(__T("Theme"))=__T("0");
 
     HANDLE Temp=CreateFile((BaseFolder+__T("MediaInfo.cfg")).c_str(), GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, 0, NULL);
     if (Temp==INVALID_HANDLE_VALUE)
