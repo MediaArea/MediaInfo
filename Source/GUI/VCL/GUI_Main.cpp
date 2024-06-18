@@ -389,9 +389,17 @@ void __fastcall TMainF::FormShow(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::FormClose(TObject *Sender, TCloseAction &Action)
 {
-    if (Page->ActivePage==Page_Sheet) //TODO : find WHY there is a crash without this...
-        ChangePage(Page_Easy);
+    //Delete temp HTML file on close
+    if (FileName_Temp!=__T(""))
+        File::Delete(FileName_Temp);
 
+    //The form is closed and all allocated memory for the form is freed.
+    Action = caFree;
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::FormDestroy(TObject *Sender)
+{
     delete Prefs; Prefs=NULL;
     delete I; I=NULL;
 }
@@ -399,6 +407,10 @@ void __fastcall TMainF::FormClose(TObject *Sender, TCloseAction &Action)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::FormResize(TObject *Sender)
 {
+    //If triggered on application close
+    if(Prefs==NULL)
+        return;
+
     //Main View
     Page->Left  =(ToolBar->Visible?ToolBar->Width:0)-2;
     Page->Width =ClientWidth-Page->Left+2;

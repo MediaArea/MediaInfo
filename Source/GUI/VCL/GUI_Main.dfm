@@ -12,6 +12,7 @@ object MainF: TMainF
   Font.Style = []
   Menu = MainMenu
   OnClose = FormClose
+  OnDestroy = FormDestroy
   OnResize = FormResize
   OnShow = FormShow
   TextHeight = 13
@@ -2090,7 +2091,7 @@ object MainF: TMainF
   end
   object MainMenu: TMainMenu
     Images = Menu_Image
-    Left = 764
+    Left = 768
     Top = 28
     object M_File: TMenuItem
       Caption = 'File'
