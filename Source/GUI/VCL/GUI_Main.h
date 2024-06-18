@@ -228,12 +228,15 @@ __published:    // IDE-managed Components
     TImageCollection* ImageCollection1;
     TVirtualImageList* Menu_Image;
     TVirtualImageList* Toolbar_Image;
-    TMenuItem *M_Options_Darkmode;
     TApplicationEvents *ApplicationEvents1;
     TFileOpenDialog *FolderOpenDialog1;
     TPanel *Page_Sheet_Panel1;
     TSplitter *Page_Sheet_Splitter1;
     TPanel *Page_Sheet_Panel2;
+    TMenuItem *M_Options_Theme;
+    TMenuItem *M_Options_Theme_System;
+    TMenuItem *M_Options_Theme_Light;
+    TMenuItem *M_Options_Theme_Dark;
     void __fastcall FormResize(TObject *Sender);
     void __fastcall M_Help_AboutClick(TObject *Sender);
     void __fastcall M_Options_PreferencesClick(TObject *Sender);
@@ -309,10 +312,12 @@ __published:    // IDE-managed Components
     void __fastcall M_View_NISO_Z39_87Click(TObject *Sender);
     void __fastcall M_View_Graph_SvgClick(TObject *Sender);
     void __fastcall M_Options_FullParsingClick(TObject *Sender);
-    void __fastcall M_Options_DarkmodeClick(TObject *Sender);
     void __fastcall ApplicationEvents1OnSettingChange(TObject *Sender, int Flag, const UnicodeString Section,
           int &Result);
     void __fastcall Page_Sheet_Splitter1Moved(TObject *Sender);
+    void __fastcall M_Options_Theme_SystemClick(TObject *Sender);
+    void __fastcall M_Options_Theme_LightClick(TObject *Sender);
+    void __fastcall M_Options_Theme_DarkClick(TObject *Sender);
 protected:
     virtual void __fastcall CreateWnd();
     virtual void __fastcall DestroyWnd();
@@ -321,6 +326,7 @@ private:    // User declarations
     const UnicodeString LIGHT_MODE_STYLE = "Windows";               // Name of style for light mode;
     const UnicodeString DARK_MODE_STYLE = "Windows11 Modern Dark";  // Name of style for dark mode
     bool __fastcall WindowsDarkModeEnabled();
+    void __fastcall ConfigTheme();
     std::wstring __fastcall InjectDarkModeHTMLStyle(const wchar_t* HTMLDocument);
 public:        // User declarations
     MESSAGE void __fastcall HandleDropFiles (TMessage&);

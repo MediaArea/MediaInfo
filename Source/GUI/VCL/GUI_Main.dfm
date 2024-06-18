@@ -2339,9 +2339,24 @@ object MainF: TMainF
         Hint = 'Show Menu'
         OnClick = M_Options_ShowMenuClick
       end
-      object M_Options_Darkmode: TMenuItem
-        Caption = 'Dark mode'
-        OnClick = M_Options_DarkmodeClick
+      object M_Options_Theme: TMenuItem
+        Caption = 'Theme'
+        object M_Options_Theme_System: TMenuItem
+          Caption = 'System'
+          Checked = True
+          RadioItem = True
+          OnClick = M_Options_Theme_SystemClick
+        end
+        object M_Options_Theme_Light: TMenuItem
+          Caption = 'Light'
+          RadioItem = True
+          OnClick = M_Options_Theme_LightClick
+        end
+        object M_Options_Theme_Dark: TMenuItem
+          Caption = 'Dark'
+          RadioItem = True
+          OnClick = M_Options_Theme_DarkClick
+        end
       end
       object N5: TMenuItem
         Caption = '-'
