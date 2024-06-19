@@ -488,7 +488,8 @@ void MainWindow::openDir(QString dirName) {
 }
 
 void MainWindow::refreshDisplay() {
-    QFont font("Mono");
+    QStringList fonts = { "Cascadia Mono", "Mono" };
+    QFont font(fonts);
     font.setStyleHint(QFont::TypeWriter);
 
     ui->actionAdapt_columns_to_content->setVisible(false);
