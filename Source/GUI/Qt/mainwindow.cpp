@@ -198,23 +198,23 @@ MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) :
     ui->actionExport->setIcon(QIcon(":/icon/export.svg"));
 
     menuView = new QMenu();
-   QActionGroup* menuItemGroup = new QActionGroup(this);
-   for(int v=VIEW_EASY;v<NB_VIEW;v++) {
-       QAction* action = new QAction(nameView((ViewMode)v), menuItemGroup);
-       action->setCheckable(true);
-       if(view==v)
-           action->setChecked(true);
-       action->setProperty("view",v);
-       ui->menuView->addAction(action);
-       menuView->addAction(action);
-   }
-   connect(menuItemGroup,SIGNAL(triggered(QAction*)),this,SLOT(actionView_toggled(QAction*)));
+    QActionGroup* menuItemGroup = new QActionGroup(this);
+    for(int v=VIEW_EASY;v<NB_VIEW;v++) {
+        QAction* action = new QAction(nameView((ViewMode)v), menuItemGroup);
+        action->setCheckable(true);
+        if(view==v)
+            action->setChecked(true);
+        action->setProperty("view",v);
+        ui->menuView->addAction(action);
+        menuView->addAction(action);
+    }
+    connect(menuItemGroup,SIGNAL(triggered(QAction*)),this,SLOT(actionView_toggled(QAction*)));
 
-   buttonView = new QToolButton();
-   buttonView->setText("view");
-   buttonView->setIcon(QIcon(":/icon/view.svg"));
-   connect(buttonView, SIGNAL(clicked()), this, SLOT(buttonViewClicked()));
-   ui->toolBar->addWidget(buttonView);
+    buttonView = new QToolButton();
+    buttonView->setText("view");
+    buttonView->setIcon(QIcon(":/icon/view.svg"));
+    connect(buttonView, SIGNAL(clicked()), this, SLOT(buttonViewClicked()));
+    ui->toolBar->addWidget(buttonView);
 
     ui->toolBar->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->toolBar,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(toolBarOptions(QPoint)));
@@ -273,33 +273,33 @@ void MainWindow::checkForNewVersion() {
     reply = qnam.get(QNetworkRequest(url));
     qDebug() << "downloading " << url.toString();
 
-     connect(reply, SIGNAL(finished()), this, SLOT(httpFinished()));
-     connect(reply, SIGNAL(readyRead()), this, SLOT(httpReadyRead()));
+    connect(reply, SIGNAL(finished()), this, SLOT(httpFinished()));
+    connect(reply, SIGNAL(readyRead()), this, SLOT(httpReadyRead()));
 
 }
 
 void MainWindow::httpFinished()
 {
-         if (reply->error()) {
-             qDebug() << "Download failed";
-         } else {
-             qDebug() << "Downloaded file to temp string.";
-         }
+    if (reply->error()) {
+        qDebug() << "Download failed";
+    } else {
+        qDebug() << "Downloaded file to temp string.";
+    }
 
-         ZtringListList X;
-         X.Write(file.toStdString().c_str());
-         if (isNewer(wstring2QString(X("NewVersion")),QString(VERSION))) {
-             qDebug() << "New version is available.";
-             qDebug() << "latest is " << wstring2QString(X("NewVersion")).toStdString().c_str();
-             ui->menuBar->addAction(Tr("Update to new version"),this,SLOT(updateToNewVersion()));
-         } else {
-             qDebug() << "No new version available.";
-             qDebug() << "latest is " << wstring2QString(X("NewVersion")).toStdString().c_str();
-         }
+    ZtringListList X;
+    X.Write(file.toStdString().c_str());
+    if (isNewer(wstring2QString(X("NewVersion")),QString(VERSION))) {
+        qDebug() << "New version is available.";
+        qDebug() << "latest is " << wstring2QString(X("NewVersion")).toStdString().c_str();
+        ui->menuBar->addAction(Tr("Update to new version"),this,SLOT(updateToNewVersion()));
+    } else {
+        qDebug() << "No new version available.";
+        qDebug() << "latest is " << wstring2QString(X("NewVersion")).toStdString().c_str();
+    }
 
-         reply->deleteLater();
-         reply = 0;
-         file = "";
+    reply->deleteLater();
+    reply = 0;
+    file = "";
 }
 
 void MainWindow::updateToNewVersion() {
@@ -308,7 +308,7 @@ void MainWindow::updateToNewVersion() {
 
 void MainWindow::httpReadyRead()
 {
-        file.append(reply->readAll());
+    file.append(reply->readAll());
 }
 #endif //NEW_VERSION
 
@@ -779,7 +779,7 @@ QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
                             B=B.mid(level);
 
                         if (level==tree.count() && tree.back()->childCount())
-                           tree.append(tree.back()->child(tree.back()->childCount()-1));
+                            tree.append(tree.back()->child(tree.back()->childCount()-1));
                         else if (level<tree.count()-1)
                             tree.resize(level+1);
 
@@ -1011,7 +1011,7 @@ void MainWindow::on_actionOpen_Folder_triggered()
 #endif
     openDir(dirName);
 
-   refreshDisplay();
+    refreshDisplay();
 }
 
 void MainWindow::on_actionAbout_triggered()
