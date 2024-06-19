@@ -185,8 +185,13 @@ MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) :
 #endif
 
     //tests
+#if QT_VERSION > QT_VERSION_CHECK(6, 7, 0)
+    ui->actionQuit->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::WindowClose));
+    ui->actionClose_All->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::WindowClose));
+#else
     ui->actionQuit->setIcon(style()->standardIcon(QStyle::SP_DialogCloseButton));
     ui->actionClose_All->setIcon(style()->standardIcon(QStyle::SP_DialogCloseButton));
+#endif
     ui->actionOpen->setIcon(QIcon(":/icon/openfile.svg"));
     ui->actionOpen_Folder->setIcon(QIcon(":/icon/opendir.svg"));
     ui->actionAbout->setIcon(QIcon(":/icon/about.svg"));
