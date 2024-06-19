@@ -35,7 +35,8 @@ SheetView::SheetView(Core *C, QWidget *parent) :
     refreshDisplay();
     ui->tableWidget->selectRow(0);
 
-    QFont font = ui->label->font();
+    QStringList fonts = { "Cascadia Mono", "Mono" };
+    QFont font(fonts);
     font.setStyleHint(QFont::TypeWriter);
     ui->label->setFont(font);
 }
