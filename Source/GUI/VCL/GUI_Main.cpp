@@ -946,9 +946,6 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
         if (!Prefs->Config(__T("InformTimestamp")).empty())
             I->Option_Static(__T("Inform_Timestamp"), Prefs->Config(__T("InformTimestamp")));
 
-        //Set language again to ensure proper display in case it was changed to XML etc.
-        I->Option_Static(__T("Language"), Prefs->Details[Prefs_Language].Read());
-
         Page_Text_Text->Text=I->Inform().c_str();
 
         //Specific in case of no file
@@ -1400,9 +1397,6 @@ void __fastcall TMainF::M_View_HTMLClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_XMLClick(TObject *Sender)
 {
-    //Language
-    I->Option_Static(__T("Language"), __T("raw"));
-
     M_View_XML->Checked=true;
     ToolBar_View_XML->Checked=true;
     ChangePage(Page_Custom);
@@ -1411,9 +1405,6 @@ void __fastcall TMainF::M_View_XMLClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_View_JSONClick(TObject *Sender)
 {
-    //Language
-    I->Option_Static(__T("Language"), __T("raw"));
-
     M_View_JSON->Checked=true;
     ToolBar_View_JSON->Checked=true;
     ChangePage(Page_Custom);
@@ -1918,9 +1909,6 @@ void __fastcall TMainF::Page_Sheet_Change(TObject *Sender)
     }
 
     I->Option(__T("Inform"), __T(""));
-
-    //Set language again to ensure proper display in case it was changed to XML etc.
-    I->Option_Static(__T("Language"), Prefs->Details[Prefs_Language].Read());
 
     Page_Sheet_Text->Text=I->Get(Page_Position, (stream_t)KindOfStream, I1, __T("Inform")).c_str();
 }
