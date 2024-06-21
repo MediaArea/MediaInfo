@@ -293,6 +293,10 @@ CoDirector;聯合執導
 Collection;收藏
 Colorimetry;比色法
 ColorSpace;色彩空間
+ColorTheme;
+ColorTheme_Dark;
+ColorTheme_Light;
+ColorTheme_System;
 colour_primaries;色彩原色
 colour_range;色彩範圍
 Comment;評註
