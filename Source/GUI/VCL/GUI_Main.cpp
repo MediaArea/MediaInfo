@@ -47,6 +47,9 @@ TMainF *MainF;
 #include <ZenLib/File.h>
 #include <ZenLib/FileName.h>
 #include <ZenLib/OS_Utils.h>
+
+#include <filesystem> // To remove when "Quick temporary fix for translations after an update" is removed
+
 using namespace MediaInfoNameSpace;
 using namespace ZenLib;
 //---------------------------------------------------------------------------
@@ -303,6 +306,34 @@ void __fastcall TMainF::GUI_Configure()
         delete PreferencesF;
         Prefs->Config_Load(); //Again...
         #endif //MEDIAINFOGUI_PREFS_NO
+
+        //Quick temporary fix for translations after an update
+        //----------------------------------------------------------------------------------------------
+        //Copies updated language files from install folder to appdata folder if appdata folder exists,
+        //overwriting existing files
+        //----------------------------------------------------------------------------------------------
+        namespace fs = std::filesystem;
+        fs::path appdata_path = std::getenv("APPDATA");
+        fs::path language_path = appdata_path / "MediaInfo\\Plugin\\Language";
+        ZenLib::Ztring BaseFolder;
+        BaseFolder=Application->ExeName.c_str();
+        fs::path language_source_path = BaseFolder.substr(0, BaseFolder.rfind(__T("\\"))).c_str();
+        language_source_path = language_source_path / "Plugin\\Language";
+        if (fs::exists(language_path) && fs::is_directory(language_path)) {
+            try {
+                for (const auto& entry : fs::directory_iterator(language_source_path)) {
+                    fs::path current = entry.path();
+                    fs::path target = language_path / current.filename();
+                    if (fs::is_regular_file(current)) {
+                        fs::copy_file(current, target, fs::copy_options::overwrite_existing);
+                    }
+                }
+                //ShowMessage("Success updating translations!");
+            } catch (const fs::filesystem_error& e) {
+                ShowMessage("Error updating translations in %APPDATA%!");
+            }
+        }
+        //----------------------------------------------------------------------------------------------
     }
 
     // Removed, no more needed
