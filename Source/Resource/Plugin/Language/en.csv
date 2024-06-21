@@ -293,6 +293,10 @@ CoDirector;Codirector
 Collection;Collection
 Colorimetry;Colorimetry
 ColorSpace;Color space
+ColorTheme;Theme
+ColorTheme_Dark;Dark
+ColorTheme_Light;Light
+ColorTheme_System;Use system setting
 colour_primaries;Color primaries
 colour_range;Color range
 Comment;Comment

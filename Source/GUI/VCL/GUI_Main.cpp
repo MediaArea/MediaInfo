@@ -627,6 +627,10 @@ void __fastcall TMainF::Translate()
     M_Options->Caption=Prefs->Translate(__T("Options")).c_str();
     M_Options_ShowToolBar->Caption=Prefs->Translate(__T("Show toolbar")).c_str();
     M_Options_ShowMenu->Caption=Prefs->Translate(__T("Show menu")).c_str();
+    M_Options_Theme->Caption=Prefs->Translate(__T("ColorTheme")).c_str();
+    M_Options_Theme_System->Caption=Prefs->Translate(__T("ColorTheme_System")).c_str();
+    M_Options_Theme_Light->Caption=Prefs->Translate(__T("ColorTheme_Light")).c_str();
+    M_Options_Theme_Dark->Caption=Prefs->Translate(__T("ColorTheme_Dark")).c_str();
     M_Options_CloseAllAuto->Caption=Prefs->Translate(__T("Close all before open")).c_str();
     M_Options_Preferences->Caption=Prefs->Translate(__T("Preferences")).c_str();
     M_Debug->Caption=Prefs->Translate(__T("Debug")).c_str();
