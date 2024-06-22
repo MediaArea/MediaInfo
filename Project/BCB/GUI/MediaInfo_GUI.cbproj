@@ -1,15 +1,14 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{8AF87745-B671-4B4E-A428-B47B72F174BA}</ProjectGuid>
-        <ProjectVersion>19.5</ProjectVersion>
+        <ProjectVersion>19.7</ProjectVersion>
         <FrameworkType>VCL</FrameworkType>
         <MainSource>MediaInfo_GUI.cpp</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Release</Config>
-        <Platform Condition="'$(Platform)'==''">Win32</Platform>
-        <TargetedPlatforms>1</TargetedPlatforms>
+        <Platform Condition="'$(Platform)'==''">Win64</Platform>
+        <TargetedPlatforms>3</TargetedPlatforms>
         <AppType>Application</AppType>
-        <CC_Suffix Condition="'$(CC_Suffix)'==''">c</CC_Suffix>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
         <Base>true</Base>
@@ -59,8 +58,8 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
-        <Defines>MEDIAINFO_DLL_RUNTIME;MEDIAINFODLL_NAME=L&quot;MediaInfo_i386.dll&quot;;$(Defines)</Defines>
-        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=24.06.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=;Comments=</VerInfo_Keys>
+        <Defines>MEDIAINFO_DLL_RUNTIME;$(Defines)</Defines>
+        <VerInfo_Keys>CompanyName=MediaArea.net;FileDescription=MediaInfo;FileVersion=24.06.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=MediaInfo;ProductVersion=24.06.0.0;Comments=</VerInfo_Keys>
         <Manifest_File>None</Manifest_File>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_MinorVer>05</VerInfo_MinorVer>
@@ -74,7 +73,7 @@
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
         <Icon_MainIcon>$(BDS)\bin\cbuilder_PROJECTICON.ico</Icon_MainIcon>
         <IncludePath>..\..\..\Source\Common\;..\..\..\Source\;..\..\..\Source\GUI\VCL\;..\..\..\..\ZenLib\Source\;..\..\..\..\MediaInfoLib\Source\;$(IncludePath)</IncludePath>
-        <AllPackageLibs>rtl.lib;vcl.lib;bcbie.lib;vclwinx.lib;vclimg.lib;bindengine.lib</AllPackageLibs>
+        <AllPackageLibs>rtl.lib;vcl.lib;bcbie.lib;vclwinx.lib;vclimg.lib;bindengine.lib;vclie.lib;vcledge.lib</AllPackageLibs>
         <_TCHARMapping>wchar_t</_TCHARMapping>
         <DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
         <IntermediateOutputDir>.\$(Platform)\$(Config)</IntermediateOutputDir>
@@ -95,7 +94,7 @@
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
-        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
@@ -103,6 +102,7 @@
         <BT_BuildType>Debug</BT_BuildType>
         <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+        <ILINK_LibraryPath>..\..\..\..\zlib\contrib\BCB\Win64\Release\;..\..\..\..\ZenLib\Project\BCB\Library\Win64\Release\;..\..\..\..\MediaInfoLib\Project\BCB\Dll\Win64\Release\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <BCC_OptimizeForSpeed>false</BCC_OptimizeForSpeed>
@@ -123,9 +123,7 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\debug\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <LinkPackageStatics>rtl.lib;vcl.lib;bcbie.lib</LinkPackageStatics>
-        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
-        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+        <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
@@ -135,17 +133,23 @@
         <TASM_Debugging>None</TASM_Debugging>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <VerInfo_Release>0</VerInfo_Release>
-        <LinkPackageStatics>rtl.lib;vcl.lib;bcbie.lib;vclwinx.lib;vclimg.lib;bindengine.lib</LinkPackageStatics>
+        <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
+        <LinkPackageStatics>rtl.lib;vcl.lib;bcbie.lib;vclwinx.lib;vclimg.lib;bindengine.lib;vclie.lib;vcledge.lib</LinkPackageStatics>
         <VerInfo_Keys>CompanyName=MediaArea.net;FileDescription=MediaInfo;FileVersion=24.06.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=MediaInfo;ProductVersion=24.06.0.0;Comments=</VerInfo_Keys>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
-        <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <Icon_MainIcon>..\..\..\Source\Resource\Image\MediaInfo.ico</Icon_MainIcon>
-        <ILINK_DelayLoadDll>user32.dll;$(ILINK_DelayLoadDll)</ILINK_DelayLoadDll>
         <BT_BuildType>Debug</BT_BuildType>
+        <Defines>MEDIAINFODLL_NAME=L&quot;MediaInfo_i386.dll&quot;;$(Defines)</Defines>
+        <ILINK_DelayLoadDll>user32.dll;$(ILINK_DelayLoadDll)</ILINK_DelayLoadDll>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
+        <LinkPackageStatics>rtl.lib;vcl.lib;bcbie.lib;vclwinx.lib;vclimg.lib;bindengine.lib;vclie.lib;vcledge.lib</LinkPackageStatics>
+        <VerInfo_Keys>CompanyName=MediaArea.net;FileDescription=MediaInfo;FileVersion=24.06.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=MediaInfo;ProductVersion=24.06.0.0;Comments=</VerInfo_Keys>
+        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+        <Icon_MainIcon>..\..\..\Source\Resource\Image\MediaInfo.ico</Icon_MainIcon>
+        <Defines>MEDIAINFODLL_NAME=L&quot;MediaInfo.dll&quot;;$(Defines)</Defines>
+        <ILINK_DelayLoadDll>user32;$(ILINK_DelayLoadDll)</ILINK_DelayLoadDll>
     </PropertyGroup>
     <ItemGroup>
         <LibFiles Include="c:\program files (x86)\embarcadero\studio\22.0\lib\win32\release\wininet.lib" Condition="'$(Platform)'=='Win32'">
@@ -220,8 +224,16 @@
             <BuildOrder>15</BuildOrder>
             <IgnorePath>true</IgnorePath>
         </LibFiles>
+        <LibFiles Include="..\..\..\..\ZenLib\Project\BCB\Library\Win64\Release\ZenLib.a" Condition="'$(Platform)'=='Win64'">
+            <BuildOrder>17</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
         <LibFiles Include="..\..\..\..\zlib\contrib\BCB\Win32\Release\zlib.lib" Condition="'$(Platform)'=='Win32'">
             <BuildOrder>16</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
+        <LibFiles Include="..\..\..\..\zlib\contrib\BCB\Win64\Release\zlib.a" Condition="'$(Platform)'=='Win64'">
+            <BuildOrder>18</BuildOrder>
             <IgnorePath>true</IgnorePath>
         </LibFiles>
         <FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Output.dfm"/>
@@ -288,10 +300,8 @@
                     <ProjectProperties Name="IndexFiles">False</ProjectProperties>
                 </ProjectProperties>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k160.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp160.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k160.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp160.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k280.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp280.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
                 </Excluded_Packages>
             </CPlusPlusBuilder.Personality>
             <Deployment Version="4">
@@ -345,6 +355,12 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
+                <DeployFile LocalName="..\..\..\..\ZenLib\Project\BCB\Library\Win32\Release\ZenLib.lib" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="..\..\..\..\ZenLib\Project\BCB\Library\Win64\Release\ZenLib.a" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="..\..\..\..\zlib\contrib\BCB\Win32\Release\zlib.lib" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="..\..\..\..\zlib\contrib\BCB\Win64\Release\zlib.a" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName=".\Win64\Release\MediaInfo_GUI.exe" Configuration="Release" Class="ProjectOutput"/>
+                <DeployFile LocalName="c:\program files (x86)\embarcadero\studio\22.0\lib\win32\release\wininet.lib" Configuration="Release" Class="ProjectFile"/>
                 <DeployClass Name="AdditionalDebugSymbols">
                     <Platform Name="iOSSimulator">
                         <Operation>1</Operation>
@@ -1170,7 +1186,7 @@
             </Deployment>
             <Platforms>
                 <Platform value="Win32">True</Platform>
-                <Platform value="Win64">False</Platform>
+                <Platform value="Win64">True</Platform>
             </Platforms>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
