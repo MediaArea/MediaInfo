@@ -139,7 +139,7 @@
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
         <Icon_MainIcon>..\..\..\Source\Resource\Image\MediaInfo.ico</Icon_MainIcon>
         <BT_BuildType>Debug</BT_BuildType>
-        <Defines>MEDIAINFODLL_NAME=L&quot;MediaInfo_i386.dll&quot;;$(Defines)</Defines>
+        <Defines>MEDIAINFODLL_NAME=L&quot;MediaInfo.dll&quot;;$(Defines)</Defines>
         <ILINK_DelayLoadDll>user32.dll;$(ILINK_DelayLoadDll)</ILINK_DelayLoadDll>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">

@@ -129,7 +129,6 @@ Section "SectionPrincipale" SEC01
     File "$%BPATH%\Windows\libcurl\x64\Release\LIBCURL.DLL"
   ${Else}
     File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Win32\Release\MediaInfo_GUI.exe"
-    File "/oname=MediaInfo_i386.dll" "..\..\..\MediaInfoLib\Project\MSVC2019\Win32\Release\MediaInfo.dll"
     File "..\..\..\MediaInfoLib\Project\MSVC2019\Win32\Release\MediaInfo_InfoTip.dll"
     File "..\..\..\MediaInfoLib\Project\MSVC2019\Win32\Release\MediaInfo.dll"
     File "$%BPATH%\Windows\libcurl\Win32\Release\LIBCURL.DLL"
@@ -152,9 +151,7 @@ Section "SectionPrincipale" SEC01
   WriteIniStr "$INSTDIR\${PRODUCT_NAME}.url" "InternetShortcut" "URL" "${PRODUCT_WEB_SITE}"
 
   # Delete files that might be present from older installation
-  ${If} ${RunningX64}
-    Delete "$INSTDIR\MediaInfo_i386.dll"
-  ${EndIf}
+  Delete "$INSTDIR\MediaInfo_i386.dll"
   Delete "$INSTDIR\History_GUI.txt"
   Delete "$INSTDIR\Licence.txt"
   Delete "$INSTDIR\Licence.html"
