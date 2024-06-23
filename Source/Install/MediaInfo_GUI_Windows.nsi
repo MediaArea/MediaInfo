@@ -122,16 +122,18 @@ Section "SectionPrincipale" SEC01
   SetOutPath "$SMPROGRAMS"
   CreateShortCut "$SMPROGRAMS\MediaInfo.lnk" "$INSTDIR\MediaInfo.exe" "" "" "" "" "" "Convenient unified display of the most relevant technical and tag data for video and audio files"
   SetOutPath "$INSTDIR"
-  File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Win32\Release\MediaInfo_GUI.exe"
-  File "/oname=MediaInfo_i386.dll" "..\..\..\MediaInfoLib\Project\MSVC2019\Win32\Release\MediaInfo.dll"
   ${If} ${RunningX64}
+    File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Win64\Release\MediaInfo_GUI.exe"
     File "..\..\..\MediaInfoLib\Project\MSVC2019\x64\Release\MediaInfo_InfoTip.dll"
     File "..\..\..\MediaInfoLib\Project\MSVC2019\x64\Release\MediaInfo.dll"
+    File "$%BPATH%\Windows\libcurl\x64\Release\LIBCURL.DLL"
   ${Else}
+    File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Win32\Release\MediaInfo_GUI.exe"
+    File "/oname=MediaInfo_i386.dll" "..\..\..\MediaInfoLib\Project\MSVC2019\Win32\Release\MediaInfo.dll"
     File "..\..\..\MediaInfoLib\Project\MSVC2019\Win32\Release\MediaInfo_InfoTip.dll"
     File "..\..\..\MediaInfoLib\Project\MSVC2019\Win32\Release\MediaInfo.dll"
+    File "$%BPATH%\Windows\libcurl\Win32\Release\LIBCURL.DLL"
   ${EndIf}
-  File "$%BPATH%\Windows\libcurl\Win32\Release\LIBCURL.DLL"
   File "$%BPATH%\Windows\libcurl\curl-ca-bundle.crt"
   File "/oname=History.txt" "..\..\History_GUI.txt"
   File "..\..\License.html"
@@ -150,6 +152,9 @@ Section "SectionPrincipale" SEC01
   WriteIniStr "$INSTDIR\${PRODUCT_NAME}.url" "InternetShortcut" "URL" "${PRODUCT_WEB_SITE}"
 
   # Delete files that might be present from older installation
+  ${If} ${RunningX64}
+    Delete "$INSTDIR\MediaInfo_i386.dll"
+  ${EndIf}
   Delete "$INSTDIR\History_GUI.txt"
   Delete "$INSTDIR\Licence.txt"
   Delete "$INSTDIR\Licence.html"
