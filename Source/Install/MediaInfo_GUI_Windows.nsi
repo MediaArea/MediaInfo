@@ -22,6 +22,10 @@ SetCompressor /FINAL /SOLID lzma
 ; x64 stuff
 !include "x64.nsh"
 
+; Library macros for handling install/uninstall of exe/dll
+; https://nsis.sourceforge.io/Docs/AppendixB.html
+!include "Library.nsh"
+
 ; MediaInfo stuff
 !include "MediaInfo_Extensions.nsh"
 
@@ -39,10 +43,16 @@ SetCompressor /FINAL /SOLID lzma
 !define MUI_LANGDLL_REGISTRY_KEY "${PRODUCT_UNINST_KEY}"
 !define MUI_LANGDLL_REGISTRY_VALUENAME "NSIS:Language"
 
+; Function to launch MediaInfo with same integrity level as Windows Explorer
+Function LaunchMediaInfoAsCurrentUser
+  Exec '"$WINDIR\explorer.exe" "$INSTDIR\MediaInfo.exe"'
+FunctionEnd
+
 ; Installer pages
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
-; !define MUI_FINISHPAGE_RUN "$INSTDIR\MediaInfo.exe" //Removing it because it is run in admin privileges
+!define MUI_FINISHPAGE_RUN
+!define MUI_FINISHPAGE_RUN_FUNCTION "LaunchMediaInfoAsCurrentUser"
 !define MUI_WELCOMEFINISHPAGE_BITMAP "..\..\Source\Resource\Image\Windows_Finish.bmp"
 !insertmacro MUI_PAGE_FINISH
 ; Uninstaller pages
@@ -198,12 +208,12 @@ Section Uninstall
     ExecWait '"$INSTDIR\ffmpeg_plugin_uninst.exe" /S _?=$INSTDIR'
     Delete "$INSTDIR\ffmpeg_plugin_uninst.exe"
 
+  !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\MediaInfo.exe"
+  !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\MediaInfo.dll"
+  !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\MediaInfo_i386.dll"
   Delete "$INSTDIR\${PRODUCT_NAME}.url"
   Delete "$INSTDIR\uninst.exe"
-  Delete "$INSTDIR\MediaInfo.exe"
   Delete "$INSTDIR\MediaInfo_InfoTip.dll"
-  Delete "$INSTDIR\MediaInfo.dll"
-  Delete "$INSTDIR\MediaInfo_i386.dll"
   Delete "$INSTDIR\History.txt"
   Delete "$INSTDIR\License.html"
   Delete "$INSTDIR\License.NoModifications.html"
