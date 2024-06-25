@@ -362,6 +362,10 @@ Disabled;
 DisplayAspectRatio;نمایش نسبت تصوير
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;نمایش نسبت تصوير اصلی
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;توزيع شده توسط
 Distributor;
 Dolby_Atmos_Metadata;

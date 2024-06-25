@@ -362,6 +362,10 @@ Disabled;
 DisplayAspectRatio;Proporção da imagem
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Proporção original da imagem
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;Distribuído por
 Distributor;
 Dolby_Atmos_Metadata;

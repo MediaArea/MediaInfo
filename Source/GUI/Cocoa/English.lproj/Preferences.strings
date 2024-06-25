@@ -25,3 +25,15 @@
 
 /* Class = "NSButtonCell"; title = "subscribe"; ObjectID = "qvF-It-rlQ"; */
 "qvF-It-rlQ.title" = "subscribe";
+
+/* Class = "NSTextFieldCell"; title = "Handling of 608/708 streams:"; ObjectID = "FSN-9S-Ykj"; */
+"FSN-9S-Ykj.title" = "Handling of 608/708 streams:";
+
+/* Class = "NSMenuItem"; title = "When content is detected"; ObjectID = "8Ua-A2-6V9"; */
+"8Ua-A2-6V9.title" = "When content is detected";
+
+/* Class = "NSMenuItem"; title = "When content or a command is detected"; ObjectID = "I2h-Au-EAa"; */
+"I2h-Au-EAa.title" = "When content or a command is detected";
+
+/* Class = "NSMenuItem"; title = "Even when no content or command is detected"; ObjectID = "sik-bk-btb"; */
+"sik-bk-btb.title" = "Even when no content or command is detected";

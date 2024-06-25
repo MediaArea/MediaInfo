@@ -362,6 +362,10 @@ Disabled;
 DisplayAspectRatio;Erakuspen ikuspegi maila
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Jatorrizko ikuspegi maila
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;Banatzailea
 Distributor;
 Dolby_Atmos_Metadata;

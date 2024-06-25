@@ -362,6 +362,10 @@ Disabled;Désactivé
 DisplayAspectRatio;Facteur de forme l/h
 DisplayAspectRatio_CleanAperture;Ratio, Ouverture propre
 DisplayAspectRatio_Original;Ratio original l/h
+DisplayCaptions;Gestion des flux 608/708
+DisplayCaptions_Command;Quand une commande est détectée
+DisplayCaptions_Content;Quand un contenu est détecté
+DisplayCaptions_Stream;Même sans contenu ou commande
 DistributedBy;Distribué par
 Distributor;Distributeur
 Dolby_Atmos_Metadata;Métadonnées Dolby Atmos

@@ -234,6 +234,7 @@ void GUI_Main::OnMenu_File_Preferences(wxCommandEvent& WXUNUSED(event))
     {
         PreferencesEditor=new wxPreferencesEditor(wxT("Preferences"));
         PreferencesEditor->AddPage(new GUI_Preferences_Page_General(this));
+        PreferencesEditor->AddPage(new GUI_Preferences_Page_Advanced(this));
     }
 
     PreferencesEditor->Show(this);

@@ -362,6 +362,10 @@ Disabled;Disabled
 DisplayAspectRatio;Display aspect ratio
 DisplayAspectRatio_CleanAperture;Clean aperture display aspect ratio
 DisplayAspectRatio_Original;Original display aspect ratio
+DisplayCaptions;Handling of 608/708 streams:
+DisplayCaptions_Command;When content or a command is detected
+DisplayCaptions_Content;When content is detected
+DisplayCaptions_Stream;Even when no content or command is detected
 DistributedBy;Distributed by
 Distributor;Distributor
 Dolby_Atmos_Metadata;Dolby Atmos metadata

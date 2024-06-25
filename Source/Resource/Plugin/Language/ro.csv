@@ -362,6 +362,10 @@ Disabled;
 DisplayAspectRatio;Raport imagine
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;Distribuit de
 Distributor;
 Dolby_Atmos_Metadata;

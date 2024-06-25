@@ -362,6 +362,10 @@ Disabled;
 DisplayAspectRatio;화면 종횡비
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;원본 화면 종횡비
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;배포
 Distributor;
 Dolby_Atmos_Metadata;

@@ -238,6 +238,27 @@ object PreferencesF: TPreferencesF
         TabOrder = 4
         OnClick = Advanced_EnableFfmpegClick
       end
+      object Advanced_DisplayCaptions_Caption: TLabel
+        Left = 0
+        Top = 131
+        Width = 200
+        Height = 14
+        Caption = 'Handling of 608/708 streams:'
+      end
+      object Advanced_DisplayCaptions_Sel: TComboBox
+        Left = 200
+        Top = 127
+        Width = 285
+        Height = 22
+        Style = csDropDownList
+        DropDownCount = 10
+        TabOrder = 1
+        OnChange = Advanced_DisplayCaptions_SelChange
+        Items.Strings = (
+          'When content is detected'
+          'When content or a command is detected'
+          'Even when no content or command is detected')
+      end
     end
     object Customize_Language: TTabSheet
       Caption = 'Language'

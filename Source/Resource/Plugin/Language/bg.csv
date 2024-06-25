@@ -362,6 +362,10 @@ Disabled;
 DisplayAspectRatio;СъотношениеОбраз
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Оригинално_СъотношениеОбраз
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;РазпространенОт
 Distributor;
 Dolby_Atmos_Metadata;

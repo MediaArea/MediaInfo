@@ -362,6 +362,10 @@ Disabled;
 DisplayAspectRatio;顯示長寬比例
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;原始顯示長寬比例
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;發布者
 Distributor;
 Dolby_Atmos_Metadata;

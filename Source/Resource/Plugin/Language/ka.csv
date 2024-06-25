@@ -362,6 +362,10 @@ Disabled;
 DisplayAspectRatio;გამოსახულების ასპექტ რატიო
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Original display aspect ratio
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;გავრცელების ავტორი
 Distributor;
 Dolby_Atmos_Metadata;

@@ -362,6 +362,10 @@ Disabled;
 DisplayAspectRatio;Poměr stran
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;Distributed by
 Distributor;
 Dolby_Atmos_Metadata;

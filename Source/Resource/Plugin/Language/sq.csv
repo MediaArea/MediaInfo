@@ -362,6 +362,10 @@ Disabled;
 DisplayAspectRatio;Raporti i aspektit në ekran
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Raporti origjinal i aspektit në ekran
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;Shpërndarë nga
 Distributor;
 Dolby_Atmos_Metadata;
@@ -1363,4 +1367,4 @@ WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
 ZZ_Automatic_Percent;66
-ZZ_AutomaticLanguage_Percent;71
+ZZ_AutomaticLanguage_Percent;70

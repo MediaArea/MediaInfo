@@ -799,6 +799,9 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
     if (!Prefs->Config(__T("EnableFfmpeg")).empty())
         I->Option_Static(__T("Enable_Ffmpeg"), Prefs->Config(__T("EnableFfmpeg")));
 
+    if (!Prefs->Config(__T("DisplayCaptions")).empty())
+        I->Option(__T("File_DisplayCaptions"), Prefs->Config(__T("DisplayCaptions")));
+
     //Easy
          if (Page==Page_Easy)
     {

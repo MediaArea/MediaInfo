@@ -362,6 +362,10 @@ Disabled;
 DisplayAspectRatio;Skärmbildförhållande
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Ursprungligt skärmbildförhållande
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;Distribuerad av
 Distributor;Distributör
 Dolby_Atmos_Metadata;

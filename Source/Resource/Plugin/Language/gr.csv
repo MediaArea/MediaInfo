@@ -362,6 +362,10 @@ Disabled;
 DisplayAspectRatio;Λόγος εικόνας
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;Distributed by
 Distributor;
 Dolby_Atmos_Metadata;
@@ -1362,5 +1366,5 @@ Written_Location;Τοποθεσία καταγραφής
 WrittenBy;Γραμμένο από
 Yes;Ναι
 Your system;Το σύστημά σας
-ZZ_Automatic_Percent;56
+ZZ_Automatic_Percent;55
 ZZ_AutomaticLanguage_Percent;60

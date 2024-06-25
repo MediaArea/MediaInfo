@@ -675,6 +675,12 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	if(!mediaList)
 		mediaList = [[oMediaInfoList alloc] init]; //dont care about release
 
+	if ([[NSUserDefaults standardUserDefaults] stringForKey:@"displayCaptions"]!=nil)
+	{
+		NSString *value = [[NSUserDefaults standardUserDefaults] stringForKey:@"displayCaptions"];
+		[mediaList setOption:@"File_DisplayCaptions" withValue:value];
+	}
+
 	NSInteger oldCount = [mediaList count];
 
 	if([URLs count]==1 && [[NSFileManager defaultManager] fileExistsAtPath:[URLs[0] path]]) {

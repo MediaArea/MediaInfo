@@ -362,6 +362,10 @@ Disabled;
 DisplayAspectRatio;Суадносіны кадра
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Арыгінальныя суадносіны бакоў
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;Распаўсюджвальнік
 Distributor;
 Dolby_Atmos_Metadata;

@@ -141,6 +141,21 @@ static PreferencesWindowController *prefsCtrl = nil;
 		}
 	}
 
+    //DisplayCaptions
+    [[[displayCaptionsCombo menu] itemWithTag:1] setRepresentedObject:@"Content"];
+    [[[displayCaptionsCombo menu] itemWithTag:2] setRepresentedObject:@"Command"];
+    [[[displayCaptionsCombo menu] itemWithTag:3] setRepresentedObject:@"Stream"];
+    NSString *savedCaptionsOption = [[NSUserDefaults standardUserDefaults] objectForKey:@"displayCaptions"];
+    if(savedCaptionsOption == nil)
+        savedCaptionsOption = @"Command";
+
+    for(NSMenuItem *i in [[displayCaptionsCombo menu] itemArray]) {
+        if([[i representedObject] isEqualToString:savedCaptionsOption]) {
+                [displayCaptionsCombo selectItem:i];
+                break;
+        }
+    }
+
     // Graph options
     BOOL savedGraphAdmShowTrackUIDs = [[NSUserDefaults standardUserDefaults] boolForKey:@"graphAdmShowTrackUIDs"];
     [graphAdmShowTrackUIDs setState:savedGraphAdmShowTrackUIDs?NSControlStateValueOn:NSControlStateValueOff];
@@ -202,6 +217,17 @@ static PreferencesWindowController *prefsCtrl = nil;
 
 	[[NSUserDefaults standardUserDefaults] setObject:value forKey:@"defaultView"];
 }
+
+- (IBAction)captionsOptionChanged:(id)sender {
+    NSMenuItem *obj = [displayCaptionsCombo selectedItem];
+    NSString *value = [obj representedObject];
+
+    if (!value)
+        value = @"Command";
+
+    [[NSUserDefaults standardUserDefaults] setObject:value forKey:@"displayCaptions"];
+}
+
 - (IBAction)subscribeClicked:(id)sender {
     if (@available(macOS 10.9, *)) {
         [[SubscribeWindowController controller] show];
