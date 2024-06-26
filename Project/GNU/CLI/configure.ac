@@ -68,7 +68,7 @@ dnl Unicode
 dnl
 if test -e ../../../../ZenLib/Project/GNU/Library/libzen-config; then
 	enable_unicode="$(../../../../ZenLib/Project/GNU/Library/libzen-config Unicode)"
-elif test "$(libzen-config Exists)" = "yes" ; then
+elif test "$(command -v libzen-config)" ; then
 	enable_unicode="$(libzen-config Unicode)"
 else
 	if ${PKG_CONFIG:-pkg-config} --exists libzen; then
@@ -168,7 +168,7 @@ if test "$with_dll" != "yes"; then
 			with_mediainfolib="builtin"
 			LIBS="$LIBS $(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config LIBS)"
 		fi
-	elif test "$(libmediainfo-config Exists)" = "yes" ; then
+	elif test "$(command -v libmediainfo-config)" ; then
 		CXXFLAGS="$CXXFLAGS $(libmediainfo-config CXXFLAGS)"
 		if test "$enable_staticlibs" = "yes"; then
 			with_mediainfolib="system (static)"
@@ -209,7 +209,7 @@ if test -e ../../../../ZenLib/Project/GNU/Library/libzen.la; then
 		with_zenlib="builtin"
 		LIBS="$LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS)"
 	fi
-elif test "$(libzen-config Exists)" = "yes" ; then
+elif test "$(command -v libzen-config)" ; then
 	CXXFLAGS="$CXXFLAGS $(libzen-config CXXFLAGS)"
 	MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(libzen-config CXXFLAGS)"
 	if test "$enable_staticlibs" = "yes"; then
