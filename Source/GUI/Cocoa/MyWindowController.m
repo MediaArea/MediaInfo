@@ -86,7 +86,7 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 
     if (@available(macOS 10.9, *)) {
         [subscribeButton setEnabled:YES forSegment:0];
-        if([[SubscriptionManager shared] subscriptionActive] || YES) {
+        if([[SubscriptionManager shared] subscriptionActive]) {
             [self enableSubscription];
 
              NSString* defaultView = [[NSUserDefaults standardUserDefaults] stringForKey:@"defaultView"];
