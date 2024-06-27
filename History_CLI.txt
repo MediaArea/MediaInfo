@@ -27,7 +27,7 @@ x I2086, MXF: StreamOrder for tracks in ANC
 x I2076, Dolby E: StreamOrder includes all underlying streams
 x I2087, MPEG-TS: general duration includes before and after PCR offsets
 x WavPack: various fixes for multichannel & DSD files
-x Supported platforms: this is the last version compatible with Windows RHEL/CentOS 7, SLE 12, Debian 10, Mageia 8
+x Supported platforms: this is the last version compatible with RHEL/CentOS 7, SLE 12, Debian 10, Mageia 8
 
 Version 24.05, 2024-05-30
 -------------
