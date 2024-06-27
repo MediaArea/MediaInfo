@@ -465,6 +465,17 @@ void __fastcall TPreferencesF::Advanced_EnableFfmpegClick(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
+void __fastcall TPreferencesF::Advanced_DisplayCaptions_SelChange(TObject *Sender)
+{
+    if (Advanced_DisplayCaptions_Sel->ItemIndex==0)
+        Prefs->Config(__T("DisplayCaptions"))=__T("Content");
+    else if (Advanced_DisplayCaptions_Sel->ItemIndex==1)
+        Prefs->Config(__T("DisplayCaptions"))=__T("Command");
+    else if (Advanced_DisplayCaptions_Sel->ItemIndex==2)
+        Prefs->Config(__T("DisplayCaptions"))=__T("Stream");
+}
+
+//---------------------------------------------------------------------------
 void __fastcall TPreferencesF::Language_NewClick(TObject *Sender)
 {
     UnicodeString S1=__T("New");
@@ -621,6 +632,14 @@ void __fastcall TPreferencesF::Setup_AdvancedShow(TObject *Sender)
     Advanced_InformVersion->Checked=Prefs->Config(__T("InformVersion")).To_int32s();
     Advanced_InformTimestamp->Checked=Prefs->Config(__T("InformTimestamp")).To_int32s();
     Advanced_EnableFfmpeg->Checked=Prefs->Config(__T("EnableFfmpeg")).To_int32s();
+
+    //Display captions
+    if (Prefs->Config(__T("DisplayCaptions"))==__T("Content"))
+        Advanced_DisplayCaptions_Sel->ItemIndex=0;
+    else if (Prefs->Config(__T("DisplayCaptions"))==__T("Stream"))
+        Advanced_DisplayCaptions_Sel->ItemIndex=2;
+    else // Command (default)
+        Advanced_DisplayCaptions_Sel->ItemIndex=1;
 }
 
 //---------------------------------------------------------------------------
@@ -736,6 +755,11 @@ void __fastcall TPreferencesF::GUI_Configure()
     Advanced_InformVersion->Caption=Prefs->Translate(__T("Add version to text output")).c_str();
     Advanced_InformTimestamp->Caption=Prefs->Translate(__T("Add creation date to text output")).c_str();
     Advanced_EnableFfmpeg->Caption=Prefs->Translate(__T("Enable FFmpeg plugin")).c_str();
+    Advanced_DisplayCaptions_Caption->Caption=Prefs->Translate(__T("DisplayCaptions")).c_str();
+    Advanced_DisplayCaptions_Sel->Items->Clear();
+    Advanced_DisplayCaptions_Sel->Items->Add(Prefs->Translate(__T("DisplayCaptions_Content")).c_str());
+    Advanced_DisplayCaptions_Sel->Items->Add(Prefs->Translate(__T("DisplayCaptions_Command")).c_str());
+    Advanced_DisplayCaptions_Sel->Items->Add(Prefs->Translate(__T("DisplayCaptions_Stream")).c_str());
     //-Language
     Language_Caption->Caption=Prefs->Translate(__T("Choose language")).c_str();
     Language_Edit->Caption=(Prefs->Translate(__T("Edit"))+__T("...")).c_str();

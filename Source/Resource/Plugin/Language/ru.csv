@@ -362,6 +362,10 @@ Disabled;Отключено
 DisplayAspectRatio;Соотношение сторон дисплея
 DisplayAspectRatio_CleanAperture;Соотношение сторон дисплея чистой апертуры
 DisplayAspectRatio_Original;Соотношение сторон дисплея оригинала
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;Распространитель
 Distributor;Распространитель
 Dolby_Atmos_Metadata;Метаданные Dolby Atmos

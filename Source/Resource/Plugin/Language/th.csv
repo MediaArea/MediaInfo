@@ -362,6 +362,10 @@ Disabled;
 DisplayAspectRatio;อัตราการแสดงผล
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;เผยแพร่โดย
 Distributor;
 Dolby_Atmos_Metadata;
@@ -1362,5 +1366,5 @@ Written_Location;สถานที่เขียน
 WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
-ZZ_Automatic_Percent;60
+ZZ_Automatic_Percent;59
 ZZ_AutomaticLanguage_Percent;64

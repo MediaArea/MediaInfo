@@ -362,6 +362,10 @@ Disabled;
 DisplayAspectRatio;Omjer slike
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Izvorni omjer slike
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;Distribucija
 Distributor;
 Dolby_Atmos_Metadata;

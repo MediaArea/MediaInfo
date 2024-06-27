@@ -362,6 +362,10 @@ Disabled;
 DisplayAspectRatio;Rodyti aspekto santykį
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;Platintojas
 Distributor;
 Dolby_Atmos_Metadata;

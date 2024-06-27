@@ -362,6 +362,10 @@ Disabled;
 DisplayAspectRatio;Størrelsesforhold
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Oprindeligt størrelsesforhold
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;Distribueret af
 Distributor;
 Dolby_Atmos_Metadata;
@@ -1362,5 +1366,5 @@ Written_Location;Sted
 WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
-ZZ_Automatic_Percent;62
-ZZ_AutomaticLanguage_Percent;72
+ZZ_Automatic_Percent;61
+ZZ_AutomaticLanguage_Percent;71

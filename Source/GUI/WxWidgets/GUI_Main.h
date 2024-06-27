@@ -156,7 +156,7 @@ public:
     void ToolBar_Create();
 
     //Helpers
-    void View_Refresh() {View->GUI_Refresh();}
+    void View_Refresh();
 
 private:
     //Non-GUI Elements

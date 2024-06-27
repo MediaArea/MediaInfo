@@ -362,6 +362,10 @@ Disabled;Disabilitato/a
 DisplayAspectRatio;Rapporto aspetto visualizzazione
 DisplayAspectRatio_CleanAperture;Rapporto aspetto visualizzazione apertura
 DisplayAspectRatio_Original;Rapporto aspetto originale
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;Distribuito da
 Distributor;Distributore
 Dolby_Atmos_Metadata;Metadati Dolby Atmos

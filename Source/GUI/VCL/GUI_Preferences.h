@@ -44,6 +44,8 @@ __published:    // IDE-managed Components
     TCheckBox *Advanced_InformVersion;
     TCheckBox *Advanced_InformTimestamp;
     TCheckBox *Advanced_EnableFfmpeg;
+    TLabel *Advanced_DisplayCaptions_Caption;
+    TComboBox *Advanced_DisplayCaptions_Sel;
     TTabSheet *Customize_Language;
     TLabel *Language_Caption;
     TButton *Language_New;
@@ -93,6 +95,7 @@ __published:    // IDE-managed Components
     void __fastcall Advanced_InformVersionClick(TObject *Sender);
     void __fastcall Advanced_InformTimestampClick(TObject *Sender);
     void __fastcall Advanced_EnableFfmpegClick(TObject *Sender);
+    void __fastcall Advanced_DisplayCaptions_SelChange(TObject *Sender);
     void __fastcall Graph_Adm_ShowTrackUIDsClick(TObject *Sender);
     void __fastcall Graph_Adm_ShowChannelFormatsClick(TObject *Sender);
     void __fastcall Setup_GeneralShow(TObject *Sender);

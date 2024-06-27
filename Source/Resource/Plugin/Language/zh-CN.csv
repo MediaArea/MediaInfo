@@ -362,6 +362,10 @@ Disabled;禁用
 DisplayAspectRatio;画面比例
 DisplayAspectRatio_CleanAperture;干净光圈画面比例
 DisplayAspectRatio_Original;原始画面比例
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;发行商
 Distributor;发行商
 Dolby_Atmos_Metadata;杜比全景声元数据

@@ -362,6 +362,10 @@ Disabled;Disabled
 DisplayAspectRatio;عرض حجم الشاشة
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;عرض حجم الشاشة الأصلي
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;موزع من طرف
 Distributor;
 Dolby_Atmos_Metadata;
@@ -1362,5 +1366,5 @@ Written_Location;مكان الكتابة
 WrittenBy;كتبها
 Yes;نعم
 Your system;نظامك
-ZZ_Automatic_Percent;72
+ZZ_Automatic_Percent;71
 ZZ_AutomaticLanguage_Percent;76

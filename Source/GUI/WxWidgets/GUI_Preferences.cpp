@@ -196,6 +196,85 @@ void GUI_Preference_Panel_General::ChangeTextSize(wxCommandEvent&)
 }
 
 //***************************************************************************
+// GUI_Preference_Panel_Advanced
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+GUI_Preference_Panel_Advanced::GUI_Preference_Panel_Advanced(wxWindow* Parent, GUI_Main* Main) : wxPanel(Parent), Main(Main)
+{
+    // Init
+    wxSizer* Sizer=new wxBoxSizer(wxVERTICAL);
+
+    // Captions display option
+    DisplayCaptionsLabel=new wxStaticText(this, wxID_ANY, wxT("Handling of 608/708 streams:"));
+    wxString DisplayCaptionsOptions[]=
+    {
+        wxT("When content is detected"),
+        wxT("When content or a command is detected"),
+        wxT("Even when no content or command is detected")
+    };
+    DisplayCaptionsComboBox=new wxComboBox(this, wxID_ANY, wxT("Select an option"), wxDefaultPosition,
+                                 wxDefaultSize, WXSIZEOF(DisplayCaptionsOptions), DisplayCaptionsOptions, wxCB_READONLY);
+    DisplayCaptionsComboBox->Bind(wxEVT_COMBOBOX, &GUI_Preference_Panel_Advanced::ChangeCaptionsDisplayOption, this);
+
+
+    Sizer->Add(DisplayCaptionsLabel, 0, wxALL | wxALIGN_LEFT, 20);
+    Sizer->Add(DisplayCaptionsComboBox, 0, wxALL | wxEXPAND, 20);
+    SetSizerAndFit(Sizer);
+}
+
+//---------------------------------------------------------------------------
+bool GUI_Preference_Panel_Advanced::TransferDataToWindow()
+{
+    wxConfigBase* Config=wxConfigBase::Get();
+
+    wxString Option=Config->Read(wxT("/DisplayCaptions"), wxT("Command"));
+    if (Option==wxT("Content"))
+        DisplayCaptionsComboBox->SetSelection(0);
+    else if (Option==wxT("Command"))
+        DisplayCaptionsComboBox->SetSelection(1);
+    else if (Option==wxT("Stream"))
+        DisplayCaptionsComboBox->SetSelection(2);
+    else
+        DisplayCaptionsComboBox->SetSelection(1);
+
+    return true;
+}
+
+//---------------------------------------------------------------------------
+bool GUI_Preference_Panel_Advanced::TransferDataFromWindow()
+{
+    wxConfigBase* Config=wxConfigBase::Get();
+    if (Config==NULL)
+        return false;
+
+    switch (DisplayCaptionsComboBox->GetSelection())
+    {
+        case 0: Config->Write(wxT("/DisplayCaptions"), wxT("Content")); break;
+        case 1: Config->Write(wxT("/DisplayCaptions"), wxT("Command")); break;
+        case 2: Config->Write(wxT("/DisplayCaptions"), wxT("Stream")); break;
+        default: Config->Write(wxT("/DisplayCaptions"), wxT("Command")); break;
+    }
+
+    Main->View_Refresh();
+
+    return true;
+}
+
+//---------------------------------------------------------------------------
+void GUI_Preference_Panel_Advanced::UpdateSettingsIfNecessary()
+{
+    if (wxPreferencesEditor::ShouldApplyChangesImmediately())
+        TransferDataFromWindow();
+}
+
+//---------------------------------------------------------------------------
+void GUI_Preference_Panel_Advanced::ChangeCaptionsDisplayOption(wxCommandEvent&)
+{
+    UpdateSettingsIfNecessary();
+}
+
+//***************************************************************************
 // GUI_Preferences_Page_General
 //***************************************************************************
 
@@ -208,4 +287,19 @@ GUI_Preferences_Page_General::GUI_Preferences_Page_General(GUI_Main* Main) : wxS
 wxWindow* GUI_Preferences_Page_General::CreateWindow(wxWindow* Parent)
 {
     return new GUI_Preference_Panel_General(Parent, Main);
+}
+
+//***************************************************************************
+// GUI_Preferences_Page_Advanced
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+GUI_Preferences_Page_Advanced::GUI_Preferences_Page_Advanced(GUI_Main* Main) : wxStockPreferencesPage(Kind_Advanced), Main(Main)
+{
+}
+
+//---------------------------------------------------------------------------
+wxWindow* GUI_Preferences_Page_Advanced::CreateWindow(wxWindow* Parent)
+{
+    return new GUI_Preference_Panel_Advanced(Parent, Main);
 }

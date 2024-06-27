@@ -206,6 +206,13 @@ GUI_Main::GUI_Main(int argc, MediaInfoNameSpace::Char** argv_ansi, const wxPoint
         OnMenu_View_Easy(*EventTemp);
     }
 
+    wxString displayCaptionsOption = pConfig->Read(wxT("/DisplayCaptions"), wxT("Command"));
+    if (displayCaptionsOption==wxT("Command"))
+        C->MI->Option(__T("File_DisplayCaptions"), __T("Command"));
+    else if (displayCaptionsOption==wxT("Content"))
+        C->MI->Option(__T("File_DisplayCaptions"), __T("Content"));
+    else if (displayCaptionsOption==wxT("Stream"))
+        C->MI->Option(__T("File_DisplayCaptions"), __T("Stream"));
 
     delete EventTemp; //This is done to be GCC-compatible...
     Menu_Debug_Demux_None->Check(); //Default to no Debug Demux
@@ -251,4 +258,24 @@ void GUI_Main::OnSize(wxSizeEvent& WXUNUSED(event))
 {
     if (View && IsShown())
         View->GUI_Resize();
+}
+
+//***************************************************************************
+// Helpers
+//***************************************************************************
+
+//---------------------------------------------------------------------------
+void GUI_Main::View_Refresh()
+{
+    wxConfigBase *pConfig = wxConfigBase::Get();
+
+    wxString displayCaptionsOption = pConfig->Read(wxT("/DisplayCaptions"), wxT("Command"));
+    if (displayCaptionsOption==wxT("Command"))
+        C->MI->Option(__T("File_DisplayCaptions"), __T("Command"));
+    else if (displayCaptionsOption==wxT("Content"))
+        C->MI->Option(__T("File_DisplayCaptions"), __T("Content"));
+    else if (displayCaptionsOption==wxT("Stream"))
+        C->MI->Option(__T("File_DisplayCaptions"), __T("Stream"));
+
+    View->GUI_Refresh();
 }

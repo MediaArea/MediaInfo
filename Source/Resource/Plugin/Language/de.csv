@@ -362,6 +362,10 @@ Disabled;
 DisplayAspectRatio;Bildseitenverhältnis
 DisplayAspectRatio_CleanAperture;
 DisplayAspectRatio_Original;Ursprüngliches Bildseitenverhältnis
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;Vertrieb durch
 Distributor;
 Dolby_Atmos_Metadata;

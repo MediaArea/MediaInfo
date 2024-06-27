@@ -16,7 +16,7 @@
     IBOutlet NSButton *graphAdmShowTrackUIDs;
     IBOutlet NSButton *graphAdmShowChannelFormats;
     IBOutlet NSButton *subscribeButton;
-
+    IBOutlet NSPopUpButton *displayCaptionsCombo;
     NSMutableArray *observers;
 }
 

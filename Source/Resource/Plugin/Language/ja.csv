@@ -362,6 +362,10 @@ Disabled;無効
 DisplayAspectRatio;モニターのアスペクト比
 DisplayAspectRatio_CleanAperture;表示されるモニターのアスペクト比 (Clean aperture)
 DisplayAspectRatio_Original;元のモニターのアスペクト比
+DisplayCaptions;
+DisplayCaptions_Command;
+DisplayCaptions_Content;
+DisplayCaptions_Stream;
 DistributedBy;配給者
 Distributor;配給
 Dolby_Atmos_Metadata;
