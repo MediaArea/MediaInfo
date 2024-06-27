@@ -48,6 +48,7 @@ GUI_Main_Text::~GUI_Main_Text()
 //---------------------------------------------------------------------------
 void GUI_Main_Text::GUI_Refresh()
 {
+    #ifdef WX_PREFERENCES
     wxConfigBase* Config=wxConfigBase::Get();
     long TextSize=Config->ReadLong(wxT("/TextSize"), 0);
     if (TextSize>(long)wxFONTSIZE_XX_LARGE)
@@ -60,6 +61,7 @@ void GUI_Main_Text::GUI_Refresh()
     wxTextAttr Attr;
     Attr.SetFont(Font);
     SetDefaultStyle(Attr);
+    #endif //WX_PREFERENCES
 
     Clear();
     WriteText(C->Inform_Get().c_str());

@@ -19,7 +19,9 @@
 #include "GUI/WxWidgets/GUI_Main_Tree.h"
 #include "GUI/WxWidgets/GUI_Main_HTML.h"
 #include "GUI/WxWidgets/GUI_Main_Text.h"
-#include "GUI/WxWidgets/GUI_Preferences.h"
+#ifdef WX_PREFERENCES
+    #include "GUI/WxWidgets/GUI_Preferences.h"
+#endif
 #include "Common/Core.h"
 #include <wx/image.h>
 //---------------------------------------------------------------------------
@@ -34,7 +36,9 @@ enum
     ID_Menu_File_Open,
     ID_Menu_File_Open_Files,
     ID_Menu_File_Open_Directory,
+#ifdef WX_PREFERENCES
     ID_Menu_File_Preferences,
+#endif
     ID_Menu_File_Quit,
     ID_Menu_View_Easy,
     ID_Menu_View_Sheet,
@@ -75,7 +79,9 @@ BEGIN_EVENT_TABLE(GUI_Main, wxFrame)
     //Menu
     EVT_MENU(ID_Menu_File_Open_Files,       GUI_Main::OnMenu_File_Open_Files)
     EVT_MENU(ID_Menu_File_Open_Directory,   GUI_Main::OnMenu_File_Open_Directory)
-    EVT_MENU(ID_Menu_File_Preferences,      GUI_Main::OnMenu_File_Preferences)
+    #ifdef WX_PREFERENCES
+        EVT_MENU(ID_Menu_File_Preferences,      GUI_Main::OnMenu_File_Preferences)
+    #endif
     EVT_MENU(wxID_EXIT,                     GUI_Main::OnMenu_File_Quit)
     EVT_MENU(ID_Menu_View_Easy,             GUI_Main::OnMenu_View_Easy)
     EVT_MENU(ID_Menu_View_Sheet,            GUI_Main::OnMenu_View_Sheet)
@@ -136,7 +142,9 @@ void GUI_Main::Menu_Create()
     //File
     Menu_File=new wxMenu;
                                  Menu_File->Append(ID_Menu_File_Open, __T("Open"), Menu_File_Open);
-    Menu_File_Preferences       =Menu_File->Append(ID_Menu_File_Preferences, __T("&Preferences"));
+    #ifdef WX_PREFERENCES
+        Menu_File_Preferences       =Menu_File->Append(ID_Menu_File_Preferences, __T("&Preferences"));
+    #endif
                                  Menu_File->AppendSeparator();
     Menu_File_Quit              =Menu_File->Append(wxID_EXIT, __T("E&xit\tAlt-X"), __T("Quit this program"));
 
@@ -228,6 +236,7 @@ void GUI_Main::OnMenu_File_Open_Files(wxCommandEvent& WXUNUSED(event))
 
 
 //---------------------------------------------------------------------------
+#ifdef WX_PREFERENCES
 void GUI_Main::OnMenu_File_Preferences(wxCommandEvent& WXUNUSED(event))
 {
     if (!PreferencesEditor)
@@ -238,6 +247,7 @@ void GUI_Main::OnMenu_File_Preferences(wxCommandEvent& WXUNUSED(event))
 
     PreferencesEditor->Show(this);
 }
+#endif
 
 //---------------------------------------------------------------------------
 void GUI_Main::OnMenu_File_Open_Directory(wxCommandEvent& WXUNUSED(event))
