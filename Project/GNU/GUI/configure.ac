@@ -229,7 +229,11 @@ if test "$with_wx" != "no"; then
  CFLAGS="$CFLAGS $($ZenLib_Wx_Config --unicode=$enable_unicode --cflags)"
  CXXFLAGS="$CXXFLAGS $($ZenLib_Wx_Config --unicode=$enable_unicode --cxxflags)"
  LIBS="$LIBS $($ZenLib_Wx_Config --unicode=$enable_unicode --libs)"
+ if test "$(echo $WX_VERSION | sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/')" -ge 3; then
+  CXXFLAGS="$CXXFLAGS -DWX_PREFERENCES"
+ fi
 fi
+AM_CONDITIONAL([WX_PREFERENCES], [test "$with_wx" != "no" -a "$(echo $WX_VERSION | sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/')" -ge 3])
 
 dnl #########################################################################
 dnl ### C/C++ compiler options used to compile

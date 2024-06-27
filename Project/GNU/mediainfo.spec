@@ -69,7 +69,7 @@ BuildRequires: libopenssl-devel
 BuildRequires:  wxWidgets-devel
 %else
 %if 0%{?mageia}
-BuildRequires:  wxgtk2.8-devel
+BuildRequires:  wxgtk3.0-devel
 %else
 %if (0%{?fedora_version} && 0%{?fedora_version} <= 38) || 0%{?rhel} >= 8
 BuildRequires:  wxGTK3-devel
@@ -136,7 +136,7 @@ Requires:   %{libmediainfo_name}%{?_isa} >= %{libmediainfo_version}
 Requires:   wxWidgets
 %else
 %if 0%{?mageia}
-Requires:  wxgtk2.8
+Requires:  wxgtk3.0
 %else
 %if (0%{?fedora_version} && 0%{?fedora_version} >= 29) || 0%{?rhel} >= 8
 Requires:   wxGTK3

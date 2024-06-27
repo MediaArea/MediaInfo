@@ -17,7 +17,9 @@
 
 //---------------------------------------------------------------------------
 #include "GUI/Common/GUI_Main_Common_Core.h"
-#include "wx/preferences.h"
+#ifdef WX_PREFERENCES
+    #include "wx/preferences.h"
+#endif
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -63,7 +65,9 @@ public:
     wxMenu*     Menu_File_Open;
     wxMenuItem* Menu_File_Open_Files;
     wxMenuItem* Menu_File_Open_Directory;
+#ifdef WX_PREFERENCES
     wxMenuItem* Menu_File_Preferences;
+#endif
     wxMenuItem* Menu_File_Quit;
     wxMenu*     Menu_View;
     wxMenuItem* Menu_View_Easy;
@@ -107,7 +111,9 @@ public:
     void Menu_Create();
     void OnMenu_File_Open_Files         (wxCommandEvent &event);
     void OnMenu_File_Open_Directory     (wxCommandEvent &event);
+#ifdef WX_PREFERENCES
     void OnMenu_File_Preferences        (wxCommandEvent &event);
+#endif
     void OnMenu_File_Quit               (wxCommandEvent &event);
     void OnMenu_View_Easy               (wxCommandEvent &event);
     void OnMenu_View_Sheet              (wxCommandEvent &event);
@@ -159,7 +165,9 @@ private:
     //GUI
     GUI_Main_Common_Core* View;
 
-    wxPreferencesEditor* PreferencesEditor;
+    #ifdef WX_PREFERENCES
+        wxPreferencesEditor* PreferencesEditor;
+    #endif
 
     //wxWidgets
     DECLARE_EVENT_TABLE() //Any class wishing to process wxWindows events must use this macro

@@ -6,7 +6,9 @@
 
 //---------------------------------------------------------------------------
 #include "wx/wxprec.h"
-#include "wx/preferences.h"
+#ifdef WX_PREFERENCES
+    #include "wx/preferences.h"
+#endif
 #ifndef WX_PRECOMP
     #include "wx/wx.h"
 #endif
@@ -79,7 +81,9 @@ GUI_Main::GUI_Main(int argc, MediaInfoNameSpace::Char** argv_ansi, const wxPoint
 
     //GUI
     View=NULL;
-    PreferencesEditor=NULL;
+    #ifdef WX_PREFERENCES
+        PreferencesEditor=NULL;
+    #endif
     CenterOnScreen();
 
     //Drag and Drop
