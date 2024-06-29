@@ -581,7 +581,7 @@ void __fastcall TPreferencesF::TreeChange(TObject *Sender,
 //---------------------------------------------------------------------------
 void __fastcall TPreferencesF::General_Language_MoreClick(TObject *Sender)
 {
-    Tree->Select(Tree->Items->Item[6]);
+    Tree->Select(Tree->Items->Item[7]);
 }
 
 //---------------------------------------------------------------------------
@@ -606,8 +606,10 @@ void __fastcall TPreferencesF::FormShow(TObject *Sender)
     General_Output_SelChange(NULL);
 
     //Not done with BCB because I want to easy select tabs in it
-    Page->Top=-6;
-    Page->TabHeight=1;
+    //Page->Top=-6;
+    //Page->TabHeight=1;
+    Page->Top=-(Page->TabHeight*1.15);                //Replaced above with this to hide tabs better on high-DPI
+    Page->Height=Page->Height+(Page->TabHeight*1.15); //Required with above line
     Cancel->Top=Page->Top+Page->Height;
     OK->Top=Cancel->Top;
     ClientHeight=OK->Top+OK->Height;

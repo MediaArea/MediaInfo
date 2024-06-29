@@ -16,9 +16,9 @@ object AboutF: TAboutF
   OnShow = FormShow
   TextHeight = 14
   object Translator: TLabel
-    Left = 278
+    Left = 275
     Top = 497
-    Width = 247
+    Width = 245
     Height = 15
     Alignment = taRightJustify
     AutoSize = False
@@ -31,9 +31,9 @@ object AboutF: TAboutF
     ParentFont = False
   end
   object Memo: TMemo
-    Left = 142
-    Top = 1
-    Width = 385
+    Left = 144
+    Top = 4
+    Width = 376
     Height = 313
     TabStop = False
     BevelEdges = []
@@ -52,9 +52,9 @@ object AboutF: TAboutF
     TabOrder = 2
   end
   object OK: TButton
-    Left = 445
-    Top = 573
-    Width = 81
+    Left = 441
+    Top = 567
+    Width = 79
     Height = 27
     Caption = 'OK'
     Default = True
@@ -63,7 +63,7 @@ object AboutF: TAboutF
   end
   object WebSite: TButton
     Left = 80
-    Top = 489
+    Top = 486
     Width = 193
     Height = 27
     Caption = 'Go to WebSite'
@@ -72,7 +72,7 @@ object AboutF: TAboutF
   end
   object ToolBar1: TToolBar
     Left = 6
-    Top = 489
+    Top = 486
     Width = 73
     Height = 89
     Align = alNone
@@ -95,7 +95,7 @@ object AboutF: TAboutF
   end
   object NewVersion: TButton
     Left = 80
-    Top = 516
+    Top = 513
     Width = 193
     Height = 27
     Caption = 'Check for newest version'
@@ -104,7 +104,7 @@ object AboutF: TAboutF
   end
   object Donate: TButton
     Left = 80
-    Top = 543
+    Top = 540
     Width = 193
     Height = 27
     Caption = 'Donate'
@@ -112,8 +112,8 @@ object AboutF: TAboutF
     OnClick = DonateClick
   end
   object ToolBar2: TToolBar
-    Left = 0
-    Top = 1
+    Left = 4
+    Top = 4
     Width = 136
     Height = 161
     Align = alNone
@@ -136,7 +136,7 @@ object AboutF: TAboutF
   end
   object WriteMe: TButton
     Left = 80
-    Top = 570
+    Top = 567
     Width = 193
     Height = 27
     Caption = 'Write me'
@@ -144,18 +144,18 @@ object AboutF: TAboutF
     OnClick = WriteMeClick
   end
   object WriteToTranslator: TButton
-    Left = 334
+    Left = 329
     Top = 516
-    Width = 193
+    Width = 191
     Height = 27
     Caption = 'Write To translator'
     TabOrder = 8
     OnClick = WriteToTranslatorClick
   end
   object Sponsor_Label: TLinkLabel
-    Left = 145
+    Left = 142
     Top = 380
-    Width = 380
+    Width = 378
     Height = 18
     Alignment = taRightJustify
     AutoSize = False
