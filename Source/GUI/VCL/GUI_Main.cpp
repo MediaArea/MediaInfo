@@ -144,19 +144,29 @@ void __fastcall TMainF::ConfigTheme()
     }
 }
 
-//Function to inject a CSS style into html documents to make their look match the dark mode style
-std::wstring __fastcall TMainF::InjectDarkModeHTMLStyle(const wchar_t* HTMLDocument) {
-    const wchar_t* InsertionPoint = wcsstr(HTMLDocument, L"<head>");
-    const wchar_t* StyleContent = L"<style>body { background-color: #1F1F1F; color: #FFFFFF; }</style>";
+//Function to inject a CSS style into HTML documents to workaround GUI HTML rendering issues
+std::wstring __fastcall TMainF::InjectHTMLStyle(const wchar_t* HTMLDocument) {
 
-    if (InsertionPoint != nullptr) {
-        size_t InsertionPos = InsertionPoint - HTMLDocument + wcslen(L"<head>");
-        std::wstring ModifiedHTML(HTMLDocument);
-        ModifiedHTML.insert(InsertionPos, StyleContent);
-        return ModifiedHTML;
-    } else {
-        return HTMLDocument;
-    }
+    auto InsertText = [](std::wstring Text, const wchar_t* InsertPointText, const wchar_t* TextToInsert) -> std::wstring {
+        auto InsertionPoint = std::search(Text.begin(), Text.end(), InsertPointText, InsertPointText + wcslen(InsertPointText));
+        if (InsertionPoint != Text.end()) {
+            size_t InsertionPos = InsertionPoint - Text.begin() + wcslen(InsertPointText);
+            Text.insert(InsertionPos, TextToInsert);
+        }
+        return Text;
+    };
+
+    std::wstring modifiedHTML(HTMLDocument);
+    const wchar_t* StyleContent = L"";
+
+    //IE Engine workarounds
+    if (TStyleManager::ActiveStyle == TStyleManager::Style[DARK_MODE_STYLE]) //app is currently in dark mode
+        StyleContent = L"<meta http-equiv='X-UA-Compatible' content='IE=edge'><style>body { background-color: #121212; color: #FFFFFF; } table { border:1px solid blue; }</style>";
+    else
+        StyleContent = L"<meta http-equiv='X-UA-Compatible' content='IE=edge'><style>table { border:1px solid navy; }</style>";
+    modifiedHTML = InsertText(modifiedHTML, L"<head>", StyleContent);
+
+    return modifiedHTML;
 }
 
 //---------------------------------------------------------------------------
@@ -1001,9 +1011,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             //Creating file
             Ztring S1=I->Inform().c_str();
             File F;
-            if (TStyleManager::ActiveStyle == TStyleManager::Style[DARK_MODE_STYLE]) {
-                S1=InjectDarkModeHTMLStyle(I->Inform().c_str());
-            }
+            S1=InjectHTMLStyle(I->Inform().c_str());
             if (FileName_Temp==__T(""))
             {
                 FileName_Temp=FileName::TempFileName_Create(__T("MI_"));
@@ -1023,9 +1031,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             Temp+=L"about:<html><head></head><body>";
             Temp+=TempA.To_Unicode();
             Temp+=L"</body></html>";
-            if (TStyleManager::ActiveStyle == TStyleManager::Style[DARK_MODE_STYLE]) {
-                Temp=InjectDarkModeHTMLStyle(Temp.c_str());
-            }
+            Temp=InjectHTMLStyle(Temp.c_str());
             Page_HTML_HTML->Navigate((MediaInfoNameSpace::Char*)Temp.c_str());
         }
     }

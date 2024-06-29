@@ -327,7 +327,7 @@ private:    // User declarations
     const UnicodeString DARK_MODE_STYLE = "Windows11 Modern Dark";  // Name of style for dark mode
     bool __fastcall WindowsDarkModeEnabled();
     void __fastcall ConfigTheme();
-    std::wstring __fastcall InjectDarkModeHTMLStyle(const wchar_t* HTMLDocument);
+    std::wstring __fastcall InjectHTMLStyle(const wchar_t* HTMLDocument);
 public:        // User declarations
     MESSAGE void __fastcall HandleDropFiles (TMessage&);
     BEGIN_MESSAGE_MAP
