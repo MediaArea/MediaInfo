@@ -581,7 +581,7 @@ void __fastcall TPreferencesF::TreeChange(TObject *Sender,
 //---------------------------------------------------------------------------
 void __fastcall TPreferencesF::General_Language_MoreClick(TObject *Sender)
 {
-    Tree->Select(Tree->Items->Item[6]);
+    Tree->Select(Tree->Items->Item[7]);
 }
 
 //---------------------------------------------------------------------------
