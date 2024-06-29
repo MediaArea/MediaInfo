@@ -12,10 +12,8 @@ object PreferencesF: TPreferencesF
   Font.Height = -11
   Font.Name = 'Arial'
   Font.Style = []
-  OldCreateOrder = False
   Position = poDesigned
   OnShow = FormShow
-  PixelsPerInch = 96
   TextHeight = 14
   object OK: TButton
     Left = 544
@@ -32,7 +30,7 @@ object PreferencesF: TPreferencesF
     Left = 0
     Top = -1
     Width = 190
-    Height = 150
+    Height = 158
     Indent = 19
     ParentShowHint = False
     ReadOnly = True
@@ -68,7 +66,7 @@ object PreferencesF: TPreferencesF
     Left = 176
     Top = 0
     Width = 490
-    Height = 157
+    Height = 158
     ActivePage = Setup
     MultiLine = True
     TabHeight = 22
@@ -76,7 +74,6 @@ object PreferencesF: TPreferencesF
     object Setup: TTabSheet
       Caption = 'General'
       OnShow = Setup_GeneralShow
-      ExplicitWidth = 509
       object Langue_C: TLabel
         Left = 0
         Top = 9
@@ -184,10 +181,16 @@ object PreferencesF: TPreferencesF
       Caption = 'Advanced'
       ImageIndex = 1
       OnShow = Setup_AdvancedShow
-      ExplicitWidth = 509
+      object Advanced_DisplayCaptions_Caption: TLabel
+        Left = 0
+        Top = 105
+        Width = 141
+        Height = 14
+        Caption = 'Handling of 608/708 streams:'
+      end
       object CB_ShowToolBar: TCheckBox
         Left = 0
-        Top = 26
+        Top = 0
         Width = 268
         Height = 18
         Caption = 'Show toolbar'
@@ -196,16 +199,16 @@ object PreferencesF: TPreferencesF
       end
       object Advanced_CloseAllAuto: TCheckBox
         Left = 0
-        Top = 59
+        Top = 33
         Width = 268
         Height = 18
         Caption = 'Close all before open'
-        TabOrder = 1
+        TabOrder = 5
         OnClick = Advanced_CloseAllAutoClick
       end
       object CB_ShowMenu: TCheckBox
         Left = 0
-        Top = 42
+        Top = 16
         Width = 268
         Height = 18
         Caption = 'Show menu'
@@ -214,7 +217,7 @@ object PreferencesF: TPreferencesF
       end
       object Advanced_InformVersion: TCheckBox
         Left = 0
-        Top = 76
+        Top = 50
         Width = 268
         Height = 18
         Caption = 'Add version to text output'
@@ -223,32 +226,25 @@ object PreferencesF: TPreferencesF
       end
       object Advanced_InformTimestamp: TCheckBox
         Left = 0
-        Top = 93
+        Top = 67
         Width = 268
         Height = 18
         Caption = 'Add creation date to text output'
-        TabOrder = 4
+        TabOrder = 6
         OnClick = Advanced_InformTimestampClick
       end
       object Advanced_EnableFfmpeg: TCheckBox
         Left = 0
-        Top = 110
+        Top = 84
         Width = 268
         Height = 18
         Caption = 'Enable FFmpeg plugin'
         TabOrder = 4
         OnClick = Advanced_EnableFfmpegClick
       end
-      object Advanced_DisplayCaptions_Caption: TLabel
-        Left = 0
-        Top = 131
-        Width = 200
-        Height = 14
-        Caption = 'Handling of 608/708 streams:'
-      end
       object Advanced_DisplayCaptions_Sel: TComboBox
-        Left = 200
-        Top = 127
+        Left = 196
+        Top = 102
         Width = 285
         Height = 22
         Style = csDropDownList
@@ -265,7 +261,6 @@ object PreferencesF: TPreferencesF
       Caption = 'Language'
       ImageIndex = 3
       OnShow = Customize_LanguageShow
-      ExplicitWidth = 509
       object Language_Caption: TLabel
         Left = 0
         Top = 0
@@ -314,7 +309,6 @@ object PreferencesF: TPreferencesF
       Caption = 'Sheet'
       ImageIndex = 4
       OnShow = Customize_SheetShow
-      ExplicitWidth = 509
       object Sheet_Caption: TLabel
         Left = 0
         Top = 0
@@ -362,7 +356,6 @@ object PreferencesF: TPreferencesF
     object Customize_TreeText: TTabSheet
       Caption = 'Tree && Text'
       ImageIndex = 6
-      ExplicitWidth = 509
       object Tree_NotYet: TLabel
         Left = 362
         Top = 78
@@ -377,7 +370,7 @@ object PreferencesF: TPreferencesF
       OnShow = Customize_GraphShow
       object Graph_Adm_ShowTrackUIDs: TCheckBox
         Left = 0
-        Top = 26
+        Top = 0
         Width = 268
         Height = 18
         Caption = 'ADM: Show TrackUIDs'
@@ -386,7 +379,7 @@ object PreferencesF: TPreferencesF
       end
       object Graph_Adm_ShowChannelFormats: TCheckBox
         Left = 0
-        Top = 42
+        Top = 16
         Width = 268
         Height = 18
         Caption = 'ADM: Show ChannelFormats'
@@ -445,7 +438,6 @@ object PreferencesF: TPreferencesF
     object Customize: TTabSheet
       Caption = 'Customize'
       ImageIndex = 7
-      ExplicitWidth = 509
     end
   end
 end

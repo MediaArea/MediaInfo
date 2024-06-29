@@ -608,8 +608,8 @@ void __fastcall TPreferencesF::FormShow(TObject *Sender)
     //Not done with BCB because I want to easy select tabs in it
     //Page->Top=-6;
     //Page->TabHeight=1;
-    Page->Top=-(Page->TabHeight*1.15);         //Replaced above with this to hide tabs better on high-DPI
-    Page->Height=Page->Height+Page->TabHeight; //Required with above line
+    Page->Top=-(Page->TabHeight*1.15);                //Replaced above with this to hide tabs better on high-DPI
+    Page->Height=Page->Height+(Page->TabHeight*1.15); //Required with above line
     Cancel->Top=Page->Top+Page->Height;
     OK->Top=Cancel->Top;
     ClientHeight=OK->Top+OK->Height;
