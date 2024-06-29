@@ -5,46 +5,6 @@
 #include <tchar.h>
 //---------------------------------------------------------------------------
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #include <Vcl.Styles.hpp>
 #include <Vcl.Themes.hpp>
 USEFORM("..\..\..\Source\GUI\VCL\GUI_Preferences_Language.cpp", Preferences_LanguageF);
