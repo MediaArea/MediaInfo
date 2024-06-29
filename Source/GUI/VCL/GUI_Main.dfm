@@ -148,7 +148,7 @@ object MainF: TMainF
     ParentFont = False
     ParentShowHint = False
     ShowHint = False
-    TabHeight = 20
+    TabHeight = 22
     TabOrder = 0
     TabStop = False
     object Page_Easy: TTabSheet

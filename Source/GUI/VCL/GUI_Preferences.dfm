@@ -71,6 +71,7 @@ object PreferencesF: TPreferencesF
     Height = 157
     ActivePage = Setup
     MultiLine = True
+    TabHeight = 22
     TabOrder = 3
     object Setup: TTabSheet
       Caption = 'General'

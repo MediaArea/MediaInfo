@@ -243,8 +243,9 @@ __fastcall TMainF::TMainF(TComponent* Owner)
     Footer_Button->Visible=false;
 
     //Configuration of properties
-    Page->Top=-6; //Not done with BCB because I want to easy select tabs in it
-    Page->TabHeight=1; //Not done with BCB because I want to easy select tabs in it
+    //Page->Top=-6; //Not done with BCB because I want to easy select tabs in it
+    //Page->TabHeight=1; //Not done with BCB because I want to easy select tabs in it
+    Page->Top=-(Page->TabHeight*1.15); //Replaced above with this to hide tabs better on high-DPI
     Page_Position=-1;
     Caption=MEDIAINFO_TITLE;
 
