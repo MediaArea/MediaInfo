@@ -2615,12 +2615,6 @@ object MainF: TMainF
       OnClick = M_Options_ShowMenuClick
     end
   end
-  object ToolBar_Image_Disabled: TImageList
-    Height = 32
-    Width = 32
-    Left = 768
-    Top = 256
-  end
   object OpenDialog1: TOpenDialog
     Options = [ofHideReadOnly, ofAllowMultiSelect, ofEnableSizing]
     Left = 768
@@ -7368,5 +7362,49 @@ object MainF: TMainF
     Options = [fdoPickFolders]
     Left = 768
     Top = 424
+  end
+  object ToolBar_Image_Disabled: TVirtualImageList
+    Images = <
+      item
+        CollectionIndex = 0
+        CollectionName = 'File_Open_File'
+        Disabled = True
+        Name = 'File_Open_File_Disabled'
+      end
+      item
+        CollectionIndex = 1
+        CollectionName = 'File_Open_Directory'
+        Disabled = True
+        Name = 'File_Open_Directory_Disabled'
+      end
+      item
+        CollectionIndex = 2
+        CollectionName = 'File_Export'
+        Disabled = True
+        Name = 'File_Export_Disabled'
+      end
+      item
+        CollectionIndex = 3
+        CollectionName = 'Options_Prefs'
+        Disabled = True
+        Name = 'Options_Prefs_Disabled'
+      end
+      item
+        CollectionIndex = 4
+        CollectionName = 'Help_About'
+        Disabled = True
+        Name = 'Help_About_Disabled'
+      end
+      item
+        CollectionIndex = 5
+        CollectionName = 'View'
+        Disabled = True
+        Name = 'View_Disabled'
+      end>
+    ImageCollection = ImageCollection1
+    Width = 32
+    Height = 32
+    Left = 768
+    Top = 256
   end
 end

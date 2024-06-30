@@ -157,7 +157,6 @@ __published:    // IDE-managed Components
     TMenuItem *ToolBar_View_Custom;
     TMenuItem *N3;
     TMenuItem *ToolBar_View_System;
-    TImageList *ToolBar_Image_Disabled;
     TMenuItem *M_Options_ShowMenu;
     TMenuItem *N4;
     TMenuItem *ToolBar_View_ShowMenu;
@@ -228,6 +227,7 @@ __published:    // IDE-managed Components
     TImageCollection* ImageCollection1;
     TVirtualImageList* Menu_Image;
     TVirtualImageList* Toolbar_Image;
+    TVirtualImageList *ToolBar_Image_Disabled;
     TApplicationEvents *ApplicationEvents1;
     TFileOpenDialog *FolderOpenDialog1;
     TPanel *Page_Sheet_Panel1;
