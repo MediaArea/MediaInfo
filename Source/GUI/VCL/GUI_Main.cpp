@@ -268,6 +268,7 @@ __fastcall TMainF::TMainF(TComponent* Owner)
         TFont* monoFont = new TFont;
         monoFont->Name = "Cascadia Mono";
         monoFont->Size = 10;
+        monoFont->Style = TFontStyles() << fsBold;
         Page_Text_Text->Font = monoFont;
         Page_Custom_Text->Font = monoFont;
         Page_Sheet_Text->Font = monoFont;
