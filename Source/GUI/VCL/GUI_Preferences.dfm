@@ -76,14 +76,14 @@ object PreferencesF: TPreferencesF
       OnShow = Setup_GeneralShow
       object Langue_C: TLabel
         Left = 0
-        Top = 9
+        Top = 3
         Width = 54
         Height = 14
         Caption = 'Language :'
       end
       object Output_C: TLabel
         Left = 0
-        Top = 34
+        Top = 29
         Width = 38
         Height = 14
         Caption = 'Output :'
@@ -126,7 +126,7 @@ object PreferencesF: TPreferencesF
         OnClick = CB_CheckUpdateClick
       end
       object General_Language_More: TButton
-        Left = 237
+        Left = 239
         Top = 0
         Width = 57
         Height = 23
@@ -135,7 +135,7 @@ object PreferencesF: TPreferencesF
         OnClick = General_Language_MoreClick
       end
       object General_Output_More: TButton
-        Left = 237
+        Left = 239
         Top = 26
         Width = 57
         Height = 22
