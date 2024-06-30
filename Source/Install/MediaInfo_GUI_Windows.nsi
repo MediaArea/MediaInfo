@@ -124,6 +124,7 @@ Section "SectionPrincipale" SEC01
   SetOutPath "$INSTDIR"
   File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Win32\Release\MediaInfo_GUI.exe"
   File "/oname=MediaInfo_i386.dll" "..\..\..\MediaInfoLib\Project\MSVC2019\Win32\Release\MediaInfo.dll"
+  File "C:\Program Files (x86)\Embarcadero\Studio\22.0\Redist\win32\WebView2Loader.dll"
   ${If} ${RunningX64}
     File "..\..\..\MediaInfoLib\Project\MSVC2019\x64\Release\MediaInfo_InfoTip.dll"
     File "..\..\..\MediaInfoLib\Project\MSVC2019\x64\Release\MediaInfo.dll"
@@ -202,6 +203,7 @@ Section Uninstall
   Delete "$INSTDIR\MediaInfo_InfoTip.dll"
   Delete "$INSTDIR\MediaInfo.dll"
   Delete "$INSTDIR\MediaInfo_i386.dll"
+  Delete "$INSTDIR\WebView2Loader.dll"
   Delete "$INSTDIR\History.txt"
   Delete "$INSTDIR\License.html"
   Delete "$INSTDIR\License.NoModifications.html"
@@ -225,6 +227,7 @@ Section Uninstall
   RMDir "$INSTDIR\Plugin\Sheet"
   RMDir "$INSTDIR\Plugin\Tree"
   RMDir "$INSTDIR\Plugin"
+  RMDir /r "$INSTDIR\WebView2"
   RMDir "$INSTDIR"
 
   SetRegView 64
