@@ -4,7 +4,7 @@ object PreferencesF: TPreferencesF
   BorderIcons = []
   BorderStyle = bsDialog
   Caption = 'Preferences'
-  ClientHeight = 187
+  ClientHeight = 194
   ClientWidth = 667
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,8 +16,8 @@ object PreferencesF: TPreferencesF
   OnShow = FormShow
   TextHeight = 14
   object OK: TButton
-    Left = 544
-    Top = 159
+    Left = 540
+    Top = 163
     Width = 122
     Height = 27
     Caption = 'OK'
@@ -28,8 +28,8 @@ object PreferencesF: TPreferencesF
   end
   object Tree: TTreeView
     Left = 0
-    Top = -1
-    Width = 190
+    Top = 0
+    Width = 176
     Height = 158
     Indent = 19
     ParentShowHint = False
@@ -53,8 +53,8 @@ object PreferencesF: TPreferencesF
       084C0061006E0067007500610067006500}
   end
   object Cancel: TButton
-    Left = 417
-    Top = 159
+    Left = 415
+    Top = 163
     Width = 121
     Height = 27
     Cancel = True
@@ -76,14 +76,14 @@ object PreferencesF: TPreferencesF
       OnShow = Setup_GeneralShow
       object Langue_C: TLabel
         Left = 0
-        Top = 9
+        Top = 3
         Width = 54
         Height = 14
         Caption = 'Language :'
       end
       object Output_C: TLabel
         Left = 0
-        Top = 34
+        Top = 29
         Width = 38
         Height = 14
         Caption = 'Output :'
@@ -126,7 +126,7 @@ object PreferencesF: TPreferencesF
         OnClick = CB_CheckUpdateClick
       end
       object General_Language_More: TButton
-        Left = 237
+        Left = 239
         Top = 0
         Width = 57
         Height = 23
@@ -135,7 +135,7 @@ object PreferencesF: TPreferencesF
         OnClick = General_Language_MoreClick
       end
       object General_Output_More: TButton
-        Left = 237
+        Left = 239
         Top = 26
         Width = 57
         Height = 22
@@ -243,7 +243,7 @@ object PreferencesF: TPreferencesF
         OnClick = Advanced_EnableFfmpegClick
       end
       object Advanced_DisplayCaptions_Sel: TComboBox
-        Left = 196
+        Left = 193
         Top = 102
         Width = 285
         Height = 22
