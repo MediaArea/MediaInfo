@@ -610,9 +610,9 @@ void __fastcall TPreferencesF::FormShow(TObject *Sender)
     //Page->TabHeight=1;
     Page->Top=-(Page->TabHeight*1.15);                //Replaced above with this to hide tabs better on high-DPI
     Page->Height=Page->Height+(Page->TabHeight*1.15); //Required with above line
-    Cancel->Top=Page->Top+Page->Height;
+    Cancel->Top=Page->Top+Page->Height+(Cancel->Height*0.15);
     OK->Top=Cancel->Top;
-    ClientHeight=OK->Top+OK->Height;
+    ClientHeight=OK->Top+(OK->Height*1.15);
 }
 
 //---------------------------------------------------------------------------

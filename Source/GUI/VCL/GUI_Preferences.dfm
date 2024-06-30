@@ -4,7 +4,7 @@ object PreferencesF: TPreferencesF
   BorderIcons = []
   BorderStyle = bsDialog
   Caption = 'Preferences'
-  ClientHeight = 187
+  ClientHeight = 194
   ClientWidth = 667
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,8 +16,8 @@ object PreferencesF: TPreferencesF
   OnShow = FormShow
   TextHeight = 14
   object OK: TButton
-    Left = 544
-    Top = 159
+    Left = 540
+    Top = 163
     Width = 122
     Height = 27
     Caption = 'OK'
@@ -53,8 +53,8 @@ object PreferencesF: TPreferencesF
       084C0061006E0067007500610067006500}
   end
   object Cancel: TButton
-    Left = 417
-    Top = 159
+    Left = 415
+    Top = 163
     Width = 121
     Height = 27
     Cancel = True
@@ -243,7 +243,7 @@ object PreferencesF: TPreferencesF
         OnClick = Advanced_EnableFfmpegClick
       end
       object Advanced_DisplayCaptions_Sel: TComboBox
-        Left = 196
+        Left = 193
         Top = 102
         Width = 285
         Height = 22
