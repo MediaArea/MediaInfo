@@ -587,6 +587,7 @@ object MainF: TMainF
         Width = 300
         Height = 150
         TabOrder = 0
+        SelectedEngine = EdgeIfAvailable
         ControlData = {
           4C000000021F0000810F00000000000000000000000000000000000000000000
           000000004C000000000000000000000001000000E0D057007335CF11AE690800
@@ -627,6 +628,7 @@ object MainF: TMainF
         Width = 300
         Height = 369
         TabOrder = 1
+        SelectedEngine = EdgeIfAvailable
         ControlData = {
           4C000000021F0000232600000000000000000000000000000000000000000000
           000000004C000000000000000000000001000000E0D057007335CF11AE690800

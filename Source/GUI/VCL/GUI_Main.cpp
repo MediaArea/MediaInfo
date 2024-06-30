@@ -255,11 +255,18 @@ __fastcall TMainF::TMainF(TComponent* Owner)
     if (I == NULL)
         I = new MediaInfoList;
 
-    // Intitialize views for HTML output (prevent graphviz plugin from reading invalid metrics)
-    Page_Custom_HTML->Navigate(L"about:blank");
-
     //Load GUI preferences
     GUI_Configure();
+
+    //Set Edge WebView2 UDF directory environment variable
+    Ztring UserDataDir=Prefs->BaseFolder;
+    UserDataDir.resize(UserDataDir.size()-1);
+    UserDataDir=UserDataDir.substr(0, UserDataDir.rfind(__T("\\"))+1);
+    UserDataDir+=__T("WebView2");
+    SetEnvironmentVariable(__T("WEBVIEW2_USER_DATA_FOLDER"), UserDataDir.c_str());
+
+    // Intitialize views for HTML output (prevent graphviz plugin from reading invalid metrics)
+    Page_Custom_HTML->Navigate(L"about:blank");
 
     //File(s) in command line
     #ifdef UNICODE
