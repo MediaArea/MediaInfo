@@ -28,8 +28,8 @@ object PreferencesF: TPreferencesF
   end
   object Tree: TTreeView
     Left = 0
-    Top = -1
-    Width = 190
+    Top = 0
+    Width = 176
     Height = 158
     Indent = 19
     ParentShowHint = False
