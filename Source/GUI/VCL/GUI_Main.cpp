@@ -164,6 +164,13 @@ std::wstring __fastcall TMainF::InjectHTMLStyle(const wchar_t* HTMLDocument) {
     std::wstring modifiedHTML(HTMLDocument);
     const wchar_t* StyleContent = L"";
 
+    //WebView2 Engine theme switching overrides
+    if (Prefs->Config(__T("Theme")).To_int32s()==1) //always light mode
+        StyleContent = L"<style>:root { --color-scheme: light; --border-color: navy; }</style>";
+    if (Prefs->Config(__T("Theme")).To_int32s()==2) //always dark mode
+        StyleContent = L"<style>:root { --color-scheme: dark; --border-color: blue; }</style>";
+    modifiedHTML = InsertText(modifiedHTML, L"</style>", StyleContent);
+
     //IE Engine workarounds
     if (TStyleManager::ActiveStyle == TStyleManager::Style[DARK_MODE_STYLE]) //app is currently in dark mode
         StyleContent = L"<meta http-equiv='X-UA-Compatible' content='IE=edge'><style>body { background-color: #121212; color: #FFFFFF; } table { border:1px solid blue; }</style>";
@@ -979,7 +986,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
         {
             Ztring TempA; TempA=Prefs->Translate(__T("At least one file"));
             Ztring Temp;
-            Temp+=L"<!DOCTYPE html><html><head></head><body>";
+            Temp+=L"<!DOCTYPE html><html><head><style>:root { color-scheme: var(--color-scheme, light); } @media (prefers-color-scheme: dark) { :root { --color-scheme: dark; } }</style></head><body>";
             Temp+=TempA.To_Unicode();
             Temp+=L"</body></html>";
             Temp=InjectHTMLStyle(Temp.c_str());
@@ -1105,7 +1112,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
                 S1 = State;
         }
 
-        if (S1.size()>1 && S1[0]=='<' && S1[1]=='h')
+        if (S1.size()>1 && ( !wcsncmp(S1.c_str(),L"<!DOCTYPE html>",15-1) || !wcsncmp(S1.c_str(),L"<html>",6-1) ))
         {
             //Supposing this is HTML
             Page_Custom_Text->Visible=false;
@@ -1119,6 +1126,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
                 FileName_Temp+=__T(".html");
             }
             F.Create(FileName_Temp, true);
+            S1=InjectHTMLStyle(S1.c_str());
             F.Write(S1);
             F.Close();
             //Navigate
