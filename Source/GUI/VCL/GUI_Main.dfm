@@ -150,6 +150,7 @@ object MainF: TMainF
     ShowHint = False
     TabHeight = 22
     TabOrder = 0
+    TabPosition = tpBottom
     TabStop = False
     object Page_Easy: TTabSheet
       Caption = 'Easy'
