@@ -244,9 +244,12 @@ __fastcall TMainF::TMainF(TComponent* Owner)
     Donate_Current=NULL;
 
     //Footer
+    //Note: If Height is set after Parent, button will be too small on high-DPI
+    //      If Font is set before Parent, button text will be too large on high-DPI
     Footer_Button=new TButton(this);
     Footer_Button->Height=32;
     Footer_Button->Parent=Page;
+    Footer_Button->Font->Size=12;
     Footer_Button->Align=alBottom;
     Footer_Button->OnClick=&Footer_ButtonClick;
     Footer_Button->Visible=false;
@@ -254,20 +257,6 @@ __fastcall TMainF::TMainF(TComponent* Owner)
     //Configuration of properties
     Page_Position=-1;
     Caption=MEDIAINFO_TITLE;
-
-    //Opt-out from styling dialogs and use native Windows dialogs for dark mode as well
-    TStyleManager::SystemHooks = TStyleManager::SystemHooks -
-                                 (TStyleManager::TSystemHooks() << TStyleManager::TSystemHook::shDialogs);
-
-    //Set monospaced font to Cascadia Mono if available on current system
-    if (Screen->Fonts->IndexOf("Cascadia Mono") != -1) {
-        TFont* monoFont = new TFont;
-        monoFont->Name = "Cascadia Mono SemiBold";
-        monoFont->Size = 10;
-        Page_Text_Text->Font = monoFont;
-        Page_Custom_Text->Font = monoFont;
-        Page_Sheet_Text->Font = monoFont;
-    }
 
     //Configuration of MediaInfoLib
     if (I == NULL)
@@ -409,11 +398,22 @@ void __fastcall TMainF::GUI_Configure()
     //Translation
     Translate();
 
+    //Opt-out from styling dialogs and use native Windows dialogs for dark mode as well
+    TStyleManager::SystemHooks = TStyleManager::SystemHooks -
+                                 (TStyleManager::TSystemHooks() << TStyleManager::TSystemHook::shDialogs);
+
     //Configure theme
     ConfigTheme();
 
-    //Set footer button font size (we need to do it here due to DPI scaling issues)
-    Footer_Button->Font->Size=12;
+    //Set monospaced font to Cascadia Mono SemiBold if available on current system
+    if (Screen->Fonts->IndexOf("Cascadia Mono SemiBold") != -1) {
+        TFont* MonoFont = new TFont;
+        MonoFont->Name = "Cascadia Mono SemiBold";
+        MonoFont->Size = 10;
+        Page_Text_Text->Font = MonoFont;
+        Page_Custom_Text->Font = MonoFont;
+        Page_Sheet_Text->Font = MonoFont;
+    }
 }
 
 //---------------------------------------------------------------------------
