@@ -606,6 +606,7 @@ object MainF: TMainF
           Width = 604
           Height = 104
           Color = clBtnFace
+          EditMargins.Auto = True
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -12
@@ -677,6 +678,7 @@ object MainF: TMainF
         BevelOuter = bvNone
         BorderStyle = bsNone
         Color = clBtnFace
+        EditMargins.Auto = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -15
@@ -721,6 +723,7 @@ object MainF: TMainF
         BevelOuter = bvNone
         BorderStyle = bsNone
         Color = clBtnFace
+        EditMargins.Auto = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -15
