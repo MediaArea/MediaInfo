@@ -245,7 +245,6 @@ __fastcall TMainF::TMainF(TComponent* Owner)
 
     //Footer
     Footer_Button=new TButton(this);
-    Footer_Button->Font->Size=12;
     Footer_Button->Height=32;
     Footer_Button->Parent=Page;
     Footer_Button->Align=alBottom;
@@ -253,9 +252,6 @@ __fastcall TMainF::TMainF(TComponent* Owner)
     Footer_Button->Visible=false;
 
     //Configuration of properties
-    //Page->Top=-6; //Not done with BCB because I want to easy select tabs in it
-    //Page->TabHeight=1; //Not done with BCB because I want to easy select tabs in it
-    Page->Top=-(Page->TabHeight*1.15); //Replaced above with this to hide tabs better on high-DPI
     Page_Position=-1;
     Caption=MEDIAINFO_TITLE;
 
@@ -416,6 +412,9 @@ void __fastcall TMainF::GUI_Configure()
 
     //Configure theme
     ConfigTheme();
+
+    //Set footer button font size (we need to do it here due to DPI scaling issues)
+    Footer_Button->Font->Size=12;
 }
 
 //---------------------------------------------------------------------------
@@ -482,7 +481,7 @@ void __fastcall TMainF::FormResize(TObject *Sender)
     //Main View
     Page->Left  =(ToolBar->Visible?ToolBar->Width:0)-2;
     Page->Width =ClientWidth-Page->Left+2;
-    Page->Height=ClientHeight-Page->Top+3;
+    Page->Height=ClientHeight-Page->Top+(Page->TabHeight*1.15);
 
     //Page - Easy
          if (Page->ActivePage==Page_Easy)
@@ -490,6 +489,7 @@ void __fastcall TMainF::FormResize(TObject *Sender)
         //Main
         Page_Easy_File->Width=Page_Easy->ClientWidth-Page_Easy_FileSelect->Width;
         Page_Easy_FileSelect->Left=Page_Easy->ClientWidth-Page_Easy_FileSelect->Width;
+        Page_Easy_FileSelect->Height=Page_Easy_File->Height;
 
         //GroupBoxes
         for (int KindOfStream=0; KindOfStream<Stream_Max; KindOfStream++)
