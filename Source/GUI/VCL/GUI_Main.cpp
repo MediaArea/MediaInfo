@@ -245,7 +245,6 @@ __fastcall TMainF::TMainF(TComponent* Owner)
 
     //Footer
     Footer_Button=new TButton(this);
-    Footer_Button->Font->Size=12;
     Footer_Button->Height=32;
     Footer_Button->Parent=Page;
     Footer_Button->Align=alBottom;
@@ -413,6 +412,9 @@ void __fastcall TMainF::GUI_Configure()
 
     //Configure theme
     ConfigTheme();
+
+    //Set footer button font size (we need to do it here due to DPI scaling issues)
+    Footer_Button->Font->Size=12;
 }
 
 //---------------------------------------------------------------------------
@@ -487,6 +489,7 @@ void __fastcall TMainF::FormResize(TObject *Sender)
         //Main
         Page_Easy_File->Width=Page_Easy->ClientWidth-Page_Easy_FileSelect->Width;
         Page_Easy_FileSelect->Left=Page_Easy->ClientWidth-Page_Easy_FileSelect->Width;
+        Page_Easy_FileSelect->Height=Page_Easy_File->Height;
 
         //GroupBoxes
         for (int KindOfStream=0; KindOfStream<Stream_Max; KindOfStream++)
