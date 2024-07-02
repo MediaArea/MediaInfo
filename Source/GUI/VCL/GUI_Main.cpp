@@ -499,6 +499,10 @@ void __fastcall TMainF::GUI_Configure()
 		Position = poScreenCenter;
 	}
 
+    //Refresh global
+    FormResize(NULL);
+    Refresh();
+
 }
 
 //---------------------------------------------------------------------------
