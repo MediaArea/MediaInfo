@@ -87,10 +87,14 @@ Ztring FileName_Temp;
 extern const ZenLib::Char* MEDIAINFO_TITLE;
 const size_t Title_Pos=156; //TODO: Position of Title in General.csv, should shange this...
 MediaInfoList *I;
+
 //---------------------------------------------------------------------------
+
 //***************************************************************************
-// Dark mode handling
+// Private functions
 //***************************************************************************
+
+//Functions for theme handling
 //---------------------------------------------------------------------------
 bool __fastcall TMainF::WindowsDarkModeEnabled()
 {
@@ -142,8 +146,10 @@ void __fastcall TMainF::ConfigTheme()
             break;
     }
 }
+//---------------------------------------------------------------------------
 
-//Function to inject a CSS style into HTML documents to workaround GUI HTML rendering issues
+//Function to inject CSS styles into HTML documents to workaround GUI HTML rendering issues
+//---------------------------------------------------------------------------
 std::wstring __fastcall TMainF::InjectHTMLStyle(const wchar_t* HTMLDocument) {
 
     auto InsertText = [](std::wstring Text, const wchar_t* InsertPointText, const wchar_t* TextToInsert) -> std::wstring {
@@ -1593,6 +1599,30 @@ void __fastcall TMainF::M_Options_ShowMenuClick(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
+void __fastcall TMainF::M_Options_Theme_SystemClick(TObject *Sender)
+{
+    Prefs->Config(__T("Theme")) = __T("0");
+    Prefs->Config.Save();
+    ConfigTheme();
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::M_Options_Theme_LightClick(TObject *Sender)
+{
+    Prefs->Config(__T("Theme")) = __T("1");
+    Prefs->Config.Save();
+    ConfigTheme();
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::M_Options_Theme_DarkClick(TObject *Sender)
+{
+    Prefs->Config(__T("Theme")) = __T("2");
+    Prefs->Config.Save();
+    ConfigTheme();
+}
+
+//---------------------------------------------------------------------------
 void __fastcall TMainF::M_Options_PreferencesClick(TObject *Sender)
 {
     #ifndef MEDIAINFOGUI_PREFS_NO
@@ -1642,12 +1672,12 @@ void __fastcall TMainF::M_Debug_AdvancedClick(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
-
 void __fastcall TMainF::M_Options_FullParsingClick(TObject *Sender)
 {
     M_Options_FullParsing->Checked=!M_Options_FullParsing->Checked;
     I->Option_Static(__T("ParseSpeed"), M_Options_FullParsing->Checked?__T("1"):__T("0.5"));
 }
+
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_Debug_DummyClick(TObject *Sender)
 {
@@ -1696,6 +1726,18 @@ void __fastcall TMainF::M_LanguageClick(TObject *Sender)
 
     //Refresh global
     FormResize(NULL);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::M_NewVersionClick(TObject *Sender)
+{
+    ShellExecute(NULL, NULL, (Ztring(__T("https://mediaarea.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("/MediaInfo/?NewVersionRequested=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::M_SponsorClick(TObject *Sender)
+{
+    ShellExecute(NULL, NULL, Prefs->Translate(__T("SponsorUrl")).c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //***************************************************************************
@@ -1813,6 +1855,12 @@ void __fastcall TMainF::Page_Easy_WebClick(TObject *Sender)
 void __fastcall TMainF::Page_Easy_DifferentViewClick(TObject *Sender)
 {
     ToolBar_View_Menu->Popup(Left+Page->Left+Page_Easy->Left+Page_Easy_DifferentView->Left, Top+Page->Top+Page_Easy->Top+Page_Easy_DifferentView->Top+Page_Easy_DifferentView->Height);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::Page_Sheet_Splitter1Moved(TObject *Sender)
+{
+    FormResize(NULL);
 }
 
 //---------------------------------------------------------------------------
@@ -1985,6 +2033,17 @@ void __fastcall TMainF::Page_System_SheetCompare(TObject *Sender,
         Compare = CompareText(Item1->SubItems->Strings[Page_System_Sheet_ColumnToSort-1], Item2->SubItems->Strings[Page_System_Sheet_ColumnToSort-1]);
 }
 
+//---------------------------------------------------------------------------
+void __fastcall TMainF::Footer_ButtonClick(TObject *Sender)
+{
+    const Ztring Inform_Save=I->Option(__T("Inform_Get"), __T(""));
+    I->Option(__T("Inform"), __T("Conformance_JSON"));
+
+    const Ztring URL=I->Inform();
+    I->Option(__T("Inform"), Inform_Save);
+    ShellExecute(NULL, NULL, URL.c_str(), NULL, NULL, SW_SHOWNORMAL);
+}
+
 //***************************************************************************
 // System
 //***************************************************************************
@@ -2010,64 +2069,6 @@ MESSAGE void __fastcall TMainF::HandleDropFiles (TMessage& Msg)
     Refresh();
 }
 
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::M_NewVersionClick(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, (Ztring(__T("https://mediaarea.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("/MediaInfo/?NewVersionRequested=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::M_SponsorClick(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, Prefs->Translate(__T("SponsorUrl")).c_str(), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::Footer_ButtonClick(TObject *Sender)
-{
-    const Ztring Inform_Save=I->Option(__T("Inform_Get"), __T(""));
-    I->Option(__T("Inform"), __T("Conformance_JSON"));
-
-    const Ztring URL=I->Inform();
-    I->Option(__T("Inform"), Inform_Save);
-    ShellExecute(NULL, NULL, URL.c_str(), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::M_Options_Theme_SystemClick(TObject *Sender)
-{
-    Prefs->Config(__T("Theme")) = __T("0");
-    Prefs->Config.Save();
-    ConfigTheme();
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::M_Options_Theme_LightClick(TObject *Sender)
-{
-    Prefs->Config(__T("Theme")) = __T("1");
-    Prefs->Config.Save();
-    ConfigTheme();
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::M_Options_Theme_DarkClick(TObject *Sender)
-{
-    Prefs->Config(__T("Theme")) = __T("2");
-    Prefs->Config.Save();
-    ConfigTheme();
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::ApplicationEvents1OnSettingChange(
-    TObject* Sender, int Flag, const UnicodeString Section, int &Result)
-{
-    if (Section == "ImmersiveColorSet") {
-        ConfigTheme();
-    }
-}
-
 //---------------------------------------------------------------------------
 void __fastcall TMainF::CreateWnd()
 {
@@ -2085,7 +2086,10 @@ void __fastcall TMainF::DestroyWnd()
 }
 
 //---------------------------------------------------------------------------
-void __fastcall TMainF::Page_Sheet_Splitter1Moved(TObject *Sender)
+void __fastcall TMainF::ApplicationEvents1OnSettingChange(
+    TObject* Sender, int Flag, const UnicodeString Section, int &Result)
 {
-    FormResize(NULL);
+    if (Section == "ImmersiveColorSet") {
+        ConfigTheme();
+    }
 }
