@@ -27,7 +27,7 @@ copy BCB\GUI\MediaInfo_GUI.exe BCB\GUI\MediaInfo.exe
 
 @rem --- Copying : Exe ---
 copy  ..\Project\BCB\GUI\Win32\Release\MediaInfo_GUI.exe MediaInfo_GUI_Windows_i386\MediaInfo.exe
-copy  ..\..\MediaInfoLib\Project\MSVC2019\Win32\Release\MediaInfo.dll MediaInfo_GUI_Windows_i386\MediaInfo_i386.dll
+xcopy  ..\..\MediaInfoLib\Project\MSVC2019\Win32\Release\MediaInfo.dll MediaInfo_GUI_Windows_i386\ /S
 xcopy ..\..\MediaInfoLib\Project\MSVC2019\Win32\Release\MediaInfo_InfoTip.dll MediaInfo_GUI_Windows_i386\ /S
 
 @rem --- Copying : Plugins ---
