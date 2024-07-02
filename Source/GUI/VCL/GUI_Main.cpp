@@ -1631,6 +1631,7 @@ void __fastcall TMainF::M_Options_PreferencesClick(TObject *Sender)
     delete PreferencesF;
 
     GUI_Configure();
+    FormResize(NULL);
     #endif //MEDIAINFOGUI_PREFS_NO
 }
 
