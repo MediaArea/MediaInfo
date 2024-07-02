@@ -618,11 +618,6 @@ void __fastcall TPreferencesF::FormShow(TObject *Sender)
     GUI_Configure();
     General_Output_SelChange(NULL);
 
-    // review: move to GUI_Configure
-	for (int cTabIndex = 0; cTabIndex <= Page->PageCount-1; cTabIndex++) {
-		Page->Pages[cTabIndex]->TabVisible = False;
-	}
-
     // ClientHeight=OK->Top+(OK->Height*1.15);
 }
 
@@ -683,6 +678,10 @@ void __fastcall TPreferencesF::Customize_GraphShow(TObject *Sender)
 void __fastcall TPreferencesF::GUI_Configure()
 {
     //Preparation of GUI
+    
+	for (int cTabIndex = 0; cTabIndex <= Page->PageCount-1; cTabIndex++)
+		Page->Pages[cTabIndex]->TabVisible = False;
+
     Tree->FullExpand();
     Page->ActivePage=Setup;
 
