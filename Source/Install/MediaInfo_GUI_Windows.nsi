@@ -22,6 +22,10 @@ SetCompressor /FINAL /SOLID lzma
 ; x64 stuff
 !include "x64.nsh"
 
+; Library macros for handling install/uninstall of exe/dll
+; https://nsis.sourceforge.io/Docs/AppendixB.html
+!include "Library.nsh"
+
 ; MediaInfo stuff
 !include "MediaInfo_Extensions.nsh"
 
@@ -39,10 +43,16 @@ SetCompressor /FINAL /SOLID lzma
 !define MUI_LANGDLL_REGISTRY_KEY "${PRODUCT_UNINST_KEY}"
 !define MUI_LANGDLL_REGISTRY_VALUENAME "NSIS:Language"
 
+; Function to launch MediaInfo with same integrity level as Windows Explorer
+Function LaunchMediaInfoAsCurrentUser
+  Exec '"$WINDIR\explorer.exe" "$INSTDIR\MediaInfo.exe"'
+FunctionEnd
+
 ; Installer pages
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
-; !define MUI_FINISHPAGE_RUN "$INSTDIR\MediaInfo.exe" //Removing it because it is run in admin privileges
+!define MUI_FINISHPAGE_RUN
+!define MUI_FINISHPAGE_RUN_FUNCTION "LaunchMediaInfoAsCurrentUser"
 !define MUI_WELCOMEFINISHPAGE_BITMAP "..\..\Source\Resource\Image\Windows_Finish.bmp"
 !insertmacro MUI_PAGE_FINISH
 ; Uninstaller pages
@@ -122,16 +132,17 @@ Section "SectionPrincipale" SEC01
   SetOutPath "$SMPROGRAMS"
   CreateShortCut "$SMPROGRAMS\MediaInfo.lnk" "$INSTDIR\MediaInfo.exe" "" "" "" "" "" "Convenient unified display of the most relevant technical and tag data for video and audio files"
   SetOutPath "$INSTDIR"
-  File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Win32\Release\MediaInfo_GUI.exe"
-  File "/oname=MediaInfo_i386.dll" "..\..\..\MediaInfoLib\Project\MSVC2019\Win32\Release\MediaInfo.dll"
   ${If} ${RunningX64}
+    File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Win64\Release\MediaInfo_GUI.exe"
     File "..\..\..\MediaInfoLib\Project\MSVC2019\x64\Release\MediaInfo_InfoTip.dll"
     File "..\..\..\MediaInfoLib\Project\MSVC2019\x64\Release\MediaInfo.dll"
+    File "$%BPATH%\Windows\libcurl\x64\Release\LIBCURL.DLL"
   ${Else}
+    File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Win32\Release\MediaInfo_GUI.exe"
     File "..\..\..\MediaInfoLib\Project\MSVC2019\Win32\Release\MediaInfo_InfoTip.dll"
     File "..\..\..\MediaInfoLib\Project\MSVC2019\Win32\Release\MediaInfo.dll"
+    File "$%BPATH%\Windows\libcurl\Win32\Release\LIBCURL.DLL"
   ${EndIf}
-  File "$%BPATH%\Windows\libcurl\Win32\Release\LIBCURL.DLL"
   File "$%BPATH%\Windows\libcurl\curl-ca-bundle.crt"
   File "/oname=History.txt" "..\..\History_GUI.txt"
   File "..\..\License.html"
@@ -150,6 +161,7 @@ Section "SectionPrincipale" SEC01
   WriteIniStr "$INSTDIR\${PRODUCT_NAME}.url" "InternetShortcut" "URL" "${PRODUCT_WEB_SITE}"
 
   # Delete files that might be present from older installation
+  Delete "$INSTDIR\MediaInfo_i386.dll"
   Delete "$INSTDIR\History_GUI.txt"
   Delete "$INSTDIR\Licence.txt"
   Delete "$INSTDIR\Licence.html"
@@ -196,12 +208,12 @@ Section Uninstall
     ExecWait '"$INSTDIR\ffmpeg_plugin_uninst.exe" /S _?=$INSTDIR'
     Delete "$INSTDIR\ffmpeg_plugin_uninst.exe"
 
+  !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\MediaInfo.exe"
+  !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\MediaInfo.dll"
+  !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\MediaInfo_i386.dll"
   Delete "$INSTDIR\${PRODUCT_NAME}.url"
   Delete "$INSTDIR\uninst.exe"
-  Delete "$INSTDIR\MediaInfo.exe"
   Delete "$INSTDIR\MediaInfo_InfoTip.dll"
-  Delete "$INSTDIR\MediaInfo.dll"
-  Delete "$INSTDIR\MediaInfo_i386.dll"
   Delete "$INSTDIR\History.txt"
   Delete "$INSTDIR\License.html"
   Delete "$INSTDIR\License.NoModifications.html"

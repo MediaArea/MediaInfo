@@ -23,16 +23,15 @@ mkdir MediaInfo_GUI_Windows_x64
 
 
 @rem --- Copying : Exe ---
-copy  ..\Project\BCB\GUI\Win32\Release\MediaInfo_GUI.exe MediaInfo_GUI_Windows_x64\MediaInfo.exe
+copy  ..\Project\BCB\GUI\Win64\Release\MediaInfo_GUI.exe MediaInfo_GUI_Windows_x64\MediaInfo.exe
 xcopy ..\..\MediaInfoLib\Project\MSVC2019\x64\Release\MediaInfo.dll MediaInfo_GUI_Windows_x64\ /S
-copy  ..\..\MediaInfoLib\Project\MSVC2019\Win32\Release\MediaInfo.dll MediaInfo_GUI_Windows_x64\MediaInfo_i386.dll
 xcopy ..\..\MediaInfoLib\Project\MSVC2019\x64\Release\MediaInfo_InfoTip.dll MediaInfo_GUI_Windows_x64\ /S
 
 @rem --- Copying : Plugins ---
 xcopy ..\Source\Resource\Plugin\* MediaInfo_GUI_Windows_x64\Plugin\ /S
 
 @rem --- Copying : libCURL --
-copy %BPATH%\Windows\libcurl\Win32\Release\LIBCURL.DLL MediaInfo_GUI_Windows_x64\
+copy %BPATH%\Windows\libcurl\x64\Release\LIBCURL.DLL MediaInfo_GUI_Windows_x64\
 copy %BPATH%\Windows\libcurl\curl-ca-bundle.crt MediaInfo_GUI_Windows_x64\
 
 @rem --- Copying : Information files ---
