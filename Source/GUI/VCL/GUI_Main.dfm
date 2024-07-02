@@ -1317,11 +1317,6 @@ object MainF: TMainF
       OnClick = M_Options_ShowMenuClick
     end
   end
-  object OpenDialog1: TOpenDialog
-    Options = [ofHideReadOnly, ofAllowMultiSelect, ofEnableSizing]
-    Left = 768
-    Top = 368
-  end
   object ImageCollection1: TImageCollection
     Images = <
       item
@@ -6108,5 +6103,12 @@ object MainF: TMainF
     Height = 32
     Left = 768
     Top = 256
+  end
+  object FileOpenDialog1: TFileOpenDialog
+    FavoriteLinks = <>
+    FileTypes = <>
+    Options = [fdoAllowMultiSelect]
+    Left = 768
+    Top = 368
   end
 end

@@ -167,7 +167,6 @@ __published:    // IDE-managed Components
     TLabel *Page_Easy_T3_Codec;
     TButton *Page_Easy_T3_Web;
     TMenuItem *M_Debug_Avanced_More;
-    TOpenDialog *OpenDialog1;
     TMenuItem *M_Debug_Details0;
     TMenuItem *N7;
     TMenuItem *M_Debug_Details50;
@@ -213,12 +212,13 @@ __published:    // IDE-managed Components
     TMenuItem *ToolBar_View_reVTMD;
     TMenuItem *ToolBar_View_NISO_Z39_87;
     TMenuItem *ToolBar_View_Graph_Svg;
-    TImageCollection* ImageCollection1;
-    TVirtualImageList* Menu_Image;
-    TVirtualImageList* Toolbar_Image;
+    TImageCollection *ImageCollection1;
+    TVirtualImageList *Menu_Image;
+    TVirtualImageList *Toolbar_Image;
     TVirtualImageList *ToolBar_Image_Disabled;
-    TApplicationEvents *ApplicationEvents1;
+    TFileOpenDialog *FileOpenDialog1;
     TFileOpenDialog *FolderOpenDialog1;
+    TApplicationEvents *ApplicationEvents1;
     TPanel *Page_Sheet_Panel1;
     TSplitter *Page_Sheet_Splitter1;
     TPanel *Page_Sheet_Panel2;

@@ -735,7 +735,7 @@ void __fastcall TMainF::Translate()
     Page_System_Sheet->Columns->Items[4]->Caption=Prefs->Translate(__T("Supported?")).c_str();
 
     //Title
-    OpenDialog1->Title=Prefs->Translate(__T("Choose files")).c_str();
+    FileOpenDialog1->Title=Prefs->Translate(__T("Choose files")).c_str();
 
     //MediaInfo
     I->Option_Static(__T("Language"), Prefs->Details[Prefs_Language].Read());
@@ -1244,20 +1244,20 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_File_Open_FileClick(TObject *Sender)
 {
-    if (!OpenDialog1->Execute())
+    if (!FileOpenDialog1->Execute(Handle))
         return;
 
     if (M_Options_CloseAllAuto->Checked)
         M_File_Close_AllClick(Sender);
 
     //Retrieving filenames, manage them
-    if (OpenDialog1->Files->Count==1)
+    if (FileOpenDialog1->Files->Count==1)
         //un fichier
-        I->Open(GUI_Text(OpenDialog1->FileName));
+        I->Open(GUI_Text(FileOpenDialog1->FileName));
     else
         //Plusieurs selections
-        for (int I1=0; I1<OpenDialog1->Files->Count; I1++)
-                I->Open(GUI_Text(OpenDialog1->Files->Strings[I1]));
+        for (int I1=0; I1<FileOpenDialog1->Files->Count; I1++)
+                I->Open(GUI_Text(FileOpenDialog1->Files->Strings[I1]));
 
     Refresh();
 }
@@ -1324,7 +1324,7 @@ void __fastcall TMainF::M_File_ExportClick(TObject *Sender)
     if (ExportF->Name->Text.Length()==0)
     {
         //No initial name
-        if (OpenDialog1->InitialDir.Length()==0)
+        if (FileOpenDialog1->DefaultFolder.Length()==0)
         {
             Name=Prefs->BaseFolder;
             Name.resize(Name.size()-1);
@@ -1337,7 +1337,7 @@ void __fastcall TMainF::M_File_ExportClick(TObject *Sender)
             }
         }
         else
-            Name=GUI_Text(OpenDialog1->InitialDir);
+            Name=GUI_Text(FileOpenDialog1->DefaultFolder);
     }
 
     ExportF->Run(*I, Name);
@@ -1637,9 +1637,9 @@ void __fastcall TMainF::M_Options_PreferencesClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_Debug_HeaderClick(TObject *Sender)
 {
-    if (!OpenDialog1->Execute())
+    if (!FileOpenDialog1->Execute(Handle))
         return;
-    Debug_Header_Create(GUI_Text(OpenDialog1->FileName), Handle);
+    Debug_Header_Create(GUI_Text(FileOpenDialog1->FileName), Handle);
 }
 
 //---------------------------------------------------------------------------
