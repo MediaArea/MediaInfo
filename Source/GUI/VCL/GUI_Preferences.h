@@ -18,6 +18,7 @@
 #include <Forms.hpp>
 #include <ComCtrls.hpp>
 #include <StdCtrls.hpp>
+#include <ExtCtrls.hpp>
 #include "GUI_Main.h"
 #include "Common/Preferences.h"
 //---------------------------------------------------------------------------
@@ -74,6 +75,9 @@ __published:    // IDE-managed Components
     TCheckBox *CB_InfoTip;
     TCheckBox *CB_InscrireShell;
     TCheckBox *CB_InscrireShell_Folder;
+	TPanel *Panel1;
+	TCheckBox *CB_RememberWindowPosition;
+	TCheckBox *CB_RememberWindowDimensions;
     void __fastcall General_Language_SelChange(TObject *Sender);
     void __fastcall General_Output_SelChange(TObject *Sender);
     void __fastcall Custom_EditClick(TObject *Sender);
@@ -112,6 +116,8 @@ __published:    // IDE-managed Components
     void __fastcall CB_ShowMenuClick(TObject *Sender);
     void __fastcall CB_InfoTipClick(TObject *Sender);
     void __fastcall CB_InscrireShell_FolderClick(TObject *Sender);
+	void __fastcall CB_RememberWindowPositionClick(TObject *Sender);
+	void __fastcall CB_RememberWindowDimensionsClick(TObject *Sender);
 private:    // User declarations
 public:        // User declarations
     __fastcall TPreferencesF(TComponent* Owner);
