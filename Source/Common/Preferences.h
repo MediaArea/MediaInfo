@@ -95,6 +95,7 @@ public:
 
     //Plugins
     ZenLib::Ztring GraphPluginURL;
+    ZenLib::Ztring GraphPlugin64URL;
     ZenLib::Ztring GraphPluginVersion;
     ZenLib::Ztring FFmpegPluginURL;
     ZenLib::Ztring FFmpegPluginVersion;

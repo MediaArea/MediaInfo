@@ -214,7 +214,11 @@ bool __fastcall TPluginF::Configure()
     switch (Plugin)
     {
     case PLUGIN_GRAPH:
+        #ifdef _WIN64
+        SourceURL = Prefs->Config(__T("GraphPlugin64URL"));
+        #else
         SourceURL = Prefs->Config(__T("GraphPluginURL"));
+        #endif
         break;
     case PLUGIN_FFMPEG:
         SourceURL = Prefs->Config(__T("FFmpegPluginURL"));
