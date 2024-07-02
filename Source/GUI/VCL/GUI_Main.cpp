@@ -78,10 +78,9 @@ ZtringListList Page_System_Video; //List of Video codecs
 ZtringListList Page_System_Audio; //List of Audio codecs
 ZtringListList Page_System_Text; //List of Text codecs
 
-//Temp
-Ztring FileName_Temp; //Temporary file used for HTML presentation
-std::vector<TCustomButton*> Donates;
-TCustomButton*              Donate_Current;
+//Temporary file used for HTML presentation
+Ztring FileName_Temp;
+
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -230,18 +229,6 @@ __fastcall TMainF::TMainF(TComponent* Owner)
     Page_Sheet_X_Web[Stream_Audio]=Page_Sheet_A_Web;
     Page_Sheet_X_Web[Stream_Text]=Page_Sheet_T_Web;
     Page_Sheet_X_Web[Stream_Other]=Page_Sheet_C_Web;
-    //-Donate
-    Donates.push_back(Donate_de);
-    Donates.push_back(Donate_en);
-    Donates.push_back(Donate_es);
-    Donates.push_back(Donate_fr);
-    Donates.push_back(Donate_it);
-    Donates.push_back(Donate_ja);
-    Donates.push_back(Donate_pl);
-    Donates.push_back(Donate_zh_CN);
-    Donates.push_back(Donate_zh_TW);
-    Donates.push_back(Donate___);
-    Donate_Current=NULL;
 
     //Footer
     //Note: If Height is set after Parent, button will be too small on high-DPI
@@ -624,13 +611,6 @@ void __fastcall TMainF::FormResize(TObject *Sender)
         Page_System_Sheet->Width = Page_System->ClientWidth - 2;
         Page_System_Sheet->Height = Page_System->ClientHeight - Page_System_Sheet->Top - 2;
     }
-
-    //Donate
-    if (Donate_Current)
-    {
-        Donate_Current->Left=-1;
-        Donate_Current->Top=ClientHeight-Donate_Current->Height+1;
-    }
 }
 
 //---------------------------------------------------------------------------
@@ -758,37 +738,7 @@ void __fastcall TMainF::Translate()
     M_NewVersion->Caption=(__T(" | ")+Prefs->Translate(__T("NewVersion_Menu"))).c_str();
     M_NewVersion->Visible=Prefs->NewVersion_Display;
 
-    //Donate
-    #define DONATE(_LANG, _TEXT) else if (Language==__T(_TEXT)) {Donate_Current=Donate_##_LANG; Donate_Current->Visible=true;}
-    for (size_t Pos=0; Pos<Donates.size(); Pos++)
-        Donates[Pos]->Visible=false;
-    Ztring Language=Prefs->Translate(__T("  Language_ISO639"));
-    if (Prefs->Donate_Display)
-    {
-        //Donate button disabled
-        /*
-        if (0);
-        DONATE(de, "de")
-        DONATE(en, "en")
-        DONATE(es, "ca")
-        DONATE(es, "es")
-        DONATE(es, "gl")
-        DONATE(fr, "fr")
-        DONATE(it, "it")
-        DONATE(ja, "ja")
-        DONATE(pl, "pl")
-        DONATE(zh_CN, "zh-CN")
-        DONATE(zh_TW, "zh-TW")
-        else
-        {
-            Donate_Current=Donate___;
-            ((TButton*)Donate_Current)->Caption=Prefs->Translate(__T("Donate")).c_str();
-            ((TButton*)Donate_Current)->Width=Prefs->Translate(__T("Donate")).size()*8+32;
-            Donate_Current->Visible=true;
-        }
-        */
-    }
-
+    //Sponsor
     M_Sponsor->Visible=false;
     if (Prefs->Sponsored && !Prefs->Donated && !Prefs->Translate(__T("SponsorMessage")).empty() && !Prefs->Translate(__T("SponsorMessage")).empty())
     {
@@ -2061,68 +2011,6 @@ MESSAGE void __fastcall TMainF::HandleDropFiles (TMessage& Msg)
 }
 
 //***************************************************************************
-// Donate
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::Donate_deClick(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/de/Donate"), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::Donate_enClick(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/en/Donate"), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::Donate_esClick(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/es/Donate"), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::Donate_frClick(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/fr/Donate"), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::Donate_itClick(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/it/Donate"), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::Donate_jaClick(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/ja/Donate"), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::Donate_plClick(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/pl/Donate"), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::Donate_zh_CNClick(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/zh_CN/Donate"), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::Donate_zh_TWClick(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/zh_TW/Donate"), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::Donate___Click(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, (Ztring(__T("https://mediaarea.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("MediaInfo/Donate")).c_str(), NULL, NULL, SW_SHOWNORMAL);
-}
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_NewVersionClick(TObject *Sender)
