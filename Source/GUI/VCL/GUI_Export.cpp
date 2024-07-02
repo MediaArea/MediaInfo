@@ -636,7 +636,7 @@ void TExportF::Export_Run()
     else if (Export->ActivePage==Export_EBUCore_1_8_ps)
     {
         ToExport->Option_Static(__T("Inform"), __T("EBUCore_1.8_parameterSegment"));
-		if (Export_EBUCore_1_8_ps_SideCar->Checked)
+        if (Export_EBUCore_1_8_ps_SideCar->Checked)
         {
             for (size_t Pos=0; Pos<ToExport->Count_Get(); Pos++)
             {
@@ -911,7 +911,7 @@ void __fastcall TExportF::ExportChange(TObject *Sender)
         Export_EBUCore_1_8_ps_SideCarClick(Sender);
         File_Append->Checked=false;
         File_Append->Visible=false;
-		Name_Choose->Visible=Export_EBUCore_1_8_ps_SideCar->Checked?false:true;;
+        Name_Choose->Visible=Export_EBUCore_1_8_ps_SideCar->Checked?false:true;;
     }
     else if (Export->ActivePage==Export_EBUCore_1_8_sp)
     {
@@ -1189,6 +1189,9 @@ void TExportF::GUI_Configure()
     CSV_Stream_Change(CSV_Stream_Audio, CSV_Stream_Audio_Warning, Stream_Audio);
     CSV_Stream_Change(CSV_Stream_Text, CSV_Stream_Text_Warning, Stream_Text);
     CSV_Stream_Change(CSV_Stream_Other, CSV_Stream_Other_Warning, Stream_Other);
+
+    //Make them same size after DPI-scaling
+    Name_FileSelect->Height=Name->Height;
 }
 
 //***************************************************************************
