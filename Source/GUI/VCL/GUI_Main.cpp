@@ -78,20 +78,23 @@ ZtringListList Page_System_Video; //List of Video codecs
 ZtringListList Page_System_Audio; //List of Audio codecs
 ZtringListList Page_System_Text; //List of Text codecs
 
-//Temp
-Ztring FileName_Temp; //Temporary file used for HTML presentation
-std::vector<TCustomButton*> Donates;
-TCustomButton*              Donate_Current;
+//Temporary file used for HTML presentation
+Ztring FileName_Temp;
+
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
 extern const ZenLib::Char* MEDIAINFO_TITLE;
 const size_t Title_Pos=156; //TODO: Position of Title in General.csv, should shange this...
 MediaInfoList *I;
+
 //---------------------------------------------------------------------------
+
 //***************************************************************************
-// Dark mode handling
+// Private functions
 //***************************************************************************
+
+//Functions for theme handling
 //---------------------------------------------------------------------------
 bool __fastcall TMainF::WindowsDarkModeEnabled()
 {
@@ -143,8 +146,10 @@ void __fastcall TMainF::ConfigTheme()
             break;
     }
 }
+//---------------------------------------------------------------------------
 
-//Function to inject a CSS style into HTML documents to workaround GUI HTML rendering issues
+//Function to inject CSS styles into HTML documents to workaround GUI HTML rendering issues
+//---------------------------------------------------------------------------
 std::wstring __fastcall TMainF::InjectHTMLStyle(const wchar_t* HTMLDocument) {
 
     auto InsertText = [](std::wstring Text, const wchar_t* InsertPointText, const wchar_t* TextToInsert) -> std::wstring {
@@ -230,18 +235,6 @@ __fastcall TMainF::TMainF(TComponent* Owner)
     Page_Sheet_X_Web[Stream_Audio]=Page_Sheet_A_Web;
     Page_Sheet_X_Web[Stream_Text]=Page_Sheet_T_Web;
     Page_Sheet_X_Web[Stream_Other]=Page_Sheet_C_Web;
-    //-Donate
-    Donates.push_back(Donate_de);
-    Donates.push_back(Donate_en);
-    Donates.push_back(Donate_es);
-    Donates.push_back(Donate_fr);
-    Donates.push_back(Donate_it);
-    Donates.push_back(Donate_ja);
-    Donates.push_back(Donate_pl);
-    Donates.push_back(Donate_zh_CN);
-    Donates.push_back(Donate_zh_TW);
-    Donates.push_back(Donate___);
-    Donate_Current=NULL;
 
     //Footer
     //Note: If Height is set after Parent, button will be too small on high-DPI
@@ -624,13 +617,6 @@ void __fastcall TMainF::FormResize(TObject *Sender)
         Page_System_Sheet->Width = Page_System->ClientWidth - 2;
         Page_System_Sheet->Height = Page_System->ClientHeight - Page_System_Sheet->Top - 2;
     }
-
-    //Donate
-    if (Donate_Current)
-    {
-        Donate_Current->Left=-1;
-        Donate_Current->Top=ClientHeight-Donate_Current->Height+1;
-    }
 }
 
 //---------------------------------------------------------------------------
@@ -749,7 +735,7 @@ void __fastcall TMainF::Translate()
     Page_System_Sheet->Columns->Items[4]->Caption=Prefs->Translate(__T("Supported?")).c_str();
 
     //Title
-    OpenDialog1->Title=Prefs->Translate(__T("Choose files")).c_str();
+    FileOpenDialog1->Title=Prefs->Translate(__T("Choose files")).c_str();
 
     //MediaInfo
     I->Option_Static(__T("Language"), Prefs->Details[Prefs_Language].Read());
@@ -758,37 +744,7 @@ void __fastcall TMainF::Translate()
     M_NewVersion->Caption=(__T(" | ")+Prefs->Translate(__T("NewVersion_Menu"))).c_str();
     M_NewVersion->Visible=Prefs->NewVersion_Display;
 
-    //Donate
-    #define DONATE(_LANG, _TEXT) else if (Language==__T(_TEXT)) {Donate_Current=Donate_##_LANG; Donate_Current->Visible=true;}
-    for (size_t Pos=0; Pos<Donates.size(); Pos++)
-        Donates[Pos]->Visible=false;
-    Ztring Language=Prefs->Translate(__T("  Language_ISO639"));
-    if (Prefs->Donate_Display)
-    {
-        //Donate button disabled
-        /*
-        if (0);
-        DONATE(de, "de")
-        DONATE(en, "en")
-        DONATE(es, "ca")
-        DONATE(es, "es")
-        DONATE(es, "gl")
-        DONATE(fr, "fr")
-        DONATE(it, "it")
-        DONATE(ja, "ja")
-        DONATE(pl, "pl")
-        DONATE(zh_CN, "zh-CN")
-        DONATE(zh_TW, "zh-TW")
-        else
-        {
-            Donate_Current=Donate___;
-            ((TButton*)Donate_Current)->Caption=Prefs->Translate(__T("Donate")).c_str();
-            ((TButton*)Donate_Current)->Width=Prefs->Translate(__T("Donate")).size()*8+32;
-            Donate_Current->Visible=true;
-        }
-        */
-    }
-
+    //Sponsor
     M_Sponsor->Visible=false;
     if (Prefs->Sponsored && !Prefs->Donated && !Prefs->Translate(__T("SponsorMessage")).empty() && !Prefs->Translate(__T("SponsorMessage")).empty())
     {
@@ -1288,20 +1244,20 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_File_Open_FileClick(TObject *Sender)
 {
-    if (!OpenDialog1->Execute())
+    if (!FileOpenDialog1->Execute(Handle))
         return;
 
     if (M_Options_CloseAllAuto->Checked)
         M_File_Close_AllClick(Sender);
 
     //Retrieving filenames, manage them
-    if (OpenDialog1->Files->Count==1)
+    if (FileOpenDialog1->Files->Count==1)
         //un fichier
-        I->Open(GUI_Text(OpenDialog1->FileName));
+        I->Open(GUI_Text(FileOpenDialog1->FileName));
     else
         //Plusieurs selections
-        for (int I1=0; I1<OpenDialog1->Files->Count; I1++)
-                I->Open(GUI_Text(OpenDialog1->Files->Strings[I1]));
+        for (int I1=0; I1<FileOpenDialog1->Files->Count; I1++)
+                I->Open(GUI_Text(FileOpenDialog1->Files->Strings[I1]));
 
     Refresh();
 }
@@ -1368,7 +1324,7 @@ void __fastcall TMainF::M_File_ExportClick(TObject *Sender)
     if (ExportF->Name->Text.Length()==0)
     {
         //No initial name
-        if (OpenDialog1->InitialDir.Length()==0)
+        if (FileOpenDialog1->DefaultFolder.Length()==0)
         {
             Name=Prefs->BaseFolder;
             Name.resize(Name.size()-1);
@@ -1381,7 +1337,7 @@ void __fastcall TMainF::M_File_ExportClick(TObject *Sender)
             }
         }
         else
-            Name=GUI_Text(OpenDialog1->InitialDir);
+            Name=GUI_Text(FileOpenDialog1->DefaultFolder);
     }
 
     ExportF->Run(*I, Name);
@@ -1643,6 +1599,30 @@ void __fastcall TMainF::M_Options_ShowMenuClick(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
+void __fastcall TMainF::M_Options_Theme_SystemClick(TObject *Sender)
+{
+    Prefs->Config(__T("Theme")) = __T("0");
+    Prefs->Config.Save();
+    ConfigTheme();
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::M_Options_Theme_LightClick(TObject *Sender)
+{
+    Prefs->Config(__T("Theme")) = __T("1");
+    Prefs->Config.Save();
+    ConfigTheme();
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::M_Options_Theme_DarkClick(TObject *Sender)
+{
+    Prefs->Config(__T("Theme")) = __T("2");
+    Prefs->Config.Save();
+    ConfigTheme();
+}
+
+//---------------------------------------------------------------------------
 void __fastcall TMainF::M_Options_PreferencesClick(TObject *Sender)
 {
     #ifndef MEDIAINFOGUI_PREFS_NO
@@ -1651,15 +1631,16 @@ void __fastcall TMainF::M_Options_PreferencesClick(TObject *Sender)
     delete PreferencesF;
 
     GUI_Configure();
+    FormResize(NULL);
     #endif //MEDIAINFOGUI_PREFS_NO
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_Debug_HeaderClick(TObject *Sender)
 {
-    if (!OpenDialog1->Execute())
+    if (!FileOpenDialog1->Execute(Handle))
         return;
-    Debug_Header_Create(GUI_Text(OpenDialog1->FileName), Handle);
+    Debug_Header_Create(GUI_Text(FileOpenDialog1->FileName), Handle);
 }
 
 //---------------------------------------------------------------------------
@@ -1692,12 +1673,12 @@ void __fastcall TMainF::M_Debug_AdvancedClick(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
-
 void __fastcall TMainF::M_Options_FullParsingClick(TObject *Sender)
 {
     M_Options_FullParsing->Checked=!M_Options_FullParsing->Checked;
     I->Option_Static(__T("ParseSpeed"), M_Options_FullParsing->Checked?__T("1"):__T("0.5"));
 }
+
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_Debug_DummyClick(TObject *Sender)
 {
@@ -1746,6 +1727,18 @@ void __fastcall TMainF::M_LanguageClick(TObject *Sender)
 
     //Refresh global
     FormResize(NULL);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::M_NewVersionClick(TObject *Sender)
+{
+    ShellExecute(NULL, NULL, (Ztring(__T("https://mediaarea.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("/MediaInfo/?NewVersionRequested=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::M_SponsorClick(TObject *Sender)
+{
+    ShellExecute(NULL, NULL, Prefs->Translate(__T("SponsorUrl")).c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
 
 //***************************************************************************
@@ -1863,6 +1856,12 @@ void __fastcall TMainF::Page_Easy_WebClick(TObject *Sender)
 void __fastcall TMainF::Page_Easy_DifferentViewClick(TObject *Sender)
 {
     ToolBar_View_Menu->Popup(Left+Page->Left+Page_Easy->Left+Page_Easy_DifferentView->Left, Top+Page->Top+Page_Easy->Top+Page_Easy_DifferentView->Top+Page_Easy_DifferentView->Height);
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TMainF::Page_Sheet_Splitter1Moved(TObject *Sender)
+{
+    FormResize(NULL);
 }
 
 //---------------------------------------------------------------------------
@@ -2035,6 +2034,17 @@ void __fastcall TMainF::Page_System_SheetCompare(TObject *Sender,
         Compare = CompareText(Item1->SubItems->Strings[Page_System_Sheet_ColumnToSort-1], Item2->SubItems->Strings[Page_System_Sheet_ColumnToSort-1]);
 }
 
+//---------------------------------------------------------------------------
+void __fastcall TMainF::Footer_ButtonClick(TObject *Sender)
+{
+    const Ztring Inform_Save=I->Option(__T("Inform_Get"), __T(""));
+    I->Option(__T("Inform"), __T("Conformance_JSON"));
+
+    const Ztring URL=I->Inform();
+    I->Option(__T("Inform"), Inform_Save);
+    ShellExecute(NULL, NULL, URL.c_str(), NULL, NULL, SW_SHOWNORMAL);
+}
+
 //***************************************************************************
 // System
 //***************************************************************************
@@ -2060,126 +2070,6 @@ MESSAGE void __fastcall TMainF::HandleDropFiles (TMessage& Msg)
     Refresh();
 }
 
-//***************************************************************************
-// Donate
-//***************************************************************************
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::Donate_deClick(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/de/Donate"), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::Donate_enClick(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/en/Donate"), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::Donate_esClick(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/es/Donate"), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::Donate_frClick(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/fr/Donate"), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::Donate_itClick(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/it/Donate"), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::Donate_jaClick(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/ja/Donate"), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::Donate_plClick(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/pl/Donate"), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::Donate_zh_CNClick(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/zh_CN/Donate"), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::Donate_zh_TWClick(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, __T("https://MediaArea.net/MediaInfo/zh_TW/Donate"), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::Donate___Click(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, (Ztring(__T("https://mediaarea.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("MediaInfo/Donate")).c_str(), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::M_NewVersionClick(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, (Ztring(__T("https://mediaarea.net/"))+Prefs->Translate(__T("  Language_ISO639"))+__T("/MediaInfo/?NewVersionRequested=true")).c_str(), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::M_SponsorClick(TObject *Sender)
-{
-    ShellExecute(NULL, NULL, Prefs->Translate(__T("SponsorUrl")).c_str(), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::Footer_ButtonClick(TObject *Sender)
-{
-    const Ztring Inform_Save=I->Option(__T("Inform_Get"), __T(""));
-    I->Option(__T("Inform"), __T("Conformance_JSON"));
-
-    const Ztring URL=I->Inform();
-    I->Option(__T("Inform"), Inform_Save);
-    ShellExecute(NULL, NULL, URL.c_str(), NULL, NULL, SW_SHOWNORMAL);
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::M_Options_Theme_SystemClick(TObject *Sender)
-{
-    Prefs->Config(__T("Theme")) = __T("0");
-    Prefs->Config.Save();
-    ConfigTheme();
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::M_Options_Theme_LightClick(TObject *Sender)
-{
-    Prefs->Config(__T("Theme")) = __T("1");
-    Prefs->Config.Save();
-    ConfigTheme();
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::M_Options_Theme_DarkClick(TObject *Sender)
-{
-    Prefs->Config(__T("Theme")) = __T("2");
-    Prefs->Config.Save();
-    ConfigTheme();
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::ApplicationEvents1OnSettingChange(
-    TObject* Sender, int Flag, const UnicodeString Section, int &Result)
-{
-    if (Section == "ImmersiveColorSet") {
-        ConfigTheme();
-    }
-}
-
 //---------------------------------------------------------------------------
 void __fastcall TMainF::CreateWnd()
 {
@@ -2197,7 +2087,10 @@ void __fastcall TMainF::DestroyWnd()
 }
 
 //---------------------------------------------------------------------------
-void __fastcall TMainF::Page_Sheet_Splitter1Moved(TObject *Sender)
+void __fastcall TMainF::ApplicationEvents1OnSettingChange(
+    TObject* Sender, int Flag, const UnicodeString Section, int &Result)
 {
-    FormResize(NULL);
+    if (Section == "ImmersiveColorSet") {
+        ConfigTheme();
+    }
 }
