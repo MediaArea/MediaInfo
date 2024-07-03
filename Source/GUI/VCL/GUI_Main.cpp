@@ -490,6 +490,16 @@ void __fastcall TMainF::GUI_Configure()
 		Position = poScreenCenter;
 	}
 
+	// debug: Dimensions won't restore properly from Maximized state
+	if ( ((Prefs->Config(__T("RememberWindowPosition")) == __T("1")) ||
+		  (Prefs->Config(__T("RememberWindowDimensions")) == __T("1"))) ) {
+		int nPrefWindowState = 0;
+		if (Prefs->Config(__T("WindowState")).IsNumber())
+			nPrefWindowState = Prefs->Config(__T("WindowState")).To_int32s();
+		if (nPrefWindowState == (int)TWindowState::wsMaximized)
+			WindowState = wsMaximized;
+	}
+
     //Refresh global
     FormResize(NULL);
     Refresh();
@@ -503,20 +513,21 @@ void __fastcall TMainF::FormClose(TObject *Sender, TCloseAction &Action)
     if (FileName_Temp!=__T(""))
         File::Delete(FileName_Temp);
 
-	bool bCallPrefsSave = false;
-	if (Prefs->Config(__T("RememberWindowPosition")) == __T("1")) {
-		Prefs->Config(__T("FormTop")).From_Number((int)this->Top);
-		Prefs->Config(__T("FormLeft")).From_Number((int)this->Left);
-		bCallPrefsSave = true;
-	}
-	if (Prefs->Config(__T("RememberWindowDimensions")) == __T("1")) {
-		Prefs->Config(__T("FormWidth")).From_Number((int)this->Width);
-		Prefs->Config(__T("FormHeight")).From_Number((int)this->Height);
-		bCallPrefsSave = true;
-	}
-
-	if (bCallPrefsSave)
+	if ( ((Prefs->Config(__T("RememberWindowPosition")) == __T("1")) || 
+          (Prefs->Config(__T("RememberWindowDimensions")) == __T("1"))) ) {
+		Prefs->Config(__T("WindowState")).From_Number((int)WindowState);
+		if (WindowState != wsMaximized) {
+			if (Prefs->Config(__T("RememberWindowPosition")) == __T("1")) {
+				Prefs->Config(__T("FormTop")).From_Number((int)this->Top);
+				Prefs->Config(__T("FormLeft")).From_Number((int)this->Left);
+			}
+			if (Prefs->Config(__T("RememberWindowDimensions")) == __T("1")) {
+				Prefs->Config(__T("FormWidth")).From_Number((int)this->Width);
+				Prefs->Config(__T("FormHeight")).From_Number((int)this->Height);
+			}
+		}
 		Prefs->Config.Save();
+	}
 
     //The form is closed and all allocated memory for the form is freed.
     Action = caFree;
