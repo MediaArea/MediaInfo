@@ -3,21 +3,19 @@ object ExportF: TExportF
   Top = 286
   BorderStyle = bsSingle
   Caption = 'Export...'
-  ClientHeight = 355
-  ClientWidth = 624
+  ClientHeight = 352
+  ClientWidth = 625
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Arial'
   Font.Style = []
-  OldCreateOrder = False
   Position = poScreenCenter
-  PixelsPerInch = 96
   TextHeight = 14
   object Cancel: TButton
-    Left = 375
-    Top = 318
+    Left = 373
+    Top = 322
     Width = 122
     Height = 26
     Cancel = True
@@ -26,8 +24,8 @@ object ExportF: TExportF
     TabOrder = 0
   end
   object OK: TButton
-    Left = 500
-    Top = 318
+    Left = 499
+    Top = 322
     Width = 122
     Height = 26
     Caption = 'OK'
@@ -37,15 +35,15 @@ object ExportF: TExportF
     OnClick = OKClick
   end
   object Export_Choose: TGroupBox
-    Left = 1
-    Top = 0
-    Width = 621
-    Height = 249
+    Left = 4
+    Top = 4
+    Width = 616
+    Height = 246
     Caption = 'Choose the desired export format'
     TabOrder = 2
     object Export: TPageControl
-      Left = 0
-      Top = 18
+      Left = 4
+      Top = 17
       Width = 608
       Height = 224
       ActivePage = Export_Text
@@ -516,10 +514,6 @@ object ExportF: TExportF
       object Export_EBUCore_1_8_ps: TTabSheet
         Caption = 'EBUCore 1.8 (ps)'
         ImageIndex = 9
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Export_EBUCore_1_8_ps_SideCar: TCheckBox
           Left = 0
           Top = 9
@@ -533,10 +527,6 @@ object ExportF: TExportF
       object Export_EBUCore_1_8_sp: TTabSheet
         Caption = 'EBUCore 1.8 (sp)'
         ImageIndex = 9
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Export_EBUCore_1_8_sp_SideCar: TCheckBox
           Left = 0
           Top = 9
@@ -550,10 +540,6 @@ object ExportF: TExportF
       object Export_EBUCore_1_8_ps_json: TTabSheet
         Caption = 'EBUCore 1.8 (ps, json)'
         ImageIndex = 9
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Export_EBUCore_1_8_ps_json_SideCar: TCheckBox
           Left = 0
           Top = 9
@@ -567,10 +553,6 @@ object ExportF: TExportF
       object Export_EBUCore_1_8_sp_json: TTabSheet
         Caption = 'EBUCore 1.8 (sp, json)'
         ImageIndex = 9
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Export_EBUCore_1_8_sp_json_SideCar: TCheckBox
           Left = 0
           Top = 9
@@ -659,22 +641,22 @@ object ExportF: TExportF
     end
   end
   object Name_Choose: TGroupBox
-    Left = 1
-    Top = 248
-    Width = 621
-    Height = 70
+    Left = 4
+    Top = 253
+    Width = 616
+    Height = 65
     Caption = 'Choose the desired filename'
     TabOrder = 3
     object Name: TEdit
-      Left = 9
-      Top = 22
-      Width = 576
+      Left = 4
+      Top = 17
+      Width = 580
       Height = 22
       TabOrder = 0
     end
     object Name_FileSelect: TButton
-      Left = 586
-      Top = 22
+      Left = 585
+      Top = 17
       Width = 27
       Height = 22
       Caption = '...'
@@ -682,9 +664,9 @@ object ExportF: TExportF
       OnClick = Name_FileSelectClick
     end
     object File_Append: TCheckBox
-      Left = 9
+      Left = 4
       Top = 43
-      Width = 600
+      Width = 609
       Height = 18
       Caption = 'Append to the existing file (Warning : parameters must be same)'
       TabOrder = 2

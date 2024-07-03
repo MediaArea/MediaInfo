@@ -617,8 +617,6 @@ void __fastcall TPreferencesF::FormShow(TObject *Sender)
     // review: GUI_Configure should be in FormCreate
     GUI_Configure();
     General_Output_SelChange(NULL);
-
-    // ClientHeight=OK->Top+(OK->Height*1.15);
 }
 
 //---------------------------------------------------------------------------

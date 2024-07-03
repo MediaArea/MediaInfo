@@ -74,6 +74,7 @@ Preferences::Preferences()
 
     //Plugins
     GraphPluginURL=__T("");
+    GraphPlugin64URL=__T("");
     GraphPluginVersion=__T("");
     FFmpegPluginURL=__T("");
     FFmpegPluginVersion=__T("");
@@ -218,6 +219,9 @@ int Preferences::Config_Load()
         Saved.FindAndReplace(__T("\\r\\n"), __T("\r\n"), 0, Ztring_Recursive);
         SponsorUrl.Write(Saved);
     }
+
+    if (!Config(__T("GraphPlugin64URL")).empty())
+        GraphPlugin64URL=Config(__T("GraphPlugin64URL"));
 
     if (!Config(__T("GraphPluginURL")).empty())
         GraphPluginURL=Config(__T("GraphPluginURL"));
@@ -544,6 +548,13 @@ void __fastcall ThreadInternetCheck::Execute()
     Prefs->Config_Save();
 
     //Plugins
+    Ztring GraphPlugin64URL=Download(__T("GraphPlugin64URL"));
+    if (!GraphPlugin64URL.empty())
+    {
+        Prefs->Config(__T("GraphPlugin64URL"))=GraphPlugin64URL;
+        Prefs->Config_Save();
+    }
+
     Ztring GraphPluginURL=Download(__T("GraphPluginURL"));
     if (!GraphPluginURL.empty())
     {
