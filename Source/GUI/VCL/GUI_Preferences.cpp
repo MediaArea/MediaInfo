@@ -612,6 +612,13 @@ void __fastcall TPreferencesF::General_Output_MoreClick(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
+void __fastcall TPreferencesF::FormAfterMonitorDpiChanged(TObject *Sender, int OldDPI, int NewDPI)
+{
+    General_Language_More->Height=General_Language_Sel->Height;
+    General_Output_More->Height=General_Output_Sel->Height;
+}
+
+//---------------------------------------------------------------------------
 void __fastcall TPreferencesF::FormShow(TObject *Sender)
 {
     // review: GUI_Configure should be in FormCreate
@@ -792,6 +799,10 @@ void __fastcall TPreferencesF::GUI_Configure()
     Custom_Edit->Caption=(Prefs->Translate(__T("Edit"))+__T("...")).c_str();
     Custom_Delete->Caption=Prefs->Translate(__T("Delete")).c_str();
     Custom_New->Caption=(Prefs->Translate(__T("New"))+__T("...")).c_str();
+
+    General_Language_More->Height=General_Language_Sel->Height;
+    General_Output_More->Height=General_Output_Sel->Height;
+
 }
 
 //***************************************************************************

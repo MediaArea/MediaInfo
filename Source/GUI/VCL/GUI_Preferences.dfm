@@ -14,6 +14,7 @@ object PreferencesF: TPreferencesF
   Font.Name = 'Arial'
   Font.Style = []
   Position = poDesigned
+  OnAfterMonitorDpiChanged = FormAfterMonitorDpiChanged
   OnShow = FormShow
   DesignSize = (
     777

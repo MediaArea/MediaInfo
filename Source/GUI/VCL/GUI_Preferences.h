@@ -118,6 +118,7 @@ __published:    // IDE-managed Components
     void __fastcall CB_InscrireShell_FolderClick(TObject *Sender);
 	void __fastcall CB_RememberWindowPositionClick(TObject *Sender);
 	void __fastcall CB_RememberWindowDimensionsClick(TObject *Sender);
+    void __fastcall FormAfterMonitorDpiChanged(TObject *Sender, int OldDPI, int NewDPI);
 private:    // User declarations
 public:        // User declarations
     __fastcall TPreferencesF(TComponent* Owner);
