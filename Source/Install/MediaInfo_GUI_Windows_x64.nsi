@@ -138,6 +138,7 @@ Section "SectionPrincipale" SEC01
   File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Win64\Release\MediaInfo_GUI.exe"
   File "..\..\..\MediaInfoLib\Project\MSVC2019\x64\Release\MediaInfo_InfoTip.dll"
   File "..\..\..\MediaInfoLib\Project\MSVC2019\x64\Release\MediaInfo.dll"
+  File "C:\Program Files (x86)\Embarcadero\Studio\22.0\Redist\win64\WebView2Loader.dll"
   File "$%BPATH%\Windows\libcurl\x64\Release\LIBCURL.DLL"
   File "$%BPATH%\Windows\libcurl\curl-ca-bundle.crt"
   File "/oname=History.txt" "..\..\History_GUI.txt"
@@ -207,6 +208,7 @@ Section Uninstall
   !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\MediaInfo.exe"
   !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\MediaInfo.dll"
   !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\MediaInfo_i386.dll"
+  !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\WebView2Loader.dll"
   Delete "$INSTDIR\${PRODUCT_NAME}.url"
   Delete "$INSTDIR\uninst.exe"
   Delete "$INSTDIR\MediaInfo_InfoTip.dll"
@@ -233,6 +235,7 @@ Section Uninstall
   RMDir "$INSTDIR\Plugin\Sheet"
   RMDir "$INSTDIR\Plugin\Tree"
   RMDir "$INSTDIR\Plugin"
+  RMDir /r "$INSTDIR\WebView2"
   RMDir "$INSTDIR"
 
   SetRegView 64
