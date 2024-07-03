@@ -4,9 +4,10 @@ object PreferencesF: TPreferencesF
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'Preferences'
   ClientHeight = 279
-  ClientWidth = 833
+  ClientWidth = 777
   Color = clWindow
   Constraints.MinHeight = 275
+  Constraints.MinWidth = 750
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -15,11 +16,11 @@ object PreferencesF: TPreferencesF
   Position = poDesigned
   OnShow = FormShow
   DesignSize = (
-    833
+    777
     279)
   TextHeight = 14
   object OK: TButton
-    Left = 703
+    Left = 643
     Top = 243
     Width = 122
     Height = 27
@@ -29,11 +30,11 @@ object PreferencesF: TPreferencesF
     ModalResult = 1
     TabOrder = 0
     OnClick = OKClick
-    ExplicitLeft = 699
+    ExplicitLeft = 695
     ExplicitTop = 242
   end
   object Cancel: TButton
-    Left = 569
+    Left = 509
     Top = 243
     Width = 121
     Height = 27
@@ -42,13 +43,13 @@ object PreferencesF: TPreferencesF
     Caption = 'Cancel'
     ModalResult = 2
     TabOrder = 1
-    ExplicitLeft = 565
+    ExplicitLeft = 561
     ExplicitTop = 242
   end
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 833
+    Width = 777
     Height = 233
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
@@ -62,7 +63,7 @@ object PreferencesF: TPreferencesF
       AlignWithMargins = True
       Left = 201
       Top = 0
-      Width = 629
+      Width = 573
       Height = 233
       Margins.Top = 0
       Margins.Bottom = 0
@@ -185,7 +186,7 @@ object PreferencesF: TPreferencesF
         ImageIndex = 1
         OnShow = Setup_AdvancedShow
         DesignSize = (
-          621
+          565
           201)
         object Advanced_DisplayCaptions_Caption: TLabel
           Left = 3
@@ -251,10 +252,11 @@ object PreferencesF: TPreferencesF
         object Advanced_DisplayCaptions_Sel: TComboBox
           Left = 163
           Top = 154
-          Width = 318
+          Width = 258
           Height = 22
           Style = csDropDownList
           Anchors = [akLeft, akTop, akRight]
+          Constraints.MinWidth = 250
           DropDownCount = 10
           TabOrder = 1
           OnChange = Advanced_DisplayCaptions_SelChange
@@ -262,6 +264,7 @@ object PreferencesF: TPreferencesF
             'When content is detected'
             'When content or a command is detected'
             'Even when no content or command is detected')
+          ExplicitWidth = 310
         end
         object CB_RememberWindowPosition: TCheckBox
           Left = 3
@@ -384,7 +387,7 @@ object PreferencesF: TPreferencesF
         object Tree_NotYet: TLabel
           Left = 0
           Top = 0
-          Width = 621
+          Width = 565
           Height = 201
           Align = alClient
           Alignment = taCenter
