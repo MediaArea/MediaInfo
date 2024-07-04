@@ -277,6 +277,11 @@ __fastcall TMainF::TMainF(TComponent* Owner)
         for (int I1 = 1; I1 < ParamCount(); I1++)
             I->Open(Ztring().From_Local(ParamStr(I1).c_str()));
     #endif
+
+    //Refresh global
+    FormResize(NULL);
+    Refresh();
+
 }
 
 //***************************************************************************
@@ -483,10 +488,6 @@ void __fastcall TMainF::GUI_Configure()
 		if (nPrefWindowState == (int)TWindowState::wsMaximized)
 			WindowState = wsMaximized;
 	}
-
-    //Refresh global
-    FormResize(NULL);
-    Refresh();
 
 }
 
