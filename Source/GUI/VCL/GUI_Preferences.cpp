@@ -46,6 +46,14 @@ __fastcall TPreferencesF::TPreferencesF(TComponent* Owner)
 }
 
 //---------------------------------------------------------------------------
+void __fastcall TPreferencesF::FormCreate(TObject *Sender)
+{
+
+    GUI_Configure();
+
+}
+
+//---------------------------------------------------------------------------
 void __fastcall TPreferencesF::ComboBox_Update(TComboBox *CB, Prefs_t List)
 {
     //List Update
@@ -622,7 +630,7 @@ void __fastcall TPreferencesF::FormAfterMonitorDpiChanged(TObject *Sender, int O
 void __fastcall TPreferencesF::FormShow(TObject *Sender)
 {
     // review: GUI_Configure should be in FormCreate
-    GUI_Configure();
+    // GUI_Configure();
     General_Output_SelChange(NULL);
 }
 

@@ -15,6 +15,7 @@ object PreferencesF: TPreferencesF
   Font.Style = []
   Position = poDesigned
   OnAfterMonitorDpiChanged = FormAfterMonitorDpiChanged
+  OnCreate = FormCreate
   OnShow = FormShow
   DesignSize = (
     777

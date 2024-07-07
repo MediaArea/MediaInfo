@@ -105,6 +105,7 @@ __published:    // IDE-managed Components
     void __fastcall Setup_GeneralShow(TObject *Sender);
     void __fastcall Setup_AdvancedShow(TObject *Sender);
     void __fastcall Customize_LanguageShow(TObject *Sender);
+    void __fastcall FormCreate(TObject *Sender);    
     void __fastcall FormShow(TObject *Sender);
     void __fastcall Customize_CustomShow(TObject *Sender);
     void __fastcall Sheet_SelChange(TObject *Sender);
