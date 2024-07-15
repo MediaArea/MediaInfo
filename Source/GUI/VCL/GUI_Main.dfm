@@ -723,7 +723,7 @@ object MainF: TMainF
     EdgeBorders = [ebRight]
     EdgeInner = esNone
     EdgeOuter = esNone
-    Images = Toolbar_Image
+    Images = ToolBar_Image
     ParentColor = False
     ParentShowHint = False
     ShowHint = True
@@ -6009,7 +6009,7 @@ object MainF: TMainF
     Left = 768
     Top = 144
   end
-  object Toolbar_Image: TVirtualImageList
+  object ToolBar_Image: TVirtualImageList
     Images = <
       item
         CollectionIndex = 0
