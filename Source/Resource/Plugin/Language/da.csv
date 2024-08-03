@@ -179,6 +179,7 @@ ADM: Show TrackUIDs;
 AdmProfile;
 Advanced;Avanceret
 Advanced mode;Avanceret tilstand
+Advanced mode -->;
 Album;Album
 Album_ReplayGain_Gain;Album replay gain
 Album_ReplayGain_Peak;Album replay gain peak
@@ -195,12 +196,17 @@ AssistantDirector;Assisterende regissør
 AssociatedVideo_FrameRate;
 at;ved
 At least one file;(Du skal åbne mindst en fil)
+Attachments;
 Audio;Lyd
 Audio stream(s);Lydstrømme
 Audio_Codec_List;Lyd-codecs
+Audio_Format_List;
+Audio_Format_WithHint_List;
+Audio_Language_List;
 Audio_No;Ingen lyd
 Audio1;Første lydstrøm
 Audio2;Anden lydstrøm
+Audio3;
 AudioComments;
 AudioCount;Antal lydstrømme
 AudioDescription;
@@ -237,17 +243,22 @@ Cancel;Annuller
 CaptionServiceName;
 CatalogNumber;
 Channel(s);Kanaler
+Channel(s)_Original;
 ChannelCoded;
 ChannelConfiguration;
 ChannelFormat;
 ChannelLayout;
+ChannelLayout_Original;
 ChannelMode;
 ChannelPositions;Kanalpositioner
+ChannelPositions_Original;
 Chapter(s);Kapitler
 Chapters;Kapitler
 Chapters stream(s);Kapitelstrømme
 Chapters_Codec_List;Kapitel-codecs
 Chapters_No;Ingen kapitler
+Chapters_Pos_Begin;
+Chapters_Pos_End;
 ChaptersCount;Antal kapitelstrømme
 CharacterSet;
 CheckNewVersion;Tjek for ny version
@@ -341,6 +352,7 @@ Date;Dato
 Debug;Fejlsøg
 Decimal point;Decimaltegn
 Default;
+Default translation;
 Default_Setting;
 DefaultTargetDeviceConfig;
 Delay;Forsinkelse
@@ -380,6 +392,7 @@ DrcSets_Effects;
 Duration;Varighed
 Duration_End;Sluttid
 Duration_End_Command;
+Duration_Source;
 Duration_Start;Starttid
 Duration_Start_Command;
 Duration_Start2End;
@@ -396,7 +409,9 @@ Enable FFmpeg plugin;
 Encoded_Application;Skrivende program
 Encoded_Date;Kodet den
 Encoded_Library;Skrivende bibliotek
+Encoded_Library_Name;
 Encoded_Library_Settings;Kodningsindstillinger
+Encoded_Library_Version;
 Encoded_Original;Original
 EncodedBy;Kodet af
 EPG_Positions;EPG-positioner (internt)
@@ -429,6 +444,8 @@ FileExtension;Filendelse
 FileName;Filnavn
 FileNameExtension;
 FileSize;Filstørrelse
+Fill with a Dummy movie;
+Fill with a realistic movie;
 FirstDisplay_Delay_Frames;
 FirstDisplay_Type;
 FirstFrameOfAction;
@@ -442,6 +459,7 @@ Folder_Hint;Vælg en mappe at undersøge
 FolderName;Mappenavn
 Forced;
 Format;Format
+Format_AdditionalFeatures;
 Format_Commercial;Kommercielt navn
 Format_Commercial_IfAny;
 Format_Compression;
@@ -484,13 +502,16 @@ FpaManufacturer;
 FpaPass;
 FpaVersion;
 FrameCount;Antal billeder
+FrameCount_Source;
 FrameRate;Billedfrekvens
+FrameRate_Den;
 FrameRate_Maximum;Maksimum billedfrekvens
 FrameRate_Minimum;Minimum billedfrekvens
 FrameRate_Mode;Billedratemodus
 FrameRate_Mode_CFR;Konstant
 FrameRate_Mode_VFR;Variabel
 FrameRate_Nominal;Nominel billedfrekvens
+FrameRate_Num;
 FrameRate_Original;Original billedrate
 FrameRate_Real;
 FullParsing;
@@ -740,6 +761,7 @@ InternetMediaType;Internet mediatype
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+IsStreamable;
 Keywords;Nøgleord
 Known codecs;Kendte codecs
 Known formats;Kendte formater
@@ -954,6 +976,7 @@ Language_zh-tw;Kinesisk (Taiwan)
 Language_zh-TW;
 Language_zh-yue;
 Language_zu;Zulu
+Languages;
 LawRating;Aldersgrænse
 LCCN;LCCN
 LfeAttenuationKnown;
@@ -1037,8 +1060,8 @@ Movie;Filmnavn
 ms; ms
 MSDI;MSID
 MultipleStream;
-MusicBy;Musik af
 MultiView_Count;
+MusicBy;Musik af
 MuxingMode;Muxing-modus
 MuxingMode_MoreInfo;Muxing-modus, mere info
 MuxingMode_PackedBitstream;Komprimeret bitstrøm
@@ -1135,6 +1158,7 @@ ProductionDesigner;Scenograf
 ProductionNumber;
 ProductionStudio;Produktionsstudie
 ProductPlacement;
+Program name;
 Programme;
 ProgrammeHasText;
 ProgrammeTextLanguage;
@@ -1158,10 +1182,13 @@ Report;
 Resolution;Opløsning
 RestoreLifetimeSubscription;
 s;sek.
+Sampled_Height;
+Sampled_Width;
 SamplePeakLevel;
 SamplePeakLevel_Album;
 SamplesPerFrame;
 SamplingCount;Antal samplinger
+SamplingCount_Source;
 SamplingRate;Samplingsrate
 Save;Gem
 ScanOrder;Skanorden
@@ -1178,6 +1205,7 @@ ScreenToFront;
 Season;Sæson
 SecondaryAudioLanguage;
 see below;se nedenunder
+Select your directory;
 Send HeaderFile;Send venligst header-filen her: http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;Kolonneseparator
 Separator_Lines;Linjeseparator
@@ -1227,6 +1255,7 @@ streamIdentifier;
 StreamKind;Strømart
 StreamKindID;Strømidentifikator
 StreamKindPos;Strømidentifikator
+StreamOrder;
 StreamSize;Strømstørrelse
 StreamSize_Demuxed;
 StreamSize_Encoded;
@@ -1269,6 +1298,9 @@ Text (HTML);Tekst (HTML)
 Text stream(s);Tekststrømme
 Text streams;Tekststrømme
 Text_Codec_List;Tekst-codecs
+Text_Format_List;
+Text_Format_WithHint_List;
+Text_Language_List;
 Text_No;Ingen tekst
 Text1;Første tekststrøm
 Text2;Anden tekststrøm
@@ -1336,9 +1368,14 @@ Video;Video
 Video stream(s);Videostrømme
 Video_Codec_List;Codecs Video
 Video_Delay;Videoforsinkelse
+Video_Format_List;
+Video_Format_WithHint_List;
+Video_Language_List;
 Video_No;Ingen video
 Video0_Delay;Video0forsinkelse
 Video1;Første videostrøm
+Video2;
+Video3;
 VideoComments;
 VideoCount;Antal videostrømme
 View;Vis
@@ -1366,5 +1403,6 @@ Written_Location;Sted
 WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
-ZZ_Automatic_Percent;61
-ZZ_AutomaticLanguage_Percent;71
+Your translation;
+ZZ_Automatic_Percent;60
+ZZ_AutomaticLanguage_Percent;70

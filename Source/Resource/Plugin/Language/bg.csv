@@ -179,6 +179,7 @@ ADM: Show TrackUIDs;
 AdmProfile;
 Advanced;Разширен
 Advanced mode;Разширен режим
+Advanced mode -->;
 Album;Албум
 Album_ReplayGain_Gain;Албум_УсилващоПовторение_Усилване
 Album_ReplayGain_Peak;Албум_УсилващоПовторение_Връх
@@ -195,12 +196,17 @@ AssistantDirector;АсистентДиректор
 AssociatedVideo_FrameRate;
 at;от
 At least one file;Най-малко един файл
+Attachments;
 Audio;Аудио
 Audio stream(s);Аудио поток(ци)
 Audio_Codec_List;Аудио_Кодек_Списък
+Audio_Format_List;
+Audio_Format_WithHint_List;
+Audio_Language_List;
 Audio_No;Аудио_№
 Audio1;Аудио1
 Audio2;Аудио2
+Audio3;
 AudioComments;
 AudioCount;АудиоБрой
 AudioDescription;
@@ -237,17 +243,22 @@ Cancel;Откажи
 CaptionServiceName;
 CatalogNumber;
 Channel(s);Канал(и)
+Channel(s)_Original;
 ChannelCoded;
 ChannelConfiguration;
 ChannelFormat;
 ChannelLayout;
+ChannelLayout_Original;
 ChannelMode;
 ChannelPositions;КаналПозиции
+ChannelPositions_Original;
 Chapter(s);Дял(ове)
 Chapters;Дялове
 Chapters stream(s);Дялове поток(ци)
 Chapters_Codec_List;Дялове_Кодек_Списък
 Chapters_No;Дялове_Но
+Chapters_Pos_Begin;
+Chapters_Pos_End;
 ChaptersCount;ДяловеБрой
 CharacterSet;
 CheckNewVersion;ПровериНоваВерсия
@@ -341,6 +352,7 @@ Date;Дата
 Debug;Дебъг
 Decimal point;Децимална точка
 Default;
+Default translation;
 Default_Setting;
 DefaultTargetDeviceConfig;
 Delay;Забавяне
@@ -380,6 +392,7 @@ DrcSets_Effects;
 Duration;Продължителност
 Duration_End;Продължителност_Край
 Duration_End_Command;
+Duration_Source;
 Duration_Start;Продължителност_Начало
 Duration_Start_Command;
 Duration_Start2End;
@@ -396,7 +409,9 @@ Enable FFmpeg plugin;
 Encoded_Application;Енкодирана_Апликация
 Encoded_Date;Дата_Енкодиране
 Encoded_Library;Библиотека_Енкодиране
+Encoded_Library_Name;
 Encoded_Library_Settings;Библиотека_Енкодиране_Настройки
+Encoded_Library_Version;
 Encoded_Original;Оригинално_Енкодиране
 EncodedBy;ЕнкодиранОт
 EPG_Positions;ЕПГ_Позиции
@@ -429,6 +444,8 @@ FileExtension;ФайлЕкстенция
 FileName;ИмеФайл
 FileNameExtension;
 FileSize;Големинафайл
+Fill with a Dummy movie;
+Fill with a realistic movie;
 FirstDisplay_Delay_Frames;
 FirstDisplay_Type;
 FirstFrameOfAction;
@@ -442,6 +459,7 @@ Folder_Hint;Папка_Подсказване
 FolderName;ПапкаИме
 Forced;
 Format;Формат
+Format_AdditionalFeatures;
 Format_Commercial;
 Format_Commercial_IfAny;
 Format_Compression;
@@ -484,13 +502,16 @@ FpaManufacturer;
 FpaPass;
 FpaVersion;
 FrameCount;БройКадри
+FrameCount_Source;
 FrameRate;СкоростКадри
+FrameRate_Den;
 FrameRate_Maximum;СкоростКадри_Максимум
 FrameRate_Minimum;СкоростКадри_Минимум
 FrameRate_Mode;СкоростКадри_Метод
 FrameRate_Mode_CFR;СкоростКадри_СФР
 FrameRate_Mode_VFR;СкоростКадри_ВФР
 FrameRate_Nominal;СкоростКадри_Нормално
+FrameRate_Num;
 FrameRate_Original;СкоростКадри_Оригинално
 FrameRate_Real;
 FullParsing;
@@ -740,6 +761,7 @@ InternetMediaType;
 IRCA;ИРСА
 ISBN;ИСБН
 ISRC;ИСРК
+IsStreamable;
 Keywords;Тагове
 Known codecs;Познати кодеци
 Known formats;Познати Формати
@@ -954,6 +976,7 @@ Language_zh-tw;
 Language_zh-TW;
 Language_zh-yue;
 Language_zu;
+Languages;
 LawRating;НисъкРейтинг
 LCCN;ЛССН
 LfeAttenuationKnown;
@@ -1037,8 +1060,8 @@ Movie;Филм
 ms;мс
 MSDI;МСДИ
 MultipleStream;
-MusicBy;МузикаОт
 MultiView_Count;
+MusicBy;МузикаОт
 MuxingMode;МюксингРежим
 MuxingMode_MoreInfo;МюксингРежим_ПовечеИнфо
 MuxingMode_PackedBitstream;МюксингРежим_ПакетБитПоток
@@ -1135,6 +1158,7 @@ ProductionDesigner;ДизайнерПродукция
 ProductionNumber;
 ProductionStudio;ПродукционноСтудио
 ProductPlacement;
+Program name;
 Programme;
 ProgrammeHasText;
 ProgrammeTextLanguage;
@@ -1158,10 +1182,13 @@ Report;
 Resolution;Резолюция
 RestoreLifetimeSubscription;
 s;с
+Sampled_Height;
+Sampled_Width;
 SamplePeakLevel;
 SamplePeakLevel_Album;
 SamplesPerFrame;
 SamplingCount;
+SamplingCount_Source;
 SamplingRate;ВъзпроизвежданеСкорост
 Save;Запази
 ScanOrder;СканиранеРед
@@ -1178,6 +1205,7 @@ ScreenToFront;
 Season;Сезон
 SecondaryAudioLanguage;
 see below;виж долу
+Select your directory;
 Send HeaderFile;Изпрати Хедер Файл
 Separator_Columns;Разделител_Колони
 Separator_Lines;Разделител_Линий
@@ -1227,6 +1255,7 @@ streamIdentifier;
 StreamKind;ПотокВид
 StreamKindID;ПотокВидИД
 StreamKindPos;ПотокВидПоз
+StreamOrder;
 StreamSize;ПотокРазмер
 StreamSize_Demuxed;
 StreamSize_Encoded;
@@ -1269,6 +1298,9 @@ Text (HTML);Текст (HTML)
 Text stream(s);Текст поток(ци)
 Text streams;Текст потоци
 Text_Codec_List;Текст_Кодек_Списък
+Text_Format_List;
+Text_Format_WithHint_List;
+Text_Language_List;
 Text_No;Текст_Но
 Text1;Текст1
 Text2;Текст2
@@ -1336,9 +1368,14 @@ Video;Видео
 Video stream(s);Видео поток(ци)
 Video_Codec_List;Видео_Кодек_Списък
 Video_Delay;Видео_Забавяне
+Video_Format_List;
+Video_Format_WithHint_List;
+Video_Language_List;
 Video_No;Видео_Но
 Video0_Delay;Видео0_Забавяне
 Video1;Видео1
+Video2;
+Video3;
 VideoComments;
 VideoCount;ВидеоБрой
 View;Преглед
@@ -1366,5 +1403,6 @@ Written_Location;Написано_Локация
 WrittenBy;НаписаноОт
 Yes;Да
 Your system;Вашата система
-ZZ_Automatic_Percent;64
-ZZ_AutomaticLanguage_Percent;71
+Your translation;
+ZZ_Automatic_Percent;62
+ZZ_AutomaticLanguage_Percent;69
