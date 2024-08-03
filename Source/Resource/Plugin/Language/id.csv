@@ -1,0 +1,1408 @@
+  Language_ISO639;id
+  Author_Email;zarambie_game@yahoo.com
+  Author_Name;William Surya Permana
+  Author_OldNames;Penerjemah awal
+  Language_Name;Bahasa Indonesia
+  Config_Text_ColumnSize;40
+  Config_Text_Separator; : 
+  Config_Text_NumberTag; #
+  Config_Text_FloatSeparator;,
+  Config_Text_ThousandsSeparator; 
+ audio stream1; aliran audio
+ audio stream2; aliran audio
+ audio stream3; aliran audio
+ bit1; bit
+ bit2; bit
+ bit3; bit
+ bps; b/d
+ Bps; B/d
+ Byte1; Bita
+ Byte2; Bita
+ Byte3; Bita
+ channel1; kanal
+ channel2; kanal
+ channel3; kanal
+ chapter1; bab
+ chapter2; bab
+ chapter3; bab
+ chapters stream1; aliran bab
+ chapters stream2; aliran bab
+ chapters stream3; aliran bab
+ character1; karakter
+ character2; karakter
+ character3; karakter
+ day1; hari
+ day2; hari
+ day3; hari
+ dB0;0 dB
+ dB1; dB
+ dB2; dB
+ dB3; dB
+ file1; berkas
+ file2; berkas
+ file3; berkas
+ fps1; FPS
+ fps2; FPS
+ fps3; FPS
+ frame1; bingkai
+ frame2; bingkai
+ frame3; bingkai
+ GB; GB
+ Gb; Gb
+ Gbps; Gb/d
+ GBps; GB/d
+ GHz; GHz
+ GiB; GiB
+ GibiByte1; GibiBita
+ GibiByte2; GibiBita
+ GibiByte3; GibiBita
+ GiBps; GiB/s
+ GigaBit1; GigaBit
+ GigaBit2; GigaBit
+ GigaBit3; GigaBit
+ GigaByte1; GigaBita
+ GigaByte2; GigaBita
+ GigaByte3; GigaBita
+ hour1; jam
+ hour2; jam
+ hour3; jam
+ Hz; Hz
+ image stream1; aliran citra
+ image stream2; aliran citra
+ image stream3; aliran citra
+ KB; kB
+ Kb; kb
+ KBps; kB/d
+ Kbps; kb/d
+ KHz; kHz
+ KiB; KiB
+ KibiBit1; KibiBit
+ KibiBit2; KibiBit
+ KibiBit3; KibiBit
+ KibiByte1; KibiBita
+ KibiByte2; KibiBita
+ KibiByte3; KibiBita
+ KiBps; KiB/d
+ KiloBit1; KiloBit
+ KiloBit2; KiloBit
+ KiloBit3; KiloBit
+ KiloByte1; KiloBita
+ KiloByte2; KiloBita
+ KiloByte3; KiloBita
+ MB; MB
+ Mb; Mb
+ Mbps; Mb/d
+ MBps; MebiBita
+ MebiBit1; MebiBit
+ MebiBit2; MebiBit
+ MebiBit3; MebiBit
+ MebiByte1; MebiBita
+ MebiByte2; MebiBita
+ MebiByte3; MebiBita
+ MegaBit1; MegaBit
+ MegaBit2; MegaBit
+ MegaBit3; MegaBit
+ MegaByte1; MegaBita
+ MegaByte2; MegaBita
+ MegaByte3; MegaBita
+ MHz; MHz
+ MiB; MiB
+ Mib; Mib
+ MiBps; MiB/d
+ millisecond1; milidetik
+ millisecond2; milidetik
+ millisecond3; milidetik
+ minute1; menit
+ minute2; menit
+ minute3; menit
+ month1; bulan
+ month2; bulan
+ month3; bulan
+ object1; objek
+ object2; objek
+ object3; objek
+ pixel1; piksel
+ pixel2; piksel
+ pixel3; piksel
+ second1; detik
+ second2; detik
+ second3; detik
+ slice per frame1; irisan per bingkai
+ slice per frame2; irisan per bingkai
+ slice per frame3; irisan per bingkai
+ text stream1; aliran teks
+ text stream2; aliran teks
+ text stream3; aliran teks
+ video frames1; bingkai video
+ video frames2; bingkai video
+ video frames3; bingkai video
+ video stream1; aliran video
+ video stream2; aliran video
+ video stream3; aliran video
+ warppoint0;Tak ada titik lengkung
+ warppoint1; titik lengkung
+ warppoint2; titik lengkung
+ warppoint3; titik lengkung
+ week1; pekan
+ week2; pekan
+ week3; pekan
+ year1; tahun
+ year2; tahun
+ year3; tahun
+, ;, 
+: ;: 
+3D;3D
+3DType;Jenis 3D
+5.1.2ch;5.1.2
+5.1.4ch;5.1.4
+5.1ch;5.1
+608_Mode;Mode konversi EIA-608
+7.1.2ch;7.1.2
+7.1ch;7.1
+About;Tentang
+About_Hint;Cara hubungi saya dan temukan versi terakhir
+Accompaniment;Iringan
+Active_DisplayAspectRatio;Rasio aspek tampilan aktif
+Active_Height;Tinggi aktif
+Active_Width;Lebar aktif
+ActiveFormatDescription;Deksripsi Format Aktif
+ActiveFormatDescription_MuxingMode;Deksripsi Format Aktif, mode multipleks
+Actor;Aktor
+Actor_Character;Karakter diperankan
+Add creation date to text output;Tambahkan tanggal pembuatan ke keluaran teks
+Add version to text output;Tambahkan versi ke keluaran teks
+Added_Date;Tanggal ditambah
+Address;Alamat
+AdID;Identifikasi Ad-ID
+ADM: Show ChannelFormats;ADM: Tampil ChannelFormats
+ADM: Show TrackUIDs;ADM: Tampil TrackUIDs
+AdmProfile;Profil ADM
+Advanced;Tingkat lanjut
+Advanced mode;Mode tingkat lanjut
+Advanced mode -->;Mode tingkat lanjut -->
+Album;Album
+Album_ReplayGain_Gain;Peningkatan putar ulang album
+Album_ReplayGain_Peak;Puncak peningkatan putar ulang album
+Alignment;Penjajaran
+Alignment_Aligned;Dijajarkan pada jalinan
+Alignment_Split;Dibagi sepanjang jalinan
+All;Semua
+AlternateGroup;Kelompok alternatif
+Archival_Location;Lokasi pengarsipan
+Arranger;Aransemen
+ArtDirector;Pengarah Seni
+AspectRatio;Rasio aspek
+AssistantDirector;Asisten Sutradara
+AssociatedVideo_FrameRate;Laju bingkai video terasosiasi
+at;pada
+At least one file;(Anda harus membuka setidaknya satu berkas)
+Attachments;Lampiran
+Audio;Audio
+Audio stream(s);Aliran audio
+Audio_Codec_List;Kodek audio
+Audio_Format_List;Format audio
+Audio_Format_WithHint_List;Format audio (berpetunjuk)
+Audio_Language_List;Bahasa audio
+Audio_No;Tak ada audio
+Audio1;Aliran audio pertama
+Audio2;Aliran audio kedua
+Audio3;Aliran audio ketiga
+AudioComments;Komentar Audio
+AudioCount;Banyaknya aliran audio
+AudioDescription;Deskripsi audio
+AudioDescriptionPresent;Presentasi Deskripsi Audio
+AudioDescriptionType;Jenis Deskripsi Audio
+AudioLoudnessStandard;Standar Kekencangan Audio
+AudioRenderingIndication;Indikasi render audio
+AudioSceneInfoID;ID info skenario audio
+AudioTrackLayout;Tata Letak Trek Audio
+Author;Pengarang
+Back4ToBack2;Empat belakang ke dua belakang
+Balance_FrontBackListener;Keseimbangan pendengar depan/belakang
+Balance_FrontBackOverheadFloor;Keseimbangan langit/lantai depan/belakang
+BarCode;Barcode
+Basic;Dasar
+Basic_Note;Catatan: untuk informasi berkas ini selengkapnya, silakan pilih tampilan lain (Lembar, Pohon...) 
+BedChannelConfiguration;Konfigurasi kanal alas
+BedChannelCount;Banyaknya kanal alas
+BinauralRenderMode;Mode render binaural
+BitDepth;Kedalaman bit
+BitDepth_Detected;Kedalaman bit terdeteksi
+BitDepth_Stored;Kedalaman bit tersimpan
+BitRate;Laju bit
+BitRate_Encoded;Laju bit terkodekan
+BitRate_Maximum;Laju bit maksimum
+BitRate_Minimum;Laju bit minimum
+BitRate_Mode;Mode laju bit
+BitRate_Mode_CBR;Konstan
+BitRate_Mode_VBR;Variabel
+BitRate_Nominal;Laju bit nominal
+Bits-(Pixel*Frame);Bit/(Piksel*Bingkai)
+BufferSize;Ukuran penyangga
+Cancel;Batal
+CaptionServiceName;Nama layanan takarir
+CatalogNumber;Nomor katalog
+Channel(s);Kanal
+Channel(s)_Original;Kanal asli
+ChannelCoded;Kanal terkodekan
+ChannelConfiguration;Konfigurasi kanal
+ChannelFormat;Format kanal
+ChannelLayout;Tata letak kanal
+ChannelLayout_Original;Tata letak kanal asli
+ChannelMode;Mode kanal
+ChannelPositions;Posisi kanal
+ChannelPositions_Original;Properti kanal asli
+Chapter(s);Bab
+Chapters;Bab
+Chapters stream(s);Aliran bab
+Chapters_Codec_List;Kodek bab
+Chapters_No;Tak ada bab
+Chapters_Pos_Begin;Posisi mulai bab
+Chapters_Pos_End;Posisi berakhir bab
+ChaptersCount;Banyaknya aliran bab
+CharacterSet;Set karakter
+CheckNewVersion;Periksa versi baru
+Choose custom;Tentukan ubah suaian
+Choose custom sheet;Tentukan lembar ubah suaian yang diinginkan
+Choose custom text;Tentukan teks ubah suaian yang diinginkan
+Choose export format;Tentukan format ekspor yang diinginkan
+Choose file(s);Tentukan berkas untuk dibuka
+Choose filename;Tentukan nama berkas yang diinginkan
+Choose language;Tentukan bahasa yang diinginkan
+Choreographer;Koreografer
+Chroma;Kroma
+ChromaSubsampling;Subsampel kroma
+Classifier;Klasifikasi konten
+ClearList;Kosongkan daftar
+Close;Tutup
+Close all before open;Tutup semua sebelum membuka
+ClosedCaptionsLanguage;Bahasa Teks Penjelas Tertutup
+ClosedCaptionsPresent;Presentasi Teks Penjelas Tertutup
+ClosedCaptionsType;Jenis Teks Penjelas Tertutup
+Codec;Kodek
+Codec_Description;Deskripsi kodek
+Codec_Info;Rincian untuk kodek
+Codec_Profile;Profil kodek
+Codec_Settings;Setelan kodek
+Codec_Settings_BVOP;Setelan kodek, BVOP
+Codec_Settings_CABAC;Setelan kodek, CABAC
+Codec_Settings_Endianness;Setelan kodek, Endianness
+Codec_Settings_Firm;Setelan kodek, Firm
+Codec_Settings_Floor;Setelan kodek, Floor
+Codec_Settings_GMC;Setelan kodek, GMC
+Codec_Settings_ITU;Setelan kodek, ITU
+Codec_Settings_Law;Setelan kodek, Law
+Codec_Settings_Matrix;Setelan kodek, Matrix
+Codec_Settings_PacketBitStream;Setelan kodek, Aliran bit paket
+Codec_Settings_QPel;Setelan kodek, QPel
+Codec_Settings_Sign;Setelan kodek, Sign
+Codec_Url;Tautan web untuk kodek
+CodecConfigurationBox;Kotak konfigurasi kodek
+CodecID;ID kodek
+CodecID_Description;Deskripsi dari kodek
+CoDirector;Sutradara pendamping
+Collection;Koleksi
+Colorimetry;Kolorimetri
+ColorSpace;Ruang warna
+ColorTheme;Tema
+ColorTheme_Dark;Gelap
+ColorTheme_Light;Terang
+ColorTheme_System;Gunakan setelan sistem
+colour_primaries;Primer warna
+colour_range;Rentang warna
+Comment;Komentar
+CommissionedBy;Dipesan oleh
+Compilation;Kompilasi
+ComplementaryObject;Objek komplementer
+CompleteName;Nama lengkap
+CompletionDate;Tanggal diselesaikan
+ComplexityIndex;Indeks kerumitan
+Composer;Komponis
+Compression_Mode;Mode kompresi
+Compression_Mode_Lossless;Tanpa lesap (Lossless)
+Compression_Mode_Lossy;Lesapan (Lossy)
+Compression_Ratio;Rasio kompresi
+Conductor;Konduktor
+ConformanceCheck;Uji kesusukan
+ConformanceErrors;Galat kesusukan
+ConformanceInfos;Informasi kesusukan
+ConformanceWarnings;Peringatan kesusukan
+ContactEmail;Surel Kontak
+ContactTelephoneNumber;Nomor Telepon Kontak
+Container and general information;Wadah dan informasi umum
+Content;Konten
+ContentType;Jenis Konten
+CoProducer;Produser pendamping
+Copyright;Hak cipta
+CopyrightYear;Tahun hak cipta
+CostumeDesigner;Perancang kostum
+Count;Banyaknya
+Country;Negara
+Cover;Sampul
+Cover_Datas;Data sampul
+Cover_Description;Deskripsi sampul
+Cover_Mime;MIME sampul
+Cover_Type;Jenis sampul
+Cropped;Dimensi pangkas
+Custom;Ubah suai
+CustomDownmixTargets;Sasaran downmix ubah suaian
+Customize;Ubah suaikan
+DarkMode;Mode gelap
+Date;Tanggal
+Debug;Awakutu
+Decimal point;Penanda desimal
+Default;Bawaan
+Default translation;Terjemahan bawaan
+Default_Setting;Bawaan sistem
+DefaultTargetDeviceConfig;Konfigurasi perangkat sasaran bawaan
+Delay;Penundaan
+Delay_Source;Penundaan asli
+Delay_Source_Container;Wadah
+Delay_Source_Stream;Aliran mentah
+Delete;Hapus
+Description;Deskripsi
+Details;Rincian
+dialnorm;Normalisasi Dialog
+DialogueCorrected;Dialog dikoreksi
+DialogueEnhancement;Peningkatan dialog
+DialogueNormalization;Normalisasi dialog
+Digitized_Date;Tanggal digitalisasi
+Dimensions;Dimensi
+Director;Sutradara
+DirectorOfPhotography;Pengarah fotografi
+Disabled;Nonaktif
+DisplayAspectRatio;Rasio aspek tampilan
+DisplayAspectRatio_CleanAperture;Rasio aspek tampilan bukaan jernih
+DisplayAspectRatio_Original;Rasio aspek tampilan asli
+DisplayCaptions;Penanganan aliran 608/708:
+DisplayCaptions_Command;Saat konten maupun perindah terdeteksi
+DisplayCaptions_Content;Saat konten terdeteksi
+DisplayCaptions_Stream;Meski saat tak ada konten maupun perindah terdeteksi
+DistributedBy;Didistribusikan oleh
+Distributor;Distributor
+Dolby_Atmos_Metadata;Metadata Dolby Atmos
+DolbyAtmos;Dolby Atmos
+Donate;Beri sumbangan
+DotsPerInch;Titik per inci
+Downmix;Downmix
+Downmix_5.1.x;Downmix 5.1 dan 5.1.x
+Downmix_5to2;Downmix 5.1 ke 2.0
+DrcSets_Count;Banyaknya set DRC
+DrcSets_Effects;Jenis efek DRC
+Duration;Durasi
+Duration_End;Waktu berakhir
+Duration_End_Command;Waktu berakhir (perintah)
+Duration_Source;Sumber durasi
+Duration_Start;Waktu mulai
+Duration_Start_Command;Waktu mulai (perintah)
+Duration_Start2End;Durasi konten yang terlihat
+DynamicObject;Objek dinamis
+DynamicRangeControl;Kendali Rentang Dinamis
+Eac3DrcProfile;Profil E-AC-3
+Edit;Sunting
+EditedBy;Disunting oleh
+EditorialClassification;Klasifikasi editorial
+ElementaryStream;Aliran mendasar
+ElementCount;Banyaknya elemen
+EMail;Surel
+Enable FFmpeg plugin;Aktifkan pengaya FFmpeg
+Encoded_Application;Aplikasi penulisan
+Encoded_Date;Tanggal dikodekan
+Encoded_Library;Pustaka penulisan
+Encoded_Library_Name;Nama pustaka penulisan
+Encoded_Library_Settings;Setelan_pengkodean
+Encoded_Library_Version;Versi pustaka penulisan
+Encoded_Original;Dukungan asli
+EncodedBy;Dikodekan oleh
+EPG_Positions;Posisi EPG (internal)
+EpisodeTitleNumber;Nomor Judul Episode
+Error_File;Galat saat membaca berkas
+Error_File_Write;Galat saat menulis berkas
+Events_MinDuration;Durasi minimum per peristiwa
+Events_PaintOn;Banyaknya peristiwa PaintOn
+Events_PopOn;Banyaknya peristiwa PopOn
+Events_RollUp;Banyaknya peristiwa RollUp
+Events_Total;Banyaknya peristiwa
+ExecutiveProducer;Produser eksekutif
+Exit;Keluar
+Exit_Hint;Keluar dari program
+Export;Ekspor
+Export_Hint;Ekspor dalam format ubah suaian
+Extensions;Ekstensi yang biasa dipakai
+External_Media_NotMounted;Media eksternal tidak dapat diakses
+Family;Famili
+Fax;Faks
+File;Berkas
+File size;Ukuran berkas
+File_Append;Gabungkan ke berkas yang ada (Peringatan: pastikan memiliki parameter yang sama)
+File_Created_Date;Tanggal berkas dibuat
+File_Created_Date_Local;Tanggal berkas dibuat (lokal)
+File_Hint;Pilih berkas multimedia untuk diperiksa
+File_Modified_Date;Tanggal berkas dimodifikasi
+File_Modified_Date_Local;Tanggal berkas dimodifikasi (lokal)
+FileExtension;Ekstensi berkas
+FileName;Nama berkas
+FileNameExtension;Nama berkas berekstensi
+FileSize;Ukuran berkas
+Fill with a Dummy movie;Isi dengan film bohongan
+Fill with a realistic movie;Isi dengan film realistis
+FirstDisplay_Delay_Frames;Banyaknya bingkai sebelum peristiwa pertama
+FirstDisplay_Type;Jenis peristiwa pertama
+FirstFrameOfAction;Bingkai pertama tindakan
+FlatPanelTv;TV panel datar
+FlowID;ID Flow
+Folder;Direktori
+Folder (R);Direktori (R)
+Folder (R)_Hint;Pilih direktori untuk diperiksa (dan semua direktorinya, rekursif)
+Folder (Recursively);Direktori (rekursif)
+Folder_Hint;Pilih direktori untuk diperiksa
+FolderName;Nama direktori
+Forced;Dipaksa
+Format;Format
+Format_AdditionalFeatures;Fitur tambahan format
+Format_Commercial;Nama komersil
+Format_Commercial_IfAny;Nama komersil
+Format_Compression;Kompresi
+Format_Description;Deskripsi format
+Format_Info;Rincian untuk format
+Format_Level;Tingkat format
+Format_Profile;Profil format
+Format_Settings;Setelan format
+Format_Settings_BVOP;Setelan format, BVOP
+Format_Settings_CABAC;Setelan format, CABAC
+Format_Settings_Emphasis;Setelan format, Emphasis
+Format_Settings_Endianness;Setelan format, Endianness
+Format_Settings_Firm;Setelan format, Firm
+Format_Settings_Floor;Setelan format, Floor
+Format_Settings_FrameMode;Mode bingkai
+Format_Settings_GMC;Setelan format, GMC
+Format_Settings_GOP;Setelan format, GOP
+Format_Settings_ITU;Setelan format, ITU
+Format_Settings_Law;Setelan format, Law
+Format_Settings_Matrix;Setelan format, Matrix
+Format_Settings_Matrix_Custom;Ubah suai
+Format_Settings_Matrix_Default;Bawaan
+Format_Settings_Mode;Mode
+Format_Settings_ModeExtension;Mode ekstensi
+Format_Settings_PacketBitStream;Setelan format, Aliran bit paket
+Format_Settings_PictureStructure;Setelan format, Struktur gambar
+Format_Settings_PS;Setelan format, PS
+Format_Settings_Pulldown;Setelan format, Pulldown
+Format_Settings_QPel;Setelan format, QPel
+Format_Settings_RefFrames;Setelan format, Bingkai referensi
+Format_Settings_SBR;Setelan format, SBR
+Format_Settings_Sign;Setelan format, Sign
+Format_Settings_SliceCount;Setelan format, Banyaknya irisan
+Format_Settings_Wrapping;Setelan format, Mode kemas
+Format_Tier;Tingkatan format
+Format_Url;Tautan web untuk format
+Format_Version;Versi format
+FormatDefinition;Definisi format
+FpaManufacturer;Produsen FPA
+FpaPass;Izin FPA
+FpaVersion;Versi FPA
+FrameCount;Banyaknya bingkai
+FrameCount_Source;Sumber banyaknya bingkai
+FrameRate;Laju bingkai
+FrameRate_Den;Penyebut laju bingkai
+FrameRate_Maximum;Laju bingkai maksimum
+FrameRate_Minimum;Laju bingkai minimum
+FrameRate_Mode;Mode laju bingkai
+FrameRate_Mode_CFR;Konstan
+FrameRate_Mode_VFR;Variabel
+FrameRate_Nominal;Laju bingkai nominal
+FrameRate_Num;Pembilang laju bingkai
+FrameRate_Original;Laju bingkai asli
+FrameRate_Real;Laju bingkai sesungguhnya
+FullParsing;Analisis sintaks penuh
+General;Umum
+GeneralCompliance;Kepatuhan umum
+Genre;Aliran
+Genre_000;Blues
+Genre_001;Rock Klasik
+Genre_002;Country
+Genre_003;Dansa
+Genre_004;Disko
+Genre_005;Funk
+Genre_006;Grunge
+Genre_007;Hip-Hop
+Genre_008;Jazz
+Genre_009;Metal
+Genre_010;Zaman Baru
+Genre_011;Oldies
+Genre_012;Lainnya
+Genre_013;Pop
+Genre_014;R&B
+Genre_015;Rap
+Genre_016;Reggae
+Genre_017;Rock
+Genre_018;Tekno
+Genre_019;Industrial
+Genre_020;Alternatif
+Genre_021;Ska
+Genre_022;Death Metal
+Genre_023;Prank
+Genre_024;Jalur Suara
+Genre_025;Euro-Tekno
+Genre_026;Ambient
+Genre_027;Trip-Hop
+Genre_028;Vokal
+Genre_029;Jazz+Funk
+Genre_030;Fusion
+Genre_031;Trance
+Genre_032;Klasikal
+Genre_033;Instrumental
+Genre_034;Acid
+Genre_035;House
+Genre_036;Permainan
+Genre_037;Klip Suara
+Genre_038;Gospel
+Genre_039;Noise
+Genre_040;Rock Alternatif
+Genre_041;Bass
+Genre_042;Soul
+Genre_043;Punk
+Genre_044;Space
+Genre_045;Meditasi
+Genre_046;Pop Instrumental
+Genre_047;Rock Instrumental
+Genre_048;Etnik
+Genre_049;Gotik
+Genre_050;Dark Wave
+Genre_051;Tekno-Industrial
+Genre_052;Elektronik
+Genre_053;Pop-Kerakyatan
+Genre_054;Dansa Euro
+Genre_055;Dream
+Genre_056;Rock Selatan
+Genre_057;Komedi
+Genre_058;Kultus
+Genre_059;Rap Gangsta
+Genre_060;40 Teratas
+Genre_061;Rap Kristen
+Genre_062;Pop/Funk
+Genre_063;Jungle
+Genre_064;Amerika Pribumi
+Genre_065;Kabaret
+Genre_066;Wave Baru
+Genre_067;Psikedelik
+Genre_068;Rave
+Genre_069;Showtunes
+Genre_070;Trailer
+Genre_071;Lo-Fi
+Genre_072;Tribal
+Genre_073;Punk Acid
+Genre_074;Jazz Acid
+Genre_075;Polka
+Genre_076;Retro
+Genre_077;Musikal
+Genre_078;Rock & Roll
+Genre_079;Rock Keras
+Genre_080;Kerakyatan
+Genre_081;Rock-Kerakyatan
+Genre_082;Kerakyatan Nasional
+Genre_083;Swing
+Genre_084;Fusion Cepat
+Genre_085;Bebop
+Genre_086;Latin
+Genre_087;Revival
+Genre_088;Celtic
+Genre_089;Bluegrass
+Genre_090;Avantgarde
+Genre_091;Rock Gotik
+Genre_092;Rock Progresif
+Genre_093;Rock Psikedelik
+Genre_094;Rock Simfonik
+Genre_095;Rock Lembut
+Genre_096;Band Besar
+Genre_097;Paduan Suara
+Genre_098;Easy Listening
+Genre_099;Akustik
+Genre_100;Humor
+Genre_101;Pidato
+Genre_102;Chanson
+Genre_103;Opera
+Genre_104;Musik Chamber
+Genre_105;Sonata
+Genre_106;Simfoni
+Genre_107;Booty Bass
+Genre_108;Primus
+Genre_109;Porn Groove
+Genre_110;Satir
+Genre_111;Jam Lembut
+Genre_112;Klab
+Genre_113;Tango
+Genre_114;Samba
+Genre_115;Folklore
+Genre_116;Balada
+Genre_117;Balada Kuat
+Genre_118;Soul Ritmik
+Genre_119;Gaya Bebas
+Genre_120;Duet
+Genre_121;Rock Punk
+Genre_122;Solo Drum
+Genre_123;A Cappella
+Genre_124;Euro-House
+Genre_125;Balai Dansa
+Genre_126;Goa
+Genre_127;Drum & Bass
+Genre_128;Klab-House
+Genre_129;Hardcore
+Genre_130;Teror
+Genre_131;Indie
+Genre_132;Pop Inggris
+Genre_133;Afro-Punk
+Genre_134;Polsk Punk
+Genre_135;Beat
+Genre_136;Rap Gangsta Kristen
+Genre_137;Heavy Metal
+Genre_138;Black Metal
+Genre_139;Crossover
+Genre_140;Kristen Kontemporer
+Genre_141;Rock Kristen
+Genre_142;Merengue
+Genre_143;Salsa
+Genre_144;Thrash Metal
+Genre_145;Anime
+Genre_146;Pop Jepang
+Genre_147;Pop Sintesis
+Genre_148;Abstrak
+Genre_149;Rock Art
+Genre_150;Baroque
+Genre_151;Bhangra
+Genre_152;Big Beat
+Genre_153;Breakbeat
+Genre_154;Chillout
+Genre_155;Downtempo
+Genre_156;Dub
+Genre_157;EBM
+Genre_158;Eklektik
+Genre_159;Elektro
+Genre_160;Elektro Clash
+Genre_161;Emo
+Genre_162;Eksperimental
+Genre_163;Garage
+Genre_164;Global
+Genre_165;IDM
+Genre_166;Illbient
+Genre_167;Industro-Goth
+Genre_168;Band Jam
+Genre_169;Rock Kraut
+Genre_170;Leftfield
+Genre_171;Lounge
+Genre_172;Rock Math
+Genre_173;Romantis Baru
+Genre_174;Nu-Breakz
+Genre_175;Post-Punk
+Genre_176;Post-Rock
+Genre_177;Psytrance
+Genre_178;Shoegaze
+Genre_179;Rock Space
+Genre_180;Rock Trop
+Genre_181;Musik Dunia
+Genre_182;Neo Klasikal
+Genre_183;Buku Audio
+Genre_184;Teater Audio
+Genre_185;Neue Deutsche Welle
+Genre_186;Siniar
+Genre_187;Rock Indie
+Genre_188;G-Funk
+Genre_189;Dubstep
+Genre_190;Rock Garage
+Genre_191;Psybient
+Go to WebSite;Ke situs web
+Gop_OpenClosed;GOP, Buka/Tutup
+Gop_OpenClosed_Closed;Tertutup
+Gop_OpenClosed_FirstFrame;GOP, Buka/Tutup bingkai pertama
+Gop_OpenClosed_Open;Terbuka
+Graph;Grafik
+Group;Kelompok
+Grouping;Pengelompokan
+GroupPreset;Prasetel kelompok
+h; j
+HDR_Format;Format HDR
+Header file;Ciptakan berkas kop
+Height;Tinggi
+Height_CleanAperture;Tinggi bukaan jernih
+Height_Original;Tinggi asli
+Help;Bantuan
+Hint;Petunjuk
+HomeTheaterAvr;AVR Teater Rumah
+How many audio streams?;Berapa banyak aliran audio?
+How many chapters streams?;Berapa banyak aliran bab?
+How many text streams?;Berapa banyak aliran teks?
+How many video streams?;Berapa banyak aliran video?
+HTML;HTML
+ID;ID
+IdentClockStart;Mulai Jam Ident
+IFrameInterval;Interval I-Frame
+Image;Citra
+Image stream(s);Aliran citra
+Image_Codec_List;Kodek citra
+ImageCount;Banyaknya aliran citra
+ImmersiveStereo;Stereo imersif
+Info;Info
+Instruments;Instrumen
+IntegratedLoudness;Kekencangan terintegrasi
+IntegratedLoudness_Level;Kekencangan terintegrasi (dipatok tingkatan)
+IntegratedLoudness_Speech;Kekencangan terintegrasi (dipatok wicara)
+InteractivityEnabled;Interaktivitas diaktifkan
+Interlaced_BFF;Bidang Bawah Dahulu (BFF)
+Interlaced_Interlaced;Selang-seling
+Interlaced_PPF;Progresif (PPF)
+Interlaced_Progressive;Progresif
+Interlaced_TFF;Bidang Atas Dahulu (TFF)
+Interlacement;Keterselang-selingan
+Interleave_Duration;Jalinan, durasi
+Interleave_Preload;Jalinan, durasi pramuat
+Interleave_VideoFrames;Jalinan, durasi
+Interleaved;Jalinan
+InternetMediaType;Jenis media Internet
+IRCA;IRCA
+ISBN;ISBN
+ISRC;ISRC
+IsStreamable;Dapat disiarkan
+Keywords;Kata kunci
+Known codecs;Kodek yang dikenali
+Known formats;Format yang dikenali
+Known parameters;Parameter yang dikenali
+Label;Label
+Language;Bahasa
+Language_aa;Bhs. Afar
+Language_ab;Bhs. Abkhaz
+Language_ae;Bhs. Avesta
+Language_af;Bhs. Afrikaans
+Language_ak;Bhs. Akan
+Language_am;Bhs. Amhar
+Language_an;Bhs. Aragon
+Language_ar;Bhs. Arab
+Language_as;Bhs. Assam
+Language_av;Bhs. Avar
+Language_ay;Bhs. Aymara
+Language_az;Bhs. Azeri
+Language_ba;Bhs. Bashkir
+Language_be;Bhs. Belarus
+Language_bg;Bhs. Bulgaria
+Language_bh;Bhs. Bihari
+Language_bi;Bhs. Bislama
+Language_bm;Bhs. Bambara
+Language_bn;Bhs. Bengali
+Language_bo;Bhs. Tibet
+Language_br;Bhs. Breton
+Language_bs;Bhs. Bosnia
+Language_ca;Bhs. Katala
+Language_ce;Bhs. Chechnya
+Language_ch;Bhs. Chamorro
+Language_cmn;Bhs. Mandarin
+Language_co;Bhs. Korsika
+Language_cr;Bhs. Cree
+Language_cs;Bhs. Ceska
+Language_cu;Bhs. Slavia Kuno
+Language_cv;Bhs. Chuvash
+Language_cy;Bhs. Wales
+Language_da;Bhs. Denmark
+Language_de;Bhs. Jerman
+Language_dv;Bhs. Divehi
+Language_dz;Bhs. Dzongkha
+Language_ee;Bhs. Ewe
+Language_el;Bhs. Yunani
+Language_en;Bhs. Inggris
+Language_en-gb;Bhs. Inggris (Britania Raya)
+Language_en-us;Bhs. Inggris (Amerika Serikat)
+Language_eo;Bhs. Esperanto
+Language_es;Bhs. Spanyol
+Language_es-419;Bhs. Spanyol (Amerika Latin)
+Language_et;Bhs. Esti
+Language_eu;Bhs. Basque
+Language_fa;Bhs. Persia
+Language_ff;Bhs. Fula
+Language_fi;Bhs. Suomi
+Language_fil;Bhs. Filipina
+Language_fj;Bhs. Fiji
+Language_fo;Bhs. Faroe
+Language_fr;Bhs. Prancis
+Language_fy;Bhs. Frisia
+Language_ga;Bhs. Irlandia
+Language_gd;Bhs. Gaelik
+Language_gl;Bhs. Galisia
+Language_gn;Bhs. Guarani
+Language_gu;Bhs. Gujarat
+Language_gv;Bhs. Manx
+Language_ha;Bhs. Hausa
+Language_he;Bhs. Ibrani
+Language_hi;Bhs. Hindi
+Language_ho;Bhs. Hiri Motu
+Language_hr;Bhs. Kroasia
+Language_ht;Bhs. Haiti
+Language_hu;Bhs. Hongaria
+Language_hy;Bhs. Armenia
+Language_hy-az;Bhs. Armenia (Azeri)
+Language_hz;Bhs. Herero
+Language_ia;Interlingua (Asosiasi Bahasa Auksilier)
+Language_id;Bhs. Indonesia
+Language_ie;Interlingue
+Language_ig;Bhs. Igbo
+Language_ii;Bhs. Yi Sichuan
+Language_ik;Bhs. Inupiaq
+Language_Info;Informasi bahasa
+Language_io;Bhs. Ido
+Language_is;Bhs. Islandia
+Language_it;Bhs. Italia
+Language_iu;Bhs. Inuktitut
+Language_ja;Bhs. Jepang
+Language_jv;Bhs. Jawa
+Language_ka;Bhs. Georgia
+Language_kg;Bhs. Kongo
+Language_ki;Bhs. Kikuyu
+Language_kj;Bhs. Kuanyama
+Language_kk;Bhs. Kazakh
+Language_kl;Bhs. Kalaallisut
+Language_km;Bhs. Khmer
+Language_kn;Bhs. Kannada
+Language_ko;Bhs. Korea
+Language_kr;Bhs. Kanuri
+Language_ks;Bhs. Kashmir
+Language_ku;Bhs. Kurdi
+Language_kv;Bhs. Komi
+Language_kw;Bhs. Kernowek
+Language_ky;Bhs. Kirgiz
+Language_la;Bhs. Latin
+Language_lb;Bhs. Luksemburg
+Language_lg;Bhs. Luganda
+Language_li;Bhs. Limburg
+Language_ln;Bhs. Lingala
+Language_lo;Bhs. Laos
+Language_lt;Bhs. Lituavi
+Language_lu;Bhs. Luba-Katanga
+Language_lv;Bhs. Latvia
+Language_mg;Bhs. Malagasi
+Language_mh;Bhs. Marshall
+Language_mi;Bhs. Maori
+Language_mk;Bhs. Makedonia
+Language_ml;Bhs. Malayalam
+Language_mn;Bhs. Mongol
+Language_mn-cn;Bhs. Mongol (Tionghoa)
+Language_mo;Bhs. Moldavia
+Language_More;Bahasa, info selengkapnya
+Language_mr;Bhs. Marathi
+Language_ms;Bhs. Melayu
+Language_ms-bn;Bhs. Melayu (Brunei)
+Language_mt;Bhs. Malta
+Language_mul;Beberapa bahasa
+Language_my;Bhs. Myanmar
+Language_na;Bhs. Nauru
+Language_nb;Bhs. Bokmal Norwegia
+Language_nd;Bhs. Ndebele
+Language_ne;Bhs. Nepali
+Language_ng;Bhs. Ndonga
+Language_nl;Bhs. Belanda
+Language_nl-be;Bhs. Flam
+Language_nn;Bhs. Nynorsk Norwegia
+Language_no;Bhs. Norwegia
+Language_nr;Bhs. Ndebele
+Language_nv;Bhs. Navajo
+Language_ny;Bhs. Nyanja
+Language_oc;Bhs. Oksitan
+Language_oj;Bhs. Ojibwe
+Language_om;Bhs. Oromo
+Language_or;Bhs. Oriya
+Language_os;Bhs. Ossetia
+Language_pa;Bhs. Punjabi
+Language_pi;Bhs. Pali
+Language_pl;Bhs. Polandia
+Language_ps;Bhs. Pashtun
+Language_pt;Bhs. Portugis
+Language_pt-br;Bhs. Portugis (Brasil)
+Language_qu;Bhs. Quechua
+Language_rm;Bhs. Romansh
+Language_rn;Bhs. Kirundi
+Language_ro;Bhs. Rumania
+Language_ru;Bhs. Rusia
+Language_rw;Bhs. Kinyarwanda
+Language_sa;Bhs. Sanskerta
+Language_sc;Bhs. Sardinia
+Language_sd;Bhs. Sindhi
+Language_se;Bhs. Sami Utara
+Language_sg;Bhs. Sango
+Language_si;Bhs. Sinhala
+Language_sk;Bhs. Slowakia
+Language_sl;Bhs. Slovenia
+Language_sm;Bhs. Samoa
+Language_smi;Bhs. Sami
+Language_sn;Bhs. Shona
+Language_so;Bhs. Somalia
+Language_sq;Bhs. Albania
+Language_sr;Bhs. Serbia
+Language_ss;Bhs. Swati
+Language_st;Bhs. Sesotho
+Language_su;Bhs. Sunda
+Language_sv;Bhs. Swedia
+Language_sw;Bhs. Swahili
+Language_ta;Bhs. Tamil
+Language_te;Bhs. Telugu
+Language_tg;Bhs. Tajik
+Language_th;Bhs. Thai
+Language_ti;Bhs. Tigrinya
+Language_tk;Bhs. Turkmen
+Language_tl;Bhs. Tagalog
+Language_tn;Bhs. Tswana
+Language_to;Bhs. Tonga
+Language_tr;Bhs. Turki
+Language_ts;Bhs. Tsonga
+Language_tt;Bhs. Tatar
+Language_tw;Bhs. Twi
+Language_ty;Bhs. Tahiti
+Language_ug;Bhs. Uighur
+Language_uk;Bhs. Ukraina
+Language_ur;Bhs. Urdu
+Language_uz;Bhs. Uzbek
+Language_ve;Bhs. Venda
+Language_vi;Bhs. Vietnam
+Language_vo;Bhs. Volapuk
+Language_wa;Bhs. Walloon
+Language_wo;Bhs. Wolof
+Language_xh;Bhs. Xhosa
+Language_yi;Bhs. Yiddi
+Language_yo;Bhs. Yoruba
+Language_yue;Bhs. Kanton
+Language_za;Bhs. Zhuang
+Language_zh;Bhs. Tionghoa
+Language_zh-cmn;Bhs. Mandarin
+Language_zh-cn;Bhs. Tionghoa (Tiongkok)
+Language_zh-CN;Bhs. Tionghoa (Tiongkok)
+Language_zh-Hans;Bhs. Tionghoa (Sederhana)
+Language_zh-Hant;Bhs. Tionghoa (Tradisional)
+Language_zh-tw;Bhs. Tionghoa (Taiwan)
+Language_zh-TW;Bhs. Tionghoa (Taiwan)
+Language_zh-yue;Bhs. Kanton
+Language_zu;Bhs. Zulu
+Languages;Bahasa
+LawRating;Peringkat usia
+LCCN;LCCN
+LfeAttenuationKnown;Atenuasi LFE yang diketahui
+LfeMixGain;Peningkatan Padu LFE
+Library;Pustaka multipleks
+Lifetime_Subscribe_Button;Langganan seumur hidup seharga %HARGA%
+Lightness;Kecerahan
+Lines_Count;Banyaknya garis
+Lines_MaxCountPerEvent;Maksimum banyaknya garis per peristiwa
+LineUpStart;Mulai Daftar Pemain
+LinkedTo_Bed_Pos;Bantalan #s
+LinkedTo_ChannelFormat_Pos;Format kanal #s
+LinkedTo_ComplementaryObject_Pos;Objek komplementer #s
+LinkedTo_Content_Pos;Konten #s
+LinkedTo_Group_Pos;Kelompok #s
+LinkedTo_Object_Pos;Objek #s
+LinkedTo_PackFormat_Pos;Format pak #s
+LinkedTo_SignalGroup_Pos;Kelompok sinyal #s
+LinkedTo_StreamFormat_Pos;Format aliran #s
+LinkedTo_Substream_Pos;Subaliran #s
+LinkedTo_TrackFormat_Pos;Format trek #s
+LinkedTo_TrackUID_Pos;UID trek #s
+List;Daftar
+LongTermLoudness;Kekencangan jangka panjang
+LoRoCenterMixGain;Peningkatan padu tengah LoRo
+LoRoSurroundMixGain;Peningkatan padu sekeliling LoRo
+Loudness_Anchor;Kekencangan peneraju
+Loudness_Anchor_Album;Kekencangan peneraju (album)
+Loudness_Count;Banyaknya info kekencangan
+Loudness_Count_Album;Banyaknya info kekencangan (album)
+Loudness_MaximumMomentary;Kekencangan sesaat maksimum
+Loudness_MaximumMomentary_Album;Kekencangan sesaat maksimum (album)
+Loudness_MaximumOfRange;Rentang maksimum
+Loudness_MaximumOfRange_Album;Rentang maksimum (album)
+Loudness_MaximumShortTerm;Kekencangan jangka pendek maks.
+Loudness_MaximumShortTerm_Album;Kekencangan jangka pendek maks. (album)
+Loudness_ProductionMixingLevel;Tingkat paduan produksi
+Loudness_ProductionMixingLevel_Album;Tingkat paduan produksi (album)
+Loudness_Program;Kekencangan program
+Loudness_Program_Album;Kekencangan program (album)
+Loudness_Range;Rentang kekencangan
+Loudness_Range_Album;Rentang kekencangan (album)
+Loudness_RoomType;Jenis kamar produksi
+Loudness_RoomType_Album;Jenis kamar produksi (album)
+LtRtCenterMixGain;Peningkatan padu tengah LtRt
+LtRtSurroundMixGain;Peningkatan padu sekeliling LtRt
+Lyricist;Penulis lirik
+Lyrics;Lirik
+Mastered_Date;Tangal diindukkan
+MasteredBy;Diindukkan oleh
+MasteringDisplay_ColorPrimaries;Primer warna layar pengindukan
+MasteringDisplay_Luminance;Pencahayaan layar pengindukan
+Matrix_Channel(s);Pengkodean matriks, kanal
+Matrix_ChannelPositions;Pengkodean matriks, posisi kanal
+matrix_coefficients;Koefisien matriks
+Matrix_Format;Pengkodean matriks, format
+MaxCLL;Tingkat Cahaya Konten (CLL) Maksimum
+MaxFALL;Tingkat Cahaya Rerata Bingkai (FALL) Maksimum
+MaxGain;Peningkatan maksimum
+MaximumMomentaryLoudness;Kekencangan sementara maksimum
+MaxTruePeak;Punjak sejati maksimum
+MD5;MD5
+MD5_Unencoded;MD5 dari konten tak terkodekan
+MediaInfo_About;MediaInfo menyediakan akses mudah ke informasi penandaan dan teknis dari berkas video dan audio.\r\nSelain antarmuka pengguna grafis Mac App Store, aplikasi ini merupakan perangkat lunak sumber terbuka, sehingga pengguna akhir tidak dibebankan biaya, dan pengembang bebas meneliti, meningkatkan, serta mendistribusikannya (lisensi BSD).
+MediaInfo_About_About;MediaInfo v%MI_VERSION% menggunakan MediaInfoLib v%MIL_VERSION%
+Menu;Menu
+Menu stream(s);Aliran menu
+Menu_Codec_List;Kodek menu
+Menu_Hint;Lebih banyak kemungkinan
+Menu_No;Tak ada menu
+MenuCount;Banyaknya aliran menu
+MenuID;ID menu
+Metadata_Format;Format metadata
+Metadata_Format_Type;Jenis bingkai metadata
+Metadata_MuxingMode;Mode multipleks metadata
+MixType;Jenis padu
+mn; m
+Mood;Suasana
+More;Lengkapnya
+Movie;Nama film
+ms; md
+MSDI;MSDI
+MultipleStream;Aliran berganda
+MultiView_Count;Banyaknya tayangan
+MusicBy;Musik oleh
+MuxingMode;Mode multipleks
+MuxingMode_MoreInfo;Mode multipleks, info selengkapnya
+MuxingMode_PackedBitstream;Aliran bit terpak
+Name;Nama
+Nationality;Kebangsaan
+NetworkName;Nama jaringan
+New;Baru
+Newest version;Periksa versi baru (memerlukan koneksi Internet)
+NewVersion_Menu;Versi baru tersedia
+NewVersion_Question_Content;Versi baru (v%Version%) tersedia, apa Anda ingin mengunduhnya?
+NewVersion_Question_Title;Versi baru telah dirilis!
+No;Tidak
+Not yet;Belum ada
+NumberOfChannelFormats;Banyaknya format kanal
+NumberOfContents;Banyaknya konten
+NumberOfDynamicObjects;Banyaknya objek dinamis
+NumberOfElementaryStreams;Banyaknya aliran mendasar
+NumberOfObjects;Banyaknya objek
+NumberOfPackFormats;Banyaknya format pak
+NumberOfPresentations;Banyaknya presentasi
+NumberOfProgrammes;Banyaknya program
+NumberOfStreamFormats;Banyaknya format aliran
+NumberOfSubstreams;Banyaknya subaliran
+NumberOfTrackFormats;Banyaknya format trek
+NumberOfTrackUIDs;Banyaknya UID trek
+NumColors;Banyaknya warna
+Object;Objek
+ObjectCount;Banyaknya Objek
+OK;Oke
+One output file per input file;Satu berkas keluaran per berkas masukan
+Open;Buka
+OpenCaptionsLanguage;Bahasa Teks Penjelas Terbuka
+OpenCaptionsPresent;Presentasi Teks Penjelas Terbuka
+OpenCaptionsType;Jenis Teks Penjelas Terbuka
+Options;Opsi
+Options_Hint;Preferensi
+Original;Asli
+OriginalNetworkName;Nama jaringan asli
+OriginalSourceForm;Bentuk sumber asli
+OriginalSourceMedium;Media sumber asli
+OriginalSourceMedium_ID;ID di media sumber asli
+Originator;Originator
+Other;Lainnya
+OtherIdentifier;ID Lainnya
+OtherIdentifierType;Jenis ID Lainnya
+Output;Keluaran
+Output format;Format keluaran
+OverallBitRate;Laju bit keseluruhan
+OverallBitRate_Maximum;Laju bit keseluruhan maksimum
+OverallBitRate_Minimum;Laju bit keseluruhan minimum
+OverallBitRate_Mode;Mode laju bit keseluruhan
+OverallBitRate_Nominal;Laju bit keseluruhan nominal
+PackageName;Nama paket
+PackFormat;Format pak
+Part;Bagian
+Part_Count;Total banyaknya
+PartNumber;Nomor Bagian
+PartTotal;Total Bagian
+Performer;Artis
+Period;Periode
+Phase90FilterInfo;Info filter Pahse 90
+Phase90FilterInfo2ch;Info filter Phase 90 2-kanal
+Phone;Telepon
+PictureRatio;Rasio gambar
+PixelAspectRatio;Rasio aspek piksel
+PixelAspectRatio_CleanAperture;Rasio aspek piksel bukaan jernih
+PixelAspectRatio_Original;Rasio aspek piksel asli
+PlayCounter;Pencacah Pemutaran
+Played_Count;Banyak kali diputar
+Played_First_Date;Pertama diputar
+Played_Last_Date;Terakhir diputar
+PlayTime;Waktu Pemutaran
+PodcastCategory;Kategori siniar
+PortableHeadphones;Penyuara jemala portabel
+PortableSpeakers;Pengeras suara portabel
+Position;Posisi
+Position_Cartesian;Posisi (kartesius)
+Position_Polar;Posisi (kutub)
+Position_Total;Total
+Preferences;Preferensi
+PreferredDownmix;Downmix dipreferensikan
+Premium;Premium
+Premium_Summary;Fitur pelanggan premium
+PreselectionLabel;Label prapilih
+Presentation;Presentasi
+PresentationConfig;Konfigurasi presentasi
+PresentationConfig_ContentClassifier;Konfigurasi presentasi dari pengklasifikasi konten
+PresentationID;ID presentasi
+PreviousDownmixType5ch;Downmix Jenis 5-kanal Sebelumnya
+PreviousMixType2ch;Mix Jenis 2-kanal Sebelumnya
+PrimaryAudioLanguage;Bahasa Audio Primer
+Producer;Produser
+ProductionDesigner;Desainer produksi
+ProductionNumber;Nomor produksi
+ProductionStudio;Studio produksi
+ProductPlacement;Penempatan Produk
+Program name;Nama program
+Programme;Program
+ProgrammeHasText;Program Memiliki Teks
+ProgrammeTextLanguage;Bahasa Teks Program
+ProgrammeTitle;Judul Program
+Publisher;Penerbit
+Purchased_Date;Tanggal dibeli
+Quote character;Karakter kutipan
+RadioStation;Stasiun radio
+Rating;Peringkat
+RealtimeLoudnessCorrected;Kekencangan dikoreksi waktu nyata
+Recorded_Date;Tanggal direkam
+Recorded_Location;Lokasi direkam
+Reel;Kumpar
+Released_Date;Tanggal dirilis
+RemixedBy;Dipadu ulang oleh
+RenderMode;Mode render
+Renew;Diperbarui
+ReplayGain_Gain;Peningkatan putar ulang
+ReplayGain_Peak;Puncak peningkatan putar ulang
+Report;Laporan
+Resolution;Resolusi
+RestoreLifetimeSubscription;Pulihkan langganan seumur hidup
+s; d
+Sampled_Height;Tinggi tersampel
+Sampled_Width;Lebar tersampel
+SamplePeakLevel;Tingkat puncak sampel
+SamplePeakLevel_Album;Tingkat puncak sampel (album)
+SamplesPerFrame;Sampel per bingkai
+SamplingCount;Banyaknya sampel
+SamplingCount_Source;Sumber banyaknya sampel
+SamplingRate;Laju sampel
+Save;Simpan
+ScanOrder;Urutan pindai
+ScanOrder_Original;Urutan pindai asli
+ScanOrder_Stored;Urutan pindai tersimpan
+ScanOrder_StoredDisplayedInverted;Urutan pindai, urutan tersimpan/tertampil dibalik
+ScanOrder_StoreMethod;Urutan pindai, metode simpan
+ScanType;Jenis pindai
+ScanType_Original;Jenis pindai, asli
+ScanType_StoreMethod;Jenis pindai, metode simpan
+ScreenplayBy;Skenario oleh
+ScreenToCenter;Layar ke tengah
+ScreenToFront;Layar ke depan
+Season;Musim
+SecondaryAudioLanguage;Bahasa Audio Sekunder
+see below;lihat di bawah
+Select your directory;Pilih direktori
+Send HeaderFile;Kirimi saya berkas kop di: http://sourceforge.net/projects/mediainfo/ (bagian Bug)
+Separator_Columns;pemisah kolom
+Separator_Lines;pemisah baris
+SeriesTitle;Judul seri
+ServiceChannel;Nomor saluran layanan
+ServiceKind;Macam layanan
+ServiceName;Nama layanan
+ServiceProvider;Penyedia layanan
+ServiceType;Jenis layanan
+Set;Set
+Set_Count;Banyaknya set
+Setup;Pengaturan
+Sharpness;Ketajaman
+Sheet;Lembar
+Sheet (Complete);Lembar (Lengkap)
+Shell extension;Ekstensi Explorer (di Windows Explorer, klik kanan pada berkas, akan ada opsi MediaInfo)
+Shell extension, folder;Untuk direktori juga
+Shell InfoTip;Kiat Alat Explorer (di Windows Explorer, layangkan tetikus di atas berkas, info akan ditampilkan)
+ShimName;Nama pemampas
+ShimVersion;Versi pemampas
+Show menu;Tampilkan menu
+Show toolbar;Tampilkan bilah alat
+SignalGroup;Kelompok isyarat
+SigningPresent;Isyarat Tersedia
+SignLanguage;Bahasa Isyarat
+Sort;Diurut menurut
+SoundCategory;Kategori suara
+SoundEngineer;Teknisi suara
+Source;Sumber
+Source_Duration;Durasi sumber
+Source_FrameCount;Banyaknya bingkai sumber
+Source_SamplingCount;Banyaknya sampel sumber
+Source_StreamSize;Ukuran aliran sumber
+Source_StreamSize_Encoded;Ukuran aliran terkodekan sumber
+SpokenSubtitles;Subtitel dituturkan
+Standard;Standar
+StoreMethod_InterleavedFields;Bidang jalinan
+StoreMethod_SeparatedFields;Bidang terpisah
+StoreMethod_SeparatedFields_1;Bidang terpisah (1 bidang per blok)
+StoreMethod_SeparatedFields_2;Bidang terpisah (2 bidang per blok)
+Stream;Aliran
+Stream_MoreInfo;Informasi aliran selengkapnya
+StreamCount;Banyaknya aliran macam ini
+StreamFormat;Format aliran
+StreamID;ID aliran
+streamIdentifier;Identifikasi aliran
+StreamKind;Macam aliran
+StreamKindID;Identifikasi aliran
+StreamKindPos;Posisi aliran
+StreamOrder;Urutan aliran
+StreamSize;Ukuran aliran
+StreamSize_Demuxed;Ukuran aliran saat demultipleks
+StreamSize_Encoded;Ukuran aliran terkodekan
+StreamSize_Proportion;Proporsi aliran ini
+Subject;Subjek
+Subscribe;Langganan
+Subscribe_Button;Berlangganan (%PRICE% setahun)
+Subscribe_Failed;Pembelian dibatalkan atau gagal
+Subscribe_Manage;Kelola langganan
+Subscribe_Renew;Perpanjang langganan?
+Subscribe_Renew_Price;Perpanjang langganan (%PRICE% setahun)
+Subscribe_Unaviable;Tidak dapat mengambil rincian langganan.
+Subscribe_Waiting;Pembelian menunggu persetujuan orang tua
+Subscription_Active;Langganan aktif hingga %DATE%
+Subscription_Android;Gratis 3 hari masa percobaan.
+Subscription_Ended;Langganan Anda baru saja berakhir.
+Subscription_Expired;Langganan kedaluwarsa sejak %DATE%
+Subscription_Lifetime;Langganan seumur hidup terdeteksi
+Subscription_Thanks;Langganan terdeteksi. Terima kasih atas dukungan Anda!
+Substream;Subaliran
+SubTrack;Subtrek
+SubtstreamIdChannel;ID mulai subaliran & indeks kanal
+Summary;Ringkasan
+Supported formats;Format yang didukung
+Supported?;Didukung?
+SupportUs;Dukung kami. Dapatkan tema gelap dan fitur yang lebih banyak segera.
+SurroundAttenuationKnown;Atenuasi sekeliling yang diketahui
+SwitchGroup;Tukar kelompok
+Synopsis;Sinopsis
+SystemId;ID
+Tagged_Application;Aplikasi penanda
+Tagged_Date;Tanggal ditandai
+TargetDeviceConfig;Konfigurasi perangkat sasaran
+Technician;Teknisi
+TermsOfUse;Syarat penggunaan
+TertiaryAudioLanguage;Bahasa Audio Tersier
+Text;Teks
+Text - Custom;Teks - Ubah suai
+Text (HTML);Teks (HTML)
+Text stream(s);Aliran teks
+Text streams;Aliran teks
+Text_Codec_List;Kodek teks
+Text_Format_List;Format teks
+Text_Format_WithHint_List;Format teks (berpetunjuk)
+Text_Language_List;Bahasa teks
+Text_No;Tak ada teks
+Text1;Aliran teks pertama
+Text2;Aliran teks kedua
+Text3;Aliran teks ketiga
+TextCount;Banyaknya aliran teks
+TextlessElementsExist;Terdapat Elemen Nirteks
+ThanksTo;Terima kasih kepada
+Thousands separator;Pemisah ribuan
+TimeCode;Kode waktu
+TimeCode_FirstFrame;Kode waktu bingkai pertama
+TimeCode_LastFrame;Kode waktu bingkai terakhir
+TimeCode_MaxFrameNumber;Banyaknya bingkai maksimum dalam kode waktu
+TimeCode_MaxFrameNumber_Theory;Banyaknya bingkai maksimum teoritis dalam kode waktu
+TimeCode_Settings;Setelan kode waktu
+TimeCode_Source;Kode waktu, sumber
+TimeCode_Stripped;Kode waktu, dipangkas
+TimeStamp;Cap waktu
+TimeZone;Zona waktu
+Title;Judul
+Title_More;Judul, info selengkapnya
+Top4ToTop2;Empat depan ke dua depan
+TopBackToFront;Belakang atas ke depan
+TopBackToSide;Belakang atas ke samping
+TopFrontToBack;Depan atas ke belakang
+TopFrontToFront;Depan atas ke depan
+TopFrontToSide;Depan atas ke samping
+Total;Total
+TotalNumberOfParts;Total Banyaknya Bagian
+TotalProgrammeDuration;Total Durasi Program
+Track;Nama trek
+Track_Count;Banyaknya trek
+TrackFormat;Format trek
+TrackIndex;Indeks trek
+TrackUID;UID trek
+transfer_characteristics;Karakteristik transfer
+Translate_Reports;Terjemahkan laporan
+Translator;Penerjemah
+Transport;Transpor
+Tree;Pohon
+Tree & Text;Pohon & Teks
+Trim_Center;Pangkas tengah
+Trim_Height;Pangkas tinggi
+Trim_Surround;Pangkas sekeliing
+TrimMode;Mode pangkas
+TrimMode0i;Mode pangkas untuk 2.0
+TrimMode1i;Mode pangkas untuk 5.1
+TrimMode2i;Mode pangkas untuk 7.1
+TrimMode3i;Mode pangkas untuk 2.1.2
+TrimMode4i;Mode pangkas untuk 5.1.2
+TrimMode5i;Mode pangkas untuk 7.1.2
+TrimMode6i;Mode pangkas untuk 2.1.4
+TrimMode7i;Mode pangkas untuk 5.1.4
+TrimMode8i;Mode pangkas untuk 7.1.4
+TruePeakLevel;Tingkat puncak sejati
+TruePeakLevel_Album;Tingkat puncak sejati (album)
+Type;Jenis
+TypeDefinition;Jenis definisi
+UniqueID;ID unik
+UniversalAdID;Ad-ID universal
+UniversalAdID_Registry;Registri Ad-ID universal
+UniversalAdID_Value;Nilai Ad-ID universal
+Unknown;Tak dikenal
+Url;URL
+Video;Video
+Video stream(s);Aliran video
+Video_Codec_List;Kodek video
+Video_Delay;Penundaan relatif dengan video
+Video_Format_List;Format video
+Video_Format_WithHint_List;Format video (berpetunjuk)
+Video_Language_List;Bahasa video
+Video_No;Tak ada video
+Video0_Delay;Penundaan Video 0
+Video1;Aliran video pertama
+Video2;Aliran video kedua
+Video3;Aliran video ketiga
+VideoComments;Komentar Video
+VideoCount;Banyaknya aliran video
+View;Tampilan
+View_Hint;Ubah cara menampilkan informasi
+Views;Tayangan
+Warning : more streams in the files;Peringatan: ada aliran lainnya dalam berkas
+Web;Web
+WebSite;Situs web
+WebSite_Audio;Ke situs web dari kodek audio ini
+WebSite_Audio_More;Ke situs web (%Url%) untuk temukan kodek audio ini
+WebSite_General;Ke situs web dari pemutar untuk berkas ini
+WebSite_General_More;Ke situs web dari pemutar untuk berkas ini
+WebSite_Text;Ke situs web dari kodek teks ini
+WebSite_Text_More;Ke situs web (%Url%) untuk temukan kodek teks ini
+WebSite_Url;http://MediaArea.net/MediaInfo
+WebSite_Video;Ke situs web dari kodek video ini
+WebSite_Video_More;Ke situs web (%Url%) untuk temukan kodek video ini
+Width;Lebar
+Width_CleanAperture;Lebar bukaan jernih
+Width_Original;Lebar asli
+WriteMe;Tulis surat ke pengembang
+WriteToTranslator;Tulis surat ke penerjemah
+Written_Date;Tanggal ditulis
+Written_Location;Lokasi ditulis
+WrittenBy;Ditulis oleh
+Yes;Ya
+Your system;Sistem Anda
+Your translation;Terjemahan Anda
+ZZ_Automatic_Percent;100
+ZZ_AutomaticLanguage_Percent;100
