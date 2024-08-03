@@ -179,6 +179,7 @@ ADM: Show TrackUIDs;
 AdmProfile;
 Advanced;پیشرفته
 Advanced mode;حالت پیشرفته
+Advanced mode -->;
 Album;آلبوم
 Album_ReplayGain_Gain;Album replay gain
 Album_ReplayGain_Peak;Album replay gain peak
@@ -195,12 +196,17 @@ AssistantDirector;دستیار کارگردان
 AssociatedVideo_FrameRate;
 at;در
 At least one file;(حداقل یک فایل را باز کنید)
+Attachments;
 Audio;صوت
 Audio stream(s);استریم صوت ها
 Audio_Codec_List;کدک صوت ها
+Audio_Format_List;
+Audio_Format_WithHint_List;
+Audio_Language_List;
 Audio_No;صوتی موجود نیست
 Audio1;اولین استریم صوت
 Audio2;دومبن استریم صوت
+Audio3;
 AudioComments;
 AudioCount;تعداد استریم صوت
 AudioDescription;
@@ -237,17 +243,22 @@ Cancel;لغو
 CaptionServiceName;
 CatalogNumber;
 Channel(s);کانال ها
+Channel(s)_Original;
 ChannelCoded;
 ChannelConfiguration;
 ChannelFormat;
 ChannelLayout;
+ChannelLayout_Original;
 ChannelMode;
 ChannelPositions;موقعیت کانال ها
+ChannelPositions_Original;
 Chapter(s);فصل ها
 Chapters;فصل ها
 Chapters stream(s);استریم فصل ها
 Chapters_Codec_List;کدک فصل ها
 Chapters_No;فصلی وجود ندارد
+Chapters_Pos_Begin;
+Chapters_Pos_End;
 ChaptersCount;تعداد استریم فصل ها
 CharacterSet;
 CheckNewVersion;کنترل نسخه جدید
@@ -341,6 +352,7 @@ Date;تاریخ
 Debug;اشکال زدائى
 Decimal point;مميز اعشارى
 Default;
+Default translation;
 Default_Setting;
 DefaultTargetDeviceConfig;
 Delay;مکث
@@ -380,6 +392,7 @@ DrcSets_Effects;
 Duration;مدت
 Duration_End;زمان پایان
 Duration_End_Command;
+Duration_Source;
 Duration_Start;زمان شروع
 Duration_Start_Command;
 Duration_Start2End;
@@ -396,7 +409,9 @@ Enable FFmpeg plugin;
 Encoded_Application;برنامه نوشتاری
 Encoded_Date;تاریخ رمزى شده
 Encoded_Library;کتابخان نوشتاری
+Encoded_Library_Name;
 Encoded_Library_Settings;تنظینات رمزى شده
+Encoded_Library_Version;
 Encoded_Original;حمایت اصلی
 EncodedBy;رمزى شده توسط
 EPG_Positions;EPG موقعیت (internal)
@@ -429,6 +444,8 @@ FileExtension;پسوند فایل
 FileName;نام فایل
 FileNameExtension;
 FileSize;اندازه فایل
+Fill with a Dummy movie;
+Fill with a realistic movie;
 FirstDisplay_Delay_Frames;
 FirstDisplay_Type;
 FirstFrameOfAction;
@@ -442,6 +459,7 @@ Folder_Hint;انتخاب پوشه
 FolderName;نام پوشه
 Forced;
 Format;فرمت
+Format_AdditionalFeatures;
 Format_Commercial;
 Format_Commercial_IfAny;
 Format_Compression;
@@ -484,13 +502,16 @@ FpaManufacturer;
 FpaPass;
 FpaVersion;
 FrameCount;تعداد فرمت
+FrameCount_Source;
 FrameRate;نرخ فرمت
+FrameRate_Den;
 FrameRate_Maximum;بیشترین نرخ فرمت
 FrameRate_Minimum;کمترین نرخ فرمت
 FrameRate_Mode;حالت نرخ فرمت
 FrameRate_Mode_CFR;پایدار
 FrameRate_Mode_VFR;متغییر
 FrameRate_Nominal;نرخ فرمت غیر واقعی
+FrameRate_Num;
 FrameRate_Original;نرخ فرمت اصلی
 FrameRate_Real;
 FullParsing;
@@ -740,6 +761,7 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+IsStreamable;
 Keywords;کلمه کلیدی
 Known codecs;کدک مشخص
 Known formats;فرمت مشخص
@@ -954,6 +976,7 @@ Language_zh-tw;Chinese (Taiwan)
 Language_zh-TW;
 Language_zh-yue;
 Language_zu;Zulu
+Languages;
 LawRating;Law rating
 LCCN;LCCN
 LfeAttenuationKnown;
@@ -1037,8 +1060,8 @@ Movie;نام فیلم
 ms; ms
 MSDI;MSDI
 MultipleStream;
-MusicBy;موسیقی توسط
 MultiView_Count;
+MusicBy;موسیقی توسط
 MuxingMode;حالت تسهيم کننده
 MuxingMode_MoreInfo;حالت تسهيم کننده, اطلاعات بیشتر
 MuxingMode_PackedBitstream;Packed bitstream
@@ -1135,6 +1158,7 @@ ProductionDesigner;طراح محصول
 ProductionNumber;
 ProductionStudio;استودیو محصول
 ProductPlacement;
+Program name;
 Programme;
 ProgrammeHasText;
 ProgrammeTextLanguage;
@@ -1158,10 +1182,13 @@ Report;
 Resolution;وضوح
 RestoreLifetimeSubscription;
 s;s
+Sampled_Height;
+Sampled_Width;
 SamplePeakLevel;
 SamplePeakLevel_Album;
 SamplesPerFrame;
 SamplingCount;
+SamplingCount_Source;
 SamplingRate;نرخ نمونه
 Save;ذخیره
 ScanOrder;دستور اسکن
@@ -1178,6 +1205,7 @@ ScreenToFront;
 Season;فصل
 SecondaryAudioLanguage;
 see below;پایین را ببینید
+Select your directory;
 Send HeaderFile;فایل سرصفحه را اینجا بفرستید : http://sourceforge.net/projects/mediainfo/ (قسمت باگ)
 Separator_Columns;جدا کننده ستون
 Separator_Lines;جدا کننده خطوط
@@ -1227,6 +1255,7 @@ streamIdentifier;
 StreamKind;نوع استریم
 StreamKindID;معرف استریم
 StreamKindPos;معرف استریم
+StreamOrder;
 StreamSize;اندازه استریم
 StreamSize_Demuxed;
 StreamSize_Encoded;
@@ -1269,6 +1298,9 @@ Text (HTML);متن (HTML)
 Text stream(s);استریم متن
 Text streams;استریم متن
 Text_Codec_List;کدک متن
+Text_Format_List;
+Text_Format_WithHint_List;
+Text_Language_List;
 Text_No;متنی وجود ندارد
 Text1;اولین استریم متن
 Text2;دومین استریم متن
@@ -1336,9 +1368,14 @@ Video;ویدیو
 Video stream(s);استریم ویدیو
 Video_Codec_List;کدک ویدیو
 Video_Delay;مکث ویدیو
+Video_Format_List;
+Video_Format_WithHint_List;
+Video_Language_List;
 Video_No;ویدیویی وجود ندارد
 Video0_Delay;Video0 delay
 Video1;اولین استریم ویدیو
+Video2;
+Video3;
 VideoComments;
 VideoCount;تعداد استریم ویدیو
 View;نمایش
@@ -1366,5 +1403,6 @@ Written_Location;مکان نوشته
 WrittenBy;نوشته شده توسط
 Yes;بلی
 Your system;سیستم شما
-ZZ_Automatic_Percent;66
-ZZ_AutomaticLanguage_Percent;70
+Your translation;
+ZZ_Automatic_Percent;64
+ZZ_AutomaticLanguage_Percent;68

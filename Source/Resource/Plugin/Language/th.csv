@@ -179,6 +179,7 @@ ADM: Show TrackUIDs;
 AdmProfile;
 Advanced;ขั้นสูง
 Advanced mode;โหมดขั้นสูง
+Advanced mode -->;
 Album;อัลบั้ม
 Album_ReplayGain_Gain;
 Album_ReplayGain_Peak;
@@ -195,12 +196,17 @@ AssistantDirector;ผู้ช่วยผู้กำกับ
 AssociatedVideo_FrameRate;
 at;ที่
 At least one file;(คุณต้องเปิดอย่างน้อยหนึ่งไฟล์)
+Attachments;
 Audio;เสียง
 Audio stream(s);สตรีมเสียง
 Audio_Codec_List;codecs เสียง
+Audio_Format_List;
+Audio_Format_WithHint_List;
+Audio_Language_List;
 Audio_No;ไม่มีเสียง
 Audio1;สตรีมเสียงแรก
 Audio2;สตรีมเสียงที่สอง
+Audio3;
 AudioComments;
 AudioCount;จำนวนของสตรีมเสียง
 AudioDescription;
@@ -237,17 +243,22 @@ Cancel;ยกเลิก
 CaptionServiceName;
 CatalogNumber;
 Channel(s);ช่อง
+Channel(s)_Original;
 ChannelCoded;
 ChannelConfiguration;
 ChannelFormat;
 ChannelLayout;
+ChannelLayout_Original;
 ChannelMode;
 ChannelPositions;ตำแหน่งช่อง
+ChannelPositions_Original;
 Chapter(s);เชฟเตอร์
 Chapters;เชฟเตอร์
 Chapters stream(s);เชฟเตอร์สตรีม
 Chapters_Codec_List;เชฟเตอร์ Codecs
 Chapters_No;ไม่มีเชฟเตอร์
+Chapters_Pos_Begin;
+Chapters_Pos_End;
 ChaptersCount;จำนวนของสตรีมเชฟเตอร์
 CharacterSet;
 CheckNewVersion;ตรวจสอบรุ่นใหม่
@@ -341,6 +352,7 @@ Date;วันที่
 Debug;ดีบั๊ก
 Decimal point;จุดทศนิยม
 Default;
+Default translation;
 Default_Setting;
 DefaultTargetDeviceConfig;
 Delay;Delay
@@ -380,6 +392,7 @@ DrcSets_Effects;
 Duration;ระยะเวลา
 Duration_End;
 Duration_End_Command;
+Duration_Source;
 Duration_Start;
 Duration_Start_Command;
 Duration_Start2End;
@@ -396,7 +409,9 @@ Enable FFmpeg plugin;
 Encoded_Application;Writing application
 Encoded_Date;วันที่เข้ารหัส
 Encoded_Library;การเขียนไลบรารี
+Encoded_Library_Name;
 Encoded_Library_Settings;ตั้งค่าการเข้ารหัส
+Encoded_Library_Version;
 Encoded_Original;ต้นฉบับ
 EncodedBy;เข้ารหัสโดย
 EPG_Positions;
@@ -429,6 +444,8 @@ FileExtension;ชนิดไฟล์
 FileName;ชื่อไฟล์
 FileNameExtension;
 FileSize;ขนาดไฟล์
+Fill with a Dummy movie;
+Fill with a realistic movie;
 FirstDisplay_Delay_Frames;
 FirstDisplay_Type;
 FirstFrameOfAction;
@@ -442,6 +459,7 @@ Folder_Hint;เลือกโฟลเดอร์เพื่อเรีย�
 FolderName;ชื่อโฟลเดอร์
 Forced;
 Format;รูปแบบ
+Format_AdditionalFeatures;
 Format_Commercial;
 Format_Commercial_IfAny;
 Format_Compression;
@@ -484,13 +502,16 @@ FpaManufacturer;
 FpaPass;
 FpaVersion;
 FrameCount;
+FrameCount_Source;
 FrameRate;เฟรมเรต
+FrameRate_Den;
 FrameRate_Maximum;เฟรมเรตสูงสุด
 FrameRate_Minimum;เฟรมเรตต่ำสุด
 FrameRate_Mode;เฟรมเรตโหมด
 FrameRate_Mode_CFR;
 FrameRate_Mode_VFR;
 FrameRate_Nominal;เฟรมเรต Nominal
+FrameRate_Num;
 FrameRate_Original;เฟรมเรตต้นฉบับ
 FrameRate_Real;
 FullParsing;
@@ -740,6 +761,7 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+IsStreamable;
 Keywords;คีย์เวิร์ด
 Known codecs;codecs ที่รู้จัก
 Known formats;รูปแบบที่รู้จัก
@@ -954,6 +976,7 @@ Language_zh-tw;
 Language_zh-TW;
 Language_zh-yue;
 Language_zu;ซูลู
+Languages;
 LawRating;Law rating
 LCCN;LCCN
 LfeAttenuationKnown;
@@ -1037,8 +1060,8 @@ Movie;ชื่อภาพยนตร์
 ms;ms
 MSDI;MSDI
 MultipleStream;
-MusicBy;
 MultiView_Count;
+MusicBy;
 MuxingMode;โหมด Muxing
 MuxingMode_MoreInfo;
 MuxingMode_PackedBitstream;
@@ -1135,6 +1158,7 @@ ProductionDesigner;ผู้ออกแบบการแสดง
 ProductionNumber;
 ProductionStudio;ProductionStudio
 ProductPlacement;
+Program name;
 Programme;
 ProgrammeHasText;
 ProgrammeTextLanguage;
@@ -1158,10 +1182,13 @@ Report;
 Resolution;ความละเอียด
 RestoreLifetimeSubscription;
 s;s
+Sampled_Height;
+Sampled_Width;
 SamplePeakLevel;
 SamplePeakLevel_Album;
 SamplesPerFrame;
 SamplingCount;
+SamplingCount_Source;
 SamplingRate;
 Save;บันทึก
 ScanOrder;
@@ -1178,6 +1205,7 @@ ScreenToFront;
 Season;Season
 SecondaryAudioLanguage;
 see below;ดูด้านล่าง
+Select your directory;
 Send HeaderFile;โปรดส่งไฟล์ Header (หัวข้อ)ให้ฉันที่นี่ : http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;ตัวแยกคอลัมน์
 Separator_Lines;ตัวแยกบรรทัด
@@ -1227,6 +1255,7 @@ streamIdentifier;
 StreamKind;ชนิดของสตรีม
 StreamKindID;
 StreamKindPos;
+StreamOrder;
 StreamSize;ขนาดสตรีม
 StreamSize_Demuxed;
 StreamSize_Encoded;
@@ -1269,6 +1298,9 @@ Text (HTML);ข้อความ (HTML)
 Text stream(s);สตรีมข้อความ
 Text streams;สตรีมข้อความ
 Text_Codec_List;codecs ข้อความ
+Text_Format_List;
+Text_Format_WithHint_List;
+Text_Language_List;
 Text_No;ไม่มีข้อความ
 Text1;ข้อความสตรีมแรก
 Text2;ข้อความสตรีมที่สอง
@@ -1336,9 +1368,14 @@ Video;วีดีโอ
 Video stream(s);สตรีมวีดีโอ
 Video_Codec_List;Codecs วีดีโอ
 Video_Delay;Video delay
+Video_Format_List;
+Video_Format_WithHint_List;
+Video_Language_List;
 Video_No;ไม่มีวีดีโอ
 Video0_Delay;Video0 delay
 Video1;สตรีมวีดีโอแรก
+Video2;
+Video3;
 VideoComments;
 VideoCount;จำนวนของสตรีมวีดีโอ
 View;มุมมอง
@@ -1366,5 +1403,6 @@ Written_Location;สถานที่เขียน
 WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
-ZZ_Automatic_Percent;59
-ZZ_AutomaticLanguage_Percent;64
+Your translation;
+ZZ_Automatic_Percent;58
+ZZ_AutomaticLanguage_Percent;62

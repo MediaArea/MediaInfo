@@ -179,6 +179,7 @@ ADM: Show TrackUIDs;
 AdmProfile;
 Advanced;متقدم
 Advanced mode;الوضع المتقدم
+Advanced mode -->;
 Album;ألبوم
 Album_ReplayGain_Gain;كسب عند قراءة الألبوم
 Album_ReplayGain_Peak;ذروة الكسب عند قراءة الألبوم
@@ -195,12 +196,17 @@ AssistantDirector;مساعد المدير
 AssociatedVideo_FrameRate;
 at;عند
 At least one file;(يجب على الأقل فتح ملف واحد)
+Attachments;
 Audio;صوت
 Audio stream(s);دفق الصوت
 Audio_Codec_List;ترميز الصوت
+Audio_Format_List;
+Audio_Format_WithHint_List;
+Audio_Language_List;
 Audio_No;لا صوت
 Audio1;أول مقطع للصوت
 Audio2;ثاني مقطع للصوت
+Audio3;
 AudioComments;
 AudioCount;عدد المقاطع الصوتية
 AudioDescription;
@@ -237,17 +243,22 @@ Cancel;إلغاء
 CaptionServiceName;
 CatalogNumber;
 Channel(s);قناة
+Channel(s)_Original;
 ChannelCoded;
 ChannelConfiguration;
 ChannelFormat;Channel format
 ChannelLayout;
+ChannelLayout_Original;
 ChannelMode;
 ChannelPositions;مواقع القنوات
+ChannelPositions_Original;
 Chapter(s);فصل
 Chapters;فصل
 Chapters stream(s);مقطع الفصل
 Chapters_Codec_List;ترميز الفصول
 Chapters_No;لا يوجد أي فصل
+Chapters_Pos_Begin;
+Chapters_Pos_End;
 ChaptersCount;عدد مقاطع الفصول
 CharacterSet;
 CheckNewVersion;التحقق من وجود نسخة جديدة
@@ -341,6 +352,7 @@ Date;تاريخ
 Debug;تصحيح (Debug)
 Decimal point;نقطة عشرية
 Default;
+Default translation;
 Default_Setting;
 DefaultTargetDeviceConfig;
 Delay;تأخير
@@ -380,6 +392,7 @@ DrcSets_Effects;
 Duration;مدة
 Duration_End;وقت النهاية
 Duration_End_Command;
+Duration_Source;
 Duration_Start;وقت البدء
 Duration_Start_Command;
 Duration_Start2End;
@@ -396,7 +409,9 @@ Enable FFmpeg plugin;
 Encoded_Application;برنامج التحرير
 Encoded_Date;تاريخ الترميز (Encoding)
 Encoded_Library;المكتبة (Library) المستعملة
+Encoded_Library_Name;
 Encoded_Library_Settings;إعدادات الترميز (Encoding)
+Encoded_Library_Version;
 Encoded_Original;دعم الأصلي
 EncodedBy;مشفرة (Encoded) من طرف
 EPG_Positions;مواضع الـEPG (الداخلية)
@@ -429,6 +444,8 @@ FileExtension;نوع الملف
 FileName;اسم الملف
 FileNameExtension;
 FileSize;حجم الملف
+Fill with a Dummy movie;
+Fill with a realistic movie;
 FirstDisplay_Delay_Frames;
 FirstDisplay_Type;
 FirstFrameOfAction;First frame of action
@@ -442,6 +459,7 @@ Folder_Hint;تحديد مجلد لدراسة
 FolderName;اسم المجلد
 Forced;
 Format;شكل
+Format_AdditionalFeatures;
 Format_Commercial;
 Format_Commercial_IfAny;
 Format_Compression;
@@ -484,13 +502,16 @@ FpaManufacturer;
 FpaPass;
 FpaVersion;
 FrameCount;عدد الصور
+FrameCount_Source;
 FrameRate;عدد الصور في الثانية
+FrameRate_Den;
 FrameRate_Maximum;أقصى معدل الصور/ثانية
 FrameRate_Minimum;أدنى معدل الصور/ثانية
 FrameRate_Mode;نمط الصور/ثانية
 FrameRate_Mode_CFR;ثابت
 FrameRate_Mode_VFR;متغير
 FrameRate_Nominal;معدل الاسمي لصور/ثانية
+FrameRate_Num;
 FrameRate_Original;معدل الصور/ثانية الأصلي
 FrameRate_Real;
 FullParsing;
@@ -740,6 +761,7 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+IsStreamable;
 Keywords;الكلمات الرئيسية
 Known codecs;الترميزات المعروفة
 Known formats;الامتدلدات المعروفة
@@ -954,6 +976,7 @@ Language_zh-tw;中文 (Taiwan)
 Language_zh-TW;
 Language_zh-yue;
 Language_zu;isiZulu
+Languages;
 LawRating;تصنيف القانون
 LCCN;LCCN
 LfeAttenuationKnown;
@@ -1037,8 +1060,8 @@ Movie;اسم الفيلم
 ms; ms
 MSDI;MSDI
 MultipleStream;
-MusicBy;الموسيقى من قبل
 MultiView_Count;Count of views
+MusicBy;الموسيقى من قبل
 MuxingMode;نوع الـmuxing
 MuxingMode_MoreInfo;نوع الـmuxing ،مزيد من المعلومات
 MuxingMode_PackedBitstream;Packed bitstream
@@ -1135,6 +1158,7 @@ ProductionDesigner;مصمم الانتاج
 ProductionNumber;
 ProductionStudio;استوديو الانتاج
 ProductPlacement;
+Program name;
 Programme;Programme
 ProgrammeHasText;
 ProgrammeTextLanguage;
@@ -1158,10 +1182,13 @@ Report;
 Resolution;دقة الصورة
 RestoreLifetimeSubscription;
 s; s
+Sampled_Height;
+Sampled_Width;
 SamplePeakLevel;
 SamplePeakLevel_Album;
 SamplesPerFrame;Samples per frame
 SamplingCount;
+SamplingCount_Source;
 SamplingRate;أخذ العينات
 Save;حفظ
 ScanOrder;ترتيب التفحص
@@ -1178,6 +1205,7 @@ ScreenToFront;Screen to front
 Season;الموسم
 SecondaryAudioLanguage;
 see below;انظر أدناه
+Select your directory;
 Send HeaderFile;الرجاء ارسال ملف Header الى :   http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;فاصل أعمدة
 Separator_Lines;فاصل الأسطر
@@ -1227,6 +1255,7 @@ streamIdentifier;
 StreamKind;نوع الدفق
 StreamKindID;معرف الدفق
 StreamKindPos;معرف الدفق
+StreamOrder;
 StreamSize;حجم الدفق
 StreamSize_Demuxed;Stream size when demuxed
 StreamSize_Encoded;
@@ -1269,6 +1298,9 @@ Text (HTML);نص (HTML)
 Text stream(s); دفق النص
 Text streams; دفق النص
 Text_Codec_List;ترميز النص
+Text_Format_List;
+Text_Format_WithHint_List;
+Text_Language_List;
 Text_No;لا يوجد نص
 Text1;أول دفق نص
 Text2;ثاني دفق نص
@@ -1336,9 +1368,14 @@ Video;فيديو
 Video stream(s);دفق الفيديو
 Video_Codec_List;ترميزالفيديو
 Video_Delay;تأخير الفيديو
+Video_Format_List;
+Video_Format_WithHint_List;
+Video_Language_List;
 Video_No;لا توجد أي فيديو
 Video0_Delay;تأخير بالنسبة للفيديو
 Video1;أول دفق فيديو
+Video2;
+Video3;
 VideoComments;
 VideoCount;عدد دفق الفيديو
 View;رؤية
@@ -1366,5 +1403,6 @@ Written_Location;مكان الكتابة
 WrittenBy;كتبها
 Yes;نعم
 Your system;نظامك
-ZZ_Automatic_Percent;71
-ZZ_AutomaticLanguage_Percent;76
+Your translation;
+ZZ_Automatic_Percent;69
+ZZ_AutomaticLanguage_Percent;74

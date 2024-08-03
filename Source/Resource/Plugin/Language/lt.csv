@@ -179,6 +179,7 @@ ADM: Show TrackUIDs;
 AdmProfile;
 Advanced;Išplėstinai
 Advanced mode;Išplėstinis režimas
+Advanced mode -->;
 Album;Albumas
 Album_ReplayGain_Gain;
 Album_ReplayGain_Peak;
@@ -195,12 +196,17 @@ AssistantDirector;Asistuojantis dirigentas
 AssociatedVideo_FrameRate;
 at;-
 At least one file;(Turite atverti bent vieną failą)
+Attachments;
 Audio;Audio
 Audio stream(s);Audio srautai
 Audio_Codec_List;Audio kodekas
+Audio_Format_List;
+Audio_Format_WithHint_List;
+Audio_Language_List;
 Audio_No;Be audio
 Audio1;Pirmas audio srautas
 Audio2;Antras audio srautas
+Audio3;
 AudioComments;
 AudioCount;Audio srautų kiekis
 AudioDescription;
@@ -237,17 +243,22 @@ Cancel;Atšaukti
 CaptionServiceName;
 CatalogNumber;
 Channel(s);Kanalas (-ai)
+Channel(s)_Original;
 ChannelCoded;
 ChannelConfiguration;
 ChannelFormat;
 ChannelLayout;
+ChannelLayout_Original;
 ChannelMode;
 ChannelPositions;Kanalo pozicijos
+ChannelPositions_Original;
 Chapter(s);Skyrius(iai)
 Chapters;Skyriai
 Chapters stream(s);Skyrių srautai
 Chapters_Codec_List;Skyrių kodekas
 Chapters_No;Be skyrių
+Chapters_Pos_Begin;
+Chapters_Pos_End;
 ChaptersCount;Skyrių srautų kiekis
 CharacterSet;
 CheckNewVersion;Tikrinti naujesnės versijos
@@ -341,6 +352,7 @@ Date;Data
 Debug;Suderinti
 Decimal point;Dešimtainis taškas
 Default;
+Default translation;
 Default_Setting;
 DefaultTargetDeviceConfig;
 Delay;Atidėti
@@ -380,6 +392,7 @@ DrcSets_Effects;
 Duration;Trukmė
 Duration_End;
 Duration_End_Command;
+Duration_Source;
 Duration_Start;
 Duration_Start_Command;
 Duration_Start2End;
@@ -396,7 +409,9 @@ Enable FFmpeg plugin;
 Encoded_Application;Rašymo programa
 Encoded_Date;Užkodavimo data
 Encoded_Library;Rašymo biblioteka
+Encoded_Library_Name;
 Encoded_Library_Settings;Šifravimo nuostatos
+Encoded_Library_Version;
 Encoded_Original;Originalus
 EncodedBy;Užšifravo
 EPG_Positions;
@@ -429,6 +444,8 @@ FileExtension;Failo plėtinys
 FileName;Failo pavadinimas
 FileNameExtension;
 FileSize;Failo dydis
+Fill with a Dummy movie;
+Fill with a realistic movie;
 FirstDisplay_Delay_Frames;
 FirstDisplay_Type;
 FirstFrameOfAction;
@@ -442,6 +459,7 @@ Folder_Hint;Pasirinkite katalogą studijavimui
 FolderName;Katalogo pavadinimas
 Forced;
 Format;Formatas
+Format_AdditionalFeatures;
 Format_Commercial;
 Format_Commercial_IfAny;
 Format_Compression;
@@ -484,13 +502,16 @@ FpaManufacturer;
 FpaPass;
 FpaVersion;
 FrameCount;
+FrameCount_Source;
 FrameRate;Kadrų tempas
+FrameRate_Den;
 FrameRate_Maximum;Maksimalus kadrų tempas
 FrameRate_Minimum;Minimalus kadrų tempas
 FrameRate_Mode;Kadrų tempo rėžimas
 FrameRate_Mode_CFR;
 FrameRate_Mode_VFR;
 FrameRate_Nominal;Nominalus kadrų skaičius
+FrameRate_Num;
 FrameRate_Original;Originalus kadrų skaičius
 FrameRate_Real;
 FullParsing;
@@ -740,6 +761,7 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+IsStreamable;
 Keywords;Raktiniai žodžiai
 Known codecs;Žinomi kodekai
 Known formats;Žinomi formatai
@@ -954,6 +976,7 @@ Language_zh-tw;
 Language_zh-TW;
 Language_zh-yue;
 Language_zu;Zulu
+Languages;
 LawRating;Law reitingas
 LCCN;LCCN
 LfeAttenuationKnown;
@@ -1037,8 +1060,8 @@ Movie;Filmo pavadinimas
 ms; ms
 MSDI;MSDI
 MultipleStream;
-MusicBy;
 MultiView_Count;
+MusicBy;
 MuxingMode;Muxing rėžimas
 MuxingMode_MoreInfo;
 MuxingMode_PackedBitstream;
@@ -1135,6 +1158,7 @@ ProductionDesigner;Produkcijos dizaineris
 ProductionNumber;
 ProductionStudio;Produkcijos studija
 ProductPlacement;
+Program name;
 Programme;
 ProgrammeHasText;
 ProgrammeTextLanguage;
@@ -1158,10 +1182,13 @@ Report;
 Resolution;Raiška
 RestoreLifetimeSubscription;
 s;Video srautai (s)
+Sampled_Height;
+Sampled_Width;
 SamplePeakLevel;
 SamplePeakLevel_Album;
 SamplesPerFrame;
 SamplingCount;
+SamplingCount_Source;
 SamplingRate;Atrankos tempas
 Save;Išsaugoti
 ScanOrder;Skenavimo tvarka
@@ -1178,6 +1205,7 @@ ScreenToFront;
 Season;Sezonas
 SecondaryAudioLanguage;
 see below;žiūrėti žemiau
+Select your directory;
 Send HeaderFile;Prašome siųskite antraštinį failą čia: http://sourceforge.net/projects/mediainfo/ (bug sekcija)
 Separator_Columns;Stulpelių skyryba
 Separator_Lines;Eilučių skyryba
@@ -1227,6 +1255,7 @@ streamIdentifier;
 StreamKind;Srauto rūšis
 StreamKindID;
 StreamKindPos;
+StreamOrder;
 StreamSize;Srauto dydis
 StreamSize_Demuxed;
 StreamSize_Encoded;
@@ -1269,6 +1298,9 @@ Text (HTML);Tekstas (HTML)
 Text stream(s);Teksto srautai
 Text streams;Teksto srautai
 Text_Codec_List;Teksto kodekas
+Text_Format_List;
+Text_Format_WithHint_List;
+Text_Language_List;
 Text_No;Be teksto
 Text1;Pirmas teksto srautas
 Text2;Antras teksto srautas
@@ -1336,9 +1368,14 @@ Video;Video
 Video stream(s);Video srautas (ai)
 Video_Codec_List;Kodeko video
 Video_Delay;Video atidėjimas
+Video_Format_List;
+Video_Format_WithHint_List;
+Video_Language_List;
 Video_No;Be video
 Video0_Delay;Video0 atidėjimas
 Video1;Pirmas video srautas
+Video2;
+Video3;
 VideoComments;
 VideoCount;Video srautų kiekis
 View;Rodymas
@@ -1366,5 +1403,6 @@ Written_Location;Rašymo vieta
 WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
-ZZ_Automatic_Percent;60
-ZZ_AutomaticLanguage_Percent;65
+Your translation;
+ZZ_Automatic_Percent;58
+ZZ_AutomaticLanguage_Percent;63

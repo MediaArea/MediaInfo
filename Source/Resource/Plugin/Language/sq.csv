@@ -179,6 +179,7 @@ ADM: Show TrackUIDs;
 AdmProfile;
 Advanced;Avancuar
 Advanced mode;Mënyrë e avancuar
+Advanced mode -->;
 Album;Albumi
 Album_ReplayGain_Gain;Replay gain i albumit
 Album_ReplayGain_Peak;Piku i replay gain i albumit
@@ -195,12 +196,17 @@ AssistantDirector;RegjisorAsistent
 AssociatedVideo_FrameRate;
 at;në
 At least one file;(Duhet hapur të paktën një skedë)
+Attachments;
 Audio;Audio
 Audio stream(s);Rrymat e audios
 Audio_Codec_List;Kodekët e audios
+Audio_Format_List;
+Audio_Format_WithHint_List;
+Audio_Language_List;
 Audio_No;Pa audio
 Audio1;Rryma e parë audio
 Audio2;Rryma e dytë audio
+Audio3;
 AudioComments;
 AudioCount;Numri i rrymave të audios
 AudioDescription;
@@ -237,17 +243,22 @@ Cancel;Anulo
 CaptionServiceName;
 CatalogNumber;
 Channel(s);Kanale
+Channel(s)_Original;
 ChannelCoded;
 ChannelConfiguration;
 ChannelFormat;
 ChannelLayout;
+ChannelLayout_Original;
 ChannelMode;
 ChannelPositions;Pozicionet e kanalit
+ChannelPositions_Original;
 Chapter(s);Kapitull
 Chapters;Kapituj
 Chapters stream(s);Rryma(t) e kapitujve
 Chapters_Codec_List;Kodekët e Kapitujve
 Chapters_No;Pa kapituj
+Chapters_Pos_Begin;
+Chapters_Pos_End;
 ChaptersCount;Numri i rrymave të kapitujve
 CharacterSet;
 CheckNewVersion;Verifiko versionin e ri
@@ -341,6 +352,7 @@ Date;Data
 Debug;Debug
 Decimal point;Pika dhjetore
 Default;
+Default translation;
 Default_Setting;
 DefaultTargetDeviceConfig;
 Delay;Vonesa
@@ -380,6 +392,7 @@ DrcSets_Effects;
 Duration;Kohëzgjatja
 Duration_End;Koha e përfundimit
 Duration_End_Command;
+Duration_Source;
 Duration_Start;Koha e nisjes
 Duration_Start_Command;
 Duration_Start2End;
@@ -396,7 +409,9 @@ Enable FFmpeg plugin;
 Encoded_Application;Aplikimi i shkrimit
 Encoded_Date;Data e kodimit
 Encoded_Library;Libraria e shkrimit
+Encoded_Library_Name;
 Encoded_Library_Settings;Vendosjet e kodimit
+Encoded_Library_Version;
 Encoded_Original;Origjinal
 EncodedBy;Koduar nga
 EPG_Positions;Pozicionet EPG (të brendshme)
@@ -429,6 +444,8 @@ FileExtension;Sigla e skedës
 FileName;Emri i skedës
 FileNameExtension;
 FileSize;Masa e skedës
+Fill with a Dummy movie;
+Fill with a realistic movie;
 FirstDisplay_Delay_Frames;
 FirstDisplay_Type;
 FirstFrameOfAction;
@@ -442,6 +459,7 @@ Folder_Hint;Studio një dosje
 FolderName;Emri i dosjes
 Forced;
 Format;Formati
+Format_AdditionalFeatures;
 Format_Commercial;
 Format_Commercial_IfAny;
 Format_Compression;
@@ -484,13 +502,16 @@ FpaManufacturer;
 FpaPass;
 FpaVersion;
 FrameCount;Numri i kuadrove
+FrameCount_Source;
 FrameRate;Raporti i kuadrit
+FrameRate_Den;
 FrameRate_Maximum;Raporti maksimal i kuadrit
 FrameRate_Minimum;Raporti minimal i kuadrit
 FrameRate_Mode;Mënyra e raportit të kuadrit
 FrameRate_Mode_CFR;Konstant
 FrameRate_Mode_VFR;Variabël
 FrameRate_Nominal;Raporti nominal i kuadrit
+FrameRate_Num;
 FrameRate_Original;Raporti origjinal i kuadrit
 FrameRate_Real;
 FullParsing;
@@ -740,6 +761,7 @@ InternetMediaType;
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
+IsStreamable;
 Keywords;Fjalët kyçe
 Known codecs;Kodekët e njohur
 Known formats;Formatet e njohura
@@ -954,6 +976,7 @@ Language_zh-tw;Kinezisht (Tajvan)
 Language_zh-TW;
 Language_zh-yue;
 Language_zu;Zulu
+Languages;
 LawRating;Vlerësimi ligjor
 LCCN;LCCN
 LfeAttenuationKnown;
@@ -1037,8 +1060,8 @@ Movie;Emri i filmit
 ms; ms
 MSDI;MSDI
 MultipleStream;
-MusicBy;Muzikë nga
 MultiView_Count;
+MusicBy;Muzikë nga
 MuxingMode;Mënyra e muksimit
 MuxingMode_MoreInfo;Mënyra e muksimit, më shumë info
 MuxingMode_PackedBitstream;Rryma e bitit e paketuar
@@ -1135,6 +1158,7 @@ ProductionDesigner;Modeluesi i produksionit
 ProductionNumber;
 ProductionStudio;Studio e produksionit
 ProductPlacement;
+Program name;
 Programme;
 ProgrammeHasText;
 ProgrammeTextLanguage;
@@ -1158,10 +1182,13 @@ Report;
 Resolution;Rezolucioni
 RestoreLifetimeSubscription;
 s;s
+Sampled_Height;
+Sampled_Width;
 SamplePeakLevel;
 SamplePeakLevel_Album;
 SamplesPerFrame;
 SamplingCount;
+SamplingCount_Source;
 SamplingRate;Raporti i shëmbëllimit
 Save;Ruaj
 ScanOrder;Rendi i skanimit
@@ -1178,6 +1205,7 @@ ScreenToFront;
 Season;Sezoni
 SecondaryAudioLanguage;
 see below;shih poshtë
+Select your directory;
 Send HeaderFile;Ju lutem dërgojeni këtu Kokën e skedës : http://sourceforge.net/projects/mediainfo/ (Seksioni i problemeve)
 Separator_Columns;ndarësi i kolonave
 Separator_Lines;ndarësi i rreshtave
@@ -1227,6 +1255,7 @@ streamIdentifier;
 StreamKind;Lloji i rrymës
 StreamKindID;Identifikuesi i rrymës
 StreamKindPos;Identifikuesi i rrymës
+StreamOrder;
 StreamSize;Masa e rrymës
 StreamSize_Demuxed;
 StreamSize_Encoded;
@@ -1269,6 +1298,9 @@ Text (HTML);Tekst (HTML)
 Text stream(s);Rrymat e tekstit
 Text streams;Rrymat e tekstit
 Text_Codec_List;Kodekët e tekstit
+Text_Format_List;
+Text_Format_WithHint_List;
+Text_Language_List;
 Text_No;Pa tekst
 Text1;Rryma e parë tekst
 Text2;Rryma e dytë tekst
@@ -1336,9 +1368,14 @@ Video;Video
 Video stream(s);Rryma(t) e videos
 Video_Codec_List;Kodekët e videos
 Video_Delay;Vonesa e videos
+Video_Format_List;
+Video_Format_WithHint_List;
+Video_Language_List;
 Video_No;Pa video
 Video0_Delay;Vonesa e videos0
 Video1;Rryma e parë video
+Video2;
+Video3;
 VideoComments;
 VideoCount;Numri i rrymave të videos
 View;Pamje
@@ -1366,5 +1403,6 @@ Written_Location;Vendi i shkrimit
 WrittenBy;Shkruar nga
 Yes;Po
 Your system;Sistemi yt
-ZZ_Automatic_Percent;66
-ZZ_AutomaticLanguage_Percent;70
+Your translation;
+ZZ_Automatic_Percent;64
+ZZ_AutomaticLanguage_Percent;68
