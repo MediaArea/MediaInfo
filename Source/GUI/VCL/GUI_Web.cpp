@@ -44,8 +44,8 @@ void __fastcall TWebF::Execute()
     Browser->Navigate((UnicodeString(L"https://MediaArea.net/MediaInfo/ChangeLog?Name=MediaInfoGUI&Version=")+MediaInfo_Version_GUI+L"&Lib="+MediaInfo_Version_GUI).w_str());
 }
 //---------------------------------------------------------------------------
-void __fastcall TWebF::BrowserNavigateComplete2(TObject *Sender,
-      LPDISPATCH pDisp, Variant *URL)
+void __fastcall TWebF::BrowserNavigateComplete2(TObject *ASender, IDispatch * const pDisp,
+          const OleVariant &URL)
 {
     Hide();
 }
@@ -55,4 +55,3 @@ void __fastcall TWebF::BrowserNavigateComplete2(TObject *Sender,
 //***************************************************************************
 
 #endif //MEDIAINFOGUI_UPDATE_NO
-

@@ -24,7 +24,6 @@
 #include <Menus.hpp>
 #include <StdCtrls.hpp>
 #include <Dialogs.hpp>
-#include "SHDocVw_OCX.h"
 #include <ExtCtrls.hpp>
 #include <Buttons.hpp>
 #include <System.ImageList.hpp>
@@ -34,6 +33,10 @@
 #include <Vcl.VirtualImageList.hpp>
 #include <Registry.hpp>
 #include <Vcl.AppEvnts.hpp>
+#include <Vcl.Edge.hpp>
+#include <Winapi.ActiveX.hpp>
+#include <Winapi.WebView2.hpp>
+#include <SHDocVw.hpp>
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -91,10 +94,8 @@ __published:    // IDE-managed Components
     TTabSheet *Page_Text;
     TMemo *Page_Text_Text;
     TTabSheet *Page_HTML;
-    TCppWebBrowser *Page_HTML_HTML;
     TTabSheet *Page_Custom;
     TMemo *Page_Custom_Text;
-    TCppWebBrowser *Page_Custom_HTML;
     TTabSheet *Page_System;
     TGroupBox *Page_System_Buttons;
     TRadioButton *Page_System_Buttons_Video;
@@ -226,6 +227,8 @@ __published:    // IDE-managed Components
     TMenuItem *M_Options_Theme_System;
     TMenuItem *M_Options_Theme_Light;
     TMenuItem *M_Options_Theme_Dark;
+    TWebBrowser *Page_HTML_HTML;
+    TWebBrowser *Page_Custom_HTML;
     void __fastcall FormResize(TObject *Sender);
     void __fastcall M_Help_AboutClick(TObject *Sender);
     void __fastcall M_Options_PreferencesClick(TObject *Sender);

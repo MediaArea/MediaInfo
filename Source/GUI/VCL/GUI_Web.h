@@ -12,15 +12,15 @@
 #include <Controls.hpp>
 #include <StdCtrls.hpp>
 #include <Forms.hpp>
-#include "SHDocVw_OCX.h"
 #include <OleCtrls.hpp>
+#include <SHDocVw.hpp>
 //---------------------------------------------------------------------------
 class TWebF : public TForm
 {
 __published:    // IDE-managed Components
-    TCppWebBrowser *Browser;
-    void __fastcall BrowserNavigateComplete2(TObject *Sender, LPDISPATCH pDisp,
-          Variant *URL);
+    TWebBrowser *Browser;
+    void __fastcall BrowserNavigateComplete2(TObject *ASender, IDispatch * const pDisp,
+          const OleVariant &URL);
 private:    // User declarations
 public:        // User declarations
     __fastcall TWebF(TComponent* Owner);
