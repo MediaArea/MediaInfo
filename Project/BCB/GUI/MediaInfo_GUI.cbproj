@@ -6,8 +6,8 @@
         <MainSource>MediaInfo_GUI.cpp</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Release</Config>
-        <Platform Condition="'$(Platform)'==''">Win64</Platform>
-        <TargetedPlatforms>3</TargetedPlatforms>
+        <Platform Condition="'$(Platform)'==''">Win64x</Platform>
+        <TargetedPlatforms>1048579</TargetedPlatforms>
         <AppType>Application</AppType>
         <ProjectName Condition="'$(ProjectName)'==''">MediaInfo_GUI</ProjectName>
     </PropertyGroup>
@@ -91,7 +91,7 @@
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
         <Icon_MainIcon>$(BDS)\bin\cbuilder_PROJECTICON.ico</Icon_MainIcon>
         <IncludePath>..\..\..\Source\Common\;..\..\..\Source\;..\..\..\Source\GUI\VCL\;..\..\..\..\ZenLib\Source\;..\..\..\..\MediaInfoLib\Source\;$(IncludePath)</IncludePath>
-        <AllPackageLibs>rtl.lib;vcl.lib;bcbie.lib;vclwinx.lib;vclimg.lib;bindengine.lib;vclie.lib;vcledge.lib</AllPackageLibs>
+        <AllPackageLibs>rtl.lib;vcl.lib;vclwinx.lib;vclimg.lib;bindengine.lib;vclie.lib;vcledge.lib</AllPackageLibs>
         <_TCHARMapping>wchar_t</_TCHARMapping>
         <DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
         <IntermediateOutputDir>.\$(Platform)\$(Config)</IntermediateOutputDir>
@@ -159,7 +159,6 @@
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <LinkPackageStatics>rtl.lib;vcl.lib;bcbie.lib;vclwinx.lib;vclimg.lib;bindengine.lib;vclie.lib;vcledge.lib</LinkPackageStatics>
-        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
         <Icon_MainIcon>..\..\..\Source\Resource\Image\MediaInfo.ico</Icon_MainIcon>
         <Defines>MEDIAINFODLL_NAME=L&quot;MediaInfo.dll&quot;;$(Defines)</Defines>
         <ILINK_DelayLoadDll>user32.dll;$(ILINK_DelayLoadDll)</ILINK_DelayLoadDll>
@@ -167,16 +166,17 @@
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <LinkPackageStatics>rtl.lib;vcl.lib;bcbie.lib;vclwinx.lib;vclimg.lib;bindengine.lib;vclie.lib;vcledge.lib</LinkPackageStatics>
-        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
         <Icon_MainIcon>..\..\..\Source\Resource\Image\MediaInfo.ico</Icon_MainIcon>
         <Defines>MEDIAINFODLL_NAME=L&quot;MediaInfo.dll&quot;;$(Defines)</Defines>
         <ILINK_DelayLoadDll>user32;$(ILINK_DelayLoadDll)</ILINK_DelayLoadDll>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64x)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
+        <Icon_MainIcon>..\..\..\Source\Resource\Image\MediaInfo.ico</Icon_MainIcon>
+        <LinkPackageStatics>rtl.lib;vcl.lib;vclwinx.lib;vclimg.lib;bindengine.lib;vclie.lib;vcledge.lib</LinkPackageStatics>
     </PropertyGroup>
     <ItemGroup>
-        <LibFiles Include="c:\program files (x86)\embarcadero\studio\22.0\lib\win32\release\wininet.lib" Condition="'$(Platform)'=='Win32'">
+        <LibFiles Include="c:\program files (x86)\embarcadero\studio\23.0\lib\win32\release\wininet.lib" Condition="'$(Platform)'=='Win32'">
             <BuildOrder>16</BuildOrder>
             <IgnorePath>true</IgnorePath>
         </LibFiles>
@@ -248,6 +248,10 @@
             <BuildOrder>15</BuildOrder>
             <IgnorePath>true</IgnorePath>
         </LibFiles>
+        <LibFiles Include="..\..\..\..\ZenLib\Project\BCB\Library\Win64x\Release\ZenLib.lib" Condition="'$(Platform)'=='Win64x'">
+            <BuildOrder>19</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
         <LibFiles Include="..\..\..\..\ZenLib\Project\BCB\Library\Win64\Release\ZenLib.a" Condition="'$(Platform)'=='Win64'">
             <BuildOrder>17</BuildOrder>
             <IgnorePath>true</IgnorePath>
@@ -256,15 +260,19 @@
             <BuildOrder>16</BuildOrder>
             <IgnorePath>true</IgnorePath>
         </LibFiles>
+        <LibFiles Include="..\..\..\..\zlib\contrib\BCB\Win64x\Release\zlib.lib" Condition="'$(Platform)'=='Win64x'">
+            <BuildOrder>20</BuildOrder>
+            <IgnorePath>true</IgnorePath>
+        </LibFiles>
         <LibFiles Include="..\..\..\..\zlib\contrib\BCB\Win64\Release\zlib.a" Condition="'$(Platform)'=='Win64'">
             <BuildOrder>18</BuildOrder>
             <IgnorePath>true</IgnorePath>
         </LibFiles>
+        <FormResources Include="..\..\..\Source\GUI\VCL\GUI_Web.dfm"/>
         <FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Sheet.dfm"/>
         <FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Output.dfm"/>
         <FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Language.dfm"/>
         <FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Custom.dfm"/>
-        <FormResources Include="..\..\..\Source\GUI\VCL\GUI_Web.dfm"/>
         <FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences.dfm"/>
         <FormResources Include="..\..\..\Source\GUI\VCL\GUI_Plugin.dfm"/>
         <FormResources Include="..\..\..\Source\GUI\VCL\GUI_Main.dfm"/>
@@ -414,7 +422,7 @@
                 <DeployFile LocalName="..\..\..\..\zlib\contrib\BCB\Win32\Release\zlib.lib" Configuration="Release" Class="ProjectFile"/>
                 <DeployFile LocalName="..\..\..\..\zlib\contrib\BCB\Win64\Release\zlib.a" Configuration="Release" Class="ProjectFile"/>
                 <DeployFile LocalName=".\Win64\Release\MediaInfo_GUI.exe" Configuration="Release" Class="ProjectOutput"/>
-                <DeployFile LocalName="c:\program files (x86)\embarcadero\studio\22.0\lib\win32\release\wininet.lib" Configuration="Release" Class="ProjectFile"/>
+                <DeployFile LocalName="c:\program files (x86)\embarcadero\studio\23.0\lib\win32\release\wininet.lib" Configuration="Release" Class="ProjectFile"/>
                 <DeployClass Name="AdditionalDebugSymbols">
                     <Platform Name="iOSSimulator">
                         <Operation>1</Operation>
@@ -1383,7 +1391,7 @@
             <Platforms>
                 <Platform value="Win32">True</Platform>
                 <Platform value="Win64">True</Platform>
-                <Platform value="Win64x">False</Platform>
+                <Platform value="Win64x">True</Platform>
             </Platforms>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
