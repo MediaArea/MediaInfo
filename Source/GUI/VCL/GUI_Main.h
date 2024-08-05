@@ -232,7 +232,6 @@ __published:    // IDE-managed Components
     void __fastcall M_Debug_HeaderClick(TObject *Sender);
     void __fastcall M_File_ExitClick(TObject *Sender);
     void __fastcall M_File_Open_FileClick(TObject *Sender);
-    void __fastcall FormShow(TObject *Sender);
     void __fastcall M_Debug_AdvancedClick(TObject *Sender);
     void __fastcall M_Options_ShowToolBarClick(TObject *Sender);
     void __fastcall M_View_EasyClick(TObject *Sender);

@@ -46,6 +46,14 @@ __fastcall TPreferencesF::TPreferencesF(TComponent* Owner)
 }
 
 //---------------------------------------------------------------------------
+void __fastcall TPreferencesF::FormCreate(TObject *Sender)
+{
+
+    GUI_Configure();
+
+}
+
+//---------------------------------------------------------------------------
 void __fastcall TPreferencesF::ComboBox_Update(TComboBox *CB, Prefs_t List)
 {
     //List Update
@@ -389,6 +397,18 @@ void __fastcall TPreferencesF::CB_InfoTipClick(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
+void __fastcall TPreferencesF::CB_RememberWindowPositionClick(TObject *Sender)
+{
+	Prefs->Config(__T("RememberWindowPosition"), 1) = CB_RememberWindowPosition->Checked ? __T("1") : __T("0");
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TPreferencesF::CB_RememberWindowDimensionsClick(TObject *Sender)
+{
+	Prefs->Config(__T("RememberWindowDimensions"), 1) = CB_RememberWindowDimensions->Checked ? __T("1") : __T("0");
+}
+
+//---------------------------------------------------------------------------
 void __fastcall TPreferencesF::CB_ShowToolBarClick(TObject *Sender)
 {
     Prefs->Config(__T("ShowToolBar"), 1)=CB_ShowToolBar->Checked?__T("1"):__T("0");
@@ -581,7 +601,7 @@ void __fastcall TPreferencesF::TreeChange(TObject *Sender,
 //---------------------------------------------------------------------------
 void __fastcall TPreferencesF::General_Language_MoreClick(TObject *Sender)
 {
-    Tree->Select(Tree->Items->Item[7]);
+    Page->ActivePage = Customize_Language;
 }
 
 //---------------------------------------------------------------------------
@@ -600,23 +620,18 @@ void __fastcall TPreferencesF::General_Output_MoreClick(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
-void __fastcall TPreferencesF::FormShow(TObject *Sender)
+void __fastcall TPreferencesF::FormAfterMonitorDpiChanged(TObject *Sender, int OldDPI, int NewDPI)
 {
-    GUI_Configure();
-    General_Output_SelChange(NULL);
-
-    //Not done with BCB because I want to easy select tabs in it
-    //Page->Top=-6;
-    //Page->TabHeight=1;
-    Page->Top=-(Page->TabHeight*1.15);                //Replaced above with this to hide tabs better on high-DPI
-    Page->Height=Page->Height+(Page->TabHeight*1.15); //Required with above line
-    Cancel->Top=Page->Top+Page->Height+(Cancel->Height*0.15);
-    OK->Top=Cancel->Top;
-    ClientHeight=OK->Top+(OK->Height*1.15);
-
-    //Make them same size after DPI scaling
     General_Language_More->Height=General_Language_Sel->Height;
     General_Output_More->Height=General_Output_Sel->Height;
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TPreferencesF::FormShow(TObject *Sender)
+{
+    // review: GUI_Configure should be in FormCreate
+    // GUI_Configure();
+    General_Output_SelChange(NULL);
 }
 
 //---------------------------------------------------------------------------
@@ -632,6 +647,8 @@ void __fastcall TPreferencesF::Setup_GeneralShow(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TPreferencesF::Setup_AdvancedShow(TObject *Sender)
 {
+	CB_RememberWindowPosition->Checked=Prefs->Config(__T("RememberWindowPosition")).To_int32s();
+	CB_RememberWindowDimensions->Checked=Prefs->Config(__T("RememberWindowDimensions")).To_int32s();
     CB_ShowToolBar->Checked=Prefs->Config(__T("ShowToolBar")).To_int32s();
     CB_ShowMenu->Checked=Prefs->Config(__T("ShowMenu")).To_int32s();
     Advanced_CloseAllAuto->Checked=Prefs->Config(__T("CloseAllAuto")).To_int32s();
@@ -674,6 +691,10 @@ void __fastcall TPreferencesF::Customize_GraphShow(TObject *Sender)
 void __fastcall TPreferencesF::GUI_Configure()
 {
     //Preparation of GUI
+    
+	for (int cTabIndex = 0; cTabIndex <= Page->PageCount-1; cTabIndex++)
+		Page->Pages[cTabIndex]->TabVisible = False;
+
     Tree->FullExpand();
     Page->ActivePage=Setup;
 
@@ -786,6 +807,10 @@ void __fastcall TPreferencesF::GUI_Configure()
     Custom_Edit->Caption=(Prefs->Translate(__T("Edit"))+__T("...")).c_str();
     Custom_Delete->Caption=Prefs->Translate(__T("Delete")).c_str();
     Custom_New->Caption=(Prefs->Translate(__T("New"))+__T("...")).c_str();
+
+    General_Language_More->Height=General_Language_Sel->Height;
+    General_Output_More->Height=General_Output_Sel->Height;
+
 }
 
 //***************************************************************************

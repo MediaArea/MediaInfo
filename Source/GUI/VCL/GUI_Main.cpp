@@ -6,6 +6,7 @@
 
 //---------------------------------------------------------------------------
 #include <vcl.h>
+#include <Math.hpp>
 #pragma hdrstop
 #include "GUI/VCL/GUI_Main.h"
 #ifndef MEDIAINFOGUI_PREFS_NO
@@ -276,6 +277,11 @@ __fastcall TMainF::TMainF(TComponent* Owner)
         for (int I1 = 1; I1 < ParamCount(); I1++)
             I->Open(Ztring().From_Local(ParamStr(I1).c_str()));
     #endif
+
+    //Refresh global
+    FormResize(NULL);
+    Refresh();
+
 }
 
 //***************************************************************************
@@ -397,7 +403,7 @@ void __fastcall TMainF::GUI_Configure()
 
     //Configure theme
     ConfigTheme();
-
+  
     //Set monospaced font to Cascadia Mono SemiBold if available on current system
     if (Screen->Fonts->IndexOf("Cascadia Mono SemiBold") != -1) {
         TFont* MonoFont = new TFont;
@@ -407,42 +413,82 @@ void __fastcall TMainF::GUI_Configure()
         Page_Custom_Text->Font = MonoFont;
         Page_Sheet_Text->Font = MonoFont;
     }
-}
 
-//---------------------------------------------------------------------------
-void __fastcall TMainF::FormShow(TObject *Sender)
-{
-    //Set window size and position
-    OSVERSIONINFO osvi;
-    ZeroMemory(&osvi, sizeof(OSVERSIONINFO));
-    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-    GetVersionEx(&osvi);
-    int DPI;
-    if (osvi.dwMajorVersion >= 10 && (osvi.dwMajorVersion > 10 || osvi.dwMinorVersion > 0 || osvi.dwBuildNumber >= 14939))
-        DPI=GetDpiForWindow(WindowHandle);
-    else
-        DPI=GetDeviceCaps(GetDC(NULL), LOGPIXELSX);
-    float DPIScale=static_cast<float>(DPI)/96;
-    float ScaledScreenWidth=Screen->Width/DPIScale;
-    float ScaledScreenHeight=Screen->Height/DPIScale;
-    Width=500;
-    Height=400;
-    if (ScaledScreenWidth>=1024)
-        Width=700;
-    if (ScaledScreenWidth>=1280)
-        Width=830;
-    if (ScaledScreenHeight>=768)
-        Height=500;
-    if (ScaledScreenHeight>=1024)
-        Height=600;
-    Width*=DPIScale;
-    Height*=DPIScale;
-    Left=(Screen->Width-Width)/2;
-    Top=(Screen->Height-Height)/2;
+	//Set window size and position
+	if (Prefs->Config(__T("RememberWindowDimensions")) == __T("1")) {
 
-    //Refresh global
-    FormResize(NULL);
-    Refresh();
+		int nPrefWidth = Width;
+		int nPrefHeight = Height;
+
+		if (Prefs->Config(__T("FormWidth")).IsNumber())
+			nPrefWidth = Prefs->Config(__T("FormWidth")).To_int32s();
+		if (Prefs->Config(__T("FormHeight")).IsNumber())
+			nPrefHeight = Prefs->Config(__T("FormHeight")).To_int32s();
+
+		nPrefWidth = Min(Monitor->WorkareaRect.Width(), nPrefWidth);
+		nPrefHeight = Min(Monitor->WorkareaRect.Height(), nPrefHeight);
+
+		SetBounds(Left, Top, nPrefWidth, nPrefHeight);
+
+	}
+	else {
+
+		// using VCL
+		float fpUnscaledMonitorWidth = Monitor->Width / ScaleFactor;
+		float fpUnscaledMonitorHeight = Monitor->Height / ScaleFactor;
+
+		Width=500;
+		Height=400;
+		if (fpUnscaledMonitorWidth>=1024)
+			Width=700;
+		if (fpUnscaledMonitorWidth>=1280)
+			Width=830;
+		if (fpUnscaledMonitorHeight>=768)
+			Height=500;
+		if (fpUnscaledMonitorHeight>=1024)
+			Height=600;
+		if (fpUnscaledMonitorHeight>=1440)
+			Height=900;
+		Width *= ScaleFactor;
+		Height *= ScaleFactor;
+		// note: just use poScreenCenter
+		// Left=(Screen->Width-Width)/2;
+		// Top=(Screen->Height-Height)/2;
+
+	}
+	if (Prefs->Config(__T("RememberWindowPosition")) == __T("1")) {
+
+		int nPrefTop = 0;
+		int nPrefLeft = 0;
+
+		if (Prefs->Config(__T("FormTop")).IsNumber())
+			nPrefTop = Prefs->Config(__T("FormTop")).To_int32s();
+		if (Prefs->Config(__T("FormLeft")).IsNumber())
+			nPrefLeft = Prefs->Config(__T("FormLeft")).To_int32s();
+
+		nPrefTop = Max(nPrefTop, 0);
+		nPrefTop = Min(nPrefTop,  Monitor->WorkareaRect.Height() - Height);
+		nPrefLeft = Max(nPrefLeft, 0);
+		nPrefLeft = Min(nPrefLeft, Monitor->WorkareaRect.Width() - Width);
+		SetBounds(nPrefLeft, nPrefTop, Width, Height);
+
+		Position = poDesigned;
+
+	}
+	else {
+		Position = poScreenCenter;
+	}
+
+	// debug: Dimensions won't restore properly from Maximized state
+	if ( ((Prefs->Config(__T("RememberWindowPosition")) == __T("1")) ||
+		  (Prefs->Config(__T("RememberWindowDimensions")) == __T("1"))) ) {
+		int nPrefWindowState = 0;
+		if (Prefs->Config(__T("WindowState")).IsNumber())
+			nPrefWindowState = Prefs->Config(__T("WindowState")).To_int32s();
+		if (nPrefWindowState == (int)TWindowState::wsMaximized)
+			WindowState = wsMaximized;
+	}
+
 }
 
 //---------------------------------------------------------------------------
@@ -451,6 +497,22 @@ void __fastcall TMainF::FormClose(TObject *Sender, TCloseAction &Action)
     //Delete temp HTML file on close
     if (FileName_Temp!=__T(""))
         File::Delete(FileName_Temp);
+
+	if ( ((Prefs->Config(__T("RememberWindowPosition")) == __T("1")) || 
+          (Prefs->Config(__T("RememberWindowDimensions")) == __T("1"))) ) {
+		Prefs->Config(__T("WindowState")).From_Number((int)WindowState);
+		if (WindowState != wsMaximized) {
+			if (Prefs->Config(__T("RememberWindowPosition")) == __T("1")) {
+				Prefs->Config(__T("FormTop")).From_Number((int)this->Top);
+				Prefs->Config(__T("FormLeft")).From_Number((int)this->Left);
+			}
+			if (Prefs->Config(__T("RememberWindowDimensions")) == __T("1")) {
+				Prefs->Config(__T("FormWidth")).From_Number((int)this->Width);
+				Prefs->Config(__T("FormHeight")).From_Number((int)this->Height);
+			}
+		}
+		Prefs->Config.Save();
+	}
 
     //The form is closed and all allocated memory for the form is freed.
     Action = caFree;

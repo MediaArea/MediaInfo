@@ -255,6 +255,8 @@ int Preferences::Config_Save()
     if (Config(__T("ShellExtension")).empty()) Config(__T("ShellExtension"))=__T("1");
     if (Config(__T("ShellExtension_Folder")).empty()) Config(__T("ShellExtension_Folder"))=__T("0");
     if (Config(__T("ShellInfoTip")).empty()) Config(__T("ShellInfoTip"))=__T("0");
+	if (Config(__T("RememberWindowPosition")).empty()) Config(__T("RememberWindowPosition"))=__T("0");
+	if (Config(__T("RememberWindowDimensions")).empty()) Config(__T("RememberWindowDimensions"))=__T("1");
     if (Config(__T("ShowToolBar")).empty()) Config(__T("ShowToolBar"))=__T("1");
     if (Config(__T("ShowMenu")).empty()) Config(__T("ShowMenu"))=__T("1");
     if (Config(__T("CloseAllAuto")).empty()) Config(__T("CloseAllAuto"))=__T("1");

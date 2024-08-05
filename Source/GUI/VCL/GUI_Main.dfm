@@ -14,7 +14,6 @@ object MainF: TMainF
   OnClose = FormClose
   OnDestroy = FormDestroy
   OnResize = FormResize
-  OnShow = FormShow
   TextHeight = 13
   object Page: TPageControl
     Left = 40
