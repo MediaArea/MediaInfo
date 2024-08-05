@@ -1866,8 +1866,8 @@ void __fastcall TMainF::Page_Sheet_Splitter1Moved(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
-void __fastcall TMainF::Page_Sheet_SheetSelectCell(TObject *Sender, int ACol,
-      int ARow, bool &CanSelect)
+void __fastcall TMainF::Page_Sheet_SheetSelectCell(TObject *Sender, System::LongInt ACol,
+    System::LongInt ARow, bool &CanSelect)
 {
     Page_Position=ARow-1;
 
@@ -2089,7 +2089,7 @@ void __fastcall TMainF::DestroyWnd()
 
 //---------------------------------------------------------------------------
 void __fastcall TMainF::ApplicationEvents1OnSettingChange(
-    TObject* Sender, int Flag, const UnicodeString Section, int &Result)
+    TObject* Sender, int Flag, const UnicodeString Section, System::LongInt &Result)
 {
     if (Section == "ImmersiveColorSet") {
         ConfigTheme();

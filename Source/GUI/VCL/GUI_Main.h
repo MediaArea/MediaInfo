@@ -260,8 +260,8 @@ __published:    // IDE-managed Components
     void __fastcall M_LanguageClick(TObject *Sender);
     void __fastcall M_Help_SupportedParametersClick(TObject *Sender);
     void __fastcall M_File_ExportClick(TObject *Sender);
-    void __fastcall Page_Sheet_SheetSelectCell(TObject *Sender, int ACol, int ARow,
-          bool &CanSelect);
+    void __fastcall Page_Sheet_SheetSelectCell(TObject *Sender, System::LongInt ACol,
+          System::LongInt ARow, bool &CanSelect);
     void __fastcall Page_Easy_FileChange(TObject *Sender);
     void __fastcall Page_Easy_DifferentViewClick(TObject *Sender);
     void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
@@ -295,7 +295,7 @@ __published:    // IDE-managed Components
     void __fastcall M_View_Graph_SvgClick(TObject *Sender);
     void __fastcall M_Options_FullParsingClick(TObject *Sender);
     void __fastcall ApplicationEvents1OnSettingChange(TObject *Sender, int Flag, const UnicodeString Section,
-          int &Result);
+          System::LongInt &Result);
     void __fastcall Page_Sheet_Splitter1Moved(TObject *Sender);
     void __fastcall M_Options_Theme_SystemClick(TObject *Sender);
     void __fastcall M_Options_Theme_LightClick(TObject *Sender);
