@@ -161,19 +161,18 @@
         <LinkPackageStatics>rtl.lib;vcl.lib;vclwinx.lib;vclimg.lib;bindengine.lib;vclie.lib;vcledge.lib</LinkPackageStatics>
         <Icon_MainIcon>..\..\..\Source\Resource\Image\MediaInfo.ico</Icon_MainIcon>
         <Defines>MEDIAINFODLL_NAME=L&quot;MediaInfo.dll&quot;;$(Defines)</Defines>
-        <ILINK_DelayLoadDll>user32.dll;$(ILINK_DelayLoadDll)</ILINK_DelayLoadDll>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <LinkPackageStatics>rtl.lib;vcl.lib;vclwinx.lib;vclimg.lib;bindengine.lib;vclie.lib;vcledge.lib</LinkPackageStatics>
         <Icon_MainIcon>..\..\..\Source\Resource\Image\MediaInfo.ico</Icon_MainIcon>
         <Defines>MEDIAINFODLL_NAME=L&quot;MediaInfo.dll&quot;;$(Defines)</Defines>
-        <ILINK_DelayLoadDll>user32;$(ILINK_DelayLoadDll)</ILINK_DelayLoadDll>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64x)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <Icon_MainIcon>..\..\..\Source\Resource\Image\MediaInfo.ico</Icon_MainIcon>
         <LinkPackageStatics>rtl.lib;vcl.lib;vclwinx.lib;vclimg.lib;bindengine.lib;vclie.lib;vcledge.lib</LinkPackageStatics>
+        <Defines>MEDIAINFODLL_NAME=L&quot;MediaInfo.dll&quot;;$(Defines)</Defines>
     </PropertyGroup>
     <ItemGroup>
         <LibFiles Include="c:\program files (x86)\embarcadero\studio\23.0\lib\win32\release\wininet.lib" Condition="'$(Platform)'=='Win32'">

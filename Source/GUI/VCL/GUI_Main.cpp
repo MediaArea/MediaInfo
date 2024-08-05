@@ -413,18 +413,8 @@ void __fastcall TMainF::GUI_Configure()
 void __fastcall TMainF::FormShow(TObject *Sender)
 {
     //Set window size and position
-    OSVERSIONINFO osvi;
-    ZeroMemory(&osvi, sizeof(OSVERSIONINFO));
-    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-    GetVersionEx(&osvi);
-    int DPI;
-    if (osvi.dwMajorVersion >= 10 && (osvi.dwMajorVersion > 10 || osvi.dwMinorVersion > 0 || osvi.dwBuildNumber >= 14939))
-        DPI=GetDpiForWindow(WindowHandle);
-    else
-        DPI=GetDeviceCaps(GetDC(NULL), LOGPIXELSX);
-    float DPIScale=static_cast<float>(DPI)/96;
-    float ScaledScreenWidth=Screen->Width/DPIScale;
-    float ScaledScreenHeight=Screen->Height/DPIScale;
+    float ScaledScreenWidth=Screen->Width/ScaleFactor;
+    float ScaledScreenHeight=Screen->Height/ScaleFactor;
     Width=500;
     Height=400;
     if (ScaledScreenWidth>=1024)
@@ -435,8 +425,8 @@ void __fastcall TMainF::FormShow(TObject *Sender)
         Height=500;
     if (ScaledScreenHeight>=1024)
         Height=600;
-    Width*=DPIScale;
-    Height*=DPIScale;
+    Width*=ScaleFactor;
+    Height*=ScaleFactor;
     Left=(Screen->Width-Width)/2;
     Top=(Screen->Height-Height)/2;
 
