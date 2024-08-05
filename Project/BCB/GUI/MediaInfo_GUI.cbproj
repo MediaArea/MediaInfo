@@ -173,6 +173,7 @@
         <Icon_MainIcon>..\..\..\Source\Resource\Image\MediaInfo.ico</Icon_MainIcon>
         <LinkPackageStatics>rtl.lib;vcl.lib;vclwinx.lib;vclimg.lib;bindengine.lib;vclie.lib;vcledge.lib</LinkPackageStatics>
         <Defines>MEDIAINFODLL_NAME=L&quot;MediaInfo.dll&quot;;$(Defines)</Defines>
+        <ILINK_AdditionalOptions>--strip-all</ILINK_AdditionalOptions>
     </PropertyGroup>
     <ItemGroup>
         <LibFiles Include="c:\program files (x86)\embarcadero\studio\23.0\lib\win32\release\wininet.lib" Condition="'$(Platform)'=='Win32'">
