@@ -255,6 +255,9 @@ __fastcall TMainF::TMainF(TComponent* Owner)
     if (I == NULL)
         I = new MediaInfoList;
 
+    // Intitialize views for HTML output (prevent graphviz plugin from reading invalid metrics)
+    Page_Custom_HTML->Navigate(L"about:blank");
+
     //Load GUI preferences
     GUI_Configure();
 
