@@ -542,11 +542,8 @@ void __fastcall TMainF::FormResize(TObject *Sender)
                 else
                     Page_Sheet_X[KindOfStream]->Top =0; //1st stream, need reference
                 Page_Sheet_X[KindOfStream]->Width   =Page_Sheet->ClientWidth-Page_Sheet_X_Web[KindOfStream]->Width;
-                if (Page_Sheet_X_Web[KindOfStream])
-                {
-                    Page_Sheet_X_Web[KindOfStream]->Top =Page_Sheet_X[KindOfStream]->Top+1;
-                    Page_Sheet_X_Web[KindOfStream]->Left=Page_Sheet_X[KindOfStream]->Width;
-                }
+                Page_Sheet_X_Web[KindOfStream]->Top =Page_Sheet_X[KindOfStream]->Top+1;
+                Page_Sheet_X_Web[KindOfStream]->Left=Page_Sheet_X[KindOfStream]->Width;
                 if (!Page_Sheet_X[KindOfStream+1]) //reached the bottom
                 {
                     //Bottom
@@ -762,7 +759,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
     //Easy
          if (Page==Page_Easy)
     {
-        size_t ItemIndex_Save=Page_Easy_File->ItemIndex;
+        int ItemIndex_Save=Page_Easy_File->ItemIndex;
         Page_Easy_File->Items->Clear();
         for (size_t FilePos=0; FilePos<FilesCount; FilePos++)
             Page_Easy_File->Items->Add(I->Get(FilePos, Stream_General, 0, __T("CompleteName")).c_str());
@@ -1272,7 +1269,7 @@ void __fastcall TMainF::M_File_Open_FolderClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_File_Close_FileClick(TObject *Sender)
 {
-    size_t Position=-1;
+    int Position=-1;
     if (Page->ActivePage==Page_Easy)
         Position=Page_Easy_File->ItemIndex;
 
