@@ -1077,7 +1077,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
                     else
                     {
                         Buffer[Count]=(int8u)'\0';
-                        Ztring Template=Ztring().From_UTF8((char*)Buffer);
+                        Ztring Template=Ztring().From_UTF8(reinterpret_cast<char*>(Buffer));
                         if (Template.FindAndReplace(__T("@SVG@"), S1)==0)
                             S1=__T("Invalid template");
                         else
@@ -1111,7 +1111,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             F.Write(S1);
             F.Close();
             //Navigate
-            Page_Custom_HTML->Navigate((MediaInfoNameSpace::Char*)FileName_Temp.c_str());
+            Page_Custom_HTML->Navigate(const_cast<MediaInfoNameSpace::Char*>(FileName_Temp.c_str()));
             FormResize(NULL);
         }
         else
@@ -1146,18 +1146,18 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             }
             bool Audio=false;
             bool Subtitle=false;
-            for (size_t I=0; I<List.size(); I++)
+            for (size_t i=0; i<List.size(); ++i)
             {
-                if (List(I, 0)==__T("0000"))
+                if (List(i, 0)==__T("0000"))
                     Audio=true;
-                if (List(I, 0)==__T("S_TEXT/UTF8"))
+                if (List(i, 0)==__T("S_TEXT/UTF8"))
                     Subtitle=true;
                 if (Subtitle)
-                    Page_System_Text.push_back(List.Read(I));
+                    Page_System_Text.push_back(List.Read(i));
                 else if (Audio)
-                    Page_System_Audio.push_back(List.Read(I));
+                    Page_System_Audio.push_back(List.Read(i));
                 else
-                    Page_System_Video.push_back(List.Read(I));
+                    Page_System_Video.push_back(List.Read(i));
             }
 
             //enumerate codecs in system
@@ -1707,7 +1707,7 @@ void __fastcall TMainF::M_Help_SupportedFormatsClick(TObject *Sender)
 void __fastcall TMainF::M_LanguageClick(TObject *Sender)
 {
     //Special case : Languages, should show the name of language in the local version
-    Ztring Title=Prefs->FilesList[Prefs_Language](((TMenuItem*)Sender)->MenuIndex);
+    Ztring Title=Prefs->FilesList[Prefs_Language]((dynamic_cast<TMenuItem*>(Sender))->MenuIndex);
 
     //Load
     Prefs->Load(Prefs_Language, Title);
@@ -2009,7 +2009,7 @@ void __fastcall TMainF::Page_System_SheetColumnClick(TObject *Sender,
       TListColumn *Column)
 {
     Page_System_Sheet_ColumnToSort = Column->Index;
-    ((TCustomListView *)Sender)->AlphaSort();
+    (dynamic_cast<TCustomListView*>(Sender))->AlphaSort();
 }
 
 //---------------------------------------------------------------------------
