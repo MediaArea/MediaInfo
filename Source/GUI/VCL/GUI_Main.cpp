@@ -533,23 +533,24 @@ void __fastcall TMainF::FormResize(TObject *Sender)
         }
 
         //Streams
-        for (int KindOfStream=0; KindOfStream<Stream_Max; ++KindOfStream)
+        for (int KindOfStream = 0; KindOfStream < Stream_Max; ++KindOfStream)
         {
             if (Page_Sheet_X[KindOfStream])
             {
                 if (KindOfStream!=0 && Page_Sheet_X[KindOfStream-1])
-                    Page_Sheet_X[KindOfStream]->Top =Page_Sheet_X[KindOfStream-1]->Top+Page_Sheet_X[KindOfStream-1]->Height;
+                    Page_Sheet_X[KindOfStream]->Top    = Page_Sheet_X[KindOfStream-1]->Top+Page_Sheet_X[KindOfStream-1]->Height;
                 else
-                    Page_Sheet_X[KindOfStream]->Top =0; //1st stream, need reference
-                Page_Sheet_X[KindOfStream]->Width   =Page_Sheet->ClientWidth-Page_Sheet_X_Web[KindOfStream]->Width;
-                Page_Sheet_X_Web[KindOfStream]->Top =Page_Sheet_X[KindOfStream]->Top+1;
-                Page_Sheet_X_Web[KindOfStream]->Left=Page_Sheet_X[KindOfStream]->Width;
+                    Page_Sheet_X[KindOfStream]->Top    = 0; //1st stream, need reference
+                Page_Sheet_X[KindOfStream]->Width      = Page_Sheet->ClientWidth-Page_Sheet_X_Web[KindOfStream]->Width;
+                Page_Sheet_X_Web[KindOfStream]->Top    = Page_Sheet_X[KindOfStream]->Top+1;
+                Page_Sheet_X_Web[KindOfStream]->Left   = Page_Sheet_X[KindOfStream]->Width;
+                Page_Sheet_X_Web[KindOfStream]->Height = Page_Sheet_X[KindOfStream]->Height;
                 if (!Page_Sheet_X[KindOfStream+1]) //reached the bottom
                 {
                     //Bottom
-                    Page_Sheet_Text->Width =Page_Sheet->ClientWidth;
-                    Page_Sheet_Text->Top   =Page_Sheet_X[KindOfStream]->Top+Page_Sheet_X[KindOfStream]->Height;
-                    Page_Sheet_Text->Height=Page_Sheet_Panel2->Height-(Page_Sheet_X[KindOfStream]->Top+Page_Sheet_X[KindOfStream]->Height);
+                    Page_Sheet_Text->Width  = Page_Sheet->ClientWidth;
+                    Page_Sheet_Text->Top    = Page_Sheet_X[KindOfStream]->Top+Page_Sheet_X[KindOfStream]->Height;
+                    Page_Sheet_Text->Height = Page_Sheet_Panel2->Height-(Page_Sheet_X[KindOfStream]->Top+Page_Sheet_X[KindOfStream]->Height);
                 }
             }
         }
