@@ -1171,13 +1171,9 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
     }
 
     //Form title
-    Ztring Title=GUI_Text(Caption);
-    Title=Title.SubString(__T(""), __T(" - "));
-         if (FilesCount==0)
+    if (FilesCount==0)
         //0 fichier
-    {
         Caption=MEDIAINFO_TITLE;
-    }
     else if (FilesCount==1)
         //un fichier
         Caption=(Ztring(MEDIAINFO_TITLE)+__T(" - ")+I->Get(0, Stream_General, 0, __T("CompleteName"))).c_str();
