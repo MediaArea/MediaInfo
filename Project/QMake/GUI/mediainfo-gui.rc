@@ -19,12 +19,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "MediaArea.net"
             VALUE "FileDescription", "MediaInfo"
-            VALUE "FileVersion", "17.05.0.0"
+            VALUE "FileVersion", "24.06.0.0"
             VALUE "InternalName", "MediaInfo - Qt GUI"
             VALUE "LegalCopyright", "MediaArea.net"
             VALUE "OriginalFilename", "MediaInfo.exe"
             VALUE "ProductName", "MediaInfo"
-            VALUE "ProductVersion", "17.05.0.0"
+            VALUE "ProductVersion", "24.06.0.0"
         END
     END
     BLOCK "VarFileInfo"
@@ -34,4 +34,4 @@ BEGIN
 END
 
 //Icons
-aaaaaaaa    ICON "../../../Source/Resource/Image/MediaInfo_TinyOnly.ico"
+aaaaaaaa    ICON "../../../Source/Resource/Image/MediaInfo.ico"
