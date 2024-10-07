@@ -15,6 +15,7 @@
 #include <vfw.h>                        // ICINFO
 #include "Utils.h"
 #include "Preferences.h"
+#include "tchar.h"
 #include <ZenLib/Ztring.h>
 #include <ZenLib/File.h>
 using namespace ZenLib;

@@ -581,14 +581,14 @@ object MainF: TMainF
     object Page_HTML: TTabSheet
       Caption = 'HTML'
       ImageIndex = 6
-      object Page_HTML_HTML: TCppWebBrowser
-        Left = 4
+      object Page_HTML_HTML: TWebBrowser
+        Left = 0
         Top = 0
-        Width = 673
-        Height = 385
+        Width = 300
+        Height = 150
         TabOrder = 0
         ControlData = {
-          4C0000008E450000CA2700000000000000000000000000000000000000000000
+          4C000000021F0000810F00000000000000000000000000000000000000000000
           000000004C000000000000000000000001000000E0D057007335CF11AE690800
           2B2E126208000000000000004C0000000114020000000000C000000000000046
           8000000000000000000000000000000000000000000000000000000000000000
@@ -621,7 +621,7 @@ object MainF: TMainF
         ScrollBars = ssBoth
         TabOrder = 0
       end
-      object Page_Custom_HTML: TCppWebBrowser
+      object Page_Custom_HTML: TWebBrowser
         Left = 336
         Top = 0
         Width = 300
@@ -729,7 +729,6 @@ object MainF: TMainF
     ShowHint = True
     TabOrder = 1
     Transparent = True
-    ExplicitHeight = 599
     object Tool_File: TToolButton
       Left = 0
       Top = 0
