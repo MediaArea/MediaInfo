@@ -215,7 +215,7 @@ __published:    // IDE-managed Components
     TMenuItem *ToolBar_View_Graph_Svg;
     TImageCollection *ImageCollection1;
     TVirtualImageList *Menu_Image;
-    TVirtualImageList *Toolbar_Image;
+    TVirtualImageList *ToolBar_Image;
     TVirtualImageList *ToolBar_Image_Disabled;
     TFileOpenDialog *FileOpenDialog1;
     TFileOpenDialog *FolderOpenDialog1;

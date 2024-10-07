@@ -533,26 +533,24 @@ void __fastcall TMainF::FormResize(TObject *Sender)
         }
 
         //Streams
-        for (int KindOfStream=0; KindOfStream<Stream_Max; ++KindOfStream)
+        for (int KindOfStream = 0; KindOfStream < Stream_Max; ++KindOfStream)
         {
             if (Page_Sheet_X[KindOfStream])
             {
                 if (KindOfStream!=0 && Page_Sheet_X[KindOfStream-1])
-                    Page_Sheet_X[KindOfStream]->Top =Page_Sheet_X[KindOfStream-1]->Top+Page_Sheet_X[KindOfStream-1]->Height;
+                    Page_Sheet_X[KindOfStream]->Top    = Page_Sheet_X[KindOfStream-1]->Top+Page_Sheet_X[KindOfStream-1]->Height;
                 else
-                    Page_Sheet_X[KindOfStream]->Top =0; //1st stream, need reference
-                Page_Sheet_X[KindOfStream]->Width   =Page_Sheet->ClientWidth-Page_Sheet_X_Web[KindOfStream]->Width;
-                if (Page_Sheet_X_Web[KindOfStream])
-                {
-                    Page_Sheet_X_Web[KindOfStream]->Top =Page_Sheet_X[KindOfStream]->Top+1;
-                    Page_Sheet_X_Web[KindOfStream]->Left=Page_Sheet_X[KindOfStream]->Width;
-                }
+                    Page_Sheet_X[KindOfStream]->Top    = 0; //1st stream, need reference
+                Page_Sheet_X[KindOfStream]->Width      = Page_Sheet->ClientWidth-Page_Sheet_X_Web[KindOfStream]->Width;
+                Page_Sheet_X_Web[KindOfStream]->Top    = Page_Sheet_X[KindOfStream]->Top+1;
+                Page_Sheet_X_Web[KindOfStream]->Left   = Page_Sheet_X[KindOfStream]->Width;
+                Page_Sheet_X_Web[KindOfStream]->Height = Page_Sheet_X[KindOfStream]->Height;
                 if (!Page_Sheet_X[KindOfStream+1]) //reached the bottom
                 {
                     //Bottom
-                    Page_Sheet_Text->Width =Page_Sheet->ClientWidth;
-                    Page_Sheet_Text->Top   =Page_Sheet_X[KindOfStream]->Top+Page_Sheet_X[KindOfStream]->Height;
-                    Page_Sheet_Text->Height=Page_Sheet_Panel2->Height-(Page_Sheet_X[KindOfStream]->Top+Page_Sheet_X[KindOfStream]->Height);
+                    Page_Sheet_Text->Width  = Page_Sheet->ClientWidth;
+                    Page_Sheet_Text->Top    = Page_Sheet_X[KindOfStream]->Top+Page_Sheet_X[KindOfStream]->Height;
+                    Page_Sheet_Text->Height = Page_Sheet_Panel2->Height-(Page_Sheet_X[KindOfStream]->Top+Page_Sheet_X[KindOfStream]->Height);
                 }
             }
         }
@@ -762,7 +760,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
     //Easy
          if (Page==Page_Easy)
     {
-        size_t ItemIndex_Save=Page_Easy_File->ItemIndex;
+        int ItemIndex_Save=Page_Easy_File->ItemIndex;
         Page_Easy_File->Items->Clear();
         for (size_t FilePos=0; FilePos<FilesCount; FilePos++)
             Page_Easy_File->Items->Add(I->Get(FilePos, Stream_General, 0, __T("CompleteName")).c_str());
@@ -1080,7 +1078,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
                     else
                     {
                         Buffer[Count]=(int8u)'\0';
-                        Ztring Template=Ztring().From_UTF8((char*)Buffer);
+                        Ztring Template=Ztring().From_UTF8(reinterpret_cast<char*>(Buffer));
                         if (Template.FindAndReplace(__T("@SVG@"), S1)==0)
                             S1=__T("Invalid template");
                         else
@@ -1114,7 +1112,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             F.Write(S1);
             F.Close();
             //Navigate
-            Page_Custom_HTML->Navigate((MediaInfoNameSpace::Char*)FileName_Temp.c_str());
+            Page_Custom_HTML->Navigate(const_cast<MediaInfoNameSpace::Char*>(FileName_Temp.c_str()));
             FormResize(NULL);
         }
         else
@@ -1149,18 +1147,18 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             }
             bool Audio=false;
             bool Subtitle=false;
-            for (size_t I=0; I<List.size(); I++)
+            for (size_t i=0; i<List.size(); ++i)
             {
-                if (List(I, 0)==__T("0000"))
+                if (List(i, 0)==__T("0000"))
                     Audio=true;
-                if (List(I, 0)==__T("S_TEXT/UTF8"))
+                if (List(i, 0)==__T("S_TEXT/UTF8"))
                     Subtitle=true;
                 if (Subtitle)
-                    Page_System_Text.push_back(List.Read(I));
+                    Page_System_Text.push_back(List.Read(i));
                 else if (Audio)
-                    Page_System_Audio.push_back(List.Read(I));
+                    Page_System_Audio.push_back(List.Read(i));
                 else
-                    Page_System_Video.push_back(List.Read(I));
+                    Page_System_Video.push_back(List.Read(i));
             }
 
             //enumerate codecs in system
@@ -1173,13 +1171,9 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
     }
 
     //Form title
-    Ztring Title=GUI_Text(Caption);
-    Title=Title.SubString(__T(""), __T(" - "));
-         if (FilesCount==0)
+    if (FilesCount==0)
         //0 fichier
-    {
         Caption=MEDIAINFO_TITLE;
-    }
     else if (FilesCount==1)
         //un fichier
         Caption=(Ztring(MEDIAINFO_TITLE)+__T(" - ")+I->Get(0, Stream_General, 0, __T("CompleteName"))).c_str();
@@ -1272,7 +1266,7 @@ void __fastcall TMainF::M_File_Open_FolderClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainF::M_File_Close_FileClick(TObject *Sender)
 {
-    size_t Position=-1;
+    int Position=-1;
     if (Page->ActivePage==Page_Easy)
         Position=Page_Easy_File->ItemIndex;
 
@@ -1710,7 +1704,7 @@ void __fastcall TMainF::M_Help_SupportedFormatsClick(TObject *Sender)
 void __fastcall TMainF::M_LanguageClick(TObject *Sender)
 {
     //Special case : Languages, should show the name of language in the local version
-    Ztring Title=Prefs->FilesList[Prefs_Language](((TMenuItem*)Sender)->MenuIndex);
+    Ztring Title=Prefs->FilesList[Prefs_Language]((dynamic_cast<TMenuItem*>(Sender))->MenuIndex);
 
     //Load
     Prefs->Load(Prefs_Language, Title);
@@ -2012,7 +2006,7 @@ void __fastcall TMainF::Page_System_SheetColumnClick(TObject *Sender,
       TListColumn *Column)
 {
     Page_System_Sheet_ColumnToSort = Column->Index;
-    ((TCustomListView *)Sender)->AlphaSort();
+    (dynamic_cast<TCustomListView*>(Sender))->AlphaSort();
 }
 
 //---------------------------------------------------------------------------

@@ -12,10 +12,8 @@ object PluginF: TPluginF
   Font.Height = -11
   Font.Name = 'Arial'
   Font.Style = []
-  OldCreateOrder = False
   Position = poScreenCenter
   OnShow = FormShow
-  PixelsPerInch = 96
   TextHeight = 14
   object InfoLabel: TLabel
     Left = 5
@@ -89,8 +87,8 @@ object PluginF: TPluginF
     Visible = False
   end
   object Cancel: TButton
-    Left = 35
-    Top = 85
+    Left = 62
+    Top = 112
     Width = 122
     Height = 26
     Cancel = True
@@ -99,8 +97,8 @@ object PluginF: TPluginF
     OnClick = CancelClick
   end
   object Install: TButton
-    Left = 160
-    Top = 85
+    Left = 190
+    Top = 112
     Width = 122
     Height = 26
     Caption = 'Install'
