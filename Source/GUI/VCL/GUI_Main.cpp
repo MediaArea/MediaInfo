@@ -102,9 +102,8 @@ bool __fastcall TMainF::WindowsDarkModeEnabled()
     TRegistry* Reg_AppsUseLightTheme = new TRegistry;
     bool DarkModeEnabled = false;
     try {
-        if (Reg_AppsUseLightTheme->OpenKey(
-                __T("Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize"),
-                false))
+        if (Reg_AppsUseLightTheme->OpenKeyReadOnly(__T(
+                "Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize")))
         {
             if (Reg_AppsUseLightTheme->ValueExists("AppsUseLightTheme"))
                 if (!Reg_AppsUseLightTheme->ReadInteger("AppsUseLightTheme"))
@@ -113,6 +112,7 @@ bool __fastcall TMainF::WindowsDarkModeEnabled()
         }
     } catch (...) {
     }
+    delete Reg_AppsUseLightTheme;
     return DarkModeEnabled;
 }
 
