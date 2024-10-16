@@ -403,7 +403,51 @@ void __fastcall TMainF::GUI_Configure()
         if (!File::Exists(InstallFolder + __T("\\Plugin\\FFmpeg\\version.txt")))
             MessageBox(NULL, __T("An error occured, please download and install the plugin manually from the MediaInfo download page."), __T("Error"), MB_OK);
     }
+
+    Ztring FFmpegPluginVersion=Prefs->Config(__T("FFmpegPluginVersion"));
+    Ztring FFmpegPluginNewestVersion=Prefs->Config(__T("FFmpegPluginNewestVersion"));
+    if (!FFmpegPluginVersion.empty() && (FFmpegPluginNewestVersion.empty() || FFmpegPluginNewestVersion<FFmpegPluginVersion))
+    {
+        if (File::Exists(InstallFolder+__T("\\Plugin\\FFmpeg\\version.txt")))
+        {
+            int8u Buffer[65];
+            size_t Buffer_Size=File(InstallFolder+__T("\\Plugin\\FFmpeg\\version.txt")).Read(Buffer, 64);
+            Buffer[Buffer_Size]='\0';
+            Ztring VersionTxt=Ztring().From_UTF8((const char*)Buffer, Buffer_Size+1);
+            if (VersionTxt!=__T("") && VersionTxt<FFmpegPluginVersion)
+            {
+                TPluginF* P = new TPluginF(this, PLUGIN_FFMPEG);
+                if (P->Configure(true))
+                    P->ShowModal();
+                delete P;
+            }
+            Prefs->Config(__T("FFmpegPluginNewestVersion"))=FFmpegPluginVersion;
+            Prefs->Config_Save();
+        }
+    }
     #endif
+
+    Ztring GraphPluginVersion=Prefs->Config(__T("GraphPluginVersion"));
+    Ztring GraphPluginNewestVersion=Prefs->Config(__T("GraphPluginNewestVersion"));
+    if (!GraphPluginVersion.empty() && (GraphPluginNewestVersion.empty() || GraphPluginNewestVersion<GraphPluginVersion))
+    {
+        if (File::Exists(InstallFolder+__T("\\Plugin\\Graph\\version.txt")))
+        {
+            int8u Buffer[65];
+            size_t Buffer_Size=File(InstallFolder+__T("\\Plugin\\Graph\\version.txt")).Read(Buffer, 64);
+            Buffer[Buffer_Size]='\0';
+            Ztring VersionTxt=Ztring().From_UTF8((const char*)Buffer, Buffer_Size+1);
+            if (VersionTxt!=__T("") && VersionTxt<GraphPluginVersion)
+            {
+                TPluginF* P = new TPluginF(this, PLUGIN_GRAPH);
+                if (P->Configure(true))
+                    P->ShowModal();
+                delete P;
+            }
+            Prefs->Config(__T("GraphPluginNewestVersion"))=GraphPluginVersion;
+            Prefs->Config_Save();
+        }
+    }
 
     //Translation
     Translate();
