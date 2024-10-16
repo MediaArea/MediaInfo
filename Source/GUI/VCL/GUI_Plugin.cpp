@@ -197,16 +197,17 @@ __fastcall TPluginF::TPluginF(TComponent* Owner, plugin Plugin)
 }
 
 //---------------------------------------------------------------------------
-bool __fastcall TPluginF::Configure()
+bool __fastcall TPluginF::Configure(bool Update)
 {
     // Get MediaInfo installation path
-    InstallFolder = Application->ExeName.c_str();
+    Ztring InstallFolder = Application->ExeName.c_str();
     InstallFolder = InstallFolder.substr(0, InstallFolder.rfind(__T("\\")) + 1);
 
     // Check requested plugin
     if (Plugin >= PLUGIN_MAX)
     {
-        MessageBox(NULL, __T("Unable to find installer for the requested plugin, please download it manually from the MediaInfo download page."), __T("Error"), MB_OK);
+        if (!Update)
+            MessageBox(NULL, __T("Unable to find installer for the requested plugin, please download it manually from the MediaInfo download page."), __T("Error"), MB_OK);
         return false;
     }
 
@@ -227,7 +228,8 @@ bool __fastcall TPluginF::Configure()
     }
     if (SourceURL.empty())
     {
-        MessageBox(NULL, __T("Unable to find installer for the requested plugin, please download it manually from the MediaInfo download page."), __T("Error"), MB_OK);
+        if (!Update)
+            MessageBox(NULL, __T("Unable to find installer for the requested plugin, please download it manually from the MediaInfo download page."), __T("Error"), MB_OK);
         return false;
     }
 
@@ -236,12 +238,19 @@ bool __fastcall TPluginF::Configure()
     TCHAR TempFileName[MAX_PATH + 1];
     if (GetTempPath(MAX_PATH, TempPathBuffer) == 0 || GetTempFileName(TempPathBuffer, TEXT("MI_"), 0, TempFileName) == 0)
     {
-        MessageBox(NULL, __T("Unable to find installer for the requested plugin, please download it manually from the MediaInfo download page."), __T("Error"), MB_OK);
+        if (!Update)
+            MessageBox(NULL, __T("Unable to find installer for the requested plugin, please download it manually from the MediaInfo download page."), __T("Error"), MB_OK);
         return false;
     }
 
     TempPath = Ztring(TempFileName) + __T(".exe");
     File::Move(Ztring(TempFileName), TempPath);
+
+    if (Update)
+    {
+        InfoLabel->Caption = __T("A new version of this plugin is available:");
+        AskLabel->Caption = __T("Would you like to update this plugin?");
+    }
 
     return true;
 }
