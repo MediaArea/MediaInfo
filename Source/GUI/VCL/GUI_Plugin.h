@@ -100,7 +100,7 @@ __published:    // IDE-managed Components
 public:     // User declarations
     __fastcall TPluginF(TComponent* Owner, plugin Plugin);
 
-    bool __fastcall Configure();
+    bool __fastcall Configure(bool Update=false);
     void __fastcall DownloadInstaller();
     void __fastcall RunInstaller();
     void __fastcall Error();
