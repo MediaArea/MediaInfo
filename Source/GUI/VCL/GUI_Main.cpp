@@ -145,6 +145,7 @@ void __fastcall TMainF::ConfigTheme()
             }
             break;
     }
+    Refresh();
 }
 //---------------------------------------------------------------------------
 
@@ -262,19 +263,6 @@ __fastcall TMainF::TMainF(TComponent* Owner)
     if (I == NULL)
         I = new MediaInfoList;
 
-    //Load GUI preferences
-    GUI_Configure();
-
-    //Set Edge WebView2 UDF directory environment variable
-    Ztring UserDataDir=Prefs->BaseFolder;
-    UserDataDir.resize(UserDataDir.size()-1);
-    UserDataDir=UserDataDir.substr(0, UserDataDir.rfind(__T("\\"))+1);
-    UserDataDir+=__T("WebView2");
-    SetEnvironmentVariable(__T("WEBVIEW2_USER_DATA_FOLDER"), UserDataDir.c_str());
-
-    // Intitialize views for HTML output (prevent graphviz plugin from reading invalid metrics)
-    Page_Custom_HTML->Navigate(L"about:blank");
-
     //File(s) in command line
     #ifdef UNICODE
         if (IsWin9X())
@@ -293,6 +281,9 @@ __fastcall TMainF::TMainF(TComponent* Owner)
         for (int I1 = 1; I1 < ParamCount(); I1++)
             I->Open(Ztring().From_Local(ParamStr(I1).c_str()));
     #endif
+
+    //Load GUI preferences
+    GUI_Configure();
 }
 
 //***************************************************************************
@@ -310,8 +301,6 @@ void __fastcall TMainF::GUI_Configure()
         PreferencesF->Cancel->Enabled=false;
         PreferencesF->ShowModal();
         delete PreferencesF;
-        Prefs->Config_Load(); //Again...
-        #endif //MEDIAINFOGUI_PREFS_NO
 
         //Quick temporary fix for translations after an update
         //----------------------------------------------------------------------------------------------
@@ -340,17 +329,34 @@ void __fastcall TMainF::GUI_Configure()
             }
         }
         //----------------------------------------------------------------------------------------------
+
+        Prefs->Config_Load(); //Again...
+        #endif //MEDIAINFOGUI_PREFS_NO
     }
 
-    // Removed, no more needed
-    //#ifndef MEDIAINFOGUI_UPDATE_NO
-    //Web Updates
-    //if (Prefs->Config(__T("CheckUpdate"))==__T("1"))
-    //{
-    //    WebF=new TWebF(this);
-    //    WebF->Execute();
-    //}
-    //#endif //MEDIAINFOGUI_UPDATE_NO
+    //Set Edge WebView2 UDF directory environment variable
+    Ztring UserDataDir=Prefs->BaseFolder;
+    UserDataDir.resize(UserDataDir.size()-1);
+    UserDataDir=UserDataDir.substr(0, UserDataDir.rfind(__T("\\"))+1);
+    UserDataDir+=__T("WebView2");
+    SetEnvironmentVariable(__T("WEBVIEW2_USER_DATA_FOLDER"), UserDataDir.c_str());
+
+    //Opt-out from styling dialogs and use native Windows dialogs for dark mode as well
+    TStyleManager::SystemHooks = TStyleManager::SystemHooks -
+                                 (TStyleManager::TSystemHooks() << TStyleManager::TSystemHook::shDialogs);
+
+    //Configure theme
+    ConfigTheme();
+
+    //Set monospaced font to Cascadia Mono SemiBold if available on current system
+    if (Screen->Fonts->IndexOf("Cascadia Mono SemiBold") != -1) {
+        TFont* MonoFont = new TFont;
+        MonoFont->Name = "Cascadia Mono SemiBold";
+        MonoFont->Size = 10;
+        Page_Text_Text->Font = MonoFont;
+        Page_Custom_Text->Font = MonoFont;
+        Page_Sheet_Text->Font = MonoFont;
+    }
 
     //Menu - View
          if (Prefs->Config(__T("Output"))==__T("Basic")) {M_View_EasyClick(NULL); M_View_Easy->Checked=true;}
@@ -452,27 +458,6 @@ void __fastcall TMainF::GUI_Configure()
     //Translation
     Translate();
 
-    //Opt-out from styling dialogs and use native Windows dialogs for dark mode as well
-    TStyleManager::SystemHooks = TStyleManager::SystemHooks -
-                                 (TStyleManager::TSystemHooks() << TStyleManager::TSystemHook::shDialogs);
-
-    //Configure theme
-    ConfigTheme();
-
-    //Set monospaced font to Cascadia Mono SemiBold if available on current system
-    if (Screen->Fonts->IndexOf("Cascadia Mono SemiBold") != -1) {
-        TFont* MonoFont = new TFont;
-        MonoFont->Name = "Cascadia Mono SemiBold";
-        MonoFont->Size = 10;
-        Page_Text_Text->Font = MonoFont;
-        Page_Custom_Text->Font = MonoFont;
-        Page_Sheet_Text->Font = MonoFont;
-    }
-}
-
-//---------------------------------------------------------------------------
-void __fastcall TMainF::FormShow(TObject *Sender)
-{
     //Set window size and position
     float ScaledScreenWidth=Screen->Width/ScaleFactor;
     float ScaledScreenHeight=Screen->Height/ScaleFactor;
@@ -490,10 +475,6 @@ void __fastcall TMainF::FormShow(TObject *Sender)
     Height*=ScaleFactor;
     Left=(Screen->Width-Width)/2;
     Top=(Screen->Height-Height)/2;
-
-    //Refresh global
-    FormResize(NULL);
-    Refresh();
 }
 
 //---------------------------------------------------------------------------
