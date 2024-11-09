@@ -497,7 +497,6 @@ object MainF: TMainF
           Font.Pitch = fpFixed
           Font.Style = []
           ParentFont = False
-          ReadOnly = True
           ScrollBars = ssVertical
           TabOrder = 8
         end
@@ -571,7 +570,6 @@ object MainF: TMainF
         Font.Style = []
         ParentFont = False
         ParentShowHint = False
-        ReadOnly = True
         ScrollBars = ssBoth
         ShowHint = True
         TabOrder = 0
@@ -617,7 +615,6 @@ object MainF: TMainF
         Font.Pitch = fpFixed
         Font.Style = []
         ParentFont = False
-        ReadOnly = True
         ScrollBars = ssBoth
         TabOrder = 0
       end
