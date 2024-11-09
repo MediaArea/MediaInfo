@@ -514,15 +514,15 @@ void MainWindow::refreshDisplay() {
             default:
             case VIEW_TEXT:
                 C->Menu_View_Text();
-                viewWidget = new QTextBrowser();
-                ((QTextBrowser*)viewWidget)->setFont(font);
+                viewWidget = new QTextEdit();
+                ((QTextEdit*)viewWidget)->setFont(font);
                 if(ConfigTreeText::getIndex()==0)
-                    ((QTextBrowser*)viewWidget)->setText(wstring2QString(C->Inform_Get()));
+                    ((QTextEdit*)viewWidget)->setText(wstring2QString(C->Inform_Get()));
                 else {
                     for (size_t FilePos=0; FilePos<C->Count_Get(); FilePos++) {
                         for (int streamKind=0;streamKind<4;streamKind++) {
                             if(!ConfigTreeText::getConfigTreeText()->getFields(streamKind).isEmpty())
-                                ((QTextBrowser*)viewWidget)->append("\n"+wstring2QString(C->Get(FilePos, (stream_t)streamKind, 0, __T("StreamKind/String"), Info_Text)));
+                                ((QTextEdit*)viewWidget)->append("\n"+wstring2QString(C->Get(FilePos, (stream_t)streamKind, 0, __T("StreamKind/String"), Info_Text)));
                             for (size_t streamPos=Stream_General; streamPos<C->Count_Get(FilePos, (stream_t)streamKind); streamPos++)
                             {
                                 foreach(QString field, ConfigTreeText::getConfigTreeText()->getFields(streamKind)) {
@@ -530,7 +530,7 @@ void MainWindow::refreshDisplay() {
                                     QString B=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Name_Text));
                                     if (B.isEmpty())
                                         B=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Name));
-                                    ((QTextBrowser*)viewWidget)->append(B+" : "+A);
+                                    ((QTextEdit*)viewWidget)->append(B+" : "+A);
                                 }
                             }
                         }
