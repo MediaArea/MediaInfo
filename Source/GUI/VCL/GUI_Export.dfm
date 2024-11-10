@@ -11,7 +11,7 @@ object ExportF: TExportF
   Font.Height = -11
   Font.Name = 'Arial'
   Font.Style = []
-  Position = poScreenCenter
+  Position = poOwnerFormCenter
   TextHeight = 14
   object Cancel: TButton
     Left = 373

@@ -10,10 +10,8 @@ object Preferences_SheetF: TPreferences_SheetF
   Font.Height = -11
   Font.Name = 'Arial'
   Font.Style = []
-  OldCreateOrder = False
-  Position = poScreenCenter
+  Position = poOwnerFormCenter
   OnResize = FormResize
-  PixelsPerInch = 96
   TextHeight = 14
   object Column_Text0: TLabel
     Left = 362
@@ -36,7 +34,6 @@ object Preferences_SheetF: TPreferences_SheetF
     Width = 156
     Height = 22
     Style = csDropDownList
-    ItemHeight = 0
     TabOrder = 0
     Visible = False
     OnChange = Column_Parameter0Change
@@ -47,7 +44,6 @@ object Preferences_SheetF: TPreferences_SheetF
     Width = 87
     Height = 22
     Style = csDropDownList
-    ItemHeight = 0
     TabOrder = 1
     Visible = False
     OnChange = Column_Kind0Change
@@ -58,7 +54,6 @@ object Preferences_SheetF: TPreferences_SheetF
     Width = 44
     Height = 22
     Style = csDropDownList
-    ItemHeight = 0
     TabOrder = 2
     OnChange = ColumnsCountChange
   end
@@ -99,7 +94,6 @@ object Preferences_SheetF: TPreferences_SheetF
     Top = 95
     Width = 52
     Height = 22
-    ItemHeight = 0
     TabOrder = 6
     Visible = False
   end
@@ -109,7 +103,6 @@ object Preferences_SheetF: TPreferences_SheetF
     Width = 53
     Height = 22
     Style = csDropDownList
-    ItemHeight = 0
     TabOrder = 7
     Visible = False
     OnChange = Column_Pos0Change

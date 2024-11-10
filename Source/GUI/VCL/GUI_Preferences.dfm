@@ -4,20 +4,20 @@ object PreferencesF: TPreferencesF
   BorderIcons = []
   BorderStyle = bsDialog
   Caption = 'Preferences'
-  ClientHeight = 194
-  ClientWidth = 667
+  ClientHeight = 200
+  ClientWidth = 850
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Arial'
   Font.Style = []
-  Position = poDesigned
+  Position = poOwnerFormCenter
   OnShow = FormShow
   TextHeight = 14
   object OK: TButton
-    Left = 540
-    Top = 163
+    Left = 720
+    Top = 166
     Width = 122
     Height = 27
     Caption = 'OK'
@@ -53,8 +53,8 @@ object PreferencesF: TPreferencesF
       084C0061006E0067007500610067006500}
   end
   object Cancel: TButton
-    Left = 415
-    Top = 163
+    Left = 593
+    Top = 166
     Width = 121
     Height = 27
     Cancel = True
@@ -65,8 +65,8 @@ object PreferencesF: TPreferencesF
   object Page: TPageControl
     Left = 176
     Top = 0
-    Width = 490
-    Height = 158
+    Width = 666
+    Height = 160
     ActivePage = Setup
     MultiLine = True
     TabHeight = 22
@@ -75,32 +75,32 @@ object PreferencesF: TPreferencesF
       Caption = 'General'
       OnShow = Setup_GeneralShow
       object Langue_C: TLabel
-        Left = 0
-        Top = 3
+        Left = 2
+        Top = 7
         Width = 54
         Height = 14
         Caption = 'Language :'
       end
       object Output_C: TLabel
-        Left = 0
-        Top = 29
+        Left = 2
+        Top = 33
         Width = 38
         Height = 14
         Caption = 'Output :'
       end
       object General_Language_Sel: TComboBox
-        Left = 124
-        Top = 0
-        Width = 113
+        Left = 164
+        Top = 4
+        Width = 182
         Height = 22
         Style = csDropDownList
         TabOrder = 0
         OnChange = General_Language_SelChange
       end
       object General_Output_Sel: TComboBox
-        Left = 124
-        Top = 26
-        Width = 113
+        Left = 164
+        Top = 30
+        Width = 182
         Height = 22
         Style = csDropDownList
         DropDownCount = 10
@@ -115,9 +115,9 @@ object PreferencesF: TPreferencesF
           'Custom')
       end
       object CB_CheckUpdate: TCheckBox
-        Left = 0
-        Top = 52
-        Width = 506
+        Left = 2
+        Top = 56
+        Width = 655
         Height = 18
         Caption = 'Check for newest versions (require Internet connection)'
         Checked = True
@@ -126,27 +126,27 @@ object PreferencesF: TPreferencesF
         OnClick = CB_CheckUpdateClick
       end
       object General_Language_More: TButton
-        Left = 239
-        Top = 0
-        Width = 57
+        Left = 352
+        Top = 4
+        Width = 105
         Height = 23
         Caption = 'More...'
         TabOrder = 6
         OnClick = General_Language_MoreClick
       end
       object General_Output_More: TButton
-        Left = 239
-        Top = 26
-        Width = 57
+        Left = 352
+        Top = 30
+        Width = 105
         Height = 22
         Caption = 'More...'
         TabOrder = 7
         OnClick = General_Output_MoreClick
       end
       object CB_InfoTip: TCheckBox
-        Left = 0
-        Top = 100
-        Width = 506
+        Left = 2
+        Top = 104
+        Width = 655
         Height = 18
         Caption = 
           'Shell InfoTip (in explorer, move the mouse on file, info will be' +
@@ -155,9 +155,9 @@ object PreferencesF: TPreferencesF
         OnClick = CB_InfoTipClick
       end
       object CB_InscrireShell: TCheckBox
-        Left = 0
-        Top = 68
-        Width = 506
+        Left = 2
+        Top = 72
+        Width = 655
         Height = 18
         Caption = 
           'Shell extension (in explorer, righ click, there will be a "Media' +
@@ -168,9 +168,9 @@ object PreferencesF: TPreferencesF
         OnClick = CB_InscrireShellClick
       end
       object CB_InscrireShell_Folder: TCheckBox
-        Left = 16
-        Top = 84
-        Width = 369
+        Left = 18
+        Top = 88
+        Width = 639
         Height = 17
         Caption = 'For folders too'
         TabOrder = 4
@@ -182,70 +182,70 @@ object PreferencesF: TPreferencesF
       ImageIndex = 1
       OnShow = Setup_AdvancedShow
       object Advanced_DisplayCaptions_Caption: TLabel
-        Left = 0
+        Left = 2
         Top = 105
         Width = 141
         Height = 14
         Caption = 'Handling of 608/708 streams:'
       end
       object CB_ShowToolBar: TCheckBox
-        Left = 0
-        Top = 0
-        Width = 268
+        Left = 2
+        Top = 1
+        Width = 658
         Height = 18
         Caption = 'Show toolbar'
         TabOrder = 0
         OnClick = CB_ShowToolBarClick
       end
       object Advanced_CloseAllAuto: TCheckBox
-        Left = 0
-        Top = 33
-        Width = 268
+        Left = 2
+        Top = 34
+        Width = 658
         Height = 18
         Caption = 'Close all before open'
         TabOrder = 5
         OnClick = Advanced_CloseAllAutoClick
       end
       object CB_ShowMenu: TCheckBox
-        Left = 0
-        Top = 16
-        Width = 268
+        Left = 2
+        Top = 17
+        Width = 658
         Height = 18
         Caption = 'Show menu'
         TabOrder = 2
         OnClick = CB_ShowMenuClick
       end
       object Advanced_InformVersion: TCheckBox
-        Left = 0
-        Top = 50
-        Width = 268
+        Left = 2
+        Top = 51
+        Width = 658
         Height = 18
         Caption = 'Add version to text output'
         TabOrder = 3
         OnClick = Advanced_InformVersionClick
       end
       object Advanced_InformTimestamp: TCheckBox
-        Left = 0
-        Top = 67
-        Width = 268
+        Left = 2
+        Top = 68
+        Width = 658
         Height = 18
         Caption = 'Add creation date to text output'
         TabOrder = 6
         OnClick = Advanced_InformTimestampClick
       end
       object Advanced_EnableFfmpeg: TCheckBox
-        Left = 0
-        Top = 84
-        Width = 268
+        Left = 2
+        Top = 85
+        Width = 658
         Height = 18
         Caption = 'Enable FFmpeg plugin'
         TabOrder = 4
         OnClick = Advanced_EnableFfmpegClick
       end
       object Advanced_DisplayCaptions_Sel: TComboBox
-        Left = 193
+        Left = 303
         Top = 102
-        Width = 285
+        Width = 352
         Height = 22
         Style = csDropDownList
         DropDownCount = 10
@@ -369,18 +369,18 @@ object PreferencesF: TPreferencesF
       ImageIndex = 8
       OnShow = Customize_GraphShow
       object Graph_Adm_ShowTrackUIDs: TCheckBox
-        Left = 0
-        Top = 0
-        Width = 268
+        Left = 2
+        Top = 3
+        Width = 658
         Height = 18
         Caption = 'ADM: Show TrackUIDs'
         TabOrder = 0
         OnClick = Graph_Adm_ShowTrackUIDsClick
       end
       object Graph_Adm_ShowChannelFormats: TCheckBox
-        Left = 0
-        Top = 16
-        Width = 268
+        Left = 2
+        Top = 19
+        Width = 658
         Height = 18
         Caption = 'ADM: Show ChannelFormats'
         TabOrder = 1

@@ -11,6 +11,7 @@ object MainF: TMainF
   Font.Name = 'Tahoma'
   Font.Style = []
   Menu = MainMenu
+  Position = poScreenCenter
   OnClose = FormClose
   OnDestroy = FormDestroy
   OnResize = FormResize
