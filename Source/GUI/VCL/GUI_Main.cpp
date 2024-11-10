@@ -356,6 +356,7 @@ void __fastcall TMainF::GUI_Configure()
         Page_Text_Text->Font = MonoFont;
         Page_Custom_Text->Font = MonoFont;
         Page_Sheet_Text->Font = MonoFont;
+        delete MonoFont;
     }
 
     //Menu - View
