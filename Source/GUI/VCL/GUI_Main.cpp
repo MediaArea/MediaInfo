@@ -459,7 +459,7 @@ void __fastcall TMainF::GUI_Configure()
     //Translation
     Translate();
 
-    //Set window size and position
+    //Set window size
     float ScaledScreenWidth=Screen->Width/ScaleFactor;
     float ScaledScreenHeight=Screen->Height/ScaleFactor;
     Width=500;
@@ -474,8 +474,6 @@ void __fastcall TMainF::GUI_Configure()
         Height=600;
     Width*=ScaleFactor;
     Height*=ScaleFactor;
-    Left=(Screen->Width-Width)/2;
-    Top=(Screen->Height-Height)/2;
 }
 
 //---------------------------------------------------------------------------

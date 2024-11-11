@@ -612,7 +612,7 @@ void __fastcall TPreferencesF::FormShow(TObject *Sender)
     Page->Height=Page->Height+(Page->TabHeight*1.15); //Required with above line
     Cancel->Top=Page->Top+Page->Height+(Cancel->Height*0.15);
     OK->Top=Cancel->Top;
-    ClientHeight=OK->Top+(OK->Height*1.15);
+    ClientHeight=OK->Top+(OK->Height*1.2);
 
     //Make them same size after DPI scaling
     General_Language_More->Height=General_Language_Sel->Height;

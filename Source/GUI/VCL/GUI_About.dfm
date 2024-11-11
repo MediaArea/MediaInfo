@@ -12,7 +12,7 @@ object AboutF: TAboutF
   Font.Height = -11
   Font.Name = 'Arial'
   Font.Style = []
-  Position = poScreenCenter
+  Position = poOwnerFormCenter
   OnShow = FormShow
   TextHeight = 14
   object Translator: TLabel

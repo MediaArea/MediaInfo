@@ -13,10 +13,8 @@ object Preferences_CustomF: TPreferences_CustomF
   Font.Height = -11
   Font.Name = 'Arial'
   Font.Style = []
-  OldCreateOrder = False
-  Position = poScreenCenter
+  Position = poOwnerFormCenter
   OnResize = FormResize
-  PixelsPerInch = 96
   TextHeight = 14
   object Liste: TComboBox
     Left = 9

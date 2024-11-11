@@ -12,7 +12,7 @@ object WebF: TWebF
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
-  Position = poDesktopCenter
+  Position = poOwnerFormCenter
   WindowState = wsMinimized
   TextHeight = 13
   object Browser: TWebBrowser
