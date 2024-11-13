@@ -32,6 +32,7 @@
 #include <QToolBar>
 #include <QMainWindow>
 #include <QMenuBar>
+#include <QWebEngineView>
 /*
 #include <qwt/qwt_plot.h>
 #include <qwt/qwt_plot_curve.h>
@@ -659,8 +660,8 @@ void MainWindow::refreshDisplay() {
                 break;
             case VIEW_HTML:
                 C->Menu_View_HTML();
-                viewWidget = new QTextBrowser();
-                ((QTextBrowser*)viewWidget)->setHtml(wstring2QString(C->Inform_Get()));
+                viewWidget = new QWebEngineView();
+                ((QWebEngineView*)viewWidget)->setHtml(wstring2QString(C->Inform_Get()));
                 break;
             case VIEW_TREE:
                 C->Menu_View_Tree();
