@@ -100,17 +100,14 @@
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
-   <property name="movable">
-    <bool>false</bool>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
    <property name="iconSize">
     <size>
      <width>32</width>
      <height>32</height>
     </size>
+   </property>
+   <property name="floatable">
+    <bool>false</bool>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>

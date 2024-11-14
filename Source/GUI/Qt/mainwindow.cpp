@@ -500,6 +500,18 @@ void MainWindow::refreshDisplay() {
     ui->actionClose_All->setEnabled(C->Count_Get()>0);
     QDomDocument* xis;
 
+    switch(settings->value("displayCaptions",1).toInt()) {
+    case 0:
+        C->Menu_Option_Preferences_Option(__T("File_DisplayCaptions"),__T("Content"));
+        break;
+    case 1:
+        C->Menu_Option_Preferences_Option(__T("File_DisplayCaptions"),__T("Command"));
+        break;
+    case 2:
+        C->Menu_Option_Preferences_Option(__T("File_DisplayCaptions"),__T("Stream"));
+        break;
+    }
+
     if(C->Count_Get()<=0) {
 #if defined(_WIN32) && defined(WINAPI_FAMILY) && WINAPI_FAMILY==WINAPI_FAMILY_APP //UWP Application
         viewWidget = new QLabel(Tr("You must at least open 1 file.\nOpen a file or a directory."));
@@ -515,6 +527,8 @@ void MainWindow::refreshDisplay() {
             default:
             case VIEW_TEXT:
                 C->Menu_View_Text();
+                C->Menu_Option_Preferences_Option(__T("Inform_Version"), settings->value("informVersion",false).toBool() ? __T("1") : __T("0"));
+                C->Menu_Option_Preferences_Option(__T("Inform_Timestamp"), settings->value("informTimestamp",false).toBool() ? __T("1") : __T("0"));
                 viewWidget = new QTextEdit();
                 ((QTextEdit*)viewWidget)->setFont(font);
                 if(ConfigTreeText::getIndex()==0)
