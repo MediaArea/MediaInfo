@@ -47,6 +47,8 @@ Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
     ui->closeAllBeforeOpen->setChecked(settings->value("closeBeforeOpen",true).toBool());
     ui->comboBox_defaultview->setCurrentIndex(settings->value("defaultView",VIEW_EASY).toInt());
     ui->shellExtension->setChecked(settings->value("shellExtension",true).toBool());
+    ui->informVersion->setChecked(settings->value("informVersion",false).toBool());
+    ui->informTimestamp->setChecked(settings->value("informTimestamp",false).toBool());
 #ifdef NEW_VERSION
     ui->checkForNewVersion->setChecked(settings->value("checkForNewVersion",true).toBool());
 #else
@@ -108,6 +110,8 @@ void Preferences::saveSettings() {
     settings->setValue("rememberToolBarPosition",ui->rememberToolBarPosition->isChecked());
     settings->setValue("rememberGeometry",ui->rememberGeometry->isChecked());
     settings->setValue("shellExtension",ui->shellExtension->isChecked());
+    settings->setValue("informVersion",ui->informVersion->isChecked());
+    settings->setValue("informTimestamp",ui->informTimestamp->isChecked());
     Sheet::setDefault(ui->comboBoxSheet->itemData(ui->comboBoxSheet->currentIndex()).toInt());
     Sheet::save(settings);
     ConfigTreeText::setDefault(ui->treeTextComboBox->itemData(ui->treeTextComboBox->currentIndex()).toInt());

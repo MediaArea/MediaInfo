@@ -241,6 +241,32 @@
           <string>Remember Window Geometry</string>
          </property>
         </widget>
+        <widget class="QCheckBox" name="informVersion">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>160</y>
+           <width>271</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Add version to text output</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="informTimestamp">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>190</y>
+           <width>271</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Add creation date to text output</string>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="Sheet">
         <property name="sizePolicy">

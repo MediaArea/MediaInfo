@@ -515,6 +515,8 @@ void MainWindow::refreshDisplay() {
             default:
             case VIEW_TEXT:
                 C->Menu_View_Text();
+                C->Menu_Option_Preferences_Option(__T("Inform_Version"), settings->value("informVersion",false).toBool() ? __T("1") : __T("0"));
+                C->Menu_Option_Preferences_Option(__T("Inform_Timestamp"), settings->value("informTimestamp",false).toBool() ? __T("1") : __T("0"));
                 viewWidget = new QTextEdit();
                 ((QTextEdit*)viewWidget)->setFont(font);
                 if(ConfigTreeText::getIndex()==0)
