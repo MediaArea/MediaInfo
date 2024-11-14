@@ -529,15 +529,15 @@ void MainWindow::refreshDisplay() {
                 C->Menu_View_Text();
                 C->Menu_Option_Preferences_Option(__T("Inform_Version"), settings->value("informVersion",false).toBool() ? __T("1") : __T("0"));
                 C->Menu_Option_Preferences_Option(__T("Inform_Timestamp"), settings->value("informTimestamp",false).toBool() ? __T("1") : __T("0"));
-                viewWidget = new QTextEdit();
-                ((QTextEdit*)viewWidget)->setFont(font);
+                viewWidget = new QTextBrowser();
+                ((QTextBrowser*)viewWidget)->setFont(font);
                 if(ConfigTreeText::getIndex()==0)
-                    ((QTextEdit*)viewWidget)->setText(wstring2QString(C->Inform_Get()));
+                    ((QTextBrowser*)viewWidget)->setText(wstring2QString(C->Inform_Get()));
                 else {
                     for (size_t FilePos=0; FilePos<C->Count_Get(); FilePos++) {
                         for (int streamKind=0;streamKind<4;streamKind++) {
                             if(!ConfigTreeText::getConfigTreeText()->getFields(streamKind).isEmpty())
-                                ((QTextEdit*)viewWidget)->append("\n"+wstring2QString(C->Get(FilePos, (stream_t)streamKind, 0, __T("StreamKind/String"), Info_Text)));
+                                ((QTextBrowser*)viewWidget)->append("\n"+wstring2QString(C->Get(FilePos, (stream_t)streamKind, 0, __T("StreamKind/String"), Info_Text)));
                             for (size_t streamPos=Stream_General; streamPos<C->Count_Get(FilePos, (stream_t)streamKind); streamPos++)
                             {
                                 foreach(QString field, ConfigTreeText::getConfigTreeText()->getFields(streamKind)) {
@@ -545,7 +545,7 @@ void MainWindow::refreshDisplay() {
                                     QString B=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Name_Text));
                                     if (B.isEmpty())
                                         B=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Name));
-                                    ((QTextEdit*)viewWidget)->append(B+" : "+A);
+                                    ((QTextBrowser*)viewWidget)->append(B+" : "+A);
                                 }
                             }
                         }
