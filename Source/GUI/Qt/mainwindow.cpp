@@ -907,6 +907,7 @@ void MainWindow::applySettings() {
     ui->toolBar->setVisible(settings->value("showToolbar",true).toBool());
     ui->toolBar->setToolButtonStyle(Qt::ToolButtonStyle(settings->value("iconStyle",Qt::ToolButtonIconOnly).toInt()));
     ui->toolBar->setIconSize(settings->value("iconSize",QSize(32,32)).toSize());
+    C->Menu_Option_Preferences_Option(__T("LegacyStreamDisplay"), settings->value("legacyStreamDisplay",false).toBool() ? __T("1") : __T("0"));
 }
 
 void MainWindow::dropEvent(QDropEvent *event)
