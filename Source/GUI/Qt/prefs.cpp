@@ -46,6 +46,7 @@ Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
     ui->showToolbar->setChecked(settings->value("showToolbar",true).toBool());
     ui->closeAllBeforeOpen->setChecked(settings->value("closeBeforeOpen",true).toBool());
     ui->comboBox_defaultview->setCurrentIndex(settings->value("defaultView",VIEW_EASY).toInt());
+    ui->shellExtension->setChecked(settings->value("shellExtension",true).toBool());
 #ifdef NEW_VERSION
     ui->checkForNewVersion->setChecked(settings->value("checkForNewVersion",true).toBool());
 #else
@@ -106,6 +107,7 @@ void Preferences::saveSettings() {
     settings->setValue("defaultView",ui->comboBox_defaultview->currentIndex());
     settings->setValue("rememberToolBarPosition",ui->rememberToolBarPosition->isChecked());
     settings->setValue("rememberGeometry",ui->rememberGeometry->isChecked());
+    settings->setValue("shellExtension",ui->shellExtension->isChecked());
     Sheet::setDefault(ui->comboBoxSheet->itemData(ui->comboBoxSheet->currentIndex()).toInt());
     Sheet::save(settings);
     ConfigTreeText::setDefault(ui->treeTextComboBox->itemData(ui->treeTextComboBox->currentIndex()).toInt());
