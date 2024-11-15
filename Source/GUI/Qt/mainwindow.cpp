@@ -16,6 +16,7 @@
 #include "sheet.h"
 #include "configtreetext.h"
 #include "custom.h"
+#include "graphplugin.h"
 
 #include <QDropEvent>
 #include <QFileDialog>
@@ -431,7 +432,7 @@ void MainWindow::openFiles(QStringList fileNames) {
     for(int i=0;i<fileNames.size();i++) {
         fileNames[i] = QDir::toNativeSeparators(fileNames[i]);
     }
-    C->Menu_File_Open_Files_Begin(settings->value("closeBeforeOpen",true).toBool(), false);
+    C->Menu_File_Open_Files_Begin(settings->value("closeBeforeOpen",true).toBool(), true);
     for (int Pos=0; Pos<fileNames.size(); Pos++)
         C->Menu_File_Open_Files_Continue(QString2wstring(fileNames[Pos]));
     openTimerInit();
@@ -481,7 +482,7 @@ void MainWindow::openDir(QString dirName) {
 
     //Configuring
     dirName = QDir::toNativeSeparators(dirName);
-    C->Menu_File_Open_Files_Begin(settings->value("closeBeforeOpen",true).toBool(), false);
+    C->Menu_File_Open_Files_Begin(settings->value("closeBeforeOpen",true).toBool(), true);
     C->Menu_File_Open_Directory(QString2wstring(dirName));
     openTimerInit();
 
@@ -499,6 +500,8 @@ void MainWindow::refreshDisplay() {
     ui->actionExport->setEnabled(C->Count_Get()>0);
     ui->actionClose_All->setEnabled(C->Count_Get()>0);
     QDomDocument* xis;
+
+    C->Menu_Option_Preferences_Option(__T("Enable_Ffmpeg"), settings->value("enableFFmpeg",false).toBool() ? __T("1") : __T("0"));
 
     switch(settings->value("displayCaptions",1).toInt()) {
     case 0:
@@ -529,15 +532,15 @@ void MainWindow::refreshDisplay() {
                 C->Menu_View_Text();
                 C->Menu_Option_Preferences_Option(__T("Inform_Version"), settings->value("informVersion",false).toBool() ? __T("1") : __T("0"));
                 C->Menu_Option_Preferences_Option(__T("Inform_Timestamp"), settings->value("informTimestamp",false).toBool() ? __T("1") : __T("0"));
-                viewWidget = new QTextEdit();
-                ((QTextEdit*)viewWidget)->setFont(font);
+                viewWidget = new QTextBrowser();
+                ((QTextBrowser*)viewWidget)->setFont(font);
                 if(ConfigTreeText::getIndex()==0)
-                    ((QTextEdit*)viewWidget)->setText(wstring2QString(C->Inform_Get()));
+                    ((QTextBrowser*)viewWidget)->setText(wstring2QString(C->Inform_Get()));
                 else {
                     for (size_t FilePos=0; FilePos<C->Count_Get(); FilePos++) {
                         for (int streamKind=0;streamKind<4;streamKind++) {
                             if(!ConfigTreeText::getConfigTreeText()->getFields(streamKind).isEmpty())
-                                ((QTextEdit*)viewWidget)->append("\n"+wstring2QString(C->Get(FilePos, (stream_t)streamKind, 0, __T("StreamKind/String"), Info_Text)));
+                                ((QTextBrowser*)viewWidget)->append("\n"+wstring2QString(C->Get(FilePos, (stream_t)streamKind, 0, __T("StreamKind/String"), Info_Text)));
                             for (size_t streamPos=Stream_General; streamPos<C->Count_Get(FilePos, (stream_t)streamKind); streamPos++)
                             {
                                 foreach(QString field, ConfigTreeText::getConfigTreeText()->getFields(streamKind)) {
@@ -545,7 +548,7 @@ void MainWindow::refreshDisplay() {
                                     QString B=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Name_Text));
                                     if (B.isEmpty())
                                         B=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Name));
-                                    ((QTextEdit*)viewWidget)->append(B+" : "+A);
+                                    ((QTextBrowser*)viewWidget)->append(B+" : "+A);
                                 }
                             }
                         }
@@ -676,6 +679,10 @@ void MainWindow::refreshDisplay() {
                 C->Menu_View_HTML();
                 viewWidget = new QWebEngineView();
                 ((QWebEngineView*)viewWidget)->setHtml(wstring2QString(C->Inform_Get()));
+                break;
+            case VIEW_GRAPH:
+                viewWidget = new QWebEngineView();
+                ((QWebEngineView*)viewWidget)->setHtml(Generate_Graph_HTML(C));
                 break;
             case VIEW_TREE:
                 C->Menu_View_Tree();
@@ -907,6 +914,7 @@ void MainWindow::applySettings() {
     ui->toolBar->setVisible(settings->value("showToolbar",true).toBool());
     ui->toolBar->setToolButtonStyle(Qt::ToolButtonStyle(settings->value("iconStyle",Qt::ToolButtonIconOnly).toInt()));
     ui->toolBar->setIconSize(settings->value("iconSize",QSize(32,32)).toSize());
+    C->Menu_Option_Preferences_Option(__T("LegacyStreamDisplay"), settings->value("legacyStreamDisplay",false).toBool() ? __T("1") : __T("0"));
 }
 
 void MainWindow::dropEvent(QDropEvent *event)
@@ -1121,6 +1129,10 @@ void MainWindow::on_actionExport_triggered()
             break;
         case Export::HTML:
             C->Menu_View_HTML();
+            file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
+            break;
+        case Export::GRAPH:
+            C->Menu_Option_Preferences_Inform(__T("Graph_Svg"));
             file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
             break;
         case Export::XML:

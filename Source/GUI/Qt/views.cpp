@@ -23,6 +23,8 @@ QString nameView(ViewMode v) {
        break;
    case VIEW_JSON: return Tr("JSON");
        break;
+   case VIEW_GRAPH: return Tr("Graph");
+       break;
    case VIEW_PBCORE: return Tr("PBCore 1.2");
        break;
    case VIEW_PBCORE2: return Tr("PBCore 2.0");

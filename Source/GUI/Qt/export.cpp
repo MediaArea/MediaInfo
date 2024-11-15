@@ -85,6 +85,8 @@ QString Export::extension(int mode) {
         break;
     case HTML: return "html";
         break;
+    case GRAPH: return "svg";
+        break;
     case XML:
     case PBCORE:
     case PBCORE2:
@@ -113,6 +115,8 @@ QString Export::extensionName(int mode) {
     case TEXT: return tr("Text");
         break;
     case HTML: return "HTML";
+        break;
+    case GRAPH: return tr("Graph");
         break;
     case XML:
     case PBCORE:
@@ -146,6 +150,8 @@ QString Export::name(int mode) {
     case XML: return Tr("XML");
         break;
     case JSON: return Tr("JSON");
+        break;
+    case GRAPH: return Tr("Graph");
         break;
     case PBCORE: return Tr("PBCore");
         break;
@@ -194,6 +200,7 @@ void Export::on_comboBoxMode_currentIndexChanged(int index)
         break;
     case XML:
     case JSON:
+    case GRAPH:
     case PBCORE:
     case PBCORE2:
     case MPEG7_Strict:
