@@ -16,6 +16,7 @@
 #include "sheet.h"
 #include "configtreetext.h"
 #include "custom.h"
+#include "graphplugin.h"
 
 #include <QDropEvent>
 #include <QFileDialog>
@@ -678,6 +679,10 @@ void MainWindow::refreshDisplay() {
                 C->Menu_View_HTML();
                 viewWidget = new QWebEngineView();
                 ((QWebEngineView*)viewWidget)->setHtml(wstring2QString(C->Inform_Get()));
+                break;
+            case VIEW_GRAPH:
+                viewWidget = new QWebEngineView();
+                ((QWebEngineView*)viewWidget)->setHtml(Generate_Graph_HTML(C));
                 break;
             case VIEW_TREE:
                 C->Menu_View_Tree();
