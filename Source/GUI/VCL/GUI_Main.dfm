@@ -982,7 +982,6 @@ object MainF: TMainF
         AutoCheck = True
         Caption = 'FIMS 1.3 (beta)'
         RadioItem = True
-        Visible = False
         OnClick = M_View_FIMS_1_3Click
       end
       object M_View_reVTMD: TMenuItem
