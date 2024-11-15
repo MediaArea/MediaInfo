@@ -431,7 +431,7 @@ void MainWindow::openFiles(QStringList fileNames) {
     for(int i=0;i<fileNames.size();i++) {
         fileNames[i] = QDir::toNativeSeparators(fileNames[i]);
     }
-    C->Menu_File_Open_Files_Begin(settings->value("closeBeforeOpen",true).toBool(), false);
+    C->Menu_File_Open_Files_Begin(settings->value("closeBeforeOpen",true).toBool(), true);
     for (int Pos=0; Pos<fileNames.size(); Pos++)
         C->Menu_File_Open_Files_Continue(QString2wstring(fileNames[Pos]));
     openTimerInit();
@@ -481,7 +481,7 @@ void MainWindow::openDir(QString dirName) {
 
     //Configuring
     dirName = QDir::toNativeSeparators(dirName);
-    C->Menu_File_Open_Files_Begin(settings->value("closeBeforeOpen",true).toBool(), false);
+    C->Menu_File_Open_Files_Begin(settings->value("closeBeforeOpen",true).toBool(), true);
     C->Menu_File_Open_Directory(QString2wstring(dirName));
     openTimerInit();
 
