@@ -51,6 +51,7 @@ Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
     ui->informTimestamp->setChecked(settings->value("informTimestamp",false).toBool());
     ui->displayCaptions->setCurrentIndex(settings->value("displayCaptions",1).toInt());
     ui->legacyStreamDisplay->setChecked(settings->value("legacyStreamDisplay",false).toBool());
+    ui->enableFFmpeg->setChecked(settings->value("enableFFmpeg",false).toBool());
 #ifdef NEW_VERSION
     ui->checkForNewVersion->setChecked(settings->value("checkForNewVersion",true).toBool());
 #else
@@ -116,6 +117,7 @@ void Preferences::saveSettings() {
     settings->setValue("informTimestamp",ui->informTimestamp->isChecked());
     settings->setValue("displayCaptions",ui->displayCaptions->currentIndex());
     settings->setValue("legacyStreamDisplay",ui->legacyStreamDisplay->isChecked());
+    settings->setValue("enableFFmpeg",ui->enableFFmpeg->isChecked());
     Sheet::setDefault(ui->comboBoxSheet->itemData(ui->comboBoxSheet->currentIndex()).toInt());
     Sheet::save(settings);
     ConfigTreeText::setDefault(ui->treeTextComboBox->itemData(ui->treeTextComboBox->currentIndex()).toInt());

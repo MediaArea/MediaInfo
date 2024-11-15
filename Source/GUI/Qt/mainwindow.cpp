@@ -500,6 +500,8 @@ void MainWindow::refreshDisplay() {
     ui->actionClose_All->setEnabled(C->Count_Get()>0);
     QDomDocument* xis;
 
+    C->Menu_Option_Preferences_Option(__T("Enable_Ffmpeg"), settings->value("enableFFmpeg",false).toBool() ? __T("1") : __T("0"));
+
     switch(settings->value("displayCaptions",1).toInt()) {
     case 0:
         C->Menu_Option_Preferences_Option(__T("File_DisplayCaptions"),__T("Content"));
