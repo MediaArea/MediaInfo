@@ -23,6 +23,7 @@ public:
         HTML=1,
         XML,
         JSON,
+        GRAPH,
         PBCORE,
         PBCORE2,
         EBUCORE_1_5,

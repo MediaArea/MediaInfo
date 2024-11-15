@@ -1131,6 +1131,10 @@ void MainWindow::on_actionExport_triggered()
             C->Menu_View_HTML();
             file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
             break;
+        case Export::GRAPH:
+            C->Menu_Option_Preferences_Inform(__T("Graph_Svg"));
+            file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
+            break;
         case Export::XML:
             C->Menu_View_XML();
             file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
