@@ -53,10 +53,12 @@ copy "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\%VC
 copy "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\%VCREDIST_VER%\x64\Microsoft.VC143.CRT\msvcp140_codecvt_ids.dll" "%~dp0\MediaInfo_Qt_Windows_x64\"
 copy "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\%VCREDIST_VER%\x64\Microsoft.VC143.CRT\vcruntime140.dll" "%~dp0\MediaInfo_Qt_Windows_x64\"
 copy "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\%VCREDIST_VER%\x64\Microsoft.VC143.CRT\vcruntime140_1.dll" "%~dp0\MediaInfo_Qt_Windows_x64\"
+copy "%~dp0\..\..\MediaArea-Utils-Binaries\Windows\libcurl\x64\Release\LIBCURL.DLL" "%~dp0\MediaInfo_Qt_Windows_x64\"
+copy "%~dp0\..\..\MediaArea-Utils-Binaries\Windows\libcurl\curl-ca-bundle.crt" "%~dp0\MediaInfo_Qt_Windows_x64\"
 
 :: build and add IExplorerCommand shell extension
 MSBuild /t:Clean;Build /restore "/p:RestorePackagesConfig=true;Configuration=Release Qt;Platform=x64" %~dp0\..\Project\MSVC2022\MediaInfo_WindowsShellExtension\MediaInfo_WindowsShellExtension.vcxproj
-copy %~dp0\..\Project\MSVC2022\x64\Release\MediaInfo_WindowsShellExtension.dll %~dp0\MediaInfo_Qt_Windows_x64\
+copy "%~dp0\..\Project\MSVC2022\MediaInfo_WindowsShellExtension\x64\Release Qt\MediaInfo_WindowsShellExtension.dll" "%~dp0\MediaInfo_Qt_Windows_x64\"
 
 :: add MSIX manifest and assets
 xcopy %~dp0\..\Source\WindowsQtPackage %~dp0\MediaInfo_Qt_Windows_x64\ /i /e /r /y
