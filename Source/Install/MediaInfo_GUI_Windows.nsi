@@ -185,7 +185,7 @@ Section -Post
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon"     "$INSTDIR\MediaInfo.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion"  "${PRODUCT_VERSION}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout"    "${PRODUCT_WEB_SITE}"
-  Exec 'regsvr32 "$INSTDIR\MediaInfo_InfoTip.dll" /s'
+  ExecWait '"$SYSDIR\regsvr32.exe" "$INSTDIR\MediaInfo_InfoTip.dll" /s'
   !insertmacro MediaInfo_Extensions_Install
 
   ${If} ${AtLeastWin7}
@@ -199,8 +199,7 @@ SectionEnd
 Section Uninstall
   SetRegView 64
   !insertmacro MediaInfo_Extensions_Uninstall
-  Exec 'regsvr32 "$INSTDIR\MediaInfo_InfoTip.dll" /u /s'
-  Sleep 3000
+  ExecWait '"$SYSDIR\regsvr32.exe" "$INSTDIR\MediaInfo_InfoTip.dll" /u /s'
 
   IfFileExists "$INSTDIR\graph_plugin_uninst.exe" 0 +3
     ExecWait '"$INSTDIR\graph_plugin_uninst.exe" /S _?=$INSTDIR'
@@ -213,10 +212,10 @@ Section Uninstall
   !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\MediaInfo.exe"
   !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\MediaInfo.dll"
   !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\MediaInfo_i386.dll"
+  !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\MediaInfo_InfoTip.dll"
   !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\WebView2Loader.dll"
   Delete "$INSTDIR\${PRODUCT_NAME}.url"
   Delete "$INSTDIR\uninst.exe"
-  Delete "$INSTDIR\MediaInfo_InfoTip.dll"
   Delete "$INSTDIR\History.txt"
   Delete "$INSTDIR\License.html"
   Delete "$INSTDIR\License.NoModifications.html"
