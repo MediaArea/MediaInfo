@@ -682,7 +682,7 @@ void MainWindow::refreshDisplay() {
                 break;
             case VIEW_GRAPH:
                 viewWidget = new QWebEngineView();
-                ((QWebEngineView*)viewWidget)->setHtml(Generate_Graph_HTML(C));
+                ((QWebEngineView*)viewWidget)->setHtml(Generate_Graph_HTML(C, settings));
                 break;
             case VIEW_TREE:
                 C->Menu_View_Tree();

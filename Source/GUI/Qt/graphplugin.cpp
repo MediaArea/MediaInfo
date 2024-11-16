@@ -16,8 +16,10 @@
 
 using namespace ZenLib;
 
-QString Generate_Graph_HTML(Core *C) {
+QString Generate_Graph_HTML(Core *C, QSettings *settings) {
 
+    C->Menu_Option_Preferences_Option(__T("Graph_Adm_ShowTrackUIDs"), settings->value("Graph_Adm_ShowTrackUIDs",false).toBool() ? __T("1") : __T("0"));
+    C->Menu_Option_Preferences_Option(__T("Graph_Adm_ShowChannelFormats"), settings->value("Graph_Adm_ShowChannelFormats",false).toBool() ? __T("1") : __T("0"));
     C->Menu_Option_Preferences_Inform(__T("Graph_Svg"));
 
     Ztring S1 = Ztring();

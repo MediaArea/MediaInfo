@@ -52,6 +52,8 @@ Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
     ui->displayCaptions->setCurrentIndex(settings->value("displayCaptions",1).toInt());
     ui->legacyStreamDisplay->setChecked(settings->value("legacyStreamDisplay",false).toBool());
     ui->enableFFmpeg->setChecked(settings->value("enableFFmpeg",false).toBool());
+    ui->Graph_Adm_ShowTrackUIDs->setChecked(settings->value("Graph_Adm_ShowTrackUIDs",false).toBool());
+    ui->Graph_Adm_ShowChannelFormats->setChecked(settings->value("Graph_Adm_ShowChannelFormats",false).toBool());
 #ifdef NEW_VERSION
     ui->checkForNewVersion->setChecked(settings->value("checkForNewVersion",true).toBool());
 #else
@@ -118,6 +120,8 @@ void Preferences::saveSettings() {
     settings->setValue("displayCaptions",ui->displayCaptions->currentIndex());
     settings->setValue("legacyStreamDisplay",ui->legacyStreamDisplay->isChecked());
     settings->setValue("enableFFmpeg",ui->enableFFmpeg->isChecked());
+    settings->setValue("Graph_Adm_ShowTrackUIDs",ui->Graph_Adm_ShowTrackUIDs->isChecked());
+    settings->setValue("Graph_Adm_ShowChannelFormats",ui->Graph_Adm_ShowChannelFormats->isChecked());
     Sheet::setDefault(ui->comboBoxSheet->itemData(ui->comboBoxSheet->currentIndex()).toInt());
     Sheet::save(settings);
     ConfigTreeText::setDefault(ui->treeTextComboBox->itemData(ui->treeTextComboBox->currentIndex()).toInt());

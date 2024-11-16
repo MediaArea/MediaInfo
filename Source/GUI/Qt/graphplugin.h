@@ -7,9 +7,10 @@
 #ifndef GRAPHPLUGIN_H
 #define GRAPHPLUGIN_H
 
-#include <QString>
 #include "Common/Core.h"
+#include <QSettings>
+#include <QString>
 
-QString Generate_Graph_HTML(Core* C);
+QString Generate_Graph_HTML(Core *C, QSettings *settings);
 
 #endif // GRAPHPLUGIN_H
