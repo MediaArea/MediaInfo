@@ -263,6 +263,9 @@ __fastcall TMainF::TMainF(TComponent* Owner)
     if (I == NULL)
         I = new MediaInfoList;
 
+    //Load GUI preferences
+    GUI_Configure();
+
     //File(s) in command line
     #ifdef UNICODE
         if (IsWin9X())
@@ -282,8 +285,8 @@ __fastcall TMainF::TMainF(TComponent* Owner)
             I->Open(Ztring().From_Local(ParamStr(I1).c_str()));
     #endif
 
-    //Load GUI preferences
-    GUI_Configure();
+    //Refresh after opening files
+    Refresh();
 }
 
 //***************************************************************************
@@ -358,6 +361,10 @@ void __fastcall TMainF::GUI_Configure()
         Page_Sheet_Text->Font = MonoFont;
         delete MonoFont;
     }
+
+    //Options that are set before opening files
+    if (!Prefs->Config(__T("LegacyStreamDisplay")).empty())
+        I->Option_Static(__T("LegacyStreamDisplay"), Prefs->Config(__T("LegacyStreamDisplay")));
 
     //Menu - View
          if (Prefs->Config(__T("Output"))==__T("Basic")) {M_View_EasyClick(NULL); M_View_Easy->Checked=true;}

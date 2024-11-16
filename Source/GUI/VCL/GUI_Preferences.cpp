@@ -465,6 +465,19 @@ void __fastcall TPreferencesF::Advanced_EnableFfmpegClick(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
+void __fastcall TPreferencesF::Advanced_LegacyStreamDisplayClick(TObject *Sender)
+{
+    if (Advanced_LegacyStreamDisplay->Checked)
+    {
+        Prefs->Config(__T("LegacyStreamDisplay"))=__T("1");
+    }
+    else
+    {
+        Prefs->Config(__T("LegacyStreamDisplay"))=__T("0");
+    }
+}
+
+//---------------------------------------------------------------------------
 void __fastcall TPreferencesF::Advanced_DisplayCaptions_SelChange(TObject *Sender)
 {
     if (Advanced_DisplayCaptions_Sel->ItemIndex==0)
@@ -638,6 +651,7 @@ void __fastcall TPreferencesF::Setup_AdvancedShow(TObject *Sender)
     Advanced_InformVersion->Checked=Prefs->Config(__T("InformVersion")).To_int32s();
     Advanced_InformTimestamp->Checked=Prefs->Config(__T("InformTimestamp")).To_int32s();
     Advanced_EnableFfmpeg->Checked=Prefs->Config(__T("EnableFfmpeg")).To_int32s();
+    Advanced_LegacyStreamDisplay->Checked=Prefs->Config(__T("LegacyStreamDisplay")).To_int32s();
 
     //Display captions
     if (Prefs->Config(__T("DisplayCaptions"))==__T("Content"))
@@ -793,4 +807,3 @@ void __fastcall TPreferencesF::GUI_Configure()
 //***************************************************************************
 
 #endif //MEDIAINFOGUI_PREFS_NO
-

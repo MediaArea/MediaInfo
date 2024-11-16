@@ -4,7 +4,7 @@ object PreferencesF: TPreferencesF
   BorderIcons = []
   BorderStyle = bsDialog
   Caption = 'Preferences'
-  ClientHeight = 200
+  ClientHeight = 219
   ClientWidth = 850
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -17,7 +17,7 @@ object PreferencesF: TPreferencesF
   TextHeight = 14
   object OK: TButton
     Left = 720
-    Top = 166
+    Top = 186
     Width = 122
     Height = 27
     Caption = 'OK'
@@ -30,7 +30,7 @@ object PreferencesF: TPreferencesF
     Left = 0
     Top = 0
     Width = 176
-    Height = 158
+    Height = 178
     Indent = 19
     ParentShowHint = False
     ReadOnly = True
@@ -38,23 +38,24 @@ object PreferencesF: TPreferencesF
     TabOrder = 1
     OnChange = TreeChange
     Items.NodeData = {
-      0302000000280000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000
-      00010000000105530065007400750070002E0000000000000000000000FFFFFF
-      FFFFFFFFFFFFFFFFFF0000000000000000010841006400760061006E00630065
-      006400300000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF0000000005
-      000000010943007500730074006F006D0069007A006500280000000000000000
-      000000FFFFFFFFFFFFFFFFFFFFFFFF0000000000000000010553006800650065
-      007400340000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF0000000000
-      000000010B540072006500650020002600200054006500780074003400000000
-      00000000000000FFFFFFFFFFFFFFFFFFFFFFFF0000000000000000010B430075
-      00730074006F006D0020007400650078007400280000000000000000000000FF
-      FFFFFFFFFFFFFFFFFFFFFF00000000000000000105470072006100700068002E
-      0000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000001
-      084C0061006E0067007500610067006500}
+      070200000009540054007200650065004E006F00640065002900000000000000
+      00000000FFFFFFFFFFFFFFFFFFFFFFFF00000000000100000001055300650074
+      007500700000002F0000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF00
+      0000000000000000010841006400760061006E00630065006400000031000000
+      0000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000005000000010943
+      007500730074006F006D0069007A0065000000290000000000000000000000FF
+      FFFFFFFFFFFFFFFFFFFFFF000000000000000000010553006800650065007400
+      0000350000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000
+      000000010B540072006500650020002600200054006500780074000000350000
+      000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000010B
+      43007500730074006F006D002000740065007800740000002900000000000000
+      00000000FFFFFFFFFFFFFFFFFFFFFFFF00000000000000000001054700720061
+      007000680000002F0000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF00
+      000000000000000001084C0061006E0067007500610067006500}
   end
   object Cancel: TButton
     Left = 593
-    Top = 166
+    Top = 186
     Width = 121
     Height = 27
     Cancel = True
@@ -66,7 +67,7 @@ object PreferencesF: TPreferencesF
     Left = 176
     Top = 0
     Width = 666
-    Height = 160
+    Height = 180
     ActivePage = Setup
     MultiLine = True
     TabHeight = 22
@@ -183,7 +184,7 @@ object PreferencesF: TPreferencesF
       OnShow = Setup_AdvancedShow
       object Advanced_DisplayCaptions_Caption: TLabel
         Left = 2
-        Top = 105
+        Top = 125
         Width = 141
         Height = 14
         Caption = 'Handling of 608/708 streams:'
@@ -244,7 +245,7 @@ object PreferencesF: TPreferencesF
       end
       object Advanced_DisplayCaptions_Sel: TComboBox
         Left = 303
-        Top = 102
+        Top = 122
         Width = 352
         Height = 22
         Style = csDropDownList
@@ -255,6 +256,17 @@ object PreferencesF: TPreferencesF
           'When content is detected'
           'When content or a command is detected'
           'Even when no content or command is detected')
+      end
+      object Advanced_LegacyStreamDisplay: TCheckBox
+        Left = 2
+        Top = 102
+        Width = 658
+        Height = 18
+        Caption = 
+          'Display legacy AC-3/DTS/AAC streams embedded in HD/HE streams (r' +
+          'equires reload)'
+        TabOrder = 7
+        OnClick = Advanced_LegacyStreamDisplayClick
       end
     end
     object Customize_Language: TTabSheet
