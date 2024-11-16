@@ -74,6 +74,7 @@ __published:    // IDE-managed Components
     TCheckBox *CB_InfoTip;
     TCheckBox *CB_InscrireShell;
     TCheckBox *CB_InscrireShell_Folder;
+    TCheckBox *Advanced_LegacyStreamDisplay;
     void __fastcall General_Language_SelChange(TObject *Sender);
     void __fastcall General_Output_SelChange(TObject *Sender);
     void __fastcall Custom_EditClick(TObject *Sender);
@@ -112,6 +113,7 @@ __published:    // IDE-managed Components
     void __fastcall CB_ShowMenuClick(TObject *Sender);
     void __fastcall CB_InfoTipClick(TObject *Sender);
     void __fastcall CB_InscrireShell_FolderClick(TObject *Sender);
+    void __fastcall Advanced_LegacyStreamDisplayClick(TObject *Sender);
 private:    // User declarations
 public:        // User declarations
     __fastcall TPreferencesF(TComponent* Owner);
