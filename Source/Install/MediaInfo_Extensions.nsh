@@ -1,3 +1,10 @@
+!ifndef SHCNE_ASSOCCHANGED
+  !define SHCNE_ASSOCCHANGED 0x08000000
+!endif
+!ifndef SHCNF_IDLIST
+  !define SHCNF_IDLIST 0x0000
+!endif
+
 !macro MediaInfo_Extensions_Install_I Extension
   ; Old InfoTip
   DeleteRegKey HKCR "${Extension}\shellex\{00021500-0000-0000-C000-000000000046}"
@@ -37,10 +44,13 @@
   ; Removing unwanted entries
   !insertmacro MediaInfo_Extensions_Uninstall_I "Directory.Audio"
   !insertmacro MediaInfo_Extensions_Uninstall_I "Directory.Video"
+  !insertmacro MediaInfo_Extensions_Uninstall_I "audio"
+  !insertmacro MediaInfo_Extensions_Uninstall_I "Folder"
+  !insertmacro MediaInfo_Extensions_Uninstall_I "video"
 
   ; directories
   WriteRegStr HKCU "Software\Classes\Directory\Shell\MediaInfo" "Icon" "$INSTDIR\MediaInfo.exe"
-  WriteRegStr HKCU "Software\Classes\Directory\\Shell\MediaInfo\Command" "" "$\"$INSTDIR\MediaInfo.exe$\" $\"%1$\""
+  WriteRegStr HKCU "Software\Classes\Directory\Shell\MediaInfo\Command" "" "$\"$INSTDIR\MediaInfo.exe$\" $\"%1$\""
 
   ; Per item
   !insertmacro MediaInfo_Extensions_Install_I ".264"
@@ -198,9 +208,8 @@
   !insertmacro MediaInfo_Extensions_Install_I ".wvc"
   !insertmacro MediaInfo_Extensions_Install_I ".y4m"
 
-  !insertmacro MediaInfo_Extensions_Install_I "audio"
-  !insertmacro MediaInfo_Extensions_Install_I "Folder"
-  !insertmacro MediaInfo_Extensions_Install_I "video"
+  ; Notify Windows Shell to refresh
+  System::Call 'Shell32::SHChangeNotify(i ${SHCNE_ASSOCCHANGED}, i ${SHCNF_IDLIST}, i 0, i 0)'
 !macroend
 
 !macro MediaInfo_Extensions_Uninstall
@@ -371,7 +380,6 @@
   !insertmacro MediaInfo_Extensions_Uninstall_I ".wvc"
   !insertmacro MediaInfo_Extensions_Uninstall_I ".y4m"
 
-  !insertmacro MediaInfo_Extensions_Uninstall_I "audio"
-  !insertmacro MediaInfo_Extensions_Uninstall_I "Folder"
-  !insertmacro MediaInfo_Extensions_Uninstall_I "video"
+  ; Notify Windows Shell to refresh
+  System::Call 'Shell32::SHChangeNotify(i ${SHCNE_ASSOCCHANGED}, i ${SHCNF_IDLIST}, i 0, i 0)'
 !macroend

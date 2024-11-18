@@ -867,10 +867,10 @@ int Preferences::ExplorerShell()
                 }
             }
         }
-        ExplorerShell_Edit("SystemFileAssociations\\audio", 0, IsChanged);
-        ExplorerShell_Edit("SystemFileAssociations\\Directory.Audio", 0, IsChanged);
-        ExplorerShell_Edit("SystemFileAssociations\\Directory.Video", 0, IsChanged);
-        ExplorerShell_Edit("SystemFileAssociations\\video", 0, IsChanged);
+        ExplorerShell_Edit("Software\\Classes\\SystemFileAssociations\\audio", 0, IsChanged);
+        ExplorerShell_Edit("Software\\Classes\\SystemFileAssociations\\Directory.Audio", 0, IsChanged);
+        ExplorerShell_Edit("Software\\Classes\\SystemFileAssociations\\Directory.Video", 0, IsChanged);
+        ExplorerShell_Edit("Software\\Classes\\SystemFileAssociations\\video", 0, IsChanged);
 
         //Adding/removing to SystemFileAssociations
         int32s ShellExtension=Config.Read(__T("ShellExtension")).To_int32s();
