@@ -48,6 +48,7 @@
               <uap:FileType>.aud</uap:FileType>
               <uap:FileType>.aue</uap:FileType>
               <uap:FileType>.avi</uap:FileType>
+              <uap:FileType>.avif</uap:FileType>
               <uap:FileType>.avs</uap:FileType>
               <uap:FileType>.bdmv</uap:FileType>
               <uap:FileType>.bmp</uap:FileType>
@@ -61,6 +62,7 @@
               <uap:FileType>.dpg</uap:FileType>
               <uap:FileType>.dff</uap:FileType>
               <uap:FileType>.dsd</uap:FileType>
+              <uap:FileType>.dsf</uap:FileType>
               <uap:FileType>.dts</uap:FileType>
               <uap:FileType>.dtshd</uap:FileType>
               <uap:FileType>.dv</uap:FileType>
@@ -68,28 +70,34 @@
               <uap:FileType>.dvr-ms</uap:FileType>
               <uap:FileType>.eac3</uap:FileType>
               <uap:FileType>.evo</uap:FileType>
-              <uap:FileType>.h3d</uap:FileType>
               <uap:FileType>.f4a</uap:FileType>
               <uap:FileType>.f4b</uap:FileType>
               <uap:FileType>.f4v</uap:FileType>
               <uap:FileType>.fla</uap:FileType>
-              <uap:FileType>.flac</uap:FileType>
               <uap:FileType>.flc</uap:FileType>
               <uap:FileType>.fli</uap:FileType>
+              <uap:FileType>.flac</uap:FileType>
               <uap:FileType>.flv</uap:FileType>
+              <uap:FileType>.gvi</uap:FileType>
               <uap:FileType>.gif</uap:FileType>
               <uap:FileType>.gis</uap:FileType>
-              <uap:FileType>.gvi</uap:FileType>
               <uap:FileType>.h264</uap:FileType>
+              <uap:FileType>.h3d</uap:FileType>
               <uap:FileType>.hdmov</uap:FileType>
+              <uap:FileType>.heic</uap:FileType>
+              <uap:FileType>.heif</uap:FileType>
+              <uap:FileType>.iamf</uap:FileType>
+              <uap:FileType>.ico</uap:FileType>
               <uap:FileType>.ifo</uap:FileType>
               <uap:FileType>.ism</uap:FileType>
               <uap:FileType>.isma</uap:FileType>
               <uap:FileType>.ismv</uap:FileType>
               <uap:FileType>.j2k</uap:FileType>
+              <uap:FileType>.jp2</uap:FileType>
               <uap:FileType>.jpeg</uap:FileType>
               <uap:FileType>.jpg</uap:FileType>
               <uap:FileType>.jps</uap:FileType>
+              <uap:FileType>.jxl</uap:FileType>
               <uap:FileType>.m1s</uap:FileType>
               <uap:FileType>.m1t</uap:FileType>
               <uap:FileType>.m1v</uap:FileType>
@@ -143,8 +151,8 @@
               <uap:FileType>.shn</uap:FileType>
               <uap:FileType>.smv</uap:FileType>
               <uap:FileType>.spdif</uap:FileType>
-              <uap:FileType>.stl</uap:FileType>
               <uap:FileType>.spx</uap:FileType>
+              <uap:FileType>.stl</uap:FileType>
               <uap:FileType>.swf</uap:FileType>
               <uap:FileType>.tak</uap:FileType>
               <uap:FileType>.thd</uap:FileType>
@@ -153,6 +161,7 @@
               <uap:FileType>.tiff</uap:FileType>
               <uap:FileType>.tmf</uap:FileType>
               <uap:FileType>.tp</uap:FileType>
+              <uap:FileType>.trec</uap:FileType>
               <uap:FileType>.trp</uap:FileType>
               <uap:FileType>.ts</uap:FileType>
               <uap:FileType>.tta</uap:FileType>
@@ -163,6 +172,7 @@
               <uap:FileType>.w64</uap:FileType>
               <uap:FileType>.wav</uap:FileType>
               <uap:FileType>.webm</uap:FileType>
+              <uap:FileType>.webp</uap:FileType>
               <uap:FileType>.wma</uap:FileType>
               <uap:FileType>.wmv</uap:FileType>
               <uap:FileType>.wtv</uap:FileType>
