@@ -102,6 +102,12 @@
             <desktop5:ItemType Type=".avi">
               <desktop5:Verb Id="MediaInfo" Clsid="dea3006d-451d-4f0f-a2b2-c3250cb255b4" />
             </desktop5:ItemType>
+            <desktop5:ItemType Type=".avif">
+              <desktop5:Verb Id="MediaInfo" Clsid="dea3006d-451d-4f0f-a2b2-c3250cb255b4" />
+            </desktop5:ItemType>
+            <desktop5:ItemType Type=".avs">
+              <desktop5:Verb Id="MediaInfo" Clsid="dea3006d-451d-4f0f-a2b2-c3250cb255b4" />
+            </desktop5:ItemType>
             <desktop5:ItemType Type=".bdmv">
               <desktop5:Verb Id="MediaInfo" Clsid="dea3006d-451d-4f0f-a2b2-c3250cb255b4" />
             </desktop5:ItemType>
@@ -120,6 +126,9 @@
             <desktop5:ItemType Type=".clpi">
               <desktop5:Verb Id="MediaInfo" Clsid="dea3006d-451d-4f0f-a2b2-c3250cb255b4" />
             </desktop5:ItemType>
+            <desktop5:ItemType Type=".dat">
+              <desktop5:Verb Id="MediaInfo" Clsid="dea3006d-451d-4f0f-a2b2-c3250cb255b4" />
+            </desktop5:ItemType>
             <desktop5:ItemType Type=".dde">
               <desktop5:Verb Id="MediaInfo" Clsid="dea3006d-451d-4f0f-a2b2-c3250cb255b4" />
             </desktop5:ItemType>
@@ -130,6 +139,9 @@
               <desktop5:Verb Id="MediaInfo" Clsid="dea3006d-451d-4f0f-a2b2-c3250cb255b4" />
             </desktop5:ItemType>
             <desktop5:ItemType Type=".dff">
+              <desktop5:Verb Id="MediaInfo" Clsid="dea3006d-451d-4f0f-a2b2-c3250cb255b4" />
+            </desktop5:ItemType>
+            <desktop5:ItemType Type=".dsd">
               <desktop5:Verb Id="MediaInfo" Clsid="dea3006d-451d-4f0f-a2b2-c3250cb255b4" />
             </desktop5:ItemType>
             <desktop5:ItemType Type=".dsf">
@@ -198,6 +210,18 @@
             <desktop5:ItemType Type=".hdmov">
               <desktop5:Verb Id="MediaInfo" Clsid="dea3006d-451d-4f0f-a2b2-c3250cb255b4" />
             </desktop5:ItemType>
+            <desktop5:ItemType Type=".heic">
+              <desktop5:Verb Id="MediaInfo" Clsid="dea3006d-451d-4f0f-a2b2-c3250cb255b4" />
+            </desktop5:ItemType>
+            <desktop5:ItemType Type=".heif">
+              <desktop5:Verb Id="MediaInfo" Clsid="dea3006d-451d-4f0f-a2b2-c3250cb255b4" />
+            </desktop5:ItemType>
+            <desktop5:ItemType Type=".iamf">
+              <desktop5:Verb Id="MediaInfo" Clsid="dea3006d-451d-4f0f-a2b2-c3250cb255b4" />
+            </desktop5:ItemType>
+            <desktop5:ItemType Type=".ico">
+              <desktop5:Verb Id="MediaInfo" Clsid="dea3006d-451d-4f0f-a2b2-c3250cb255b4" />
+            </desktop5:ItemType>
             <desktop5:ItemType Type=".ifo">
               <desktop5:Verb Id="MediaInfo" Clsid="dea3006d-451d-4f0f-a2b2-c3250cb255b4" />
             </desktop5:ItemType>
@@ -223,6 +247,9 @@
               <desktop5:Verb Id="MediaInfo" Clsid="dea3006d-451d-4f0f-a2b2-c3250cb255b4" />
             </desktop5:ItemType>
             <desktop5:ItemType Type=".jps">
+              <desktop5:Verb Id="MediaInfo" Clsid="dea3006d-451d-4f0f-a2b2-c3250cb255b4" />
+            </desktop5:ItemType>
+            <desktop5:ItemType Type=".jxl">
               <desktop5:Verb Id="MediaInfo" Clsid="dea3006d-451d-4f0f-a2b2-c3250cb255b4" />
             </desktop5:ItemType>
             <desktop5:ItemType Type=".m1s">
@@ -444,7 +471,10 @@
             <desktop5:ItemType Type=".wav">
               <desktop5:Verb Id="MediaInfo" Clsid="dea3006d-451d-4f0f-a2b2-c3250cb255b4" />
             </desktop5:ItemType>
-            <desktop5:ItemType Type=".webM">
+            <desktop5:ItemType Type=".webm">
+              <desktop5:Verb Id="MediaInfo" Clsid="dea3006d-451d-4f0f-a2b2-c3250cb255b4" />
+            </desktop5:ItemType>
+            <desktop5:ItemType Type=".webp">
               <desktop5:Verb Id="MediaInfo" Clsid="dea3006d-451d-4f0f-a2b2-c3250cb255b4" />
             </desktop5:ItemType>
             <desktop5:ItemType Type=".wma">
