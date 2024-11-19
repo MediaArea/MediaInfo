@@ -3,14 +3,12 @@
 ::   set QT_PATH=D:\Qt
 ::   set QT_VER1=6.8.0
 ::   set QT_VER2=6_8_0
-::   set VCREDIST_VER=14.42.34433
 ::   set FFMPEG_EXE=%~dp0\..\..\MediaInfo-FFmpeg-Plugin\ffmpeg.exe
 ::   set CERT_PATH=D:\sign_cert.pfx
 ::   set CERT_PASS=K1wdqYSDk0locw6HSSjT
 set QT_PATH=%QT_PATH%
 set QT_VER1=%QT_VER1%
 set QT_VER2=%QT_VER2%
-set VCREDIST_VER=%VCREDIST_VER%
 set FFMPEG_EXE=%FFMPEG_EXE%
 set CERT_PATH=%CERT_PATH%
 set CERT_PASS=%CERT_PASS%
@@ -33,7 +31,7 @@ popd
 rmdir /s /q %~dp0\MediaInfo_Qt_Windows_x64
 mkdir %~dp0\MediaInfo_Qt_Windows_x64
 copy %~dp0\..\Project\QMake\GUI\build\Desktop_Qt_%QT_VER2%_MSVC2022_64bit-Release\x64\MediaInfo.exe %~dp0\MediaInfo_Qt_Windows_x64\
-windeployqt %~dp0\MediaInfo_Qt_Windows_x64\MediaInfo.exe
+windeployqt --no-quick-import --no-translations --no-system-d3d-compiler --no-compiler-runtime --no-opengl-sw %~dp0\MediaInfo_Qt_Windows_x64\MediaInfo.exe
 
 :: clean-up
 rmdir /s /q %~dp0\..\Project\QMake\GUI\build\Desktop_Qt_%QT_VER2%_MSVC2022_64bit-Release
@@ -44,15 +42,14 @@ xcopy %~dp0\..\..\MediaInfo-Graph-Plugin\Plugin %~dp0\MediaInfo_Qt_Windows_x64\P
 copy %FFMPEG_EXE% %~dp0\MediaInfo_Qt_Windows_x64\
 
 :: manage dependencies
-del /s %~dp0\MediaInfo_Qt_Windows_x64\vc_redist.x64.exe
-copy "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\%VCREDIST_VER%\x64\Microsoft.VC143.CRT\concrt140.dll" "%~dp0\MediaInfo_Qt_Windows_x64\"
-copy "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\%VCREDIST_VER%\x64\Microsoft.VC143.CRT\msvcp140.dll" "%~dp0\MediaInfo_Qt_Windows_x64\"
-copy "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\%VCREDIST_VER%\x64\Microsoft.VC143.CRT\msvcp140_1.dll" "%~dp0\MediaInfo_Qt_Windows_x64\"
-copy "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\%VCREDIST_VER%\x64\Microsoft.VC143.CRT\msvcp140_2.dll" "%~dp0\MediaInfo_Qt_Windows_x64\"
-copy "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\%VCREDIST_VER%\x64\Microsoft.VC143.CRT\msvcp140_atomic_wait.dll" "%~dp0\MediaInfo_Qt_Windows_x64\"
-copy "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\%VCREDIST_VER%\x64\Microsoft.VC143.CRT\msvcp140_codecvt_ids.dll" "%~dp0\MediaInfo_Qt_Windows_x64\"
-copy "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\%VCREDIST_VER%\x64\Microsoft.VC143.CRT\vcruntime140.dll" "%~dp0\MediaInfo_Qt_Windows_x64\"
-copy "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\%VCREDIST_VER%\x64\Microsoft.VC143.CRT\vcruntime140_1.dll" "%~dp0\MediaInfo_Qt_Windows_x64\"
+del /s "%~dp0\MediaInfo_Qt_Windows_x64\concrt140.dll"
+del /s "%~dp0\MediaInfo_Qt_Windows_x64\msvcp140.dll"
+del /s "%~dp0\MediaInfo_Qt_Windows_x64\msvcp140_1.dll"
+del /s "%~dp0\MediaInfo_Qt_Windows_x64\msvcp140_2.dll"
+del /s "%~dp0\MediaInfo_Qt_Windows_x64\msvcp140_atomic_wait.dll"
+del /s "%~dp0\MediaInfo_Qt_Windows_x64\msvcp140_codecvt_ids.dll"
+del /s "%~dp0\MediaInfo_Qt_Windows_x64\vcruntime140.dll"
+del /s "%~dp0\MediaInfo_Qt_Windows_x64\vcruntime140_1.dll"
 copy "%~dp0\..\..\MediaArea-Utils-Binaries\Windows\libcurl\x64\Release\LIBCURL.DLL" "%~dp0\MediaInfo_Qt_Windows_x64\"
 copy "%~dp0\..\..\MediaArea-Utils-Binaries\Windows\libcurl\curl-ca-bundle.crt" "%~dp0\MediaInfo_Qt_Windows_x64\"
 
