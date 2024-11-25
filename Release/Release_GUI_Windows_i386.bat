@@ -27,8 +27,8 @@ copy BCB\GUI\MediaInfo_GUI.exe BCB\GUI\MediaInfo.exe
 
 @rem --- Copying : Exe ---
 copy  ..\Project\BCB\GUI\Win32\Release\MediaInfo_GUI.exe MediaInfo_GUI_Windows_i386\MediaInfo.exe
-xcopy  ..\..\MediaInfoLib\Project\MSVC2019\Win32\Release\MediaInfo.dll MediaInfo_GUI_Windows_i386\ /S
-xcopy ..\..\MediaInfoLib\Project\MSVC2019\Win32\Release\MediaInfo_InfoTip.dll MediaInfo_GUI_Windows_i386\ /S
+xcopy  ..\..\MediaInfoLib\Project\MSVC2022\Win32\Release\MediaInfo.dll MediaInfo_GUI_Windows_i386\ /S
+xcopy ..\..\MediaInfoLib\Project\MSVC2022\Win32\Release\MediaInfo_InfoTip.dll MediaInfo_GUI_Windows_i386\ /S
 xcopy "C:\Program Files (x86)\Embarcadero\Studio\22.0\Redist\win32\WebView2Loader.dll" MediaInfo_GUI_Windows_i386\
 
 @rem --- Copying : Plugins ---

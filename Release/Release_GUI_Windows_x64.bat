@@ -24,8 +24,8 @@ mkdir MediaInfo_GUI_Windows_x64
 
 @rem --- Copying : Exe ---
 copy  ..\Project\BCB\GUI\Win64\Release\MediaInfo_GUI.exe MediaInfo_GUI_Windows_x64\MediaInfo.exe
-xcopy ..\..\MediaInfoLib\Project\MSVC2019\x64\Release\MediaInfo.dll MediaInfo_GUI_Windows_x64\ /S
-xcopy ..\..\MediaInfoLib\Project\MSVC2019\x64\Release\MediaInfo_InfoTip.dll MediaInfo_GUI_Windows_x64\ /S
+xcopy ..\..\MediaInfoLib\Project\MSVC2022\x64\Release\MediaInfo.dll MediaInfo_GUI_Windows_x64\ /S
+xcopy ..\..\MediaInfoLib\Project\MSVC2022\x64\Release\MediaInfo_InfoTip.dll MediaInfo_GUI_Windows_x64\ /S
 xcopy "C:\Program Files (x86)\Embarcadero\Studio\22.0\Redist\win64\WebView2Loader.dll" MediaInfo_GUI_Windows_x64\
 
 @rem --- Copying : Plugins ---
