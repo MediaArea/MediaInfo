@@ -21,7 +21,7 @@ rmdir MediaInfo_CLI_Windows_i386 /S /Q
 mkdir MediaInfo_CLI_Windows_i386
 
 rem --- Copying : Exe ---
-xcopy ..\Project\MSVC2019\Win32\Release\MediaInfo.exe MediaInfo_CLI_Windows_i386\ /S
+xcopy ..\Project\MSVC2022\Win32\Release\MediaInfo.exe MediaInfo_CLI_Windows_i386\ /S
 
 rem --- Copying : Plugins ---
 xcopy ..\Source\Resource\Plugin\Custom\* MediaInfo_CLI_Windows_i386\Plugin\Custom\ /S

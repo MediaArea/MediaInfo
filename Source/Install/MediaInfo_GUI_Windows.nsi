@@ -134,14 +134,14 @@ Section "SectionPrincipale" SEC01
   SetOutPath "$INSTDIR"
   ${If} ${RunningX64}
     File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Win64\Release\MediaInfo_GUI.exe"
-    File "..\..\..\MediaInfoLib\Project\MSVC2019\x64\Release\MediaInfo_InfoTip.dll"
-    File "..\..\..\MediaInfoLib\Project\MSVC2019\x64\Release\MediaInfo.dll"
+    File "..\..\..\MediaInfoLib\Project\MSVC2022\x64\Release\MediaInfo_InfoTip.dll"
+    File "..\..\..\MediaInfoLib\Project\MSVC2022\x64\Release\MediaInfo.dll"
     File "C:\Program Files (x86)\Embarcadero\Studio\22.0\Redist\win64\WebView2Loader.dll"
     File "$%BPATH%\Windows\libcurl\x64\Release\LIBCURL.DLL"
   ${Else}
     File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Win32\Release\MediaInfo_GUI.exe"
-    File "..\..\..\MediaInfoLib\Project\MSVC2019\Win32\Release\MediaInfo_InfoTip.dll"
-    File "..\..\..\MediaInfoLib\Project\MSVC2019\Win32\Release\MediaInfo.dll"
+    File "..\..\..\MediaInfoLib\Project\MSVC2022\Win32\Release\MediaInfo_InfoTip.dll"
+    File "..\..\..\MediaInfoLib\Project\MSVC2022\Win32\Release\MediaInfo.dll"
     File "C:\Program Files (x86)\Embarcadero\Studio\22.0\Redist\win32\WebView2Loader.dll"
     File "$%BPATH%\Windows\libcurl\Win32\Release\LIBCURL.DLL"
   ${EndIf}
