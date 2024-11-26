@@ -34,6 +34,9 @@ copy ..\License.* MediaInfo_CLI_Windows_x64\
 copy ..\History_CLI.txt MediaInfo_CLI_Windows_x64\History.txt
 copy Readme_CLI_Windows.txt MediaInfo_CLI_Windows_x64\ReadMe.txt
 
+rem --- Copying : Contrib files ---
+mkdir MediaInfo_CLI_Windows_x64\Contrib
+copy ..\Contrib\CLI_Help.doc MediaInfo_CLI_Windows_x64\Contrib\
 
 rem --- Compressing Archive ---
 cd MediaInfo_CLI_Windows_x64\
