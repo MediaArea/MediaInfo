@@ -34,6 +34,10 @@ SetCompressor /FINAL /SOLID lzma
 !include "MUI2.nsh"
 !define MUI_ABORTWARNING
 !define MUI_ICON "..\..\Source\Resource\Image\MediaInfo.ico"
+!define MUI_UNICON "..\..\Source\Resource\Image\MediaInfo.ico"
+
+; Uninstaller signing
+!uninstfinalize 'sign.cmd "%1" "MediaInfo Uninstaller"'
 
 ; Language Selection Dialog Settings
 !define MUI_LANGDLL_REGISTRY_ROOT "${PRODUCT_UNINST_ROOT_KEY}"
