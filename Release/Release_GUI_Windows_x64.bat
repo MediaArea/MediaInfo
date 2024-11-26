@@ -33,7 +33,6 @@ xcopy ..\Source\Resource\Plugin\* MediaInfo_GUI_Windows_x64\Plugin\ /S
 
 @rem --- Copying : libCURL --
 copy %BPATH%\Windows\libcurl\x64\Release\LIBCURL.DLL MediaInfo_GUI_Windows_x64\
-copy %BPATH%\Windows\libcurl\curl-ca-bundle.crt MediaInfo_GUI_Windows_x64\
 
 @rem --- Copying : Information files ---
 copy ..\License.html MediaInfo_GUI_Windows_x64\

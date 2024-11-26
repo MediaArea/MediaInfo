@@ -131,7 +131,6 @@ Section "SectionPrincipale" SEC01
   File "..\..\..\MediaInfoLib\Project\MSVC2022\Win32\Release\MediaInfo.dll"
   File "C:\Program Files (x86)\Embarcadero\Studio\22.0\Redist\win32\WebView2Loader.dll"
   File "$%BPATH%\Windows\libcurl\Win32\Release\LIBCURL.DLL"
-  File "$%BPATH%\Windows\libcurl\curl-ca-bundle.crt"
   File "/oname=History.txt" "..\..\History_GUI.txt"
   File "..\..\License.html"
   File "/oname=ReadMe.txt" "..\..\Release\ReadMe_GUI_Windows.txt"
