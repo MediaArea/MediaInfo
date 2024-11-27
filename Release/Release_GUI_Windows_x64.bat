@@ -8,8 +8,8 @@
 
 rem --- Search binaries ---
 set BPATH=
-if exist "%~dp0\..\..\..\MediaArea-Utils-Binaries" set BPATH="%~dp0\..\..\..\MediaArea-Utils-Binaries"
-if exist "%~dp0\..\..\MediaArea-Utils-Binaries" set BPATH="%~dp0\..\..\MediaArea-Utils-Binaries"
+if exist "%~dp0\..\..\..\MediaArea-Utils-Binaries" set "BPATH=%~dp0\..\..\..\MediaArea-Utils-Binaries"
+if exist "%~dp0\..\..\MediaArea-Utils-Binaries" set "BPATH=%~dp0\..\..\MediaArea-Utils-Binaries"
 if "%BPATH%"=="" (
     echo "ERROR: binaries path not found"
     exit /b 1

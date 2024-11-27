@@ -8,8 +8,8 @@
 
 rem --- Search binaries ---
 set BPATH=
-if exist "%~dp0\..\..\..\MediaArea-Utils-Binaries" set BPATH="%~dp0\..\..\..\MediaArea-Utils-Binaries"
-if exist "%~dp0\..\..\MediaArea-Utils-Binaries" set BPATH="%~dp0\..\..\MediaArea-Utils-Binaries"
+if exist "%~dp0\..\..\..\MediaArea-Utils-Binaries" set "BPATH=%~dp0\..\..\..\MediaArea-Utils-Binaries"
+if exist "%~dp0\..\..\MediaArea-Utils-Binaries" set "BPATH=%~dp0\..\..\MediaArea-Utils-Binaries"
 if "%BPATH%"=="" (
     echo "ERROR: binaries path not found"
     exit /b 1
@@ -21,9 +21,6 @@ del   MediaInfo_GUI_Windows_i386_WithoutInstaller.7z
 rmdir MediaInfo_GUI_Windows_i386 /S /Q
 mkdir MediaInfo_GUI_Windows_i386
 
-
-@rem --- Preparing ---
-copy BCB\GUI\MediaInfo_GUI.exe BCB\GUI\MediaInfo.exe
 
 @rem --- Copying : Exe ---
 copy  ..\Project\BCB\GUI\Win32\Release\MediaInfo_GUI.exe MediaInfo_GUI_Windows_i386\MediaInfo.exe
