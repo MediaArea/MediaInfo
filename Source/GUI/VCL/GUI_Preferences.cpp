@@ -640,6 +640,17 @@ void __fastcall TPreferencesF::Setup_GeneralShow(TObject *Sender)
     CB_InscrireShell->Checked=Prefs->Config(__T("ShellExtension")).To_int32s(); //Lecture Shell extension
     CB_InscrireShell_Folder->Checked=Prefs->Config(__T("ShellExtension_Folder")).To_int32s(); //Lecture Shell extension
     CB_InfoTip->Checked=Prefs->Config(__T("ShellInfoTip")).To_int32s(); //Lecture Shell extension
+
+    //Disable InscrireShell_Folder setting if modern IExplorerCommand-based shell extension is installed (not implemented)
+    TRegistry* ModernReg=new TRegistry;
+    ModernReg->RootKey = HKEY_CLASSES_ROOT;
+    try {
+        if (ModernReg->OpenKeyReadOnly(__T("PackagedCom\\ClassIndex\\{20669675-B281-4C4F-94FB-CB6FD3995545}"))) {
+            CB_InscrireShell_Folder->Enabled = false;
+            ModernReg->CloseKey();
+        }
+    } catch (...) {}
+    delete ModernReg;
 }
 
 //---------------------------------------------------------------------------
