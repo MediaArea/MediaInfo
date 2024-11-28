@@ -1,0 +1,8 @@
+; Declares the module parameters.
+
+LIBRARY
+
+EXPORTS
+  DllGetClassObject         PRIVATE
+  DllCanUnloadNow           PRIVATE
+  DllGetActivationFactory   PRIVATE
