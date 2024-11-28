@@ -172,13 +172,30 @@ public:
     IFACEMETHODIMP GetState(_In_opt_ IShellItemArray* items, _In_ BOOL okToBeSlow, _Out_ EXPCMDSTATE* cmdState) {
         // Provide state of File Explorer context menu entry
         // Hide it if registry setting indicates that it should be disabled, else it is enabled
-        UNREFERENCED_PARAMETER(items);
         UNREFERENCED_PARAMETER(okToBeSlow);
+
+        // Check if it is a folder
+        bool is_folder = false;
+        if (items) {
+            DWORD count;
+            RETURN_IF_FAILED(items->GetCount(&count));
+            if (count > 0) {
+                winrt::com_ptr<IShellItem> item;
+                if (SUCCEEDED(items->GetItemAt(0, item.put()))) {
+                    SFGAOF attribute = 0;
+                    if (SUCCEEDED(item->GetAttributes(SFGAO_FOLDER, &attribute)))
+                        if (attribute & SFGAO_FOLDER)
+                            is_folder = true;
+                }
+            }
+        }
+
+        // Check for files
         try {
 #ifdef MEDIAINFO_QT
             if (!RegGetBool(HKEY_CURRENT_USER, L"Software\\MediaArea.net\\MediaInfo", L"shellExtension"))
 #else
-            if (!RegGetDword(HKEY_CURRENT_USER, L"Software\\MediaArea\\MediaInfo", L"ShellExtension"))
+            if (!RegGetDword(HKEY_CURRENT_USER, L"Software\\MediaArea\\MediaInfo", L"ShellExtension") && !is_folder)
 #endif // MEDIAINFO_QT
             {
                 *cmdState = ECS_HIDDEN;
@@ -188,6 +205,20 @@ public:
         catch (...) {
             // Error reading reg, default enabled
         }
+
+#ifndef MEDIAINFO_QT
+        // Check for folders
+        try {
+            if (!RegGetDword(HKEY_CURRENT_USER, L"Software\\MediaArea\\MediaInfo", L"ShellExtension_Folder") && is_folder) {
+                *cmdState = ECS_HIDDEN;
+                return S_OK;
+            }
+        }
+        catch (...) {
+            // Error reading reg, default enabled
+        }
+#endif // MEDIAINFO_QT
+
         // Default enabled if not disabled
         *cmdState = ECS_ENABLED;
         return S_OK;

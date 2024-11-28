@@ -253,7 +253,7 @@ int Preferences::Config_Save()
     if (Config(__T("Custom")).empty()) Config(__T("Custom"))=__T("Example");
     if (Config(__T("CheckUpdate")).empty()) Config(__T("CheckUpdate"))=__T("1");
     if (Config(__T("ShellExtension")).empty()) Config(__T("ShellExtension"))=__T("1");
-    if (Config(__T("ShellExtension_Folder")).empty()) Config(__T("ShellExtension_Folder"))=__T("0");
+    if (Config(__T("ShellExtension_Folder")).empty()) Config(__T("ShellExtension_Folder"))=__T("1");
     if (Config(__T("ShellInfoTip")).empty()) Config(__T("ShellInfoTip"))=__T("0");
     if (Config(__T("ShowToolBar")).empty()) Config(__T("ShowToolBar"))=__T("1");
     if (Config(__T("ShowMenu")).empty()) Config(__T("ShowMenu"))=__T("1");
@@ -828,7 +828,6 @@ int Preferences::ExplorerShell()
             LegacyShellExtension = 0;                           //Disable legacy shell extension
             LegacyShellExtension_Folder = 0;                    //Disable legacy shell extension
             ModernShellExtensionUsed = true;                    //Need to control modern shell extension
-            Config(__T("ShellExtension_Folder")) = __T("1");    //Disabling ShellExtension_Folder not implemented
             ModernReg->CloseKey();
         }
     } catch (...) {}
@@ -843,6 +842,10 @@ int Preferences::ExplorerShell()
                     ModernShellExtension->DeleteValue("ShellExtension");
                 else
                     ModernShellExtension->WriteInteger("ShellExtension", 0);
+                if (Config.Read(__T("ShellExtension_Folder")).To_int32s())
+                    ModernShellExtension->DeleteValue("ShellExtension_Folder");
+                else
+                    ModernShellExtension->WriteInteger("ShellExtension_Folder", 0);
                 ModernShellExtension->CloseKey();
             }
         } catch (...) {}
