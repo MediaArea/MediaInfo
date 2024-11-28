@@ -17,11 +17,8 @@
 #include <shlwapi.h>
 #pragma comment(lib, "shlwapi.lib")
 
-// Windows Runtime C++ Template Library (WRL)
-#include <wrl/client.h>
-#include <wrl/implements.h>
-#include <wrl/module.h>
-#pragma comment(lib, "runtimeobject.lib")
+// C++/WinRT
+#include <winrt/Windows.Foundation.Collections.h>
 
 // Windows Implementation Libraries (WIL)
 #include <wil/stl.h>
