@@ -10,6 +10,12 @@
 
 #include "pch.h"
 
+#ifdef MEDIAINFO_QT
+    #define SHELLEXT_GUID "dea3006d-451d-4f0f-a2b2-c3250cb255b4"
+#else
+    #define SHELLEXT_GUID "20669675-b281-4c4f-94fb-cb6fd3995545"
+#endif // MEDIAINFO_QT
+
 constexpr const wchar_t* menu_entry_title = L"MediaInfo";
 constexpr const wchar_t* exe_filename = L"MediaInfo.exe";
 
@@ -92,6 +98,44 @@ namespace {
             throw std::runtime_error("Cannot read DWORD from registry.");
         return data;
     }
+
+    // Adapted from
+    // https://learn.microsoft.com/en-us/archive/msdn-magazine/2017/may/c-use-modern-c-to-access-the-windows-registry#reading-a-string-value-from-the-registry
+    bool RegGetBool(HKEY hKey, const std::wstring& subKey, const std::wstring& value) {
+        DWORD dataSize{};
+        LONG retCode = RegGetValue(
+            hKey,
+            subKey.c_str(),
+            value.c_str(),
+            RRF_RT_REG_SZ,
+            nullptr,
+            nullptr,
+            &dataSize
+        );
+        if (retCode != ERROR_SUCCESS)
+            throw std::runtime_error("Cannot read string from registry.");
+        std::wstring data;
+        data.resize(dataSize / sizeof(wchar_t));
+        retCode = ::RegGetValue(
+            hKey,
+            subKey.c_str(),
+            value.c_str(),
+            RRF_RT_REG_SZ,
+            nullptr,
+            &data[0],
+            &dataSize
+        );
+        if (retCode != ERROR_SUCCESS)
+            throw std::runtime_error("Cannot read string from registry.");
+        DWORD stringLengthInWchars = dataSize / sizeof(wchar_t);
+        --stringLengthInWchars; // Exclude the NUL written by the Win32 API
+        data.resize(stringLengthInWchars);
+        if (data.compare(L"true") == 0)
+            return true;
+        if (data.compare(L"false") == 0)
+            return false;
+        throw std::runtime_error("Not a boolean.");
+    }
 }
 
 struct ExplorerCommandHandler : public winrt::implements<ExplorerCommandHandler, IExplorerCommand> {
@@ -131,7 +175,12 @@ public:
         UNREFERENCED_PARAMETER(items);
         UNREFERENCED_PARAMETER(okToBeSlow);
         try {
-            if (!RegGetDword(HKEY_CURRENT_USER, L"Software\\MediaArea\\MediaInfo", L"ShellExtension")) {
+#ifdef MEDIAINFO_QT
+            if (!RegGetBool(HKEY_CURRENT_USER, L"Software\\MediaArea.net\\MediaInfo", L"shellExtension"))
+#else
+            if (!RegGetDword(HKEY_CURRENT_USER, L"Software\\MediaArea\\MediaInfo", L"ShellExtension"))
+#endif // MEDIAINFO_QT
+            {
                 *cmdState = ECS_HIDDEN;
                 return S_OK;
             }
@@ -206,7 +255,7 @@ public:
     }
 };
 
-struct DECLSPEC_UUID("20669675-b281-4c4f-94fb-cb6fd3995545") ClassFactory : public winrt::implements<ClassFactory, IClassFactory> {
+struct DECLSPEC_UUID(SHELLEXT_GUID) ClassFactory : public winrt::implements<ClassFactory, IClassFactory> {
 public:
 
     IFACEMETHODIMP CreateInstance(_In_opt_ IUnknown * pUnkOuter, _In_ REFIID riid, _COM_Outptr_ void** ppvObject) noexcept override {
