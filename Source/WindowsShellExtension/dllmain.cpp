@@ -74,6 +74,24 @@ namespace {
         return out;
     }
 
+    // Extracted from
+    // https://learn.microsoft.com/en-us/archive/msdn-magazine/2017/may/c-use-modern-c-to-access-the-windows-registry#reading-a-dword-value-from-the-registry
+    DWORD RegGetDword(HKEY hKey, const std::wstring& subKey, const std::wstring& value) {
+        DWORD data{};
+        DWORD dataSize = sizeof(data);
+        LONG retCode = RegGetValue(
+            hKey,
+            subKey.c_str(),
+            value.c_str(),
+            RRF_RT_REG_DWORD,
+            nullptr,
+            &data,
+            &dataSize
+        );
+        if (retCode != ERROR_SUCCESS)
+            throw std::runtime_error("Cannot read DWORD from registry.");
+        return data;
+    }
 }
 
 struct ExplorerCommandHandler : public winrt::implements<ExplorerCommandHandler, IExplorerCommand> {
@@ -108,8 +126,20 @@ public:
     }
 
     IFACEMETHODIMP GetState(_In_opt_ IShellItemArray* items, _In_ BOOL okToBeSlow, _Out_ EXPCMDSTATE* cmdState) {
+        // Provide state of File Explorer context menu entry
+        // Hide it if registry setting indicates that it should be disabled, else it is enabled
         UNREFERENCED_PARAMETER(items);
         UNREFERENCED_PARAMETER(okToBeSlow);
+        try {
+            if (!RegGetDword(HKEY_CURRENT_USER, L"Software\\MediaArea\\MediaInfo", L"ShellExtension")) {
+                *cmdState = ECS_HIDDEN;
+                return S_OK;
+            }
+        }
+        catch (...) {
+            // Error reading reg, default enabled
+        }
+        // Default enabled if not disabled
         *cmdState = ECS_ENABLED;
         return S_OK;
     }
