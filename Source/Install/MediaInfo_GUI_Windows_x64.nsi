@@ -147,6 +147,14 @@ Section "SectionPrincipale" SEC01
   File "/oname=History.txt" "..\..\History_GUI.txt"
   File "..\..\License.html"
   File "/oname=ReadMe.txt" "..\..\Release\ReadMe_GUI_Windows.txt"
+  ${If} ${AtLeastWin11}
+    File "..\..\Project\MSVC2022\x64\Release\MediaInfo_SparsePackage.msix"
+    File "..\..\Project\MSVC2022\x64\Release\MediaInfo_WindowsShellExtension.dll"
+    File "..\..\Project\MSVC2022\win32\Release\MediaInfo_PackageHelper.dll"
+    File "..\WindowsSparsePackage\Resources\resources.pri"
+    SetOutPath "$INSTDIR\Assets"
+    File "..\WindowsSparsePackage\Resources\Assets\*.png"
+  ${EndIf}
   SetOverwrite try
   SetOutPath "$INSTDIR\Plugin\Custom"
   File "..\Resource\Plugin\Custom\*.csv"
@@ -186,6 +194,10 @@ Section -Post
   ExecWait '"$SYSDIR\regsvr32.exe" "$INSTDIR\MediaInfo_InfoTip.dll" /s'
   !insertmacro MediaInfo_Extensions_Install
 
+  ${If} ${AtLeastWin11}
+    System::Call '"$INSTDIR\MediaInfo_PackageHelper.dll"::_Install@0() ? u'
+  ${EndIf}
+
   ${If} ${AtLeastWin7}
     ${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
     IntFmt $0 "0x%08X" $0 ; Convert the decimal KB value in $0 to DWORD, put it right back into $0
@@ -206,6 +218,16 @@ Section Uninstall
   IfFileExists "$INSTDIR\ffmpeg_plugin_uninst.exe" 0 +3
     ExecWait '"$INSTDIR\ffmpeg_plugin_uninst.exe" /S _?=$INSTDIR'
     Delete "$INSTDIR\ffmpeg_plugin_uninst.exe"
+
+  ${If} ${AtLeastWin11}
+    System::Call '"$INSTDIR\MediaInfo_PackageHelper.dll"::_Uninstall@0() ? u'
+    !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\MediaInfo_PackageHelper.dll"
+    !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\MediaInfo_WindowsShellExtension.dll"
+    Delete "$INSTDIR\MediaInfo_SparsePackage.msix"
+    Delete "$INSTDIR\resources.pri"
+    Delete "$INSTDIR\Assets\*.png"
+    RMDir "$INSTDIR\Assets"
+  ${EndIf}
 
   !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\MediaInfo.exe"
   !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\MediaInfo.dll"
