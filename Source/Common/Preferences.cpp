@@ -253,7 +253,7 @@ int Preferences::Config_Save()
     if (Config(__T("Custom")).empty()) Config(__T("Custom"))=__T("Example");
     if (Config(__T("CheckUpdate")).empty()) Config(__T("CheckUpdate"))=__T("1");
     if (Config(__T("ShellExtension")).empty()) Config(__T("ShellExtension"))=__T("1");
-    if (Config(__T("ShellExtension_Folder")).empty()) Config(__T("ShellExtension_Folder"))=__T("0");
+    if (Config(__T("ShellExtension_Folder")).empty()) Config(__T("ShellExtension_Folder"))=__T("1");
     if (Config(__T("ShellInfoTip")).empty()) Config(__T("ShellInfoTip"))=__T("0");
     if (Config(__T("ShowToolBar")).empty()) Config(__T("ShowToolBar"))=__T("1");
     if (Config(__T("ShowMenu")).empty()) Config(__T("ShowMenu"))=__T("1");
@@ -812,6 +812,46 @@ int Preferences::ExplorerShell()
         }
     }
 
+    //Controls for legacy shell extension
+    int32s LegacyShellExtension = Config.Read(__T("ShellExtension")).To_int32s();
+    int32s LegacyShellExtension_Folder = Config.Read(__T("ShellExtension_Folder")).To_int32s();
+
+    //Control writing registry for modern IExplorerCommand-based shell extension
+    bool ModernShellExtensionUsed = false;
+
+    //Check presence of modern IExplorerCommand-based shell extension and handle things accordingly
+    TRegistry* ModernReg = new TRegistry;
+    ModernReg->RootKey = HKEY_CLASSES_ROOT;
+    try {
+        //If modern shell extension is installed
+        if (ModernReg->OpenKeyReadOnly(__T("PackagedCom\\ClassIndex\\{20669675-B281-4C4F-94FB-CB6FD3995545}"))) {
+            LegacyShellExtension = 0;                           //Disable legacy shell extension
+            LegacyShellExtension_Folder = 0;                    //Disable legacy shell extension
+            ModernShellExtensionUsed = true;                    //Need to control modern shell extension
+            ModernReg->CloseKey();
+        }
+    } catch (...) {}
+    delete ModernReg;
+
+    //Control modern IExplorerCommand-based shell extension
+    if (ModernShellExtensionUsed) {
+        TRegistry* ModernShellExtension = new TRegistry(KEY_WRITE);
+        try {
+            if (ModernShellExtension->OpenKey(__T("Software\\MediaArea\\MediaInfo"), true)) {
+                if (Config.Read(__T("ShellExtension")).To_int32s())
+                    ModernShellExtension->DeleteValue("ShellExtension");
+                else
+                    ModernShellExtension->WriteInteger("ShellExtension", 0);
+                if (Config.Read(__T("ShellExtension_Folder")).To_int32s())
+                    ModernShellExtension->DeleteValue("ShellExtension_Folder");
+                else
+                    ModernShellExtension->WriteInteger("ShellExtension_Folder", 0);
+                ModernShellExtension->CloseKey();
+            }
+        } catch (...) {}
+        delete ModernShellExtension;
+    }
+
     bool IsChanged=false;
     if ( MajorVersion>=6 //Windows Vista or more
      || (MajorVersion==5 && MinorVersion>=1)) //WinXP or more in 5.x family
@@ -873,22 +913,22 @@ int Preferences::ExplorerShell()
         ExplorerShell_Edit("Software\\Classes\\SystemFileAssociations\\video", 0, IsChanged);
 
         //Adding/removing to SystemFileAssociations
-        int32s ShellExtension=Config.Read(__T("ShellExtension")).To_int32s();
+        int32s ShellExtension=LegacyShellExtension;
         for (size_t I1=0; I1<List.size(); I1++)
         {
             //Remove shell ext except "Folder"
             if (List(I1, 0)!=__T("Folder"))
                 ExplorerShell_Edit((__T("Software\\Classes\\SystemFileAssociations\\")+List(I1, 0)).c_str(), ShellExtension, IsChanged);
         }
-        ExplorerShell_Edit("Software\\Classes\\Directory", Config.Read(__T("ShellExtension_Folder")).To_int32s(), IsChanged);
+        ExplorerShell_Edit("Software\\Classes\\Directory", LegacyShellExtension_Folder, IsChanged);
     }
     else
     {
-        int32s ShellExtension=Config.Read(__T("ShellExtension")).To_int32s();
+        int32s ShellExtension=LegacyShellExtension;
         for (size_t I1=0; I1<List.size(); I1++)
         {
             if (List(I1, 0)==__T("Folder"))
-                ShellExtension=Config.Read(__T("ShellExtension_Folder")).To_int32s();
+                ShellExtension=LegacyShellExtension_Folder;
 
             //Open (or create) a extension. Create only if Shell extension is wanted
             if (Reg->OpenKey(List(I1, 0).c_str(), ShellExtension))
