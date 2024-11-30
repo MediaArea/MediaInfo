@@ -139,22 +139,24 @@ Section "SectionPrincipale" SEC01
   SetOutPath "$SMPROGRAMS"
   CreateShortCut "$SMPROGRAMS\MediaInfo.lnk" "$INSTDIR\MediaInfo.exe" "" "" "" "" "" "Convenient unified display of the most relevant technical and tag data for video and audio files"
   SetOutPath "$INSTDIR"
-  File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Win64\Release\MediaInfo_GUI.exe"
-  File "..\..\..\MediaInfoLib\Project\MSVC2022\x64\Release\MediaInfo_InfoTip.dll"
-  File "..\..\..\MediaInfoLib\Project\MSVC2022\x64\Release\MediaInfo.dll"
-  File "C:\Program Files (x86)\Embarcadero\Studio\22.0\Redist\win64\WebView2Loader.dll"
-  File "$%BPATH%\Windows\libcurl\x64\Release\LIBCURL.DLL"
   File "/oname=History.txt" "..\..\History_GUI.txt"
   File "..\..\License.html"
   File "/oname=ReadMe.txt" "..\..\Release\ReadMe_GUI_Windows.txt"
-  ${If} ${AtLeastWin11}
-    File "..\..\Project\MSVC2022\x64\Release\MediaInfo_SparsePackage.msix"
-    File "..\..\Project\MSVC2022\x64\Release\MediaInfo_WindowsShellExtension.dll"
-    File "..\..\Project\MSVC2022\win32\Release\MediaInfo_PackageHelper.dll"
-    File "..\WindowsSparsePackage\Resources\resources.pri"
-    SetOutPath "$INSTDIR\Assets"
-    File "..\WindowsSparsePackage\Resources\Assets\*.png"
-  ${EndIf}
+  ; ${If} ${RunningX64}
+    File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Win64\Release\MediaInfo_GUI.exe"
+    File "..\..\..\MediaInfoLib\Project\MSVC2022\x64\Release\MediaInfo_InfoTip.dll"
+    File "..\..\..\MediaInfoLib\Project\MSVC2022\x64\Release\MediaInfo.dll"
+    File "C:\Program Files (x86)\Embarcadero\Studio\22.0\Redist\win64\WebView2Loader.dll"
+    File "$%BPATH%\Windows\libcurl\x64\Release\LIBCURL.DLL"
+    ${If} ${AtLeastWin11}
+      File "..\..\Project\MSVC2022\x64\Release\MediaInfo_SparsePackage.msix"
+      File "..\..\Project\MSVC2022\x64\Release\MediaInfo_WindowsShellExtension.dll"
+      File "..\..\Project\MSVC2022\win32\Release\MediaInfo_PackageHelper.dll"
+      File "..\WindowsSparsePackage\Resources\resources.pri"
+      SetOutPath "$INSTDIR\Assets"
+      File "..\WindowsSparsePackage\Resources\Assets\*.png"
+    ${EndIf}
+  ; ${EndIf}
   SetOverwrite try
   SetOutPath "$INSTDIR\Plugin\Custom"
   File "..\Resource\Plugin\Custom\*.csv"
