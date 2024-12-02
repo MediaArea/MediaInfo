@@ -185,6 +185,9 @@ win32 {
             } else {
                 error("zlib not found on system")
             }
+
+            QMAKE_CXXFLAGS += /guard:ehcont
+            QMAKE_LFLAGS += /guard:ehcont
         }
     }
     QMAKE_CXXFLAGS += /guard:cf
