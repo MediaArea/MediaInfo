@@ -66,6 +66,9 @@ unix {
 }
 
 win32 {
+    QMAKE_CXXFLAGS += /guard:cf
+    QMAKE_LFLAGS += /guard:cf /CETCOMPAT
+
     contains(UWP, yes|1) {
 
         WINRT_ASSETS_PATH=../../../Source/Resource/Image/Assets
@@ -189,9 +192,34 @@ win32 {
             QMAKE_CXXFLAGS += /guard:ehcont
             QMAKE_LFLAGS += /guard:ehcont
         }
+
+        contains(QT_ARCH, arm64) {
+            exists(../../../../MediaInfoLib/Project/MSVC2022/ARM64/Release/MediaInfo-Static.lib) {
+                INCLUDEPATH += ../../../../MediaInfoLib/Source
+                LIBS += $$PWD/../../../../MediaInfoLib/Project/MSVC2022/ARM64/Release/MediaInfo-Static.lib
+            } else {
+                error("libmediainfo not found on system")
+            }
+
+            exists(../../../../ZenLib/Project/MSVC2022/ARM64/Release/ZenLib.lib) {
+                INCLUDEPATH += ../../../../ZenLib/Source
+                LIBS += $$PWD/../../../../ZenLib/Project/MSVC2022/ARM64/Release/ZenLib.lib
+            } else {
+                error("libzen not found on system")
+            }
+
+            exists(../../../../zlib/contrib/vstudio/vc17/ARM64/Release/zlibstat.lib) {
+                INCLUDEPATH += ../../../../zlib
+                LIBS += $$PWD/../../../../zlib/contrib/vstudio/vc17/ARM64/Release/zlibstat.lib
+            } else {
+                error("zlib not found on system")
+            }
+
+            QMAKE_CXXFLAGS += /guard:ehcont /guard:signret
+            QMAKE_LFLAGS += /guard:ehcont /guard:delayloadsignret
+            QMAKE_LFLAGS -= /CETCOMPAT
+        }
     }
-    QMAKE_CXXFLAGS += /guard:cf
-    QMAKE_LFLAGS += /guard:cf /CETCOMPAT
 }
 
 INCLUDEPATH += _Automated \
