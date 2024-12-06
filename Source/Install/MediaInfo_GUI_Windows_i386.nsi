@@ -19,6 +19,9 @@ RequestExecutionLevel admin
 ; Compression
 SetCompressor /FINAL /SOLID lzma
 
+; x64 stuff
+!include "x64.nsh"
+
 ; Library macros for handling install/uninstall of exe/dll
 ; https://nsis.sourceforge.io/Docs/AppendixB.html
 !include "Library.nsh"
@@ -117,6 +120,14 @@ ShowInstDetails nevershow
 ShowUnInstDetails nevershow
 
 Function .onInit
+  ${If} ${AtLeastWin11}
+    MessageBox mb_iconStop "Windows not i386!"
+    Abort
+  ${EndIf}
+  ${If} ${IsNativeAMD64}
+    MessageBox mb_iconStop "Windows not i386!"
+    Abort
+  ${EndIf}
   !insertmacro MUI_LANGDLL_DISPLAY
 
   ; Increment install count

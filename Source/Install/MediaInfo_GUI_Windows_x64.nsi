@@ -120,10 +120,10 @@ ShowInstDetails nevershow
 ShowUnInstDetails nevershow
 
 Function .onInit
-  ${If} ${RunningX64}
+  ${If} ${IsNativeAMD64}
     SetRegView 64
   ${Else}
-    MessageBox mb_iconStop "Windows not 64-bit!"
+    MessageBox mb_iconStop "Windows not x64!"
     Abort
   ${EndIf}
   !insertmacro MUI_LANGDLL_DISPLAY
@@ -142,7 +142,7 @@ Section "SectionPrincipale" SEC01
   File "/oname=History.txt" "..\..\History_GUI.txt"
   File "..\..\License.html"
   File "/oname=ReadMe.txt" "..\..\Release\ReadMe_GUI_Windows.txt"
-  ; ${If} ${RunningX64}
+  ; ${If} ${IsNativeAMD64}
     File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Win64\Release\MediaInfo_GUI.exe"
     File "..\..\..\MediaInfoLib\Project\MSVC2022\x64\Release\MediaInfo_InfoTip.dll"
     File "..\..\..\MediaInfoLib\Project\MSVC2022\x64\Release\MediaInfo.dll"
