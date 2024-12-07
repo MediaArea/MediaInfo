@@ -33,7 +33,7 @@ VIAddVersionKey /LANG=0 "ProductVersion"   "${PRODUCT_VERSION4}"
 VIAddVersionKey /LANG=0 "FileDescription"  "All about your audio and video files"
 VIAddVersionKey /LANG=0 "FileVersion"      "${PRODUCT_VERSION4}"
 VIAddVersionKey /LANG=0 "LegalCopyright"   "${PRODUCT_PUBLISHER}"
-VIAddVersionKey /LANG=0 "OriginalFilename" "${PRODUCT_NAME}_GUI_${PRODUCT_VERSION}_Windows.exe"
+VIAddVersionKey /LANG=0 "OriginalFilename" "${PRODUCT_NAME}_GUI_${PRODUCT_VERSION}_Windows_Online.exe"
 BrandingText " "
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
