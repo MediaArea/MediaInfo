@@ -23,7 +23,11 @@ del   MediaInfo_GUI_Windows_i386.exe
 rem --- Installer ---
 pushd %BPATH%\Windows\NSIS
 makensis.exe "%~dp0\..\Source\Install\MediaInfo_GUI_Windows.nsi"
-makensis.exe "%~dp0\..\Source\Install\MediaInfo_GUI_Windows_Stub.nsi"
+if not "%SNAPSHOT%"=="" (
+    makensis.exe /DSNAPSHOT=%SNAPSHOT% "%~dp0\..\Source\Install\MediaInfo_GUI_Windows_Stub.nsi"
+) else (
+    makensis.exe "%~dp0\..\Source\Install\MediaInfo_GUI_Windows_Stub.nsi"
+)
 makensis.exe "%~dp0\..\Source\Install\MediaInfo_GUI_Windows_x64.nsi"
 makensis.exe "%~dp0\..\Source\Install\MediaInfo_GUI_Windows_ARM64.nsi"
 makensis.exe "%~dp0\..\Source\Install\MediaInfo_GUI_Windows_i386.nsi"

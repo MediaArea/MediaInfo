@@ -7,6 +7,11 @@ RequestExecutionLevel admin
 !define PRODUCT_VERSION "24.11"
 !define PRODUCT_VERSION4 "${PRODUCT_VERSION}.0.0"
 
+!define BASEURL "https://mediaarea.net/download/binary/mediainfo-gui/${PRODUCT_VERSION}"
+!ifdef SNAPSHOT
+  !define /redef BASEURL "https://mediaarea.net/download/snapshots/binary/mediainfo-gui/${SNAPSHOT}"
+!endif
+
 ; Compression
 SetCompressor /FINAL /SOLID lzma
 
@@ -49,14 +54,14 @@ Section
   ${If} ${IsNativeARM64}
     ${AndIf} ${AtLeastWin11}
       inetc::get /CAPTION "MediaInfo Online Installer" /BANNER "Downloading MediaInfo ${PRODUCT_VERSION} ARM64..." \
-      "https://mediaarea.net/download/binary/mediainfo-gui/${PRODUCT_VERSION}/MediaInfo_GUI_${PRODUCT_VERSION}_Windows_ARM64.exe" "$PLUGINSDIR\MediaInfoInstaller.exe"
+      "${BASEURL}/MediaInfo_GUI_${PRODUCT_VERSION}_Windows_ARM64.exe" "$PLUGINSDIR\MediaInfoInstaller.exe"
   ${Else}
     ${If} ${IsNativeAMD64}
       inetc::get /CAPTION "MediaInfo Online Installer" /BANNER "Downloading MediaInfo ${PRODUCT_VERSION} x64..." \
-      "https://mediaarea.net/download/binary/mediainfo-gui/${PRODUCT_VERSION}/MediaInfo_GUI_${PRODUCT_VERSION}_Windows_x64.exe" "$PLUGINSDIR\MediaInfoInstaller.exe"
+      "${BASEURL}/MediaInfo_GUI_${PRODUCT_VERSION}_Windows_x64.exe" "$PLUGINSDIR\MediaInfoInstaller.exe"
     ${Else}
       inetc::get /CAPTION "MediaInfo Online Installer" /BANNER "Downloading MediaInfo ${PRODUCT_VERSION} i386..." \
-      "https://mediaarea.net/download/binary/mediainfo-gui/${PRODUCT_VERSION}/MediaInfo_GUI_${PRODUCT_VERSION}_Windows_i386.exe" "$PLUGINSDIR\MediaInfoInstaller.exe"
+      "${BASEURL}/MediaInfo_GUI_${PRODUCT_VERSION}_Windows_i386.exe" "$PLUGINSDIR\MediaInfoInstaller.exe"
     ${EndIf}
   ${EndIf}
 
