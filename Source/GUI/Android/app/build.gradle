@@ -17,8 +17,8 @@ android {
         applicationId "net.mediaarea.mediainfo"
         multiDexEnabled = true
         minSdkVersion 19
-        versionCode 44
-        versionName "24.11"
+        versionCode 45
+        versionName "24.12"
         targetSdkVersion 34
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

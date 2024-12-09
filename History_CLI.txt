@@ -12,6 +12,16 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 24.12, 2024-12-10
+-------------
++ Windows: native ARM64 build
++ AVC: Chroma Subsampling Position
++ PNG: adapt cLLi/mdCv letter case due to spec draft update
++ Windows: enforce more security compilation flags (thanks to cjee21)
+x RIFF: fix bad seek in big chunks e.g. aXML with odd size
+x ADM: fix buffer over-read
+x FFV1: MaxSliceCount was not in XML or JSON report
+
 Version 24.11, 2024-11-07
 -------------
 + I1945, PAC subtitle format support

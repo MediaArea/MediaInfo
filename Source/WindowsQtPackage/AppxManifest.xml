@@ -8,7 +8,7 @@
   xmlns:desktop5="http://schemas.microsoft.com/appx/manifest/desktop/windows10/5"
   xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
   IgnorableNamespaces="uap rescap desktop desktop4 desktop5 com">
-  <Identity Name="MediaInfo.Qt" Publisher="CN=MEDIAAREA.NET, O=MEDIAAREA.NET, L=Curienne, S=Auvergne-Rhône-Alpes, C=FR" Version="24.11.0.0" ProcessorArchitecture="x64" />
+  <Identity Name="MediaInfo.Qt" Publisher="CN=MEDIAAREA.NET, O=MEDIAAREA.NET, L=Curienne, S=Auvergne-Rhône-Alpes, C=FR" Version="24.12.0.0" ProcessorArchitecture="x64" />
   <Properties>
     <DisplayName>MediaInfo Qt</DisplayName>
     <PublisherDisplayName>MEDIAAREA.NET</PublisherDisplayName>
