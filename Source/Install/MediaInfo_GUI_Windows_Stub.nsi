@@ -45,6 +45,9 @@ Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
 OutFile "..\..\Release\${PRODUCT_NAME}_GUI_${PRODUCT_VERSION}_Windows_Online.exe"
 ShowInstDetails nevershow
 
+; Variables
+Var ARCH_SELECTED
+
 Section
   HideWindow
   InitPluginsDir
@@ -53,17 +56,15 @@ Section
 
   ${If} ${IsNativeARM64}
     ${AndIf} ${AtLeastWin11}
-      inetc::get /CAPTION "MediaInfo Online Installer" /BANNER "Downloading MediaInfo ${PRODUCT_VERSION} ARM64..." \
-      "${BASEURL}/MediaInfo_GUI_${PRODUCT_VERSION}_Windows_ARM64.exe" "$PLUGINSDIR\MediaInfoInstaller.exe"
+      StrCpy $ARCH_SELECTED "ARM64"
+  ${ElseIf} ${IsNativeAMD64}
+    StrCpy $ARCH_SELECTED "x64"
   ${Else}
-    ${If} ${IsNativeAMD64}
-      inetc::get /CAPTION "MediaInfo Online Installer" /BANNER "Downloading MediaInfo ${PRODUCT_VERSION} x64..." \
-      "${BASEURL}/MediaInfo_GUI_${PRODUCT_VERSION}_Windows_x64.exe" "$PLUGINSDIR\MediaInfoInstaller.exe"
-    ${Else}
-      inetc::get /CAPTION "MediaInfo Online Installer" /BANNER "Downloading MediaInfo ${PRODUCT_VERSION} i386..." \
-      "${BASEURL}/MediaInfo_GUI_${PRODUCT_VERSION}_Windows_i386.exe" "$PLUGINSDIR\MediaInfoInstaller.exe"
-    ${EndIf}
+    StrCpy $ARCH_SELECTED "i386"
   ${EndIf}
+
+  inetc::get /CAPTION "MediaInfo GUI Online Installer" /BANNER "Downloading MediaInfo GUI ${PRODUCT_VERSION} $ARCH_SELECTED..." \
+    "${BASEURL}/MediaInfo_GUI_${PRODUCT_VERSION}_Windows_$ARCH_SELECTED.exe" "$PLUGINSDIR\MediaInfoInstaller.exe"
 
   Pop $0
   ${If} $0 == "OK"
