@@ -1,5 +1,6 @@
 #NSIS: encoding=UTF-8
 RequestExecutionLevel admin
+ManifestDPIAware true
 
 ; Some defines
 !define PRODUCT_NAME "MediaInfo"
@@ -16,7 +17,7 @@ RequestExecutionLevel admin
 SetCompressor /FINAL /SOLID lzma
 
 ; x64 stuff
-!include "x64.nsh"
+!include x64.nsh
 
 ; Logic stuff
 !include LogicLib.nsh
@@ -45,6 +46,9 @@ Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
 OutFile "..\..\Release\${PRODUCT_NAME}_GUI_${PRODUCT_VERSION}_Windows_Online.exe"
 ShowInstDetails nevershow
 
+; Variables
+Var ARCH_SELECTED
+
 Section
   HideWindow
   InitPluginsDir
@@ -53,29 +57,52 @@ Section
 
   ${If} ${IsNativeARM64}
     ${AndIf} ${AtLeastWin11}
-      inetc::get /CAPTION "MediaInfo Online Installer" /BANNER "Downloading MediaInfo ${PRODUCT_VERSION} ARM64..." \
-      "${BASEURL}/MediaInfo_GUI_${PRODUCT_VERSION}_Windows_ARM64.exe" "$PLUGINSDIR\MediaInfoInstaller.exe"
+      StrCpy $ARCH_SELECTED "ARM64"
+  ${ElseIf} ${IsNativeAMD64}
+    StrCpy $ARCH_SELECTED "x64"
   ${Else}
-    ${If} ${IsNativeAMD64}
-      inetc::get /CAPTION "MediaInfo Online Installer" /BANNER "Downloading MediaInfo ${PRODUCT_VERSION} x64..." \
-      "${BASEURL}/MediaInfo_GUI_${PRODUCT_VERSION}_Windows_x64.exe" "$PLUGINSDIR\MediaInfoInstaller.exe"
-    ${Else}
-      inetc::get /CAPTION "MediaInfo Online Installer" /BANNER "Downloading MediaInfo ${PRODUCT_VERSION} i386..." \
-      "${BASEURL}/MediaInfo_GUI_${PRODUCT_VERSION}_Windows_i386.exe" "$PLUGINSDIR\MediaInfoInstaller.exe"
-    ${EndIf}
+    StrCpy $ARCH_SELECTED "i386"
   ${EndIf}
 
+  inetc::get /CAPTION "MediaInfo GUI Online Installer" /BANNER "Downloading MediaInfo GUI ${PRODUCT_VERSION} $ARCH_SELECTED..." \
+    "${BASEURL}/MediaInfo_GUI_${PRODUCT_VERSION}_Windows_$ARCH_SELECTED.exe" "$PLUGINSDIR\MediaInfoInstaller.exe"
   Pop $0
-  ${If} $0 == "OK"
-    ${IfNot} ${Silent}
-      ExecWait '"$PLUGINSDIR\MediaInfoInstaller.exe"'
-    ${Else}
-      ExecWait '"$PLUGINSDIR\MediaInfoInstaller.exe" /S'
-    ${EndIf}
-  ${Else}
+  ${If} $0 != "OK"
     MessageBox MB_OK "Download Status: $0"
+    goto Exit
   ${EndIf}
 
+  ; Verify digital signature of the downloaded installer
+  CertCheck::CheckPETrustAndInfoAsync "$PLUGINSDIR\MediaInfoInstaller.exe" "MEDIAAREA.NET" "SSL.com Code Signing Intermediate CA RSA R1"
+  CertCheckGetStatus:
+    CertCheck::GetStatus
+    Pop $0
+    ${If} $0 == 0
+      sleep 10
+      goto CertCheckGetStatus
+    ${EndIf}
+  Pop $0
+  Pop $1
+  ${If} $0 == 0
+    ${AndIf} $1 == 0
+      MessageBox mb_iconStop "Installer signed with an unexpected cert that is untrusted!"
+      goto Exit
+  ${ElseIf} $0 == 0
+    MessageBox mb_iconStop "Installer signed with an untrusted cert!"
+    goto Exit
+  ${ElseIf} $1 == 0
+    MessageBox mb_iconStop "Installer signed with an unexpected cert!"
+    goto Exit
+  ${EndIf}
+
+  ; Execute the downloaded installer
+  ${IfNot} ${Silent}
+    ExecWait '"$PLUGINSDIR\MediaInfoInstaller.exe"'
+  ${Else}
+    ExecWait '"$PLUGINSDIR\MediaInfoInstaller.exe" /S'
+  ${EndIf}
+
+  Exit:
   ; Make sure PLUGINSDIR is not locked and can be deleted
   SetOutPath "$TEMP"
 
