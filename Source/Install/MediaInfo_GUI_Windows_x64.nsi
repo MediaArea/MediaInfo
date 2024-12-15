@@ -2,6 +2,9 @@
 ; Request application privileges for Windows Vista
 RequestExecutionLevel admin
 
+; Enable high-DPI support
+ManifestDPIAware true
+
 ; Some defines
 !define PRODUCT_NAME "MediaInfo"
 !define PRODUCT_PUBLISHER "MediaArea.net"
