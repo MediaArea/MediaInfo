@@ -53,7 +53,7 @@
       <widget class="QLabel" name="aboutText">
        <property name="text">
         <string>MediaInfo v%1
-Copyright (C) 2002-2024 MediaArea.net SARL
+Copyright (C) 2002-2025 MediaArea.net SARL
 
 Supply very detailled information
 about a multimedia file:
