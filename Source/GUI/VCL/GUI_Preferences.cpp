@@ -343,6 +343,18 @@ void __fastcall TPreferencesF::Language_EditClick(TObject *Sender)
 void __fastcall TPreferencesF::OKClick(TObject *Sender)
 {
     Prefs->Config.Save();
+    if (CB_InscrireShell_SeparateInstance->Visible) {
+        TRegistry* Reg = new TRegistry(KEY_WRITE);
+        try {
+            if (Reg->OpenKey(__T("Software\\MediaArea\\MediaInfo"), true)) {
+                if (CB_InscrireShell_SeparateInstance->Checked)
+                    Reg->WriteInteger("ShellExtension_SeparateInstance", 1);
+                else
+                    Reg->DeleteValue("ShellExtension_SeparateInstance");
+            }
+        } catch (...) {}
+        delete Reg;
+    }
 }
 
 //---------------------------------------------------------------------------
@@ -690,6 +702,25 @@ void __fastcall TPreferencesF::GUI_Configure()
     //Preparation of GUI
     Tree->FullExpand();
     Page->ActivePage=Setup;
+
+    //Enable separate instance option if modern shell extension is installed
+    TRegistry* Reg = new TRegistry;
+    try {
+        Reg->RootKey = HKEY_CLASSES_ROOT;
+        if (Reg->OpenKeyReadOnly(__T("PackagedCom\\ClassIndex\\{20669675-B281-4C4F-94FB-CB6FD3995545}"))) {
+            CB_InscrireShell_SeparateInstance->Visible=true;
+            Reg->RootKey = HKEY_CURRENT_USER;
+            if (Reg->OpenKeyReadOnly(__T("Software\\MediaArea\\MediaInfo"))) {
+                if (Reg->ValueExists("ShellExtension_SeparateInstance"))
+                    CB_InscrireShell_SeparateInstance->Checked=Reg->ReadInteger("ShellExtension_SeparateInstance");
+            }
+        }
+    } catch (...) {}
+    delete Reg;
+
+    //Move InfoTip option up to prevent blank space if there is a space
+    if (!CB_InscrireShell_SeparateInstance->Visible)
+        CB_InfoTip->Top=CB_InscrireShell_Folder->Top+CB_InscrireShell_Folder->Height*0.9;
 
     //Translation
     //Title

@@ -251,6 +251,50 @@ public:
         module_path = module_path.remove_filename();
         module_path /= exe_filename;
 
+        // Option for separate instance
+        bool separate_instance = false;
+        try {
+#ifdef MEDIAINFO_QT
+            if (RegGetBool(HKEY_CURRENT_USER, L"Software\\MediaArea.net\\MediaInfo", L"shellExtension_separateInstance"))
+#else
+            if (RegGetDword(HKEY_CURRENT_USER, L"Software\\MediaArea\\MediaInfo", L"ShellExtension_SeparateInstance"))
+#endif // MEDIAINFO_QT
+            {
+                separate_instance = true;
+            }
+        }
+        catch (...) {
+            // Error reading reg, default same instance
+        }
+        if (separate_instance) {
+            // Invoke application, one instance per item
+            for (DWORD i = 0; i < count; ++i) {
+                winrt::com_ptr<IShellItem> item;
+                auto result = items->GetItemAt(i, item.put());
+                if (SUCCEEDED(result)) {
+                    wil::unique_cotaskmem_string path;
+                    result = item->GetDisplayName(SIGDN_FILESYSPATH, &path);
+                    if (SUCCEEDED(result)) {
+                        auto command{ wil::str_printf<std::wstring>(LR"-("%s" %s)-", module_path.c_str(), QuoteForCommandLineArg(path.get()).c_str()) };
+                        wil::unique_process_information process_info;
+                        STARTUPINFOW startup_info = { sizeof(startup_info) };
+                        RETURN_IF_WIN32_BOOL_FALSE(CreateProcessW(
+                            nullptr,
+                            command.data(),
+                            nullptr /* lpProcessAttributes */,
+                            nullptr /* lpThreadAttributes */,
+                            false /* bInheritHandles */,
+                            CREATE_NO_WINDOW,
+                            nullptr,
+                            nullptr,
+                            &startup_info,
+                            &process_info));
+                    }
+                }
+            }
+            return S_OK;
+        }
+
         // Prepare cmd line string to invoke application ("path\to\application.exe" "path\to\firstitem" "path\to\nextitem" ...)
         auto command = wil::str_printf<std::wstring>(LR"-("%s")-", module_path.c_str()); // Path to application.exe
         // Add multiple selected files/folders to cmd line as parameters

@@ -47,6 +47,7 @@ Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
     ui->closeAllBeforeOpen->setChecked(settings->value("closeBeforeOpen",true).toBool());
     ui->comboBox_defaultview->setCurrentIndex(settings->value("defaultView",VIEW_EASY).toInt());
     ui->shellExtension->setChecked(settings->value("shellExtension",true).toBool());
+    ui->shellExtension_separateInstance->setChecked(settings->value("shellExtension_separateInstance",false).toBool());
     ui->informVersion->setChecked(settings->value("informVersion",false).toBool());
     ui->informTimestamp->setChecked(settings->value("informTimestamp",false).toBool());
     ui->displayCaptions->setCurrentIndex(settings->value("displayCaptions",1).toInt());
@@ -59,6 +60,12 @@ Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
 #else
     ui->checkForNewVersion->setVisible(false);
 #endif
+
+#ifndef _WIN32 // Shell extension not yet implemented for non-Windows
+    ui->shellExtension->setVisible(false);
+    ui->shellExtension_separateInstance->setVisible(false);
+#endif
+    ui->shellInfoTip->setVisible(false); // InfoTip not yet implemented
 
 #if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) //Setup UI for winRT
     ui->rememberToolBarPosition->setVisible(false);
@@ -115,6 +122,7 @@ void Preferences::saveSettings() {
     settings->setValue("rememberToolBarPosition",ui->rememberToolBarPosition->isChecked());
     settings->setValue("rememberGeometry",ui->rememberGeometry->isChecked());
     settings->setValue("shellExtension",ui->shellExtension->isChecked());
+    settings->setValue("shellExtension_separateInstance",ui->shellExtension_separateInstance->isChecked());
     settings->setValue("informVersion",ui->informVersion->isChecked());
     settings->setValue("informTimestamp",ui->informTimestamp->isChecked());
     settings->setValue("displayCaptions",ui->displayCaptions->currentIndex());
