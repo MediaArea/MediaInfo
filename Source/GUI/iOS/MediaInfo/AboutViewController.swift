@@ -36,7 +36,7 @@ class AboutViewController: UIViewController {
 
         about = about.replacingOccurrences(of: "%MI_VERSION%", with: miVersion)
         about = about.replacingOccurrences(of: "%MIL_VERSION%", with: milVersion)
-        about += "\nCopyright (c) 2002-2024 MediaArea.net SARL. All rights reserved.\n\n"
+        about += "\nCopyright (c) 2002-2025 MediaArea.net SARL. All rights reserved.\n\n"
         about += NSLocalizedString("About_Text", tableName: "Core", comment: "")
 
         aboutText.text = about

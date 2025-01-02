@@ -12,7 +12,7 @@
   <string name="hello_text" csv="At least one file">(You must at least open one file)</string>
   <string name="about_title" csv="About">About</string>
   <string name="about_about_text" formatted="false" csv="MediaInfo_About_About">MediaInfo v%MI_VERSION% using MediaInfoLib v%MIL_VERSION%</string>
-  <string name="about_copyright_text" translatable="false">Copyright © 2002-2024 MediaArea.net SARL.</string>
+  <string name="about_copyright_text" translatable="false">Copyright © 2002-2025 MediaArea.net SARL.</string>
   <string name="about_description_text" csv="MediaInfo_About">
             MediaInfo provides easy access to technical and tag information about video and audio files.\n
             Except the Mac App Store graphical user interface, it is open-source software, which means that it is free of charge to the end user and developers have freedom to study, to improve and to redistribute the program (BSD license)

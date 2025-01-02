@@ -1,5 +1,5 @@
 /* MediaInfoDLL - All info about media files, for DLL
-// Copyright (C) 2002-2024 MediaArea.net SARL, Info@MediaArea.net
+// Copyright (C) 2002-2025 MediaArea.net SARL, Info@MediaArea.net
 //
 // This library is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
