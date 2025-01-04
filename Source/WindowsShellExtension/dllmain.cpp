@@ -137,6 +137,54 @@ namespace {
         throw std::runtime_error("Not a boolean.");
     }
 
+    // ResolveIt - Uses the Shell's IShellLink and IPersistFile interfaces 
+    //             to retrieve the path and description from an existing shortcut.
+    // Adapted from: https://learn.microsoft.com/en-us/windows/win32/shell/links#resolving-a-shortcut
+    //
+    // Returns the result of calling the member functions of the interfaces. 
+    //
+    // Parameters:
+    // hwnd         - A handle to the parent window. The Shell uses this window to 
+    //                display a dialog box if it needs to prompt the user for more 
+    //                information while resolving the link.
+    // lpszLinkFile - Address of a buffer that contains the path of the link,
+    //                including the file name.
+    // lpszPath     - Address of a buffer that receives the path of the link
+    //                target, including the file name.
+    _Check_return_
+    HRESULT ResolveIt(_In_opt_ HWND hwnd, _In_ LPCWSTR lpszLinkFile, _Out_ LPWSTR lpszPath, _In_ int iPathBufferSize) {
+        HRESULT hres;
+        winrt::com_ptr<IShellLink> psl;
+
+        *lpszPath = 0; // Assume failure 
+
+        // Get a pointer to the IShellLink interface. It is assumed that CoInitialize
+        // has already been called. 
+        hres = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, reinterpret_cast<LPVOID*>(&psl));
+        if (SUCCEEDED(hres)) {
+            winrt::com_ptr<IPersistFile> ppf;
+            // Get a pointer to the IPersistFile interface. 
+            hres = psl->QueryInterface(IID_IPersistFile, reinterpret_cast<void**>(&ppf));
+            if (SUCCEEDED(hres)) {
+                // Load the shortcut. 
+                hres = ppf->Load(lpszLinkFile, STGM_READ);
+                if (SUCCEEDED(hres)) {
+                    // Resolve the link. 
+                    hres = psl->Resolve(hwnd, 0);
+                    if (SUCCEEDED(hres)) {
+                        WCHAR szGotPath[MAX_PATH];
+                        // Get the path to the link target. 
+                        hres = psl->GetPath(szGotPath, ARRAYSIZE(szGotPath), nullptr, SLGP_RAWPATH);
+                        if (SUCCEEDED(hres)) {
+                            hres = StringCbCopy(lpszPath, iPathBufferSize, szGotPath);
+                        }
+                    }
+                }
+            }
+        }
+        return hres;
+    }
+
     // Function to check for supported file extensions
     bool IsSupportedFileExtension(_In_ const std::string& extension) {
         const std::vector<std::string> supported_extensions{
@@ -354,7 +402,16 @@ public:
                             wil::unique_cotaskmem_string path;
                             if (SUCCEEDED(item->GetDisplayName(SIGDN_FILESYSPATH, &path))) {
                                 std::filesystem::path filepath{ path.get() };
-                                is_supported_extension = IsSupportedFileExtension(filepath.extension().string());
+                                // resolve shortcuts
+                                if (filepath.extension().string().compare(".lnk") == 0) {
+                                    WCHAR target_path[MAX_PATH];
+                                    if (SUCCEEDED(ResolveIt(nullptr, filepath.wstring().c_str(), target_path, sizeof(target_path))))
+                                        filepath = target_path;
+                                }
+                                if (std::filesystem::is_directory(filepath))
+                                    is_folder = true;
+                                else
+                                    is_supported_extension = IsSupportedFileExtension(filepath.extension().string());
                             }
                         }
                     }
@@ -437,8 +494,15 @@ public:
                 wil::unique_cotaskmem_string path;
                 result = item->GetDisplayName(SIGDN_FILESYSPATH, &path);
                 if (SUCCEEDED(result)) {
+                    std::filesystem::path filepath{ path.get() };
+                    // Resolve shortcuts
+                    if (filepath.extension().string().compare(".lnk") == 0) {
+                        WCHAR target_path[MAX_PATH];
+                        if (SUCCEEDED(ResolveIt(nullptr, filepath.wstring().c_str(), target_path, sizeof(target_path))))
+                            filepath = target_path;
+                    }
                     // Append the item path to the existing command, adding quotes and escapes as needed
-                    command = wil::str_printf<std::wstring>(LR"-(%s %s)-", command.c_str(), QuoteForCommandLineArg(path.get()).c_str());
+                    command = wil::str_printf<std::wstring>(LR"-(%s %s)-", command.c_str(), QuoteForCommandLineArg(filepath.wstring()).c_str());
                 }
             }
         }
