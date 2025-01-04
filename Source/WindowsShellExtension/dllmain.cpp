@@ -82,7 +82,7 @@ namespace {
 
     // Extracted from
     // https://learn.microsoft.com/en-us/archive/msdn-magazine/2017/may/c-use-modern-c-to-access-the-windows-registry#reading-a-dword-value-from-the-registry
-    DWORD RegGetDword(HKEY hKey, const std::wstring& subKey, const std::wstring& value) {
+    DWORD RegGetDword(_In_ HKEY hKey, _In_ const std::wstring& subKey, _In_ const std::wstring& value) {
         DWORD data{};
         DWORD dataSize = sizeof(data);
         LONG retCode = RegGetValue(
@@ -101,7 +101,7 @@ namespace {
 
     // Adapted from
     // https://learn.microsoft.com/en-us/archive/msdn-magazine/2017/may/c-use-modern-c-to-access-the-windows-registry#reading-a-string-value-from-the-registry
-    bool RegGetBool(HKEY hKey, const std::wstring& subKey, const std::wstring& value) {
+    bool RegGetBool(_In_ HKEY hKey, _In_ const std::wstring& subKey, _In_ const std::wstring& value) {
         DWORD dataSize{};
         LONG retCode = RegGetValue(
             hKey,
@@ -135,6 +135,169 @@ namespace {
         if (data.compare(L"false") == 0)
             return false;
         throw std::runtime_error("Not a boolean.");
+    }
+
+    // Function to check for supported file extensions
+    bool IsSupportedFileExtension(_In_ const std::string& extension) {
+        const std::vector<std::string> supported_extensions{
+            ".264",
+            ".3g2",
+            ".3ga",
+            ".3gp",
+            ".3gpa",
+            ".3gpp",
+            ".aa3",
+            ".aac",
+            ".aacp",
+            ".adts",
+            ".ac3",
+            ".act",
+            ".aif",
+            ".aifc",
+            ".aiff",
+            ".amr",
+            ".ape",
+            ".asf",
+            ".at3",
+            ".au",
+            ".aud",
+            ".aue",
+            ".avi",
+            ".avif",
+            ".avs",
+            ".bdmv",
+            ".bmp",
+            ".bms",
+            ".braw",
+            ".caf",
+            ".clpi",
+            ".dat",
+            ".dde",
+            ".divx",
+            ".dpg",
+            ".dff",
+            ".dsd",
+            ".dsf",
+            ".dts",
+            ".dtshd",
+            ".dv",
+            ".dvr",
+            ".dvr-ms",
+            ".eac3",
+            ".evo",
+            ".f4a",
+            ".f4b",
+            ".f4v",
+            ".fla",
+            ".flc",
+            ".fli",
+            ".flac",
+            ".flv",
+            ".gvi",
+            ".gif",
+            ".gis",
+            ".h264",
+            ".h3d",
+            ".hdmov",
+            ".heic",
+            ".heif",
+            ".iamf",
+            ".ico",
+            ".ifo",
+            ".ism",
+            ".isma",
+            ".ismv",
+            ".j2k",
+            ".jp2",
+            ".jpeg",
+            ".jpg",
+            ".jps",
+            ".jxl",
+            ".m1s",
+            ".m1t",
+            ".m1v",
+            ".m2p",
+            ".m2s",
+            ".m2t",
+            ".m2ts",
+            ".m2v",
+            ".m4a",
+            ".m4b",
+            ".m4v",
+            ".mac",
+            ".mk3d",
+            ".mka",
+            ".mks",
+            ".mkv",
+            ".mlp",
+            ".mod",
+            ".mov",
+            ".mp+",
+            ".mp2",
+            ".mp3",
+            ".mp4",
+            ".mpc",
+            ".mpd",
+            ".mpe",
+            ".mpeg",
+            ".mpg",
+            ".mpgv",
+            ".mpgx",
+            ".mpls",
+            ".mpm",
+            ".mpo",
+            ".mpv",
+            ".mts",
+            ".mxf",
+            ".oga",
+            ".ogg",
+            ".ogm",
+            ".ogv",
+            ".ogx",
+            ".oma",
+            ".opus",
+            ".png",
+            ".pns",
+            ".qcp",
+            ".qt",
+            ".ra",
+            ".rm",
+            ".rmvb",
+            ".shn",
+            ".smv",
+            ".spdif",
+            ".spx",
+            ".stl",
+            ".swf",
+            ".tak",
+            ".thd",
+            ".thd+ac3",
+            ".tif",
+            ".tiff",
+            ".tmf",
+            ".tp",
+            ".trec",
+            ".trp",
+            ".ts",
+            ".tta",
+            ".ty",
+            ".vob",
+            ".vqf",
+            ".vro",
+            ".w64",
+            ".wav",
+            ".webm",
+            ".webp",
+            ".wma",
+            ".wmv",
+            ".wtv",
+            ".wv",
+            ".wvc",
+            ".y4m"
+        };
+        std::string extension_lower{ extension };
+        std::for_each(extension_lower.begin(), extension_lower.end(), [](char& c) { c = static_cast<char>(tolower(c)); });
+        return std::any_of(supported_extensions.begin(), supported_extensions.end(), [extension_lower](const std::string& extension_iter) { return (extension_iter.compare(extension_lower) == 0); });
     }
 }
 
@@ -174,23 +337,36 @@ public:
         // Hide it if registry setting indicates that it should be disabled, else it is enabled
         UNREFERENCED_PARAMETER(okToBeSlow);
 
-        // Check if it is a folder
-        bool is_folder = false;
+        // Check if it is a folder or supported file extension
+        bool is_folder{ false };
+        bool is_supported_extension{ false };
         if (items) {
             DWORD count;
             RETURN_IF_FAILED(items->GetCount(&count));
             if (count > 0) {
                 winrt::com_ptr<IShellItem> item;
                 if (SUCCEEDED(items->GetItemAt(0, item.put()))) {
-                    SFGAOF attribute = 0;
-                    if (SUCCEEDED(item->GetAttributes(SFGAO_FOLDER, &attribute)))
-                        if (attribute & SFGAO_FOLDER)
+                    SFGAOF attribute{};
+                    if (SUCCEEDED(item->GetAttributes(SFGAO_FOLDER | SFGAO_STREAM, &attribute))) {
+                        if ((attribute & SFGAO_FOLDER) && !(attribute & SFGAO_STREAM))
                             is_folder = true;
+                        else {
+                            wil::unique_cotaskmem_string path;
+                            if (SUCCEEDED(item->GetDisplayName(SIGDN_FILESYSPATH, &path))) {
+                                std::filesystem::path filepath{ path.get() };
+                                is_supported_extension = IsSupportedFileExtension(filepath.extension().string());
+                            }
+                        }
+                    }
                 }
             }
         }
 
         // Check for files
+        if (!is_supported_extension && !is_folder) {
+            *cmdState = ECS_HIDDEN;
+            return S_OK;
+        }
         try {
 #ifdef MEDIAINFO_QT
             if (!RegGetBool(HKEY_CURRENT_USER, L"Software\\MediaArea.net\\MediaInfo", L"shellExtension"))
