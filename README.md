@@ -74,7 +74,7 @@ dpkg -i libmediainfo* libzen*
 *GUI only dependencies*
 
 ```sh
-apt-get install libwxgtk3.0-dev
+apt-get install libwxgtk3.2-dev
 ```
 
 #### Fedora
