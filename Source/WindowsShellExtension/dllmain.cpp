@@ -82,7 +82,7 @@ namespace {
 
     // Extracted from
     // https://learn.microsoft.com/en-us/archive/msdn-magazine/2017/may/c-use-modern-c-to-access-the-windows-registry#reading-a-dword-value-from-the-registry
-    DWORD RegGetDword(HKEY hKey, const std::wstring& subKey, const std::wstring& value) {
+    DWORD RegGetDword(_In_ HKEY hKey, _In_ const std::wstring& subKey, _In_ const std::wstring& value) {
         DWORD data{};
         DWORD dataSize = sizeof(data);
         LONG retCode = RegGetValue(
@@ -101,7 +101,7 @@ namespace {
 
     // Adapted from
     // https://learn.microsoft.com/en-us/archive/msdn-magazine/2017/may/c-use-modern-c-to-access-the-windows-registry#reading-a-string-value-from-the-registry
-    bool RegGetBool(HKEY hKey, const std::wstring& subKey, const std::wstring& value) {
+    bool RegGetBool(_In_ HKEY hKey, _In_ const std::wstring& subKey, _In_ const std::wstring& value) {
         DWORD dataSize{};
         LONG retCode = RegGetValue(
             hKey,
@@ -135,6 +135,217 @@ namespace {
         if (data.compare(L"false") == 0)
             return false;
         throw std::runtime_error("Not a boolean.");
+    }
+
+    // ResolveIt - Uses the Shell's IShellLink and IPersistFile interfaces 
+    //             to retrieve the path and description from an existing shortcut.
+    // Adapted from: https://learn.microsoft.com/en-us/windows/win32/shell/links#resolving-a-shortcut
+    //
+    // Returns the result of calling the member functions of the interfaces. 
+    //
+    // Parameters:
+    // hwnd         - A handle to the parent window. The Shell uses this window to 
+    //                display a dialog box if it needs to prompt the user for more 
+    //                information while resolving the link.
+    // lpszLinkFile - Address of a buffer that contains the path of the link,
+    //                including the file name.
+    // lpszPath     - Address of a buffer that receives the path of the link
+    //                target, including the file name.
+    _Check_return_
+    HRESULT ResolveIt(_In_opt_ HWND hwnd, _In_ LPCWSTR lpszLinkFile, _Out_ LPWSTR lpszPath, _In_ int iPathBufferSize) {
+        HRESULT hres;
+        winrt::com_ptr<IShellLink> psl;
+
+        *lpszPath = 0; // Assume failure 
+
+        // Get a pointer to the IShellLink interface. It is assumed that CoInitialize
+        // has already been called. 
+        hres = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, reinterpret_cast<LPVOID*>(&psl));
+        if (SUCCEEDED(hres)) {
+            winrt::com_ptr<IPersistFile> ppf;
+            // Get a pointer to the IPersistFile interface. 
+            hres = psl->QueryInterface(IID_IPersistFile, reinterpret_cast<void**>(&ppf));
+            if (SUCCEEDED(hres)) {
+                // Load the shortcut. 
+                hres = ppf->Load(lpszLinkFile, STGM_READ);
+                if (SUCCEEDED(hres)) {
+                    // Resolve the link. 
+                    hres = psl->Resolve(hwnd, 0);
+                    if (SUCCEEDED(hres)) {
+                        WCHAR szGotPath[MAX_PATH];
+                        // Get the path to the link target. 
+                        hres = psl->GetPath(szGotPath, ARRAYSIZE(szGotPath), nullptr, SLGP_RAWPATH);
+                        if (SUCCEEDED(hres)) {
+                            hres = StringCbCopy(lpszPath, iPathBufferSize, szGotPath);
+                        }
+                    }
+                }
+            }
+        }
+        return hres;
+    }
+
+    // Function to check for supported file extensions
+    bool IsSupportedFileExtension(_In_ const std::string& extension) {
+        const std::vector<std::string> supported_extensions{
+            ".264",
+            ".3g2",
+            ".3ga",
+            ".3gp",
+            ".3gpa",
+            ".3gpp",
+            ".aa3",
+            ".aac",
+            ".aacp",
+            ".adts",
+            ".ac3",
+            ".act",
+            ".aif",
+            ".aifc",
+            ".aiff",
+            ".amr",
+            ".ape",
+            ".asf",
+            ".at3",
+            ".au",
+            ".aud",
+            ".aue",
+            ".avi",
+            ".avif",
+            ".avs",
+            ".bdmv",
+            ".bmp",
+            ".bms",
+            ".braw",
+            ".caf",
+            ".clpi",
+            ".dat",
+            ".dde",
+            ".divx",
+            ".dpg",
+            ".dff",
+            ".dsd",
+            ".dsf",
+            ".dts",
+            ".dtshd",
+            ".dv",
+            ".dvr",
+            ".dvr-ms",
+            ".eac3",
+            ".evo",
+            ".f4a",
+            ".f4b",
+            ".f4v",
+            ".fla",
+            ".flc",
+            ".fli",
+            ".flac",
+            ".flv",
+            ".gvi",
+            ".gif",
+            ".gis",
+            ".h264",
+            ".h3d",
+            ".hdmov",
+            ".heic",
+            ".heif",
+            ".iamf",
+            ".ico",
+            ".ifo",
+            ".ism",
+            ".isma",
+            ".ismv",
+            ".j2k",
+            ".jp2",
+            ".jpeg",
+            ".jpg",
+            ".jps",
+            ".jxl",
+            ".m1s",
+            ".m1t",
+            ".m1v",
+            ".m2p",
+            ".m2s",
+            ".m2t",
+            ".m2ts",
+            ".m2v",
+            ".m4a",
+            ".m4b",
+            ".m4v",
+            ".mac",
+            ".mk3d",
+            ".mka",
+            ".mks",
+            ".mkv",
+            ".mlp",
+            ".mod",
+            ".mov",
+            ".mp+",
+            ".mp2",
+            ".mp3",
+            ".mp4",
+            ".mpc",
+            ".mpd",
+            ".mpe",
+            ".mpeg",
+            ".mpg",
+            ".mpgv",
+            ".mpgx",
+            ".mpls",
+            ".mpm",
+            ".mpo",
+            ".mpv",
+            ".mts",
+            ".mxf",
+            ".oga",
+            ".ogg",
+            ".ogm",
+            ".ogv",
+            ".ogx",
+            ".oma",
+            ".opus",
+            ".png",
+            ".pns",
+            ".qcp",
+            ".qt",
+            ".ra",
+            ".rm",
+            ".rmvb",
+            ".shn",
+            ".smv",
+            ".spdif",
+            ".spx",
+            ".stl",
+            ".swf",
+            ".tak",
+            ".thd",
+            ".thd+ac3",
+            ".tif",
+            ".tiff",
+            ".tmf",
+            ".tp",
+            ".trec",
+            ".trp",
+            ".ts",
+            ".tta",
+            ".ty",
+            ".vob",
+            ".vqf",
+            ".vro",
+            ".w64",
+            ".wav",
+            ".webm",
+            ".webp",
+            ".wma",
+            ".wmv",
+            ".wtv",
+            ".wv",
+            ".wvc",
+            ".y4m"
+        };
+        std::string extension_lower{ extension };
+        std::for_each(extension_lower.begin(), extension_lower.end(), [](char& c) { c = static_cast<char>(tolower(c)); });
+        return std::any_of(supported_extensions.begin(), supported_extensions.end(), [extension_lower](const std::string& extension_iter) { return (extension_iter.compare(extension_lower) == 0); });
     }
 }
 
@@ -174,23 +385,45 @@ public:
         // Hide it if registry setting indicates that it should be disabled, else it is enabled
         UNREFERENCED_PARAMETER(okToBeSlow);
 
-        // Check if it is a folder
-        bool is_folder = false;
+        // Check if it is a folder or supported file extension
+        bool is_folder{ false };
+        bool is_supported_extension{ false };
         if (items) {
             DWORD count;
             RETURN_IF_FAILED(items->GetCount(&count));
             if (count > 0) {
                 winrt::com_ptr<IShellItem> item;
                 if (SUCCEEDED(items->GetItemAt(0, item.put()))) {
-                    SFGAOF attribute = 0;
-                    if (SUCCEEDED(item->GetAttributes(SFGAO_FOLDER, &attribute)))
-                        if (attribute & SFGAO_FOLDER)
+                    SFGAOF attribute{};
+                    if (SUCCEEDED(item->GetAttributes(SFGAO_FOLDER | SFGAO_STREAM, &attribute))) {
+                        if ((attribute & SFGAO_FOLDER) && !(attribute & SFGAO_STREAM))
                             is_folder = true;
+                        else {
+                            wil::unique_cotaskmem_string path;
+                            if (SUCCEEDED(item->GetDisplayName(SIGDN_FILESYSPATH, &path))) {
+                                std::filesystem::path filepath{ path.get() };
+                                // resolve shortcuts
+                                if (filepath.extension().string().compare(".lnk") == 0) {
+                                    WCHAR target_path[MAX_PATH];
+                                    if (SUCCEEDED(ResolveIt(nullptr, filepath.wstring().c_str(), target_path, sizeof(target_path))))
+                                        filepath = target_path;
+                                }
+                                if (std::filesystem::is_directory(filepath))
+                                    is_folder = true;
+                                else
+                                    is_supported_extension = IsSupportedFileExtension(filepath.extension().string());
+                            }
+                        }
+                    }
                 }
             }
         }
 
         // Check for files
+        if (!is_supported_extension && !is_folder) {
+            *cmdState = ECS_HIDDEN;
+            return S_OK;
+        }
         try {
 #ifdef MEDIAINFO_QT
             if (!RegGetBool(HKEY_CURRENT_USER, L"Software\\MediaArea.net\\MediaInfo", L"shellExtension"))
@@ -261,8 +494,15 @@ public:
                 wil::unique_cotaskmem_string path;
                 result = item->GetDisplayName(SIGDN_FILESYSPATH, &path);
                 if (SUCCEEDED(result)) {
+                    std::filesystem::path filepath{ path.get() };
+                    // Resolve shortcuts
+                    if (filepath.extension().string().compare(".lnk") == 0) {
+                        WCHAR target_path[MAX_PATH];
+                        if (SUCCEEDED(ResolveIt(nullptr, filepath.wstring().c_str(), target_path, sizeof(target_path))))
+                            filepath = target_path;
+                    }
                     // Append the item path to the existing command, adding quotes and escapes as needed
-                    command = wil::str_printf<std::wstring>(LR"-(%s %s)-", command.c_str(), QuoteForCommandLineArg(path.get()).c_str());
+                    command = wil::str_printf<std::wstring>(LR"-(%s %s)-", command.c_str(), QuoteForCommandLineArg(filepath.wstring()).c_str());
                 }
             }
         }

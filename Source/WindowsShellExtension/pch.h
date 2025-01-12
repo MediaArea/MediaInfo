@@ -13,6 +13,8 @@
 #include <filesystem>
 #include <string>
 
+#include <strsafe.h>
+
 #include <shlobj_core.h>
 #include <shlwapi.h>
 #pragma comment(lib, "shlwapi.lib")
