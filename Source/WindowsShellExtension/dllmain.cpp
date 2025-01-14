@@ -33,9 +33,9 @@ BOOL APIENTRY DllMain(_In_ HMODULE hModule, _In_ DWORD  ul_reason_for_call, _In_
 }
 
 namespace {
+
     // Extracted from
     // https://source.chromium.org/chromium/chromium/src/+/main:base/command_line.cc;l=109-159
-
     std::wstring QuoteForCommandLineArg(_In_ const std::wstring& arg) {
         // We follow the quoting rules of CommandLineToArgvW.
         // http://msdn.microsoft.com/en-us/library/17w5ykft.aspx
@@ -183,6 +183,67 @@ namespace {
             }
         }
         return hres;
+    }
+
+    // Adapted from code generated with Google Gemini 2.0 Flash
+    _Check_return_ _Success_return_
+    bool ExtractUrlFromShortcut(_In_ const std::filesystem::path& filePath, _Out_ std::string& url) {
+        // Check if file exists and is readable
+        if (!std::filesystem::exists(filePath) || !std::filesystem::is_regular_file(filePath))
+            return false;
+
+        // Open the file in binary mode
+        std::ifstream file(filePath, std::ios::binary);
+
+        // Check if file opened successfully
+        if (!file.is_open())
+            return false;
+
+        // Read the entire file content
+        std::string content;
+        file.seekg(0, std::ios::end);
+        if (file.tellg() > 4096) { // Leave if file is too large
+            file.close();
+            return false;
+        }
+        content.resize(file.tellg());
+        file.seekg(0, std::ios::beg);
+        file.read(&content[0], content.size());
+        file.close();
+
+        // Check if the content starts with the expected header for a .url file
+        if (content.size() < 20 || (content.substr(0, 20).compare("[InternetShortcut]\r\n") != 0))
+            return false;
+
+        // Use regular expression to extract the URL
+        std::regex urlRegex(R"(URL=(.*?)\r?\n)");
+        std::smatch match;
+        if (std::regex_search(content, match, urlRegex)) {
+            url = match[1].str();
+            return true;
+        }
+        else
+            return false;
+    }
+
+    // Adapted from code generated with Google Gemini 2.0 Flash
+    std::string ExtractFileExtensionFromUrl(_In_ const std::string& url) {
+        // Find the last '/' before the '?' or end of string
+        size_t lastSlashPos{ url.find_last_of('/') };
+        size_t queryPos;
+        if (lastSlashPos == std::string::npos)
+            queryPos = url.find('?'); // URLs without slashes
+        else
+            queryPos = url.find('?', lastSlashPos + 1);
+        std::string filename;
+        if (queryPos == std::string::npos)
+            filename = url.substr(lastSlashPos + 1); // URLs without query strings
+        else
+            filename = url.substr(lastSlashPos + 1, queryPos - lastSlashPos - 1);
+
+        // Extract the extension using std::filesystem
+        std::filesystem::path filePath{ filename };
+        return filePath.extension().string();
     }
 
     // Function to check for supported file extensions
@@ -403,15 +464,22 @@ public:
                             if (SUCCEEDED(item->GetDisplayName(SIGDN_FILESYSPATH, &path))) {
                                 std::filesystem::path filepath{ path.get() };
                                 // resolve shortcuts
-                                if (filepath.extension().string().compare(".lnk") == 0) {
-                                    WCHAR target_path[MAX_PATH];
-                                    if (SUCCEEDED(ResolveIt(nullptr, filepath.wstring().c_str(), target_path, sizeof(target_path))))
-                                        filepath = target_path;
+                                if (filepath.extension().string().compare(".url") == 0) {
+                                    std::string url;
+                                    if (ExtractUrlFromShortcut(filepath, url))
+                                        is_supported_extension = IsSupportedFileExtension(ExtractFileExtensionFromUrl(url));
                                 }
-                                if (std::filesystem::is_directory(filepath))
-                                    is_folder = true;
-                                else
-                                    is_supported_extension = IsSupportedFileExtension(filepath.extension().string());
+                                else {
+                                    if (filepath.extension().string().compare(".lnk") == 0) {
+                                        WCHAR target_path[MAX_PATH];
+                                        if (SUCCEEDED(ResolveIt(nullptr, filepath.wstring().c_str(), target_path, sizeof(target_path))))
+                                            filepath = target_path;
+                                    }
+                                    if (std::filesystem::is_directory(filepath))
+                                        is_folder = true;
+                                    else
+                                        is_supported_extension = IsSupportedFileExtension(filepath.extension().string());
+                                }
                             }
                         }
                     }
@@ -496,6 +564,11 @@ public:
                 if (SUCCEEDED(result)) {
                     std::filesystem::path filepath{ path.get() };
                     // Resolve shortcuts
+                    if (filepath.extension().string().compare(".url") == 0) {
+                        std::string url;
+                        if (ExtractUrlFromShortcut(filepath, url))
+                            filepath = url;
+                    }
                     if (filepath.extension().string().compare(".lnk") == 0) {
                         WCHAR target_path[MAX_PATH];
                         if (SUCCEEDED(ResolveIt(nullptr, filepath.wstring().c_str(), target_path, sizeof(target_path))))
