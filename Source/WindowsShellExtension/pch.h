@@ -11,7 +11,9 @@
 #include "framework.h"
 
 #include <filesystem>
+#include <fstream>
 #include <string>
+#include <regex>
 
 #include <strsafe.h>
 

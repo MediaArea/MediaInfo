@@ -429,7 +429,14 @@ void MainWindow::openFiles(QStringList fileNames) {
     //Configuring
     if(fileNames.isEmpty())
         return;
-    for(int i=0;i<fileNames.size();i++) {
+    for (int i = 0; i < fileNames.size(); ++i) {
+        QUrl url(fileNames[i]);
+        if (url.isValid())
+            if (!url.scheme().isEmpty())
+                if (url.scheme().startsWith("http", Qt::CaseInsensitive) ||
+                    url.scheme().startsWith("ftp", Qt::CaseInsensitive) ||
+                    url.scheme().startsWith("sftp", Qt::CaseInsensitive))
+                    continue;
         fileNames[i] = QDir::toNativeSeparators(fileNames[i]);
     }
     C->Menu_File_Open_Files_Begin(settings->value("closeBeforeOpen",true).toBool(), true);
