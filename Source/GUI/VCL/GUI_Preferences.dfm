@@ -145,7 +145,7 @@ object PreferencesF: TPreferencesF
       end
       object CB_InfoTip: TCheckBox
         Left = 2
-        Top = 104
+        Top = 120
         Width = 655
         Height = 18
         Caption = 
@@ -174,6 +174,16 @@ object PreferencesF: TPreferencesF
         Height = 17
         Caption = 'For folders too'
         TabOrder = 4
+        OnClick = CB_InscrireShell_FolderClick
+      end
+      object CB_InscrireShell_SeparateInstance: TCheckBox
+        Left = 18
+        Top = 104
+        Width = 639
+        Height = 17
+        Caption = 'Open each item in a separate instance'
+        TabOrder = 8
+        Visible = False
         OnClick = CB_InscrireShell_FolderClick
       end
     end

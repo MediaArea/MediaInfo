@@ -75,6 +75,7 @@ __published:    // IDE-managed Components
     TCheckBox *CB_InscrireShell;
     TCheckBox *CB_InscrireShell_Folder;
     TCheckBox *Advanced_LegacyStreamDisplay;
+    TCheckBox *CB_InscrireShell_SeparateInstance;
     void __fastcall General_Language_SelChange(TObject *Sender);
     void __fastcall General_Output_SelChange(TObject *Sender);
     void __fastcall Custom_EditClick(TObject *Sender);
