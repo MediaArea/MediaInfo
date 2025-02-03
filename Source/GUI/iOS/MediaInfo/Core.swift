@@ -174,30 +174,37 @@ class Core {
         MediaInfo_Open_Buffer_Init(mi, fileSize, 0)
 
         while true {
-            let data: Data = file.readData(ofLength: 1024 * 1024)
-            var state: States = States(rawValue: 0)
-            let size = data.count
+            let finished = autoreleasepool {
+                let data: Data = file.readData(ofLength: 1024 * 1024)
+                var state: States = States(rawValue: 0)
+                let size = data.count
 
-            let buffer: UnsafeMutablePointer<MediaInfo_int8u> = UnsafeMutablePointer<MediaInfo_int8u>.allocate(capacity: size)
-            data.copyBytes(to: buffer, count: size)
-            state = States(rawValue: MediaInfo_Open_Buffer_Continue(mi, buffer, size))
-            buffer.deallocate()
+                let buffer: UnsafeMutablePointer<MediaInfo_int8u> = UnsafeMutablePointer<MediaInfo_int8u>.allocate(capacity: size)
+                data.copyBytes(to: buffer, count: size)
+                state = States(rawValue: Int(MediaInfo_Open_Buffer_Continue(mi, buffer, UInt(size))))
+                buffer.deallocate()
 
-            if state == States.Finalized {
-                break
+                if state == States.Finalized {
+                    return true
+                }
+
+                // test if there is a MediaInfo request to go elsewhere
+                let seekTo: MediaInfo_int64u = MediaInfo_Open_Buffer_Continue_GoTo_Get(mi)
+
+                if seekTo != MediaInfo_int64u.max {
+                    file.seek(toFileOffset: seekTo)
+                    MediaInfo_Open_Buffer_Init(mi, fileSize, file.offsetInFile) // inform MediaInfo we have seek
+                    return false
+                }
+
+                // EOF and no seekTo request
+                if data.count == 0 {
+                    return true
+                }
+
+                return false
             }
-
-            // test if there is a MediaInfo request to go elsewhere
-            let seekTo: MediaInfo_int64u = MediaInfo_Open_Buffer_Continue_GoTo_Get(mi)
-
-            if seekTo != MediaInfo_int64u.max {
-                file.seek(toFileOffset: seekTo)
-                MediaInfo_Open_Buffer_Init(mi, fileSize, file.offsetInFile) // inform MediaInfo we have seek
-                continue
-            }
-
-            // EOF and no seekTo request
-            if data.count == 0 {
+            if (finished) {
                 break
             }
         }
@@ -252,7 +259,7 @@ class Core {
         let cArray: UnsafeMutablePointer<MediaInfo_int8u> = UnsafeMutablePointer(mutating: report)
 
         MediaInfo_Open_Buffer_Init(mi, MediaInfo_int64u(report.count), MediaInfo_int64u(0))
-        MediaInfo_Open_Buffer_Continue(mi, cArray, report.count)
+        MediaInfo_Open_Buffer_Continue(mi, cArray, UInt(report.count))
         MediaInfo_Open_Buffer_Finalize(mi)
 
         output = wideStringToString(wideString: MediaInfo_Inform(mi, 0))
