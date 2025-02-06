@@ -252,7 +252,7 @@ class Core {
         let cArray: UnsafeMutablePointer<MediaInfo_int8u> = UnsafeMutablePointer(mutating: report)
 
         MediaInfo_Open_Buffer_Init(mi, MediaInfo_int64u(report.count), MediaInfo_int64u(0))
-        MediaInfo_Open_Buffer_Continue(mi, cArray, report.count)
+        MediaInfo_Open_Buffer_Continue(mi, cArray, UInt(report.count))
         MediaInfo_Open_Buffer_Finalize(mi)
 
         output = wideStringToString(wideString: MediaInfo_Inform(mi, 0))

@@ -18,7 +18,9 @@
 "Clear list" = "Clear list"; /* csv="ClearList"; */
 "Subscribe" = "Subscribe"; /* csv="Subscribe"; */
 "Dark mode" = "Dark mode"; /* csv="DarkMode"; */
+"Documents" = "Documents"; /* csv="Documents"; */
 "Language" = "Language"; /*csv="Language"; */
+"Gallery" = "Gallery"; /* csv="Gallery"; */
 "Report" = "Report"; /* csv="Report"; */
 "Renew" = "Renew"; /* csv="Renew"; */
 "About" = "About"; /* csv="About"; */
