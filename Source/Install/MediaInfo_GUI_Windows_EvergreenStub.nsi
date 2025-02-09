@@ -8,11 +8,6 @@ ManifestDPIAware true
 !define PRODUCT_VERSION "24.12"
 !define PRODUCT_VERSION4 "${PRODUCT_VERSION}.0.0"
 
-!define BASEURL "https://mediaarea.net/download/binary/mediainfo-gui/${PRODUCT_VERSION}"
-!ifdef SNAPSHOT
-  !define /redef BASEURL "https://mediaarea.net/download/snapshots/binary/mediainfo-gui/${SNAPSHOT}"
-!endif
-
 ; Compression
 SetCompressor /FINAL /SOLID lzma
 
@@ -24,6 +19,13 @@ SetCompressor /FINAL /SOLID lzma
 
 ; Windows version stuff
 !include WinVer.nsh
+
+; String functions
+!include StrFunc.nsh
+${Using:StrFunc} StrTrimNewLines
+
+; Word functions
+!include WordFunc.nsh
 
 ; Installer icon
 Icon "..\..\Source\Resource\Image\MediaInfo.ico"
@@ -39,33 +41,63 @@ VIAddVersionKey /LANG=0 "ProductVersion"   "${PRODUCT_VERSION4}"
 VIAddVersionKey /LANG=0 "FileDescription"  "All about your audio and video files"
 VIAddVersionKey /LANG=0 "FileVersion"      "${PRODUCT_VERSION4}"
 VIAddVersionKey /LANG=0 "LegalCopyright"   "${PRODUCT_PUBLISHER}"
-VIAddVersionKey /LANG=0 "OriginalFilename" "${PRODUCT_NAME}_GUI_${PRODUCT_VERSION}_Windows_Online.exe"
+VIAddVersionKey /LANG=0 "OriginalFilename" "${PRODUCT_NAME}_GUI_Windows_Online.exe"
 BrandingText " "
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "..\..\Release\${PRODUCT_NAME}_GUI_${PRODUCT_VERSION}_Windows_Online.exe"
+OutFile "..\..\Release\${PRODUCT_NAME}_GUI_Windows_Online.exe"
 ShowInstDetails nevershow
 
 ; Variables
+Var LATEST_VERSION
 Var ARCH_SELECTED
+Var VERSION_SELECTED
+Var FILENAME
 
 Section
   HideWindow
   InitPluginsDir
   SetOutPath "$PLUGINSDIR"
   Delete "$PLUGINSDIR\MediaInfoInstaller.exe"
+  Delete "$PLUGINSDIR\version.txt"
 
-  ${If} ${IsNativeARM64}
-    ${AndIf} ${AtLeastWin11}
-      StrCpy $ARCH_SELECTED "ARM64"
-  ${ElseIf} ${IsNativeAMD64}
-    StrCpy $ARCH_SELECTED "x64"
-  ${Else}
-    StrCpy $ARCH_SELECTED "i386"
+  inetc::get /CAPTION "MediaInfo GUI Online Installer" /BANNER "Downloading version information..." \
+    "https://mediaarea.net/mediainfo_check/version.txt" "$PLUGINSDIR\version.txt"
+  Pop $0
+  ${If} $0 != "OK"
+    MessageBox MB_OK "Download Status: $0"
+    goto Exit
   ${EndIf}
 
-  inetc::get /CAPTION "MediaInfo GUI Online Installer" /BANNER "Downloading MediaInfo GUI ${PRODUCT_VERSION} $ARCH_SELECTED..." \
-    "${BASEURL}/MediaInfo_GUI_${PRODUCT_VERSION}_Windows_$ARCH_SELECTED.exe" "$PLUGINSDIR\MediaInfoInstaller.exe"
+  FileOpen $4 "$PLUGINSDIR\version.txt" r
+  FileRead $4 $LATEST_VERSION
+  FileClose $4
+
+  ${If} ${AtLeastWinVista}
+    ${If} ${IsNativeARM64}
+      ${AndIf} ${AtLeastWin11}
+        StrCpy $ARCH_SELECTED "ARM64"
+    ${ElseIf} ${IsNativeAMD64}
+      StrCpy $ARCH_SELECTED "x64"
+    ${Else}
+      StrCpy $ARCH_SELECTED "i386"
+    ${EndIf}
+    ${StrTrimNewLines} $VERSION_SELECTED $LATEST_VERSION
+    StrCpy $FILENAME "MediaInfo_GUI_$VERSION_SELECTED_Windows_$ARCH_SELECTED.exe"
+  ${ElseIf} ${AtLeastWinXP}
+    StrCpy $VERSION_SELECTED "21.03"
+    StrCpy $ARCH_SELECTED "Universal"
+    StrCpy $FILENAME "MediaInfo_GUI_$VERSION_SELECTED_Windows.exe"
+  ${Else}
+    StrCpy $VERSION_SELECTED "0.7.60"
+    StrCpy $ARCH_SELECTED "i386"
+    StrCpy $FILENAME "MediaInfo_GUI_$VERSION_SELECTED_Windows_$ARCH_SELECTED.exe"
+    MessageBox MB_OK "Please contact us at info@mediaarea.net for old versions."
+    goto Exit
+  ${EndIf}
+
+  inetc::get /CAPTION "MediaInfo GUI Online Installer" /BANNER "Downloading MediaInfo GUI $VERSION_SELECTED $ARCH_SELECTED..." \
+    "https://mediaarea.net/download/binary/mediainfo-gui/$VERSION_SELECTED/$FILENAME" "$PLUGINSDIR\MediaInfoInstaller.exe"
   Pop $0
   ${If} $0 != "OK"
     MessageBox MB_OK "Download Status: $0"
@@ -73,7 +105,12 @@ Section
   ${EndIf}
 
   ; Verify digital signature of the downloaded installer
-  CertCheck::CheckPETrustAndInfoAsync "$PLUGINSDIR\MediaInfoInstaller.exe" "MEDIAAREA.NET" "SSL.com Code Signing Intermediate CA RSA R1"
+  ${VersionCompare} "$VERSION_SELECTED" "22.11" $R8
+  ${If} $R8 == "1" 
+    CertCheck::CheckPETrustAndInfoAsync "$PLUGINSDIR\MediaInfoInstaller.exe" "MEDIAAREA.NET" "SSL.com Code Signing Intermediate CA RSA R1"
+  ${Else}
+    CertCheck::CheckPETrustAndInfoAsync "$PLUGINSDIR\MediaInfoInstaller.exe" "MediaArea.net" "Sectigo RSA Code Signing CA"
+  ${EndIf}
   CertCheckGetStatus:
     CertCheck::GetStatus
     Pop $0
