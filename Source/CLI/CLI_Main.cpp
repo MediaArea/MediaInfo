@@ -105,7 +105,9 @@ int main(int argc, char* argv_ansi[])
 
     //Initialize terminal (to fix Unicode output on Win32)
     #if defined(_MSC_VER) && defined(UNICODE)
+        #pragma warning( suppress : 6031 ) //Return value of '_setmode' is ignored as it is "best effort" and failures are ignored
         _setmode(_fileno(stdout), _O_U8TEXT);
+        #pragma warning( suppress : 6031 )
         _setmode(_fileno(stderr), _O_U8TEXT);
         CLI_Option_Bom=false;
     #endif
