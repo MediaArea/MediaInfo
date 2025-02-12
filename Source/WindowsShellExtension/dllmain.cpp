@@ -206,7 +206,7 @@ namespace {
             file.close();
             return false;
         }
-        content.resize(file.tellg());
+        content.resize(static_cast<size_t>(file.tellg()));
         file.seekg(0, std::ios::beg);
         file.read(&content[0], content.size());
         file.close();
