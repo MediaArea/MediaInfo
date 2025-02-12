@@ -57,3 +57,44 @@ jobs:
         run: |
           cd Project/GNU/GUI
           make
+
+  Windows:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        architecture: [ Win32, x64, ARM64 ]
+      fail-fast: false
+    steps:
+    - name: Checkout zlib
+      uses: actions/checkout@v4
+      with:
+        repository: MediaArea/zlib
+        path: zlib
+    - name: Checkout ZenLib
+      uses: actions/checkout@v4
+      with:
+        repository: MediaArea/ZenLib
+        path: ZenLib
+    - name: Checkout MediaInfoLib
+      uses: actions/checkout@v4
+      with:
+        repository: MediaArea/MediaInfoLib
+        path: MediaInfoLib
+    - name: Checkout MediaArea-Utils for MediaInfo_NoGUI patch
+      uses: actions/checkout@v4
+      with:
+        repository: MediaArea/MediaArea-Utils
+        path: MediaArea-Utils
+        sparse-checkout: build_release/Diff/MediaInfo_NoGUI.diff
+        sparse-checkout-cone-mode: false
+    - name: Checkout MediaInfo
+      uses: actions/checkout@v4
+      with:
+        path: MediaInfo
+    - name: Apply MediaInfo_NoGUI patch
+      run: cd ${{ github.workspace }}\MediaInfo && git apply ${{ github.workspace }}\MediaArea-Utils\build_release\Diff\MediaInfo_NoGUI.diff
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v2
+    - name: Build
+      run: msbuild /restore /p:RestorePackagesConfig=true /p:Configuration=Release /p:Platform=${{ matrix.architecture }} ${{ github.workspace }}\MediaInfo\Project\MSVC2022\MediaInfo.sln /verbosity:quiet /warnaserror
+
