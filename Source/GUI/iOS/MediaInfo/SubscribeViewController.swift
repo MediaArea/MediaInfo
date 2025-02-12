@@ -111,6 +111,11 @@ class SubscribeViewController: UIViewController {
             updateSubscriptionDetails()
         }
 
+        if SubscriptionManager.shared.subscriptionActive {
+            subscriptionActive()
+        }
+
+        NotificationCenter.default.addObserver(self, selector: #selector(subscriptionStateChanged(_:)), name: .subscriptionStateChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(purchaseFailed(_:)), name: .purchaseFailed, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(purchaseDeferred(_:)), name: .purchaseDeferred, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(purchaseSucceeded(_:)), name: .purchaseSucceeded, object: nil)
@@ -206,5 +211,44 @@ class SubscribeViewController: UIViewController {
             message = NSLocalizedString("Unable to retrieve subscription details.", tableName: "Core", comment: "")
             close()
         }
+    }
+
+    @objc func subscriptionStateChanged(_ notification: Notification) {
+        if SubscriptionManager.shared.subscriptionActive {
+            subscriptionActive()
+        }
+    }
+
+    open func subscriptionActive() {
+        if Core.shared.darkMode {
+            enableDarkMode()
+        }
+
+        NotificationCenter.default.addObserver(self, selector: #selector(darkModeEnabled(_:)), name: .darkModeEnabled, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(darkModeDisabled(_:)), name: .darkModeDisabled, object: nil)
+    }
+
+    @objc func darkModeEnabled(_ notification: Notification) {
+        enableDarkMode()
+    }
+
+    @objc func darkModeDisabled(_ notification: Notification) {
+        disableDarkMode()
+    }
+
+    open func enableDarkMode() {
+        subscribeText.textColor = UIColor.white
+        subscribeText.textColor = UIColor.white
+        legalText.textColor = UIColor.white
+        view.backgroundColor = UIColor.darkGray
+        navigationController?.navigationBar.barStyle = .black
+    }
+
+    open func disableDarkMode() {
+        subscribeText.textColor = UIColor.black
+        subscribeText.textColor = UIColor.black
+        legalText.textColor = UIColor.black
+        view.backgroundColor = UIColor.white
+        navigationController?.navigationBar.barStyle = .default
     }
 }

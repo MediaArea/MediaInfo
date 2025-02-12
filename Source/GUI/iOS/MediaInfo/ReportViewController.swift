@@ -120,8 +120,9 @@ class ReportViewController: UIViewController, UIDocumentPickerDelegate {
         }
 
         NotificationCenter.default.addObserver(self, selector: #selector(darkModeEnabled(_:)), name: .darkModeEnabled, object: nil)
-
         NotificationCenter.default.addObserver(self, selector: #selector(darkModeDisabled(_:)), name: .darkModeDisabled, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(translateReportEnabled(_:)), name: .translateReportEnabled, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(translateReportDisabled(_:)), name: .translateReportDisabled, object: nil)
     }
 
     // MARK: - Theme
@@ -133,6 +134,14 @@ class ReportViewController: UIViewController, UIDocumentPickerDelegate {
 
     @objc func darkModeDisabled(_ notification: Notification) {
         disableDarkMode()
+        configureView()
+    }
+
+    @objc func translateReportEnabled(_ notification: Notification) {
+        configureView()
+    }
+
+    @objc func translateReportDisabled(_ notification: Notification) {
         configureView()
     }
 

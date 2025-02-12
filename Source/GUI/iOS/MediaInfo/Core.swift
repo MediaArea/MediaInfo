@@ -17,6 +17,8 @@ extension String {
 extension Notification.Name {
     static let darkModeEnabled = Notification.Name("net.mediaarea.mediainfo.ios.notifications.darkModeEnabled")
     static let darkModeDisabled = Notification.Name("net.mediaarea.mediainfo.ios.notifications.darkModeDisabled")
+    static let translateReportEnabled = Notification.Name("net.mediaarea.mediainfo.ios.notifications.translateReportEnabled")
+    static let translateReportDisabled = Notification.Name("net.mediaarea.mediainfo.ios.notifications.translateReportDisabled")
 }
 
 class Core {
@@ -60,6 +62,7 @@ class Core {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "UserLocale")
+            NotificationCenter.default.post(name: newValue ? .translateReportEnabled : .translateReportDisabled, object: nil)
         }
     }
 
@@ -181,7 +184,7 @@ class Core {
 
                 let buffer: UnsafeMutablePointer<MediaInfo_int8u> = UnsafeMutablePointer<MediaInfo_int8u>.allocate(capacity: size)
                 data.copyBytes(to: buffer, count: size)
-                state = States(rawValue: Int(MediaInfo_Open_Buffer_Continue(mi, buffer, UInt(size))))
+                state = States(rawValue: Int(MediaInfo_Open_Buffer_Continue(mi, buffer, Int(size))))
                 buffer.deallocate()
 
                 if state == States.Finalized {
@@ -257,9 +260,8 @@ class Core {
         }
 
         let cArray: UnsafeMutablePointer<MediaInfo_int8u> = UnsafeMutablePointer(mutating: report)
-
         MediaInfo_Open_Buffer_Init(mi, MediaInfo_int64u(report.count), MediaInfo_int64u(0))
-        MediaInfo_Open_Buffer_Continue(mi, cArray, UInt(report.count))
+        MediaInfo_Open_Buffer_Continue(mi, cArray, Int(report.count))
         MediaInfo_Open_Buffer_Finalize(mi)
 
         output = wideStringToString(wideString: MediaInfo_Inform(mi, 0))
