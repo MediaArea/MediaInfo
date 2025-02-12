@@ -210,7 +210,7 @@ win32 {
 
             exists(../../../../zlib/contrib/vstudio/vc17/ARM64/Release/zlibstat.lib) {
                 INCLUDEPATH += ../../../../zlib
-                LIBS += $$PWD/../../../../zlib/contrib/vstudio/vc17/ARM64/Release/zlibstat.lib
+                LIBS += $$PWD/../../../../zlib/contrib/vstudio/vc17/ARM64/ZlibStatReleaseWithoutAsm/zlibstat.lib
             } else {
                 error("zlib not found on system")
             }
