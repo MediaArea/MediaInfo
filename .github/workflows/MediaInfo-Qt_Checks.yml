@@ -48,7 +48,7 @@ jobs:
       uses: microsoft/setup-msbuild@v2
     - name: Build dependencies
       run: |
-        msbuild /t:MediaInfoLib /p:Configuration=Release /p:Platform=${{ matrix.architecture }} ${{ github.workspace }}\MediaInfoLib\Project\MSVC2022\MediaInfoLib.sln
+        msbuild -t:MediaInfoLib -p:Configuration=Release -p:Platform=${{ matrix.architecture }} -clp:ForceConsoleColor ${{ github.workspace }}\MediaInfoLib\Project\MSVC2022\MediaInfoLib.sln
         xcopy /y ${{ github.workspace }}\MediaInfoLib\Project\MSVC2022\x64\Release\ZenLib.lib ${{ github.workspace }}\ZenLib\Project\MSVC2022\x64\Release\
     - name: Build
       shell: cmd
