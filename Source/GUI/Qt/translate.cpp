@@ -7,7 +7,12 @@
 #include "translate.h"
 #include <QtCore/QStringList>
 
+#define UNREFERENCED_PARAMETER(P) (void)(P)
+
 QString Tr(const char* string, const char * disambiguation, int n) {
+    UNREFERENCED_PARAMETER(disambiguation);
+    UNREFERENCED_PARAMETER(n);
+
     QStringList text = QString(string).split(" ");
     /* TODO
     for(int i=0;i<text.size();i++) {

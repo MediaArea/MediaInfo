@@ -48,7 +48,7 @@ jobs:
       uses: microsoft/setup-msbuild@v2
     - name: Build dependencies
       run: |
-        msbuild /t:MediaInfoLib /p:Configuration=Release /p:Platform=${{ matrix.architecture }} ${{ github.workspace }}\MediaInfoLib\Project\MSVC2022\MediaInfoLib.sln
+        msbuild -t:MediaInfoLib -p:Configuration=Release -p:Platform=${{ matrix.architecture }} -clp:ForceConsoleColor ${{ github.workspace }}\MediaInfoLib\Project\MSVC2022\MediaInfoLib.sln
         xcopy /y ${{ github.workspace }}\MediaInfoLib\Project\MSVC2022\x64\Release\ZenLib.lib ${{ github.workspace }}\ZenLib\Project\MSVC2022\x64\Release\
     - name: Build
       shell: cmd
@@ -56,3 +56,26 @@ jobs:
         call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ matrix.architecture }}
         qmake.exe ${{ github.workspace }}\MediaInfo\Project\QMake\GUI\MediaInfoQt.pro -spec win32-msvc "CONFIG+=qtquickcompiler" && D:\a\MediaInfo\Qt\Tools\QtCreator\bin\jom\jom.exe qmake_all
         D:\a\MediaInfo\Qt\Tools\QtCreator\bin\jom\jom.exe
+
+  Ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout MediaInfo
+      uses: actions/checkout@v4
+      with:
+        path: MediaInfo
+    - name: Install dependencies
+      run: |
+          sudo apt-get update -y
+          sudo apt-get install -y zlib1g-dev libgl1-mesa-dev libzen-dev libmediainfo-dev
+    - name: Set-up Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        arch: linux_gcc_64
+        version: 6.8.*
+        modules: 'qtpositioning qtwebchannel qtwebengine'
+        tools: 'tools_qtcreator,qt.tools.qtcreator'
+    - name: Build
+      run: |
+        qmake ${{ github.workspace }}/MediaInfo/Project/QMake/GUI/MediaInfoQt.pro -spec linux-g++ CONFIG+=qtquickcompiler && make qmake_all
+        make -j4
