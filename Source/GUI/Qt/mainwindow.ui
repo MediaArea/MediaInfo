@@ -77,6 +77,7 @@
     <addaction name="actionAdapt_columns_to_content"/>
     <addaction name="actionAdvanced_Mode"/>
     <addaction name="actionFull_Parse"/>
+    <addaction name="actionTrace"/>
    </widget>
    <widget class="QMenu" name="menuFile">
     <property name="title">
@@ -250,6 +251,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+W</string>
+   </property>
+  </action>
+  <action name="actionTrace">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Trace</string>
    </property>
   </action>
  </widget>
