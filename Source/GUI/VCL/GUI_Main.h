@@ -168,11 +168,11 @@ __published:    // IDE-managed Components
     TLabel *Page_Easy_T3_Codec;
     TButton *Page_Easy_T3_Web;
     TMenuItem *M_Debug_Avanced_More;
-    TMenuItem *M_Debug_Details0;
+    TMenuItem *M_Debug_TraceLevel0;
     TMenuItem *N7;
-    TMenuItem *M_Debug_Details50;
-    TMenuItem *M_Debug_Details90;
-    TMenuItem *M_Debug_Details100;
+    TMenuItem *M_Debug_TraceLevel50;
+    TMenuItem *M_Debug_TraceLevel90;
+    TMenuItem *M_Debug_TraceLevel100;
     TMenuItem *M_NewVersion;
     TMenuItem *M_View_XML;
     TMenuItem *M_View_JSON;

@@ -972,14 +972,16 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
     //Text
     else if (Page==Page_Text)
     {
-        if (M_Debug_Details50->Checked)
-            I->Option_Static(__T("Inform"), __T("Details;0.5"));
-        else if (M_Debug_Details90->Checked)
-            I->Option_Static(__T("Inform"), __T("Details;0.9"));
-        else if (M_Debug_Details100->Checked)
-            I->Option_Static(__T("Inform"), __T("Details;1"));
-        else
-            I->Option_Static(__T("Inform"));
+        I->Option_Static(__T("Inform"));
+
+        if (M_Debug_TraceLevel0->Checked)
+            I->Option_Static(__T("Trace_Level"), __T("0"));
+        else if (M_Debug_TraceLevel50->Checked)
+            I->Option_Static(__T("Trace_Level"), __T("0.5"));
+        else if (M_Debug_TraceLevel90->Checked)
+            I->Option_Static(__T("Trace_Level"), __T("0.9"));
+        else if (M_Debug_TraceLevel100->Checked)
+            I->Option_Static(__T("Trace_Level"), __T("1"));
 
         if (!Prefs->Config(__T("InformVersion")).empty())
             I->Option_Static(__T("Inform_Version"), Prefs->Config(__T("InformVersion")));
