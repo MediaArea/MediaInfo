@@ -4,7 +4,6 @@
  *  be found in the License.html file in the root of the source tree.
  */
 
-#include "translate.h"
 #include "about.h"
 #include "ui_about.h"
 #include <QCoreApplication>
@@ -18,7 +17,7 @@ About::About(QWidget *parent) :
     ui->setupUi(this);
 
 #if !defined(_WIN32) || !defined(WINAPI_FAMILY) || (WINAPI_FAMILY!=WINAPI_FAMILY_APP) // Workaround render bug
-    setWindowTitle("About");
+    setWindowTitle(tr("About"));
 #endif
 
 #if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) // Remove donate button

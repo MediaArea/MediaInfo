@@ -5,12 +5,10 @@
  */
 
 #include "export.h"
-#include "translate.h"
 #include "ui_export.h"
 #include <QFileDialog>
 #include <QMessageBox>
 #include "configtreetext.h"
-#include "mainwindow.h"
 
 Export::Export(QString filename, int mode, QWidget *parent) :
     QDialog(parent),
@@ -143,45 +141,45 @@ QString Export::extensionName(int mode) {
 QString Export::name(int mode) {
     switch(mode) {
     default:
-    case TEXT: return Tr("Text");
+    case TEXT: return tr("Text");
         break;
-    case HTML: return Tr("HTML");
+    case HTML: return tr("HTML");
         break;
-    case XML: return Tr("XML");
+    case XML: return tr("XML");
         break;
-    case JSON: return Tr("JSON");
+    case JSON: return tr("JSON");
         break;
-    case GRAPH: return Tr("Graph");
+    case GRAPH: return tr("Graph");
         break;
-    case PBCORE: return Tr("PBCore");
+    case PBCORE: return tr("PBCore");
         break;
-    case PBCORE2: return Tr("PBCore 2");
+    case PBCORE2: return tr("PBCore 2");
         break;
-    case MPEG7_Strict: return Tr("MPEG-7 (strict)");
+    case MPEG7_Strict: return tr("MPEG-7 (strict)");
         break;
-    case MPEG7_Relaxed: return Tr("MPEG-7 (relaxed)");
+    case MPEG7_Relaxed: return tr("MPEG-7 (relaxed)");
         break;
-    case MPEG7_Extended: return Tr("MPEG-7 (extended)");
+    case MPEG7_Extended: return tr("MPEG-7 (extended)");
         break;
-   case EBUCORE_1_5: return Tr("EBUCore 1.5");
+   case EBUCORE_1_5: return tr("EBUCore 1.5");
        break;
-   case EBUCORE_1_6: return Tr("EBUCore 1.6");
+   case EBUCORE_1_6: return tr("EBUCore 1.6");
        break;
-   case EBUCORE_1_8_ps: return Tr("EBUCore 1.8 parameter then segment");
+   case EBUCORE_1_8_ps: return tr("EBUCore 1.8 parameter then segment");
        break;
-   case EBUCORE_1_8_sp: return Tr("EBUCore 1.8 segment then parameter");
+   case EBUCORE_1_8_sp: return tr("EBUCore 1.8 segment then parameter");
        break;
-   case EBUCORE_1_8_ps_JSON: return Tr("EBUCore 1.8 parameter then segment (JSON output)");
+   case EBUCORE_1_8_ps_JSON: return tr("EBUCore 1.8 parameter then segment (JSON output)");
        break;
-   case EBUCORE_1_8_sp_JSON: return Tr("EBUCore 1.8 segment then parameter (JSON output)");
+   case EBUCORE_1_8_sp_JSON: return tr("EBUCore 1.8 segment then parameter (JSON output)");
        break;
-   case FIMS_1_1: return Tr("FIMS 1.1");
+   case FIMS_1_1: return tr("FIMS 1.1");
        break;
-   case FIMS_1_2: return Tr("FIMS 1.2");
+   case FIMS_1_2: return tr("FIMS 1.2");
        break;
-   case FIMS_1_3: return Tr("FIMS 1.3");
+   case FIMS_1_3: return tr("FIMS 1.3");
        break;
-    case NISO_Z39_87: return Tr("NISO Z39.87");
+    case NISO_Z39_87: return tr("NISO Z39.87");
         break;
     }
 }

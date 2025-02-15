@@ -5,7 +5,6 @@
  */
 
 #include "sheetview.h"
-#include "translate.h"
 #include "ui_sheetview.h"
 #include "sheet.h"
 #include "mainwindow.h"
@@ -96,7 +95,7 @@ void SheetView::changeEvent(QEvent *e)
 void SheetView::on_tableWidget_itemSelectionChanged()
 {
     ui->comboBox->clear();
-    ui->comboBox->addItem(Tr("Summary"),QPoint(-1,-1));
+    ui->comboBox->addItem(tr("Summary"),QPoint(-1,-1));
     if(ui->tableWidget->selectedItems().isEmpty())
         return;
     int filePos = ui->tableWidget->selectedItems().at(0)->data(Qt::UserRole).toInt();

@@ -10,7 +10,6 @@
 #include <QSpinBox>
 #include <QComboBox>
 #include <QToolButton>
-#include "translate.h"
 
 #include <ZenLib/Ztring.h>
 using namespace ZenLib;

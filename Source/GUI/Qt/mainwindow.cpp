@@ -5,7 +5,6 @@
  */
 
 #include "mainwindow.h"
-#include "translate.h"
 #include "ui_mainwindow.h"
 
 #include "easyviewwidget.h"
@@ -34,6 +33,7 @@
 #include <QMainWindow>
 #include <QMenuBar>
 #include <QWebEngineView>
+#include <QTranslator>
 /*
 #include <qwt/qwt_plot.h>
 #include <qwt/qwt_plot_curve.h>
@@ -170,6 +170,7 @@ MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) :
     setWindowTitle("MediaInfo");
 #endif
 
+    translator = new QTranslator();
     settings = new QSettings("MediaArea.net", "MediaInfo");
     defaultSettings();
     applySettings();
@@ -213,7 +214,7 @@ MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) :
     connect(menuItemGroup,SIGNAL(triggered(QAction*)),this,SLOT(actionView_toggled(QAction*)));
 
     buttonView = new QToolButton();
-    buttonView->setText("view");
+    buttonView->setText(tr("view"));
     buttonView->setIcon(QIcon(":/icon/view.svg"));
     connect(buttonView, SIGNAL(clicked()), this, SLOT(buttonViewClicked()));
     ui->toolBar->addWidget(buttonView);
@@ -293,7 +294,7 @@ void MainWindow::httpFinished()
     if (isNewer(wstring2QString(X("NewVersion")),QString(VERSION))) {
         qDebug() << "New version is available.";
         qDebug() << "latest is " << wstring2QString(X("NewVersion")).toStdString().c_str();
-        ui->menuBar->addAction(Tr("Update to new version"),this,SLOT(updateToNewVersion()));
+        ui->menuBar->addAction(tr("Update to new version"),this,SLOT(updateToNewVersion()));
     } else {
         qDebug() << "No new version available.";
         qDebug() << "latest is " << wstring2QString(X("NewVersion")).toStdString().c_str();
@@ -321,26 +322,26 @@ void MainWindow::toolBarOptions(QPoint p) {
     return;
 #else
     QMenu menu("toolbar options",ui->toolBar);
-    QMenu *menuI = new QMenu(Tr("Icon size"));
-    QMenu *menuT = new QMenu(Tr("Text position"));
+    QMenu *menuI = new QMenu(tr("Icon size"));
+    QMenu *menuT = new QMenu(tr("Text position"));
 
     menu.addMenu(menuT);
-    QString textsT[NBNAMES] = {Tr("Icons only"),Tr("Text only"),Tr("Text under icons"),Tr("Text beside icons")};
+    QString textsT[NBNAMES] = {tr("Icons only"),tr("Text only"),tr("Text under icons"),tr("Text beside icons")};
     QAction* actionsT[NBNAMES+1];
     Qt::ToolButtonStyle styles[NBNAMES] = {Qt::ToolButtonIconOnly,Qt::ToolButtonTextOnly,Qt::ToolButtonTextUnderIcon,Qt::ToolButtonTextBesideIcon};
     for(int i=0;i<NBNAMES;i++) {
         actionsT[i] = menuT->addAction(textsT[i]);
     }
-    actionsT[NBNAMES] = menuT->addAction(Tr("Default"));
+    actionsT[NBNAMES] = menuT->addAction(tr("Default"));
 
     menu.addMenu(menuI);
-    QString textsI[NBSIZES] = {Tr("Small"),Tr("Medium"),Tr("Big"),Tr("Huge")};
+    QString textsI[NBSIZES] = {tr("Small"),tr("Medium"),tr("Big"),tr("Huge")};
     QAction* actionsI[NBNAMES+1];
     QSize sizes[NBSIZES+1] = {QSize(16,16),QSize(22,22),QSize(32,32),QSize(48,48)};
     for(int i=0;i<NBSIZES;i++) {
         actionsI[i] = menuI->addAction(textsI[i]+"("+QString::number(sizes[i].width())+"x"+QString::number(sizes[i].height())+")");
     }
-    actionsI[NBSIZES] = menuI->addAction(Tr("Default"));
+    actionsI[NBSIZES] = menuI->addAction(tr("Default"));
 
     QAction* a = menu.exec(ui->toolBar->mapToGlobal(p));
     if(a) {
@@ -409,9 +410,28 @@ QDir MainWindow::getCommonDir(Core*C) {
 void MainWindow::changeEvent(QEvent *e)
 {
     QMainWindow::changeEvent(e);
+    QFile file;
     switch (e->type()) {
     case QEvent::LanguageChange:
         ui->retranslateUi(this);
+        // force refresh of text of view button on toolbar
+        buttonView->setText(tr("View"));
+        ui->toolBar->setToolButtonStyle(Qt::ToolButtonStyle(Qt::ToolButtonIconOnly));
+        ui->toolBar->setToolButtonStyle(Qt::ToolButtonStyle(settings->value("iconStyle",Qt::ToolButtonIconOnly).toInt()));
+        // update texts of view menu items
+        for(int v=VIEW_EASY;v<NB_VIEW;v++) {
+            ui->menuView->actions().at(v)->setText(nameView((ViewMode)v));
+        }
+        // set MediaInfoLib language
+        file.setFileName(":/languages/Plugin/Language/" + settings->value("language", "en").toString() + ".csv");
+        if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QTextStream in(&file);
+            QString fileContent = in.readAll();
+            C->MI->Option_Static(__T("Language"), fileContent.toStdWString());
+            file.close();
+        }
+        // refresh titlebar and MediaInfoLib output
+        refreshDisplay();
         break;
     default:
         break;
@@ -449,7 +469,7 @@ void MainWindow::openFiles(QStringList fileNames) {
 
 void MainWindow::openTimerInit ()
 {
-    progressDialog=new QProgressDialog(Tr("Opening files..."), Tr("Abort Opening"), 0, 10000, this);
+    progressDialog=new QProgressDialog(tr("Opening files..."), tr("Abort Opening"), 0, 10000, this);
     progressDialog->setWindowModality(Qt::WindowModal);
     progressDialog->setMinimumDuration(0);
     progressDialog->setWindowTitle("MediaInfo");
@@ -524,10 +544,10 @@ void MainWindow::refreshDisplay() {
 
     if(C->Count_Get()<=0) {
 #if defined(_WIN32) && defined(WINAPI_FAMILY) && WINAPI_FAMILY==WINAPI_FAMILY_APP //UWP Application
-        viewWidget = new QLabel(Tr("You must at least open 1 file.\nOpen a file or a directory."));
+        viewWidget = new QLabel(tr("You must at least open 1 file.\nOpen a file or a directory."));
 #else
-        viewWidget = new QLabel(Tr("You must at least open 1 file.\nOpen a file or a directory, or simply drag n drop files in the window."));
-        setWindowTitle(Tr("MediaInfo"));
+        viewWidget = new QLabel(tr("You must at least open 1 file.\nOpen a file or a directory, or simply drag n drop files in the window."));
+        setWindowTitle(tr("MediaInfo"));
 #endif
         ((QLabel*)viewWidget)->setAlignment(Qt::AlignCenter);
     }
@@ -714,7 +734,7 @@ void MainWindow::refreshDisplay() {
         if(C->Count_Get()==1)
             setWindowTitle("MediaInfo - "+shortName(C,wstring2QString(C->Get(0, Stream_General, 0, __T("CompleteName")))));
         else
-            setWindowTitle(QString("MediaInfo - %1 ").arg((int)C->Count_Get())+Tr("files","window title"));
+            setWindowTitle(QString("MediaInfo - %1 ").arg((int)C->Count_Get())+tr("files","window title"));
 #endif
     }
     setCentralWidget(viewWidget);
@@ -724,8 +744,8 @@ QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
     QTreeWidget* treeWidget = new QTreeWidget();
     //treeWidget->setHeaderHidden(true);
     treeWidget->setColumnCount(2);
-    QStringList headers = QStringList(Tr("key"));
-    headers.append(Tr("value"));
+    QStringList headers = QStringList(tr("key"));
+    headers.append(tr("value"));
     treeWidget->setHeaderLabels(headers);
     unsigned fileCount = (unsigned)C->Count_Get();
     QDir dir = getCommonDir(C);
@@ -890,14 +910,14 @@ void MainWindow::defaultSettings() {
     if(Sheet::getNbSheets()==0) {
         Sheet::add("example");
         Sheet::setDefault(0);
-        Sheet::getSheet()->addColumn(Tr("File Name").toStdString().c_str(),300,Stream_General,"CompleteName");
-        Sheet::getSheet()->addColumn(Tr("Format").toStdString().c_str(),100,Stream_General,"Format");
-        Sheet::getSheet()->addColumn(Tr("Video Codec List").toStdString().c_str(),100,Stream_General,"Video_Codec_List");
-        Sheet::getSheet()->addColumn(Tr("Audio Codec List").toStdString().c_str(),100,Stream_General,"Audio_Codec_List");
-        Sheet::getSheet()->addColumn(Tr("Text Codec List").toStdString().c_str(),100,Stream_General,"Text_Codec_List");
-        Sheet::getSheet()->addColumn(Tr("Video Format").toStdString().c_str(),100,Stream_Video,"Format");
-        Sheet::getSheet()->addColumn(Tr("Audio Duration").toStdString().c_str(),100,Stream_Audio,"Duration");
-        Sheet::getSheet()->addColumn(Tr("Text Width").toStdString().c_str(),100,Stream_Text,"Width");
+        Sheet::getSheet()->addColumn(tr("File Name").toStdString().c_str(),300,Stream_General,"CompleteName");
+        Sheet::getSheet()->addColumn(tr("Format").toStdString().c_str(),100,Stream_General,"Format");
+        Sheet::getSheet()->addColumn(tr("Video Codec List").toStdString().c_str(),100,Stream_General,"Video_Codec_List");
+        Sheet::getSheet()->addColumn(tr("Audio Codec List").toStdString().c_str(),100,Stream_General,"Audio_Codec_List");
+        Sheet::getSheet()->addColumn(tr("Text Codec List").toStdString().c_str(),100,Stream_General,"Text_Codec_List");
+        Sheet::getSheet()->addColumn(tr("Video Format").toStdString().c_str(),100,Stream_Video,"Format");
+        Sheet::getSheet()->addColumn(tr("Audio Duration").toStdString().c_str(),100,Stream_Audio,"Duration");
+        Sheet::getSheet()->addColumn(tr("Text Width").toStdString().c_str(),100,Stream_Text,"Width");
     }
     ConfigTreeText::load(settings);
     if(ConfigTreeText::getNbConfigTreeTexts()==0) {
@@ -922,6 +942,10 @@ void MainWindow::applySettings() {
     ui->toolBar->setToolButtonStyle(Qt::ToolButtonStyle(settings->value("iconStyle",Qt::ToolButtonIconOnly).toInt()));
     ui->toolBar->setIconSize(settings->value("iconSize",QSize(32,32)).toSize());
     C->Menu_Option_Preferences_Option(__T("LegacyStreamDisplay"), settings->value("legacyStreamDisplay",false).toBool() ? __T("1") : __T("0"));
+
+    qApp->removeTranslator(translator);
+    Q_UNUSED(translator->load(settings->value("language", "en").toString(), ":/languages/Translations"));
+    qApp->installTranslator(translator);
 }
 
 void MainWindow::dropEvent(QDropEvent *event)
@@ -991,7 +1015,7 @@ void MainWindow::on_actionOpen_triggered()
         fileNames += Path;
     }
 #else
-    fileNames = QFileDialog::getOpenFileNames(this, Tr("Open File(s)"), getCommonDir(C).absolutePath());
+    fileNames = QFileDialog::getOpenFileNames(this, tr("Open File(s)"), getCommonDir(C).absolutePath());
 #endif
     openFiles(fileNames);
 
@@ -1038,7 +1062,7 @@ void MainWindow::on_actionOpen_Folder_triggered()
 
     dirName = Path;
 #else
-    dirName = QFileDialog::getExistingDirectory(this,Tr("Open Folder"), getCommonDir(C).absolutePath());
+    dirName = QFileDialog::getExistingDirectory(this,tr("Open Folder"), getCommonDir(C).absolutePath());
 #endif
     openDir(dirName);
 

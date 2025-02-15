@@ -4,7 +4,6 @@
  *  be found in the License.html file in the root of the source tree.
  */
 
-#include "translate.h"
 #include "editsheet.h"
 #include "ui_editsheet.h"
 #include "sheet.h"
@@ -107,7 +106,7 @@ void EditSheet::delCol(int i) {
 
 void EditSheet::addColumn() {
     column c;
-    c.name = Tr("CompleteName");
+    c.name = tr("CompleteName");
     c.width = 50;
     c.stream = Stream_General;
     c.key = "CompleteName";
