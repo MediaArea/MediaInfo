@@ -8,6 +8,7 @@
 #include "ZenLib/Ztring.h"
 #include "ZenLib/File.h"
 #include <QApplication>
+#include <QDir>
 
 #define wstring2QString(_DATA) \
     QString::fromUtf8(Ztring(_DATA).To_UTF8().c_str())
@@ -36,8 +37,9 @@ QString Generate_Graph_HTML(Core *C, QSettings *settings) {
             S1 += (Pos2 ? __T("<br/>") : __T("")) + Svg;
         }
 
-        if (File::Exists(InstallFolder + __T("\\Plugin\\Graph\\Template.html"))) {
-            File F(InstallFolder + __T("\\Plugin\\Graph\\Template.html"));
+        QString template_rel_path = "/Plugin/Graph/Template.html";
+        if (File::Exists(InstallFolder + QString2wstring(QDir::toNativeSeparators(template_rel_path)))) {
+            File F(InstallFolder + QString2wstring(QDir::toNativeSeparators(template_rel_path)));
             int8u *Buffer = new int8u[(size_t)F.Size_Get() + 1];
             size_t Count = F.Read(Buffer, (size_t)F.Size_Get());
             if (Count == ZenLib::Error) {
