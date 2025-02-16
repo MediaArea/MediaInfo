@@ -34,6 +34,7 @@
 #include <QMenuBar>
 #include <QWebEngineView>
 #include <QTranslator>
+#include <QFontDatabase>
 /*
 #include <qwt/qwt_plot.h>
 #include <qwt/qwt_plot_curve.h>
@@ -517,9 +518,16 @@ void MainWindow::openDir(QString dirName) {
 }
 
 void MainWindow::refreshDisplay() {
-    QStringList fonts = { "Cascadia Mono", "Mono" };
-    QFont font(fonts);
-    font.setStyleHint(QFont::TypeWriter);
+    QFontDatabase fontDatabase;
+    QFont font;
+    QFont setMonoFont; setMonoFont.fromString(settings->value("monoFont", "").toString());
+    if (!settings->value("monoFont", "").toString().isEmpty() && fontDatabase.families().contains(setMonoFont.family())) {
+        font = setMonoFont;
+    } else {
+        QStringList preferredMonoFonts = { "Cascadia Mono", "Mono" };
+        font.setFamilies(preferredMonoFonts);
+        font.setStyleHint(QFont::TypeWriter);
+    }
 
     ui->actionAdapt_columns_to_content->setVisible(false);
     ui->actionReset_field_sizes->setVisible(false);
@@ -717,7 +725,7 @@ void MainWindow::refreshDisplay() {
                 break;
             case VIEW_SHEET:
                 C->Menu_View_Sheet();
-                viewWidget = new SheetView(C,this);
+                viewWidget = new SheetView(C,this,&font);
                 ui->actionReset_field_sizes->setVisible(true);
                 if(!Sheet::getSheet()->getAdaptColumns())
                     ui->actionAdapt_columns_to_content->setVisible(true);

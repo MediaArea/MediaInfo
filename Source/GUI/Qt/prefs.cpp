@@ -51,6 +51,22 @@ Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
     }
     ui->comboBox_language->setCurrentIndex(ui->comboBox_language->findData(settings->value("language", "en").toString()));
 
+    QFontDatabase fontDatabase;
+    QFont setMonoFont; setMonoFont.fromString(settings->value("monoFont", "").toString());
+    if (!settings->value("monoFont", "").toString().isEmpty() && fontDatabase.families().contains(setMonoFont.family())) {
+        ui->comboBox_font->setCurrentFont(QFont(setMonoFont));
+        ui->comboBox_fontSize->setCurrentText(QString::number(setMonoFont.pointSize()));
+    } else {
+        QStringList preferredMonoFonts = { "Cascadia Mono", "Mono" };
+        for (const QString &fontName : preferredMonoFonts) {
+            if (fontDatabase.families().contains(fontName)) {
+                ui->comboBox_font->setCurrentFont(QFont(fontName));
+                ui->comboBox_fontSize->setCurrentText(QString::number(QFont().pointSize()));
+                break;
+            }
+        }
+    }
+
     ui->showMenu->setChecked(settings->value("showMenu",true).toBool());
     ui->showToolbar->setChecked(settings->value("showToolbar",true).toBool());
     ui->closeAllBeforeOpen->setChecked(settings->value("closeBeforeOpen",true).toBool());
@@ -146,6 +162,9 @@ void Preferences::saveSettings() {
     ConfigTreeText::save(settings);
     Custom::setDefault(ui->customComboBox->itemData(ui->customComboBox->currentIndex()).toInt());
     Custom::save(settings);
+    QFont monoFont = ui->comboBox_font->currentFont();
+    monoFont.setPointSize(ui->comboBox_fontSize->currentText().toInt());
+    settings->setValue("monoFont",monoFont.toString());
 }
 
 void Preferences::changeEvent(QEvent *e)

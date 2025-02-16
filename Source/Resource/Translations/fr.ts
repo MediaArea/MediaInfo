@@ -266,7 +266,7 @@ Excepté l&apos;interface graphique de l&apos;App Store Mac, c&apos;est un logic
     <name>MainWindow</name>
     <message>
         <location filename="../../GUI/Qt/mainwindow.ui" line="59"/>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="418"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="419"/>
         <source>View</source>
         <translation>Affichage</translation>
     </message>
@@ -292,7 +292,7 @@ Excepté l&apos;interface graphique de l&apos;App Store Mac, c&apos;est un logic
     </message>
     <message>
         <location filename="../../GUI/Qt/mainwindow.ui" line="134"/>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="1018"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="1026"/>
         <source>Open File(s)</source>
         <translation>Ouvrir le(s) fichier(s)</translation>
     </message>
@@ -313,7 +313,7 @@ Excepté l&apos;interface graphique de l&apos;App Store Mac, c&apos;est un logic
     </message>
     <message>
         <location filename="../../GUI/Qt/mainwindow.ui" line="158"/>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="1065"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="1073"/>
         <source>Open Folder</source>
         <translation>Ouvrir le dossier</translation>
     </message>
@@ -403,153 +403,153 @@ Excepté l&apos;interface graphique de l&apos;App Store Mac, c&apos;est un logic
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="217"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="218"/>
         <source>view</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="297"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="298"/>
         <source>Update to new version</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="325"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="326"/>
         <source>Icon size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="326"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="327"/>
         <source>Text position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="329"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="330"/>
         <source>Icons only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="329"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="330"/>
         <source>Text only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="329"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="330"/>
         <source>Text under icons</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="329"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="330"/>
         <source>Text beside icons</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="335"/>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="344"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="336"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="345"/>
         <source>Default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="338"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="339"/>
         <source>Small</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="338"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="339"/>
         <source>Medium</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="338"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="339"/>
         <source>Big</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="338"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="339"/>
         <source>Huge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="472"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="473"/>
         <source>Opening files...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="472"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="473"/>
         <source>Abort Opening</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="547"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="555"/>
         <source>You must at least open 1 file.
 Open a file or a directory.</source>
         <translation>Vous devez ouvrir au moins 1 fichier.
 Ouvrir un fichier ou un répertoire.</translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="549"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="557"/>
         <source>You must at least open 1 file.
 Open a file or a directory, or simply drag n drop files in the window.</source>
         <translation>Vous devez ouvrir au moins 1 fichier.
 Ouvrez un fichier ou un répertoire, ou faites simplement glisser et déposez les fichiers dans la fenêtre.</translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="550"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="558"/>
         <source>MediaInfo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="737"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="745"/>
         <source>files</source>
         <comment>window title</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="747"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="755"/>
         <source>key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="748"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="756"/>
         <source>value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="913"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="921"/>
         <source>File Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="914"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="922"/>
         <source>Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="915"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="923"/>
         <source>Video Codec List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="916"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="924"/>
         <source>Audio Codec List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="917"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="925"/>
         <source>Text Codec List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="918"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="926"/>
         <source>Video Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="919"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="927"/>
         <source>Audio Duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/mainwindow.cpp" line="920"/>
+        <location filename="../../GUI/Qt/mainwindow.cpp" line="928"/>
         <source>Text Width</source>
         <translation type="unfinished"></translation>
     </message>
@@ -632,143 +632,198 @@ Ouvrez un fichier ou un répertoire, ou faites simplement glisser et déposez le
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="131"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="154"/>
         <source>Open each item in a separate instance</source>
         <translation>Ouvrir chaque élément dans une instance distincte</translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="140"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="211"/>
         <source>Shell InfoTip</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="147"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="170"/>
         <source>Shell extension</source>
         <translation>Extension du Shell</translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="154"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="177"/>
         <source>Check for new versions</source>
         <translation>Vérifiez les nouvelles versions</translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="161"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="163"/>
         <source>Default View</source>
         <translation>Affichage par défaut</translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="191"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="129"/>
+        <source>Monospaced font</source>
+        <translation>Police à espacement fixe</translation>
+    </message>
+    <message>
+        <location filename="../../GUI/Qt/prefs.ui" line="194"/>
         <source>Language</source>
         <translation>Langue</translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="210"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="218"/>
+        <source>Monospaced font size</source>
+        <translation>Taille de police à espacement fixe</translation>
+    </message>
+    <message>
+        <location filename="../../GUI/Qt/prefs.ui" line="226"/>
+        <source>8</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../GUI/Qt/prefs.ui" line="231"/>
+        <source>9</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../GUI/Qt/prefs.ui" line="236"/>
+        <source>10</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../GUI/Qt/prefs.ui" line="241"/>
+        <source>11</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../GUI/Qt/prefs.ui" line="246"/>
+        <source>12</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../GUI/Qt/prefs.ui" line="251"/>
+        <source>14</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../GUI/Qt/prefs.ui" line="256"/>
+        <source>16</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../GUI/Qt/prefs.ui" line="261"/>
+        <source>18</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../GUI/Qt/prefs.ui" line="266"/>
+        <source>20</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../GUI/Qt/prefs.ui" line="283"/>
         <source>Remember its position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="219"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="292"/>
         <source>Remember Window Geometry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="226"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="299"/>
         <source>Add creation date to text output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="233"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="306"/>
         <source>Close all before open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="253"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="326"/>
         <source>Display legacy AC-3/DTS/AAC streams embedded in HD/HE streams (requires reload)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="260"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="333"/>
         <source>Show menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="267"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="340"/>
         <source>Show toolbar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="284"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="357"/>
         <source>When content is detected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="289"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="362"/>
         <source>When content or a command is detected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="294"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="367"/>
         <source>Even when no content or command is detected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="308"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="381"/>
         <source>Handling of 608/708 streams:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="315"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="388"/>
         <source>Add version to text output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="322"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="395"/>
         <source>Enable FFmpeg plugin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="345"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="418"/>
         <source>Choose your desired custom sheet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="370"/>
-        <location filename="../../GUI/Qt/prefs.ui" line="428"/>
-        <location filename="../../GUI/Qt/prefs.ui" line="486"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="443"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="501"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="559"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="377"/>
-        <location filename="../../GUI/Qt/prefs.ui" line="435"/>
-        <location filename="../../GUI/Qt/prefs.ui" line="493"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="450"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="508"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="566"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="384"/>
-        <location filename="../../GUI/Qt/prefs.ui" line="442"/>
-        <location filename="../../GUI/Qt/prefs.ui" line="500"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="457"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="515"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="573"/>
         <source>New</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="403"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="476"/>
         <source>Select your desired configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="461"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="534"/>
         <source>Choose your desired custom text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="513"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="586"/>
         <source>ADM: Show ChannelFormats</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.ui" line="520"/>
+        <location filename="../../GUI/Qt/prefs.ui" line="593"/>
         <source>ADM: Show TrackUIDs</source>
         <translation type="unfinished"></translation>
     </message>
@@ -778,7 +833,7 @@ Ouvrez un fichier ou un répertoire, ou faites simplement glisser et déposez le
         <translation>Préférences</translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/prefs.cpp" line="182"/>
+        <location filename="../../GUI/Qt/prefs.cpp" line="201"/>
         <source>File Name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -934,7 +989,7 @@ Ouvrez un fichier ou un répertoire, ou faites simplement glisser et déposez le
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../GUI/Qt/sheetview.cpp" line="98"/>
+        <location filename="../../GUI/Qt/sheetview.cpp" line="102"/>
         <source>Summary</source>
         <translation type="unfinished"></translation>
     </message>

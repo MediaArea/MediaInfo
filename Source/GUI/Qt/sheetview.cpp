@@ -18,7 +18,7 @@ using namespace ZenLib;
 #define QString2wstring(_DATA) \
     Ztring().From_UTF8(_DATA.toUtf8())
 
-SheetView::SheetView(Core *C, QWidget *parent) :
+SheetView::SheetView(Core *C, QWidget *parent, QFont* monoFont) :
     QFrame(parent),
     ui(new Ui::SheetView)
 {
@@ -34,9 +34,13 @@ SheetView::SheetView(Core *C, QWidget *parent) :
     refreshDisplay();
     ui->tableWidget->selectRow(0);
 
-    QStringList fonts = { "Cascadia Mono", "Mono" };
-    QFont font(fonts);
-    font.setStyleHint(QFont::TypeWriter);
+    QFont font;
+    if (monoFont)
+        font = *monoFont;
+    else {
+        font.setFamily("Mono");
+        font.setStyleHint(QFont::TypeWriter);
+    }
     ui->label->setFont(font);
 }
 
