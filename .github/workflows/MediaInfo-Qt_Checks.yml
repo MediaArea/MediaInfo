@@ -5,10 +5,13 @@ on:
     paths:
       - 'Project/QMake/GUI/**'
       - 'Source/GUI/Qt/**'
+      - 'Source/Resource/**'
+
   pull_request:
     paths:
       - 'Project/QMake/GUI/**'
       - 'Source/GUI/Qt/**'
+      - 'Source/Resource/**'
 
 jobs:
 
