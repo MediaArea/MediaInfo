@@ -1231,6 +1231,12 @@ void MainWindow::on_actionFull_Parse_toggled(bool checked)
     refreshDisplay();
 }
 
+void MainWindow::on_actionTrace_toggled(bool checked)
+{
+    C->MI->Option_Static(__T("Trace_Level"), checked?__T("1"):__T("0"));
+    ui->menuView->actions().at(VIEW_TEXT)->trigger();
+}
+
 void MainWindow::on_actionClose_All_triggered()
 {
     C->Menu_File_Open_Files_Begin(true);

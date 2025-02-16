@@ -1112,28 +1112,28 @@ object MainF: TMainF
       object N7: TMenuItem
         Caption = '-'
       end
-      object M_Debug_Details0: TMenuItem
+      object M_Debug_TraceLevel0: TMenuItem
         AutoCheck = True
-        Caption = 'Details - 0'
+        Caption = 'Trace level - 0'
         Checked = True
         RadioItem = True
         OnClick = M_View_TextClick
       end
-      object M_Debug_Details50: TMenuItem
+      object M_Debug_TraceLevel50: TMenuItem
         AutoCheck = True
-        Caption = 'Details - 5'
+        Caption = 'Trace level - 5'
         RadioItem = True
         OnClick = M_View_TextClick
       end
-      object M_Debug_Details90: TMenuItem
+      object M_Debug_TraceLevel90: TMenuItem
         AutoCheck = True
-        Caption = 'Details - 9'
+        Caption = 'Trace level - 9'
         RadioItem = True
         OnClick = M_View_TextClick
       end
-      object M_Debug_Details100: TMenuItem
+      object M_Debug_TraceLevel100: TMenuItem
         AutoCheck = True
-        Caption = 'Details - 10'
+        Caption = 'Trace level - 10'
         RadioItem = True
         OnClick = M_View_TextClick
       end
