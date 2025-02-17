@@ -215,7 +215,7 @@ MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) :
     connect(menuItemGroup,SIGNAL(triggered(QAction*)),this,SLOT(actionView_toggled(QAction*)));
 
     buttonView = new QToolButton();
-    buttonView->setText(tr("view"));
+    buttonView->setText("view");
     buttonView->setIcon(QIcon(":/icon/view.svg"));
     connect(buttonView, SIGNAL(clicked()), this, SLOT(buttonViewClicked()));
     ui->toolBar->addWidget(buttonView);

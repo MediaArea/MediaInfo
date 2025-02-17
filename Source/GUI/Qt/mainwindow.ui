@@ -161,7 +161,7 @@
   </action>
   <action name="actionQuit">
    <property name="text">
-    <string>Quit</string>
+    <string>Exit</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
@@ -224,7 +224,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Advanced Mode</string>
+    <string>Advanced mode</string>
    </property>
   </action>
   <action name="actionFull_Parse">
@@ -232,17 +232,17 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Full parse</string>
+    <string>FullParsing</string>
    </property>
   </action>
   <action name="actionReset_field_sizes">
    <property name="text">
-    <string>reset columns sizes</string>
+    <string>Reset columns sizes</string>
    </property>
   </action>
   <action name="actionAdapt_columns_to_content">
    <property name="text">
-    <string>adapt columns to content</string>
+    <string>Adapt columns to content</string>
    </property>
   </action>
   <action name="actionClose_All">

@@ -22,7 +22,7 @@ Export::Export(QString filename, int mode, QWidget *parent) :
     ui->comboBoxConfig->setStyleSheet(style);
     ui->comboBoxMode->setStyleSheet(style);
 #else
-    setWindowTitle("Export");
+    setWindowTitle(tr("Export"));
 #endif
 
     for(int i=0;i<Export::NB_EXPORT_MODE;i++) {
