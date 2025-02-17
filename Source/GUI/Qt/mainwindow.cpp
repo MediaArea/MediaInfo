@@ -32,7 +32,6 @@
 #include <QToolBar>
 #include <QMainWindow>
 #include <QMenuBar>
-#include <QWebEngineView>
 #include <QTranslator>
 #include <QFontDatabase>
 /*
@@ -50,6 +49,14 @@ using namespace ZenLib;
     Ztring().From_UTF8(_DATA.toUtf8())
 
 #define VERSION "24.12"
+
+#if defined(_WIN32)
+#define EDGE_WEBVIEW2_YES
+#include "webview2widget.h"
+#else
+#include <QWebEngineView>
+#endif
+
 #if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) //UWP Application
 #include <QtPlatformHeaders/QWindowsWindowFunctions>
 #include <ZenLib/Os_Utils.h>
@@ -712,12 +719,22 @@ void MainWindow::refreshDisplay() {
                 break;
             case VIEW_HTML:
                 C->Menu_View_HTML();
-                viewWidget = new QWebEngineView();
-                ((QWebEngineView*)viewWidget)->setHtml(wstring2QString(C->Inform_Get()));
+                #ifdef EDGE_WEBVIEW2_YES
+                    viewWidget = new WebView2Widget();
+                    ((WebView2Widget*)viewWidget)->setHtml(wstring2QString(C->Inform_Get()));
+                #else
+                    viewWidget = new QWebEngineView();
+                    ((QWebEngineView*)viewWidget)->setHtml(wstring2QString(C->Inform_Get()));
+                #endif
                 break;
             case VIEW_GRAPH:
-                viewWidget = new QWebEngineView();
-                ((QWebEngineView*)viewWidget)->setHtml(Generate_Graph_HTML(C, settings));
+                #ifdef EDGE_WEBVIEW2_YES
+                    viewWidget = new WebView2Widget();
+                    ((WebView2Widget*)viewWidget)->setHtml(Generate_Graph_HTML(C, settings));
+                #else
+                    viewWidget = new QWebEngineView();
+                    ((QWebEngineView*)viewWidget)->setHtml(Generate_Graph_HTML(C, settings));
+                #endif
                 break;
             case VIEW_TREE:
                 C->Menu_View_Tree();

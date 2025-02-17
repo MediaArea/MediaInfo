@@ -31,7 +31,7 @@ popd
 rmdir /s /q %~dp0\MediaInfo_Qt_Windows_x64
 mkdir %~dp0\MediaInfo_Qt_Windows_x64
 copy %~dp0\..\Project\QMake\GUI\build\Desktop_Qt_%QT_VER2%_MSVC2022_64bit-Release\x64\MediaInfo.exe %~dp0\MediaInfo_Qt_Windows_x64\
-windeployqt --no-quick-import --no-translations --no-system-d3d-compiler --no-compiler-runtime --no-opengl-sw %~dp0\MediaInfo_Qt_Windows_x64\MediaInfo.exe
+windeployqt --no-quick-import --no-translations --no-system-d3d-compiler --no-system-dxc-compiler --no-compiler-runtime --no-opengl-sw %~dp0\MediaInfo_Qt_Windows_x64\MediaInfo.exe
 
 :: clean-up
 rmdir /s /q %~dp0\..\Project\QMake\GUI\build\Desktop_Qt_%QT_VER2%_MSVC2022_64bit-Release
@@ -51,10 +51,14 @@ del /s "%~dp0\MediaInfo_Qt_Windows_x64\msvcp140_codecvt_ids.dll"
 del /s "%~dp0\MediaInfo_Qt_Windows_x64\vcruntime140.dll"
 del /s "%~dp0\MediaInfo_Qt_Windows_x64\vcruntime140_1.dll"
 copy "%~dp0\..\..\MediaArea-Utils-Binaries\Windows\libcurl\x64\Release\LIBCURL.DLL" "%~dp0\MediaInfo_Qt_Windows_x64\"
+copy "%~dp0\..\Project\QMake\GUI\packages\microsoft.web.webview2.1.0.3065.39\build\native\x64\WebView2Loader.dll" "%~dp0\MediaInfo_Qt_Windows_x64\"
 
 :: build and add IExplorerCommand shell extension
-MSBuild /t:Clean;Build /restore "/p:RestorePackagesConfig=true;Configuration=Release Qt;Platform=x64" %~dp0\..\Project\MSVC2022\MediaInfo_WindowsShellExtension\MediaInfo_WindowsShellExtension.vcxproj
+MSBuild /t:Clean;Build "/p:Configuration=Release Qt;Platform=x64" %~dp0\..\Project\MSVC2022\MediaInfo_WindowsShellExtension\MediaInfo_WindowsShellExtension.vcxproj
 copy "%~dp0\..\Project\MSVC2022\MediaInfo_WindowsShellExtension\x64\Release Qt\MediaInfo_WindowsShellExtension.dll" "%~dp0\MediaInfo_Qt_Windows_x64\"
+
+:: sign binaries
+signtool.exe sign /fd SHA256 /a /f %CERT_PATH% /p %CERT_PASS% /tr http://ts.ssl.com /td sha256 %~dp0\MediaInfo_Qt_Windows_x64\MediaInfo.exe %~dp0\MediaInfo_Qt_Windows_x64\MediaInfo_WindowsShellExtension.dll
 
 :: add MSIX manifest and assets
 xcopy %~dp0\..\Source\WindowsQtPackage %~dp0\MediaInfo_Qt_Windows_x64\ /i /e /r /y
