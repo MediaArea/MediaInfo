@@ -2,7 +2,10 @@
 # Project created by QtCreator 2010-07-23T13:03:11
 # -------------------------------------------------
 
-QT += core gui widgets network xml webenginewidgets
+QT += core gui widgets network xml
+!win32 {
+    QT += webenginewidgets
+}
 
 win32|macx {
     TARGET = "MediaInfo"
@@ -144,6 +147,8 @@ win32 {
             }
         }
     } else {
+        !build_pass:system("install_nuget_packages.cmd")
+
         contains(QT_ARCH, i386) {
             exists(../../../../MediaInfoLib/Project/MSVC2022/Win32/Release/MediaInfo-Static.lib) {
                 INCLUDEPATH += ../../../../MediaInfoLib/Source
@@ -164,6 +169,13 @@ win32 {
                 LIBS += $$PWD/../../../../zlib/contrib/vstudio/vc17/x86/ZlibStatReleaseWithoutAsm/zlibstat.lib
             } else {
                 error("zlib not found on system")
+            }
+
+            exists(packages/microsoft.web.webview2.1.0.3065.39/build/native/x86/WebView2Loader.dll.lib) {
+                INCLUDEPATH += $$PWD/packages/microsoft.web.webview2.1.0.3065.39/build/native/include
+                LIBS += -L$$PWD/packages/microsoft.web.webview2.1.0.3065.39/build/native/x86 -lWebView2Loader.dll
+            } else {
+                error("Edge WebView2 lib not found on system")
             }
         }
 
@@ -189,6 +201,14 @@ win32 {
                 error("zlib not found on system")
             }
 
+            exists(packages/microsoft.web.webview2.1.0.3065.39/build/native/x64/WebView2Loader.dll.lib) {
+                INCLUDEPATH += $$PWD/packages/microsoft.web.webview2.1.0.3065.39/build/native/include
+                LIBS += -L$$PWD/packages/microsoft.web.webview2.1.0.3065.39/build/native/x64 -lWebView2Loader.dll
+            } else {
+                error("Edge WebView2 lib not found on system")
+            }
+
+
             QMAKE_CXXFLAGS += /guard:ehcont
             QMAKE_LFLAGS += /guard:ehcont
         }
@@ -208,11 +228,18 @@ win32 {
                 error("libzen not found on system")
             }
 
-            exists(../../../../zlib/contrib/vstudio/vc17/ARM64/Release/zlibstat.lib) {
+            exists(../../../../zlib/contrib/vstudio/vc17/arm64/ZlibStatReleaseWithoutAsm/zlibstat.lib) {
                 INCLUDEPATH += ../../../../zlib
-                LIBS += $$PWD/../../../../zlib/contrib/vstudio/vc17/ARM64/ZlibStatReleaseWithoutAsm/zlibstat.lib
+                LIBS += $$PWD/../../../../zlib/contrib/vstudio/vc17/arm64/ZlibStatReleaseWithoutAsm/zlibstat.lib
             } else {
                 error("zlib not found on system")
+            }
+
+            exists(packages/microsoft.web.webview2.1.0.3065.39/build/native/arm64/WebView2Loader.dll.lib) {
+                INCLUDEPATH += $$PWD/packages/microsoft.web.webview2.1.0.3065.39/build/native/include
+                LIBS += -L$$PWD/packages/microsoft.web.webview2.1.0.3065.39/build/native/arm64 -lWebView2Loader.dll
+            } else {
+                error("Edge WebView2 lib not found on system")
             }
 
             QMAKE_CXXFLAGS += /guard:ehcont /guard:signret
@@ -249,6 +276,11 @@ SOURCES += ../../../Source/GUI/Qt/main.cpp \
     ../../../Source/GUI/Qt/configtreetext.cpp \
     ../../../Source/GUI/Qt/editconfigtreetext.cpp
 
+win32 {
+    SOURCES += ../../../Source/GUI/Qt/webview2widget.cpp
+}
+
+
 HEADERS += ../../../Source/GUI/Qt/mainwindow.h \
     ../../../Source/Common/Core.h \
     ../../../Source/GUI/Qt/easyviewwidget.h \
@@ -266,6 +298,10 @@ HEADERS += ../../../Source/GUI/Qt/mainwindow.h \
     ../../../Source/GUI/Qt/translate.h \
     ../../../Source/GUI/Qt/configtreetext.h \
     ../../../Source/GUI/Qt/editconfigtreetext.h
+
+win32 {
+    HEADERS += ../../../Source/GUI/Qt/webview2widget.h
+}
 
 FORMS += ../../../Source/GUI/Qt/mainwindow.ui \
     ../../../Source/GUI/Qt/prefs.ui \

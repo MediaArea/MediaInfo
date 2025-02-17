@@ -7,7 +7,8 @@
   xmlns:desktop4="http://schemas.microsoft.com/appx/manifest/desktop/windows10/4"
   xmlns:desktop5="http://schemas.microsoft.com/appx/manifest/desktop/windows10/5"
   xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
-  IgnorableNamespaces="uap rescap desktop desktop4 desktop5 com">
+  xmlns:win32dependencies="http://schemas.microsoft.com/appx/manifest/externaldependencies"  
+  IgnorableNamespaces="uap rescap desktop desktop4 desktop5 com win32dependencies">
   <Identity Name="MediaInfo.Qt" Publisher="CN=MEDIAAREA.NET, O=MEDIAAREA.NET, L=Curienne, S=Auvergne-Rhône-Alpes, C=FR" Version="24.12.0.0" ProcessorArchitecture="x64" />
   <Properties>
     <DisplayName>MediaInfo Qt</DisplayName>
@@ -19,7 +20,8 @@
   </Resources>
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.26100.0" />
-    <PackageDependency Name="Microsoft.VCLibs.140.00.UWPDesktop" MinVersion="14.0.24217.0" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
+    <PackageDependency Name="Microsoft.VCLibs.140.00.UWPDesktop" MinVersion="14.0.33728.0" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
+    <win32dependencies:ExternalDependency Name="Microsoft.WebView2" Publisher="CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" MinVersion="1.1.1.1" Optional="true" />
   </Dependencies>
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
