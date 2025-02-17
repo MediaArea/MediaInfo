@@ -51,20 +51,17 @@ Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
     }
     ui->comboBox_language->setCurrentIndex(ui->comboBox_language->findData(settings->value("language", "en").toString()));
 
-    QFontDatabase fontDatabase;
     QFont setMonoFont; setMonoFont.fromString(settings->value("monoFont", "").toString());
-    if (!settings->value("monoFont", "").toString().isEmpty() && fontDatabase.families().contains(setMonoFont.family())) {
+    if (!settings->value("monoFont", "").toString().isEmpty() && QFontDatabase::families().contains(setMonoFont.family())) {
         ui->comboBox_font->setCurrentFont(QFont(setMonoFont));
         ui->comboBox_fontSize->setCurrentText(QString::number(setMonoFont.pointSize()));
     } else {
         QStringList preferredMonoFonts = { "Cascadia Mono", "Mono" };
-        for (const QString &fontName : preferredMonoFonts) {
-            if (fontDatabase.families().contains(fontName)) {
-                ui->comboBox_font->setCurrentFont(QFont(fontName));
-                ui->comboBox_fontSize->setCurrentText(QString::number(QFont().pointSize()));
-                break;
-            }
-        }
+        QFont font;
+        font.setFamilies(preferredMonoFonts);
+        font.setStyleHint(QFont::TypeWriter);
+        ui->comboBox_font->setCurrentFont(font);
+        ui->comboBox_fontSize->setCurrentText(QString::number(font.pointSize()));
     }
 
     ui->showMenu->setChecked(settings->value("showMenu",true).toBool());
