@@ -6,6 +6,7 @@
 
 import UIKit
 import CoreData
+import PhotosUI
 import MobileCoreServices
 
 import Toast_Swift
@@ -36,20 +37,42 @@ extension UITableViewController {
         }
     }
 }
-class ReportsListViewController: UITableViewController, NSFetchedResultsControllerDelegate, UIDocumentPickerDelegate, SubscribeResultDelegate {
-
+class ReportsListViewController: UITableViewController, NSFetchedResultsControllerDelegate, UIDocumentPickerDelegate, PHPickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SubscribeResultDelegate {
     var reportViewController: ReportViewController? = nil
     var managedObjectContext: NSManagedObjectContext? = nil
     var selectedReport: Event? = nil
     var welcomeView: UIView? = nil
+    var menuButton: UIBarButtonItem? = nil
+    var addButton: UIBarButtonItem? = nil
     var message: String? = nil
     let core: Core = Core()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let menuButton = UIBarButtonItem(title: NSLocalizedString("Menu", tableName: "Core", comment: ""), style: .plain, target: self, action: #selector(showMenu(_:)))
-        let addButton = UIBarButtonItem(title: NSLocalizedString("Open", tableName: "Core", comment: ""), style: .plain, target: self, action: #selector(insertReport(_:)))
+        menuButton = UIBarButtonItem(title: NSLocalizedString("Menu", tableName: "Core", comment: ""), style: .plain, target: self, action: nil)
+        addButton = UIBarButtonItem(title: NSLocalizedString("Open", tableName: "Core", comment: ""), style: .plain, target: self, action: nil)
+
+        if #available(iOS 14.0, *) {
+            // Main menu
+            menuButton?.menu = updateMainMenu()
+
+            // Open menu
+            let openFileAction = UIAction(title: NSLocalizedString("Documents", tableName: "Core", comment: ""), image: UIImage(systemName: "document")) { (action: UIAction) in
+                self.selectFile()
+             }
+
+            let openMediaAction = UIAction(title: NSLocalizedString("Gallery", tableName: "Core", comment: ""), image: UIImage(systemName: "photo")) { (action: UIAction) in
+                self.selectMedia()
+             }
+
+            let openMenu = UIMenu(title: NSLocalizedString("Open", tableName: "Core", comment: ""), options: .displayInline, children: [openFileAction , openMediaAction])
+            addButton?.menu = openMenu
+        }
+        else {
+            addButton?.action = #selector(showOpenMenu(_:))
+            menuButton?.action = #selector(showMenu(_:))
+        }
 
         navigationItem.leftBarButtonItem = menuButton
         navigationItem.rightBarButtonItem = addButton
@@ -98,6 +121,69 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
         // Dispose of any resources that can be recreated.
     }
 
+    @available(iOS 14.0, *)
+    func updateMainMenu() -> UIMenu {
+        let mainMenu = UIMenu(title: NSLocalizedString("Menu", tableName: "Core", comment: ""), options: .displayInline, children: [UIDeferredMenuElement { [weak self] completion in
+            guard let main = self else { return }
+
+            var items: [UIAction] = []
+            if SubscriptionManager.shared.subscriptionActive {
+                let darkModeAction = UIAction(title: NSLocalizedString("Dark mode", tableName: "Core", comment: "")) { (action: UIAction) in
+                    Core.shared.darkMode = !Core.shared.darkMode
+                }
+                items.append(darkModeAction)
+                if Core.shared.darkMode {
+                    darkModeAction.image = UIImage(systemName: "checkmark")
+                }
+
+                let translateAction = UIAction(title: NSLocalizedString("Translate reports", tableName: "Core", comment: "")) { (action: UIAction) in
+                    Core.shared.userLocale = !Core.shared.userLocale
+                }
+                if Core.shared.userLocale {
+                    translateAction.image = UIImage(systemName: "checkmark")
+                }
+                items.append(translateAction)
+
+                let manageSubscriptionAction = UIAction(title: NSLocalizedString("Manage subscription", tableName: "Core", comment: "")) { (action: UIAction) in
+                    let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                    if let subscribeViewController = storyboard.instantiateViewController(withIdentifier: "SubscribeViewController") as? SubscribeViewController {
+                        let navigationController = UINavigationController(rootViewController: subscribeViewController)
+                        subscribeViewController.delegate = self
+
+                        main.present(navigationController, animated: true, completion: nil)
+                    }
+                }
+                items.append(manageSubscriptionAction)
+            }
+            else {
+                let subscribeAction = UIAction(title: NSLocalizedString("Subscribe", tableName: "Core", comment: "")) { (action: UIAction) in
+                    let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                    if let subscribeViewController = storyboard.instantiateViewController(withIdentifier: "SubscribeViewController") as? SubscribeViewController {
+                        let navigationController = UINavigationController(rootViewController: subscribeViewController)
+                        subscribeViewController.delegate = self
+
+                        main.present(navigationController, animated: true, completion: nil)
+                    }
+                }
+                items.append(subscribeAction)
+            }
+
+            let aboutAction = UIAction(title: NSLocalizedString("About", tableName: "Core", comment: "")) { (action: UIAction) in
+                let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                let aboutViewController = storyboard.instantiateViewController(withIdentifier: "AboutViewController")
+                let navigationController = UINavigationController(rootViewController: aboutViewController)
+
+                main.present(navigationController, animated: true, completion: nil)
+            }
+            items.append(aboutAction)
+            completion(items)
+
+            main.menuButton?.menu = main.updateMainMenu() // Run this DeferredMenuElement again at next tap
+        }])
+
+        return mainMenu
+    }
+
     @objc func showMenu(_ sender: Any) {
         let menuViewController = PopMenuViewController(actions: [])
         if SubscriptionManager.shared.subscriptionActive {
@@ -121,7 +207,6 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
                     }
                 }
             }))
-        //} else {
             if Core.shared.userLocale {
                 menuViewController.addAction(PopMenuDefaultAction(title: "✓ " + NSLocalizedString("Translate reports", tableName: "Core", comment: ""), didSelect: { _ in
                     Core.shared.userLocale = false
@@ -155,7 +240,6 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
             }))
         }
 
-
         menuViewController.addAction(PopMenuDefaultAction(title: NSLocalizedString("About", tableName: "Core", comment: ""), didSelect: { [menuViewController] _ in
             menuViewController.didDismiss = { _ in
                 let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -170,21 +254,52 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
         present(menuViewController, animated: true, completion: nil)
     }
 
+    @objc func showOpenMenu(_ sender: Any) {
+        let openMenuViewController = PopMenuViewController(actions: [
+            PopMenuDefaultAction(title: NSLocalizedString("Documents", tableName: "Core", comment: ""), didSelect: { _ in
+                self.selectFile()
+            }),
+            PopMenuDefaultAction(title: NSLocalizedString("Gallery", tableName: "Core", comment: ""), didSelect: { _ in
+                self.selectMedia()
+            })
+        ])
+
+            present(openMenuViewController, animated: true, completion: nil)
+    }
     func showMessage(message: String?) {
         if message != nil {
             navigationController?.view?.makeToast(message, duration: 5.0, position: .top)
         }
     }
 
-    @objc func insertReport(_ sender: Any) {
+    func selectFile() {
         let documentPicker: UIDocumentPickerViewController = UIDocumentPickerViewController(documentTypes: [kUTTypeItem as String], in: .import)
         documentPicker.delegate = self
 
-        //if #available(iOS 11.0, *) {
-        //    documentPicker.allowsMultipleSelection = true
-        //}
+        if #available(iOS 11.0, *) {
+            documentPicker.allowsMultipleSelection = true
+        }
 
-        self.present(documentPicker, animated: true, completion: nil)
+        present(documentPicker, animated: true, completion: nil)
+    }
+
+    func selectMedia() {
+        if #available(iOS 14.0, *) {
+            var pickerConfiguration = PHPickerConfiguration(photoLibrary: .shared())
+            pickerConfiguration.selectionLimit = 0
+
+            let mediaPicker = PHPickerViewController(configuration: pickerConfiguration)
+            mediaPicker.delegate = self
+            present(mediaPicker, animated: true, completion: nil)
+        }
+        else {
+            let mediaPicker = UIImagePickerController()
+            mediaPicker.mediaTypes = ["public.image", "public.movie"]
+            mediaPicker.sourceType = .photoLibrary
+            mediaPicker.delegate = self
+
+            present (mediaPicker, animated: true, completion: nil)
+        }
     }
 
     // Because URL.hasDirectoryPath don't work with directories returned by iCloud
@@ -264,18 +379,137 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
         return toReturn
     }
 
-    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        if urls.count > 0 {
-            view.isUserInteractionEnabled = false
-            navigationItem.leftBarButtonItem?.isEnabled = false
-            navigationItem.rightBarButtonItem?.isEnabled = false
+    // MARK: - PHPickerViewControllerDelegate
+    @available(iOS 14.0, *)
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true, completion: nil)
 
-            if let welcome: UIView = welcomeView {
-                UITableViewController.removeWelcome(view: welcome)
-            }
-
-            view.makeToastActivity(.center)
+        if results.count == 0 {
+            return
         }
+
+        view.isUserInteractionEnabled = false
+        navigationItem.leftBarButtonItem?.isEnabled = false
+        navigationItem.rightBarButtonItem?.isEnabled = false
+
+        if let welcome: UIView = welcomeView {
+            UITableViewController.removeWelcome(view: welcome)
+        }
+
+        view.makeToastActivity(.center)
+        var todo = results.count
+        for result in results {
+            result.itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.data.identifier, completionHandler: { url, _ in
+                do {
+                    if let url {
+                        let name = result.itemProvider.suggestedName ?? url.lastPathComponent
+                        let report = try self.core.createReport(url: url, name: name)
+
+                        let context = self.fetchedResultsController.managedObjectContext
+                        let newEvent = Event(context: context)
+                        // Configure the new report.
+                        newEvent.timestamp = Date()
+                        newEvent.filename = name
+                        newEvent.report = try NSKeyedArchiver.archivedData(withRootObject: report, requiringSecureCoding: false)
+                        newEvent.version = self.core.version
+
+                        // Save the context.
+                        try context.save()
+
+                        DispatchQueue.main.async { [weak self] in
+                            if let main = self {
+                                todo -= 1
+                                if todo == 0 {
+                                    main.view.hideToastActivity()
+                                    main.view.isUserInteractionEnabled = true
+                                    main.navigationItem.leftBarButtonItem?.isEnabled = true
+                                    main.navigationItem.rightBarButtonItem?.isEnabled = true
+                                }
+                                if results.count == 1 {
+                                    main.tableView.selectRow(at: IndexPath(row: main.tableView.numberOfRows(inSection: 0)-1, section: 0), animated: true, scrollPosition: .bottom)
+                                    main.performSegue(withIdentifier: "showReport", sender: self)
+                                }
+                            }
+                        }
+                    }
+                } catch {
+                    let nserror = error as NSError
+                    self.view.makeToast("ERROR: \(nserror), \(nserror.userInfo) when trying to save report", duration: 5.0, position: .top)
+                }
+            })
+        }
+    }
+
+    // MARK: - UIImagePickerControllerDelegate
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        guard let type = info[.mediaType] as? String else { return }
+        var typeURL = UIImagePickerController.InfoKey.mediaURL
+        if type == "public.image" {
+            typeURL = UIImagePickerController.InfoKey.imageURL
+        }
+
+        do {
+            if let url = info[typeURL] as? URL {
+                let name = url.lastPathComponent
+                let report = try self.core.createReport(url: url, name: name)
+
+                let context = self.fetchedResultsController.managedObjectContext
+                let newEvent = Event(context: context)
+                // Configure the new report.
+                newEvent.timestamp = Date()
+                newEvent.filename = name
+                newEvent.report = try NSKeyedArchiver.archivedData(withRootObject: report, requiringSecureCoding: false)
+                newEvent.version = self.core.version
+
+                // Save the context.
+                try context.save()
+
+                DispatchQueue.main.async { [weak self] in
+                    if let main = self {
+                        main.view.hideToastActivity()
+                        main.view.isUserInteractionEnabled = true
+                        main.navigationItem.leftBarButtonItem?.isEnabled = true
+                        main.navigationItem.rightBarButtonItem?.isEnabled = true
+                        main.tableView.selectRow(at: IndexPath(row: main.tableView.numberOfRows(inSection: 0)-1, section: 0), animated: true, scrollPosition: .bottom)
+                        main.performSegue(withIdentifier: "showReport", sender: self)
+                    }
+                }
+            }
+        } catch {
+            let nserror = error as NSError
+            self.view.makeToast("ERROR: \(nserror), \(nserror.userInfo) when trying to save report", duration: 5.0, position: .top)
+        }
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+
+    // MARK: - UINavigationControllerDelegate
+    func navigationController(_ controller: UINavigationController, interactionControllerFor for: any UIViewControllerAnimatedTransitioning) -> (any UIViewControllerInteractiveTransitioning)? {
+        return nil
+    }
+
+    func navigationControllerSupportedInterfaceOrientations(_ controller: UINavigationController) -> UIInterfaceOrientationMask {
+        return .all
+    }
+
+    // MARK: - UIDocumentPickerDelegate
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        if urls.count == 0 {
+            return
+        }
+
+        view.isUserInteractionEnabled = false
+        navigationItem.leftBarButtonItem?.isEnabled = false
+        navigationItem.rightBarButtonItem?.isEnabled = false
+
+        if let welcome: UIView = welcomeView {
+            UITableViewController.removeWelcome(view: welcome)
+        }
+
+        view.makeToastActivity(.center)
 
         DispatchQueue.main.async { [weak self] in
             if let main = self {
@@ -289,7 +523,7 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
                         // Configure the new report.
                         newEvent.timestamp = Date()
                         newEvent.filename = url.lastPathComponent
-                        newEvent.report = NSKeyedArchiver.archivedData(withRootObject: report)
+                        newEvent.report = try NSKeyedArchiver.archivedData(withRootObject: report, requiringSecureCoding: false)
                         newEvent.version = main.core.version
 
                         // Save the context.

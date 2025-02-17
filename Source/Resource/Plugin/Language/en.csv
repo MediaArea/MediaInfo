@@ -380,6 +380,7 @@ DisplayCaptions_Content;When content is detected
 DisplayCaptions_Stream;Even when no content or command is detected
 DistributedBy;Distributed by
 Distributor;Distributor
+Documents;Documents
 Dolby_Atmos_Metadata;Dolby Atmos metadata
 DolbyAtmos;Dolby Atmos
 Donate;Donate
@@ -515,6 +516,7 @@ FrameRate_Num;
 FrameRate_Original;Original frame rate
 FrameRate_Real;Real frame rate
 FullParsing;Full parsing
+Gallery;Gallery
 General;General
 GeneralCompliance;General compliance
 Genre;Genre
