@@ -78,7 +78,6 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
         navigationItem.rightBarButtonItem = addButton
 
         if let split = splitViewController {
-            split.preferredDisplayMode = .allVisible
             let controllers = split.viewControllers
             reportViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? ReportViewController
         }
@@ -777,6 +776,9 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
     }
 
     @objc func clearList(_ sender: Any) {
+        // Close opened report if any
+        reportViewController?.report = nil
+
         let context = self.fetchedResultsController.managedObjectContext
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Event")
 
