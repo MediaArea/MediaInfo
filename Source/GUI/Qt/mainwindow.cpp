@@ -525,10 +525,9 @@ void MainWindow::openDir(QString dirName) {
 }
 
 void MainWindow::refreshDisplay() {
-    QFontDatabase fontDatabase;
     QFont font;
     QFont setMonoFont; setMonoFont.fromString(settings->value("monoFont", "").toString());
-    if (!settings->value("monoFont", "").toString().isEmpty() && fontDatabase.families().contains(setMonoFont.family())) {
+    if (!settings->value("monoFont", "").toString().isEmpty() && QFontDatabase::families().contains(setMonoFont.family())) {
         font = setMonoFont;
     } else {
         QStringList preferredMonoFonts = { "Cascadia Mono", "Mono" };
