@@ -5,9 +5,9 @@
  */
 
 #include "prefs.h"
-#include "translate.h"
 #include "ui_prefs.h"
 #include <QLabel>
+#include <QDir>
 #include "views.h"
 #include "sheet.h"
 #include "configtreetext.h"
@@ -15,6 +15,7 @@
 #include "editsheet.h"
 #include "editconfigtreetext.h"
 #include "editcustom.h"
+#include "translate.h"
 
 Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
     QDialog(parent),
@@ -32,7 +33,7 @@ Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
     ui->customComboBox->setStyleSheet(style);
     ui->treeTextComboBox->setStyleSheet(style);
 #else
-    setWindowTitle("Preferences");
+    setWindowTitle(tr("Preferences"));
 #endif
 
     ui->treeWidget->setColumnHidden(1,true);
@@ -40,6 +41,30 @@ Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
 
     for(int v=VIEW_EASY;v<NB_VIEW;v++) {
         ui->comboBox_defaultview->addItem(nameView((ViewMode)v),v);
+    }
+
+    QDir dir(":/languages/Translations");
+    const QStringList fileNames = dir.entryList(QStringList() << "*.qm", QDir::Files);
+    for (const QString& fileName : fileNames) {
+        QString languageCode = fileName.left(fileName.lastIndexOf('.'));
+        ui->comboBox_language->addItem(nameLanguage(languageCode), languageCode);
+    }
+    ui->comboBox_language->setCurrentIndex(ui->comboBox_language->findData(settings->value("language", "en").toString()));
+
+    QFontDatabase fontDatabase;
+    QFont setMonoFont; setMonoFont.fromString(settings->value("monoFont", "").toString());
+    if (!settings->value("monoFont", "").toString().isEmpty() && fontDatabase.families().contains(setMonoFont.family())) {
+        ui->comboBox_font->setCurrentFont(QFont(setMonoFont));
+        ui->comboBox_fontSize->setCurrentText(QString::number(setMonoFont.pointSize()));
+    } else {
+        QStringList preferredMonoFonts = { "Cascadia Mono", "Mono" };
+        for (const QString &fontName : preferredMonoFonts) {
+            if (fontDatabase.families().contains(fontName)) {
+                ui->comboBox_font->setCurrentFont(QFont(fontName));
+                ui->comboBox_fontSize->setCurrentText(QString::number(QFont().pointSize()));
+                break;
+            }
+        }
     }
 
     ui->showMenu->setChecked(settings->value("showMenu",true).toBool());
@@ -119,6 +144,7 @@ void Preferences::saveSettings() {
     settings->setValue("closeBeforeOpen",ui->closeAllBeforeOpen->isChecked());
     settings->setValue("checkForNewVersion",ui->checkForNewVersion->isChecked());
     settings->setValue("defaultView",ui->comboBox_defaultview->currentIndex());
+    settings->setValue("language",ui->comboBox_language->itemData(ui->comboBox_language->currentIndex()).toString());
     settings->setValue("rememberToolBarPosition",ui->rememberToolBarPosition->isChecked());
     settings->setValue("rememberGeometry",ui->rememberGeometry->isChecked());
     settings->setValue("shellExtension",ui->shellExtension->isChecked());
@@ -136,6 +162,9 @@ void Preferences::saveSettings() {
     ConfigTreeText::save(settings);
     Custom::setDefault(ui->customComboBox->itemData(ui->customComboBox->currentIndex()).toInt());
     Custom::save(settings);
+    QFont monoFont = ui->comboBox_font->currentFont();
+    monoFont.setPointSize(ui->comboBox_fontSize->currentText().toInt());
+    settings->setValue("monoFont",monoFont.toString());
 }
 
 void Preferences::changeEvent(QEvent *e)
@@ -169,7 +198,7 @@ void Preferences::on_pushButton_editSheet_clicked()
 void Preferences::on_pushButton_newSheet_clicked()
 {
     Sheet* s = Sheet::add("newsheet");
-    s->addColumn(Tr("File Name").toStdString().c_str(),300,Stream_General,"CompleteName");
+    s->addColumn(tr("File Name").toStdString().c_str(),300,Stream_General,"CompleteName");
     EditSheet es(s, C, this);
     if(es.exec() == QDialog::Accepted) {
         es.apply();

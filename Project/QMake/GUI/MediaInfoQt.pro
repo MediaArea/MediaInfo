@@ -276,6 +276,45 @@ FORMS += ../../../Source/GUI/Qt/mainwindow.ui \
     ../../../Source/GUI/Qt/editsheet.ui \
     ../../../Source/GUI/Qt/editconfigtreetext.ui
 
+TRANSLATIONS = ../../../Source/Resource/Translations/ar.ts \
+    ../../../Source/Resource/Translations/be.ts \
+    ../../../Source/Resource/Translations/bg.ts \
+    ../../../Source/Resource/Translations/ca.ts \
+    ../../../Source/Resource/Translations/cs.ts \
+    ../../../Source/Resource/Translations/da.ts \
+    ../../../Source/Resource/Translations/de.ts \
+    ../../../Source/Resource/Translations/en.ts \
+    ../../../Source/Resource/Translations/es.ts \
+    ../../../Source/Resource/Translations/eu.ts \
+    ../../../Source/Resource/Translations/fa.ts \
+    ../../../Source/Resource/Translations/fr.ts \
+    ../../../Source/Resource/Translations/gl.ts \
+    ../../../Source/Resource/Translations/gr.ts \
+    ../../../Source/Resource/Translations/hr.ts \
+    ../../../Source/Resource/Translations/hu.ts \
+    ../../../Source/Resource/Translations/hy.ts \
+    ../../../Source/Resource/Translations/id.ts \
+    ../../../Source/Resource/Translations/it.ts \
+    ../../../Source/Resource/Translations/ja.ts \
+    ../../../Source/Resource/Translations/ka.ts \
+    ../../../Source/Resource/Translations/ko.ts \
+    ../../../Source/Resource/Translations/lt.ts \
+    ../../../Source/Resource/Translations/nl.ts \
+    ../../../Source/Resource/Translations/pl.ts \
+    ../../../Source/Resource/Translations/pt-BR.ts \
+    ../../../Source/Resource/Translations/pt.ts \
+    ../../../Source/Resource/Translations/ro.ts \
+    ../../../Source/Resource/Translations/ru.ts \
+    ../../../Source/Resource/Translations/sk.ts \
+    ../../../Source/Resource/Translations/sq.ts \
+    ../../../Source/Resource/Translations/sv.ts \
+    ../../../Source/Resource/Translations/th.ts \
+    ../../../Source/Resource/Translations/tr.ts \
+    ../../../Source/Resource/Translations/uk.ts \
+    ../../../Source/Resource/Translations/zh-CN.ts \
+    ../../../Source/Resource/Translations/zh-HK.ts \
+    ../../../Source/Resource/Translations/zh-TW.ts
+
 RESOURCES += ../../../Source/Resource/Resources.qrc
 
 OBJECTS_DIR      =  _Automated

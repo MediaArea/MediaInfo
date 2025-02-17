@@ -21,6 +21,7 @@
 #include <QMenu>
 #include <QToolButton>
 #include <QUrl>
+#include <QTranslator>
 #ifdef NEW_VERSION
     #include <QNetworkAccessManager>
     #include <QNetworkReply>
@@ -67,6 +68,7 @@ private:
     QTextBrowser* showCustomView(bool forcePlainText=false);
     QToolButton* buttonView;
     QMenu* menuView;
+    QTranslator* translator;
 
     Ui::MainWindow *ui;
     //Non-GUI Elements

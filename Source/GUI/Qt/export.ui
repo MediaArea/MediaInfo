@@ -17,7 +17,7 @@
    <item>
     <widget class="QGroupBox" name="formatBox">
      <property name="title">
-      <string>Choose your desired export format</string>
+      <string>Choose export format</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
@@ -25,7 +25,7 @@
         <item>
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>Format:</string>
+           <string>Format</string>
           </property>
          </widget>
         </item>
@@ -46,7 +46,7 @@
         <item>
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>Profile:</string>
+           <string>Profile</string>
           </property>
          </widget>
         </item>
@@ -72,14 +72,14 @@
       <item>
        <widget class="QCheckBox" name="appendToFile">
         <property name="text">
-         <string>Append to the existing file</string>
+         <string>File_Append</string>
         </property>
        </widget>
       </item>
       <item>
        <spacer name="verticalSpacer">
         <property name="orientation">
-         <enum>Qt::Vertical</enum>
+         <enum>Qt::Orientation::Vertical</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -95,10 +95,10 @@
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
      </property>
     </widget>
    </item>

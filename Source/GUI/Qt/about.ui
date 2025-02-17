@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1,0">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_6">
        <item>
@@ -37,7 +37,7 @@
        <item>
         <spacer name="verticalSpacer_2">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -50,31 +50,46 @@
       </layout>
      </item>
      <item>
-      <widget class="QLabel" name="aboutText">
-       <property name="text">
-        <string>MediaInfo v%1
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="aboutText">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>MediaInfo v%1
 Copyright (C) 2002-2025 MediaArea.net SARL
-
-Supply very detailled information
-about a multimedia file:
-Matroska, OGG (including OGM)
-MPEG1 (including VCD)
-MPEG2 (including DVD and SVCD)
-MPEG4 (including Itunes M4A)
-Quicktime
-RealMedia
-WindowsMedia (including WMV, WMA)
-Microsoft RIFF (including AVI, WAV)
-Sound-only formats (AC3, DTS, AAC, AU, AIFF...)</string>
-       </property>
-      </widget>
+</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>MediaInfo_About</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
    <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
-      <enum>Qt::Vertical</enum>
+      <enum>Qt::Orientation::Vertical</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
@@ -110,7 +125,7 @@ Sound-only formats (AC3, DTS, AAC, AU, AIFF...)</string>
         <bool>true</bool>
        </property>
        <property name="alignment">
-        <set>Qt::AlignCenter</set>
+        <set>Qt::AlignmentFlag::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -122,14 +137,14 @@ Sound-only formats (AC3, DTS, AAC, AU, AIFF...)</string>
        <item>
         <widget class="QPushButton" name="website">
          <property name="text">
-          <string>Go to website</string>
+          <string>Go to WebSite</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="checkversion">
          <property name="text">
-          <string>Check for new version</string>
+          <string>CheckNewVersion</string>
          </property>
         </widget>
        </item>
@@ -143,7 +158,7 @@ Sound-only formats (AC3, DTS, AAC, AU, AIFF...)</string>
        <item>
         <widget class="QPushButton" name="mail">
          <property name="text">
-          <string>Write mail to author</string>
+          <string>WriteMe</string>
          </property>
         </widget>
        </item>
@@ -152,7 +167,7 @@ Sound-only formats (AC3, DTS, AAC, AU, AIFF...)</string>
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -170,7 +185,7 @@ Sound-only formats (AC3, DTS, AAC, AU, AIFF...)</string>
           <string>Translator : Zen</string>
          </property>
          <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
          </property>
         </widget>
        </item>

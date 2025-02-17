@@ -5,7 +5,6 @@
  */
 
 #include "sheetview.h"
-#include "translate.h"
 #include "ui_sheetview.h"
 #include "sheet.h"
 #include "mainwindow.h"
@@ -19,7 +18,7 @@ using namespace ZenLib;
 #define QString2wstring(_DATA) \
     Ztring().From_UTF8(_DATA.toUtf8())
 
-SheetView::SheetView(Core *C, QWidget *parent) :
+SheetView::SheetView(Core *C, QWidget *parent, QFont* monoFont) :
     QFrame(parent),
     ui(new Ui::SheetView)
 {
@@ -35,9 +34,13 @@ SheetView::SheetView(Core *C, QWidget *parent) :
     refreshDisplay();
     ui->tableWidget->selectRow(0);
 
-    QStringList fonts = { "Cascadia Mono", "Mono" };
-    QFont font(fonts);
-    font.setStyleHint(QFont::TypeWriter);
+    QFont font;
+    if (monoFont)
+        font = *monoFont;
+    else {
+        font.setFamily("Mono");
+        font.setStyleHint(QFont::TypeWriter);
+    }
     ui->label->setFont(font);
 }
 
@@ -96,7 +99,7 @@ void SheetView::changeEvent(QEvent *e)
 void SheetView::on_tableWidget_itemSelectionChanged()
 {
     ui->comboBox->clear();
-    ui->comboBox->addItem(Tr("Summary"),QPoint(-1,-1));
+    ui->comboBox->addItem(tr("Summary"),QPoint(-1,-1));
     if(ui->tableWidget->selectedItems().isEmpty())
         return;
     int filePos = ui->tableWidget->selectedItems().at(0)->data(Qt::UserRole).toInt();

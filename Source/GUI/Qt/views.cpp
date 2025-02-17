@@ -5,59 +5,59 @@
  */
 
 #include "views.h"
-#include "translate.h"
+#include <QObject>
 
 QString nameView(ViewMode v) {
    switch(v) {
-   case VIEW_EASY: return Tr("Easy");
+   case VIEW_EASY: return QObject::tr("Easy");
        break;
-   case VIEW_SHEET: return Tr("Sheet");
+   case VIEW_SHEET: return QObject::tr("Sheet");
        break;
-   case VIEW_TREE: return Tr("Tree");
+   case VIEW_TREE: return QObject::tr("Tree");
        break;
-   case VIEW_TEXT: return Tr("Text");
+   case VIEW_TEXT: return QObject::tr("Text");
        break;
-   case VIEW_HTML: return Tr("HTML");
+   case VIEW_HTML: return QObject::tr("HTML");
        break;
-   case VIEW_XML: return Tr("XML");
+   case VIEW_XML: return QObject::tr("XML");
        break;
-   case VIEW_JSON: return Tr("JSON");
+   case VIEW_JSON: return QObject::tr("JSON");
        break;
-   case VIEW_GRAPH: return Tr("Graph");
+   case VIEW_GRAPH: return QObject::tr("Graph");
        break;
-   case VIEW_PBCORE: return Tr("PBCore 1.2");
+   case VIEW_PBCORE: return QObject::tr("PBCore 1.2");
        break;
-   case VIEW_PBCORE2: return Tr("PBCore 2.0");
+   case VIEW_PBCORE2: return QObject::tr("PBCore 2.0");
        break;
-   case VIEW_MPEG7_Strict: return Tr("MPEG-7 (strict)");
+   case VIEW_MPEG7_Strict: return QObject::tr("MPEG-7 (strict)");
        break;
-   case VIEW_MPEG7_Relaxed: return Tr("MPEG-7 (relaxed)");
+   case VIEW_MPEG7_Relaxed: return QObject::tr("MPEG-7 (relaxed)");
        break;
-   case VIEW_MPEG7_Extended: return Tr("MPEG-7 (extended)");
+   case VIEW_MPEG7_Extended: return QObject::tr("MPEG-7 (extended)");
        break;
-   case VIEW_EBUCORE_1_5: return Tr("EBUCore 1.5");
+   case VIEW_EBUCORE_1_5: return QObject::tr("EBUCore 1.5");
        break;
-   case VIEW_EBUCORE_1_6: return Tr("EBUCore 1.6");
+   case VIEW_EBUCORE_1_6: return QObject::tr("EBUCore 1.6");
        break;
-   case VIEW_EBUCORE_1_8_ps: return Tr("EBUCore 1.8 parameter then segment");
+   case VIEW_EBUCORE_1_8_ps: return QObject::tr("EBUCore 1.8 parameter then segment");
        break;
-   case VIEW_EBUCORE_1_8_sp: return Tr("EBUCore 1.8 segment then parameter");
+   case VIEW_EBUCORE_1_8_sp: return QObject::tr("EBUCore 1.8 segment then parameter");
        break;
-   case VIEW_EBUCORE_1_8_ps_JSON: return Tr("EBUCore 1.8 parameter then segment (JSON output)");
+   case VIEW_EBUCORE_1_8_ps_JSON: return QObject::tr("EBUCore 1.8 parameter then segment (JSON output)");
        break;
-   case VIEW_EBUCORE_1_8_sp_JSON: return Tr("EBUCore 1.8 segment then parameter (JSON output)");
+   case VIEW_EBUCORE_1_8_sp_JSON: return QObject::tr("EBUCore 1.8 segment then parameter (JSON output)");
        break;
-   case VIEW_FIMS_1_1: return Tr("FIMS 1.1");
+   case VIEW_FIMS_1_1: return QObject::tr("FIMS 1.1");
        break;
-   case VIEW_FIMS_1_2: return Tr("FIMS 1.2");
+   case VIEW_FIMS_1_2: return QObject::tr("FIMS 1.2");
        break;
-   case VIEW_FIMS_1_3: return Tr("FIMS 1.3");
+   case VIEW_FIMS_1_3: return QObject::tr("FIMS 1.3");
        break;
-   case VIEW_NISO_Z39_87: return Tr("NISO Z39.87");
+   case VIEW_NISO_Z39_87: return QObject::tr("NISO Z39.87");
        break;
-   case VIEW_CUSTOM: return Tr("Custom");
+   case VIEW_CUSTOM: return QObject::tr("Custom");
        break;
-   default: return Tr("Unknown view");
+   default: return QObject::tr("Unknown view");
        break;
    }
 }

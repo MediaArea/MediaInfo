@@ -4,7 +4,6 @@
  *  be found in the License.html file in the root of the source tree.
  */
 
-#include "translate.h"
 #include "editcustom.h"
 #include "ui_editcustom.h"
 

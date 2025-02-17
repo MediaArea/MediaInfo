@@ -120,7 +120,110 @@
          <property name="sizeConstraint">
           <enum>QLayout::SizeConstraint::SetFixedSize</enum>
          </property>
-         <item row="0" column="1">
+         <item row="3" column="1">
+          <widget class="QFontComboBox" name="comboBox_font">
+           <property name="editable">
+            <bool>false</bool>
+           </property>
+           <property name="fontFilters">
+            <set>QFontComboBox::FontFilter::MonospacedFonts</set>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QComboBox" name="comboBox_fontSize">
+           <item>
+            <property name="text">
+             <string>8</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>9</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>10</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>11</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>12</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>14</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>16</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>18</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>20</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Monospaced font</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Output format</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Language</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QComboBox" name="comboBox_language"/>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>Monospaced font size</string>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="0">
+          <spacer name="verticalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Orientation::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="2" column="1">
           <widget class="QComboBox" name="comboBox_defaultview">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -130,7 +233,21 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="0">
+         <item row="5" column="0" colspan="2">
+          <widget class="QCheckBox" name="checkForNewVersion">
+           <property name="text">
+            <string>Newest version</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0" colspan="2">
+          <widget class="QCheckBox" name="shellExtension">
+           <property name="text">
+            <string>Shell extension</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="0" colspan="2">
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <property name="leftMargin">
             <number>25</number>
@@ -144,46 +261,12 @@
            </item>
           </layout>
          </item>
-         <item row="4" column="0">
+         <item row="8" column="0" colspan="2">
           <widget class="QCheckBox" name="shellInfoTip">
            <property name="text">
             <string>Shell InfoTip</string>
            </property>
           </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QCheckBox" name="shellExtension">
-           <property name="text">
-            <string>Shell extension</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Default View</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QCheckBox" name="checkForNewVersion">
-           <property name="text">
-            <string>Check for new versions</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="0">
-          <spacer name="verticalSpacer_5">
-           <property name="orientation">
-            <enum>Qt::Orientation::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
          </item>
         </layout>
        </widget>
@@ -267,21 +350,21 @@
             </sizepolicy>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <item>
             <property name="text">
-             <string>When content is detected</string>
+             <string>DisplayCaptions_Content</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>When content or a command is detected</string>
+             <string>DisplayCaptions_Command</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Even when no content or command is detected</string>
+             <string>DisplayCaptions_Stream</string>
             </property>
            </item>
           </widget>
@@ -295,7 +378,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Handling of 608/708 streams:</string>
+            <string>DisplayCaptions</string>
            </property>
           </widget>
          </item>
@@ -332,7 +415,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Choose your desired custom sheet</string>
+            <string>Choose custom sheet</string>
            </property>
           </widget>
          </item>
@@ -448,7 +531,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Choose your desired custom text</string>
+            <string>Choose custom text</string>
            </property>
           </widget>
          </item>
