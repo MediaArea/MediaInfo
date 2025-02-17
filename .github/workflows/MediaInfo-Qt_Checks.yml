@@ -3,12 +3,14 @@ name: MediaInfo-Qt Checks
 on:
   push:
     paths:
+      - '.github/workflows/MediaInfo-Qt_Checks.yml'
       - 'Project/QMake/GUI/**'
       - 'Source/GUI/Qt/**'
       - 'Source/Resource/**'
 
   pull_request:
     paths:
+      - '.github/workflows/MediaInfo-Qt_Checks.yml'
       - 'Project/QMake/GUI/**'
       - 'Source/GUI/Qt/**'
       - 'Source/Resource/**'
@@ -19,7 +21,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        architecture: [ x64 ]
+        architecture: [ x64, ARM64 ]
       fail-fast: false
     steps:
     - name: Checkout zlib
@@ -41,24 +43,42 @@ jobs:
       uses: actions/checkout@v4
       with:
         path: MediaInfo
-    - name: Set-up Qt
+    - name: Set-up Qt x64
+      if: matrix.architecture == 'x64'
       uses: jurplel/install-qt-action@v4
       with:
         version: 6.8.*
-        modules: 'qtpositioning qtwebchannel qtwebengine'
+        modules: 'qtpositioning qtwebchannel'
+        tools: 'tools_qtcreator,qt.tools.qtcreator'
+    - name: Set-up Qt ARM64
+      if: matrix.architecture == 'ARM64'
+      uses: jurplel/install-qt-action@v4
+      with:
+        arch: 'win64_msvc2022_arm64_cross_compiled'
+        version: 6.8.*
+        modules: 'qtpositioning qtwebchannel'
         tools: 'tools_qtcreator,qt.tools.qtcreator'
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v2
     - name: Build dependencies
       run: |
         msbuild -t:MediaInfoLib -p:Configuration=Release -p:Platform=${{ matrix.architecture }} -clp:ForceConsoleColor ${{ github.workspace }}\MediaInfoLib\Project\MSVC2022\MediaInfoLib.sln
-        xcopy /y ${{ github.workspace }}\MediaInfoLib\Project\MSVC2022\x64\Release\ZenLib.lib ${{ github.workspace }}\ZenLib\Project\MSVC2022\x64\Release\
-    - name: Build
+        xcopy /y ${{ github.workspace }}\MediaInfoLib\Project\MSVC2022\${{ matrix.architecture }}\Release\ZenLib.lib ${{ github.workspace }}\ZenLib\Project\MSVC2022\${{ matrix.architecture }}\Release\
+    - name: Build x64
+      if: matrix.architecture == 'x64'
       shell: cmd
       run: |
-        call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ matrix.architecture }}
-        qmake.exe ${{ github.workspace }}\MediaInfo\Project\QMake\GUI\MediaInfoQt.pro -spec win32-msvc "CONFIG+=qtquickcompiler" && D:\a\MediaInfo\Qt\Tools\QtCreator\bin\jom\jom.exe qmake_all
+        call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
+        qmake ${{ github.workspace }}\MediaInfo\Project\QMake\GUI\MediaInfoQt.pro -spec win32-msvc "CONFIG+=qtquickcompiler" && D:\a\MediaInfo\Qt\Tools\QtCreator\bin\jom\jom.exe qmake_all
         D:\a\MediaInfo\Qt\Tools\QtCreator\bin\jom\jom.exe
+    - name: Build ARM64
+      if: matrix.architecture == 'ARM64'
+      shell: cmd
+      run: |
+        call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64_arm64
+        qmake ${{ github.workspace }}\MediaInfo\Project\QMake\GUI\MediaInfoQt.pro -spec win32-arm64-msvc "CONFIG+=qtquickcompiler" && D:\a\MediaInfo\Qt\Tools\QtCreator\bin\jom\jom.exe qmake_all
+        D:\a\MediaInfo\Qt\Tools\QtCreator\bin\jom\jom.exe
+
 
   Ubuntu:
     runs-on: ubuntu-latest
@@ -77,7 +97,6 @@ jobs:
         arch: linux_gcc_64
         version: 6.8.*
         modules: 'qtpositioning qtwebchannel qtwebengine'
-        tools: 'tools_qtcreator,qt.tools.qtcreator'
     - name: Build
       run: |
         qmake ${{ github.workspace }}/MediaInfo/Project/QMake/GUI/MediaInfoQt.pro -spec linux-g++ CONFIG+=qtquickcompiler && make qmake_all
