@@ -351,10 +351,21 @@ void __fastcall TMainF::GUI_Configure()
     //Configure theme
     ConfigTheme();
 
-    //Set monospaced font to Cascadia Mono SemiBold if available on current system
-    if (Screen->Fonts->IndexOf("Cascadia Mono SemiBold") != -1) {
+    //Set monospaced font to preferred font if available on current system
+    System::UnicodeString fontName;
+    if (Prefs->Config(__T("Language"))==__T("ja"))
+        fontName = "MS Gothic";
+    else
+    if (Prefs->Config(__T("Language"))==__T("ko"))
+        fontName = "Malgun Gothic";
+    else
+    if (Prefs->Config(__T("Language"))==__T("zh-CN") || Prefs->Config(__T("Language"))==__T("zh-HK") || Prefs->Config(__T("Language"))==__T("zh-TW"))
+        fontName = "NSimSun";
+    else
+        fontName = "Cascadia Mono SemiBold";
+    if (Screen->Fonts->IndexOf(fontName) != -1) {
         TFont* MonoFont = new TFont;
-        MonoFont->Name = "Cascadia Mono SemiBold";
+        MonoFont->Name = fontName;
         MonoFont->Size = 10;
         Page_Text_Text->Font = MonoFont;
         Page_Custom_Text->Font = MonoFont;
