@@ -529,8 +529,9 @@ void MainWindow::refreshDisplay() {
     QFont setMonoFont; setMonoFont.fromString(settings->value("monoFont", "").toString());
     if (!settings->value("monoFont", "").toString().isEmpty() && QFontDatabase::families().contains(setMonoFont.family())) {
         font = setMonoFont;
+        font.setFamilies(QStringList({ setMonoFont.family(), "Cascadia Mono", "Malgun Gothic", "MS Gothic", "NSimSun", "Mono" }));
     } else {
-        QStringList preferredMonoFonts = { "Cascadia Mono", "Mono" };
+        QStringList preferredMonoFonts = { "Cascadia Mono", "Malgun Gothic", "MS Gothic", "NSimSun", "Mono" };
         font.setFamilies(preferredMonoFonts);
         font.setStyleHint(QFont::TypeWriter);
     }
