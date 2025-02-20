@@ -51,7 +51,9 @@ Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
     }
     ui->comboBox_language->setCurrentIndex(ui->comboBox_language->findData(settings->value("language", "en").toString()));
 
-    QFont setMonoFont; setMonoFont.fromString(settings->value("monoFont", "").toString());
+    QFont setMonoFont;
+    if (!settings->value("monoFont", "").toString().isEmpty())
+        setMonoFont.fromString(settings->value("monoFont", "").toString());
     if (!settings->value("monoFont", "").toString().isEmpty() && QFontDatabase::families().contains(setMonoFont.family())) {
         ui->comboBox_font->setCurrentFont(QFont(setMonoFont));
         ui->comboBox_fontSize->setCurrentText(QString::number(setMonoFont.pointSize()));

@@ -39,6 +39,7 @@ void EasyViewWidget::refreshDisplay() {
     setLayout(layout);
 
     QComboBox* fileChoice = new QComboBox();
+    fileChoice->setMinimumContentsLength(1);
 
 #if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) // Workaround render bug
     QString style = "QComboBox QAbstractItemView { border: 1px solid gray }";

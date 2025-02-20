@@ -68,6 +68,7 @@ void EditCustom::refreshDisplay() {
 
     //ui->treeWidget->itemAt(index,index)->setSelected(true);
 
+    static const QRegularExpression RegEx(";(.*)");
     switch(index) {
     case 0:
         ui->textEdit->setPlainText(c->getPage());
@@ -89,7 +90,7 @@ void EditCustom::refreshDisplay() {
         s.truncate((s.indexOf("\n\n")==-1?s.size():s.indexOf("\n\n")));
         QStringList sl = s.split("\n");
         sl.removeAt(0);
-        sl.replaceInStrings(QRegularExpression(";(.*)"),"");
+        sl.replaceInStrings(RegEx,"");
         ui->comboBox->clear();
         for (int i=0; i<sl.size(); ++i) {
             ui->comboBox->addItem(sl.at(i),"%"+sl.at(i)+"%");

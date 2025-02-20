@@ -1,27 +1,25 @@
 :: config
 ::  example:
-::   set QT_PATH=D:\Qt
-::   set QT_VER1=6.8.0
-::   set QT_VER2=6_8_0
+::   set QT_PATH=D:\Qt\6.8.2\msvc2022_64
+::   set QT_TOOLS_PATH=D:\Qt\Tools
 ::   set FFMPEG_EXE=%~dp0\..\..\MediaInfo-FFmpeg-Plugin\ffmpeg.exe
 ::   set CERT_PATH=D:\sign_cert.pfx
 ::   set CERT_PASS=K1wdqYSDk0locw6HSSjT
 set QT_PATH=%QT_PATH%
-set QT_VER1=%QT_VER1%
-set QT_VER2=%QT_VER2%
+set QT_TOOLS_PATH=%QT_TOOLS_PATH%
 set FFMPEG_EXE=%FFMPEG_EXE%
 set CERT_PATH=%CERT_PATH%
 set CERT_PASS=%CERT_PASS%
 
 :: set paths
 set PATH_TEMP=%PATH%
-set PATH=%QT_PATH%\%QT_VER1%\msvc2022_64\bin\;%QT_PATH%\Tools\QtCreator\bin\jom\;%PATH%
+set PATH=%QT_PATH%\bin\;%QT_TOOLS_PATH%\QtCreator\bin\jom\;%PATH%
 call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
 
 :: build Qt GUI
-rmdir /s /q %~dp0\..\Project\QMake\GUI\build\Desktop_Qt_%QT_VER2%_MSVC2022_64bit-Release
-mkdir %~dp0\..\Project\QMake\GUI\build\Desktop_Qt_%QT_VER2%_MSVC2022_64bit-Release
-pushd %~dp0\..\Project\QMake\GUI\build\Desktop_Qt_%QT_VER2%_MSVC2022_64bit-Release
+rmdir /s /q %~dp0\..\Project\QMake\GUI\build\Desktop_Qt_MSVC2022_64bit-Release
+mkdir %~dp0\..\Project\QMake\GUI\build\Desktop_Qt_MSVC2022_64bit-Release
+pushd %~dp0\..\Project\QMake\GUI\build\Desktop_Qt_MSVC2022_64bit-Release
 qmake.exe ..\..\MediaInfoQt.pro -spec win32-msvc "CONFIG+=qtquickcompiler" && jom.exe qmake_all
 jom.exe
 jom.exe clean
@@ -30,11 +28,11 @@ popd
 :: deploy Qt GUI
 rmdir /s /q %~dp0\MediaInfo_Qt_Windows_x64
 mkdir %~dp0\MediaInfo_Qt_Windows_x64
-copy %~dp0\..\Project\QMake\GUI\build\Desktop_Qt_%QT_VER2%_MSVC2022_64bit-Release\x64\MediaInfo.exe %~dp0\MediaInfo_Qt_Windows_x64\
+copy %~dp0\..\Project\QMake\GUI\build\Desktop_Qt_MSVC2022_64bit-Release\x64\MediaInfo.exe %~dp0\MediaInfo_Qt_Windows_x64\
 windeployqt --no-quick-import --no-translations --no-system-d3d-compiler --no-system-dxc-compiler --no-compiler-runtime --no-opengl-sw %~dp0\MediaInfo_Qt_Windows_x64\MediaInfo.exe
 
 :: clean-up
-rmdir /s /q %~dp0\..\Project\QMake\GUI\build\Desktop_Qt_%QT_VER2%_MSVC2022_64bit-Release
+rmdir /s /q %~dp0\..\Project\QMake\GUI\build\Desktop_Qt_MSVC2022_64bit-Release
 
 :: add Graph and FFmpeg plugins
 xcopy %~dp0\..\..\MediaInfo-Graph-Plugin-Binaries\x64 %~dp0\MediaInfo_Qt_Windows_x64\ /i /e /r /y

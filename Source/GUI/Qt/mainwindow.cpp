@@ -526,15 +526,13 @@ void MainWindow::openDir(QString dirName) {
 
 void MainWindow::refreshDisplay() {
     QFont font;
-    QFont setMonoFont; setMonoFont.fromString(settings->value("monoFont", "").toString());
-    if (!settings->value("monoFont", "").toString().isEmpty() && QFontDatabase::families().contains(setMonoFont.family())) {
-        font = setMonoFont;
-        font.setFamilies(QStringList({ setMonoFont.family(), "Cascadia Mono", "Malgun Gothic", "MS Gothic", "NSimSun", "Mono" }));
+    if (!settings->value("monoFont", "").toString().isEmpty()) {
+        font.fromString(settings->value("monoFont", "").toString());
+        font.setFamilies(QStringList({ font.family(), "Cascadia Mono", "Malgun Gothic", "MS Gothic", "NSimSun", "Mono" }));
     } else {
-        QStringList preferredMonoFonts = { "Cascadia Mono", "Malgun Gothic", "MS Gothic", "NSimSun", "Mono" };
-        font.setFamilies(preferredMonoFonts);
-        font.setStyleHint(QFont::TypeWriter);
+        font.setFamilies(QStringList({ "Cascadia Mono", "Malgun Gothic", "MS Gothic", "NSimSun", "Mono" }));
     }
+    font.setStyleHint(QFont::TypeWriter);
 
     ui->actionAdapt_columns_to_content->setVisible(false);
     ui->actionReset_field_sizes->setVisible(false);

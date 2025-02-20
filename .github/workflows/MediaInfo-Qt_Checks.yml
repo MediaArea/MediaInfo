@@ -48,7 +48,6 @@ jobs:
       uses: jurplel/install-qt-action@v4
       with:
         version: 6.8.*
-        modules: 'qtpositioning qtwebchannel'
         tools: 'tools_qtcreator,qt.tools.qtcreator'
     - name: Set-up Qt ARM64
       if: matrix.architecture == 'ARM64'
@@ -56,7 +55,6 @@ jobs:
       with:
         arch: 'win64_msvc2022_arm64_cross_compiled'
         version: 6.8.*
-        modules: 'qtpositioning qtwebchannel'
         tools: 'tools_qtcreator,qt.tools.qtcreator'
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v2
