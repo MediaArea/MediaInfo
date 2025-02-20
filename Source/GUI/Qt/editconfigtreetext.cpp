@@ -37,6 +37,7 @@ EditConfigTreeText::~EditConfigTreeText()
 void EditConfigTreeText::fillToolBox() {
     for(;ui->toolBox->count()>0;ui->toolBox->removeItem(0));
 
+    static const QRegularExpression RegEx(";(.*)");
     for (int streamKind=0; streamKind<(int)Stream_Max; streamKind++) {
         if(streamKind==Stream_Other)
             continue;
@@ -49,7 +50,7 @@ void EditConfigTreeText::fillToolBox() {
         s.truncate((s.indexOf("\n\n")==-1?s.size():s.indexOf("\n\n")));
         QStringList sl = s.split("\n");
         sl.removeAt(0);
-        sl.replaceInStrings(QRegularExpression(";(.*)"),"");
+        sl.replaceInStrings(RegEx,"");
         box->setLayout(new QVBoxLayout());
         for (int i=0; i<sl.size(); ++i) {
             QCheckBox* check = new QCheckBox(sl.at(i));
