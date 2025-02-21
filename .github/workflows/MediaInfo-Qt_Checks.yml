@@ -67,14 +67,14 @@ jobs:
       shell: cmd
       run: |
         call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
-        qmake ${{ github.workspace }}\MediaInfo\Project\QMake\GUI\MediaInfoQt.pro -spec win32-msvc "CONFIG+=qtquickcompiler" && D:\a\MediaInfo\Qt\Tools\QtCreator\bin\jom\jom.exe qmake_all
+        qmake.exe ${{ github.workspace }}\MediaInfo\Project\QMake\GUI\MediaInfoQt.pro -spec win32-msvc "CONFIG+=qtquickcompiler" && D:\a\MediaInfo\Qt\Tools\QtCreator\bin\jom\jom.exe qmake_all
         D:\a\MediaInfo\Qt\Tools\QtCreator\bin\jom\jom.exe
     - name: Build ARM64
       if: matrix.architecture == 'ARM64'
       shell: cmd
       run: |
         call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64_arm64
-        qmake ${{ github.workspace }}\MediaInfo\Project\QMake\GUI\MediaInfoQt.pro -spec win32-arm64-msvc "CONFIG+=qtquickcompiler" && D:\a\MediaInfo\Qt\Tools\QtCreator\bin\jom\jom.exe qmake_all
+        call qmake.bat ${{ github.workspace }}\MediaInfo\Project\QMake\GUI\MediaInfoQt.pro -spec win32-arm64-msvc "CONFIG+=qtquickcompiler" && D:\a\MediaInfo\Qt\Tools\QtCreator\bin\jom\jom.exe qmake_all
         D:\a\MediaInfo\Qt\Tools\QtCreator\bin\jom\jom.exe
 
 
