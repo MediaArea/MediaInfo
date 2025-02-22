@@ -16,6 +16,9 @@ set PATH_TEMP=%PATH%
 set PATH=%QT_PATH%\bin\;%QT_TOOLS_PATH%\QtCreator\bin\jom\;%PATH%
 call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
 
+:: generate/update Qt translations files
+call %~dp0\..\Source\GUI\Qt\Qt_Translations_Updater\update_Qt_translations.cmd
+
 :: build Qt GUI
 rmdir /s /q %~dp0\..\Project\QMake\GUI\build\Desktop_Qt_MSVC2022_64bit-Release
 mkdir %~dp0\..\Project\QMake\GUI\build\Desktop_Qt_MSVC2022_64bit-Release
