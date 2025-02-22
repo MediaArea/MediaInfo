@@ -103,6 +103,7 @@ private slots:
     void on_actionOpen_triggered();
     void toolBarOptions(QPoint);
     void buttonViewClicked();
+    void footerButtonClicked();
 #ifdef NEW_VERSION
     void httpFinished();
     void httpReadyRead();

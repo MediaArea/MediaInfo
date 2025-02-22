@@ -34,6 +34,8 @@
 #include <QMenuBar>
 #include <QTranslator>
 #include <QFontDatabase>
+#include <QPushButton>
+#include <QDesktopServices>
 /*
 #include <qwt/qwt_plot.h>
 #include <qwt/qwt_plot_curve.h>
@@ -760,7 +762,34 @@ void MainWindow::refreshDisplay() {
             setWindowTitle(QString("MediaInfo - %1 ").arg((int)C->Count_Get())+tr("files","window title"));
 #endif
     }
-    setCentralWidget(viewWidget);
+
+    // Check if conformance glossary button should show
+    bool showGlossaryButton = false;
+    if (C->Count_Get() > 0) {
+        size_t FilePos = 0;
+        size_t AudioCount = C->Count_Get(FilePos, Stream_Audio, -1);
+        for (size_t AudioPos = 0; AudioPos < AudioCount; ++AudioPos) {
+            if (C->Get(FilePos, Stream_Audio, AudioPos, __T("ConformanceErrors")) != __T("") ||
+                C->Get(FilePos, Stream_Audio, AudioPos, __T("ConformanceWarnings")) != __T("")) {
+                showGlossaryButton = true;
+                break;
+            }
+        }
+    }
+    if (showGlossaryButton) {
+        // Show conformance glossary button below viewWidget
+        QWidget* compositeViewWidget = new QWidget(this);
+        QVBoxLayout* vLayout = new QVBoxLayout(compositeViewWidget);
+        QPushButton* footerButton = new QPushButton(tr("Go to conformance errors and warnings glossary page"));
+        connect(footerButton, SIGNAL(clicked()), this, SLOT(footerButtonClicked()));
+        vLayout->addWidget(viewWidget);
+        vLayout->addWidget(footerButton);
+        compositeViewWidget->setLayout(vLayout);
+        setCentralWidget(compositeViewWidget);
+    }
+    else
+        // Show just the viewWidget
+        setCentralWidget(viewWidget);
 }
 
 QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
@@ -1304,4 +1333,13 @@ void MainWindow::buttonViewClicked()
 #else
     menuView->exec(buttonView->mapToGlobal(QPoint(0, 0)));
 #endif
+}
+
+void MainWindow::footerButtonClicked()
+{
+    const Ztring Inform_Save = C->Menu_Option_Preferences_Option(__T("Inform_Get"), __T(""));
+    C->Menu_Option_Preferences_Inform(__T("Conformance_JSON"));
+    const QString URL = wstring2QString(C->Inform_Get());
+    C->Menu_Option_Preferences_Inform(Inform_Save);
+    QDesktopServices::openUrl(QUrl(URL));
 }
