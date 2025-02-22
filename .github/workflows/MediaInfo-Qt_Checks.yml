@@ -15,6 +15,9 @@ on:
       - 'Source/GUI/Qt/**'
       - 'Source/Resource/**'
 
+env:
+  QT_VER: 6.*
+
 jobs:
 
   Windows:
@@ -47,14 +50,14 @@ jobs:
       if: matrix.architecture == 'x64'
       uses: jurplel/install-qt-action@v4
       with:
-        version: 6.8.*
+        version: ${{ env.QT_VER }}
         tools: 'tools_qtcreator,qt.tools.qtcreator'
     - name: Set-up Qt ARM64
       if: matrix.architecture == 'ARM64'
       uses: jurplel/install-qt-action@v4
       with:
         arch: 'win64_msvc2022_arm64_cross_compiled'
-        version: 6.8.*
+        version: ${{ env.QT_VER }}
         tools: 'tools_qtcreator,qt.tools.qtcreator'
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v2
@@ -62,20 +65,26 @@ jobs:
       run: |
         msbuild -t:MediaInfoLib -p:Configuration=Release -p:Platform=${{ matrix.architecture }} -clp:ForceConsoleColor ${{ github.workspace }}\MediaInfoLib\Project\MSVC2022\MediaInfoLib.sln
         xcopy /y ${{ github.workspace }}\MediaInfoLib\Project\MSVC2022\${{ matrix.architecture }}\Release\ZenLib.lib ${{ github.workspace }}\ZenLib\Project\MSVC2022\${{ matrix.architecture }}\Release\
+    - name: Generate translations files
+      shell: cmd
+      run: |
+        set PATH=${{ env.QT_ROOT_DIR }}\..\msvc2022_64\bin\;%PATH%
+        call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
+        call ${{ github.workspace }}\MediaInfo\Source\GUI\Qt\Qt_Translations_Updater\update_Qt_translations.cmd
     - name: Build x64
       if: matrix.architecture == 'x64'
       shell: cmd
       run: |
         call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
-        qmake.exe ${{ github.workspace }}\MediaInfo\Project\QMake\GUI\MediaInfoQt.pro -spec win32-msvc "CONFIG+=qtquickcompiler" && D:\a\MediaInfo\Qt\Tools\QtCreator\bin\jom\jom.exe qmake_all
-        D:\a\MediaInfo\Qt\Tools\QtCreator\bin\jom\jom.exe
+        qmake.exe ${{ github.workspace }}\MediaInfo\Project\QMake\GUI\MediaInfoQt.pro -spec win32-msvc "CONFIG+=qtquickcompiler" && ${{ env.IQTA_TOOLS }}\QtCreator\bin\jom\jom.exe qmake_all
+        ${{ env.IQTA_TOOLS }}\QtCreator\bin\jom\jom.exe
     - name: Build ARM64
       if: matrix.architecture == 'ARM64'
       shell: cmd
       run: |
         call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64_arm64
-        call qmake.bat ${{ github.workspace }}\MediaInfo\Project\QMake\GUI\MediaInfoQt.pro -spec win32-arm64-msvc "CONFIG+=qtquickcompiler" && D:\a\MediaInfo\Qt\Tools\QtCreator\bin\jom\jom.exe qmake_all
-        D:\a\MediaInfo\Qt\Tools\QtCreator\bin\jom\jom.exe
+        call qmake.bat ${{ github.workspace }}\MediaInfo\Project\QMake\GUI\MediaInfoQt.pro -spec win32-arm64-msvc "CONFIG+=qtquickcompiler" && ${{ env.IQTA_TOOLS }}\QtCreator\bin\jom\jom.exe qmake_all
+        ${{ env.IQTA_TOOLS }}\QtCreator\bin\jom\jom.exe
 
 
   Ubuntu:
@@ -93,8 +102,15 @@ jobs:
       uses: jurplel/install-qt-action@v4
       with:
         arch: linux_gcc_64
-        version: 6.8.*
+        version: ${{ env.QT_VER }}
         modules: 'qtpositioning qtwebchannel qtwebengine'
+    - name: Generate translations files
+      shell: bash
+      env:
+        TERM: linux
+      run: |
+         chmod +x ${{ github.workspace }}/MediaInfo/Source/GUI/Qt/Qt_Translations_Updater/update_Qt_translations.sh
+         ${{ github.workspace }}/MediaInfo/Source/GUI/Qt/Qt_Translations_Updater/update_Qt_translations.sh
     - name: Build
       run: |
         qmake ${{ github.workspace }}/MediaInfo/Project/QMake/GUI/MediaInfoQt.pro -spec linux-g++ CONFIG+=qtquickcompiler && make qmake_all
