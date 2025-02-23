@@ -52,7 +52,7 @@ del /s "%~dp0\MediaInfo_Qt_Windows_x64\msvcp140_codecvt_ids.dll"
 del /s "%~dp0\MediaInfo_Qt_Windows_x64\vcruntime140.dll"
 del /s "%~dp0\MediaInfo_Qt_Windows_x64\vcruntime140_1.dll"
 copy "%~dp0\..\..\MediaArea-Utils-Binaries\Windows\libcurl\x64\Release\LIBCURL.DLL" "%~dp0\MediaInfo_Qt_Windows_x64\"
-copy "%~dp0\..\Project\QMake\GUI\packages\microsoft.web.webview2.1.0.3065.39\build\native\x64\WebView2Loader.dll" "%~dp0\MediaInfo_Qt_Windows_x64\"
+copy "%~dp0\..\Project\QMake\GUI\packages\Microsoft.Web.WebView2\build\native\x64\WebView2Loader.dll" "%~dp0\MediaInfo_Qt_Windows_x64\"
 
 :: build and add IExplorerCommand shell extension
 MSBuild /t:Clean;Build "/p:Configuration=Release Qt;Platform=x64" %~dp0\..\Project\MSVC2022\MediaInfo_WindowsShellExtension\MediaInfo_WindowsShellExtension.vcxproj
