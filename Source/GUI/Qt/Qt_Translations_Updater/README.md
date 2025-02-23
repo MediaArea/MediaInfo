@@ -9,9 +9,9 @@ This folder contains scripts to automate the process of updating Qt `.ts` transl
 
 ## Files
 
-### `update_Qt_translations.cmd`
+### `update_Qt_translations.cmd`/`update_Qt_translations.sh`
 
-This Windows Command Script automates the process of updating `.ts` files and generating `.qm` files.
+This Windows Command Script / Unix Shell Script automates the process of updating `.ts` files and generating `.qm` files.
 
 ### `update_Qt_translations.py`
 
@@ -19,11 +19,12 @@ This Python script updates the `.ts` files with translations from the CSV file a
 
 ## Usage
 
-1. **Run the Windows Command Script**:
-    - Double-click `update_Qt_translations.cmd` or execute it from the command line.
+1. **Run the Windows Command Script or Unix Shell Script**:
+    - Execute `update_Qt_translations.cmd`/`update_Qt_translations.sh`.
     - The script will:
-      - Run `lupdate` to update the `.ts` files.
-      - Use `update_Qt_translations.py` to apply custom translations from `Languages.csv`.
+      - Delete existing `.ts` and `.qm` files.
+      - Run `lupdate` to generate the `.ts` files.
+      - Use `update_Qt_translations.py` to apply translations from `Languages.csv`.
       - Run `lrelease` to generate the `.qm` files.
 
 2. **Verify the Output**:

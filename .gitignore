@@ -68,3 +68,7 @@ project.lock.json
 project.assets.json
 
 # -------------------------------------------------------------------------------------------------
+
+# Qt GUI build and translations directories
+/Project/QMake/GUI/build
+/Source/Resource/Translations

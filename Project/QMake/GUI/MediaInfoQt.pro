@@ -171,9 +171,9 @@ win32 {
                 error("zlib not found on system")
             }
 
-            exists(packages/microsoft.web.webview2.1.0.3065.39/build/native/x86/WebView2Loader.dll.lib) {
-                INCLUDEPATH += $$PWD/packages/microsoft.web.webview2.1.0.3065.39/build/native/include
-                LIBS += -L$$PWD/packages/microsoft.web.webview2.1.0.3065.39/build/native/x86 -lWebView2Loader.dll
+            exists(packages/Microsoft.Web.WebView2/build/native/x86/WebView2Loader.dll.lib) {
+                INCLUDEPATH += $$PWD/packages/Microsoft.Web.WebView2/build/native/include
+                LIBS += -L$$PWD/packages/Microsoft.Web.WebView2/build/native/x86 -lWebView2Loader.dll
             } else {
                 error("Edge WebView2 lib not found on system")
             }
@@ -201,9 +201,9 @@ win32 {
                 error("zlib not found on system")
             }
 
-            exists(packages/microsoft.web.webview2.1.0.3065.39/build/native/x64/WebView2Loader.dll.lib) {
-                INCLUDEPATH += $$PWD/packages/microsoft.web.webview2.1.0.3065.39/build/native/include
-                LIBS += -L$$PWD/packages/microsoft.web.webview2.1.0.3065.39/build/native/x64 -lWebView2Loader.dll
+            exists(packages/Microsoft.Web.WebView2/build/native/x64/WebView2Loader.dll.lib) {
+                INCLUDEPATH += $$PWD/packages/Microsoft.Web.WebView2/build/native/include
+                LIBS += -L$$PWD/packages/Microsoft.Web.WebView2/build/native/x64 -lWebView2Loader.dll
             } else {
                 error("Edge WebView2 lib not found on system")
             }
@@ -235,9 +235,9 @@ win32 {
                 error("zlib not found on system")
             }
 
-            exists(packages/microsoft.web.webview2.1.0.3065.39/build/native/arm64/WebView2Loader.dll.lib) {
-                INCLUDEPATH += $$PWD/packages/microsoft.web.webview2.1.0.3065.39/build/native/include
-                LIBS += -L$$PWD/packages/microsoft.web.webview2.1.0.3065.39/build/native/arm64 -lWebView2Loader.dll
+            exists(packages/Microsoft.Web.WebView2/build/native/arm64/WebView2Loader.dll.lib) {
+                INCLUDEPATH += $$PWD/packages/Microsoft.Web.WebView2/build/native/include
+                LIBS += -L$$PWD/packages/Microsoft.Web.WebView2/build/native/arm64 -lWebView2Loader.dll
             } else {
                 error("Edge WebView2 lib not found on system")
             }

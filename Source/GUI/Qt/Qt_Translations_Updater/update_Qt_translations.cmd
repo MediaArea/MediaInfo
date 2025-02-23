@@ -17,8 +17,14 @@ set TS_FILES_FOLDER=%~dp0\..\..\..\Resource\Translations
 set CSV_FILE=%~dp0\..\..\..\Resource\Language.csv
 set PYTHON_SCRIPT=%~dp0\update_Qt_translations.py
 
-REM Step 1: Run lupdate to update .ts files
+REM Step 0: Delete and recreate the TS_FILES_FOLDER directory
 echo.
+echo !YELLOW!Deleting and recreating the TS_FILES_FOLDER directory...!RESET!
+rmdir /s /q "%TS_FILES_FOLDER%"
+mkdir "%TS_FILES_FOLDER%"
+echo.
+
+REM Step 1: Run lupdate to update .ts files
 echo !YELLOW!Running lupdate...!RESET!
 lupdate -noobsolete %PROJECT_FILE%
 if %errorlevel% neq 0 (
