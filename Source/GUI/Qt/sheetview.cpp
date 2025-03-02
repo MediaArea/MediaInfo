@@ -26,6 +26,8 @@ SheetView::SheetView(Core *C, QWidget *parent, QFont* monoFont) :
 
     ui->setupUi(this);
 
+    ui->splitter->setSizes({1, 2});
+
 #if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) // Workaround render bug
     QString style = "QComboBox QAbstractItemView { border: 1px solid gray }";
     ui->comboBox->setStyleSheet(style);
