@@ -460,7 +460,9 @@ void MainWindow::openFiles(QStringList fileNames) {
     //Configuring
     if(fileNames.isEmpty())
         return;
+    // Process input paths/filenames/URLs
     for (int i = 0; i < fileNames.size(); ++i) {
+        // Skip processing if is a network URL
         QUrl url(fileNames[i]);
         if (url.isValid())
             if (!url.scheme().isEmpty())
@@ -468,6 +470,11 @@ void MainWindow::openFiles(QStringList fileNames) {
                     url.scheme().startsWith("ftp", Qt::CaseInsensitive) ||
                     url.scheme().startsWith("sftp", Qt::CaseInsensitive))
                     continue;
+        // Resolve to target if is a Windows .lnk shortcut
+        QFileInfo fileInfo(fileNames[i]);
+        if (fileInfo.suffix().compare("lnk", Qt::CaseInsensitive) == 0 && !fileInfo.symLinkTarget().isEmpty())
+            fileNames[i] = fileInfo.symLinkTarget();
+        // Convert directory separators to native separators for file paths
         fileNames[i] = QDir::toNativeSeparators(fileNames[i]);
     }
     C->Menu_File_Open_Files_Begin(settings->value("closeBeforeOpen",true).toBool(), true);
