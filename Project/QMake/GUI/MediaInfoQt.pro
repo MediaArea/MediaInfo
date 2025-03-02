@@ -69,7 +69,7 @@ unix {
 }
 
 win32 {
-    QMAKE_CXXFLAGS += /guard:cf
+    QMAKE_CXXFLAGS += /MP /guard:cf
     QMAKE_LFLAGS += /guard:cf /CETCOMPAT
 
     contains(UWP, yes|1) {
