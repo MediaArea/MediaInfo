@@ -180,8 +180,8 @@ MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) :
     setWindowTitle("MediaInfo");
 #endif
 
-    translator = new QTranslator();
-    settings = new QSettings("MediaArea.net", "MediaInfo");
+    translator = new QTranslator(this);
+    settings = new QSettings("MediaArea.net", "MediaInfo", this);
     defaultSettings();
     applySettings();
 
@@ -210,7 +210,7 @@ MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) :
     ui->actionAbout->setIcon(QIcon(":/icon/about.svg"));
     ui->actionExport->setIcon(QIcon(":/icon/export.svg"));
 
-    menuView = new QMenu();
+    menuView = new QMenu(this);
     QActionGroup* menuItemGroup = new QActionGroup(this);
     for(int v=VIEW_EASY;v<NB_VIEW;v++) {
         QAction* action = new QAction(nameView((ViewMode)v), menuItemGroup);
@@ -260,6 +260,7 @@ MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    delete C;
     delete ui;
 }
 
@@ -486,7 +487,7 @@ void MainWindow::openTimerInit ()
 
     if (timer==NULL)
     {
-        timer=new QTimer();
+        timer=new QTimer(this);
         connect(timer, SIGNAL(timeout()), this, SLOT(updateProgressBar()));
         timer->start(100);
     }
@@ -541,7 +542,7 @@ void MainWindow::refreshDisplay() {
     QWidget* viewWidget;
     ui->actionExport->setEnabled(C->Count_Get()>0);
     ui->actionClose_All->setEnabled(C->Count_Get()>0);
-    QDomDocument* xis;
+    QDomDocument* xis{nullptr};
 
     C->Menu_Option_Preferences_Option(__T("Enable_Ffmpeg"), settings->value("enableFFmpeg",false).toBool() ? __T("1") : __T("0"));
 
@@ -790,6 +791,9 @@ void MainWindow::refreshDisplay() {
     else
         // Show just the viewWidget
         setCentralWidget(viewWidget);
+
+    //Delete object(s)
+    if (xis) delete xis;
 }
 
 QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
