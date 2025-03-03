@@ -410,8 +410,9 @@ void __fastcall TMainF::GUI_Configure()
     M_Options_ShowMenu->Checked=Prefs->Config(__T("ShowMenu")).To_int32s();
     M_Options_CloseAllAuto->Checked=Prefs->Config(__T("CloseAllAuto")).To_int32s();
 
-    //Toolbar
-    ToolBar->Visible=M_Options_ShowToolBar->Checked;
+    //Toolbar and Menu
+    M_Options_ShowToolBarClick(nullptr);
+    M_Options_ShowMenuClick(nullptr);
 
     // FFmpeg
     #ifndef MEDIAINFOGUI_PLUGIN_NO
@@ -1635,7 +1636,7 @@ void __fastcall TMainF::M_Options_ShowMenuClick(TObject *Sender)
         MainMenu->Items->Items[Pos]->Visible=Visible;
     ToolBar_View_ShowMenu->Visible=!Visible;
 
-    if (!M_Options_ShowToolBar->Checked)
+    if (!M_Options_ShowMenu->Checked && !M_Options_ShowToolBar->Checked)
     {
         M_Options_ShowToolBar->Checked=true;
         M_Options_ShowToolBarClick(NULL);
