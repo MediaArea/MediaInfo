@@ -635,7 +635,9 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
     }
 
     func configureCell(_ cell: UITableViewCell, withEvent event: Event) {
-        cell.textLabel!.text = event.filename!
+        if let filename = event.filename {
+            cell.textLabel?.text = filename
+        }
     }
 
     // MARK: - Fetched results controller
@@ -687,14 +689,23 @@ class ReportsListViewController: UITableViewController, NSFetchedResultsControll
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
             case .insert:
-                tableView.insertRows(at: [newIndexPath!], with: .fade)
+                if let newIndexPath = newIndexPath {
+                    tableView.insertRows(at: [newIndexPath], with: .fade)
+                }
             case .delete:
-                tableView.deleteRows(at: [indexPath!], with: .fade)
+                if let indexPath = indexPath {
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                }
+
             case .update:
-                configureCell(tableView.cellForRow(at: indexPath!)!, withEvent: anObject as! Event)
+                if let indexPath = indexPath, let cell = tableView.cellForRow(at: indexPath), let anObject = anObject as? Event {
+                    configureCell(cell, withEvent: anObject)
+                }
             case .move:
-                configureCell(tableView.cellForRow(at: indexPath!)!, withEvent: anObject as! Event)
-                tableView.moveRow(at: indexPath!, to: newIndexPath!)
+                if let indexPath = indexPath, let newIndexPath = newIndexPath, let cell = tableView.cellForRow(at: indexPath), let anObject = anObject as? Event {
+                    configureCell(cell, withEvent: anObject)
+                    tableView.moveRow(at: indexPath, to: newIndexPath)
+                }
             @unknown default:
                 return
         }
