@@ -27,6 +27,7 @@ AC_PROG_CC
 AC_PROG_CXX
 AC_PROG_LIBTOOL
 AC_PROG_INSTALL
+PKG_PROG_PKG_CONFIG
 
 dnl #########################################################################
 dnl ### Configure
@@ -83,8 +84,8 @@ dnl
 if test -e ../../../../ZenLib/Project/GNU/Library/libzen-config; then
     enable_unicode="$(../../../../ZenLib/Project/GNU/Library/libzen-config Unicode)"
 else
-    if pkg-config --exists libzen; then
-        enable_unicode="$(pkg-config --variable=Unicode libzen)"
+    if ${PKG_CONFIG:-pkg-config} --exists libzen; then
+        enable_unicode="$(${PKG_CONFIG:-pkg-config} --variable=Unicode libzen)"
     else
         AC_MSG_ERROR([libzen configuration is not found])
     fi
@@ -296,15 +297,15 @@ if test "$with_dll" != "yes"; then
             LIBS="$LIBS $(../../../../MediaInfoLib/Project/GNU/Library/libmediainfo-config LIBS)"
         fi
     else
-        if pkg-config --exists libmediainfo; then
-            CXXFLAGS="$CXXFLAGS $(pkg-config --cflags libmediainfo)"
+        if ${PKG_CONFIG:-pkg-config} --exists libmediainfo; then
+            CXXFLAGS="$CXXFLAGS $(${PKG_CONFIG:-pkg-config} --cflags libmediainfo)"
             if test "$enable_staticlibs" = "yes"; then
                 with_mediainfolib="system (static)"
-                LIBS="$LIBS $(pkg-config --variable=Libs_Static libmediainfo)"
-                LIBS="$LIBS $(pkg-config --static --libs libmediainfo)"
+                LIBS="$LIBS $(${PKG_CONFIG:-pkg-config} --variable=Libs_Static libmediainfo)"
+                LIBS="$LIBS $(${PKG_CONFIG:-pkg-config} --static --libs libmediainfo)"
             else
                 with_mediainfolib="system"
-                LIBS="$LIBS $(pkg-config --libs libmediainfo)"
+                LIBS="$LIBS $(${PKG_CONFIG:-pkg-config} --libs libmediainfo)"
             fi
         else
             AC_MSG_ERROR([libmediainfo configuration is not found])
@@ -329,16 +330,16 @@ if test -e ../../../../ZenLib/Project/GNU/Library/libzen.la; then
         LIBS="$LIBS $(../../../../ZenLib/Project/GNU/Library/libzen-config LIBS)"
     fi
 else
-    if pkg-config --exists libzen; then
-        CXXFLAGS="$CXXFLAGS $(pkg-config --cflags libzen)"
-        MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(pkg-config --cflags libzen)"
+    if ${PKG_CONFIG:-pkg-config} --exists libzen; then
+        CXXFLAGS="$CXXFLAGS $(${PKG_CONFIG:-pkg-config} --cflags libzen)"
+        MediaInfoLib_CXXFLAGS="$MediaInfoLib_CXXFLAGS $(${PKG_CONFIG:-pkg-config} --cflags libzen)"
         if test "$enable_staticlibs" = "yes"; then
             with_zenlib="system (static)"
-            LIBS="$LIBS $(pkg-config --variable=Libs_Static libzen)"
-            LIBS="$LIBS $(pkg-config --static --libs libzen)"
+            LIBS="$LIBS $(${PKG_CONFIG:-pkg-config} --variable=Libs_Static libzen)"
+            LIBS="$LIBS $(${PKG_CONFIG:-pkg-config} --static --libs libzen)"
         else
             with_zenlib="system"
-            LIBS="$LIBS $(pkg-config --libs libzen)"
+            LIBS="$LIBS $(${PKG_CONFIG:-pkg-config} --libs libzen)"
         fi
     else
         AC_MSG_ERROR([libzen configuration is not found])
