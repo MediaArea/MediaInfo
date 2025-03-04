@@ -26,6 +26,8 @@ SheetView::SheetView(Core *C, QWidget *parent, QFont* monoFont) :
 
     ui->setupUi(this);
 
+    ui->splitter->setSizes({1, 2});
+
 #if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) // Workaround render bug
     QString style = "QComboBox QAbstractItemView { border: 1px solid gray }";
     ui->comboBox->setStyleSheet(style);
@@ -120,8 +122,8 @@ void SheetView::on_comboBox_currentIndexChanged(int index)
         return;
     }
     int filePos = ui->tableWidget->selectedItems().at(0)->data(Qt::UserRole).toInt();
-    stream_t kind = (stream_t)ui->comboBox->itemData(index).toPoint().x();
-    if(kind==-1) {
+    int kind = ui->comboBox->itemData(index).toPoint().x();
+    if(kind == -1) {
         QString str="";
         for(int streamKind=0;streamKind<Stream_Max;++streamKind) {
             for(unsigned int streamPos=0;streamPos<C->Count_Get(filePos,(stream_t)streamKind);++streamPos) {
@@ -132,7 +134,7 @@ void SheetView::on_comboBox_currentIndexChanged(int index)
         url = "";
     } else {
         int pos = ui->comboBox->itemData(index).toPoint().y();
-        ui->label->setText(wstring2QString(C->Inform_Get(filePos,kind,pos)));
+        ui->label->setText(wstring2QString(C->Inform_Get(filePos, (stream_t)kind, pos)));
         url = wstring2QString(C->Get(filePos, (stream_t)kind, pos, __T("CodecID/Url")));
         if(url.isEmpty())
             url = wstring2QString(C->Get(filePos, (stream_t)kind, pos, __T("Format/Url")));
