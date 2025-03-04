@@ -1179,6 +1179,7 @@ void MainWindow::on_actionPreferences_triggered()
         applySettings();
         if(settings->value("defaultView",VIEW_EASY)!=oldView) {
             this->view = (ViewMode)settings->value("defaultView",VIEW_EASY).toInt();
+            refreshDisplay();
         }
     }
 }
