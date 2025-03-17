@@ -17,6 +17,15 @@
     [self addSubview:webView];
 
     webView.UIDelegate = self;
+
+    // Fix bug with WKWebKit on macOS < 12 where background color
+    // doesn't follows the system theme
+    if (@available(macOS 12, *)) {}
+    else if (@available(macOS 10.14, *)) { // First macOS version that support dark theme
+        [webView setValue:@(NO) forKey:@"drawsBackground"];
+        [self setValue: NSColor.controlBackgroundColor forKey:@"backgroundColor"];
+    }
+
     [webView setTranslatesAutoresizingMaskIntoConstraints:false];
     [NSLayoutConstraint constraintWithItem:self attribute: NSLayoutAttributeTop relatedBy: NSLayoutRelationEqual toItem:webView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0].active = true;
     [NSLayoutConstraint constraintWithItem:self attribute: NSLayoutAttributeBottom relatedBy: NSLayoutRelationEqual toItem:webView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0].active = true;
