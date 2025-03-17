@@ -39,7 +39,7 @@ namespace {
     std::wstring QuoteForCommandLineArg(_In_ const std::wstring& arg) {
         // We follow the quoting rules of CommandLineToArgvW.
         // http://msdn.microsoft.com/en-us/library/17w5ykft.aspx
-        std::wstring quotable_chars(L" \\\"");
+        const std::wstring quotable_chars(L" \\\"");
         if (arg.find_first_of(quotable_chars) == std::wstring::npos) {
             // No quoting necessary.
             return arg;
@@ -50,7 +50,8 @@ namespace {
         for (size_t i = 0; i < arg.size(); ++i) {
             if (arg[i] == '\\') {
                 // Find the extent of this run of backslashes.
-                size_t start = i, end = start + 1;
+                const size_t start = i;
+                size_t end = start + 1;
                 for (; end < arg.size() && arg[end] == '\\'; ++end) {}
                 size_t backslash_count = end - start;
 
@@ -122,7 +123,7 @@ namespace {
             value.c_str(),
             RRF_RT_REG_SZ,
             nullptr,
-            &data[0],
+            data.data(),
             &dataSize
         );
         if (retCode != ERROR_SUCCESS)
@@ -130,9 +131,9 @@ namespace {
         DWORD stringLengthInWchars = dataSize / sizeof(wchar_t);
         --stringLengthInWchars; // Exclude the NUL written by the Win32 API
         data.resize(stringLengthInWchars);
-        if (data.compare(L"true") == 0)
+        if (data == L"true")
             return true;
-        if (data.compare(L"false") == 0)
+        if (data == L"false")
             return false;
         throw std::runtime_error("Not a boolean.");
     }
@@ -144,23 +145,24 @@ namespace {
     // Returns the result of calling the member functions of the interfaces. 
     //
     // Parameters:
-    // hwnd         - A handle to the parent window. The Shell uses this window to 
-    //                display a dialog box if it needs to prompt the user for more 
-    //                information while resolving the link.
-    // lpszLinkFile - Address of a buffer that contains the path of the link,
-    //                including the file name.
-    // lpszPath     - Address of a buffer that receives the path of the link
-    //                target, including the file name.
+    // hwnd             - A handle to the parent window. The Shell uses this window to 
+    //                    display a dialog box if it needs to prompt the user for more 
+    //                    information while resolving the link.
+    // lpszLinkFile     - Address of a buffer that contains the path of the link,
+    //                    including the file name.
+    // lpszPath         - Address of a buffer that receives the path of the link
+    //                    target, including the file name.
+    // iPathBufferSize  - Size of lpszPath in bytes.
     _Check_return_
-    HRESULT ResolveIt(_In_opt_ HWND hwnd, _In_ LPCWSTR lpszLinkFile, _Out_ LPWSTR lpszPath, _In_ int iPathBufferSize) {
-        HRESULT hres;
+    HRESULT ResolveIt(_In_opt_ HWND hwnd, _In_ LPCWSTR lpszLinkFile, _Out_ LPWSTR lpszPath, _In_ size_t iPathBufferSize) {
+        HRESULT hres{};
         winrt::com_ptr<IShellLink> psl;
 
         *lpszPath = 0; // Assume failure 
 
         // Get a pointer to the IShellLink interface. It is assumed that CoInitialize
         // has already been called. 
-        hres = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, reinterpret_cast<LPVOID*>(&psl));
+        hres = CoCreateInstance(CLSID_ShellLink, nullptr, CLSCTX_INPROC_SERVER, IID_IShellLink, reinterpret_cast<LPVOID*>(&psl));
         if (SUCCEEDED(hres)) {
             winrt::com_ptr<IPersistFile> ppf;
             // Get a pointer to the IPersistFile interface. 
@@ -208,11 +210,11 @@ namespace {
         }
         content.resize(static_cast<size_t>(file.tellg()));
         file.seekg(0, std::ios::beg);
-        file.read(&content[0], content.size());
+        file.read(content.data(), content.size());
         file.close();
 
         // Check if the content starts with the expected header for a .url file
-        if (content.size() < 20 || (content.substr(0, 20).compare("[InternetShortcut]\r\n") != 0))
+        if (content.size() < 20 || (content.substr(0, 20) != "[InternetShortcut]\r\n"))
             return false;
 
         // Use regular expression to extract the URL
@@ -222,15 +224,14 @@ namespace {
             url = match[1].str();
             return true;
         }
-        else
-            return false;
+        return false;
     }
 
     // Adapted from code generated with Google Gemini 2.0 Flash
     std::string ExtractFileExtensionFromUrl(_In_ const std::string& url) {
         // Find the last '/' before the '?' or end of string
         size_t lastSlashPos{ url.find_last_of('/') };
-        size_t queryPos;
+        size_t queryPos{};
         if (lastSlashPos == std::string::npos)
             queryPos = url.find('?'); // URLs without slashes
         else
@@ -406,8 +407,8 @@ namespace {
             ".y4m"
         };
         std::string extension_lower{ extension };
-        std::for_each(extension_lower.begin(), extension_lower.end(), [](char& c) { c = static_cast<char>(tolower(c)); });
-        return std::any_of(supported_extensions.begin(), supported_extensions.end(), [extension_lower](const std::string& extension_iter) { return (extension_iter.compare(extension_lower) == 0); });
+        std::transform(extension_lower.begin(), extension_lower.end(), extension_lower.begin(), [](char c) { return static_cast<char>(std::tolower(static_cast<unsigned char>(c))); });
+        return (std::find(supported_extensions.begin(), supported_extensions.end(), extension_lower) != supported_extensions.end());
     }
 }
 
@@ -451,7 +452,7 @@ public:
         bool is_folder{ false };
         bool is_supported_extension{ false };
         if (items) {
-            DWORD count;
+            DWORD count{};
             RETURN_IF_FAILED(items->GetCount(&count));
             if (count > 0) {
                 winrt::com_ptr<IShellItem> item;
@@ -465,13 +466,13 @@ public:
                             if (SUCCEEDED(item->GetDisplayName(SIGDN_FILESYSPATH, &path))) {
                                 std::filesystem::path filepath{ path.get() };
                                 // resolve shortcuts
-                                if (filepath.extension().string().compare(".url") == 0) {
+                                if (filepath.extension().string() == ".url") {
                                     std::string url;
                                     if (ExtractUrlFromShortcut(filepath, url))
                                         is_supported_extension = IsSupportedFileExtension(ExtractFileExtensionFromUrl(url));
                                 }
                                 else {
-                                    if (filepath.extension().string().compare(".lnk") == 0) {
+                                    if (filepath.extension().string() == ".lnk") {
                                         WCHAR target_path[MAX_PATH];
                                         if (SUCCEEDED(ResolveIt(nullptr, filepath.wstring().c_str(), target_path, sizeof(target_path))))
                                             filepath = target_path;
@@ -545,7 +546,7 @@ public:
             return S_OK;
 
         // Get count
-        DWORD count;
+        DWORD count{};
         RETURN_IF_FAILED(items->GetCount(&count));
 
         // Get path to application exe
@@ -579,12 +580,12 @@ public:
                     if (SUCCEEDED(result)) {
                         std::filesystem::path filepath{ path.get() };
                         // Resolve shortcuts
-                        if (filepath.extension().string().compare(".url") == 0) {
+                        if (filepath.extension().string() == ".url") {
                             std::string url;
                             if (ExtractUrlFromShortcut(filepath, url))
                                 filepath = url;
                         }
-                        if (filepath.extension().string().compare(".lnk") == 0) {
+                        if (filepath.extension().string() == ".lnk") {
                             WCHAR target_path[MAX_PATH];
                             if (SUCCEEDED(ResolveIt(nullptr, filepath.wstring().c_str(), target_path, sizeof(target_path))))
                                 filepath = target_path;
@@ -621,12 +622,12 @@ public:
                 if (SUCCEEDED(result)) {
                     std::filesystem::path filepath{ path.get() };
                     // Resolve shortcuts
-                    if (filepath.extension().string().compare(".url") == 0) {
+                    if (filepath.extension().string() == ".url") {
                         std::string url;
                         if (ExtractUrlFromShortcut(filepath, url))
                             filepath = url;
                     }
-                    if (filepath.extension().string().compare(".lnk") == 0) {
+                    if (filepath.extension().string() == ".lnk") {
                         WCHAR target_path[MAX_PATH];
                         if (SUCCEEDED(ResolveIt(nullptr, filepath.wstring().c_str(), target_path, sizeof(target_path))))
                             filepath = target_path;
