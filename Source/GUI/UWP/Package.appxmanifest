@@ -34,9 +34,9 @@
               <uap:FileType>.aa3</uap:FileType>
               <uap:FileType>.aac</uap:FileType>
               <uap:FileType>.aacp</uap:FileType>
-              <uap:FileType>.adts</uap:FileType>
               <uap:FileType>.ac3</uap:FileType>
               <uap:FileType>.act</uap:FileType>
+              <uap:FileType>.adts</uap:FileType>
               <uap:FileType>.aif</uap:FileType>
               <uap:FileType>.aifc</uap:FileType>
               <uap:FileType>.aiff</uap:FileType>
@@ -50,6 +50,7 @@
               <uap:FileType>.avi</uap:FileType>
               <uap:FileType>.avif</uap:FileType>
               <uap:FileType>.avs</uap:FileType>
+              <uap:FileType>.avs3</uap:FileType>
               <uap:FileType>.bdmv</uap:FileType>
               <uap:FileType>.bmp</uap:FileType>
               <uap:FileType>.bms</uap:FileType>
@@ -58,9 +59,9 @@
               <uap:FileType>.clpi</uap:FileType>
               <uap:FileType>.dat</uap:FileType>
               <uap:FileType>.dde</uap:FileType>
+              <uap:FileType>.dff</uap:FileType>
               <uap:FileType>.divx</uap:FileType>
               <uap:FileType>.dpg</uap:FileType>
-              <uap:FileType>.dff</uap:FileType>
               <uap:FileType>.dsd</uap:FileType>
               <uap:FileType>.dsf</uap:FileType>
               <uap:FileType>.dts</uap:FileType>
@@ -74,13 +75,13 @@
               <uap:FileType>.f4b</uap:FileType>
               <uap:FileType>.f4v</uap:FileType>
               <uap:FileType>.fla</uap:FileType>
+              <uap:FileType>.flac</uap:FileType>
               <uap:FileType>.flc</uap:FileType>
               <uap:FileType>.fli</uap:FileType>
-              <uap:FileType>.flac</uap:FileType>
               <uap:FileType>.flv</uap:FileType>
-              <uap:FileType>.gvi</uap:FileType>
               <uap:FileType>.gif</uap:FileType>
               <uap:FileType>.gis</uap:FileType>
+              <uap:FileType>.gvi</uap:FileType>
               <uap:FileType>.h264</uap:FileType>
               <uap:FileType>.h3d</uap:FileType>
               <uap:FileType>.hdmov</uap:FileType>
