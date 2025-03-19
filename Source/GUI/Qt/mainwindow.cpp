@@ -180,8 +180,8 @@ MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) :
     setWindowTitle("MediaInfo");
 #endif
 
-    translator = new QTranslator();
-    settings = new QSettings("MediaArea.net", "MediaInfo");
+    translator = new QTranslator(this);
+    settings = new QSettings("MediaArea.net", "MediaInfo", this);
     defaultSettings();
     applySettings();
 
@@ -210,7 +210,7 @@ MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) :
     ui->actionAbout->setIcon(QIcon(":/icon/about.svg"));
     ui->actionExport->setIcon(QIcon(":/icon/export.svg"));
 
-    menuView = new QMenu();
+    menuView = new QMenu(this);
     QActionGroup* menuItemGroup = new QActionGroup(this);
     for(int v=VIEW_EASY;v<NB_VIEW;v++) {
         QAction* action = new QAction(nameView((ViewMode)v), menuItemGroup);
@@ -260,6 +260,7 @@ MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    delete C;
     delete ui;
 }
 
@@ -459,7 +460,9 @@ void MainWindow::openFiles(QStringList fileNames) {
     //Configuring
     if(fileNames.isEmpty())
         return;
+    // Process input paths/filenames/URLs
     for (int i = 0; i < fileNames.size(); ++i) {
+        // Skip processing if is a network URL
         QUrl url(fileNames[i]);
         if (url.isValid())
             if (!url.scheme().isEmpty())
@@ -467,6 +470,11 @@ void MainWindow::openFiles(QStringList fileNames) {
                     url.scheme().startsWith("ftp", Qt::CaseInsensitive) ||
                     url.scheme().startsWith("sftp", Qt::CaseInsensitive))
                     continue;
+        // Resolve to target if is a Windows .lnk shortcut
+        QFileInfo fileInfo(fileNames[i]);
+        if (fileInfo.suffix().compare("lnk", Qt::CaseInsensitive) == 0 && !fileInfo.symLinkTarget().isEmpty())
+            fileNames[i] = fileInfo.symLinkTarget();
+        // Convert directory separators to native separators for file paths
         fileNames[i] = QDir::toNativeSeparators(fileNames[i]);
     }
     C->Menu_File_Open_Files_Begin(settings->value("closeBeforeOpen",true).toBool(), true);
@@ -486,7 +494,7 @@ void MainWindow::openTimerInit ()
 
     if (timer==NULL)
     {
-        timer=new QTimer();
+        timer=new QTimer(this);
         connect(timer, SIGNAL(timeout()), this, SLOT(updateProgressBar()));
         timer->start(100);
     }
@@ -541,7 +549,7 @@ void MainWindow::refreshDisplay() {
     QWidget* viewWidget;
     ui->actionExport->setEnabled(C->Count_Get()>0);
     ui->actionClose_All->setEnabled(C->Count_Get()>0);
-    QDomDocument* xis;
+    QDomDocument* xis{nullptr};
 
     C->Menu_Option_Preferences_Option(__T("Enable_Ffmpeg"), settings->value("enableFFmpeg",false).toBool() ? __T("1") : __T("0"));
 
@@ -790,6 +798,9 @@ void MainWindow::refreshDisplay() {
     else
         // Show just the viewWidget
         setCentralWidget(viewWidget);
+
+    //Delete object(s)
+    if (xis) delete xis;
 }
 
 QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
@@ -1168,6 +1179,7 @@ void MainWindow::on_actionPreferences_triggered()
         applySettings();
         if(settings->value("defaultView",VIEW_EASY)!=oldView) {
             this->view = (ViewMode)settings->value("defaultView",VIEW_EASY).toInt();
+            refreshDisplay();
         }
     }
 }
