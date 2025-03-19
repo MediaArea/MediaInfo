@@ -6,14 +6,12 @@ jobs:
   Unix:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ ubuntu-latest, ubuntu-24.04-arm, macos-latest ]
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
+        uses: actions/checkout@v4
       - name: Dependencies
         run: |
           if [ "$RUNNER_OS" == "Linux" ]; then
@@ -29,7 +27,7 @@ jobs:
           pushd ../ZenLib/Project/GNU/Library
             autoreconf -if
             ./configure --enable-static
-            make
+            make -j4
           popd
       - name: MediaInfoLib
         run: |
@@ -37,17 +35,22 @@ jobs:
           pushd ../MediaInfoLib/Project/GNU/Library
             autoreconf -if
             ./configure --enable-static
-            make
+            make -j4
           popd
-      - name: Configure
+      - name: Configure CLI
         run: |
           cd Project/GNU/CLI
           autoreconf -if
           ./configure --enable-staticlibs
-      - name: Build
+      - name: Build CLI
         run: |
           cd Project/GNU/CLI
-          make
+          make -j4
+      - name: Run CLI
+        if: matrix.os != 'macos-latest'
+        run : |
+          cd Project/GNU/CLI/.libs
+          ./mediainfo --version
       - name: Configure GUI
         run: |
           cd Project/GNU/GUI
@@ -56,7 +59,7 @@ jobs:
       - name: Build GUI
         run: |
           cd Project/GNU/GUI
-          make
+          make -j4
 
   Windows:
     runs-on: windows-latest
