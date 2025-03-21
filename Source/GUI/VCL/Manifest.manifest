@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3">
-  <assemblyIdentity version="24.12.0.0" name="MediaInfo"/>
+  <assemblyIdentity version="25.3.0.0" name="MediaInfo"/>
   <msix xmlns="urn:schemas-microsoft-com:msix.v1"
           publisher="CN=MEDIAAREA.NET, O=MEDIAAREA.NET, L=Curienne, S=Auvergne-Rhône-Alpes, C=FR"
           packageName="MediaInfo"

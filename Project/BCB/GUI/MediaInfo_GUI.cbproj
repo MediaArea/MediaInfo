@@ -77,12 +77,12 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
         <Defines>MEDIAINFO_DLL_RUNTIME;$(Defines)</Defines>
-        <VerInfo_Keys>CompanyName=MediaArea.net;FileDescription=MediaInfo;FileVersion=24.12.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=MediaInfo;ProductVersion=24.12.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=MediaArea.net;FileDescription=MediaInfo;FileVersion=25.03.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=MediaInfo;ProductVersion=25.03.0.0;Comments=</VerInfo_Keys>
         <Manifest_File>None</Manifest_File>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_MinorVer>12</VerInfo_MinorVer>
+        <VerInfo_MinorVer>03</VerInfo_MinorVer>
         <VerInfo_Release>0</VerInfo_Release>
-        <VerInfo_MajorVer>24</VerInfo_MajorVer>
+        <VerInfo_MajorVer>25</VerInfo_MajorVer>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <PackageImports>IPIndyImpl;bindcompfmx;fmx;rtl;dbrtl;IndySystem;DbxClientDriver;bindcomp;inetdb;DBXInterBaseDriver;DataSnapCommon;DataSnapClient;DataSnapServer;DataSnapProviderClient;xmlrtl;DbxCommonDriver;IndyProtocols;DBXMySQLDriver;dbxcds;bindengine;soaprtl;DBXOracleDriver;dsnap;DBXInformixDriver;IndyCore;fmxase;DBXFirebirdDriver;inet;fmxobj;inetdbxpress;DBXSybaseASADriver;fmxdae;dbexpress;DataSnapIndy10ServerTransport;$(PackageImports)</PackageImports>
         <Multithreaded>true</Multithreaded>
