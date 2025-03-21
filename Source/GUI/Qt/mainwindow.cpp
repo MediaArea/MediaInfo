@@ -50,7 +50,7 @@ using namespace ZenLib;
 #define QString2wstring(_DATA) \
     Ztring().From_UTF8(_DATA.toUtf8())
 
-#define VERSION "24.12"
+#define VERSION "25.03"
 
 #if defined(_WIN32)
 #define EDGE_WEBVIEW2_YES
