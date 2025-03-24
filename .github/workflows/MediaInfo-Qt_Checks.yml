@@ -17,6 +17,7 @@ on:
 
 env:
   QT_VER: 6.*
+  QT_SELECT: 6
 
 jobs:
 
@@ -89,7 +90,16 @@ jobs:
           ${{ env.IQTA_TOOLS }}\QtCreator\bin\jom\jom.exe
 
   Ubuntu:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - architecture: AMD64
+            runner: ubuntu-latest
+          - architecture: ARM64
+            runner: ubuntu-24.04-arm
+      fail-fast: false
+    name: Ubuntu (${{ matrix.architecture }})
+    runs-on: ${{ matrix.runner }}
     steps:
       - name: Checkout MediaInfo
         uses: actions/checkout@v4
@@ -98,13 +108,8 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update -y
-          sudo apt-get install -y zlib1g-dev libgl1-mesa-dev libzen-dev libmediainfo-dev
-      - name: Set-up Qt
-        uses: jurplel/install-qt-action@v4
-        with:
-          arch: linux_gcc_64
-          version: ${{ env.QT_VER }}
-          modules: 'qtpositioning qtwebchannel qtwebengine'
+          sudo apt-get install -y zlib1g-dev libgl1-mesa-dev libzen-dev libmediainfo-dev qtchooser qt${{ env.QT_SELECT }}-base-dev qt${{ env.QT_SELECT }}-tools-dev-tools qt${{ env.QT_SELECT }}-webengine-dev
+          qtchooser -install ${{ env.QT_SELECT }} $(which qmake${{ env.QT_SELECT }})
       - name: Generate translations files
         shell: bash
         env:
