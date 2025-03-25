@@ -166,13 +166,18 @@ Section "SectionPrincipale" SEC01
   ;  ${EndIf}
   ;${EndIf}
 
-  ; Windows 11 sparse package files
+  ; Windows image assets and sparse package
+  File "..\WindowsSparsePackage\Resources\resources.pri"
+  SetOutPath "$INSTDIR\Assets"
+  File "..\WindowsSparsePackage\Resources\Assets\*.png"
+  SetOutPath "$INSTDIR"
   ;${If} ${AtLeastWin11}
+  ;  ; Windows 11 sparse package files
   ;  File "..\..\Project\MSVC2022\x64\Release\MediaInfo_SparsePackage.msix"
   ;  File "..\..\Project\MSVC2022\win32\Release\MediaInfo_PackageHelper.dll"
-  ;  File "..\WindowsSparsePackage\Resources\resources.pri"
-  ;  SetOutPath "$INSTDIR\Assets"
-  ;  File "..\WindowsSparsePackage\Resources\Assets\*.png"
+  ;${Else}
+    ; Windows 8 and 10 visual elements manifest
+    File "..\GUI\VCL\MediaInfo.VisualElementsManifest.xml"
   ;${EndIf}
 
   ; Plugin files
@@ -234,6 +239,18 @@ Section Uninstall
   IfFileExists "$INSTDIR\ffmpeg_plugin_uninst.exe" 0 +3
     ExecWait '"$INSTDIR\ffmpeg_plugin_uninst.exe" /S _?=$INSTDIR'
     Delete "$INSTDIR\ffmpeg_plugin_uninst.exe"
+
+; ${If} ${AtLeastWin11}
+;   System::Call '"$INSTDIR\MediaInfo_PackageHelper.dll"::_Uninstall@0() ? u'
+;   !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\MediaInfo_PackageHelper.dll"
+;   !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\MediaInfo_WindowsShellExtension.dll"
+;   Delete "$INSTDIR\MediaInfo_SparsePackage.msix"
+; ${Else}
+    Delete "$INSTDIR\MediaInfo.VisualElementsManifest.xml"
+; ${EndIf}
+  Delete "$INSTDIR\resources.pri"
+  Delete "$INSTDIR\Assets\*.png"
+  RMDir "$INSTDIR\Assets"
 
   !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\MediaInfo.exe"
   !insertmacro UnInstallLib DLL NOTSHARED REBOOT_NOTPROTECTED "$INSTDIR\MediaInfo.dll"
