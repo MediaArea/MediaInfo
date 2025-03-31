@@ -200,7 +200,7 @@ __fastcall TPluginF::TPluginF(TComponent* Owner, plugin Plugin)
 bool __fastcall TPluginF::Configure(bool Update)
 {
     // Get MediaInfo installation path
-    Ztring InstallFolder = Application->ExeName.c_str();
+    InstallFolder = Application->ExeName.c_str();
     InstallFolder = InstallFolder.substr(0, InstallFolder.rfind(__T("\\")) + 1);
 
     // Check requested plugin
@@ -302,7 +302,7 @@ void __fastcall TPluginF::DownloadInstaller()
 //---------------------------------------------------------------------------
 void __fastcall TPluginF::RunInstaller()
 {
-    RunThread = new RunInstallerThread(this, TempPath, Ztring(__T(" /S /D=") + InstallFolder));
+    RunThread = new RunInstallerThread(this, TempPath, Ztring(__T("/S /D=")) + InstallFolder);
 }
 
 //---------------------------------------------------------------------------
