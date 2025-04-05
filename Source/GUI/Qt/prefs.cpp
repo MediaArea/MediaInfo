@@ -40,6 +40,10 @@ Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
     ui->treeWidget->expandAll();
 
     for(int v=VIEW_EASY;v<NB_VIEW;v++) {
+        #if defined(MEDIAINFO_HTML_NO)
+        if (v==VIEW_HTML || v==VIEW_GRAPH)
+            continue;
+        #endif
         ui->comboBox_defaultview->addItem(nameView((ViewMode)v),v);
     }
 
@@ -54,7 +58,7 @@ Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
     QFont setMonoFont;
     if (!settings->value("monoFont", "").toString().isEmpty())
         setMonoFont.fromString(settings->value("monoFont", "").toString());
-    if (!settings->value("monoFont", "").toString().isEmpty() && QFontDatabase::families().contains(setMonoFont.family())) {
+    if (!settings->value("monoFont", "").toString().isEmpty() && QFontDatabase().families().contains(setMonoFont.family())) {
         ui->comboBox_font->setCurrentFont(QFont(setMonoFont));
         ui->comboBox_fontSize->setCurrentText(QString::number(setMonoFont.pointSize()));
     } else {

@@ -55,7 +55,7 @@ using namespace ZenLib;
 #if defined(_WIN32)
 #define EDGE_WEBVIEW2_YES
 #include "webview2widget.h"
-#else
+#elif !defined(MEDIAINFO_HTML_NO)
 #include <QWebEngineView>
 #endif
 
@@ -215,6 +215,11 @@ MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) :
     for(int v=VIEW_EASY;v<NB_VIEW;v++) {
         QAction* action = new QAction(nameView((ViewMode)v), menuItemGroup);
         action->setCheckable(true);
+        #if defined(MEDIAINFO_HTML_NO)
+        if (v==VIEW_HTML || v==VIEW_GRAPH)
+            action->setEnabled(false);
+        #endif
+
         if(view==v)
             action->setChecked(true);
         action->setProperty("view",v);
@@ -727,19 +732,19 @@ void MainWindow::refreshDisplay() {
                 break;
             case VIEW_HTML:
                 C->Menu_View_HTML();
-                #ifdef EDGE_WEBVIEW2_YES
+                #if defined(EDGE_WEBVIEW2_YES)
                     viewWidget = new WebView2Widget();
                     ((WebView2Widget*)viewWidget)->setHtml(wstring2QString(C->Inform_Get()));
-                #else
+                #elif !defined(MEDIAINFO_HTML_NO)
                     viewWidget = new QWebEngineView();
                     ((QWebEngineView*)viewWidget)->setHtml(wstring2QString(C->Inform_Get()));
                 #endif
                 break;
             case VIEW_GRAPH:
-                #ifdef EDGE_WEBVIEW2_YES
+                #if defined(EDGE_WEBVIEW2_YES)
                     viewWidget = new WebView2Widget();
                     ((WebView2Widget*)viewWidget)->setHtml(Generate_Graph_HTML(C, settings));
-                #else
+                #elif !defined(MEDIAINFO_HTML_NO)
                     viewWidget = new QWebEngineView();
                     ((QWebEngineView*)viewWidget)->setHtml(Generate_Graph_HTML(C, settings));
                 #endif
