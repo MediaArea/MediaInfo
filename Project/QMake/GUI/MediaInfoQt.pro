@@ -4,7 +4,11 @@
 
 QT += core gui widgets network xml
 !win32 {
-    QT += webenginewidgets
+    qtHaveModule(webenginewidgets) {
+        QT += webenginewidgets
+    } else {
+        DEFINES+=MEDIAINFO_HTML_NO
+    }
 }
 
 win32|macx {
@@ -65,6 +69,10 @@ unix {
     } else {
         PKGCONFIG += libzen
         message("libzen      : system")
+    }
+
+    !exists(../../../Source/Resource/Translations/en.ts) {
+        system(../../../Source/GUI/Qt/Qt_Translations_Updater/update_Qt_translations.sh)
     }
 }
 
@@ -246,6 +254,10 @@ win32 {
             QMAKE_LFLAGS += /guard:ehcont /guard:delayloadsignret
             QMAKE_LFLAGS -= /CETCOMPAT
         }
+    }
+
+    !exists(../../../Source/Resource/Translations/en.ts) {
+        system(../../../Source/GUI/Qt/Qt_Translations_Updater/update_Qt_translations.bat)
     }
 }
 
