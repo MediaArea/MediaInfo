@@ -2,13 +2,14 @@
 <Package
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
   xmlns:desktop4="http://schemas.microsoft.com/appx/manifest/desktop/windows10/4"
   xmlns:desktop5="http://schemas.microsoft.com/appx/manifest/desktop/windows10/5"
   xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
   xmlns:win32dependencies="http://schemas.microsoft.com/appx/manifest/externaldependencies"  
-  IgnorableNamespaces="uap rescap desktop desktop4 desktop5 com win32dependencies">
+  IgnorableNamespaces="uap uap5 rescap desktop desktop4 desktop5 com win32dependencies">
   <Identity Name="MediaInfo.Qt" Publisher="CN=MEDIAAREA.NET, O=MEDIAAREA.NET, L=Curienne, S=Auvergne-Rhône-Alpes, C=FR" Version="25.3.0.0" ProcessorArchitecture="x64" />
   <Properties>
     <DisplayName>MediaInfo Qt</DisplayName>
@@ -38,6 +39,11 @@
         </uap:DefaultTile>
       </uap:VisualElements>
       <Extensions>
+        <uap5:Extension Category="windows.appExecutionAlias" EntryPoint="Windows.FullTrustApplication">
+          <uap5:AppExecutionAlias>
+            <uap5:ExecutionAlias Alias="mediainfo-gui.exe" />
+          </uap5:AppExecutionAlias>
+        </uap5:Extension>
         <desktop4:Extension Category="windows.fileExplorerContextMenus">
           <desktop4:FileExplorerContextMenus>
             <!-- Prefix Verb Ids with "0000" to work around an OS bug preventing the shell menu from appearing in the
