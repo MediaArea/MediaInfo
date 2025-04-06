@@ -74,6 +74,14 @@ unix {
     !exists(../../../Source/Resource/Translations/en.ts) {
         system(../../../Source/GUI/Qt/Qt_Translations_Updater/update_Qt_translations.sh)
     }
+
+    UI_FILES = $$files($$PWD/../../../Source/GUI/Qt/*.ui)
+    lessThan(QT_VERSION, 6.7) {
+        for(uiFile, UI_FILES) {
+            system(sed -i 's/Qt::Orientation::Horizontal/Qt::Horizontal/g' $$uiFile)
+            system(sed -i 's/Qt::Orientation::Vertical/Qt::Vertical/g' $$uiFile)
+        }
+    }
 }
 
 win32 {
@@ -257,7 +265,7 @@ win32 {
     }
 
     !exists(../../../Source/Resource/Translations/en.ts) {
-        system(../../../Source/GUI/Qt/Qt_Translations_Updater/update_Qt_translations.bat)
+        system($$PWD/../../../Source/GUI/Qt/Qt_Translations_Updater/update_Qt_translations.cmd)
     }
 }
 

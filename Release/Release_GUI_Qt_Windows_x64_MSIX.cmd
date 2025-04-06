@@ -1,7 +1,7 @@
 :: config
 ::  example:
-::   set QT_PATH=D:\Qt\6.8.2\msvc2022_64
-::   set QT_TOOLS_PATH=D:\Qt\Tools
+::   set QT_PATH=C:\Qt\6.9.0\msvc2022_64
+::   set QT_TOOLS_PATH=C:\Qt\Tools
 ::   set FFMPEG_EXE=%~dp0\..\..\MediaInfo-FFmpeg-Plugin\ffmpeg.exe
 ::   set CERT_PATH=D:\sign_cert.pfx
 ::   set CERT_PASS=K1wdqYSDk0locw6HSSjT
@@ -15,9 +15,6 @@ set CERT_PASS=%CERT_PASS%
 set PATH_TEMP=%PATH%
 set PATH=%QT_PATH%\bin\;%QT_TOOLS_PATH%\QtCreator\bin\jom\;%PATH%
 call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
-
-:: generate/update Qt translations files
-call %~dp0\..\Source\GUI\Qt\Qt_Translations_Updater\update_Qt_translations.cmd
 
 :: build Qt GUI
 rmdir /s /q %~dp0\..\Project\QMake\GUI\build\Desktop_Qt_MSVC2022_64bit-Release
