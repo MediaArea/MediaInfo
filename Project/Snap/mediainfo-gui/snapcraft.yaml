@@ -1,79 +1,126 @@
+base: core24
+
 name: mediainfo-gui
-version: 25.03
+version: '25.03'
 summary: Graphical utility for reading information from audio/video files
 description: |
   MediaInfo is a utility used for retrieving technical information and other
   metadata about audio or video files.
+license: BSD-2-Clause
+contact: info@mediaarea.net
+website: https://mediaarea.net/MediaInfo
+donation: https://mediaarea.net/MediaInfo/Donate
 confinement: strict
 grade: stable
 
+lint:
+  ignore:
+    - classic
+    - library:
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libmms.*
+      - usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libxdot.*
+
+plugs:
+  shared-memory:
+    private: true
+
 apps:
   mediainfo-gui:
-    command: desktop-launch mediainfo-gui
+    extensions:
+      - kde-neon
+    environment:
+      GVBINDIR: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/graphviz
+      QTWEBENGINE_DISABLE_SANDBOX: 1
+    command: usr/bin/mediainfo-gui-wrapper
     plugs:
       - x11
       - unity7
       - wayland
+      - opengl
       - desktop
       - desktop-legacy
       - home
       - network
-      - gsettings
+      - removable-media
 
 parts:
   mediainfo-gui:
-    plugin: autotools-subdir
+    plugin: qmake
     source: MediaInfo
-    make-directory: Project/GNU/GUI
+    qmake-project-file: Project/QMake/GUI/MediaInfoQt.pro
     build-packages:
-      - libwxgtk3.0-dev
-      - zlib1g-dev
-      - libcurl4-gnutls-dev
+      - qttools5-dev-tools
+      - qtbase5-dev-tools
+      - qtwebengine5-dev
+      - qtbase5-dev
+      - qt5-qmake
+      - qtchooser
     stage-packages:
-      - libwxgtk3.0-0v5
-      - libcurl3-gnutls
-      - libdb5.3
+      - libcurl4t64
       - libmms0
-      - zlib1g
+      - libcdt5
+      - libcgraph6
+      - libgvc6
+      - libpathplan4
+      - libxdot4
+      - qtwayland5
+      - libqt5svg5
+      - libqt5xml5t64
+      - libqt5webenginewidgets5
+      - xkb-data
+    override-build: |
+      craftctl default
+      cat > $CRAFT_PART_INSTALL/usr/bin/mediainfo-gui-wrapper << 'END'
+      #!/bin/sh
+      export XKB_CONFIG_ROOT=$SNAP/usr/share/X11/xkb
+      exec mediainfo-gui "$@"
+      END
+      chmod +x $CRAFT_PART_INSTALL/usr/bin/mediainfo-gui-wrapper
+    override-prime: |
+      craftctl default
+      GVBINDIR=$CRAFT_PRIME/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/graphviz $CRAFT_PRIME/usr/sbin/libgvc6-config-update -c
     after:
-      - desktop-gtk2
       - libmediainfo
       - libzen
       - build-essential
 
   libmediainfo:
-    plugin: autotools-subdir
+    plugin: autotools
     source: MediaInfoLib
-    make-directory: Project/GNU/Library
-    configflags:
+    source-subdir: Project/GNU/Library
+    autotools-configure-parameters:
+      - --prefix=/usr
       - --enable-shared
       - --disable-static
+      - --with-graphviz=runtime
       - --with-libcurl
       - --with-libmms
     build-packages:
-      - libcurl4-gnutls-dev
-      - libglib2.0-dev
+      - libcurl4-openssl-dev
+      - libgraphviz-dev
       - libmms-dev
       - zlib1g-dev
     after:
       - libzen
       - build-essential
     prime:
-      - lib/libmediainfo.*
+      - usr/lib/libmediainfo.*
 
   libzen:
-    plugin: autotools-subdir
+    plugin: autotools
     source: ZenLib
-    make-directory: Project/GNU/Library
-    configflags:
+    source-subdir: Project/GNU/Library
+    autotools-configure-parameters:
+      - --prefix=/usr
       - --enable-shared
       - --disable-static
-    prime:
-      - lib/libzen.*
     after:
       - build-essential
+    prime:
+      - usr/lib/libzen.*
 
   build-essential:
     plugin: nil
     build-packages:
       - build-essential
+      - pkgconf
