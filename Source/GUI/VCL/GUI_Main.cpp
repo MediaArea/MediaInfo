@@ -286,6 +286,7 @@ __fastcall TMainF::TMainF(TComponent* Owner)
     #endif
 
     //Refresh after opening files
+    StartupReady = true;
     Refresh();
 }
 
@@ -807,6 +808,9 @@ void __fastcall TMainF::Translate()
 //---------------------------------------------------------------------------
 void __fastcall TMainF::Refresh(TTabSheet *Page)
 {
+    if (!StartupReady)
+        return;
+
     if (Page==NULL)
         Page=this->Page->ActivePage;
     size_t FilesCount=I->Count_Get();
