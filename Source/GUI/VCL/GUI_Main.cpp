@@ -285,9 +285,6 @@ __fastcall TMainF::TMainF(TComponent* Owner)
             I->Open(Ztring().From_Local(ParamStr(I1).c_str()));
     #endif
 
-    //Refresh after opening files
-    StartupReady = true;
-    Refresh();
 }
 
 //***************************************************************************
@@ -295,6 +292,16 @@ __fastcall TMainF::TMainF(TComponent* Owner)
 //***************************************************************************
 
 //---------------------------------------------------------------------------
+void __fastcall TMainF::FormShow(TObject *Sender)
+{
+    if (!StartupReady) {
+        //Refresh once on startup after opening files
+        StartupReady = true;
+        Refresh();
+    }
+}
+//---------------------------------------------------------------------------
+
 void __fastcall TMainF::GUI_Configure()
 {
     //Load Configuration
