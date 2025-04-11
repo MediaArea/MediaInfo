@@ -229,6 +229,7 @@ __published:    // IDE-managed Components
     TMenuItem *M_Options_Theme_Dark;
     TWebBrowser *Page_HTML_HTML;
     TWebBrowser *Page_Custom_HTML;
+    void __fastcall FormShow(TObject *Sender);
     void __fastcall FormResize(TObject *Sender);
     void __fastcall M_Help_AboutClick(TObject *Sender);
     void __fastcall M_Options_PreferencesClick(TObject *Sender);
@@ -306,6 +307,7 @@ private:    // User declarations
     TButton *Footer_Button;
     const UnicodeString LIGHT_MODE_STYLE = "Windows";               // Name of style for light mode;
     const UnicodeString DARK_MODE_STYLE = "Windows11 Modern Dark";  // Name of style for dark mode
+    bool StartupReady = false;
     bool __fastcall WindowsDarkModeEnabled();
     void __fastcall ConfigTheme();
     std::wstring __fastcall InjectHTMLStyle(const wchar_t* HTMLDocument);
