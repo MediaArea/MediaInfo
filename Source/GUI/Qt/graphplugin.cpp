@@ -24,19 +24,16 @@ QString Generate_Graph_HTML(Core *C, QSettings *settings) {
     C->Menu_Option_Preferences_Inform(__T("Graph_Svg"));
 
     Ztring S1 = Ztring();
-    Ztring InstallFolder =
-        QString2wstring(QCoreApplication::applicationDirPath());
-    Ztring State = C->Menu_Option_Preferences_Option(
-        __T("Info_Graph_Svg_Plugin_State"), __T(""));
+    Ztring InstallFolder = QString2wstring(QCoreApplication::applicationDirPath());
+    Ztring State = C->Menu_Option_Preferences_Option(__T("Info_Graph_Svg_Plugin_State"), __T(""));
     if (State == __T("1")) {
-        for (size_t Pos = 0; Pos < C->Count_Get(); Pos++) {
-            Ztring Svg = C->MI->Inform(Pos);
-            size_t Pos2 = Svg.find(__T("<svg"));
-            if (Pos2 != std::string::npos)
-                Svg = Svg.substr(Pos);
-            S1 += (Pos2 ? __T("<br/>") : __T("")) + Svg;
+        for (size_t FilePos = 0; FilePos < C->Count_Get(); ++FilePos) {
+            Ztring Svg = C->MI->Inform(FilePos);
+            size_t SvgBeginPos = Svg.find(__T("<svg"));
+            if (SvgBeginPos != std::string::npos)
+                Svg = Svg.substr(SvgBeginPos);
+            S1 += (FilePos ? __T("<br>") : __T("")) + Svg;
         }
-
         QString template_rel_path = "/Plugin/Graph/Template.html";
         if (File::Exists(InstallFolder + QString2wstring(QDir::toNativeSeparators(template_rel_path)))) {
             File F(InstallFolder + QString2wstring(QDir::toNativeSeparators(template_rel_path)));
