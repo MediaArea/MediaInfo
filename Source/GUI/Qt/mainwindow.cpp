@@ -15,7 +15,6 @@
 #include "sheet.h"
 #include "configtreetext.h"
 #include "custom.h"
-#include "graphplugin.h"
 
 #include <QDropEvent>
 #include <QFileDialog>
@@ -52,11 +51,14 @@ using namespace ZenLib;
 
 #define VERSION "25.03"
 
-#if defined(_WIN32)
-#define EDGE_WEBVIEW2_YES
+#if defined(EDGE_WEBVIEW2_YES)
 #include "webview2widget.h"
+#include "graphplugin.h"
+#define WebViewWidget WebView2Widget
 #elif !defined(MEDIAINFO_HTML_NO)
 #include <QWebEngineView>
+#include "graphplugin.h"
+#define WebViewWidget QWebEngineView
 #endif
 
 #if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) //UWP Application
@@ -731,22 +733,15 @@ void MainWindow::refreshDisplay() {
                 viewWidget = new EasyViewWidget(C);
                 break;
             case VIEW_HTML:
-                C->Menu_View_HTML();
-                #if defined(EDGE_WEBVIEW2_YES)
-                    viewWidget = new WebView2Widget();
-                    ((WebView2Widget*)viewWidget)->setHtml(wstring2QString(C->Inform_Get()));
-                #elif !defined(MEDIAINFO_HTML_NO)
-                    viewWidget = new QWebEngineView();
-                    ((QWebEngineView*)viewWidget)->setHtml(wstring2QString(C->Inform_Get()));
+                #ifndef MEDIAINFO_HTML_NO
+                    C->Menu_View_HTML();
+                    viewWidget = new WebViewWidget();
+                    ((WebViewWidget*)viewWidget)->setHtml(wstring2QString(C->Inform_Get()));
                 #endif
                 break;
             case VIEW_GRAPH:
-                #if defined(EDGE_WEBVIEW2_YES)
-                    viewWidget = new WebView2Widget();
-                    ((WebView2Widget*)viewWidget)->setHtml(Generate_Graph_HTML(C, settings));
-                #elif !defined(MEDIAINFO_HTML_NO)
-                    viewWidget = new QWebEngineView();
-                    ((QWebEngineView*)viewWidget)->setHtml(Generate_Graph_HTML(C, settings));
+                #ifndef MEDIAINFO_HTML_NO
+                    viewWidget = new GraphViewWidget(C, settings);
                 #endif
                 break;
             case VIEW_TREE:

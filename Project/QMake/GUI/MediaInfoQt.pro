@@ -3,7 +3,10 @@
 # -------------------------------------------------
 
 QT += core gui widgets network xml
-!win32 {
+
+win32 {
+    DEFINES+=EDGE_WEBVIEW2_YES
+} else {
     qtHaveModule(webenginewidgets) {
         QT += webenginewidgets
     } else {
