@@ -32,10 +32,42 @@ namespace {
 
         return userDataFolder;
     }
+    std::wstring EscapeHtmlForJavaScript(const std::wstring &html) {
+        std::wstring escapedHtml;
+        for (auto ch : html) {
+            switch (ch) {
+            case '\'':
+                escapedHtml += L"\\\'";
+                break;
+            case '\"':
+                escapedHtml += L"\\\"";
+                break;
+            case '\\':
+                escapedHtml += L"\\\\";
+                break;
+            case '\n':
+                escapedHtml += L"\\n";
+                break;
+            case '\r':
+                escapedHtml += L"\\r";
+                break;
+            case '\t':
+                escapedHtml += L"\\t";
+                break;
+            case '`':
+                escapedHtml += L"\\`";
+                break;
+            default:
+                escapedHtml += ch;
+                break;
+            }
+        }
+        return escapedHtml;
+    }
 }
 
 WebView2Widget::WebView2Widget(QWidget *parent)
-    : QWidget(parent), m_hwndHost(nullptr), m_isInitialized(false) {
+    : QWidget(parent), m_hwndHost(nullptr), m_navCompletedToken{}, m_isInitialized(false) {
     // Set up the widget to host WebView2
     m_hwndHost = (HWND)this->winId();
 
@@ -96,6 +128,27 @@ HRESULT WebView2Widget::InitializeWebView() {
     return hr;
 }
 
+// Workaround for Edge WebView2 NavigateToString method having a length limit
+void WebView2Widget::NavigateToString(const std::wstring &html) {
+    if (m_navCompletedToken.value != 0) m_webview->remove_NavigationCompleted(m_navCompletedToken);
+    m_webview->add_NavigationCompleted(
+        Microsoft::WRL::Callback<ICoreWebView2NavigationCompletedEventHandler>(
+            [this, html](ICoreWebView2 *sender, ICoreWebView2NavigationCompletedEventArgs *args) -> HRESULT {
+                            Q_UNUSED(sender);
+                            BOOL isSuccess;
+                            args->get_IsSuccess(&isSuccess);
+                            if (isSuccess) {
+                                std::wstring script = L"window.document.open(); window.document.write('" + EscapeHtmlForJavaScript(html) + L"'); window.document.close();";
+                                m_webview->ExecuteScript(script.c_str(), nullptr);
+                            }
+                            m_webview->remove_NavigationCompleted(m_navCompletedToken);
+                            return S_OK;
+                        }
+            ).Get(),
+            &m_navCompletedToken);
+    m_webview->NavigateToString(L"");
+}
+
 void WebView2Widget::resizeEvent(QResizeEvent *event) {
     QWidget::resizeEvent(event);
 
@@ -110,8 +163,7 @@ void WebView2Widget::ProcessPendingRequests() {
     // Process pending HTML content
     while (!m_pendingHtml.isEmpty()) {
         QString html = m_pendingHtml.dequeue();
-        std::wstring htmlWide = html.toStdWString();
-        m_webview->NavigateToString(htmlWide.c_str());
+        NavigateToString(html.toStdWString());
     }
 
     // Process pending URLs
@@ -124,8 +176,7 @@ void WebView2Widget::ProcessPendingRequests() {
 
 void WebView2Widget::setHtml(const QString &html) {
     if (m_isInitialized && m_webview) {
-        std::wstring htmlWide = html.toStdWString();
-        m_webview->NavigateToString(htmlWide.c_str());
+        NavigateToString(html.toStdWString());
     } else {
         // Queue the HTML content if WebView2 is not yet initialized
         m_pendingHtml.enqueue(html);

@@ -37,11 +37,13 @@ protected:
 
 private:
     HRESULT InitializeWebView();
+    void NavigateToString(const std::wstring& html);
     void ProcessPendingRequests();
 
     HWND m_hwndHost;
     Microsoft::WRL::ComPtr<ICoreWebView2Controller> m_webviewController;
     Microsoft::WRL::ComPtr<ICoreWebView2> m_webview;
+    EventRegistrationToken m_navCompletedToken;
 
     bool m_isInitialized;          // Flag to track WebView2 initialization status
     QQueue<QString> m_pendingHtml; // Queue for pending HTML content
