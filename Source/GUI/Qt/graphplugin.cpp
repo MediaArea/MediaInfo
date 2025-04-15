@@ -4,11 +4,15 @@
  *  be found in the License.html file in the root of the source tree.
  */
 
+#ifndef MEDIAINFO_HTML_NO
+
 #include "graphplugin.h"
 #include "ZenLib/Ztring.h"
 #include "ZenLib/File.h"
 #include <QApplication>
+#include <QComboBox>
 #include <QDir>
+#include <QVBoxLayout>
 
 #define wstring2QString(_DATA) \
     QString::fromUtf8(Ztring(_DATA).To_UTF8().c_str())
@@ -17,23 +21,40 @@
 
 using namespace ZenLib;
 
-QString Generate_Graph_HTML(Core *C, QSettings *settings) {
+GraphViewWidget::GraphViewWidget(Core *C, QSettings *settings, QWidget *parent)
+    : QWidget(parent), C(C), FilePos(0) {
 
     C->Menu_Option_Preferences_Option(__T("Graph_Adm_ShowTrackUIDs"), settings->value("Graph_Adm_ShowTrackUIDs",false).toBool() ? __T("1") : __T("0"));
     C->Menu_Option_Preferences_Option(__T("Graph_Adm_ShowChannelFormats"), settings->value("Graph_Adm_ShowChannelFormats",false).toBool() ? __T("1") : __T("0"));
     C->Menu_Option_Preferences_Inform(__T("Graph_Svg"));
 
+    QComboBox *fileChoice = new QComboBox(this);
+    fileChoice->setMinimumContentsLength(1);
+    for (size_t Pos = 0; Pos < C->Count_Get(); ++Pos)
+        fileChoice->addItem(wstring2QString(C->Get(Pos, Stream_General, 0, __T("CompleteName"))));
+    fileChoice->setCurrentIndex(FilePos);
+    connect(fileChoice, SIGNAL(currentIndexChanged(int)), SLOT(changeFilePos(int)));
+
+    webView = new WebViewWidget(this);
+
+    QVBoxLayout *layout = new QVBoxLayout(this);
+    layout->addWidget(fileChoice);
+    layout->addWidget(webView);
+
+    this->setLayout(layout);
+
+    refresh();
+}
+
+QString GraphViewWidget::Generate_Graph_HTML() {
     Ztring S1 = Ztring();
     Ztring InstallFolder = QString2wstring(QCoreApplication::applicationDirPath());
     Ztring State = C->Menu_Option_Preferences_Option(__T("Info_Graph_Svg_Plugin_State"), __T(""));
     if (State == __T("1")) {
-        for (size_t FilePos = 0; FilePos < C->Count_Get(); ++FilePos) {
-            Ztring Svg = C->MI->Inform(FilePos);
-            size_t SvgBeginPos = Svg.find(__T("<svg"));
-            if (SvgBeginPos != std::string::npos)
-                Svg = Svg.substr(SvgBeginPos);
-            S1 += (FilePos ? __T("<br>") : __T("")) + Svg;
-        }
+        Ztring Svg = C->MI->Inform(FilePos);
+        size_t SvgBeginPos = Svg.find(__T("<svg"));
+        if (SvgBeginPos != std::string::npos)
+            S1 = Svg.substr(SvgBeginPos);
         QString template_rel_path = "/Plugin/Graph/Template.html";
         if (File::Exists(InstallFolder + QString2wstring(QDir::toNativeSeparators(template_rel_path)))) {
             File F(InstallFolder + QString2wstring(QDir::toNativeSeparators(template_rel_path)));
@@ -59,3 +80,14 @@ QString Generate_Graph_HTML(Core *C, QSettings *settings) {
 
     return wstring2QString(S1);
 }
+
+void GraphViewWidget::refresh() {
+    webView->setHtml(Generate_Graph_HTML());
+}
+
+void GraphViewWidget::changeFilePos(int newFilePos) {
+    FilePos = newFilePos;
+    refresh();
+}
+
+#endif // MEDIAINFO_HTML_NO

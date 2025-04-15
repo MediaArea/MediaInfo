@@ -48,7 +48,7 @@ void EasyViewWidget::refreshDisplay() {
 
     layout->addWidget(fileChoice);
     for (size_t Pos=0; Pos<C->Count_Get(); Pos++)
-        fileChoice->addItem( wstring2QString(C->Get(Pos, Stream_General, 0, __T("CompleteName"))), (int)Pos);
+        fileChoice->addItem(wstring2QString(C->Get(Pos, Stream_General, 0, __T("CompleteName"))));
 
     fileChoice->setCurrentIndex(FilePos);
 
