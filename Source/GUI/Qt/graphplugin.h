@@ -12,6 +12,7 @@
 #include "Common/Core.h"
 #include <QSettings>
 #include <QString>
+#include <QTemporaryFile>
 #include <QWidget>
 
 #ifdef EDGE_WEBVIEW2_YES
@@ -33,6 +34,7 @@ private:
     Core *C;
     int FilePos;
     WebViewWidget *webView;
+    QTemporaryFile tempFile;
 
 signals:
 

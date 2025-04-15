@@ -43,6 +43,7 @@ GraphViewWidget::GraphViewWidget(Core *C, QSettings *settings, QWidget *parent)
 
     this->setLayout(layout);
 
+    tempFile.setFileTemplate(tempFile.fileTemplate() + ".html");
     refresh();
 }
 
@@ -82,7 +83,16 @@ QString GraphViewWidget::Generate_Graph_HTML() {
 }
 
 void GraphViewWidget::refresh() {
-    webView->setHtml(Generate_Graph_HTML());
+    QString graphHTML = Generate_Graph_HTML();
+    if (graphHTML.toUtf8().size() < 0.5e6)
+        webView->setHtml(graphHTML);
+    else {
+        if (!tempFile.open())
+            return;
+        tempFile.resize(0);
+        tempFile.write(graphHTML.toUtf8());
+        webView->load(QUrl::fromLocalFile(tempFile.fileName()));
+    }
 }
 
 void GraphViewWidget::changeFilePos(int newFilePos) {
