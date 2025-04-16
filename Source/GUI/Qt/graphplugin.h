@@ -12,6 +12,7 @@
 #include "Common/Core.h"
 #include <QSettings>
 #include <QString>
+#include <QTemporaryFile>
 #include <QWidget>
 
 #ifdef EDGE_WEBVIEW2_YES
@@ -28,11 +29,12 @@ public:
     explicit GraphViewWidget(Core *C, QSettings *settings, QWidget *parent = nullptr);
 
 private:
-    QString Generate_Graph_HTML();
+    QString generateGraphHTML();
     void refresh();
     Core *C;
     int FilePos;
     WebViewWidget *webView;
+    QTemporaryFile tempFile;
 
 signals:
 

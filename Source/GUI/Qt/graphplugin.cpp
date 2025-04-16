@@ -8,7 +8,6 @@
 
 #include "graphplugin.h"
 #include "ZenLib/Ztring.h"
-#include "ZenLib/File.h"
 #include <QApplication>
 #include <QComboBox>
 #include <QDir>
@@ -43,46 +42,51 @@ GraphViewWidget::GraphViewWidget(Core *C, QSettings *settings, QWidget *parent)
 
     this->setLayout(layout);
 
+    tempFile.setFileTemplate(tempFile.fileTemplate() + ".html");
     refresh();
 }
 
-QString GraphViewWidget::Generate_Graph_HTML() {
-    Ztring S1 = Ztring();
-    Ztring InstallFolder = QString2wstring(QCoreApplication::applicationDirPath());
-    Ztring State = C->Menu_Option_Preferences_Option(__T("Info_Graph_Svg_Plugin_State"), __T(""));
-    if (State == __T("1")) {
-        Ztring Svg = C->MI->Inform(FilePos);
-        size_t SvgBeginPos = Svg.find(__T("<svg"));
-        if (SvgBeginPos != std::string::npos)
-            S1 = Svg.substr(SvgBeginPos);
-        QString template_rel_path = "/Plugin/Graph/Template.html";
-        if (File::Exists(InstallFolder + QString2wstring(QDir::toNativeSeparators(template_rel_path)))) {
-            File F(InstallFolder + QString2wstring(QDir::toNativeSeparators(template_rel_path)));
-            int8u *Buffer = new int8u[(size_t)F.Size_Get() + 1];
-            size_t Count = F.Read(Buffer, (size_t)F.Size_Get());
-            if (Count == ZenLib::Error) {
-                S1 = __T("Unable to load graph template");
-            } else {
-                Buffer[Count] = (int8u)'\0';
-                Ztring Template = Ztring().From_UTF8(reinterpret_cast<char *>(Buffer));
-                if (Template.FindAndReplace(__T("@SVG@"), S1) == 0)
-                    S1 = __T("Invalid template");
+QString GraphViewWidget::generateGraphHTML() {
+    QString html;
+    QString state{wstring2QString(C->Menu_Option_Preferences_Option(__T("Info_Graph_Svg_Plugin_State"), __T("")))};
+    if (state == "1") {
+        QString svg{wstring2QString(C->MI->Inform(FilePos))};
+        auto svgBeginPos{svg.indexOf("<svg")};
+        if (svgBeginPos != -1)
+            svg = svg.mid(svgBeginPos);
+        QFile templateFile(QCoreApplication::applicationDirPath() + QDir::toNativeSeparators("/Plugin/Graph/Template.html"));
+        if (templateFile.exists()) {
+            if (templateFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                QTextStream in(&templateFile);
+                QString graphTemplate{in.readAll()};
+                templateFile.close();
+                if (graphTemplate.indexOf("@SVG@") != -1)
+                    html = graphTemplate.replace("@SVG@", svg);
                 else
-                    S1 = Template;
-            }
-            delete[] Buffer;
+                    html = "Invalid template";
+            } else
+                html = "Unable to load graph template";
         } else
-            S1 = __T("Graph template not found");
-    } else if (State == __T("0"))
-        S1 = __T("Graph plugin not installed");
+            html = "Graph template not found";
+    } else if (state == "0")
+        html = "Graph plugin not installed";
     else
-        S1 = State;
+        html = state;
 
-    return wstring2QString(S1);
+    return html;
 }
 
 void GraphViewWidget::refresh() {
-    webView->setHtml(Generate_Graph_HTML());
+    QString graphHTML{generateGraphHTML()};
+    if (graphHTML.toUtf8().size() < 0.5e6)
+        webView->setHtml(graphHTML);
+    else {
+        if (!tempFile.open())
+            return;
+        tempFile.resize(0);
+        tempFile.write(graphHTML.toUtf8());
+        webView->load(QUrl::fromLocalFile(tempFile.fileName()));
+    }
 }
 
 void GraphViewWidget::changeFilePos(int newFilePos) {
