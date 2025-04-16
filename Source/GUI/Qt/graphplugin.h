@@ -29,7 +29,7 @@ public:
     explicit GraphViewWidget(Core *C, QSettings *settings, QWidget *parent = nullptr);
 
 private:
-    QString Generate_Graph_HTML();
+    QString generateGraphHTML();
     void refresh();
     Core *C;
     int FilePos;
