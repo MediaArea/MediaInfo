@@ -6,8 +6,15 @@ jobs:
   Unix:
     strategy:
       matrix:
-        os: [ ubuntu-latest, ubuntu-24.04-arm, macos-latest ]
+        include:
+          - os: ubuntu-latest
+            Format_Profile: Shared object / AMD x86-64
+          - os: ubuntu-24.04-arm
+            Format_Profile: Shared object / ARM64
+          - os: macos-latest
+            Format_Profile: Demand paged executable / ARM64
       fail-fast: false
+    name: Unix (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -46,11 +53,21 @@ jobs:
         run: |
           cd Project/GNU/CLI
           make -j4
-      - name: Run CLI
-        if: matrix.os != 'macos-latest'
+      - name: Test CLI
+        env:
+          DYLD_LIBRARY_PATH: ${{ github.workspace }}/../ZenLib/Project/GNU/Library/.libs:${{ github.workspace }}/../MediaInfoLib/Project/GNU/Library/.libs
         run : |
           cd Project/GNU/CLI/.libs
-          ./mediainfo --version
+          expected_output="${{ matrix.Format_Profile }}"
+          actual_output=$(./mediainfo "--Output=General;%Format_Profile%" mediainfo)
+          echo "Expected: '$expected_output'"
+          echo "Actual:   '$actual_output'"
+          if [ "$actual_output" = "$expected_output" ]; then
+            exit 0
+          else
+            echo "::error::Test CLI: MediaInfo CLI output ($actual_output) is not as expected ($expected_output)"
+            exit 1
+          fi
       - name: Configure GUI
         run: |
           cd Project/GNU/GUI
@@ -62,11 +79,21 @@ jobs:
           make -j4
 
   Windows:
-    runs-on: windows-latest
     strategy:
       matrix:
-        architecture: [ Win32, x64, ARM64 ]
+        include:
+          - architecture: Win32
+            runner: windows-latest
+            Format_Profile: Executable / Intel i386
+          - architecture: x64
+            runner: windows-latest
+            Format_Profile: Executable / AMD x86-64
+          - architecture: ARM64
+            runner: windows-11-arm
+            Format_Profile: Executable / ARM64
       fail-fast: false
+    name: Windows (${{ matrix.architecture }})
+    runs-on: ${{ matrix.runner }}
     steps:
       - name: Checkout zlib
         uses: actions/checkout@v4
@@ -99,7 +126,19 @@ jobs:
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
         with:
-          msbuild-architecture: x64
+          msbuild-architecture: ${{ runner.arch == 'ARM64' && 'arm64' || 'x64' }}
       - name: Build
         run: msbuild -restore -p:RestorePackagesConfig=true -p:Configuration=Release -p:Platform=${{ matrix.architecture }} ${{ github.workspace }}\MediaInfo\Project\MSVC2022\MediaInfo.sln -verbosity:quiet -warnaserror
-
+      - name: Test CLI
+        run : |
+          cd ${{ github.workspace }}\MediaInfo\Project\MSVC2022\${{ matrix.architecture }}\Release
+          $expected_output = "${{ matrix.Format_Profile }}"
+          $actual_output = & ".\MediaInfo.exe" "--Output=General;%Format_Profile%" "MediaInfo.exe"
+          Write-Host "Expected: '$expected_output'"
+          Write-Host "Actual:   '$actual_output'"
+          if ($actual_output -ceq $expected_output) {
+            exit 0
+          } else {
+            Write-Host "::error::Test CLI: MediaInfo CLI output ($actual_output) is not as expected ($expected_output)"
+            exit 1
+          }
