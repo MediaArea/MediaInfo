@@ -381,6 +381,7 @@ DisplayCaptions_Content;
 DisplayCaptions_Stream;
 DistributedBy;發布者
 Distributor;
+Documents;
 Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;贊助
@@ -516,6 +517,7 @@ FrameRate_Num;
 FrameRate_Original;原始影格頻率
 FrameRate_Real;
 FullParsing;
+Gallery;
 General;一般
 GeneralCompliance;
 Genre;類型
@@ -979,6 +981,7 @@ Language_zh-yue;
 Language_zu;祖魯語 (Zulu)
 Languages;
 LawRating;分級
+LegacyStreamDisplay;
 LCCN;LCCN
 LfeAttenuationKnown;
 LfeMixGain;

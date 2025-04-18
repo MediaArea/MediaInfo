@@ -981,6 +981,7 @@ Language_zh-yue;Cantonese
 Language_zu;Zulu
 Languages;
 LawRating;Law rating
+LegacyStreamDisplay;Display backward compatibility information for HD/HE audio and 3D/HDR video streams
 LCCN;LCCN
 LfeAttenuationKnown;LFE attenuation known
 LfeMixGain;LFE mix gain

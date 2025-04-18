@@ -381,6 +381,7 @@ DisplayCaptions_Content;
 DisplayCaptions_Stream;
 DistributedBy;Տարածողը
 Distributor;
+Documents;
 Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;Օժանդակություն
@@ -516,6 +517,7 @@ FrameRate_Num;
 FrameRate_Original;Կադրերի հաճախ-ը օրիգինալում
 FrameRate_Real;
 FullParsing;
+Gallery;
 General;Ընդհանուր
 GeneralCompliance;
 Genre;Ժանրը
@@ -979,6 +981,7 @@ Language_zh-yue;
 Language_zu;Zulu
 Languages;
 LawRating;Իրավունքների սահ-ում
+LegacyStreamDisplay;
 LCCN;LCCN
 LfeAttenuationKnown;
 LfeMixGain;

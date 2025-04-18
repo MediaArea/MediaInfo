@@ -381,6 +381,7 @@ DisplayCaptions_Content;
 DisplayCaptions_Stream;
 DistributedBy;发行商
 Distributor;发行商
+Documents;
 Dolby_Atmos_Metadata;杜比全景声元数据
 DolbyAtmos;杜比全景声
 Donate;赞助
@@ -516,6 +517,7 @@ FrameRate_Num;
 FrameRate_Original;原始帧率
 FrameRate_Real;真实帧率
 FullParsing;
+Gallery;
 General;概览
 GeneralCompliance;
 Genre;流派
@@ -979,6 +981,7 @@ Language_zh-yue;
 Language_zu;祖鲁语 (Zulu)
 Languages;
 LawRating;分级
+LegacyStreamDisplay;
 LCCN;LCCN
 LfeAttenuationKnown;LFE 衰减是否已知
 LfeMixGain;LFE 混音增益

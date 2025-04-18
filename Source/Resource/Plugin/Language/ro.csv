@@ -381,6 +381,7 @@ DisplayCaptions_Content;
 DisplayCaptions_Stream;
 DistributedBy;Distribuit de
 Distributor;
+Documents;
 Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;Donatii
@@ -516,6 +517,7 @@ FrameRate_Num;
 FrameRate_Original;
 FrameRate_Real;
 FullParsing;
+Gallery;
 General;Generale
 GeneralCompliance;
 Genre;Gen
@@ -979,6 +981,7 @@ Language_zh-yue;
 Language_zu;
 Languages;
 LawRating;
+LegacyStreamDisplay;
 LCCN;
 LfeAttenuationKnown;
 LfeMixGain;

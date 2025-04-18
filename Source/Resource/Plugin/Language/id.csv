@@ -381,6 +381,7 @@ DisplayCaptions_Content;Saat konten terdeteksi
 DisplayCaptions_Stream;Meski saat tak ada konten maupun perindah terdeteksi
 DistributedBy;Didistribusikan oleh
 Distributor;Distributor
+Documents;
 Dolby_Atmos_Metadata;Metadata Dolby Atmos
 DolbyAtmos;Dolby Atmos
 Donate;Beri sumbangan
@@ -516,6 +517,7 @@ FrameRate_Num;Pembilang laju bingkai
 FrameRate_Original;Laju bingkai asli
 FrameRate_Real;Laju bingkai sesungguhnya
 FullParsing;Analisis sintaks penuh
+Gallery;
 General;Umum
 GeneralCompliance;Kepatuhan umum
 Genre;Aliran
@@ -979,6 +981,7 @@ Language_zh-yue;Bhs. Kanton
 Language_zu;Bhs. Zulu
 Languages;Bahasa
 LawRating;Peringkat usia
+LegacyStreamDisplay;
 LCCN;LCCN
 LfeAttenuationKnown;Atenuasi LFE yang diketahui
 LfeMixGain;Peningkatan Padu LFE

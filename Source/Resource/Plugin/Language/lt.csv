@@ -381,6 +381,7 @@ DisplayCaptions_Content;
 DisplayCaptions_Stream;
 DistributedBy;Platintojas
 Distributor;
+Documents;
 Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;Aukoti
@@ -516,6 +517,7 @@ FrameRate_Num;
 FrameRate_Original;Originalus kadrų skaičius
 FrameRate_Real;
 FullParsing;
+Gallery;
 General;Pagrindinis
 GeneralCompliance;
 Genre;Žanras
@@ -979,6 +981,7 @@ Language_zh-yue;
 Language_zu;Zulu
 Languages;
 LawRating;Law reitingas
+LegacyStreamDisplay;
 LCCN;LCCN
 LfeAttenuationKnown;
 LfeMixGain;

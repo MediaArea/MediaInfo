@@ -381,6 +381,7 @@ DisplayCaptions_Content;
 DisplayCaptions_Stream;
 DistributedBy;배포
 Distributor;
+Documents;
 Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;기부하기
@@ -516,6 +517,7 @@ FrameRate_Num;
 FrameRate_Original;원본 프레임레이트
 FrameRate_Real;
 FullParsing;
+Gallery;
 General;일반
 GeneralCompliance;
 Genre;장르
@@ -979,6 +981,7 @@ Language_zh-yue;
 Language_zu;Zulu
 Languages;
 LawRating;법률 등급
+LegacyStreamDisplay;
 LCCN;LCCN
 LfeAttenuationKnown;
 LfeMixGain;

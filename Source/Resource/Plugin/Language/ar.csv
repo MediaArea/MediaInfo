@@ -381,6 +381,7 @@ DisplayCaptions_Content;
 DisplayCaptions_Stream;
 DistributedBy;موزع من طرف
 Distributor;
+Documents;
 Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;تبرع
@@ -516,6 +517,7 @@ FrameRate_Num;
 FrameRate_Original;معدل الصور/ثانية الأصلي
 FrameRate_Real;
 FullParsing;
+Gallery;
 General;عام
 GeneralCompliance;
 Genre;النوع
@@ -979,6 +981,7 @@ Language_zh-yue;
 Language_zu;isiZulu
 Languages;
 LawRating;تصنيف القانون
+LegacyStreamDisplay;
 LCCN;LCCN
 LfeAttenuationKnown;
 LfeMixGain;

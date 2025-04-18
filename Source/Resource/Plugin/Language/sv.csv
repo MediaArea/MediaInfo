@@ -381,6 +381,7 @@ DisplayCaptions_Content;
 DisplayCaptions_Stream;
 DistributedBy;Distribuerad av
 Distributor;Distributör
+Documents;
 Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;Donera
@@ -516,6 +517,7 @@ FrameRate_Num;
 FrameRate_Original;Ursprunglig bildfrekvens
 FrameRate_Real;
 FullParsing;
+Gallery;
 General;Allmänt
 GeneralCompliance;
 Genre;Genre
@@ -979,6 +981,7 @@ Language_zh-yue;
 Language_zu;Zulu
 Languages;
 LawRating;Åldersgräns
+LegacyStreamDisplay;
 LCCN;LCCN
 LfeAttenuationKnown;
 LfeMixGain;
