@@ -1226,6 +1226,7 @@ Sheet;List
 Sheet (Complete);List (kompletný) 
 Shell extension;Integrovať do kontextového menu Prieskumníka (pravé tlačíidlo myši)
 Shell extension, folder;
+Shell extension, separate instance;
 Shell InfoTip;Integrovať do kontextového menu (pri nadídení myši na súbor)
 ShimName;
 ShimVersion;
