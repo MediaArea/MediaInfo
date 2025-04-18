@@ -1227,6 +1227,7 @@ Sheet;Ark
 Sheet (Complete);Ark (komplet)
 Shell extension;Shell-udvidelse ( højreklik viser MediaInfo i stifinder)
 Shell extension, folder;Også for mapper
+Shell extension, separate instance;
 Shell InfoTip;Shell-infotip (bevæg musen over filen i stifinder og info vises)
 ShimName;
 ShimVersion;

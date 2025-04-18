@@ -1227,6 +1227,7 @@ Sheet;Sayfa
 Sheet (Complete);Sayfa (Tam)
 Shell extension;Gezgin uzantısı (Windows Gezgini'nde, bir dosyaya sağ tuşla tıklamada, MediaInfo seçeneği olacaktır)
 Shell extension, folder;Klasörler için de
+Shell extension, separate instance;
 Shell InfoTip;Gezgin Araç İpucu (Windows Gezgini'nde, fare dosya üzerine hareket ettirildiğinde, bilgi görüntülenecektir)
 ShimName;Dolgu Adı
 ShimVersion;Dolgu Sürümü

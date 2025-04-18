@@ -1227,6 +1227,7 @@ Sheet;Formulário
 Sheet (Complete);Formulário (Completo)
 Shell extension;Extensão Shell (no Explorador do Windows, botão direito, haverá uma opção MediaInfo)
 Shell extension, folder;Também para pastas
+Shell extension, separate instance;
 Shell InfoTip;Info. Shell (no Explorador do Windows, mova o rato sobre o ficheiro, a info. será exibida)
 ShimName;
 ShimVersion;

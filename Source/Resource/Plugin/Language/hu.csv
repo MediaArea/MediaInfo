@@ -1227,6 +1227,7 @@ Sheet;Táblázat
 Sheet (Complete);Táblázat (teljes)
 Shell extension;Rendszerhéj-kiterjesztés (az Intézőben a helyzetérzékeny menüben Media Info menüpont...)
 Shell extension, folder;
+Shell extension, separate instance;
 Shell InfoTip;Rendszerhéj tipp (ha az egérmutató az Intézőben a fájl fölé visszük, adatokat láthatunk)
 ShimName;
 ShimVersion;

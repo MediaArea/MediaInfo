@@ -1227,6 +1227,7 @@ Sheet;シート
 Sheet (Complete);シート (完成)
 Shell extension;エクスプローラーに統合 (ファイルの右クリックメニューに登録)
 Shell extension, folder;フォルダーにも追加
+Shell extension, separate instance;
 Shell InfoTip;エクスプローラーでツールチップ (対応ファイル上でツールチップを表示)
 ShimName;Shim 名
 ShimVersion;Shim バージョン

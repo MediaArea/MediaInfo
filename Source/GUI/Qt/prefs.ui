@@ -294,7 +294,7 @@
               </sizepolicy>
              </property>
              <property name="text">
-              <string>Open each item in a separate instance</string>
+              <string>Shell extension, separate instance</string>
              </property>
             </widget>
            </item>

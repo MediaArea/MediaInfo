@@ -1227,6 +1227,7 @@ Sheet;ورقه
 Sheet (Complete);ورقه کامل
 Shell extension;Shell extension (in Explorer, right click there will be a MediaInfo option)
 Shell extension, folder;برای پوشه ها هم همینطور
+Shell extension, separate instance;
 Shell InfoTip;Shell InfoTip (in Explorer, move the mouse over the file, info will be displayed)
 ShimName;
 ShimVersion;

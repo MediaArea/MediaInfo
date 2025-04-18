@@ -1227,6 +1227,7 @@ Sheet;Табліца
 Sheet (Complete);Табліца (поўная)
 Shell extension;Пашырэнне ў правадніку (пункт у кантэкстным меню правадніка Windows пры націску правай кнопкі мышы)
 Shell extension, folder;Пашырэнне ў правадніку для папак
+Shell extension, separate instance;
 Shell InfoTip;Усплывальная падказка (паказваць інфармацыю пры размяшчэнні паказальніка мышы над файлам у правадніку Windows)
 ShimName;
 ShimVersion;

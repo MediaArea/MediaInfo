@@ -1227,6 +1227,7 @@ Sheet;表格
 Sheet (Complete);表格（完整）
 Shell extension;快顯功能表（影音檔案右鍵選單加入MediaInfo選項）
 Shell extension, folder;資料夾同時適用
+Shell extension, separate instance;
 Shell InfoTip;檔案提示（滑鼠移到檔案上顯示相關訊息）
 ShimName;Shim名稱
 ShimVersion;Shim版本

@@ -1227,6 +1227,7 @@ Sheet;Lapas
 Sheet (Complete);Lapas (Pilnas)
 Shell extension;Apvalkalo plėtinys (explorer'yje dešinys paspaudimas ten kur bus Media Info pasirinktis)
 Shell extension, folder;
+Shell extension, separate instance;
 Shell InfoTip;Apvalkalo InfoTipas (explorer'yje, užveskite pelę ant failo, bus parodyta informacija)
 ShimName;
 ShimVersion;

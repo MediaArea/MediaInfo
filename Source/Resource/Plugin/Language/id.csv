@@ -1227,6 +1227,7 @@ Sheet;Lembar
 Sheet (Complete);Lembar (Lengkap)
 Shell extension;Ekstensi Explorer (di Windows Explorer, klik kanan pada berkas, akan ada opsi MediaInfo)
 Shell extension, folder;Untuk direktori juga
+Shell extension, separate instance;
 Shell InfoTip;Kiat Alat Explorer (di Windows Explorer, layangkan tetikus di atas berkas, info akan ditampilkan)
 ShimName;Nama pemampas
 ShimVersion;Versi pemampas

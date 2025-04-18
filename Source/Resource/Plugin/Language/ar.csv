@@ -1227,6 +1227,7 @@ Sheet;الجدول
 Sheet (Complete);الجدول (كامل)
 Shell extension;ملحق Shell (اضافة قائمة 'MediaInfo ' عند النقر الأيمن على الملف)
 Shell extension, folder;للمجلدات أيضا
+Shell extension, separate instance;
 Shell InfoTip;ماحق InfoTip ( عرض مزيد من التفاصيل عند  تحريك الماوس فوق الملف)
 ShimName;
 ShimVersion;

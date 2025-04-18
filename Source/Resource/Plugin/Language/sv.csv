@@ -1227,6 +1227,7 @@ Sheet;Lista
 Sheet (Complete);Lista (Komplett)
 Shell extension;Kontextmeny (Högerklicka i på en fil i Utforskaren, så visas ett MediaInfo-alternativ)
 Shell extension, folder;Även för mappar
+Shell extension, separate instance;
 Shell InfoTip;Knappbeskrivning (Hovra över en fil i Utforskaren, så visas information)
 ShimName;Shim-namn
 ShimVersion;Shim-version

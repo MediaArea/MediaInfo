@@ -811,6 +811,7 @@ void __fastcall TPreferencesF::GUI_Configure()
     Setup_Advanced->Caption=Prefs->Translate(__T("Advanced")).c_str();
     CB_InscrireShell->Caption=Prefs->Translate(__T("Shell extension")).c_str();
     CB_InscrireShell_Folder->Caption=Prefs->Translate(__T("Shell extension, folder")).c_str();
+    CB_InscrireShell_SeparateInstance->Caption=Prefs->Translate(__T("Shell extension, separate instance")).c_str();
     CB_InfoTip->Caption=Prefs->Translate(__T("Shell InfoTip")).c_str();
     CB_ShowToolBar->Caption=Prefs->Translate(__T("Show toolbar")).c_str();
     CB_ShowMenu->Caption=Prefs->Translate(__T("Show menu")).c_str();

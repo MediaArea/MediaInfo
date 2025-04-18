@@ -1227,6 +1227,7 @@ Sheet;Karta
 Sheet (Complete);Karta (komplet)
 Shell extension;Rozszerzenie powłoki (menu kontekstowe w eksploratorze)
 Shell extension, folder;Także dla folderów
+Shell extension, separate instance;
 Shell InfoTip;Informacje powłoki (w eksploratorze najedź kursorem na plik, wyświetlą się informacje)
 ShimName;
 ShimVersion;

@@ -1227,6 +1227,7 @@ Sheet;表格
 Sheet (Complete);表格 (完整)
 Shell extension;文件资源管理器右键菜单 (为多媒体文件的右键菜单添加 MediaInfo 选项)
 Shell extension, folder;添加到文件夹右键菜单
+Shell extension, separate instance;
 Shell InfoTip;文件资源管理器工具提示 (将鼠标移到文件图标上会显示相关信息)
 ShimName;Shim 名称
 ShimVersion;Shim 版本

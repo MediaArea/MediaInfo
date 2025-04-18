@@ -1227,6 +1227,7 @@ Sheet;Таблиця
 Sheet (Complete);Таблиця (повна)
 Shell extension;Розширення у провіднику (пункт у контекстному меню провідника Windows при клацанні правою кнопкою миші)
 Shell extension, folder;Розширення у провіднику для папок
+Shell extension, separate instance;
 Shell InfoTip;Підказка провідника (відображення інформації при розміщенні вказівника миші над файлом у провіднику Windows)
 ShimName;Назва прокладки
 ShimVersion;Версія прокладки

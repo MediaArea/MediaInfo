@@ -1227,6 +1227,7 @@ Sheet;Tabelle
 Sheet (Complete);Tabelle (komplett)
 Shell extension;Shell-Erweiterung (bei Rechtsklick im Explorer erscheint ein Media Info Eintrag...)
 Shell extension, folder;Auch für Verzeichnisse
+Shell extension, separate instance;
 Shell InfoTip;Shell InfoTip (bewege den Mauszeiger im Explorer über eine Datei und Infos werden angezeigt)
 ShimName;
 ShimVersion;

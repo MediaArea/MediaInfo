@@ -1227,6 +1227,7 @@ Sheet;Fulla
 Sheet (Complete);Fulla (completa)
 Shell extension;Extensió Explorer (a Windows, clic dret a un arxiu mostrarà la opció MediaInfo)
 Shell extension, folder;També per a carpetes
+Shell extension, separate instance;
 Shell InfoTip;Consells Explorer (a Windows, mou el ratolí sobre un arxiu per mostrar info)
 ShimName;Nom de falca
 ShimVersion;Versió de falca

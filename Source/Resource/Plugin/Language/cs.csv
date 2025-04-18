@@ -1227,6 +1227,7 @@ Sheet;List
 Sheet (Complete);List (Complete)
 Shell extension;Integrovat do kontextového menu Průzkumníka (pravé tlačítko myši)
 Shell extension, folder;
+Shell extension, separate instance;
 Shell InfoTip;Integrovat do kontextového menu (při najetí myši na soubor)
 ShimName;
 ShimVersion;
@@ -1408,5 +1409,5 @@ WrittenBy;Napsal
 Yes;Ano
 Your system;Instalované kodeky
 Your translation;
-ZZ_Automatic_Percent;54
+ZZ_Automatic_Percent;53
 ZZ_AutomaticLanguage_Percent;58

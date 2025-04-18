@@ -1227,6 +1227,7 @@ Sheet;ცხრილი
 Sheet (Complete);ცხირილი (სრული)
 Shell extension;Explorer extension (in Windows Explorer, right click on a file, there will be a MediaInfo option)
 Shell extension, folder;For folders too
+Shell extension, separate instance;
 Shell InfoTip;Explorer Tooltip (in Windows Explorer, move the mouse over the file, info will be displayed)
 ShimName;
 ShimVersion;

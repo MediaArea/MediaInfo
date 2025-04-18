@@ -1227,6 +1227,7 @@ Sheet;Hoja
 Sheet (Complete);Hoja (completa)
 Shell extension;Extensión explorador (opción en el clic derecho de archivo en el explorador de Windows)
 Shell extension, folder;También para carpetas
+Shell extension, separate instance;
 Shell InfoTip;Ayuda explorador (en el explorador de Windows, mueve el ratón sobre el archivo y la info se mostrará)
 ShimName;Nombre Shim
 ShimVersion;Versión Shim

@@ -1227,6 +1227,7 @@ Sheet;시트
 Sheet (Complete);시트 (전체)
 Shell extension;쉘 익스텐션 (탐색기 마우스 오른쪽 버튼 메뉴에 Media Info를 추가합니다)
 Shell extension, folder;폴더에도 추가
+Shell extension, separate instance;
 Shell InfoTip;쉘 인포팁 (탐색기에서 파일에 마우스를 올려 놓으면 정보를 보여줍니다)
 ShimName;
 ShimVersion;

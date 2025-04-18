@@ -1227,6 +1227,7 @@ Sheet;Tablica
 Sheet (Complete);Tablica (potpuna)
 Shell extension;Proširenje ljuske sustava (desnim klikom u Pregledniku će se pojaviti mogućnosti Media Info)
 Shell extension, folder;Za mape također
+Shell extension, separate instance;
 Shell InfoTip;Info-naznaka (prelaskom miša preko neke datoteke u Pregledniku će se prikazati informacije o njoj)
 ShimName;
 ShimVersion;
