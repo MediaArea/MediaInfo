@@ -380,6 +380,7 @@ DisplayCaptions_Content;
 DisplayCaptions_Stream;
 DistributedBy;Banatzailea
 Distributor;
+Documents;
 Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;Eman dirulaguntza bat
@@ -515,6 +516,7 @@ FrameRate_Num;
 FrameRate_Original;Jatorrizko frame neurria
 FrameRate_Real;
 FullParsing;
+Gallery;
 General;Orokorra
 GeneralCompliance;
 Genre;Mota
@@ -978,6 +980,7 @@ Language_zh-yue;
 Language_zu;Zuluera
 Languages;
 LawRating;Lege maila
+LegacyStreamDisplay;
 LCCN;LCCN
 LfeAttenuationKnown;
 LfeMixGain;

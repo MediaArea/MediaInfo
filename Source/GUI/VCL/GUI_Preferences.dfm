@@ -271,7 +271,7 @@ object PreferencesF: TPreferencesF
         Top = 102
         Width = 658
         Height = 18
-        Caption = 'Display legacy AC-3/DTS/AAC streams embedded in HD/HE streams'
+        Caption = 'LegacyStreamDisplay'
         TabOrder = 7
         OnClick = Advanced_LegacyStreamDisplayClick
       end
