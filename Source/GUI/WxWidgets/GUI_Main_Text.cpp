@@ -28,7 +28,7 @@ GUI_Main_Text::GUI_Main_Text(Core* Core_, wxWindow* parent)
     GUI_Main_Common_Core(Core_)
 {
     //Drag and Drop
-    #if wxUSE_DRAG_AND_DROP && defined(__WXMAC__)
+    #if wxUSE_DRAG_AND_DROP
         SetDropTarget(new FileDrop(C));
     #endif //wxUSE_DRAG_AND_DROP
 
