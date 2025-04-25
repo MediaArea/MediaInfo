@@ -36,7 +36,6 @@ rmdir /s /q %~dp0\..\Project\QMake\GUI\build\Desktop_Qt_MSVC2022_64bit-Release
 
 :: add Graph and FFmpeg plugins
 xcopy %~dp0\..\..\MediaInfo-Graph-Plugin-Binaries\x64 %~dp0\MediaInfo_Qt_Windows_x64\ /i /e /r /y
-xcopy %~dp0\..\..\MediaInfo-Graph-Plugin\Plugin %~dp0\MediaInfo_Qt_Windows_x64\Plugin\ /i /e /r /y
 copy %FFMPEG_EXE% %~dp0\MediaInfo_Qt_Windows_x64\
 
 :: manage dependencies
