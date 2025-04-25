@@ -54,7 +54,7 @@ QString GraphViewWidget::generateGraphHTML() {
         auto svgBeginPos{svg.indexOf("<svg")};
         if (svgBeginPos != -1)
             svg = svg.mid(svgBeginPos);
-        QFile templateFile(QCoreApplication::applicationDirPath() + QDir::toNativeSeparators("/Plugin/Graph/Template.html"));
+        QFile templateFile(":templates/Plugin/Graph/Template.html");
         if (templateFile.exists()) {
             if (templateFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
                 QTextStream in(&templateFile);
