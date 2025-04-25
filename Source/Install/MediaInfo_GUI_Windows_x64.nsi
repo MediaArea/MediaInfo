@@ -189,6 +189,8 @@ Section "SectionPrincipale" SEC01
   File "..\Resource\Plugin\Sheet\*.csv"
   SetOutPath "$INSTDIR\Plugin\Tree"
   File "..\Resource\Plugin\Tree\*.csv"
+  SetOutPath "$INSTDIR\Plugin\Graph"
+  File "..\Resource\Plugin\Graph\Template.html"
 
   # Create files
   WriteIniStr "$INSTDIR\${PRODUCT_NAME}.url" "InternetShortcut" "URL" "${PRODUCT_WEB_SITE}"
@@ -274,6 +276,7 @@ Section Uninstall
   Delete "$INSTDIR\Plugin\Language\*.csv"
   Delete "$INSTDIR\Plugin\Sheet\*.csv"
   Delete "$INSTDIR\Plugin\Tree\*.csv"
+  Delete "$INSTDIR\Plugin\Graph\Template.html"
   Delete "$SMPROGRAMS\MediaInfo\Uninstall.lnk"
   Delete "$SMPROGRAMS\MediaInfo\Website.lnk"
   Delete "$SMPROGRAMS\MediaInfo\MediaInfo.lnk"
@@ -285,6 +288,7 @@ Section Uninstall
   RMDir "$INSTDIR\Plugin\Language"
   RMDir "$INSTDIR\Plugin\Sheet"
   RMDir "$INSTDIR\Plugin\Tree"
+  RMDir "$INSTDIR\Plugin\Graph"
   RMDir "$INSTDIR\Plugin"
   RMDir /r "$INSTDIR\WebView2"
   RMDir "$INSTDIR"

@@ -89,4 +89,7 @@
         <file>Translations/zh-HK.qm</file>
         <file>Translations/zh-TW.qm</file>
     </qresource>
+    <qresource prefix="/templates">
+        <file>Plugin/Graph/Template.html</file>
+    </qresource>
 </RCC>

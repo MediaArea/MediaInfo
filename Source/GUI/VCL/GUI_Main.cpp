@@ -1117,7 +1117,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
             InstallFolder = InstallFolder.substr(0, InstallFolder.rfind(__T("\\")) + 1);
 
             Ztring State=I->Option_Static(__T("Info_Graph_Svg_Plugin_State"), __T(""));
-            if (State == __T("0") || !File::Exists(InstallFolder+__T("\\Plugin\\Graph\\Template.html"))) //Try to install plugin
+            if (State == __T("0") || !File::Exists(InstallFolder+__T("\\Plugin\\Graph\\version.txt"))) //Try to install plugin
             {
                 TPluginF* P = new TPluginF(this, PLUGIN_GRAPH);
                 if (P->Configure())
