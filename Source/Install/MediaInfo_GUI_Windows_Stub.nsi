@@ -5,7 +5,7 @@ ManifestDPIAware true
 ; Some defines
 !define PRODUCT_NAME "MediaInfo"
 !define PRODUCT_PUBLISHER "MediaArea.net"
-!define PRODUCT_VERSION "25.03"
+!define PRODUCT_VERSION "25.04"
 !define PRODUCT_VERSION4 "${PRODUCT_VERSION}.0.0"
 
 !define BASEURL "https://mediaarea.net/download/binary/mediainfo-gui/${PRODUCT_VERSION}"

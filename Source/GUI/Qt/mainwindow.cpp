@@ -49,7 +49,7 @@ using namespace ZenLib;
 #define QString2wstring(_DATA) \
     Ztring().From_UTF8(_DATA.toUtf8())
 
-#define VERSION "25.03"
+#define VERSION "25.04"
 
 #if defined(EDGE_WEBVIEW2_YES)
 #include "webview2widget.h"
