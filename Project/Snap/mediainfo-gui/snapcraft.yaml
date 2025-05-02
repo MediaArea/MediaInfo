@@ -41,6 +41,7 @@ apps:
       - desktop-legacy
       - home
       - network
+      - gsettings
       - removable-media
 
 parts:
@@ -55,6 +56,7 @@ parts:
       - qtbase5-dev
       - qt5-qmake
       - qtchooser
+      - libglib2.0-bin
     stage-packages:
       - libcurl4t64
       - libmms0
@@ -67,7 +69,8 @@ parts:
       - libqt5svg5
       - libqt5xml5t64
       - libqt5webenginewidgets5
-      - xkb-data
+      - xkb-data # needed by qt applications, but not pulled by kf5 part
+      - libgtk-3-common # needed by qt applications, but not pulled by kf5 part
     override-build: |
       craftctl default
       cat > $CRAFT_PART_INSTALL/usr/bin/mediainfo-gui-wrapper << 'END'
@@ -79,6 +82,7 @@ parts:
     override-prime: |
       craftctl default
       GVBINDIR=$CRAFT_PRIME/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/graphviz $CRAFT_PRIME/usr/sbin/libgvc6-config-update -c
+      glib-compile-schemas $CRAFT_PRIME/usr/share/glib-2.0/schemas
     after:
       - libmediainfo
       - libzen
