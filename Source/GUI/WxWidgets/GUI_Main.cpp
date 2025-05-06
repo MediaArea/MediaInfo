@@ -245,6 +245,10 @@ GUI_Main::GUI_Main(int argc, MediaInfoNameSpace::Char** argv_ansi, const wxPoint
 //---------------------------------------------------------------------------
 GUI_Main::~GUI_Main()
 {
+    #ifdef WX_PREFERENCES
+    if (PreferencesEditor)
+        delete PreferencesEditor; //PreferencesEditor=NULL;
+    #endif
     delete C; //C=NULL;
     delete View; //View=NULL;
 }
