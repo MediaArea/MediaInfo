@@ -96,6 +96,7 @@
   </content_rating>
   <url type="homepage">https://mediaarea.net/</url>
   <url type="faq">https://mediaarea.net/MediaInfo/Support/FAQ</url>
+  <url type="vcs-browser">https://github.com/MediaArea/MediaInfo</url>
   <url type="bugtracker">https://github.com/MediaArea/MediaInfo/issues</url>
   <url type="help">https://mediaarea.net/MediaInfo/Support</url>
   <url type="donation">https://mediaarea.net/MediaInfo/Donate</url>
