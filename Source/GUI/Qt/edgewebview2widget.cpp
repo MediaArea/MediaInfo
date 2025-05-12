@@ -7,7 +7,7 @@
 // webview2widget.cpp
 // From code generated with Qwen2.5-Max
 
-#include "webview2widget.h"
+#include "edgewebview2widget.h"
 #include <QDebug>
 #include <QResizeEvent>
 #include <QWindow>

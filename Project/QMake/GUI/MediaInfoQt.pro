@@ -281,7 +281,7 @@ unix:LIBS += -ldl \
               -lz
 
 SOURCES += ../../../Source/GUI/Qt/main.cpp \
-    ../../../Source/GUI/Qt/graphplugin.cpp \
+    ../../../Source/GUI/Qt/htmlwidget.cpp \
     ../../../Source/GUI/Qt/mainwindow.cpp \
     ../../../Source/Common/Core.cpp \
     ../../../Source/GUI/Qt/custom.cpp \
@@ -300,14 +300,14 @@ SOURCES += ../../../Source/GUI/Qt/main.cpp \
     ../../../Source/GUI/Qt/editconfigtreetext.cpp
 
 win32 {
-    SOURCES += ../../../Source/GUI/Qt/webview2widget.cpp
+    SOURCES += ../../../Source/GUI/Qt/edgewebview2widget.cpp
 }
 
 
 HEADERS += ../../../Source/GUI/Qt/mainwindow.h \
     ../../../Source/Common/Core.h \
     ../../../Source/GUI/Qt/easyviewwidget.h \
-    ../../../Source/GUI/Qt/graphplugin.h \
+    ../../../Source/GUI/Qt/htmlwidget.h \
     ../../../Source/GUI/Qt/prefs.h \
     ../../../Source/GUI/Qt/views.h \
     ../../../Source/GUI/Qt/custom.h \
@@ -323,7 +323,7 @@ HEADERS += ../../../Source/GUI/Qt/mainwindow.h \
     ../../../Source/GUI/Qt/editconfigtreetext.h
 
 win32 {
-    HEADERS += ../../../Source/GUI/Qt/webview2widget.h
+    HEADERS += ../../../Source/GUI/Qt/edgewebview2widget.h
 }
 
 FORMS += ../../../Source/GUI/Qt/mainwindow.ui \

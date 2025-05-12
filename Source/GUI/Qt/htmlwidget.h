@@ -4,8 +4,8 @@
  *  be found in the License.html file in the root of the source tree.
  */
 
-#ifndef GRAPHPLUGIN_H
-#define GRAPHPLUGIN_H
+#ifndef HTMLWIDGET_H
+#define HTMLWIDGET_H
 
 #ifndef MEDIAINFO_HTML_NO
 
@@ -16,17 +16,17 @@
 #include <QWidget>
 
 #ifdef EDGE_WEBVIEW2_YES
-#include "webview2widget.h"
+#include "edgewebview2widget.h"
 #define WebViewWidget WebView2Widget
 #else
 #include <QWebEngineView>
 #define WebViewWidget QWebEngineView
 #endif
 
-class GraphViewWidget : public QWidget {
+class HTMLViewWidget : public QWidget {
     Q_OBJECT
 public:
-    explicit GraphViewWidget(Core *C, QSettings *settings, QWidget *parent = nullptr);
+    explicit HTMLViewWidget(Core *C, QSettings *settings, QWidget *parent = nullptr);
 
 private:
     QString generateGraphHTML();
@@ -44,4 +44,4 @@ private slots:
 
 #endif // MEDIAINFO_HTML_NO
 
-#endif // GRAPHPLUGIN_H
+#endif // HTMLWIDGET_H
