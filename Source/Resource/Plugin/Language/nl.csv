@@ -343,6 +343,7 @@ Cover_Datas;Covergegevens
 Cover_Description;Coverbeschrijving
 Cover_Mime;Cover-MIME
 Cover_Type;Coversoort
+CoverData;
 Cropped;Cropafmetingen
 Custom;Aangepast
 CustomDownmixTargets;

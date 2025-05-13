@@ -343,6 +343,7 @@ Cover_Datas;Informació de la portada
 Cover_Description;Descripció de la portada
 Cover_Mime;Codificació de la portada
 Cover_Type;Tipus de portada
+CoverData;
 Cropped;Mida retallat
 Custom;Personalitzat
 CustomDownmixTargets;

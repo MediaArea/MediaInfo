@@ -343,6 +343,7 @@ Cover_Datas;Data sampul
 Cover_Description;Deskripsi sampul
 Cover_Mime;MIME sampul
 Cover_Type;Jenis sampul
+CoverData;
 Cropped;Dimensi pangkas
 Custom;Ubah suai
 CustomDownmixTargets;Sasaran downmix ubah suaian
@@ -1404,5 +1405,5 @@ WrittenBy;Ditulis oleh
 Yes;Ya
 Your system;Sistem Anda
 Your translation;Terjemahan Anda
-ZZ_Automatic_Percent;100
-ZZ_AutomaticLanguage_Percent;100
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;99

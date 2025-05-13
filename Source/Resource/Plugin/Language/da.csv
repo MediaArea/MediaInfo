@@ -343,6 +343,7 @@ Cover_Datas;Cover-data
 Cover_Description;Cover-beskrivelse
 Cover_Mime;Cover MIME
 Cover_Type;Cover-type
+CoverData;
 Cropped;Beskæringsdeminsioner
 Custom;Tilpas
 CustomDownmixTargets;
@@ -1405,4 +1406,4 @@ Yes;Ja
 Your system;Dit system
 Your translation;
 ZZ_Automatic_Percent;60
-ZZ_AutomaticLanguage_Percent;70
+ZZ_AutomaticLanguage_Percent;69

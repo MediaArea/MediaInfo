@@ -343,6 +343,7 @@ Cover_Datas;Cover datas
 Cover_Description;
 Cover_Mime;
 Cover_Type;
+CoverData;
 Cropped;
 Custom;Προσαρμοσμένη
 CustomDownmixTargets;
@@ -1405,4 +1406,4 @@ Yes;Ναι
 Your system;Το σύστημά σας
 Your translation;
 ZZ_Automatic_Percent;54
-ZZ_AutomaticLanguage_Percent;59
+ZZ_AutomaticLanguage_Percent;58

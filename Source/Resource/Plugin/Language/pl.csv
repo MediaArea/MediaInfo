@@ -343,6 +343,7 @@ Cover_Datas;Dane okładki
 Cover_Description;Opis okładki
 Cover_Mime;Rozszerzenie okładki
 Cover_Type;Typ okładki
+CoverData;
 Cropped;Wymiary spadu
 Custom;Własne szablony
 CustomDownmixTargets;

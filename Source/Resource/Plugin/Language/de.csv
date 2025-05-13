@@ -343,6 +343,7 @@ Cover_Datas;Cover-Daten
 Cover_Description;Cover-Beschreibung
 Cover_Mime;Cover-MIME
 Cover_Type;Cover-Typ
+CoverData;
 Cropped;Schnitt-Dimensionen
 Custom;Benutzerdefiniert
 CustomDownmixTargets;

@@ -343,6 +343,7 @@ Cover_Datas;داده روکش ها
 Cover_Description;شرح روکش
 Cover_Mime;روکش MIME
 Cover_Type;نوع روکش
+CoverData;
 Cropped;بریدن اندازه
 Custom;دیگر
 CustomDownmixTargets;

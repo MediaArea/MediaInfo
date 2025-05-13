@@ -343,6 +343,7 @@ Cover_Datas;Borító adatai
 Cover_Description;Borító leírás
 Cover_Mime;Borító MIME
 Cover_Type;Borító típusa
+CoverData;
 Cropped;Méretek
 Custom;Egyedi
 CustomDownmixTargets;

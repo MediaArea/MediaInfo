@@ -343,6 +343,7 @@ Cover_Datas;封面数据
 Cover_Description;封面说明
 Cover_Mime;封面 MIME
 Cover_Type;封面类型
+CoverData;
 Cropped;裁剪信息
 Custom;自定义
 CustomDownmixTargets;自定义缩混目标

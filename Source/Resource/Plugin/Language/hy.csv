@@ -343,6 +343,7 @@ Cover_Datas;Կազմի տվյալները
 Cover_Description;Կազմի նկարագրությունը
 Cover_Mime;Կազմի MIME տեսակ
 Cover_Type;Կազմի տեսակը
+CoverData;
 Cropped;Կտրման չափերը
 Custom;Ընտրված
 CustomDownmixTargets;

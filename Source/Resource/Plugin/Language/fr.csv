@@ -343,6 +343,7 @@ Cover_Datas;Données de la pochette
 Cover_Description;Description de la pochette
 Cover_Mime;MIME MailExtension de la pochette
 Cover_Type;Type de la pochette
+CoverData;
 Cropped;Dimensions du retaillage
 Custom;Sortie personnalisée
 CustomDownmixTargets;Cibles de mixage réducteur personnalisé
