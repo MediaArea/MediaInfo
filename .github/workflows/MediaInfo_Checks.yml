@@ -216,6 +216,7 @@ jobs:
           cmake -G Ninja -D CMAKE_BUILD_TYPE=Release \
             -D CMAKE_PREFIX_PATH=./cmake-prefix/ \
             -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ \
+            -D CMAKE_CXX_STANDARD=17 \
             -D BUILD_ZLIB=OFF \
             -D BUILD_ZENLIB=OFF \
             -D BUILD_SHARED_LIBS=ON \
