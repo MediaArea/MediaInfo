@@ -3,10 +3,6 @@ project(MediaInfo_CLI VERSION 1.0.0 LANGUAGES CXX)
 
 option(MEDIAINFO_CLI_STATIC "Link MediaInfo CLI statically" ON)
 
-if(POLICY CMP0102)
-  cmake_policy(SET CMP0102 NEW)
-endif()
-
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CLI_SOURCES
