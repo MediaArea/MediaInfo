@@ -125,15 +125,16 @@ jobs:
       - name: cmake build
         shell: bash
         run: |
-          cmake -D CMAKE_BUILD_TYPE=Release -B build-zlib ./zlib/
+          cmake -G Ninja -D CMAKE_BUILD_TYPE=Release -B build-zlib ./zlib/
           cmake --build build-zlib
           cmake --install build-zlib --prefix ./cmake-prefix/
 
-          cmake -D CMAKE_BUILD_TYPE=Release -B build-zenlib ./ZenLib/Project/CMake/
+          cmake -G Ninja -D CMAKE_BUILD_TYPE=Release -B build-zenlib ./ZenLib/Project/CMake/
           cmake --build build-zenlib
           cmake --install build-zenlib --prefix ./cmake-prefix/
 
-          cmake -D CMAKE_BUILD_TYPE=Release \
+          cmake -G Ninja -D CMAKE_BUILD_TYPE=Release \
+            -D CMAKE_PREFIX_PATH=./cmake-prefix/ \
             -D BUILD_ZLIB=OFF \
             -D BUILD_ZENLIB=OFF \
             -D BUILD_SHARED_LIBS=ON \
@@ -142,7 +143,7 @@ jobs:
           cmake --build build-lib
           cmake --install build-lib --prefix ./cmake-prefix/
 
-          cmake -D CMAKE_PREFIX_PATH=./cmake-prefix/ \
+          cmake -G Ninja -D CMAKE_PREFIX_PATH=./cmake-prefix/ \
             -B build \
             ./MediaInfo/Project/CMake/CLI/
 
