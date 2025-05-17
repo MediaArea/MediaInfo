@@ -235,3 +235,6 @@ jobs:
             ./MediaInfo/Project/CMake/CLI/
 
           cmake --build build
+
+
+      - run: ./build/mediainfo.exe --help
