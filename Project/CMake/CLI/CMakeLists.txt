@@ -21,7 +21,7 @@ add_executable(mediainfo_cli ${CLI_SOURCES})
 if(MEDIAINFO_CLI_STATIC)
     # Prefer static libraries
     set(CMAKE_FIND_LIBRARY_SUFFIXES .a .lib ${CMAKE_FIND_LIBRARY_SUFFIXES})
-    target_compile_definitions(mediainfo_cli PRIVATE MEDIAINFO_DLL_STATIC)
+    # target_compile_definitions(mediainfo_cli PRIVATE MEDIAINFO_DLL_STATIC)
 else()
     target_compile_definitions(mediainfo_cli PRIVATE MEDIAINFO_DLL_RUNTIME)
 endif()
