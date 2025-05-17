@@ -32,7 +32,7 @@ add_executable(mediainfo_cli ${CLI_SOURCES})
 
 find_package(ZLIB REQUIRED)
 find_package(Threads REQUIRED)
-find_package(zenlib REQUIRED)
+find_package(ZenLib REQUIRED)
 find_package(mediainfolib REQUIRED)
 
 set_target_properties(mediainfo_cli PROPERTIES OUTPUT_NAME mediainfo)
@@ -43,6 +43,7 @@ target_compile_definitions(mediainfo_cli PRIVATE UNICODE)
 target_link_libraries(mediainfo_cli
     PRIVATE
     mediainfo
+    ZenLib
     ZLIB::ZLIB
     Threads::Threads
 )
