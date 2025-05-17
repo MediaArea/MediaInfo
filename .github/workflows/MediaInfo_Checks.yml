@@ -155,6 +155,7 @@ jobs:
 
           cmake -G Ninja -D CMAKE_PREFIX_PATH=./cmake-prefix/ \
             -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ \
+            -D CMAKE_BUILD_TYPE=Release \
             -B build \
             ./MediaInfo/Project/CMake/CLI/
 
