@@ -16,7 +16,6 @@ set(CLI_SOURCES
 find_package(ZLIB REQUIRED)
 find_package(Threads REQUIRED)
 find_package(zenlib REQUIRED)
-find_package(tinyxml2 REQUIRED)
 
 find_package(mediainfolib REQUIRED)
 
