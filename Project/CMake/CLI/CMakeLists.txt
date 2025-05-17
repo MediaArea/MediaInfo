@@ -11,7 +11,7 @@ if(MEDIAINFO_CLI_STATIC)
     # Prefer static libraries
     set(CMAKE_FIND_LIBRARY_SUFFIXES .a .lib ${CMAKE_FIND_LIBRARY_SUFFIXES})
     set(BUILD_SHARED_LIBS OFF)
-    target_compile_definitions(mediainfo_cli PRIVATE MEDIAINFO_STATIC)
+    target_compile_definitions(mediainfo_cli PRIVATE MEDIAINFO_DLL_STATIC)
 else()
     # Prefer dynamic libraries
     set(CMAKE_FIND_LIBRARY_SUFFIXES ${CMAKE_SHARED_LIBRARY_SUFFIX} ${CMAKE_FIND_LIBRARY_SUFFIXES})
