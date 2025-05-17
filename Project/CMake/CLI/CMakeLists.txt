@@ -13,13 +13,13 @@ set(CLI_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../Source/Common/Core.cpp
 )
 
+add_executable(mediainfo_cli ${CLI_SOURCES})
+
 find_package(ZLIB REQUIRED)
 find_package(Threads REQUIRED)
 find_package(zenlib REQUIRED)
-
 find_package(mediainfolib REQUIRED)
 
-add_executable(mediainfo_cli ${CLI_SOURCES})
 
 set_target_properties(mediainfo_cli PROPERTIES OUTPUT_NAME mediainfo)
 
