@@ -122,6 +122,11 @@ jobs:
         with:
           path: MediaInfo
 
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
+        with:
+          msbuild-architecture: ${{ runner.arch == 'ARM64' && 'arm64' || 'x64' }}
+
       - name: cmake build
         shell: bash
         run: |
@@ -151,10 +156,6 @@ jobs:
 
       - name: Apply MediaInfo_NoGUI patch
         run: cd ${{ github.workspace }}\MediaInfo && git apply ${{ github.workspace }}\MediaArea-Utils\build_release\Diff\MediaInfo_NoGUI.diff
-      - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v2
-        with:
-          msbuild-architecture: ${{ runner.arch == 'ARM64' && 'arm64' || 'x64' }}
       - name: Build
         run: msbuild -restore -p:RestorePackagesConfig=true -p:Configuration=Release -p:Platform=${{ matrix.architecture }} ${{ github.workspace }}\MediaInfo\Project\MSVC2022\MediaInfo.sln -verbosity:quiet -warnaserror
       - name: Test CLI
