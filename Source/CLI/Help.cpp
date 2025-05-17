@@ -58,7 +58,7 @@ int Help()
     TEXTOUT("                    Full information Display with XML tags using the older");
     TEXTOUT("                    MediaInfo schema");
     TEXTOUT("--Output=JSON");
-    TEXTOUT("                    Full information Display using JSON");
+    TEXTOUT("                    Full information Display with JSON");
     TEXTOUT("--Output=EBUCore");
     TEXTOUT("                    Full information Display with EBUCore compliant XML tags");
     TEXTOUT("--Output=EBUCore_JSON");
@@ -67,6 +67,10 @@ int Help()
     TEXTOUT("                    Full information Display with PBCore compliant XML tags");
     TEXTOUT("--Output=PBCore2");
     TEXTOUT("                    Full information Display with PBCore 2.0 compliant XML tags");
+    TEXTOUT("--Output=Graph_Svg");
+    TEXTOUT("                    Graph Display with SVG");
+    TEXTOUT("--Output=Graph_Dot");
+    TEXTOUT("                    Graph Display with Graphviz DOT");
     TEXTOUT("--AcquisitionDataOutputMode=segmentParameter");
     TEXTOUT("                    Display Acquisition Data by segment then parameter (EBUCore");
     TEXTOUT("                    and NISO Z39.87 outputs)");
@@ -82,7 +86,11 @@ int Help()
     TEXTOUT("");
     TEXTOUT("--Language=raw");
     TEXTOUT("                    Display non-translated unique identifiers (internal text)");
-    TEXTOUT("--Details=1");
+    TEXTOUT("--LegacyStreamDisplay=1");
+    TEXTOUT("                    Display backward compatibility information for HD/HE audio and 3D/HDR video streams");
+    TEXTOUT("--Cover_Data=base64");
+    TEXTOUT("                    Include cover images as base64 in HTML, XML and JSON output");
+    TEXTOUT("--Trace_Level=1, --Details=1");
     TEXTOUT("                    Display mediatrace info");
     TEXTOUT("--inform_version=1");
     TEXTOUT("                    Add MediaInfoLib version to the text output");
