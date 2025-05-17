@@ -123,6 +123,7 @@ jobs:
           path: MediaInfo
 
       - name: cmake build
+        shell: bash
         run: |
           cmake -D CMAKE_BUILD_TYPE=Release -B build-zlib ./zlib/
           cmake --build build-zlib
