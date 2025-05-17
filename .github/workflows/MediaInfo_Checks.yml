@@ -178,13 +178,7 @@ jobs:
         with:
           repository: MediaArea/MediaInfoLib
           path: MediaInfoLib
-      - name: Checkout MediaArea-Utils for MediaInfo_NoGUI patch
-        uses: actions/checkout@v4
-        with:
-          repository: MediaArea/MediaArea-Utils
-          path: MediaArea-Utils
-          sparse-checkout: build_release/Diff/MediaInfo_NoGUI.diff
-          sparse-checkout-cone-mode: false
+
       - name: Checkout MediaInfo
         uses: actions/checkout@v4
         with:
