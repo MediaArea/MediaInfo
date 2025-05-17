@@ -61,3 +61,6 @@ My Project
 /Project/QMake/GUI/build
 /Source/Resource/Translations
 build/
+
+.vscode/
+taskfile.yaml
