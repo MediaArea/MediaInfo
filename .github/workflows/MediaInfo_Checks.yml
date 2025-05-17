@@ -122,13 +122,10 @@ jobs:
         with:
           path: MediaInfo
 
-      - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v2
-        with:
-          msbuild-architecture: ${{ runner.arch == 'ARM64' && 'arm64' || 'x64' }}
+      - uses: ilammy/msvc-dev-cmd@v1
 
       - name: cmake build
-        shell: pwsh
+        shell: bash
         env:
           CC: cl.exe
           CXX: cl.exe
@@ -141,24 +138,30 @@ jobs:
           cmake --build build-zenlib
           cmake --install build-zenlib --prefix ./cmake-prefix/
 
-          cmake -G Ninja -D CMAKE_BUILD_TYPE=Release ^
-            -D CMAKE_PREFIX_PATH=./cmake-prefix/ ^
-            -D BUILD_ZLIB=OFF ^
-            -D BUILD_ZENLIB=OFF ^
-            -D BUILD_SHARED_LIBS=ON ^
+          cmake -G Ninja -D CMAKE_BUILD_TYPE=Release \
+            -D CMAKE_PREFIX_PATH=./cmake-prefix/ \
+            -D BUILD_ZLIB=OFF \
+            -D BUILD_ZENLIB=OFF \
+            -D BUILD_SHARED_LIBS=ON \
             -B build-lib ./MediaInfoLib/Project/CMake/
 
           cmake --build build-lib
           cmake --install build-lib --prefix ./cmake-prefix/
 
-          cmake -G Ninja -D CMAKE_PREFIX_PATH=./cmake-prefix/ ^
-            -B build ^
+          cmake -G Ninja -D CMAKE_PREFIX_PATH=./cmake-prefix/ \
+            -B build \
             ./MediaInfo/Project/CMake/CLI/
 
           cmake --build build
 
       - name: Apply MediaInfo_NoGUI patch
         run: cd ${{ github.workspace }}\MediaInfo && git apply ${{ github.workspace }}\MediaArea-Utils\build_release\Diff\MediaInfo_NoGUI.diff
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
+        with:
+          msbuild-architecture: ${{ runner.arch == 'ARM64' && 'arm64' || 'x64' }}
+
       - name: Build
         run: msbuild -restore -p:RestorePackagesConfig=true -p:Configuration=Release -p:Platform=${{ matrix.architecture }} ${{ github.workspace }}\MediaInfo\Project\MSVC2022\MediaInfo.sln -verbosity:quiet -warnaserror
       - name: Test CLI
