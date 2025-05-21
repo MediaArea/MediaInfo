@@ -391,6 +391,16 @@ void __fastcall TPreferencesF::CB_InscrireShell_FolderClick(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
+void __fastcall TPreferencesF::CB_InscrireShell_RetainLegacyClick(TObject *Sender)
+{
+    //Shell extension
+    if (CB_InscrireShell_RetainLegacy->Checked)
+        Prefs->Config(__T("ShellExtension_RetainLegacy"), 1)=__T("1");
+    else
+        Prefs->Config(__T("ShellExtension_RetainLegacy"), 1)=__T("0");
+}
+
+//---------------------------------------------------------------------------
 void __fastcall TPreferencesF::CB_InfoTipClick(TObject *Sender)
 {
     //ToolTip
@@ -651,6 +661,7 @@ void __fastcall TPreferencesF::Setup_GeneralShow(TObject *Sender)
     CB_CheckUpdate->Checked=Prefs->Config(__T("CheckUpdate")).To_int32s();
     CB_InscrireShell->Checked=Prefs->Config(__T("ShellExtension")).To_int32s(); //Lecture Shell extension
     CB_InscrireShell_Folder->Checked=Prefs->Config(__T("ShellExtension_Folder")).To_int32s(); //Lecture Shell extension
+    CB_InscrireShell_RetainLegacy->Checked=Prefs->Config(__T("ShellExtension_RetainLegacy")).To_int32s(); //Lecture Shell extension
     CB_InfoTip->Checked=Prefs->Config(__T("ShellInfoTip")).To_int32s(); //Lecture Shell extension
 }
 
@@ -703,7 +714,7 @@ void __fastcall TPreferencesF::GUI_Configure()
     Tree->FullExpand();
     Page->ActivePage=Setup;
 
-    //Enable separate instance option if modern shell extension is installed
+    //Enable additional options if modern shell extension is installed
     TRegistry* Reg = new TRegistry;
     try {
         Reg->RootKey = HKEY_CLASSES_ROOT;
@@ -714,12 +725,13 @@ void __fastcall TPreferencesF::GUI_Configure()
                 if (Reg->ValueExists("ShellExtension_SeparateInstance"))
                     CB_InscrireShell_SeparateInstance->Checked=Reg->ReadInteger("ShellExtension_SeparateInstance");
             }
+            CB_InscrireShell_RetainLegacy->Visible=true;
         }
     } catch (...) {}
     delete Reg;
 
     //Move InfoTip option up to prevent blank space if there is a space
-    if (!CB_InscrireShell_SeparateInstance->Visible)
+    if (!CB_InscrireShell_SeparateInstance->Visible && !CB_InscrireShell_RetainLegacy->Visible)
         CB_InfoTip->Top=CB_InscrireShell_Folder->Top+CB_InscrireShell_Folder->Height*0.9;
 
     //Translation

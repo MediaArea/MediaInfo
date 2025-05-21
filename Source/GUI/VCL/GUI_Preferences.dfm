@@ -4,7 +4,7 @@ object PreferencesF: TPreferencesF
   BorderIcons = []
   BorderStyle = bsDialog
   Caption = 'Preferences'
-  ClientHeight = 219
+  ClientHeight = 225
   ClientWidth = 850
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -17,7 +17,7 @@ object PreferencesF: TPreferencesF
   TextHeight = 14
   object OK: TButton
     Left = 720
-    Top = 186
+    Top = 192
     Width = 122
     Height = 27
     Caption = 'OK'
@@ -30,7 +30,7 @@ object PreferencesF: TPreferencesF
     Left = 0
     Top = 0
     Width = 176
-    Height = 178
+    Height = 184
     Indent = 19
     ParentShowHint = False
     ReadOnly = True
@@ -54,7 +54,7 @@ object PreferencesF: TPreferencesF
   end
   object Cancel: TButton
     Left = 593
-    Top = 186
+    Top = 192
     Width = 121
     Height = 27
     Cancel = True
@@ -66,7 +66,7 @@ object PreferencesF: TPreferencesF
     Left = 176
     Top = 0
     Width = 666
-    Height = 180
+    Height = 186
     ActivePage = Setup
     MultiLine = True
     TabHeight = 22
@@ -145,7 +145,7 @@ object PreferencesF: TPreferencesF
       end
       object CB_InfoTip: TCheckBox
         Left = 2
-        Top = 120
+        Top = 135
         Width = 655
         Height = 18
         Caption = 
@@ -184,7 +184,16 @@ object PreferencesF: TPreferencesF
         Caption = 'Open each item in a separate instance'
         TabOrder = 8
         Visible = False
-        OnClick = CB_InscrireShell_FolderClick
+      end
+      object CB_InscrireShell_RetainLegacy: TCheckBox
+        Left = 18
+        Top = 120
+        Width = 639
+        Height = 17
+        Caption = 'Retain legacy shell extension'
+        TabOrder = 9
+        Visible = False
+        OnClick = CB_InscrireShell_RetainLegacyClick
       end
     end
     object Setup_Advanced: TTabSheet
