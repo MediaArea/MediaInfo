@@ -816,6 +816,7 @@ int Preferences::ExplorerShell()
     //Controls for legacy shell extension
     int32s LegacyShellExtension = Config.Read(__T("ShellExtension")).To_int32s();
     int32s LegacyShellExtension_Folder = Config.Read(__T("ShellExtension_Folder")).To_int32s();
+    int32s RetainLegacyShellExtension = Config.Read(__T("ShellExtension_RetainLegacy")).To_int32s();
 
     //Control writing registry for modern IExplorerCommand-based shell extension
     bool ModernShellExtensionUsed = false;
@@ -826,8 +827,10 @@ int Preferences::ExplorerShell()
     try {
         //If modern shell extension is installed
         if (ModernReg->OpenKeyReadOnly(__T("PackagedCom\\ClassIndex\\{20669675-B281-4C4F-94FB-CB6FD3995545}"))) {
-            LegacyShellExtension = 0;                           //Disable legacy shell extension
-            LegacyShellExtension_Folder = 0;                    //Disable legacy shell extension
+            if (RetainLegacyShellExtension != 1) {
+                LegacyShellExtension = 0;                       //Disable legacy shell extension
+                LegacyShellExtension_Folder = 0;                //Disable legacy shell extension
+            }
             ModernShellExtensionUsed = true;                    //Need to control modern shell extension
             ModernReg->CloseKey();
         }
