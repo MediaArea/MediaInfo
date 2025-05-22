@@ -381,7 +381,7 @@ DisplayCaptions_Content;Visualizza didascalie - contenuto
 DisplayCaptions_Stream;Visualizza didascalie - stream
 DistributedBy;Distribuito da
 Distributor;Distributore
-Documents;
+Documents;Documenti
 Dolby_Atmos_Metadata;Metadati Dolby Atmos
 DolbyAtmos;Dolby Atmos
 Donate;Dona
@@ -517,7 +517,7 @@ FrameRate_Num;Frequenza fotogrammi
 FrameRate_Original;Frequenza fotogrammi originale
 FrameRate_Real;Frequenza fotogrammi reale
 FullParsing;Analisi completa
-Gallery;
+Gallery;Galleria
 General;Generale
 GeneralCompliance;Conformità generale
 Genre;Genere
@@ -1305,7 +1305,7 @@ Text streams;Sottotitoli
 Text_Codec_List;Codec sottotitoli
 Text_Format_List;Elenco formati testo
 Text_Format_WithHint_List;Elenco formati testo con suggerimenti
-Text_Language_List;Elenco ligue testo
+Text_Language_List;Elenco lingue testo
 Text_No;Nessun sottotitolo
 Text1;Sottotitolo 1
 Text2;Sottotitolo 2
@@ -1408,6 +1408,6 @@ Written_Location;Realizzato in
 WrittenBy;Realizzato da
 Yes;Si
 Your system;Info sul sistema
-Your translation;Traduzione v. 09.11.2024 by RB
+Your translation;Traduzione v. 01.05.2025 by RB
 ZZ_Automatic_Percent;99
 ZZ_AutomaticLanguage_Percent;99
