@@ -904,6 +904,11 @@ QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
         treeWidget->topLevelItem(0)->setExpanded(true);
     }
     treeWidget->resizeColumnToContents(0);
+    treeWidget->resizeColumnToContents(1);
+
+    connect(treeWidget, &QTreeWidget::expanded, [treeWidget]() { treeWidget->resizeColumnToContents(0); treeWidget->resizeColumnToContents(1); });
+    connect(treeWidget, &QTreeWidget::collapsed, [treeWidget]() { treeWidget->resizeColumnToContents(0); treeWidget->resizeColumnToContents(1); });
+
     return treeWidget;
 }
 
