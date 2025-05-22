@@ -343,6 +343,7 @@ Cover_Datas;Kapak verileri
 Cover_Description;Kapak açıklaması
 Cover_Mime;Kapak MIME
 Cover_Type;Kapak türü
+CoverData;
 Cropped;Kırpma boyutları
 Custom;Özel
 CustomDownmixTargets;
@@ -1404,5 +1405,5 @@ WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
 Your translation;
-ZZ_Automatic_Percent;78
-ZZ_AutomaticLanguage_Percent;79
+ZZ_Automatic_Percent;77
+ZZ_AutomaticLanguage_Percent;78

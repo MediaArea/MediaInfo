@@ -343,6 +343,7 @@ Cover_Datas;Данные обложки
 Cover_Description;Описание обложки
 Cover_Mime;MIME-тип обложки
 Cover_Type;Тип обложки
+CoverData;
 Cropped;Размеры подрезки
 Custom;Выборочно
 CustomDownmixTargets;Настраиваемые форматы понижающего микширования

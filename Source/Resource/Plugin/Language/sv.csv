@@ -343,6 +343,7 @@ Cover_Datas;Omslagsinformation
 Cover_Description;Omslagsbeskrivning
 Cover_Mime;Omslagsformat
 Cover_Type;Omslagstyp
+CoverData;
 Cropped;Beskärningsstorlek
 Custom;Anpassad
 CustomDownmixTargets;

@@ -7,8 +7,8 @@
 // webview2widget.h
 // From code generated with Qwen2.5-Max
 
-#ifndef WEBVIEW2WIDGET_H
-#define WEBVIEW2WIDGET_H
+#ifndef EDGEWEBVIEW2WIDGET_H
+#define EDGEWEBVIEW2WIDGET_H
 
 #include <QQueue>
 #include <QString>
@@ -48,4 +48,4 @@ private:
     QQueue<QUrl> m_pendingUrls;    // Queue for pending URLs
 };
 
-#endif // WEBVIEW2WIDGET_H
+#endif // EDGEWEBVIEW2WIDGET_H

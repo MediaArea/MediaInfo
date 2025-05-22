@@ -343,6 +343,7 @@ Cover_Datas;Datos de portada
 Cover_Description;Descripción de portada
 Cover_Mime;Portada MIME
 Cover_Type;Tipo de portada
+CoverData;
 Cropped;Dimensiones de recorte
 Custom;Personalizado
 CustomDownmixTargets;

@@ -343,6 +343,7 @@ Cover_Datas;Cover datas
 Cover_Description;Cover description
 Cover_Mime;Cover MIME
 Cover_Type;Cover type
+CoverData;Include cover images in HTML, XML and JSON
 Cropped;Crop dimensions
 Custom;Custom
 CustomDownmixTargets;Custom downmix targets

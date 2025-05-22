@@ -343,6 +343,7 @@ Cover_Datas;표지 정보
 Cover_Description;표지 설명
 Cover_Mime;표지 MIME
 Cover_Type;표지 타입
+CoverData;
 Cropped;자른 영역
 Custom;커스텀
 CustomDownmixTargets;

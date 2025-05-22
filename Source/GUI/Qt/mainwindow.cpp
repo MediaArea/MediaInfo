@@ -51,14 +51,8 @@ using namespace ZenLib;
 
 #define VERSION "25.04"
 
-#if defined(EDGE_WEBVIEW2_YES)
-#include "webview2widget.h"
-#include "graphplugin.h"
-#define WebViewWidget WebView2Widget
-#elif !defined(MEDIAINFO_HTML_NO)
-#include <QWebEngineView>
-#include "graphplugin.h"
-#define WebViewWidget QWebEngineView
+#ifndef MEDIAINFO_HTML_NO
+#include "htmlwidget.h"
 #endif
 
 #if defined(_WIN32) && defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP) //UWP Application
@@ -735,13 +729,13 @@ void MainWindow::refreshDisplay() {
             case VIEW_HTML:
                 #ifndef MEDIAINFO_HTML_NO
                     C->Menu_View_HTML();
-                    viewWidget = new WebViewWidget();
-                    ((WebViewWidget*)viewWidget)->setHtml(wstring2QString(C->Inform_Get()));
+                    viewWidget = new HTMLViewWidget(C, settings);
                 #endif
                 break;
             case VIEW_GRAPH:
                 #ifndef MEDIAINFO_HTML_NO
-                    viewWidget = new GraphViewWidget(C, settings);
+                    C->Menu_View_Graph_Svg();
+                    viewWidget = new HTMLViewWidget(C, settings);
                 #endif
                 break;
             case VIEW_TREE:
@@ -1005,6 +999,7 @@ void MainWindow::applySettings() {
     ui->toolBar->setToolButtonStyle(Qt::ToolButtonStyle(settings->value("iconStyle",Qt::ToolButtonIconOnly).toInt()));
     ui->toolBar->setIconSize(settings->value("iconSize",QSize(32,32)).toSize());
     C->Menu_Option_Preferences_Option(__T("LegacyStreamDisplay"), settings->value("legacyStreamDisplay",false).toBool() ? __T("1") : __T("0"));
+    C->Menu_Option_Preferences_Option(__T("Cover_Data"), settings->value("coverData",false).toBool() ? __T("base64") : __T(""));
 
     qApp->removeTranslator(translator);
     Q_UNUSED(translator->load(settings->value("language", "en").toString(), ":/languages/Translations"));

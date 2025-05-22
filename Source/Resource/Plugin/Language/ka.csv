@@ -343,6 +343,7 @@ Cover_Datas;Cover datas
 Cover_Description;Cover description
 Cover_Mime;Cover MIME
 Cover_Type;Cover type
+CoverData;
 Cropped;Crop dimensions
 Custom;სტანდარტული
 CustomDownmixTargets;

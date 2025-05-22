@@ -351,10 +351,10 @@ void Core::Menu_View_NISO_Z39_87()
 }
 
 //---------------------------------------------------------------------------
-void Core::Menu_View_Graph_Adm_Svg()
+void Core::Menu_View_Graph_Svg()
 {
-    MI->Option(__T("Inform"), __T("Graph_Adm_Svg"));
-    Kind = Kind_Graph_Adm_Svg;
+    MI->Option(__T("Inform"), __T("Graph_Svg"));
+    Kind = Kind_Graph_Svg;
 }
 
 //---------------------------------------------------------------------------

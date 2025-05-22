@@ -6,7 +6,7 @@
 
 #ifndef MEDIAINFO_HTML_NO
 
-#include "graphplugin.h"
+#include "htmlwidget.h"
 #include "ZenLib/Ztring.h"
 #include <QApplication>
 #include <QComboBox>
@@ -20,33 +20,41 @@
 
 using namespace ZenLib;
 
-GraphViewWidget::GraphViewWidget(Core *C, QSettings *settings, QWidget *parent)
+HTMLViewWidget::HTMLViewWidget(Core *C, QSettings *settings, QWidget *parent)
     : QWidget(parent), C(C), FilePos(0) {
 
-    C->Menu_Option_Preferences_Option(__T("Graph_Adm_ShowTrackUIDs"), settings->value("Graph_Adm_ShowTrackUIDs",false).toBool() ? __T("1") : __T("0"));
-    C->Menu_Option_Preferences_Option(__T("Graph_Adm_ShowChannelFormats"), settings->value("Graph_Adm_ShowChannelFormats",false).toBool() ? __T("1") : __T("0"));
-    C->Menu_Option_Preferences_Inform(__T("Graph_Svg"));
+    if (C->Kind_Get() == Core::Kind_Graph_Svg) {
+        C->Menu_Option_Preferences_Option(__T("Graph_Adm_ShowTrackUIDs"), settings->value("Graph_Adm_ShowTrackUIDs",false).toBool() ? __T("1") : __T("0"));
+        C->Menu_Option_Preferences_Option(__T("Graph_Adm_ShowChannelFormats"), settings->value("Graph_Adm_ShowChannelFormats",false).toBool() ? __T("1") : __T("0"));
 
-    QComboBox *fileChoice = new QComboBox(this);
-    fileChoice->setMinimumContentsLength(1);
-    for (size_t Pos = 0; Pos < C->Count_Get(); ++Pos)
-        fileChoice->addItem(wstring2QString(C->Get(Pos, Stream_General, 0, __T("CompleteName"))));
-    fileChoice->setCurrentIndex(FilePos);
-    connect(fileChoice, SIGNAL(currentIndexChanged(int)), SLOT(changeFilePos(int)));
+        QComboBox *fileChoice = new QComboBox(this);
+        fileChoice->setMinimumContentsLength(1);
+        for (size_t Pos = 0; Pos < C->Count_Get(); ++Pos)
+            fileChoice->addItem(wstring2QString(C->Get(Pos, Stream_General, 0, __T("CompleteName"))));
+        fileChoice->setCurrentIndex(FilePos);
+        connect(fileChoice, SIGNAL(currentIndexChanged(int)), SLOT(changeFilePos(int)));
 
-    webView = new WebViewWidget(this);
+        webView = new WebViewWidget(this);
 
-    QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->addWidget(fileChoice);
-    layout->addWidget(webView);
+        QVBoxLayout *layout = new QVBoxLayout(this);
+        layout->addWidget(fileChoice);
+        layout->addWidget(webView);
 
-    this->setLayout(layout);
+        this->setLayout(layout);
+    }
+    else {
+        webView = new WebViewWidget(this);
+        QVBoxLayout *layout = new QVBoxLayout(this);
+        layout->setContentsMargins(0, 0, 0, 0);
+        layout->addWidget(webView);
+        this->setLayout(layout);
+    }
 
     tempFile.setFileTemplate(tempFile.fileTemplate() + ".html");
     refresh();
 }
 
-QString GraphViewWidget::generateGraphHTML() {
+QString HTMLViewWidget::generateGraphHTML() {
     QString html;
     QString state{wstring2QString(C->Menu_Option_Preferences_Option(__T("Info_Graph_Svg_Plugin_State"), __T("")))};
     if (state == "1") {
@@ -76,20 +84,25 @@ QString GraphViewWidget::generateGraphHTML() {
     return html;
 }
 
-void GraphViewWidget::refresh() {
-    QString graphHTML{generateGraphHTML()};
-    if (graphHTML.toUtf8().size() < 0.5e6)
-        webView->setHtml(graphHTML);
+void HTMLViewWidget::refresh() {
+    QString HTML;
+    if (C->Kind_Get() == Core::Kind_Graph_Svg)
+        HTML = generateGraphHTML();
+    else
+        HTML = wstring2QString(C->Inform_Get());
+
+    if (HTML.toUtf8().size() < 0.5e6)
+        webView->setHtml(HTML);
     else {
         if (!tempFile.open())
             return;
         tempFile.resize(0);
-        tempFile.write(graphHTML.toUtf8());
+        tempFile.write(HTML.toUtf8());
         webView->load(QUrl::fromLocalFile(tempFile.fileName()));
     }
 }
 
-void GraphViewWidget::changeFilePos(int newFilePos) {
+void HTMLViewWidget::changeFilePos(int newFilePos) {
     FilePos = newFilePos;
     refresh();
 }

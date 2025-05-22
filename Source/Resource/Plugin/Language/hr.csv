@@ -343,6 +343,7 @@ Cover_Datas;Podatci na omotu
 Cover_Description;Opis omota
 Cover_Mime;MIME omota
 Cover_Type;Vrsta omota
+CoverData;
 Cropped;Omjer reza
 Custom;Vlastito
 CustomDownmixTargets;

@@ -343,6 +343,7 @@ Cover_Datas;Të dhënat e cover-it
 Cover_Description;Përshkrimi i cover-it
 Cover_Mime;MIME i cover-it
 Cover_Type;Lloji i cover-it
+CoverData;
 Cropped;Dimensionet e prerjes
 Custom;Me porosi
 CustomDownmixTargets;

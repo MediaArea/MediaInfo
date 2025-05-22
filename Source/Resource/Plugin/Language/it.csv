@@ -343,6 +343,7 @@ Cover_Datas;Dati copertina
 Cover_Description;Descrizione copertina
 Cover_Mime;Copertina MIME
 Cover_Type;Tipo di copertina
+CoverData;
 Cropped;Dimensioni ritaglio
 Custom;Vista personalizzata
 CustomDownmixTargets;Livello downmix personalizzato

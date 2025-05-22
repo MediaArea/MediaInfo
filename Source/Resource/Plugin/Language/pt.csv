@@ -343,6 +343,7 @@ Cover_Datas;Dados da capa
 Cover_Description;Descrição da capa
 Cover_Mime;MIME da Capa
 Cover_Type;Tipo de Capa
+CoverData;
 Cropped;Dimensões de corte
 Custom;Personalizado
 CustomDownmixTargets;
