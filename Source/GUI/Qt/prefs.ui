@@ -294,7 +294,7 @@
               </sizepolicy>
              </property>
              <property name="text">
-              <string>Open each item in a separate instance</string>
+              <string>Shell extension, separate instance</string>
              </property>
             </widget>
            </item>
@@ -445,7 +445,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Display legacy AC-3/DTS/AAC streams embedded in HD/HE streams (requires reload)</string>
+            <string>LegacyStreamDisplay</string>
            </property>
           </widget>
          </item>

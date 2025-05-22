@@ -381,6 +381,7 @@ DisplayCaptions_Content;
 DisplayCaptions_Stream;
 DistributedBy;Shpërndarë nga
 Distributor;
+Documents;
 Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;Jep kontribut
@@ -516,6 +517,7 @@ FrameRate_Num;
 FrameRate_Original;Raporti origjinal i kuadrit
 FrameRate_Real;
 FullParsing;
+Gallery;
 General;Përgjithësi
 GeneralCompliance;
 Genre;Zhanri
@@ -979,6 +981,7 @@ Language_zh-yue;
 Language_zu;Zulu
 Languages;
 LawRating;Vlerësimi ligjor
+LegacyStreamDisplay;
 LCCN;LCCN
 LfeAttenuationKnown;
 LfeMixGain;
@@ -1224,6 +1227,7 @@ Sheet;Fletë
 Sheet (Complete);Fletë (Plot)
 Shell extension;Shto në bazë (kur klikon në Explorer me të djathtën do jepet mundësia Media Info)
 Shell extension, folder;Edhe për dosjet
+Shell extension, separate instance;
 Shell InfoTip;Këshilla Informuese në bazë (në Explorer, kur çon mausin mbi skedë do shfaqen info)
 ShimName;
 ShimVersion;

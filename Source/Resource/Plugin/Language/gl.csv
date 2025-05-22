@@ -381,6 +381,7 @@ DisplayCaptions_Content;
 DisplayCaptions_Stream;
 DistributedBy;Distribuido por
 Distributor;
+Documents;
 Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;Doar
@@ -516,6 +517,7 @@ FrameRate_Num;
 FrameRate_Original;
 FrameRate_Real;
 FullParsing;
+Gallery;
 General;Xeral
 GeneralCompliance;
 Genre;Xenero
@@ -979,6 +981,7 @@ Language_zh-yue;
 Language_zu;Zulu
 Languages;
 LawRating;Valoración legal
+LegacyStreamDisplay;
 LCCN;LCCN
 LfeAttenuationKnown;
 LfeMixGain;
@@ -1224,6 +1227,7 @@ Sheet;Folla
 Sheet (Complete);Folla (Completa)
 Shell extension;Shell extension (ao picar co botón dereito do rato aparecerá unha opción Media Info ...)
 Shell extension, folder;
+Shell extension, separate instance;
 Shell InfoTip;Shell InfoTip (no explorer, situa o rato sobre o arquivo para ver a información)
 ShimName;
 ShimVersion;

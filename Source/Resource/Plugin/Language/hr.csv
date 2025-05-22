@@ -381,6 +381,7 @@ DisplayCaptions_Content;
 DisplayCaptions_Stream;
 DistributedBy;Distribucija
 Distributor;
+Documents;
 Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;Potpora razvoju MediaInfo
@@ -516,6 +517,7 @@ FrameRate_Num;
 FrameRate_Original;Izvorna stopa protoka sličica
 FrameRate_Real;
 FullParsing;
+Gallery;
 General;Općenito
 GeneralCompliance;
 Genre;Glazbeni smjer
@@ -979,6 +981,7 @@ Language_zh-yue;
 Language_zu;Zulu
 Languages;
 LawRating;Dopušteno za mladež od
+LegacyStreamDisplay;
 LCCN;LCCN
 LfeAttenuationKnown;
 LfeMixGain;
@@ -1224,6 +1227,7 @@ Sheet;Tablica
 Sheet (Complete);Tablica (potpuna)
 Shell extension;Proširenje ljuske sustava (desnim klikom u Pregledniku će se pojaviti mogućnosti Media Info)
 Shell extension, folder;Za mape također
+Shell extension, separate instance;
 Shell InfoTip;Info-naznaka (prelaskom miša preko neke datoteke u Pregledniku će se prikazati informacije o njoj)
 ShimName;
 ShimVersion;

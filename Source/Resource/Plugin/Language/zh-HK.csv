@@ -381,6 +381,7 @@ DisplayCaptions_Content;
 DisplayCaptions_Stream;
 DistributedBy;發行商
 Distributor;發行商
+Documents;
 Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;贊助
@@ -516,6 +517,7 @@ FrameRate_Num;
 FrameRate_Original;原始畫格率
 FrameRate_Real;
 FullParsing;
+Gallery;
 General;一般
 GeneralCompliance;
 Genre;類型
@@ -979,6 +981,7 @@ Language_zh-yue;
 Language_zu;祖魯語　Zulu
 Languages;
 LawRating;分級
+LegacyStreamDisplay;
 LCCN;LCCN
 LfeAttenuationKnown;
 LfeMixGain;
@@ -1224,6 +1227,7 @@ Sheet;表格
 Sheet (Complete);表格（完整）
 Shell extension;快顯功能表（影音檔案右鍵選單加入MediaInfo選項）
 Shell extension, folder;資料夾同時適用
+Shell extension, separate instance;
 Shell InfoTip;檔案提示（滑鼠移到檔案上顯示相關訊息）
 ShimName;Shim名稱
 ShimVersion;Shim版本
@@ -1406,4 +1410,4 @@ Yes;是
 Your system;可識別清單
 Your translation;
 ZZ_Automatic_Percent;75
-ZZ_AutomaticLanguage_Percent;77
+ZZ_AutomaticLanguage_Percent;76

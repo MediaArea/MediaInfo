@@ -811,6 +811,7 @@ void __fastcall TPreferencesF::GUI_Configure()
     Setup_Advanced->Caption=Prefs->Translate(__T("Advanced")).c_str();
     CB_InscrireShell->Caption=Prefs->Translate(__T("Shell extension")).c_str();
     CB_InscrireShell_Folder->Caption=Prefs->Translate(__T("Shell extension, folder")).c_str();
+    CB_InscrireShell_SeparateInstance->Caption=Prefs->Translate(__T("Shell extension, separate instance")).c_str();
     CB_InfoTip->Caption=Prefs->Translate(__T("Shell InfoTip")).c_str();
     CB_ShowToolBar->Caption=Prefs->Translate(__T("Show toolbar")).c_str();
     CB_ShowMenu->Caption=Prefs->Translate(__T("Show menu")).c_str();
@@ -818,6 +819,7 @@ void __fastcall TPreferencesF::GUI_Configure()
     Advanced_InformVersion->Caption=Prefs->Translate(__T("Add version to text output")).c_str();
     Advanced_InformTimestamp->Caption=Prefs->Translate(__T("Add creation date to text output")).c_str();
     Advanced_EnableFfmpeg->Caption=Prefs->Translate(__T("Enable FFmpeg plugin")).c_str();
+    Advanced_LegacyStreamDisplay->Caption=Prefs->Translate(__T("LegacyStreamDisplay")).c_str();
     Advanced_DisplayCaptions_Caption->Caption=Prefs->Translate(__T("DisplayCaptions")).c_str();
     Advanced_DisplayCaptions_Sel->Items->Clear();
     Advanced_DisplayCaptions_Sel->Items->Add(Prefs->Translate(__T("DisplayCaptions_Content")).c_str());

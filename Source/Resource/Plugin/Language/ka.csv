@@ -381,6 +381,7 @@ DisplayCaptions_Content;
 DisplayCaptions_Stream;
 DistributedBy;გავრცელების ავტორი
 Distributor;
+Documents;
 Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;შემოწირულობა
@@ -516,6 +517,7 @@ FrameRate_Num;
 FrameRate_Original;კადრების ორიგინალი სიხშირე
 FrameRate_Real;
 FullParsing;
+Gallery;
 General;მთავარი
 GeneralCompliance;
 Genre;ჟანრი
@@ -979,6 +981,7 @@ Language_zh-yue;
 Language_zu;Zulu
 Languages;
 LawRating;Law rating
+LegacyStreamDisplay;
 LCCN;LCCN
 LfeAttenuationKnown;
 LfeMixGain;
@@ -1224,6 +1227,7 @@ Sheet;ცხრილი
 Sheet (Complete);ცხირილი (სრული)
 Shell extension;Explorer extension (in Windows Explorer, right click on a file, there will be a MediaInfo option)
 Shell extension, folder;For folders too
+Shell extension, separate instance;
 Shell InfoTip;Explorer Tooltip (in Windows Explorer, move the mouse over the file, info will be displayed)
 ShimName;
 ShimVersion;
@@ -1406,4 +1410,4 @@ Yes;დიახ
 Your system;თქვენი სისტემა
 Your translation;
 ZZ_Automatic_Percent;65
-ZZ_AutomaticLanguage_Percent;70
+ZZ_AutomaticLanguage_Percent;69

@@ -381,6 +381,7 @@ DisplayCaptions_Content;Saat konten terdeteksi
 DisplayCaptions_Stream;Meski saat tak ada konten maupun perindah terdeteksi
 DistributedBy;Didistribusikan oleh
 Distributor;Distributor
+Documents;
 Dolby_Atmos_Metadata;Metadata Dolby Atmos
 DolbyAtmos;Dolby Atmos
 Donate;Beri sumbangan
@@ -516,6 +517,7 @@ FrameRate_Num;Pembilang laju bingkai
 FrameRate_Original;Laju bingkai asli
 FrameRate_Real;Laju bingkai sesungguhnya
 FullParsing;Analisis sintaks penuh
+Gallery;
 General;Umum
 GeneralCompliance;Kepatuhan umum
 Genre;Aliran
@@ -979,6 +981,7 @@ Language_zh-yue;Bhs. Kanton
 Language_zu;Bhs. Zulu
 Languages;Bahasa
 LawRating;Peringkat usia
+LegacyStreamDisplay;
 LCCN;LCCN
 LfeAttenuationKnown;Atenuasi LFE yang diketahui
 LfeMixGain;Peningkatan Padu LFE
@@ -1224,6 +1227,7 @@ Sheet;Lembar
 Sheet (Complete);Lembar (Lengkap)
 Shell extension;Ekstensi Explorer (di Windows Explorer, klik kanan pada berkas, akan ada opsi MediaInfo)
 Shell extension, folder;Untuk direktori juga
+Shell extension, separate instance;
 Shell InfoTip;Kiat Alat Explorer (di Windows Explorer, layangkan tetikus di atas berkas, info akan ditampilkan)
 ShimName;Nama pemampas
 ShimVersion;Versi pemampas

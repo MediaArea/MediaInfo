@@ -381,6 +381,7 @@ DisplayCaptions_Content;
 DisplayCaptions_Stream;
 DistributedBy;Distribueret af
 Distributor;
+Documents;
 Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;Donér
@@ -516,6 +517,7 @@ FrameRate_Num;
 FrameRate_Original;Original billedrate
 FrameRate_Real;
 FullParsing;
+Gallery;
 General;Generelt
 GeneralCompliance;
 Genre;Genre
@@ -979,6 +981,7 @@ Language_zh-yue;
 Language_zu;Zulu
 Languages;
 LawRating;Aldersgrænse
+LegacyStreamDisplay;
 LCCN;LCCN
 LfeAttenuationKnown;
 LfeMixGain;
@@ -1224,6 +1227,7 @@ Sheet;Ark
 Sheet (Complete);Ark (komplet)
 Shell extension;Shell-udvidelse ( højreklik viser MediaInfo i stifinder)
 Shell extension, folder;Også for mapper
+Shell extension, separate instance;
 Shell InfoTip;Shell-infotip (bevæg musen over filen i stifinder og info vises)
 ShimName;
 ShimVersion;
