@@ -3,6 +3,8 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
+project(MediaInfo)
+
 # Build Zenlib
 set(ZenLib_DIR ${CMAKE_CURRENT_BINARY_DIR}/ZenLib)
 set(ZenLib_LIBRARY zen)
