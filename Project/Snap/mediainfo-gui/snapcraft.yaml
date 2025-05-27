@@ -27,11 +27,11 @@ plugs:
 apps:
   mediainfo-gui:
     extensions:
-      - kde-neon
+      - kde-neon-6
     environment:
       GVBINDIR: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/graphviz
       QTWEBENGINE_DISABLE_SANDBOX: 1
-    command: usr/bin/mediainfo-gui-wrapper
+    command: usr/bin/mediainfo-gui
     plugs:
       - x11
       - unity7
@@ -48,14 +48,16 @@ parts:
   mediainfo-gui:
     plugin: qmake
     source: MediaInfo
+    qmake-major-version: 6
     qmake-project-file: Project/QMake/GUI/MediaInfoQt.pro
+    build-environment:
+      - PATH: "/usr/lib/qt6/bin:$PATH"
     build-packages:
-      - qttools5-dev-tools
-      - qtbase5-dev-tools
-      - qtwebengine5-dev
-      - qtbase5-dev
-      - qt5-qmake
-      - qtchooser
+      - qt6-tools-dev-tools
+      - qt6-l10n-tools
+      - qt6-base-dev
+      - qt6-webengine-dev
+      - qmake6
       - libglib2.0-bin
     stage-packages:
       - libcurl4t64
@@ -65,20 +67,13 @@ parts:
       - libgvc6
       - libpathplan4
       - libxdot4
-      - qtwayland5
-      - libqt5svg5
-      - libqt5xml5t64
-      - libqt5webenginewidgets5
-      - xkb-data # needed by qt applications, but not pulled by kf5 part
-      - libgtk-3-common # needed by qt applications, but not pulled by kf5 part
-    override-build: |
-      craftctl default
-      cat > $CRAFT_PART_INSTALL/usr/bin/mediainfo-gui-wrapper << 'END'
-      #!/bin/sh
-      export XKB_CONFIG_ROOT=$SNAP/usr/share/X11/xkb
-      exec mediainfo-gui "$@"
-      END
-      chmod +x $CRAFT_PART_INSTALL/usr/bin/mediainfo-gui-wrapper
+      - libqt6widgets6t64
+      - libqt6xml6t64
+      - libqt6quickwidgets6
+      - libqt6printsupport6t64
+      - libqt6webenginecore6
+      - libqt6webenginewidgets6
+      - libgtk-3-common # needed by qt applications, but not pulled by kf6 part
     override-prime: |
       craftctl default
       GVBINDIR=$CRAFT_PRIME/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/graphviz $CRAFT_PRIME/usr/sbin/libgvc6-config-update -c
