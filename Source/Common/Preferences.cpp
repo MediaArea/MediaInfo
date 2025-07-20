@@ -35,6 +35,7 @@ using namespace ZenLib;
 
 //---------------------------------------------------------------------------
 Preferences* Prefs=new Preferences;
+const Ztring Empty_Ztring_Ref=__T("");
 int ExplorerShell_Edit  (const AnsiString &Name, bool ShellExtension, bool &IsChanged);
 //---------------------------------------------------------------------------
 
@@ -71,6 +72,8 @@ Preferences::Preferences()
     Sponsored=false;
     SponsorMessage=__T("");
     SponsorUrl=__T("");
+    SponsorBanner=__T("");
+    SponsorBannerClickUrl=__T("");
 
     //Plugins
     GraphPluginURL=__T("");
@@ -218,6 +221,14 @@ int Preferences::Config_Load()
         Saved=Config(__T("SponsorUrl"));
         Saved.FindAndReplace(__T("\\r\\n"), __T("\r\n"), 0, Ztring_Recursive);
         SponsorUrl.Write(Saved);
+
+        Saved=Config(__T("SponsorBanner"));
+        Saved.FindAndReplace(__T("\\r\\n"), __T("\r\n"), 0, Ztring_Recursive);
+        SponsorBanner.Write(Saved);
+
+        Saved=Config(__T("SponsorBannerClickUrl"));
+        Saved.FindAndReplace(__T("\\r\\n"), __T("\r\n"), 0, Ztring_Recursive);
+        SponsorBannerClickUrl.Write(Saved);
     }
 
     if (!Config(__T("GraphPlugin64URL")).empty())
@@ -522,14 +533,17 @@ void __fastcall ThreadInternetCheck::Execute()
     Prefs->Config(__T("Sponsored"))=__T("0");
     Prefs->Config(__T("SponsorMessage"))=__T("");
     Prefs->Config(__T("SponsorUrl"))=__T("");
-
+    Prefs->Config(__T("SponsorBanner"))=__T("");
+    Prefs->Config(__T("SponsorBannerClickUrl"))=__T("");
     ZtringListList Sponsor=Download.SubSheet(__T("ShowSponsor"));
     unsigned int En=Sponsor.Find(__T("en"), 1);
-    if (En!=(unsigned int)-1 && Sponsor[En](2)!=__T("") && Sponsor[En](3)!=__T(""))
+    if (En!=(unsigned int)-1)
     {
         Prefs->Config(__T("Sponsored"))=__T("1");
         Ztring Message;
         Ztring Url;
+        Ztring Banner;
+        Ztring BannerClickUrl;
         for (size_t Pos=0; Pos<Sponsor.size(); Pos++)
         {
             if (Sponsor[Pos](1)!=__T(""))
@@ -538,12 +552,33 @@ void __fastcall ThreadInternetCheck::Execute()
                     Message+=(Message.empty()?__T(""):__T("\\r\\n"))+Sponsor[Pos](1)+__T(";")+Sponsor[Pos](2);
                 if (Sponsor[Pos](3)!=__T(""))
                     Url+=(Url.empty()?__T(""):__T("\\r\\n"))+Sponsor[Pos](1)+__T(";")+Sponsor[Pos](3);
+                if (Sponsor[Pos](4)!=__T(""))
+                    Banner+=(Banner.empty()?__T(""):__T("\\r\\n"))+Sponsor[Pos](1)+__T(";")+Sponsor[Pos](4);
+                if (Sponsor[Pos](5)!=__T(""))
+                    BannerClickUrl+=(BannerClickUrl.empty()?__T(""):__T("\\r\\n"))+Sponsor[Pos](1)+__T(";")+Sponsor[Pos](5);
             }
         }
         Prefs->Config(__T("SponsorMessage"))=Message.Quote();
         Prefs->Config(__T("SponsorUrl"))=Url.Quote();
+        Prefs->Config(__T("SponsorBanner"))=Banner.Quote();
+        Prefs->Config(__T("SponsorBannerClickUrl"))=BannerClickUrl.Quote();
     }
+
     Prefs->Config_Save();
+
+    Ztring SponsorBannerInstallGracePeriod=Download(__T("SponsorBannerInstallGracePeriod"));
+    if (!SponsorBannerInstallGracePeriod.empty())
+    {
+        Prefs->Config(__T("SponsorBannerInstallGracePeriod"))=SponsorBannerInstallGracePeriod;
+        Prefs->Config_Save();
+    }
+
+    Ztring SponsorBannerCloseGracePeriod=Download(__T("SponsorBannerCloseGracePeriod"));
+    if (!SponsorBannerCloseGracePeriod.empty())
+    {
+        Prefs->Config(__T("SponsorBannerCloseGracePeriod"))=SponsorBannerCloseGracePeriod;
+        Prefs->Config_Save();
+    }
 
     //Plugins
     Ztring GraphPlugin64URL=Download(__T("GraphPlugin64URL"));
@@ -559,7 +594,6 @@ void __fastcall ThreadInternetCheck::Execute()
         Prefs->Config(__T("GraphPluginURL"))=GraphPluginURL;
         Prefs->Config_Save();
     }
-
     Ztring GraphPluginVersion=Download(__T("GraphPluginVersion"));
     if (!GraphPluginVersion.empty())
     {
@@ -1604,9 +1638,9 @@ int Preferences::ShellToolTip()
 //***************************************************************************
 
 //---------------------------------------------------------------------------
-ZenLib::Ztring &Preferences::Translate(ZenLib::Ztring Name)
+const ZenLib::Ztring &Preferences::Translate(ZenLib::Ztring Name)
 {
-    if (Name==__T("SponsorMessage") || Name==__T("SponsorUrl"))
+    if (Name==__T("SponsorMessage") || Name==__T("SponsorUrl") || Name==__T("SponsorBanner") || Name==__T("SponsorBannerClickUrl"))
     {
         Ztring Language=Translate(__T("  Language_ISO639"));
         if (Name==__T("SponsorMessage"))
@@ -1614,6 +1648,9 @@ ZenLib::Ztring &Preferences::Translate(ZenLib::Ztring Name)
             int Index=SponsorMessage.Find(Language, 0);
             if (Index==-1 || SponsorMessage(Index)(1)==__T(""))
                 Index=SponsorMessage.Find(__T("en"), 0);
+
+            if (Index==-1 || SponsorMessage(Index).empty())
+                return Empty_Ztring_Ref;
 
             return SponsorMessage(Index)(1);
         }
@@ -1623,7 +1660,32 @@ ZenLib::Ztring &Preferences::Translate(ZenLib::Ztring Name)
             if (Index==-1 || SponsorUrl(Index)(1)==__T(""))
                 Index=SponsorUrl.Find(__T("en"), 0);
 
+            if (Index==-1 || SponsorUrl(Index).empty())
+                return Empty_Ztring_Ref;
+
             return SponsorUrl(Index)(1);
+        }
+        else if (Name==__T("SponsorBanner"))
+        {
+            int Index=SponsorBanner.Find(Language, 0);
+            if (Index==-1 || SponsorBanner(Index)(1)==__T(""))
+                Index=SponsorBanner.Find(__T("en"), 0);
+
+            if (Index==-1 || SponsorBanner(Index).empty())
+                return Empty_Ztring_Ref;
+
+            return SponsorBanner(Index)(1);
+        }
+        else if (Name==__T("SponsorBannerClickUrl"))
+        {
+            int Index=SponsorBannerClickUrl.Find(Language, 0);
+            if (Index==-1 || SponsorBannerClickUrl(Index)(1)==__T(""))
+                Index=SponsorBannerClickUrl.Find(__T("en"), 0);
+
+            if (Index==-1 || SponsorBannerClickUrl(Index).empty())
+                return Empty_Ztring_Ref;
+
+            return SponsorBannerClickUrl(Index)(1);
         }
     }
 

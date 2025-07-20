@@ -37,6 +37,7 @@
 #include <Winapi.ActiveX.hpp>
 #include <Winapi.WebView2.hpp>
 #include <SHDocVw.hpp>
+#include "GUI_Sponsor.h"
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -305,6 +306,7 @@ protected:
     virtual void __fastcall DestroyWnd();
 private:    // User declarations
     TButton *Footer_Button;
+    TSponsorFrame *Footer_Sponsor;
     const UnicodeString LIGHT_MODE_STYLE = "Windows";               // Name of style for light mode;
     const UnicodeString DARK_MODE_STYLE = "Windows11 Modern Dark";  // Name of style for dark mode
     bool StartupReady = false;

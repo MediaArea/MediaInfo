@@ -36,6 +36,9 @@ SetCompressor /FINAL /SOLID lzma
 !include FileFunc.nsh
 !include WinVer.nsh
 
+; Sponsor
+!include "MediaInfo_SponsorPage.nsh"
+
 ; Modern UI
 !include "MUI2.nsh"
 !define MUI_ABORTWARNING
@@ -61,6 +64,7 @@ FunctionEnd
 !define MUI_FINISHPAGE_RUN
 !define MUI_FINISHPAGE_RUN_FUNCTION "LaunchMediaInfoAsCurrentUser"
 !define MUI_WELCOMEFINISHPAGE_BITMAP "..\..\Source\Resource\Image\Windows_Finish.bmp"
+Page custom ShowSponsorOnFinish
 !insertmacro MUI_PAGE_FINISH
 ; Uninstaller pages
 !insertmacro MUI_UNPAGE_WELCOME
@@ -123,6 +127,7 @@ ShowInstDetails nevershow
 ShowUnInstDetails nevershow
 
 Function .onInit
+  Call DownloadAndParseSponsorData
   ${If} ${IsNativeARM64}
     SetRegView 64
   ${Else}
