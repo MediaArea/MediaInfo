@@ -42,6 +42,7 @@
               <uap:FileType>.aiff</uap:FileType>
               <uap:FileType>.amr</uap:FileType>
               <uap:FileType>.ape</uap:FileType>
+              <uap:FileType>.arw</uap:FileType>
               <uap:FileType>.asf</uap:FileType>
               <uap:FileType>.at3</uap:FileType>
               <uap:FileType>.au</uap:FileType>
@@ -61,11 +62,13 @@
               <uap:FileType>.dde</uap:FileType>
               <uap:FileType>.dff</uap:FileType>
               <uap:FileType>.divx</uap:FileType>
+              <uap:FileType>.dng</uap:FileType>
               <uap:FileType>.dpg</uap:FileType>
               <uap:FileType>.dsd</uap:FileType>
               <uap:FileType>.dsf</uap:FileType>
               <uap:FileType>.dts</uap:FileType>
               <uap:FileType>.dtshd</uap:FileType>
+              <uap:FileType>.dtsma</uap:FileType>
               <uap:FileType>.dv</uap:FileType>
               <uap:FileType>.dvr</uap:FileType>
               <uap:FileType>.dvr-ms</uap:FileType>
@@ -135,6 +138,8 @@
               <uap:FileType>.mpv</uap:FileType>
               <uap:FileType>.mts</uap:FileType>
               <uap:FileType>.mxf</uap:FileType>
+              <uap:FileType>.nef</uap:FileType>
+              <uap:FileType>.nrw</uap:FileType>
               <uap:FileType>.oga</uap:FileType>
               <uap:FileType>.ogg</uap:FileType>
               <uap:FileType>.ogm</uap:FileType>
