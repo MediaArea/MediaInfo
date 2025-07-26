@@ -267,6 +267,7 @@ namespace {
             ".aiff",
             ".amr",
             ".ape",
+            ".arw",
             ".asf",
             ".at3",
             ".au",
@@ -286,11 +287,13 @@ namespace {
             ".dde",
             ".dff",
             ".divx",
+            ".dng",
             ".dpg",
             ".dsd",
             ".dsf",
             ".dts",
             ".dtshd",
+            ".dtsma",
             ".dv",
             ".dvr",
             ".dvr-ms",
@@ -360,6 +363,8 @@ namespace {
             ".mpv",
             ".mts",
             ".mxf",
+            ".nef",
+            ".nrw",
             ".oga",
             ".ogg",
             ".ogm",
@@ -404,7 +409,7 @@ namespace {
             ".wtv",
             ".wv",
             ".wvc",
-            ".y4m"
+            ".y4m",
         };
         std::string extension_lower{ extension };
         std::transform(extension_lower.begin(), extension_lower.end(), extension_lower.begin(), [](char c) { return static_cast<char>(std::tolower(static_cast<unsigned char>(c))); });
