@@ -239,6 +239,13 @@
             <DependentOn>..\..\..\Source\GUI\VCL\GUI_Preferences_Sheet.h</DependentOn>
             <BuildOrder>9</BuildOrder>
         </CppCompile>
+        <CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Sponsor.cpp">
+            <Form>SponsorFrame</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+            <DependentOn>..\..\..\Source\GUI\VCL\GUI_Sponsor.h</DependentOn>
+            <BuildOrder>21</BuildOrder>
+        </CppCompile>
         <CppCompile Include="..\..\..\Source\GUI\VCL\GUI_Web.cpp">
             <Form>WebF</Form>
             <DependentOn>..\..\..\Source\GUI\VCL\GUI_Web.h</DependentOn>
@@ -269,6 +276,7 @@
             <IgnorePath>true</IgnorePath>
         </LibFiles>
         <FormResources Include="..\..\..\Source\GUI\VCL\GUI_Web.dfm"/>
+        <FormResources Include="..\..\..\Source\GUI\VCL\GUI_Sponsor.dfm"/>
         <FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Sheet.dfm"/>
         <FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Output.dfm"/>
         <FormResources Include="..\..\..\Source\GUI\VCL\GUI_Preferences_Language.dfm"/>

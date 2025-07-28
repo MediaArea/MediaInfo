@@ -59,8 +59,6 @@ public:
     ZenLib::ZtringListListF Config;     //Configuration file
     ZenLib::ZtringList      FilesList[Prefs_Max];  //List of available files for an Item
     ZenLib::ZtringListListF Details[Prefs_Max];
-    ZenLib::ZtringListList  SponsorMessage;
-    ZenLib::ZtringListList  SponsorUrl;
 
     //Useful functions about preferences
     int Config_Create       ();
@@ -79,7 +77,7 @@ public:
     int ShellToolTip        (); //To be available with mouse in Explorer
 
     //Special things
-    ZenLib::Ztring &Translate (ZenLib::Ztring Name); //return in the good language, or in English if not found
+    const ZenLib::Ztring &Translate (ZenLib::Ztring Name); //return in the good language, or in English if not found
 
     //Info about Lists
     ZenLib::ZtringList FolderNames;  //List of list_t --> Foldernames
@@ -92,6 +90,10 @@ public:
 
     //Sponsor
     bool Sponsored;
+    ZenLib::ZtringListList  SponsorMessage;
+    ZenLib::ZtringListList  SponsorUrl;
+    ZenLib::ZtringListList  SponsorBanner;
+    ZenLib::ZtringListList  SponsorBannerClickUrl;
 
     //Plugins
     ZenLib::Ztring GraphPluginURL;

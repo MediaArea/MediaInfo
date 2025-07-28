@@ -244,6 +244,14 @@ __fastcall TMainF::TMainF(TComponent* Owner)
     Page_Sheet_X_Web[Stream_Text]=Page_Sheet_T_Web;
     Page_Sheet_X_Web[Stream_Other]=Page_Sheet_C_Web;
 
+    //Configuration of properties
+    Page_Position=-1;
+    Caption=MEDIAINFO_TITLE;
+
+    //Configuration of MediaInfoLib
+    if (I == NULL)
+        I = new MediaInfoList;
+
     //Footer
     //Note: If Height is set after Parent, button will be too small on high-DPI
     //      If Font is set before Parent, button text will be too large on high-DPI
@@ -255,13 +263,10 @@ __fastcall TMainF::TMainF(TComponent* Owner)
     Footer_Button->OnClick=&Footer_ButtonClick;
     Footer_Button->Visible=false;
 
-    //Configuration of properties
-    Page_Position=-1;
-    Caption=MEDIAINFO_TITLE;
-
-    //Configuration of MediaInfoLib
-    if (I == NULL)
-        I = new MediaInfoList;
+    Footer_Sponsor=new TSponsorFrame(this, this);
+    Footer_Sponsor->Height=150;
+    Footer_Sponsor->Parent=Page;
+    Footer_Sponsor->Align=alBottom;
 
     //Load GUI preferences
     GUI_Configure();
@@ -482,6 +487,9 @@ void __fastcall TMainF::GUI_Configure()
             Prefs->Config_Save();
         }
     }
+
+    // Sponsor
+    Footer_Sponsor->Init();
 
     //Translation
     Translate();
@@ -807,6 +815,8 @@ void __fastcall TMainF::Translate()
         M_Sponsor->Caption =  + Prefs->Translate(__T("SponsorMessage")).c_str();
         M_Sponsor->Visible=true;
     }
+    if (Footer_Sponsor && Footer_Sponsor->Visible)
+        Footer_Sponsor->Translate();
 
     //Footer
     Footer_Button->Caption=L"Go to conformance errors and warnings glossary page";
