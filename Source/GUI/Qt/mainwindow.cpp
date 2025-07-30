@@ -482,8 +482,6 @@ void MainWindow::openFiles(QStringList fileNames) {
     for (int Pos=0; Pos<fileNames.size(); Pos++)
         C->Menu_File_Open_Files_Continue(QString2wstring(fileNames[Pos]));
     openTimerInit();
-
-    refreshDisplay();
 }
 
 void MainWindow::openTimerInit ()
@@ -531,8 +529,6 @@ void MainWindow::openDir(QString dirName) {
     C->Menu_File_Open_Files_Begin(settings->value("closeBeforeOpen",true).toBool(), true);
     C->Menu_File_Open_Directory(QString2wstring(dirName));
     openTimerInit();
-
-    refreshDisplay();
 }
 
 void MainWindow::refreshDisplay() {
@@ -1081,8 +1077,6 @@ void MainWindow::on_actionOpen_triggered()
     fileNames = QFileDialog::getOpenFileNames(this, tr("Open File(s)"), getCommonDir(C).absolutePath());
 #endif
     openFiles(fileNames);
-
-    refreshDisplay();
 }
 
 void MainWindow::on_actionQuit_triggered()
@@ -1128,8 +1122,6 @@ void MainWindow::on_actionOpen_Folder_triggered()
     dirName = QFileDialog::getExistingDirectory(this,tr("Open Folder"), getCommonDir(C).absolutePath());
 #endif
     openDir(dirName);
-
-    refreshDisplay();
 }
 
 void MainWindow::on_actionAbout_triggered()
