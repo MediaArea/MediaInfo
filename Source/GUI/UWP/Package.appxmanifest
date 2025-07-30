@@ -140,6 +140,7 @@
               <uap:FileType>.mxf</uap:FileType>
               <uap:FileType>.nef</uap:FileType>
               <uap:FileType>.nrw</uap:FileType>
+              <uap:FileType>.obu</uap:FileType>
               <uap:FileType>.oga</uap:FileType>
               <uap:FileType>.ogg</uap:FileType>
               <uap:FileType>.ogm</uap:FileType>
