@@ -14,7 +14,7 @@ void Run_File(ZtringListListF &Dest, Ztring Language)
 {
     //Open Orig
     ZtringListListF Origin;
-    if (Origin.Load(Ztring(L"../Source/Resource/Plugin/Language/")+Language+L".csv")==Error)
+    if (!Origin.Load(Ztring(L"../Source/Resource/Plugin/Language/")+Language+L".csv"))
        return;
 
     //Find position in Destination
@@ -62,8 +62,10 @@ Ztring Language_Others_Run ()
     Run_File(Dest, L"hu");
     Run_File(Dest, L"hy");
     Run_File(Dest, L"ka");
+    Run_File(Dest, L"id");
     Run_File(Dest, L"it");
     Run_File(Dest, L"ja");
+    Run_File(Dest, L"ka");
     Run_File(Dest, L"ko");
     Run_File(Dest, L"lt");
     Run_File(Dest, L"nl");

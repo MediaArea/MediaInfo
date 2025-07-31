@@ -365,6 +365,7 @@ namespace {
             ".mxf",
             ".nef",
             ".nrw",
+            ".obu",
             ".oga",
             ".ogg",
             ".ogm",

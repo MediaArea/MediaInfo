@@ -343,7 +343,7 @@ Cover_Datas;Data sampul
 Cover_Description;Deskripsi sampul
 Cover_Mime;MIME sampul
 Cover_Type;Jenis sampul
-CoverData;
+CoverData;Sertakan gambar-gambar sampul dalam HTML, XML, dan JSON
 Cropped;Dimensi pangkas
 Custom;Ubah suai
 CustomDownmixTargets;Sasaran downmix ubah suaian
@@ -981,7 +981,7 @@ Language_zh-yue;Bhs. Kanton
 Language_zu;Bhs. Zulu
 Languages;Bahasa
 LawRating;Peringkat usia
-LegacyStreamDisplay;
+LegacyStreamDisplay;Tampilkan informasi kompatibilitas mundur untuk aliran audio HD/HE dan video 3D/HDR
 LCCN;LCCN
 LfeAttenuationKnown;Atenuasi LFE yang diketahui
 LfeMixGain;Peningkatan Padu LFE
@@ -1227,7 +1227,7 @@ Sheet;Lembar
 Sheet (Complete);Lembar (Lengkap)
 Shell extension;Ekstensi Explorer (di Windows Explorer, klik kanan pada berkas, akan ada opsi MediaInfo)
 Shell extension, folder;Untuk direktori juga
-Shell extension, separate instance;
+Shell extension, separate instance;Buka setiap item dalam instans terpisah
 Shell InfoTip;Kiat Alat Explorer (di Windows Explorer, layangkan tetikus di atas berkas, info akan ditampilkan)
 ShimName;Nama pemampas
 ShimVersion;Versi pemampas
