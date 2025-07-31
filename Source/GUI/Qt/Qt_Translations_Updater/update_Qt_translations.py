@@ -6,13 +6,18 @@ import csv
 import xml.etree.ElementTree as ET
 import sys
 
-def load_translations(csv_file):
+def load_translations_from_directory(directory):
     translations = {}
-    with open(csv_file, mode='r', encoding='utf-8') as file:
-        reader = csv.DictReader(file, delimiter=';')
-        for row in reader:
-            source = row['  Language_ISO639']
-            translations[source] = {lang: row[lang] for lang in row if lang != '  Language_ISO639'}
+    for filename in os.listdir(directory):
+        if filename.endswith('.csv'):
+            lang_code = filename[:-4]  # Remove '.csv' extension
+            csv_file = os.path.join(directory, filename)
+            with open(csv_file, mode='r', encoding='utf-8') as file:
+                reader = csv.DictReader(file, delimiter=';')
+                for row in reader:
+                    source = row['  Language_ISO639']
+                    translations.setdefault(source, {})
+                    translations[source][lang_code] = row[lang_code]
     return translations
 
 def clean_translation(translation):
@@ -49,9 +54,9 @@ def update_ts_file(ts_file, translations, lang_code):
                     del translation_tag.attrib['type']
             elif source == 'MediaInfo v%1\nCopyright (C) 2002-2025 MediaArea.net SARL\n':
                 # Special case handling for Copyright
-                copyright_translation = translations['Copyright'].get(lang_code, '')
+                copyright_translation = translations.get('Copyright', {}).get(lang_code, '')
                 if not copyright_translation:
-                    copyright_translation = translations['Copyright'].get('en', '')
+                    copyright_translation = translations.get('Copyright', {}).get('en', '')
 
                 copyright_translation = clean_translation(copyright_translation)
 
@@ -67,11 +72,11 @@ def update_ts_file(ts_file, translations, lang_code):
                     del translation_tag.attrib['type']
             elif source == 'Translator : Zen':
                 # Special case handling for Translator
-                translator_translation = translations['Translator'].get(lang_code, '')
+                translator_translation = translations.get('Translator', {}).get(lang_code, '')
                 if not translator_translation:
-                    translator_translation = translations['Translator'].get('en', '')
+                    translator_translation = translations.get('Translator', {}).get('en', '')
 
-                author_name = translations['  Author_Name'].get(lang_code, 'Zen')
+                author_name = translations.get('  Author_Name', {}).get(lang_code, 'Zen')
                 author_name = clean_translation(author_name)
 
                 if translation_tag is None:
@@ -87,8 +92,8 @@ def update_ts_file(ts_file, translations, lang_code):
 
     tree.write(ts_file, encoding='utf-8', xml_declaration=True)
 
-def process_ts_files(folder, csv_file):
-    translations = load_translations(csv_file)
+def process_ts_files(folder, translations_dir):
+    translations = load_translations_from_directory(translations_dir)
     for filename in os.listdir(folder):
         if filename.endswith('.ts'):
             lang_code = filename[:-3]  # Remove '.ts' extension
@@ -97,9 +102,9 @@ def process_ts_files(folder, csv_file):
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
-        print("Usage: python update_translations.py <ts_files_folder> <csv_file>")
+        print("Usage: python update_translations.py <ts_files_folder> <translations_directory>")
         sys.exit(1)
 
     ts_files_folder = sys.argv[1]
-    csv_file_path = sys.argv[2]
-    process_ts_files(ts_files_folder, csv_file_path)
+    translations_directory = sys.argv[2]
+    process_ts_files(ts_files_folder, translations_directory)

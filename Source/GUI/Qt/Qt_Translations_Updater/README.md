@@ -1,6 +1,6 @@
 # Translation Update Script
 
-This folder contains scripts to automate the process of updating Qt `.ts` translation files and generating `.qm` files for MediaInfo's Qt GUI. The process involves using `lupdate` to update the `.ts` files, a Python script to apply custom translations from MediaInfo's `Languages` CSV file, and `lrelease` to generate the final `.qm` files.
+This folder contains scripts to automate the process of updating Qt `.ts` translation files and generating `.qm` files for MediaInfo's Qt GUI. The process involves using `lupdate` to update the `.ts` files, a Python script to apply custom translations from MediaInfo's languages CSV files, and `lrelease` to generate the final `.qm` files.
 
 ## Prerequisites
 
@@ -15,7 +15,7 @@ This Windows Command Script / Unix Shell Script automates the process of updatin
 
 ### `update_Qt_translations.py`
 
-This Python script updates the `.ts` files with translations from the CSV file and handles special cases.
+This Python script updates the `.ts` files with translations from the CSV files and handles special cases.
 
 ## Usage
 
@@ -24,7 +24,7 @@ This Python script updates the `.ts` files with translations from the CSV file a
     - The script will:
       - Delete existing `.ts` and `.qm` files.
       - Run `lupdate` to generate the `.ts` files.
-      - Use `update_Qt_translations.py` to apply translations from `Languages.csv`.
+      - Use `update_Qt_translations.py` to apply translations from `Source\Resource\Plugin\Language\*.csv` files.
       - Run `lrelease` to generate the `.qm` files.
 
 2. **Verify the Output**:
