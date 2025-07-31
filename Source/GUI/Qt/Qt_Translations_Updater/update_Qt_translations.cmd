@@ -14,7 +14,7 @@ set RESET=[0m
 REM Set paths
 set PROJECT_FILE=%~dp0\..\..\..\..\Project\QMake\GUI\MediaInfoQt.pro
 set TS_FILES_FOLDER=%~dp0\..\..\..\Resource\Translations
-set CSV_FILE=%~dp0\..\..\..\Resource\Language.csv
+set CSV_DIRECTORY=%~dp0\..\..\..\Resource\Plugin\Language
 set PYTHON_SCRIPT=%~dp0\update_Qt_translations.py
 
 REM Step 0: Delete and recreate the TS_FILES_FOLDER directory
@@ -38,7 +38,7 @@ echo.
 
 REM Step 2: Run the Python script to update .ts files
 echo !YELLOW!Updating .ts files with translations...!RESET!
-python %PYTHON_SCRIPT% %TS_FILES_FOLDER% %CSV_FILE%
+python %PYTHON_SCRIPT% %TS_FILES_FOLDER% %CSV_DIRECTORY%
 if %errorlevel% neq 0 (
     echo.
     echo !RED!Python script failed!%RESET%

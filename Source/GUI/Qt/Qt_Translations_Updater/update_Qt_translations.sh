@@ -9,7 +9,7 @@ RESET=$(tput sgr0)
 # Set paths
 PROJECT_FILE=${BASH_SOURCE%/*}/../../../../Project/QMake/GUI/MediaInfoQt.pro
 TS_FILES_FOLDER=${BASH_SOURCE%/*}/../../../Resource/Translations
-CSV_FILE=${BASH_SOURCE%/*}/../../../Resource/Language.csv
+CSV_DIRECTORY=${BASH_SOURCE%/*}/../../../Resource/Plugin/Language
 PYTHON_SCRIPT=${BASH_SOURCE%/*}/update_Qt_translations.py
 
 # Function to print colored messages
@@ -37,7 +37,7 @@ echo
 
 # Step 2: Run the Python script to update .ts files
 print_message "$YELLOW" "Updating .ts files with translations..."
-python3 "$PYTHON_SCRIPT" "$TS_FILES_FOLDER" "$CSV_FILE"
+python3 "$PYTHON_SCRIPT" "$TS_FILES_FOLDER" "$CSV_DIRECTORY"
 if [ $? -ne 0 ]; then
     print_message "$RED" "Python script failed!"
     exit 1
