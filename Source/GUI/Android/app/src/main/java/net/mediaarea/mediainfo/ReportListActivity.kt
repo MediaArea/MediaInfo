@@ -40,9 +40,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-import com.github.angads25.filepicker.model.DialogConfigs
-import com.github.angads25.filepicker.model.DialogProperties
-import com.github.angads25.filepicker.view.FilePickerDialog
 import com.yariksoffice.lingver.Lingver
 import java.io.BufferedReader
 import java.util.*
@@ -545,42 +542,13 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         reportModel = ViewModelProvider(this, viewModelFactory)[ReportViewModel::class.java]
 
         activityReportListBinding.addButton.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= 20) { // Official Android FileChooser is buggy on Android 4.4 (19)
-                val intent = Intent(Intent.ACTION_GET_CONTENT)
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
 
-                intent.addCategory(Intent.CATEGORY_OPENABLE)
-                intent.type = "*/*"
-                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
+            intent.type = "*/*"
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
 
-                startActivityForResult(intent, OPEN_FILE_REQUEST)
-            } else {
-                if (Environment.getExternalStorageState() in setOf(Environment.MEDIA_MOUNTED, Environment.MEDIA_MOUNTED_READ_ONLY)) {
-                    val properties = DialogProperties()
-                    properties.selection_mode = DialogConfigs.MULTI_MODE
-                    properties.selection_type = DialogConfigs.FILE_SELECT
-                    properties.root = File(DialogConfigs.DEFAULT_DIR)
-                    properties.error_dir = File(DialogConfigs.DEFAULT_DIR)
-                    properties.offset = File(DialogConfigs.DEFAULT_DIR)
-                    properties.extensions = null
-
-                    val dialog = FilePickerDialog(this, properties)
-                    dialog.setTitle(R.string.open_title)
-
-                    dialog.setDialogSelectionListener { files: Array<String> ->
-                        var uris: Array<Uri> = arrayOf()
-
-                        files.forEach { uri: String ->
-                            uris += Uri.parse("file://$uri")
-                        }
-                        AddFile().execute(*(uris))
-                    }
-
-                    dialog.show()
-                } else {
-                    val toast = Toast.makeText(applicationContext, R.string.media_error_text, Toast.LENGTH_LONG)
-                    toast.show()
-                }
-            }
+            startActivityForResult(intent, OPEN_FILE_REQUEST)
         }
         activityReportListBinding.reportListLayout.clearBtn.setOnClickListener {
             disposable.add(reportModel.deleteAllReports()
