@@ -1,25 +1,23 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.google.devtools.ksp'
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-kapt'
-
-import com.android.build.OutputFile
+import groovy.xml.XmlParser
 import groovy.xml.XmlUtil
 
 android {
     buildFeatures {
         viewBinding true
     }
-    compileSdk 34
+    compileSdk 36
     namespace "net.mediaarea.mediainfo"
     defaultConfig {
         applicationId "net.mediaarea.mediainfo"
-        multiDexEnabled = true
-        minSdkVersion 19
+        multiDexEnabled true
+        minSdkVersion 21
         versionCode 50
         versionName "25.07"
-        targetSdkVersion 34
+        targetSdkVersion 36
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
@@ -27,6 +25,13 @@ android {
         externalNativeBuild {
             cmake {
                 cppFlags "-DUNICODE -D_UNICODE -DMEDIAINFO_ADVANCED_NO -DMEDIAINFO_REFERENCES_NO -DMEDIAINFO_FILTER_NO -DMEDIAINFO_DUPLICATE_NO -DMEDIAINFO_MACROBLOCKS_NO -DMEDIAINFO_TRACE_NO -DMEDIAINFO_TRACE_FFV1CONTENT_NO -DMEDIAINFO_IBI_NO -DMEDIAINFO_DIRECTORY_NO -DMEDIAINFO_LIBCURL_NO -DMEDIAINFO_LIBMMS_NO -DMEDIAINFO_DVDIF_ANALYZE_NO -DMEDIAINFO_MPEGTS_DUPLICATE_NO -DMEDIAINFO_READTHREAD_NO -DMEDIAINFO_MD5_NO -DMEDIAINFO_SHA1_NO -DMEDIAINFO_SHA2_NO -DMEDIAINFO_EVENTS_NO -DMEDIAINFO_DEMUX_NO -DMEDIAINFO_AES_NO -DMEDIAINFO_FIXITY_NO -DMEDIAINFO_READER_NO -DMEDIAINFO_NEXTPACKET_NO"
+                arguments "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON"
+            }
+        }
+        splits {
+            abi {
+                reset()
+                include 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
             }
         }
         if(project.hasProperty("RELEASE_STORE_FILE")) {
@@ -57,33 +62,36 @@ android {
     }
     splits {
         abi {
-            enable true
+            def isBuildingBundle = gradle.startParameter.taskNames.any { it.toLowerCase().contains('bundle') }
+            enable !isBuildingBundle
+
             universalApk true
         }
     }
     bundle {
         language {
-            enableSplit = false
+            enableSplit false
         }
     }
-
     compileOptions {
-        targetCompatibility JavaVersion.VERSION_17
-        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_21
+        sourceCompatibility JavaVersion.VERSION_21
     }
-
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_21
+    }
     def abiCodes = ['armeabi-v7a':1, 'arm64-v8a':2, 'x86':3, 'x86_64':4]
-    android.applicationVariants.all { variant ->
+    android.applicationVariants.configureEach { variant ->
         // Assigns a different version code for each output APK.
         variant.outputs.each {
             output ->
-                def abiName = output.getFilter(OutputFile.ABI)
+                def abiName = output.getFilter('ABI')
                 output.versionCodeOverride = variant.versionCode * 10 + abiCodes.get(abiName, 0)
         }
     }
 }
 
-task copyLocales(type: DefaultTask) {
+tasks.register('copyLocales', DefaultTask) {
     def locales = [:]
 
     fileTree("../../../../Source/Resource/Plugin/Language").visit { FileVisitDetails details ->
@@ -170,34 +178,32 @@ preBuild.dependsOn copyLocales
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'com.google.android.material:material:1.11.0-alpha03'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
     implementation 'androidx.preference:preference-ktx:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.2.0-alpha12'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.3.1'
+    implementation 'androidx.recyclerview:recyclerview:1.4.0'
     implementation 'com.android.support:design:34.2.0'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test:runner:1.5.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test:runner:1.7.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
     // Android Room
-    implementation 'androidx.room:room-runtime:2.5.2'
-    implementation 'androidx.room:room-rxjava2:2.5.2'
-    kapt 'androidx.room:room-compiler:2.5.2'
+    implementation 'androidx.room:room-runtime:2.7.2'
+    implementation 'androidx.room:room-rxjava2:2.7.2'
+    ksp 'androidx.room:room-compiler:2.7.2'
     //RxJava
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     // Android Lifecycle
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    kapt "androidx.lifecycle:lifecycle-common-java8:2.6.2"
-    // Legacy file picker
-    implementation 'com.github.angads25:filepicker:1.1.1'
+    ksp "androidx.lifecycle:lifecycle-common-java8:2.9.2"
     // Google Billing
     implementation "com.android.billingclient:billing:6.0.1"
     implementation "com.android.billingclient:billing-ktx:6.0.1"
     // KotlinX Coroutines
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2"
     // Locales manager
-    implementation 'com.github.YarikSOffice:lingver:1.2.1'
+    implementation 'com.github.YarikSOffice:lingver:1.3.0'
 }

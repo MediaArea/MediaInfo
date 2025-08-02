@@ -28,9 +28,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-import com.github.angads25.filepicker.model.DialogConfigs
-import com.github.angads25.filepicker.model.DialogProperties
-import com.github.angads25.filepicker.view.FilePickerDialog
 import net.mediaarea.mediainfo.databinding.ReportDetailBinding
 
 
@@ -130,58 +127,8 @@ class ReportDetailFragment : Fragment() {
 
         menu.findItem(R.id.action_export_report).let {
             it.setOnMenuItemClickListener {
-                if (Build.VERSION.SDK_INT >= 21) {
-                    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-                    startActivityForResult(intent, SAVE_FILE_REQUEST_CODE)
-                } else {
-                    if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
-                        val properties = DialogProperties()
-                        properties.selection_mode = DialogConfigs.SINGLE_MODE
-                        properties.selection_type = DialogConfigs.DIR_SELECT
-                        properties.root = File(DialogConfigs.DEFAULT_DIR)
-                        properties.error_dir = File(DialogConfigs.DEFAULT_DIR)
-                        properties.offset = File(DialogConfigs.DEFAULT_DIR)
-                        properties.extensions = null
-
-                        val dialog = FilePickerDialog(context, properties)
-                        dialog.setTitle(R.string.export_title)
-
-                        dialog.setDialogSelectionListener { select: Array<String> ->
-                            if (select.isEmpty())
-                                onError()
-
-                            id.let {id ->
-                                if (id == null) {
-                                    onError()
-                                } else {
-                                    disposable
-                                            .add(activityListener.getReportViewModel().getReport(id)
-                                                    .subscribeOn(Schedulers.io())
-                                                    .observeOn(AndroidSchedulers.mainThread())
-                                                    .subscribe { report: Report ->
-                                                        if (report.report.isEmpty()) {
-                                                            onError()
-                                                        } else {
-                                                            val directory = File(select[0])
-
-                                                            if (!directory.canWrite()) {
-                                                                onError()
-                                                            } else {
-                                                                saveReport(DocumentFile.fromFile(directory), report)
-                                                            }
-                                                        }
-                                                    })
-                                }
-                            }
-
-                        }
-
-                        dialog.show()
-                    } else {
-                        onError()
-                    }
-                }
-
+                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+                startActivityForResult(intent, SAVE_FILE_REQUEST_CODE)
                 true
             }
         }
