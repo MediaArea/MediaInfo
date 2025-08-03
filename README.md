@@ -2,7 +2,7 @@
 
 MediaInfo is a convenient unified display of the most relevant technical and tag data for video and audio files.
 
-[![MediaInfo_Checks](https://github.com/MediaArea/MediaInfo/actions/workflows/MediaInfo_Checks.yml/badge.svg)](https://github.com/MediaArea/MediaInfo/actions/workflows/MediaInfo_Checks.yml) [![MediaInfo-Qt Checks](https://github.com/MediaArea/MediaInfo/actions/workflows/MediaInfo-Qt_Checks.yml/badge.svg)](https://github.com/MediaArea/MediaInfo/actions/workflows/MediaInfo-Qt_Checks.yml)
+[![MediaInfo_Checks](https://github.com/MediaArea/MediaInfo/actions/workflows/MediaInfo_Checks.yml/badge.svg)](https://github.com/MediaArea/MediaInfo/actions/workflows/MediaInfo_Checks.yml) [![MediaInfo-Qt Checks](https://github.com/MediaArea/MediaInfo/actions/workflows/MediaInfo-Qt_Checks.yml/badge.svg)](https://github.com/MediaArea/MediaInfo/actions/workflows/MediaInfo-Qt_Checks.yml) [![MediaInfo-Android Checks](https://github.com/MediaArea/MediaInfo/actions/workflows/MediaInfo-Android_Checks.yml/badge.svg)](https://github.com/MediaArea/MediaInfo/actions/workflows/MediaInfo-Android_Checks.yml)
 
 ## About
 
