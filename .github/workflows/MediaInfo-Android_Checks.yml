@@ -1,0 +1,61 @@
+name: MediaInfo-Android Checks
+
+on:
+  push:
+    paths:
+      - '.github/workflows/MediaInfo-Android_Checks.yml'
+      - 'Source/GUI/Android/**'
+
+  pull_request:
+    paths:
+      - '.github/workflows/MediaInfo-Android_Checks.yml'
+      - 'Source/GUI/Android/**'
+
+env:
+  JAVA_VER: 21
+
+jobs:
+
+  Ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout zlib
+        uses: actions/checkout@v4
+        with:
+          repository: MediaArea/zlib
+          path: zlib
+      - name: Checkout ZenLib
+        uses: actions/checkout@v4
+        with:
+          repository: MediaArea/ZenLib
+          path: ZenLib
+      - name: Checkout MediaInfoLib
+        uses: actions/checkout@v4
+        with:
+          repository: MediaArea/MediaInfoLib
+          path: MediaInfoLib
+      - name: Checkout MediaInfo
+        uses: actions/checkout@v4
+        with:
+          repository: MediaArea/MediaInfo
+          path: MediaInfo
+      - name: Build APKs
+        run: |
+          export JAVA_HOME="$JAVA_HOME_${{ env.JAVA_VER }}_X64"
+          pushd ${{ github.workspace }}/MediaInfo/Source/GUI/Android
+          chmod +x gradlew
+          ./gradlew assembleRelease
+          popd
+      - name: Check alignment
+        run: |
+          BUILD_TOOLS=$(ls -d $ANDROID_HOME/build-tools/*/)
+          if [[ -n "$BUILD_TOOLS" ]]; then
+            LATEST_BUILD_TOOLS=$(echo "$BUILD_TOOLS" | sort -Vr | head -n 1)
+            export PATH="$LATEST_BUILD_TOOLS:$PATH"
+            echo "Added $LATEST_BUILD_TOOLS to PATH"
+          else
+            echo "::warning::Check alignment: Android Build Tools directory not found."
+          fi
+          curl "https://android.googlesource.com/platform/system/extras/+/main/tools/check_elf_alignment.sh?format=TEXT"| base64 --decode > check_elf_alignment.sh
+          chmod +x check_elf_alignment.sh
+          ./check_elf_alignment.sh ${{ github.workspace }}/MediaInfo/Source/GUI/Android/app/build/outputs/apk/release/app-universal-release-unsigned.apk
