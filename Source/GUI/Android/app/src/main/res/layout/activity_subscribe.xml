@@ -12,23 +12,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     android:id="@+id/plugins_layout"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".SubscribeActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:background="?attr/colorSurfaceContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="?attr/actionBarSize" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -47,8 +45,6 @@
         android:layout_margin="10dp"
         android:text="@string/subscribe_button_text"
         android:enabled="false"
-        android:textColor="@android:color/white"
-        android:background="@color/colorPrimary"
         android:layout_gravity="center_horizontal" />
 
     <TextView
@@ -72,8 +68,6 @@
         android:layout_margin="10dp"
         android:text="@string/lifetime_subscribe_button_text"
         android:enabled="false"
-        android:textColor="@android:color/white"
-        android:background="@color/colorPrimary"
         android:layout_gravity="center_horizontal" />
     <View
         android:layout_width="match_parent"
