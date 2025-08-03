@@ -6,52 +6,48 @@
 
 package net.mediaarea.mediainfo
 
-import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicBoolean
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.delay
-import kotlin.math.pow
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.DefaultLifecycleObserver
 import android.util.Log
 import android.app.Activity
 import android.app.Application
 import com.android.billingclient.api.*
 
-class SubscriptionManager private constructor(private val application: Application) : PurchasesUpdatedListener, BillingClientStateListener, LifecycleObserver {
+class SubscriptionManager private constructor(private val application: Application) : PurchasesUpdatedListener, BillingClientStateListener, DefaultLifecycleObserver {
     val ready = MutableLiveData<Boolean>()
     val subscribed = MutableLiveData<Boolean>()
     val isLifetime = MutableLiveData<Boolean>()
-    val details = MutableLiveData<SkuDetails>()
-    val lifetimeDetails = MutableLiveData<SkuDetails>()
+    val offer = MutableLiveData<ProductDetails.SubscriptionOfferDetails>()
+    val details = MutableLiveData<ProductDetails>()
+    val lifetimeDetails = MutableLiveData<ProductDetails>()
 
-    private var detailsAvailables = AtomicBoolean(false)
-    private var lifetimeDetailsAvailables = AtomicBoolean(false)
+    private var detailsAvailable = AtomicBoolean(false)
+    private var lifetimeDetailsAvailable = AtomicBoolean(false)
 
     private lateinit var billingClient: BillingClient
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun create() {
+    override fun onCreate(owner: LifecycleOwner) {
+        val params = PendingPurchasesParams
+            .newBuilder()
+            .enablePrepaidPlans()
+            .enableOneTimeProducts()
+            .build()
         billingClient = BillingClient.newBuilder(application.applicationContext)
-                .enablePendingPurchases()
+                .enablePendingPurchases(params)
                 .setListener(this)
                 .build()
 
-        ready.value = false
-        subscribed.value = false
-        isLifetime.value = false
+        updateState(false)
+        updateSubscribedState(false)
+        updateLifetimeState(false)
 
         billingClient.startConnection(this)
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun destroy() {
+    override fun onDestroy(owner: LifecycleOwner) {
         if (billingClient.isReady) {
             billingClient.endConnection()
         }
@@ -59,25 +55,20 @@ class SubscriptionManager private constructor(private val application: Applicati
 
     private fun updateState(newState: Boolean) {
         if (ready.value!=newState) {
-            ready.value = newState
+            ready.postValue(newState)
         }
     }
 
     private fun updateSubscribedState(newState: Boolean) {
         if (subscribed.value!=newState) {
-            subscribed.value = newState
+            subscribed.postValue(newState)
         }
     }
 
     private fun updateLifetimeState(newState: Boolean) {
         if (isLifetime.value!=newState) {
-            isLifetime.value = newState
+            isLifetime.postValue(newState)
         }
-    }
-
-    private fun isSubscriptionSupported(): Boolean {
-        val response = billingClient.isFeatureSupported(BillingClient.FeatureType.SUBSCRIPTIONS)
-        return response.responseCode==BillingClient.BillingResponseCode.OK
     }
 
     fun launchBillingFlow(activity: Activity, params: BillingFlowParams): Int {
@@ -99,63 +90,63 @@ class SubscriptionManager private constructor(private val application: Applicati
 
     override fun onBillingSetupFinished(p0: BillingResult) {
         if (p0.responseCode==BillingClient.BillingResponseCode.OK) {
-            RetryPolicies.resetConnectionRetryPolicyCounter()
+            val subsPurchaseParams = QueryPurchasesParams
+                .newBuilder()
+                .setProductType(BillingClient.ProductType.SUBS)
+                .build()
 
-            fun updatePurchasesTask() {
-                billingClient.queryPurchasesAsync(BillingClient.SkuType.SUBS) { result: BillingResult, purchaseList: MutableList<Purchase> ->
-                    if (result.responseCode == BillingClient.BillingResponseCode.OK) {
-                        handlePurchases(purchaseList)
-                    }
-                }
-                billingClient.queryPurchasesAsync(BillingClient.SkuType.INAPP) { result: BillingResult, purchaseList: MutableList<Purchase> ->
-                    if (result.responseCode == BillingClient.BillingResponseCode.OK) {
-                        handlePurchases(purchaseList)
-                    }
-                }
-            }
-            RetryPolicies.taskExecutionRetryPolicy(billingClient, this) { updatePurchasesTask() }
-
-            if (isSubscriptionSupported()) {
-                val params = SkuDetailsParams
-                        .newBuilder()
-                        .setSkusList(listOf(application.getString(R.string.subscription_sku)))
-                        .setType(BillingClient.SkuType.SUBS)
-                        .build()
-
-                billingClient.querySkuDetailsAsync(params) { result: BillingResult, list: List<SkuDetails>? ->
-                    if (result.responseCode == BillingClient.BillingResponseCode.OK) {
-                        list?.forEach {
-                            if (it.sku == application.getString(R.string.subscription_sku)) {
-                                details.postValue(it)
-                                detailsAvailables.set(true)
-                            }
-                        }
-
-                        if (detailsAvailables.get() && lifetimeDetailsAvailables.get()) {
-                            ready.postValue(true)
-                        }
-                    }
-                }
-            }
-
-            val params = SkuDetailsParams
-               .newBuilder()
-               .setSkusList(listOf(application.getString(R.string.lifetime_subscription_sku)))
-               .setType(BillingClient.SkuType.INAPP)
-               .build()
-
-            billingClient.querySkuDetailsAsync(params) { result: BillingResult, list: MutableList<SkuDetails>? ->
+            billingClient.queryPurchasesAsync(subsPurchaseParams) { result: BillingResult, purchaseList: MutableList<Purchase> ->
                 if (result.responseCode == BillingClient.BillingResponseCode.OK) {
-                    list?.forEach {
-                        if (it.sku == application.getString(R.string.lifetime_subscription_sku)) {
-                            lifetimeDetails.postValue(it)
-                            lifetimeDetailsAvailables.set(true)
-                        }
-                    }
+                    handlePurchases(purchaseList)
+                }
+            }
 
-                    if (detailsAvailables.get() && lifetimeDetailsAvailables.get()) {
-                        ready.postValue(true)
-                    }
+            val inAppPurchaseParams = QueryPurchasesParams
+                .newBuilder()
+                .setProductType(BillingClient.ProductType.INAPP)
+                .build()
+
+            billingClient.queryPurchasesAsync(inAppPurchaseParams) { result: BillingResult, purchaseList: MutableList<Purchase> ->
+                if (result.responseCode == BillingClient.BillingResponseCode.OK) {
+                    handlePurchases(purchaseList)
+                }
+            }
+
+            val subsProductParams = QueryProductDetailsParams
+                .newBuilder()
+                .setProductList(
+                    listOf(
+                        QueryProductDetailsParams.Product
+                            .newBuilder()
+                            .setProductId(application.getString(R.string.subscription_sku))
+                            .setProductType(BillingClient.ProductType.SUBS)
+                            .build()
+                    )
+                )
+                .build()
+
+            billingClient.queryProductDetailsAsync(subsProductParams) { billingResult: BillingResult, productDetailsResult: QueryProductDetailsResult ->
+                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                    handleProductDetails(productDetailsResult)
+                }
+            }
+
+            val inAppProductParams = QueryProductDetailsParams
+                .newBuilder()
+                .setProductList(
+                    listOf(
+                        QueryProductDetailsParams.Product
+                            .newBuilder()
+                            .setProductId(application.getString(R.string.lifetime_subscription_sku))
+                            .setProductType(BillingClient.ProductType.INAPP)
+                            .build()
+                    )
+                )
+                .build()
+
+            billingClient.queryProductDetailsAsync(inAppProductParams) { billingResult: BillingResult, productDetailsResult: QueryProductDetailsResult ->
+                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                    handleProductDetails(productDetailsResult)
                 }
             }
         } else  {
@@ -167,73 +158,58 @@ class SubscriptionManager private constructor(private val application: Applicati
     // Disconnected from the Play BillingClient
     override fun onBillingServiceDisconnected() {
         updateState(false)
-        RetryPolicies.connectionRetryPolicy { billingClient.startConnection(this) }
+    }
+
+    private fun handleProductDetails(productDetails: QueryProductDetailsResult) {
+            productDetails.productDetailsList.forEach {
+                when (it.productId) {
+                    application.getString(R.string.subscription_sku) -> {
+                        details.postValue(it)
+                        it.subscriptionOfferDetails?.first().let {
+                            offer.postValue(it)
+                            detailsAvailable.set(true)
+                        }
+                    }
+
+                    application.getString(R.string.lifetime_subscription_sku) -> {
+                        lifetimeDetails.postValue(it)
+                        lifetimeDetailsAvailable.set(true)
+                    }
+                }
+            }
+
+        if (detailsAvailable.get() && lifetimeDetailsAvailable.get()) {
+            updateState(true)
+        }
     }
 
     private fun handlePurchases(purchasesList: List<Purchase>?) {
         if (purchasesList == null)
             return
 
-        if (purchasesList.isNotEmpty()) {
-            purchasesList.forEach { purchase ->
-                if (!purchase.isAcknowledged) {
-                    val purchaseParams = AcknowledgePurchaseParams.newBuilder()
-                            .setPurchaseToken(purchase.purchaseToken)
-                            .build()
+        purchasesList.forEach { purchase ->
+            if (!purchase.isAcknowledged) {
+                val purchaseParams = AcknowledgePurchaseParams.newBuilder()
+                        .setPurchaseToken(purchase.purchaseToken)
+                        .build()
 
-                    billingClient.acknowledgePurchase(purchaseParams)  {
-                    }
-                }
-
-                if (purchase.purchaseState == Purchase.PurchaseState.PENDING)
-                    return
-
-                purchase.skus.forEach { sku ->
-                    when (sku) {
-                        application.getString(R.string.subscription_sku) -> {
-                            subscribed.postValue(true)
-                        }
-                        application.getString(R.string.lifetime_subscription_sku) -> {
-                            isLifetime.postValue(true)
-                            subscribed.postValue(true)
-                        }
-                    }
+                billingClient.acknowledgePurchase(purchaseParams) {
                 }
             }
-        }
-    }
 
-    // Retries handler
-    private object RetryPolicies {
-        private const val maxRetry = 5
-        private const val taskDelay = 2000L
-        private const val baseDelayMillis = 500
-        private var retryCounter = AtomicInteger(1)
+            if (purchase.purchaseState == Purchase.PurchaseState.PENDING)
+                return
 
-        fun resetConnectionRetryPolicyCounter() {
-            retryCounter.set(1)
-        }
-
-        fun connectionRetryPolicy(block: () -> Unit) {
-            val scope = CoroutineScope(Job() + Dispatchers.Main)
-            scope.launch {
-                val counter = retryCounter.getAndIncrement()
-                if (counter < maxRetry) {
-                    val waitTime: Long = (2f.pow(counter) * baseDelayMillis).toLong()
-                    delay(waitTime)
-                    block()
+            purchase.products.forEach { product ->
+                when (product) {
+                    application.getString(R.string.subscription_sku) -> {
+                        updateSubscribedState(true)
+                    }
+                    application.getString(R.string.lifetime_subscription_sku) -> {
+                        updateLifetimeState(true)
+                        updateSubscribedState(true)
+                    }
                 }
-            }
-        }
-
-        fun taskExecutionRetryPolicy(billingClient: BillingClient, listener: SubscriptionManager, task: () -> Unit) {
-            val scope = CoroutineScope(Job() + Dispatchers.Main)
-            scope.launch {
-                if (!billingClient.isReady) {
-                    billingClient.startConnection(listener)
-                    delay(taskDelay)
-                }
-                task()
             }
         }
     }

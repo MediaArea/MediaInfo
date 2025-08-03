@@ -199,8 +199,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     ksp "androidx.lifecycle:lifecycle-common-java8:2.9.2"
     // Google Billing
-    implementation "com.android.billingclient:billing:6.0.1"
-    implementation "com.android.billingclient:billing-ktx:6.0.1"
+    implementation "com.android.billingclient:billing:8.0.0"
+    implementation "com.android.billingclient:billing-ktx:8.0.0"
     // KotlinX Coroutines
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2"
