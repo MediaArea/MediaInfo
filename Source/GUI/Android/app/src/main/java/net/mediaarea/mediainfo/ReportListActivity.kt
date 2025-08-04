@@ -35,6 +35,9 @@ import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.view.*
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -534,6 +537,24 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         activityReportListBinding = ActivityReportListBinding.inflate(layoutInflater)
         helloLayoutBinding = HelloLayoutBinding.inflate(layoutInflater)
 
+        ViewCompat.setOnApplyWindowInsetsListener(activityReportListBinding.appBar) { v: View, insets: WindowInsetsCompat ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars()
+                    or WindowInsetsCompat.Type.displayCutout())
+            v.updatePadding(
+                left = bars.left,
+                top = bars.top,
+                right = bars.right,
+            )
+            WindowInsetsCompat.CONSUMED
+        }
+        ViewCompat.setOnApplyWindowInsetsListener(activityReportListBinding.frameLayout) { v: View, insets: WindowInsetsCompat ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars()
+                    or WindowInsetsCompat.Type.displayCutout())
+            v.updatePadding(
+                bottom = bars.bottom,
+            )
+            WindowInsetsCompat.CONSUMED
+        }
 
         setContentView(activityReportListBinding.root)
 
