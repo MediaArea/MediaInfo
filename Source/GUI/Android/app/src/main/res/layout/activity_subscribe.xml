@@ -6,88 +6,90 @@
       be found in the License.html file in the root of the source tree.
 -->
 
-<LinearLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:fitsSystemWindows="true"
     android:id="@+id/plugins_layout"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".SubscribeActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:background="?attr/colorSurfaceContainer"
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:fitsSystemWindows="true">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="?attr/actionBarSize" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        android:id="@+id/subscribe_text"
+    <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/store_text"
-        android:layout_gravity="center_horizontal"
-        android:textAlignment="center" />
-    <Button
-        android:id="@+id/subscribe_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="@string/subscribe_button_text"
-        android:enabled="false"
-        android:textColor="@android:color/white"
-        android:background="@color/colorPrimary"
-        android:layout_gravity="center_horizontal" />
-
-    <TextView
-        android:id="@+id/subscription_detail_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:visibility="invisible"
-        android:scaleX="0.7"
-        android:scaleY="0.7"
-        android:text="@string/subscription_detail_text" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_margin="10dp"
-        android:background="?android:attr/listDivider"/>
-    <Button
-        android:id="@+id/lifetime_subscribe_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="@string/lifetime_subscribe_button_text"
-        android:enabled="false"
-        android:textColor="@android:color/white"
-        android:background="@color/colorPrimary"
-        android:layout_gravity="center_horizontal" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_margin="10dp"
-        android:background="?android:attr/listDivider"/>
-
-    <TextView
-        android:id="@+id/subscription_condition_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-
-        android:scaleX="0.7"
-        android:scaleY="0.7"
-        android:text="@string/subscription_condition_text" />
-</LinearLayout>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/subscribe_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:text="@string/store_text"
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center" />
+            <Button
+                android:id="@+id/subscribe_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/subscribe_button_text"
+                android:enabled="false"
+                android:layout_gravity="center_horizontal" />
+            <TextView
+                android:id="@+id/subscription_detail_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="invisible"
+                android:scaleX="0.7"
+                android:scaleY="0.7"
+                android:text="@string/subscription_detail_text" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="?android:attr/listDivider"/>
+            <Button
+                android:id="@+id/lifetime_subscribe_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/lifetime_subscribe_button_text"
+                android:enabled="false"
+                android:layout_gravity="center_horizontal" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="?android:attr/listDivider"/>
+            <TextView
+                android:id="@+id/subscription_condition_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:scaleX="0.7"
+                android:scaleY="0.7"
+                android:text="@string/subscription_condition_text" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

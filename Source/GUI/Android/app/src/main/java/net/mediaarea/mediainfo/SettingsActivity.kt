@@ -9,6 +9,10 @@ package net.mediaarea.mediainfo
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 
 import net.mediaarea.mediainfo.databinding.ActivitySettingsBinding
 
@@ -28,6 +32,24 @@ class SettingsActivity : AppCompatActivity(), SettingsActivityListener {
         activitySettingsBinding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(activitySettingsBinding.root)
 
+        ViewCompat.setOnApplyWindowInsetsListener(activitySettingsBinding.appBar) { v: View, insets: WindowInsetsCompat ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars()
+                    or WindowInsetsCompat.Type.displayCutout())
+            v.updatePadding(
+                left = bars.left,
+                top = bars.top,
+                right = bars.right,
+            )
+            WindowInsetsCompat.CONSUMED
+        }
+        ViewCompat.setOnApplyWindowInsetsListener(activitySettingsBinding.settingsContainer) { v: View, insets: WindowInsetsCompat ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars()
+                    or WindowInsetsCompat.Type.displayCutout())
+            v.updatePadding(
+                bottom = bars.bottom,
+            )
+            WindowInsetsCompat.CONSUMED
+        }
 
         setSupportActionBar(activitySettingsBinding.toolbar)
 
