@@ -621,7 +621,17 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         if (activityReportListBinding.reportListLayout.reportDetailContainer != null)
             twoPane = true
 
-         setupRecyclerView(activityReportListBinding.reportListLayout.reportList)
+        if (!twoPane) {
+            val fragment = supportFragmentManager.findFragmentById(R.id.report_detail_container)
+            if (fragment != null) {
+                supportFragmentManager
+                    .beginTransaction()
+                    .detach(fragment)
+                    .commit()
+            }
+        }
+
+        setupRecyclerView(activityReportListBinding.reportListLayout.reportList)
 
         onNewIntent(intent)
     }
