@@ -90,7 +90,7 @@ CA
                     <button verticalHuggingPriority="750" id="cR0-AD-baK">
                         <rect key="frame" x="15" y="171" width="454" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="push" title="Subscribe %PRICE% for one year" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="JL5-kL-wBR">
+                        <buttonCell key="cell" type="push" title="Subscribe (%PRICE% for one year)" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="JL5-kL-wBR">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                             <connections>
@@ -158,7 +158,7 @@ CA
                                 <button verticalHuggingPriority="750" id="DLh-1k-cok">
                                     <rect key="frame" x="209" y="20" width="62" height="21"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <buttonCell key="cell" type="bevel" title="RETRY" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="5u4-uz-TBx">
+                                    <buttonCell key="cell" type="bevel" title="Retry" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="5u4-uz-TBx">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>

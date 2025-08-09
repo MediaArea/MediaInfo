@@ -188,6 +188,9 @@ Alignment_Aligned;
 Alignment_Split;
 All;ทั้งหมด
 AlternateGroup;
+App_About;เกี่ยวกับMediaInfo
+App_Hide;ซ่อนMediaInfo
+App_Quit;ออกจากMediaInfo
 Archival_Location;Archival location
 Arranger;Arranger
 ArtDirector;ผู้กำกับศิลป์
@@ -238,6 +241,7 @@ BitRate_Mode_CBR;
 BitRate_Mode_VBR;
 BitRate_Nominal;Nominal bit rate
 Bits-(Pixel*Frame);บิต/(พิกเซล*เฟรม)
+Bring All to Front;นำทั้งหมดมาด้านหน้า
 BufferSize;
 Cancel;ยกเลิก
 CaptionServiceName;
@@ -279,6 +283,7 @@ Close all before open;ปิดทั้งหมดก่อนเปิด
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
+CloseWindow;ปิดหน้าต่าง
 Codec;Codec
 Codec_Description;รายละเอียด Codec
 Codec_Info;รายละเอียดของ codec
@@ -333,6 +338,7 @@ Container and general information;ตัวบรรจุและข้อม�
 Content;
 ContentType;ชนิดที่บรรจุ
 CoProducer;ผู้อำนวยการสร้างร่วม
+Copy;คัดลอก
 Copyright;ลิขสิทธิ์
 CopyrightYear;
 CostumeDesigner;ผู้ออกแบบเครื่องแต่งกาย
@@ -729,6 +735,7 @@ Height;ความสูง
 Height_CleanAperture;
 Height_Original;
 Help;ช่วยเหลือ
+HideOthers;ซ่อนอื่นๆ
 Hint;คำแนะนำ
 HomeTheaterAvr;
 How many audio streams?;มีจำนวนสตรีมเสียงเท่าไหร่?
@@ -1056,6 +1063,7 @@ MenuID;รหัสประจำตัวเมนู
 Metadata_Format;
 Metadata_Format_Type;
 Metadata_MuxingMode;
+Minimize;ย่อ
 MixType;
 mn;mn
 Mood;Mood
@@ -1210,6 +1218,7 @@ Season;Season
 SecondaryAudioLanguage;
 see below;ดูด้านล่าง
 Select your directory;
+SelectAll;เลือกทั้งหมด
 Send HeaderFile;โปรดส่งไฟล์ Header (หัวข้อ)ให้ฉันที่นี่ : http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;ตัวแยกคอลัมน์
 Separator_Lines;ตัวแยกบรรทัด
@@ -1218,6 +1227,7 @@ ServiceChannel;
 ServiceKind;
 ServiceName;
 ServiceProvider;
+Services;บริการ
 ServiceType;
 Set;กำหนด
 Set_Count;Set count
@@ -1233,6 +1243,7 @@ ShimName;
 ShimVersion;
 Show menu;แสดงเมนู
 Show toolbar;แสดงแถบเครื่องมือ
+ShowAll;แสดงทั้งหมด
 SignalGroup;
 SigningPresent;
 SignLanguage;
@@ -1401,6 +1412,7 @@ WebSite_Video_More;ไปที่เว็บไซต์ (%Url%) เพื่�
 Width;Width
 Width_CleanAperture;
 Width_Original;
+Window;หน้าต่าง
 WriteMe;เขียนถึงฉัน
 WriteToTranslator;เขียนถึงผู้แปล
 Written_Date;วันที่เขียน
@@ -1409,5 +1421,6 @@ WrittenBy;เขียนโดย
 Yes;ใช่
 Your system;ระบบของคุณ
 Your translation;
+Zoom;ย่อ/ขยาย
 ZZ_Automatic_Percent;58
 ZZ_AutomaticLanguage_Percent;62

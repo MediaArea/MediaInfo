@@ -1,6 +1,6 @@
 ﻿
 /* Class = "NSWindow"; title = "Window"; ObjectID = "F0z-JX-Cv5"; */
-"F0z-JX-Cv5.title" = "Window";
+"F0z-JX-Cv5.title" = "Window"; /* skip; */
 
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "ojc-pE-bUU"; */
-"ojc-pE-bUU.title" = "Cancel";
+"ojc-pE-bUU.title" = "Cancel"; /* csv="Cancel"; */

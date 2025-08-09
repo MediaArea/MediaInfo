@@ -159,6 +159,9 @@
 608_Mode;
 7.1.2ch;7.1.2
 7.1ch;7.1
+App_About;حول MediaInfo
+App_Hide;إخفاء MediaInfo
+App_Quit;إنهاء MediaInfo
 About;حول البرنامج
 About_Hint;كيفية الاتصال بنا والحصول على أخر نسخة
 Accompaniment;مرافقة
@@ -238,6 +241,7 @@ BitRate_Mode_CBR;ثابت
 BitRate_Mode_VBR;متغير
 BitRate_Nominal;المعدل الاسمي للصبيب
 Bits-(Pixel*Frame);بت /(صورة*بكسل)
+Bring All to Front;إحضار الكل إلى الأمام
 BufferSize;
 Cancel;إلغاء
 CaptionServiceName;
@@ -279,6 +283,7 @@ Close all before open;إغلاق كافة قبل الفتح
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
+CloseWindow;إغلاق النافذة
 Codec;الترميز (ِِCodec)
 Codec_Description;وصف الترميز
 Codec_Info;تفاصيل عن الترميز
@@ -333,6 +338,7 @@ Container and general information;حاوية ومعلومات عامة
 Content;Content
 ContentType;نوع المحتوى
 CoProducer;شارك في الإنتاج
+Copy;نسخ
 Copyright;حقوق
 CopyrightYear;
 CostumeDesigner;مصمم ازياء
@@ -729,6 +735,7 @@ Height;ارتفاع
 Height_CleanAperture;
 Height_Original;ارتفاع الأصلي
 Help;ساعدة
+HideOthers;إخفاء الأخرى
 Hint;اقتراح
 HomeTheaterAvr;
 How many audio streams?;كم من دفق الصوت؟
@@ -1056,6 +1063,7 @@ MenuID;معرف القائمة
 Metadata_Format;
 Metadata_Format_Type;
 Metadata_MuxingMode;
+Minimize;تصغير
 MixType;
 mn; min
 Mood;مزاج
@@ -1210,10 +1218,12 @@ Season;الموسم
 SecondaryAudioLanguage;
 see below;انظر أدناه
 Select your directory;
+SelectAll;تحديد الكل
 Send HeaderFile;الرجاء ارسال ملف Header الى :   http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;فاصل أعمدة
 Separator_Lines;فاصل الأسطر
 SeriesTitle;
+Services;خدمات
 ServiceChannel;قناة الخدمة
 ServiceKind;Service kind
 ServiceName;اسم الخدمة
@@ -1231,6 +1241,7 @@ Shell extension, separate instance;
 Shell InfoTip;ماحق InfoTip ( عرض مزيد من التفاصيل عند  تحريك الماوس فوق الملف)
 ShimName;
 ShimVersion;
+ShowAll;إظهار الكل
 Show menu;اظهار القائمة
 Show toolbar;عرض شريط الأدوات
 SignalGroup;
@@ -1401,6 +1412,7 @@ WebSite_Video_More;انتقل إلى موقع (%Url%)العثور على ترم�
 Width;العرض
 Width_CleanAperture;
 Width_Original;العرض الأصلي
+Window;نافذة
 WriteMe;كتابة البريد للمؤلف
 WriteToTranslator;كتابة البريد للمترجم
 Written_Date;تاريخ الكتابة
@@ -1409,5 +1421,6 @@ WrittenBy;كتبها
 Yes;نعم
 Your system;نظامك
 Your translation;
+Zoom;تكبير/تصغير
 ZZ_Automatic_Percent;69
 ZZ_AutomaticLanguage_Percent;73

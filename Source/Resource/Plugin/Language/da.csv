@@ -188,6 +188,9 @@ Alignment_Aligned;Justeret på interleaves
 Alignment_Split;Delt på interleaves
 All;Alle
 AlternateGroup;
+App_About;Om MediaInfo
+App_Hide;Skjul MediaInfo
+App_Quit;Slut MediaInfo
 Archival_Location;Arkivsted
 Arranger;Arrangør
 ArtDirector;Art Director
@@ -238,6 +241,7 @@ BitRate_Mode_CBR;Konstant
 BitRate_Mode_VBR;Variabel
 BitRate_Nominal;Nominel bitrate
 Bits-(Pixel*Frame);Bits/(Billedpunkter*Billed)
+Bring All to Front;Anbring alle forrest
 BufferSize;Buffer-størrelse
 Cancel;Annuller
 CaptionServiceName;
@@ -279,6 +283,7 @@ Close all before open;Luk alle før åbning
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
+CloseWindow;Lukk vinduet
 Codec;Codec
 Codec_Description;Codec-beskrivelse
 Codec_Info;Codec-detaljer
@@ -333,6 +338,7 @@ Container and general information;Container og generel information
 Content;
 ContentType;Indholdstype
 CoProducer;Coproducer
+Copy;Kopier
 Copyright;Copyright
 CopyrightYear;
 CostumeDesigner;Kostumedesigner
@@ -729,6 +735,7 @@ Height;Højde
 Height_CleanAperture;
 Height_Original;Oprindelig højde
 Help;Hjælp
+HideOthers;Skjul andre
 Hint;Tip
 HomeTheaterAvr;
 How many audio streams?;Hvor mange lydstrømme?
@@ -1063,6 +1070,7 @@ More;Mere
 Movie;Filmnavn
 ms; ms
 MSDI;MSID
+Minimize;Minimer
 MultipleStream;
 MultiView_Count;
 MusicBy;Musik af
@@ -1210,6 +1218,7 @@ Season;Sæson
 SecondaryAudioLanguage;
 see below;se nedenunder
 Select your directory;
+SelectAll;Vælg alt
 Send HeaderFile;Send venligst header-filen her: http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;Kolonneseparator
 Separator_Lines;Linjeseparator
@@ -1219,6 +1228,7 @@ ServiceKind;
 ServiceName;Servicenavn
 ServiceProvider;Serviceudbyder
 ServiceType;Servicetype
+Services;Tjenester
 Set;Sæt
 Set_Count;Antal sæt
 Setup;Opsætning
@@ -1233,6 +1243,7 @@ ShimName;
 ShimVersion;
 Show menu;Vis menu
 Show toolbar;Vis værktøjslinje
+ShowAll;Vis alle
 SignalGroup;
 SigningPresent;
 SignLanguage;
@@ -1401,6 +1412,7 @@ WebSite_Video_More;Gå til webstedet (%Url%) for at finde dette video-codec
 Width;Bredde
 Width_CleanAperture;
 Width_Original;Oprindelig bredde
+Window;Vindue
 WriteMe;Skriv e-mail til programmøren
 WriteToTranslator;Skriv til oversætteren
 Written_Date;Skrevet den
@@ -1409,5 +1421,6 @@ WrittenBy;Skrevet af
 Yes;Ja
 Your system;Dit system
 Your translation;
+Zoom;Zoom
 ZZ_Automatic_Percent;60
 ZZ_AutomaticLanguage_Percent;69

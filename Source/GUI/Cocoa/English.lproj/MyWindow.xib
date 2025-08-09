@@ -101,7 +101,7 @@
                                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="180" customClass="HyperlinkButton">
                                                         <rect key="frame" x="15" y="14" width="430" height="15"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="square" title="Go to the website of a player for this file" bezelStyle="shadowlessSquare" image="buttonCell:181:image" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="181">
+                                                        <buttonCell key="cell" type="square" title="Go to the web site of a player for this file" bezelStyle="shadowlessSquare" image="buttonCell:181:image" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="181">
                                                             <behavior key="behavior" lightByContents="YES"/>
                                                             <font key="font" metaFont="titleBar" size="12" textStyle="headline"/>
                                                         </buttonCell>
@@ -293,11 +293,11 @@
                             <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="selectOne" id="38" customClass="SegmentedCellWithMenu">
                                 <font key="font" metaFont="system"/>
                                 <segments>
-                                    <segment toolTip="Easy View" image="NSIconViewTemplate" width="28" selected="YES"/>
-                                    <segment toolTip="Tree View" image="NSPathTemplate" width="28"/>
-                                    <segment toolTip="Text View" image="NSListViewTemplate" width="28"/>
+                                    <segment toolTip="Basic" image="NSIconViewTemplate" width="28" selected="YES"/>
+                                    <segment toolTip="Tree" image="NSPathTemplate" width="28"/>
+                                    <segment toolTip="Text" image="NSListViewTemplate" width="28"/>
                                     <segment label="⇆" toolTip="Compare View (Premium feature)" width="28" enabled="NO"/>
-                                    <segment label="..." toolTip="Other Views" width="28"/>
+                                    <segment label="..." toolTip="Other views" width="28"/>
                                 </segments>
                             </segmentedCell>
                             <connections>

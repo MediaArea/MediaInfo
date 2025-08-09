@@ -188,6 +188,9 @@ Alignment_Aligned;Usmjerenje sukladno čimbeniku 'interleave'
 Alignment_Split;Rasporediti preko interleavea
 All;Sve
 AlternateGroup;
+App_About;Više o aplikaciji MediaInfo
+App_Hide;Sakrij MediaInfo
+App_Quit;Zatvori MediaInfo
 Archival_Location;Mjesto pohranjivanja
 Arranger;Aranžer
 ArtDirector;Umjetnički ravnatelj
@@ -238,6 +241,7 @@ BitRate_Mode_CBR;Ustaljeno
 BitRate_Mode_VBR;Promjenjivo
 BitRate_Nominal;Nominalni protok podataka
 Bits-(Pixel*Frame);Bita/(piksela*sličica)
+Bring All to Front;Postavi sve naprijed
 BufferSize;
 Cancel;Poništiti
 CaptionServiceName;
@@ -279,6 +283,7 @@ Close all before open;Prije otvaranja sve ostale zatvoriti
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
+CloseWindow;Zatvori prozor
 Codec;Kôdek
 Codec_Description;Opis kôdeka
 Codec_Info;Pojedinosti o kôdeku
@@ -333,6 +338,7 @@ Container and general information;Oblik spremnika i opće informacije
 Content;
 ContentType;Vrsta sadržaja
 CoProducer;Koproducent
+Copy;Kopiraj
 Copyright;Zaštićeno autorsko pravo
 CopyrightYear;
 CostumeDesigner;Kostimograf
@@ -729,6 +735,7 @@ Height;Visina
 Height_CleanAperture;
 Height_Original;
 Help;Pomoć
+HideOthers;Sakrij ostalo
 Hint;Naznaka
 HomeTheaterAvr;
 How many audio streams?;Koliko zvučnih tokova?
@@ -1056,6 +1063,7 @@ MenuID;Izbornički ID
 Metadata_Format;
 Metadata_Format_Type;
 Metadata_MuxingMode;
+Minimize;Smanji
 MixType;
 mn; min
 Mood;Raspoloženje
@@ -1210,6 +1218,7 @@ Season;Razdoblje
 SecondaryAudioLanguage;
 see below;pogledati dolje
 Select your directory;
+SelectAll;Odaberi sve
 Send HeaderFile;Molim zaglavnu datoteku poslati ovamo: http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;Razdjelnik redaka
 Separator_Lines;Razdjelnik crta
@@ -1218,6 +1227,7 @@ ServiceChannel;Broj uslužnog kanala
 ServiceKind;
 ServiceName;Naziv usluge
 ServiceProvider;Pružatelj usluge
+Services;Usluge
 ServiceType;Vrsta usluge
 Set;Medijalni sklop
 Set_Count;Broj u medijalnom sklopu
@@ -1233,6 +1243,7 @@ ShimName;
 ShimVersion;
 Show menu;Prikazati izbornik
 Show toolbar;Prikazati alatnu traku
+ShowAll;Prikaži sve
 SignalGroup;
 SigningPresent;
 SignLanguage;
@@ -1401,6 +1412,7 @@ WebSite_Video_More;Prijeći na spletni sadržaj (%Url%) za pronalaženje tog vid
 Width;Širina
 Width_CleanAperture;
 Width_Original;
+Window;Prozor
 WriteMe;Poruka autoru
 WriteToTranslator;Poruka prevoditelju
 Written_Date;Nadnevak početka pisanja
@@ -1409,5 +1421,6 @@ WrittenBy;Napisao
 Yes;Da
 Your system;Informacije o Vašem sustavu
 Your translation;
+Zoom;Zumiraj
 ZZ_Automatic_Percent;64
 ZZ_AutomaticLanguage_Percent;68

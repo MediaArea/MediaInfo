@@ -1,50 +1,50 @@
 /* Error text while open */
-"Can not open file(s)" = "Can not open file(s)";
+"Can not open file(s)" = "Can not open file(s)"; /* csv="Error_Open"; */
 
 /* Error text while export */
-"Can not save file" = "Can not save file";
+"Can not save file" = "Can not save file"; /* csv="Error_Save"; */
 
 /* Error header */
-"Error" = "Error";
+"Error" = "Error"; /* csv="Error"; */
 
 /* Close */
-"Close" = "Close";
+"Close" = "Close"; /* csv="Close"; */
 
 /* Subscription Ended */
-"Your subscription has just ended." = "Your subscription has just ended.";
+"Your subscription has just ended." = "Your subscription has just ended."; /* csv="Subscription_Ended"; */
 
 /* Renew */
-"Renew" = "Renew";
+"Renew" = "Renew"; /* csv="Renew"; */
 
 /* Renew subscription? */
-"Renew subscription?" = "Renew subscription?";
+"Renew subscription?" = "Renew subscription?"; /* csv="Subscribe_Renew"; */
 
 /* Manage Subscription */
-"Manage Subscription" = "Manage Subscription";
+"Manage Subscription" = "Manage subscription"; /* csv="Subscribe_Manage"; */
 
 /* Compare View */
-"Compare View" = "Compare View";
+"Compare View" = "Compare View (Premium feature)"; /* csv="CompareView"; */
 
 /* Renew Price */
-"Renew subscription %PRICE% for one year" = "Renew subscription %PRICE% for one year";
+"Renew subscription %PRICE% for one year" = "Renew subscription (%PRICE% for one year)"; /* csv="Subscribe_Renew_Price"; */
 
 /* Active Status */
-@"Subscription active until %DATE%." = @"Subscription active until %DATE%.";
+"Subscription active until %DATE%." = "Subscription active until %DATE%"; /* csv="Subscription_Active"; */
 
 /* Expired Status */
-"Subscription expired since %DATE%." = "Subscription expired since %DATE%.";
+"Subscription expired since %DATE%." = "Subscription expired since %DATE%"; /* csv="Subscription_Expired"; */
 
 /* Lifetime Status */
-"Lifetime subscription detected." = "Lifetime subscription detected.";
+"Lifetime subscription detected." = "Lifetime subscription detected"; /* csv="Subscription_Lifetime"; */
 
 /* Downloading File */
-"Downloading file(s) %lu of %lu ..." = "Downloading file(s) %lu of %lu ...";
+"Downloading file(s) %INDEX% of %COUNT% ..." = "Downloading file(s) %INDEX% of %COUNT% ..."; /* csv="DownloadFile"; */
 
 /* Download error with filename */
-"Can not download %@" = "Can not download %@";
+"Can not download %FILE%" = "Can not download %FILE%"; /* csv="DownloadFileError"; */
 
 /* Opening File */
-"Opening file(s) %lu of %lu ..." = "Opening file(s) %lu of %lu ...";
+"Opening file(s) %INDEX% of %COUNT% ..." = "Opening file(s) %INDEX% of %COUNT% ..."; /* csv="OpenFile"; */
 
 /* Open error with filename */
-"Can not open %@" = "Can not open %@";
+"Can not open %FILE%" = "Can not open %FILE%"; /* csv="OpenFileError"; */

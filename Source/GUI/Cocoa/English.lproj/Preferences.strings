@@ -1,39 +1,36 @@
 ﻿
 /* Class = "NSWindow"; title = "Preferences"; ObjectID = "1"; */
-"1.title" = "Preferences";
-
-/* Class = "NSToolbarItem"; label = "General"; ObjectID = "12"; */
-"12.label" = "General";
-
-/* Class = "NSToolbarItem"; paletteLabel = "General"; ObjectID = "12"; */
-"12.paletteLabel" = "General";
+"1.title" = "Preferences"; /* csv="Preferences"; */
 
 /* Class = "NSTextFieldCell"; title = "Language:"; ObjectID = "25"; */
-"25.title" = "Language:";
+"25.title" = "Language"; /* csv="Language"; */
 
 /* Class = "NSMenuItem"; title = "Default"; ObjectID = "48"; */
-"48.title" = "Default";
+"48.title" = "Default"; /* csv="Default"; */
 
 /* Class = "NSTextFieldCell"; title = "Changes take effect after application restart"; ObjectID = "54"; */
-"54.title" = "Changes take effect after application restart";
+"54.title" = "Changes take effect after application restart"; /* csv="LanguageChanges"; */
 
 /* Class = "NSTextFieldCell"; title = "Premium MediaInfo feature"; ObjectID = "eaf-m0-xtv"; */
-"eaf-m0-xtv.title" = "Premium MediaInfo feature";
+"eaf-m0-xtv.title" = "Premium MediaInfo feature"; /* csv="Premium_Feature"; */
+
+/* Class = "NSTabViewItem"; label = "Advanced"; ObjectID = "Mtf-gr-SgJ"; */
+"Mtf-gr-SgJ.label" = "Advanced"; /* csv="Advanced"; */
 
 /* Class = "NSTextFieldCell"; title = "Default view:"; ObjectID = "mz3-nf-7kH"; */
-"mz3-nf-7kH.title" = "Default view:";
+"mz3-nf-7kH.title" = "Default view:"; /* csv="DefaultView"; */
 
 /* Class = "NSButtonCell"; title = "subscribe"; ObjectID = "qvF-It-rlQ"; */
-"qvF-It-rlQ.title" = "subscribe";
+"qvF-It-rlQ.title" = "Subscribe"; /* csv="Subscribe"; */
 
 /* Class = "NSTextFieldCell"; title = "Handling of 608/708 streams:"; ObjectID = "FSN-9S-Ykj"; */
-"FSN-9S-Ykj.title" = "Handling of 608/708 streams:";
+"FSN-9S-Ykj.title" = "Handling of 608/708 streams:"; /* csv="DisplayCaptions"; */
 
 /* Class = "NSMenuItem"; title = "When content is detected"; ObjectID = "8Ua-A2-6V9"; */
-"8Ua-A2-6V9.title" = "When content is detected";
+"8Ua-A2-6V9.title" = "When content is detected"; /* csv="DisplayCaptions_Content"; */
 
 /* Class = "NSMenuItem"; title = "When content or a command is detected"; ObjectID = "I2h-Au-EAa"; */
-"I2h-Au-EAa.title" = "When content or a command is detected";
+"I2h-Au-EAa.title" = "When content or a command is detected"; /* csv="DisplayCaptions_Command"; */
 
 /* Class = "NSMenuItem"; title = "Even when no content or command is detected"; ObjectID = "sik-bk-btb"; */
-"sik-bk-btb.title" = "Even when no content or command is detected";
+"sik-bk-btb.title" = "Even when no content or command is detected"; /* csv="DisplayCaptions_Stream"; */
