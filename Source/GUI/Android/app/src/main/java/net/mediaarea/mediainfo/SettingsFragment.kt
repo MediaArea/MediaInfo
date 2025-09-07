@@ -17,13 +17,17 @@ import com.yariksoffice.lingver.Lingver
 import java.util.*
 
 class SettingsFragment : PreferenceFragmentCompat() {
+    private var localeDropdown: DropDownPreference? = null
+    private var uimodeDropdown: DropDownPreference? = null
+    private var systemLanguageSwitch: SwitchPreferenceCompat? = null
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.fragment_settings, rootKey)
 
         //val subscribeButton: Preference? = findPreference(getString(R.string.preferences_subscribe_key))
-        val localeDropdown: DropDownPreference? = findPreference(getString(R.string.preferences_locale_key))
-        val uimodeDropdown: DropDownPreference? = findPreference(getString(R.string.preferences_uimode_key))
-        val systemLanguageSwitch: SwitchPreferenceCompat? = findPreference(getString(R.string.preferences_report_translate_key))
+        localeDropdown = findPreference(getString(R.string.preferences_locale_key))
+        uimodeDropdown = findPreference(getString(R.string.preferences_uimode_key))
+        systemLanguageSwitch = findPreference(getString(R.string.preferences_report_translate_key))
 
         /*subscribeButton?.setOnPreferenceClickListener  {
             val intent = Intent(activity, SubscribeActivity::class.java)
@@ -35,21 +39,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
             val activityListener = activity as SettingsActivityListener
             val subscriptionManager = activityListener.getSubscriptionManager()
 
-            lifecycle.addObserver(subscriptionManager)
-
             /*subscriptionManager.ready.observe(this, Observer {
                 if (it==true) {
                     subscribeButton?.isVisible = true
                 }
             })*/
 
+            subscriptionManager.subscribed.value?.let {
+                updateSubscriptionState(it)
+            }
+
             subscriptionManager.subscribed.observe(this) {
-                if (it==true) {
-                    //subscribeButton?.isVisible = false
-                    uimodeDropdown?.isEnabled = true
-                    localeDropdown?.isEnabled = true
-                    systemLanguageSwitch?.isEnabled = true
-                }
+                updateSubscriptionState(it)
             }
         }
 
@@ -57,20 +58,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
             if (newValue is String) {
                 val locale: Locale =
                     if (newValue == "system") {
-                        if (Build.VERSION.SDK_INT>=24) {
+                        if (Build.VERSION.SDK_INT >= 24) {
                             Resources.getSystem().configuration.locales.get(0)
-                        }
-                        else {
+                        } else {
                             @Suppress("DEPRECATION")
                             Resources.getSystem().configuration.locale
                         }
-                    }
-                    else {
+                    } else {
                         val language = newValue.split("-r")
                         if (language.size > 1) {
                             Locale(language[0], language[1])
-                        }
-                        else {
+                        } else {
                             Locale(language[0])
                         }
                     }
@@ -79,7 +77,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
                 if (Lingver.getInstance().getLocale() != locale) {
                     val settingsActivity = activity
-                    if(settingsActivity != null) {
+                    if (settingsActivity != null) {
                         Lingver.getInstance().setLocale(settingsActivity, locale)
                         settingsActivity.recreate()
                     }
@@ -96,11 +94,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
                             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                         }
                     }
+
                     "on" -> {
                         if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_YES) {
                             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                         }
                     }
+
                     "system" -> {
                         if (AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
                             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
@@ -109,6 +109,15 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
             }
             true
+        }
+    }
+
+    fun updateSubscriptionState(value: Boolean) {
+        if (value) {
+            //subscribeButton?.isVisible = false
+            uimodeDropdown?.isEnabled = true
+            localeDropdown?.isEnabled = true
+            systemLanguageSwitch?.isEnabled = true
         }
     }
 }
