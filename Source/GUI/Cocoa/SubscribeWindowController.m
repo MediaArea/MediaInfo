@@ -63,6 +63,8 @@ static SubscribeWindowController *subscribeCtrl = nil;
 
     [self showProgress];
 
+    [_retryButton setTitle:[[_retryButton title] localizedUppercaseString]];
+
     [observers addObject:[[NSNotificationCenter defaultCenter] addObserverForName:[SubscriptionManager subscriptionStateChangedNotification] object:[SubscriptionManager shared] queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification) {
         [self close];
     }]];

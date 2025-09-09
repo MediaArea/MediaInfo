@@ -188,6 +188,9 @@ Alignment_Aligned;Dijajarkan pada jalinan
 Alignment_Split;Dibagi sepanjang jalinan
 All;Semua
 AlternateGroup;Kelompok alternatif
+App_About;Mengenai MediaInfo
+App_Hide;Sembunyikan MediaInfo
+App_Quit;Tutup MediaInfo
 Archival_Location;Lokasi pengarsipan
 Arranger;Aransemen
 ArtDirector;Pengarah Seni
@@ -238,6 +241,7 @@ BitRate_Mode_CBR;Konstan
 BitRate_Mode_VBR;Variabel
 BitRate_Nominal;Laju bit nominal
 Bits-(Pixel*Frame);Bit/(Piksel*Bingkai)
+Bring All to Front;Pindahkan Semua ke Depan
 BufferSize;Ukuran penyangga
 Cancel;Batal
 CaptionServiceName;Nama layanan takarir
@@ -279,6 +283,7 @@ Close all before open;Tutup semua sebelum membuka
 ClosedCaptionsLanguage;Bahasa Teks Penjelas Tertutup
 ClosedCaptionsPresent;Presentasi Teks Penjelas Tertutup
 ClosedCaptionsType;Jenis Teks Penjelas Tertutup
+CloseWindow;Tutup Jendela
 Codec;Kodek
 Codec_Description;Deskripsi kodek
 Codec_Info;Rincian untuk kodek
@@ -333,6 +338,7 @@ Container and general information;Wadah dan informasi umum
 Content;Konten
 ContentType;Jenis Konten
 CoProducer;Produser pendamping
+Copy;Salin
 Copyright;Hak cipta
 CopyrightYear;Tahun hak cipta
 CostumeDesigner;Perancang kostum
@@ -729,6 +735,7 @@ Height;Tinggi
 Height_CleanAperture;Tinggi bukaan jernih
 Height_Original;Tinggi asli
 Help;Bantuan
+HideOthers;Sembunyikan Lainnya
 Hint;Petunjuk
 HomeTheaterAvr;AVR Teater Rumah
 How many audio streams?;Berapa banyak aliran audio?
@@ -1056,6 +1063,7 @@ MenuID;ID menu
 Metadata_Format;Format metadata
 Metadata_Format_Type;Jenis bingkai metadata
 Metadata_MuxingMode;Mode multipleks metadata
+Minimize;Minikan
 MixType;Jenis padu
 mn; m
 Mood;Suasana
@@ -1210,6 +1218,7 @@ Season;Musim
 SecondaryAudioLanguage;Bahasa Audio Sekunder
 see below;lihat di bawah
 Select your directory;Pilih direktori
+SelectAll;Pilih Semua
 Send HeaderFile;Kirimi saya berkas kop di: http://sourceforge.net/projects/mediainfo/ (bagian Bug)
 Separator_Columns;pemisah kolom
 Separator_Lines;pemisah baris
@@ -1218,6 +1227,7 @@ ServiceChannel;Nomor saluran layanan
 ServiceKind;Macam layanan
 ServiceName;Nama layanan
 ServiceProvider;Penyedia layanan
+Services;Layanan
 ServiceType;Jenis layanan
 Set;Set
 Set_Count;Banyaknya set
@@ -1233,6 +1243,7 @@ ShimName;Nama pemampas
 ShimVersion;Versi pemampas
 Show menu;Tampilkan menu
 Show toolbar;Tampilkan bilah alat
+ShowAll;Tampilkan Semua
 SignalGroup;Kelompok isyarat
 SigningPresent;Isyarat Tersedia
 SignLanguage;Bahasa Isyarat
@@ -1401,6 +1412,7 @@ WebSite_Video_More;Ke situs web (%Url%) untuk temukan kodek video ini
 Width;Lebar
 Width_CleanAperture;Lebar bukaan jernih
 Width_Original;Lebar asli
+Window;Jendela
 WriteMe;Tulis surat ke pengembang
 WriteToTranslator;Tulis surat ke penerjemah
 Written_Date;Tanggal ditulis
@@ -1409,5 +1421,6 @@ WrittenBy;Ditulis oleh
 Yes;Ya
 Your system;Sistem Anda
 Your translation;Terjemahan Anda
+Zoom;Zoom
 ZZ_Automatic_Percent;99
 ZZ_AutomaticLanguage_Percent;99

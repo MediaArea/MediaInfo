@@ -188,6 +188,9 @@ Alignment_Aligned;Alinhado intercalado
 Alignment_Split;Dividir entre as intercalações
 All;Todos
 AlternateGroup;
+App_About;Acerca do MediaInfo
+App_Hide;Ocultar MediaInfo
+App_Quit;Sair do MediaInfo
 Archival_Location;Local de arquivamento
 Arranger;Arranjador
 ArtDirector;Diretor de Arte
@@ -238,6 +241,7 @@ BitRate_Mode_CBR;Constante
 BitRate_Mode_VBR;Variável
 BitRate_Nominal;Taxa de bits nominal
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
+Bring All to Front;Passar tudo para a frente
 BufferSize;Tamanho do buffer
 Cancel;Cancelar
 CaptionServiceName;
@@ -279,6 +283,7 @@ Close all before open;Fechar tudo antes de abrir
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
+CloseWindow;Fechar janela
 Codec;Codec
 Codec_Description;Descrição do codec
 Codec_Info;Detalhes do codec
@@ -333,6 +338,7 @@ Container and general information;Arquivo recipiente e informação geral
 Content;
 ContentType;Conteúdo
 CoProducer;Co-Produtor
+Copy;Copiar
 Copyright;Direitos de autor
 CopyrightYear;
 CostumeDesigner;Estilista
@@ -729,6 +735,7 @@ Height;Altura
 Height_CleanAperture;
 Height_Original;Altura original
 Help;Ajuda
+HideOthers;Ocultar outras aplicações
 Hint;Dica
 HomeTheaterAvr;
 How many audio streams?;Quantas faixas de áudio?
@@ -1056,6 +1063,7 @@ MenuID;ID do Menu
 Metadata_Format;
 Metadata_Format_Type;
 Metadata_MuxingMode;
+Minimize;Minimizar
 MixType;
 mn; min
 Mood;Descrição
@@ -1210,6 +1218,7 @@ Season;Temporada
 SecondaryAudioLanguage;
 see below;ver abaixo
 Select your directory;
+SelectAll;Seleccionar tudo
 Send HeaderFile;Por favor envie-me o cabeçalho do ficheiro para : http://sourceforge.net/projects/mediainfo/ (secção de Bug)
 Separator_Columns;Separador de colunas
 Separator_Lines;Separador de linhas
@@ -1218,6 +1227,7 @@ ServiceChannel;Número do canal do serviço
 ServiceKind;
 ServiceName;Nome do serviço
 ServiceProvider;Provedor do serviço
+Services;Serviços
 ServiceType;Tipo de serviço
 Set;Ajustar
 Set_Count;Ajustar contador
@@ -1233,6 +1243,7 @@ ShimName;
 ShimVersion;
 Show menu;Mostrar menu
 Show toolbar;Mostrar barra de ferramentas
+ShowAll;Mostrar tudo
 SignalGroup;
 SigningPresent;
 SignLanguage;
@@ -1401,6 +1412,7 @@ WebSite_Video_More;Ir para o site (%Url%) para encontrar este codec de vídeo
 Width;Largura
 Width_CleanAperture;
 Width_Original;Largura original
+Window;Janela
 WriteMe;Escreva-me
 WriteToTranslator;Escreva ao tradutor
 Written_Date;Data da escrita
@@ -1409,5 +1421,6 @@ WrittenBy;Escrito por
 Yes;Sim
 Your system;O seu sistema
 Your translation;
+Zoom;Aumentar/reduzir janela
 ZZ_Automatic_Percent;70
 ZZ_AutomaticLanguage_Percent;71

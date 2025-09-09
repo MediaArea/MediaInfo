@@ -17,7 +17,7 @@
                 <menuItem title="MediaInfo" tag="10" id="56">
                     <menu key="submenu" title="MediaInfo" systemMenu="apple" id="57">
                         <items>
-                            <menuItem title="About MediaInfo" id="58">
+                            <menuItem title="About MediaInfo…" id="58">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="openAboutPanel:" target="-1" id="605"/>
@@ -26,7 +26,7 @@
                             <menuItem isSeparatorItem="YES" id="236">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Subscribe" hidden="YES" tag="11" id="K4A-dG-lv3">
+                            <menuItem title="Subscribe…" tag="11" hidden="YES" id="K4A-dG-lv3">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="openSubscribePanel:" target="-1" id="1oU-Hc-kHT"/>
@@ -623,7 +623,7 @@
                         </items>
                     </menu>
                 </menuItem>
-                 <menuItem title="Options" tag="53" id="299">
+                <menuItem title="Options" tag="53" id="299">
                     <menu key="submenu" title="Options" id="300">
                         <items>
                             <menuItem title="Advanced mode" tag="52" hidden="YES" toolTip="Show more in the output, including different formats of time or duration" id="HYj-FA-ksV">
@@ -644,7 +644,7 @@
                 <menuItem title="View" tag="50" id="295">
                     <menu key="submenu" title="View" id="296">
                         <items>
-                            <menuItem title="Easy" keyEquivalent="1" id="ok7-rU-jbg">
+                            <menuItem title="Basic" keyEquivalent="1" id="ok7-rU-jbg">
                                 <connections>
                                     <action selector="selectEasyTab:" target="-1" id="Lgg-7U-SYd"/>
                                 </connections>
@@ -694,21 +694,18 @@
                                     <action selector="selectViewMPEG7_Strict:" target="-1" id="Nkm-M1-jmT"/>
                                 </connections>
                             </menuItem>
-
                             <menuItem title="MPEG-7 (relaxed)" id="p8X-mO-6KX">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="selectViewMPEG7_Relaxed:" target="-1" id="Oln-N2-knU"/>
                                 </connections>
                             </menuItem>
-
                             <menuItem title="MPEG-7 (extended)" id="q9Y-oP-7LY">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="selectViewMPEG7_Extended:" target="-1" id="Pmo-O3-loV"/>
                                 </connections>
                             </menuItem>
-
                             <menuItem title="PBCore 1.2" id="R8P-ks-E16">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
@@ -788,7 +785,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="599"/>
-                            <menuItem title="Show Toolbar" keyEquivalent="t" id="297">
+                            <menuItem title="Show toolbar" keyEquivalent="t" id="297">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <action selector="toggleToolbarShown:" target="-1" id="366"/>
@@ -802,20 +799,26 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="Window" id="19">
-                    <menu key="submenu" title="Window" systemMenu="window" id="24">
+                <menuItem title="Window" id="aUF-d1-5bR">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
                         <items>
-                            <menuItem title="Minimize" keyEquivalent="m" id="23">
+                            <menuItem title="Minimize" keyEquivalent="m" id="OY7-WF-poV">
                                 <connections>
-                                    <action selector="performMiniaturize:" target="-1" id="37"/>
+                                    <action selector="performMiniaturize:" target="-1" id="VwT-WD-YPe"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="92">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
-                            <menuItem title="Bring All to Front" id="5">
+                            <menuItem title="Zoom" id="R4o-n2-Eq4">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="arrangeInFront:" target="-1" id="39"/>
+                                    <action selector="performZoom:" target="-1" id="DIl-cC-cCs"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="eu3-7i-yIM"/>
+                            <menuItem title="Bring All to Front" id="LE2-aR-0XJ">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="arrangeInFront:" target="-1" id="DRN-fu-gQh"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -825,13 +828,13 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Help" systemMenu="help" id="491">
                         <items>
-                            <menuItem title="Information about the in-app purchase" id="nMH-4I-T3M">
+                            <menuItem title="Information about the in-app purchase…" id="nMH-4I-T3M">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="openSubscriptionReportPanel:" target="-1" id="Be6-Kr-esl"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="MediaInfo Website" keyEquivalent="?" id="492">
+                            <menuItem title="MediaInfo web site…" keyEquivalent="?" id="492">
                                 <connections>
                                     <action selector="clickAuthorWebsite:" target="-1" id="606"/>
                                 </connections>

@@ -1,21 +1,20 @@
-﻿
 /* Class = "NSTextFieldCell"; title = "Copyright 2002-2025 MediaArea.net SARL"; ObjectID = "8"; */
-"8.title" = "Copyright 2002-2025 MediaArea.net SARL";
+"8.title" = "Copyright 2002-2025 MediaArea.net SARL"; /* skip; */
 
 /* Class = "NSTextFieldCell"; title = "vX.X.XX"; ObjectID = "12"; */
-"12.title" = "vX.X.XX";
+"12.title" = "vX.X.XX"; /* skip; */
 
 /* Class = "NSTextFieldCell"; title = "MediaInfo"; ObjectID = "14"; */
-"14.title" = "MediaInfo";
+"14.title" = "MediaInfo"; /* skip; */
 
 /* Class = "NSTextFieldCell"; title = "MediaInfo provides easy access to technical and tag information about video and audio files.\n\nExcept the Mac App Store graphical user interface, it is open-source software, which means that it is free of charge to the end user and developers have freedom to study, to improve and to redistribute the program (BSD license)"; ObjectID = "16"; */
-"16.title" = "MediaInfo provides easy access to technical and tag information about video and audio files.\n\nExcept the Mac App Store graphical user interface, it is open-source software, which means that it is free of charge to the end user and developers have freedom to study, to improve and to redistribute the program (BSD license)";
+"16.title" = "MediaInfo provides easy access to technical and tag information about video and audio files.\nExcept the Mac App Store graphical user interface, it is open-source software, which means that it is free of charge to the end user and developers have freedom to study, to improve and to redistribute the program (BSD license)"; /* csv="MediaInfo_About"; */
 
 /* Class = "NSButtonCell"; title = "Go to website"; ObjectID = "24"; */
-"24.title" = "Go to website";
+"24.title" = "Go to website"; /* csv="Go to WebSite"; */
 
 /* Class = "NSButtonCell"; title = "Write mail to author"; ObjectID = "26"; */
-"26.title" = "Write mail to author";
+"26.title" = "Write mail to author"; /* csv="WriteMe"; */
 
 /* Class = "NSButtonCell"; title = "GUI created by Max Pozdeev"; ObjectID = "29"; */
-"29.title" = "GUI created by Max Pozdeev";
+"29.title" = "GUI created by Max Pozdeev"; /* csv="MacCreatedBy"; */

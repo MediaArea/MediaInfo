@@ -1,474 +1,480 @@
 ﻿
-/* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5"; */
-"5.title" = "Bring All to Front";
+/* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "LE2-aR-0XJ"; */
+"LE2-aR-0XJ.title" = "Bring All to Front"; /* csv="Bring All to Front"; */
 
-/* Class = "NSMenuItem"; title = "Window"; ObjectID = "19"; */
-"19.title" = "Window";
+/* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
+"aUF-d1-5bR.title" = "Window"; /* csv="Window"; */
 
-/* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "23"; */
-"23.title" = "Minimize";
+/* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "OY7-WF-poV"; */
+"OY7-WF-poV.title" = "Minimize"; /* csv="Minimize"; */
 
-/* Class = "NSMenu"; title = "Window"; ObjectID = "24"; */
-"24.title" = "Window";
+/* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "R4o-n2-Eq4"; */
+"R4o-n2-Eq4.title" = "Zoom"; /* csv="Zoom"; */
+
+/* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
+"Td7-aD-5lo.title" = "Window"; /* csv="Window"; */
 
 /* Class = "NSMenu"; title = "AMainMenu"; ObjectID = "29"; */
-"29.title" = "AMainMenu";
+"29.title" = "AMainMenu"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "MediaInfo"; ObjectID = "56"; */
-"56.title" = "MediaInfo";
+"56.title" = "MediaInfo"; /* skip; */
 
 /* Class = "NSMenu"; title = "MediaInfo"; ObjectID = "57"; */
-"57.title" = "MediaInfo";
+"57.title" = "MediaInfo"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "About MediaInfo"; ObjectID = "58"; */
-"58.title" = "About MediaInfo";
+"58.title" = "About MediaInfo…"; /* csv="App_About"; suffix="…"; */
 
 /* Class = "NSMenuItem"; title = "Open…"; ObjectID = "72"; */
-"72.title" = "Open…";
+"72.title" = "Open…"; /* csv="Open"; suffix="…"; */
 
 /* Class = "NSMenuItem"; title = "Close Window"; ObjectID = "73"; */
-"73.title" = "Close Window";
+"73.title" = "Close Window"; /* csv="CloseWindow"; */
 
 /* Class = "NSMenuItem"; title = "Save"; ObjectID = "75"; */
-"75.title" = "Save";
+"75.title" = "Save"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Page Setup..."; ObjectID = "77"; */
-"77.title" = "Page Setup...";
+"77.title" = "Page Setup..."; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Print…"; ObjectID = "78"; */
-"78.title" = "Print…";
+"78.title" = "Print…"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Save As…"; ObjectID = "80"; */
-"80.title" = "Save As…";
+"80.title" = "Save As…"; /* skip; */
 
 /* Class = "NSMenu"; title = "File"; ObjectID = "81"; */
-"81.title" = "File";
+"81.title" = "File"; /* csv="File"; */
 
 /* Class = "NSMenuItem"; title = "New"; ObjectID = "82"; */
-"82.title" = "New";
+"82.title" = "New"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "File"; ObjectID = "83"; */
-"83.title" = "File";
+"83.title" = "File"; /* csv="File"; */
 
 /* Class = "NSMenuItem"; title = "Revert to Saved"; ObjectID = "112"; */
-"112.title" = "Revert to Saved";
+"112.title" = "Revert to Saved"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Open Recent"; ObjectID = "124"; */
-"124.title" = "Open Recent";
+"124.title" = "Open Recent"; /* csv="OpenRecent"; */
 
 /* Class = "NSMenu"; title = "Open Recent"; ObjectID = "125"; */
-"125.title" = "Open Recent";
+"125.title" = "Open Recent"; /* csv="OpenRecent"; */
 
 /* Class = "NSMenuItem"; title = "Clear Menu"; ObjectID = "126"; */
-"126.title" = "Clear Menu";
+"126.title" = "Clear Menu"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "129"; */
-"129.title" = "Preferences…";
+"129.title" = "Preferences…"; /* csv="Preferences"; suffix="…"; */
 
 /* Class = "NSMenu"; title = "Services"; ObjectID = "130"; */
-"130.title" = "Services";
+"130.title" = "Services"; /* csv="Services"; */
 
 /* Class = "NSMenuItem"; title = "Services"; ObjectID = "131"; */
-"131.title" = "Services";
+"131.title" = "Services"; /* csv="Services"; */
 
 /* Class = "NSMenuItem"; title = "Hide MediaInfo"; ObjectID = "134"; */
-"134.title" = "Hide MediaInfo";
+"134.title" = "Hide MediaInfo"; /* csv="App_Hide"; */
 
 /* Class = "NSMenuItem"; title = "Quit MediaInfo"; ObjectID = "136"; */
-"136.title" = "Quit MediaInfo";
+"136.title" = "Quit MediaInfo"; /* csv="App_Quit"; */
 
 /* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "145"; */
-"145.title" = "Hide Others";
+"145.title" = "Hide Others"; /* csv="HideOthers"; */
 
 /* Class = "NSMenuItem"; title = "Show All"; ObjectID = "150"; */
-"150.title" = "Show All";
+"150.title" = "Show All"; /* csv="ShowAll"; */
 
 /* Class = "NSMenuItem"; title = "Stop Speaking"; ObjectID = "195"; */
-"195.title" = "Stop Speaking";
+"195.title" = "Stop Speaking"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Start Speaking"; ObjectID = "196"; */
-"196.title" = "Start Speaking";
+"196.title" = "Start Speaking"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "197"; */
-"197.title" = "Copy";
+"197.title" = "Copy"; /* csv="Copy"; */
 
 /* Class = "NSMenuItem"; title = "Select All"; ObjectID = "198"; */
-"198.title" = "Select All";
+"198.title" = "Select All"; /* csv="SelectAll"; */
 
 /* Class = "NSMenuItem"; title = "Cut"; ObjectID = "199"; */
-"199.title" = "Cut";
+"199.title" = "Cut"; /* skip; */
 
 /* Class = "NSMenu"; title = "Spelling and Grammar"; ObjectID = "200"; */
-"200.title" = "Spelling and Grammar";
+"200.title" = "Spelling and Grammar"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Check Document Now"; ObjectID = "201"; */
-"201.title" = "Check Document Now";
+"201.title" = "Check Document Now"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Delete"; ObjectID = "202"; */
-"202.title" = "Delete";
+"202.title" = "Delete"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Paste"; ObjectID = "203"; */
-"203.title" = "Paste";
+"203.title" = "Paste"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Show Spelling and Grammar"; ObjectID = "204"; */
-"204.title" = "Show Spelling and Grammar";
+"204.title" = "Show Spelling and Grammar"; /* skip; */
 
 /* Class = "NSMenu"; title = "Edit"; ObjectID = "205"; */
-"205.title" = "Edit";
+"205.title" = "Edit"; /* csv="Edit"; */
 
 /* Class = "NSMenuItem"; title = "Undo"; ObjectID = "207"; */
-"207.title" = "Undo";
+"207.title" = "Undo"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Find Next"; ObjectID = "208"; */
-"208.title" = "Find Next";
+"208.title" = "Find Next"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Find…"; ObjectID = "209"; */
-"209.title" = "Find…";
+"209.title" = "Find…"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Jump to Selection"; ObjectID = "210"; */
-"210.title" = "Jump to Selection";
+"210.title" = "Jump to Selection"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Speech"; ObjectID = "211"; */
-"211.title" = "Speech";
+"211.title" = "Speech"; /* skip; */
 
 /* Class = "NSMenu"; title = "Speech"; ObjectID = "212"; */
-"212.title" = "Speech";
+"212.title" = "Speech"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Find Previous"; ObjectID = "213"; */
-"213.title" = "Find Previous";
+"213.title" = "Find Previous"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Redo"; ObjectID = "215"; */
-"215.title" = "Redo";
+"215.title" = "Redo"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Spelling and Grammar"; ObjectID = "216"; */
-"216.title" = "Spelling and Grammar";
+"216.title" = "Spelling and Grammar"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Edit"; ObjectID = "217"; */
-"217.title" = "Edit";
+"217.title" = "Edit"; /* csv="Edit"; */
 
 /* Class = "NSMenuItem"; title = "Find"; ObjectID = "218"; */
-"218.title" = "Find";
+"218.title" = "Find"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Check Spelling While Typing"; ObjectID = "219"; */
-"219.title" = "Check Spelling While Typing";
+"219.title" = "Check Spelling While Typing"; /* skip; */
 
 /* Class = "NSMenu"; title = "Find"; ObjectID = "220"; */
-"220.title" = "Find";
+"220.title" = "Find"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Use Selection for Find"; ObjectID = "221"; */
-"221.title" = "Use Selection for Find";
+"221.title" = "Use Selection for Find"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "View"; ObjectID = "295"; */
-"295.title" = "View";
+"295.title" = "View"; /* csv="View"; */
 
 /* Class = "NSMenu"; title = "View"; ObjectID = "296"; */
-"296.title" = "View";
+"296.title" = "View"; /* csv="View"; */
 
 /* Class = "NSMenuItem"; title = "Show Toolbar"; ObjectID = "297"; */
-"297.title" = "Show Toolbar";
+"297.title" = "Show toolbar"; /* csv="Show toolbar"; */
 
 /* Class = "NSMenuItem"; title = "Customize Toolbar…"; ObjectID = "298"; */
-"298.title" = "Customize Toolbar…";
+"298.title" = "Customize Toolbar…"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Check Grammar With Spelling"; ObjectID = "346"; */
-"346.title" = "Check Grammar With Spelling";
+"346.title" = "Check Grammar With Spelling"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Substitutions"; ObjectID = "348"; */
-"348.title" = "Substitutions";
+"348.title" = "Substitutions"; /* skip; */
 
 /* Class = "NSMenu"; title = "Substitutions"; ObjectID = "349"; */
-"349.title" = "Substitutions";
+"349.title" = "Substitutions"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Smart Copy/Paste"; ObjectID = "350"; */
-"350.title" = "Smart Copy/Paste";
+"350.title" = "Smart Copy/Paste"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Smart Quotes"; ObjectID = "351"; */
-"351.title" = "Smart Quotes";
+"351.title" = "Smart Quotes"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Smart Links"; ObjectID = "354"; */
-"354.title" = "Smart Links";
+"354.title" = "Smart Links"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Format"; ObjectID = "375"; */
-"375.title" = "Format";
+"375.title" = "Format"; /* skip; */
 
 /* Class = "NSMenu"; title = "Format"; ObjectID = "376"; */
-"376.title" = "Format";
+"376.title" = "Format"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Font"; ObjectID = "377"; */
-"377.title" = "Font";
+"377.title" = "Font"; /* skip; */
 
 /* Class = "NSMenu"; title = "Font"; ObjectID = "388"; */
-"388.title" = "Font";
+"388.title" = "Font"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Show Fonts"; ObjectID = "389"; */
-"389.title" = "Show Fonts";
+"389.title" = "Show Fonts"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Bold"; ObjectID = "390"; */
-"390.title" = "Bold";
+"390.title" = "Bold"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Italic"; ObjectID = "391"; */
-"391.title" = "Italic";
+"391.title" = "Italic"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Underline"; ObjectID = "392"; */
-"392.title" = "Underline";
+"392.title" = "Underline"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Bigger"; ObjectID = "394"; */
-"394.title" = "Bigger";
+"394.title" = "Bigger"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Smaller"; ObjectID = "395"; */
-"395.title" = "Smaller";
+"395.title" = "Smaller"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Kern"; ObjectID = "397"; */
-"397.title" = "Kern";
+"397.title" = "Kern"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Ligature"; ObjectID = "398"; */
-"398.title" = "Ligature";
+"398.title" = "Ligature"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Baseline"; ObjectID = "399"; */
-"399.title" = "Baseline";
+"399.title" = "Baseline"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Show Colors"; ObjectID = "401"; */
-"401.title" = "Show Colors";
+"401.title" = "Show Colors"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Copy Style"; ObjectID = "403"; */
-"403.title" = "Copy Style";
+"403.title" = "Copy Style"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Paste Style"; ObjectID = "404"; */
-"404.title" = "Paste Style";
+"404.title" = "Paste Style"; /* skip; */
 
 /* Class = "NSMenu"; title = "Baseline"; ObjectID = "405"; */
-"405.title" = "Baseline";
+"405.title" = "Baseline"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Use Default"; ObjectID = "406"; */
-"406.title" = "Use Default";
+"406.title" = "Use Default"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Superscript"; ObjectID = "407"; */
-"407.title" = "Superscript";
+"407.title" = "Superscript"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Subscript"; ObjectID = "408"; */
-"408.title" = "Subscript";
+"408.title" = "Subscript"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Raise"; ObjectID = "409"; */
-"409.title" = "Raise";
+"409.title" = "Raise"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Lower"; ObjectID = "410"; */
-"410.title" = "Lower";
+"410.title" = "Lower"; /* skip; */
 
 /* Class = "NSMenu"; title = "Ligature"; ObjectID = "411"; */
-"411.title" = "Ligature";
+"411.title" = "Ligature"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Use Default"; ObjectID = "412"; */
-"412.title" = "Use Default";
+"412.title" = "Use Default"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Use None"; ObjectID = "413"; */
-"413.title" = "Use None";
+"413.title" = "Use None"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Use All"; ObjectID = "414"; */
-"414.title" = "Use All";
+"414.title" = "Use All"; /* skip; */
 
 /* Class = "NSMenu"; title = "Kern"; ObjectID = "415"; */
-"415.title" = "Kern";
+"415.title" = "Kern"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Use Default"; ObjectID = "416"; */
-"416.title" = "Use Default";
+"416.title" = "Use Default"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Use None"; ObjectID = "417"; */
-"417.title" = "Use None";
+"417.title" = "Use None"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Tighten"; ObjectID = "418"; */
-"418.title" = "Tighten";
+"418.title" = "Tighten"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Loosen"; ObjectID = "419"; */
-"419.title" = "Loosen";
+"419.title" = "Loosen"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Transformations"; ObjectID = "450"; */
-"450.title" = "Transformations";
+"450.title" = "Transformations"; /* skip; */
 
 /* Class = "NSMenu"; title = "Transformations"; ObjectID = "451"; */
-"451.title" = "Transformations";
+"451.title" = "Transformations"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Make Upper Case"; ObjectID = "452"; */
-"452.title" = "Make Upper Case";
+"452.title" = "Make Upper Case"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Correct Spelling Automatically"; ObjectID = "454"; */
-"454.title" = "Correct Spelling Automatically";
+"454.title" = "Correct Spelling Automatically"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Show Substitutions"; ObjectID = "457"; */
-"457.title" = "Show Substitutions";
+"457.title" = "Show Substitutions"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Smart Dashes"; ObjectID = "460"; */
-"460.title" = "Smart Dashes";
+"460.title" = "Smart Dashes"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Text Replacement"; ObjectID = "462"; */
-"462.title" = "Text Replacement";
+"462.title" = "Text Replacement"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Make Lower Case"; ObjectID = "465"; */
-"465.title" = "Make Lower Case";
+"465.title" = "Make Lower Case"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Capitalize"; ObjectID = "466"; */
-"466.title" = "Capitalize";
+"466.title" = "Capitalize"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Paste and Match Style"; ObjectID = "485"; */
-"485.title" = "Paste and Match Style";
+"485.title" = "Paste and Match Style"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Help"; ObjectID = "490"; */
-"490.title" = "Help";
+"490.title" = "Help"; /* csv="Help"; */
 
 /* Class = "NSMenu"; title = "Help"; ObjectID = "491"; */
-"491.title" = "Help";
+"491.title" = "Help"; /* csv="Help"; */
 
 /* Class = "NSMenuItem"; title = "MediaInfo Website"; ObjectID = "492"; */
-"492.title" = "MediaInfo Website";
+"492.title" = "MediaInfo web site…"; /* csv="MediaInfo_WebSite"; suffix="…"; */
 
 /* Class = "NSMenuItem"; title = "Text"; ObjectID = "496"; */
-"496.title" = "Text";
+"496.title" = "Text"; /* skip; */
 
 /* Class = "NSMenu"; title = "Text"; ObjectID = "497"; */
-"497.title" = "Text";
+"497.title" = "Text"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Align Left"; ObjectID = "498"; */
-"498.title" = "Align Left";
+"498.title" = "Align Left"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Center"; ObjectID = "499"; */
-"499.title" = "Center";
+"499.title" = "Center"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Justify"; ObjectID = "500"; */
-"500.title" = "Justify";
+"500.title" = "Justify"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Align Right"; ObjectID = "501"; */
-"501.title" = "Align Right";
+"501.title" = "Align Right"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Writing Direction"; ObjectID = "503"; */
-"503.title" = "Writing Direction";
+"503.title" = "Writing Direction"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Show Ruler"; ObjectID = "505"; */
-"505.title" = "Show Ruler";
+"505.title" = "Show Ruler"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Copy Ruler"; ObjectID = "506"; */
-"506.title" = "Copy Ruler";
+"506.title" = "Copy Ruler"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Paste Ruler"; ObjectID = "507"; */
-"507.title" = "Paste Ruler";
+"507.title" = "Paste Ruler"; /* skip; */
 
 /* Class = "NSMenu"; title = "Writing Direction"; ObjectID = "508"; */
-"508.title" = "Writing Direction";
+"508.title" = "Writing Direction"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Paragraph"; ObjectID = "509"; */
-"509.title" = "Paragraph";
+"509.title" = "Paragraph"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "\tDefault"; ObjectID = "510"; */
-"510.title" = "\tDefault";
+"510.title" = "\tDefault"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "\tLeft to Right"; ObjectID = "511"; */
-"511.title" = "\tLeft to Right";
+"511.title" = "\tLeft to Right"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "\tRight to Left"; ObjectID = "512"; */
-"512.title" = "\tRight to Left";
+"512.title" = "\tRight to Left"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Selection"; ObjectID = "514"; */
-"514.title" = "Selection";
+"514.title" = "Selection"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "\tDefault"; ObjectID = "515"; */
-"515.title" = "\tDefault";
+"515.title" = "\tDefault"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "\tLeft to Right"; ObjectID = "516"; */
-"516.title" = "\tLeft to Right";
+"516.title" = "\tLeft to Right"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "\tRight to Left"; ObjectID = "517"; */
-"517.title" = "\tRight to Left";
+"517.title" = "\tRight to Left"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Tree"; ObjectID = "597"; */
-"597.title" = "Tree";
+"597.title" = "Tree"; /* csv="Tree"; */
 
 /* Class = "NSMenuItem"; title = "Text"; ObjectID = "598"; */
-"598.title" = "Text";
+"598.title" = "Text"; /* csv="Text"; */
 
 /* Class = "NSMenuItem"; title = "Export…"; ObjectID = "603"; */
-"603.title" = "Export…";
+"603.title" = "Export…"; /* csv="Export"; suffix="…"; */
 
 /* Class = "NSMenuItem"; title = "Compare"; ObjectID = "608"; */
-"608.title" = "Compare";
+"608.title" = "Compare"; /* csv="Compare"; */
 
 /* Class = "NSMenuItem"; title = "EBUCore 1.5"; ObjectID = "6Xz-SX-vaJ"; */
-"6Xz-SX-vaJ.title" = "EBUCore 1.5";
+"6Xz-SX-vaJ.title" = "EBUCore 1.5"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "EBUCore 1.6"; ObjectID = "7el-n8-mA7"; */
-"7el-n8-mA7.title" = "EBUCore 1.6";
+"7el-n8-mA7.title" = "EBUCore 1.6"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "EBUCore 1.8 (acq. metadata: parameter then segment, json output)"; ObjectID = "8kx-Pp-fre"; */
-"8kx-Pp-fre.title" = "EBUCore 1.8 (acq. metadata: parameter then segment, json output)";
+"8kx-Pp-fre.title" = "EBUCore 1.8 (acq. metadata: parameter then segment, json output)"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "EBUCore 1.8 (acq. metadata: parameter then segment)"; ObjectID = "9ww-i9-val"; */
-"9ww-i9-val.title" = "EBUCore 1.8 (acq. metadata: parameter then segment)";
+"9ww-i9-val.title" = "EBUCore 1.8 (acq. metadata: parameter then segment)"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "reVTMD"; ObjectID = "AYy-qK-WOQ"; */
-"AYy-qK-WOQ.title" = "reVTMD";
+"AYy-qK-WOQ.title" = "reVTMD"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "FIMS 1.2"; ObjectID = "Fg1-T0-6gi"; */
-"Fg1-T0-6gi.title" = "FIMS 1.2";
+"Fg1-T0-6gi.title" = "FIMS 1.2"; /* skip; */
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "Show more in the output, including different formats of time or duration"; ObjectID = "HYj-FA-ksV"; */
-"HYj-FA-ksV.ibShadowedToolTip" = "Show more in the output, including different formats of time or duration";
+"HYj-FA-ksV.ibShadowedToolTip" = "Show more in the output, including different formats of time or duration"; /* csv="ShowMore"; */
 
 /* Class = "NSMenuItem"; title = "Advanced mode"; ObjectID = "HYj-FA-ksV"; */
-"HYj-FA-ksV.title" = "Advanced mode";
+"HYj-FA-ksV.title" = "Advanced mode"; /* csv="Advanced mode"; */
 
 /* Class = "NSMenuItem"; ibShadowedToolTip = "More complete output (slower)"; ObjectID = "JUk-GZ-ldB"; */
-"JUk-GZ-ldB.ibShadowedToolTip" = "More complete output (slower)";
+"JUk-GZ-ldB.ibShadowedToolTip" = "More complete output (slower)"; /* csv="FullParsingTips"; */
 
 /* Class = "NSMenuItem"; title = "Full parse"; ObjectID = "JUk-GZ-ldB"; */
-"JUk-GZ-ldB.title" = "Full parse";
+"JUk-GZ-ldB.title" = "Full parsing"; /* csv="FullParsing"; */
 
 /* Class = "NSMenuItem"; title = "Subscribe"; ObjectID = "K4A-dG-lv3"; */
-"K4A-dG-lv3.title" = "Subscribe";
+"K4A-dG-lv3.title" = "Subscribe…"; /* csv="Subscribe"; suffix="…"; */
 
 /* Class = "NSMenuItem"; title = "PBCore 2.0"; ObjectID = "PvG-jZ-49r"; */
-"PvG-jZ-49r.title" = "PBCore 2.0";
+"PvG-jZ-49r.title" = "PBCore 2.0"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "PBCore 1.2"; ObjectID = "R8P-ks-E16"; */
-"R8P-ks-E16.title" = "PBCore 1.2";
+"R8P-ks-E16.title" = "PBCore 1.2"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "FIMS 1.1"; ObjectID = "Spf-9d-cwU"; */
-"Spf-9d-cwU.title" = "FIMS 1.1";
+"Spf-9d-cwU.title" = "FIMS 1.1"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "EBUCore 1.8 (acq. metadata: segment then parameter, json output)"; ObjectID = "bcv-hr-Gra"; */
-"bcv-hr-Gra.title" = "EBUCore 1.8 (acq. metadata: segment then parameter, json output)";
+"bcv-hr-Gra.title" = "EBUCore 1.8 (acq. metadata: segment then parameter, json output)"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "EBUCore 1.8 (acq. metadata: segment then parameter)"; ObjectID = "e0w-NN-AjM"; */
-"e0w-NN-AjM.title" = "EBUCore 1.8 (acq. metadata: segment then parameter)";
+"e0w-NN-AjM.title" = "EBUCore 1.8 (acq. metadata: segment then parameter)"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Close All Files"; ObjectID = "gmp-S7-jxc"; */
-"gmp-S7-jxc.title" = "Close All Files";
+"gmp-S7-jxc.title" = "Close All Files"; /* csv="CloseAll"; */
 
 /* Class = "NSMenuItem"; title = "Close File"; ObjectID = "hC5-Lk-GZv"; */
-"hC5-Lk-GZv.title" = "Close File";
+"hC5-Lk-GZv.title" = "Close File"; /* csv="CloseFile"; */
 
 /* Class = "NSMenuItem"; title = "HTML"; ObjectID = "baz-P1-eG7"; */
-"Baz-P1-eG7.title" = "HTML";
+"baz-P1-eG7.title" = "HTML"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "XML"; ObjectID = "o0W-Nz-FBX"; */
-"o0W-Nz-FBX.title" = "XML";
+"o0W-Nz-FBX.title" = "XML"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "MPEG-7 (strict)"; ObjectID = "o7W-nM-5JW"; */
-"o7W-nM-5JW.title" = "MPEG-7 (strict)";
+"o7W-nM-5JW.title" = "MPEG-7 (strict)"; /* skip; */
 
-/* Class = "NSMenuItem"; title = "MPEG-7 (relaxed)"; ObjectID = "rQz-4i-QPG"; */
-"rQz-4i-QPG.title" = "MPEG-7 (relaxed)";
+/* Class = "NSMenuItem"; title = "MPEG-7 (relaxed)"; ObjectID = "p8X-mO-6KX"; */
+"p8X-mO-6KX.title" = "MPEG-7 (relaxed)"; /* skip; */
 
-/* Class = "NSMenuItem"; title = "MPEG-7 (extended)"; ObjectID = "sRa-5j-RQH"; */
-"sRa-5j-RQH.title" = "MPEG-7 (extended)";
+/* Class = "NSMenuItem"; title = "MPEG-7 (extended)"; ObjectID = "q9Y-oP-7LY"; */
+"q9Y-oP-7LY.title" = "MPEG-7 (extended)"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Easy"; ObjectID = "ok7-rU-jbg"; */
-"ok7-rU-jbg.title" = "Easy";
+"ok7-rU-jbg.title" = "Basic"; /* csv="Basic"; */
 
 /* Class = "NSMenuItem"; title = "JSON"; ObjectID = "p8X-bL-6KX"; */
-"p8X-bL-6KX.title" = "JSON";
+"p8X-bL-6KX.title" = "JSON"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "NISO Z39.87"; ObjectID = "pPO-aY-YEy"; */
-"pPO-aY-YEy.title" = "NISO Z39.87";
+"pPO-aY-YEy.title" = "NISO Z39.87"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "FIMS 1.3"; ObjectID = "vEC-jU-MAH"; */
-"vEC-jU-MAH.title" = "FIMS 1.3";
+"vEC-jU-MAH.title" = "FIMS 1.3"; /* skip; */
 
 /* Class = "NSMenuItem"; title = "Graph"; ObjectID = "BlK-Ms-sya"; */
-"BlK-Ms-sya.title" = "Graph";
+"BlK-Ms-sya.title" = "Graph"; /* skip; */
+
+/* Class = "NSMenuItem"; title = "Information about the in-app purchase"; ObjectID = "nMH-4I-T3M"; */
+"nMH-4I-T3M.title" = "Information about the in-app purchase…"; /* csv="PurchaseInformation"; suffix="…"; */
