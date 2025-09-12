@@ -188,9 +188,9 @@ Alignment_Aligned;Соединение по промежуткам
 Alignment_Split;Разделение по промежуткам
 All;Все
 AlternateGroup;Альтернативная группа
-App_About;Об Утилите MediaInfo
-App_Hide;Скрыть Утилиту MediaInfo
-App_Quit;Завершить Утилиту MediaInfo
+App_About;О программе MediaInfo
+App_Hide;Скрыть MediaInfo
+App_Quit;Выйти из MediaInfo
 Archival_Location;Место хранения
 Arranger;Аранжировщик
 ArtDirector;Арт-директор
@@ -340,7 +340,7 @@ ContentType;Тип содержимого
 CoProducer;Сопродюсер
 Copyright;Авторское право
 CopyrightYear;Дата авторского права
-Copy;Скопировать
+Copy;Копировать
 CostumeDesigner;Художник по костюмам
 Count;Количество
 Country;Страна
@@ -987,7 +987,7 @@ Language_zh-tw;Китайский (Тайвань)
 Language_zh-TW;Китайский (Тайвань)
 Language_zh-yue;Кантонский
 Language_zu;Зулу
-LanguageChanges;Смена языка произойдет при следующем запуске программы
+LanguageChanges;Смена языка произойдёт при следующем запуске программы
 Languages;Языки
 LawRating;Возрастное ограничение
 LegacyStreamDisplay;Показывать информацию об обратной совместимости для HD/HE аудио- и 3D/HDR видеопотоков
@@ -1056,7 +1056,7 @@ MD5;MD5
 MD5_Unencoded;MD5 незакодированного содержимого
 MediaInfo_About;MediaInfo позволяет получить доступ к подробной информации\r\nо следующих медиафайлах:\r\nMatroska,\r\nOGG (включая OGM),\r\nMPEG1 (включая VCD),\r\nMPEG2 (включая DVD и SVCD),\r\nMPEG4 (включая iTunes M4A),\r\nQuicktime,\r\nRealMedia,\r\nWindowsMedia (включая WMV, WMA),\r\nMicrosoft RIFF (включая AVI, WAV, DivX),\r\nзвуковых форматах (AC3, DTS, SSC, AU, AIFF).\r\n\r\nЗа исключением графического пользовательского интерфейса Mac App Store, это программное обеспечение с открытым исходным кодом, что означает, что оно является бесплатным для конечного пользователя, а разработчики могут свободно изучать, улучшать и распространять программу (лицензия BSD).
 MediaInfo_About_About;MediaInfo v%MI_VERSION% использует MediaInfoLib v%MIL_VERSION%
-MediaInfoWebsite;Вебсайт MediaInfo
+MediaInfoWebsite;Сайт MediaInfo
 Menu;Меню
 Menu stream(s);Меню потоков
 Menu_Codec_List;Меню кодеков
@@ -1067,7 +1067,7 @@ MenuID;Идентификатор меню
 Metadata_Format;Формат метаданных
 Metadata_Format_Type;Тип кадра метаданных
 Metadata_MuxingMode;Режим сведения метаданных
-Minimize;Убрать
+Minimize;Свернуть
 MixType;Тип сведения
 mn; м.
 Mood;Настроение
