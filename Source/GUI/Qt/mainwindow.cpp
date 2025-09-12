@@ -41,6 +41,7 @@
 #include <qwt/qwt_plot_picker.h>
 */
 
+#include <memory>
 #include <ZenLib/Ztring.h>
 #include <ZenLib/ZtringListList.h>
 using namespace ZenLib;
@@ -546,7 +547,7 @@ void MainWindow::refreshDisplay() {
     QWidget* viewWidget;
     ui->actionExport->setEnabled(C->Count_Get()>0);
     ui->actionClose_All->setEnabled(C->Count_Get()>0);
-    QDomDocument* xis{nullptr};
+    std::unique_ptr<QDomDocument> xis;
 
     C->Menu_Option_Preferences_Option(__T("Enable_Ffmpeg"), settings->value("enableFFmpeg",false).toBool() ? __T("1") : __T("0"));
 
@@ -605,42 +606,42 @@ void MainWindow::refreshDisplay() {
             case VIEW_PBCORE:
                 C->Menu_View_PBCore();
                 viewWidget = new QTextBrowser();
-                xis = new QDomDocument();
+                xis.reset(new QDomDocument());
                 xis->setContent(wstring2QString(C->Inform_Get()));
                 static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
             case VIEW_PBCORE2:
                 C->Menu_View_PBCore2();
                 viewWidget = new QTextBrowser();
-                xis = new QDomDocument();
+                xis.reset(new QDomDocument());
                 xis->setContent(wstring2QString(C->Inform_Get()));
                 static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
             case VIEW_EBUCORE_1_5:
                 C->Menu_View_EBUCore_1_5();
                 viewWidget = new QTextBrowser();
-                xis = new QDomDocument();
+                xis.reset(new QDomDocument());
                 xis->setContent(wstring2QString(C->Inform_Get()));
                 static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
             case VIEW_EBUCORE_1_6:
                 C->Menu_View_EBUCore_1_6();
                 viewWidget = new QTextBrowser();
-                xis = new QDomDocument();
+                xis.reset(new QDomDocument());
                 xis->setContent(wstring2QString(C->Inform_Get()));
                 static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
             case VIEW_EBUCORE_1_8_ps:
                 C->Menu_View_EBUCore_1_8_ps();
                 viewWidget = new QTextBrowser();
-                xis = new QDomDocument();
+                xis.reset(new QDomDocument());
                 xis->setContent(wstring2QString(C->Inform_Get()));
                 static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
             case VIEW_EBUCORE_1_8_sp:
                 C->Menu_View_EBUCore_1_8_sp();
                 viewWidget = new QTextBrowser();
-                xis = new QDomDocument();
+                xis.reset(new QDomDocument());
                 xis->setContent(wstring2QString(C->Inform_Get()));
                 static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
@@ -657,35 +658,35 @@ void MainWindow::refreshDisplay() {
             case VIEW_FIMS_1_1:
                 C->Menu_View_FIMS_1_1();
                 viewWidget = new QTextBrowser();
-                xis = new QDomDocument();
+                xis.reset(new QDomDocument());
                 xis->setContent(wstring2QString(C->Inform_Get()));
                 static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
             case VIEW_FIMS_1_2:
                 C->Menu_View_FIMS_1_2();
                 viewWidget = new QTextBrowser();
-                xis = new QDomDocument();
+                xis.reset(new QDomDocument());
                 xis->setContent(wstring2QString(C->Inform_Get()));
                 static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
             case VIEW_FIMS_1_3:
                 C->Menu_View_FIMS_1_3();
                 viewWidget = new QTextBrowser();
-                xis = new QDomDocument();
+                xis.reset(new QDomDocument());
                 xis->setContent(wstring2QString(C->Inform_Get()));
                 static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
             case VIEW_NISO_Z39_87:
                 C->Menu_View_NISO_Z39_87();
                 viewWidget = new QTextBrowser();
-                xis = new QDomDocument();
+                xis.reset(new QDomDocument());
                 xis->setContent(wstring2QString(C->Inform_Get()));
                 static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
             case VIEW_MPEG7_Strict:
                 C->Menu_View_MPEG7_Strict();
                 viewWidget = new QTextBrowser();
-                xis = new QDomDocument();
+                xis.reset(new QDomDocument());
                 xis->setContent(wstring2QString(C->Inform_Get()));
                 static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
@@ -693,7 +694,7 @@ void MainWindow::refreshDisplay() {
             case VIEW_MPEG7_Relaxed:
                 C->Menu_View_MPEG7_Relaxed();
                 viewWidget = new QTextBrowser();
-                xis = new QDomDocument();
+                xis.reset(new QDomDocument());
                 xis->setContent(wstring2QString(C->Inform_Get()));
                 static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
@@ -701,7 +702,7 @@ void MainWindow::refreshDisplay() {
             case VIEW_MPEG7_Extended:
                 C->Menu_View_MPEG7_Extended();
                 viewWidget = new QTextBrowser();
-                xis = new QDomDocument();
+                xis.reset(new QDomDocument());
                 xis->setContent(wstring2QString(C->Inform_Get()));
                 static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
@@ -709,7 +710,7 @@ void MainWindow::refreshDisplay() {
             case VIEW_XML:
                 C->Menu_View_XML();
                 viewWidget = new QTextBrowser();
-                xis = new QDomDocument();
+                xis.reset(new QDomDocument());
                 xis->setContent(wstring2QString(C->Inform_Get()));
                 static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
@@ -788,9 +789,6 @@ void MainWindow::refreshDisplay() {
     else
         // Show just the viewWidget
         setCentralWidget(viewWidget);
-
-    //Delete object(s)
-    if (xis) delete xis;
 }
 
 QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {

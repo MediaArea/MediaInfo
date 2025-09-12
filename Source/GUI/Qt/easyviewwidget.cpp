@@ -10,6 +10,7 @@
 #include <QBoxLayout>
 #include <QComboBox>
 
+#include <memory>
 #include <ZenLib/Ztring.h>
 using namespace ZenLib;
 #define wstring2QString(_DATA) \
@@ -56,9 +57,8 @@ void EasyViewWidget::refreshDisplay() {
 
     for (size_t StreamPos=0; StreamPos<Stream_Max; StreamPos++) {
         bool addBox = false;
-        QFrame* box = new QFrame(this);
-        QHBoxLayout* boxLayout = new QHBoxLayout();
-        box->setLayout(boxLayout);
+        std::unique_ptr<QFrame> box(new QFrame());
+        QHBoxLayout* boxLayout{ new QHBoxLayout(box.get()) };
         for (size_t Pos=0; Pos<Boxes_Count_Get(StreamPos); Pos++) {
             QGroupBox* subBox = createBox((stream_t)StreamPos,(int)Pos);
             if(subBox!=NULL) {
@@ -67,8 +67,8 @@ void EasyViewWidget::refreshDisplay() {
             }
         }
         if(addBox) {
-            layout->addWidget(box);
-            Boxes.push_back(box);
+            layout->addWidget(box.get());
+            Boxes.push_back(box.release());
         }
     }
     layout->addStretch();
