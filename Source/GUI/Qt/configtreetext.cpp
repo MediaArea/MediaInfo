@@ -12,7 +12,7 @@ int ConfigTreeText::indexDefault = 0;
 QVector<ConfigTreeText*> ConfigTreeText::configs = QVector<ConfigTreeText*>();
 QStringList ConfigTreeText::names = QStringList();
 
-ConfigTreeText::ConfigTreeText(QString name)
+ConfigTreeText::ConfigTreeText(const QString& name)
 {
     this->name = name;
     for(int i=0;i<Stream_Max;i++)
@@ -116,7 +116,7 @@ QStringList ConfigTreeText::getFields(int i) {
     return fields[i];
 }
 
-void ConfigTreeText::setFields(int i, QStringList fs) {
+void ConfigTreeText::setFields(int i, const QStringList& fs) {
     fields[i] = fs;
 }
 
@@ -124,15 +124,15 @@ QString ConfigTreeText::getName() {
     return name;
 }
 
-void ConfigTreeText::setName(QString n) {
+void ConfigTreeText::setName(const QString& n) {
     name = n;
 }
 
-void ConfigTreeText::addField(int i, QString f) {
+void ConfigTreeText::addField(int i, const QString& f) {
     if(!fields[i].contains(f))
         fields[i].append(f);
 }
 
-void ConfigTreeText::removeField(int i, QString f) {
+void ConfigTreeText::removeField(int i, const QString& f) {
     fields[i].removeOne(f);
 }

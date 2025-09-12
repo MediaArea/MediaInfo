@@ -10,7 +10,7 @@ int Sheet::indexDefault = 0;
 QVector<Sheet*> Sheet::sheets = QVector<Sheet*>();
 QStringList Sheet::names = QStringList();
 
-Sheet::Sheet(QString name)
+Sheet::Sheet(const QString& name) : adaptColumns{}
 {
     this->name = name;
 }
@@ -111,7 +111,7 @@ void Sheet::addColumn(const char* name, const int width, const int stream, const
     c.width = width;
     addColumn(c);
 }
-void Sheet::addColumn(column c) {
+void Sheet::addColumn(const column& c) {
     columns.append(c);
 }
 
@@ -131,7 +131,7 @@ QString Sheet::getName() {
     return name;
 }
 
-void Sheet::setName(QString n) {
+void Sheet::setName(const QString& n) {
     name = n;
 }
 

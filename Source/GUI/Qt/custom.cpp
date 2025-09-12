@@ -5,12 +5,13 @@
  */
 
 #include "custom.h"
+#include "Common/Core.h"
 
 int Custom::indexDefault = 0;
 QVector<Custom*> Custom::customs = QVector<Custom*>();
 QStringList Custom::names = QStringList();
 
-Custom::Custom(QString name)
+Custom::Custom(const QString& name)
 {
     this->name = name;
     this->page = "%Files%";
@@ -122,18 +123,18 @@ QString Custom::getStream(int stream) {
     return streams[stream];
 }
 
-void Custom::setName(QString n) {
+void Custom::setName(const QString& n) {
     name = n;
 }
-void Custom::setPage(QString p) {
+void Custom::setPage(const QString& p) {
     page = p;
 }
 
-void Custom::setFile(QString f) {
+void Custom::setFile(const QString& f) {
     file = f;
 }
 
-void Custom::setStream(int stream, QString s) {
+void Custom::setStream(int stream, const QString& s) {
     if(stream<streams.size())
        streams[stream] = s;
 }
