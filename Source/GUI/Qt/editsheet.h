@@ -39,7 +39,7 @@ protected:
 
 private:
     void initDisplay();
-    QLayout* createColumn(column c);
+    QLayout* createColumn(const column& c);
 
     Sheet* sheet;
     Core* C;

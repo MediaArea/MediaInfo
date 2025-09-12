@@ -10,7 +10,7 @@
 #include <QMessageBox>
 #include "configtreetext.h"
 
-Export::Export(QString filename, int mode, QWidget *parent) :
+Export::Export(const QString& filename, int mode, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Export),
     path(filename)

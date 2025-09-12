@@ -7,7 +7,6 @@
 #ifndef EDITCONFIGTREETEXT_H
 #define EDITCONFIGTREETEXT_H
 
-#include "translate.h"
 #include <QDialog>
 #include "Common/Core.h"
 #include "configtreetext.h"

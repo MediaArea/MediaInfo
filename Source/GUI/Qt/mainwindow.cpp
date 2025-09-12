@@ -165,7 +165,7 @@ static inline HRESULT showFolderPicker(ComPtr<IAsyncOperation<StorageFolder*> >&
 }
 #endif
 
-MainWindow::MainWindow(QStringList filesnames, int viewasked, QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
+MainWindow::MainWindow(const QStringList& filesnames, int viewasked, QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     C = new Core();
@@ -266,7 +266,7 @@ MainWindow::~MainWindow()
 }
 
 #ifdef NEW_VERSION
-bool MainWindow::isNewer(QString distant, QString local) {
+bool MainWindow::isNewer(const QString& distant, const QString& local) {
     QStringList local_list = local.split(".");
     QStringList distant_list = distant.split(".");
     int i;
@@ -284,7 +284,7 @@ bool MainWindow::isNewer(QString distant, QString local) {
 void MainWindow::checkForNewVersion() {
     QString version = VERSION;
     QUrl url = QUrl("http://MediaArea.net/MediaInfo_check/changelog_"+version+".bin");
-    file = "";
+    version_file = "";
     reply = qnam.get(QNetworkRequest(url));
     qDebug() << "downloading " << url.toString();
 
@@ -302,7 +302,7 @@ void MainWindow::httpFinished()
     }
 
     ZtringListList X;
-    X.Write(file.toStdString().c_str());
+    X.Write(version_file.toStdString().c_str());
     if (isNewer(wstring2QString(X("NewVersion")),QString(VERSION))) {
         qDebug() << "New version is available.";
         qDebug() << "latest is " << wstring2QString(X("NewVersion")).toStdString().c_str();
@@ -314,7 +314,7 @@ void MainWindow::httpFinished()
 
     reply->deleteLater();
     reply = 0;
-    file = "";
+    version_file = "";
 }
 
 void MainWindow::updateToNewVersion() {
@@ -323,7 +323,7 @@ void MainWindow::updateToNewVersion() {
 
 void MainWindow::httpReadyRead()
 {
-    file.append(reply->readAll());
+    version_file.append(reply->readAll());
 }
 #endif //NEW_VERSION
 
@@ -340,14 +340,14 @@ void MainWindow::toolBarOptions(QPoint p) {
     menu.addMenu(menuT);
     QString textsT[NBNAMES] = {tr("Icons only"),tr("Text only"),tr("Text under icons"),tr("Text beside icons")};
     QAction* actionsT[NBNAMES+1];
-    Qt::ToolButtonStyle styles[NBNAMES] = {Qt::ToolButtonIconOnly,Qt::ToolButtonTextOnly,Qt::ToolButtonTextUnderIcon,Qt::ToolButtonTextBesideIcon};
+    const Qt::ToolButtonStyle styles[NBNAMES] = {Qt::ToolButtonIconOnly,Qt::ToolButtonTextOnly,Qt::ToolButtonTextUnderIcon,Qt::ToolButtonTextBesideIcon};
     for(int i=0;i<NBNAMES;i++) {
         actionsT[i] = menuT->addAction(textsT[i]);
     }
     actionsT[NBNAMES] = menuT->addAction(tr("Default"));
 
     menu.addMenu(menuI);
-    QString textsI[NBSIZES] = {tr("Small"),tr("Medium"),tr("Big"),tr("Huge")};
+    const QString textsI[NBSIZES] = {tr("Small"),tr("Medium"),tr("Big"),tr("Huge")};
     QAction* actionsI[NBNAMES+1];
     QSize sizes[NBSIZES+1] = {QSize(16,16),QSize(22,22),QSize(32,32),QSize(48,48)};
     for(int i=0;i<NBSIZES;i++) {
@@ -355,7 +355,7 @@ void MainWindow::toolBarOptions(QPoint p) {
     }
     actionsI[NBSIZES] = menuI->addAction(tr("Default"));
 
-    QAction* a = menu.exec(ui->toolBar->mapToGlobal(p));
+    const QAction* a = menu.exec(ui->toolBar->mapToGlobal(p));
     if(a) {
         for(int i=0;i<NBSIZES;i++) {
             if(a==actionsI[i]) {
@@ -569,7 +569,7 @@ void MainWindow::refreshDisplay() {
         viewWidget = new QLabel(tr("You must at least open 1 file.\nOpen a file or a directory, or simply drag n drop files in the window."));
         setWindowTitle(tr("MediaInfo"));
 #endif
-        ((QLabel*)viewWidget)->setAlignment(Qt::AlignCenter);
+        static_cast<QLabel*>(viewWidget)->setAlignment(Qt::AlignCenter);
     }
     else
     {
@@ -580,22 +580,22 @@ void MainWindow::refreshDisplay() {
                 C->Menu_Option_Preferences_Option(__T("Inform_Version"), settings->value("informVersion",false).toBool() ? __T("1") : __T("0"));
                 C->Menu_Option_Preferences_Option(__T("Inform_Timestamp"), settings->value("informTimestamp",false).toBool() ? __T("1") : __T("0"));
                 viewWidget = new QTextBrowser();
-                ((QTextBrowser*)viewWidget)->setFont(font);
+                static_cast<QTextBrowser*>(viewWidget)->setFont(font);
                 if(ConfigTreeText::getIndex()==0)
-                    ((QTextBrowser*)viewWidget)->setText(wstring2QString(C->Inform_Get()));
+                    static_cast<QTextBrowser*>(viewWidget)->setText(wstring2QString(C->Inform_Get()));
                 else {
                     for (size_t FilePos=0; FilePos<C->Count_Get(); FilePos++) {
                         for (int streamKind=0;streamKind<4;streamKind++) {
                             if(!ConfigTreeText::getConfigTreeText()->getFields(streamKind).isEmpty())
-                                ((QTextBrowser*)viewWidget)->append("\n"+wstring2QString(C->Get(FilePos, (stream_t)streamKind, 0, __T("StreamKind/String"), Info_Text)));
+                                static_cast<QTextBrowser*>(viewWidget)->append("\n"+wstring2QString(C->Get(FilePos, (stream_t)streamKind, 0, __T("StreamKind/String"), Info_Text)));
                             for (size_t streamPos=Stream_General; streamPos<C->Count_Get(FilePos, (stream_t)streamKind); streamPos++)
                             {
-                                foreach(QString field, ConfigTreeText::getConfigTreeText()->getFields(streamKind)) {
+                                foreach(const QString& field, ConfigTreeText::getConfigTreeText()->getFields(streamKind)) {
                                     QString A=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, QString2wstring(field)));
                                     QString B=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Name_Text));
                                     if (B.isEmpty())
                                         B=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Name));
-                                    ((QTextBrowser*)viewWidget)->append(B+" : "+A);
+                                    static_cast<QTextBrowser*>(viewWidget)->append(B+" : "+A);
                                 }
                             }
                         }
@@ -607,87 +607,87 @@ void MainWindow::refreshDisplay() {
                 viewWidget = new QTextBrowser();
                 xis = new QDomDocument();
                 xis->setContent(wstring2QString(C->Inform_Get()));
-                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
             case VIEW_PBCORE2:
                 C->Menu_View_PBCore2();
                 viewWidget = new QTextBrowser();
                 xis = new QDomDocument();
                 xis->setContent(wstring2QString(C->Inform_Get()));
-                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
             case VIEW_EBUCORE_1_5:
                 C->Menu_View_EBUCore_1_5();
                 viewWidget = new QTextBrowser();
                 xis = new QDomDocument();
                 xis->setContent(wstring2QString(C->Inform_Get()));
-                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
             case VIEW_EBUCORE_1_6:
                 C->Menu_View_EBUCore_1_6();
                 viewWidget = new QTextBrowser();
                 xis = new QDomDocument();
                 xis->setContent(wstring2QString(C->Inform_Get()));
-                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
             case VIEW_EBUCORE_1_8_ps:
                 C->Menu_View_EBUCore_1_8_ps();
                 viewWidget = new QTextBrowser();
                 xis = new QDomDocument();
                 xis->setContent(wstring2QString(C->Inform_Get()));
-                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
             case VIEW_EBUCORE_1_8_sp:
                 C->Menu_View_EBUCore_1_8_sp();
                 viewWidget = new QTextBrowser();
                 xis = new QDomDocument();
                 xis->setContent(wstring2QString(C->Inform_Get()));
-                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
             case VIEW_EBUCORE_1_8_ps_JSON:
                 C->Menu_View_EBUCore_1_8_ps_json();
                 viewWidget = new QTextBrowser();
-                ((QTextBrowser*)viewWidget)->setText(wstring2QString(C->Inform_Get()));
+                static_cast<QTextBrowser*>(viewWidget)->setText(wstring2QString(C->Inform_Get()));
                 break;
             case VIEW_EBUCORE_1_8_sp_JSON:
                 C->Menu_View_EBUCore_1_8_sp_json();
                 viewWidget = new QTextBrowser();
-                ((QTextBrowser*)viewWidget)->setText(wstring2QString(C->Inform_Get()));
+                static_cast<QTextBrowser*>(viewWidget)->setText(wstring2QString(C->Inform_Get()));
                 break;
             case VIEW_FIMS_1_1:
                 C->Menu_View_FIMS_1_1();
                 viewWidget = new QTextBrowser();
                 xis = new QDomDocument();
                 xis->setContent(wstring2QString(C->Inform_Get()));
-                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
             case VIEW_FIMS_1_2:
                 C->Menu_View_FIMS_1_2();
                 viewWidget = new QTextBrowser();
                 xis = new QDomDocument();
                 xis->setContent(wstring2QString(C->Inform_Get()));
-                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
             case VIEW_FIMS_1_3:
                 C->Menu_View_FIMS_1_3();
                 viewWidget = new QTextBrowser();
                 xis = new QDomDocument();
                 xis->setContent(wstring2QString(C->Inform_Get()));
-                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
             case VIEW_NISO_Z39_87:
                 C->Menu_View_NISO_Z39_87();
                 viewWidget = new QTextBrowser();
                 xis = new QDomDocument();
                 xis->setContent(wstring2QString(C->Inform_Get()));
-                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
             case VIEW_MPEG7_Strict:
                 C->Menu_View_MPEG7_Strict();
                 viewWidget = new QTextBrowser();
                 xis = new QDomDocument();
                 xis->setContent(wstring2QString(C->Inform_Get()));
-                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
 
             case VIEW_MPEG7_Relaxed:
@@ -695,7 +695,7 @@ void MainWindow::refreshDisplay() {
                 viewWidget = new QTextBrowser();
                 xis = new QDomDocument();
                 xis->setContent(wstring2QString(C->Inform_Get()));
-                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
 
             case VIEW_MPEG7_Extended:
@@ -703,7 +703,7 @@ void MainWindow::refreshDisplay() {
                 viewWidget = new QTextBrowser();
                 xis = new QDomDocument();
                 xis->setContent(wstring2QString(C->Inform_Get()));
-                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
 
             case VIEW_XML:
@@ -711,12 +711,12 @@ void MainWindow::refreshDisplay() {
                 viewWidget = new QTextBrowser();
                 xis = new QDomDocument();
                 xis->setContent(wstring2QString(C->Inform_Get()));
-                ((QTextBrowser*)viewWidget)->setText(xis->toString(4));
+                static_cast<QTextBrowser*>(viewWidget)->setText(xis->toString(4));
                 break;
             case VIEW_JSON:
                 C->Menu_View_JSON();
                 viewWidget = new QTextBrowser();
-                ((QTextBrowser*)viewWidget)->setText(wstring2QString(C->Inform_Get()));
+                static_cast<QTextBrowser*>(viewWidget)->setText(wstring2QString(C->Inform_Get()));
                 break;
             case VIEW_EASY:
                 C->Menu_View_Easy();
@@ -744,8 +744,8 @@ void MainWindow::refreshDisplay() {
                 ui->actionReset_field_sizes->setVisible(true);
                 if(!Sheet::getSheet()->getAdaptColumns())
                     ui->actionAdapt_columns_to_content->setVisible(true);
-                connect(ui->actionReset_field_sizes,SIGNAL(triggered()),(SheetView*)viewWidget,SLOT(resetColumnsSizes()));
-                connect(ui->actionAdapt_columns_to_content,SIGNAL(triggered()),(SheetView*)viewWidget,SLOT(adaptColumnsToContent()));
+                connect(ui->actionReset_field_sizes, SIGNAL(triggered()), static_cast<SheetView*>(viewWidget), SLOT(resetColumnsSizes()));
+                connect(ui->actionAdapt_columns_to_content, SIGNAL(triggered()), static_cast<SheetView*>(viewWidget), SLOT(adaptColumnsToContent()));
                 break;
             case VIEW_CUSTOM:
                 C->Menu_View_Text();
@@ -836,19 +836,19 @@ QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
                     {
                         if ((completeDisplay || C->Get(filePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Options)[InfoOption_ShowInInform]==__T('Y')) && C->Get(filePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Text)!=__T(""))
                         {
-                            QString A=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Text));
-                            A+=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Measure_Text));
+                            QString D=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Text));
+                            D+=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Measure_Text));
 
-                            QString D=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Name_Text));
-                            if (D.isEmpty())
-                                D=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Name)); //Texte n'existe pas
+                            QString E=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Name_Text));
+                            if (E.isEmpty())
+                                E=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, Champ_Pos, Info_Name)); //Texte n'existe pas
 
                             int level=0;
-                            while (level < D.length() && D[level]==QChar(' '))
+                            while (level < E.length() && E[level]==QChar(' '))
                                 level++;
 
                             if (level)
-                                D=D.mid(level);
+                                E=E.mid(level);
 
                             if (level==tree.count() && tree.back()->childCount())
                             {
@@ -861,33 +861,33 @@ QTreeWidget* MainWindow::showTreeView(bool completeDisplay) {
                                 tree.resize(level+1);
                             }
 
-                            QStringList sl = QStringList(D);
-                            sl.append(A);
+                            QStringList sl = QStringList(E);
+                            sl.append(D);
                             tree.back()->addChild(new QTreeWidgetItem(tree.back(),sl));
                         }
                     }
                 } else {
-                    foreach(QString field, ConfigTreeText::getConfigTreeText()->getFields(streamKind)) {
-                        QString A=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Text));
-                        A+=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Measure_Text));
-                        QString B=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Name_Text));
-                        if (B.isEmpty())
-                            B=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Name));
+                    foreach(const QString& field, ConfigTreeText::getConfigTreeText()->getFields(streamKind)) {
+                        QString D=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Text));
+                        D+=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Measure_Text));
+                        QString E=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Name_Text));
+                        if (E.isEmpty())
+                            E=wstring2QString(C->Get(filePos, (stream_t)streamKind, streamPos, QString2wstring(field), Info_Name));
 
                         int level=0;
-                        while (level < B.length() && B[level]==QChar(' '))
+                        while (level < E.length() && E[level]==QChar(' '))
                             level++;
 
                         if (level)
-                            B=B.mid(level);
+                            E=E.mid(level);
 
                         if (level==tree.count() && tree.back()->childCount())
                             tree.append(tree.back()->child(tree.back()->childCount()-1));
                         else if (level<tree.count()-1)
                             tree.resize(level+1);
 
-                        QStringList sl = QStringList(B);
-                        sl.append(A);
+                        QStringList sl = QStringList(E);
+                        sl.append(D);
                         tree.back()->addChild(new QTreeWidgetItem(tree.back(),sl));
                     }
                 }
@@ -1205,7 +1205,7 @@ void MainWindow::on_actionExport_triggered()
                             file.write(("\n"+wstring2QString(C->Get(FilePos, (stream_t)streamKind, 0, __T("StreamKind/String"), Info_Text))+"\n").toStdString().c_str());
                         for (size_t streamPos=Stream_General; streamPos<C->Count_Get(FilePos, (stream_t)streamKind); streamPos++)
                         {
-                            foreach(QString field, ConfigTreeText::getConfigTreeText()->getFields(streamKind)) {
+                            foreach(const QString& field, ConfigTreeText::getConfigTreeText()->getFields(streamKind)) {
                                 QString A=wstring2QString(C->Get(FilePos, (stream_t)streamKind, streamPos, QString2wstring(field)));
                                 file.write((field+" : "+A+"\n").toStdString().c_str());
                             }

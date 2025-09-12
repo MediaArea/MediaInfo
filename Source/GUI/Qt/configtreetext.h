@@ -31,15 +31,15 @@ public:
     static void fillComboBox(QComboBox* qcb);
 
     QString getName();
-    void setName(QString n);
+    void setName(const QString& n);
     QList<QStringList> getFields();
     QStringList getFields(int i);
-    void setFields(int i, QStringList fs);
-    void addField(int i, QString f);
-    void removeField(int i, QString f);
+    void setFields(int i, const QStringList& fs);
+    void addField(int i, const QString& f);
+    void removeField(int i, const QString& f);
 
 private:
-    ConfigTreeText(QString name);
+    ConfigTreeText(const QString& name);
     QString name;
     QList<QStringList> fields;
 

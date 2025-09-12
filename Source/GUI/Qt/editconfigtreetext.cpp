@@ -77,11 +77,11 @@ void EditConfigTreeText::apply() {
 
     for (int i=0; i<ui->toolBox->count(); i++) {
         for (int j=0; j<ui->toolBox->widget(i)->layout()->count(); ++j) {
-            if(((QCheckBox*)ui->toolBox->widget(i)->layout()->itemAt(j)->widget())->isChecked()) {
-                ctt->addField(i,((QCheckBox*)ui->toolBox->widget(i)->layout()->itemAt(j)->widget())->text());
+            if(static_cast<QCheckBox*>(ui->toolBox->widget(i)->layout()->itemAt(j)->widget())->isChecked()) {
+                ctt->addField(i, static_cast<QCheckBox*>(ui->toolBox->widget(i)->layout()->itemAt(j)->widget())->text());
                 qDebug() << ctt->getFields(i).join(", ");
             } else {
-                ctt->removeField(i,((QCheckBox*)ui->toolBox->widget(i)->layout()->itemAt(j)->widget())->text());
+                ctt->removeField(i, static_cast<QCheckBox*>(ui->toolBox->widget(i)->layout()->itemAt(j)->widget())->text());
             }
         }
     }

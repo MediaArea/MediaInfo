@@ -37,7 +37,7 @@ class MainWindow : public QMainWindow {
 public:
     enum {IONLY,TONLY,TUICONS,TBICONS,NBNAMES} ActionName;
     enum {S_SMALL,S_MEDIUM,S_BIG,S_HUGE,NBSIZES} Size;
-    MainWindow(QStringList filesnames, int viewasked=-1, QWidget *parent = 0);
+    explicit MainWindow(const QStringList& filesnames, int viewasked=-1, QWidget *parent = 0);
     ~MainWindow();
 
     void dropEvent(QDropEvent *event);
@@ -47,7 +47,7 @@ public:
     static QString shortName(Core*C, QString name);
     static QDir getCommonDir(Core*C);
 #ifdef NEW_VERSION
-    static bool isNewer(QString distant, QString local);
+    static bool isNewer(const QString& distant, const QString& local);
     void checkForNewVersion();
 #endif //NEW_VERSION
 
@@ -73,10 +73,9 @@ private:
     Ui::MainWindow *ui;
     //Non-GUI Elements
 #ifdef NEW_VERSION
-    QUrl url;
     QNetworkAccessManager qnam;
     QNetworkReply *reply;
-    QString file;
+    QString version_file;
 #endif //NEW_VERSION
     Core* C;
     ViewMode view;

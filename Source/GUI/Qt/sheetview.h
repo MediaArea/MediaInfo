@@ -18,7 +18,7 @@ namespace Ui {
 class SheetView : public QFrame {
     Q_OBJECT
 public:
-    SheetView(Core* C, QWidget *parent = 0, QFont* monoFont = nullptr);
+    explicit SheetView(Core* C, QWidget *parent = 0, QFont* monoFont = nullptr);
     ~SheetView();
 
 protected:
