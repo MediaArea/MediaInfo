@@ -102,6 +102,11 @@ Function ShowSponsorOnFinish
   ${EndIf}
   ${NSD_OnClick} $SS_BitmapCtl SponsorImageClicked
 
+  System::Call 'USER32::LoadCursor(i0, i32649) i.r9'
+  ${If} $9 <> 0
+    System::Call 'USER32::SetClassLong(p$SS_BitmapCtl, i-12, ir9) i.r9'
+  ${EndIf}
+
   ; Initialize GDI+
   System::Alloc 16
   Pop $SS_GpToken

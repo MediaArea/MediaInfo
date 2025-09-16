@@ -3,36 +3,42 @@ object SponsorFrame: TSponsorFrame
   Top = 0
   Width = 690
   Height = 200
+  Align = alBottom
   TabOrder = 0
-  OnResize = FormResize
-  DesignSize = (
-    690
-    200)
+  OnResize = OnResize
   object BannerImage: TImage
     Left = 0
     Top = 0
-    Width = 673
-    Height = 197
-    Anchors = [akLeft, akTop, akRight, akBottom]
+    Width = 672
+    Height = 200
+    Align = alClient
     Center = True
     Proportional = True
     Stretch = True
     OnClick = BannerImageClick
+    OnMouseEnter = BannerImageMouseInter
+    OnMouseLeave = BannerImageMouseLeave
   end
-  object CloseButton: TButton
-    Left = 670
+  object RightPanel: TPanel
+    Left = 672
     Top = 0
     Width = 18
-    Height = 25
-    Anchors = [akTop, akRight]
-    Caption = 'X'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
+    Height = 200
+    Align = alRight
+    BevelOuter = bvNone
     TabOrder = 0
-    OnClick = CloseButtonClick
+    DesignSize = (
+      18
+      200)
+    object CloseButton: TButton
+      Left = 0
+      Top = 0
+      Width = 18
+      Height = 25
+      Anchors = [akTop, akRight]
+      Caption = 'X'
+      TabOrder = 0
+      OnClick = CloseButtonClick
+    end
   end
 end

@@ -681,6 +681,10 @@ void __fastcall TMainF::FormResize(TObject *Sender)
         Page_System_Sheet->Width = Page_System->ClientWidth - 2;
         Page_System_Sheet->Height = Page_System->ClientHeight - Page_System_Sheet->Top - 2;
     }
+
+    //Footer
+    if (Footer_Sponsor && Footer_Sponsor->Visible)
+        Footer_Sponsor->OnResize(NULL);
 }
 
 //---------------------------------------------------------------------------
@@ -808,6 +812,9 @@ void __fastcall TMainF::Translate()
     M_NewVersion->Caption=(__T(" | ")+Prefs->Translate(__T("NewVersion_Menu"))).c_str();
     M_NewVersion->Visible=Prefs->NewVersion_Display;
 
+    //Footer
+    Footer_Button->Caption=L"Go to conformance errors and warnings glossary page";
+
     //Sponsor
     M_Sponsor->Visible=false;
     if (Prefs->Sponsored && !Prefs->Donated && !Prefs->Translate(__T("SponsorMessage")).empty() && !Prefs->Translate(__T("SponsorMessage")).empty())
@@ -817,9 +824,6 @@ void __fastcall TMainF::Translate()
     }
     if (Footer_Sponsor && Footer_Sponsor->Visible)
         Footer_Sponsor->Translate();
-
-    //Footer
-    Footer_Button->Caption=L"Go to conformance errors and warnings glossary page";
 }
 
 //---------------------------------------------------------------------------
