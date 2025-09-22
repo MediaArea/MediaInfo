@@ -410,15 +410,22 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
 
-
-        menu?.findItem(R.id.action_subscribe)?.isEnabled=false
-        subscriptionManager.ready.observe(this) {
+        val onSubscriptionManagerReadyChange: (Boolean) -> Unit = {
             if (subscriptionManager.subscribed.value == false) {
                 menu?.findItem(R.id.action_subscribe)?.isEnabled = it
             }
         }
 
-        subscriptionManager.subscribed.observe(this) {
+        menu?.findItem(R.id.action_subscribe)?.isEnabled=false
+        subscriptionManager.ready.value?.let {
+            onSubscriptionManagerReadyChange(it)
+        }
+
+        subscriptionManager.ready.observe(this) {
+            onSubscriptionManagerReadyChange(it)
+        }
+
+        val onSubscriptionManagerSubscribedChange: (Boolean) -> Unit = {
             if (it) {
                 if (subscriptionManager.isLifetime.value == true) {
                     menu?.findItem(R.id.action_subscribe).let { item ->
@@ -451,6 +458,14 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                     }
                 }
             }
+        }
+
+        subscriptionManager.subscribed.value?.let {
+            onSubscriptionManagerSubscribedChange(it)
+        }
+
+        subscriptionManager.subscribed.observe(this) {
+            onSubscriptionManagerSubscribedChange(it)
         }
 
         menu?.findItem(R.id.action_about).let {
@@ -528,14 +543,22 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         updatePreferences()
 
         subscriptionManager = SubscriptionManager.getInstance(application)
-        lifecycle.addObserver(subscriptionManager)
 
         setLocale()
-        subscriptionManager.subscribed.observe(this) {
-            if (it==true) {
+
+        val onSubscriptionManagerSubscribedChange: (Boolean) -> Unit = {
+            if (it) {
                 applyUiMode()
                 setPrefLocale()
             }
+        }
+
+        subscriptionManager.subscribed.value?.let {
+            onSubscriptionManagerSubscribedChange(it)
+        }
+
+        subscriptionManager.subscribed.observe(this) {
+            onSubscriptionManagerSubscribedChange(it)
         }
 
         val viewModelFactory = Injection.provideViewModelFactory(this)

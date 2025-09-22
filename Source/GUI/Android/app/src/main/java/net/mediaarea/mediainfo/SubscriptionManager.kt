@@ -16,7 +16,7 @@ import android.app.Activity
 import android.app.Application
 import com.android.billingclient.api.*
 
-class SubscriptionManager private constructor(private val application: Application) : PurchasesUpdatedListener, BillingClientStateListener, DefaultLifecycleObserver {
+class SubscriptionManager private constructor(private val application: Application) : PurchasesUpdatedListener, BillingClientStateListener {
     val ready = MutableLiveData<Boolean>()
     val subscribed = MutableLiveData<Boolean>()
     val isLifetime = MutableLiveData<Boolean>()
@@ -29,7 +29,7 @@ class SubscriptionManager private constructor(private val application: Applicati
 
     private lateinit var billingClient: BillingClient
 
-    override fun onCreate(owner: LifecycleOwner) {
+    init {
         val params = PendingPurchasesParams
             .newBuilder()
             .enablePrepaidPlans()
@@ -47,7 +47,7 @@ class SubscriptionManager private constructor(private val application: Applicati
         billingClient.startConnection(this)
     }
 
-    override fun onDestroy(owner: LifecycleOwner) {
+    fun terminate() {
         if (billingClient.isReady) {
             billingClient.endConnection()
         }

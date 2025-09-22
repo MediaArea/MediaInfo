@@ -38,42 +38,36 @@ class SubscribeActivity : AppCompatActivity() {
         setSupportActionBar(activitySubscribeBinding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        subscriptionManager.details.value?.let {
+            subscriptionDetails = it
+            updateSubscriptionDetails()
+        }
+
         subscriptionManager.details.observe (this, Observer {
             subscriptionDetails = it
-            val price = subscriptionDetails.subscriptionOfferDetails?.first()?.pricingPhases?.pricingPhaseList?.first()?.formattedPrice
-            if (price != null) {
-                activitySubscribeBinding.subscribeButton.isEnabled = true
-                activitySubscribeBinding.subscribeButton.text =
-                    activitySubscribeBinding.subscribeButton.text.toString()
-                        .replace("%PRICE%", price)
-                activitySubscribeBinding.subscriptionDetailText.visibility = View.VISIBLE
-                activitySubscribeBinding.subscriptionDetailText.gravity = Gravity.CENTER_HORIZONTAL
-
-                activitySubscribeBinding.subscriptionConditionText.text =
-                    activitySubscribeBinding.subscriptionConditionText.text.toString()
-                        .replace("%PRICE%", price)
-                activitySubscribeBinding.subscriptionConditionText.visibility = View.VISIBLE
-                activitySubscribeBinding.subscriptionConditionText.gravity =
-                    Gravity.CENTER_HORIZONTAL
-            }
+            updateSubscriptionDetails()
         })
+
+        subscriptionManager.lifetimeDetails.value?.let {
+            lifetimeSubscriptionDetails = it
+            updateLifetimeSubscriptionDetails()
+        }
 
         subscriptionManager.lifetimeDetails.observe (this, Observer {
             lifetimeSubscriptionDetails = it
-            val price = lifetimeSubscriptionDetails.oneTimePurchaseOfferDetails?.formattedPrice
-            if (price != null) {
-                activitySubscribeBinding.lifetimeSubscribeButton.isEnabled = true
-                activitySubscribeBinding.lifetimeSubscribeButton.text = activitySubscribeBinding.lifetimeSubscribeButton.text.toString()
-                    .replace("%PRICE%", price)
-            }
+            updateLifetimeSubscriptionDetails()
         })
+
+        subscriptionManager.offer.value?.let {
+            subscriptionOffer = it
+        }
 
         subscriptionManager.offer.observe (this, Observer {
             subscriptionOffer = it
         })
 
         activitySubscribeBinding.subscribeButton.setOnClickListener {
-            if (::subscriptionDetails.isInitialized) {
+            if (::subscriptionDetails.isInitialized && ::subscriptionOffer.isInitialized) {
                 val request = BillingFlowParams.newBuilder()
                     .setProductDetailsParamsList(
                         listOf(
@@ -117,5 +111,33 @@ class SubscribeActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    fun updateSubscriptionDetails() {
+        val price = subscriptionDetails.subscriptionOfferDetails?.first()?.pricingPhases?.pricingPhaseList?.first()?.formattedPrice
+        if (price != null) {
+            activitySubscribeBinding.subscribeButton.isEnabled = true
+            activitySubscribeBinding.subscribeButton.text =
+                activitySubscribeBinding.subscribeButton.text.toString()
+                    .replace("%PRICE%", price)
+            activitySubscribeBinding.subscriptionDetailText.visibility = View.VISIBLE
+            activitySubscribeBinding.subscriptionDetailText.gravity = Gravity.CENTER_HORIZONTAL
+
+            activitySubscribeBinding.subscriptionConditionText.text =
+                activitySubscribeBinding.subscriptionConditionText.text.toString()
+                    .replace("%PRICE%", price)
+            activitySubscribeBinding.subscriptionConditionText.visibility = View.VISIBLE
+            activitySubscribeBinding.subscriptionConditionText.gravity =
+                Gravity.CENTER_HORIZONTAL
+        }
+    }
+
+    fun updateLifetimeSubscriptionDetails() {
+        val price = lifetimeSubscriptionDetails.oneTimePurchaseOfferDetails?.formattedPrice
+        if (price != null) {
+            activitySubscribeBinding.lifetimeSubscribeButton.isEnabled = true
+            activitySubscribeBinding.lifetimeSubscribeButton.text = activitySubscribeBinding.lifetimeSubscribeButton.text.toString()
+                .replace("%PRICE%", price)
+        }
     }
 }
