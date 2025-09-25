@@ -175,30 +175,27 @@ void __fastcall TSponsorFrame::Finalize()
     } catch(...) {}
 }
 
-void __fastcall TSponsorFrame::FormResize(TObject *Sender)
-{   if (!Visible)
+//---------------------------------------------------------------------------
+void __fastcall TSponsorFrame::OnResize(TObject *Sender)
+{
+    if (!Visible || !BannerImage->Picture || BannerImage->Picture->Width == 0)
         return;
 
-    int ImgWidth = BannerImage->Picture->Width;
-    int ImgHeight = BannerImage->Picture->Height;
-    float ImgAspect = (float)ImgWidth / ImgHeight;
+    double ImgAspect = (double)BannerImage->Picture->Width / BannerImage->Picture->Height;
+    double CtrlWidth = Parent ? Parent->ClientWidth : ClientWidth;
+    double MaxHeight = BannerImage->Picture->Height;
+    int NewHeight = (int)(CtrlWidth / ImgAspect);
 
-    int CtrlWidth = BannerImage->Width;
-    int CtrlHeight = BannerImage->Height;
-    float CtrlAspect = (float)CtrlWidth / CtrlHeight;
+    if (Main)
+        MaxHeight = min(MaxHeight, (double)Main->ClientHeight / 4);
 
-    int DisplayedHeight;
-    if (ImgAspect > CtrlAspect)
-        DisplayedHeight = (int)(CtrlWidth / ImgAspect);
-    else
-        DisplayedHeight = CtrlHeight;
+    MaxHeight = min(MaxHeight, (double)Screen->Height / 8);
 
-    int NewHeight = min(DisplayedHeight, BannerImage->Picture->Height);
-    if (DisplayedHeight != NewHeight)
-    {
+    if (NewHeight > MaxHeight)
+        NewHeight = MaxHeight;
+
+    if (Height != NewHeight)
         Height = NewHeight;
-        Main->FormResize(NULL);
-    }
 }
 
 //---------------------------------------------------------------------------
@@ -217,3 +214,16 @@ void __fastcall TSponsorFrame::BannerImageClick(TObject *Sender)
 {
     ShellExecute(NULL, NULL, BannerClickUrl.c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
+
+//---------------------------------------------------------------------------
+void __fastcall TSponsorFrame::BannerImageMouseInter(TObject *Sender)
+{
+    Screen->Cursor = crHandPoint;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TSponsorFrame::BannerImageMouseLeave(TObject *Sender)
+{
+    Screen->Cursor = crDefault;
+}
+//---------------------------------------------------------------------------

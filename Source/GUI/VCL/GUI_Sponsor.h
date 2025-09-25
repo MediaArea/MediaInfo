@@ -52,9 +52,12 @@ class TSponsorFrame : public TFrame
 __published:
     TButton *CloseButton;
     TImage *BannerImage;
+    TPanel *RightPanel;
     void __fastcall CloseButtonClick(TObject *Sender);
     void __fastcall BannerImageClick(TObject *Sender);
-    void __fastcall FormResize(TObject *Sender);
+    void __fastcall OnResize(TObject *Sender);
+    void __fastcall BannerImageMouseInter(TObject *Sender);
+    void __fastcall BannerImageMouseLeave(TObject *Sender);
 
 public:
     __fastcall TSponsorFrame(TComponent* Owner, TMainF* Main);
