@@ -999,6 +999,7 @@ void MainWindow::applySettings() {
     ui->toolBar->setIconSize(settings->value("iconSize",QSize(32,32)).toSize());
     C->Menu_Option_Preferences_Option(__T("LegacyStreamDisplay"), settings->value("legacyStreamDisplay",false).toBool() ? __T("1") : __T("0"));
     C->Menu_Option_Preferences_Option(__T("Cover_Data"), settings->value("coverData",false).toBool() ? __T("base64") : __T(""));
+    C->Menu_Option_Preferences_Option(__T("File_TestContinuousFileNames"), settings->value("testContinuousFileNames",false).toBool() ? __T("1") : __T("0"));
 
     qApp->removeTranslator(translator);
     Q_UNUSED(translator->load(settings->value("language", "en").toString(), ":/languages/Translations"));
