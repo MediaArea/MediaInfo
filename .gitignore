@@ -60,3 +60,12 @@ My Project
 # Qt GUI build and translations directories
 /Project/QMake/GUI/build
 /Source/Resource/Translations
+
+# Android app directories
+/Source/GUI/Android/.gradle
+/Source/GUI/Android/.idea
+/Source/GUI/Android/app/build
+Source/GUI/Android/app/src/main/res/raw*/lang.csv
+Source/GUI/Android/app/src/main/res/values-*/strings.xml
+/Source/GUI/Android/build
+Source/GUI/Android/local.properties

@@ -14,6 +14,7 @@
         android:id="@+id/action_export_report"
         android:icon="@drawable/ic_menu_export"
         android:title="@string/menu_export"
+        app:iconTint="?attr/colorOnSurfaceVariant"
         app:showAsAction="always">
     </item>
 
@@ -21,6 +22,7 @@
         android:id="@+id/action_change_view"
         android:icon="@drawable/ic_menu_view"
         android:title="@string/menu_views"
+        app:iconTint="?attr/colorOnSurfaceVariant"
         app:showAsAction="ifRoom">
             <menu android:id="@+id/menu_views">
                 <group android:id="@+id/menu_views_group" />
