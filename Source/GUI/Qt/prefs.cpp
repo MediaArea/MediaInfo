@@ -81,6 +81,7 @@ Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
     ui->displayCaptions->setCurrentIndex(settings->value("displayCaptions",1).toInt());
     ui->legacyStreamDisplay->setChecked(settings->value("legacyStreamDisplay",false).toBool());
     ui->coverData->setChecked(settings->value("coverData",false).toBool());
+    ui->testContinuousFileNames->setChecked(settings->value("testContinuousFileNames",false).toBool());
     ui->enableFFmpeg->setChecked(settings->value("enableFFmpeg",false).toBool());
     ui->Graph_Adm_ShowTrackUIDs->setChecked(settings->value("Graph_Adm_ShowTrackUIDs",false).toBool());
     ui->Graph_Adm_ShowChannelFormats->setChecked(settings->value("Graph_Adm_ShowChannelFormats",false).toBool());
@@ -158,6 +159,7 @@ void Preferences::saveSettings() {
     settings->setValue("displayCaptions",ui->displayCaptions->currentIndex());
     settings->setValue("legacyStreamDisplay",ui->legacyStreamDisplay->isChecked());
     settings->setValue("coverData",ui->coverData->isChecked());
+    settings->setValue("testContinuousFileNames",ui->testContinuousFileNames->isChecked());
     settings->setValue("enableFFmpeg",ui->enableFFmpeg->isChecked());
     settings->setValue("Graph_Adm_ShowTrackUIDs",ui->Graph_Adm_ShowTrackUIDs->isChecked());
     settings->setValue("Graph_Adm_ShowChannelFormats",ui->Graph_Adm_ShowChannelFormats->isChecked());

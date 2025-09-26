@@ -42,7 +42,7 @@ public:
         NB_EXPORT_MODE
     };
 
-    Export(QString filename, int mode, QWidget *parent = 0);
+    Export(const QString& filename, int mode, QWidget *parent = 0);
     ~Export();
     int getExportMode();
     int getExportConfig();

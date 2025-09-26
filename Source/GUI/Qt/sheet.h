@@ -36,17 +36,17 @@ public:
     static void removeLast();
 
     void addColumn(const char* name, const int width, const int stream, const char* keyw);
-    void addColumn(column c);
+    void addColumn(const column& c);
     void resetColumns();
     int getNbColumns();
     column getColumn(int i);
     QString getName();
-    void setName(QString n);
+    void setName(const QString& n);
     bool getAdaptColumns();
     void setAdaptColumns(bool ac);
 
 private:
-    Sheet(QString name);
+    Sheet(const QString& name);
     QString name;
     QVector<column> columns;
     bool adaptColumns;

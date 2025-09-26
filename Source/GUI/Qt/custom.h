@@ -12,7 +12,6 @@
 #include <QStringList>
 #include <QSettings>
 #include <QComboBox>
-#include "Common/Core.h"
 #include <QDebug>
 
 class Custom
@@ -35,13 +34,13 @@ public:
     QString getPage();
     QString getFile();
     QString getStream(int stream);
-    void setName(QString n);
-    void setPage(QString p);
-    void setFile(QString f);
-    void setStream(int stream, QString s);
+    void setName(const QString& n);
+    void setPage(const QString& p);
+    void setFile(const QString& f);
+    void setStream(int stream, const QString& s);
 
 private:
-    Custom(QString name);
+    Custom(const QString& name);
     QString name;
     QString page;
     QString file;
