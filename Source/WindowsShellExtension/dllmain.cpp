@@ -83,7 +83,7 @@ namespace {
 
     // Extracted from
     // https://learn.microsoft.com/en-us/archive/msdn-magazine/2017/may/c-use-modern-c-to-access-the-windows-registry#reading-a-dword-value-from-the-registry
-    DWORD RegGetDword(_In_ HKEY hKey, _In_ const std::wstring& subKey, _In_ const std::wstring& value) {
+    std::optional<DWORD> RegGetDword(_In_ HKEY hKey, _In_ const std::wstring& subKey, _In_ const std::wstring& value) {
         DWORD data{};
         DWORD dataSize = sizeof(data);
         LONG retCode = RegGetValue(
@@ -96,13 +96,13 @@ namespace {
             &dataSize
         );
         if (retCode != ERROR_SUCCESS)
-            throw std::runtime_error("Cannot read DWORD from registry.");
+            return std::nullopt;
         return data;
     }
 
     // Adapted from
     // https://learn.microsoft.com/en-us/archive/msdn-magazine/2017/may/c-use-modern-c-to-access-the-windows-registry#reading-a-string-value-from-the-registry
-    bool RegGetBool(_In_ HKEY hKey, _In_ const std::wstring& subKey, _In_ const std::wstring& value) {
+    std::optional<bool> RegGetBool(_In_ HKEY hKey, _In_ const std::wstring& subKey, _In_ const std::wstring& value) {
         DWORD dataSize{};
         LONG retCode = RegGetValue(
             hKey,
@@ -114,10 +114,10 @@ namespace {
             &dataSize
         );
         if (retCode != ERROR_SUCCESS)
-            throw std::runtime_error("Cannot read string from registry.");
+            return std::nullopt;
         std::wstring data;
         data.resize(dataSize / sizeof(wchar_t));
-        retCode = ::RegGetValue(
+        retCode = RegGetValue(
             hKey,
             subKey.c_str(),
             value.c_str(),
@@ -127,7 +127,7 @@ namespace {
             &dataSize
         );
         if (retCode != ERROR_SUCCESS)
-            throw std::runtime_error("Cannot read string from registry.");
+            return std::nullopt;
         DWORD stringLengthInWchars = dataSize / sizeof(wchar_t);
         --stringLengthInWchars; // Exclude the NUL written by the Win32 API
         data.resize(stringLengthInWchars);
@@ -135,7 +135,7 @@ namespace {
             return true;
         if (data == L"false")
             return false;
-        throw std::runtime_error("Not a boolean.");
+        return std::nullopt;
     }
 
     // ResolveIt - Uses the Shell's IShellLink and IPersistFile interfaces 
@@ -500,31 +500,24 @@ public:
             *cmdState = ECS_HIDDEN;
             return S_OK;
         }
-        try {
 #ifdef MEDIAINFO_QT
-            if (!RegGetBool(HKEY_CURRENT_USER, L"Software\\MediaArea.net\\MediaInfo", L"shellExtension"))
+        auto shellExtension{ RegGetBool(HKEY_CURRENT_USER, L"Software\\MediaArea.net\\MediaInfo", L"shellExtension") };
+        if (shellExtension.has_value() && !shellExtension.value())
 #else
-            if (!RegGetDword(HKEY_CURRENT_USER, L"Software\\MediaArea\\MediaInfo", L"ShellExtension") && !is_folder)
+        auto ShellExtension{ RegGetDword(HKEY_CURRENT_USER, L"Software\\MediaArea\\MediaInfo", L"ShellExtension") };
+        if (ShellExtension.has_value() && !ShellExtension.value() && !is_folder)
 #endif // MEDIAINFO_QT
-            {
-                *cmdState = ECS_HIDDEN;
-                return S_OK;
-            }
-        }
-        catch (...) {
-            // Error reading reg, default enabled
+        {
+            *cmdState = ECS_HIDDEN;
+            return S_OK;
         }
 
 #ifndef MEDIAINFO_QT
         // Check for folders
-        try {
-            if (!RegGetDword(HKEY_CURRENT_USER, L"Software\\MediaArea\\MediaInfo", L"ShellExtension_Folder") && is_folder) {
-                *cmdState = ECS_HIDDEN;
-                return S_OK;
-            }
-        }
-        catch (...) {
-            // Error reading reg, default enabled
+        auto ShellExtension_Folder{ RegGetDword(HKEY_CURRENT_USER, L"Software\\MediaArea\\MediaInfo", L"ShellExtension_Folder") };
+        if (ShellExtension_Folder.has_value() && !ShellExtension_Folder.value() && is_folder) {
+            *cmdState = ECS_HIDDEN;
+            return S_OK;
         }
 #endif // MEDIAINFO_QT
 
@@ -562,18 +555,15 @@ public:
 
         // Option for separate instance
         bool separate_instance{ false };
-        try {
 #ifdef MEDIAINFO_QT
-            if (RegGetBool(HKEY_CURRENT_USER, L"Software\\MediaArea.net\\MediaInfo", L"shellExtension_separateInstance"))
+        auto shellExtension_separateInstance{ RegGetBool(HKEY_CURRENT_USER, L"Software\\MediaArea.net\\MediaInfo", L"shellExtension_separateInstance") };
+        if (shellExtension_separateInstance.has_value() && shellExtension_separateInstance.value())
 #else
-            if (RegGetDword(HKEY_CURRENT_USER, L"Software\\MediaArea\\MediaInfo", L"ShellExtension_SeparateInstance"))
+        auto ShellExtension_SeparateInstance{ RegGetDword(HKEY_CURRENT_USER, L"Software\\MediaArea\\MediaInfo", L"ShellExtension_SeparateInstance") };
+        if (ShellExtension_SeparateInstance.has_value() && ShellExtension_SeparateInstance.value())
 #endif // MEDIAINFO_QT
-            {
-                separate_instance = true;
-            }
-        }
-        catch (...) {
-            // Error reading reg, default same instance
+        {
+            separate_instance = true;
         }
         if (separate_instance) {
             // Invoke application, one instance per item
