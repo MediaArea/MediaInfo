@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.ProductDetails
+import com.android.billingclient.api.ProductDetails.PricingPhase
 import com.android.billingclient.api.BillingFlowParams
 import com.android.billingclient.api.BillingFlowParams.ProductDetailsParams
 import android.os.Bundle
@@ -114,7 +115,14 @@ class SubscribeActivity : AppCompatActivity() {
     }
 
     fun updateSubscriptionDetails() {
-        val price = subscriptionDetails.subscriptionOfferDetails?.first()?.pricingPhases?.pricingPhaseList?.first()?.formattedPrice
+        val price = subscriptionDetails.subscriptionOfferDetails?.firstOrNull().let { details ->
+            details?.pricingPhases?.pricingPhaseList?.find { phase ->
+                phase.priceAmountMicros > 0
+            }.let { pricing ->
+                pricing?.formattedPrice
+            }
+        }
+
         if (price != null) {
             activitySubscribeBinding.subscribeButton.isEnabled = true
             activitySubscribeBinding.subscribeButton.text =
