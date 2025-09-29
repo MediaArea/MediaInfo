@@ -17,6 +17,9 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 
 import net.mediaarea.mediainfo.databinding.ActivitySubscribeBinding
 
@@ -33,6 +36,25 @@ class SubscribeActivity : AppCompatActivity() {
 
         activitySubscribeBinding = ActivitySubscribeBinding.inflate(layoutInflater)
         setContentView(activitySubscribeBinding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(activitySubscribeBinding.appBar) { v: View, insets: WindowInsetsCompat ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars()
+                    or WindowInsetsCompat.Type.displayCutout())
+            v.updatePadding(
+                left = bars.left,
+                top = bars.top,
+                right = bars.right,
+            )
+            WindowInsetsCompat.CONSUMED
+        }
+        ViewCompat.setOnApplyWindowInsetsListener(activitySubscribeBinding.scrollView) { v: View, insets: WindowInsetsCompat ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars()
+                    or WindowInsetsCompat.Type.displayCutout())
+            v.updatePadding(
+                bottom = bars.bottom,
+            )
+            WindowInsetsCompat.CONSUMED
+        }
 
         subscriptionManager = SubscriptionManager.getInstance(application)
 

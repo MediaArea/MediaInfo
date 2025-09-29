@@ -17,6 +17,10 @@ import android.os.Build
 import android.view.MenuItem
 
 import android.content.res.AssetManager
+import android.view.View
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 
 import androidx.viewpager.widget.ViewPager
 
@@ -56,6 +60,25 @@ class ReportDetailActivity : AppCompatActivity(), ReportActivityListener {
 
         activityReportDetailBinding = ActivityReportDetailBinding.inflate(layoutInflater)
         setContentView(activityReportDetailBinding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(activityReportDetailBinding.appBar) { v: View, insets: WindowInsetsCompat ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars()
+                    or WindowInsetsCompat.Type.displayCutout())
+            v.updatePadding(
+                left = bars.left,
+                top = bars.top,
+                right = bars.right,
+            )
+            WindowInsetsCompat.CONSUMED
+        }
+        ViewCompat.setOnApplyWindowInsetsListener(activityReportDetailBinding.pager) { v: View, insets: WindowInsetsCompat ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars()
+                    or WindowInsetsCompat.Type.displayCutout())
+            v.updatePadding(
+                bottom = bars.bottom,
+            )
+            WindowInsetsCompat.CONSUMED
+        }
 
         setSupportActionBar(activityReportDetailBinding.detailToolbar)
 

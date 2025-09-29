@@ -16,20 +16,21 @@
     tools:context=".SubscribeActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:background="?attr/colorSurfaceContainer"
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:fitsSystemWindows="true">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="?attr/actionBarSize" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -58,9 +59,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:text="@string/subscribe_button_text"
-                android:enabled="false"
-                android:textColor="@android:color/white"
-                android:background="@color/colorPrimary" />
+                android:enabled="false" />
 
             <TextView
                 android:id="@+id/subscription_detail_text"
@@ -85,9 +84,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:text="@string/lifetime_subscribe_button_text"
-                android:enabled="false"
-                android:textColor="@android:color/white"
-                android:background="@color/colorPrimary" />
+                android:enabled="false" />
 
             <View
                 android:layout_width="match_parent"
