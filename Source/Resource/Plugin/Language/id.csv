@@ -161,6 +161,7 @@
 7.1ch;7.1
 About;Tentang
 About_Hint;Cara hubungi saya dan temukan versi terakhir
+AC3_Metadata;
 Accompaniment;Iringan
 Active_DisplayAspectRatio;Rasio aspek tampilan aktif
 Active_Height;Tinggi aktif
@@ -187,7 +188,9 @@ Alignment;Penjajaran
 Alignment_Aligned;Dijajarkan pada jalinan
 Alignment_Split;Dibagi sepanjang jalinan
 All;Semua
+AllFields;
 AlternateGroup;Kelompok alternatif
+AnalyzeServicesMenu;
 App_About;Mengenai MediaInfo
 App_Hide;Sembunyikan MediaInfo
 App_Quit;Tutup MediaInfo
@@ -241,6 +244,7 @@ BitRate_Mode_CBR;Konstan
 BitRate_Mode_VBR;Variabel
 BitRate_Nominal;Laju bit nominal
 Bits-(Pixel*Frame);Bit/(Piksel*Bingkai)
+BitstreamLevel;
 Bring All to Front;Pindahkan Semua ke Depan
 BufferSize;Ukuran penyangga
 Cancel;Batal
@@ -280,9 +284,11 @@ Classifier;Klasifikasi konten
 ClearList;Kosongkan daftar
 Close;Tutup
 Close all before open;Tutup semua sebelum membuka
+CloseAll;
 ClosedCaptionsLanguage;Bahasa Teks Penjelas Tertutup
 ClosedCaptionsPresent;Presentasi Teks Penjelas Tertutup
 ClosedCaptionsType;Jenis Teks Penjelas Tertutup
+CloseFile;
 CloseWindow;Tutup Jendela
 Codec;Kodek
 Codec_Description;Deskripsi kodek
@@ -317,6 +323,8 @@ colour_primaries;Primer warna
 colour_range;Rentang warna
 Comment;Komentar
 CommissionedBy;Dipesan oleh
+Compare;
+CompareView;
 Compilation;Kompilasi
 ComplementaryObject;Objek komplementer
 CompleteName;Nama lengkap
@@ -327,6 +335,7 @@ Compression_Mode;Mode kompresi
 Compression_Mode_Lossless;Tanpa lesap (Lossless)
 Compression_Mode_Lossy;Lesapan (Lossy)
 Compression_Ratio;Rasio kompresi
+comprprof;
 Conductor;Konduktor
 ConformanceCheck;Uji kesusukan
 ConformanceErrors;Galat kesusukan
@@ -362,6 +371,7 @@ Default;Bawaan
 Default translation;Terjemahan bawaan
 Default_Setting;Bawaan sistem
 DefaultTargetDeviceConfig;Konfigurasi perangkat sasaran bawaan
+DefaultView;
 Delay;Penundaan
 Delay_Source;Penundaan asli
 Delay_Source_Container;Wadah
@@ -392,6 +402,8 @@ Dolby_Atmos_Metadata;Metadata Dolby Atmos
 DolbyAtmos;Dolby Atmos
 Donate;Beri sumbangan
 DotsPerInch;Titik per inci
+DownloadFile;
+DownloadFileError;
 Downmix;Downmix
 Downmix_5.1.x;Downmix 5.1 dan 5.1.x
 Downmix_5to2;Downmix 5.1 ke 2.0
@@ -406,6 +418,7 @@ Duration_Start_Command;Waktu mulai (perintah)
 Duration_Start2End;Durasi konten yang terlihat
 DynamicObject;Objek dinamis
 DynamicRangeControl;Kendali Rentang Dinamis
+dynrngprof;
 Eac3DrcProfile;Profil E-AC-3
 Edit;Sunting
 EditedBy;Disunting oleh
@@ -416,6 +429,7 @@ EMail;Surel
 Enable FFmpeg plugin;Aktifkan pengaya FFmpeg
 Encoded_Application;Aplikasi penulisan
 Encoded_Date;Tanggal dikodekan
+Encoded_Hardware;
 Encoded_Library;Pustaka penulisan
 Encoded_Library_Name;Nama pustaka penulisan
 Encoded_Library_Settings;Setelan_pengkodean
@@ -424,8 +438,11 @@ Encoded_Original;Dukungan asli
 EncodedBy;Dikodekan oleh
 EPG_Positions;Posisi EPG (internal)
 EpisodeTitleNumber;Nomor Judul Episode
+Error;
 Error_File;Galat saat membaca berkas
 Error_File_Write;Galat saat menulis berkas
+Error_Open;
+Error_Save;
 Events_MinDuration;Durasi minimum per peristiwa
 Events_PaintOn;Banyaknya peristiwa PaintOn
 Events_PopOn;Banyaknya peristiwa PopOn
@@ -440,6 +457,11 @@ Extensions;Ekstensi yang biasa dipakai
 External_Media_NotMounted;Media eksternal tidak dapat diakses
 Family;Famili
 Fax;Faks
+Feature_AdvancedMode;
+Feature_FilesCompare;
+Feature_More;
+Feature_SelectView;
+Field;
 File;Berkas
 File size;Ukuran berkas
 File_Append;Gabungkan ke berkas yang ada (Peringatan: pastikan memiliki parameter yang sama)
@@ -523,6 +545,7 @@ FrameRate_Num;Pembilang laju bingkai
 FrameRate_Original;Laju bingkai asli
 FrameRate_Real;Laju bingkai sesungguhnya
 FullParsing;Analisis sintaks penuh
+FullParsingTips;
 Gallery;
 General;Umum
 GeneralCompliance;Kepatuhan umum
@@ -986,10 +1009,11 @@ Language_zh-tw;Bhs. Tionghoa (Taiwan)
 Language_zh-TW;Bhs. Tionghoa (Taiwan)
 Language_zh-yue;Bhs. Kanton
 Language_zu;Bhs. Zulu
+LanguageChanges;
 Languages;Bahasa
 LawRating;Peringkat usia
-LegacyStreamDisplay;Tampilkan informasi kompatibilitas mundur untuk aliran audio HD/HE dan video 3D/HDR
 LCCN;LCCN
+LegacyStreamDisplay;Tampilkan informasi kompatibilitas mundur untuk aliran audio HD/HE dan video 3D/HDR
 LfeAttenuationKnown;Atenuasi LFE yang diketahui
 LfeMixGain;Peningkatan Padu LFE
 Library;Pustaka multipleks
@@ -1036,6 +1060,7 @@ LtRtCenterMixGain;Peningkatan padu tengah LtRt
 LtRtSurroundMixGain;Peningkatan padu sekeliling LtRt
 Lyricist;Penulis lirik
 Lyrics;Lirik
+MacCreatedBy;
 Mastered_Date;Tangal diindukkan
 MasteredBy;Diindukkan oleh
 MasteringDisplay_ColorPrimaries;Primer warna layar pengindukan
@@ -1053,6 +1078,7 @@ MD5;MD5
 MD5_Unencoded;MD5 dari konten tak terkodekan
 MediaInfo_About;MediaInfo menyediakan akses mudah ke informasi penandaan dan teknis dari berkas video dan audio.\r\nSelain antarmuka pengguna grafis Mac App Store, aplikasi ini merupakan perangkat lunak sumber terbuka, sehingga pengguna akhir tidak dibebankan biaya, dan pengembang bebas meneliti, meningkatkan, serta mendistribusikannya (lisensi BSD).
 MediaInfo_About_About;MediaInfo v%MI_VERSION% menggunakan MediaInfoLib v%MIL_VERSION%
+MediaInfo_WebSite;
 Menu;Menu
 Menu stream(s);Aliran menu
 Menu_Codec_List;Kodek menu
@@ -1104,10 +1130,15 @@ Object;Objek
 ObjectCount;Banyaknya Objek
 OK;Oke
 One output file per input file;Satu berkas keluaran per berkas masukan
+OnlyDiffer;
+OnlyIdentical;
 Open;Buka
 OpenCaptionsLanguage;Bahasa Teks Penjelas Terbuka
 OpenCaptionsPresent;Presentasi Teks Penjelas Terbuka
 OpenCaptionsType;Jenis Teks Penjelas Terbuka
+OpenFile;
+OpenFileError;
+OpenRecent;
 Options;Opsi
 Options_Hint;Preferensi
 Original;Asli
@@ -1119,6 +1150,7 @@ Originator;Originator
 Other;Lainnya
 OtherIdentifier;ID Lainnya
 OtherIdentifierType;Jenis ID Lainnya
+OtherViews;
 Output;Keluaran
 Output format;Format keluaran
 OverallBitRate;Laju bit keseluruhan
@@ -1130,6 +1162,7 @@ PackageName;Nama paket
 PackFormat;Format pak
 Part;Bagian
 Part_Count;Total banyaknya
+PartialParsing;
 PartNumber;Nomor Bagian
 PartTotal;Total Bagian
 Performer;Artis
@@ -1156,12 +1189,14 @@ Position_Total;Total
 Preferences;Preferensi
 PreferredDownmix;Downmix dipreferensikan
 Premium;Premium
+Premium_Feature;
 Premium_Summary;Fitur pelanggan premium
 PreselectionLabel;Label prapilih
 Presentation;Presentasi
 PresentationConfig;Konfigurasi presentasi
 PresentationConfig_ContentClassifier;Konfigurasi presentasi dari pengklasifikasi konten
 PresentationID;ID presentasi
+PresentationLevel;
 PreviousDownmixType5ch;Downmix Jenis 5-kanal Sebelumnya
 PreviousMixType2ch;Mix Jenis 2-kanal Sebelumnya
 PrimaryAudioLanguage;Bahasa Audio Primer
@@ -1177,6 +1212,7 @@ ProgrammeTextLanguage;Bahasa Teks Program
 ProgrammeTitle;Judul Program
 Publisher;Penerbit
 Purchased_Date;Tanggal dibeli
+PurchaseInformation;
 Quote character;Karakter kutipan
 RadioStation;Stasiun radio
 Rating;Peringkat
@@ -1193,6 +1229,7 @@ ReplayGain_Peak;Puncak peningkatan putar ulang
 Report;Laporan
 Resolution;Resolusi
 RestoreLifetimeSubscription;Pulihkan langganan seumur hidup
+Retry;
 s; d
 Sampled_Height;Tinggi tersampel
 Sampled_Width;Lebar tersampel
@@ -1241,9 +1278,11 @@ Shell extension, separate instance;Buka setiap item dalam instans terpisah
 Shell InfoTip;Kiat Alat Explorer (di Windows Explorer, layangkan tetikus di atas berkas, info akan ditampilkan)
 ShimName;Nama pemampas
 ShimVersion;Versi pemampas
+Show;
 Show menu;Tampilkan menu
 Show toolbar;Tampilkan bilah alat
 ShowAll;Tampilkan Semua
+ShowMore;
 SignalGroup;Kelompok isyarat
 SigningPresent;Isyarat Tersedia
 SignLanguage;Bahasa Isyarat
@@ -1272,6 +1311,7 @@ StreamKind;Macam aliran
 StreamKindID;Identifikasi aliran
 StreamKindPos;Posisi aliran
 StreamOrder;Urutan aliran
+Streams;
 StreamSize;Ukuran aliran
 StreamSize_Demuxed;Ukuran aliran saat demultipleks
 StreamSize_Encoded;Ukuran aliran terkodekan
@@ -1281,6 +1321,7 @@ Subscribe;Langganan
 Subscribe_Button;Berlangganan (%PRICE% setahun)
 Subscribe_Failed;Pembelian dibatalkan atau gagal
 Subscribe_Manage;Kelola langganan
+Subscribe_Premium;
 Subscribe_Renew;Perpanjang langganan?
 Subscribe_Renew_Price;Perpanjang langganan (%PRICE% setahun)
 Subscribe_Unaviable;Tidak dapat mengambil rincian langganan.
@@ -1298,6 +1339,7 @@ Summary;Ringkasan
 Supported formats;Format yang didukung
 Supported?;Didukung?
 SupportUs;Dukung kami. Dapatkan tema gelap dan fitur yang lebih banyak segera.
+SupportUs2;
 SurroundAttenuationKnown;Atenuasi sekeliling yang diketahui
 SwitchGroup;Tukar kelompok
 Synopsis;Sinopsis
@@ -1308,6 +1350,7 @@ TargetDeviceConfig;Konfigurasi perangkat sasaran
 Technician;Teknisi
 TermsOfUse;Syarat penggunaan
 TertiaryAudioLanguage;Bahasa Audio Tersier
+TestContinuousFileNames;
 Text;Teks
 Text - Custom;Teks - Ubah suai
 Text (HTML);Teks (HTML)
@@ -1373,6 +1416,26 @@ TrimMode8i;Mode pangkas untuk 7.1.4
 TruePeakLevel;Tingkat puncak sejati
 TruePeakLevel_Album;Tingkat puncak sejati (album)
 Type;Jenis
+Type_Composer;
+Type_Conductor;
+Type_Cover;
+Type_Cover_Back;
+Type_Cover_Media;
+Type_DuringPerformance;
+Type_DuringRecording;
+Type_FileIcon;
+Type_FileIcon_32x32;
+Type_Illustration;
+Type_LeafletPage;
+Type_Lyricist;
+Type_Performer;
+Type_Performer_Lead;
+Type_PerformerLogo;
+Type_Picture;
+Type_PublisherLogo;
+Type_RecordingLocation;
+Type_ScreenCapture;
+Type_Thumbnail;
 TypeDefinition;Jenis definisi
 UniqueID;ID unik
 UniversalAdID;Ad-ID universal
@@ -1380,6 +1443,7 @@ UniversalAdID_Registry;Registri Ad-ID universal
 UniversalAdID_Value;Nilai Ad-ID universal
 Unknown;Tak dikenal
 Url;URL
+Value;
 Video;Video
 Video stream(s);Aliran video
 Video_Codec_List;Kodek video
@@ -1422,5 +1486,5 @@ Yes;Ya
 Your system;Sistem Anda
 Your translation;Terjemahan Anda
 Zoom;Zoom
-ZZ_Automatic_Percent;99
-ZZ_AutomaticLanguage_Percent;99
+ZZ_Automatic_Percent;95
+ZZ_AutomaticLanguage_Percent;95

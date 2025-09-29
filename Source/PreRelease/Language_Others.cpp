@@ -29,7 +29,7 @@ void Run_File(ZtringListListF &Dest, Ztring Language)
     //Complete
     for (size_t Pos=0; Pos<Origin.size(); Pos++)
     {
-        int Dest_Pos=Dest.Find(Origin(Pos, 0), 0, 0, L"==", Ztring_CaseSensitive);
+        auto Dest_Pos=Dest.Find(Origin(Pos, 0), 0, 0, L"==", Ztring_CaseSensitive);
         if (Dest_Pos==-1)
         {
             Dest.push_back(Origin.Read(Pos, 0)); //Append to end of file
