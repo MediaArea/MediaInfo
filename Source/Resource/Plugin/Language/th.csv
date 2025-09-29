@@ -161,6 +161,7 @@
 7.1ch;
 About;เกี่ยวกับ
 About_Hint;วิธีติดต่อฉันและค้นหาเวอร์ชันล่าสุด
+AC3_Metadata;
 Accompaniment;Accompaniment
 Active_DisplayAspectRatio;
 Active_Height;
@@ -187,7 +188,9 @@ Alignment;
 Alignment_Aligned;
 Alignment_Split;
 All;ทั้งหมด
+AllFields;
 AlternateGroup;
+AnalyzeServicesMenu;
 App_About;เกี่ยวกับMediaInfo
 App_Hide;ซ่อนMediaInfo
 App_Quit;ออกจากMediaInfo
@@ -241,6 +244,7 @@ BitRate_Mode_CBR;
 BitRate_Mode_VBR;
 BitRate_Nominal;Nominal bit rate
 Bits-(Pixel*Frame);บิต/(พิกเซล*เฟรม)
+BitstreamLevel;
 Bring All to Front;นำทั้งหมดมาด้านหน้า
 BufferSize;
 Cancel;ยกเลิก
@@ -280,9 +284,11 @@ Classifier;
 ClearList;
 Close;ปิด
 Close all before open;ปิดทั้งหมดก่อนเปิด
+CloseAll;
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
+CloseFile;
 CloseWindow;ปิดหน้าต่าง
 Codec;Codec
 Codec_Description;รายละเอียด Codec
@@ -317,6 +323,8 @@ colour_primaries;
 colour_range;
 Comment;คอมเมนต์
 CommissionedBy;Commissioned by
+Compare;
+CompareView;
 Compilation;
 ComplementaryObject;
 CompleteName;ชื่อเต็ม
@@ -327,6 +335,7 @@ Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;
+comprprof;
 Conductor;ผู้อำนวยเพลง
 ConformanceCheck;
 ConformanceErrors;
@@ -362,6 +371,7 @@ Default;
 Default translation;
 Default_Setting;
 DefaultTargetDeviceConfig;
+DefaultView;
 Delay;Delay
 Delay_Source;
 Delay_Source_Container;
@@ -392,6 +402,8 @@ Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;บริจาค
 DotsPerInch;
+DownloadFile;
+DownloadFileError;
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
@@ -406,6 +418,7 @@ Duration_Start_Command;
 Duration_Start2End;
 DynamicObject;
 DynamicRangeControl;
+dynrngprof;
 Eac3DrcProfile;
 Edit;แก้ไข
 EditedBy;แก้ไขโดย
@@ -416,6 +429,7 @@ EMail;อี-เมลล์
 Enable FFmpeg plugin;
 Encoded_Application;Writing application
 Encoded_Date;วันที่เข้ารหัส
+Encoded_Hardware;
 Encoded_Library;การเขียนไลบรารี
 Encoded_Library_Name;
 Encoded_Library_Settings;ตั้งค่าการเข้ารหัส
@@ -424,8 +438,11 @@ Encoded_Original;ต้นฉบับ
 EncodedBy;เข้ารหัสโดย
 EPG_Positions;
 EpisodeTitleNumber;
+Error;
 Error_File;เกิดข้อผิดพลาดขณะที่กำลังไฟล์
 Error_File_Write;
+Error_Open;
+Error_Save;
 Events_MinDuration;
 Events_PaintOn;
 Events_PopOn;
@@ -440,6 +457,11 @@ Extensions;
 External_Media_NotMounted;
 Family;Family
 Fax;แฟ็ก
+Feature_AdvancedMode;
+Feature_FilesCompare;
+Feature_More;
+Feature_SelectView;
+Field;
 File;แฟ้ม
 File size;ขนาดไฟล์
 File_Append;เพิ่มเติมไปยังไฟล์ที่มีอยู่ (คำเตือน : โปรดระมัดระวังเมื่อมีตัวแปรเดียวกัน)
@@ -523,6 +545,7 @@ FrameRate_Num;
 FrameRate_Original;เฟรมเรตต้นฉบับ
 FrameRate_Real;
 FullParsing;
+FullParsingTips;
 Gallery;
 General;ทั่วไป
 GeneralCompliance;
@@ -986,10 +1009,11 @@ Language_zh-tw;
 Language_zh-TW;
 Language_zh-yue;
 Language_zu;ซูลู
+LanguageChanges;
 Languages;
 LawRating;Law rating
-LegacyStreamDisplay;
 LCCN;LCCN
+LegacyStreamDisplay;
 LfeAttenuationKnown;
 LfeMixGain;
 Library;Muxing library
@@ -1036,6 +1060,7 @@ LtRtCenterMixGain;
 LtRtSurroundMixGain;
 Lyricist;Lyricist
 Lyrics;
+MacCreatedBy;
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
 MasteringDisplay_ColorPrimaries;
@@ -1053,6 +1078,7 @@ MD5;
 MD5_Unencoded;
 MediaInfo_About;แสดงข้อมูลอย่างละเอียด\r\nของไฟล์มัลติมีเดีย:\r\nMatroska, OGG (รวมทั้ง OGM)\r\nMPEG1 (รวมทั้ง VCD)\r\nMPEG2 (รวมทั้ง DVD และ SVCD)\r\nMPEG4 (รวมทั้ง Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (รวมทั้ง WMV, WMA)\r\nMicrosoft RIFF (รวมทั้ง AVI, WAV)\r\nรูปแบบเสียงอย่างเดียว (AC3, DTS, AAC, AU, AIFF...)
 MediaInfo_About_About;
+MediaInfo_WebSite;
 Menu;เมนู
 Menu stream(s);สตรีมเมนู
 Menu_Codec_List;codecs เมนู
@@ -1104,10 +1130,15 @@ Object;
 ObjectCount;
 OK;ตกลง
 One output file per input file;หนึ่งไฟล์ผลลัพธ์ต่อไฟล์นำเข้า
+OnlyDiffer;
+OnlyIdentical;
 Open;เปิด
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
+OpenFile;
+OpenFileError;
+OpenRecent;
 Options;ตัวเลือก
 Options_Hint;การปรับแต่ง
 Original;ต้นฉบับ
@@ -1119,6 +1150,7 @@ Originator;
 Other;อื่นๆ
 OtherIdentifier;
 OtherIdentifierType;
+OtherViews;
 Output;ผลลัพธ์
 Output format;รูปแบบผลลัพธ์
 OverallBitRate;บิตเรตทั้งหมด
@@ -1130,6 +1162,7 @@ PackageName;
 PackFormat;
 Part;ส่วน
 Part_Count;Total count
+PartialParsing;
 PartNumber;
 PartTotal;
 Performer;Performer
@@ -1156,12 +1189,14 @@ Position_Total;ทั้งหมด
 Preferences;การปรับแต่ง
 PreferredDownmix;
 Premium;
+Premium_Feature;
 Premium_Summary;
 PreselectionLabel;
 Presentation;
 PresentationConfig;
 PresentationConfig_ContentClassifier;
 PresentationID;
+PresentationLevel;
 PreviousDownmixType5ch;
 PreviousMixType2ch;
 PrimaryAudioLanguage;
@@ -1177,6 +1212,7 @@ ProgrammeTextLanguage;
 ProgrammeTitle;
 Publisher;ผู้เผยแพร่
 Purchased_Date;purchased date
+PurchaseInformation;
 Quote character;Quote character
 RadioStation;สถานีวิทยุ
 Rating;เรตติ้ง
@@ -1193,6 +1229,7 @@ ReplayGain_Peak;
 Report;
 Resolution;ความละเอียด
 RestoreLifetimeSubscription;
+Retry;
 s;s
 Sampled_Height;
 Sampled_Width;
@@ -1241,9 +1278,11 @@ Shell extension, separate instance;
 Shell InfoTip;ข้อมูลเคล็บลับ Shell (ใน explorer, เมื่อชี้เม้าท์ที่ไฟล์, จะแสดงข้อมูลไฟล์)
 ShimName;
 ShimVersion;
+Show;
 Show menu;แสดงเมนู
 Show toolbar;แสดงแถบเครื่องมือ
 ShowAll;แสดงทั้งหมด
+ShowMore;
 SignalGroup;
 SigningPresent;
 SignLanguage;
@@ -1272,6 +1311,7 @@ StreamKind;ชนิดของสตรีม
 StreamKindID;
 StreamKindPos;
 StreamOrder;
+Streams;
 StreamSize;ขนาดสตรีม
 StreamSize_Demuxed;
 StreamSize_Encoded;
@@ -1281,6 +1321,7 @@ Subscribe;
 Subscribe_Button;
 Subscribe_Failed;
 Subscribe_Manage;
+Subscribe_Premium;
 Subscribe_Renew;
 Subscribe_Renew_Price;
 Subscribe_Unaviable;
@@ -1298,6 +1339,7 @@ Summary;สรุป
 Supported formats;รูปแบบที่สนับสนุน
 Supported?;สนับสนุนแล้ว?
 SupportUs;
+SupportUs2;
 SurroundAttenuationKnown;
 SwitchGroup;
 Synopsis;Synopsis
@@ -1308,6 +1350,7 @@ TargetDeviceConfig;
 Technician;Technician
 TermsOfUse;ข้อตกลงการใช้
 TertiaryAudioLanguage;
+TestContinuousFileNames;
 Text;ข้อความ
 Text - Custom;Text - Custom
 Text (HTML);ข้อความ (HTML)
@@ -1373,6 +1416,26 @@ TrimMode8i;
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;
+Type_Composer;
+Type_Conductor;
+Type_Cover;
+Type_Cover_Back;
+Type_Cover_Media;
+Type_DuringPerformance;
+Type_DuringRecording;
+Type_FileIcon;
+Type_FileIcon_32x32;
+Type_Illustration;
+Type_LeafletPage;
+Type_Lyricist;
+Type_Performer;
+Type_Performer_Lead;
+Type_PerformerLogo;
+Type_Picture;
+Type_PublisherLogo;
+Type_RecordingLocation;
+Type_ScreenCapture;
+Type_Thumbnail;
 TypeDefinition;
 UniqueID;
 UniversalAdID;
@@ -1380,6 +1443,7 @@ UniversalAdID_Registry;
 UniversalAdID_Value;
 Unknown;ไม่รู้จัก
 Url;Url
+Value;
 Video;วีดีโอ
 Video stream(s);สตรีมวีดีโอ
 Video_Codec_List;Codecs วีดีโอ
@@ -1422,5 +1486,5 @@ Yes;ใช่
 Your system;ระบบของคุณ
 Your translation;
 Zoom;ย่อ/ขยาย
-ZZ_Automatic_Percent;58
-ZZ_AutomaticLanguage_Percent;62
+ZZ_Automatic_Percent;55
+ZZ_AutomaticLanguage_Percent;60

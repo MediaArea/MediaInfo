@@ -161,6 +161,7 @@
 7.1ch;
 About;Honi buruz
 About_Hint;Nola jarri harremanetan nirekin eta azken bertsioa aurkitu
+AC3_Metadata;
 Accompaniment;Laguntza
 Active_DisplayAspectRatio; Aspektu-ratioa
 Active_Height; Altuera
@@ -187,7 +188,12 @@ Alignment;Lerrokapena
 Alignment_Aligned;Lerrokatu tarteetan
 Alignment_Split;Banandu tarteetan
 All;Denak
+AllFields;
 AlternateGroup;
+AnalyzeServicesMenu;
+App_About;
+App_Hide;
+App_Quit;
 Archival_Location;Fitxategien kokapena
 Arranger;Konpontzailea
 ArtDirector;Arte-Zuzendaria
@@ -238,6 +244,8 @@ BitRate_Mode_CBR;Aldagaitza
 BitRate_Mode_VBR;Aldakorra
 BitRate_Nominal;Bit-ratio nominala
 Bits-(Pixel*Frame);Bit/(Pixel*Fotograma)
+BitstreamLevel;
+Bring All to Front;
 BufferSize;Buffer neurria
 Cancel;Utzi
 CaptionServiceName;
@@ -276,9 +284,12 @@ Classifier;
 ClearList;
 Close;Itxi
 Close all before open;Itxi dena ireki aurretik
+CloseAll;
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
+CloseFile;
+CloseWindow;
 Codec;Kodeka
 Codec_Description;Kodek azalpena
 Codec_Info;Kodekaren xehetasunak
@@ -312,6 +323,8 @@ colour_primaries;Kolore lehenak
 colour_range;kolore tartea
 Comment;Iruzkina
 CommissionedBy;Eskatzailea
+Compare;
+CompareView;
 Compilation;Bilketa
 ComplementaryObject;
 CompleteName;Izen osoa
@@ -322,6 +335,7 @@ Compression_Mode;Konpresio modua
 Compression_Mode_Lossless;Galera gabe
 Compression_Mode_Lossy;Galerarekin
 Compression_Ratio;Konpresio maila
+comprprof;
 Conductor;Gidaria
 ConformanceCheck;
 ConformanceErrors;
@@ -333,6 +347,7 @@ Container and general information;Edukiontzia eta informazio orokorra
 Content;Edukia
 ContentType;Eduki-Mota
 CoProducer;Koekoizlea
+Copy;
 Copyright;Copyrighta
 CopyrightYear;Copyright urtea
 CostumeDesigner;jantzien diseinatzailea
@@ -356,6 +371,7 @@ Default;Lehenetsia
 Default translation;
 Default_Setting;
 DefaultTargetDeviceConfig;
+DefaultView;
 Delay;Atzerapena
 Delay_Source;Atzerapena, jatorria
 Delay_Source_Container;Edukiontzia
@@ -386,6 +402,8 @@ Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;Eman dirulaguntza bat
 DotsPerInch;Puntu hatzbeteko
+DownloadFile;
+DownloadFileError;
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
@@ -400,6 +418,7 @@ Duration_Start_Command;
 Duration_Start2End;
 DynamicObject;
 DynamicRangeControl;
+dynrngprof;
 Eac3DrcProfile;
 Edit;Editatu
 EditedBy;Editatzailea
@@ -410,6 +429,7 @@ EMail;Post@
 Enable FFmpeg plugin;
 Encoded_Application;Kodeketa aplikazioa
 Encoded_Date;Kodeketa data
+Encoded_Hardware;
 Encoded_Library;Kodeketa liburutegia
 Encoded_Library_Name;
 Encoded_Library_Settings;Kodeketa ezarpenak
@@ -418,8 +438,11 @@ Encoded_Original;Jatorrizko sostengua
 EncodedBy;Kodetzailea
 EPG_Positions;EPG kokapenak (barnean)
 EpisodeTitleNumber;
+Error;
 Error_File;Akatsa fitxategia irakurtzerakoan
 Error_File_Write;
+Error_Open;
+Error_Save;
 Events_MinDuration;
 Events_PaintOn;
 Events_PopOn;
@@ -434,6 +457,11 @@ Extensions;Erabilitako hedapenak
 External_Media_NotMounted;
 Family;Familia
 Fax;Faxa
+Feature_AdvancedMode;
+Feature_FilesCompare;
+Feature_More;
+Feature_SelectView;
+Field;
 File;Fitxategia
 File size;Fitxategiaren tamaina
 File_Append;Gehitu dagoen fitxategiari (Kontuz : zaindu parametroak berdinak izatea)
@@ -517,6 +545,7 @@ FrameRate_Num;
 FrameRate_Original;Jatorrizko fotograma ratioa
 FrameRate_Real;
 FullParsing;
+FullParsingTips;
 Gallery;
 General;Orokorra
 GeneralCompliance;
@@ -729,6 +758,7 @@ Height;Altuera
 Height_CleanAperture;
 Height_Original;Jatorrizko altuera
 Help;Laguntza
+HideOthers;
 Hint;Aholkua
 HomeTheaterAvr;
 How many audio streams?;Zenbat audio jario?
@@ -979,10 +1009,11 @@ Language_zh-tw;Txinera (Taiwan)
 Language_zh-TW;
 Language_zh-yue;
 Language_zu;Zuluera
+LanguageChanges;
 Languages;
 LawRating;Lege maila
-LegacyStreamDisplay;
 LCCN;LCCN
+LegacyStreamDisplay;
 LfeAttenuationKnown;
 LfeMixGain;
 Library;Nahasketa liburutegia
@@ -1029,6 +1060,7 @@ LtRtCenterMixGain;
 LtRtSurroundMixGain;
 Lyricist;Abestien idazlea
 Lyrics;Letrak
+MacCreatedBy;
 Mastered_Date;Masterizatze eguna
 MasteredBy;Masterizatzailea
 MasteringDisplay_ColorPrimaries;
@@ -1046,6 +1078,7 @@ MD5;
 MD5_Unencoded;
 MediaInfo_About;MediaInfo-k sarbide erraza eskaintzen du bideo eta audio agirien argibide teknikoetara eta etiketara.\r\nSoftware askea da, honek esanahi du dohainekoa dela erabiltzaileentzat eta garatzaileek askatasuna dutela ikertzeko, hobetzeko eta programa birbanatzeko (BSD baimena)
 MediaInfo_About_About;
+MediaInfo_WebSite;
 Menu;Menua
 Menu stream(s);Menu jarioak
 Menu_Codec_List;Menu kodekak
@@ -1056,6 +1089,7 @@ MenuID;Menu ID-a
 Metadata_Format;Metadata formatua
 Metadata_Format_Type;
 Metadata_MuxingMode;
+Minimize;
 MixType;
 mn; 
 Mood;Modua
@@ -1096,10 +1130,15 @@ Object;
 ObjectCount;
 OK;Ongi
 One output file per input file;Irteera fitxategi bat sarrera fitxategiko
+OnlyDiffer;
+OnlyIdentical;
 Open;Ireki
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
+OpenFile;
+OpenFileError;
+OpenRecent;
 Options;Aukerak
 Options_Hint;Hobespenak
 Original;Jatorrizkoa
@@ -1111,6 +1150,7 @@ Originator;
 Other;Besterik
 OtherIdentifier;
 OtherIdentifierType;
+OtherViews;
 Output;Irteera
 Output format;Irteera formatua
 OverallBitRate;Bit-ratioa guztira
@@ -1122,6 +1162,7 @@ PackageName;
 PackFormat;
 Part;Zatia
 Part_Count;Zenbatekoa guztira
+PartialParsing;
 PartNumber;
 PartTotal;
 Performer;Egilea
@@ -1148,12 +1189,14 @@ Position_Total;Guztira
 Preferences;Hobespenak
 PreferredDownmix;
 Premium;
+Premium_Feature;
 Premium_Summary;
 PreselectionLabel;
 Presentation;
 PresentationConfig;
 PresentationConfig_ContentClassifier;
 PresentationID;
+PresentationLevel;
 PreviousDownmixType5ch;
 PreviousMixType2ch;
 PrimaryAudioLanguage;
@@ -1169,6 +1212,7 @@ ProgrammeTextLanguage;
 ProgrammeTitle;
 Publisher;Argitaratzailea
 Purchased_Date;Erosketa data
+PurchaseInformation;
 Quote character;Kakotxa karakterea
 RadioStation;Irrati katea
 Rating;Mailaketa
@@ -1185,6 +1229,7 @@ ReplayGain_Peak;Errepikapenaren irabazi gailurra
 Report;
 Resolution;Bereizmena
 RestoreLifetimeSubscription;
+Retry;
 s;s
 Sampled_Height;
 Sampled_Width;
@@ -1210,6 +1255,7 @@ Season;Denboraldia
 SecondaryAudioLanguage;
 see below;ikusi behean
 Select your directory;
+SelectAll;
 Send HeaderFile;Mesedez bidalidazu Idazburu agiria hona : http://sourceforge.net/projects/mediainfo/ (Akats arloa)
 Separator_Columns;Zutabe banantzailea
 Separator_Lines;Lerro banatzailea
@@ -1218,6 +1264,7 @@ ServiceChannel;Zerbitzuaren kanal kopurua
 ServiceKind;
 ServiceName;Zerbitzuaren izena
 ServiceProvider;Zerbitzu hornitzailea
+Services;
 ServiceType;Zerbitzu mota
 Set;Ezarri
 Set_Count;Ezarri kopurua
@@ -1231,8 +1278,11 @@ Shell extension, separate instance;
 Shell InfoTip;Explorer Tresnaburua (Explorerrean, mugitu sagua agiriaren gainean, argibideak erakutsiko dira)
 ShimName;
 ShimVersion;
+Show;
 Show menu;Erakutsi menua
 Show toolbar;Erakutsi tresna-barra
+ShowAll;
+ShowMore;
 SignalGroup;
 SigningPresent;
 SignLanguage;
@@ -1261,6 +1311,7 @@ StreamKind;Jario Mota
 StreamKindID;Jario ezagutarazlea
 StreamKindPos;Jario ezagutarazlea
 StreamOrder;
+Streams;
 StreamSize;Jario neurria
 StreamSize_Demuxed;
 StreamSize_Encoded;Kodeaketa jario neurria
@@ -1270,6 +1321,7 @@ Subscribe;
 Subscribe_Button;
 Subscribe_Failed;
 Subscribe_Manage;
+Subscribe_Premium;
 Subscribe_Renew;
 Subscribe_Renew_Price;
 Subscribe_Unaviable;
@@ -1287,6 +1339,7 @@ Summary;Laburpena
 Supported formats;Onartutako formatuak
 Supported?;Onartua?
 SupportUs;
+SupportUs2;
 SurroundAttenuationKnown;
 SwitchGroup;
 Synopsis;Laburpena
@@ -1297,6 +1350,7 @@ TargetDeviceConfig;
 Technician;Teknikaria
 TermsOfUse;Erabilpen baldintzak
 TertiaryAudioLanguage;
+TestContinuousFileNames;
 Text;Testua
 Text - Custom;Testua - Egilea
 Text (HTML);Testua (HTML)
@@ -1362,6 +1416,26 @@ TrimMode8i;
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;Mota
+Type_Composer;
+Type_Conductor;
+Type_Cover;
+Type_Cover_Back;
+Type_Cover_Media;
+Type_DuringPerformance;
+Type_DuringRecording;
+Type_FileIcon;
+Type_FileIcon_32x32;
+Type_Illustration;
+Type_LeafletPage;
+Type_Lyricist;
+Type_Performer;
+Type_Performer_Lead;
+Type_PerformerLogo;
+Type_Picture;
+Type_PublisherLogo;
+Type_RecordingLocation;
+Type_ScreenCapture;
+Type_Thumbnail;
 TypeDefinition;
 UniqueID;ID bakarra
 UniversalAdID;
@@ -1369,6 +1443,7 @@ UniversalAdID_Registry;
 UniversalAdID_Value;
 Unknown;Ezezaguna
 Url;Url-a
+Value;
 Video;Bideoa
 Video stream(s);Bideo jarioa(k)
 Video_Codec_List;Bideo Kodekak
@@ -1401,6 +1476,7 @@ WebSite_Video_More;Joan webgunera (%Url%) bideo kodek hau bilatzeko
 Width;Zabalera
 Width_CleanAperture;
 Width_Original;Jatorrizko zabalera
+Window;
 WriteMe;Idatzi post@ egileari
 WriteToTranslator;Idatzi itzultzaileari
 Written_Date;Idazte eguna
@@ -1409,5 +1485,6 @@ WrittenBy;Idazlea
 Yes;Bai
 Your system;Zure sistema
 Your translation;Zure itzulpena
-ZZ_Automatic_Percent;70
-ZZ_AutomaticLanguage_Percent;71
+Zoom;
+ZZ_Automatic_Percent;68
+ZZ_AutomaticLanguage_Percent;69

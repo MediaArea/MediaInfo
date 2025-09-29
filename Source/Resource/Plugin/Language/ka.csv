@@ -161,6 +161,7 @@
 7.1ch;
 About; ამის შესახებ
 About_Hint;როგორ დამიკავშირდეთ მე და ვიპოვოთ უახლესი ვერსია
+AC3_Metadata;
 Accompaniment;უზრუნველყოფა
 Active_DisplayAspectRatio;
 Active_Height;
@@ -187,7 +188,12 @@ Alignment;Alignment
 Alignment_Aligned;Aligned on interleaves
 Alignment_Split;Split accross interleaves
 All;ყველა
+AllFields;
 AlternateGroup;
+AnalyzeServicesMenu;
+App_About;
+App_Hide;
+App_Quit;
 Archival_Location;Archival location
 Arranger;Arranger
 ArtDirector;ArtDirector
@@ -238,6 +244,8 @@ BitRate_Mode_CBR;Constant
 BitRate_Mode_VBR;Variable
 BitRate_Nominal;Nominal bit rate
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
+BitstreamLevel;
+Bring All to Front;
 BufferSize;ბუფერის ზომა
 Cancel;გაჩერება
 CaptionServiceName;
@@ -276,9 +284,12 @@ Classifier;
 ClearList;
 Close;დახურვა
 Close all before open;დახურე ყველა გახსნამდე
+CloseAll;
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
+CloseFile;
+CloseWindow;
 Codec;კოდეკი
 Codec_Description;კოდეკის აღწერა
 Codec_Info;კოდეკების დეტალები
@@ -312,6 +323,8 @@ colour_primaries;Color primaries
 colour_range;
 Comment;კომენტარი
 CommissionedBy;Commissioned by
+Compare;
+CompareView;
 Compilation;Compilation
 ComplementaryObject;
 CompleteName;სრული სახელი
@@ -322,6 +335,7 @@ Compression_Mode;შეკუმშვის რეჟიმი
 Compression_Mode_Lossless;Lossless
 Compression_Mode_Lossy;Lossy
 Compression_Ratio;შეკუმშვის რატიო
+comprprof;
 Conductor;Conductor
 ConformanceCheck;
 ConformanceErrors;
@@ -333,6 +347,7 @@ Container and general information;კონტეინერი და მთ�
 Content;
 ContentType;კონტენტის ტიპი
 CoProducer;Coproducer
+Copy;
 Copyright;ყველა უფლება დაცულია
 CopyrightYear;
 CostumeDesigner;Costume designer
@@ -356,6 +371,7 @@ Default;
 Default translation;
 Default_Setting;
 DefaultTargetDeviceConfig;
+DefaultView;
 Delay;Delay
 Delay_Source;Delay, origin
 Delay_Source_Container;Container
@@ -386,6 +402,8 @@ Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;შემოწირულობა
 DotsPerInch;Dots per inch
+DownloadFile;
+DownloadFileError;
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
@@ -400,6 +418,7 @@ Duration_Start_Command;
 Duration_Start2End;
 DynamicObject;
 DynamicRangeControl;
+dynrngprof;
 Eac3DrcProfile;
 Edit;რედაქტირება
 EditedBy;რედაქტირების ავტორი
@@ -410,6 +429,7 @@ EMail;ელ-ფოსტა
 Enable FFmpeg plugin;
 Encoded_Application;დამწერი აპლიკაცია
 Encoded_Date;ენკოდირების თარიღი
+Encoded_Hardware;
 Encoded_Library;დაწერილია
 Encoded_Library_Name;
 Encoded_Library_Settings;ენკოდირების პარამეტრები
@@ -418,8 +438,11 @@ Encoded_Original;Original support
 EncodedBy;ენკოდირების ავტორი
 EPG_Positions;EPG positions (internal)
 EpisodeTitleNumber;
+Error;
 Error_File;ფაილის წაკითვის დროს აღმოჩენილია შეცდომა
 Error_File_Write;
+Error_Open;
+Error_Save;
 Events_MinDuration;
 Events_PaintOn;
 Events_PopOn;
@@ -434,6 +457,11 @@ Extensions;Extensions usually used
 External_Media_NotMounted;
 Family;გვარი
 Fax;ფაქსი
+Feature_AdvancedMode;
+Feature_FilesCompare;
+Feature_More;
+Feature_SelectView;
+Field;
 File;ფაილი
 File size;ფაილის ზომა
 File_Append;Append to the existing file (Warning : be careful to have the same parameters)
@@ -517,6 +545,7 @@ FrameRate_Num;
 FrameRate_Original;კადრების ორიგინალი სიხშირე
 FrameRate_Real;
 FullParsing;
+FullParsingTips;
 Gallery;
 General;მთავარი
 GeneralCompliance;
@@ -729,6 +758,7 @@ Height;სიმაღლე
 Height_CleanAperture;
 Height_Original;ორიგინალი სიმაღლე
 Help;დახმარება
+HideOthers;
 Hint;Hint
 HomeTheaterAvr;
 How many audio streams?;რამდენი აუდიო ნაკადია?
@@ -979,10 +1009,11 @@ Language_zh-tw;Chinese (Taiwan)
 Language_zh-TW;
 Language_zh-yue;
 Language_zu;Zulu
+LanguageChanges;
 Languages;
 LawRating;Law rating
-LegacyStreamDisplay;
 LCCN;LCCN
+LegacyStreamDisplay;
 LfeAttenuationKnown;
 LfeMixGain;
 Library;Muxing library
@@ -1029,6 +1060,7 @@ LtRtCenterMixGain;
 LtRtSurroundMixGain;
 Lyricist;Lyricist
 Lyrics;Lyrics
+MacCreatedBy;
 Mastered_Date;Mastered date
 MasteredBy;Mastered by
 MasteringDisplay_ColorPrimaries;
@@ -1046,6 +1078,7 @@ MD5;
 MD5_Unencoded;
 MediaInfo_About;Supply very detailled information\r\nabout a multimedia file:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
 MediaInfo_About_About;
+MediaInfo_WebSite;
 Menu;მენიუ
 Menu stream(s);ნაკადების მენიუ
 Menu_Codec_List;კოდეკების მენიუ
@@ -1056,6 +1089,7 @@ MenuID;მენიუს ID
 Metadata_Format;
 Metadata_Format_Type;
 Metadata_MuxingMode;
+Minimize;
 MixType;
 mn;მნ
 Mood;ხასიათი
@@ -1096,10 +1130,15 @@ Object;
 ObjectCount;
 OK;კარგი
 One output file per input file;One output file per input file
+OnlyDiffer;
+OnlyIdentical;
 Open;გახსნა
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
+OpenFile;
+OpenFileError;
+OpenRecent;
 Options;ოპციები
 Options_Hint;პარამეტრები
 Original;ორიგინალი
@@ -1111,6 +1150,7 @@ Originator;
 Other;სხვა
 OtherIdentifier;
 OtherIdentifierType;
+OtherViews;
 Output;გამავალი
 Output format;გამავალის ფორმატი
 OverallBitRate;საერთო ბიტ რეიტი
@@ -1122,6 +1162,7 @@ PackageName;
 PackFormat;
 Part;ნაწილი
 Part_Count;სულ ჯამში
+PartialParsing;
 PartNumber;
 PartTotal;
 Performer;Performer
@@ -1148,12 +1189,14 @@ Position_Total;ჯამში
 Preferences;პარამეტრები
 PreferredDownmix;
 Premium;
+Premium_Feature;
 Premium_Summary;
 PreselectionLabel;
 Presentation;
 PresentationConfig;
 PresentationConfig_ContentClassifier;
 PresentationID;
+PresentationLevel;
 PreviousDownmixType5ch;
 PreviousMixType2ch;
 PrimaryAudioLanguage;
@@ -1169,6 +1212,7 @@ ProgrammeTextLanguage;
 ProgrammeTitle;
 Publisher;გამომცემელი
 Purchased_Date;
+PurchaseInformation;
 Quote character;Quote character
 RadioStation;რადიო სადგური
 Rating;რეიტინგი
@@ -1185,6 +1229,7 @@ ReplayGain_Peak;Replay gain peak
 Report;
 Resolution;გაფართოება
 RestoreLifetimeSubscription;
+Retry;
 s;s
 Sampled_Height;
 Sampled_Width;
@@ -1210,6 +1255,7 @@ Season;სეზონი
 SecondaryAudioLanguage;
 see below;see below
 Select your directory;
+SelectAll;
 Send HeaderFile;Please send me the Header file here : http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;columns separator
 Separator_Lines;lines separator
@@ -1218,6 +1264,7 @@ ServiceChannel;სერვისის არხების რაოდენ
 ServiceKind;
 ServiceName;სერვისის სახელი
 ServiceProvider;სერვის პროვაიდერი
+Services;
 ServiceType;Service type
 Set;Set
 Set_Count;Set count
@@ -1231,8 +1278,11 @@ Shell extension, separate instance;
 Shell InfoTip;Explorer Tooltip (in Windows Explorer, move the mouse over the file, info will be displayed)
 ShimName;
 ShimVersion;
+Show;
 Show menu;მაჩვენე მენიუ
 Show toolbar;მაჩვენე პანელი
+ShowAll;
+ShowMore;
 SignalGroup;
 SigningPresent;
 SignLanguage;
@@ -1261,6 +1311,7 @@ StreamKind;ნაკადების სახეობები
 StreamKindID;Stream identifier
 StreamKindPos;Stream identifier
 StreamOrder;
+Streams;
 StreamSize;ნაკადი ზომა
 StreamSize_Demuxed;
 StreamSize_Encoded;
@@ -1270,6 +1321,7 @@ Subscribe;
 Subscribe_Button;
 Subscribe_Failed;
 Subscribe_Manage;
+Subscribe_Premium;
 Subscribe_Renew;
 Subscribe_Renew_Price;
 Subscribe_Unaviable;
@@ -1287,6 +1339,7 @@ Summary;Summary
 Supported formats;Supported formats
 Supported?;მხარდაჭერა?
 SupportUs;
+SupportUs2;
 SurroundAttenuationKnown;
 SwitchGroup;
 Synopsis;Synopsis
@@ -1297,6 +1350,7 @@ TargetDeviceConfig;
 Technician;ტექნიკური
 TermsOfUse;Terms of use
 TertiaryAudioLanguage;
+TestContinuousFileNames;
 Text;ტექსტი
 Text - Custom;ტექსტი - სტანდარტული
 Text (HTML);ტექსტი (HTML)
@@ -1362,6 +1416,26 @@ TrimMode8i;
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;
+Type_Composer;
+Type_Conductor;
+Type_Cover;
+Type_Cover_Back;
+Type_Cover_Media;
+Type_DuringPerformance;
+Type_DuringRecording;
+Type_FileIcon;
+Type_FileIcon_32x32;
+Type_Illustration;
+Type_LeafletPage;
+Type_Lyricist;
+Type_Performer;
+Type_Performer_Lead;
+Type_PerformerLogo;
+Type_Picture;
+Type_PublisherLogo;
+Type_RecordingLocation;
+Type_ScreenCapture;
+Type_Thumbnail;
 TypeDefinition;
 UniqueID;უნიკალური ID
 UniversalAdID;
@@ -1369,6 +1443,7 @@ UniversalAdID_Registry;
 UniversalAdID_Value;
 Unknown;უცნობია
 Url;Url
+Value;
 Video;ვიდეო
 Video stream(s);ვიდეო ნაკადი(ები)
 Video_Codec_List;ვიდეოს კოდეკები
@@ -1401,6 +1476,7 @@ WebSite_Video_More;შედი ამ ვებ-გვერდზე (%Url%) ,
 Width;სიგანე
 Width_CleanAperture;
 Width_Original;ორიგინალი სიგანე
+Window;
 WriteMe;მიწერეთ ავტორს
 WriteToTranslator;მიწერეთ მთარგმნელს
 Written_Date;დაწერის თარიღი
@@ -1409,5 +1485,6 @@ WrittenBy;დაწერილია
 Yes;დიახ
 Your system;თქვენი სისტემა
 Your translation;
-ZZ_Automatic_Percent;65
-ZZ_AutomaticLanguage_Percent;69
+Zoom;
+ZZ_Automatic_Percent;62
+ZZ_AutomaticLanguage_Percent;66

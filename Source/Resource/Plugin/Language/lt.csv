@@ -161,6 +161,7 @@
 7.1ch;
 About;Apie
 About_Hint;Kaip man prisijungti ir rasti naujausią versiją
+AC3_Metadata;
 Accompaniment;Akompanimentas
 Active_DisplayAspectRatio;
 Active_Height;
@@ -187,7 +188,12 @@ Alignment;
 Alignment_Aligned;
 Alignment_Split;
 All;Visi
+AllFields;
 AlternateGroup;
+AnalyzeServicesMenu;
+App_About;
+App_Hide;
+App_Quit;
 Archival_Location;Archyvavimo vieta
 Arranger;Aranžuotojas
 ArtDirector;Meno Katalogas
@@ -238,6 +244,8 @@ BitRate_Mode_CBR;
 BitRate_Mode_VBR;
 BitRate_Nominal;Nominalus bitų tempas
 Bits-(Pixel*Frame);Bitai/(Pikselis*Kadras)
+BitstreamLevel;
+Bring All to Front;
 BufferSize;
 Cancel;Atšaukti
 CaptionServiceName;
@@ -276,9 +284,12 @@ Classifier;
 ClearList;
 Close;Uždaryti
 Close all before open;Uždaryti visus prieš atveriant
+CloseAll;
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
+CloseFile;
+CloseWindow;
 Codec;Kodekas
 Codec_Description;Kodeko aprašymas
 Codec_Info;Kodeko detalės
@@ -312,6 +323,8 @@ colour_primaries;
 colour_range;
 Comment;Komentaras
 CommissionedBy;Įgaliotas
+Compare;
+CompareView;
 Compilation;
 ComplementaryObject;
 CompleteName;Pilnas pavadinimas
@@ -322,6 +335,7 @@ Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;
+comprprof;
 Conductor;Konduktorius
 ConformanceCheck;
 ConformanceErrors;
@@ -333,6 +347,7 @@ Container and general information;Talpykla ir pagrindinė informacija
 Content;
 ContentType;TurinioTipas
 CoProducer;KoProdiuseris
+Copy;
 Copyright;Autoriaus teisės
 CopyrightYear;
 CostumeDesigner;Kostiumų dizaineris
@@ -356,6 +371,7 @@ Default;
 Default translation;
 Default_Setting;
 DefaultTargetDeviceConfig;
+DefaultView;
 Delay;Atidėti
 Delay_Source;
 Delay_Source_Container;
@@ -386,6 +402,8 @@ Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;Aukoti
 DotsPerInch;
+DownloadFile;
+DownloadFileError;
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
@@ -400,6 +418,7 @@ Duration_Start_Command;
 Duration_Start2End;
 DynamicObject;
 DynamicRangeControl;
+dynrngprof;
 Eac3DrcProfile;
 Edit;Redaguoti
 EditedBy;Redagavo
@@ -410,6 +429,7 @@ EMail;El. paštas
 Enable FFmpeg plugin;
 Encoded_Application;Rašymo programa
 Encoded_Date;Užkodavimo data
+Encoded_Hardware;
 Encoded_Library;Rašymo biblioteka
 Encoded_Library_Name;
 Encoded_Library_Settings;Šifravimo nuostatos
@@ -418,8 +438,11 @@ Encoded_Original;Originalus
 EncodedBy;Užšifravo
 EPG_Positions;
 EpisodeTitleNumber;
+Error;
 Error_File;Klaida nuskaitant failą
 Error_File_Write;
+Error_Open;
+Error_Save;
 Events_MinDuration;
 Events_PaintOn;
 Events_PopOn;
@@ -434,6 +457,11 @@ Extensions;Paprastai naudojami plėtiniai
 External_Media_NotMounted;
 Family;Šeima
 Fax;Faksas
+Feature_AdvancedMode;
+Feature_FilesCompare;
+Feature_More;
+Feature_SelectView;
+Field;
 File;Failas
 File size;Failo dydis
 File_Append;Prijungtas prie egzistuojančio failo (Dėmesio : nenaudokite tų pačių parametrų)
@@ -517,6 +545,7 @@ FrameRate_Num;
 FrameRate_Original;Originalus kadrų skaičius
 FrameRate_Real;
 FullParsing;
+FullParsingTips;
 Gallery;
 General;Pagrindinis
 GeneralCompliance;
@@ -729,6 +758,7 @@ Height;Aukštis
 Height_CleanAperture;
 Height_Original;
 Help;Pagalba
+HideOthers;
 Hint;Zyma
 HomeTheaterAvr;
 How many audio streams?;Kiek audio srautų?
@@ -979,10 +1009,11 @@ Language_zh-tw;
 Language_zh-TW;
 Language_zh-yue;
 Language_zu;Zulu
+LanguageChanges;
 Languages;
 LawRating;Law reitingas
-LegacyStreamDisplay;
 LCCN;LCCN
+LegacyStreamDisplay;
 LfeAttenuationKnown;
 LfeMixGain;
 Library;Muxing biblioteka
@@ -1029,6 +1060,7 @@ LtRtCenterMixGain;
 LtRtSurroundMixGain;
 Lyricist;Lyrikas
 Lyrics;
+MacCreatedBy;
 Mastered_Date;Sukūrimo data
 MasteredBy;Sukūrė
 MasteringDisplay_ColorPrimaries;
@@ -1046,6 +1078,7 @@ MD5;
 MD5_Unencoded;
 MediaInfo_About;Teikiama detali informacija\r\napie daugialypes bylas:\r\nMatroska, OGG (įskaitant OGM)\r\nMPEG1 (įskaitant VCD)\r\nMPEG2 (įskaitant DVD ir SVCD)\r\nMPEG4 (įskaitant Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (įskaitant WMV, WMA)\r\nMicrosoft RIFF (įskaitant AVI, WAV)\r\nTik-Garso formatai (AC3, DTS, AAC, AU, AIFF...)
 MediaInfo_About_About;
+MediaInfo_WebSite;
 Menu;Meniu
 Menu stream(s);Meniu srautai
 Menu_Codec_List;Meniu kodekai
@@ -1056,6 +1089,7 @@ MenuID;Meniu ID
 Metadata_Format;
 Metadata_Format_Type;
 Metadata_MuxingMode;
+Minimize;
 MixType;
 mn; min
 Mood;Nuotaika
@@ -1096,10 +1130,15 @@ Object;
 ObjectCount;
 OK;Gerai
 One output file per input file;Vienas įšėjimo failas per įėjimo failą
+OnlyDiffer;
+OnlyIdentical;
 Open;Atverti
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
+OpenFile;
+OpenFileError;
+OpenRecent;
 Options;Pasirinktys
 Options_Hint;Nuostatos
 Original;Originalas
@@ -1111,6 +1150,7 @@ Originator;
 Other;Kita
 OtherIdentifier;
 OtherIdentifierType;
+OtherViews;
 Output;Išėjimas
 Output format;Išėjimo formatas
 OverallBitRate;Bendras bitų tempas
@@ -1122,6 +1162,7 @@ PackageName;
 PackFormat;
 Part;Dalis
 Part_Count;Bendra apimtis
+PartialParsing;
 PartNumber;
 PartTotal;
 Performer;Atlikėjas
@@ -1148,12 +1189,14 @@ Position_Total;Viso
 Preferences;Pasirinktys
 PreferredDownmix;
 Premium;
+Premium_Feature;
 Premium_Summary;
 PreselectionLabel;
 Presentation;
 PresentationConfig;
 PresentationConfig_ContentClassifier;
 PresentationID;
+PresentationLevel;
 PreviousDownmixType5ch;
 PreviousMixType2ch;
 PrimaryAudioLanguage;
@@ -1169,6 +1212,7 @@ ProgrammeTextLanguage;
 ProgrammeTitle;
 Publisher;Skelbėjas
 Purchased_Date;Pardavimo data
+PurchaseInformation;
 Quote character;Kabutės
 RadioStation;Radijo stotis
 Rating;Reitingas
@@ -1185,6 +1229,7 @@ ReplayGain_Peak;
 Report;
 Resolution;Raiška
 RestoreLifetimeSubscription;
+Retry;
 s;Video srautai (s)
 Sampled_Height;
 Sampled_Width;
@@ -1210,6 +1255,7 @@ Season;Sezonas
 SecondaryAudioLanguage;
 see below;žiūrėti žemiau
 Select your directory;
+SelectAll;
 Send HeaderFile;Prašome siųskite antraštinį failą čia: http://sourceforge.net/projects/mediainfo/ (bug sekcija)
 Separator_Columns;Stulpelių skyryba
 Separator_Lines;Eilučių skyryba
@@ -1218,6 +1264,7 @@ ServiceChannel;
 ServiceKind;
 ServiceName;
 ServiceProvider;
+Services;
 ServiceType;
 Set;Nustatyti
 Set_Count;Nustatyti kiekį
@@ -1231,8 +1278,11 @@ Shell extension, separate instance;
 Shell InfoTip;Apvalkalo InfoTipas (explorer'yje, užveskite pelę ant failo, bus parodyta informacija)
 ShimName;
 ShimVersion;
+Show;
 Show menu;Rodyti meniu
 Show toolbar;Rodyti įrankių juostą
+ShowAll;
+ShowMore;
 SignalGroup;
 SigningPresent;
 SignLanguage;
@@ -1261,6 +1311,7 @@ StreamKind;Srauto rūšis
 StreamKindID;
 StreamKindPos;
 StreamOrder;
+Streams;
 StreamSize;Srauto dydis
 StreamSize_Demuxed;
 StreamSize_Encoded;
@@ -1270,6 +1321,7 @@ Subscribe;
 Subscribe_Button;
 Subscribe_Failed;
 Subscribe_Manage;
+Subscribe_Premium;
 Subscribe_Renew;
 Subscribe_Renew_Price;
 Subscribe_Unaviable;
@@ -1287,6 +1339,7 @@ Summary;Santrauka
 Supported formats;Palaikomi formatai
 Supported?;Palaikomas?
 SupportUs;
+SupportUs2;
 SurroundAttenuationKnown;
 SwitchGroup;
 Synopsis;Trumpa apžvalga
@@ -1297,6 +1350,7 @@ TargetDeviceConfig;
 Technician;Technikas
 TermsOfUse;Naudojimo sąlygos
 TertiaryAudioLanguage;
+TestContinuousFileNames;
 Text;Tekstas
 Text - Custom;Tekstas - Vartotojo
 Text (HTML);Tekstas (HTML)
@@ -1362,6 +1416,26 @@ TrimMode8i;
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;
+Type_Composer;
+Type_Conductor;
+Type_Cover;
+Type_Cover_Back;
+Type_Cover_Media;
+Type_DuringPerformance;
+Type_DuringRecording;
+Type_FileIcon;
+Type_FileIcon_32x32;
+Type_Illustration;
+Type_LeafletPage;
+Type_Lyricist;
+Type_Performer;
+Type_Performer_Lead;
+Type_PerformerLogo;
+Type_Picture;
+Type_PublisherLogo;
+Type_RecordingLocation;
+Type_ScreenCapture;
+Type_Thumbnail;
 TypeDefinition;
 UniqueID;
 UniversalAdID;
@@ -1369,6 +1443,7 @@ UniversalAdID_Registry;
 UniversalAdID_Value;
 Unknown;Nežinomas
 Url;Url
+Value;
 Video;Video
 Video stream(s);Video srautas (ai)
 Video_Codec_List;Kodeko video
@@ -1401,6 +1476,7 @@ WebSite_Video_More;Eiti į internetinę svetainę (%Url%) kad rasti šį kodeką
 Width;Plotis
 Width_CleanAperture;
 Width_Original;
+Window;
 WriteMe;Parašyk man
 WriteToTranslator;Rašyti vertėjui
 Written_Date;Rašymo data
@@ -1409,5 +1485,6 @@ WrittenBy;Parašė
 Yes;Taip
 Your system;Jūsų sistema
 Your translation;
-ZZ_Automatic_Percent;58
-ZZ_AutomaticLanguage_Percent;63
+Zoom;
+ZZ_Automatic_Percent;55
+ZZ_AutomaticLanguage_Percent;59

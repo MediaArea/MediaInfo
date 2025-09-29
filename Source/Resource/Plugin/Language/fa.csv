@@ -161,6 +161,7 @@
 7.1ch;
 About;درباره
 About_Hint;ارتباط با من و آخرین نسخه
+AC3_Metadata;
 Accompaniment;همراهی
 Active_DisplayAspectRatio;
 Active_Height;
@@ -187,7 +188,12 @@ Alignment;هم ترازی
 Alignment_Aligned;هم ترازی بین صفحات
 Alignment_Split;شکاف بین صفحات
 All;همه
+AllFields;
 AlternateGroup;
+AnalyzeServicesMenu;
+App_About;
+App_Hide;
+App_Quit;
 Archival_Location;مسیر بایگانی
 Arranger;مرتب کننده
 ArtDirector;کارگردان هنری
@@ -238,6 +244,8 @@ BitRate_Mode_CBR;پايدار
 BitRate_Mode_VBR;متغییر
 BitRate_Nominal;نرخ بيت غیرواقعی 
 Bits-(Pixel*Frame);بیتها /(Pixel*Frame)
+BitstreamLevel;
+Bring All to Front;
 BufferSize;
 Cancel;لغو
 CaptionServiceName;
@@ -276,9 +284,12 @@ Classifier;
 ClearList;
 Close;ببند
 Close all before open;قبل از باز کردن ببند
+CloseAll;
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
+CloseFile;
+CloseWindow;
 Codec;کدک
 Codec_Description;شرح کدک
 Codec_Info;جزییات کدک
@@ -312,6 +323,8 @@ colour_primaries;
 colour_range;
 Comment;توضيح
 CommissionedBy;مجاز توسط
+Compare;
+CompareView;
 Compilation;
 ComplementaryObject;
 CompleteName;نام کامل
@@ -322,6 +335,7 @@ Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;نرخ فشردگی
+comprprof;
 Conductor;رهبر اکسترر
 ConformanceCheck;
 ConformanceErrors;
@@ -333,6 +347,7 @@ Container and general information;محتوی و اطلاعات کلی
 Content;
 ContentType;نوع محتوا
 CoProducer;تهیه کننده
+Copy;
 Copyright;کپی رایت
 CopyrightYear;
 CostumeDesigner;طراح لباس
@@ -356,6 +371,7 @@ Default;
 Default translation;
 Default_Setting;
 DefaultTargetDeviceConfig;
+DefaultView;
 Delay;مکث
 Delay_Source;
 Delay_Source_Container;
@@ -386,6 +402,8 @@ Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;کمک مالی
 DotsPerInch;نقطه بر اینچ
+DownloadFile;
+DownloadFileError;
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
@@ -400,6 +418,7 @@ Duration_Start_Command;
 Duration_Start2End;
 DynamicObject;
 DynamicRangeControl;
+dynrngprof;
 Eac3DrcProfile;
 Edit;ویرایش
 EditedBy;ویرایش شده توست
@@ -410,6 +429,7 @@ EMail;ایمیل
 Enable FFmpeg plugin;
 Encoded_Application;برنامه نوشتاری
 Encoded_Date;تاریخ رمزى شده
+Encoded_Hardware;
 Encoded_Library;کتابخان نوشتاری
 Encoded_Library_Name;
 Encoded_Library_Settings;تنظینات رمزى شده
@@ -418,8 +438,11 @@ Encoded_Original;حمایت اصلی
 EncodedBy;رمزى شده توسط
 EPG_Positions;EPG موقعیت (internal)
 EpisodeTitleNumber;
+Error;
 Error_File;خطا هنگام خواندن فایل
 Error_File_Write;
+Error_Open;
+Error_Save;
 Events_MinDuration;
 Events_PaintOn;
 Events_PopOn;
@@ -434,6 +457,11 @@ Extensions;پسوند معمولا استفاده شده است
 External_Media_NotMounted;
 Family;خانوادگی
 Fax;فکس
+Feature_AdvancedMode;
+Feature_FilesCompare;
+Feature_More;
+Feature_SelectView;
+Field;
 File;فایل
 File size;اندازه فایل
 File_Append;هشدار : از پارامترهای یکسان استفاده نکنید
@@ -517,6 +545,7 @@ FrameRate_Num;
 FrameRate_Original;نرخ فرمت اصلی
 FrameRate_Real;
 FullParsing;
+FullParsingTips;
 Gallery;
 General;کلی
 GeneralCompliance;
@@ -729,6 +758,7 @@ Height;بلندی
 Height_CleanAperture;
 Height_Original;
 Help;راهنمایی
+HideOthers;
 Hint;اشارات
 HomeTheaterAvr;
 How many audio streams?;تعداد استریم صوت?
@@ -979,10 +1009,11 @@ Language_zh-tw;Chinese (Taiwan)
 Language_zh-TW;
 Language_zh-yue;
 Language_zu;Zulu
+LanguageChanges;
 Languages;
 LawRating;Law rating
-LegacyStreamDisplay;
 LCCN;LCCN
+LegacyStreamDisplay;
 LfeAttenuationKnown;
 LfeMixGain;
 Library;کتابخانه تسهيم کننده
@@ -1029,6 +1060,7 @@ LtRtCenterMixGain;
 LtRtSurroundMixGain;
 Lyricist;لایرسکسیست
 Lyrics;متن آهنگ
+MacCreatedBy;
 Mastered_Date;تاریخ مستر
 MasteredBy;مستر شده توسط
 MasteringDisplay_ColorPrimaries;
@@ -1046,6 +1078,7 @@ MD5;
 MD5_Unencoded;
 MediaInfo_About;اطلاعات جزیی\r\nدرباره فایل مولتی مدیا:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
 MediaInfo_About_About;
+MediaInfo_WebSite;
 Menu;منو
 Menu stream(s);استریم منو
 Menu_Codec_List;کدک منو
@@ -1056,6 +1089,7 @@ MenuID;هویت منو
 Metadata_Format;
 Metadata_Format_Type;
 Metadata_MuxingMode;
+Minimize;
 MixType;
 mn; min
 Mood;حالت
@@ -1096,10 +1130,15 @@ Object;
 ObjectCount;
 OK;موافق
 One output file per input file;یک فایل خروجی بر فابل ورودی
+OnlyDiffer;
+OnlyIdentical;
 Open;باز کن
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
+OpenFile;
+OpenFileError;
+OpenRecent;
 Options;تنظیمات
 Options_Hint;تنظیمات
 Original;اصلی
@@ -1111,6 +1150,7 @@ Originator;
 Other;دیگر
 OtherIdentifier;
 OtherIdentifierType;
+OtherViews;
 Output;خروجی
 Output format;فرمت خروجی
 OverallBitRate;نرخ بیت کل
@@ -1122,6 +1162,7 @@ PackageName;
 PackFormat;
 Part;قسمت
 Part_Count;کل تعداد
+PartialParsing;
 PartNumber;
 PartTotal;
 Performer;مجرى
@@ -1148,12 +1189,14 @@ Position_Total;کل
 Preferences;تنظیمات
 PreferredDownmix;
 Premium;
+Premium_Feature;
 Premium_Summary;
 PreselectionLabel;
 Presentation;
 PresentationConfig;
 PresentationConfig_ContentClassifier;
 PresentationID;
+PresentationLevel;
 PreviousDownmixType5ch;
 PreviousMixType2ch;
 PrimaryAudioLanguage;
@@ -1169,6 +1212,7 @@ ProgrammeTextLanguage;
 ProgrammeTitle;
 Publisher;ناشر
 Purchased_Date;تاریخ خرید
+PurchaseInformation;
 Quote character;کاراکتر اعلام
 RadioStation;ایستگاه رادیو
 Rating;رتبه
@@ -1185,6 +1229,7 @@ ReplayGain_Peak;Replay gain peak
 Report;
 Resolution;وضوح
 RestoreLifetimeSubscription;
+Retry;
 s;s
 Sampled_Height;
 Sampled_Width;
@@ -1210,6 +1255,7 @@ Season;فصل
 SecondaryAudioLanguage;
 see below;پایین را ببینید
 Select your directory;
+SelectAll;
 Send HeaderFile;فایل سرصفحه را اینجا بفرستید : http://sourceforge.net/projects/mediainfo/ (قسمت باگ)
 Separator_Columns;جدا کننده ستون
 Separator_Lines;جدا کننده خطوط
@@ -1218,6 +1264,7 @@ ServiceChannel;شماره کانال سرویس
 ServiceKind;
 ServiceName;نام سرویس
 ServiceProvider;مهيا کننده سرویس
+Services;
 ServiceType;نوع سرویس
 Set;آماده کردن
 Set_Count;آماده کردن تعداد
@@ -1231,8 +1278,11 @@ Shell extension, separate instance;
 Shell InfoTip;Shell InfoTip (in Explorer, move the mouse over the file, info will be displayed)
 ShimName;
 ShimVersion;
+Show;
 Show menu;نمایش منو
 Show toolbar;نمایش نوارابزار
+ShowAll;
+ShowMore;
 SignalGroup;
 SigningPresent;
 SignLanguage;
@@ -1261,6 +1311,7 @@ StreamKind;نوع استریم
 StreamKindID;معرف استریم
 StreamKindPos;معرف استریم
 StreamOrder;
+Streams;
 StreamSize;اندازه استریم
 StreamSize_Demuxed;
 StreamSize_Encoded;
@@ -1270,6 +1321,7 @@ Subscribe;
 Subscribe_Button;
 Subscribe_Failed;
 Subscribe_Manage;
+Subscribe_Premium;
 Subscribe_Renew;
 Subscribe_Renew_Price;
 Subscribe_Unaviable;
@@ -1287,6 +1339,7 @@ Summary;خلاصه
 Supported formats;فرمت های پشتيبانى شده
 Supported?;پشتيبانى شده?
 SupportUs;
+SupportUs2;
 SurroundAttenuationKnown;
 SwitchGroup;
 Synopsis;خلاصه
@@ -1297,6 +1350,7 @@ TargetDeviceConfig;
 Technician;تکنيسين
 TermsOfUse;شرایط استفاده
 TertiaryAudioLanguage;
+TestContinuousFileNames;
 Text;استریم متن
 Text - Custom;متن - Custom
 Text (HTML);متن (HTML)
@@ -1362,6 +1416,26 @@ TrimMode8i;
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;
+Type_Composer;
+Type_Conductor;
+Type_Cover;
+Type_Cover_Back;
+Type_Cover_Media;
+Type_DuringPerformance;
+Type_DuringRecording;
+Type_FileIcon;
+Type_FileIcon_32x32;
+Type_Illustration;
+Type_LeafletPage;
+Type_Lyricist;
+Type_Performer;
+Type_Performer_Lead;
+Type_PerformerLogo;
+Type_Picture;
+Type_PublisherLogo;
+Type_RecordingLocation;
+Type_ScreenCapture;
+Type_Thumbnail;
 TypeDefinition;
 UniqueID;
 UniversalAdID;
@@ -1369,6 +1443,7 @@ UniversalAdID_Registry;
 UniversalAdID_Value;
 Unknown;نامعلوم
 Url;Url
+Value;
 Video;ویدیو
 Video stream(s);استریم ویدیو
 Video_Codec_List;کدک ویدیو
@@ -1401,6 +1476,7 @@ WebSite_Video_More;به سایت (%Url%) برای پیدا کردن ویدیو �
 Width;عرض
 Width_CleanAperture;
 Width_Original;
+Window;
 WriteMe;نوشته برای نویسنده
 WriteToTranslator;نوشته برای مترجم
 Written_Date;تاریخ نوشته
@@ -1409,5 +1485,6 @@ WrittenBy;نوشته شده توسط
 Yes;بلی
 Your system;سیستم شما
 Your translation;
-ZZ_Automatic_Percent;64
-ZZ_AutomaticLanguage_Percent;68
+Zoom;
+ZZ_Automatic_Percent;60
+ZZ_AutomaticLanguage_Percent;64

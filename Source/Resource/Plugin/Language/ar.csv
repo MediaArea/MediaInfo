@@ -159,11 +159,9 @@
 608_Mode;
 7.1.2ch;7.1.2
 7.1ch;7.1
-App_About;حول MediaInfo
-App_Hide;إخفاء MediaInfo
-App_Quit;إنهاء MediaInfo
 About;حول البرنامج
 About_Hint;كيفية الاتصال بنا والحصول على أخر نسخة
+AC3_Metadata;
 Accompaniment;مرافقة
 Active_DisplayAspectRatio;
 Active_Height;
@@ -190,7 +188,12 @@ Alignment;محاذاة
 Alignment_Aligned;محاذاة في الـinterleaves
 Alignment_Split;المنتشرة في الـinterleaves
 All;كل
+AllFields;
 AlternateGroup;Alternate group
+AnalyzeServicesMenu;
+App_About;حول MediaInfo
+App_Hide;إخفاء MediaInfo
+App_Quit;إنهاء MediaInfo
 Archival_Location;الأرشيف
 Arranger;منظم
 ArtDirector;المدير الفني
@@ -241,6 +244,7 @@ BitRate_Mode_CBR;ثابت
 BitRate_Mode_VBR;متغير
 BitRate_Nominal;المعدل الاسمي للصبيب
 Bits-(Pixel*Frame);بت /(صورة*بكسل)
+BitstreamLevel;
 Bring All to Front;إحضار الكل إلى الأمام
 BufferSize;
 Cancel;إلغاء
@@ -280,9 +284,11 @@ Classifier;
 ClearList;
 Close;غادر
 Close all before open;إغلاق كافة قبل الفتح
+CloseAll;
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
+CloseFile;
 CloseWindow;إغلاق النافذة
 Codec;الترميز (ِِCodec)
 Codec_Description;وصف الترميز
@@ -317,6 +323,8 @@ colour_primaries;إحداثيات اللونية
 colour_range;
 Comment;تعليق
 CommissionedBy;مصاند من طرف
+Compare;
+CompareView;
 Compilation;
 ComplementaryObject;Complementary object
 CompleteName;الاسم الكامل
@@ -327,6 +335,7 @@ Compression_Mode;
 Compression_Mode_Lossless;
 Compression_Mode_Lossy;
 Compression_Ratio;نسبة الضغط
+comprprof;
 Conductor;قائد الاوركسترا
 ConformanceCheck;
 ConformanceErrors;
@@ -362,6 +371,7 @@ Default;
 Default translation;
 Default_Setting;
 DefaultTargetDeviceConfig;
+DefaultView;
 Delay;تأخير
 Delay_Source;
 Delay_Source_Container;
@@ -392,6 +402,8 @@ Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;تبرع
 DotsPerInch;نقطة في البوصة
+DownloadFile;
+DownloadFileError;
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
@@ -406,6 +418,7 @@ Duration_Start_Command;
 Duration_Start2End;
 DynamicObject;Dynamic object
 DynamicRangeControl;
+dynrngprof;
 Eac3DrcProfile;
 Edit;تغيير
 EditedBy;حرره
@@ -416,6 +429,7 @@ EMail;البريد الإلكتروني
 Enable FFmpeg plugin;
 Encoded_Application;برنامج التحرير
 Encoded_Date;تاريخ الترميز (Encoding)
+Encoded_Hardware;
 Encoded_Library;المكتبة (Library) المستعملة
 Encoded_Library_Name;
 Encoded_Library_Settings;إعدادات الترميز (Encoding)
@@ -424,8 +438,11 @@ Encoded_Original;دعم الأصلي
 EncodedBy;مشفرة (Encoded) من طرف
 EPG_Positions;مواضع الـEPG (الداخلية)
 EpisodeTitleNumber;
+Error;
 Error_File;خطأ أثناء قراءة الملف
 Error_File_Write;
+Error_Open;
+Error_Save;
 Events_MinDuration;
 Events_PaintOn;
 Events_PopOn;
@@ -440,6 +457,11 @@ Extensions;التمديدات المستخدمة عادة
 External_Media_NotMounted;
 Family;عائلة
 Fax;فاكس
+Feature_AdvancedMode;
+Feature_FilesCompare;
+Feature_More;
+Feature_SelectView;
+Field;
 File;ملف
 File size;حجم الملف
 File_Append;إضافة إلى ملف موجود (تأكد من أن إعدادات متطابقة)
@@ -523,6 +545,7 @@ FrameRate_Num;
 FrameRate_Original;معدل الصور/ثانية الأصلي
 FrameRate_Real;
 FullParsing;
+FullParsingTips;
 Gallery;
 General;عام
 GeneralCompliance;
@@ -986,10 +1009,11 @@ Language_zh-tw;中文 (Taiwan)
 Language_zh-TW;
 Language_zh-yue;
 Language_zu;isiZulu
+LanguageChanges;
 Languages;
 LawRating;تصنيف القانون
-LegacyStreamDisplay;
 LCCN;LCCN
+LegacyStreamDisplay;
 LfeAttenuationKnown;
 LfeMixGain;
 Library;المكتبة المستخامة
@@ -1036,6 +1060,7 @@ LtRtCenterMixGain;
 LtRtSurroundMixGain;
 Lyricist;الشاعر
 Lyrics;كلمات
+MacCreatedBy;
 Mastered_Date;تاريخ الإنشاء
 MasteredBy;تم إنشاؤها من طرف
 MasteringDisplay_ColorPrimaries;
@@ -1053,6 +1078,7 @@ MD5;
 MD5_Unencoded;
 MediaInfo_About;تقديم معلومات مفصلة\r\nحول ملف الوسائط المتعددة :\r\nMatroska، OGG (including OGM)\r\nMPEG1 (بما في ذلك VCD)\r\nMPEG2 (بما في ذلك DVD و SVCD)\r\nMPEG4 (بما في ذلك Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia ((بما في ذلك WMV، WMA)\r\nMicrosoft RIFF ((بما في ذلك AVI, WAV)\r\nامتدادات الصوت فقط (AC3، DTS، AAC، AU، AIFF...)
 MediaInfo_About_About;
+MediaInfo_WebSite;
 Menu;القائمة
 Menu stream(s);قائمة الدفق
 Menu_Codec_List;قائمة الترميز
@@ -1104,10 +1130,15 @@ Object;Object
 ObjectCount;
 OK;موافق
 One output file per input file;خطأ عند قراءة الملف
+OnlyDiffer;
+OnlyIdentical;
 Open;فتح
 OpenCaptionsLanguage;
 OpenCaptionsPresent;
 OpenCaptionsType;
+OpenFile;
+OpenFileError;
+OpenRecent;
 Options;خيارات
 Options_Hint;تفضيلات
 Original;أصلي
@@ -1119,6 +1150,7 @@ Originator;
 Other;آخر
 OtherIdentifier;
 OtherIdentifierType;
+OtherViews;
 Output;مخرج
 Output format;الامتداد المخرج
 OverallBitRate;متوسط الصبيب العام
@@ -1130,6 +1162,7 @@ PackageName;Package name
 PackFormat;Pack format
 Part;جزء
 Part_Count;العدد الكلي
+PartialParsing;
 PartNumber;
 PartTotal;
 Performer;مؤد
@@ -1156,12 +1189,14 @@ Position_Total;مجموع
 Preferences;تفضيلات
 PreferredDownmix;
 Premium;
+Premium_Feature;
 Premium_Summary;
 PreselectionLabel;
 Presentation;
 PresentationConfig;
 PresentationConfig_ContentClassifier;
 PresentationID;
+PresentationLevel;
 PreviousDownmixType5ch;
 PreviousMixType2ch;
 PrimaryAudioLanguage;
@@ -1177,6 +1212,7 @@ ProgrammeTextLanguage;
 ProgrammeTitle;
 Publisher;الناشر
 Purchased_Date;تاريخ الشراء
+PurchaseInformation;
 Quote character;تنصيص الاقتباس
 RadioStation;محطة إذاعية
 Rating;تصنيف
@@ -1193,6 +1229,7 @@ ReplayGain_Peak;ذروة الكسب في القراءة
 Report;
 Resolution;دقة الصورة
 RestoreLifetimeSubscription;
+Retry;
 s; s
 Sampled_Height;
 Sampled_Width;
@@ -1223,11 +1260,11 @@ Send HeaderFile;الرجاء ارسال ملف Header الى :   http://sourcefo
 Separator_Columns;فاصل أعمدة
 Separator_Lines;فاصل الأسطر
 SeriesTitle;
-Services;خدمات
 ServiceChannel;قناة الخدمة
 ServiceKind;Service kind
 ServiceName;اسم الخدمة
 ServiceProvider;مزود الخدمة
+Services;خدمات
 ServiceType;نوع الخدمة
 Set;تشكيلة
 Set_Count;عدد التشكيلات
@@ -1241,9 +1278,11 @@ Shell extension, separate instance;
 Shell InfoTip;ماحق InfoTip ( عرض مزيد من التفاصيل عند  تحريك الماوس فوق الملف)
 ShimName;
 ShimVersion;
-ShowAll;إظهار الكل
+Show;
 Show menu;اظهار القائمة
 Show toolbar;عرض شريط الأدوات
+ShowAll;إظهار الكل
+ShowMore;
 SignalGroup;
 SigningPresent;
 SignLanguage;
@@ -1272,6 +1311,7 @@ StreamKind;نوع الدفق
 StreamKindID;معرف الدفق
 StreamKindPos;معرف الدفق
 StreamOrder;
+Streams;
 StreamSize;حجم الدفق
 StreamSize_Demuxed;Stream size when demuxed
 StreamSize_Encoded;
@@ -1281,6 +1321,7 @@ Subscribe;
 Subscribe_Button;
 Subscribe_Failed;
 Subscribe_Manage;
+Subscribe_Premium;
 Subscribe_Renew;
 Subscribe_Renew_Price;
 Subscribe_Unaviable;
@@ -1298,6 +1339,7 @@ Summary;ملخص
 Supported formats;الامتدادات المدعومة
 Supported?;مدعوم؟
 SupportUs;
+SupportUs2;
 SurroundAttenuationKnown;
 SwitchGroup;
 Synopsis;موجز
@@ -1308,6 +1350,7 @@ TargetDeviceConfig;
 Technician;فني
 TermsOfUse;شروط الاستخدام
 TertiaryAudioLanguage;
+TestContinuousFileNames;
 Text;نص
 Text - Custom;النص
 Text (HTML);نص (HTML)
@@ -1373,6 +1416,26 @@ TrimMode8i;Trim mode for 7.1.4
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;
+Type_Composer;
+Type_Conductor;
+Type_Cover;
+Type_Cover_Back;
+Type_Cover_Media;
+Type_DuringPerformance;
+Type_DuringRecording;
+Type_FileIcon;
+Type_FileIcon_32x32;
+Type_Illustration;
+Type_LeafletPage;
+Type_Lyricist;
+Type_Performer;
+Type_Performer_Lead;
+Type_PerformerLogo;
+Type_Picture;
+Type_PublisherLogo;
+Type_RecordingLocation;
+Type_ScreenCapture;
+Type_Thumbnail;
 TypeDefinition;
 UniqueID;
 UniversalAdID;
@@ -1380,6 +1443,7 @@ UniversalAdID_Registry;
 UniversalAdID_Value;
 Unknown;مجهول
 Url;رابط
+Value;
 Video;فيديو
 Video stream(s);دفق الفيديو
 Video_Codec_List;ترميزالفيديو
@@ -1422,5 +1486,5 @@ Yes;نعم
 Your system;نظامك
 Your translation;
 Zoom;تكبير/تصغير
-ZZ_Automatic_Percent;69
-ZZ_AutomaticLanguage_Percent;73
+ZZ_Automatic_Percent;66
+ZZ_AutomaticLanguage_Percent;70
