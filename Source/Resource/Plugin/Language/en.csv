@@ -161,6 +161,7 @@
 7.1ch;7.1
 About;About
 About_Hint;How to contact me and find last version
+AC3_Metadata;AC-3 metadata
 Accompaniment;Accompaniment
 Active_DisplayAspectRatio;Active display aspect ratio
 Active_Height;Active height
@@ -186,8 +187,8 @@ Album_ReplayGain_Peak;Album replay gain peak
 Alignment;Alignment
 Alignment_Aligned;Aligned on interleaves
 Alignment_Split;Split across interleaves
-AllFields;All fields
 All;All
+AllFields;All fields
 AlternateGroup;Alternate group
 AnalyzeServicesMenu;Analyze with MediaInfo
 App_About;About MediaInfo
@@ -243,6 +244,7 @@ BitRate_Mode_CBR;Constant
 BitRate_Mode_VBR;Variable
 BitRate_Nominal;Nominal bit rate
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
+BitstreamLevel;Bitstream level
 Bring All to Front;Bring All to Front
 BufferSize;Buffer size
 Cancel;Cancel
@@ -321,8 +323,8 @@ colour_primaries;Color primaries
 colour_range;Color range
 Comment;Comment
 CommissionedBy;Commissioned by
-CompareView;Compare View (Premium feature)
 Compare;Compare
+CompareView;Compare View (Premium feature)
 Compilation;Compilation
 ComplementaryObject;Complementary object
 CompleteName;Complete name
@@ -333,6 +335,7 @@ Compression_Mode;Compression mode
 Compression_Mode_Lossless;Lossless
 Compression_Mode_Lossy;Lossy
 Compression_Ratio;Compression ratio
+comprprof;RF (compr) profile
 Conductor;Conductor
 ConformanceCheck;Conformance check
 ConformanceErrors;Conformance errors
@@ -344,9 +347,9 @@ Container and general information;Container and general information
 Content;Content
 ContentType;ContentType
 CoProducer;Coproducer
+Copy;Copy
 Copyright;Copyright
 CopyrightYear;Copyright Year
-Copy;Copy
 CostumeDesigner;Costume designer
 Count;Count
 Country;Country
@@ -415,6 +418,7 @@ Duration_Start_Command;Start time (commands)
 Duration_Start2End;Duration of the visible content
 DynamicObject;Dynamic object
 DynamicRangeControl;Dynamic Range Control
+dynrngprof;Line (dynrng) profile
 Eac3DrcProfile;E-AC-3 DRC profile
 Edit;Edit
 EditedBy;Edited by
@@ -425,6 +429,7 @@ EMail;E-Mail
 Enable FFmpeg plugin;Enable FFmpeg plugin
 Encoded_Application;Writing application
 Encoded_Date;Encoded date
+Encoded_Hardware;Writing hardware
 Encoded_Library;Writing library
 Encoded_Library_Name;
 Encoded_Library_Settings;Encoding settings
@@ -433,11 +438,11 @@ Encoded_Original;Original support
 EncodedBy;Encoded by
 EPG_Positions;EPG positions (internal)
 EpisodeTitleNumber;Episode Title Number
+Error;Error
 Error_File;Error while reading file
 Error_File_Write;Error while writing file
 Error_Open;Can not open file(s)
 Error_Save;Can not save file
-Error;Error
 Events_MinDuration;Minimum duration per event
 Events_PaintOn;Count of PaintOn events
 Events_PopOn;Count of PopOn events
@@ -539,8 +544,8 @@ FrameRate_Nominal;Nominal frame rate
 FrameRate_Num;
 FrameRate_Original;Original frame rate
 FrameRate_Real;Real frame rate
-FullParsingTips;More complete output (slower)
 FullParsing;Full parsing
+FullParsingTips;More complete output (slower)
 Gallery;Gallery
 General;General
 GeneralCompliance;General compliance
@@ -1007,8 +1012,8 @@ Language_zu;Zulu
 LanguageChanges;Changes take effect after application restart
 Languages;
 LawRating;Law rating
-LegacyStreamDisplay;Display backward compatibility information for HD/HE audio and 3D/HDR video streams
 LCCN;LCCN
+LegacyStreamDisplay;Display backward compatibility information for HD/HE audio and 3D/HDR video streams
 LfeAttenuationKnown;LFE attenuation known
 LfeMixGain;LFE mix gain
 Library;Muxing library
@@ -1157,6 +1162,7 @@ PackageName;Package name
 PackFormat;Pack format
 Part;Part
 Part_Count;Total count
+PartialParsing;Partial parsing
 PartNumber;Part Number
 PartTotal;Part Total
 Performer;Performer
@@ -1190,6 +1196,7 @@ Presentation;Presentation
 PresentationConfig;Presentation config
 PresentationConfig_ContentClassifier;Presentation config from content classifiers
 PresentationID;Presentation ID
+PresentationLevel;Presentation level
 PreviousDownmixType5ch;Previous Downmix Type 5-ch
 PreviousMixType2ch;Previous Mix Type 2-ch
 PrimaryAudioLanguage;Primary Audio Language
@@ -1257,8 +1264,8 @@ ServiceChannel;Service channel number
 ServiceKind;Service kind
 ServiceName;Service name
 ServiceProvider;Service provider
-ServiceType;Service type
 Services;Services
+ServiceType;Service type
 Set;Set
 Set_Count;Set count
 Setup;Setup
@@ -1271,11 +1278,11 @@ Shell extension, separate instance;Open each item in a separate instance
 Shell InfoTip;Explorer Tooltip (in Windows Explorer, move the mouse over the file, info will be displayed)
 ShimName;Shim Name
 ShimVersion;Shim Version
+Show;Show:
 Show menu;Show menu
 Show toolbar;Show toolbar
 ShowAll;Show All
 ShowMore;Show more in the output, including different formats of time or duration
-Show;Show:
 SignalGroup;Signal group
 SigningPresent;Signing Present
 SignLanguage;Sign Language
@@ -1294,7 +1301,6 @@ StoreMethod_InterleavedFields;Interleaved fields
 StoreMethod_SeparatedFields;Separated fields
 StoreMethod_SeparatedFields_1;Separated fields (1 field per block)
 StoreMethod_SeparatedFields_2;Separated fields (2 fields per block)
-Streams;Streams
 Stream;Stream
 Stream_MoreInfo;More information about the stream
 StreamCount;Count of stream of this kind
@@ -1305,6 +1311,7 @@ StreamKind;Kind of stream
 StreamKindID;Stream identifier
 StreamKindPos;Stream identifier
 StreamOrder;
+Streams;Streams
 StreamSize;Stream size
 StreamSize_Demuxed;Stream size when demuxed
 StreamSize_Encoded;Encoded stream size
@@ -1331,8 +1338,8 @@ SubtstreamIdChannel;Substream start ID & channel index
 Summary;Summary
 Supported formats;Supported formats
 Supported?;Supported?
-SupportUs2;Support us by subscribing and get exclusive features.
 SupportUs;Support us. Get the dark theme and more features to come.
+SupportUs2;Support us by subscribing and get exclusive features.
 SurroundAttenuationKnown;Surround attenuation known
 SwitchGroup;Switch group
 Synopsis;Synopsis
@@ -1409,6 +1416,26 @@ TrimMode8i;Trim mode for 7.1.4
 TruePeakLevel;True peak level
 TruePeakLevel_Album;True peak level (album)
 Type;Type
+Type_Composer;Composer
+Type_Conductor;Conductor
+Type_Cover;Cover
+Type_Cover_Back;Cover (back)
+Type_Cover_Media;Cover (media)
+Type_DuringPerformance;During performance
+Type_DuringRecording;During recording
+Type_FileIcon;File icon
+Type_FileIcon_32x32;File icon (32x32)
+Type_Illustration;Illustration
+Type_LeafletPage;Leaflet page
+Type_Lyricist;Lyricist
+Type_Performer;Performer
+Type_Performer_Lead;Performer (lead)
+Type_PerformerLogo;Performer logo
+Type_Picture;Picture
+Type_PublisherLogo;Publisher logo
+Type_RecordingLocation;Recording Location
+Type_ScreenCapture;Screen capture
+Type_Thumbnail;Thumbnail
 TypeDefinition;Type definition
 UniqueID;Unique ID
 UniversalAdID;Universal Ad ID

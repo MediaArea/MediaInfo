@@ -161,6 +161,7 @@
 7.1ch;
 About;關於
 About_Hint;聯絡作者和取得最新版
+AC3_Metadata;
 Accompaniment;伴奏
 Active_DisplayAspectRatio;
 Active_Height;
@@ -187,7 +188,12 @@ Alignment;聲頻編排
 Alignment_Aligned;對齊
 Alignment_Split;分散
 All;全部
+AllFields;
 AlternateGroup;
+AnalyzeServicesMenu;
+App_About;
+App_Hide;
+App_Quit;
 Archival_Location;檔案位置
 Arranger;編曲
 ArtDirector;藝術指導
@@ -238,6 +244,8 @@ BitRate_Mode_CBR;固定式
 BitRate_Mode_VBR;浮動式
 BitRate_Nominal;預設流量
 Bits-(Pixel*Frame);數據密度【位元╱(像素×畫格)】
+BitstreamLevel;
+Bring All to Front;
 BufferSize;緩衝大小
 Cancel;取消
 CaptionServiceName;
@@ -276,9 +284,12 @@ Classifier;
 ClearList;
 Close;關閉
 Close all before open;開啟前關閉其他檔案
+CloseAll;
 ClosedCaptionsLanguage;隱藏式字幕語言
 ClosedCaptionsPresent;隱藏式字幕呈垷
 ClosedCaptionsType;隱藏式字幕類型
+CloseFile;
+CloseWindow;
 Codec;編碼
 Codec_Description;編解碼器描述
 Codec_Info;編解碼器資訊
@@ -312,6 +323,8 @@ colour_primaries;色彩原色
 colour_range;色彩範圍
 Comment;評註
 CommissionedBy;委託者
+Compare;
+CompareView;
 Compilation;合輯
 ComplementaryObject;
 CompleteName;路徑
@@ -322,6 +335,7 @@ Compression_Mode;壓縮模式
 Compression_Mode_Lossless;無損
 Compression_Mode_Lossy;有損
 Compression_Ratio;壓縮比
+comprprof;
 Conductor;指揮
 ConformanceCheck;
 ConformanceErrors;
@@ -333,6 +347,7 @@ Container and general information;容器和一般資訊
 Content;
 ContentType;內容型態
 CoProducer;聯合監制
+Copy;
 Copyright;版權持有
 CopyrightYear;版權年份
 CostumeDesigner;服裝設計
@@ -356,6 +371,7 @@ Default;
 Default translation;
 Default_Setting;
 DefaultTargetDeviceConfig;
+DefaultView;
 Delay;延遲
 Delay_Source;延遲，初始值
 Delay_Source_Container;容器
@@ -386,6 +402,8 @@ Dolby_Atmos_Metadata;
 DolbyAtmos;
 Donate;贊助
 DotsPerInch;每吋點數（DPI）
+DownloadFile;
+DownloadFileError;
 Downmix;
 Downmix_5.1.x;
 Downmix_5to2;
@@ -400,6 +418,7 @@ Duration_Start_Command;
 Duration_Start2End;
 DynamicObject;
 DynamicRangeControl;
+dynrngprof;
 Eac3DrcProfile;
 Edit;編輯
 EditedBy;編輯者
@@ -410,6 +429,7 @@ EMail;電郵
 Enable FFmpeg plugin;
 Encoded_Application;編碼程式
 Encoded_Date;編碼於
+Encoded_Hardware;
 Encoded_Library;編碼函式庫
 Encoded_Library_Name;
 Encoded_Library_Settings;編碼設定
@@ -418,8 +438,11 @@ Encoded_Original;來源
 EncodedBy;編碼者
 EPG_Positions;電子節目表位置（內部）
 EpisodeTitleNumber;集數標題編號
+Error;
 Error_File;讀取檔案錯誤
 Error_File_Write;
+Error_Open;
+Error_Save;
 Events_MinDuration;
 Events_PaintOn;
 Events_PopOn;
@@ -434,6 +457,11 @@ Extensions;副檔名
 External_Media_NotMounted;
 Family;系列
 Fax;傳真
+Feature_AdvancedMode;
+Feature_FilesCompare;
+Feature_More;
+Feature_SelectView;
+Field;
 File;檔案
 File size;檔案大小
 File_Append;附加到目前檔案後（警告：同參數時要小心）
@@ -517,6 +545,7 @@ FrameRate_Num;
 FrameRate_Original;原始畫格率
 FrameRate_Real;
 FullParsing;
+FullParsingTips;
 Gallery;
 General;一般
 GeneralCompliance;
@@ -729,6 +758,7 @@ Height;高
 Height_CleanAperture;清除Aperture高度
 Height_Original;原始高度
 Help;說明
+HideOthers;
 Hint;提示
 HomeTheaterAvr;
 How many audio streams?;有多少聲頻？
@@ -979,10 +1009,11 @@ Language_zh-tw;臺灣華語　Mandarin
 Language_zh-TW;
 Language_zh-yue;
 Language_zu;祖魯語　Zulu
+LanguageChanges;
 Languages;
 LawRating;分級
-LegacyStreamDisplay;
 LCCN;LCCN
+LegacyStreamDisplay;
 LfeAttenuationKnown;
 LfeMixGain;
 Library;合成函式庫
@@ -1029,6 +1060,7 @@ LtRtCenterMixGain;
 LtRtSurroundMixGain;
 Lyricist;填詞
 Lyrics;歌詞
+MacCreatedBy;
 Mastered_Date;後製於
 MasteredBy;後製者
 MasteringDisplay_ColorPrimaries;
@@ -1046,6 +1078,7 @@ MD5;
 MD5_Unencoded;
 MediaInfo_About;使用MediaInfo可輕易觀看影音和圖像檔案的技術和標籤資訊。\r\n除蘋果應用程式商店圖像用戶介面外，它是開源的。\r\n按BSD式授權協議，用戶和開發者可免費研習、更改和再發佈本程式。
 MediaInfo_About_About;
+MediaInfo_WebSite;
 Menu;選單
 Menu stream(s);選單串流
 Menu_Codec_List;選單編解碼器
@@ -1056,6 +1089,7 @@ MenuID;選單識別字
 Metadata_Format;
 Metadata_Format_Type;
 Metadata_MuxingMode;
+Minimize;
 MixType;
 mn;分
 Mood;情緒
@@ -1096,10 +1130,15 @@ Object;
 ObjectCount;
 OK;確定
 One output file per input file;一個輸入檔對應一個輸出檔
+OnlyDiffer;
+OnlyIdentical;
 Open;開啟
 OpenCaptionsLanguage;開放式字幕語言
 OpenCaptionsPresent;開放式字幕呈現
 OpenCaptionsType;開放式字幕類型
+OpenFile;
+OpenFileError;
+OpenRecent;
 Options;選項
 Options_Hint;喜好設定
 Original;來源
@@ -1111,6 +1150,7 @@ Originator;原創者
 Other;其他
 OtherIdentifier;其他識別字
 OtherIdentifierType;其他識別字類型
+OtherViews;
 Output;輸出
 Output format;檢視方式
 OverallBitRate;整體流量
@@ -1122,6 +1162,7 @@ PackageName;
 PackFormat;
 Part;部份
 Part_Count;總數
+PartialParsing;
 PartNumber;此部份的編號
 PartTotal;部份的總計數量
 Performer;演出者
@@ -1148,12 +1189,14 @@ Position_Total;總數
 Preferences;喜好設定
 PreferredDownmix;
 Premium;
+Premium_Feature;
 Premium_Summary;
 PreselectionLabel;
 Presentation;
 PresentationConfig;
 PresentationConfig_ContentClassifier;
 PresentationID;
+PresentationLevel;
 PreviousDownmixType5ch;
 PreviousMixType2ch;
 PrimaryAudioLanguage;主要語音
@@ -1169,6 +1212,7 @@ ProgrammeTextLanguage;節目文字的語言
 ProgrammeTitle;節目名稱
 Publisher;發行商
 Purchased_Date;購買於
+PurchaseInformation;
 Quote character;引用字元
 RadioStation;電台
 Rating;分級
@@ -1185,6 +1229,7 @@ ReplayGain_Peak;播放增益最高值
 Report;
 Resolution;解像度
 RestoreLifetimeSubscription;
+Retry;
 s;秒
 Sampled_Height;
 Sampled_Width;
@@ -1210,6 +1255,7 @@ Season;季度
 SecondaryAudioLanguage;第二語音
 see below;詳見下方
 Select your directory;
+SelectAll;
 Send HeaderFile;請將標頭檔寄到： http://sourceforge.net/projects/mediainfo/ （Bug section）
 Separator_Columns;換欄字元
 Separator_Lines;換行字元
@@ -1218,6 +1264,7 @@ ServiceChannel;服務頻道
 ServiceKind;
 ServiceName;服務名稱
 ServiceProvider;服務提供者
+Services;
 ServiceType;服務類型
 Set;集合
 Set_Count;集合數
@@ -1231,8 +1278,11 @@ Shell extension, separate instance;
 Shell InfoTip;檔案提示（滑鼠移到檔案上顯示相關訊息）
 ShimName;Shim名稱
 ShimVersion;Shim版本
+Show;
 Show menu;顯示選單
 Show toolbar;顯示工具列
+ShowAll;
+ShowMore;
 SignalGroup;
 SigningPresent;Signing Present
 SignLanguage;手語
@@ -1261,6 +1311,7 @@ StreamKind;串流類型
 StreamKindID;串流識別字
 StreamKindPos;串流識別字
 StreamOrder;
+Streams;
 StreamSize;串流大小
 StreamSize_Demuxed;
 StreamSize_Encoded;編碼串流大小
@@ -1270,6 +1321,7 @@ Subscribe;
 Subscribe_Button;
 Subscribe_Failed;
 Subscribe_Manage;
+Subscribe_Premium;
 Subscribe_Renew;
 Subscribe_Renew_Price;
 Subscribe_Unaviable;
@@ -1287,6 +1339,7 @@ Summary;摘要
 Supported formats;支援格式
 Supported?;是否支援？
 SupportUs;
+SupportUs2;
 SurroundAttenuationKnown;
 SwitchGroup;
 Synopsis;系统摘要
@@ -1297,6 +1350,7 @@ TargetDeviceConfig;
 Technician;技術員
 TermsOfUse;授權條款
 TertiaryAudioLanguage;第三語音
+TestContinuousFileNames;
 Text;文字
 Text - Custom;文字 - 自訂
 Text (HTML);文字（HTML）
@@ -1362,6 +1416,26 @@ TrimMode8i;
 TruePeakLevel;
 TruePeakLevel_Album;
 Type;類型
+Type_Composer;
+Type_Conductor;
+Type_Cover;
+Type_Cover_Back;
+Type_Cover_Media;
+Type_DuringPerformance;
+Type_DuringRecording;
+Type_FileIcon;
+Type_FileIcon_32x32;
+Type_Illustration;
+Type_LeafletPage;
+Type_Lyricist;
+Type_Performer;
+Type_Performer_Lead;
+Type_PerformerLogo;
+Type_Picture;
+Type_PublisherLogo;
+Type_RecordingLocation;
+Type_ScreenCapture;
+Type_Thumbnail;
 TypeDefinition;
 UniqueID;獨立識別字
 UniversalAdID;
@@ -1369,6 +1443,7 @@ UniversalAdID_Registry;
 UniversalAdID_Value;
 Unknown;未知
 Url;相關網址
+Value;
 Video;影像
 Video stream(s);影片串流
 Video_Codec_List;影片編解碼器
@@ -1401,6 +1476,7 @@ WebSite_Video_More;前往網站（%Url%）找尋此影片編解碼器
 Width;闊
 Width_CleanAperture;清除Aperture闊度
 Width_Original;原始闊度
+Window;
 WriteMe;寫信給作者
 WriteToTranslator;寫信給「香港正體字」譯者
 Written_Date;編寫於
@@ -1409,5 +1485,6 @@ WrittenBy;作者
 Yes;是
 Your system;可識別清單
 Your translation;
-ZZ_Automatic_Percent;75
-ZZ_AutomaticLanguage_Percent;76
+Zoom;
+ZZ_Automatic_Percent;71
+ZZ_AutomaticLanguage_Percent;72
