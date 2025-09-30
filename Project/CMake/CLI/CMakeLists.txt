@@ -28,7 +28,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../../Source)
 
 find_package(ZLIB REQUIRED)
 find_package(Threads REQUIRED)
-find_package(mediainfolib REQUIRED)
+find_package(MediaInfoLib REQUIRED)
 find_package(ZenLib REQUIRED)
 
 set_target_properties(mediainfo_cli PROPERTIES OUTPUT_NAME mediainfo)
@@ -45,3 +45,4 @@ target_link_libraries(mediainfo_cli
 )
 
 install(TARGETS mediainfo_cli DESTINATION bin)
+
