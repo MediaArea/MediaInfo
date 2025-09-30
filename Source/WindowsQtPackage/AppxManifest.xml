@@ -10,7 +10,7 @@
   xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
   xmlns:win32dependencies="http://schemas.microsoft.com/appx/manifest/externaldependencies"  
   IgnorableNamespaces="uap uap5 rescap desktop desktop4 desktop5 com win32dependencies">
-  <Identity Name="MediaInfo.Qt" Publisher="CN=MEDIAAREA.NET, O=MEDIAAREA.NET, L=Curienne, S=Auvergne-Rhône-Alpes, C=FR" Version="25.7.0.0" ProcessorArchitecture="x64" />
+  <Identity Name="MediaInfo.Qt" Publisher="CN=MEDIAAREA.NET, O=MEDIAAREA.NET, L=Curienne, S=Auvergne-Rhône-Alpes, C=FR" Version="25.9.0.0" ProcessorArchitecture="x64" />
   <Properties>
     <DisplayName>MediaInfo Qt</DisplayName>
     <PublisherDisplayName>MEDIAAREA.NET</PublisherDisplayName>
