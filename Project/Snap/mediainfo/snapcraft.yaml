@@ -1,7 +1,7 @@
 base: core24
 
 name: mediainfo
-version: '25.07'
+version: '25.09'
 summary: Command-line utility for reading information from audio/video files
 description: |
   MediaInfo is a utility used for retrieving technical information and other

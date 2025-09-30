@@ -77,10 +77,10 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
         <Defines>MEDIAINFO_DLL_RUNTIME;$(Defines)</Defines>
-        <VerInfo_Keys>CompanyName=MediaArea.net;FileDescription=MediaInfo;FileVersion=25.07.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=MediaInfo;ProductVersion=25.07.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=MediaArea.net;FileDescription=MediaInfo;FileVersion=25.09.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=MediaInfo;ProductVersion=25.09.0.0;Comments=</VerInfo_Keys>
         <Manifest_File>None</Manifest_File>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_MinorVer>07</VerInfo_MinorVer>
+        <VerInfo_MinorVer>09</VerInfo_MinorVer>
         <VerInfo_Release>0</VerInfo_Release>
         <VerInfo_MajorVer>25</VerInfo_MajorVer>
         <VerInfo_Locale>1033</VerInfo_Locale>

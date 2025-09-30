@@ -10,7 +10,7 @@
   xmlns:uap10="http://schemas.microsoft.com/appx/manifest/uap/windows10/10"
   xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
   IgnorableNamespaces="uap rescap desktop desktop4 desktop5 desktop6 uap10 com">
-  <Identity Name="MediaInfo" Publisher="CN=MEDIAAREA.NET, O=MEDIAAREA.NET, L=Curienne, S=Auvergne-Rhône-Alpes, C=FR" Version="25.7.0.0" />
+  <Identity Name="MediaInfo" Publisher="CN=MEDIAAREA.NET, O=MEDIAAREA.NET, L=Curienne, S=Auvergne-Rhône-Alpes, C=FR" Version="25.9.0.0" />
   <Properties>
     <DisplayName>MediaInfo</DisplayName>
     <PublisherDisplayName>MEDIAAREA.NET</PublisherDisplayName>
