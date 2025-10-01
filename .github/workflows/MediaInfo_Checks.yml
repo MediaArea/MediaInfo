@@ -18,7 +18,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Dependencies
         run: |
           if [ "$RUNNER_OS" == "Linux" ]; then
@@ -96,29 +96,29 @@ jobs:
     runs-on: ${{ matrix.runner }}
     steps:
       - name: Checkout zlib
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: MediaArea/zlib
           path: zlib
       - name: Checkout ZenLib
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: MediaArea/ZenLib
           path: ZenLib
       - name: Checkout MediaInfoLib
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: MediaArea/MediaInfoLib
           path: MediaInfoLib
       - name: Checkout MediaArea-Utils for MediaInfo_NoGUI patch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: MediaArea/MediaArea-Utils
           path: MediaArea-Utils
           sparse-checkout: build_release/Diff/MediaInfo_NoGUI.diff
           sparse-checkout-cone-mode: false
       - name: Checkout MediaInfo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: MediaInfo
       - name: Apply MediaInfo_NoGUI patch
@@ -161,23 +161,22 @@ jobs:
     runs-on: ${{ matrix.runner }}
     steps:
       - name: Checkout zlib
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: MediaArea/zlib
           path: zlib
       - name: Checkout ZenLib
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: MediaArea/ZenLib
           path: ZenLib
       - name: Checkout MediaInfoLib
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: MediaArea/MediaInfoLib
           path: MediaInfoLib
-
       - name: Checkout MediaInfo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: MediaInfo
 

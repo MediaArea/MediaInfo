@@ -20,22 +20,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout zlib
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: MediaArea/zlib
           path: zlib
       - name: Checkout ZenLib
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: MediaArea/ZenLib
           path: ZenLib
       - name: Checkout MediaInfoLib
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: MediaArea/MediaInfoLib
           path: MediaInfoLib
       - name: Checkout MediaInfo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: MediaArea/MediaInfo
           path: MediaInfo
