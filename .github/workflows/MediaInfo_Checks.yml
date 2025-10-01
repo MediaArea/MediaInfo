@@ -143,22 +143,31 @@ jobs:
             exit 1
           }
 
-  cmake:
-    env:
-      CC: cl.exe
-      CXX: cl.exe
+  CMake:
     strategy:
       matrix:
         include:
-          - architecture: x64
+          - type: Windows (x64)
             runner: windows-latest
             Format_Profile: Executable / AMD x86-64
-          - architecture: ARM64
+            CXXFLAGS: "/std:c++20 /WX"
+          - type: Windows (ARM64)
             runner: windows-11-arm
             Format_Profile: Executable / ARM64
+            CXXFLAGS: "/std:c++20 /WX"
+          - type: Ubuntu (AMD64)
+            runner: ubuntu-latest
+            Format_Profile: Shared object / AMD x86-64
+            CXXFLAGS: "-Werror -Wno-error=deprecated-declarations"
+          - type: Ubuntu (ARM64)
+            runner: ubuntu-24.04-arm
+            Format_Profile: Shared object / ARM64
+            CXXFLAGS: "-Werror -Wno-error=deprecated-declarations"
       fail-fast: false
-    name: CMake windows (${{ matrix.architecture }})
+    name: CMake ${{ matrix.type }}
     runs-on: ${{ matrix.runner }}
+    env:
+      CXXFLAGS: ${{ matrix.CXXFLAGS }}
     steps:
       - name: Checkout zlib
         uses: actions/checkout@v5
@@ -179,56 +188,26 @@ jobs:
         uses: actions/checkout@v5
         with:
           path: MediaInfo
-
-      - uses: ilammy/msvc-dev-cmd@v1
+      - name: Setup MSVC Developer Command Prompt
+        if: ${{ runner.os == 'Windows' }}
+        uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: ${{ runner.arch == 'ARM64' && 'arm64' || 'x64' }}
-
-      - name: build zlib
+      - name: Configure CLI
+        run: cmake -G Ninja -D CMAKE_PREFIX_PATH=./cmake-prefix/ -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ -D CMAKE_BUILD_TYPE=Release -D BUILD_ZENLIB=ON -D BUILD_ZLIB=ON -D ZLIB_BUILD_TESTING=OFF -B build ./MediaInfo/Project/CMake/CLI/
+      - name: Build CLI
+        run: cmake --build build
+      - name: Test CLI
         shell: bash
-        run: |
-          cmake -G Ninja -D CMAKE_BUILD_TYPE=Release \
-            -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ \
-            -B build-zlib ./zlib/
-          cmake --build build-zlib
-          cmake --install build-zlib
-
-      - name: build zenlib
-        shell: bash
-        run: |
-          cmake -G Ninja -D CMAKE_BUILD_TYPE=Release \
-            -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ \
-            -B build-zenlib ./ZenLib/Project/CMake/
-          cmake --build build-zenlib
-          cmake --install build-zenlib
-
-      - name: build MediaInfoLib
-        shell: bash
-        run: |
-          cmake -G Ninja -D CMAKE_BUILD_TYPE=Release \
-            -D CMAKE_PREFIX_PATH=./cmake-prefix/ \
-            -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ \
-            -D CMAKE_CXX_STANDARD=17 \
-            -D BUILD_ZLIB=OFF \
-            -D BUILD_ZENLIB=OFF \
-            -B build-lib ./MediaInfoLib/Project/CMake/
-
-          cmake --build build-lib
-          cmake --install build-lib
-
-      - name: build cli
-        shell: bash
-        run: |
-
-          cmake -G Ninja -D CMAKE_PREFIX_PATH=./cmake-prefix/ \
-            -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ \
-            -D CMAKE_BUILD_TYPE=Release \
-            -B build \
-            ./MediaInfo/Project/CMake/CLI/
-
-          cmake --build build
-
-      - run: echo ./cmake-prefix/bin >> "${GITHUB_PATH}"
-        shell: bash
-
-      - run: ./build/mediainfo.exe ./build/mediainfo.exe
+        run : |
+          cd build
+          expected_output="${{ matrix.Format_Profile }}"
+          actual_output=$(./mediainfo "--Output=General;%Format_Profile%" ${{ runner.os == 'Windows' && 'MediaInfo.exe' || 'mediainfo' }})
+          echo "Expected: '$expected_output'"
+          echo "Actual:   '$actual_output'"
+          if [ "$actual_output" = "$expected_output" ]; then
+            exit 0
+          else
+            echo "::error::Test CLI: MediaInfo CLI output ($actual_output) is not as expected ($expected_output)"
+            exit 1
+          fi
