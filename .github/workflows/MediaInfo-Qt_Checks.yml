@@ -29,22 +29,22 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout zlib
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: MediaArea/zlib
           path: zlib
       - name: Checkout ZenLib
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: MediaArea/ZenLib
           path: ZenLib
       - name: Checkout MediaInfoLib
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: MediaArea/MediaInfoLib
           path: MediaInfoLib
       - name: Checkout MediaInfo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: MediaInfo
       - name: Set-up Qt x64
@@ -97,7 +97,7 @@ jobs:
     runs-on: ${{ matrix.runner }}
     steps:
       - name: Checkout MediaInfo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: MediaInfo
       - name: Install dependencies
