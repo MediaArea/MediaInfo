@@ -151,6 +151,10 @@ jobs:
             runner: windows-latest
             Format_Profile: Executable / AMD x86-64
             CXXFLAGS: "/std:c++20 /WX"
+          - type: Windows (DLL) (x64)
+            runner: windows-latest
+            Format_Profile: Executable / AMD x86-64
+            CXXFLAGS: "/std:c++20 /WX"
           - type: Windows (ARM64)
             runner: windows-11-arm
             Format_Profile: Executable / ARM64
@@ -193,14 +197,28 @@ jobs:
         uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: ${{ runner.arch == 'ARM64' && 'arm64' || 'x64' }}
+      - name: Build dependencies
+        if: ${{ matrix.type == 'Windows (DLL) (x64)' }}
+        run: |
+          cmake -G Ninja -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ -B build-zlib ./zlib/
+          cmake --build build-zlib
+          cmake --install build-zlib
+          cmake -G Ninja -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ -B build-zenlib ./ZenLib/Project/CMake/
+          cmake --build build-zenlib
+          cmake --install build-zenlib
+          cmake -G Ninja -D CMAKE_BUILD_TYPE=Release -D CMAKE_PREFIX_PATH=./cmake-prefix/ -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ -D BUILD_ZLIB=OFF -D BUILD_ZENLIB=OFF -D BUILD_SHARED_LIBS=ON -B build-mediainfolib ./MediaInfoLib/Project/CMake/
+          cmake --build build-mediainfolib
+          cmake --install build-mediainfolib
       - name: Configure CLI
-        run: cmake -G Ninja -D CMAKE_PREFIX_PATH=./cmake-prefix/ -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ -D CMAKE_BUILD_TYPE=Release -D BUILD_ZENLIB=ON -D BUILD_ZLIB=ON -D ZLIB_BUILD_TESTING=OFF -B build ./MediaInfo/Project/CMake/CLI/
+        run: cmake -G Ninja -D CMAKE_PREFIX_PATH=./cmake-prefix/ -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ -D CMAKE_BUILD_TYPE=Release -D BUILD_ZENLIB=ON -D BUILD_ZLIB=ON -D ZLIB_BUILD_TESTING=OFF ${{ matrix.type == 'Windows (DLL) (x64)' && '-D MEDIAINFO_CLI_STATIC=OFF' }} -B build ./MediaInfo/Project/CMake/CLI/
       - name: Build CLI
-        run: cmake --build build
+        run: cmake --build build 
+      - name: Install CLI
+        run: cmake --install build
       - name: Test CLI
         shell: bash
         run : |
-          cd build
+          cd cmake-prefix/bin
           expected_output="${{ matrix.Format_Profile }}"
           actual_output=$(./mediainfo "--Output=General;%Format_Profile%" ${{ runner.os == 'Windows' && 'MediaInfo.exe' || 'mediainfo' }})
           echo "Expected: '$expected_output'"
