@@ -210,7 +210,7 @@ jobs:
           cmake --build build-mediainfolib
           cmake --install build-mediainfolib
       - name: Configure CLI
-        run: cmake -G Ninja -D CMAKE_PREFIX_PATH=./cmake-prefix/ -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ -D CMAKE_BUILD_TYPE=Release -D BUILD_ZENLIB=ON -D BUILD_ZLIB=ON -D ZLIB_BUILD_TESTING=OFF ${{ matrix.type == 'Windows (DLL) (x64)' && '-D MEDIAINFO_CLI_STATIC=OFF' }} -B build ./MediaInfo/Project/CMake/CLI/
+        run: cmake -G Ninja -D CMAKE_PREFIX_PATH=./cmake-prefix/ -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ -D CMAKE_BUILD_TYPE=Release -D BUILD_ZENLIB=ON -D BUILD_ZLIB=ON -D ZLIB_BUILD_TESTING=OFF ${{ matrix.type == 'Windows (DLL) (x64)' && '-D MEDIAINFO_CLI_STATIC=OFF' || '' }} -B build ./MediaInfo/Project/CMake/CLI/
       - name: Build CLI
         run: cmake --build build 
       - name: Install CLI
