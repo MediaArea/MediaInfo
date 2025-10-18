@@ -48,11 +48,8 @@ GUI_Main_HTML::~GUI_Main_HTML()
 //---------------------------------------------------------------------------
 void GUI_Main_HTML::GUI_Refresh()
 {
-    std::string Temp(wxConvUTF8.cWX2MB(C->Inform_Get().c_str()));
-    wxFileSystem::AddHandler(new wxMemoryFSHandler);
-    wxMemoryFSHandler::AddFile(__T("index.html"), Temp.c_str(), Temp.size());
-    LoadPage(__T("memory:index.html"));
-    wxMemoryFSHandler::RemoveFile(__T("index.html"));
+    wxString Temp=C->Inform_Get();
+    SetPage(Temp);
 }
 
 void GUI_Main_HTML::GUI_Resize()
