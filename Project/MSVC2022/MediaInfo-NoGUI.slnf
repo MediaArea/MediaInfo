@@ -6,6 +6,8 @@
       "..\\..\\..\\MediaInfoLib\\Project\\MSVC2022\\Library\\MediaInfoLib.vcxproj",
       "..\\..\\..\\MediaInfoLib\\Project\\MSVC2022\\RegressionTest\\RegressionTest.vcxproj",
       "..\\..\\..\\ZenLib\\Project\\MSVC2022\\Library\\ZenLib.vcxproj",
+      "..\\..\\..\\brotli\\Project\\MSVC2022\\brotlicommon.vcxproj",
+      "..\\..\\..\\brotli\\Project\\MSVC2022\\brotlidec.vcxproj",
       "..\\..\\..\\zlib\\contrib\\vstudio\\vc17\\zlibstat.vcxproj",
       "CLI\\MediaInfo-CLI.vcxproj",
       "MediaInfo_PackageHelper\\MediaInfo_PackageHelper.vcxproj",
