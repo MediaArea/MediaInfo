@@ -19,6 +19,11 @@ if ("${arch}" -eq "x64" ) {
 
 #-----------------------------------------------------------------------
 # Prepare
+Push-Location -Path "${release_directory}\..\..\brotli\Project\$msvc"
+    ((Get-Content -Path brotlicommon.vcxproj) -Replace 'MultiThreadedDLL','MultiThreaded') | Set-Content -Path brotlicommon.vcxproj
+    ((Get-Content -Path brotlidec.vcxproj) -Replace 'MultiThreadedDLL','MultiThreaded') | Set-Content -Path brotlidec.vcxproj
+Pop-Location
+
 Push-Location -Path "${release_directory}\..\..\zlib\contrib\vstudio\vc17"
     ((Get-Content -Path zlibstat.vcxproj) -Replace 'MultiThreadedDLL','MultiThreaded') | Set-Content -Path zlibstat.vcxproj
 Pop-Location
