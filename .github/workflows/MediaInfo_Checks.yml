@@ -25,7 +25,7 @@ jobs:
         run: |
           if [ "$RUNNER_OS" == "Linux" ]; then
             sudo apt-get update -y
-            sudo apt-get install -y zlib1g-dev libwxgtk3.2-dev
+            sudo apt-get install -y libbrotli-dev zlib1g-dev libwxgtk3.2-dev
           fi
           if [ "$RUNNER_OS" == "macOS" ]; then
             brew install libtool automake wxmac
@@ -97,6 +97,11 @@ jobs:
     name: Windows (${{ matrix.architecture }})
     runs-on: ${{ matrix.runner }}
     steps:
+      - name: Checkout brotli
+        uses: actions/checkout@v5
+        with:
+          repository: MediaArea/brotli
+          path: brotli
       - name: Checkout zlib
         uses: actions/checkout@v6
         with:
@@ -166,6 +171,11 @@ jobs:
     env:
       CXXFLAGS: ${{ matrix.CXXFLAGS }}
     steps:
+      - name: Checkout brotli
+        uses: actions/checkout@v5
+        with:
+          repository: MediaArea/brotli
+          path: brotli
       - name: Checkout zlib
         uses: actions/checkout@v6
         with:
@@ -193,17 +203,20 @@ jobs:
       - name: Build dependencies
         if: ${{ matrix.type == 'Windows (DLL) (x64)' }}
         run: |
+          cmake -G Ninja -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ -B build-brotli ./brotli/
+          cmake --build build-brotli
+          cmake --install build-brotli
           cmake -G Ninja -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ -B build-zlib ./zlib/
           cmake --build build-zlib
           cmake --install build-zlib
           cmake -G Ninja -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ -B build-zenlib ./ZenLib/Project/CMake/
           cmake --build build-zenlib
           cmake --install build-zenlib
-          cmake -G Ninja -D CMAKE_BUILD_TYPE=Release -D CMAKE_PREFIX_PATH=./cmake-prefix/ -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ -D BUILD_ZLIB=OFF -D BUILD_ZENLIB=OFF -D BUILD_SHARED_LIBS=ON -B build-mediainfolib ./MediaInfoLib/Project/CMake/
+          cmake -G Ninja -D CMAKE_BUILD_TYPE=Release -D CMAKE_PREFIX_PATH=./cmake-prefix/ -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ -D BUILD_BROTLI=OFF -D BUILD_ZLIB=OFF -D BUILD_ZENLIB=OFF -D BUILD_SHARED_LIBS=ON -B build-mediainfolib ./MediaInfoLib/Project/CMake/
           cmake --build build-mediainfolib
           cmake --install build-mediainfolib
       - name: Configure CLI
-        run: cmake -G Ninja -D CMAKE_PREFIX_PATH=./cmake-prefix/ -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ -D CMAKE_BUILD_TYPE=Release -D BUILD_ZENLIB=ON -D BUILD_ZLIB=ON -D ZLIB_BUILD_TESTING=OFF ${{ matrix.type == 'Windows (DLL) (x64)' && '-D MEDIAINFO_CLI_STATIC=OFF' || '' }} -B build ./MediaInfo/Project/CMake/CLI/
+        run: cmake -G Ninja -D CMAKE_PREFIX_PATH=./cmake-prefix/ -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ -D CMAKE_BUILD_TYPE=Release -D ZLIB_BUILD_TESTING=OFF ${{ matrix.type == 'Windows (DLL) (x64)' && '-D MEDIAINFO_CLI_STATIC=OFF' || '-D BUILD_BROTLI=ON -D BUILD_ZENLIB=ON -D BUILD_ZLIB=ON' }} -B build ./MediaInfo/Project/CMake/CLI/
       - name: Build CLI
         run: cmake --build build 
       - name: Install CLI

@@ -19,6 +19,11 @@ jobs:
   Ubuntu:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout brotli
+        uses: actions/checkout@v5
+        with:
+          repository: MediaArea/brotli
+          path: brotli
       - name: Checkout zlib
         uses: actions/checkout@v6
         with:
