@@ -183,6 +183,14 @@ win32 {
                 error("libzen not found on system")
             }
 
+            exists(../../../../brotli/Project/MSVC2022/Win32/Release/brotlidec.lib) {
+                INCLUDEPATH += ../../../../brotli/c/include
+                LIBS += $$PWD/../../../../brotli/Project/MSVC2022/Win32/Release/brotlidec.lib
+                LIBS += $$PWD/../../../../brotli/Project/MSVC2022/Win32/Release/brotlicommon.lib
+            } else {
+                error("brotli not found on system")
+            }
+
             exists(../../../../zlib/contrib/vstudio/vc17/x86/ZlibStatReleaseWithoutAsm/zlibstat.lib) {
                 INCLUDEPATH += ../../../../zlib
                 LIBS += $$PWD/../../../../zlib/contrib/vstudio/vc17/x86/ZlibStatReleaseWithoutAsm/zlibstat.lib
@@ -211,6 +219,14 @@ win32 {
                 LIBS += $$PWD/../../../../ZenLib/Project/MSVC2022/x64/Release/ZenLib.lib
             } else {
                 error("libzen not found on system")
+            }
+
+            exists(../../../../brotli/Project/MSVC2022/x64/Release/brotlidec.lib) {
+                INCLUDEPATH += ../../../../brotli/c/include
+                LIBS += $$PWD/../../../../brotli/Project/MSVC2022/x64/Release/brotlidec.lib
+                LIBS += $$PWD/../../../../brotli/Project/MSVC2022/x64/Release/brotlicommon.lib
+            } else {
+                error("brotli not found on system")
             }
 
             exists(../../../../zlib/contrib/vstudio/vc17/x64/ZlibStatReleaseWithoutAsm/zlibstat.lib) {
@@ -245,6 +261,14 @@ win32 {
                 LIBS += $$PWD/../../../../ZenLib/Project/MSVC2022/ARM64/Release/ZenLib.lib
             } else {
                 error("libzen not found on system")
+            }
+
+            exists(../../../../brotli/Project/MSVC2022/ARM64/Release/brotlidec.lib) {
+                INCLUDEPATH += ../../../../brotli/c/include
+                LIBS += $$PWD/../../../../brotli/Project/MSVC2022/ARM64/Release/brotlidec.lib
+                LIBS += $$PWD/../../../../brotli/Project/MSVC2022/ARM64/Release/brotlicommon.lib
+            } else {
+                error("brotli not found on system")
             }
 
             exists(../../../../zlib/contrib/vstudio/vc17/arm64/ZlibStatReleaseWithoutAsm/zlibstat.lib) {
