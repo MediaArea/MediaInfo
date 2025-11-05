@@ -50,7 +50,7 @@ using namespace ZenLib;
 #define QString2wstring(_DATA) \
     Ztring().From_UTF8(_DATA.toUtf8())
 
-#define VERSION "25.09"
+#define VERSION "25.10"
 
 #ifndef MEDIAINFO_HTML_NO
 #include "htmlwidget.h"
