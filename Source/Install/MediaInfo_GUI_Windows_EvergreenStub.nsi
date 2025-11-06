@@ -5,7 +5,7 @@ ManifestDPIAware true
 ; Some defines
 !define PRODUCT_NAME "MediaInfo"
 !define PRODUCT_PUBLISHER "MediaArea.net"
-!define PRODUCT_VERSION "25.09"
+!define PRODUCT_VERSION "25.10"
 !define PRODUCT_VERSION4 "${PRODUCT_VERSION}.0.0"
 
 ; Compression

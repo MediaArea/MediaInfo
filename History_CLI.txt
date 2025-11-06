@@ -12,6 +12,19 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 25.10, 2025-11-05
+-------------
++ MXF: crosscheck of ADM profiles
++ MXF: experimental ARRI UL support, more video streams detected
++ TTML: better support files with SMPTE timecode and ticks instead of frame rate
++ MXF: update UL names from the MXF registry (details view)
+x AC-4: Add Bitstream level and Presentation level, fix
+x MXF: Fix infinite loop in some ARRI files
+x ADM: fix tagList related false positive conformance errors
+x WAV: fix buggy non word aligned files check with 4 GB+ files
+x I2452, PAC: skip '\0' prefix in content
+x I2451, TTML: change timecode output "format" from TTML style to classic timecode
+
 Version 25.09, 2025-09-30
 -------------
 + ADM: Dolby E profile for emission conformance checker
