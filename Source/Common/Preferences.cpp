@@ -20,6 +20,9 @@
 #include <ZenLib/File.h>
 #include <ZenLib/HTTP_Client.h>
 #include <ctime>
+#include <random>
+#include <chrono>
+#include <numeric>
 using namespace ZenLib;
 #ifdef MEDIAINFO_DLL_RUNTIME
     #include "MediaInfoDLL/MediaInfoDLL.h"
@@ -38,6 +41,33 @@ Preferences* Prefs=new Preferences;
 const Ztring Empty_Ztring_Ref=__T("");
 int ExplorerShell_Edit  (const AnsiString &Name, bool ShellExtension, bool &IsChanged);
 //---------------------------------------------------------------------------
+
+//***************************************************************************
+// Helper
+//***************************************************************************
+size_t WeightedRandomIndex(size_t Size, const std::vector<size_t>& Weights)
+{
+    if (!Size)
+        return 0;
+
+    size_t Total=std::accumulate(Weights.begin(), Weights.end(), 0ULL);
+
+    if (Total==0)
+        return 0;
+
+    static std::mt19937 Generation(std::chrono::high_resolution_clock::now().time_since_epoch().count());
+    std::uniform_int_distribution<size_t> Distribution(0, Total-1);
+
+    size_t Result=Distribution(Generation), Cumulative=0;
+    for (size_t Pos=0; Pos<Size; Pos++)
+    {
+        Cumulative+=Weights[Pos];
+        if (Result<Cumulative)
+            return Pos;
+    }
+
+    return 0; // Default
+}
 
 //***************************************************************************
 // Constructor/Destructor
@@ -72,8 +102,12 @@ Preferences::Preferences()
     Sponsored=false;
     SponsorMessage=__T("");
     SponsorUrl=__T("");
+    SponsorMessageIndex=(size_t)-1;
+    SponsorMessageWeight=__T("");
     SponsorBanner=__T("");
     SponsorBannerClickUrl=__T("");
+    SponsorBannerIndex=(size_t)-1;
+    SponsorBannerWeight=__T("");
 
     //Plugins
     GraphPluginURL=__T("");
@@ -222,6 +256,10 @@ int Preferences::Config_Load()
         Saved.FindAndReplace(__T("\\r\\n"), __T("\r\n"), 0, Ztring_Recursive);
         SponsorUrl.Write(Saved);
 
+        Saved=Config(__T("SponsorMessageWeight"));
+        Saved.FindAndReplace(__T("\\r\\n"), __T("\r\n"), 0, Ztring_Recursive);
+        SponsorMessageWeight.Write(Saved);
+
         Saved=Config(__T("SponsorBanner"));
         Saved.FindAndReplace(__T("\\r\\n"), __T("\r\n"), 0, Ztring_Recursive);
         SponsorBanner.Write(Saved);
@@ -229,6 +267,10 @@ int Preferences::Config_Load()
         Saved=Config(__T("SponsorBannerClickUrl"));
         Saved.FindAndReplace(__T("\\r\\n"), __T("\r\n"), 0, Ztring_Recursive);
         SponsorBannerClickUrl.Write(Saved);
+
+        Saved=Config(__T("SponsorBannerWeight"));
+        Saved.FindAndReplace(__T("\\r\\n"), __T("\r\n"), 0, Ztring_Recursive);
+        SponsorBannerWeight.Write(Saved);
     }
 
     if (!Config(__T("GraphPlugin64URL")).empty())
@@ -533,8 +575,10 @@ void __fastcall ThreadInternetCheck::Execute()
     Prefs->Config(__T("Sponsored"))=__T("0");
     Prefs->Config(__T("SponsorMessage"))=__T("");
     Prefs->Config(__T("SponsorUrl"))=__T("");
+    Prefs->Config(__T("SponsorMessageWeight"))=__T("";)
     Prefs->Config(__T("SponsorBanner"))=__T("");
     Prefs->Config(__T("SponsorBannerClickUrl"))=__T("");
+    Prefs->Config(__T("SponsorBannerWeight"))=__T("");
     ZtringListList Sponsor=Download.SubSheet(__T("ShowSponsor"));
     unsigned int En=Sponsor.Find(__T("en"), 1);
     if (En!=(unsigned int)-1)
@@ -542,26 +586,90 @@ void __fastcall ThreadInternetCheck::Execute()
         Prefs->Config(__T("Sponsored"))=__T("1");
         Ztring Message;
         Ztring Url;
+        Ztring MessageWeight;
         Ztring Banner;
         Ztring BannerClickUrl;
+        Ztring BannerWeight;
         for (size_t Pos=0; Pos<Sponsor.size(); Pos++)
         {
-            if (Sponsor[Pos](1)!=__T(""))
+            if (Sponsor[Pos].size()>1 && Sponsor[Pos][1]!=__T(""))
             {
-                if (Sponsor[Pos](2)!=__T(""))
-                    Message+=(Message.empty()?__T(""):__T("\\r\\n"))+Sponsor[Pos](1)+__T(";")+Sponsor[Pos](2);
-                if (Sponsor[Pos](3)!=__T(""))
-                    Url+=(Url.empty()?__T(""):__T("\\r\\n"))+Sponsor[Pos](1)+__T(";")+Sponsor[Pos](3);
-                if (Sponsor[Pos](4)!=__T(""))
-                    Banner+=(Banner.empty()?__T(""):__T("\\r\\n"))+Sponsor[Pos](1)+__T(";")+Sponsor[Pos](4);
-                if (Sponsor[Pos](5)!=__T(""))
-                    BannerClickUrl+=(BannerClickUrl.empty()?__T(""):__T("\\r\\n"))+Sponsor[Pos](1)+__T(";")+Sponsor[Pos](5);
+                for (size_t Pos2=1; Pos2<Sponsor[Pos].size(); Pos2=Sponsor[Pos].Find(__T("NEWSPONSOR"), Pos2+1))
+                {
+                    if (Sponsor[Pos].size()>Pos2+1 && Sponsor[Pos][Pos2+1]!=__T(""))
+                    {
+                        if (!Message.empty() && Pos2==1)
+                            Message+=__T("\\r\\n");
+                        if  (Pos2==1)
+                            Message+=Sponsor[Pos][1];
+
+                        Message+=__T(";")+Sponsor[Pos][Pos2+1];
+                    }
+                    if (Sponsor[Pos].size()>Pos2+2 && Sponsor[Pos][Pos2+2]!=__T(""))
+                    {
+                        if (!Url.empty() && Pos2==1)
+                            Url+=__T("\\r\\n");
+                        if  (Pos2==1)
+                            Url+=Sponsor[Pos][1];
+
+                        Url+=__T(";")+Sponsor[Pos][Pos2+2];
+                    }
+                    if (Sponsor[Pos].size()>Pos2+3 && Sponsor[Pos][Pos2+3]!=__T(""))
+                    {
+                        if (!Banner.empty() && Pos2==1)
+                            Banner+=__T("\\r\\n");
+                        if  (Pos2==1)
+                            Banner+=Sponsor[Pos][1];
+
+                        Banner+=__T(";")+Sponsor[Pos][Pos2+3];
+                    }
+                    if (Sponsor[Pos].size()>Pos2+4 && Sponsor[Pos][Pos2+4]!=__T(""))
+                    {
+                        if (!BannerClickUrl.empty() && Pos2==1)
+                            BannerClickUrl+=__T("\\r\\n");
+                        if  (Pos2==1)
+                            BannerClickUrl+=Sponsor[Pos][1];
+                        BannerClickUrl+=__T(";")+Sponsor[Pos][Pos2+4];
+                    }
+
+                    ZtringList Weights;
+                    Weights.Separator_Set(0, __T(","));
+                    if (Sponsor[Pos].size()>Pos2+5)
+                        Weights.Write(Sponsor[Pos][Pos2+5]);
+
+                    if (Sponsor[Pos].size()>Pos2+1 && Sponsor[Pos][Pos2+1]!=__T(""))
+                    {
+                        if (!MessageWeight.empty() && Pos2==1)
+                            MessageWeight+=__T("\\r\\n");
+                        if  (Pos2==1)
+                            MessageWeight+=Sponsor[Pos][1];
+                        if (Weights.size()>0 && Weights[0]!=__T(""))
+                            MessageWeight+=__T(";")+Weights[0];
+                        else
+                            MessageWeight+=__T(";50");
+                    }
+
+                    if (Sponsor[Pos].size()>Pos2+3 && Sponsor[Pos][Pos2+3]!=__T(""))
+                    {
+                        if (!BannerWeight.empty() && Pos2==1)
+                            BannerWeight+=__T("\\r\\n");
+                        if  (Pos2==1)
+                            BannerWeight+=Sponsor[Pos][1];
+                        if (Weights.size()>1 && Weights[1]!=__T(""))
+
+                            BannerWeight+=__T(";")+Weights[1];
+                        else
+                            BannerWeight+=__T(";50");
+                    }
+                }
             }
         }
         Prefs->Config(__T("SponsorMessage"))=Message.Quote();
         Prefs->Config(__T("SponsorUrl"))=Url.Quote();
+        Prefs->Config(__T("SponsorMessageWeight"))=MessageWeight.Quote();
         Prefs->Config(__T("SponsorBanner"))=Banner.Quote();
         Prefs->Config(__T("SponsorBannerClickUrl"))=BannerClickUrl.Quote();
+        Prefs->Config(__T("SponsorBannerWeight"))=BannerWeight.Quote();
     }
 
     Prefs->Config_Save();
@@ -594,6 +702,7 @@ void __fastcall ThreadInternetCheck::Execute()
         Prefs->Config(__T("GraphPluginURL"))=GraphPluginURL;
         Prefs->Config_Save();
     }
+
     Ztring GraphPluginVersion=Download(__T("GraphPluginVersion"));
     if (!GraphPluginVersion.empty())
     {
@@ -1658,13 +1767,24 @@ const ZenLib::Ztring &Preferences::Translate(ZenLib::Ztring Name)
         if (Name==__T("SponsorMessage"))
         {
             int Index=SponsorMessage.Find(Language, 0);
-            if (Index==-1 || SponsorMessage(Index)(1)==__T(""))
+            if (Index==-1)
                 Index=SponsorMessage.Find(__T("en"), 0);
 
-            if (Index==-1 || SponsorMessage(Index).empty())
+            if (Index==-1)
                 return Empty_Ztring_Ref;
 
-            return SponsorMessage(Index)(1);
+            if (Index<SponsorMessageWeight.size() && SponsorMessage[Index].size()>2)
+            {
+                std::vector<size_t> Weights;
+                for (size_t Pos=1; Pos<SponsorMessageWeight[Index].size(); Pos++)
+                    Weights.push_back(SponsorMessageWeight[Index][Pos].To_int32u());
+
+                SponsorMessageIndex=WeightedRandomIndex(SponsorMessage[Index].size()-1, Weights);
+            }
+            else
+                SponsorMessageIndex=0;
+
+            return SponsorMessage[Index](SponsorMessageIndex+1);
         }
         else if (Name==__T("SponsorUrl"))
         {
@@ -1672,32 +1792,43 @@ const ZenLib::Ztring &Preferences::Translate(ZenLib::Ztring Name)
             if (Index==-1 || SponsorUrl(Index)(1)==__T(""))
                 Index=SponsorUrl.Find(__T("en"), 0);
 
-            if (Index==-1 || SponsorUrl(Index).empty())
+            if (Index==-1 || SponsorUrl[Index].empty())
                 return Empty_Ztring_Ref;
 
-            return SponsorUrl(Index)(1);
+            return SponsorUrl[Index](SponsorMessageIndex<SponsorUrl[Index].size()-1?SponsorMessageIndex+1:1);
         }
         else if (Name==__T("SponsorBanner"))
         {
             int Index=SponsorBanner.Find(Language, 0);
-            if (Index==-1 || SponsorBanner(Index)(1)==__T(""))
+            if (Index==-1)
                 Index=SponsorBanner.Find(__T("en"), 0);
 
-            if (Index==-1 || SponsorBanner(Index).empty())
+            if (Index==-1)
                 return Empty_Ztring_Ref;
 
-            return SponsorBanner(Index)(1);
+            if (Index<SponsorBannerWeight.size() &&  SponsorBanner[Index].size()>2)
+            {
+                std::vector<size_t> Weights;
+                for (size_t Pos=1; Pos<SponsorMessageWeight[Index].size(); Pos++)
+                    Weights.push_back(SponsorMessageWeight[Index][Pos].To_int32u());
+
+                SponsorBannerIndex=WeightedRandomIndex(SponsorBanner[Index].size()-1, Weights);
+            }
+            else
+                SponsorBannerIndex=0;
+
+            return SponsorBanner[Index](SponsorBannerIndex+1);
         }
         else if (Name==__T("SponsorBannerClickUrl"))
         {
             int Index=SponsorBannerClickUrl.Find(Language, 0);
-            if (Index==-1 || SponsorBannerClickUrl(Index)(1)==__T(""))
+            if (Index==-1 || SponsorBannerClickUrl[Index](1)==__T(""))
                 Index=SponsorBannerClickUrl.Find(__T("en"), 0);
 
-            if (Index==-1 || SponsorBannerClickUrl(Index).empty())
+            if (Index==-1 || SponsorBannerClickUrl[Index].empty())
                 return Empty_Ztring_Ref;
 
-            return SponsorBannerClickUrl(Index)(1);
+            return SponsorBannerClickUrl[Index](SponsorBannerIndex<SponsorBannerClickUrl(Index).size()-1?SponsorBannerIndex+1:1);
         }
     }
 
