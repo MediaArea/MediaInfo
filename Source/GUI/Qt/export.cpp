@@ -72,6 +72,18 @@ QIODevice::OpenMode Export::getOpenMode() {
         return QIODevice::WriteOnly;
 }
 
+Export::CSV_Options Export::getCSVOptions() {
+    CSV_Options CSV{};
+    CSV.Stream_Video = ui->CSV_Stream_Video->value();
+    CSV.Stream_Audio = ui->CSV_Stream_Audio->value();
+    CSV.Stream_Text = ui->CSV_Stream_Text->value();
+    CSV.Stream_Other = ui->CSV_Stream_Other->value();
+    CSV.Quote = ui->CSV_Quote->currentText();
+    CSV.Separator_Col = ui->CSV_Separator_Col->currentText();
+    CSV.Separator_Line = ui->CSV_Separator_Line->currentText();
+    return CSV;
+}
+
 bool Export::isAdvancedChecked() {
     return ui->checkBoxAdvanced->isChecked();
 }
@@ -82,6 +94,8 @@ QString Export::extension(int mode) {
     case TEXT: return "txt";
         break;
     case HTML: return "html";
+        break;
+    case CSV: return "csv";
         break;
     case GRAPH: return "svg";
         break;
@@ -113,6 +127,8 @@ QString Export::extensionName(int mode) {
     case TEXT: return tr("Text");
         break;
     case HTML: return "HTML";
+        break;
+    case CSV: return "CSV";
         break;
     case GRAPH: return tr("Graph");
         break;
@@ -148,6 +164,8 @@ QString Export::name(int mode) {
     case XML: return tr("XML");
         break;
     case JSON: return tr("JSON");
+        break;
+    case CSV: return tr("CSV");
         break;
     case GRAPH: return tr("Graph");
         break;
@@ -217,11 +235,31 @@ void Export::on_comboBoxMode_currentIndexChanged(int index)
         ui->comboBoxConfig->setEnabled(false);
         ui->checkBoxAdvanced->setEnabled(false);
         break;
+    case CSV:
     case HTML:
         ui->comboBoxConfig->setEnabled(false);
         ui->checkBoxAdvanced->setEnabled(true);
         break;
     }
+
+    auto CSV_Options_Visibility{ false };
+    if (index == CSV)
+        CSV_Options_Visibility = true;
+
+    ui->label_3->setVisible(CSV_Options_Visibility);
+    ui->label_4->setVisible(CSV_Options_Visibility);
+    ui->label_5->setVisible(CSV_Options_Visibility);
+    ui->label_6->setVisible(CSV_Options_Visibility);
+    ui->label_7->setVisible(CSV_Options_Visibility);
+    ui->label_8->setVisible(CSV_Options_Visibility);
+    ui->label_9->setVisible(CSV_Options_Visibility);
+    ui->CSV_Quote->setVisible(CSV_Options_Visibility);
+    ui->CSV_Separator_Col->setVisible(CSV_Options_Visibility);
+    ui->CSV_Separator_Line->setVisible(CSV_Options_Visibility);
+    ui->CSV_Stream_Audio->setVisible(CSV_Options_Visibility);
+    ui->CSV_Stream_Other->setVisible(CSV_Options_Visibility);
+    ui->CSV_Stream_Text->setVisible(CSV_Options_Visibility);
+    ui->CSV_Stream_Video->setVisible(CSV_Options_Visibility);
 }
 
 void Export::on_checkBoxAdvanced_toggled(bool checked)

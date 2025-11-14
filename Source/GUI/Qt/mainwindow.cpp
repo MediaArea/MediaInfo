@@ -44,6 +44,7 @@
 #include <memory>
 #include <ZenLib/Ztring.h>
 #include <ZenLib/ZtringListList.h>
+#include <ZenLib/ZtringListListF.h>
 using namespace ZenLib;
 #define wstring2QString(_DATA) \
     QString::fromUtf8(Ztring(_DATA).To_UTF8().c_str())
@@ -1289,6 +1290,115 @@ void MainWindow::on_actionExport_triggered()
             C->Menu_View_MPEG7_Extended();
             file.write(wstring2QString(C->Inform_Get()).toStdString().c_str());
             break;
+        case Export::CSV:
+        {
+            auto MediaInfo_Complete{ e.isAdvancedChecked() };
+            auto ToExport{ C->MI };
+            auto CSV_{ e.getCSVOptions() };
+
+            //General
+            ZtringListListF CSV;
+            ZtringListList Parameters;
+            Parameters.Write(MediaInfo::Option_Static(__T("Info_Parameters_CSV")));
+            int Pos_Start=1;
+            int Pos_End=(int)Parameters.Find(__T("Video"))-1;
+            int CSV_Pos=0;
+
+            for (int I1=0; I1<Pos_End-Pos_Start; I1++)
+                if (MediaInfo_Complete || ToExport->Get(0, Stream_General, 0, I1, Info_Options)[InfoOption_ShowInInform]==__T('Y'))
+                {
+                    CSV(0, CSV_Pos)=Ztring(__T("General "))+Parameters(Pos_Start+I1, 0);
+                    for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
+                        CSV(1+FilePos, CSV_Pos)=ToExport->Get(FilePos, Stream_General, 0, I1);
+                    CSV_Pos++;
+                }
+
+            //Video
+            Pos_Start=Pos_End+2;
+            Pos_End=(int)Parameters.Find(__T("Audio"))-1;
+
+            for (int I1=0; I1<Pos_End-Pos_Start; I1++)
+            {
+                for (int Count=0; Count<CSV_.Stream_Video; Count++)
+                    if (MediaInfo_Complete || ToExport->Get(0, Stream_Video, 0, I1, Info_Options)[InfoOption_ShowInInform]==__T('Y'))
+                    {
+                        CSV(0, CSV_Pos)=Ztring(__T("Video "))+Ztring::ToZtring(Count)+__T(" ")+Parameters(Pos_Start+I1, 0);
+                        for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
+                            CSV(1+FilePos, CSV_Pos)=ToExport->Get(FilePos, Stream_Video, 0, I1);
+                        CSV_Pos++;
+                    }
+            }
+
+            //Audio
+            Pos_Start=Pos_End+2;
+            Pos_End=(int)Parameters.Find(__T("Text"))-1;
+            for (int Count=0; Count<CSV_.Stream_Audio; Count++)
+            {
+                for (int I1=0; I1<Pos_End-Pos_Start; I1++)
+                    if (MediaInfo_Complete || ToExport->Get(0, Stream_Audio, 0, I1, Info_Options)[InfoOption_ShowInInform]==__T('Y'))
+                    {
+                        CSV(0, CSV_Pos)=Ztring(__T("Audio "))+Ztring::ToZtring(Count)+__T(" ")+Parameters(Pos_Start+I1, 0);
+                        for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
+                            CSV(1+FilePos, CSV_Pos)=ToExport->Get(FilePos, Stream_Audio, Count, I1);
+                        CSV_Pos++;
+                    }
+            }
+
+            //Text
+            Pos_Start=Pos_End+2;
+            Pos_End=(int)Parameters.Find(__T("Chapters"))-1;
+            for (int Count=0; Count<CSV_.Stream_Text; Count++)
+            {
+                for (int I1=0; I1<Pos_End-Pos_Start; I1++)
+                    if (MediaInfo_Complete || ToExport->Get(0, Stream_Text, 0, I1, Info_Options)[InfoOption_ShowInInform]==__T('Y'))
+                    {
+                        CSV(0, CSV_Pos)=Ztring(__T("Text "))+Ztring::ToZtring(Count)+__T(" ")+Parameters(Pos_Start+I1, 0);
+                        for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
+                            CSV(1+FilePos, CSV_Pos)=ToExport->Get(FilePos, Stream_Text, Count, I1);
+                        CSV_Pos++;
+                    }
+            }
+
+            //Chapters
+            Pos_Start=Pos_End+2;
+            Pos_End=(int)Parameters.size()-1;
+            for (int Count=0; Count<CSV_.Stream_Other; Count++)
+            {
+                for (int I1=0; I1<Pos_End-Pos_Start; I1++)
+                    if (MediaInfo_Complete || ToExport->Get(0, Stream_Other, 0, I1, Info_Options)[InfoOption_ShowInInform]==__T('Y'))
+                    {
+                        CSV(0, CSV_Pos)=Ztring(__T("Chapters "))+Ztring::ToZtring(Count)+__T(" ")+Parameters(Pos_Start+I1, 0);
+                        for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
+                            CSV(1+FilePos, CSV_Pos)=ToExport->Get(FilePos, Stream_Other, Count, I1);
+                        CSV_Pos++;
+                    }
+            }
+
+            //Separators
+            Ztring Separator_Col=CSV_.Separator_Col.toStdString().c_str();
+            if (Separator_Col==__T("(Tab)"))
+                Separator_Col=__T("\t");
+            Ztring Separator_Line=CSV_.Separator_Line.toStdString().c_str();
+            if (Separator_Line==__T("(Default)"))
+            #ifdef WIN32
+                Separator_Line=__T("\r\n");
+            #else
+                Separator_Line=__T("\n");
+            #endif //WIN32
+            Separator_Line.FindAndReplace(__T("\\r"), __T("\r"));
+            Separator_Line.FindAndReplace(__T("\\n"), __T("\n"));
+            Ztring Quote=CSV_.Quote.toStdString().c_str();
+            CSV.Separator_Set(0, Separator_Line);
+            CSV.Separator_Set(1, Separator_Col);
+            CSV.Quote_Set(Quote);
+
+            if (e.getOpenMode() == QIODevice::Append)
+                CSV.Delete(0);
+            file.write(CSV.Read().To_UTF8().c_str());
+            file.write(Separator_Line.To_UTF8().c_str());
+
+            break;
+        }
         default:
             QMessageBox::warning(this,"Error","Please signal this error to the MediaInfo project team : Unkown export mode");
             break;
