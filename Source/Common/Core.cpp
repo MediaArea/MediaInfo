@@ -233,6 +233,13 @@ void Core::Menu_View_JSON ()
 }
 
 //---------------------------------------------------------------------------
+void Core::Menu_View_CSV ()
+{
+    MI->Option(__T("Inform"), __T("CSV"));
+    Kind=Kind_CSV;
+}
+
+//---------------------------------------------------------------------------
 void Core::Menu_View_PBCore ()
 {
     MI->Option(__T("Inform"), __T("PBCore1"));

@@ -23,6 +23,8 @@ QString nameView(ViewMode v) {
        break;
    case VIEW_JSON: return QObject::tr("JSON");
        break;
+   case VIEW_CSV: return QObject::tr("CSV");
+       break;
    case VIEW_GRAPH: return QObject::tr("Graph");
        break;
    case VIEW_PBCORE: return QObject::tr("PBCore 1.2");

@@ -604,6 +604,11 @@ void MainWindow::refreshDisplay() {
                     }
                 }
                 break;
+            case VIEW_CSV:
+                C->Menu_View_CSV();
+                viewWidget = new QTextBrowser();
+                static_cast<QTextBrowser*>(viewWidget)->setText(wstring2QString(C->Inform_Get()));
+                break;
             case VIEW_PBCORE:
                 C->Menu_View_PBCore();
                 viewWidget = new QTextBrowser();
