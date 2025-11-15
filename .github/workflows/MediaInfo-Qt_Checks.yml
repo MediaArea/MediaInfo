@@ -66,7 +66,6 @@ jobs:
       - name: Build dependencies
         run: |
           msbuild -t:MediaInfoLib -p:Configuration=Release -p:Platform=${{ matrix.architecture }} -clp:ForceConsoleColor ${{ github.workspace }}\MediaInfoLib\Project\MSVC2022\MediaInfoLib.sln
-          xcopy /y ${{ github.workspace }}\MediaInfoLib\Project\MSVC2022\${{ matrix.architecture }}\Release\ZenLib.lib ${{ github.workspace }}\ZenLib\Project\MSVC2022\${{ matrix.architecture }}\Release\
       - name: Build
         shell: cmd
         run: |
