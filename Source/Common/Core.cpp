@@ -221,7 +221,7 @@ void Core::Menu_View_HTML ()
 //---------------------------------------------------------------------------
 void Core::Menu_View_XML ()
 {
-    MI->Option(__T("Inform"), __T("MIXML"));
+    MI->Option(__T("Inform"), __T("XML"));
     Kind=Kind_XML;
 }
 
