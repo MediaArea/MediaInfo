@@ -169,23 +169,39 @@ win32 {
         !build_pass:system("install_nuget_packages.cmd")
 
         contains(QT_ARCH, i386) {
-            exists(../../../../MediaInfoLib/Project/MSVC2022/Win32/Release/MediaInfo-Static.lib) {
+            exists(../../../../MediaInfoLib/Project/MSVC2026/Win32/Release/MediaInfo-Static.lib) {
+                !build_pass:message("using MSVC2026 MediaInfoLib, ZenLib and zlib")
+                MSVCVER = MSVC2026
+                MSVCVERN = vc18
+            } else {
+                !build_pass:message("using MSVC2022 MediaInfoLib, ZenLib and zlib")
+                MSVCVER = MSVC2022
+                MSVCVERN = vc17
+            }
+
+            exists(../../../../MediaInfoLib/Project/$$MSVCVER/Win32/Release/MediaInfo-Static.lib) {
                 INCLUDEPATH += ../../../../MediaInfoLib/Source
-                LIBS += $$PWD/../../../../MediaInfoLib/Project/MSVC2022/Win32/Release/MediaInfo-Static.lib
+                LIBS += $$PWD/../../../../MediaInfoLib/Project/$$MSVCVER/Win32/Release/MediaInfo-Static.lib
             } else {
-                error("libmediainfo not found on system")
+                error("MediaInfoLib not found on system")
             }
 
-            exists(../../../../ZenLib/Project/MSVC2022/Win32/Release/ZenLib.lib) {
+            exists(../../../../ZenLib/Project/$$MSVCVER/Win32/Release/ZenLib.lib) {
                 INCLUDEPATH += ../../../../ZenLib/Source
-                LIBS += $$PWD/../../../../ZenLib/Project/MSVC2022/Win32/Release/ZenLib.lib
+                LIBS += $$PWD/../../../../ZenLib/Project/$$MSVCVER/Win32/Release/ZenLib.lib
             } else {
-                error("libzen not found on system")
+                exists(../../../../MediaInfoLib/Project/$$MSVCVER/Win32/Release/ZenLib.lib) {
+                    !build_pass:message("using ZenLib.lib from MediaInfoLib build")
+                    INCLUDEPATH += ../../../../ZenLib/Source
+                    LIBS += $$PWD/../../../../MediaInfoLib/Project/$$MSVCVER/Win32/Release/ZenLib.lib
+                } else {
+                    error("ZenLib not found on system")
+                }
             }
 
-            exists(../../../../zlib/contrib/vstudio/vc17/x86/ZlibStatReleaseWithoutAsm/zlibstat.lib) {
+            exists(../../../../zlib/contrib/vstudio/$$MSVCVERN/x86/ZlibStatReleaseWithoutAsm/zlibstat.lib) {
                 INCLUDEPATH += ../../../../zlib
-                LIBS += $$PWD/../../../../zlib/contrib/vstudio/vc17/x86/ZlibStatReleaseWithoutAsm/zlibstat.lib
+                LIBS += $$PWD/../../../../zlib/contrib/vstudio/$$MSVCVERN/x86/ZlibStatReleaseWithoutAsm/zlibstat.lib
             } else {
                 error("zlib not found on system")
             }
@@ -199,23 +215,39 @@ win32 {
         }
 
         contains(QT_ARCH, x86_64) {
-            exists(../../../../MediaInfoLib/Project/MSVC2022/x64/Release/MediaInfo-Static.lib) {
+            exists(../../../../MediaInfoLib/Project/MSVC2026/x64/Release/MediaInfo-Static.lib) {
+                !build_pass:message("using MSVC2026 MediaInfoLib, ZenLib and zlib")
+                MSVCVER = MSVC2026
+                MSVCVERN = vc18
+            } else {
+                !build_pass:message("using MSVC2022 MediaInfoLib, ZenLib and zlib")
+                MSVCVER = MSVC2022
+                MSVCVERN = vc17
+            }
+
+            exists(../../../../MediaInfoLib/Project/$$MSVCVER/x64/Release/MediaInfo-Static.lib) {
                 INCLUDEPATH += ../../../../MediaInfoLib/Source
-                LIBS += $$PWD/../../../../MediaInfoLib/Project/MSVC2022/x64/Release/MediaInfo-Static.lib
+                LIBS += $$PWD/../../../../MediaInfoLib/Project/$$MSVCVER/x64/Release/MediaInfo-Static.lib
             } else {
-                error("libmediainfo not found on system")
+                error("MediaInfoLib not found on system")
             }
 
-            exists(../../../../ZenLib/Project/MSVC2022/x64/Release/ZenLib.lib) {
+            exists(../../../../ZenLib/Project/$$MSVCVER/x64/Release/ZenLib.lib) {
                 INCLUDEPATH += ../../../../ZenLib/Source
-                LIBS += $$PWD/../../../../ZenLib/Project/MSVC2022/x64/Release/ZenLib.lib
+                LIBS += $$PWD/../../../../ZenLib/Project/$$MSVCVER/x64/Release/ZenLib.lib
             } else {
-                error("libzen not found on system")
+                exists(../../../../MediaInfoLib/Project/$$MSVCVER/x64/Release/ZenLib.lib) {
+                    !build_pass:message("using ZenLib.lib from MediaInfoLib build")
+                    INCLUDEPATH += ../../../../ZenLib/Source
+                    LIBS += $$PWD/../../../../MediaInfoLib/Project/$$MSVCVER/x64/Release/ZenLib.lib
+                } else {
+                    error("ZenLib not found on system")
+                }
             }
 
-            exists(../../../../zlib/contrib/vstudio/vc17/x64/ZlibStatReleaseWithoutAsm/zlibstat.lib) {
+            exists(../../../../zlib/contrib/vstudio/$$MSVCVERN/x64/ZlibStatReleaseWithoutAsm/zlibstat.lib) {
                 INCLUDEPATH += ../../../../zlib
-                LIBS += $$PWD/../../../../zlib/contrib/vstudio/vc17/x64/ZlibStatReleaseWithoutAsm/zlibstat.lib
+                LIBS += $$PWD/../../../../zlib/contrib/vstudio/$$MSVCVERN/x64/ZlibStatReleaseWithoutAsm/zlibstat.lib
             } else {
                 error("zlib not found on system")
             }
@@ -227,29 +259,44 @@ win32 {
                 error("Edge WebView2 lib not found on system")
             }
 
-
             QMAKE_CXXFLAGS += /guard:ehcont
             QMAKE_LFLAGS += /guard:ehcont
         }
 
         contains(QT_ARCH, arm64) {
-            exists(../../../../MediaInfoLib/Project/MSVC2022/ARM64/Release/MediaInfo-Static.lib) {
+            exists(../../../../MediaInfoLib/Project/MSVC2026/ARM64/Release/MediaInfo-Static.lib) {
+                !build_pass:message("using MSVC2026 MediaInfoLib, ZenLib and zlib")
+                MSVCVER = MSVC2026
+                MSVCVERN = vc18
+            } else {
+                !build_pass:message("using MSVC2022 MediaInfoLib, ZenLib and zlib")
+                MSVCVER = MSVC2022
+                MSVCVERN = vc17
+            }
+
+            exists(../../../../MediaInfoLib/Project/$$MSVCVER/ARM64/Release/MediaInfo-Static.lib) {
                 INCLUDEPATH += ../../../../MediaInfoLib/Source
-                LIBS += $$PWD/../../../../MediaInfoLib/Project/MSVC2022/ARM64/Release/MediaInfo-Static.lib
+                LIBS += $$PWD/../../../../MediaInfoLib/Project/$$MSVCVER/ARM64/Release/MediaInfo-Static.lib
             } else {
-                error("libmediainfo not found on system")
+                error("MediaInfoLib not found on system")
             }
 
-            exists(../../../../ZenLib/Project/MSVC2022/ARM64/Release/ZenLib.lib) {
+            exists(../../../../ZenLib/Project/$$MSVCVER/ARM64/Release/ZenLib.lib) {
                 INCLUDEPATH += ../../../../ZenLib/Source
-                LIBS += $$PWD/../../../../ZenLib/Project/MSVC2022/ARM64/Release/ZenLib.lib
+                LIBS += $$PWD/../../../../ZenLib/Project/$$MSVCVER/ARM64/Release/ZenLib.lib
             } else {
-                error("libzen not found on system")
+                exists(../../../../MediaInfoLib/Project/$$MSVCVER/ARM64/Release/ZenLib.lib) {
+                    !build_pass:message("using ZenLib.lib from MediaInfoLib build")
+                    INCLUDEPATH += ../../../../ZenLib/Source
+                    LIBS += $$PWD/../../../../MediaInfoLib/Project/$$MSVCVER/ARM64/Release/ZenLib.lib
+                } else {
+                    error("ZenLib not found on system")
+                }
             }
 
-            exists(../../../../zlib/contrib/vstudio/vc17/arm64/ZlibStatReleaseWithoutAsm/zlibstat.lib) {
+            exists(../../../../zlib/contrib/vstudio/$$MSVCVERN/arm64/ZlibStatReleaseWithoutAsm/zlibstat.lib) {
                 INCLUDEPATH += ../../../../zlib
-                LIBS += $$PWD/../../../../zlib/contrib/vstudio/vc17/arm64/ZlibStatReleaseWithoutAsm/zlibstat.lib
+                LIBS += $$PWD/../../../../zlib/contrib/vstudio/$$MSVCVERN/arm64/ZlibStatReleaseWithoutAsm/zlibstat.lib
             } else {
                 error("zlib not found on system")
             }
