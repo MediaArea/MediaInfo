@@ -163,7 +163,7 @@ About;About
 About_Hint;How to contact me and find last version
 AC3_Metadata;AC-3 metadata
 Accompaniment;Accompaniment
-acmod;
+acmod;AC-3 mode (acmod)
 Active_DisplayAspectRatio;Active display aspect ratio
 Active_Height;Active height
 Active_Width;Active width
@@ -206,7 +206,7 @@ at;at
 Attachments;Attachments
 Audio stream(s);Audio streams
 Audio;Audio
-Audio_Channels_Total;
+Audio_Channels_Total;Total audio channels
 Audio_Codec_List;Audio codecs
 Audio_Format_List;Audio formats
 Audio_Format_WithHint_List;Audio formats (with hints)
@@ -248,7 +248,7 @@ BitRate_Nominal;Nominal bit rate
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BitstreamLevel;Bitstream level
 Bring All to Front;Bring All to Front
-bsid;
+bsid;Bitstream ID (bsid)
 BufferSize;Buffer size
 Cancel;Cancel
 CaptionServiceName;Caption service name
@@ -293,7 +293,7 @@ ClosedCaptionsPresent;Closed Captions Present
 ClosedCaptionsType;Closed Captions Type
 CloseFile;Close File
 CloseWindow;Close Window
-cmixlev;
+cmixlev;Center mix level (cmixlev)
 Codec;Codec
 Codec_Description;Codec description
 Codec_Info;Details for codec
@@ -323,12 +323,12 @@ ColorTheme;Theme
 ColorTheme_Dark;Dark
 ColorTheme_Light;Light
 ColorTheme_System;Use system setting
-colour_description_present;
-colour_description_present_Source;
+colour_description_present;Color description present
+colour_description_present_Source;Color description present (source)
 colour_primaries;Color primaries
-colour_primaries_Source;
+colour_primaries_Source;Color primaries (source)
 colour_range;Color range
-colour_range_Source;
+colour_range_Source;Color range (source)
 Comment;Comment
 CommissionedBy;Commissioned by
 Compare;Compare
@@ -367,7 +367,7 @@ Cover_Description;Cover description
 Cover_Mime;Cover MIME
 Cover_Type;Cover type
 CoverData;Include cover images in HTML, XML and JSON
-CreatedOn;
+CreatedOn;Created on
 Cropped;Crop dimensions
 Custom;Custom
 CustomDownmixTargets;Custom downmix targets
@@ -389,10 +389,10 @@ Delete;Delete
 Description;Description
 Details;
 dialnorm;Dialog Normalization
-dialnorm_Average;
-dialnorm_Count;
-dialnorm_Maximum;
-dialnorm_Minimum;
+dialnorm_Average;Dialogue normalization, average
+dialnorm_Count;Dialogue normalization count
+dialnorm_Maximum;Dialogue normalization, maximum
+dialnorm_Minimum;Dialogue normalization, minimum
 DialogueCorrected;Dialogue corrected
 DialogueEnhancement;Dialogue enhancement
 DialogueNormalization;Dialogue normalization
@@ -441,8 +441,8 @@ ElementCount;Count of elements
 EMail;E-Mail
 Enable FFmpeg plugin;Enable FFmpeg plugin
 Encoded_Application;Writing application
-Encoded_Application_Name;
-Encoded_Application_Version;
+Encoded_Application_Name;Writing application name
+Encoded_Application_Version;Writing application version
 Encoded_Date;Encoded date
 Encoded_Hardware;Writing hardware
 Encoded_Library;Writing library
@@ -1031,7 +1031,7 @@ LCCN;LCCN
 LegacyStreamDisplay;Display backward compatibility information for HD/HE audio and 3D/HDR video streams
 LfeAttenuationKnown;LFE attenuation known
 LfeMixGain;LFE mix gain
-lfeon;
+lfeon;LFE on
 Library;Muxing library
 Lifetime_Subscribe_Button;Lifetime subscription for %PRICE%
 Lightness;Lightness
@@ -1084,7 +1084,7 @@ MasteringDisplay_Luminance;Mastering display luminance
 Matrix_Channel(s);Matrix encoding, Channel(s)
 Matrix_ChannelPositions;Matrix encoding, channel positions
 matrix_coefficients;Matrix coefficients
-matrix_coefficients_Source;
+matrix_coefficients_Source;Matrix coefficients (source)
 Matrix_Format;Matrix encoding, format
 MaxCLL;Maximum Content Light Level
 MaxFALL;Maximum Frame-Average Light Level
@@ -1175,8 +1175,8 @@ OverallBitRate_Maximum;Maximum Overall bit rate
 OverallBitRate_Minimum;Minimum Overall bit rate
 OverallBitRate_Mode;Overall bit rate mode
 OverallBitRate_Nominal;Nominal Overall bit rate
-OverallBitRate_Precision_Max;
-OverallBitRate_Precision_Min;
+OverallBitRate_Precision_Max;Maximum overall bit rate precision
+OverallBitRate_Precision_Min;Minimum overall bit rate precision
 PackageName;Package name
 PackFormat;Pack format
 Part;Part
@@ -1246,7 +1246,7 @@ Renew;Renew
 ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replay gain peak
 Report;Report
-ReportBy;
+ReportBy;Reported by
 Resolution;Resolution
 RestoreLifetimeSubscription;Restore lifetime subscription
 Retry;Retry
@@ -1317,7 +1317,7 @@ Source_StreamSize;Source stream size
 Source_StreamSize_Encoded;Source encoded stream size
 SpokenSubtitles;Spoken subtitles
 Standard;Standard
-Stored_Height;
+Stored_Height;Stored height
 StoreMethod_InterleavedFields;Interleaved fields
 StoreMethod_SeparatedFields;Separated fields
 StoreMethod_SeparatedFields_1;Separated fields (1 field per block)
@@ -1361,7 +1361,7 @@ Supported formats;Supported formats
 Supported?;Supported?
 SupportUs;Support us. Get the dark theme and more features to come.
 SupportUs2;Support us by subscribing and get exclusive features.
-surmixlev;
+surmixlev;Surround mix level (surmixlev)
 SurroundAttenuationKnown;Surround attenuation known
 SwitchGroup;Switch group
 Synopsis;Synopsis
@@ -1417,7 +1417,7 @@ TrackFormat;Track format
 TrackIndex;Track index
 TrackUID;Track UID
 transfer_characteristics;Transfer characteristics
-transfer_characteristics_Source;
+transfer_characteristics_Source;Transfer characteristics (source)
 Translate_Reports;Translate reports
 Translator;Translator
 Transport;Transport
@@ -1510,4 +1510,5 @@ Your system;Your system
 Your translation;Your translation
 Zoom;Zoom
 ZZ_Automatic_Percent;98
+
 ZZ_AutomaticLanguage_Percent;98
