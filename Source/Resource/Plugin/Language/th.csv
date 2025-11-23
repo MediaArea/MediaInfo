@@ -14,8 +14,8 @@
  bit1; บิต
  bit2; บิต
  bit3; บิต
- bps; bps
  Bps; Bps
+ bps; bps
  Byte1; ไบต์
  Byte2; ไบต์
  Byte3; ไบต์
@@ -49,8 +49,8 @@
  frame3;
  GB; GB
  Gb; Gb
- Gbps; Gbps
  GBps; GBps
+ Gbps; Gbps
  GHz; GHz
  GiB; GiB
  GibiByte1; กิกะไบต์
@@ -91,8 +91,8 @@
  KiloByte3; กิโลไบต์
  MB; MB
  Mb; Mb
- Mbps; Mbps
  MBps; MebiBytes
+ Mbps; Mbps
  MebiBit1; MebiBit
  MebiBit2; MebiBits
  MebiBit3; MebiBits
@@ -163,6 +163,7 @@ About;เกี่ยวกับ
 About_Hint;วิธีติดต่อฉันและค้นหาเวอร์ชันล่าสุด
 AC3_Metadata;
 Accompaniment;Accompaniment
+acmod;
 Active_DisplayAspectRatio;
 Active_Height;
 Active_Width;
@@ -178,9 +179,9 @@ AdID;
 ADM: Show ChannelFormats;
 ADM: Show TrackUIDs;
 AdmProfile;
-Advanced;ขั้นสูง
-Advanced mode;โหมดขั้นสูง
 Advanced mode -->;
+Advanced mode;โหมดขั้นสูง
+Advanced;ขั้นสูง
 Album;อัลบั้ม
 Album_ReplayGain_Gain;
 Album_ReplayGain_Peak;
@@ -200,11 +201,12 @@ ArtDirector;ผู้กำกับศิลป์
 AspectRatio;อัตราการแสดง
 AssistantDirector;ผู้ช่วยผู้กำกับ
 AssociatedVideo_FrameRate;
-at;ที่
 At least one file;(คุณต้องเปิดอย่างน้อยหนึ่งไฟล์)
+at;ที่
 Attachments;
-Audio;เสียง
 Audio stream(s);สตรีมเสียง
+Audio;เสียง
+Audio_Channels_Total;
 Audio_Codec_List;codecs เสียง
 Audio_Format_List;
 Audio_Format_WithHint_List;
@@ -246,6 +248,7 @@ BitRate_Nominal;Nominal bit rate
 Bits-(Pixel*Frame);บิต/(พิกเซล*เฟรม)
 BitstreamLevel;
 Bring All to Front;นำทั้งหมดมาด้านหน้า
+bsid;
 BufferSize;
 Cancel;ยกเลิก
 CaptionServiceName;
@@ -261,8 +264,8 @@ ChannelMode;
 ChannelPositions;ตำแหน่งช่อง
 ChannelPositions_Original;
 Chapter(s);เชฟเตอร์
-Chapters;เชฟเตอร์
 Chapters stream(s);เชฟเตอร์สตรีม
+Chapters;เชฟเตอร์
 Chapters_Codec_List;เชฟเตอร์ Codecs
 Chapters_No;ไม่มีเชฟเตอร์
 Chapters_Pos_Begin;
@@ -270,9 +273,9 @@ Chapters_Pos_End;
 ChaptersCount;จำนวนของสตรีมเชฟเตอร์
 CharacterSet;
 CheckNewVersion;ตรวจสอบรุ่นใหม่
-Choose custom;กำหนดเอง
 Choose custom sheet;เลือกชีตที่คุณต้องการ
 Choose custom text;เลือกข้อความที่คุณต้องการ
+Choose custom;กำหนดเอง
 Choose export format;เลือกรูปแบบผลลัพธ์ที่คุณต้องการ
 Choose file(s);เลือกไฟล์ที่จะเปิด
 Choose filename;เลือกชื่อไฟล์ที่คุณต้องการ
@@ -282,14 +285,15 @@ Chroma;Chroma
 ChromaSubsampling;
 Classifier;
 ClearList;
-Close;ปิด
 Close all before open;ปิดทั้งหมดก่อนเปิด
+Close;ปิด
 CloseAll;
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
 CloseFile;
 CloseWindow;ปิดหน้าต่าง
+cmixlev;
 Codec;Codec
 Codec_Description;รายละเอียด Codec
 Codec_Info;รายละเอียดของ codec
@@ -319,8 +323,12 @@ ColorTheme;
 ColorTheme_Dark;
 ColorTheme_Light;
 ColorTheme_System;
+colour_description_present;
+colour_description_present_Source;
 colour_primaries;
+colour_primaries_Source;
 colour_range;
+colour_range_Source;
 Comment;คอมเมนต์
 CommissionedBy;Commissioned by
 Compare;
@@ -359,6 +367,7 @@ Cover_Description;
 Cover_Mime;
 Cover_Type;
 CoverData;
+CreatedOn;
 Cropped;
 Custom;กำหนดเอง
 CustomDownmixTargets;
@@ -367,8 +376,8 @@ DarkMode;
 Date;วันที่
 Debug;ดีบั๊ก
 Decimal point;จุดทศนิยม
-Default;
 Default translation;
+Default;
 Default_Setting;
 DefaultTargetDeviceConfig;
 DefaultView;
@@ -380,6 +389,10 @@ Delete;ลบ
 Description;รายละเอียด
 Details;
 dialnorm;
+dialnorm_Average;
+dialnorm_Count;
+dialnorm_Maximum;
+dialnorm_Minimum;
 DialogueCorrected;
 DialogueEnhancement;
 DialogueNormalization;
@@ -428,6 +441,8 @@ ElementCount;
 EMail;อี-เมลล์
 Enable FFmpeg plugin;
 Encoded_Application;Writing application
+Encoded_Application_Name;
+Encoded_Application_Version;
 Encoded_Date;วันที่เข้ารหัส
 Encoded_Hardware;
 Encoded_Library;การเขียนไลบรารี
@@ -462,8 +477,8 @@ Feature_FilesCompare;
 Feature_More;
 Feature_SelectView;
 Field;
-File;แฟ้ม
 File size;ขนาดไฟล์
+File;แฟ้ม
 File_Append;เพิ่มเติมไปยังไฟล์ที่มีอยู่ (คำเตือน : โปรดระมัดระวังเมื่อมีตัวแปรเดียวกัน)
 File_Created_Date;วันที่สร้างไฟล์
 File_Created_Date_Local;
@@ -481,10 +496,10 @@ FirstDisplay_Type;
 FirstFrameOfAction;
 FlatPanelTv;
 FlowID;
-Folder;โฟลเดอร์
 Folder (R);โฟลเดอร์ (R)
 Folder (R)_Hint;เลือกโฟลเดอร์เพื่อเรียนรู้ (พร้อมทั้งโฟลเดอร์ย่อยทั้งหมด)
 Folder (Recursively);โฟลเดอร์ (Recursively)
+Folder;โฟลเดอร์
 Folder_Hint;เลือกโฟลเดอร์เพื่อเรียนรู้
 FolderName;ชื่อโฟลเดอร์
 Forced;
@@ -769,8 +784,8 @@ HTML;HTML
 ID;ID
 IdentClockStart;
 IFrameInterval;
-Image;ภาพ
 Image stream(s);สตรีมรูปภาพ
+Image;ภาพ
 Image_Codec_List;Codecs รูปภาพ
 ImageCount;จำนวนของสตรีมภาพ
 ImmersiveStereo;
@@ -1001,12 +1016,12 @@ Language_yue;
 Language_za;Zhuang
 Language_zh;จีน
 Language_zh-cmn;
-Language_zh-cn;
 Language_zh-CN;
+Language_zh-cn;
 Language_zh-Hans;
 Language_zh-Hant;
-Language_zh-tw;
 Language_zh-TW;
+Language_zh-tw;
 Language_zh-yue;
 Language_zu;ซูลู
 LanguageChanges;
@@ -1016,6 +1031,7 @@ LCCN;LCCN
 LegacyStreamDisplay;
 LfeAttenuationKnown;
 LfeMixGain;
+lfeon;
 Library;Muxing library
 Lifetime_Subscribe_Button;
 Lightness;
@@ -1068,6 +1084,7 @@ MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;
+matrix_coefficients_Source;
 Matrix_Format;
 MaxCLL;
 MaxFALL;
@@ -1079,8 +1096,8 @@ MD5_Unencoded;
 MediaInfo_About;แสดงข้อมูลอย่างละเอียด\r\nของไฟล์มัลติมีเดีย:\r\nMatroska, OGG (รวมทั้ง OGM)\r\nMPEG1 (รวมทั้ง VCD)\r\nMPEG2 (รวมทั้ง DVD และ SVCD)\r\nMPEG4 (รวมทั้ง Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (รวมทั้ง WMV, WMA)\r\nMicrosoft RIFF (รวมทั้ง AVI, WAV)\r\nรูปแบบเสียงอย่างเดียว (AC3, DTS, AAC, AU, AIFF...)
 MediaInfo_About_About;
 MediaInfo_WebSite;
-Menu;เมนู
 Menu stream(s);สตรีมเมนู
+Menu;เมนู
 Menu_Codec_List;codecs เมนู
 Menu_Hint;More possibilities
 Menu_No;ไม่มีเมนู
@@ -1151,13 +1168,15 @@ Other;อื่นๆ
 OtherIdentifier;
 OtherIdentifierType;
 OtherViews;
-Output;ผลลัพธ์
 Output format;รูปแบบผลลัพธ์
+Output;ผลลัพธ์
 OverallBitRate;บิตเรตทั้งหมด
 OverallBitRate_Maximum;บิตเรตทั้งหมดสูงสุด
 OverallBitRate_Minimum;บิตเรตทั้งหมดต่ำสุด
 OverallBitRate_Mode;โหมดบิตเรตทั้งหมด
 OverallBitRate_Nominal;บิตเรต Nominal ทั้งหมด
+OverallBitRate_Precision_Max;
+OverallBitRate_Precision_Min;
 PackageName;
 PackFormat;
 Part;ส่วน
@@ -1227,6 +1246,7 @@ Renew;
 ReplayGain_Gain;
 ReplayGain_Peak;
 Report;
+ReportBy;
 Resolution;ความละเอียด
 RestoreLifetimeSubscription;
 Retry;
@@ -1270,17 +1290,17 @@ Set;กำหนด
 Set_Count;Set count
 Setup;ติดตั้ง
 Sharpness;
-Sheet;ชีต
 Sheet (Complete);Sheet (Complete)
-Shell extension;ลงทะเบียนชนิดไฟล์ (เมื่อคลิกขวาใน explorer จะแสดงตัวเลือกของ Media)
+Sheet;ชีต
 Shell extension, folder;
 Shell extension, separate instance;
+Shell extension;ลงทะเบียนชนิดไฟล์ (เมื่อคลิกขวาใน explorer จะแสดงตัวเลือกของ Media)
 Shell InfoTip;ข้อมูลเคล็บลับ Shell (ใน explorer, เมื่อชี้เม้าท์ที่ไฟล์, จะแสดงข้อมูลไฟล์)
 ShimName;
 ShimVersion;
-Show;
 Show menu;แสดงเมนู
 Show toolbar;แสดงแถบเครื่องมือ
+Show;
 ShowAll;แสดงทั้งหมด
 ShowMore;
 SignalGroup;
@@ -1297,6 +1317,7 @@ Source_StreamSize;
 Source_StreamSize_Encoded;
 SpokenSubtitles;
 Standard;มาตรฐาน
+Stored_Height;
 StoreMethod_InterleavedFields;
 StoreMethod_SeparatedFields;
 StoreMethod_SeparatedFields_1;
@@ -1340,6 +1361,7 @@ Supported formats;รูปแบบที่สนับสนุน
 Supported?;สนับสนุนแล้ว?
 SupportUs;
 SupportUs2;
+surmixlev;
 SurroundAttenuationKnown;
 SwitchGroup;
 Synopsis;Synopsis
@@ -1351,11 +1373,11 @@ Technician;Technician
 TermsOfUse;ข้อตกลงการใช้
 TertiaryAudioLanguage;
 TestContinuousFileNames;
-Text;ข้อความ
 Text - Custom;Text - Custom
 Text (HTML);ข้อความ (HTML)
 Text stream(s);สตรีมข้อความ
 Text streams;สตรีมข้อความ
+Text;ข้อความ
 Text_Codec_List;codecs ข้อความ
 Text_Format_List;
 Text_Format_WithHint_List;
@@ -1395,11 +1417,12 @@ TrackFormat;
 TrackIndex;
 TrackUID;
 transfer_characteristics;
+transfer_characteristics_Source;
 Translate_Reports;
 Translator;แปลไทยโดย
 Transport;
-Tree;Tree
 Tree & Text;Tree & Text
+Tree;Tree
 Trim_Center;
 Trim_Height;
 Trim_Surround;
@@ -1444,8 +1467,8 @@ UniversalAdID_Value;
 Unknown;ไม่รู้จัก
 Url;Url
 Value;
-Video;วีดีโอ
 Video stream(s);สตรีมวีดีโอ
+Video;วีดีโอ
 Video_Codec_List;Codecs วีดีโอ
 Video_Delay;Video delay
 Video_Format_List;
@@ -1487,4 +1510,4 @@ Your system;ระบบของคุณ
 Your translation;
 Zoom;ย่อ/ขยาย
 ZZ_Automatic_Percent;55
-ZZ_AutomaticLanguage_Percent;60
+ZZ_AutomaticLanguage_Percent;59

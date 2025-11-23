@@ -14,8 +14,8 @@
  bit1;بت
  bit2;بت
  bit3;بت
- bps;بت/الثانية
  Bps;بت/الثانية
+ bps;بت/الثانية
  Byte1;بايت
  Byte2;بايت
  Byte3;بايت
@@ -49,8 +49,8 @@
  frame3;لقطة
  GB;غيغابايت
  Gb;غيغابت
- Gbps;جيغا بت في الثانية
  GBps;جيغا بايت في الثانية
+ Gbps;جيغا بت في الثانية
  GHz; GHz
  GiB; GiB
  GibiByte1;جيغي بايت
@@ -91,8 +91,8 @@
  KiloByte3;كيلوبايت
  MB;ميغابايت
  Mb;ميغابت
- Mbps;ميغابت في الثانية
  MBps;ميغابايت في الثانية
+ Mbps;ميغابت في الثانية
  MebiBit1;ميبي بت
  MebiBit2;ميبي بت
  MebiBit3;ميبي بت
@@ -163,6 +163,7 @@ About;حول البرنامج
 About_Hint;كيفية الاتصال بنا والحصول على أخر نسخة
 AC3_Metadata;
 Accompaniment;مرافقة
+acmod;
 Active_DisplayAspectRatio;
 Active_Height;
 Active_Width;
@@ -178,9 +179,9 @@ AdID;
 ADM: Show ChannelFormats;
 ADM: Show TrackUIDs;
 AdmProfile;
-Advanced;متقدم
-Advanced mode;الوضع المتقدم
 Advanced mode -->;
+Advanced mode;الوضع المتقدم
+Advanced;متقدم
 Album;ألبوم
 Album_ReplayGain_Gain;كسب عند قراءة الألبوم
 Album_ReplayGain_Peak;ذروة الكسب عند قراءة الألبوم
@@ -200,11 +201,12 @@ ArtDirector;المدير الفني
 AspectRatio;حجم الشاشة
 AssistantDirector;مساعد المدير
 AssociatedVideo_FrameRate;
-at;عند
 At least one file;(يجب على الأقل فتح ملف واحد)
+at;عند
 Attachments;
-Audio;صوت
 Audio stream(s);دفق الصوت
+Audio;صوت
+Audio_Channels_Total;
 Audio_Codec_List;ترميز الصوت
 Audio_Format_List;
 Audio_Format_WithHint_List;
@@ -246,6 +248,7 @@ BitRate_Nominal;المعدل الاسمي للصبيب
 Bits-(Pixel*Frame);بت /(صورة*بكسل)
 BitstreamLevel;
 Bring All to Front;إحضار الكل إلى الأمام
+bsid;
 BufferSize;
 Cancel;إلغاء
 CaptionServiceName;
@@ -261,8 +264,8 @@ ChannelMode;
 ChannelPositions;مواقع القنوات
 ChannelPositions_Original;
 Chapter(s);فصل
-Chapters;فصل
 Chapters stream(s);مقطع الفصل
+Chapters;فصل
 Chapters_Codec_List;ترميز الفصول
 Chapters_No;لا يوجد أي فصل
 Chapters_Pos_Begin;
@@ -270,9 +273,9 @@ Chapters_Pos_End;
 ChaptersCount;عدد مقاطع الفصول
 CharacterSet;
 CheckNewVersion;التحقق من وجود نسخة جديدة
-Choose custom;اختر مخصص
 Choose custom sheet;اختيار الجدول مخصص
 Choose custom text;اختيار نص مخصص
+Choose custom;اختر مخصص
 Choose export format;اختيار صيغة تصدير الماف
 Choose file(s);اختيار الماف
 Choose filename;اختر اسم الملف
@@ -282,14 +285,15 @@ Chroma;شروما
 ChromaSubsampling;الاختزال الشروما
 Classifier;
 ClearList;
-Close;غادر
 Close all before open;إغلاق كافة قبل الفتح
+Close;غادر
 CloseAll;
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
 CloseFile;
 CloseWindow;إغلاق النافذة
+cmixlev;
 Codec;الترميز (ِِCodec)
 Codec_Description;وصف الترميز
 Codec_Info;تفاصيل عن الترميز
@@ -319,8 +323,12 @@ ColorTheme;
 ColorTheme_Dark;
 ColorTheme_Light;
 ColorTheme_System;
+colour_description_present;
+colour_description_present_Source;
 colour_primaries;إحداثيات اللونية
+colour_primaries_Source;
 colour_range;
+colour_range_Source;
 Comment;تعليق
 CommissionedBy;مصاند من طرف
 Compare;
@@ -359,6 +367,7 @@ Cover_Description;وصف الغلاف
 Cover_Mime;غلاف MIME
 Cover_Type;الغلاف الأصلي
 CoverData;
+CreatedOn;
 Cropped;أبعاد ريسيزينج
 Custom;معدل
 CustomDownmixTargets;Custom downmix targets
@@ -367,8 +376,8 @@ DarkMode;
 Date;تاريخ
 Debug;تصحيح (Debug)
 Decimal point;نقطة عشرية
-Default;
 Default translation;
+Default;
 Default_Setting;
 DefaultTargetDeviceConfig;
 DefaultView;
@@ -380,6 +389,10 @@ Delete;حذف
 Description;وصف
 Details;
 dialnorm;
+dialnorm_Average;
+dialnorm_Count;
+dialnorm_Maximum;
+dialnorm_Minimum;
 DialogueCorrected;
 DialogueEnhancement;
 DialogueNormalization;
@@ -428,6 +441,8 @@ ElementCount;Count of elements
 EMail;البريد الإلكتروني
 Enable FFmpeg plugin;
 Encoded_Application;برنامج التحرير
+Encoded_Application_Name;
+Encoded_Application_Version;
 Encoded_Date;تاريخ الترميز (Encoding)
 Encoded_Hardware;
 Encoded_Library;المكتبة (Library) المستعملة
@@ -462,8 +477,8 @@ Feature_FilesCompare;
 Feature_More;
 Feature_SelectView;
 Field;
-File;ملف
 File size;حجم الملف
+File;ملف
 File_Append;إضافة إلى ملف موجود (تأكد من أن إعدادات متطابقة)
 File_Created_Date;تاريخ إنشاء الملف
 File_Created_Date_Local;تاريخ إنشاء الملف (محلي)
@@ -481,10 +496,10 @@ FirstDisplay_Type;
 FirstFrameOfAction;First frame of action
 FlatPanelTv;
 FlowID;
-Folder;مجلد
 Folder (R);مجلد (R)
 Folder (R)_Hint;تحديد مجلد لدراسة (مع جميع مجلداته الفرعية)
 Folder (Recursively);المجلد (بشكل تكراري)
+Folder;مجلد
 Folder_Hint;تحديد مجلد لدراسة
 FolderName;اسم المجلد
 Forced;
@@ -769,8 +784,8 @@ HTML;HTML
 ID;ID
 IdentClockStart;
 IFrameInterval;
-Image;صورة
 Image stream(s);مقطع الصور
+Image;صورة
 Image_Codec_List;ترميز الصورة
 ImageCount;عدد من المسارات الصور
 ImmersiveStereo;
@@ -1001,12 +1016,12 @@ Language_yue;
 Language_za;Vahcuengh
 Language_zh;汉语
 Language_zh-cmn;
-Language_zh-cn;汉语 (China)
 Language_zh-CN;
+Language_zh-cn;汉语 (China)
 Language_zh-Hans;
 Language_zh-Hant;
-Language_zh-tw;中文 (Taiwan)
 Language_zh-TW;
+Language_zh-tw;中文 (Taiwan)
 Language_zh-yue;
 Language_zu;isiZulu
 LanguageChanges;
@@ -1016,6 +1031,7 @@ LCCN;LCCN
 LegacyStreamDisplay;
 LfeAttenuationKnown;
 LfeMixGain;
+lfeon;
 Library;المكتبة المستخامة
 Lifetime_Subscribe_Button;
 Lightness;إضاءة
@@ -1068,6 +1084,7 @@ MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;معاملات الـMatrix
+matrix_coefficients_Source;
 Matrix_Format;
 MaxCLL;
 MaxFALL;
@@ -1079,8 +1096,8 @@ MD5_Unencoded;
 MediaInfo_About;تقديم معلومات مفصلة\r\nحول ملف الوسائط المتعددة :\r\nMatroska، OGG (including OGM)\r\nMPEG1 (بما في ذلك VCD)\r\nMPEG2 (بما في ذلك DVD و SVCD)\r\nMPEG4 (بما في ذلك Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia ((بما في ذلك WMV، WMA)\r\nMicrosoft RIFF ((بما في ذلك AVI, WAV)\r\nامتدادات الصوت فقط (AC3، DTS، AAC، AU، AIFF...)
 MediaInfo_About_About;
 MediaInfo_WebSite;
-Menu;القائمة
 Menu stream(s);قائمة الدفق
+Menu;القائمة
 Menu_Codec_List;قائمة الترميز
 Menu_Hint;مزيد من الإمكانيات
 Menu_No;لا توجد أي قائمة
@@ -1151,13 +1168,15 @@ Other;آخر
 OtherIdentifier;
 OtherIdentifierType;
 OtherViews;
-Output;مخرج
 Output format;الامتداد المخرج
+Output;مخرج
 OverallBitRate;متوسط الصبيب العام
 OverallBitRate_Maximum;الحد الأقصى للصبيب العام
 OverallBitRate_Minimum;الحد الأدنى للصبيب العام
 OverallBitRate_Mode;نوع الصبيب العام
 OverallBitRate_Nominal;المعدل الاسمي للصبيب العام
+OverallBitRate_Precision_Max;
+OverallBitRate_Precision_Min;
 PackageName;Package name
 PackFormat;Pack format
 Part;جزء
@@ -1227,6 +1246,7 @@ Renew;
 ReplayGain_Gain;كسب في القراءة
 ReplayGain_Peak;ذروة الكسب في القراءة
 Report;
+ReportBy;
 Resolution;دقة الصورة
 RestoreLifetimeSubscription;
 Retry;
@@ -1270,17 +1290,17 @@ Set;تشكيلة
 Set_Count;عدد التشكيلات
 Setup;الإعداد
 Sharpness;وضوح
-Sheet;الجدول
 Sheet (Complete);الجدول (كامل)
-Shell extension;ملحق Shell (اضافة قائمة 'MediaInfo ' عند النقر الأيمن على الملف)
+Sheet;الجدول
 Shell extension, folder;للمجلدات أيضا
 Shell extension, separate instance;
+Shell extension;ملحق Shell (اضافة قائمة 'MediaInfo ' عند النقر الأيمن على الملف)
 Shell InfoTip;ماحق InfoTip ( عرض مزيد من التفاصيل عند  تحريك الماوس فوق الملف)
 ShimName;
 ShimVersion;
-Show;
 Show menu;اظهار القائمة
 Show toolbar;عرض شريط الأدوات
+Show;
 ShowAll;إظهار الكل
 ShowMore;
 SignalGroup;
@@ -1297,6 +1317,7 @@ Source_StreamSize;
 Source_StreamSize_Encoded;
 SpokenSubtitles;
 Standard;قاعدي
+Stored_Height;
 StoreMethod_InterleavedFields;
 StoreMethod_SeparatedFields;
 StoreMethod_SeparatedFields_1;
@@ -1340,6 +1361,7 @@ Supported formats;الامتدادات المدعومة
 Supported?;مدعوم؟
 SupportUs;
 SupportUs2;
+surmixlev;
 SurroundAttenuationKnown;
 SwitchGroup;
 Synopsis;موجز
@@ -1351,11 +1373,11 @@ Technician;فني
 TermsOfUse;شروط الاستخدام
 TertiaryAudioLanguage;
 TestContinuousFileNames;
-Text;نص
 Text - Custom;النص
 Text (HTML);نص (HTML)
 Text stream(s); دفق النص
 Text streams; دفق النص
+Text;نص
 Text_Codec_List;ترميز النص
 Text_Format_List;
 Text_Format_WithHint_List;
@@ -1395,11 +1417,12 @@ TrackFormat;Track format
 TrackIndex;
 TrackUID;
 transfer_characteristics;خصائص نقل
+transfer_characteristics_Source;
 Translate_Reports;
 Translator;مترجم
 Transport;
-Tree;شجرة
 Tree & Text;شجرة والنصوص
+Tree;شجرة
 Trim_Center;Center trim
 Trim_Height;Height trim
 Trim_Surround;Surround trim
@@ -1444,8 +1467,8 @@ UniversalAdID_Value;
 Unknown;مجهول
 Url;رابط
 Value;
-Video;فيديو
 Video stream(s);دفق الفيديو
+Video;فيديو
 Video_Codec_List;ترميزالفيديو
 Video_Delay;تأخير الفيديو
 Video_Format_List;
@@ -1486,5 +1509,5 @@ Yes;نعم
 Your system;نظامك
 Your translation;
 Zoom;تكبير/تصغير
-ZZ_Automatic_Percent;66
-ZZ_AutomaticLanguage_Percent;70
+ZZ_Automatic_Percent;65
+ZZ_AutomaticLanguage_Percent;69

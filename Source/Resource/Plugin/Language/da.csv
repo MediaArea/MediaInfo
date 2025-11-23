@@ -14,8 +14,8 @@
  bit1; bit
  bit2; bits
  bit3; bits
- bps; b/s
  Bps; B/s
+ bps; b/s
  Byte1; Byte
  Byte2; Bytes
  Byte3; Bytes
@@ -49,8 +49,8 @@
  frame3; billeder
  GB; GB
  Gb; Gb
- Gbps; Gb/s
  GBps; GB/s
+ Gbps; Gb/s
  GHz; GHz
  GiB; GiB
  GibiByte1; GibiBytes
@@ -91,8 +91,8 @@
  KiloByte3; KiloBytes
  MB; MB
  Mb; Mb
- Mbps; Mb/s
  MBps; MebiBytes
+ Mbps; Mb/s
  MebiBit1; MebiBit
  MebiBit2; MebiBits
  MebiBit3; MebiBits
@@ -163,6 +163,7 @@ About;Om
 About_Hint;Hvordan du kontakter mig og finder seneste version
 AC3_Metadata;
 Accompaniment;Akkompagnement
+acmod;
 Active_DisplayAspectRatio;
 Active_Height;
 Active_Width;
@@ -178,9 +179,9 @@ AdID;
 ADM: Show ChannelFormats;
 ADM: Show TrackUIDs;
 AdmProfile;
-Advanced;Avanceret
-Advanced mode;Avanceret tilstand
 Advanced mode -->;
+Advanced mode;Avanceret tilstand
+Advanced;Avanceret
 Album;Album
 Album_ReplayGain_Gain;Album replay gain
 Album_ReplayGain_Peak;Album replay gain peak
@@ -200,11 +201,12 @@ ArtDirector;Art Director
 AspectRatio;Størrelsesforhold
 AssistantDirector;Assisterende regissør
 AssociatedVideo_FrameRate;
-at;ved
 At least one file;(Du skal åbne mindst en fil)
+at;ved
 Attachments;
-Audio;Lyd
 Audio stream(s);Lydstrømme
+Audio;Lyd
+Audio_Channels_Total;
 Audio_Codec_List;Lyd-codecs
 Audio_Format_List;
 Audio_Format_WithHint_List;
@@ -246,6 +248,7 @@ BitRate_Nominal;Nominel bitrate
 Bits-(Pixel*Frame);Bits/(Billedpunkter*Billed)
 BitstreamLevel;
 Bring All to Front;Anbring alle forrest
+bsid;
 BufferSize;Buffer-størrelse
 Cancel;Annuller
 CaptionServiceName;
@@ -261,8 +264,8 @@ ChannelMode;
 ChannelPositions;Kanalpositioner
 ChannelPositions_Original;
 Chapter(s);Kapitler
-Chapters;Kapitler
 Chapters stream(s);Kapitelstrømme
+Chapters;Kapitler
 Chapters_Codec_List;Kapitel-codecs
 Chapters_No;Ingen kapitler
 Chapters_Pos_Begin;
@@ -270,9 +273,9 @@ Chapters_Pos_End;
 ChaptersCount;Antal kapitelstrømme
 CharacterSet;
 CheckNewVersion;Tjek for ny version
-Choose custom;Vælg tilpas
 Choose custom sheet;Vælg tilpasset ark
 Choose custom text;Vælg den ønskede tilpassede tekst
+Choose custom;Vælg tilpas
 Choose export format;Vælg det ønskede eksportformat
 Choose file(s);Vælg en fil at åbne
 Choose filename;Vælg det ønskede filnavn
@@ -282,14 +285,15 @@ Chroma;Chroma
 ChromaSubsampling;Chroma subsampling
 Classifier;
 ClearList;
-Close;Luk
 Close all before open;Luk alle før åbning
+Close;Luk
 CloseAll;
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
 CloseFile;
 CloseWindow;Lukk vinduet
+cmixlev;
 Codec;Codec
 Codec_Description;Codec-beskrivelse
 Codec_Info;Codec-detaljer
@@ -319,8 +323,12 @@ ColorTheme;
 ColorTheme_Dark;
 ColorTheme_Light;
 ColorTheme_System;
+colour_description_present;
+colour_description_present_Source;
 colour_primaries;
+colour_primaries_Source;
 colour_range;
+colour_range_Source;
 Comment;Kommentar
 CommissionedBy;Bestilt af
 Compare;
@@ -359,6 +367,7 @@ Cover_Description;Cover-beskrivelse
 Cover_Mime;Cover MIME
 Cover_Type;Cover-type
 CoverData;
+CreatedOn;
 Cropped;Beskæringsdeminsioner
 Custom;Tilpas
 CustomDownmixTargets;
@@ -367,8 +376,8 @@ DarkMode;
 Date;Dato
 Debug;Fejlsøg
 Decimal point;Decimaltegn
-Default;
 Default translation;
+Default;
 Default_Setting;
 DefaultTargetDeviceConfig;
 DefaultView;
@@ -380,6 +389,10 @@ Delete;Slet
 Description;Beskrivelse
 Details;
 dialnorm;
+dialnorm_Average;
+dialnorm_Count;
+dialnorm_Maximum;
+dialnorm_Minimum;
 DialogueCorrected;
 DialogueEnhancement;
 DialogueNormalization;
@@ -428,6 +441,8 @@ ElementCount;
 EMail;E-mail
 Enable FFmpeg plugin;
 Encoded_Application;Skrivende program
+Encoded_Application_Name;
+Encoded_Application_Version;
 Encoded_Date;Kodet den
 Encoded_Hardware;
 Encoded_Library;Skrivende bibliotek
@@ -462,8 +477,8 @@ Feature_FilesCompare;
 Feature_More;
 Feature_SelectView;
 Field;
-File;Fil
 File size;Filstørrelse
+File;Fil
 File_Append;Tilføj til eksisterende fil (Advarsel: vær opmærksom på at have sammeparametre)
 File_Created_Date;Oprettelsesdato
 File_Created_Date_Local;Oprettelsesdato (lokalt)
@@ -481,10 +496,10 @@ FirstDisplay_Type;
 FirstFrameOfAction;
 FlatPanelTv;
 FlowID;
-Folder;Mappe
 Folder (R);Mappe (R)
 Folder (R)_Hint;Vælg en mappe at undersøge (med alle mapper rekursivt)
 Folder (Recursively);Mappe (Rekursivt)
+Folder;Mappe
 Folder_Hint;Vælg en mappe at undersøge
 FolderName;Mappenavn
 Forced;
@@ -769,8 +784,8 @@ HTML;HTML
 ID;ID
 IdentClockStart;
 IFrameInterval;
-Image;Billede
 Image stream(s);Billedstrømme
+Image;Billede
 Image_Codec_List;Billed-codecs
 ImageCount;Antal billedstrømme
 ImmersiveStereo;
@@ -1001,12 +1016,12 @@ Language_yue;
 Language_za;
 Language_zh;Kinesisk
 Language_zh-cmn;
-Language_zh-cn;Kinesisk (Kina)
 Language_zh-CN;
+Language_zh-cn;Kinesisk (Kina)
 Language_zh-Hans;
 Language_zh-Hant;
-Language_zh-tw;Kinesisk (Taiwan)
 Language_zh-TW;
+Language_zh-tw;Kinesisk (Taiwan)
 Language_zh-yue;
 Language_zu;Zulu
 LanguageChanges;
@@ -1016,6 +1031,7 @@ LCCN;LCCN
 LegacyStreamDisplay;
 LfeAttenuationKnown;
 LfeMixGain;
+lfeon;
 Library;Muxing-bibliotek
 Lifetime_Subscribe_Button;
 Lightness;Lysstyrke
@@ -1068,6 +1084,7 @@ MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;Matrix-coefficienter
+matrix_coefficients_Source;
 Matrix_Format;
 MaxCLL;
 MaxFALL;
@@ -1079,8 +1096,8 @@ MD5_Unencoded;
 MediaInfo_About;Leverer meget detaljeret information\r\nom en multimediefil:\r\nMatroska, Ogg (inklusive OGM)\r\nMPEG1 (inklusive VCD)\r\nMPEG2 (inklusive DVD og SVCD)\r\nMPEG4 (inklusive Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (inklusive WMV, WMA)\r\Microsoft RIFF (inklusive AVI, WAV)\r\nRene lydformater (AC3, DTS, AAC, AU, AIFF...)
 MediaInfo_About_About;
 MediaInfo_WebSite;
-Menu;Menu
 Menu stream(s);Menustrømme
+Menu;Menu
 Menu_Codec_List;Menu-codecs
 Menu_Hint;Flere muligheder
 Menu_No;Ingen menu
@@ -1151,13 +1168,15 @@ Other;Andet
 OtherIdentifier;
 OtherIdentifierType;
 OtherViews;
-Output;Output
 Output format;Output-format
+Output;Output
 OverallBitRate;Samlet bitrate
 OverallBitRate_Maximum;Maksimum samlet bitrate
 OverallBitRate_Minimum;Minimum samlet bitrate
 OverallBitRate_Mode;Samlet bitratemodus
 OverallBitRate_Nominal;Nominel samlet bitrate
+OverallBitRate_Precision_Max;
+OverallBitRate_Precision_Min;
 PackageName;
 PackFormat;
 Part;Del
@@ -1227,6 +1246,7 @@ Renew;
 ReplayGain_Gain;Reply gain
 ReplayGain_Peak;Reply gain peak
 Report;
+ReportBy;
 Resolution;Opløsning
 RestoreLifetimeSubscription;
 Retry;
@@ -1270,17 +1290,17 @@ Set;Sæt
 Set_Count;Antal sæt
 Setup;Opsætning
 Sharpness;Skarphed
-Sheet;Ark
 Sheet (Complete);Ark (komplet)
-Shell extension;Shell-udvidelse ( højreklik viser MediaInfo i stifinder)
+Sheet;Ark
 Shell extension, folder;Også for mapper
 Shell extension, separate instance;
+Shell extension;Shell-udvidelse ( højreklik viser MediaInfo i stifinder)
 Shell InfoTip;Shell-infotip (bevæg musen over filen i stifinder og info vises)
 ShimName;
 ShimVersion;
-Show;
 Show menu;Vis menu
 Show toolbar;Vis værktøjslinje
+Show;
 ShowAll;Vis alle
 ShowMore;
 SignalGroup;
@@ -1297,6 +1317,7 @@ Source_StreamSize;
 Source_StreamSize_Encoded;
 SpokenSubtitles;
 Standard;Standard
+Stored_Height;
 StoreMethod_InterleavedFields;
 StoreMethod_SeparatedFields;
 StoreMethod_SeparatedFields_1;
@@ -1340,6 +1361,7 @@ Supported formats;Understøttede formater
 Supported?;Understøttet?
 SupportUs;
 SupportUs2;
+surmixlev;
 SurroundAttenuationKnown;
 SwitchGroup;
 Synopsis;Synopsis
@@ -1351,11 +1373,11 @@ Technician;Tekniker
 TermsOfUse;Anvendelsesbetingelser
 TertiaryAudioLanguage;
 TestContinuousFileNames;
-Text;Tekst
 Text - Custom;Tekst - tilpas
 Text (HTML);Tekst (HTML)
 Text stream(s);Tekststrømme
 Text streams;Tekststrømme
+Text;Tekst
 Text_Codec_List;Tekst-codecs
 Text_Format_List;
 Text_Format_WithHint_List;
@@ -1395,11 +1417,12 @@ TrackFormat;
 TrackIndex;
 TrackUID;
 transfer_characteristics;Overførselskarakteristika
+transfer_characteristics_Source;
 Translate_Reports;
 Translator;Oversætter
 Transport;
-Tree;Træstruktur
 Tree & Text;Træstruktur & tekst
+Tree;Træstruktur
 Trim_Center;
 Trim_Height;
 Trim_Surround;
@@ -1444,8 +1467,8 @@ UniversalAdID_Value;
 Unknown;Ukendt
 Url;Url
 Value;
-Video;Video
 Video stream(s);Videostrømme
+Video;Video
 Video_Codec_List;Codecs Video
 Video_Delay;Videoforsinkelse
 Video_Format_List;
@@ -1486,5 +1509,5 @@ Yes;Ja
 Your system;Dit system
 Your translation;
 Zoom;Zoom
-ZZ_Automatic_Percent;57
-ZZ_AutomaticLanguage_Percent;67
+ZZ_Automatic_Percent;56
+ZZ_AutomaticLanguage_Percent;66
