@@ -180,7 +180,7 @@ ADM: Show TrackUIDs;ADM: Show TrackUIDs
 AdmProfile;ADM profile
 Advanced;Advanced
 Advanced mode;Advanced mode
-Advanced mode -->;
+Advanced mode -->;Advanced mode -->
 Album;Album
 Album_ReplayGain_Gain;Album replay gain
 Album_ReplayGain_Peak;Album replay gain peak
@@ -202,17 +202,17 @@ AssistantDirector;AssistantDirector
 AssociatedVideo_FrameRate;Associated video frame rate
 at;at
 At least one file;(You must at least open one file)
-Attachments;
+Attachments;Attachments
 Audio;Audio
 Audio stream(s);Audio streams
 Audio_Codec_List;Audio codecs
-Audio_Format_List;
-Audio_Format_WithHint_List;
-Audio_Language_List;
+Audio_Format_List;Audio formats
+Audio_Format_WithHint_List;Audio formats (with hints)
+Audio_Language_List;Audio languages
 Audio_No;No audio
 Audio1;First audio stream
 Audio2;Second audio stream
-Audio3;
+Audio3;Third audio stream
 AudioComments;Audio Comments
 AudioCount;Count of audio streams
 AudioDescription;Audio description
@@ -251,22 +251,22 @@ Cancel;Cancel
 CaptionServiceName;Caption service name
 CatalogNumber;Catalog number 
 Channel(s);Channel(s)
-Channel(s)_Original;
+Channel(s)_Original;Original channel(s)
 ChannelCoded;Channel coded
 ChannelConfiguration;Channel configuration
 ChannelFormat;Channel format
 ChannelLayout;Channel layout
-ChannelLayout_Original;
+ChannelLayout_Original;Original channel layout
 ChannelMode;Channel mode
 ChannelPositions;Channel positions
-ChannelPositions_Original;
+ChannelPositions_Original;Original channel positions
 Chapter(s);Chapter(s)
 Chapters;Chapters
 Chapters stream(s);Chapters stream(s)
 Chapters_Codec_List;Chapters Codecs
 Chapters_No;No chapters
-Chapters_Pos_Begin;
-Chapters_Pos_End;
+Chapters_Pos_Begin;Begin
+Chapters_Pos_End;End
 ChaptersCount;Count of chapter streams
 CharacterSet;Character set
 CheckNewVersion;Check for new version
@@ -368,7 +368,7 @@ Date;Date
 Debug;Debug
 Decimal point;Decimal point
 Default;Default
-Default translation;
+Default translation;Default translation
 Default_Setting;System default
 DefaultTargetDeviceConfig;Default target device config
 DefaultView;Default view:
@@ -412,7 +412,7 @@ DrcSets_Effects;DRC effect type(s)
 Duration;Duration
 Duration_End;End time
 Duration_End_Command;End time (commands)
-Duration_Source;
+Duration_Source;Duration source
 Duration_Start;Start time
 Duration_Start_Command;Start time (commands)
 Duration_Start2End;Duration of the visible content
@@ -431,9 +431,9 @@ Encoded_Application;Writing application
 Encoded_Date;Encoded date
 Encoded_Hardware;Writing hardware
 Encoded_Library;Writing library
-Encoded_Library_Name;
+Encoded_Library_Name;Writing library name
 Encoded_Library_Settings;Encoding settings
-Encoded_Library_Version;
+Encoded_Library_Version;Writing library version
 Encoded_Original;Original support
 EncodedBy;Encoded by
 EPG_Positions;EPG positions (internal)
@@ -474,8 +474,8 @@ FileExtension;File extension
 FileName;File name
 FileNameExtension;File name extension
 FileSize;File size
-Fill with a Dummy movie;
-Fill with a realistic movie;
+Fill with a Dummy movie;Fill with a dummy movie
+Fill with a realistic movie;Fill with a realistic movie
 FirstDisplay_Delay_Frames;Count of frames before first event
 FirstDisplay_Type;Type of the first event
 FirstFrameOfAction;First frame of action
@@ -489,7 +489,7 @@ Folder_Hint;Select a folder to examine
 FolderName;Folder name
 Forced;Forced
 Format;Format
-Format_AdditionalFeatures;
+Format_AdditionalFeatures;Additional features
 Format_Commercial;Commercial name
 Format_Commercial_IfAny;Commercial name
 Format_Compression;Compression
@@ -532,16 +532,16 @@ FpaManufacturer;FPA Manufacturer
 FpaPass;FPA Pass
 FpaVersion;FPA Version
 FrameCount;Frame count
-FrameCount_Source;
+FrameCount_Source;Source frame count
 FrameRate;Frame rate
-FrameRate_Den;
+FrameRate_Den;Frame rate denominator
 FrameRate_Maximum;Maximum frame rate
 FrameRate_Minimum;Minimum frame rate
 FrameRate_Mode;Frame rate mode
 FrameRate_Mode_CFR;Constant
 FrameRate_Mode_VFR;Variable
 FrameRate_Nominal;Nominal frame rate
-FrameRate_Num;
+FrameRate_Num;Frame rate numerator
 FrameRate_Original;Original frame rate
 FrameRate_Real;Real frame rate
 FullParsing;Full parsing
@@ -794,7 +794,7 @@ InternetMediaType;Internet media type
 IRCA;IRCA
 ISBN;ISBN
 ISRC;ISRC
-IsStreamable;
+IsStreamable;Is streamable
 Keywords;Keywords
 Known codecs;Known codecs
 Known formats;Known formats
@@ -1010,7 +1010,7 @@ Language_zh-TW;Chinese (Taiwan)
 Language_zh-yue;Cantonese
 Language_zu;Zulu
 LanguageChanges;Changes take effect after application restart
-Languages;
+Languages;Languages
 LawRating;Law rating
 LCCN;LCCN
 LegacyStreamDisplay;Display backward compatibility information for HD/HE audio and 3D/HDR video streams
@@ -1205,7 +1205,7 @@ ProductionDesigner;Production designer
 ProductionNumber;Production Number
 ProductionStudio;Production studio
 ProductPlacement;Product Placement
-Program name;
+Program name;Program name
 Programme;Programme
 ProgrammeHasText;Programme Has Text
 ProgrammeTextLanguage;Programme Text Language
@@ -1231,13 +1231,13 @@ Resolution;Resolution
 RestoreLifetimeSubscription;Restore lifetime subscription
 Retry;Retry
 s; s
-Sampled_Height;
-Sampled_Width;
+Sampled_Height;Sampled height
+Sampled_Width;Sampled width
 SamplePeakLevel;Sample peak level
 SamplePeakLevel_Album;Sample peak level (album)
 SamplesPerFrame;Samples per frame
 SamplingCount;Samples count
-SamplingCount_Source;
+SamplingCount_Source;Source sample count
 SamplingRate;Sampling rate
 Save;Save
 ScanOrder;Scan order
@@ -1254,7 +1254,7 @@ ScreenToFront;Screen to front
 Season;Season
 SecondaryAudioLanguage;Secondary Audio Language
 see below;see below
-Select your directory;
+Select your directory;Select your directory
 SelectAll;Select All
 Send HeaderFile;Please send me the Header file here : http://sourceforge.net/projects/mediainfo/ (Bug section)
 Separator_Columns;columns separator
@@ -1310,7 +1310,7 @@ streamIdentifier;Stream identifier
 StreamKind;Kind of stream
 StreamKindID;Stream identifier
 StreamKindPos;Stream identifier
-StreamOrder;
+StreamOrder;Stream order
 Streams;Streams
 StreamSize;Stream size
 StreamSize_Demuxed;Stream size when demuxed
@@ -1357,9 +1357,9 @@ Text (HTML);Text (HTML)
 Text stream(s);Text streams
 Text streams;Text streams
 Text_Codec_List;Text codecs
-Text_Format_List;
-Text_Format_WithHint_List;
-Text_Language_List;
+Text_Format_List;Text formats
+Text_Format_WithHint_List;Text formats (with hints)
+Text_Language_List;Text languages
 Text_No;No text
 Text1;First text stream
 Text2;Second text stream
@@ -1448,14 +1448,14 @@ Video;Video
 Video stream(s);Video stream(s)
 Video_Codec_List;Codecs Video
 Video_Delay;Delay relative to video
-Video_Format_List;
-Video_Format_WithHint_List;
-Video_Language_List;
+Video_Format_List;Video formats
+Video_Format_WithHint_List;Video formats (with hints)
+Video_Language_List;Video languages
 Video_No;No video
 Video0_Delay;Video0 delay
 Video1;First video stream
-Video2;
-Video3;
+Video2;Second video stream
+Video3;Third video stream
 VideoComments;Video Comments
 VideoCount;Count of video streams
 View;View
@@ -1484,7 +1484,7 @@ Written_Location;Written location
 WrittenBy;Written by
 Yes;Yes
 Your system;Your system
-Your translation;
+Your translation;Your translation
 Zoom;Zoom
 ZZ_Automatic_Percent;97
 ZZ_AutomaticLanguage_Percent;97
