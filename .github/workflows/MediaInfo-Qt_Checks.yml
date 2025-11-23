@@ -22,11 +22,18 @@ env:
 jobs:
 
   Windows:
-    runs-on: windows-latest
     strategy:
       matrix:
-        architecture: [ x64, ARM64 ]
+        include:
+          - architecture: x64
+            qt_arch: win64_msvc2022_64
+            runner: windows-latest
+          - architecture: ARM64
+            qt_arch: win64_msvc2022_arm64
+            runner: windows-11-arm
       fail-fast: false
+    name: Windows (${{ matrix.architecture }})
+    runs-on: ${{ matrix.runner }}
     steps:
       - name: Checkout zlib
         uses: actions/checkout@v5
@@ -47,42 +54,25 @@ jobs:
         uses: actions/checkout@v5
         with:
           path: MediaInfo
-      - name: Set-up Qt x64
-        if: matrix.architecture == 'x64'
+      - name: Set-up Qt
         uses: jurplel/install-qt-action@v4
         with:
+          arch: ${{ matrix.qt_arch }}
           version: ${{ env.QT_VER }}
-          tools: 'tools_qtcreator,qt.tools.qtcreator'
-      - name: Set-up Qt ARM64
-        if: matrix.architecture == 'ARM64'
-        uses: jurplel/install-qt-action@v4
-        with:
-          arch: 'win64_msvc2022_arm64_cross_compiled'
-          version: ${{ env.QT_VER }}
-          tools: 'tools_qtcreator,qt.tools.qtcreator'
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
         with:
-          msbuild-architecture: x64
+          msbuild-architecture: ${{ runner.arch == 'ARM64' && 'arm64' || 'x64' }}
       - name: Build dependencies
         run: |
           msbuild -t:MediaInfoLib -p:Configuration=Release -p:Platform=${{ matrix.architecture }} -clp:ForceConsoleColor ${{ github.workspace }}\MediaInfoLib\Project\MSVC2022\MediaInfoLib.sln
           xcopy /y ${{ github.workspace }}\MediaInfoLib\Project\MSVC2022\${{ matrix.architecture }}\Release\ZenLib.lib ${{ github.workspace }}\ZenLib\Project\MSVC2022\${{ matrix.architecture }}\Release\
-      - name: Build x64
-        if: matrix.architecture == 'x64'
+      - name: Build
         shell: cmd
         run: |
-          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
-          qmake.exe ${{ github.workspace }}\MediaInfo\Project\QMake\GUI\MediaInfoQt.pro -spec win32-msvc "CONFIG+=qtquickcompiler" && ${{ env.IQTA_TOOLS }}\QtCreator\bin\jom\jom.exe qmake_all
-          ${{ env.IQTA_TOOLS }}\QtCreator\bin\jom\jom.exe
-      - name: Build ARM64
-        if: matrix.architecture == 'ARM64'
-        shell: cmd
-        run: |
-          set PATH=%PATH%;${{ env.QT_ROOT_DIR }}\..\msvc2022_64\bin\;
-          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64_arm64
-          call qmake.bat ${{ github.workspace }}\MediaInfo\Project\QMake\GUI\MediaInfoQt.pro -spec win32-arm64-msvc "CONFIG+=qtquickcompiler" && ${{ env.IQTA_TOOLS }}\QtCreator\bin\jom\jom.exe qmake_all
-          ${{ env.IQTA_TOOLS }}\QtCreator\bin\jom\jom.exe
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ runner.arch == 'ARM64' && 'arm64' || 'x64' }}
+          qmake.exe ${{ github.workspace }}\MediaInfo\Project\QMake\GUI\MediaInfoQt.pro -spec ${{ runner.arch == 'ARM64' && 'win32-arm64-msvc' || 'win32-msvc' }} "CONFIG+=qtquickcompiler" && nmake.exe qmake_all
+          nmake.exe
 
   Ubuntu:
     strategy:
