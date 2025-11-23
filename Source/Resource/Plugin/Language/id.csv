@@ -14,8 +14,8 @@
  bit1; bit
  bit2; bit
  bit3; bit
- bps; b/d
  Bps; B/d
+ bps; b/d
  Byte1; Bita
  Byte2; Bita
  Byte3; Bita
@@ -49,8 +49,8 @@
  frame3; bingkai
  GB; GB
  Gb; Gb
- Gbps; Gb/d
  GBps; GB/d
+ Gbps; Gb/d
  GHz; GHz
  GiB; GiB
  GibiByte1; GibiBita
@@ -91,8 +91,8 @@
  KiloByte3; KiloBita
  MB; MB
  Mb; Mb
- Mbps; Mb/d
  MBps; MebiBita
+ Mbps; Mb/d
  MebiBit1; MebiBit
  MebiBit2; MebiBit
  MebiBit3; MebiBit
@@ -163,6 +163,7 @@ About;Tentang
 About_Hint;Cara hubungi saya dan temukan versi terakhir
 AC3_Metadata;
 Accompaniment;Iringan
+acmod;
 Active_DisplayAspectRatio;Rasio aspek tampilan aktif
 Active_Height;Tinggi aktif
 Active_Width;Lebar aktif
@@ -178,9 +179,9 @@ AdID;Identifikasi Ad-ID
 ADM: Show ChannelFormats;ADM: Tampil ChannelFormats
 ADM: Show TrackUIDs;ADM: Tampil TrackUIDs
 AdmProfile;Profil ADM
-Advanced;Tingkat lanjut
-Advanced mode;Mode tingkat lanjut
 Advanced mode -->;Mode tingkat lanjut -->
+Advanced mode;Mode tingkat lanjut
+Advanced;Tingkat lanjut
 Album;Album
 Album_ReplayGain_Gain;Peningkatan putar ulang album
 Album_ReplayGain_Peak;Puncak peningkatan putar ulang album
@@ -200,11 +201,12 @@ ArtDirector;Pengarah Seni
 AspectRatio;Rasio aspek
 AssistantDirector;Asisten Sutradara
 AssociatedVideo_FrameRate;Laju bingkai video terasosiasi
-at;pada
 At least one file;(Anda harus membuka setidaknya satu berkas)
+at;pada
 Attachments;Lampiran
-Audio;Audio
 Audio stream(s);Aliran audio
+Audio;Audio
+Audio_Channels_Total;
 Audio_Codec_List;Kodek audio
 Audio_Format_List;Format audio
 Audio_Format_WithHint_List;Format audio (berpetunjuk)
@@ -246,6 +248,7 @@ BitRate_Nominal;Laju bit nominal
 Bits-(Pixel*Frame);Bit/(Piksel*Bingkai)
 BitstreamLevel;
 Bring All to Front;Pindahkan Semua ke Depan
+bsid;
 BufferSize;Ukuran penyangga
 Cancel;Batal
 CaptionServiceName;Nama layanan takarir
@@ -261,8 +264,8 @@ ChannelMode;Mode kanal
 ChannelPositions;Posisi kanal
 ChannelPositions_Original;Properti kanal asli
 Chapter(s);Bab
-Chapters;Bab
 Chapters stream(s);Aliran bab
+Chapters;Bab
 Chapters_Codec_List;Kodek bab
 Chapters_No;Tak ada bab
 Chapters_Pos_Begin;Posisi mulai bab
@@ -270,9 +273,9 @@ Chapters_Pos_End;Posisi berakhir bab
 ChaptersCount;Banyaknya aliran bab
 CharacterSet;Set karakter
 CheckNewVersion;Periksa versi baru
-Choose custom;Tentukan ubah suaian
 Choose custom sheet;Tentukan lembar ubah suaian yang diinginkan
 Choose custom text;Tentukan teks ubah suaian yang diinginkan
+Choose custom;Tentukan ubah suaian
 Choose export format;Tentukan format ekspor yang diinginkan
 Choose file(s);Tentukan berkas untuk dibuka
 Choose filename;Tentukan nama berkas yang diinginkan
@@ -282,14 +285,15 @@ Chroma;Kroma
 ChromaSubsampling;Subsampel kroma
 Classifier;Klasifikasi konten
 ClearList;Kosongkan daftar
-Close;Tutup
 Close all before open;Tutup semua sebelum membuka
+Close;Tutup
 CloseAll;
 ClosedCaptionsLanguage;Bahasa Teks Penjelas Tertutup
 ClosedCaptionsPresent;Presentasi Teks Penjelas Tertutup
 ClosedCaptionsType;Jenis Teks Penjelas Tertutup
 CloseFile;
 CloseWindow;Tutup Jendela
+cmixlev;
 Codec;Kodek
 Codec_Description;Deskripsi kodek
 Codec_Info;Rincian untuk kodek
@@ -319,8 +323,12 @@ ColorTheme;Tema
 ColorTheme_Dark;Gelap
 ColorTheme_Light;Terang
 ColorTheme_System;Gunakan setelan sistem
+colour_description_present;
+colour_description_present_Source;
 colour_primaries;Primer warna
+colour_primaries_Source;
 colour_range;Rentang warna
+colour_range_Source;
 Comment;Komentar
 CommissionedBy;Dipesan oleh
 Compare;
@@ -359,6 +367,7 @@ Cover_Description;Deskripsi sampul
 Cover_Mime;MIME sampul
 Cover_Type;Jenis sampul
 CoverData;Sertakan gambar-gambar sampul dalam HTML, XML, dan JSON
+CreatedOn;
 Cropped;Dimensi pangkas
 Custom;Ubah suai
 CustomDownmixTargets;Sasaran downmix ubah suaian
@@ -367,8 +376,8 @@ DarkMode;Mode gelap
 Date;Tanggal
 Debug;Awakutu
 Decimal point;Penanda desimal
-Default;Bawaan
 Default translation;Terjemahan bawaan
+Default;Bawaan
 Default_Setting;Bawaan sistem
 DefaultTargetDeviceConfig;Konfigurasi perangkat sasaran bawaan
 DefaultView;
@@ -380,6 +389,10 @@ Delete;Hapus
 Description;Deskripsi
 Details;Rincian
 dialnorm;Normalisasi Dialog
+dialnorm_Average;
+dialnorm_Count;
+dialnorm_Maximum;
+dialnorm_Minimum;
 DialogueCorrected;Dialog dikoreksi
 DialogueEnhancement;Peningkatan dialog
 DialogueNormalization;Normalisasi dialog
@@ -428,6 +441,8 @@ ElementCount;Banyaknya elemen
 EMail;Surel
 Enable FFmpeg plugin;Aktifkan pengaya FFmpeg
 Encoded_Application;Aplikasi penulisan
+Encoded_Application_Name;
+Encoded_Application_Version;
 Encoded_Date;Tanggal dikodekan
 Encoded_Hardware;
 Encoded_Library;Pustaka penulisan
@@ -462,8 +477,8 @@ Feature_FilesCompare;
 Feature_More;
 Feature_SelectView;
 Field;
-File;Berkas
 File size;Ukuran berkas
+File;Berkas
 File_Append;Gabungkan ke berkas yang ada (Peringatan: pastikan memiliki parameter yang sama)
 File_Created_Date;Tanggal berkas dibuat
 File_Created_Date_Local;Tanggal berkas dibuat (lokal)
@@ -481,10 +496,10 @@ FirstDisplay_Type;Jenis peristiwa pertama
 FirstFrameOfAction;Bingkai pertama tindakan
 FlatPanelTv;TV panel datar
 FlowID;ID Flow
-Folder;Direktori
 Folder (R);Direktori (R)
 Folder (R)_Hint;Pilih direktori untuk diperiksa (dan semua direktorinya, rekursif)
 Folder (Recursively);Direktori (rekursif)
+Folder;Direktori
 Folder_Hint;Pilih direktori untuk diperiksa
 FolderName;Nama direktori
 Forced;Dipaksa
@@ -769,8 +784,8 @@ HTML;HTML
 ID;ID
 IdentClockStart;Mulai Jam Ident
 IFrameInterval;Interval I-Frame
-Image;Citra
 Image stream(s);Aliran citra
+Image;Citra
 Image_Codec_List;Kodek citra
 ImageCount;Banyaknya aliran citra
 ImmersiveStereo;Stereo imersif
@@ -1001,12 +1016,12 @@ Language_yue;Bhs. Kanton
 Language_za;Bhs. Zhuang
 Language_zh;Bhs. Tionghoa
 Language_zh-cmn;Bhs. Mandarin
-Language_zh-cn;Bhs. Tionghoa (Tiongkok)
 Language_zh-CN;Bhs. Tionghoa (Tiongkok)
+Language_zh-cn;Bhs. Tionghoa (Tiongkok)
 Language_zh-Hans;Bhs. Tionghoa (Sederhana)
 Language_zh-Hant;Bhs. Tionghoa (Tradisional)
-Language_zh-tw;Bhs. Tionghoa (Taiwan)
 Language_zh-TW;Bhs. Tionghoa (Taiwan)
+Language_zh-tw;Bhs. Tionghoa (Taiwan)
 Language_zh-yue;Bhs. Kanton
 Language_zu;Bhs. Zulu
 LanguageChanges;
@@ -1016,6 +1031,7 @@ LCCN;LCCN
 LegacyStreamDisplay;Tampilkan informasi kompatibilitas mundur untuk aliran audio HD/HE dan video 3D/HDR
 LfeAttenuationKnown;Atenuasi LFE yang diketahui
 LfeMixGain;Peningkatan Padu LFE
+lfeon;
 Library;Pustaka multipleks
 Lifetime_Subscribe_Button;Langganan seumur hidup seharga %HARGA%
 Lightness;Kecerahan
@@ -1068,6 +1084,7 @@ MasteringDisplay_Luminance;Pencahayaan layar pengindukan
 Matrix_Channel(s);Pengkodean matriks, kanal
 Matrix_ChannelPositions;Pengkodean matriks, posisi kanal
 matrix_coefficients;Koefisien matriks
+matrix_coefficients_Source;
 Matrix_Format;Pengkodean matriks, format
 MaxCLL;Tingkat Cahaya Konten (CLL) Maksimum
 MaxFALL;Tingkat Cahaya Rerata Bingkai (FALL) Maksimum
@@ -1079,8 +1096,8 @@ MD5_Unencoded;MD5 dari konten tak terkodekan
 MediaInfo_About;MediaInfo menyediakan akses mudah ke informasi penandaan dan teknis dari berkas video dan audio.\r\nSelain antarmuka pengguna grafis Mac App Store, aplikasi ini merupakan perangkat lunak sumber terbuka, sehingga pengguna akhir tidak dibebankan biaya, dan pengembang bebas meneliti, meningkatkan, serta mendistribusikannya (lisensi BSD).
 MediaInfo_About_About;MediaInfo v%MI_VERSION% menggunakan MediaInfoLib v%MIL_VERSION%
 MediaInfo_WebSite;
-Menu;Menu
 Menu stream(s);Aliran menu
+Menu;Menu
 Menu_Codec_List;Kodek menu
 Menu_Hint;Lebih banyak kemungkinan
 Menu_No;Tak ada menu
@@ -1151,13 +1168,15 @@ Other;Lainnya
 OtherIdentifier;ID Lainnya
 OtherIdentifierType;Jenis ID Lainnya
 OtherViews;
-Output;Keluaran
 Output format;Format keluaran
+Output;Keluaran
 OverallBitRate;Laju bit keseluruhan
 OverallBitRate_Maximum;Laju bit keseluruhan maksimum
 OverallBitRate_Minimum;Laju bit keseluruhan minimum
 OverallBitRate_Mode;Mode laju bit keseluruhan
 OverallBitRate_Nominal;Laju bit keseluruhan nominal
+OverallBitRate_Precision_Max;
+OverallBitRate_Precision_Min;
 PackageName;Nama paket
 PackFormat;Format pak
 Part;Bagian
@@ -1227,6 +1246,7 @@ Renew;Diperbarui
 ReplayGain_Gain;Peningkatan putar ulang
 ReplayGain_Peak;Puncak peningkatan putar ulang
 Report;Laporan
+ReportBy;
 Resolution;Resolusi
 RestoreLifetimeSubscription;Pulihkan langganan seumur hidup
 Retry;
@@ -1270,17 +1290,17 @@ Set;Set
 Set_Count;Banyaknya set
 Setup;Pengaturan
 Sharpness;Ketajaman
-Sheet;Lembar
 Sheet (Complete);Lembar (Lengkap)
-Shell extension;Ekstensi Explorer (di Windows Explorer, klik kanan pada berkas, akan ada opsi MediaInfo)
+Sheet;Lembar
 Shell extension, folder;Untuk direktori juga
 Shell extension, separate instance;Buka setiap item dalam instans terpisah
+Shell extension;Ekstensi Explorer (di Windows Explorer, klik kanan pada berkas, akan ada opsi MediaInfo)
 Shell InfoTip;Kiat Alat Explorer (di Windows Explorer, layangkan tetikus di atas berkas, info akan ditampilkan)
 ShimName;Nama pemampas
 ShimVersion;Versi pemampas
-Show;
 Show menu;Tampilkan menu
 Show toolbar;Tampilkan bilah alat
+Show;
 ShowAll;Tampilkan Semua
 ShowMore;
 SignalGroup;Kelompok isyarat
@@ -1297,6 +1317,7 @@ Source_StreamSize;Ukuran aliran sumber
 Source_StreamSize_Encoded;Ukuran aliran terkodekan sumber
 SpokenSubtitles;Subtitel dituturkan
 Standard;Standar
+Stored_Height;
 StoreMethod_InterleavedFields;Bidang jalinan
 StoreMethod_SeparatedFields;Bidang terpisah
 StoreMethod_SeparatedFields_1;Bidang terpisah (1 bidang per blok)
@@ -1340,6 +1361,7 @@ Supported formats;Format yang didukung
 Supported?;Didukung?
 SupportUs;Dukung kami. Dapatkan tema gelap dan fitur yang lebih banyak segera.
 SupportUs2;
+surmixlev;
 SurroundAttenuationKnown;Atenuasi sekeliling yang diketahui
 SwitchGroup;Tukar kelompok
 Synopsis;Sinopsis
@@ -1351,11 +1373,11 @@ Technician;Teknisi
 TermsOfUse;Syarat penggunaan
 TertiaryAudioLanguage;Bahasa Audio Tersier
 TestContinuousFileNames;
-Text;Teks
 Text - Custom;Teks - Ubah suai
 Text (HTML);Teks (HTML)
 Text stream(s);Aliran teks
 Text streams;Aliran teks
+Text;Teks
 Text_Codec_List;Kodek teks
 Text_Format_List;Format teks
 Text_Format_WithHint_List;Format teks (berpetunjuk)
@@ -1395,11 +1417,12 @@ TrackFormat;Format trek
 TrackIndex;Indeks trek
 TrackUID;UID trek
 transfer_characteristics;Karakteristik transfer
+transfer_characteristics_Source;
 Translate_Reports;Terjemahkan laporan
 Translator;Penerjemah
 Transport;Transpor
-Tree;Pohon
 Tree & Text;Pohon & Teks
+Tree;Pohon
 Trim_Center;Pangkas tengah
 Trim_Height;Pangkas tinggi
 Trim_Surround;Pangkas sekeliing
@@ -1444,8 +1467,8 @@ UniversalAdID_Value;Nilai Ad-ID universal
 Unknown;Tak dikenal
 Url;URL
 Value;
-Video;Video
 Video stream(s);Aliran video
+Video;Video
 Video_Codec_List;Kodek video
 Video_Delay;Penundaan relatif dengan video
 Video_Format_List;Format video
@@ -1486,5 +1509,5 @@ Yes;Ya
 Your system;Sistem Anda
 Your translation;Terjemahan Anda
 Zoom;Zoom
-ZZ_Automatic_Percent;95
-ZZ_AutomaticLanguage_Percent;95
+ZZ_Automatic_Percent;94
+ZZ_AutomaticLanguage_Percent;94

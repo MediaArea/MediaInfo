@@ -14,8 +14,8 @@
  bit1; ბიტი
  bit2; ბიტი
  bit3; ბიტი
- bps; bps
  Bps; Bps
+ bps; bps
  Byte1; ბაიტი
  Byte2; ბაიტი
  Byte3; ბაიტი
@@ -49,8 +49,8 @@
  frame3; კადრები
  GB; გბ
  Gb; გბ
- Gbps; გიგაბიტ/წმ
  GBps; გიგაბაიტ/წმ
+ Gbps; გიგაბიტ/წმ
  GHz; გჰც
  GiB; გბაიტი
  GibiByte1; გიგაბაიტი
@@ -91,8 +91,8 @@
  KiloByte3; კილობაიტი
  MB; მბ
  Mb; მბ
- Mbps; მბიტ/წმ
  MBps; მბაიტ/წმ
+ Mbps; მბიტ/წმ
  MebiBit1; მებიბიტი
  MebiBit2; მებიბიტი
  MebiBit3; მებიბიტი
@@ -163,6 +163,7 @@ About; ამის შესახებ
 About_Hint;როგორ დამიკავშირდეთ მე და ვიპოვოთ უახლესი ვერსია
 AC3_Metadata;
 Accompaniment;უზრუნველყოფა
+acmod;
 Active_DisplayAspectRatio;
 Active_Height;
 Active_Width;
@@ -178,9 +179,9 @@ AdID;
 ADM: Show ChannelFormats;
 ADM: Show TrackUIDs;
 AdmProfile;
-Advanced;დამატებით
-Advanced mode;დამატებითი რეჟიმი
 Advanced mode -->;
+Advanced mode;დამატებითი რეჟიმი
+Advanced;დამატებით
 Album;ალბომი
 Album_ReplayGain_Gain;ალბომში ხმის დამარეგულირებელი
 Album_ReplayGain_Peak;Album replay gain peak
@@ -200,11 +201,12 @@ ArtDirector;ArtDirector
 AspectRatio;ასპექტის რატიო
 AssistantDirector;AssistantDirector
 AssociatedVideo_FrameRate;
-at;at
 At least one file;(შენ უნდა გახსნა სულ ცოტა ერთი ფაილი)
+at;at
 Attachments;
-Audio;აუდიო
 Audio stream(s);აუდიო ნაკადები
+Audio;აუდიო
+Audio_Channels_Total;
 Audio_Codec_List;აუდიო კოდეკები
 Audio_Format_List;
 Audio_Format_WithHint_List;
@@ -246,6 +248,7 @@ BitRate_Nominal;Nominal bit rate
 Bits-(Pixel*Frame);Bits/(Pixel*Frame)
 BitstreamLevel;
 Bring All to Front;
+bsid;
 BufferSize;ბუფერის ზომა
 Cancel;გაჩერება
 CaptionServiceName;
@@ -261,8 +264,8 @@ ChannelMode;
 ChannelPositions;Channel positions
 ChannelPositions_Original;
 Chapter(s);სექცია(ები)
-Chapters;სექციები
 Chapters stream(s);სექციების ნაკადი(ები)
+Chapters;სექციები
 Chapters_Codec_List;სექციების კოდეკები
 Chapters_No;სექცია არ არუს
 Chapters_Pos_Begin;
@@ -270,9 +273,9 @@ Chapters_Pos_End;
 ChaptersCount;ნაკადების სექციების რაოდენობა
 CharacterSet;
 CheckNewVersion;ახალი ვერსიის შემოწმება
-Choose custom;არჩევა
 Choose custom sheet;Choose your desired custom sheet
 Choose custom text;Choose your desired custom text
+Choose custom;არჩევა
 Choose export format;Choose your desired export format
 Choose file(s);გახსნითვის აირჩიეთ ფაილები
 Choose filename;Choose your desired filename
@@ -282,14 +285,15 @@ Chroma;Chroma
 ChromaSubsampling;Chroma subsampling
 Classifier;
 ClearList;
-Close;დახურვა
 Close all before open;დახურე ყველა გახსნამდე
+Close;დახურვა
 CloseAll;
 ClosedCaptionsLanguage;
 ClosedCaptionsPresent;
 ClosedCaptionsType;
 CloseFile;
 CloseWindow;
+cmixlev;
 Codec;კოდეკი
 Codec_Description;კოდეკის აღწერა
 Codec_Info;კოდეკების დეტალები
@@ -319,8 +323,12 @@ ColorTheme;
 ColorTheme_Dark;
 ColorTheme_Light;
 ColorTheme_System;
+colour_description_present;
+colour_description_present_Source;
 colour_primaries;Color primaries
+colour_primaries_Source;
 colour_range;
+colour_range_Source;
 Comment;კომენტარი
 CommissionedBy;Commissioned by
 Compare;
@@ -359,6 +367,7 @@ Cover_Description;Cover description
 Cover_Mime;Cover MIME
 Cover_Type;Cover type
 CoverData;
+CreatedOn;
 Cropped;Crop dimensions
 Custom;სტანდარტული
 CustomDownmixTargets;
@@ -367,8 +376,8 @@ DarkMode;
 Date;თარიგი
 Debug;გამართვა
 Decimal point;Decimal point
-Default;
 Default translation;
+Default;
 Default_Setting;
 DefaultTargetDeviceConfig;
 DefaultView;
@@ -380,6 +389,10 @@ Delete;წაშლა
 Description;აღწერა
 Details;
 dialnorm;
+dialnorm_Average;
+dialnorm_Count;
+dialnorm_Maximum;
+dialnorm_Minimum;
 DialogueCorrected;
 DialogueEnhancement;
 DialogueNormalization;
@@ -428,6 +441,8 @@ ElementCount;
 EMail;ელ-ფოსტა
 Enable FFmpeg plugin;
 Encoded_Application;დამწერი აპლიკაცია
+Encoded_Application_Name;
+Encoded_Application_Version;
 Encoded_Date;ენკოდირების თარიღი
 Encoded_Hardware;
 Encoded_Library;დაწერილია
@@ -462,8 +477,8 @@ Feature_FilesCompare;
 Feature_More;
 Feature_SelectView;
 Field;
-File;ფაილი
 File size;ფაილის ზომა
+File;ფაილი
 File_Append;Append to the existing file (Warning : be careful to have the same parameters)
 File_Created_Date;ფაილის შექმნის თარიღი
 File_Created_Date_Local;ფაილის შექმნის თარიღი (ლოკალური)
@@ -481,10 +496,10 @@ FirstDisplay_Type;
 FirstFrameOfAction;
 FlatPanelTv;
 FlowID;
-Folder;ფოლდერი
 Folder (R);ფოლდერ (R)
 Folder (R)_Hint;Select a folder to examine (with all folders recursively)
 Folder (Recursively);Folder (Recursively)
+Folder;ფოლდერი
 Folder_Hint;განხილვისთვის აირჩიეთ ფოლდერი
 FolderName;ფოლდერის სახელი
 Forced;
@@ -769,8 +784,8 @@ HTML;HTML
 ID;ID
 IdentClockStart;
 IFrameInterval;
-Image;სურათი
 Image stream(s);სურათის ნაკადი
+Image;სურათი
 Image_Codec_List;სურათის კოდეკები
 ImageCount;Count of image streams
 ImmersiveStereo;
@@ -1001,12 +1016,12 @@ Language_yue;
 Language_za;Zhuang
 Language_zh;Chinese
 Language_zh-cmn;
-Language_zh-cn;Chinese (China)
 Language_zh-CN;
+Language_zh-cn;Chinese (China)
 Language_zh-Hans;
 Language_zh-Hant;
-Language_zh-tw;Chinese (Taiwan)
 Language_zh-TW;
+Language_zh-tw;Chinese (Taiwan)
 Language_zh-yue;
 Language_zu;Zulu
 LanguageChanges;
@@ -1016,6 +1031,7 @@ LCCN;LCCN
 LegacyStreamDisplay;
 LfeAttenuationKnown;
 LfeMixGain;
+lfeon;
 Library;Muxing library
 Lifetime_Subscribe_Button;
 Lightness;Lightness
@@ -1068,6 +1084,7 @@ MasteringDisplay_Luminance;
 Matrix_Channel(s);
 Matrix_ChannelPositions;
 matrix_coefficients;Matrix coefficients
+matrix_coefficients_Source;
 Matrix_Format;
 MaxCLL;
 MaxFALL;
@@ -1079,8 +1096,8 @@ MD5_Unencoded;
 MediaInfo_About;Supply very detailled information\r\nabout a multimedia file:\r\nMatroska, OGG (including OGM)\r\nMPEG1 (including VCD)\r\nMPEG2 (including DVD and SVCD)\r\nMPEG4 (including Itunes M4A)\r\nQuicktime\r\nRealMedia\r\nWindowsMedia (including WMV, WMA)\r\nMicrosoft RIFF (including AVI, WAV)\r\nSound-only formats (AC3, DTS, AAC, AU, AIFF...)
 MediaInfo_About_About;
 MediaInfo_WebSite;
-Menu;მენიუ
 Menu stream(s);ნაკადების მენიუ
+Menu;მენიუ
 Menu_Codec_List;კოდეკების მენიუ
 Menu_Hint;უფრო მეტი შესაძლებლობები
 Menu_No;არ არის მენიუ
@@ -1151,13 +1168,15 @@ Other;სხვა
 OtherIdentifier;
 OtherIdentifierType;
 OtherViews;
-Output;გამავალი
 Output format;გამავალის ფორმატი
+Output;გამავალი
 OverallBitRate;საერთო ბიტ რეიტი
 OverallBitRate_Maximum;მაქსიმალური ბიტ რეიტის მთლიანობა 
 OverallBitRate_Minimum;მინიმალური ბიტ რეიტის მთლიანობა
 OverallBitRate_Mode;ბიტ რეიტის რეჟიმი მთლიანობაში
 OverallBitRate_Nominal;Nominal Overall bit rate
+OverallBitRate_Precision_Max;
+OverallBitRate_Precision_Min;
 PackageName;
 PackFormat;
 Part;ნაწილი
@@ -1227,6 +1246,7 @@ Renew;
 ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replay gain peak
 Report;
+ReportBy;
 Resolution;გაფართოება
 RestoreLifetimeSubscription;
 Retry;
@@ -1270,17 +1290,17 @@ Set;Set
 Set_Count;Set count
 Setup;ინსტლაცია
 Sharpness;Sharpness
-Sheet;ცხრილი
 Sheet (Complete);ცხირილი (სრული)
-Shell extension;Explorer extension (in Windows Explorer, right click on a file, there will be a MediaInfo option)
+Sheet;ცხრილი
 Shell extension, folder;For folders too
 Shell extension, separate instance;
+Shell extension;Explorer extension (in Windows Explorer, right click on a file, there will be a MediaInfo option)
 Shell InfoTip;Explorer Tooltip (in Windows Explorer, move the mouse over the file, info will be displayed)
 ShimName;
 ShimVersion;
-Show;
 Show menu;მაჩვენე მენიუ
 Show toolbar;მაჩვენე პანელი
+Show;
 ShowAll;
 ShowMore;
 SignalGroup;
@@ -1297,6 +1317,7 @@ Source_StreamSize;
 Source_StreamSize_Encoded;
 SpokenSubtitles;
 Standard;სტანდარტი
+Stored_Height;
 StoreMethod_InterleavedFields;
 StoreMethod_SeparatedFields;
 StoreMethod_SeparatedFields_1;
@@ -1340,6 +1361,7 @@ Supported formats;Supported formats
 Supported?;მხარდაჭერა?
 SupportUs;
 SupportUs2;
+surmixlev;
 SurroundAttenuationKnown;
 SwitchGroup;
 Synopsis;Synopsis
@@ -1351,11 +1373,11 @@ Technician;ტექნიკური
 TermsOfUse;Terms of use
 TertiaryAudioLanguage;
 TestContinuousFileNames;
-Text;ტექსტი
 Text - Custom;ტექსტი - სტანდარტული
 Text (HTML);ტექსტი (HTML)
 Text stream(s);ტექსტის ნაკადები
 Text streams;ტექსტის ნაკადები
+Text;ტექსტი
 Text_Codec_List;ტექსტის კოდეკები
 Text_Format_List;
 Text_Format_WithHint_List;
@@ -1395,11 +1417,12 @@ TrackFormat;
 TrackIndex;
 TrackUID;
 transfer_characteristics;Transfer characteristics
+transfer_characteristics_Source;
 Translate_Reports;
 Translator;მთარგმნელი
 Transport;
-Tree;სვეტი
 Tree & Text;სვეტი & ტექსტი
+Tree;სვეტი
 Trim_Center;
 Trim_Height;
 Trim_Surround;
@@ -1444,8 +1467,8 @@ UniversalAdID_Value;
 Unknown;უცნობია
 Url;Url
 Value;
-Video;ვიდეო
 Video stream(s);ვიდეო ნაკადი(ები)
+Video;ვიდეო
 Video_Codec_List;ვიდეოს კოდეკები
 Video_Delay;Delay relative to video
 Video_Format_List;
@@ -1486,5 +1509,5 @@ Yes;დიახ
 Your system;თქვენი სისტემა
 Your translation;
 Zoom;
-ZZ_Automatic_Percent;62
-ZZ_AutomaticLanguage_Percent;66
+ZZ_Automatic_Percent;61
+ZZ_AutomaticLanguage_Percent;65
