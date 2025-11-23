@@ -163,7 +163,7 @@ About;Acerca
 About_Hint;Como contactar-me e encontrar a última versão
 AC3_Metadata;Metadados AC-3
 Accompaniment;Acompanhamento
-acmod;
+acmod;Modo AC-3 (acmod)
 Active_DisplayAspectRatio;Relação de aspeto ativa
 Active_Height;Altura ativa
 Active_Width;Largura ativa
@@ -206,7 +206,7 @@ at;em
 Attachments;Anexos
 Audio stream(s);Fluxos de áudio
 Audio;Áudio
-Audio_Channels_Total;
+Audio_Channels_Total;Total de canais de áudio
 Audio_Codec_List;Codecs de áudio
 Audio_Format_List;Formatos de áudio
 Audio_Format_WithHint_List;Formatos de áudio (com indicação)
@@ -248,7 +248,7 @@ BitRate_Nominal;Taxa de bits nominal
 Bits-(Pixel*Frame);Bits/(Píxel*Fotograma)
 BitstreamLevel;Nível do bitstream
 Bring All to Front;Trazer tudo para a frente
-bsid;
+bsid;ID do bitstream (bsid)
 BufferSize;Tamanho do buffer
 Cancel;Cancelar
 CaptionServiceName;Nome do serviço de legendas
@@ -293,7 +293,7 @@ ClosedCaptionsPresent;Legendas ocultas presentes
 ClosedCaptionsType;Tipo de legendas ocultas
 CloseFile;Fechar ficheiro
 CloseWindow;Fechar janela
-cmixlev;
+cmixlev;Nível de mistura central (cmixlev)
 Codec;Codec
 Codec_Description;Descrição do codec
 Codec_Info;Detalhes do codec
@@ -323,12 +323,12 @@ ColorTheme;Tema
 ColorTheme_Dark;Escuro
 ColorTheme_Light;Claro
 ColorTheme_System;Usar definição do sistema
-colour_description_present;
-colour_description_present_Source;
+colour_description_present;Descrição de cor presente
+colour_description_present_Source;Descrição de cor presente (fonte)
 colour_primaries;Primárias de cor
-colour_primaries_Source;
+colour_primaries_Source;Primárias de cor (fonte)
 colour_range;Gama de cor
-colour_range_Source;
+colour_range_Source;Gama de cor (fonte)
 Comment;Comentário
 CommissionedBy;Encomendado por
 Compare;Comparar
@@ -367,7 +367,7 @@ Cover_Description;Descrição da capa
 Cover_Mime;MIME da capa
 Cover_Type;Tipo de capa
 CoverData;Incluir imagens de capa em HTML, XML e JSON
-CreatedOn;
+CreatedOn;Criado em
 Cropped;Dimensões de recorte
 Custom;Personalizado
 CustomDownmixTargets;Alvos de downmix personalizados
@@ -389,10 +389,10 @@ Delete;Eliminar
 Description;Descrição
 Details;Detalhes
 dialnorm;Normalização de diálogo
-dialnorm_Average;
-dialnorm_Count;
-dialnorm_Maximum;
-dialnorm_Minimum;
+dialnorm_Average;Normalização de diálogo — média
+dialnorm_Count;Número de entradas de normalização de diálogo
+dialnorm_Maximum;Normalização de diálogo — máximo
+dialnorm_Minimum;Normalização de diálogo — mínimo
 DialogueCorrected;Diálogo corrigido
 DialogueEnhancement;Melhoria de diálogo
 DialogueNormalization;Normalização de diálogo
@@ -441,8 +441,8 @@ ElementCount;Número de elementos
 EMail;E-mail
 Enable FFmpeg plugin;Ativar plugin FFmpeg
 Encoded_Application;Aplicação de codificação
-Encoded_Application_Name;
-Encoded_Application_Version;
+Encoded_Application_Name;Nome da aplicação de codificação
+Encoded_Application_Version;Versão da aplicação de codificação
 Encoded_Date;Data de codificação
 Encoded_Hardware;Hardware de codificação
 Encoded_Library;Biblioteca de codificação
@@ -1031,7 +1031,7 @@ LCCN;LCCN
 LegacyStreamDisplay;Mostrar informação de retrocompatibilidade para fluxos de áudio HD/HE e vídeo 3D/HDR
 LfeAttenuationKnown;Atenuação LFE conhecida
 LfeMixGain;Ganho de mistura LFE
-lfeon;
+lfeon;LFE ativado
 Library;Biblioteca de multiplexagem
 Lifetime_Subscribe_Button;Subscrição vitalícia por %PRICE%
 Lightness;Luminosidade
@@ -1084,7 +1084,7 @@ MasteringDisplay_Luminance;Luminância do ecrã de masterização
 Matrix_Channel(s);Codificação matricial, canal(ais)
 Matrix_ChannelPositions;Codificação matricial, posições de canal
 matrix_coefficients;Coeficientes de matriz
-matrix_coefficients_Source;
+matrix_coefficients_Source;Coeficientes de matriz (fonte)
 Matrix_Format;Formato de codificação matricial
 MaxCLL;Nível máximo de luminosidade (MaxCLL)
 MaxFALL;Nível máximo de luminosidade (MaxCLL)
@@ -1175,8 +1175,8 @@ OverallBitRate_Maximum;Taxa de bits total máxima
 OverallBitRate_Minimum;Taxa de bits total mínima
 OverallBitRate_Mode;Modo de taxa de bits total
 OverallBitRate_Nominal;Taxa de bits total nominal
-OverallBitRate_Precision_Max;
-OverallBitRate_Precision_Min;
+OverallBitRate_Precision_Max;Precisão máxima da taxa de bits total
+OverallBitRate_Precision_Min;Precisão mínima da taxa de bits total
 PackageName;Nome do pacote
 PackFormat;Formato de pack
 Part;Parte
@@ -1246,7 +1246,7 @@ Renew;Renovar
 ReplayGain_Gain;Ganho ReplayGain
 ReplayGain_Peak;Pico ReplayGain
 Report;Relatório
-ReportBy;
+ReportBy;Relatado por
 Resolution;Resolução
 RestoreLifetimeSubscription;Restaurar subscrição vitalícia
 Retry;Repetir
@@ -1317,7 +1317,7 @@ Source_StreamSize;Tamanho do fluxo de origem
 Source_StreamSize_Encoded;Tamanho do fluxo codificado de origem
 SpokenSubtitles;Legendas faladas
 Standard;Normal
-Stored_Height;
+Stored_Height;Altura armazenada
 StoreMethod_InterleavedFields;Campos intercalados
 StoreMethod_SeparatedFields;Campos separados
 StoreMethod_SeparatedFields_1;Campos separados (1 campo por bloco)
@@ -1361,7 +1361,7 @@ Supported formats;Formatos suportados
 Supported?;Suportado?
 SupportUs;Apoia-nos. Obtém o tema escuro e mais funcionalidades futuras.
 SupportUs2;Apoia-nos ao subscrever e obtém funcionalidades exclusivas.
-surmixlev;
+surmixlev;Nível de mistura surround (surmixlev)
 SurroundAttenuationKnown;Atenuação surround conhecida
 SwitchGroup;Grupo de comutação
 Synopsis;Sinopse
@@ -1417,7 +1417,7 @@ TrackFormat;Formato da faixa
 TrackIndex;Índice da faixa
 TrackUID;UID da faixa
 transfer_characteristics;Características de transferência
-transfer_characteristics_Source;
+transfer_characteristics_Source;Características de transferência (fonte)
 Translate_Reports;Traduzir relatórios
 Translator;Tradutor
 Transport;Transporte
@@ -1510,4 +1510,5 @@ Your system;O seu sistema
 Your translation;A sua tradução
 Zoom;Zoom
 ZZ_Automatic_Percent;98
+
 ZZ_AutomaticLanguage_Percent;98
