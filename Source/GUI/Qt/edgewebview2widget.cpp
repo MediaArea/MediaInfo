@@ -5,7 +5,7 @@
  */
 
 // webview2widget.cpp
-// From code generated with Qwen2.5-Max
+// From code generated with Qwen2.5-Max and Gemini 2.5 Flash / 3 Pro
 
 #include "edgewebview2widget.h"
 #include <QDebug>
@@ -74,6 +74,12 @@ HRESULT WebView2Widget::InitializeWebView() {
 
                                                             // Mark WebView2 as initialized
                                                             m_isInitialized = true;
+
+                                                            // Disable drag and drop
+                                                            Microsoft::WRL::ComPtr<ICoreWebView2Controller4> controller4;
+                                                            auto hr = m_webviewController.As(&controller4);
+                                                            if (SUCCEEDED(hr))
+                                                                controller4->put_AllowExternalDrop(FALSE);
 
                                                             // Use a single-shot timer to delay resizing until after the widget is properly laid out
                                                             QTimer::singleShot(0, this, [this]() {
