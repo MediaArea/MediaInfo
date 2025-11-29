@@ -52,6 +52,7 @@ The following are the common prerequisites that are required in order to build t
 
 - Git for Windows (<https://gitforwindows.org/>) and/or GitHub Desktop (<https://desktop.github.com/>)
 - Visual Studio 2022 Community Edition (<https://visualstudio.microsoft.com/vs/community/>) or other editions
+  - Visual Studio 2026 can also be used. In this case, use the `.slnx` files in `MSVC2026` directories instead of the `.sln` files in `MSVC2022` directories throughout this guide.
 
 ##### Repositories
 
@@ -88,13 +89,12 @@ There are multiple GUIs utilizing different GUI frameworks on Windows. Each of t
 
 ##### Qt GUI
 
-Install Qt for open source use (<https://www.qt.io/download-qt-installer-oss>) if you do not have Qt installed yet. It is recommended to use the latest version or at least 6.8.0 for Windows 11.
+Install Qt for open source use (<https://www.qt.io/download-qt-installer-oss>) if you do not have Qt installed yet. It is recommended to use the latest version or at least 6.8.0 for Windows 11. Python is required to update the translation files. It may be installed from the Microsoft Store.
 
 Prepare the prerequisites by running the following commands:
 
 ```cmd
 MSBuild -t:MediaInfoDLL -p:Configuration=Release;Platform=x64 MediaInfoLib\Project\MSVC2022\MediaInfoLib.sln
-xcopy /y MediaInfoLib\Project\MSVC2022\x64\Release\ZenLib.lib ZenLib\Project\MSVC2022\x64\Release\
 call MediaInfo\Source\GUI\Qt\Qt_Translations_Updater\update_Qt_translations.cmd
 ```
 

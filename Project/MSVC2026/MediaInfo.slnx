@@ -1,0 +1,70 @@
+<Solution>
+  <Configurations>
+    <Platform Name="ARM" />
+    <Platform Name="ARM64" />
+    <Platform Name="Win32" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Folder Name="/MediaInfoLib/">
+    <Project Path="../../../MediaInfoLib/Project/MSVC2026/Dll/MediaInfoDll.vcxproj" Id="be6d3ef8-2f82-4f1e-956a-890c3614a2d5">
+      <BuildDependency Project="../../../MediaInfoLib/Project/MSVC2026/Library/MediaInfoLib.vcxproj" />
+    </Project>
+    <Project Path="../../../MediaInfoLib/Project/MSVC2026/Library/MediaInfoLib.vcxproj" Id="20e0f8d6-213c-460b-b361-9c725cb375c7">
+      <BuildDependency Project="../../../ZenLib/Project/MSVC2026/Library/ZenLib.vcxproj" />
+    </Project>
+    <Project Path="../../../ZenLib/Project/MSVC2026/Library/ZenLib.vcxproj" Id="0da1da7d-f393-4e7c-a7ce-cb5c6a67bc94" />
+  </Folder>
+  <Folder Name="/ThirdParty/">
+    <Project Path="../../../zlib/contrib/vstudio/vc18/zlibstat.vcxproj" Id="745dec58-ebb3-47a9-a9b8-4c6627c01bf8">
+      <BuildType Solution="Release|*" Project="ReleaseWithoutAsm" />
+    </Project>
+  </Folder>
+  <Folder Name="/ThirdParty/WxWidgets/">
+    <Project Path="../../../wxWidgets/build/msw/wx_base.vcxproj">
+      <BuildDependency Project="../../../wxWidgets/build/msw/wx_custom_build.vcxproj" />
+      <Platform Solution="*|ARM" Project="x64" />
+      <Platform Solution="*|ARM64" Project="x64" />
+    </Project>
+    <Project Path="../../../wxWidgets/build/msw/wx_core.vcxproj">
+      <BuildDependency Project="../../../wxWidgets/build/msw/wx_base.vcxproj" />
+      <BuildDependency Project="../../../wxWidgets/build/msw/wx_wxpng.vcxproj" />
+      <Platform Solution="*|ARM" Project="x64" />
+      <Platform Solution="*|ARM64" Project="x64" />
+    </Project>
+    <Project Path="../../../wxWidgets/build/msw/wx_custom_build.vcxproj">
+      <Platform Solution="*|ARM" Project="x64" />
+      <Platform Solution="*|ARM64" Project="x64" />
+    </Project>
+    <Project Path="../../../wxWidgets/build/msw/wx_html.vcxproj">
+      <BuildDependency Project="../../../wxWidgets/build/msw/wx_core.vcxproj" />
+      <Platform Solution="*|ARM" Project="x64" />
+      <Platform Solution="*|ARM64" Project="x64" />
+    </Project>
+    <Project Path="../../../wxWidgets/build/msw/wx_wxpng.vcxproj">
+      <Platform Solution="*|ARM" Project="x64" />
+      <Platform Solution="*|ARM64" Project="x64" />
+    </Project>
+  </Folder>
+  <Project Path="../../../MediaInfoLib/Project/MSVC2026/RegressionTest/RegressionTest.vcxproj" Id="91c094ca-1170-4ce4-9b79-17324c8daca8" />
+  <Project Path="CLI/MediaInfo.vcxproj" Id="8a1ae679-131a-493c-86ca-91179b0955a4" DefaultStartup="true">
+    <BuildDependency Project="../../../MediaInfoLib/Project/MSVC2026/Dll/MediaInfoDll.vcxproj" />
+    <BuildDependency Project="../../../ZenLib/Project/MSVC2026/Library/ZenLib.vcxproj" />
+  </Project>
+  <Project Path="GUI/MediaInfo_GUI.vcxproj" Id="512a686f-0ce4-49c9-b71b-bbba99e14636">
+    <BuildDependency Project="../../../MediaInfoLib/Project/MSVC2026/Dll/MediaInfoDll.vcxproj" />
+    <BuildDependency Project="../../../ZenLib/Project/MSVC2026/Library/ZenLib.vcxproj" />
+    <Platform Solution="*|ARM" Project="x64" />
+    <Platform Solution="*|ARM64" Project="x64" />
+  </Project>
+  <Project Path="MediaInfo_PackageHelper/MediaInfo_PackageHelper.vcxproj" Id="d1d1aa15-f074-42ab-b5f4-de34f5833f01">
+    <Platform Solution="*|ARM" Project="x64" />
+    <Platform Solution="*|ARM64" Project="x64" />
+  </Project>
+  <Project Path="MediaInfo_WindowsShellExtension/MediaInfo_WindowsShellExtension.vcxproj" Id="e22ff9ed-8ec0-44b6-b313-55fc21b75f38">
+    <Platform Solution="*|ARM" Project="x64" />
+    <Platform Solution="Debug|ARM64" Project="x64" />
+  </Project>
+  <Project Path="PreRelease/PreRelease.vcxproj" Id="8b437426-d6e6-4e43-834f-2dd93e221d23">
+    <Platform Solution="*|ARM" Project="x64" />
+  </Project>
+</Solution>

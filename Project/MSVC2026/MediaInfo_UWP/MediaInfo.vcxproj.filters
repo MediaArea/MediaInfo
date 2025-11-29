@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ApplicationDefinition Include="..\..\..\Source\GUI\UWP\App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Source\GUI\UWP\AppCore.cpp" />
+    <ClCompile Include="..\..\..\Source\GUI\UWP\Report.cpp" />
+    <ClCompile Include="..\..\..\Source\GUI\UWP\ReportDataSource.cpp" />
+    <ClCompile Include="..\..\..\Source\GUI\UWP\ReportViewModel.cpp" />
+    <ClCompile Include="..\..\..\Source\GUI\UWP\pch.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Source\GUI\UWP\AppCore.h" />
+    <ClInclude Include="..\..\..\Source\GUI\UWP\pch.h" />
+    <ClInclude Include="..\..\..\Source\GUI\UWP\Report.h" />
+    <ClInclude Include="..\..\..\Source\GUI\UWP\ReportDataSource.h" />
+    <ClInclude Include="..\..\..\Source\GUI\UWP\ReportViewModel.h" />
+    <ClInclude Include="..\..\..\Source\GUI\UWP\SheetViewHelpers.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\Source\Resource\Image\Assets\LargeTile.scale-100.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\LargeTile.scale-125.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\LargeTile.scale-150.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\LargeTile.scale-200.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\LargeTile.scale-400.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\LockScreenLogo.scale-200.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\SmallTile.scale-100.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\SmallTile.scale-125.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\SmallTile.scale-150.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\SmallTile.scale-200.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\SmallTile.scale-400.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\SplashScreen.scale-100.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\SplashScreen.scale-125.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\SplashScreen.scale-150.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\SplashScreen.scale-200.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\SplashScreen.scale-400.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Square150x150Logo.scale-100.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Square150x150Logo.scale-125.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Square150x150Logo.scale-150.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Square150x150Logo.scale-200.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Square150x150Logo.scale-400.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Square44x44Logo.altform-unplated_targetsize-16.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Square44x44Logo.altform-unplated_targetsize-256.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Square44x44Logo.altform-unplated_targetsize-32.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Square44x44Logo.altform-unplated_targetsize-48.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Square44x44Logo.scale-100.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Square44x44Logo.scale-125.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Square44x44Logo.scale-150.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Square44x44Logo.scale-200.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Square44x44Logo.scale-400.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Square44x44Logo.targetsize-16.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Square44x44Logo.targetsize-24.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Square44x44Logo.targetsize-256.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Square44x44Logo.targetsize-32.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Square44x44Logo.targetsize-48.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\StoreLogo.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Wide310x150Logo.scale-100.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Wide310x150Logo.scale-125.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Wide310x150Logo.scale-150.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Wide310x150Logo.scale-200.png" />
+    <Image Include="..\..\..\Source\Resource\Image\Assets\Wide310x150Logo.scale-400.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="..\..\..\Source\GUI\UWP\Package.appxmanifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MediaInfo_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="..\..\..\Source\GUI\UWP\AboutPage.xaml" />
+    <Page Include="..\..\..\Source\GUI\UWP\DataGrid.xaml" />
+    <Page Include="..\..\..\Source\GUI\UWP\MainPage.xaml" />
+    <Page Include="..\..\..\Source\GUI\UWP\ReportPage.xaml" />
+    <Page Include="..\..\..\Source\GUI\UWP\EasyView.xaml" />
+    <Page Include="..\..\..\Source\GUI\UWP\HtmlView.xaml" />
+    <Page Include="..\..\..\Source\GUI\UWP\SheetEditDialog.xaml" />
+    <Page Include="..\..\..\Source\GUI\UWP\SheetView.xaml" />
+    <Page Include="..\..\..\Source\GUI\UWP\SheetEditFieldControl.xaml" />
+  </ItemGroup>
+</Project>
