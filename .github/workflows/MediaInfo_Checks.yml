@@ -40,7 +40,7 @@ jobs:
           popd
       - name: MediaInfoLib
         run: |
-          git -C .. clone --depth=1 https://github.com/MediaArea/MediaInfoLib.git
+          git -C .. clone --depth=1 -b jxl https://github.com/cjee21/MediaInfoLib.git #!! TO CHANGE !!
           pushd ../MediaInfoLib/Project/GNU/Library
             autoreconf -if
             ./configure --enable-static
@@ -100,7 +100,8 @@ jobs:
       - name: Checkout brotli
         uses: actions/checkout@v5
         with:
-          repository: MediaArea/brotli
+          repository: cjee21/brotli #!! TO CHANGE !!
+          ref: MSVC                 #!! TO REMOVE !!
           path: brotli
       - name: Checkout zlib
         uses: actions/checkout@v6
@@ -115,7 +116,8 @@ jobs:
       - name: Checkout MediaInfoLib
         uses: actions/checkout@v6
         with:
-          repository: MediaArea/MediaInfoLib
+          repository: cjee21/MediaInfoLib  #!! TO CHANGE !!
+          ref: jxl                         #!! TO REMOVE !!
           path: MediaInfoLib
       - name: Checkout MediaInfo
         uses: actions/checkout@v6
@@ -174,7 +176,8 @@ jobs:
       - name: Checkout brotli
         uses: actions/checkout@v5
         with:
-          repository: MediaArea/brotli
+          repository: cjee21/brotli #!! TO CHANGE !!
+          ref: MSVC                 #!! TO REMOVE !!
           path: brotli
       - name: Checkout zlib
         uses: actions/checkout@v6
@@ -189,7 +192,8 @@ jobs:
       - name: Checkout MediaInfoLib
         uses: actions/checkout@v6
         with:
-          repository: MediaArea/MediaInfoLib
+          repository: cjee21/MediaInfoLib  #!! TO CHANGE !!
+          ref: jxl                         #!! TO REMOVE !!
           path: MediaInfoLib
       - name: Checkout MediaInfo
         uses: actions/checkout@v6
