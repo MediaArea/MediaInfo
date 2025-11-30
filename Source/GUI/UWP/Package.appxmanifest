@@ -35,6 +35,7 @@
               <uap:FileType>.aac</uap:FileType>
               <uap:FileType>.aacp</uap:FileType>
               <uap:FileType>.ac3</uap:FileType>
+              <uap:FileType>.ac4</uap:FileType>
               <uap:FileType>.act</uap:FileType>
               <uap:FileType>.adts</uap:FileType>
               <uap:FileType>.aif</uap:FileType>
@@ -73,6 +74,7 @@
               <uap:FileType>.dvr</uap:FileType>
               <uap:FileType>.dvr-ms</uap:FileType>
               <uap:FileType>.eac3</uap:FileType>
+              <uap:FileType>.ec3</uap:FileType>
               <uap:FileType>.evo</uap:FileType>
               <uap:FileType>.f4a</uap:FileType>
               <uap:FileType>.f4b</uap:FileType>
@@ -90,6 +92,7 @@
               <uap:FileType>.hdmov</uap:FileType>
               <uap:FileType>.heic</uap:FileType>
               <uap:FileType>.heif</uap:FileType>
+              <uap:FileType>.hif</uap:FileType>
               <uap:FileType>.iamf</uap:FileType>
               <uap:FileType>.ico</uap:FileType>
               <uap:FileType>.ifo</uap:FileType>
