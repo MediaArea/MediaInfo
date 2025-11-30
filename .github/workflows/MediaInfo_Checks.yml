@@ -98,7 +98,8 @@ jobs:
       - name: Checkout brotli
         uses: actions/checkout@v5
         with:
-          repository: MediaArea/brotli
+          repository: cjee21/brotli #!! TO CHANGE !!
+          ref: MSVC                 #!! TO REMOVE !!
           path: brotli
       - name: Checkout zlib
         uses: actions/checkout@v5
@@ -113,7 +114,8 @@ jobs:
       - name: Checkout MediaInfoLib
         uses: actions/checkout@v5
         with:
-          repository: MediaArea/MediaInfoLib
+          repository: cjee21/MediaInfoLib  #!! TO CHANGE !!
+          ref: jxl                         #!! TO REMOVE !!
           path: MediaInfoLib
       - name: Checkout MediaArea-Utils for MediaInfo_NoGUI patch
         uses: actions/checkout@v5
@@ -181,7 +183,8 @@ jobs:
       - name: Checkout brotli
         uses: actions/checkout@v5
         with:
-          repository: MediaArea/brotli
+          repository: cjee21/brotli #!! TO CHANGE !!
+          ref: MSVC                 #!! TO REMOVE !!
           path: brotli
       - name: Checkout zlib
         uses: actions/checkout@v5
@@ -196,7 +199,8 @@ jobs:
       - name: Checkout MediaInfoLib
         uses: actions/checkout@v5
         with:
-          repository: MediaArea/MediaInfoLib
+          repository: cjee21/MediaInfoLib  #!! TO CHANGE !!
+          ref: jxl                         #!! TO REMOVE !!
           path: MediaInfoLib
       - name: Checkout MediaInfo
         uses: actions/checkout@v5
