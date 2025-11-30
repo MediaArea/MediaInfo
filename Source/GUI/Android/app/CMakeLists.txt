@@ -14,6 +14,15 @@ add_subdirectory(../../../../../ZenLib/Project/CMake ${ZenLib_DIR})
 include_directories(AFTER SYSTEM ../../../../../ZenLib/Source)
 file(MAKE_DIRECTORY ${ZenLib_DIR}/../../../include) # fake system wide installation
 
+# Build brotli
+set(brotli_DIR ${CMAKE_CURRENT_BINARY_DIR}/brotli)
+set(BROTLI_INCLUDE_DIR ../../../../../brotli/c/include)
+set(BROTLICOMMON_LIBRARY brotlicommon)
+set(BROTLIDEC_LIBRARY brotlidec)
+add_subdirectory(../../../../../brotli ${brotli_DIR})
+include_directories(AFTER SYSTEM ${BROTLI_INCLUDE_DIR})
+file(MAKE_DIRECTORY ${brotli_DIR}/../../../include) # fake system wide installation
+
 # Build MediaInfoLib
 set(MediaInfoLib_LIBRARY mediainfo)
 set(MediaInfoLib_DIR ${CMAKE_CURRENT_BINARY_DIR}/MediaInfoLib)
