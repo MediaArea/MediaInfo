@@ -23,6 +23,7 @@ public:
         HTML=1,
         XML,
         JSON,
+        CSV,
         GRAPH,
         PBCORE,
         PBCORE2,
@@ -52,6 +53,17 @@ public:
     QString extension(int mode);
     QString extensionName(int mode);
     QString name(int mode);
+
+    struct CSV_Options {
+        int Stream_Video{};
+        int Stream_Audio{};
+        int Stream_Text{};
+        int Stream_Other{};
+        QString Quote;
+        QString Separator_Col;
+        QString Separator_Line;
+    };
+    CSV_Options getCSVOptions();
 
 protected:
     void changeEvent(QEvent *e);

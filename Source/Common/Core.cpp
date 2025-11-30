@@ -221,7 +221,7 @@ void Core::Menu_View_HTML ()
 //---------------------------------------------------------------------------
 void Core::Menu_View_XML ()
 {
-    MI->Option(__T("Inform"), __T("MIXML"));
+    MI->Option(__T("Inform"), __T("XML"));
     Kind=Kind_XML;
 }
 
@@ -230,6 +230,13 @@ void Core::Menu_View_JSON ()
 {
     MI->Option(__T("Inform"), __T("JSON"));
     Kind=Kind_JSON;
+}
+
+//---------------------------------------------------------------------------
+void Core::Menu_View_CSV ()
+{
+    MI->Option(__T("Inform"), __T("CSV"));
+    Kind=Kind_CSV;
 }
 
 //---------------------------------------------------------------------------

@@ -17,6 +17,7 @@ typedef enum {
     VIEW_HTML,
     VIEW_XML,
     VIEW_JSON,
+    VIEW_CSV,
     VIEW_GRAPH,
     VIEW_PBCORE,
     VIEW_PBCORE2,
