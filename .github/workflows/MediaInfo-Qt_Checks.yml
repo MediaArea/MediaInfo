@@ -16,7 +16,7 @@ on:
       - 'Source/Resource/**'
 
 env:
-  QT_VER: 6.*
+  QT_VER: 6.10.*
   QT_SELECT: 6
 
 jobs:
