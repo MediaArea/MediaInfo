@@ -8,9 +8,13 @@ package net.mediaarea.mediainfo
 
 import java.io.OutputStream
 
+import androidx.core.content.edit
 import androidx.core.text.htmlEncode
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 
 import android.os.Bundle
@@ -50,8 +54,6 @@ class ReportDetailFragment : Fragment() {
                     id = newId
             }
         }
-
-        setHasOptionsMenu(true)
     }
 
     override fun onAttach(context: Context) {
@@ -116,59 +118,78 @@ class ReportDetailFragment : Fragment() {
         return reportDetailBinding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_detail, menu)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        menu.findItem(R.id.action_export_report).let {
-            it.setOnMenuItemClickListener {
-                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-                startActivityForResult(intent, SAVE_FILE_REQUEST_CODE)
-                true
-            }
-        }
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
 
-        val viewMenu: SubMenu = menu.findItem(R.id.action_change_view).subMenu ?: return
-        for (current: Core.ReportView in Core.views) {
-            val index: Int = Core.views.indexOf(current)
-            var desc = current.desc
-            if (desc == "Text") {
-                desc = resources.getString(R.string.text_output_desc)
-            }
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.menu_detail, menu)
 
-            viewMenu.add(R.id.menu_views_group, Menu.NONE, index, desc).setOnMenuItemClickListener {
-                if (view != current.name) {
-                    view = current.name
+                val viewMenu: SubMenu = menu.findItem(R.id.action_change_view).subMenu ?: return
+                Core.views.forEachIndexed { index, current ->
+                    val desc = if (current.desc == "Text") {
+                        resources.getString(R.string.text_output_desc)
+                    } else {
+                        current.desc
+                    }
 
-                    // Save new default
-                    sharedPreferences
-                            ?.edit()
-                            ?.putString(getString(R.string.preferences_view_key), view)
-                            ?.apply()
-
-                    // Reset view
-                    parentFragmentManager.fragments.forEach {
-                        val fragment = it as? ReportDetailFragment
-                        if (fragment!=null) {
-                            fragment.view = current.name
-                            if (fragment.isAdded) {
-                                parentFragmentManager
-                                        .beginTransaction()
-                                        .detach(it)
-                                        .commit()
-                                parentFragmentManager
-                                        .beginTransaction()
-                                        .attach(it)
-                                        .commit()
-                            }
-                        }
+                    viewMenu.add(R.id.menu_views_group, index, Menu.NONE, desc).apply {
+                        isCheckable = true
+                        isChecked = (current.name == this@ReportDetailFragment.view)
                     }
                 }
 
-                true
-            }.setCheckable(true).isChecked = (current.name == view)
+                viewMenu.setGroupCheckable(R.id.menu_views_group, true, true)
+            }
 
-            viewMenu.setGroupCheckable(R.id.menu_views_group, true, true)
-        }
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.action_export_report -> {
+                        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+                        startActivityForResult(intent, SAVE_FILE_REQUEST_CODE)
+                        true
+                    }
+                    else -> if (menuItem.groupId == R.id.menu_views_group) {
+                        val current = Core.views[menuItem.itemId]
+                        if (this@ReportDetailFragment.view != current.name) {
+                            this@ReportDetailFragment.view = current.name
+
+                            // Save new default
+                            sharedPreferences?.edit {
+                                putString(
+                                    getString(R.string.preferences_view_key),
+                                    this@ReportDetailFragment.view
+                                )
+                            }
+
+                            // Reset view
+                            parentFragmentManager.fragments.forEach {
+                                val fragment = it as? ReportDetailFragment
+                                if (fragment != null) {
+                                    fragment.view = current.name
+                                    if (fragment.isAdded) {
+                                        parentFragmentManager
+                                            .beginTransaction()
+                                            .detach(it)
+                                            .commit()
+                                        parentFragmentManager
+                                            .beginTransaction()
+                                            .attach(it)
+                                            .commit()
+                                    }
+                                }
+                            }
+                        }
+                        true
+                    } else {
+                        false
+                    }
+                }
+            }
+
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
