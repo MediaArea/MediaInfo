@@ -21,7 +21,6 @@ class MediaInfoApplication : Application() {
         super.onCreate()
 
         Lingver.init(this, InMemoryLocaleStore())
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
     override fun onTerminate() {

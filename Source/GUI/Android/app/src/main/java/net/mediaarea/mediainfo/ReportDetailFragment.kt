@@ -7,20 +7,17 @@
 package net.mediaarea.mediainfo
 
 import java.io.OutputStream
-import java.io.File
 
-import androidx.fragment.app.Fragment
+import androidx.core.text.htmlEncode
 import androidx.documentfile.provider.DocumentFile
+import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 
-import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.app.Activity
 import android.content.SharedPreferences
 import android.content.Context
 import android.content.Intent
-import android.text.TextUtils
 import android.view.*
 import android.widget.Toast
 
@@ -104,17 +101,14 @@ class ReportDetailFragment : Fragment() {
                         val report: String = Core.convertReport(it.report, view)
                         var content = ""
                         if (view != "HTML") {
-                            content += "<html><body><pre>"
-                            content += TextUtils.htmlEncode(report.replace("\t", "    "))
+                            content += "<html><head>" +
+                                    "<style>:root { color-scheme: var(--color-scheme, light); } @media (prefers-color-scheme: dark) { :root { --color-scheme: dark; } }</style>" +
+                                    "</head><body><pre>"
+                            content += report.replace("\t", "    ").htmlEncode()
                             content += "</pre></body></html>"
                         } else {
                             content+=report
                         }
-
-                        val background=resources.getString(0+R.color.background).removeRange(1, 3)
-                        val foreground=resources.getString(0+R.color.foreground).removeRange(1, 3)
-                        content = content.replace("<body>", "<body style=\"background-color: ${background}; color: ${foreground};\">")
-
                         reportDetailBinding.reportDetail.loadDataWithBaseURL(null, content, "text/html", "utf-8", null)
              }.subscribe())
         }
