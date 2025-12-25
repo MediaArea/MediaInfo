@@ -64,7 +64,7 @@ class ReportDetailFragment : Fragment() {
         try {
             activityListener = activity as ReportActivityListener
         } catch (_: Throwable) {
-            throw ClassCastException(activity.toString() + " must implement ReportActivityListener")
+            throw ClassCastException("$activity must implement ReportActivityListener")
         }
 
         sharedPreferences = getDefaultSharedPreferences(context)
@@ -72,9 +72,9 @@ class ReportDetailFragment : Fragment() {
         val key = getString(R.string.preferences_view_key)
 
         if (sharedPreferences?.contains(key) == false && oldSharedPreferences?.contains(key) == true) {
-            sharedPreferences?.edit()
-                             ?.putString(key, oldSharedPreferences.getString(key, "HTML"))
-                             ?.apply()
+            sharedPreferences?.edit {
+                putString(key, oldSharedPreferences.getString(key, "HTML"))
+            }
         }
 
         sharedPreferences?.getString(getString(R.string.preferences_view_key), "HTML").let {
@@ -192,6 +192,7 @@ class ReportDetailFragment : Fragment() {
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
@@ -265,7 +266,7 @@ class ReportDetailFragment : Fragment() {
                     ostream.close()
                 }
             }
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             onError()
         }
     }
