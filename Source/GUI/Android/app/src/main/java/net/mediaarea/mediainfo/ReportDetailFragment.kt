@@ -8,6 +8,7 @@ package net.mediaarea.mediainfo
 
 import java.io.OutputStream
 
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.edit
 import androidx.core.text.htmlEncode
 import androidx.core.view.MenuHost
@@ -18,10 +19,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 
 import android.os.Bundle
-import android.app.Activity
 import android.content.SharedPreferences
 import android.content.Context
-import android.content.Intent
 import android.view.*
 import android.widget.Toast
 
@@ -33,16 +32,53 @@ import net.mediaarea.mediainfo.databinding.ReportDetailBinding
 
 
 class ReportDetailFragment : Fragment() {
-    companion object {
-        const val SAVE_FILE_REQUEST_CODE: Int = 1
-    }
-
     private val disposable: CompositeDisposable = CompositeDisposable()
     private lateinit var activityListener: ReportActivityListener
     private var sharedPreferences: SharedPreferences? = null
     private lateinit var reportDetailBinding: ReportDetailBinding
     private var view: String = "HTML"
     var id: Int? = null
+
+    private val saveFile = registerForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
+        if (uri == null) {
+            onError()
+            return@registerForActivityResult
+        }
+
+        id.let {
+            if (it == null) {
+                onError()
+                return@let
+            }
+
+            disposable
+                .add(activityListener.getReportViewModel().getReport(it)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe { report: Report ->
+                        if (report.report.isEmpty()) {
+                            onError()
+                        } else {
+                            val currentContext: Context? = context
+                            if (currentContext == null) {
+                                onError()
+                            } else {
+                                val directory = DocumentFile.fromTreeUri(currentContext, uri)
+
+                                if (directory == null) {
+                                    onError()
+                                } else {
+                                    if (!directory.canWrite()) {
+                                        onError()
+                                    } else {
+                                        saveReport(directory, report)
+                                    }
+                                }
+                            }
+                        }
+                    })
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -147,8 +183,7 @@ class ReportDetailFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
                     R.id.action_export_report -> {
-                        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-                        startActivityForResult(intent, SAVE_FILE_REQUEST_CODE)
+                        saveFile.launch(null)
                         true
                     }
                     else -> if (menuItem.groupId == R.id.menu_views_group) {
@@ -190,59 +225,6 @@ class ReportDetailFragment : Fragment() {
             }
 
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
-        if (resultCode == Activity.RESULT_OK) {
-            when (requestCode) {
-                SAVE_FILE_REQUEST_CODE -> {
-                    if (resultData == null || resultData.data == null) {
-                        onError()
-                        return
-                    }
-
-                    id.let {
-                        if (it == null) {
-                            onError()
-                            return
-                        }
-
-                        disposable
-                                .add(activityListener.getReportViewModel().getReport(it)
-                                        .subscribeOn(Schedulers.io())
-                                        .observeOn(AndroidSchedulers.mainThread())
-                                        .subscribe { report: Report ->
-                                            if (report.report.isEmpty()) {
-                                                onError()
-                                            } else {
-                                                val currentContext: Context? = context
-                                                if (currentContext == null) {
-                                                    onError()
-                                                } else {
-                                                    val data = resultData.data
-                                                    if (data == null) {
-                                                        onError()
-                                                    } else {
-                                                        val directory = DocumentFile.fromTreeUri(currentContext, data)
-
-                                                        if (directory == null) {
-                                                            onError()
-                                                        } else {
-                                                            if (!directory.canWrite()) {
-                                                                onError()
-                                                            } else {
-                                                                saveReport(directory, report)
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        })
-                    }
-                }
-            }
-        }
     }
 
     private fun saveReport(directory: DocumentFile, report: Report) {

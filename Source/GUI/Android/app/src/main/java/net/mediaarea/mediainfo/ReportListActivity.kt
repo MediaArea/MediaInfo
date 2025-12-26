@@ -10,6 +10,7 @@ import kotlin.jvm.*
 
 import java.io.File
 
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
@@ -69,6 +70,26 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     private var twoPane: Boolean = false
     private var reports: List<Report> = listOf()
     private var pendingFileUris: MutableList<Uri> = mutableListOf()
+
+    private val openFile = registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris ->
+        if (uris.isNotEmpty())
+            AddFile().execute(*uris.toTypedArray())
+    }
+
+    private val startSubscribeActivityForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK)
+            Toast.makeText(applicationContext, R.string.thanks_text, Toast.LENGTH_SHORT).show()
+    }
+
+    private val startShowReportForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            result.data?.let {
+                val id = it.getIntExtra(Core.ARG_REPORT_ID, -1)
+                if (id != -1 && twoPane)
+                    showReport(id)
+            }
+        }
+    }
 
     @SuppressLint("StaticFieldLeak")
     inner class AddFile: AsyncTask<Uri, Int, Boolean>() {
@@ -415,7 +436,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
             val intent = Intent(this@ReportListActivity, ReportDetailActivity::class.java)
             intent.putExtra(Core.ARG_REPORT_ID, id)
 
-            startActivityForResult(intent, SHOW_REPORT_REQUEST)
+            startShowReportForResult.launch(intent)
         }
     }
 
@@ -487,7 +508,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
                     item?.setOnMenuItemClickListener { _ ->
                         val intent = Intent(this, SubscribeActivity::class.java)
-                        startActivityForResult(intent, SUBSCRIBE_REQUEST)
+                        startSubscribeActivityForResult.launch(intent)
 
                         true
                     }
@@ -522,40 +543,6 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         }
 
         return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
-        super.onActivityResult(requestCode, resultCode, resultData)
-
-        if (resultCode == RESULT_OK) {
-            when (requestCode) {
-                OPEN_FILE_REQUEST -> {
-                    if (resultData == null)
-                        return
-
-                    val clipData = resultData.clipData
-                    if (clipData != null) {
-                        val uris: Array<Uri> = Array(clipData.itemCount) {
-                            clipData.getItemAt(it).uri
-                        }
-                        AddFile().execute(*(uris))
-                    } else if (resultData.data != null) {
-                        AddFile().execute(resultData.data)
-                    }
-                }
-                SUBSCRIBE_REQUEST -> {
-                    Toast.makeText(applicationContext, R.string.thanks_text, Toast.LENGTH_SHORT).show()
-                }
-                SHOW_REPORT_REQUEST -> {
-                    if (resultData!=null) {
-                        val id = resultData.getIntExtra(Core.ARG_REPORT_ID, -1)
-                        if (id!=-1 && twoPane) {
-                            showReport(id)
-                        }
-                    }
-                }
-            }
-        }
     }
 
     override fun getReportViewModel(): ReportViewModel {
@@ -616,13 +603,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         reportModel = ViewModelProvider(this, viewModelFactory)[ReportViewModel::class.java]
 
         activityReportListBinding.addButton.setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
-
-            intent.addCategory(Intent.CATEGORY_OPENABLE)
-            intent.type = "*/*"
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-
-            startActivityForResult(intent, OPEN_FILE_REQUEST)
+            openFile.launch("*/*")
         }
         activityReportListBinding.reportListLayout.clearBtn.setOnClickListener {
             disposable.add(reportModel.deleteAllReports()
@@ -758,9 +739,6 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     }
 
     companion object {
-        const val SHOW_REPORT_REQUEST = 20
-        const val SUBSCRIBE_REQUEST = 30
-        const val OPEN_FILE_REQUEST = 40
         const val READ_EXTERNAL_STORAGE_PERMISSION_REQUEST = 50
         const val OPEN_INTENT_PROCESSED = "net.mediaarea.mediainfo.internal.tag.Intent.Processed"
     }
