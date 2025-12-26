@@ -11,34 +11,35 @@ import kotlin.jvm.*
 import java.io.File
 
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
-import androidx.lifecycle.ViewModelProvider
-import androidx.core.app.ActivityCompat
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.ActivityCompat
+import androidx.core.content.edit
+import androidx.core.net.toUri
+import androidx.core.view.updatePadding
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
+import androidx.preference.PreferenceManager.getDefaultSharedPreferences
+import androidx.recyclerview.widget.RecyclerView
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.os.AsyncTask
-import android.os.Environment
 import android.os.ParcelFileDescriptor
 import android.net.Uri
-import android.app.Activity
 import android.content.Intent
 import android.database.Cursor
 import android.provider.OpenableColumns
 import android.widget.FrameLayout
 import android.widget.TextView
-import android.content.Context
 import android.widget.Toast
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.view.*
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
-import androidx.preference.PreferenceManager.getDefaultSharedPreferences
+
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -69,7 +70,9 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     private var reports: List<Report> = listOf()
     private var pendingFileUris: MutableList<Uri> = mutableListOf()
 
+    @SuppressLint("StaticFieldLeak")
     inner class AddFile: AsyncTask<Uri, Int, Boolean>() {
+        @Deprecated("Deprecated in Java")
         override fun onPreExecute() {
             super.onPreExecute()
 
@@ -85,6 +88,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 View.inflate(this@ReportListActivity, R.layout.spinner_layout, rootLayout)
         }
 
+        @Deprecated("Deprecated in Java")
         override fun onPostExecute(result: Boolean?) {
             super.onPostExecute(result)
 
@@ -97,6 +101,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
             }
         }
 
+        @Deprecated("Deprecated in Java")
         override fun doInBackground(vararg params: Uri?): Boolean {
             for (uri: Uri? in params) {
                 if (uri == null) {
@@ -119,17 +124,17 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                                 }
                                 cursor.close()
                             }
-                        } catch (e: Exception) {
+                        } catch (_: Exception) {
                         }
                         try {
                             fd = contentResolver.openFileDescriptor(uri, "r")
-                        } catch (e: Exception) {}
+                        } catch (_: Exception) {}
                     }
                     "file" -> {
                         val file = File(uri.path.orEmpty())
                         try {
                             fd = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
-                        } catch (e: Exception) {}
+                        } catch (_: Exception) {}
 
                         displayName = uri.lastPathSegment.orEmpty()
                     }
@@ -215,14 +220,26 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                     }
                 }
                 Intent.ACTION_SEND -> {
-                    val uri = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
+                    val uri =
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                            intent.getParcelableExtra(Intent.EXTRA_STREAM, Uri::class.java)
+                        } else {
+                            @Suppress("DEPRECATION")
+                            intent.getParcelableExtra(Intent.EXTRA_STREAM)
+                        }
                     if (uri != null) {
                         handleUri(uri)
                         intent.putExtra(OPEN_INTENT_PROCESSED, true)
                     }
                 }
                 Intent.ACTION_SEND_MULTIPLE -> {
-                    val uriList = intent.getParcelableArrayListExtra<Uri>(Intent.EXTRA_STREAM)
+                    val uriList =
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                            intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM, Uri::class.java)
+                        } else {
+                            @Suppress("DEPRECATION")
+                            intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM)
+                        }
                     if (uriList != null) {
                         for (i in uriList) {
                             handleUri(i)
@@ -240,18 +257,21 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
         when (sharedPreferences?.contains(key)) {
             false, null -> {
-                val oldSharedPreferences = getSharedPreferences(getString(R.string.preferences_key), Context.MODE_PRIVATE)
+                val oldSharedPreferences = getSharedPreferences(getString(R.string.preferences_key), MODE_PRIVATE)
                 if (oldSharedPreferences?.contains(key) == true) {
                     oldSharedPreferences.getString(key, "").let {
                         when (it) {
                             "ON" -> {
-                                oldSharedPreferences.edit()?.remove(key)
-                                sharedPreferences.edit()?.putString(key, "on")?.apply()
+                                oldSharedPreferences.edit {
+                                    remove(key)
+                                    putString(key, "on")
+                                }
                             }
                             "OFF" -> {
-                                oldSharedPreferences.edit()?.remove(key)
-                                sharedPreferences.edit()?.putString(key, "off")?.apply()
-
+                                oldSharedPreferences.edit {
+                                    remove(key)
+                                    putString(key, "off")
+                                }
                             }
                             else -> {
                             }
@@ -264,12 +284,16 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                     sharedPreferences.getBoolean(key, false).let {
                         when (it) {
                             false -> {
-                                sharedPreferences.edit()?.remove(key)
-                                sharedPreferences.edit()?.putString(key, "off")?.apply()
+                                sharedPreferences.edit {
+                                    remove(key)
+                                    putString(key, "off")
+                                }
                             }
                             true -> {
-                                sharedPreferences.edit()?.remove(key)
-                                sharedPreferences.edit()?.putString(key, "on")?.apply()
+                                sharedPreferences.edit {
+                                    remove(key)
+                                    putString(key, "on")
+                                }
                             }
                         }
                     }
@@ -313,7 +337,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
             val content = stream.bufferedReader().use(BufferedReader::readText)
             Core.setLocale(content)
         }
-        catch (error: Exception) {
+        catch (_: Exception) {
         }
     }
 
@@ -342,9 +366,19 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 } else {
                     val language = it.split("-r")
                     if (language.size > 1) {
-                        Locale(language[0], language[1])
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
+                            Locale.of(language[0], language[1])
+                        } else {
+                            @Suppress("DEPRECATION")
+                            Locale(language[0], language[1])
+                        }
                     } else {
-                        Locale(language[0])
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
+                            Locale.of(language[0])
+                        } else {
+                            @Suppress("DEPRECATION")
+                            Locale(language[0])
+                        }
                     }
                 }
 
@@ -440,7 +474,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
                         item?.setOnMenuItemClickListener { _ ->
                             val intent = Intent(Intent.ACTION_VIEW)
-                            intent.data = Uri.parse(getString(R.string.subscription_manage_url).replace('|', '&'))
+                            intent.data = getString(R.string.subscription_manage_url).replace('|', '&').toUri()
                             startActivity(intent)
 
                             true
@@ -493,7 +527,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
         super.onActivityResult(requestCode, resultCode, resultData)
 
-        if (resultCode == Activity.RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             when (requestCode) {
                 OPEN_FILE_REQUEST -> {
                     if (resultData == null)
@@ -678,6 +712,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         disposable.clear()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         recyclerView.adapter = ItemRecyclerViewAdapter()
         recyclerView.isNestedScrollingEnabled = false
