@@ -108,24 +108,22 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
                 when (uri.scheme) {
                     "content" -> {
-                        if (Build.VERSION.SDK_INT >= 19) {
-                            try {
-                                val cursor: Cursor? = contentResolver.query(uri, null, null, null, null, null)
-                                // moveToFirst() returns false if the cursor has 0 rows
-                                if (cursor != null && cursor.moveToFirst()) {
-                                    // DISPLAY_NAME is provider-specific, and might not be the file name
-                                    val column = cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME)
-                                    if (column >= 0) {
-                                        displayName = cursor.getString(column)
-                                    }
-                                    cursor.close()
+                        try {
+                            val cursor: Cursor? = contentResolver.query(uri, null, null, null, null, null)
+                            // moveToFirst() returns false if the cursor has 0 rows
+                            if (cursor != null && cursor.moveToFirst()) {
+                                // DISPLAY_NAME is provider-specific, and might not be the file name
+                                val column = cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME)
+                                if (column >= 0) {
+                                    displayName = cursor.getString(column)
                                 }
-                            } catch (e: Exception) {
+                                cursor.close()
                             }
-                            try {
-                                fd = contentResolver.openFileDescriptor(uri, "r")
-                            } catch (e: Exception) {}
+                        } catch (e: Exception) {
                         }
+                        try {
+                            fd = contentResolver.openFileDescriptor(uri, "r")
+                        } catch (e: Exception) {}
                     }
                     "file" -> {
                         val file = File(uri.path.orEmpty())
@@ -498,19 +496,17 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 OPEN_FILE_REQUEST -> {
-                    if (Build.VERSION.SDK_INT >= 19) {
-                        if (resultData == null)
-                            return
+                    if (resultData == null)
+                        return
 
-                        val clipData = resultData.clipData
-                        if (clipData != null) {
-                            val uris: Array<Uri> = Array(clipData.itemCount) {
-                                clipData.getItemAt(it).uri
-                            }
-                            AddFile().execute(*(uris))
-                        } else if (resultData.data != null) {
-                            AddFile().execute(resultData.data)
+                    val clipData = resultData.clipData
+                    if (clipData != null) {
+                        val uris: Array<Uri> = Array(clipData.itemCount) {
+                            clipData.getItemAt(it).uri
                         }
+                        AddFile().execute(*(uris))
+                    } else if (resultData.data != null) {
+                        AddFile().execute(resultData.data)
                     }
                 }
                 SUBSCRIBE_REQUEST -> {
