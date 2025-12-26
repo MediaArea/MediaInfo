@@ -54,7 +54,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
         }
 
-        localeDropdown?.setOnPreferenceChangeListener { _, newValue -> Boolean
+        localeDropdown?.setOnPreferenceChangeListener { _, newValue ->
             if (newValue is String) {
                 val locale: Locale =
                     if (newValue == "system") {
@@ -67,9 +67,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     } else {
                         val language = newValue.split("-r")
                         if (language.size > 1) {
-                            Locale(language[0], language[1])
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
+                                Locale.of(language[0], language[1])
+                            } else {
+                                @Suppress("DEPRECATION")
+                                Locale(language[0], language[1])
+                            }
                         } else {
-                            Locale(language[0])
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
+                                Locale.of(language[0])
+                            } else {
+                                @Suppress("DEPRECATION")
+                                Locale(language[0])
+                            }
                         }
                     }
 
@@ -86,7 +96,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
 
-        uimodeDropdown?.setOnPreferenceChangeListener { _, newValue -> Boolean
+        uimodeDropdown?.setOnPreferenceChangeListener { _, newValue ->
             if (newValue is String) {
                 when (newValue) {
                     "off" -> {

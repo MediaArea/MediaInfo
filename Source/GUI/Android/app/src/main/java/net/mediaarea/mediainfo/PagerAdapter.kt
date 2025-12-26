@@ -11,7 +11,6 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.viewpager.widget.PagerAdapter
 
 class PagerAdapter(fm: FragmentManager, private var reports: List<Report>) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     override fun getCount(): Int {
@@ -27,6 +26,6 @@ class PagerAdapter(fm: FragmentManager, private var reports: List<Report>) : Fra
     }
 
     override fun getItemPosition(`object`: Any): Int {
-        return PagerAdapter.POSITION_NONE
+        return POSITION_NONE
     }
 }

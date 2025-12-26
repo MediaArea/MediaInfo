@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 
 import android.content.Intent
-import android.app.Activity
 import android.os.Bundle
 import android.os.Build
 
@@ -121,7 +120,7 @@ class ReportDetailActivity : AppCompatActivity(), ReportActivityListener {
         val id = intent.getIntExtra(Core.ARG_REPORT_ID, -1)
         val result = Intent()
         result.putExtra(Core.ARG_REPORT_ID, id)
-        setResult(Activity.RESULT_OK, result)
+        setResult(RESULT_OK, result)
 
         super.finish()
     }

@@ -7,7 +7,6 @@
 package net.mediaarea.mediainfo
 
 import android.app.Application
-import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.color.DynamicColors
 
 import com.yariksoffice.lingver.Lingver
