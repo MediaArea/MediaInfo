@@ -21,7 +21,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 
-import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -31,7 +31,7 @@ import net.mediaarea.mediainfo.databinding.ActivityReportDetailBinding
 class ReportDetailActivity : AppCompatActivity(), ReportActivityListener {
     private lateinit var activityReportDetailBinding: ActivityReportDetailBinding
 
-    private inner class PageChangeListener(private val reports: List<Report>) : ViewPager.SimpleOnPageChangeListener() {
+    private inner class PageChangeListener(private val reports: List<Report>) : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)
             title = reports.elementAt(position).filename
@@ -96,8 +96,8 @@ class ReportDetailActivity : AppCompatActivity(), ReportActivityListener {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { reports: List<Report> ->
-                activityReportDetailBinding.pager.addOnPageChangeListener(PageChangeListener(reports))
-                activityReportDetailBinding.pager.adapter = PagerAdapter(supportFragmentManager, reports)
+                activityReportDetailBinding.pager.registerOnPageChangeCallback(PageChangeListener(reports))
+                activityReportDetailBinding.pager.adapter = PagerAdapter(this, reports)
                 val id = intent.getIntExtra(Core.ARG_REPORT_ID, -1)
                 if (id!=-1) {
                     val index = reports.indexOfFirst { it.id == id }
