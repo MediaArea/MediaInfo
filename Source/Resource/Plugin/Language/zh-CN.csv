@@ -1348,7 +1348,7 @@ Subscribe_Renew_Price;续订 (%PRICE% 一年)
 Subscribe_Unaviable;无法检索订购详细信息。
 Subscribe_Waiting;购买等待家长批准
 Subscription_Active;订阅有效期至 %DATE%
-Subscription_Android;%PRICE%/年（免费试用 3 天）
+Subscription_Android;免费试用 3 天
 Subscription_Ended;你的订购刚刚到期。
 Subscription_Expired;订购过期时间 %DATE%
 Subscription_Lifetime;检测到终身订阅
