@@ -7,38 +7,44 @@
 package net.mediaarea.mediainfo
 
 import kotlin.jvm.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 import java.io.File
 
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
-import androidx.lifecycle.ViewModelProvider
-import androidx.core.app.ActivityCompat
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.ActivityCompat
+import androidx.core.content.edit
+import androidx.core.net.toUri
+import androidx.core.view.updatePadding
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.ViewModelProvider
+import androidx.preference.PreferenceManager.getDefaultSharedPreferences
+import androidx.recyclerview.widget.RecyclerView
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.os.AsyncTask
-import android.os.Environment
 import android.os.ParcelFileDescriptor
 import android.net.Uri
-import android.app.Activity
 import android.content.Intent
 import android.database.Cursor
 import android.provider.OpenableColumns
 import android.widget.FrameLayout
 import android.widget.TextView
-import android.content.Context
 import android.widget.Toast
 import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.view.*
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
-import androidx.preference.PreferenceManager.getDefaultSharedPreferences
+
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -69,46 +75,53 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     private var reports: List<Report> = listOf()
     private var pendingFileUris: MutableList<Uri> = mutableListOf()
 
-    inner class AddFile: AsyncTask<Uri, Int, Boolean>() {
-        override fun onPreExecute() {
-            super.onPreExecute()
+    private val openFile = registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris ->
+        if (uris.isNotEmpty())
+            addFile(*uris.toTypedArray())
+    }
+
+    private val startSubscribeActivityForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK)
+            Toast.makeText(applicationContext, R.string.thanks_text, Toast.LENGTH_SHORT).show()
+    }
+
+    private val startShowReportForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            result.data?.let {
+                val id = it.getIntExtra(Core.ARG_REPORT_ID, -1)
+                if (id != -1 && twoPane)
+                    showReport(id)
+            }
+        }
+    }
+
+    private fun addFile(vararg params: Uri?) {
+        lifecycleScope.launch {
+            // Temporarily lock screen rotation to prevent crash as activity is recreated during rotation
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
+
+            val rootLayout: FrameLayout = activityReportListBinding.frameLayout
 
             activityReportListBinding.addButton.hide()
-            val rootLayout: FrameLayout = activityReportListBinding.frameLayout
             var found = false
             for (i: Int in rootLayout.childCount downTo 1) {
                 if (rootLayout.getChildAt(i - 1).id == R.id.spinner_layout)
                     found = true
             }
-
             if (!found)
                 View.inflate(this@ReportListActivity, R.layout.spinner_layout, rootLayout)
-        }
 
-        override fun onPostExecute(result: Boolean?) {
-            super.onPostExecute(result)
+            withContext(Dispatchers.IO) {
+                for (uri: Uri? in params) {
+                    if (uri == null) {
+                        continue
+                    }
 
-            activityReportListBinding.addButton.show()
+                    var fd: ParcelFileDescriptor? = null
+                    var displayName = ""
 
-            val rootLayout: FrameLayout = activityReportListBinding.frameLayout
-            for (i: Int in rootLayout.childCount downTo 1) {
-                if (rootLayout.getChildAt(i - 1).id == R.id.spinner_layout)
-                    rootLayout.removeViewAt(i - 1)
-            }
-        }
-
-        override fun doInBackground(vararg params: Uri?): Boolean {
-            for (uri: Uri? in params) {
-                if (uri == null) {
-                    continue
-                }
-
-                var fd: ParcelFileDescriptor? = null
-                var displayName = ""
-
-                when (uri.scheme) {
-                    "content" -> {
-                        if (Build.VERSION.SDK_INT >= 19) {
+                    when (uri.scheme) {
+                        "content" -> {
                             try {
                                 val cursor: Cursor? = contentResolver.query(uri, null, null, null, null, null)
                                 // moveToFirst() returns false if the cursor has 0 rows
@@ -120,45 +133,52 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                                     }
                                     cursor.close()
                                 }
-                            } catch (e: Exception) {
+                            } catch (_: Exception) {
                             }
                             try {
                                 fd = contentResolver.openFileDescriptor(uri, "r")
-                            } catch (e: Exception) {}
+                            } catch (_: Exception) {}
+                        }
+                        "file" -> {
+                            val file = File(uri.path.orEmpty())
+                            try {
+                                fd = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
+                            } catch (_: Exception) {}
+
+                            displayName = uri.lastPathSegment.orEmpty()
                         }
                     }
-                    "file" -> {
-                        val file = File(uri.path.orEmpty())
-                        try {
-                            fd = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
-                        } catch (e: Exception) {}
 
-                        displayName = uri.lastPathSegment.orEmpty()
+                    if (fd == null) {
+                        continue
                     }
-                }
 
-                if (fd == null) {
-                    continue
-                }
+                    val report: ByteArray = Core.createReport(fd.detachFd(), displayName)
 
-                val report: ByteArray = Core.createReport(fd.detachFd(), displayName)
-
-                disposable.add(reportModel.insertReport(Report(0, displayName, report, Core.version))
+                    disposable.add(reportModel.insertReport(Report(0, displayName, report, Core.version))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnComplete {
                             // Don't go to report view when opening multiples files
                             if (params.size == 1) {
                                 disposable.add(reportModel.getLastId()
-                                        .subscribeOn(Schedulers.io())
-                                        .observeOn(AndroidSchedulers.mainThread())
-                                        .doOnSuccess {
-                                            showReport(it)
-                                        }.subscribe())
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .doOnSuccess {
+                                        showReport(it)
+                                    }.subscribe())
                             }
                         }.subscribe())
+                }
             }
-            return true
+
+            activityReportListBinding.addButton.show()
+            for (i: Int in rootLayout.childCount downTo 1) {
+                if (rootLayout.getChildAt(i - 1).id == R.id.spinner_layout)
+                    rootLayout.removeViewAt(i - 1)
+            }
+
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         }
     }
 
@@ -167,7 +187,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         when (requestCode) {
             READ_EXTERNAL_STORAGE_PERMISSION_REQUEST -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    AddFile().execute(*(pendingFileUris.toTypedArray()))
+                    addFile(*(pendingFileUris.toTypedArray()))
                     pendingFileUris.clear()
                 } else {
                     // Abort all pending request
@@ -199,7 +219,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 }
             }
         }
-        AddFile().execute(uri)
+        addFile(uri)
     }
 
     private fun handleIntent(intent: Intent) {
@@ -217,14 +237,26 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                     }
                 }
                 Intent.ACTION_SEND -> {
-                    val uri = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
+                    val uri =
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                            intent.getParcelableExtra(Intent.EXTRA_STREAM, Uri::class.java)
+                        } else {
+                            @Suppress("DEPRECATION")
+                            intent.getParcelableExtra(Intent.EXTRA_STREAM)
+                        }
                     if (uri != null) {
                         handleUri(uri)
                         intent.putExtra(OPEN_INTENT_PROCESSED, true)
                     }
                 }
                 Intent.ACTION_SEND_MULTIPLE -> {
-                    val uriList = intent.getParcelableArrayListExtra<Uri>(Intent.EXTRA_STREAM)
+                    val uriList =
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                            intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM, Uri::class.java)
+                        } else {
+                            @Suppress("DEPRECATION")
+                            intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM)
+                        }
                     if (uriList != null) {
                         for (i in uriList) {
                             handleUri(i)
@@ -242,18 +274,21 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
         when (sharedPreferences?.contains(key)) {
             false, null -> {
-                val oldSharedPreferences = getSharedPreferences(getString(R.string.preferences_key), Context.MODE_PRIVATE)
+                val oldSharedPreferences = getSharedPreferences(getString(R.string.preferences_key), MODE_PRIVATE)
                 if (oldSharedPreferences?.contains(key) == true) {
                     oldSharedPreferences.getString(key, "").let {
                         when (it) {
                             "ON" -> {
-                                oldSharedPreferences.edit()?.remove(key)
-                                sharedPreferences.edit()?.putString(key, "on")?.apply()
+                                oldSharedPreferences.edit {
+                                    remove(key)
+                                    putString(key, "on")
+                                }
                             }
                             "OFF" -> {
-                                oldSharedPreferences.edit()?.remove(key)
-                                sharedPreferences.edit()?.putString(key, "off")?.apply()
-
+                                oldSharedPreferences.edit {
+                                    remove(key)
+                                    putString(key, "off")
+                                }
                             }
                             else -> {
                             }
@@ -266,12 +301,16 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                     sharedPreferences.getBoolean(key, false).let {
                         when (it) {
                             false -> {
-                                sharedPreferences.edit()?.remove(key)
-                                sharedPreferences.edit()?.putString(key, "off")?.apply()
+                                sharedPreferences.edit {
+                                    remove(key)
+                                    putString(key, "off")
+                                }
                             }
                             true -> {
-                                sharedPreferences.edit()?.remove(key)
-                                sharedPreferences.edit()?.putString(key, "on")?.apply()
+                                sharedPreferences.edit {
+                                    remove(key)
+                                    putString(key, "on")
+                                }
                             }
                         }
                     }
@@ -315,7 +354,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
             val content = stream.bufferedReader().use(BufferedReader::readText)
             Core.setLocale(content)
         }
-        catch (error: Exception) {
+        catch (_: Exception) {
         }
     }
 
@@ -344,9 +383,19 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 } else {
                     val language = it.split("-r")
                     if (language.size > 1) {
-                        Locale(language[0], language[1])
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
+                            Locale.of(language[0], language[1])
+                        } else {
+                            @Suppress("DEPRECATION")
+                            Locale(language[0], language[1])
+                        }
                     } else {
-                        Locale(language[0])
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
+                            Locale.of(language[0])
+                        } else {
+                            @Suppress("DEPRECATION")
+                            Locale(language[0])
+                        }
                     }
                 }
 
@@ -383,7 +432,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
             val intent = Intent(this@ReportListActivity, ReportDetailActivity::class.java)
             intent.putExtra(Core.ARG_REPORT_ID, id)
 
-            startActivityForResult(intent, SHOW_REPORT_REQUEST)
+            startShowReportForResult.launch(intent)
         }
     }
 
@@ -442,7 +491,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
                         item?.setOnMenuItemClickListener { _ ->
                             val intent = Intent(Intent.ACTION_VIEW)
-                            intent.data = Uri.parse(getString(R.string.subscription_manage_url).replace('|', '&'))
+                            intent.data = getString(R.string.subscription_manage_url).replace('|', '&').toUri()
                             startActivity(intent)
 
                             true
@@ -455,7 +504,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
                     item?.setOnMenuItemClickListener { _ ->
                         val intent = Intent(this, SubscribeActivity::class.java)
-                        startActivityForResult(intent, SUBSCRIBE_REQUEST)
+                        startSubscribeActivityForResult.launch(intent)
 
                         true
                     }
@@ -490,42 +539,6 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         }
 
         return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
-        super.onActivityResult(requestCode, resultCode, resultData)
-
-        if (resultCode == Activity.RESULT_OK) {
-            when (requestCode) {
-                OPEN_FILE_REQUEST -> {
-                    if (Build.VERSION.SDK_INT >= 19) {
-                        if (resultData == null)
-                            return
-
-                        val clipData = resultData.clipData
-                        if (clipData != null) {
-                            val uris: Array<Uri> = Array(clipData.itemCount) {
-                                clipData.getItemAt(it).uri
-                            }
-                            AddFile().execute(*(uris))
-                        } else if (resultData.data != null) {
-                            AddFile().execute(resultData.data)
-                        }
-                    }
-                }
-                SUBSCRIBE_REQUEST -> {
-                    Toast.makeText(applicationContext, R.string.thanks_text, Toast.LENGTH_SHORT).show()
-                }
-                SHOW_REPORT_REQUEST -> {
-                    if (resultData!=null) {
-                        val id = resultData.getIntExtra(Core.ARG_REPORT_ID, -1)
-                        if (id!=-1 && twoPane) {
-                            showReport(id)
-                        }
-                    }
-                }
-            }
-        }
     }
 
     override fun getReportViewModel(): ReportViewModel {
@@ -586,13 +599,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         reportModel = ViewModelProvider(this, viewModelFactory)[ReportViewModel::class.java]
 
         activityReportListBinding.addButton.setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
-
-            intent.addCategory(Intent.CATEGORY_OPENABLE)
-            intent.type = "*/*"
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-
-            startActivityForResult(intent, OPEN_FILE_REQUEST)
+            openFile.launch("*/*")
         }
         activityReportListBinding.reportListLayout.clearBtn.setOnClickListener {
             disposable.add(reportModel.deleteAllReports()
@@ -682,6 +689,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         disposable.clear()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         recyclerView.adapter = ItemRecyclerViewAdapter()
         recyclerView.isNestedScrollingEnabled = false
@@ -727,9 +735,6 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     }
 
     companion object {
-        const val SHOW_REPORT_REQUEST = 20
-        const val SUBSCRIBE_REQUEST = 30
-        const val OPEN_FILE_REQUEST = 40
         const val READ_EXTERNAL_STORAGE_PERMISSION_REQUEST = 50
         const val OPEN_INTENT_PROCESSED = "net.mediaarea.mediainfo.internal.tag.Intent.Processed"
     }

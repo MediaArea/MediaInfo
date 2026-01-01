@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.ProductDetails
-import com.android.billingclient.api.ProductDetails.PricingPhase
 import com.android.billingclient.api.BillingFlowParams
 import com.android.billingclient.api.BillingFlowParams.ProductDetailsParams
 import android.os.Bundle
