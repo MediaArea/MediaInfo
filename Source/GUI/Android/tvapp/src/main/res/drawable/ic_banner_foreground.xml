@@ -87,10 +87,10 @@
       </group>
     </group>
 
-    <group android:scaleX="0.492"
-        android:scaleY="0.23292296"
-        android:translateX="259.6"
-        android:translateY="66.28624">
+    <group android:scaleX="0.9"
+        android:scaleY="1.6"
+        android:translateX="475"
+        android:translateY="460">
       <group android:translateY="136.82812">
         <path android:pathData="M62.71875,-19.203125L63.140625,-19.203125L95.84375,-102.375L113.0625,-102.375L113.0625,-0L99.21875,-0L99.21875,-76.71875L98.796875,-76.78125L67.78125,-0L58.15625,-0L26.234375,-79.3125L25.8125,-79.25L25.8125,-0L11.953125,-0L11.953125,-102.375L30.171875,-102.375L62.71875,-19.203125Z"
             android:fillColor="#000000"/>
