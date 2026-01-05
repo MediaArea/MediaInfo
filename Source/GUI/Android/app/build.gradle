@@ -209,6 +209,7 @@ dependencies {
     // KotlinX Coroutines
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:1.10.2"
     // Locales manager
     implementation 'com.github.YarikSOffice:lingver:1.3.0'
 }

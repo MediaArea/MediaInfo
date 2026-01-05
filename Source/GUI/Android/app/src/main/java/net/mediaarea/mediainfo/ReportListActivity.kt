@@ -7,8 +7,7 @@
 package net.mediaarea.mediainfo
 
 import kotlin.jvm.*
-
-import java.io.File
+import kotlinx.coroutines.launch
 
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +18,9 @@ import androidx.core.net.toUri
 import androidx.core.view.updatePadding
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 import androidx.recyclerview.widget.RecyclerView
@@ -26,12 +28,8 @@ import androidx.recyclerview.widget.RecyclerView
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.os.AsyncTask
-import android.os.ParcelFileDescriptor
 import android.net.Uri
 import android.content.Intent
-import android.database.Cursor
-import android.provider.OpenableColumns
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -73,7 +71,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
     private val openFile = registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris ->
         if (uris.isNotEmpty())
-            AddFile().execute(*uris.toTypedArray())
+            reportModel.addFiles(contentResolver, uris)
     }
 
     private val startSubscribeActivityForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -91,107 +89,12 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
-    inner class AddFile: AsyncTask<Uri, Int, Boolean>() {
-        @Deprecated("Deprecated in Java")
-        override fun onPreExecute() {
-            super.onPreExecute()
-
-            activityReportListBinding.addButton.hide()
-            val rootLayout: FrameLayout = activityReportListBinding.frameLayout
-            var found = false
-            for (i: Int in rootLayout.childCount downTo 1) {
-                if (rootLayout.getChildAt(i - 1).id == R.id.spinner_layout)
-                    found = true
-            }
-
-            if (!found)
-                View.inflate(this@ReportListActivity, R.layout.spinner_layout, rootLayout)
-        }
-
-        @Deprecated("Deprecated in Java")
-        override fun onPostExecute(result: Boolean?) {
-            super.onPostExecute(result)
-
-            activityReportListBinding.addButton.show()
-
-            val rootLayout: FrameLayout = activityReportListBinding.frameLayout
-            for (i: Int in rootLayout.childCount downTo 1) {
-                if (rootLayout.getChildAt(i - 1).id == R.id.spinner_layout)
-                    rootLayout.removeViewAt(i - 1)
-            }
-        }
-
-        @Deprecated("Deprecated in Java")
-        override fun doInBackground(vararg params: Uri?): Boolean {
-            for (uri: Uri? in params) {
-                if (uri == null) {
-                    continue
-                }
-
-                var fd: ParcelFileDescriptor? = null
-                var displayName = ""
-
-                when (uri.scheme) {
-                    "content" -> {
-                        try {
-                            val cursor: Cursor? = contentResolver.query(uri, null, null, null, null, null)
-                            // moveToFirst() returns false if the cursor has 0 rows
-                            if (cursor != null && cursor.moveToFirst()) {
-                                // DISPLAY_NAME is provider-specific, and might not be the file name
-                                val column = cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME)
-                                if (column >= 0) {
-                                    displayName = cursor.getString(column)
-                                }
-                                cursor.close()
-                            }
-                        } catch (_: Exception) {
-                        }
-                        try {
-                            fd = contentResolver.openFileDescriptor(uri, "r")
-                        } catch (_: Exception) {}
-                    }
-                    "file" -> {
-                        val file = File(uri.path.orEmpty())
-                        try {
-                            fd = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
-                        } catch (_: Exception) {}
-
-                        displayName = uri.lastPathSegment.orEmpty()
-                    }
-                }
-
-                if (fd == null) {
-                    continue
-                }
-
-                val report: ByteArray = Core.createReport(fd.detachFd(), displayName)
-
-                disposable.add(reportModel.insertReport(Report(0, displayName, report, Core.version))
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doOnComplete {
-                            // Don't go to report view when opening multiples files
-                            if (params.size == 1) {
-                                disposable.add(reportModel.getLastId()
-                                        .subscribeOn(Schedulers.io())
-                                        .observeOn(AndroidSchedulers.mainThread())
-                                        .doOnSuccess {
-                                            showReport(it)
-                                        }.subscribe())
-                            }
-                        }.subscribe())
-            }
-            return true
-        }
-    }
-
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             READ_EXTERNAL_STORAGE_PERMISSION_REQUEST -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    AddFile().execute(*(pendingFileUris.toTypedArray()))
+                    reportModel.addFiles(contentResolver, pendingFileUris)
                     pendingFileUris.clear()
                 } else {
                     // Abort all pending request
@@ -211,7 +114,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         handleIntent(intent)
     }
 
-    private fun handleUri(uri: Uri) {
+    private fun handleUri(uri: Uri, isMultiple: Boolean = false) {
         if (uri.scheme == "file") {
             if (Build.VERSION.SDK_INT >= 23) {
                 if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -223,7 +126,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 }
             }
         }
-        AddFile().execute(uri)
+        reportModel.addFiles(contentResolver, listOf(uri), isMultiple)
     }
 
     private fun handleIntent(intent: Intent) {
@@ -262,8 +165,8 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                             intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM)
                         }
                     if (uriList != null) {
-                        for (i in uriList) {
-                            handleUri(i)
+                        for (i in uriList.filterNotNull()) {
+                            handleUri(i, true)
                         }
                         intent.putExtra(OPEN_INTENT_PROCESSED, true)
                     }
@@ -601,6 +504,41 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
         val viewModelFactory = Injection.provideViewModelFactory(this)
         reportModel = ViewModelProvider(this, viewModelFactory)[ReportViewModel::class.java]
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    reportModel.isLoading.collect { isLoading ->
+                        val rootLayout: FrameLayout = activityReportListBinding.frameLayout
+                        if (isLoading) {
+                            activityReportListBinding.addButton.hide()
+                            var found = false
+                            for (i: Int in rootLayout.childCount downTo 1) {
+                                if (rootLayout.getChildAt(i - 1).id == R.id.spinner_layout)
+                                    found = true
+                            }
+                            if (!found)
+                                View.inflate(
+                                    this@ReportListActivity,
+                                    R.layout.spinner_layout,
+                                    rootLayout
+                                )
+                        } else {
+                            activityReportListBinding.addButton.show()
+                            for (i: Int in rootLayout.childCount downTo 1) {
+                                if (rootLayout.getChildAt(i - 1).id == R.id.spinner_layout)
+                                    rootLayout.removeViewAt(i - 1)
+                            }
+                        }
+                    }
+                }
+                launch {
+                    reportModel.navigateToReport.collect { reportId ->
+                        showReport(reportId)
+                    }
+                }
+            }
+        }
 
         activityReportListBinding.addButton.setOnClickListener {
             openFile.launch("*/*")
