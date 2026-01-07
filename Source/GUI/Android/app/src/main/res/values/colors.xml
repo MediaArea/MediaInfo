@@ -8,6 +8,7 @@
 
 <resources>
     <color name="ic_launcher_background">#FFFFFF</color>
+    <color name="overlay_background">#80FFFFFF</color>
 
     <color name="md_theme_primary">#24389C</color>
     <color name="md_theme_onPrimary">#FFFFFF</color>

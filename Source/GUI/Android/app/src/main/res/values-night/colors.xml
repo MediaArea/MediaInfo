@@ -7,6 +7,8 @@
 -->
 
 <resources>
+    <color name="overlay_background">#80000000</color>
+
     <color name="md_theme_primary">#BAC3FF</color>
     <color name="md_theme_onPrimary">#08218A</color>
     <color name="md_theme_primaryContainer">#3F51B5</color>
