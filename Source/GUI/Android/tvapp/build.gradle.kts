@@ -15,43 +15,8 @@ android {
         targetSdk = 37
         versionCode = 1
         versionName = "26.05"
-        @Suppress("UnstableApiUsage")
-        externalNativeBuild {
-            cmake {
-                arguments(
-                    "-DENABLE_UNICODE=ON",
-                    "-DMEDIAINFO_ADVANCED=OFF",
-                    "-DMEDIAINFO_AES=OFF",
-                    "-DMEDIAINFO_DEMUX=OFF",
-                    "-DMEDIAINFO_DIRECTORY=OFF",
-                    "-DMEDIAINFO_DUPLICATE=OFF",
-                    "-DMEDIAINFO_DVDIF_ANALYZE=OFF",
-                    "-DMEDIAINFO_EVENTS=OFF",
-                    "-DMEDIAINFO_FILTER=OFF",
-                    "-DMEDIAINFO_FIXITY=OFF",
-                    "-DMEDIAINFO_GRAPH=OFF",
-                    "-DMEDIAINFO_IBI=OFF",
-                    "-DMEDIAINFO_LIBCURL=OFF",
-                    "-DMEDIAINFO_LIBMMS=OFF",
-                    "-DMEDIAINFO_MACROBLOCKS=OFF",
-                    "-DMEDIAINFO_MD5=OFF",
-                    "-DMEDIAINFO_NEXTPACKET=OFF",
-                    "-DMEDIAINFO_READER=OFF",
-                    "-DMEDIAINFO_READTHREAD=OFF",
-                    "-DMEDIAINFO_REFERENCES=OFF",
-                    "-DMEDIAINFO_SHA1=OFF",
-                    "-DMEDIAINFO_SHA2=OFF",
-                    "-DMEDIAINFO_TRACE=OFF",
-                    "-DMEDIAINFO_TRACE_FFV1CONTENT=OFF"
-                )
-            }
-        }
     }
-    externalNativeBuild {
-        cmake {
-            path = file("CMakeLists.txt")
-        }
-    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -73,6 +38,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":mediainfolib"))
     implementation("androidx.core:core-ktx:1.18.0")
     implementation("androidx.appcompat:appcompat:1.7.1")
     implementation(platform("androidx.compose:compose-bom:2026.05.00"))
