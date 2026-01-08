@@ -18,16 +18,46 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "25.10"
+
+        splits {
+            abi {
+                reset()
+                include("x86", "x86_64", "armeabi-v7a", "arm64-v8a")
+            }
+        }
+
+        if (project.hasProperty("RELEASE_STORE_FILE")) {
+            signingConfigs {
+                create("release") {
+                    storeFile = file(project.property("RELEASE_STORE_FILE") as String)
+                    storePassword = project.property("RELEASE_STORE_PASSWORD") as String
+                    keyAlias = project.property("RELEASE_KEY_ALIAS") as String
+                    keyPassword = project.property("RELEASE_KEY_PASSWORD") as String
+                }
+            }
+        }
     }
 
     buildTypes {
         release {
+            if (project.hasProperty("RELEASE_STORE_FILE")) {
+                signingConfig = signingConfigs.getByName("release")
+            }
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+    }
+    val isBuildingBundle = gradle.startParameter.taskNames.any {
+        it.contains("bundle", ignoreCase = true)
+    }
+    splits {
+        abi {
+            isEnable = !isBuildingBundle
+            isUniversalApk = true
         }
     }
     compileOptions {
