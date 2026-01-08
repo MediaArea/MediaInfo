@@ -18,45 +18,8 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "25.10"
-        @Suppress("UnstableApiUsage")
-        externalNativeBuild {
-            cmake {
-                cppFlags(
-                    "-DUNICODE",
-                    "-D_UNICODE",
-                    "-DMEDIAINFO_ADVANCED_NO",
-                    "-DMEDIAINFO_REFERENCES_NO",
-                    "-DMEDIAINFO_FILTER_NO",
-                    "-DMEDIAINFO_DUPLICATE_NO",
-                    "-DMEDIAINFO_MACROBLOCKS_NO",
-                    "-DMEDIAINFO_TRACE_NO",
-                    "-DMEDIAINFO_TRACE_FFV1CONTENT_NO",
-                    "-DMEDIAINFO_IBI_NO",
-                    "-DMEDIAINFO_DIRECTORY_NO",
-                    "-DMEDIAINFO_LIBCURL_NO",
-                    "-DMEDIAINFO_LIBMMS_NO",
-                    "-DMEDIAINFO_DVDIF_ANALYZE_NO",
-                    "-DMEDIAINFO_MPEGTS_DUPLICATE_NO",
-                    "-DMEDIAINFO_READTHREAD_NO",
-                    "-DMEDIAINFO_MD5_NO",
-                    "-DMEDIAINFO_SHA1_NO",
-                    "-DMEDIAINFO_SHA2_NO",
-                    "-DMEDIAINFO_EVENTS_NO",
-                    "-DMEDIAINFO_DEMUX_NO",
-                    "-DMEDIAINFO_AES_NO",
-                    "-DMEDIAINFO_FIXITY_NO",
-                    "-DMEDIAINFO_READER_NO",
-                    "-DMEDIAINFO_NEXTPACKET_NO"
-                )
-                arguments("-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON")
-            }
-        }
     }
-    externalNativeBuild {
-        cmake {
-            path = file("CMakeLists.txt")
-        }
-    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -83,6 +46,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":mediainfolib"))
     implementation("androidx.core:core-ktx:1.17.0")
     implementation("androidx.appcompat:appcompat:1.7.1")
     implementation(platform("androidx.compose:compose-bom:2025.12.01"))
