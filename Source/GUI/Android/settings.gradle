@@ -3,3 +3,4 @@ plugins {
 }
 include ':app'
 include ':tvapp'
+include ':mediainfolib'

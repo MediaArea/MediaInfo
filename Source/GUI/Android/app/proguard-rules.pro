@@ -15,8 +15,3 @@
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
 -keepattributes SourceFile,LineNumberTable
-
-# MediaInfo
--keepclassmembers class net.mediaarea.mediainfo.MediaInfo {
-    *;
-}
