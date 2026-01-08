@@ -37,14 +37,13 @@ jobs:
       - name: Checkout MediaInfo
         uses: actions/checkout@v5
         with:
-          repository: MediaArea/MediaInfo
           path: MediaInfo
       - name: Build APKs
         run: |
           export JAVA_HOME="$JAVA_HOME_${{ env.JAVA_VER }}_X64"
           pushd ${{ github.workspace }}/MediaInfo/Source/GUI/Android
           chmod +x gradlew
-          ./gradlew assembleRelease
+          ./gradlew assembleRelease --warning-mode fail
           popd
       - name: Check alignment
         run: |
