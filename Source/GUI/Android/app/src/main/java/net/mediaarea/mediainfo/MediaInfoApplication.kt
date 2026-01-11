@@ -7,7 +7,6 @@
 package net.mediaarea.mediainfo
 
 import android.app.Application
-import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.color.DynamicColors
 
 import com.yariksoffice.lingver.Lingver
@@ -21,7 +20,6 @@ class MediaInfoApplication : Application() {
         super.onCreate()
 
         Lingver.init(this, InMemoryLocaleStore())
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
     override fun onTerminate() {
