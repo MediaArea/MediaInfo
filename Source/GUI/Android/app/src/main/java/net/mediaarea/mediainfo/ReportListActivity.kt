@@ -64,10 +64,10 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     private lateinit var helloLayoutBinding: HelloLayoutBinding
     private lateinit var subscriptionManager: SubscriptionManager
     private lateinit var reportModel: ReportViewModel
-    private var disposable: CompositeDisposable = CompositeDisposable()
+    private val disposable: CompositeDisposable = CompositeDisposable()
     private var twoPane: Boolean = false
     private var reports: List<Report> = listOf()
-    private var pendingFileUris: MutableList<Uri> = mutableListOf()
+    private val pendingFileUris: MutableList<Uri> = mutableListOf()
 
     private val openFile = registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris ->
         if (uris.isNotEmpty())

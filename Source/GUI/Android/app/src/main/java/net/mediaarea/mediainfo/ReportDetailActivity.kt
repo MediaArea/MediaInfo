@@ -39,7 +39,7 @@ class ReportDetailActivity : AppCompatActivity(), ReportActivityListener {
 
         }
     }
-    private var disposable: CompositeDisposable = CompositeDisposable()
+    private val disposable: CompositeDisposable = CompositeDisposable()
     private lateinit var reportModel: ReportViewModel
 
     override fun getReportViewModel(): ReportViewModel {

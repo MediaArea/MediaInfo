@@ -22,8 +22,8 @@ class SubscriptionManager private constructor(private val application: Applicati
     val details = MutableLiveData<ProductDetails>()
     val lifetimeDetails = MutableLiveData<ProductDetails>()
 
-    private var detailsAvailable = AtomicBoolean(false)
-    private var lifetimeDetailsAvailable = AtomicBoolean(false)
+    private val detailsAvailable = AtomicBoolean(false)
+    private val lifetimeDetailsAvailable = AtomicBoolean(false)
 
     private var billingClient: BillingClient
 

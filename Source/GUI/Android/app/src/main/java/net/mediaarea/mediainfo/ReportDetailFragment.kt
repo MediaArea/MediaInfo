@@ -7,6 +7,7 @@
 package net.mediaarea.mediainfo
 
 import java.io.OutputStream
+import java.util.Locale
 
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.edit
@@ -229,7 +230,7 @@ class ReportDetailFragment : Fragment() {
 
     private fun saveReport(directory: DocumentFile, report: Report) {
         val reportText: String = Core.convertReport(report.report, view, true)
-        val filename: String = String.format("%s.%s", report.filename, view)
+        val filename: String = String.format(Locale.US, "%s.%s", report.filename, view)
         val mime: String = Core.views.find { it.name == view }?.mime ?: "text/plain"
 
         try {
