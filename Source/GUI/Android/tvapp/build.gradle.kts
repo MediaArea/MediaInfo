@@ -4,6 +4,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
+    id("dev.detekt") version "latest.release"
 }
 
 android {
@@ -73,6 +74,12 @@ android {
         buildConfig = true
         compose = true
     }
+}
+
+detekt {
+    parallel = true
+    buildUponDefaultConfig = true
+    config.setFrom("detekt-config.yml")
 }
 
 dependencies {
