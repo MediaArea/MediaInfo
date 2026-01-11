@@ -1,0 +1,19 @@
+naming:
+  FunctionNaming:
+    ignoreAnnotated: ['Composable']
+potential-bugs:
+  Deprecation:
+    active: true
+style:
+  MagicNumber:
+    excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/androidUnitTest/**', '**/androidInstrumentedTest/**', '**/jsTest/**', '**/iosTest/**', '**/*.kts', '**/ui/theme/Color.kt']
+    ignoreNumbers:
+      - '-1'
+      - '0'
+      - '1'
+      - '2'
+      - '0.6f'
+  UnusedImport:
+    active: true
+  UnusedPrivateFunction:
+    ignoreAnnotated: ['Preview']

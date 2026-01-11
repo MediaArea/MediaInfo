@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.plugin.compose")
+    id("dev.detekt") version "latest.release"
 }
 
 private val isBuildingBundle = gradle.startParameter.taskNames.any {
@@ -66,6 +67,12 @@ android {
         buildConfig = true
         compose = true
     }
+}
+
+detekt {
+    parallel = true
+    buildUponDefaultConfig = true
+    config.setFrom("detekt-config.yml")
 }
 
 dependencies {
