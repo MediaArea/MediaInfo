@@ -35,6 +35,7 @@
 #include <QFontDatabase>
 #include <QPushButton>
 #include <QDesktopServices>
+#include <QStyleHints>
 /*
 #include <qwt/qwt_plot.h>
 #include <qwt/qwt_plot_curve.h>
@@ -1003,6 +1004,11 @@ void MainWindow::applySettings() {
     ui->toolBar->setVisible(settings->value("showToolbar",true).toBool());
     ui->toolBar->setToolButtonStyle(Qt::ToolButtonStyle(settings->value("iconStyle",Qt::ToolButtonIconOnly).toInt()));
     ui->toolBar->setIconSize(settings->value("iconSize",QSize(32,32)).toSize());
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 8, 0)
+    qApp->styleHints()->setColorScheme(static_cast<Qt::ColorScheme>(settings->value("colorTheme",static_cast<int>(Qt::ColorScheme::Unknown)).toInt()));
+#endif
+
     C->Menu_Option_Preferences_Option(__T("LegacyStreamDisplay"), settings->value("legacyStreamDisplay",false).toBool() ? __T("1") : __T("0"));
     C->Menu_Option_Preferences_Option(__T("Cover_Data"), settings->value("coverData",false).toBool() ? __T("base64") : __T(""));
     C->Menu_Option_Preferences_Option(__T("File_TestContinuousFileNames"), settings->value("testContinuousFileNames",false).toBool() ? __T("1") : __T("0"));

@@ -25,6 +25,9 @@ public:
     explicit WebView2Widget(QWidget *parent = nullptr);
     ~WebView2Widget();
 
+    // Public API: Set preferred color scheme
+    void setPreferredColorScheme(Qt::ColorScheme colorScheme);
+
     // Public API: Load HTML content
     void setHtml(const QString &html);
 
@@ -42,6 +45,8 @@ private:
     HWND m_hwndHost;
     Microsoft::WRL::ComPtr<ICoreWebView2Controller> m_webviewController;
     Microsoft::WRL::ComPtr<ICoreWebView2> m_webview;
+    Microsoft::WRL::ComPtr<ICoreWebView2Profile> m_webviewProfile;
+    COREWEBVIEW2_PREFERRED_COLOR_SCHEME m_preferredColorScheme;
 
     bool m_isInitialized;          // Flag to track WebView2 initialization status
     QQueue<QString> m_pendingHtml; // Queue for pending HTML content
