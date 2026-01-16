@@ -1319,7 +1319,7 @@ void MainWindow::on_actionExport_triggered()
                 if (MediaInfo_Complete || ToExport->Get(0, Stream_General, 0, I1, Info_Options)[InfoOption_ShowInInform]==__T('Y'))
                 {
                     CSV(0, CSV_Pos)=Ztring(__T("General "))+Parameters(Pos_Start+I1, 0);
-                    for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
+                    for (size_t FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
                         CSV(1+FilePos, CSV_Pos)=ToExport->Get(FilePos, Stream_General, 0, I1);
                     CSV_Pos++;
                 }
@@ -1334,7 +1334,7 @@ void MainWindow::on_actionExport_triggered()
                     if (MediaInfo_Complete || ToExport->Get(0, Stream_Video, 0, I1, Info_Options)[InfoOption_ShowInInform]==__T('Y'))
                     {
                         CSV(0, CSV_Pos)=Ztring(__T("Video "))+Ztring::ToZtring(Count)+__T(" ")+Parameters(Pos_Start+I1, 0);
-                        for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
+                        for (size_t FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
                             CSV(1+FilePos, CSV_Pos)=ToExport->Get(FilePos, Stream_Video, 0, I1);
                         CSV_Pos++;
                     }
@@ -1349,7 +1349,7 @@ void MainWindow::on_actionExport_triggered()
                     if (MediaInfo_Complete || ToExport->Get(0, Stream_Audio, 0, I1, Info_Options)[InfoOption_ShowInInform]==__T('Y'))
                     {
                         CSV(0, CSV_Pos)=Ztring(__T("Audio "))+Ztring::ToZtring(Count)+__T(" ")+Parameters(Pos_Start+I1, 0);
-                        for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
+                        for (size_t FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
                             CSV(1+FilePos, CSV_Pos)=ToExport->Get(FilePos, Stream_Audio, Count, I1);
                         CSV_Pos++;
                     }
@@ -1364,7 +1364,7 @@ void MainWindow::on_actionExport_triggered()
                     if (MediaInfo_Complete || ToExport->Get(0, Stream_Text, 0, I1, Info_Options)[InfoOption_ShowInInform]==__T('Y'))
                     {
                         CSV(0, CSV_Pos)=Ztring(__T("Text "))+Ztring::ToZtring(Count)+__T(" ")+Parameters(Pos_Start+I1, 0);
-                        for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
+                        for (size_t FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
                             CSV(1+FilePos, CSV_Pos)=ToExport->Get(FilePos, Stream_Text, Count, I1);
                         CSV_Pos++;
                     }
@@ -1379,7 +1379,7 @@ void MainWindow::on_actionExport_triggered()
                     if (MediaInfo_Complete || ToExport->Get(0, Stream_Other, 0, I1, Info_Options)[InfoOption_ShowInInform]==__T('Y'))
                     {
                         CSV(0, CSV_Pos)=Ztring(__T("Chapters "))+Ztring::ToZtring(Count)+__T(" ")+Parameters(Pos_Start+I1, 0);
-                        for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
+                        for (size_t FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
                             CSV(1+FilePos, CSV_Pos)=ToExport->Get(FilePos, Stream_Other, Count, I1);
                         CSV_Pos++;
                     }
