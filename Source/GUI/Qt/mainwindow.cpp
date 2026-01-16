@@ -196,7 +196,7 @@ MainWindow::MainWindow(const QStringList& filesnames, int viewasked, QWidget *pa
 #endif
 
     //tests
-#if QT_VERSION > QT_VERSION_CHECK(6, 7, 0)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
     ui->actionQuit->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::WindowClose));
     ui->actionClose_All->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::WindowClose));
 #else
