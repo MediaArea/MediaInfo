@@ -85,6 +85,12 @@ Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
     ui->enableFFmpeg->setChecked(settings->value("enableFFmpeg",false).toBool());
     ui->Graph_Adm_ShowTrackUIDs->setChecked(settings->value("Graph_Adm_ShowTrackUIDs",false).toBool());
     ui->Graph_Adm_ShowChannelFormats->setChecked(settings->value("Graph_Adm_ShowChannelFormats",false).toBool());
+#if QT_VERSION >= QT_VERSION_CHECK(6, 8, 0)
+    ui->comboBox_colorTheme->setCurrentIndex(settings->value("colorTheme",static_cast<int>(Qt::ColorScheme::Unknown)).toInt());
+#else
+    ui->comboBox_colorTheme->setVisible(false);
+    ui->label_colorTheme->setVisible(false);
+#endif
 #ifdef NEW_VERSION
     ui->checkForNewVersion->setChecked(settings->value("checkForNewVersion",true).toBool());
 #else
@@ -163,6 +169,9 @@ void Preferences::saveSettings() {
     settings->setValue("enableFFmpeg",ui->enableFFmpeg->isChecked());
     settings->setValue("Graph_Adm_ShowTrackUIDs",ui->Graph_Adm_ShowTrackUIDs->isChecked());
     settings->setValue("Graph_Adm_ShowChannelFormats",ui->Graph_Adm_ShowChannelFormats->isChecked());
+#if QT_VERSION >= QT_VERSION_CHECK(6, 8, 0)
+    settings->setValue("colorTheme",ui->comboBox_colorTheme->currentIndex());
+#endif
     Sheet::setDefault(ui->comboBoxSheet->itemData(ui->comboBoxSheet->currentIndex()).toInt());
     Sheet::save(settings);
     ConfigTreeText::setDefault(ui->treeTextComboBox->itemData(ui->treeTextComboBox->currentIndex()).toInt());

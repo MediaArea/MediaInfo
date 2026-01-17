@@ -111,19 +111,16 @@
        </property>
        <widget class="QWidget" name="Setup">
         <layout class="QGridLayout" name="gridLayout">
-         <item row="3" column="1">
-          <widget class="QFontComboBox" name="comboBox_font">
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_2">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="editable">
-            <bool>false</bool>
-           </property>
-           <property name="fontFilters">
-            <set>QFontComboBox::FontFilter::MonospacedFonts</set>
+           <property name="text">
+            <string>Output format</string>
            </property>
           </widget>
          </item>
@@ -182,32 +179,6 @@
            </item>
           </widget>
          </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="label_4">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Monospaced font</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_2">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Output format</string>
-           </property>
-          </widget>
-         </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label">
            <property name="sizePolicy">
@@ -218,6 +189,61 @@
            </property>
            <property name="text">
             <string>Language</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="0" colspan="2">
+          <widget class="QCheckBox" name="checkForNewVersion">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Newest version</string>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="0" colspan="2">
+          <widget class="QCheckBox" name="shellExtension">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Shell extension</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QFontComboBox" name="comboBox_font">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="editable">
+            <bool>false</bool>
+           </property>
+           <property name="fontFilters">
+            <set>QFontComboBox::FontFilter::MonospacedFonts</set>
+           </property>
+          </widget>
+         </item>
+         <item row="10" column="0" colspan="2">
+          <widget class="QCheckBox" name="shellInfoTip">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Shell InfoTip</string>
            </property>
           </widget>
          </item>
@@ -244,6 +270,32 @@
            </property>
           </widget>
          </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_4">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Monospaced font</string>
+           </property>
+          </widget>
+         </item>
+         <item row="11" column="0" colspan="2">
+          <spacer name="verticalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Orientation::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
          <item row="2" column="1">
           <widget class="QComboBox" name="comboBox_defaultview">
            <property name="sizePolicy">
@@ -254,33 +306,7 @@
            </property>
           </widget>
          </item>
-         <item row="5" column="0" colspan="2">
-          <widget class="QCheckBox" name="checkForNewVersion">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Newest version</string>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="0" colspan="2">
-          <widget class="QCheckBox" name="shellExtension">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Shell extension</string>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="0" colspan="2">
+         <item row="9" column="0" colspan="2">
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <property name="leftMargin">
             <number>25</number>
@@ -300,31 +326,43 @@
            </item>
           </layout>
          </item>
-         <item row="8" column="0" colspan="2">
-          <widget class="QCheckBox" name="shellInfoTip">
+         <item row="5" column="0">
+          <widget class="QLabel" name="label_colorTheme">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>ColorTheme</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1">
+          <widget class="QComboBox" name="comboBox_colorTheme">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="text">
-            <string>Shell InfoTip</string>
-           </property>
+           <item>
+            <property name="text">
+             <string>ColorTheme_System</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>ColorTheme_Light</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>ColorTheme_Dark</string>
+            </property>
+           </item>
           </widget>
-         </item>
-         <item row="9" column="0" colspan="2">
-          <spacer name="verticalSpacer_5">
-           <property name="orientation">
-            <enum>Qt::Orientation::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
          </item>
         </layout>
        </widget>

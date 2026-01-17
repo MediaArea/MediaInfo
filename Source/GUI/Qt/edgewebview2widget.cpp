@@ -35,7 +35,7 @@ namespace {
 }
 
 WebView2Widget::WebView2Widget(QWidget *parent)
-    : QWidget(parent), m_hwndHost(nullptr), m_isInitialized(false) {
+    : QWidget(parent), m_hwndHost(nullptr), m_preferredColorScheme(COREWEBVIEW2_PREFERRED_COLOR_SCHEME_AUTO), m_isInitialized(false) {
     // Set up the widget to host WebView2
     m_hwndHost = (HWND)this->winId();
 
@@ -81,6 +81,14 @@ HRESULT WebView2Widget::InitializeWebView() {
                                                             if (SUCCEEDED(hr))
                                                                 controller4->put_AllowExternalDrop(FALSE);
 
+                                                            // Get ICoreWebView2Profile interface for setting preferred color scheme
+                                                            Microsoft::WRL::ComPtr<ICoreWebView2_13> webView13;
+                                                            if (SUCCEEDED(m_webview.As(&webView13))) {
+                                                                if (SUCCEEDED(webView13->get_Profile(&m_webviewProfile))) {
+                                                                    m_webviewProfile->put_PreferredColorScheme(m_preferredColorScheme);
+                                                                }
+                                                            }
+
                                                             // Use a single-shot timer to delay resizing until after the widget is properly laid out
                                                             QTimer::singleShot(0, this, [this]() {
                                                                 resizeEvent(nullptr); // Trigger resizeEvent manually
@@ -110,6 +118,17 @@ void WebView2Widget::resizeEvent(QResizeEvent *event) {
         GetClientRect(m_hwndHost, &bounds);
         m_webviewController->put_Bounds(bounds);
     }
+}
+
+void WebView2Widget::setPreferredColorScheme(Qt::ColorScheme colorScheme) {
+    switch(colorScheme) {
+    case Qt::ColorScheme::Unknown:  m_preferredColorScheme = COREWEBVIEW2_PREFERRED_COLOR_SCHEME_AUTO;    break;
+    case Qt::ColorScheme::Light:    m_preferredColorScheme = COREWEBVIEW2_PREFERRED_COLOR_SCHEME_LIGHT;   break;
+    case Qt::ColorScheme::Dark:     m_preferredColorScheme = COREWEBVIEW2_PREFERRED_COLOR_SCHEME_DARK;    break;
+    }
+
+    if (m_webviewProfile)
+        m_webviewProfile->put_PreferredColorScheme(m_preferredColorScheme);
 }
 
 void WebView2Widget::ProcessPendingRequests() {
