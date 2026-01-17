@@ -18,7 +18,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Dependencies
         run: |
           if [ "$RUNNER_OS" == "Linux" ]; then
@@ -96,39 +96,30 @@ jobs:
     runs-on: ${{ matrix.runner }}
     steps:
       - name: Checkout zlib
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           repository: MediaArea/zlib
           path: zlib
       - name: Checkout ZenLib
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           repository: MediaArea/ZenLib
           path: ZenLib
       - name: Checkout MediaInfoLib
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           repository: MediaArea/MediaInfoLib
           path: MediaInfoLib
-      - name: Checkout MediaArea-Utils for MediaInfo_NoGUI patch
-        uses: actions/checkout@v5
-        with:
-          repository: MediaArea/MediaArea-Utils
-          path: MediaArea-Utils
-          sparse-checkout: build_release/Diff/MediaInfo_NoGUI.diff
-          sparse-checkout-cone-mode: false
       - name: Checkout MediaInfo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           path: MediaInfo
-      - name: Apply MediaInfo_NoGUI patch
-        run: cd ${{ github.workspace }}\MediaInfo && git apply ${{ github.workspace }}\MediaArea-Utils\build_release\Diff\MediaInfo_NoGUI.diff
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
         with:
           msbuild-architecture: ${{ runner.arch == 'ARM64' && 'arm64' || 'x64' }}
       - name: Build
-        run: msbuild -restore -p:RestorePackagesConfig=true -p:Configuration=Release -p:Platform=${{ matrix.architecture }} ${{ github.workspace }}\MediaInfo\Project\MSVC2022\MediaInfo.sln -verbosity:quiet -warnaserror
+        run: msbuild -restore -p:RestorePackagesConfig=true -p:Configuration=Release -p:Platform=${{ matrix.architecture }} ${{ github.workspace }}\MediaInfo\Project\MSVC2022\MediaInfo-NoGUI.slnf -verbosity:quiet -warnaserror
       - name: Test CLI
         run : |
           cd ${{ github.workspace }}\MediaInfo\Project\MSVC2022\${{ matrix.architecture }}\Release
@@ -174,22 +165,22 @@ jobs:
       CXXFLAGS: ${{ matrix.CXXFLAGS }}
     steps:
       - name: Checkout zlib
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           repository: MediaArea/zlib
           path: zlib
       - name: Checkout ZenLib
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           repository: MediaArea/ZenLib
           path: ZenLib
       - name: Checkout MediaInfoLib
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           repository: MediaArea/MediaInfoLib
           path: MediaInfoLib
       - name: Checkout MediaInfo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           path: MediaInfo
       - name: Setup MSVC Developer Command Prompt
