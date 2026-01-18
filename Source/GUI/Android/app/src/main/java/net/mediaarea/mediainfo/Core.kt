@@ -33,6 +33,7 @@ object Core {
         language = locale
     }
 
+    @Synchronized
     fun createReport(fd: Int, name: String): ByteArray {
         mi.Option("Language", "")
         mi.Option("Inform", "MIXML")
@@ -46,6 +47,7 @@ object Core {
         return report.toByteArray()
     }
 
+    @Synchronized
     fun convertReport(report: ByteArray, format: String, export: Boolean = false) : String {
         mi.Option("Inform", format)
         mi.Option("Inform_Compress", "")

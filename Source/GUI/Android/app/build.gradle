@@ -4,23 +4,24 @@ apply plugin: 'kotlin-android'
 
 import groovy.xml.XmlParser
 import groovy.xml.XmlUtil
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 android {
     buildFeatures {
-        viewBinding true
+        viewBinding = true
     }
-    compileSdk 36
-    namespace "net.mediaarea.mediainfo"
+    compileSdk = 36
+    namespace = "net.mediaarea.mediainfo"
     defaultConfig {
         applicationId "net.mediaarea.mediainfo"
-        multiDexEnabled true
+        multiDexEnabled = true
         minSdkVersion 21
         versionCode 56
         versionName "25.10"
         targetSdkVersion 36
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
-            useSupportLibrary true
+            useSupportLibrary = true
         }
         externalNativeBuild {
             cmake {
@@ -51,8 +52,8 @@ android {
                 signingConfig signingConfigs.release
             }
             minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            shrinkResources = true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     externalNativeBuild {
@@ -63,22 +64,24 @@ android {
     splits {
         abi {
             def isBuildingBundle = gradle.startParameter.taskNames.any { it.toLowerCase().contains('bundle') }
-            enable !isBuildingBundle
+            enable = !isBuildingBundle
 
-            universalApk true
+            universalApk = true
         }
     }
     bundle {
         language {
-            enableSplit false
+            enableSplit = false
         }
     }
     compileOptions {
         targetCompatibility JavaVersion.VERSION_21
         sourceCompatibility JavaVersion.VERSION_21
     }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_21
+    kotlin {
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_21
+        }
     }
     def abiCodes = ['armeabi-v7a':1, 'arm64-v8a':2, 'x86':3, 'x86_64':4]
     android.applicationVariants.configureEach { variant ->
@@ -189,6 +192,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.7.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
     // Android Room
+    // can only upgrade when minSdkVersion >= 23
     implementation 'androidx.room:room-runtime:2.7.2'
     implementation 'androidx.room:room-rxjava2:2.7.2'
     ksp 'androidx.room:room-compiler:2.7.2'
@@ -197,13 +201,15 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     // Android Lifecycle
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    ksp "androidx.lifecycle:lifecycle-common-java8:2.9.4"
+    ksp "androidx.lifecycle:lifecycle-common-java8:2.10.0"
     // Google Billing
+    // can only upgrade when minSdkVersion >= 23
     implementation "com.android.billingclient:billing:8.0.0"
     implementation "com.android.billingclient:billing-ktx:8.0.0"
     // KotlinX Coroutines
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:1.10.2"
     // Locales manager
     implementation 'com.github.YarikSOffice:lingver:1.3.0'
 }

@@ -16,11 +16,7 @@
 # debugging stack traces.
 -keepattributes SourceFile,LineNumberTable
 
-# For native methods, see http://proguard.sourceforge.net/manual/examples.html#native
+# MediaInfo
 -keepclassmembers class net.mediaarea.mediainfo.MediaInfo {
     *;
-}
-
--keepclasseswithmembernames class * {
-    native <methods>;
 }
