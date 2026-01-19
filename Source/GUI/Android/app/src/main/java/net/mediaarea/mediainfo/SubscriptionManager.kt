@@ -8,9 +8,7 @@ package net.mediaarea.mediainfo
 
 import java.util.concurrent.atomic.AtomicBoolean
 
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.DefaultLifecycleObserver
 import android.util.Log
 import android.app.Activity
 import android.app.Application
@@ -24,10 +22,10 @@ class SubscriptionManager private constructor(private val application: Applicati
     val details = MutableLiveData<ProductDetails>()
     val lifetimeDetails = MutableLiveData<ProductDetails>()
 
-    private var detailsAvailable = AtomicBoolean(false)
-    private var lifetimeDetailsAvailable = AtomicBoolean(false)
+    private val detailsAvailable = AtomicBoolean(false)
+    private val lifetimeDetailsAvailable = AtomicBoolean(false)
 
-    private lateinit var billingClient: BillingClient
+    private var billingClient: BillingClient
 
     init {
         val params = PendingPurchasesParams
@@ -161,18 +159,18 @@ class SubscriptionManager private constructor(private val application: Applicati
     }
 
     private fun handleProductDetails(productDetails: QueryProductDetailsResult) {
-            productDetails.productDetailsList.forEach {
-                when (it.productId) {
+            productDetails.productDetailsList.forEach { product ->
+                when (product.productId) {
                     application.getString(R.string.subscription_sku) -> {
-                        details.postValue(it)
-                        it.subscriptionOfferDetails?.first().let {
+                        details.postValue(product)
+                        product.subscriptionOfferDetails?.first().let {
                             offer.postValue(it)
                             detailsAvailable.set(true)
                         }
                     }
 
                     application.getString(R.string.lifetime_subscription_sku) -> {
-                        lifetimeDetails.postValue(it)
+                        lifetimeDetails.postValue(product)
                         lifetimeDetailsAvailable.set(true)
                     }
                 }

@@ -8,9 +8,9 @@ package net.mediaarea.mediainfo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.net.Uri
 import android.content.Intent
 import android.view.View
+import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -54,13 +54,13 @@ class AboutActivity : AppCompatActivity() {
 
         activityAboutBinding.websiteBtn.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(getString(R.string.website_url))
+            intent.data = getString(R.string.website_url).toUri()
             startActivity(intent)
         }
 
         activityAboutBinding.emailBtn.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(getString(R.string.email_url))
+            intent.data = getString(R.string.email_url).toUri()
             startActivity(intent)
         }
     }

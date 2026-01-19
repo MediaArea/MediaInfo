@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 
 import android.content.Intent
-import android.app.Activity
 import android.os.Bundle
 import android.os.Build
 
@@ -22,7 +21,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 
-import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -32,7 +31,7 @@ import net.mediaarea.mediainfo.databinding.ActivityReportDetailBinding
 class ReportDetailActivity : AppCompatActivity(), ReportActivityListener {
     private lateinit var activityReportDetailBinding: ActivityReportDetailBinding
 
-    private inner class PageChangeListener(private val reports: List<Report>) : ViewPager.SimpleOnPageChangeListener() {
+    private inner class PageChangeListener(private val reports: List<Report>) : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)
             title = reports.elementAt(position).filename
@@ -40,7 +39,7 @@ class ReportDetailActivity : AppCompatActivity(), ReportActivityListener {
 
         }
     }
-    private var disposable: CompositeDisposable = CompositeDisposable()
+    private val disposable: CompositeDisposable = CompositeDisposable()
     private lateinit var reportModel: ReportViewModel
 
     override fun getReportViewModel(): ReportViewModel {
@@ -97,8 +96,8 @@ class ReportDetailActivity : AppCompatActivity(), ReportActivityListener {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { reports: List<Report> ->
-                activityReportDetailBinding.pager.addOnPageChangeListener(PageChangeListener(reports))
-                activityReportDetailBinding.pager.adapter = PagerAdapter(supportFragmentManager, reports)
+                activityReportDetailBinding.pager.registerOnPageChangeCallback(PageChangeListener(reports))
+                activityReportDetailBinding.pager.adapter = PagerAdapter(this, reports)
                 val id = intent.getIntExtra(Core.ARG_REPORT_ID, -1)
                 if (id!=-1) {
                     val index = reports.indexOfFirst { it.id == id }
@@ -121,7 +120,7 @@ class ReportDetailActivity : AppCompatActivity(), ReportActivityListener {
         val id = intent.getIntExtra(Core.ARG_REPORT_ID, -1)
         val result = Intent()
         result.putExtra(Core.ARG_REPORT_ID, id)
-        setResult(Activity.RESULT_OK, result)
+        setResult(RESULT_OK, result)
 
         super.finish()
     }
