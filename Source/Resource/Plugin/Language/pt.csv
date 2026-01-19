@@ -926,6 +926,7 @@ Language_lv;Letão
 Language_mg;Malgaxe
 Language_mh;Marshalês
 Language_mi;Maori
+Language_mis;
 Language_mk;Macedónio
 Language_ml;Malaiala
 Language_mn;Mongol
@@ -1002,6 +1003,7 @@ Language_tw;Twi
 Language_ty;Taitiano
 Language_ug;Uigur
 Language_uk;Ucraniano
+Language_und;
 Language_ur;Urdu
 Language_uz;Usbeque
 Language_ve;Venda
@@ -1024,6 +1026,7 @@ Language_zh-TW;Chinês (Taiwan)
 Language_zh-tw;Chinês (Taiwan)
 Language_zh-yue;Cantonês
 Language_zu;Zulu
+Language_zxx;
 LanguageChanges;As alterações ao idioma terão efeito após reiniciar a aplicação
 Languages;Idiomas
 LawRating;Classificação legal
@@ -1509,5 +1512,5 @@ Yes;Sim
 Your system;O seu sistema
 Your translation;A sua tradução
 Zoom;Zoom
-ZZ_Automatic_Percent;98
-ZZ_AutomaticLanguage_Percent;98
+ZZ_Automatic_Percent;99
+ZZ_AutomaticLanguage_Percent;100

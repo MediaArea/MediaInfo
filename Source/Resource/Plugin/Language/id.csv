@@ -926,6 +926,7 @@ Language_lv;Bhs. Latvia
 Language_mg;Bhs. Malagasi
 Language_mh;Bhs. Marshall
 Language_mi;Bhs. Maori
+Language_mis;
 Language_mk;Bhs. Makedonia
 Language_ml;Bhs. Malayalam
 Language_mn;Bhs. Mongol
@@ -1002,6 +1003,7 @@ Language_tw;Bhs. Twi
 Language_ty;Bhs. Tahiti
 Language_ug;Bhs. Uighur
 Language_uk;Bhs. Ukraina
+Language_und;
 Language_ur;Bhs. Urdu
 Language_uz;Bhs. Uzbek
 Language_ve;Bhs. Venda
@@ -1024,6 +1026,7 @@ Language_zh-TW;Bhs. Tionghoa (Taiwan)
 Language_zh-tw;Bhs. Tionghoa (Taiwan)
 Language_zh-yue;Bhs. Kanton
 Language_zu;Bhs. Zulu
+Language_zxx;
 LanguageChanges;
 Languages;Bahasa
 LawRating;Peringkat usia
@@ -1509,5 +1512,5 @@ Yes;Ya
 Your system;Sistem Anda
 Your translation;Terjemahan Anda
 Zoom;Zoom
-ZZ_Automatic_Percent;94
+ZZ_Automatic_Percent;93
 ZZ_AutomaticLanguage_Percent;94

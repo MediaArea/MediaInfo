@@ -926,6 +926,7 @@ Language_lv;拉脫維亞語　Latvian
 Language_mg;馬拉加斯語　Malagasy
 Language_mh;馬紹爾語　Marshallese
 Language_mi;毛利語　Maori
+Language_mis;
 Language_mk;馬其頓語　Macedonian
 Language_ml;馬拉雅拉姆語　Malayalam
 Language_mn;蒙古語　Mongolian
@@ -1002,6 +1003,7 @@ Language_tw;奇維語　Twi
 Language_ty;大溪地語　Tahitian
 Language_ug;維吾爾語　Uighur
 Language_uk;烏克蘭語　Ukrainian
+Language_und;
 Language_ur;烏爾都語　Urdu
 Language_uz;烏茲別克語　Uzbek
 Language_ve;文達語　Venda
@@ -1024,6 +1026,7 @@ Language_zh-TW;
 Language_zh-tw;臺灣華語　Mandarin
 Language_zh-yue;
 Language_zu;祖魯語　Zulu
+Language_zxx;
 LanguageChanges;
 Languages;
 LawRating;分級
