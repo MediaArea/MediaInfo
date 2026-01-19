@@ -44,6 +44,9 @@ android {
                     "-DMEDIAINFO_READER_NO",
                     "-DMEDIAINFO_NEXTPACKET_NO"
                 )
+                cFlags(
+                    "-Wno-qualified-void-return-type" // warning in aes_via_ace.h for x86 arch
+                )
                 arguments("-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON")
             }
         }
