@@ -926,7 +926,7 @@ Language_lv;ラトビア語
 Language_mg;マダガスカル語
 Language_mh;マーシャル語
 Language_mi;マオリ語
-Language_mis;
+Language_mis;その他の言語
 Language_mk;マケドニア語
 Language_ml;マラヤーラム語
 Language_mn;モンゴル語
@@ -1003,7 +1003,7 @@ Language_tw;トウィ語
 Language_ty;タヒチ語
 Language_ug;ウイグル語
 Language_uk;ウクライナ語
-Language_und;
+Language_und;不明言語
 Language_ur;ウルドゥー語
 Language_uz;ウズベク語
 Language_ve;ヴェンダ語
@@ -1026,7 +1026,7 @@ Language_zh-TW;
 Language_zh-tw;中国語 (繁体)
 Language_zh-yue;
 Language_zu;ズールー語
-Language_zxx;
+Language_zxx;言語的内容なし
 LanguageChanges;
 Languages;
 LawRating;規制評価

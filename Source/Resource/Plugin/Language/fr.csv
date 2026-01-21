@@ -841,7 +841,7 @@ Language_bs;Bosniaque
 Language_ca;Catalan
 Language_ce;Tchétchène
 Language_ch;Chamorro
-Language_cmn;
+Language_cmn;Mandarin
 Language_co;Corse
 Language_cr;Cree
 Language_cs;Tchèque
@@ -865,7 +865,7 @@ Language_eu;Basque
 Language_fa;Persan
 Language_ff;Peul
 Language_fi;Finnois
-Language_fil;
+Language_fil;Filipino
 Language_fj;Fidjien
 Language_fo;Féroïen
 Language_fr;Français
@@ -886,7 +886,7 @@ Language_hu;Hongrois
 Language_hy;Arménien
 Language_hy-az;
 Language_hz;Herero
-Language_ia;Langue auxiliaire internationale
+Language_ia;Interlingua (Langue Auxiliaire Internationale)
 Language_id;Indonésien
 Language_ie;Interlingue
 Language_ig;Igbo
@@ -926,7 +926,7 @@ Language_lv;Letton
 Language_mg;Malgache
 Language_mh;Marshall
 Language_mi;Maori
-Language_mis;
+Language_mis;Langues non codées
 Language_mk;Macédonien
 Language_ml;Malayalam
 Language_mn;Mongol
@@ -935,7 +935,7 @@ Language_mo;Moldave
 Language_More;Langue, plus d'info
 Language_mr;Marathe
 Language_ms;Malais
-Language_ms-bn;
+Language_ms-bn;Malais (Brunéi)
 Language_mt;Maltais
 Language_mul;Langues multiples
 Language_my;Birman
@@ -977,7 +977,7 @@ Language_si;Singhalais
 Language_sk;Slovaque
 Language_sl;Slovène
 Language_sm;Samoan
-Language_smi;
+Language_smi;Sames
 Language_sn;Shona
 Language_so;Somali
 Language_sq;Albanais
@@ -1003,7 +1003,7 @@ Language_tw;Twi
 Language_ty;Tahitien
 Language_ug;Ouïgour
 Language_uk;Ukrainien
-Language_und;
+Language_und;Indéterminée
 Language_ur;Ourdou
 Language_uz;Ouszbek
 Language_ve;Venda
@@ -1014,19 +1014,19 @@ Language_wo;Wolof
 Language_xh;Xhosa
 Language_yi;Yiddish
 Language_yo;Yoruba
-Language_yue;
+Language_yue;Cantonais
 Language_za;Zhuang
 Language_zh;Chinois
-Language_zh-cmn;
-Language_zh-CN;
+Language_zh-cmn;Mandarin
+Language_zh-CN;Chinois (Chine)
 Language_zh-cn;Chinois (Chine)
-Language_zh-Hans;
-Language_zh-Hant;
-Language_zh-TW;
+Language_zh-Hans;Chinois (simplifié)
+Language_zh-Hant;Chinois (traditionnel)
+Language_zh-TW;Chinois (Taiwan)
 Language_zh-tw;Chinois (Taiwan)
-Language_zh-yue;
+Language_zh-yue;Cantonais
 Language_zu;Zoulou
-Language_zxx;
+Language_zxx;Pas de contenu linguistique ou non applicable
 LanguageChanges;Les changements prendront effet au redémarrage de l'application
 Languages;
 LawRating;Classé
@@ -1512,5 +1512,5 @@ Yes;Oui
 Your system;Votre système
 Your translation;
 Zoom;Zoom
-ZZ_Automatic_Percent;92
+ZZ_Automatic_Percent;93
 ZZ_AutomaticLanguage_Percent;93
