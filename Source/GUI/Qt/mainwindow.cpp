@@ -514,6 +514,10 @@ void MainWindow::updateProgressBar ()
         progressDialog->hide();
         timer->stop();
 
+        //Cancel MediaInfoLib parsing if canceled
+        if (progressDialog->wasCanceled())
+            C->Menu_File_Open_Files_Begin(true);
+
         delete progressDialog; progressDialog=NULL;
         delete timer; timer=NULL;
 
