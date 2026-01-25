@@ -165,7 +165,7 @@ Section "SectionPrincipale" SEC01
   ;  ${Else}
       File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Win32\Release\MediaInfo_GUI.exe"
       File "C:\Program Files (x86)\Embarcadero\Studio\22.0\Redist\win32\WebView2Loader.dll"
-      File "$%BPATH%\Windows\libcurl\Win32\Release\LIBCURL.DLL"
+      File "..\..\..\libcurl\Win32\Release\LIBCURL.DLL"
       File "..\..\..\MediaInfoLib\Project\MSVC2022\Win32\Release\MediaInfo_InfoTip.dll"
       File "..\..\..\MediaInfoLib\Project\MSVC2022\Win32\Release\MediaInfo.dll"
   ;  ${EndIf}

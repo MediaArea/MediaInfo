@@ -160,7 +160,7 @@ Section "SectionPrincipale" SEC01
   ;  ${If} ${IsNativeAMD64}
       File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Win64\Release\MediaInfo_GUI.exe"
       File "C:\Program Files (x86)\Embarcadero\Studio\22.0\Redist\win64\WebView2Loader.dll"
-      File "$%BPATH%\Windows\libcurl\x64\Release\LIBCURL.DLL"
+      File "..\..\..\libcurl\x64\Release\LIBCURL.DLL"
       File "..\..\..\MediaInfoLib\Project\MSVC2022\x64\Release\MediaInfo_InfoTip.dll"
       File "..\..\..\MediaInfoLib\Project\MSVC2022\x64\Release\MediaInfo.dll"
       ${If} ${AtLeastWin11}
@@ -178,7 +178,7 @@ Section "SectionPrincipale" SEC01
   ${If} ${AtLeastWin11}
     ; Windows 11 sparse package files
     File "..\..\Project\MSVC2022\x64\Release\MediaInfo_SparsePackage.msix"
-    File "..\..\Project\MSVC2022\win32\Release\MediaInfo_PackageHelper.dll"
+    File "..\..\Project\MSVC2022\Win32\Release\MediaInfo_PackageHelper.dll"
   ${Else}
     ; Windows 8 and 10 visual elements manifest
     File "..\GUI\VCL\MediaInfo.VisualElementsManifest.xml"
