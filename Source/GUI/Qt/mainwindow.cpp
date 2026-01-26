@@ -1018,8 +1018,8 @@ void MainWindow::applySettings() {
     C->Menu_Option_Preferences_Option(__T("File_TestContinuousFileNames"), settings->value("testContinuousFileNames",false).toBool() ? __T("1") : __T("0"));
 
     qApp->removeTranslator(translator);
-    Q_UNUSED(translator->load(settings->value("language", "en").toString(), ":/languages/Translations"));
-    qApp->installTranslator(translator);
+    if (translator->load(settings->value("language", "en").toString(), ":/languages/Translations"))
+        qApp->installTranslator(translator);
 }
 
 void MainWindow::dropEvent(QDropEvent *event)
