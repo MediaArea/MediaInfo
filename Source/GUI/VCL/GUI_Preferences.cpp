@@ -411,6 +411,18 @@ void __fastcall TPreferencesF::CB_InfoTipClick(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
+void __fastcall TPreferencesF::CB_RememberWindowPositionClickClick(TObject *Sender)
+{
+    Prefs->Config(__T("RememberWindowPosition"), 1) = CB_RememberWindowPosition->Checked ? __T("1") : __T("0");
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TPreferencesF::CB_RememberWindowDimensionsClickClick(TObject *Sender)
+{
+    Prefs->Config(__T("RememberWindowDimensions"), 1) = CB_RememberWindowDimensions->Checked ? __T("1") : __T("0");
+}
+
+//---------------------------------------------------------------------------
 void __fastcall TPreferencesF::CB_ShowToolBarClick(TObject *Sender)
 {
     Prefs->Config(__T("ShowToolBar"), 1)=CB_ShowToolBar->Checked?__T("1"):__T("0");
@@ -668,6 +680,8 @@ void __fastcall TPreferencesF::Setup_GeneralShow(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TPreferencesF::Setup_AdvancedShow(TObject *Sender)
 {
+    CB_RememberWindowPosition->Checked=Prefs->Config(__T("RememberWindowPosition")).To_int32s();
+    CB_RememberWindowDimensions->Checked=Prefs->Config(__T("RememberWindowDimensions")).To_int32s();
     CB_ShowToolBar->Checked=Prefs->Config(__T("ShowToolBar")).To_int32s();
     CB_ShowMenu->Checked=Prefs->Config(__T("ShowMenu")).To_int32s();
     Advanced_CloseAllAuto->Checked=Prefs->Config(__T("CloseAllAuto")).To_int32s();
