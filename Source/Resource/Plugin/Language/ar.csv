@@ -926,6 +926,7 @@ Language_lv;latviešu valoda
 Language_mg;Malagasy
 Language_mh;Kajin M̧ajeļ
 Language_mi;Māori
+Language_mis;
 Language_mk;Македонски јазик
 Language_ml;Malayalam
 Language_mn;Монгол
@@ -1002,6 +1003,7 @@ Language_tw;Twi
 Language_ty;Reo Tahiti
 Language_ug;ئۇيغۇرچە‎
 Language_uk;українська
+Language_und;
 Language_ur;اردو
 Language_uz;O‘zbek
 Language_ve;Tshivenḓa
@@ -1024,6 +1026,7 @@ Language_zh-TW;
 Language_zh-tw;中文 (Taiwan)
 Language_zh-yue;
 Language_zu;isiZulu
+Language_zxx;
 LanguageChanges;
 Languages;
 LawRating;تصنيف القانون

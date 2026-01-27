@@ -926,6 +926,7 @@ Language_lv;拉脱维亚语 (Latvian)
 Language_mg;马达加斯加语 (Malagasy)
 Language_mh;马绍尔语 (Marshallese)
 Language_mi;毛利语 (Maori)
+Language_mis;
 Language_mk;马其顿语 (Macedonian)
 Language_ml;马拉雅拉姆语 (Malayalam)
 Language_mn;蒙古语 (Mongolian)
@@ -1002,6 +1003,7 @@ Language_tw;契维语/特威语 (Twi)
 Language_ty;塔希提语 (Tahitian)
 Language_ug;维吾尔语 (Uighur)
 Language_uk;乌克兰语 (Ukrainian)
+Language_und;
 Language_ur;乌尔都语 (Urdu)
 Language_uz;乌兹别克语 (Uzbek)
 Language_ve;文达语 (Venda)
@@ -1024,6 +1026,7 @@ Language_zh-TW;
 Language_zh-tw;繁体中文 (Chinese, Taiwan)
 Language_zh-yue;
 Language_zu;祖鲁语 (Zulu)
+Language_zxx;
 LanguageChanges;
 Languages;
 LawRating;分级
@@ -1509,5 +1512,5 @@ Yes;是
 Your system;您的系统
 Your translation;
 Zoom;缩放
-ZZ_Automatic_Percent;89
+ZZ_Automatic_Percent;88
 ZZ_AutomaticLanguage_Percent;89
