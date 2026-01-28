@@ -4,7 +4,10 @@
 ##  be found in the License.html file in the root of the source tree.
 ##
 
-Param([parameter(Mandatory=$true)][String]$arch)
+Param(
+    [parameter(Mandatory=$true)][String]$arch,
+    [String]$msvc = "MSVC2022"
+)
 
 $ErrorActionPreference = "Stop"
 
@@ -15,6 +18,12 @@ $version = (Get-Content "${release_directory}\..\Project\version.txt" -Raw).Trim
 $arch_alt="${arch}"
 if ("${arch}" -eq "Win32" ) {
     $arch_alt="i386"
+}
+
+switch ($msvc) {
+    "MSVC2022" { break }
+    "MSVC2026" { break }
+    Default { throw "Invalid parameter: '$msvc'." }
 }
 
 #-----------------------------------------------------------------------
@@ -35,7 +44,7 @@ Push-Location "${release_directory}"
     New-Item -Force -ItemType Directory -Path "MediaInfo_CLI_${version}_Windows_${arch_alt}"
     Push-Location "MediaInfo_CLI_${version}_Windows_${arch_alt}"
         ### Copying: Exe ###
-        Copy-Item -Force "..\..\Project\MSVC2022\${arch}\Release\MediaInfo.exe" .
+        Copy-Item -Force "..\..\Project\$msvc\${arch}\Release\MediaInfo.exe" .
         ### Copying: Plugins ###
         New-Item -Force -ItemType Directory "Plugin\Custom"
         Copy-Item -Force "..\..\Source\Resource\Plugin\Custom\*" "Plugin\Custom"
