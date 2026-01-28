@@ -7,7 +7,7 @@
       "..\\..\\..\\MediaInfoLib\\Project\\MSVC2022\\RegressionTest\\RegressionTest.vcxproj",
       "..\\..\\..\\ZenLib\\Project\\MSVC2022\\Library\\ZenLib.vcxproj",
       "..\\..\\..\\zlib\\contrib\\vstudio\\vc17\\zlibstat.vcxproj",
-      "CLI\\MediaInfo.vcxproj",
+      "CLI\\MediaInfo-CLI.vcxproj",
       "MediaInfo_PackageHelper\\MediaInfo_PackageHelper.vcxproj",
       "MediaInfo_WindowsShellExtension\\MediaInfo_WindowsShellExtension.vcxproj",
       "PreRelease\\PreRelease.vcxproj"
