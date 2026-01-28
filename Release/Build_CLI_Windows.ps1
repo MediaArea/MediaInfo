@@ -34,7 +34,7 @@ Push-Location -Path "${release_directory}\..\..\MediaInfoLib\Project\MSVC2022"
 Pop-Location
 
 Push-Location -Path "${release_directory}\..\Project\MSVC2022"
-    ((Get-Content -Path CLI\MediaInfo.vcxproj) -Replace 'MultiThreadedDLL','MultiThreaded') | Set-Content -Path CLI\MediaInfo.vcxproj
+    ((Get-Content -Path CLI\MediaInfo-CLI.vcxproj) -Replace 'MultiThreadedDLL','MultiThreaded') | Set-Content -Path CLI\MediaInfo-CLI.vcxproj
 Pop-Location
 
 #-----------------------------------------------------------------------
