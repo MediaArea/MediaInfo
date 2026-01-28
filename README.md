@@ -83,6 +83,18 @@ To run the CLI:
 MediaInfo\Project\MSVC2022\x64\Release\MediaInfo.exe
 ```
 
+The build script can also be used, where `<arch>` can be `Win32`, `x64` or `ARM64` and `<msvc>` can be `MSVC2022` or `MSVC2026`:
+
+```powershell
+.\MediaInfo\Release\Build_CLI_Windows.ps1 <arch> <msvc>
+```
+
+Similarly, the release script can be used to generate a zip package similar to the official release after the build script is run. Note that 7z and Curl from MediaArea-Utils-Binaries are required.
+
+```powershell
+.\MediaInfo\Release\Release_CLI_Windows.ps1 <arch> <msvc>
+```
+
 #### Build Windows GUI
 
 There are multiple GUIs utilizing different GUI frameworks on Windows. Each of the GUIs have different designs and feature sets. The supported Windows versions and CPU architectures depend on the GUI frameworks.
