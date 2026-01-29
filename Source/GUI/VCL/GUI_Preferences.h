@@ -77,6 +77,8 @@ __published:    // IDE-managed Components
     TCheckBox *Advanced_LegacyStreamDisplay;
     TCheckBox *CB_InscrireShell_SeparateInstance;
     TCheckBox *CB_InscrireShell_RetainLegacy;
+    TCheckBox *CB_RememberWindowPosition;
+    TCheckBox *CB_RememberWindowDimensions;
     void __fastcall General_Language_SelChange(TObject *Sender);
     void __fastcall General_Output_SelChange(TObject *Sender);
     void __fastcall Custom_EditClick(TObject *Sender);
@@ -117,6 +119,8 @@ __published:    // IDE-managed Components
     void __fastcall CB_InscrireShell_FolderClick(TObject *Sender);
     void __fastcall Advanced_LegacyStreamDisplayClick(TObject *Sender);
     void __fastcall CB_InscrireShell_RetainLegacyClick(TObject *Sender);
+    void __fastcall CB_RememberWindowPositionClickClick(TObject *Sender);
+    void __fastcall CB_RememberWindowDimensionsClickClick(TObject *Sender);
 private:    // User declarations
 public:        // User declarations
     __fastcall TPreferencesF(TComponent* Owner);
