@@ -107,7 +107,7 @@ Section
   ; Verify digital signature of the downloaded installer
   ${VersionCompare} "$VERSION_SELECTED" "22.11" $R8
   ${If} $R8 == "1" 
-    CertCheck::CheckPETrustAndInfoAsync "$PLUGINSDIR\MediaInfoInstaller.exe" "MEDIAAREA.NET" "SSL.com Code Signing Intermediate CA RSA R1"
+    CertCheck::CheckPETrustAndInfoAsync "$PLUGINSDIR\MediaInfoInstaller.exe" "MEDIAAREA.NET" "SSL.com Code Signing Intermediate CA ECC R2"
   ${Else}
     CertCheck::CheckPETrustAndInfoAsync "$PLUGINSDIR\MediaInfoInstaller.exe" "MediaArea.net" "Sectigo RSA Code Signing CA"
   ${EndIf}
