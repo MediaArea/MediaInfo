@@ -12,6 +12,27 @@ Known bugs
 - Languages (other than english and French) : not all words are translated, I need translators!
 - Others? https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 26.01, 2026-02-02
+-------------
++ Android: dark mode rework, thanks to cjee21
++ Android: modernize the backend, thanks to cjee21
++ More coherency/integrity checks, sponsored by Austrian Mediathek
++ MXF: fix crash with some 0 byte audio packets
++ MPEG-4: C2PA support
++ ID3v2: support of Olympus voice recorder metadata
++ Matroska: show block addition tracks
++ Matroska: add timecode label readout
++ Add default language string for ISO 639-2 special codes, thanks to cjee21
++ AVI/WAV: add support for WAVE_FORMAT_MPEG_HEAAC (0x1610)
++ AV1: Enable parsing raw OBU from network, thanks to cjee21
++ AV1: Indicate usage of Film Grain Synthesis, thanks to cjee21
++ Matroska/TimeCodeXML: add frame rate
+x Matroska: fix incoherent readout of unordered tag elements
+x TimeCodeXml output: fix lack of frame number with some MXF SDTI timecodes
+x AVI/WAV: fix crash with some invalid FourCC
+x SDP: fix false-positive detection
+x I2469, CDP: fix handling of 708 streams caught in the middle
+
 Version 25.10, 2025-11-05
 -------------
 + MXF: crosscheck of ADM profiles
