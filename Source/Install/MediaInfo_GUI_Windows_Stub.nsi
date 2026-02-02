@@ -73,7 +73,7 @@ Section
   ${EndIf}
 
   ; Verify digital signature of the downloaded installer
-  CertCheck::CheckPETrustAndInfoAsync "$PLUGINSDIR\MediaInfoInstaller.exe" "MEDIAAREA.NET" "SSL.com Code Signing Intermediate CA RSA R1"
+  CertCheck::CheckPETrustAndInfoAsync "$PLUGINSDIR\MediaInfoInstaller.exe" "MEDIAAREA.NET" "SSL.com Code Signing Intermediate CA ECC R2"
   CertCheckGetStatus:
     CertCheck::GetStatus
     Pop $0
