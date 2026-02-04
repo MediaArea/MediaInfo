@@ -35,6 +35,7 @@
 #include <QFontDatabase>
 #include <QPushButton>
 #include <QDesktopServices>
+#include <QStyleHints>
 /*
 #include <qwt/qwt_plot.h>
 #include <qwt/qwt_plot_curve.h>
@@ -51,7 +52,7 @@ using namespace ZenLib;
 #define QString2wstring(_DATA) \
     Ztring().From_UTF8(_DATA.toUtf8())
 
-#define VERSION "25.10"
+#define VERSION "26.01"
 
 #ifndef MEDIAINFO_HTML_NO
 #include "htmlwidget.h"
@@ -196,7 +197,7 @@ MainWindow::MainWindow(const QStringList& filesnames, int viewasked, QWidget *pa
 #endif
 
     //tests
-#if QT_VERSION > QT_VERSION_CHECK(6, 7, 0)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
     ui->actionQuit->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::WindowClose));
     ui->actionClose_All->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::WindowClose));
 #else
@@ -512,6 +513,10 @@ void MainWindow::updateProgressBar ()
     {
         progressDialog->hide();
         timer->stop();
+
+        //Cancel MediaInfoLib parsing if canceled
+        if (progressDialog->wasCanceled())
+            C->Menu_File_Open_Files_Begin(true);
 
         delete progressDialog; progressDialog=NULL;
         delete timer; timer=NULL;
@@ -1003,6 +1008,11 @@ void MainWindow::applySettings() {
     ui->toolBar->setVisible(settings->value("showToolbar",true).toBool());
     ui->toolBar->setToolButtonStyle(Qt::ToolButtonStyle(settings->value("iconStyle",Qt::ToolButtonIconOnly).toInt()));
     ui->toolBar->setIconSize(settings->value("iconSize",QSize(32,32)).toSize());
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 8, 0)
+    qApp->styleHints()->setColorScheme(static_cast<Qt::ColorScheme>(settings->value("colorTheme",static_cast<int>(Qt::ColorScheme::Unknown)).toInt()));
+#endif
+
     C->Menu_Option_Preferences_Option(__T("LegacyStreamDisplay"), settings->value("legacyStreamDisplay",false).toBool() ? __T("1") : __T("0"));
     C->Menu_Option_Preferences_Option(__T("Cover_Data"), settings->value("coverData",false).toBool() ? __T("base64") : __T(""));
     C->Menu_Option_Preferences_Option(__T("File_TestContinuousFileNames"), settings->value("testContinuousFileNames",false).toBool() ? __T("1") : __T("0"));
@@ -1313,7 +1323,7 @@ void MainWindow::on_actionExport_triggered()
                 if (MediaInfo_Complete || ToExport->Get(0, Stream_General, 0, I1, Info_Options)[InfoOption_ShowInInform]==__T('Y'))
                 {
                     CSV(0, CSV_Pos)=Ztring(__T("General "))+Parameters(Pos_Start+I1, 0);
-                    for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
+                    for (size_t FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
                         CSV(1+FilePos, CSV_Pos)=ToExport->Get(FilePos, Stream_General, 0, I1);
                     CSV_Pos++;
                 }
@@ -1328,7 +1338,7 @@ void MainWindow::on_actionExport_triggered()
                     if (MediaInfo_Complete || ToExport->Get(0, Stream_Video, 0, I1, Info_Options)[InfoOption_ShowInInform]==__T('Y'))
                     {
                         CSV(0, CSV_Pos)=Ztring(__T("Video "))+Ztring::ToZtring(Count)+__T(" ")+Parameters(Pos_Start+I1, 0);
-                        for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
+                        for (size_t FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
                             CSV(1+FilePos, CSV_Pos)=ToExport->Get(FilePos, Stream_Video, 0, I1);
                         CSV_Pos++;
                     }
@@ -1343,7 +1353,7 @@ void MainWindow::on_actionExport_triggered()
                     if (MediaInfo_Complete || ToExport->Get(0, Stream_Audio, 0, I1, Info_Options)[InfoOption_ShowInInform]==__T('Y'))
                     {
                         CSV(0, CSV_Pos)=Ztring(__T("Audio "))+Ztring::ToZtring(Count)+__T(" ")+Parameters(Pos_Start+I1, 0);
-                        for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
+                        for (size_t FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
                             CSV(1+FilePos, CSV_Pos)=ToExport->Get(FilePos, Stream_Audio, Count, I1);
                         CSV_Pos++;
                     }
@@ -1358,7 +1368,7 @@ void MainWindow::on_actionExport_triggered()
                     if (MediaInfo_Complete || ToExport->Get(0, Stream_Text, 0, I1, Info_Options)[InfoOption_ShowInInform]==__T('Y'))
                     {
                         CSV(0, CSV_Pos)=Ztring(__T("Text "))+Ztring::ToZtring(Count)+__T(" ")+Parameters(Pos_Start+I1, 0);
-                        for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
+                        for (size_t FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
                             CSV(1+FilePos, CSV_Pos)=ToExport->Get(FilePos, Stream_Text, Count, I1);
                         CSV_Pos++;
                     }
@@ -1373,7 +1383,7 @@ void MainWindow::on_actionExport_triggered()
                     if (MediaInfo_Complete || ToExport->Get(0, Stream_Other, 0, I1, Info_Options)[InfoOption_ShowInInform]==__T('Y'))
                     {
                         CSV(0, CSV_Pos)=Ztring(__T("Chapters "))+Ztring::ToZtring(Count)+__T(" ")+Parameters(Pos_Start+I1, 0);
-                        for (int FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
+                        for (size_t FilePos=0; FilePos<ToExport->Count_Get(); FilePos++)
                             CSV(1+FilePos, CSV_Pos)=ToExport->Get(FilePos, Stream_Other, Count, I1);
                         CSV_Pos++;
                     }

@@ -926,6 +926,7 @@ Language_lv;Letão
 Language_mg;Malagasy
 Language_mh;Marshallese
 Language_mi;Maori
+Language_mis;
 Language_mk;Macedônico
 Language_ml;Malaialo
 Language_mn;Mongol
@@ -1002,6 +1003,7 @@ Language_tw;Twi
 Language_ty;Taitiano
 Language_ug;Uigure
 Language_uk;Ucrâniano
+Language_und;
 Language_ur;Urdu
 Language_uz;Uzbeque
 Language_ve;Venda
@@ -1025,6 +1027,8 @@ Language_zh-tw;Chinês (Taiwan)
 Language_zh-yue;Cantonês
 Language_zu;Zulu
 LanguageChanges;As alterações entram em vigor após reinicializar o aplicativo
+Language_zxx;
+LanguageChanges;
 Languages;Idiomas
 LawRating;Classificação
 LCCN;LCCN

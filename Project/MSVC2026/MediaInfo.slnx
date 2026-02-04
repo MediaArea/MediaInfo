@@ -46,7 +46,7 @@
     </Project>
   </Folder>
   <Project Path="../../../MediaInfoLib/Project/MSVC2026/RegressionTest/RegressionTest.vcxproj" Id="91c094ca-1170-4ce4-9b79-17324c8daca8" />
-  <Project Path="CLI/MediaInfo.vcxproj" Id="8a1ae679-131a-493c-86ca-91179b0955a4" DefaultStartup="true">
+  <Project Path="CLI/MediaInfo-CLI.vcxproj" Id="8a1ae679-131a-493c-86ca-91179b0955a4" DefaultStartup="true">
     <BuildDependency Project="../../../MediaInfoLib/Project/MSVC2026/Dll/MediaInfoDll.vcxproj" />
     <BuildDependency Project="../../../ZenLib/Project/MSVC2026/Library/ZenLib.vcxproj" />
   </Project>

@@ -11,6 +11,7 @@
 #include <QApplication>
 #include <QComboBox>
 #include <QDir>
+#include <QStyleHints>
 #include <QVBoxLayout>
 
 #define wstring2QString(_DATA) \
@@ -49,6 +50,10 @@ HTMLViewWidget::HTMLViewWidget(Core *C, QSettings *settings, QWidget *parent)
         layout->addWidget(webView);
         this->setLayout(layout);
     }
+
+#if defined(EDGE_WEBVIEW2_YES) && (QT_VERSION >= QT_VERSION_CHECK(6, 8, 0))
+    webView->setPreferredColorScheme(qApp->styleHints()->colorScheme());
+#endif
 
     tempFile.setFileTemplate(tempFile.fileTemplate() + ".html");
     refresh();

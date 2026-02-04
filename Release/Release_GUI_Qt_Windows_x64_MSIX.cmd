@@ -40,7 +40,7 @@ copy "%~dp0\..\..\MediaArea-Utils-Binaries\Windows\libcurl\x64\Release\LIBCURL.D
 copy "%~dp0\..\Project\QMake\GUI\packages\Microsoft.Web.WebView2\build\native\x64\WebView2Loader.dll" "%~dp0\MediaInfo_Qt_Windows_x64\"
 
 :: build and add IExplorerCommand shell extension
-MSBuild /t:Clean;Build "/p:Configuration=Release Qt;Platform=x64" %~dp0\..\Project\MSVC2022\MediaInfo_WindowsShellExtension\MediaInfo_WindowsShellExtension.vcxproj
+MSBuild -restore -p:RestorePackagesConfig=true -t:Clean;Build "-p:Configuration=Release Qt" -p:Platform=x64 %~dp0\..\Project\MSVC2022\MediaInfo_WindowsShellExtension\MediaInfo_WindowsShellExtension.vcxproj
 copy "%~dp0\..\Project\MSVC2022\MediaInfo_WindowsShellExtension\x64\Release Qt\MediaInfo_WindowsShellExtension.dll" "%~dp0\MediaInfo_Qt_Windows_x64\"
 
 :: sign binaries

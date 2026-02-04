@@ -8,7 +8,7 @@ ManifestDPIAware true
 ; Some defines
 !define PRODUCT_NAME "MediaInfo"
 !define PRODUCT_PUBLISHER "MediaArea.net"
-!define PRODUCT_VERSION "25.10"
+!define PRODUCT_VERSION "26.01"
 !define PRODUCT_VERSION4 "${PRODUCT_VERSION}.0.0"
 !define PRODUCT_WEB_SITE "http://MediaArea.net/MediaInfo"
 !define COMPANY_REGISTRY_OLD "Software\MediaArea.net"
@@ -49,7 +49,9 @@ SetCompressor /FINAL /SOLID lzma
 !define MUI_UNICON "..\..\Source\Resource\Image\MediaInfo.ico"
 
 ; Uninstaller signing
-!uninstfinalize 'sign.cmd "%1" "MediaInfo Uninstaller"'
+!ifdef EXPORT_UNINST
+  !uninstfinalize 'copy /Y "%1" "../../Release/${PRODUCT_NAME}_GUI_${PRODUCT_VERSION}_Windows-uninst.exe"'
+!endif
 
 ; Language Selection Dialog Settings
 !define MUI_LANGDLL_REGISTRY_ROOT "${PRODUCT_UNINST_ROOT_KEY}"
@@ -163,7 +165,7 @@ Section "SectionPrincipale" SEC01
     ${AndIf} ${AtLeastWin11}
       File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Win64\Release\MediaInfo_GUI.exe"
       File "C:\Program Files (x86)\Embarcadero\Studio\22.0\Redist\win64\WebView2Loader.dll"
-      File "$%BPATH%\Windows\libcurl\x64\Release\LIBCURL.DLL"
+      File "..\..\..\libcurl\x64\Release\LIBCURL.DLL"
       File "..\..\..\MediaInfoLib\Project\MSVC2022\ARM64\Release\MediaInfo_InfoTip.dll"
       File "..\..\..\MediaInfoLib\Project\MSVC2022\ARM64EC\Release\MediaInfo.dll"
       File "..\..\Project\MSVC2022\ARM64\Release\MediaInfo_WindowsShellExtension.dll"
@@ -171,7 +173,7 @@ Section "SectionPrincipale" SEC01
     ${If} ${IsNativeAMD64}
       File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Win64\Release\MediaInfo_GUI.exe"
       File "C:\Program Files (x86)\Embarcadero\Studio\22.0\Redist\win64\WebView2Loader.dll"
-      File "$%BPATH%\Windows\libcurl\x64\Release\LIBCURL.DLL"
+      File "..\..\..\libcurl\x64\Release\LIBCURL.DLL"
       File "..\..\..\MediaInfoLib\Project\MSVC2022\x64\Release\MediaInfo_InfoTip.dll"
       File "..\..\..\MediaInfoLib\Project\MSVC2022\x64\Release\MediaInfo.dll"
       ${If} ${AtLeastWin11}
@@ -180,7 +182,7 @@ Section "SectionPrincipale" SEC01
     ${Else}
       File "/oname=MediaInfo.exe" "..\..\Project\BCB\GUI\Win32\Release\MediaInfo_GUI.exe"
       File "C:\Program Files (x86)\Embarcadero\Studio\22.0\Redist\win32\WebView2Loader.dll"
-      File "$%BPATH%\Windows\libcurl\Win32\Release\LIBCURL.DLL"
+      File "..\..\..\libcurl\Win32\Release\LIBCURL.DLL"
       File "..\..\..\MediaInfoLib\Project\MSVC2022\Win32\Release\MediaInfo_InfoTip.dll"
       File "..\..\..\MediaInfoLib\Project\MSVC2022\Win32\Release\MediaInfo.dll"
     ${EndIf}
@@ -231,7 +233,11 @@ Section "SectionPrincipale" SEC01
 SectionEnd
 
 Section -Post
-  WriteUninstaller "$INSTDIR\uninst.exe"
+  !if /FileExists "..\..\Release\${PRODUCT_NAME}_GUI_${PRODUCT_VERSION}_Windows-uninst.exe"
+    File "/oname=$INSTDIR\uninst.exe" "..\..\Release\${PRODUCT_NAME}_GUI_${PRODUCT_VERSION}_Windows-uninst.exe"
+  !else
+    WriteUninstaller "$INSTDIR\uninst.exe"
+  !endif
   WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\MediaInfo.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName"          "$(^Name)"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher"            "${PRODUCT_PUBLISHER}"

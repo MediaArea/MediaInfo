@@ -1,6 +1,6 @@
-mediainfo (25.10-1) experimental; urgency=medium
+mediainfo (26.01-1) experimental; urgency=medium
 
-  * Upstream version 25.10
+  * Upstream version 26.01
     For details, see https://github.com/MediaArea/MediaInfo/blob/master/History_GUI.txt
 
  -- MediaArea <info@mediaarea.net>  Mon, 02 Nov 2015 10:30:00 +0100

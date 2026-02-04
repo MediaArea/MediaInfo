@@ -5,7 +5,7 @@ ManifestDPIAware true
 ; Some defines
 !define PRODUCT_NAME "MediaInfo"
 !define PRODUCT_PUBLISHER "MediaArea.net"
-!define PRODUCT_VERSION "25.10"
+!define PRODUCT_VERSION "26.01"
 !define PRODUCT_VERSION4 "${PRODUCT_VERSION}.0.0"
 
 !define BASEURL "https://mediaarea.net/download/binary/mediainfo-gui/${PRODUCT_VERSION}"
@@ -73,7 +73,7 @@ Section
   ${EndIf}
 
   ; Verify digital signature of the downloaded installer
-  CertCheck::CheckPETrustAndInfoAsync "$PLUGINSDIR\MediaInfoInstaller.exe" "MEDIAAREA.NET" "SSL.com Code Signing Intermediate CA RSA R1"
+  CertCheck::CheckPETrustAndInfoAsync "$PLUGINSDIR\MediaInfoInstaller.exe" "MEDIAAREA.NET" "SSL.com Code Signing Intermediate CA ECC R2"
   CertCheckGetStatus:
     CertCheck::GetStatus
     Pop $0

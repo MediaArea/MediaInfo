@@ -9,16 +9,12 @@ package net.mediaarea.mediainfo
 import android.os.Bundle
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.viewpager.widget.PagerAdapter
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class PagerAdapter(fm: FragmentManager, private var reports: List<Report>) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-    override fun getCount(): Int {
-        return reports.count()
-    }
+class PagerAdapter(fa: FragmentActivity, private var reports: List<Report>) : FragmentStateAdapter(fa) {
 
-    override fun getItem(position: Int): Fragment {
+    override fun createFragment(position: Int): Fragment {
         return ReportDetailFragment().apply {
             arguments = Bundle().apply {
                 putInt(Core.ARG_REPORT_ID, reports.elementAt(position).id)
@@ -26,7 +22,8 @@ class PagerAdapter(fm: FragmentManager, private var reports: List<Report>) : Fra
         }
     }
 
-    override fun getItemPosition(`object`: Any): Int {
-        return PagerAdapter.POSITION_NONE
+    override fun getItemCount(): Int {
+        return reports.count()
     }
+
 }
