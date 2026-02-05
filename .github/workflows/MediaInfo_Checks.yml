@@ -16,6 +16,8 @@ jobs:
       fail-fast: false
     name: Unix (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
+    env:
+      CXXFLAGS: -Werror
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -153,11 +155,11 @@ jobs:
           - type: Ubuntu (AMD64)
             runner: ubuntu-latest
             Format_Profile: Shared object / AMD x86-64
-            CXXFLAGS: "-Werror -Wno-error=deprecated-declarations"
+            CXXFLAGS: "-Werror"
           - type: Ubuntu (ARM64)
             runner: ubuntu-24.04-arm
             Format_Profile: Shared object / ARM64
-            CXXFLAGS: "-Werror -Wno-error=deprecated-declarations"
+            CXXFLAGS: "-Werror"
       fail-fast: false
     name: CMake ${{ matrix.type }}
     runs-on: ${{ matrix.runner }}
