@@ -27,9 +27,12 @@ IMPLEMENT_APP(App)
 bool App::OnInit()
 {
     #ifdef __WXMAC__
+        #pragma GCC diagnostic push
+        #pragma GCC diagnostic ignored "-Wdeprecated-declarations" // GetCurrentProcess is deprecated
         ProcessSerialNumber PSN;
         GetCurrentProcess(&PSN);
         TransformProcessType(&PSN, kProcessTransformToForegroundApplication);
+        #pragma GCC diagnostic pop
         setenv("LC_CTYPE", "UTF-8", 0);
     #endif //__WXMAC__
 
