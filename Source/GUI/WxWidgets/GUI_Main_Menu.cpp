@@ -557,12 +557,14 @@ void GUI_Main::OnMenu_Debug_Details(wxCommandEvent& WXUNUSED(event))
     if (Menu_Debug_Details->IsChecked() && (!Menu_View_Tree->IsChecked() && !Menu_View_Text->IsChecked()))
     {
         Menu_View_Tree->Check();
-        OnMenu_View_Tree(*((wxCommandEvent*)NULL));
+        wxCommandEvent nullEvent;
+        OnMenu_View_Tree(nullEvent);
     }
     if (!Menu_Debug_Details->IsChecked() && (!Menu_View_HTML->IsChecked() && !Menu_View_Text->IsChecked()))
     {
         Menu_View_HTML->Check();
-        OnMenu_View_HTML(*((wxCommandEvent*)NULL));
+        wxCommandEvent nullEvent;
+        OnMenu_View_HTML(nullEvent);
     }
     else
         View->GUI_Refresh();
@@ -604,7 +606,8 @@ void GUI_Main::OnMenu_Help_Info_Formats(wxCommandEvent& WXUNUSED(event))
     C->Menu_Help_Info_Formats();
 
     //Showing
-    OnMenu_View_Text(*((wxCommandEvent*)NULL));
+    wxCommandEvent nullEvent;
+    OnMenu_View_Text(nullEvent);
 }
 
 //---------------------------------------------------------------------------
@@ -614,7 +617,8 @@ void GUI_Main::OnMenu_Help_Info_Codecs(wxCommandEvent& WXUNUSED(event))
     C->Menu_Help_Info_Codecs();
 
     //Showing
-    OnMenu_View_Text(*((wxCommandEvent*)NULL));
+    wxCommandEvent nullEvent;
+    OnMenu_View_Text(nullEvent);
 }
 
 //---------------------------------------------------------------------------
@@ -624,7 +628,8 @@ void GUI_Main::OnMenu_Help_Info_Parameters(wxCommandEvent& WXUNUSED(event))
     C->Menu_Help_Info_Parameters();
 
     //Showing
-    OnMenu_View_Text(*((wxCommandEvent*)NULL));
+    wxCommandEvent nullEvent;
+    OnMenu_View_Text(nullEvent);
 }
 
 //***************************************************************************

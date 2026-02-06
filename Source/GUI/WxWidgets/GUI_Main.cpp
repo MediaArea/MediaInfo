@@ -35,6 +35,7 @@ using namespace std;
 
 //---------------------------------------------------------------------------
 //Get command line args in main()
+#undef GETCOMMANDLINE
 #ifdef UNICODE
     #ifdef _WIN32
         #include <windows.h>
