@@ -19,6 +19,12 @@ jobs:
   Ubuntu:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout brotli
+        uses: actions/checkout@v5
+        with:
+          repository: cjee21/brotli #!! TO CHANGE !!
+          ref: MSVC                 #!! TO REMOVE !!
+          path: brotli
       - name: Checkout zlib
         uses: actions/checkout@v6
         with:
@@ -32,7 +38,8 @@ jobs:
       - name: Checkout MediaInfoLib
         uses: actions/checkout@v6
         with:
-          repository: MediaArea/MediaInfoLib
+          repository: cjee21/MediaInfoLib  #!! TO CHANGE !!
+          ref: jxl                         #!! TO REMOVE !!
           path: MediaInfoLib
       - name: Checkout MediaInfo
         uses: actions/checkout@v6
