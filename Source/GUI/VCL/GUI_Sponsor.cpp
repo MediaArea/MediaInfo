@@ -12,7 +12,9 @@
 //---------------------------------------------------------------------------
 #include <ZenLib/Dir.h>
 #include <ZenLib/File.h>
-//---------------------------------------------------------------------------
+#include <ZenLib/FileName.h>
+#include <algorithm>
+#include <ctime>
 
 //---------------------------------------------------------------------------
 #include "GUI_Sponsor.h"
@@ -114,6 +116,36 @@ void __fastcall TSponsorFrame::Init()
     SourceURL = Prefs->Translate(__T("SponsorBanner"));
     BannerClickUrl = Prefs->Translate(__T("SponsorBannerClickUrl"));
 
+    // Clean olds banners
+    ZtringList FileNames=Dir::GetAllFileNames(Prefs->BaseFolder + __T("\\Sponsor\\"), Dir::Include_Files);
+    for (size_t Pos=0; Pos<FileNames.size();Pos++)
+    {
+        ZenLib::FileName Name(FileNames[Pos]);
+        if (Name.Name_Get().size()==32 && Name.Extension_Get()==__T("jpg")) // hash.ext
+        {
+            bool Found=false;
+            for (size_t Pos2=0; Pos2<Prefs->SponsorBanner.size(); Pos2++)
+            {
+                for (size_t Pos3=0; Pos3<Prefs->SponsorBanner[Pos2].size(); Pos3++)
+                {
+                    Ztring Hash=Ztring().From_Unicode(THashMD5::GetHashString(Prefs->SponsorBanner[Pos2][Pos3].c_str()).c_str());
+                    if (Name.Name_Get()==Hash)
+                    {
+                        std::string name=Name.Name_Get().To_UTF8();
+                        std::string name2=Ztring().From_Unicode(THashMD5::GetHashString(Prefs->SponsorBanner[Pos2][Pos3].c_str()).c_str()).To_UTF8();
+                        Found=true;
+                        break;
+                    }
+                }
+                if (Found)
+                    break;
+            }
+
+            if (!Found)
+                File::Delete(FileNames[Pos]);
+        }
+    }
+
     if (!Prefs->Sponsored ||
         Prefs->Donated ||
         SourceURL.empty() ||
@@ -129,14 +161,11 @@ void __fastcall TSponsorFrame::Init()
     Ztring NewBanner = Ztring().From_Unicode(THashMD5::GetHashString(SourceURL.c_str()).c_str()) + __T(".jpg");
 
     BannerPath = Prefs->BaseFolder + __T("\\Sponsor\\") + NewBanner;
-    if (CurBanner == NewBanner)
+    if (CurBanner == NewBanner && File::Exists(BannerPath))
     {
         Finalize();
         return;
     }
-
-    if (!CurBanner.empty())
-        File::Delete(Prefs->BaseFolder + __T("\\Sponsor\\") + CurBanner);
 
     DownloadThread = new DownloadBannerThread(this, SourceURL, BannerPath);
 }
