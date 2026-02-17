@@ -16,7 +16,7 @@ on:
       - 'Source/Resource/**'
 
 env:
-  QT_VER: 6.10.*
+  QT_VER: 6.10.2
   QT_SELECT: 6
 
 jobs:
@@ -59,6 +59,7 @@ jobs:
         with:
           arch: ${{ matrix.qt_arch }}
           version: ${{ env.QT_VER }}
+          cache: true
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
         with:

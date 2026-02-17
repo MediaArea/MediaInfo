@@ -58,7 +58,13 @@ Preferences::Preferences(QSettings* settings, Core* C, QWidget *parent) :
     QFont setMonoFont;
     if (!settings->value("monoFont", "").toString().isEmpty())
         setMonoFont.fromString(settings->value("monoFont", "").toString());
-    if (!settings->value("monoFont", "").toString().isEmpty() && QFontDatabase().families().contains(setMonoFont.family())) {
+    if (!settings->value("monoFont", "").toString().isEmpty() &&
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        QFontDatabase::families().contains(setMonoFont.family())
+#else
+        QFontDatabase().families().contains(setMonoFont.family())
+#endif
+        ) {
         ui->comboBox_font->setCurrentFont(QFont(setMonoFont));
         ui->comboBox_fontSize->setCurrentText(QString::number(setMonoFont.pointSize()));
     } else {
