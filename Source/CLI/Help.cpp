@@ -118,6 +118,8 @@ int Help()
     TEXTOUT("--BOM");
     TEXTOUT("                    Byte order mark for UTF-8 output");
     TEXTOUT("");
+    TEXTOUT("--File_Curl;UserAgent=...");
+    TEXTOUT("                    Set the User-Agent header field in the HTTP request sent to the remote server.");
     TEXTOUT("--Ssl_CertificateFileName=...");
     TEXTOUT("                    File name of the SSL certificate.");
     TEXTOUT("                    The default format is \"PEM\" and can be changed");
