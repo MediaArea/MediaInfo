@@ -54,7 +54,7 @@ int Parse(Core &MI, MediaInfoNameSpace::String &Argument)
     OPTION("--info-canhandleurls",                          Info_CanHandleUrls)
     OPTION("--language",                                    Language)
     OPTION("--output=",                                     Output)
-    OPTION("--logfile",                                     LogFile)
+    OPTION("--logfile=",                                    LogFile)
     OPTION("--bom",                                         Bom)
     OPTION("--version",                                     Version)
     //Obsolete
