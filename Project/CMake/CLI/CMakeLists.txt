@@ -4,9 +4,7 @@ project(MediaInfo_CLI)
 
 option(MEDIAINFO_CLI_STATIC "Link MediaInfo CLI statically" ON)
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/CMake/Modules")
 
 set(CLI_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../Source/CLI/CLI_Main.cpp
@@ -22,11 +20,10 @@ set_target_properties(mediainfo_cli PROPERTIES OUTPUT_NAME mediainfo)
 
 target_compile_definitions(mediainfo_cli PRIVATE UNICODE)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../../Source)
+include(EnableLatestCXX)
+enable_latest_cxx(mediainfo_cli)
 
-if (MSVC)
-  string(APPEND CMAKE_CXX_FLAGS " /EHsc")
-endif()
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../../Source)
 
 if(MEDIAINFO_CLI_STATIC)
     # Prefer static libraries
@@ -43,7 +40,7 @@ else()
     target_compile_definitions(mediainfo_cli PRIVATE MEDIAINFO_DLL_RUNTIME)
     find_package(ZLIB REQUIRED)
     find_package(Threads REQUIRED)
-    find_package(mediainfolib REQUIRED)
+    find_package(MediaInfoLib REQUIRED)
     find_package(ZenLib REQUIRED)
 
 
