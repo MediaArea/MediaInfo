@@ -143,15 +143,15 @@ jobs:
           - type: Windows (x64)
             runner: windows-latest
             Format_Profile: Executable / AMD x86-64
-            CXXFLAGS: "/std:c++20 /WX"
+            CXXFLAGS: "/WX"
           - type: Windows (DLL) (x64)
             runner: windows-latest
             Format_Profile: Executable / AMD x86-64
-            CXXFLAGS: "/std:c++20 /WX"
+            CXXFLAGS: "/WX"
           - type: Windows (ARM64)
             runner: windows-11-arm
             Format_Profile: Executable / ARM64
-            CXXFLAGS: "/std:c++20 /WX"
+            CXXFLAGS: "/WX"
           - type: Ubuntu (AMD64)
             runner: ubuntu-latest
             Format_Profile: Shared object / AMD x86-64
