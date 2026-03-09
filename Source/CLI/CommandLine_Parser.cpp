@@ -7,6 +7,13 @@
 //---------------------------------------------------------------------------
 #include <string>
 #include <vector>
+#if __has_include(<filesystem>) && defined(__cpp_lib_filesystem)
+    #include <filesystem>
+    namespace fs = std::filesystem;
+#elif __has_include(<experimental/filesystem>) && defined(__cpp_lib_filesystem)
+    #include <experimental/filesystem>
+    namespace fs = std::experimental::filesystem;
+#endif
 #ifdef __BORLANDC__
     #pragma hdrstop
 #endif
@@ -218,8 +225,19 @@ void LogFile_Action(ZenLib::Ztring Inform)
     if (LogFile_FileName.empty())
         return;
 
-    std::string Inform_Ansi=Inform.To_UTF8();
-    std::fstream File(LogFile_FileName.To_Local().c_str(), std::ios_base::out|std::ios_base::trunc);
+    std::string Inform_Ansi(Inform.To_UTF8());
+
+#if defined(__cpp_lib_filesystem) && defined(__cpp_lib_char8_t)
+    std::string LogFile_FileName_u8(LogFile_FileName.To_UTF8());
+    std::u8string LogFile_FileName_u8string(LogFile_FileName_u8.begin(), LogFile_FileName_u8.end());
+    auto path = fs::path(LogFile_FileName_u8string);
+#elif defined(__cpp_lib_filesystem)
+    auto path = fs::u8path(LogFile_FileName.To_UTF8());
+#else
+    auto path = LogFile_FileName.To_Local(); // May not have Unicode filepath support
+#endif
+    std::ofstream File(path, std::ios_base::trunc);
+
     #if defined(_MSC_VER) && defined(UNICODE)
         if (CLI_Option_Bom)
             File.write("\xEF\xBB\xBF", 3);
