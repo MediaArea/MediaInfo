@@ -28,6 +28,35 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../../Source)
 if(MEDIAINFO_CLI_STATIC)
     # Prefer static libraries
     set(CMAKE_FIND_LIBRARY_SUFFIXES .a .lib ${CMAKE_FIND_LIBRARY_SUFFIXES})
+
+    # Check and auto download dependencies 
+    if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.14")
+        macro(ensure_dependency NAME REPO LOCAL_PATH CMAKELISTS_SUBDIR)
+            if(NOT EXISTS "${LOCAL_PATH}/${CMAKELISTS_SUBDIR}/CMakeLists.txt")
+                message(STATUS "${NAME} not found at ${LOCAL_PATH}. Downloading...")
+                include(FetchContent)
+                FetchContent_Declare(
+                    ${NAME}
+                    GIT_REPOSITORY ${REPO}
+                    GIT_SHALLOW    TRUE
+                    SOURCE_DIR     "${LOCAL_PATH}"
+                    SOURCE_SUBDIR  does-not-exist-we-want-to-download-only-not-autobuild
+                    BINARY_DIR     "${CMAKE_CURRENT_BINARY_DIR}/${NAME}"
+                )
+                FetchContent_MakeAvailable(${NAME})
+            else()
+                message(STATUS "Found local ${NAME} at ${LOCAL_PATH}")
+            endif()
+        endmacro()
+        if(WIN32 OR BUILD_ZLIB)
+            ensure_dependency(zlib "https://github.com/MediaArea/zlib.git" "${CMAKE_CURRENT_SOURCE_DIR}/../../../../zlib" "")
+        endif()
+        if(WIN32 OR BUILD_ZENLIB)
+            ensure_dependency(ZenLib "https://github.com/MediaArea/ZenLib.git" "${CMAKE_CURRENT_SOURCE_DIR}/../../../../ZenLib" "Project/CMake")
+        endif()
+        ensure_dependency(MediaInfoLib "https://github.com/MediaArea/MediaInfoLib.git" "${CMAKE_CURRENT_SOURCE_DIR}/../../../../MediaInfoLib" "Project/CMake")
+    endif()
+
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../../../../MediaInfoLib/Project/CMake ${CMAKE_CURRENT_BINARY_DIR}/MediaInfoLib)
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../../../MediaInfoLib/Source)
 
