@@ -38,6 +38,7 @@ The CLI and GUIs are available for various CPU architectures.
   - [Build MediaInfo CLI](#build-mediainfo-cli)
   - [Build MediaInfo GUI](#build-mediainfo-gui)
   - [Build MediaInfo Qt GUI](#build-mediainfo-qt-gui)
+- [Build CLI with CMake](#build-cli-with-cmake)
 - [Build for other operating systems](#build-for-other-operating-systems)
 
 ### Build for Windows
@@ -447,6 +448,28 @@ cd MediaInfoLib/Project/GNU/Library
 ./configure --enable-static
 make
 ```
+
+### Build CLI with CMake
+
+First, ensure the necessary build tools are available and accessible from the command line:
+
+- Git
+- CMake
+- C/C++ build tools
+- Ninja (optional)
+
+To build statically-linked MediaInfo CLI with CMake, create a new directory and run the following in it:
+
+```bash
+git clone https://github.com/MediaArea/MediaInfo.git
+cmake -G Ninja -D CMAKE_PREFIX_PATH=./install/ -D CMAKE_INSTALL_PREFIX=./install/ -D CMAKE_BUILD_TYPE=Release -D BUILD_ZENLIB=ON -D BUILD_ZLIB=ON -D ZLIB_BUILD_SHARED=OFF -D ZLIB_BUILD_TESTING=OFF -B build ./MediaInfo/Project/CMake/CLI/
+cmake --build build
+cmake --install build
+```
+
+The dependencies will be automatically obtained by CMake using Git.
+
+MediaInfo CLI will be at `./install/bin/mediainfo`.
 
 ### Build for other operating systems
 
