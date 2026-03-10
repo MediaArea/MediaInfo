@@ -6,6 +6,23 @@ option(MEDIAINFO_CLI_STATIC "Link MediaInfo CLI statically" ON)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/CMake/Modules")
 
+if(MSVC)
+    add_compile_options(/GS /W3 /guard:cf /sdl)
+    add_link_options(/guard:cf)
+    if(CMAKE_CXX_COMPILER_ARCHITECTURE_ID STREQUAL ARM64)
+        add_compile_options(/guard:ehcont /guard:signret)
+        add_link_options(/guard:ehcont /guard:delayloadsignret)
+    endif()
+    if(CMAKE_CXX_COMPILER_ARCHITECTURE_ID STREQUAL x64)
+        add_compile_options(/guard:ehcont)
+        add_link_options(/guard:ehcont /CETCOMPAT)
+    endif()
+    if(CMAKE_CXX_COMPILER_ARCHITECTURE_ID STREQUAL X86)
+        add_compile_options()
+        add_link_options(/CETCOMPAT)
+    endif()
+endif()
+
 set(CLI_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../Source/CLI/CLI_Main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../Source/CLI/CommandLine_Parser.cpp
@@ -18,7 +35,7 @@ add_executable(mediainfo_cli ${CLI_SOURCES})
 
 set_target_properties(mediainfo_cli PROPERTIES OUTPUT_NAME mediainfo)
 
-target_compile_definitions(mediainfo_cli PRIVATE UNICODE)
+target_compile_definitions(mediainfo_cli PRIVATE _UNICODE UNICODE)
 
 include(EnableLatestCXX)
 enable_latest_cxx(mediainfo_cli)
