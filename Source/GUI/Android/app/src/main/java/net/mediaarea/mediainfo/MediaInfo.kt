@@ -10,7 +10,6 @@ class MediaInfo {
     companion object {
         // load the native library.
         init {
-            System.loadLibrary("zen") // load ZenLib manually (fix Android < 4.3)
             System.loadLibrary("mediainfo")
         }
     }

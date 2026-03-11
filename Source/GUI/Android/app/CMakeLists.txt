@@ -1,23 +1,13 @@
 # For more information about using CMake with Android Studio, read the
 # documentation: https://d.android.com/studio/projects/add-native-code.html
 
-cmake_minimum_required(VERSION 3.4.1)
+cmake_minimum_required(VERSION 3.5.0)
 
 project(MediaInfo)
 
-# Build Zenlib
-set(ZenLib_DIR ${CMAKE_CURRENT_BINARY_DIR}/ZenLib)
-set(ZenLib_LIBRARY zen)
-
-option(LARGE_FILES "Enable large files support" OFF)
-add_subdirectory(../../../../../ZenLib/Project/CMake ${ZenLib_DIR})
-include_directories(AFTER SYSTEM ../../../../../ZenLib/Source)
-file(MAKE_DIRECTORY ${ZenLib_DIR}/../../../include) # fake system wide installation
-
 # Build MediaInfoLib
-set(MediaInfoLib_LIBRARY mediainfo)
-set(MediaInfoLib_DIR ${CMAKE_CURRENT_BINARY_DIR}/MediaInfoLib)
+set(BUILD_SHARED_LIBS ON CACHE BOOL "Force shared library build" FORCE)
+set(LARGE_FILES OFF CACHE BOOL "Enable large files support" FORCE)
+set(BUILD_ZENLIB ON CACHE BOOL "Build bundled ZenLib" FORCE)
 
-option(JNI "Build JNI interface" ON)
-add_subdirectory(../../../../../MediaInfoLib/Project/CMake ${MediaInfoLib_DIR})
-include_directories(AFTER SYSTEM ../../../../../MediaInfoLib/Source)
+add_subdirectory(../../../../../MediaInfoLib/Project/CMake ${CMAKE_CURRENT_BINARY_DIR}/MediaInfoLib)
