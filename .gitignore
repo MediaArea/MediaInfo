@@ -60,6 +60,8 @@ My Project
 # Qt GUI build and translations directories
 /Project/QMake/GUI/build
 /Source/Resource/Translations
+/Source/WindowsQtPackage/Assets
+Source/WindowsQtPackage/resources.pri
 build/
 
 .vscode/

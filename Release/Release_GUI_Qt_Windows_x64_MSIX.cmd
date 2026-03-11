@@ -47,6 +47,10 @@ copy "%~dp0\..\Project\MSVC2022\MediaInfo_WindowsShellExtension\x64\Release Qt\M
 signtool.exe sign /fd SHA256 /a /f %CERT_PATH% /p %CERT_PASS% /tr http://timestamp.acs.microsoft.com /td sha256 %~dp0\MediaInfo_Qt_Windows_x64\MediaInfo.exe %~dp0\MediaInfo_Qt_Windows_x64\MediaInfo_WindowsShellExtension.dll
 
 :: add MSIX manifest and assets
+xcopy %~dp0\..\Source\Resource\Image\MSIX_Assets %~dp0\..\Source\WindowsQtPackage\Assets\ /i /e /r /y
+pushd %~dp0\..\Source\WindowsQtPackage
+makepri.exe new /pr %~dp0\..\Source\WindowsQtPackage /cf %~dp0\..\Source\WindowsQtPackage\priconfig.xml
+popd
 xcopy %~dp0\..\Source\WindowsQtPackage %~dp0\MediaInfo_Qt_Windows_x64\ /i /e /r /y
 
 :: package and sign MSIX
