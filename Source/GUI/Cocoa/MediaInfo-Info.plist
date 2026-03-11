@@ -237,6 +237,8 @@
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleIconName</key>
+	<string>mediainfo</string>
 	<key>CFBundleIconFile</key>
 	<string>mediainfo</string>
 	<key>CFBundleIdentifier</key>
