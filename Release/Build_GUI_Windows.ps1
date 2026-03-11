@@ -62,6 +62,12 @@ Push-Location -Path "${release_directory}\..\Project\MSVC2022"
     MSBuild /restore "/p:RestorePackagesConfig=true;Configuration=Release;Platform=Win32" "/t:MediaInfo_PackageHelper" MediaInfo.sln
 Pop-Location
 
+### Build: Image assets and resources ###
+xcopy "${release_directory}\..\Source\Resource\Image\MSIX_Assets" "${release_directory}\..\Source\WindowsSparsePackage\Resources\Assets\" /i /e /r /y
+Push-Location -Path "${release_directory}\..\Source\WindowsSparsePackage\Resources"
+    makepri new /pr "${release_directory}\..\Source\WindowsSparsePackage\Resources" /cf "${release_directory}\..\Source\WindowsSparsePackage\Resources\priconfig.xml"
+Pop-Location
+
 ### Build: zlib BCB library ###
 Push-Location -Path "${release_directory}\..\..\zlib\contrib\BCB"
     MSBuild "/p:Configuration=Release;Platform=${arch_bcb}" zlib.cbproj

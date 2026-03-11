@@ -75,3 +75,7 @@ Source/GUI/Android/app/src/main/res/raw*/lang.csv
 Source/GUI/Android/app/src/main/res/values-*/strings.xml
 /Source/GUI/Android/build
 Source/GUI/Android/local.properties
+
+# GUI Assets
+/Source/WindowsSparsePackage/Resources/Assets
+Source/WindowsSparsePackage/Resources/resources.pri
