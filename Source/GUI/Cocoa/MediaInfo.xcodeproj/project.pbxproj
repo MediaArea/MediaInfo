@@ -23,6 +23,7 @@
 		02B7FB4F17576A61002B92FE /* ServicesMenu.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02B7FB4D17576A61002B92FE /* ServicesMenu.strings */; };
 		02E91F3E2495373200BFFF71 /* PurchaseReport.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02E91F3C2495373200BFFF71 /* PurchaseReport.xib */; };
 		02E91F412495374600BFFF71 /* PurchaseReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E91F402495374600BFFF71 /* PurchaseReportController.m */; };
+		03D4B7E92F5F947A00D41559 /* Assets.car in Resources */ = {isa = PBXBuildFile; fileRef = 03D4B7E82F5F947A00D41559 /* Assets.car */; };
 		256AC3DA0F4B6AC300CF3369 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* AppController.m */; };
 		43098011154815B600E9F818 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4309800F154815B600E9F818 /* Localizable.strings */; };
 		431876161BECF79B00B687E9 /* DraggingFixView.m in Sources */ = {isa = PBXBuildFile; fileRef = 431876151BECF79B00B687E9 /* DraggingFixView.m */; };
@@ -523,6 +524,7 @@
 		03AD6DFA2E480BCA002BE061 /* uk */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = uk; path = uk.lproj/TreeView.xib; sourceTree = "<group>"; };
 		03AD6DFB2E480BCA002BE061 /* uk */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = uk; path = uk.lproj/Subscribe.xib; sourceTree = "<group>"; };
 		03AD6DFC2E480BCA002BE061 /* uk */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = uk; path = uk.lproj/ProgressDialog.xib; sourceTree = "<group>"; };
+		03D4B7E82F5F947A00D41559 /* Assets.car */ = {isa = PBXFileReference; lastKnownFileType = file; path = Assets.car; sourceTree = "<group>"; };
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -698,6 +700,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				03D4B7E82F5F947A00D41559 /* Assets.car */,
 				9CEC32CE263830F00056CA65 /* Plugin */,
 				9CEC32A526322C990056CA65 /* libmediainfo.dylib */,
 				02E91F3C2495373200BFFF71 /* PurchaseReport.xib */,
@@ -848,6 +851,7 @@
 				43BB5AA215336722002400F8 /* About.xib in Resources */,
 				436A06D0150E732400F5E09A /* MediaInfoBig.png in Resources */,
 				43BB5AB315346845002400F8 /* Preferences.xib in Resources */,
+				03D4B7E92F5F947A00D41559 /* Assets.car in Resources */,
 				43EC295015349B1E00943F0A /* lang.csv in Resources */,
 				026C61CE22A86824000D5045 /* MacCompare.png in Resources */,
 				0299EC812291FD8B00D937F6 /* Subscribe.xib in Resources */,
