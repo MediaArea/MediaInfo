@@ -94,6 +94,10 @@ public:
     ZenLib::ZtringListList  SponsorUrl;
     ZenLib::ZtringListList  SponsorBanner;
     ZenLib::ZtringListList  SponsorBannerClickUrl;
+    ZenLib::ZtringListList  SponsorMessageWeight;
+    ZenLib::ZtringListList  SponsorBannerWeight;
+    size_t                  SponsorMessageIndex;
+    size_t                  SponsorBannerIndex;
 
     //Plugins
     ZenLib::Ztring GraphPluginURL;
