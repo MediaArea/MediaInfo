@@ -13,10 +13,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.edit
 import androidx.core.net.toUri
+import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -43,7 +43,6 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.provider.Settings
 import android.view.*
-import androidx.core.view.updateLayoutParams
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -54,6 +53,7 @@ import java.io.BufferedReader
 import java.util.*
 
 import  net.mediaarea.mediainfo.databinding.ActivityReportListBinding
+import  net.mediaarea.mediainfo.databinding.ClearButtonBinding
 import  net.mediaarea.mediainfo.databinding.ReportListContentBinding
 import  net.mediaarea.mediainfo.databinding.HelloLayoutBinding
 
@@ -648,25 +648,6 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
             }
             openFile.launch("*/*")
         }
-        activityReportListBinding.reportListLayout.clearBtn.setOnClickListener {
-            disposable.add(reportModel.deleteAllReports()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    intent.putExtra(Core.ARG_REPORT_ID, -1)
-                    if (twoPane) {
-                        val fragment = supportFragmentManager.findFragmentById(R.id.report_detail_container)
-                        if (fragment != null) {
-                            supportFragmentManager
-                                .beginTransaction()
-                                .detach(fragment)
-                                .commit()
-
-                                title = getString(R.string.app_name)
-                        }
-                    }
-            })
-        }
 
         // The detail container view will be present only in the
         // large-screen layouts (res/values-w900dp).
@@ -683,15 +664,6 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                     .detach(fragment)
                     .commit()
             }
-        }
-
-        val addButtonParams = activityReportListBinding.addButton.layoutParams as CoordinatorLayout.LayoutParams
-        if (twoPane) {
-            addButtonParams.anchorId = R.id.report_list_scrollview
-            addButtonParams.gravity = Gravity.BOTTOM or Gravity.START
-        } else {
-            addButtonParams.anchorId = R.id.report_list_layout
-            addButtonParams.gravity = Gravity.BOTTOM or Gravity.END
         }
 
         setupRecyclerView(activityReportListBinding.reportListLayout.reportList)
@@ -720,16 +692,12 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                         if (!found)
                             View.inflate(this, R.layout.hello_layout, rootLayout)
 
-                        activityReportListBinding.reportListLayout.clearBtn.visibility = View.INVISIBLE
                     } else {
                         for (i: Int in rootLayout.childCount downTo 1) {
                             if (rootLayout.getChildAt(i - 1).id == R.id.hello_layout)
                                 rootLayout.removeViewAt(i - 1)
                         }
                         rootLayout.removeView(helloLayoutBinding.root)
-                        activityReportListBinding.reportListLayout.clearBtn.visibility = View.VISIBLE
-
-
                     }
                 })
 
@@ -748,33 +716,65 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     @SuppressLint("NotifyDataSetChanged")
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         recyclerView.adapter = ItemRecyclerViewAdapter()
-        recyclerView.isNestedScrollingEnabled = false
         recyclerView.adapter?.notifyDataSetChanged()
     }
 
-    inner class ItemRecyclerViewAdapter : RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder>() {
+    inner class ItemRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val onClickListener: View.OnClickListener = View.OnClickListener {
             showReport((it.tag as Report).id)
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val binding = ReportListContentBinding.inflate(layoutInflater, parent, false)
-            return ViewHolder(binding)
+        override fun getItemViewType(position: Int): Int {
+            return if (position == reports.size) BUTTON_VIEW_TYPE else ITEM_VIEW_TYPE
         }
 
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val report: Report = reports[position]
-            holder.name.text = report.filename
-            holder.id = report.id
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+            if (viewType == ITEM_VIEW_TYPE) {
+                val binding = ReportListContentBinding.inflate(layoutInflater, parent, false)
+                return ViewHolder(binding)
+            } else {
+                val binding = ClearButtonBinding.inflate(layoutInflater, parent, false)
+                return ButtonViewHolder(binding)
+            }
+        }
 
-            with(holder.itemView) {
-                tag = report
-                setOnClickListener(onClickListener)
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+            when (holder) {
+                is ViewHolder -> {
+                    val report: Report = reports[position]
+                    holder.name.text = report.filename
+                    holder.id = report.id
+                    with(holder.itemView) {
+                        tag = report
+                        setOnClickListener(onClickListener)
+                    }
+                }
+                is ButtonViewHolder -> {
+                    holder.binding.clearBtn.setOnClickListener {
+                        disposable.add(reportModel.deleteAllReports()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe {
+                                intent.putExtra(Core.ARG_REPORT_ID, -1)
+                                if (twoPane) {
+                                    val fragment = supportFragmentManager.findFragmentById(R.id.report_detail_container)
+                                    if (fragment != null) {
+                                        supportFragmentManager
+                                            .beginTransaction()
+                                            .detach(fragment)
+                                            .commit()
+
+                                        title = getString(R.string.app_name)
+                                    }
+                                }
+                            })
+                    }
+                }
             }
         }
 
         override fun getItemCount(): Int {
-            return reports.size
+            return if (reports.isEmpty()) 0 else reports.size + 1
         }
 
         inner class ViewHolder(binding: ReportListContentBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -788,6 +788,8 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 }
             }
         }
+
+        inner class ButtonViewHolder(val binding: ClearButtonBinding) : RecyclerView.ViewHolder(binding.root)
     }
 
     companion object {
@@ -795,5 +797,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         const val ACCESS_MEDIA_LOCATION_PERMISSION_REQUEST_OPENFILE = 60
         const val ACCESS_MEDIA_LOCATION_PERMISSION_REQUEST_SENDFILE = 61
         const val OPEN_INTENT_PROCESSED = "net.mediaarea.mediainfo.internal.tag.Intent.Processed"
+        const val ITEM_VIEW_TYPE = 0
+        const val BUTTON_VIEW_TYPE = 1
     }
 }

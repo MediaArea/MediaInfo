@@ -22,40 +22,19 @@
 
     <!-- This layout is a two-pane layout for the master/detail flow. -->
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/report_list_scrollview"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/report_list"
+        android:name="net.mediaarea.mediainfo.ReportListFragment"
         android:layout_width="@dimen/item_width"
         android:layout_height="match_parent"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:context="net.mediaarea.mediainfo.ReportListActivity"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/report_list"
-                android:name="net.mediaarea.mediainfo.ReportListFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:context="net.mediaarea.mediainfo.ReportListActivity"
-                tools:listitem="@layout/report_list_content" />
-            <Button
-                android:id="@+id/clear_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/md_theme_onSurfaceVariant"
-                android:text="@string/clear_text"
-                android:layout_gravity="center"
-                style="@style/Widget.AppCompat.Button.Borderless" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/button_bottom_clearance" />
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+        tools:listitem="@layout/report_list_content"
+        android:paddingBottom="@dimen/button_bottom_clearance"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        android:scrollbarStyle="outsideOverlay" />
+
     <FrameLayout
         android:id="@+id/report_detail_container"
         android:layout_width="0dp"

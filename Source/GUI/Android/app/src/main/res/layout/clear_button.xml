@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/clear_btn"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textColor="@color/md_theme_onSurfaceVariant"
+    android:text="@string/clear_text"
+    android:layout_gravity="center"
+    style="@style/Widget.AppCompat.Button.Borderless" />
