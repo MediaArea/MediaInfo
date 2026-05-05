@@ -13,7 +13,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.edit
 import androidx.core.net.toUri
@@ -665,15 +664,6 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                     .detach(fragment)
                     .commit()
             }
-        }
-
-        val addButtonParams = activityReportListBinding.addButton.layoutParams as CoordinatorLayout.LayoutParams
-        if (twoPane) {
-            addButtonParams.anchorId = R.id.report_list
-            addButtonParams.gravity = Gravity.BOTTOM or Gravity.START
-        } else {
-            addButtonParams.anchorId = R.id.report_list_layout
-            addButtonParams.gravity = Gravity.BOTTOM or Gravity.END
         }
 
         setupRecyclerView(activityReportListBinding.reportListLayout.reportList)

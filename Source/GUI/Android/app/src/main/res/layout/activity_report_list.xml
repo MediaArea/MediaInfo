@@ -35,14 +35,20 @@
         <include android:id="@+id/report_list_layout" layout="@layout/report_list" />
     </FrameLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_button"
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/button_margin"
-        android:contentDescription="@string/open_title"
-        app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@drawable/ic_action_add" />
+        android:layout_gravity="bottom|start"
+        app:layout_anchor="@+id/report_list"
+        app:layout_anchorGravity="bottom|end">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/button_margin"
+            android:contentDescription="@string/open_title"
+            app:srcCompat="@drawable/ic_action_add" />
+    </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
