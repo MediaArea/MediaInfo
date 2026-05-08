@@ -309,7 +309,7 @@ Codec_Settings_ITU;编码设置, ITU
 Codec_Settings_Law;编码设置, Law
 Codec_Settings_Matrix;编码设置, 矩阵
 Codec_Settings_PacketBitStream;编码设置, Packet bitstream
-Codec_Settings_QPel;编码设置, 1/4像素精度
+Codec_Settings_QPel;编码设置, 1/4像素精度 (QPel)
 Codec_Settings_Sign;编码设置, Sign
 Codec_Url;编解码器网址
 CodecConfigurationBox;编码配置区块 (box)
