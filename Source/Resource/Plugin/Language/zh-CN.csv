@@ -92,7 +92,7 @@
  MB; MB
  Mb; Mb
  Mbps; Mb/s
- MBps; MebiBytes
+ MBps; MB/s
  MebiBit1; MebiBit
  MebiBit2; MebiBits
  MebiBit3; MebiBits
@@ -207,12 +207,12 @@ Attachments;附件
 Audio stream(s);音频流
 Audio1;音频 1
 Audio2;音频 2
-Audio3;第三音频流
+Audio3;音频 3
 Audio;音频
 Audio_Channels_Total;总音频声道数
 Audio_Codec_List;音频解码器
 Audio_Format_List;音频格式
-Audio_Format_WithHint_List;音频格式（含提示）
+Audio_Format_WithHint_List;音频格式 (含提示)
 Audio_Language_List;音频语言
 Audio_No;无音频
 AudioComments;音频注释
@@ -324,15 +324,15 @@ ColorTheme_Dark;深色
 ColorTheme_Light;浅色
 ColorTheme_System;跟随系统
 colour_description_present;存在色彩描述
-colour_description_present_Source;存在色彩描述（源）
+colour_description_present_Source;存在色彩描述 (源)
 colour_primaries;色彩原色
-colour_primaries_Source;色彩原色（源）
+colour_primaries_Source;色彩原色 (源)
 colour_range;色彩范围
-colour_range_Source;色彩范围（源）
+colour_range_Source;色彩范围 (源)
 Comment;注释
 CommissionedBy;委托人
 Compare;比较
-CompareView;比较视图（高级功能）
+CompareView;比较视图 (高级功能)
 Compilation;选集
 ComplementaryObject;互补对象
 CompleteName;完整名称
@@ -513,14 +513,14 @@ Format_Info;格式详细信息
 Format_Level;格式标准 (Level)
 Format_Profile;格式配置 (Profile)
 Format_Settings;格式设置
-Format_Settings_BVOP;格式设置, B 帧
+Format_Settings_BVOP;格式设置, B帧
 Format_Settings_CABAC;格式设置, CABAC
 Format_Settings_Emphasis;频率增强 (Emphasis)
 Format_Settings_Endianness;格式设置, 字节顺序
 Format_Settings_Firm;格式设置, Firm
 Format_Settings_Floor;格式设置, Floor
 Format_Settings_FrameMode;帧模式
-Format_Settings_GMC;格式设置, GMC
+Format_Settings_GMC;格式设置, 全局运动补偿 (GMC)
 Format_Settings_GOP;格式设置, GOP
 Format_Settings_ITU;格式设置, ITU
 Format_Settings_Law;格式设置, Law
@@ -533,7 +533,7 @@ Format_Settings_PacketBitStream;格式设置, Packet bitstream
 Format_Settings_PictureStructure;格式设置, 图像结构
 Format_Settings_PS;格式设置, PS
 Format_Settings_Pulldown;格式设置, Pulldown
-Format_Settings_QPel;格式设置, QPel
+Format_Settings_QPel;格式设置, 1/4像素精度 (QPel)
 Format_Settings_RefFrames;格式设置, 参考帧
 Format_Settings_SBR;格式设置, SBR
 Format_Settings_Sign;格式设置, Sign
@@ -560,7 +560,7 @@ FrameRate_Num;帧率分子
 FrameRate_Original;原始帧率
 FrameRate_Real;真实帧率
 FullParsing;完整解析
-FullParsingTips;更完整的输出（速度较慢）
+FullParsingTips;更完整的输出 (速度较慢)
 Gallery;图库
 General;通用
 GeneralCompliance;通用合规性
@@ -848,7 +848,7 @@ Language_cmn;普通话 (Mandarin)
 Language_co;科西嘉语 (Corsican)
 Language_cr;克里语 (Cree)
 Language_cs;捷克语 (Czech)
-Language_cu;古教会斯拉夫语 (Slave)
+Language_cu;古教会斯拉夫语 (Slavonic)
 Language_cv;楚瓦什语 (Chuvash)
 Language_cy;威尔士语 (Welsh)
 Language_da;丹麦语 (Danish)
@@ -1017,16 +1017,16 @@ Language_wo;沃洛夫语 (Wolof)
 Language_xh;科萨语 (Xhosa)
 Language_yi;意第绪语 (Yiddish)
 Language_yo;约鲁巴语 (Yoruba)
-Language_yue;粤语
+Language_yue;粤语 (Yue)
 Language_za;壮语 (Zhuang)
-Language_zh-cmn;普通话
-Language_zh-CN;中文（中国）
-Language_zh-cn;中文（中国）
-Language_zh-Hans;中文（简体）
-Language_zh-Hant;中文（繁体）
-Language_zh-TW;中文（台湾）
-Language_zh-tw;中文（台湾）
-Language_zh-yue;粤语
+Language_zh-cmn;普通话 (Mandarin)
+Language_zh-CN;中文 (中国)
+Language_zh-cn;中文 (中国)
+Language_zh-Hans;中文 (简体)
+Language_zh-Hant;中文 (繁体)
+Language_zh-TW;中文 (台湾)
+Language_zh-tw;中文 (台湾)
+Language_zh-yue;粤语 (Yue)
 Language_zh;中文 (Chinese)
 Language_zu;祖鲁语 (Zulu)
 Language_zxx;无语言内容或不适用
@@ -1090,7 +1090,7 @@ MasteringDisplay_Luminance;母带显示器亮度
 Matrix_Channel(s);矩阵编码, 声道数
 Matrix_ChannelPositions;矩阵编码, 声道位置
 matrix_coefficients;矩阵系数
-matrix_coefficients_Source;矩阵系数（源）
+matrix_coefficients_Source;矩阵系数 (源)
 Matrix_Format;矩阵编码, 格式
 MaxCLL;最大内容亮度 (CLL)
 MaxFALL;最大帧平均亮度 (FALL)
@@ -1099,7 +1099,7 @@ MaximumMomentaryLoudness;最大瞬时响度
 MaxTruePeak;最大真实峰值
 MD5;MD5
 MD5_Unencoded;未编码内容的 MD5
-MediaInfo_About;MediaInfo 可方便地读取音视频文件的编码与标签信息。\r\n除 Mac App Store 图形界面外，本软件为开源软件（BSD 许可协议），终端用户可免费使用，开发者可自由学习、改进和重新分发。
+MediaInfo_About;MediaInfo 可方便地读取音视频文件的编码与标签信息。\r\n除 Mac App Store 图形界面外，本软件为开源软件 (BSD 许可协议)，终端用户可免费使用，开发者可自由学习、改进和重新分发。
 MediaInfo_About_About;MediaInfo v%MI_VERSION%，内置 MediaInfoLib v%MIL_VERSION%
 MediaInfo_WebSite;MediaInfo 网站
 Menu stream(s);菜单流
@@ -1326,8 +1326,8 @@ Standard;标准
 Stored_Height;存储高度
 StoreMethod_InterleavedFields;交错场
 StoreMethod_SeparatedFields;单独场
-StoreMethod_SeparatedFields_1;单独场（每分块 1 场）
-StoreMethod_SeparatedFields_2;单独场（每分块 2 场）
+StoreMethod_SeparatedFields_1;单独场 (每分块 1 场)
+StoreMethod_SeparatedFields_2;单独场 (每分块 2 场)
 Stream;流
 Stream_MoreInfo;关于此流的更多信息
 StreamCount;此类型流的数量
@@ -1345,12 +1345,12 @@ StreamSize_Encoded;编码后流大小
 StreamSize_Proportion;该流占比
 Subject;主题
 Subscribe;订阅
-Subscribe_Button;订阅（%PRICE% / 年）
+Subscribe_Button;订阅 (%PRICE% / 年)
 Subscribe_Failed;购买被取消或失败
 Subscribe_Manage;管理订阅
 Subscribe_Premium;订阅高级功能
 Subscribe_Renew;续订？
-Subscribe_Renew_Price;续订（%PRICE% / 年）
+Subscribe_Renew_Price;续订 (%PRICE% / 年)
 Subscribe_Unaviable;无法检索订购详细信息。
 Subscribe_Waiting;购买等待家长批准
 Subscription_Active;订阅有效期至 %DATE%
@@ -1389,7 +1389,7 @@ Text3;字幕 3
 Text;文本
 Text_Codec_List;字幕解码器
 Text_Format_List;文本格式
-Text_Format_WithHint_List;文本格式（含提示）
+Text_Format_WithHint_List;文本格式 (含提示)
 Text_Language_List;文本语言
 Text_No;无字幕
 TextCount;字幕流总数
@@ -1423,7 +1423,7 @@ TrackFormat;轨道格式
 TrackIndex;轨道编号
 TrackUID;轨道 UID
 transfer_characteristics;传输特性
-transfer_characteristics_Source;传输特性（源）
+transfer_characteristics_Source;传输特性 (源)
 Translate_Reports;翻译报告
 Translator;翻译者
 Transport;传输
@@ -1448,8 +1448,8 @@ Type;类型
 Type_Composer;作曲家
 Type_Conductor;指挥家
 Type_Cover;封面
-Type_Cover_Back;封面（封底）
-Type_Cover_Media;封面（媒体）
+Type_Cover_Back;封面 (封底)
+Type_Cover_Media;封面 (媒体)
 Type_DuringPerformance;表演期间
 Type_DuringRecording;录制期间
 Type_FileIcon;文件图标
@@ -1458,7 +1458,7 @@ Type_Illustration;插图
 Type_LeafletPage;宣传单页
 Type_Lyricist;作词人
 Type_Performer;表演者
-Type_Performer_Lead;表演者（主唱/主角）
+Type_Performer_Lead;表演者 (主唱/主角)
 Type_PerformerLogo;表演者标志
 Type_Picture;图片
 Type_PublisherLogo;发行商标志
@@ -1482,7 +1482,7 @@ Video;视频
 Video_Codec_List;视频解码器
 Video_Delay;相对视频的延迟
 Video_Format_List;视频格式
-Video_Format_WithHint_List;视频格式（含提示）
+Video_Format_WithHint_List;视频格式 (含提示)
 Video_Language_List;视频语言
 Video_No;无视频
 VideoComments;视频注释
