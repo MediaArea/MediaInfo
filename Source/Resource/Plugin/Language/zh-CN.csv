@@ -304,7 +304,7 @@ Codec_Settings_CABAC;编码设置, CABAC
 Codec_Settings_Endianness;编码设置, 字节顺序
 Codec_Settings_Firm;编码设置, Firm
 Codec_Settings_Floor;编码设置, Floor
-Codec_Settings_GMC;编码设置, 全局运动补偿
+Codec_Settings_GMC;编码设置, 全局运动补偿 (GMC)
 Codec_Settings_ITU;编码设置, ITU
 Codec_Settings_Law;编码设置, Law
 Codec_Settings_Matrix;编码设置, 矩阵
