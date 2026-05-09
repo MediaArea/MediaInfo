@@ -62,6 +62,7 @@ Create an empty folder and clone the following repositories using Git or GitHub 
 - This repository (<https://github.com/MediaArea/MediaInfo>)
 - <https://github.com/MediaArea/MediaInfoLib>
 - <https://github.com/MediaArea/ZenLib>
+- <https://github.com/MediaArea/brotli>
 - <https://github.com/MediaArea/zlib>
 
 If you need Curl or the Graph Plugin, they may be obtained from [MediaArea-Utils-Binaries](https://github.com/MediaArea/MediaArea-Utils-Binaries) and [MediaInfo-Graph-Plugin-Binaries](https://github.com/MediaArea/MediaInfo-Graph-Plugin-Binaries) respectively.
@@ -224,6 +225,7 @@ port install autoconf automake libtool pkgconfig zlib wxWidgets-3.0
 
 *CLI and GUI dependencies*
 
+- brotli
 - zlib
 
 *GUI only dependencies*
@@ -235,7 +237,7 @@ port install autoconf automake libtool pkgconfig zlib wxWidgets-3.0
 *Build tools and CLI/GUI dependencies*
 
 ```sh
-apt-get install git automake autoconf libtool pkg-config make g++ zlib1g-dev
+apt-get install git automake autoconf libtool pkg-config make g++ libbrotli-dev zlib1g-dev 
 ```
 
 *MediaArea tools*
@@ -257,7 +259,7 @@ apt-get install libwxgtk3.2-dev
 *Build tools and CLI/GUI dependencies*
 
 ```sh
-sudo yum install git automake autoconf libtool pkgconfig make gcc-c++ zlib-devel
+sudo yum install git automake autoconf libtool pkgconfig make gcc-c++ brotli-devel zlib-devel
 ```
 
 *MediaArea tools*
@@ -279,7 +281,7 @@ sudo yum install wxGTK-devel desktop-file-utils
 *Build tools and CLI/GUI dependencies*
 
 ```sh
-apt-get install git automake autoconf libtool pkg-config make g++ zlib1g-dev
+apt-get install git automake autoconf libtool pkg-config make g++ libbrotli-dev zlib1g-dev
 ```
 
 *MediaArea tools*
@@ -301,7 +303,7 @@ apt-get install libwxgtk3.0-dev
 *Build tools and CLI/GUI dependencies*
 
 ```sh
-zypper install git automake autoconf libtool pkgconfig make gcc-c++ zlib-devel
+zypper install git automake autoconf libtool pkgconfig make gcc-c++ brotli-devel zlib-devel
 ```
 
 *MediaArea tools*
@@ -462,7 +464,7 @@ To build statically-linked MediaInfo CLI with CMake, create a new directory and 
 
 ```bash
 git clone https://github.com/MediaArea/MediaInfo.git
-cmake -G Ninja -D CMAKE_PREFIX_PATH=./install/ -D CMAKE_INSTALL_PREFIX=./install/ -D CMAKE_BUILD_TYPE=Release -D BUILD_ZENLIB=ON -D BUILD_ZLIB=ON -D ZLIB_BUILD_SHARED=OFF -D ZLIB_BUILD_TESTING=OFF -B build ./MediaInfo/Project/CMake/CLI/
+cmake -G Ninja -D CMAKE_PREFIX_PATH=./install/ -D CMAKE_INSTALL_PREFIX=./install/ -D CMAKE_BUILD_TYPE=Release -D BUILD_ZENLIB=ON -D BUILD_BROTLI=ON -D BUILD_ZLIB=ON -D ZLIB_BUILD_SHARED=OFF -D ZLIB_BUILD_TESTING=OFF -B build ./MediaInfo/Project/CMake/CLI/
 cmake --build build
 cmake --install build
 ```
