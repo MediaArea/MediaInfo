@@ -57,6 +57,7 @@ parts:
       - qt6-l10n-tools
       - qt6-base-dev
       - qt6-webengine-dev
+      - libqt6svg6-dev
       - qmake6
       - libglib2.0-bin
     stage-packages:
@@ -69,6 +70,7 @@ parts:
       - libxdot4
       - libqt6widgets6t64
       - libqt6xml6t64
+      - libqt6svg6
       - libqt6quickwidgets6
       - libqt6printsupport6t64
       - libqt6webenginecore6

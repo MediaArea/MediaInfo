@@ -2,7 +2,7 @@
 # Project created by QtCreator 2010-07-23T13:03:11
 # -------------------------------------------------
 
-QT += core gui widgets network xml
+QT += core gui widgets network xml svg
 
 win32 {
     DEFINES+=EDGE_WEBVIEW2_YES
