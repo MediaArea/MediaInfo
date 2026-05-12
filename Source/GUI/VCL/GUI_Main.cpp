@@ -6,6 +6,7 @@
 
 //---------------------------------------------------------------------------
 #include <vcl.h>
+#include <Math.hpp>
 #pragma hdrstop
 #include "GUI/VCL/GUI_Main.h"
 #ifndef MEDIAINFOGUI_PREFS_NO
@@ -494,21 +495,71 @@ void __fastcall TMainF::GUI_Configure()
     //Translation
     Translate();
 
-    //Set window size
-    float ScaledScreenWidth=Screen->Width/ScaleFactor;
-    float ScaledScreenHeight=Screen->Height/ScaleFactor;
-    Width=500;
-    Height=400;
-    if (ScaledScreenWidth>=1024)
-        Width=700;
-    if (ScaledScreenWidth>=1280)
-        Width=830;
-    if (ScaledScreenHeight>=768)
-        Height=500;
-    if (ScaledScreenHeight>=1024)
-        Height=600;
-    Width*=ScaleFactor;
-    Height*=ScaleFactor;
+    //Set window bounds
+    if (Prefs->Config(__T("RememberWindowDimensions")) == __T("1")) {
+
+        // Loading dimensions
+        int nPrefWidth = Width;
+        int nPrefHeight = Height;
+
+        if (Prefs->Config(__T("FormWidth")).IsNumber())
+            nPrefWidth = Prefs->Config(__T("FormWidth")).To_int32s();
+        if (Prefs->Config(__T("FormHeight")).IsNumber())
+            nPrefHeight = Prefs->Config(__T("FormHeight")).To_int32s();
+
+        nPrefWidth = Min(Monitor->WorkareaRect.Width(), nPrefWidth);
+        nPrefHeight = Min(Monitor->WorkareaRect.Height(), nPrefHeight);
+
+        SetBounds(Left, Top, nPrefWidth, nPrefHeight);
+
+    }
+    else {
+
+        // Default dimensions
+        float fpUnscaledMonitorWidth = Monitor->Width / ScaleFactor;
+        float fpUnscaledMonitorHeight = Monitor->Height / ScaleFactor;
+
+        Width=500;
+        Height=400;
+        if (fpUnscaledMonitorWidth>=1024)
+            Width=700;
+        if (fpUnscaledMonitorWidth>=1280)
+            Width=830;
+        if (fpUnscaledMonitorHeight>=768)
+            Height=500;
+        if (fpUnscaledMonitorHeight>=1024)
+            Height=600;
+        if (fpUnscaledMonitorHeight>=1440)
+            Height=900;
+        Width *= ScaleFactor;
+        Height *= ScaleFactor;
+
+    }
+    if (Prefs->Config(__T("RememberWindowPosition")) == __T("1")) {
+
+        // Loading position
+        int nPrefTop = 0;
+        int nPrefLeft = 0;
+
+        if (Prefs->Config(__T("FormTop")).IsNumber())
+            nPrefTop = Prefs->Config(__T("FormTop")).To_int32s();
+        if (Prefs->Config(__T("FormLeft")).IsNumber())
+            nPrefLeft = Prefs->Config(__T("FormLeft")).To_int32s();
+
+        nPrefTop = Max(nPrefTop, 0);
+        nPrefTop = Min(nPrefTop,  Monitor->WorkareaRect.Height() - Height);
+        nPrefLeft = Max(nPrefLeft, 0);
+        nPrefLeft = Min(nPrefLeft, Monitor->WorkareaRect.Width() - Width);
+        SetBounds(nPrefLeft, nPrefTop, Width, Height);
+
+        Position = poDesigned;
+
+    }
+    else {
+        // Default position
+        Position = poScreenCenter;
+    }
+
 }
 
 //---------------------------------------------------------------------------
@@ -517,6 +568,21 @@ void __fastcall TMainF::FormClose(TObject *Sender, TCloseAction &Action)
     //Delete temp HTML file on close
     if (FileName_Temp!=__T(""))
         File::Delete(FileName_Temp);
+
+    bool bCallPrefsSave = false;
+    if (Prefs->Config(__T("RememberWindowPosition")) == __T("1")) {
+        Prefs->Config(__T("FormTop")).From_Number((int)this->Top);
+        Prefs->Config(__T("FormLeft")).From_Number((int)this->Left);
+        bCallPrefsSave = true;
+    }
+    if (Prefs->Config(__T("RememberWindowDimensions")) == __T("1")) {
+        Prefs->Config(__T("FormWidth")).From_Number((int)this->Width);
+        Prefs->Config(__T("FormHeight")).From_Number((int)this->Height);
+        bCallPrefsSave = true;
+    }
+
+    if (bCallPrefsSave)
+        Prefs->Config.Save();
 
     //The form is closed and all allocated memory for the form is freed.
     Action = caFree;
