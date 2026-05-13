@@ -425,13 +425,13 @@ struct ExplorerCommandHandler : public winrt::implements<ExplorerCommandHandler,
 public:
     // IExplorerCommand implementation:
 
-    IFACEMETHODIMP GetTitle(_In_opt_ IShellItemArray* items, _Outptr_ PWSTR* name) {
+    IFACEMETHODIMP GetTitle(_In_opt_ IShellItemArray* items, _Outptr_ PWSTR* name) override {
         // Provide name for display in File Explorer context menu entry
         UNREFERENCED_PARAMETER(items);
         return SHStrDupW(menu_entry_title, name);
     }
 
-    IFACEMETHODIMP GetIcon(_In_opt_ IShellItemArray* items, _Outptr_ PWSTR* icon) {
+    IFACEMETHODIMP GetIcon(_In_opt_ IShellItemArray* items, _Outptr_ PWSTR* icon) override {
         // Provide icon for display in File Explorer context menu entry
         // Get path to application exe and use it as source for icon
         UNREFERENCED_PARAMETER(items);
@@ -441,18 +441,18 @@ public:
         return SHStrDupW(module_path.c_str(), icon);
     }
 
-    IFACEMETHODIMP GetToolTip(_In_opt_ IShellItemArray* items, _Outptr_ PWSTR* infoTip) {
+    IFACEMETHODIMP GetToolTip(_In_opt_ IShellItemArray* items, _Outptr_ PWSTR* infoTip) override {
         UNREFERENCED_PARAMETER(items);
         *infoTip = nullptr;
         return E_NOTIMPL;
     }
 
-    IFACEMETHODIMP GetCanonicalName(_Out_ GUID* guidCommandName) {
+    IFACEMETHODIMP GetCanonicalName(_Out_ GUID* guidCommandName) override {
         *guidCommandName = GUID_NULL;
         return S_OK;
     }
 
-    IFACEMETHODIMP GetState(_In_opt_ IShellItemArray* items, _In_ BOOL okToBeSlow, _Out_ EXPCMDSTATE* cmdState) {
+    IFACEMETHODIMP GetState(_In_opt_ IShellItemArray* items, _In_ BOOL okToBeSlow, _Out_ EXPCMDSTATE* cmdState) override {
         // Provide state of File Explorer context menu entry
         // Hide it if registry setting indicates that it should be disabled or file is unsupported, else it is enabled
 
@@ -534,17 +534,17 @@ public:
         return S_OK;
     }
 
-    IFACEMETHODIMP GetFlags(_Out_ EXPCMDFLAGS* flags) {
+    IFACEMETHODIMP GetFlags(_Out_ EXPCMDFLAGS* flags) override {
         *flags = ECF_DEFAULT;
         return S_OK;
     }
 
-    IFACEMETHODIMP EnumSubCommands(_Outptr_ IEnumExplorerCommand** enumCommands) {
+    IFACEMETHODIMP EnumSubCommands(_Outptr_ IEnumExplorerCommand** enumCommands) override {
         *enumCommands = nullptr;
         return E_NOTIMPL;
     }
 
-    IFACEMETHODIMP Invoke(_In_opt_ IShellItemArray* items, _In_opt_ IBindCtx* bindCtx) {
+    IFACEMETHODIMP Invoke(_In_opt_ IShellItemArray* items, _In_opt_ IBindCtx* bindCtx) override {
         // Process items passed by File Explorer when context menu entry is invoked
         UNREFERENCED_PARAMETER(bindCtx);
 
