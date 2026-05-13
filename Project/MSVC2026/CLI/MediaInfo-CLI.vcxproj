@@ -300,7 +300,7 @@
     <ClInclude Include="..\..\..\Source\Common\Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="MediaInfo_CLI.rc" />
+    <ResourceCompile Include="..\..\..\Source\CLI\MediaInfo_CLI.rc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\MediaInfoLib\Project\MSVC2026\Library\MediaInfoLib.vcxproj">

@@ -32,7 +32,7 @@ set(CLI_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../Source/CLI/CommandLine_Parser.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../Source/CLI/Help.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../Source/Common/Core.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../MSVC2022/CLI/MediaInfo_CLI.rc
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../../Source/CLI/MediaInfo_CLI.rc
     ${CMAKE_CURRENT_SOURCE_DIR}/segmentheap.manifest
 )
 
