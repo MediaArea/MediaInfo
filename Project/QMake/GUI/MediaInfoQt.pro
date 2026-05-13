@@ -90,6 +90,7 @@ unix {
 win32 {
     QMAKE_CXXFLAGS += /MP /guard:cf
     QMAKE_LFLAGS += /guard:cf /CETCOMPAT
+    QMAKE_LFLAGS += /MANIFESTINPUT:$$_PRO_FILE_PWD_\segmentheap.manifest
 
     contains(UWP, yes|1) {
 
