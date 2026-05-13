@@ -575,7 +575,7 @@ void __fastcall ThreadInternetCheck::Execute()
     Prefs->Config(__T("Sponsored"))=__T("0");
     Prefs->Config(__T("SponsorMessage"))=__T("");
     Prefs->Config(__T("SponsorUrl"))=__T("");
-    Prefs->Config(__T("SponsorMessageWeight"))=__T("";)
+    Prefs->Config(__T("SponsorMessageWeight"))=__T("");
     Prefs->Config(__T("SponsorBanner"))=__T("");
     Prefs->Config(__T("SponsorBannerClickUrl"))=__T("");
     Prefs->Config(__T("SponsorBannerWeight"))=__T("");
@@ -1812,7 +1812,7 @@ const ZenLib::Ztring &Preferences::Translate(ZenLib::Ztring Name)
             if (Index==-1)
                 return Empty_Ztring_Ref;
 
-            if (Index<SponsorBannerWeight.size() &&  SponsorBanner[Index].size()>2)
+            if (Index<SponsorBannerWeight.size() && SponsorMessageWeight[Index].size()>2)
             {
                 std::vector<size_t> Weights;
                 for (size_t Pos=1; Pos<SponsorMessageWeight[Index].size(); Pos++)
