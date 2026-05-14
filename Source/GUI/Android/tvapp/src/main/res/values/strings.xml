@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">MediaInfo</string>
+    <string name="browse">Browse</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="loading">Loading…</string>
+    <string name="empty">No media found in MediaStore</string>
+    <string name="error">Error</string>
+    <string name="permission_header">Storage Access Required</string>
+    <string name="permission_text">To browse your media files, %1$s needs permission to access your local storage.</string>
+    <string name="permission_button">Grant Permission</string>
+    <string name="header_appearance">Appearance</string>
+    <string name="header_mediainfolib">MediaInfoLib</string>
+    <string name="dark_mode">Dark mode</string>
+    <string name="enabled">Currently enabled</string>
+    <string name="disabled">Currently disabled</string>
+    <string name="file_sort_order">File sorting order</string>
+    <string name="file_sort_order_desc">The sorting order of media files in the media browser screen</string>
+    <string name="date_modified">Date modified</string>
+    <string name="file_path">File path</string>
+    <string name="file_name">File name</string>
+    <string name="legacy_stream_display">Legacy stream display</string>
+    <string name="legacy_stream_display_desc">Display backward compatibility information for HD/HE audio and 3D/HDR video streams</string>
+    <string name="display_captions">Display captions</string>
+    <string name="display_captions_desc">Handling of 608/708 streams</string>
+    <string name="display_captions_command">When content or a command is detected</string>
+    <string name="display_captions_content">When content is detected</string>
+    <string name="display_captions_stream">Even when no content or command is detected</string>
+    <string name="about_about_text" formatted="false">MediaInfo v%MI_VERSION% using MediaInfoLib v%MIL_VERSION%</string>
+    <string name="about_copyright_text">Copyright © 2002-2025 MediaArea.net SARL.</string>
+    <string name="about_description_text">
+            MediaInfo provides easy access to technical and tag information about video and audio files.\n
+            Except the Mac App Store graphical user interface, it is open-source software, which means that it is free of charge to the end user and developers have freedom to study, to improve and to redistribute the program (BSD license)
+    </string>
+    <string name="title_activity_report">ReportActivity</string>
+    <string name="please_wait">Please wait</string>
+</resources>

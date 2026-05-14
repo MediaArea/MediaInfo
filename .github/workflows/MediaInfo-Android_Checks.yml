@@ -43,6 +43,12 @@ jobs:
         with:
           distribution: 'jetbrains'
           java-version: ${{ env.JAVA_VER }}
+      - name: Run static analysis
+        run: |
+          pushd ${{ github.workspace }}/MediaInfo/Source/GUI/Android
+          chmod +x gradlew
+          ./gradlew detektDebug
+          popd
       - name: Build APKs
         run: |
           pushd ${{ github.workspace }}/MediaInfo/Source/GUI/Android
