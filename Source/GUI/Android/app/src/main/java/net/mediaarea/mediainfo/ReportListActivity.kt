@@ -30,6 +30,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.listitem.ListItemViewHolder
 
 import android.os.Build
 import android.os.Bundle
@@ -769,6 +770,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 is ReportListItem.ReportData -> {
                     if (holder is ListViewHolder) {
                         val report: Report = item.report
+                        holder.bind(position, currentList.size - 1) // Last is button
                         holder.name.text = report.filename
                         holder.id = report.id
                         with(holder.itemView) {
@@ -780,6 +782,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 }
                 is ReportListItem.ClearButton -> {
                     if (holder is ButtonViewHolder) {
+                        holder.bind(0, 1)
                         with(holder.itemView) {
                             setOnClickListener {
                                 reportModel.deleteAllReports()
@@ -803,7 +806,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
             }
         }
 
-        inner class ListViewHolder(binding: ReportListContentBinding) : RecyclerView.ViewHolder(binding.root) {
+        inner class ListViewHolder(binding: ReportListContentBinding) : ListItemViewHolder(binding.root) {
             val name: TextView = binding.nameText
             var id: Int = -1
 
@@ -815,7 +818,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
             }
         }
 
-        inner class ButtonViewHolder(val binding: ClearButtonBinding) : RecyclerView.ViewHolder(binding.root)
+        inner class ButtonViewHolder(val binding: ClearButtonBinding) : ListItemViewHolder(binding.root)
     }
 
     companion object {
