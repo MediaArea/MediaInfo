@@ -15,10 +15,10 @@
     tools:context=".SettingsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-       android:background="?attr/colorSurfaceContainer"
-       android:id="@+id/app_bar"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content">
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:liftOnScroll="true">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
