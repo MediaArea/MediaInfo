@@ -168,14 +168,12 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     private fun handleUri(uri: Uri, isMultiple: Boolean = false) {
         when (uri.scheme) {
             "file" -> {
-                if (Build.VERSION.SDK_INT >= 23) {
-                    if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        pendingFileUris.add(uri)
-                        ActivityCompat.requestPermissions(this@ReportListActivity,
-                            arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
-                            READ_EXTERNAL_STORAGE_PERMISSION_REQUEST)
-                        return
-                    }
+                if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    pendingFileUris.add(uri)
+                    ActivityCompat.requestPermissions(this@ReportListActivity,
+                        arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+                        READ_EXTERNAL_STORAGE_PERMISSION_REQUEST)
+                    return
                 }
             }
             "content" -> {
