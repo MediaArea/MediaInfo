@@ -6,7 +6,7 @@
 
 package net.mediaarea.mediainfo
 
-import kotlin.jvm.*
+import kotlin.math.abs
 import kotlinx.coroutines.launch
 
 import androidx.activity.result.contract.ActivityResultContracts
@@ -27,6 +27,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -44,7 +45,10 @@ import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.provider.Settings
-import android.view.*
+import android.view.Menu
+import android.view.View
+import android.view.ViewConfiguration
+import android.view.ViewGroup
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -52,7 +56,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 
 import com.yariksoffice.lingver.Lingver
 import java.io.BufferedReader
-import java.util.*
+import java.util.Locale
 
 import  net.mediaarea.mediainfo.databinding.ActivityReportListBinding
 import  net.mediaarea.mediainfo.databinding.ClearButtonBinding
@@ -723,6 +727,25 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         recyclerView.adapter = ItemRecyclerViewAdapter()
+        val layoutManager = recyclerView.layoutManager as? LinearLayoutManager
+        val extFab = activityReportListBinding.addButton
+        val scaledTouchSlop = ViewConfiguration.get(recyclerView.context).scaledTouchSlop
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (abs(dy) <= scaledTouchSlop) {
+                    if (!extFab.isExtended && layoutManager?.findFirstCompletelyVisibleItemPosition() == 0)
+                        extFab.extend()
+                    return
+                }
+                if (dy > 0 && extFab.isExtended)
+                    extFab.shrink()
+                else if (dy < 0 && !extFab.isExtended)
+                    extFab.extend()
+            }
+        })
     }
 
     sealed class ReportListItem {
