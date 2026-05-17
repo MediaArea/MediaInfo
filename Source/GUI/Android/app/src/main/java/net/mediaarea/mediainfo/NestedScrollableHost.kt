@@ -36,7 +36,7 @@ class NestedScrollableHost @JvmOverloads constructor(
             while (current != null && current !is ViewPager2) {
                 current = current.parent as? View
             }
-            return if (current is ViewPager2) current else null
+            return current
         }
 
     override fun onInterceptTouchEvent(event: MotionEvent): Boolean {
