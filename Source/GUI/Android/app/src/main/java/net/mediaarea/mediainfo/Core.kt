@@ -6,6 +6,8 @@
 
 package net.mediaarea.mediainfo
 
+import android.net.Uri
+
 object Core {
     data class ReportView(val name: String, val desc: String, val mime: String, val exportable: Boolean) {
         override fun toString(): String {
@@ -41,6 +43,20 @@ object Core {
         mi.Option("Inform_Compress", "zlib+base64")
 
         mi.Open(fd, name)
+        val report: String =  mi.Inform()
+        mi.Close()
+
+        return report.toByteArray()
+    }
+
+    @Synchronized
+    fun createReport(networkUri: Uri): ByteArray {
+        mi.Option("Language", "")
+        mi.Option("Inform", "MIXML")
+        mi.Option("Input_Compressed", "")
+        mi.Option("Inform_Compress", "zlib+base64")
+
+        mi.Open(networkUri.toString())
         val report: String =  mi.Inform()
         mi.Close()
 

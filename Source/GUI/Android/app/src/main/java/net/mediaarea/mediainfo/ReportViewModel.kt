@@ -59,6 +59,7 @@ class ReportViewModel(private val dataSource: ReportDao) : ViewModel() {
                 for (uri in uris) {
                     var fd: ParcelFileDescriptor? = null
                     var displayName = ""
+                    var isUrl = false
 
                     when (uri.scheme) {
                         "content" -> {
@@ -95,13 +96,21 @@ class ReportViewModel(private val dataSource: ReportDao) : ViewModel() {
 
                             displayName = uri.lastPathSegment.orEmpty()
                         }
+
+                        "http", "https", "ftp", "sftp" -> {
+                            isUrl = true
+                            displayName = uri.lastPathSegment.orEmpty()
+                        }
                     }
 
-                    if (fd == null) {
+                    if (fd == null && !isUrl) {
                         continue
                     }
 
-                    val report: ByteArray = Core.createReport(fd.detachFd(), displayName)
+                    val report: ByteArray = if (fd != null)
+                        Core.createReport(fd.detachFd(), displayName)
+                    else
+                        Core.createReport(uri)
 
                     insertReport(Report(0, displayName, report, Core.version))
                         .subscribeOn(Schedulers.io()).await()

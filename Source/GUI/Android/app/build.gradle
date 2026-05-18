@@ -32,20 +32,18 @@ android {
                         "-DMEDIAINFO_DUPLICATE=OFF",
                         "-DMEDIAINFO_DVDIF_ANALYZE=OFF",
                         "-DMEDIAINFO_EVENTS=OFF",
+                        "-DMEDIAINFO_FILE=OFF",
                         "-DMEDIAINFO_FILTER=OFF",
                         "-DMEDIAINFO_FIXITY=OFF",
                         "-DMEDIAINFO_GRAPH=OFF",
                         "-DMEDIAINFO_IBI=OFF",
-                        "-DMEDIAINFO_LIBCURL=OFF",
                         "-DMEDIAINFO_LIBMMS=OFF",
                         "-DMEDIAINFO_MACROBLOCKS=OFF",
                         "-DMEDIAINFO_MD5=OFF",
                         "-DMEDIAINFO_NEXTPACKET=OFF",
-                        "-DMEDIAINFO_READER=OFF",
                         "-DMEDIAINFO_READTHREAD=OFF",
                         "-DMEDIAINFO_REFERENCES=OFF",
                         "-DMEDIAINFO_SHA1=OFF",
-                        "-DMEDIAINFO_SHA2=OFF",
                         "-DMEDIAINFO_TRACE=OFF",
                         "-DMEDIAINFO_TRACE_FFV1CONTENT=OFF"
             }
@@ -76,6 +74,9 @@ android {
             shrinkResources = true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    buildFeatures {
+        prefab = true
     }
     externalNativeBuild {
         cmake {
@@ -230,4 +231,6 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:1.11.0"
     // Locales manager
     implementation 'com.github.YarikSOffice:lingver:1.3.0'
+    // Curl static build from https://github.com/vvb2060/curl-android
+    implementation "io.github.vvb2060.ndk:curl:8.18.0"
 }

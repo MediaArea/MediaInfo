@@ -45,6 +45,7 @@ import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.provider.Settings
+import android.util.Patterns
 import android.view.Menu
 import android.view.View
 import android.view.ViewConfiguration
@@ -237,7 +238,15 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 }
                 Intent.ACTION_SEND -> {
                     val uri =
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        if (intent.type == "text/plain") {
+                            intent.getStringExtra(Intent.EXTRA_TEXT)?.let { text ->
+                                val matcher = Patterns.WEB_URL.matcher(text)
+                                if (matcher.find())
+                                    matcher.group().toUri()
+                                else
+                                    null
+                            }
+                        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                             intent.getParcelableExtra(Intent.EXTRA_STREAM, Uri::class.java)
                         } else {
                             @Suppress("DEPRECATION")
