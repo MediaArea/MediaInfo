@@ -7,38 +7,37 @@
 package net.mediaarea.mediainfo
 
 import androidx.room.Dao
-import androidx.room.Query
-import androidx.room.Insert
-import androidx.room.Update
 import androidx.room.Delete
+import androidx.room.Insert
 import androidx.room.OnConflictStrategy
-
-import io.reactivex.Flowable
-import io.reactivex.Single
+import androidx.room.Query
+import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ReportDao {
+
     @Query("SELECT MAX(id) FROM reports")
-    fun getLastId(): Single<Int>
+    suspend fun getLastId(): Int?
 
     @Query("SELECT * FROM reports WHERE id = :id")
-    fun getReport(id: Int): Single<Report>
+    suspend fun getReport(id: Int): Report?
 
     @Query("SELECT * FROM reports ORDER BY id")
-    fun getAllReports(): Flowable<List<Report>>
+    fun getAllReports(): Flow<List<Report>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertReport(report: Report)
+    suspend fun insertReport(report: Report): Long
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateReport(report: Report)
+    suspend fun updateReport(report: Report)
 
     @Delete
-    fun deleteReport(report: Report)
+    suspend fun deleteReport(report: Report)
 
     @Query("DELETE FROM reports WHERE id = :id")
-    fun deleteReport(id: Int)
+    suspend fun deleteReport(id: Int)
 
     @Query("DELETE FROM reports")
-    fun deleteAllReports()
+    suspend fun deleteAllReports()
 }

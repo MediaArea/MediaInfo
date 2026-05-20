@@ -44,11 +44,8 @@ import android.content.res.Resources
 import android.provider.Settings
 import android.view.*
 
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.android.schedulers.AndroidSchedulers
-
 import com.yariksoffice.lingver.Lingver
+import kotlinx.coroutines.flow.collectLatest
 import java.io.BufferedReader
 import java.util.*
 
@@ -70,7 +67,6 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     private lateinit var helloLayoutBinding: HelloLayoutBinding
     private lateinit var subscriptionManager: SubscriptionManager
     private lateinit var reportModel: ReportViewModel
-    private val disposable: CompositeDisposable = CompositeDisposable()
     private var twoPane: Boolean = false
     private var reports: List<Report> = listOf()
     private val pendingFileUris: MutableList<Uri> = mutableListOf()
@@ -417,12 +413,9 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                     .replace(R.id.report_detail_container, fragment)
                     .commit()
 
-            disposable.add(reportModel.getReport(id)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnSuccess {
-                        title = it.filename
-                    }.subscribe())
+            lifecycleScope.launch {
+                title = reportModel.getReport(id)?.filename ?: getString(R.string.app_name)
+            }
         } else {
             val intent = Intent(this@ReportListActivity, ReportDetailActivity::class.java)
             intent.putExtra(Core.ARG_REPORT_ID, id)
@@ -432,11 +425,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     }
 
     fun deleteReport(id: Int) {
-        disposable.add(reportModel
-                .deleteReport(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe())
+        reportModel.deleteReport(id)
 
         if (intent.getIntExtra(Core.ARG_REPORT_ID, -1)==id) {
             intent.putExtra(Core.ARG_REPORT_ID, -1)
@@ -607,7 +596,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    reportModel.isLoading.collect { isLoading ->
+                    reportModel.isLoading.collectLatest { isLoading ->
                         val rootLayout: FrameLayout = activityReportListBinding.frameLayout
                         if (isLoading) {
                             activityReportListBinding.addButton.hide()
@@ -632,8 +621,33 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                     }
                 }
                 launch {
-                    reportModel.navigateToReport.collect { reportId ->
+                    reportModel.navigateToReport.collectLatest { reportId ->
                         showReport(reportId)
+                    }
+                }
+                launch {
+                    reportModel.getAllReports().collectLatest {
+                        reports = it
+                        setupRecyclerView(activityReportListBinding.reportListLayout.reportList)
+
+                        val rootLayout: FrameLayout = findViewById(R.id.frame_layout)
+                        if (reports.isEmpty()) {
+                            var found = false
+                            for (i: Int in rootLayout.childCount downTo 1) {
+                                if (rootLayout.getChildAt(i - 1).id == R.id.hello_layout)
+                                    found = true
+                            }
+
+                            if (!found)
+                                View.inflate(this@ReportListActivity, R.layout.hello_layout, rootLayout)
+
+                        } else {
+                            for (i: Int in rootLayout.childCount downTo 1) {
+                                if (rootLayout.getChildAt(i - 1).id == R.id.hello_layout)
+                                    rootLayout.removeViewAt(i - 1)
+                            }
+                            rootLayout.removeView(helloLayoutBinding.root)
+                        }
                     }
                 }
             }
@@ -674,43 +688,9 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     override fun onStart() {
         super.onStart()
 
-        disposable.add(reportModel.getAllReports()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    reports = it
-                    setupRecyclerView(activityReportListBinding.reportListLayout.reportList)
-
-                    val rootLayout: FrameLayout = findViewById(R.id.frame_layout)
-                    if (reports.isEmpty()) {
-                        var found = false
-                        for (i: Int in rootLayout.childCount downTo 1) {
-                            if (rootLayout.getChildAt(i - 1).id == R.id.hello_layout)
-                                found = true
-                        }
-
-                        if (!found)
-                            View.inflate(this, R.layout.hello_layout, rootLayout)
-
-                    } else {
-                        for (i: Int in rootLayout.childCount downTo 1) {
-                            if (rootLayout.getChildAt(i - 1).id == R.id.hello_layout)
-                                rootLayout.removeViewAt(i - 1)
-                        }
-                        rootLayout.removeView(helloLayoutBinding.root)
-                    }
-                })
-
         if (twoPane && intent.getIntExtra(Core.ARG_REPORT_ID, -1)!=-1) {
             showReport(intent.getIntExtra(Core.ARG_REPORT_ID, -1))
         }
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        // clear all the subscription
-        disposable.clear()
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -751,23 +731,19 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 }
                 is ButtonViewHolder -> {
                     holder.binding.clearBtn.setOnClickListener {
-                        disposable.add(reportModel.deleteAllReports()
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe {
-                                intent.putExtra(Core.ARG_REPORT_ID, -1)
-                                if (twoPane) {
-                                    val fragment = supportFragmentManager.findFragmentById(R.id.report_detail_container)
-                                    if (fragment != null) {
-                                        supportFragmentManager
-                                            .beginTransaction()
-                                            .detach(fragment)
-                                            .commit()
+                        reportModel.deleteAllReports()
+                        intent.putExtra(Core.ARG_REPORT_ID, -1)
+                        if (twoPane) {
+                            val fragment = supportFragmentManager.findFragmentById(R.id.report_detail_container)
+                            if (fragment != null) {
+                                supportFragmentManager
+                                    .beginTransaction()
+                                    .detach(fragment)
+                                    .commit()
 
-                                        title = getString(R.string.app_name)
-                                    }
-                                }
-                            })
+                                title = getString(R.string.app_name)
+                            }
+                        }
                     }
                 }
             }

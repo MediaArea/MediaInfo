@@ -13,20 +13,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Build
 
-import android.view.MenuItem
-
 import android.content.res.AssetManager
+import android.view.MenuItem
 import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.widget.ViewPager2
 
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+
 import net.mediaarea.mediainfo.databinding.ActivityReportDetailBinding
 
 class ReportDetailActivity : AppCompatActivity(), ReportActivityListener {
@@ -35,12 +36,14 @@ class ReportDetailActivity : AppCompatActivity(), ReportActivityListener {
     private inner class PageChangeListener(private val reports: List<Report>) : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)
-            title = reports.elementAt(position).filename
-            intent.putExtra(Core.ARG_REPORT_ID, reports.elementAt(position).id)
 
+            // CRITICAL BOUNDS CHECK: Verify position is valid inside the current data allocation range
+            if (position >= 0 && position < reports.size) {
+                title = reports.elementAt(position).filename
+                intent.putExtra(Core.ARG_REPORT_ID, reports.elementAt(position).id)
+            }
         }
     }
-    private val disposable: CompositeDisposable = CompositeDisposable()
     private lateinit var reportModel: ReportViewModel
 
     override fun getReportViewModel(): ReportViewModel {
@@ -96,28 +99,63 @@ class ReportDetailActivity : AppCompatActivity(), ReportActivityListener {
         val viewModelFactory = Injection.provideViewModelFactory(this)
         reportModel = ViewModelProvider(this, viewModelFactory)[ReportViewModel::class.java]
 
-        disposable.add(reportModel.getAllReports()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { reports: List<Report> ->
-                activityReportDetailBinding.pager.registerOnPageChangeCallback(PageChangeListener(reports))
-                activityReportDetailBinding.pager.adapter = PagerAdapter(this, reports)
-                val id = intent.getIntExtra(Core.ARG_REPORT_ID, -1)
-                if (id!=-1) {
-                    val index = reports.indexOfFirst { it.id == id }
-                    if (index!=-1) {
-                        title = reports.elementAt(index).filename
-                        activityReportDetailBinding.pager.setCurrentItem(index, false)
+        /**
+         * Establishes a reactive, lifecycle-aware database stream to manage the ViewPager2 presentation.
+         *
+         * This block handles three primary architectural responsibilities:
+         * 1. Lifecycle Safety: Collects database states only when the UI is visible, automatically
+         *    pausing collections during background states to optimize resource consumption.
+         * 2. State & Memory Management: Dynamically refreshes the UI page structural components, updating
+         *    the metadata adapters and cycling out listener references to eliminate memory leaks.
+         * 3. Deep-Link Navigation: Synchronizes initial position routing via incoming Intents exactly
+         *    once on screen establishment, while preserving user viewport positioning during background/foreground flips.
+         *
+         *    From Google Gemini 3.5 Flash
+         */
+        val pagerAdapter = PagerAdapter(this)
+        activityReportDetailBinding.pager.adapter = pagerAdapter
+        var pageChangeListener: PageChangeListener? = null
+        lifecycleScope.launch {
+            // Structural flag to isolate one-time deep-link positioning from data streams
+            var isInitialSetupDone = false
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                reportModel.getAllReports().collectLatest { reports: List<Report> ->
+                    // Clean up previous listener instances to prevent memory leaks and stacked callbacks
+                    pageChangeListener?.let { oldListener ->
+                        activityReportDetailBinding.pager.unregisterOnPageChangeCallback(oldListener)
+                    }
+                    // Short-circuit to clean UI state if database table is completely empty
+                    if (reports.isEmpty()) {
+                        title = getString(R.string.app_name)
+                        pagerAdapter.submitList(emptyList())
+                        pageChangeListener = null
+                        return@collectLatest
+                    }
+                    // Re-instantiate tracking callback using verified current data parameters
+                    pageChangeListener = PageChangeListener(reports)
+                    activityReportDetailBinding.pager.registerOnPageChangeCallback(pageChangeListener!!)
+                    pagerAdapter.submitList(reports)
+                    // Handle initial entry positioning exactly once per Activity session
+                    if (!isInitialSetupDone) {
+                        val targetId = intent.getIntExtra(Core.ARG_REPORT_ID, -1)
+                        if (targetId != -1) {
+                            val index = reports.indexOfFirst { it.id == targetId }
+                            if (index != -1) {
+                                title = reports[index].filename
+                                activityReportDetailBinding.pager.setCurrentItem(index, false)
+                            }
+                        }
+                        isInitialSetupDone = true
+                    } else {
+                        // Dynamically sync header title with structural updates during ongoing collection emissions
+                        val currentIndex = activityReportDetailBinding.pager.currentItem
+                        if (currentIndex in reports.indices) {
+                            title = reports[currentIndex].filename
+                        }
                     }
                 }
-            })
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        // clear all the subscription
-        disposable.clear()
+            }
+        }
     }
 
     override fun finish() {

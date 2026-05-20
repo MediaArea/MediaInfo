@@ -6,7 +6,6 @@
 
 package net.mediaarea.mediainfo
 
-import java.io.OutputStream
 import java.util.Locale
 
 import androidx.activity.result.contract.ActivityResultContracts
@@ -17,6 +16,7 @@ import androidx.core.view.MenuProvider
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 
 import android.os.Bundle
@@ -25,15 +25,14 @@ import android.content.Context
 import android.view.*
 import android.widget.Toast
 
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 import net.mediaarea.mediainfo.databinding.ReportDetailBinding
 
 
 class ReportDetailFragment : Fragment() {
-    private val disposable: CompositeDisposable = CompositeDisposable()
     private lateinit var activityListener: ReportActivityListener
     private var sharedPreferences: SharedPreferences? = null
     private lateinit var reportDetailBinding: ReportDetailBinding
@@ -52,32 +51,29 @@ class ReportDetailFragment : Fragment() {
                 return@let
             }
 
-            disposable
-                .add(activityListener.getReportViewModel().getReport(it)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { report: Report ->
-                        if (report.report.isEmpty()) {
+            viewLifecycleOwner.lifecycleScope.launch {
+                val report = activityListener.getReportViewModel().getReport(it)
+                if (report == null || report.report.isEmpty()) {
+                    onError()
+                } else {
+                    val currentContext: Context? = context
+                    if (currentContext == null) {
+                        onError()
+                    } else {
+                        val directory = DocumentFile.fromTreeUri(currentContext, uri)
+
+                        if (directory == null) {
                             onError()
                         } else {
-                            val currentContext: Context? = context
-                            if (currentContext == null) {
+                            if (!directory.canWrite()) {
                                 onError()
                             } else {
-                                val directory = DocumentFile.fromTreeUri(currentContext, uri)
-
-                                if (directory == null) {
-                                    onError()
-                                } else {
-                                    if (!directory.canWrite()) {
-                                        onError()
-                                    } else {
-                                        saveReport(directory, report)
-                                    }
-                                }
+                                saveReport(directory, report)
                             }
                         }
-                    })
+                    }
+                }
+            }
         }
     }
 
@@ -120,44 +116,39 @@ class ReportDetailFragment : Fragment() {
         }
     }
 
-    override fun onStop() {
-        super.onStop()
-
-        // clear all the subscription
-        disposable.clear()
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
-        //val rootView = inflater.inflate(R.layout.report_detail, container, false)
-        // Show the report
-        id?.let { id ->
-            disposable.add(activityListener.getReportViewModel().getReport(id)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnSuccess {
-                        val report: String = Core.convertReport(it.report, view)
-                        var content = ""
-                        if (view != "HTML") {
-                            content += "<html><head>" +
-                                    "<style>:root { color-scheme: var(--color-scheme, light); } @media (prefers-color-scheme: dark) { :root { --color-scheme: dark; } }</style>" +
-                                    "</head><body><pre>"
-                            content += report.replace("\t", "    ").htmlEncode()
-                            content += "</pre></body></html>"
-                        } else {
-                            content+=report
-                        }
-                        reportDetailBinding.reportDetail.loadDataWithBaseURL(null, content, "text/html", "utf-8", null)
-             }.subscribe())
-        }
-
+        reportDetailBinding = ReportDetailBinding.inflate(inflater, container, false)
         return reportDetailBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Show the report
+        id?.let { id ->
+            viewLifecycleOwner.lifecycleScope.launch {
+                val content = withContext(Dispatchers.IO) {
+                    val reportObject = activityListener.getReportViewModel().getReport(id)
+                    val report: String = if (reportObject != null ) Core.convertReport(reportObject.report, this@ReportDetailFragment.view) else ""
+                    var content = ""
+                    if (this@ReportDetailFragment.view != "HTML") {
+                        content += "<html><head>" +
+                                "<style>:root { color-scheme: var(--color-scheme, light); } @media (prefers-color-scheme: dark) { :root { --color-scheme: dark; } }</style>" +
+                                "</head><body><pre>"
+                        content += report.replace("\t", "    ").htmlEncode()
+                        content += "</pre></body></html>"
+                    } else {
+                        content+=report
+                    }
+                    content
+                }
+                reportDetailBinding.reportDetail.loadDataWithBaseURL(null, content, "text/html", "utf-8", null)
+            }
+        }
+
+        // Setup Menus
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
 
@@ -228,29 +219,27 @@ class ReportDetailFragment : Fragment() {
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
-    private fun saveReport(directory: DocumentFile, report: Report) {
-        val reportText: String = Core.convertReport(report.report, view, true)
-        val filename: String = String.format(Locale.US, "%s.%s", report.filename, view)
-        val mime: String = Core.views.find { it.name == view }?.mime ?: "text/plain"
+    private suspend fun saveReport(directory: DocumentFile, report: Report) {
+        withContext(Dispatchers.IO) {
+            val reportText = Core.convertReport(report.report, view, true)
+            val filename = String.format(Locale.US, "%s.%s", report.filename, view)
+            val mime = Core.views.find { it.name == view }?.mime ?: "text/plain"
 
-        try {
-            val document = directory.createFile(mime, filename)
+            try {
+                val document = directory.createFile(mime, filename) ?: run {
+                    withContext(Dispatchers.Main) { onError() }
+                    return@withContext
+                }
 
-            if (document == null) {
-                onError()
-            } else {
-                val ostream: OutputStream? = context?.contentResolver?.openOutputStream(document.uri)
-
-                if (ostream == null) {
-                    onError()
-                } else {
+                context?.contentResolver?.openOutputStream(document.uri)?.use { ostream ->
                     ostream.write(reportText.toByteArray())
                     ostream.flush()
-                    ostream.close()
+                } ?: run {
+                    withContext(Dispatchers.Main) { onError() }
                 }
+            } catch (_: Exception) {
+                withContext(Dispatchers.Main) { onError() }
             }
-        } catch (_: Exception) {
-            onError()
         }
     }
 
