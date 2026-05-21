@@ -95,8 +95,10 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
         // If user wants to enable ACCESS_MEDIA_LOCATION permission, but the prompt has been blocked
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+            && permissions.isNotEmpty() && grantResults.isNotEmpty()
             && permissions[0] == android.Manifest.permission.ACCESS_MEDIA_LOCATION
             && grantResults[0] == PackageManager.PERMISSION_DENIED
             && !shouldShowRequestPermissionRationale(permissions[0])) {
@@ -104,6 +106,8 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
             pendingFileUris.clear()
             return
         }
+
+        // Handle result
         when (requestCode) {
             READ_EXTERNAL_STORAGE_PERMISSION_REQUEST -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
