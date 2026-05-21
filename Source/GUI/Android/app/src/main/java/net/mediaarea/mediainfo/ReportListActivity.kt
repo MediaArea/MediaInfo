@@ -445,7 +445,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         }
         if (twoPane) {
             val fragment = supportFragmentManager.findFragmentById(R.id.report_detail_container)
-            if (fragment != null && (fragment as ReportDetailFragment).id == id) {
+            if (fragment != null && (fragment as ReportDetailFragment).reportId == id) {
                 supportFragmentManager
                         .beginTransaction()
                         .detach(fragment)
