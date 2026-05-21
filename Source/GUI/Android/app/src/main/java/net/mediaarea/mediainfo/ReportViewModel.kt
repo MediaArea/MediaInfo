@@ -64,15 +64,15 @@ class ReportViewModel(private val dataSource: ReportDao) : ViewModel() {
                                 try {
                                     val cursor: Cursor? =
                                         contentResolver.query(uri, null, null, null, null, null)
-                                    // moveToFirst() returns false if the cursor has 0 rows
-                                    if (cursor != null && cursor.moveToFirst()) {
-                                        // DISPLAY_NAME is provider-specific, and might not be the file name
-                                        val column =
-                                            cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME)
-                                        if (column >= 0) {
-                                            displayName = cursor.getString(column)
+                                    cursor?.use {
+                                        // moveToFirst() returns false if the cursor has 0 rows
+                                        if (cursor.moveToFirst()) {
+                                            // DISPLAY_NAME is provider-specific, and might not be the file name
+                                            val column =
+                                                cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME)
+                                            if (column >= 0)
+                                                displayName = cursor.getString(column)
                                         }
-                                        cursor.close()
                                     }
                                 } catch (_: Exception) {
                                 }
