@@ -10,6 +10,8 @@ set(BUILD_SHARED_LIBS ON CACHE BOOL "Force shared library build" FORCE)
 set(LARGE_FILES OFF CACHE BOOL "Enable large files support" FORCE)
 set(BUILD_ZENLIB ON CACHE BOOL "Build bundled ZenLib" FORCE)
 
+find_package(curl REQUIRED CONFIG)
+
 add_subdirectory(../../../../../MediaInfoLib/Project/CMake ${CMAKE_CURRENT_BINARY_DIR}/MediaInfoLib)
 
 target_link_options(mediainfo

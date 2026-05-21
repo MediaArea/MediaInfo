@@ -68,6 +68,7 @@ build/
 taskfile.yaml
 
 # Android app directories
+**/.cxx/*
 /Source/GUI/Android/.gradle
 /Source/GUI/Android/.idea
 /Source/GUI/Android/app/build
