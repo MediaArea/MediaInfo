@@ -26,10 +26,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager.getDefaultSharedPreferences
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.net.Uri
@@ -44,11 +45,8 @@ import android.content.res.Resources
 import android.provider.Settings
 import android.view.*
 
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.android.schedulers.AndroidSchedulers
-
 import com.yariksoffice.lingver.Lingver
+import kotlinx.coroutines.flow.collectLatest
 import java.io.BufferedReader
 import java.util.*
 
@@ -70,7 +68,6 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     private lateinit var helloLayoutBinding: HelloLayoutBinding
     private lateinit var subscriptionManager: SubscriptionManager
     private lateinit var reportModel: ReportViewModel
-    private val disposable: CompositeDisposable = CompositeDisposable()
     private var twoPane: Boolean = false
     private var reports: List<Report> = listOf()
     private val pendingFileUris: MutableList<Uri> = mutableListOf()
@@ -98,8 +95,10 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
         // If user wants to enable ACCESS_MEDIA_LOCATION permission, but the prompt has been blocked
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+            && permissions.isNotEmpty() && grantResults.isNotEmpty()
             && permissions[0] == android.Manifest.permission.ACCESS_MEDIA_LOCATION
             && grantResults[0] == PackageManager.PERMISSION_DENIED
             && !shouldShowRequestPermissionRationale(permissions[0])) {
@@ -107,6 +106,8 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
             pendingFileUris.clear()
             return
         }
+
+        // Handle result
         when (requestCode) {
             READ_EXTERNAL_STORAGE_PERMISSION_REQUEST -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
@@ -417,33 +418,34 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                     .replace(R.id.report_detail_container, fragment)
                     .commit()
 
-            disposable.add(reportModel.getReport(id)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnSuccess {
-                        title = it.filename
-                    }.subscribe())
+            lifecycleScope.launch {
+                title = reportModel.getReport(id)?.filename ?: getString(R.string.app_name)
+            }
         } else {
             val intent = Intent(this@ReportListActivity, ReportDetailActivity::class.java)
             intent.putExtra(Core.ARG_REPORT_ID, id)
 
             startShowReportForResult.launch(intent)
         }
+        if (twoPane) activityReportListBinding.reportListLayout.reportList.post {
+            val itemRecyclerViewAdapter = activityReportListBinding.reportListLayout.reportList.adapter as? ItemRecyclerViewAdapter
+            itemRecyclerViewAdapter?.setSelectedId(id)
+            val position = reports.indexOfFirst { it.id == id }
+            if (position != -1) {
+                activityReportListBinding.reportListLayout.reportList.smoothScrollToPosition(position)
+            }
+        }
     }
 
     fun deleteReport(id: Int) {
-        disposable.add(reportModel
-                .deleteReport(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe())
+        reportModel.deleteReport(id)
 
         if (intent.getIntExtra(Core.ARG_REPORT_ID, -1)==id) {
             intent.putExtra(Core.ARG_REPORT_ID, -1)
         }
         if (twoPane) {
             val fragment = supportFragmentManager.findFragmentById(R.id.report_detail_container)
-            if (fragment != null && (fragment as ReportDetailFragment).id == id) {
+            if (fragment != null && (fragment as ReportDetailFragment).reportId == id) {
                 supportFragmentManager
                         .beginTransaction()
                         .detach(fragment)
@@ -604,10 +606,12 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         val viewModelFactory = Injection.provideViewModelFactory(this)
         reportModel = ViewModelProvider(this, viewModelFactory)[ReportViewModel::class.java]
 
+        setupRecyclerView(activityReportListBinding.reportListLayout.reportList)
+
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    reportModel.isLoading.collect { isLoading ->
+                    reportModel.isLoading.collectLatest { isLoading ->
                         val rootLayout: FrameLayout = activityReportListBinding.frameLayout
                         if (isLoading) {
                             activityReportListBinding.addButton.hide()
@@ -632,8 +636,33 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                     }
                 }
                 launch {
-                    reportModel.navigateToReport.collect { reportId ->
+                    reportModel.navigateToReport.collectLatest { reportId ->
                         showReport(reportId)
+                    }
+                }
+                launch {
+                    reportModel.getAllReports().collectLatest {
+                        reports = it
+                        (activityReportListBinding.reportListLayout.reportList.adapter as? ItemRecyclerViewAdapter)?.updateList(reports)
+
+                        val rootLayout: FrameLayout = findViewById(R.id.frame_layout)
+                        if (reports.isEmpty()) {
+                            var found = false
+                            for (i: Int in rootLayout.childCount downTo 1) {
+                                if (rootLayout.getChildAt(i - 1).id == R.id.hello_layout)
+                                    found = true
+                            }
+
+                            if (!found)
+                                View.inflate(this@ReportListActivity, R.layout.hello_layout, rootLayout)
+
+                        } else {
+                            for (i: Int in rootLayout.childCount downTo 1) {
+                                if (rootLayout.getChildAt(i - 1).id == R.id.hello_layout)
+                                    rootLayout.removeViewAt(i - 1)
+                            }
+                            rootLayout.removeView(helloLayoutBinding.root)
+                        }
                     }
                 }
             }
@@ -666,72 +695,94 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
             }
         }
 
-        setupRecyclerView(activityReportListBinding.reportListLayout.reportList)
-
         onNewIntent(intent)
     }
 
     override fun onStart() {
         super.onStart()
 
-        disposable.add(reportModel.getAllReports()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    reports = it
-                    setupRecyclerView(activityReportListBinding.reportListLayout.reportList)
-
-                    val rootLayout: FrameLayout = findViewById(R.id.frame_layout)
-                    if (reports.isEmpty()) {
-                        var found = false
-                        for (i: Int in rootLayout.childCount downTo 1) {
-                            if (rootLayout.getChildAt(i - 1).id == R.id.hello_layout)
-                                found = true
-                        }
-
-                        if (!found)
-                            View.inflate(this, R.layout.hello_layout, rootLayout)
-
-                    } else {
-                        for (i: Int in rootLayout.childCount downTo 1) {
-                            if (rootLayout.getChildAt(i - 1).id == R.id.hello_layout)
-                                rootLayout.removeViewAt(i - 1)
-                        }
-                        rootLayout.removeView(helloLayoutBinding.root)
-                    }
-                })
-
         if (twoPane && intent.getIntExtra(Core.ARG_REPORT_ID, -1)!=-1) {
             showReport(intent.getIntExtra(Core.ARG_REPORT_ID, -1))
         }
     }
 
-    override fun onStop() {
-        super.onStop()
-
-        // clear all the subscription
-        disposable.clear()
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         recyclerView.adapter = ItemRecyclerViewAdapter()
-        recyclerView.adapter?.notifyDataSetChanged()
     }
 
-    inner class ItemRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    sealed class ReportListItem {
+        data class ReportData(val report: Report) : ReportListItem()
+        object ClearButton : ReportListItem()
+    }
+    class ReportDiffCallback : DiffUtil.ItemCallback<ReportListItem>() {
+        override fun areItemsTheSame(oldItem: ReportListItem, newItem: ReportListItem): Boolean {
+            return if (oldItem is ReportListItem.ReportData && newItem is ReportListItem.ReportData) {
+                oldItem.report.id == newItem.report.id
+            } else {
+                oldItem is ReportListItem.ClearButton && newItem is ReportListItem.ClearButton
+            }
+        }
+        override fun areContentsTheSame(oldItem: ReportListItem, newItem: ReportListItem): Boolean {
+            return if (oldItem is ReportListItem.ReportData && newItem is ReportListItem.ReportData) {
+                oldItem.report.id == newItem.report.id &&
+                oldItem.report.filename == newItem.report.filename &&
+                oldItem.report.version == newItem.report.version
+            } else {
+                oldItem == newItem
+            }
+        }
+    }
+    inner class ItemRecyclerViewAdapter : ListAdapter<ReportListItem, RecyclerView.ViewHolder>(ReportDiffCallback()) {
         private val onClickListener: View.OnClickListener = View.OnClickListener {
             showReport((it.tag as Report).id)
         }
 
+        private var selectedId: Int? = null
+
+        fun updateList(newList: List<Report>) {
+            val oldSize = currentList.size
+            val items = if (newList.isEmpty()) {
+                emptyList()
+            } else {
+                newList.map { report -> ReportListItem.ReportData(report) } + ReportListItem.ClearButton
+            }
+            submitList(items) {
+                val newSize = itemCount
+                if (newSize > 0)
+                    notifyItemChanged(0)
+                if (oldSize > 1) {
+                    val oldPenultimate = oldSize - 2
+                    if (oldPenultimate < newSize)
+                        notifyItemChanged(oldPenultimate)
+                }
+                if (newSize > 1)
+                    notifyItemChanged(newSize - 2)
+            }
+        }
+
+        fun setSelectedId(id: Int?) {
+            val oldId = selectedId
+            selectedId = id
+            currentList.forEachIndexed { index, item ->
+                if (item is ReportListItem.ReportData) {
+                    if (item.report.id == oldId || item.report.id == id) {
+                        notifyItemChanged(index)
+                    }
+                }
+            }
+        }
+
         override fun getItemViewType(position: Int): Int {
-            return if (position == reports.size) BUTTON_VIEW_TYPE else ITEM_VIEW_TYPE
+            return when (getItem(position)) {
+                is ReportListItem.ReportData -> ITEM_VIEW_TYPE
+                is ReportListItem.ClearButton -> BUTTON_VIEW_TYPE
+            }
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             if (viewType == ITEM_VIEW_TYPE) {
                 val binding = ReportListContentBinding.inflate(layoutInflater, parent, false)
-                return ViewHolder(binding)
+                return ListViewHolder(binding)
             } else {
                 val binding = ClearButtonBinding.inflate(layoutInflater, parent, false)
                 return ButtonViewHolder(binding)
@@ -739,25 +790,28 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-            when (holder) {
-                is ViewHolder -> {
-                    val report: Report = reports[position]
-                    holder.name.text = report.filename
-                    holder.id = report.id
-                    with(holder.itemView) {
-                        tag = report
-                        setOnClickListener(onClickListener)
+            when (val item = getItem(position)) {
+                is ReportListItem.ReportData -> {
+                    if (holder is ListViewHolder) {
+                        val report: Report = item.report
+                        holder.name.text = report.filename
+                        holder.id = report.id
+                        with(holder.itemView) {
+                            tag = report
+                            setOnClickListener(onClickListener)
+                        }
+                        holder.itemView.isActivated = (report.id == selectedId)
                     }
                 }
-                is ButtonViewHolder -> {
-                    holder.binding.clearBtn.setOnClickListener {
-                        disposable.add(reportModel.deleteAllReports()
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe {
+                is ReportListItem.ClearButton -> {
+                    if (holder is ButtonViewHolder) {
+                        with(holder.itemView) {
+                            setOnClickListener {
+                                reportModel.deleteAllReports()
                                 intent.putExtra(Core.ARG_REPORT_ID, -1)
                                 if (twoPane) {
-                                    val fragment = supportFragmentManager.findFragmentById(R.id.report_detail_container)
+                                    val fragment =
+                                        supportFragmentManager.findFragmentById(R.id.report_detail_container)
                                     if (fragment != null) {
                                         supportFragmentManager
                                             .beginTransaction()
@@ -767,17 +821,14 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                                         title = getString(R.string.app_name)
                                     }
                                 }
-                            })
+                            }
+                        }
                     }
                 }
             }
         }
 
-        override fun getItemCount(): Int {
-            return if (reports.isEmpty()) 0 else reports.size + 1
-        }
-
-        inner class ViewHolder(binding: ReportListContentBinding) : RecyclerView.ViewHolder(binding.root) {
+        inner class ListViewHolder(binding: ReportListContentBinding) : RecyclerView.ViewHolder(binding.root) {
             val name: TextView = binding.nameText
             var id: Int = -1
 

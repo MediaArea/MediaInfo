@@ -6,7 +6,6 @@
 
 package net.mediaarea.mediainfo
 
-import java.io.OutputStream
 import java.util.Locale
 
 import androidx.activity.result.contract.ActivityResultContracts
@@ -17,6 +16,7 @@ import androidx.core.view.MenuProvider
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 
 import android.os.Bundle
@@ -25,61 +25,36 @@ import android.content.Context
 import android.view.*
 import android.widget.Toast
 
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 import net.mediaarea.mediainfo.databinding.ReportDetailBinding
 
 
 class ReportDetailFragment : Fragment() {
-    private val disposable: CompositeDisposable = CompositeDisposable()
     private lateinit var activityListener: ReportActivityListener
     private var sharedPreferences: SharedPreferences? = null
-    private lateinit var reportDetailBinding: ReportDetailBinding
-    private var view: String = "HTML"
-    var id: Int? = null
+    private var _binding: ReportDetailBinding? = null
+    private val binding get() = _binding!!
+    private var currentViewMode: String = "HTML"
+    var reportId: Int? = null
 
-    private val saveFile = registerForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
-        if (uri == null) {
-            onError()
-            return@registerForActivityResult
-        }
-
-        id.let {
-            if (it == null) {
+    private val saveFile =
+        registerForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
+            val id = reportId
+            if (uri == null || id == null) {
                 onError()
-                return@let
+                return@registerForActivityResult
             }
 
-            disposable
-                .add(activityListener.getReportViewModel().getReport(it)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { report: Report ->
-                        if (report.report.isEmpty()) {
-                            onError()
-                        } else {
-                            val currentContext: Context? = context
-                            if (currentContext == null) {
-                                onError()
-                            } else {
-                                val directory = DocumentFile.fromTreeUri(currentContext, uri)
-
-                                if (directory == null) {
-                                    onError()
-                                } else {
-                                    if (!directory.canWrite()) {
-                                        onError()
-                                    } else {
-                                        saveReport(directory, report)
-                                    }
-                                }
-                            }
-                        }
-                    })
+            lifecycleScope.launch {
+                val contextReference = context?.applicationContext ?: return@launch
+                val isSavedSuccessfully = saveReport(contextReference, uri, id)
+                if (!isSavedSuccessfully)
+                    onError()
+            }
         }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,15 +63,13 @@ class ReportDetailFragment : Fragment() {
             if (it.containsKey(Core.ARG_REPORT_ID)) {
                 val newId: Int = it.getInt(Core.ARG_REPORT_ID)
                 if (newId != -1)
-                    id = newId
+                    reportId = newId
             }
         }
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
-        reportDetailBinding = ReportDetailBinding.inflate(layoutInflater)
 
         try {
             activityListener = activity as ReportActivityListener
@@ -105,7 +78,10 @@ class ReportDetailFragment : Fragment() {
         }
 
         sharedPreferences = getDefaultSharedPreferences(context)
-        val oldSharedPreferences = activity?.getSharedPreferences(getString(R.string.preferences_key), Context.MODE_PRIVATE)
+        val oldSharedPreferences = activity?.getSharedPreferences(
+            getString(R.string.preferences_key),
+            Context.MODE_PRIVATE
+        )
         val key = getString(R.string.preferences_view_key)
 
         if (sharedPreferences?.contains(key) == false && oldSharedPreferences?.contains(key) == true) {
@@ -114,56 +90,29 @@ class ReportDetailFragment : Fragment() {
             }
         }
 
-        sharedPreferences?.getString(getString(R.string.preferences_view_key), "HTML").let {
-            if (it != null)
-                view = it
-        }
+        currentViewMode = sharedPreferences?.getString(key, "HTML") ?: "HTML"
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
 
-        // clear all the subscription
-        disposable.clear()
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-
-        //val rootView = inflater.inflate(R.layout.report_detail, container, false)
-        // Show the report
-        id?.let { id ->
-            disposable.add(activityListener.getReportViewModel().getReport(id)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnSuccess {
-                        val report: String = Core.convertReport(it.report, view)
-                        var content = ""
-                        if (view != "HTML") {
-                            content += "<html><head>" +
-                                    "<style>:root { color-scheme: var(--color-scheme, light); } @media (prefers-color-scheme: dark) { :root { --color-scheme: dark; } }</style>" +
-                                    "</head><body><pre>"
-                            content += report.replace("\t", "    ").htmlEncode()
-                            content += "</pre></body></html>"
-                        } else {
-                            content+=report
-                        }
-                        reportDetailBinding.reportDetail.loadDataWithBaseURL(null, content, "text/html", "utf-8", null)
-             }.subscribe())
-        }
-
-        return reportDetailBinding.root
+        _binding = ReportDetailBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        showReport()
+
+        // Setup Menus
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
 
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.menu_detail, menu)
-
                 val viewMenu: SubMenu = menu.findItem(R.id.action_change_view).subMenu ?: return
                 Core.views.forEachIndexed { index, current ->
                     val desc = if (current.desc == "Text") {
@@ -171,13 +120,11 @@ class ReportDetailFragment : Fragment() {
                     } else {
                         current.desc
                     }
-
                     viewMenu.add(R.id.menu_views_group, index, Menu.NONE, desc).apply {
                         isCheckable = true
-                        isChecked = (current.name == this@ReportDetailFragment.view)
+                        isChecked = (current.name == currentViewMode)
                     }
                 }
-
                 viewMenu.setGroupCheckable(R.id.menu_views_group, true, true)
             }
 
@@ -187,33 +134,28 @@ class ReportDetailFragment : Fragment() {
                         saveFile.launch(null)
                         true
                     }
+
                     else -> if (menuItem.groupId == R.id.menu_views_group) {
                         val current = Core.views[menuItem.itemId]
-                        if (this@ReportDetailFragment.view != current.name) {
-                            this@ReportDetailFragment.view = current.name
+                        if (currentViewMode != current.name) {
+                            currentViewMode = current.name
 
                             // Save new default
                             sharedPreferences?.edit {
                                 putString(
                                     getString(R.string.preferences_view_key),
-                                    this@ReportDetailFragment.view
+                                    currentViewMode
                                 )
                             }
-
-                            // Reset view
-                            parentFragmentManager.fragments.forEach {
-                                val fragment = it as? ReportDetailFragment
-                                if (fragment != null) {
-                                    fragment.view = current.name
-                                    if (fragment.isAdded) {
-                                        parentFragmentManager
-                                            .beginTransaction()
-                                            .detach(it)
-                                            .commit()
-                                        parentFragmentManager
-                                            .beginTransaction()
-                                            .attach(it)
-                                            .commit()
+                            // Refresh
+                            parentFragmentManager.fragments.forEach { fragmentInstance ->
+                                val detailFragment = fragmentInstance as? ReportDetailFragment
+                                if (detailFragment != null) {
+                                    // Set the new layout rendering parameter
+                                    detailFragment.currentViewMode = current.name
+                                    // Fire async data load instantly if layout context is attached
+                                    if (detailFragment.isAdded) {
+                                        detailFragment.showReport()
                                     }
                                 }
                             }
@@ -228,37 +170,78 @@ class ReportDetailFragment : Fragment() {
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
-    private fun saveReport(directory: DocumentFile, report: Report) {
-        val reportText: String = Core.convertReport(report.report, view, true)
-        val filename: String = String.format(Locale.US, "%s.%s", report.filename, view)
-        val mime: String = Core.views.find { it.name == view }?.mime ?: "text/plain"
-
-        try {
-            val document = directory.createFile(mime, filename)
-
-            if (document == null) {
-                onError()
-            } else {
-                val ostream: OutputStream? = context?.contentResolver?.openOutputStream(document.uri)
-
-                if (ostream == null) {
-                    onError()
-                } else {
-                    ostream.write(reportText.toByteArray())
-                    ostream.flush()
-                    ostream.close()
-                }
+    private fun showReport() {
+        val id = reportId ?: return
+        val mode = currentViewMode
+        // Show the report
+        viewLifecycleOwner.lifecycleScope.launch {
+            val reportObject = activityListener.getReportViewModel().getReport(id)
+            if (reportObject == null || reportObject.report.isEmpty()) {
+                parentFragmentManager.beginTransaction()
+                    .remove(this@ReportDetailFragment)
+                    .commitAllowingStateLoss()
+                return@launch
             }
-        } catch (_: Exception) {
-            onError()
+            val reportContent = withContext(Dispatchers.IO) {
+                Core.convertReport(reportObject.report, mode)
+            }
+            var content = ""
+            if (mode != "HTML") {
+                content += "<html><head>" +
+                        "<style>:root { color-scheme: var(--color-scheme, light); } @media (prefers-color-scheme: dark) { :root { --color-scheme: dark; } }</style>" +
+                        "</head><body><pre>"
+                content += reportContent.replace("\t", "    ").htmlEncode()
+                content += "</pre></body></html>"
+            } else {
+                content += reportContent
+            }
+            if (_binding != null)
+                binding.reportDetail.loadDataWithBaseURL(
+                    null,
+                    content,
+                    "text/html",
+                    "utf-8",
+                    null
+                )
         }
     }
 
-    private fun onError() {
-        val applicationContext = activity?.applicationContext
-        if (applicationContext!=null) {
-            val toast = Toast.makeText(applicationContext, R.string.error_write_text, Toast.LENGTH_LONG)
-            toast.show()
+    private suspend fun saveReport(
+        context: Context,
+        treeUri: android.net.Uri,
+        id: Int
+    ): Boolean =
+        withContext(Dispatchers.IO) {
+            val reportObject = activityListener.getReportViewModel().getReport(id)
+            if (reportObject == null || reportObject.report.isEmpty())
+                return@withContext false
+            val directory = DocumentFile.fromTreeUri(context, treeUri)
+            if (directory == null || !directory.canWrite())
+                return@withContext false
+            val reportText = Core.convertReport(reportObject.report, currentViewMode, true)
+            val filename = String.format(Locale.US, "%s.%s", reportObject.filename, currentViewMode)
+            val mime = Core.views.find { it.name == currentViewMode }?.mime ?: "text/plain"
+
+            return@withContext try {
+                val document = directory.createFile(mime, filename) ?: return@withContext false
+                context.contentResolver.openOutputStream(document.uri)?.use { ostream ->
+                    ostream.write(reportText.toByteArray())
+                    ostream.flush()
+                    true
+                } ?: false
+            } catch (_: Exception) {
+                false
+            }
         }
+
+    private fun onError() {
+        activity?.applicationContext?.let {
+            Toast.makeText(it, R.string.error_write_text, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
