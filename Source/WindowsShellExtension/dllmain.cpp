@@ -497,12 +497,15 @@ public:
                 if (SUCCEEDED(items->GetItemAt(0, item.put()))) {
                     SFGAOF attribute{};
                     if (SUCCEEDED(item->GetAttributes(SFGAO_FOLDER | SFGAO_STREAM, &attribute))) {
-                        if ((attribute & SFGAO_FOLDER) && !(attribute & SFGAO_STREAM))
+                        if ((attribute & SFGAO_FOLDER) && !(attribute & SFGAO_STREAM)) {
+                            DebugPrintW("[MediaInfoShellExt] Local folder.");
                             is_folder = true;
+                        }
                         else {
                             wil::unique_cotaskmem_string path;
                             if (SUCCEEDED(item->GetDisplayName(SIGDN_FILESYSPATH, &path))) {
                                 std::filesystem::path filepath{ path.get() };
+                                DebugPrintW("[MediaInfoShellExt] Local file; extension: %s\n", filepath.extension().wstring().c_str());
                                 // resolve shortcuts
                                 if (filepath.extension().string() == ".url") {
                                     std::string url;
@@ -519,6 +522,24 @@ public:
                                         is_folder = true;
                                     else
                                         is_supported_extension = IsSupportedFileExtension(filepath.extension().string());
+                                }
+                            }
+                            else {
+                                // Handle MTP etc.
+                                winrt::com_ptr<IShellItem2> pShellItem2;
+                                if (SUCCEEDED(item->QueryInterface(IID_PPV_ARGS(&pShellItem2)))) {
+                                    wil::unique_cotaskmem_string pszExt;
+                                    HRESULT hr = pShellItem2->GetString(PKEY_FileExtension, &pszExt);
+                                    if (SUCCEEDED(hr) && pszExt && pszExt.get()[0] != L'\0') {
+                                        DebugPrintW("[MediaInfoShellExt] Non-local file; extension: %s\n", pszExt.get());
+                                        int sizeNeeded = WideCharToMultiByte(CP_UTF8, 0, pszExt.get(), -1, nullptr, 0, nullptr, nullptr);
+                                        if (sizeNeeded > 0) {
+                                            std::string extension(sizeNeeded, 0);
+                                            WideCharToMultiByte(CP_UTF8, 0, pszExt.get(), -1, &extension[0], static_cast<int>(extension.size()), nullptr, nullptr);
+                                            extension.pop_back(); // Remove extra null-terminator for proper std::string behavior
+                                            is_supported_extension = IsSupportedFileExtension(extension);
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -592,9 +613,10 @@ public:
                 auto result = items->GetItemAt(i, item.put());
                 if (SUCCEEDED(result)) {
                     wil::unique_cotaskmem_string path;
+                    std::filesystem::path filepath;
                     result = item->GetDisplayName(SIGDN_FILESYSPATH, &path);
                     if (SUCCEEDED(result)) {
-                        std::filesystem::path filepath{ path.get() };
+                        filepath = path.get();
                         // Resolve shortcuts
                         if (filepath.extension().string() == ".url") {
                             std::string url;
@@ -606,21 +628,29 @@ public:
                             if (SUCCEEDED(ResolveIt(nullptr, filepath.wstring().c_str(), target_path, sizeof(target_path))))
                                 filepath = target_path;
                         }
-                        auto command{ wil::str_printf<std::wstring>(LR"-("%s" %s)-", module_path.c_str(), QuoteForCommandLineArg(filepath.wstring()).c_str()) };
-                        wil::unique_process_information process_info;
-                        STARTUPINFOW startup_info = { sizeof(startup_info) };
-                        RETURN_IF_WIN32_BOOL_FALSE(CreateProcessW(
-                            nullptr,
-                            command.data(),
-                            nullptr /* lpProcessAttributes */,
-                            nullptr /* lpThreadAttributes */,
-                            false /* bInheritHandles */,
-                            CREATE_NO_WINDOW,
-                            nullptr,
-                            nullptr,
-                            &startup_info,
-                            &process_info));
                     }
+                    else {
+                        // It may be an MTP or other item with parsing name relative to the desktop
+                        wil::unique_cotaskmem_string parsingName;
+                        HRESULT hrParsing = item->GetDisplayName(SIGDN_DESKTOPABSOLUTEPARSING, &parsingName);
+                        if (SUCCEEDED(hrParsing)) {
+                            filepath = parsingName.get();
+                        }
+                    }
+                    auto command{ wil::str_printf<std::wstring>(LR"-("%s" %s)-", module_path.c_str(), QuoteForCommandLineArg(filepath.wstring()).c_str()) };
+                    wil::unique_process_information process_info;
+                    STARTUPINFOW startup_info = { sizeof(startup_info) };
+                    RETURN_IF_WIN32_BOOL_FALSE(CreateProcessW(
+                        nullptr,
+                        command.data(),
+                        nullptr /* lpProcessAttributes */,
+                        nullptr /* lpThreadAttributes */,
+                        false /* bInheritHandles */,
+                        CREATE_NO_WINDOW,
+                        nullptr,
+                        nullptr,
+                        &startup_info,
+                        &process_info));
                 }
             }
             return S_OK;
@@ -634,10 +664,13 @@ public:
             auto result = items->GetItemAt(i, item.put());
             if (SUCCEEDED(result)) {
                 wil::unique_cotaskmem_string path;
+                std::filesystem::path filepath;
                 result = item->GetDisplayName(SIGDN_FILESYSPATH, &path);
                 if (SUCCEEDED(result)) {
-                    DebugPrintW("[MediaInfoShellExt] Processing path: %s\n", path.get());
-                    std::filesystem::path filepath{ path.get() };
+                    // If succeeded then it is a usual local file path
+                    // Only items that report SFGAO_FILESYSTEM have a file system path.
+                    DebugPrintW("[MediaInfoShellExt] Processing local path: %s\n", path.get());
+                    filepath = path.get();
                     // Resolve shortcuts
                     if (filepath.extension().string() == ".url") {
                         std::string url;
@@ -651,9 +684,18 @@ public:
                             filepath = target_path;
                         DebugPrintW("[MediaInfoShellExt] Resolved lnk shortcut to: %s\n", filepath.wstring().c_str());
                     }
-                    // Append the item path to the existing command, adding quotes and escapes as needed
-                    command = wil::str_printf<std::wstring>(LR"-(%s %s)-", command.c_str(), QuoteForCommandLineArg(filepath.wstring()).c_str());
                 }
+                else {
+                    // It may be an MTP or other item with parsing name relative to the desktop
+                    wil::unique_cotaskmem_string parsingName;
+                    HRESULT hrParsing = item->GetDisplayName(SIGDN_DESKTOPABSOLUTEPARSING, &parsingName);
+                    if (SUCCEEDED(hrParsing)) {
+                        filepath = parsingName.get();
+                        DebugPrintW("[MediaInfoShellExt] Non-local path: %s\n", filepath.wstring().c_str());
+                    }
+                }
+                // Append the item path to the existing command, adding quotes and escapes as needed
+                command = wil::str_printf<std::wstring>(LR"-(%s %s)-", command.c_str(), QuoteForCommandLineArg(filepath.wstring()).c_str());
             }
         }
 
