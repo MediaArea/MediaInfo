@@ -462,15 +462,9 @@ public:
     IFACEMETHODIMP GetState(_In_opt_ IShellItemArray* items, _In_ BOOL okToBeSlow, _Out_ EXPCMDSTATE* cmdState) override {
         // Provide state of File Explorer context menu entry
         // Hide it if registry setting indicates that it should be disabled or file is unsupported, else it is enabled
+        UNREFERENCED_PARAMETER(okToBeSlow);
 
         DebugPrintW("[MediaInfoShellExt] GetState called.\n");
-
-        if (!okToBeSlow) {
-            *cmdState = ECS_DISABLED;
-            // returning E_PENDING requests that a new instance of this object be called back
-            // on a background thread so that it can do work that might be slow
-            return E_PENDING;
-        }
 
 #ifdef MEDIAINFO_QT
         auto shellExtension{ RegGetBool(HKEY_CURRENT_USER, L"Software\\MediaArea.net\\MediaInfo", L"shellExtension") };
