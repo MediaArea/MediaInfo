@@ -8,6 +8,101 @@
 
 #import "IndexedTableColumn.h"
 
+@class CompareView;
+
+@interface CompareTableHeaderCell : NSTableHeaderCell
+@end
+
+@interface CompareTableHeaderView : NSTableHeaderView
+@property (assign) CompareView *compareView;
+@end
+
+@interface CompareView ()
+- (void)closeFileAtOutlineColumn:(NSInteger)columnIndex;
+@end
+
+@implementation CompareTableHeaderCell
+
+- (void)drawInteriorWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
+    CGFloat closeButtonSpace = 12.0 + 6.0 + 6.0;
+    NSRect titleRect = NSMakeRect(cellFrame.origin.x, cellFrame.origin.y,
+                                  cellFrame.size.width - closeButtonSpace,
+                                  cellFrame.size.height);
+    [super drawInteriorWithFrame:titleRect inView:controlView];
+}
+
+@end
+
+@implementation CompareTableHeaderView
+
+- (NSRect)closeButtonRectForHeaderRect:(NSRect)headerRect {
+    CGFloat size = 12.0;
+    CGFloat inset = 6.0;
+    NSRect rect = NSMakeRect(NSMaxX(headerRect) - inset - size,
+                             NSMidY(headerRect) - size / 2.0,
+                             size,
+                             size);
+    return NSIntegralRect(rect);
+}
+
+- (void)drawCloseGlyphInRect:(NSRect)rect {
+    NSBezierPath *path = [NSBezierPath bezierPath];
+    CGFloat inset = 3.0;
+    NSPoint p1 = NSMakePoint(NSMinX(rect) + inset, NSMinY(rect) + inset);
+    NSPoint p2 = NSMakePoint(NSMaxX(rect) - inset, NSMaxY(rect) - inset);
+    NSPoint p3 = NSMakePoint(NSMinX(rect) + inset, NSMaxY(rect) - inset);
+    NSPoint p4 = NSMakePoint(NSMaxX(rect) - inset, NSMinY(rect) + inset);
+
+    [path moveToPoint:p1];
+    [path lineToPoint:p2];
+    [path moveToPoint:p3];
+    [path lineToPoint:p4];
+
+    [NSColor.secondaryLabelColor setStroke];
+    [path setLineWidth:1.5];
+    [path stroke];
+}
+
+- (void)drawRect:(NSRect)rect {
+    [super drawRect:rect];
+
+    if (!self.tableView)
+        return;
+
+    NSInteger columnsCount = [[self.tableView tableColumns] count];
+    for (NSInteger column = 1; column < columnsCount; column++) {
+        NSTableColumn *tableColumn = [self.tableView tableColumns][column];
+        if (![tableColumn isKindOfClass:[IndexedTableColumn class]])
+            continue;
+
+        NSRect headerRect = [self headerRectOfColumn:column];
+        if (!NSIntersectsRect(headerRect, rect))
+            continue;
+
+        [self drawCloseGlyphInRect:[self closeButtonRectForHeaderRect:headerRect]];
+    }
+}
+
+- (void)mouseDown:(NSEvent *)event {
+    NSPoint point = [self convertPoint:[event locationInWindow] fromView:nil];
+    NSInteger column = [self columnAtPoint:point];
+
+    if (column > 0 && column < [[self.tableView tableColumns] count]) {
+        NSTableColumn *tableColumn = [self.tableView tableColumns][column];
+        if ([tableColumn isKindOfClass:[IndexedTableColumn class]]) {
+            NSRect closeRect = [self closeButtonRectForHeaderRect:[self headerRectOfColumn:column]];
+            if (NSPointInRect(point, closeRect) && self.compareView) {
+                [self.compareView closeFileAtOutlineColumn:column];
+                return;
+            }
+        }
+    }
+
+    [super mouseDown:event];
+}
+
+@end
+
 @implementation CompareView
 - (IBAction)changeViewMode:(NSButton *)sender {
     if(sender)
@@ -29,6 +124,10 @@
     [_outlineView setDataSource:self];
     [_outlineView setDelegate:self];
     [_closeMenu setDelegate:self];
+
+    CompareTableHeaderView *headerView = [[[CompareTableHeaderView alloc] initWithFrame:_outlineView.headerView.frame] autorelease];
+    headerView.compareView = self;
+    [_outlineView setHeaderView:headerView];
 
     NSRect frame;
     [_showLabel sizeToFit];
@@ -185,13 +284,15 @@
         }
 
         [column setIndex: fileIndex];
-        [[column headerCell] setTitle:fileName];
+        CompareTableHeaderCell *headerCell = [[[CompareTableHeaderCell alloc] initTextCell:fileName] autorelease];
+        [column setHeaderCell:headerCell];
         [_outlineView addTableColumn:column];
     }
 
     [_outlineView reloadData];
     [_outlineView sizeToFit];
     [_outlineView expandItem:nil expandChildren:YES];
+    [_outlineView.headerView setNeedsDisplay:YES];
 }
 
 -(void)outlineView:(NSOutlineView *)outlineView willDisplayCell:(nonnull id)cell forTableColumn:(nullable NSTableColumn *)tableColumn item:(nonnull id)item {
@@ -345,6 +446,10 @@
 }
 
 -(IBAction)closeFileInColumn:(id)sender {
+    [self closeFileAtOutlineColumn:[_outlineView clickedColumn]];
+}
+
+-(void)closeFileAtOutlineColumn:(NSInteger)columnIndex {
     if(![NSApplication sharedApplication] ||
        ![[NSApplication sharedApplication] mainWindow] ||
        ![[[NSApplication sharedApplication] mainWindow] windowController])
@@ -352,11 +457,10 @@
 
     id mainWindowController = [[[NSApplication sharedApplication] mainWindow] windowController];
 
-    NSUInteger index = [_outlineView clickedColumn];
-    if (index >= [[_outlineView tableColumns] count])
+    if (columnIndex < 0 || columnIndex >= [[_outlineView tableColumns] count])
         return;
 
-    NSTableColumn *column = [[_outlineView tableColumns] objectAtIndex:index];
+    NSTableColumn *column = [[_outlineView tableColumns] objectAtIndex:columnIndex];
     if (![column isKindOfClass: [IndexedTableColumn class]])
         return;
 
