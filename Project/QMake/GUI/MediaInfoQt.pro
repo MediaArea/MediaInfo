@@ -202,6 +202,21 @@ win32 {
                 }
             }
 
+            exists(../../../../brotli/Project/$$MSVCVER/Win32/Release/brotlidec.lib) {
+                INCLUDEPATH += ../../../../brotli/c/include
+                LIBS += $$PWD/../../../../brotli/Project/$$MSVCVER/Win32/Release/brotlicommon.lib
+                LIBS += $$PWD/../../../../brotli/Project/$$MSVCVER/Win32/Release/brotlidec.lib
+            } else {
+                exists(../../../../MediaInfoLib/Project/$$MSVCVER/Win32/Release/brotlidec.lib) {
+                    !build_pass:message("using brotlidec.lib from MediaInfoLib build")
+                    INCLUDEPATH += ../../../../brotli/c/include
+                    LIBS += $$PWD/../../../../MediaInfoLib/Project/$$MSVCVER/Win32/Release/brotlicommon.lib
+                    LIBS += $$PWD/../../../../MediaInfoLib/Project/$$MSVCVER/Win32/Release/brotlidec.lib
+                } else {
+                    error("brotli not found on system")
+                }
+            }
+
             exists(../../../../zlib/contrib/vstudio/$$MSVCVERN/x86/ZlibStatReleaseWithoutAsm/zlibstat.lib) {
                 INCLUDEPATH += ../../../../zlib
                 LIBS += $$PWD/../../../../zlib/contrib/vstudio/$$MSVCVERN/x86/ZlibStatReleaseWithoutAsm/zlibstat.lib
@@ -245,6 +260,21 @@ win32 {
                     LIBS += $$PWD/../../../../MediaInfoLib/Project/$$MSVCVER/x64/Release/ZenLib.lib
                 } else {
                     error("ZenLib not found on system")
+                }
+            }
+
+            exists(../../../../brotli/Project/$$MSVCVER/x64/Release/brotlidec.lib) {
+                INCLUDEPATH += ../../../../brotli/c/include
+                LIBS += $$PWD/../../../../brotli/Project/$$MSVCVER/x64/Release/brotlicommon.lib
+                LIBS += $$PWD/../../../../brotli/Project/$$MSVCVER/x64/Release/brotlidec.lib
+            } else {
+                exists(../../../../MediaInfoLib/Project/$$MSVCVER/x64/Release/brotlidec.lib) {
+                    !build_pass:message("using brotlidec.lib from MediaInfoLib build")
+                    INCLUDEPATH += ../../../../brotli/c/include
+                    LIBS += $$PWD/../../../../MediaInfoLib/Project/$$MSVCVER/x64/Release/brotlicommon.lib
+                    LIBS += $$PWD/../../../../MediaInfoLib/Project/$$MSVCVER/x64/Release/brotlidec.lib
+                } else {
+                    error("brotli not found on system")
                 }
             }
 
@@ -294,6 +324,21 @@ win32 {
                     LIBS += $$PWD/../../../../MediaInfoLib/Project/$$MSVCVER/ARM64/Release/ZenLib.lib
                 } else {
                     error("ZenLib not found on system")
+                }
+            }
+
+            exists(../../../../brotli/Project/$$MSVCVER/ARM64/Release/brotlidec.lib) {
+                INCLUDEPATH += ../../../../brotli/c/include
+                LIBS += $$PWD/../../../../brotli/Project/$$MSVCVER/ARM64/Release/brotlicommon.lib
+                LIBS += $$PWD/../../../../brotli/Project/$$MSVCVER/ARM64/Release/brotlidec.lib
+            } else {
+                exists(../../../../MediaInfoLib/Project/$$MSVCVER/ARM64/Release/brotlidec.lib) {
+                    !build_pass:message("using brotlidec.lib from MediaInfoLib build")
+                    INCLUDEPATH += ../../../../brotli/c/include
+                    LIBS += $$PWD/../../../../MediaInfoLib/Project/$$MSVCVER/ARM64/Release/brotlicommon.lib
+                    LIBS += $$PWD/../../../../MediaInfoLib/Project/$$MSVCVER/ARM64/Release/brotlidec.lib
+                } else {
+                    error("brotli not found on system")
                 }
             }
 
