@@ -87,6 +87,15 @@ int Help()
     TEXTOUT("                    Output template for external metadata (EBUCore output)");
     TEXTOUT("--Info-Parameters");
     TEXTOUT("                    Display list of Inform= parameters");
+    TEXTOUT("--HideParameter=...");
+    TEXTOUT("                    Hide the specified field(s) from Text, CSV, HTML, XML and JSON output.");
+    TEXTOUT("                    Value is StreamKind_FieldName (StreamKind is General, Video, Audio, Text,");
+    TEXTOUT("                    Other, Image or Menu), comma-separated for multiple fields.");
+    TEXTOUT("                    Example: --HideParameter=General_CodecID_Compatible");
+    TEXTOUT("                    Note: overridden by --Full/-f, which always shows all fields.");
+    TEXTOUT("--ShowParameter=...");
+    TEXTOUT("                    Re-show (or force-show) the specified field(s), reversing --HideParameter");
+    TEXTOUT("                    or a field's default visibility. Same value format as --HideParameter.");
     TEXTOUT("");
     TEXTOUT("--Language=raw");
     TEXTOUT("                    Display non-translated unique identifiers (internal text)");
