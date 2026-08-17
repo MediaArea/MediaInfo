@@ -6,7 +6,7 @@
 
 package net.mediaarea.mediainfo
 
-import kotlin.jvm.*
+import kotlin.math.abs
 import kotlinx.coroutines.launch
 
 import androidx.activity.result.contract.ActivityResultContracts
@@ -27,9 +27,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.listitem.ListItemViewHolder
 
 import android.os.Build
 import android.os.Bundle
@@ -43,12 +45,16 @@ import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.provider.Settings
-import android.view.*
+import android.util.Patterns
+import android.view.Menu
+import android.view.View
+import android.view.ViewConfiguration
+import android.view.ViewGroup
 
 import com.yariksoffice.lingver.Lingver
 import kotlinx.coroutines.flow.collectLatest
 import java.io.BufferedReader
-import java.util.*
+import java.util.Locale
 
 import  net.mediaarea.mediainfo.databinding.ActivityReportListBinding
 import  net.mediaarea.mediainfo.databinding.ClearButtonBinding
@@ -147,14 +153,12 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
     private fun handleUri(uri: Uri, isMultiple: Boolean = false) {
         when (uri.scheme) {
             "file" -> {
-                if (Build.VERSION.SDK_INT >= 23) {
-                    if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        pendingFileUris.add(uri)
-                        ActivityCompat.requestPermissions(this@ReportListActivity,
-                            arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
-                            READ_EXTERNAL_STORAGE_PERMISSION_REQUEST)
-                        return
-                    }
+                if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    pendingFileUris.add(uri)
+                    ActivityCompat.requestPermissions(this@ReportListActivity,
+                        arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+                        READ_EXTERNAL_STORAGE_PERMISSION_REQUEST)
+                    return
                 }
             }
             "content" -> {
@@ -211,7 +215,15 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 }
                 Intent.ACTION_SEND -> {
                     val uri =
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        if (intent.type == "text/plain") {
+                            intent.getStringExtra(Intent.EXTRA_TEXT)?.let { text ->
+                                val matcher = Patterns.WEB_URL.matcher(text)
+                                if (matcher.find())
+                                    matcher.group().toUri()
+                                else
+                                    null
+                            }
+                        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                             intent.getParcelableExtra(Intent.EXTRA_STREAM, Uri::class.java)
                         } else {
                             @Suppress("DEPRECATION")
@@ -685,6 +697,25 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         recyclerView.adapter = ItemRecyclerViewAdapter()
+        val layoutManager = recyclerView.layoutManager as? LinearLayoutManager
+        val extFab = activityReportListBinding.addButton
+        val scaledTouchSlop = ViewConfiguration.get(recyclerView.context).scaledTouchSlop
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (abs(dy) <= scaledTouchSlop) {
+                    if (!extFab.isExtended && layoutManager?.findFirstCompletelyVisibleItemPosition() == 0)
+                        extFab.extend()
+                    return
+                }
+                if (dy > 0 && extFab.isExtended)
+                    extFab.shrink()
+                else if (dy < 0 && !extFab.isExtended)
+                    extFab.extend()
+            }
+        })
     }
 
     sealed class ReportListItem {
@@ -771,6 +802,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 is ReportListItem.ReportData -> {
                     if (holder is ListViewHolder) {
                         val report: Report = item.report
+                        holder.bind(position, currentList.size - 1) // Last is button
                         holder.name.text = report.filename
                         holder.id = report.id
                         with(holder.itemView) {
@@ -782,6 +814,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
                 }
                 is ReportListItem.ClearButton -> {
                     if (holder is ButtonViewHolder) {
+                        holder.bind(0, 1)
                         with(holder.itemView) {
                             setOnClickListener {
                                 reportModel.deleteAllReports()
@@ -805,7 +838,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
             }
         }
 
-        inner class ListViewHolder(binding: ReportListContentBinding) : RecyclerView.ViewHolder(binding.root) {
+        inner class ListViewHolder(binding: ReportListContentBinding) : ListItemViewHolder(binding.root) {
             val name: TextView = binding.nameText
             var id: Int = -1
 
@@ -817,7 +850,7 @@ class ReportListActivity : AppCompatActivity(), ReportActivityListener {
             }
         }
 
-        inner class ButtonViewHolder(val binding: ClearButtonBinding) : RecyclerView.ViewHolder(binding.root)
+        inner class ButtonViewHolder(val binding: ClearButtonBinding) : ListItemViewHolder(binding.root)
     }
 
     companion object {

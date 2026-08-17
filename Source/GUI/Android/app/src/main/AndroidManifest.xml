@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="20" />
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".MediaInfoApplication"
@@ -88,6 +89,7 @@
                 <data android:mimeType="audio/*" />
                 <data android:mimeType="image/*" />
                 <data android:mimeType="video/*" />
+                <data android:mimeType="text/plain" />
                 <data android:mimeType="application/acad" />
                 <data android:mimeType="application/dash+xml" />
                 <data android:mimeType="application/dwg" />
