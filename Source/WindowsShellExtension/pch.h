@@ -28,4 +28,7 @@
 #include <wil/stl.h>
 #include <wil/win32_helpers.h>
 
+// PROPERTYKEY
+#include <propkey.h>
+
 #endif //PCH_H
