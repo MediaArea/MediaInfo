@@ -1,4 +1,4 @@
-Language_ISO639;tr
+  Language_ISO639;tr
   Author_Email;BouRock@live.com
   Author_Name;Burak Yavuz (BouRock)
   Author_OldNames;İlk ve tek çevirmen
@@ -156,7 +156,7 @@ Language_ISO639;tr
 5.1.2ch;5.1.2 kanal
 5.1.4ch;5.1.4 kanal
 5.1ch;5.1 kanal
-608_Mode;608 Kipi
+608_Mode;EIA-608 dönüştürme kipi
 7.1.2ch;7.1.2 kanal
 7.1ch;7.1 kanal
 About;Hakkında
@@ -191,7 +191,7 @@ Alignment_Split;Boşlukları karşılıklı böl
 All;Tümü
 AllFields;Tüm Alanlar
 AlternateGroup;Dönüşümlü grup
-AnalyzeServicesMenu;Hizmet Menülerini Analiz Et
+AnalyzeServicesMenu;MediaInfo ile analiz et
 App_About;MediaInfo hakkında
 App_Hide;MediaInfo’i Gizle
 App_Quit;MediaInfo’dan Çık
@@ -332,7 +332,7 @@ colour_range_Source;Renk Aralığı, Kaynak
 Comment;Yorum
 CommissionedBy;Görevlendiren
 Compare;Karşılaştır
-CompareView;Karşılaştırma Görünümü
+CompareView;Karşılaştırma Görünümü (Premium özellik)
 Compilation;Derleme
 ComplementaryObject;Tamamlayıcı Nesne
 CompleteName;Tam ad
@@ -405,9 +405,9 @@ DisplayAspectRatio;Görüntü en-boy oranı
 DisplayAspectRatio_CleanAperture;Temiz diyafram görüntüsü en-boy oranı
 DisplayAspectRatio_Original;Orijinal görüntü en-boy oranı
 DisplayCaptions;Altyazıları Göster
-DisplayCaptions_Command;Altyazı Göster Komutu
-DisplayCaptions_Content;Altyazı Göster İçeriği
-DisplayCaptions_Stream;Altyazı Göster Akışı
+DisplayCaptions_Command;İçerik veya komut algılandığında
+DisplayCaptions_Content;İçerik algılandığında
+DisplayCaptions_Stream;İçerik veya komut algılanmasa bile
 DistributedBy;Dağıtan
 Distributor;Dağıtıcı
 Documents;Belgeler
@@ -415,8 +415,8 @@ Dolby_Atmos_Metadata;Dolby Atmos Üst Verisi
 DolbyAtmos;Dolby Atmos
 Donate;Bağış
 DotsPerInch;İnç başına nokta
-DownloadFile;Dosya İndir
-DownloadFileError;Dosya İndirme Hatası
+DownloadFile;Dosya(lar) indiriliyor: %INDEX% / %COUNT% ...
+DownloadFileError;%FILE% indirilemiyor
 Downmix;Downmix
 Downmix_5.1.x;5.1.x Downmix
 Downmix_5to2;5'ten 2'ye Downmix
@@ -469,13 +469,13 @@ Exit_Hint;Programdan çık
 Export;Dışa Aktar
 Export_Hint;Özelleştirilmiş biçimde dışa aktarır
 Extensions;Genellikle kullanılan uzantılar
-External_Media_NotMounted;Harici Medya Takılı Değil
+External_Media_NotMounted;Harici medyaya erişilemiyor
 Family;Aile
 Fax;Faks
 Feature_AdvancedMode;Gelişmiş Kip Özelliği
 Feature_FilesCompare;Dosyaları Karşılaştır Özelliği
-Feature_More;Daha Fazla Özellik
-Feature_SelectView;Görünüm Seç Özelliği
+Feature_More;Daha fazlası yakında
+Feature_SelectView;Varsayılan görünümü seç
 Field;Alan
 File size;Dosya boyutu
 File;Dosya
@@ -492,7 +492,7 @@ FileSize;Dosya boyutu
 Fill with a Dummy movie;Örnek bir filmle doldur
 Fill with a realistic movie;Gerçekçi bir filmle doldur
 FirstDisplay_Delay_Frames;İlk Gösterim Gecikmesi (Kare)
-FirstDisplay_Type;İlk Gösterim Türü
+FirstDisplay_Type;İlk olayın türü
 FirstFrameOfAction;Aksiyonun İlk Karesi
 FlatPanelTv;Düz Panel TV
 FlowID;Akış Kimliği
@@ -560,7 +560,7 @@ FrameRate_Num;Kare Hızı Payı
 FrameRate_Original;Orijinal kare hızı
 FrameRate_Real;Gerçek Kare Hızı
 FullParsing;Tam Ayrıştırma
-FullParsingTips;Tam Ayrıştırma İpuçları
+FullParsingTips;Daha eksiksiz çıktı (daha yavaş)
 Gallery;Galeri
 General;Genel
 GeneralCompliance;Genel Uyum
@@ -926,7 +926,7 @@ Language_lv;Latvian
 Language_mg;Malagasy
 Language_mh;Marshallese
 Language_mi;Maori
-Language_mis;Tanımlanmamış Dil
+Language_mis;Kodlanmamış diller
 Language_mk;Macedonian
 Language_ml;Malayalam
 Language_mn;Mongolian
@@ -1031,12 +1031,12 @@ LanguageChanges;Dil Değişiklikleri
 Languages;Diller
 LawRating;Kanun oranı
 LCCN;LCCN
-LegacyStreamDisplay;Eski Akış Gösterimi
+LegacyStreamDisplay;HD/HE ses ve 3B/HDR video akışları için geriye dönük uyumluluk bilgilerini göster
 LfeAttenuationKnown;LFE Zayıflaması Biliniyor
 LfeMixGain;LFE Karışım Kazancı
 lfeon;lfeon
 Library;Çoklama kütüphanesi
-Lifetime_Subscribe_Button;Ömür Boyu Abone Ol Düğmesi
+Lifetime_Subscribe_Button;Ömür boyu abonelik: %PRICE%
 Lightness;Canlılık
 Lines_Count;Satır Sayısı
 Lines_MaxCountPerEvent;Olay Başına Maksimum Satır
@@ -1095,7 +1095,7 @@ MaxGain;Maksimum Kazanç
 MaximumMomentaryLoudness;Maksimum Anlık Ses Yüksekliği
 MaxTruePeak;Maksimum Gerçek Tepe
 MD5;MD5
-MD5_Unencoded;MD5 Kodlanmamış
+MD5_Unencoded;Kodlanmamış içeriğin MD5'i
 MediaInfo_About;MediaInfo, görüntü ve ses dosyaları hakkında teknik ve etiket bilgilerine kolay erişim sağlar.\r\nMac App Store grafik kullanıcı arayüzü dışında, açık kaynak kodlu yazılımdır, bu da çalışma özgürlüğüne sahip, geliştirmek ve programı yeniden dağıtmak için (BSD lisansı) son kullanıcıya ve geliştiricilere ücretsiz olduğu anlamına gelir.
 MediaInfo_About_About;MediaInfo Hakkında
 MediaInfo_WebSite;MediaInfo Web Sitesi
@@ -1156,8 +1156,8 @@ Open;Aç
 OpenCaptionsLanguage;Açık Açıklamalı Alt Yazı Dili
 OpenCaptionsPresent;Açık Açıklamalı Alt Yazı Sunumu
 OpenCaptionsType;Açık Açıklamalı Alt Yazı Türü
-OpenFile;Dosya Aç
-OpenFileError;Dosya Açma Hatası
+OpenFile;Dosya(lar) açılıyor: %INDEX% / %COUNT% ...
+OpenFileError;%FILE% açılamıyor
 OpenRecent;Son Kullanılanlar
 Options;Seçenekler
 Options_Hint;Tercihler
@@ -1212,7 +1212,7 @@ Preferences;Tercihler
 PreferredDownmix;Tercih Edilen Downmix
 Premium;Premium
 Premium_Feature;Premium Özellik
-Premium_Summary;Premium Özet
+Premium_Summary;Premium abonelere özel özellikler
 PreselectionLabel;Ön Seçim Etiketi
 Presentation;Sunum
 PresentationConfig;Sunum Yapılandırması
@@ -1272,8 +1272,8 @@ ScanType;Tarama türü
 ScanType_Original;Orijinal tarama türü
 ScanType_StoreMethod;Tarama türü, saklama yöntemi
 ScreenplayBy;Senaryo
-ScreenToCenter;Ekranı Ortala
-ScreenToFront;Ekranı Öne Getir
+ScreenToCenter;Ekran kanalından merkez kanala
+ScreenToFront;Ekran kanalından ön kanala
 Season;Sezon
 SecondaryAudioLanguage;İkincil Ses Dili
 see below;aşağı bakın
@@ -1305,7 +1305,7 @@ Show menu;Menüyü göster
 Show toolbar;Araç çubuğunu göster
 Show;Göster
 ShowAll;Tümünü göster
-ShowMore;Daha Fazla Göster
+ShowMore;Zaman veya sürenin farklı biçimleri dahil olmak üzere çıktıda daha fazlasını göster
 SignalGroup;Sinyal Grubu
 SigningPresent;İşaretle Sunum
 SignLanguage;İşaret Dili
@@ -1342,28 +1342,28 @@ StreamSize_Encoded;Kodlanmış akış boyutu
 StreamSize_Proportion;Bu akışın oranı
 Subject;Konu
 Subscribe;Abone Ol
-Subscribe_Button;Abone Ol Düğmesi
-Subscribe_Failed;Abonelik Başarısız
+Subscribe_Button;Abone ol (bir yıl için %PRICE%)
+Subscribe_Failed;Satın alma iptal edildi veya başarısız oldu
 Subscribe_Manage;Aboneliği Yönet
 Subscribe_Premium;Premium Abone Ol
 Subscribe_Renew;Aboneliği Yenile
-Subscribe_Renew_Price;Yenileme Fiyatı
-Subscribe_Unaviable;Abonelik Mevcut Değil
-Subscribe_Waiting;Abonelik Bekleniyor
-Subscription_Active;Abonelik Aktif
-Subscription_Android;Android Aboneliği
+Subscribe_Renew_Price;Aboneliği yenile (bir yıl için %PRICE%)
+Subscribe_Unaviable;Abonelik ayrıntıları alınamıyor.
+Subscribe_Waiting;Satın alma ebeveyn onayı bekliyor
+Subscription_Active;Abonelik %DATE% tarihine kadar etkin
+Subscription_Android;3 günlük ücretsiz deneme süresi.
 Subscription_Ended;Abonelik Sona Erdi
-Subscription_Expired;Abonelik Süresi Doldu
-Subscription_Lifetime;Ömür Boyu Abonelik
-Subscription_Thanks;Abonelik İçin Teşekkürler
+Subscription_Expired;Aboneliğin süresi %DATE% tarihinde doldu
+Subscription_Lifetime;Ömür boyu abonelik algılandı
+Subscription_Thanks;Abonelik algılandı. Desteğiniz için teşekkürler!
 Substream;Alt Akış
 SubTrack;Altİz
-SubtstreamIdChannel;Alt Akış Kanal Kimliği
+SubtstreamIdChannel;Alt akış başlangıç kimliği ve kanal dizini
 Summary;Özet
 Supported formats;Desteklenen biçimler
 Supported?;Desteklenen mi?
-SupportUs;Bizi Destekleyin
-SupportUs2;Bizi Destekleyin 2
+SupportUs;Bizi destekleyin. Karanlık temaya ve yakında eklenecek diğer özelliklere erişin.
+SupportUs2;Abone olarak bizi destekleyin ve özel özelliklere erişin.
 surmixlev;surmixlev
 SurroundAttenuationKnown;Surround Zayıflaması Biliniyor
 SwitchGroup;Grup Değiştir
@@ -1405,7 +1405,7 @@ TimeStamp;Zaman damgası
 TimeZone;Saat dilimi
 Title;Başlık
 Title_More;Başlık, daha fazla bilgi
-Top4ToTop2;Üst4'ten Üst2'ye
+Top4ToTop2;Dört ön kanaldan iki ön kanala
 TopBackToFront;Üst Arka'dan Ön'e
 TopBackToSide;Üst Arka'dan Yan'a
 TopFrontToBack;Üst Ön'den Arka'ya
