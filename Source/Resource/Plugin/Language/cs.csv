@@ -487,7 +487,7 @@ File_Modified_Date;Datum poslední změny souboru
 File_Modified_Date_Local;Datum poslední změny souboru (místní)
 FileExtension;Přípona souboru
 FileName;Název souboru
-FileNameExtension;Přípona názvu souboru
+FileNameExtension;Název souboru včetně přípony
 FileSize;Velikost souboru
 Fill with a Dummy movie;Vyplnit fiktivním filmem
 Fill with a realistic movie;Vyplnit realistickým filmem
