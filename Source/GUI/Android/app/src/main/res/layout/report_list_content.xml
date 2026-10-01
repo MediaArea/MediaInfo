@@ -6,39 +6,59 @@
       be found in the License.html file in the root of the source tree.
 -->
 
-<RelativeLayout
+<com.google.android.material.listitem.ListItemLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="1dp"
-    android:paddingStart="1dp"
-    android:paddingEnd="1dp"
-    android:paddingLeft="1dp"
-    android:paddingRight="1dp"
-    android:orientation="horizontal">
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="1dp">
 
-    <TextView
-        android:id="@+id/name_text"
-        android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
+    <com.google.android.material.listitem.ListItemCardView
+        style="?attr/listItemCardViewSegmentedStyle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/delete_button"
-        android:layout_margin="@dimen/text_margin"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:textAppearance="?attr/textAppearanceListItem"
-        android:layout_alignParentStart="true" />
+        app:contentPaddingTop="0dp"
+        app:contentPaddingBottom="0dp"
+        app:contentPaddingLeft="0dp"
+        app:contentPaddingRight="0dp"
+        app:cardBackgroundColor="@color/listitemcardview_selector">
 
-    <ImageButton
-        android:id="@+id/delete_button"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:background="@android:color/transparent"
-        android:padding="12dp"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:contentDescription="@string/delete_desc"
-        app:srcCompat="@drawable/ic_report_close" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-</RelativeLayout>
+            <TextView
+                android:id="@+id/name_text"
+                android:layout_centerVertical="true"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:layout_alignParentStart="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/delete_button" />
+
+            <ImageButton
+                android:id="@+id/delete_button"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="12dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/delete_desc"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_report_close" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.listitem.ListItemCardView>
+
+</com.google.android.material.listitem.ListItemLayout>

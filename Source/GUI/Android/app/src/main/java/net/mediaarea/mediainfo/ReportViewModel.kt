@@ -58,6 +58,7 @@ class ReportViewModel(private val dataSource: ReportDao) : ViewModel() {
                     for (uri in uris) {
                         var fd: ParcelFileDescriptor? = null
                         var displayName = ""
+                        var isUrl = false
 
                         when (uri.scheme) {
                             "content" -> {
@@ -94,17 +95,23 @@ class ReportViewModel(private val dataSource: ReportDao) : ViewModel() {
 
                                 displayName = uri.lastPathSegment.orEmpty()
                             }
+
+                            "http", "https", "ftp", "sftp" -> {
+                                isUrl = true
+                                displayName = uri.lastPathSegment.orEmpty()
+                            }
                         }
 
-                        if (fd == null) {
+                        if (fd == null && !isUrl) {
                             continue
                         }
 
-                        fd.use {
-                            val report: ByteArray = Core.createReport(it.detachFd(), displayName)
-                            lastInsertedId =
-                                insertReport(Report(0, displayName, report, Core.version)).toInt()
-                        }
+                        val report: ByteArray =
+                            fd?.use { Core.createReport(it.detachFd(), displayName) }
+                                ?: Core.createReport(uri)
+
+                        lastInsertedId =
+                            insertReport(Report(0, displayName, report, Core.version)).toInt()
                     }
 
                     // Don't go to report view when opening multiple files
