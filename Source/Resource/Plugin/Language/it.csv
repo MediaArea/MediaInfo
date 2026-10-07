@@ -1,4 +1,12 @@
   Language_ISO639;it
+  Config_Text_PluralRules;1
+  Config_Text_PluralRule.zero;
+  Config_Text_PluralRule.one;v == 0 && i == 1
+  Config_Text_PluralRule.two;
+  Config_Text_PluralRule.few;
+  Config_Text_PluralRule.many;v == 0 && i != 0 && i % 1000000 == 0
+  Config_Text_PluralLegacy;one=1,other=2
+  Config_Text_PluralLegacyDecimals;1
   Author_Email;dr4k0@altervista.org  - bovirus@live.it
   Author_Name;Dr4k0 & Bovirus
   Author_OldNames;

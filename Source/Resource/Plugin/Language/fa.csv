@@ -1,4 +1,12 @@
   Language_ISO639;fa
+  Config_Text_PluralRules;1
+  Config_Text_PluralRule.zero;
+  Config_Text_PluralRule.one;i == 0 || (f == 0 && i == 1)
+  Config_Text_PluralRule.two;
+  Config_Text_PluralRule.few;
+  Config_Text_PluralRule.many;
+  Config_Text_PluralLegacy;one=1,other=2
+  Config_Text_PluralLegacyDecimals;1
   Author_Email;Martik.Panosian@gmail.com
   Author_Name;Martik Panosian
   Author_OldNames;Martik

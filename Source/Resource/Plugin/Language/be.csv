@@ -1,4 +1,12 @@
   Language_ISO639;be
+  Config_Text_PluralRules;1
+  Config_Text_PluralRule.zero;
+  Config_Text_PluralRule.one;f == 0 && i % 10 == 1 && i % 100 != 11
+  Config_Text_PluralRule.two;
+  Config_Text_PluralRule.few;f == 0 && i % 10 >= 2 && i % 10 <= 4 && (i % 100 < 12 || i % 100 > 14)
+  Config_Text_PluralRule.many;f == 0
+  Config_Text_PluralLegacy;one=1,few=2,other=3
+  Config_Text_PluralLegacyDecimals;0
   Author_Email;dzmitry.zubialevich@gmail.comt
   Author_Name;Dzmitry Zubialevich
   Author_OldNames;Micтэр mister-sh@users.sourceforge.net

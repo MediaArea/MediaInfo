@@ -106,3 +106,26 @@ else()
 endif()
 
 install(TARGETS mediainfo_cli DESTINATION bin)
+
+option(MEDIAINFO_GUI_COUNT_TESTS "Build portable GUI count formatting tests" OFF)
+if(MEDIAINFO_GUI_COUNT_TESTS)
+    if(NOT MEDIAINFO_CLI_STATIC)
+        message(FATAL_ERROR "GUI count tests require MEDIAINFO_CLI_STATIC=ON")
+    endif()
+    enable_testing()
+    add_executable(gui_count_format
+        ../../../Source/Tests/CountFormat.cpp
+        ../../../Source/Common/Core.cpp
+        ../../../Source/GUI/Common/GUI_Main_Common_Core.cpp
+        ../../../Source/GUI/Common/GUI_Main_Easy_Core.cpp
+        ../../../Source/GUI/Common/GUI_Main_Easy_Box_Core.cpp)
+    target_include_directories(gui_count_format PRIVATE ../../../../ZenLib/Source)
+    target_compile_definitions(gui_count_format PRIVATE _UNICODE UNICODE)
+    set_target_properties(gui_count_format PROPERTIES CXX_STANDARD 11 CXX_STANDARD_REQUIRED ON)
+    if(MSVC)
+        target_compile_options(gui_count_format PRIVATE /utf-8)
+    endif()
+    target_link_libraries(gui_count_format PRIVATE mediainfo)
+    add_test(NAME gui_count_format COMMAND gui_count_format
+        "${CMAKE_CURRENT_SOURCE_DIR}/../../../Source/Resource/Plugin/Language")
+endif()
