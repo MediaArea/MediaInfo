@@ -1,4 +1,12 @@
   Language_ISO639;hr
+  Config_Text_PluralRules;1
+  Config_Text_PluralRule.zero;
+  Config_Text_PluralRule.one;(v == 0 && i % 10 == 1 && i % 100 != 11) || (v != 0 && f % 10 == 1 && f % 100 != 11)
+  Config_Text_PluralRule.two;
+  Config_Text_PluralRule.few;(v == 0 && i % 10 >= 2 && i % 10 <= 4 && (i % 100 < 12 || i % 100 > 14)) || (v != 0 && f % 10 >= 2 && f % 10 <= 4 && (f % 100 < 12 || f % 100 > 14))
+  Config_Text_PluralRule.many;
+  Config_Text_PluralLegacy;one=1,few=2,other=3
+  Config_Text_PluralLegacyDecimals;0
   Author_Email;domazd@mail.ru
   Author_Name;Dominko Aždajić
   Author_OldNames;Dominko Aždajić
