@@ -1,7 +1,7 @@
   Language_ISO639;pt-BR
-  Author_Email;brunorex@gmail.com
-  Author_Name;ReX
-  Author_OldNames;ReX
+  Author_Email;fga.fulvio@gmail.com
+  Author_Name;Fúlvio Alves
+  Author_OldNames;ReX <brunorex@gmail.com>
   Language_Name;Português (Brasil)
   Config_Text_ColumnSize;40
   Config_Text_Separator; : 
@@ -757,6 +757,9 @@ Genre_188;G-Funk
 Genre_189;Dubstep
 Genre_190;Garage Rock
 Genre_191;Psybient
+Geolocation_Permission_Title;Acesso a dados de geolocalização
+Geolocation_Permission_Summary;É necessária permissão para fotos e vídeos para ler os metadados de geolocalização dos arquivos de mídia.
+Geolocation_Permission_Help;Para ativar a leitura dos metadados de geolocalização, siga estas etapas na próxima tela:\n\n1. Abra Permissões\n2. Selecione Fotos e vídeos\n3. Escolha Permitir.
 Go to WebSite;Ir para o site
 Gop_OpenClosed;GOP, Aberto/Fechado
 Gop_OpenClosed_Closed;Fechado
@@ -1417,6 +1420,10 @@ TotalProgrammeDuration;Duração total do programa
 Track;Nome da faixa
 Track_Count;Número da faixa
 TrackFormat;Formato da faixa
+TraceLevel0;Nível de rastreamento - 0
+TraceLevel5;Nível de rastreamento - 5
+TraceLevel9;Nível de rastreamento - 9
+TraceLevel10;Nível de rastreamento - 10
 TrackIndex;Índice de faixas
 TrackUID;UID da faixa
 transfer_characteristics;Características de transferência
