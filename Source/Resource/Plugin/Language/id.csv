@@ -1,4 +1,12 @@
   Language_ISO639;id
+  Config_Text_PluralRules;1
+  Config_Text_PluralRule.zero;
+  Config_Text_PluralRule.one;
+  Config_Text_PluralRule.two;
+  Config_Text_PluralRule.few;
+  Config_Text_PluralRule.many;
+  Config_Text_PluralLegacy;one=1,other=2
+  Config_Text_PluralLegacyDecimals;1
   Author_Email;zarambie_game@yahoo.com
   Author_Name;William Surya Permana
   Author_OldNames;Penerjemah awal

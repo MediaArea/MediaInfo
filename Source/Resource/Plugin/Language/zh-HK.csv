@@ -1,4 +1,12 @@
   Language_ISO639;zh-HK
+  Config_Text_PluralRules;1
+  Config_Text_PluralRule.zero;
+  Config_Text_PluralRule.one;
+  Config_Text_PluralRule.two;
+  Config_Text_PluralRule.few;
+  Config_Text_PluralRule.many;
+  Config_Text_PluralLegacy;one=1,other=2
+  Config_Text_PluralLegacyDecimals;1
   Author_Email;cordon@gmail.com
   Author_Name;Kin Kwok
   Author_OldNames;Initial translator

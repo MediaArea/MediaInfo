@@ -1,4 +1,12 @@
   Language_ISO639;ar
+  Config_Text_PluralRules;1
+  Config_Text_PluralRule.zero;f == 0 && i == 0
+  Config_Text_PluralRule.one;f == 0 && i == 1
+  Config_Text_PluralRule.two;f == 0 && i == 2
+  Config_Text_PluralRule.few;f == 0 && i % 100 >= 3 && i % 100 <= 10
+  Config_Text_PluralRule.many;f == 0 && i % 100 >= 11
+  Config_Text_PluralLegacy;one=1,other=2
+  Config_Text_PluralLegacyDecimals;1
   Author_Email;Info@MediaArea.net
   Author_Name;Zen
   Author_OldNames;المترجم الأصلي
