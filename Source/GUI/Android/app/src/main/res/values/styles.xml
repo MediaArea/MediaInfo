@@ -8,7 +8,7 @@
 
 <resources>
     <!-- Base application theme. -->
-    <style name="BaseTheme" parent="Theme.Material3.DayNight">
+    <style name="BaseTheme" parent="Theme.Material3Expressive.DayNight">
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
@@ -62,10 +62,6 @@
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="AppTheme.Dialog" parent="Theme.Material3.DayNight.Dialog">
         <item name="windowNoTitle">true</item>
     </style>
 

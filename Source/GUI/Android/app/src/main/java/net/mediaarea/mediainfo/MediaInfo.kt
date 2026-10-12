@@ -43,7 +43,7 @@ class MediaInfo {
     external fun Init(): Long
     external fun Destroy(): Int
     private external fun OpenFd(fd: Int, name: String): Int
-    private external fun Open(name:String ): Int
+    external fun Open(name:String): Int
     fun Open(fd: Int, name: String): Int {
         return OpenFd(fd, name)
     }
