@@ -15,6 +15,12 @@
     <Project Path="../../../ZenLib/Project/MSVC2026/Library/ZenLib.vcxproj" Id="0da1da7d-f393-4e7c-a7ce-cb5c6a67bc94" />
   </Folder>
   <Folder Name="/ThirdParty/">
+    <Project Path="../../../brotli/Project/MSVC2026/brotlicommon.vcxproj" Id="a2c733d0-0511-3374-ab76-169fafc276bc">
+      <Platform Solution="*|ARM" Project="x64" />
+    </Project>
+    <Project Path="../../../brotli/Project/MSVC2026/brotlidec.vcxproj" Id="abd0c651-f2d8-3560-9313-6df99d388406">
+      <Platform Solution="*|ARM" Project="x64" />
+    </Project>
     <Project Path="../../../zlib/contrib/vstudio/vc18/zlibstat.vcxproj" Id="745dec58-ebb3-47a9-a9b8-4c6627c01bf8">
       <BuildType Solution="Release|*" Project="ReleaseWithoutAsm" />
     </Project>
