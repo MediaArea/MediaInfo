@@ -11,3 +11,7 @@ mediainfo_SOURCES = \
 AM_CXXFLAGS = -std=c++11
 
 INCLUDES = -I../../../Source -I../../../../MediaInfoLib/Source -I../../../../ZenLib/Source
+
+AM_TESTS_FD_REDIRECT = 9>&2
+
+TESTS = test/filename.sh

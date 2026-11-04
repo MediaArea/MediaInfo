@@ -37,6 +37,9 @@ cp ../Project/GNU/CLI/ltmain.sh MediaInfo_CLI_GNU_FromSource/Project/GNU/CLI/
 cp ../Project/GNU/CLI/Makefile.am MediaInfo_CLI_GNU_FromSource/Project/GNU/CLI/
 cp ../Project/GNU/CLI/Makefile.in MediaInfo_CLI_GNU_FromSource/Project/GNU/CLI/
 cp ../Project/GNU/CLI/missing MediaInfo_CLI_GNU_FromSource/Project/GNU/CLI/
+cp ../Project/GNU/CLI/test-driver MediaInfo_CLI_GNU_FromSource/Project/GNU/CLI/
+mkdir -p MediaInfo_CLI_GNU_FromSource/Project/GNU/CLI/test
+cp ../Project/GNU/CLI/test/*.sh MediaInfo_CLI_GNU_FromSource/Project/GNU/CLI/test/
 
 #-----------------------------------------------------------------------
 # Copying : Source
