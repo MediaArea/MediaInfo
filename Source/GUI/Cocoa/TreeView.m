@@ -66,7 +66,7 @@
 
     if(fields) {
         for(id item in fields)
-            [_outlineView expandItem:item];
+            [_outlineView expandItem:item expandChildren:YES];
     }
 }
 
@@ -113,8 +113,8 @@
             for(NSUInteger fieldNumber=0; fieldNumber<fieldCount; fieldNumber++) {
                 NSString *field = [_files FieldAtIndex:_index streamKind:streamKind streamNumber:streamNumber parameter:fieldNumber];
                 NSString *name = [_files FieldNameAtIndex:_index streamKind:streamKind streamNumber:streamNumber parameter:fieldNumber];
-                NSString *value = [_files GetAtIndex:_index streamKind:streamKind streamNumber:streamNumber parameter:field];
-                if ((![_files ShowComplete] && ![_files ShowInInform:_index streamKind:streamKind streamNumber:streamNumber parameter:fieldNumber]) || [[_files GetAtIndex:_index streamKind:streamKind streamNumber:streamNumber parameter:field] isEqual:@""])
+                NSString *value = [_files ValueAtIndex:_index streamKind:streamKind streamNumber:streamNumber parameter:fieldNumber];
+                if ((![_files ShowComplete] && ![_files ShowInInform:_index streamKind:streamKind streamNumber:streamNumber parameter:fieldNumber]) || [value isEqual:@""])
                         continue;
 
                 NSUInteger level;
