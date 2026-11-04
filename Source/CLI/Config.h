@@ -10,6 +10,7 @@
 #endif
 #include <fstream>
 #include "ZenLib/Ztring.h"
+#include "ZenLib/OS_Utils.h"
 
 #ifdef __WINDOWS__
     #undef __TEXT
@@ -28,9 +29,7 @@
             std::vector<MediaInfoNameSpace::String> argv; \
             for (int Pos=0; Pos<argc; Pos++) \
             { \
-                    ZenLib::Ztring A; \
-                    A.From_Local(argv_ansi[Pos]); \
-                    argv.push_back(A); \
+                    argv.push_back(ZenLib::FileName_From_Native(argv_ansi[Pos])); \
             } \
 
     #endif //WIN32

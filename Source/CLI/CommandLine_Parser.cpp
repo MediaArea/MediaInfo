@@ -227,14 +227,14 @@ void LogFile_Action(ZenLib::Ztring Inform)
 
     std::string Inform_Ansi(Inform.To_UTF8());
 
-#if defined(__cpp_lib_filesystem) && defined(__cpp_lib_char8_t)
+#if defined(_WIN32) && defined(__cpp_lib_filesystem) && defined(__cpp_lib_char8_t)
     std::string LogFile_FileName_u8(LogFile_FileName.To_UTF8());
     std::u8string LogFile_FileName_u8string(LogFile_FileName_u8.begin(), LogFile_FileName_u8.end());
     auto path = fs::path(LogFile_FileName_u8string);
-#elif defined(__cpp_lib_filesystem)
+#elif defined(_WIN32) && defined(__cpp_lib_filesystem)
     auto path = fs::u8path(LogFile_FileName.To_UTF8());
 #else
-    auto path = LogFile_FileName.To_Local(); // May not have Unicode filepath support
+    auto path = ZenLib::FileName_To_Native(LogFile_FileName); // Same encoding as the files opened by ZenLib (on Windows, may not have Unicode filepath support)
 #endif
     std::ofstream File(path, std::ios_base::trunc);
 
