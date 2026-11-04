@@ -1,0 +1,176 @@
+name: FileName Checks
+
+on: [push, pull_request]
+
+env:
+  BRANCH_OWNER: ${{ github.event.pull_request.head.repo.owner.login || github.repository_owner }}
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+
+jobs:
+
+  Unix:
+    strategy:
+      matrix:
+        include:
+          - name: Linux
+            os: ubuntu-26.04
+          - name: macOS (arm64)
+            os: macos-26
+          - name: macOS (x64)
+            os: macos-15-intel
+          - name: Linux without Unicode
+            os: ubuntu-26.04
+            configure: --disable-unicode
+          - name: macOS without Unicode
+            os: macos-15-intel
+            configure: --disable-unicode
+      fail-fast: false
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    env:
+      CXXFLAGS: -O0 -Werror
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+      - name: OS packets
+        env:
+          HOMEBREW_NO_REQUIRE_TAP_TRUST: 1 # Prevent Homebrew third-party trust warnings due to GitHub's pre-installed taps
+        run: |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            sudo apt-get update -y
+            sudo apt-get install -y zlib1g-dev
+          fi
+          if [ "$RUNNER_OS" == "macOS" ]; then
+            brew install automake libtool
+          fi
+      - name: ZenLib and MediaInfoLib
+        run: |
+          sh .github/clone_branch.sh ZenLib ../ZenLib
+          sh .github/clone_branch.sh MediaInfoLib ../MediaInfoLib
+          for Directory in ../ZenLib/Project/GNU/Library ../MediaInfoLib/Project/GNU/Library ; do
+            ( cd "${Directory}" && autoreconf -if && ./configure --enable-silent-rules --enable-static --disable-shared ${{ matrix.configure }} && make -j4 )
+          done
+      - name: Configure
+        run: |
+          cd Project/GNU/CLI
+          autoreconf -if
+          ./configure --enable-silent-rules --enable-staticlibs
+      - name: Compile
+        run: |
+          cd Project/GNU/CLI
+          make -j4
+      - name: Check
+        run: |
+          cd Project/GNU/CLI
+          make check
+
+  Alpine:
+    runs-on: ubuntu-latest
+    container: alpine:latest
+    env:
+      CXXFLAGS: -O0
+    steps:
+      - name: OS packets
+        run: apk add --no-cache autoconf automake bash build-base git libtool pkgconf python3 zlib-dev
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+      - name: ZenLib and MediaInfoLib
+        run: |
+          sh .github/clone_branch.sh ZenLib ../ZenLib
+          sh .github/clone_branch.sh MediaInfoLib ../MediaInfoLib
+          for Directory in ../ZenLib/Project/GNU/Library ../MediaInfoLib/Project/GNU/Library ; do
+            ( cd "${Directory}" && autoreconf -if && ./configure --enable-silent-rules --enable-static --disable-shared && make -j4 )
+          done
+      - name: Configure
+        run: |
+          cd Project/GNU/CLI
+          autoreconf -if
+          ./configure --enable-silent-rules --enable-staticlibs
+      - name: Compile
+        run: |
+          cd Project/GNU/CLI
+          make -j4
+      - name: Check
+        run: |
+          cd Project/GNU/CLI
+          make check
+
+  FreeBSD:
+    strategy:
+      matrix:
+        include:
+          - name: FreeBSD
+          - name: FreeBSD without Unicode
+            configure: --disable-unicode
+      fail-fast: false
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+      - name: Check
+        uses: vmactions/freebsd-vm@v1
+        with:
+          envs: BRANCH_OWNER BRANCH_NAME
+          usesh: true
+          prepare: pkg install -y autoconf automake bash git gmake libtool pkgconf python3
+          run: |
+            set -e
+            sh .github/clone_branch.sh ZenLib ../ZenLib
+            sh .github/clone_branch.sh MediaInfoLib ../MediaInfoLib
+            for Directory in ../ZenLib/Project/GNU/Library ../MediaInfoLib/Project/GNU/Library ; do
+              ( cd "${Directory}" && autoreconf -if && ./configure --enable-silent-rules --enable-static --disable-shared ${{ matrix.configure }} CXXFLAGS=-O0 && gmake -j4 )
+            done
+            cd Project/GNU/CLI
+            autoreconf -if
+            ./configure --enable-silent-rules --enable-staticlibs CXXFLAGS=-O0
+            gmake -j4
+            gmake check
+
+  Windows:
+    strategy:
+      matrix:
+        include:
+          - architecture: x64
+          - architecture: Win32
+          - architecture: x64
+            name: ', without Unicode'
+            msbuild: -p:CharacterSet=MultiByte -p:SolutionDir=../ Project/MSVC2026/CLI/MediaInfo-CLI.vcxproj
+      fail-fast: false
+    name: Windows (${{ matrix.architecture }}${{ matrix.name }})
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Line endings
+        run: git config --global core.autocrlf false # Test scripts with LF line endings
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+      - name: zlib, ZenLib and MediaInfoLib
+        run: |
+          git -C .. clone --depth=1 https://github.com/MediaArea/zlib.git
+          sh .github/clone_branch.sh ZenLib ../ZenLib
+          sh .github/clone_branch.sh MediaInfoLib ../MediaInfoLib
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v3
+        with:
+          msbuild-architecture: x64
+      - name: Compile
+        run: |
+          MSBuild.exe -restore -p:RestorePackagesConfig=true -p:Configuration=Release -p:Platform=${{ matrix.architecture }} ${{ matrix.msbuild || 'Project/MSVC2026/MediaInfo-NoGUI.slnf' }} -m -verbosity:quiet
+          cp Project/MSVC2026/${{ matrix.architecture }}/Release/MediaInfo.exe Project/GNU/CLI/mediainfo.exe
+      - name: Check
+        env:
+          FILENAME_NO_UNICODE: ${{ matrix.msbuild }}
+        run: |
+          cd Project/GNU/CLI
+          bash test/filename.sh 9>&1 # Test of make check (no make in Git Bash)

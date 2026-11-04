@@ -87,6 +87,13 @@ jobs:
             echo "::error::Test CLI: MediaInfo CLI output ($actual_output) is not as expected ($expected_output)"
             exit 1
           fi
+      - name: Check CLI
+        env:
+          LD_LIBRARY_PATH: ${{ github.workspace }}/../ZenLib/Project/GNU/Library/.libs:${{ github.workspace }}/../MediaInfoLib/Project/GNU/Library/.libs
+          DYLD_LIBRARY_PATH: ${{ github.workspace }}/../ZenLib/Project/GNU/Library/.libs:${{ github.workspace }}/../MediaInfoLib/Project/GNU/Library/.libs
+        run: |
+          cd Project/GNU/CLI
+          make check
       - name: Configure GUI
         run: |
           cd Project/GNU/GUI
