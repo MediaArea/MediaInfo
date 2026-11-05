@@ -135,6 +135,24 @@
     else return r;
 }
 
+- (NSString *)ValueAtIndex:(NSUInteger)fileIndex
+                streamKind:(oMediaInfoStream)streamKind
+              streamNumber:(NSUInteger)streamNumber
+                 parameter:(NSUInteger)parameter {
+
+    const wchar_t *s = MediaInfoList_GetI(MIL,
+                                          (int)fileIndex,
+                                          (MediaInfo_stream_t)streamKind,
+                                          (int)streamNumber,
+                                          (int)parameter,
+                                          MediaInfo_Info_Text);
+
+    NSString *r = [NSString stringFromWCHAR:s];
+
+    if(r==nil) return @"";
+    else return r;
+}
+
 - (NSUInteger) FieldCountAtIndex:(NSUInteger)fileIndex streamKind:(oMediaInfoStream)streamKind streamNumber:(NSUInteger)streamNumber {
     return MediaInfoList_Count_Get(MIL, fileIndex, (MediaInfo_stream_t)streamKind, streamNumber);
 }
