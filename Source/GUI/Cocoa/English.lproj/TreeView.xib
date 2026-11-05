@@ -34,7 +34,7 @@
                                 <tableColumns>
                                     <tableColumn editable="NO" width="200" minWidth="40" maxWidth="1000" id="LRh-qX-GDO">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Field">
-                                            <font key="font" metaFont="controlContent" size="11"/>
+                                            <font key="font" metaFont="controlContent"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -48,7 +48,7 @@
                                     </tableColumn>
                                     <tableColumn editable="NO" width="271" minWidth="40" maxWidth="10000" id="iAe-Hy-FZv">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Value">
-                                            <font key="font" metaFont="controlContent" size="11"/>
+                                            <font key="font" metaFont="controlContent"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>

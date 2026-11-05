@@ -17,6 +17,17 @@
 
 @end
 
+static void SizeControlToFitKeepingTop(NSControl *control, BOOL alignRight) {
+	NSRect oldFrame = control.frame;
+	[control sizeToFit];
+
+	NSRect frame = control.frame;
+	frame.origin.y = NSMaxY(oldFrame) - NSHeight(frame);
+	if (alignRight)
+		frame.origin.x = NSMaxX(oldFrame) - NSWidth(frame);
+	control.frame = frame;
+}
+
 @implementation PreferencesWindowController
 
 static PreferencesWindowController *prefsCtrl = nil;
@@ -39,6 +50,11 @@ static PreferencesWindowController *prefsCtrl = nil;
 - (void)windowDidLoad
 {
     [super windowDidLoad];
+
+	// These controls use fixed frames in the nib, but AppKit supplies their fonts.
+	SizeControlToFitKeepingTop(languageRestartLabel, NO);
+	SizeControlToFitKeepingTop(premiumFeatureLabel, NO);
+	SizeControlToFitKeepingTop(subscribeButton, YES);
 
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 

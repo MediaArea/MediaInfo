@@ -900,17 +900,10 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	
 	//prepare font attributes for text view
 	
-	NSString *fontFamily = [[NSFont userFontOfSize:13.0] familyName];
-	
+	NSFont *normalFont = [NSFont userFontOfSize:0];
 	NSFontManager *fontManager = [NSFontManager sharedFontManager];
-	NSFont *boldFont = [fontManager fontWithFamily:fontFamily
-											traits:NSBoldFontMask
-											weight:0
-											  size:13];
-	NSFont *normalFont = [fontManager fontWithFamily:fontFamily
-											  traits:0
-											  weight:0
-												size:13];
+	NSFont *boldFont = [fontManager convertFont:normalFont
+									toHaveTrait:NSBoldFontMask];
 	
 	NSDictionary *normalAttr = [NSDictionary dictionaryWithObjectsAndKeys:
 								normalFont, NSFontAttributeName,
@@ -985,18 +978,7 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	
 	//prepare font attributes for text view
 
-	CGFloat fontSize = 12.0;
-	NSString *fontFamily = [[NSFont userFixedPitchFontOfSize:fontSize] familyName];
-	
-	//CGFloat fontSize = 13.0;
-	//NSString *fontFamily = [[NSFont userFontOfSize:fontSize] familyName];
-
-	
-	NSFontManager *fontManager = [NSFontManager sharedFontManager];
-	NSFont *normalFont = [fontManager fontWithFamily:fontFamily
-											  traits:0
-											  weight:0
-												size:fontSize];
+	NSFont *normalFont = [NSFont userFixedPitchFontOfSize:0];
 	
 	NSDictionary *normalAttr = [NSDictionary dictionaryWithObjectsAndKeys:
 								normalFont, NSFontAttributeName, NSColor.textColor, NSForegroundColorAttributeName,

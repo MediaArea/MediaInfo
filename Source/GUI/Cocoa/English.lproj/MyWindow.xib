@@ -103,7 +103,7 @@
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="square" title="Go to the web site of a player for this file" bezelStyle="shadowlessSquare" image="buttonCell:181:image" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="181">
                                                             <behavior key="behavior" lightByContents="YES"/>
-                                                            <font key="font" metaFont="titleBar" size="12" textStyle="headline"/>
+                                                            <font key="font" metaFont="titleBar" textStyle="headline"/>
                                                         </buttonCell>
                                                     </button>
                                                 </subviews>
@@ -136,7 +136,7 @@
                                                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                                                             </tableHeaderCell>
                                                                             <textFieldCell key="dataCell" controlSize="small" selectable="YES" editable="YES" allowsUndo="NO" alignment="right" id="152">
-                                                                                <font key="font" metaFont="systemBold" size="12"/>
+                                                                                <font key="font" metaFont="systemBold"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
@@ -252,7 +252,7 @@
                         <rect key="frame" x="4" y="4" width="478" height="40"/>
                         <buttonCell key="cell" type="push" title="Go to conformance errors and warnings glossary page" bezelStyle="rounded" alignment="center" controlSize="large" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mab-5f-TeC">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system" size="15"/>
+                            <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
                             <action selector="showConformanceInfo:" target="-2" id="IdC-Bc-ey8"/>

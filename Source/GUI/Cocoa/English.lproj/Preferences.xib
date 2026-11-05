@@ -13,6 +13,8 @@
                 <outlet property="graphAdmShowChannelFormats" destination="SRz-4F-F2V" id="MST-K8-oSS"/>
                 <outlet property="graphAdmShowTrackUIDs" destination="UWP-Ms-fVg" id="8uz-It-VNh"/>
                 <outlet property="langsCombo" destination="26" id="47"/>
+                <outlet property="languageRestartLabel" destination="53" id="X9p-LF-a1B"/>
+                <outlet property="premiumFeatureLabel" destination="rWx-fM-e08" id="X9p-LF-a1C"/>
                 <outlet property="subscribeButton" destination="TL9-gb-Tct" id="bs3-6V-yRt"/>
                 <outlet property="tabView" destination="19" id="CYV-c3-YNr"/>
                 <outlet property="viewCombo" destination="R7t-1b-La5" id="LgE-V5-BQp"/>
@@ -73,7 +75,7 @@
                                             <rect key="frame" x="130" y="157" width="268" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="Changes take effect after application restart" id="54">
-                                                <font key="font" metaFont="controlContent" size="11"/>
+                                                <font key="font" metaFont="controlContent"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -106,7 +108,7 @@
                                             <rect key="frame" x="130" y="112" width="154" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Premium MediaInfo feature" id="eaf-m0-xtv">
-                                                <font key="font" metaFont="controlContent" size="11"/>
+                                                <font key="font" metaFont="controlContent"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -116,7 +118,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="bevel" title="subscribe" bezelStyle="rounded" alignment="right" imageScaling="proportionallyDown" inset="2" id="qvF-It-rlQ">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="controlContent" size="11"/>
+                                                <font key="font" metaFont="controlContent"/>
                                             </buttonCell>
                                             <color key="contentTintColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
                                             <connections>

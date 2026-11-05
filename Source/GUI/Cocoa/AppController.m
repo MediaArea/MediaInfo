@@ -21,7 +21,6 @@
 	
 	NSDictionary *defaults = [NSDictionary dictionaryWithObjectsAndKeys:
 							  [NSNumber numberWithBool:YES],	@"NSDisabledCharacterPaletteMenuItem", //Disable "Special Characters" in Edit menu
-							  [NSNumber numberWithInt:12],		@"treeFontSize",
 							  @"__default__",					@"prefLanguage",
 							  nil];
 	
