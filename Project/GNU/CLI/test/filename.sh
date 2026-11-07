@@ -16,6 +16,10 @@ unicode=1
 if test -n "${FILENAME_NO_UNICODE}" || ([ -e Makefile ] && ! grep -q -e '-DUNICODE' Makefile) ; then
     unicode=
 fi
+# the CLI which loads the library at run time uses its C API, the library (Unicode) converts the strings
+if [ -e Makefile ] && grep -q -e '-DMEDIAINFO_DLL_RUNTIME' Makefile ; then
+    unicode=1
+fi
 
 python=
 for command in python3 python ; do
@@ -32,6 +36,7 @@ title=$'caf\xC3\xA9 \xE6\xB5\x8B\xE8\xAF\x95 \xF0\x9F\x8E\xB5'
 # names for the locales which are neither ASCII nor UTF-8, in the encoding of the locale
 name_latin1=$'caf\xE9'
 name_eucjp=$'\xA5\xC6\xA5\xB9\xA5\xC8'
+name_gb18030=$'\xB2\xE2\xCA\xD4'
 
 # macOS only accepts valid UTF-8 for file names, the program converts them whatever the locale
 # Windows only accepts UTF-16, Git Bash converts the names which are not valid UTF-8 as another name
@@ -251,7 +256,7 @@ expected_all_sorted="$(printf '%s\n' "${expected_all[@]}" | sort)"
 for config in ${locale_configs} ; do
 
     # macOS: wchar_t is not Unicode with this locale, so no conversion of the names in this encoding to the UTF-8 names of the file system
-    if [ "${config}" == "eucjp" ] && test -n "${names_utf8}" && test -n "${unicode}" ; then
+    if ([ "${config}" == "eucjp" ] || [ "${config}" == "gb18030" ]) && test -n "${names_utf8}" && test -n "${unicode}" ; then
         continue
     fi
 
@@ -268,6 +273,10 @@ for config in ${locale_configs} ; do
         1eucjp)
             name_local="${name_eucjp}"
             name_system="${name_eucjp}"
+            ;;
+        1gb18030)
+            name_local="${name_gb18030}"
+            name_system="${name_gb18030}"
             ;;
         *)
             other_locale=
@@ -369,15 +378,22 @@ for config in ${locale_configs} ; do
         listed="${listed//$'\xE9'/$'\xC3\xA9'}"
     fi
     listed_sorted="$(printf '%s' "${listed}" | sort)"
+    # macOS without Unicode: the UTF-8 names of the file system which can be encoded are in the encoding of the locale
+    names_converted=
+    if test -z "${unicode}" && test -n "${names_utf8}" && test -z "${WINDOWS}" && ([ "${config}" == "latin1" ] || [ "${config}" == "eucjp" ] || [ "${config}" == "gb18030" ]) ; then
+        names_converted=1
+    fi
     if [ "${cmd_status}" == "timeout" ] ; then
         echo "NOK: ${test}/${config}, directory listing, no result after ${timeout} s" >&${fd}
         status=1
-    elif test -n "${other_locale}" && [ "${config}" == "eucjp" ] && [ -z "${names_utf8}" ] && [ "${count}" -ge "1" ] ; then
+    elif test -n "${other_locale}" && ([ "${config}" == "eucjp" ] || [ "${config}" == "gb18030" ]) && [ -z "${names_utf8}" ] && [ "${count}" -ge "1" ] ; then
         echo "OK: ${test}/${config}, directory listing, names which can be decoded" >&${fd}
     elif test -n "${other_locale}" && [ "${config}" == "latin1" ] && [ -z "${names_utf8}" ] && [ "${count}" -eq "${list_count}" ] ; then
         echo "OK: ${test}/${config}, directory listing, all names" >&${fd} # each byte is a character
     elif test -n "${other_locale}" && test -n "${names_utf8}" && [ "${count}" -eq "${#expected[@]}" ] ; then
         echo "OK: ${test}/${config}, directory listing, UTF-8 names" >&${fd}
+    elif test -n "${names_converted}" && [ "${count}" -eq "${#expected[@]}" ] ; then
+        echo "OK: ${test}/${config}, directory listing, names in the encoding of the locale" >&${fd}
     elif test -z "${other_locale}" && test -z "${ascii_locale}" && [ "${listed_sorted}" == "${expected_sorted}" ] ; then
         echo "OK: ${test}/${config}, directory listing" >&${fd}
     elif test -n "${ascii_locale}" && [ "${listed_sorted}" == "${expected_all_sorted}" ] ; then
