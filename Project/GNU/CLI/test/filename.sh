@@ -46,9 +46,10 @@ if test -n "${WINDOWS}" || [[ "${OSTYPE}" == "darwin"* ]] ; then
 fi
 
 # Windows without Unicode: the arguments and the names in the output use the code page of the system (Latin-1 characters
-# here), the text of the files is kept as UTF-8, and only the first name can be encoded
+# here), the text of the files is kept as UTF-8, and only the first name can be encoded; with the UTF-8 code page (set by the
+# manifest of the program, FILENAME_CODEPAGE=65001), all the names can be encoded, as UTF-8
 windows_ansi=
-if test -n "${WINDOWS}" && test -z "${unicode}" ; then
+if test -n "${WINDOWS}" && test -z "${unicode}" && [ "${FILENAME_CODEPAGE}" != "65001" ] ; then
     windows_ansi=1
     names=("${names[0]}")
 fi

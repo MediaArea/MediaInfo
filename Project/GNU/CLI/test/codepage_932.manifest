@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Code page of the narrow strings of the test program, Windows 10 1903 and more (see filename.cpp) -->
+<assembly manifestVersion="1.0" xmlns="urn:schemas-microsoft-com:asm.v1">
+  <application>
+    <windowsSettings>
+      <activeCodePage xmlns="http://schemas.microsoft.com/SMI/2019/WindowsSettings">ja-JP</activeCodePage>
+    </windowsSettings>
+  </application>
+</assembly>
