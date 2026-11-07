@@ -2,81 +2,89 @@ name: Checks
 
 on: [push, pull_request]
 
+# A new push cancels the run of the previous one on the same branch or pull request, except on master
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
+
 env:
   BRANCH_OWNER: ${{ github.event.pull_request.head.repo.owner.login || github.repository_owner }}
   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
 
 jobs:
+  # ZenLib and MediaInfoLib (branches of the same name if any, else master) in the cache for their commits, built only when they change
   Unix:
     strategy:
       matrix:
         include:
           - os: ubuntu-26.04
             Format_Profile: Shared object / AMD x86-64
+            unicode: 'yes'
+            gui: true
           - os: ubuntu-26.04-arm
             Format_Profile: Shared object / ARM64
+            unicode: 'yes'
+            gui: true
           - os: macos-26
             Format_Profile: Demand paged executable / ARM64
+            unicode: 'yes'
+            gui: true
+          - os: ubuntu-26.04
+            name: ', without Unicode'
+            Format_Profile: Shared object / AMD x86-64
+            unicode: 'no'
       fail-fast: false
-    name: Unix (${{ matrix.os }})
+    name: Unix (${{ matrix.os }}${{ matrix.name }})
     runs-on: ${{ matrix.os }}
     env:
       CXXFLAGS: -Werror
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          path: MediaInfo
       - name: Dependencies
         env:
           HOMEBREW_NO_REQUIRE_TAP_TRUST: 1 # Prevent Homebrew third-party trust warnings due to GitHub's pre-installed taps
         run: |
           if [ "$RUNNER_OS" == "Linux" ]; then
             sudo apt-get update -y
-            sudo apt-get install -y zlib1g-dev libwxgtk3.2-dev
+            sudo apt-get install -y zlib1g-dev ${{ matrix.gui && 'libwxgtk3.2-dev' || '' }}
           fi
           if [ "$RUNNER_OS" == "macOS" ]; then
-            brew install libtool automake wxwidgets
+            brew install libtool automake ${{ matrix.gui && 'wxwidgets' || '' }}
           fi
-      - name: ZenLib
+      - name: Clone ZenLib and MediaInfoLib
         run: |
-          # Branch of the same name in the same fork if any (change in several projects), else master of MediaArea
-          if [ "${BRANCH_NAME}" != "master" ] && GIT_TERMINAL_PROMPT=0 git ls-remote --exit-code "https://github.com/${BRANCH_OWNER}/ZenLib.git" "refs/heads/${BRANCH_NAME}" >/dev/null 2>&1 ; then
-            git -C .. clone --depth=1 --branch "${BRANCH_NAME}" "https://github.com/${BRANCH_OWNER}/ZenLib.git"
-          else
-            git -C .. clone --depth=1 https://github.com/MediaArea/ZenLib.git
-          fi
-          pushd ../ZenLib/Project/GNU/Library
-            autoreconf -if
-            ./configure --enable-static
-            make -j4
-          popd
-      - name: MediaInfoLib
+          sh MediaInfo/.github/clone_branch.sh ZenLib ZenLib
+          sh MediaInfo/.github/clone_branch.sh MediaInfoLib MediaInfoLib
+          echo "LIBS_COMMITS=$(git -C ZenLib rev-parse --short HEAD)-$(git -C MediaInfoLib rev-parse --short HEAD)" >> "${GITHUB_ENV}"
+      - name: Libraries cache
+        id: libs
+        uses: actions/cache@v4
+        with:
+          path: |
+            ZenLib/Project/GNU/Library
+            MediaInfoLib/Project/GNU/Library
+          key: libs-${{ matrix.os }}-${{ matrix.unicode }}-${{ env.LIBS_COMMITS }}
+      - name: ZenLib and MediaInfoLib
+        if: steps.libs.outputs.cache-hit != 'true'
         run: |
-          # Branch of the same name in the same fork if any (change in several projects), else master of MediaArea
-          if [ "${BRANCH_NAME}" != "master" ] && GIT_TERMINAL_PROMPT=0 git ls-remote --exit-code "https://github.com/${BRANCH_OWNER}/MediaInfoLib.git" "refs/heads/${BRANCH_NAME}" >/dev/null 2>&1 ; then
-            git -C .. clone --depth=1 --branch "${BRANCH_NAME}" "https://github.com/${BRANCH_OWNER}/MediaInfoLib.git"
-          else
-            git -C .. clone --depth=1 https://github.com/MediaArea/MediaInfoLib.git
-          fi
-          pushd ../MediaInfoLib/Project/GNU/Library
-            autoreconf -if
-            ./configure --enable-static
-            make -j4
-          popd
+          for Directory in ZenLib/Project/GNU/Library MediaInfoLib/Project/GNU/Library ; do
+            ( cd "${Directory}" && autoreconf -if && ./configure --enable-silent-rules --enable-static --disable-shared --enable-unicode=${{ matrix.unicode }} && make -j4 )
+          done
       - name: Configure CLI
         run: |
-          cd Project/GNU/CLI
+          cd MediaInfo/Project/GNU/CLI
           autoreconf -if
           ./configure --enable-staticlibs
       - name: Build CLI
         run: |
-          cd Project/GNU/CLI
+          cd MediaInfo/Project/GNU/CLI
           make -j4
       - name: Test CLI
-        env:
-          LD_LIBRARY_PATH: ${{ github.workspace }}/../ZenLib/Project/GNU/Library/.libs:${{ github.workspace }}/../MediaInfoLib/Project/GNU/Library/.libs
-          DYLD_LIBRARY_PATH: ${{ github.workspace }}/../ZenLib/Project/GNU/Library/.libs:${{ github.workspace }}/../MediaInfoLib/Project/GNU/Library/.libs
         run : |
-          cd Project/GNU/CLI/.libs
+          cd MediaInfo/Project/GNU/CLI
           expected_output="${{ matrix.Format_Profile }}"
           actual_output=$(./mediainfo "--Output=General;%Format_Profile%" mediainfo)
           echo "Expected: '$expected_output'"
@@ -88,21 +96,111 @@ jobs:
             exit 1
           fi
       - name: Check CLI
-        env:
-          LD_LIBRARY_PATH: ${{ github.workspace }}/../ZenLib/Project/GNU/Library/.libs:${{ github.workspace }}/../MediaInfoLib/Project/GNU/Library/.libs
-          DYLD_LIBRARY_PATH: ${{ github.workspace }}/../ZenLib/Project/GNU/Library/.libs:${{ github.workspace }}/../MediaInfoLib/Project/GNU/Library/.libs
         run: |
-          cd Project/GNU/CLI
+          cd MediaInfo/Project/GNU/CLI
           make check
       - name: Configure GUI
+        if: matrix.gui
         run: |
-          cd Project/GNU/GUI
+          cd MediaInfo/Project/GNU/GUI
           autoreconf -if
           ./configure --enable-staticlibs
       - name: Build GUI
+        if: matrix.gui
         run: |
-          cd Project/GNU/GUI
+          cd MediaInfo/Project/GNU/GUI
           make -j4
+
+  # File names with Alpine (musl) and FreeBSD, with and without Unicode
+  Alpine:
+    strategy:
+      matrix:
+        unicode: ['yes', 'no']
+      fail-fast: false
+    name: Alpine${{ matrix.unicode == 'no' && ' without Unicode' || '' }}
+    runs-on: ubuntu-latest
+    container: alpine:latest
+    env:
+      CXXFLAGS: -O0
+    steps:
+      - name: OS packets
+        run: apk add --no-cache autoconf automake bash build-base git libtool pkgconf python3 tar zlib-dev zstd # tar and zstd for the cache
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          path: MediaInfo
+      - name: Clone ZenLib and MediaInfoLib
+        run: |
+          sh MediaInfo/.github/clone_branch.sh ZenLib ZenLib
+          sh MediaInfo/.github/clone_branch.sh MediaInfoLib MediaInfoLib
+          echo "LIBS_COMMITS=$(git -C ZenLib rev-parse --short HEAD)-$(git -C MediaInfoLib rev-parse --short HEAD)" >> "${GITHUB_ENV}"
+      - name: Libraries cache
+        id: libs
+        uses: actions/cache@v4
+        with:
+          path: |
+            ZenLib/Project/GNU/Library
+            MediaInfoLib/Project/GNU/Library
+          key: libs-alpine-${{ matrix.unicode }}-${{ env.LIBS_COMMITS }}
+      - name: ZenLib and MediaInfoLib
+        if: steps.libs.outputs.cache-hit != 'true'
+        run: |
+          for Directory in ZenLib/Project/GNU/Library MediaInfoLib/Project/GNU/Library ; do
+            ( cd "${Directory}" && autoreconf -if && ./configure --enable-silent-rules --enable-static --disable-shared --enable-unicode=${{ matrix.unicode }} && make -j4 )
+          done
+      - name: Check CLI
+        run: |
+          cd MediaInfo/Project/GNU/CLI
+          autoreconf -if
+          ./configure --enable-silent-rules --enable-staticlibs
+          make -j4
+          make check
+
+  FreeBSD:
+    strategy:
+      matrix:
+        unicode: ['yes', 'no']
+      fail-fast: false
+    name: FreeBSD${{ matrix.unicode == 'no' && ' without Unicode' || '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          path: MediaInfo
+      - name: Clone ZenLib and MediaInfoLib
+        run: |
+          sh MediaInfo/.github/clone_branch.sh ZenLib ZenLib
+          sh MediaInfo/.github/clone_branch.sh MediaInfoLib MediaInfoLib
+          echo "LIBS_COMMITS=$(git -C ZenLib rev-parse --short HEAD)-$(git -C MediaInfoLib rev-parse --short HEAD)" >> "${GITHUB_ENV}"
+      - name: Libraries cache
+        id: libs
+        uses: actions/cache@v4
+        with:
+          path: |
+            ZenLib/Project/GNU/Library
+            MediaInfoLib/Project/GNU/Library
+          key: libs-freebsd-${{ matrix.unicode }}-${{ env.LIBS_COMMITS }}
+      - name: Check
+        uses: vmactions/freebsd-vm@v1
+        env:
+          LIBS_BUILD: ${{ steps.libs.outputs.cache-hit != 'true' && 'yes' || '' }}
+        with:
+          envs: LIBS_BUILD
+          usesh: true
+          prepare: pkg install -y autoconf automake bash git gmake libtool pkgconf python3
+          run: |
+            set -e
+            if [ -n "${LIBS_BUILD}" ] ; then
+              for Directory in ZenLib/Project/GNU/Library MediaInfoLib/Project/GNU/Library ; do
+                ( cd "${Directory}" && autoreconf -if && ./configure --enable-silent-rules --enable-static --disable-shared --enable-unicode=${{ matrix.unicode }} CXXFLAGS=-O0 && gmake -j4 )
+              done
+            fi
+            cd MediaInfo/Project/GNU/CLI
+            autoreconf -if
+            ./configure --enable-silent-rules --enable-staticlibs CXXFLAGS=-O0
+            gmake -j4
+            gmake check
 
   Windows:
     strategy:
@@ -110,49 +208,59 @@ jobs:
         include:
           - architecture: Win32
             runner: windows-latest
-            msvc: MSVC2026
             Format_Profile: Executable / Intel i386
+            vcvarsall: x86
+            code_pages: 1252 65001 932
           - architecture: x64
             runner: windows-latest
-            msvc: MSVC2026
             Format_Profile: Executable / AMD x86-64
+            vcvarsall: x64
+            code_pages: 1252 65001 932
           - architecture: ARM64
             runner: windows-11-vs2026-arm
-            msvc: MSVC2026
             Format_Profile: Executable / ARM64
+            vcvarsall: arm64
+            code_pages: 1252 65001 932
+          - architecture: x64
+            name: ', without Unicode'
+            runner: windows-latest
+            Format_Profile: Executable / AMD x86-64
+            vcvarsall: x64
+            msbuild: -p:CharacterSet=MultiByte -p:SolutionDir=../ Project/MSVC2026/CLI/MediaInfo-CLI.vcxproj
+            code_pages: 1252 65001 # The other names of the test can't be encoded in cp932
       fail-fast: false
-    name: Windows (${{ matrix.architecture }})
+    name: Windows (${{ matrix.architecture }}${{ matrix.name }})
     runs-on: ${{ matrix.runner }}
+    defaults:
+      run:
+        shell: bash
     steps:
+      - name: Line endings
+        run: git config --global core.autocrlf false # Test scripts with LF line endings
       - name: Checkout zlib
         uses: actions/checkout@v6
         with:
           repository: MediaArea/zlib
           path: zlib
-      - name: Clone ZenLib and MediaInfoLib
-        shell: bash
-        run: |
-          # Branches of the same name in the same fork if any (change in several projects), else master of MediaArea
-          for Project in ZenLib MediaInfoLib ; do
-            if [ "${BRANCH_NAME}" != "master" ] && GIT_TERMINAL_PROMPT=0 git ls-remote --exit-code "https://github.com/${BRANCH_OWNER}/${Project}.git" "refs/heads/${BRANCH_NAME}" >/dev/null 2>&1 ; then
-              git clone --depth=1 --branch "${BRANCH_NAME}" "https://github.com/${BRANCH_OWNER}/${Project}.git"
-            else
-              git clone --depth=1 "https://github.com/MediaArea/${Project}.git"
-            fi
-          done
       - name: Checkout MediaInfo
         uses: actions/checkout@v6
         with:
           path: MediaInfo
+      - name: Clone ZenLib and MediaInfoLib
+        run: |
+          sh MediaInfo/.github/clone_branch.sh ZenLib ZenLib
+          sh MediaInfo/.github/clone_branch.sh MediaInfoLib MediaInfoLib
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v3
         with:
           msbuild-architecture: ${{ runner.arch == 'ARM64' && 'arm64' || 'x64' }}
       - name: Build
-        run: msbuild -restore -p:RestorePackagesConfig=true -p:Configuration=Release -p:Platform=${{ matrix.architecture }} ${{ github.workspace }}\MediaInfo\Project\${{ matrix.msvc }}\MediaInfo-NoGUI.slnf -verbosity:quiet -warnaserror
+        working-directory: MediaInfo
+        run: MSBuild.exe -restore -p:RestorePackagesConfig=true -p:Configuration=Release -p:Platform=${{ matrix.architecture }} ${{ matrix.msbuild || 'Project/MSVC2026/MediaInfo-NoGUI.slnf' }} -verbosity:quiet -warnaserror -m
       - name: Test CLI
+        shell: pwsh
         run : |
-          cd ${{ github.workspace }}\MediaInfo\Project\${{ matrix.msvc }}\${{ matrix.architecture }}\Release
+          cd ${{ github.workspace }}\MediaInfo\Project\MSVC2026\${{ matrix.architecture }}\Release
           $expected_output = "${{ matrix.Format_Profile }}"
           $actual_output = & ".\MediaInfo.exe" "--Output=General;%Format_Profile%" "MediaInfo.exe"
           Write-Host "Expected: '$expected_output'"
@@ -163,6 +271,32 @@ jobs:
             Write-Host "::error::Test CLI: MediaInfo CLI output ($actual_output) is not as expected ($expected_output)"
             exit 1
           }
+      - name: Programs for the code pages
+        shell: cmd
+        run: |
+          for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do call "%%i\VC\Auxiliary\Build\vcvarsall.bat" ${{ matrix.vcvarsall }}
+          rem CLI for the code page of the system (cp1252) and with the code page of its manifest, added to the manifest of the program
+          set Release=MediaInfo\Project\MSVC2026\${{ matrix.architecture }}\Release
+          set Test=MediaInfo\Project\GNU\CLI\test
+          copy /y %Release%\MediaInfo.exe %Test%\mediainfo_1252.exe >nul
+          for %%c in (65001 932) do (
+            copy /y %Release%\MediaInfo.exe %Test%\mediainfo_%%c.exe >nul
+            mt -nologo -inputresource:%Release%\MediaInfo.exe;#1 -manifest %Test%\codepage_%%c.manifest -outputresource:%Test%\mediainfo_%%c.exe;#1 || exit /b 1
+          )
+      - name: Check CLI
+        working-directory: MediaInfo/Project/GNU/CLI
+        env:
+          FILENAME_NO_UNICODE: ${{ matrix.msbuild }}
+        run: |
+          # Test of make check (no make in Git Bash), with each program
+          Status=0
+          for CodePage in ${{ matrix.code_pages }} ; do
+            cp test/mediainfo_${CodePage}.exe mediainfo.exe
+            echo "::group::Code page ${CodePage}"
+            FILENAME_CODEPAGE=${CodePage} bash test/filename.sh 9>&1 || Status=1
+            echo "::endgroup::"
+          done
+          exit ${Status}
 
   CMake:
     strategy:
@@ -193,6 +327,10 @@ jobs:
     runs-on: ${{ matrix.runner }}
     env:
       CXXFLAGS: ${{ matrix.CXXFLAGS }}
+      # compiler cache, without the precompiled headers (MSVC ones not supported by ccache, they are in the MSBuild and MediaInfoLib jobs)
+      CMAKE_C_COMPILER_LAUNCHER: ccache
+      CMAKE_CXX_COMPILER_LAUNCHER: ccache
+      CMAKE_PCH: -D CMAKE_DISABLE_PRECOMPILE_HEADERS=ON
     steps:
       - name: Checkout zlib
         if: ${{ matrix.type == 'Windows (DLL) (x64)' }}
@@ -219,22 +357,27 @@ jobs:
       - name: Setup MSVC Environment
         if: ${{ runner.os == 'Windows' }}
         uses: ./MediaInfo/.github/actions/setup-msvc
+      - name: Compiler cache
+        uses: hendrikmuhs/ccache-action@v1.2.24
+        with:
+          key: cmake-${{ matrix.type }}
+          max-size: 300M
       - name: Build dependencies
         if: ${{ matrix.type == 'Windows (DLL) (x64)' }}
         run: |
           cmake -G Ninja -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ -B build-zlib ./zlib/
           cmake --build build-zlib
           cmake --install build-zlib
-          cmake -G Ninja -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ -B build-zenlib ./ZenLib/Project/CMake/
+          cmake -G Ninja -D CMAKE_BUILD_TYPE=Release ${{ env.CMAKE_PCH }} -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ -B build-zenlib ./ZenLib/Project/CMake/
           cmake --build build-zenlib
           cmake --install build-zenlib
-          cmake -G Ninja -D CMAKE_BUILD_TYPE=Release -D CMAKE_PREFIX_PATH=./cmake-prefix/ -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ -D BUILD_ZLIB=OFF -D BUILD_ZENLIB=OFF -D BUILD_SHARED_LIBS=ON -B build-mediainfolib ./MediaInfoLib/Project/CMake/
+          cmake -G Ninja -D CMAKE_BUILD_TYPE=Release ${{ env.CMAKE_PCH }} -D CMAKE_PREFIX_PATH=./cmake-prefix/ -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ -D BUILD_ZLIB=OFF -D BUILD_ZENLIB=OFF -D BUILD_SHARED_LIBS=ON -B build-mediainfolib ./MediaInfoLib/Project/CMake/
           cmake --build build-mediainfolib
           cmake --install build-mediainfolib
       - name: Configure CLI
-        run: cmake -G Ninja -D CMAKE_PREFIX_PATH=./cmake-prefix/ -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ -D CMAKE_BUILD_TYPE=Release ${{ matrix.type == 'Windows (DLL) (x64)' && '-D MEDIAINFO_CLI_STATIC=OFF' || '-D BUILD_ZENLIB=ON -D BUILD_ZLIB=ON -D ZLIB_BUILD_SHARED=OFF -D ZLIB_BUILD_TESTING=OFF' }} -B build ./MediaInfo/Project/CMake/CLI/
+        run: cmake -G Ninja -D CMAKE_PREFIX_PATH=./cmake-prefix/ -D CMAKE_INSTALL_PREFIX=./cmake-prefix/ -D CMAKE_BUILD_TYPE=Release ${{ env.CMAKE_PCH }} ${{ matrix.type == 'Windows (DLL) (x64)' && '-D MEDIAINFO_CLI_STATIC=OFF' || '-D BUILD_ZENLIB=ON -D BUILD_ZLIB=ON -D ZLIB_BUILD_SHARED=OFF -D ZLIB_BUILD_TESTING=OFF' }} -B build ./MediaInfo/Project/CMake/CLI/
       - name: Build CLI
-        run: cmake --build build 
+        run: cmake --build build
       - name: Install CLI
         run: cmake --install build
       - name: Test CLI

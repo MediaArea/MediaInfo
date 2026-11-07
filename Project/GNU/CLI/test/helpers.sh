@@ -58,7 +58,7 @@ find_locale() {
 }
 
 # locales of the tests: C, POSIX and no locale variable (ASCII, e.g. programs which don't call setlocale(), Docker
-# images, macOS apps launched from the Finder), UTF-8, Latin-1 and EUC-JP (neither ASCII nor UTF-8) if available
+# images, macOS apps launched from the Finder), UTF-8, Latin-1, EUC-JP and GB18030 (neither ASCII nor UTF-8) if available
 # (Windows: no locale variable only, the program calls setlocale() or not for the C locale or the code page of the system)
 if test -n "${WINDOWS}" ; then
     locale_configs="unset"
@@ -68,6 +68,7 @@ else
     utf8_locale=
     latin1_locale=
     eucjp_locale=
+    gb18030_locale=
     locpath=
     for locale in C.UTF-8 C.utf8 en_US.UTF-8 en_US.utf8 ; do
         if [[ "${installed_locales}" == *$'\n'"${locale}"$'\n'* ]] ; then
@@ -81,6 +82,9 @@ else
     fi
     if find_locale eucjp_locale ja_JP EUC-JP ja_JP.eucJP ja_JP.eucjp ja_JP.EUC-JP ; then
         locale_configs="${locale_configs} eucjp"
+    fi
+    if find_locale gb18030_locale zh_CN GB18030 zh_CN.GB18030 zh_CN.gb18030 ; then
+        locale_configs="${locale_configs} gb18030"
     fi
 fi
 
@@ -112,12 +116,12 @@ run_command() {
                 utf8)
                     export LC_ALL="${utf8_locale}"
                     ;;
-                latin1|eucjp)
-                    if [ "${config}" == "latin1" ] ; then
-                        export LC_ALL="${latin1_locale}"
-                    else
-                        export LC_ALL="${eucjp_locale}"
-                    fi
+                latin1|eucjp|gb18030)
+                    case "${config}" in
+                        latin1) export LC_ALL="${latin1_locale}" ;;
+                        eucjp) export LC_ALL="${eucjp_locale}" ;;
+                        gb18030) export LC_ALL="${gb18030_locale}" ;;
+                    esac
                     if [ -n "${locpath}" ] ; then
                         export LOCPATH="${locpath}"
                     fi
