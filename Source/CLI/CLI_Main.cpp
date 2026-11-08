@@ -157,10 +157,11 @@ int main(int argc, char* argv_ansi[])
         Files_Count+=MI.Menu_File_Open_Files_Continue(List[Pos]);
 
     //Output
-    STRINGOUT(MI.Inform_Get());
+    const MediaInfoNameSpace::String& Inform=MI.Inform_Get(); //Computed once for both outputs
+    STRINGOUT(Inform);
 
     //Output, in a file if needed
-    LogFile_Action(MI.Inform_Get());
+    LogFile_Action(Inform);
 
     if (Files_Count)
         return MI_OK;

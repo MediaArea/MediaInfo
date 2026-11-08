@@ -16,6 +16,11 @@
     #undef __TEXT
     #include <windows.h>
 #endif
+#if defined(_MSC_VER) && defined(UNICODE) && !defined(STREAM_MISSING)
+    #include <cstdio>
+    #include <cwchar>
+    #include <io.h>
+#endif
 
 //---------------------------------------------------------------------------
 //Get command line args in main()
@@ -41,15 +46,28 @@
 
 //---------------------------------------------------------------------------
 //Write to terminal
-inline void STRINGOUT(ZenLib::Ztring Text)
+inline void STRINGOUT(const ZenLib::tstring& Text)
 {
     #ifdef UNICODE
         #if defined(STREAM_MISSING)
             wprintf(L"%ls\n", Text.c_str());
         #elif defined(_MSC_VER)
-            std::wcout<<Text.c_str()<<std::endl;
+            //Written in one call instead of character by character with std::wcout, the C runtime converts it as stdout is in _O_U8TEXT mode
+            std::wcout.flush();
+            fflush(stdout);
+            const char* Data=(const char*)Text.c_str();
+            size_t Data_Size=wcslen(Text.c_str())*sizeof(wchar_t); //Up to the first NUL, as std::wcout
+            while (Data_Size)
+            {
+                int Written=_write(_fileno(stdout), Data, (unsigned int)(Data_Size<0x1000000?Data_Size:0x1000000));
+                if (Written<=0)
+                    break;
+                Data+=Written;
+                Data_Size-=Written;
+            }
+            _write(_fileno(stdout), L"\n", sizeof(wchar_t));
         #else //_MSC_VER
-            std::cout<<Text.To_Local().c_str()<<std::endl;
+            std::cout<<ZenLib::Ztring(Text).To_Local().c_str()<<std::endl;
         #endif //_MSC_VER
     #else // UNICODE
         #if defined(STREAM_MISSING)

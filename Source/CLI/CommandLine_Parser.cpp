@@ -220,12 +220,12 @@ CL_OPTION(Default)
     return MI_OK;
 }
 
-void LogFile_Action(ZenLib::Ztring Inform)
+void LogFile_Action(const ZenLib::tstring& Inform)
 {
     if (LogFile_FileName.empty())
         return;
 
-    std::string Inform_Ansi(Inform.To_UTF8());
+    std::string Inform_Ansi(ZenLib::Ztring(Inform).To_UTF8());
 
 #if defined(UNICODE) && defined(_WIN32) && defined(__cpp_lib_filesystem) && defined(__cpp_lib_char8_t)
     std::string LogFile_FileName_u8(LogFile_FileName.To_UTF8());
