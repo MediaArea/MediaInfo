@@ -16,7 +16,18 @@
     #undef __TEXT
     #include <windows.h>
 #endif
-#if defined(_MSC_VER) && defined(UNICODE) && !defined(STREAM_MISSING)
+//---------------------------------------------------------------------------
+//Strings: Unicode, else UTF-8 text with the C++ API of the library (as in
+//ZenLib), from the same arguments and with the same output as with Unicode,
+//else (C API of the library) the bytes of the arguments and of the output
+#if !defined(UNICODE) && !defined(MEDIAINFO_DLL_RUNTIME) && !defined(MEDIAINFO_DLL_STATIC)
+    #define CLI_STRINGS_UTF8
+#endif
+//Wide console of the Microsoft C library, UTF-8 when the output is redirected
+#if defined(_MSC_VER) && (defined(UNICODE) || defined(CLI_STRINGS_UTF8))
+    #define CLI_CONSOLE_WIDE
+#endif
+#if defined(CLI_CONSOLE_WIDE) && !defined(STREAM_MISSING)
     #include <cstdio>
     #include <cwchar>
     #include <io.h>
@@ -39,6 +50,23 @@
             } \
 
     #endif //WIN32
+#elif defined(CLI_STRINGS_UTF8)
+    #ifdef _WIN32
+        //UTF-16 command line, also for the characters which are not in the code page
+        #define GETCOMMANDLINE() \
+            wchar_t** argv_wide=CommandLineToArgvW(GetCommandLineW(), &argc); \
+            std::vector<MediaInfoNameSpace::String> argv; \
+            for (int Pos=0; Pos<argc; Pos++) \
+                argv.push_back(argv_wide?ZenLib::Ztring().From_Unicode(argv_wide[Pos]):ZenLib::FileName_From_Native(argv_ansi[Pos])); \
+            LocalFree(argv_wide); \
+
+    #else //WIN32
+        #define GETCOMMANDLINE() \
+            std::vector<MediaInfoNameSpace::String> argv; \
+            for (int Pos=0; Pos<argc; Pos++) \
+                argv.push_back(ZenLib::FileName_From_Native(argv_ansi[Pos])); \
+
+    #endif //WIN32
 #else //UNICODE
     #define GETCOMMANDLINE() \
         MediaInfoNameSpace::Char** argv=argv_ansi; \
@@ -48,7 +76,7 @@
 //---------------------------------------------------------------------------
 //Write to a file or a pipe the text and a line end, in UTF-8 with CRLF line endings as the C runtime does in _O_U8TEXT mode,
 //but by blocks of 1 MiB instead of about 1 KiB per system call
-#if defined(_MSC_VER) && defined(UNICODE) && !defined(STREAM_MISSING)
+#if defined(CLI_CONSOLE_WIDE) && !defined(STREAM_MISSING)
 inline void STRINGOUT_UTF8(HANDLE Handle, const wchar_t* Data, size_t Data_Size)
 {
     const size_t Buffer_Size=0x100000;
@@ -107,6 +135,34 @@ inline void STRINGOUT_UTF8(HANDLE Handle, const wchar_t* Data, size_t Data_Size)
         }
     }
 }
+//---------------------------------------------------------------------------
+//Write to the terminal the text and a line end: by blocks to a file or a pipe, in one call to the console
+inline void STRINGOUT_Wide(const wchar_t* Text)
+{
+    std::wcout.flush();
+    fflush(stdout);
+    size_t Data_Size=wcslen(Text); //Up to the first NUL, as std::wcout
+    HANDLE Handle=(HANDLE)_get_osfhandle(_fileno(stdout));
+    DWORD Console_Mode;
+    if (Handle!=INVALID_HANDLE_VALUE && !GetConsoleMode(Handle, &Console_Mode))
+    {
+        STRINGOUT_UTF8(Handle, Text, Data_Size);
+        return;
+    }
+
+    //Console: written in one call instead of character by character with std::wcout, the C runtime converts it as stdout is in _O_U8TEXT mode
+    const char* Data=(const char*)Text;
+    Data_Size*=sizeof(wchar_t);
+    while (Data_Size)
+    {
+        int Written=_write(_fileno(stdout), Data, (unsigned int)(Data_Size<0x1000000?Data_Size:0x1000000));
+        if (Written<=0)
+            break;
+        Data+=Written;
+        Data_Size-=Written;
+    }
+    _write(_fileno(stdout), L"\n", sizeof(wchar_t));
+}
 #endif
 
 //---------------------------------------------------------------------------
@@ -117,29 +173,7 @@ inline void STRINGOUT(const ZenLib::tstring& Text)
         #if defined(STREAM_MISSING)
             wprintf(L"%ls\n", Text.c_str());
         #elif defined(_MSC_VER)
-            std::wcout.flush();
-            fflush(stdout);
-            size_t Data_Size=wcslen(Text.c_str()); //Up to the first NUL, as std::wcout
-            HANDLE Handle=(HANDLE)_get_osfhandle(_fileno(stdout));
-            DWORD Console_Mode;
-            if (Handle!=INVALID_HANDLE_VALUE && !GetConsoleMode(Handle, &Console_Mode))
-            {
-                STRINGOUT_UTF8(Handle, Text.c_str(), Data_Size);
-                return;
-            }
-
-            //Console: written in one call instead of character by character with std::wcout, the C runtime converts it as stdout is in _O_U8TEXT mode
-            const char* Data=(const char*)Text.c_str();
-            Data_Size*=sizeof(wchar_t);
-            while (Data_Size)
-            {
-                int Written=_write(_fileno(stdout), Data, (unsigned int)(Data_Size<0x1000000?Data_Size:0x1000000));
-                if (Written<=0)
-                    break;
-                Data+=Written;
-                Data_Size-=Written;
-            }
-            _write(_fileno(stdout), L"\n", sizeof(wchar_t));
+            STRINGOUT_Wide(Text.c_str());
         #else //_MSC_VER
             //Converted by blocks, without a copy of the whole text
             const ZenLib::Char* Data=Text.c_str();
@@ -153,6 +187,32 @@ inline void STRINGOUT(const ZenLib::tstring& Text)
                     Size=Block_Size;
                     if (Data[Pos+Size-1]>=0xD800 && Data[Pos+Size-1]<0xDC00)
                         Size++; //No split of a UTF-16 surrogate pair
+                }
+                std::cout<<ZenLib::Ztring(Data+Pos, Size).To_Local().c_str();
+                Pos+=Size;
+            }
+            std::cout<<std::endl;
+        #endif //_MSC_VER
+    #elif defined(CLI_STRINGS_UTF8)
+        #if defined(STREAM_MISSING)
+            wprintf(L"%ls\n", ZenLib::Ztring(Text).To_Unicode().c_str());
+        #elif defined(_MSC_VER)
+            STRINGOUT_Wide(ZenLib::Ztring(Text).To_Unicode().c_str());
+        #else //_MSC_VER
+            //Converted by blocks, without a copy of the whole text
+            const char* Data=Text.c_str();
+            size_t Data_Size=ZenLib::tstring::traits_type::length(Data); //Up to the first NUL, as the converted text
+            const size_t Block_Size=0x10000;
+            for (size_t Pos=0; Pos<Data_Size;)
+            {
+                size_t Size=Data_Size-Pos;
+                if (Size>Block_Size)
+                {
+                    Size=Block_Size;
+                    while (Size && ((unsigned char)Data[Pos+Size]&0xC0)==0x80)
+                        Size--; //No split of a UTF-8 character (also the 3 bytes of a byte kept by ZenLib)
+                    if (!Size)
+                        Size=Block_Size; //Not UTF-8
                 }
                 std::cout<<ZenLib::Ztring(Data+Pos, Size).To_Local().c_str();
                 Pos+=Size;
@@ -174,6 +234,14 @@ inline void STRINGERR(ZenLib::Ztring Text)
             fwprintf(stderr, L"%ls\n", Text.c_str());
         #elif defined(_MSC_VER)
             std::wcerr<<Text.c_str()<<std::endl;
+        #else //_MSC_VER
+            std::cerr<<Text.To_Local().c_str()<<std::endl;
+        #endif //_MSC_VER
+    #elif defined(CLI_STRINGS_UTF8)
+        #if defined(STREAM_MISSING)
+            fwprintf(stderr, L"%ls\n", Text.To_Unicode().c_str());
+        #elif defined(_MSC_VER)
+            std::wcerr<<Text.To_Unicode().c_str()<<std::endl;
         #else //_MSC_VER
             std::cerr<<Text.To_Local().c_str()<<std::endl;
         #endif //_MSC_VER
