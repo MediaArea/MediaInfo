@@ -16,7 +16,7 @@
 #include "Common/Core.h"
 #include "CommandLine_Parser.h"
 #include "Help.h"
-#if defined(_MSC_VER) && defined(UNICODE)
+#if defined(CLI_CONSOLE_WIDE)
     #include "io.h"
     #include "fcntl.h"
 #endif
@@ -26,9 +26,9 @@ using namespace MediaInfoNameSpace;
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
-#if defined(_MSC_VER) && defined(UNICODE)
+#if defined(CLI_CONSOLE_WIDE)
     extern bool CLI_Option_Bom;
-#endif //defined(_MSC_VER) && defined(UNICODE)
+#endif //defined(CLI_CONSOLE_WIDE)
 //---------------------------------------------------------------------------
 
 //****************************************************************************
@@ -44,6 +44,8 @@ void Log_0 (struct MediaInfo_Event_Log_0* Event, struct UserHandle_struct* UserH
 
     #if defined(UNICODE) || defined (_UNICODE)
         MessageString+=Event->MessageStringU;
+    #elif defined(CLI_STRINGS_UTF8)
+        MessageString+=ZenLib::Ztring().From_Unicode(Event->MessageStringU); //Not in the encoding of the locale
     #else //defined(UNICODE) || defined (_UNICODE)
         MessageString+=Event->MessageStringA;
     #endif //defined(UNICODE) || defined (_UNICODE)
@@ -104,7 +106,7 @@ int main(int argc, char* argv_ansi[])
     MediaInfo::Option_Static(__T("CharSet"), __T(""));
 
     //Initialize terminal (to fix Unicode output on Win32)
-    #if defined(_MSC_VER) && defined(UNICODE)
+    #if defined(CLI_CONSOLE_WIDE)
         #pragma warning( suppress : 6031 ) //Return value of '_setmode' is ignored as it is "best effort" and failures are ignored
         _setmode(_fileno(stdout), _O_U8TEXT);
         #pragma warning( suppress : 6031 )

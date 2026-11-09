@@ -128,6 +128,9 @@ run_command() {
                     ;;
                 *)
                     export LC_ALL="${config}"
+                    if [ -n "${locpath}" ] && [ -d "${locpath}/${config}" ] ; then
+                        export LOCPATH="${locpath}" # Locale compiled by find_locale()
+                    fi
                     ;;
             esac
             exec "${@}"

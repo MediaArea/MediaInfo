@@ -33,6 +33,10 @@ jobs:
             name: ', without Unicode'
             Format_Profile: Shared object / AMD x86-64
             unicode: 'no'
+          - os: macos-26
+            name: ', without Unicode'
+            Format_Profile: Demand paged executable / ARM64
+            unicode: 'no'
       fail-fast: false
     name: Unix (${{ matrix.os }}${{ matrix.name }})
     runs-on: ${{ matrix.os }}
@@ -210,24 +214,20 @@ jobs:
             runner: windows-latest
             Format_Profile: Executable / Intel i386
             vcvarsall: x86
-            code_pages: 1252 65001 932
           - architecture: x64
             runner: windows-latest
             Format_Profile: Executable / AMD x86-64
             vcvarsall: x64
-            code_pages: 1252 65001 932
           - architecture: ARM64
             runner: windows-11-vs2026-arm
             Format_Profile: Executable / ARM64
             vcvarsall: arm64
-            code_pages: 1252 65001 932
           - architecture: x64
             name: ', without Unicode'
             runner: windows-latest
             Format_Profile: Executable / AMD x86-64
             vcvarsall: x64
             msbuild: -p:CharacterSet=MultiByte -p:SolutionDir=../ Project/MSVC2026/CLI/MediaInfo-CLI.vcxproj
-            code_pages: 1252 65001 # The other names of the test can't be encoded in cp932
       fail-fast: false
     name: Windows (${{ matrix.architecture }}${{ matrix.name }})
     runs-on: ${{ matrix.runner }}
@@ -285,15 +285,13 @@ jobs:
           )
       - name: Check CLI
         working-directory: MediaInfo/Project/GNU/CLI
-        env:
-          FILENAME_NO_UNICODE: ${{ matrix.msbuild }}
         run: |
           # Test of make check (no make in Git Bash), with each program
           Status=0
-          for CodePage in ${{ matrix.code_pages }} ; do
+          for CodePage in 1252 65001 932 ; do
             cp test/mediainfo_${CodePage}.exe mediainfo.exe
             echo "::group::Code page ${CodePage}"
-            FILENAME_CODEPAGE=${CodePage} bash test/filename.sh 9>&1 || Status=1
+            bash test/filename.sh 9>&1 || Status=1
             echo "::endgroup::"
           done
           exit ${Status}
