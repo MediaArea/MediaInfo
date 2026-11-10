@@ -265,8 +265,9 @@ if test "$GXX" = yes ; then
         CFLAGS="$CFLAGS -O0 -g -Wall -Wundef"
         CXXFLAGS="$CXXFLAGS -O0 -g -Wall -W -Wundef -Wcast-qual -Wno-ctor-dtor-privacy"
     else
-        CFLAGS="$CFLAGS -O2"
-        CXXFLAGS="$CXXFLAGS -O2"
+        dnl -O2 only if no optimization level is given, as it would override it (the last -O option wins)
+        case " $CFLAGS " in *" -O"*) ;; *) CFLAGS="$CFLAGS -O2" ;; esac
+        case " $CXXFLAGS " in *" -O"*) ;; *) CXXFLAGS="$CXXFLAGS -O2" ;; esac
     fi
     if test "$enable_gprof" = "yes"; then
         CFLAGS="$CFLAGS -pg -g"
