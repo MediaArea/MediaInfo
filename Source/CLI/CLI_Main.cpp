@@ -154,9 +154,8 @@ int main(int argc, char* argv_ansi[])
 
     //Parse files
     MI.Menu_File_Open_Files_Begin();
-    size_t Files_Count=0;
     for (size_t Pos=0; Pos<List.size(); Pos++)
-        Files_Count+=MI.Menu_File_Open_Files_Continue(List[Pos]);
+        MI.Menu_File_Open_Files_Continue(List[Pos]);
 
     //Output
     const MediaInfoNameSpace::String& Inform=MI.Inform_Get(); //Computed once for both outputs
@@ -165,9 +164,14 @@ int main(int argc, char* argv_ansi[])
     //Output, in a file if needed
     LogFile_Action(Inform);
 
-    if (Files_Count)
-        return MI_OK;
+    //Error if there is no file or if a file could not be opened (it is in the list without any stream)
+    size_t Files_Count=MI.Count_Get();
+    if (!Files_Count)
+        return MI_ERROR;
+    for (size_t Pos=0; Pos<Files_Count; Pos++)
+        if (!MI.Count_Get(Pos, Stream_General))
+            return MI_ERROR;
 
-    return MI_ERROR;
+    return MI_OK;
 }
 //---------------------------------------------------------------------------

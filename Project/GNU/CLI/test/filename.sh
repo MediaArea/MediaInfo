@@ -115,6 +115,19 @@ check_output() {
     fi
 }
 
+# result of the check ${1}: the exit code of the last command must be ${2}
+check_status() {
+    local check="${1}"
+    local expected="${2}"
+
+    if [ "${cmd_status}" == "${expected}" ] ; then
+        echo "OK: ${test}/${config}, ${check}" >&${fd}
+    else
+        echo "NOK: ${test}/${config}, ${check}, exit code ${cmd_status}" >&${fd}
+        status=1
+    fi
+}
+
 # result of the check ${1}: the Python code ${2} must accept the output of the last command (file ${3}), with the arguments ${4}...
 check_python() {
     local check="${1}"
@@ -393,6 +406,12 @@ for config in ${locale_configs} ; do
     fi
 
     check_names "${config_path}" "${name_local}" "${name_system}" ""
+
+    # name of a file which does not exist: file not opened, so an error, also when another file is opened
+    run_command "${config}" "${mediainfo}" "${config_path}/missing.flac"
+    check_status "file which does not exist" 1
+    run_command "${config}" "${mediainfo}" "${config_path}/missing.flac" "${files_path}/ascii.flac"
+    check_status "file which does not exist and file opened" 1
 
     # directory listing: it must end, with all the names with their bytes with all the locales, else (macOS, Windows) the UTF-8 names of the file
     # system, in the encoding of a locale which is neither ASCII nor UTF-8
