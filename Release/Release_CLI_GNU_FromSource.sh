@@ -27,6 +27,7 @@ cd ../../../Release
 mkdir -p MediaInfo_CLI_GNU_FromSource/Project/GNU/CLI
 cp ../Project/GNU/CLI/aclocal.m4 MediaInfo_CLI_GNU_FromSource/Project/GNU/CLI/
 cp ../Project/GNU/CLI/autogen.sh MediaInfo_CLI_GNU_FromSource/Project/GNU/CLI/
+cp ../Project/GNU/CLI/compile MediaInfo_CLI_GNU_FromSource/Project/GNU/CLI/
 cp ../Project/GNU/CLI/config.guess MediaInfo_CLI_GNU_FromSource/Project/GNU/CLI/
 cp ../Project/GNU/CLI/config.sub MediaInfo_CLI_GNU_FromSource/Project/GNU/CLI/
 cp ../Project/GNU/CLI/configure MediaInfo_CLI_GNU_FromSource/Project/GNU/CLI/

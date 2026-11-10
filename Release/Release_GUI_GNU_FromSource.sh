@@ -27,6 +27,7 @@ cd ../../../Release
 mkdir -p MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI
 cp ../Project/GNU/GUI/aclocal.m4 MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
 cp ../Project/GNU/GUI/autogen.sh MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
+cp ../Project/GNU/GUI/compile MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
 cp ../Project/GNU/GUI/config.guess MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
 cp ../Project/GNU/GUI/config.sub MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
 cp ../Project/GNU/GUI/configure MediaInfo_GUI_GNU_FromSource/Project/GNU/GUI/
