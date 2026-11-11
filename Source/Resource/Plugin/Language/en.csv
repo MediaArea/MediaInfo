@@ -387,7 +387,7 @@ Delay_Source_Container;Container
 Delay_Source_Stream;Raw stream
 Delete;Delete
 Description;Description
-Details;
+Details;Details
 dialnorm;Dialog Normalization
 dialnorm_Average;Dialogue normalization, average
 dialnorm_Count;Dialogue normalization count
