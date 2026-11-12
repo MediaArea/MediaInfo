@@ -12,9 +12,11 @@
                 <outlet property="comboController" destination="29" id="34"/>
                 <outlet property="compareView" destination="W54-IT-kPU" id="ajd-kz-9Bn"/>
                 <outlet property="easyGeneralLinkButton" destination="180" id="182"/>
+                <outlet property="easyGeneralBox" destination="139" id="X9p-LF-a5A"/>
                 <outlet property="easyGeneralTextLeft" destination="137" id="142"/>
                 <outlet property="easyGeneralTextRight" destination="140" id="143"/>
                 <outlet property="easyStreamsController" destination="153" id="154"/>
+                <outlet property="easyStreamsBox" destination="169" id="X9p-LF-a5B"/>
                 <outlet property="easyTable" destination="145" id="168"/>
                 <outlet property="exportFormatButton" destination="j1u-Ak-VG3" id="K4p-gd-tbT"/>
                 <outlet property="footerButton" destination="Rj7-4t-ldl" id="8SA-dG-Wg0"/>

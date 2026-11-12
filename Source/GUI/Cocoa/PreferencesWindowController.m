@@ -6,14 +6,19 @@
 
 //  Created by Maxim Pozdeev on 10.04.12.
 
+#include <math.h>
+
 #import "PreferencesWindowController.h"
+#import "TextSize.h"
 #import "SubscribeWindowController.h"
 #import "SubscriptionManager.h"
 
 @interface PreferencesWindowController () 
 
 - (void)addLanguageToComboWithTitle:(NSString*)title andValue:(NSString*)value;
+- (void)layoutGeneralPreferences;
 - (IBAction)languageChanged:(id)sender;
+- (IBAction)textSizeChanged:(id)sender;
 
 @end
 
@@ -26,6 +31,18 @@ static void SizeControlToFitKeepingTop(NSControl *control, BOOL alignRight) {
 	if (alignRight)
 		frame.origin.x = NSMaxX(oldFrame) - NSWidth(frame);
 	control.frame = frame;
+}
+
+static void LayoutPreferenceRow(NSTextField *label, NSPopUpButton *combo, CGFloat labelX, CGFloat labelWidth, CGFloat rowY, CGFloat rowHeight) {
+	NSRect comboFrame = combo.frame;
+	comboFrame.origin.y = rowY;
+	combo.frame = comboFrame;
+
+	NSRect labelFrame = label.frame;
+	labelFrame.origin.x = labelX;
+	labelFrame.size.width = ceil(labelWidth);
+	labelFrame.origin.y = round(NSMinY(comboFrame) + (rowHeight - NSHeight(labelFrame)) / 2);
+	label.frame = labelFrame;
 }
 
 @implementation PreferencesWindowController
@@ -52,9 +69,13 @@ static PreferencesWindowController *prefsCtrl = nil;
     [super windowDidLoad];
 
 	// These controls use fixed frames in the nib, but AppKit supplies their fonts.
-	SizeControlToFitKeepingTop(languageRestartLabel, NO);
 	SizeControlToFitKeepingTop(premiumFeatureLabel, NO);
 	SizeControlToFitKeepingTop(subscribeButton, YES);
+	[self layoutGeneralPreferences];
+
+	NSInteger savedTextSize = [[NSUserDefaults standardUserDefaults] integerForKey:@"textSize"];
+	savedTextSize = MAX(-3, MIN(3, savedTextSize));
+	[textSizeCombo selectItemAtIndex:savedTextSize + 3];
 
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 
@@ -180,6 +201,55 @@ static PreferencesWindowController *prefsCtrl = nil;
     [graphAdmShowChannelFormats setState:savedGraphAdmShowChannelFormats?NSControlStateValueOn:NSControlStateValueOff];
 }
 
+- (void)layoutGeneralPreferences {
+	NSArray *labels = @[ languageLabel, viewLabel, textSizeLabel ];
+	CGFloat labelWidth = 0;
+	for (NSTextField *label in labels) {
+		[label sizeToFit];
+		label.alignment = NSRightTextAlignment;
+		labelWidth = MAX(labelWidth, NSWidth(label.frame));
+	}
+
+	NSView *container = languageLabel.superview;
+	const CGFloat margin = 10;
+	const CGFloat columnGap = 8;
+	const CGFloat rowHeight = 26;
+	CGFloat comboX = margin + ceil(labelWidth) + columnGap;
+	CGFloat comboWidth = NSWidth(container.bounds) - comboX - margin;
+
+	NSArray *combos = @[ langsCombo, viewCombo, textSizeCombo ];
+	for (NSPopUpButton *combo in combos) {
+		NSRect frame = combo.frame;
+		frame.origin.x = comboX;
+		frame.size.width = comboWidth;
+		frame.size.height = rowHeight;
+		combo.frame = frame;
+	}
+
+	CGFloat languageY = NSHeight(container.bounds) - margin - rowHeight;
+	LayoutPreferenceRow(languageLabel, langsCombo, margin, labelWidth, languageY, rowHeight);
+
+	NSSize noteSize = [languageRestartLabel.cell cellSizeForBounds:NSMakeRect(0, 0, comboWidth, CGFLOAT_MAX)];
+	CGFloat noteHeight = MAX(17, ceil(noteSize.height));
+	CGFloat noteY = languageY - columnGap - noteHeight;
+	languageRestartLabel.frame = NSMakeRect(comboX, noteY, comboWidth, noteHeight);
+
+	CGFloat viewY = noteY - 2 * columnGap - rowHeight;
+	LayoutPreferenceRow(viewLabel, viewCombo, margin, labelWidth, viewY, rowHeight);
+
+	NSRect premiumFrame = premiumFeatureLabel.frame;
+	premiumFrame.origin.x = comboX;
+	premiumFrame.origin.y = round(viewY - columnGap - NSHeight(premiumFrame));
+	premiumFeatureLabel.frame = premiumFrame;
+
+	NSRect subscribeFrame = subscribeButton.frame;
+	subscribeFrame.origin.y = round(NSMidY(premiumFrame) - NSHeight(subscribeFrame) / 2);
+	subscribeButton.frame = subscribeFrame;
+
+	CGFloat textSizeY = NSMinY(premiumFrame) - columnGap - rowHeight;
+	LayoutPreferenceRow(textSizeLabel, textSizeCombo, margin, labelWidth, textSizeY, rowHeight);
+}
+
 -(void)windowWillClose:(NSNotification *)notification {
 	for(id observer in observers) {
 		[[NSNotificationCenter defaultCenter] removeObserver:observer];
@@ -232,6 +302,12 @@ static PreferencesWindowController *prefsCtrl = nil;
 		value = @"Easy";
 
 	[[NSUserDefaults standardUserDefaults] setObject:value forKey:@"defaultView"];
+}
+
+- (IBAction)textSizeChanged:(id)sender {
+	NSInteger textSize = [textSizeCombo indexOfSelectedItem] - 3;
+	[[NSUserDefaults standardUserDefaults] setInteger:textSize forKey:@"textSize"];
+	[[NSNotificationCenter defaultCenter] postNotificationName:TextSizeDidChangeNotification object:self];
 }
 
 - (IBAction)captionsOptionChanged:(id)sender {

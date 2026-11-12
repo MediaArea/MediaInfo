@@ -13,10 +13,13 @@
                 <outlet property="graphAdmShowChannelFormats" destination="SRz-4F-F2V" id="MST-K8-oSS"/>
                 <outlet property="graphAdmShowTrackUIDs" destination="UWP-Ms-fVg" id="8uz-It-VNh"/>
                 <outlet property="langsCombo" destination="26" id="47"/>
+                <outlet property="languageLabel" destination="24" id="X9p-LF-a4A"/>
                 <outlet property="languageRestartLabel" destination="53" id="X9p-LF-a1B"/>
                 <outlet property="premiumFeatureLabel" destination="rWx-fM-e08" id="X9p-LF-a1C"/>
                 <outlet property="subscribeButton" destination="TL9-gb-Tct" id="bs3-6V-yRt"/>
                 <outlet property="tabView" destination="19" id="CYV-c3-YNr"/>
+                <outlet property="textSizeCombo" destination="Tsz-Cb-001" id="X9p-LF-a3A"/>
+                <outlet property="textSizeLabel" destination="Tsz-Lb-001" id="X9p-LF-a4B"/>
                 <outlet property="viewCombo" destination="R7t-1b-La5" id="LgE-V5-BQp"/>
                 <outlet property="viewLabel" destination="J5j-ea-kAp" id="LAP-NP-USC"/>
                 <outlet property="window" destination="1" id="4"/>
@@ -43,21 +46,21 @@
                                     <rect key="frame" x="10" y="33" width="571" height="219"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="24">
-                                            <rect key="frame" x="6" y="199" width="119" height="17"/>
+                                        <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="24">
+                                            <rect key="frame" x="6" y="199" width="162" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Language:" id="25">
+                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Language" id="25">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
                                         <popUpButton imageHugsTitle="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="26">
-                                            <rect key="frame" x="129" y="191" width="429" height="26"/>
+                                            <rect key="frame" x="171" y="191" width="387" height="26"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Default" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="48" id="27">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
+                                                <font key="font" metaFont="message"/>
                                                 <menu key="menu" id="28">
                                                     <items>
                                                         <menuItem title="Default" state="on" id="48">
@@ -71,8 +74,8 @@
                                                 <action selector="languageChanged:" target="-1" id="50"/>
                                             </connections>
                                         </popUpButton>
-                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="53">
-                                            <rect key="frame" x="130" y="157" width="268" height="30"/>
+                                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="53">
+                                            <rect key="frame" x="172" y="157" width="268" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="Changes take effect after application restart" id="54">
                                                 <font key="font" metaFont="controlContent"/>
@@ -81,19 +84,64 @@
                                             </textFieldCell>
                                         </textField>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R7t-1b-La5">
-                                            <rect key="frame" x="129" y="133" width="429" height="25"/>
+                                            <rect key="frame" x="171" y="133" width="387" height="25"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="11o-70-WWm">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
+                                                <font key="font" metaFont="message"/>
                                                 <menu key="menu" id="8i5-kW-mui"/>
                                             </popUpButtonCell>
                                             <connections>
                                                 <action selector="viewChanged:" target="-2" id="bQd-mk-Zb8"/>
                                             </connections>
                                         </popUpButton>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J5j-ea-kAp">
-                                            <rect key="frame" x="6" y="138" width="119" height="17"/>
+                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tsz-Lb-001">
+                                            <rect key="frame" x="6" y="85" width="162" height="17"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="right" title="Font size for the reports:" id="Tsz-Lc-001">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tsz-Cb-001">
+                                            <rect key="frame" x="171" y="77" width="387" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                            <popUpButtonCell key="cell" type="push" title="Normal" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Tsz-Mi-004" id="Tsz-Pc-001">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="message"/>
+                                                <menu key="menu" id="Tsz-Mn-001">
+                                                    <items>
+                                                        <menuItem title="Extra small" id="Tsz-Mi-001">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                        <menuItem title="Very small" id="Tsz-Mi-002">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                        <menuItem title="Small" id="Tsz-Mi-003">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                        <menuItem title="Normal" state="on" id="Tsz-Mi-004">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                        <menuItem title="Large" id="Tsz-Mi-005">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                        <menuItem title="Very large" id="Tsz-Mi-006">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                        <menuItem title="Extra large" id="Tsz-Mi-007">
+                                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                                        </menuItem>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                            <connections>
+                                                <action selector="textSizeChanged:" target="-2" id="Tsz-Ac-001"/>
+                                            </connections>
+                                        </popUpButton>
+                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J5j-ea-kAp">
+                                            <rect key="frame" x="6" y="138" width="162" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="right" title="Default view:" id="mz3-nf-7kH">
                                                 <font key="font" metaFont="system"/>
@@ -104,19 +152,10 @@
                                                 <outlet property="delegate" destination="-2" id="gXF-lm-Isw"/>
                                             </connections>
                                         </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rWx-fM-e08">
-                                            <rect key="frame" x="130" y="112" width="154" height="17"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Premium MediaInfo feature" id="eaf-m0-xtv">
-                                                <font key="font" metaFont="controlContent"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TL9-gb-Tct">
                                             <rect key="frame" x="489" y="112" width="65" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="bevel" title="subscribe" bezelStyle="rounded" alignment="right" imageScaling="proportionallyDown" inset="2" id="qvF-It-rlQ">
+                                            <buttonCell key="cell" type="bevel" title="Subscribe" bezelStyle="rounded" alignment="right" imageScaling="proportionallyDown" inset="2" id="qvF-It-rlQ">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="controlContent"/>
                                             </buttonCell>
@@ -125,6 +164,15 @@
                                                 <action selector="subscribeClicked:" target="-2" id="sie-Iw-KIs"/>
                                             </connections>
                                         </button>
+                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rWx-fM-e08">
+                                            <rect key="frame" x="172" y="110" width="154" height="17"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Premium MediaInfo feature" id="eaf-m0-xtv">
+                                                <font key="font" metaFont="controlContent"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -133,7 +181,7 @@
                                     <rect key="frame" x="10" y="33" width="571" height="219"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xDW-Vy-Za1">
+                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xDW-Vy-Za1">
                                             <rect key="frame" x="9" y="192" width="189" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Handling of 608/708 streams:" id="FSN-9S-Ykj">
@@ -147,7 +195,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="5vc-1A-EvW">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
+                                                <font key="font" metaFont="message"/>
                                                 <menu key="menu" id="8tg-vE-sZ0">
                                                     <items>
                                                         <menuItem title="When content is detected" tag="1" id="8Ua-A2-6V9">

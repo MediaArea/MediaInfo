@@ -20,6 +20,30 @@
 /* Class = "NSTextFieldCell"; title = "Default view:"; ObjectID = "mz3-nf-7kH"; */
 "mz3-nf-7kH.title" = "Default view:"; /* csv="DefaultView"; */
 
+/* Class = "NSTextFieldCell"; title = "Font size for the reports:"; ObjectID = "Tsz-Lc-001"; */
+"Tsz-Lc-001.title" = "Font size for the reports:"; /* csv="ReportFontSize"; */
+
+/* Class = "NSMenuItem"; title = "Extra small"; ObjectID = "Tsz-Mi-001"; */
+"Tsz-Mi-001.title" = "Extra small"; /* csv="ReportFontSize_ExtraSmall"; */
+
+/* Class = "NSMenuItem"; title = "Very small"; ObjectID = "Tsz-Mi-002"; */
+"Tsz-Mi-002.title" = "Very small"; /* csv="ReportFont_VerySmall"; */
+
+/* Class = "NSMenuItem"; title = "Small"; ObjectID = "Tsz-Mi-003"; */
+"Tsz-Mi-003.title" = "Small"; /* csv="ReportFontSize_Small"; */
+
+/* Class = "NSMenuItem"; title = "Normal"; ObjectID = "Tsz-Mi-004"; */
+"Tsz-Mi-004.title" = "Normal"; /* csv="ReportFontSize_Normal"; */
+
+/* Class = "NSMenuItem"; title = "Large"; ObjectID = "Tsz-Mi-005"; */
+"Tsz-Mi-005.title" = "Large"; /* csv="ReportFontSize_Large"; */
+
+/* Class = "NSMenuItem"; title = "Very large"; ObjectID = "Tsz-Mi-006"; */
+"Tsz-Mi-006.title" = "Very large"; /* csv="ReportFontSize_VeryLarge"; */
+
+/* Class = "NSMenuItem"; title = "Extra large"; ObjectID = "Tsz-Mi-007"; */
+"Tsz-Mi-007.title" = "Extra large"; /* csv="ReportFontSize_ExtraLarge"; */
+
 /* Class = "NSButtonCell"; title = "subscribe"; ObjectID = "qvF-It-rlQ"; */
 "qvF-It-rlQ.title" = "Subscribe"; /* csv="Subscribe"; */
 

@@ -7,6 +7,7 @@
 #import "CompareView.h"
 
 #import "IndexedTableColumn.h"
+#import "TextSize.h"
 
 @class CompareView;
 
@@ -18,6 +19,7 @@
 @end
 
 @interface CompareView ()
+- (void)applyTextSize;
 - (void)closeFileAtOutlineColumn:(NSInteger)columnIndex;
 @end
 
@@ -124,6 +126,7 @@
     [_outlineView setDataSource:self];
     [_outlineView setDelegate:self];
     [_closeMenu setDelegate:self];
+	[self applyTextSize];
 
     CompareTableHeaderView *headerView = [[[CompareTableHeaderView alloc] initWithFrame:_outlineView.headerView.frame] autorelease];
     headerView.compareView = self;
@@ -146,6 +149,16 @@
     frame = _onlyIdenticalRadio.frame;
     frame.origin.x = _onlyDifferingRadio.frame.origin.x + _onlyDifferingRadio.frame.size.width + 5;
     [_onlyIdenticalRadio setFrame:frame];
+}
+
+- (void)applyTextSize {
+	NSFont *font = UserTextFont();
+	for (NSTableColumn *column in [_outlineView tableColumns]) {
+		NSCell *cell = [column dataCell];
+		[cell setFont:font];
+		[cell setWraps:YES];
+	}
+	ApplyTableHeaderFont(_outlineView);
 }
 
 -(void)dealloc {
@@ -289,6 +302,7 @@
         [_outlineView addTableColumn:column];
     }
 
+	[self applyTextSize];
     [_outlineView reloadData];
     [_outlineView sizeToFit];
     [_outlineView expandItem:nil expandChildren:YES];

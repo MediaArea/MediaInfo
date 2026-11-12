@@ -10,11 +10,14 @@
 
 @interface PreferencesWindowController : NSWindowController {
     IBOutlet NSTabView *tabView;
+    IBOutlet NSTextField *languageLabel;
     IBOutlet NSPopUpButton *langsCombo;
     IBOutlet NSTextField *languageRestartLabel;
     IBOutlet NSTextField *viewLabel;
     IBOutlet NSTextField *premiumFeatureLabel;
     IBOutlet NSPopUpButton *viewCombo;
+    IBOutlet NSTextField *textSizeLabel;
+    IBOutlet NSPopUpButton *textSizeCombo;
     IBOutlet NSButton *graphAdmShowTrackUIDs;
     IBOutlet NSButton *graphAdmShowChannelFormats;
     IBOutlet NSButton *subscribeButton;
