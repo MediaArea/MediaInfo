@@ -121,6 +121,11 @@ tasks.register('copyLocales', DefaultTask) {
     def locales = [:]
 
     fileTree("../../../../Source/Resource/Plugin/Language").visit { FileVisitDetails details ->
+        // Skip directories and non-CSV files
+        if (!details.file.isFile() || !details.file.name.endsWith(".csv")) {
+            return
+        }
+
         def locale = details.file.name.replace(".csv", "").replace("-", "-r")
         if (locale == "gr") {
             locale = "el"
