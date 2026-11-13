@@ -19,6 +19,11 @@
  audio stream2; دفقات صوتية
  audio stream3; دفقات صوتية
  audio stream4;
+ audio stream.one;دفق صوتي
+ audio stream.two;دفقان صوتيان
+ audio stream.few;{count} دفقات صوتية
+ audio stream.many;{count} دفقًا صوتيًا
+ audio stream.other;{count} دفق صوتي
  bit1; بت
  bit2; بت
  bit3; بت
@@ -33,14 +38,27 @@
  channel2; قنوات
  channel3; قنوات
  channel4;
+ channel.one;قناة
+ channel.two;قناتان
+ channel.few;{count} قنوات
+ channel.other;{count} قناة
  chapter1; فصل
  chapter2; فصول
  chapter3; فصول
  chapter4;
+ chapter.one;فصل
+ chapter.two;فصلان
+ chapter.few;{count} فصول
+ chapter.many;{count} فصلًا
+ chapter.other;{count} فصل
  chapters stream1; دفق فصول
  chapters stream2; دفق فصول
  chapters stream3; دفق فصول
  chapters stream4;
+ chapters stream.one;دفق فصول
+ chapters stream.two;دفقا فصول
+ chapters stream.few;{count} دفقات فصول
+ chapters stream.other;{count} دفق فصول
  character1;
  character2;
  character3;
@@ -49,6 +67,11 @@
  day2; أيام
  day3; أيام
  day4;
+ day.one;يوم
+ day.two;يومان
+ day.few;{count} أيام
+ day.many;{count} يومًا
+ day.other;{count} يوم
  dB0;
  dB1; dB
  dB2; dB
@@ -57,6 +80,11 @@
  file2; ملفات
  file3; ملفات
  file4;
+ file.one;ملف
+ file.two;ملفان
+ file.few;{count} ملفات
+ file.many;{count} ملفًا
+ file.other;{count} ملف
  fps1; لقطة في الثانية
  fps2; لقطة في الثانية
  fps3; لقطة في الثانية
@@ -65,6 +93,10 @@
  frame2; لقطات
  frame3; لقطات
  frame4;
+ frame.one;لقطة
+ frame.two;لقطتان
+ frame.few;{count} لقطات
+ frame.other;{count} لقطة
  GB;غيغابايت
  Gb;غيغابت
  GBps;جيغا بايت في الثانية
@@ -88,11 +120,19 @@
  hour2; ساعات
  hour3; ساعات
  hour4;
+ hour.one;ساعة
+ hour.two;ساعتان
+ hour.few;{count} ساعات
+ hour.other;{count} ساعة
  Hz;هرتز
  image stream1; دفق صور
  image stream2; دفقات صور
  image stream3; دفقات صور
  image stream4;
+ image stream.one;دفق صور
+ image stream.two;دفقا صور
+ image stream.few;{count} دفقات صور
+ image stream.other;{count} دفق صور
  KB; kB
  Kb; kb
  KBps;كيلوبايت في الثانية
@@ -148,10 +188,19 @@
  minute2; دقائق
  minute3; دقائق
  minute4;
+ minute.one;دقيقة
+ minute.two;دقيقتان
+ minute.few;{count} دقائق
+ minute.other;{count} دقيقة
  month1; شهر
  month2; أشهر
  month3; أشهر
  month4;
+ month.one;شهر
+ month.two;شهران
+ month.few;{count} أشهر
+ month.many;{count} شهرًا
+ month.other;{count} شهر
  object1;
  object2;
  object3;
@@ -164,6 +213,10 @@
  second2; ثوان
  second3; ثوان
  second4;
+ second.one;ثانية
+ second.two;ثانيتان
+ second.few;{count} ثوان
+ second.other;{count} ثانية
  slice per frame1; slice per frame
  slice per frame2; slices per frame
  slice per frame3; slices per frame
@@ -172,14 +225,27 @@
  text stream2; دفقات نصية
  text stream3; دفقات نصية
  text stream4;
+ text stream.one;دفق نصي
+ text stream.two;دفقان نصيان
+ text stream.few;{count} دفقات نصية
+ text stream.many;{count} دفقًا نصيًا
+ text stream.other;{count} دفق نصي
  video frames1; صورة فيديو
  video frames2; صور فيديو
  video frames3; صور فيديو
  video frames4;
+ video frames.one;صورة فيديو
+ video frames.two;صورتا فيديو
+ video frames.few;{count} صور فيديو
+ video frames.other;{count} صورة فيديو
  video stream1; دفق فيديو
  video stream2; دفقات فيديو
  video stream3; دفقات فيديو
  video stream4;
+ video stream.one;دفق فيديو
+ video stream.two;دفقا فيديو
+ video stream.few;{count} دفقات فيديو
+ video stream.other;{count} دفق فيديو
  warppoint0;لا warppoints
  warppoint1; warppoint
  warppoint2; warppoints
@@ -189,10 +255,19 @@
  week2; أسابيع
  week3; أسابيع
  week4;
+ week.one;أسبوع
+ week.two;أسبوعان
+ week.few;{count} أسابيع
+ week.many;{count} أسبوعًا
+ week.other;{count} أسبوع
  year1; سنة
  year2; سنوات
  year3; سنوات
  year4;
+ year.one;سنة
+ year.two;سنتان
+ year.few;{count} سنوات
+ year.other;{count} سنة
 , ;, 
 : ;: 
 3D;

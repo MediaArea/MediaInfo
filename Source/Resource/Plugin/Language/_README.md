@@ -17,8 +17,10 @@ Categories are `zero`, `one`, `two`, `few`, `many`, and `other`.
 Always provide `other`; missing categories use that message.
 Only add categories needed by the language. These GUI counts are integers.
 
-Each pattern must contain `{count}` exactly once. `StreamSummary` also requires
-`{formats}` exactly once; the other families do not accept this argument.
+Each pattern must contain `{count}` exactly once, except in the `one` and `two`
+categories where the noun alone may express the number (the Arabic singular and
+dual, as in CLDR). `StreamSummary` also requires `{formats}` exactly once; the
+other families do not accept this argument.
 Translators control word order and punctuation. Write `{{` and `}}` for literal
 braces. Other argument names and unmatched braces are rejected. Standard CSV
 quoting applies to semicolons, quotes, and line breaks. Inserted metadata is
@@ -29,6 +31,9 @@ StreamSummary.Audio.one;{count} audio stream: {formats}
 StreamSummary.Audio.other;{count} audio streams: {formats}
 FileCount.other;{count} files
 ```
+
+Units take the same named forms (` channel.one`, ` channel.other`, etc.), for the
+languages whose numbered forms cannot express all the categories (e.g. Arabic).
 
 Existing `stream1/2/3` and `file1/2/3` entries remain supported through a
 language-specific compatibility mapping. Do not remove them. Invalid or missing
