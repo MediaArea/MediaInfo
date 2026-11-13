@@ -5,8 +5,7 @@
   Config_Text_PluralRule.two;
   Config_Text_PluralRule.few;v == 0 && i % 10 >= 2 && i % 10 <= 4 && (i % 100 < 12 || i % 100 > 14)
   Config_Text_PluralRule.many;v == 0
-  Config_Text_PluralLegacy;one=1,few=2,other=3
-  Config_Text_PluralLegacyDecimals;0
+  Config_Text_PluralLegacy;one=1,few=2,many=3,other=4
   Author_Email;arestarh@ukr.net
   Author_Name;arestarh
   Author_OldNames;фоноскопія
@@ -19,29 +18,37 @@
  audio stream1; аудіопотік
  audio stream2; аудіопотоки
  audio stream3; аудіопотоків
+ audio stream4; аудіопотоку
  bit1; біт
  bit2; біти
  bit3; бітів
+ bit4; біта
  Bps; байт/сек
  bps; біт/сек
  Byte1; байт
  Byte2; байти
  Byte3; байтів
+ Byte4; байта
  channel1; канал
  channel2; канали
  channel3; каналів
+ channel4; каналу
  chapter1; розділ
  chapter2; розділи
  chapter3; розділів
+ chapter4; розділу
  chapters stream1; потік розділів
  chapters stream2; потоки розділів
  chapters stream3; потоків розділів
+ chapters stream4; потоку розділів
  character1; герой
  character2; герої
  character3; героїв
+ character4; героя
  day1; дн.
  day2; дн.
  day3; дн.
+ day4;
  dB0;0 дБ
  dB1; дБ
  dB2; дБ
@@ -49,12 +56,15 @@
  file1; файл
  file2; файли
  file3; файлів
+ file4; файлу
  fps1; кадр/сек
  fps2; кадри/сек
  fps3; кадрів/сек
+ fps4; кадру/сек
  frame1; кадр
  frame2; кадри
  frame3; кадрів
+ frame4; кадру
  GB; ГБ
  Gb; Гбіт
  GBps; ГБ/сек
@@ -64,20 +74,25 @@
  GibiByte1; Гібібайт
  GibiByte2; Гібібайти
  GibiByte3; Гібібайтів
+ GibiByte4; Гібібайта
  GiBps; ГіБ/сек
  GigaBit1; Гігабіт
  GigaBit2; Гігабіти
  GigaBit3; Гігабітів
+ GigaBit4; Гігабіта
  GigaByte1; Гігабайт
  GigaByte2; Гігабайти
  GigaByte3; Гігабайтів
+ GigaByte4; Гігабайта
  hour1; година
  hour2; години
  hour3; годин
+ hour4; години
  Hz; Гц
  image stream1; потік зображень
  image stream2; потоки зображень
  image stream3; потоків зображень
+ image stream4; потоку зображень
  KB; КБ
  Kb; Кбіт
  KBps; Кбайт/сек
@@ -87,16 +102,20 @@
  KibiBit1; Кібібіт
  KibiBit2; Кібібіти
  KibiBit3; Кібібітів
+ KibiBit4; Кібібіта
  KibiByte1; Кібібайт
  KibiByte2; Кібібайти
  KibiByte3; Кібібайтів
+ KibiByte4; Кібібайта
  KiBps; КіБ/сек
  KiloBit1; Кілобіт
  KiloBit2; Кілобіти
  KiloBit3; Кілобітів
+ KiloBit4; Кілобіта
  KiloByte1; Кілобайт
  KiloByte2; Кілобайти
  KiloByte3; Кілобайтів
+ KiloByte4; Кілобайта
  MB; МБ
  Mb; Мбіт
  MBps; МіБ/сек
@@ -104,15 +123,19 @@
  MebiBit1; Мебібіт
  MebiBit2; Мебібіти
  MebiBit3; Мебібітів
+ MebiBit4; Мебібіта
  MebiByte1; Мебібайт
  MebiByte2; Мебібайти
  MebiByte3; Мебібайтів
+ MebiByte4; Мебібайта
  MegaBit1; Мегабіт
  MegaBit2; Мегабіти
  MegaBit3; Мегабітів
+ MegaBit4; Мегабіта
  MegaByte1; Мегабайт
  MegaByte2; Мегабайти
  MegaByte3; Мегабайтів
+ MegaByte4; Мегабайта
  MHz; МГц
  MiB; МіБ
  Mib; Мібіт
@@ -120,43 +143,56 @@
  millisecond1; мілісекунда
  millisecond2; мілісекунди
  millisecond3; мілісекунд
+ millisecond4; мілісекунди
  minute1; хвилина
  minute2; хвилини
  minute3; хвилин
+ minute4; хвилини
  month1; місяць
  month2; місяці
  month3; місяців
+ month4; місяця
  object1; об'єкт
  object2; об'єкти
  object3; об'єктів
+ object4; об'єкта
  pixel1; піксель
  pixel2; пікселі
  pixel3; пікселів
+ pixel4; пікселя
  second1; секунда
  second2; секунди
  second3; секунд
+ second4; секунди
  slice per frame1; фрагмент на кадр
  slice per frame2; фрагменти на кадр
  slice per frame3; фрагментів на кадр
+ slice per frame4; фрагмента на кадр
  text stream1; Текстовий потік
  text stream2; Текстові потоки
  text stream3; Текстових потоків
+ text stream4; Текстового потоку
  video frames1; Відеокадр
  video frames2; Відеокадри
  video frames3; Відеокадрів
+ video frames4; Відеокадру
  video stream1; Відеопотік
  video stream2; Відеопотоки
  video stream3; Відеопотоків
+ video stream4; Відеопотоку
  warppoint0; Без точок переходу
  warppoint1; Точка переходу
  warppoint2; Точки переходу
  warppoint3; Точок переходу
+ warppoint4; Точки переходу
  week1; тиждень
  week2; тижні
  week3; тижнів
+ week4; тижня
  year1; рік
  year2; роки
  year3; років
+ year4; року
 , ;, 
 : ;: 
 3D;3D

@@ -6,7 +6,6 @@
   Config_Text_PluralRule.few;(v == 0 && i % 10 >= 2 && i % 10 <= 4 && (i % 100 < 12 || i % 100 > 14)) || (v != 0 && f % 10 >= 2 && f % 10 <= 4 && (f % 100 < 12 || f % 100 > 14))
   Config_Text_PluralRule.many;
   Config_Text_PluralLegacy;one=1,few=2,other=3
-  Config_Text_PluralLegacyDecimals;0
   Author_Email;domazd@mail.ru
   Author_Name;Dominko Aždajić
   Author_OldNames;Dominko Aždajić
@@ -19,29 +18,37 @@
  audio stream1; protok zvuka
  audio stream2; protoka zvuka
  audio stream3; protoka zvuka
+ audio stream4;
  bit1; bit
  bit2; bita
  bit3; bitova
+ bit4;
  Bps; B/s
  bps; b/s
  Byte1; bajt
  Byte2; bajta
  Byte3; bajtova
+ Byte4;
  channel1; kanal
  channel2; kanala
  channel3; kanala
+ channel4;
  chapter1; poglavlje
  chapter2; poglavlja
  chapter3; poglavlja
+ chapter4;
  chapters stream1; tok poglavlja
  chapters stream2; toka poglavlja
  chapters stream3; tokova poglavlja
+ chapters stream4;
  character1;
  character2;
  character3;
+ character4;
  day1; dan
  day2; dana
  day3; dana
+ day4;
  dB0;
  dB1; dB
  dB2; dB
@@ -49,12 +56,15 @@
  file1; datoteka
  file2; datoteke
  file3; datoteka
+ file4;
  fps1; FPS
  fps2; FPS
  fps3; FPS
+ fps4;
  frame1; sličica
  frame2; sličice
  frame3; sličica
+ frame4;
  GB; GB
  Gb; Gb
  GBps; GB/s
@@ -64,20 +74,25 @@
  GibiByte1; gibibajt
  GibiByte2; gibibajta
  GibiByte3; gibibajta
+ GibiByte4;
  GiBps; GiB/s
  GigaBit1; gigabit
  GigaBit2; gigabita
  GigaBit3; gigabita
+ GigaBit4;
  GigaByte1; gigabajt
  GigaByte2; gigabajta
  GigaByte3; gigabajta
+ GigaByte4;
  hour1; sat
  hour2; sata
  hour3; sati
+ hour4;
  Hz; Hz
  image stream1; tok slike
  image stream2; toka slike
  image stream3; tokova slike
+ image stream4;
  KB; kB
  Kb; kb
  KBps; kB/s
@@ -87,16 +102,20 @@
  KibiBit1; kibibit
  KibiBit2; kibibita
  KibiBit3; kibibita
+ KibiBit4;
  KibiByte1; kibibajt
  KibiByte2; kibibajta
  KibiByte3; kibibajta
+ KibiByte4;
  KiBps; KiB/s
  KiloBit1; kilobit
  KiloBit2; kilobita
  KiloBit3; kilobita
+ KiloBit4;
  KiloByte1; kilobajt
  KiloByte2; kilobajta
  KiloByte3; kilobajta
+ KiloByte4;
  MB; MB
  Mb; Mb
  MBps; MebiBytes
@@ -104,15 +123,19 @@
  MebiBit1; mebibit
  MebiBit2; mebibita
  MebiBit3; mebibita
+ MebiBit4;
  MebiByte1; mebibajt
  MebiByte2; mebibajta
  MebiByte3; mebibajta
+ MebiByte4;
  MegaBit1; megabit
  MegaBit2; megabita
  MegaBit3; megabita
+ MegaBit4;
  MegaByte1; megabajt
  MegaByte2; megabajta
  MegaByte3; megabajta
+ MegaByte4;
  MHz; MHz
  MiB; MiB
  Mib; Mib
@@ -120,43 +143,56 @@
  millisecond1; milisekunda
  millisecond2; milisekunde
  millisecond3; milisekundi
+ millisecond4;
  minute1; minuta
  minute2; minute
  minute3; minuta
+ minute4;
  month1; mjesec
  month2; mjeseca
  month3; mjeseci
+ month4;
  object1;
  object2;
  object3;
+ object4;
  pixel1; piksel
  pixel2; piksela
  pixel3; piksela
+ pixel4;
  second1; sekunda
  second2; sekunde
  second3; sekundi
+ second4;
  slice per frame1;
  slice per frame2;
  slice per frame3;
+ slice per frame4;
  text stream1; protok teksta
  text stream2; protoka teksta
  text stream3; protoka teksta
+ text stream4;
  video frames1; video-sličica
  video frames2; video-sličice
  video frames3; video-sličica
+ video frames4;
  video stream1; tok slike
  video stream2; toka slike
  video stream3; tokova slike
+ video stream4;
  warppoint0;Nema točaka izobličavanja
  warppoint1; točka izobličavanja
  warppoint2; točke izobličavanja
  warppoint3; točaka izobličavanja
+ warppoint4;
  week1; tjedan
  week2; tjedna
  week3; tjedana
+ week4;
  year1; godina
  year2; godine
  year3; godina
+ year4;
 , ;, 
 : ;: 
 3D;

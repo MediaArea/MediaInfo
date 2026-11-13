@@ -5,8 +5,7 @@
   Config_Text_PluralRule.two;
   Config_Text_PluralRule.few;v == 0 && i % 10 >= 2 && i % 10 <= 4 && (i % 100 < 12 || i % 100 > 14)
   Config_Text_PluralRule.many;v == 0
-  Config_Text_PluralLegacy;one=1,few=2,other=3
-  Config_Text_PluralLegacyDecimals;0
+  Config_Text_PluralLegacy;one=1,few=2,many=3,other=4
   Author_Email;gregg@cdrinfo.pl
   Author_Name;Gregg
   Author_OldNames;Gregg
@@ -19,29 +18,37 @@
  audio stream1; strumień audio
  audio stream2; strumienie audio
  audio stream3; strumieni audio
+ audio stream4; strumienia audio
  bit1; bit
  bit2; bity
  bit3; bitów
+ bit4; bitu
  Bps; B/s
  bps; b/s
  Byte1; bajt
  Byte2; bajty
  Byte3; bajtów
+ Byte4; bajta
  channel1; kanał
  channel2; kanały
  channel3; kanałów
+ channel4; kanału
  chapter1; rozdział
  chapter2; rozdziały
  chapter3; rozdziałów
+ chapter4; rozdziału
  chapters stream1; strumień rozdziałów
  chapters stream2; strumienie rozdziałów
  chapters stream3; strumieni rozdziałów
+ chapters stream4; strumienia rozdziałów
  character1;
  character2;
  character3;
+ character4;
  day1; dzień
  day2; dni
  day3; dni
+ day4; dnia
  dB0;
  dB1; dB
  dB2; dB
@@ -49,12 +56,15 @@
  file1; plik
  file2; pliki
  file3; plików
+ file4; pliku
  fps1; kl/s
  fps2; kl/s
  fps3; kl/s
+ fps4;
  frame1; klatka
  frame2; klatki
  frame3; klatek
+ frame4; klatki
  GB; GB
  Gb; Gb
  GBps; GB/s
@@ -64,20 +74,25 @@
  GibiByte1; gibibajt
  GibiByte2; gibibajty
  GibiByte3; gibibajtów
+ GibiByte4; gibibajta
  GiBps; GB/s
  GigaBit1; gigabit
  GigaBit2; gigabity
  GigaBit3; gigabitów
+ GigaBit4; gigabitu
  GigaByte1; gigabajt
  GigaByte2; gigabajty
  GigaByte3; gigabajtów
+ GigaByte4; gigabajta
  hour1; godzina
  hour2; godziny
  hour3; godzin
+ hour4; godziny
  Hz; Hz
  image stream1; strumień obrazu
  image stream2; strumienie obrazu
  image stream3; strumieni obrazu
+ image stream4; strumienia obrazu
  KB; kB
  Kb; kb
  KBps; kB/s
@@ -87,16 +102,20 @@
  KibiBit1; kibibit
  KibiBit2; kibibity
  KibiBit3; kibibitów
+ KibiBit4; kibibitu
  KibiByte1; kibibajt
  KibiByte2; kibibajty
  KibiByte3; kibibajtów
+ KibiByte4; kibibajta
  KiBps; KiB/s
  KiloBit1; kilobit
  KiloBit2; kilobity
  KiloBit3; kilobitów
+ KiloBit4; kilobitu
  KiloByte1; kilobajt
  KiloByte2; kilobajty
  KiloByte3; kilobajtów
+ KiloByte4; kilobajta
  MB; MB
  Mb; Mb
  MBps; megabajtów
@@ -104,15 +123,19 @@
  MebiBit1; mebibit
  MebiBit2; mebibity
  MebiBit3; mebibitów
+ MebiBit4; mebibitu
  MebiByte1; mebibajt
  MebiByte2; mebibajty
  MebiByte3; mebibajtów
+ MebiByte4; mebibajta
  MegaBit1; megabit
  MegaBit2; megabity
  MegaBit3; megabitów
+ MegaBit4; megabitu
  MegaByte1; megabajt
  MegaByte2; megabajty
  MegaByte3; megabajtów
+ MegaByte4; megabajta
  MHz; MHz
  MiB; MiB
  Mib; Mib
@@ -120,43 +143,56 @@
  millisecond1; milisekunda
  millisecond2; milisekundy
  millisecond3; milisekund
+ millisecond4; milisekundy
  minute1; minuta
  minute2; minuty
  minute3; minut
+ minute4; minuty
  month1; miesiąc
  month2; miesiące
  month3; miesięcy
+ month4; miesiąca
  object1;
  object2;
  object3;
+ object4;
  pixel1; piksel
  pixel2; piksele
  pixel3; pikseli
+ pixel4; piksela
  second1; sekunda
  second2; sekundy
  second3; sekund
+ second4; sekundy
  slice per frame1;
  slice per frame2;
  slice per frame3;
+ slice per frame4;
  text stream1; strumień napisów
  text stream2; strumienie napisów
  text stream3; strumieni napisów
+ text stream4; strumienia napisów
  video frames1; klatka wideo
  video frames2; klatki wideo
  video frames3; klatek wideo
+ video frames4; klatki wideo
  video stream1; strumień wideo
  video stream2; strumienie wideo
  video stream3; strumieni wideo
+ video stream4; strumienia wideo
  warppoint0;Brak punktów podziału
  warppoint1; Punkt podziału
  warppoint2; Punkty podziału
  warppoint3; Punktów podziału
+ warppoint4; Punktu podziału
  week1; tydzień
  week2; tygodnie
  week3; tygodni
+ week4; tygodnia
  year1; rok
  year2; lata
  year3; lat
+ year4; roku
 , ;, 
 : ;: 
 3D;

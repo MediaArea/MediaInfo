@@ -6,7 +6,6 @@
   Config_Text_PluralRule.few;f == 0 && i % 100 >= 3 && i % 100 <= 10
   Config_Text_PluralRule.many;f == 0 && i % 100 >= 11
   Config_Text_PluralLegacy;one=1,other=2
-  Config_Text_PluralLegacyDecimals;1
   Author_Email;Info@MediaArea.net
   Author_Name;Zen
   Author_OldNames;المترجم الأصلي
@@ -19,29 +18,37 @@
  audio stream1; دفق صوتي
  audio stream2; دفقات صوتية
  audio stream3; دفقات صوتية
+ audio stream4;
  bit1; بت
  bit2; بت
  bit3; بت
+ bit4;
  Bps;بت/الثانية
  bps;بت/الثانية
  Byte1; بايت
  Byte2; بايت
  Byte3; بايت
+ Byte4;
  channel1; قناة
  channel2; قنوات
  channel3; قنوات
+ channel4;
  chapter1; فصل
  chapter2; فصول
  chapter3; فصول
+ chapter4;
  chapters stream1; دفق فصول
  chapters stream2; دفق فصول
  chapters stream3; دفق فصول
+ chapters stream4;
  character1;
  character2;
  character3;
+ character4;
  day1; يوم
  day2; أيام
  day3; أيام
+ day4;
  dB0;
  dB1; dB
  dB2; dB
@@ -49,12 +56,15 @@
  file1; ملف
  file2; ملفات
  file3; ملفات
+ file4;
  fps1; لقطة في الثانية
  fps2; لقطة في الثانية
  fps3; لقطة في الثانية
+ fps4;
  frame1; لقطة
  frame2; لقطات
  frame3; لقطات
+ frame4;
  GB;غيغابايت
  Gb;غيغابت
  GBps;جيغا بايت في الثانية
@@ -64,20 +74,25 @@
  GibiByte1; جيغي بايت
  GibiByte2; جيغي بايت
  GibiByte3; جيغي بايت
+ GibiByte4;
  GiBps;جيغي بايت في الثانية
  GigaBit1; جيغا بت
  GigaBit2; جيغا بت
  GigaBit3; جيغا بت
+ GigaBit4;
  GigaByte1; جيغا بايت
  GigaByte2; جيغا بايت
  GigaByte3; جيغا بايت
+ GigaByte4;
  hour1; ساعة
  hour2; ساعات
  hour3; ساعات
+ hour4;
  Hz;هرتز
  image stream1; دفق صور
  image stream2; دفقات صور
  image stream3; دفقات صور
+ image stream4;
  KB; kB
  Kb; kb
  KBps;كيلوبايت في الثانية
@@ -87,16 +102,20 @@
  KibiBit1; كيبي بت
  KibiBit2; كيبي بت
  KibiBit3; كيبي بت
+ KibiBit4;
  KibiByte1; كيبي بايت
  KibiByte2; كيبي بايت
  KibiByte3; كيبي بايت
+ KibiByte4;
  KiBps;كيبي بايت في الثانية
  KiloBit1; كيلوبت
  KiloBit2; كيلوبت
  KiloBit3; كيلوبت
+ KiloBit4;
  KiloByte1; كيلوبايت
  KiloByte2; كيلوبايت
  KiloByte3; كيلوبايت
+ KiloByte4;
  MB;ميغابايت
  Mb;ميغابت
  MBps;ميغابايت في الثانية
@@ -104,15 +123,19 @@
  MebiBit1; ميبي بت
  MebiBit2; ميبي بت
  MebiBit3; ميبي بت
+ MebiBit4;
  MebiByte1; ميبي بايت
  MebiByte2; ميبي بايت
  MebiByte3; ميبي بايت
+ MebiByte4;
  MegaBit1; ميغا بت
  MegaBit2; ميغا بت
  MegaBit3; ميغا بت
+ MegaBit4;
  MegaByte1; ميغا بايت
  MegaByte2; ميغا بايت
  MegaByte3; ميغا بايت
+ MegaByte4;
  MHz;ميغاهيرتز
  MiB;ميلي بايت
  Mib;ميلي بت
@@ -120,43 +143,56 @@
  millisecond1; ميلي ثانية
  millisecond2; ميلي ثانية
  millisecond3; ميلي ثانية
+ millisecond4;
  minute1; دقيقة
  minute2; دقائق
  minute3; دقائق
+ minute4;
  month1; شهر
  month2; أشهر
  month3; أشهر
+ month4;
  object1;
  object2;
  object3;
+ object4;
  pixel1; بكسل
  pixel2; بكسل
  pixel3; بكسل
+ pixel4;
  second1; ثانية
  second2; ثوان
  second3; ثوان
+ second4;
  slice per frame1; slice per frame
  slice per frame2; slices per frame
  slice per frame3; slices per frame
+ slice per frame4;
  text stream1; دفق نصي
  text stream2; دفقات نصية
  text stream3; دفقات نصية
+ text stream4;
  video frames1; صورة فيديو
  video frames2; صور فيديو
  video frames3; صور فيديو
+ video frames4;
  video stream1; دفق فيديو
  video stream2; دفقات فيديو
  video stream3; دفقات فيديو
+ video stream4;
  warppoint0;لا warppoints
  warppoint1; warppoint
  warppoint2; warppoints
  warppoint3; warppoints
+ warppoint4;
  week1; أسبوع
  week2; أسابيع
  week3; أسابيع
+ week4;
  year1; سنة
  year2; سنوات
  year3; سنوات
+ year4;
 , ;, 
 : ;: 
 3D;

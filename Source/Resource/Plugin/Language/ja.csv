@@ -6,7 +6,6 @@
   Config_Text_PluralRule.few;
   Config_Text_PluralRule.many;
   Config_Text_PluralLegacy;one=1,other=2
-  Config_Text_PluralLegacyDecimals;1
   Author_Email;
   Author_Name;だい(barlog), maboroshin(pc.genkaku.in)
   Author_OldNames;だい(barlog http://barca.daa.jp nihongoka@gmail.com), maboroshin(genkaku.in)
@@ -19,29 +18,37 @@
  audio stream1; 個の音声ストリーム
  audio stream2; 個の音声ストリーム
  audio stream3; 個の音声ストリーム
+ audio stream4;
  bit1; ビット
  bit2; ビット
  bit3; ビット
+ bit4;
  Bps; Bps
  bps; bps
  Byte1; バイト
  Byte2; バイト
  Byte3; バイト
+ Byte4;
  channel1; チャンネル
  channel2; チャンネル
  channel3; チャンネル
+ channel4;
  chapter1; 個のチャプター
  chapter2; 個のチャプター
  chapter3; 個のチャプター
+ chapter4;
  chapters stream1; 個のチャプターストリーム
  chapters stream2; 個のチャプターストリーム
  chapters stream3; 個のチャプターストリーム
+ chapters stream4;
  character1; 文字
  character2; 文字
  character3; 文字
+ character4;
  day1; 日
  day2; 日
  day3; 日
+ day4;
  dB0;
  dB1; dB
  dB2; dB
@@ -49,12 +56,15 @@
  file1; 個のファイル
  file2; 個のファイル
  file3; 個のファイル
+ file4;
  fps1; fps
  fps2; fps
  fps3; fps
+ fps4;
  frame1; フレーム
  frame2; フレーム
  frame3; フレーム
+ frame4;
  GB; GB
  Gb; Gb
  GBps; GB/秒
@@ -64,20 +74,25 @@
  GibiByte1; GibiBytes
  GibiByte2; GibiBytes
  GibiByte3; GibiBytes
+ GibiByte4;
  GiBps; GiBps
  GigaBit1; GigaBit
  GigaBit2; GigaBits
  GigaBit3; GigaBits
+ GigaBit4;
  GigaByte1; GigaByte
  GigaByte2; GigaBytes
  GigaByte3; GigaBytes
+ GigaByte4;
  hour1; 時間
  hour2; 時間
  hour3; 時間
+ hour4;
  Hz; Hz
  image stream1; 個の画像ストリーム
  image stream2; 個の画像ストリーム
  image stream3; 個の画像ストリーム
+ image stream4;
  KB; KB
  Kb; Kb
  KBps; KBps
@@ -87,16 +102,20 @@
  KibiBit1; KibiBit
  KibiBit2; KibiBits
  KibiBit3; KibiBits
+ KibiBit4;
  KibiByte1; KibiByte
  KibiByte2; KibiBytes
  KibiByte3; KibiBytes
+ KibiByte4;
  KiBps; KiBps
  KiloBit1; KiloBit
  KiloBit2; KiloBits
  KiloBit3; KiloBits
+ KiloBit4;
  KiloByte1; KiloByte
  KiloByte2; KiloBytes
  KiloByte3; KiloBytes
+ KiloByte4;
  MB; MB
  Mb; Mb
  MBps; MebiBytes
@@ -104,15 +123,19 @@
  MebiBit1; MebiBit
  MebiBit2; MebiBits
  MebiBit3; MebiBits
+ MebiBit4;
  MebiByte1; MebiByte
  MebiByte2; MebiBytes
  MebiByte3; MebiBytes
+ MebiByte4;
  MegaBit1; MegaBit
  MegaBit2; MegaBits
  MegaBit3; MegaBits
+ MegaBit4;
  MegaByte1; MegaByte
  MegaByte2; MegaBytes
  MegaByte3; MegaBytes
+ MegaByte4;
  MHz; MHz
  MiB; MiB
  Mib; Mib
@@ -120,43 +143,56 @@
  millisecond1; ミリ秒
  millisecond2; ミリ秒
  millisecond3; ミリ秒
+ millisecond4;
  minute1; 分
  minute2; 分
  minute3; 分
+ minute4;
  month1; か月
  month2; か月
  month3; か月
+ month4;
  object1;
  object2;
  object3;
+ object4;
  pixel1; ピクセル
  pixel2; ピクセル
  pixel3; ピクセル
+ pixel4;
  second1; 秒
  second2; 秒
  second3; 秒
+ second4;
  slice per frame1;
  slice per frame2;
  slice per frame3;
+ slice per frame4;
  text stream1; 個の字幕ストリーム
  text stream2; 個の字幕ストリーム
  text stream3; 個の字幕ストリーム
+ text stream4;
  video frames1; 個の映像フレーム
  video frames2; 個の映像フレーム
  video frames3; 個の映像フレーム
+ video frames4;
  video stream1; 個の映像ストリーム
  video stream2; 個の映像ストリーム
  video stream3; 個の映像ストリーム
+ video stream4;
  warppoint0;ワープポイントなし
  warppoint1; 個のワープポイント
  warppoint2; 個のワープポイント
  warppoint3; 個のワープポイント
+ warppoint4;
  week1; 週間
  week2; 週間
  week3; 週間
+ week4;
  year1; 年
  year2; 年
  year3; 年
+ year4;
 , ;, 
 : ;: 
 3D;3D

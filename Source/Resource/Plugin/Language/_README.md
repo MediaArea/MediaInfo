@@ -49,7 +49,6 @@ These entries are configuration data; do not translate their keys or expressions
   Config_Text_PluralRules;1
   Config_Text_PluralRule.one;v == 0 && i == 1
   Config_Text_PluralLegacy;one=1,other=2
-  Config_Text_PluralLegacyDecimals;1
 ```
 
 The example selects the English singular only for integer `1`. Operands are
@@ -58,10 +57,12 @@ digits as an integer). Predicates may use `%`, comparisons, `&&`, `||` and
 parentheses. Categories are tested in order: `zero`, `one`, `two`, `few`, `many`;
 `other` is the default. Empty predicates disable a category.
 
-The optional legacy mapping assigns categories to existing `1/2/3` entries;
-`other` supplies unspecified categories and `0` disables a legacy form.
-The decimal setting permits (`1`) or disables (`0`, the default) numbered forms
-for fractional notation. It does not restrict named category messages.
+The optional legacy mapping assigns categories to the numbered `1/2/3/4`
+entries; `other` supplies unspecified categories and `0` disables a legacy form.
+Entry `4` holds the form of decimal numbers when it differs from the integer
+forms, e.g. the Czech genitive singular (` channel4; kanálu` with
+`one=1,few=2,many=4,other=3`). A catalog without it uses the form of the
+integer part. Named category messages may also express decimal numbers.
 See MediaInfoLib's `Source/Doc/CountLocalization.md` for the complete grammar,
 validation limits and fallback behavior. Missing or invalid metadata preserves
 the library's existing language rules; metadata never borrows English rules

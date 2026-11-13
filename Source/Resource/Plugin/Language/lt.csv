@@ -5,8 +5,7 @@
   Config_Text_PluralRule.two;
   Config_Text_PluralRule.few;f == 0 && i % 10 >= 2 && (i % 100 < 11 || i % 100 > 19)
   Config_Text_PluralRule.many;f != 0
-  Config_Text_PluralLegacy;one=1,few=2,other=3
-  Config_Text_PluralLegacyDecimals;1
+  Config_Text_PluralLegacy;one=1,few=2,many=4,other=3
   Author_Email;pauliusvenckus@gmail.com
   Author_Name;Paulius
   Author_OldNames;…
@@ -19,29 +18,37 @@
  audio stream1; audio srautas
  audio stream2; audio srautai
  audio stream3; audio srautų
+ audio stream4; audio srauto
  bit1; bitas
  bit2; bitai
  bit3; bitų
+ bit4; bito
  Bps; B/s
  bps; b/s
  Byte1; Baitas
  Byte2; Baitai
  Byte3; Baitų
+ Byte4; Baito
  channel1; kanalas
  channel2; kanalai
  channel3; kanalų
+ channel4; kanalo
  chapter1; skyrius
  chapter2; skyriai
  chapter3; skyrių
+ chapter4; skyriaus
  chapters stream1; skyrių srautas
  chapters stream2; skyrių srautai
  chapters stream3; skyrių srautų
+ chapters stream4; skyrių srauto
  character1;
  character2;
  character3;
+ character4;
  day1; diena
  day2; dienos
  day3; dienų
+ day4; dienos
  dB0;
  dB1;
  dB2;
@@ -49,12 +56,15 @@
  file1; failas
  file2; failai
  file3; failų
+ file4; failo
  fps1; kps
  fps2; kps
  fps3; kps
+ fps4;
  frame1;
  frame2;
  frame3;
+ frame4;
  GB; GB
  Gb; Gb
  GBps; GB/s
@@ -64,20 +74,25 @@
  GibiByte1; GibiBaitas
  GibiByte2; GibiBaitai
  GibiByte3; GibiBaitų
+ GibiByte4; GibiBaito
  GiBps; GiB/s
  GigaBit1; GigaBitas
  GigaBit2; GigaBitai
  GigaBit3; GigaBitų
+ GigaBit4; GigaBito
  GigaByte1; GigaBaitas
  GigaByte2; GigaBaitai
  GigaByte3; GigaBaitų
+ GigaByte4; GigaBaito
  hour1; valanda
  hour2; valandos
  hour3; valandų
+ hour4; valandos
  Hz; Hz
  image stream1; paveikslėlio srautas
  image stream2; paveikslėlių srautai
  image stream3; paveikslėlių srautų
+ image stream4; paveikslėlio srauto
  KB; kB
  Kb; kb
  KBps; kB/s
@@ -87,16 +102,20 @@
  KibiBit1; KibiBitas
  KibiBit2; KibiBitai
  KibiBit3; KibiBitų
+ KibiBit4; KibiBito
  KibiByte1; KibiBaitas
  KibiByte2; KibiBaitai
  KibiByte3; KibiBaitų
+ KibiByte4; KibiBaito
  KiBps; KiB/s
  KiloBit1; KiloBitas
  KiloBit2; KiloBitai
  KiloBit3; KiloBitų
+ KiloBit4; KiloBito
  KiloByte1; KiloBaitas
  KiloByte2; KiloBaitai
  KiloByte3; KiloBaitų
+ KiloByte4; KiloBaito
  MB; MB
  Mb; Mb
  MBps; MebiBytes
@@ -104,15 +123,19 @@
  MebiBit1; MebiBitas
  MebiBit2; MebiBitai
  MebiBit3; MebiBitų
+ MebiBit4; MebiBito
  MebiByte1; MebiBaitas
  MebiByte2; MebiBaitai
  MebiByte3; MebiBaitų
+ MebiByte4; MebiBaito
  MegaBit1; MegaBitas
  MegaBit2; MegaBitai
  MegaBit3; MegaBitų
+ MegaBit4; MegaBito
  MegaByte1; MegaBaitas
  MegaByte2; MegaBaitai
  MegaByte3; MegaBaitų
+ MegaByte4; MegaBaito
  MHz; MHz
  MiB; MiB
  Mib; Mib
@@ -120,43 +143,56 @@
  millisecond1; milisekundė
  millisecond2; milisekundės
  millisecond3; milisekundžių
+ millisecond4; milisekundės
  minute1; minutė
  minute2; minutės
  minute3; minučių
+ minute4; minutės
  month1; mėnuo
  month2; mėnesiai
  month3; mėnesių
+ month4; mėnesio
  object1;
  object2;
  object3;
+ object4;
  pixel1; pikselis
  pixel2; pikseliai
  pixel3; pikselių
+ pixel4; pikselio
  second1; sekundė
  second2; sekundės
  second3; sekundžių
+ second4; sekundės
  slice per frame1;
  slice per frame2;
  slice per frame3;
+ slice per frame4;
  text stream1; teksto srautas
  text stream2; teksto srautai
  text stream3; teksto srautų
+ text stream4; teksto srauto
  video frames1;
  video frames2;
  video frames3;
+ video frames4;
  video stream1; video srautas
  video stream2; video srautai
  video stream3; video srautų
+ video stream4; video srauto
  warppoint0;
  warppoint1;
  warppoint2;
  warppoint3;
+ warppoint4;
  week1; savaitė
  week2; savaitės
  week3; savaičių
+ week4; savaitės
  year1; metai
  year2; metai
  year3; metų
+ year4; metų
 , ;, 
 : ;: 
 3D;

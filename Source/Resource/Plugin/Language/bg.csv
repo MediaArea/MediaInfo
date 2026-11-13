@@ -6,7 +6,6 @@
   Config_Text_PluralRule.few;
   Config_Text_PluralRule.many;
   Config_Text_PluralLegacy;one=1,other=2
-  Config_Text_PluralLegacyDecimals;1
   Author_Email;ownfilmcollection@gmail.com
   Author_Name;ERa
   Author_OldNames;превод на Български
@@ -19,29 +18,37 @@
  audio stream1; аудио поток
  audio stream2; аудио потока
  audio stream3; аудио потока
+ audio stream4;
  bit1; бит
  bit2; бита
  bit3; бита
+ bit4;
  Bps;Бпс
  bps;бпс
  Byte1; байт
  Byte2; байта
  Byte3; байта
+ Byte4;
  channel1; канал
  channel2; канала
  channel3; канала
+ channel4;
  chapter1; дял
  chapter2; дяла
  chapter3; дяла
+ chapter4;
  chapters stream1; дял поток
  chapters stream2; дял потока
  chapters stream3; дял потока
+ chapters stream4;
  character1;
  character2;
  character3;
+ character4;
  day1; ден
  day2; дни
  day3; дни
+ day4;
  dB0;
  dB1; дБ
  dB2; дБ
@@ -49,12 +56,15 @@
  file1; файл
  file2; файла
  file3; файла
+ file4;
  fps1; кадър/секунда
  fps2; кадъра/секунда
  fps3; кадъра/секунда
+ fps4;
  frame1; кадър
  frame2; кадъра
  frame3; кадъра
+ frame4;
  GB;ГБ
  Gb;Гб
  GBps;ГБ/сек
@@ -64,20 +74,25 @@
  GibiByte1; гибибайт
  GibiByte2; гибибайта
  GibiByte3; гибибайта
+ GibiByte4;
  GiBps;ГиБайт/сек
  GigaBit1; гигабит
  GigaBit2; гигабита
  GigaBit3; гигабита
+ GigaBit4;
  GigaByte1; гигабайт
  GigaByte2; гигабайта
  GigaByte3; гигабайта
+ GigaByte4;
  hour1; час
  hour2; часа
  hour3; часа
+ hour4;
  Hz;Херц
  image stream1; картинен поток
  image stream2; картинни потока
  image stream3; картинни потока
+ image stream4;
  KB;КБ
  Kb;Кб
  KBps;КБ/сек
@@ -87,16 +102,20 @@
  KibiBit1; кибибит
  KibiBit2; кибибита
  KibiBit3; кибибита
+ KibiBit4;
  KibiByte1; кибибайт
  KibiByte2; кибибайта
  KibiByte3; кибибайта
+ KibiByte4;
  KiBps;КиБайтСек
  KiloBit1; килобит
  KiloBit2; килобита
  KiloBit3; килобита
+ KiloBit4;
  KiloByte1; килобайт
  KiloByte2; килобайта
  KiloByte3; килобайта
+ KiloByte4;
  MB;МБ
  Mb;Мб
  MBps;МБ/сек
@@ -104,15 +123,19 @@
  MebiBit1; мебибит
  MebiBit2; мебибита
  MebiBit3; мебибита
+ MebiBit4;
  MebiByte1; мебибайт
  MebiByte2; мебибайта
  MebiByte3; мебибайта
+ MebiByte4;
  MegaBit1; мегабит
  MegaBit2; мегабита
  MegaBit3; мегабита
+ MegaBit4;
  MegaByte1; мегабайт
  MegaByte2; мегабайта
  MegaByte3; мегабайта
+ MegaByte4;
  MHz;МХц
  MiB;МиБ
  Mib;Миб
@@ -120,43 +143,56 @@
  millisecond1; милисекунда
  millisecond2; милисекунди
  millisecond3; милисекунди
+ millisecond4;
  minute1; минута
  minute2; минути
  minute3; минути
+ minute4;
  month1; месец
  month2; месеца
  month3; месеца
+ month4;
  object1;
  object2;
  object3;
+ object4;
  pixel1; пиксел
  pixel2; пиксела
  pixel3; пиксела
+ pixel4;
  second1; секунда
  second2; секунди
  second3; секунди
+ second4;
  slice per frame1;
  slice per frame2;
  slice per frame3;
+ slice per frame4;
  text stream1; текстов поток
  text stream2; текстови потока
  text stream3; текстови потока
+ text stream4;
  video frames1; видео кадър
  video frames2; видео кадъра
  video frames3; видео кадъра
+ video frames4;
  video stream1; видео поток
  video stream2; видео потока
  video stream3; видео потока
+ video stream4;
  warppoint0;Няма точки на изхвърляне
  warppoint1; точка на изхвърляне
  warppoint2; точки на изхвърляне
  warppoint3; точки на изхвърляне
+ warppoint4;
  week1; седмица
  week2; седмици
  week3; седмици
+ week4;
  year1; година
  year2; години
  year3; години
+ year4;
 , ;,
 : ;:
 3D;

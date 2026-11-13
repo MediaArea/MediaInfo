@@ -6,7 +6,6 @@
   Config_Text_PluralRule.few;
   Config_Text_PluralRule.many;
   Config_Text_PluralLegacy;one=1,other=2
-  Config_Text_PluralLegacyDecimals;1
   Author_Email;eson57@gmail.com
   Author_Name;Åke Engelbrektson
   Author_OldNames;Yonder
@@ -19,29 +18,37 @@
  audio stream1; ljudström
  audio stream2; ljudströmmar
  audio stream3; ljudströmmar
+ audio stream4;
  bit1; bit
  bit2; bit
  bit3; bit
+ bit4;
  Bps; B/s
  bps; b/s
  Byte1; Byte
  Byte2; Byte
  Byte3; Byte
+ Byte4;
  channel1; kanal
  channel2; kanaler
  channel3; kanaler
+ channel4;
  chapter1; kapitel
  chapter2; kapitel
  chapter3; kapitel
+ chapter4;
  chapters stream1; kapitelström
  chapters stream2; kapitelströmmar
  chapters stream3; kapitelströmmar
+ chapters stream4;
  character1; tecken
  character2; tecken
  character3; tecken
+ character4;
  day1; dag
  day2; dagar
  day3; dagar
+ day4;
  dB0;
  dB1; dB
  dB2; dB
@@ -49,12 +56,15 @@
  file1; fil
  file2; filer
  file3; filer
+ file4;
  fps1; FPS
  fps2; FPS
  fps3; FPS
+ fps4;
  frame1; bildruta
  frame2; bildrutor
  frame3; bildrutor
+ frame4;
  GB; GB
  Gb; Gb
  GBps; GB/s
@@ -64,20 +74,25 @@
  GibiByte1; GibiByte
  GibiByte2; GibiByte
  GibiByte3; GibiByte
+ GibiByte4;
  GiBps; GiB/s
  GigaBit1; GigaBit
  GigaBit2; GigaBit
  GigaBit3; GigaBit
+ GigaBit4;
  GigaByte1; GigaByte
  GigaByte2; GigaByte
  GigaByte3; GigaByte
+ GigaByte4;
  hour1; timma
  hour2; timmar
  hour3; timmar
+ hour4;
  Hz; Hz
  image stream1; bildström
  image stream2; bildströmmar
  image stream3; bildströmmar
+ image stream4;
  KB; kB
  Kb; kb
  KBps; kB/s
@@ -87,16 +102,20 @@
  KibiBit1; KibiBit
  KibiBit2; KibiBit
  KibiBit3; KibiBit
+ KibiBit4;
  KibiByte1; KibiByte
  KibiByte2; KibiByte
  KibiByte3; KibiByte
+ KibiByte4;
  KiBps; KiB/s
  KiloBit1; KiloBit
  KiloBit2; KiloBit
  KiloBit3; KiloBit
+ KiloBit4;
  KiloByte1; KiloByte
  KiloByte2; KiloByte
  KiloByte3; KiloByte
+ KiloByte4;
  MB; MB
  Mb; Mb
  MBps; MebiByte
@@ -104,15 +123,19 @@
  MebiBit1; MebiBit
  MebiBit2; MebiBit
  MebiBit3; MebiBit
+ MebiBit4;
  MebiByte1; MebiByte
  MebiByte2; MebiByte
  MebiByte3; MebiByte
+ MebiByte4;
  MegaBit1; MegaBit
  MegaBit2; MegaBit
  MegaBit3; MegaBit
+ MegaBit4;
  MegaByte1; MegaByte
  MegaByte2; MegaByte
  MegaByte3; MegaByte
+ MegaByte4;
  MHz; MHz
  MiB; MiB
  Mib; Mib
@@ -120,43 +143,56 @@
  millisecond1; millisekund
  millisecond2; millisekunder
  millisecond3; millisekunder
+ millisecond4;
  minute1; minut
  minute2; minuter
  minute3; minuter
+ minute4;
  month1; månad
  month2; månader
  month3; månader
+ month4;
  object1;
  object2;
  object3;
+ object4;
  pixel1; pixel
  pixel2; pixlar
  pixel3; pixlar
+ pixel4;
  second1; sekund
  second2; sekunder
  second3; sekunder
+ second4;
  slice per frame1;
  slice per frame2;
  slice per frame3;
+ slice per frame4;
  text stream1; textström
  text stream2; textströmmar
  text stream3; textströmmar
+ text stream4;
  video frames1; bildruta
  video frames2; bildrutor
  video frames3; bildrutor
+ video frames4;
  video stream1; videoström
  video stream2; videoströmmar
  video stream3; videoströmmar
+ video stream4;
  warppoint0; Inga varppunkter
  warppoint1; varppunkt
  warppoint2; varppunkter
  warppoint3; varppunkter
+ warppoint4;
  week1; vecka
  week2; veckor
  week3; veckor
+ week4;
  year1; år
  year2; år
  year3; år
+ year4;
 , ;,
 : ;:
 3D;3D
