@@ -61,9 +61,9 @@
  Gbps; Gb/s
  GHz; GHz
  GiB; GB
- GibiByte1; gigabajtów
- GibiByte2; gigabajtów
- GibiByte3; gigabajtów
+ GibiByte1; gibibajt
+ GibiByte2; gibibajty
+ GibiByte3; gibibajtów
  GiBps; GB/s
  GigaBit1; gigabit
  GigaBit2; gigabity
@@ -84,12 +84,12 @@
  Kbps; kb/s
  KHz; kHz
  KiB; KiB
- KibiBit1; kilobit
- KibiBit2; kilobity
- KibiBit3; kilobitów
- KibiByte1; kilobajt
- KibiByte2; kilobajty
- KibiByte3; kilobajtów
+ KibiBit1; kibibit
+ KibiBit2; kibibity
+ KibiBit3; kibibitów
+ KibiByte1; kibibajt
+ KibiByte2; kibibajty
+ KibiByte3; kibibajtów
  KiBps; KiB/s
  KiloBit1; kilobit
  KiloBit2; kilobity
@@ -101,12 +101,12 @@
  Mb; Mb
  MBps; megabajtów
  Mbps; Mb/s
- MebiBit1; megabit
- MebiBit2; megabity
- MebiBit3; megabitów
- MebiByte1; megabajt
- MebiByte2; magebajty
- MebiByte3; magebajtów
+ MebiBit1; mebibit
+ MebiBit2; mebibity
+ MebiBit3; mebibitów
+ MebiByte1; mebibajt
+ MebiByte2; mebibajty
+ MebiByte3; mebibajtów
  MegaBit1; megabit
  MegaBit2; megabity
  MegaBit3; megabitów
@@ -125,7 +125,7 @@
  minute3; minut
  month1; miesiąc
  month2; miesiące
- month3; miesiący
+ month3; miesięcy
  object1;
  object2;
  object3;
@@ -149,7 +149,7 @@
  video stream3; strumieni wideo
  warppoint0;Brak punktów podziału
  warppoint1; Punkt podziału
- warppoint2; Punktów podziału
+ warppoint2; Punkty podziału
  warppoint3; Punktów podziału
  week1; tydzień
  week2; tygodnie

@@ -47,8 +47,8 @@
  dB2; дБ
  dB3; дБ
  file1; файл
- file2; файла
- file3; файли
+ file2; файли
+ file3; файлів
  fps1; кадр/сек
  fps2; кадри/сек
  fps3; кадрів/сек
@@ -101,9 +101,9 @@
  Mb; Мбіт
  MBps; МіБ/сек
  Mbps; Мбіт/сек
- MebiBit1; Мебіт
- MebiBit2; Мебіти
- MebiBit3; Мебітів
+ MebiBit1; Мебібіт
+ MebiBit2; Мебібіти
+ MebiBit3; Мебібітів
  MebiByte1; Мебібайт
  MebiByte2; Мебібайти
  MebiByte3; Мебібайтів
@@ -152,7 +152,7 @@
  warppoint2; Точки переходу
  warppoint3; Точок переходу
  week1; тиждень
- week2; тижня
+ week2; тижні
  week3; тижнів
  year1; рік
  year2; роки

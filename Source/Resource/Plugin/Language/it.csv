@@ -135,9 +135,9 @@
  second1; secondo
  second2; secondi
  second3; secondi
- slice per frame1;segmento per frame1
- slice per frame2;segmento per frame2
- slice per frame3;segmento per frame 3
+ slice per frame1; segmento per frame
+ slice per frame2; segmenti per frame
+ slice per frame3; segmenti per frame
  text stream1; sottotitolo
  text stream2; sottotitoli
  text stream3; sottotitoli

@@ -16,147 +16,147 @@
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
   Config_Text_ThousandsSeparator; 
- audio stream1;دفق الصوت
- audio stream2;أدفاق صوتية
- audio stream3;أدفاق صوتية
- bit1;بت
- bit2;بت
- bit3;بت
+ audio stream1; دفق صوتي
+ audio stream2; دفقات صوتية
+ audio stream3; دفقات صوتية
+ bit1; بت
+ bit2; بت
+ bit3; بت
  Bps;بت/الثانية
  bps;بت/الثانية
- Byte1;بايت
- Byte2;بايت
- Byte3;بايت
- channel1;قناة
- channel2;القنوات
- channel3;القنوات
- chapter1;الفصل
- chapter2;الفصول
- chapter3;الفصول
- chapters stream1;فصول الدفق
- chapters stream2;فصول الدفق
- chapters stream3;فصول الدفق
+ Byte1; بايت
+ Byte2; بايت
+ Byte3; بايت
+ channel1; قناة
+ channel2; قنوات
+ channel3; قنوات
+ chapter1; فصل
+ chapter2; فصول
+ chapter3; فصول
+ chapters stream1; دفق فصول
+ chapters stream2; دفق فصول
+ chapters stream3; دفق فصول
  character1;
  character2;
  character3;
- day1;يوم
- day2;أيام
- day3;أيام
+ day1; يوم
+ day2; أيام
+ day3; أيام
  dB0;
- dB1; dB (ديسيبل )
+ dB1; dB
  dB2; dB
  dB3; dB
- file1;ملف
- file2;ملفات
- file3;ملفات
- fps1;لقطة في الثاني
- fps2;لقطة في الثاني
- fps3;لقطة في الثاني
- frame1;لقطة
- frame2;لقطة
- frame3;لقطة
+ file1; ملف
+ file2; ملفات
+ file3; ملفات
+ fps1; لقطة في الثانية
+ fps2; لقطة في الثانية
+ fps3; لقطة في الثانية
+ frame1; لقطة
+ frame2; لقطات
+ frame3; لقطات
  GB;غيغابايت
  Gb;غيغابت
  GBps;جيغا بايت في الثانية
  Gbps;جيغا بت في الثانية
  GHz; GHz
  GiB; GiB
- GibiByte1;جيغي بايت
- GibiByte2;جيغي بايت
- GibiByte3;جيغي بايت
+ GibiByte1; جيغي بايت
+ GibiByte2; جيغي بايت
+ GibiByte3; جيغي بايت
  GiBps;جيغي بايت في الثانية
- GigaBit1;جيغا بت
- GigaBit2;جيغا بت
- GigaBit3;جيغا بت
- GigaByte1;جيغا بايت
- GigaByte2;جيغا بايت
- GigaByte3;جيغا بايت
- hour1;ساعة
- hour2;ساعة
- hour3;ساعة
+ GigaBit1; جيغا بت
+ GigaBit2; جيغا بت
+ GigaBit3; جيغا بت
+ GigaByte1; جيغا بايت
+ GigaByte2; جيغا بايت
+ GigaByte3; جيغا بايت
+ hour1; ساعة
+ hour2; ساعات
+ hour3; ساعات
  Hz;هرتز
- image stream1;دفق الصورة
- image stream2;دفق الصور
- image stream3;دفق الصور
+ image stream1; دفق صور
+ image stream2; دفقات صور
+ image stream3; دفقات صور
  KB; kB
  Kb; kb
  KBps;كيلوبايت في الثانية
  Kbps;كيلوبت في الثانية
  KHz;كيلوهرتز
  KiB; KiB
- KibiBit1;كيبي بت
- KibiBit2;كيبي بت
- KibiBit3;كيبي بت
- KibiByte1;كيبي بايت
- KibiByte2;كيبي بايت
- KibiByte3;كيبي بايت
+ KibiBit1; كيبي بت
+ KibiBit2; كيبي بت
+ KibiBit3; كيبي بت
+ KibiByte1; كيبي بايت
+ KibiByte2; كيبي بايت
+ KibiByte3; كيبي بايت
  KiBps;كيبي بايت في الثانية
- KiloBit1;كيلوبت
- KiloBit2;كيلوبت
- KiloBit3;كيلوبت
- KiloByte1;كيلوبايت
- KiloByte2;كيلوبايت
- KiloByte3;كيلوبايت
+ KiloBit1; كيلوبت
+ KiloBit2; كيلوبت
+ KiloBit3; كيلوبت
+ KiloByte1; كيلوبايت
+ KiloByte2; كيلوبايت
+ KiloByte3; كيلوبايت
  MB;ميغابايت
  Mb;ميغابت
  MBps;ميغابايت في الثانية
  Mbps;ميغابت في الثانية
- MebiBit1;ميبي بت
- MebiBit2;ميبي بت
- MebiBit3;ميبي بت
- MebiByte1;ميبي بايت
- MebiByte2;ميبي بايت
- MebiByte3;ميبي بايت
- MegaBit1;ميغا بت
- MegaBit2;ميغا بت
- MegaBit3;ميغا بت
- MegaByte1;ميغا بايت
- MegaByte2;ميغا بايت
- MegaByte3;ميغا بايت
+ MebiBit1; ميبي بت
+ MebiBit2; ميبي بت
+ MebiBit3; ميبي بت
+ MebiByte1; ميبي بايت
+ MebiByte2; ميبي بايت
+ MebiByte3; ميبي بايت
+ MegaBit1; ميغا بت
+ MegaBit2; ميغا بت
+ MegaBit3; ميغا بت
+ MegaByte1; ميغا بايت
+ MegaByte2; ميغا بايت
+ MegaByte3; ميغا بايت
  MHz;ميغاهيرتز
  MiB;ميلي بايت
  Mib;ميلي بت
  MiBps;ميلي بايت في الثانية
- millisecond1;ميلي ثانية
- millisecond2;ميلي ثانية
- millisecond3;ميلي ثانية
- minute1;دقيقة
- minute2;دقيقة
- minute3;دقيقة
- month1;شهر
- month2;شهرا
- month3;شهرا
+ millisecond1; ميلي ثانية
+ millisecond2; ميلي ثانية
+ millisecond3; ميلي ثانية
+ minute1; دقيقة
+ minute2; دقائق
+ minute3; دقائق
+ month1; شهر
+ month2; أشهر
+ month3; أشهر
  object1;
  object2;
  object3;
- pixel1;بكسل
- pixel2;بكسل
- pixel3;بكسل
- second1;ثانية
- second2;ثانية
- second3;ثانية
+ pixel1; بكسل
+ pixel2; بكسل
+ pixel3; بكسل
+ second1; ثانية
+ second2; ثوان
+ second3; ثوان
  slice per frame1; slice per frame
  slice per frame2; slices per frame
  slice per frame3; slices per frame
- text stream1;دفق النص
- text stream2;دفق النص
- text stream3;دفق النص
- video frames1;صورة فيديو
- video frames2;صور فيديو
- video frames3;صور فيديو
- video stream1;دفق الفيديو
- video stream2;دفق فيديو
- video stream3;دفق فيديو
+ text stream1; دفق نصي
+ text stream2; دفقات نصية
+ text stream3; دفقات نصية
+ video frames1; صورة فيديو
+ video frames2; صور فيديو
+ video frames3; صور فيديو
+ video stream1; دفق فيديو
+ video stream2; دفقات فيديو
+ video stream3; دفقات فيديو
  warppoint0;لا warppoints
  warppoint1; warppoint
  warppoint2; warppoints
  warppoint3; warppoints
- week1;أسبوع
- week2;أسبوع
- week3;أسبوع
- year1;سنة
- year2;سنة
- year3;سنة
+ week1; أسبوع
+ week2; أسابيع
+ week3; أسابيع
+ year1; سنة
+ year2; سنوات
+ year3; سنوات
 , ;, 
 : ;: 
 3D;

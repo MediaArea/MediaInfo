@@ -18,24 +18,24 @@
   Config_Text_ThousandsSeparator; 
  audio stream1; audio stream
  audio stream2; audio streamy
- audio stream3; audio streamy
+ audio stream3; audio streamov
  bit1; bit
  bit2; bity
  bit3; bitov
  Bps; B/s
  bps; b/s
- Byte1; Byte
- Byte2; Byty
- Byte3; Bytov
+ Byte1; bajt
+ Byte2; bajty
+ Byte3; bajtov
  channel1; kanál
  channel2; kanály
  channel3; kanálov
  chapter1; kapitola
  chapter2; kapitoly
  chapter3; kapitol
- chapters stream1; chapters stream
- chapters stream2; chapters streams
- chapters stream3; chapters streams
+ chapters stream1; stream kapitol
+ chapters stream2; streamy kapitol
+ chapters stream3; streamov kapitol
  character1;
  character2;
  character3;
@@ -52,67 +52,67 @@
  fps1; snímok/sek.
  fps2; snímok/sek.
  fps3; snímok/sek.
- frame1;snímka
- frame2;snímky
- frame3;snímok
+ frame1; snímka
+ frame2; snímky
+ frame3; snímok
  GB; GB
  Gb; Gb
  GBps; GB/s
  Gbps; Gb/s
  GHz; GHz
  GiB; GiB
- GibiByte1; GibiBytes
- GibiByte2; GibiBytes
- GibiByte3; GibiBytes
+ GibiByte1; gibibajt
+ GibiByte2; gibibajty
+ GibiByte3; gibibajtov
  GiBps; GiB/s
- GigaBit1; GigaBit
- GigaBit2; GigaBitov
- GigaBit3; GigaBitov
- GigaByte1; GigaByte
- GigaByte2; GigaBytov
- GigaByte3; GigaBytov
+ GigaBit1; gigabit
+ GigaBit2; gigabity
+ GigaBit3; gigabitov
+ GigaByte1; gigabajt
+ GigaByte2; gigabajty
+ GigaByte3; gigabajtov
  hour1; hodina
  hour2; hodiny
  hour3; hodín
  Hz; Hz
- image stream1; image stream
- image stream2; image streams
- image stream3; image streams
+ image stream1; obrazový stream
+ image stream2; obrazové streamy
+ image stream3; obrazových streamov
  KB; kB
  Kb; kb
  KBps; kB/s
  Kbps; kb/s
  KHz; kHz
  KiB; kiB
- KibiBit1; kibiBit
- KibiBit2; kibiBitov
- KibiBit3; kibiBitov
- KibiByte1; kibiByte
- KibiByte2; kibiBytov
- KibiByte3; kibiBytov
+ KibiBit1; kibibit
+ KibiBit2; kibibity
+ KibiBit3; kibibitov
+ KibiByte1; kibibajt
+ KibiByte2; kibibajty
+ KibiByte3; kibibajtov
  KiBps; kiB/s
- KiloBit1; kiloBit
- KiloBit2; kiloBitov
- KiloBit3; kiloBitov
- KiloByte1; kiloByte
- KiloByte2; kiloBytov
- KiloByte3; kiloBytov
+ KiloBit1; kilobit
+ KiloBit2; kilobity
+ KiloBit3; kilobitov
+ KiloByte1; kilobajt
+ KiloByte2; kilobajty
+ KiloByte3; kilobajtov
  MB; MB
  Mb; Mb
  MBps; MebiBytov
  Mbps; Mb/s
- MebiBit1; MebiBit
- MebiBit2; MebiBitov
- MebiBit3; MebiBitov
- MebiByte1; MebiByte
- MebiByte2; MebiBytov
- MebiByte3; MebiBytov
- MegaBit1; MegaBit
- MegaBit2; MegaBitov
- MegaBit3; MegaBitov
- MegaByte1; MegaByte
- MegaByte2; MegaBytov
- MegaByte3; MegaBytov
+ MebiBit1; mebibit
+ MebiBit2; mebibity
+ MebiBit3; mebibitov
+ MebiByte1; mebibajt
+ MebiByte2; mebibajty
+ MebiByte3; mebibajtov
+ MegaBit1; megabit
+ MegaBit2; megabity
+ MegaBit3; megabitov
+ MegaByte1; megabajt
+ MegaByte2; megabajty
+ MegaByte3; megabajtov
  MHz; MHz
  MiB; MiB
  Mib; Mib
@@ -130,30 +130,30 @@
  object2;
  object3;
  pixel1; pixel
- pixel2; pixelov
+ pixel2; pixely
  pixel3; pixelov
  second1; sekunda
- second2; sekúndy
+ second2; sekundy
  second3; sekúnd
  slice per frame1;
  slice per frame2;
  slice per frame3;
- text stream1; text stream
- text stream2; text streams
- text stream3; text streams
+ text stream1; textový stream
+ text stream2; textové streamy
+ text stream3; textových streamov
  video frames1;
  video frames2;
  video frames3;
  video stream1; video stream
- video stream2; video streams
- video stream3; video streams
+ video stream2; video streamy
+ video stream3; video streamov
  warppoint0;
  warppoint1;
  warppoint2;
  warppoint3;
  week1; týždeň
  week2; týždne
- week3; týždňo
+ week3; týždňov
  year1; rok
  year2; roky
  year3; rokov

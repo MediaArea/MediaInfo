@@ -18,15 +18,15 @@
   Config_Text_ThousandsSeparator; .
  audio stream1; protok zvuka
  audio stream2; protoka zvuka
- audio stream3; protoci zvuka
+ audio stream3; protoka zvuka
  bit1; bit
  bit2; bita
- bit3; bita
+ bit3; bitova
  Bps; B/s
  bps; b/s
  Byte1; bajt
  Byte2; bajta
- Byte3; bajta
+ Byte3; bajtova
  channel1; kanal
  channel2; kanala
  channel3; kanala
@@ -48,84 +48,84 @@
  dB3; dB
  file1; datoteka
  file2; datoteke
- file3; datoteke
+ file3; datoteka
  fps1; FPS
  fps2; FPS
  fps3; FPS
  frame1; sličica
  frame2; sličice
- frame3; sličice
+ frame3; sličica
  GB; GB
  Gb; Gb
  GBps; GB/s
  Gbps; Gb/s
  GHz; GHz
  GiB; GiB
- GibiByte1; GibiBytes
- GibiByte2; GibiBytes
- GibiByte3; GibiBytes
+ GibiByte1; gibibajt
+ GibiByte2; gibibajta
+ GibiByte3; gibibajta
  GiBps; GiB/s
- GigaBit1; GigaBit
- GigaBit2; GigaBits
- GigaBit3; GigaBits
- GigaByte1; GigaByte
- GigaByte2; GigaBytes
- GigaByte3; GigaBytes
+ GigaBit1; gigabit
+ GigaBit2; gigabita
+ GigaBit3; gigabita
+ GigaByte1; gigabajt
+ GigaByte2; gigabajta
+ GigaByte3; gigabajta
  hour1; sat
  hour2; sata
- hour3; sata
+ hour3; sati
  Hz; Hz
  image stream1; tok slike
  image stream2; toka slike
- image stream3; toka slike
+ image stream3; tokova slike
  KB; kB
  Kb; kb
  KBps; kB/s
  Kbps; kb/s
  KHz; kHz
  KiB; KiB
- KibiBit1; KibiBit
- KibiBit2; KibiBits
- KibiBit3; KibiBits
- KibiByte1; KibiByte
- KibiByte2; KibiBytes
- KibiByte3; KibiBytes
+ KibiBit1; kibibit
+ KibiBit2; kibibita
+ KibiBit3; kibibita
+ KibiByte1; kibibajt
+ KibiByte2; kibibajta
+ KibiByte3; kibibajta
  KiBps; KiB/s
- KiloBit1; KiloBit
- KiloBit2; KiloBits
- KiloBit3; KiloBits
- KiloByte1; KiloByte
- KiloByte2; KiloBytes
- KiloByte3; KiloBytes
+ KiloBit1; kilobit
+ KiloBit2; kilobita
+ KiloBit3; kilobita
+ KiloByte1; kilobajt
+ KiloByte2; kilobajta
+ KiloByte3; kilobajta
  MB; MB
  Mb; Mb
  MBps; MebiBytes
  Mbps; Mb/s
- MebiBit1; MebiBit
- MebiBit2; MebiBits
- MebiBit3; MebiBits
- MebiByte1; MebiByte
- MebiByte2; MebiBytes
- MebiByte3; MebiBytes
- MegaBit1; MegaBit
- MegaBit2; MegaBits
- MegaBit3; MegaBits
- MegaByte1; MegaByte
- MegaByte2; MegaBytes
- MegaByte3; MegaBytes
+ MebiBit1; mebibit
+ MebiBit2; mebibita
+ MebiBit3; mebibita
+ MebiByte1; mebibajt
+ MebiByte2; mebibajta
+ MebiByte3; mebibajta
+ MegaBit1; megabit
+ MegaBit2; megabita
+ MegaBit3; megabita
+ MegaByte1; megabajt
+ MegaByte2; megabajta
+ MegaByte3; megabajta
  MHz; MHz
  MiB; MiB
  Mib; Mib
  MiBps; MiB/s
- millisecond1; millisecond
- millisecond2; milliseconds
- millisecond3; milliseconds
+ millisecond1; milisekunda
+ millisecond2; milisekunde
+ millisecond3; milisekundi
  minute1; minuta
  minute2; minute
- minute3; minute
+ minute3; minuta
  month1; mjesec
  month2; mjeseca
- month3; mjeseca
+ month3; mjeseci
  object1;
  object2;
  object3;
@@ -133,30 +133,30 @@
  pixel2; piksela
  pixel3; piksela
  second1; sekunda
- second2; seekunde
- second3; sekunde
+ second2; sekunde
+ second3; sekundi
  slice per frame1;
  slice per frame2;
  slice per frame3;
  text stream1; protok teksta
  text stream2; protoka teksta
- text stream3; protoci teksta
+ text stream3; protoka teksta
  video frames1; video-sličica
  video frames2; video-sličice
- video frames3; video-sličice
+ video frames3; video-sličica
  video stream1; tok slike
  video stream2; toka slike
- video stream3; toka slike
- warppoint0;Nema točki izobličavanja
+ video stream3; tokova slike
+ warppoint0;Nema točaka izobličavanja
  warppoint1; točka izobličavanja
  warppoint2; točke izobličavanja
- warppoint3; točke izobličavanja
+ warppoint3; točaka izobličavanja
  week1; tjedan
  week2; tjedna
- week3; tjedna
+ week3; tjedana
  year1; godina
  year2; godine
- year3; godine
+ year3; godina
 , ;, 
 : ;: 
 3D;

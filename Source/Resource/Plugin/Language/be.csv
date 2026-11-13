@@ -84,12 +84,12 @@
  Kbps; Кбіт/сек
  KHz; КГц
  KiB; КіБ
- KibiBit1; Кiбiбiт
- KibiBit2; Кiбiбiты
- KibiBit3; Кiбiбiт
- KibiByte1; Кiбiбайт
- KibiByte2; Кiбiбайты
- KibiByte3; Кiбiбайт
+ KibiBit1; Кібібіт
+ KibiBit2; Кібібіты
+ KibiBit3; Кібібіт
+ KibiByte1; Кібібайт
+ KibiByte2; Кібібайты
+ KibiByte3; Кібібайт
  KiBps; КіБ/сек
  KiloBit1; Кілабіт
  KiloBit2; Кілабіты
@@ -101,12 +101,12 @@
  Mb; Мбіт
  MBps; МБ/сек
  Mbps; Мбіт/сек
- MebiBit1; Мебiбiт
- MebiBit2; Мебiбiты
- MebiBit3; Мебiбiт
- MebiByte1; Мебiбайт
- MebiByte2; Мебiбайты
- MebiByte3; Мебiбайт
+ MebiBit1; Мебібіт
+ MebiBit2; Мебібіты
+ MebiBit3; Мебібіт
+ MebiByte1; Мебібайт
+ MebiByte2; Мебібайты
+ MebiByte3; Мебібайт
  MegaBit1; Мегабіт
  MegaBit2; Мегабіты
  MegaBit3; Мегабіт
@@ -129,15 +129,15 @@
  object1; аб'ект
  object2; аб'екты
  object3; аб'ектаў
- pixel1; пiксель
- pixel2; пiкселя
- pixel3; пiкселяў
+ pixel1; піксель
+ pixel2; пікселі
+ pixel3; пікселяў
  second1; секунда
  second2; секунды
  second3; секунд
- slice per frame1;фрагмент на кадр
- slice per frame2;фрагменты на кадр
- slice per frame3;фрагментаў на кадр
+ slice per frame1; фрагмент на кадр
+ slice per frame2; фрагменты на кадр
+ slice per frame3; фрагментаў на кадр
  text stream1; тэкставы паток
  text stream2; тэкставыя патокі
  text stream3; тэкставых патокаў
@@ -152,7 +152,7 @@
  warppoint2; пункты пераходу
  warppoint3; пунктаў пераходу
  week1; тыдзень
- week2; тыдня
+ week2; тыдні
  week3; тыдняў
  year1; год
  year2; гады

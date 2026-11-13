@@ -16,42 +16,42 @@
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
   Config_Text_ThousandsSeparator; 
- audio stream1;flux audio
- audio stream2;fluxuri audio
- audio stream3;fluxuri audio
- bit1;bit
- bit2;biti
- bit3;biti
+ audio stream1; flux audio
+ audio stream2; fluxuri audio
+ audio stream3; de fluxuri audio
+ bit1; bit
+ bit2; biti
+ bit3; de biti
  Bps;B/s
  bps;b/s
- Byte1;Bite
- Byte2;Biti
- Byte3;Biti
- channel1;canal
- channel2;canale
- channel3;canale
- chapter1;capitol
- chapter2;capitole
- chapter3;capitole
- chapters stream1;flux capitole
- chapters stream2;fluxuri capitole
- chapters stream3;fluxuri capitole
+ Byte1; Bite
+ Byte2; Biti
+ Byte3; de Biti
+ channel1; canal
+ channel2; canale
+ channel3; de canale
+ chapter1; capitol
+ chapter2; capitole
+ chapter3; de capitole
+ chapters stream1; flux capitole
+ chapters stream2; fluxuri capitole
+ chapters stream3; de fluxuri capitole
  character1;
  character2;
  character3;
- day1;zi
- day2;zile
- day3;zile
+ day1; zi
+ day2; zile
+ day3; de zile
  dB0;
  dB1;
  dB2;
  dB3;
- file1;fisier
- file2;fisiere
- file3;fisiere
- fps1;pfs
- fps2;pfs
- fps3;pfs
+ file1; fisier
+ file2; fisiere
+ file3; de fisiere
+ fps1; pfs
+ fps2; pfs
+ fps3; pfs
  frame1;
  frame2;
  frame3;
@@ -71,13 +71,13 @@
  GigaByte1;
  GigaByte2;
  GigaByte3;
- hour1;ora
- hour2;ore
- hour3;ore
+ hour1; ora
+ hour2; ore
+ hour3; de ore
  Hz;Hz
- image stream1;flux imagine
- image stream2;fluxuri imagine
- image stream3;fluxuri imagine
+ image stream1; flux imagine
+ image stream2; fluxuri imagine
+ image stream3; de fluxuri imagine
  KB;
  Kb;
  KBps;
@@ -117,46 +117,46 @@
  MiB;
  Mib;
  MiBps;
- millisecond1;milisecunda
- millisecond2;milisecunde
- millisecond3;milisecunde
- minute1;minut
- minute2;minute
- minute3;minute
- month1;luna
- month2;luni
- month3;luni
+ millisecond1; milisecunda
+ millisecond2; milisecunde
+ millisecond3; de milisecunde
+ minute1; minut
+ minute2; minute
+ minute3; de minute
+ month1; luna
+ month2; luni
+ month3; de luni
  object1;
  object2;
  object3;
- pixel1;pixel
- pixel2;pixeli
- pixel3;pixeli
- second1;secunda
- second2;secunde
- second3;secunde
+ pixel1; pixel
+ pixel2; pixeli
+ pixel3; de pixeli
+ second1; secunda
+ second2; secunde
+ second3; de secunde
  slice per frame1;
  slice per frame2;
  slice per frame3;
- text stream1;flux test
- text stream2;fluxuri test
- text stream3;fluxuri text
+ text stream1; flux text
+ text stream2; fluxuri text
+ text stream3; de fluxuri text
  video frames1;
  video frames2;
  video frames3;
- video stream1;flux video
- video stream2;fluxuri video
- video stream3;fluxuri video
+ video stream1; flux video
+ video stream2; fluxuri video
+ video stream3; de fluxuri video
  warppoint0;
  warppoint1;
  warppoint2;
  warppoint3;
- week1;saptamana
- week2;saptamani
- week3;saptamani
- year1;an
- year2;ani
- year3;ani
+ week1; saptamana
+ week2; saptamani
+ week3; de saptamani
+ year1; an
+ year2; ani
+ year3; de ani
 , ;
 : ;
 3D;

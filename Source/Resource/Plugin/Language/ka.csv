@@ -16,9 +16,9 @@
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
   Config_Text_ThousandsSeparator; 
- audio stream1; აუდიო ნაკადი1
- audio stream2; აუდიო ნაკადი2
- audio stream3; აუდიო ნაკადი3
+ audio stream1; აუდიო ნაკადი
+ audio stream2; აუდიო ნაკადი
+ audio stream3; აუდიო ნაკადი
  bit1; ბიტი
  bit2; ბიტი
  bit3; ბიტი
@@ -28,42 +28,42 @@
  Byte2; ბაიტი
  Byte3; ბაიტი
  channel1; არხი
- channel2; არხები
- channel3; არხები
+ channel2; არხი
+ channel3; არხი
  chapter1; სექცია
  chapter2; სექცია
- chapter3; სექციები
+ chapter3; სექცია
  chapters stream1; სექციების ნაკადი
- chapters stream2; სექციების ნაკადები
- chapters stream3; სექციების ნაკადები
+ chapters stream2; სექციების ნაკადი
+ chapters stream3; სექციების ნაკადი
  character1;
  character2;
  character3;
  day1; დღე
- day2; დღეები
- day3; დღეები
+ day2; დღე
+ day3; დღე
  dB0;
  dB1; დბ
  dB2; დბ
  dB3; დბ
  file1; ფაილი
- file2; ფაილები
- file3; ფაილები
+ file2; ფაილი
+ file3; ფაილი
  fps1; კადრ/წმ
  fps2; კადრ/წმ
  fps3; კადრ/წმ
  frame1; კადრი
  frame2; კადრი
- frame3; კადრები
+ frame3; კადრი
  GB; გბ
  Gb; გბ
  GBps; გიგაბაიტ/წმ
  Gbps; გიგაბიტ/წმ
  GHz; გჰც
  GiB; გბაიტი
- GibiByte1; გიგაბაიტი
- GibiByte2; გიგაბაიტი
- GibiByte3; გიგაბაიტი
+ GibiByte1; გიბიბაიტი
+ GibiByte2; გიბიბაიტი
+ GibiByte3; გიბიბაიტი
  GiBps; გბაიტ/წმ
  GigaBit1; გიგაბიტი
  GigaBit2; გიგაბიტი
@@ -72,12 +72,12 @@
  GigaByte2; გიგაბაიტი
  GigaByte3; გიგაბაიტი
  hour1; საათი
- hour2; საათები
- hour3; საათები
+ hour2; საათი
+ hour3; საათი
  Hz; ჰც
  image stream1; სურათის ნაკადი
- image stream2; სურათების ნაკადი
- image stream3; სურათების ნაკადი
+ image stream2; სურათის ნაკადი
+ image stream3; სურათის ნაკადი
  KB; კბ
  Kb; კბ
  KBps; კბაიტ/წმ
@@ -117,21 +117,21 @@
  MiB; მბაიტი
  Mib; მიბ
  MiBps; მბაიტ/წმ
- millisecond1; millisecond
- millisecond2; milliseconds
- millisecond3; milliseconds
+ millisecond1; მილიწამი
+ millisecond2; მილიწამი
+ millisecond3; მილიწამი
  minute1; წუთი
  minute2; წუთი
  minute3; წუთი
  month1; თვე
- month2; თვეები
- month3; თვეები
+ month2; თვე
+ month3; თვე
  object1;
  object2;
  object3;
  pixel1; პიქსელი
- pixel2; პიქსელები
- pixel3;პიქსელები
+ pixel2; პიქსელი
+ pixel3; პიქსელი
  second1; წამი
  second2; წამი
  second3; წამი

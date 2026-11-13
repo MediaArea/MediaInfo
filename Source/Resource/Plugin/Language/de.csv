@@ -36,9 +36,9 @@
  chapters stream1; Kapitel-Stream
  chapters stream2; Kapitel-Streams
  chapters stream3; Kapitel-Streams
- character1;Schriftzeichen
- character2;Schriftzeichen
- character3;Schriftzeichen
+ character1; Schriftzeichen
+ character2; Schriftzeichen
+ character3; Schriftzeichen
  day1; Tag
  day2; Tage
  day3; Tage

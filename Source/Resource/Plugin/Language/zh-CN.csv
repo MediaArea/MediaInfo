@@ -120,12 +120,12 @@
  millisecond1; 毫秒
  millisecond2; 毫秒
  millisecond3; 毫秒
- minute1; 分
- minute2; 分
- minute3; 分
- month1; 月
- month2; 月
- month3; 月
+ minute1; 分钟
+ minute2; 分钟
+ minute3; 分钟
+ month1; 个月
+ month2; 个月
+ month3; 个月
  object1; 个对象
  object2; 个对象
  object3; 个对象
@@ -135,9 +135,9 @@
  second1; 秒
  second2; 秒
  second3; 秒
- slice per frame1;每帧切片数
- slice per frame2;每帧切片数
- slice per frame3;每帧切片数
+ slice per frame1; 个切片/帧
+ slice per frame2; 个切片/帧
+ slice per frame3; 个切片/帧
  text stream1; 个字幕流
  text stream2; 个字幕流
  text stream3; 个字幕流
@@ -148,9 +148,9 @@
  video stream2; 个视频流
  video stream3; 个视频流
  warppoint0;无变形参考点
- warppoint1;个变形参考点
- warppoint2;个变形参考点
- warppoint3;个变形参考点
+ warppoint1; 个变形参考点
+ warppoint2; 个变形参考点
+ warppoint3; 个变形参考点
  week1; 周
  week2; 周
  week3; 周

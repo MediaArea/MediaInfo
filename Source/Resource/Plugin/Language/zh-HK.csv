@@ -16,45 +16,45 @@
   Config_Text_NumberTag;＃
   Config_Text_FloatSeparator;.
   Config_Text_ThousandsSeparator; 
- audio stream1;聲頻
- audio stream2;個聲頻
- audio stream3;個聲頻
- bit1;位元
- bit2;位元
- bit3;位元
+ audio stream1; 個聲頻
+ audio stream2; 個聲頻
+ audio stream3; 個聲頻
+ bit1; 個位元
+ bit2; 個位元
+ bit3; 個位元
  Bps; B/s
  bps; b/s
- Byte1;位元組
- Byte2;位元組
- Byte3;位元組
- channel1;聲道
- channel2;聲道
- channel3;聲道
- chapter1;章節
- chapter2;章節
- chapter3;章節
- chapters stream1;章節串流
- chapters stream2;個章節串流
- chapters stream3;個章節串流
- character1;字元
- character2;個字元
- character3;個字元
- day1;日
- day2;日
- day3;日
+ Byte1; 位元組
+ Byte2; 位元組
+ Byte3; 位元組
+ channel1; 聲道
+ channel2; 聲道
+ channel3; 聲道
+ chapter1; 個章節
+ chapter2; 個章節
+ chapter3; 個章節
+ chapters stream1; 個章節串流
+ chapters stream2; 個章節串流
+ chapters stream3; 個章節串流
+ character1; 個字元
+ character2; 個字元
+ character3; 個字元
+ day1; 日
+ day2; 日
+ day3; 日
  dB0;
  dB1; dB
  dB2; dB
  dB3; dB
- file1;檔案
- file2;個檔案
- file3;個檔案
+ file1; 個檔案
+ file2; 個檔案
+ file3; 個檔案
  fps1; FPS
  fps2; FPS
  fps3; FPS
- frame1;畫格
- frame2;畫格
- frame3;畫格
+ frame1; 個畫格
+ frame2; 個畫格
+ frame3; 個畫格
  GB; GB
  Gb; Gb
  GBps; GB/s
@@ -71,13 +71,13 @@
  GigaByte1; GigaByte
  GigaByte2; GigaBytes
  GigaByte3; GigaBytes
- hour1;小時
- hour2;小時
- hour3;小時
+ hour1; 小時
+ hour2; 小時
+ hour3; 小時
  Hz; Hz
- image stream1;圖像串流
- image stream2;圖像串流
- image stream3;圖像串流
+ image stream1; 個圖像串流
+ image stream2; 個圖像串流
+ image stream3; 個圖像串流
  KB; kB
  Kb; kb
  KBps; kB/s
@@ -117,46 +117,46 @@
  MiB; MiB
  Mib; Mib
  MiBps; MiB/s
- millisecond1;毫秒
- millisecond2;毫秒
- millisecond3;毫秒
- minute1;分
- minute2;分
- minute3;分
- month1;月
- month2;月
- month3;月
+ millisecond1; 毫秒
+ millisecond2; 毫秒
+ millisecond3; 毫秒
+ minute1; 分鐘
+ minute2; 分鐘
+ minute3; 分鐘
+ month1; 個月
+ month2; 個月
+ month3; 個月
  object1;
  object2;
  object3;
- pixel1;像素
- pixel2;像素
- pixel3;像素
- second1;秒
- second2;秒
- second3;秒
+ pixel1; 像素
+ pixel2; 像素
+ pixel3; 像素
+ second1; 秒
+ second2; 秒
+ second3; 秒
  slice per frame1;
  slice per frame2;
  slice per frame3;
- text stream1;字幕串流
- text stream2;個字幕串流
- text stream3;個字幕串流
- video frames1;畫格
- video frames2;畫格
- video frames3;畫格
- video stream1;影片串流
- video stream2;影片串流
- video stream3;影片串流
+ text stream1; 個字幕串流
+ text stream2; 個字幕串流
+ text stream3; 個字幕串流
+ video frames1; 個畫格
+ video frames2; 個畫格
+ video frames3; 個畫格
+ video stream1; 個影片串流
+ video stream2; 個影片串流
+ video stream3; 個影片串流
  warppoint0;沒有跳躍點
- warppoint1;跳躍點
- warppoint2;跳躍點
- warppoint3;跳躍點
- week1;週
- week2;週
- week3;週
- year1;年
- year2;年
- year3;年
+ warppoint1; 個跳躍點
+ warppoint2; 個跳躍點
+ warppoint3; 個跳躍點
+ week1; 星期
+ week2; 星期
+ week3; 星期
+ year1; 年
+ year2; 年
+ year3; 年
 , ;, 
 : ;: 
 3D;3D

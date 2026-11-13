@@ -16,39 +16,39 @@
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;,
   Config_Text_ThousandsSeparator; 
- audio stream1;audio srautas
- audio stream2;audio srautai
- audio stream3;audio srautai
+ audio stream1; audio srautas
+ audio stream2; audio srautai
+ audio stream3; audio srautų
  bit1; bitas
  bit2; bitai
- bit3; bitai
+ bit3; bitų
  Bps; B/s
  bps; b/s
  Byte1; Baitas
  Byte2; Baitai
- Byte3;Baitai
- channel1;kanalas
- channel2;kanalai
- channel3; kanalai
+ Byte3; Baitų
+ channel1; kanalas
+ channel2; kanalai
+ channel3; kanalų
  chapter1; skyrius
  chapter2; skyriai
- chapter3; skyriai
- chapters stream1;Skyriaus srautas
- chapters stream2;kanalų srautai
- chapters stream3;kanalų srautai
+ chapter3; skyrių
+ chapters stream1; skyrių srautas
+ chapters stream2; skyrių srautai
+ chapters stream3; skyrių srautų
  character1;
  character2;
  character3;
- day1;diena
- day2;dienos
- day3;dienos
+ day1; diena
+ day2; dienos
+ day3; dienų
  dB0;
  dB1;
  dB2;
  dB3;
- file1;failas
- file2;failai
- file3;failai
+ file1; failas
+ file2; failai
+ file3; failų
  fps1; kps
  fps2; kps
  fps3; kps
@@ -61,23 +61,23 @@
  Gbps; Gb/s
  GHz; GHz
  GiB; GiB
- GibiByte1; Gigabaitai
- GibiByte2; Gigabaitai
- GibiByte3; Gigabaitai
+ GibiByte1; GibiBaitas
+ GibiByte2; GibiBaitai
+ GibiByte3; GibiBaitų
  GiBps; GiB/s
  GigaBit1; GigaBitas
  GigaBit2; GigaBitai
- GigaBit3; GigaBitai
- GigaByte1; Gigabaitas
+ GigaBit3; GigaBitų
+ GigaByte1; GigaBaitas
  GigaByte2; GigaBaitai
- GigaByte3; GigaBaitai
+ GigaByte3; GigaBaitų
  hour1; valanda
  hour2; valandos
- hour3;valandos
+ hour3; valandų
  Hz; Hz
- image stream1;paveikslėlio srautas
- image stream2;paveikslėlių srautai
- image stream3;paveikslėlių srautai
+ image stream1; paveikslėlio srautas
+ image stream2; paveikslėlių srautai
+ image stream3; paveikslėlių srautų
  KB; kB
  Kb; kb
  KBps; kB/s
@@ -86,77 +86,77 @@
  KiB; KiB
  KibiBit1; KibiBitas
  KibiBit2; KibiBitai
- KibiBit3; KibiBitai
+ KibiBit3; KibiBitų
  KibiByte1; KibiBaitas
  KibiByte2; KibiBaitai
- KibiByte3; KibiBaitai
+ KibiByte3; KibiBaitų
  KiBps; KiB/s
  KiloBit1; KiloBitas
  KiloBit2; KiloBitai
- KiloBit3; KiloBitai
+ KiloBit3; KiloBitų
  KiloByte1; KiloBaitas
  KiloByte2; KiloBaitai
- KiloByte3; KiloBaitai
+ KiloByte3; KiloBaitų
  MB; MB
  Mb; Mb
  MBps; MebiBytes
  Mbps; Mb/s
  MebiBit1; MebiBitas
  MebiBit2; MebiBitai
- MebiBit3; MebiBitai
+ MebiBit3; MebiBitų
  MebiByte1; MebiBaitas
- MebiByte2; MebiBytai
- MebiByte3; MebiBytai
+ MebiByte2; MebiBaitai
+ MebiByte3; MebiBaitų
  MegaBit1; MegaBitas
  MegaBit2; MegaBitai
- MegaBit3; MegaBitai
+ MegaBit3; MegaBitų
  MegaByte1; MegaBaitas
  MegaByte2; MegaBaitai
- MegaByte3; MegaBaitai
+ MegaByte3; MegaBaitų
  MHz; MHz
  MiB; MiB
  Mib; Mib
  MiBps; MiB/s
- millisecond1;milisekundė
- millisecond2;milisekundės
- millisecond3;milisekundės
- minute1;minutė
- minute2;minutės
- minute3;minutės
- month1;mėnuo
- month2;mėnesiai
- month3;mėnesiai
+ millisecond1; milisekundė
+ millisecond2; milisekundės
+ millisecond3; milisekundžių
+ minute1; minutė
+ minute2; minutės
+ minute3; minučių
+ month1; mėnuo
+ month2; mėnesiai
+ month3; mėnesių
  object1;
  object2;
  object3;
- pixel1;pikselis
- pixel2;pikseliai
- pixel3;pikseliai
- second1;sekundė
- second2;sekundės
- second3;sekundės
+ pixel1; pikselis
+ pixel2; pikseliai
+ pixel3; pikselių
+ second1; sekundė
+ second2; sekundės
+ second3; sekundžių
  slice per frame1;
  slice per frame2;
  slice per frame3;
- text stream1;teksto srautas
- text stream2;teksto srautai
- text stream3;teksto srautai
+ text stream1; teksto srautas
+ text stream2; teksto srautai
+ text stream3; teksto srautų
  video frames1;
  video frames2;
  video frames3;
- video stream1;video srautas
- video stream2;video srautai
- video stream3;video srautai
+ video stream1; video srautas
+ video stream2; video srautai
+ video stream3; video srautų
  warppoint0;
  warppoint1;
  warppoint2;
  warppoint3;
- week1;savaitė
- week2;savaitės
- week3;savaitės
- year1;metai
- year2;metai
- year3;metai
+ week1; savaitė
+ week2; savaitės
+ week3; savaičių
+ year1; metai
+ year2; metai
+ year3; metų
 , ;, 
 : ;: 
 3D;

@@ -16,9 +16,9 @@
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
   Config_Text_ThousandsSeparator; 
- audio stream1; 오디오 스트림
- audio stream2; 오디오 스트림
- audio stream3; 오디오 스트림
+ audio stream1; 개의 오디오 스트림
+ audio stream2; 개의 오디오 스트림
+ audio stream3; 개의 오디오 스트림
  bit1; 비트
  bit2; 비트
  bit3; 비트
@@ -30,12 +30,12 @@
  channel1; 채널
  channel2; 채널
  channel3; 채널
- chapter1; 챕터
- chapter2; 챕터
- chapter3; 챕터
- chapters stream1; 챕터 스트림
- chapters stream2; 챕터 스트림
- chapters stream3; 챕터 스트림
+ chapter1; 개의 챕터
+ chapter2; 개의 챕터
+ chapter3; 개의 챕터
+ chapters stream1; 개의 챕터 스트림
+ chapters stream2; 개의 챕터 스트림
+ chapters stream3; 개의 챕터 스트림
  character1;
  character2;
  character3;
@@ -46,9 +46,9 @@
  dB1; dB
  dB2; dB
  dB3; dB
- file1; 파일
- file2; 파일
- file3; 파일
+ file1; 개의 파일
+ file2; 개의 파일
+ file3; 개의 파일
  fps1; fps
  fps2; fps
  fps3; fps
@@ -75,9 +75,9 @@
  hour2; 시간
  hour3; 시간
  Hz; Hz
- image stream1; 이미지 스트림
- image stream2; 이미지 스트림
- image stream3; 이미지 스트림
+ image stream1; 개의 이미지 스트림
+ image stream2; 개의 이미지 스트림
+ image stream3; 개의 이미지 스트림
  KB; KB
  Kb; Kb
  KBps; KBps
@@ -117,15 +117,15 @@
  MiB; MiB
  Mib; Mib
  MiBps; MiBps
- millisecond1; 미리초
- millisecond2; 미리초
- millisecond3; 미리초
+ millisecond1; 밀리초
+ millisecond2; 밀리초
+ millisecond3; 밀리초
  minute1; 분
  minute2; 분
  minute3; 분
- month1; 월
- month2; 월
- month3; 월
+ month1; 개월
+ month2; 개월
+ month3; 개월
  object1;
  object2;
  object3;
@@ -138,19 +138,19 @@
  slice per frame1;
  slice per frame2;
  slice per frame3;
- text stream1; 텍스트 스트림
- text stream2; 텍스트 스트림
- text stream3; 텍스트 스트림
+ text stream1; 개의 텍스트 스트림
+ text stream2; 개의 텍스트 스트림
+ text stream3; 개의 텍스트 스트림
  video frames1; 비디오 프레임
  video frames2; 비디오 프레임
  video frames3; 비디오 프레임
- video stream1; 비디오 스트림
- video stream2; 비디오 스트림
- video stream3; 비디오 스트림
- warppoint0; 워프포인트 없음
- warppoint1; 워프포인트
- warppoint2; 워프포인트
- warppoint3; 워프포인트
+ video stream1; 개의 비디오 스트림
+ video stream2; 개의 비디오 스트림
+ video stream3; 개의 비디오 스트림
+ warppoint0;워프포인트 없음
+ warppoint1; 개의 워프포인트
+ warppoint2; 개의 워프포인트
+ warppoint3; 개의 워프포인트
  week1; 주
  week2; 주
  week3; 주

@@ -30,15 +30,15 @@
  channel1; チャンネル
  channel2; チャンネル
  channel3; チャンネル
- chapter1; チャプター
- chapter2; チャプター
- chapter3; チャプター
+ chapter1; 個のチャプター
+ chapter2; 個のチャプター
+ chapter3; 個のチャプター
  chapters stream1; 個のチャプターストリーム
  chapters stream2; 個のチャプターストリーム
  chapters stream3; 個のチャプターストリーム
- character1;文字
- character2;文字
- character3;文字
+ character1; 文字
+ character2; 文字
+ character3; 文字
  day1; 日
  day2; 日
  day3; 日
@@ -46,9 +46,9 @@
  dB1; dB
  dB2; dB
  dB3; dB
- file1; ファイル
- file2; ファイル
- file3; ファイル
+ file1; 個のファイル
+ file2; 個のファイル
+ file3; 個のファイル
  fps1; fps
  fps2; fps
  fps3; fps
@@ -123,9 +123,9 @@
  minute1; 分
  minute2; 分
  minute3; 分
- month1; 月
- month2; 月
- month3; 月
+ month1; か月
+ month2; か月
+ month3; か月
  object1;
  object2;
  object3;
@@ -147,13 +147,13 @@
  video stream1; 個の映像ストリーム
  video stream2; 個の映像ストリーム
  video stream3; 個の映像ストリーム
- warppoint0; ワープポイント
- warppoint1; ワープポイント
- warppoint2; ワープポイント
- warppoint3; ワープポイント
- week1; 週
- week2; 週
- week3; 週
+ warppoint0;ワープポイントなし
+ warppoint1; 個のワープポイント
+ warppoint2; 個のワープポイント
+ warppoint3; 個のワープポイント
+ week1; 週間
+ week2; 週間
+ week3; 週間
  year1; 年
  year2; 年
  year3; 年
