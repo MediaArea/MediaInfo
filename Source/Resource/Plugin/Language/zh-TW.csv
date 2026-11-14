@@ -1,4 +1,11 @@
   Language_ISO639;zh-TW
+  Config_Text_PluralRules;1
+  Config_Text_PluralRule.zero;
+  Config_Text_PluralRule.one;
+  Config_Text_PluralRule.two;
+  Config_Text_PluralRule.few;
+  Config_Text_PluralRule.many;
+  Config_Text_PluralLegacy;one=1,other=2
   Author_Email;kenelin@gmail.com
   Author_Name;Kene Lin
   Author_OldNames;Initial translator
@@ -8,45 +15,56 @@
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
   Config_Text_ThousandsSeparator; 
- audio stream1; 音訊串流
- audio stream2; 音訊串流
- audio stream3; 音訊串流
- bit1; bit
- bit2; bits
- bit3; bits
+ audio stream1; 個音訊串流
+ audio stream2; 個音訊串流
+ audio stream3; 個音訊串流
+ audio stream4;
+ bit1; 位元
+ bit2; 位元
+ bit3; 位元
+ bit4;
  Bps; B/s
  bps; b/s
- Byte1; Byte
- Byte2; Bytes
- Byte3; Bytes
+ Byte1; 位元組
+ Byte2; 位元組
+ Byte3; 位元組
+ Byte4;
  channel1; 聲道
  channel2; 聲道
  channel3; 聲道
- chapter1; 章節
- chapter2; 章節
- chapter3; 章節
- chapters stream1; 章節串流
- chapters stream2; 章節串流
- chapters stream3; 章節串流
+ channel4;
+ chapter1; 個章節
+ chapter2; 個章節
+ chapter3; 個章節
+ chapter4;
+ chapters stream1; 個章節串流
+ chapters stream2; 個章節串流
+ chapters stream3; 個章節串流
+ chapters stream4;
  character1;
  character2;
  character3;
- day1; 日
- day2; 日
- day3; 日
+ character4;
+ day1; 天
+ day2; 天
+ day3; 天
+ day4;
  dB0;
  dB1; dB
  dB2; dB
  dB3; dB
- file1; 檔案
- file2; 檔案
- file3; 檔案
+ file1; 個檔案
+ file2; 個檔案
+ file3; 個檔案
+ file4;
  fps1; FPS
  fps2; FPS
  fps3; FPS
- frame1; 影格
- frame2; 影格
- frame3; 影格
+ fps4;
+ frame1; 個影格
+ frame2; 個影格
+ frame3; 個影格
+ frame4;
  GB; GB
  Gb; Gb
  GBps; GB/s
@@ -56,20 +74,25 @@
  GibiByte1; GibiBytes
  GibiByte2; GibiBytes
  GibiByte3; GibiBytes
+ GibiByte4;
  GiBps; GiB/s
  GigaBit1; GigaBit
  GigaBit2; GigaBits
  GigaBit3; GigaBits
+ GigaBit4;
  GigaByte1; GigaByte
  GigaByte2; GigaBytes
  GigaByte3; GigaBytes
+ GigaByte4;
  hour1; 小時
  hour2; 小時
  hour3; 小時
+ hour4;
  Hz; Hz
- image stream1; 圖片串流
- image stream2; 圖片串流
- image stream3; 圖片串流
+ image stream1; 個圖片串流
+ image stream2; 個圖片串流
+ image stream3; 個圖片串流
+ image stream4;
  KB; kB
  Kb; kb
  KBps; kB/s
@@ -79,16 +102,20 @@
  KibiBit1; KibiBit
  KibiBit2; KibiBits
  KibiBit3; KibiBits
+ KibiBit4;
  KibiByte1; KibiByte
  KibiByte2; KibiBytes
  KibiByte3; KibiBytes
+ KibiByte4;
  KiBps; KiB/s
  KiloBit1; KiloBit
  KiloBit2; KiloBits
  KiloBit3; KiloBits
+ KiloBit4;
  KiloByte1; KiloByte
  KiloByte2; KiloBytes
  KiloByte3; KiloBytes
+ KiloByte4;
  MB; MB
  Mb; Mb
  MBps; MebiBytes
@@ -96,15 +123,19 @@
  MebiBit1; MebiBit
  MebiBit2; MebiBits
  MebiBit3; MebiBits
+ MebiBit4;
  MebiByte1; MebiByte
  MebiByte2; MebiBytes
  MebiByte3; MebiBytes
+ MebiByte4;
  MegaBit1; MegaBit
  MegaBit2; MegaBits
  MegaBit3; MegaBits
+ MegaBit4;
  MegaByte1; MegaByte
  MegaByte2; MegaBytes
  MegaByte3; MegaBytes
+ MegaByte4;
  MHz; MHz
  MiB; MiB
  Mib; Mib
@@ -112,43 +143,56 @@
  millisecond1; 毫秒
  millisecond2; 毫秒
  millisecond3; 毫秒
- minute1; 分
- minute2; 分
- minute3; 分
- month1; 月
- month2; 月
- month3; 月
+ millisecond4;
+ minute1; 分鐘
+ minute2; 分鐘
+ minute3; 分鐘
+ minute4;
+ month1; 個月
+ month2; 個月
+ month3; 個月
+ month4;
  object1;
  object2;
  object3;
+ object4;
  pixel1; 像素
  pixel2; 像素
  pixel3; 像素
+ pixel4;
  second1; 秒
  second2; 秒
  second3; 秒
+ second4;
  slice per frame1;
  slice per frame2;
  slice per frame3;
- text stream1; 字幕串流
- text stream2; 字幕串流
- text stream3; 字幕串流
- video frames1; 視訊影格
- video frames2; 視訊影格
- video frames3; 視訊影格
- video stream1; 視訊串流
- video stream2; 視訊串流
- video stream3; 視訊串流
- warppoint0; 沒有跳躍點
- warppoint1; 跳躍點
- warppoint2; 跳躍點
- warppoint3; 跳躍點
+ slice per frame4;
+ text stream1; 個字幕串流
+ text stream2; 個字幕串流
+ text stream3; 個字幕串流
+ text stream4;
+ video frames1; 個視訊影格
+ video frames2; 個視訊影格
+ video frames3; 個視訊影格
+ video frames4;
+ video stream1; 個視訊串流
+ video stream2; 個視訊串流
+ video stream3; 個視訊串流
+ video stream4;
+ warppoint0;沒有跳躍點
+ warppoint1; 個跳躍點
+ warppoint2; 個跳躍點
+ warppoint3; 個跳躍點
+ warppoint4;
  week1; 週
  week2; 週
  week3; 週
+ week4;
  year1; 年
  year2; 年
  year3; 年
+ year4;
 , ;, 
 : ;: 
 3D;

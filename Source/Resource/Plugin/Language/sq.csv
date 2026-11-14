@@ -1,4 +1,11 @@
   Language_ISO639;sq
+  Config_Text_PluralRules;1
+  Config_Text_PluralRule.zero;
+  Config_Text_PluralRule.one;f == 0 && i == 1
+  Config_Text_PluralRule.two;
+  Config_Text_PluralRule.few;
+  Config_Text_PluralRule.many;
+  Config_Text_PluralLegacy;one=1,other=2
   Author_Email;bgodole@gmail.com
   Author_Name;Besmir Godole
   Author_OldNames;Përkthyesi i parë
@@ -11,29 +18,37 @@
  audio stream1; rrymë audio
  audio stream2; rrymë audio
  audio stream3; rrymë audio
+ audio stream4;
  bit1; bit
  bit2; bit
  bit3; bit
+ bit4;
  Bps; B/s
  bps; b/s
  Byte1; Bajt
  Byte2; Bajt
  Byte3; Bajt
+ Byte4;
  channel1; kanal
  channel2; kanale
  channel3; kanale
+ channel4;
  chapter1; kapitull
  chapter2; kapituj
  chapter3; kapituj
+ chapter4;
  chapters stream1; rrymë kapitulli
  chapters stream2; rrymë kapitulli
  chapters stream3; rrymë kapitulli
+ chapters stream4;
  character1;
  character2;
  character3;
+ character4;
  day1; ditë
  day2; ditë
  day3; ditë
+ day4;
  dB0;
  dB1; dB
  dB2; dB
@@ -41,12 +56,15 @@
  file1; skedë
  file2; skeda
  file3; skeda
+ file4;
  fps1; FPS
  fps2; FPS
  fps3; FPS
+ fps4;
  frame1; kuadër
  frame2; kuadro
  frame3; kuadro
+ frame4;
  GB; GB
  Gb; Gb
  GBps; GB/s
@@ -56,20 +74,25 @@
  GibiByte1; GibiBajt
  GibiByte2; Gibibajt
  GibiByte3; Gibibajt
+ GibiByte4;
  GiBps; GiB/s
  GigaBit1; GigaBit
  GigaBit2; GigaBit
  GigaBit3; GigaBit
+ GigaBit4;
  GigaByte1; GigaBajt
  GigaByte2; GigaBajt
  GigaByte3; GigaBajt
+ GigaByte4;
  hour1; orë
  hour2; orë
  hour3; orë
+ hour4;
  Hz; Hz
  image stream1; rrymë figure
  image stream2; rrymë figure
  image stream3; rrymë figure
+ image stream4;
  KB; kB
  Kb; kb
  KBps; kB/s
@@ -79,16 +102,20 @@
  KibiBit1; KibiBit
  KibiBit2; KibiBit
  KibiBit3; KibiBit
+ KibiBit4;
  KibiByte1; KibiBajt
  KibiByte2; KibiBajt
  KibiByte3; KibiBajt
+ KibiByte4;
  KiBps; KiB/s
  KiloBit1; KiloBit
  KiloBit2; KiloBit
  KiloBit3; KiloBit
+ KiloBit4;
  KiloByte1; KiloBajt
  KiloByte2; KiloBajt
  KiloByte3; KiloBajt
+ KiloByte4;
  MB; MB
  Mb; Mb
  MBps; MebiBajt
@@ -96,15 +123,19 @@
  MebiBit1; MebiBit
  MebiBit2; MebiBit
  MebiBit3; MebiBit
+ MebiBit4;
  MebiByte1; MebiBajt
  MebiByte2; MebiBajt
  MebiByte3; MebiBajt
+ MebiByte4;
  MegaBit1; MegaBit
  MegaBit2; MegaBit
  MegaBit3; MegaBit
+ MegaBit4;
  MegaByte1; MegaBajt
  MegaByte2; MegaBajt
  MegaByte3; MegaBajt
+ MegaByte4;
  MHz; MHz
  MiB; MiB
  Mib; Mib
@@ -112,43 +143,56 @@
  millisecond1; milisekondë
  millisecond2; milisekonda
  millisecond3; milisekonda
+ millisecond4;
  minute1; minutë
  minute2; minuta
  minute3; minuta
+ minute4;
  month1; muaj
  month2; muaj
  month3; muaj
+ month4;
  object1;
  object2;
  object3;
+ object4;
  pixel1; piksel
  pixel2; piksela
  pixel3; piksela
+ pixel4;
  second1; sekondë
  second2; sekonda
  second3; sekonda
+ second4;
  slice per frame1;
  slice per frame2;
  slice per frame3;
+ slice per frame4;
  text stream1; rrymë teksti
  text stream2; rrymë teksti
  text stream3; rrymë teksti
+ text stream4;
  video frames1; kuadër video
  video frames2; kuadro video
  video frames3; kuadro video
+ video frames4;
  video stream1; rrymë video
  video stream2; rrymë video
  video stream3; rrymë video
+ video stream4;
  warppoint0;Pa pikëdeformime
  warppoint1; pikëdoformim
  warppoint2; pikëdeformime
  warppoint3; pikëdeformime
+ warppoint4;
  week1; javë
  week2; javë
  week3; javë
+ week4;
  year1; vit
  year2; vite
  year3; vite
+ year4;
 , ;, 
 : ;: 
 3D;

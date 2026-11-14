@@ -94,15 +94,11 @@ QGroupBox* EasyViewWidget::createBox(stream_t StreamKind, int StreamPos) {
         {
             if (C->Count_Get(FilePos, (stream_t)KindOfStream)>0)
             {
-                String Z1=String(C->Get(FilePos, (stream_t)KindOfStream, 0, __T("StreamKind"), Info_Measure))+__T("StreamCount");
-                String Z2=String(__T(" "))+C->Get(FilePos, (stream_t)KindOfStream, 0, __T("StreamKind"), Info_Text);
-                if (C->Count_Get(FilePos, (stream_t)KindOfStream)==1)
-                    Z2+=__T(" stream");//__T(" stream1");
-                else
-                    Z2+=__T(" streams");//__T(" stream2");
-                String Z3=String(C->Get(FilePos, (stream_t)KindOfStream, 0, __T("StreamKind"), Info_Text)+__T("_Format_WithHint_List"));
+                String FormatsKey=C->Get(FilePos, (stream_t)KindOfStream, 0, __T("StreamKind"), Info_Text)+__T("_Format_WithHint_List");
                 Temp+="\n";
-                Temp+=wstring2QString((C->Get(FilePos, (stream_t)KindOfStream, 0, Z1)+Z2+__T(": ")+C->Get(FilePos, Stream_General, 0, Z3)));
+                Temp+=wstring2QString(Core::FormatCount(__T("StreamSummary"),
+                    C->Count_Get(FilePos, (stream_t)KindOfStream), (stream_t)KindOfStream,
+                    C->Get(FilePos, Stream_General, 0, FormatsKey)));
                 Lines++;
             }
 

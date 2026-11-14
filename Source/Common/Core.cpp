@@ -13,6 +13,7 @@
 //---------------------------------------------------------------------------
 #include "Core.h"
 #include "ZenLib/Ztring.h"
+#include "ZenLib/ZtringListList.h"
 #include "ZenLib/File.h"
 //---------------------------------------------------------------------------
 
@@ -506,6 +507,49 @@ String Core::StreamName (stream_t StreamKind) {
 	case Stream_Menu: return __T("Menu");
 	default: return __T("Unknown stream");
 	}
+}
+
+//---------------------------------------------------------------------------
+// Use the public option interface so runtime-loaded libraries remain supported.
+String Core::FormatCount(const String& Message, size_t Count, stream_t Kind, const String& Formats)
+{
+    Ztring KindName;
+    switch (Kind)
+    {
+        case MediaInfoNameSpace::Stream_Video: KindName=__T("Video"); break;
+        case MediaInfoNameSpace::Stream_Audio: KindName=__T("Audio"); break;
+        case MediaInfoNameSpace::Stream_Text:  KindName=__T("Text"); break;
+        case MediaInfoNameSpace::Stream_Image: KindName=__T("Image"); break;
+        case MediaInfoNameSpace::Stream_Menu:  KindName=__T("Menu"); break;
+        default:                              KindName=__T("Other"); break;
+    }
+
+    Ztring Number=Ztring::ToZtring((int64u)Count);
+    if (MediaInfoNameSpace::MediaInfo::Option_Static(__T("Language_Format"))==__T("1"))
+    {
+        ZtringListList Request;
+        Request(__T("Message"))=Message;
+        Request(__T("Count"))=Number;
+        if (Message!=__T("FileCount"))
+            Request(__T("Kind"))=KindName;
+        if (Message==__T("StreamSummary"))
+            Request(__T("Formats"))=Formats;
+        // ZtringListList quotes separators and line breaks in literal metadata.
+        Ztring Result=MediaInfoNameSpace::MediaInfo::Option_Static(__T("Language_Format"), Request.Read());
+        if (!Result.empty())
+            return Result;
+    }
+
+    // Older libraries cannot select the catalog's plurals: use complete English.
+    if (Message==__T("FileCount"))
+        return Number+(Count==1?__T(" file"):__T(" files"));
+    KindName.MakeLowerCase();
+    Ztring Result=Number+__T(" ")+KindName+(Count==1?__T(" stream"):__T(" streams"));
+    if (Message==__T("StreamSummary"))
+        Result+=__T(": ")+Formats;
+    else if (Message==__T("StreamSummaryMore"))
+        Result+=__T(", see below");
+    return Result;
 }
 
 String Core::Parameters () {

@@ -1,4 +1,11 @@
   Language_ISO639;ka
+  Config_Text_PluralRules;1
+  Config_Text_PluralRule.zero;
+  Config_Text_PluralRule.one;f == 0 && i == 1
+  Config_Text_PluralRule.two;
+  Config_Text_PluralRule.few;
+  Config_Text_PluralRule.many;
+  Config_Text_PluralLegacy;one=1,other=2
   Author_Email;
   Author_Name;G Release
   Author_OldNames;
@@ -8,68 +15,84 @@
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
   Config_Text_ThousandsSeparator; 
- audio stream1; აუდიო ნაკადი1
- audio stream2; აუდიო ნაკადი2
- audio stream3; აუდიო ნაკადი3
+ audio stream1; აუდიო ნაკადი
+ audio stream2; აუდიო ნაკადი
+ audio stream3; აუდიო ნაკადი
+ audio stream4;
  bit1; ბიტი
  bit2; ბიტი
  bit3; ბიტი
+ bit4;
  Bps; Bps
  bps; bps
  Byte1; ბაიტი
  Byte2; ბაიტი
  Byte3; ბაიტი
+ Byte4;
  channel1; არხი
- channel2; არხები
- channel3; არხები
+ channel2; არხი
+ channel3; არხი
+ channel4;
  chapter1; სექცია
  chapter2; სექცია
- chapter3; სექციები
+ chapter3; სექცია
+ chapter4;
  chapters stream1; სექციების ნაკადი
- chapters stream2; სექციების ნაკადები
- chapters stream3; სექციების ნაკადები
+ chapters stream2; სექციების ნაკადი
+ chapters stream3; სექციების ნაკადი
+ chapters stream4;
  character1;
  character2;
  character3;
+ character4;
  day1; დღე
- day2; დღეები
- day3; დღეები
+ day2; დღე
+ day3; დღე
+ day4;
  dB0;
  dB1; დბ
  dB2; დბ
  dB3; დბ
  file1; ფაილი
- file2; ფაილები
- file3; ფაილები
+ file2; ფაილი
+ file3; ფაილი
+ file4;
  fps1; კადრ/წმ
  fps2; კადრ/წმ
  fps3; კადრ/წმ
+ fps4;
  frame1; კადრი
  frame2; კადრი
- frame3; კადრები
+ frame3; კადრი
+ frame4;
  GB; გბ
  Gb; გბ
  GBps; გიგაბაიტ/წმ
  Gbps; გიგაბიტ/წმ
  GHz; გჰც
  GiB; გბაიტი
- GibiByte1; გიგაბაიტი
- GibiByte2; გიგაბაიტი
- GibiByte3; გიგაბაიტი
+ GibiByte1; გიბიბაიტი
+ GibiByte2; გიბიბაიტი
+ GibiByte3; გიბიბაიტი
+ GibiByte4;
  GiBps; გბაიტ/წმ
  GigaBit1; გიგაბიტი
  GigaBit2; გიგაბიტი
  GigaBit3; გიგაბიტი
+ GigaBit4;
  GigaByte1; გიგაბაიტი
  GigaByte2; გიგაბაიტი
  GigaByte3; გიგაბაიტი
+ GigaByte4;
  hour1; საათი
- hour2; საათები
- hour3; საათები
+ hour2; საათი
+ hour3; საათი
+ hour4;
  Hz; ჰც
  image stream1; სურათის ნაკადი
- image stream2; სურათების ნაკადი
- image stream3; სურათების ნაკადი
+ image stream2; სურათის ნაკადი
+ image stream3; სურათის ნაკადი
+ image stream4;
  KB; კბ
  Kb; კბ
  KBps; კბაიტ/წმ
@@ -79,16 +102,20 @@
  KibiBit1; კიბიბიტი
  KibiBit2; კიბიბიტი
  KibiBit3; კიბიბიტი
+ KibiBit4;
  KibiByte1; კიბიბაიტი
  KibiByte2; კიბიბაიტი
  KibiByte3; კიბიბაიტი
+ KibiByte4;
  KiBps; კბაიტ/წმ
  KiloBit1; კილობიტი
  KiloBit2; კილობიტი
  KiloBit3; კილობიტი
+ KiloBit4;
  KiloByte1; კილობაიტი
  KiloByte2; კილობაიტი
  KiloByte3; კილობაიტი
+ KiloByte4;
  MB; მბ
  Mb; მბ
  MBps; მბაიტ/წმ
@@ -96,59 +123,76 @@
  MebiBit1; მებიბიტი
  MebiBit2; მებიბიტი
  MebiBit3; მებიბიტი
+ MebiBit4;
  MebiByte1; მებიბაიტი
  MebiByte2; მებიბაიტი
  MebiByte3; მებიბაიტი
+ MebiByte4;
  MegaBit1; მეგაბიტი
  MegaBit2; მეგაბიტი
  MegaBit3; მეგაბიტი
+ MegaBit4;
  MegaByte1; მეგაბაიტი
  MegaByte2; მეგაბაიტი
  MegaByte3; მეგაბაიტი
+ MegaByte4;
  MHz; მჰც
  MiB; მბაიტი
  Mib; მიბ
  MiBps; მბაიტ/წმ
- millisecond1; millisecond
- millisecond2; milliseconds
- millisecond3; milliseconds
+ millisecond1; მილიწამი
+ millisecond2; მილიწამი
+ millisecond3; მილიწამი
+ millisecond4;
  minute1; წუთი
  minute2; წუთი
  minute3; წუთი
+ minute4;
  month1; თვე
- month2; თვეები
- month3; თვეები
+ month2; თვე
+ month3; თვე
+ month4;
  object1;
  object2;
  object3;
+ object4;
  pixel1; პიქსელი
- pixel2; პიქსელები
- pixel3;პიქსელები
+ pixel2; პიქსელი
+ pixel3; პიქსელი
+ pixel4;
  second1; წამი
  second2; წამი
  second3; წამი
+ second4;
  slice per frame1;
  slice per frame2;
  slice per frame3;
+ slice per frame4;
  text stream1; ტექსტ ნაკადი
  text stream2; ტექსტ ნაკადი
  text stream3; ტექსტ ნაკადი
+ text stream4;
  video frames1; ვიდეო კადრი
  video frames2; ვიდეო კადრი
  video frames3; ვიდეო კადრი
+ video frames4;
  video stream1; ვიდეო ნაკადი
  video stream2; ვიდეო ნაკადი
  video stream3; ვიდეო ნაკადი
+ video stream4;
  warppoint0;გარდამავალი პუნქტის გარეშე
  warppoint1; გარდამავალი პუნქტი
  warppoint2; გარდამავალი პუნქტი
  warppoint3; გარდამავალი პუნქტი
+ warppoint4;
  week1; კვირა
  week2; კვირა
  week3; კვირა
+ week4;
  year1; წელი
  year2; წელი
  year3; წელი
+ year4;
 , ;, 
 : ;: 
 3D;

@@ -1,4 +1,11 @@
   Language_ISO639;ko
+  Config_Text_PluralRules;1
+  Config_Text_PluralRule.zero;
+  Config_Text_PluralRule.one;
+  Config_Text_PluralRule.two;
+  Config_Text_PluralRule.few;
+  Config_Text_PluralRule.many;
+  Config_Text_PluralLegacy;one=1,other=2
   Author_Email;starcodec@gmail.com
   Author_Name;starcodec(http://www.starcodec.com)
   Author_OldNames;Initial translator
@@ -8,45 +15,56 @@
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
   Config_Text_ThousandsSeparator; 
- audio stream1; 오디오 스트림
- audio stream2; 오디오 스트림
- audio stream3; 오디오 스트림
+ audio stream1; 개의 오디오 스트림
+ audio stream2; 개의 오디오 스트림
+ audio stream3; 개의 오디오 스트림
+ audio stream4;
  bit1; 비트
  bit2; 비트
  bit3; 비트
+ bit4;
  Bps; Bps
  bps; bps
  Byte1; 바이트
  Byte2; 바이트
  Byte3; 바이트
+ Byte4;
  channel1; 채널
  channel2; 채널
  channel3; 채널
- chapter1; 챕터
- chapter2; 챕터
- chapter3; 챕터
- chapters stream1; 챕터 스트림
- chapters stream2; 챕터 스트림
- chapters stream3; 챕터 스트림
+ channel4;
+ chapter1; 개의 챕터
+ chapter2; 개의 챕터
+ chapter3; 개의 챕터
+ chapter4;
+ chapters stream1; 개의 챕터 스트림
+ chapters stream2; 개의 챕터 스트림
+ chapters stream3; 개의 챕터 스트림
+ chapters stream4;
  character1;
  character2;
  character3;
+ character4;
  day1; 일
  day2; 일
  day3; 일
+ day4;
  dB0;
  dB1; dB
  dB2; dB
  dB3; dB
- file1; 파일
- file2; 파일
- file3; 파일
+ file1; 개의 파일
+ file2; 개의 파일
+ file3; 개의 파일
+ file4;
  fps1; fps
  fps2; fps
  fps3; fps
+ fps4;
  frame1; 프레임
  frame2; 프레임
  frame3; 프레임
+ frame4;
  GB; GB
  Gb; Gb
  GBps; GBps
@@ -56,20 +74,25 @@
  GibiByte1; GibiBytes
  GibiByte2; GibiBytes
  GibiByte3; GibiBytes
+ GibiByte4;
  GiBps; GiBps
  GigaBit1; GigaBit
  GigaBit2; GigaBits
  GigaBit3; GigaBits
+ GigaBit4;
  GigaByte1; GigaByte
  GigaByte2; GigaBytes
  GigaByte3; GigaBytes
+ GigaByte4;
  hour1; 시간
  hour2; 시간
  hour3; 시간
+ hour4;
  Hz; Hz
- image stream1; 이미지 스트림
- image stream2; 이미지 스트림
- image stream3; 이미지 스트림
+ image stream1; 개의 이미지 스트림
+ image stream2; 개의 이미지 스트림
+ image stream3; 개의 이미지 스트림
+ image stream4;
  KB; KB
  Kb; Kb
  KBps; KBps
@@ -79,16 +102,20 @@
  KibiBit1; KibiBit
  KibiBit2; KibiBits
  KibiBit3; KibiBits
+ KibiBit4;
  KibiByte1; KibiByte
  KibiByte2; KibiBytes
  KibiByte3; KibiBytes
+ KibiByte4;
  KiBps; KiBps
  KiloBit1; KiloBit
  KiloBit2; KiloBits
  KiloBit3; KiloBits
+ KiloBit4;
  KiloByte1; KiloByte
  KiloByte2; KiloBytes
  KiloByte3; KiloBytes
+ KiloByte4;
  MB; MB
  Mb; Mb
  MBps; MebiBytes
@@ -96,59 +123,76 @@
  MebiBit1; MebiBit
  MebiBit2; MebiBits
  MebiBit3; MebiBits
+ MebiBit4;
  MebiByte1; MebiByte
  MebiByte2; MebiBytes
  MebiByte3; MebiBytes
+ MebiByte4;
  MegaBit1; MegaBit
  MegaBit2; MegaBits
  MegaBit3; MegaBits
+ MegaBit4;
  MegaByte1; MegaByte
  MegaByte2; MegaBytes
  MegaByte3; MegaBytes
+ MegaByte4;
  MHz; MHz
  MiB; MiB
  Mib; Mib
  MiBps; MiBps
- millisecond1; 미리초
- millisecond2; 미리초
- millisecond3; 미리초
+ millisecond1; 밀리초
+ millisecond2; 밀리초
+ millisecond3; 밀리초
+ millisecond4;
  minute1; 분
  minute2; 분
  minute3; 분
- month1; 월
- month2; 월
- month3; 월
+ minute4;
+ month1; 개월
+ month2; 개월
+ month3; 개월
+ month4;
  object1;
  object2;
  object3;
+ object4;
  pixel1; 픽셀
  pixel2; 픽셀
  pixel3; 픽셀
+ pixel4;
  second1; 초
  second2; 초
  second3; 초
+ second4;
  slice per frame1;
  slice per frame2;
  slice per frame3;
- text stream1; 텍스트 스트림
- text stream2; 텍스트 스트림
- text stream3; 텍스트 스트림
+ slice per frame4;
+ text stream1; 개의 텍스트 스트림
+ text stream2; 개의 텍스트 스트림
+ text stream3; 개의 텍스트 스트림
+ text stream4;
  video frames1; 비디오 프레임
  video frames2; 비디오 프레임
  video frames3; 비디오 프레임
- video stream1; 비디오 스트림
- video stream2; 비디오 스트림
- video stream3; 비디오 스트림
- warppoint0; 워프포인트 없음
- warppoint1; 워프포인트
- warppoint2; 워프포인트
- warppoint3; 워프포인트
+ video frames4;
+ video stream1; 개의 비디오 스트림
+ video stream2; 개의 비디오 스트림
+ video stream3; 개의 비디오 스트림
+ video stream4;
+ warppoint0;워프포인트 없음
+ warppoint1; 개의 워프포인트
+ warppoint2; 개의 워프포인트
+ warppoint3; 개의 워프포인트
+ warppoint4;
  week1; 주
  week2; 주
  week3; 주
+ week4;
  year1; 년
  year2; 년
  year3; 년
+ year4;
 , ;, 
 : ;: 
 3D;
