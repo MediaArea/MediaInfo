@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
     WKWebView *webView;
 }
 -(void)setContent:(NSString*)content;
+-(void)setContent:(NSString*)content scale:(CGFloat)scale;
 @end
 
 NS_ASSUME_NONNULL_END

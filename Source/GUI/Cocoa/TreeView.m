@@ -5,6 +5,11 @@
  */
 
 #import "TreeView.h"
+#import "TextSize.h"
+
+@interface TreeView ()
+- (void)applyTextSize;
+@end
 
 @implementation TreeView
 
@@ -17,6 +22,7 @@
 
     [_outlineView setDataSource:self];
     [_outlineView setDelegate:delegate];
+	[self applyTextSize];
 }
 
 -(void)dealloc {
@@ -61,13 +67,25 @@
         return;
 
     _index = index;
+	[self applyTextSize];
     [self createFields];
     [_outlineView reloadData];
+	[_outlineView noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [_outlineView numberOfRows])]];
 
     if(fields) {
         for(id item in fields)
             [_outlineView expandItem:item expandChildren:YES];
     }
+}
+
+- (void)applyTextSize {
+	NSFont *font = UserTextFont();
+	for (NSTableColumn *column in [_outlineView tableColumns]) {
+		NSCell *cell = [column dataCell];
+		[cell setFont:font];
+		[cell setWraps:YES];
+	}
+	ApplyTableHeaderFont(_outlineView);
 }
 
 - (void)viewWillDraw {

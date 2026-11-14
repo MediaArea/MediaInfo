@@ -55,6 +55,7 @@
 		9CEC3220262F84E40056CA65 /* WebKitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CEC321F262F84E40056CA65 /* WebKitView.m */; };
 		9CEC3224262F8BB70056CA65 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CEC3223262F8BB70056CA65 /* WebKit.framework */; };
 		9CEC32CF263830F00056CA65 /* Plugin in Resources */ = {isa = PBXBuildFile; fileRef = 9CEC32CE263830F00056CA65 /* Plugin */; };
+		A1B2C3D4E5F60718293A4B5E /* TextSize.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B5D /* TextSize.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -579,6 +580,8 @@
 		9CEC3223262F8BB70056CA65 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		9CEC32A526322C990056CA65 /* libmediainfo.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libmediainfo.dylib; sourceTree = "<group>"; };
 		9CEC32CE263830F00056CA65 /* Plugin */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Plugin; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B5C /* TextSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextSize.h; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B5D /* TextSize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextSize.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -644,6 +647,8 @@
 				9C182E0A257D1337007646AC /* IndexedTableColumn.m */,
 				9CEC321E262F84E40056CA65 /* WebKitView.h */,
 				9CEC321F262F84E40056CA65 /* WebKitView.m */,
+				A1B2C3D4E5F60718293A4B5C /* TextSize.h */,
+				A1B2C3D4E5F60718293A4B5D /* TextSize.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -907,6 +912,7 @@
 				9CEC3220262F84E40056CA65 /* WebKitView.m in Sources */,
 				9C182E0B257D1337007646AC /* IndexedTableColumn.m in Sources */,
 				43E0EFBA15DD64B3001E8F7C /* HyperlinkButton.m in Sources */,
+				A1B2C3D4E5F60718293A4B5E /* TextSize.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

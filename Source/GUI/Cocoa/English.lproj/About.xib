@@ -9,7 +9,9 @@
         <customObject id="-2" userLabel="File's Owner" customClass="AboutWindowController">
             <connections>
                 <outlet property="copyrightLabel" destination="7" id="34"/>
+                <outlet property="emailButton" destination="25" id="X9p-LF-a2B"/>
                 <outlet property="versionLabel" destination="11" id="33"/>
+                <outlet property="websiteButton" destination="23" id="X9p-LF-a2A"/>
                 <outlet property="window" destination="1" id="10"/>
             </connections>
         </customObject>

@@ -20,15 +20,8 @@
 	[self setBordered:NO];
 	[self setBezelStyle:NSRegularSquareBezelStyle];
 	[self setButtonType:NSMomentaryChangeButton];
-		
-	NSDictionary *attributes = @{
-								 NSUnderlineStyleAttributeName  : [NSNumber numberWithInt:NSUnderlineStyleSingle],
-								 NSForegroundColorAttributeName : [NSColor blueColor]
-								};
-	
-	self.attributedTitle = [[[NSAttributedString alloc] initWithString:self.title attributes:attributes] autorelease];
-	[self sizeToFit]; //will align to left
-	
+	[self applyTextFont:self.font];
+
 	//calc parent bounds to center the button's frame
 	//button autosize should be set to center with fixed size
 	NSRect parentSize = [[self superview] bounds];
@@ -38,6 +31,21 @@
 	
 	self.action = @selector(openURL:);
 	self.target = self;
+}
+
+- (void)applyTextFont:(NSFont *)font {
+	if (!font)
+		font = [NSFont systemFontOfSize:0];
+	[self setFont:font];
+
+	NSDictionary *attributes = @{
+								 NSFontAttributeName : font,
+								 NSUnderlineStyleAttributeName  : [NSNumber numberWithInt:NSUnderlineStyleSingle],
+								 NSForegroundColorAttributeName : [NSColor blueColor]
+								};
+
+	self.attributedTitle = [[[NSAttributedString alloc] initWithString:self.title attributes:attributes] autorelease];
+	[self sizeToFit]; //will align to left
 }
 
 - (void)setActionUrl:(NSURL*)anUrl {

@@ -30,6 +30,8 @@ typedef enum { Kind_Text, Kind_HTML, Kind_XML, Kind_CSV, Kind_JSON, Kind_PBCore,
     IBOutlet NSPopUpButton *exportFormatButton;
     IBOutlet NSTextField *easyGeneralTextLeft;
     IBOutlet NSTextField *easyGeneralTextRight;
+    IBOutlet NSBox *easyGeneralBox;
+    IBOutlet NSBox *easyStreamsBox;
     IBOutlet HyperlinkButton *easyGeneralLinkButton;
     IBOutlet NSArrayController *easyStreamsController;
     IBOutlet NSTableView *easyTable;
@@ -48,6 +50,7 @@ typedef enum { Kind_Text, Kind_HTML, Kind_XML, Kind_CSV, Kind_JSON, Kind_PBCore,
     BOOL fileSelectorIsHidden;
     BOOL footerButtonIsHidden;
     BOOL subscriptionEnabled;
+    CGFloat easyTextSizeExtraHeight;
 
     NSMutableArray *observers;
 };

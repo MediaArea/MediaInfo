@@ -13,6 +13,7 @@
 }
 
 - (void)setActionUrl:(NSURL*)anUrl;
+- (void)applyTextFont:(NSFont *)font;
 
 - (IBAction) openURL:(id) sender;
 
