@@ -14,4 +14,4 @@ INCLUDES = -I../../../Source -I../../../../MediaInfoLib/Source -I../../../../Zen
 
 AM_TESTS_FD_REDIRECT = 9>&2
 
-TESTS = test/filename.sh
+TESTS = test/filename.sh test/longpath.sh

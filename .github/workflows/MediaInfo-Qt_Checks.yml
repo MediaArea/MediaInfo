@@ -75,7 +75,10 @@ jobs:
         shell: cmd
         run: |
           qmake.exe ${{ github.workspace }}\MediaInfo\Project\QMake\GUI\MediaInfoQt.pro -spec ${{ runner.arch == 'ARM64' && 'win32-arm64-msvc' || 'win32-msvc' }} "CONFIG+=qtquickcompiler"
-          nmake.exe
+          nmake.exe || exit /b 1
+          rem Support of long paths declared in the manifest of the program
+          mt.exe -nologo -inputresource:${{ matrix.architecture }}\MediaInfo.exe;#1 -out:MediaInfo.exe.manifest || exit /b 1
+          findstr /c:"longPathAware" MediaInfo.exe.manifest >nul || (echo longPathAware is not in the manifest of MediaInfo.exe & exit /b 1)
 
   Ubuntu:
     strategy:
