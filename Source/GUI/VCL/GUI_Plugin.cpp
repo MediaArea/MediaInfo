@@ -16,6 +16,7 @@
 #include "GUI/VCL/GUI_Plugin.h"
 #include <ZenLib/Dir.h>
 #include <ZenLib/File.h>
+#include <ZenLib/FileName.h>
 #include <ZenLib/HTTP_Client/HTTPClient.h>
 //---------------------------------------------------------------------------
 
@@ -234,17 +235,16 @@ bool __fastcall TPluginF::Configure(bool Update)
     }
 
     // Get temporary local file name for the installer
-    TCHAR TempPathBuffer[MAX_PATH + 1];
-    TCHAR TempFileName[MAX_PATH + 1];
-    if (GetTempPath(MAX_PATH, TempPathBuffer) == 0 || GetTempFileName(TempPathBuffer, TEXT("MI_"), 0, TempFileName) == 0)
+    Ztring TempFileName = FileName::TempFileName_Create(__T("MI_"));
+    if (TempFileName.empty())
     {
         if (!Update)
             MessageBox(NULL, __T("Unable to find installer for the requested plugin, please download it manually from the MediaInfo download page."), __T("Error"), MB_OK);
         return false;
     }
 
-    TempPath = Ztring(TempFileName) + __T(".exe");
-    File::Move(Ztring(TempFileName), TempPath);
+    TempPath = TempFileName + __T(".exe");
+    File::Move(TempFileName, TempPath);
 
     if (Update)
     {

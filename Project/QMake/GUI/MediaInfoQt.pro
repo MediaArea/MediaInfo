@@ -94,6 +94,7 @@ win32 {
     QMAKE_CXXFLAGS += /MP /guard:cf
     QMAKE_LFLAGS += /guard:cf /CETCOMPAT
     QMAKE_LFLAGS += /MANIFESTINPUT:$$_PRO_FILE_PWD_\segmentheap.manifest
+    QMAKE_LFLAGS += /MANIFESTINPUT:$$_PRO_FILE_PWD_\..\..\..\Source\Resource\longpathaware.manifest
 
     contains(UWP, yes|1) {
 
