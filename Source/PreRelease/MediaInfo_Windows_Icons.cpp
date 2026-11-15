@@ -32,12 +32,12 @@
 //   pixel-identical to the logo on light backgrounds, a white "sticker" on dark ones
 //   (dark taskbar, Explorer/Firefox dark themes, dark title bars...).
 // - The logo is inverted (white disc and crescents, black "?", transparent background)
-//   wherever Windows draws it on a known dark or colored background: dark theme assets
-//   ("unplated"), Windows 10 plated icons and tiles (accent color or dark tiles, the
-//   default assets of the theme-aware tiles), UWP lock screen. This is what Microsoft
-//   recommends for theme-aware assets and what the macOS/iOS dark icons do. Light theme
-//   assets ("lightunplated", "colorful_theme-light") use the bare logo. Only the assets
-//   drawn on an unknown background (.ico, UWP splash screen and Store logo) use the backing.
+//   only where Windows says the theme is dark: the dark theme assets of the taskbar and
+//   Start ("unplated"), as recommended by Microsoft for theme-aware assets and as on the
+//   macOS/iOS dark icons. Everywhere else the crescents stay black: bare logo for the light
+//   theme assets ("lightunplated", "colorful_theme-light"), logo on the white backing for
+//   the assets whose background is not tied to the theme and may be dark or colored (.ico,
+//   Windows 10 plated icons and tiles, UWP tiles, splash screen, Store and lock screen logos).
 // - Small sizes favor readability: 16, 20 and 24 px are hand-drawn pixel art, 30 to 48 px
 //   are laid out on the pixel grid with quantized anti-aliasing; the disc and the "?" are
 //   enlarged so the "?" stays visible.
@@ -1030,15 +1030,15 @@ static size_t MsixAssets(const string& Folder)
         int t = TargetSizes[i];
         int m = RoundHalfEven(t / 8.0);
         string T = to_string(t);
-        Files["Square44x44Logo.targetsize-" + T + ".png"] = Placed(t, t, t - 2 * m, "inverted");        // plated on the accent color (Windows 10)
+        Files["Square44x44Logo.targetsize-" + T + ".png"] = Placed(t, t, t - 2 * m, "sticker");         // plated on the accent color (Windows 10), any theme
         Files["Square44x44Logo.altform-unplated_targetsize-" + T + ".png"] = Logo(t, "inverted");       // dark theme
         Files["Square44x44Logo.altform-lightunplated_targetsize-" + T + ".png"] = Logo(t, "bare");      // light theme
     }
     for (size_t i = 0; i < sizeof(Scales) / sizeof(*Scales); i++)
     {
         int s = Scales[i];
-        // default: accent color or dark tiles; colorful_theme-light: light theme-aware tiles (Windows 10)
-        const char* Variants[2][2] = {{"", "inverted"}, {"_altform-colorful_theme-light", "bare"}};
+        // default: accent color or dark tiles, not tied to the theme; colorful_theme-light: light theme-aware tiles (Windows 10)
+        const char* Variants[2][2] = {{"", "sticker"}, {"_altform-colorful_theme-light", "bare"}};
         for (int v = 0; v < 2; v++)
         {
             string Suffix = "scale-" + to_string(s) + Variants[v][0] + ".png", Style = Variants[v][1];
@@ -1077,18 +1077,20 @@ static size_t UwpAssets(const string& Folder)
         int w = (Hdr[16] << 24) | (Hdr[17] << 16) | (Hdr[18] << 8) | Hdr[19];
         int h = (Hdr[20] << 24) | (Hdr[21] << 16) | (Hdr[22] << 8) | Hdr[23];
         Image Im;
-        if (f.find("unplated") != string::npos || StartsWith(f, "LockScreenLogo")) // dark taskbar/Start, lock screen
+        // Only the "unplated" assets are tied to the dark theme (taskbar and Start), the others
+        // are drawn on any background (light or dark tiles, accent color, lock screen...)
+        if (f.find("unplated") != string::npos) // dark theme
             Im = Logo(w, "inverted");
-        else if (StartsWith(f, "StoreLogo")) // unknown background
+        else if (StartsWith(f, "StoreLogo") || StartsWith(f, "LockScreenLogo"))
             Im = Logo(w, "sticker");
-        else if (StartsWith(f, "SplashScreen")) // unknown background
+        else if (StartsWith(f, "SplashScreen"))
             Im = Placed(w, h, SameParity(h / 3.0, h), "sticker");
-        else if (StartsWith(f, "Square44x44Logo")) // plated on the accent color
-            Im = Placed(w, h, w - 2 * RoundHalfEven(w / 8.0), "inverted");
-        else if (StartsWith(f, "SmallTile")) // tiles: accent color
-            Im = Placed(w, h, SameParity(h / 2.0, h), "inverted");
+        else if (StartsWith(f, "Square44x44Logo")) // plated
+            Im = Placed(w, h, w - 2 * RoundHalfEven(w / 8.0), "sticker");
+        else if (StartsWith(f, "SmallTile"))
+            Im = Placed(w, h, SameParity(h / 2.0, h), "sticker");
         else // Square150x150Logo, Wide310x150Logo, LargeTile
-            Im = Placed(w, h, SameParity(h / 3.0, h), "inverted");
+            Im = Placed(w, h, SameParity(h / 3.0, h), "sticker");
         Write(Folder + "/" + f, PngBytes(Im));
         Count++;
     }
