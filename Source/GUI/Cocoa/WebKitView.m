@@ -48,6 +48,22 @@
 }
 
 -(void)setContent:(NSString *)content {
+    [self setContent:content scale:1.0];
+}
+
+-(void)setContent:(NSString *)content scale:(CGFloat)scale {
+    if (@available(macOS 11, *)) {
+        webView.pageZoom = scale;
+    }
+    else if (scale != 1.0) {
+        NSString *style = [NSString stringWithFormat:@"<style type=\"text/css\">html { zoom: %.4f; }</style>", scale];
+        NSRange headEnd = [content rangeOfString:@"</head>" options:NSCaseInsensitiveSearch];
+        if (headEnd.location != NSNotFound)
+            content = [content stringByReplacingCharactersInRange:headEnd withString:[style stringByAppendingString:@"</head>"]];
+        else
+            content = [style stringByAppendingString:content];
+    }
+
     [webView loadHTMLString:content baseURL:nil];
 }
 
