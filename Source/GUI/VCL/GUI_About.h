@@ -61,9 +61,14 @@ __published:    // IDE-managed Components
     void __fastcall WriteToTranslatorClick(TObject *Sender);
     void __fastcall SponsorClick(TObject *Sender, const UnicodeString Link, TSysLinkType LinkType);
 private:    // User declarations
+    void __fastcall UpdateLogo();
 public:        // User declarations
     __fastcall TAboutF(TComponent* Owner);
     ZenLib::Ztring Translator_Url;
+    MESSAGE void __fastcall HandleStyleChanged(TMessage&);
+    BEGIN_MESSAGE_MAP
+        MESSAGE_HANDLER(CM_STYLECHANGED, TMessage, HandleStyleChanged);
+    END_MESSAGE_MAP(TForm);
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TAboutF *AboutF;

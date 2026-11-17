@@ -13,6 +13,7 @@
 #include <vcl.h>
 #pragma hdrstop
 #include "GUI/VCL/GUI_About.h"
+#include <Vcl.Themes.hpp>
 //---------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------
@@ -45,6 +46,9 @@ __fastcall TAboutF::TAboutF(TComponent* Owner)
 //---------------------------------------------------------------------------
 void __fastcall TAboutF::FormShow(TObject *Sender)
 {
+    //Logo
+    UpdateLogo();
+
     //Information
     ZenLib::Ztring C1;
     C1+=MEDIAINFO_ABOUT;
@@ -82,6 +86,24 @@ void __fastcall TAboutF::FormShow(TObject *Sender)
         Sponsor_Label->Caption = (__T("<a href=\"") + Prefs->Translate(__T("SponsorUrl")) + __T("\">") + Prefs->Translate(__T("SponsorMessage")) + __T("</a>")).c_str();
         Sponsor_Label->Visible=true;
     }
+}
+
+//---------------------------------------------------------------------------
+// Black logo with a light style, inverted logo (white disc and crescents) with a dark one
+void __fastcall TAboutF::UpdateLogo()
+{
+    int Back=ColorToRGB(StyleServices()->GetSystemColor(clBtnFace));
+    bool Dark=GetRValue(Back)*299+GetGValue(Back)*587+GetBValue(Back)*114<128*1000;
+    ToolButton2->ImageName=Dark?L"MediaInfo_inverted":L"MediaInfoBig";
+}
+
+//---------------------------------------------------------------------------
+// Light/dark style switch while the window is open
+void __fastcall TAboutF::HandleStyleChanged(TMessage &Message)
+{
+    TForm::Dispatch(&Message);
+    if (ToolButton2)
+        UpdateLogo();
 }
 
 //---------------------------------------------------------------------------

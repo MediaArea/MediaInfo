@@ -8,6 +8,8 @@
 #include "ui_about.h"
 #include <QCoreApplication>
 #include <QDesktopServices>
+#include <QPalette>
+#include <QPixmap>
 #include <QUrl>
 
 About::About(QWidget *parent) :
@@ -24,8 +26,16 @@ About::About(QWidget *parent) :
     ui->donate->setVisible(false);
 #endif
 
+    updateLogo();
     ui->logoMail->setPixmap(QIcon(":/icon/aboutmail.svg").pixmap(ui->logoMail->maximumSize()));
     ui->aboutText->setText(ui->aboutText->text().arg(QCoreApplication::applicationVersion()));
+}
+
+// Black logo on a light background, inverted logo (white disc and crescents) on a dark one
+void About::updateLogo()
+{
+    bool dark = palette().color(QPalette::Window).lightness() < 128;
+    ui->logo->setPixmap(QPixmap(dark ? ":/icon/icon_inverted.png" : ":/icon/icon.png"));
 }
 
 About::~About()
@@ -39,6 +49,9 @@ void About::changeEvent(QEvent *e)
     switch (e->type()) {
     case QEvent::LanguageChange:
         ui->retranslateUi(this);
+        break;
+    case QEvent::PaletteChange: // e.g. light/dark theme switch
+        updateLogo();
         break;
     default:
         break;

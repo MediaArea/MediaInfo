@@ -23,6 +23,9 @@
 // - MediaInfo_TinyOnly.ico 16x16 only (wxWidgets GUI)
 // - MSIX_Assets/*.png      sparse package (VCL GUI) and Qt MSIX package
 // - Assets/*.png           UWP GUI, regenerated in place (same names and sizes)
+// - MediaInfo_inverted.png 256x256, About window of the GUIs with a dark theme (shown at
+//                          128 px, sharp up to 200% scaling); Qt resource, and embedded
+//                          in the VCL GUI_About.dfm (update it there too)
 //
 // Design:
 // - The logo geometry comes from MediaInfo.svg (45x45 units).
@@ -32,11 +35,12 @@
 //   pixel-identical to the logo on light backgrounds, a white "sticker" on dark ones
 //   (dark taskbar, Explorer/Firefox dark themes, dark title bars...).
 // - The logo is inverted (white disc and crescents, black "?", transparent background)
-//   only where Windows says the theme is dark: the dark theme assets of the taskbar and
+//   only where the theme is known to be dark: the dark theme assets of the taskbar and
 //   Start ("unplated"), as recommended by Microsoft for theme-aware assets and as on the
-//   macOS/iOS dark icons. Everywhere else the crescents stay black: bare logo for the light
-//   theme assets ("lightunplated", "colorful_theme-light"), logo on the white backing for
-//   the assets whose background is not tied to the theme and may be dark or colored (.ico,
+//   macOS/iOS dark icons, and the About windows of the GUIs when their theme is dark.
+//   Everywhere else the crescents stay black: bare logo for the light theme assets
+//   ("lightunplated", "colorful_theme-light"), logo on the white backing for the assets
+//   whose background is not tied to the theme and may be dark or colored (.ico,
 //   Windows 10 plated icons and tiles, UWP tiles, splash screen, Store and lock screen logos).
 // - Small sizes favor readability: 16, 20 and 24 px are hand-drawn pixel art, 30 to 48 px
 //   are laid out on the pixel grid with quantized anti-aliasing; the disc and the "?" are
@@ -1126,6 +1130,7 @@ int main(int argc, char* argv[])
     Write(Here + "/MediaInfo_TinyOnly.ico", IcoBytes(vector<Image>(1, Logo(16, "sticker"))));
     size_t n = MsixAssets(Here + "/MSIX_Assets");
     size_t m = UwpAssets(Here + "/Assets");
-    printf("%s: 2 icons, %u MSIX assets, %u UWP assets\n", Here.c_str(), (unsigned)n, (unsigned)m);
+    Write(Here + "/MediaInfo_inverted.png", PngBytes(Logo(256, "inverted")));
+    printf("%s: 2 icons, %u MSIX assets, %u UWP assets, 1 About logo\n", Here.c_str(), (unsigned)n, (unsigned)m);
     return 0;
 }
