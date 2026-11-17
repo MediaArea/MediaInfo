@@ -108,8 +108,12 @@ namespace {
         return data;
     }
 
-    // File Explorer follows the app mode of Windows ("Choose your default app mode")
+    // File Explorer follows the app mode of Windows ("Choose your default app mode"), except with
+    // a high contrast theme, whose colors may be light whatever the app mode
     bool AppsUseDarkTheme() {
+        HIGHCONTRASTW high_contrast{ sizeof(high_contrast) };
+        if (SystemParametersInfoW(SPI_GETHIGHCONTRAST, sizeof(high_contrast), &high_contrast, 0) && (high_contrast.dwFlags & HCF_HIGHCONTRASTON))
+            return false;
         auto value = RegGetDword(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", L"AppsUseLightTheme");
         return value.has_value() && *value == 0;
     }
