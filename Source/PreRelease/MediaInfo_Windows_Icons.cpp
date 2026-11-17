@@ -30,10 +30,13 @@
 // Design:
 // - The logo geometry comes from MediaInfo.svg (45x45 units).
 // - Windows can not switch .ico content with the theme, and the logo is mostly black,
-//   so the .ico icons put the logo on a white backing following the logo silhouette
-//   (RGB bars + outer arc) with a thin white rim around the outer crescent:
-//   pixel-identical to the logo on light backgrounds, a white "sticker" on dark ones
-//   (dark taskbar, Explorer/Firefox dark themes, dark title bars...).
+//   so the .ico icons put the logo on a white backing following the logo silhouette:
+//   invisible on light backgrounds, a white "sticker" on dark ones (dark taskbar,
+//   Explorer/Firefox dark themes, dark title bars...). From 30 px, the backing is a "D"
+//   around the whole logo with an equal padding (1.5/45 of the size) and the rounded
+//   corners of the Windows 11 icon grid (2 px radius at 48x48). Below, the logo keeps the
+//   whole icon, the backing goes from the middle of the RGB bars to a white rim right of
+//   the outer arc, wide enough to see the arc on dark backgrounds.
 // - The logo is inverted (white disc and crescents, black "?", transparent background)
 //   only where the theme is known to be dark: the dark theme assets of the taskbar and
 //   Start ("unplated"), as recommended by Microsoft for theme-aware assets and as on the
@@ -550,9 +553,22 @@ static const map<int, SmallDef> Small = {
 };
 static const map<int, double> QMarkScale = {{40, 1.25}, {48, 1.25}}; // vector "?" size factor (1 = MediaInfo.svg proportions)
 
+// Sticker from 30 px: white backing around the whole logo with an equal padding, the logo
+// (S - 2 x padding) laid out on the pixel grid the same way, the disc and "?" kept as above
+struct PaddedDef { int Pad; SmallDef Logo; double QScale; };
+static const map<int, PaddedDef> SmallPadded = {
+    //    pad   bar g1 disc g2  ic g3  oc rim   "?"   AA quantization            "?" scale  (logo)
+    {30, {1,   {2, 2, 11, 2,  2, 2,  3, 0, "5x7", true,  {0.20, 0.80, 0.25}}, 1.0}},  // 28
+    {32, {1,   {2, 2, 12, 2,  3, 2,  3, 0, "6x8", true,  {0.20, 0.80, 0.25}}, 1.0}},  // 30
+    {36, {1,   {2, 3, 13, 2,  3, 3,  4, 0, "7x9", true,  {0.20, 0.80, 0.25}}, 1.0}},  // 34
+    {40, {1,   {2, 3, 15, 2,  4, 3,  5, 0, "v",   false, {0, 0, 0}},          1.25}}, // 38
+    {48, {2,   {3, 4, 16, 3,  4, 3,  5, 0, "v",   false, {0, 0, 0}},          1.25}}, // 44
+};
+
 struct Geometry
 {
-    int S;
+    int S;          // logo box (S x S)
+    int Pad = 0;    // sticker from 30 px: equal padding of the white backing, the icon is S + 2 x Pad
     double Rim, Bar, BarR;
     bool HasQuant;
     Quant Qt;
@@ -569,10 +585,14 @@ static EllipseDef MakeEllipse(double cx, double cy, double rx, double ry)
     return E;
 }
 
-static Geometry SmallGeometry(int S, bool Backing)
+static Geometry LayoutGeometry(int S, const SmallDef& D, bool Backing, double QScale)
 {
-    const SmallDef& D = Small.at(S);
     int Bar = D.Bar, G1 = D.G1, d = D.Disc, G2 = D.G2, Ti = D.Ti, G3 = D.G3, To = D.To, Rim = D.Rim;
+    if (3 * Bar + G1 + d + G2 + Ti + G3 + To + Rim != S)
+    {
+        fprintf(stderr, "Layout %d: the widths do not sum to the size\n", S);
+        exit(1);
+    }
     if (!Backing) // bare logo: the rim pixels go to the outer crescent and the gap before it
     {
         To += Rim / 2;
@@ -588,12 +608,17 @@ static Geometry SmallGeometry(int S, bool Backing)
     Geometry G;
     G.S = S; G.Rim = Rim; G.Bar = Bar; G.BarR = 1.2 * S / 45; G.HasQuant = D.HasQuant; G.Qt = D.Qt;
     G.Disc = MakeEllipse(dcx, dcy, r, r); G.Q = D.Q;
-    map<int, double>::const_iterator It = QMarkScale.find(S);
-    G.QScale = It == QMarkScale.end() ? 1.0 : It->second;
+    G.QScale = QScale;
     G.OcCx = OcCx; G.OcRxOut = OcOut - OcCx; G.OcRxIn = OcIn - OcCx;
     G.IcOut = MakeEllipse(cx, dcy, IcOut - cx, ry);
     G.IcIn = MakeEllipse(cx, dcy, IcIn - cx, ry);
     return G;
+}
+
+static Geometry SmallGeometry(int S, bool Backing)
+{
+    map<int, double>::const_iterator It = QMarkScale.find(S);
+    return LayoutGeometry(S, Small.at(S), Backing, It == QMarkScale.end() ? 1.0 : It->second);
 }
 
 struct Hints { int Rim, Bar, To, Gap, Ti, D, Dx; double Dcy; string Q; };
@@ -602,7 +627,7 @@ struct Hints { int Rim, Bar, To, Gap, Ti, D, Dx; double Dcy; string Q; };
 static Hints AutoHints(int S, bool Rim)
 {
     Hints H;
-    H.Rim = Rim ? max(1, RoundHalfEven(S * 1.5 / 45)) : 0;
+    H.Rim = Rim ? max(1, RoundHalfEven(S / 12.0)) : 0; // sticker below 30 px: rim wide enough to see the outer arc
     double k = (S - H.Rim) / 45.0;
     H.Bar = max(1, RoundHalfEven(2.555 * k));
     H.To = max(1, RoundHalfEven(5.02 * k));
@@ -649,14 +674,58 @@ static Geometry MakeGeometry(int S, bool Rim)
     return G;
 }
 
+// Sticker (logo on the white backing): from 30 px, the backing surrounds the whole logo with
+// an equal padding, the width of the rim right of the outer arc; below, the logo fills the icon
+static Geometry StickerGeometry(int S)
+{
+    if (S < 30)
+        return MakeGeometry(S, true);
+    Geometry G;
+    map<int, PaddedDef>::const_iterator It = SmallPadded.find(S);
+    if (It != SmallPadded.end())
+    {
+        G = LayoutGeometry(S - 2 * It->second.Pad, It->second.Logo, false, It->second.QScale);
+        G.Pad = It->second.Pad;
+    }
+    else
+    {
+        int p = max(1, RoundHalfEven(S * 1.5 / 45));
+        G = MakeGeometry(S - 2 * p, false);
+        G.Pad = p;
+    }
+    return G;
+}
+
 //---------------------------------------------------------------------------
 // Styles: "sticker" (logo on white backing), "bare" (logo alone), "inverted" (logo for dark backgrounds)
+static Poly Moved(Poly P, double d)
+{
+    for (size_t i = 0; i < P.size(); i++)
+    {
+        P[i].x += d;
+        P[i].y += d;
+    }
+    return P;
+}
+
 static void DrawLogo(Canvas& C, const Geometry& G, const string& Style)
 {
     const int S = G.S;
-    const double Bar = G.Bar;
+    const double o = G.Pad, Bar = G.Bar;
     const Color Ink = Style == "inverted" ? WHITE : BLACK, Hole = Style == "inverted" ? BLACK : WHITE;
-    if (Style == "sticker") // white "D": from the middle of the RGB bars to the outer arc + rim
+    if (Style == "sticker" && G.Pad)
+    {
+        // white "D" around the whole logo: rounded corners on the left as in the Windows 11
+        // icon grid (2 px radius at 48x48), outer arc of the logo offset by the padding on the right
+        const double W = C.S, r = W / 24;
+        Poly P = Arc(r, r, r, r, PI, 1.5 * PI, 16);
+        Poly E = HalfEllipse(G.OcCx + o, W / 2, G.OcRxOut + o, W / 2);
+        P.insert(P.end(), E.begin(), E.end());
+        Poly B = Arc(r, W - r, r, r, 0.5 * PI, PI, 16);
+        P.insert(P.end(), B.begin(), B.end());
+        C.Fill(P, WHITE);
+    }
+    else if (Style == "sticker") // white "D": from the middle of the RGB bars to the outer arc + rim
     {
         Pt Top = {Bar * 1.5, 0}, Bottom = {Bar * 1.5, (double)S};
         Poly P(1, Top);
@@ -666,36 +735,40 @@ static void DrawLogo(Canvas& C, const Geometry& G, const string& Style)
         C.Fill(P, WHITE);
     }
     static const double Left[4] = {1, 0, 0, 1};
-    C.Fill(RRect(0, 0, 3 * Bar, S, G.BarR), BLUE);
-    C.Fill(RRect(0, 0, 2 * Bar, S, G.BarR, Left), GREEN);
-    C.Fill(RRect(0, 0, Bar, S, G.BarR, Left), RED);
+    C.Fill(Moved(RRect(0, 0, 3 * Bar, S, G.BarR), o), BLUE);
+    C.Fill(Moved(RRect(0, 0, 2 * Bar, S, G.BarR, Left), o), GREEN);
+    C.Fill(Moved(RRect(0, 0, Bar, S, G.BarR, Left), o), RED);
     const EllipseDef& D = G.Disc;
-    C.Fill(Ellipse(D.cx, D.cy, D.rx, D.ry), Ink);
+    C.Fill(Moved(Ellipse(D.cx, D.cy, D.rx, D.ry), o), Ink);
     if (G.Q == "v")
     {
         double kx = G.QScale * D.rx / 6.42, ky = G.QScale * D.ry / 6.70;
         Polys Q = QMark();
         for (size_t i = 0; i < Q.size(); i++)
+        {
             for (size_t j = 0; j < Q[i].size(); j++)
             {
                 double x = (Q[i][j].x - 18.48) * kx, y = (Q[i][j].y - 22.72) * ky;
                 Q[i][j].x = x + D.cx;
                 Q[i][j].y = y + D.cy;
             }
+            Q[i] = Moved(Q[i], o);
+        }
         C.Fill(Q, Hole);
     }
     else if (QMarkPixels.count(G.Q))
     {
         const vector<string>& Pat = QMarkPixels.at(G.Q);
-        C.Pixels(Pat, (int)floor(D.cx - Pat[0].size() / 2.0 + 0.5), (int)floor(D.cy - Pat.size() / 2.0 + 0.5), Hole);
+        C.Pixels(Pat, (int)floor(D.cx - Pat[0].size() / 2.0 + 0.5) + G.Pad, (int)floor(D.cy - Pat.size() / 2.0 + 0.5) + G.Pad, Hole);
     }
-    C.Fill(Crescent(G.IcOut, G.IcIn), Ink);
-    C.Fill(Crescent(MakeEllipse(G.OcCx, S / 2.0, G.OcRxOut, S / 2.0), MakeEllipse(G.OcCx, S / 2.0, G.OcRxIn, S / 2.0)), Ink);
+    C.Fill(Moved(Crescent(G.IcOut, G.IcIn), o), Ink);
+    C.Fill(Moved(Crescent(MakeEllipse(G.OcCx, S / 2.0, G.OcRxOut, S / 2.0), MakeEllipse(G.OcCx, S / 2.0, G.OcRxIn, S / 2.0)), o), Ink);
 }
 
 //---------------------------------------------------------------------------
 // Hand-drawn pixel art for the smallest sizes (16 px: context menus, title bars, lists;
-// 20 and 24 px: same at 125 and 150 %). One map gives the three styles:
+// 20 and 24 px: same at 125 and 150 %). One map gives the three styles (the sticker has
+// its own maps below, with a wider rim):
 //   R G B  RGB bars                               K  logo ink (inverted: white)
 //   w      white backing (sticker only)           q  "?" (inverted: black)
 //   v      white backing edge, 50 % alpha         .  transparent
@@ -764,6 +837,71 @@ static const map<int, vector<string> > PixelArtMaps = {
           "RGBwwwwwwwww1v.........."}},
 };
 
+// Sticker: same maps with a wider white rim right of the outer arc (visible on dark backgrounds),
+// the outer arc and the shapes left of it moved by one pixel to make room for it
+static const map<int, vector<string> > StickerPixelArtMaps = {
+    {16, {"RGBwwwwwwwwv....",
+          "RGBwwwwwwwwKv...",
+          "RGBwwwwwwwwwKw..",
+          "RGBwwwwwwwKwwKv.",
+          "RGBwwwwwwwwKwKw.",
+          "RGBww1KKK1wKwwKv",
+          "RGBw1KqqKK1wKwKw",
+          "RGBwKKKKqKKwKwKw",
+          "RGBwKKKqKKKwKwKw",
+          "RGBwKKKKKKKwKwKw",
+          "RGBw1KKqKK1wKwKv",
+          "RGBww1KKK1wKwKw.",
+          "RGBwwwwwwwwKwKv.",
+          "RGBwwwwwwwKwKw..",
+          "RGBwwwwwwwwKv...",
+          "RGBwwwwwwwwv...."}},
+    {20, {"RGBwwwwwwwv.........",
+          "RGBwwwwwwww1Kv......",
+          "RGBwwwwwwwwwwKwv....",
+          "RGBwwwwwww2wwwKwv...",
+          "RGBwwwwwwwwKww2Kwv..",
+          "RGBwwwwwwwwwKwwKKwv.",
+          "RGBww1KKKK1wKKwKKwv.",
+          "RGBw1KKqqKK1wKKwKKwv",
+          "RGBwKKqKKqKKwKKwKKww",
+          "RGBwKKKKqKKKwKKwKKww",
+          "RGBwKKKqKKKKwKKwKKww",
+          "RGBwKKKKKKKKwKKwKKww",
+          "RGBw1KKqKKK1wKKwKKwv",
+          "RGBww1KKKK1wKKwKKwv.",
+          "RGBwwwwwwwwwKwwKKwv.",
+          "RGBwwwwwwwwKww2Kwv..",
+          "RGBwwwwwww2wwwKwv...",
+          "RGBwwwwwwwwwwKwv....",
+          "RGBwwwwwwww1Kv......",
+          "RGBwwwwwwwv........."}},
+    {24, {"RGBwwwwwwww1v...........",
+          "RGBwwwwwwwwww1Kwv.......",
+          "RGBwwwwwwwwwwwwKKwv.....",
+          "RGBwwwwwwwwwwwwwKKwv....",
+          "RGBwwwwwwwwwwwww1KKwv...",
+          "RGBwwwwwwww1wwwwwKKKwv..",
+          "RGBwwwwwwwww2KwwwwKK2wv.",
+          "RGBwwwwwwwwww2KwwwKKKwv.",
+          "RGBwww1KKK1wwwKKww2KK2wv",
+          "RGBww3KqqqK3wwKKwwwKKKwv",
+          "RGBw2KqqKqqK2wwKKwwKKKww",
+          "RGBwKKKKKqqKKwwKKwwKKKww",
+          "RGBwKKKKqqKKKwwKKwwKKKww",
+          "RGBwKKKKqqKKKwwKKwwKKKww",
+          "RGBw2KKKKKKK2wwKKwwKKKwv",
+          "RGBww3KKqqK3wwKKww2KK2wv",
+          "RGBwww1KKK1wwwKKwwKKKwv.",
+          "RGBwwwwwwwwww2KwwwKK2wv.",
+          "RGBwwwwwwwww2KwwwKKKwv..",
+          "RGBwwwwwwww1wwww1KKwv...",
+          "RGBwwwwwwwwwwwwwKKwv....",
+          "RGBwwwwwwwwwwwwKKwv.....",
+          "RGBwwwwwwwwww1Kwv.......",
+          "RGBwwwwwwww1v..........."}},
+};
+
 static void SetPixel(uint8_t* P, Color C, int Alpha)
 {
     P[0] = C.r;
@@ -777,7 +915,7 @@ static Image PixelArt(int S, const string& Style)
     Image Out(S, S);
     const bool Sticker = Style == "sticker";
     const Color Ink = Style == "inverted" ? WHITE : BLACK, Hole = Style == "inverted" ? BLACK : WHITE;
-    const vector<string>& Rows = PixelArtMaps.at(S);
+    const vector<string>& Rows = Sticker && StickerPixelArtMaps.count(S) ? StickerPixelArtMaps.at(S) : PixelArtMaps.at(S);
     for (int y = 0; y < S; y++)
     {
         if ((int)Rows[y].size() != S)
@@ -835,7 +973,7 @@ static Image Logo(int S, const string& Style)
         Out = PixelArt(S, Style);
     else
     {
-        Geometry G = MakeGeometry(S, Style == "sticker");
+        Geometry G = Style == "sticker" ? StickerGeometry(S) : MakeGeometry(S, false);
         Canvas C(S, G.HasQuant ? &G.Qt : NULL);
         DrawLogo(C, G, Style);
         Out = C.Rgba();
