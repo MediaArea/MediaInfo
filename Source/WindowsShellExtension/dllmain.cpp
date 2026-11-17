@@ -25,6 +25,7 @@
 
 constexpr const wchar_t* menu_entry_title = L"MediaInfo";
 constexpr const wchar_t* exe_filename = L"MediaInfo.exe";
+constexpr int inverted_icon_id = 101; // ICON resource in Resource.rc
 
 BOOL APIENTRY DllMain(_In_ HMODULE hModule, _In_ DWORD  ul_reason_for_call, _In_opt_ LPVOID lpReserved) {
     UNREFERENCED_PARAMETER(hModule);
@@ -105,6 +106,12 @@ namespace {
         if (retCode != ERROR_SUCCESS)
             return std::nullopt;
         return data;
+    }
+
+    // File Explorer follows the app mode of Windows ("Choose your default app mode")
+    bool AppsUseDarkTheme() {
+        auto value = RegGetDword(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", L"AppsUseLightTheme");
+        return value.has_value() && *value == 0;
     }
 
     // Adapted from
@@ -440,9 +447,15 @@ public:
 
     IFACEMETHODIMP GetIcon(_In_opt_ IShellItemArray* items, _Outptr_ PWSTR* icon) override {
         // Provide icon for display in File Explorer context menu entry
-        // Get path to application exe and use it as source for icon
         UNREFERENCED_PARAMETER(items);
         std::filesystem::path module_path{ wil::GetModuleFileNameW<std::wstring>(wil::GetModuleInstanceHandle()) };
+        if (AppsUseDarkTheme()) {
+            // Dark theme: inverted logo (white disc and waves) embedded in this DLL, instead of the
+            // application icon (logo on a white backing, visible on any background but heavier)
+            auto resource{ wil::str_printf<std::wstring>(L"%s,-%d", module_path.c_str(), inverted_icon_id) };
+            return SHStrDupW(resource.c_str(), icon);
+        }
+        // Get path to application exe and use it as source for icon
         module_path = module_path.remove_filename();
         module_path /= exe_filename;
         return SHStrDupW(module_path.c_str(), icon);

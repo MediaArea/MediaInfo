@@ -26,6 +26,8 @@
 // - MediaInfo_inverted.png 256x256, About window of the GUIs with a dark theme (shown at
 //                          128 px, sharp up to 200% scaling); Qt resource, and embedded
 //                          in the VCL GUI_About.dfm (update it there too)
+// - MediaInfo_inverted.ico 16 to 64 px, Windows 11 File Explorer context menu with a dark
+//                          theme (resource of the shell extension DLL)
 //
 // Design:
 // - The logo geometry comes from MediaInfo.svg (45x45 units).
@@ -40,7 +42,8 @@
 // - The logo is inverted (white disc and crescents, black "?", transparent background)
 //   only where the theme is known to be dark: the dark theme assets of the taskbar and
 //   Start ("unplated"), as recommended by Microsoft for theme-aware assets and as on the
-//   macOS/iOS dark icons, and the About windows of the GUIs when their theme is dark.
+//   macOS/iOS dark icons, the About windows of the GUIs and the Windows 11 File Explorer
+//   context menu when their theme is dark.
 //   Everywhere else the crescents stay black: bare logo for the light theme assets
 //   ("lightunplated", "colorful_theme-light"), logo on the white backing for the assets
 //   whose background is not tied to the theme and may be dark or colored (.ico,
@@ -1266,9 +1269,14 @@ int main(int argc, char* argv[])
         Ico.push_back(Logo(IcoSizes[i], "sticker"));
     Write(Here + "/MediaInfo.ico", IcoBytes(Ico));
     Write(Here + "/MediaInfo_TinyOnly.ico", IcoBytes(vector<Image>(1, Logo(16, "sticker"))));
+    vector<Image> IcoInverted; // context menu: 16 px at 100 % to 64 px at 400 %
+    for (size_t i = 0; i < sizeof(IcoSizes) / sizeof(*IcoSizes); i++)
+        if (IcoSizes[i] <= 64)
+            IcoInverted.push_back(Logo(IcoSizes[i], "inverted"));
+    Write(Here + "/MediaInfo_inverted.ico", IcoBytes(IcoInverted));
     size_t n = MsixAssets(Here + "/MSIX_Assets");
     size_t m = UwpAssets(Here + "/Assets");
     Write(Here + "/MediaInfo_inverted.png", PngBytes(Logo(256, "inverted")));
-    printf("%s: 2 icons, %u MSIX assets, %u UWP assets, 1 About logo\n", Here.c_str(), (unsigned)n, (unsigned)m);
+    printf("%s: 3 icons, %u MSIX assets, %u UWP assets, 1 About logo\n", Here.c_str(), (unsigned)n, (unsigned)m);
     return 0;
 }
