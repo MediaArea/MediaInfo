@@ -145,27 +145,26 @@ namespace {
         return std::nullopt;
     }
 
-    // ResolveIt - Uses the Shell's IShellLink and IPersistFile interfaces 
-    //             to retrieve the path and description from an existing shortcut.
+    // ResolveIt - Uses the Shell's IShellLink and IPersistFile interfaces
+    //             to retrieve the path from an existing shortcut.
     // Adapted from: https://learn.microsoft.com/en-us/windows/win32/shell/links#resolving-a-shortcut
     //
-    // Returns the result of calling the member functions of the interfaces. 
+    // Returns the result of calling the member functions of the interfaces.
     //
     // Parameters:
-    // hwnd             - A handle to the parent window. The Shell uses this window to 
-    //                    display a dialog box if it needs to prompt the user for more 
+    // hwnd             - A handle to the parent window. The Shell uses this window to
+    //                    display a dialog box if it needs to prompt the user for more
     //                    information while resolving the link.
     // lpszLinkFile     - Address of a buffer that contains the path of the link,
     //                    including the file name.
-    // lpszPath         - Address of a buffer that receives the path of the link
-    //                    target, including the file name.
-    // iPathBufferSize  - Size of lpszPath in bytes.
+    // path             - Receives the path of the link target, including the file
+    //                    name, of any length.
     _Check_return_
-    HRESULT ResolveIt(_In_opt_ HWND hwnd, _In_ LPCWSTR lpszLinkFile, _Out_ LPWSTR lpszPath, _In_ size_t iPathBufferSize) {
+    HRESULT ResolveIt(_In_opt_ HWND hwnd, _In_ LPCWSTR lpszLinkFile, _Out_ std::wstring& path) {
         HRESULT hres{};
         winrt::com_ptr<IShellLink> psl;
 
-        *lpszPath = 0; // Assume failure 
+        path.clear(); // Assume failure
 
         // Get a pointer to the IShellLink interface. It is assumed that CoInitialize
         // has already been called. 
@@ -181,12 +180,18 @@ namespace {
                     // Resolve the link. 
                     hres = psl->Resolve(hwnd, 0);
                     if (SUCCEEDED(hres)) {
-                        WCHAR szGotPath[MAX_PATH];
-                        // Get the path to the link target. 
-                        hres = psl->GetPath(szGotPath, ARRAYSIZE(szGotPath), nullptr, SLGP_RAWPATH);
-                        if (SUCCEEDED(hres)) {
-                            hres = StringCbCopy(lpszPath, iPathBufferSize, szGotPath);
+                        // Get the path to the link target, from its item ID list as GetPath() is limited to MAX_PATH characters.
+                        PIDLIST_ABSOLUTE pidl{};
+                        hres = psl->GetIDList(&pidl);
+                        if (hres == S_OK && pidl) {
+                            wil::unique_cotaskmem_string target;
+                            hres = SHGetNameFromIDList(pidl, SIGDN_FILESYSPATH, &target);
+                            if (SUCCEEDED(hres))
+                                path = target.get();
                         }
+                        else if (SUCCEEDED(hres))
+                            hres = E_FAIL; // No target
+                        CoTaskMemFree(pidl);
                     }
                 }
             }
@@ -508,8 +513,8 @@ public:
                                 }
                                 else {
                                     if (filepath.extension().string() == ".lnk") {
-                                        WCHAR target_path[MAX_PATH];
-                                        if (SUCCEEDED(ResolveIt(nullptr, filepath.wstring().c_str(), target_path, sizeof(target_path))))
+                                        std::wstring target_path;
+                                        if (SUCCEEDED(ResolveIt(nullptr, filepath.wstring().c_str(), target_path)))
                                             filepath = target_path;
                                     }
                                     if (std::filesystem::is_directory(filepath))
@@ -618,8 +623,8 @@ public:
                                 filepath = url;
                         }
                         if (filepath.extension().string() == ".lnk") {
-                            WCHAR target_path[MAX_PATH];
-                            if (SUCCEEDED(ResolveIt(nullptr, filepath.wstring().c_str(), target_path, sizeof(target_path))))
+                            std::wstring target_path;
+                            if (SUCCEEDED(ResolveIt(nullptr, filepath.wstring().c_str(), target_path)))
                                 filepath = target_path;
                         }
                     }
@@ -673,8 +678,8 @@ public:
                         DebugPrintW("[MediaInfoShellExt] Resolved url file to: %s\n", filepath.wstring().c_str());
                     }
                     if (filepath.extension().string() == ".lnk") {
-                        WCHAR target_path[MAX_PATH];
-                        if (SUCCEEDED(ResolveIt(nullptr, filepath.wstring().c_str(), target_path, sizeof(target_path))))
+                        std::wstring target_path;
+                        if (SUCCEEDED(ResolveIt(nullptr, filepath.wstring().c_str(), target_path)))
                             filepath = target_path;
                         DebugPrintW("[MediaInfoShellExt] Resolved lnk shortcut to: %s\n", filepath.wstring().c_str());
                     }

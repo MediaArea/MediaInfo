@@ -21,10 +21,12 @@
 
 namespace {
     std::wstring GetUserDataFolder() {
-        wchar_t appDataPath[MAX_PATH];
-        SHGetFolderPathW(nullptr, CSIDL_LOCAL_APPDATA, nullptr, 0, appDataPath);
-
-        std::wstring userDataFolder = appDataPath;
+        PWSTR appDataPath = nullptr; // Path of any length
+        HRESULT hr = SHGetKnownFolderPath(FOLDERID_LocalAppData, 0, nullptr, &appDataPath);
+        std::wstring userDataFolder = SUCCEEDED(hr) ? appDataPath : L"";
+        CoTaskMemFree(appDataPath);
+        if (userDataFolder.empty())
+            return userDataFolder; // Default folder of WebView2
         userDataFolder += L"\\mediainfo-gui\\WebView2";
 
         // Create the folder if it doesn't exist

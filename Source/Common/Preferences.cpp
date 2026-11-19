@@ -19,6 +19,7 @@
 #include <ZenLib/Dir.h>
 #include <ZenLib/File.h>
 #include <ZenLib/HTTP_Client.h>
+#include <ZenLib/OS_Utils.h>
 #include <ctime>
 #include <random>
 #include <chrono>
@@ -67,6 +68,19 @@ size_t WeightedRandomIndex(size_t Size, const std::vector<size_t>& Weights)
     }
 
     return 0; // Default
+}
+
+//---------------------------------------------------------------------------
+// Folder of the application data of the user (roaming), of any length
+static bool AppData_Get(Ztring &Path)
+{
+    static const GUID RoamingAppData={0x3EB685DB, 0x65F9, 0x4CF6, {0xA0, 0x3A, 0xE3, 0xEF, 0x65, 0x72, 0x9F, 0x3D}}; //FOLDERID_RoamingAppData, without the library which defines it
+    PWSTR Folder=NULL;
+    HRESULT Result=SHGetKnownFolderPath(RoamingAppData, 0, NULL, &Folder);
+    if (SUCCEEDED(Result))
+        Path.From_Unicode(Folder);
+    CoTaskMemFree(Folder);
+    return SUCCEEDED(Result);
 }
 
 //***************************************************************************
@@ -139,10 +153,8 @@ int Preferences::Config_Load()
     int Retour=1;
 
     //Base folder
-    TCHAR szPath[MAX_PATH];
-    if(FAILED(SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, szPath)))
+    if (!AppData_Get(BaseFolder))
         return 1;
-    BaseFolder=szPath;
     BaseFolder+=__T("\\MediaInfo");
     if (!Dir::Exists(BaseFolder) || !Dir::Exists(BaseFolder+__T("\\Plugin")))
     {
@@ -317,14 +329,13 @@ int Preferences::Config_Save()
     if (Config(__T("Sponsored")).empty()) Config(__T("Sponsored"))=__T("0");
     if (Config(__T("Theme")).empty()) Config(__T("Theme"))=__T("0");
 
-    HANDLE Temp=CreateFile((BaseFolder+__T("MediaInfo.cfg")).c_str(), GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, 0, NULL);
+    HANDLE Temp=CreateFileW(FileName_To_Wide(BaseFolder+__T("MediaInfo.cfg")).c_str(), GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, 0, NULL);
     if (Temp==INVALID_HANDLE_VALUE)
     {
         //Base folder
-        TCHAR szPath[MAX_PATH];
-        if(FAILED(SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, szPath)))
+        Ztring NewBaseFolder;
+        if (!AppData_Get(NewBaseFolder))
             return 1;
-        Ztring NewBaseFolder=szPath;
         NewBaseFolder+=__T("\\MediaInfo");
         if (!Dir::Exists(NewBaseFolder) || !Dir::Exists(NewBaseFolder+__T("\\Plugin")))
         {

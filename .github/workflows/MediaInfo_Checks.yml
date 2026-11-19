@@ -283,6 +283,9 @@ jobs:
             copy /y %Release%\MediaInfo.exe %Test%\mediainfo_%%c.exe >nul
             mt -nologo -inputresource:%Release%\MediaInfo.exe;#1 -manifest %Test%\codepage_%%c.manifest -outputresource:%Test%\mediainfo_%%c.exe;#1 || exit /b 1
           )
+          rem Support of long paths declared in the manifest of the program
+          mt -nologo -inputresource:%Release%\MediaInfo.exe;#1 -out:%Test%\MediaInfo.exe.manifest || exit /b 1
+          findstr /c:"longPathAware" %Test%\MediaInfo.exe.manifest >nul || (echo longPathAware is not in the manifest of MediaInfo.exe & exit /b 1)
       - name: Check CLI
         working-directory: MediaInfo/Project/GNU/CLI
         run: |
@@ -292,6 +295,20 @@ jobs:
             cp test/mediainfo_${CodePage}.exe mediainfo.exe
             echo "::group::Code page ${CodePage}"
             bash test/filename.sh 9>&1 || Status=1
+            echo "::endgroup::"
+          done
+          exit ${Status}
+      - name: Check long paths
+        working-directory: MediaInfo/Project/GNU/CLI
+        run: |
+          # Names longer than MAX_PATH with the support of long paths by the system (read at the start of each process) and the program
+          # (longPathAware in its manifest), or without it (then the extended-length prefix)
+          Status=0
+          cp test/mediainfo_1252.exe mediainfo.exe
+          for LongPathsEnabled in 0 1 ; do
+            MSYS_NO_PATHCONV=1 reg add 'HKLM\SYSTEM\CurrentControlSet\Control\FileSystem' /v LongPathsEnabled /t REG_DWORD /d ${LongPathsEnabled} /f >/dev/null || exit 1
+            echo "::group::LongPathsEnabled ${LongPathsEnabled}"
+            bash test/longpath.sh 9>&1 || Status=1
             echo "::endgroup::"
           done
           exit ${Status}
@@ -392,3 +409,11 @@ jobs:
             echo "::error::Test CLI: MediaInfo CLI output ($actual_output) is not as expected ($expected_output)"
             exit 1
           fi
+      - name: Manifest of the CLI
+        if: ${{ runner.os == 'Windows' }}
+        shell: bash
+        run: |
+          # Support of long paths declared in the manifest of the program
+          cd cmake-prefix/bin
+          mt.exe -nologo '-inputresource:mediainfo.exe;#1' -out:mediainfo.exe.manifest
+          grep -q longPathAware mediainfo.exe.manifest || { echo "::error::longPathAware is not in the manifest of mediainfo.exe" ; exit 1 ; }

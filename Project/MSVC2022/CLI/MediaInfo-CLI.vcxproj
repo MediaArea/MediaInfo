@@ -284,6 +284,11 @@
       <EnableSegmentHeap>true</EnableSegmentHeap>
     </Manifest>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup>
+    <Manifest>
+      <AdditionalManifestFiles>..\..\..\Source\Resource\longpathaware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Source\CLI\CLI_Main.cpp" />
     <ClCompile Include="..\..\..\Source\CLI\CommandLine_Parser.cpp" />
