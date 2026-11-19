@@ -25,6 +25,7 @@ protected:
 
 private:
     Ui::About *ui;
+    void updateLogo();
 
 private slots:
     void on_checkversion_clicked();
