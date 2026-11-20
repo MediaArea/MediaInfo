@@ -1,4 +1,11 @@
   Language_ISO639;th
+  Config_Text_PluralRules;1
+  Config_Text_PluralRule.zero;
+  Config_Text_PluralRule.one;
+  Config_Text_PluralRule.two;
+  Config_Text_PluralRule.few;
+  Config_Text_PluralRule.many;
+  Config_Text_PluralLegacy;one=1,other=2
   Author_Email;ประสิทธิ์ แคภูเขียว<hs3pln@users.sourceforge.net>
   Author_Name;ประสิทธิ์ แคภูเขียว
   Author_OldNames;Initial translator
@@ -11,29 +18,37 @@
  audio stream1; สตรีมเสียง
  audio stream2; สตรีมเสียง
  audio stream3; สตรีมเสียง
+ audio stream4;
  bit1; บิต
  bit2; บิต
  bit3; บิต
+ bit4;
  Bps; Bps
  bps; bps
  Byte1; ไบต์
  Byte2; ไบต์
  Byte3; ไบต์
+ Byte4;
  channel1; ช่อง
  channel2; ช่อง
  channel3; ช่อง
+ channel4;
  chapter1; เชฟเตอร์
  chapter2; เชฟเตอร์
  chapter3; เชฟเตอร์
+ chapter4;
  chapters stream1; เชฟเตอร์สตรีม
  chapters stream2; เชฟเตอร์สตรีม
  chapters stream3; เชฟเตอร์สตรีม
+ chapters stream4;
  character1;
  character2;
  character3;
+ character4;
  day1; วัน
  day2; วัน
  day3; วัน
+ day4;
  dB0;
  dB1;
  dB2;
@@ -41,12 +56,15 @@
  file1; ไฟล์
  file2; ไฟล์
  file3; ไฟล์
+ file4;
  fps1; fps
  fps2; fps
  fps3; fps
+ fps4;
  frame1;
  frame2;
  frame3;
+ frame4;
  GB; GB
  Gb; Gb
  GBps; GBps
@@ -56,20 +74,25 @@
  GibiByte1; กิกะไบต์
  GibiByte2; กิกะไบต์
  GibiByte3; กิกะไบต์
+ GibiByte4;
  GiBps; GiBps
  GigaBit1; กิกะบิต
  GigaBit2; กิกะบิต
  GigaBit3; กิกะบิต
+ GigaBit4;
  GigaByte1; กิกะไบต์
  GigaByte2; กิกะไบต์
  GigaByte3; กิกะไบต์
+ GigaByte4;
  hour1; ชั่วโมง
  hour2; ชั่วโมง
  hour3; ชั่วโมง
+ hour4;
  Hz; Hz
  image stream1; สตรีมรูปภาพ
  image stream2; สตรีมรูปภาพ
  image stream3; สตรีมรูปภาพ
+ image stream4;
  KB; KB
  Kb; Kb
  KBps; KBps
@@ -79,16 +102,20 @@
  KibiBit1; KibiBit
  KibiBit2; KibiBits
  KibiBit3; KibiBits
+ KibiBit4;
  KibiByte1; KibiByte
  KibiByte2; KibiBytes
  KibiByte3; KibiBytes
+ KibiByte4;
  KiBps; KiBps
  KiloBit1; กิโลบิต
  KiloBit2; กิโลบิต
  KiloBit3; กิโลบิต
+ KiloBit4;
  KiloByte1; กิโลไบต์
  KiloByte2; กิโลไบต์
  KiloByte3; กิโลไบต์
+ KiloByte4;
  MB; MB
  Mb; Mb
  MBps; MebiBytes
@@ -96,15 +123,19 @@
  MebiBit1; MebiBit
  MebiBit2; MebiBits
  MebiBit3; MebiBits
+ MebiBit4;
  MebiByte1; MebiByte
  MebiByte2; MebiBytes
  MebiByte3; MebiBytes
+ MebiByte4;
  MegaBit1; เมกะบิต
  MegaBit2; เมกะบิต
  MegaBit3; เมกะบิต
+ MegaBit4;
  MegaByte1; เมกะไบต์
  MegaByte2; เมกะไบต์
  MegaByte3; เมกะไบต์
+ MegaByte4;
  MHz; MHz
  MiB; MiB
  Mib; Mib
@@ -112,43 +143,56 @@
  millisecond1; มิลลิวินาที
  millisecond2; มิลลิวินาที
  millisecond3; มิลลิวินาที
+ millisecond4;
  minute1; นาที
  minute2; นาที
  minute3; นาที
+ minute4;
  month1; เดือน
  month2; เดือน
  month3; เดือน
+ month4;
  object1;
  object2;
  object3;
+ object4;
  pixel1; พิกเซล
  pixel2; พิกเซล
  pixel3; พิกเซล
+ pixel4;
  second1; วินาที
  second2; วินาที
  second3; วินาที
+ second4;
  slice per frame1;
  slice per frame2;
  slice per frame3;
+ slice per frame4;
  text stream1; สตรีมข้อความ
  text stream2; สตรีมข้อความ
  text stream3; สตรีมข้อความ
+ text stream4;
  video frames1;
  video frames2;
  video frames3;
+ video frames4;
  video stream1; สตรีมวีดีโอ
  video stream2; สตรีมวีดีโอ
  video stream3; สตรีมวีดีโอ
+ video stream4;
  warppoint0;
  warppoint1;
  warppoint2;
  warppoint3;
+ warppoint4;
  week1; สัปดาห์
  week2; สัปดาห์
  week3; สัปดาห์
+ week4;
  year1; ปี
  year2; ปี
  year3; ปี
+ year4;
 , ;, 
 : ;: 
 3D;

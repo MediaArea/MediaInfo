@@ -1,4 +1,11 @@
   Language_ISO639;hu
+  Config_Text_PluralRules;1
+  Config_Text_PluralRule.zero;
+  Config_Text_PluralRule.one;f == 0 && i == 1
+  Config_Text_PluralRule.two;
+  Config_Text_PluralRule.few;
+  Config_Text_PluralRule.many;
+  Config_Text_PluralLegacy;one=1,other=2
   Author_Email;DirektX@freemail.hu
   Author_Name;DirektX
   Author_OldNames;
@@ -11,29 +18,37 @@
  audio stream1; hangsáv
  audio stream2; hangsáv
  audio stream3; hangsáv
+ audio stream4;
  bit1; bit
  bit2; bit
  bit3; bit
+ bit4;
  Bps; B/s
  bps; b/s
  Byte1; bájt
  Byte2; bájt
  Byte3; bájt
+ Byte4;
  channel1; csatorna
  channel2; csatorna
  channel3; csatorna
+ channel4;
  chapter1; fejezet
  chapter2; fejezet
  chapter3; fejezet
+ chapter4;
  chapters stream1; fejezetsáv
  chapters stream2; fejezetsáv
  chapters stream3; fejezetsáv
+ chapters stream4;
  character1;
  character2;
  character3;
+ character4;
  day1; nap
  day2; nap
  day3; nap
+ day4;
  dB0;
  dB1; dB
  dB2; dB
@@ -41,12 +56,15 @@
  file1; fájl
  file2; fájl
  file3; fájl
+ file4;
  fps1; FPS
  fps2; FPS
  fps3; FPS
+ fps4;
  frame1; képkocka
  frame2; képkocka
  frame3; képkocka
+ frame4;
  GB; GB
  Gb; Gb
  GBps; GB/s
@@ -56,20 +74,25 @@
  GibiByte1; GibiBájt
  GibiByte2; GibiBájt
  GibiByte3; GibiBájt
+ GibiByte4;
  GiBps; GiB/s
  GigaBit1; GigaBit
  GigaBit2; GigaBit
  GigaBit3; GigaBit
+ GigaBit4;
  GigaByte1; GigaBájt
  GigaByte2; GigaBájt
  GigaByte3; GigaBájt
+ GigaByte4;
  hour1; óra
  hour2; óra
  hour3; óra
+ hour4;
  Hz; Hz
  image stream1; képadat
  image stream2; képadat
  image stream3; képadat
+ image stream4;
  KB; kb/s
  Kb; kb
  KBps; kB/s
@@ -79,16 +102,20 @@
  KibiBit1; KibiBit
  KibiBit2; KibiBit
  KibiBit3; KibiBit
+ KibiBit4;
  KibiByte1; KibiBájt
  KibiByte2; KibiBájt
  KibiByte3; KibiBájt
+ KibiByte4;
  KiBps; KiB/s
  KiloBit1; KiloBit
  KiloBit2; KiloBit
  KiloBit3; KiloBit
+ KiloBit4;
  KiloByte1; KiloBájt
  KiloByte2; KiloBájt
  KiloByte3; KiloBájt
+ KiloByte4;
  MB; MB
  Mb; Mb
  MBps; MebiBájt
@@ -96,15 +123,19 @@
  MebiBit1; MebiBit
  MebiBit2; MebiBit
  MebiBit3; MebiBit
+ MebiBit4;
  MebiByte1; MebiBájt
  MebiByte2; MebiBájt
  MebiByte3; MebiBájt
+ MebiByte4;
  MegaBit1; MegaBit
  MegaBit2; MegaBit
  MegaBit3; MegaBit
+ MegaBit4;
  MegaByte1; MegaBájt
  MegaByte2; MegaBájt
  MegaByte3; MegaBájt
+ MegaByte4;
  MHz; MHz
  MiB; MiB
  Mib; Mib
@@ -112,43 +143,56 @@
  millisecond1; ezredmásodperc
  millisecond2; ezredmásodperc
  millisecond3; ezredmásodperc
+ millisecond4;
  minute1; perc
  minute2; perc
  minute3; perc
+ minute4;
  month1; hónap
  month2; hónap
  month3; hónap
+ month4;
  object1;
  object2;
  object3;
+ object4;
  pixel1; képpont
  pixel2; képpont
  pixel3; képpont
+ pixel4;
  second1; másodperc
  second2; másodperc
  second3; másodperc
+ second4;
  slice per frame1;
  slice per frame2;
  slice per frame3;
+ slice per frame4;
  text stream1; szövegsáv
  text stream2; szövegsáv
  text stream3; szövegsáv
+ text stream4;
  video frames1; képkocka
  video frames2; képkocka
  video frames3; képkocka
+ video frames4;
  video stream1; képsáv
  video stream2; képsáv
  video stream3; képsáv
+ video stream4;
  warppoint0;
  warppoint1;
  warppoint2;
  warppoint3;
+ warppoint4;
  week1; hét
  week2; hét
  week3; hét
+ week4;
  year1; év
  year2; év
  year3; év
+ year4;
 , ;,
 : ;:
 3D;

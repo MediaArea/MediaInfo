@@ -1,4 +1,11 @@
   Language_ISO639;fa
+  Config_Text_PluralRules;1
+  Config_Text_PluralRule.zero;
+  Config_Text_PluralRule.one;i == 0 || (f == 0 && i == 1)
+  Config_Text_PluralRule.two;
+  Config_Text_PluralRule.few;
+  Config_Text_PluralRule.many;
+  Config_Text_PluralLegacy;one=1,other=2
   Author_Email;Martik.Panosian@gmail.com
   Author_Name;Martik Panosian
   Author_OldNames;Martik
@@ -8,45 +15,56 @@
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
   Config_Text_ThousandsSeparator; 
- audio stream1;استریم صوت
- audio stream2;استریم صوت ها
- audio stream3;استریم صوت ها
- bit1;بیت
- bit2;بیت ها
- bit3;بیت ها
+ audio stream1; استریم صوت
+ audio stream2; استریم صوت
+ audio stream3; استریم صوت
+ audio stream4;
+ bit1; بیت
+ bit2; بیت
+ bit3; بیت
+ bit4;
  Bps; B/s
  bps; b/s
- Byte1;بایت
- Byte2;بایت ها
- Byte3;بایت ها
- channel1;کانال
- channel2;کانال ها
- channel3;کانال ها
+ Byte1; بایت
+ Byte2; بایت
+ Byte3; بایت
+ Byte4;
+ channel1; کانال
+ channel2; کانال
+ channel3; کانال
+ channel4;
  chapter1; فصل
- chapter2; فصل ها
- chapter3; فصل ها
- chapters stream1;استریم  فصل
- chapters stream2;استریم  فصل  ها
- chapters stream3;استریم  فصل  ها
+ chapter2; فصل
+ chapter3; فصل
+ chapter4;
+ chapters stream1; استریم فصل
+ chapters stream2; استریم فصل
+ chapters stream3; استریم فصل
+ chapters stream4;
  character1;
  character2;
  character3;
- day1;روز
- day2;روزها
- day3;روزها
+ character4;
+ day1; روز
+ day2; روز
+ day3; روز
+ day4;
  dB0;
  dB1; dB
  dB2; dB
  dB3; dB
- file1;فایل
- file2;فایل ها
- file3;فایل ها
+ file1; فایل
+ file2; فایل
+ file3; فایل
+ file4;
  fps1; FPS
  fps2; FPS
  fps3; FPS
- frame1;فریم
- frame2;فریم ها
- frame3;فریم ها
+ fps4;
+ frame1; فریم
+ frame2; فریم
+ frame3; فریم
+ frame4;
  GB; GB
  Gb; Gb
  GBps; GB/s
@@ -56,20 +74,25 @@
  GibiByte1; GibiBytes
  GibiByte2; GibiBytes
  GibiByte3; GibiBytes
+ GibiByte4;
  GiBps; GiB/s
- GigaBit1;گیگابیت
- GigaBit2;گیگابیت ها
- GigaBit3;گیگابیت ها
- GigaByte1;گیگابایت
- GigaByte2;گیگابایت ها
- GigaByte3;گیگابایت ها
- hour1;ساعت
- hour2;ساعت ها
- hour3;ساعت ها
+ GigaBit1; گیگابیت
+ GigaBit2; گیگابیت
+ GigaBit3; گیگابیت
+ GigaBit4;
+ GigaByte1; گیگابایت
+ GigaByte2; گیگابایت
+ GigaByte3; گیگابایت
+ GigaByte4;
+ hour1; ساعت
+ hour2; ساعت
+ hour3; ساعت
+ hour4;
  Hz; Hz
- image stream1;استریم تصویر
- image stream2;استریم تصویر ها
- image stream3;استریم تصویر ها
+ image stream1; استریم تصویر
+ image stream2; استریم تصویر
+ image stream3; استریم تصویر
+ image stream4;
  KB; kB
  Kb; kb
  KBps; kB/s
@@ -79,16 +102,20 @@
  KibiBit1; KibiBit
  KibiBit2; KibiBits
  KibiBit3; KibiBits
+ KibiBit4;
  KibiByte1; KibiByte
  KibiByte2; KibiBytes
  KibiByte3; KibiBytes
+ KibiByte4;
  KiBps; KiB/s
- KiloBit1;کیلوبیت
- KiloBit2;کیلوبیت ها
- KiloBit3;کیلوبیت ها
- KiloByte1;کیلوبایت
- KiloByte2;کیلوبایت ها
- KiloByte3;کیلوبایت ها
+ KiloBit1; کیلوبیت
+ KiloBit2; کیلوبیت
+ KiloBit3; کیلوبیت
+ KiloBit4;
+ KiloByte1; کیلوبایت
+ KiloByte2; کیلوبایت
+ KiloByte3; کیلوبایت
+ KiloByte4;
  MB; MB
  Mb; Mb
  MBps; MebiBytes
@@ -96,59 +123,76 @@
  MebiBit1; MebiBit
  MebiBit2; MebiBits
  MebiBit3; MebiBits
+ MebiBit4;
  MebiByte1; MebiByte
  MebiByte2; MebiBytes
  MebiByte3; MebiBytes
- MegaBit1;مگابیت
- MegaBit2;مگابیت ها
- MegaBit3;مگابیت ها
- MegaByte1;مگابایت
- MegaByte2;مگابایت ها
- MegaByte3;مگابایت ها
+ MebiByte4;
+ MegaBit1; مگابیت
+ MegaBit2; مگابیت
+ MegaBit3; مگابیت
+ MegaBit4;
+ MegaByte1; مگابایت
+ MegaByte2; مگابایت
+ MegaByte3; مگابایت
+ MegaByte4;
  MHz; MHz
  MiB; MiB
  Mib; Mib
  MiBps; MiB/s
- millisecond1;میلی ثانیه
- millisecond2;میلی ثانیه ها
- millisecond3;میلی ثانیه ها
- minute1;دقیقه
- minute2;دقیقه ها
- minute3;دقیقه ها
- month1;ماه
- month2;ماه ها
- month3;ماه ها
+ millisecond1; میلی‌ثانیه
+ millisecond2; میلی‌ثانیه
+ millisecond3; میلی‌ثانیه
+ millisecond4;
+ minute1; دقیقه
+ minute2; دقیقه
+ minute3; دقیقه
+ minute4;
+ month1; ماه
+ month2; ماه
+ month3; ماه
+ month4;
  object1;
  object2;
  object3;
- pixel1;پیکسل
- pixel2;پیکسل ها
- pixel3;پیکسل ها
- second1;ثانیه
- second2;ثانیه ها
- second3;ثانیه ها
+ object4;
+ pixel1; پیکسل
+ pixel2; پیکسل
+ pixel3; پیکسل
+ pixel4;
+ second1; ثانیه
+ second2; ثانیه
+ second3; ثانیه
+ second4;
  slice per frame1;
  slice per frame2;
  slice per frame3;
- text stream1;استریم متن
- text stream2;استریم متن ها
- text stream3;استریم متن ها
- video frames1;فریم ویدیو
- video frames2;فریم ویدیو ها
- video frames3;فریم ویدیو ها
- video stream1;استریم ویدیو
- video stream2;استریم ویدیو خا
- video stream3;استریم ویدیو ها
+ slice per frame4;
+ text stream1; استریم متن
+ text stream2; استریم متن
+ text stream3; استریم متن
+ text stream4;
+ video frames1; فریم ویدیو
+ video frames2; فریم ویدیو
+ video frames3; فریم ویدیو
+ video frames4;
+ video stream1; استریم ویدیو
+ video stream2; استریم ویدیو
+ video stream3; استریم ویدیو
+ video stream4;
  warppoint0;No warppoints
  warppoint1; warppoint
  warppoint2; warppoints
  warppoint3; warppoints
- week1;هفته
- week2;هفته ها
- week3;هفته ها
- year1;سال
- year2;سال ها
- year3;سال ها
+ warppoint4;
+ week1; هفته
+ week2; هفته
+ week3; هفته
+ week4;
+ year1; سال
+ year2; سال
+ year3; سال
+ year4;
 , ;, 
 : ;: 
 3D;

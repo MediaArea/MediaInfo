@@ -1,4 +1,11 @@
   Language_ISO639;pt
+  Config_Text_PluralRules;1
+  Config_Text_PluralRule.zero;
+  Config_Text_PluralRule.one;v == 0 && i == 1
+  Config_Text_PluralRule.two;
+  Config_Text_PluralRule.few;
+  Config_Text_PluralRule.many;v == 0 && i != 0 && i % 1000000 == 0
+  Config_Text_PluralLegacy;one=1,other=2
   Author_Email;blackspirits@gmail.com
   Author_Name;BlackSpirits
   Author_OldNames;Francisco DEX, Samuel Dias
@@ -11,29 +18,37 @@
  audio stream1; fluxo de áudio
  audio stream2; fluxos de áudio
  audio stream3; fluxos de áudio
+ audio stream4;
  bit1; bit
  bit2; bits
  bit3; bits
+ bit4;
  Bps; B/s
  bps; b/s
  Byte1; Byte
  Byte2; Bytes
  Byte3; Bytes
+ Byte4;
  channel1; canal
  channel2; canais
  channel3; canais
+ channel4;
  chapter1; capítulo
  chapter2; capítulos
  chapter3; capítulos
+ chapter4;
  chapters stream1; fluxo de capítulos
  chapters stream2; fluxos de capítulos
  chapters stream3; fluxos de capítulos
+ chapters stream4;
  character1; caráter
  character2; carateres
  character3; carateres
+ character4;
  day1; dia
  day2; dias
  day3; dias
+ day4;
  dB0; 0 dB
  dB1; dB
  dB2; dB
@@ -41,12 +56,15 @@
  file1; ficheiro
  file2; ficheiros
  file3; ficheiros
+ file4;
  fps1; FPS
  fps2; FPS
  fps3; FPS
+ fps4;
  frame1; fotograma
  frame2; fotogramas
  frame3; fotogramas
+ frame4;
  GB; GB
  Gb; Gb
  GBps; GB/s
@@ -56,20 +74,25 @@
  GibiByte1; GibiByte
  GibiByte2; GibiBytes
  GibiByte3; GibiBytes
+ GibiByte4;
  GiBps; GiB/s
  GigaBit1; GigaBit
  GigaBit2; GigaBits
  GigaBit3; GigaBits
+ GigaBit4;
  GigaByte1; GigaByte
  GigaByte2; GigaBytes
  GigaByte3; GigaBytes
+ GigaByte4;
  hour1; hora
  hour2; horas
  hour3; horas
+ hour4;
  Hz; Hz
  image stream1; fluxo de imagem
  image stream2; fluxos de imagem
  image stream3; fluxos de imagem
+ image stream4;
  KB; KB
  Kb; Kb
  KBps; KB/s
@@ -79,16 +102,20 @@
  KibiBit1; KibiBit
  KibiBit2; KibiBits
  KibiBit3; KibiBits
+ KibiBit4;
  KibiByte1; KibiByte
  KibiByte2; KibiBytes
  KibiByte3; KibiBytes
+ KibiByte4;
  KiBps; KiB/s
  KiloBit1; KiloBit
  KiloBit2; KiloBits
  KiloBit3; KiloBits
+ KiloBit4;
  KiloByte1; KiloByte
  KiloByte2; KiloBytes
  KiloByte3; KiloBytes
+ KiloByte4;
  MB; MB
  Mb; Mb
  MBps; MB/s
@@ -96,15 +123,19 @@
  MebiBit1; MebiBit
  MebiBit2; MebiBits
  MebiBit3; MebiBits
+ MebiBit4;
  MebiByte1; MebiByte
  MebiByte2; MebiBytes
  MebiByte3; MebiBytes
+ MebiByte4;
  MegaBit1; MegaBit
  MegaBit2; MegaBits
  MegaBit3; MegaBits
+ MegaBit4;
  MegaByte1; MegaByte
  MegaByte2; MegaBytes
  MegaByte3; MegaBytes
+ MegaByte4;
  MHz; MHz
  MiB; MiB
  Mib; Mib
@@ -112,43 +143,56 @@
  millisecond1; milissegundo
  millisecond2; milissegundos
  millisecond3; milissegundos
+ millisecond4;
  minute1; minuto
  minute2; minutos
  minute3; minutos
+ minute4;
  month1; mês
  month2; meses
  month3; meses
+ month4;
  object1; objeto
  object2; objetos
  object3; objetos
+ object4;
  pixel1; píxel
  pixel2; píxeis
  pixel3; píxeis
+ pixel4;
  second1; segundo
  second2; segundos
  second3; segundos
+ second4;
  slice per frame1; segmento por fotograma
  slice per frame2; segmentos por fotograma
  slice per frame3; segmentos por fotograma
+ slice per frame4;
  text stream1; fluxo de texto
  text stream2; fluxos de texto
  text stream3; fluxos de texto
+ text stream4;
  video frames1; fotograma de vídeo
  video frames2; fotogramas de vídeo
  video frames3; fotogramas de vídeo
+ video frames4;
  video stream1; fluxo de vídeo
  video stream2; fluxos de vídeo
  video stream3; fluxos de vídeo
+ video stream4;
  warppoint0; Sem pontos de distorção
  warppoint1; ponto de distorção
  warppoint2; pontos de distorção
  warppoint3; pontos de distorção
+ warppoint4;
  week1; semana
  week2; semanas
  week3; semanas
+ week4;
  year1; ano
  year2; anos
  year3; anos
+ year4;
 , ;, 
 : ;: 
 3D;3D

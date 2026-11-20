@@ -1,4 +1,11 @@
   Language_ISO639;zh-CN
+  Config_Text_PluralRules;1
+  Config_Text_PluralRule.zero;
+  Config_Text_PluralRule.one;
+  Config_Text_PluralRule.two;
+  Config_Text_PluralRule.few;
+  Config_Text_PluralRule.many;
+  Config_Text_PluralLegacy;one=1,other=2
   Author_Email;stevenlele@outlook.com
   Author_Name;stevenlele
   Author_OldNames;chriszxl, erabbit, weiq530, nkh0472
@@ -11,29 +18,37 @@
  audio stream1; 个音频流
  audio stream2; 个音频流
  audio stream3; 个音频流
+ audio stream4;
  bit1; 位
  bit2; 位
  bit3; 位
+ bit4;
  Bps; B/s
  bps; b/s
  Byte1; 字节
  Byte2; 字节
  Byte3; 字节
+ Byte4;
  channel1; 声道
  channel2; 声道
  channel3; 声道
+ channel4;
  chapter1; 个章节
  chapter2; 个章节
  chapter3; 个章节
+ chapter4;
  chapters stream1; 个章节流
  chapters stream2; 个章节流
  chapters stream3; 个章节流
+ chapters stream4;
  character1; 个字符
  character2; 个字符
  character3; 个字符
+ character4;
  day1; 天
  day2; 天
  day3; 天
+ day4;
  dB0;0 dB
  dB1; dB
  dB2; dB
@@ -41,12 +56,15 @@
  file1; 个文件
  file2; 个文件
  file3; 个文件
+ file4;
  fps1; FPS
  fps2; FPS
  fps3; FPS
+ fps4;
  frame1; 帧
  frame2; 帧
  frame3; 帧
+ frame4;
  GB; GB
  Gb; Gb
  GBps; GB/s
@@ -56,20 +74,25 @@
  GibiByte1; GibiBytes
  GibiByte2; GibiBytes
  GibiByte3; GibiBytes
+ GibiByte4;
  GiBps; GiB/s
  GigaBit1; GigaBit
  GigaBit2; GigaBits
  GigaBit3; GigaBits
+ GigaBit4;
  GigaByte1; GigaByte
  GigaByte2; GigaBytes
  GigaByte3; GigaBytes
+ GigaByte4;
  hour1; 小时
  hour2; 小时
  hour3; 小时
+ hour4;
  Hz; Hz
  image stream1; 个图像流
  image stream2; 个图像流
  image stream3; 个图像流
+ image stream4;
  KB; kB
  Kb; kb
  KBps; kB/s
@@ -79,16 +102,20 @@
  KibiBit1; KibiBit
  KibiBit2; KibiBits
  KibiBit3; KibiBits
+ KibiBit4;
  KibiByte1; KibiByte
  KibiByte2; KibiBytes
  KibiByte3; KibiBytes
+ KibiByte4;
  KiBps; KiB/s
  KiloBit1; KiloBit
  KiloBit2; KiloBits
  KiloBit3; KiloBits
+ KiloBit4;
  KiloByte1; KiloByte
  KiloByte2; KiloBytes
  KiloByte3; KiloBytes
+ KiloByte4;
  MB; MB
  Mb; Mb
  Mbps; Mb/s
@@ -96,15 +123,19 @@
  MebiBit1; MebiBit
  MebiBit2; MebiBits
  MebiBit3; MebiBits
+ MebiBit4;
  MebiByte1; MebiByte
  MebiByte2; MebiBytes
  MebiByte3; MebiBytes
+ MebiByte4;
  MegaBit1; MegaBit
  MegaBit2; MegaBits
  MegaBit3; MegaBits
+ MegaBit4;
  MegaByte1; MegaByte
  MegaByte2; MegaBytes
  MegaByte3; MegaBytes
+ MegaByte4;
  MHz; MHz
  MiB; MiB
  Mib; Mib
@@ -112,43 +143,56 @@
  millisecond1; 毫秒
  millisecond2; 毫秒
  millisecond3; 毫秒
- minute1; 分
- minute2; 分
- minute3; 分
- month1; 月
- month2; 月
- month3; 月
+ millisecond4;
+ minute1; 分钟
+ minute2; 分钟
+ minute3; 分钟
+ minute4;
+ month1; 个月
+ month2; 个月
+ month3; 个月
+ month4;
  object1; 个对象
  object2; 个对象
  object3; 个对象
+ object4;
  pixel1; 像素
  pixel2; 像素
  pixel3; 像素
+ pixel4;
  second1; 秒
  second2; 秒
  second3; 秒
- slice per frame1;每帧切片数
- slice per frame2;每帧切片数
- slice per frame3;每帧切片数
+ second4;
+ slice per frame1; 个切片/帧
+ slice per frame2; 个切片/帧
+ slice per frame3; 个切片/帧
+ slice per frame4;
  text stream1; 个字幕流
  text stream2; 个字幕流
  text stream3; 个字幕流
+ text stream4;
  video frames1; 个视频帧
  video frames2; 个视频帧
  video frames3; 个视频帧
+ video frames4;
  video stream1; 个视频流
  video stream2; 个视频流
  video stream3; 个视频流
+ video stream4;
  warppoint0;无变形参考点
- warppoint1;个变形参考点
- warppoint2;个变形参考点
- warppoint3;个变形参考点
+ warppoint1; 个变形参考点
+ warppoint2; 个变形参考点
+ warppoint3; 个变形参考点
+ warppoint4;
  week1; 周
  week2; 周
  week3; 周
+ week4;
  year1; 年
  year2; 年
  year3; 年
+ year4;
 , ;, 
 3D;3D
 3DType;3D 类型

@@ -1,4 +1,11 @@
   Language_ISO639;eu
+  Config_Text_PluralRules;1
+  Config_Text_PluralRule.zero;
+  Config_Text_PluralRule.one;f == 0 && i == 1
+  Config_Text_PluralRule.two;
+  Config_Text_PluralRule.few;
+  Config_Text_PluralRule.many;
+  Config_Text_PluralLegacy;one=1,other=2
   Author_Email;alexgabi@disroot.org
   Author_Name;Alexander Gabilondo
   Author_OldNames;Xabier Aramendi
@@ -11,29 +18,37 @@
  audio stream1; audio jarioa
  audio stream2; audio jarioa
  audio stream3; audio jarioa
+ audio stream4;
  bit1; bit
  bit2; bit
  bit3; bit
+ bit4;
  Bps; Bps
  bps; bps
  Byte1; Byte
  Byte2; Byte
  Byte3; Byte
+ Byte4;
  channel1; kanala
  channel2; kanala
  channel3; kanala
+ channel4;
  chapter1; kapitulua
  chapter2; kapitulua
  chapter3; kapitulua
+ chapter4;
  chapters stream1; kapituluen jarioa
  chapters stream2; kapituluen jarioa
  chapters stream3; kapituluen jarioa
- character1;karaktere
- character2;karaktere
- character3;karaktere
+ chapters stream4;
+ character1; karaktere
+ character2; karaktere
+ character3; karaktere
+ character4;
  day1; egun
  day2; egun
  day3; egun
+ day4;
  dB0; dB
  dB1; dB
  dB2; dB
@@ -41,12 +56,15 @@
  file1; fitxategia
  file2; fitxategia
  file3; fitxategia
+ file4;
  fps1; fps
  fps2; fps
  fps3; fps
+ fps4;
  frame1; fotograma
  frame2; fotograma
  frame3; fotograma
+ frame4;
  GB; GB
  Gb; Gb
  GBps; GBs-ko
@@ -56,20 +74,25 @@
  GibiByte1; GibiByte
  GibiByte2; GibiByte
  GibiByte3; GibiByte
+ GibiByte4;
  GiBps; GiBps
  GigaBit1; GigaBit
  GigaBit2; GigaBit
  GigaBit3; GigaBit
+ GigaBit4;
  GigaByte1; GigaByte
  GigaByte2; GigaByte
  GigaByte3; GigaByte
+ GigaByte4;
  hour1; ordu
  hour2; ordu
  hour3; ordu
+ hour4;
  Hz; Hz
  image stream1; irudi jarioa
  image stream2; irudi jarioa
  image stream3; irudi jarioa
+ image stream4;
  KB; KB
  Kb; Kb
  KBps; KBps
@@ -79,16 +102,20 @@
  KibiBit1; KibiBit
  KibiBit2; KibiBit
  KibiBit3; KibiBit
+ KibiBit4;
  KibiByte1; KibiByte
  KibiByte2; KibiByte
  KibiByte3; KibiByte
+ KibiByte4;
  KiBps; KiBps
  KiloBit1; KiloBit
  KiloBit2; KiloBit
  KiloBit3; KiloBit
+ KiloBit4;
  KiloByte1; KiloByte
  KiloByte2; KiloByte
  KiloByte3; KiloByte
+ KiloByte4;
  MB; MB
  Mb; Mb
  MBps; MBps
@@ -96,15 +123,19 @@
  MebiBit1; MebiBit
  MebiBit2; MebiBit
  MebiBit3; MebiBit
+ MebiBit4;
  MebiByte1; MebiByte
  MebiByte2; MebiByte
  MebiByte3; MebiByte
+ MebiByte4;
  MegaBit1; MegaBit
  MegaBit2; MegaBit
  MegaBit3; MegaBit
+ MegaBit4;
  MegaByte1; MegaByte
  MegaByte2; MegaByte
  MegaByte3; MegaByte
+ MegaByte4;
  MHz; MHz
  MiB; MiB
  Mib; Mib
@@ -112,43 +143,56 @@
  millisecond1; milisegundo
  millisecond2; milisegundo
  millisecond3; milisegundo
+ millisecond4;
  minute1; minutu
  minute2; minutu
  minute3; minutu
+ minute4;
  month1; hilabete
  month2; hilabete
  month3; hilabete
+ month4;
  object1; objektu
  object2; objektu
  object3; objektu
+ object4;
  pixel1; pixel
  pixel2; pixel
  pixel3; pixel
+ pixel4;
  second1; segundo
  second2; segundo
  second3; segundo
+ second4;
  slice per frame1; mozketa fotogramako
  slice per frame2; mozketa fotogramako
  slice per frame3; mozketa fotogramako
+ slice per frame4;
  text stream1; testu jarioa
  text stream2; testu jarioa
  text stream3; testu jarioa
+ text stream4;
  video frames1; bideo fotograma
  video frames2; bideo fotograma
  video frames3; bideo fotograma
+ video frames4;
  video stream1; bideo jarioa
  video stream2; bideo jarioa
  video stream3; bideo jarioa
+ video stream4;
  warppoint0;deformazio punturik ez
  warppoint1; deformazio puntua
  warppoint2; deformazio puntua
  warppoint3; deformazio puntua
+ warppoint4;
  week1; aste
  week2; aste
  week3; aste
+ week4;
  year1; urte
  year2; urte
  year3; urte
+ year4;
 , ;, 
 : ;: 
 3D;
