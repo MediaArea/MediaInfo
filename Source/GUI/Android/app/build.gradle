@@ -209,25 +209,25 @@ preBuild.dependsOn copyLocales
 
 dependencies {
     implementation 'com.google.android.material:material:1.14.0'
-    implementation 'androidx.appcompat:appcompat:1.7.1'
-    implementation "androidx.core:core-ktx:1.18.0"
+    implementation 'androidx.appcompat:appcompat:1.8.0'
+    implementation "androidx.core:core-ktx:1.19.1"
     implementation 'androidx.documentfile:documentfile:1.1.0'
     implementation 'androidx.preference:preference-ktx:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.2'
     implementation 'androidx.recyclerview:recyclerview:1.4.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test:runner:1.7.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
     // Android Room
-    implementation 'androidx.room:room-runtime:2.8.4'
-    implementation 'androidx.room:room-ktx:2.8.4'
-    ksp 'androidx.room:room-compiler:2.8.4'
+    implementation 'androidx.room:room-runtime:2.8.5'
+    implementation 'androidx.room:room-ktx:2.8.5'
+    ksp 'androidx.room:room-compiler:2.8.5'
     // Android Lifecycle
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    ksp "androidx.lifecycle:lifecycle-common-java8:2.10.0"
+    ksp "androidx.lifecycle:lifecycle-common-java8:2.11.1"
     // Google Billing
-    implementation "com.android.billingclient:billing:9.0.0"
-    implementation "com.android.billingclient:billing-ktx:9.0.0"
+    implementation "com.android.billingclient:billing:9.1.0"
+    implementation "com.android.billingclient:billing-ktx:9.1.0"
     // KotlinX Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0"
     // Locales manager
