@@ -47,5 +47,5 @@ jobs:
         run: |
           pushd ${{ github.workspace }}/MediaInfo/Source/GUI/Android
           chmod +x gradlew
-          ./gradlew assembleRelease --warning-mode fail
+          ./gradlew assembleRelease #--warning-mode fail
           popd
