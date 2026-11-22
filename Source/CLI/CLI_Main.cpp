@@ -103,6 +103,7 @@ int main(int argc, char* argv_ansi[])
 {
     //Localisation
     setlocale(LC_ALL, "");
+    setlocale(LC_NUMERIC, "C"); //Numbers read in files and written in reports use a dot whatever the language
     MediaInfo::Option_Static(__T("CharSet"), __T(""));
 
     //Initialize terminal (to fix Unicode output on Win32)
