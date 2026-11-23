@@ -1253,6 +1253,14 @@ ReplayGain_Gain;Gain en lecture
 ReplayGain_Peak;Crête de gain en lecture
 Report;Rapport
 ReportBy;
+ReportFontSize;Taille de la police pour les rapports :
+ReportFontSize_ExtraLarge;Extrêmement grande
+ReportFontSize_ExtraSmall;Extrêmement petite
+ReportFontSize_Large;Grande
+ReportFontSize_Normal;Normale
+ReportFontSize_Small;Petite
+ReportFontSize_VeryLarge;Très grande
+ReportFont_VerySmall;Très petite
 Resolution;Résolution
 RestoreLifetimeSubscription;Restaurer l'abonnement à vie
 Retry;Réessayer

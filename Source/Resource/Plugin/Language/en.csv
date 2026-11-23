@@ -1253,6 +1253,14 @@ ReplayGain_Gain;Replay gain
 ReplayGain_Peak;Replay gain peak
 Report;Report
 ReportBy;Reported by
+ReportFontSize;Font size for the reports:
+ReportFontSize_ExtraLarge;Extra large
+ReportFontSize_ExtraSmall;Extra small
+ReportFontSize_Large;Large
+ReportFontSize_Normal;Normal
+ReportFontSize_Small;Small
+ReportFontSize_VeryLarge;Very large
+ReportFont_VerySmall;Very small
 Resolution;Resolution
 RestoreLifetimeSubscription;Restore lifetime subscription
 Retry;Retry

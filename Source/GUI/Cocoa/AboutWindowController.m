@@ -8,6 +8,16 @@
 
 #import "AboutWindowController.h"
 
+static void SizeButtonToFitTitle(NSButton *button) {
+	NSRect oldFrame = button.frame;
+	[button sizeToFit];
+
+	NSRect frame = button.frame;
+	frame.size.height = MAX(NSHeight(frame), NSHeight(oldFrame));
+	frame.origin.y = NSMidY(oldFrame) - NSHeight(frame) / 2;
+	button.frame = frame;
+}
+
 @implementation AboutWindowController
 
 static AboutWindowController *aboutCtrl = nil;
@@ -33,6 +43,21 @@ static AboutWindowController *aboutCtrl = nil;
     
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 	
+	NSRect oldWebsiteFrame = websiteButton.frame;
+	NSRect oldEmailFrame = emailButton.frame;
+	SizeButtonToFitTitle(websiteButton);
+	SizeButtonToFitTitle(emailButton);
+
+	const CGFloat buttonGap = NSMinX(oldEmailFrame) - NSMaxX(oldWebsiteFrame);
+	const CGFloat buttonsWidth = NSWidth(websiteButton.frame) + buttonGap + NSWidth(emailButton.frame);
+	NSRect websiteFrame = websiteButton.frame;
+	websiteFrame.origin.x = NSMidX([[self window] contentView].bounds) - buttonsWidth / 2;
+	websiteButton.frame = websiteFrame;
+
+	NSRect emailFrame = emailButton.frame;
+	emailFrame.origin.x = NSMaxX(websiteFrame) + buttonGap;
+	emailButton.frame = emailFrame;
+
 	[versionLabel setStringValue:[NSString stringWithFormat:@"v%s", APP_VERSION_STRING]];
 }
 

@@ -12,6 +12,8 @@
 #import "SubscriptionManager.h"
 #import "SubscribeWindowController.h"
 #import "ProgressDialog.h"
+#import "TextSize.h"
+
 #define kEasyTabIndex 0
 #define kTreeTabIndex 1
 #define kTextTabIndex 2
@@ -24,6 +26,11 @@
 #define kOptionsMenuTag 53
 #define kCompareMenuItemTag 51
 #define kAdvancedMenuItemTag 52
+
+@interface MyWindowController ()
+- (void)applyTextSizeToEasyTab;
+- (void)textSizeDidChange:(NSNotification *)notification;
+@end
 
 NSString* TextKindToNSString(ViewMenu_Kind kind)
 {
@@ -62,6 +69,7 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 
 -(void)dealloc {
 	[mediaList release];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
     for(id observer in observers) {
         [[NSNotificationCenter defaultCenter] removeObserver:observer];
     }
@@ -81,6 +89,12 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
     subscriptionEnabled = NO;
 
     observers = [[NSMutableArray alloc] init];
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(textSizeDidChange:)
+												 name:TextSizeDidChangeNotification
+											   object:nil];
+
+	[self applyTextSizeToEasyTab];
 
     [tabs setTranslatesAutoresizingMaskIntoConstraints:NO];
 
@@ -851,7 +865,61 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	[easyGeneralTextLeft setStringValue:[generalLeft componentsJoinedByString:@"\n"]];
 	[easyGeneralTextRight setStringValue:[mediaList generalTagsAtIndex:index limit:5]];
 	[easyStreamsController setContent:streamsContent];
+	[self applyTextSizeToEasyTab];
 
+}
+
+- (void)applyTextSizeToEasyTab {
+	[easyGeneralTextLeft setFont:UserTextFont()];
+	[easyGeneralTextRight setFont:UserTextFont()];
+	[easyGeneralTextLeft.cell setWraps:YES];
+	[easyGeneralTextRight.cell setWraps:YES];
+	[easyGeneralBox setTitleFont:UserTextFont()];
+	[easyStreamsBox setTitleFont:UserTextFont()];
+
+	[easyGeneralLinkButton applyTextFont:UserTextFont()];
+	NSRect linkFrame = easyGeneralLinkButton.frame;
+	linkFrame.size.height += 4;
+
+	CGFloat baseContentHeight = NSHeight(easyGeneralBox.contentView.bounds) - easyTextSizeExtraHeight;
+	CGFloat requiredContentHeight = 14 + NSHeight(linkFrame) + 8 + NSHeight(easyGeneralTextLeft.frame) + 11;
+	CGFloat desiredExtraHeight = MAX(0, requiredContentHeight - baseContentHeight);
+	CGFloat heightDelta = desiredExtraHeight - easyTextSizeExtraHeight;
+
+	NSRect generalBoxFrame = easyGeneralBox.frame;
+	generalBoxFrame.size.height += heightDelta;
+	generalBoxFrame.origin.y -= heightDelta;
+	easyGeneralBox.frame = generalBoxFrame;
+
+	NSRect streamsBoxFrame = easyStreamsBox.frame;
+	streamsBoxFrame.size.height -= heightDelta;
+	easyStreamsBox.frame = streamsBoxFrame;
+	easyTextSizeExtraHeight = desiredExtraHeight;
+
+	CGFloat contentHeight = baseContentHeight + desiredExtraHeight;
+	NSRect leftTextFrame = easyGeneralTextLeft.frame;
+	leftTextFrame.origin.y = contentHeight - 11 - NSHeight(leftTextFrame);
+	easyGeneralTextLeft.frame = leftTextFrame;
+
+	NSRect rightTextFrame = easyGeneralTextRight.frame;
+	rightTextFrame.origin.y = contentHeight - 11 - NSHeight(rightTextFrame);
+	easyGeneralTextRight.frame = rightTextFrame;
+
+	linkFrame.origin.x = NSMidX(easyGeneralLinkButton.superview.bounds) - NSWidth(linkFrame) / 2;
+	linkFrame.origin.y = 14;
+	easyGeneralLinkButton.frame = linkFrame;
+
+	NSUInteger columnIndex = 0;
+	for (NSTableColumn *column in [easyTable tableColumns]) {
+		NSCell *cell = [column dataCell];
+		[cell setFont:columnIndex == 0 ? BoldUserTextFont() : UserTextFont()];
+		[cell setWraps:YES];
+		columnIndex++;
+	}
+	ApplyTableHeaderFont(easyTable);
+
+	[easyTable reloadData];
+	[easyTable noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [easyTable numberOfRows])]];
 }
 
 -(void)updateHTMLTabWithFileAtIndex:(NSUInteger)index
@@ -873,7 +941,8 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
         NSString *template = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
         html=[template stringByReplacingOccurrencesOfString:@"@SVG@" withString:html];
     }
-    [htmlField setContent:html];
+    CGFloat textScale = _lastTextKind == Kind_HTML ? TextSizeFactor() : 1.0;
+    [htmlField setContent:html scale:textScale];
     [mediaList setOption:@"Inform" withValue:@""];
 }
 
@@ -900,17 +969,10 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	
 	//prepare font attributes for text view
 	
-	NSString *fontFamily = [[NSFont userFontOfSize:13.0] familyName];
-	
+	NSFont *normalFont = UserTextFont();
 	NSFontManager *fontManager = [NSFontManager sharedFontManager];
-	NSFont *boldFont = [fontManager fontWithFamily:fontFamily
-											traits:NSBoldFontMask
-											weight:0
-											  size:13];
-	NSFont *normalFont = [fontManager fontWithFamily:fontFamily
-											  traits:0
-											  weight:0
-												size:13];
+	NSFont *boldFont = [fontManager convertFont:normalFont
+									toHaveTrait:NSBoldFontMask];
 	
 	NSDictionary *normalAttr = [NSDictionary dictionaryWithObjectsAndKeys:
 								normalFont, NSFontAttributeName,
@@ -985,18 +1047,7 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 	
 	//prepare font attributes for text view
 
-	CGFloat fontSize = 12.0;
-	NSString *fontFamily = [[NSFont userFixedPitchFontOfSize:fontSize] familyName];
-	
-	//CGFloat fontSize = 13.0;
-	//NSString *fontFamily = [[NSFont userFontOfSize:fontSize] familyName];
-
-	
-	NSFontManager *fontManager = [NSFontManager sharedFontManager];
-	NSFont *normalFont = [fontManager fontWithFamily:fontFamily
-											  traits:0
-											  weight:0
-												size:fontSize];
+	NSFont *normalFont = FixedPitchTextFont();
 	
 	NSDictionary *normalAttr = [NSDictionary dictionaryWithObjectsAndKeys:
 								normalFont, NSFontAttributeName, NSColor.textColor, NSForegroundColorAttributeName,
@@ -1014,6 +1065,23 @@ NSString* TextKindToNSString(ViewMenu_Kind kind)
 
 	[textField.textStorage setAttributedString:as];
 	[as release];
+}
+
+- (void)textSizeDidChange:(NSNotification *)notification {
+	if (!mediaList || selectedFileIndex >= [mediaList count])
+		return;
+
+	NSInteger selectedTab = [tabs indexOfTabViewItem:tabs.selectedTabViewItem];
+	if (selectedTab == kEasyTabIndex)
+		[self updateEasyTabWithFileAtIndex:selectedFileIndex];
+	else if (selectedTab == kTreeTabIndex)
+		[treeView setIndex:selectedFileIndex];
+	else if (selectedTab == kTextTabIndex)
+		[self updateTextTabWithFileAtIndex:selectedFileIndex];
+	else if (selectedTab == kCompareTabIndex)
+		[compareView reload];
+	else if (selectedTab == kHTMLTabIndex)
+		[self updateHTMLTabWithFileAtIndex:selectedFileIndex];
 }
 
 

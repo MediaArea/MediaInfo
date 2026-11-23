@@ -11,6 +11,8 @@
 @interface AboutWindowController : NSWindowController {
     IBOutlet NSTextField *versionLabel;
     IBOutlet NSTextField *copyrightLabel;
+    IBOutlet NSButton *websiteButton;
+    IBOutlet NSButton *emailButton;
 }
 
 + (AboutWindowController*)controller;
