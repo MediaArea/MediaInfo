@@ -178,6 +178,12 @@ MainWindow::MainWindow(const QStringList& filesnames, int viewasked, QWidget *pa
 #else
     setWindowTitle("MediaInfo");
 #endif
+#if defined(_WIN32) && !(defined(WINAPI_FAMILY) && (WINAPI_FAMILY==WINAPI_FAMILY_APP))
+    // Multi-size Windows icon (pixel-hinted small sizes, readable on dark title bars), icon.png is kept as fallback
+    QIcon WindowIcon(":/icon/icon.ico");
+    if (!WindowIcon.availableSizes().isEmpty())
+        setWindowIcon(WindowIcon);
+#endif
 
     translator = new QTranslator(this);
     settings = new QSettings("MediaArea.net", "MediaInfo", this);

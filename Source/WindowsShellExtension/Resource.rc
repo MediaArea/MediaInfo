@@ -1,5 +1,8 @@
 #include <winresrc.h>
 
+// Inverted logo (white disc and waves), context menu entry with a dark theme (see GetIcon in dllmain.cpp)
+101 ICON "../Resource/Image/MediaInfo_inverted.ico"
+
 VS_VERSION_INFO VERSIONINFO
  FILEVERSION 26,10,0,0
  PRODUCTVERSION 26,10,0,0

@@ -24,6 +24,7 @@ win32|macx {
 
 win32 {
     RC_FILE = mediainfo-gui.rc
+    RESOURCES += ../../../Source/Resource/Resources_Windows.qrc
     contains(QT_ARCH, i386) {
         DESTDIR = Win32
     }
