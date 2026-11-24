@@ -1,154 +1,154 @@
-Language_ISO639;tr
-Author_Email;BouRock@live.com
-Author_Name;Burak Yavuz (BouRock)
-Author_OldNames;umablognot
-Language_Name;Türkçe
-Config_Text_ColumnSize;40
-Config_Text_Separator; :
-Config_Text_NumberTag; #
-Config_Text_FloatSeparator;.
-Config_Text_ThousandsSeparator; 
-audio stream1;ses akışı
-audio stream2;ses akışı
-audio stream3;ses akışı
-bit1;bit
-bit2;bit
-bit3;bit
-Bps;B/s
-bps;b/s
-Byte1;Bayt
-Byte2;Bayt
-Byte3;Bayt
-channel1;kanal
-channel2;kanal
-channel3;kanal
-chapter1;bölüm
-chapter2;bölüm
-chapter3;bölüm
-chapters stream1;bölüm akışı
-chapters stream2;bölüm akışı
-chapters stream3;bölüm akışı
-character1;karakter
-character2;karakter
-character3;karakter
-day1;gün
-day2;gün
-day3;gün
-dB0;
-dB1;dB
-dB2;dB
-dB3;dB
-file1;dosya
-file2;dosya
-file3;dosya
-fps1;FPS
-fps2;FPS
-fps3;FPS
-frame1;kare
-frame2;kare
-frame3;kare
-GB;GB
-Gb;Gb
-GBps;GB/s
-Gbps;Gb/s
-GHz;GHz
-GiB;GiB
-GibiByte1;GibiBayt
-GibiByte2;GibiBayt
-GibiByte3;GibiBayt
-GiBps;GiB/s
-GigaBit1;GigaBit
-GigaBit2;GigaBit
-GigaBit3;GigaBit
-GigaByte1;GigaBayt
-GigaByte2;GigaBayt
-GigaByte3;GigaBayt
-hour1;saat
-hour2;saat
-hour3;saat
-Hz;Hz
-image stream1;resim akışı
-image stream2;resim akışı
-image stream3;resim akışı
-KB;kB
-Kb;kb
-KBps;kB/s
-Kbps;kb/s
-KHz;kHz
-KiB;KiB
-KibiBit1;KibiBit
-KibiBit2;KibiBit
-KibiBit3;KibiBit
-KibiByte1;KibiBayt
-KibiByte2;KibiBayt
-KibiByte3;KibiBayt
-KiBps;KiB/s
-KiloBit1;KiloBit
-KiloBit2;KiloBit
-KiloBit3;KiloBit
-KiloByte1;KiloBayt
-KiloByte2;KiloBayt
-KiloByte3;KiloBayt
-MB;MB
-Mb;Mb
-MBps;MB/s
-Mbps;Mb/s
-MebiBit1;MebiBit
-MebiBit2;MebiBit
-MebiBit3;MebiBit
-MebiByte1;MebiBayt
-MebiByte2;MebiBayt
-MebiByte3;MebiBayt
-MegaBit1;MegaBit
-MegaBit2;MegaBit
-MegaBit3;MegaBit
-MegaByte1;MegaBayt
-MegaByte2;MegaBayt
-MegaByte3;MegaBayt
-MHz;MHz
-MiB;MiB
-Mib;Mib
-MiBps;MiB/s
-millisecond1;milisaniye
-millisecond2;milisaniye
-millisecond3;milisaniye
-minute1;dakika
-minute2;dakika
-minute3;dakika
-month1;ay
-month2;ay
-month3;ay
-object1;nesne
-object2;nesne
-object3;nesne
-pixel1;piksel
-pixel2;piksel
-pixel3;piksel
-second1;saniye
-second2;saniye
-second3;saniye
-slice per frame1;kare başına dilim
-slice per frame2;kare başına dilim
-slice per frame3;kare başına dilim
-text stream1;yazı akışı
-text stream2;yazı akışı
-text stream3;yazı akışı
-video frames1;görüntü karesi
-video frames2;görüntü karesi
-video frames3;görüntü karesi
-video stream1;görüntü akışı
-video stream2;görüntü akışı
-video stream3;görüntü akışı
-warppoint0;Sapma noktası yok
-warppoint1;Sapma noktası
-warppoint2;Sapma noktası
-warppoint3;Sapma noktası
-week1;hafta
-week2;hafta
-week3;hafta
-year1;yıl
-year2;yıl
-year3;yıl
+  Language_ISO639;tr
+  Author_Email;BouRock@live.com
+  Author_Name;Burak Yavuz (BouRock)
+  Author_OldNames;umablognot
+  Language_Name;Türkçe
+  Config_Text_ColumnSize;40
+  Config_Text_Separator; :
+  Config_Text_NumberTag; #
+  Config_Text_FloatSeparator;.
+  Config_Text_ThousandsSeparator; 
+ audio stream1; ses akışı
+ audio stream2; ses akışı
+ audio stream3; ses akışı
+ bit1; bit
+ bit2; bit
+ bit3; bit
+ Bps; B/s
+ bps; b/s
+ Byte1; Bayt
+ Byte2; Bayt
+ Byte3; Bayt
+ channel1; kanal
+ channel2; kanal
+ channel3; kanal
+ chapter1; bölüm
+ chapter2; bölüm
+ chapter3; bölüm
+ chapters stream1; bölüm akışı
+ chapters stream2; bölüm akışı
+ chapters stream3; bölüm akışı
+ character1; karakter
+ character2; karakter
+ character3; karakter
+ day1; gün
+ day2; gün
+ day3; gün
+ dB0;
+ dB1; dB
+ dB2; dB
+ dB3; dB
+ file1; dosya
+ file2; dosya
+ file3; dosya
+ fps1; FPS
+ fps2; FPS
+ fps3; FPS
+ frame1; kare
+ frame2; kare
+ frame3; kare
+ GB; GB
+ Gb; Gb
+ GBps; GB/s
+ Gbps; Gb/s
+ GHz; GHz
+ GiB; GiB
+ GibiByte1; GibiBayt
+ GibiByte2; GibiBayt
+ GibiByte3; GibiBayt
+ GiBps; GiB/s
+ GigaBit1; GigaBit
+ GigaBit2; GigaBit
+ GigaBit3; GigaBit
+ GigaByte1; GigaBayt
+ GigaByte2; GigaBayt
+ GigaByte3; GigaBayt
+ hour1; saat
+ hour2; saat
+ hour3; saat
+ Hz; Hz
+ image stream1; resim akışı
+ image stream2; resim akışı
+ image stream3; resim akışı
+ KB; kB
+ Kb; kb
+ KBps; kB/s
+ Kbps; kb/s
+ KHz; kHz
+ KiB; KiB
+ KibiBit1; KibiBit
+ KibiBit2; KibiBit
+ KibiBit3; KibiBit
+ KibiByte1; KibiBayt
+ KibiByte2; KibiBayt
+ KibiByte3; KibiBayt
+ KiBps; KiB/s
+ KiloBit1; KiloBit
+ KiloBit2; KiloBit
+ KiloBit3; KiloBit
+ KiloByte1; KiloBayt
+ KiloByte2; KiloBayt
+ KiloByte3; KiloBayt
+ MB; MB
+ Mb; Mb
+ MBps; MB/s
+ Mbps; Mb/s
+ MebiBit1; MebiBit
+ MebiBit2; MebiBit
+ MebiBit3; MebiBit
+ MebiByte1; MebiBayt
+ MebiByte2; MebiBayt
+ MebiByte3; MebiBayt
+ MegaBit1; MegaBit
+ MegaBit2; MegaBit
+ MegaBit3; MegaBit
+ MegaByte1; MegaBayt
+ MegaByte2; MegaBayt
+ MegaByte3; MegaBayt
+ MHz; MHz
+ MiB; MiB
+ Mib; Mib
+ MiBps; MiB/s
+ millisecond1; milisaniye
+ millisecond2; milisaniye
+ millisecond3; milisaniye
+ minute1; dakika
+ minute2; dakika
+ minute3; dakika
+ month1; ay
+ month2; ay
+ month3; ay
+ object1; nesne
+ object2; nesne
+ object3; nesne
+ pixel1; piksel
+ pixel2; piksel
+ pixel3; piksel
+ second1; saniye
+ second2; saniye
+ second3; saniye
+ slice per frame1; kare başına dilim
+ slice per frame2; kare başına dilim
+ slice per frame3; kare başına dilim
+ text stream1; yazı akışı
+ text stream2; yazı akışı
+ text stream3; yazı akışı
+ video frames1; görüntü karesi
+ video frames2; görüntü karesi
+ video frames3; görüntü karesi
+ video stream1; görüntü akışı
+ video stream2; görüntü akışı
+ video stream3; görüntü akışı
+ warppoint0;Sapma noktası yok
+ warppoint1; Sapma noktası
+ warppoint2; Sapma noktası
+ warppoint3; Sapma noktası
+ week1; hafta
+ week2; hafta
+ week3; hafta
+ year1; yıl
+ year2; yıl
+ year3; yıl
 , ;, 
 : ;: 
 3D;3B
@@ -757,6 +757,9 @@ Genre_188;G-Funk
 Genre_189;Dubstep
 Genre_190;Garaj Rock
 Genre_191;Psybient
+Geolocation_Permission_Title;Konum verisine erişim
+Geolocation_Permission_Summary;Medya dosyalarındaki konum üst verisini okuyabilmek için Fotoğraflar ve videolar izni gerekiyor.
+Geolocation_Permission_Help;Konum üst verisi okumayı etkinleştirmek için bir sonraki ekrandaki adımları izleyin:\n\n1. İzinler'i açın\n2. Fotoğraflar ve Videolar'ı seçin\n3. İzin Ver'i seçin.
 Go to WebSite;Web sitesine git
 Gop_OpenClosed;GOP, Açık/Kapalı
 Gop_OpenClosed_Closed;Kapalı
@@ -766,7 +769,7 @@ Graph;Grafik
 Group;Grup
 Grouping;Gruplama
 GroupPreset;Grup Ön Ayarı
-h; s
+h; sa
 HDR_Format;HDR biçimi
 Header file;Üst bilgi dosyası oluştur
 Height;Yükseklik
@@ -1097,7 +1100,7 @@ MaxTruePeak;Maksimum Gerçek Tepe
 MD5;MD5
 MD5_Unencoded;Kodlanmamış içeriğin MD5'i
 MediaInfo_About;MediaInfo, görüntü ve ses dosyaları hakkında teknik ve etiket bilgilerine kolay erişim sağlar.\r\nMac App Store grafik kullanıcı arayüzü dışında, açık kaynak kodlu yazılımdır, bu da çalışma özgürlüğüne sahip, geliştirmek ve programı yeniden dağıtmak için (BSD lisansı) son kullanıcıya ve geliştiricilere ücretsiz olduğu anlamına gelir.
-MediaInfo_About_About;MediaInfo Hakkında
+MediaInfo_About_About;MediaInfo v%MI_VERSION%, MediaInfoLib v%MIL_VERSION% kullanıyor
 MediaInfo_WebSite;MediaInfo Web Sitesi
 Menu stream(s);Menü akışları
 Menu;Menü
@@ -1250,6 +1253,14 @@ ReplayGain_Gain;Tekrar oynatma kazancı
 ReplayGain_Peak;Tekrar oynatma kazancı ucu
 Report;Rapor
 ReportBy;Raporlayan
+ReportFontSize;Raporlar için yazı tipi boyutu:
+ReportFontSize_ExtraLarge;Ekstra büyük
+ReportFontSize_ExtraSmall;Ekstra küçük
+ReportFontSize_Large;Büyük
+ReportFontSize_Normal;Normal
+ReportFontSize_Small;Küçük
+ReportFontSize_VeryLarge;Çok büyük
+ReportFont_VerySmall;Çok küçük
 Resolution;Çözünürlük
 RestoreLifetimeSubscription;Ömür Boyu Aboneliği Geri Yükle
 Retry;Yeniden Dene
