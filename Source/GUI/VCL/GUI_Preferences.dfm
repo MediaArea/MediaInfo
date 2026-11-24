@@ -4,7 +4,7 @@ object PreferencesF: TPreferencesF
   BorderIcons = []
   BorderStyle = bsDialog
   Caption = 'Preferences'
-  ClientHeight = 225
+  ClientHeight = 256
   ClientWidth = 850
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -14,12 +14,16 @@ object PreferencesF: TPreferencesF
   Font.Style = []
   Position = poOwnerFormCenter
   OnShow = FormShow
+  DesignSize = (
+    850
+    256)
   TextHeight = 14
   object OK: TButton
     Left = 720
-    Top = 192
+    Top = 223
     Width = 122
     Height = 27
+    Anchors = [akRight, akBottom]
     Caption = 'OK'
     Default = True
     ModalResult = 1
@@ -30,7 +34,8 @@ object PreferencesF: TPreferencesF
     Left = 0
     Top = 0
     Width = 176
-    Height = 184
+    Height = 215
+    Anchors = [akLeft, akTop, akRight, akBottom]
     Indent = 19
     ParentShowHint = False
     ReadOnly = True
@@ -38,25 +43,27 @@ object PreferencesF: TPreferencesF
     TabOrder = 1
     OnChange = TreeChange
     Items.NodeData = {
-      0302000000280000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000
-      00010000000105530065007400750070002E0000000000000000000000FFFFFF
-      FFFFFFFFFFFFFFFFFF0000000000000000010841006400760061006E00630065
-      006400300000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF0000000005
-      000000010943007500730074006F006D0069007A006500280000000000000000
-      000000FFFFFFFFFFFFFFFFFFFFFFFF0000000000000000010553006800650065
-      007400340000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF0000000000
-      000000010B540072006500650020002600200054006500780074003400000000
-      00000000000000FFFFFFFFFFFFFFFFFFFFFFFF0000000000000000010B430075
-      00730074006F006D0020007400650078007400280000000000000000000000FF
-      FFFFFFFFFFFFFFFFFFFFFF00000000000000000105470072006100700068002E
-      0000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000001
-      084C0061006E0067007500610067006500}
+      070200000009540054007200650065004E006F00640065002900000000000000
+      00000000FFFFFFFFFFFFFFFFFFFFFFFF00000000000100000001055300650074
+      007500700000002F0000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF00
+      0000000000000000010841006400760061006E00630065006400000031000000
+      0000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000005000000010943
+      007500730074006F006D0069007A0065000000290000000000000000000000FF
+      FFFFFFFFFFFFFFFFFFFFFF000000000000000000010553006800650065007400
+      0000350000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000
+      000000010B540072006500650020002600200054006500780074000000350000
+      000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000000010B
+      43007500730074006F006D002000740065007800740000002900000000000000
+      00000000FFFFFFFFFFFFFFFFFFFFFFFF00000000000000000001054700720061
+      007000680000002F0000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF00
+      000000000000000001084C0061006E0067007500610067006500}
   end
   object Cancel: TButton
     Left = 593
-    Top = 192
+    Top = 223
     Width = 121
     Height = 27
+    Anchors = [akRight, akBottom]
     Cancel = True
     Caption = 'Cancel'
     ModalResult = 2
@@ -66,8 +73,9 @@ object PreferencesF: TPreferencesF
     Left = 176
     Top = 0
     Width = 666
-    Height = 186
-    ActivePage = Setup
+    Height = 217
+    ActivePage = Setup_Advanced
+    Anchors = [akLeft, akTop, akRight, akBottom]
     MultiLine = True
     TabHeight = 22
     TabOrder = 3
@@ -202,7 +210,7 @@ object PreferencesF: TPreferencesF
       OnShow = Setup_AdvancedShow
       object Advanced_DisplayCaptions_Caption: TLabel
         Left = 2
-        Top = 125
+        Top = 158
         Width = 141
         Height = 14
         Caption = 'Handling of 608/708 streams:'
@@ -218,11 +226,11 @@ object PreferencesF: TPreferencesF
       end
       object Advanced_CloseAllAuto: TCheckBox
         Left = 2
-        Top = 34
+        Top = 65
         Width = 658
         Height = 18
         Caption = 'Close all before open'
-        TabOrder = 5
+        TabOrder = 6
         OnClick = Advanced_CloseAllAutoClick
       end
       object CB_ShowMenu: TCheckBox
@@ -236,34 +244,34 @@ object PreferencesF: TPreferencesF
       end
       object Advanced_InformVersion: TCheckBox
         Left = 2
-        Top = 51
+        Top = 81
         Width = 658
         Height = 18
         Caption = 'Add version to text output'
-        TabOrder = 3
+        TabOrder = 4
         OnClick = Advanced_InformVersionClick
       end
       object Advanced_InformTimestamp: TCheckBox
         Left = 2
-        Top = 68
+        Top = 97
         Width = 658
         Height = 18
         Caption = 'Add creation date to text output'
-        TabOrder = 6
+        TabOrder = 7
         OnClick = Advanced_InformTimestampClick
       end
       object Advanced_EnableFfmpeg: TCheckBox
         Left = 2
-        Top = 85
+        Top = 113
         Width = 658
         Height = 18
         Caption = 'Enable FFmpeg plugin'
-        TabOrder = 4
+        TabOrder = 5
         OnClick = Advanced_EnableFfmpegClick
       end
       object Advanced_DisplayCaptions_Sel: TComboBox
         Left = 303
-        Top = 122
+        Top = 154
         Width = 352
         Height = 22
         Style = csDropDownList
@@ -277,12 +285,30 @@ object PreferencesF: TPreferencesF
       end
       object Advanced_LegacyStreamDisplay: TCheckBox
         Left = 2
-        Top = 102
+        Top = 129
         Width = 658
         Height = 18
         Caption = 'LegacyStreamDisplay'
-        TabOrder = 7
+        TabOrder = 8
         OnClick = Advanced_LegacyStreamDisplayClick
+      end
+      object CB_RememberWindowPosition: TCheckBox
+        Left = 2
+        Top = 33
+        Width = 279
+        Height = 17
+        Caption = 'Remember window position'
+        TabOrder = 9
+        OnClick = CB_RememberWindowPositionClickClick
+      end
+      object CB_RememberWindowDimensions: TCheckBox
+        Left = 2
+        Top = 49
+        Width = 279
+        Height = 17
+        Caption = 'Remember window dimensions'
+        TabOrder = 3
+        OnClick = CB_RememberWindowDimensionsClickClick
       end
     end
     object Customize_Language: TTabSheet
