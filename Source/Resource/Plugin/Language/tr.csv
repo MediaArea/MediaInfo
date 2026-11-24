@@ -1,16 +1,16 @@
   Language_ISO639;tr
   Author_Email;BouRock@live.com
-  Author_Name;Burak Yavuz (BouRock)
-  Author_OldNames;İlk ve tek çevirmen
+  Author_Name;Burak Yavuz (BouRock), umablognot
+  Author_OldNames;İlk çevirmen ve ikinci çevirmen
   Language_Name;Türkçe
   Config_Text_ColumnSize;40
   Config_Text_Separator; :
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
   Config_Text_ThousandsSeparator; 
- audio stream1; seslendirme akışı
- audio stream2; seslendirme akışı
- audio stream3; seslendirme akışı
+ audio stream1; ses akışı
+ audio stream2; ses akışı
+ audio stream3; ses akışı
  bit1; bit
  bit2; bit
  bit3; bit
@@ -29,24 +29,24 @@
  chapters stream2; bölüm akışı
  chapters stream3; bölüm akışı
  character1; karakter
- character2; karakter
- character3; karakter
+ character2; karakterler
+ character3; karakterler
  day1; gün
- day2; gün
- day3; gün
- dB0;
+ day2; günler
+ day3; günler
+ dB0;0 dB
  dB1; dB
  dB2; dB
  dB3; dB
  file1; dosya
- file2; dosya
- file3; dosya
+ file2; dosyalar
+ file3; dosyalar
  fps1; FPS
  fps2; FPS
  fps3; FPS
  frame1; kare
- frame2; kare
- frame3; kare
+ frame2; kareler
+ frame3; kareler
  GB; GB
  Gb; Gb
  GBps; GB/s
@@ -54,18 +54,18 @@
  GHz; GHz
  GiB; GiB
  GibiByte1; GibiBayt
- GibiByte2; GibiBayt
- GibiByte3; GibiBayt
+ GibiByte2; GibiBaytlar
+ GibiByte3; GibiBaytlar
  GiBps; GiB/s
  GigaBit1; GigaBit
- GigaBit2; GigaBit
- GigaBit3; GigaBit
+ GigaBit2; GigaBitler
+ GigaBit3; GigaBitler
  GigaByte1; GigaBayt
- GigaByte2; GigaBayt
- GigaByte3; GigaBayt
+ GigaByte2; GigaBaytlar
+ GigaByte3; GigaBaytlar
  hour1; saat
- hour2; saat
- hour3; saat
+ hour2; saatler
+ hour3; saatler
  Hz; Hz
  image stream1; resim akışı
  image stream2; resim akışı
@@ -77,59 +77,59 @@
  KHz; kHz
  KiB; KiB
  KibiBit1; KibiBit
- KibiBit2; KibiBit
- KibiBit3; KibiBit
+ KibiBit2; KibiBitlar
+ KibiBit3; KibiBitlar
  KibiByte1; KibiBayt
- KibiByte2; KibiBayt
- KibiByte3; KibiBayt
+ KibiByte2; KibiBaytlar
+ KibiByte3; KibiBaytlar
  KiBps; KiB/s
  KiloBit1; KiloBit
  KiloBit2; KiloBit
  KiloBit3; KiloBit
  KiloByte1; KiloBayt
- KiloByte2; KiloBayt
- KiloByte3; KiloBayt
+ KiloByte2; KiloBaytlar
+ KiloByte3; KiloBaytlar
  MB; MB
  Mb; Mb
  MBps; MB/s
  Mbps; Mb/s
  MebiBit1; MebiBit
- MebiBit2; MebiBit
- MebiBit3; MebiBit
+ MebiBit2; MebiBitlar
+ MebiBit3; MebiBitlar
  MebiByte1; MebiBayt
- MebiByte2; MebiBayt
- MebiByte3; MebiBayt
+ MebiByte2; MebiBaytlar
+ MebiByte3; MebiBaytlar
  MegaBit1; MegaBit
- MegaBit2; MegaBit
- MegaBit3; MegaBit
+ MegaBit2; MegaBitler
+ MegaBit3; MegaBitler
  MegaByte1; MegaBayt
- MegaByte2; MegaBayt
- MegaByte3; MegaBayt
+ MegaByte2; MegaBaytlar
+ MegaByte3; MegaBaytlar
  MHz; MHz
  MiB; MiB
  Mib; Mib
  MiBps; MiB/s
  millisecond1; milisaniye
- millisecond2; milisaniye
- millisecond3; milisaniye
+ millisecond2; milisaniyeler
+ millisecond3; milisaniyeler
  minute1; dakika
- minute2; dakika
- minute3; dakika
+ minute2; dakikalar
+ minute3; dakikalar
  month1; ay
- month2; ay
- month3; ay
+ month2; aylar
+ month3; aylar
  object1; nesne
- object2; nesne
- object3; nesne
+ object2; nesneler
+ object3; nesneler
  pixel1; piksel
- pixel2; piksel
- pixel3; piksel
+ pixel2; pikseller
+ pixel3; pikseller
  second1; saniye
- second2; saniye
- second3; saniye
+ second2; saniyeler
+ second3; saniyeler
  slice per frame1; kare başına dilim
- slice per frame2; kare başına dilim
- slice per frame3; kare başına dilim
+ slice per frame2; kare başına dilimler
+ slice per frame3; kare başına dilimler
  text stream1; yazı akışı
  text stream2; yazı akışı
  text stream3; yazı akışı
@@ -139,24 +139,24 @@
  video stream1; görüntü akışı
  video stream2; görüntü akışı
  video stream3; görüntü akışı
- warppoint0;Sapma noktası yok
+ warppoint0;sapma noktası yok
  warppoint1; sapma noktası
  warppoint2; sapma noktası
  warppoint3; sapma noktası
  week1; hafta
- week2; hafta
- week3; hafta
+ week2; haftalar
+ week3; haftalar
  year1; yıl
- year2; yıl
- year3; yıl
+ year2; yıllar
+ year3; yıllar
 , ;, 
 : ;: 
-3D;3B
-3DType;3B Türü
+3D;3D
+3DType;3D Türü
 5.1.2ch;5.1.2 kanal
 5.1.4ch;5.1.4 kanal
 5.1ch;5.1 kanal
-608_Mode;EIA-608 dönüştürme kipi
+608_Mode;EIA-608 dönüştürme modu
 7.1.2ch;7.1.2 kanal
 7.1ch;7.1 kanal
 About;Hakkında
@@ -168,30 +168,30 @@ Active_DisplayAspectRatio;Etkin Görüntü En-Boy Oranı
 Active_Height;Etkin Yükseklik
 Active_Width;Etkin Genişlik
 ActiveFormatDescription;Etkin Biçim Açıklaması
-ActiveFormatDescription_MuxingMode;Etkin Biçim Açıklaması, Çoklama kipi
+ActiveFormatDescription_MuxingMode;Etkin Biçim Açıklaması, Çoklama modu
 Actor;Oyuncu
 Actor_Character;Oynayan karakter
 Add creation date to text output;Metin çıktısına oluşturma tarihini ekle
 Add version to text output;Metin çıktısına sürümü ekle
 Added_Date;Eklenme tarihi
 Address;Adres
-AdID;Ad-ID tanımlayıcı
+AdID;Reklam Kimliği
 ADM: Show ChannelFormats;ADM: Kanal Biçimlerini Göster
 ADM: Show TrackUIDs;ADM: İz UID'lerini Göster
 AdmProfile;ADM Profili
-Advanced mode -->;Gelişmiş kip -->
-Advanced mode;Gelişmiş kip
+Advanced mode -->;Gelişmiş mod -->
+Advanced mode;Gelişmiş mod
 Advanced;Gelişmiş
 Album;Albüm
 Album_ReplayGain_Gain;Albüm tekrar çalma kazancı
 Album_ReplayGain_Peak;Albüm tekrar çalma kazanç ucu
 Alignment;Hizalama
-Alignment_Aligned;Boşluklarda sıraya dizilmiş
-Alignment_Split;Boşlukları karşılıklı böl
+Alignment_Aligned;Araya yerleştirme üzerinde hizalanmış
+Alignment_Split;Araya yerleştirmelere bölünmüş
 All;Tümü
 AllFields;Tüm Alanlar
 AlternateGroup;Dönüşümlü grup
-AnalyzeServicesMenu;MediaInfo ile analiz et
+AnalyzeServicesMenu;MediaInfo ile analiz et
 App_About;MediaInfo hakkında
 App_Hide;MediaInfo’i Gizle
 App_Quit;MediaInfo’dan Çık
@@ -200,11 +200,11 @@ Arranger;Düzenleyici
 ArtDirector;Sanat Yönetmeni
 AspectRatio;En-Boy oranı
 AssistantDirector;Yardımcı Yönetmen
-AssociatedVideo_FrameRate;İlişkili Video Kare Hızı
-At least one file;(En az bir dosya açmak zorundasınız)
+AssociatedVideo_FrameRate;İlişkili Görüntü Kare Hızı
+At least one file;(En az bir dosya açmanız gerekir)
 at;de
 Attachments;Ekler
-Audio stream(s);Seslendirme akışı
+Audio stream(s);Ses akış(lar)ı
 Audio;Ses
 Audio_Channels_Total;Toplam Ses Kanalı
 Audio_Codec_List;Ses kodekleri
@@ -212,15 +212,15 @@ Audio_Format_List;Ses Biçimleri Listesi
 Audio_Format_WithHint_List;İpucu ile Ses Biçimleri Listesi
 Audio_Language_List;Ses Dilleri Listesi
 Audio_No;Ses yok
-Audio1;Birinci seslendirme
-Audio2;İkinci seslendirme
-Audio3;Üçüncü Ses
+Audio1;Birinci ses akışı
+Audio2;İkinci ses akışı
+Audio3;Üçüncü ses akışı
 AudioComments;Ses Açıklamaları
 AudioCount;Ses sayısı
 AudioDescription;Ses Betimlemesi
-AudioDescriptionPresent;Ses Açıklaması Sunumu
+AudioDescriptionPresent;Ses Açıklaması Mevcut
 AudioDescriptionType;Ses Açıklaması Türü
-AudioLoudnessStandard;Ses Yüksekliği Standartı
+AudioLoudnessStandard;Ses Yüksekliği Standardı
 AudioRenderingIndication;Ses İşleme Göstergesi
 AudioSceneInfoID;Ses Sahnesi Bilgi Kimliği
 AudioTrackLayout;Ses İzi Düzeni
@@ -230,10 +230,10 @@ Balance_FrontBackListener;Dinleyici Ön-Arka Dengesi
 Balance_FrontBackOverheadFloor;Ön-Arka-Yer Dengesi
 BarCode;BarKod
 Basic;Temel
-Basic_Note;Not : Bu dosya hakkında daha fazla bilgi için farklı görünüm seçmek zorundasınız (Sayfa, Ağaç...)
+Basic_Note;Not: Bu dosya hakkında daha fazla bilgi için farklı görünüm seçmek zorundasınız (Sayfa, Ağaç...)
 BedChannelConfiguration;Yatak kanalı yapılandırması
 BedChannelCount;Yatak kanalı sayısı
-BinauralRenderMode;Binaural İşleme Kipi
+BinauralRenderMode;Binaural İşleme Modu
 BitDepth;Bit derinliği
 BitDepth_Detected;Algılanan bit derinliği
 BitDepth_Stored;Saklanan bit derinliği
@@ -241,10 +241,10 @@ BitRate;Bit oranı
 BitRate_Encoded;Kodlanmış bit oranı
 BitRate_Maximum;En fazla bit oranı
 BitRate_Minimum;En az bit oranı
-BitRate_Mode;Bit oranı kipi
+BitRate_Mode;Bit oranı modu
 BitRate_Mode_CBR;Sabit
 BitRate_Mode_VBR;Değişken
-BitRate_Nominal;Düşük bit oranı
+BitRate_Nominal;Nominal bit oranı
 Bits-(Pixel*Frame);Bit/(Piksel*Kare)
 BitstreamLevel;Bit Akışı Seviyesi
 Bring All to Front;Tümünü En Öne Getir
@@ -260,11 +260,11 @@ ChannelConfiguration;Kanal Yapılandırması
 ChannelFormat;Kanal Biçimi
 ChannelLayout;Kanal düzeni
 ChannelLayout_Original;Orijinal Kanal Düzeni
-ChannelMode;Kanal Kipi
+ChannelMode;Kanal Modu
 ChannelPositions;Kanal konumları
 ChannelPositions_Original;Orijinal Kanal Konumları
 Chapter(s);Bölüm
-Chapters stream(s);Bölüm akışı
+Chapters stream(s);Bölüm akış(lar)ı
 Chapters;Bölüm
 Chapters_Codec_List;Bölüm Kodekleri
 Chapters_No;Bölüm yok
@@ -288,9 +288,9 @@ ClearList;Listeyi Temizle
 Close all before open;Açmadan önce tümünü kapat
 Close;Kapat
 CloseAll;Tümünü Kapat
-ClosedCaptionsLanguage;Kapalı Açıklamalı Alt Yazı Dili
-ClosedCaptionsPresent;Kapalı Açıklamalı Alt Yazı Sunumu
-ClosedCaptionsType;Kapalı Açıklamalı Alt Yazı Türü
+ClosedCaptionsLanguage;Kapalı Altyazı Dili
+ClosedCaptionsPresent;Kapalı Altyazı Mevcut
+ClosedCaptionsType;Kapalı Altyazı Türü
 CloseFile;Dosyayı Kapat
 CloseWindow;Pencereyi Kapat
 cmixlev;cmixlev
@@ -301,7 +301,7 @@ Codec_Profile;Kodek profili
 Codec_Settings;Kodek ayarları
 Codec_Settings_BVOP;Kodek ayarları, BVOP
 Codec_Settings_CABAC;Kodek ayarları, CABAC
-Codec_Settings_Endianness;Kodek ayarları, Endianness
+Codec_Settings_Endianness;Kodek ayarları, bayt sırası
 Codec_Settings_Firm;Kodek ayarları, Firm
 Codec_Settings_Floor;Kodek ayarları, Floor
 Codec_Settings_GMC;Kodek ayarları, GMC
@@ -325,21 +325,21 @@ ColorTheme_Light;Aydınlık Tema
 ColorTheme_System;Sistem Teması
 colour_description_present;Renk Açıklaması Mevcut
 colour_description_present_Source;Renk Açıklaması Mevcut, Kaynak
-colour_primaries;Renk öncelikleri
-colour_primaries_Source;Renk Öncelikleri, Kaynak
+colour_primaries;Ana renkler
+colour_primaries_Source;Ana Renkler, Kaynak
 colour_range;Renk aralığı
 colour_range_Source;Renk Aralığı, Kaynak
 Comment;Yorum
 CommissionedBy;Görevlendiren
 Compare;Karşılaştır
-CompareView;Karşılaştırma Görünümü (Premium özellik)
+CompareView;Karşılaştırma Görünümü (Premium özellik)
 Compilation;Derleme
 ComplementaryObject;Tamamlayıcı Nesne
 CompleteName;Tam ad
 CompletionDate;Tamamlama Tarihi
 ComplexityIndex;Karmaşıklık indeksi
 Composer;Besteci
-Compression_Mode;Sıkıştırma kipi
+Compression_Mode;Sıkıştırma modu
 Compression_Mode_Lossless;Kayıpsız
 Compression_Mode_Lossy;Kayıplı
 Compression_Ratio;Sıkıştırma oranı
@@ -372,7 +372,7 @@ Cropped;Kırpma boyutları
 Custom;Özel
 CustomDownmixTargets;Özel Downmix Hedefleri
 Customize;Özelleştir
-DarkMode;Karanlık Kip
+DarkMode;Karanlık Mod
 Date;Tarih
 Debug;Hata Ayıklama
 Decimal point;Ondalık ayırıcı
@@ -400,14 +400,14 @@ Digitized_Date;Sayısallaştırılmış tarih
 Dimensions;Boyutlar
 Director;Yönetmen
 DirectorOfPhotography;Fotoğrafçılık yönetmeni
-Disabled;Etkisizleştirildi
+Disabled;Devre Dışı
 DisplayAspectRatio;Görüntü en-boy oranı
-DisplayAspectRatio_CleanAperture;Temiz diyafram görüntüsü en-boy oranı
+DisplayAspectRatio_CleanAperture;Temiz Diyafram Görüntü En-Boy Oranı
 DisplayAspectRatio_Original;Orijinal görüntü en-boy oranı
 DisplayCaptions;Altyazıları Göster
-DisplayCaptions_Command;İçerik veya komut algılandığında
-DisplayCaptions_Content;İçerik algılandığında
-DisplayCaptions_Stream;İçerik veya komut algılanmasa bile
+DisplayCaptions_Command;İçerik veya komut algılandığında
+DisplayCaptions_Content;İçerik algılandığında
+DisplayCaptions_Stream;İçerik veya komut algılanmasa bile
 DistributedBy;Dağıtan
 Distributor;Dağıtıcı
 Documents;Belgeler
@@ -415,8 +415,8 @@ Dolby_Atmos_Metadata;Dolby Atmos Üst Verisi
 DolbyAtmos;Dolby Atmos
 Donate;Bağış
 DotsPerInch;İnç başına nokta
-DownloadFile;Dosya(lar) indiriliyor: %INDEX% / %COUNT% ...
-DownloadFileError;%FILE% indirilemiyor
+DownloadFile;Dosya(lar) indiriliyor: %INDEX% / %COUNT% ...
+DownloadFileError;%FILE% indirilemiyor
 Downmix;Downmix
 Downmix_5.1.x;5.1.x Downmix
 Downmix_5to2;5'ten 2'ye Downmix
@@ -449,7 +449,7 @@ Encoded_Library;Yazma kütüphanesi
 Encoded_Library_Name;Kodlama Kütüphanesi Adı
 Encoded_Library_Settings;Kodlama ayarları
 Encoded_Library_Version;Kodlama Kütüphanesi Sürümü
-Encoded_Original;Orijinal destek
+Encoded_Original;Orijinal kodlama
 EncodedBy;Kodlayan
 EPG_Positions;EPG konumları (dahili)
 EpisodeTitleNumber;Bölüm Başlık Numarası
@@ -469,17 +469,17 @@ Exit_Hint;Programdan çık
 Export;Dışa Aktar
 Export_Hint;Özelleştirilmiş biçimde dışa aktarır
 Extensions;Genellikle kullanılan uzantılar
-External_Media_NotMounted;Harici medyaya erişilemiyor
+External_Media_NotMounted;Harici medyaya erişilemiyor
 Family;Aile
 Fax;Faks
-Feature_AdvancedMode;Gelişmiş Kip Özelliği
+Feature_AdvancedMode;Gelişmiş Mod Özelliği
 Feature_FilesCompare;Dosyaları Karşılaştır Özelliği
-Feature_More;Daha fazlası yakında
-Feature_SelectView;Varsayılan görünümü seç
+Feature_More;Daha fazlası yakında
+Feature_SelectView;Varsayılan görünümü seç
 Field;Alan
 File size;Dosya boyutu
 File;Dosya
-File_Append;Mevcut dosyaya ekle (Uyarı : aynı parametlere sahip olmak için dikkatli olun)
+File_Append;Mevcut dosyaya ekle (Uyarı: aynı parametrelere sahip olmak için dikkatli olun)
 File_Created_Date;Dosya oluşturma tarihi
 File_Created_Date_Local;Dosya oluşturma tarihi (yerel)
 File_Hint;Çalışmak için çokluortam dosyası seç
@@ -492,7 +492,7 @@ FileSize;Dosya boyutu
 Fill with a Dummy movie;Örnek bir filmle doldur
 Fill with a realistic movie;Gerçekçi bir filmle doldur
 FirstDisplay_Delay_Frames;İlk Gösterim Gecikmesi (Kare)
-FirstDisplay_Type;İlk olayın türü
+FirstDisplay_Type;İlk olayın türü
 FirstFrameOfAction;Aksiyonun İlk Karesi
 FlatPanelTv;Düz Panel TV
 FlowID;Akış Kimliği
@@ -516,10 +516,10 @@ Format_Settings;Biçim ayarları
 Format_Settings_BVOP;Biçim ayarları, BVOP
 Format_Settings_CABAC;Biçim ayarları, CABAC
 Format_Settings_Emphasis;Vurgu
-Format_Settings_Endianness;Biçim ayarları, Endianess
+Format_Settings_Endianness;Biçim ayarları, bayt sırası
 Format_Settings_Firm;Biçim ayarları, Firm
 Format_Settings_Floor;Biçim ayarları, Floor
-Format_Settings_FrameMode;Kare kipi
+Format_Settings_FrameMode;Kare modu
 Format_Settings_GMC;Biçim ayarları, GMC
 Format_Settings_GOP;Biçim ayarları, GOP
 Format_Settings_ITU;Biçim ayarları, ITU
@@ -527,8 +527,8 @@ Format_Settings_Law;Biçim ayarları, Law
 Format_Settings_Matrix;Biçim ayarları, Matrix
 Format_Settings_Matrix_Custom;Özel
 Format_Settings_Matrix_Default;Varsayılan
-Format_Settings_Mode;Kip
-Format_Settings_ModeExtension;Kip uzantısı
+Format_Settings_Mode;Mod
+Format_Settings_ModeExtension;Mod uzantısı
 Format_Settings_PacketBitStream;Biçim ayarları, Paket bit akışı
 Format_Settings_PictureStructure;Biçim ayarları, resim yapısı
 Format_Settings_PS;Biçim ayarları, PS
@@ -538,7 +538,7 @@ Format_Settings_RefFrames;Biçim ayarları, RefFrames
 Format_Settings_SBR;Biçim ayarları, SBR
 Format_Settings_Sign;Biçim ayarları, Sign
 Format_Settings_SliceCount;Biçim Ayarları, Dilim Sayısı
-Format_Settings_Wrapping;Biçim ayarları, kaydırma kipi
+Format_Settings_Wrapping;Biçim ayarları, sarma
 Format_Tier;Biçim katmanı
 Format_Url;Biçim için web bağlantısı
 Format_Version;Biçim sürümü
@@ -552,50 +552,50 @@ FrameRate;Kare hızı
 FrameRate_Den;Kare Hızı Paydası
 FrameRate_Maximum;En fazla kare hızı
 FrameRate_Minimum;En az kare hızı
-FrameRate_Mode;Kare hızı kipi
+FrameRate_Mode;Kare hızı modu
 FrameRate_Mode_CFR;Sabit
 FrameRate_Mode_VFR;Değişken
-FrameRate_Nominal;Düşük kare hızı
+FrameRate_Nominal;Nominal kare hızı
 FrameRate_Num;Kare Hızı Payı
 FrameRate_Original;Orijinal kare hızı
 FrameRate_Real;Gerçek Kare Hızı
 FullParsing;Tam Ayrıştırma
-FullParsingTips;Daha eksiksiz çıktı (daha yavaş)
+FullParsingTips;Daha eksiksiz çıktı (daha yavaş)
 Gallery;Galeri
 General;Genel
 GeneralCompliance;Genel Uyum
 Genre;Tarz
 Genre_000;Blues
-Genre_001;Classic Rock
+Genre_001;Klasik Rock
 Genre_002;Country
 Genre_003;Dans
 Genre_004;Disko
 Genre_005;Funk
 Genre_006;Grunge
 Genre_007;Hip-Hop
-Genre_008;Jazz
+Genre_008;Caz
 Genre_009;Metal
 Genre_010;New Age
-Genre_011;Oldies
-Genre_012;Other
+Genre_011;Eski Şarkılar
+Genre_012;Diğer
 Genre_013;Pop
 Genre_014;R&B
 Genre_015;Rap
 Genre_016;Reggae
 Genre_017;Rock
-Genre_018;Techno
-Genre_019;Industrial
-Genre_020;Alternative
+Genre_018;Tekno
+Genre_019;Endüstriyel
+Genre_020;Alternatif
 Genre_021;Ska
 Genre_022;Death Metal
-Genre_023;Pranks
+Genre_023;Şakalar
 Genre_024;Film Müziği
-Genre_025;Euro-Techno
+Genre_025;Euro-Tekno
 Genre_026;Ambient
 Genre_027;Trip-Hop
-Genre_028;Vocal
-Genre_029;Jazz+Funk
-Genre_030;Fusion
+Genre_028;Vokal
+Genre_029;Caz+Funk
+Genre_030;Füzyon
 Genre_031;Trance
 Genre_032;Klasik
 Genre_033;Enstrümantal
@@ -604,118 +604,118 @@ Genre_035;House
 Genre_036;Oyun
 Genre_037;Ses Klibi
 Genre_038;Gospel
-Genre_039;Noise
+Genre_039;Gürültü
 Genre_040;AlternRock
-Genre_041;Bass
+Genre_041;Bas
 Genre_042;Soul
 Genre_043;Punk
-Genre_044;Space
-Genre_045;Meditative
+Genre_044;Uzay
+Genre_045;Meditatif
 Genre_046;Enstrümantal Pop
 Genre_047;Enstrümantal Rock
-Genre_048;Ethnik
-Genre_049;Gothic
+Genre_048;Etnik
+Genre_049;Gotik
 Genre_050;Darkwave
-Genre_051;Techno-Industrial
+Genre_051;Tekno-Endüstriyel
 Genre_052;Elektronik
 Genre_053;Pop-Folk
 Genre_054;Eurodance
-Genre_055;Dream
+Genre_055;Rüya
 Genre_056;Güney Rock
 Genre_057;Komedi
-Genre_058;Cult
+Genre_058;Kült
 Genre_059;Gangsta
 Genre_060;Top 40
-Genre_061;Christian Rap
+Genre_061;Hristiyan Rap
 Genre_062;Pop/Funk
 Genre_063;Jungle
-Genre_064;Native American
-Genre_065;Cabaret
-Genre_066;New Wave
-Genre_067;Psychadelic
+Genre_064;Kızılderili
+Genre_065;Kabare
+Genre_066;Yeni Dalga
+Genre_067;Psikedelik
 Genre_068;Rave
 Genre_069;Showtunes
-Genre_070;Trailer
+Genre_070;Fragman
 Genre_071;Lo-Fi
-Genre_072;Tribal
-Genre_073;Acid Punk
-Genre_074;Acid Jazz
+Genre_072;Kabile
+Genre_073;Asit Punk
+Genre_074;Asit Caz
 Genre_075;Polka
 Genre_076;Retro
-Genre_077;Musical
+Genre_077;Müzikal
 Genre_078;Rock & Roll
 Genre_079;Hard Rock
 Genre_080;Folk
 Genre_081;Folk-Rock
-Genre_082;National Folk
+Genre_082;Ulusal Folk
 Genre_083;Swing
-Genre_084;Fast Fusion
-Genre_085;Bebob
+Genre_084;Hızlı Füzyon
+Genre_085;Bebop
 Genre_086;Latin
 Genre_087;Revival
-Genre_088;Celtic
+Genre_088;Kelt
 Genre_089;Bluegrass
-Genre_090;Avantgarde
-Genre_091;Gothic Rock
-Genre_092;Progressive Rock
-Genre_093;Psychedelic Rock
-Genre_094;Symphonic Rock
-Genre_095;Slow Rock
+Genre_090;Avangart
+Genre_091;Gotik Rock
+Genre_092;Progresif Rock
+Genre_093;Psikedelik Rock
+Genre_094;Senfonik Rock
+Genre_095;Yavaş Rock
 Genre_096;Big Band
-Genre_097;Chorus
-Genre_098;Easy Listening
-Genre_099;Acoustic
-Genre_100;Humour
-Genre_101;Speech
-Genre_102;Chanson
+Genre_097;Koro
+Genre_098;Kolay Dinleme
+Genre_099;Akustik
+Genre_100;Mizah
+Genre_101;Konuşma
+Genre_102;Şanson
 Genre_103;Opera
-Genre_104;Chamber Music
-Genre_105;Sonata
-Genre_106;Symphony
+Genre_104;Oda Müziği
+Genre_105;Sonat
+Genre_106;Senfoni
 Genre_107;Booty Bass
 Genre_108;Primus
 Genre_109;Porn Groove
-Genre_110;Satire
-Genre_111;Slow Jam
-Genre_112;Club
+Genre_110;Hiciv
+Genre_111;Yavaş Jam
+Genre_112;Kulüp
 Genre_113;Tango
 Genre_114;Samba
-Genre_115;Folklore
-Genre_116;Ballad
-Genre_117;Power Ballad
-Genre_118;Rhythmic Soul
-Genre_119;Freestyle
-Genre_120;Duet
+Genre_115;Folklor
+Genre_116;Balad
+Genre_117;Power Balad
+Genre_118;Ritmik Soul
+Genre_119;Serbest Stil
+Genre_120;Düet
 Genre_121;Punk Rock
-Genre_122;Drum Solo
+Genre_122;Davul Solosu
 Genre_123;A capella
 Genre_124;Euro-House
-Genre_125;Dance Hall
+Genre_125;Dans Salonu
 Genre_126;Goa
-Genre_127;Davul & Bass
-Genre_128;Club-House
+Genre_127;Davul & Bas
+Genre_128;Kulüp-House
 Genre_129;Hardcore
-Genre_130;Terror
-Genre_131;Indie
+Genre_130;Terör
+Genre_131;Bağımsız
 Genre_132;Britpop
 Genre_133;Negerpunk
 Genre_134;Polsk Punk
 Genre_135;Beat
-Genre_136;Christian Gangsta Rap
+Genre_136;Hristiyan Gangsta Rap
 Genre_137;Heavy Metal
 Genre_138;Black Metal
 Genre_139;Crossover
-Genre_140;Contemporary Christian
-Genre_141;Christian Rock
+Genre_140;Çağdaş Hristiyan
+Genre_141;Hristiyan Rock
 Genre_142;Merengue
 Genre_143;Salsa
-Genre_144;Trash Metal
+Genre_144;Thrash Metal
 Genre_145;Anime
 Genre_146;JPop
 Genre_147;Synthpop
-Genre_148;Abstract
-Genre_149;Art Rock
-Genre_150;Baroque
+Genre_148;Soyut
+Genre_149;Sanat Rock
+Genre_150;Barok
 Genre_151;Bhangra
 Genre_152;Big Beat
 Genre_153;Breakbeat
@@ -723,40 +723,43 @@ Genre_154;Chillout
 Genre_155;Downtempo
 Genre_156;Dub
 Genre_157;EBM
-Genre_158;Eclectic
-Genre_159;Electro
+Genre_158;Eklektik
+Genre_159;Elektro
 Genre_160;Electroclash
 Genre_161;Emo
-Genre_162;Experimental
-Genre_163;Garage
+Genre_162;Deneysel
+Genre_163;Garaj
 Genre_164;Genel
 Genre_165;IDM
 Genre_166;Illbient
-Genre_167;Industro-Goth
+Genre_167;Endüstriyel-Gotik
 Genre_168;Jam Band
 Genre_169;Krautrock
 Genre_170;Leftfield
 Genre_171;Lounge
-Genre_172;Math Rock
-Genre_173;New Romantic
+Genre_172;Matematik Rock
+Genre_173;Yeni Romantik
 Genre_174;Nu-Breakz
 Genre_175;Post-Punk
 Genre_176;Post-Rock
 Genre_177;Psytrance
 Genre_178;Shoegaze
-Genre_179;Space Rock
-Genre_180;Trop Rock
-Genre_181;World Music
-Genre_182;Neoclassical
-Genre_183;Audiobook
-Genre_184;Audio Theatre
+Genre_179;Uzay Rock
+Genre_180;Tropik Rock
+Genre_181;Dünya Müziği
+Genre_182;Neoklasik
+Genre_183;Sesli Kitap
+Genre_184;Sesli Tiyatro
 Genre_185;Neue Deutsche Welle
 Genre_186;Podcast
-Genre_187;Indie Rock
+Genre_187;Bağımsız Rock
 Genre_188;G-Funk
 Genre_189;Dubstep
-Genre_190;Garage Rock
+Genre_190;Garaj Rock
 Genre_191;Psybient
+Geolocation_Permission_Title;Konum verisine erişim
+Geolocation_Permission_Summary;Medya dosyalarındaki konum üst verisini okuyabilmek için Fotoğraflar ve videolar izni gerekiyor.
+Geolocation_Permission_Help;Konum üst verisi okumayı etkinleştirmek için bir sonraki ekrandaki adımları izleyin:\n\n1. İzinler'i açın\n2. Fotoğraflar ve Videolar'ı seçin\n3. İzin Ver'i seçin.
 Go to WebSite;Web sitesine git
 Gop_OpenClosed;GOP, Açık/Kapalı
 Gop_OpenClosed_Closed;Kapalı
@@ -766,7 +769,7 @@ Graph;Grafik
 Group;Grup
 Grouping;Gruplama
 GroupPreset;Grup Ön Ayarı
-h; s
+h; sa
 HDR_Format;HDR biçimi
 Header file;Üst bilgi dosyası oluştur
 Height;Yükseklik
@@ -776,7 +779,7 @@ Help;Yardım
 HideOthers;Diğerlerini Gizle
 Hint;İpucu
 HomeTheaterAvr;Ev Sineması AVR
-How many audio streams?;Kaç tane seslendirme akışı?
+How many audio streams?;Kaç tane ses akışı?
 How many chapters streams?;Kaç tane bölüm akışı?
 How many text streams?;Kaç tane yazı akışı?
 How many video streams?;Kaç tane görüntü akışı?
@@ -784,10 +787,10 @@ HTML;HTML
 ID;ID
 IdentClockStart;Kimlik Saati Başlangıcı
 IFrameInterval;I-Kare Aralığı
-Image stream(s);Resim akışı
+Image stream(s);Resim akış(lar)ı
 Image;Resim
-Image_Codec_List;Kodek İmajı
-ImageCount;Resim akışları sayısı
+Image_Codec_List;Resim kodekleri
+ImageCount;Resim akışı sayısı
 ImmersiveStereo;Sarmal Stereo
 Info;Bilgi
 Instruments;Enstrüman
@@ -796,15 +799,15 @@ IntegratedLoudness_Level;Entegre Ses Yüksekliği Seviyesi
 IntegratedLoudness_Speech;Entegre Ses Yüksekliği, Konuşma
 InteractivityEnabled;Etkileşim Etkin
 Interlaced_BFF;En Alt Alanın İlki
-Interlaced_Interlaced;Karışık
+Interlaced_Interlaced;Geçmeli
 Interlaced_PPF;Aşamalı
 Interlaced_Progressive;Aşamalı
 Interlaced_TFF;En Üst Alanın İlki
-Interlacement;Karıştırma
-Interleave_Duration;Boşluk, süre
-Interleave_Preload;Boşluk, önyükleme süresi
-Interleave_VideoFrames;Boşluk, süre
-Interleaved;Boşluklu
+Interlacement;Tarama biçimi
+Interleave_Duration;Araya Yerleştirme, Süre
+Interleave_Preload;Araya Yerleştirme, Ön Yükleme
+Interleave_VideoFrames;Araya Yerleştirme, Görüntü Kareleri
+Interleaved;Araya Yerleştirilmiş
 InternetMediaType;Internet medya türü
 IRCA;IRCA
 ISBN;ISBN
@@ -816,67 +819,67 @@ Known formats;Bilinen biçimler
 Known parameters;Bilinen parametreler
 Label;Etiket
 Language;Dil
-Language_aa;Afar
-Language_ab;Abkhazian
-Language_ae;Avestan
+Language_aa;Afarca
+Language_ab;Abhazca
+Language_ae;Avestçe
 Language_af;Afrikaanca
 Language_ak;Akan
-Language_am;Amharic
-Language_an;Aragonese
+Language_am;Amharca
+Language_an;Aragonca
 Language_ar;Arapça
-Language_as;Assamese
-Language_av;Avaric
-Language_ay;Aymara
-Language_az;Azeri
-Language_ba;Bashkir
-Language_be;Beyaz rusça
+Language_as;Assamca
+Language_av;Avarca
+Language_ay;Aymaraca
+Language_az;Azerice
+Language_ba;Başkurtça
+Language_be;Belarusça
 Language_bg;Bulgarca
-Language_bh;Bihari
+Language_bh;Biharice
 Language_bi;Bislama
 Language_bm;Bambara
-Language_bn;Bengali
-Language_bo;Tibetan
-Language_br;Breton
+Language_bn;Bengalce
+Language_bo;Tibetçe
+Language_br;Bretonca
 Language_bs;Boşnakça
 Language_ca;Katalanca
-Language_ce;Chechen
-Language_ch;Chamorro
+Language_ce;Çeçence
+Language_ch;Çamorroca
 Language_cmn;Çince (Mandarin)
-Language_co;Corsican
-Language_cr;Cree
+Language_co;Korsikaca
+Language_cr;Krice
 Language_cs;Çekçe
-Language_cu;Slave
-Language_cv;Chuvash
-Language_cy;Welsh
+Language_cu;Kilise Slavcası
+Language_cv;Çuvaşça
+Language_cy;Galce
 Language_da;Danca
 Language_de;Almanca
 Language_dv;Divehi
-Language_dz;Dzongkha
+Language_dz;Dzongkaca
 Language_ee;Ewe
 Language_el;Yunanca
 Language_en;İngilizce
-Language_en-gb;İngilizce (UK)
+Language_en-gb;İngilizce (Birleşik Krallık)
 Language_en-us;İngilizce (ABD)
 Language_eo;Esperanto
 Language_es;İspanyolca
 Language_es-419;İspanyolca (Latin Amerika)
 Language_et;Estonca
-Language_eu;Basque
+Language_eu;Baskça
 Language_fa;Farsça
-Language_ff;Fulah
+Language_ff;Fulaca
 Language_fi;Fince
 Language_fil;Filipince
-Language_fj;Fijian
-Language_fo;Faroese
+Language_fj;Fijice
+Language_fo;Faroece
 Language_fr;Fransızca
-Language_fy;Frisian
-Language_ga;Irish
-Language_gd;Gaelic
-Language_gl;Galician
-Language_gn;Guarani
-Language_gu;Gujarati
-Language_gv;Manx
-Language_ha;Hausa
+Language_fy;Frizce
+Language_ga;İrlandaca
+Language_gd;İskoç Galcesi
+Language_gl;Galiçyaca
+Language_gn;Guaranice
+Language_gu;Güceratça
+Language_gv;Manksça
+Language_ha;Hausaca
 Language_he;İbranice
 Language_hi;Hintçe
 Language_ho;Hiri Motu
@@ -886,136 +889,136 @@ Language_hu;Macarca
 Language_hy;Ermenice
 Language_hy-az;Ermenice (Azerbaycan)
 Language_hz;Herero
-Language_ia;Yardımcı  Dil Derneği
-Language_id;Endonezca
+Language_ia;Interlingua
+Language_id;Endonezce
 Language_ie;Interlingue
-Language_ig;Igbo
+Language_ig;İgboca
 Language_ii;Sichuan Yi
-Language_ik;Inupiaq
-Language_Info;Dil bilgisi
+Language_ik;İnupiakça
+Language_Info;Dil Bilgileri
 Language_io;Ido
-Language_is;Icelandic
+Language_is;İzlandaca
 Language_it;İtalyanca
-Language_iu;Inuktitut
+Language_iu;İnuktitutça
 Language_ja;Japonca
-Language_jv;Javanese
+Language_jv;Cavaca
 Language_ka;Gürcüce
 Language_kg;Kongo
 Language_ki;Kikuyu
 Language_kj;Kuanyama
-Language_kk;Kazakh
+Language_kk;Kazakça
 Language_kl;Kalaallisut
-Language_km;Khmer
-Language_kn;Kannada
+Language_km;Khmerce
+Language_kn;Kannadaca
 Language_ko;Korece
 Language_kr;Kanuri
-Language_ks;Kashmiri
+Language_ks;Keşmirce
 Language_ku;Kürtçe
-Language_kv;Komi
-Language_kw;Cornish
-Language_ky;Kirghiz
+Language_kv;Komice
+Language_kw;Kernevekçe
+Language_ky;Kırgızca
 Language_la;Latince
-Language_lb;Luxembourgish
+Language_lb;Lüksemburgca
 Language_lg;Ganda
-Language_li;Limburgish
-Language_ln;Lingala
-Language_lo;Lao
-Language_lt;Lithuanian
+Language_li;Limburgca
+Language_ln;Lingalaca
+Language_lo;Laoca
+Language_lt;Litvanca
 Language_lu;Luba-Katanga
-Language_lv;Latvian
-Language_mg;Malagasy
-Language_mh;Marshallese
-Language_mi;Maori
-Language_mis;Kodlanmamış diller
-Language_mk;Macedonian
-Language_ml;Malayalam
-Language_mn;Mongolian
+Language_lv;Letonca
+Language_mg;Malgaşça
+Language_mh;Marshallca
+Language_mi;Maorice
+Language_mis;Sınıflandırılmamış diller
+Language_mk;Makedonca
+Language_ml;Malayalamca
+Language_mn;Moğolca
 Language_mn-cn;Moğolca (Çin)
-Language_mo;Moldavian
+Language_mo;Moldovaca
 Language_More;Dil, daha fazla bilgi
-Language_mr;Marathi
-Language_ms;Malay
+Language_mr;Marathice
+Language_ms;Malayca
 Language_ms-bn;Malayca (Brunei)
-Language_mt;Maltese
-Language_mul;Çoklu diller
-Language_my;Burmese
-Language_na;Nauru
-Language_nb;Norveççe Bokmal
+Language_mt;Maltaca
+Language_mul;Birden Çok Dil
+Language_my;Birmanca
+Language_na;Nauruca
+Language_nb;Norveççe (Bokmål)
 Language_nd;Ndebele
-Language_ne;Nepali
+Language_ne;Nepalce
 Language_ng;Ndonga
 Language_nl;Flemenkçe
 Language_nl-be;Flemenkçe (Belçika)
-Language_nn;Norveççe Bokmal
+Language_nn;Norveççe (Nynorsk)
 Language_no;Norveççe
 Language_nr;Ndebele
-Language_nv;Navaho
-Language_ny;Nyanja
-Language_oc;Occitan
-Language_oj;Ojibwa
-Language_om;Oromo
+Language_nv;Navahoca
+Language_ny;Nyanjaca
+Language_oc;Oksitanca
+Language_oj;Ojibvaca
+Language_om;Oromoca
 Language_or;Oriya
-Language_os;Ossetic
-Language_pa;Panjabi
-Language_pi;Pali
-Language_pl;Polonyaca
-Language_ps;Pushto
+Language_os;Osetçe
+Language_pa;Pencapça
+Language_pi;Palice
+Language_pl;Lehçe
+Language_ps;Peştuca
 Language_pt;Portekizce
 Language_pt-br;Portekizce (Brezilya)
-Language_qu;Quechua
-Language_rm;Raeto-Romance
-Language_rn;Rundi
-Language_ro;Romance
+Language_qu;Keçuvaca
+Language_rm;Romanşça
+Language_rn;Kirundice
+Language_ro;Rumence
 Language_ru;Rusça
-Language_rw;Kinyarwanda
-Language_sa;Sanskrit
-Language_sc;Sardinian
-Language_sd;Sindhi
-Language_se;Northern Sami
-Language_sg;Sango
+Language_rw;Kinyarwandaca
+Language_sa;Sanskritçe
+Language_sc;Sarduca
+Language_sd;Sindçe
+Language_se;Kuzey Samice
+Language_sg;Sangoca
 Language_si;Sinhalaca
 Language_sk;Slovakça
-Language_sl;Slovenian
-Language_sm;Samoan
+Language_sl;Slovence
+Language_sm;Samoaca
 Language_smi;Sami Dili
-Language_sn;Shona
-Language_so;Somalica
-Language_sq;Albanian
+Language_sn;Şonaca
+Language_so;Somalice
+Language_sq;Arnavutça
 Language_sr;Sırpça
-Language_ss;Swati
-Language_st;Sotho
-Language_su;Sundanese
-Language_sv;Swedish
-Language_sw;Swahili
-Language_ta;Tamil
-Language_te;Telugu
-Language_tg;Tajik
+Language_ss;Swatice
+Language_st;Sothoca
+Language_su;Sundaca
+Language_sv;İsveççe
+Language_sw;Svahili
+Language_ta;Tamilce
+Language_te;Teluguca
+Language_tg;Tacikçe
 Language_th;Tayca
 Language_ti;Tigrinya
 Language_tk;Türkmence
-Language_tl;Tagalog
-Language_tn;Tswana
-Language_to;Tonga
+Language_tl;Tagalogca
+Language_tn;Tsvanaca
+Language_to;Tongaca
 Language_tr;Türkçe
-Language_ts;Tsonga
-Language_tt;Tatar
-Language_tw;Twi
-Language_ty;Tahitian
-Language_ug;Uighur
-Language_uk;Ukrainian
+Language_ts;Tsongaca
+Language_tt;Tatarca
+Language_tw;Tvice
+Language_ty;Tahitice
+Language_ug;Uygurca
+Language_uk;Ukraynaca
 Language_und;Tanımlanmamış Dil
-Language_ur;Urdu
+Language_ur;Urduca
 Language_uz;Özbekçe
-Language_ve;Venda
+Language_ve;Vendaca
 Language_vi;Vietnamca
-Language_vo;Volapuk
-Language_wa;Walloon
-Language_wo;Wolof
-Language_xh;Xhosa
-Language_yi;Yiddish
-Language_yo;Yoruba
-Language_yue;Çince (Kanton)
-Language_za;Zhuang
+Language_vo;Volapük
+Language_wa;Valonca
+Language_wo;Volofça
+Language_xh;Xhosaca
+Language_yi;Yidiş
+Language_yo;Yorubaca
+Language_yue;Çince (Kantonca)
+Language_za;Zhuangca
 Language_zh;Çince
 Language_zh-cmn;Çince (Mandarin)
 Language_zh-CN;Çince (Çin)
@@ -1024,20 +1027,20 @@ Language_zh-Hans;Çince (Basitleştirilmiş)
 Language_zh-Hant;Çince (Geleneksel)
 Language_zh-TW;Çince (Tayvan)
 Language_zh-tw;Çince (Tayvan)
-Language_zh-yue;Çince (Kanton)
-Language_zu;Zulu
+Language_zh-yue;Çince (Kantonca)
+Language_zu;Zuluca
 Language_zxx;Dil İçeriği Yok
 LanguageChanges;Dil Değişiklikleri
 Languages;Diller
-LawRating;Kanun oranı
+LawRating;Yasal Derecelendirme
 LCCN;LCCN
-LegacyStreamDisplay;HD/HE ses ve 3B/HDR video akışları için geriye dönük uyumluluk bilgilerini göster
+LegacyStreamDisplay;HD/HE ses ve 3B/HDR görüntü akışları için geriye dönük uyumluluk bilgilerini göster
 LfeAttenuationKnown;LFE Zayıflaması Biliniyor
 LfeMixGain;LFE Karışım Kazancı
 lfeon;lfeon
 Library;Çoklama kütüphanesi
-Lifetime_Subscribe_Button;Ömür boyu abonelik: %PRICE%
-Lightness;Canlılık
+Lifetime_Subscribe_Button;Ömür boyu abonelik: %PRICE%
+Lightness;Açıklık
 Lines_Count;Satır Sayısı
 Lines_MaxCountPerEvent;Olay Başına Maksimum Satır
 LineUpStart;Sıra Başlangıcı
@@ -1095,20 +1098,20 @@ MaxGain;Maksimum Kazanç
 MaximumMomentaryLoudness;Maksimum Anlık Ses Yüksekliği
 MaxTruePeak;Maksimum Gerçek Tepe
 MD5;MD5
-MD5_Unencoded;Kodlanmamış içeriğin MD5'i
+MD5_Unencoded;Kodlanmamış içeriğin MD5'i
 MediaInfo_About;MediaInfo, görüntü ve ses dosyaları hakkında teknik ve etiket bilgilerine kolay erişim sağlar.\r\nMac App Store grafik kullanıcı arayüzü dışında, açık kaynak kodlu yazılımdır, bu da çalışma özgürlüğüne sahip, geliştirmek ve programı yeniden dağıtmak için (BSD lisansı) son kullanıcıya ve geliştiricilere ücretsiz olduğu anlamına gelir.
-MediaInfo_About_About;MediaInfo Hakkında
+MediaInfo_About_About;MediaInfo v%MI_VERSION%, MediaInfoLib v%MIL_VERSION% kullanıyor
 MediaInfo_WebSite;MediaInfo Web Sitesi
 Menu stream(s);Menü akışları
 Menu;Menü
 Menu_Codec_List;Menü kodekleri
 Menu_Hint;Daha fazla olasılık
 Menu_No;Menü yok
-MenuCount;Meni sayısı
-MenuID;Menü ID
+MenuCount;Menü sayısı
+MenuID;Menü Kimliği
 Metadata_Format;Üst Veri Biçimi
 Metadata_Format_Type;Üst Veri Biçimi Türü
-Metadata_MuxingMode;Üst Veri Çoklama Kipi
+Metadata_MuxingMode;Üst Veri Çoklama Modu
 Minimize;Simge Durumuna Küçült
 MixType;Karışım Türü
 mn; dk
@@ -1120,8 +1123,8 @@ MSDI;MSDI
 MultipleStream;Çoklu Akış
 MultiView_Count;Çoklu Görünüm Sayısı
 MusicBy;Müziği yapan
-MuxingMode;Çoklama kipi
-MuxingMode_MoreInfo;Çoklama kipi, daha fazla bilgi
+MuxingMode;Çoklama modu
+MuxingMode_MoreInfo;Çoklama modu, daha fazla bilgi
 MuxingMode_PackedBitstream;Paketlenmiş bit akışı
 Name;Adı
 Nationality;Uyruk
@@ -1153,11 +1156,11 @@ One output file per input file;Girdi dosyası başına bir çıktı dosyası
 OnlyDiffer;Yalnızca Farklı Olanlar
 OnlyIdentical;Yalnızca Aynı Olanlar
 Open;Aç
-OpenCaptionsLanguage;Açık Açıklamalı Alt Yazı Dili
-OpenCaptionsPresent;Açık Açıklamalı Alt Yazı Sunumu
-OpenCaptionsType;Açık Açıklamalı Alt Yazı Türü
-OpenFile;Dosya(lar) açılıyor: %INDEX% / %COUNT% ...
-OpenFileError;%FILE% açılamıyor
+OpenCaptionsLanguage;Açık Altyazı Dili
+OpenCaptionsPresent;Açık Altyazı Mevcut
+OpenCaptionsType;Açık Altyazı Türü
+OpenFile;Dosya(lar) açılıyor: %INDEX% / %COUNT% ...
+OpenFileError;%FILE% açılamıyor
 OpenRecent;Son Kullanılanlar
 Options;Seçenekler
 Options_Hint;Tercihler
@@ -1173,17 +1176,17 @@ OtherIdentifierType;Diğer Tanımlayıcı Türü
 OtherViews;Diğer Görünümler
 Output format;Çıktı biçimi
 Output;Çıktı
-OverallBitRate;Kapsamlı bit hızı
-OverallBitRate_Maximum;En Fazla Kapsamlı bit hızı
-OverallBitRate_Minimum;En Az Kapsamlı bit hızı
-OverallBitRate_Mode;Kapsamlı bit hızı kipi
-OverallBitRate_Nominal;Düşük Kapsamlı bit hızı
-OverallBitRate_Precision_Max;Kapsamlı Bit Hızı Hassasiyeti, Maks
-OverallBitRate_Precision_Min;Kapsamlı Bit Hızı Hassasiyeti, Min
+OverallBitRate;Kapsamlı bit oranı
+OverallBitRate_Maximum;En Fazla Kapsamlı bit oranı
+OverallBitRate_Minimum;En Az Kapsamlı bit oranı
+OverallBitRate_Mode;Kapsamlı bit oranı modu
+OverallBitRate_Nominal;Nominal kapsamlı bit oranı
+OverallBitRate_Precision_Max;Kapsamlı Bit Oranı Hassasiyeti, Maks
+OverallBitRate_Precision_Min;Kapsamlı Bit Oranı Hassasiyeti, Min
 PackageName;Paket adı
 PackFormat;Paket Biçimi
 Part;Parça
-Part_Count;Toplam sayı
+Part_Count;Toplam parça sayısı
 PartialParsing;Kısmi Ayrıştırma
 PartNumber;Parça Numarası
 PartTotal;Parça Toplamı
@@ -1212,7 +1215,7 @@ Preferences;Tercihler
 PreferredDownmix;Tercih Edilen Downmix
 Premium;Premium
 Premium_Feature;Premium Özellik
-Premium_Summary;Premium abonelere özel özellikler
+Premium_Summary;Premium abonelere özel özellikler
 PreselectionLabel;Ön Seçim Etiketi
 Presentation;Sunum
 PresentationConfig;Sunum Yapılandırması
@@ -1223,7 +1226,7 @@ PreviousDownmixType5ch;Önceki 5 Kanal Downmix Türü
 PreviousMixType2ch;Önceki 2 Kanal Karışım Türü
 PrimaryAudioLanguage;Birincil Ses Dili
 Producer;Yapımcı
-ProductionDesigner;Üretim tasarımcısı
+ProductionDesigner;Yapım Tasarımcısı
 ProductionNumber;Üretim Numarası
 ProductionStudio;Üretim stüdyosu
 ProductPlacement;Ürün Yerleştirme
@@ -1237,19 +1240,27 @@ Purchased_Date;satın alma tarihi
 PurchaseInformation;Satın Alma Bilgisi
 Quote character;Alıntı bölümü
 RadioStation;Radyo istasyonu
-Rating;İzlenme oranı
+Rating;Derecelendirme
 RealtimeLoudnessCorrected;Gerçek Zamanlı Ses Yüksekliği Düzeltildi
 Recorded_Date;Kaydedildiği tarih
 Recorded_Location;Kaydedildiği yer
 Reel;Makara
 Released_Date;Yayım tarihi
 RemixedBy;Remiksleyen
-RenderMode;İşleme Kipi
+RenderMode;İşleme Modu
 Renew;Yenile
 ReplayGain_Gain;Tekrar oynatma kazancı
 ReplayGain_Peak;Tekrar oynatma kazancı ucu
 Report;Rapor
 ReportBy;Raporlayan
+ReportFontSize;Raporlar için yazı tipi boyutu:
+ReportFontSize_ExtraLarge;Ekstra büyük
+ReportFontSize_ExtraSmall;Ekstra küçük
+ReportFontSize_Large;Büyük
+ReportFontSize_Normal;Normal
+ReportFontSize_Small;Küçük
+ReportFontSize_VeryLarge;Çok büyük
+ReportFont_VerySmall;Çok küçük
 Resolution;Çözünürlük
 RestoreLifetimeSubscription;Ömür Boyu Aboneliği Geri Yükle
 Retry;Yeniden Dene
@@ -1272,14 +1283,14 @@ ScanType;Tarama türü
 ScanType_Original;Orijinal tarama türü
 ScanType_StoreMethod;Tarama türü, saklama yöntemi
 ScreenplayBy;Senaryo
-ScreenToCenter;Ekran kanalından merkez kanala
-ScreenToFront;Ekran kanalından ön kanala
+ScreenToCenter;Ekran kanalından merkez kanala
+ScreenToFront;Ekran kanalından ön kanala
 Season;Sezon
 SecondaryAudioLanguage;İkincil Ses Dili
 see below;aşağı bakın
 Select your directory;Dizininizi seçin
 SelectAll;Tümünü Seç
-Send HeaderFile;Lütfen Header dosyasını buraya gönderin : http://sourceforge.net/projects/mediainfo/ (Bug bölümü)
+Send HeaderFile;Lütfen Header dosyasını buraya gönderin: http://sourceforge.net/projects/mediainfo/ (Bug bölümü)
 Separator_Columns;sütun ayırıcı
 Separator_Lines;satır ayırıcı
 SeriesTitle;Dizi Başlığı
@@ -1287,7 +1298,7 @@ ServiceChannel;Hizmet kanal numarası
 ServiceKind;Hizmet çeşidi
 ServiceName;Hizmet adı
 ServiceProvider;Hizmet sağlayıcısı
-Services;Servisler
+Services;Hizmetler
 ServiceType;Hizmet türü
 Set;Ayar
 Set_Count;Ayar sayısı
@@ -1305,9 +1316,9 @@ Show menu;Menüyü göster
 Show toolbar;Araç çubuğunu göster
 Show;Göster
 ShowAll;Tümünü göster
-ShowMore;Zaman veya sürenin farklı biçimleri dahil olmak üzere çıktıda daha fazlasını göster
+ShowMore;Zaman veya sürenin farklı biçimleri dahil olmak üzere çıktıda daha fazlasını göster
 SignalGroup;Sinyal Grubu
-SigningPresent;İşaretle Sunum
+SigningPresent;İşaret Dili Mevcut
 SignLanguage;İşaret Dili
 Sort;Sıralayan
 SoundCategory;Ses Kategorisi
@@ -1321,10 +1332,10 @@ Source_StreamSize_Encoded;Kaynak kodlanmış akış boyutu
 SpokenSubtitles;Sözlü Altyazı
 Standard;Standart
 Stored_Height;Saklanan Yükseklik
-StoreMethod_InterleavedFields;Boşluklu alanlar
-StoreMethod_SeparatedFields;Ayrılmış alanlar
-StoreMethod_SeparatedFields_1;Ayrılmış alanlar (blok başına 1 alan)
-StoreMethod_SeparatedFields_2;Ayrılmış alanlar (blok başına 2 alan)
+StoreMethod_InterleavedFields;Araya yerleştirilmiş alanlar
+StoreMethod_SeparatedFields;Ayrı alanlar
+StoreMethod_SeparatedFields_1;Ayrı alanlar (blok başına 1 alan)
+StoreMethod_SeparatedFields_2;Ayrı alanlar (blok başına 2 alan)
 Stream;Akış
 Stream_MoreInfo;Akış hakkında daha fazla bilgi
 StreamCount;Bu çeşidin akış sayısı
@@ -1342,28 +1353,28 @@ StreamSize_Encoded;Kodlanmış akış boyutu
 StreamSize_Proportion;Bu akışın oranı
 Subject;Konu
 Subscribe;Abone Ol
-Subscribe_Button;Abone ol (bir yıl için %PRICE%)
-Subscribe_Failed;Satın alma iptal edildi veya başarısız oldu
+Subscribe_Button;Abone ol (bir yıl için %PRICE%)
+Subscribe_Failed;Satın alma iptal edildi veya başarısız oldu
 Subscribe_Manage;Aboneliği Yönet
 Subscribe_Premium;Premium Abone Ol
 Subscribe_Renew;Aboneliği Yenile
-Subscribe_Renew_Price;Aboneliği yenile (bir yıl için %PRICE%)
-Subscribe_Unaviable;Abonelik ayrıntıları alınamıyor.
-Subscribe_Waiting;Satın alma ebeveyn onayı bekliyor
-Subscription_Active;Abonelik %DATE% tarihine kadar etkin
-Subscription_Android;3 günlük ücretsiz deneme süresi.
+Subscribe_Renew_Price;Aboneliği yenile (bir yıl için %PRICE%)
+Subscribe_Unaviable;Abonelik ayrıntıları alınamıyor.
+Subscribe_Waiting;Satın alma ebeveyn onayı bekliyor
+Subscription_Active;Abonelik %DATE% tarihine kadar etkin
+Subscription_Android;3 günlük ücretsiz deneme süresi.
 Subscription_Ended;Abonelik Sona Erdi
-Subscription_Expired;Aboneliğin süresi %DATE% tarihinde doldu
-Subscription_Lifetime;Ömür boyu abonelik algılandı
-Subscription_Thanks;Abonelik algılandı. Desteğiniz için teşekkürler!
+Subscription_Expired;Aboneliğin süresi %DATE% tarihinde doldu
+Subscription_Lifetime;Ömür boyu abonelik algılandı
+Subscription_Thanks;Abonelik algılandı. Desteğiniz için teşekkürler!
 Substream;Alt Akış
 SubTrack;Altİz
-SubtstreamIdChannel;Alt akış başlangıç kimliği ve kanal dizini
+SubtstreamIdChannel;Alt akış başlangıç kimliği ve kanal dizini
 Summary;Özet
 Supported formats;Desteklenen biçimler
 Supported?;Desteklenen mi?
-SupportUs;Bizi destekleyin. Karanlık temaya ve yakında eklenecek diğer özelliklere erişin.
-SupportUs2;Abone olarak bizi destekleyin ve özel özelliklere erişin.
+SupportUs;Bizi destekleyin. Karanlık temaya ve yakında eklenecek diğer özelliklere erişin.
+SupportUs2;Abone olarak bizi destekleyin ve özel özelliklere erişin.
 surmixlev;surmixlev
 SurroundAttenuationKnown;Surround Zayıflaması Biliniyor
 SwitchGroup;Grup Değiştir
@@ -1373,13 +1384,13 @@ Tagged_Application;Etiketleme uygulaması
 Tagged_Date;Etiketleme tarihi
 TargetDeviceConfig;Hedef Cihaz Yapılandırması
 Technician;Teknisyen
-TermsOfUse;Kullanım şarları
+TermsOfUse;Kullanım şartları
 TertiaryAudioLanguage;Üçüncül Ses Dili
 TestContinuousFileNames;Sürekli Dosya Adlarını Test Et
 Text - Custom;Metin - Özel
 Text (HTML);Metin (HTML)
-Text stream(s);Yazı akışı
-Text streams;Yazı akışı
+Text stream(s);Yazı akış(lar)ı
+Text streams;Yazı akışları
 Text;Metin
 Text_Codec_List;Yazı kodekleri
 Text_Format_List;Metin Biçimleri Listesi
@@ -1400,12 +1411,12 @@ TimeCode_MaxFrameNumber;Maksimum Kare Numarası
 TimeCode_MaxFrameNumber_Theory;Maksimum Kare Numarası (Teorik)
 TimeCode_Settings;Zaman kodu ayarları
 TimeCode_Source;Zaman kodu kaynağı
-TimeCode_Stripped;Zaman kodu, şeritli
+TimeCode_Stripped;Zaman kodu, çıkarılmış
 TimeStamp;Zaman damgası
 TimeZone;Saat dilimi
 Title;Başlık
 Title_More;Başlık, daha fazla bilgi
-Top4ToTop2;Dört ön kanaldan iki ön kanala
+Top4ToTop2;Dört ön kanaldan iki ön kanala
 TopBackToFront;Üst Arka'dan Ön'e
 TopBackToSide;Üst Arka'dan Yan'a
 TopFrontToBack;Üst Ön'den Arka'ya
@@ -1433,16 +1444,16 @@ Tree;Ağaç
 Trim_Center;Kırpma, Merkez
 Trim_Height;Kırpma, Yükseklik
 Trim_Surround;Kırpma, Surround
-TrimMode;Kırpma Kipi
-TrimMode0i;Kırpma Kipi 0i
-TrimMode1i;Kırpma Kipi 1i
-TrimMode2i;Kırpma Kipi 2i
-TrimMode3i;Kırpma Kipi 3i
-TrimMode4i;Kırpma Kipi 4i
-TrimMode5i;Kırpma Kipi 5i
-TrimMode6i;Kırpma Kipi 6i
-TrimMode7i;Kırpma Kipi 7i
-TrimMode8i;Kırpma Kipi 8i
+TrimMode;Kırpma Modu
+TrimMode0i;Kırpma Modu 0i
+TrimMode1i;Kırpma Modu 1i
+TrimMode2i;Kırpma Modu 2i
+TrimMode3i;Kırpma Modu 3i
+TrimMode4i;Kırpma Modu 4i
+TrimMode5i;Kırpma Modu 5i
+TrimMode6i;Kırpma Modu 6i
+TrimMode7i;Kırpma Modu 7i
+TrimMode8i;Kırpma Modu 8i
 TruePeakLevel;Gerçek Tepe Seviyesi
 TruePeakLevel_Album;Gerçek Tepe Seviyesi, Albüm
 Type;Tür
@@ -1468,30 +1479,30 @@ Type_ScreenCapture;Tür, Ekran Görüntüsü
 Type_Thumbnail;Tür, Küçük Resim
 TypeDefinition;Tür Tanımı
 UniqueID;Benzersiz ID
-UniversalAdID;Evrensel Ad ID
-UniversalAdID_Registry;Evrensel Ad ID kayıt defteri
-UniversalAdID_Value;Evrensel Ad ID değeri
+UniversalAdID;Evrensel Reklam Kimliği
+UniversalAdID_Registry;Evrensel Reklam Kimliği Kaydı
+UniversalAdID_Value;Evrensel Reklam Kimliği Değeri
 Unknown;Bilinmiyor
-Url;Url
+Url;URL
 Value;Değer
 Video stream(s);Görüntü akış(lar)ı
 Video;Görüntü
 Video_Codec_List;Görüntü kodekleri
 Video_Delay;Görüntü gecikmesi
-Video_Format_List;Video Biçimleri Listesi
-Video_Format_WithHint_List;İpucu ile Video Biçimleri Listesi
-Video_Language_List;Video Dilleri Listesi
+Video_Format_List;Görüntü Biçimleri Listesi
+Video_Format_WithHint_List;İpucu ile Görüntü Biçimleri Listesi
+Video_Language_List;Görüntü Dilleri Listesi
 Video_No;Görüntü yok
 Video0_Delay;Görüntü0 gecikmesi
-Video1;Birinci hareketli görüntü
-Video2;İkinci Video
-Video3;Üçüncü Video
+Video1;Birinci görüntü akışı
+Video2;İkinci görüntü akışı
+Video3;Üçüncü görüntü akışı
 VideoComments;Görüntü Açıklamaları
-VideoCount;Hareketli görüntü sayısı
+VideoCount;Görüntü akışı sayısı
 View;Görünüm
 View_Hint;Görünüm bilgilerinin anlamını değiştirir
 Views;Görünümler
-Warning : more streams in the files;Uyarı : Dosyalarda fazla akış var
+Warning : more streams in the files;Uyarı: Dosyalarda fazla akış var
 Web;Web
 WebSite;Web Sitesi
 WebSite_Audio;Bu ses kodek'inin web sitesine git
@@ -1499,7 +1510,7 @@ WebSite_Audio_More;Bu ses kodek'ini bulmak için (%Url%) web sitesine git
 WebSite_General;Bu dosya için oynatıcının sitesine git
 WebSite_General_More;Bu dosya için oynatıcının sitesine git
 WebSite_Text;Bu yazı kodek'inin web sitesine git
-WebSite_Text_More;Bu yazı ses kodek'ini bulmak için (%Url%) web sitesine git
+WebSite_Text_More;Bu yazı kodek'ini bulmak için (%Url%) web sitesine git
 WebSite_Url;http://MediaArea.net/MediaInfo
 WebSite_Video;Bu görüntü kodek'inin web sitesine git
 WebSite_Video_More;Bu görüntü kodek'ini bulmak için (%Url%) web sitesine git
@@ -1515,6 +1526,6 @@ WrittenBy;Yazan
 Yes;Evet
 Your system;Sisteminiz
 Your translation;Çeviriniz
-Zoom;Büyült/Küçült
+Zoom;Büyüt/Küçült
 ZZ_Automatic_Percent;73
 ZZ_AutomaticLanguage_Percent;74
