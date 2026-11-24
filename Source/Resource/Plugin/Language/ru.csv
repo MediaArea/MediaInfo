@@ -1253,6 +1253,14 @@ ReplayGain_Gain;Нормализатор звука
 ReplayGain_Peak;Пик нормализатора звука
 Report;Сообщение
 ReportBy;Сообщено
+ReportFont_VerySmall;Очень маленький
+ReportFontSize;Размер шрифта отчётов:
+ReportFontSize_ExtraLarge;Наибольший
+ReportFontSize_ExtraSmall;Наименьший
+ReportFontSize_Large;Большой
+ReportFontSize_Normal;Обычный
+ReportFontSize_Small;Маленький
+ReportFontSize_VeryLarge;Очень большой
 Resolution;Разрешение
 RestoreLifetimeSubscription;Восстановить пожизненную подписку
 Retry;Повторить
