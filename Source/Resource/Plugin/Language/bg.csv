@@ -1,4 +1,11 @@
   Language_ISO639;bg
+  Config_Text_PluralRules;1
+  Config_Text_PluralRule.zero;
+  Config_Text_PluralRule.one;f == 0 && i == 1
+  Config_Text_PluralRule.two;
+  Config_Text_PluralRule.few;
+  Config_Text_PluralRule.many;
+  Config_Text_PluralLegacy;one=1,other=2
   Author_Email;ownfilmcollection@gmail.com
   Author_Name;ERa
   Author_OldNames;превод на Български
@@ -8,147 +15,184 @@
   Config_Text_NumberTag;#
   Config_Text_FloatSeparator;.
   Config_Text_ThousandsSeparator;
- audio stream1;аудио поток
- audio stream2;аудио поток
- audio stream3;аудио поток
- bit1;бит1
- bit2;бит2
- bit3;бит3
+ audio stream1; аудио поток
+ audio stream2; аудио потока
+ audio stream3; аудио потока
+ audio stream4;
+ bit1; бит
+ bit2; бита
+ bit3; бита
+ bit4;
  Bps;Бпс
  bps;бпс
- Byte1;Байт1
- Byte2;Байт2
- Byte3;Байт3
- channel1;канал1
- channel2;канал2
- channel3;канал3
- chapter1;дял1
- chapter2;дял2
- chapter3;дял3
- chapters stream1;дял поток1
- chapters stream2;дял поток2
- chapters stream3;дял поток3
+ Byte1; байт
+ Byte2; байта
+ Byte3; байта
+ Byte4;
+ channel1; канал
+ channel2; канала
+ channel3; канала
+ channel4;
+ chapter1; дял
+ chapter2; дяла
+ chapter3; дяла
+ chapter4;
+ chapters stream1; дял поток
+ chapters stream2; дял потока
+ chapters stream3; дял потока
+ chapters stream4;
  character1;
  character2;
  character3;
- day1;ден1
- day2;ден2
- day3;ден3
+ character4;
+ day1; ден
+ day2; дни
+ day3; дни
+ day4;
  dB0;
- dB1;дБ1
- dB2;дБ2
- dB3;дБ3
- file1;файл1
- file2;файл2
- file3;файл3
- fps1;Кадър/Секунда1
- fps2;Кадър/Секунда2
- fps3;Кадър/Секунда3
- frame1;кадър1
- frame2;кадър2
- frame3;кадър3
+ dB1; дБ
+ dB2; дБ
+ dB3; дБ
+ file1; файл
+ file2; файла
+ file3; файла
+ file4;
+ fps1; кадър/секунда
+ fps2; кадъра/секунда
+ fps3; кадъра/секунда
+ fps4;
+ frame1; кадър
+ frame2; кадъра
+ frame3; кадъра
+ frame4;
  GB;ГБ
  Gb;Гб
  GBps;ГБ/сек
  Gbps;Гб/сек
  GHz;ГХц
  GiB;ГиБ
- GibiByte1;ГибиБайт1
- GibiByte2;ГибиБайт2
- GibiByte3;ГибиБайт3
+ GibiByte1; гибибайт
+ GibiByte2; гибибайта
+ GibiByte3; гибибайта
+ GibiByte4;
  GiBps;ГиБайт/сек
- GigaBit1;ГигаБит1
- GigaBit2;ГигаБит2
- GigaBit3;ГигаБит3
- GigaByte1;ГигаБайт1
- GigaByte2;ГигаБайт2
- GigaByte3;ГигаБайт3
- hour1;час1
- hour2;час2
- hour3;час3
+ GigaBit1; гигабит
+ GigaBit2; гигабита
+ GigaBit3; гигабита
+ GigaBit4;
+ GigaByte1; гигабайт
+ GigaByte2; гигабайта
+ GigaByte3; гигабайта
+ GigaByte4;
+ hour1; час
+ hour2; часа
+ hour3; часа
+ hour4;
  Hz;Херц
- image stream1;картинен поток1
- image stream2;картинен поток2
- image stream3;картинен поток3
+ image stream1; картинен поток
+ image stream2; картинни потока
+ image stream3; картинни потока
+ image stream4;
  KB;КБ
  Kb;Кб
  KBps;КБ/сек
  Kbps;Кб/сек
  KHz;КХц
  KiB;КиБ
- KibiBit1;КибиБит1
- KibiBit2;КибиБит2
- KibiBit3;КибиБит3
- KibiByte1;КибиБайт1
- KibiByte2;КибиБайт2
- KibiByte3;КибиБайт3
+ KibiBit1; кибибит
+ KibiBit2; кибибита
+ KibiBit3; кибибита
+ KibiBit4;
+ KibiByte1; кибибайт
+ KibiByte2; кибибайта
+ KibiByte3; кибибайта
+ KibiByte4;
  KiBps;КиБайтСек
- KiloBit1;КилоБит1
- KiloBit2;КилоБит2
- KiloBit3;КилоБит3
- KiloByte1;КилоБайт1
- KiloByte2;КилоБайт1
- KiloByte3;КилоБайт1
+ KiloBit1; килобит
+ KiloBit2; килобита
+ KiloBit3; килобита
+ KiloBit4;
+ KiloByte1; килобайт
+ KiloByte2; килобайта
+ KiloByte3; килобайта
+ KiloByte4;
  MB;МБ
  Mb;Мб
  MBps;МБ/сек
  Mbps;Мб/сек
- MebiBit1;МебиБит1
- MebiBit2;МебиБит2
- MebiBit3;МебиБит3
- MebiByte1;МебиБайт1
- MebiByte2;МебиБайт2
- MebiByte3;МебиБайт3
- MegaBit1;МегаБит1
- MegaBit2;МегаБит2
- MegaBit3;МегаБит3
- MegaByte1;МегаБайт1
- MegaByte2;МегаБайт2
- MegaByte3;МегаБайт3
+ MebiBit1; мебибит
+ MebiBit2; мебибита
+ MebiBit3; мебибита
+ MebiBit4;
+ MebiByte1; мебибайт
+ MebiByte2; мебибайта
+ MebiByte3; мебибайта
+ MebiByte4;
+ MegaBit1; мегабит
+ MegaBit2; мегабита
+ MegaBit3; мегабита
+ MegaBit4;
+ MegaByte1; мегабайт
+ MegaByte2; мегабайта
+ MegaByte3; мегабайта
+ MegaByte4;
  MHz;МХц
  MiB;МиБ
  Mib;Миб
  MiBps;МиБ/сек
- millisecond1;милисекунда1
- millisecond2;милисекунда2
- millisecond3;милисекунда3
- minute1;минута1
- minute2;минута2
- minute3;минута3
- month1;месец1
- month2;месец2
- month3;месец3
+ millisecond1; милисекунда
+ millisecond2; милисекунди
+ millisecond3; милисекунди
+ millisecond4;
+ minute1; минута
+ minute2; минути
+ minute3; минути
+ minute4;
+ month1; месец
+ month2; месеца
+ month3; месеца
+ month4;
  object1;
  object2;
  object3;
- pixel1;пиксел1
- pixel2;пиксел2
- pixel3;пиксел3
- second1;секунда1
- second2;секунда2
- second3;секунда3
+ object4;
+ pixel1; пиксел
+ pixel2; пиксела
+ pixel3; пиксела
+ pixel4;
+ second1; секунда
+ second2; секунди
+ second3; секунди
+ second4;
  slice per frame1;
  slice per frame2;
  slice per frame3;
- text stream1;текстови поток1
- text stream2;текстови поток2
- text stream3;текстови поток3
- video frames1;видео кадър1
- video frames2;видео кадър2
- video frames3;видео кадър3
- video stream1;видео поток1
- video stream2;видео поток2
- video stream3;видео поток3
- warppoint0;точка на изхвърляне0
- warppoint1;точка на изхвърляне1
- warppoint2;точка на изхвърляне2
- warppoint3;точка на изхвърляне3
- week1;седмица1
- week2;седмица2
- week3;седмица3
- year1;година1
- year2;година2
- year3;година3
+ slice per frame4;
+ text stream1; текстов поток
+ text stream2; текстови потока
+ text stream3; текстови потока
+ text stream4;
+ video frames1; видео кадър
+ video frames2; видео кадъра
+ video frames3; видео кадъра
+ video frames4;
+ video stream1; видео поток
+ video stream2; видео потока
+ video stream3; видео потока
+ video stream4;
+ warppoint0;Няма точки на изхвърляне
+ warppoint1; точка на изхвърляне
+ warppoint2; точки на изхвърляне
+ warppoint3; точки на изхвърляне
+ warppoint4;
+ week1; седмица
+ week2; седмици
+ week3; седмици
+ week4;
+ year1; година
+ year2; години
+ year3; години
+ year4;
 , ;,
 : ;:
 3D;

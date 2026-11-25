@@ -33,6 +33,7 @@ TMainF *MainF;
 
 //---------------------------------------------------------------------------
 #include "Common/Preferences.h"
+#include "Common/Core.h"
 #include "Common/Utils.h"
 #ifdef MEDIAINFO_DLL_RUNTIME
     #include "MediaInfoDLL/MediaInfoDLL.h"
@@ -1272,7 +1273,7 @@ void __fastcall TMainF::Refresh(TTabSheet *Page)
         Caption=(Ztring(MEDIAINFO_TITLE)+__T(" - ")+I->Get(0, Stream_General, 0, __T("CompleteName"))).c_str();
     else
         //Plusieurs selections
-        Caption=(Ztring(MEDIAINFO_TITLE)+__T(" - ")+Ztring::ToZtring(FilesCount)+Prefs->Translate(__T(" file2"))).c_str();
+        Caption=(Ztring(MEDIAINFO_TITLE)+__T(" - ")+Core::FormatCount(__T("FileCount"), FilesCount)).c_str();
 
     //Configure Default options
     if (FilesCount>0)
@@ -1802,6 +1803,7 @@ void __fastcall TMainF::M_LanguageClick(TObject *Sender)
     //Load
     Prefs->Load(Prefs_Language, Title);
     Translate();
+    Refresh();
 
     //Refresh global
     FormResize(NULL);
@@ -1863,15 +1865,10 @@ void __fastcall TMainF::Page_Easy_FileChange(TObject *Sender)
         {
             if (I->Get(Page_Position, (stream_t)KindOfStream, 0, __T("StreamKind")).size()>0)
             {
-                Ztring Z1=Ztring(I->Get(Page_Position, (stream_t)KindOfStream, 0, __T("StreamKind"), Info_Text)+__T("Count"));
-                Ztring Z2=Ztring(__T(" "))+I->Get(Page_Position, (stream_t)KindOfStream, 0, __T("StreamKind"), Info_Text);
-                Z2.MakeLowerCase();
-                if (I->Count_Get(Page_Position, (stream_t)KindOfStream)>1)
-                    Z2+=__T(" stream2");
-                else
-                    Z2+=__T(" stream1");
-                Ztring Z3=Ztring(I->Get(Page_Position, (stream_t)KindOfStream, 0, __T("StreamKind"), Info_Text)+__T("_Format_WithHint_List"));
-                Page_Easy_X_List[KindOfStream]->Caption=(I->Get(Page_Position, Stream_General, 0, Z1)+Prefs->Translate(Z2)+Prefs->Translate(__T(": "))+I->Get(Page_Easy_File->ItemIndex, Stream_General, 0, Z3)).c_str();
+                Ztring FormatsKey=I->Get(Page_Position, (stream_t)KindOfStream, 0, __T("StreamKind"), Info_Text)+__T("_Format_WithHint_List");
+                Page_Easy_X_List[KindOfStream]->Caption=Core::FormatCount(__T("StreamSummary"),
+                    I->Count_Get(Page_Position, (stream_t)KindOfStream), (stream_t)KindOfStream,
+                    I->Get(Page_Position, Stream_General, 0, FormatsKey)).c_str();
             }
             else
                 Page_Easy_X_List[KindOfStream]->Caption=__T("");
@@ -1974,9 +1971,8 @@ void __fastcall TMainF::Page_Sheet_SheetSelectCell(TObject *Sender, System::Long
                 Page_Sheet_X[KindOfStream]->Style=Stdctrls::csDropDownList;
                 Page_Sheet_X[KindOfStream]->Items->Clear();
                 I->Option(__T("Inform"), __T("Summary"));
-                Ztring Z1=Ztring(I->Get(Page_Position, (stream_t)KindOfStream, 0, __T("StreamKind"), Info_Text)+__T("Count"));
-                Ztring Z2=Ztring(__T(" "))+I->Get(Page_Position, (stream_t)KindOfStream, 0, __T("StreamKind"), Info_Text)+__T(" streams"); Z2.MakeLowerCase();
-                Page_Sheet_X[KindOfStream]->Items->Add((I->Get(Page_Position, Stream_General, 0, Z1.c_str())+Prefs->Translate(Z2)+Prefs->Translate(__T(", "))+Prefs->Translate(__T("see below"))).c_str());
+                Page_Sheet_X[KindOfStream]->Items->Add(Core::FormatCount(__T("StreamSummaryMore"),
+                    Stream_Count, (stream_t)KindOfStream).c_str());
                 for (int A=0; A<Stream_Count; A++)
                     Page_Sheet_X[KindOfStream]->Items->Add(I->Get(Page_Position, (stream_t)KindOfStream, A, __T("Inform")).c_str());
                 Page_Sheet_X[KindOfStream]->ItemIndex=0;

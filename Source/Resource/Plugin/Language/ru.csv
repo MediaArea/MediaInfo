@@ -1,4 +1,11 @@
   Language_ISO639;ru
+  Config_Text_PluralRules;1
+  Config_Text_PluralRule.zero;
+  Config_Text_PluralRule.one;v == 0 && i % 10 == 1 && i % 100 != 11
+  Config_Text_PluralRule.two;
+  Config_Text_PluralRule.few;v == 0 && i % 10 >= 2 && i % 10 <= 4 && (i % 100 < 12 || i % 100 > 14)
+  Config_Text_PluralRule.many;v == 0
+  Config_Text_PluralLegacy;one=1,few=2,many=3,other=4
   Author_Email;solokot@gmail.com
   Author_Name;solokot
   Author_OldNames;Kazorin Sergey
@@ -11,29 +18,37 @@
  audio stream1; аудиопоток
  audio stream2; аудиопотока
  audio stream3; аудиопотоков
+ audio stream4; аудиопотока
  bit1; бит
  bit2; бита
  bit3; бит
+ bit4; бита
  Bps; байт/сек
  bps; бит/сек
  Byte1; байт
  Byte2; байта
  Byte3; байт
+ Byte4; байта
  channel1; канал
  channel2; канала
  channel3; каналов
+ channel4; канала
  chapter1; раздел
  chapter2; раздела
  chapter3; разделов
+ chapter4; раздела
  chapters stream1; поток разделов
  chapters stream2; потока разделов
  chapters stream3; потоков разделов
+ chapters stream4; потока разделов
  character1; герой
  character2; героя
  character3; героев
+ character4; героя
  day1; день
  day2; дня
  day3; дней
+ day4; дня
  dB0;0 дБ
  dB1; дБ
  dB2; дБ
@@ -41,12 +56,15 @@
  file1; файл
  file2; файла
  file3; файлов
+ file4; файла
  fps1; кадр/сек
  fps2; кадра/сек
  fps3; кадров/сек
+ fps4; кадра/сек
  frame1; кадр
  frame2; кадра
  frame3; кадров
+ frame4; кадра
  GB; ГБ
  Gb; Гб
  GBps; Гбайт/сек
@@ -56,20 +74,25 @@
  GibiByte1; Гибибайт
  GibiByte2; Гибибайта
  GibiByte3; Гибибайт
+ GibiByte4; Гибибайта
  GiBps; Гбайт/сек
  GigaBit1; Гигабит
  GigaBit2; Гигабита
  GigaBit3; Гигабит
+ GigaBit4; Гигабита
  GigaByte1; Гигабайт
  GigaByte2; Гигабайта
  GigaByte3; Гигабайт
+ GigaByte4; Гигабайта
  hour1; час
  hour2; часа
  hour3; часов
+ hour4; часа
  Hz; Гц
  image stream1; поток изображений
  image stream2; потока изображений
  image stream3; потоков изображений
+ image stream4; потока изображений
  KB; КБ
  Kb; Кб
  KBps; Кбайт/сек
@@ -79,16 +102,20 @@
  KibiBit1; Кибибит
  KibiBit2; Кибибита
  KibiBit3; Кибибит
+ KibiBit4; Кибибита
  KibiByte1; Кибибайт
  KibiByte2; Кибибайта
  KibiByte3; Кибибайт
+ KibiByte4; Кибибайта
  KiBps; КиБ/сек
  KiloBit1; Килобит
  KiloBit2; Килобита
  KiloBit3; Килобит
+ KiloBit4; Килобита
  KiloByte1; Килобайт
  KiloByte2; Килобайта
  KiloByte3; Килобайт
+ KiloByte4; Килобайта
  MB; МБ
  Mb; Мб
  MBps; Мбайт/сек
@@ -96,15 +123,19 @@
  MebiBit1; Мебибит
  MebiBit2; Мебибита
  MebiBit3; Мебибит
+ MebiBit4; Мебибита
  MebiByte1; Мебибайт
  MebiByte2; Мебибайта
  MebiByte3; Мебибайт
+ MebiByte4; Мебибайта
  MegaBit1; Мегабит
  MegaBit2; Мегабита
  MegaBit3; Мегабит
+ MegaBit4; Мегабита
  MegaByte1; Мегабайт
  MegaByte2; Мегабайта
  MegaByte3; Мегабайт
+ MegaByte4; Мегабайта
  MHz; МГц
  MiB; Мбайт
  Mib; Миб
@@ -112,43 +143,56 @@
  millisecond1; миллисекунда
  millisecond2; миллисекунды
  millisecond3; миллисекунд
+ millisecond4; миллисекунды
  minute1; минута
  minute2; минуты
  minute3; минут
+ minute4; минуты
  month1; месяц
  month2; месяца
  month3; месяцев
+ month4; месяца
  object1; объект
  object2; объекта
  object3; объектов
+ object4; объекта
  pixel1; пиксель
  pixel2; пикселя
  pixel3; пикселей
+ pixel4; пикселя
  second1; секунда
  second2; секунды
  second3; секунд
+ second4; секунды
  slice per frame1; фрагмент на кадр
  slice per frame2; фрагмента на кадр
  slice per frame3; фрагментов на кадр
+ slice per frame4; фрагмента на кадр
  text stream1; текстовый поток
  text stream2; текстовых потока
  text stream3; текстовых потоков
+ text stream4; текстового потока
  video frames1; видеокадр
  video frames2; видеокадра
  video frames3; видеокадров
+ video frames4; видеокадра
  video stream1; видеопоток
  video stream2; видеопотока
  video stream3; видеопотоков
+ video stream4; видеопотока
  warppoint0;Без точки перехода
  warppoint1; точка перехода
  warppoint2; точки перехода
  warppoint3; точек перехода
+ warppoint4; точки перехода
  week1; неделя
  week2; недели
  week3; недель
+ week4; недели
  year1; год
  year2; года
  year3; лет
+ year4; года
 , ;, 
 : ;: 
 3D;3D

@@ -98,6 +98,8 @@ public:
     String Parameters();
     String StreamName (stream_t StreamKind);
     size_t State_Get();
+    static String FormatCount(const String& Message, size_t Count,
+        stream_t Kind=Stream_General, const String& Formats=String());
 
     //Temp
     void    Data_Prepare();

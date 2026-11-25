@@ -1,4 +1,11 @@
   Language_ISO639;hy
+  Config_Text_PluralRules;1
+  Config_Text_PluralRule.zero;
+  Config_Text_PluralRule.one;i <= 1
+  Config_Text_PluralRule.two;
+  Config_Text_PluralRule.few;
+  Config_Text_PluralRule.many;
+  Config_Text_PluralLegacy;one=1,other=2
   Author_Email;hrantohanyan@mail.am
   Author_Name;http://haysoft.org
   Author_OldNames;NO
@@ -11,29 +18,37 @@
  audio stream1; ձայնի հոսքը
  audio stream2; ձայնի հոսքերը
  audio stream3; ձայնի հոսքերը
+ audio stream4;
  bit1; բիթ
  bit2; բիթ
  bit3; բիթ
+ bit4;
  Bps; բայթ/վայր.
  bps; բիթ/վայր.
  Byte1; բայթ
  Byte2; բայթ
  Byte3; բայթ
+ Byte4;
  channel1; ալիք
  channel2; ալիքներ
  channel3; ալիքներ
+ channel4;
  chapter1; բաժինը
  chapter2; բաժինները
  chapter3; բաժինները
+ chapter4;
  chapters stream1; բաժինների հոսքը
  chapters stream2; բաժինների հոսքը
  chapters stream3; բաժինների հոսքը
+ chapters stream4;
  character1;
  character2;
  character3;
+ character4;
  day1; օր.
  day2; օր.
  day3; օր.
+ day4;
  dB0;
  dB1; դԲ
  dB2; դԲ
@@ -41,35 +56,43 @@
  file1; ֆայլ
  file2; ֆայլեր
  file3; ֆայլեր
+ file4;
  fps1; կադր/վայր.
  fps2; կադր/վայր.
  fps3; կադր/վայր.
+ fps4;
  frame1; կադր
  frame2; կադրեր
  frame3; կադրեր
+ frame4;
  GB; ԳԲ
  Gb; Գբիթ
  GBps; Գբայթ/վայր.
  Gbps; Գբիթ/վայր.
  GHz; ԳՀց
  GiB; Գբայթ
- GibiByte1;Գիբիբայթ
- GibiByte2;Գիբիբայթ
- GibiByte3;Գիբիբայթ
+ GibiByte1; Գիբիբայթ
+ GibiByte2; Գիբիբայթ
+ GibiByte3; Գիբիբայթ
+ GibiByte4;
  GiBps; Գբայթ/վայր.
  GigaBit1; Գիգաբիթ
  GigaBit2; Գիգաբիթ
  GigaBit3; Գիգաբիթ
+ GigaBit4;
  GigaByte1; Գիգաբայթ
  GigaByte2; Գիգաբայթ
  GigaByte3; Գիգաբայթ
+ GigaByte4;
  hour1; ժամ
  hour2; ժամ.
  hour3; ժամ.
+ hour4;
  Hz; Գհ
  image stream1; պատկերի հոսքը
  image stream2; պատկերի հոսքերը
  image stream3; պատկերի հոսքերը
+ image stream4;
  KB; ԿԲ
  Kb; Կբ
  KBps; Կբայթ/վայր.
@@ -79,16 +102,20 @@
  KibiBit1; Կիբիբիթ
  KibiBit2; Կիբիբիթ
  KibiBit3; Կիբիբիթ
+ KibiBit4;
  KibiByte1; Կիբիբայթ
  KibiByte2; Կիբիբայթ
  KibiByte3; Կիբիբայթ
+ KibiByte4;
  KiBps; Կբայթ/վայր.
  KiloBit1; Կիլոբիթ
  KiloBit2; Կիլոբիթ
  KiloBit3; Կիլոբիթ
+ KiloBit4;
  KiloByte1; Կիլոբայթ
  KiloByte2; Կիլոբայթ
  KiloByte3; Կիլոբայթ
+ KiloByte4;
  MB; ՄԲ
  Mb; Մբ
  MBps; Մբայթ/վայր.
@@ -96,15 +123,19 @@
  MebiBit1; Մեբիբիթ
  MebiBit2; Մեբիբիթ
  MebiBit3; Մեբիբիթ
+ MebiBit4;
  MebiByte1; Մեբիբայթ
  MebiByte2; Մեբիբայթ
  MebiByte3; Մեբիբայթ
+ MebiByte4;
  MegaBit1; Մեգաբիթ
  MegaBit2; Մեգաբիթ
  MegaBit3; Մեգաբիթ
+ MegaBit4;
  MegaByte1; Մեգաբայթ
  MegaByte2; Մեգաբայթ
  MegaByte3; Մեգաբայթ
+ MegaByte4;
  MHz; ՄԳհ
  MiB; Մբայթ
  Mib; Միբ
@@ -112,43 +143,56 @@
  millisecond1; միլիվայր.
  millisecond2; միլիվայր.
  millisecond3; միլիվայր.
+ millisecond4;
  minute1; րոպե.
  minute2; րոպե.
  minute3; րոպե.
+ minute4;
  month1; ամիս.
  month2; ամիս.
  month3; ամիս.
+ month4;
  object1;
  object2;
  object3;
+ object4;
  pixel1; փիքս.
  pixel2; փիքս.
  pixel3; փիքս.
+ pixel4;
  second1; վայր.
  second2; վայր.
  second3; վայր.
+ second4;
  slice per frame1;
  slice per frame2;
  slice per frame3;
+ slice per frame4;
  text stream1; տեքստային հոսք
  text stream2; տեքստային հոսքեր
  text stream3; տեքստային հոսքեր
+ text stream4;
  video frames1; կադր
  video frames2; կադրեր
  video frames3; կադրեր
+ video frames4;
  video stream1; տեսահոսքը
  video stream2; տեսահոսքերը
  video stream3; տեսահոսքերը
+ video stream4;
  warppoint0;Առանց անցման հենքերի
  warppoint1; Անցման հենքը
  warppoint2; Անցման հենքերը
  warppoint3; Անցման հենքերը
+ warppoint4;
  week1; շաբ.
  week2; շաբ.
  week3; շաբ.
+ week4;
  year1; տարի
  year2; տարի
  year3; տարի
+ year4;
 , ;, 
 : ;: 
 3D;

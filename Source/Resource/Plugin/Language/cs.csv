@@ -1,4 +1,11 @@
   Language_ISO639;cs
+  Config_Text_PluralRules;1
+  Config_Text_PluralRule.zero;
+  Config_Text_PluralRule.one;v == 0 && i == 1
+  Config_Text_PluralRule.two;
+  Config_Text_PluralRule.few;v == 0 && i >= 2 && i <= 4
+  Config_Text_PluralRule.many;v != 0
+  Config_Text_PluralLegacy;one=1,few=2,many=4,other=3
   Author_Email;miko.vaji@gmail.com
   Author_Name;Michal Várady
   Author_OldNames;Heavy <heavy@keli.cz>
@@ -11,29 +18,37 @@
  audio stream1; zvukový stream
  audio stream2; zvukové streamy
  audio stream3; zvukových streamů
+ audio stream4; zvukového streamu
  bit1; bit
  bit2; bity
  bit3; bitů
+ bit4; bitu
  Bps; B/s
  bps; b/s
  Byte1; bajt
  Byte2; bajty
  Byte3; bajtů
+ Byte4; bajtu
  channel1; kanál
  channel2; kanály
  channel3; kanálů
+ channel4; kanálu
  chapter1; kapitola
  chapter2; kapitoly
  chapter3; kapitol
+ chapter4; kapitoly
  chapters stream1; stream kapitol
  chapters stream2; streamy kapitol
  chapters stream3; streamů kapitol
+ chapters stream4; streamu kapitol
  character1; znak
  character2; znaky
  character3; znaků
+ character4; znaku
  day1; den
  day2; dny
  day3; dnů
+ day4; dne
  dB0;0 dB
  dB1; dB
  dB2; dB
@@ -41,12 +56,15 @@
  file1; soubor
  file2; soubory
  file3; souborů
+ file4; souboru
  fps1; FPS
  fps2; FPS
  fps3; FPS
+ fps4;
  frame1; snímek
  frame2; snímky
  frame3; snímků
+ frame4; snímku
  GB; GB
  Gb; Gb
  GBps; GB/s
@@ -56,20 +74,25 @@
  GibiByte1; gibibajt
  GibiByte2; gibibajty
  GibiByte3; gibibajtů
+ GibiByte4; gibibajtu
  GiBps; GiB/s
  GigaBit1; gigabit
  GigaBit2; gigabity
  GigaBit3; gigabitů
+ GigaBit4; gigabitu
  GigaByte1; gigabajt
  GigaByte2; gigabajty
  GigaByte3; gigabajtů
+ GigaByte4; gigabajtu
  hour1; hodina
  hour2; hodiny
  hour3; hodin
+ hour4; hodiny
  Hz; Hz
  image stream1; obrazový stream
  image stream2; obrazové streamy
  image stream3; obrazových streamů
+ image stream4; obrazového streamu
  KB; kB
  Kb; kb
  KBps; kB/s
@@ -79,16 +102,20 @@
  KibiBit1; kibibit
  KibiBit2; kibibity
  KibiBit3; kibibitů
+ KibiBit4; kibibitu
  KibiByte1; kibibajt
  KibiByte2; kibibajty
  KibiByte3; kibibajtů
+ KibiByte4; kibibajtu
  KiBps; KiB/s
  KiloBit1; kilobit
  KiloBit2; kilobity
  KiloBit3; kilobitů
+ KiloBit4; kilobitu
  KiloByte1; kilobajt
  KiloByte2; kilobajty
  KiloByte3; kilobajtů
+ KiloByte4; kilobajtu
  MB; MB
  Mb; Mb
  MBps; MB/s
@@ -96,15 +123,19 @@
  MebiBit1; mebibit
  MebiBit2; mebibity
  MebiBit3; mebibitů
+ MebiBit4; mebibitu
  MebiByte1; mebibajt
  MebiByte2; mebibajty
  MebiByte3; mebibajtů
+ MebiByte4; mebibajtu
  MegaBit1; megabit
  MegaBit2; megabity
  MegaBit3; megabitů
+ MegaBit4; megabitu
  MegaByte1; megabajt
  MegaByte2; megabajty
  MegaByte3; megabajtů
+ MegaByte4; megabajtu
  MHz; MHz
  MiB; MiB
  Mib; Mib
@@ -112,43 +143,56 @@
  millisecond1; milisekunda
  millisecond2; milisekundy
  millisecond3; milisekund
+ millisecond4; milisekundy
  minute1; minuta
  minute2; minuty
  minute3; minut
+ minute4; minuty
  month1; měsíc
  month2; měsíce
  month3; měsíců
+ month4; měsíce
  object1; objekt
  object2; objekty
  object3; objektů
+ object4; objektu
  pixel1; pixel
  pixel2; pixely
  pixel3; pixelů
+ pixel4; pixelu
  second1; sekunda
  second2; sekundy
  second3; sekund
+ second4; sekundy
  slice per frame1; řez na snímek
  slice per frame2; řezy na snímek
  slice per frame3; řezů na snímek
+ slice per frame4; řezu na snímek
  text stream1; textový stream
  text stream2; textové streamy
  text stream3; textových streamů
+ text stream4; textového streamu
  video frames1; snímek videa
  video frames2; snímky videa
  video frames3; snímků videa
+ video frames4; snímku videa
  video stream1; stream videa
  video stream2; streamy videa
  video stream3; streamů videa
+ video stream4; streamu videa
  warppoint0;Žádné body deformace
  warppoint1; bod deformace
  warppoint2; body deformace
  warppoint3; bodů deformace
+ warppoint4; bodu deformace
  week1; týden
  week2; týdny
  week3; týdnů
+ week4; týdne
  year1; rok
  year2; roky
  year3; let
+ year4; roku
 , ;, 
 : ;: 
 3D;3D

@@ -1,4 +1,11 @@
   Language_ISO639;id
+  Config_Text_PluralRules;1
+  Config_Text_PluralRule.zero;
+  Config_Text_PluralRule.one;
+  Config_Text_PluralRule.two;
+  Config_Text_PluralRule.few;
+  Config_Text_PluralRule.many;
+  Config_Text_PluralLegacy;one=1,other=2
   Author_Email;zarambie_game@yahoo.com
   Author_Name;William Surya Permana
   Author_OldNames;Penerjemah awal
@@ -11,29 +18,37 @@
  audio stream1; aliran audio
  audio stream2; aliran audio
  audio stream3; aliran audio
+ audio stream4;
  bit1; bit
  bit2; bit
  bit3; bit
+ bit4;
  Bps; B/d
  bps; b/d
  Byte1; Bita
  Byte2; Bita
  Byte3; Bita
+ Byte4;
  channel1; kanal
  channel2; kanal
  channel3; kanal
+ channel4;
  chapter1; bab
  chapter2; bab
  chapter3; bab
+ chapter4;
  chapters stream1; aliran bab
  chapters stream2; aliran bab
  chapters stream3; aliran bab
+ chapters stream4;
  character1; karakter
  character2; karakter
  character3; karakter
+ character4;
  day1; hari
  day2; hari
  day3; hari
+ day4;
  dB0;0 dB
  dB1; dB
  dB2; dB
@@ -41,12 +56,15 @@
  file1; berkas
  file2; berkas
  file3; berkas
+ file4;
  fps1; FPS
  fps2; FPS
  fps3; FPS
+ fps4;
  frame1; bingkai
  frame2; bingkai
  frame3; bingkai
+ frame4;
  GB; GB
  Gb; Gb
  GBps; GB/d
@@ -56,20 +74,25 @@
  GibiByte1; GibiBita
  GibiByte2; GibiBita
  GibiByte3; GibiBita
+ GibiByte4;
  GiBps; GiB/s
  GigaBit1; GigaBit
  GigaBit2; GigaBit
  GigaBit3; GigaBit
+ GigaBit4;
  GigaByte1; GigaBita
  GigaByte2; GigaBita
  GigaByte3; GigaBita
+ GigaByte4;
  hour1; jam
  hour2; jam
  hour3; jam
+ hour4;
  Hz; Hz
  image stream1; aliran citra
  image stream2; aliran citra
  image stream3; aliran citra
+ image stream4;
  KB; kB
  Kb; kb
  KBps; kB/d
@@ -79,16 +102,20 @@
  KibiBit1; KibiBit
  KibiBit2; KibiBit
  KibiBit3; KibiBit
+ KibiBit4;
  KibiByte1; KibiBita
  KibiByte2; KibiBita
  KibiByte3; KibiBita
+ KibiByte4;
  KiBps; KiB/d
  KiloBit1; KiloBit
  KiloBit2; KiloBit
  KiloBit3; KiloBit
+ KiloBit4;
  KiloByte1; KiloBita
  KiloByte2; KiloBita
  KiloByte3; KiloBita
+ KiloByte4;
  MB; MB
  Mb; Mb
  MBps; MebiBita
@@ -96,15 +123,19 @@
  MebiBit1; MebiBit
  MebiBit2; MebiBit
  MebiBit3; MebiBit
+ MebiBit4;
  MebiByte1; MebiBita
  MebiByte2; MebiBita
  MebiByte3; MebiBita
+ MebiByte4;
  MegaBit1; MegaBit
  MegaBit2; MegaBit
  MegaBit3; MegaBit
+ MegaBit4;
  MegaByte1; MegaBita
  MegaByte2; MegaBita
  MegaByte3; MegaBita
+ MegaByte4;
  MHz; MHz
  MiB; MiB
  Mib; Mib
@@ -112,43 +143,56 @@
  millisecond1; milidetik
  millisecond2; milidetik
  millisecond3; milidetik
+ millisecond4;
  minute1; menit
  minute2; menit
  minute3; menit
+ minute4;
  month1; bulan
  month2; bulan
  month3; bulan
+ month4;
  object1; objek
  object2; objek
  object3; objek
+ object4;
  pixel1; piksel
  pixel2; piksel
  pixel3; piksel
+ pixel4;
  second1; detik
  second2; detik
  second3; detik
+ second4;
  slice per frame1; irisan per bingkai
  slice per frame2; irisan per bingkai
  slice per frame3; irisan per bingkai
+ slice per frame4;
  text stream1; aliran teks
  text stream2; aliran teks
  text stream3; aliran teks
+ text stream4;
  video frames1; bingkai video
  video frames2; bingkai video
  video frames3; bingkai video
+ video frames4;
  video stream1; aliran video
  video stream2; aliran video
  video stream3; aliran video
+ video stream4;
  warppoint0;Tak ada titik lengkung
  warppoint1; titik lengkung
  warppoint2; titik lengkung
  warppoint3; titik lengkung
+ warppoint4;
  week1; pekan
  week2; pekan
  week3; pekan
+ week4;
  year1; tahun
  year2; tahun
  year3; tahun
+ year4;
 , ;, 
 : ;: 
 3D;3D
