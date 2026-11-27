@@ -18,8 +18,55 @@ win32|macx {
     TARGET = "MediaInfo"
 } else {
     TARGET = "mediainfo-gui"
-    target.path=/usr/bin
-    INSTALLS+=target
+
+    # Installation prefix
+    isEmpty(PREFIX): PREFIX = /usr
+
+    target.path = $$PREFIX/bin
+    INSTALLS += target
+
+    # Desktop integration
+    desktop.path = $$PREFIX/share/applications
+    desktop.files = ../../GNU/GUI/mediainfo-gui.desktop
+    INSTALLS += desktop
+
+    metainfo.path = $$PREFIX/share/metainfo
+    metainfo.files = ../../GNU/GUI/mediainfo-gui.metainfo.xml
+    INSTALLS += metainfo
+
+    # KDE service menus
+    kde3servicemenu.path = $$PREFIX/share/apps/konqueror/servicemenus
+    kde3servicemenu.commands = $(CHK_DIR_EXISTS) $(INSTALL_ROOT)$$kde3servicemenu.path || $(MKDIR) $(INSTALL_ROOT)$$kde3servicemenu.path && $(INSTALL_FILE) $$_PRO_FILE_PWD_/../../GNU/GUI/mediainfo-gui.kde3.desktop $(INSTALL_ROOT)$$kde3servicemenu.path/mediainfo-gui.desktop
+    kde3servicemenu.uninstall = $(DEL_FILE) $(INSTALL_ROOT)$$kde3servicemenu.path/mediainfo-gui.desktop
+    INSTALLS += kde3servicemenu
+
+    kde4servicemenu.path = $$PREFIX/share/kde4/services/ServiceMenus
+    kde4servicemenu.commands = $(CHK_DIR_EXISTS) $(INSTALL_ROOT)$$kde4servicemenu.path || $(MKDIR) $(INSTALL_ROOT)$$kde4servicemenu.path && $(INSTALL_FILE) $$_PRO_FILE_PWD_/../../GNU/GUI/mediainfo-gui.kde4.desktop $(INSTALL_ROOT)$$kde4servicemenu.path/mediainfo-gui.desktop
+    kde4servicemenu.uninstall = $(DEL_FILE) $(INSTALL_ROOT)$$kde4servicemenu.path/mediainfo-gui.desktop
+    INSTALLS += kde4servicemenu
+
+    kde5servicemenu.path = $$PREFIX/share/kservices5/ServiceMenus
+    kde5servicemenu.commands = $(CHK_DIR_EXISTS) $(INSTALL_ROOT)$$kde5servicemenu.path || $(MKDIR) $(INSTALL_ROOT)$$kde5servicemenu.path && $(INSTALL_FILE) $$_PRO_FILE_PWD_/../../GNU/GUI/mediainfo-gui.kde4.desktop $(INSTALL_ROOT)$$kde5servicemenu.path/mediainfo-gui.desktop
+    kde5servicemenu.uninstall = $(DEL_FILE) $(INSTALL_ROOT)$$kde5servicemenu.path/mediainfo-gui.desktop
+    INSTALLS += kde5servicemenu
+
+    kde6servicemenu.path = $$PREFIX/share/kio/servicemenus
+    kde6servicemenu.commands = $(CHK_DIR_EXISTS) $(INSTALL_ROOT)$$kde6servicemenu.path || $(MKDIR) $(INSTALL_ROOT)$$kde6servicemenu.path && $(INSTALL_FILE) $$_PRO_FILE_PWD_/../../GNU/GUI/mediainfo-gui.kde6.desktop $(INSTALL_ROOT)$$kde6servicemenu.path/mediainfo-gui.desktop
+    kde6servicemenu.uninstall = $(DEL_FILE) $(INSTALL_ROOT)$$kde6servicemenu.path/mediainfo-gui.desktop
+    INSTALLS += kde6servicemenu
+
+    # Icons
+    icon_png.path = $$PREFIX/share/icons/hicolor/256x256/apps
+    icon_png.files = ../../../Source/Resource/Image/MediaInfo.png
+    INSTALLS += icon_png
+
+    icon_svg.path = $$PREFIX/share/icons/hicolor/scalable/apps
+    icon_svg.files = ../../../Source/Resource/Image/MediaInfo.svg
+    INSTALLS += icon_svg
+
+    icon_xpm.path = $$PREFIX/share/pixmaps
+    icon_xpm.files = ../../../Source/Resource/Image/MediaInfo.xpm
+    INSTALLS += icon_xpm
 }
 
 win32 {
