@@ -8,9 +8,9 @@
   Config_Text_NumberTag; #
   Config_Text_FloatSeparator;.
   Config_Text_ThousandsSeparator;,
- audio stream1;つの音声ストリーム
- audio stream2;つの音声ストリーム
- audio stream3;つの音声ストリーム
+ audio stream1;本の音声ストリーム
+ audio stream2;本の音声ストリーム
+ audio stream3;本の音声ストリーム
  bit1;ビット
  bit2;ビット
  bit3;ビット
@@ -25,9 +25,9 @@
  chapter1;チャプター
  chapter2;チャプター
  chapter3;チャプター
- chapters stream1;つのチャプターストリーム
- chapters stream2;つのチャプターストリーム
- chapters stream3;つのチャプターストリーム
+ chapters stream1;本のチャプターストリーム
+ chapters stream2;本のチャプターストリーム
+ chapters stream3;本のチャプターストリーム
  character1;文字
  character2;文字
  character3;文字
@@ -53,58 +53,58 @@
  Gbps; Gb/s
  GHz; GHz
  GiB; GiB
- GibiByte1; GibiByte
- GibiByte2; GibiBytes
- GibiByte3; GibiBytes
+ GibiByte1;ギビバイト
+ GibiByte2;ギビバイト
+ GibiByte3;ギビバイト
  GiBps; GiB/s
- GigaBit1; GigaBit
- GigaBit2; GigaBits
- GigaBit3; GigaBits
- GigaByte1; GigaByte
- GigaByte2; GigaBytes
- GigaByte3; GigaBytes
+ GigaBit1;ギガビット
+ GigaBit2;ギガビット
+ GigaBit3;ギガビット
+ GigaByte1;ギガバイト
+ GigaByte2;ギガバイト
+ GigaByte3;ギガバイト
  hour1;時間
  hour2;時間
  hour3;時間
  Hz; Hz
- image stream1;つの画像ストリーム
- image stream2;つの画像ストリーム
- image stream3;つの画像ストリーム
+ image stream1;本の画像ストリーム
+ image stream2;本の画像ストリーム
+ image stream3;本の画像ストリーム
  KB; kB
  Kb; kb
  KBps; kB/s
  Kbps; kb/s
  KHz; kHz
  KiB; KiB
- KibiBit1; KibiBit
- KibiBit2; KibiBits
- KibiBit3; KibiBits
- KibiByte1; KibiByte
- KibiByte2; KibiBytes
- KibiByte3; KibiBytes
+ KibiBit1;キビビット
+ KibiBit2;キビビット
+ KibiBit3;キビビット
+ KibiByte1;キビバイト
+ KibiByte2;キビバイト
+ KibiByte3;キビバイト
  KiBps; KiB/s
- KiloBit1; KiloBit
- KiloBit2; KiloBits
- KiloBit3; KiloBits
- KiloByte1; KiloByte
- KiloByte2; KiloBytes
- KiloByte3; KiloBytes
+ KiloBit1;キロビット
+ KiloBit2;キロビット
+ KiloBit3;キロビット
+ KiloByte1;キロバイト
+ KiloByte2;キロバイト
+ KiloByte3;キロバイト
  MB; MB
  Mb; Mb
  MBps; MB/s
  Mbps; Mb/s
- MebiBit1; MebiBit
- MebiBit2; MebiBits
- MebiBit3; MebiBits
- MebiByte1; MebiByte
- MebiByte2; MebiBytes
- MebiByte3; MebiBytes
- MegaBit1; MegaBit
- MegaBit2; MegaBits
- MegaBit3; MegaBits
- MegaByte1; MegaByte
- MegaByte2; MegaBytes
- MegaByte3; MegaBytes
+ MebiBit1;メビビット
+ MebiBit2;メビビット
+ MebiBit3;メビビット
+ MebiByte1;メビバイト
+ MebiByte2;メビバイト
+ MebiByte3;メビバイト
+ MegaBit1;メガビット
+ MegaBit2;メガビット
+ MegaBit3;メガビット
+ MegaByte1;メガバイト
+ MegaByte2;メガバイト
+ MegaByte3;メガバイト
  MHz; MHz
  MiB; MiB
  Mib; Mib
@@ -130,15 +130,15 @@
  slice per frame1;スライス（フレームあたり）
  slice per frame2;スライス（フレームあたり）
  slice per frame3;スライス（フレームあたり）
- text stream1;つの字幕ストリーム
- text stream2;つの字幕ストリーム
- text stream3;つの字幕ストリーム
- video frames1;つの映像フレーム
- video frames2;つの映像フレーム
- video frames3;つの映像フレーム
- video stream1;つの映像ストリーム
- video stream2;つの映像ストリーム
- video stream3;つの映像ストリーム
+ text stream1;本の字幕ストリーム
+ text stream2;本の字幕ストリーム
+ text stream3;本の字幕ストリーム
+ video frames1;映像フレーム
+ video frames2;映像フレーム
+ video frames3;映像フレーム
+ video stream1;本の映像ストリーム
+ video stream2;本の映像ストリーム
+ video stream3;本の映像ストリーム
  warppoint0;ワープポイントなし
  warppoint1;ワープポイント
  warppoint2;ワープポイント
@@ -196,7 +196,7 @@ App_About;MediaInfoについて
 App_Hide;MediaInfoを非表示
 App_Quit;MediaInfoを終了
 Archival_Location;保管場所
-Arranger;編曲者
+Arranger;編曲
 ArtDirector;美術担当
 AspectRatio;アスペクト比
 AssistantDirector;助監督
@@ -292,12 +292,12 @@ ClosedCaptionsLanguage;クローズドキャプションの言語
 ClosedCaptionsPresent;クローズドキャプションの有無
 ClosedCaptionsType;クローズドキャプションの種類
 CloseFile;ファイルを閉じる
-CloseWindow;ウインドウを閉じる
+CloseWindow;ウィンドウを閉じる
 cmixlev;センターミックスレベル（cmixlev）
 Codec;コーデック
 Codec_Description;コーデックの説明
 Codec_Info;コーデックの詳細
-Codec_Profile;コーデックのプロファイル
+Codec_Profile;コーデックプロファイル
 Codec_Settings;コーデック設定
 Codec_Settings_BVOP;コーデック設定（BVOP）
 Codec_Settings_CABAC;コーデック設定（CABAC）
@@ -356,14 +356,14 @@ Content;コンテンツ
 ContentType;コンテンツ種別
 CoProducer;共同製作
 Copy;コピー
-Copyright;著作
-CopyrightYear;著作年
+Copyright;著作権
+CopyrightYear;著作権年
 CostumeDesigner;衣装
 Count;数
 Country;国
 Cover;カバー
 Cover_Datas;カバーデータ
-Cover_Description;カバー説明
+Cover_Description;カバーの説明
 Cover_Mime;カバーのMIME
 Cover_Type;カバーの種類
 CoverData;HTML、XML、JSONにカバー画像を含める
@@ -496,7 +496,7 @@ FirstDisplay_Type;最初のイベント種別
 FirstFrameOfAction;本編開始フレーム
 FlatPanelTv;薄型テレビ
 FlowID;フローID
-Folder (R);フォルダー(R)
+Folder (R);フォルダー（R）
 Folder (R)_Hint;調べるフォルダーの選択（サブフォルダーも含む）
 Folder (Recursively);フォルダー（サブフォルダー含む）
 Folder;フォルダー
@@ -509,7 +509,7 @@ Format_Commercial;商用名
 Format_Commercial_IfAny;商用名
 Format_Compression;圧縮
 Format_Description;フォーマットの説明
-Format_Info;フォーマットの情報
+Format_Info;フォーマットの詳細
 Format_Level;フォーマットレベル
 Format_Profile;フォーマットプロファイル
 Format_Settings;フォーマット設定
@@ -527,7 +527,7 @@ Format_Settings_Law;フォーマット設定（Law）
 Format_Settings_Matrix;フォーマット設定（マトリックス）
 Format_Settings_Matrix_Custom;カスタム
 Format_Settings_Matrix_Default;既定
-Format_Settings_Mode;モード
+Format_Settings_Mode;フォーマット設定（モード）
 Format_Settings_ModeExtension;フォーマット設定（モード拡張）
 Format_Settings_PacketBitStream;フォーマット設定（パケットビットストリーム）
 Format_Settings_PictureStructure;フォーマット設定（画像構造）
@@ -699,7 +699,7 @@ Genre_130;テラー
 Genre_131;インディー
 Genre_132;ブリットポップ
 Genre_133;アフロパンク
-Genre_134;ポルスクパンク
+Genre_134;ポーランドパンク
 Genre_135;ビート
 Genre_136;クリスチャンギャングスタラップ
 Genre_137;ヘビーメタル
@@ -711,7 +711,7 @@ Genre_142;メレンゲ
 Genre_143;サルサ
 Genre_144;スラッシュメタル
 Genre_145;アニメ
-Genre_146;J-Pop
+Genre_146;J-POP
 Genre_147;シンセポップ
 Genre_148;アブストラクト
 Genre_149;アートロック
@@ -1021,12 +1021,12 @@ Language_yue;広東語
 Language_za;チワン語
 Language_zh;中国語
 Language_zh-cmn;北京語
-Language_zh-CN;中国語（簡体字）
-Language_zh-cn;中国語（簡体字）
+Language_zh-CN;中国語（中国）
+Language_zh-cn;中国語（中国）
 Language_zh-Hans;中国語（簡体字）
 Language_zh-Hant;中国語（繁体字）
-Language_zh-TW;中国語（繁体字）
-Language_zh-tw;中国語（繁体字）
+Language_zh-TW;中国語（台湾）
+Language_zh-tw;中国語（台湾）
 Language_zh-yue;広東語
 Language_zu;ズールー語
 Language_zxx;言語的内容なし
@@ -1179,7 +1179,7 @@ Output;出力
 OverallBitRate;総ビットレート
 OverallBitRate_Maximum;最大総ビットレート
 OverallBitRate_Minimum;最小総ビットレート
-OverallBitRate_Mode;総ビットレートの種類
+OverallBitRate_Mode;総ビットレート種別
 OverallBitRate_Nominal;公称総ビットレート
 OverallBitRate_Precision_Max;最大総ビットレート精度
 OverallBitRate_Precision_Min;最小総ビットレート精度
@@ -1422,14 +1422,14 @@ TopBackToSide;トップバックからサイドへ
 TopFrontToBack;トップフロントからバックへ
 TopFrontToFront;トップフロントからフロントへ
 TopFrontToSide;トップフロントからサイドへ
-Total;計
+Total;合計
 TotalNumberOfParts;総パート数
 TotalProgrammeDuration;番組全体の長さ
 TraceLevel0;トレースレベル - 0
 TraceLevel5;トレースレベル - 5
 TraceLevel9;トレースレベル - 9
 TraceLevel10;トレースレベル - 10
-Track;トラック
+Track;トラック名
 Track_Count;トラック数
 TrackFormat;トラックフォーマット
 TrackIndex;トラックインデックス
@@ -1488,12 +1488,12 @@ Value;値
 Video stream(s);映像ストリーム
 Video;映像
 Video_Codec_List;映像コーデック
-Video_Delay;映像遅延
+Video_Delay;映像に対する遅延
 Video_Format_List;映像フォーマット
 Video_Format_WithHint_List;映像フォーマット（ヒント付き）
 Video_Language_List;映像言語
 Video_No;映像なし
-Video0_Delay;映像0遅延
+Video0_Delay;映像0に対する遅延
 Video1;映像ストリーム1
 Video2;映像ストリーム2
 Video3;映像ストリーム3
@@ -1517,7 +1517,7 @@ WebSite_Video_More;ウェブサイト（%Url%）を開いてこの映像コー�
 Width;幅
 Width_CleanAperture;幅（クリーンアパーチャ）
 Width_Original;元の幅
-Window;ウインドウ
+Window;ウィンドウ
 WriteMe;開発者にメール送信
 WriteToTranslator;翻訳者にメール送信
 Written_Date;作成日
