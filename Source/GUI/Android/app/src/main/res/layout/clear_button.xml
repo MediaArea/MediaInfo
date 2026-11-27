@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Button
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/clear_btn"
+<com.google.android.material.listitem.ListItemLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textColor="@color/md_theme_onSurfaceVariant"
-    android:text="@string/clear_text"
-    android:layout_gravity="center"
-    style="@style/Widget.AppCompat.Button.Borderless" />
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="8dp">
+
+    <com.google.android.material.listitem.ListItemCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:contentPaddingBottom="0dp"
+        app:contentPaddingLeft="0dp"
+        app:contentPaddingRight="0dp"
+        app:contentPaddingTop="0dp">
+
+        <Button
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:clickable="false"
+            android:duplicateParentState="false"
+            android:focusable="false"
+            android:longClickable="false"
+            android:text="@string/clear_text"
+            android:textColor="@color/md_theme_onSurfaceVariant" />
+    </com.google.android.material.listitem.ListItemCardView>
+</com.google.android.material.listitem.ListItemLayout>
