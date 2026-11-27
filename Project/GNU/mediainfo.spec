@@ -47,31 +47,14 @@ BuildRequires:  libtool
 BuildRequires:  automake
 BuildRequires:  autoconf
 
-%if 0%{?rhel} >= 8
-BuildRequires:  alternatives
-%endif
-
-%if 0%{?mageia}
-BuildRequires:  sane-backends-iscan
-BuildRequires:  libuuid-devel
-%endif
-
-%if 0%{?mageia} > 6
-%ifarch x86_64
-BuildRequires: lib64openssl-devel
-%else
-BuildRequires: libopenssl-devel
-%endif
-%endif
-
 # wxWidgets package name
 %if 0%{?suse_version} && 0%{?suse_version} >= 1140
 BuildRequires:  wxWidgets-devel
 %else
 %if 0%{?mageia}
-BuildRequires:  wxgtk3.0-devel
+BuildRequires:  wxgtk-devel
 %else
-%if (0%{?fedora_version} && 0%{?fedora_version} <= 38) || 0%{?rhel} >= 8
+%if 0%{?rhel}
 BuildRequires:  wxGTK3-devel
 %else
 BuildRequires:  wxGTK-devel
@@ -136,9 +119,9 @@ Requires:   %{libmediainfo_name}%{?_isa} >= %{libmediainfo_version}
 Requires:   wxWidgets
 %else
 %if 0%{?mageia}
-Requires:  wxgtk3.0
+Requires:  wxgtk
 %else
-%if (0%{?fedora_version} && 0%{?fedora_version} >= 29) || 0%{?rhel} >= 8
+%if 0%{?rhel}
 Requires:   wxGTK3
 %else
 Requires:   wxGTK
@@ -152,7 +135,7 @@ Summary:    Supplies technical and tag information about a video or audio file (
 Group:      Applications/Multimedia
 Requires:   %{libzen_name}%{libzen_suffix}%{?_isa} >= %{libzen_version}
 Requires:   %{libmediainfo_name}%{libmediainfo_suffix}%{?_isa} >= %{libmediainfo_version}
-%if 0%{?fedora_version} && 0%{?fedora_version} >= 29
+%if 0%{?rhel}
 Requires:   wxGTK3
 %else
 Requires:   wxGTK
